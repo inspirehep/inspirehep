@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -11,17 +10,14 @@ from inspire_utils.record import get_value
 from invenio_pidstore.errors import PIDAlreadyExists, PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
-from inspirehep.pidstore.errors import MissingSchema
+from inspirehep.pidstore.errors import MissingSchema, PIDAlreadyExistsError
 from inspirehep.pidstore.providers.external import InspireExternalIdProvider
 from inspirehep.pidstore.providers.recid import InspireRecordIdProvider
-
-from ..errors import PIDAlreadyExistsError
 
 LOGGER = structlog.getLogger()
 
 
 class Minter:
-
     provider = InspireExternalIdProvider
     object_type = "rec"
     pid_type = None
@@ -37,7 +33,7 @@ class Minter:
 
     def get_pid_values(self):
         pid_values = get_value(self.data, self.pid_value_path, default=[])
-        if not isinstance(pid_values, (tuple, list)):
+        if not isinstance(pid_values, tuple | list):
             pid_values = force_list(pid_values)
         return set(pid_values)
 
@@ -64,7 +60,7 @@ class Minter:
                 pid_value=pid_value,
                 object_type=self.object_type,
                 object_uuid=self.object_uuid,
-                **kwargs
+                **kwargs,
             )
         except PIDAlreadyExists as e:
             raise PIDAlreadyExistsError(e.pid_type, e.pid_value) from e
@@ -120,7 +116,6 @@ class Minter:
 
 
 class ControlNumberMinter(Minter):
-
     pid_value_path = "control_number"
     provider = InspireRecordIdProvider
 

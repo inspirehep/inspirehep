@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -11,17 +10,16 @@ from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
 from helpers.utils import create_user, retry_test
 from inspire_utils.record import get_values_for_schema
-from invenio_accounts.testutils import login_user_via_session
-from invenio_db import db
-from redis import StrictRedis
-from tenacity import stop_after_delay, wait_fixed
-
 from inspirehep.disambiguation.tasks import disambiguate_authors
 from inspirehep.editor.editor_soft_lock import EditorSoftLock
 from inspirehep.records.api import AuthorsRecord, InspireRecord
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import AuthorsSearch, InspireSearch
+from invenio_accounts.testutils import login_user_via_session
+from invenio_db import db
+from redis import StrictRedis
+from tenacity import stop_after_delay, wait_fixed
 
 
 def test_disambiguation_runs_after_record_creation(
@@ -103,7 +101,8 @@ def test_disambiguate_many_authors_runs_after_record_creation(
     def assert_authors_records_exist_in_es():
         author_record_1_from_es = InspireSearch.get_record_data_from_es(author_record_1)
         author_record_2_from_es = InspireSearch.get_record_data_from_es(author_record_2)
-        assert author_record_1_from_es and author_record_2_from_es
+        assert author_record_1_from_es
+        assert author_record_2_from_es
 
     assert_authors_records_exist_in_es()
 
@@ -433,7 +432,8 @@ def test_disambiguate_authors_on_first_last_name_and_initials(
         lit_record_2_from_es = InspireSearch.get_record_data_from_es(
             literature_record_2
         )
-        assert lit_record_1_from_es and lit_record_2_from_es
+        assert lit_record_1_from_es
+        assert lit_record_2_from_es
 
     assert_lit_records_exist_in_es()
 
@@ -513,7 +513,8 @@ def test_disambiguate_authors_on_collaboration(
         lit_record_2_from_es = InspireSearch.get_record_data_from_es(
             literature_record_2
         )
-        assert lit_record_1_from_es and lit_record_2_from_es
+        assert lit_record_1_from_es
+        assert lit_record_2_from_es
 
     assert_lit_records_exist_in_es()
 
@@ -603,7 +604,8 @@ def test_disambiguate_authors_on_affiliation(
         lit_record_2_from_es = InspireSearch.get_record_data_from_es(
             literature_record_2
         )
-        assert lit_record_1_from_es and lit_record_2_from_es
+        assert lit_record_1_from_es
+        assert lit_record_2_from_es
 
     assert_lit_records_exist_in_es()
 
@@ -994,7 +996,7 @@ def test_disambiguation_handle_deleted_records(
     try:
         db.session.commit()
     except Exception:
-        assert False
+        raise AssertionError()
 
 
 def test_disambiguation_races_assign(
@@ -1303,7 +1305,7 @@ def test_disambiguation_reorders_name_after_succesfull_disambiguation(
             in literature_record_from_es_authors[0]["record"]["$ref"]
         )
 
-        assert "Davis Gross, Brian" == literature_record_from_es_authors[0]["full_name"]
+        assert literature_record_from_es_authors[0]["full_name"] == "Davis Gross, Brian"
 
     assert_disambiguation_task()
 
@@ -1311,7 +1313,6 @@ def test_disambiguation_reorders_name_after_succesfull_disambiguation(
 def test_author_disambiguation_manually_when_empty_authors(
     inspire_app, clean_celery_session, enable_disambiguation
 ):
-
     data = faker.record("lit", with_control_number=True)
     record = LiteratureRecord.create(data)
     record_version = record.model.version_id
@@ -1334,7 +1335,6 @@ def test_author_disambiguation_manually_when_empty_authors(
 def test_editor_lock_is_created_when_disambiguation_runs(
     mocked_remove_lock, inspire_app, clean_celery_session
 ):
-
     redis_url = current_app.config.get("CACHE_REDIS_URL")
     redis = StrictRedis.from_url(redis_url)
     author_data = faker.record("aut", with_control_number=True)
@@ -1470,7 +1470,8 @@ def test_disambiguation_deosnt_create_new_stub_author_if_theres_one(
         lit_record_2_from_es = InspireSearch.get_record_data_from_es(
             literature_record_2
         )
-        assert lit_record_1_from_es and lit_record_2_from_es
+        assert lit_record_1_from_es
+        assert lit_record_2_from_es
 
     assert_lit_records_exist_in_es()
 

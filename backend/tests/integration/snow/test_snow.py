@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023 CERN.
 #
@@ -13,7 +12,6 @@ from helpers.utils import (
     filter_out_authentication,
     filter_out_user_data_and_cookie_headers,
 )
-
 from inspirehep.snow.api import InspireSnow
 from inspirehep.snow.errors import CreateTicketException
 

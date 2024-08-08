@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -12,7 +11,6 @@ from datetime import datetime
 from itertools import chain
 
 import structlog
-from opensearchpy import NotFoundError
 from flask import current_app
 from inspire_dojson.utils import strip_empty_values
 from inspire_schemas.utils import get_validation_errors
@@ -25,6 +23,7 @@ from invenio_records.errors import MissingModelError
 from invenio_records.models import RecordMetadata
 from invenio_records.signals import after_record_revert, before_record_revert
 from jsonschema import ValidationError
+from opensearchpy import NotFoundError
 from sqlalchemy import tuple_
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm.attributes import flag_modified

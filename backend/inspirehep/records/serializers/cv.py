@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -12,9 +11,8 @@ from invenio_records_rest.serializers.base import PreprocessorMixin
 from invenio_records_rest.serializers.marshmallow import MarshmallowMixin
 
 from inspirehep.records.marshmallow.literature.cv import CVSchema
+from inspirehep.records.serializers.jinja import jinja_cv_env
 from inspirehep.serializers import record_responsify, search_responsify
-
-from .jinja import jinja_cv_env
 
 
 class CVHTMLSerializer(MarshmallowMixin, PreprocessorMixin):
@@ -30,7 +28,7 @@ class CVHTMLSerializer(MarshmallowMixin, PreprocessorMixin):
     )
 
     def __init__(self, **kwargs):
-        super(CVHTMLSerializer, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @staticmethod
     def cv_template():

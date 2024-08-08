@@ -1,10 +1,9 @@
 import structlog
 from celery import shared_task
-from invenio_db import db
-from invenio_pidstore.errors import PIDDoesNotExistError
-
 from inspirehep.errors import DB_TASK_EXCEPTIONS
 from inspirehep.records.api.literature import LiteratureRecord
+from invenio_db import db
+from invenio_pidstore.errors import PIDDoesNotExistError
 
 LOGGER = structlog.getLogger()
 

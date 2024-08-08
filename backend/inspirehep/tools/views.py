@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -12,6 +11,11 @@ from flask import Blueprint, current_app, request
 
 from inspirehep.files.api import current_s3_instance
 from inspirehep.serializers import jsonify
+from inspirehep.tools.errors import (
+    FileFormatNotSupportedError,
+    FileTooBigError,
+    NoReferencesFoundError,
+)
 from inspirehep.tools.utils import (
     find_references,
     get_filename,
@@ -19,8 +23,6 @@ from inspirehep.tools.utils import (
     get_references,
 )
 from inspirehep.utils import hash_data
-
-from .errors import FileFormatNotSupportedError, FileTooBigError, NoReferencesFoundError
 
 blueprint = Blueprint("inspirehep_tools", __name__, url_prefix="")
 

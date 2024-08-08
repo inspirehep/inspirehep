@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,10 +5,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-from ..minters.control_number import DataMinter
-from .base import PidStoreBase
+from inspirehep.pidstore.api.base import PidStoreBase
+from inspirehep.pidstore.minters.control_number import DataMinter
 
 
 class PidStoreData(PidStoreBase):
-
     minters = [DataMinter]

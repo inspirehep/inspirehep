@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023 CERN.
 #
@@ -16,10 +15,13 @@ from flask import current_app, render_template
 from inspire_utils.record import get_value
 from invenio_cache import current_cache
 
+from inspirehep.snow.errors import (
+    CreateTicketException,
+    EditTicketException,
+    SnowAuthenticationError,
+)
+from inspirehep.snow.utils import get_response_result, strip_lines
 from inspirehep.utils import DistributedLockError, distributed_lock
-
-from .errors import CreateTicketException, EditTicketException, SnowAuthenticationError
-from .utils import get_response_result, strip_lines
 
 LOGGER = structlog.getLogger()
 
@@ -402,9 +404,9 @@ class InspireSnow(SnowTicketAPI):
         third_party_search_query_string = f"u_third_party_ticket_id={recid}"
         tickets_search_parameters = dict(u_third_party="INSPIRE")
         if exclude_resolved:
-            tickets_search_parameters[
-                "u_current_task_state"
-            ] = f"{self.ticket_status_mapping['waiting']}^ORu_current_task_state={self.ticket_status_mapping['assigned']}^ORu_current_task_state={self.ticket_status_mapping['in progress']}"
+            tickets_search_parameters["u_current_task_state"] = (
+                f"{self.ticket_status_mapping['waiting']}^ORu_current_task_state={self.ticket_status_mapping['assigned']}^ORu_current_task_state={self.ticket_status_mapping['in progress']}"
+            )
         try:
             third_party_ticket = self.search(
                 self.third_party_ticket_endpoint, third_party_search_query_string
@@ -539,10 +541,7 @@ class InspireSnow(SnowTicketAPI):
             user_email (str): Email of the user as which action should be performed.
             message (str): message to be added when resolving the ticket.
         """
-        if user_email:
-            snow_user_id = self._get_user_by_email(user_email)
-        else:
-            snow_user_id = None
+        snow_user_id = self._get_user_by_email(user_email) if user_email else None
 
         try:
             unassign_payload = {"assigned_to": ""}

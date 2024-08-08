@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,6 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
+
 import copy
 from copy import deepcopy
 
@@ -13,7 +13,6 @@ import mock
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_record
-
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.api.authors import AuthorsRecord
 from inspirehep.records.api.journals import JournalsRecord
@@ -26,7 +25,7 @@ from inspirehep.records.models import (
 )
 
 
-@pytest.fixture
+@pytest.fixture()
 def journal_data():
     journal_data = {
         "_collections": ["Journals"],

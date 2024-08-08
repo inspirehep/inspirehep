@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,6 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """Manage ORCID OAUTH token migration from INSPIRE legacy instance."""
+
+import contextlib
 import re
 
 import structlog
@@ -22,10 +23,9 @@ from requests.exceptions import RequestException
 from simplejson import loads
 from sqlalchemy.orm.exc import FlushError
 
+from inspirehep.orcid import domain_models, exceptions
 from inspirehep.orcid import exceptions as domain_exceptions
 from inspirehep.orcid.utils import get_literature_recids_for_orcid
-
-from . import domain_models, exceptions
 
 LOGGER = structlog.getLogger()
 USER_EMAIL_EMPTY_PATTERN = "{}@FAKEEMAILINSPIRE.FAKE"
@@ -143,7 +143,7 @@ class RemoteTokenOrcidMismatch(Exception):
             "A RemoteToken already exists for User={} and it is"
             " associated to a different ORCID: {}"
         ).format(user, " != ".join(orcids))
-        super(RemoteTokenOrcidMismatch, self).__init__(msg)
+        super().__init__(msg)
 
 
 def _register_user(name, email, orcid, token):
@@ -234,11 +234,9 @@ def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
         # Enrich exception message.
         if isinstance(exc, RequestException):
             message = (exc.args[0:1] or ("",))[0]
-            try:
-                message += "\nResponse={}".format(exc.response.content)
-            except AttributeError:
-                pass
-            message += "\nRequest={} {}".format(exc.request.method, exc.request.url)
+            with contextlib.suppress(AttributeError):
+                message += f"\nResponse={exc.response.content}"
+            message += f"\nRequest={exc.request.method} {exc.request.url}"
             exc.args = (message,) + exc.args[1:]
 
         # If max_retries=3, then self.request.retries is: [0, 1, 2, 3]

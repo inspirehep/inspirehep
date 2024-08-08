@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,7 +5,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """Handle conversion from INSPIRE records to ORCID."""
-
 
 import logging
 from collections import namedtuple
@@ -17,10 +15,9 @@ from inspire_utils.date import PartialDate
 from inspire_utils.record import get_value
 from inspire_utils.urls import record_url_by_pattern
 
+from inspirehep.orcid.builder import OrcidBuilder
 from inspirehep.records.api import ConferencesRecord
 from inspirehep.records.serializers.bibtex import literature_bibtex
-
-from .builder import OrcidBuilder
 
 LOGGER = logging.getLogger(__name__)
 
@@ -28,7 +25,7 @@ LOGGER = logging.getLogger(__name__)
 ExternalIdentifier = namedtuple("ExternalIdentifier", ("type", "value"))
 
 
-class OrcidConverter(object):
+class OrcidConverter:
     """Coverter for the Orcid format."""
 
     # Maps INSPIRE author roles to ORCID contributor roles
@@ -68,7 +65,6 @@ class OrcidConverter(object):
         self.url_pattern = url_pattern
         self._bibtex_citation = None
         self._external_identifiers = []
-
 
     def get_xml(self, do_add_bibtex_citation=False):
         """Create an ORCID XML representation of the record.

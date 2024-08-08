@@ -1,6 +1,5 @@
 import orjson
 from helpers.providers.faker import faker
-
 from inspirehep.records.marshmallow.conferences.ui import ConferencesListSchema
 
 

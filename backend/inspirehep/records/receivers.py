@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -31,7 +30,7 @@ def index_after_commit(sender, changes):
                     change=change,
                     uuid=str(model_instance.id),
                 )
-                force_delete = "delete" == change
+                force_delete = change == "delete"
                 InspireRecord(model_instance.json, model=model_instance).index(
                     force_delete=force_delete
                 )

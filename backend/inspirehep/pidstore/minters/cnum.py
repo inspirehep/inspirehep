@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -12,7 +11,6 @@ from inspirehep.pidstore.providers.cnum import InspireCNUMProvider
 
 
 class CNUMMinter(Minter):
-
     pid_value_path = "cnum"
     pid_type = "cnum"
     provider = InspireCNUMProvider
@@ -76,7 +74,7 @@ class CNUMMinter(Minter):
 
         if cnum_pid:
             if cnum_pid.pid_value != data["cnum"]:
-                raise CNUMChanged(f"CNUM identifier changed from the prev version")
+                raise CNUMChanged("CNUM identifier changed from the prev version")
 
             if cnum_pid.status == PIDStatus.DELETED:
                 cnum_pid.status = PIDStatus.REGISTERED  # un-delete pid

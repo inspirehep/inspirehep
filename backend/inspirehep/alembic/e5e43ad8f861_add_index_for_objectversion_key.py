@@ -7,7 +7,6 @@
 
 """Add index for ObjectVersion.key"""
 
-
 # revision identifiers, used by Alembic.
 revision = "e5e43ad8f861"
 down_revision = "788a3a61a635"

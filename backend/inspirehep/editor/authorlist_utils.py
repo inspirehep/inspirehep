@@ -78,7 +78,7 @@ def create_author_fullname(author_names):
     warnings = []
     fullname = " ".join(author_names)
     if len(author_names) == 1:
-        warnings.append("Author without firstname: %s" % fullname)
+        warnings.append(f"Author without firstname: {fullname}")
     return fullname, warnings
 
 
@@ -97,7 +97,7 @@ def handle_affiliations(
     added_affiliation = add_author_affiliation(
         affiliations, word_in_processing, author_affs
     )
-    if not added_affiliation and not word_in_processing == ",":
+    if not added_affiliation and word_in_processing != ",":
         for aff_key in split_id(word_in_processing):
             added_affiliation = add_author_affiliation(
                 affiliations, aff_key, author_affs
@@ -183,7 +183,6 @@ def parse_authors(text, affiliations):
 
 
 def add_author_to_authors(fullname, authors, author_affs):
-
     if not fullname:
         return authors
 
@@ -226,9 +225,8 @@ def determine_aff_type_character(char_list):
             if aff_type == "alpha":
                 if not char.isalpha():
                     return None
-            elif aff_type == "digit":
-                if not char.isdigit():
-                    return None
+            elif aff_type == "digit" and not char.isdigit():
+                return None
         else:
             if char.isalpha():
                 aff_type = "alpha"

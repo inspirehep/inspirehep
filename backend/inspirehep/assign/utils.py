@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -117,10 +116,7 @@ def can_claim(data, author_profile_recid):
             return {unidecode(parsed_name.first)}
         # corner case for full names without comma,
         # we are treating them as last names (ie. "Smith Davis")
-        if "," not in name:
-            names = name.split()
-        else:
-            names = parsed_name.last_list
+        names = name.split() if "," not in name else parsed_name.last_list
 
         return {unidecode(name) for name in names}
 
@@ -148,7 +144,7 @@ def _check_names_compability(lit_record, author_parsed_name, last_names_only=Fal
     )
     matched_authors_recids = [
         recid
-        for recid in lit_authors_names_recids.keys()
+        for recid in lit_authors_names_recids
         if lit_authors_names_recids[recid] == author_name_to_compare
     ]
     if len(matched_authors_recids) == 1:

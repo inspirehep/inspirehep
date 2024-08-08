@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -9,7 +8,7 @@ from copy import deepcopy
 
 from inspire_matcher.config import MATCHER_DEFAULT_CONFIGURATION as exact_match
 
-from .validators import authors_validator
+from inspirehep.matcher.validators import authors_validator
 
 GROBID_URL = "https://grobid.inspirebeta.net"
 

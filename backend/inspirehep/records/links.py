@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -13,13 +12,13 @@ from inspirehep.pidstore.api import PidStoreBase
 def inspire_detail_links_factory(pid, record=None, record_hit=None, *args, **kwargs):
     links = {}
     endpoint = find_record_endpoint(pid, record_hit)
-    endpoint_item = "invenio_records_rest.{0}_item".format(endpoint)
+    endpoint_item = f"invenio_records_rest.{endpoint}_item"
     self = url_for(endpoint_item, pid_value=pid.pid_value, _external=True)
 
     serializers_endpoints = current_app.config[endpoint.upper()].get(
         "record_serializers_aliases", {}
     )
-    for serializer_endpoint in serializers_endpoints.keys():
+    for serializer_endpoint in serializers_endpoints:
         links[serializer_endpoint] = f"{self}?format={serializer_endpoint}"
 
     additional_endpoints = current_app.config.get("ADDITIONAL_LINKS", {}).get(

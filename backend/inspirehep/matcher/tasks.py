@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -14,9 +13,8 @@ from sqlalchemy import cast, not_, or_, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 
 from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
+from inspirehep.matcher.api import match_references
 from inspirehep.records.api import LiteratureRecord
-
-from .api import match_references
 
 LOGGER = structlog.getLogger()
 
@@ -34,10 +32,10 @@ MAX_RETRY_COUNT = 3
 )
 def match_references_by_uuids(literature_uuids):
     record_json = type_coerce(RecordMetadata.json, JSONB)
-    has_references = record_json.has_key("references")  # noqa: W601
+    has_references = record_json.has_key("references")  # noqa W601
     selected_uuids = RecordMetadata.id.in_(literature_uuids)
     not_deleted = or_(  # exclude deleted records incase some are deleted after uuids are fetched by the callee
-        not_(record_json.has_key("deleted")),  # noqa: W601
+        not_(record_json.has_key("deleted")),  # noqa W601
         not_(record_json["deleted"] == cast(True, JSONB)),
     )
     with_references_query = RecordMetadata.query.filter(

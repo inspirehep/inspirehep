@@ -1,15 +1,14 @@
 import orjson
 from helpers.providers.faker import faker
 from helpers.utils import create_user, retry_test
-from invenio_accounts.testutils import login_user_via_session
-from invenio_db import db
-from invenio_search import current_search
-from tenacity import stop_after_delay, wait_fixed
-
 from inspirehep.accounts.roles import Roles
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
 from inspirehep.records.utils import get_author_by_recid
 from inspirehep.search.api import LiteratureSearch
+from invenio_accounts.testutils import login_user_via_session
+from invenio_db import db
+from invenio_search import current_search
+from tenacity import stop_after_delay, wait_fixed
 
 
 def test_assign_regression(inspire_app, datadir, override_config, clean_celery_session):

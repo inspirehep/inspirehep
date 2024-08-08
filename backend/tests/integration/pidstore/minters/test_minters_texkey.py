@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,9 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import pytest
 from helpers.utils import create_record
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-
 from inspirehep.pidstore.errors import PIDAlreadyExistsError
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 
 def test_minter_mint_new_record_without_texkey(inspire_app, override_config):

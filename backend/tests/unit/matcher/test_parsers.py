@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -6,7 +5,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from inspire_schemas.api import load_schema, validate
-
 from inspirehep.matcher.parsers import GrobidReferenceParser
 
 

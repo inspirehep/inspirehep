@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021 CERN.
 #
@@ -117,9 +116,9 @@ def assign_conference(record, conference_ref, cnum):
                     cnum=cnum,
                 )
             elif cnum == record_cnum:
-                builder.record["publication_info"][idx][
-                    "conference_record"
-                ] = conference_ref
+                builder.record["publication_info"][idx]["conference_record"] = (
+                    conference_ref
+                )
                 LOGGER.warning(
                     "conference cnum already assigned to paper without ref.",
                     recid=record.control_number,
@@ -226,9 +225,9 @@ def create_rt_ticket_for_claiming_action(
             from_author_recid, lit_record.get("authors", [])
         )
         if matched_author_name:
-            incompatibile_names_papers[
-                f"{INSPIREHEP_URL}/literature/{paper_recid}"
-            ] = matched_author_name
+            incompatibile_names_papers[f"{INSPIREHEP_URL}/literature/{paper_recid}"] = (
+                matched_author_name
+            )
 
     to_author_names = []
     to_author_names.extend(get_value(to_author_record, "name.name_variants", []))

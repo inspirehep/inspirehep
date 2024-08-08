@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -730,7 +729,6 @@ def seminar_accessibility_aggregation(
 def experiment_inspire_classification_aggregation(
     order, title="Experiments", agg_type="tree"
 ):
-
     return {
         "experiments": {
             "terms": {"field": "facet_inspire_classification", "size": 500},

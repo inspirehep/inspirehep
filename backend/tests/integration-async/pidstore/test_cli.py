@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021 CERN.
 #
@@ -20,22 +19,24 @@ def test_fast_bai_minter_cli(inspire_app, cli, override_config):
         )
 
         assert (
-            2
-            == PersistentIdentifier.query.filter_by(pid_type="aut", status="R").count()
+            PersistentIdentifier.query.filter_by(pid_type="aut", status="R").count()
+            == 2
         )
         assert (
-            1
-            == PersistentIdentifier.query.filter_by(pid_type="bai", status="R").count()
+            PersistentIdentifier.query.filter_by(pid_type="bai", status="R").count()
+            == 1
         )
 
-        with override_config(FEATURE_FLAG_ENABLE_BAI_CREATION=True, FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
+        with override_config(
+            FEATURE_FLAG_ENABLE_BAI_CREATION=True, FEATURE_FLAG_ENABLE_BAI_PROVIDER=True
+        ):
             cli.invoke(["inspire-pidstore", "fast-mint-new-bais", "--yes-i-know"])
 
         assert (
-            2
-            == PersistentIdentifier.query.filter_by(pid_type="aut", status="R").count()
+            PersistentIdentifier.query.filter_by(pid_type="aut", status="R").count()
+            == 2
         )
         assert (
-            2
-            == PersistentIdentifier.query.filter_by(pid_type="bai", status="R").count()
+            PersistentIdentifier.query.filter_by(pid_type="bai", status="R").count()
+            == 2
         )

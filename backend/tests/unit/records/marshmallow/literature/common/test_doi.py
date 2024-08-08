@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,9 +6,8 @@
 
 
 import orjson
-from marshmallow import Schema, fields
-
 from inspirehep.records.marshmallow.literature.common import DOISchemaV1
+from marshmallow import Schema, fields
 
 
 def test_returns_value_and_material_for_doi():

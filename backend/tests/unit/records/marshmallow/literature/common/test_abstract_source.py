@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -10,7 +9,6 @@ from copy import deepcopy
 import mock
 import orjson
 from helpers.providers.faker import faker
-
 from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSchema
 
 
@@ -19,7 +17,7 @@ from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSch
     return_value=[],
 )
 @mock.patch(
-    ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
+    "inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references"
 )
 @mock.patch(
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
@@ -56,7 +54,7 @@ def test_abstract_source_full(
     return_value=[],
 )
 @mock.patch(
-    ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
+    "inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references"
 )
 @mock.patch(
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
@@ -91,7 +89,7 @@ def test_abstract_source_one_missing_source(
     return_value=[],
 )
 @mock.patch(
-    ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
+    "inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references"
 )
 @mock.patch(
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
@@ -112,7 +110,7 @@ def test_abstract_source_missing(
     return_value=[],
 )
 @mock.patch(
-    ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
+    "inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references"
 )
 @mock.patch(
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",

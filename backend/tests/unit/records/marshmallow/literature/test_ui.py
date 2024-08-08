@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,7 +6,6 @@
 
 import mock
 import pytest
-
 from inspirehep.records.marshmallow.literature import LiteratureDetailSchema
 
 
@@ -243,7 +241,7 @@ def test_literature_detail_serializes_date_from_dictionary():
 
 
 @pytest.mark.parametrize(
-    "collections,expected_is_collection_hidden",
+    ("collections", "expected_is_collection_hidden"),
     [
         (["Literature", "FermiLab"], False),
         (["Literature"], False),

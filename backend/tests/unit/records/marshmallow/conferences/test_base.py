@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,7 +5,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import orjson
 from helpers.providers.faker import faker
-
 from inspirehep.records.marshmallow.conferences.base import (
     ConferencesAdminSchema,
     ConferencesPublicListSchema,

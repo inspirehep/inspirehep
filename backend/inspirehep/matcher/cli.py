@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -11,9 +10,8 @@ from celery import group
 from flask.cli import with_appcontext
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
+from inspirehep.matcher.tasks import match_references_by_uuids
 from inspirehep.utils import chunker
-
-from .tasks import match_references_by_uuids
 
 LOGGER = structlog.getLogger()
 

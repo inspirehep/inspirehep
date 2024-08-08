@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,7 +6,6 @@
 
 from helpers.providers.faker import faker
 from helpers.utils import create_record
-
 from inspirehep.records.models import (
     ConferenceLiterature,
     ExperimentLiterature,

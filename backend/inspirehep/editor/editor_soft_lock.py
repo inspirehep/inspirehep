@@ -9,7 +9,7 @@ from inspirehep.config import EDITOR_LOCK_EXPIRATION_TIME
 LOGGER = structlog.getLogger()
 
 
-class EditorSoftLock(object):
+class EditorSoftLock:
     def __init__(self, recid, record_version, user_email=None, task_name=None):
         if not (task_name or user_email):
             raise ValueError("User mail or task name must be passed")

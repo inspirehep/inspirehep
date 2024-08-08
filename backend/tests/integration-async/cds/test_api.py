@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021 CERN.
 #
@@ -7,11 +6,10 @@
 import pytest
 import requests
 from helpers.providers.faker import faker
-from invenio_db import db
-
 from inspirehep.cds.api import sync_identifiers
 from inspirehep.cds.models import CDSRun, CDSRunStatus
 from inspirehep.records.api import LiteratureRecord
+from invenio_db import db
 
 
 def test_cds_sync_one_record_happy_flow(inspire_app_for_cds_sync):

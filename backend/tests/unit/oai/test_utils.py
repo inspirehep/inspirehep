@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -7,7 +6,6 @@
 
 import pytest
 from helpers.providers.faker import faker
-
 from inspirehep.oai.utils import (
     ACCELERATOR_EXPERIMENTS_NAMES,
     COLLABORATIONS,
@@ -39,7 +37,7 @@ def test_is_cds_set_with_false():
 
 
 @pytest.mark.parametrize(
-    "experiment_name,expected",
+    ("experiment_name", "expected"),
     [(accelarator_name, True) for accelarator_name in ACCELERATOR_EXPERIMENTS_NAMES]
     + [("jessicajones", False)],
 )
@@ -55,7 +53,7 @@ def test_has_cern_accelerator_experiment_without_field():
 
 
 @pytest.mark.parametrize(
-    "affiliation,expected",
+    ("affiliation", "expected"),
     [
         ("cern", True),
         ("CERN", True),
@@ -150,7 +148,7 @@ def test_has_cern_affiliation_without_field():
 
 
 @pytest.mark.parametrize(
-    "collaboration,expected",
+    ("collaboration", "expected"),
     [
         ("NA6", False),
         ("na6", False),
@@ -175,7 +173,7 @@ def test_has_cern_collaboration_without_field():
 
 
 @pytest.mark.parametrize(
-    "report_number,expected",
+    ("report_number", "expected"),
     [
         ("CERN-TH-2020-136", True),
         ("CERN-th-2020-136", True),
@@ -196,7 +194,7 @@ def test_has_cern_report_number_without_field():
 
 
 @pytest.mark.parametrize(
-    "doi,expected",
+    ("doi", "expected"),
     [
         ("10.23730/CYRSP-2019-006.261", True),
         ("10.5170/CERN-2016-005", True),
@@ -215,7 +213,7 @@ def test_has_cern_doi_without_field():
 
 
 @pytest.mark.parametrize(
-    "collection,expected", [(collection, True) for collection in COLLECTIONS]
+    ("collection", "expected"), [(collection, True) for collection in COLLECTIONS]
 )
 def test_is_in_cern_arxiv_collection(collection, expected):
     data = {"_collections": [collection]}
@@ -223,7 +221,7 @@ def test_is_in_cern_arxiv_collection(collection, expected):
     assert expected == is_in_cern_arxiv_collection(record)
 
 
-@pytest.mark.parametrize("arxiv,expected", [("2009.01484", True)])
+@pytest.mark.parametrize(("arxiv", "expected"), [("2009.01484", True)])
 def test_is_cern_arxiv_eprint(arxiv, expected):
     data = {"arxiv_eprints": [{"value": arxiv}]}
     record = faker.record("lit", data)
@@ -267,7 +265,7 @@ def test_is_arxiv_set_with_affiliations_field_with_wrong_collection():
 
 
 @pytest.mark.parametrize(
-    "experiment_name,expected",
+    ("experiment_name", "expected"),
     [(accelarator_name, True) for accelarator_name in ACCELERATOR_EXPERIMENTS_NAMES],
 )
 def test_is_arxiv_set_with_accelerators_experiments_field(experiment_name, expected):
@@ -281,7 +279,7 @@ def test_is_arxiv_set_with_accelerators_experiments_field(experiment_name, expec
 
 
 @pytest.mark.parametrize(
-    "experiment_name,expected",
+    ("experiment_name", "expected"),
     [(accelarator_name, False) for accelarator_name in ACCELERATOR_EXPERIMENTS_NAMES],
 )
 def test_is_arxiv_set_with_accelerators_experiments_field_without_arxiv_eprint(
@@ -294,7 +292,7 @@ def test_is_arxiv_set_with_accelerators_experiments_field_without_arxiv_eprint(
 
 
 @pytest.mark.parametrize(
-    "experiment_name,expected",
+    ("experiment_name", "expected"),
     [(accelarator_name, False) for accelarator_name in ACCELERATOR_EXPERIMENTS_NAMES],
 )
 def test_is_arxiv_set_with_accelerators_experiments_field_with_wrong_collection(
@@ -311,7 +309,7 @@ def test_is_arxiv_set_with_accelerators_experiments_field_with_wrong_collection(
 
 
 @pytest.mark.parametrize(
-    "collaboration,expected",
+    ("collaboration", "expected"),
     [(collaboration, True) for collaboration in COLLABORATIONS],
 )
 def test_is_arxiv_set_with_collaborations(collaboration, expected):
@@ -325,7 +323,7 @@ def test_is_arxiv_set_with_collaborations(collaboration, expected):
 
 
 @pytest.mark.parametrize(
-    "collaboration,expected",
+    ("collaboration", "expected"),
     [(collaboration, False) for collaboration in COLLABORATIONS],
 )
 def test_is_arxiv_set_with_collaborations_without_arxiv_eprints(
@@ -338,7 +336,7 @@ def test_is_arxiv_set_with_collaborations_without_arxiv_eprints(
 
 
 @pytest.mark.parametrize(
-    "collaboration,expected",
+    ("collaboration", "expected"),
     [(collaboration, False) for collaboration in COLLABORATIONS],
 )
 def test_is_arxiv_set_with_collaborations_with_wrong_collection(
@@ -375,7 +373,7 @@ def test_is_arxiv_set_with_report_numbers():
 
 
 @pytest.mark.parametrize(
-    "collection,expected", [(collection, True) for collection in COLLECTIONS]
+    ("collection", "expected"), [(collection, True) for collection in COLLECTIONS]
 )
 def test_is_arxiv_set_with_collection(collection, expected):
     data = {

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020-2021 CERN.
 #
@@ -7,13 +6,12 @@
 
 from helpers.providers.faker import faker
 from helpers.utils import retry_test
-from invenio_db import db
-from invenio_search import current_search
-from tenacity import stop_after_delay, wait_fixed
-
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.api.experiments import ExperimentsRecord
 from inspirehep.search.api import ExperimentsSearch
+from invenio_db import db
+from invenio_search import current_search
+from tenacity import stop_after_delay, wait_fixed
 
 
 def test_experiment_record_updates_in_es_when_lit_rec_refers_to_it(

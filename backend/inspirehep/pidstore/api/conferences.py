@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -12,5 +11,4 @@ from inspirehep.pidstore.minters.control_number import ConferencesMinter
 
 
 class PidStoreConferences(PidStoreBase):
-
     minters = [ConferencesMinter, CNUMMinter]

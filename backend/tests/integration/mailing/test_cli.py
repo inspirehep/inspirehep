@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -45,7 +44,7 @@ def test_update_weekly_jobs_populates_rss_feed(
         assert result.exit_code == 0
         assert "Campaign updated" in result.output
 
-        expected_redis_content = [
+        [
             str(datetime(2019, 9, 17, 6, 0, 0).timestamp()),
             "Weekly jobs",
             '<!doctype html>\n<html xmlns="http://www.w3.org/1999/xhtml"',

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -21,6 +20,8 @@ from inspirehep.files.api import current_s3_instance
 from inspirehep.oai.utils import is_cds_set, is_cern_arxiv_set
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord
+from inspirehep.records.marshmallow.base import ElasticSearchBaseSchema
+from inspirehep.records.marshmallow.literature.base import LiteratureRawSchema
 from inspirehep.records.marshmallow.literature.common.abstract import AbstractSource
 from inspirehep.records.marshmallow.literature.common.author import (
     AuthorsInfoSchemaForES,
@@ -30,12 +31,12 @@ from inspirehep.records.marshmallow.literature.common.author import (
 from inspirehep.records.marshmallow.literature.common.thesis_info import (
     ThesisInfoSchemaForESV1,
 )
+from inspirehep.records.marshmallow.literature.ui import LiteratureDetailSchema
+from inspirehep.records.marshmallow.utils import (
+    get_display_name_for_author_name,
+    get_facet_author_name_for_author,
+)
 from inspirehep.records.models import RecordCitations, RecordsAuthors
-
-from ..base import ElasticSearchBaseSchema
-from ..utils import get_display_name_for_author_name, get_facet_author_name_for_author
-from .base import LiteratureRawSchema
-from .ui import LiteratureDetailSchema
 
 LOGGER = structlog.getLogger()
 

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2022 CERN.
 #
@@ -11,11 +10,10 @@ import requests_mock
 from helpers.providers.faker import faker
 from helpers.utils import retry_test
 from inspire_utils.record import get_values_for_schema
-from invenio_db import db
-from tenacity import stop_after_delay, wait_fixed
-
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.search.api import LiteratureSearch
+from invenio_db import db
+from tenacity import stop_after_delay, wait_fixed
 
 
 @mock.patch(
@@ -163,7 +161,6 @@ def test_update_pdg_keywords(inspire_app, clean_celery_session, cli):
 def test_update_pdg_keywords_in_record_without_any_pdg_keywords(
     inspire_app, clean_celery_session, cli
 ):
-
     rec_without_pdg_keywords_on_pdg_list = LiteratureRecord.create(
         faker.record(
             "lit",

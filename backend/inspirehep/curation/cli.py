@@ -1,11 +1,10 @@
 import click
 import requests
-from opensearch_dsl import Q
 from flask.cli import with_appcontext
-
 from inspirehep.curation.tasks import update_pdg_keywords_in_records
 from inspirehep.search.api import LiteratureSearch
 from inspirehep.utils import chunker
+from opensearch_dsl import Q
 
 
 @click.group()

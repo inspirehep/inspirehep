@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -86,7 +85,7 @@ def test_get_weekly_jobs_rss(inspire_app, shared_datadir, redis, override_config
                 "/mailing/rss/jobs/weekly", content_type="application/rss+xml"
             )
         rss_data = response.data.decode("UTF-8")
-        expected_data = (shared_datadir / "rss.xml").read_text()
+        expected_data = (shared_datadir / "rss.xml").read_text().rstrip()
 
         assert response.status_code == 200
         assert rss_data == expected_data

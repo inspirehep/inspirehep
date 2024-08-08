@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021 CERN.
 #
@@ -12,7 +11,7 @@ import pytest
 import requests_mock
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def inspire_app_with_config_for_cds_sync(inspire_app, override_config):
     with override_config(
         FEATURE_FLAG_ENABLE_CDS_SYNC=True, CDS_SERVER_API="http://localhost:9876/api/"
@@ -20,7 +19,7 @@ def inspire_app_with_config_for_cds_sync(inspire_app, override_config):
         yield inspire_app
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def inspire_app_for_cds_sync(inspire_app_with_config_for_cds_sync):
     with requests_mock.Mocker() as mocker:
         mocker.get(

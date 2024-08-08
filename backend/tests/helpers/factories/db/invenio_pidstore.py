@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -44,8 +43,6 @@ class TestPersistentIdentifier(TestBaseModel):
         if not kwargs.pop("status", None):
             updated_kwargs["status"] = PIDStatus.REGISTERED
 
-        instance.persistent_identifier = super(
-            TestPersistentIdentifier, cls
-        ).create_from_kwargs(updated_kwargs)
+        instance.persistent_identifier = super().create_from_kwargs(updated_kwargs)
 
         return instance

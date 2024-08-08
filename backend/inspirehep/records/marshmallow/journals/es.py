@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,8 +6,8 @@
 
 from marshmallow import fields
 
-from ..base import ElasticSearchBaseSchema
-from .base import JournalsRawSchema
+from inspirehep.records.marshmallow.base import ElasticSearchBaseSchema
+from inspirehep.records.marshmallow.journals.base import JournalsRawSchema
 
 
 class JournalsElasticSearchSchema(ElasticSearchBaseSchema, JournalsRawSchema):

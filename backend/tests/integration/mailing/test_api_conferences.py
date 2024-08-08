@@ -1,7 +1,6 @@
 from flask import current_app, render_template
-from mock import patch
-
 from inspirehep.mailing.api.conferences import send_conference_confirmation_email
+from mock import patch
 
 
 @patch("inspirehep.mailing.api.conferences.send_email")

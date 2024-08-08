@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -9,9 +8,8 @@ import mock
 import pytest
 from helpers.providers.faker import faker
 from inspire_schemas.api import load_schema, validate
-from isbnlib._exceptions import NotValidISBNError
-
 from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
+from isbnlib._exceptions import NotValidISBNError
 
 
 def test_get_authors_with_role_author():
@@ -300,7 +298,7 @@ def test_isbn_invalid():
     schema = BibTexCommonSchema()
 
     with pytest.raises(NotValidISBNError):
-        schema.dump(record).data
+        schema.dump(record)
 
 
 def test_eprint():

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -11,12 +10,11 @@ import uuid
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_pidstore, create_record
+from inspirehep.records.api import InspireRecord, JournalsRecord
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
-
-from inspirehep.records.api import InspireRecord, JournalsRecord
 
 
 def test_journals_create(inspire_app):

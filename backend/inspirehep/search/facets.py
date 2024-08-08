@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -85,7 +84,6 @@ def must_match_all_or_missing_filter(field, missing_field_value):
     """Bool filter containing a list of must matches."""
 
     def inner(values):
-
         if missing_field_value in values:
             filters = ~Q("exists", field=field)
 

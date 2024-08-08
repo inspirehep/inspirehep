@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,13 +5,12 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import pytest
-from mock import patch
-
 from inspirehep.assign.utils import can_claim
+from mock import patch
 
 
 @pytest.mark.parametrize(
-    "authors_full_name, profile_name, name_variants, expected",
+    ("authors_full_name", "profile_name", "name_variants", "expected"),
     [
         ("Smith, John", "Smith, J.", [], True),
         ("Smith, J.", "Smith, John", [], True),

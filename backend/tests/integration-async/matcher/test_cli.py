@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -7,10 +6,9 @@
 
 from helpers.utils import create_record_async, es_search, retry_test
 from inspire_utils.record import get_value
+from inspirehep.records.api import LiteratureRecord
 from invenio_search import current_search
 from tenacity import stop_after_delay, wait_fixed
-
-from inspirehep.records.api import LiteratureRecord
 
 
 def test_match_references(inspire_app, cli, clean_celery_session):

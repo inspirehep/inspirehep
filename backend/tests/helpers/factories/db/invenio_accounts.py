@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -29,5 +28,5 @@ class TestUser(TestBaseModel):
     @classmethod
     def create_from_kwargs(cls, **kwargs):
         instance = cls()
-        instance.user = super(TestUser, cls).create_from_kwargs(kwargs)
+        instance.user = super().create_from_kwargs(kwargs)
         return instance

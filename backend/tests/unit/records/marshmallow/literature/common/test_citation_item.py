@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,12 +5,10 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
-
 from inspirehep.records.marshmallow.literature.common import CitationItemSchemaV1
 
 
 def test_returns_non_empty_fields():
-
     schema = CitationItemSchemaV1()
     dump = {
         "control_number": 123,
@@ -35,7 +32,6 @@ def test_returns_non_empty_fields():
 
 
 def test_returns_max_10_authors():
-
     schema = CitationItemSchemaV1()
     dump = {
         "control_number": 123,

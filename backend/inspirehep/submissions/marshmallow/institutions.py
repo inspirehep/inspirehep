@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -20,9 +19,7 @@ class Institution(Schema):
 
     @post_load
     def build_institution(self, data):
-
         if get_value(data, "legacy_ICN") and get_value(data, "ICN"):
-
             return {
                 "_collections": ["Institutions"],
                 "$schema": url_for(

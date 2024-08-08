@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -15,7 +14,6 @@ from inspirehep.records.marshmallow.utils import (
 
 
 class SeminarsRawSchema(RecordBaseSchema):
-
     address = fields.Method("get_address")
 
     @staticmethod

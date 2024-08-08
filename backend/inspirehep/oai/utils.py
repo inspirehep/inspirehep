@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -38,14 +37,14 @@ def has_cern_affiliation(record):
     affiliations_values = get_value(record, "authors.affiliations.value", default=[])
     affiliations = chain.from_iterable(affiliations_values)
 
-    if any(
-        affiliation
-        for affiliation in affiliations
-        if affiliation.lower().startswith("cern")
-    ) and record.get("curated"):
-        return True
-
-    return False
+    return bool(
+        any(
+            affiliation
+            for affiliation in affiliations
+            if affiliation.lower().startswith("cern")
+        )
+        and record.get("curated")
+    )
 
 
 def has_cern_collaboration(record):

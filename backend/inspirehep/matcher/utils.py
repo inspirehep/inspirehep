@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -92,11 +91,11 @@ def create_journal_dict():
 
     title_dict = {}
 
-    for (short_title, journal_title) in titles_query.all():
+    for short_title, journal_title in titles_query.all():
         title_dict[normalize_title(short_title)] = short_title
         title_dict[normalize_title(journal_title)] = short_title
 
-    for (short_title, title_variants) in title_variants_query.all():
+    for short_title, title_variants in title_variants_query.all():
         if title_variants is None:
             continue
 

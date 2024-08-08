@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -9,7 +8,6 @@ from copy import deepcopy
 
 import orjson
 from freezegun import freeze_time
-
 from inspirehep.records.marshmallow.literature.latex import LatexSchema
 
 
@@ -182,7 +180,7 @@ def test_publication_info_without_journal_title_schema():
         ],
     }
     result = orjson.loads(schema.dumps(record).data)
-    assert "publication_info" not in result.keys()
+    assert "publication_info" not in result
 
 
 def test_schema_takes_control_number_when_texkeys_not_present():

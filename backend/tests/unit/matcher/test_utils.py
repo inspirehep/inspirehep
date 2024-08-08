@@ -4,19 +4,19 @@ from inspirehep.matcher.utils import map_refextract_to_schema
 def test_map_refextract_to_schema():
     refextract_input = [
         {
-            "author": [u"F. Englert and R. Brout"],
-            "doi": [u"doi:10.1103/PhysRevLett.13.321"],
-            "journal_page": [u"321"],
-            "journal_reference": [u"Phys. Rev. Lett. 13 (1964) 321"],
-            "journal_title": [u"Phys. Rev. Lett."],
-            "journal_volume": [u"13"],
-            "journal_year": [u"1964"],
-            "linemarker": [u"1"],
+            "author": ["F. Englert and R. Brout"],
+            "doi": ["doi:10.1103/PhysRevLett.13.321"],
+            "journal_page": ["321"],
+            "journal_reference": ["Phys. Rev. Lett. 13 (1964) 321"],
+            "journal_title": ["Phys. Rev. Lett."],
+            "journal_volume": ["13"],
+            "journal_year": ["1964"],
+            "linemarker": ["1"],
             "raw_ref": [
-                u"[1] F. Englert and R. Brout, \u201cBroken symmetry and the mass of gauge vector mesons\u201d, Phys. Rev. Lett. 13 (1964) 321, doi:10.1103/PhysRevLett.13.321."
+                "[1] F. Englert and R. Brout, \u201cBroken symmetry and the mass of gauge vector mesons\u201d, Phys. Rev. Lett. 13 (1964) 321, doi:10.1103/PhysRevLett.13.321."
             ],
-            "texkey": [u"Englert:1964et"],
-            "year": [u"1964"],
+            "texkey": ["Englert:1964et"],
+            "year": ["1964"],
         }
     ]
 

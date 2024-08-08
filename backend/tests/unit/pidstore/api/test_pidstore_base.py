@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,14 +6,14 @@
 
 """INSPIRE module that adds more fun to the platform."""
 
-
 import pytest
+from inspirehep.pidstore.api import PidStoreBase
 from mock import MagicMock, patch
 
-from inspirehep.pidstore.api import PidStoreBase
 
-
-@pytest.mark.parametrize("pid_type,expected", [("lit", "literature"), ("jes", None)])
+@pytest.mark.parametrize(
+    ("pid_type", "expected"), [("lit", "literature"), ("jes", None)]
+)
 @patch(
     "inspirehep.pidstore.api.PidStoreBase._get_config_pid_types_to_endpoints",
     return_value={"lit": "literature"},
@@ -28,7 +27,7 @@ def test_get_endpoint_from_pid_type(
 
 
 @pytest.mark.parametrize(
-    "endpoint,expected", [("literature", "lit"), ("jes", None), (None, None)]
+    ("endpoint", "expected"), [("literature", "lit"), ("jes", None), (None, None)]
 )
 @patch(
     "inspirehep.pidstore.api.PidStoreBase._get_config_pid_types_to_endpoints",
@@ -43,7 +42,7 @@ def test_get_pid_type_from_endpoint(
 
 
 @pytest.mark.parametrize(
-    "schema,expected",
+    ("schema", "expected"),
     [
         ("http://localhost:5000/schemas/record/hep.json", "lit"),
         ("http://localhost:5000/schemas/record/jobs.json", "job"),
@@ -105,7 +104,7 @@ def test_mint_with_many_minters():
 
 
 @pytest.mark.parametrize(
-    "url,expected",
+    ("url", "expected"),
     [
         ("http://labs.inspirehep.net/api/literature/1273685", ("lit", "1273685")),
         ("http://labs.inspirehep.net/api/literature/1273685/", ("lit", "1273685")),

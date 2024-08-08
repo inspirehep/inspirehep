@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import contextlib
 import re
 from copy import copy, deepcopy
 from urllib.parse import urljoin
@@ -16,10 +16,8 @@ from inspire_matcher import match
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
 
-from inspirehep.matcher.parsers import GrobidAuthors
+from inspirehep.matcher.parsers import GrobidAuthors, GrobidReferenceParser
 from inspirehep.matcher.serializers import LiteratureSummary
-
-from .parsers import GrobidReferenceParser
 
 
 def get_reference_from_grobid(query):
@@ -49,12 +47,10 @@ def match_reference_with_config(reference, config, previous_matched_recid=None):
         dict: the matched reference.
     """
     # XXX: avoid this type casting.
-    try:
+    with contextlib.suppress(KeyError, ValueError):
         reference["reference"]["publication_info"]["year"] = str(
             reference["reference"]["publication_info"]["year"]
         )
-    except (KeyError, ValueError):
-        pass
 
     matched_recids = [
         matched_record["_source"]["control_number"]
@@ -71,12 +67,10 @@ def match_reference_with_config(reference, config, previous_matched_recid=None):
         _add_match_to_reference(reference, previous_matched_recid, config["index"])
 
     # XXX: avoid this type casting.
-    try:
+    with contextlib.suppress(KeyError):
         reference["reference"]["publication_info"]["year"] = int(
             reference["reference"]["publication_info"]["year"]
         )
-    except KeyError:
-        pass
 
     return reference
 

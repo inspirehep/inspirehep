@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,15 +5,15 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import mock
 import pytest
-
 from inspirehep.files.api.s3 import S3
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def config_mock_fixture():
-    with mock.patch("inspirehep.files.api.s3.current_app") as app_mock, mock.patch(
-        "inspirehep.utils.current_app"
-    ) as app_mock_2:
+    with (
+        mock.patch("inspirehep.files.api.s3.current_app") as app_mock,
+        mock.patch("inspirehep.utils.current_app") as app_mock_2,
+    ):
         app_mock.config = {
             "S3_BUCKET_PREFIX": "test-prefix-",
             "PREFERRED_URL_SCHEME": "https",
@@ -38,7 +37,7 @@ def test_generate_public_file_path(config_mock_fixture):
 
 
 @pytest.mark.parametrize(
-    "url,expected",
+    ("url", "expected"),
     [
         ("https://inspire/file_prefix/hash123456", True),
         ("https://inspire/api/hash123456", False),
@@ -52,7 +51,7 @@ def test_is_public_url(url, expected, config_mock_fixture):
 
 
 @pytest.mark.parametrize(
-    "url,expected",
+    ("url", "expected"),
     [
         ("https://inspire/file_prefix/hash123456", False),
         ("https://inspire/api/hash123456", False),
@@ -65,7 +64,7 @@ def test_is_s3_url(url, expected, config_mock_fixture):
 
 
 @pytest.mark.parametrize(
-    "url,expected",
+    ("url", "expected"),
     [
         ("https://inspire/test-editor-prefix/hash123456", False),
         ("https://s3.cern.ch/test-prefix-h/hash1234546", True),

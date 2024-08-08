@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,16 +5,15 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from flask import Blueprint, abort
-from invenio_db import db
-from jsonschema.exceptions import ValidationError
-from webargs import fields
-from webargs.flaskparser import FlaskParser
-
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.search.api import JournalsSearch
 from inspirehep.serializers import jsonify
+from invenio_db import db
+from jsonschema.exceptions import ValidationError
+from webargs import fields
+from webargs.flaskparser import FlaskParser
 
 from .api import (
     assign_institution_reference_to_affiliations,

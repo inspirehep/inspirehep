@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -12,7 +11,7 @@ from invenio_records.api import Record
 from invenio_records_rest.utils import PIDConverter, obj_or_import_string
 from werkzeug.routing import PathConverter
 
-from .resolvers import InspireResolver
+from inspirehep.pidstore.resolvers import InspireResolver
 
 LOGGER = structlog.getLogger()
 

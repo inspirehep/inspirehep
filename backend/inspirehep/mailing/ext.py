@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,7 +6,7 @@
 
 from flask_mail import Mail
 
-from .utils import humanize_date_to_natural_time
+from inspirehep.mailing.utils import humanize_date_to_natural_time
 
 
 class InspireMailing:
@@ -16,9 +15,9 @@ class InspireMailing:
             self.init_app(app)
 
     def init_app(self, app):
-        app.jinja_env.filters[
-            "humanizeDateToNaturalTime"
-        ] = humanize_date_to_natural_time
+        app.jinja_env.filters["humanizeDateToNaturalTime"] = (
+            humanize_date_to_natural_time
+        )
         app.extensions["inspirehep-mailing"] = self
 
         mail = Mail()

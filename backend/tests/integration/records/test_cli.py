@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -13,7 +12,6 @@ import pytest
 from freezegun import freeze_time
 from helpers.providers.faker import faker
 from helpers.utils import create_record
-
 from inspirehep.records.api import AuthorsRecord, JobsRecord, LiteratureRecord
 from inspirehep.records.models import InstitutionLiterature
 
@@ -256,7 +254,7 @@ def test_update_records_relations_cli(inspire_app, cli):
         ["relationships", "update-relationships-for-records", "--pid-type", "lit"]
     )
 
-    assert 0 == result.exit_code
+    assert result.exit_code == 0
 
     institution_literature_relation = InstitutionLiterature.query.filter_by(
         institution_uuid=institution_id

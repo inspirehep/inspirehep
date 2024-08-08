@@ -4,10 +4,9 @@ from collections import Counter
 import structlog
 from flask import url_for
 from inspire_dojson.utils import get_record_ref
+from inspirehep.records.api.authors import AuthorsRecord
 from prometheus_client import Counter as metrics_counter
 from unidecode import unidecode
-
-from inspirehep.records.api.authors import AuthorsRecord
 
 LOGGER = structlog.getLogger()
 

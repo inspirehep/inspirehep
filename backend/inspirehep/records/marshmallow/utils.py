@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -69,6 +68,6 @@ def get_last_name(name):
 
 def get_acquisition_source_without_email(data):
     acquisition_source = data.get("acquisition_source", {})
-    if "email" in acquisition_source.keys():
+    if "email" in acquisition_source:
         del acquisition_source["email"]
     return acquisition_source

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,9 +6,6 @@
 
 import orjson
 from helpers.utils import create_record, create_user
-from invenio_accounts.testutils import login_user_via_session
-from marshmallow import utils
-
 from inspirehep.accounts.roles import Roles
 from inspirehep.records.marshmallow.seminars import (
     SeminarsDetailSchema,
@@ -20,6 +16,8 @@ from inspirehep.records.marshmallow.seminars.base import (
     SeminarsPublicListSchema,
     SeminarsPublicSchema,
 )
+from invenio_accounts.testutils import login_user_via_session
+from marshmallow import utils
 
 
 def test_seminars_json_without_login(inspire_app, datadir):
@@ -164,7 +162,7 @@ def test_seminars_search(inspire_app, datadir):
         expected_created = utils.isoformat(record.created)
         expected_updated = utils.isoformat(record.updated)
 
-        response = client.get(f"/seminars", headers=headers)
+        response = client.get("/seminars", headers=headers)
 
         response_data = orjson.loads(response.data)
         response_data_metadata = response_data["hits"]["hits"][0]["metadata"]
@@ -310,7 +308,7 @@ def test_seminars_list_search_doesnt_return_email_adress(inspire_app):
         expected_created = utils.isoformat(record.created)
         expected_updated = utils.isoformat(record.updated)
 
-        response = client.get(f"/seminars", headers=headers)
+        response = client.get("/seminars", headers=headers)
 
         response_data = orjson.loads(response.data)
         response_data_metadata = response_data["hits"]["hits"][0]["metadata"]

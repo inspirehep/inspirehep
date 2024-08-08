@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -405,7 +404,7 @@ def _check_column_in_table(table, column):
 
 def get_primary_keys(tablename):
     insp = reflection.Inspector.from_engine(db.engine)
-    primary_keys = insp.get_pk_constraint(tablename)['constrained_columns']
+    primary_keys = insp.get_pk_constraint(tablename)["constrained_columns"]
     return primary_keys
 
 

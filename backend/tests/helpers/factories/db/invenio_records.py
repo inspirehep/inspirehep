@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -13,11 +12,10 @@ import uuid
 
 import orjson
 import pkg_resources
-from invenio_records.models import RecordMetadata
-from invenio_search import current_search_client as es
-
 from inspirehep.accounts.fixtures import generate_random_string
 from inspirehep.records.api import InspireRecord
+from invenio_records.models import RecordMetadata
+from invenio_search import current_search_client as es
 
 from .base import TestBaseModel
 from .invenio_pidstore import TestPersistentIdentifier
@@ -96,9 +94,7 @@ class TestRecordMetadata(TestBaseModel):
 
         updated_kwargs["json"] = json_
 
-        instance.record_metadata = super(TestRecordMetadata, cls).create_from_kwargs(
-            updated_kwargs
-        )
+        instance.record_metadata = super().create_from_kwargs(updated_kwargs)
 
         if index_name:
             instance.es_index_result = es.index(
@@ -110,7 +106,7 @@ class TestRecordMetadata(TestBaseModel):
                 TestPersistentIdentifier.create_from_kwargs(
                     object_uuid=instance.record_metadata.id,
                     pid_value=instance.record_metadata.json.get("control_number"),
-                    **kwargs
+                    **kwargs,
                 ).persistent_identifier
             )
 

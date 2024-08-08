@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,10 +6,9 @@
 
 import orjson
 from helpers.utils import create_record, create_user
-from invenio_accounts.testutils import login_user_via_session
-
 from inspirehep.accounts.roles import Roles
 from inspirehep.records.api import LiteratureRecord
+from invenio_accounts.testutils import login_user_via_session
 
 
 def test_add_keywords_replace_old_keywords_with_new(inspire_app):

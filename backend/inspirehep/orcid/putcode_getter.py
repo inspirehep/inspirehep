@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
 # Copyright (C) 2016-2018 CERN.
@@ -16,10 +15,9 @@ from inspire_service_orcid import utils as inspire_service_orcid_utils
 from inspire_service_orcid.client import OrcidClient
 from invenio_db import db
 
+from inspirehep.orcid import exceptions, push_access_tokens
 from inspirehep.orcid.converter import ExternalIdentifier
 from inspirehep.pidstore.api.base import PidStoreBase
-
-from . import exceptions, push_access_tokens
 
 INSPIRE_WORK_URL_REGEX = re.compile(
     r"https?://(?:labs\.)?inspirehep\.net/(?:record|literature)/(\d+)", re.IGNORECASE
@@ -29,7 +27,7 @@ INSPIRE_WORK_URL_REGEX = re.compile(
 LOGGER = structlog.getLogger()
 
 
-class OrcidPutcodeGetter(object):
+class OrcidPutcodeGetter:
     def __init__(self, orcid, oauth_token):
         self.orcid = orcid
         self.oauth_token = oauth_token

@@ -8,5 +8,4 @@
 
 """inspirehep."""
 
-
 from .query import inspire_query_factory

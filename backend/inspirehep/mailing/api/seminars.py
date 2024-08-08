@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,7 +6,6 @@
 
 import structlog
 from flask import current_app, render_template
-
 from inspirehep.mailing.providers.flask_mail import send_email
 from inspirehep.utils import get_inspirehep_url
 

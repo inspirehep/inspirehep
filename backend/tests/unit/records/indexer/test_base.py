@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,7 +5,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import mock
-
 from inspirehep.indexer.base import InspireRecordIndexer
 from inspirehep.records.api import LiteratureRecord
 
@@ -17,22 +15,27 @@ from inspirehep.records.api import LiteratureRecord
 )
 @mock.patch(
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_bibtex_display",
-    return_value=""
+    return_value="",
 )
 @mock.patch(
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_latex_eu_display",
-    return_value=""
+    return_value="",
 )
 @mock.patch(
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_latex_us_display",
-    return_value=""
+    return_value="",
 )
 @mock.patch(
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
-    return_value=""
+    return_value="",
 )
-@mock.patch("inspirehep.records.api.mixins.CitationMixin.citation_count_without_self_citations", return_value="")
-@mock.patch("inspirehep.records.api.mixins.CitationMixin.citation_count", return_value="")
+@mock.patch(
+    "inspirehep.records.api.mixins.CitationMixin.citation_count_without_self_citations",
+    return_value="",
+)
+@mock.patch(
+    "inspirehep.records.api.mixins.CitationMixin.citation_count", return_value=""
+)
 @mock.patch("flask_sqlalchemy._QueryProperty.__get__")
 @mock.patch("inspirehep.indexer.base.before_record_index")
 @mock.patch("inspirehep.indexer.base.current_app")
@@ -53,9 +56,7 @@ def test_indexer_prepare_record(
     mock_cv_format,
 ):
     query_mock.return_value.filter_by.return_value.count.return_value = 1
-    query_mock.return_value.filter_by.return_value.filter.return_value.count.return_value = (
-        1
-    )
+    query_mock.return_value.filter_by.return_value.filter.return_value.count.return_value = 1
     record = LiteratureRecord({})
     indexer = InspireRecordIndexer()
     # Assume that record methods was already tested

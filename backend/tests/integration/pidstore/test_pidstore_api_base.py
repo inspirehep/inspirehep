@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,8 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
-from helpers.utils import create_record
 
+from helpers.utils import create_record
 from inspirehep.pidstore.api import PidStoreBase
 
 

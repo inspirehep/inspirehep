@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -55,7 +54,7 @@ class ExternalSystemIdentifierSchemaV1(Schema):
             if kekscan_link is None:
                 return missing
             return kekscan_link
-        return "{}{}".format(url_prefix, value)
+        return f"{url_prefix}{value}"
 
     @classmethod
     def get_link_for_kekscan_schema(cls, external_system_id_value):
@@ -73,7 +72,7 @@ class ExternalSystemIdentifierSchemaV1(Schema):
             return None
         yymm = extid[:4]
         kekscan_url_prefix = cls.schema_to_url_link_prefix_map["kekscan"]
-        return "{}{}/{}/{}.pdf".format(kekscan_url_prefix, year, yymm, extid)
+        return f"{kekscan_url_prefix}{year}/{yymm}/{extid}.pdf"
 
     @post_dump(pass_many=True)
     def filter(self, data, many):

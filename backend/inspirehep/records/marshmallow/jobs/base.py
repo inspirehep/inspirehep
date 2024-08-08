@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -13,9 +12,10 @@ from inspirehep.records.marshmallow.common import (
     AcceleratorExperimentSchemaV1,
     ContactDetailsItemWithoutEmail,
 )
-
-from ..utils import get_acquisition_source_without_email
-from .utils import get_reference_letters_without_email
+from inspirehep.records.marshmallow.jobs.utils import (
+    get_reference_letters_without_email,
+)
+from inspirehep.records.marshmallow.utils import get_acquisition_source_without_email
 
 
 class JobsRawSchema(RecordBaseSchema):

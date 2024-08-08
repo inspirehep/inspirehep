@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,10 +7,9 @@ from copy import deepcopy
 
 import pytest
 from helpers.providers.faker import faker
+from inspirehep.records.api import InspireRecord, LiteratureRecord
 from invenio_db import db
 from jsonschema import ValidationError
-
-from inspirehep.records.api import InspireRecord, LiteratureRecord
 
 
 def test_record_versioning(inspire_app, clean_celery_session):

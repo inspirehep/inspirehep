@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -324,9 +323,7 @@ def test_latex_handle_one_erratum(inspire_app):
         ]
     }
 
-    expected_latex_data = (
-        "[erratum: Phys. Rev. D \\textbf{99}, no.1, 019903 (2019)]".encode()
-    )
+    expected_latex_data = b"[erratum: Phys. Rev. D \\textbf{99}, no.1, 019903 (2019)]"
 
     record = create_record("lit", data)
 
@@ -339,7 +336,6 @@ def test_latex_handle_one_erratum(inspire_app):
 
 
 def test_latex_handle_multiple_erratest_latex_handle_multiple_erratumstums(inspire_app):
-
     data = {
         "publication_info": [
             {
@@ -370,7 +366,7 @@ def test_latex_handle_multiple_erratest_latex_handle_multiple_erratumstums(inspi
         ]
     }
 
-    expected_latex_data = "[erratum: Phys. Rev. D \\textbf{99}, no.1, 019903 (2019); erratum: Phys. Rev. C \\textbf{97}, no.12, 019903 (2020)]".encode()
+    expected_latex_data = b"[erratum: Phys. Rev. D \\textbf{99}, no.1, 019903 (2019); erratum: Phys. Rev. C \\textbf{97}, no.12, 019903 (2020)]"
 
     record = create_record("lit", data)
 
@@ -398,7 +394,7 @@ def test_latex_handle_multiple_erratums_with_missing_info(inspire_app):
             {"journal_title": "Phys.Rev.D", "material": "erratum"},
         ]
     }
-    expected_latex_data = "[erratum: , 032005; erratum: Phys. Rev. D]".encode()
+    expected_latex_data = b"[erratum: , 032005; erratum: Phys. Rev. D]"
     record = create_record("lit", data)
 
     with inspire_app.test_client() as client:
@@ -547,7 +543,7 @@ def test_latex_encodes_non_latex_chars(inspire_app):
 
 @freeze_time("2020-09-11")
 @pytest.mark.parametrize(
-    "input_author,expected_name",
+    ("input_author", "expected_name"),
     [
         ("Lieber, Ed", "E.~Lieber,"),
         ("Lieber, Ed Viktor", "E.~V.~Lieber,"),

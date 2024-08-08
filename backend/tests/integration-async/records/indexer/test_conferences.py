@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -10,15 +9,14 @@ import orjson
 from helpers.providers.faker import faker
 from helpers.utils import es_search, retry_test
 from inspire_utils.record import get_value
-from invenio_db import db
-from invenio_search import current_search
-from tenacity import stop_after_delay, wait_fixed
-
 from inspirehep.records.api import ConferencesRecord, LiteratureRecord
 from inspirehep.records.marshmallow.conferences.common.proceeding_info_item import (
     ProceedingInfoItemSchemaV1,
 )
 from inspirehep.search.api import ConferencesSearch
+from invenio_db import db
+from invenio_search import current_search
+from tenacity import stop_after_delay, wait_fixed
 
 
 def test_conference_record_updates_in_es_when_lit_rec_refers_to_it(

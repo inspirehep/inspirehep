@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -9,10 +8,9 @@ from copy import deepcopy
 
 import orjson
 from helpers.utils import create_record, create_record_factory, create_user
+from inspirehep.accounts.roles import Roles
 from invenio_accounts.testutils import login_user_via_session
 from marshmallow import utils
-
-from inspirehep.accounts.roles import Roles
 
 
 def test_institutions_json_without_login(inspire_app, datadir):
@@ -163,7 +161,7 @@ def test_parent_institutions_in_detail_page(inspire_app):
                 "curated_relation": True,
             },
             {
-                "record": {"$ref": f"https://inspirebeta.net/api/institutions/123"},
+                "record": {"$ref": "https://inspirebeta.net/api/institutions/123"},
                 "reation": "successor",
             },
         ],
@@ -291,7 +289,7 @@ def test_subsidiary_institutions_in_detail_page(inspire_app):
         ]
     }
 
-    record_with_predecessor_relation = create_record("ins", data=data)
+    create_record("ins", data=data)
     expected_subsidiary_records = [
         {
             "control_number": record_with_parent_relation_control_number,

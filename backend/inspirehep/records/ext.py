@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,7 +7,7 @@
 """Flask extension for inspirehep."""
 
 
-class InspireRecords(object):
+class InspireRecords:
     """inspirehep extension."""
 
     def __init__(self, app=None):
@@ -19,4 +18,4 @@ class InspireRecords(object):
     def init_app(self, app):
         """Flask application initialization."""
         app.extensions["inspirehep-records"] = self
-        from inspirehep.records import receivers  # noqa: F401
+        from inspirehep.records import receivers  # noqa F401

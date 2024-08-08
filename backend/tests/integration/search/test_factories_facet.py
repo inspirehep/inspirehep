@@ -1,14 +1,12 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from opensearch_dsl import Search
 from flask import current_app
-
 from inspirehep.search.factories.facet import inspire_facets_factory
+from opensearch_dsl import Search
 
 
 def test_inspire_facets_factory(inspire_app, override_config):

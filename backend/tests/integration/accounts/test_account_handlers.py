@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -7,7 +6,6 @@
 
 import mock
 from helpers.utils import create_record, create_user
-
 from inspirehep.accounts.handlers import get_current_user_data
 
 

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,9 +6,8 @@
 
 import orjson
 from helpers.utils import create_record, create_user, logout
-from invenio_accounts.testutils import login_user_via_session
-
 from inspirehep.accounts.roles import Roles
+from invenio_accounts.testutils import login_user_via_session
 
 
 def test_jobs_application_json_get(inspire_app):
@@ -133,9 +131,9 @@ def test_jobs_sort_options_1(inspire_app, datadir):
 def test_jobs_accelerator_experiments(inspire_app, datadir):
     data = orjson.loads((datadir / "1735925.json").read_text())
     exp1 = create_record("exp", data={"legacy_name": "FNAL-E-0973"})
-    data["accelerator_experiments"][0]["record"][
-        "$ref"
-    ] = f"http://localhost:5000/api/experiments/{exp1['control_number']}"
+    data["accelerator_experiments"][0]["record"]["$ref"] = (
+        f"http://localhost:5000/api/experiments/{exp1['control_number']}"
+    )
     rec1 = create_record("job", data=data)
 
     with inspire_app.test_client() as client:

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
 # Copyright (C) 2016-2018 CERN.
@@ -12,12 +11,12 @@ import flask
 from flask import current_app as app
 from redis import StrictRedis
 
-from .converter import OrcidConverter
+from inspirehep.orcid.converter import OrcidConverter
 
 CACHE_PREFIX = None
 
 
-class OrcidCache(object):
+class OrcidCache:
     def __init__(self, orcid, recid):
         """
         Orcid cached data.
@@ -44,8 +43,8 @@ class OrcidCache(object):
         """Return the string '`CACHE_PREFIX`:orcidcache:`orcid_value`:`recid`'"""
         prefix = ""
         if CACHE_PREFIX:
-            prefix = "{}:".format(CACHE_PREFIX)
-        return "{}orcidcache:{}:{}".format(prefix, self.orcid, self.recid)
+            prefix = f"{CACHE_PREFIX}:"
+        return f"{prefix}orcidcache:{self.orcid}:{self.recid}"
 
     def write_work_putcode(self, putcode, inspire_record=None):
         """
@@ -96,7 +95,7 @@ class OrcidCache(object):
         return self._cached_hash_value != self._new_hash_value
 
 
-class _OrcidHasher(object):
+class _OrcidHasher:
     def __init__(self, inspire_record):
         self.inspire_record = inspire_record
 
