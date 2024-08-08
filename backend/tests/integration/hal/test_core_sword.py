@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2014-2019 CERN.
@@ -26,10 +25,6 @@ import pytest
 from flask import current_app
 from helpers.providers.faker import faker
 from inspire_utils.record import get_value, get_values_for_schema
-from mock import patch
-from sqlalchemy.orm.exc import StaleDataError
-from sword2.deposit_receipt import Deposit_Receipt
-
 from inspirehep.hal.core.sword import (
     Connection,
     HttpLib2LayerIgnoreCert,
@@ -38,6 +33,9 @@ from inspirehep.hal.core.sword import (
 from inspirehep.hal.errors import HALCreateException
 from inspirehep.hal.tasks import _hal_push, hal_push, update_record_with_new_ids
 from inspirehep.records.api import InspireRecord
+from mock import patch
+from sqlalchemy.orm.exc import StaleDataError
+from sword2.deposit_receipt import Deposit_Receipt
 
 
 def test_new_connection_is_secure_by_default(inspire_app):

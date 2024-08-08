@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -11,5 +10,4 @@ from .base import PidStoreBase
 
 
 class PidStoreSeminars(PidStoreBase):
-
     minters = [SeminarsMinter]

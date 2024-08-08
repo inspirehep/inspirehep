@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,15 +5,14 @@
 # the terms of the MIT License; see LICENSE file for more details.
 from itertools import chain
 
-from opensearchpy import ConflictError, NotFoundError, RequestError
-from opensearchpy.client.ingest import IngestClient
 from flask import current_app
 from helpers.utils import get_index_alias
+from inspirehep.indexer.cli import _put_files_pipeline
 from invenio_search.errors import IndexAlreadyExistsError
+from opensearchpy import ConflictError, NotFoundError, RequestError
+from opensearchpy.client.ingest import IngestClient
 from pytest_invenio.fixtures import _search_create_indexes
 from sqlalchemy_utils import create_database, database_exists
-
-from inspirehep.indexer.cli import _put_files_pipeline
 
 
 def es_cleanup(es):

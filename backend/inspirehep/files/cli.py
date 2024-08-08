@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -40,7 +39,6 @@ BUCKETS = [
 @files.command(help="Creates S3 buckets for [0-9] and [a-f]")
 @with_appcontext
 def create_buckets():
-
     click.secho("Creating buckets")
 
     if not current_app.config["FEATURE_FLAG_ENABLE_FILES"]:

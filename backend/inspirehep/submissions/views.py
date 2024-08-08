@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -312,7 +311,6 @@ class ConferenceSubmissionsResource(BaseSubmissionsResource):
 
 
 class ExperimentSubmissionsResource(BaseSubmissionsResource):
-
     decorators = [login_required_with_roles([Roles.cataloger.value])]
 
     def load_data_from_request(self):
@@ -441,7 +439,6 @@ class LiteratureSubmissionResource(BaseSubmissionsResource):
 
 
 class JobSubmissionsResource(BaseSubmissionsResource):
-
     data_loader_from_request = job_loader_v1
 
     user_allowed_status_changes = {
@@ -612,7 +609,6 @@ class JobSubmissionsResource(BaseSubmissionsResource):
 
 
 class InstitutionSubmissionsResource(BaseSubmissionsResource):
-
     decorators = [login_required_with_roles([Roles.cataloger.value])]
 
     def load_data_from_request(self):
@@ -629,7 +625,6 @@ class InstitutionSubmissionsResource(BaseSubmissionsResource):
 
 
 class JournalSubmissionsResource(BaseSubmissionsResource):
-
     decorators = [login_required_with_roles([Roles.cataloger.value])]
 
     def load_data_from_request(self):

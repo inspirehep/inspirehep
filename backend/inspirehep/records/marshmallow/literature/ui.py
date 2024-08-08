@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -203,7 +202,7 @@ class LiteratureDetailSchema(
         merged_list = [
             {"page_start": start, "page_end": end, **record}
             for start, end, record in zip(
-                pages["page_start"], pages["page_end"], records
+                pages["page_start"], pages["page_end"], records, strict=False
             )
         ]
 

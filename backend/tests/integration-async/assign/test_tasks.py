@@ -1,11 +1,10 @@
 from helpers.utils import create_record, retry_test
-from invenio_db import db
-from invenio_search import current_search
-from tenacity import stop_after_delay, wait_fixed
-
 from inspirehep.assign.tasks import assign_papers
 from inspirehep.records.api import AuthorsRecord
 from inspirehep.search.api import LiteratureSearch
+from invenio_db import db
+from invenio_search import current_search
+from tenacity import stop_after_delay, wait_fixed
 
 
 def test_assign_from_an_author_to_another(inspire_app, clean_celery_session):

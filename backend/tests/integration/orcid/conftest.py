@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2018 CERN.
@@ -61,7 +60,7 @@ def vcr_config():
     }
 
 
-@pytest.fixture
+@pytest.fixture()
 def vcr(vcr):
     vcr.register_matcher(
         "accept", lambda r1, r2: r1.headers.get("Accept") == r2.headers.get("Accept")
@@ -89,4 +88,4 @@ def assert_all_played(request, vcr_cassette):
     Ensure that all all episodes have been played in the current test.
     Only if the current test has a cassette.
     """
-    yield
+    return

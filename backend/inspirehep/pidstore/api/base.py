@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -14,7 +13,7 @@ from invenio_pidstore.models import PersistentIdentifier
 LOGGER = structlog.getLogger()
 
 
-class PidStoreBase(object):
+class PidStoreBase:
     minters = []
 
     def __init__(self, object_uuid, data):

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
 # Copyright (C) 2016-2018 CERN.
@@ -18,9 +17,7 @@ class BaseOrcidPusherException(Exception):
         output = super(BaseOrcidPusherException, self).__str__(*args, **kwargs)
         if not self.from_exc:
             return output
-        output += "\nThis exception was directly caused by the following exception:\n{}".format(
-            repr(self.from_exc)
-        )
+        output += f"\nThis exception was directly caused by the following exception:\n{repr(self.from_exc)}"
         return output
 
 

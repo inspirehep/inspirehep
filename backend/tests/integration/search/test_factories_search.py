@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,8 +6,6 @@
 
 import pytest
 from flask import current_app
-from mock import MagicMock
-
 from inspirehep.search.api import InspireSearch, LiteratureSearch
 from inspirehep.search.errors import FieldsParamForbidden
 from inspirehep.search.factories.search import (
@@ -18,6 +15,7 @@ from inspirehep.search.factories.search import (
     search_factory_with_aggs,
     search_factory_without_aggs,
 )
+from mock import MagicMock
 
 
 def test_get_search_with_source_with_fields_query_param_and_wrong_formats(inspire_app):

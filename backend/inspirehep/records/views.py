@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -100,7 +99,6 @@ class LiteratureReferencesResource(MethodView):
 
 
 class WorkflowsRecordSourcesResource(MethodView):
-
     view_name = "workflows_record_sources"
     decorators = [
         login_required_with_roles([Roles.superuser.value, Roles.cataloger.value])
@@ -133,7 +131,12 @@ class WorkflowsRecordSourcesResource(MethodView):
         if not results:
             return jsonify({"message": "Workflow source not found"}), 404
         results_data = [
-            {key: val for key, val in zip(required_fields_mapping.keys(), result)}
+            {
+                key: val
+                for key, val in zip(
+                    required_fields_mapping.keys(), result, strict=False
+                )
+            }
             for result in results
         ]
         return jsonify({"workflow_sources": results_data}), 200
@@ -271,7 +274,6 @@ def reference_self_curation(args):
 def literature_reference_difference_between_versions(
     pid_value, old_revision, new_revision
 ):
-
     if new_revision <= old_revision:
         return (
             jsonify({"message": "Old revision must be lower than new revision"}),

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -8,10 +7,9 @@ import datetime
 import uuid
 
 from helpers.providers.faker import faker
-from invenio_db import db
-
 from inspirehep.cds.models import CDSRun, CDSRunStatus
 from inspirehep.records.api import LiteratureRecord
+from invenio_db import db
 
 
 def test_cds_sync(inspire_app_for_cds_sync, cli):

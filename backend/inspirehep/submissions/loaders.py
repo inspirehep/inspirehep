@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -18,9 +17,9 @@ from .marshmallow import (
     Experiment,
     Institution,
     Job,
+    Journal,
     Literature,
     Seminar,
-    Journal,
 )
 
 

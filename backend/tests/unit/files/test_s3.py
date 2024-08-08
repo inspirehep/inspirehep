@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,15 +5,15 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import mock
 import pytest
-
 from inspirehep.files.api.s3 import S3
 
 
 @pytest.fixture(scope="function")
 def config_mock_fixture():
-    with mock.patch("inspirehep.files.api.s3.current_app") as app_mock, mock.patch(
-        "inspirehep.utils.current_app"
-    ) as app_mock_2:
+    with (
+        mock.patch("inspirehep.files.api.s3.current_app") as app_mock,
+        mock.patch("inspirehep.utils.current_app") as app_mock_2,
+    ):
         app_mock.config = {
             "S3_BUCKET_PREFIX": "test-prefix-",
             "PREFERRED_URL_SCHEME": "https",

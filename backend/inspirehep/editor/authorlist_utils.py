@@ -97,7 +97,7 @@ def handle_affiliations(
     added_affiliation = add_author_affiliation(
         affiliations, word_in_processing, author_affs
     )
-    if not added_affiliation and not word_in_processing == ",":
+    if not added_affiliation and word_in_processing != ",":
         for aff_key in split_id(word_in_processing):
             added_affiliation = add_author_affiliation(
                 affiliations, aff_key, author_affs
@@ -183,7 +183,6 @@ def parse_authors(text, affiliations):
 
 
 def add_author_to_authors(fullname, authors, author_affs):
-
     if not fullname:
         return authors
 

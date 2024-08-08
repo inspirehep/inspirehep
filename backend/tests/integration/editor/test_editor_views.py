@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -23,14 +22,13 @@ from helpers.utils import (
 )
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.record import get_value
+from inspirehep.accounts.roles import Roles
+from inspirehep.files import current_s3_instance
+from inspirehep.snow.api import InspireSnow
 from invenio_accounts.testutils import login_user_via_session
 from mock import patch
 from redis import StrictRedis
 from werkzeug.datastructures import FileStorage
-
-from inspirehep.accounts.roles import Roles
-from inspirehep.files import current_s3_instance
-from inspirehep.snow.api import InspireSnow
 
 
 def test_get_record_and_schema(inspire_app):
@@ -464,9 +462,10 @@ def test_file_upload(inspire_app, s3, datadir, override_config):
     current_s3_instance.client.create_bucket(Bucket="inspire-editor")
     user = create_user(role=Roles.cataloger.value)
     record = create_record("lit")
-    with override_config(
-        EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"
-    ), inspire_app.test_client() as client:
+    with (
+        override_config(EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"),
+        inspire_app.test_client() as client,
+    ):
         login_user_via_session(client, email=user.email)
         file_pdf = open(f"{datadir}/test.pdf", "rb")
         bytes_file = FileStorage(file_pdf)
@@ -497,9 +496,10 @@ def test_file_upload_with_wrong_mimetype(inspire_app, s3, datadir, override_conf
     current_s3_instance.client.create_bucket(Bucket="inspire-editor")
     user = create_user(role=Roles.cataloger.value)
     record = create_record("lit")
-    with override_config(
-        EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"
-    ), inspire_app.test_client() as client:
+    with (
+        override_config(EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"),
+        inspire_app.test_client() as client,
+    ):
         login_user_via_session(client, email=user.email)
         file_txt = open(f"{datadir}/test.txt", "rb")
         bytes_file = FileStorage(file_txt)
@@ -541,9 +541,10 @@ def test_file_upload_with_read_write_access(inspire_app, s3, datadir, override_c
         "If-Match": '"0"',
     }
 
-    with override_config(
-        EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"
-    ), inspire_app.test_client() as client:
+    with (
+        override_config(EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"),
+        inspire_app.test_client() as client,
+    ):
         login_user_via_session(client, email=user.email)
         file_pdf = open(f"{datadir}/test.pdf", "rb")
         bytes_file = FileStorage(file_pdf)
@@ -573,9 +574,10 @@ def test_file_upload_with_read_access(inspire_app, s3, datadir, override_config)
         "If-Match": '"0"',
     }
 
-    with override_config(
-        EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"
-    ), inspire_app.test_client() as client:
+    with (
+        override_config(EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"),
+        inspire_app.test_client() as client,
+    ):
         login_user_via_session(client, email=user.email)
         file_pdf = open(f"{datadir}/test.pdf", "rb")
         bytes_file = FileStorage(file_pdf)

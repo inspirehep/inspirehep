@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,7 +5,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import pytest
-
 from inspirehep.disambiguation.utils import (
     reorder_lit_author_names,
     update_author_names,

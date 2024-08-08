@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -177,5 +176,4 @@ class InspireTexKeyProvider(InspireBaseProvider):
 
     @classmethod
     def get(cls, pid_value, object_uuid=None):
-
         return cls(cls.query_pid(pid_value, object_uuid).one())

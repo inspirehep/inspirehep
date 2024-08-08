@@ -1,15 +1,13 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from opensearch_dsl import Search
 from flask import current_app
-from mock import MagicMock
-
 from inspirehep.search.factories.filter import inspire_filter_factory
+from mock import MagicMock
+from opensearch_dsl import Search
 
 
 def test_inspire_filter_factory(inspire_app, override_config):
@@ -30,7 +28,6 @@ def test_inspire_filter_factory(inspire_app, override_config):
 
     with override_config(**config):
         with current_app.test_request_context("?type=FOO&q=BAR"):
-
             search = Search()
             search, urlwargs = inspire_filter_factory(search, index_name)
 

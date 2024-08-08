@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -16,12 +15,11 @@ from helpers.utils import (
     create_user_and_token,
     logout,
 )
-from invenio_accounts.testutils import login_user_via_session
-from invenio_search import current_search
-
 from inspirehep.accounts.roles import Roles
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.errors import MaxResultWindowRESTError
+from invenio_accounts.testutils import login_user_via_session
+from invenio_search import current_search
 
 
 def test_literature_search_application_json_get(inspire_app):
@@ -90,7 +88,7 @@ def test_literature_application_json_get(inspire_app):
 
     expected_status_code = 200
     with inspire_app.test_client() as client:
-        response = client.get("/literature/{}".format(record_control_number))
+        response = client.get(f"/literature/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -102,9 +100,7 @@ def test_literature_application_json_put_without_token(inspire_app):
     headers = {"If-Match": '"0"'}
     expected_status_code = 401
     with inspire_app.test_client() as client:
-        response = client.put(
-            "/literature/{}".format(record_control_number), headers=headers
-        )
+        response = client.put(f"/literature/{record_control_number}", headers=headers)
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -116,7 +112,7 @@ def test_literature_application_json_delete_without_token(inspire_app):
 
     expected_status_code = 401
     with inspire_app.test_client() as client:
-        response = client.delete("/literature/{}".format(record_control_number))
+        response = client.delete(f"/literature/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -141,7 +137,7 @@ def test_literature_application_json_put_with_token(inspire_app):
     headers = {"Authorization": "BEARER " + token.access_token, "If-Match": '"0"'}
     with inspire_app.test_client() as client:
         response = client.put(
-            "/literature/{}".format(record_control_number), headers=headers, json=record
+            f"/literature/{record_control_number}", headers=headers, json=record
         )
     response_status_code = response.status_code
 
@@ -158,7 +154,7 @@ def test_literature_application_json_delete_with_token(inspire_app):
     headers = {"Authorization": "BEARER " + token.access_token}
     with inspire_app.test_client() as client:
         response = client.delete(
-            "/literature/{}".format(record_control_number), headers=headers
+            f"/literature/{record_control_number}", headers=headers
         )
     response_status_code = response.status_code
 
@@ -187,7 +183,7 @@ def test_literature_application_json_put_with_token_authenticated(inspire_app):
 
     with inspire_app.test_client() as client:
         response = client.put(
-            "/literature/{}".format(record_control_number), headers=headers, json=record
+            f"/literature/{record_control_number}", headers=headers, json=record
         )
     response_status_code = response.status_code
 
@@ -216,7 +212,7 @@ def test_literature_application_json_put_with_token_(inspire_app):
 
     with inspire_app.test_client() as client:
         response = client.put(
-            "/literature/{}".format(record_control_number), headers=headers, json=record
+            f"/literature/{record_control_number}", headers=headers, json=record
         )
     response_status_code = response.status_code
 
@@ -257,7 +253,7 @@ def test_literature_citations(inspire_app):
     }
 
     with inspire_app.test_client() as client:
-        response = client.get("/literature/{}/citations".format(record_control_number))
+        response = client.get(f"/literature/{record_control_number}/citations")
     response_status_code = response.status_code
     response_data = orjson.loads(response.data)
 
@@ -387,7 +383,7 @@ def test_literature_citations_empty(inspire_app):
     record_control_number = record["control_number"]
 
     with inspire_app.test_client() as client:
-        response = client.get("/literature/{}/citations".format(record_control_number))
+        response = client.get(f"/literature/{record_control_number}/citations")
     response_status_code = response.status_code
     response_data = orjson.loads(response.data)
 
@@ -401,7 +397,7 @@ def test_literature_citations_empty(inspire_app):
 def test_literature_citations_missing_pids(inspire_app):
     missing_control_number = 1
     with inspire_app.test_client() as client:
-        response = client.get("/literature/{}/citations".format(missing_control_number))
+        response = client.get(f"/literature/{missing_control_number}/citations")
     response_status_code = response.status_code
 
     expected_status_code = 404
@@ -982,7 +978,7 @@ def test_literature_json_put_redirected_record(inspire_app):
 
     with inspire_app.test_client() as client:
         response = client.put(
-            "/literature/{}".format(record_redirected.control_number),
+            f"/literature/{record_redirected.control_number}",
             headers=headers,
             json=data,
         )

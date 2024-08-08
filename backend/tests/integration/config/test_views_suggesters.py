@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -90,17 +89,17 @@ def test_author_suggesters(inspire_app):
     assert result_rec_id == expected_rec_id
 
 
-@pytest.mark.xfail
+@pytest.mark.xfail()
 def test_jobs_suggester():
     raise NotImplementedError("Missing serializer")
 
 
-@pytest.mark.xfail
+@pytest.mark.xfail()
 def test_journals_suggesters():
     raise NotImplementedError("Missing serializer")
 
 
-@pytest.mark.xfail
+@pytest.mark.xfail()
 def test_experiments_suggesters():
     raise NotImplementedError("Missing serializer")
 
@@ -192,11 +191,11 @@ def test_seminars_series_name_suggester_ignores_duplicates(inspire_app):
     assert suggestion_count == 1
 
 
-@pytest.mark.xfail
+@pytest.mark.xfail()
 def test_data_suggesters():
     raise NotImplementedError("Missing serializer")
 
 
-@pytest.mark.xfail
+@pytest.mark.xfail()
 def test_institutions_suggesters():
     raise NotImplementedError("Missing serializer")

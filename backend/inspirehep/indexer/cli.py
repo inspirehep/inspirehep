@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -219,7 +218,7 @@ def reindex_records(
         created_tasks = dispatch_indexing_task(items, batch_size, queue_name)
         all_tasks.extend(created_tasks)
 
-    click.secho("Created {} bulk-indexing tasks.".format(len(all_tasks)), fg="green")
+    click.secho(f"Created {len(all_tasks)} bulk-indexing tasks.", fg="green")
 
     with click.progressbar(
         length=len(all_tasks), label="Indexing records"

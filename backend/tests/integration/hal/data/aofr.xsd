@@ -68,7 +68,7 @@
     </xs:element>
     <xs:element name="titleStmt">
         <xs:complexType>
-            <xs:sequence> 
+            <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="ns1:title"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="ns1:author"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="ns1:editor"/>
@@ -135,7 +135,7 @@
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="ns1:numeric"/>
             </xs:sequence>
             <xs:attribute name="name" use="required" type="xs:string"/>
-            <xs:attribute name="notation"> 
+            <xs:attribute name="notation">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
                         <xs:enumeration value="string"/>
@@ -241,10 +241,10 @@
     </xs:element>
     <xs:element name="sourceDesc">
         <xs:complexType>
-            <xs:sequence> 
-                <xs:element minOccurs="0" ref="ns1:p"/> 
-                <xs:element minOccurs="0" ref="ns1:biblStruct"/> 
-                <xs:element minOccurs="0" ref="ns1:listPlace"/> 
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="ns1:p"/>
+                <xs:element minOccurs="0" ref="ns1:biblStruct"/>
+                <xs:element minOccurs="0" ref="ns1:listPlace"/>
                 <xs:element minOccurs="0" ref="ns1:recordingStmt"/>
             </xs:sequence>
         </xs:complexType>
@@ -303,7 +303,7 @@
                 <!-- %%conferenceStartDate et %%conferenceEndDate -->
                 <xs:element minOccurs="0" ref="ns1:settlement"/>
                 <!-- %%city  [type not in PATENT,IMG,MAP,LECTURE] -->
-                <xs:element minOccurs="0" ref="ns1:country"/> 
+                <xs:element minOccurs="0" ref="ns1:country"/>
                 <!-- %%country  [type not in PATENT,IMG,MAP,LECTURE] -->
             </xs:sequence>
         </xs:complexType>
@@ -378,7 +378,7 @@
         </xs:complexType>
     </xs:element>
     <xs:element name="listPlace">
-        <xs:complexType> 
+        <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="ns1:place"/>
             </xs:sequence>
@@ -400,14 +400,14 @@
     </xs:element>
     <xs:element name="geo" type="xs:string"/>
     <xs:element name="recordingStmt">
-        <xs:complexType> 
+        <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="ns1:recording"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="recording">
-        <xs:complexType> 
+        <xs:complexType>
             <xs:attribute name="type" default="video">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
@@ -419,7 +419,7 @@
             <xs:attribute name="dur" type="xs:string"/> <!-- To Be replaced by the attribute below, but not for know -->
             <!--<xs:attribute name="dur">
                 <xs:simpleType>
-                    <xs:restriction base='xs:duration'> 
+                    <xs:restriction base='xs:duration'>
                         <xs:pattern value='PT\p{Nd}{2}H\p{Nd}{2}M\p{Nd}{2}S'/>
                     </xs:restriction>
                 </xs:simpleType>
@@ -525,7 +525,7 @@
     </xs:element>
     <xs:element name="measure">
         <xs:complexType>
-            <xs:attribute name="quantity" use="optional" type="xs:string"/> 
+            <xs:attribute name="quantity" use="optional" type="xs:string"/>
             <xs:attribute name="unit" use="optional" type="xs:string"/>
             <xs:attribute name="commodity" use="optional" type="xs:string"/>
         </xs:complexType>

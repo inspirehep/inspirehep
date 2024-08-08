@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,6 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """Manage ORCID OAUTH token migration from INSPIRE legacy instance."""
+
 import re
 
 import structlog
@@ -235,10 +235,10 @@ def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
         if isinstance(exc, RequestException):
             message = (exc.args[0:1] or ("",))[0]
             try:
-                message += "\nResponse={}".format(exc.response.content)
+                message += f"\nResponse={exc.response.content}"
             except AttributeError:
                 pass
-            message += "\nRequest={} {}".format(exc.request.method, exc.request.url)
+            message += f"\nRequest={exc.request.method} {exc.request.url}"
             exc.args = (message,) + exc.args[1:]
 
         # If max_retries=3, then self.request.retries is: [0, 1, 2, 3]

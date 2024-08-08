@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,11 +7,10 @@
 """INSPIRE module that adds more fun to the platform."""
 
 import pytest
-from mock import Mock, patch
-from werkzeug.exceptions import Forbidden, Unauthorized
-
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
+from mock import Mock, patch
+from werkzeug.exceptions import Forbidden, Unauthorized
 
 
 class MockUserWithRoleA:

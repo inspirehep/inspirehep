@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
 # Copyright (C) 2016-2018 CERN.
@@ -29,7 +28,7 @@ INSPIRE_WORK_URL_REGEX = re.compile(
 LOGGER = structlog.getLogger()
 
 
-class OrcidPutcodeGetter(object):
+class OrcidPutcodeGetter:
     def __init__(self, orcid, oauth_token):
         self.orcid = orcid
         self.oauth_token = oauth_token

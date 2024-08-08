@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,14 +5,13 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import mock
 from helpers.utils import create_record
-from invenio_pidstore.models import PersistentIdentifier
-from  werkzeug.datastructures import MultiDict
-
 from inspirehep.records.links import (
     find_record_endpoint,
     inspire_detail_links_factory,
     inspire_search_links,
 )
+from invenio_pidstore.models import PersistentIdentifier
+from werkzeug.datastructures import MultiDict
 
 
 def test_record_endpoint_by_internal_type(inspire_app):

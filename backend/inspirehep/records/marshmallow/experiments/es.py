@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -43,7 +42,6 @@ class ExperimentsElasticSearchSchema(ElasticSearchBaseSchema, ExperimentsRawSche
         return self.build_normalized_names(original_object, paths)
 
     def get_facet_inspire_classification(self, data):
-
         classifications = data.get("inspire_classification", [])
         cleaned_classifications = [
             re.sub(" [Ee]xperiments", "", classification)

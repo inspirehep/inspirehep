@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023 CERN.
 #
@@ -9,13 +8,12 @@ import mock
 import orjson
 from helpers.providers.faker import faker
 from helpers.utils import create_user, retry_test
+from inspirehep.records.api import InspireRecord
+from inspirehep.search.api import InspireSearch
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from sqlalchemy.orm.exc import StaleDataError
 from tenacity import stop_after_delay, wait_fixed
-
-from inspirehep.records.api import InspireRecord
-from inspirehep.search.api import InspireSearch
 
 
 def test_reference_diff(inspire_app, clean_celery_session):

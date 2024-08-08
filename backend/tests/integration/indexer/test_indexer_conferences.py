@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,9 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import orjson
 from helpers.utils import create_record, es_search
-from marshmallow import utils
-
 from inspirehep.records.marshmallow.conferences import ConferencesElasticSearchSchema
+from marshmallow import utils
 
 
 def test_index_conference_record(inspire_app, datadir):

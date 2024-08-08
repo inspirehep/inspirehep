@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,9 +7,8 @@
 
 import orjson
 from helpers.utils import create_record, es_search
-from marshmallow import utils
-
 from inspirehep.records.marshmallow.institutions import InstitutionsElasticSearchSchema
+from marshmallow import utils
 
 
 def test_index_institutions_record(inspire_app, datadir):

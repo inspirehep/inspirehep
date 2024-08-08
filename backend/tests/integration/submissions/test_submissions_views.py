@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -21,9 +20,6 @@ from helpers.utils import (
 )
 from inspire_utils.query import ordered
 from inspire_utils.record import get_value
-from invenio_accounts.testutils import login_user_via_session
-from mock import patch
-
 from inspirehep.accounts.roles import Roles
 from inspirehep.records.api import (
     AuthorsRecord,
@@ -34,6 +30,8 @@ from inspirehep.records.api import (
     JournalsRecord,
     SeminarsRecord,
 )
+from invenio_accounts.testutils import login_user_via_session
+from mock import patch
 
 FRANK_CASTLE_ORCID = "0000-0002-6152-062X"
 

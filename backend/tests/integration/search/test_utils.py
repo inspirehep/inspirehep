@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,9 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import pytest
 from flask import current_app
-from mock import Mock, patch
-
 from inspirehep.search.utils import RecursionLimit, get_facet_configuration
+from mock import Mock, patch
 
 
 @patch("inspirehep.records.config.RECORDS_REST_ENDPOINTS")

@@ -1,14 +1,14 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2022 CERN.
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from inspire_utils.record import get_value
 from marshmallow import fields
 
 from inspirehep.records.marshmallow.journals.base import JournalsPublicListSchema
-from inspire_utils.record import get_value
+
 
 class JournalsBaseSchema(JournalsPublicListSchema):
     public_notes = fields.Raw()
@@ -23,10 +23,10 @@ class JournalsBaseSchema(JournalsPublicListSchema):
 
         return journal_title
 
+
 class JournalsListSchema(JournalsBaseSchema):
     pass
- 
+
 
 class JournalsDetailSchema(JournalsListSchema):
     pass
-

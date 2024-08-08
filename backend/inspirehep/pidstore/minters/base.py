@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -21,7 +20,6 @@ LOGGER = structlog.getLogger()
 
 
 class Minter:
-
     provider = InspireExternalIdProvider
     object_type = "rec"
     pid_type = None
@@ -64,7 +62,7 @@ class Minter:
                 pid_value=pid_value,
                 object_type=self.object_type,
                 object_uuid=self.object_uuid,
-                **kwargs
+                **kwargs,
             )
         except PIDAlreadyExists as e:
             raise PIDAlreadyExistsError(e.pid_type, e.pid_value) from e
@@ -120,7 +118,6 @@ class Minter:
 
 
 class ControlNumberMinter(Minter):
-
     pid_value_path = "control_number"
     provider = InspireRecordIdProvider
 

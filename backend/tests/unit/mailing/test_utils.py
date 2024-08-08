@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,7 +7,6 @@
 
 import pytest
 from freezegun import freeze_time
-
 from inspirehep.mailing.utils import humanize_date_to_natural_time, strip_html_tags
 
 

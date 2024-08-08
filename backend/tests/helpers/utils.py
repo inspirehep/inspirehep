@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -16,14 +15,13 @@ from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
 from helpers.factories.models.user_access_token import AccessTokenFactory, UserFactory
 from helpers.providers.faker import faker
+from inspirehep.files import current_s3_instance
+from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.utils import get_inspirehep_url
 from invenio_db import db
 from invenio_search import current_search
 from invenio_search.utils import build_alias_name
 from tenacity import retry
-
-from inspirehep.files import current_s3_instance
-from inspirehep.records.api import InspireRecord, LiteratureRecord
-from inspirehep.utils import get_inspirehep_url
 
 SENSITIVE_RESPONSE_KEYS = ["user.name", "user.email"]
 ENABLED_USER_DATA = ["marcjanna.jedrych@cern.ch", "Marcjanna Jedrych"]

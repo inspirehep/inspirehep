@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021 CERN.
 #
@@ -11,9 +10,8 @@ import requests
 import structlog
 from flask.cli import with_appcontext
 from inspire_utils.record import get_values_for_schema
-from invenio_db import db
-
 from inspirehep.records.api import LiteratureRecord
+from invenio_db import db
 
 LOGGER = structlog.getLogger()
 HEPDATA_URL = "https://www.hepdata.net/search/ids"

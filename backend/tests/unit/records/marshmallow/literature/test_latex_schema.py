@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -9,7 +8,6 @@ from copy import deepcopy
 
 import orjson
 from freezegun import freeze_time
-
 from inspirehep.records.marshmallow.literature.latex import LatexSchema
 
 

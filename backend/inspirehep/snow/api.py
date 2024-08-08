@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023 CERN.
 #
@@ -402,9 +401,9 @@ class InspireSnow(SnowTicketAPI):
         third_party_search_query_string = f"u_third_party_ticket_id={recid}"
         tickets_search_parameters = dict(u_third_party="INSPIRE")
         if exclude_resolved:
-            tickets_search_parameters[
-                "u_current_task_state"
-            ] = f"{self.ticket_status_mapping['waiting']}^ORu_current_task_state={self.ticket_status_mapping['assigned']}^ORu_current_task_state={self.ticket_status_mapping['in progress']}"
+            tickets_search_parameters["u_current_task_state"] = (
+                f"{self.ticket_status_mapping['waiting']}^ORu_current_task_state={self.ticket_status_mapping['assigned']}^ORu_current_task_state={self.ticket_status_mapping['in progress']}"
+            )
         try:
             third_party_ticket = self.search(
                 self.third_party_ticket_endpoint, third_party_search_query_string

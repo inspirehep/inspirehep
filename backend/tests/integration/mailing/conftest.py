@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -12,9 +11,8 @@ import orjson
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_record
-from invenio_search import current_search
-
 from inspirehep.records.api import InspireRecord
+from invenio_search import current_search
 
 
 @pytest.fixture(scope="module")

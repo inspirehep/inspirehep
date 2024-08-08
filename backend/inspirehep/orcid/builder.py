@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -20,7 +19,7 @@ _COMMON = ElementMaker(namespace=_NAMESPACES["common"], nsmap=_NAMESPACES)
 _ELEMENT_MAKERS = {"work": _WORK, "common": _COMMON}
 
 
-class OrcidBuilder(object):
+class OrcidBuilder:
     """Class used to build ORCID-compatible work records in JSON."""
 
     def __init__(self):
@@ -87,13 +86,13 @@ class OrcidBuilder(object):
         """
         publication_date = _COMMON("publication-date")
 
-        publication_date.append(_COMMON.year("{:04d}".format(partial_date.year)))
+        publication_date.append(_COMMON.year(f"{partial_date.year:04d}"))
 
         if partial_date.month:
-            publication_date.append(_COMMON.month("{:02d}".format(partial_date.month)))
+            publication_date.append(_COMMON.month(f"{partial_date.month:02d}"))
 
         if partial_date.day:
-            publication_date.append(_COMMON.day("{:02d}".format(partial_date.day)))
+            publication_date.append(_COMMON.day(f"{partial_date.day:02d}"))
 
         self.record.append(publication_date)
 
@@ -151,9 +150,7 @@ class OrcidBuilder(object):
             value (string): the identifier itself
             relationship (string): either "part-of" or "self", optional, see `OrcidBuilder._make_external_id_field`
         """
-        self.add_external_id(
-            "doi", value, "http://dx.doi.org/{}".format(value), relationship
-        )
+        self.add_external_id("doi", value, f"http://dx.doi.org/{value}", relationship)
 
     def add_arxiv(self, value, relationship=None):
         """Add arXiv identifier to the record.
@@ -163,7 +160,7 @@ class OrcidBuilder(object):
             relationship (string): either "part-of" or "self", optional, see `OrcidBuilder._make_external_id_field`
         """
         self.add_external_id(
-            "arxiv", value, "http://arxiv.org/abs/{}".format(value), relationship
+            "arxiv", value, f"http://arxiv.org/abs/{value}", relationship
         )
 
     def add_citation(self, _type, value):
@@ -284,7 +281,7 @@ class OrcidBuilder(object):
         """
         return _COMMON(
             "contributor-orcid",
-            _COMMON.uri("http://orcid.org/{}".format(reference)),
+            _COMMON.uri(f"http://orcid.org/{reference}"),
             _COMMON.path(reference),
             _COMMON.host("orcid.org"),
         )
@@ -302,7 +299,7 @@ class OrcidBuilder(object):
         namespace, relative_tag = tuple(field_tag.split(":"))
         element_maker = _ELEMENT_MAKERS[namespace]
         try:
-            field = root.xpath("/*/{}".format(field_tag), namespaces=_NAMESPACES)[0]
+            field = root.xpath(f"/*/{field_tag}", namespaces=_NAMESPACES)[0]
         except IndexError:
             field = element_maker(relative_tag)
             root.append(field)

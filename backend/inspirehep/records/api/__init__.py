@@ -8,7 +8,6 @@
 
 """INSPIRE module that adds more fun to the platform."""
 
-
 from .authors import AuthorsRecord  # noqa: F401
 from .base import InspireRecord  # noqa: F401
 from .conferences import ConferencesRecord  # noqa: F401

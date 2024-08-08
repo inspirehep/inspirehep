@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2014-2017 CERN.
@@ -26,10 +25,9 @@ import mock
 import orjson
 import pkg_resources
 from helpers.utils import create_record, create_record_factory
-from lxml import etree
-
 from inspirehep.orcid.cache import _OrcidHasher
 from inspirehep.orcid.converter import ExternalIdentifier, OrcidConverter
+from lxml import etree
 
 
 def canonicalize_xml_element(element):

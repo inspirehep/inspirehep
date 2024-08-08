@@ -6,6 +6,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """add recid to RecordsAuthors id_type"""
+
 from alembic import op
 
 # revision identifiers, used by Alembic.

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -7,7 +6,6 @@
 
 import pytest
 from helpers.providers.faker import faker
-
 from inspirehep.oai.utils import (
     ACCELERATOR_EXPERIMENTS_NAMES,
     COLLABORATIONS,

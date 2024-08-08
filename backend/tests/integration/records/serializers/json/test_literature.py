@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -12,11 +11,10 @@ import mock
 import orjson
 from helpers.providers.faker import faker
 from helpers.utils import create_record, create_record_factory, create_user, logout
-from invenio_accounts.testutils import login_user_via_session
-
 from inspirehep.accounts.roles import Roles
 from inspirehep.files import current_s3_instance
 from inspirehep.records.errors import MaxResultWindowRESTError
+from invenio_accounts.testutils import login_user_via_session
 
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
@@ -1451,7 +1449,6 @@ def test_literature_search_contains_acquisition_source_for_cataloger(inspire_app
 
 
 def test_literature_search_do_not_have_acquisition_source_for_non_curator(inspire_app):
-
     headers = {"Accept": "application/json"}
 
     data = {"acquisition_source": {"method": "oai", "email": "test@test.com"}}
@@ -1480,7 +1477,6 @@ def test_literature_detail_page_contains_acquisition_source_for_cataloger(inspir
 def test_literature_detail_page_do_not_have_acquisition_source_for_non_curator(
     inspire_app,
 ):
-
     headers = {"Accept": "application/json"}
 
     data = {"acquisition_source": {"method": "oai", "email": "test@test.com"}}

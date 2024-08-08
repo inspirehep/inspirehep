@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
 # Copyright (C) 2016-2018 CERN.
@@ -27,7 +26,7 @@ LOGGER = structlog.getLogger()
 ORCID_REGEX = r"\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"
 
 
-class OrcidPusher(object):
+class OrcidPusher:
     def __init__(
         self,
         orcid,
@@ -43,7 +42,7 @@ class OrcidPusher(object):
         self.record_db_version = record_db_version
         self.inspire_record = self._get_inspire_record()
         self.cache = OrcidCache(orcid, recid)
-        self.lock_name = "orcid:{}".format(self.orcid)
+        self.lock_name = f"orcid:{self.orcid}"
         self.client = OrcidClient(self.oauth_token, self.orcid)
         self.converter = None
         self.cached_author_putcodes = {}
@@ -55,7 +54,7 @@ class OrcidPusher(object):
             )
         except PIDDoesNotExistError as exc:
             raise exceptions.RecordNotFoundException(
-                "recid={} not found for pid_type=lit".format(self.recid), from_exc=exc
+                f"recid={self.recid} not found for pid_type=lit", from_exc=exc
             )
 
         # If the record_db_version was given, then ensure we are about to push
@@ -71,10 +70,8 @@ class OrcidPusher(object):
             and inspire_record.model.version_id < self.record_db_version
         ):
             raise exceptions.StaleRecordDBVersionException(
-                "Requested push for db version={}, but actual record db"
-                " version={}".format(
-                    self.record_db_version, inspire_record.model.version_id
-                )
+                f"Requested push for db version={self.record_db_version}, but actual record db"
+                f" version={inspire_record.model.version_id}"
             )
         return inspire_record
 
@@ -247,10 +244,8 @@ class OrcidPusher(object):
         # at this moment it helps isolate a potential issue.
         if putcode and not self.cache.read_work_putcode():
             raise exceptions.PutcodeNotFoundInCacheAfterCachingAllPutcodes(
-                "No putcode={} found in cache for recid={} after having"
-                " cached all author putcodes for orcid={}".format(
-                    self.putcode, self.recid, self.orcid
-                )
+                f"No putcode={self.putcode} found in cache for recid={self.recid} after having"
+                f" cached all author putcodes for orcid={self.orcid}"
             )
 
         return putcode
@@ -286,8 +281,7 @@ class OrcidPusher(object):
             putcodes_recids
         )
 
-        for (recid, putcode) in updated_putcodes_recid.items():
-
+        for recid, putcode in updated_putcodes_recid.items():
             if not putcode or not recid:
                 continue
             if recid == self.recid:

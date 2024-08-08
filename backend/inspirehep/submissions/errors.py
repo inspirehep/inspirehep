@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -23,7 +22,7 @@ class LoaderDataError(RESTException):
     def __init__(
         self,
         description="Something went wrong while processing your data, please try again later.",
-        **kwargs
+        **kwargs,
     ):
         super().__init__(**kwargs)
         self.description = description

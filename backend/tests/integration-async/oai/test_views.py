@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -11,12 +10,11 @@ from helpers.providers.faker import faker
 from helpers.utils import es_search, retry_test
 from inspire_dojson.api import record2marcxml
 from inspire_utils.record import get_value
+from inspirehep.records.api import LiteratureRecord
 from invenio_db import db
 from invenio_oaiserver.models import OAISet
 from invenio_search import current_search
 from tenacity import stop_after_delay, wait_fixed
-
-from inspirehep.records.api import LiteratureRecord
 
 RECORD_INDENT = "        "
 

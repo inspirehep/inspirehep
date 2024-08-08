@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2018 CERN.
@@ -24,22 +23,21 @@ import mock
 import pytest
 from flask import current_app
 from helpers.utils import create_user
-from invenio_db import db
-from invenio_oauthclient.errors import AlreadyLinkedError
-from invenio_oauthclient.models import RemoteToken, User, UserIdentity
-
 from inspirehep.orcid.tasks import (
     RemoteTokenOrcidMismatch,
     _link_user_and_token,
     push_account_literature_to_orcid,
 )
+from invenio_db import db
+from invenio_oauthclient.errors import AlreadyLinkedError
+from invenio_oauthclient.models import RemoteToken, User, UserIdentity
 
 # The tests are written in a specific order, disable random
 pytestmark = pytest.mark.random_order(disabled=True)
 
 
 @pytest.mark.usefixtures("inspire_app")
-class TestLinkUserAndToken(object):
+class TestLinkUserAndToken:
     @pytest.fixture(autouse=True)
     def setup(self, inspire_app):
         self.orcid = "myorcid"

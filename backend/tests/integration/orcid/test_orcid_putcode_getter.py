@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2018 CERN.
@@ -24,7 +23,6 @@ import logging
 
 import mock
 import pytest
-
 from inspirehep.orcid import exceptions
 from inspirehep.orcid.converter import ExternalIdentifier
 from inspirehep.orcid.putcode_getter import OrcidPutcodeGetter
@@ -34,7 +32,7 @@ pytestmark = pytest.mark.random_order(disabled=True)
 
 
 @pytest.mark.usefixtures("inspire_app")
-class TestOrcidPutcodeGetter(object):
+class TestOrcidPutcodeGetter:
     def setup(self):
         self.orcid = "0000-0002-6665-4934"  # ATLAS author.
         self.source_client_id_path = "0000-0001-8607-8906"
@@ -79,9 +77,12 @@ class TestOrcidPutcodeGetter(object):
     def test_token_invalid(self):
         token = "invalid"
         putcode_getter = OrcidPutcodeGetter(self.orcid, token)
-        with pytest.raises(exceptions.TokenInvalidDeletedException), mock.patch(
-            "inspirehep.orcid.push_access_tokens.delete_access_token"
-        ) as mock_delete_access_token:
+        with (
+            pytest.raises(exceptions.TokenInvalidDeletedException),
+            mock.patch(
+                "inspirehep.orcid.push_access_tokens.delete_access_token"
+            ) as mock_delete_access_token,
+        ):
             list(putcode_getter.get_all_inspire_putcodes_and_recids_iter())
         mock_delete_access_token.assert_called_once_with(token, self.orcid)
 

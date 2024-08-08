@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,7 +6,6 @@
 
 import orjson
 from helpers.providers.faker import faker
-
 from inspirehep.records.marshmallow.literature import LiteratureAuthorsSchema
 
 

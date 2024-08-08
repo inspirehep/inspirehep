@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,6 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
+
 from contextlib import contextmanager
 from functools import partial
 
@@ -19,13 +19,12 @@ from helpers.cleanups import db_cleanup, es_cleanup
 from helpers.factories.models.base import BaseFactory
 from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
-from invenio_cache import current_cache
-from moto import mock_s3
-from redis import StrictRedis
-
 from inspirehep.cli import cli as inspire_cli
 from inspirehep.factory import create_app as inspire_create_app
 from inspirehep.files.api.s3 import S3
+from invenio_cache import current_cache
+from moto import mock_s3
+from redis import StrictRedis
 
 
 @pytest.fixture(scope="module")
@@ -43,9 +42,9 @@ def app_config(instance_path, app_config):
     app_config["JSONSCHEMAS_HOST"] = "localhost:5000"
     app_config["SERVER_NAME"] = "localhost:5000"
     app_config["SEARCH_INDEX_PREFIX"] = "test-integration-"
-    app_config[
-        "SQLALCHEMY_DATABASE_URI"
-    ] = "postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep"
+    app_config["SQLALCHEMY_DATABASE_URI"] = (
+        "postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep"
+    )
     app_config["FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS"] = True
     app_config["FILES_MAX_UPLOAD_THREADS"] = 1
     return app_config
@@ -141,13 +140,13 @@ def db_(database):
 
 @pytest.fixture(scope="function")
 def db(db_):
-    yield db_
+    return db_
 
 
 @pytest.fixture(scope="function")
 def es_clear(es):
     es_cleanup(es)
-    yield es
+    return es
 
 
 @pytest.fixture(scope="function")
@@ -156,7 +155,7 @@ def cli(inspire_app):
     runner = CliRunner()
     obj = ScriptInfo(create_app=lambda: inspire_app)
     runner.invoke = partial(runner.invoke, inspire_cli, obj=obj)
-    yield runner
+    return runner
 
 
 @pytest.fixture(scope="function")
@@ -173,7 +172,7 @@ def redis(inspire_app):
 def inspire_app(base_app, db, es_clear, vcr_config):
     # Make sure the API app has the same config
     base_app.wsgi_app.mounts["/api"].config.update(base_app.config)
-    yield base_app
+    return base_app
 
 
 @pytest.fixture(scope="function")
@@ -192,8 +191,9 @@ def override_config(inspire_app):
             ):
                 ...
         """
-        with mock.patch.dict(inspire_app.config, kwargs), mock.patch.dict(
-            inspire_app.wsgi_app.mounts["/api"].config, kwargs
+        with (
+            mock.patch.dict(inspire_app.config, kwargs),
+            mock.patch.dict(inspire_app.wsgi_app.mounts["/api"].config, kwargs),
         ):
             yield
 

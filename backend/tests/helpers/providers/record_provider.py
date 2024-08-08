@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -30,17 +29,11 @@ class RecordProvider(BaseProvider):
 
     @staticmethod
     def doi():
-        return "10.{}/{}".format(
-            fake.random_number(digits=4, fix_len=True),
-            fake.random_number(digits=8, fix_len=True),
-        )
+        return f"10.{fake.random_number(digits=4, fix_len=True)}/{fake.random_number(digits=8, fix_len=True)}"
 
     @staticmethod
     def arxiv():
-        return "20{}.{}".format(
-            fake.random_number(digits=2, fix_len=True),
-            fake.random_number(digits=5, fix_len=True),
-        )
+        return f"20{fake.random_number(digits=2, fix_len=True)}.{fake.random_number(digits=5, fix_len=True)}"
 
     @staticmethod
     def orcid():

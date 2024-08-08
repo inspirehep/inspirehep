@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -31,7 +30,7 @@ class UserFactory(BaseFactory):
         allow_push=None,
         token=None,
         *args,
-        **kwargs
+        **kwargs,
     ):
         ds = current_app.extensions["invenio-accounts"].datastore
         role = ds.find_or_create_role(role)

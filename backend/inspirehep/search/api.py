@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,13 +6,13 @@
 
 
 import structlog
-from opensearchpy import RequestError
-from opensearch_dsl.query import Match, Q
 from flask import current_app, request
 from inspire_schemas.utils import convert_old_publication_info_to_new
 from inspire_utils.record import get_value
 from invenio_search import current_search_client as es
 from invenio_search.api import DefaultFilter, RecordsSearch
+from opensearch_dsl.query import Match, Q
+from opensearchpy import RequestError
 from requests.exceptions import RequestException
 
 from inspirehep.accounts.api import (
@@ -35,7 +34,7 @@ IQ = inspire_query_factory()
 LOGGER = structlog.getLogger()
 
 
-class SearchMixin(object):
+class SearchMixin:
     """Mixin that adds helper functions to ElasticSearch DSL classes."""
 
     @property
@@ -179,9 +178,9 @@ class LiteratureSearch(InspireSearch):
             journal_title = get_value(
                 reference, "reference.publication_info.journal_title"
             )
-            reference["reference"]["publication_info"][
-                "journal_title"
-            ] = JournalsSearch().normalize_title(journal_title)
+            reference["reference"]["publication_info"]["journal_title"] = (
+                JournalsSearch().normalize_title(journal_title)
+            )
         except KeyError:
             pass
         return reference

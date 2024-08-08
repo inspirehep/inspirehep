@@ -1,5 +1,4 @@
 from flask import current_app
-
 from inspirehep.search.aggregations import (
     conf_series_aggregation,
     conf_subject_aggregation,

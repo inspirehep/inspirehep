@@ -3,7 +3,7 @@
 	xmlns:sch="http://purl.oclc.org/dsdl/schematron" elementFormDefault="qualified"
 	targetNamespace="http://www.orcid.org/ns/work" xmlns:work="http://www.orcid.org/ns/work"
 	xmlns:common="http://www.orcid.org/ns/common" xmlns:error="http://www.orcid.org/ns/error">
-	<xs:annotation> 
+	<xs:annotation>
 		<xs:documentation>
 			=============================================================================
 
@@ -155,7 +155,7 @@
 			<xs:enumeration value="working-paper" />
 		</xs:restriction>
 	</xs:simpleType>
-	
+
 	<xs:complexType name="work-contributors">
 		<xs:annotation>
 			<xs:documentation>Container for the contributors of a Work.
@@ -280,7 +280,7 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:maxLength value="1000"/>			
+			<xs:maxLength value="1000"/>
 		</xs:restriction>
 	</xs:simpleType>
 

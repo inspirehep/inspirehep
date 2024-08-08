@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -24,9 +23,9 @@ REMOTE_SANDBOX_REST_APP["params"]["request_token_params"] = {
     "scope": " ".join(["/read-limited", "/activities/update", "/person/update"]),
     "show_login": "true",
 }
-REMOTE_SANDBOX_REST_APP["signup_handler"][
-    "setup"
-] = "inspirehep.accounts.handlers:account_setup_handler"
+REMOTE_SANDBOX_REST_APP["signup_handler"]["setup"] = (
+    "inspirehep.accounts.handlers:account_setup_handler"
+)
 # ==============================================================================
 
 # ORCID production =============================================================
@@ -37,9 +36,9 @@ REMOTE_REST_APP["params"]["request_token_params"] = {
     "scope": " ".join(["/read-limited", "/activities/update", "/person/update"]),
     "show_login": "true",
 }
-REMOTE_REST_APP["signup_handler"][
-    "setup"
-] = "inspirehep.accounts.handlers:account_setup_handler"
+REMOTE_REST_APP["signup_handler"]["setup"] = (
+    "inspirehep.accounts.handlers:account_setup_handler"
+)
 REMOTE_REST_APP["params"]["access_token_url"] = "https://api.orcid.org/oauth/token"
 REMOTE_REST_APP["params"]["authorize_url"] = "https://orcid.org/oauth/authorize"
 # ==============================================================================

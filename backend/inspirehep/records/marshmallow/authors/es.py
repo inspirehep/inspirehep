@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -15,7 +14,6 @@ from .base import AuthorsRawSchema
 
 
 class AuthorsElasticSearchSchema(ElasticSearchBaseSchema, AuthorsRawSchema):
-
     author_suggest = fields.Method("get_author_suggest", dump_only=True)
     students = fields.Method("populate_students_field", dump_only=True)
 

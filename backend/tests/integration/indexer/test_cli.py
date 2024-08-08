@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -10,13 +9,8 @@ import re
 
 import mock
 import pytest
-from opensearchpy import NotFoundError
-from opensearchpy.client.ingest import IngestClient
 from flask_sqlalchemy import models_committed
 from helpers.utils import create_record, create_record_factory
-from invenio_search import current_search
-from invenio_search.utils import build_index_name
-
 from inspirehep.indexer.cli import FULLTEXT_PIPELINE_SETUP
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import (
@@ -25,6 +19,10 @@ from inspirehep.search.api import (
     JobsSearch,
     LiteratureSearch,
 )
+from invenio_search import current_search
+from invenio_search.utils import build_index_name
+from opensearchpy import NotFoundError
+from opensearchpy.client.ingest import IngestClient
 
 
 def test_reindex_all_types_records(inspire_app, cli):

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,15 +5,14 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
+from itertools import chain
+
 import pytest
 from helpers.providers.record_provider import RecordProvider
 from helpers.utils import create_record
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-
 from inspirehep.pidstore.errors import PIDAlreadyExists
 from inspirehep.pidstore.providers.bai import InspireBAIProvider
-from inspirehep.utils import flatten_list
-from itertools import chain
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 
 def test_old_minter_bai(inspire_app, override_config):
@@ -57,8 +55,9 @@ def test_old_minter_bai_already_existing(inspire_app, override_config):
         record_1 = create_record("aut", other_pids=["bai"])
     data2 = {"ids": record_1["ids"]}
 
-    with pytest.raises(PIDAlreadyExists), override_config(
-        FEATURE_FLAG_ENABLE_BAI_PROVIDER=False
+    with (
+        pytest.raises(PIDAlreadyExists),
+        override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=False),
     ):
         create_record("aut", data2)
 
@@ -159,7 +158,7 @@ def test_minter_bai_creates_correct_bai(inspire_app, override_config):
         object_uuid=record.id, status=PIDStatus.REGISTERED, pid_type="bai"
     ).first()
 
-    assert "R.Wang.1" == result_pid.pid_value
+    assert result_pid.pid_value == "R.Wang.1"
     bai_entry = record["ids"][0]
     assert bai_entry["schema"] == "INSPIRE BAI"
 

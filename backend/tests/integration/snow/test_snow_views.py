@@ -11,10 +11,9 @@ from helpers.utils import (
     filter_out_authentication,
     filter_out_user_data_and_cookie_headers,
 )
-from invenio_accounts.testutils import login_user_via_session
-
 from inspirehep.snow.api import InspireSnow
 from inspirehep.snow.errors import CreateTicketException, EditTicketException
+from invenio_accounts.testutils import login_user_via_session
 
 
 @pytest.mark.vcr(

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -8,10 +7,9 @@
 import pytest
 from freezegun import freeze_time
 from helpers.utils import create_record
-from werkzeug.datastructures import FileStorage
-
 from inspirehep.files import current_s3_instance
 from inspirehep.tools.utils import find_references
+from werkzeug.datastructures import FileStorage
 
 
 @pytest.fixture(scope="function")

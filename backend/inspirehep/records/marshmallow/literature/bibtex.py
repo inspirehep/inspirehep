@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -93,7 +92,6 @@ class BibTexCommonSchema(BaseSchema):
 
     @staticmethod
     def get_date(data, doc_type):
-
         publication_year = BibTexCommonSchema.get_best_publication_info(data).get(
             "year"
         )
@@ -268,7 +266,6 @@ class BibTexCommonSchema(BaseSchema):
                     part_witouth_mathml = part_witouth_mathml.replace("DUMMYAND", "&")
                     bibtex_conversion_success_with_and_replacement.inc()
                 except XMLSyntaxError:
-
                     part_witouth_mathml = part
                     bibtex_conversion_errors.inc()
             latex_encoded_part = (
@@ -300,7 +297,7 @@ class BibTexCommonSchema(BaseSchema):
         doc_type = data.get("doc_type")
         degree_type = get_value(data, "thesis_info.degree_type", "other")
         if doc_type == "mastersthesis" and degree_type not in ("master", "diploma"):
-            return "{} thesis".format(degree_type.title())
+            return f"{degree_type.title()} thesis"
 
     def get_report_number(self, data):
         report_number = ", ".join(

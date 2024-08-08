@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,9 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
-from marshmallow import Schema, fields
-
 from inspirehep.records.marshmallow.fields import NonHiddenNested, NonHiddenRaw
+from marshmallow import Schema, fields
 
 
 def test_nested_returns_only_not_hidden_items_with_many_true():

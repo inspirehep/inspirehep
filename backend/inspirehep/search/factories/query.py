@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,8 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import inspire_query_parser
-from opensearch_dsl import Q
 from flask import current_app
+from opensearch_dsl import Q
 
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.search.errors import MalformatedQuery
@@ -15,7 +14,6 @@ from inspirehep.search.utils import RecursionLimit
 
 
 def replace_recid_in_citedby_query(query):
-
     citedby_query_fields = set(["index", "id", "path"])
     self_ref_field = "self.$ref.raw"
 

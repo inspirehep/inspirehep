@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,17 +6,16 @@
 
 import pytest
 from flask import render_template
-from invenio_accounts.models import User
-from invenio_db import db
-from invenio_oauthclient.models import UserIdentity
-from mock import patch
-
 from inspirehep.mailing.api.jobs import (
     get_job_recipient,
     get_jobs_from_last_week,
     send_job_deadline_reminder,
     subscribe_to_jobs_weekly_list,
 )
+from invenio_accounts.models import User
+from invenio_db import db
+from invenio_oauthclient.models import UserIdentity
+from mock import patch
 
 
 def test_jobs_from_last_week(create_jobs):

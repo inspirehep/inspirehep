@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,12 +6,11 @@
 
 import pytest
 from helpers.utils import create_record
+from inspirehep.pidstore.errors import CNUMChanged
+from inspirehep.records.api import ConferencesRecord
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from jsonschema.exceptions import ValidationError
-
-from inspirehep.pidstore.errors import CNUMChanged
-from inspirehep.records.api import ConferencesRecord
 
 
 def test_minter_mint_cnum_more_than_once(inspire_app):
@@ -173,7 +171,7 @@ def test_minter_mints_cnum_on_update_when_cnum_is_missing_in_db(inspire_app):
     record_cnums_count = PersistentIdentifier.query.filter_by(
         pid_type="cnum", object_uuid=str(rec.id)
     ).count()
-    assert 0 == record_cnums_count
+    assert record_cnums_count == 0
     data = dict(rec)
     data["cnum"] = "C05-01-01"
     rec.update(data)
@@ -183,7 +181,7 @@ def test_minter_mints_cnum_on_update_when_cnum_is_missing_in_db(inspire_app):
     ).all()
 
     expected_cnum = "C05-01-01"
-    assert 1 == len(record_cnums)
+    assert len(record_cnums) == 1
     assert record_cnums[0].pid_value == expected_cnum
 
 

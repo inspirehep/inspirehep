@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,11 +6,9 @@
 
 """INSPIRE module that adds more fun to the platform."""
 
-
 from helpers.factories.models.records import RecordMetadataFactory
-from invenio_pidstore.models import PIDStatus
-
 from inspirehep.pidstore.providers.recid import InspireRecordIdProvider
+from invenio_pidstore.models import PIDStatus
 
 
 def test_provider_with_legacy_provider(inspire_app, requests_mock):
@@ -25,5 +22,5 @@ def test_provider_with_legacy_provider(inspire_app, requests_mock):
     provider = InspireRecordIdProvider.create(**provide)
 
     assert provider.pid.pid_value == 1
-    assert "pid" == provider.pid.pid_type
-    assert PIDStatus.REGISTERED == provider.pid.status
+    assert provider.pid.pid_type == "pid"
+    assert provider.pid.status == PIDStatus.REGISTERED

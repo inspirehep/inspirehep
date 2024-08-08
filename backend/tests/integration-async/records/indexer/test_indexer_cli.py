@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,9 +6,6 @@
 
 import pytest
 from helpers.utils import generate_records
-from invenio_records.models import RecordMetadata
-from mock import patch
-
 from inspirehep.indexer.cli import get_query_records_to_index
 from inspirehep.records.api import (
     AuthorsRecord,
@@ -21,6 +17,8 @@ from inspirehep.records.api import (
     JournalsRecord,
     LiteratureRecord,
 )
+from invenio_records.models import RecordMetadata
+from mock import patch
 
 
 def check_n_records_reindex_for_pidtype(

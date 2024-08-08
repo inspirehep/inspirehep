@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021 CERN.
 #
@@ -6,7 +5,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import pytest
 from helpers.utils import create_record
-
 from inspirehep.cds.api import (
     get_record_for_pid_or_none,
     get_record_for_provided_ids,

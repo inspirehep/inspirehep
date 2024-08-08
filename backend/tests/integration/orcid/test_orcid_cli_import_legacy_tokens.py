@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,22 +7,20 @@
 import pytest
 from flask import current_app
 from helpers.factories.db.invenio_records import TestRecordMetadata
-from helpers.utils import get_index_alias, orcid_app_cli_runner
-from invenio_db import db
-from invenio_oauthclient.models import RemoteAccount, RemoteToken, User, UserIdentity
-from mock import patch
-from pytest import fixture, mark
-from redis import StrictRedis
-from simplejson import dumps
-
+from helpers.utils import get_index_alias
 from inspirehep.orcid import push_access_tokens
-from inspirehep.orcid.cli import import_legacy_orcid_tokens
 from inspirehep.orcid.tasks import (
     USER_EMAIL_EMPTY_PATTERN,
     _find_user_matching,
     _register_user,
     legacy_orcid_arrays,
 )
+from invenio_db import db
+from invenio_oauthclient.models import RemoteAccount, RemoteToken, User, UserIdentity
+from mock import patch
+from pytest import fixture, mark
+from redis import StrictRedis
+from simplejson import dumps
 
 # The tests are written in a specific order, disable random
 pytestmark = mark.random_order(disabled=True)
@@ -142,7 +139,7 @@ def app_without_config(inspire_app, override_config):
         yield inspire_app
 
 
-@pytest.fixture
+@pytest.fixture()
 def inspire_record_author():
     factory_author = TestRecordMetadata.create_from_file(
         __name__,
@@ -152,7 +149,7 @@ def inspire_record_author():
     return factory_author.inspire_record
 
 
-@pytest.fixture
+@pytest.fixture()
 def inspire_record_literature():
     factory_literature = TestRecordMetadata.create_from_file(
         __name__,
@@ -162,7 +159,7 @@ def inspire_record_literature():
     return factory_literature.inspire_record
 
 
-@pytest.fixture
+@pytest.fixture()
 def assert_user_and_token_models():
     def _assert_user_and_token_models(orcid, token, email, name):
         user = User.query.filter_by(email=email).one_or_none()
@@ -182,7 +179,7 @@ def assert_user_and_token_models():
     return _assert_user_and_token_models
 
 
-@pytest.fixture
+@pytest.fixture()
 def cache_fixture():
     CACHE_EXPIRE_ORIG = push_access_tokens.CACHE_EXPIRE
     push_access_tokens.CACHE_EXPIRE = 2  # Sec.
@@ -248,7 +245,6 @@ def test_empty_name(
     )
 
     result = cli.invoke(["orcid", "import-legacy-tokens"])
-
 
     assert "Pushing orcid" in result.output
     mock_orcid_push.apply_async.assert_any_call(
@@ -339,7 +335,7 @@ def test_linked_user_with_token_exists(app_with_config, teardown_sample_user):
 
     # Assert token unchanged
     assert_db_has_n_legacy_tokens(1, SAMPLE_USER)
-    assert 0 == RemoteToken.query.filter_by(token=SAMPLE_USER_EDITED).count()
+    assert RemoteToken.query.filter_by(token=SAMPLE_USER_EDITED).count() == 0
 
 
 def test_linked_user_without_token_exists(app_with_config, teardown_sample_user_edited):
@@ -423,7 +419,7 @@ def test_find_user_matching(app_with_config, teardown_sample_user, orcid, email)
 def test_orcid_happy_flow(
     mock_legacy_orcid_arrays,
     mock_orcid_push,
-    cli, 
+    cli,
     assert_user_and_token_models,
     redis_setup,
     inspire_record_author,

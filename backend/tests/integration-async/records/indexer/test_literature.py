@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -11,15 +10,14 @@ from flask_sqlalchemy import models_committed
 from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
 from helpers.utils import retry_test
-from invenio_db import db
-from invenio_search import current_search
-from sqlalchemy.orm.exc import StaleDataError
-from tenacity import stop_after_delay, wait_fixed
-
 from inspirehep.indexer.tasks import index_record
 from inspirehep.records.api import AuthorsRecord, InspireRecord, LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import AuthorsSearch, LiteratureSearch
+from invenio_db import db
+from invenio_search import current_search
+from sqlalchemy.orm.exc import StaleDataError
+from tenacity import stop_after_delay, wait_fixed
 
 
 def assert_citation_count(cited_record, expected_count):
@@ -362,7 +360,7 @@ def test_literature_regression_changing_bai_in_record_reindex_records_which_are_
         def assert_record():
             current_search.flush_and_refresh("records-hep")
             record_from_es = LiteratureSearch().get_record_data_from_es(citer)
-            assert ["Jean.L.Picard.1"] == record_from_es["referenced_authors_bais"]
+            assert record_from_es["referenced_authors_bais"] == ["Jean.L.Picard.1"]
 
         assert_record()
 
@@ -375,7 +373,7 @@ def test_literature_regression_changing_bai_in_record_reindex_records_which_are_
             current_search.flush_and_refresh("records-hep")
             record = LiteratureRecord.get_record_by_pid_value(citer_control_number)
             record_from_es = LiteratureSearch().get_record_data_from_es(record)
-            assert ["J.Picard.2"] == record_from_es["referenced_authors_bais"]
+            assert record_from_es["referenced_authors_bais"] == ["J.Picard.2"]
 
         assert_record()
 

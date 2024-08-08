@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -388,6 +387,7 @@ def normalize_affiliations_for_authors(parsed_authors):
     for author, normalized_affiliation in zip(
         parsed_authors.get("authors", []),
         normalized_affiliations_result["normalized_affiliations"],
+        strict=False,
     ):
         if "affiliations" in author:
             continue

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,9 +7,8 @@
 import orjson
 from helpers.utils import create_record, create_record_factory, create_user
 from inspire_utils.query import ordered
-from invenio_accounts.testutils import login_user_via_session
-
 from inspirehep.accounts.roles import Roles
+from invenio_accounts.testutils import login_user_via_session
 
 
 def test_authors_detail(inspire_app, datadir):

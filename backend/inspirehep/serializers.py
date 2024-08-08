@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -9,7 +8,6 @@ from builtins import TypeError
 import orjson
 import pytz
 import structlog
-from opensearch_dsl import Q
 from flask import current_app, request
 from inspire_utils.record import get_value
 from invenio_records_rest.serializers.json import (
@@ -17,6 +15,7 @@ from invenio_records_rest.serializers.json import (
 )
 from invenio_records_rest.utils import set_headers_for_record_caching_and_concurrency
 from invenio_search.utils import build_alias_name
+from opensearch_dsl import Q
 
 from inspirehep.accounts.api import is_user_logged_in
 from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS

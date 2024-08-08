@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023 CERN.
 #
@@ -11,7 +10,6 @@ import mock
 import orjson
 import pytest
 from helpers.utils import create_record
-
 from inspirehep.curation.api import (
     assign_institution_reference_to_affiliations,
     normalize_affiliations,

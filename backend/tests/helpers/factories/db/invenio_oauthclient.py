@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,10 +5,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
+from inspirehep.accounts.fixtures import generate_random_string
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, UserIdentity
-
-from inspirehep.accounts.fixtures import generate_random_string
 
 from .base import TestBaseModel
 from .invenio_accounts import TestUser

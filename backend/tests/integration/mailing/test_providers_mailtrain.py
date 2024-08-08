@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,7 +7,6 @@ from datetime import datetime
 
 import pytest
 from freezegun import freeze_time
-
 from inspirehep.mailing.providers.mailtrain import (
     mailtrain_subscribe_user_to_list,
     mailtrain_update_weekly_campaign_content,

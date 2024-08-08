@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,11 +6,9 @@
 
 """INSPIRE module that adds more fun to the platform."""
 
-
 import pytest
-from mock import MagicMock, patch
-
 from inspirehep.pidstore.api import PidStoreBase
+from mock import MagicMock, patch
 
 
 @pytest.mark.parametrize("pid_type,expected", [("lit", "literature"), ("jes", None)])

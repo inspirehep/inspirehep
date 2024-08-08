@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -14,14 +13,13 @@ import structlog
 from click.testing import CliRunner
 from flask.cli import ScriptInfo
 from helpers.cleanups import db_cleanup, es_cleanup
-from invenio_search import current_search_client as es
-from moto import mock_s3
-from redis import StrictRedis
-
 from inspirehep.celery import CeleryTask
 from inspirehep.cli import cli as inspire_cli
 from inspirehep.factory import create_app as inspire_create_app
 from inspirehep.files.api.s3 import S3
+from invenio_search import current_search_client as es
+from moto import mock_s3
+from redis import StrictRedis
 
 LOGGER = structlog.getLogger()
 
@@ -36,9 +34,9 @@ def app():
     app_config["CELERY_TASK_EAGER_PROPAGATES"] = False
     app_config["TESTING"] = True
     app_config["SEARCH_INDEX_PREFIX"] = "test-integration-async-"
-    app_config[
-        "SQLALCHEMY_DATABASE_URI"
-    ] = "postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep-async"
+    app_config["SQLALCHEMY_DATABASE_URI"] = (
+        "postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep-async"
+    )
     app_config["FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS"] = True
     app.wsgi_app.mounts["/api"].config.update(app_config)
     # We cannot have `api` app with the same SERVER_NAME
@@ -86,7 +84,7 @@ def celery_session_app(app, celery_session_app):
     celery_session_app.Task = CeleryTask
     celery_session_app.flask_app = app
 
-    yield celery_session_app
+    return celery_session_app
 
 
 @pytest.fixture(scope="function")
@@ -107,7 +105,7 @@ def cli(inspire_app):
     runner = CliRunner()
     obj = ScriptInfo(create_app=lambda: inspire_app)
     runner.invoke = partial(runner.invoke, inspire_cli, obj=obj)
-    yield runner
+    return runner
 
 
 @pytest.fixture(scope="function")
@@ -136,8 +134,9 @@ def override_config(inspire_app):
             ):
                 ...
         """
-        with mock.patch.dict(inspire_app.config, kwargs), mock.patch.dict(
-            inspire_app.wsgi_app.mounts["/api"].config, kwargs
+        with (
+            mock.patch.dict(inspire_app.config, kwargs),
+            mock.patch.dict(inspire_app.wsgi_app.mounts["/api"].config, kwargs),
         ):
             yield
 
@@ -146,7 +145,7 @@ def override_config(inspire_app):
 
 @pytest.fixture(scope="function")
 def inspire_app(app, cache, clear_environment):
-    yield app
+    return app
 
 
 @pytest.fixture(scope="function")

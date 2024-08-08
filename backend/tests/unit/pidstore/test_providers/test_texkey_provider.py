@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -6,7 +5,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import mock
 import pytest
-
 from inspirehep.pidstore.errors import CannotGenerateUniqueTexKey
 from inspirehep.pidstore.providers.texkey import InspireTexKeyProvider
 
@@ -129,18 +127,17 @@ def test_get_texkey_second_part():
 
 def test_get_random_texkey_part():
     texkey = "Janeway:2345"
-    with mock.patch(
-        "inspirehep.pidstore.providers.texkey.current_app"
-    ) as mocked_app, mock.patch(
-        "inspirehep.pidstore.providers.texkey.PersistentIdentifier"
-    ) as model_mock:
+    with (
+        mock.patch("inspirehep.pidstore.providers.texkey.current_app") as mocked_app,
+        mock.patch(
+            "inspirehep.pidstore.providers.texkey.PersistentIdentifier"
+        ) as model_mock,
+    ):
         mocked_app.config = {
             "PIDSTORE_TEXKEY_MAX_RETRY_COUNT": 5,
             "PIDSTORE_TEXKEY_RANDOM_PART_SIZE": 3,
         }
-        model_mock.query.return_value.filter.return_value.filter.return_value.one_or_none.return_value = (
-            None
-        )
+        model_mock.query.return_value.filter.return_value.filter.return_value.one_or_none.return_value = None
 
         second_part = InspireTexKeyProvider.get_texkey_with_random_part(texkey)
 
@@ -151,13 +148,13 @@ def test_get_random_texkey_part():
 def test_get_random_texkey_retries_count_taken_from_config():
     texkey = "Janeway:2345"
     random_part = "ax1"
-    with mock.patch(
-        "inspirehep.pidstore.providers.texkey.current_app"
-    ) as mocked_app, mock.patch(
-        "inspirehep.pidstore.providers.texkey.PersistentIdentifier"
-    ) as model_mock, mock.patch(
-        "inspirehep.pidstore.providers.texkey.random"
-    ) as mocked_random:
+    with (
+        mock.patch("inspirehep.pidstore.providers.texkey.current_app") as mocked_app,
+        mock.patch(
+            "inspirehep.pidstore.providers.texkey.PersistentIdentifier"
+        ) as model_mock,
+        mock.patch("inspirehep.pidstore.providers.texkey.random") as mocked_random,
+    ):
         mocked_app.config = {
             "PIDSTORE_TEXKEY_MAX_RETRY_COUNT": 2,
             "PIDSTORE_TEXKEY_RANDOM_PART_SIZE": 3,
@@ -173,18 +170,17 @@ def test_get_random_texkey_retries_count_taken_from_config():
 
 def test_get_random_texkey_part_length_taken_from_config():
     texkey = "Janeway:2345"
-    with mock.patch(
-        "inspirehep.pidstore.providers.texkey.current_app"
-    ) as mocked_app, mock.patch(
-        "inspirehep.pidstore.providers.texkey.PersistentIdentifier"
-    ) as model_mock:
+    with (
+        mock.patch("inspirehep.pidstore.providers.texkey.current_app") as mocked_app,
+        mock.patch(
+            "inspirehep.pidstore.providers.texkey.PersistentIdentifier"
+        ) as model_mock,
+    ):
         mocked_app.config = {
             "PIDSTORE_TEXKEY_MAX_RETRY_COUNT": 5,
             "PIDSTORE_TEXKEY_RANDOM_PART_SIZE": 9,
         }
-        model_mock.query.return_value.filter.return_value.filter.return_value.one_or_none.return_value = (
-            None
-        )
+        model_mock.query.return_value.filter.return_value.filter.return_value.one_or_none.return_value = None
 
         second_part = InspireTexKeyProvider.get_texkey_with_random_part(texkey)
 

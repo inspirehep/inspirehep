@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2018 CERN.
@@ -27,7 +26,7 @@ import pkg_resources
 import pytest
 
 
-@pytest.fixture
+@pytest.fixture()
 def get_fixture():
     def _get_fixture(filename):
         return pkg_resources.resource_string(__name__, os.path.join("data", filename))

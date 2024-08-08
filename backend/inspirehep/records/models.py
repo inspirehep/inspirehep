@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,6 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """Additional models used by InspireRecords."""
+
 import enum
 from datetime import datetime
 
@@ -249,7 +249,7 @@ class StudentsAdvisors(db.Model):
     )
 
 
-class Timestamp(object):
+class Timestamp:
     """Timestamp model mix-in with fractional seconds support.
     SQLAlchemy-Utils timestamp model does not have support for fractional
     seconds.
@@ -274,7 +274,6 @@ def timestamp_before_update(mapper, connection, target):
 
 
 class WorkflowsRecordSources(db.Model, Timestamp):
-
     __tablename__ = "workflows_record_sources"
     __table_args__ = (db.PrimaryKeyConstraint("record_uuid", "source"),)
 

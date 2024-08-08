@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,13 +5,12 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import structlog
-from opensearch_dsl.query import Q
 from flask import current_app, render_template
 from inspire_utils.record import get_value
-from invenio_oauthclient.models import UserIdentity
-
 from inspirehep.mailing.providers.flask_mail import send_email
 from inspirehep.search.api import JobsSearch
+from invenio_oauthclient.models import UserIdentity
+from opensearch_dsl.query import Q
 
 from ..providers.mailtrain import mailtrain_subscribe_user_to_list
 

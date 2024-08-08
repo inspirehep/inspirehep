@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -61,7 +60,6 @@ class AuthorsDetailSchema(AuthorsBaseSchema):
 
     @staticmethod
     def get_all_urls_field(data):
-
         urls = data.get("urls", [])
         external_author_profiles = [
             {

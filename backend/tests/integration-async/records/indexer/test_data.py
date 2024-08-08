@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021 CERN.
 #
@@ -7,12 +6,11 @@
 
 from helpers.providers.faker import faker
 from helpers.utils import retry_test
+from inspirehep.records.api import DataRecord
+from inspirehep.search.api import DataSearch
 from invenio_db import db
 from invenio_search import current_search
 from tenacity import stop_after_delay, wait_fixed
-
-from inspirehep.records.api import DataRecord
-from inspirehep.search.api import DataSearch
 
 
 def test_indexer_deletes_record_from_es(inspire_app):

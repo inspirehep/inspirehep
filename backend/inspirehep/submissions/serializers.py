@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -16,9 +15,9 @@ from .marshmallow import (
     Conference,
     Experiment,
     Institution,
+    Journal,
     Literature,
     Seminar,
-    Journal,
 )
 
 literature_v1 = JSONSerializer(Literature)

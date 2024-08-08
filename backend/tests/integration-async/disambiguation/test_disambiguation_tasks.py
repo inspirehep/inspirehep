@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -11,17 +10,16 @@ from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
 from helpers.utils import create_user, retry_test
 from inspire_utils.record import get_values_for_schema
-from invenio_accounts.testutils import login_user_via_session
-from invenio_db import db
-from redis import StrictRedis
-from tenacity import stop_after_delay, wait_fixed
-
 from inspirehep.disambiguation.tasks import disambiguate_authors
 from inspirehep.editor.editor_soft_lock import EditorSoftLock
 from inspirehep.records.api import AuthorsRecord, InspireRecord
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import AuthorsSearch, InspireSearch
+from invenio_accounts.testutils import login_user_via_session
+from invenio_db import db
+from redis import StrictRedis
+from tenacity import stop_after_delay, wait_fixed
 
 
 def test_disambiguation_runs_after_record_creation(
@@ -1303,7 +1301,7 @@ def test_disambiguation_reorders_name_after_succesfull_disambiguation(
             in literature_record_from_es_authors[0]["record"]["$ref"]
         )
 
-        assert "Davis Gross, Brian" == literature_record_from_es_authors[0]["full_name"]
+        assert literature_record_from_es_authors[0]["full_name"] == "Davis Gross, Brian"
 
     assert_disambiguation_task()
 
@@ -1311,7 +1309,6 @@ def test_disambiguation_reorders_name_after_succesfull_disambiguation(
 def test_author_disambiguation_manually_when_empty_authors(
     inspire_app, clean_celery_session, enable_disambiguation
 ):
-
     data = faker.record("lit", with_control_number=True)
     record = LiteratureRecord.create(data)
     record_version = record.model.version_id
@@ -1334,7 +1331,6 @@ def test_author_disambiguation_manually_when_empty_authors(
 def test_editor_lock_is_created_when_disambiguation_runs(
     mocked_remove_lock, inspire_app, clean_celery_session
 ):
-
     redis_url = current_app.config.get("CACHE_REDIS_URL")
     redis = StrictRedis.from_url(redis_url)
     author_data = faker.record("aut", with_control_number=True)

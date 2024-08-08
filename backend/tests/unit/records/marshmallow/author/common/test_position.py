@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,7 +6,6 @@
 
 import orjson
 from inspire_schemas.api import load_schema, validate
-
 from inspirehep.records.marshmallow.authors.common import PositionSchemaV1
 
 

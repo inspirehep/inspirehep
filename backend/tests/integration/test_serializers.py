@@ -1,7 +1,6 @@
 from urllib.parse import parse_qs, urlparse
 
 from helpers.utils import create_record
-
 from inspirehep.serializers import record_responsify, search_responsify
 
 
@@ -19,7 +18,7 @@ def parse_url(url):
     }
 
 
-class TestSerializer(object):
+class TestSerializer:
     """Test serializer."""
 
     def serialize(self, pid, record, **kwargs):

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -9,11 +8,10 @@ import mock
 from helpers.providers.faker import faker
 from helpers.utils import retry_test
 from inspire_utils.record import get_value
-from invenio_db import db
-from tenacity import stop_after_delay, wait_fixed
-
 from inspirehep.records.api import InspireRecord
 from inspirehep.search.api import InspireSearch, LiteratureSearch
+from invenio_db import db
+from tenacity import stop_after_delay, wait_fixed
 
 
 def test_recalculate_references_after_literature_record_merge(

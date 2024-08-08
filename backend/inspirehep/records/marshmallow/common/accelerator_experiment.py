@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -13,7 +12,6 @@ from inspirehep.records.api import InspireRecord
 
 
 class AcceleratorExperimentSchemaV1(Schema):
-
     name = fields.Method("get_name")
     record = fields.Raw(attribute="self", dump_only=True)
 
@@ -51,5 +49,5 @@ class AcceleratorExperimentSchemaV1(Schema):
         accelerator = get_value(item, "accelerator.value")
         experiment = get_value(item, "experiment.value")
         if institution and accelerator and experiment:
-            return "{}-{}-{}".format(institution, accelerator, experiment)
+            return f"{institution}-{accelerator}-{experiment}"
         return item.get("legacy_name")
