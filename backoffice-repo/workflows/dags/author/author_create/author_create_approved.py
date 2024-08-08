@@ -106,6 +106,7 @@ def author_create_approved_dag():
             workflow_management_hook.partial_update_workflow(
                 workflow_id=context["params"]["workflow_id"],
                 workflow_partial_update_data={"data": workflow_data["data"]},
+                collection=AUTHORS,
             )
         return status
 
