@@ -137,7 +137,6 @@ psycopg = {version = "3.1.12", extras = ["c"]}
 watchfiles = "0.20.0"
 gunicorn = "21.2.0"
 Collectfast = "2.2.0"
-sentry-sdk = "1.31.0"
 django-storages = {version = "1.14.2", extras = ["s3"]}
 django-anymail = "10.1"
 dj-database-url = "^2.1.0"
@@ -150,6 +149,7 @@ opensearch-dsl = "^2.1.0"
 opensearch-py = "2.6.0"
 djangorestframework-simplejwt = "^5.3.1"
 django-json-widget = "^2.0.1"
+sentry-sdk = "1.19.1"
 
 [tool.poetry.dev-dependencies]
 factory-boy = "3.3.0"
