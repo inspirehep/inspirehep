@@ -79,16 +79,8 @@ export class RefExtractActionsComponent {
       });
   }
 
-  get sourceType(): 'text' | 'url' | 'xml' {
+  get sourceType(): 'text' | 'url' {
     const isUrl = this.source.startsWith('http') && this.source.length < 2048;
-    if (isUrl) {
-      return 'url';
-    }
-
-    const isXml = this.source.startsWith('<collaborationauthorlist');
-    if (isXml) {
-      return 'xml';
-    }
-    return 'text';
+    return isUrl ? 'url' : 'text';
   }
 }
