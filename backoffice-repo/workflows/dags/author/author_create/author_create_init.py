@@ -2,6 +2,7 @@ import datetime
 import logging
 
 from airflow.decorators import dag, task
+from airflow.models import Variable
 from airflow.models.param import Param
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.backoffice.workflow_ticket_management_hook import (
@@ -50,10 +51,12 @@ def author_create_initialization_dag():
 
     @task()
     def set_schema(**context):
-        schema = "https://inspirehep.net/schemas/records/authors.json"
+        schema = Variable.get("author_schema")
         workflow_management_hook.partial_update_workflow(
             workflow_id=context["params"]["workflow_id"],
-            workflow_partial_update_data={"data": {"$schema": schema}},
+            workflow_partial_update_data={
+                "data": {**context["params"]["data"], "$schema": schema}
+            },
             collection=AUTHORS,
         )
 
