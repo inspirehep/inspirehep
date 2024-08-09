@@ -64,3 +64,10 @@ class TestAirflowUtils(TransactionTestCase):
             self.workflow_id, self.workflow_type
         )
         self.assertEqual(response.status_code, 200)
+
+    @pytest.mark.vcr()
+    def test_delete_workflow_dag_runs(self):
+        response = airflow_utils.delete_workflow_dag_runs(
+            self.workflow_id, self.workflow_type
+        )
+        self.assertEqual(response.status_code, 200)
