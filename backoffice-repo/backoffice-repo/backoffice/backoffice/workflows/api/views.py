@@ -53,6 +53,10 @@ class WorkflowViewSet(viewsets.ModelViewSet):
             return self.queryset.filter(status__status=status)
         return self.queryset
 
+    def perform_destroy(self, instance):
+        airflow_utils.delete_workflow_dag_runs(instance.id, instance.workflow_type)
+        super().perform_destroy(instance)
+
 
 class WorkflowTicketViewSet(viewsets.ViewSet):
     def retrieve(self, request, *args, **kwargs):

@@ -19,7 +19,12 @@ from backoffice.workflows.api.serializers import (
     WorkflowSerializer,
     WorkflowTicketSerializer,
 )
-from backoffice.workflows.constants import WORKFLOW_DAGS, StatusChoices, WorkflowType
+from backoffice.workflows.constants import (
+    WORKFLOW_DAGS,
+    AuthorCreateDags,
+    StatusChoices,
+    WorkflowType,
+)
 from backoffice.workflows.models import WorkflowTicket
 
 User = get_user_model()
@@ -57,7 +62,12 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
     def setUp(self):
         super().setUp()
         self.workflow = Workflow.objects.create(
-            data={}, status=StatusChoices.APPROVAL, core=True, is_update=False
+            data={},
+            status=StatusChoices.APPROVAL,
+            core=True,
+            is_update=False,
+            workflow_type=WorkflowType.AUTHOR_CREATE,
+            id=uuid.UUID(int=2),
         )
 
     def test_list_curator(self):
@@ -89,6 +99,27 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         assert "tickets" in workflow_data
         assert "ticket_id" in workflow_data["tickets"][0]
         assert "ticket_type" in workflow_data["tickets"][0]
+
+    @pytest.mark.vcr()
+    def test_delete(self):
+        self.api_client.force_authenticate(user=self.curator)
+        airflow_utils.trigger_airflow_dag(
+            AuthorCreateDags.initialize, str(self.workflow.id)
+        )
+        assert airflow_utils.find_executed_dags(
+            self.workflow.id, self.workflow.workflow_type
+        )
+
+        url = reverse("api:workflows-detail", kwargs={"pk": self.workflow.id})
+        response = self.api_client.delete(url)
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        assert (
+            airflow_utils.find_executed_dags(
+                self.workflow.id, self.workflow.workflow_type
+            )
+            == {}
+        )
 
 
 class TestWorkflowSearchViewSet(BaseTransactionTestCase):
