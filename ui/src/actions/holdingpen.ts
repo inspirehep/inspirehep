@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { push } from 'connected-react-router';
 import { Action, ActionCreator } from 'redux';
+import { RootStateOrAny } from 'react-redux';
 import axios from 'axios';
 
 import { httpErrorToActionPayload } from '../common/utils';
@@ -15,6 +16,7 @@ import {
   HOLDINGPEN_AUTHOR_ERROR,
   HOLDINGPEN_AUTHOR_REQUEST,
   HOLDINGPEN_AUTHOR_SUCCESS,
+  HOLDINGPEN_SEARCH_QUERY_RESET,
 } from './actionTypes';
 import {
   BACKOFFICE_API,
@@ -134,6 +136,12 @@ function updateQuery(data: any) {
   };
 }
 
+function resetQuery() {
+  return {
+    type: HOLDINGPEN_SEARCH_QUERY_RESET,
+  };
+}
+
 export function holdingpenLogin(
   credentials: Credentials
 ): (dispatch: ActionCreator<Action>) => Promise<void> {
@@ -184,14 +192,20 @@ export function holdingpenLogout(): (
   };
 }
 
-export function fetchSearchResults(query: {
-  page: number;
-  size: number;
-}): (dispatch: ActionCreator<Action>) => Promise<void> {
-  return async (dispatch) => {
+export function fetchSearchResults(): (
+  dispatch: ActionCreator<Action>,
+  getState: () => RootStateOrAny
+) => Promise<void> {
+  return async (dispatch, getState) => {
     dispatch(searching());
 
-    const resolveQuery = `${BACKOFFICE_SEARCH_API}?page=${query.page}&size=${query.size}`;
+    const currentQuery = getState()?.holdingpen?.get('query')?.toJS() || {};
+
+    const resolveQuery = `${BACKOFFICE_SEARCH_API}/?${
+      Object.entries(currentQuery)
+        ?.map(([key, value]: [string, any]) => `${key}=${value}`)
+        .join('&') || ''
+    }`;
 
     try {
       const response = await httpClient.get(`${resolveQuery}`);
@@ -220,11 +234,19 @@ export function fetchAuthor(
   };
 }
 
-export function searchQueryUpdate(query: {
-  page: number;
-  size: number;
-}): (dispatch: ActionCreator<Action>) => Promise<void> {
+type QueryParams = { page: number; size: number; [key: string]: any };
+export function searchQueryUpdate(
+  query: QueryParams
+): (dispatch: ActionCreator<Action>) => Promise<void> {
   return async (dispatch) => {
     dispatch(updateQuery(query));
+  };
+}
+
+export function searchQueryReset(): (
+  dispatch: ActionCreator<Action>
+) => Promise<void> {
+  return async (dispatch) => {
+    dispatch(resetQuery());
   };
 }

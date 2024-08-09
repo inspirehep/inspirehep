@@ -21,6 +21,7 @@ export const initialState = fromJS({
   totalResults: 0,
   loading: false,
   author: [],
+  facets: [],
 });
 
 const HOLDINGPENReducer = (state = initialState, action) => {
@@ -36,12 +37,14 @@ const HOLDINGPENReducer = (state = initialState, action) => {
       return state
         .set('loading', false)
         .set('searchResults', initialState.get('searchResults'))
-        .set('totalResults', initialState.get('totalResults'));
+        .set('totalResults', initialState.get('totalResults'))
+        .set('facets', initialState.get('facets'));
     case HOLDINGPEN_SEARCH_SUCCESS:
       return state
         .set('loading', false)
         .set('searchResults', fromJS(action.payload.data.results))
-        .set('totalResults', action.payload.data.count);
+        .set('totalResults', action.payload.data.count)
+        .set('facets', fromJS(action.payload.data.facets));
     case HOLDINGPEN_AUTHOR_REQUEST:
       return state.set('loading', true);
     case HOLDINGPEN_AUTHOR_ERROR:

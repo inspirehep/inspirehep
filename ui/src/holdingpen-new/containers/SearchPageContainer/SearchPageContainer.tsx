@@ -42,9 +42,7 @@ const SearchPageContainer: React.FC<SearchPageContainerProps> = ({
   query,
 }) => {
   useEffect(() => {
-    dispatch(
-      fetchSearchResults(query.toJS() as { page: number; size: number })
-    );
+    dispatch(fetchSearchResults());
   }, [query]);
 
   return (
