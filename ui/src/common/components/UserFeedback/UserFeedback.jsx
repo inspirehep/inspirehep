@@ -122,7 +122,6 @@ class UserFeedback extends Component {
                     <a
                       href="https://help.inspirehep.net/knowledge-base/contact-us"
                       target="_blank"
-                      rel="noreferrer"
                     >
                       contact us
                     </a>

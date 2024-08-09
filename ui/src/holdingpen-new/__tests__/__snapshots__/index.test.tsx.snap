@@ -358,41 +358,6 @@ exports[`Holdingpen renders initial state 1`] = `
                         href="/holdingpen-new/search"
                       >
                         <div
-                          class="flex justify-between waiting"
-                        >
-                          <p>
-                            <span
-                              aria-label="hourglass"
-                              class="anticon anticon-hourglass mr2"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="hourglass"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194zm-72 388v134H354V706c0-42.2 16.4-81.9 46.3-111.7C430.1 564.4 469.8 548 512 548s81.9 16.4 111.7 46.3C653.6 624.1 670 663.8 670 706zm0-388c0 42.2-16.4 81.9-46.3 111.7C593.9 459.6 554.2 476 512 476s-81.9-16.4-111.7-46.3A156.63 156.63 0 01354 318V184h316v134z"
-                                />
-                              </svg>
-                            </span>
-                            Waiting
-                          </p>
-                          <span
-                            class="b"
-                          >
-                            0
-                          </span>
-                        </div>
-                      </a>
-                      <a
-                        href="/holdingpen-new/search"
-                      >
-                        <div
                           class="flex justify-between error"
                         >
                           <p>
@@ -428,17 +393,17 @@ exports[`Holdingpen renders initial state 1`] = `
                         href="/holdingpen-new/search"
                       >
                         <div
-                          class="flex justify-between halted"
+                          class="flex justify-between approval"
                         >
                           <p>
                             <span
-                              aria-label="stop"
-                              class="anticon anticon-stop mr2"
+                              aria-label="hourglass"
+                              class="anticon anticon-hourglass mr2"
                               role="img"
                             >
                               <svg
                                 aria-hidden="true"
-                                data-icon="stop"
+                                data-icon="hourglass"
                                 fill="currentColor"
                                 focusable="false"
                                 height="1em"
@@ -446,11 +411,11 @@ exports[`Holdingpen renders initial state 1`] = `
                                 width="1em"
                               >
                                 <path
-                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372 0-89 31.3-170.8 83.5-234.8l523.3 523.3C682.8 852.7 601 884 512 884zm288.5-137.2L277.2 223.5C341.2 171.3 423 140 512 140c205.4 0 372 166.6 372 372 0 89-31.3 170.8-83.5 234.8z"
+                                  d="M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194zm-72 388v134H354V706c0-42.2 16.4-81.9 46.3-111.7C430.1 564.4 469.8 548 512 548s81.9 16.4 111.7 46.3C653.6 624.1 670 663.8 670 706zm0-388c0 42.2-16.4 81.9-46.3 111.7C593.9 459.6 554.2 476 512 476s-81.9-16.4-111.7-46.3A156.63 156.63 0 01354 318V184h316v134z"
                                 />
                               </svg>
                             </span>
-                            Halted
+                            Approval
                           </p>
                           <span
                             class="b"
@@ -521,44 +486,6 @@ exports[`Holdingpen renders initial state 1`] = `
                               </svg>
                             </span>
                             Running
-                          </p>
-                          <span
-                            class="b"
-                          >
-                            0
-                          </span>
-                        </div>
-                      </a>
-                      <a
-                        href="/holdingpen-new/search"
-                      >
-                        <div
-                          class="flex justify-between initial"
-                        >
-                          <p>
-                            <span
-                              aria-label="info-circle"
-                              class="anticon anticon-info-circle mr2"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="info-circle"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
-                                />
-                                <path
-                                  d="M464 336a48 48 0 1096 0 48 48 0 10-96 0zm72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z"
-                                />
-                              </svg>
-                            </span>
-                            Initial
                           </p>
                           <span
                             class="b"
@@ -608,41 +535,6 @@ exports[`Holdingpen renders initial state 1`] = `
                         href="/holdingpen-new/search"
                       >
                         <div
-                          class="flex justify-between waiting"
-                        >
-                          <p>
-                            <span
-                              aria-label="hourglass"
-                              class="anticon anticon-hourglass mr2"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="hourglass"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194zm-72 388v134H354V706c0-42.2 16.4-81.9 46.3-111.7C430.1 564.4 469.8 548 512 548s81.9 16.4 111.7 46.3C653.6 624.1 670 663.8 670 706zm0-388c0 42.2-16.4 81.9-46.3 111.7C593.9 459.6 554.2 476 512 476s-81.9-16.4-111.7-46.3A156.63 156.63 0 01354 318V184h316v134z"
-                                />
-                              </svg>
-                            </span>
-                            Waiting
-                          </p>
-                          <span
-                            class="b"
-                          >
-                            0
-                          </span>
-                        </div>
-                      </a>
-                      <a
-                        href="/holdingpen-new/search"
-                      >
-                        <div
                           class="flex justify-between error"
                         >
                           <p>
@@ -678,17 +570,17 @@ exports[`Holdingpen renders initial state 1`] = `
                         href="/holdingpen-new/search"
                       >
                         <div
-                          class="flex justify-between halted"
+                          class="flex justify-between approval"
                         >
                           <p>
                             <span
-                              aria-label="stop"
-                              class="anticon anticon-stop mr2"
+                              aria-label="hourglass"
+                              class="anticon anticon-hourglass mr2"
                               role="img"
                             >
                               <svg
                                 aria-hidden="true"
-                                data-icon="stop"
+                                data-icon="hourglass"
                                 fill="currentColor"
                                 focusable="false"
                                 height="1em"
@@ -696,11 +588,11 @@ exports[`Holdingpen renders initial state 1`] = `
                                 width="1em"
                               >
                                 <path
-                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372 0-89 31.3-170.8 83.5-234.8l523.3 523.3C682.8 852.7 601 884 512 884zm288.5-137.2L277.2 223.5C341.2 171.3 423 140 512 140c205.4 0 372 166.6 372 372 0 89-31.3 170.8-83.5 234.8z"
+                                  d="M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194zm-72 388v134H354V706c0-42.2 16.4-81.9 46.3-111.7C430.1 564.4 469.8 548 512 548s81.9 16.4 111.7 46.3C653.6 624.1 670 663.8 670 706zm0-388c0 42.2-16.4 81.9-46.3 111.7C593.9 459.6 554.2 476 512 476s-81.9-16.4-111.7-46.3A156.63 156.63 0 01354 318V184h316v134z"
                                 />
                               </svg>
                             </span>
-                            Halted
+                            Approval
                           </p>
                           <span
                             class="b"
@@ -771,44 +663,6 @@ exports[`Holdingpen renders initial state 1`] = `
                               </svg>
                             </span>
                             Running
-                          </p>
-                          <span
-                            class="b"
-                          >
-                            0
-                          </span>
-                        </div>
-                      </a>
-                      <a
-                        href="/holdingpen-new/search"
-                      >
-                        <div
-                          class="flex justify-between initial"
-                        >
-                          <p>
-                            <span
-                              aria-label="info-circle"
-                              class="anticon anticon-info-circle mr2"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="info-circle"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
-                                />
-                                <path
-                                  d="M464 336a48 48 0 1096 0 48 48 0 10-96 0zm72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z"
-                                />
-                              </svg>
-                            </span>
-                            Initial
                           </p>
                           <span
                             class="b"
@@ -858,41 +712,6 @@ exports[`Holdingpen renders initial state 1`] = `
                         href="/holdingpen-new/search"
                       >
                         <div
-                          class="flex justify-between waiting"
-                        >
-                          <p>
-                            <span
-                              aria-label="hourglass"
-                              class="anticon anticon-hourglass mr2"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="hourglass"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194zm-72 388v134H354V706c0-42.2 16.4-81.9 46.3-111.7C430.1 564.4 469.8 548 512 548s81.9 16.4 111.7 46.3C653.6 624.1 670 663.8 670 706zm0-388c0 42.2-16.4 81.9-46.3 111.7C593.9 459.6 554.2 476 512 476s-81.9-16.4-111.7-46.3A156.63 156.63 0 01354 318V184h316v134z"
-                                />
-                              </svg>
-                            </span>
-                            Waiting
-                          </p>
-                          <span
-                            class="b"
-                          >
-                            0
-                          </span>
-                        </div>
-                      </a>
-                      <a
-                        href="/holdingpen-new/search"
-                      >
-                        <div
                           class="flex justify-between error"
                         >
                           <p>
@@ -928,17 +747,17 @@ exports[`Holdingpen renders initial state 1`] = `
                         href="/holdingpen-new/search"
                       >
                         <div
-                          class="flex justify-between halted"
+                          class="flex justify-between approval"
                         >
                           <p>
                             <span
-                              aria-label="stop"
-                              class="anticon anticon-stop mr2"
+                              aria-label="hourglass"
+                              class="anticon anticon-hourglass mr2"
                               role="img"
                             >
                               <svg
                                 aria-hidden="true"
-                                data-icon="stop"
+                                data-icon="hourglass"
                                 fill="currentColor"
                                 focusable="false"
                                 height="1em"
@@ -946,11 +765,11 @@ exports[`Holdingpen renders initial state 1`] = `
                                 width="1em"
                               >
                                 <path
-                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372 0-89 31.3-170.8 83.5-234.8l523.3 523.3C682.8 852.7 601 884 512 884zm288.5-137.2L277.2 223.5C341.2 171.3 423 140 512 140c205.4 0 372 166.6 372 372 0 89-31.3 170.8-83.5 234.8z"
+                                  d="M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194zm-72 388v134H354V706c0-42.2 16.4-81.9 46.3-111.7C430.1 564.4 469.8 548 512 548s81.9 16.4 111.7 46.3C653.6 624.1 670 663.8 670 706zm0-388c0 42.2-16.4 81.9-46.3 111.7C593.9 459.6 554.2 476 512 476s-81.9-16.4-111.7-46.3A156.63 156.63 0 01354 318V184h316v134z"
                                 />
                               </svg>
                             </span>
-                            Halted
+                            Approval
                           </p>
                           <span
                             class="b"
@@ -1026,44 +845,6 @@ exports[`Holdingpen renders initial state 1`] = `
                             class="b"
                           >
                             4
-                          </span>
-                        </div>
-                      </a>
-                      <a
-                        href="/holdingpen-new/search"
-                      >
-                        <div
-                          class="flex justify-between initial"
-                        >
-                          <p>
-                            <span
-                              aria-label="info-circle"
-                              class="anticon anticon-info-circle mr2"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="info-circle"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
-                                />
-                                <path
-                                  d="M464 336a48 48 0 1096 0 48 48 0 10-96 0zm72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z"
-                                />
-                              </svg>
-                            </span>
-                            Initial
-                          </p>
-                          <span
-                            class="b"
-                          >
-                            5
                           </span>
                         </div>
                       </a>
@@ -1108,41 +889,6 @@ exports[`Holdingpen renders initial state 1`] = `
                         href="/holdingpen-new/search"
                       >
                         <div
-                          class="flex justify-between waiting"
-                        >
-                          <p>
-                            <span
-                              aria-label="hourglass"
-                              class="anticon anticon-hourglass mr2"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="hourglass"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194zm-72 388v134H354V706c0-42.2 16.4-81.9 46.3-111.7C430.1 564.4 469.8 548 512 548s81.9 16.4 111.7 46.3C653.6 624.1 670 663.8 670 706zm0-388c0 42.2-16.4 81.9-46.3 111.7C593.9 459.6 554.2 476 512 476s-81.9-16.4-111.7-46.3A156.63 156.63 0 01354 318V184h316v134z"
-                                />
-                              </svg>
-                            </span>
-                            Waiting
-                          </p>
-                          <span
-                            class="b"
-                          >
-                            0
-                          </span>
-                        </div>
-                      </a>
-                      <a
-                        href="/holdingpen-new/search"
-                      >
-                        <div
                           class="flex justify-between error"
                         >
                           <p>
@@ -1178,17 +924,17 @@ exports[`Holdingpen renders initial state 1`] = `
                         href="/holdingpen-new/search"
                       >
                         <div
-                          class="flex justify-between halted"
+                          class="flex justify-between approval"
                         >
                           <p>
                             <span
-                              aria-label="stop"
-                              class="anticon anticon-stop mr2"
+                              aria-label="hourglass"
+                              class="anticon anticon-hourglass mr2"
                               role="img"
                             >
                               <svg
                                 aria-hidden="true"
-                                data-icon="stop"
+                                data-icon="hourglass"
                                 fill="currentColor"
                                 focusable="false"
                                 height="1em"
@@ -1196,11 +942,11 @@ exports[`Holdingpen renders initial state 1`] = `
                                 width="1em"
                               >
                                 <path
-                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372 0-89 31.3-170.8 83.5-234.8l523.3 523.3C682.8 852.7 601 884 512 884zm288.5-137.2L277.2 223.5C341.2 171.3 423 140 512 140c205.4 0 372 166.6 372 372 0 89-31.3 170.8-83.5 234.8z"
+                                  d="M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194zm-72 388v134H354V706c0-42.2 16.4-81.9 46.3-111.7C430.1 564.4 469.8 548 512 548s81.9 16.4 111.7 46.3C653.6 624.1 670 663.8 670 706zm0-388c0 42.2-16.4 81.9-46.3 111.7C593.9 459.6 554.2 476 512 476s-81.9-16.4-111.7-46.3A156.63 156.63 0 01354 318V184h316v134z"
                                 />
                               </svg>
                             </span>
-                            Halted
+                            Approval
                           </p>
                           <span
                             class="b"
@@ -1276,44 +1022,6 @@ exports[`Holdingpen renders initial state 1`] = `
                             class="b"
                           >
                             4
-                          </span>
-                        </div>
-                      </a>
-                      <a
-                        href="/holdingpen-new/search"
-                      >
-                        <div
-                          class="flex justify-between initial"
-                        >
-                          <p>
-                            <span
-                              aria-label="info-circle"
-                              class="anticon anticon-info-circle mr2"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="info-circle"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
-                                />
-                                <path
-                                  d="M464 336a48 48 0 1096 0 48 48 0 10-96 0zm72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z"
-                                />
-                              </svg>
-                            </span>
-                            Initial
-                          </p>
-                          <span
-                            class="b"
-                          >
-                            5
                           </span>
                         </div>
                       </a>
@@ -1358,41 +1066,6 @@ exports[`Holdingpen renders initial state 1`] = `
                         href="/holdingpen-new/search"
                       >
                         <div
-                          class="flex justify-between waiting"
-                        >
-                          <p>
-                            <span
-                              aria-label="hourglass"
-                              class="anticon anticon-hourglass mr2"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="hourglass"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194zm-72 388v134H354V706c0-42.2 16.4-81.9 46.3-111.7C430.1 564.4 469.8 548 512 548s81.9 16.4 111.7 46.3C653.6 624.1 670 663.8 670 706zm0-388c0 42.2-16.4 81.9-46.3 111.7C593.9 459.6 554.2 476 512 476s-81.9-16.4-111.7-46.3A156.63 156.63 0 01354 318V184h316v134z"
-                                />
-                              </svg>
-                            </span>
-                            Waiting
-                          </p>
-                          <span
-                            class="b"
-                          >
-                            0
-                          </span>
-                        </div>
-                      </a>
-                      <a
-                        href="/holdingpen-new/search"
-                      >
-                        <div
                           class="flex justify-between error"
                         >
                           <p>
@@ -1428,17 +1101,17 @@ exports[`Holdingpen renders initial state 1`] = `
                         href="/holdingpen-new/search"
                       >
                         <div
-                          class="flex justify-between halted"
+                          class="flex justify-between approval"
                         >
                           <p>
                             <span
-                              aria-label="stop"
-                              class="anticon anticon-stop mr2"
+                              aria-label="hourglass"
+                              class="anticon anticon-hourglass mr2"
                               role="img"
                             >
                               <svg
                                 aria-hidden="true"
-                                data-icon="stop"
+                                data-icon="hourglass"
                                 fill="currentColor"
                                 focusable="false"
                                 height="1em"
@@ -1446,11 +1119,11 @@ exports[`Holdingpen renders initial state 1`] = `
                                 width="1em"
                               >
                                 <path
-                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372 0-89 31.3-170.8 83.5-234.8l523.3 523.3C682.8 852.7 601 884 512 884zm288.5-137.2L277.2 223.5C341.2 171.3 423 140 512 140c205.4 0 372 166.6 372 372 0 89-31.3 170.8-83.5 234.8z"
+                                  d="M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194zm-72 388v134H354V706c0-42.2 16.4-81.9 46.3-111.7C430.1 564.4 469.8 548 512 548s81.9 16.4 111.7 46.3C653.6 624.1 670 663.8 670 706zm0-388c0 42.2-16.4 81.9-46.3 111.7C593.9 459.6 554.2 476 512 476s-81.9-16.4-111.7-46.3A156.63 156.63 0 01354 318V184h316v134z"
                                 />
                               </svg>
                             </span>
-                            Halted
+                            Approval
                           </p>
                           <span
                             class="b"
@@ -1526,44 +1199,6 @@ exports[`Holdingpen renders initial state 1`] = `
                             class="b"
                           >
                             4
-                          </span>
-                        </div>
-                      </a>
-                      <a
-                        href="/holdingpen-new/search"
-                      >
-                        <div
-                          class="flex justify-between initial"
-                        >
-                          <p>
-                            <span
-                              aria-label="info-circle"
-                              class="anticon anticon-info-circle mr2"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="info-circle"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
-                                />
-                                <path
-                                  d="M464 336a48 48 0 1096 0 48 48 0 10-96 0zm72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z"
-                                />
-                              </svg>
-                            </span>
-                            Initial
-                          </p>
-                          <span
-                            class="b"
-                          >
-                            5
                           </span>
                         </div>
                       </a>
@@ -1608,41 +1243,6 @@ exports[`Holdingpen renders initial state 1`] = `
                         href="/holdingpen-new/search"
                       >
                         <div
-                          class="flex justify-between waiting"
-                        >
-                          <p>
-                            <span
-                              aria-label="hourglass"
-                              class="anticon anticon-hourglass mr2"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="hourglass"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194zm-72 388v134H354V706c0-42.2 16.4-81.9 46.3-111.7C430.1 564.4 469.8 548 512 548s81.9 16.4 111.7 46.3C653.6 624.1 670 663.8 670 706zm0-388c0 42.2-16.4 81.9-46.3 111.7C593.9 459.6 554.2 476 512 476s-81.9-16.4-111.7-46.3A156.63 156.63 0 01354 318V184h316v134z"
-                                />
-                              </svg>
-                            </span>
-                            Waiting
-                          </p>
-                          <span
-                            class="b"
-                          >
-                            0
-                          </span>
-                        </div>
-                      </a>
-                      <a
-                        href="/holdingpen-new/search"
-                      >
-                        <div
                           class="flex justify-between error"
                         >
                           <p>
@@ -1678,17 +1278,17 @@ exports[`Holdingpen renders initial state 1`] = `
                         href="/holdingpen-new/search"
                       >
                         <div
-                          class="flex justify-between halted"
+                          class="flex justify-between approval"
                         >
                           <p>
                             <span
-                              aria-label="stop"
-                              class="anticon anticon-stop mr2"
+                              aria-label="hourglass"
+                              class="anticon anticon-hourglass mr2"
                               role="img"
                             >
                               <svg
                                 aria-hidden="true"
-                                data-icon="stop"
+                                data-icon="hourglass"
                                 fill="currentColor"
                                 focusable="false"
                                 height="1em"
@@ -1696,11 +1296,11 @@ exports[`Holdingpen renders initial state 1`] = `
                                 width="1em"
                               >
                                 <path
-                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372 0-89 31.3-170.8 83.5-234.8l523.3 523.3C682.8 852.7 601 884 512 884zm288.5-137.2L277.2 223.5C341.2 171.3 423 140 512 140c205.4 0 372 166.6 372 372 0 89-31.3 170.8-83.5 234.8z"
+                                  d="M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194zm-72 388v134H354V706c0-42.2 16.4-81.9 46.3-111.7C430.1 564.4 469.8 548 512 548s81.9 16.4 111.7 46.3C653.6 624.1 670 663.8 670 706zm0-388c0 42.2-16.4 81.9-46.3 111.7C593.9 459.6 554.2 476 512 476s-81.9-16.4-111.7-46.3A156.63 156.63 0 01354 318V184h316v134z"
                                 />
                               </svg>
                             </span>
-                            Halted
+                            Approval
                           </p>
                           <span
                             class="b"
@@ -1776,44 +1376,6 @@ exports[`Holdingpen renders initial state 1`] = `
                             class="b"
                           >
                             4
-                          </span>
-                        </div>
-                      </a>
-                      <a
-                        href="/holdingpen-new/search"
-                      >
-                        <div
-                          class="flex justify-between initial"
-                        >
-                          <p>
-                            <span
-                              aria-label="info-circle"
-                              class="anticon anticon-info-circle mr2"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="info-circle"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
-                                />
-                                <path
-                                  d="M464 336a48 48 0 1096 0 48 48 0 10-96 0zm72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z"
-                                />
-                              </svg>
-                            </span>
-                            Initial
-                          </p>
-                          <span
-                            class="b"
-                          >
-                            5
                           </span>
                         </div>
                       </a>
@@ -1858,41 +1420,6 @@ exports[`Holdingpen renders initial state 1`] = `
                         href="/holdingpen-new/search"
                       >
                         <div
-                          class="flex justify-between waiting"
-                        >
-                          <p>
-                            <span
-                              aria-label="hourglass"
-                              class="anticon anticon-hourglass mr2"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="hourglass"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194zm-72 388v134H354V706c0-42.2 16.4-81.9 46.3-111.7C430.1 564.4 469.8 548 512 548s81.9 16.4 111.7 46.3C653.6 624.1 670 663.8 670 706zm0-388c0 42.2-16.4 81.9-46.3 111.7C593.9 459.6 554.2 476 512 476s-81.9-16.4-111.7-46.3A156.63 156.63 0 01354 318V184h316v134z"
-                                />
-                              </svg>
-                            </span>
-                            Waiting
-                          </p>
-                          <span
-                            class="b"
-                          >
-                            0
-                          </span>
-                        </div>
-                      </a>
-                      <a
-                        href="/holdingpen-new/search"
-                      >
-                        <div
                           class="flex justify-between error"
                         >
                           <p>
@@ -1928,17 +1455,17 @@ exports[`Holdingpen renders initial state 1`] = `
                         href="/holdingpen-new/search"
                       >
                         <div
-                          class="flex justify-between halted"
+                          class="flex justify-between approval"
                         >
                           <p>
                             <span
-                              aria-label="stop"
-                              class="anticon anticon-stop mr2"
+                              aria-label="hourglass"
+                              class="anticon anticon-hourglass mr2"
                               role="img"
                             >
                               <svg
                                 aria-hidden="true"
-                                data-icon="stop"
+                                data-icon="hourglass"
                                 fill="currentColor"
                                 focusable="false"
                                 height="1em"
@@ -1946,11 +1473,11 @@ exports[`Holdingpen renders initial state 1`] = `
                                 width="1em"
                               >
                                 <path
-                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372 0-89 31.3-170.8 83.5-234.8l523.3 523.3C682.8 852.7 601 884 512 884zm288.5-137.2L277.2 223.5C341.2 171.3 423 140 512 140c205.4 0 372 166.6 372 372 0 89-31.3 170.8-83.5 234.8z"
+                                  d="M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194zm-72 388v134H354V706c0-42.2 16.4-81.9 46.3-111.7C430.1 564.4 469.8 548 512 548s81.9 16.4 111.7 46.3C653.6 624.1 670 663.8 670 706zm0-388c0 42.2-16.4 81.9-46.3 111.7C593.9 459.6 554.2 476 512 476s-81.9-16.4-111.7-46.3A156.63 156.63 0 01354 318V184h316v134z"
                                 />
                               </svg>
                             </span>
-                            Halted
+                            Approval
                           </p>
                           <span
                             class="b"
@@ -2026,44 +1553,6 @@ exports[`Holdingpen renders initial state 1`] = `
                             class="b"
                           >
                             4
-                          </span>
-                        </div>
-                      </a>
-                      <a
-                        href="/holdingpen-new/search"
-                      >
-                        <div
-                          class="flex justify-between initial"
-                        >
-                          <p>
-                            <span
-                              aria-label="info-circle"
-                              class="anticon anticon-info-circle mr2"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="info-circle"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
-                                />
-                                <path
-                                  d="M464 336a48 48 0 1096 0 48 48 0 10-96 0zm72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z"
-                                />
-                              </svg>
-                            </span>
-                            Initial
-                          </p>
-                          <span
-                            class="b"
-                          >
-                            5
                           </span>
                         </div>
                       </a>
@@ -2108,41 +1597,6 @@ exports[`Holdingpen renders initial state 1`] = `
                         href="/holdingpen-new/search"
                       >
                         <div
-                          class="flex justify-between waiting"
-                        >
-                          <p>
-                            <span
-                              aria-label="hourglass"
-                              class="anticon anticon-hourglass mr2"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="hourglass"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194zm-72 388v134H354V706c0-42.2 16.4-81.9 46.3-111.7C430.1 564.4 469.8 548 512 548s81.9 16.4 111.7 46.3C653.6 624.1 670 663.8 670 706zm0-388c0 42.2-16.4 81.9-46.3 111.7C593.9 459.6 554.2 476 512 476s-81.9-16.4-111.7-46.3A156.63 156.63 0 01354 318V184h316v134z"
-                                />
-                              </svg>
-                            </span>
-                            Waiting
-                          </p>
-                          <span
-                            class="b"
-                          >
-                            0
-                          </span>
-                        </div>
-                      </a>
-                      <a
-                        href="/holdingpen-new/search"
-                      >
-                        <div
                           class="flex justify-between error"
                         >
                           <p>
@@ -2178,17 +1632,17 @@ exports[`Holdingpen renders initial state 1`] = `
                         href="/holdingpen-new/search"
                       >
                         <div
-                          class="flex justify-between halted"
+                          class="flex justify-between approval"
                         >
                           <p>
                             <span
-                              aria-label="stop"
-                              class="anticon anticon-stop mr2"
+                              aria-label="hourglass"
+                              class="anticon anticon-hourglass mr2"
                               role="img"
                             >
                               <svg
                                 aria-hidden="true"
-                                data-icon="stop"
+                                data-icon="hourglass"
                                 fill="currentColor"
                                 focusable="false"
                                 height="1em"
@@ -2196,11 +1650,11 @@ exports[`Holdingpen renders initial state 1`] = `
                                 width="1em"
                               >
                                 <path
-                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372 0-89 31.3-170.8 83.5-234.8l523.3 523.3C682.8 852.7 601 884 512 884zm288.5-137.2L277.2 223.5C341.2 171.3 423 140 512 140c205.4 0 372 166.6 372 372 0 89-31.3 170.8-83.5 234.8z"
+                                  d="M742 318V184h86c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H196c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h86v134c0 81.5 42.4 153.2 106.4 194-64 40.8-106.4 112.5-106.4 194v134h-86c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h632c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8h-86V706c0-81.5-42.4-153.2-106.4-194 64-40.8 106.4-112.5 106.4-194zm-72 388v134H354V706c0-42.2 16.4-81.9 46.3-111.7C430.1 564.4 469.8 548 512 548s81.9 16.4 111.7 46.3C653.6 624.1 670 663.8 670 706zm0-388c0 42.2-16.4 81.9-46.3 111.7C593.9 459.6 554.2 476 512 476s-81.9-16.4-111.7-46.3A156.63 156.63 0 01354 318V184h316v134z"
                                 />
                               </svg>
                             </span>
-                            Halted
+                            Approval
                           </p>
                           <span
                             class="b"
@@ -2276,44 +1730,6 @@ exports[`Holdingpen renders initial state 1`] = `
                             class="b"
                           >
                             4
-                          </span>
-                        </div>
-                      </a>
-                      <a
-                        href="/holdingpen-new/search"
-                      >
-                        <div
-                          class="flex justify-between initial"
-                        >
-                          <p>
-                            <span
-                              aria-label="info-circle"
-                              class="anticon anticon-info-circle mr2"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="info-circle"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="64 64 896 896"
-                                width="1em"
-                              >
-                                <path
-                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
-                                />
-                                <path
-                                  d="M464 336a48 48 0 1096 0 48 48 0 10-96 0zm72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z"
-                                />
-                              </svg>
-                            </span>
-                            Initial
-                          </p>
-                          <span
-                            class="b"
-                          >
-                            5
                           </span>
                         </div>
                       </a>

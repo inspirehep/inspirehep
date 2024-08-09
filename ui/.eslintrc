@@ -55,6 +55,7 @@
     "react/destructuring-assignment": "off",
     "react/prefer-stateless-function": "off",
     "react-hooks/rules-of-hooks": "error",
+    "react/jsx-no-target-blank": "off",
     "react/jsx-filename-extension": [
       2,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }

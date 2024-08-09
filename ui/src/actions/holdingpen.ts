@@ -15,6 +15,9 @@ import {
   HOLDINGPEN_AUTHOR_ERROR,
   HOLDINGPEN_AUTHOR_REQUEST,
   HOLDINGPEN_AUTHOR_SUCCESS,
+  HOLDINGPEN_RESOLVE_ACTION_REQUEST,
+  HOLDINGPEN_RESOLVE_ACTION_SUCCESS,
+  HOLDINGPEN_RESOLVE_ACTION_ERROR,
 } from './actionTypes';
 import {
   BACKOFFICE_API,
@@ -25,7 +28,11 @@ import {
 } from '../common/routes';
 import { Credentials } from '../types';
 import storage from '../common/storage';
-import { notifyLoginError } from '../holdingpen-new/notifications';
+import {
+  notifyLoginError,
+  notifyActionError,
+  notifyActionSuccess,
+} from '../holdingpen-new/notifications';
 import { refreshToken } from '../holdingpen-new/utils/utils';
 
 const httpClient = axios.create();
@@ -190,7 +197,6 @@ export function fetchSearchResults(query: {
 }): (dispatch: ActionCreator<Action>) => Promise<void> {
   return async (dispatch) => {
     dispatch(searching());
-
     const resolveQuery = `${BACKOFFICE_SEARCH_API}?page=${query.page}&size=${query.size}`;
 
     try {
@@ -226,5 +232,55 @@ export function searchQueryUpdate(query: {
 }): (dispatch: ActionCreator<Action>) => Promise<void> {
   return async (dispatch) => {
     dispatch(updateQuery(query));
+  };
+}
+
+function resolvingAction(type: string) {
+  return {
+    type: HOLDINGPEN_RESOLVE_ACTION_REQUEST,
+    payload: { type },
+  };
+}
+
+function resolveActionSuccess() {
+  return {
+    type: HOLDINGPEN_RESOLVE_ACTION_SUCCESS,
+  };
+}
+
+function resolveActionError(errorPayload: { error: Error }) {
+  return {
+    type: HOLDINGPEN_RESOLVE_ACTION_ERROR,
+    payload: { ...errorPayload },
+  };
+}
+
+export function resolveAction(
+  id: string,
+  action: string,
+  payload: any
+): (dispatch: ActionCreator<Action>) => Promise<void> {
+  return async (dispatch) => {
+    dispatch(resolvingAction(action));
+    try {
+      await httpClient.post(
+        `${BACKOFFICE_API}/authors/${id}/${action}/`,
+        payload
+      );
+
+      dispatch(resolveActionSuccess());
+      notifyActionSuccess(action);
+      setTimeout(() => {
+        window?.location?.reload();
+      }, 3000);
+    } catch (err) {
+      const { error } = httpErrorToActionPayload(err);
+      notifyActionError(
+        (typeof error?.error === 'string'
+          ? error?.error
+          : error?.error?.detail) || 'An error occurred'
+      );
+      dispatch(resolveActionError(error));
+    }
   };
 }
