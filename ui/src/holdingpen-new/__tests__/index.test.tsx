@@ -21,6 +21,27 @@ describe('Holdingpen', () => {
     }),
     holdingpen: fromJS({
       loggedIn: true,
+      facets: fromJS({
+        _filter_workflow_type: fromJS({
+          workflow_type: fromJS({
+            buckets: fromJS([
+              {
+                key: 'AUTHOR_CREATE',
+                doc_count: 1,
+                status: [{ key: 'error' }],
+              },
+              {
+                key: 'AUTHOR_UPDATE',
+                doc_count: 1,
+              },
+              {
+                key: 'HEP_CREATE',
+                doc_count: 1,
+              },
+            ]),
+          }),
+        }),
+      }),
     }),
   });
 
