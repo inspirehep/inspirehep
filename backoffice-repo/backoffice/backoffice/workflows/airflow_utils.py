@@ -156,11 +156,24 @@ def restart_workflow_dags(workflow_id, workflow_type, params=None):
     :param params: parameters of new dag execution
     :returns: request response
     """
+    delete_workflow_dag_runs(workflow_id, workflow_type)
+
+    return trigger_airflow_dag(
+        WORKFLOW_DAGS[workflow_type].initialize, str(workflow_id), params
+    )
+
+
+def delete_workflow_dag_runs(workflow_id, workflow_type):
+    """Deletes runs of a given workflow.
+
+    :param workflow_id: workflow_id  for dags that should be restarted
+    :param workflow_type: type of workflow the will be restarted
+    """
     executed_dags_for_workflow = find_executed_dags(workflow_id, workflow_type)
 
     for dag_id in executed_dags_for_workflow:
         delete_workflow_dag(dag_id, str(workflow_id))
 
-    return trigger_airflow_dag(
-        WORKFLOW_DAGS[workflow_type].initialize, str(workflow_id), params
+    return JsonResponse(
+        data={"message": f"Dag runs for worfklow {workflow_id} have been deleted"}
     )
