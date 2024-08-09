@@ -29,7 +29,7 @@ def trigger_airflow_dag(dag_id, workflow_id, extra_data=None):
     data = {"dag_run_id": str(workflow_id), "conf": {"workflow_id": str(workflow_id)}}
 
     if extra_data is not None:
-        data["conf"].update(extra_data)
+        data["conf"]["data"] = extra_data
 
     url = f"{AIRFLOW_BASE_URL}/api/v1/dags/{dag_id}/dagRuns"
 
