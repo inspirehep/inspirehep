@@ -150,7 +150,7 @@ services:
 
   opensearch:
     platform: linux/amd64
-    image: registry.cern.ch/cern-sis/inspirehep/opensearch
+    image: registry.cern.ch/cern-sis/inspirehep/opensearch:2.13.0
     restart: "always"
     environment:
       - cluster.name=opensearch-cluster
