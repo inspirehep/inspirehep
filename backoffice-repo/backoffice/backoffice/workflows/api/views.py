@@ -104,8 +104,8 @@ class AuthorWorkflowViewSet(viewsets.ViewSet):
     serializer_class = WorkflowAuthorSerializer
 
     @extend_schema(
-        summary="Create a New Author",
-        description="Creates a new author, launches the required airflow dags.",
+        summary="Create/Update an Author",
+        description="Creates/Updates an author, launches the required airflow dags.",
         request=serializer_class,
     )
     def create(self, request):
