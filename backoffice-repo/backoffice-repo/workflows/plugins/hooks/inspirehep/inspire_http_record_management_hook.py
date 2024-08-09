@@ -15,7 +15,7 @@ class InspireHTTPRecordManagementHook(InspireHttpHook):
             method="PUT",
             headers=update_headers,
             json=data,
-            endpoint=f"{pid_type}/{control_number}",
+            endpoint=f"/api/{pid_type}/{control_number}",
         )
 
     def get_record(self, pid_type: str, control_number: int) -> Response:
@@ -23,7 +23,7 @@ class InspireHTTPRecordManagementHook(InspireHttpHook):
             _retry_args=self.tenacity_retry_kwargs,
             method="GET",
             headers=self.headers,
-            endpoint=f"/{pid_type}/{control_number}",
+            endpoint=f"/api/{pid_type}/{control_number}",
         )
         return response.json()
 
@@ -32,7 +32,7 @@ class InspireHTTPRecordManagementHook(InspireHttpHook):
             _retry_args=self.tenacity_retry_kwargs,
             method="GET",
             headers=self.headers,
-            endpoint=f"/{pid_type}/{control_number}",
+            endpoint=f"/api/{pid_type}/{control_number}",
         )
         response.raise_for_status()
         return response.json()["revision_id"]

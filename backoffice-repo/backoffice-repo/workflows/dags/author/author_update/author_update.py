@@ -53,7 +53,7 @@ def author_update_dag():
 
     @task()
     def create_ticket_on_author_update(**context):
-        endpoint = "/tickets/create-with-template"
+        endpoint = "/api/tickets/create"
         request_data = {
             "functional_category": "Author updates",
             "template": "curator_update_author",
@@ -80,9 +80,9 @@ def author_update_dag():
         record_data = inspire_http_record_management_hook.get_record(
             pid_type="authors", control_number=control_number
         )
-        updated_record_data = record_data["metadata"].update(workflow_data["data"])
+        record_data["metadata"].update(workflow_data["data"])
         response = inspire_http_record_management_hook.update_record(
-            data=updated_record_data,
+            data=record_data["metadata"],
             pid_type="authors",
             control_number=control_number,
             revision_id=record_data["revision_id"] + 1,
