@@ -165,10 +165,6 @@ def restart_workflow_dags(workflow_id, workflow_type, params=None):
     for dag_id in executed_dags_for_workflow:
         delete_workflow_dag(dag_id, str(workflow_id))
 
-        return trigger_airflow_dag(
-            WORKFLOW_DAGS[workflow_type].initialize, str(workflow_id), params
-        )
-
-    return JsonResponse(
-        {"error": "Failed to restart"}, status=status.HTTP_424_FAILED_DEPENDENCY
+    return trigger_airflow_dag(
+        WORKFLOW_DAGS[workflow_type].initialize, str(workflow_id), params
     )
