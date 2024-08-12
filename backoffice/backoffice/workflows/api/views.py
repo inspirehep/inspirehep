@@ -291,6 +291,7 @@ class WorkflowDocumentView(BaseDocumentViewSet):
                 "order": {
                     "_key": "asc",
                 },
+                "aggs": {"status": {"terms": {"field": "status"}}},
             },
             "enabled": True,
         },
