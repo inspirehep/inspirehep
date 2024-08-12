@@ -273,7 +273,7 @@ class WorkflowDocumentView(BaseDocumentViewSet):
 
     faceted_search_fields = {
         "status": {
-            "field": "status.keyword",
+            "field": "status",
             "facet": TermsFacet,
             "options": {
                 "size": 10,
@@ -284,7 +284,7 @@ class WorkflowDocumentView(BaseDocumentViewSet):
             "enabled": True,
         },
         "workflow_type": {
-            "field": "workflow_type.keyword",
+            "field": "workflow_type",
             "facet": TermsFacet,
             "options": {
                 "size": 10,
