@@ -1,14 +1,16 @@
+import contextlib
 import uuid
 
 import dateutil
 import dateutil.parser
+import opensearchpy
 import pytest
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test import TransactionTestCase
 from django.urls import reverse
-from opensearch_dsl import Index
+from django_opensearch_dsl.registries import registry
 from rest_framework.test import APIClient
 
 from backoffice.workflows import airflow_utils
@@ -81,8 +83,12 @@ class TestWorkflowSearchViewSet(BaseTransactionTestCase):
 
     def setUp(self):
         super().setUp()
-        index = Index("backoffice-backend-test-workflows")
-        index.delete(ignore=[400, 404])
+
+        index = registry.get_indices().pop()
+        with contextlib.suppress(opensearchpy.exceptions.NotFoundError):
+            index.delete()
+        index.create()
+
         self.workflow = Workflow.objects.create(
             data={}, status=StatusChoices.APPROVAL, core=True, is_update=False
         )
