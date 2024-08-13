@@ -393,16 +393,17 @@ class JobsSearch(InspireSearch):
         :returns: Elasticsearch DSL search class
         """
         if not is_superuser_or_cataloger_logged_in():
-            if not query_string:
-                user_query = Q("terms", status=["open", "closed"])
-            else:
-                user_query = Q(
+            user_query = (
+                Q("terms", status=["open", "closed"])
+                if not query_string
+                else Q(
                     "bool",
                     must=[
                         Q("query_string", query=query_string, default_operator="AND"),
                         Q("terms", status=["open", "closed"]),
                     ],
                 )
+            )
             return self.query(user_query)
         return super().query_from_iq(query_string)
 

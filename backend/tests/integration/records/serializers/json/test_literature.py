@@ -800,7 +800,9 @@ def test_literature_detail_serializes_conference_info(inspire_app):
         "acronyms": ["SAIP2016"],
         "titles": [
             {
-                "title": "61st Annual Conference of the South African Institute of Physics"
+                "title": (
+                    "61st Annual Conference of the South African Institute of Physics"
+                )
             }
         ],
         "urls": [
@@ -840,7 +842,10 @@ def test_literature_detail_serializes_conference_info(inspire_app):
             "page_start": "512",
             "titles": [
                 {
-                    "title": "61st Annual Conference of the South African Institute of Physics"
+                    "title": (
+                        "61st Annual Conference of the South African Institute of"
+                        " Physics"
+                    )
                 }
             ],
         }
@@ -1357,7 +1362,9 @@ def test_literature_json_with_fields_filtering(inspire_app):
             {
                 "full_name": "Doe, John1",
                 "record": {
-                    "$ref": f'https://localhost:5000/api/authors/{aut["control_number"]}'
+                    "$ref": (
+                        f'https://localhost:5000/api/authors/{aut["control_number"]}'
+                    )
                 },
             }
         ],
@@ -1398,7 +1405,9 @@ def test_literature_json_with_fields_filtering_ignores_wrong_fields(inspire_app)
             {
                 "full_name": "Doe, John1",
                 "record": {
-                    "$ref": f'https://localhost:5000/api/authors/{aut["control_number"]}'
+                    "$ref": (
+                        f'https://localhost:5000/api/authors/{aut["control_number"]}'
+                    )
                 },
             }
         ],

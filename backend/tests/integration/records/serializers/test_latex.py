@@ -82,7 +82,10 @@ def test_latex_eu_do_not_show_supervisors(inspire_app):
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\nA.~Normal,\n%``This is a title.,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
+    expected_result = (
+        f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\nA.~Normal,\n%``This"
+        " is a title.,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
+    )
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record_control_number}", headers=headers)
 
@@ -111,7 +114,10 @@ def test_latex_us_do_not_show_supervisors(inspire_app):
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\nA.~Normal,\n%``This is a title.,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
+    expected_result = (
+        f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\nA.~Normal,\n%``This"
+        " is a title.,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
+    )
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record_control_number}", headers=headers)
 
@@ -366,7 +372,10 @@ def test_latex_handle_multiple_erratest_latex_handle_multiple_erratumstums(inspi
         ]
     }
 
-    expected_latex_data = b"[erratum: Phys. Rev. D \\textbf{99}, no.1, 019903 (2019); erratum: Phys. Rev. C \\textbf{97}, no.12, 019903 (2020)]"
+    expected_latex_data = (
+        b"[erratum: Phys. Rev. D \\textbf{99}, no.1, 019903 (2019); erratum: Phys. Rev."
+        b" C \\textbf{97}, no.12, 019903 (2020)]"
+    )
 
     record = create_record("lit", data)
 
@@ -459,9 +468,10 @@ def test_latex_returns_limits_number_of_authors_to_10(inspire_app):
     record = create_record("lit", data)
     record_control_number = record["control_number"]
     expected = (
-        f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\n"
-        "A.~First, A.~Second, A.~Third, A.~Fourth, A.~Fifth, A.~Sixth, A.~Seventh, A.~Eighth, A.~Ninth and A.~Tenth, \\textit{et al.}\n"
-        "%``This is a title.,''\n%0 citations counted in INSPIRE as of 11 Sep 2020"
+        f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\nA.~First,"
+        " A.~Second, A.~Third, A.~Fourth, A.~Fifth, A.~Sixth, A.~Seventh, A.~Eighth,"
+        " A.~Ninth and A.~Tenth, \\textit{et al.}\n%``This is a title.,''\n%0"
+        " citations counted in INSPIRE as of 11 Sep 2020"
     )
 
     with inspire_app.test_client() as client:
@@ -502,8 +512,9 @@ def test_latex_not_returns_etal_when_authors_nb_less_than_10(inspire_app):
     record = create_record("lit", data)
     record_control_number = record["control_number"]
     expected = (
-        f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\nA.~First, A.~Second, A.~Third, A.~Fourth and A.~Fifth,\n"
-        "%``This is a title.,''\n%0 citations counted in INSPIRE as of 11 Sep 2020"
+        f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\nA.~First,"
+        " A.~Second, A.~Third, A.~Fourth and A.~Fifth,\n%``This is a title.,''\n%0"
+        " citations counted in INSPIRE as of 11 Sep 2020"
     )
 
     with inspire_app.test_client() as client:
@@ -531,7 +542,12 @@ def test_latex_encodes_non_latex_chars(inspire_app):
         "dois": [{"value": "10.1234/567_89"}],
     }
     record = create_record("lit", data)
-    expected = "%\\cite{Gerard2020:abc}\n\\bibitem{Gerard2020:abc}\nP.~G\\'erard [DA\\ensuremath{\\Phi}NE],\n%``About \\ensuremath{\\gamma}-ray bursts,''\nAnnales H. Poincar\\'e \\textbf{42}, 314\ndoi:10.1234/567\\_89\n%0 citations counted in INSPIRE as of 16 Sep 2020"
+    expected = (
+        "%\\cite{Gerard2020:abc}\n\\bibitem{Gerard2020:abc}\nP.~G\\'erard"
+        " [DA\\ensuremath{\\Phi}NE],\n%``About \\ensuremath{\\gamma}-ray"
+        " bursts,''\nAnnales H. Poincar\\'e \\textbf{42}, 314\ndoi:10.1234/567\\_89\n%0"
+        " citations counted in INSPIRE as of 16 Sep 2020"
+    )
 
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record['control_number']}?format=latex-us")
@@ -564,8 +580,8 @@ def test_latex_returns_names_correctly(input_author, expected_name, inspire_app)
     record = create_record("lit", data)
     record_control_number = record["control_number"]
     expected = (
-        f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\n{expected_name}\n"
-        "%``This is a title.,''\n%0 citations counted in INSPIRE as of 11 Sep 2020"
+        f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\n{expected_name}\n%``This"
+        " is a title.,''\n%0 citations counted in INSPIRE as of 11 Sep 2020"
     )
 
     with inspire_app.test_client() as client:
@@ -1011,7 +1027,11 @@ def test_latex_strips_mathml(inspire_app):
     data = {
         "titles": [
             {
-                "title": 'Inert Higgs Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
+                "title": (
+                    "Inert Higgs Dark Matter for CDF II <math"
+                    ' display="inline"><mi>W</mi></math>-Boson Mass and Detection'
+                    " Prospects"
+                )
             }
         ],
     }
@@ -1020,7 +1040,11 @@ def test_latex_strips_mathml(inspire_app):
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
-    expected_result = f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\n%``Inert Higgs Dark Matter for CDF II W-Boson Mass and Detection Prospects,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
+    expected_result = (
+        f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\n%``Inert"
+        " Higgs Dark Matter for CDF II W-Boson Mass and Detection Prospects,''\n%0"
+        " citations counted in INSPIRE as of 19 Dec 1994"
+    )
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record_control_number}", headers=headers)
 
@@ -1037,14 +1061,22 @@ def test_latex_strips_mathml_with_and_in_title(inspire_app):
     data = {
         "titles": [
             {
-                "title": 'Inert Higgs & Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
+                "title": (
+                    "Inert Higgs & Dark Matter for CDF II <math"
+                    ' display="inline"><mi>W</mi></math>-Boson Mass and Detection'
+                    " Prospects"
+                )
             }
         ],
     }
 
     record = create_record("lit", data=data)
     record_control_number = record["control_number"]
-    expected_data = f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\n%``Inert Higgs \\& Dark Matter for CDF II W-Boson Mass and Detection Prospects,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
+    expected_data = (
+        f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\n%``Inert"
+        " Higgs \\& Dark Matter for CDF II W-Boson Mass and Detection Prospects,''\n%0"
+        " citations counted in INSPIRE as of 19 Dec 1994"
+    )
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record_control_number}", headers=headers)
     assert response.get_data(as_text=True) == expected_data
@@ -1064,13 +1096,23 @@ def test_latex_leaves_mathml_in_title_when_conversion_error(
     data = {
         "titles": [
             {
-                "title": 'Inert Higgs & Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
+                "title": (
+                    "Inert Higgs & Dark Matter for CDF II <math"
+                    ' display="inline"><mi>W</mi></math>-Boson Mass and Detection'
+                    " Prospects"
+                )
             }
         ],
     }
     record = create_record("lit", data=data)
     record_control_number = record["control_number"]
-    expected_data = f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\n%``Inert Higgs \\& Dark Matter for CDF II \\ensuremath{{<}}math display=''inline''\\ensuremath{{>}}\\ensuremath{{<}}mi\\ensuremath{{>}}W\\ensuremath{{<}}/mi\\ensuremath{{>}}\\ensuremath{{<}}/math\\ensuremath{{>}}-Boson Mass and Detection Prospects,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
+    expected_data = (
+        f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\n%``Inert"
+        " Higgs \\& Dark Matter for CDF II \\ensuremath{<}math"
+        " display=''inline''\\ensuremath{>}\\ensuremath{<}mi\\ensuremath{>}W\\ensuremath{<}/mi\\ensuremath{>}\\ensuremath{<}/math\\ensuremath{>}-Boson"
+        " Mass and Detection Prospects,''\n%0 citations counted in INSPIRE as of 19"
+        " Dec 1994"
+    )
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record_control_number}", headers=headers)
     assert response.get_data(as_text=True) == expected_data

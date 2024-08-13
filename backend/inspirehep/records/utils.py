@@ -83,7 +83,8 @@ def download_file_from_url(url, check_file_size=False):
 
         if check_file_size and content_length and content_length > file_size_limit:
             raise FileSizeExceededError(
-                f"Can't download file from url {download_url}. File size {content_length} is larger than the limit {file_size_limit}."
+                f"Can't download file from url {download_url}. File size"
+                f" {content_length} is larger than the limit {file_size_limit}."
             )
     except requests.exceptions.RequestException as exc:
         raise DownloadFileError(
@@ -169,7 +170,9 @@ def is_document_scanned(file_data):
 def _create_ticket_self_curation(record_control_number, record_revision_id, user_email):
     INSPIREHEP_URL = get_inspirehep_url()
     template_payload = {
-        "diff_url": f"{INSPIREHEP_URL}/literature/{record_control_number}/diff/{record_revision_id -1}..{record_revision_id}",
+        "diff_url": (
+            f"{INSPIREHEP_URL}/literature/{record_control_number}/diff/{record_revision_id -1}..{record_revision_id}"
+        ),
         "user_email": user_email,
     }
     async_create_ticket_with_template.delay(

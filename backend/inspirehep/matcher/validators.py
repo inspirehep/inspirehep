@@ -36,7 +36,7 @@ def affiliations_validator(author, result):
     result_authors_affiliations = get_value(
         result, "inner_hits.authors.hits.hits._source.affiliations.value", []
     )
-    for affiliation_list in result_authors_affiliations:
-        if set(affiliation_list) & authors_affiliations:
-            return True
-    return False
+    return any(
+        set(affiliation_list) & authors_affiliations
+        for affiliation_list in result_authors_affiliations
+    )

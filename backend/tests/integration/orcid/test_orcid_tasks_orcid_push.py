@@ -294,7 +294,13 @@ class TestOrcidPushTask:
     ):
         exc = MovedPermanentlyException()
         exc.args = (
-            "{'response-code': 301, 'developer-message': '301 Moved Permanently: This account is deprecated. Please refer to account: https://qa.orcid.org/0000-0003-1134-6827. ORCID https://qa.orcid.org/0000-1111-0000-0000', 'user-message': 'The resource was not found.'",
+            (
+                "{'response-code': 301, 'developer-message': '301 Moved Permanently:"
+                " This account is deprecated. Please refer to account:"
+                " https://qa.orcid.org/0000-0003-1134-6827. ORCID"
+                " https://qa.orcid.org/0000-1111-0000-0000', 'user-message': 'The"
+                " resource was not found.'"
+            ),
         )
         self._patcher = mock.patch(
             "inspirehep.orcid.domain_models.OrcidPusher._post_or_put_work"

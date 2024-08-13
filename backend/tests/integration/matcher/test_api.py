@@ -1002,7 +1002,10 @@ def test_fuzzy_workflow_match_without_math_ml_and_latex(inspire_app):
         "_collections": ["Literature"],
         "titles": [
             {
-                "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
+                "title": (
+                    "Search for the limits on anomalous neutral triple gauge couplings"
+                    " via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh"
+                ),
             }
         ],
         "authors": [
@@ -1011,7 +1014,19 @@ def test_fuzzy_workflow_match_without_math_ml_and_latex(inspire_app):
         "document_type": ["article"],
         "abstracts": [
             {
-                "value": "This paper presents the projections on the anomalous neutral triple gauge couplings via production in the 2ℓ2ν final state at a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh detector environments and its effects taken into account in the analysis. The study is carried out in the mode where one Z boson decays into a pair of same-flavor, opposite-sign leptons (electrons or muons) and the other one decays to the two neutrinos. The new bounds on the charge-parity (CP)-conserving couplings and CP-violating couplings and achieved at 95% Confidence Level (C.L.) using the transverse momentum of the dilepton system, respectively.",
+                "value": (
+                    "This paper presents the projections on the anomalous neutral"
+                    " triple gauge couplings via production in the 2ℓ2ν final state at"
+                    " a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh"
+                    " detector environments and its effects taken into account in the"
+                    " analysis. The study is carried out in the mode where one Z boson"
+                    " decays into a pair of same-flavor, opposite-sign leptons"
+                    " (electrons or muons) and the other one decays to the two"
+                    " neutrinos. The new bounds on the charge-parity (CP)-conserving"
+                    " couplings and CP-violating couplings and achieved at 95%"
+                    " Confidence Level (C.L.) using the transverse momentum of the"
+                    " dilepton system, respectively."
+                ),
                 "source": "Elsevier B.V.",
             }
         ],
@@ -1024,7 +1039,10 @@ def test_fuzzy_workflow_match_without_math_ml_and_latex(inspire_app):
         "_collections": ["Literature"],
         "titles": [
             {
-                "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
+                "title": (
+                    "Search for the limits on anomalous neutral triple gauge couplings"
+                    " via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh"
+                ),
             },
         ],
         "authors": [
@@ -1033,7 +1051,64 @@ def test_fuzzy_workflow_match_without_math_ml_and_latex(inspire_app):
         "document_type": ["article"],
         "abstracts": [
             {
-                "value": 'Wrong content (<math altimg="si1.svg"><mi>a</mi><mi>N</mi><mi>T</mi><mi>G</mi><mi>C</mi></math>) via <math altimg="si2.svg"><mi>p</mi><mi>p</mi><mo stretchy="false">→</mo><mi>Z</mi><mi>Z</mi></math> production in the 2ℓ2ν final state at a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh detector environments and its effects taken into account in the analysis. osite-sign leptons (electrons or muons) and the other one very very incorrect decayn the charge-parity (CP)-conserving couplings <math altimg="si3.svg"><msub><mrow><mi>C</mi></mrow><mrow><mover accent="true"><mrow><mi>B</mi></mrow><mrow><mo>˜</mo></mrow></mover><mi>W</mi></mrow></msub><mo stretchy="false">/</mo><msup><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math> and CP-violating couplings <math altimg="si4.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>W</mi><mi>W</mi></mrow></msub><mo stretchy="false">/</mo><msup><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>, <math altimg="si5.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>B</mi><mi>W</mi></mrow></msub><mo stretchy="false">/</mo><msup><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math> and <math altimg="si6.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>B</mi><mi>B</mi></mrow></msub><mo stretchy="false">/</mo><msup><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math> achievedfakey fakesystem (<math altimg="si7.svg"><msubsup><mrow><mi>p</mi></mrow><mrow><mi>T</mi></mrow><mrow><mi>ℓ</mi><mi>ℓ</mi></mrow></msubsup></math>) are <math altimg="si8.svg"><mo stretchy="false">[</mo><mo linebreak="badbreak" linebreakstyle="after">−</mo><mspace width="0.2em"/><mn>0.042</mn><mo>,</mo><mspace width="0.2em"/><mspace width="0.2em"/><mo linebreak="badbreak" linebreakstyle="after">+</mo><mspace width="0.2em"/><mn>0.042</mn><mo stretchy="false">]</mo></math>, <math altimg="si9.svg"><mo stretchy="false">[</mo><mo linebreak="badbreak" linebreakstyle="after">−</mo><mspace width="0.2em"/><mn>0.049</mn><mo>,</mo><mspace width="0.2em"/><mspace width="0.2em"/><mo linebreak="badbreak" linebreakstyle="after">+</mo><mspace width="0.2em"/><mn>0.049</mn><mo stretchy="false">]</mo></math>, <math altimg="si10.svg"><mo stretchy="false">[</mo><mo linebreak="badbreak" linebreakstyle="after">−</mo><mspace width="0.2em"/><mn>0.048</mn><mo>,</mo><mspace width="0.2em"/><mspace width="0.2em"/><mo linebreak="badbreak" linebreakstyle="after">+</mo><mspace width="0.2em"/><mn>0.048</mn><mo stretchy="false">]</mo></math>, and <math altimg="si11.svg"><mo stretchy="false">[</mo><mo linebreak="badbreak" linebreakstyle="after">−</mo><mspace width="0.2em"/><mn>0.047</mn><mo>,</mo><mspace width="0.2em"/><mspace width="0.2em"/><mo linebreak="badbreak" linebreakstyle="after">+</mo><mspace width="0.2em"/><mn>0.047</mn><mo stretchy="false">]</mo></math> in units of TeV<sup loc="post">−4</sup>, respectively.',
+                "value": (
+                    "Wrong content (<math"
+                    ' altimg="si1.svg"><mi>a</mi><mi>N</mi><mi>T</mi><mi>G</mi><mi>C</mi></math>)'
+                    ' via <math altimg="si2.svg"><mi>p</mi><mi>p</mi><mo'
+                    ' stretchy="false">→</mo><mi>Z</mi><mi>Z</mi></math> production'
+                    " in the 2ℓ2ν final state at a 100 TeV proton-proton collider,"
+                    " FCC-hh. The realistic FCC-hh detector environments and its"
+                    " effects taken into account in the analysis. osite-sign leptons"
+                    " (electrons or muons) and the other one very very incorrect decayn"
+                    " the charge-parity (CP)-conserving couplings <math"
+                    ' altimg="si3.svg"><msub><mrow><mi>C</mi></mrow><mrow><mover'
+                    ' accent="true"><mrow><mi>B</mi></mrow><mrow><mo>˜</mo></mrow></mover><mi>W</mi></mrow></msub><mo'
+                    ' stretchy="false">/</mo><msup><mrow><mi'
+                    ' mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>'
+                    " and CP-violating couplings <math"
+                    ' altimg="si4.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>W</mi><mi>W</mi></mrow></msub><mo'
+                    ' stretchy="false">/</mo><msup><mrow><mi'
+                    ' mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>,'
+                    " <math"
+                    ' altimg="si5.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>B</mi><mi>W</mi></mrow></msub><mo'
+                    ' stretchy="false">/</mo><msup><mrow><mi'
+                    ' mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>'
+                    " and <math"
+                    ' altimg="si6.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>B</mi><mi>B</mi></mrow></msub><mo'
+                    ' stretchy="false">/</mo><msup><mrow><mi'
+                    ' mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>'
+                    " achievedfakey fakesystem (<math"
+                    ' altimg="si7.svg"><msubsup><mrow><mi>p</mi></mrow><mrow><mi>T</mi></mrow><mrow><mi>ℓ</mi><mi>ℓ</mi></mrow></msubsup></math>)'
+                    ' are <math altimg="si8.svg"><mo stretchy="false">[</mo><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">−</mo><mspace'
+                    ' width="0.2em"/><mn>0.042</mn><mo>,</mo><mspace'
+                    ' width="0.2em"/><mspace width="0.2em"/><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">+</mo><mspace'
+                    ' width="0.2em"/><mn>0.042</mn><mo'
+                    ' stretchy="false">]</mo></math>, <math altimg="si9.svg"><mo'
+                    ' stretchy="false">[</mo><mo linebreak="badbreak"'
+                    ' linebreakstyle="after">−</mo><mspace'
+                    ' width="0.2em"/><mn>0.049</mn><mo>,</mo><mspace'
+                    ' width="0.2em"/><mspace width="0.2em"/><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">+</mo><mspace'
+                    ' width="0.2em"/><mn>0.049</mn><mo'
+                    ' stretchy="false">]</mo></math>, <math altimg="si10.svg"><mo'
+                    ' stretchy="false">[</mo><mo linebreak="badbreak"'
+                    ' linebreakstyle="after">−</mo><mspace'
+                    ' width="0.2em"/><mn>0.048</mn><mo>,</mo><mspace'
+                    ' width="0.2em"/><mspace width="0.2em"/><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">+</mo><mspace'
+                    ' width="0.2em"/><mn>0.048</mn><mo'
+                    ' stretchy="false">]</mo></math>, and <math'
+                    ' altimg="si11.svg"><mo stretchy="false">[</mo><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">−</mo><mspace'
+                    ' width="0.2em"/><mn>0.047</mn><mo>,</mo><mspace'
+                    ' width="0.2em"/><mspace width="0.2em"/><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">+</mo><mspace'
+                    ' width="0.2em"/><mn>0.047</mn><mo'
+                    ' stretchy="false">]</mo></math> in units of TeV<sup'
+                    ' loc="post">−4</sup>, respectively.'
+                ),
                 "source": "Elsevier B.V.",
             }
         ],
@@ -1045,7 +1120,10 @@ def test_fuzzy_workflow_match_without_math_ml_and_latex(inspire_app):
         "_collections": ["Literature"],
         "titles": [
             {
-                "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
+                "title": (
+                    "Search for the limits on anomalous neutral triple gauge couplings"
+                    " via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh"
+                ),
             },
         ],
         "authors": [
@@ -1054,7 +1132,68 @@ def test_fuzzy_workflow_match_without_math_ml_and_latex(inspire_app):
         "document_type": ["article"],
         "abstracts": [
             {
-                "value": 'This paper presents the projections on the anomalous neutral triple gauge couplings (<math altimg="si1.svg"><mi>a</mi><mi>N</mi><mi>T</mi><mi>G</mi><mi>C</mi></math>) via <math altimg="si2.svg"><mi>p</mi><mi>p</mi><mo stretchy="false">→</mo><mi>Z</mi><mi>Z</mi></math> production in the 2ℓ2ν final state at a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh detector environments and its effects taken into account in the analysis. The study is carried out in the mode where one Z boson decays into a pair of same-flavor, opposite-sign leptons (electrons or muons) and the other one decays to the two neutrinos. The new bounds on the charge-parity (CP)-conserving couplings <math altimg="si3.svg"><msub><mrow><mi>C</mi></mrow><mrow><mover accent="true"><mrow><mi>B</mi></mrow><mrow><mo>˜</mo></mrow></mover><mi>W</mi></mrow></msub><mo stretchy="false">/</mo><msup><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math> and CP-violating couplings <math altimg="si4.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>W</mi><mi>W</mi></mrow></msub><mo stretchy="false">/</mo><msup><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>, <math altimg="si5.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>B</mi><mi>W</mi></mrow></msub><mo stretchy="false">/</mo><msup><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math> and <math altimg="si6.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>B</mi><mi>B</mi></mrow></msub><mo stretchy="false">/</mo><msup><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math> achieved at 95% Confidence Level (C.L.) using the transverse momentum of the dilepton system (<math altimg="si7.svg"><msubsup><mrow><mi>p</mi></mrow><mrow><mi>T</mi></mrow><mrow><mi>ℓ</mi><mi>ℓ</mi></mrow></msubsup></math>) are <math altimg="si8.svg"><mo stretchy="false">[</mo><mo linebreak="badbreak" linebreakstyle="after">−</mo><mspace width="0.2em"/><mn>0.042</mn><mo>,</mo><mspace width="0.2em"/><mspace width="0.2em"/><mo linebreak="badbreak" linebreakstyle="after">+</mo><mspace width="0.2em"/><mn>0.042</mn><mo stretchy="false">]</mo></math>, <math altimg="si9.svg"><mo stretchy="false">[</mo><mo linebreak="badbreak" linebreakstyle="after">−</mo><mspace width="0.2em"/><mn>0.049</mn><mo>,</mo><mspace width="0.2em"/><mspace width="0.2em"/><mo linebreak="badbreak" linebreakstyle="after">+</mo><mspace width="0.2em"/><mn>0.049</mn><mo stretchy="false">]</mo></math>, <math altimg="si10.svg"><mo stretchy="false">[</mo><mo linebreak="badbreak" linebreakstyle="after">−</mo><mspace width="0.2em"/><mn>0.048</mn><mo>,</mo><mspace width="0.2em"/><mspace width="0.2em"/><mo linebreak="badbreak" linebreakstyle="after">+</mo><mspace width="0.2em"/><mn>0.048</mn><mo stretchy="false">]</mo></math>, and <math altimg="si11.svg"><mo stretchy="false">[</mo><mo linebreak="badbreak" linebreakstyle="after">−</mo><mspace width="0.2em"/><mn>0.047</mn><mo>,</mo><mspace width="0.2em"/><mspace width="0.2em"/><mo linebreak="badbreak" linebreakstyle="after">+</mo><mspace width="0.2em"/><mn>0.047</mn><mo stretchy="false">]</mo></math> in units of TeV<sup loc="post">−4</sup>, respectively.',
+                "value": (
+                    "This paper presents the projections on the anomalous neutral"
+                    " triple gauge couplings (<math"
+                    ' altimg="si1.svg"><mi>a</mi><mi>N</mi><mi>T</mi><mi>G</mi><mi>C</mi></math>)'
+                    ' via <math altimg="si2.svg"><mi>p</mi><mi>p</mi><mo'
+                    ' stretchy="false">→</mo><mi>Z</mi><mi>Z</mi></math> production'
+                    " in the 2ℓ2ν final state at a 100 TeV proton-proton collider,"
+                    " FCC-hh. The realistic FCC-hh detector environments and its"
+                    " effects taken into account in the analysis. The study is carried"
+                    " out in the mode where one Z boson decays into a pair of"
+                    " same-flavor, opposite-sign leptons (electrons or muons) and the"
+                    " other one decays to the two neutrinos. The new bounds on the"
+                    " charge-parity (CP)-conserving couplings <math"
+                    ' altimg="si3.svg"><msub><mrow><mi>C</mi></mrow><mrow><mover'
+                    ' accent="true"><mrow><mi>B</mi></mrow><mrow><mo>˜</mo></mrow></mover><mi>W</mi></mrow></msub><mo'
+                    ' stretchy="false">/</mo><msup><mrow><mi'
+                    ' mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>'
+                    " and CP-violating couplings <math"
+                    ' altimg="si4.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>W</mi><mi>W</mi></mrow></msub><mo'
+                    ' stretchy="false">/</mo><msup><mrow><mi'
+                    ' mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>,'
+                    " <math"
+                    ' altimg="si5.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>B</mi><mi>W</mi></mrow></msub><mo'
+                    ' stretchy="false">/</mo><msup><mrow><mi'
+                    ' mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>'
+                    " and <math"
+                    ' altimg="si6.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>B</mi><mi>B</mi></mrow></msub><mo'
+                    ' stretchy="false">/</mo><msup><mrow><mi'
+                    ' mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>'
+                    " achieved at 95% Confidence Level (C.L.) using the transverse"
+                    " momentum of the dilepton system (<math"
+                    ' altimg="si7.svg"><msubsup><mrow><mi>p</mi></mrow><mrow><mi>T</mi></mrow><mrow><mi>ℓ</mi><mi>ℓ</mi></mrow></msubsup></math>)'
+                    ' are <math altimg="si8.svg"><mo stretchy="false">[</mo><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">−</mo><mspace'
+                    ' width="0.2em"/><mn>0.042</mn><mo>,</mo><mspace'
+                    ' width="0.2em"/><mspace width="0.2em"/><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">+</mo><mspace'
+                    ' width="0.2em"/><mn>0.042</mn><mo'
+                    ' stretchy="false">]</mo></math>, <math altimg="si9.svg"><mo'
+                    ' stretchy="false">[</mo><mo linebreak="badbreak"'
+                    ' linebreakstyle="after">−</mo><mspace'
+                    ' width="0.2em"/><mn>0.049</mn><mo>,</mo><mspace'
+                    ' width="0.2em"/><mspace width="0.2em"/><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">+</mo><mspace'
+                    ' width="0.2em"/><mn>0.049</mn><mo'
+                    ' stretchy="false">]</mo></math>, <math altimg="si10.svg"><mo'
+                    ' stretchy="false">[</mo><mo linebreak="badbreak"'
+                    ' linebreakstyle="after">−</mo><mspace'
+                    ' width="0.2em"/><mn>0.048</mn><mo>,</mo><mspace'
+                    ' width="0.2em"/><mspace width="0.2em"/><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">+</mo><mspace'
+                    ' width="0.2em"/><mn>0.048</mn><mo'
+                    ' stretchy="false">]</mo></math>, and <math'
+                    ' altimg="si11.svg"><mo stretchy="false">[</mo><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">−</mo><mspace'
+                    ' width="0.2em"/><mn>0.047</mn><mo>,</mo><mspace'
+                    ' width="0.2em"/><mspace width="0.2em"/><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">+</mo><mspace'
+                    ' width="0.2em"/><mn>0.047</mn><mo'
+                    ' stretchy="false">]</mo></math> in units of TeV<sup'
+                    ' loc="post">−4</sup>, respectively.'
+                ),
                 "source": "Elsevier B.V.",
             }
         ],
@@ -1076,7 +1215,10 @@ def test_workflow_matching(inspire_app):
         "_collections": ["Literature"],
         "titles": [
             {
-                "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
+                "title": (
+                    "Search for the limits on anomalous neutral triple gauge couplings"
+                    " via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh"
+                ),
             }
         ],
         "authors": [
@@ -1085,7 +1227,19 @@ def test_workflow_matching(inspire_app):
         "document_type": ["article"],
         "abstracts": [
             {
-                "value": "This paper presents the projections on the anomalous neutral triple gauge couplings via production in the 2ℓ2ν final state at a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh detector environments and its effects taken into account in the analysis. The study is carried out in the mode where one Z boson decays into a pair of same-flavor, opposite-sign leptons (electrons or muons) and the other one decays to the two neutrinos. The new bounds on the charge-parity (CP)-conserving couplings and CP-violating couplings and achieved at 95% Confidence Level (C.L.) using the transverse momentum of the dilepton system, respectively.",
+                "value": (
+                    "This paper presents the projections on the anomalous neutral"
+                    " triple gauge couplings via production in the 2ℓ2ν final state at"
+                    " a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh"
+                    " detector environments and its effects taken into account in the"
+                    " analysis. The study is carried out in the mode where one Z boson"
+                    " decays into a pair of same-flavor, opposite-sign leptons"
+                    " (electrons or muons) and the other one decays to the two"
+                    " neutrinos. The new bounds on the charge-parity (CP)-conserving"
+                    " couplings and CP-violating couplings and achieved at 95%"
+                    " Confidence Level (C.L.) using the transverse momentum of the"
+                    " dilepton system, respectively."
+                ),
                 "source": "Elsevier B.V.",
             }
         ],
@@ -1108,7 +1262,68 @@ def test_workflow_matching(inspire_app):
         "document_type": ["article"],
         "abstracts": [
             {
-                "value": 'This paper presents the projections on the anomalous neutral triple gauge couplings (<math altimg="si1.svg"><mi>a</mi><mi>N</mi><mi>T</mi><mi>G</mi><mi>C</mi></math>) via <math altimg="si2.svg"><mi>p</mi><mi>p</mi><mo stretchy="false">→</mo><mi>Z</mi><mi>Z</mi></math> production in the 2ℓ2ν final state at a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh detector environments and its effects taken into account in the analysis. The study is carried out in the mode where one Z boson decays into a pair of same-flavor, opposite-sign leptons (electrons or muons) and the other one decays to the two neutrinos. The new bounds on the charge-parity (CP)-conserving couplings <math altimg="si3.svg"><msub><mrow><mi>C</mi></mrow><mrow><mover accent="true"><mrow><mi>B</mi></mrow><mrow><mo>˜</mo></mrow></mover><mi>W</mi></mrow></msub><mo stretchy="false">/</mo><msup><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math> and CP-violating couplings <math altimg="si4.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>W</mi><mi>W</mi></mrow></msub><mo stretchy="false">/</mo><msup><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>, <math altimg="si5.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>B</mi><mi>W</mi></mrow></msub><mo stretchy="false">/</mo><msup><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math> and <math altimg="si6.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>B</mi><mi>B</mi></mrow></msub><mo stretchy="false">/</mo><msup><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math> achieved at 95% Confidence Level (C.L.) using the transverse momentum of the dilepton system (<math altimg="si7.svg"><msubsup><mrow><mi>p</mi></mrow><mrow><mi>T</mi></mrow><mrow><mi>ℓ</mi><mi>ℓ</mi></mrow></msubsup></math>) are <math altimg="si8.svg"><mo stretchy="false">[</mo><mo linebreak="badbreak" linebreakstyle="after">−</mo><mspace width="0.2em"/><mn>0.042</mn><mo>,</mo><mspace width="0.2em"/><mspace width="0.2em"/><mo linebreak="badbreak" linebreakstyle="after">+</mo><mspace width="0.2em"/><mn>0.042</mn><mo stretchy="false">]</mo></math>, <math altimg="si9.svg"><mo stretchy="false">[</mo><mo linebreak="badbreak" linebreakstyle="after">−</mo><mspace width="0.2em"/><mn>0.049</mn><mo>,</mo><mspace width="0.2em"/><mspace width="0.2em"/><mo linebreak="badbreak" linebreakstyle="after">+</mo><mspace width="0.2em"/><mn>0.049</mn><mo stretchy="false">]</mo></math>, <math altimg="si10.svg"><mo stretchy="false">[</mo><mo linebreak="badbreak" linebreakstyle="after">−</mo><mspace width="0.2em"/><mn>0.048</mn><mo>,</mo><mspace width="0.2em"/><mspace width="0.2em"/><mo linebreak="badbreak" linebreakstyle="after">+</mo><mspace width="0.2em"/><mn>0.048</mn><mo stretchy="false">]</mo></math>, and <math altimg="si11.svg"><mo stretchy="false">[</mo><mo linebreak="badbreak" linebreakstyle="after">−</mo><mspace width="0.2em"/><mn>0.047</mn><mo>,</mo><mspace width="0.2em"/><mspace width="0.2em"/><mo linebreak="badbreak" linebreakstyle="after">+</mo><mspace width="0.2em"/><mn>0.047</mn><mo stretchy="false">]</mo></math> in units of TeV<sup loc="post">−4</sup>, respectively.',
+                "value": (
+                    "This paper presents the projections on the anomalous neutral"
+                    " triple gauge couplings (<math"
+                    ' altimg="si1.svg"><mi>a</mi><mi>N</mi><mi>T</mi><mi>G</mi><mi>C</mi></math>)'
+                    ' via <math altimg="si2.svg"><mi>p</mi><mi>p</mi><mo'
+                    ' stretchy="false">→</mo><mi>Z</mi><mi>Z</mi></math> production'
+                    " in the 2ℓ2ν final state at a 100 TeV proton-proton collider,"
+                    " FCC-hh. The realistic FCC-hh detector environments and its"
+                    " effects taken into account in the analysis. The study is carried"
+                    " out in the mode where one Z boson decays into a pair of"
+                    " same-flavor, opposite-sign leptons (electrons or muons) and the"
+                    " other one decays to the two neutrinos. The new bounds on the"
+                    " charge-parity (CP)-conserving couplings <math"
+                    ' altimg="si3.svg"><msub><mrow><mi>C</mi></mrow><mrow><mover'
+                    ' accent="true"><mrow><mi>B</mi></mrow><mrow><mo>˜</mo></mrow></mover><mi>W</mi></mrow></msub><mo'
+                    ' stretchy="false">/</mo><msup><mrow><mi'
+                    ' mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>'
+                    " and CP-violating couplings <math"
+                    ' altimg="si4.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>W</mi><mi>W</mi></mrow></msub><mo'
+                    ' stretchy="false">/</mo><msup><mrow><mi'
+                    ' mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>,'
+                    " <math"
+                    ' altimg="si5.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>B</mi><mi>W</mi></mrow></msub><mo'
+                    ' stretchy="false">/</mo><msup><mrow><mi'
+                    ' mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>'
+                    " and <math"
+                    ' altimg="si6.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>B</mi><mi>B</mi></mrow></msub><mo'
+                    ' stretchy="false">/</mo><msup><mrow><mi'
+                    ' mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>'
+                    " achieved at 95% Confidence Level (C.L.) using the transverse"
+                    " momentum of the dilepton system (<math"
+                    ' altimg="si7.svg"><msubsup><mrow><mi>p</mi></mrow><mrow><mi>T</mi></mrow><mrow><mi>ℓ</mi><mi>ℓ</mi></mrow></msubsup></math>)'
+                    ' are <math altimg="si8.svg"><mo stretchy="false">[</mo><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">−</mo><mspace'
+                    ' width="0.2em"/><mn>0.042</mn><mo>,</mo><mspace'
+                    ' width="0.2em"/><mspace width="0.2em"/><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">+</mo><mspace'
+                    ' width="0.2em"/><mn>0.042</mn><mo'
+                    ' stretchy="false">]</mo></math>, <math altimg="si9.svg"><mo'
+                    ' stretchy="false">[</mo><mo linebreak="badbreak"'
+                    ' linebreakstyle="after">−</mo><mspace'
+                    ' width="0.2em"/><mn>0.049</mn><mo>,</mo><mspace'
+                    ' width="0.2em"/><mspace width="0.2em"/><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">+</mo><mspace'
+                    ' width="0.2em"/><mn>0.049</mn><mo'
+                    ' stretchy="false">]</mo></math>, <math altimg="si10.svg"><mo'
+                    ' stretchy="false">[</mo><mo linebreak="badbreak"'
+                    ' linebreakstyle="after">−</mo><mspace'
+                    ' width="0.2em"/><mn>0.048</mn><mo>,</mo><mspace'
+                    ' width="0.2em"/><mspace width="0.2em"/><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">+</mo><mspace'
+                    ' width="0.2em"/><mn>0.048</mn><mo'
+                    ' stretchy="false">]</mo></math>, and <math'
+                    ' altimg="si11.svg"><mo stretchy="false">[</mo><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">−</mo><mspace'
+                    ' width="0.2em"/><mn>0.047</mn><mo>,</mo><mspace'
+                    ' width="0.2em"/><mspace width="0.2em"/><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">+</mo><mspace'
+                    ' width="0.2em"/><mn>0.047</mn><mo'
+                    ' stretchy="false">]</mo></math> in units of TeV<sup'
+                    ' loc="post">−4</sup>, respectively.'
+                ),
                 "source": "Elsevier B.V.",
             }
         ],
@@ -1123,7 +1338,10 @@ def test_workflow_matching(inspire_app):
         "_collections": ["Literature"],
         "titles": [
             {
-                "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
+                "title": (
+                    "Search for the limits on anomalous neutral triple gauge couplings"
+                    " via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh"
+                ),
             },
         ],
         "authors": [
@@ -1132,7 +1350,68 @@ def test_workflow_matching(inspire_app):
         "document_type": ["article"],
         "abstracts": [
             {
-                "value": 'This paper presents the projections on the anomalous neutral triple gauge couplings (<math altimg="si1.svg"><mi>a</mi><mi>N</mi><mi>T</mi><mi>G</mi><mi>C</mi></math>) via <math altimg="si2.svg"><mi>p</mi><mi>p</mi><mo stretchy="false">→</mo><mi>Z</mi><mi>Z</mi></math> production in the 2ℓ2ν final state at a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh detector environments and its effects taken into account in the analysis. The study is carried out in the mode where one Z boson decays into a pair of same-flavor, opposite-sign leptons (electrons or muons) and the other one decays to the two neutrinos. The new bounds on the charge-parity (CP)-conserving couplings <math altimg="si3.svg"><msub><mrow><mi>C</mi></mrow><mrow><mover accent="true"><mrow><mi>B</mi></mrow><mrow><mo>˜</mo></mrow></mover><mi>W</mi></mrow></msub><mo stretchy="false">/</mo><msup><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math> and CP-violating couplings <math altimg="si4.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>W</mi><mi>W</mi></mrow></msub><mo stretchy="false">/</mo><msup><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>, <math altimg="si5.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>B</mi><mi>W</mi></mrow></msub><mo stretchy="false">/</mo><msup><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math> and <math altimg="si6.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>B</mi><mi>B</mi></mrow></msub><mo stretchy="false">/</mo><msup><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math> achieved at 95% Confidence Level (C.L.) using the transverse momentum of the dilepton system (<math altimg="si7.svg"><msubsup><mrow><mi>p</mi></mrow><mrow><mi>T</mi></mrow><mrow><mi>ℓ</mi><mi>ℓ</mi></mrow></msubsup></math>) are <math altimg="si8.svg"><mo stretchy="false">[</mo><mo linebreak="badbreak" linebreakstyle="after">−</mo><mspace width="0.2em"/><mn>0.042</mn><mo>,</mo><mspace width="0.2em"/><mspace width="0.2em"/><mo linebreak="badbreak" linebreakstyle="after">+</mo><mspace width="0.2em"/><mn>0.042</mn><mo stretchy="false">]</mo></math>, <math altimg="si9.svg"><mo stretchy="false">[</mo><mo linebreak="badbreak" linebreakstyle="after">−</mo><mspace width="0.2em"/><mn>0.049</mn><mo>,</mo><mspace width="0.2em"/><mspace width="0.2em"/><mo linebreak="badbreak" linebreakstyle="after">+</mo><mspace width="0.2em"/><mn>0.049</mn><mo stretchy="false">]</mo></math>, <math altimg="si10.svg"><mo stretchy="false">[</mo><mo linebreak="badbreak" linebreakstyle="after">−</mo><mspace width="0.2em"/><mn>0.048</mn><mo>,</mo><mspace width="0.2em"/><mspace width="0.2em"/><mo linebreak="badbreak" linebreakstyle="after">+</mo><mspace width="0.2em"/><mn>0.048</mn><mo stretchy="false">]</mo></math>, and <math altimg="si11.svg"><mo stretchy="false">[</mo><mo linebreak="badbreak" linebreakstyle="after">−</mo><mspace width="0.2em"/><mn>0.047</mn><mo>,</mo><mspace width="0.2em"/><mspace width="0.2em"/><mo linebreak="badbreak" linebreakstyle="after">+</mo><mspace width="0.2em"/><mn>0.047</mn><mo stretchy="false">]</mo></math> in units of TeV<sup loc="post">−4</sup>, respectively.',
+                "value": (
+                    "This paper presents the projections on the anomalous neutral"
+                    " triple gauge couplings (<math"
+                    ' altimg="si1.svg"><mi>a</mi><mi>N</mi><mi>T</mi><mi>G</mi><mi>C</mi></math>)'
+                    ' via <math altimg="si2.svg"><mi>p</mi><mi>p</mi><mo'
+                    ' stretchy="false">→</mo><mi>Z</mi><mi>Z</mi></math> production'
+                    " in the 2ℓ2ν final state at a 100 TeV proton-proton collider,"
+                    " FCC-hh. The realistic FCC-hh detector environments and its"
+                    " effects taken into account in the analysis. The study is carried"
+                    " out in the mode where one Z boson decays into a pair of"
+                    " same-flavor, opposite-sign leptons (electrons or muons) and the"
+                    " other one decays to the two neutrinos. The new bounds on the"
+                    " charge-parity (CP)-conserving couplings <math"
+                    ' altimg="si3.svg"><msub><mrow><mi>C</mi></mrow><mrow><mover'
+                    ' accent="true"><mrow><mi>B</mi></mrow><mrow><mo>˜</mo></mrow></mover><mi>W</mi></mrow></msub><mo'
+                    ' stretchy="false">/</mo><msup><mrow><mi'
+                    ' mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>'
+                    " and CP-violating couplings <math"
+                    ' altimg="si4.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>W</mi><mi>W</mi></mrow></msub><mo'
+                    ' stretchy="false">/</mo><msup><mrow><mi'
+                    ' mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>,'
+                    " <math"
+                    ' altimg="si5.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>B</mi><mi>W</mi></mrow></msub><mo'
+                    ' stretchy="false">/</mo><msup><mrow><mi'
+                    ' mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>'
+                    " and <math"
+                    ' altimg="si6.svg"><msub><mrow><mi>C</mi></mrow><mrow><mi>B</mi><mi>B</mi></mrow></msub><mo'
+                    ' stretchy="false">/</mo><msup><mrow><mi'
+                    ' mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></msup></math>'
+                    " achieved at 95% Confidence Level (C.L.) using the transverse"
+                    " momentum of the dilepton system (<math"
+                    ' altimg="si7.svg"><msubsup><mrow><mi>p</mi></mrow><mrow><mi>T</mi></mrow><mrow><mi>ℓ</mi><mi>ℓ</mi></mrow></msubsup></math>)'
+                    ' are <math altimg="si8.svg"><mo stretchy="false">[</mo><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">−</mo><mspace'
+                    ' width="0.2em"/><mn>0.042</mn><mo>,</mo><mspace'
+                    ' width="0.2em"/><mspace width="0.2em"/><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">+</mo><mspace'
+                    ' width="0.2em"/><mn>0.042</mn><mo'
+                    ' stretchy="false">]</mo></math>, <math altimg="si9.svg"><mo'
+                    ' stretchy="false">[</mo><mo linebreak="badbreak"'
+                    ' linebreakstyle="after">−</mo><mspace'
+                    ' width="0.2em"/><mn>0.049</mn><mo>,</mo><mspace'
+                    ' width="0.2em"/><mspace width="0.2em"/><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">+</mo><mspace'
+                    ' width="0.2em"/><mn>0.049</mn><mo'
+                    ' stretchy="false">]</mo></math>, <math altimg="si10.svg"><mo'
+                    ' stretchy="false">[</mo><mo linebreak="badbreak"'
+                    ' linebreakstyle="after">−</mo><mspace'
+                    ' width="0.2em"/><mn>0.048</mn><mo>,</mo><mspace'
+                    ' width="0.2em"/><mspace width="0.2em"/><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">+</mo><mspace'
+                    ' width="0.2em"/><mn>0.048</mn><mo'
+                    ' stretchy="false">]</mo></math>, and <math'
+                    ' altimg="si11.svg"><mo stretchy="false">[</mo><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">−</mo><mspace'
+                    ' width="0.2em"/><mn>0.047</mn><mo>,</mo><mspace'
+                    ' width="0.2em"/><mspace width="0.2em"/><mo'
+                    ' linebreak="badbreak" linebreakstyle="after">+</mo><mspace'
+                    ' width="0.2em"/><mn>0.047</mn><mo'
+                    ' stretchy="false">]</mo></math> in units of TeV<sup'
+                    ' loc="post">−4</sup>, respectively.'
+                ),
                 "source": "Elsevier B.V.",
             }
         ],
@@ -1152,7 +1431,10 @@ def test_fuzzy_match_returns_control_number_if_one_match(inspire_app):
     record = {
         "titles": [
             {
-                "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
+                "title": (
+                    "Search for the limits on anomalous neutral triple gauge couplings"
+                    " via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh"
+                ),
             }
         ],
         "authors": [
@@ -1160,7 +1442,19 @@ def test_fuzzy_match_returns_control_number_if_one_match(inspire_app):
         ],
         "abstracts": [
             {
-                "value": "This paper presents the projections on the anomalous neutral triple gauge couplings via production in the 2ℓ2ν final state at a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh detector environments and its effects taken into account in the analysis. The study is carried out in the mode where one Z boson decays into a pair of same-flavor, opposite-sign leptons (electrons or muons) and the other one decays to the two neutrinos. The new bounds on the charge-parity (CP)-conserving couplings and CP-violating couplings and achieved at 95% Confidence Level (C.L.) using the transverse momentum of the dilepton system, respectively.",
+                "value": (
+                    "This paper presents the projections on the anomalous neutral"
+                    " triple gauge couplings via production in the 2ℓ2ν final state at"
+                    " a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh"
+                    " detector environments and its effects taken into account in the"
+                    " analysis. The study is carried out in the mode where one Z boson"
+                    " decays into a pair of same-flavor, opposite-sign leptons"
+                    " (electrons or muons) and the other one decays to the two"
+                    " neutrinos. The new bounds on the charge-parity (CP)-conserving"
+                    " couplings and CP-violating couplings and achieved at 95%"
+                    " Confidence Level (C.L.) using the transverse momentum of the"
+                    " dilepton system, respectively."
+                ),
                 "source": "Elsevier B.V.",
             }
         ],
@@ -1169,7 +1463,10 @@ def test_fuzzy_match_returns_control_number_if_one_match(inspire_app):
     matched_record = {
         "titles": [
             {
-                "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
+                "title": (
+                    "Search for the limits on anomalous neutral triple gauge couplings"
+                    " via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh"
+                ),
             }
         ],
         "authors": [
@@ -1177,7 +1474,19 @@ def test_fuzzy_match_returns_control_number_if_one_match(inspire_app):
         ],
         "abstracts": [
             {
-                "value": "This paper presents the projections on the anomalous neutral triple gauge couplings via production in the 2ℓ2ν final state at a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh detector environments and its effects taken into account in the analysis. The study is carried out in the mode where one Z boson decays into a pair of same-flavor, opposite-sign leptons (electrons or muons) and the other one decays to the two neutrinos. The new bounds on the charge-parity (CP)-conserving couplings and CP-violating couplings and achieved at 95% Confidence Level (C.L.) using the transverse momentum of the dilepton system, respectively.",
+                "value": (
+                    "This paper presents the projections on the anomalous neutral"
+                    " triple gauge couplings via production in the 2ℓ2ν final state at"
+                    " a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh"
+                    " detector environments and its effects taken into account in the"
+                    " analysis. The study is carried out in the mode where one Z boson"
+                    " decays into a pair of same-flavor, opposite-sign leptons"
+                    " (electrons or muons) and the other one decays to the two"
+                    " neutrinos. The new bounds on the charge-parity (CP)-conserving"
+                    " couplings and CP-violating couplings and achieved at 95%"
+                    " Confidence Level (C.L.) using the transverse momentum of the"
+                    " dilepton system, respectively."
+                ),
                 "source": "Elsevier B.V.",
             }
         ],
@@ -1193,7 +1502,10 @@ def test_fuzzy_match_returns_control_numbers_if_multiple_matches(inspire_app):
     record = {
         "titles": [
             {
-                "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
+                "title": (
+                    "Search for the limits on anomalous neutral triple gauge couplings"
+                    " via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh"
+                ),
             }
         ],
         "authors": [
@@ -1201,7 +1513,19 @@ def test_fuzzy_match_returns_control_numbers_if_multiple_matches(inspire_app):
         ],
         "abstracts": [
             {
-                "value": "This paper presents the projections on the anomalous neutral triple gauge couplings via production in the 2ℓ2ν final state at a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh detector environments and its effects taken into account in the analysis. The study is carried out in the mode where one Z boson decays into a pair of same-flavor, opposite-sign leptons (electrons or muons) and the other one decays to the two neutrinos. The new bounds on the charge-parity (CP)-conserving couplings and CP-violating couplings and achieved at 95% Confidence Level (C.L.) using the transverse momentum of the dilepton system, respectively.",
+                "value": (
+                    "This paper presents the projections on the anomalous neutral"
+                    " triple gauge couplings via production in the 2ℓ2ν final state at"
+                    " a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh"
+                    " detector environments and its effects taken into account in the"
+                    " analysis. The study is carried out in the mode where one Z boson"
+                    " decays into a pair of same-flavor, opposite-sign leptons"
+                    " (electrons or muons) and the other one decays to the two"
+                    " neutrinos. The new bounds on the charge-parity (CP)-conserving"
+                    " couplings and CP-violating couplings and achieved at 95%"
+                    " Confidence Level (C.L.) using the transverse momentum of the"
+                    " dilepton system, respectively."
+                ),
                 "source": "Elsevier B.V.",
             }
         ],
@@ -1210,7 +1534,10 @@ def test_fuzzy_match_returns_control_numbers_if_multiple_matches(inspire_app):
     matched_record = {
         "titles": [
             {
-                "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
+                "title": (
+                    "Search for the limits on anomalous neutral triple gauge couplings"
+                    " via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh"
+                ),
             }
         ],
         "authors": [
@@ -1218,7 +1545,19 @@ def test_fuzzy_match_returns_control_numbers_if_multiple_matches(inspire_app):
         ],
         "abstracts": [
             {
-                "value": "This paper presents the projections on the anomalous neutral triple gauge couplings via production in the 2ℓ2ν final state at a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh detector environments and its effects taken into account in the analysis. The study is carried out in the mode where one Z boson decays into a pair of same-flavor, opposite-sign leptons (electrons or muons) and the other one decays to the two neutrinos. The new bounds on the charge-parity (CP)-conserving couplings and CP-violating couplings and achieved at 95% Confidence Level (C.L.) using the transverse momentum of the dilepton system, respectively.",
+                "value": (
+                    "This paper presents the projections on the anomalous neutral"
+                    " triple gauge couplings via production in the 2ℓ2ν final state at"
+                    " a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh"
+                    " detector environments and its effects taken into account in the"
+                    " analysis. The study is carried out in the mode where one Z boson"
+                    " decays into a pair of same-flavor, opposite-sign leptons"
+                    " (electrons or muons) and the other one decays to the two"
+                    " neutrinos. The new bounds on the charge-parity (CP)-conserving"
+                    " couplings and CP-violating couplings and achieved at 95%"
+                    " Confidence Level (C.L.) using the transverse momentum of the"
+                    " dilepton system, respectively."
+                ),
                 "source": "Elsevier B.V.",
             }
         ],
@@ -1226,7 +1565,10 @@ def test_fuzzy_match_returns_control_numbers_if_multiple_matches(inspire_app):
     matched_record_2 = {
         "titles": [
             {
-                "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
+                "title": (
+                    "Search for the limits on anomalous neutral triple gauge couplings"
+                    " via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh"
+                ),
             }
         ],
         "authors": [
@@ -1234,7 +1576,19 @@ def test_fuzzy_match_returns_control_numbers_if_multiple_matches(inspire_app):
         ],
         "abstracts": [
             {
-                "value": "This paper presents the projections on the anomalous neutral triple gauge couplings via production in the 2ℓ2ν final state at a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh detector environments and its effects taken into account in the analysis. The study is carried out in the mode where one Z boson decays into a pair of same-flavor, opposite-sign leptons (electrons or muons) and the other one decays to the two neutrinos. The new bounds on the charge-parity (CP)-conserving couplings and CP-violating couplings and achieved at 95% Confidence Level (C.L.) using the transverse momentum of the dilepton system, respectively.",
+                "value": (
+                    "This paper presents the projections on the anomalous neutral"
+                    " triple gauge couplings via production in the 2ℓ2ν final state at"
+                    " a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh"
+                    " detector environments and its effects taken into account in the"
+                    " analysis. The study is carried out in the mode where one Z boson"
+                    " decays into a pair of same-flavor, opposite-sign leptons"
+                    " (electrons or muons) and the other one decays to the two"
+                    " neutrinos. The new bounds on the charge-parity (CP)-conserving"
+                    " couplings and CP-violating couplings and achieved at 95%"
+                    " Confidence Level (C.L.) using the transverse momentum of the"
+                    " dilepton system, respectively."
+                ),
                 "source": "Elsevier B.V.",
             }
         ],

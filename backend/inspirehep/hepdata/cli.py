@@ -28,7 +28,10 @@ def hepdata():
     "-s",
     "since",
     default=None,
-    help="Date from when hepdata should be harvested. If not provided the date from a day before would be used.",
+    help=(
+        "Date from when hepdata should be harvested. If not provided the date from a"
+        " day before would be used."
+    ),
 )
 @with_appcontext
 def harvest(since):
@@ -37,7 +40,8 @@ def harvest(since):
             since = datetime.strptime(since, "%Y-%m-%d").date()
         except ValueError as e:
             raise ValueError(
-                f"`since`: {since} is in wrong format. Should be in ISO format: YYYY-MM-DD."
+                f"`since`: {since} is in wrong format. Should be in ISO format:"
+                " YYYY-MM-DD."
             ) from e
     else:
         since = (datetime.now() - timedelta(1)).strftime("%Y-%m-%d")

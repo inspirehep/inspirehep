@@ -191,7 +191,10 @@ def test_normalize_affiliations_happy_flow(inspire_app, caplog):
                 "full_name": "Kowal, Michal",
                 "raw_affiliations": [
                     {
-                        "value": "Faculty of Physics, University of Warsaw, Pasteura 5 Warsaw"
+                        "value": (
+                            "Faculty of Physics, University of Warsaw, Pasteura 5"
+                            " Warsaw"
+                        )
                     }
                 ],
             },
@@ -228,7 +231,10 @@ def test_normalize_affiliations_when_authors_has_two_happy_flow(inspire_app):
                 "full_name": "Kowal, Michal",
                 "raw_affiliations": [
                     {
-                        "value": "Faculty of Physics, University of Warsaw, Pasteura 5 Warsaw"
+                        "value": (
+                            "Faculty of Physics, University of Warsaw, Pasteura 5"
+                            " Warsaw"
+                        )
                     },
                     {"value": "CERN, Genève, Switzerland"},
                 ],
@@ -344,7 +350,10 @@ def test_normalize_affiliations_doesnt_return_nested_affiliations_if_using_memoi
                 "full_name": "Li, Wei",
                 "raw_affiliations": [
                     {
-                        "value": "Institute of Theoretical Physics, Chinese Academy of Sciences, 100190 Beijing, P.R. China"
+                        "value": (
+                            "Institute of Theoretical Physics, Chinese Academy of"
+                            " Sciences, 100190 Beijing, P.R. China"
+                        )
                     }
                 ],
             },
@@ -353,7 +362,10 @@ def test_normalize_affiliations_doesnt_return_nested_affiliations_if_using_memoi
                 "full_name": "Yamazaki, Masahito",
                 "raw_affiliations": [
                     {
-                        "value": "Institute of Theoretical Physics, Chinese Academy of Sciences, 100190 Beijing, P.R. China"
+                        "value": (
+                            "Institute of Theoretical Physics, Chinese Academy of"
+                            " Sciences, 100190 Beijing, P.R. China"
+                        )
                     }
                 ],
             },
@@ -384,7 +396,10 @@ def test_normalize_affiliations_doesnt_add_duplicated_affiliations(
                 "raw_affiliations": [
                     {"value": "Warsaw U., Faculty of Physics"},
                     {
-                        "value": "Warsaw U., Faculty of Mathematics, Informatics, and Mechanics"
+                        "value": (
+                            "Warsaw U., Faculty of Mathematics, Informatics, and"
+                            " Mechanics"
+                        )
                     },
                 ],
             }
@@ -467,7 +482,10 @@ def test_normalize_affiliations_doesnt_add_not_valid_stuff_to_affiliation(
                 "ids": [{"schema": "INSPIRE BAI", "value": "P.J.Easter.2"}],
                 "raw_affiliations": [
                     {
-                        "value": "OzGrav: The ARC Centre of Excellence for Gravitational Wave Discovery, Clayton VIC 3800, Australia"
+                        "value": (
+                            "OzGrav: The ARC Centre of Excellence for Gravitational"
+                            " Wave Discovery, Clayton VIC 3800, Australia"
+                        )
                     },
                 ],
                 "signature_block": "EASTARp",
@@ -503,10 +521,16 @@ def test_normalize_affiliations_assign_all_affiliations_if_one_raw_aff_in_matche
                 "ids": [{"schema": "INSPIRE BAI", "value": "P.J.Easter.2"}],
                 "raw_affiliations": [
                     {
-                        "value": "School of Physics and Astronomy, Monash University, Vic 3800, Australia"
+                        "value": (
+                            "School of Physics and Astronomy, Monash University, Vic"
+                            " 3800, Australia"
+                        )
                     },
                     {
-                        "value": "OzGrav: The ARC Centre of Excellence for Gravitational Wave Discovery, Clayton VIC 3800, Australia"
+                        "value": (
+                            "OzGrav: The ARC Centre of Excellence for Gravitational"
+                            " Wave Discovery, Clayton VIC 3800, Australia"
+                        )
                     },
                 ],
                 "signature_block": "EASTARp",

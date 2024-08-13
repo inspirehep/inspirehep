@@ -10,4 +10,7 @@ class SubGroupNotFound(Exception):
         super().__init__(**kwargs)
         self.collaboration_id = collaboration_id
         self.subgroup_missing = subgroup
-        self.message = f"Subgroup {self.subgroup_missing} was not found in collaboration {self.collaboration_id} (normalization problem)."
+        self.message = (
+            f"Subgroup {self.subgroup_missing} was not found in collaboration"
+            f" {self.collaboration_id} (normalization problem)."
+        )

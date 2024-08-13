@@ -20,10 +20,12 @@ def upgrade():
     """Upgrade database."""
     op.execute("CREATE SEQUENCE records_authors_id_seq OWNED BY records_authors.id;")
     op.execute(
-        "SELECT SETVAL('records_authors_id_seq', (select max(id) from records_authors), false)"
+        "SELECT SETVAL('records_authors_id_seq', (select max(id) from records_authors),"
+        " false)"
     )
     op.execute(
-        "ALTER TABLE records_authors ALTER COLUMN id SET DEFAULT nextval('records_authors_id_seq');"
+        "ALTER TABLE records_authors ALTER COLUMN id SET DEFAULT"
+        " nextval('records_authors_id_seq');"
     )
     op.execute(
         "ALTER TABLE records_authors ADD CONSTRAINT pk_authors_records PRIMARY KEY (id)"

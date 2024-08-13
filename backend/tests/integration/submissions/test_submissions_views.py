@@ -2148,7 +2148,9 @@ def test_new_seminar_submission_with_valid_lit_record(
     assert seminar_record["literature_records"] == [
         {
             "record": {
-                "$ref": f"http://localhost:5000/api/literature/{lit_record_control_number}"
+                "$ref": (
+                    f"http://localhost:5000/api/literature/{lit_record_control_number}"
+                )
             }
         }
     ]

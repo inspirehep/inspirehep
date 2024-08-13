@@ -74,7 +74,9 @@ def test_cv_with_linked_and_unlinked_authors(inspire_app, shared_datadir):
             {
                 "full_name": "Doe, John1",
                 "record": {
-                    "$ref": f'https://localhost:5000/api/authors/{aut["control_number"]}'
+                    "$ref": (
+                        f'https://localhost:5000/api/authors/{aut["control_number"]}'
+                    )
                 },
             },
             {"full_name": "Doe, John2"},
@@ -660,7 +662,11 @@ def test_cv_search_cached(inspire_app):
     record.update(data)
     record_control_number = record["control_number"]
     expected_status_code = 200
-    expected_result = f'<!DOCTYPE html><html><body>  <p><b>    <a href="https://localhost:5000/literature/{record_control_number}">      Yet another title    </a>  </b></p>          <br></body></html>'
+    expected_result = (
+        "<!DOCTYPE html><html><body>  <p><b>    <a"
+        f' href="https://localhost:5000/literature/{record_control_number}">      Yet'
+        " another title    </a>  </b></p>          <br></body></html>"
+    )
     with inspire_app.test_client() as client:
         response = client.get("/literature", headers=headers)
 
@@ -679,7 +685,11 @@ def test_literature_detail_cv_link_alias_format(inspire_app):
     record = create_record("lit", data=data)
     record_control_number = record["control_number"]
     expected_status_code = 200
-    expected_result = f'<!DOCTYPE html><html><body>  <p><b>    <a href="https://localhost:5000/literature/{record_control_number}">      Yet another title    </a>  </b></p>          <br></body></html>'
+    expected_result = (
+        "<!DOCTYPE html><html><body>  <p><b>    <a"
+        f' href="https://localhost:5000/literature/{record_control_number}">      Yet'
+        " another title    </a>  </b></p>          <br></body></html>"
+    )
 
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record['control_number']}?format=cv")

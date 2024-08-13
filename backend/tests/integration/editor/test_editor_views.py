@@ -349,11 +349,15 @@ def test_refextract_text_with_refextract_service(override_config, inspire_app):
                             "journal_year": ["2009"],
                             "linemarker": ["27"],
                             "raw_ref": [
-                                "[27] K. Ito, H. Nakajima, T. Saka, and S. Sasaki, “Instanton Calculus in Deformed N=4 Super Yang-Mills Theories,” JHEP 10 (2009) 028, arXiv:0908.4339 [hep-th]."
+                                "[27] K. Ito, H. Nakajima, T. Saka, and S. Sasaki,"
+                                " “Instanton Calculus in Deformed N=4 Super Yang-Mills"
+                                " Theories,” JHEP 10 (2009) 028, arXiv:0908.4339"
+                                " [hep-th]."
                             ],
                             "reportnumber": ["arXiv:0908.4339 [hep-th]"],
                             "title": [
-                                "Instanton Calculus in Deformed N=4 Super Yang-Mills Theories"
+                                "Instanton Calculus in Deformed N=4 Super Yang-Mills"
+                                " Theories"
                             ],
                             "year": ["2009"],
                         },
@@ -368,7 +372,12 @@ def test_refextract_text_with_refextract_service(override_config, inspire_app):
                     content_type="application/json",
                     data=orjson.dumps(
                         {
-                            "text": "[27] K. Ito, H. Nakajima, T. Saka, and S. Sasaki, “Instanton Calculus in Deformed N=4 Super Yang-Mills Theories,” JHEP 10 (2009) 028, arXiv:0908.4339 [hep-th]."
+                            "text": (
+                                "[27] K. Ito, H. Nakajima, T. Saka, and S. Sasaki,"
+                                " “Instanton Calculus in Deformed N=4 Super Yang-Mills"
+                                " Theories,” JHEP 10 (2009) 028, arXiv:0908.4339"
+                                " [hep-th]."
+                            )
                         }
                     ),
                 )
@@ -425,11 +434,15 @@ def test_refextract_url_with_refextract_service(override_config, inspire_app):
                             "journal_year": ["2009"],
                             "linemarker": ["27"],
                             "raw_ref": [
-                                "[27] K. Ito, H. Nakajima, T. Saka, and S. Sasaki, “Instanton Calculus in Deformed N=4 Super Yang-Mills Theories,” JHEP 10 (2009) 028, arXiv:0908.4339 [hep-th]."
+                                "[27] K. Ito, H. Nakajima, T. Saka, and S. Sasaki,"
+                                " “Instanton Calculus in Deformed N=4 Super Yang-Mills"
+                                " Theories,” JHEP 10 (2009) 028, arXiv:0908.4339"
+                                " [hep-th]."
                             ],
                             "reportnumber": ["arXiv:0908.4339 [hep-th]"],
                             "title": [
-                                "Instanton Calculus in Deformed N=4 Super Yang-Mills Theories"
+                                "Instanton Calculus in Deformed N=4 Super Yang-Mills"
+                                " Theories"
                             ],
                             "year": ["2009"],
                         },
@@ -777,7 +790,10 @@ def test_authorlist_text_is_normalizing_affiliaitons(inspire_app):
                     "full_name": "Mangiarotti, F.J.",
                     "raw_affiliations": [
                         {
-                            "value": "CERN European Organization for Nuclear Research, 1211, Geneva 23, Switzerland",
+                            "value": (
+                                "CERN European Organization for Nuclear Research, 1211,"
+                                " Geneva 23, Switzerland"
+                            ),
                             "source": "Elsevier Ltd",
                         }
                     ],
@@ -785,7 +801,9 @@ def test_authorlist_text_is_normalizing_affiliaitons(inspire_app):
                         {
                             "value": "CERN",
                             "record": {
-                                "$ref": "https://inspirebeta.net/api/institutions/902725"
+                                "$ref": (
+                                    "https://inspirebeta.net/api/institutions/902725"
+                                )
                             },
                         }
                     ],
@@ -860,7 +878,10 @@ def test_authorlist_text_is_normalizing_multiple_affiliaitons(inspire_app):
                     "full_name": "Mangiarotti, F.J.",
                     "raw_affiliations": [
                         {
-                            "value": "CERN European Organization for Nuclear Research, 1211, Geneva 23, Switzerland",
+                            "value": (
+                                "CERN European Organization for Nuclear Research, 1211,"
+                                " Geneva 23, Switzerland"
+                            ),
                             "source": "Elsevier Ltd",
                         }
                     ],
@@ -868,7 +889,9 @@ def test_authorlist_text_is_normalizing_multiple_affiliaitons(inspire_app):
                         {
                             "value": "CERN",
                             "record": {
-                                "$ref": "https://inspirebeta.net/api/institutions/902725"
+                                "$ref": (
+                                    "https://inspirebeta.net/api/institutions/902725"
+                                )
                             },
                         }
                     ],
@@ -889,14 +912,19 @@ def test_authorlist_text_is_normalizing_multiple_affiliaitons(inspire_app):
                         {
                             "value": "Warsaw U.",
                             "record": {
-                                "$ref": "https://inspirebeta.net/api/institutions/903335"
+                                "$ref": (
+                                    "https://inspirebeta.net/api/institutions/903335"
+                                )
                             },
                         }
                     ],
                     "signature_block": "BADNARa",
                     "raw_affiliations": [
                         {
-                            "value": "Faculty of Physics, University of Warsaw, ul. Pasteura 5, PL02-093 Warsaw, Poland"
+                            "value": (
+                                "Faculty of Physics, University of Warsaw, ul. Pasteura"
+                                " 5, PL02-093 Warsaw, Poland"
+                            )
                         }
                     ],
                 }
@@ -910,14 +938,7 @@ def test_authorlist_text_is_normalizing_multiple_affiliaitons(inspire_app):
             "/editor/authorlist/text",
             content_type="application/json",
             data=orjson.dumps(
-                {
-                    "text": (
-                        "F. Lastname1, F.M. Otherlastname2\n"
-                        "\n"
-                        "1 CERN\n"
-                        "2 Warsaw U."
-                    )
-                }
+                {"text": "F. Lastname1, F.M. Otherlastname2\n\n1 CERN\n2 Warsaw U."}
             ),
         )
     assert response.status_code == 200
@@ -1087,7 +1108,7 @@ def test_authorlist_url(inspire_app):
         response = client.post(
             "/editor/authorlist/url",
             content_type="application/json",
-            data=orjson.dumps({"url": ("https://arxiv.org/pdf/1612.06414.pdf")}),
+            data=orjson.dumps({"url": "https://arxiv.org/pdf/1612.06414.pdf"}),
         )
     assert response.status_code == 200
     result = orjson.loads(response.data)
@@ -1098,7 +1119,11 @@ def test_authorlist_url(inspire_app):
                 "full_name": "Moskovic, Micha",
                 "raw_affiliations": [
                     {
-                        "value": "Università di Torino, Dipartimento di Fisica and I.N.F.N. -sezione di Torino, Via P. Giuria 1, I-10125 Torino, Italy"
+                        "value": (
+                            "Università di Torino, Dipartimento di Fisica and I.N.F.N."
+                            " -sezione di Torino, Via P. Giuria 1, I-10125 Torino,"
+                            " Italy"
+                        )
                     }
                 ],
             },
@@ -1143,14 +1168,20 @@ def test_authorlist_url_is_normalizing_affiliaitons(inspire_app):
                     "full_name": "Moskovic, Micha",
                     "raw_affiliations": [
                         {
-                            "value": "Università di Torino, Dipartimento di Fisica and I.N.F.N. -sezione di Torino, Via P. Giuria 1, I-10125 Torino, Italy",
+                            "value": (
+                                "Università di Torino, Dipartimento di Fisica and"
+                                " I.N.F.N. -sezione di Torino, Via P. Giuria 1, I-10125"
+                                " Torino, Italy"
+                            ),
                         }
                     ],
                     "affiliations": [
                         {
                             "value": "Università di Torino",
                             "record": {
-                                "$ref": "https://inspirebeta.net/api/institutions/902725"
+                                "$ref": (
+                                    "https://inspirebeta.net/api/institutions/902725"
+                                )
                             },
                         }
                     ],
@@ -1164,7 +1195,7 @@ def test_authorlist_url_is_normalizing_affiliaitons(inspire_app):
         response = client.post(
             "/editor/authorlist/url",
             content_type="application/json",
-            data=orjson.dumps({"url": ("https://arxiv.org/pdf/1612.06414.pdf")}),
+            data=orjson.dumps({"url": "https://arxiv.org/pdf/1612.06414.pdf"}),
         )
     assert response.status_code == 200
 
@@ -1174,7 +1205,11 @@ def test_authorlist_url_is_normalizing_affiliaitons(inspire_app):
                 "full_name": "Moskovic, Micha",
                 "raw_affiliations": [
                     {
-                        "value": "Università di Torino, Dipartimento di Fisica and I.N.F.N. -sezione di Torino, Via P. Giuria 1, I-10125 Torino, Italy"
+                        "value": (
+                            "Università di Torino, Dipartimento di Fisica and I.N.F.N."
+                            " -sezione di Torino, Via P. Giuria 1, I-10125 Torino,"
+                            " Italy"
+                        )
                     }
                 ],
                 "affiliations": [

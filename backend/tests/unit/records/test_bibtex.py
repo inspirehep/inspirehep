@@ -6,12 +6,18 @@ def test_bibtext_not_break_on_wrong_data():
     data = {
         "titles": [
             {
-                "title": "Results of the analysis of test Beam data collected at Fermilab with incident muons for the Hadronic Section of the ZEUS Barrel Calorimeter"
+                "title": (
+                    "Results of the analysis of test Beam data collected at Fermilab"
+                    " with incident muons for the Hadronic Section of the ZEUS Barrel"
+                    " Calorimeter"
+                )
             }
         ],
         "authors": [
             {
-                "full_name": "L. Chen, R. Imlay, S. Kartik, H.J.Kim, R. McNeil, W. Metcalf"
+                "full_name": (
+                    "L. Chen, R. Imlay, S. Kartik, H.J.Kim, R. McNeil, W. Metcalf"
+                )
             }
         ],
         "document_type": ["article"],

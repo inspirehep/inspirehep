@@ -42,7 +42,8 @@ class JSONSerializer(ORJSONSerializerMixin, InvenioJSONSerializer):
 
     def preprocess_record(self, pid, record, links_factory=None, **kwargs):
         """Prepare a record and persistent identifier for serialization.
-        We are overriding it to put the actual record in the metadata instead of a dict."""
+        We are overriding it to put the actual record in the metadata instead of a dict.
+        """
         return dict(
             links=links_factory(pid) if links_factory else None,
             pid=pid,

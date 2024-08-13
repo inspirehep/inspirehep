@@ -13,7 +13,9 @@ def test_map_refextract_to_schema():
             "journal_year": ["1964"],
             "linemarker": ["1"],
             "raw_ref": [
-                "[1] F. Englert and R. Brout, \u201cBroken symmetry and the mass of gauge vector mesons\u201d, Phys. Rev. Lett. 13 (1964) 321, doi:10.1103/PhysRevLett.13.321."
+                "[1] F. Englert and R. Brout, \u201cBroken symmetry and the mass of"
+                " gauge vector mesons\u201d, Phys. Rev. Lett. 13 (1964) 321,"
+                " doi:10.1103/PhysRevLett.13.321."
             ],
             "texkey": ["Englert:1964et"],
             "year": ["1964"],
@@ -33,7 +35,11 @@ def test_map_refextract_to_schema():
             "raw_refs": [
                 {
                     "schema": "text",
-                    "value": "[1] F. Englert and R. Brout, “Broken symmetry and the mass of gauge vector mesons”, Phys. Rev. Lett. 13 (1964) 321, doi:10.1103/PhysRevLett.13.321.",
+                    "value": (
+                        "[1] F. Englert and R. Brout, “Broken symmetry and the mass of"
+                        " gauge vector mesons”, Phys. Rev. Lett. 13 (1964) 321,"
+                        " doi:10.1103/PhysRevLett.13.321."
+                    ),
                 }
             ],
         }

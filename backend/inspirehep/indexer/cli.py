@@ -43,7 +43,10 @@ FULLTEXT_PIPELINE_SETUP = {
                                 "set": {
                                     "description": "Set '_error.message'",
                                     "field": "_ingest._value._error.message",
-                                    "value": "Fulltext indexing failed with message {{ _ingest.on_failure_message }}",
+                                    "value": (
+                                        "Fulltext indexing failed with message {{"
+                                        " _ingest.on_failure_message }}"
+                                    ),
                                     "override": True,
                                 }
                             }
@@ -107,15 +110,19 @@ def dispatch_indexing_task(items, batch_size, queue_name):
     "-p",
     "--pidtype",
     multiple=True,
-    help="Reindex only the specified PIDs. "
-    'Allowed values are "lit", "con", "dat", "exp", "jou", "aut", "job", "ins", "sem".',
+    help=(
+        'Reindex only the specified PIDs. Allowed values are "lit", "con", "dat",'
+        ' "exp", "jou", "aut", "job", "ins", "sem".'
+    ),
 )
 @click.option(
     "-id",
     "--pid",
     nargs=2,
-    help="The pid-type and pid-value of the record to reindex. "
-    "Example `reindex -id lit 1234.`",
+    help=(
+        "The pid-type and pid-value of the record to reindex. "
+        "Example `reindex -id lit 1234.`"
+    ),
     show_default=True,
 )
 @click.option(
@@ -200,7 +207,8 @@ def reindex_records(
     pidtypes = set(pidtype)
     if not pidtypes <= allowed_pids:
         raise ValueError(
-            f"PIDs {pidtypes.difference(allowed_pids)} are not a subset of {allowed_pids}."
+            f"PIDs {pidtypes.difference(allowed_pids)} are not a subset of"
+            f" {allowed_pids}."
         )
     if all:
         pidtypes = allowed_pids
@@ -265,14 +273,19 @@ def reindex_records(
         number_of_failures=failures_count,
     )
     click.secho(
-        f"Reindex completed!\n{successes_count} succeeded\n{failures_count} failed\n{len(batch_errors)} entire batches failed",
+        "Reindex"
+        f" completed!\n{successes_count} succeeded\n{failures_count} failed\n{len(batch_errors)} entire"
+        " batches failed",
         fg=color,
     )
 
 
 @index.command(
     "remap",
-    help="(Inspire) Remaps specified indexes. Removes all data from index during this process.",
+    help=(
+        "(Inspire) Remaps specified indexes. Removes all data from index during this"
+        " process."
+    ),
 )
 @click.option("--yes-i-know", is_flag=True)
 @click.option(
@@ -286,14 +299,18 @@ def reindex_records(
 @click.option(
     "--ignore-checks",
     is_flag=True,
-    help="Do not check if old index was deleted. WARNING: this may lead to one alias pointing to many indexes!",
+    help=(
+        "Do not check if old index was deleted. WARNING: this may lead to one alias"
+        " pointing to many indexes!"
+    ),
 )
 @with_appcontext
 @click.pass_context
 def remap_indexes(ctx, yes_i_know, indexes, ignore_checks):
     if not yes_i_know:
         click.confirm(
-            "This operation will irreversibly remove data from selected indexes in ES, do you want to continue?",
+            "This operation will irreversibly remove data from selected indexes in ES,"
+            " do you want to continue?",
             abort=True,
         )
     if not indexes:
@@ -315,7 +332,8 @@ def remap_indexes(ctx, yes_i_know, indexes, ignore_checks):
     deleted_indexes = list(current_search.delete(index_list=indexes))
     if not ignore_checks and len(deleted_indexes) != len(indexes):
         click.echo(
-            f"Number of deleted indexes ({len(deleted_indexes)} is different than requested ones ({len(indexes)}",
+            f"Number of deleted indexes ({len(deleted_indexes)} is different than"
+            f" requested ones ({len(indexes)}",
             err=True,
         )
         click.echo("deleted indexes %s" % [i[0] for i in deleted_indexes])
@@ -351,7 +369,8 @@ def create_aliases(ctx, yes_i_know, prefix_alias):
 
         if current_search.client.indices.exists_alias(alias_name):
             if not yes_i_know and not click.confirm(
-                f"This operation will remove current '{alias_name}' alias. Are you sure you want to continue?"
+                f"This operation will remove current '{alias_name}' alias. Are you sure"
+                " you want to continue?"
             ):
                 click.echo(f"Skipping alias {alias_name}")
                 continue
@@ -388,7 +407,8 @@ def delete_indexes(ctx, yes_i_know, prefix):
     click.echo(f"""Found {len(indices_to_delete)} indices to delete""")
     for index_to_delete in indices_to_delete:
         if not yes_i_know and not click.confirm(
-            f"This operation will remove '{index_to_delete}' index. Are you sure you want to continue?"
+            f"This operation will remove '{index_to_delete}' index. Are you sure you"
+            " want to continue?"
         ):
             continue
         try:

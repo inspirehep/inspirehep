@@ -40,7 +40,8 @@ def sync_identifiers(since=None):
     since = since or last_run_date
     if not since:
         LOGGER.error(
-            "CDS Sync failed. No `since` provided and no successful runs in DB. Aborting."
+            "CDS Sync failed. No `since` provided and no successful runs in DB."
+            " Aborting."
         )
         raise CDSSyncError("Missing `since` date")
 
@@ -144,10 +145,11 @@ def get_record_for_provided_ids(control_numbers, arxivs, dois, report_numbers):
     for report_number in report_numbers:
         arxiv = report_number.lower().split("arxiv:")[-1]
         #  Report numbers might contain arxivs or normal report numbers
-        if is_arxiv(arxiv):
-            record_object = get_record_for_pid_or_none("arxiv", arxiv)
-        else:
-            record_object = query_report_number(report_number)
+        record_object = (
+            get_record_for_pid_or_none("arxiv", arxiv)
+            if is_arxiv(arxiv)
+            else query_report_number(report_number)
+        )
         if record_object:
             LOGGER.info(
                 "Matched record by `report_number`",

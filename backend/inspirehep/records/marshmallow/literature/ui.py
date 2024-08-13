@@ -125,10 +125,11 @@ class LiteratureDetailSchema(
         return "Literature" not in collections
 
     def get_formatted_earliest_date(self, data):
-        if hasattr(data, "earliest_date"):
-            earliest_date = data.earliest_date
-        else:
-            earliest_date = get_literature_earliest_date(data)
+        earliest_date = (
+            data.earliest_date
+            if hasattr(data, "earliest_date")
+            else get_literature_earliest_date(data)
+        )
         if earliest_date is None:
             return missing
         return format_date(earliest_date)

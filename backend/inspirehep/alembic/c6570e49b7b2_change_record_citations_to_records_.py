@@ -19,10 +19,12 @@ def upgrade():
     """Upgrade database."""
     op.rename_table("record_citations", "records_citations")
     op.execute(
-        "ALTER TABLE records_citations RENAME CONSTRAINT fk_record_citations_cited TO fk_records_citations_cited_id"
+        "ALTER TABLE records_citations RENAME CONSTRAINT fk_record_citations_cited TO"
+        " fk_records_citations_cited_id"
     )
     op.execute(
-        "ALTER TABLE records_citations RENAME CONSTRAINT fk_record_citations_citer TO fk_records_citations_citer_id"
+        "ALTER TABLE records_citations RENAME CONSTRAINT fk_record_citations_citer TO"
+        " fk_records_citations_citer_id"
     )
     op.execute(
         "ALTER INDEX idx_citations_cited RENAME TO ix_records_citations_cited_id"
@@ -33,10 +35,12 @@ def downgrade():
     """Downgrade database."""
     op.rename_table("records_citations", "record_citations")
     op.execute(
-        "ALTER TABLE record_citations RENAME CONSTRAINT fk_records_citations_cited_id TO fk_record_citations_cited"
+        "ALTER TABLE record_citations RENAME CONSTRAINT fk_records_citations_cited_id"
+        " TO fk_record_citations_cited"
     )
     op.execute(
-        "ALTER TABLE record_citations RENAME CONSTRAINT fk_records_citations_citer_id TO fk_record_citations_citer"
+        "ALTER TABLE record_citations RENAME CONSTRAINT fk_records_citations_citer_id"
+        " TO fk_record_citations_citer"
     )
     op.execute(
         "ALTER INDEX ix_records_citations_cited_id RENAME TO idx_citations_cited"

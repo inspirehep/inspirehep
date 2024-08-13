@@ -26,10 +26,11 @@ class InspireCNUMProvider(InspireBaseProvider):
         cls, object_type=None, object_uuid=None, data=None, pid_value=None, **kwargs
     ):
         """Create a new record identifier."""
-        if pid_value or "cnum" in data:
-            cnum = pid_value or data.get("cnum")
-        else:
-            cnum = cls.next(data)
+        cnum = (
+            pid_value or data.get("cnum")
+            if pid_value or "cnum" in data
+            else cls.next(data)
+        )
         if not cnum:
             return
         kwargs["pid_value"] = cnum

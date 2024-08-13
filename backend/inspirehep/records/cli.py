@@ -69,8 +69,7 @@ def _create_record(data, save_to_file=False, replace_host_in_ref_url=True):
     db.session.commit()
     record.index(delay=False)
     message = (
-        f"Record created uuid:{record.id} with "
-        f"pid:{control_number} has been created."
+        f"Record created uuid:{record.id} with pid:{control_number} has been created."
     )
     click.echo(click.style(message, fg="green"))
 
@@ -148,14 +147,18 @@ def importer():
     multiple=True,
     default=[],
     type=str,
-    help="Record API url (JSON), example: https://labs.inspirehep.net/api/literature/20.",
+    help=(
+        "Record API url (JSON), example: https://labs.inspirehep.net/api/literature/20."
+    ),
 )
 @click.option(
     "-d",
     "--directory",
     default=None,
     type=click.Path(exists=True),
-    help="Path to directory of record JSON files, example: ``data/records/literature``.",
+    help=(
+        "Path to directory of record JSON files, example: ``data/records/literature``."
+    ),
 )
 @click.option(
     "-f",
@@ -168,7 +171,10 @@ def importer():
 @click.option(
     "-s",
     "--save",
-    help="It will save the imported records (from url) to local data folder and overwrite if they exist",
+    help=(
+        "It will save the imported records (from url) to local data folder and"
+        " overwrite if they exist"
+    ),
     is_flag=True,
     default=False,
     show_default=True,
@@ -176,7 +182,10 @@ def importer():
 @click.option(
     "-t",
     "--token",
-    help="Auth token to be used while importing from urls, instead of app.config['AUTHENTICATION_TOKEN']}",
+    help=(
+        "Auth token to be used while importing from urls, instead of"
+        " app.config['AUTHENTICATION_TOKEN']}"
+    ),
     default=None,
 )
 @with_appcontext
@@ -292,21 +301,30 @@ def populate_recid_in_record_authors_table():
 @click.option(
     "--total-records",
     type=int,
-    help="Number of records to disambiguate, if not passed all records with at least one not disambiguated will be sent to the queue",
+    help=(
+        "Number of records to disambiguate, if not passed all records with at least one"
+        " not disambiguated will be sent to the queue"
+    ),
 )
 @click.option(
     "--indexing-queue-limit",
     type=int,
     default=10000,
     show_default=True,
-    help="Number of records to disambiguate, if not passed all records with at least one not disambiguated will be sent to the queue",
+    help=(
+        "Number of records to disambiguate, if not passed all records with at least one"
+        " not disambiguated will be sent to the queue"
+    ),
 )
 @click.option(
     "--disambiguation-queue-limit",
     type=int,
     default=10000,
     show_default=True,
-    help="Number of records to disambiguate, if not passed all records with at least one not disambiguated will be sent to the queue",
+    help=(
+        "Number of records to disambiguate, if not passed all records with at least one"
+        " not disambiguated will be sent to the queue"
+    ),
 )
 @with_appcontext
 def remove_bai_from_literature_records(

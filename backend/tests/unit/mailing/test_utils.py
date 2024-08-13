@@ -36,8 +36,19 @@ def test_strip_html_tags_empty_string():
 
 
 def test_strip_html_tags():
-    html = "<html><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. <b>Vestibulum</b> tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p></html>"
-    expected = "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo."
+    html = (
+        "<html><p>Pellentesque habitant morbi tristique senectus et netus et malesuada"
+        " fames ac turpis egestas. <b>Vestibulum</b> tortor quam, feugiat vitae,"
+        " ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas"
+        " semper. Aenean ultricies mi vitae est. Mauris placerat eleifend"
+        " leo.</p></html>"
+    )
+    expected = (
+        "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac"
+        " turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor"
+        " sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean"
+        " ultricies mi vitae est. Mauris placerat eleifend leo."
+    )
     result = strip_html_tags(html)
 
     assert result == expected

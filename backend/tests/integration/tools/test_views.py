@@ -147,31 +147,107 @@ def test_find_references(literature_records):
     ]
 
     expected_references_bibtex = [
-        '@article{1979PhLB...80..360E,\n    author = "Ellis, John R.",\n    title = "{Baryon Number Generation in Grand Unified Theories}"\n}\n',
-        '@article{Beacom:2004yd,\n    author = "Beacom, John F.",\n    title = "{Neutrinoless universe}"\n}\n',
-        '@article{hep-th/0501240,\n    author = "Bern, Zvi",\n    title = "{On-shell recurrence relations for one-loop QCD amplitudes}",\n    eprint = "hep-th/0501240",\n    archivePrefix = "arXiv"\n}\n',
-        '@article{JHEP.0412.015,\n    author = "Dixon, Lance J.",\n    title = "{MHV rules for Higgs plus multi-gluon amplitudes}",\n    journal = "JHEP",\n    volume = "12",\n    pages = "015",\n    year = "2004"\n}\n',
+        (
+            '@article{1979PhLB...80..360E,\n    author = "Ellis, John R.",\n    title ='
+            ' "{Baryon Number Generation in Grand Unified Theories}"\n}\n'
+        ),
+        (
+            '@article{Beacom:2004yd,\n    author = "Beacom, John F.",\n    title ='
+            ' "{Neutrinoless universe}"\n}\n'
+        ),
+        (
+            '@article{hep-th/0501240,\n    author = "Bern, Zvi",\n    title ='
+            ' "{On-shell recurrence relations for one-loop QCD amplitudes}",\n   '
+            ' eprint = "hep-th/0501240",\n    archivePrefix = "arXiv"\n}\n'
+        ),
+        (
+            '@article{JHEP.0412.015,\n    author = "Dixon, Lance J.",\n    title ='
+            ' "{MHV rules for Higgs plus multi-gluon amplitudes}",\n    journal ='
+            ' "JHEP",\n    volume = "12",\n    pages = "015",\n    year = "2004"\n}\n'
+        ),
     ]
 
     expected_references_latex_us = [
-        "%\\cite{1979PhLB...80..360E}\n\\bibitem{1979PhLB...80..360E}\nJ.~R.~Ellis,\n%``Baryon Number Generation in Grand Unified Theories,''\n%0 citations counted in INSPIRE as of 12 Jun 2020",
-        "%\\cite{Beacom:2004yd}\n\\bibitem{Beacom:2004yd}\nJ.~F.~Beacom,\n%``Neutrinoless universe,''\n%0 citations counted in INSPIRE as of 12 Jun 2020",
-        "%\\cite{hep-th/0501240}\n\\bibitem{hep-th/0501240}\nZ.~Bern,\n%``On-shell recurrence relations for one-loop QCD amplitudes,''\n[arXiv:hep-th/0501240 [hep-th]].\n%0 citations counted in INSPIRE as of 12 Jun 2020",
-        "%\\cite{JHEP.0412.015}\n\\bibitem{JHEP.0412.015}\nL.~J.~Dixon,\n%``MHV rules for Higgs plus multi-gluon amplitudes,''\nJHEP \\textbf{12}, 015 (2004)\n%0 citations counted in INSPIRE as of 12 Jun 2020",
+        (
+            "%\\cite{1979PhLB...80..360E}\n\\bibitem{1979PhLB...80..360E}\nJ.~R.~Ellis,\n%``Baryon"
+            " Number Generation in Grand Unified Theories,''\n%0 citations counted in"
+            " INSPIRE as of 12 Jun 2020"
+        ),
+        (
+            "%\\cite{Beacom:2004yd}\n\\bibitem{Beacom:2004yd}\nJ.~F.~Beacom,\n%``Neutrinoless"
+            " universe,''\n%0 citations counted in INSPIRE as of 12 Jun 2020"
+        ),
+        (
+            "%\\cite{hep-th/0501240}\n\\bibitem{hep-th/0501240}\nZ.~Bern,\n%``On-shell"
+            " recurrence relations for one-loop QCD"
+            " amplitudes,''\n[arXiv:hep-th/0501240 [hep-th]].\n%0 citations counted in"
+            " INSPIRE as of 12 Jun 2020"
+        ),
+        (
+            "%\\cite{JHEP.0412.015}\n\\bibitem{JHEP.0412.015}\nL.~J.~Dixon,\n%``MHV"
+            " rules for Higgs plus multi-gluon amplitudes,''\nJHEP \\textbf{12}, 015"
+            " (2004)\n%0 citations counted in INSPIRE as of 12 Jun 2020"
+        ),
     ]
 
     expected_references_latex_eu = [
-        "%\\cite{1979PhLB...80..360E}\n\\bibitem{1979PhLB...80..360E}\nJ.~R.~Ellis,\n%``Baryon Number Generation in Grand Unified Theories,''\n%0 citations counted in INSPIRE as of 12 Jun 2020",
-        "%\\cite{Beacom:2004yd}\n\\bibitem{Beacom:2004yd}\nJ.~F.~Beacom,\n%``Neutrinoless universe,''\n%0 citations counted in INSPIRE as of 12 Jun 2020",
-        "%\\cite{hep-th/0501240}\n\\bibitem{hep-th/0501240}\nZ.~Bern,\n%``On-shell recurrence relations for one-loop QCD amplitudes,''\n[arXiv:hep-th/0501240 [hep-th]].\n%0 citations counted in INSPIRE as of 12 Jun 2020",
-        "%\\cite{JHEP.0412.015}\n\\bibitem{JHEP.0412.015}\nL.~J.~Dixon,\n%``MHV rules for Higgs plus multi-gluon amplitudes,''\nJHEP \\textbf{12} (2004), 015\n%0 citations counted in INSPIRE as of 12 Jun 2020",
+        (
+            "%\\cite{1979PhLB...80..360E}\n\\bibitem{1979PhLB...80..360E}\nJ.~R.~Ellis,\n%``Baryon"
+            " Number Generation in Grand Unified Theories,''\n%0 citations counted in"
+            " INSPIRE as of 12 Jun 2020"
+        ),
+        (
+            "%\\cite{Beacom:2004yd}\n\\bibitem{Beacom:2004yd}\nJ.~F.~Beacom,\n%``Neutrinoless"
+            " universe,''\n%0 citations counted in INSPIRE as of 12 Jun 2020"
+        ),
+        (
+            "%\\cite{hep-th/0501240}\n\\bibitem{hep-th/0501240}\nZ.~Bern,\n%``On-shell"
+            " recurrence relations for one-loop QCD"
+            " amplitudes,''\n[arXiv:hep-th/0501240 [hep-th]].\n%0 citations counted in"
+            " INSPIRE as of 12 Jun 2020"
+        ),
+        (
+            "%\\cite{JHEP.0412.015}\n\\bibitem{JHEP.0412.015}\nL.~J.~Dixon,\n%``MHV"
+            " rules for Higgs plus multi-gluon amplitudes,''\nJHEP \\textbf{12} (2004),"
+            " 015\n%0 citations counted in INSPIRE as of 12 Jun 2020"
+        ),
     ]
 
     expected_references_cv = [
-        f'<p><b>\n    <a href="https://localhost:5000/literature/{rec1_control_number}">\n      Baryon Number Generation in Grand Unified Theories\n    </a>\n  </b></p>\n  \n    <p><a href="https://localhost:5000/authors/{aut1_control_number}">John R. Ellis</a></p>\n  \n  \n  \n  \n  <br>',
-        f'<p><b>\n    <a href="https://localhost:5000/literature/{rec2_control_number}">\n      Neutrinoless universe\n    </a>\n  </b></p>\n  \n    <p><a href="https://localhost:5000/authors/{aut2_control_number}">John F. Beacom</a></p>\n  \n  \n  \n  \n  <br>',
-        f'<p><b>\n    <a href="https://localhost:5000/literature/{rec3_control_number}">\n      On-shell recurrence relations for one-loop QCD amplitudes\n    </a>\n  </b></p>\n  \n    <p><a href="https://localhost:5000/authors/{aut3_control_number}">Zvi Bern</a></p>\n  \n  <p>\n      e-Print:\n          <a href="https://arxiv.org/abs/hep-th/0501240">\n      hep-th/0501240\n    </a>[hep-th]</p>\n  \n  \n  <br>',
-        f'<p><b>\n    <a href="https://localhost:5000/literature/{rec5_control_number}">\n      MHV rules for Higgs plus multi-gluon amplitudes\n    </a>\n  </b></p>\n  \n    <p><a href="https://localhost:5000/authors/{aut5_control_number}">Lance J. Dixon</a></p>\n  \n  \n  \n  <p>\n    Published in:<span>\n      JHEP 12 (2004),\n      015</span></p>\n  <br>',
+        (
+            "<p><b>\n    <a"
+            f' href="https://localhost:5000/literature/{rec1_control_number}">\n     '
+            " Baryon Number Generation in Grand Unified Theories\n    </a>\n "
+            " </b></p>\n  \n    <p><a"
+            f' href="https://localhost:5000/authors/{aut1_control_number}">John R.'
+            " Ellis</a></p>\n  \n  \n  \n  \n  <br>"
+        ),
+        (
+            "<p><b>\n    <a"
+            f' href="https://localhost:5000/literature/{rec2_control_number}">\n     '
+            " Neutrinoless universe\n    </a>\n  </b></p>\n  \n    <p><a"
+            f' href="https://localhost:5000/authors/{aut2_control_number}">John F.'
+            " Beacom</a></p>\n  \n  \n  \n  \n  <br>"
+        ),
+        (
+            "<p><b>\n    <a"
+            f' href="https://localhost:5000/literature/{rec3_control_number}">\n     '
+            " On-shell recurrence relations for one-loop QCD amplitudes\n    </a>\n "
+            " </b></p>\n  \n    <p><a"
+            f' href="https://localhost:5000/authors/{aut3_control_number}">Zvi'
+            " Bern</a></p>\n  \n  <p>\n      e-Print:\n          <a"
+            ' href="https://arxiv.org/abs/hep-th/0501240">\n      hep-th/0501240\n   '
+            " </a>[hep-th]</p>\n  \n  \n  <br>"
+        ),
+        (
+            "<p><b>\n    <a"
+            f' href="https://localhost:5000/literature/{rec5_control_number}">\n     '
+            " MHV rules for Higgs plus multi-gluon amplitudes\n    </a>\n  </b></p>\n "
+            " \n    <p><a"
+            f' href="https://localhost:5000/authors/{aut5_control_number}">Lance J.'
+            " Dixon</a></p>\n  \n  \n  \n  <p>\n    Published in:<span>\n      JHEP 12"
+            " (2004),\n      015</span></p>\n  <br>"
+        ),
     ]
 
     expected_errors = [

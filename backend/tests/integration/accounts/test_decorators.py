@@ -51,7 +51,10 @@ def test_login_required_with_roles_unauthenticated(mock_is_authenticated, inspir
     decorated_func = login_required_with_roles()(func)
     with pytest.raises(
         Unauthorized,
-        match="401 Unauthorized: The server could not verify that you are authorized to access the URL requested.",
+        match=(
+            "401 Unauthorized: The server could not verify that you are authorized to"
+            " access the URL requested."
+        ),
     ):
         decorated_func()
     assert not func.called
@@ -67,7 +70,10 @@ def test_login_required_with_roles_unauthorized(mock_is_authenticated, inspire_a
     decorated_func = login_required_with_roles(["role_a"])(func)
     with pytest.raises(
         Forbidden,
-        match="403 Forbidden: You don't have the permission to access the requested resource.",
+        match=(
+            "403 Forbidden: You don't have the permission to access the requested"
+            " resource."
+        ),
     ):
         decorated_func()
     assert not func.called

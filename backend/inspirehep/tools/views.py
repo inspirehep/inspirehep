@@ -71,13 +71,17 @@ def generate_bibliography():
         if error["type"] == "ambiguous":
             formatted_errors.append(
                 {
-                    "message": f"Ambiguous reference to {error['ref']} on line {error['line']}"
+                    "message": (
+                        f"Ambiguous reference to {error['ref']} on line {error['line']}"
+                    )
                 }
             )
         else:
             formatted_errors.append(
                 {
-                    "message": f"Reference to {error['ref']} not found on line {error['line']}"
+                    "message": (
+                        f"Reference to {error['ref']} not found on line {error['line']}"
+                    )
                 }
             )
 

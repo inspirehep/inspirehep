@@ -664,7 +664,9 @@ def test_recalculate_references_recalculates_more_than_10_references(
         literature_records_from_es = list(
             LiteratureSearch()
             .query_from_iq(
-                query_string=f"publication_info.journal_record.$ref: {journal_record_reference}"
+                query_string=(
+                    f"publication_info.journal_record.$ref: {journal_record_reference}"
+                )
             )
             .scan()
         )
@@ -688,7 +690,10 @@ def test_recalculate_references_recalculates_more_than_10_references(
         literature_records_from_es = list(
             LiteratureSearch()
             .query_from_iq(
-                query_string=f'publication_info.journal_record.$ref: {merged_journal_record["self"]["$ref"]}'
+                query_string=(
+                    'publication_info.journal_record.$ref:'
+                    f' {merged_journal_record["self"]["$ref"]}'
+                )
             )
             .scan()
         )

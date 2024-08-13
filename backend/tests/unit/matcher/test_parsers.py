@@ -40,7 +40,7 @@ def test_grobid_to_reference():
             "isbn": "9783642239083",
             "publication_info": {
                 "journal_issue": "1",
-                "journal_title": "Expert. Opin. Ther. " "Targets",
+                "journal_title": "Expert. Opin. Ther. Targets",
                 "journal_volume": "6",
                 "page_end": "113",
                 "page_start": "103",
@@ -92,10 +92,12 @@ def test_grobid_to_reference_doesnt_return_empty_values():
         "reference": {
             "arxiv_eprint": "1009.1212",
             "publication_info": {
-                "journal_title": "N=2 Instanton Effective "
-                "Action in Ω-background "
-                "and D3/D(-1)-brane "
-                "System in R-R Background",
+                "journal_title": (
+                    "N=2 Instanton Effective "
+                    "Action in Ω-background "
+                    "and D3/D(-1)-brane "
+                    "System in R-R Background"
+                ),
                 "year": 2010,
                 "page_start": "93",
             },
@@ -125,11 +127,13 @@ def test_grobid_to_reference_with_report_number():
     expected = {
         "reference": {
             "publication_info": {
-                "journal_title": "Selection of jets "
-                "produced "
-                "in13TeVproton-proton "
-                "collisions with the "
-                "ATLASdetector",
+                "journal_title": (
+                    "Selection of jets "
+                    "produced "
+                    "in13TeVproton-proton "
+                    "collisions with the "
+                    "ATLASdetector"
+                ),
                 "year": 2015,
             },
             "report_numbers": ["ATLAS-CONF-2015-029"],

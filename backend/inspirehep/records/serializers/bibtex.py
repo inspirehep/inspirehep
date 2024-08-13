@@ -116,7 +116,10 @@ class BibTexSerializer:
                 recid=record.get("control_number"),
                 error=e,
             )
-            return f"% Bibtex generation failed for record {record.get('control_number','')}"
+            return (
+                "% Bibtex generation failed for record"
+                f" {record.get('control_number','')}"
+            )
 
     def serialize_search(
         self, pid_fetcher, search_result, links=None, item_links_factory=None

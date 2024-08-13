@@ -139,7 +139,9 @@ def test_kekscan_with_9_chars_value():
     expected = {
         "external_system_identifiers": [
             {
-                "url_link": "https://lib-extopc.kek.jp/preprints/PDF/2007/0727/0727065.pdf",  # noqa
+                "url_link": (  # noqa
+                    "https://lib-extopc.kek.jp/preprints/PDF/2007/0727/0727065.pdf"
+                ),
                 "url_name": "KEK scanned document",
             }
         ]
@@ -163,7 +165,9 @@ def test_kekscan_with_dashes():
     expected = {
         "external_system_identifiers": [
             {
-                "url_link": "https://lib-extopc.kek.jp/preprints/PDF/2007/0727/0727065.pdf",  # noqa
+                "url_link": (  # noqa
+                    "https://lib-extopc.kek.jp/preprints/PDF/2007/0727/0727065.pdf"
+                ),
                 "url_name": "KEK scanned document",
             }
         ]
@@ -185,7 +189,9 @@ def test_kekscan_with_7_chars_value_that_does_not_start_with_19_and_20():
     expected = {
         "external_system_identifiers": [
             {
-                "url_link": "https://lib-extopc.kek.jp/preprints/PDF/1993/9327/9327065.pdf",  # noqa
+                "url_link": (  # noqa
+                    "https://lib-extopc.kek.jp/preprints/PDF/1993/9327/9327065.pdf"
+                ),
                 "url_name": "KEK scanned document",
             }
         ]

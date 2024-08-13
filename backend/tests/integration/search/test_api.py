@@ -275,7 +275,10 @@ def test_return_record_for_publication_info_search_example_2(inspire_app):
         ],
         "titles": [
             {
-                "title": "Phase structure and phase transition of the SU(2) Higgs model in three-dimensions"
+                "title": (
+                    "Phase structure and phase transition of the SU(2) Higgs model in"
+                    " three-dimensions"
+                )
             }
         ],
     }
@@ -335,7 +338,10 @@ def test_return_record_for_publication_info_search_example_3(inspire_app):
         ],
         "titles": [
             {
-                "title": "Phase structure and phase transition of the SU(2) Higgs model in three-dimensions"
+                "title": (
+                    "Phase structure and phase transition of the SU(2) Higgs model in"
+                    " three-dimensions"
+                )
             }
         ],
     }
@@ -386,7 +392,10 @@ def test_return_record_for_publication_info_search_with_leading_zeros_in_page_ar
         ],
         "titles": [
             {
-                "title": "Phase structure and phase transition of the SU(2) Higgs model in three-dimensions"
+                "title": (
+                    "Phase structure and phase transition of the SU(2) Higgs model in"
+                    " three-dimensions"
+                )
             }
         ],
     }
@@ -433,7 +442,10 @@ def test_return_record_for_publication_info_search_with_old_format(inspire_app):
         ],
         "titles": [
             {
-                "title": "Phase structure and phase transition of the SU(2) Higgs model in three-dimensions"
+                "title": (
+                    "Phase structure and phase transition of the SU(2) Higgs model in"
+                    " three-dimensions"
+                )
             }
         ],
     }
@@ -811,9 +823,15 @@ def test_big_query_execute_without_recursion_depth_exception(inspire_app):
 def test_public_api_generates_correct_links_in_literature_search(inspire_app):
     expected_search_links = {
         "self": "http://localhost:5000/api/literature/?q=&size=10&page=1",
-        "bibtex": "http://localhost:5000/api/literature/?q=&size=10&page=1&format=bibtex",
-        "latex-eu": "http://localhost:5000/api/literature/?q=&size=10&page=1&format=latex-eu",
-        "latex-us": "http://localhost:5000/api/literature/?q=&size=10&page=1&format=latex-us",
+        "bibtex": (
+            "http://localhost:5000/api/literature/?q=&size=10&page=1&format=bibtex"
+        ),
+        "latex-eu": (
+            "http://localhost:5000/api/literature/?q=&size=10&page=1&format=latex-eu"
+        ),
+        "latex-us": (
+            "http://localhost:5000/api/literature/?q=&size=10&page=1&format=latex-us"
+        ),
         "json": "http://localhost:5000/api/literature/?q=&size=10&page=1&format=json",
         "cv": "http://localhost:5000/api/literature/?q=&size=10&page=1&format=cv",
     }
@@ -938,7 +956,10 @@ def test_public_api_generates_correct_links_in_conferences_search(inspire_app):
 
 
 @pytest.mark.xfail(
-    reason="Json Serializer for search is not yet configured for data collection so it's using default Invenio one."
+    reason=(
+        "Json Serializer for search is not yet configured for data collection so it's"
+        " using default Invenio one."
+    )
 )
 def test_public_api_generates_correct_links_in_data_search(inspire_app):
     expected_search_links = {
@@ -1058,13 +1079,25 @@ def test_public_api_generates_correct_links_in_literature_search_with_fields(
     inspire_app,
 ):
     expected_search_links = {
-        "self": "http://localhost:5000/api/literature/?q=&size=1&page=2&fields=ids,authors",
-        "bibtex": "http://localhost:5000/api/literature/?q=&size=1&page=2&format=bibtex",
-        "latex-eu": "http://localhost:5000/api/literature/?q=&size=1&page=2&format=latex-eu",
-        "latex-us": "http://localhost:5000/api/literature/?q=&size=1&page=2&format=latex-us",
+        "self": (
+            "http://localhost:5000/api/literature/?q=&size=1&page=2&fields=ids,authors"
+        ),
+        "bibtex": (
+            "http://localhost:5000/api/literature/?q=&size=1&page=2&format=bibtex"
+        ),
+        "latex-eu": (
+            "http://localhost:5000/api/literature/?q=&size=1&page=2&format=latex-eu"
+        ),
+        "latex-us": (
+            "http://localhost:5000/api/literature/?q=&size=1&page=2&format=latex-us"
+        ),
         "json": "http://localhost:5000/api/literature/?q=&size=1&page=2&fields=ids,authors&format=json",
-        "prev": "http://localhost:5000/api/literature/?q=&size=1&page=1&fields=ids,authors",
-        "next": "http://localhost:5000/api/literature/?q=&size=1&page=3&fields=ids,authors",
+        "prev": (
+            "http://localhost:5000/api/literature/?q=&size=1&page=1&fields=ids,authors"
+        ),
+        "next": (
+            "http://localhost:5000/api/literature/?q=&size=1&page=3&fields=ids,authors"
+        ),
         "cv": "http://localhost:5000/api/literature/?q=&size=1&page=2&format=cv",
     }
     create_record("lit")
@@ -1338,7 +1371,8 @@ def test_citedby_bool_query(inspire_app):
     rec_2 = create_record("lit")
 
     result = LiteratureSearch().query_from_iq(
-        f"citedby:  recid {rec_1['control_number']} or citedby:recid:{rec_2['control_number']}"
+        f"citedby:  recid {rec_1['control_number']} or"
+        f" citedby:recid:{rec_2['control_number']}"
     )
     expected = {
         "bool": {
@@ -1374,7 +1408,8 @@ def test_citedby_complex_query(inspire_app):
     rec_2 = create_record("lit", data={"authors": [{"full_name": "Mata"}]})
 
     result = LiteratureSearch().query_from_iq(
-        f"citedby:  recid {rec_1['control_number']} or citedby:recid:{rec_2['control_number']} and a Mata"
+        f"citedby:  recid {rec_1['control_number']} or"
+        f" citedby:recid:{rec_2['control_number']} and a Mata"
     )
     expected = {
         "bool": {
@@ -1540,7 +1575,10 @@ def test_search_serializer_handles_db_exceptions(mocked_get_pid_type, inspire_ap
     record = {
         "titles": [
             {
-                "title": "Phase structure and phase transition of the SU(2) Higgs model in three-dimensions"
+                "title": (
+                    "Phase structure and phase transition of the SU(2) Higgs model in"
+                    " three-dimensions"
+                )
             }
         ],
     }

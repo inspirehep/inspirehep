@@ -743,7 +743,11 @@ def test_deleted_record_from_legacy_is_created_with_obj_uuid_and_recid(inspire_a
         "collaboration": {"curated_relation": False, "value": "GAMBIT"},
         "long_name": "GAMBIT : Global And Modular BSM Inference Tool",
         "inspire_classification": ["Non-experimental|Simulation tools"],
-        "description": "GAMBIT is a global fitting code for generic Beyond the Standard Model theories, designed to allow fast and easy definition of new models, observables, likelihoods, scanners and backend physics codes.",
+        "description": (
+            "GAMBIT is a global fitting code for generic Beyond the Standard Model"
+            " theories, designed to allow fast and easy definition of new models,"
+            " observables, likelihoods, scanners and backend physics codes."
+        ),
         "legacy_name": "GAMBIT",
         "experiment": {"value": "GAMBIT", "short_name": "GAMBIT"},
         "$schema": "https://inspirebeta.net/schemas/records/experiments.json",

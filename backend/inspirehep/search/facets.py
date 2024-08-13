@@ -84,11 +84,11 @@ def must_match_all_or_missing_filter(field, missing_field_value):
     """Bool filter containing a list of must matches."""
 
     def inner(values):
-        if missing_field_value in values:
-            filters = ~Q("exists", field=field)
-
-        else:
-            filters = [Q("match", **{field: value}) for value in values]
+        filters = (
+            ~Q("exists", field=field)
+            if missing_field_value in values
+            else [Q("match", **{field: value}) for value in values]
+        )
 
         return Q("bool", filter=filters)
 
@@ -381,10 +381,11 @@ def citation_summary():
         "citation_count_without_self_citations",
     ]
     filters = get_filters_without_excluded(hep_filters(), excluded_filters)
-    if "exclude-self-citations" in request.values:
-        field = "citation_count_without_self_citations"
-    else:
-        field = "citation_count"
+    field = (
+        "citation_count_without_self_citations"
+        if "exclude-self-citations" in request.values
+        else "citation_count"
+    )
 
     map_script = (
         "if (doc.refereed.length >0 && doc.refereed[0]) {"
@@ -421,7 +422,10 @@ def citation_summary():
                 "aggs": {
                     "h-index": {
                         "scripted_metric": {
-                            "init_script": "state.citations_non_refereed = []; state.citations_refereed = []",
+                            "init_script": (
+                                "state.citations_non_refereed = [];"
+                                " state.citations_refereed = []"
+                            ),
                             "map_script": minify_painless(map_script),
                             "combine_script": "return state",
                             "reduce_script": minify_painless(reduce_script),

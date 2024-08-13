@@ -445,9 +445,26 @@ def test_dump_for_es_adds_latex_and_bibtex_displays(inspire_app):
     data = faker.record("lit", data=additional_fields)
     record = LiteratureRecord.create(data)
     dump = record.serialize_for_es()
-    expected_latex_eu_display = "%\\cite{a123bx}\n\\bibitem{a123bx}\nF.~Castle \\textit{et al.} [LHCb],\n%``Jessica Jones,''\nPhys. Rev. A \\textbf{58} (2014), 500-593\ndoi:10.1088/1361-6633/aa5514\n[arXiv:1607.06746 [hep-th]].\n%0 citations counted in INSPIRE as of 19 Dec 1994"
-    expected_latex_us_display = "%\\cite{a123bx}\n\\bibitem{a123bx}\nF.~Castle \\textit{et al.} [LHCb],\n%``Jessica Jones,''\nPhys. Rev. A \\textbf{58}, 500-593 (2014)\ndoi:10.1088/1361-6633/aa5514\n[arXiv:1607.06746 [hep-th]].\n%0 citations counted in INSPIRE as of 19 Dec 1994"
-    expected_bibtex_display = '@article{a123bx,\n    author = "Castle, Frank and Smith, John and Black, Joe Jr. and Jimmy",\n    collaboration = "LHCb",\n    title = "{Jessica Jones}",\n    eprint = "1607.06746",\n    archivePrefix = "arXiv",\n    primaryClass = "hep-th",\n    reportNumber = "DESY-17-036",\n    doi = "10.1088/1361-6633/aa5514",\n    journal = "Phys. Rev. A",\n    volume = "58",\n    pages = "500--593",\n    year = "2014"\n}\n'
+    expected_latex_eu_display = (
+        "%\\cite{a123bx}\n\\bibitem{a123bx}\nF.~Castle \\textit{et al.}"
+        " [LHCb],\n%``Jessica Jones,''\nPhys. Rev. A \\textbf{58} (2014),"
+        " 500-593\ndoi:10.1088/1361-6633/aa5514\n[arXiv:1607.06746 [hep-th]].\n%0"
+        " citations counted in INSPIRE as of 19 Dec 1994"
+    )
+    expected_latex_us_display = (
+        "%\\cite{a123bx}\n\\bibitem{a123bx}\nF.~Castle \\textit{et al.}"
+        " [LHCb],\n%``Jessica Jones,''\nPhys. Rev. A \\textbf{58}, 500-593"
+        " (2014)\ndoi:10.1088/1361-6633/aa5514\n[arXiv:1607.06746 [hep-th]].\n%0"
+        " citations counted in INSPIRE as of 19 Dec 1994"
+    )
+    expected_bibtex_display = (
+        '@article{a123bx,\n    author = "Castle, Frank and Smith, John and Black, Joe'
+        ' Jr. and Jimmy",\n    collaboration = "LHCb",\n    title = "{Jessica'
+        ' Jones}",\n    eprint = "1607.06746",\n    archivePrefix = "arXiv",\n   '
+        ' primaryClass = "hep-th",\n    reportNumber = "DESY-17-036",\n    doi ='
+        ' "10.1088/1361-6633/aa5514",\n    journal = "Phys. Rev. A",\n    volume ='
+        ' "58",\n    pages = "500--593",\n    year = "2014"\n}\n'
+    )
     assert expected_latex_eu_display == dump["_latex_eu_display"]
     assert expected_latex_us_display == dump["_latex_us_display"]
     assert expected_bibtex_display == dump["_bibtex_display"]
@@ -1121,7 +1138,9 @@ def test_adding_record_with_documents_with_full_url_without_original_url(
             "source": "arxiv",
             "key": expected_document_key,
             "url": current_s3_instance.get_public_url(expected_document_key),
-            "original_url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+            "original_url": (
+                "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf"
+            ),
             "filename": "file1.pdf",
         }
     ]
@@ -1405,13 +1424,17 @@ def test_literature_updates_refs_to_known_conferences(inspire_app):
         {
             "cnum": con1["cnum"],
             "conference_record": {
-                "$ref": f"http://localhost:5000/api/conferences/{con1['control_number']}"
+                "$ref": (
+                    f"http://localhost:5000/api/conferences/{con1['control_number']}"
+                )
             },
         },
         {
             "cnum": con2["cnum"],
             "conference_record": {
-                "$ref": f"http://localhost:5000/api/conferences/{con2['control_number']}"
+                "$ref": (
+                    f"http://localhost:5000/api/conferences/{con2['control_number']}"
+                )
             },
         },
     ]

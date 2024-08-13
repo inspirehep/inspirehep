@@ -121,7 +121,9 @@ def test_institutions_application_json_put_with_cataloger_logged_in(inspire_app)
             data=orjson.dumps(
                 {
                     "control_number": record_control_number,
-                    "$schema": "http://localhost:5000/schemas/records/institutions.json",
+                    "$schema": (
+                        "http://localhost:5000/schemas/records/institutions.json"
+                    ),
                     "_collections": ["Institutions"],
                 }
             ),
