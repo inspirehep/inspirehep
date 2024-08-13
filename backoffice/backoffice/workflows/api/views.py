@@ -263,8 +263,8 @@ class WorkflowDocumentView(BaseDocumentViewSet):
     }
 
     filter_fields = {
-        "status": "status.keyword",
-        "workflow_type": "workflow_type.keyword",
+        "status": "status",
+        "workflow_type": "workflow_type",
     }
 
     ordering_fields = {"_updated_at": "_updated_at"}
