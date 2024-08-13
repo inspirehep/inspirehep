@@ -57,7 +57,7 @@ const ResultItemWithActions = ({ item }: { item: any }) => {
             </p>
 
             <small>
-              This record is in error state. View the detailed record for more
+              This record is in error state. View record details for more
               information.
             </small>
           </div>
