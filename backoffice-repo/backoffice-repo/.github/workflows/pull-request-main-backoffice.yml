@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'backoffice/**'
+      - 'docker-compose.yaml'
 
 jobs:
   lint:
