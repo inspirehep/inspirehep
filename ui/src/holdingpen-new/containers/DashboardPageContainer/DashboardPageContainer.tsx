@@ -1,12 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import classNames from 'classnames';
-import {
-  WarningOutlined,
-  CheckOutlined,
-  HourglassOutlined,
-  LoadingOutlined,
-} from '@ant-design/icons';
 import { Card, Input, Select, Tabs } from 'antd';
 import { Link } from 'react-router-dom';
 import { push } from 'connected-react-router';
@@ -24,6 +18,7 @@ import {
 } from '../../../actions/holdingpen';
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
+import { COLLECTIONS, getIcon } from '../../utils/utils';
 
 interface DashboardPageContainerProps {
   dispatch: ActionCreator<Action>;
@@ -33,12 +28,6 @@ interface DashboardPageContainerProps {
 
 const TEXT_CENTER: Record<string | number, string & {}> = {
   textAlign: 'center',
-};
-
-const COLLECTIONS: Record<string, string> = {
-  AUTHOR_CREATE: 'new authors',
-  AUTHOR_UPDATE: 'author updates',
-  HEP_CREATE: 'new literature submissions',
 };
 
 const { Option } = Select;
@@ -59,21 +48,6 @@ const selectBefore = (
     })}
   </Select>
 );
-
-const getIcon = (status: string) => {
-  switch (status?.toLowerCase()) {
-    case 'approval':
-      return <HourglassOutlined className="mr2" />;
-    case 'error':
-      return <WarningOutlined className="mr2" />;
-    case 'completed':
-      return <CheckOutlined className="mr2" />;
-    case 'running':
-      return <LoadingOutlined className="mr2" />;
-    default:
-      return null;
-  }
-};
 
 const DashboardPageContainer: React.FC<DashboardPageContainerProps> = ({
   dispatch,
@@ -117,16 +91,14 @@ const DashboardPageContainer: React.FC<DashboardPageContainerProps> = ({
                         {type?.get('doc_count')}
                       </p>
                       <Link
-                        to={`${HOLDINGPEN_SEARCH_NEW}/?workflow_name=${type?.get(
-                          'key'
-                        )}`}
+                        to={HOLDINGPEN_SEARCH_NEW}
                         className="normal f6"
                         onClick={() => {
                           dispatch(
                             searchQueryUpdate({
                               page: 1,
                               size: 10,
-                              workflow_name: type?.get('key'),
+                              workflow_type: type?.get('key'),
                             })
                           );
                         }}
@@ -144,16 +116,14 @@ const DashboardPageContainer: React.FC<DashboardPageContainerProps> = ({
                   {(type?.getIn(['status', 'buckets']) as List<any>)?.map(
                     (status: any) => (
                       <a
-                        href={`${HOLDINGPEN_SEARCH_NEW}/?workflow_name=${type?.get(
-                          'key'
-                        )}&status=${status?.get('key')}`}
+                        href={HOLDINGPEN_SEARCH_NEW}
                         key={status?.get('key')}
                         onClick={() => {
                           dispatch(
                             searchQueryUpdate({
                               page: 1,
                               size: 10,
-                              workflow_name: type?.get('key'),
+                              workflow_type: type?.get('key'),
                               status: status?.get('key'),
                             })
                           );
@@ -188,7 +158,7 @@ const DashboardPageContainer: React.FC<DashboardPageContainerProps> = ({
       className="__DashboardPageContainer__"
       data-testid="holdingpen-dashboard-page"
     >
-      <Breadcrumbs title1="Dashboard" href1="dashboard" dashboardPage />
+      <Breadcrumbs title1="Dashboard" href1="" dashboardPage />
       <div className="inner-container mt4">
         <h2 className="f2 center">Search Holdingpen</h2>
         <div className="search-container">

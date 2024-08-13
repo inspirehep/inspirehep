@@ -19,7 +19,7 @@ import {
 
 export const initialState = fromJS({
   loggedIn: false,
-  query: { page: 1, size: 10 },
+  query: { page: 1, size: 10, ordering: '-_updated_at' },
   searchResults: [],
   totalResults: 0,
   loading: false,
@@ -28,7 +28,7 @@ export const initialState = fromJS({
   actionInProgress: false,
 });
 
-const HOLDINGPENReducer = (state = initialState, action) => {
+const HoldingpenReducer = (state = initialState, action) => {
   switch (action.type) {
     case HOLDINGPEN_LOGIN_ERROR:
     case HOLDINGPEN_LOGOUT_SUCCESS:
@@ -74,4 +74,4 @@ const HOLDINGPENReducer = (state = initialState, action) => {
   }
 };
 
-export default HOLDINGPENReducer;
+export default HoldingpenReducer;
