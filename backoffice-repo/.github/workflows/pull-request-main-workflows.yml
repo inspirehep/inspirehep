@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "workflows/**"
+      - "docker-compose.yaml"
 jobs:
   lint:
     uses: ./.github/workflows/lint.yml
