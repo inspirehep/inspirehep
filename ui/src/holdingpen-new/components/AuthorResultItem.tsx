@@ -41,7 +41,7 @@ const renderWorkflowStatus = (status: string) => {
       icon: <WarningOutlined className="mr2" />,
       text: 'Error',
       description:
-        'This record is in error state. View the detailed record for more information.',
+        'This record is in error state. View record details for more information.',
     },
   };
 
@@ -81,6 +81,12 @@ const AuthorResultItem = ({ item }: { item: any }) => {
               <div className="flex">
                 <div style={{ marginTop: '-2px' }}>
                   <UnclickableTag>Author</UnclickableTag>
+                  {item?.get('workflow_type') === 'AUTHOR_UPDATE' && (
+                    <>
+                      {' '}
+                      <UnclickableTag color="processing">Update</UnclickableTag>
+                    </>
+                  )}
                   {item?.get('user_action') && (
                     <UnclickableTag
                       className={`decission-pill ${resolveDecision(
