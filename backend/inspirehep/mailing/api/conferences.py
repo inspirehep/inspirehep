@@ -40,7 +40,10 @@ def send_conference_confirmation_email(recipient, conference):
 
     sender = current_app.config["CONFERENCES_CONFIRMATION_EMAIL_ADDRESS"]
 
-    subject = f"Your conference({conference['control_number']}) has been successfully submitted!"
+    subject = (
+        f"Your conference({conference['control_number']}) has been successfully"
+        " submitted!"
+    )
     content = get_submissions_confirmation_email_html_content(conference)
 
     send_email(sender=sender, recipient=recipient, subject=subject, body=content)

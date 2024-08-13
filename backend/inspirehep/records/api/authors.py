@@ -64,7 +64,7 @@ class AuthorsRecord(StudentsAdvisorMixin, InspireRecord):
         if uuids:
             LOGGER.info(
                 f"Found {len(uuids)} papers assigned to author whose name changed. "
-                f"Indexing all of them.",
+                "Indexing all of them.",
                 uuid=str(self.id),
             )
             return uuids

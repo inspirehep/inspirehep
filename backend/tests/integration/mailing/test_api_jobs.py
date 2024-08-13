@@ -49,9 +49,27 @@ def test_render_jobs_weekly_campaign_job_record_template_only(create_jobs):
     rec_3_control_number = create_jobs["job_7_days_old"]["control_number"]
 
     expected_results = [
-        f'<a title="Experimental Particle Physics" href="https://labs.inspirehep.net/jobs/{rec_1_control_number}">Experimental Particle Physics</a>\n(Beijing, Inst. High Energy Phys. - Asia) [Deadline:\n2019-09-01] POSTDOC - hep-ex, physics.ins-det\n(posted 5 days ago)',
-        f'<a title="Nuclear and Particle Physics" href="https://labs.inspirehep.net/jobs/{rec_2_control_number}">Nuclear and Particle Physics</a>\n(U. Alabama, Tuscaloosa - North America) [Deadline:\n2019-08-01] POSTDOC - nucl-ex, hep-ex, physics.ins-det\n(posted 6 days ago)',
-        f'<a title="Experimental Particle Physics" href="https://labs.inspirehep.net/jobs/{rec_3_control_number}">Experimental Particle Physics</a>\n(Shanghai Jiaotong U., INPAC - Asia) [Deadline:\n2019-09-30] POSTDOC - astro-ph, hep-ex, hep-lat, hep-ph, nucl-ex, physics.acc-ph, physics.ins-det\n(posted 7 days ago)',
+        (
+            '<a title="Experimental Particle Physics"'
+            f' href="https://labs.inspirehep.net/jobs/{rec_1_control_number}">Experimental'
+            " Particle Physics</a>\n(Beijing, Inst. High Energy Phys. - Asia)"
+            " [Deadline:\n2019-09-01] POSTDOC - hep-ex, physics.ins-det\n(posted 5"
+            " days ago)"
+        ),
+        (
+            '<a title="Nuclear and Particle Physics"'
+            f' href="https://labs.inspirehep.net/jobs/{rec_2_control_number}">Nuclear'
+            " and Particle Physics</a>\n(U. Alabama, Tuscaloosa - North America)"
+            " [Deadline:\n2019-08-01] POSTDOC - nucl-ex, hep-ex,"
+            " physics.ins-det\n(posted 6 days ago)"
+        ),
+        (
+            '<a title="Experimental Particle Physics"'
+            f' href="https://labs.inspirehep.net/jobs/{rec_3_control_number}">Experimental'
+            " Particle Physics</a>\n(Shanghai Jiaotong U., INPAC - Asia)"
+            " [Deadline:\n2019-09-30] POSTDOC - astro-ph, hep-ex, hep-lat, hep-ph,"
+            " nucl-ex, physics.acc-ph, physics.ins-det\n(posted 7 days ago)"
+        ),
     ]
     expected_results_len = 3
     assert expected_results_len == len(jobs)

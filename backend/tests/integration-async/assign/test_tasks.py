@@ -64,7 +64,9 @@ def test_assign_from_an_author_to_another(inspire_app, clean_celery_session):
             literature_after = LiteratureSearch.get_record_data_from_es(literature)
             literature_author = literature_after["authors"][0]
             assert literature_author["record"] == {
-                "$ref": f"http://localhost:5000/api/authors/{to_author['control_number']}"
+                "$ref": (
+                    f"http://localhost:5000/api/authors/{to_author['control_number']}"
+                )
             }
             assert literature_author["curated_relation"]
 

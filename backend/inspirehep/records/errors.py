@@ -57,7 +57,10 @@ class DownloadFileError(RESTException):
 class FileSizeExceededError(RESTException):
     def __init__(self, message="", **kwargs):
         super().__init__(**kwargs)
-        default_message = f"File size exceeded, maximum file size: {current_app.config['FILES_SIZE_LIMIT']} bytes"
+        default_message = (
+            "File size exceeded, maximum file size:"
+            f" {current_app.config['FILES_SIZE_LIMIT']} bytes"
+        )
         self.description = message or default_message
 
     code = 413
@@ -66,7 +69,10 @@ class FileSizeExceededError(RESTException):
 class UnsupportedFileError(RESTException):
     def __init__(self, mimetype="", **kwargs):
         super().__init__(**kwargs)
-        self.description = f"Attached file format is not supported ({mimetype}), please attach a valid file."
+        self.description = (
+            f"Attached file format is not supported ({mimetype}), please attach a valid"
+            " file."
+        )
 
     code = 415
 
@@ -77,4 +83,7 @@ class MaxResultWindowRESTError(RESTException):
 
 class CannotUndeleteRedirectedRecord(RecordsError):
     def __init__(self, pid_type, pid_value, **kwargs):
-        self.description = f"Cannot undelete redirected article ({pid_type}:{pid_value}). First remove redirection then try again."
+        self.description = (
+            f"Cannot undelete redirected article ({pid_type}:{pid_value}). First remove"
+            " redirection then try again."
+        )

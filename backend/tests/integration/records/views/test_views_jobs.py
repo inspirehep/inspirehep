@@ -147,7 +147,9 @@ def test_jobs_accelerator_experiments(inspire_app, datadir):
         {
             "name": "FNAL-E-0973",
             "record": {
-                "$ref": f"http://localhost:5000/api/experiments/{exp1['control_number']}"
+                "$ref": (
+                    f"http://localhost:5000/api/experiments/{exp1['control_number']}"
+                )
             },
         },
         {"name": "LDMX"},

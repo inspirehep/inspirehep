@@ -163,7 +163,10 @@ class WorkflowsRecordSourcesResource(MethodView):
             return (
                 jsonify(
                     {
-                        "message": f"workflow source for record {record_uuid} and source {source} added"
+                        "message": (
+                            f"workflow source for record {record_uuid} and source"
+                            f" {source} added"
+                        )
                     }
                 ),
                 200,
@@ -218,7 +221,10 @@ def import_article_view(identifier):
         LOGGER.exception("Exception in import_article_view", exception=e)
         return (
             jsonify(
-                message="There was an error when importing metadata. Please try again later or fill the form manually."
+                message=(
+                    "There was an error when importing metadata. Please try again later"
+                    " or fill the form manually."
+                )
             ),
             502,
         )

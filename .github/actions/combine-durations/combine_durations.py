@@ -7,13 +7,15 @@ durations_path = Path(sys.argv[2])
 
 current_path = Path(".").resolve()
 print(
-    f"Combining durations with split-prefix={split_prefix} and durations-path={durations_path} in {current_path}."
+    f"Combining durations with split-prefix={split_prefix} and"
+    f" durations-path={durations_path} in {current_path}."
 )
 split_paths = Path(".").glob(f"{split_prefix}*/{durations_path.name}")
 try:
     previous_durations = json.loads(durations_path.read_text())
     print(
-        f"Loaded previous durations from {durations_path}, found {len(previous_durations)} test durations."
+        f"Loaded previous durations from {durations_path}, found"
+        f" {len(previous_durations)} test durations."
     )
 except FileNotFoundError:
     previous_durations = {}
@@ -31,7 +33,8 @@ for path in split_paths:
     }
     new_durations.update(updated_durations)
     print(
-        f"Updated durations from {path} containing {len(updated_durations)} changed test durations."
+        f"Updated durations from {path} containing {len(updated_durations)} changed"
+        " test durations."
     )
 
 durations_path.parent.mkdir(parents=True, exist_ok=True)

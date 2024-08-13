@@ -133,7 +133,10 @@ def test_hep_doc_type_aggregation_and_filter(inspire_app, override_config):
                 "bucket_help": {
                     "published": {
                         "link": "https://help.inspirehep.net/knowledge-base/faq/#faq-published",
-                        "text": "Published papers are believed to have undergone rigorous peer review.",
+                        "text": (
+                            "Published papers are believed to have undergone rigorous"
+                            " peer review."
+                        ),
                     }
                 },
                 "title": "Document Type",

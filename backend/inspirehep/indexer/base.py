@@ -26,12 +26,12 @@ class InspireRecordIndexer(RecordIndexer):
     def _prepare_record(record, index, doc_type="_doc", arguments=None, **kwargs):
         from inspirehep.records.api import LiteratureRecord
 
-        if current_app.config["FEATURE_FLAG_ENABLE_FULLTEXT"] and isinstance(
-            record, LiteratureRecord
-        ):
-            data = record.serialize_for_es_with_fulltext()
-        else:
-            data = record.serialize_for_es()
+        data = (
+            record.serialize_for_es_with_fulltext()
+            if current_app.config["FEATURE_FLAG_ENABLE_FULLTEXT"]
+            and isinstance(record, LiteratureRecord)
+            else record.serialize_for_es()
+        )
         before_record_index.send(
             current_app._get_current_object(),
             json=data,

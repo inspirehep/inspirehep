@@ -19,8 +19,14 @@ def test_latex_encode_escapes_special_chars():
 
 
 def test_latex_encode_do_not_escape_curly_brakcets():
-    text = r"Search for Axion Like Particle Production in 400-{GeV} Proton - Copper Interactions"
-    expected = r"Search for Axion Like Particle Production in 400-{GeV} Proton - Copper Interactions"
+    text = (
+        r"Search for Axion Like Particle Production in 400-{GeV} Proton - Copper"
+        r" Interactions"
+    )
+    expected = (
+        r"Search for Axion Like Particle Production in 400-{GeV} Proton - Copper"
+        r" Interactions"
+    )
     assert expected == latex_encode(text)
 
 
@@ -33,7 +39,11 @@ def test_latex_encode_escapes_non_ascii():
 
 def test_latex_encode_escapes_math_by_default():
     text = r"Paper on $\gamma$-ray bursts and \(\mu\)-neutrinos \o/"
-    expected = r"Paper on \$\textbackslash{}gamma\$-ray bursts and \textbackslash{}(\textbackslash{}mu\textbackslash{})-neutrinos \textbackslash{}o/"
+    expected = (
+        r"Paper on \$\textbackslash{}gamma\$-ray bursts and"
+        r" \textbackslash{}(\textbackslash{}mu\textbackslash{})-neutrinos"
+        r" \textbackslash{}o/"
+    )
 
     assert expected == latex_encode(text)
 
@@ -54,7 +64,10 @@ def test_latex_encode_encodes_the_right_parts_when_contains_math_is_true_and_sta
 
 def test_latex_encode_is_correct_when_contains_math_is_true_and_no_math():
     text = r"Paper on γ-ray bursts and μ-neutrinos \o/"
-    expected = r"Paper on \ensuremath{\gamma}-ray bursts and \ensuremath{\mu}-neutrinos \textbackslash{}o/"
+    expected = (
+        r"Paper on \ensuremath{\gamma}-ray bursts and \ensuremath{\mu}-neutrinos"
+        r" \textbackslash{}o/"
+    )
 
     assert expected == latex_encode(text, contains_math=True)
 

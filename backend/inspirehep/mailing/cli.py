@@ -25,7 +25,10 @@ def mailing():
 
 
 @mailing.command(
-    help="Updates the Atom feed for the weekly campaign with the INSPIRE jobs posted last week."
+    help=(
+        "Updates the Atom feed for the weekly campaign with the INSPIRE jobs posted"
+        " last week."
+    )
 )
 @with_appcontext
 def update_weekly_jobs():

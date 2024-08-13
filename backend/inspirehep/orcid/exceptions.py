@@ -17,7 +17,10 @@ class BaseOrcidPusherException(Exception):
         output = super().__str__(*args, **kwargs)
         if not self.from_exc:
             return output
-        output += f"\nThis exception was directly caused by the following exception:\n{repr(self.from_exc)}"
+        output += (
+            "\nThis exception was directly caused by the following"
+            f" exception:\n{repr(self.from_exc)}"
+        )
         return output
 
 

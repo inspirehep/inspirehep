@@ -152,7 +152,10 @@ def test_import_article_view_200_crossref(inspire_app):
         resp = client.get(f"/literature/import/{doi}")
     result = resp.json["data"]
 
-    expected_title = "Observation of a new particle in the search for the Standard Model Higgs boson with the ATLAS detector at the LHC"
+    expected_title = (
+        "Observation of a new particle in the search for the Standard Model Higgs boson"
+        " with the ATLAS detector at the LHC"
+    )
     assert resp.status_code == 200
     assert result["title"] == expected_title
     assert result["doi"] == doi
@@ -166,8 +169,8 @@ def test_import_doi_request_error(mock_response, inspire_app):
     with inspire_app.test_client() as client:
         resp = client.get(f"/literature/import/{doi}")
 
-    assert resp.json["message"] == (
-        "There was an error when importing metadata. "
+    assert (
+        resp.json["message"] == "There was an error when importing metadata. "
         "Please try again later or fill the form manually."
     )
     assert resp.status_code == 502

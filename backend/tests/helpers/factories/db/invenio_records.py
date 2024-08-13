@@ -58,7 +58,8 @@ class TestRecordMetadata(TestBaseModel):
         >>> factory.record_metadata
         <RecordMetadata (transient 4661300240)>
         >>> factory.record_metadata.json
-        {'name': 'joe', '_collections': ['Literature'], 'control_number': 5, 'titles': [{'title': 'dfjMz4eAgcJS1642UvCGPSieqhnIU6DuasOBHVlHA88tGqwpHOv8Kln63wkZ'}], '$schema': 'http://localhost:5000/schemas/record/hep.json', 'document_type': ['article']}
+        {'name': 'joe', '_collections': ['Literature'], 'control_number': 5,
+        'titles': [{'title': 'dfjMz4eAgcJS1642UvCGPSieqhnIU6DuasOBHVlHA88tGqwpHOv8Kln63wkZ'}], '$schema': 'http://localhost:5000/schemas/record/hep.json', 'document_type': ['article']}
         >>> type(factory.inspire_record)
         <class 'inspirehep.modules.records.api.InspireRecord'>
     """

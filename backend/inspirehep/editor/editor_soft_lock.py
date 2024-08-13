@@ -72,9 +72,15 @@ class EditorSoftLock:
             ]
         ).strip(", ")
         if existing_user_locks:
-            editor_user_lock_msg = f"Record opened by {existing_user_locks} Their modifications aren't saved yet, they (or yours) might get lost."
+            editor_user_lock_msg = (
+                f"Record opened by {existing_user_locks} Their modifications aren't"
+                " saved yet, they (or yours) might get lost."
+            )
             payload["user_locks"] = editor_user_lock_msg
         elif existing_task_locks:
-            editor_task_lock_msg = f"Scheduled tasks: {existing_task_locks}. Your modifications might get lost"
+            editor_task_lock_msg = (
+                f"Scheduled tasks: {existing_task_locks}. Your modifications might get"
+                " lost"
+            )
             payload["task_locks"] = editor_task_lock_msg
         return payload

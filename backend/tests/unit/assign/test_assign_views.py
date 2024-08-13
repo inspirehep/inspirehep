@@ -21,7 +21,10 @@ def test_author_bai_is_updated_correctly_in_ids_list():
         "ids": [{"schema": "INSPIRE BAI", "value": "G.tHooft.1"}],
         "raw_affiliations": [
             {
-                "value": "Institute for Theoretical Physics, Utrecht University Postbox, 80.089, 3508 TB Utrecht, Salerno, the Netherlands, Italy"
+                "value": (
+                    "Institute for Theoretical Physics, Utrecht University Postbox,"
+                    " 80.089, 3508 TB Utrecht, Salerno, the Netherlands, Italy"
+                )
             }
         ],
         "record": {"$ref": ["Filtered"]},

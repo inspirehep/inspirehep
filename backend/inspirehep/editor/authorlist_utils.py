@@ -373,7 +373,7 @@ def create_authors(text):
     else:
         # authors = parse_blocks(text_blocks)
         raise ValueError(
-            "Authors grouped by affiliation? - Comming soon." "Or too many empty lines."
+            "Authors grouped by affiliation? - Comming soon.Or too many empty lines."
         )
 
     if warnings:

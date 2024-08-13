@@ -57,7 +57,11 @@ def test_bibtex_returns_all_expected_fields_for_conference_papers(inspire_app):
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = '@inproceedings{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith, John",\n    booktitle = "{This is the parent conference title}",\n    title = "{This is a conference paper title}"\n}\n'
+    expected_result = (
+        '@inproceedings{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor ='
+        ' "Smith, John",\n    booktitle = "{This is the parent conference title}",\n   '
+        ' title = "{This is a conference paper title}"\n}\n'
+    )
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record_control_number}", headers=headers)
 
@@ -97,7 +101,11 @@ def test_bibtex_returns_all_expected_fields_for_book_chapters(inspire_app):
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = '@inbook{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith, John",\n    booktitle = "{This is the parent book title}",\n    title = "{This is a book chapter title}"\n}\n'
+    expected_result = (
+        '@inbook{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith,'
+        ' John",\n    booktitle = "{This is the parent book title}",\n    title ='
+        ' "{This is a book chapter title}"\n}\n'
+    )
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record_control_number}", headers=headers)
 
@@ -119,12 +127,12 @@ def test_bibtex_search(inspire_app):
     expected_status_code = 200
     expected_result_1 = (
         f"@article{{{rec1['control_number']},\n"
-        '    title = "{This is a title.}"\n'
+        "    title = \"{This is a title.}\"\n"
         "}\n"
     )
     expected_result_2 = (
         f"@article{{{rec2['control_number']},\n"
-        '    title = "{Yet another title.}"\n'
+        "    title = \"{Yet another title.}\"\n"
         "}\n"
     )
     with inspire_app.test_client() as client:
@@ -158,7 +166,12 @@ def test_bibtex_encodes_non_latex_chars_in_non_verbatim_fields(inspire_app):
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = '@article{Gerard2020:abc,\n    author = "G\\\'erard, Pawe\\l{}",\n    collaboration = "DA\\ensuremath{\\Phi}NE",\n    title = "{About \\ensuremath{\\gamma}-ray bursts}",\n    doi = "10.1234/567_89",\n    journal = "Annales H. Poincar\\\'e",\n    volume = "42",\n    pages = "314--486"\n}\n'
+    expected_result = (
+        '@article{Gerard2020:abc,\n    author = "G\\\'erard, Pawe\\l{}",\n   '
+        ' collaboration = "DA\\ensuremath{\\Phi}NE",\n    title = "{About'
+        ' \\ensuremath{\\gamma}-ray bursts}",\n    doi = "10.1234/567_89",\n    journal'
+        ' = "Annales H. Poincar\\\'e",\n    volume = "42",\n    pages = "314--486"\n}\n'
+    )
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record_control_number}", headers=headers)
 
@@ -182,13 +195,20 @@ def test_bibtex_strips_mathml(inspire_app):
     data = {
         "titles": [
             {
-                "title": 'Inert Higgs Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
+                "title": (
+                    "Inert Higgs Dark Matter for CDF II <math"
+                    ' display="inline"><mi>W</mi></math>-Boson Mass and Detection'
+                    " Prospects"
+                )
             }
         ],
     }
     record = create_record("lit", data=data)
 
-    expected_data = f'@article{{{record["control_number"]},\n    title = "{{Inert Higgs Dark Matter for CDF II W-Boson Mass and Detection Prospects}}"\n}}\n'
+    expected_data = (
+        f'@article{{{record["control_number"]},\n    title = "{{Inert Higgs Dark Matter'
+        ' for CDF II W-Boson Mass and Detection Prospects}"\n}\n'
+    )
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record['control_number']}?format=bibtex")
     assert response.get_data(as_text=True) == expected_data
@@ -198,7 +218,11 @@ def test_bibtex_strips_mathml_with_and_in_title(inspire_app):
     data = {
         "titles": [
             {
-                "title": 'Inert Higgs & Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
+                "title": (
+                    "Inert Higgs & Dark Matter for CDF II <math"
+                    ' display="inline"><mi>W</mi></math>-Boson Mass and Detection'
+                    " Prospects"
+                )
             }
         ],
     }
@@ -223,13 +247,22 @@ def test_bibtex_leaves_mathml_in_title_when_conversion_error(
     data = {
         "titles": [
             {
-                "title": 'Inert Higgs & Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
+                "title": (
+                    "Inert Higgs & Dark Matter for CDF II <math"
+                    ' display="inline"><mi>W</mi></math>-Boson Mass and Detection'
+                    " Prospects"
+                )
             }
         ],
     }
     record = create_record("lit", data=data)
 
-    expected_data = f"@article{{{record['control_number']},\n    title = \"{{Inert Higgs \\& Dark Matter for CDF II \\ensuremath{{<}}math display=''inline''\\ensuremath{{>}}\\ensuremath{{<}}mi\\ensuremath{{>}}W\\ensuremath{{<}}/mi\\ensuremath{{>}}\\ensuremath{{<}}/math\\ensuremath{{>}}-Boson Mass and Detection Prospects}}\"\n}}\n"
+    expected_data = (
+        f"@article{{{record['control_number']},\n    title = \"{{Inert Higgs \\& Dark"
+        " Matter for CDF II \\ensuremath{<}math"
+        " display=''inline''\\ensuremath{>}\\ensuremath{<}mi\\ensuremath{>}W\\ensuremath{<}/mi\\ensuremath{>}\\ensuremath{<}/math\\ensuremath{>}-Boson"
+        " Mass and Detection Prospects}\"\n}\n"
+    )
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record['control_number']}?format=bibtex")
     assert response.get_data(as_text=True) == expected_data

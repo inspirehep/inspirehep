@@ -117,7 +117,10 @@ def test_es_schema_removes_fulltext_indexing_errors(
                 "text": "asdfsdfbajabjbasdasdasd=",
                 "attachment": {"content": "this is a text"},
                 "error": {
-                    "message": "Fulltext indexing failed with message expected='>' actual='À' at offset 102005"
+                    "message": (
+                        "Fulltext indexing failed with message expected='>' actual='À'"
+                        " at offset 102005"
+                    )
                 },
             }
         ]

@@ -46,7 +46,8 @@ def upgrade():
         "CREATE TABLE tmp_records_authors (LIKE records_authors INCLUDING CONSTRAINTS);"
     )
     op.execute(
-        f"INSERT INTO tmp_records_authors SELECT * FROM records_authors WHERE id_type IN {new_enum_types};"
+        "INSERT INTO tmp_records_authors SELECT * FROM records_authors WHERE id_type"
+        f" IN {new_enum_types};"
     )
     op.execute(
         "ALTER TABLE tmp_records_authors ALTER COLUMN id_type TYPE VARCHAR(255);"
@@ -81,7 +82,8 @@ def upgrade():
     op.execute(f"CREATE TYPE enum_author_schema_type AS ENUM {new_enum_types};")
     op.execute("ALTER TABLE tmp_records_authors RENAME TO records_authors")
     op.execute(
-        "ALTER TABLE records_authors ALTER COLUMN id_type TYPE enum_author_schema_type USING (id_type::enum_author_schema_type);"
+        "ALTER TABLE records_authors ALTER COLUMN id_type TYPE enum_author_schema_type"
+        " USING (id_type::enum_author_schema_type);"
     )
 
 
@@ -91,5 +93,6 @@ def downgrade():
     op.execute("DROP TYPE IF EXISTS enum_author_schema_type;")
     op.execute(f"CREATE TYPE enum_author_schema_type AS ENUM {old_enum_values}")
     op.execute(
-        "ALTER TABLE records_authors ALTER COLUMN id_type TYPE enum_author_schema_type USING (id_type::enum_author_schema_type);"
+        "ALTER TABLE records_authors ALTER COLUMN id_type TYPE enum_author_schema_type"
+        " USING (id_type::enum_author_schema_type);"
     )

@@ -63,10 +63,11 @@ class SearchCheckDo(ABC):
         search_instance = self.search_class()
         # For literature, `query_from_iq` does unwanted permission checks,
         # so we work around it
-        if isinstance(search_instance, LiteratureSearch):
-            query = search_instance.query(IQ(self.query, search_instance))
-        else:
-            query = search_instance.query_from_iq(self.query)
+        query = (
+            search_instance.query(IQ(self.query, search_instance))
+            if isinstance(search_instance, LiteratureSearch)
+            else search_instance.query_from_iq(self.query)
+        )
         query = query.params(_source={}, size=self.size, scroll="60m")
         if shard_filter := self._current_shard_filter():
             query = query.filter("script", script=shard_filter)

@@ -71,21 +71,25 @@ class BibTexCommonSchema(BaseSchema):
     document_type_map = {
         "article": "article",
         "book": "book",
-        "book chapter": lambda data: "article"
-        if get_value(data, "publication_info.journal_title")
-        else "inbook",
+        "book chapter": lambda data: (
+            "article" if get_value(data, "publication_info.journal_title") else "inbook"
+        ),
         "proceedings": "proceedings",
         "report": "article",
         "note": "article",
-        "conference paper": lambda data: "article"
-        if get_value(data, "publication_info.journal_title")
-        else "inproceedings",
-        "thesis": lambda data: "article"
-        if get_value(data, "publication_info.journal_title")
-        else (
-            "phdthesis"
-            if get_value(data, "thesis_info.degree_type") in ("phd", "habilitation")
-            else "mastersthesis"
+        "conference paper": lambda data: (
+            "article"
+            if get_value(data, "publication_info.journal_title")
+            else "inproceedings"
+        ),
+        "thesis": lambda data: (
+            "article"
+            if get_value(data, "publication_info.journal_title")
+            else (
+                "phdthesis"
+                if get_value(data, "thesis_info.degree_type") in ("phd", "habilitation")
+                else "mastersthesis"
+            )
         ),
     }
 

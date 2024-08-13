@@ -390,7 +390,8 @@ def normalize_affiliations_for_authors(parsed_authors):
         if normalized_affiliation:
             author["affiliations"] = normalized_affiliation
     LOGGER.info(
-        "Found ambiguous affiliations for raw affiliations, skipping affiliation linking.",
+        "Found ambiguous affiliations for raw affiliations, skipping affiliation"
+        " linking.",
         ambiguous_affiliations=normalized_affiliations_result["ambiguous_affiliations"],
     )
     return parsed_authors

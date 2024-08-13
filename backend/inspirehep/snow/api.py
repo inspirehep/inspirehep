@@ -332,7 +332,9 @@ class InspireSnow(SnowTicketAPI):
             ]
         ):
             raise ValueError(
-                f"ticket_endpoint, third_party_ticket_endpoint and functional_element_id are required to init {self.__class__.__name__}!"
+                "ticket_endpoint, third_party_ticket_endpoint and"
+                " functional_element_id are required to init"
+                f" {self.__class__.__name__}!"
             )
 
     def _update_ticket_with_inspire_recid(self, ticket_id, recid, assignee):

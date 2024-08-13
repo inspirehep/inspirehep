@@ -261,7 +261,9 @@ def test_jobs_detail_serialize_experiment_with_referenced_record(inspire_app):
         {
             "name": "LIGO",
             "record": {
-                "$ref": f"http://localhost:5000/api/experiments/{rec_data_control_number}"
+                "$ref": (
+                    f"http://localhost:5000/api/experiments/{rec_data_control_number}"
+                )
             },
         }
     ]

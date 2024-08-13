@@ -31,13 +31,17 @@ def test_abstract_source_full(
         "abstracts": [
             {
                 "source": "submitter",
-                "value": "Imaginem gi converto defectus interdum ad si alterius to."
-                "Qua ego lus cogitare referrem mansurum importat.",
+                "value": (
+                    "Imaginem gi converto defectus interdum ad si alterius to."
+                    "Qua ego lus cogitare referrem mansurum importat."
+                ),
             },
             {
                 "source": "arXiv",
-                "value": "Imaginem gi converto defectus interdum ad si alterius to."
-                "Qua ego lus cogitare referrem mansurum importat.",
+                "value": (
+                    "Imaginem gi converto defectus interdum ad si alterius to."
+                    "Qua ego lus cogitare referrem mansurum importat."
+                ),
             },
         ]
     }
@@ -67,13 +71,17 @@ def test_abstract_source_one_missing_source(
     data = {
         "abstracts": [
             {
-                "value": "Imaginem gi converto defectus interdum ad si alterius to."
-                "Qua ego lus cogitare referrem mansurum importat."
+                "value": (
+                    "Imaginem gi converto defectus interdum ad si alterius to."
+                    "Qua ego lus cogitare referrem mansurum importat."
+                )
             },
             {
                 "source": "arXiv",
-                "value": "Imaginem gi converto defectus interdum ad si alterius to."
-                "Qua ego lus cogitare referrem mansurum importat.",
+                "value": (
+                    "Imaginem gi converto defectus interdum ad si alterius to."
+                    "Qua ego lus cogitare referrem mansurum importat."
+                ),
             },
         ]
     }
@@ -124,8 +132,10 @@ def test_abstract_source_one_only(
         "abstracts": [
             {
                 "source": "arXiv",
-                "value": "Imaginem gi converto defectus interdum ad si alterius to."
-                "Qua ego lus cogitare referrem mansurum importat.",
+                "value": (
+                    "Imaginem gi converto defectus interdum ad si alterius to."
+                    "Qua ego lus cogitare referrem mansurum importat."
+                ),
             }
         ]
     }

@@ -265,7 +265,11 @@ def find_unambiguous_affiliation(result, wf_id):
             )
         if matched_aff:
             message_payload = {"literature recid": matched_author["control_number"]}
-            message = f"Found matching affiliation, literature recid: {matched_author['control_number']}, raw_affiliations: {matched_author_raw_affs}, matched affiliations: {matched_aff}"
+            message = (
+                "Found matching affiliation, literature recid:"
+                f" {matched_author['control_number']}, raw_affiliations:"
+                f" {matched_author_raw_affs}, matched affiliations: {matched_aff}"
+            )
             if wf_id:
                 message += f" workflow_id: {wf_id}"
             LOGGER.info("Found matching affiliation", message_payload)

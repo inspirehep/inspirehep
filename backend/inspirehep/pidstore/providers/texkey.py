@@ -145,7 +145,8 @@ class InspireTexKeyProvider(InspireBaseProvider):
                     )
             except IntegrityError:
                 LOGGER.warning(
-                    "Failure while creating TEXKEY. Specified TEXKEY already exists! - Retrying",
+                    "Failure while creating TEXKEY. Specified TEXKEY already exists! -"
+                    " Retrying",
                     pid_value=full_texkey_generated,
                     object_uuid=object_uuid,
                 )

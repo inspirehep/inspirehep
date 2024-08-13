@@ -139,7 +139,10 @@ def test_fulltext_indexing_error_is_excluded_from_documents():
                 "text": "asdfsdfbajabjbasdasdasd=",
                 "attachment": {"content": "this is a text"},
                 "_error": {
-                    "message": "Fulltext indexing failed with message expected='>' actual='À' at offset 102005"
+                    "message": (
+                        "Fulltext indexing failed with message expected='>' actual='À'"
+                        " at offset 102005"
+                    )
                 },
             }
         ]

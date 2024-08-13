@@ -132,12 +132,11 @@ def get_query_for_given_path(index, path, record_ref):
         record_with_reference_pid
     ].nested_record_fields
     record_recid = maybe_int(record_ref.split("/")[-1])
-    if path.split(".")[0] in nested_fields:
-        query = Q(
-            "nested", path=path.split(".")[0], query=Q("match", **{path: record_recid})
-        )
-    else:
-        query = Q("match", **{path: record_recid})
+    query = (
+        Q("nested", path=path.split(".")[0], query=Q("match", **{path: record_recid}))
+        if path.split(".")[0] in nested_fields
+        else Q("match", **{path: record_recid})
+    )
     return query
 
 

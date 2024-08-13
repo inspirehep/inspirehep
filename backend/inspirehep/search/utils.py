@@ -28,10 +28,11 @@ def get_facet_configuration(search_index):
     """
     facet_name = request.values.get("facet_name")
 
-    if is_superuser_or_cataloger_logged_in():
-        facet_data = current_app.config["CATALOGER_RECORDS_REST_FACETS"]
-    else:
-        facet_data = current_app.config["RECORDS_REST_FACETS"]
+    facet_data = (
+        current_app.config["CATALOGER_RECORDS_REST_FACETS"]
+        if is_superuser_or_cataloger_logged_in()
+        else current_app.config["RECORDS_REST_FACETS"]
+    )
 
     facet = facet_data.get(facet_name) or facet_data.get(search_index)
 

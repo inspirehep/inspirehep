@@ -74,8 +74,8 @@ class PapersAuthorsExtensionMixin:
             or "Literature" not in self["_collections"]
         ):
             LOGGER.info(
-                f"Skipping creating entries in "
-                f"{RecordsAuthors.__tablename__} table. Record is not literature or is deleted",
+                f"Skipping creating entries in {RecordsAuthors.__tablename__} table."
+                " Record is not literature or is deleted",
                 recid=self.get("control_number"),
                 uuid=str(self.id),
             )
@@ -598,8 +598,9 @@ class StudentsAdvisorMixin:
         for advisor in self.get_value("advisors", []):
             if "record" not in advisor:
                 LOGGER.info(
-                    f"Skipping creating entries in "
-                    f"{StudentsAdvisors.__tablename__} table. Advisor record is missing",
+                    "Skipping creating entries in "
+                    f"{StudentsAdvisors.__tablename__} table. Advisor record is"
+                    " missing",
                     recid=self.get("control_number"),
                     uuid=str(self.id),
                 )
@@ -628,7 +629,7 @@ class StudentsAdvisorMixin:
 
         if self.get("deleted", False):
             LOGGER.info(
-                f"Skipping creating entries in "
+                "Skipping creating entries in "
                 f"{StudentsAdvisors.__tablename__} table. Record is deleted",
                 recid=self.get("control_number"),
                 uuid=str(self.id),

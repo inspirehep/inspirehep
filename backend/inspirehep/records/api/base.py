@@ -170,10 +170,11 @@ class InspireRecord(Record):
         Returns: Record in requested version.
 
         """
-        if not record_version:
-            record = cls._get_record(record_uuid, with_deleted)
-        else:
-            record = cls._get_record_version(record_uuid, record_version)
+        record = (
+            cls._get_record(record_uuid, with_deleted)
+            if not record_version
+            else cls._get_record_version(record_uuid, record_version)
+        )
         if with_deleted is False and record.get("deleted", False):
             raise NoResultFound
         return record
@@ -454,7 +455,8 @@ class InspireRecord(Record):
                 )
             except PIDDoesNotExistError:
                 LOGGER.warning(
-                    "This pid is missing while still is marked as deleted by another record.",
+                    "This pid is missing while still is marked as deleted by another"
+                    " record.",
                     marked_by=data.get("control_number"),
                     marked_to_delete=(pid_type, pid_value),
                 )
@@ -596,12 +598,13 @@ class InspireRecord(Record):
         data = {}
         RecordMetadataVersion = version_class(RecordMetadata)
         try:
-            if isinstance(self.model, RecordMetadataVersion):
-                current = self.model
-            else:
-                current = self.model.versions.filter_by(
+            current = (
+                self.model
+                if isinstance(self.model, RecordMetadataVersion)
+                else self.model.versions.filter_by(
                     version_id=self.model.version_id
                 ).one()
+            )
             if current.previous:
                 data = current.previous.json
         except NoResultFound:

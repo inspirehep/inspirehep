@@ -22,7 +22,9 @@ def get_next_pid_from_legacy():
     """
     headers = {
         "User-Agent": "invenio_webupload",
-        "Authorization": f"Bearer {current_app.config.get('BATCHUPLOADER_WEB_ROBOT_TOKEN', '')}",
+        "Authorization": (
+            f"Bearer {current_app.config.get('BATCHUPLOADER_WEB_ROBOT_TOKEN', '')}"
+        ),
     }
 
     url = current_app.config.get("LEGACY_PID_PROVIDER")

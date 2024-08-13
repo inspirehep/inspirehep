@@ -227,7 +227,9 @@ def test_literature_citations(inspire_app):
         "references": [
             {
                 "record": {
-                    "$ref": f"http://localhost:5000/api/literature/{record_control_number}"
+                    "$ref": (
+                        f"http://localhost:5000/api/literature/{record_control_number}"
+                    )
                 }
             }
         ],
@@ -269,7 +271,9 @@ def test_literature_citations_with_superseded_citing_records(inspire_app):
         "references": [
             {
                 "record": {
-                    "$ref": f"http://localhost:5000/api/literature/{record_control_number}"
+                    "$ref": (
+                        f"http://localhost:5000/api/literature/{record_control_number}"
+                    )
                 }
             }
         ],
@@ -290,7 +294,9 @@ def test_literature_citations_with_superseded_citing_records(inspire_app):
         "references": [
             {
                 "record": {
-                    "$ref": f"http://localhost:5000/api/literature/{record_control_number}"
+                    "$ref": (
+                        f"http://localhost:5000/api/literature/{record_control_number}"
+                    )
                 }
             }
         ],
@@ -335,7 +341,9 @@ def test_literature_citations_with_non_citeable_collection(inspire_app):
         "references": [
             {
                 "record": {
-                    "$ref": f"http://localhost:5000/api/literature/{record_control_number}"
+                    "$ref": (
+                        f"http://localhost:5000/api/literature/{record_control_number}"
+                    )
                 }
             }
         ],
@@ -355,7 +363,9 @@ def test_literature_citations_with_non_citeable_collection(inspire_app):
         "references": [
             {
                 "record": {
-                    "$ref": f"http://localhost:5000/api/literature/{record_control_number}"
+                    "$ref": (
+                        f"http://localhost:5000/api/literature/{record_control_number}"
+                    )
                 }
             }
         ],

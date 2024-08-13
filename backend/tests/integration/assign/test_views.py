@@ -548,11 +548,19 @@ def test_author_assign_papers_different_profile(mock_create_ticket, inspire_app)
         "snow/assign_authors_from_different_profile.html",
         {
             "to_author_names": ["Matczak, Michal"],
-            "from_author_url": f"http://localhost:5000/authors/{from_author_control_number}",
-            "to_author_url": f"http://localhost:5000/authors/{to_author_control_number}",
+            "from_author_url": (
+                f"http://localhost:5000/authors/{from_author_control_number}"
+            ),
+            "to_author_url": (
+                f"http://localhost:5000/authors/{to_author_control_number}"
+            ),
             "incompatibile_names_papers": {
-                f"http://localhost:5000/literature/{literature_1_control_number}": "Aad, Georges",
-                f"http://localhost:5000/literature/{literature_2_control_number}": "Aad, Georges",
+                f"http://localhost:5000/literature/{literature_1_control_number}": (
+                    "Aad, Georges"
+                ),
+                f"http://localhost:5000/literature/{literature_2_control_number}": (
+                    "Aad, Georges"
+                ),
             },
             "already_claimed_papers": [
                 f"http://localhost:5000/literature/{literature_2_control_number}"
@@ -721,11 +729,19 @@ def test_author_assign_view_claimed_with_stub_author(mock_create_ticket, inspire
         "snow/assign_authors_from_different_profile.html",
         {
             "to_author_names": ["Matczak, Michal"],
-            "from_author_url": f"http://localhost:5000/authors/{from_author['control_number']}",
-            "to_author_url": f"http://localhost:5000/authors/{to_author['control_number']}",
+            "from_author_url": (
+                f"http://localhost:5000/authors/{from_author['control_number']}"
+            ),
+            "to_author_url": (
+                f"http://localhost:5000/authors/{to_author['control_number']}"
+            ),
             "incompatibile_names_papers": {
-                f"http://localhost:5000/literature/{literature_2['control_number']}": "Aad, Georges",
-                f"http://localhost:5000/literature/{literature_1['control_number']}": "Aad, Georges",
+                f"http://localhost:5000/literature/{literature_2['control_number']}": (
+                    "Aad, Georges"
+                ),
+                f"http://localhost:5000/literature/{literature_1['control_number']}": (
+                    "Aad, Georges"
+                ),
             },
             "already_claimed_papers": [],
         },
@@ -1086,11 +1102,19 @@ def test_assign_author_has_main_name(mock_create_ticket, inspire_app):
                 "Malta Michaela",
                 "Mata, Michaela",
             ],
-            "from_author_url": f"http://localhost:5000/authors/{from_author_control_number}",
-            "to_author_url": f"http://localhost:5000/authors/{to_author_control_number}",
+            "from_author_url": (
+                f"http://localhost:5000/authors/{from_author_control_number}"
+            ),
+            "to_author_url": (
+                f"http://localhost:5000/authors/{to_author_control_number}"
+            ),
             "incompatibile_names_papers": {
-                f"http://localhost:5000/literature/{literature_1_control_number}": "Aad, Georges",
-                f"http://localhost:5000/literature/{literature_2_control_number}": "Aad, Georges",
+                f"http://localhost:5000/literature/{literature_1_control_number}": (
+                    "Aad, Georges"
+                ),
+                f"http://localhost:5000/literature/{literature_2_control_number}": (
+                    "Aad, Georges"
+                ),
             },
             "already_claimed_papers": [
                 f"http://localhost:5000/literature/{literature_2_control_number}"
@@ -1200,10 +1224,16 @@ def test_assign_author_calls_create_rt_ticket_for_claiming_action_when_some_args
         "snow/assign_authors_from_different_profile.html",
         {
             "to_author_names": ["Viktor Axelsen", "Axelsen, Viktor"],
-            "from_author_url": f"http://localhost:5000/authors/{from_author['control_number']}",
-            "to_author_url": f"http://localhost:5000/authors/{to_author['control_number']}",
+            "from_author_url": (
+                f"http://localhost:5000/authors/{from_author['control_number']}"
+            ),
+            "to_author_url": (
+                f"http://localhost:5000/authors/{to_author['control_number']}"
+            ),
             "incompatibile_names_papers": {
-                f"http://localhost:5000/literature/{literature_1['control_number']}": "Aad, Georges"
+                f"http://localhost:5000/literature/{literature_1['control_number']}": (
+                    "Aad, Georges"
+                )
             },
             "already_claimed_papers": [],
         },

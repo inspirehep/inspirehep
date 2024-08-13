@@ -59,9 +59,11 @@ def inspire_search_links(links):
             links["prev"] = prev_url + url_fields
     links.update(
         {
-            format_name: f"{self_url}{url_fields}&format={format_name}"
-            if format_name == "json"
-            else f"{self_url}&format={format_name}"
+            format_name: (
+                f"{self_url}{url_fields}&format={format_name}"
+                if format_name == "json"
+                else f"{self_url}&format={format_name}"
+            )
             for format_name in formats
         }
     )
@@ -72,7 +74,8 @@ def inspire_search_links(links):
 def find_record_endpoint(pid, record_hit=None, **kwargs):
     """gets endpoint from pid type or from `$schema` if record_data is from search results,
     as all pid_types from search_result are `recid`.
-    If both ways of resolving endpoint are not available gets it from pid_value - additional db query"""
+    If both ways of resolving endpoint are not available gets it from pid_value - additional db query
+    """
     if pid.pid_type != "recid":
         return current_records_rest.default_endpoint_prefixes[pid.pid_type]
     elif record_hit and "$schema" in record_hit.get("_source", {}):

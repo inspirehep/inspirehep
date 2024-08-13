@@ -162,21 +162,30 @@ def _send_celery_group_disambiguation_task(uuids, batch_size):
 @click.option(
     "--total-records",
     type=int,
-    help="Number of records to disambiguate, if not passed all records with at least one not disambiguated will be sent to the queue",
+    help=(
+        "Number of records to disambiguate, if not passed all records with at least one"
+        " not disambiguated will be sent to the queue"
+    ),
 )
 @click.option(
     "--indexing-queue-limit",
     type=int,
     default=MAX_INDEXER_QUEUE_LEN,
     show_default=True,
-    help="Number of records to disambiguate, if not passed all records with at least one not disambiguated will be sent to the queue",
+    help=(
+        "Number of records to disambiguate, if not passed all records with at least one"
+        " not disambiguated will be sent to the queue"
+    ),
 )
 @click.option(
     "--disambiguation-queue-limit",
     type=int,
     default=MAX_DISAMBIGUATION_QUEUE_LEN,
     show_default=True,
-    help="Number of records to disambiguate, if not passed all records with at least one not disambiguated will be sent to the queue",
+    help=(
+        "Number of records to disambiguate, if not passed all records with at least one"
+        " not disambiguated will be sent to the queue"
+    ),
 )
 def disambiguate_all_not_disambiguated(
     celery_batch_size, total_records, indexing_queue_limit, disambiguation_queue_limit

@@ -69,8 +69,8 @@ class OrcidPusher:
             and inspire_record.model.version_id < self.record_db_version
         ):
             raise exceptions.StaleRecordDBVersionException(
-                f"Requested push for db version={self.record_db_version}, but actual record db"
-                f" version={inspire_record.model.version_id}"
+                f"Requested push for db version={self.record_db_version}, but actual"
+                f" record db version={inspire_record.model.version_id}"
             )
         return inspire_record
 
@@ -202,10 +202,11 @@ class OrcidPusher:
         # the same time. Using `distributed_lock` to achieve this.
 
         with distributed_lock(self.lock_name, blocking=True):
-            if putcode:
-                response = self.client.put_updated_work(xml_element, putcode)
-            else:
-                response = self.client.post_new_work(xml_element)
+            response = (
+                self.client.put_updated_work(xml_element, putcode)
+                if putcode
+                else self.client.post_new_work(xml_element)
+            )
         LOGGER.info("POST/PUT ORCID work", recid=self.recid)
         response.raise_for_result()
         return response["putcode"]
@@ -243,8 +244,8 @@ class OrcidPusher:
         # at this moment it helps isolate a potential issue.
         if putcode and not self.cache.read_work_putcode():
             raise exceptions.PutcodeNotFoundInCacheAfterCachingAllPutcodes(
-                f"No putcode={self.putcode} found in cache for recid={self.recid} after having"
-                f" cached all author putcodes for orcid={self.orcid}"
+                f"No putcode={self.putcode} found in cache for recid={self.recid} after"
+                f" having cached all author putcodes for orcid={self.orcid}"
             )
 
         return putcode

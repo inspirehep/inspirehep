@@ -99,7 +99,8 @@ def set_orcid_push_setting():
 
         if len(tokens) != 1:
             raise ValueError(
-                f"One token per remote account is expected, but found {len(tokens)} for {orcid}"
+                f"One token per remote account is expected, but found {len(tokens)} for"
+                f" {orcid}"
             )
 
         push_account_literature_to_orcid.apply_async(

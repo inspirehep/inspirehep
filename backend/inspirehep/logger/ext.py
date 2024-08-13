@@ -80,9 +80,9 @@ class InspireLogger:
             defaults_prefix=prefix,
             group_by=url_rule,
             static_labels={
-                "source": lambda: "external"
-                if "X-Unique-ID" in request.headers
-                else "internal"
+                "source": lambda: (
+                    "external" if "X-Unique-ID" in request.headers else "internal"
+                )
             },
         )
         metrics_flask.init_app(app)

@@ -25,7 +25,10 @@ def cds():
     "-s",
     "since",
     default=None,
-    help="Date from when CDS should be synced. If not provided last successful run date will be used.",
+    help=(
+        "Date from when CDS should be synced. If not provided last successful run date"
+        " will be used."
+    ),
 )
 @with_appcontext
 def sync(since=None):
@@ -43,7 +46,8 @@ def sync(since=None):
             since = datetime.strptime(since, "%Y-%m-%d").date()
         except ValueError as e:
             raise WrongDateFormat(
-                f"`since`: {since} is in wrong format. Should be in ISO format: YYYY-MM-DD."
+                f"`since`: {since} is in wrong format. Should be in ISO format:"
+                " YYYY-MM-DD."
             ) from e
     try:
         click.echo("Starting CDS Sync.")

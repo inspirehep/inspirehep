@@ -19,7 +19,10 @@ from tenacity import stop_after_delay, wait_fixed
 def test_reference_diff(inspire_app, clean_celery_session):
     user = create_user(role="cataloger")
     literature_data = faker.record("lit")
-    raw_ref_text = '3.M. Mentink, "ATLAS circuit breakers update 18-05-20", EP Magnet RD Meeting, 2020.Show in Context'
+    raw_ref_text = (
+        '3.M. Mentink, "ATLAS circuit breakers update 18-05-20", EP Magnet RD Meeting,'
+        " 2020.Show in Context"
+    )
     literature_data.update(
         {
             "references": [
@@ -95,7 +98,10 @@ def test_reference_diff(inspire_app, clean_celery_session):
 def test_reference_diff_multiple_references(inspire_app, clean_celery_session):
     user = create_user(role="cataloger")
     literature_data = faker.record("lit")
-    raw_ref_text = "[2] Jedrych, M. INSPIRE-next. A masterpiece of the modern software engineering."
+    raw_ref_text = (
+        "[2] Jedrych, M. INSPIRE-next. A masterpiece of the modern software"
+        " engineering."
+    )
     literature_data.update(
         {
             "references": [

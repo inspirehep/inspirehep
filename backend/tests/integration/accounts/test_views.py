@@ -89,7 +89,8 @@ def test_login_success_redirects_to_home_if_next_url_not_in_session(inspire_app)
 @mock.patch("flask_login.utils._get_user")
 def test_sign_up_user_success(mock_current_user, inspire_app):
     """It's mocking current user because invenio handlers need a lot of things to
-    setup in order to make it properly work and we don't want to test this functinality."""
+    setup in order to make it properly work and we don't want to test this functinality.
+    """
 
     def return_true():
         return True

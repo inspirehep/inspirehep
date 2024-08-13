@@ -239,7 +239,9 @@ def test_conferences_detail_links(inspire_app):
     expected_status_code = 200
     record = create_record("con")
     expected_links = {
-        "json": f"http://localhost:5000/conferences/{record['control_number']}?format=json"
+        "json": (
+            f"http://localhost:5000/conferences/{record['control_number']}?format=json"
+        )
     }
     with inspire_app.test_client() as client:
         response = client.get(f"/conferences/{record['control_number']}")

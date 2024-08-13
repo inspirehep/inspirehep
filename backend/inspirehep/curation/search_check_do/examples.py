@@ -180,7 +180,10 @@ LSS_REGEX = re.compile("https?://lss.fnal.gov/cgi-bin/find_paper.pl")
 
 
 class MoveFermilabURLs(SearchCheckDo):
-    query = "urls.value:http://lss.fnal.gov/cgi-bin/find_paper.pl* OR urls.value:https://lss.fnal.gov/cgi-bin/find_paper.pl*"
+    query = (
+        "urls.value:http://lss.fnal.gov/cgi-bin/find_paper.pl* OR"
+        " urls.value:https://lss.fnal.gov/cgi-bin/find_paper.pl*"
+    )
 
     @staticmethod
     def check(record, logger, state):
@@ -197,7 +200,10 @@ class MoveFermilabURLs(SearchCheckDo):
 class HideElsevierFulltext(SearchCheckDo):
     """Hide fulltexts from Elsevier that have been incorrectly set as non-hidden."""
 
-    query = "(jy 2013 or 2014 or 2015) and documents.filename:'xml' and (arxiv_eprints.value:* or not documents.hidden:true)"
+    query = (
+        "(jy 2013 or 2014 or 2015) and documents.filename:'xml' and"
+        " (arxiv_eprints.value:* or not documents.hidden:true)"
+    )
 
     @staticmethod
     def check(record, logger, state):

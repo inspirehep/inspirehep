@@ -28,7 +28,10 @@ def inspire_pidstore():
 @click.option(
     "--create",
     is_flag=True,
-    help="Set this flag to also create missing BAIs. Without this flag only BAIs which are already in author metadata will be minted.",
+    help=(
+        "Set this flag to also create missing BAIs. Without this flag only BAIs which"
+        " are already in author metadata will be minted."
+    ),
 )
 @with_appcontext
 def mint_bais(yes_i_know, create):
@@ -46,12 +49,15 @@ def mint_bais(yes_i_know, create):
     if not yes_i_know:
         if create:
             click.confirm(
-                "Do you want to mint all existing BAIs and create new one for authors records which are missing one? This will remove all existing BAIs with pid_provider set to 'external'.",
+                "Do you want to mint all existing BAIs and create new one for authors"
+                " records which are missing one? This will remove all existing BAIs"
+                " with pid_provider set to 'external'.",
                 abort=True,
             )
         else:
             click.confirm(
-                "Do you want to mint existing BAIs only? This will remove all existing BAIs with pid_provider set to 'external'.",
+                "Do you want to mint existing BAIs only? This will remove all existing"
+                " BAIs with pid_provider set to 'external'.",
                 abort=True,
             )
     if create:
@@ -66,16 +72,17 @@ def mint_bais(yes_i_know, create):
     ).count()
     if length_external and current_app.config["FEATURE_FLAG_ENABLE_BAI_CREATION"]:
         click.echo(
-            "There are external BAIs detected in the Pidstore while requesting for creating missing BAIs."
-            " This is not allowed."
-            " Please register all existing BAIs first (by running this command without '--create' flag)."
+            "There are external BAIs detected in the Pidstore while requesting for"
+            " creating missing BAIs. This is not allowed. Please register all existing"
+            " BAIs first (by running this command without '--create' flag)."
         )
         return
     start_not_external_bais_count = PersistentIdentifier.query.filter_by(
         pid_type="bai", pid_provider="bai", status="R"
     ).count()
     click.echo(
-        f"{length} authors will be processed. {length_external} External BAI PIDs will be deleted."
+        f"{length} authors will be processed. {length_external} External BAI PIDs will"
+        " be deleted."
     )
     if not yes_i_know:
         click.confirm(
@@ -103,7 +110,8 @@ def mint_bais(yes_i_know, create):
                 elif author_data.get("ids") != author_record.get("ids") and not create:
                     db.session.rollback()
                     click.echo(
-                        f"Unexpected change in author {author_pid.pid_value} metadata. Rolling back and exiting.",
+                        f"Unexpected change in author {author_pid.pid_value} metadata."
+                        " Rolling back and exiting.",
                         err=True,
                     )
                     return
@@ -122,9 +130,10 @@ def mint_bais(yes_i_know, create):
     ).count()
 
     if not click.confirm(
-        f"There are {new_not_external_bais_count-start_not_external_bais_count} new bais with non external pid_provider added to the Pidstore."
-        f" {length_external-new_external_bais_count} BAIs with external pid_provider are deleted"
-        " Should those changes be commited to DB?"
+        f"There are {new_not_external_bais_count-start_not_external_bais_count} new"
+        " bais with non external pid_provider added to the Pidstore."
+        f" {length_external-new_external_bais_count} BAIs with external pid_provider"
+        " are deleted Should those changes be commited to DB?"
     ):
         db.session.rollback()
         return
@@ -133,8 +142,8 @@ def mint_bais(yes_i_know, create):
 
     if new_external_bais_count:
         click.echo(
-            "There are still external BAIs left in DB. Probably they are not properly assigned to authors."
-            " Please fix them and re-run command!"
+            "There are still external BAIs left in DB. Probably they are not properly"
+            " assigned to authors. Please fix them and re-run command!"
         )
 
 
@@ -183,7 +192,8 @@ def fast_mint_bais(yes_i_know):
                     control_number=author_record.get("control_number"),
                 )
     if not yes_i_know and not click.confirm(
-        f"There are {length} Author records without BAI for which BAI will be created. Do you want to continue?"
+        f"There are {length} Author records without BAI for which BAI will be created."
+        " Do you want to continue?"
     ):
         db.session.rollback()
         return

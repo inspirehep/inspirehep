@@ -268,7 +268,10 @@ def test_documents_doesnt_contain_error_from_fulltext(
                 "fulltext": False,
                 "url": "http://localhost:8080/api/files/url_to_file",
                 "error": {
-                    "message": "Fulltext indexing failed with message expected='>' actual='À' at offset 102005"
+                    "message": (
+                        "Fulltext indexing failed with message expected='>' actual='À'"
+                        " at offset 102005"
+                    )
                 },
             }
         ],

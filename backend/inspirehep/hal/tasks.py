@@ -83,10 +83,9 @@ def _hal_push(record):
         hal_id = hal_value[0] if hal_value else ""
         lock_name = f"hal:{record['control_number']}"
         with distributed_lock(lock_name, blocking=True):
-            if hal_id:
-                receipt = _hal_update(tei, hal_id, record)
-            else:
-                receipt = _hal_create(tei, record)
+            receipt = (
+                _hal_update(tei, hal_id, record) if hal_id else _hal_create(tei, record)
+            )
             if receipt and receipt.id != hal_id:
                 _write_hal_id_to_record(record, receipt.id)
             return receipt

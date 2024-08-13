@@ -275,14 +275,11 @@ def fuzzy_match_literature_data(data):
 
     """
     math_ml_latex_regex = r"(<math(.*?)<\/math>|(?<!\\)\$.*?(?<!\\)\$|(?<!\\)\\(.*?(?<!\\)\\)|(?<!\\)\\[.*?(?<!\\)\\])"
-    if "thesis" in data.get("document_type", []):
-        fuzzy_match_workflow_matcher_config = current_app.config[
-            "FUZZY_LITERATURE_THESIS_MATCH_CONFIG"
-        ]
-    else:
-        fuzzy_match_workflow_matcher_config = current_app.config[
-            "FUZZY_LITERATURE_MATCH_CONFIG"
-        ]
+    fuzzy_match_workflow_matcher_config = (
+        current_app.config["FUZZY_LITERATURE_THESIS_MATCH_CONFIG"]
+        if "thesis" in data.get("document_type", [])
+        else current_app.config["FUZZY_LITERATURE_MATCH_CONFIG"]
+    )
     data_without_math_ml_latex = copy(data)
     if "abstracts" in data:
         abstracts = deepcopy(data["abstracts"])

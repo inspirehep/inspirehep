@@ -9,7 +9,10 @@ from invenio_rest.errors import RESTException
 
 class EditorRevertToRevisionError(RESTException):
     code = 400
-    description = "Something went wrong while reverting to the previous revision, please try again later."
+    description = (
+        "Something went wrong while reverting to the previous revision, please try"
+        " again later."
+    )
 
 
 class EditorGetRevisionError(RESTException):

@@ -155,11 +155,17 @@ def test_returns_no_misc_if_titles_persent_in_the_resolved_record(
                 "titles": [
                     {
                         "source": "arXiv",
-                        "title": "Theoretical limit of residual amplitude modulation in electro-optic modulators",  # noqa
+                        "title": (  # noqa
+                            "Theoretical limit of residual amplitude modulation in"
+                            " electro-optic modulators"
+                        ),
                     },
                     {
                         "source": "arXiv",
-                        "title": "Fundamental level of residual amplitude modulation in phase modulation processes",  # noqa
+                        "title": (  # noqa
+                            "Fundamental level of residual amplitude modulation in"
+                            " phase modulation processes"
+                        ),
                     },
                 ],
             }
@@ -267,7 +273,13 @@ def test_schema_v2_returns_raw_ref(
     dump = {
         "raw_refs": [
             {
-                "value": "[1] M. Freer, H. Horiuchi, Y. Kanada-En’yo, D. Lee, and Ulf-G Meißner. Microscopic clustering in light nuclei. Reviews of Modern Physics, 90(3):035004, 2018. doi: https://doi.org/10.1103/RevModPhys.90.035004. URL https://link.aps.org/ doi/10.1103/RevModPhys.90.035004.",
+                "value": (
+                    "[1] M. Freer, H. Horiuchi, Y. Kanada-En’yo, D. Lee, and Ulf-G"
+                    " Meißner. Microscopic clustering in light nuclei. Reviews of"
+                    " Modern Physics, 90(3):035004, 2018. doi:"
+                    " https://doi.org/10.1103/RevModPhys.90.035004. URL"
+                    " https://link.aps.org/ doi/10.1103/RevModPhys.90.035004."
+                ),
                 "schema": "text",
                 "source": "desy",
             }
@@ -279,7 +291,12 @@ def test_schema_v2_returns_raw_ref(
     expected = {
         "control_number": 123,
         "arxiv_eprint": [{"value": "1606.09129"}],
-        "raw_ref": "[1] M. Freer, H. Horiuchi, Y. Kanada-En’yo, D. Lee, and Ulf-G Meißner. Microscopic clustering in light nuclei. Reviews of Modern Physics, 90(3):035004, 2018. doi: https://doi.org/10.1103/RevModPhys.90.035004. URL https://link.aps.org/ doi/10.1103/RevModPhys.90.035004.",
+        "raw_ref": (
+            "[1] M. Freer, H. Horiuchi, Y. Kanada-En’yo, D. Lee, and Ulf-G Meißner."
+            " Microscopic clustering in light nuclei. Reviews of Modern Physics,"
+            " 90(3):035004, 2018. doi: https://doi.org/10.1103/RevModPhys.90.035004."
+            " URL https://link.aps.org/ doi/10.1103/RevModPhys.90.035004."
+        ),
     }
     result = schema.dumps(dump).data
     assert expected == orjson.loads(result)

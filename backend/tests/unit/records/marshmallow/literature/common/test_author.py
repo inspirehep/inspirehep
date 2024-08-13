@@ -113,7 +113,10 @@ def test_first_author():
         "recid": 1032336,
         "raw_affiliations": [
             {
-                "value": "LIGO - California Institute of Technology - Pasadena - CA 91125 - USA"
+                "value": (
+                    "LIGO - California Institute of Technology - Pasadena - CA 91125"
+                    " - USA"
+                )
             }
         ],
         "affiliations": [
