@@ -73,7 +73,7 @@ exports[`Holdingpen renders initial state 1`] = `
                 class="ant-breadcrumb-link"
               >
                 <a
-                  href="/holdingpen-new/dashboard"
+                  href="/holdingpen-new/"
                 >
                   Dashboard
                 </a>
@@ -328,7 +328,7 @@ exports[`Holdingpen renders initial state 1`] = `
                             </p>
                             <a
                               class="normal f6"
-                              href="/holdingpen-new/search/?workflow_name=AUTHOR_CREATE"
+                              href="/holdingpen-new/search"
                             >
                               View all
                             </a>
@@ -364,7 +364,7 @@ exports[`Holdingpen renders initial state 1`] = `
                             </p>
                             <a
                               class="normal f6"
-                              href="/holdingpen-new/search/?workflow_name=AUTHOR_UPDATE"
+                              href="/holdingpen-new/search"
                             >
                               View all
                             </a>
@@ -400,7 +400,7 @@ exports[`Holdingpen renders initial state 1`] = `
                             </p>
                             <a
                               class="normal f6"
-                              href="/holdingpen-new/search/?workflow_name=HEP_CREATE"
+                              href="/holdingpen-new/search"
                             >
                               View all
                             </a>

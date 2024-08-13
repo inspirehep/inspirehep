@@ -181,7 +181,12 @@ function resetQuery() {
   };
 }
 
-type QueryParams = { page: number; size: number; [key: string]: any };
+type QueryParams = {
+  page: number;
+  size?: number;
+  ordering?: string;
+  [key: string]: any;
+};
 export function searchQueryUpdate(
   query: QueryParams
 ): (dispatch: ActionCreator<Action>) => Promise<void> {
@@ -208,7 +213,8 @@ export function fetchSearchResults(): (
     const currentQuery = getState()?.holdingpen?.get('query')?.toJS() || {};
     const resolveQuery = `${BACKOFFICE_SEARCH_API}/?${
       Object.entries(currentQuery)
-        ?.map(([key, value]: [string, any]) => `${key}=${value}`)
+        .filter(([_, value]) => value != null)
+        .map(([key, value]: [string, any]) => `${key}=${value}`)
         .join('&') || ''
     }`;
 
