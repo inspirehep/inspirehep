@@ -72,4 +72,4 @@ jobs:
             --env POSTGRES_HOST=127.0.0.1
             --env OPENSEARCH_HOST=127.0.0.1:9200
             registry.cern.ch/cern-sis/inspire/backoffice@${{ needs.build.outputs.image-id }}
-            run pytest"
+            run pytest
