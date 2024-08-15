@@ -11,7 +11,6 @@ from backoffice.workflows.constants import WORKFLOW_DAGS
 AIRFLOW_BASE_URL = environ.get("AIRFLOW_BASE_URL")
 
 AIRFLOW_HEADERS = {
-    "Content-Type": "application/json",
     "Authorization": f"Basic {environ.get('AIRFLOW_TOKEN')}",
 }
 
@@ -140,10 +139,7 @@ def delete_workflow_dag(dag_id, workflow_id):
             dag_id,
             url,
         )
-        response = requests.delete(
-            url,
-            headers=AIRFLOW_HEADERS,
-        )
+        response = requests.delete(url, headers=AIRFLOW_HEADERS)
         response.raise_for_status()
         return JsonResponse({"message": "Successfully deleted DAG"})
     except RequestException:
