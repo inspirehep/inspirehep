@@ -119,7 +119,7 @@ describe('Reference container', () => {
 
       cy.get('@editButton', { timeout: 10000 }).click();
 
-      cy.get('[data-test-id="reference-embedded-search')
+      cy.get('[data-test-id="reference-embedded-search"]')
         .find('.ant-input-search-button')
         .click();
       cy.waitForLoading();
