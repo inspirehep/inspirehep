@@ -51,6 +51,7 @@ jobs:
           -v "$(pwd)"/tests:/opt/airflow/tests
           -v "$(pwd)"/requirements-test.txt:/opt/airflow/requirements-test.txt
           -v "$(pwd)"/data:/opt/airflow/data
+          -v "$(pwd)"/scripts/variables/variables.json:/opt/airflow/variables.json
           -e AIRFLOW__CORE__EXECUTOR=CeleryExecutor
           -e AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@127.0.0.1:5432/airflow
           -e AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@127.0.0.1:5432/airflow
@@ -60,4 +61,4 @@ jobs:
           -e AIRFLOW__CORE__LOAD_EXAMPLES="false"
           -e AIRFLOW__API__AUTH_BACKENDS="airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
           registry.cern.ch/cern-sis/inspire/workflows@${{ needs.build.outputs.image-id }}
-          bash -c "pip install -r requirements-test.txt && airflow db init && pytest /opt/airflow/tests"
+          bash -c "pip install -r requirements-test.txt && airflow db init && airflow variables import /opt/airflow/variables.json && pytest /opt/airflow/tests"
