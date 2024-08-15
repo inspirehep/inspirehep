@@ -8,7 +8,7 @@ from airflow.utils.trigger_rule import TriggerRule
 
 @dag(
     start_date=datetime.datetime(2021, 1, 1),
-    schedule_interval=None,
+    schedule=None,
     params={"approved": True},
 )
 def process_untill_breakpoint():
@@ -52,12 +52,11 @@ def process_untill_breakpoint():
         task_id="check_approval",
         ignore_downstream_trigger_rules=False,
         python_callable=check_approval,
-        provide_context=True,
     )
     fetch_document_task = fetch_document("test.json")
     normalize_affiliations_task = normalize_affiliations(fetch_document_task)
     auto_approval = ShortCircuitOperator(
-        task_id="auto_approval", python_callable=auto_approval, provide_context=True
+        task_id="auto_approval", python_callable=auto_approval
     )
     validation = validate()
 
