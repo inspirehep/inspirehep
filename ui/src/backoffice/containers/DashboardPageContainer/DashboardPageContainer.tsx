@@ -10,7 +10,7 @@ import './DashboardPageContainer.less';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import { BACKOFFICE_SEARCH } from '../../../common/routes';
 import {
-  fetchSearchResults,
+  isUserLoggedInToBackoffice,
   searchQueryReset,
   searchQueryUpdate,
 } from '../../../actions/backoffice';
@@ -39,8 +39,7 @@ const DashboardPageContainer: React.FC<DashboardPageContainerProps> = ({
   loading,
 }) => {
   useEffect(() => {
-    dispatch(searchQueryReset());
-    dispatch(fetchSearchResults());
+    dispatch(isUserLoggedInToBackoffice());
   }, [dispatch]);
 
   const workflowTypes: List<Map<string, any>> = useMemo(() => {

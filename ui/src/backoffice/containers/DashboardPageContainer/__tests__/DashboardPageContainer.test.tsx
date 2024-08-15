@@ -9,7 +9,7 @@ import DashboardPageContainer from '../DashboardPageContainer';
 import { BACKOFFICE } from '../../../../common/routes';
 import {
   BACKOFFICE_SEARCH_QUERY_RESET,
-  BACKOFFICE_SEARCH_REQUEST,
+  BACKOFFICE_LOGIN_CHECK,
 } from '../../../../actions/actionTypes';
 
 describe('DashboardPageContainer', () => {
@@ -93,14 +93,14 @@ describe('DashboardPageContainer', () => {
     expect(screen.getByText('Overview')).toBeInTheDocument();
   });
 
-  it('dispatches searchQueryReset and fetchSearchResults on mount', () => {
+  it('dispatches isUserLoggedInToBackoffice on mount', () => {
     renderComponent();
 
     expect(store.getActions()[0]).toEqual({
-      type: BACKOFFICE_SEARCH_QUERY_RESET,
+      type: BACKOFFICE_LOGIN_CHECK,
     });
     expect(store.getActions()[1]).toEqual({
-      type: BACKOFFICE_SEARCH_REQUEST,
+      type: BACKOFFICE_LOGIN_CHECK,
     });
   });
 
