@@ -20,6 +20,7 @@ import {
   BACKOFFICE_RESOLVE_ACTION_REQUEST,
   BACKOFFICE_RESOLVE_ACTION_SUCCESS,
   BACKOFFICE_RESOLVE_ACTION_ERROR,
+  BACKOFFICE_LOGIN_CHECK,
   BACKOFFICE_LOGIN_REQUEST,
   BACKOFFICE_DELETE_SUCCESS,
   BACKOFFICE_DELETE_ERROR,
@@ -32,6 +33,7 @@ import {
   BACKOFFICE,
   BACKOFFICE_LOGIN,
   BACKOFFICE_SEARCH,
+  BACKOFFICE_LOGIN_ORCID,
 } from '../common/routes';
 import { Credentials } from '../types';
 import storage from '../common/storage';
@@ -85,6 +87,12 @@ httpClient.interceptors.response.use(
 );
 
 // LOGIN ACTIONS
+function checkForLogin() {
+  return {
+    type: BACKOFFICE_LOGIN_CHECK,
+  };
+}
+
 export function backofficeLoginSuccess() {
   return {
     type: BACKOFFICE_LOGIN_SUCCESS,
@@ -104,7 +112,7 @@ function backofficeLogoutSuccess() {
   };
 }
 
-export function backofficeLogin(
+export function backofficeLocalLogin(
   credentials: Credentials
 ): (dispatch: ActionCreator<Action>) => Promise<void> {
   return async (dispatch) => {
@@ -130,6 +138,27 @@ export function backofficeLogin(
 
         dispatch(backofficeLoginSuccess());
         dispatch(push(BACKOFFICE));
+      }
+    } catch (err) {
+      const { error } = httpErrorToActionPayload(err);
+      notifyLoginError(error?.detail);
+      dispatch(backofficeLoginError({ error }));
+    }
+  };
+}
+
+export function backofficeLogin(): (
+  dispatch: ActionCreator<Action>
+) => Promise<void> {
+  return async (dispatch) => {
+    dispatch({ type: BACKOFFICE_LOGIN_REQUEST });
+    try {
+      const response = await httpClient.post(BACKOFFICE_LOGIN_ORCID);
+
+      if (response.status === 200) {
+        // TODO: how to authorise requests without token?
+
+        dispatch(backofficeLoginSuccess());
       }
     } catch (err) {
       const { error } = httpErrorToActionPayload(err);
@@ -262,7 +291,7 @@ export function fetchAuthor(
 ): (dispatch: ActionCreator<Action>) => Promise<void> {
   return async (dispatch) => {
     dispatch(fetchingAuthor());
-    const resolveQuery = `${BACKOFFICE_API}/${id}`;
+    const resolveQuery = `${BACKOFFICE_API}/workflows/${id}`;
 
     try {
       const response = await httpClient.get(`${resolveQuery}`);
@@ -304,7 +333,7 @@ export function resolveAction(
     dispatch(resolvingAction(action));
     try {
       const response = await httpClient.post(
-        `${BACKOFFICE_API}/authors/${id}/${action}/`,
+        `${BACKOFFICE_API}/workflows/authors/${id}/${action}/`,
         payload
       );
 
@@ -350,7 +379,7 @@ export function deleteWorkflow(
   return async (dispatch) => {
     dispatch(deletingWorkflow());
     try {
-      await httpClient.delete(`${BACKOFFICE_API}/${id}/`);
+      await httpClient.delete(`${BACKOFFICE_API}/workflows/${id}/`);
 
       dispatch(deleteWorkflowSuccess());
       notifyDeleteSuccess();
@@ -364,6 +393,29 @@ export function deleteWorkflow(
           ? error?.error
           : error?.error?.detail) || 'An error occurred'
       );
+    }
+  };
+}
+
+export function isUserLoggedInToBackoffice(): (
+  dispatch: ActionCreator<Action>
+) => Promise<void> {
+  return async (dispatch) => {
+    dispatch(checkForLogin());
+    try {
+      const response = await httpClient.get(
+        'https://backoffice.dev.inspirebeta.net/api/_allauth/browser/v1/auth/session'
+      );
+
+      if (response.status === 200) {
+        dispatch(searchQueryReset());
+        dispatch(fetchSearchResults());
+      }
+    } catch (err) {
+      const { error } = httpErrorToActionPayload(err);
+      notifyLoginError(error?.detail);
+      dispatch(backofficeLoginError({ error }));
+      dispatch(push(BACKOFFICE_LOGIN));
     }
   };
 }

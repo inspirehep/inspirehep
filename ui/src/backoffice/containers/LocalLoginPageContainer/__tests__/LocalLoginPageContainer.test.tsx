@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
 
-import LoginPageContainer from '../LoginPageContainer';
+import LocalLoginPageContainer from '../LocalLoginPageContainer';
 import { getStoreWithState } from '../../../../fixtures/store';
 import { BACKOFFICE_LOGIN } from '../../../../common/routes';
 
@@ -20,7 +20,7 @@ describe('LoginPageContainer', () => {
     render(
       <Provider store={store}>
         <MemoryRouter initialEntries={[BACKOFFICE_LOGIN]}>
-          <LoginPageContainer />
+          <LocalLoginPageContainer />
         </MemoryRouter>
       </Provider>
     );
