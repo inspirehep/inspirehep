@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
         "data": Param(type="object", default={}),
     },
     start_date=datetime.datetime(2024, 5, 5),
-    schedule_interval=None,
+    schedule=None,
     catchup=False,
     # TODO: what if callback fails? Data in backoffice not up to date!
     on_failure_callback=set_workflow_status_to_error,

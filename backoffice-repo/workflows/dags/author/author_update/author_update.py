@@ -18,7 +18,7 @@ from include.utils.set_workflow_status import (
 
 @dag(
     start_date=datetime.datetime(2024, 5, 5),
-    schedule_interval=None,
+    schedule=None,
     params={
         "workflow_id": Param(type="string", default=""),
         "data": Param(type="object", default={}),
@@ -99,7 +99,7 @@ def author_update_dag():
             collection=AUTHORS,
         )
 
-    @task.branch(provide_context=True)
+    @task.branch()
     def author_update_success_branch(**context):
         ti = context["ti"]
         workflow_status = ti.xcom_pull(task_ids="update_author_on_inspire")

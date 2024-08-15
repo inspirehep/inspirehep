@@ -2,10 +2,10 @@ import datetime
 import json
 
 from airflow.decorators import dag, task
-from airflow.sensors.sql import SqlSensor
+from airflow.providers.common.sql.sensors.sql import SqlSensor
 
 
-@dag(start_date=datetime.datetime(2021, 1, 1), schedule_interval=None)
+@dag(start_date=datetime.datetime(2021, 1, 1), schedule=None)
 def happy_flow_dag():
     @task
     def fetch_document(filename: str) -> dict:
