@@ -14,7 +14,10 @@ from django_opensearch_dsl.registries import registry
 from rest_framework.test import APIClient
 
 from backoffice.workflows import airflow_utils
-from backoffice.workflows.api.serializers import WorkflowTicketSerializer
+from backoffice.workflows.api.serializers import (
+    WorkflowSerializer,
+    WorkflowTicketSerializer,
+)
 from backoffice.workflows.constants import WORKFLOW_DAGS, StatusChoices, WorkflowType
 from backoffice.workflows.models import WorkflowTicket
 
@@ -74,6 +77,16 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         response = self.api_client.get(self.endpoint, format="json")
 
         self.assertEqual(response.status_code, 403)
+
+    def test_tickets(self):
+        WorkflowTicket.objects.create(
+            workflow_id=self.workflow, ticket_id="123", ticket_type="author_create_user"
+        )
+        workflow_data = WorkflowSerializer(self.workflow).data
+
+        assert "tickets" in workflow_data
+        assert "ticket_id" in workflow_data["tickets"][0]
+        assert "ticket_type" in workflow_data["tickets"][0]
 
 
 class TestWorkflowSearchViewSet(BaseTransactionTestCase):
@@ -218,6 +231,9 @@ class TestWorkflowTicketViewSet(BaseTransactionTestCase):
 
         assert response.status_code == 200
         assert response.data == WorkflowTicketSerializer(self.workflow_ticket).data
+
+    def test_ticket_url(self):
+        assert "ticket_url" in WorkflowTicketSerializer(self.workflow_ticket).data
 
     def test_create_missing_params(self):
         self.api_client.force_authenticate(user=self.curator)
