@@ -1,3 +1,5 @@
+from os import environ
+
 from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
 from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
 from rest_framework import serializers
@@ -7,15 +9,25 @@ from backoffice.workflows.documents import WorkflowDocument
 from backoffice.workflows.models import Workflow, WorkflowTicket
 
 
-class WorkflowSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Workflow
-        fields = "__all__"
-
-
 class WorkflowTicketSerializer(serializers.ModelSerializer):
+    ticket_url = serializers.SerializerMethodField()
+
     class Meta:
         model = WorkflowTicket
+        fields = "__all__"
+
+    def get_ticket_url(self, obj):
+        return (
+            f"{environ.get('SERVICENOW_URL')}"
+            f"/nav_to.do?uri=/u_request_fulfillment.do?sys_id={obj.ticket_id}"
+        )
+
+
+class WorkflowSerializer(serializers.ModelSerializer):
+    tickets = WorkflowTicketSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Workflow
         fields = "__all__"
 
 
