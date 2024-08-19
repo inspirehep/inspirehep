@@ -18,7 +18,7 @@ import ContentBox from '../../../common/components/ContentBox';
 import CollapsableForm from '../../../submissions/common/components/CollapsableForm';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
 import { fetchAuthor, resolveAction } from '../../../actions/holdingpen';
-import Links from '../../components/Links';
+import Links, { Ids } from '../../components/Links';
 import {
   columnsInstitutions,
   columnsProjects,
@@ -100,19 +100,17 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                       <b>Status:</b> {data?.get('status')}
                     </p>
                   )}
-                  {data?.getIn(['acquisition_source', 'orcid']) && (
-                    <p className="mb0">
-                      <b>ORCID:</b>{' '}
-                      <a
-                        href={`https://orcid.org/my-orcid?orcid=${data?.getIn([
-                          'acquisition_source',
-                          'orcid',
-                        ])}`}
-                        target="_blank"
-                      >
-                        {data?.getIn(['acquisition_source', 'orcid'])}
-                      </a>
-                    </p>
+                  {(data?.get('ids') as any[])?.find(
+                    (id: any) => id?.get('schema') === 'ORCID'
+                  ) && (
+                    <Ids
+                      ids={
+                        (data?.get('ids') as any[])?.filter(
+                          (id: any) => id?.get('schema') === 'ORCID'
+                        ) as unknown as Map<string, any>
+                      }
+                      noIcon
+                    />
                   )}
                 </ContentBox>
                 <CollapsableForm openSections={OPEN_SECTIONS}>
