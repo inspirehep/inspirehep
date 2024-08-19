@@ -257,14 +257,17 @@ class WorkflowDocumentView(BaseDocumentViewSet):
         OrderingFilterBackend,
     ]
     search_fields = {
-        "workflow_type",
-        "status",
-        "is_update",
+        "data.ids.value",
+        "data.ids.schema",
+        "data.name.value",
+        "data.name.preferred_name",
+        "data.email_addresses.value",
     }
 
     filter_fields = {
         "status": "status",
         "workflow_type": "workflow_type",
+        "is_update": "is_update"
     }
 
     ordering_fields = {"_updated_at": "_updated_at"}
