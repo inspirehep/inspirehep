@@ -398,15 +398,60 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
     def setUp(self):
         super().setUp()
 
-        Workflow.objects.create(
-            data={},
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        Workflow.objects.update_or_create(
+            data={
+                "ids": [
+                    {
+                        "value": "0000-0003-3302-3333",
+                        "schema": "ORCID"
+                    },
+                    {
+                        "value": "CastleFrank",
+                        "schema": "INSPIRE BAI"
+                    }
+                ],
+                "name": {
+                    "value": "Castle, Frank",
+                    "preferred_name": "Frank Castle"
+                },
+                "email_addresses": [
+                    {
+                        "value": "frank.castle@someting.ch",
+                        "current": True
+                    }
+                ]
+            },
             status=StatusChoices.APPROVAL,
             core=True,
             is_update=False,
             workflow_type=WorkflowType.AUTHOR_CREATE,
         )
-        Workflow.objects.create(
-            data={},
+        Workflow.objects.update_or_create(
+            data={
+                "ids": [
+                    {
+                        "value": "0000-0003-3302-2222",
+                        "schema": "ORCID"
+                    },
+                    {
+                        "value": "SmithJohn",
+                        "schema": "INSPIRE BAI"
+                    }
+                ],
+                "name": {
+                    "value": "Smith, John",
+                    "preferred_name": "John Smith"
+                },
+                "email_addresses": [
+                    {
+                        "value": "john.smith@someting.ch",
+                        "current": True
+                    }
+                ]
+            },
             status=StatusChoices.RUNNING,
             core=True,
             is_update=False,
@@ -421,32 +466,16 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         assert "_filter_status" in response.json()["facets"]
         assert "_filter_workflow_type" in response.json()["facets"]
 
-    def test_search_status(self):
+    def test_search_data_name(self):
         self.api_client.force_authenticate(user=self.admin)
 
-        url = (
-            reverse("search:workflow-list") + f"?search=status:{StatusChoices.RUNNING}"
-        )
+        url = reverse("search:workflow-list") + "?search=John"
 
         response = self.api_client.get(url)
+        results = response.json()["results"]
 
-        for item in response.json()["results"]:
-            print(item["status"])
-            assert item["status"] == StatusChoices.RUNNING
-
-    def test_search_workflow_type(self):
-        self.api_client.force_authenticate(user=self.admin)
-
-        url = (
-            reverse("search:workflow-list")
-            + f"?search=workflow_type:{WorkflowType.HEP_CREATE}"
-        )
-
-        response = self.api_client.get(url)
-
-        for item in response.json()["results"]:
-            print(item["workflow_type"])
-            assert item["workflow_type"] == WorkflowType.HEP_CREATE
+        assert len(results) == 1
+        assert results[0]["data"]["name"]["value"] == "Smith, John"
 
     def test_filter_status(self):
         self.api_client.force_authenticate(user=self.admin)
