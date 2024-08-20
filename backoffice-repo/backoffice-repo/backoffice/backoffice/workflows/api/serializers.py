@@ -6,7 +6,7 @@ from rest_framework import serializers
 
 from backoffice.workflows.constants import ResolutionDags, StatusChoices, WorkflowType
 from backoffice.workflows.documents import WorkflowDocument
-from backoffice.workflows.models import Workflow, WorkflowTicket
+from backoffice.workflows.models import Decision, Workflow, WorkflowTicket
 
 
 class WorkflowTicketSerializer(serializers.ModelSerializer):
@@ -28,6 +28,14 @@ class WorkflowSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Workflow
+        fields = "__all__"
+
+
+class DecisionSerializer(serializers.ModelSerializer):
+    workflow = serializers.PrimaryKeyRelatedField(queryset=Workflow.objects.all())
+
+    class Meta:
+        model = Decision
         fields = "__all__"
 
 

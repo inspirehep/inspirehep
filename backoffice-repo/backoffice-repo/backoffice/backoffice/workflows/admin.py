@@ -3,7 +3,7 @@ from django.db.models import JSONField
 from django_json_widget.widgets import JSONEditorWidget
 
 from backoffice.management.permissions import IsAdminOrCuratorUser
-from backoffice.workflows.models import Workflow
+from backoffice.workflows.models import Decision, Workflow
 
 
 class WorkflowsAdminSite(admin.AdminSite):
@@ -30,36 +30,7 @@ class WorkflowsAdminSite(admin.AdminSite):
         )
 
 
-@admin.register(Workflow)
-class WorkflowAdmin(admin.ModelAdmin):
-    """
-    Admin class for Workflow model. Define get, update and delete permissions.
-    """
-
-    ordering = ("-_updated_at",)
-    search_fields = ["id", "data"]
-    list_display = (
-        "id",
-        "workflow_type",
-        "status",
-        "core",
-        "is_update",
-        "_created_at",
-        "_updated_at",
-    )
-    list_filter = [
-        "workflow_type",
-        "status",
-        "core",
-        "is_update",
-        "_created_at",
-        "_updated_at",
-    ]
-
-    formfield_overrides = {
-        JSONField: {"widget": JSONEditorWidget},
-    }
-
+class BaseModelAdmin(admin.ModelAdmin):
     def has_view_permission(self, request, obj=None):
         """
         Returns True if the user has permission to view the Workflow model.
@@ -86,3 +57,53 @@ class WorkflowAdmin(admin.ModelAdmin):
         return request.user.is_superuser or permission_check.has_permission(
             request, self
         )
+
+    formfield_overrides = {
+        JSONField: {"widget": JSONEditorWidget},
+    }
+
+
+@admin.register(Workflow)
+class WorkflowAdmin(BaseModelAdmin):
+    """
+    Admin class for Workflow model. Define get, update and delete permissions.
+    """
+
+    ordering = ("-_updated_at",)
+    search_fields = ["id", "data"]
+    list_display = (
+        "id",
+        "workflow_type",
+        "status",
+        "core",
+        "is_update",
+        "_created_at",
+        "_updated_at",
+    )
+    list_filter = [
+        "workflow_type",
+        "status",
+        "core",
+        "is_update",
+        "_created_at",
+        "_updated_at",
+    ]
+
+
+@admin.register(Decision)
+class DecisionAdmin(BaseModelAdmin):
+    """
+    Admin class for Decision model. Define get, update and delete permissions.
+    """
+
+    ordering = ("-_updated_at",)
+    search_fields = ["id", "data"]
+    list_display = ("id", "action_value", "user", "workflow_id")
+    list_filter = [
+        "action",
+        "user",
+    ]
+
+    @admin.display(description="action")
+    def action_value(self, obj):
+        return obj.action
