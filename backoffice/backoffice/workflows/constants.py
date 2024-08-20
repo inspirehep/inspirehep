@@ -33,6 +33,10 @@ DEFAULT_WORKFLOW_TYPE = WorkflowType.HEP_CREATE
 class ResolutionDags(models.TextChoices):
     accept = "accept", "author_create_approved_dag"
     reject = "reject", "author_create_rejected_dag"
+    accept_curate = "accept_curate", "author_create_approved_dag"
+
+
+DECISION_CHOICES = ResolutionDags.choices
 
 
 class AuthorCreateDags(models.TextChoices):
