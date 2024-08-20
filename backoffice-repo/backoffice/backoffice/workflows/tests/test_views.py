@@ -11,6 +11,7 @@ from django.contrib.auth.models import Group
 from django.test import TransactionTestCase
 from django.urls import reverse
 from django_opensearch_dsl.registries import registry
+from rest_framework import status
 from rest_framework.test import APIClient
 
 from backoffice.workflows import airflow_utils
@@ -23,6 +24,7 @@ from backoffice.workflows.models import WorkflowTicket
 
 User = get_user_model()
 Workflow = apps.get_model(app_label="workflows", model_name="Workflow")
+Decision = apps.get_model(app_label="workflows", model_name="Decision")
 
 
 class BaseTransactionTestCase(TransactionTestCase):
@@ -322,7 +324,8 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
     @pytest.mark.vcr()
     def test_accept_author(self):
         self.api_client.force_authenticate(user=self.curator)
-        data = {"create_ticket": True, "value": "accept"}
+        action = "accept"
+        data = {"create_ticket": True, "value": action}
 
         response = self.api_client.post(
             reverse("api:workflows-authors-resolve", kwargs={"pk": self.workflow.id}),
@@ -331,6 +334,9 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         )
 
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            Decision.objects.filter(workflow=self.workflow.id)[0].action, action
+        )
 
         airflow_utils.delete_workflow_dag(
             WORKFLOW_DAGS[WorkflowType.AUTHOR_CREATE].approve, self.workflow.id
@@ -339,7 +345,8 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
     @pytest.mark.vcr()
     def test_reject_author(self):
         self.api_client.force_authenticate(user=self.curator)
-        data = {"create_ticket": True, "value": "reject"}
+        action = "reject"
+        data = {"create_ticket": True, "value": action}
 
         response = self.api_client.post(
             reverse("api:workflows-authors-resolve", kwargs={"pk": self.workflow.id}),
@@ -348,6 +355,9 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         )
 
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            Decision.objects.filter(workflow=self.workflow.id)[0].action, action
+        )
 
         airflow_utils.delete_workflow_dag(
             WORKFLOW_DAGS[WorkflowType.AUTHOR_CREATE].reject, self.workflow.id
@@ -492,3 +502,26 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
                 if previous_date is not None:
                     assert cur_date < previous_date
                 previous_date = cur_date
+
+
+class TestDecisionsViewSet(BaseTransactionTestCase):
+    endpoint = "/api/decisions"
+    reset_sequences = True
+    fixtures = ["backoffice/fixtures/groups.json"]
+
+    def setUp(self):
+        super().setUp()
+        self.workflow = Workflow.objects.create(
+            data={}, status="running", core=True, is_update=False
+        )
+
+    def test_create_decision(self):
+        self.api_client.force_authenticate(user=self.curator)
+        data = {
+            "workflow_id": self.workflow.id,
+            "action": "accept",
+        }
+
+        url = reverse("api:decisions-list")
+        response = self.api_client.post(url, format="json", data=data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)

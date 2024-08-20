@@ -2,7 +2,9 @@ import uuid
 
 from django.db import models
 
+from backoffice.users.models import User
 from backoffice.workflows.constants import (
+    DECISION_CHOICES,
     DEFAULT_STATUS_CHOICE,
     DEFAULT_TICKET_TYPE,
     DEFAULT_WORKFLOW_TYPE,
@@ -43,3 +45,14 @@ class WorkflowTicket(models.Model):
     ticket_type = models.CharField(
         max_length=30, choices=TICKET_TYPES, default=DEFAULT_TICKET_TYPE
     )
+
+
+class Decision(models.Model):
+    user = models.ForeignKey(
+        User, to_field="email", db_column="email", on_delete=models.CASCADE
+    )
+    workflow = models.ForeignKey(Workflow, on_delete=models.CASCADE)
+    action = models.CharField(max_length=30, choices=DECISION_CHOICES)
+
+    _created_at = models.DateTimeField(auto_now_add=True)
+    _updated_at = models.DateTimeField(auto_now=True)
