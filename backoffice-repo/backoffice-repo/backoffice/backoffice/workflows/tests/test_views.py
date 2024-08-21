@@ -404,25 +404,13 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         Workflow.objects.update_or_create(
             data={
                 "ids": [
-                    {
-                        "value": "0000-0003-3302-3333",
-                        "schema": "ORCID"
-                    },
-                    {
-                        "value": "CastleFrank",
-                        "schema": "INSPIRE BAI"
-                    }
+                    {"value": "0000-0003-3302-3333", "schema": "ORCID"},
+                    {"value": "CastleFrank", "schema": "INSPIRE BAI"},
                 ],
-                "name": {
-                    "value": "Castle, Frank",
-                    "preferred_name": "Frank Castle"
-                },
+                "name": {"value": "Castle, Frank", "preferred_name": "Frank Castle"},
                 "email_addresses": [
-                    {
-                        "value": "frank.castle@someting.ch",
-                        "current": True
-                    }
-                ]
+                    {"value": "frank.castle@someting.ch", "current": True}
+                ],
             },
             status=StatusChoices.APPROVAL,
             core=True,
@@ -432,25 +420,13 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         Workflow.objects.update_or_create(
             data={
                 "ids": [
-                    {
-                        "value": "0000-0003-3302-2222",
-                        "schema": "ORCID"
-                    },
-                    {
-                        "value": "SmithJohn",
-                        "schema": "INSPIRE BAI"
-                    }
+                    {"value": "0000-0003-3302-2222", "schema": "ORCID"},
+                    {"value": "SmithJohn", "schema": "INSPIRE BAI"},
                 ],
-                "name": {
-                    "value": "Smith, John",
-                    "preferred_name": "John Smith"
-                },
+                "name": {"value": "Smith, John", "preferred_name": "John Smith"},
                 "email_addresses": [
-                    {
-                        "value": "john.smith@someting.ch",
-                        "current": True
-                    }
-                ]
+                    {"value": "john.smith@someting.ch", "current": True}
+                ],
             },
             status=StatusChoices.RUNNING,
             core=True,
