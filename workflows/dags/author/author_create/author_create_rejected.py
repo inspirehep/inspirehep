@@ -2,11 +2,8 @@ import datetime
 
 from airflow.decorators import dag, task
 from airflow.models.param import Param
+from author.author_create.shared_tasks import close_author_create_user_ticket
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
-from hooks.backoffice.workflow_ticket_management_hook import (
-    WorkflowTicketManagementHook,
-)
-from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from include.utils.set_workflow_status import set_workflow_status_to_error
 
 
@@ -31,19 +28,7 @@ def author_create_rejected_dag() -> None:
     2. set_author_create_workflow_status_to_completed: Sets the status of
         the author creation workflow to 'completed'.
     """
-    inspire_http_hook = InspireHttpHook()
     workflow_management_hook = WorkflowManagementHook()
-    workflow_ticket_management_hook = WorkflowTicketManagementHook()
-
-    @task()
-    def close_author_create_user_ticket(**context: dict) -> None:
-        ticket_type = "author_create_user"
-        ticket_id = workflow_ticket_management_hook.get_ticket(
-            workflow_id=context["params"]["workflow_id"], ticket_type=ticket_type
-        )["ticket_id"]
-        endpoint = "/tickets/resolve"  # TODO: the URL for resolving dag will change
-        request_data = {"ticket_id": ticket_id}
-        inspire_http_hook.call_api(endpoint=endpoint, data=request_data, method="POST")
 
     @task()
     def set_author_create_workflow_status_to_completed(**context: dict) -> None:
