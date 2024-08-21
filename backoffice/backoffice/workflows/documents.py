@@ -28,7 +28,7 @@ class WorkflowDocument(Document):
                     "value": fields.KeywordField(),
                     "current": fields.BooleanField(),
                 }
-            )
+            ),
         }
     )
     status = fields.KeywordField()
