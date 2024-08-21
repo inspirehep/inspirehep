@@ -267,7 +267,7 @@ class WorkflowDocumentView(BaseDocumentViewSet):
     filter_fields = {
         "status": "status",
         "workflow_type": "workflow_type",
-        "is_update": "is_update"
+        "is_update": "is_update",
     }
 
     ordering_fields = {"_updated_at": "_updated_at"}
