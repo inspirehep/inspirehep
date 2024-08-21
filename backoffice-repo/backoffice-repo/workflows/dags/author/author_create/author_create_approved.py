@@ -3,7 +3,7 @@ import logging
 
 from airflow.decorators import dag, task
 from airflow.models.param import Param
-from airflow.utils.trigger_rule import TriggerRule
+from author.author_create.shared_tasks import close_author_create_user_ticket
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.backoffice.workflow_ticket_management_hook import (
     WorkflowTicketManagementHook,
@@ -118,16 +118,6 @@ def author_create_approved_dag():
             return "author_check_approval_branch"
         else:
             return "set_author_create_workflow_status_to_error"
-
-    @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
-    def close_author_create_user_ticket(**context: dict) -> None:
-        ticket_type = "author_create_user"
-        ticket_id = workflow_ticket_management_hook.get_ticket(
-            workflow_id=context["params"]["workflow_id"], ticket_type=ticket_type
-        )["ticket_id"]
-        endpoint = "api/tickets/resolve"
-        request_data = {"ticket_id": ticket_id}
-        inspire_http_hook.call_api(endpoint=endpoint, data=request_data, method="POST")
 
     @task()
     def set_author_create_workflow_status_to_completed(**context: dict) -> None:
