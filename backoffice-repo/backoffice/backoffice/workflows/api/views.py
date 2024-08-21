@@ -54,6 +54,8 @@ class WorkflowViewSet(viewsets.ModelViewSet):
 
 
 class WorkflowTicketViewSet(viewsets.ViewSet):
+    serializer_class = WorkflowTicketSerializer
+
     def retrieve(self, request, *args, **kwargs):
         workflow_id = kwargs.get("pk")
         ticket_type = request.query_params.get("ticket_type")
@@ -68,7 +70,7 @@ class WorkflowTicketViewSet(viewsets.ViewSet):
             workflow_ticket = WorkflowTicket.objects.get(
                 workflow_id=workflow_id, ticket_type=ticket_type
             )
-            serializer = WorkflowTicketSerializer(workflow_ticket)
+            serializer = self.serializer_class(workflow_ticket)
             return Response(serializer.data)
         except WorkflowTicket.DoesNotExist:
             return Response(
@@ -77,27 +79,11 @@ class WorkflowTicketViewSet(viewsets.ViewSet):
             )
 
     def create(self, request, *args, **kwargs):
-        workflow_id = request.data.get("workflow_id")
-        ticket_type = request.data.get("ticket_type")
-        ticket_id = request.data.get("ticket_id")
+        serializer = self.serializer_class(data=request.data)
 
-        if not all([workflow_id, ticket_type, ticket_id]):
-            return Response(
-                {"error": "Workflow_id, ticket_id and ticket_type are required."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        try:
-            workflow = Workflow.objects.get(id=workflow_id)
-            workflow_ticket = WorkflowTicket.objects.create(
-                workflow_id=workflow, ticket_id=ticket_id, ticket_type=ticket_type
-            )
-            serializer = WorkflowTicketSerializer(workflow_ticket)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        except Exception as e:
-            return Response(
-                {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
 
 
 class AuthorWorkflowViewSet(viewsets.ViewSet):
@@ -267,7 +253,7 @@ class WorkflowDocumentView(BaseDocumentViewSet):
     filter_fields = {
         "status": "status",
         "workflow_type": "workflow_type",
-        "is_update": "is_update"
+        "is_update": "is_update",
     }
 
     ordering_fields = {"_updated_at": "_updated_at"}
