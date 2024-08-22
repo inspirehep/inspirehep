@@ -23,6 +23,7 @@ from rest_framework.response import Response
 
 from backoffice.utils.pagination import OSStandardResultsSetPagination
 from backoffice.workflows import airflow_utils
+from backoffice.workflows.api import utils
 from backoffice.workflows.api.serializers import (
     AuthorResolutionSerializer,
     WorkflowAuthorSerializer,
@@ -37,7 +38,7 @@ from backoffice.workflows.constants import (
     WorkflowType,
 )
 from backoffice.workflows.documents import WorkflowDocument
-from backoffice.workflows.models import Workflow, WorkflowTicket
+from backoffice.workflows.models import Decision, Workflow, WorkflowTicket
 
 logger = logging.getLogger(__name__)
 
@@ -100,6 +101,16 @@ class WorkflowTicketViewSet(viewsets.ViewSet):
             )
 
 
+class DecisionViewSet(viewsets.ModelViewSet):
+    queryset = Decision.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        data = utils.add_decision(
+            request.data["workflow_id"], request.user, request.data["action"]
+        )
+        return Response(data, status=status.HTTP_201_CREATED)
+
+
 class AuthorWorkflowViewSet(viewsets.ViewSet):
     serializer_class = WorkflowAuthorSerializer
 
@@ -160,12 +171,13 @@ class AuthorWorkflowViewSet(viewsets.ViewSet):
         logger.info("Resolving data: %s", request.data)
         serializer = AuthorResolutionSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            extra_data = {"create_ticket": serializer.validated_data["create_ticket"]}
+            extra_data = serializer.validated_data
             logger.info(
                 "Trigger Airflow DAG: %s for %s",
                 ResolutionDags[serializer.validated_data["value"]],
                 pk,
             )
+            utils.add_decision(pk, request.user, serializer.validated_data["value"])
 
             return airflow_utils.trigger_airflow_dag(
                 ResolutionDags[serializer.validated_data["value"]].label, pk, extra_data
