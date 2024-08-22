@@ -275,8 +275,9 @@ class TestWorkflowTicketViewSet(BaseTransactionTestCase):
         )
 
         assert response.status_code == 400
-        assert response.data == {
-            "error": "Workflow_id, ticket_id and ticket_type are required."
+        assert response.json() == {
+            "workflow_id": ["This field is required."],
+            "ticket_id": ["This field is required."],
         }
 
     def test_create_happy_flow(self):
