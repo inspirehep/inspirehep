@@ -11,6 +11,7 @@ from backoffice.workflows.models import Decision, Workflow, WorkflowTicket
 
 class WorkflowTicketSerializer(serializers.ModelSerializer):
     ticket_url = serializers.SerializerMethodField()
+    workflow_id = serializers.PrimaryKeyRelatedField(queryset=Workflow.objects.all())
 
     class Meta:
         model = WorkflowTicket
