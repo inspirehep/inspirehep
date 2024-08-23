@@ -25,6 +25,7 @@ import {
   columnsSubject,
   columnsAdvisors,
 } from './columnData';
+import { getConfigFor } from '../../../common/config';
 
 interface AuthorDetailPageContainerProps {
   dispatch: ActionCreator<Action>;
@@ -47,13 +48,14 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
 
   const data = author?.get('data') as Map<any, any>;
   const tickets = author?.get('tickets') as Map<any, any>;
+  const ERRORS_URL = getConfigFor('INSPIRE_WORKFLOWS_DAGS_URL');
 
   const OPEN_SECTIONS = [
     data?.get('positions') && 'institutions',
     data?.get('project_membership') && 'projects',
     (data?.get('urls') || data?.get('ids')) && 'links',
     (data?.get('arxiv_categories') || data?.get('.advisors')) && 'other',
-    author?.get('_error_msg') && 'errors',
+    author?.get('status') === 'error' && 'errors',
     'delete',
   ].filter(Boolean);
 
@@ -177,11 +179,15 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                       </Col>
                     </Row>
                   </CollapsableForm.Section>
-                  {author?.get('_error_msg') && (
+                  {author?.get('status') === 'error' && (
                     <CollapsableForm.Section header="Errors" key="errors">
-                      <div className="bg-waiting error-code">
-                        {author?.get('_error_msg')}
-                      </div>
+                      <p>
+                        See error details here:{' '}
+                        <a
+                          href={`${ERRORS_URL}/${id}`}
+                          target="_blank"
+                        >{`${ERRORS_URL}/${id}`}</a>
+                      </p>
                     </CollapsableForm.Section>
                   )}
                   <CollapsableForm.Section header="Danger area" key="delete">
