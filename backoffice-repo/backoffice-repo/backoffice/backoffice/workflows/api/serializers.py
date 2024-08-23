@@ -24,19 +24,20 @@ class WorkflowTicketSerializer(serializers.ModelSerializer):
         )
 
 
-class WorkflowSerializer(serializers.ModelSerializer):
-    tickets = WorkflowTicketSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Workflow
-        fields = "__all__"
-
-
 class DecisionSerializer(serializers.ModelSerializer):
     workflow = serializers.PrimaryKeyRelatedField(queryset=Workflow.objects.all())
 
     class Meta:
         model = Decision
+        fields = "__all__"
+
+
+class WorkflowSerializer(serializers.ModelSerializer):
+    tickets = WorkflowTicketSerializer(many=True, read_only=True)
+    decisions = DecisionSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Workflow
         fields = "__all__"
 
 
