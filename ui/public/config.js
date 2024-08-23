@@ -11,6 +11,7 @@
     ASSIGN_NO_PROFILE_UI_FEATURE_FLAG: true,
     ASSIGN_NOT_LOGGED_IN_FEATURE_FLAG: true,
     SELF_CURATION_BUTTON: true,
+    INSPIRE_WORKFLOWS_DAGS_URL: null,
     /* Example:
     BANNERS: [
       {
