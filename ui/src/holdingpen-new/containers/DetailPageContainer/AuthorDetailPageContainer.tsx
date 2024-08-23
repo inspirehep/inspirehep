@@ -46,6 +46,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
   }, []);
 
   const data = author?.get('data') as Map<any, any>;
+  const tickets = author?.get('tickets') as Map<any, any>;
 
   const OPEN_SECTIONS = [
     data?.get('positions') && 'institutions',
@@ -277,10 +278,17 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                   fullHeight={false}
                   subTitle="SNow information"
                 >
-                  {author?.get('ticket_id') && (
-                    <a href={author?.get('ticket_url')} target="_blank">
-                      See related ticket #{author?.get('ticket_id')}
-                    </a>
+                  {tickets && (
+                    <p className="mb0">
+                      See related ticket
+                      <a
+                        href={tickets?.first()?.get('ticket_url')}
+                        target="_blank"
+                      >
+                        {' '}
+                        #{tickets?.first().get('ticket_id')}
+                      </a>
+                    </p>
                   )}
                 </ContentBox>
                 <ContentBox
