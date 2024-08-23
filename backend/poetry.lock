@@ -2018,12 +2018,12 @@ tests = ["flake8 (>=3.5.0,<4.0)", "mock (>=2.0.0,<3.0)", "pytest (>=3.2.2,<4.0)"
 
 [[package]]
 name = "inspire-schemas"
-version = "61.5.29"
+version = "61.5.32"
 description = "Inspire JSON schemas and utilities to use them."
 optional = false
 python-versions = "*"
 files = [
-    {file = "inspire_schemas-61.5.29-py2.py3-none-any.whl", hash = "sha256:3c21c6890400fc7f3c48b43996127ca7eaffebb99859d7c90dcb4e4bcb6ec4b4"},
+    {file = "inspire_schemas-61.5.32-py2.py3-none-any.whl", hash = "sha256:53acf5890653bc5a5b49d15b07703b7105ac893c1808d17e4f70f47afb2c4da8"},
 ]
 
 [package.dependencies]
@@ -2034,16 +2034,19 @@ inspire-utils = ">=3.0.0,<4.0"
 isbnid = "*"
 isodate = "*"
 jsonschema = ">=2.6.0,<3.0"
+pylatexenc = "*"
 pytz = "*"
 pyyaml = "5.3.0"
 rfc3987 = "*"
+scrapy = "*"
 six = "*"
 Unidecode = ">=1.0.22,<2.0"
 urllib3 = ">=1.21.1,<1.25.0 || >1.25.0,<1.25.1 || >1.25.1,<1.26"
 
 [package.extras]
+dev = ["pre-commit (==3.5.0)"]
 docs = ["Sphinx", "jsonschema2rst (>=0.1)"]
-tests = ["check-manifest", "coverage", "idutils (>=1.2.1,<2.0)", "inspire-idutils (==1.2.4)", "isbnid", "isort (>=4.3.0,<5.0)", "mock", "pytest (>=3.6.0,<4.0)", "pytest-cache", "pytest-cov (==2.6.1)", "pytest-pep8", "unicode-string-literal (>=1.1,<2.0)"]
+tests = ["check-manifest", "coverage", "deepdiff", "idutils (>=1.2.1,<2.0)", "inspire-idutils (==1.2.4)", "isbnid", "isort (>=4.3.0,<5.0)", "mock", "pytest", "pytest-cache", "pytest-cov (==2.6.1)", "pytest-pep8", "unicode-string-literal (>=1.1,<2.0)"]
 
 [[package]]
 name = "inspire-service-orcid"
@@ -2066,30 +2069,28 @@ resolved_reference = "1a0e762e58bc9cac65f7665b9831993c017fd8bb"
 
 [[package]]
 name = "inspire-utils"
-version = "3.0.59"
+version = "3.0.61"
 description = "INSPIRE-specific utils."
 optional = false
 python-versions = "*"
 files = [
-    {file = "inspire-utils-3.0.59.tar.gz", hash = "sha256:ac3207963c1262770d2d0e9652c9f7389859f32cb41cc0d03c248991d738c620"},
-    {file = "inspire_utils-3.0.59-py3-none-any.whl", hash = "sha256:6f9d7ac92b1ba7d552d35a6e5644dac869a3f1bb53a9a052dac97a806c430722"},
+    {file = "inspire-utils-3.0.61.tar.gz", hash = "sha256:bfc954584ba6abf969e462fbefd8cddf2cb16d108cfc7d3bf0b1327799a4969b"},
+    {file = "inspire_utils-3.0.61-py3-none-any.whl", hash = "sha256:fa554149cd01f32b5f8268d66df895bfe246d3a8cd2cf05404a441c0a605b675"},
 ]
 
 [package.dependencies]
 babel = ">=2.5.1,<3.0"
-inspire-schemas = "*"
 lxml = ">=5.0,<6.0"
 nameparser = {version = ">=1.1.3,<2.0", markers = "python_version >= \"3.6\""}
-pylatexenc = "*"
 python-dateutil = ">=2.6.1,<3.0"
-scrapy = "*"
 six = ">=1.10.0,<2.0"
 Unidecode = ">=1.0.22,<2.0"
 urllib3 = ">=1.0,<=1.26.12"
 
 [package.extras]
-all = ["deepdiff", "flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=8.2.2,<9.0)", "unicode-string-literal (>=1.1,<2.0)"]
-tests = ["deepdiff", "flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=8.2.2,<9.0)", "unicode-string-literal (>=1.1,<2.0)"]
+all = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pre-commit (==3.5.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=8.2.2,<9.0)", "unicode-string-literal (>=1.1,<2.0)"]
+dev = ["pre-commit (==3.5.0)"]
+tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=8.2.2,<9.0)", "unicode-string-literal (>=1.1,<2.0)"]
 
 [[package]]
 name = "intervals"
@@ -3869,6 +3870,8 @@ files = [
     {file = "orjson-3.10.6-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:960db0e31c4e52fa0fc3ecbaea5b2d3b58f379e32a95ae6b0ebeaa25b93dfd34"},
     {file = "orjson-3.10.6-cp312-none-win32.whl", hash = "sha256:a6ea7afb5b30b2317e0bee03c8d34c8181bc5a36f2afd4d0952f378972c4efd5"},
     {file = "orjson-3.10.6-cp312-none-win_amd64.whl", hash = "sha256:874ce88264b7e655dde4aeaacdc8fd772a7962faadfb41abe63e2a4861abc3dc"},
+    {file = "orjson-3.10.6-cp313-none-win32.whl", hash = "sha256:efdf2c5cde290ae6b83095f03119bdc00303d7a03b42b16c54517baa3c4ca3d0"},
+    {file = "orjson-3.10.6-cp313-none-win_amd64.whl", hash = "sha256:8e190fe7888e2e4392f52cafb9626113ba135ef53aacc65cd13109eb9746c43e"},
     {file = "orjson-3.10.6-cp38-cp38-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl", hash = "sha256:66680eae4c4e7fc193d91cfc1353ad6d01b4801ae9b5314f17e11ba55e934183"},
     {file = "orjson-3.10.6-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:caff75b425db5ef8e8f23af93c80f072f97b4fb3afd4af44482905c9f588da28"},
     {file = "orjson-3.10.6-cp38-cp38-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:3722fddb821b6036fd2a3c814f6bd9b57a89dc6337b9924ecd614ebce3271394"},
@@ -6523,4 +6526,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.12"
-content-hash = "056223aa1024be49a7fcb4e4f40071bd59e392b1dbba3f7033c5f6133bb5dfd3"
+content-hash = "23c724a35891cbf75bc1e78c2e7bd1a95a1d1f81f9aea81f5da64c3c95fe352d"
