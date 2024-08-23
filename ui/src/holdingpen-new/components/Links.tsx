@@ -60,7 +60,7 @@ export const Ids: React.FC<{ ids: Map<string, any>; noIcon?: boolean }> = ({
   </>
 );
 
-const Urls: React.FC<{ urls: Map<string, any> }> = ({ urls }) => (
+export const Urls: React.FC<{ urls: Map<string, any> }> = ({ urls }) => (
   <>
     {urls?.map((link: Map<string, any>) => (
       <p key={link?.get('value')}>

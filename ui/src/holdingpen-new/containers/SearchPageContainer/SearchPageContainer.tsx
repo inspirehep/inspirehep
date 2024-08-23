@@ -6,13 +6,13 @@ import { Action, ActionCreator } from 'redux';
 import { List, Map } from 'immutable';
 
 import './SearchPageContainer.less';
-import Breadcrumbs from '../../components/Breadcrumbs';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import { SEARCH_PAGE_GUTTER } from '../../../common/constants';
 import SearchResults from '../../../common/components/SearchResults';
 import NumberOfResults from '../../../common/components/NumberOfResults';
 import SearchPagination from '../../../common/components/SearchPagination';
 import PublicationsSelectAllContainer from '../../../authors/containers/PublicationsSelectAllContainer';
-import AuthorResultItem from '../../components/AuthorResultItem';
+import AuthorResultItem from '../../components/ResultItem/AuthorResultItem';
 import {
   fetchSearchResults,
   searchQueryUpdate,

@@ -20,6 +20,7 @@ import {
   HOLDINGPEN_RESOLVE_ACTION_REQUEST,
   HOLDINGPEN_RESOLVE_ACTION_SUCCESS,
   HOLDINGPEN_RESOLVE_ACTION_ERROR,
+  HOLDINGPEN_LOGIN_REQUEST,
 } from './actionTypes';
 import {
   BACKOFFICE_API,
@@ -101,6 +102,7 @@ export function holdingpenLogin(
   credentials: Credentials
 ): (dispatch: ActionCreator<Action>) => Promise<void> {
   return async (dispatch) => {
+    dispatch({ type: HOLDINGPEN_LOGIN_REQUEST });
     try {
       const response = await httpClient.post(
         BACKOFFICE_LOGIN,

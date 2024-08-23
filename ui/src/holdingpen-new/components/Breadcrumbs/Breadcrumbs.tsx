@@ -6,7 +6,7 @@ import { Action, ActionCreator } from 'redux';
 import { connect } from 'react-redux';
 
 import './Breadcrumbs.less';
-import { HOLDINGPEN_NEW, HOLDINGPEN_SEARCH_NEW } from '../../common/routes';
+import { HOLDINGPEN_NEW, HOLDINGPEN_SEARCH_NEW } from '../../../common/routes';
 
 interface BreadcrumbItemProps {
   dispatch: ActionCreator<Action>;

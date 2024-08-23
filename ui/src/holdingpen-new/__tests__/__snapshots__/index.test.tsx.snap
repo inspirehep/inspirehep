@@ -297,6 +297,7 @@ exports[`Holdingpen renders initial state 1`] = `
               >
                 <a
                   class="db w-100 tc f5 mt4"
+                  data-testid="view-all"
                   href="/holdingpen-new/search"
                 >
                   View all

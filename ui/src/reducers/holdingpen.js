@@ -1,6 +1,7 @@
 import { fromJS } from 'immutable';
 
 import {
+  HOLDINGPEN_LOGIN_REQUEST,
   HOLDINGPEN_LOGIN_ERROR,
   HOLDINGPEN_LOGIN_SUCCESS,
   HOLDINGPEN_LOGOUT_SUCCESS,
@@ -30,6 +31,7 @@ export const initialState = fromJS({
 
 const HoldingpenReducer = (state = initialState, action) => {
   switch (action.type) {
+    case HOLDINGPEN_LOGIN_REQUEST:
     case HOLDINGPEN_LOGIN_ERROR:
     case HOLDINGPEN_LOGOUT_SUCCESS:
       return initialState;
