@@ -49,9 +49,14 @@ class WorkflowTicket(models.Model):
 
 class Decision(models.Model):
     user = models.ForeignKey(
-        User, to_field="email", db_column="email", on_delete=models.CASCADE
+        User,
+        to_field="email",
+        db_column="email",
+        on_delete=models.CASCADE,
     )
-    workflow = models.ForeignKey(Workflow, on_delete=models.CASCADE)
+    workflow = models.ForeignKey(
+        Workflow, related_name="decisions", on_delete=models.CASCADE
+    )
     action = models.CharField(max_length=30, choices=DECISION_CHOICES)
 
     _created_at = models.DateTimeField(auto_now_add=True)
