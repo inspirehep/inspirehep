@@ -22,6 +22,7 @@ from backoffice.workflows.api.serializers import (
 from backoffice.workflows.constants import (
     WORKFLOW_DAGS,
     AuthorCreateDags,
+    ResolutionDags,
     StatusChoices,
     WorkflowType,
 )
@@ -99,6 +100,15 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         assert "tickets" in workflow_data
         assert "ticket_id" in workflow_data["tickets"][0]
         assert "ticket_type" in workflow_data["tickets"][0]
+
+    def test_decisions(self):
+        Decision.objects.create(
+            workflow=self.workflow, user=self.user, action=ResolutionDags.accept
+        )
+        workflow_data = WorkflowSerializer(self.workflow).data
+        assert "decisions" in workflow_data
+        assert "action" in workflow_data["decisions"][0]
+        assert "user" in workflow_data["decisions"][0]
 
     @pytest.mark.vcr()
     def test_delete(self):
