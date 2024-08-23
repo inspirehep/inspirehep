@@ -447,12 +447,15 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
     reset_sequences = True
     fixtures = ["backoffice/fixtures/groups.json"]
 
-    def setUp(self):
-        super().setUp()
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+
+        index = registry.get_indices().pop()
+        with contextlib.suppress(opensearchpy.exceptions.NotFoundError):
+            index.delete()
+        index.create()
+
         Workflow.objects.update_or_create(
             data={
                 "ids": [
@@ -528,7 +531,7 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         for item in response.json()["results"]:
             assert item["workflow_type"] == WorkflowType.AUTHOR_CREATE
 
-    def test_ordering(self):
+    def test_ordering_updated_at(self):
         self.api_client.force_authenticate(user=self.admin)
 
         base_url = reverse("search:workflow-list")
@@ -544,6 +547,25 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
                 if previous_date is not None:
                     assert cur_date < previous_date
                 previous_date = cur_date
+
+    def test_ordering_score(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        search_str = "search=Frank Castle^10 OR John^6"
+
+        url = reverse("search:workflow-list") + f"?ordering=_score&{search_str}"
+        response = self.api_client.get(url)
+        self.assertEqual(
+            response.json()["results"][0]["data"]["name"]["preferred_name"],
+            "John Smith",
+        )
+
+        url = reverse("search:workflow-list") + f"?ordering=-_score&{search_str}"
+        response = self.api_client.get(url)
+        self.assertEqual(
+            response.json()["results"][0]["data"]["name"]["preferred_name"],
+            "Frank Castle",
+        )
 
 
 class TestDecisionsViewSet(BaseTransactionTestCase):

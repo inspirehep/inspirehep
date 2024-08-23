@@ -272,9 +272,9 @@ class WorkflowDocumentView(BaseDocumentViewSet):
         "is_update": "is_update",
     }
 
-    ordering_fields = {"_updated_at": "_updated_at"}
+    ordering_fields = {"_updated_at": "_updated_at", "_score": "_score"}
 
-    ordering = ("-_updated_at",)
+    ordering = ("-_updated_at", "-_score")
 
     faceted_search_fields = {
         "status": {
