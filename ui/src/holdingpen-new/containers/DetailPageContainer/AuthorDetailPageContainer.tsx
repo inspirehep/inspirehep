@@ -212,13 +212,12 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                         >
                           Accept
                         </Button>
-                        {/* TODO1: change to acceptSubmissionWithCuration once it's ready */}
                         <Button
                           className="font-white bg-halted w-75 mb2"
                           onClick={() =>
                             dispatch(
                               resolveAction(id, 'resolve', {
-                                value: 'accept',
+                                value: 'accept_curate',
                                 create_ticket: false,
                               })
                             )
