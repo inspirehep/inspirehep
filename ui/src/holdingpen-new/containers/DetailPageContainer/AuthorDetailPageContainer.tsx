@@ -13,7 +13,7 @@ import { connect, RootStateOrAny } from 'react-redux';
 import { Map } from 'immutable';
 
 import './DetailPageContainer.less';
-import Breadcrumbs from '../../components/Breadcrumbs';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import ContentBox from '../../../common/components/ContentBox';
 import CollapsableForm from '../../../submissions/common/components/CollapsableForm';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';

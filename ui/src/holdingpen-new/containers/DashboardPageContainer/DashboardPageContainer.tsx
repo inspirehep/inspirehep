@@ -9,7 +9,7 @@ import { connect, RootStateOrAny } from 'react-redux';
 import { List, Map } from 'immutable';
 
 import './DashboardPageContainer.less';
-import Breadcrumbs from '../../components/Breadcrumbs';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import { HOLDINGPEN_SEARCH_NEW } from '../../../common/routes';
 import {
   fetchSearchResults,
@@ -77,6 +77,7 @@ const DashboardPageContainer: React.FC<DashboardPageContainerProps> = ({
             onClick={() => {
               dispatch(searchQueryReset());
             }}
+            data-testid="view-all"
           >
             View all
           </Link>

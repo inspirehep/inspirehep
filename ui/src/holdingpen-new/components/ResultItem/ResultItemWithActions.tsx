@@ -9,11 +9,11 @@ import { Row, Col, Card, Button } from 'antd';
 import { Link } from 'react-router-dom';
 
 import './ResultItem.less';
-import PublicationSelectContainer from '../../authors/containers/PublicationSelectContainer';
-import AuthorList from '../../common/components/AuthorList';
-import ResultItem from '../../common/components/ResultItem';
-import UnclickableTag from '../../common/components/UnclickableTag';
-import { HOLDINGPEN_NEW } from '../../common/routes';
+import PublicationSelectContainer from '../../../authors/containers/PublicationSelectContainer';
+import AuthorList from '../../../common/components/AuthorList';
+import ResultItem from '../../../common/components/ResultItem';
+import UnclickableTag from '../../../common/components/UnclickableTag';
+import { HOLDINGPEN_NEW } from '../../../common/routes';
 
 const ResultItemWithActions = ({ item }: { item: any }) => {
   const renderActions = (item: any) => {

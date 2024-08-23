@@ -88,6 +88,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
             defaultValue="10"
             value={query.get('size')}
             style={{ width: '100%', marginBottom: '1rem' }}
+            data-testid="select-results-per-page"
             options={[
               { value: 10, label: '10' },
               { value: 25, label: '25' },
@@ -110,6 +111,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
             defaultValue="-_updated_at"
             value={query.get('ordering')}
             style={{ width: '100%', marginBottom: '1rem' }}
+            data-testid="select-sort-by"
             options={[
               { value: '-_updated_at', label: 'Most recent' },
               { value: '_updated_at', label: 'Least recent' },

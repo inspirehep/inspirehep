@@ -1,13 +1,13 @@
 import React from 'react';
-import { CheckOutlined, FilePdfOutlined } from '@ant-design/icons';
+import { FilePdfOutlined } from '@ant-design/icons';
 import { Row, Col, Card, Button } from 'antd';
 import { Link } from 'react-router-dom';
 
-import PublicationSelectContainer from '../../authors/containers/PublicationSelectContainer';
-import AuthorList from '../../common/components/AuthorList';
-import ResultItem from '../../common/components/ResultItem';
-import UnclickableTag from '../../common/components/UnclickableTag';
-import { HOLDINGPEN_NEW } from '../../common/routes';
+import PublicationSelectContainer from '../../../authors/containers/PublicationSelectContainer';
+import AuthorList from '../../../common/components/AuthorList';
+import ResultItem from '../../../common/components/ResultItem';
+import UnclickableTag from '../../../common/components/UnclickableTag';
+import { HOLDINGPEN_NEW } from '../../../common/routes';
 
 const ResultitemWithComparison = ({ item }: { item: any }) => {
   return (

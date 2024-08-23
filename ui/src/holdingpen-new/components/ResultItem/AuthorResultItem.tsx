@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import {
   CheckOutlined,
@@ -10,10 +9,10 @@ import { Row, Col, Card } from 'antd';
 import { Link } from 'react-router-dom';
 
 import './ResultItem.less';
-import PublicationSelectContainer from '../../authors/containers/PublicationSelectContainer';
-import ResultItem from '../../common/components/ResultItem';
-import UnclickableTag from '../../common/components/UnclickableTag';
-import { HOLDINGPEN_NEW } from '../../common/routes';
+import PublicationSelectContainer from '../../../authors/containers/PublicationSelectContainer';
+import ResultItem from '../../../common/components/ResultItem';
+import UnclickableTag from '../../../common/components/UnclickableTag';
+import { HOLDINGPEN_NEW } from '../../../common/routes';
 
 const resolveDecision = (decision: string | number) => {
   const decisions: { [key: string]: { bg: string; text: string } } = {

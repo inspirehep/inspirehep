@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Card, Button, Input } from 'antd';
 import { Field, Form, Formik } from 'formik';
+
 import DocumentHead from '../../common/components/DocumentHead';
 import { Credentials } from '../../types';
 
@@ -21,15 +22,16 @@ const LocalLoginPage = ({
     return <Input {...field} {...rest} />;
   }
 
-  function renderLoginForm() {
+  function renderLoginForm(formik: any) {
     return (
-      <Form>
+      <Form data-testid="login-form">
         <Row className="mb3">
           <Field
             name="email"
             type="email"
             placeholder="Email"
             data-test-id="email"
+            data-testid="email"
             component={renderFormInput}
           />
         </Row>
@@ -39,6 +41,7 @@ const LocalLoginPage = ({
             type="password"
             placeholder="Password"
             data-test-id="password"
+            data-testid="password"
             component={renderFormInput}
           />
         </Row>
@@ -47,6 +50,8 @@ const LocalLoginPage = ({
           type="primary"
           htmlType="submit"
           data-test-id="login"
+          data-testid="login"
+          disabled={!(formik.isValid && formik.dirty)}
         >
           Login
         </Button>
@@ -66,7 +71,7 @@ const LocalLoginPage = ({
             onSubmit={(creds: Credentials) => onLoginFormSubmit(creds)}
             initialValues={{ email: null, password: null }}
           >
-            {renderLoginForm}
+            {(formik: any) => renderLoginForm(formik)}
           </Formik>
         </Card>
       </Row>

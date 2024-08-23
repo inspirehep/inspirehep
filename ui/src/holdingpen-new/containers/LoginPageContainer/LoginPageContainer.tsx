@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
 
 import { holdingpenLogin } from '../../../actions/holdingpen';
-import LoginPage from '../../components/LoginPage';
+import LocalLoginPage from '../../components/LocalLoginPage';
 import { Credentials } from '../../../types';
 
 const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
@@ -11,4 +11,4 @@ const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
   },
 });
 
-export default connect(null, dispatchToProps)(LoginPage);
+export default connect(null, dispatchToProps)(LocalLoginPage);

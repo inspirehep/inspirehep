@@ -4,7 +4,7 @@ import { SyncOutlined, RedoOutlined, EditOutlined } from '@ant-design/icons';
 import { Row, Col, Button, Input, Space, Switch } from 'antd';
 
 import './DetailPageContainer.less';
-import Breadcrumbs from '../../components/Breadcrumbs';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import item from '../../mocks/mockDetaiPageData';
 import references from '../../mocks/mockReferencesData';
 import ContentBox from '../../../common/components/ContentBox';
