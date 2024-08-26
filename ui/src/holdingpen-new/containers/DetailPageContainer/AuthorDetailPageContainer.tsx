@@ -26,6 +26,7 @@ import {
   columnsAdvisors,
 } from './columnData';
 import { getConfigFor } from '../../../common/config';
+import { resolveDecision } from '../../utils/utils';
 
 interface AuthorDetailPageContainerProps {
   dispatch: ActionCreator<Action>;
@@ -48,6 +49,8 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
 
   const data = author?.get('data') as Map<any, any>;
   const tickets = author?.get('tickets') as Map<any, any>;
+  const decision = author?.get('decisions')?.first();
+
   const ERRORS_URL = getConfigFor('INSPIRE_WORKFLOWS_DAGS_URL');
 
   const OPEN_SECTIONS = [
@@ -99,21 +102,23 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                     </p>
                   )}
                   {data?.get('status') && (
-                    <p>
+                    <p className="mb0">
                       <b>Status:</b> {data?.get('status')}
                     </p>
                   )}
                   {(data?.get('ids') as any[])?.find(
                     (id: any) => id?.get('schema') === 'ORCID'
                   ) && (
-                    <Ids
-                      ids={
-                        (data?.get('ids') as any[])?.filter(
-                          (id: any) => id?.get('schema') === 'ORCID'
-                        ) as unknown as Map<string, any>
-                      }
-                      noIcon
-                    />
+                    <p className="mt3 mb0">
+                      <Ids
+                        ids={
+                          (data?.get('ids') as any[])?.filter(
+                            (id: any) => id?.get('schema') === 'ORCID'
+                          ) as unknown as Map<string, any>
+                        }
+                        noIcon
+                      />
+                    </p>
                   )}
                 </ContentBox>
                 <CollapsableForm openSections={OPEN_SECTIONS}>
@@ -197,56 +202,68 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
               </Col>
               <Col xs={24} lg={8}>
                 {author?.get('status') &&
-                  author?.get('status') === 'approval' && (
+                  author?.get('status') !== 'error' &&
+                  author?.get('status') !== 'running' && (
                     <ContentBox
                       className="mb3"
                       fullHeight={false}
                       subTitle="Decision"
                     >
-                      <div className="w-100 flex flex-column items-center">
-                        <Button
-                          className="font-white bg-completed w-75 mb2"
-                          onClick={() =>
-                            dispatch(
-                              resolveAction(id, 'resolve', {
-                                value: 'accept',
-                                create_ticket: false,
-                              })
-                            )
-                          }
-                          loading={actionInProgress === 'resolve'}
-                        >
-                          Accept
-                        </Button>
-                        <Button
-                          className="font-white bg-halted w-75 mb2"
-                          onClick={() =>
-                            dispatch(
-                              resolveAction(id, 'resolve', {
-                                value: 'accept_curate',
-                                create_ticket: false,
-                              })
-                            )
-                          }
-                          loading={actionInProgress === 'resolve'}
-                        >
-                          Accept + Curation
-                        </Button>
-                        <Button
-                          className="font-white bg-error w-75"
-                          onClick={() =>
-                            dispatch(
-                              resolveAction(id, 'resolve', {
-                                value: 'reject',
-                                create_ticket: false,
-                              })
-                            )
-                          }
-                          loading={actionInProgress === 'resolve'}
-                        >
-                          Reject
-                        </Button>
-                      </div>
+                      {author?.get('status') === 'approval' ? (
+                        <div className="w-100 flex flex-column items-center">
+                          <Button
+                            className="font-white bg-completed w-75 mb2"
+                            onClick={() =>
+                              dispatch(
+                                resolveAction(id, 'resolve', {
+                                  value: 'accept',
+                                  create_ticket: false,
+                                })
+                              )
+                            }
+                            loading={actionInProgress === 'resolve'}
+                          >
+                            Accept
+                          </Button>
+                          <Button
+                            className="font-white bg-halted w-75 mb2"
+                            onClick={() =>
+                              dispatch(
+                                resolveAction(id, 'resolve', {
+                                  value: 'accept_curate',
+                                  create_ticket: false,
+                                })
+                              )
+                            }
+                            loading={actionInProgress === 'resolve'}
+                          >
+                            Accept + Curation
+                          </Button>
+                          <Button
+                            className="font-white bg-error w-75"
+                            onClick={() =>
+                              dispatch(
+                                resolveAction(id, 'resolve', {
+                                  value: 'reject',
+                                  create_ticket: false,
+                                })
+                              )
+                            }
+                            loading={actionInProgress === 'resolve'}
+                          >
+                            Reject
+                          </Button>
+                        </div>
+                      ) : (
+                        <p className="mb0">
+                          This workflow is{' '}
+                          <b>
+                            {resolveDecision(decision?.get('action'))
+                              ?.decision || 'completed'}
+                          </b>
+                          .
+                        </p>
+                      )}
                     </ContentBox>
                   )}
                 <ContentBox
@@ -291,7 +308,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                         target="_blank"
                       >
                         {' '}
-                        #{tickets?.first().get('ticket_id')}
+                        #{tickets?.first()?.get('ticket_id')}
                       </a>
                     </p>
                   )}
