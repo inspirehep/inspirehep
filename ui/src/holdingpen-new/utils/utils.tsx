@@ -5,15 +5,35 @@ import {
   HourglassOutlined,
   LoadingOutlined,
 } from '@ant-design/icons';
+import { push } from 'connected-react-router';
+import { Action, ActionCreator } from 'redux';
 
 import storage from '../../common/storage';
-import { BACKOFFICE_LOGIN, HOLDINGPEN_LOGIN_NEW } from '../../common/routes';
+import {
+  BACKOFFICE_LOGIN,
+  HOLDINGPEN_LOGIN_NEW,
+  HOLDINGPEN_SEARCH_NEW,
+} from '../../common/routes';
+import { searchQueryUpdate } from '../../actions/holdingpen';
 
-export const COLLECTIONS: Record<string, string> = {
-  AUTHOR_CREATE: 'new authors',
-  AUTHOR_UPDATE: 'author updates',
-  HEP_CREATE: 'new literature submissions',
-};
+export const COLLECTIONS = [
+  {
+    key: 'all collections',
+    value: undefined,
+  },
+  {
+    key: 'new authors',
+    value: 'AUTHOR_CREATE',
+  },
+  {
+    key: 'author updates',
+    value: 'AUTHOR_UPDATE',
+  },
+  {
+    key: 'new literature submissions',
+    value: 'HEP_CREATE',
+  },
+];
 
 export const getIcon = (status: string) => {
   switch (status?.toLowerCase()) {
@@ -69,4 +89,19 @@ export const resolveDecision = (decision: string | number) => {
     reject: { bg: 'bg-error font-white', text: 'Reject', decision: 'rejected' },
   };
   return decisions[decision] || null;
+};
+
+export const handleSearch = (
+  dispatch: ActionCreator<Action>,
+  type: string,
+  searchValue: string
+) => {
+  const query = {
+    page: 1,
+    search: searchValue,
+    workflow_type: type,
+  };
+
+  dispatch(searchQueryUpdate(query));
+  dispatch(push(HOLDINGPEN_SEARCH_NEW));
 };

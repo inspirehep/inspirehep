@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Breadcrumb, Input } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
-import { push } from 'connected-react-router';
+import { Map } from 'immutable';
 import { Action, ActionCreator } from 'redux';
-import { connect } from 'react-redux';
+import { connect, RootStateOrAny } from 'react-redux';
 
 import './Breadcrumbs.less';
-import { HOLDINGPEN_NEW, HOLDINGPEN_SEARCH_NEW } from '../../../common/routes';
+import { HOLDINGPEN_NEW } from '../../../common/routes';
+import { handleSearch } from '../../utils/utils';
 
 interface BreadcrumbItemProps {
   dispatch: ActionCreator<Action>;
+  query: Map<string, any>;
   title1: string;
   href1: string;
   title2?: string;
@@ -19,13 +21,20 @@ interface BreadcrumbItemProps {
 
 const Breadcrumbs: React.FC<BreadcrumbItemProps> = ({
   dispatch,
+  query,
   title1,
   href1,
   title2,
   href2,
   dashboardPage = false,
 }) => {
+  const [inputValue, setInputValue] = useState(query?.get('search'));
+
   const { Search } = Input;
+
+  useEffect(() => {
+    setInputValue(query?.get('search'));
+  }, [query]);
 
   return (
     <div className="flex items-center justify-between">
@@ -53,12 +62,18 @@ const Breadcrumbs: React.FC<BreadcrumbItemProps> = ({
         <Search
           enterButton
           placeholder="Search Holdingpen"
-          onPressEnter={() => {
-            dispatch(push(HOLDINGPEN_SEARCH_NEW));
+          onPressEnter={(event: React.KeyboardEvent<HTMLInputElement>) => {
+            handleSearch(
+              dispatch,
+              query?.get('workflow_type'),
+              event?.currentTarget?.value
+            );
           }}
-          onSearch={() => {
-            dispatch(push(HOLDINGPEN_SEARCH_NEW));
+          onSearch={(value: string) => {
+            handleSearch(dispatch, query?.get('workflow_type'), value);
           }}
+          onChange={(event) => setInputValue(event?.target?.value)}
+          value={inputValue}
           className="search-bar-small"
         />
       )}
@@ -66,8 +81,12 @@ const Breadcrumbs: React.FC<BreadcrumbItemProps> = ({
   );
 };
 
+const stateToProps = (state: RootStateOrAny) => ({
+  query: state.holdingpen.get('query'),
+});
+
 const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
   dispatch,
 });
 
-export default connect(null, dispatchToProps)(Breadcrumbs);
+export default connect(stateToProps, dispatchToProps)(Breadcrumbs);
