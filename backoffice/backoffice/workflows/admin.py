@@ -63,6 +63,21 @@ class BaseModelAdmin(admin.ModelAdmin):
     }
 
 
+class WorkflowsDecisionsInline(admin.StackedInline):
+    model = Decision
+    extra = 0
+    can_delete = False
+    show_change_link = True
+    readonly_fields = ["action_value", "_updated_at", "user"]
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    @admin.display(description="action")
+    def action_value(self, obj):
+        return obj.action
+
+
 @admin.register(Workflow)
 class WorkflowAdmin(BaseModelAdmin):
     """
@@ -88,6 +103,8 @@ class WorkflowAdmin(BaseModelAdmin):
         "_created_at",
         "_updated_at",
     ]
+
+    inlines = [WorkflowsDecisionsInline]
 
 
 @admin.register(Decision)
