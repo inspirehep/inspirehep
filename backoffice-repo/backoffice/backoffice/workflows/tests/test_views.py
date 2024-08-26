@@ -133,7 +133,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
 
 
 class TestWorkflowSearchViewSet(BaseTransactionTestCase):
-    endpoint = "/api/workflows/search/"
+    endpoint = reverse("search:workflow-list")
     reset_sequences = True
     fixtures = ["backoffice/fixtures/groups.json"]
 
@@ -168,6 +168,12 @@ class TestWorkflowSearchViewSet(BaseTransactionTestCase):
         response = self.api_client.get(self.endpoint, format="json")
 
         self.assertEqual(response.status_code, 403)
+
+    def test_contains_decisions(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        response = self.api_client.get(self.endpoint)
+        self.assertIn("decisions", response.json()["results"][0])
 
 
 class TestAuthorWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
