@@ -2,19 +2,11 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
-import { getIcon, refreshToken, COLLECTIONS } from '../utils';
+import { getIcon, refreshToken } from '../utils';
 import storage from '../../../common/storage';
 import { BACKOFFICE_LOGIN } from '../../../common/routes';
 
 jest.mock('../../../common/storage');
-
-describe('COLLECTIONS', () => {
-  it('should have the correct values', () => {
-    expect(COLLECTIONS.AUTHOR_CREATE).toBe('new authors');
-    expect(COLLECTIONS.AUTHOR_UPDATE).toBe('author updates');
-    expect(COLLECTIONS.HEP_CREATE).toBe('new literature submissions');
-  });
-});
 
 describe('getIcon', () => {
   it('should return HourglassOutlined for approval status', () => {

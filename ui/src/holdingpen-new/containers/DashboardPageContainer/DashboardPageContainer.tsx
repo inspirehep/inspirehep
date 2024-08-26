@@ -1,9 +1,7 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback, useMemo } from 'react';
 import classNames from 'classnames';
 import { Card, Input, Select, Tabs } from 'antd';
 import { Link } from 'react-router-dom';
-import { push } from 'connected-react-router';
 import { Action, ActionCreator } from 'redux';
 import { connect, RootStateOrAny } from 'react-redux';
 import { List, Map } from 'immutable';
@@ -18,141 +16,192 @@ import {
 } from '../../../actions/holdingpen';
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
-import { COLLECTIONS, getIcon } from '../../utils/utils';
+import { COLLECTIONS, getIcon, handleSearch } from '../../utils/utils';
 
 interface DashboardPageContainerProps {
   dispatch: ActionCreator<Action>;
   facets: Map<string, any>;
   loading: boolean;
+  query: Map<string, any>;
 }
+
+const { Option } = Select;
+const { Search } = Input;
 
 const TEXT_CENTER: Record<string | number, string & {}> = {
   textAlign: 'center',
 };
 
-const { Option } = Select;
-
-const { Search } = Input;
-
-const selectBefore = (
-  <Select
-    defaultValue={Object.values(COLLECTIONS)[0]}
-    className="select-before"
-  >
-    {Object.values(COLLECTIONS)?.map((item: any) => {
-      return (
-        <Option value={item} key={item}>
-          {item}
-        </Option>
-      );
-    })}
-  </Select>
-);
-
 const DashboardPageContainer: React.FC<DashboardPageContainerProps> = ({
   dispatch,
+  query,
   facets,
   loading,
 }) => {
   useEffect(() => {
     dispatch(searchQueryReset());
     dispatch(fetchSearchResults());
-  }, []);
+  }, [dispatch]);
 
-  const aggregations = facets?.getIn([
-    '_filter_workflow_type',
-    'workflow_type',
-  ]);
-  const workflowTypes = (aggregations as Map<string, any>)?.get('buckets');
+  const workflowTypes: List<Map<string, any>> = useMemo(() => {
+    return facets?.getIn([
+      '_filter_workflow_type',
+      'workflow_type',
+      'buckets',
+    ]) as List<Map<string, any>>;
+  }, [facets]);
 
-  const tabItems = [
-    {
-      label: <h3>Collections</h3>,
-      key: '1',
-      children: (
-        <>
-          <Link
-            to={HOLDINGPEN_SEARCH_NEW}
-            className="db w-100 tc f5 mt4"
-            onClick={() => {
-              dispatch(searchQueryReset());
-            }}
-            data-testid="view-all"
-          >
-            View all
-          </Link>
-          <div className="cards-container mt4">
-            {workflowTypes?.map((type: Map<string, any>) => {
-              return (
-                <Card
-                  title={
-                    <div>
-                      <p>{COLLECTIONS[type?.get('key')]}</p>
-                      <p className={classNames('f2 mb0 black')}>
-                        {type?.get('doc_count')}
-                      </p>
-                      <Link
-                        to={HOLDINGPEN_SEARCH_NEW}
-                        className="normal f6"
-                        onClick={() => {
-                          dispatch(
-                            searchQueryUpdate({
-                              page: 1,
-                              size: 10,
-                              workflow_type: type?.get('key'),
-                            })
-                          );
-                        }}
-                      >
-                        View all
-                      </Link>
-                    </div>
-                  }
-                  headStyle={TEXT_CENTER}
-                  className={COLLECTIONS[type?.get('key')]
-                    .toLowerCase()
-                    .replace(/ /g, '-')}
-                  key={type?.get('key')}
-                >
-                  {(type?.getIn(['status', 'buckets']) as List<any>)?.map(
-                    (status: any) => (
-                      <a
-                        href={HOLDINGPEN_SEARCH_NEW}
-                        key={status?.get('key')}
-                        onClick={() => {
-                          dispatch(
-                            searchQueryUpdate({
-                              page: 1,
-                              size: 10,
-                              workflow_type: type?.get('key'),
-                              status: status?.get('key'),
-                            })
-                          );
-                        }}
-                      >
-                        <div
-                          className={classNames(
-                            'flex justify-between',
-                            status?.get('key')?.toLowerCase()
-                          )}
-                        >
-                          <p className="ttc">
-                            {getIcon(status?.get('key'))}
-                            {status?.get('key')}
-                          </p>
-                          <span className="b">{status?.get('doc_count')}</span>
-                        </div>
-                      </a>
-                    )
-                  )}
-                </Card>
-              );
-            })}
-          </div>
-        </>
-      ),
+  const handleSelectChange = useCallback(
+    (value: string) => {
+      const selectedCollection = COLLECTIONS.find(
+        (collection) => collection?.value === value
+      );
+      if (selectedCollection) {
+        dispatch(
+          searchQueryUpdate({
+            page: 1,
+            workflow_type: selectedCollection?.value,
+          })
+        );
+      } else {
+        dispatch(searchQueryReset());
+      }
     },
-  ];
+    [dispatch]
+  );
+
+  const renderSelectBefore = useMemo(
+    () => (
+      <Select
+        defaultValue={COLLECTIONS[0]?.key}
+        value={
+          COLLECTIONS.find(
+            (collection) => collection?.key === query?.get('workflow_type')
+          )?.key
+        }
+        className="select-before"
+        onChange={handleSelectChange}
+      >
+        {COLLECTIONS.map((item) => (
+          <Option value={item?.value || ''} key={item?.key}>
+            {item?.key}
+          </Option>
+        ))}
+      </Select>
+    ),
+    [query, handleSelectChange]
+  );
+
+  const renderWorkflowStatus = useCallback(
+    (type: Map<string, any>) =>
+      (type?.getIn(['status', 'buckets']) as List<any>)?.map((status) => (
+        <a
+          href={HOLDINGPEN_SEARCH_NEW}
+          key={status?.get('key')}
+          onClick={() =>
+            dispatch(
+              searchQueryUpdate({
+                page: 1,
+                size: 10,
+                workflow_type: type?.get('key'),
+                status: status?.get('key'),
+              })
+            )
+          }
+        >
+          <div
+            className={classNames(
+              'flex justify-between',
+              status?.get('key')?.toLowerCase()
+            )}
+          >
+            <p className="ttc">
+              {getIcon(status?.get('key'))}
+              {status?.get('key')}
+            </p>
+            <span className="b">{status?.get('doc_count')}</span>
+          </div>
+        </a>
+      )),
+    [dispatch]
+  );
+
+  const renderWorkflowCards = useMemo(
+    () =>
+      workflowTypes?.map((type: Map<string, any>) => (
+        <Card
+          title={
+            <div>
+              <p>
+                {
+                  COLLECTIONS.find(
+                    (collection) => collection?.value === type?.get('key')
+                  )?.key
+                }
+              </p>
+              <p className={classNames('f2 mb0 black')}>
+                {type?.get('doc_count')}
+              </p>
+              <Link
+                to={HOLDINGPEN_SEARCH_NEW}
+                className="normal f6"
+                onClick={() =>
+                  dispatch(
+                    searchQueryUpdate({
+                      page: 1,
+                      size: 10,
+                      workflow_type: type?.get('key'),
+                    })
+                  )
+                }
+              >
+                View all
+              </Link>
+            </div>
+          }
+          headStyle={TEXT_CENTER}
+          className={COLLECTIONS.find(
+            (collection) => collection?.value === type?.get('key')
+          )
+            ?.key.toLowerCase()
+            .replace(/ /g, '-')}
+          key={type?.get('key')}
+        >
+          {renderWorkflowStatus(type)}
+        </Card>
+      )),
+    [workflowTypes, renderWorkflowStatus, dispatch]
+  );
+
+  const tabItems = useMemo(
+    () => [
+      {
+        label: <h3>Collections</h3>,
+        key: '1',
+        children: (
+          <>
+            <Link
+              to={HOLDINGPEN_SEARCH_NEW}
+              className="db w-100 tc f5 mt4"
+              onClick={() => dispatch(searchQueryReset())}
+              data-testid="view-all"
+            >
+              View all
+            </Link>
+            <div className="cards-container mt4">{renderWorkflowCards}</div>
+          </>
+        ),
+      },
+    ],
+    [renderWorkflowCards, dispatch]
+  );
+
+  const handleSearchEvent = useCallback(
+    (value: string) => {
+      handleSearch(dispatch, query?.get('workflow_type'), value);
+    },
+    [dispatch, query]
+  );
 
   return (
     <div
@@ -164,15 +213,13 @@ const DashboardPageContainer: React.FC<DashboardPageContainerProps> = ({
         <h2 className="f2 center">Search Holdingpen</h2>
         <div className="search-container">
           <Search
-            addonBefore={selectBefore}
+            addonBefore={renderSelectBefore}
             enterButton
-            disabled
-            onPressEnter={() => {
-              dispatch(push(HOLDINGPEN_SEARCH_NEW));
-            }}
-            onSearch={() => {
-              dispatch(push(HOLDINGPEN_SEARCH_NEW));
-            }}
+            placeholder="Search Holdingpen"
+            onPressEnter={(event) =>
+              handleSearchEvent(event?.currentTarget?.value)
+            }
+            onSearch={handleSearchEvent}
           />
         </div>
         <h2 className="f2 center mb4">Overview</h2>
@@ -186,9 +233,10 @@ const DashboardPageContainer: React.FC<DashboardPageContainerProps> = ({
   );
 };
 
-const stateToProps = (state: RootStateOrAny) => ({
+const mapStateToProps = (state: RootStateOrAny) => ({
   facets: state.holdingpen.get('facets'),
   loading: state.holdingpen.get('loading'),
+  query: state.holdingpen.get('query'),
 });
 
-export default connect(stateToProps)(DashboardPageContainer);
+export default connect(mapStateToProps)(DashboardPageContainer);

@@ -215,7 +215,7 @@ export function fetchSearchResults(): (
     const currentQuery = getState()?.holdingpen?.get('query')?.toJS() || {};
     const resolveQuery = `${BACKOFFICE_SEARCH_API}/?${
       Object.entries(currentQuery)
-        .filter(([_, value]) => value != null)
+        .filter(([_, value]) => value != null && value !== '')
         .map(([key, value]: [string, any]) => `${key}=${value}`)
         .join('&') || ''
     }`;

@@ -137,7 +137,12 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
                 selectedKey={selectedFilters.workflow_type}
                 onSelect={(key) => updateFilters('workflow_type', key)}
                 renderLabel={(key) => (
-                  <span className="ttc">{COLLECTIONS[key]}</span>
+                  <span className="ttc">
+                    {
+                      COLLECTIONS.find((collection) => collection.value === key)
+                        ?.key
+                    }
+                  </span>
                 )}
               />
 

@@ -135,7 +135,7 @@ exports[`Holdingpen renders initial state 1`] = `
                     <span
                       class="ant-select-selection-item"
                     >
-                      new authors
+                      all collections
                     </span>
                   </div>
                   <span
@@ -167,8 +167,8 @@ exports[`Holdingpen renders initial state 1`] = `
                 </div>
               </span>
               <input
-                class="ant-input ant-input-disabled"
-                disabled=""
+                class="ant-input"
+                placeholder="Search Holdingpen"
                 type="text"
                 value=""
               />
@@ -177,7 +177,6 @@ exports[`Holdingpen renders initial state 1`] = `
               >
                 <button
                   class="ant-btn ant-btn-primary ant-input-search-button"
-                  disabled=""
                   type="button"
                 >
                   <span
