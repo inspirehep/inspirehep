@@ -104,7 +104,7 @@ services:
       - ./backoffice/.envs/local/.postgres
     ports:
       - "8000:8000"
-    command: sh -c 'poetry run python manage.py migrate && poetry run python manage.py opensearch index create --force && poetry run python manage.py runserver 0.0.0.0:8000'
+    command: sh -c 'poetry run python manage.py migrate && poetry run python manage.py opensearch index rebuild --force && poetry run python manage.py opensearch document index --force && poetry run python manage.py runserver 0.0.0.0:8000'
 
   postgres-airflow:
     image: postgres:13
