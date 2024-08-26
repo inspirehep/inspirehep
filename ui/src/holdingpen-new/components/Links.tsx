@@ -18,22 +18,30 @@ function getLinkData(schema: string, value: string) {
     case 'LINKEDIN':
       return {
         href: `https://www.linkedin.com/in/${value}`,
-        icon: <LinkedinOutlined />,
+        icon: <LinkedinOutlined className="mr1" />,
       };
     case 'TWITTER':
       return {
         href: `https://twitter.com/${value}`,
-        icon: <TwitterOutlined />,
+        icon: <TwitterOutlined className="mr1" />,
       };
     case 'ORCID':
       return {
         href: `https://orcid.org/my-orcid?orcid=${value}`,
-        icon: <img src={orcidLogo} alt="ORCID" width={16} height={16} />,
+        icon: (
+          <img
+            src={orcidLogo}
+            alt="ORCID"
+            width={16}
+            height={16}
+            className="mr1"
+          />
+        ),
       };
     default:
       return {
         href: value,
-        icon: <LinkOutlined />,
+        icon: <LinkOutlined className="mr1" />,
       };
   }
 }
@@ -47,7 +55,7 @@ export const Ids: React.FC<{ ids: Map<string, any>; noIcon?: boolean }> = ({
       <p key={link?.get('value')} className={noIcon ? 'mb0' : ''}>
         {!noIcon && getLinkData(link?.get('schema'), link?.get('value'))?.icon}
         {link?.get('schema') && (
-          <b className="dib ml1 ttc">{link?.get('schema').toLowerCase()}:</b>
+          <b className="dib ttc">{link?.get('schema').toLowerCase()}:</b>
         )}{' '}
         <a
           href={getLinkData(link?.get('schema'), link?.get('value'))?.href}

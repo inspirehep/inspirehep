@@ -13,8 +13,12 @@ describe('AuthorResultItem component', () => {
   const item = fromJS({
     id: '123',
     workflow_type: 'AUTHOR_UPDATE',
-    user_action: 'accept',
     status: 'completed',
+    decisions: fromJS([
+      {
+        action: 'accept',
+      },
+    ]),
     data: fromJS({
       name: fromJS({
         value: 'Doe, John',

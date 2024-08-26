@@ -13,15 +13,7 @@ import PublicationSelectContainer from '../../../authors/containers/PublicationS
 import ResultItem from '../../../common/components/ResultItem';
 import UnclickableTag from '../../../common/components/UnclickableTag';
 import { HOLDINGPEN_NEW } from '../../../common/routes';
-
-const resolveDecision = (decision: string | number) => {
-  const decisions: { [key: string]: { bg: string; text: string } } = {
-    accept: { bg: 'bg-halted ml1', text: 'Accept' },
-    accept_curate: { bg: 'bg-halted ml1', text: 'Accept Curate' },
-    reject: { bg: 'bg-error font-white', text: 'Reject' },
-  };
-  return decisions[decision] || null;
-};
+import { resolveDecision } from '../../utils/utils';
 
 const renderWorkflowStatus = (status: string) => {
   const statuses: {
@@ -65,6 +57,7 @@ const renderWorkflowStatus = (status: string) => {
 
 const AuthorResultItem = ({ item }: { item: any }) => {
   const data = item?.get('data');
+  const decision = item?.get('decisions')?.first();
 
   return (
     <div className="result-item result-item-action mv2">
@@ -93,13 +86,13 @@ const AuthorResultItem = ({ item }: { item: any }) => {
                       <UnclickableTag color="processing">Update</UnclickableTag>
                     </>
                   )}
-                  {item?.get('user_action') && (
+                  {decision && (
                     <UnclickableTag
                       className={`decission-pill ${resolveDecision(
-                        item?.get('user_action')
+                        decision?.get('action')
                       )?.bg}`}
                     >
-                      {resolveDecision(item?.get('user_action'))?.text}
+                      {resolveDecision(decision?.get('action'))?.text}
                     </UnclickableTag>
                   )}
                 </div>

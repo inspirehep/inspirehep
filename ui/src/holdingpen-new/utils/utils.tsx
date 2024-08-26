@@ -55,3 +55,18 @@ export const refreshToken = async () => {
 
   return null;
 };
+
+export const resolveDecision = (decision: string | number) => {
+  const decisions: {
+    [key: string]: { bg: string; text: string; decision: string };
+  } = {
+    accept: { bg: 'bg-halted ml1', text: 'Accept', decision: 'accepted' },
+    accept_curate: {
+      bg: 'bg-halted ml1',
+      text: 'Accept Curate',
+      decision: 'accepted with curation',
+    },
+    reject: { bg: 'bg-error font-white', text: 'Reject', decision: 'rejected' },
+  };
+  return decisions[decision] || null;
+};

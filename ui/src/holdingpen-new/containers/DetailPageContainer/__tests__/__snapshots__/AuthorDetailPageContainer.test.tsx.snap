@@ -196,7 +196,9 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                         </b>
                          Johnny
                       </p>
-                      <p>
+                      <p
+                        class="mb0"
+                      >
                         <b>
                           Status:
                         </b>
