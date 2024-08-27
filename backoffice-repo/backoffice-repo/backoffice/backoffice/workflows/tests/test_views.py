@@ -215,6 +215,8 @@ class TestAuthorWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
                 "test": "test",
             },
         )
+        self.assertEqual(response.json()["id"], str(self.workflow.id))
+        self.assertIn("decisions", response.json())
 
     def test_patch_anonymous(self):
         self.api_client.force_authenticate(user=self.user)
@@ -361,7 +363,8 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         url = reverse("api:workflows-authors-list")
         response = self.api_client.post(url, format="json", data=data)
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.json(), data)
 
     @pytest.mark.vcr()
     def test_accept_author(self):
@@ -379,7 +382,8 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(
             Decision.objects.filter(workflow=self.workflow.id)[0].action, action
         )
-
+        self.assertEqual(response.json()["id"], str(self.workflow.id))
+        self.assertIn("decisions", response.json())
         airflow_utils.delete_workflow_dag(
             WORKFLOW_DAGS[WorkflowType.AUTHOR_CREATE].approve, self.workflow.id
         )
@@ -400,6 +404,8 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(
             Decision.objects.filter(workflow=self.workflow.id)[0].action, action
         )
+        self.assertEqual(response.json()["id"], str(self.workflow.id))
+        self.assertIn("decisions", response.json())
 
         airflow_utils.delete_workflow_dag(
             WORKFLOW_DAGS[WorkflowType.AUTHOR_CREATE].reject, self.workflow.id
