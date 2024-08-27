@@ -30,7 +30,7 @@ import { environment } from '../../../environments/environment';
 import { CommonApiService } from './common-api.service';
 import { ApiError } from '../../shared/classes';
 import { editorApiUrl, apiUrl } from '../../shared/config';
-import { RecordResource } from '../../shared/interfaces';
+import { RecordResource, SnowTicket } from '../../shared/interfaces';
 
 @Injectable()
 export class RecordApiService extends CommonApiService {
@@ -45,7 +45,10 @@ export class RecordApiService extends CommonApiService {
 
   readonly newRecordFetched$ = new ReplaySubject<void>(1);
 
-  constructor(protected http: Http) {
+  constructor(
+    private apiService: CommonApiService,
+    protected http: Http
+  ) {
     super(http);
   }
 
@@ -69,6 +72,42 @@ export class RecordApiService extends CommonApiService {
         headers: new Headers({ 'If-Match': this.currentRecordETag }),
       })
       .catch((error) => Observable.throw(new ApiError(error)));
+  }
+
+  async closeCuratedRecordTickets(
+    record: object,
+    pidType: string,
+    pidValue: string | number
+  ) {
+    if (!record['curated']) {
+      return;
+    }
+    try {
+      const tickets = await this.apiService.fetchRecordTickets(
+        pidType,
+        pidValue
+      );
+      const filteredTickets = tickets.filter((ticket) => {
+        return (ticket as SnowTicket).u_functional_category !== undefined
+          ? ticket['u_functional_category'] === 'arXiv curation' ||
+              ticket['u_functional_category'] === 'Publisher curation'
+          : ticket['queue'] === 'arXiv curation' ||
+              ticket['queue'] === 'Publisher curation';
+      });
+      for (const ticket of filteredTickets) {
+        try {
+          await this.apiService.resolveTicket(pidValue, ticket['sys_id']);
+        } catch (error) {
+          console.error('Could not close ticket', ticket['sys_id']);
+        }
+      }
+    } catch (error) {
+      if (error.status === 403) {
+        console.error('Logged in user cannot access tickets');
+      } else {
+        console.error('Could not load tickets');
+      }
+    }
   }
 
   searchRecord(recordType: string, query: string): Observable<Array<number>> {
