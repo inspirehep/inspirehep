@@ -1,4 +1,6 @@
-    <collaborationauthorlist xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:cal="http://inspirehep.net/info/HepNames/tools/authors_xml/">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE collaborationauthorlist SYSTEM "authors.dtd">
+<collaborationauthorlist xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:cal="http://inspirehep.net/info/HepNames/tools/authors_xml/">
     <cal:creationDate>2022-01-25</cal:creationDate>
 
     <cal:publicationReference>Fermilab-PUB-2022-01-25</cal:publicationReference>
@@ -34,4 +36,4 @@
             </cal:authorIDs>
         </foaf:Person>
     </cal:authors>
-    </collaborationauthorlist>
+</collaborationauthorlist>
