@@ -122,11 +122,12 @@ class AuthorWorkflowViewSet(viewsets.ViewSet):
             WORKFLOW_DAGS[workflow.workflow_type].initialize,
             workflow.id,
         )
-        return airflow_utils.trigger_airflow_dag(
+        airflow_utils.trigger_airflow_dag(
             WORKFLOW_DAGS[workflow.workflow_type].initialize,
             str(workflow.id),
             workflow.data,
         )
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @extend_schema(
         summary="Partially Updates Author",
@@ -169,9 +170,14 @@ class AuthorWorkflowViewSet(viewsets.ViewSet):
             )
             utils.add_decision(pk, request.user, serializer.validated_data["value"])
 
-            return airflow_utils.trigger_airflow_dag(
+            airflow_utils.trigger_airflow_dag(
                 ResolutionDags[serializer.validated_data["value"]].label, pk, extra_data
             )
+            workflow_serializer = self.serializer_class(
+                get_object_or_404(Workflow, pk=pk)
+            )
+
+            return Response(workflow_serializer.data)
 
     @extend_schema(
         summary="Restart an Author Workflow",
