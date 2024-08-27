@@ -113,11 +113,12 @@ export class AuthorExtractActionsComponent {
     if (isUrl) {
       return 'url';
     }
-
-    const isXml = this.source.startsWith('<collaborationauthorlist');
-    if (isXml) {
-      return 'xml';
-    }
-    return 'text';
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(this.source, 'application/xml');
+    const errorNode = doc.querySelector('parsererror');
+    return !errorNode &&
+      doc.documentElement.nodeName === 'collaborationauthorlist'
+      ? 'xml'
+      : 'text';
   }
 }
