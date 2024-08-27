@@ -56,6 +56,7 @@ export class RecordToolbarComponent
   implements OnInit {
   // `undefined` if there is no record being edited
   record: object;
+  pidValue: number;
   pidType: string;
   recordProblems: SchemaValidationProblems;
 
@@ -92,6 +93,12 @@ export class RecordToolbarComponent
       .subscribe((jsonBeingEdited) => {
         this.record = jsonBeingEdited;
         this.changeDetectorRef.markForCheck();
+      });
+
+    this.globalAppStateService.pidValueBeingEdited$
+      .takeUntil(this.isDestroyed)
+      .subscribe((pidValueBeingEdited) => {
+        this.pidValue = pidValueBeingEdited;
       });
 
     this.globalAppStateService.pidTypeBeingEdited$
@@ -142,7 +149,13 @@ export class RecordToolbarComponent
   private cleanupAndSaveRecord(record) {
     this.recordCleanupService.cleanup(record);
     this.apiService.saveRecord(record).subscribe(
-      () => this.onSaveSuccess(),
+      () => {
+        this.apiService
+          .closeCuratedRecordTickets(record, this.pidType, this.pidValue)
+          .then(() => {
+            this.onSaveSuccess();
+          });
+      },
       (error) => this.onSaveError(error)
     );
   }
