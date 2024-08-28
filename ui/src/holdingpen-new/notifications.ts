@@ -25,3 +25,19 @@ export function notifyActionError(error: string) {
     duration: 10,
   });
 }
+
+export function notifyDeleteSuccess() {
+  notification.success({
+    message: 'Success',
+    description: 'Workflow deleted successfully',
+    duration: 10,
+  });
+}
+
+export function notifyDeleteError(error: string) {
+  notification.error({
+    message: 'Unable to delete workflow',
+    description: error,
+    duration: 10,
+  });
+}

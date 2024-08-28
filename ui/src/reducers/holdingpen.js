@@ -16,6 +16,9 @@ import {
   HOLDINGPEN_RESOLVE_ACTION_REQUEST,
   HOLDINGPEN_RESOLVE_ACTION_SUCCESS,
   HOLDINGPEN_RESOLVE_ACTION_ERROR,
+  HOLDINGPEN_DELETE_REQUEST,
+  HOLDINGPEN_DELETE_SUCCESS,
+  HOLDINGPEN_DELETE_ERROR,
 } from '../actions/actionTypes';
 
 export const initialState = fromJS({
@@ -71,6 +74,14 @@ const HoldingpenReducer = (state = initialState, action) => {
       return state.set('actionInProgress', false);
     case HOLDINGPEN_RESOLVE_ACTION_ERROR:
       return state.set('actionInProgress', false);
+    case HOLDINGPEN_DELETE_REQUEST:
+      return state.set('loading', true);
+    case HOLDINGPEN_DELETE_SUCCESS:
+      return state
+        .set('author', initialState.get('author'))
+        .set('loading', false);
+    case HOLDINGPEN_DELETE_ERROR:
+      return state.set('loading', false);
     default:
       return state;
   }
