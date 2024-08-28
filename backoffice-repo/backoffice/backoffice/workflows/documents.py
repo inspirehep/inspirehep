@@ -9,28 +9,7 @@ from backoffice.workflows.models import Workflow
 class WorkflowDocument(Document):
     id = fields.TextField()
     workflow_type = fields.KeywordField()
-    data = fields.ObjectField(
-        properties={
-            "ids": fields.ObjectField(
-                properties={
-                    "value": fields.KeywordField(),
-                    "schema": fields.KeywordField(),
-                }
-            ),
-            "name": fields.ObjectField(
-                properties={
-                    "value": fields.TextField(),
-                    "preferred_name": fields.TextField(),
-                }
-            ),
-            "email_address": fields.ObjectField(
-                properties={
-                    "value": fields.KeywordField(),
-                    "current": fields.BooleanField(),
-                }
-            ),
-        }
-    )
+    data = fields.ObjectField(dynamic=True)
 
     decisions = fields.NestedField(
         properties={
