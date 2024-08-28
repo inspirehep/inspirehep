@@ -31,6 +31,14 @@ class WorkflowDocument(Document):
             ),
         }
     )
+
+    decisions = fields.NestedField(
+        properties={
+            "action": fields.TextField(),
+            "user": fields.ObjectField(properties={"email": fields.TextField()}),
+        }
+    )
+
     status = fields.KeywordField()
     is_update = fields.BooleanField()
 
