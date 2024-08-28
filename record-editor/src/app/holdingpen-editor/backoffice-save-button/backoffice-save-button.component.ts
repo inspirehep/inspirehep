@@ -26,28 +26,29 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
-import { Router } from '@angular/router';
 import { ToastrService, ActiveToast } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
 
 import {
-  HoldingpenApiService,
   RecordCleanupService,
   DomUtilsService,
   GlobalAppStateService,
+  BackofficeApiService,
 } from '../../core/services';
 import { SubscriberComponent, ApiError } from '../../shared/classes';
-import { WorkflowObject, WorkflowSaveErrorBody } from '../../shared/interfaces';
+import { WorkflowObject } from '../../shared/interfaces';
+import { BackofficeWorkflow } from '../../core/services/backoffice-api.service';
 import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
 
 @Component({
-  selector: 're-holdingpen-save-button',
-  templateUrl: './holdingpen-save-button.component.html',
+  selector: 're-backoffice-save-button',
+  templateUrl: './backoffice-save-button.component.html',
   styleUrls: [
     '../../record-editor/json-editor-wrapper/json-editor-wrapper.component.scss',
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HoldingpenSaveButtonComponent
+export class BackofficeSaveButtonComponent
   extends SubscriberComponent
   implements OnInit {
   private workflowObject: WorkflowObject;
@@ -55,14 +56,17 @@ export class HoldingpenSaveButtonComponent
   private hasAnyValidationProblem = false;
   private savingInfoToast: ActiveToast;
 
+  uuid: string;
+  fullWorkflowObject: BackofficeWorkflow;
+
   constructor(
-    private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
-    private apiService: HoldingpenApiService,
+    private apiService: BackofficeApiService,
     private recordCleanupService: RecordCleanupService,
     private domUtilsService: DomUtilsService,
     private globalAppStateService: GlobalAppStateService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private route: ActivatedRoute,
   ) {
     super();
   }
@@ -72,6 +76,12 @@ export class HoldingpenSaveButtonComponent
   }
 
   ngOnInit() {
+    this.route.params.takeUntil(this.isDestroyed).subscribe(async (params) => {
+      this.uuid = params['uuid'];
+    });
+    this.apiService.fetchWorkflowObject(this.uuid, true).then(
+      (data) => { this.fullWorkflowObject = data as BackofficeWorkflow; }
+    );
     this.globalAppStateService.hasAnyValidationProblem$
       .takeUntil(this.isDestroyed)
       .subscribe((hasAnyValidationProblem) => {
@@ -97,19 +107,8 @@ export class HoldingpenSaveButtonComponent
       'Loading',
       HOVER_TO_DISMISS_INDEFINITE_TOAST
     );
-    const references = this.workflowObject.metadata['references'];
-    this.apiService
-      .getLinkedReferences(references)
-      .then((linkedReferences) => {
-        const metadata = Object.assign({}, this.workflowObject.metadata);
-        metadata['references'] = linkedReferences;
-        this.workflowObject.metadata = metadata;
-        this.jsonBeingEdited$.next(this.workflowObject);
-        this.cleanupAndSave();
-      })
-      .catch(() => {
-        this.cleanupAndSave();
-      });
+
+    this.cleanupAndSave();
   }
 
   private cleanupAndSave() {
@@ -125,63 +124,14 @@ export class HoldingpenSaveButtonComponent
         this.displayErrorToast(error);
       },
       () => {
-        if (this.callbackUrl) {
-          this.saveWithCallbackUrl();
-        } else {
-          this.save();
-        }
+        this.save();
       }
     );
   }
 
-  private get callbackUrl(): string | undefined {
-    return this.workflowObject._extra_data
-      ? this.workflowObject._extra_data.callback_url
-      : undefined;
-  }
-
-  private saveWithCallbackUrl() {
-    this.apiService
-      .saveWorkflowObjectWithCallbackUrl(this.workflowObject, this.callbackUrl)
-      .do(() => this.domUtilsService.unregisterBeforeUnloadPrompt())
-      .subscribe(
-        (body) => {
-          if (this.hasConflicts()) {
-            this.toastrService.clear(this.savingInfoToast.toastId);
-            this.toastrService.success(body.message, 'Success');
-          } else {
-            if (body.redirect_url) {
-              window.location.href = body.redirect_url;
-            } else {
-              const referrer = document.referrer;
-              const origin = window.location.origin;
-              const redirectUrl = referrer.startsWith(origin)
-                ? referrer
-                : `/holdingpen/${this.workflowObject.id}`;
-              window.location.href = redirectUrl;
-            }
-          }
-        },
-        (error: ApiError<WorkflowSaveErrorBody>) => {
-          if (
-            error.status === 400 &&
-            error.body.error_code === 'VALIDATION_ERROR'
-          ) {
-            this.jsonBeingEdited$.next(error.body.workflow);
-          }
-          this.displayErrorToast(error);
-        }
-      );
-  }
-
-  private hasConflicts(): boolean {
-    const extraData = this.workflowObject._extra_data;
-    return extraData && extraData.conflicts && extraData.conflicts.length > 0;
-  }
-
   private save() {
     this.apiService
-      .saveWorkflowObject(this.workflowObject)
+      .saveWorkflowObject(this.workflowObject, this.fullWorkflowObject)
       .do(() => this.domUtilsService.unregisterBeforeUnloadPrompt())
       .subscribe(
         () => {

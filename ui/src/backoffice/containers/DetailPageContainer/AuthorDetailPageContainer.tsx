@@ -12,6 +12,7 @@ import { ActionCreator, Action } from 'redux';
 import { connect, RootStateOrAny } from 'react-redux';
 import { Map } from 'immutable';
 import { push } from 'connected-react-router';
+import classNames from 'classnames';
 
 import './DetailPageContainer.less';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
@@ -129,7 +130,16 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                       </p>
                     )}
                     {data?.get('status') && (
-                      <p className="mb0">
+                      <p
+                        className={classNames({
+                          mb0: !data
+                            ?.get('ids')
+                            ?.find(
+                              (id: { get: (arg0: string) => string }) =>
+                                id.get('schema') === 'ORCID'
+                            ),
+                        })}
+                      >
                         <b>Status:</b> {data?.get('status')}
                       </p>
                     )}
@@ -374,10 +384,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                         Restart current step
                       </Button>
                       <Button className="mb2 w-75" type="primary">
-                        <a
-                          href={`/editor/holdingpen/${data?.get('id')}`}
-                          target="_blank"
-                        >
+                        <a href={`/editor/backoffice/${id}`} target="_blank">
                           <EditOutlined />
                           {'  '}
                           Open in Editor

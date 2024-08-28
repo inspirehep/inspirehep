@@ -8,6 +8,11 @@ const appRoutes: Routes = [
       './holdingpen-editor/holdingpen-editor.module#HoldingpenEditorModule',
   },
   {
+    path: 'backoffice',
+    loadChildren:
+      './backoffice-editor/backoffice-editor.module#BackofficeEditorModule',
+  },
+  {
     path: 'record',
     loadChildren: './record-editor/record-editor.module#RecordEditorModule',
   },

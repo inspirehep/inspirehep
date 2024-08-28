@@ -29,6 +29,7 @@ import { HoldingpenToolbarComponent } from './holdingpen-toolbar';
 import { HoldingpenSaveButtonComponent } from './holdingpen-save-button';
 
 import { SharedModule } from '../shared';
+import { BackofficeSaveButtonComponent } from './backoffice-save-button';
 
 @NgModule({
   imports: [SharedModule, HoldingpenEditorRouter],
@@ -36,6 +37,8 @@ import { SharedModule } from '../shared';
     HoldingpenEditorComponent,
     HoldingpenToolbarComponent,
     HoldingpenSaveButtonComponent,
+    BackofficeSaveButtonComponent
   ],
+  exports: [HoldingpenToolbarComponent, HoldingpenSaveButtonComponent],
 })
 export class HoldingpenEditorModule {}

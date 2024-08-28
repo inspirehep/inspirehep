@@ -20,11 +20,17 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { environment } from '../../../environments/environment';
+import { NgModule } from '@angular/core';
 
-export const apiUrl = `${environment.baseUrl}/api`;
-export const editorApiUrl = `${apiUrl}/editor`;
-export const matcherApiUrl = `${apiUrl}/matcher`;
-export const holdingpenApiUrl = `${apiUrl}/holdingpen`;
-export const backofficeApiUrl = `${environment.backofficeApiUrl}`;
-export const hepSchemaUrl = `${environment.schemaUrl}`;
+import { BackofficeEditorRouter } from './backoffice.router';
+
+import { BackofficeEditorComponent } from './backoffice-editor.component';
+
+import { SharedModule } from '../shared';
+import { HoldingpenEditorModule } from '../holdingpen-editor/holdingpen-editor.module';
+
+@NgModule({
+  imports: [SharedModule, BackofficeEditorRouter, HoldingpenEditorModule],
+  declarations: [BackofficeEditorComponent],
+})
+export class BackofficeEditorModule {}

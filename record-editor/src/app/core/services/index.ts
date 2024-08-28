@@ -10,10 +10,14 @@ import { GlobalAppStateService } from './global-app-state.service';
 import { WorkflowErrorConverterService } from './workflow-error-converter.service';
 import { ReleaseLockService } from './release-lock-service';
 import { EditorErrorConverterService } from './editor-error-converter.service';
+import { BackofficeApiService } from './backoffice-api.service';
+import { BackofficeApiAuthService } from './backoffice-api-auth.service';
 
 export {
   CommonApiService,
   HoldingpenApiService,
+  BackofficeApiService,
+  BackofficeApiAuthService,
   RecordApiService,
   AppConfigService,
   RecordCleanupService,
@@ -29,6 +33,8 @@ export {
 export const CORE_SERVICES = [
   CommonApiService,
   HoldingpenApiService,
+  BackofficeApiService,
+  BackofficeApiAuthService,
   RecordApiService,
   AppConfigService,
   RecordCleanupService,
