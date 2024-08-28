@@ -22,11 +22,16 @@
 
 import {
   Component,
+  OnInit,
+  Input,
   Output,
   EventEmitter,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
+import { GlobalAppStateService } from '../../core/services';
 
 @Component({
   selector: 're-holdingpen-toolbar',
@@ -36,11 +41,28 @@ import {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HoldingpenToolbarComponent {
+export class HoldingpenToolbarComponent implements OnInit {
+  @Input() backoffice: boolean;
   @Output() revisionChange = new EventEmitter<object>();
-  displayingRevision = false;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+  displayingRevision = false;
+  recordId: number;
+
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    private globalAppStateService: GlobalAppStateService
+  ) {}
+
+  ngOnInit() {
+    Observable.combineLatest(
+      this.globalAppStateService.pidValueBeingEdited$,
+      (pidValue) => ({ pidValue })
+    )
+      .filter(({ pidValue }) => Boolean(pidValue))
+      .subscribe(({ pidValue }) => {
+        this.recordId = pidValue;
+      });
+  }
 
   onRevisionChange(revision: object | undefined) {
     this.revisionChange.emit(revision);
