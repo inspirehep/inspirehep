@@ -21,6 +21,9 @@ import {
   HOLDINGPEN_RESOLVE_ACTION_SUCCESS,
   HOLDINGPEN_RESOLVE_ACTION_ERROR,
   HOLDINGPEN_LOGIN_REQUEST,
+  HOLDINGPEN_DELETE_SUCCESS,
+  HOLDINGPEN_DELETE_ERROR,
+  HOLDINGPEN_DELETE_REQUEST,
 } from './actionTypes';
 import {
   BACKOFFICE_API,
@@ -35,6 +38,8 @@ import {
   notifyLoginError,
   notifyActionError,
   notifyActionSuccess,
+  notifyDeleteSuccess,
+  notifyDeleteError,
 } from '../holdingpen-new/notifications';
 import { refreshToken } from '../holdingpen-new/utils/utils';
 
@@ -315,6 +320,50 @@ export function resolveAction(
           : error?.error?.detail) || 'An error occurred'
       );
       dispatch(resolveActionError(error));
+    }
+  };
+}
+
+// DELETE ACTIONS
+
+export const deletingWorkflow = () => {
+  return {
+    type: HOLDINGPEN_DELETE_REQUEST,
+  };
+};
+
+export const deleteWorkflowSuccess = () => {
+  return {
+    type: HOLDINGPEN_DELETE_SUCCESS,
+  };
+};
+
+export const deleteWorkflowError = (errorPayload: { error: Error }) => {
+  return {
+    type: HOLDINGPEN_DELETE_ERROR,
+    payload: { ...errorPayload },
+  };
+};
+
+export function deleteWorkflow(
+  id: string
+): (dispatch: ActionCreator<Action>) => Promise<void> {
+  return async (dispatch) => {
+    dispatch(deletingWorkflow());
+    try {
+      await httpClient.delete(`${BACKOFFICE_API}/${id}/`);
+
+      dispatch(deleteWorkflowSuccess());
+      notifyDeleteSuccess();
+    } catch (err) {
+      const { error } = httpErrorToActionPayload(err);
+
+      dispatch(deleteWorkflowError(error));
+      notifyDeleteError(
+        (typeof error?.error === 'string'
+          ? error?.error
+          : error?.error?.detail) || 'An error occurred'
+      );
     }
   };
 }
