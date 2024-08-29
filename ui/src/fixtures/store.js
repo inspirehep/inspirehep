@@ -10,7 +10,7 @@ import { initialState as inspect } from '../reducers/inspect';
 import { initialState as exceptions } from '../reducers/exceptions';
 import { initialState as ui } from '../reducers/ui';
 import { initialState as bibliographyGenerator } from '../reducers/bibliographyGenerator';
-import { initialState as holdingpen } from '../reducers/holdingpen';
+import { initialState as backoffice } from '../reducers/backoffice';
 
 import { thunkMiddleware } from '../store';
 import { initialState as initialRecordState } from '../reducers/recordsFactory';
@@ -42,7 +42,7 @@ export function getState() {
     institutions: initialRecordState,
     experiments: initialRecordState,
     journals: initialRecordState,
-    holdingpen,
+    backoffice,
   };
 }
 

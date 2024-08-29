@@ -1,0 +1,424 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Backoffice renders initial state 1`] = `
+<div>
+  <div
+    class="w-100"
+    data-testid="backoffice"
+  >
+    <div
+      class="__DashboardPageContainer__"
+      data-testid="backoffice-dashboard-page"
+    >
+      <div
+        class="flex items-center justify-between"
+      >
+        <nav
+          class="ant-breadcrumb mv4"
+        >
+          <ol>
+            <li>
+              <span
+                class="ant-breadcrumb-link"
+              >
+                <a
+                  href="/"
+                >
+                  <span
+                    aria-label="home"
+                    class="anticon anticon-home mr2"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="home"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 00-44.4 0L77.5 505a63.9 63.9 0 00-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0018.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"
+                      />
+                    </svg>
+                  </span>
+                   Inspirehep
+                </a>
+              </span>
+              <span
+                class="ant-breadcrumb-separator"
+              >
+                |
+              </span>
+            </li>
+            <li>
+              <span
+                class="ant-breadcrumb-link"
+              >
+                <a
+                  href="/backoffice"
+                >
+                  Backoffice
+                </a>
+              </span>
+              <span
+                class="ant-breadcrumb-separator"
+              >
+                |
+              </span>
+            </li>
+            <li>
+              <span
+                class="ant-breadcrumb-link"
+              >
+                <a
+                  href="/backoffice/"
+                >
+                  Dashboard
+                </a>
+              </span>
+              <span
+                class="ant-breadcrumb-separator"
+              >
+                |
+              </span>
+            </li>
+          </ol>
+        </nav>
+      </div>
+      <div
+        class="inner-container mt4"
+      >
+        <h2
+          class="f2 center"
+        >
+          Search Backoffice
+        </h2>
+        <div
+          class="search-container"
+        >
+          <span
+            class="ant-input-group-wrapper ant-input-search ant-input-search-with-button"
+          >
+            <span
+              class="ant-input-wrapper ant-input-group"
+            >
+              <span
+                class="ant-input-group-addon"
+              >
+                <div
+                  class="ant-select select-before ant-select-single ant-select-show-arrow"
+                  placement="bottomLeft"
+                >
+                  <div
+                    class="ant-select-selector"
+                  >
+                    <span
+                      class="ant-select-selection-search"
+                    >
+                      <input
+                        aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                        aria-autocomplete="list"
+                        aria-controls="rc_select_TEST_OR_SSR_list"
+                        aria-haspopup="listbox"
+                        aria-owns="rc_select_TEST_OR_SSR_list"
+                        autocomplete="off"
+                        class="ant-select-selection-search-input"
+                        id="rc_select_TEST_OR_SSR"
+                        readonly=""
+                        role="combobox"
+                        style="opacity: 0;"
+                        value=""
+                      />
+                    </span>
+                    <span
+                      class="ant-select-selection-item"
+                    >
+                      all collections
+                    </span>
+                  </div>
+                  <span
+                    aria-hidden="true"
+                    class="ant-select-arrow"
+                    style="user-select: none;"
+                    unselectable="on"
+                  >
+                    <span
+                      aria-label="down"
+                      class="anticon anticon-down ant-select-suffix"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="down"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </span>
+              <input
+                class="ant-input"
+                placeholder="Search Backoffice"
+                type="text"
+                value=""
+              />
+              <span
+                class="ant-input-group-addon"
+              >
+                <button
+                  class="ant-btn ant-btn-primary ant-input-search-button"
+                  type="button"
+                >
+                  <span
+                    aria-label="search"
+                    class="anticon anticon-search"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="search"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0011.6 0l43.6-43.5a8.2 8.2 0 000-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </span>
+        </div>
+        <h2
+          class="f2 center mb4"
+        >
+          Overview
+        </h2>
+        <div
+          class="ant-tabs ant-tabs-top ant-tabs-centered"
+        >
+          <div
+            class="ant-tabs-nav"
+            role="tablist"
+          >
+            <div
+              class="ant-tabs-nav-wrap"
+            >
+              <div
+                class="ant-tabs-nav-list"
+                style="transform: translate(0px, 0px);"
+              >
+                <div
+                  class="ant-tabs-tab ant-tabs-tab-active"
+                  data-node-key="1"
+                >
+                  <div
+                    aria-controls="rc-tabs-test-panel-1"
+                    aria-selected="true"
+                    class="ant-tabs-tab-btn"
+                    id="rc-tabs-test-tab-1"
+                    role="tab"
+                    tabindex="0"
+                  >
+                    <h3>
+                      Collections
+                    </h3>
+                  </div>
+                </div>
+                <div
+                  class="ant-tabs-ink-bar ant-tabs-ink-bar-animated"
+                />
+              </div>
+            </div>
+            <div
+              class="ant-tabs-nav-operations ant-tabs-nav-operations-hidden"
+            >
+              <button
+                aria-controls="rc-tabs-test-more-popup"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-hidden="true"
+                class="ant-tabs-nav-more"
+                id="rc-tabs-test-more"
+                style="visibility: hidden; order: 1;"
+                tabindex="-1"
+                type="button"
+              >
+                <span
+                  aria-label="ellipsis"
+                  class="anticon anticon-ellipsis"
+                  role="img"
+                >
+                  <svg
+                    aria-hidden="true"
+                    data-icon="ellipsis"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="64 64 896 896"
+                    width="1em"
+                  >
+                    <path
+                      d="M176 511a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0z"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+          <div
+            class="ant-tabs-content-holder"
+          >
+            <div
+              class="ant-tabs-content ant-tabs-content-top"
+            >
+              <div
+                aria-hidden="false"
+                aria-labelledby="rc-tabs-test-tab-1"
+                class="ant-tabs-tabpane ant-tabs-tabpane-active"
+                id="rc-tabs-test-panel-1"
+                role="tabpanel"
+                tabindex="0"
+              >
+                <a
+                  class="db w-100 tc f5 mt4"
+                  data-testid="view-all"
+                  href="/backoffice/search"
+                >
+                  View all
+                </a>
+                <div
+                  class="cards-container mt4"
+                >
+                  <div
+                    class="ant-card ant-card-bordered new-authors"
+                  >
+                    <div
+                      class="ant-card-head"
+                      style="text-align: center;"
+                    >
+                      <div
+                        class="ant-card-head-wrapper"
+                      >
+                        <div
+                          class="ant-card-head-title"
+                        >
+                          <div>
+                            <p>
+                              new authors
+                            </p>
+                            <p
+                              class="f2 mb0 black"
+                            >
+                              1
+                            </p>
+                            <a
+                              class="normal f6"
+                              href="/backoffice/search"
+                            >
+                              View all
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="ant-card-body"
+                    />
+                  </div>
+                  <div
+                    class="ant-card ant-card-bordered author-updates"
+                  >
+                    <div
+                      class="ant-card-head"
+                      style="text-align: center;"
+                    >
+                      <div
+                        class="ant-card-head-wrapper"
+                      >
+                        <div
+                          class="ant-card-head-title"
+                        >
+                          <div>
+                            <p>
+                              author updates
+                            </p>
+                            <p
+                              class="f2 mb0 black"
+                            >
+                              1
+                            </p>
+                            <a
+                              class="normal f6"
+                              href="/backoffice/search"
+                            >
+                              View all
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="ant-card-body"
+                    />
+                  </div>
+                  <div
+                    class="ant-card ant-card-bordered new-literature-submissions"
+                  >
+                    <div
+                      class="ant-card-head"
+                      style="text-align: center;"
+                    >
+                      <div
+                        class="ant-card-head-wrapper"
+                      >
+                        <div
+                          class="ant-card-head-title"
+                        >
+                          <div>
+                            <p>
+                              new literature submissions
+                            </p>
+                            <p
+                              class="f2 mb0 black"
+                            >
+                              1
+                            </p>
+                            <a
+                              class="normal f6"
+                              href="/backoffice/search"
+                            >
+                              View all
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="ant-card-body"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

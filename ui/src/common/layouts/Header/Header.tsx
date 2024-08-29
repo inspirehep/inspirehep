@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 import SearchBoxContainer from '../../containers/SearchBoxContainer';
 import './Header.less';
-import { Logo, LogoHoldingpen } from '../../components/Logo';
+import { Logo, LogoBackoffice } from '../../components/Logo';
 import HeaderMenuContainer from './HeaderMenuContainer';
 import BetaRibbon from './BetaRibbon';
 import CollectionsMenu from '../CollectionsMenu';
@@ -14,25 +14,25 @@ import Banners from './Banners';
 function Header({
   isHomePage,
   isSubmissionsPage,
-  isHoldingpenPage,
+  isBackofficePage,
   isBetaPage,
 }: {
   isHomePage: boolean;
   isSubmissionsPage: boolean;
-  isHoldingpenPage: boolean;
+  isBackofficePage: boolean;
   isBetaPage: boolean;
 }) {
   const [stickyContainerRef, , stickyContainerHeight] = useResizeObserver();
 
   return (
-    <div className={classNames('__Header__', { holdingpen: isHoldingpenPage })}>
+    <div className={classNames('__Header__', { holdingpen: isBackofficePage })}>
       <div ref={stickyContainerRef} className="sticky" data-test-id="sticky">
         <Banners />
         {isBetaPage && <BetaRibbon />}
         <Layout.Header className="header">
           <Row align="middle" gutter={{ xs: 8, sm: 16 }}>
             <Col xs={{ span: 13, order: 1 }} sm={{ span: 6, order: 1 }} lg={5}>
-              {isHoldingpenPage ? <LogoHoldingpen /> : <Logo />}
+              {isBackofficePage ? <LogoBackoffice /> : <Logo />}
             </Col>
             <Col
               xs={{ span: 24, order: 3 }}
@@ -41,7 +41,7 @@ function Header({
               xl={13}
               xxl={14}
             >
-              {!isHomePage && !isSubmissionsPage && !isHoldingpenPage && (
+              {!isHomePage && !isSubmissionsPage && !isBackofficePage && (
                 <SearchBoxContainer className="search-box" />
               )}
             </Col>
@@ -58,7 +58,7 @@ function Header({
         </Layout.Header>
       </div>
       <div className="non-sticky" style={{ marginTop: stickyContainerHeight }}>
-        {isHoldingpenPage ? (
+        {isBackofficePage ? (
           <div className="fake-collections-menu" />
         ) : (
           <CollectionsMenu />

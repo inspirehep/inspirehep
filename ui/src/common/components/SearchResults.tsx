@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, is } from 'immutable';
+import { List } from 'immutable';
 
 import { getSearchRank } from '../utils';
 
@@ -9,17 +9,17 @@ const SearchResults = ({
   results,
   page,
   pageSize,
-  isHoldingpen = false,
+  isBackoffice = false,
 }: {
   renderItem: Function;
   isCatalogerLoggedIn: boolean;
   results: List<any>;
   page: number | undefined;
   pageSize: number | undefined;
-  isHoldingpen?: boolean;
+  isBackoffice?: boolean;
 }) => {
   const renderResults = (result: any, index: number) => {
-    if (!isHoldingpen) {
+    if (!isBackoffice) {
       return (
         <div className="mv2" key={result.get('id')}>
           {renderItem(

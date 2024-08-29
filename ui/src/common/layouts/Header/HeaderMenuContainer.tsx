@@ -2,13 +2,13 @@ import { connect, RootStateOrAny } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
 
 import { userLogout } from '../../../actions/user';
-import { holdingpenLogout } from '../../../actions/holdingpen';
+import { backofficeLogout } from '../../../actions/backoffice';
 import { isCataloger } from '../../authorization';
 import HeaderMenu from './HeaderMenu';
 
 const stateToProps = (state: RootStateOrAny) => ({
   loggedIn: state.user.get('loggedIn'),
-  loggedInToHoldingpen: state.holdingpen.get('loggedIn'),
+  loggedInToBackoffice: state.backoffice.get('loggedIn'),
   isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
   profileControlNumber: state.user.getIn(['data', 'profile_control_number']),
 });
@@ -18,7 +18,7 @@ const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
     dispatch(userLogout());
   },
   onLogout() {
-    dispatch(holdingpenLogout());
+    dispatch(backofficeLogout());
   },
 });
 

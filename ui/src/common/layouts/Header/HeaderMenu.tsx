@@ -31,7 +31,7 @@ interface MenuItem {
 
 const HeaderMenu = ({
   loggedIn,
-  loggedInToHoldingpen,
+  loggedInToBackoffice,
   onLogoutClick,
   isCatalogerLoggedIn,
   profileControlNumber,
@@ -42,7 +42,7 @@ const HeaderMenu = ({
   isCatalogerLoggedIn?: boolean;
   profileControlNumber?: string;
   onLogout: any;
-  loggedInToHoldingpen: boolean;
+  loggedInToBackoffice: boolean;
 }) => {
   const USER_PROFILE_URL = `/authors/${profileControlNumber}`;
 
@@ -203,15 +203,15 @@ const HeaderMenu = ({
         </LinkLikeButton>,
       ],
     },
-    loggedInToHoldingpen && {
-      key: 'logout-holdingpen',
+    loggedInToBackoffice && {
+      key: 'logout-backoffice',
       label: [
         <LinkLikeButton
           color="white"
           onClick={() => onLogout()}
-          key="logout-holdingpen"
+          key="logout-backoffice"
         >
-          Logout Holdingpen
+          Logout Backoffice
         </LinkLikeButton>,
       ],
     },
