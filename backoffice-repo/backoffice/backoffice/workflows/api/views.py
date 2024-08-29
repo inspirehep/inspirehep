@@ -26,6 +26,7 @@ from backoffice.workflows import airflow_utils
 from backoffice.workflows.api import utils
 from backoffice.workflows.api.serializers import (
     AuthorResolutionSerializer,
+    DecisionSerializer,
     WorkflowAuthorSerializer,
     WorkflowDocumentSerializer,
     WorkflowSerializer,
@@ -58,8 +59,9 @@ class WorkflowViewSet(viewsets.ModelViewSet):
         super().perform_destroy(instance)
 
 
-class WorkflowTicketViewSet(viewsets.ViewSet):
+class WorkflowTicketViewSet(viewsets.ModelViewSet):
     serializer_class = WorkflowTicketSerializer
+    queryset = WorkflowTicket.objects.all()
 
     def retrieve(self, request, *args, **kwargs):
         workflow_id = kwargs.get("pk")
@@ -67,13 +69,13 @@ class WorkflowTicketViewSet(viewsets.ViewSet):
 
         if not workflow_id or not ticket_type:
             return Response(
-                {"error": "Both workflow_id and ticket_type are required."},
+                {"error": "Both workflow and ticket_type are required."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
         try:
             workflow_ticket = WorkflowTicket.objects.get(
-                workflow_id=workflow_id, ticket_type=ticket_type
+                workflow=workflow_id, ticket_type=ticket_type
             )
             serializer = self.serializer_class(workflow_ticket)
             return Response(serializer.data)
@@ -92,6 +94,7 @@ class WorkflowTicketViewSet(viewsets.ViewSet):
 
 
 class DecisionViewSet(viewsets.ModelViewSet):
+    serializer_class = DecisionSerializer
     queryset = Decision.objects.all()
 
     def create(self, request, *args, **kwargs):
