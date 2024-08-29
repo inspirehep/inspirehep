@@ -50,7 +50,7 @@ const SearchPageContainer: React.FC<SearchPageContainerProps> = ({
       <Breadcrumbs title1="Search" href1="search" />
       <Row className="mt2 mb4" gutter={SEARCH_PAGE_GUTTER} justify="center">
         <SearchFilters />
-        <Col xs={24} lg={19}>
+        <Col xs={24} lg={20}>
           <EmptyOrChildren data={results} title="0 Results">
             <>
               <Row justify="space-between" wrap={false}>

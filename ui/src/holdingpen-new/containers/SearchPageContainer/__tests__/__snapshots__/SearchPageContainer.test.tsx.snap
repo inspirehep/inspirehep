@@ -130,7 +130,7 @@ exports[`SearchPageContainer renders the SearchPage component 1`] = `
       style="margin-left: -16px; margin-right: -16px;"
     >
       <div
-        class="ant-col ant-col-xs-0 ant-col-lg-5"
+        class="ant-col ant-col-xs-0 ant-col-lg-4"
         style="padding-left: 16px; padding-right: 16px;"
       >
         <div
@@ -285,7 +285,7 @@ exports[`SearchPageContainer renders the SearchPage component 1`] = `
         </div>
       </div>
       <div
-        class="ant-col ant-col-xs-24 ant-col-lg-19"
+        class="ant-col ant-col-xs-24 ant-col-lg-20"
         style="padding-left: 16px; padding-right: 16px;"
       >
         <div

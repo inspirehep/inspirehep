@@ -8,7 +8,7 @@ import {
   SyncOutlined,
   PlayCircleOutlined,
 } from '@ant-design/icons';
-import { Action, ActionCreator } from 'redux';
+import { ActionCreator, Action } from 'redux';
 import { connect, RootStateOrAny } from 'react-redux';
 import { Map } from 'immutable';
 import { push } from 'connected-react-router';
@@ -30,7 +30,6 @@ import { getConfigFor } from '../../../common/config';
 import { resolveDecision } from '../../utils/utils';
 import DeleteWorkflow from '../../components/DeleteWorkflow/DeleteWorkflow';
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
-import GoBackLinkContainer from '../../../common/containers/GoBackLinkContainer';
 import LinkLikeButton from '../../../common/components/LinkLikeButton/LinkLikeButton';
 import { HOLDINGPEN_SEARCH_NEW } from '../../../common/routes';
 
@@ -53,9 +52,13 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
     dispatch(fetchAuthor(id));
   }, []);
 
-  const data = author?.get('data') as Map<any, any>;
-  const tickets = author?.get('tickets') as Map<any, any>;
-  const decision = author?.get('decisions')?.first();
+  const data = author?.get('data');
+  const tickets = author?.get('tickets')?.size !== 0 && author?.get('tickets');
+  const decision = author?.getIn(['decisions', 0]) as Map<string, any>;
+  const status = author?.get('status');
+
+  const shouldDisplayDecisionsBox =
+    decision || status === 'approval' || (decision && status !== 'approval');
 
   const ERRORS_URL = getConfigFor('INSPIRE_WORKFLOWS_DAGS_URL');
 
@@ -63,10 +66,16 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
     data?.get('positions') && 'institutions',
     data?.get('project_membership') && 'projects',
     (data?.get('urls') || data?.get('ids')) && 'links',
-    (data?.get('arxiv_categories') || data?.get('.advisors')) && 'other',
-    author?.get('status') === 'error' && 'errors',
+    (data?.get('arxiv_categories') || data?.get('advisors')) && 'other',
+    status === 'error' && 'errors',
     'delete',
   ].filter(Boolean);
+
+  const handleResolveAction = (value: string, createTicket = false) => {
+    dispatch(
+      resolveAction(id, 'resolve', { value, create_ticket: createTicket })
+    );
+  };
 
   return (
     <div
@@ -76,7 +85,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
       <Breadcrumbs
         title1="Search"
         href1={`${document.referrer}`}
-        title2={(data?.getIn(['name', 'value']) as string) || 'Details'}
+        title2={data?.getIn(['name', 'value']) || 'Details'}
         href2={id}
       />
       <LoadingOrChildren loading={loading}>
@@ -95,17 +104,15 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
         >
           <Row justify="center">
             <Col xs={24} md={22} lg={21} xxl={18}>
-              {author?.get('status') && (
+              {status && (
                 <Row className="mv3" justify="center" gutter={35}>
                   <Col xs={24}>
                     <div
-                      className={`bg-${author?.get('status')?.toLowerCase()} ${
-                        author?.get('status') === 'error' ? 'white' : ''
+                      className={`bg-${status?.toLowerCase()} ${
+                        status === 'error' ? 'white' : ''
                       } w-100`}
                     >
-                      <p className="b f3 tc pv2">
-                        {author?.get('status').toUpperCase()}
-                      </p>
+                      <p className="b f3 tc pv2">{status?.toUpperCase()}</p>
                     </div>
                   </Col>
                 </Row>
@@ -125,19 +132,21 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                         <b>Status:</b> {data?.get('status')}
                       </p>
                     )}
-                    {(data?.get('ids') as any[])?.find(
-                      (id: any) => id?.get('schema') === 'ORCID'
-                    ) && (
-                      <p className="mt3 mb0">
-                        <Ids
-                          ids={
-                            (data?.get('ids') as any[])?.filter(
-                              (id: any) => id?.get('schema') === 'ORCID'
-                            ) as unknown as Map<string, any>
-                          }
-                          noIcon
-                        />
-                      </p>
+                    {data
+                      ?.get('ids')
+                      ?.find(
+                        (id: { get: (arg0: string) => string }) =>
+                          id.get('schema') === 'ORCID'
+                      ) && (
+                      <Ids
+                        ids={data
+                          ?.get('ids')
+                          ?.filter(
+                            (id: { get: (arg0: string) => string }) =>
+                              id?.get('schema') === 'ORCID'
+                          )}
+                        noIcon
+                      />
                     )}
                   </ContentBox>
                   <CollapsableForm openSections={OPEN_SECTIONS}>
@@ -206,7 +215,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                         </Col>
                       </Row>
                     </CollapsableForm.Section>
-                    {author?.get('status') === 'error' && (
+                    {status === 'error' && (
                       <CollapsableForm.Section header="Errors" key="errors">
                         <p>
                           See error details here:{' '}
@@ -223,71 +232,48 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                   </CollapsableForm>
                 </Col>
                 <Col xs={24} lg={8}>
-                  {author?.get('status') &&
-                    author?.get('status') !== 'error' &&
-                    author?.get('status') !== 'running' && (
-                      <ContentBox
-                        className="mb3"
-                        fullHeight={false}
-                        subTitle="Decision"
-                      >
-                        {author?.get('status') === 'approval' ? (
-                          <div className="w-100 flex flex-column items-center">
-                            <Button
-                              className="font-white bg-completed w-75 mb2"
-                              onClick={() =>
-                                dispatch(
-                                  resolveAction(id, 'resolve', {
-                                    value: 'accept',
-                                    create_ticket: false,
-                                  })
-                                )
-                              }
-                              loading={actionInProgress === 'resolve'}
-                            >
-                              Accept
-                            </Button>
-                            <Button
-                              className="font-white bg-halted w-75 mb2"
-                              onClick={() =>
-                                dispatch(
-                                  resolveAction(id, 'resolve', {
-                                    value: 'accept_curate',
-                                    create_ticket: false,
-                                  })
-                                )
-                              }
-                              loading={actionInProgress === 'resolve'}
-                            >
-                              Accept + Curation
-                            </Button>
-                            <Button
-                              className="font-white bg-error w-75"
-                              onClick={() =>
-                                dispatch(
-                                  resolveAction(id, 'resolve', {
-                                    value: 'reject',
-                                    create_ticket: false,
-                                  })
-                                )
-                              }
-                              loading={actionInProgress === 'resolve'}
-                            >
-                              Reject
-                            </Button>
-                          </div>
-                        ) : (
-                          <p className="mb0">
-                            This workflow is{' '}
-                            <b>
-                              {resolveDecision(decision?.get('action'))
-                                ?.decision || 'completed'}
-                            </b>
-                            .
-                          </p>
-                        )}
-                      </ContentBox>
-                    )}
+                  {shouldDisplayDecisionsBox && (
+                    <ContentBox
+                      className="mb3"
+                      fullHeight={false}
+                      subTitle="Decision"
+                    >
+                      {!decision ? (
+                        <div className="w-100 flex flex-column items-center">
+                          <Button
+                            className="font-white bg-completed w-75 mb2"
+                            onClick={() => handleResolveAction('accept')}
+                            loading={actionInProgress === 'resolve'}
+                          >
+                            Accept
+                          </Button>
+                          <Button
+                            className="font-white bg-halted w-75 mb2"
+                            onClick={() => handleResolveAction('accept_curate')}
+                            loading={actionInProgress === 'resolve'}
+                          >
+                            Accept + Curation
+                          </Button>
+                          <Button
+                            className="font-white bg-error w-75"
+                            onClick={() => handleResolveAction('reject')}
+                            loading={actionInProgress === 'resolve'}
+                          >
+                            Reject
+                          </Button>
+                        </div>
+                      ) : (
+                        <p className="mb0">
+                          This workflow is{' '}
+                          <b>
+                            {resolveDecision(decision?.get('action'))
+                              ?.decision || 'completed'}
+                          </b>
+                          .
+                        </p>
+                      )}
+                    </ContentBox>
+                  )}
                   <ContentBox
                     className="mb3"
                     fullHeight={false}
@@ -297,8 +283,8 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                     <i>{data?.getIn(['acquisition_source', 'email'])}</i> on{' '}
                     <b>
                       {new Date(
-                        data?.getIn(['acquisition_source', 'datetime']) as Date
-                      ).toLocaleDateString()}
+                        data?.getIn(['acquisition_source', 'datetime'])
+                      )?.toLocaleDateString()}
                     </b>
                     .
                   </ContentBox>
@@ -309,11 +295,20 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                       subTitle="Notes"
                     >
                       <i>
-                        {data?.get('_private_notes')?.map((note: any) => (
-                          <p className="mb0" key={note?.get('value')}>
-                            &quot;{note?.get('value')}&quot;
-                          </p>
-                        ))}
+                        {data
+                          ?.get('_private_notes')
+                          ?.map(
+                            (note: {
+                              get: (arg0: string) => {} | null | undefined;
+                            }) => (
+                              <p
+                                className="mb0"
+                                key={note?.get('value') as string}
+                              >
+                                &quot;{note?.get('value')}&quot;
+                              </p>
+                            )
+                          )}
                       </i>
                     </ContentBox>
                   )}
@@ -375,7 +370,6 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                           Open in Editor
                         </a>
                       </Button>
-                      {/* TODO2: change to skip step once it's ready */}
                       <Button
                         className="w-75"
                         onClick={() => {}}
@@ -396,10 +390,10 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
   );
 };
 
-const stateToProps = (state: RootStateOrAny) => ({
+const mapStateToProps = (state: RootStateOrAny) => ({
   author: state.holdingpen.get('author'),
   loading: state.holdingpen.get('loading'),
   actionInProgress: state.holdingpen.get('actionInProgress'),
 });
 
-export default connect(stateToProps)(AuthorDetailPageContainer);
+export default connect(mapStateToProps)(AuthorDetailPageContainer);

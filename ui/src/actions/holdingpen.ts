@@ -31,6 +31,7 @@ import {
   BACKOFFICE_SEARCH_API,
   HOLDINGPEN_NEW,
   HOLDINGPEN_LOGIN_NEW,
+  HOLDINGPEN_SEARCH_NEW,
 } from '../common/routes';
 import { Credentials } from '../types';
 import storage from '../common/storage';
@@ -302,16 +303,14 @@ export function resolveAction(
   return async (dispatch) => {
     dispatch(resolvingAction(action));
     try {
-      await httpClient.post(
+      const response = await httpClient.post(
         `${BACKOFFICE_API}/authors/${id}/${action}/`,
         payload
       );
 
       dispatch(resolveActionSuccess());
       notifyActionSuccess(action);
-      setTimeout(() => {
-        window?.location?.reload();
-      }, 3000);
+      dispatch(fetchAuthorSuccess(response.data));
     } catch (err) {
       const { error } = httpErrorToActionPayload(err);
       notifyActionError(
@@ -355,6 +354,7 @@ export function deleteWorkflow(
 
       dispatch(deleteWorkflowSuccess());
       notifyDeleteSuccess();
+      dispatch(push(HOLDINGPEN_SEARCH_NEW));
     } catch (err) {
       const { error } = httpErrorToActionPayload(err);
 
