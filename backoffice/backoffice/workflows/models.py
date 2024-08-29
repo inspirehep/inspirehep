@@ -36,7 +36,7 @@ class Workflow(models.Model):
 
 
 class WorkflowTicket(models.Model):
-    workflow_id = models.ForeignKey(
+    workflow = models.ForeignKey(
         Workflow, related_name="tickets", on_delete=models.CASCADE
     )
     ticket_id = models.CharField(
@@ -45,6 +45,8 @@ class WorkflowTicket(models.Model):
     ticket_type = models.CharField(
         max_length=30, choices=TICKET_TYPES, default=DEFAULT_TICKET_TYPE
     )
+    _created_at = models.DateTimeField(auto_now_add=True)
+    _updated_at = models.DateTimeField(auto_now=True)
 
 
 class Decision(models.Model):
