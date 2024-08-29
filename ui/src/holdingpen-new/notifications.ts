@@ -11,9 +11,11 @@ export function notifyLoginError(error: string) {
 }
 
 export function notifyActionSuccess(action: string) {
+  const displayAction = action === 'resolve' ? 'decision' : action;
+
   notification.success({
     message: 'Success',
-    description: `${_.capitalize(action)} performed successfully`,
+    description: `${_.capitalize(displayAction)} performed successfully`,
     duration: 10,
   });
 }

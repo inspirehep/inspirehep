@@ -80,7 +80,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
   };
 
   return (
-    <Col xs={0} lg={5}>
+    <Col xs={0} lg={4}>
       <LoadingOrChildren loading={loading}>
         <Card>
           <p className="facet-category">Results per page</p>
