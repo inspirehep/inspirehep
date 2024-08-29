@@ -1,4 +1,4 @@
 import Logo from './Logo';
-import LogoHoldingpen from './LogoHoldingpen';
+import LogoBackoffice from './LogoBackoffice';
 
-export { Logo, LogoHoldingpen };
+export { Logo, LogoBackoffice };

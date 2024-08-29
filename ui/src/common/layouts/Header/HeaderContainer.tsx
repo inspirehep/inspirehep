@@ -1,12 +1,12 @@
 import { connect, RootStateOrAny } from 'react-redux';
 
-import { SUBMISSIONS, HOME, HOLDINGPEN_NEW } from '../../routes';
+import { SUBMISSIONS, HOME, BACKOFFICE } from '../../routes';
 import Header from './Header';
 
 const stateToProps = (state: RootStateOrAny) => ({
   isHomePage: state.router.location.pathname === HOME,
-  isHoldingpenPage: String(state.router.location.pathname).startsWith(
-    HOLDINGPEN_NEW
+  isBackofficePage: String(state.router.location.pathname).startsWith(
+    BACKOFFICE
   ),
   isSubmissionsPage: String(state.router.location.pathname).startsWith(
     SUBMISSIONS

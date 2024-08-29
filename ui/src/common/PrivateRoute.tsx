@@ -4,15 +4,15 @@ import { List } from 'immutable';
 
 import RouteOrRedirect from './components/RouteOrRedirect';
 import { isAuthorized } from './authorization';
-import { ERROR_401, HOLDINGPEN_LOGIN_NEW, USER_LOGIN } from './routes';
+import { ERROR_401, BACKOFFICE_LOGIN, USER_LOGIN } from './routes';
 
 interface PrivateRouteProps extends ComponentPropsWithoutRef<any> {
   loggedIn: boolean;
   userRoles: List<string>;
   authorizedRoles: List<string>;
   component?: JSX.Element | string | any;
-  holdingpen?: boolean;
-  loggedInToHoldingpen?: boolean;
+  backoffice?: boolean;
+  loggedInToBackoffice?: boolean;
 }
 
 function PrivateRoute({ ...props }: PrivateRouteProps) {
@@ -31,13 +31,13 @@ function PrivateRoute({ ...props }: PrivateRouteProps) {
     );
   }
 
-  const resolveLoggedIn = props.holdingpen
-    ? props.loggedInToHoldingpen && props.loggedIn
+  const resolveLoggedIn = props.backoffice
+    ? props.loggedInToBackoffice && props.loggedIn
     : props.loggedIn;
 
   return (
     <RouteOrRedirect
-      redirectTo={props.holdingpen ? HOLDINGPEN_LOGIN_NEW : USER_LOGIN}
+      redirectTo={props.backoffice ? BACKOFFICE_LOGIN : USER_LOGIN}
       condition={resolveLoggedIn || false}
       component={props.component}
       {...props}
@@ -46,13 +46,13 @@ function PrivateRoute({ ...props }: PrivateRouteProps) {
 }
 
 PrivateRoute.defaultProps = {
-  holdingpen: false,
+  backoffice: false,
   authorizedRoles: null,
 };
 
 const stateToProps = (state: RootStateOrAny) => ({
   loggedIn: state.user.get('loggedIn'),
-  loggedInToHoldingpen: state.holdingpen.get('loggedIn'),
+  loggedInToBackoffice: state.backoffice.get('loggedIn'),
   userRoles: state.user.getIn(['data', 'roles']),
 });
 

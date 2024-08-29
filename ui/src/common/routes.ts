@@ -27,13 +27,13 @@ export const HOLDINGPEN = '/holdingpen';
 export const HOLDINGPEN_DASHBOARD = `${HOLDINGPEN}/dashboard`;
 export const HOLDINGPEN_INSPECT = `${HOLDINGPEN}/inspect`;
 
-export const HOLDINGPEN_NEW = '/holdingpen-new';
-export const HOLDINGPEN_LOGIN_NEW = `${HOLDINGPEN_NEW}/login`;
-export const HOLDINGPEN_SEARCH_NEW = `${HOLDINGPEN_NEW}/search`;
-export const BACKOFFICE_LOGIN =
-  'https://backoffice.dev.inspirebeta.net/api/token/';
+export const BACKOFFICE = '/backoffice';
+export const BACKOFFICE_LOGIN = `${BACKOFFICE}/login`;
+export const BACKOFFICE_SEARCH = `${BACKOFFICE}/search`;
 export const BACKOFFICE_API =
   'https://backoffice.dev.inspirebeta.net/api/workflows';
+export const BACKOFFICE_LOGIN_API =
+  'https://backoffice.dev.inspirebeta.net/api/token/';
 export const BACKOFFICE_SEARCH_API = `${BACKOFFICE_API}/search`;
 
 export const ERRORS = '/errors';

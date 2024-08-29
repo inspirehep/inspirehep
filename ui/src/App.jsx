@@ -17,7 +17,7 @@ import {
   HOME,
   USER,
   HOLDINGPEN,
-  HOLDINGPEN_NEW,
+  BACKOFFICE,
   LITERATURE,
   AUTHORS,
   SUBMISSIONS,
@@ -54,8 +54,8 @@ const Holdingpen$ = Loadable({
   loader: () => import('./holdingpen'),
   loading: Loading,
 });
-const HoldingpenNew$ = Loadable({
-  loader: () => import('./holdingpen-new'),
+const Backoffice$ = Loadable({
+  loader: () => import('./backoffice'),
   loading: Loading,
 });
 const Submissions$ = Loadable({
@@ -95,10 +95,10 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
           <Route path={USER} component={User} />
           <PrivateRoute path={HOLDINGPEN} component={Holdingpen$} />
           <PrivateRoute
-            path={HOLDINGPEN_NEW}
-            component={HoldingpenNew$}
+            path={BACKOFFICE}
+            component={Backoffice$}
             authorizedRoles={SUPERUSER_OR_CATALOGER}
-            holdingpen
+            backoffice
           />
           <Route path={LITERATURE} component={Literature} />
           <Route path={AUTHORS} component={Authors} />

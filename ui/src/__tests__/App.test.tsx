@@ -13,7 +13,7 @@ import {
 import App from '../App';
 import { setUserCategoryFromRoles } from '../tracker';
 import { userSignUp, fetchLoggedInUser } from '../actions/user';
-import { HOLDINGPEN_NEW } from '../common/routes';
+import { BACKOFFICE } from '../common/routes';
 
 jest.mock('../tracker');
 jest.mock('../actions/user');
@@ -111,7 +111,7 @@ describe('App', () => {
     expect(holdingpen).not.toBeInTheDocument();
   });
 
-  it('navigates to new Holdingpen when /holdingpen-new if superuser logged in', async () => {
+  it('navigates to Backoffice when /backoffice if superuser logged in', async () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
@@ -122,7 +122,7 @@ describe('App', () => {
     });
     const { getByTestId } = render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={[HOLDINGPEN_NEW]} initialIndex={0}>
+        <MemoryRouter initialEntries={[BACKOFFICE]} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>
@@ -130,12 +130,12 @@ describe('App', () => {
     await Loadable.preloadAll();
 
     const app = getByTestId('app');
-    const holdingpen = within(app).getByTestId('holdingpen-new');
+    const backoffice = within(app).getByTestId('backoffice');
 
-    expect(holdingpen).toBeInTheDocument();
+    expect(backoffice).toBeInTheDocument();
   });
 
-  it('does not navigate to Holdingpen when /holdingpen-new if not logged in', async () => {
+  it('does not navigate to backoffice when /backoffice if not logged in', async () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: false,
@@ -146,16 +146,16 @@ describe('App', () => {
     });
     const { getByTestId } = render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={[HOLDINGPEN_NEW]} initialIndex={0}>
+        <MemoryRouter initialEntries={[BACKOFFICE]} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>
     );
     await Loadable.preloadAll();
     const app = getByTestId('app');
-    const holdingpen = within(app).queryByTestId('holdingpen-new');
+    const backoffice = within(app).queryByTestId('backoffice');
 
-    expect(holdingpen).not.toBeInTheDocument();
+    expect(backoffice).not.toBeInTheDocument();
   });
 
   it('navigates to User when /user', () => {
