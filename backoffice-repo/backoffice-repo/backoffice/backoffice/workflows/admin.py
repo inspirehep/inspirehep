@@ -3,7 +3,7 @@ from django.db.models import JSONField
 from django_json_widget.widgets import JSONEditorWidget
 
 from backoffice.management.permissions import IsAdminOrCuratorUser
-from backoffice.workflows.models import Decision, Workflow
+from backoffice.workflows.models import Decision, Workflow, WorkflowTicket
 
 
 class WorkflowsAdminSite(admin.AdminSite):
@@ -78,6 +78,17 @@ class WorkflowsDecisionsInline(admin.StackedInline):
         return obj.action
 
 
+class WorkflowTicketsInline(admin.StackedInline):
+    model = WorkflowTicket
+    extra = 0
+    can_delete = False
+    show_change_link = True
+    readonly_fields = ["ticket_id", "ticket_type", "_updated_at"]
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
 @admin.register(Workflow)
 class WorkflowAdmin(BaseModelAdmin):
     """
@@ -104,7 +115,7 @@ class WorkflowAdmin(BaseModelAdmin):
         "_updated_at",
     ]
 
-    inlines = [WorkflowsDecisionsInline]
+    inlines = [WorkflowsDecisionsInline, WorkflowTicketsInline]
 
 
 @admin.register(Decision)
@@ -124,3 +135,15 @@ class DecisionAdmin(BaseModelAdmin):
     @admin.display(description="action")
     def action_value(self, obj):
         return obj.action
+
+
+@admin.register(WorkflowTicket)
+class WorkflowTicketAdmin(BaseModelAdmin):
+    """
+    Admin class for WorkflowTicket model. Define get, update and delete permissions.
+    """
+
+    ordering = ("-_updated_at",)
+    search_fields = ["id", "ticket_id"]
+    list_display = ("id", "ticket_id", "ticket_type", "workflow_id")
+    list_filter = ["workflow_id", "ticket_type"]
