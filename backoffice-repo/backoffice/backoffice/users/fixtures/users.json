@@ -1,0 +1,38 @@
+[
+{
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+        "password": "argon2$argon2id$v=19$m=102400,t=2,p=8$M3hDdTNkSHpSTTd0SE5TNW4zNzBQSw$RZmZYp0e0xIReaEvvtg23TX5Pu+OAL2Bl9DPiC0hf/k",
+        "last_login": "2024-07-23T15:05:59Z",
+        "is_superuser": true,
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2024-07-23T15:05:30Z",
+        "name": "",
+        "email": "admin@admin.com",
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+        "password": "argon2$argon2id$v=19$m=102400,t=2,p=8$ckljTUU5WVhhV1YzNXF2Qk92Z2lzdw$F/uGQYwEhmsLf8CMMTHGW7ttU2Q+EdLxlegqCPGyX7o",
+        "last_login": null,
+        "is_superuser": true,
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2024-07-23T15:08:00Z",
+        "name": "",
+        "email": "curator@admin.com",
+        "groups": [
+            2
+        ],
+        "user_permissions": []
+    }
+}
+]
