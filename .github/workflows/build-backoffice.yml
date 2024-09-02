@@ -15,19 +15,14 @@ on:
         description: The context used to build the image
         type: string
         required: true
-      stage:
-        description: The stage to build
-        type: string
-        required: false
       dockerfile:
-        description: The path to the dockerfile
+        description: The path to the Dockerfile
         type: string
         required: false
     outputs:
       image-id:
         description: The ID of image that has been built
         value: ${{ jobs.build.outputs.image-id }}
-
 
 jobs:
   build:
@@ -46,8 +41,9 @@ jobs:
         with:
           image: ${{ inputs.image }}
           context: ${{ inputs.context }}
-          stage: ${{ inputs.stage }}
           dockerfile: ${{ inputs.dockerfile }}
+          registry: registry.cern.ch
+          cache: false
           tags: |
             type=ref,event=branch
             type=ref,event=pr
