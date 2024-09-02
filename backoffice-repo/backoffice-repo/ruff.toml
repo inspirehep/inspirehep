@@ -1,0 +1,39 @@
+target-version = "py311"
+ignore = ["PT009"]
+
+[lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+    # flake8-tidy-imports
+    "TID",
+    # flake8-pytest-style
+    "PT",
+    # airflow-variable-name-task-id-mismatch
+    "AIR",
+
+]
+
+
+[lint.pycodestyle]
+ignore-overlong-task-comments = true
+
+[lint.pydocstyle]
+convention = "google"
+
+[format]
+# Format all docstring code snippets with a line length of 60.
+docstring-code-line-length = 60
