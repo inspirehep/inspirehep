@@ -11,6 +11,7 @@ from django.contrib.auth.models import Group
 from django.test import TransactionTestCase
 from django.urls import reverse
 from django_opensearch_dsl.registries import registry
+from parameterized import parameterized
 from rest_framework import status
 from rest_framework.test import APIClient
 
@@ -490,7 +491,7 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
                 ],
                 "name": {"value": "Smith, John", "preferred_name": "John Smith"},
                 "email_addresses": [
-                    {"value": "john.smith@someting.ch", "current": True}
+                    {"value": "john.smith@something.ch", "current": True}
                 ],
             },
             status=StatusChoices.RUNNING,
@@ -514,9 +515,21 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
 
         response = self.api_client.get(url)
         results = response.json()["results"]
-
         assert len(results) == 1
         assert results[0]["data"]["name"]["value"] == "Smith, John"
+
+    @parameterized.expand(["?search=", "?search=data.email_addresses.value:"])
+    def test_search_data_email(self, query_params):
+        self.api_client.force_authenticate(user=self.admin)
+
+        email = "john.smith@something.ch"
+
+        url = reverse("search:workflow-list") + f"{query_params}{email}"
+
+        response = self.api_client.get(url)
+        results = response.json()["results"]
+        assert len(results) == 1
+        assert results[0]["data"]["email_addresses"][0]["value"] == email
 
     def test_filter_status(self):
         self.api_client.force_authenticate(user=self.admin)
