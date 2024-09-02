@@ -218,15 +218,16 @@ $ yarn start
 ```
 
 In case you wanna use docker and just run the record-editor locally, use the following steps:
+
 1. Add the following volume mount to the record-editor service in the [docker-compose.yml](docker-compose.yml):
-    * `- ./record-editor/dist/:/usr/share/nginx/html`
+   - `- ./record-editor/dist/:/usr/share/nginx/html`
 2. Navigate into the record-editor folder and first run `yarn` and then `yarn start`
 3. Open a second terminal and run `make run`
 
 The record editor should now be availabe and automatically update when changes are made to the codebase.
 
-
 #### General
+
 You can also connect UI to another environment by changing the proxy in `ui/setupProxy.js`
 
 ```javascript

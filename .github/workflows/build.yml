@@ -24,7 +24,6 @@ on:
         description: The ID of image that has been built
         value: ${{ jobs.build.outputs.image-id }}
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
