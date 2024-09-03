@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres-backoffice
+POSTGRES_PORT=5432
+POSTGRES_DB=inspire
+POSTGRES_USER=inspire
+POSTGRES_PASSWORD=inspire
