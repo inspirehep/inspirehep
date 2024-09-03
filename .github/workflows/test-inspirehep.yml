@@ -20,7 +20,7 @@ on:
 
 jobs:
   build-backend:
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build-docker.yml
     with:
       ref: ${{ inputs.ref }}
       image: inspirehep/hep
@@ -47,7 +47,7 @@ jobs:
       splits: ${{ matrix.splits }}
 
   build-ui-build-stage:
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build-docker.yml
     with:
       ref: ${{ inputs.ref }}
       image: inspirehep/ui-build
@@ -68,7 +68,7 @@ jobs:
           yarn test
 
   build-ui:
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build-docker.yml
     with:
       ref: ${{ inputs.ref }}
       image: inspirehep/ui
@@ -76,7 +76,7 @@ jobs:
     secrets: inherit
 
   build-editor-build-stage:
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build-docker.yml
     with:
       ref: ${{ inputs.ref }}
       image: inspirehep/editor-build
@@ -97,7 +97,7 @@ jobs:
           yarn lint
 
   build-editor:
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build-docker.yml
     with:
       ref: ${{ inputs.ref }}
       image: inspirehep/editor

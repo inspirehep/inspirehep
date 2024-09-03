@@ -3,11 +3,14 @@ name: Pull request master
 on:
   pull_request_target:
     branches: [master]
-
+    paths:
+      - "backend/**"
+      - "ui/**"
+      - "record-editor/**"
 
 jobs:
   test:
-    uses: ./.github/workflows/integration-tests.yml
+    uses: ./.github/workflows/test-inspirehep.yml
     with:
       ref: ${{ github.event.pull_request.head.sha }}
     secrets: inherit

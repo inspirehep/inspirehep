@@ -1,0 +1,13 @@
+# Config for Dependabot updates. See Documentation here:
+# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "pip" # pip supports also poetry https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#package-ecosystem
+    directory: "/"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
