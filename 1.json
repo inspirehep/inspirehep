@@ -1,0 +1,84 @@
+[
+  {
+    "Id": "sha256:75046b322104c3f4ed43e8aee1072bbada4f8c12272eef5bd3abaee97055d2f4",
+    "RepoTags": ["inspire-hep-fork-es:latest"],
+    "RepoDigests": [],
+    "Parent": "",
+    "Comment": "buildkit.dockerfile.v0",
+    "Created": "2024-09-02T14:12:53.686243712Z",
+    "DockerVersion": "",
+    "Author": "",
+    "Config": {
+      "Hostname": "",
+      "Domainname": "",
+      "User": "1000",
+      "AttachStdin": false,
+      "AttachStdout": false,
+      "AttachStderr": false,
+      "ExposedPorts": {
+        "9200/tcp": {},
+        "9300/tcp": {},
+        "9600/tcp": {},
+        "9650/tcp": {}
+      },
+      "Tty": false,
+      "OpenStdin": false,
+      "StdinOnce": false,
+      "Env": [
+        "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/opensearch/jdk/bin:/usr/share/opensearch/bin",
+        "JAVA_HOME=/usr/share/opensearch/jdk",
+        "LD_LIBRARY_PATH=:/usr/share/opensearch/plugins/opensearch-knn/lib"
+      ],
+      "Cmd": ["opensearch"],
+      "ArgsEscaped": true,
+      "Image": "",
+      "Volumes": null,
+      "WorkingDir": "/usr/share/opensearch",
+      "Entrypoint": ["./opensearch-docker-entrypoint.sh"],
+      "OnBuild": null,
+      "Labels": {
+        "DOCKERFILE": "https://github.com/opensearch-project/opensearch-build/blob/main/docker/release/dockerfiles/opensearch.al2.dockerfile",
+        "com.docker.compose.project": "inspire-hep-fork",
+        "com.docker.compose.service": "es",
+        "com.docker.compose.version": "2.29.1",
+        "org.label-schema.build-date": "2024-08-15T20:09:07Z",
+        "org.label-schema.description": "10154",
+        "org.label-schema.license": "Apache-2.0",
+        "org.label-schema.name": "opensearch",
+        "org.label-schema.schema-version": "1.0",
+        "org.label-schema.url": "https://opensearch.org",
+        "org.label-schema.vcs-url": "https://github.com/opensearch-project/OpenSearch",
+        "org.label-schema.vendor": "OpenSearch",
+        "org.label-schema.version": "2.16.0"
+      }
+    },
+    "Architecture": "arm64",
+    "Os": "linux",
+    "Size": 1160957493,
+    "GraphDriver": {
+      "Data": {
+        "LowerDir": "/var/lib/docker/overlay2/7098e29a597ce7b1c8a6c45030cce0d4cfd049f77604b330b248a4be5640092f/diff:/var/lib/docker/overlay2/f42329079c54640f5fe90980581318765084fb91f65b98277311abaf3ea81958/diff:/var/lib/docker/overlay2/cc4feff738a9a7acde54f5bc625957e5ba2366e41fa9567e301a57ebf1d1350e/diff:/var/lib/docker/overlay2/4ed98f2e49765d799c189b15a27c591738f0dda10bd116c94d4212830e80af60/diff:/var/lib/docker/overlay2/5f6ed9a14078d4d72ce9ff16b49fa96c67884eb43d879770b23289e1fdf5d72b/diff:/var/lib/docker/overlay2/2996a34ffd31d54bf7fc79e6e3901d726e3a79ce89761cf7dc0158018be6d1c3/diff:/var/lib/docker/overlay2/36f73feb29b9a3e92dab8501b115eb5097fd2609471efce30be359025b9810ce/diff",
+        "MergedDir": "/var/lib/docker/overlay2/n8ig7j9xez0v1u8ctj8qub7zu/merged",
+        "UpperDir": "/var/lib/docker/overlay2/n8ig7j9xez0v1u8ctj8qub7zu/diff",
+        "WorkDir": "/var/lib/docker/overlay2/n8ig7j9xez0v1u8ctj8qub7zu/work"
+      },
+      "Name": "overlay2"
+    },
+    "RootFS": {
+      "Type": "layers",
+      "Layers": [
+        "sha256:39723fc308a89faa371841ea85b0eed3e5685b45dd5097a4d83c5c3aadf4b951",
+        "sha256:11cad680d0a76a9a5156f6e8af82327fc6643f62391c82510339d13a82cd911d",
+        "sha256:3253edf253ed379cf682296ce5b52eb762eff358d977790a44428626cb2f0958",
+        "sha256:1d94e06c0c8843b09fe2277bb63c1326beea66e2ae95ec7c9f62436ed6a0e826",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:94b7cc548f0e453f236953d03147b5e1455aff8587e85cd1ceccdcc92b1f5118",
+        "sha256:26a8e1551a3a55c3b4acca47b4ce3bb6aa8bf423aa1371fea1fa7d7ac3932e73",
+        "sha256:fcfc9260cf26da003554ff88915ee019d91e00fca214bbcce5244dead8da65d1"
+      ]
+    },
+    "Metadata": {
+      "LastTagTime": "2024-09-03T13:03:27.178171839Z"
+    }
+  }
+]

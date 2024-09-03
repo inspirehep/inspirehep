@@ -31,6 +31,12 @@ services:
     read_only: true
     ports:
       - '6379:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 30s
+      retries: 50
+      start_period: 30s
   db:
     image: postgres:14.1
     restart: 'always'
@@ -41,12 +47,17 @@ services:
       - 'POSTGRES_DB=inspirehep'
     ports:
       - '5432:5432'
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', 'inspire']
+      interval: 10s
+      retries: 5
+      start_period: 5s
   mq:
     image: rabbitmq:3.12.0-management
     restart: 'always'
   es:
-    build:
-      context: docker/opensearch
+    platform: linux/amd64
+    image: registry.cern.ch/cern-sis/inspirehep/opensearch:2.13.0
     restart: 'always'
     environment:
       - DISABLE_SECURITY_PLUGIN=true
@@ -55,7 +66,7 @@ services:
       - discovery.seed_hosts=opensearch-node1
       - bootstrap.memory_lock=true
       - discovery.type=single-node
-      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+      - 'ES_JAVA_OPTS=-Xms1024m -Xms1024m'
     ulimits:
       memlock:
         soft: -1
@@ -68,6 +79,11 @@ services:
       - 9200:9200
       - 9300:9300
       - 9600:9600 # performance analysis
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:9200']
+      interval: 30s
+      timeout: 10s
+      retries: 5
   kibana:
     image: kibana:7.10.1
     environment:
