@@ -218,9 +218,9 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                         <p>
                           See error details here:{' '}
                           <a
-                            href={`${ERRORS_URL}/${id}`}
+                            href={`${ERRORS_URL}${id}`}
                             target="_blank"
-                          >{`${ERRORS_URL}/${id}`}</a>
+                          >{`${ERRORS_URL}${id}`}</a>
                         </p>
                       </CollapsableForm.Section>
                     )}
