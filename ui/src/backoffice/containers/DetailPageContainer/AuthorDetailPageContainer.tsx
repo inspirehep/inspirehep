@@ -184,7 +184,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                     )}
                     <CollapsableForm.Section header="Other" key="other">
                       <Row justify="space-between" gutter={12}>
-                        <Col xl={12}>
+                        <Col span={12}>
                           <h3 className="mb3">Subject areas</h3>
                           <Table
                             columns={columnsSubject}
@@ -199,7 +199,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                             }
                           />
                         </Col>
-                        <Col xl={12}>
+                        <Col span={12}>
                           <h3 className="mb3">Advisors</h3>
                           <Table
                             columns={columnsAdvisors}
