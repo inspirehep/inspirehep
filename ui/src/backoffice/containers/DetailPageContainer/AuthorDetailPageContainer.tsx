@@ -32,12 +32,14 @@ import DeleteWorkflow from '../../components/DeleteWorkflow/DeleteWorkflow';
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
 import LinkLikeButton from '../../../common/components/LinkLikeButton/LinkLikeButton';
 import { BACKOFFICE_SEARCH } from '../../../common/routes';
+import { isSuperUser } from '../../../common/authorization';
 
 interface AuthorDetailPageContainerProps {
   dispatch: ActionCreator<Action>;
   author: Map<string, any>;
   loading: boolean;
   actionInProgress: string | false;
+  isSuperUserLoggedIn: boolean;
 }
 
 const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
@@ -45,6 +47,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
   author,
   loading,
   actionInProgress,
+  isSuperUserLoggedIn,
 }) => {
   const { id } = useParams<{ id: string }>();
 
@@ -60,7 +63,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
   const shouldDisplayDecisionsBox =
     decision || status === 'approval' || (decision && status !== 'approval');
 
-  const ERRORS_URL = getConfigFor('INSPIRE_WORKFLOWS_DAGS_URL');
+  const DAGS_URL = getConfigFor('INSPIRE_WORKFLOWS_DAGS_URL');
 
   const OPEN_SECTIONS = [
     data?.get('positions') && 'institutions',
@@ -218,9 +221,9 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                         <p>
                           See error details here:{' '}
                           <a
-                            href={`${ERRORS_URL}${id}`}
+                            href={`${DAGS_URL}${id}`}
                             target="_blank"
-                          >{`${ERRORS_URL}${id}`}</a>
+                          >{`${DAGS_URL}${id}`}</a>
                         </p>
                       </CollapsableForm.Section>
                     )}
@@ -328,6 +331,18 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                       </p>
                     )}
                   </ContentBox>
+                  {isSuperUserLoggedIn && (
+                    <ContentBox
+                      className="mb3"
+                      fullHeight={false}
+                      subTitle="Running dags"
+                    >
+                      <a
+                        href={`${DAGS_URL}${id}`}
+                        target="_blank"
+                      >{`${DAGS_URL}${id}`}</a>
+                    </ContentBox>
+                  )}
                   <ContentBox
                     fullHeight={false}
                     subTitle="Actions"
@@ -392,6 +407,7 @@ const stateToProps = (state: RootStateOrAny) => ({
   author: state.backoffice.get('author'),
   loading: state.backoffice.get('loading'),
   actionInProgress: state.backoffice.get('actionInProgress'),
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 
 export default connect(stateToProps)(AuthorDetailPageContainer);
