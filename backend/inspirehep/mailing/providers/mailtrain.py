@@ -23,7 +23,12 @@ def mailtrain_subscribe_user_to_list(list_id, email, first_name, last_name):
         last_name (str): user last name.
     """
     LOGGER.info("Adding user to the mailing list.", list_id=list_id, email=email)
-    data = {"FIRST_NAME": first_name, "LAST_NAME": last_name, "EMAIL": email}
+    data = {
+        "FIRST_NAME": first_name,
+        "LAST_NAME": last_name,
+        "EMAIL": email,
+        "FORCE_SUBSCRIBE": "yes",
+    }
     response = requests.post(
         f"{current_app.config.get('MAILTRAIN_URL')}/api/subscribe/{list_id}",
         params={"access_token": current_app.config.get("MAILTRAIN_API_TOKEN")},
