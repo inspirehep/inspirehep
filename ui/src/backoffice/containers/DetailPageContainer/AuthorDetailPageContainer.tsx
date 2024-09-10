@@ -337,10 +337,13 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                       fullHeight={false}
                       subTitle="Running dags"
                     >
-                      <a
-                        href={`${DAGS_URL}${id}`}
-                        target="_blank"
-                      >{`${DAGS_URL}${id}`}</a>
+                      <div className="flex flex-column items-center">
+                        <Button className="w-75">
+                          <a href={`${DAGS_URL}${id}`} target="_blank">
+                            See running dags
+                          </a>
+                        </Button>
+                      </div>
                     </ContentBox>
                   )}
                   <ContentBox
