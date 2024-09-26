@@ -1,0 +1,57 @@
+{
+    "addresses": [
+        {
+            "state": "NJ",
+            "cities": [
+                "Princeton"
+            ],
+            "latitude": 40.3572976,
+            "longitude": -74.6672226,
+            "country_code": "US"
+        },
+        {
+            "place_name": "New Jersey United States"
+        }
+    ],
+    "cnum": "C14-06-23.6",
+    "core": true,
+    "self": {
+        "$ref": "https://labs.inspirehep.net/api/conferences/1305234"
+    },
+    "urls": [
+        {
+            "value": "http://physics.princeton.edu/strings2014/Home.shtml",
+            "description": "web page"
+        }
+    ],
+    "series": [
+        {
+            "name": "strings"
+        }
+    ],
+    "titles": [
+        {
+            "title": "International conference on string theory"
+        }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+    "acronyms": [
+        "Strings 2014"
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "2014-06-27",
+    "opening_date": "2014-06-23",
+    "control_number": 1305234,
+    "legacy_version": "20161028121312.0",
+    "short_description": {
+        "value": "For decades, meetings in the Strings series have been focal points of the field, with experts from around the world presenting new work and reviewing recent developments. Strings 2014 will follow in this tradition, aiming for a unified presentation of the many strands of modern string theory."
+    },
+    "inspire_categories": [
+        {
+            "term": "Theory-HEP"
+        }
+    ],
+    "legacy_creation_date": "2014-07-08"
+}

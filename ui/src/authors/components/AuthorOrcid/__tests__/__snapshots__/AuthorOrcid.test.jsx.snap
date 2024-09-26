@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorOrcid renders with orcid 1`] = `
+<OrcidProfileLink
+  className="__AuthorOrcid__"
+  orcid="0000-0001-8058-0014"
+>
+  <Tooltip
+    title="ORCID"
+  >
+    <img
+      alt="ORCID"
+      src="orcid.svg"
+    />
+  </Tooltip>
+</OrcidProfileLink>
+`;

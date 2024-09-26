@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorAlertOrChildren renders children without eror 1`] = `
+<div>
+  Test
+</div>
+`;
+
+exports[`ErrorAlertOrChildren renders error if present 1`] = `
+<ErrorAlert
+  message="Error"
+/>
+`;

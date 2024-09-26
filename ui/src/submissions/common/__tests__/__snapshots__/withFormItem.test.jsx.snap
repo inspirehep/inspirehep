@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`withFormItem passes all props correctly to Form.Item and wrapped Input component (with error) 1`] = `
+<InternalFormItem
+  className=""
+  hasFeedback={true}
+  help={
+    <span
+      data-test-id="test-error"
+    >
+      Error
+    </span>
+  }
+  label={
+    <Tooltip
+      title="Test Label"
+    >
+      Test Label
+    </Tooltip>
+  }
+  labelCol={
+    Object {
+      "md": Object {
+        "span": 5,
+      },
+      "sm": Object {
+        "span": 24,
+      },
+    }
+  }
+  validateStatus="error"
+  wrapperCol={
+    Object {
+      "md": Object {
+        "span": 19,
+      },
+      "sm": Object {
+        "span": 24,
+      },
+    }
+  }
+>
+  <TestField
+    data-test-id="test"
+    fieldProp1="fp1"
+    form={
+      Object {
+        "errors": Object {
+          "test": "Error",
+        },
+        "touched": Object {
+          "test": true,
+        },
+      }
+    }
+    frieldProp2="fp2"
+    name="test"
+    normalProp1="np1"
+    normalProp2="np2"
+  />
+  <span
+    className="pl2"
+  >
+    Test Suffix
+  </span>
+</InternalFormItem>
+`;
+
+exports[`withFormItem passes all props correctly to Form.Item and wrapped Input component (without error) 1`] = `
+<InternalFormItem
+  className=""
+  hasFeedback={false}
+  label={
+    <Tooltip
+      title="Test Label"
+    >
+      Test Label
+    </Tooltip>
+  }
+  labelCol={
+    Object {
+      "md": Object {
+        "span": 5,
+      },
+      "sm": Object {
+        "span": 24,
+      },
+    }
+  }
+  validateStatus=""
+  wrapperCol={
+    Object {
+      "md": Object {
+        "span": 19,
+      },
+      "sm": Object {
+        "span": 24,
+      },
+    }
+  }
+>
+  <TestField
+    data-test-id="test"
+    fieldProp1="fp1"
+    form={
+      Object {
+        "errors": Object {},
+        "touched": Object {
+          "test": true,
+        },
+      }
+    }
+    frieldProp2="fp2"
+    name="test"
+    normalProp1="np1"
+    normalProp2="np2"
+  />
+  <span
+    className="pl2"
+  >
+    Test Suffix
+  </span>
+</InternalFormItem>
+`;
+
+exports[`withFormItem passes props correctly to Form.Item and wrapped Input component (without error and custom layout) 1`] = `
+<InternalFormItem
+  className=""
+  hasFeedback={false}
+  label={
+    <Tooltip
+      title="Test Label"
+    >
+      Test Label
+    </Tooltip>
+  }
+  labelCol={
+    Object {
+      "offset": 2,
+      "span": 3,
+    }
+  }
+  validateStatus=""
+  wrapperCol={
+    Object {
+      "span": 10,
+    }
+  }
+>
+  <TestField
+    data-test-id="test"
+    fieldProp1="fp1"
+    form={
+      Object {
+        "errors": Object {},
+        "touched": Object {
+          "test": true,
+        },
+      }
+    }
+    frieldProp2="fp2"
+    name="test"
+    normalProp1="np1"
+    normalProp2="np2"
+  />
+</InternalFormItem>
+`;
+
+exports[`withFormItem passes props correctly to Form.Item and wrapped Input component (without error and only child) 1`] = `
+<InternalFormItem
+  className="mb2-important"
+  hasFeedback={false}
+  labelCol={null}
+  validateStatus=""
+  wrapperCol={
+    Object {
+      "span": 24,
+    }
+  }
+>
+  <TestField
+    data-test-id="test"
+    fieldProp1="fp1"
+    form={
+      Object {
+        "errors": Object {},
+        "touched": Object {
+          "test": true,
+        },
+      }
+    }
+    frieldProp2="fp2"
+    name="test"
+    normalProp1="np1"
+    normalProp2="np2"
+  />
+</InternalFormItem>
+`;

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MoreInfo renders with urls 1`] = `
+<div>
+  <strong>
+    More Information: 
+  </strong>
+  <URLList
+    urls={
+      Immutable.List [
+        Immutable.Map {
+          "value": "url1",
+        },
+        Immutable.Map {
+          "value": "url2",
+        },
+      ]
+    }
+    wrapperClassName="di"
+  />
+</div>
+`;

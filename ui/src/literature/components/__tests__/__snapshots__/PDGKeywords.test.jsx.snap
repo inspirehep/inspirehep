@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PDGKeywords renders with keywords 1`] = `
+<div>
+  PDG:
+   
+  <LinkWithTargetBlank
+    as="a"
+    href="https://pdglive.lbl.gov/view/Q007TP"
+  >
+    <Latex>
+      \\Gamma($  \${{\\mathit W}^{+}}$   $\\rightarrow$   \${{\\mathit \\ell}^{+}}{{\\mathit \\nu}})/\\Gamma_{\\text{total}}
+    </Latex>
+  </LinkWithTargetBlank>
+  <div
+    className="di pl2"
+  >
+    <SecondaryButton
+      onClick={[Function]}
+    >
+      Show All(
+      2
+      )
+    </SecondaryButton>
+  </div>
+  <Modal
+    bodyStyle={
+      Object {
+        "padding": "12px 24px 24px 24px",
+      }
+    }
+    footer={null}
+    onCancel={[Function]}
+    open={false}
+    title="PDG keywords"
+    width="50%"
+  >
+    <List
+      dataSource={
+        Immutable.List [
+          Immutable.Map {
+            "value": "Q007TP",
+            "description": "\\\\Gamma($  \${{\\\\mathit W}^{+}}$   $\\\\rightarrow$   \${{\\\\mathit \\\\ell}^{+}}{{\\\\mathit \\\\nu}})/\\\\Gamma_{\\\\text{total}}",
+          },
+          Immutable.Map {
+            "value": "2137",
+            "description": "test",
+          },
+        ]
+      }
+      pagination={
+        Object {
+          "hideOnSinglePage": true,
+          "pageSize": 10,
+          "size": "small",
+        }
+      }
+      renderItem={[Function]}
+      size="small"
+    />
+  </Modal>
+</div>
+`;

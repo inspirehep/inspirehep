@@ -1,0 +1,549 @@
+{
+   "core":true,
+   "curated":true,
+   "_collections":[
+      "Literature"
+   ],
+   "dois":[
+      {
+         "source":"Springer",
+         "value":"10.1007/s10751-018-1508-0"
+      }
+   ],
+   "_export_to":{
+      "HAL":true
+   },
+   "_desy_bookkeeping":[
+      {
+         "identifier":"DA18-kp37ad"
+      },
+      {
+         "date":"2018-09-12",
+         "status":"abs",
+         "expert":"G"
+      },
+      {
+         "date":"2018-09-16",
+         "status":"printed",
+         "expert":"G"
+      },
+      {
+         "date":"2018-09-23",
+         "status":"final",
+         "expert":"G"
+      }
+   ],
+   "titles":[
+      {
+         "source":"Springer",
+         "title":"Recent results on CP violation at B factories"
+      }
+   ],
+   "references":[
+      {
+         "reference":{
+            "authors":[
+               {
+                  "full_name":"Charles, J."
+               }
+            ],
+            "misc":[
+               "[CKMFitter Group]:"
+            ],
+            "urls":[
+               {
+                  "value":"http://ckmfitter.in2p3.fr"
+               }
+            ],
+            "label":"1"
+         }
+      },
+      {
+         "record":{
+            "$ref":"http://labs.inspirehep.net/api/literature/1668122"
+         },
+         "reference":{
+            "arxiv_eprint":"1804.06152",
+            "collaborations":[
+               "Belle Collaborations"
+            ],
+            "authors":[
+               {
+                  "full_name":"Adachi, I."
+               }
+            ],
+            "misc":[
+               "[BABAR : submitted to Phys. Rev. Lett"
+            ],
+            "label":"2"
+         },
+         "curated_relation":false
+      },
+      {
+         "record":{
+            "$ref":"http://labs.inspirehep.net/api/literature/1668123"
+         },
+         "reference":{
+            "arxiv_eprint":"1804.06153",
+            "collaborations":[
+               "Belle Collaborations"
+            ],
+            "authors":[
+               {
+                  "full_name":"Adachi, I."
+               }
+            ],
+            "misc":[
+               "[BABAR : submitted to Phys. Rev. D"
+            ],
+            "label":"3"
+         },
+         "curated_relation":false
+      },
+      {
+         "record":{
+            "$ref":"http://labs.inspirehep.net/api/literature/678630"
+         },
+         "reference":{
+            "publication_info":{
+               "journal_volume":"624",
+               "page_start":"1",
+               "journal_title":"Phys.Lett.B",
+               "artid":"1",
+               "year":2005
+            },
+            "authors":[
+               {
+                  "full_name":"Bondar, A."
+               },
+               {
+                  "full_name":"Gershon, T."
+               },
+               {
+                  "full_name":"Krokovny, O."
+               }
+            ],
+            "misc":[
+               ": A method to measure f1 using B0 \\u2192 D(\\u2217) h0 with multibody D decay"
+            ],
+            "label":"4"
+         },
+         "curated_relation":false
+      },
+      {
+         "record":{
+            "$ref":"http://labs.inspirehep.net/api/literature/247143"
+         },
+         "reference":{
+            "publication_info":{
+               "journal_volume":"296",
+               "page_start":"493",
+               "journal_title":"Nucl.Phys.B",
+               "artid":"493",
+               "year":1988
+            },
+            "authors":[
+               {
+                  "full_name":"Aston, D."
+               }
+            ],
+            "misc":[
+               "[LASS Collaboration]: A study of K-p+ scattering in the reaction K-p \\u2192 K-p+ n at 11 GeV/c"
+            ],
+            "label":"5"
+         },
+         "curated_relation":false
+      },
+      {
+         "record":{
+            "$ref":"http://labs.inspirehep.net/api/literature/407128"
+         },
+         "legacy_curated":true,
+         "reference":{
+            "publication_info":{
+               "journal_volume":"507",
+               "page_start":"404",
+               "journal_title":"Annals Phys.",
+               "artid":"404",
+               "year":1995
+            },
+            "authors":[
+               {
+                  "full_name":"Chung, S.U."
+               }
+            ],
+            "misc":[
+               ": Partial wave analysis in K-matrix formalism"
+            ],
+            "label":"6"
+         },
+         "curated_relation":true
+      },
+      {
+         "record":{
+            "$ref":"http://labs.inspirehep.net/api/literature/1336340"
+         },
+         "reference":{
+            "publication_info":{
+               "journal_volume":"96",
+               "journal_title":"Phys.Rev.D",
+               "artid":"072001",
+               "year":2017
+            },
+            "authors":[
+               {
+                  "full_name":"Lees, J.P."
+               }
+            ],
+            "misc":[
+               "[The BABAR Collaboration]:"
+            ],
+            "label":"7"
+         },
+         "curated_relation":false
+      },
+      {
+         "record":{
+            "$ref":"http://labs.inspirehep.net/api/literature/1498564"
+         },
+         "reference":{
+            "publication_info":{
+               "journal_volume":"95",
+               "journal_title":"Phys.Rev.D",
+               "artid":"072001",
+               "year":2017
+            },
+            "authors":[
+               {
+                  "full_name":"Lees, J.P."
+               }
+            ],
+            "misc":[
+               "[The BABAR Collaboration]:"
+            ],
+            "label":"8"
+         },
+         "curated_relation":false
+      },
+      {
+         "record":{
+            "$ref":"http://labs.inspirehep.net/api/literature/693345"
+         },
+         "reference":{
+            "publication_info":{
+               "journal_volume":"73",
+               "journal_title":"Phys.Rev.D",
+               "artid":"012006",
+               "year":2006
+            },
+            "authors":[
+               {
+                  "full_name":"Aubert, B."
+               }
+            ],
+            "misc":[
+               "[The BABAR Collaboration]:"
+            ],
+            "label":"9"
+         },
+         "curated_relation":false
+      },
+      {
+         "record":{
+            "$ref":"http://labs.inspirehep.net/api/literature/499956"
+         },
+         "reference":{
+            "publication_info":{
+               "journal_volume":"06",
+               "page_start":"017",
+               "journal_title":"JHEP",
+               "artid":"017",
+               "year":1999
+            },
+            "misc":[
+               "DN: DeFazio, and Neubert: (superceded by BLNP)"
+            ],
+            "label":"10"
+         },
+         "curated_relation":false
+      },
+      {
+         "legacy_curated":true,
+         "reference":{
+            "publication_info":{
+               "journal_volume":"699",
+               "page_start":"335",
+               "journal_title":"Nucl.Phys B",
+               "artid":"335",
+               "year":2004
+            },
+            "misc":[
+               "BLNP: Bosch, Lange, Neubert, Paz"
+            ],
+            "label":"11"
+         }
+      },
+      {
+         "reference":{
+            "publication_info":{
+               "journal_volume":"908",
+               "page_start":"058",
+               "journal_title":"JHEP",
+               "artid":"058",
+               "year":2007
+            },
+            "misc":[
+               "GGOU: Gambino, Giordano, Ossola, Uraltsev:"
+            ],
+            "label":"12"
+         }
+      },
+      {
+         "record":{
+            "$ref":"http://labs.inspirehep.net/api/literature/693755"
+         },
+         "reference":{
+            "publication_info":{
+               "journal_volume":"01",
+               "page_start":"097",
+               "journal_title":"JHEP",
+               "artid":"097",
+               "year":2006
+            },
+            "misc":[
+               "DGE: Andersen, Gardi:"
+            ],
+            "label":"13"
+         },
+         "curated_relation":false
+      }
+   ],
+   "authors":[
+      {
+         "uuid":"dbe479c8-013d-4fdf-ba9b-1b70e6116546",
+         "affiliations":[
+            {
+               "record":{
+                  "$ref":"http://labs.inspirehep.net/api/institutions/912490"
+               },
+               "value":"IRFU, Saclay"
+            }
+         ],
+         "ids":[
+            {
+               "value":"0000-0003-3048-8265",
+               "schema":"ORCID"
+            },
+            {
+               "value":"S.Emery.1",
+               "schema":"INSPIRE BAI"
+            }
+         ],
+         "raw_affiliations":[
+            {
+               "value":"IRFU - CEA - Universit\\u00e9 Paris-Saclay - F-91191 - Gif-sur-Yvette - France"
+            }
+         ],
+         "record":{
+            "$ref":"http://labs.inspirehep.net/api/authors/1010769"
+         },
+         "full_name":"Emery-Schrenk, Sandrine",
+         "curated_relation":true,
+         "signature_block":"SRANCs"
+      }
+   ],
+   "keywords":[
+      {
+         "value":"14.65.Fy",
+         "schema":"PACS"
+      },
+      {
+         "value":"13.25.Hw",
+         "schema":"PACS"
+      },
+      {
+         "value":"13.20.He",
+         "schema":"PACS"
+      },
+      {
+         "value":"12.15.-y",
+         "schema":"PACS"
+      },
+      {
+         "source":"author",
+         "value":"CP violation"
+      },
+      {
+         "source":"author",
+         "value":"Quark"
+      },
+      {
+         "source":"author",
+         "value":"Beauty factories"
+      },
+      {
+         "value":"talk: Paris 2018/03/12",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"electron positron: annihilation",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"electron positron: colliding beams",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"B: pair production",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"D0: hadronic decay",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"B+: hadronic decay",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"CP: violation",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"CKM matrix: unitarity",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"K*(892): intermediate state",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"BaBar",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"BELLE",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"particle source",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"Dalitz plot",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"B-factory",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"time dependence",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"Upsilon(10570): electroproduction",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"KEK-B",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"SLAC PEP Stor",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"experimental results",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"D0 --> K0(S) pi+ pi-",
+         "schema":"INSPIRE"
+      },
+      {
+         "value":"B+ --> K0(S) pi+ pi0",
+         "schema":"INSPIRE"
+      }
+   ],
+   "external_system_identifiers":[
+      {
+         "value":"hal-01875925",
+         "schema":"HAL"
+      }
+   ],
+   "$schema":"https://labs.inspirehep.net/schemas/records/hep.json",
+   "document_type":[
+      "conference paper"
+   ],
+   "legacy_version":"20180924084648.0",
+   "acquisition_source":{
+      "source":"Springer",
+      "method":"batchuploader"
+   },
+   "citeable":true,
+   "control_number":1692403,
+   "collaborations":[
+      {
+         "value":"BaBar"
+      },
+      {
+         "value":"Belle"
+      }
+   ],
+   "self":{
+      "$ref":"http://labs.inspirehep.net/api/literature/1692403"
+   },
+   "number_of_pages":6,
+   "inspire_categories":[
+      {
+         "term":"Experiment-HEP"
+      }
+   ],
+   "publication_info":[
+      {
+         "journal_title":"Hyperfine Interact.",
+         "cnum":"C18-03-12.1",
+         "conference_record":{
+            "$ref":"http://labs.inspirehep.net/api/conferences/1646151"
+         },
+         "journal_volume":"239",
+         "journal_record":{
+            "$ref":"http://labs.inspirehep.net/api/journals/1214732"
+         },
+         "artid":"36",
+         "year":2018,
+         "page_start":"36",
+         "journal_issue":"1"
+      }
+   ],
+   "legacy_creation_date":"2018-09-03",
+   "accelerator_experiments":[
+      {
+         "record":{
+            "$ref":"http://labs.inspirehep.net/api/experiments/1108553"
+         },
+         "legacy_name":"SLAC-PEP2-BABAR"
+      },
+      {
+         "record":{
+            "$ref":"http://labs.inspirehep.net/api/experiments/1108579"
+         },
+         "legacy_name":"KEK-BF-BELLE"
+      }
+   ],
+   "texkeys":[
+      "Emery-Schrenk:2018ewv"
+   ],
+   "abstracts":[
+      {
+         "source":"Springer",
+         "value":"We review recent results of the Beauty Factories BaBar and Belle on CP violation in the quark sector and constraints on the CKM unitarity triangle. We first present the recent measurement, using BaBar and Belle data, of cos(2\\u03b2) = cos(2\\u03d5$_{1}$) in B$^{0}$ \\u2192 D$^{(\\u2217)}$h$^{0}$ with $D \\\\rightarrow {K^{0S}} \\\\pi ^{+} \\\\pi ^{-}$ decays, using a combined time-dependent Dalitz plot analysis. The BaBar Dalitz plot analysis of the $B^{+} \\\\rightarrow {K^{0S}} \\\\pi ^{+} \\\\pi ^{0}$ decay is also presented, and shows an evidence for direct CP violation in B$^{+}$ \\u2192 K$^{\\u2217}$(892)\\u03c0$^{0}$. A recently published BaBar measurement of the |V$_{ub}$| CKM matrix element allows to contrain one side of the unitarity triangle. These analyses use the data sets of the BaBar and Belle experiments containing 471 \\u00d7 10$^{6}$ and 772 \\u00d7 10$^{6}$ $B\\\\overline {B}$ pairs collected at the \\u03a5(4S) resonance at the asymmetric-energy B factories PEP-II at SLAC and KEKB at KEK, respectively."
+      }
+   ],
+   "imprints":[
+      {
+         "date":"2018-08-28"
+      }
+   ]
+}

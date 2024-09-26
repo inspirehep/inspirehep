@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JournalItem renders with props 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <UrlsAction
+        icon={<ForwardRef(LinkOutlined) />}
+        page="Journals search"
+        text="links"
+        trackerEventId="Journal website"
+        urls={
+          Immutable.List [
+            Immutable.Map {
+              "value": "http://url.com",
+            },
+          ]
+        }
+      />
+      <Connect(Authorized)
+        authorizedRoles={
+          Immutable.List [
+            "superuser",
+            "cataloger",
+          ]
+        }
+      >
+        <EditRecordAction
+          page="Journals search"
+          pidType="journals"
+          pidValue={1234}
+        />
+      </Connect(Authorized)>
+    </React.Fragment>
+  }
+  rightActions={
+    <UserActionWrapper>
+      <EventTracker
+        eventAction="Literature references search"
+        eventCategory="Journals search"
+        eventId="Journal papers"
+        eventPropName="onClick"
+        extractEventArgsToForward={null}
+      >
+        <Link
+          to="/literature?sort=mostrecent&size=25&page=1&q=publication_info.journal_title:\\"West Virginia U.\\""
+        >
+          <IconText
+            icon={<ForwardRef(LoginOutlined) />}
+            text="2 papers"
+          />
+        </Link>
+      </EventTracker>
+    </UserActionWrapper>
+  }
+>
+  <Row>
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/journals/1234"
+      >
+        <PageHeader
+          className="site-page-header"
+          subTitle="(Liverpool)"
+          title="West Virginia U."
+        />
+      </Link>
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      title
+      Department of Physics
+    </Col>
+  </Row>
+</ResultItem>
+`;
+
+exports[`JournalItem renders with some props undefined 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <Connect(Authorized)
+        authorizedRoles={
+          Immutable.List [
+            "superuser",
+            "cataloger",
+          ]
+        }
+      >
+        <EditRecordAction
+          page="Journals search"
+          pidType="journals"
+          pidValue={1234}
+        />
+      </Connect(Authorized)>
+    </React.Fragment>
+  }
+  rightActions={null}
+>
+  <Row>
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/journals/1234"
+      >
+        <PageHeader
+          className="site-page-header"
+          title="West Virginia U."
+        />
+      </Link>
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      Department of Physics
+    </Col>
+  </Row>
+</ResultItem>
+`;

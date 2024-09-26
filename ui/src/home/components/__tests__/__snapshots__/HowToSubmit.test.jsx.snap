@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HowToSubmit renders 1`] = `
+<Row
+  justify="center"
+>
+  <Col
+    className="pa3"
+  >
+    <SubmissionCard
+      formLink="/submissions/literature"
+      title="Literature"
+    >
+      <p>
+        Suggest missing articles.
+      </p>
+      <p>
+        All submissions will be visible upon approval.
+      </p>
+    </SubmissionCard>
+  </Col>
+  <Col
+    className="pa3"
+  >
+    <SubmissionCard
+      formLink="/submissions/authors"
+      title="Author"
+    >
+      <p>
+        Create the profile of a new author.
+      </p>
+      <p>
+        All submissions will be visible upon approval.
+      </p>
+    </SubmissionCard>
+  </Col>
+  <Col
+    className="pa3"
+  >
+    <SubmissionCard
+      formLink="/submissions/jobs"
+      title="Job"
+    >
+      <p>
+        Submit a new job.
+      </p>
+      <p>
+        All submissions will be visible upon approval.
+      </p>
+    </SubmissionCard>
+  </Col>
+  <Col
+    className="pa3"
+  >
+    <SubmissionCard
+      formLink="/submissions/seminars"
+      title="Seminar"
+    >
+      <p>
+        Submit a new seminar.
+      </p>
+      <p>
+        All submissions will be visible immediately.
+      </p>
+    </SubmissionCard>
+  </Col>
+  <Col
+    className="pa3"
+  >
+    <SubmissionCard
+      formLink="/submissions/conferences"
+      title="Conference"
+    >
+      <p>
+        Submit a new conference.
+      </p>
+      <p>
+        All submissions will be visible immediately.
+      </p>
+    </SubmissionCard>
+  </Col>
+</Row>
+`;

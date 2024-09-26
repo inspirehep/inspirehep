@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConferenceSuggestion renders with full conference 1`] = `
+<Fragment>
+  <div>
+    <strong>
+      The Conference
+    </strong>
+  </div>
+  <div
+    className="f7"
+  >
+    <div>
+      <span>
+        (
+        The Acronym 1
+        )
+      </span>
+    </div>
+    <div>
+      <span>
+        1 May 1999
+         
+      </span>
+      <span>
+        <span>
+          Istanbul
+          , 
+        </span>
+         
+        TR
+      </span>
+    </div>
+    <div>
+      <span>
+        12345
+      </span>
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`ConferenceSuggestion renders with only title 1`] = `
+<Fragment>
+  <div>
+    <strong>
+      The Conference
+    </strong>
+  </div>
+  <div
+    className="f7"
+  >
+    <div />
+    <div>
+      <span>
+         
+      </span>
+      <span>
+         
+      </span>
+    </div>
+    <div>
+      <span />
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`ConferenceSuggestion renders with title and address but without city 1`] = `
+<Fragment>
+  <div>
+    <strong>
+      The Conference
+    </strong>
+  </div>
+  <div
+    className="f7"
+  >
+    <div />
+    <div>
+      <span>
+         
+      </span>
+      <span>
+         
+        TR
+      </span>
+    </div>
+    <div>
+      <span />
+    </div>
+  </div>
+</Fragment>
+`;

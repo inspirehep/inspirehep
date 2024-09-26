@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PublicationsSelect renders checked when selected 1`] = `
+<Checkbox
+  checked={true}
+  onChange={[Function]}
+/>
+`;
+
+exports[`PublicationsSelect renders unchecked when not selected 1`] = `
+<Checkbox
+  checked={false}
+  onChange={[Function]}
+/>
+`;
+
+exports[`PublicationsSelect sets publication selection on checkbox change 1`] = `
+<Checkbox
+  onChange={[Function]}
+/>
+`;

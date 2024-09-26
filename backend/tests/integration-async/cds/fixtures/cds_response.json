@@ -1,0 +1,124 @@
+{
+  "hits": [
+    {
+      "id": "1273173",
+      "metadata": {
+        "other_ids": [
+          "1203988"
+        ],
+        "report_numbers": [
+          {
+            "value": "ATLAS-CONF-2010-001"
+          }
+        ],
+        "control_number": "1273173"
+      }
+    },
+    {
+      "id": "1273188",
+      "metadata": {
+        "other_ids": [
+          "1203987"
+        ],
+        "report_numbers": [
+          {
+            "value": "ATLAS-CONF-2010-002"
+          }
+        ],
+        "control_number": "1273188"
+      }
+    },
+    {
+      "id": "1742265",
+      "metadata": {
+        "other_ids": [
+          "1314109"
+        ],
+        "report_numbers": [
+          {
+            "value": "CERN-ACC-2014-0140"
+          }
+        ],
+        "control_number": "1742265"
+      }
+    },
+    {
+      "id": "1967013",
+      "metadata": {
+        "report_numbers": [
+          {
+            "value": "CERN-ACC-2014-0251"
+          }
+        ],
+        "control_number": "1967013"
+      }
+    },
+    {
+      "metadata": {
+        "other_ids": [
+          "1344808"
+        ],
+        "eprints": [
+          "1502.04088"
+        ],
+        "dois": [
+          {
+            "value": "10.1103/PhysRevSTAB.18.041004"
+          }
+        ],
+        "report_numbers": [
+          {
+            "value": "arXiv:1502.04088"
+          }
+        ]
+      }
+    },
+    {
+      "id": "2003134",
+      "metadata": {
+        "other_ids": [
+          "1313685"
+        ],
+        "control_number": "2003134"
+      }
+    },
+    {
+      "id": "2003156",
+      "metadata": {
+        "other_ids": [
+          "1314083"
+        ],
+        "control_number": "2003156"
+      }
+    },
+    {
+      "id": "2003161",
+      "metadata": {
+        "other_ids": [
+          "1314108"
+        ],
+        "control_number": "2003161"
+      }
+    },
+    {
+      "id": "2003162",
+      "metadata": {
+        "other_ids": [
+          "1314110"
+        ],
+        "control_number": "2003162"
+      }
+    },
+    {
+      "id": "2241667",
+      "metadata": {
+        "report_numbers": [
+          {
+            "value": "ATL-COM-PHYS-2021-003"
+          }
+        ],
+        "control_number": "2241667"
+      }
+    }
+  ]
+}

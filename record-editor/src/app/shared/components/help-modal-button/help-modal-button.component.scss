@@ -1,0 +1,22 @@
+.modal-body {
+  max-height: 85vh;
+  overflow: auto;
+}
+
+.btn.fa {
+  color: white;
+  font-size: 20px;
+  padding: 0 0 0 12px;
+}
+
+.table > tbody > tr > td {
+  padding: 4px;
+}
+
+th.fill-parent {
+  width: 99%;
+}
+
+.shortcuts > tbody > tr > td:first-child {
+  padding-right: 30px;
+}

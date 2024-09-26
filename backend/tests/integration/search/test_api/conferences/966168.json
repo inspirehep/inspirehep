@@ -1,0 +1,62 @@
+{
+    "addresses": [
+        {
+            "state": "CA",
+            "cities": [
+                "Asilomar"
+            ],
+            "latitude": 36.6530578,
+            "longitude": -121.7962784,
+            "country_code": "US"
+        }
+    ],
+    "cnum": "C87-02-02.2",
+    "self": {
+        "$ref": "https://labs.inspirehep.net/api/conferences/966168"
+    },
+    "series": [
+        {
+            "name": "CHEP",
+            "number": 2
+        }
+    ],
+    "titles": [
+        {
+            "title": "2nd International Conference on Computing in High-Energy and Nuclear Physics"
+        }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+    "acronyms": [
+        "CHEP 1987"
+    ],
+    "keywords": [
+        {
+            "value": "COMPUTING HEP 1987"
+        },
+        {
+            "value": "COMPUTING: ASILOMAR 1987"
+        },
+        {
+            "value": "SERIES-CHEP"
+        }
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "1987-02-06",
+    "opening_date": "1987-02-02",
+    "control_number": 966168,
+    "legacy_version": "20161023165850.0",
+    "alternative_titles": [
+        {
+            "title": "CHEP87 CHEP'87"
+        }
+    ],
+    "legacy_creation_date": "2011-11-30",
+    "external_system_identifiers": [
+        {
+            "value": "CONF-27669",
+            "schema": "SPIRES"
+        }
+    ]
+}

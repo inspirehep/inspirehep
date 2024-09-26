@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginPage renders page 1`] = `
+<DocumentFragment>
+  <div
+    class="ant-row ant-row-center ant-row-middle __LoginPage__ h-100"
+    data-testid="login-page"
+  >
+    <div
+      class="ant-card ant-card-bordered"
+    >
+      <div
+        class="ant-card-body"
+        style="text-align: center;"
+      >
+        <p
+          class="f4"
+        >
+          Please sign in to INSPIRE
+        </p>
+        <p
+          class="pb2"
+        >
+          To suggest content to INSPIRE, an ORCID is required. Registration is free, quick, and open to all! Sign up at 
+          <a
+            href="https://orcid.org/register!"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            https://orcid.org/register
+          </a>
+        </p>
+        <a
+          class="ant-btn ant-btn-default login-button"
+          data-testid="login-button"
+          href="/api/accounts/login?next=/"
+        >
+          <img
+            alt="ORCID"
+            class="logo mr2"
+            src="orcid.svg"
+          />
+          <strong>
+            Login with ORCID
+          </strong>
+        </a>
+        <a
+          class="db pt3"
+          href="https://help.inspirehep.net/knowledge-base/what-is-orcid"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          What is ORCID?
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

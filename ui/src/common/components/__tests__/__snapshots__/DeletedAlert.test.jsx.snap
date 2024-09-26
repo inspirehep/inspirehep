@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeletedAlert renders DeletedAlert with correct type and message 1`] = `
+<div
+  className="mb2"
+>
+  <Alert
+    message="This record is deleted!"
+    showIcon={true}
+    type="error"
+  />
+</div>
+`;

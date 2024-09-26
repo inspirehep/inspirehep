@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Banners renders banners if banners config is set 1`] = `
+<Fragment>
+  <Connect(Banner)
+    id="maintenance"
+    key="maintenance"
+    message="Maintenance in progress"
+  />
+  <Connect(Banner)
+    id="release"
+    key="release"
+    message="We are just out of beta"
+  />
+</Fragment>
+`;
+
+exports[`Banners renders nothing if banners config not set 1`] = `<Fragment />`;

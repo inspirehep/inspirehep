@@ -1,0 +1,405 @@
+{
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
+      "_all": {
+        "type": "text"
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      },
+      "_collections": {
+        "normalizer": "lowercase_normalizer",
+        "type": "keyword"
+      },
+      "_full_ingestion": {
+        "type": "boolean"
+      },
+      "accelerator_search_as_you_type": {
+        "type": "search_as_you_type"
+      },
+      "collaboration_search_as_you_type": {
+        "type": "search_as_you_type"
+      },
+      "short_name_search_as_you_type": {
+        "type": "search_as_you_type"
+      },
+      "experiment_search_as_you_type": {
+        "type": "search_as_you_type"
+      },
+      "institution_search_as_you_type": {
+        "type": "search_as_you_type"
+      },
+      "long_name_search_as_you_type": {
+        "type": "search_as_you_type"
+      },
+      "name_variants_search_as_you_type": {
+        "type": "search_as_you_type"
+      },
+      "legacy_name_search_as_you_type": {
+        "type": "search_as_you_type"
+      },
+      "_private_notes": {
+        "properties": {
+          "source": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "text"
+          }
+        },
+        "type": "object"
+      },
+      "accelerator": {
+        "properties": {
+          "curated_relation": {
+            "type": "boolean"
+          },
+          "recid": {
+            "type": "integer"
+          },
+          "record": {
+            "properties": {
+              "$ref": {
+                "type": "text",
+                "analyzer": "recid_analyzer"
+              }
+            },
+            "type": "object"
+          },
+          "value": {
+            "type": "text",
+            "copy_to": [
+              "accelerator_search_as_you_type",
+              "_all"
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "collaboration": {
+        "properties": {
+          "curated_relation": {
+            "type": "boolean"
+          },
+          "recid": {
+            "type": "integer"
+          },
+          "record": {
+            "properties": {
+              "$ref": {
+                "type": "text",
+                "analyzer": "recid_analyzer"
+              }
+            },
+            "type": "object"
+          },
+          "subgroup_names": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "text",
+            "copy_to": [
+              "collaboration_search_as_you_type",
+              "_all"
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "control_number": {
+        "type": "integer",
+        "copy_to": "_all"
+      },
+      "core": {
+        "type": "boolean"
+      },
+      "date_approved": {
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
+        "type": "date"
+      },
+      "date_cancelled": {
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
+        "type": "date"
+      },
+      "date_completed": {
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
+        "type": "date"
+      },
+      "date_proposed": {
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
+        "type": "date"
+      },
+      "date_started": {
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
+        "type": "date"
+      },
+      "deleted": {
+        "type": "boolean"
+      },
+      "deleted_recids": {
+        "type": "integer"
+      },
+      "deleted_records": {
+        "properties": {
+          "$ref": {
+            "type": "text",
+            "analyzer": "recid_analyzer"
+          }
+        },
+        "type": "object"
+      },
+      "description": {
+        "type": "text"
+      },
+      "experiment": {
+        "properties": {
+          "short_name": {
+            "type": "keyword",
+            "copy_to": [
+              "short_name_search_as_you_type"
+            ]
+          },
+          "value": {
+            "type": "text",
+            "copy_to": [
+              "experiment_search_as_you_type",
+              "_all"
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "external_system_identifiers": {
+        "properties": {
+          "schema": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword",
+            "copy_to": "_all"
+          }
+        },
+        "type": "object"
+      },
+      "inspire_categories": {
+        "properties": {
+          "source": {
+            "type": "keyword"
+          },
+          "term": {
+            "type": "keyword",
+            "copy_to": "_all"
+          }
+        },
+        "type": "object"
+      },
+      "inspire_classification": {
+        "type": "text",
+        "fielddata": true,
+        "analyzer": "inspire_classification_analyzer",
+        "search_analyzer": "keyword",
+        "copy_to": "_all"
+      },
+      "facet_inspire_classification": {
+        "type": "text",
+        "fielddata": true,
+        "analyzer": "inspire_classification_analyzer",
+        "search_analyzer": "keyword"
+      },
+      "institutions": {
+        "properties": {
+          "curated_relation": {
+            "type": "boolean"
+          },
+          "recid": {
+            "type": "integer"
+          },
+          "record": {
+            "properties": {
+              "$ref": {
+                "type": "text",
+                "analyzer": "recid_analyzer"
+              }
+            },
+            "type": "object"
+          },
+          "value": {
+            "type": "keyword",
+            "copy_to": [
+              "institution_search_as_you_type",
+              "_all"
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "legacy_creation_date": {
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
+        "type": "date"
+      },
+      "legacy_name": {
+        "type": "keyword",
+        "copy_to": [
+          "legacy_name_search_as_you_type",
+          "_all"
+        ]
+      },
+      "long_name": {
+        "type": "text",
+        "copy_to": [
+          "long_name_search_as_you_type",
+          "_all"
+        ]
+      },
+      "name_variants": {
+        "type": "text",
+        "copy_to": [
+          "name_variants_search_as_you_type",
+          "_all"
+        ]
+      },
+      "normalized_name_variants": {
+        "type": "keyword",
+        "normalizer": "name_variants_normalizer"
+      },
+      "normalized_subgroups": {
+        "type": "keyword",
+        "normalizer": "name_variants_normalizer"
+      },
+      "new_recid": {
+        "type": "integer"
+      },
+      "new_record": {
+        "properties": {
+          "$ref": {
+            "type": "text",
+            "analyzer": "recid_analyzer"
+          }
+        },
+        "type": "object"
+      },
+      "number_of_papers": {
+        "type": "integer"
+      },
+      "project_type": {
+        "type": "keyword"
+      },
+      "public_notes": {
+        "properties": {
+          "source": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "text"
+          }
+        },
+        "type": "object"
+      },
+      "related_records": {
+        "properties": {
+          "curated_relation": {
+            "type": "boolean"
+          },
+          "recid": {
+            "type": "integer"
+          },
+          "record": {
+            "properties": {
+              "$ref": {
+                "type": "text",
+                "analyzer": "recid_analyzer"
+              }
+            },
+            "type": "object"
+          },
+          "relation": {
+            "type": "keyword"
+          },
+          "relation_freetext": {
+            "type": "text"
+          }
+        },
+        "type": "nested"
+      },
+      "self": {
+        "properties": {
+          "$ref": {
+            "type": "text",
+            "analyzer": "recid_analyzer"
+          }
+        },
+        "type": "object"
+      },
+      "self_recid": {
+        "type": "integer"
+      },
+      "urls": {
+        "properties": {
+          "description": {
+            "type": "text"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "recid_analyzer": {
+          "tokenizer": "recid_tokenizer"
+        },
+        "inspire_classification_analyzer": {
+          "tokenizer": "inspire_classification_tokenizer"
+        }
+      },
+      "char_filter": {
+        "specialCharactersFilter": {
+          "pattern": "[^\\p{L}\\p{Nd}]",
+          "type": "pattern_replace",
+          "replacement": " "
+        }
+      },
+      "normalizer": {
+        "lowercase_normalizer": {
+          "type": "custom",
+          "char_filter": [],
+          "filter": [
+            "lowercase"
+          ]
+        },
+        "name_variants_normalizer": {
+          "type": "custom",
+          "char_filter": [
+            "specialCharactersFilter"
+          ],
+          "filter": [
+            "lowercase"
+          ]
+        }
+      },
+      "tokenizer": {
+        "recid_tokenizer": {
+          "type": "pattern",
+          "pattern": "(\\d+)",
+          "group": 1
+        },
+        "inspire_classification_tokenizer": {
+          "type": "path_hierarchy",
+          "delimiter": "|"
+        }
+      }
+    }
+  }
+}

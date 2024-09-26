@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CitationSummaryBox renders 1`] = `
+<ContentBox
+  className=""
+  leftActions={null}
+  loading={false}
+  rightActions={null}
+  subTitle="Citation Summary"
+  title={null}
+>
+  <Connect(ExcludeSelfCitations)
+    namespace="literature"
+  />
+  <Row
+    gutter={
+      Object {
+        "lg": 32,
+        "xs": 0,
+      }
+    }
+  >
+    <Col
+      span={24}
+    >
+      <Connect(CitationSummaryTable) />
+    </Col>
+    <Col
+      span={24}
+    >
+      <Connect(toAllJS(CitationSummaryGraph))
+        namespace="literature"
+      />
+    </Col>
+  </Row>
+</ContentBox>
+`;

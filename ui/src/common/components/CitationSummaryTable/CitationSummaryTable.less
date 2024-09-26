@@ -1,0 +1,37 @@
+.__CitationTable__ {
+  @border: @border-width-base @border-style-base @border-color-split;
+  table {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  th {
+    color: @secondary-color;
+    font-weight: normal;
+    padding: 0.25rem;
+  }
+
+  td {
+    padding: 0.5rem;
+    font-weight: bold;
+    text-align: right;
+  }
+
+  tr {
+    border-top: @border;
+    &:first-child {
+      border-bottom: none;
+      border-top: none;
+      th:not(:first-child) {
+        text-align: right;
+      }
+      th:first-child {
+        width: 30%;
+      }
+    }
+    &:nth-child(2) {
+      border-top: none;
+    }
+  }
+  border-radius: @card-radius;
+}

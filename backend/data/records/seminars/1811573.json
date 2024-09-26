@@ -1,0 +1,90 @@
+{
+    "urls": [
+        {
+            "value": "http://shovkovy.faculty.asu.edu/colloquium/schedule.html"
+        }
+    ],
+    "title": {
+        "title": "A data-driven approach to quantifying the shear viscosity of nature\u2019s most ideal liquid"
+    },
+    "series": [
+        {
+            "name": "Theoretical Physics Colloquium at ASU",
+            "number": 27
+        }
+    ],
+    "$schema": "https://inspirebeta.net/api/schemas/records/seminars.json",
+    "abstract": {
+        "value": "<div>Collisions of heavy nuclei at ultrarelativistic velocities are currently utilized at the Relativistic Heavy-Ion Collider (RHIC) and the Large Hadron Collider (LHC) to recreate matter at temperatures and densities as have only existed in the early Universe, a couple of microseconds after the Big Bang. This state of matter, consisting of deconfined quarks and gluons is often termed the Quark-Gluon- Plasma.</div><div>A primary goal of heavy-ion physics is the measurement of the fundamental properties of the quark-gluon plasma (QGP), notably its transport coefficients and initial state properties.&nbsp;Since these properties are not directly measurable, one relies on a comparison of experimental data to computational models of the time-evolution of the collision to connect measured observables to the properties of the transient QGP state.&nbsp;These model-to-data comparisons are non-trivial due to the large number of model parameters and the non-factorizing sensitivity of measured observables to multiple parameters.</div><div>Over the last few years the Duke QCD group has developed techniques based on Bayesian statistics that allow for the simultaneous calibration of a large number of model parameters and the precision extraction of QGP properties including their quantified uncertainties. The computational model used is based on the Trento initial condition model, viscous relativistic hydrodynamics and a Boltzmann equation based transport model to describe the off-equilibrium late stage hadronic evolution. The analysis starts by selecting a set of salient model parameters -- including physical properties such as temperature and/or momentum dependent transport coefficients -- then evaluates the event-by-event heavy-ion collision model at a small set of points in the multidimensional parameter space, varying all parameters simultaneously.&nbsp;Gaussian process emulators are used to non-parametrically interpolate the parameter space, providing fast predictions at any point in parameter space with quantitative uncertainty.&nbsp;Finally, the parameter space is systematically explored using a Markov chain Monte Carlo (MCMC) to obtain rigorous constraints on all parameters simultaneously, including all correlations among the parameters.</div><div>In this talk I will review the basic components of the Bayesian analysis that have led to the first determination of the temperature-dependent specific shear-viscosity of the Quark-Gluon-Plasma with uncertainty quantification.</div>"
+    },
+    "keywords": [
+        {
+            "value": "quark-gluon plasma, QCD, transport coefficients, shear viscosity, viscous relativistic hydrodynamics"
+        }
+    ],
+    "speakers": [
+        {
+            "name": "Bass, Steffen Ashraf",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1017182"
+            },
+            "affiliations": [
+                {
+                    "value": "Duke U.",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/902781"
+                    }
+                }
+            ]
+        }
+    ],
+    "timezone": "America/Phoenix",
+    "join_urls": [
+        {
+            "value": "https://asu.zoom.us/meeting/register/uJErc-mgpj4p-5fyd3_T05F9QXgVjflQ0w",
+            "description": "Zoom"
+        }
+    ],
+    "_collections": [
+        "Seminars"
+    ],
+    "end_datetime": "2023-09-30T17:00:00.000000",
+    "public_notes": [
+        {
+            "value": "To register use the following link: https://asu.zoom.us/meeting/register/uJErc-mgpj4p-5fyd3_T05F9QXgVjflQ0w"
+        }
+    ],
+    "material_urls": [
+        {
+            "value": "https://youtu.be/MGE8K8IY4cg",
+            "description": "video"
+        }
+    ],
+    "control_number": 1811573,
+    "start_datetime": "2023-09-30T16:00:00.000000",
+    "contact_details": [
+        {
+            "name": "Shovkovy, Igor A.",
+            "email": "Igor.Shovkovy@asu.edu"
+        }
+    ],
+    "acquisition_source": {
+        "email": "igor.shovkovy@asu.edu",
+        "orcid": "0000-0002-5230-6891",
+        "method": "submitter",
+        "source": "submitter",
+        "datetime": "2020-08-13T20:59:35.835448",
+        "internal_uid": 60149
+    },
+    "inspire_categories": [
+        {
+            "term": "Theory-Nucl"
+        },
+        {
+            "term": "Theory-HEP"
+        },
+        {
+            "term": "Phenomenology-HEP"
+        }
+    ]
+}

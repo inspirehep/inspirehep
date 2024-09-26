@@ -1,0 +1,58 @@
+{
+    "addresses": [
+        {
+            "cities": [
+                "Como"
+            ],
+            "latitude": 45.8080597,
+            "longitude": 9.0851765,
+            "country_code": "IT"
+        }
+    ],
+    "cnum": "C49-01-01",
+    "self": {
+        "$ref": "https://labs.inspirehep.net/api/conferences/978212"
+    },
+    "series": [
+        {
+            "name": "ICRC",
+            "number": 2
+        }
+    ],
+    "titles": [
+        {
+            "title": "2nd International Cosmic Ray Conference"
+        }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+    "acronyms": [
+        "ICRC 1949"
+    ],
+    "keywords": [
+        {
+            "value": "COSMIC RAY CONF. 1949 2ND"
+        },
+        {
+            "value": "SERIES-ICRC"
+        }
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "1949-01-01",
+    "opening_date": "1949-01-01",
+    "control_number": 978212,
+    "legacy_version": "20161031102130.0",
+    "alternative_titles": [
+        {
+            "title": "ICRC1949"
+        }
+    ],
+    "legacy_creation_date": "2011-11-30",
+    "external_system_identifiers": [
+        {
+            "value": "CONF-520705",
+            "schema": "SPIRES"
+        }
+    ]
+}

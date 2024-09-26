@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DisabledEditRecordAction renders with message 1`] = `
+<UserActionWrapper>
+  <Tooltip
+    title="Can not be edited"
+  >
+    <Button
+      disabled={true}
+    >
+      <IconText
+        icon={<ForwardRef(EditOutlined) />}
+        text="edit"
+      />
+    </Button>
+  </Tooltip>
+</UserActionWrapper>
+`;

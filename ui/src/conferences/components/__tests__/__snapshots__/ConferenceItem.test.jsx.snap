@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConferenceItem renders with all props set 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <UrlsAction
+        icon={<ForwardRef(LinkOutlined) />}
+        page="Conferences search"
+        text="website"
+        trackerEventId="Conferences website"
+        urls={
+          Immutable.List [
+            Immutable.Map {
+              "value": "http://url.com",
+            },
+          ]
+        }
+      />
+      <ProceedingsAction
+        proceedings={
+          Immutable.List [
+            Immutable.Map {
+              "publication_info": Immutable.List [
+                Immutable.Map {
+                  "year": 2015,
+                  "journal_title": "title",
+                },
+              ],
+            },
+          ]
+        }
+      />
+      <EditRecordAction
+        page="Conferences search"
+        pidType="conferences"
+        pidValue={12345}
+      />
+    </React.Fragment>
+  }
+  rightActions={
+    <ConferenceContributionLink
+      contributionsCount={3}
+      recordId={12345}
+    />
+  }
+>
+  <Row>
+    <Col>
+      <Link
+        className="result-item-title"
+        target="_blank"
+        to="/conferences/12345"
+      >
+        <EventTitle
+          acronym="acronym"
+          title={
+            Immutable.Map {
+              "title": "test",
+            }
+          }
+        />
+      </Link>
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <ConferenceDates
+        closingDate="2019-11-28"
+        openingDate="2019-11-21"
+      />
+      . 
+      <AddressList
+        addresses={
+          Immutable.List [
+            Immutable.Map {
+              "cities": Immutable.List [
+                "Liverpool",
+              ],
+              "country_code": "USA",
+              "country": "country",
+            },
+          ]
+        }
+      />
+       (C05-09-16.1)
+    </Col>
+  </Row>
+  <Row
+    className="mt2"
+  >
+    <Col>
+      <InspireCategoryList
+        categories={
+          Immutable.List [
+            Immutable.Map {
+              "term": "physics",
+            },
+          ]
+        }
+      />
+    </Col>
+  </Row>
+</ResultItem>
+`;
+
+exports[`ConferenceItem renders with only needed props 1`] = `
+<ResultItem
+  leftActions={<React.Fragment />}
+  rightActions={false}
+>
+  <Row>
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/conferences/12345"
+      >
+        <EventTitle
+          title={
+            Immutable.Map {
+              "title": "test",
+            }
+          }
+        />
+      </Link>
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <ConferenceDates
+        openingDate="2019-11-21"
+      />
+    </Col>
+  </Row>
+  <Row
+    className="mt2"
+  >
+    <Col>
+      <InspireCategoryList />
+    </Col>
+  </Row>
+</ResultItem>
+`;

@@ -1,0 +1,27 @@
+name: Docker tag and push
+description: Pull, tag and push a specific image
+
+inputs:
+  image:
+    description: The image to pull/push
+    required: true
+  pull-tag:
+    description: The tag to pull
+    required: true
+  push-tag:
+    description: The tag to push
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Pull, tag and push
+      env:
+        IMAGE: ${{ inputs.image }}
+        PULL: ${{ inputs.pull-tag }}
+        PUSH: ${{ inputs.push-tag }}
+      shell: bash
+      run: |
+        docker pull $IMAGE:$PULL
+        docker tag $IMAGE:$PULL $IMAGE:$PUSH
+        docker push $IMAGE:$PUSH

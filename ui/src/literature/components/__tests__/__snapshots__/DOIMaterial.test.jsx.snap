@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DOIMaterial does not render without material 1`] = `""`;
+
+exports[`DOIMaterial renders with material 1`] = `
+<span>
+   (
+  myMaterial
+  )
+</span>
+`;

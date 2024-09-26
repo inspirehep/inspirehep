@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToolAction renders 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={false}
+    items={
+      Array [
+        Object {
+          "key": "assign-conference",
+          "label": <span
+            data-test-id="assign-conference"
+            data-testid="assign-conference"
+            onClick={[Function]}
+            title={null}
+          >
+            Assign conference
+          </span>,
+        },
+        Object {
+          "key": "export-to-CDS",
+          "label": <span
+            data-test-id="export-to-CDS"
+            data-testid="export-to-CDS"
+            onClick={[Function]}
+            title={null}
+          >
+            Export to CDS
+          </span>,
+        },
+      ]
+    }
+    title={
+      <Button>
+        <IconText
+          icon={<ForwardRef(ToolOutlined) />}
+          text="tools"
+        />
+      </Button>
+    }
+  />
+  <ExportToCdsModal
+    onCancel={[Function]}
+    onOk={[Function]}
+    selectionSize={3}
+    visible={false}
+  />
+</UserActionWrapper>
+`;
+
+exports[`ToolAction renders disabled 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={false}
+    items={
+      Array [
+        Object {
+          "key": "assign-conference",
+          "label": <span
+            data-test-id="assign-conference"
+            data-testid="assign-conference"
+            disabled={true}
+            onClick={[Function]}
+            title="Please select up to 250 papers that you want to assign to a conference."
+          >
+            Assign conference
+          </span>,
+        },
+        Object {
+          "key": "export-to-CDS",
+          "label": <span
+            data-test-id="export-to-CDS"
+            data-testid="export-to-CDS"
+            disabled={true}
+            onClick={[Function]}
+            title="Please select up to 250 papers that you want to export to CDS."
+          >
+            Export to CDS
+          </span>,
+        },
+      ]
+    }
+    title={
+      <Button>
+        <IconText
+          icon={<ForwardRef(ToolOutlined) />}
+          text="tools"
+        />
+      </Button>
+    }
+  />
+  <ExportToCdsModal
+    onCancel={[Function]}
+    onOk={[Function]}
+    selectionSize={3}
+    visible={false}
+  />
+</UserActionWrapper>
+`;

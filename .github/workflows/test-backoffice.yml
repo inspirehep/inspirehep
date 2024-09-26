@@ -1,0 +1,75 @@
+name: Tests
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: The reference to build
+        type: string
+        required: true
+    outputs:
+      image-id:
+        description: The ID of image that has been built
+        value: ${{ jobs.build.outputs.image-id }}
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-backoffice-workflow.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: cern-sis/inspire/backoffice
+      context: ./backoffice-repo/backoffice
+      dockerfile: ./backoffice-repo/backoffice/Dockerfile
+    secrets: inherit
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    services:
+      opensearch:
+        image: registry.cern.ch/cern-sis/inspirehep/opensearch
+        env:
+          bootstrap.memory_lock: true
+          ES_JAVA_OPTS: -Xms1024m -Xmx1024m
+          discovery.type: single-node
+          DISABLE_SECURITY_PLUGIN: true
+        ports:
+          - 9200:9200
+      rabbitmq:
+        image: rabbitmq:3-management
+        ports:
+          - 5672:5672
+      redis:
+        image: redis:6
+        ports:
+          - 6379:6379
+      db:
+        image: postgres:14.1
+        env:
+          POSTGRES_DB: inspire
+          POSTGRES_USER: inspire
+          POSTGRES_PASSWORD: inspire
+        ports:
+          - 5432:5432
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+          with:
+            ref: ${{ inputs.ref }}
+
+        - name: Test
+          working-directory: ./backoffice
+          run: >
+            docker run
+            --pull always
+            --network=host
+            --entrypoint poetry
+            --env DJANGO_SETTINGS_MODULE=config.settings.test
+            --env DISABLE_SECURITY_PLUGIN=true
+            --env POSTGRES_DB=inspire
+            --env POSTGRES_USER=inspire
+            --env POSTGRES_PASSWORD=inspire
+            --env POSTGRES_HOST=127.0.0.1
+            --env OPENSEARCH_HOST=127.0.0.1:9200
+            registry.cern.ch/cern-sis/inspire/backoffice@${{ needs.build.outputs.image-id }}
+            run pytest

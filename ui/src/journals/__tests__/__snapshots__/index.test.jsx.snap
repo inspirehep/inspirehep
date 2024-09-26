@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Journals renders initial state 1`] = `
+<div
+  className="w-100"
+  data-testid="journals"
+>
+  <Route
+    component={[Function]}
+    exact={true}
+    path="/journals"
+  />
+  <Route
+    component={[Function]}
+    exact={true}
+    path="/journals/:id"
+  />
+</div>
+`;

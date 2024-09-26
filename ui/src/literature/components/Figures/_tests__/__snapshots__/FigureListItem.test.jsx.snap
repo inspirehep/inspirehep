@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FigureListItem renders figure list item 1`] = `
+<ForwardRef(InternalItem)>
+  <Figure
+    className="mhi5"
+    onClick={[MockFunction]}
+    url="https://picsum.photos/200/300"
+  />
+</ForwardRef(InternalItem)>
+`;

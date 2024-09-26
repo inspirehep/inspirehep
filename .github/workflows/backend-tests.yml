@@ -1,0 +1,144 @@
+name: Backend tests
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: The reference to test
+        type: string
+        required: true
+      image:
+        description: The name of the image to test
+        type: string
+        required: true
+      suite:
+        description: The test suite to run
+        type: string
+        required: true
+      splits:
+        description: Number of splits to run in parallel
+        type: number
+        required: true
+
+env:
+  CACHE_PREFIX: ${{ inputs.suite }}-test-durations
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      groups: ${{ steps.generate.outputs.groups }}
+      seed: ${{ steps.generate.outputs.seed }}
+    steps:
+      - id: generate
+        name: Generate groups
+        run: |
+          seq ${{ inputs.splits }} | jq --slurp --compact-output | xargs printf 'groups=%s\n' >>$GITHUB_OUTPUT
+          printf 'seed=%d\n' $RANDOM >>$GITHUB_OUTPUT
+
+  test:
+    runs-on: ubuntu-latest
+    needs: setup
+    strategy:
+      fail-fast: false
+      matrix:
+        group: ${{ fromJSON(needs.setup.outputs.groups) }}
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+      postgres:
+        image: postgres:14.1
+        env:
+          POSTGRES_USER: inspirehep
+          POSTGRES_PASSWORD: inspirehep
+          POSTGRES_DB: inspirehep
+        ports:
+          - 5432:5432
+      rabbitmq:
+        image: rabbitmq:3-management
+        ports:
+          - 5672:5672
+      elasticsearch:
+        image: registry.cern.ch/cern-sis/inspirehep/opensearch
+        env:
+          bootstrap.memory_lock: true
+          ES_JAVA_OPTS: -Xms1024m -Xmx1024m
+          discovery.type: single-node
+          DISABLE_SECURITY_PLUGIN: true
+        ports:
+          - 9200:9200
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Get durations from cache
+        uses: actions/cache@v3
+        with:
+          path: test_durations
+          key: ${{ env.CACHE_PREFIX }}-split-${{ github.run_id }}-${{ github.run_number }}-${{ matrix.group }}
+          restore-keys: |
+            ${{ env.CACHE_PREFIX }}-combined-${{ inputs.ref }}
+            ${{ env.CACHE_PREFIX }}-combined
+
+      - name: Test
+        run: >
+          docker run
+          --pull always
+          --entrypoint poetry
+          --network="host"
+          --env GITHUB_ACTIONS=true
+          --env PYTEST_RUN_PATH=backend
+          --volume $GITHUB_WORKSPACE/test_durations:/opt/inspire/test_durations
+          --volume $GITHUB_WORKSPACE/test_async_durations:/opt/inspire/test_async_durations
+          ${{ inputs.image }}
+          run py.test tests/${{ inputs.suite }}
+          --splits ${{ inputs.splits }}
+          --group ${{ matrix.group }}
+          --durations-path test_durations/durations.json
+          --store-durations
+          --random-order-seed ${{ needs.setup.outputs.seed }}
+
+      - name: Upload partial durations
+        uses: actions/upload-artifact@v3
+        with:
+          name: split-${{ matrix.group }}
+          path: test_durations
+
+  update-durations:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Get durations from cache
+        uses: actions/cache@v3
+        with:
+          path: test_durations
+          key: ${{ env.CACHE_PREFIX }}-combined-${{ inputs.ref }}
+          restore-keys: ${{ env.CACHE_PREFIX }}--combined
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+
+      - name: Combine test durations
+        uses: ./.github/actions/combine-durations
+        with:
+          durations-path: test_durations/durations.json
+          split-prefix: split-

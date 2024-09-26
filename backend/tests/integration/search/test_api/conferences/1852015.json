@@ -1,0 +1,52 @@
+{
+    "addresses": [
+        {
+            "place_name": "Online Conference",
+            "country_code": "BR"
+        }
+    ],
+    "cnum": "C21-06-21.1",
+    "core": true,
+    "self": {
+        "$ref": "https://inspirehep.net/api/conferences/1852015"
+    },
+    "urls": [
+        {
+            "value": "https://www.ictp-saifr.org/strings2021/"
+        }
+    ],
+    "series": [
+        {
+            "name": "Strings"
+        }
+    ],
+    "titles": [
+        {
+            "title": "International conference on string theory"
+        }
+    ],
+    "$schema": "https://inspirehep.net/api/schemas/records/conferences.json",
+    "acronyms": [
+        "Strings 2021"
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "2021-07-02",
+    "opening_date": "2021-06-21",
+    "control_number": 1852015,
+    "contact_details": [
+        {
+            "name": "Nathan Berkovits",
+            "email": "nathan.berkovits@gmail.com"
+        }
+    ],
+    "short_description": {
+        "value": "<div>Strings 2021 is an annual conference that brings together the entire string theory community. Besides reviews of major developments in the field and specialized talks on specific topics, there will be public lectures given by conference participants.</div><div><br></div><div>Because of the pandemic, Strings 2021 will be held online during the two-week period&nbsp;<strong>June 21 – July 2, 2021</strong>&nbsp;from 9:30 – 15:00 in São Paulo (8:30 – 14:00 in NY, 14:30 – 20:00 in Paris).</div><div><br></div><div>Local nodes will be coordinated worldwide for the joint viewing of talks and discussion sessions, and online satellite meetings during other time periods will be linked on this webpage. There will also be a gong show session of 5-minute talks by PhD students.</div><div>&nbsp;</div><div><br></div>"
+    },
+    "inspire_categories": [
+        {
+            "term": "Theory-HEP"
+        }
+    ]
+}

@@ -1,0 +1,61 @@
+{
+    "addresses": [
+        {
+            "state": "British Columbia",
+            "cities": [
+                "Vancouver"
+            ],
+            "latitude": 49.2827291,
+            "longitude": -123.1207375,
+            "country_code": "CA"
+        }
+    ],
+    "cnum": "C94-07-04.2",
+    "self": {
+        "$ref": "https://labs.inspirehep.net/api/conferences/968851"
+    },
+    "series": [
+        {
+            "name": "HYP",
+            "number": 5
+        }
+    ],
+    "titles": [
+        {
+            "title": "5th International Conference on Hypernuclear and Strange Particle Physics"
+        }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+    "acronyms": [
+        "HYP 1994"
+    ],
+    "keywords": [
+        {
+            "value": "SERIES-HYP"
+        }
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "1994-07-08",
+    "opening_date": "1994-07-04",
+    "control_number": 968851,
+    "legacy_version": "20161024220859.0",
+    "contact_details": [
+        {
+            "email": "hyp94@triumf.ca"
+        }
+    ],
+    "alternative_titles": [
+        {
+            "title": "HYP94 94"
+        }
+    ],
+    "legacy_creation_date": "2011-11-30",
+    "external_system_identifiers": [
+        {
+            "value": "CONF-424021",
+            "schema": "SPIRES"
+        }
+    ]
+}

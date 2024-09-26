@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorWebsitesAction renders only a url 1`] = `
+<UserActionWrapper>
+  <EventTracker
+    eventAction="Link"
+    eventCategory="Author detail"
+    eventId="Author website"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <LinkWithTargetBlank
+      as="a"
+      href="www.descriptionless.com/url"
+    >
+      <Tooltip
+        title="Author websites"
+      >
+        <ForwardRef(LinkOutlined) />
+      </Tooltip>
+    </LinkWithTargetBlank>
+  </EventTracker>
+</UserActionWrapper>
+`;
+
+exports[`AuthorWebsitesAction renders only blog 1`] = `
+<UserActionWrapper>
+  <EventTracker
+    eventAction="Link"
+    eventCategory="Author detail"
+    eventId="Author website"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <LinkWithTargetBlank
+      as="a"
+      href="https://author.wordpress.com"
+    >
+      <Tooltip
+        title="Author websites"
+      >
+        <ForwardRef(LinkOutlined) />
+      </Tooltip>
+    </LinkWithTargetBlank>
+  </EventTracker>
+</UserActionWrapper>
+`;
+
+exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={false}
+    items={
+      Immutable.List [
+        Object {
+          "key": Immutable.Map {
+            "description": "BLOG",
+            "value": "https://author.wordpress.com",
+          },
+          "label": <span>
+            <EventTracker
+              eventAction="Link"
+              eventCategory="Author detail"
+              eventId="Author websites"
+              eventPropName="onClick"
+              extractEventArgsToForward={null}
+            >
+              <LinkWithTargetBlank
+                as="a"
+                href="https://author.wordpress.com"
+              >
+                Blog
+              </LinkWithTargetBlank>
+            </EventTracker>
+          </span>,
+        },
+        Object {
+          "key": Immutable.Map {
+            "description": "Whatever",
+            "value": "https://www.whatever.com/author",
+          },
+          "label": <span>
+            <EventTracker
+              eventAction="Link"
+              eventCategory="Author detail"
+              eventId="Author websites"
+              eventPropName="onClick"
+              extractEventArgsToForward={null}
+            >
+              <LinkWithTargetBlank
+                as="a"
+                href="https://www.whatever.com/author"
+              >
+                whatever.com/author
+              </LinkWithTargetBlank>
+            </EventTracker>
+          </span>,
+        },
+        Object {
+          "key": Immutable.Map {
+            "value": "www.descriptionless.com/url",
+          },
+          "label": <span>
+            <EventTracker
+              eventAction="Link"
+              eventCategory="Author detail"
+              eventId="Author websites"
+              eventPropName="onClick"
+              extractEventArgsToForward={null}
+            >
+              <LinkWithTargetBlank
+                as="a"
+                href="www.descriptionless.com/url"
+              >
+                descriptionless.com/url
+              </LinkWithTargetBlank>
+            </EventTracker>
+          </span>,
+        },
+      ]
+    }
+    title={
+      <Button>
+        <Tooltip
+          title="Author websites"
+        >
+          <ForwardRef(LinkOutlined) />
+        </Tooltip>
+      </Button>
+    }
+  />
+</UserActionWrapper>
+`;

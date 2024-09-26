@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubmissionCard renders with all props 1`] = `
+<ForwardRef
+  actions={
+    Array [
+      <RouterLinkButton
+        to="/submissions/literature"
+      >
+        Submit
+      </RouterLinkButton>,
+    ]
+  }
+  bodyStyle={
+    Object {
+      "textAlign": "center",
+    }
+  }
+  headStyle={
+    Object {
+      "textAlign": "center",
+    }
+  }
+  title="Literature"
+>
+  You can suggest us papers!
+</ForwardRef>
+`;

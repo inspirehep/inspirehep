@@ -1,0 +1,123 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.21.0
+    method: GET
+    uri: https://labs.inspirehep.net/api/literature/20
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA7VW227jNhD9FYFon2qJknyTDBSFN0kXWiR2YLsPi6IQaGoUM6ElgaSSGEH+vUNK
+        3ibZYus+2LANQeTMOXPhHL4QroAZKMiMROlk6IcTP4w2YThz31/cPxkQgRvicECkqB40mb0QDbJE
+        m50xjZ5RKtlWB6LSjVCwgyaowFDWCCqFAcVMq4DGIXkdkD0YVjDDrI+fNN/Bnv2Hm26Tpgp4rQpN
+        7ft7XVfIKue1lMCNqCsk9Se5/oZG/sLVRolHjC2vagN2/YU8MtkC4tWKi8JvWr3zS3wGnzNE8fdC
+        a/KKpqw1u1p1NqwshRTsCPJCOiIuAAXHJPwgB/jKCNM6BzQNh3E4sZk4cllfzy8cKG+VrUSuQDo0
+        MjOqhQEpWynziu3t5hvccxh4X4IvgatKx+hbHperi+yS/OM7xI+Pv9gfh1MsbhJZ6DcG2WJ9m62u
+        vE/z7I2Zde+Qgsgx+78R9+mj0TSKJ/HIRqvFXeUqk29lzR9sKPPV13sEbVvRdd+UbYeTrc9GSemP
+        yrjwt+ME/OEkKQuelMOET7o01ZVRNWak3W9BdW3Zp+6YsaLm7R4qk5tDA7YxmDKCS9cVx7Uucw9w
+        QOw4zLVk3DeVb4/AOAyaorTUlMRVLD9gsJSVmnJQVcB3tFH1PTYe7YOnt6vlJX1kitreptZC07so
+        CelwEqbTNKaWNaJaxz8PP01dFX4Ankdng8+j0wick8GJFOIzUohPozA6I4XRaRTGZ6QwPo1CekYK
+        6QcK5ziJ6YRGaTwOx9MPB7Gbb8CUFKBNjjbwTgkRGp5RVComc33QBva5KNBclALUh+HrJun6zRjt
+        XvjDJHEoEu4YP+ROcHG8/ytYv+cRnTsFwIJEaRiFaZQMk2gUWC3uBl9el3nD7qywjQakUYBqV32M
+        gNjZ3dTK9NPyvQpa5fE3iz7TjmMn66fO+e/U3cAzFtFpsdOPmeWxbezcRQmUvQq7Rys+q9X8Mptv
+        suXCW/7uzb2Lq1X2x43nexfLxWaeLbLFZ2+dXWcX882V9/l6vl47ktgMnaMCNFei6cTSheNd9uPd
+        W4PCLL6pRh/L09MTCv9WCh7YTgu0YRXeAYoAihbvGgIdUNSIG7ynBEw3z7/ZXbftduES+Ov77kQ6
+        GHXbFP0VylYLC+mH6SaazkbRDEsWxVi+pL9Jvf4NB1KKTnEJAAA=
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Content-Type, ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 27 Mar 2019 09:46:08 GMT
+      ETag:
+      - W/"140"
+      Last-Modified:
+      - Wed, 09 Jan 2019 17:41:14 GMT
+      Link:
+      - <https://labs.inspirehep.net/api/literature/20>; rel="self"
+      Server:
+      - nginx/1.12.2
+      Strict-Transport-Security:
+      - max-age=31536000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.21.0
+    method: GET
+    uri: https://labs.inspirehep.net/api/authors/1013123
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA51U227bMAz9lUDY23yRnZvjp6VZhgZY0yLpw4CiMFSbadQ6siHJaYsg/fZRsnPr
+        iq4b4ASWSR4ekTzckFQC05CRmISUUjfAp3dNaWyfr/afOISjQ0CDdhC2HZJz8ahIvCEK8gUGLrUu
+        Vez7ObtTHheq5BKWUHoCtM9K7rNKLwup/AaAbB2yAs0ypplB+aLSJazYX4BqJ+VLSAuZqR2o96AK
+        gQSTtMhzSDUvBFK7IcPaTG4dwrI1V+Y9vtmQDO4lQKJfSsCEhV6CtNerrXsmk+n8ajIbtybf0bpm
+        eQWHjy6l4SDqtwOyRXTBVsZ2BlpzwZ3WMAelmMhkYc1MPvN1kmKJ7wvJwXLDK7nwbKilhdCyyBNR
+        re6QyKHEGeRgu7JguQKHAJM5RusEiwYnvUJ+SJnnCcsyiamhvklaSQlCk1jLCg5XACF5WngmL/9W
+        ZljkhfC4xpb8EbLkWQbiLcDHkQ3bz4be/nvlab8T9gc26z5kNJ5Nj5zN0W1H7W6nf+q3gz4bTo7c
+        x97IEPOCU+fL2eiEAjUVx1/odmjUdaN+8Os0wGLPjyLOx1fT4cV47ra7YTcY2OvmcM/Sl8SKDkf1
+        3XY2PmuQCl2sNejhZIQ0Cvqdjmf0WE/dhpQSFoDFz5JmDse2wS17peOamLPTqq1GgGWh+E4stoFm
+        CSQScstr17o3I4GS1FxXtQeW88fUaV2xrGKYSTLxaKownk4uZ+ZsdWr1jRwbcX+wJI6wlT+gYRR1
+        yNaUrJTFAwo7WYHRiFry8nOUm1ls6mKH4uf5yB1dzP+DHTyXIPkKgXGNBTTqdcKaXb0CPwvzziZU
+        mukKu0AYLq81EPOlutvTr2Ret2jXySbD09OTd5CS/2rFhSOGiFWZ7Td6ENmxal/TMA6DmEZet9sb
+        9HvNYt/+Bifb/mcABgAA
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Content-Type, ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 27 Mar 2019 09:46:09 GMT
+      ETag:
+      - W/"24"
+      Last-Modified:
+      - Sat, 13 Oct 2018 02:21:08 GMT
+      Link:
+      - <https://labs.inspirehep.net/api/authors/1013123>; rel="self"
+      Server:
+      - nginx/1.12.2
+      Strict-Transport-Security:
+      - max-age=31536000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+version: 1

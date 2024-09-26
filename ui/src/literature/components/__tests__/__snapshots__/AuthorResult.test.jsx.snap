@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorResult renders 1`] = `
+<Row>
+  <Col
+    flex="0 1 1px"
+  >
+    <Radio
+      data-test-id="literature-drawer-radio-1016091"
+      disabled={false}
+      value={1016091}
+    />
+  </Col>
+  <Col
+    className="pb2"
+    flex="1 1 1px"
+  >
+    <ResultItem>
+      <Author
+        author={
+          Immutable.Map {
+            "full_name": "Test, A",
+            "record": Immutable.Map {
+              "$ref": "https://inspirebeta.net/api/authors/1016091",
+            },
+          }
+        }
+        page="Page"
+      />
+    </ResultItem>
+  </Col>
+</Row>
+`;

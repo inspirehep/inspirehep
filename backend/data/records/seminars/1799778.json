@@ -1,0 +1,81 @@
+{
+    "urls": [
+        {
+            "value": "http://www.sfb1258.de/graduate-school/virtual-seminar-on-multimessenger-astronomy/"
+        }
+    ],
+    "title": {
+        "title": "High-Energy Neutrino Astronomy: Looking at the Universe through the Ice"
+    },
+    "series": [
+        {
+            "name": "Virtual Seminar in Multimessenger Astronomy"
+        }
+    ],
+    "$schema": "https://inspirebeta.net/api/schemas/records/seminars.json",
+    "address": {
+        "cities": [
+            "M\u00fcnchen"
+        ],
+        "country_code": "DE"
+    },
+    "abstract": {
+        "value": "<div>Due to the Corona crisis we organise a virtual seminar on Multi-Messenger Astronomy dedicated to the&nbsp;PhD students of the SFB1258 and around the globe&nbsp;as well as anyone who is interested.</div>"
+    },
+    "speakers": [
+        {
+            "name": "Bernardini, Elisa",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1047733"
+            },
+            "affiliations": [
+                {
+                    "value": "Padua U.",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/903113"
+                    }
+                }
+            ]
+        }
+    ],
+    "timezone": "Europe/Berlin",
+    "join_urls": [
+        {
+            "value": "http://www.sfb1258.de/graduate-school/virtual-seminar-on-multimessenger-astronomy/",
+            "description": "Zoom"
+        }
+    ],
+    "_collections": [
+        "Seminars"
+    ],
+    "end_datetime": "2023-11-11T17:00:00.000000",
+    "public_notes": [
+        {
+            "value": "The zoom invitation link can be found on the website."
+        }
+    ],
+    "control_number": 1799778,
+    "start_datetime": "2023-11-11T16:00:00.000000",
+    "contact_details": [
+        {
+            "name": "Bellenghi, Chiara",
+            "email": "chiara.bellenghi@tum.de"
+        }
+    ],
+    "acquisition_source": {
+        "email": "chiara.bellenghi@tum.de",
+        "orcid": "0000-0001-8525-7515",
+        "method": "submitter",
+        "source": "submitter",
+        "datetime": "2020-06-08T14:02:52.526067",
+        "internal_uid": 68404
+    },
+    "inspire_categories": [
+        {
+            "term": "Astrophysics"
+        },
+        {
+            "term": "Experiment-HEP"
+        }
+    ]
+}

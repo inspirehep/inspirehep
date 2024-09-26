@@ -1,0 +1,120 @@
+{
+    "addresses": [
+        {
+            "cities": [
+                "Orsay"
+            ],
+            "postal_code": "91405",
+            "country_code": "FR",
+            "postal_address": [
+                "Bât. 100 et 200, 15 rue Georges Clémenceau",
+                "F-91405 Orsay"
+            ]
+        }
+    ],
+    "ICN": [
+        "IJCLab, Orsay"
+    ],
+    "core": true,
+    "self": {
+        "$ref": "https://inspirebeta.net/api/institutions/1776405"
+    },
+    "urls": [
+        {
+            "value": "https://www.ijclab.in2p3.fr/"
+        }
+    ],
+    "$schema": "https://inspirebeta.net/schemas/records/institutions.json",
+    "legacy_ICN": "IJCLab, Orsay",
+    "extra_words": [
+        "Laboratoire de Physique des deux Infinis Irène Joliot-Curie"
+    ],
+    "_collections": [
+        "Institutions"
+    ],
+    "public_notes": [
+        {
+            "value": "Merge in 2020 of 5 laboratories: LAL Orsay, IPN Orsay, CSNSM Orsay, IMNC Orsay and LPT Orsay"
+        }
+    ],
+    "name_variants": [
+        {
+            "value": "UMR 9012"
+        }
+    ],
+    "control_number": 1776405,
+    "legacy_version": "20200121150451.0",
+    "related_records": [
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/926589"
+            },
+            "relation": "parent",
+            "curated_relation": true
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/903118"
+            },
+            "relation": "parent",
+            "curated_relation": true
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/1404231"
+            },
+            "relation": "parent",
+            "curated_relation": true
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/903099"
+            },
+            "relation": "predecessor",
+            "curated_relation": true
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/903100"
+            },
+            "relation": "predecessor",
+            "curated_relation": true
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/907588"
+            },
+            "relation": "predecessor",
+            "curated_relation": true
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/1608212"
+            },
+            "relation": "predecessor",
+            "curated_relation": true
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/903101"
+            },
+            "relation": "predecessor",
+            "curated_relation": true
+        }
+    ],
+    "institution_type": [
+        "Research Center"
+    ],
+    "legacy_creation_date": "2020-01-21",
+    "institution_hierarchy": [
+        {
+            "name": "Laboratoire de Physique des 2 Infinis Irène Joliot-Curie"
+        }
+    ],
+    "external_system_identifiers": [
+        {
+            "value": "578151",
+            "schema": "HAL"
+        }
+    ]
+}

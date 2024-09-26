@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AffiliationList renders author with multiple affiliations 1`] = `
+<div
+  className="__InlineList__ di"
+>
+  <ul>
+    <li
+      key="CERN2-0"
+    >
+      <Affiliation
+        affiliation={
+          Immutable.Map {
+            "value": "CERN2",
+            "record": Immutable.Map {
+              "$ref": "http://inspirehep.net/api/institutions/12345",
+            },
+          }
+        }
+      />
+       and 
+    </li>
+    <li
+      key="CERN1-2"
+    >
+      <Affiliation
+        affiliation={
+          Immutable.Map {
+            "value": "CERN1",
+          }
+        }
+      />
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`AffiliationList renders author with one affiliation 1`] = `
+<div
+  className="__InlineList__ di"
+>
+  <ul>
+    <li
+      key="CERN2-0"
+    >
+      <Affiliation
+        affiliation={
+          Immutable.Map {
+            "value": "CERN2",
+            "record": Immutable.Map {
+              "$ref": "http://inspirehep.net/api/institutions/12345",
+            },
+          }
+        }
+      />
+    </li>
+  </ul>
+</div>
+`;

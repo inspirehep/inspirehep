@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DropdownMenu renders 1`] = `
+<Dropdown
+  disabled={false}
+  overlay={<Menu />}
+>
+  title
+</Dropdown>
+`;
+
+exports[`DropdownMenu renders with all props set 1`] = `
+<Dropdown
+  disabled={true}
+  overlay={
+    <Menu
+      onClick={[MockFunction]}
+    />
+  }
+>
+  title
+</Dropdown>
+`;

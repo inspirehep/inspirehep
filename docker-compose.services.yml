@@ -1,0 +1,93 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2019 CERN.
+#
+# inspirehep is free software; you can redistribute it and/or modify it under
+# the terms of the MIT License; see LICENSE file for more details.
+
+version: '2.1'
+services:
+  app:
+    restart: 'always'
+    build:
+      context: backend
+      args:
+        - POETRY_EXTRA_ARGS=--dev
+    environment:
+      - 'INVENIO_DEBUG=True'
+      - 'INVENIO_ACCOUNTS_SESSION_REDIS_URL=redis://cache:6379/1'
+      - 'INVENIO_BROKER_URL=amqp://guest:guest@mq/'
+      - 'INVENIO_CACHE_REDIS_URL=redis://cache:6379/0'
+      - 'INVENIO_CACHE_TYPE=RedisCache'
+      - 'INVENIO_CELERY_BROKER_URL=amqp://guest:guest@mq/'
+      - 'INVENIO_CELERY_RESULT_BACKEND=redis://cache:6379/2'
+      - "INVENIO_SEARCH_ELASTIC_HOSTS=['es:9200']"
+      - 'INVENIO_SECRET_KEY=CHANGE_ME'
+      - 'INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://inspirehep:inspirehep@db:5432/inspirehep'
+      - 'INVENIO_INSPIRE_NEXT_URL=http://ui:8080'
+  cache:
+    image: redis:5-alpine
+    restart: 'always'
+    read_only: true
+    ports:
+      - '6379:6379'
+  db:
+    image: postgres:14.1
+    restart: 'always'
+    command: postgres -c 'max_connections=200'
+    environment:
+      - 'POSTGRES_USER=inspirehep'
+      - 'POSTGRES_PASSWORD=inspirehep'
+      - 'POSTGRES_DB=inspirehep'
+    ports:
+      - '5432:5432'
+  mq:
+    image: rabbitmq:3.12.0-management
+    restart: 'always'
+  es:
+    build:
+      context: docker/opensearch
+    restart: 'always'
+    environment:
+      - DISABLE_SECURITY_PLUGIN=true
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-node1
+      - discovery.seed_hosts=opensearch-node1
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    mem_limit: 2g
+    ports:
+      - 9200:9200
+      - 9300:9300
+      - 9600:9600 # performance analysis
+  kibana:
+    image: kibana:7.10.1
+    environment:
+      - 'ELASTICSEARCH_URL=http://es:9200'
+      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+    ports: ['5601:5601']
+  flower:
+    image: mher/flower:0.9.5
+    command: --broker=amqp://guest:guest@mq/ --broker_api=http://guest:guest@mq/api/
+  s3:
+    image: localstack/localstack:1.2.0
+    hostname: localstack
+    container_name: '${LOCALSTACK_DOCKER_NAME-localstack}'
+    ports:
+      - '4572:4572'
+      - '4566:4566'
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+      - DEFAULT_REGION=us-east-1
+      - DATA_DIR=/home/localstack/data
+    volumes:
+      - './.localstack:/tmp/localstack'

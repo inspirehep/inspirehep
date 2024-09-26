@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AggregationFilter renders CheckboxAggregation if aggregation type is checkbox 1`] = `
+<CheckboxAggregation
+  buckets={
+    Immutable.List [
+      Immutable.Map {
+        "key": "bucket1",
+        "doc_count": 1,
+      },
+      Immutable.Map {
+        "key": "bucket2",
+        "doc_count": 2,
+      },
+    ]
+  }
+  name="Test"
+  onChange={[MockFunction]}
+  selections={
+    Array [
+      "bucket1",
+    ]
+  }
+  splitDisplayName={false}
+/>
+`;
+
+exports[`AggregationFilter renders MultiSelectAggregation if aggregation type is multiselect 1`] = `
+<MultiSelectAggregation
+  buckets={
+    Immutable.List [
+      Immutable.Map {
+        "key": "bucket1",
+        "doc_count": 1,
+      },
+      Immutable.Map {
+        "key": "bucket2",
+        "doc_count": 2,
+      },
+    ]
+  }
+  name="Test"
+  onChange={[MockFunction]}
+  selections={
+    Array [
+      "bucket1",
+    ]
+  }
+/>
+`;
+
+exports[`AggregationFilter renders RangeAggregation if aggregation type is range 1`] = `
+<RangeAggregation
+  buckets={
+    Immutable.List [
+      Immutable.Map {
+        "key": "2011",
+        "doc_count": 1,
+      },
+      Immutable.Map {
+        "key": "2012",
+        "doc_count": 2,
+      },
+    ]
+  }
+  initialBuckets={
+    Immutable.List [
+      Immutable.Map {
+        "key": "2011",
+        "doc_count": 111,
+      },
+      Immutable.Map {
+        "key": "2012",
+        "doc_count": 12,
+      },
+    ]
+  }
+  maximumMax={2018}
+  name="Test"
+  onChange={[MockFunction]}
+  selections="2011--2012"
+/>
+`;
+
+exports[`AggregationFilter renders TreeAggregation if aggregation type is tree 1`] = `
+<TreeAggregation
+  buckets={
+    Immutable.List [
+      Immutable.Map {
+        "key": "bucket1",
+        "doc_count": 1,
+      },
+      Immutable.Map {
+        "key": "bucket1|bucket2",
+        "doc_count": 2,
+      },
+    ]
+  }
+  name="Test"
+  onChange={[MockFunction]}
+  selections={
+    Array [
+      "bucket1",
+    ]
+  }
+/>
+`;

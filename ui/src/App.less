@@ -1,0 +1,241 @@
+body {
+  // For Chrome 'overscrolling' of the page  not working correctly with Header's 
+  // 'position: fixed' property, resulting in unsticking the menu bar from header
+  // https://chromestatus.com/feature/5381155556687872
+  overscroll-behavior-y: none;
+}
+.__App__ {
+  min-height: 100vh !important;
+
+  // The following should be moved in different place
+  .ant-card {
+    color: @text-color;
+  }
+
+  .ant-list {
+    color: @text-color;
+
+    .ant-list-item-meta-description {
+      color: @text-color;
+    }
+  }
+
+  .ant-checkbox-wrapper {
+    color: @text-color;
+  }
+
+  .content {
+    display: flex;
+
+    // :fist-child to avoid setting padding for `UserFeedback`
+    & > *:first-child:not(.__Jobs__) {
+      @media (min-width: @screen-xs-max) {
+        padding: 0 2.85rem;
+      }
+    }
+
+    & > *:first-child:not(.__Home__) {
+      margin-bottom: 1rem;
+
+      @media (max-width: @screen-lg-max) {
+        padding: @header-padding;
+      }
+    }
+
+    & > *:first-child.__Home__ {
+      padding: 0;
+    }
+  }
+
+  .ant-list-item-meta-title > a {
+    color: @link-color;
+
+    :hover {
+      color: @link-hover-color;
+    }
+  }
+
+  .secondary-color {
+    color: @secondary-color;
+  }
+
+  .secondary-link {
+    color: @secondary-color;
+    text-decoration: underline;
+    font-style: italic;
+  }
+
+  .secondary-container {
+    font-style: italic;
+
+    a {
+      color: @secondary-color;
+      text-decoration: underline;
+      font-style: italic;
+    }
+  }
+
+  .result-item-title {
+    font-weight: 500;
+    color: @heading-color;
+    font-size: 1.1rem;
+
+    &:hover {
+      color: @link-hover-color;
+    }
+  }
+
+  .ant-timeline-item-last {
+    padding: 0;
+  }
+
+  .sm-f3 {
+    @media (max-width: @screen-sm-max) {
+      font-size: 1.5rem;
+    }
+  }
+
+  .sm-f4 {
+    @media (max-width: @screen-sm-max) {
+      font-size: 1.25rem;
+    }
+  }
+
+  .sm-f5 {
+    @media (max-width: @screen-sm-max) {
+      font-size: 1rem;
+    }
+  }
+
+  .sm-pb3 {
+    @media (max-width: @screen-sm-max) {
+      padding-bottom: 1rem;
+    }
+  }
+
+  .md-pb3 {
+    @media (max-width: @screen-md-max) {
+      padding-bottom: 1rem;
+    }
+  }
+
+  .sm-mh2 {
+    @media (max-width: @screen-sm-max) {
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+    }
+  }
+
+  .flex-grow-1 {
+    flex-grow: 1;
+  }
+
+  .sm-plus-flex-nowrap {
+    @media (min-width: @screen-sm-max) {
+      flex-wrap: nowrap;
+    }
+  }
+
+  .flex-nowrap {
+    flex-wrap: nowrap;
+  }
+
+  .xs-sm-col-24 {
+    @media (max-width: @screen-sm-max) {
+      width: 100%;
+    }
+  }
+}
+
+.sm-tc {
+  @media (max-width: @screen-sm-max) {
+    text-align: center;
+  }
+}
+
+.mb2-important {
+  margin-bottom: 0.5rem !important;
+}
+
+.ant-drawer-body {
+  @media (max-width: @screen-xs-max) {
+    padding: @drawer-body-padding / 2 !important;
+  }
+}
+
+// height version of tachyons' `mw5` class
+.mhi5 {
+  max-height: 16rem;
+}
+
+.ant-tooltip a {
+  color: white;
+  text-decoration: underline;
+}
+
+.header-dropdown {
+  z-index: @zindex-header + 1 !important;
+}
+
+body {
+  overflow-y: scroll;
+}
+
+.ant-modal-wrap {
+  padding: @layout-header-height 0;
+  z-index: @zindex-modal !important;
+}
+
+.ant-popover {
+  z-index: @zindex-modal !important;
+}
+
+.ant-drawer {
+  z-index: @zindex-drawer !important;
+}
+
+.ant-form-item-label {
+  text-overflow: ellipsis;
+  z-index: 1;
+  padding-right: 8px !important;
+}
+
+.ant-form-item-label > label::after {
+  margin-right: 0 !important;
+}
+
+.search-drawer {
+  z-index: @zindex-header + 1 !important;
+
+  .ant-drawer-content-wrapper {
+    width: 25% !important;
+
+    @media (max-width: @screen-sm-max) {
+      width: 80% !important;
+      padding-top: 0px;
+    }
+
+    .ant-drawer-content {
+      background-color: @layout-body-background;
+    }
+  }
+}
+
+// forces topRight notifications over the header and drawers
+.ant-notification-topRight {
+  z-index: @zindex-header + 5 !important;
+}
+
+// page header with smaller inline subtitle (like in JournalItem)
+.ant-page-header.site-page-header.ant-page-header-ghost {
+  padding: 0;
+  .ant-page-header-heading-left {
+    margin: 0;
+    .ant-page-header-heading-title {
+      font-weight: 500;
+      font-size: 18px;
+      margin-right: 0;
+      padding-right: 5px;
+    }
+  }
+}

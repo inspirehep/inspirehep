@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorWithBAI renders 1`] = `
+<Tooltip
+  title={
+    <React.Fragment>
+      <div>
+        The author does not have an INSPIRE profile
+      </div>
+      <div>
+        <LinkWithTargetBlank
+          as="a"
+          href="/submissions/authors?bai=Name.Full.1"
+        >
+          Create profile
+        </LinkWithTargetBlank>
+      </div>
+    </React.Fragment>
+  }
+>
+  <Link
+    style={
+      Object {
+        "textDecoration": "underline dashed",
+      }
+    }
+    to="/literature?q=a%20Name.Full.1"
+  >
+    Name, Full
+  </Link>
+</Tooltip>
+`;

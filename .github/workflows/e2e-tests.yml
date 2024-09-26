@@ -1,0 +1,179 @@
+name: E2E tests
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: The reference to test
+        type: string
+        required: true
+      backend-image:
+        description: The backend image
+        type: string
+        required: true
+      editor-image:
+        description: The editor image
+        type: string
+        required: true
+      ui-image:
+        description: The UI image
+        type: string
+        required: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [ chrome, firefox ]
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+
+      postgresql:
+        image: postgres:14.1
+        env:
+          POSTGRES_USER: inspirehep
+          POSTGRES_PASSWORD: inspirehep
+          POSTGRES_DB: inspirehep
+        ports:
+          - 5432:5432
+
+      rabbitmq:
+        image: rabbitmq:3-management
+        ports:
+          - 5672:5672
+
+      elasticsearch:
+        image: registry.cern.ch/cern-sis/inspirehep/opensearch
+        env:
+          DISABLE_SECURITY_PLUGIN: true
+          bootstrap.memory_lock: true
+          ES_JAVA_OPTS: -Xms1024m -Xmx1024m
+          discovery.type: single-node
+        ports:
+          - 9200:9200
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: create environment file
+        run: |
+          cat <<EOF >env.list
+          INVENIO_DEBUG=True
+          INVENIO_MAIL_DEBUG=1
+          INVENIO_ACCOUNTS_SESSION_REDIS_URL=redis://localhost:6379/2
+          INVENIO_BROKER_URL=amqp://guest:guest@localhost:5672/
+          INVENIO_CACHE_REDIS_URL=redis://localhost:6379/0
+          INVENIO_CACHE_TYPE=RedisCache
+          INVENIO_CELERY_BROKER_URL=amqp://guest:guest@localhost:5672/
+          INVENIO_CELERY_RESULT_BACKEND=redis://localhost:6379/1
+          INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://inspirehep:inspirehep@localhost:5432/inspirehep
+          INVENIO_INSPIRE_NEXT_URL=http://localhost:5000
+          APP_DEBUG=True
+          APP_MAIL_DEBUG=1
+          APP_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://inspirehep:inspirehep@localhost:5432/inspirehep
+          APP_CELERY_BROKER_URL=amqp://guest:guest@localhost:5672/
+          APP_CELERY_RESULT_BACKEND=redis://localhost:6379/1
+          APP_CACHE_REDIS_URL=redis://localhost:6379/0
+          APP_ACCOUNTS_SESSION_REDIS_URL=redis://localhost:6379/2
+          APP_ES_BULK_TIMEOUT=240
+          APP_DANGEROUSLY_ENABLE_LOCAL_LOGIN=True
+          APP_ENABLE_SECURE_HEADERS=False
+          EOF
+
+      - name: Run hep-worker
+        run: >
+          docker run
+          --detach
+          --network host
+          --env-file ./env.list
+          --name hep-worker
+          --entrypoint celery
+          ${{ inputs.backend-image }}
+          worker
+          -E
+          -A inspirehep.celery
+          -l INFO
+          --purge
+          --queues celery,indexer_task,matcher,assign,redirect_references
+
+      - name: Run hep-web
+        run: >
+          docker run
+          --detach
+          --network host
+          --env-file ./env.list
+          --name hep-web
+          --entrypoint gunicorn
+          ${{ inputs.backend-image }}
+          -t 99999
+          -b 0.0.0.0:8000
+          --access-logfile "-"
+          --error-logfile "-"
+          inspirehep.wsgi:application
+
+      - name: run editor
+        run: >
+          docker run
+          --detach
+          --network host
+          --name record-editor
+          ${{ inputs.editor-image }}
+
+      - name: run ui
+        run: >
+          docker run
+          --detach
+          --network host
+          --name ui
+          --add-host=hep-web:127.0.0.1
+          --add-host=record-editor:127.0.0.1
+          --mount type=bind,source=${{ github.workspace }}/ui/docker/nginx/config/local.conf,destination=/etc/nginx/conf.d/default.conf
+          ${{ inputs.ui-image }}
+
+      - name: setup
+        run: |
+          docker exec hep-web ./scripts/setup
+
+      - name: import dataset
+        run: >
+          docker exec hep-web inspirehep importer demo-records
+
+      - name: cypress
+        uses: cypress-io/github-action@v5
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+        with:
+          working-directory: ./e2e
+          record: true
+          parallel: false
+          browser: ${{ matrix.browser }}
+          tag: Chrome
+          env: inspirehep_url=http://localhost:8080
+
+      - name: application logs
+        if: ${{ always() }}
+        run: |
+          echo "::group::hep-worker"
+          docker logs hep-worker
+          echo "::endgroup::"
+          echo "::group::hep-web"
+          docker logs hep-web
+          echo "::endgroup::"
+          echo "::group::record-editor"
+          docker logs record-editor
+          echo "::endgroup::"
+          echo "::group::ui"
+          docker logs ui
+          echo "::endgroup::"

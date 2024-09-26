@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserSettingsModal renders with props 1`] = `
+<Modal
+  footer={null}
+  onCancel={[MockFunction]}
+  open={true}
+  title="Settings"
+>
+  <Connect(OrcidPushSetting) />
+</Modal>
+`;

@@ -1,0 +1,85 @@
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { render } from '@testing-library/react';
+import { fromJS } from 'immutable';
+import { Provider } from 'react-redux';
+
+import DetailPageContainer from '../DetailPageContainer';
+import { getStoreWithState } from '../../../../fixtures/store';
+
+describe('DetailPageContainer', () => {
+  it('renders initial state', () => {
+    const authors = fromJS([
+      {
+        full_name: 'Test, Guy 1',
+      },
+      {
+        full_name: 'Test, Guy 2',
+      },
+      {
+        full_name: 'Test, Guy 3',
+      },
+      {
+        full_name: 'Test, Guy 4',
+      },
+      {
+        full_name: 'Test, Guy 5',
+      },
+      {
+        full_name: 'Test, Guy 6',
+      },
+    ]);
+    const record = { $ref: 'http://localhost:5000/api/literature/1234' };
+    const supervisors = fromJS([
+      {
+        uuid: '123',
+        full_name: 'John Doe',
+      },
+      {
+        uuid: '456',
+        full_name: 'Jane Doe',
+      },
+    ]);
+
+    const store = getStoreWithState({
+      literature: fromJS({
+        authors,
+        data: {
+          record,
+          metadata: {
+            titles: [
+              {
+                title: 'Detail view',
+              },
+            ],
+          },
+        },
+        supervisors,
+        totalReferences: 2,
+      }),
+      search: fromJS({
+        namespaces: {
+          literatureSeminars: {
+            initialTotal: 2,
+          },
+        },
+      }),
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          profile_control_number: null
+        }
+      })
+    });
+      
+
+    const { asFragment } = render(
+      <Router>
+        <Provider store={store}>
+          <DetailPageContainer />
+        </Provider>
+      </Router>
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+});

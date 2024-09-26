@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SeminarDateTimes renders with dates different days 1`] = `
+<span>
+  15 May 2020, 11:45 AM
+   - 
+  17 May 2021, 12:45 AM
+</span>
+`;
+
+exports[`SeminarDateTimes renders with dates same day 1`] = `
+<span>
+  15 May 2020, 01:45 PM
+   - 
+  02:45 AM
+</span>
+`;
+
+exports[`SeminarDateTimes renders with timezone abbreviation 1`] = `
+<span>
+  15 May 2020, 01:45 PM
+   - 
+  17 May 2021, 02:45 AM
+   CEST
+</span>
+`;

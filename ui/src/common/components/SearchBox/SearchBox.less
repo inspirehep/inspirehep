@@ -1,0 +1,10 @@
+.__SearchBox__ {
+  .autocomplete {
+    width: 100%;
+    // HACK: doesn't set className from `Input.Search` to inner `input` for some reason
+    input {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}

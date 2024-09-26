@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrcidPushSetting renders when disabled 1`] = `
+<Fragment>
+  <div
+    className="mb3"
+  >
+    <span
+      className="mr2"
+    >
+      Export your INSPIRE works to ORCID
+    </span>
+    <ForwardRef
+      onConfirm={[Function]}
+      title={
+        <React.Fragment>
+          <p>
+            Your INSPIRE claimed works will be exported to your ORCID account.
+          </p>
+          <span>
+            Are you sure?
+          </span>
+        </React.Fragment>
+      }
+    >
+      <Switch
+        checked={false}
+        data-test-id="orcid-switch"
+        loading={false}
+      />
+    </ForwardRef>
+  </div>
+  <div>
+    <Connect(OrcidPushSettingMessage) />
+  </div>
+</Fragment>
+`;
+
+exports[`OrcidPushSetting renders when enabled 1`] = `
+<Fragment>
+  <div
+    className="mb3"
+  >
+    <span
+      className="mr2"
+    >
+      Export your INSPIRE works to ORCID
+    </span>
+    <ForwardRef
+      onConfirm={[Function]}
+      title={
+        <React.Fragment>
+          <p>
+            Your INSPIRE works will no longer be exported to your ORCID account.
+          </p>
+          <span>
+            Are you sure?
+          </span>
+        </React.Fragment>
+      }
+    >
+      <Switch
+        checked={true}
+        data-test-id="orcid-switch"
+        loading={false}
+      />
+    </ForwardRef>
+  </div>
+  <div>
+    <Connect(OrcidPushSettingMessage) />
+  </div>
+</Fragment>
+`;

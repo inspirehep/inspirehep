@@ -1,0 +1,35 @@
+{
+    "cnum": "C59-06-21",
+    "self": {
+        "$ref": "https://inspirebeta.net/api/conferences/1622944"
+    },
+    "titles": [
+        {
+            "title": "Les th\u00e9ories relativistes de la gravitation (Relativistic Theories of Gravitation)"
+        }
+    ],
+    "$schema": "https://inspirebeta.net/schemas/records/conferences.json",
+    "addresses": [
+        {
+            "cities": [
+                "Royaumont"
+            ],
+            "latitude": 49.1477161,
+            "longitude": 2.3811984,
+            "country_code": "FR"
+        }
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "1959-06-27",
+    "opening_date": "1959-06-21",
+    "control_number": 1622944,
+    "legacy_version": "20180125163839.0",
+    "inspire_categories": [
+        {
+            "term": "Gravitation and Cosmology"
+        }
+    ],
+    "legacy_creation_date": "2017-09-12"
+}

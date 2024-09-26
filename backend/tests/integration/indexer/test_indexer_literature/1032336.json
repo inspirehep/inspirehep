@@ -1,0 +1,39 @@
+{
+  "status": "active",
+  "urls": [{ "value": "http://www.ligo.caltech.edu/~babbott/" }],
+  "_collections": ["Authors"],
+  "deleted": false,
+  "$schema": "http://qa.inspirebeta.net/schemas/records/authors.json",
+  "legacy_version": "20170414165936.0",
+  "project_membership": [
+    {
+      "current": false,
+      "record": { "$ref": "http://qa.inspirebeta.net/api/experiments/1110623" },
+      "name": "LIGO",
+      "curated_relation": true
+    }
+  ],
+  "name": {
+    "preferred_name": "Benjamin P. Abbott",
+    "value": "Abbott, Benjamin P."
+  },
+  "control_number": 1032336,
+  "positions": [
+    {
+      "current": true,
+      "record": { "$ref": "http://qa.inspirebeta.net/api/institutions/908529" },
+      "institution": "LIGO Lab., Caltech",
+      "curated_relation": true
+    }
+  ],
+  "self": { "$ref": "http://qa.inspirebeta.net/api/authors/1032336" },
+  "ids": [
+    { "value": "INSPIRE-00300241", "schema": "INSPIRE ID" },
+    { "value": "Benjamin.P.Abbott.1", "schema": "INSPIRE BAI" },
+    { "value": "HEPNAMES-563803", "schema": "SPIRES" }
+  ],
+  "stub": false,
+  "arxiv_categories": ["gr-qc"],
+  "legacy_creation_date": "2006-05-10",
+  "email_addresses": [{ "current": true, "value": "abbott_b@ligo.caltech.edu" }]
+}

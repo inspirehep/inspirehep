@@ -1,0 +1,242 @@
+.__DashboardPageContainer__ {
+  width: 100%;
+
+  .inner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .search-container {
+      margin: 50px auto;
+      padding: 15px;
+      max-width: 1300px;
+      width: 100%;
+      display: flex;
+
+      .ant-input {
+        height: 3rem;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      .ant-btn {
+        width: 3rem;
+        height: 3rem;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+
+    .cards-container {
+      margin: 50px auto;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 1300px;
+
+      .ant-card {
+        margin: 20px 10px;
+        width: 300px;
+        border-width: 1px;
+        transition: ease 0.25s;
+
+        .ant-card-head {
+          .ant-card-head-title p {
+            text-transform: uppercase;
+            text-wrap: wrap;
+          }
+        }
+
+        .ant-card-body {
+          border-color: white;
+        }
+      }
+    }
+  }
+}
+
+.ant-select-selection-item::first-letter,
+.ant-select-item-option-content::first-letter {
+  text-transform: capitalize;
+}
+
+// Color palette
+.waiting,
+.running {
+  color: #7b898a;
+}
+.error {
+  color: #e74c3c;
+}
+.halted,
+.approval {
+  color: #cfa90e;
+}
+.completed {
+  color: #16a085;
+}
+.initial {
+  color: black;
+}
+.blue {
+  color: #2980b9;
+}
+
+.bg-error {
+  background-color: #e74c3c;
+}
+.bg-completed {
+  background-color: #16a085;
+}
+.bg-running {
+  background-color: #b8b8b8;
+}
+.bg-halted,
+.bg-approval {
+  background-color: #f39c12;
+}
+.bg-waiting {
+  background-color: #f5f5f5;
+  font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+.bg-running {
+  background-color: #c2c5c7;
+}
+
+.font-white {
+  color: white !important;
+}
+
+.__DashboardPageContainer__ {
+  .new-authors {
+    &:hover {
+      box-shadow: 0px 0px 10px 0px #3398db;
+    }
+    .ant-card-head {
+      color: #3398db;
+    }
+  }
+
+  .new-publisher-harvests {
+    &:hover {
+      box-shadow: 0px 0px 10px 0px #1abc9c;
+    }
+    .ant-card-head {
+      color: #1abc9c;
+    }
+  }
+
+  .publisher-updates {
+    &:hover {
+      box-shadow: 0px 0px 10px 0px #16a085;
+    }
+    .ant-card-head {
+      color: #16a085;
+    }
+  }
+
+  .author-updates {
+    &:hover {
+      box-shadow: 0px 0px 10px 0px #2980b9;
+    }
+    .ant-card-head {
+      color: #2980b9;
+    }
+  }
+
+  .new-arxiv-harvests {
+    &:hover {
+      box-shadow: 0px 0px 10px 0px #9c27b0;
+    }
+    .ant-card-head {
+      color: #9c27b0;
+    }
+  }
+
+  .new-literature-submissions {
+    &:hover {
+      box-shadow: 0px 0px 10px 0px #e67e22;
+    }
+    .ant-card-head {
+      color: #e67e22;
+    }
+  }
+
+  .arxiv-updates {
+    &:hover {
+      box-shadow: 0px 0px 10px 0px #8e44ad;
+    }
+    .ant-card-head {
+      color: #8e44ad;
+    }
+  }
+
+  .all-harvests {
+    &:hover {
+      box-shadow: 0px 0px 10px 0px #829091;
+    }
+    .ant-card-head {
+      color: #829091;
+    }
+  }
+
+  .merging {
+    &:hover {
+      box-shadow: 0px 0px 10px 0px #42b1b9;
+    }
+    .ant-card-head {
+      color: #42b1b9;
+    }
+  }
+
+  .matching {
+    &:hover {
+      box-shadow: 0px 0px 10px 0px #5d35a7;
+    }
+    .ant-card-head {
+      color: #5d35a7;
+    }
+  }
+
+  .core-selection {
+    &:hover {
+      box-shadow: 0px 0px 10px 0px #ed9b16;
+    }
+    .ant-card-head {
+      color: #ed9b16;
+    }
+  }
+
+  .core-selection-approval {
+    &:hover {
+      box-shadow: 0px 0px 10px 0px #d3358c;
+    }
+    .ant-card-head {
+      color: #d3358c;
+    }
+  }
+}
+
+.ant-tabs {
+  max-width: 1300px;
+  margin: 0 auto;
+  .ant-tabs-tab,
+  .ant-tabs-tab:focus-visible,
+  .ant-tabs-tab:active {
+    background: transparent !important;
+    border-bottom: none !important;
+    h3 {
+      margin-bottom: 0;
+      font-size: 1rem;
+      font-weight: 400;
+      color: black;
+    }
+  }
+  .ant-tabs-tab.ant-tabs-tab-active,
+  .ant-tabs-tab:focus-visible.ant-tabs-tab-active,
+  .ant-tabs-tab:active.ant-tabs-tab-active {
+    h3 {
+      color: #1890ff;
+    }
+  }
+}

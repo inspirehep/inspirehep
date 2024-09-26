@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Figure renders figure with all props 1`] = `
+<div
+  className="__Figure__ bg-white pa3"
+>
+  <figure
+    className="mv1"
+  >
+    <Img
+      alt="Figure"
+      className="h5 ba pa1 db center w-auto h-auto pointer"
+      container={[Function]}
+      decode={true}
+      loader={
+        <Spin
+          style={
+            Object {
+              "display": "block",
+              "margin": "auto",
+              "padding": "2rem 0",
+            }
+          }
+        />
+      }
+      onClick={[MockFunction]}
+      src="https://picsum.photos/200/300"
+      unloader={
+        <ForwardRef(FileImageOutlined)
+          className="f2"
+          style={
+            Object {
+              "display": "block",
+              "margin": "auto",
+              "padding": "2rem 0",
+            }
+          }
+        />
+      }
+    />
+  </figure>
+</div>
+`;
+
+exports[`Figure renders figure with only url 1`] = `
+<div
+  className="__Figure__ bg-white pa3"
+>
+  <figure
+    className="mv1"
+  >
+    <Img
+      alt="Figure"
+      className="ba pa1 db center w-auto h-auto"
+      container={[Function]}
+      decode={true}
+      loader={
+        <Spin
+          style={
+            Object {
+              "display": "block",
+              "margin": "auto",
+              "padding": "2rem 0",
+            }
+          }
+        />
+      }
+      src="https://picsum.photos/200/300"
+      unloader={
+        <ForwardRef(FileImageOutlined)
+          className="f2"
+          style={
+            Object {
+              "display": "block",
+              "margin": "auto",
+              "padding": "2rem 0",
+            }
+          }
+        />
+      }
+    />
+  </figure>
+</div>
+`;

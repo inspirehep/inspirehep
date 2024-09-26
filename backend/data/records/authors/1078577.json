@@ -1,0 +1,94 @@
+{
+    "ids": [
+        {
+            "value": "0000-0002-6997-6330",
+            "schema": "ORCID"
+        },
+        {
+            "value": "Matthias.Wolf.1",
+            "schema": "INSPIRE BAI"
+        },
+        {
+            "value": "CERN-695852",
+            "schema": "CERN"
+        },
+        {
+            "value": "INSPIRE-00333705",
+            "schema": "INSPIRE ID"
+        },
+        {
+            "value": "HEPNAMES-1087746",
+            "schema": "SPIRES"
+        }
+    ],
+    "name": {
+        "value": "Wolf, Matthias",
+        "preferred_name": "Matthias Wolf"
+    },
+    "self": {
+        "$ref": "https://inspirebeta.net/api/authors/1078577"
+    },
+    "stub": false,
+    "status": "active",
+    "$schema": "https://inspirebeta.net/schemas/records/authors.json",
+    "deleted": false,
+    "advisors": [
+        {
+            "ids": [
+                {
+                    "value": "INSPIRE-00090190",
+                    "schema": "INSPIRE ID"
+                }
+            ],
+            "name": "Hildreth, Michael D.",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1006021"
+            },
+            "degree_type": "phd"
+        }
+    ],
+    "positions": [
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/903085"
+            },
+            "current": true,
+            "start_date": "2011",
+            "institution": "Notre Dame U.",
+            "curated_relation": true
+        }
+    ],
+    "_collections": [
+        "Authors"
+    ],
+    "control_number": 1078577,
+    "legacy_version": "20170726215542.0",
+    "email_addresses": [
+        {
+            "value": "cern@sushinara.net",
+            "current": true
+        }
+    ],
+    "arxiv_categories": [
+        "hep-ex"
+    ],
+    "acquisition_source": {
+        "email": "m@sushinara.net",
+        "orcid": "0000-0002-6997-6330",
+        "method": "submitter",
+        "datetime": "2017-07-20T13:36:27.271236",
+        "submission_number": "683390"
+    },
+    "project_membership": [
+        {
+            "name": "CERN-LHC-CMS",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/experiments/1108642"
+            },
+            "current": true,
+            "start_date": "2009",
+            "curated_relation": true
+        }
+    ],
+    "legacy_creation_date": "2011-10-24"
+}

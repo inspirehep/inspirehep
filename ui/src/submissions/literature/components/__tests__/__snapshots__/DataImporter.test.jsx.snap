@@ -1,0 +1,381 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataImporter renders with error with a message 1`] = `
+<div>
+  <Row
+    className="mb3"
+  >
+    <Col
+      span={24}
+    >
+      <Alert
+        message="Fill in the field to automatically import more data from arXiv or DOI"
+        type="info"
+      />
+    </Col>
+  </Row>
+  <Row
+    className="mb3"
+  >
+    <Col
+      span={24}
+    >
+      <Alert
+        closable={true}
+        message={
+          <React.Fragment>
+            error
+          </React.Fragment>
+        }
+        showIcon={true}
+        type="error"
+      />
+    </Col>
+  </Row>
+  <InternalFormItem
+    label={
+      <Tooltip
+        title="From arXiv or DOI"
+      >
+        From arXiv or DOI
+      </Tooltip>
+    }
+    labelCol={
+      Object {
+        "md": Object {
+          "span": 5,
+        },
+        "sm": Object {
+          "span": 24,
+        },
+      }
+    }
+    wrapperCol={
+      Object {
+        "md": Object {
+          "span": 19,
+        },
+        "sm": Object {
+          "span": 24,
+        },
+      }
+    }
+  >
+    <ForwardRef
+      data-test-id="import-input"
+      onChange={[Function]}
+      onPressEnter={[Function]}
+      placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
+    />
+  </InternalFormItem>
+  <Row
+    align="middle"
+    justify="space-between"
+    type="flex"
+  >
+    <Col>
+      <LinkLikeButton
+        color="blue"
+        dataTestId="skip-import-button"
+        disabled={false}
+        onClick={[MockFunction]}
+      >
+        Skip and fill the form manually
+      </LinkLikeButton>
+    </Col>
+    <Col>
+      <Button
+        data-test-id="import-button"
+        loading={false}
+        onClick={[Function]}
+        type="primary"
+      >
+        Import
+      </Button>
+    </Col>
+  </Row>
+</div>
+`;
+
+exports[`DataImporter renders with error with message and recid 1`] = `
+<div>
+  <Row
+    className="mb3"
+  >
+    <Col
+      span={24}
+    >
+      <Alert
+        message="Fill in the field to automatically import more data from arXiv or DOI"
+        type="info"
+      />
+    </Col>
+  </Row>
+  <Row
+    className="mb3"
+  >
+    <Col
+      span={24}
+    >
+      <Alert
+        closable={true}
+        message={
+          <React.Fragment>
+            error
+            <React.Fragment>
+              . 
+               
+              <LinkWithTargetBlank
+                as="a"
+                href="http://inspirehep.net/record/12345"
+              >
+                See the record
+              </LinkWithTargetBlank>
+            </React.Fragment>
+          </React.Fragment>
+        }
+        showIcon={true}
+        type="error"
+      />
+    </Col>
+  </Row>
+  <InternalFormItem
+    label={
+      <Tooltip
+        title="From arXiv or DOI"
+      >
+        From arXiv or DOI
+      </Tooltip>
+    }
+    labelCol={
+      Object {
+        "md": Object {
+          "span": 5,
+        },
+        "sm": Object {
+          "span": 24,
+        },
+      }
+    }
+    wrapperCol={
+      Object {
+        "md": Object {
+          "span": 19,
+        },
+        "sm": Object {
+          "span": 24,
+        },
+      }
+    }
+  >
+    <ForwardRef
+      data-test-id="import-input"
+      onChange={[Function]}
+      onPressEnter={[Function]}
+      placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
+    />
+  </InternalFormItem>
+  <Row
+    align="middle"
+    justify="space-between"
+    type="flex"
+  >
+    <Col>
+      <LinkLikeButton
+        color="blue"
+        dataTestId="skip-import-button"
+        disabled={false}
+        onClick={[MockFunction]}
+      >
+        Skip and fill the form manually
+      </LinkLikeButton>
+    </Col>
+    <Col>
+      <Button
+        data-test-id="import-button"
+        loading={false}
+        onClick={[Function]}
+        type="primary"
+      >
+        Import
+      </Button>
+    </Col>
+  </Row>
+</div>
+`;
+
+exports[`DataImporter renders with error without a message 1`] = `
+<div>
+  <Row
+    className="mb3"
+  >
+    <Col
+      span={24}
+    >
+      <Alert
+        message="Fill in the field to automatically import more data from arXiv or DOI"
+        type="info"
+      />
+    </Col>
+  </Row>
+  <Row
+    className="mb3"
+  >
+    <Col
+      span={24}
+    >
+      <Alert
+        closable={true}
+        message={
+          <React.Fragment>
+            Something went wrong during the import
+          </React.Fragment>
+        }
+        showIcon={true}
+        type="error"
+      />
+    </Col>
+  </Row>
+  <InternalFormItem
+    label={
+      <Tooltip
+        title="From arXiv or DOI"
+      >
+        From arXiv or DOI
+      </Tooltip>
+    }
+    labelCol={
+      Object {
+        "md": Object {
+          "span": 5,
+        },
+        "sm": Object {
+          "span": 24,
+        },
+      }
+    }
+    wrapperCol={
+      Object {
+        "md": Object {
+          "span": 19,
+        },
+        "sm": Object {
+          "span": 24,
+        },
+      }
+    }
+  >
+    <ForwardRef
+      data-test-id="import-input"
+      onChange={[Function]}
+      onPressEnter={[Function]}
+      placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
+    />
+  </InternalFormItem>
+  <Row
+    align="middle"
+    justify="space-between"
+    type="flex"
+  >
+    <Col>
+      <LinkLikeButton
+        color="blue"
+        dataTestId="skip-import-button"
+        disabled={false}
+        onClick={[MockFunction]}
+      >
+        Skip and fill the form manually
+      </LinkLikeButton>
+    </Col>
+    <Col>
+      <Button
+        data-test-id="import-button"
+        loading={false}
+        onClick={[Function]}
+        type="primary"
+      >
+        Import
+      </Button>
+    </Col>
+  </Row>
+</div>
+`;
+
+exports[`DataImporter renders without error while importing 1`] = `
+<div>
+  <Row
+    className="mb3"
+  >
+    <Col
+      span={24}
+    >
+      <Alert
+        message="Fill in the field to automatically import more data from arXiv or DOI"
+        type="info"
+      />
+    </Col>
+  </Row>
+  <InternalFormItem
+    label={
+      <Tooltip
+        title="From arXiv or DOI"
+      >
+        From arXiv or DOI
+      </Tooltip>
+    }
+    labelCol={
+      Object {
+        "md": Object {
+          "span": 5,
+        },
+        "sm": Object {
+          "span": 24,
+        },
+      }
+    }
+    wrapperCol={
+      Object {
+        "md": Object {
+          "span": 19,
+        },
+        "sm": Object {
+          "span": 24,
+        },
+      }
+    }
+  >
+    <ForwardRef
+      data-test-id="import-input"
+      onChange={[Function]}
+      onPressEnter={[Function]}
+      placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
+    />
+  </InternalFormItem>
+  <Row
+    align="middle"
+    justify="space-between"
+    type="flex"
+  >
+    <Col>
+      <LinkLikeButton
+        color="blue"
+        dataTestId="skip-import-button"
+        disabled={false}
+        onClick={[MockFunction]}
+      >
+        Skip and fill the form manually
+      </LinkLikeButton>
+    </Col>
+    <Col>
+      <Button
+        data-test-id="import-button"
+        loading={true}
+        onClick={[Function]}
+        type="primary"
+      >
+        Import
+      </Button>
+    </Col>
+  </Row>
+</div>
+`;

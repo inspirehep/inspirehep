@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FieldInfoAlert renders with alert description 1`] = `
+<Row
+  className="mb1"
+>
+  <Col
+    md={
+      Object {
+        "offset": 5,
+        "span": 19,
+      }
+    }
+    sm={
+      Object {
+        "span": 24,
+      }
+    }
+  >
+    <Alert
+      description={
+        <span>
+          Watch out for this field!
+        </span>
+      }
+      showIcon={true}
+      type="info"
+    />
+  </Col>
+</Row>
+`;

@@ -1,0 +1,168 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AggregationBox renders AggreagationBox with action 1`] = `
+<div
+  className="w-100 br1"
+>
+  <Row
+    justify="space-between"
+    type="flex"
+  >
+    <Col
+      flex="auto"
+    >
+      <h3
+        className="pb1 fw4"
+      >
+        Jessica Jones
+      </h3>
+    </Col>
+    <Col>
+      <h2>
+        PI
+      </h2>
+    </Col>
+  </Row>
+  <Row
+    className="w-100"
+  >
+    <Col
+      flex="auto"
+    >
+      <div>
+        Defenders
+      </div>
+    </Col>
+  </Row>
+</div>
+`;
+
+exports[`AggregationBox renders AggreagationBox with empty string name 1`] = `
+<div
+  className="w-100 br1"
+>
+  <Row
+    justify="space-between"
+    type="flex"
+  >
+    <Col
+      flex="auto"
+    >
+      <h3
+        className="pb1 fw4"
+      />
+    </Col>
+    <Col>
+      <h2>
+        PI
+      </h2>
+    </Col>
+  </Row>
+  <Row
+    className="w-100"
+  >
+    <Col
+      flex="auto"
+    >
+      <div>
+        Defenders
+      </div>
+    </Col>
+  </Row>
+</div>
+`;
+
+exports[`AggregationBox renders AggreagationBox without action 1`] = `
+<div
+  className="w-100 br1"
+>
+  <Row
+    justify="space-between"
+    type="flex"
+  >
+    <Col
+      flex="auto"
+    >
+      <h3
+        className="pb1 fw4"
+      >
+        Jessica Jones
+      </h3>
+    </Col>
+    <Col />
+  </Row>
+  <Row
+    className="w-100"
+  >
+    <Col
+      flex="auto"
+    >
+      <div>
+        Defenders
+      </div>
+    </Col>
+  </Row>
+</div>
+`;
+
+exports[`AggregationBox renders AggreagationBox without children and with action 1`] = `
+<div
+  className="w-100 br1"
+>
+  <Row
+    justify="space-between"
+    type="flex"
+  >
+    <Col
+      flex="auto"
+    >
+      <h3
+        className="pb1 fw4"
+      >
+        Jessica Jones
+      </h3>
+    </Col>
+    <Col>
+      <h2>
+        PI
+      </h2>
+    </Col>
+  </Row>
+  <Row
+    className="w-100"
+  >
+    <Col
+      flex="auto"
+    />
+  </Row>
+</div>
+`;
+
+exports[`AggregationBox renders AggreagationBox without children and without action 1`] = `
+<div
+  className="w-100 br1"
+>
+  <Row
+    justify="space-between"
+    type="flex"
+  >
+    <Col
+      flex="auto"
+    >
+      <h3
+        className="pb1 fw4"
+      >
+        Jessica Jones
+      </h3>
+    </Col>
+    <Col />
+  </Row>
+  <Row
+    className="w-100"
+  >
+    <Col
+      flex="auto"
+    />
+  </Row>
+</div>
+`;

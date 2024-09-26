@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InlineUL does not render null children 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li
+      key=".0"
+    >
+      <div
+        key=".0"
+      >
+        First div
+      </div>
+      , 
+    </li>
+    <li
+      key=".2"
+    >
+      <div
+        key=".2"
+      >
+        Third div
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`InlineUL renders children seperated by default 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li
+      key=".0"
+    >
+      <div
+        key=".0"
+      >
+        First div
+      </div>
+      , 
+    </li>
+    <li
+      key=".1"
+    >
+      <div
+        key=".1"
+      >
+        Second div
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`InlineUL renders children with class 1`] = `
+<div
+  className="__InlineList__ di"
+>
+  <ul>
+    <li
+      key=".0"
+    >
+      <div
+        key=".0"
+      >
+        First div
+      </div>
+      , 
+    </li>
+    <li
+      key=".1"
+    >
+      <div
+        key=".1"
+      >
+        Second div
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`InlineUL renders with separator passed 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li
+      key=".0"
+    >
+      <div
+        key=".0"
+      >
+        First div
+      </div>
+       • 
+    </li>
+    <li
+      key=".1"
+    >
+      <div
+        key=".1"
+      >
+        Second div
+      </div>
+    </li>
+  </ul>
+</div>
+`;

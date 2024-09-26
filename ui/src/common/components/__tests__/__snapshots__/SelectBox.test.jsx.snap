@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectBox render initial state with all props set 1`] = `
+<ForwardRef(InternalSelect)
+  defaultValue="value1"
+  dropdownMatchSelectWidth={false}
+  onChange={[MockFunction]}
+  showArrow={true}
+>
+  <Option
+    key="value1"
+    value="value1"
+  >
+    <span>
+      Value 1
+    </span>
+  </Option>
+  <Option
+    key="value2"
+    value="value2"
+  >
+    <span>
+      Value 2
+    </span>
+  </Option>
+</ForwardRef(InternalSelect)>
+`;
+
+exports[`SelectBox render initial state with data-test-id 1`] = `
+<ForwardRef(InternalSelect)
+  data-test-id="test-select"
+  defaultValue="value1"
+  dropdownMatchSelectWidth={false}
+  onChange={[MockFunction]}
+  showArrow={true}
+>
+  <Option
+    key="value1"
+    value="value1"
+  >
+    <span
+      data-test-id="test-select-option-value1"
+    >
+      Value 1
+    </span>
+  </Option>
+  <Option
+    key="value2"
+    value="value2"
+  >
+    <span
+      data-test-id="test-select-option-value2"
+    >
+      Value 2
+    </span>
+  </Option>
+</ForwardRef(InternalSelect)>
+`;

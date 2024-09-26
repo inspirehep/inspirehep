@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InstitutionItem renders with all props set 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <UrlsAction
+        eventCategory="Institutions search"
+        icon={<ForwardRef(LinkOutlined) />}
+        text="website"
+        trackerEventId="Institution website"
+        urls={
+          Immutable.List [
+            Immutable.Map {
+              "value": "http://url.com",
+            },
+          ]
+        }
+      />
+      <Connect(Authorized)
+        authorizedRoles={
+          Immutable.List [
+            "superuser",
+            "cataloger",
+          ]
+        }
+      >
+        <EditRecordAction
+          page="Institutions search"
+          pidType="institutions"
+          pidValue={1234}
+        />
+      </Connect(Authorized)>
+    </React.Fragment>
+  }
+  rightActions={
+    <UserActionWrapper>
+      <IncomingLiteratureReferencesLinkAction
+        eventCategory="Institutions search"
+        itemCount={1}
+        linkQuery="affid 1234"
+        referenceType="paper"
+        trackerEventId="Papers link"
+      />
+    </UserActionWrapper>
+  }
+>
+  <Row>
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/institutions/1234"
+      />
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <InstitutionHierarchyList
+        hierarchies={
+          Immutable.List [
+            Immutable.Map {
+              "name": "Department of Physics",
+            },
+          ]
+        }
+      />
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <InstitutionAddressList
+        addresses={
+          Immutable.List [
+            Immutable.Map {
+              "cities": Immutable.List [
+                "Liverpool",
+              ],
+              "country_code": "USA",
+              "country": "country",
+            },
+          ]
+        }
+      />
+    </Col>
+  </Row>
+</ResultItem>
+`;
+
+exports[`InstitutionItem renders with only needed props 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <Connect(Authorized)
+        authorizedRoles={
+          Immutable.List [
+            "superuser",
+            "cataloger",
+          ]
+        }
+      >
+        <EditRecordAction
+          page="Institutions search"
+          pidType="institutions"
+          pidValue={123}
+        />
+      </Connect(Authorized)>
+    </React.Fragment>
+  }
+  rightActions={
+    <UserActionWrapper>
+      <IncomingLiteratureReferencesLinkAction
+        eventCategory="Institutions search"
+        itemCount={0}
+        linkQuery="affid 123"
+        referenceType="paper"
+        trackerEventId="Papers link"
+      />
+    </UserActionWrapper>
+  }
+>
+  <Row>
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/institutions/123"
+      />
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <InstitutionHierarchyList />
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <InstitutionAddressList
+        addresses={null}
+      />
+    </Col>
+  </Row>
+</ResultItem>
+`;

@@ -1,0 +1,1533 @@
+interactions:
+- request:
+    body: null
+    headers:
+      accept-encoding:
+      - gzip, deflate
+    method: GET
+    uri: https://api-preprod.archives-ouvertes.fr/sword/servicedocument
+  response:
+    body:
+      string: ''
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html; charset=UTF-8
+      Date:
+      - Thu, 04 Mar 2021 13:20:01 GMT
+      Server:
+      - Apache
+      Strict-Transport-Security:
+      - max-age=15768000
+      WWW-Authenticate:
+      - Basic realm="SWORD"
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 401
+      message: Unauthorized
+- request:
+    body: null
+    headers:
+      accept-encoding:
+      - gzip, deflate
+    method: GET
+    uri: https://api-preprod.archives-ouvertes.fr/sword/servicedocument
+  response:
+    body:
+      string: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<service xmlns=\"http://www.w3.org/2007/app\"
+        xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:sword=\"http://purl.org/net/sword/terms/\"
+        xmlns:dcterms=\"http://purl.org/dc/terms/\">\n  <sword:version>2.0</sword:version>\n
+        \ <sword:maxUploadSize>204800</sword:maxUploadSize>\n  <workspace>\n    <atom:title>The
+        HAL archive</atom:title>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/tel\">\n
+        \     <atom:title>TEL - Th\xE8ses en ligne</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://tel.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/hal\">\n
+        \     <atom:title>Archive ouverte HAL</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://hal.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/archivesic\">\n
+        \     <atom:title>@rchiveSIC</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://archivesic.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/jeannicod\">\n
+        \     <atom:title>Institut | Nicod</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://jeannicod.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/tematice\">\n
+        \     <atom:title>archive-EduTice - Education et technologies de l'information
+        et de la communication</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://tematice.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/memsic\">\n
+        \     <atom:title>memSIC -  m\xE9moires de master en Sciences de l'information
+        et de la communication</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://memsic.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/democrite\">\n
+        \     <atom:title>IN2P3 - Institut national de physique nucl\xE9aire et de
+        physique des particules</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://democrite.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/inria\">\n
+        \     <atom:title>Inria</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://inria.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/halshs\">\n
+        \     <atom:title>HAL-SHS - Sciences de l'Homme et de la Soci\xE9t\xE9</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://halshs.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/artxiker\">\n
+        \     <atom:title>Artxiker</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://artxiker.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/inserm\">\n
+        \     <atom:title>Inserm</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://inserm.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/ujm\">\n
+        \     <atom:title>UJM - Universit\xE9 Jean Monnet</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://ujm.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/ens-lyon\">\n
+        \     <atom:title>ENS de Lyon</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://ens-lyon.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/lirmm\">\n
+        \     <atom:title>LIRMM - Laboratoire d\u2019Informatique, de Robotique et
+        de Micro\xE9lectronique de Montpellier</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://lirmm.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/cel\">\n
+        \     <atom:title>CEL - Cours en ligne</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://cel.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/emse\">\n
+        \     <atom:title>\xC9cole des Mines de Saint-\xC9tienne</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://emse.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/ird\">\n
+        \     <atom:title>IRD - Institut de recherche pour le d\xE9veloppement</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://ird.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/cirad\">\n
+        \     <atom:title>Cirad</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://cirad.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/pasteur\">\n
+        \     <atom:title>Institut Pasteur</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://pasteur.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/obspm\">\n
+        \     <atom:title>Observatoire de Paris</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://obspm.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/bioemco\">\n
+        \     <atom:title>Bioemco</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://bioemco.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/haledd\">\n
+        \     <atom:title>HAL-SDE - Sciences de l'environnement</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://haledd.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/ineris\">\n
+        \     <atom:title>INERIS - Institut National de l\u2019EnviRonnement Industriel
+        et des RisqueS</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://ineris.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/cea\">\n
+        \     <atom:title>CEA - Commissariat \xE0 l\u2019\xE9nergie atomique</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://cea.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/insu\">\n
+        \     <atom:title>INSU - Institut national des sciences de l'Univers</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://insu.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/ssa\">\n
+        \     <atom:title>SSA - Service de sant\xE9 des arm\xE9es</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://ssa.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/irsn\">\n
+        \     <atom:title>IRSN - Institut de Radioprotection et de S\xFBret\xE9 Nucl\xE9aire</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://irsn.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/meteo\">\n
+        \     <atom:title>M\xE9t\xE9o-France</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://meteo.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-cotedazur\">\n
+        \     <atom:title>Universit\xE9 Cote d'Azur</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-cotedazur.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/descartes\">\n
+        \     <atom:title>Universit\xE9 Paris Descartes</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://descartes.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/paris1\">\n
+        \     <atom:title>Universit\xE9 Paris 1 Panth\xE9on-Sorbonne</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://paris1.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/mnhn\">\n
+        \     <atom:title>MNHN - Mus\xE9um national d'Histoire naturelle</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://mnhn.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/supelec\">\n
+        \     <atom:title>Supelec</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://supelec.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/hprints\">\n
+        \     <atom:title>hprints.org</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://hprints.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/sfo\">\n
+        \     <atom:title>SFO - La Soci\xE9t\xE9 Fran\xE7aise d'Optique</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://sfo.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-brest\">\n
+        \     <atom:title>Universit\xE9 de Bretagne Occidentale</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-brest.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/dumas\">\n
+        \     <atom:title>DUMAS - D\xE9p\xF4t Universitaire de M\xE9moires Apr\xE8s
+        Soutenance</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://dumas.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/unilim\">\n
+        \     <atom:title>Universit\xE9 de Limoges</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://unilim.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/afssa\">\n
+        \     <atom:title>ANSES</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://afssa.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-lyon3\">\n
+        \     <atom:title>Universit\xE9 Jean Moulin Lyon 3</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-lyon3.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/grenoble-em\">\n
+        \     <atom:title>Grenoble Ecole de Management</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://grenoble-em.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-artois\">\n
+        \     <atom:title>Universit\xE9 d'Artois</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-artois.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/polytechnique\">\n
+        \     <atom:title>Ecole polytechnique</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://polytechnique.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-nantes\">\n
+        \     <atom:title>Universit\xE9 de Nantes</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-nantes.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/institut-telecom\">\n
+        \     <atom:title>Institut Mines-T\xE9l\xE9com</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://institut-telecom.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-savoie\">\n
+        \     <atom:title>Universit\xE9 Savoie Mont Blanc</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-savoie.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/confremo\">\n
+        \     <atom:title>CONFREMO - Conf\xE9rence des Recteurs et Pr\xE9sidents de
+        la R\xE9gion du Moyen-Orient</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://confremo.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/ensmp\">\n
+        \     <atom:title>MINES ParisTech</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://ensmp.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/riip\">\n
+        \     <atom:title>RIIP - R\xE9seau International des Instituts Pasteur</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://riip.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/ens\">\n
+        \     <atom:title>Ecole Normale Sup\xE9rieure</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://ens.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-paris13\">\n
+        \     <atom:title>Universit\xE9 Paris 13</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-paris13.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/medihal\">\n
+        \     <atom:title>M\xE9diHAL</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://medihal.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/inrap\">\n
+        \     <atom:title>Inrap - Institut national de recherches arch\xE9ologiques
+        pr\xE9ventives</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://inrap.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/hec\">\n
+        \     <atom:title>HEC</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://hec.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/sciencespo\">\n
+        \     <atom:title>SciencesPo</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://sciencespo.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-avignon\">\n
+        \     <atom:title>Universit\xE9 d'Avignon et des Pays de Vaucluse</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://univ-avignon.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-bourgogne\">\n
+        \     <atom:title>Universit\xE9 de Bourgogne</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-bourgogne.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/ensieta\">\n
+        \     <atom:title>ENSTA Bretagne</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://ensieta.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/brgm\">\n
+        \     <atom:title>BRGM - Bureau de Recherches G\xE9ologiques et Mini\xE8res</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://brgm.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/iogs\">\n
+        \     <atom:title>Institut d'Optique Graduate School</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://iogs.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/pastel\">\n
+        \     <atom:title>PASTEL - Th\xE8ses en ligne de ParisTech</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://pastel.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/agroparistech\">\n
+        \     <atom:title>AgroParisTech</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://agroparistech.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/enpc\">\n
+        \     <atom:title>Ecole des Ponts ParisTech</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://enpc.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/sorbonne-universite\">\n
+        \     <atom:title>Sorbonne Universit\xE9</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://sorbonne-universite.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/hcl\">\n
+        \     <atom:title>Hospices Civils de Lyon</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://hcl.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/telearn\">\n
+        \     <atom:title>TeLearn</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://telearn.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/ecp\">\n
+        \     <atom:title>Ecole Centrale Paris</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://ecp.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/essec\">\n
+        \     <atom:title>ESSEC BusinessSchool</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://essec.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/pjse\">\n
+        \     <atom:title>Paris-Jourdan Sciences \xC9conomiques</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://pjse.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/espci\">\n
+        \     <atom:title>ESPCI Paris</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://espci.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/ensta\">\n
+        \     <atom:title>ENSTA ParisTech</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://ensta.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/rbs\">\n
+        \     <atom:title>Rouen Business School</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://rbs.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/ephe\">\n
+        \     <atom:title>EPHE - \xC9cole pratique des hautes \xE9tudes</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://ephe.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-mlv\">\n
+        \     <atom:title>Universit\xE9 Paris-Est Marne-la-Vall\xE9e</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://univ-mlv.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/enscp\">\n
+        \     <atom:title>Chimie ParisTech</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://enscp.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-tlse2\">\n
+        \     <atom:title>Universit\xE9 Toulouse - Jean Jaur\xE8s</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-tlse2.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/ups-tlse\">\n
+        \     <atom:title>Universit\xE9 Toulouse III - Paul Sabatier</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://ups-tlse.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/em-normandie\">\n
+        \     <atom:title>Ecole de Management de Normandie</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://em-normandie.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/uag\">\n
+        \     <atom:title>Universit\xE9 des Antilles</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://uag.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-diderot\">\n
+        \     <atom:title>Universit\xE9 Paris Diderot-Paris 7</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-diderot.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/ifp\">\n
+        \     <atom:title>IFP Energies nouvelles</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://ifp.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-corse\">\n
+        \     <atom:title>Universit\xE9 de Corse Pascal Paoli</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-corse.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/genes\">\n
+        \     <atom:title>Groupe des \xC9coles Nationales d'\xC9conomie et Statistiques</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://genes.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/agrocampus-ouest\">\n
+        \     <atom:title>Agrocampus Ouest</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://agrocampus-ouest.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-paris8\">\n
+        \     <atom:title>Universit\xE9 Paris 8</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-paris8.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/bnf\">\n
+        \     <atom:title>Biblioth\xE8que nationale de France</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://bnf.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/audencia\">\n
+        \     <atom:title>Audencia Business School</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://audencia.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/cstb\">\n
+        \     <atom:title>CSTB - Centre Scientifique et Technique du B\xE2timent</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://cstb.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-rennes1\">\n
+        \     <atom:title>Universit\xE9 de Rennes 1</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-rennes1.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/afrique\">\n
+        \     <atom:title>Agence universitaire de la Francophonie</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://afrique.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-lille3\">\n
+        \     <atom:title>Universit\xE9 Lille 3 - Sciences Humaines et Sociales</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://univ-lille3.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/enac\">\n
+        \     <atom:title>ENAC - Ecole Nationale de l'Aviation Civile</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://enac.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/icp\">\n
+        \     <atom:title>ICP - Institut Catholique de Paris</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://icp.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/saga\">\n
+        \     <atom:title>Universit\xE9 Grenoble Alpes</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://saga.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-tln\">\n
+        \     <atom:title>Universit\xE9 de Toulon</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-tln.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/emn\">\n
+        \     <atom:title>\xC9cole des Mines de Nantes</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://emn.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-tours\">\n
+        \     <atom:title>Universit\xE9 Francois Rabelais - Tours</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-tours.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/pse\">\n
+        \     <atom:title>PSE - Paris School of Economics</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://pse.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/clermont-univ\">\n
+        \     <atom:title>Universit\xE9 Clermont Auvergne</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://clermont-univ.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/onera\">\n
+        \     <atom:title>ONERA - Office National d'\xC9tudes et de Recherches A\xE9rospatiales</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://onera.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/ema\">\n
+        \     <atom:title>\xC9cole nationale sup\xE9rieure des mines d'Albi-Carmaux</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://ema.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/amu\">\n
+        \     <atom:title>Aix-Marseille Universit\xE9</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://amu.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/esc-rennes\">\n
+        \     <atom:title>Rennes Business School</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://esc-rennes.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/insa-rennes\">\n
+        \     <atom:title>INSA Rennes</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://insa-rennes.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-bsud\">\n
+        \     <atom:title>Universit\xE9 Bretagne Sud</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-bsud.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-fcomte\">\n
+        \     <atom:title>UFC - Universit\xE9 de Franche-Comt\xE9</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-fcomte.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/neoma\">\n
+        \     <atom:title>NEOMA Business School</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://neoma.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/usj\">\n
+        \     <atom:title>USJ - Universit\xE9 Saint-Joseph de Beyrouth</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://usj.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/centralesupelec\">\n
+        \     <atom:title>CentraleSup\xE9lec</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://centralesupelec.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-reunion\">\n
+        \     <atom:title>Universit\xE9 de la R\xE9union</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-reunion.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-perp\">\n
+        \     <atom:title>Universit\xE9 de Perpignan</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-perp.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/normandie-univ\">\n
+        \     <atom:title>Normandie Universit\xE9</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://normandie-univ.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/uvsq\">\n
+        \     <atom:title>Universit\xE9 de Versailles Saint-Quentin-en-Yvelines</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://uvsq.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-paris-dauphine\">\n
+        \     <atom:title>Universit\xE9 Paris Dauphine - Paris IX</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-paris-dauphine.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-paris3\">\n
+        \     <atom:title>Universit\xE9 Sorbonne Nouvelle - Paris 3</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://univ-paris3.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-lorraine\">\n
+        \     <atom:title>Universit\xE9 de Lorraine</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-lorraine.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-orleans\">\n
+        \     <atom:title>Universit\xE9 d'Orl\xE9ans</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-orleans.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/lara\">\n
+        \     <atom:title>LARA - Libre acc\xE8s aux rapports scientifiques et techniques</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://lara.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/inalco\">\n
+        \     <atom:title>Inalco - Institut National des Langues et Civilisations
+        Orientales</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://inalco.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/laas\">\n
+        \     <atom:title>LAAS - Laboratoire d'Analyse et d'Architecture des Syst\xE8mes</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://laas.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/campusaar\">\n
+        \     <atom:title>Campus AAR</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://campusaar.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/insep\">\n
+        \     <atom:title>Insep - Institut national du sport, de l'expertise et de
+        la performance</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://insep.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-paris10\">\n
+        \     <atom:title>Universit\xE9 Paris Nanterre</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-paris10.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-evry\">\n
+        \     <atom:title>Universit\xE9 Evry Val d\u2019Essonne</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-evry.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-guyane\">\n
+        \     <atom:title>Universit\xE9 de Guyane</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-guyane.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/montpellier-supagro\">\n
+        \     <atom:title>Montpellier SupAgro</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://montpellier-supagro.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/aurehal\">\n
+        \     <atom:title>aurehal</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://aurehal-preprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-rennes2\">\n
+        \     <atom:title>Universit\xE9 Rennes 2</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-rennes2.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-lemans\">\n
+        \     <atom:title>Universit\xE9 du Maine</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-lemans.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/udl\">\n
+        \     <atom:title>Universit\xE9 de Lyon</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://udl.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/ehesp\">\n
+        \     <atom:title>Ecole des hautes \xE9tudes en sant\xE9 publique</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://ehesp.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/hceres\">\n
+        \     <atom:title>Haut Conseil de l\u2019\xE9valuation de la recherche et
+        de l\u2019enseignement sup\xE9rieur</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://hceres.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-montpellier\">\n
+        \     <atom:title>Universit\xE9 de Montpellier</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-montpellier.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-rochelle\">\n
+        \     <atom:title>Universit\xE9 de La Rochelle</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-rochelle.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-paris-lumieres\">\n
+        \     <atom:title>Universit\xE9 Paris Lumi\xE8res</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-paris-lumieres.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-poitiers\">\n
+        \     <atom:title>Universit\xE9 de Poitiers</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-poitiers.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/insa-toulouse\">\n
+        \     <atom:title>INSA-Toulouse</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://insa-toulouse.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/inshea\">\n
+        \     <atom:title>INSHEA</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://inshea.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/urca\">\n
+        \     <atom:title>Universit\xE9 de Reims Champagne-Ardenne</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://urca.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/edf\">\n
+        \     <atom:title>EDF</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://edf.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/agrosup-dijon\">\n
+        \     <atom:title>AgroSup Dijon</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://agrosup-dijon.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/upf\">\n
+        \     <atom:title>Universit\xE9 de la Polyn\xE9sie fran\xE7aise</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://upf.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/imt-atlantique\">\n
+        \     <atom:title>IMT Atlantique</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://imt-atlantique.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-lyon1\">\n
+        \     <atom:title>Universit\xE9 Claude Bernard Lyon 1</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-lyon1.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-pau-pays-adour\">\n
+        \     <atom:title>Universit\xE9 de Pau et des Pays de l'Adour</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://univ-pau-pays-adour.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/rnmsh\">\n
+        \     <atom:title>R\xE9seau National des Maisons des Sciences de l'Homme</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://rnmsh.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/uphf\">\n
+        \     <atom:title>Universit\xE9 Polytechnique des Hauts-de-France</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://uphf.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/u-paris-seine\">\n
+        \     <atom:title>Universit\xE9 Paris Seine</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://u-paris-seine.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-lille\">\n
+        \     <atom:title>Universit\xE9 de Lille</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-lille.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/em-lyon\">\n
+        \     <atom:title>EM-LYON Business School</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://em-lyon.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/utc\">\n
+        \     <atom:title>Universit\xE9 de Technologie de Compi\xE8gne</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://utc.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-lyon2\">\n
+        \     <atom:title>Hal Lumi\xE8re Lyon2</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-lyon2.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/cnam\">\n
+        \     <atom:title>Cnam - Conservatoire national des arts et m\xE9tiers</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://cnam.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/vetagro-sup\">\n
+        \     <atom:title>VetAgro Sup</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://vetagro-sup.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/telecom-paristech\">\n
+        \     <atom:title>T\xE9l\xE9com ParisTech</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://telecom-paristech.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/cnrs\">\n
+        \     <atom:title>Centre national de la recherche scientifique</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://cnrs.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-angers\">\n
+        \     <atom:title>Universit\xE9 d'Angers</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://univ-angers.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/enssib\">\n
+        \     <atom:title>ENSSIB</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://ENSSIB.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/ciheam-iamm\">\n
+        \     <atom:title>CIHEAM Montpellier</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://ciheam-iamm.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/utt\">\n
+        \     <atom:title>Universit\xE9 de technologie de Troyes</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://utt.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/enc\">\n
+        \     <atom:title>Ecole Nationale des Chartes</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://enc.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/u-bordeaux-montaigne\">\n
+        \     <atom:title>Universit\xE9 Bordeaux Montaigne</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://u-bordeaux-montaigne.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/enva\">\n
+        \     <atom:title>\xC9cole Nationale v\xE9t\xE9rinaire d'Alfort</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://enva.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/u-pec\">\n
+        \     <atom:title>Universit\xE9 Paris-Est Cr\xE9teil Val-de-Marne</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://u-pec.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/chu-clermontferrand\">\n
+        \     <atom:title>CHU de Clermont-Ferrand</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://chu-clermontferrand.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/unc\">\n
+        \     <atom:title>Universit\xE9 de la Nouvelle Cal\xE9donie</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://unc.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/mines-ales\">\n
+        \     <atom:title>\xC9cole des Mines d'Al\xE8s</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://mines-ales.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/ip-paris\">\n
+        \     <atom:title>Institut Polytechnique de Paris</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://ip-paris.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/inrae\">\n
+        \     <atom:title>Institut National de Recherche en Agriculture, Alimentation
+        et Environnement</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://inrae.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/college-de-france\">\n
+        \     <atom:title>Coll\xE8ge de France</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://college-de-france.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/psl\">\n
+        \     <atom:title>Universit\xE9 Paris, Sciences &amp; Lettres - PSL</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://psl.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/anr\">\n
+        \     <atom:title>ANR - Agence Nationale de la RechercheANR - Agence Nationale
+        de la Recherche</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://anr.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/cv\">\n
+        \     <atom:title>CV</atom:title>\n      <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://cv.archives-ouvertes.fr</dcterms:abstract>\n      <sword:mediation>true</sword:mediation>\n
+        \     <sword:treatment>Submission will be posted pending moderator approval</sword:treatment>\n
+        \     <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/universite-paris-saclay\">\n
+        \     <atom:title>Universit\xE9 Paris-Saclay</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://universite-paris-saclay.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/univ-montpellier3-paul-valery\">\n
+        \     <atom:title>Universit\xE9 Paul Val\xE9ry Montpellier 3</atom:title>\n
+        \     <accept>text/xml</accept>\n      <accept>application/xml</accept>\n
+        \     <accept>application/zip</accept>\n      <sword:collectionPolicy>Open
+        Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL e-print archive
+        portal at https://univ-montpellier3-paul-valery.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n    <collection href=\"https://api-preprod.archives-ouvertes.fr/sword/kedge-bs\">\n
+        \     <atom:title>Kedge Business School</atom:title>\n      <accept>text/xml</accept>\n
+        \     <accept>application/xml</accept>\n      <accept>application/zip</accept>\n
+        \     <sword:collectionPolicy>Open Access</sword:collectionPolicy>\n      <dcterms:abstract>HAL
+        e-print archive portal at https://kedge-bs.halpreprod.archives-ouvertes.fr</dcterms:abstract>\n
+        \     <sword:mediation>true</sword:mediation>\n      <sword:treatment>Submission
+        will be posted pending moderator approval</sword:treatment>\n      <sword:acceptPackaging>http://purl.org/net/sword-types/AOfr</sword:acceptPackaging>\n
+        \     <sword:acceptPackaging>http://jats.nlm.nih.gov/publishing/tag-library/</sword:acceptPackaging>\n
+        \   </collection>\n  </workspace>\n</service>\n"
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Content-Type:
+      - application/atomsvc+xml; charset=utf-8
+      Date:
+      - Thu, 04 Mar 2021 13:20:01 GMT
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Pragma:
+      - no-cache
+      Server:
+      - Apache
+      Set-Cookie:
+      - PHPSESSID=3djao7drtflu6v6o28s9hgghrv; path=/
+      Strict-Transport-Security:
+      - max-age=15768000
+      Transfer-Encoding:
+      - chunked
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

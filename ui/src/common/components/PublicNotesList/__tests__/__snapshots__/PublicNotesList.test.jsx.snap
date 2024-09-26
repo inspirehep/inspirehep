@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PublicNotesList renders public notes 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span
+    className=""
+  >
+    Note
+    : 
+  </span>
+  <ul>
+    <li
+      key="note1-0"
+    >
+      <span>
+        note1
+      </span>
+       • 
+    </li>
+    <li
+      key="note2-2"
+    >
+      <span>
+        note2
+      </span>
+       • 
+    </li>
+    <li
+      key="note3 here https://pos.sissa.it/390/977/pdf-4"
+    >
+      <span>
+        note3 here 
+        <a
+          className="__PublicNotesList__"
+          href="https://pos.sissa.it/390/977/pdf"
+          key="publication-note-link-1"
+        >
+          https://pos.sissa.it/390/977/pdf
+        </a>
+      </span>
+    </li>
+  </ul>
+</div>
+`;

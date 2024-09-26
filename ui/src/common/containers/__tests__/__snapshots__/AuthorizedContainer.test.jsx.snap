@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorizedContainer does not render if user is not authorized 1`] = `""`;
+
+exports[`AuthorizedContainer renders children if user is authorized 1`] = `
+<div>
+  SECRET DIV [work in progress]
+</div>
+`;

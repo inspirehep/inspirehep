@@ -1,0 +1,64 @@
+name: Tests
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: The reference to build
+        type: string
+        required: true
+    outputs:
+      image-id:
+        description: The ID of image that has been built
+        value: ${{ jobs.build.outputs.image-id }}
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-backoffice-workflow.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: cern-sis/inspire/workflows
+      context: ./backoffice-repo/workflows
+      dockerfile: ./backoffice-repo/workflows/Dockerfile
+    secrets: inherit
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: airflow
+          POSTGRES_PASSWORD: airflow
+          POSTGRES_DB: airflow
+        ports:
+          - 5432:5432
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Test
+        working-directory: ./workflows
+        run: >
+          docker run
+          --network=host
+          -v "$(pwd)"/tests:/opt/airflow/tests
+          -v "$(pwd)"/requirements-test.txt:/opt/airflow/requirements-test.txt
+          -v "$(pwd)"/data:/opt/airflow/data
+          -v "$(pwd)"/scripts:/opt/airflow/scripts
+          -e AIRFLOW__CORE__EXECUTOR=CeleryExecutor
+          -e AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@127.0.0.1:5432/airflow
+          -e AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@127.0.0.1:5432/airflow
+          -e AIRFLOW__CELERY__BROKER_URL=redis://:@127.0.0.1:6379/0
+          -e AIRFLOW__CORE__FERNET_KEY=""
+          -e AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION="true"
+          -e AIRFLOW__CORE__LOAD_EXAMPLES="false"
+          -e AIRFLOW__API__AUTH_BACKENDS="airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
+          registry.cern.ch/cern-sis/inspire/workflows@${{ needs.build.outputs.image-id }}
+          bash -c "pip install -r requirements-test.txt && airflow db init && airflow connections import /opt/airflow/scripts/connections/connections.json && airflow variables import /opt/airflow/scripts/variables/variables.json && pytest /opt/airflow/tests"

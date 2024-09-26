@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RichTextEditor renders 1`] = `
+<Fragment>
+  <span
+    className="ql-formats"
+  >
+    <button
+      className="ql-bold"
+      title="Bold"
+      type="button"
+    />
+    <button
+      className="ql-italic"
+      title="Italic"
+      type="button"
+    />
+  </span>
+  <span
+    className="ql-formats"
+  >
+    <button
+      className="ql-list"
+      title="Numbered List"
+      type="button"
+      value="ordered"
+    />
+    <button
+      className="ql-list"
+      title="Bulleted List"
+      type="button"
+      value="bullet"
+    />
+  </span>
+  <span
+    className="ql-formats"
+  >
+    <button
+      className="ql-link"
+      title="Link"
+      type="button"
+    />
+  </span>
+  <span
+    className="ql-formats"
+  >
+    <button
+      className="ql-clean"
+      title="Clear All Formatting"
+      type="button"
+    />
+  </span>
+</Fragment>
+`;

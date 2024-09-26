@@ -1,0 +1,13 @@
+export const SEPARATOR_SEMICOLON = '; ';
+export const SEPARATOR_COMMA = ', ';
+export const SEPARATOR_AND = ' and ';
+export const SEPARATOR_MIDDLEDOT = ' \u2022 ';
+
+export const SEPARATOR_TYPES = [
+  SEPARATOR_SEMICOLON,
+  SEPARATOR_COMMA,
+  SEPARATOR_AND,
+  SEPARATOR_MIDDLEDOT,
+];
+
+export const DEFAULT_SEPARATOR_TYPE = SEPARATOR_COMMA;

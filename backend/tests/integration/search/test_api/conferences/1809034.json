@@ -1,0 +1,53 @@
+{
+  "$schema": "https://inspirehep.net/api/schemas/records/conferences.json",
+  "_collections": ["Conferences"],
+  "addresses": [{ "cities": ["Kiev"], "country_code": "UA" }],
+  "closing_date": "2021-07-03",
+  "cnum": "C21-06-27",
+  "contact_details": [
+    { "email": "jenk@bitp.kiev.ua", "name": "Laszlo Jenkovszky" }
+  ],
+  "control_number": 1809034,
+  "core": true,
+  "inspire_categories": [
+    { "term": "Astrophysics" },
+    { "term": "Experiment-HEP" },
+    { "term": "Experiment-Nucl" },
+    { "term": "Gravitation and Cosmology" },
+    { "term": "Phenomenology-HEP" },
+    { "term": "Theory-HEP" },
+    { "term": "Theory-Nucl" },
+    { "term": "Accelerators" }
+  ],
+  "keywords": [
+    { "value": "LHC" },
+    { "value": "Standard model" },
+    { "value": "neutrino physics" },
+    { "value": "elastic and diffractive scattering of hadrons and nuclei" },
+    { "value": "spin and polarization" },
+    { "value": "deep inelastic scattering" },
+    {
+      "value":
+        "multiparticle dynamics, nuclear matter at extreme conditions, quantum field theory, cosmic rays, astroparticle physics, gravitation and cosmology"
+    },
+    { "value": "nuclear matter at extreme conditions" },
+    { "value": "quantum field theory" },
+    { "value": "cosmic rays" },
+    { "value": "astroparticle physics" },
+    { "value": "gravitation and cosmology" }
+  ],
+  "opening_date": "2021-06-27",
+  "public_notes": [
+    {
+      "value":
+        "The organizers will offer a variable cultural program and post-conference tours in Ukraine. Entry visas are NOT required for participants from \"developed countries\" (see the site for details)."
+    }
+  ],
+  "series": [{ "name": "Crimean conferences", "number": 21 }],
+  "short_description": {
+    "value":
+      "<div>This is a serial biannual international conference. It was initiated in early 90ies by the Bogolyubov Institute for Theoretical Physics of the National Academy of Sciences of Ukraine, in close collaboration with the Joint Institute for Nuclear Research (Dubna). The conferences are dedicated, in a balanced way, to recent experimental data and new theoretical ideas, offering wide space for discussions. Previous conferences were held at various places, including the Crimea, Natal, Montenegro and Odessa). They bring together about 90 participants from all over the world, East and West, theorists and experimentalists, young and mature. Talks of experts, by invitation should be understandable for the wide audience including students. Young researchers and students have the opportunity to introduce themselves at a special students' session. The contributions will be published shortly after the conference in the peer-reviewed Ukrainian Journal of Physics.       </div>"
+  },
+  "titles": [{ "title": "New Trends in High-Energy Physics" }],
+  "urls": [{ "value": "https://indico.bitp.kiev.ua/event/6/" }]
+}

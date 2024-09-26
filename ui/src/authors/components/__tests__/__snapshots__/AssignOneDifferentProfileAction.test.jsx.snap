@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignDifferentProfileAction renders 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={false}
+    items={
+      Array [
+        Object {
+          "key": "1",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="Move to my profile"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="assign-self"
+              data-testid="assign-self"
+              onClick={[Function]}
+            >
+              Move to my profile
+            </span>
+          </EventTracker>,
+        },
+      ]
+    }
+    title={
+      <Button
+        data-test-id="btn-claim"
+      >
+        <IconText
+          icon={<ForwardRef(FileDoneOutlined) />}
+          text="claim"
+        />
+      </Button>
+    }
+  />
+</UserActionWrapper>
+`;
+
+exports[`AssignDifferentProfileAction renders disabled 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={false}
+    items={
+      Array [
+        Object {
+          "key": "1",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="Move to my profile"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="assign-self"
+              data-testid="assign-self"
+              onClick={[Function]}
+            >
+              Move to my profile
+            </span>
+          </EventTracker>,
+        },
+      ]
+    }
+    title={
+      <Button
+        data-test-id="btn-claim"
+      >
+        <IconText
+          icon={<ForwardRef(FileDoneOutlined) />}
+          text="claim"
+        />
+      </Button>
+    }
+  />
+</UserActionWrapper>
+`;

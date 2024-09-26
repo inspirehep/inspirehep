@@ -1,0 +1,803 @@
+{
+    "core": true,
+    "dois": [
+        {
+            "value": "10.22323/1.214.0145"
+        }
+    ],
+    "self": {
+        "$ref": "https://inspirebeta.net/api/literature/1325985"
+    },
+    "urls": [
+        {
+            "value": "http://pos.sissa.it/archive/conferences/214/145/LATTICE2014_145.pdf",
+            "description": "PoS server"
+        }
+    ],
+    "titles": [
+        {
+            "title": "Lepton anomalous magnetic moments from twisted mass fermions",
+            "source": "arXiv"
+        }
+    ],
+    "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+    "authors": [
+        {
+            "uuid": "5305cc7e-a07c-4359-b922-61832f138a38",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1072753"
+            },
+            "full_name": "Burger, Florian",
+            "affiliations": [
+                {
+                    "value": "Humboldt U., Berlin",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/902858"
+                    }
+                }
+            ],
+            "signature_block": "BARGARf",
+            "raw_affiliations": [
+                {
+                    "value": "Humboldt U Berlin"
+                }
+            ]
+        },
+        {
+            "uuid": "e483e4a2-298b-4895-afa1-ca2770a7102d",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1274753"
+            },
+            "full_name": "Hotzel, Grit",
+            "affiliations": [
+                {
+                    "value": "Humboldt U., Berlin",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/902858"
+                    }
+                }
+            ],
+            "signature_block": "HATSALg",
+            "curated_relation": true,
+            "raw_affiliations": [
+                {
+                    "value": "Humboldt University Berlin"
+                }
+            ]
+        },
+        {
+            "uuid": "be9dcf90-8c10-44a4-b927-993f298c180e",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1004503"
+            },
+            "full_name": "Jansen, Karl",
+            "affiliations": [
+                {
+                    "value": "NIC, Zeuthen",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/907970"
+                    }
+                },
+                {
+                    "value": "DESY, Zeuthen",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/902666"
+                    }
+                }
+            ],
+            "signature_block": "JANSANk",
+            "curated_relation": true,
+            "raw_affiliations": [
+                {
+                    "value": "NIC, Platanenallee 6, 15738 Zeuthen, Germany"
+                }
+            ]
+        },
+        {
+            "uuid": "ffb8d5db-9079-4137-931a-396bc4d8ff56",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1052753"
+            },
+            "full_name": "Petschlies, Marcus",
+            "affiliations": [
+                {
+                    "value": "Cyprus Inst.",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/911877"
+                    }
+                }
+            ],
+            "signature_block": "PATSLYm",
+            "raw_affiliations": [
+                {
+                    "value": "The Cyprus Institute"
+                }
+            ]
+        }
+    ],
+    "curated": true,
+    "figures": [
+        {
+            "key": "ac6f7d7149bb01ca5da6384f18ac3870",
+            "url": "https://inspirebeta.net/files/ac6f7d7149bb01ca5da6384f18ac3870",
+            "source": "arxiv",
+            "caption": "Chiral and continuum extrapolation of the connected leading hadronic contributions to the three lepton anomalous magnetic moments. The combined extrapolation has been performed with $a_{\\mathrm{lepton}}(m_{\\rm PS}, a) = A + B~m_{PS}^2 + C~a^2$. The dotted orange line shows $a_{\\mathrm{lepton}}(m_{\\rm PS}, 0.086\\,{\\rm fm})$, the blue line corresponds to $a_{\\mathrm{lepton}}(m_{\\rm PS}, 0.078\\,{\\rm fm})$, and the green line depicts $a_{\\mathrm{lepton}}(m_{\\rm PS}, 0.061\\,{\\rm fm})$. The inverted red triangle shows the value in the continuum limit at the physical value of the pion mass. It has been displaced to the left to facilitate the comparison with the dispersive results in the black squares for $a_{\\mathrm{e}}^{\\rm hvp}$~\\cite{Nomura:2012sb}, $a_{\\mathrm{\\mu}}^{\\mathrm{hvp}}$~\\cite{Hagiwara:2011af}, and $a_{\\mathrm{\\tau}}^{\\mathrm{hvp}}$~\\cite{Eidelman:2007sb}.",
+            "filename": "all_gm2_tot.png"
+        },
+        {
+            "key": "28a9589d3fe0f49f30712827218cc586",
+            "url": "https://inspirebeta.net/files/28a9589d3fe0f49f30712827218cc586",
+            "source": "arxiv",
+            "caption": "Comparison of the light quark contributions to the unsubtracted hadronic vacuum polarisation function from quark-connected and disconnected diagrams of the local current correlator. The subscript $\\rm R$ signals that the renormalisation factor $Z_V$ is included. The values have been obtained with the analytical continuation method described in~\\cite{Feng:2013xsa} without correcting for finite-size effects.",
+            "filename": "pi_loc_ren_tsum_tmax31.png"
+        },
+        {
+            "key": "8f664764881c65bf6842ee91605ee25a",
+            "url": "https://inspirebeta.net/files/8f664764881c65bf6842ee91605ee25a",
+            "source": "arxiv",
+            "caption": "Comparison of the chiral extrapolation of the light quark contributions to the three lepton anomalous magnetic moments with the values obtained with the standard definition Eq.~(\\protect\\ref{eq:amudef}) at the physical value of the pion mass (black square).",
+            "filename": "all_gm2_light.png"
+        }
+    ],
+    "license": [
+        {
+            "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+            "imposing": "arXiv"
+        }
+    ],
+    "texkeys": [
+        "Burger:2014lna"
+    ],
+    "citeable": true,
+    "imprints": [
+        {
+            "date": "2014-10-31",
+            "publisher": "SISSA"
+        }
+    ],
+    "keywords": [
+        {
+            "value": "vacuum polarization: hadronic",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "quark: mass: twist",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "quark: flavor: 4",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "quark: flavor: 2",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "higher-order: 0",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "continuum limit",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "electron: magnetic moment",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "lepton: magnetic moment",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "muon: magnetic moment",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "quantum chromodynamics: lattice",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "numerical calculations",
+            "schema": "INSPIRE"
+        }
+    ],
+    "abstracts": [
+        {
+            "value": "We present our results for the leading-order hadronic quark-connected contributions to the electron, the muon, and the tau anomalous magnetic moments obtained with four dynamical quarks. Performing the continuum limit and an analysis of systematic effects, full agreement with phenomenological results is found. To estimate the impact of omitting the quark-disconnected contributions to the hadronic vacuum polarisation we investigate them on one of the four-flavour ensembles. Additionally, the light quark contributions on the four-flavour sea are compared to the values obtained for $N_f=2$ physically light quarks. In the latter case different methods to fit the hadronic vacuum polarisation function are tested.",
+            "source": "arXiv"
+        }
+    ],
+    "documents": [
+        {
+            "key": "8e8625d51bbe2d5d4ba6dc0b91bddeb2",
+            "url": "https://inspirebeta.net/files/8e8625d51bbe2d5d4ba6dc0b91bddeb2",
+            "hidden": true,
+            "source": "arxiv",
+            "filename": "arXiv:1411.0705.pdf"
+        }
+    ],
+    "references": [
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1118268"
+            },
+            "reference": {
+                "label": "1",
+                "authors": [
+                    {
+                        "full_name": "Renner, D.B."
+                    },
+                    {
+                        "full_name": "Feng, X."
+                    },
+                    {
+                        "full_name": "Jansen, K."
+                    },
+                    {
+                        "full_name": "Petschlies, M."
+                    }
+                ],
+                "arxiv_eprint": "1206.3113",
+                "publication_info": {
+                    "year": 2012,
+                    "artid": "022",
+                    "page_start": "022",
+                    "journal_title": "PoS",
+                    "journal_volume": "LATTICE2011"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/604400"
+            },
+            "reference": {
+                "label": "2",
+                "authors": [
+                    {
+                        "full_name": "Blum, T."
+                    }
+                ],
+                "arxiv_eprint": "hep-lat/0212018",
+                "publication_info": {
+                    "year": 2003,
+                    "artid": "052001",
+                    "journal_title": "Phys.Rev.Lett.",
+                    "journal_volume": "91"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/893768"
+            },
+            "reference": {
+                "label": "3",
+                "authors": [
+                    {
+                        "full_name": "Feng, X."
+                    },
+                    {
+                        "full_name": "Jansen, K."
+                    },
+                    {
+                        "full_name": "Petschlies, M."
+                    },
+                    {
+                        "full_name": "Renner, D.B."
+                    }
+                ],
+                "arxiv_eprint": "1103.4818",
+                "publication_info": {
+                    "year": 2011,
+                    "artid": "081802",
+                    "journal_title": "Phys.Rev.Lett.",
+                    "journal_volume": "107"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1249881"
+            },
+            "reference": {
+                "label": "4",
+                "authors": [
+                    {
+                        "full_name": "Burger, F."
+                    },
+                    {
+                        "full_name": "Feng, X."
+                    },
+                    {
+                        "full_name": "Hotzel, G."
+                    },
+                    {
+                        "full_name": "Jansen, K."
+                    },
+                    {
+                        "full_name": "Petschlies, M."
+                    },
+                    {
+                        "full_name": "Renner, D.B."
+                    }
+                ],
+                "arxiv_eprint": "1308.4327",
+                "publication_info": {
+                    "year": 2014,
+                    "artid": "099",
+                    "page_start": "099",
+                    "journal_title": "JHEP",
+                    "journal_volume": "02"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1128471"
+            },
+            "reference": {
+                "misc": [
+                    "and T"
+                ],
+                "label": "5",
+                "authors": [
+                    {
+                        "full_name": "Nomura, D."
+                    }
+                ],
+                "imprint": {
+                    "publisher": "Teubner"
+                },
+                "arxiv_eprint": "1208.4194",
+                "publication_info": {
+                    "year": 2013,
+                    "artid": "236",
+                    "page_start": "236",
+                    "journal_title": "Nucl.Phys.B",
+                    "journal_volume": "867"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/900116"
+            },
+            "reference": {
+                "misc": [
+                    "and T"
+                ],
+                "label": "6",
+                "authors": [
+                    {
+                        "full_name": "Hagiwara, K."
+                    },
+                    {
+                        "full_name": "Liao, R."
+                    },
+                    {
+                        "full_name": "Martin, A.D."
+                    },
+                    {
+                        "full_name": "Nomura, D."
+                    }
+                ],
+                "imprint": {
+                    "publisher": "Teubner"
+                },
+                "arxiv_eprint": "1105.3149",
+                "publication_info": {
+                    "year": 2011,
+                    "artid": "085003",
+                    "journal_title": "J.Phys.G",
+                    "journal_volume": "38"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/743557"
+            },
+            "reference": {
+                "label": "7",
+                "authors": [
+                    {
+                        "full_name": "Eidelman, S."
+                    },
+                    {
+                        "full_name": "Passera, M."
+                    }
+                ],
+                "arxiv_eprint": "hep-ph/0701260",
+                "publication_info": {
+                    "year": 2007,
+                    "artid": "159",
+                    "page_start": "159",
+                    "journal_title": "Mod.Phys.Lett.A",
+                    "journal_volume": "22"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1284984"
+            },
+            "reference": {
+                "label": "8",
+                "authors": [
+                    {
+                        "full_name": "Chakraborty, B."
+                    },
+                    {
+                        "full_name": "Davies, C.T.H."
+                    },
+                    {
+                        "full_name": "Donald, G.C."
+                    },
+                    {
+                        "full_name": "Dowdall, R.J."
+                    },
+                    {
+                        "full_name": "Koponen, J."
+                    },
+                    {
+                        "full_name": "Lepage, G.P."
+                    }
+                ],
+                "arxiv_eprint": "1403.1778"
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/853397"
+            },
+            "reference": {
+                "label": "9",
+                "authors": [
+                    {
+                        "full_name": "Baron, R."
+                    },
+                    {
+                        "full_name": "Boucaud, P."
+                    },
+                    {
+                        "full_name": "Carbonell, J."
+                    },
+                    {
+                        "full_name": "Deuzeman, A."
+                    },
+                    {
+                        "full_name": "Drach, V."
+                    },
+                    {
+                        "full_name": "Farchioni, F."
+                    }
+                ],
+                "arxiv_eprint": "1004.5284",
+                "publication_info": {
+                    "year": 2010,
+                    "artid": "111",
+                    "page_start": "111",
+                    "journal_title": "JHEP",
+                    "journal_volume": "06"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/855857"
+            },
+            "reference": {
+                "misc": [
+                    "[European Twisted Mass Collaboration]"
+                ],
+                "label": "10",
+                "authors": [
+                    {
+                        "full_name": "Baron, R."
+                    }
+                ],
+                "arxiv_eprint": "1005.2042",
+                "publication_info": {
+                    "year": 2011,
+                    "artid": "299",
+                    "page_start": "299",
+                    "journal_title": "Comput.Phys.Commun.",
+                    "journal_volume": "182"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1235543"
+            },
+            "reference": {
+                "label": "11",
+                "authors": [
+                    {
+                        "full_name": "Feng, X."
+                    },
+                    {
+                        "full_name": "Hashimoto, S."
+                    },
+                    {
+                        "full_name": "Hotzel, G."
+                    },
+                    {
+                        "full_name": "Jansen, K."
+                    },
+                    {
+                        "full_name": "Petschlies, M."
+                    },
+                    {
+                        "full_name": "Renner, D.B."
+                    }
+                ],
+                "arxiv_eprint": "1305.5878",
+                "publication_info": {
+                    "year": 2013,
+                    "artid": "034505",
+                    "journal_title": "Phys.Rev.D",
+                    "journal_volume": "88"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/868894"
+            },
+            "reference": {
+                "label": "12",
+                "authors": [
+                    {
+                        "full_name": "Della Morte, M."
+                    },
+                    {
+                        "full_name": "Juttner, A."
+                    }
+                ],
+                "arxiv_eprint": "1009.3783",
+                "publication_info": {
+                    "year": 2010,
+                    "artid": "154",
+                    "page_start": "154",
+                    "journal_title": "JHEP",
+                    "journal_volume": "11"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1264820"
+            },
+            "reference": {
+                "label": "13",
+                "authors": [
+                    {
+                        "full_name": "Abdel-Rehim, A."
+                    },
+                    {
+                        "full_name": "Boucaud, P."
+                    },
+                    {
+                        "full_name": "Carrasco, N."
+                    },
+                    {
+                        "full_name": "Deuzeman, A."
+                    },
+                    {
+                        "full_name": "Dimopoulos, P."
+                    },
+                    {
+                        "full_name": "Frezzotti, R."
+                    }
+                ],
+                "arxiv_eprint": "1311.4522",
+                "publication_info": {
+                    "year": 2013,
+                    "artid": "264",
+                    "page_start": "264",
+                    "journal_title": "PoS",
+                    "journal_volume": "LATTICE2013"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1114976"
+            },
+            "reference": {
+                "label": "14",
+                "authors": [
+                    {
+                        "full_name": "Aubin, C."
+                    },
+                    {
+                        "full_name": "Blum, T."
+                    },
+                    {
+                        "full_name": "Golterman, M."
+                    },
+                    {
+                        "full_name": "Peris, S."
+                    }
+                ],
+                "arxiv_eprint": "1205.3695",
+                "publication_info": {
+                    "year": 2012,
+                    "artid": "054509",
+                    "journal_title": "Phys.Rev.D",
+                    "journal_volume": "86"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1128469"
+            },
+            "reference": {
+                "misc": [
+                    "094503"
+                ],
+                "label": "15",
+                "authors": [
+                    {
+                        "full_name": "Blum, T."
+                    },
+                    {
+                        "full_name": "Izubuchi, T."
+                    },
+                    {
+                        "full_name": "Shintani, E."
+                    }
+                ],
+                "arxiv_eprint": "1208.4349",
+                "publication_info": {
+                    "year": 2013,
+                    "artid": "9",
+                    "page_start": "9",
+                    "journal_title": "Phys.Rev.D",
+                    "journal_volume": "88"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1256950"
+            },
+            "reference": {
+                "misc": [
+                    "181602"
+                ],
+                "label": "16",
+                "authors": [
+                    {
+                        "full_name": "Michael, C."
+                    },
+                    {
+                        "full_name": "Ottnad, K."
+                    },
+                    {
+                        "full_name": "Urbach, C."
+                    }
+                ],
+                "arxiv_eprint": "1310.1207",
+                "publication_info": {
+                    "year": 2013,
+                    "artid": "18",
+                    "page_start": "18",
+                    "journal_title": "Phys.Rev.Lett.",
+                    "journal_volume": "111"
+                }
+            },
+            "curated_relation": false
+        }
+    ],
+    "_collections": [
+        "Literature"
+    ],
+    "public_notes": [
+        {
+            "value": "7 pages, 3 figures, Contribution to the 32nd International Symposium on Lattice Field Theory (Lattice 2014), 23-28 June 2014, Columbia University, New York, NY, USA",
+            "source": "arXiv"
+        }
+    ],
+    "arxiv_eprints": [
+        {
+            "value": "1411.0705",
+            "categories": [
+                "hep-lat"
+            ]
+        }
+    ],
+    "document_type": [
+        "conference paper"
+    ],
+    "preprint_date": "2014-11-03",
+    "_private_notes": [
+        {
+            "value": "CDS-1967226",
+            "source": "CERN"
+        }
+    ],
+    "control_number": 1325985,
+    "legacy_version": "20180509180950.0",
+    "report_numbers": [
+        {
+            "value": "DESY-14-203"
+        },
+        {
+            "value": "HU-EP-14-43"
+        },
+        {
+            "value": "SFB-CPP-14-84"
+        }
+    ],
+    "number_of_pages": 7,
+    "publication_info": [
+        {
+            "cnum": "C14-06-23.9",
+            "year": 2014,
+            "artid": "145",
+            "page_start": "145",
+            "journal_title": "PoS",
+            "parent_record": {
+                "$ref": "https://inspirebeta.net/api/literature/1373038"
+            },
+            "journal_record": {
+                "$ref": "https://inspirebeta.net/api/journals/1213080"
+            },
+            "journal_volume": "LATTICE2014",
+            "conference_record": {
+                "$ref": "https://inspirebeta.net/api/conferences/1312308"
+            }
+        }
+    ],
+    "_desy_bookkeeping": [
+        {
+            "identifier": "DA14-kp52d"
+        },
+        {
+            "date": "2014-11-14",
+            "expert": "M",
+            "status": "abs"
+        },
+        {
+            "date": "2014-11-20",
+            "expert": "M",
+            "status": "printed"
+        },
+        {
+            "date": "2015-01-16",
+            "status": "final"
+        }
+    ],
+    "acquisition_source": {
+        "method": "oai",
+        "source": "arxiv"
+    },
+    "inspire_categories": [
+        {
+            "term": "Lattice"
+        },
+        {
+            "term": "Phenomenology-HEP"
+        }
+    ],
+    "legacy_creation_date": "2014-11-05"
+}

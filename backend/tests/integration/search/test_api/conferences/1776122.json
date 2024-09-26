@@ -1,0 +1,40 @@
+{
+  "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+  "_collections": ["Conferences"],
+  "_private_notes": [{ "value": "CNUM not in sync" }],
+  "acronyms": ["DSU 2021"],
+  "addresses": [
+    {
+      "cities": ["Kigali"],
+      "country_code": "RW",
+      "latitude": -1.9440727,
+      "longitude": 30.0618851
+    }
+  ],
+  "closing_date": "2021-07-16",
+  "cnum": "C20-07-13.2",
+  "contact_details": [{ "email": "smr3452@ictp.it" }],
+  "control_number": 1776122,
+  "core": true,
+  "inspire_categories": [
+    { "term": "Astrophysics" },
+    { "term": "Experiment-HEP" },
+    { "term": "Gravitation and Cosmology" },
+    { "term": "Instrumentation" },
+    { "term": "Phenomenology-HEP" },
+    { "term": "Theory-HEP" }
+  ],
+  "legacy_creation_date": "2020-01-17",
+  "legacy_version": "20200122161844.0",
+  "opening_date": "2021-07-12",
+  "self": { "$ref": "https://labs.inspirehep.net/api/conferences/1776122" },
+  "series": [{ "name": "DSU", "number": 16 }],
+  "short_description": {
+    "value":
+      "The 16th international workshop on the \"Dark Side of the Universe\" originally scheduled on 13-17 July 2020, has been cancelled due to Covid-19.\nIt is rescheduled to be held on 12-16 July 2021 at ICTP-EAIFR, in Kigali, Rwanda.\n\nDSU are a series of international workshops bringing together a wide range of theorists and experimentalists to discuss current ideas on models of the dark side and relate them to current and future experiments. Topics covered include: dark matter, dark energy, cosmic rays, neutrino physics, gravitational waves, cosmology, astrophysical analysis of galactic halos, physics beyond the standard model, etc."
+  },
+  "titles": [
+    { "title": "16th International Workshop on Dark Side of the Universe 2021" }
+  ],
+  "urls": [{ "value": "https://eaifr.org/events/dsu-2020/" }]
+}

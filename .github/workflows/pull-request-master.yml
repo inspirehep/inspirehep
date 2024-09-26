@@ -1,0 +1,13 @@
+name: Pull request master
+
+on:
+  pull_request_target:
+    branches: [master]
+
+
+jobs:
+  test:
+    uses: ./.github/workflows/integration-tests.yml
+    with:
+      ref: ${{ github.event.pull_request.head.sha }}
+    secrets: inherit

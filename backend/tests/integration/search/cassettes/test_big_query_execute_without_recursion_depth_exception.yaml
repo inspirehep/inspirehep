@@ -1,0 +1,30 @@
+interactions:
+- request:
+    body: citations=find+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name+or+a+name
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1021'
+      Content-Type:
+      - application/x-www-form-urlencoded
+    method: POST
+    uri: https://grobid.inspirebeta.net/api/processCitation
+  response:
+    body:
+      string: "<biblStruct >\n\t<monogr>\n\t\t<title/>\n\t\t<imprint/>\n\t</monogr>\n</biblStruct>\n"
+    headers:
+      content-length:
+      - '73'
+      content-type:
+      - application/xml; charset=UTF-8
+      date:
+      - Thu, 10 Feb 2022 12:29:22 GMT
+    status:
+      code: 200
+      message: OK
+version: 1

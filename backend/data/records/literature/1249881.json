@@ -1,0 +1,1406 @@
+{
+    "core": true,
+    "dois": [
+        {
+            "value": "10.1007/JHEP02(2014)099"
+        }
+    ],
+    "self": {
+        "$ref": "https://inspirebeta.net/api/literature/1249881"
+    },
+    "urls": [
+        {
+            "value": "https://misportal.jlab.org/ul/publications/view_pub.cfm?pub_id=12536",
+            "description": "JLab Document Server"
+        }
+    ],
+    "titles": [
+        {
+            "title": "Four-Flavour Leading-Order Hadronic Contribution To The Muon Anomalous Magnetic Moment",
+            "source": "arXiv"
+        },
+        {
+            "title": "Four-Flavour Leading Hadronic Contribution To The Muon Anomalous Magnetic Moment",
+            "source": "arXiv"
+        }
+    ],
+    "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+    "authors": [
+        {
+            "uuid": "dcc7b8d9-81a1-45e1-9fc7-f1653e33ca4e",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1072753"
+            },
+            "full_name": "Burger, Florian",
+            "affiliations": [
+                {
+                    "value": "Humboldt U., Berlin",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/902858"
+                    }
+                }
+            ],
+            "signature_block": "BARGARf",
+            "curated_relation": true
+        },
+        {
+            "uuid": "e01cbfd8-bc57-404f-8dfc-2cf926bd73da",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1040303"
+            },
+            "full_name": "Feng, Xu",
+            "affiliations": [
+                {
+                    "value": "KEK, Tsukuba",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/902916"
+                    }
+                }
+            ],
+            "signature_block": "FANGx",
+            "curated_relation": true
+        },
+        {
+            "uuid": "f259feb3-e4c9-4467-8bc1-3100a44f9279",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1274753"
+            },
+            "full_name": "Hotzel, Grit",
+            "affiliations": [
+                {
+                    "value": "Humboldt U., Berlin",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/902858"
+                    }
+                }
+            ],
+            "signature_block": "HATSALg",
+            "curated_relation": true
+        },
+        {
+            "uuid": "cef37b29-cd63-4fd9-b485-85a093456f77",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1004503"
+            },
+            "full_name": "Jansen, Karl",
+            "affiliations": [
+                {
+                    "value": "NIC, Zeuthen",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/907970"
+                    }
+                },
+                {
+                    "value": "Cyprus U.",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/906319"
+                    }
+                }
+            ],
+            "signature_block": "JANSANk",
+            "curated_relation": true
+        },
+        {
+            "uuid": "57f5dae5-9f6f-423c-a519-49f6ea450d60",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1052753"
+            },
+            "full_name": "Petschlies, Marcus",
+            "affiliations": [
+                {
+                    "value": "Cyprus Inst.",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/911877"
+                    }
+                }
+            ],
+            "signature_block": "PATSLYm"
+        },
+        {
+            "uuid": "8b4312aa-20a6-48ac-a9c0-213a7e76b41b",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1019811"
+            },
+            "full_name": "Renner, Dru B.",
+            "affiliations": [
+                {
+                    "value": "Jefferson Lab",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/904961"
+                    }
+                }
+            ],
+            "signature_block": "RANARd"
+        }
+    ],
+    "curated": true,
+    "figures": [
+        {
+            "key": "71c026e17d9c48fdd3072eed1f6853bd",
+            "url": "https://inspirebeta.net/files/71c026e17d9c48fdd3072eed1f6853bd",
+            "source": "arxiv",
+            "caption": "noimgParameters of the $N_f = 2+1+1$ flavour gauge field configurations that have been analysed in this work. $\\beta$ denotes the gauge coupling, $a$ the lattice spacing, $\\left(\\frac{L}{a}\\right)^3 \\times \\frac{T}{a}$ the space-time volume, and $m_{PS}$ is the, unphysical, value of the pion mass. The values for $m_{PS}$ have been determined in~\\cite{Baron:2010bv}. $L$ is the spatial extent of the lattices. The approximate lattice spacings given here are taken from a first analysis of the used gauge field configurations~\\cite{Baron:2011sf}.",
+            "filename": "fig00000.png"
+        },
+        {
+            "key": "86dd8293e4f5c96364d3866a857621cb",
+            "url": "https://inspirebeta.net/files/86dd8293e4f5c96364d3866a857621cb",
+            "source": "arxiv",
+            "caption": "Light-quark contribution to $a_{\\mathrm{\\mu}}^{\\mathrm{hvp}}$ on $N_f=2+1+1$ sea.",
+            "filename": "amu_light_corr_woH1.png"
+        },
+        {
+            "key": "81350edb357daa7f0a8ae79ae87b2935",
+            "url": "https://inspirebeta.net/files/81350edb357daa7f0a8ae79ae87b2935",
+            "source": "arxiv",
+            "caption": "Continuum extrapolation of $a_{\\mathrm{\\mu}}^{\\mathrm{light}}$.",
+            "filename": "amu_light_cl.png"
+        },
+        {
+            "key": "ae3e9a9eb01681005fbb887bdc86d57c",
+            "url": "https://inspirebeta.net/files/ae3e9a9eb01681005fbb887bdc86d57c",
+            "source": "arxiv",
+            "caption": "Comparison of three-flavour contribution to $a_{\\mathrm{\\mu}}^{\\mathrm{hvp}}$ obtained with different fermion actions.",
+            "filename": "amu_nf2+1_comp.png"
+        },
+        {
+            "key": "9b6a348a33fb0e3b5c27fc855a11dfc4",
+            "url": "https://inspirebeta.net/files/9b6a348a33fb0e3b5c27fc855a11dfc4",
+            "source": "arxiv",
+            "caption": "Continuum extrapolation of $a_{\\mathrm{\\mu, s}}^{\\rm hvp}$ at $m_{\\rm PS}\\approx320\\,{\\rm MeV}$.",
+            "filename": "amu_strange_cl_fixedmps.png"
+        },
+        {
+            "key": "5719c89141aa01b1bed6d3ae9fdc6fb6",
+            "url": "https://inspirebeta.net/files/5719c89141aa01b1bed6d3ae9fdc6fb6",
+            "source": "arxiv",
+            "caption": "Three-flavour contribution to $a_{\\mathrm{\\mu}}^{\\mathrm{hvp}}$. The phenomenological value is extracted from~\\protect\\cite{Jegerlehner:2008zz} assuming quark-hadron duality.",
+            "filename": "amu_nf2+1_corr_cont_woH1.png"
+        },
+        {
+            "key": "bf46fe0fa81abe83eee358370379cc7a",
+            "url": "https://inspirebeta.net/files/bf46fe0fa81abe83eee358370379cc7a",
+            "source": "arxiv",
+            "caption": "$N_f=2+1+1$ result for $a_{\\mathrm{\\mu}}^{\\rm hvp}$.",
+            "filename": "amu_tot_corr_cont_woH1.png"
+        },
+        {
+            "key": "39d451177ae97ecdfc725e791ba0f66b",
+            "url": "https://inspirebeta.net/files/39d451177ae97ecdfc725e791ba0f66b",
+            "source": "arxiv",
+            "caption": "Comparison of the effect of choosing different fit ranges on $a_{\\mathrm{\\mu, ud}}^{\\rm hvp}$ extrapolated linearly to the physical pion mass. The standard fit range is $[0.7\\,\\mathrm{fm},1.2\\,\\mathrm{fm}]$.",
+            "filename": "light_fitrange.png"
+        },
+        {
+            "key": "e939ddb82b3832f54eaef6c1bd061580",
+            "url": "https://inspirebeta.net/files/e939ddb82b3832f54eaef6c1bd061580",
+            "source": "arxiv",
+            "caption": "Comparison of the effect of different $M$, $N$, $B$, $C$ values on $a_{\\mathrm{\\mu, ud}}^{\\rm hvp}$ extrapolated linearly to the physical pion mass. The standard fit is M1N2B4C1.",
+            "filename": "light_mnbc.png"
+        },
+        {
+            "key": "d93e11f7ea419c3dabd03f67fb98f21d",
+            "url": "https://inspirebeta.net/files/d93e11f7ea419c3dabd03f67fb98f21d",
+            "source": "arxiv",
+            "caption": "Comparison of our first four-flavour lattice result of $a_{\\mathrm{\\mu}}^{\\rm hvp}$ with different results based on dispersion relations: Davier et al.~\\protect\\cite{Davier:2010nc}, Jegerlehner and Szafron~\\protect\\cite{Jegerlehner:2011ti}, Hagiwara et al.~\\protect\\cite{Hagiwara:2011af}, and HLS~\\protect\\cite{Benayoun:2012wc}",
+            "filename": "amu_compare.png"
+        }
+    ],
+    "license": [
+        {
+            "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+            "imposing": "arXiv"
+        }
+    ],
+    "texkeys": [
+        "Burger:2013jya"
+    ],
+    "citeable": true,
+    "imprints": [
+        {
+            "date": "2014"
+        }
+    ],
+    "keywords": [
+        {
+            "value": "Lattice QCD",
+            "source": "author"
+        },
+        {
+            "value": "Standard Model",
+            "source": "author"
+        },
+        {
+            "value": "muon: magnetic moment",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "quark: mass: twist",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "pi: mass",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "vacuum polarization: hadronic",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "finite size: effect",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "higher-order: 0",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "Feynman graph",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "numerical calculations",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "lattice",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "quark: flavor: 4",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "quark: mass dependence",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "lattice field theory",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "quantum chromodynamics",
+            "schema": "INSPIRE"
+        }
+    ],
+    "refereed": true,
+    "abstracts": [
+        {
+            "value": "We present a four-flavour lattice calculation of the leading-order hadronic vacuum polarisation contribution to the anomalous magnetic moment of the muon, $a_\\mathrm{\\mu}^{\\rm hvp}$, arising from quark-connected Feynman graphs. It is based on ensembles featuring $N_f=2+1+1$ dynamical twisted mass fermions generated by the European Twisted Mass Collaboration (ETMC). Several light quark masses are used in order to yield a controlled extrapolation to the physical pion mass. We employ three lattice spacings to examine lattice artefacts and several different volumes to check for finite-size effects. Incorporating the complete first two generations of quarks allows for a direct comparison with phenomenological determinations of $a_\\mathrm{\\mu}^{\\rm hvp}$. Our final result including an estimate of the systematic uncertainty $$a_{\\mathrm{\\mu}}^{\\rm hvp} = 6.74(21)(18) \\cdot 10^{-8}$$ shows a good overall agreement with these computations.",
+            "source": "arXiv"
+        }
+    ],
+    "documents": [
+        {
+            "key": "cd940476be4502f3b960131d254fac7b",
+            "url": "https://inspirebeta.net/files/cd940476be4502f3b960131d254fac7b",
+            "hidden": true,
+            "source": "arxiv",
+            "filename": "arXiv:1308.4327.pdf"
+        },
+        {
+            "key": "3416d1281272c848ab339dd27b78b73f",
+            "url": "https://inspirebeta.net/files/3416d1281272c848ab339dd27b78b73f",
+            "source": "SCOAP3",
+            "filename": "scoap",
+            "description": "Article from SCOAP3"
+        }
+    ],
+    "references": [
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/710962"
+            },
+            "reference": {
+                "misc": [
+                    "Muon G-2 Collaboration Final Report of the Muon E821 Anomalous Magnetic Moment Measurement at BNL"
+                ],
+                "label": "1",
+                "authors": [
+                    {
+                        "full_name": "Bennett, G."
+                    }
+                ],
+                "arxiv_eprint": "hep-ex/0602035",
+                "publication_info": {
+                    "year": 2006,
+                    "artid": "072003",
+                    "journal_title": "Phys.Rev.D",
+                    "journal_volume": "73"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/843003"
+            },
+            "reference": {
+                "misc": [
+                    "Status of the Muon (g-2) Experiment"
+                ],
+                "label": "2",
+                "authors": [
+                    {
+                        "full_name": "Roberts, B.L."
+                    }
+                ],
+                "imprint": {
+                    "publisher": "Fermilab"
+                },
+                "arxiv_eprint": "1001.2898",
+                "publication_info": {
+                    "year": 2010,
+                    "page_end": "744",
+                    "page_start": "741",
+                    "journal_title": "Chin.Phys.C",
+                    "journal_volume": "34"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/813721"
+            },
+            "reference": {
+                "misc": [
+                    "The Muon g-2"
+                ],
+                "label": "3",
+                "authors": [
+                    {
+                        "full_name": "Jegerlehner, F."
+                    },
+                    {
+                        "full_name": "Nyffeler, A."
+                    }
+                ],
+                "arxiv_eprint": "0902.3360",
+                "publication_info": {
+                    "year": 2009,
+                    "page_end": "110",
+                    "page_start": "1",
+                    "journal_title": "Phys.Rept.",
+                    "journal_volume": "477"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/893768"
+            },
+            "reference": {
+                "misc": [
+                    "Two-flavor QCD correction to lepton magnetic moments at leading-order in the electromagnetic coupling"
+                ],
+                "label": "4",
+                "authors": [
+                    {
+                        "full_name": "Feng, X."
+                    },
+                    {
+                        "full_name": "Jansen, K."
+                    },
+                    {
+                        "full_name": "Petschlies, M."
+                    },
+                    {
+                        "full_name": "Renner, D.B."
+                    }
+                ],
+                "arxiv_eprint": "1103.4818",
+                "publication_info": {
+                    "year": 2011,
+                    "artid": "081802",
+                    "journal_title": "Phys.Rev.Lett.",
+                    "journal_volume": "107"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1118268"
+            },
+            "reference": {
+                "misc": [
+                    "Jansen, and M. Petschlies, Nonperturbative QCD corrections to electroweak observables"
+                ],
+                "label": "5",
+                "authors": [
+                    {
+                        "full_name": "Renner, X."
+                    },
+                    {
+                        "full_name": "B., Dru"
+                    },
+                    {
+                        "full_name": "Feng, K."
+                    }
+                ],
+                "arxiv_eprint": "1206.3113",
+                "publication_info": {
+                    "year": 2012,
+                    "artid": "022",
+                    "page_start": "022",
+                    "journal_title": "PoS",
+                    "journal_volume": "LATTICE2011"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/902495"
+            },
+            "reference": {
+                "misc": [
+                    "Hadronic contribution to the muon g-2: A Theoretical determination"
+                ],
+                "label": "6",
+                "authors": [
+                    {
+                        "full_name": "Bodenstein, S."
+                    },
+                    {
+                        "full_name": "Dominguez, C."
+                    },
+                    {
+                        "full_name": "Schilcher, K."
+                    }
+                ],
+                "arxiv_eprint": "1106.0427",
+                "publication_info": {
+                    "year": 2012,
+                    "artid": "014029",
+                    "journal_title": "Phys.Rev.D",
+                    "journal_volume": "85"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/810227"
+            },
+            "reference": {
+                "misc": [
+                    "Hadronic Light-by-Light Scattering Contribution to the Muon Anomalous Magnetic Moment"
+                ],
+                "label": "7",
+                "authors": [
+                    {
+                        "full_name": "Prades, J."
+                    },
+                    {
+                        "full_name": "de Rafael, E."
+                    },
+                    {
+                        "full_name": "Vainshtein, A."
+                    }
+                ],
+                "arxiv_eprint": "0901.0306"
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/853397"
+            },
+            "reference": {
+                "misc": [
+                    "ETM Collaboration Light hadrons from lattice QCD with light (u,d), strange and charm dynamical quarks"
+                ],
+                "label": "8",
+                "authors": [
+                    {
+                        "full_name": "Baron, R."
+                    },
+                    {
+                        "full_name": "Boucaud, P."
+                    },
+                    {
+                        "full_name": "Carbonell, J."
+                    },
+                    {
+                        "full_name": "Deuzeman, A."
+                    },
+                    {
+                        "full_name": "Drach, V."
+                    }
+                ],
+                "arxiv_eprint": "1004.5284",
+                "publication_info": {
+                    "year": 2010,
+                    "artid": "111",
+                    "page_start": "111",
+                    "journal_title": "JHEP",
+                    "journal_volume": "06"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/855857"
+            },
+            "reference": {
+                "misc": [
+                    "European Twisted Mass Collaboration Computing K and D meson masses with Nf = 2 + 1 + 1 twisted mass lattice QCD"
+                ],
+                "label": "9",
+                "authors": [
+                    {
+                        "full_name": "Baron, R."
+                    }
+                ],
+                "arxiv_eprint": "1005.2042",
+                "publication_info": {
+                    "year": 2011,
+                    "page_end": "316",
+                    "page_start": "299",
+                    "journal_title": "Comput.Phys.Commun.",
+                    "journal_volume": "182"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1114976"
+            },
+            "reference": {
+                "misc": [
+                    "Model-independent parametrization of the hadronic vacuum polarization and g-2 for the muon on the lattice"
+                ],
+                "label": "10",
+                "authors": [
+                    {
+                        "full_name": "Aubin, C."
+                    },
+                    {
+                        "full_name": "Blum, T."
+                    },
+                    {
+                        "full_name": "Golterman, M."
+                    },
+                    {
+                        "full_name": "Peris, S."
+                    }
+                ],
+                "arxiv_eprint": "1205.3695",
+                "publication_info": {
+                    "year": 2012,
+                    "artid": "054509",
+                    "journal_title": "Phys.Rev.D",
+                    "journal_volume": "86"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/360432"
+            },
+            "reference": {
+                "misc": [
+                    "Hadronic contributions to the muon g-2 and low-energy QCD"
+                ],
+                "label": "11",
+                "authors": [
+                    {
+                        "full_name": "de Rafael, E."
+                    }
+                ],
+                "arxiv_eprint": "hep-ph/9311316",
+                "publication_info": {
+                    "year": 1994,
+                    "page_end": "246",
+                    "page_start": "239",
+                    "journal_title": "Phys.Lett.B",
+                    "journal_volume": "322"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/604400"
+            },
+            "reference": {
+                "misc": [
+                    "Lattice calculation of the lowest order hadronic contribution to the muon anomalous magnetic moment"
+                ],
+                "label": "12",
+                "authors": [
+                    {
+                        "full_name": "Blum, T."
+                    }
+                ],
+                "arxiv_eprint": "hep-lat/0212018",
+                "publication_info": {
+                    "year": 2003,
+                    "artid": "052001",
+                    "journal_title": "Phys.Rev.Lett.",
+                    "journal_volume": "91"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/225018"
+            },
+            "reference": {
+                "misc": [
+                    "Renormalization Group Analysis of Lattice Theories and Improved Lattice Action: Two-Dimensional Nonlinear O(N) Sigma Model"
+                ],
+                "label": "13",
+                "authors": [
+                    {
+                        "full_name": "Iwasaki, Y."
+                    }
+                ],
+                "publication_info": {
+                    "year": 1985,
+                    "page_end": "156",
+                    "page_start": "141",
+                    "journal_title": "Nucl.Phys.B",
+                    "journal_volume": "258"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/620996"
+            },
+            "reference": {
+                "misc": [
+                    "Chirally improving Wilson fermions. I: O(a) improvement"
+                ],
+                "label": "14",
+                "authors": [
+                    {
+                        "full_name": "Frezzotti, R."
+                    },
+                    {
+                        "full_name": "Rossi, G.C."
+                    }
+                ],
+                "arxiv_eprint": "hep-lat/0306014",
+                "publication_info": {
+                    "year": 2004,
+                    "artid": "007",
+                    "page_start": "007",
+                    "journal_title": "JHEP",
+                    "journal_volume": "08"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/632743"
+            },
+            "reference": {
+                "misc": [
+                    "Twisted-mass lattice qcd with mass non-degenerate quarks"
+                ],
+                "label": "15",
+                "authors": [
+                    {
+                        "full_name": "Frezzotti, R."
+                    },
+                    {
+                        "full_name": "Rossi, G.C."
+                    }
+                ],
+                "arxiv_eprint": "hep-lat/0311008",
+                "publication_info": {
+                    "year": 2004,
+                    "page_end": "202",
+                    "page_start": "193",
+                    "journal_title": "Nucl.Phys.B Proc.Suppl.",
+                    "journal_volume": "128"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/883203"
+            },
+            "reference": {
+                "misc": [
+                    "ETM Collaboration Light hadrons from Nf = 2 + 1 + 1 dynamical twisted mass fermions"
+                ],
+                "label": "16",
+                "authors": [
+                    {
+                        "full_name": "Baron, R."
+                    }
+                ],
+                "arxiv_eprint": "1101.0518",
+                "publication_info": {
+                    "year": 2010,
+                    "artid": "123",
+                    "page_start": "123",
+                    "journal_title": "PoS",
+                    "journal_volume": "LATTICE2010"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/120117"
+            },
+            "reference": {
+                "misc": [
+                    "Gauge Field Theories on the Lattice"
+                ],
+                "label": "17",
+                "authors": [
+                    {
+                        "full_name": "Osterwalder, K."
+                    },
+                    {
+                        "full_name": "Seiler, E."
+                    }
+                ],
+                "publication_info": {
+                    "year": 1978,
+                    "artid": "440",
+                    "page_start": "440",
+                    "journal_title": "Annals Phys.",
+                    "journal_volume": "110"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/653676"
+            },
+            "reference": {
+                "misc": [
+                    "Chirally improving Wilson fermions. II. Four-quark operators"
+                ],
+                "label": "18",
+                "authors": [
+                    {
+                        "full_name": "Frezzotti, R."
+                    },
+                    {
+                        "full_name": "Rossi, G."
+                    }
+                ],
+                "arxiv_eprint": "hep-lat/0407002",
+                "publication_info": {
+                    "year": 2004,
+                    "artid": "070",
+                    "page_start": "070",
+                    "journal_title": "JHEP",
+                    "journal_volume": "10"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1268980"
+            },
+            "reference": {
+                "misc": [
+                    "Computation of the chiral condensate using Nf = 2 and Nf = 2 + 1 + 1 dynamical flavors of twisted mass fermions"
+                ],
+                "label": "19",
+                "authors": [
+                    {
+                        "full_name": "Cichy, K."
+                    },
+                    {
+                        "full_name": "Garcia-Ramos, E."
+                    },
+                    {
+                        "full_name": "Jansen, K."
+                    },
+                    {
+                        "full_name": "Shindler, A."
+                    }
+                ],
+                "arxiv_eprint": "1312.3534",
+                "publication_info": {
+                    "year": 2013,
+                    "artid": "128",
+                    "page_start": "128",
+                    "journal_title": "PoS",
+                    "journal_volume": "LATTICE2013"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1268981"
+            },
+            "reference": {
+                "misc": [
+                    "Topological susceptibility from twisted mass fermions using spectral projectors"
+                ],
+                "label": "20",
+                "authors": [
+                    {
+                        "full_name": "Cichy, K."
+                    },
+                    {
+                        "full_name": "Garcia-Ramos, E."
+                    },
+                    {
+                        "full_name": "Jansen, K."
+                    },
+                    {
+                        "full_name": "Shindler, A."
+                    }
+                ],
+                "arxiv_eprint": "1312.3535",
+                "publication_info": {
+                    "year": 2013,
+                    "artid": "129",
+                    "page_start": "129",
+                    "journal_title": "PoS",
+                    "journal_volume": "LATTICE2013"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "reference": {
+                "misc": [
+                    "in preparation"
+                ],
+                "label": "21",
+                "authors": [
+                    {
+                        "full_name": "Burger, F."
+                    }
+                ]
+            }
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/879349"
+            },
+            "reference": {
+                "misc": [
+                    "Resonance Parameters of the rho-Meson from Lattice QCD"
+                ],
+                "label": "22",
+                "authors": [
+                    {
+                        "full_name": "Feng, X."
+                    },
+                    {
+                        "full_name": "Jansen, K."
+                    },
+                    {
+                        "full_name": "Renner, D.B."
+                    }
+                ],
+                "arxiv_eprint": "1011.5288",
+                "publication_info": {
+                    "year": 2011,
+                    "artid": "094505",
+                    "journal_title": "Phys.Rev.D",
+                    "journal_volume": "83"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/824078"
+            },
+            "reference": {
+                "misc": [
+                    "Meson masses and decay constants from unquenched lattice QCD"
+                ],
+                "label": "23",
+                "authors": [
+                    {
+                        "full_name": "Jansen, K."
+                    },
+                    {
+                        "full_name": "McNeile, C."
+                    },
+                    {
+                        "full_name": "Michael, C."
+                    },
+                    {
+                        "full_name": "Urbach, C."
+                    }
+                ],
+                "arxiv_eprint": "0906.4720",
+                "publication_info": {
+                    "year": 2009,
+                    "artid": "054510",
+                    "journal_title": "Phys.Rev.D",
+                    "journal_volume": "80"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1081162"
+            },
+            "reference": {
+                "misc": [
+                    "Towards a precise lattice determination of the leading hadronic contribution to (g - 2)\u00b5"
+                ],
+                "label": "24",
+                "authors": [
+                    {
+                        "full_name": "Della Morte, M."
+                    },
+                    {
+                        "full_name": "Jager, B."
+                    },
+                    {
+                        "full_name": "Juttner, A."
+                    },
+                    {
+                        "full_name": "Wittig, H."
+                    }
+                ],
+                "arxiv_eprint": "1112.2894",
+                "publication_info": {
+                    "year": 2012,
+                    "artid": "055",
+                    "page_start": "055",
+                    "journal_title": "JHEP",
+                    "journal_volume": "03"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/917356"
+            },
+            "reference": {
+                "misc": [
+                    "Lattice Determination of the Hadronic Contribution to the Muon g - 2 using Dynamical Domain Wall Fermions"
+                ],
+                "label": "25",
+                "authors": [
+                    {
+                        "full_name": "Boyle, P."
+                    },
+                    {
+                        "full_name": "Del Debbio, L."
+                    },
+                    {
+                        "full_name": "Kerrane, E."
+                    },
+                    {
+                        "full_name": "Zanotti, J."
+                    }
+                ],
+                "arxiv_eprint": "1107.1497",
+                "publication_info": {
+                    "year": 2012,
+                    "artid": "074504",
+                    "journal_title": "Phys.Rev.D",
+                    "journal_volume": "85"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/807372"
+            },
+            "reference": {
+                "label": "26",
+                "authors": [
+                    {
+                        "full_name": "Jegerlehner, F."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2008,
+                    "artid": "26",
+                    "page_start": "26",
+                    "journal_title": "Nucl.Phys.B Proc.Suppl.",
+                    "journal_volume": "181-182"
+                }
+            },
+            "legacy_curated": true,
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/918259"
+            },
+            "reference": {
+                "misc": [
+                    "Leading-order calculation of hadronic contributions to the muon g - 2 using the Dyson-Schwinger approach"
+                ],
+                "label": "27",
+                "authors": [
+                    {
+                        "full_name": "Goecke, T."
+                    },
+                    {
+                        "full_name": "Fischer, C.S."
+                    },
+                    {
+                        "full_name": "Williams, R."
+                    }
+                ],
+                "arxiv_eprint": "1107.2588",
+                "publication_info": {
+                    "year": 2011,
+                    "page_end": "217",
+                    "page_start": "211",
+                    "journal_title": "Phys.Lett.B",
+                    "journal_volume": "704"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/868894"
+            },
+            "reference": {
+                "misc": [
+                    "Quark disconnected diagrams in chiral perturbation theory"
+                ],
+                "label": "28",
+                "authors": [
+                    {
+                        "full_name": "Della Morte, M."
+                    },
+                    {
+                        "full_name": "Juttner, A."
+                    }
+                ],
+                "arxiv_eprint": "1009.3783",
+                "publication_info": {
+                    "year": 2010,
+                    "artid": "154",
+                    "page_start": "154",
+                    "journal_title": "JHEP",
+                    "journal_volume": "11"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1238110"
+            },
+            "reference": {
+                "misc": [
+                    "A new representation of the Adler function for lattice QCD"
+                ],
+                "label": "29",
+                "authors": [
+                    {
+                        "full_name": "Francis, A."
+                    },
+                    {
+                        "full_name": "Jaeger, B."
+                    },
+                    {
+                        "full_name": "Meyer, H.B."
+                    },
+                    {
+                        "full_name": "Wittig, H."
+                    }
+                ],
+                "arxiv_eprint": "1306.2532",
+                "publication_info": {
+                    "year": 2013,
+                    "artid": "054502",
+                    "journal_title": "Phys.Rev.D",
+                    "journal_volume": "88"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/553768"
+            },
+            "reference": {
+                "misc": [
+                    "Low-energy gluon contributions to the vacuum polarization of heavy quarks"
+                ],
+                "label": "30",
+                "authors": [
+                    {
+                        "full_name": "Groote, S."
+                    },
+                    {
+                        "full_name": "Pivovarov, A."
+                    }
+                ],
+                "arxiv_eprint": "hep-ph/0103047",
+                "publication_info": {
+                    "year": 2002,
+                    "artid": "221",
+                    "page_start": "221",
+                    "journal_title": "JETP Lett.",
+                    "journal_volume": "75"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/873506"
+            },
+            "reference": {
+                "misc": [
+                    "Reevaluation of the Hadronic Contributions to the Muon g-2 and to alpha(MZ)"
+                ],
+                "label": "31",
+                "authors": [
+                    {
+                        "full_name": "Davier, M."
+                    },
+                    {
+                        "full_name": "Hoecker, A."
+                    },
+                    {
+                        "full_name": "Malaescu, B."
+                    },
+                    {
+                        "full_name": "Zhang, Z."
+                    }
+                ],
+                "arxiv_eprint": "1010.4180",
+                "publication_info": {
+                    "year": 2011,
+                    "artid": "1515",
+                    "page_start": "1515",
+                    "journal_title": "Eur.Phys.J.C",
+                    "journal_volume": "71"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/884306"
+            },
+            "reference": {
+                "misc": [
+                    "\u03c10 - \u03b3 mixing in the neutral channel pion form factor Fe \u03c0 and its role in comparing e+ e- with \u03c4 spectral functions"
+                ],
+                "label": "32",
+                "authors": [
+                    {
+                        "full_name": "Jegerlehner, F."
+                    },
+                    {
+                        "full_name": "Szafron, R."
+                    }
+                ],
+                "arxiv_eprint": "1101.2872",
+                "publication_info": {
+                    "year": 2011,
+                    "artid": "1632",
+                    "page_start": "1632",
+                    "journal_title": "Eur.Phys.J.C",
+                    "journal_volume": "71"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/900116"
+            },
+            "reference": {
+                "misc": [
+                    "and T (g - 2)\u00b5 and alpha(M2 Z) re-evaluated using new precise data"
+                ],
+                "label": "33",
+                "authors": [
+                    {
+                        "full_name": "Hagiwara, K."
+                    },
+                    {
+                        "full_name": "Liao, R."
+                    },
+                    {
+                        "full_name": "Martin, A.D."
+                    },
+                    {
+                        "full_name": "Nomura, D."
+                    }
+                ],
+                "imprint": {
+                    "publisher": "Teubner"
+                },
+                "arxiv_eprint": "1105.3149",
+                "publication_info": {
+                    "year": 2011,
+                    "artid": "085003",
+                    "journal_title": "J.Phys.G",
+                    "journal_volume": "38"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1193771"
+            },
+            "reference": {
+                "misc": [
+                    "An Update of the HLS Estimate of the Muon g-2"
+                ],
+                "label": "34",
+                "authors": [
+                    {
+                        "full_name": "Benayoun, M."
+                    },
+                    {
+                        "full_name": "David, P."
+                    },
+                    {
+                        "full_name": "DelBuono, L."
+                    },
+                    {
+                        "full_name": "Jegerlehner, F."
+                    }
+                ],
+                "arxiv_eprint": "1210.7184"
+            },
+            "curated_relation": false
+        }
+    ],
+    "_collections": [
+        "Literature"
+    ],
+    "public_notes": [
+        {
+            "value": "24 pages, 11 figures, accepted for publication in JHEP",
+            "source": "arXiv"
+        }
+    ],
+    "arxiv_eprints": [
+        {
+            "value": "1308.4327",
+            "categories": [
+                "hep-lat",
+                "hep-ph"
+            ]
+        }
+    ],
+    "document_type": [
+        "article"
+    ],
+    "preprint_date": "2013-08-20",
+    "_private_notes": [
+        {
+            "value": "CDS-1591229",
+            "source": "CERN"
+        }
+    ],
+    "collaborations": [
+        {
+            "value": "ETM"
+        }
+    ],
+    "control_number": 1249881,
+    "legacy_version": "20170302150156.0",
+    "report_numbers": [
+        {
+            "value": "DESY-13-146"
+        },
+        {
+            "value": "HU-EP-13-37"
+        },
+        {
+            "value": "JLAB-THY-13-1771"
+        },
+        {
+            "value": "KEK-CP-292"
+        },
+        {
+            "value": "SFB-CPP-13-55"
+        }
+    ],
+    "number_of_pages": 25,
+    "publication_info": [
+        {
+            "year": 2014,
+            "artid": "099",
+            "page_start": "099",
+            "journal_title": "JHEP",
+            "journal_record": {
+                "$ref": "https://inspirebeta.net/api/journals/1213103"
+            },
+            "journal_volume": "02"
+        }
+    ],
+    "_desy_bookkeeping": [
+        {
+            "identifier": "DA13-kp41h"
+        },
+        {
+            "date": "2013-08-30",
+            "expert": "M",
+            "status": "abs"
+        },
+        {
+            "date": "2013-09-05",
+            "expert": "M",
+            "status": "printed"
+        },
+        {
+            "date": "2013-10-28",
+            "status": "final"
+        }
+    ],
+    "acquisition_source": {
+        "method": "oai",
+        "source": "arxiv"
+    },
+    "inspire_categories": [
+        {
+            "term": "Lattice"
+        },
+        {
+            "term": "Phenomenology-HEP"
+        }
+    ],
+    "legacy_creation_date": "2013-08-21",
+    "accelerator_experiments": [
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/experiments/1513946"
+            },
+            "legacy_name": "LATTICE-ETM"
+        }
+    ],
+    "external_system_identifiers": [
+        {
+            "value": "1121883",
+            "schema": "OSTI"
+        },
+        {
+            "value": "2014JHEP...02..099B",
+            "schema": "ADS"
+        }
+    ]
+}

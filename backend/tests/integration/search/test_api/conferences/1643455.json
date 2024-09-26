@@ -1,0 +1,59 @@
+{
+    "addresses": [
+        {
+            "state": "Saratov",
+            "cities": [
+                "Moscow"
+            ],
+            "latitude": 51.5923654,
+            "longitude": 45.9608031,
+            "place_name": "Nizhniĭ-Novgorod,Kazan’",
+            "country_code": "SU"
+        }
+    ],
+    "cnum": "C28-08-05",
+    "core": true,
+    "self": {
+        "$ref": "https://labs.inspirehep.net/api/conferences/1643455"
+    },
+    "series": [
+        {
+            "name": "Congress of Russian Physicists",
+            "number": 6
+        }
+    ],
+    "titles": [
+        {
+            "title": "6th Congress of Russian Physicists",
+            "subtitle": "VI Съезд русских физиков [VI S\"eszd russkikh fizikov]"
+        }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "1928-08-16",
+    "opening_date": "1928-08-05",
+    "public_notes": [
+        {
+            "value": "Published in: VI Съезд русских физиков, Москва, Нижний-Новгород, Казань, Саратов (5-16 августа 1928 года). Перечень докладов, представленных на съезд, с кратким их содержанием [VI S\"eszd russkikh fizikov, Moskva, Nizhniĭ-Novgorod, Kazan’, Saratov (5-16 avgusta 1928 goda). Perechen’ dokladov, prestavlennykh na s\"eszd, s kratkim ikh soderzhaniem]. Государственное издательство [Gosudarstvennoe izdatel’stvo]/[State Publishing House], Moscow, Leningrad, 1928 (The book is freely available online at the following site of the Russian Academy of Sciences: http://nasledie.enip.ras.ru/ras/view/ publication/general.html?id=48235066 )."
+        }
+    ],
+    "control_number": 1643455,
+    "legacy_version": "20171221142252.0",
+    "inspire_categories": [
+        {
+            "term": "Experiment-HEP"
+        },
+        {
+            "term": "Other"
+        },
+        {
+            "term": "Phenomenology-HEP"
+        },
+        {
+            "term": "Theory-HEP"
+        }
+    ],
+    "legacy_creation_date": "2017-12-15"
+}

@@ -1,0 +1,98 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/orcid+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://api.orcid.org/v2.0/0000-0002-6665-4934/works
+  response:
+    body:
+      string: "{\n  \"error\" : \"invalid_token\",\n  \"error_description\" : \"Invalid\
+        \ access token: invalid\"\n}"
+    headers:
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      - no-store
+      connection:
+      - keep-alive
+      content-type:
+      - application/orcid+json;charset=UTF-8
+      date:
+      - Wed, 08 Aug 2018 13:04:07 GMT
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      - no-cache
+      server:
+      - nginx/1.4.6 (Ubuntu)
+      transfer-encoding:
+      - chunked
+      www-authenticate:
+      - 'Bearer realm="ORCID T2 API", error="invalid_token", error_description="Invalid
+        access token: invalid"'
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 401
+      message: Unauthorized
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/orcid+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/works
+  response:
+    body:
+      string: "{\n  \"error\" : \"invalid_token\",\n  \"error_description\" : \"Invalid\
+        \ access token: invalid\"\n}"
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      - no-store
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/orcid+json;charset=UTF-8
+      Date:
+      - Tue, 06 Aug 2019 16:00:47 GMT
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      - no-cache
+      Server:
+      - nginx/1.10.0
+      Transfer-Encoding:
+      - chunked
+      WWW-Authenticate:
+      - 'Bearer realm="ORCID T2 API", error="invalid_token", error_description="Invalid
+        access token: invalid"'
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 401
+      message: Unauthorized
+version: 1

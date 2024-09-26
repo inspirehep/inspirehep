@@ -1,0 +1,185 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListWithPagination renders in grid mode 1`] = `
+<List
+  data-test-id="pagination-list"
+  dataSource={
+    Immutable.List [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+    ]
+  }
+  footer={
+    <Pagination
+      className="ant-col-24"
+      current={1}
+      hideOnSinglePage={true}
+      loading={false}
+      onChange={[MockFunction]}
+      pageSize={50}
+      pageSizeOptions={
+        Array [
+          "25",
+          "50",
+          "100",
+          "250",
+        ]
+      }
+      responsive={true}
+      showSizeChanger={false}
+      showTotal={[Function]}
+      total={100}
+    />
+  }
+  grid={
+    Object {
+      "gutter": 16,
+      "lg": 3,
+      "sm": 2,
+      "xl": 4,
+      "xs": 1,
+    }
+  }
+  header={null}
+  renderItem={[Function]}
+/>
+`;
+
+exports[`ListWithPagination renders with all props 1`] = `
+<List
+  data-test-id="pagination-list"
+  dataSource={
+    Immutable.List [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+    ]
+  }
+  footer={
+    <Pagination
+      className=""
+      current={2}
+      hideOnSinglePage={true}
+      loading={true}
+      onChange={[MockFunction]}
+      pageSize={25}
+      pageSizeOptions={
+        Array [
+          "25",
+          "50",
+          "100",
+          "250",
+        ]
+      }
+      responsive={true}
+      showSizeChanger={false}
+      showTotal={[Function]}
+      total={100}
+    />
+  }
+  header="Test"
+  renderItem={[Function]}
+/>
+`;
+
+exports[`ListWithPagination renders with required props 1`] = `
+<List
+  data-test-id="pagination-list"
+  dataSource={
+    Immutable.List [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+    ]
+  }
+  footer={
+    <Pagination
+      className=""
+      current={1}
+      hideOnSinglePage={true}
+      loading={false}
+      onChange={[MockFunction]}
+      pageSize={50}
+      pageSizeOptions={
+        Array [
+          "25",
+          "50",
+          "100",
+          "250",
+        ]
+      }
+      responsive={true}
+      showSizeChanger={false}
+      showTotal={[Function]}
+      total={100}
+    />
+  }
+  header={null}
+  renderItem={[Function]}
+/>
+`;

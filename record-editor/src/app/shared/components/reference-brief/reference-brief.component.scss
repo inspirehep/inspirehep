@@ -1,0 +1,16 @@
+.reference-brief-container {
+  background-color: white;
+  box-shadow: 0 0.5px 0 0 #ffffff inset, 0 1px 2px 0 #b3b3b3;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.fa {
+  &.success {
+    color: #16a085;
+  }
+
+  &.warning {
+    color: #f39c12;
+  }
+}

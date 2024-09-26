@@ -1,0 +1,28 @@
+<div *ngIf="revisions" class="history-container">
+  <ng-container *ngIf="!selectedRevision; else  revisionSelectedTemplate">
+    <div class="btn-group" dropdown>
+
+      <span class="navbar-text pull-right dropdown-toggle" dropdownToggle>Last edit on {{revisions[0].updated | date:'medium'}} by {{revisions[0].user_email}}</span>
+
+      <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <ng-container *ngIf="revisions.length > 0; else hasNoRevisionTemplate">
+          <li role="menuitem" *ngFor="let revision of revisions">
+            <a class="dropdown-item" href="javascript:void(0)" (click)="onRevisionClick(revision)">On {{revision.updated | date:'medium'}} by {{revision.user_email}}</a>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #revisionSelectedTemplate>
+  <button *ngIf="enableRevert" class="btn btn-revert" (click)="onRevertClick()">Revert to</button>
+  <span class="selected-revision">{{selectedRevision.updated | date:'medium'}} by {{selectedRevision.user_email}}</span>
+  <span class="btn-current" (click)="onCurrentRevisionClick()">
+    <ng-container *ngIf="enableRevert">or </ng-container>go back to current
+  </span>
+</ng-template>
+
+<ng-template #hasNoRevisionTemplate>
+  <span class="navbar-text pull-right">No revision to display</span>
+</ng-template>

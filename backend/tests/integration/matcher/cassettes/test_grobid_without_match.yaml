@@ -1,0 +1,31 @@
+interactions:
+- request:
+    body: citations=jessica
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '17'
+      Content-Type:
+      - application/x-www-form-urlencoded
+    method: POST
+    uri: https://grobid.inspirebeta.net/api/processCitation
+  response:
+    body:
+      string: "<biblStruct >\n\t<monogr>\n\t\t<title/>\n\t\t<imprint/>\n\t</monogr>\n\
+        </biblStruct>\n"
+    headers:
+      Content-Length:
+      - '73'
+      Content-Type:
+      - application/xml; charset=UTF-8
+      Date:
+      - Tue, 09 Jun 2020 13:10:38 GMT
+    status:
+      code: 200
+      message: OK
+version: 1

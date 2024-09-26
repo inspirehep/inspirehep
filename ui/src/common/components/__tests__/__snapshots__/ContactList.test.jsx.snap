@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContactList renders with contacts with both email and name 1`] = `
+<div
+  className="__InlineList__ di"
+>
+  <span
+    className="b"
+  >
+    Contact
+    : 
+  </span>
+  <ul>
+    <li
+      key="johndoe@yahoo.com-0"
+    >
+      <span>
+        John
+      </span>
+       (
+      <EventTracker
+        eventAction="Mail"
+        eventId="Contact list"
+        eventPropName="onClick"
+        extractEventArgsToForward={null}
+      >
+        <LinkWithTargetBlank
+          as="a"
+          href="mailto:johndoe@yahoo.com"
+        >
+          johndoe@yahoo.com
+        </LinkWithTargetBlank>
+      </EventTracker>
+      )
+      ; 
+    </li>
+    <li
+      key="johndoe2@yahoo.com-2"
+    >
+      <span>
+        John2
+      </span>
+       (
+      <EventTracker
+        eventAction="Mail"
+        eventId="Contact list"
+        eventPropName="onClick"
+        extractEventArgsToForward={null}
+      >
+        <LinkWithTargetBlank
+          as="a"
+          href="mailto:johndoe2@yahoo.com"
+        >
+          johndoe2@yahoo.com
+        </LinkWithTargetBlank>
+      </EventTracker>
+      )
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`ContactList renders with contacts with only email or name 1`] = `
+<div
+  className="__InlineList__ di"
+>
+  <span
+    className="b"
+  >
+    Contact
+    : 
+  </span>
+  <ul>
+    <li
+      key="johndoe@yahoo.com-0"
+    >
+      <EventTracker
+        eventAction="Mail"
+        eventId="Contact list"
+        eventPropName="onClick"
+        extractEventArgsToForward={null}
+      >
+        <LinkWithTargetBlank
+          as="a"
+          href="mailto:johndoe@yahoo.com"
+        >
+          johndoe@yahoo.com
+        </LinkWithTargetBlank>
+      </EventTracker>
+      ; 
+    </li>
+    <li
+      key="John2-2"
+    >
+      <span>
+        John2
+      </span>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`ContactList renders with contacts with record and name 1`] = `
+<div
+  className="__InlineList__ di"
+>
+  <span
+    className="b"
+  >
+    Contact
+    : 
+  </span>
+  <ul>
+    <li
+      key="John-0"
+    >
+      <Link
+        to="/authors/12345"
+      >
+        John
+      </Link>
+    </li>
+  </ul>
+</div>
+`;

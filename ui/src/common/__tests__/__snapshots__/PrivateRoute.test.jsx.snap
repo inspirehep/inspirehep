@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrivateRoute redirects 401 if logged in but not authorized 1`] = `
+<div>
+  Error 401 Page
+</div>
+`;
+
+exports[`PrivateRoute redirects to login if not logged in  1`] = `
+<div>
+  User Login Page
+</div>
+`;
+
+exports[`PrivateRoute routes if logged in 1`] = `
+<div>
+  Private Page
+</div>
+`;
+
+exports[`PrivateRoute routes if logged in user is authorized 1`] = `
+<div>
+  Authorized Page
+</div>
+`;

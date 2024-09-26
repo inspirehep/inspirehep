@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignLiteratureItemDrawer renders authors list 1`] = `
+<Drawer
+  className="search-drawer"
+  onClose={[Function]}
+  open={true}
+  placement="right"
+  title="Select the author to claim:"
+>
+  <Search
+    className="pb3"
+    enterButton={true}
+    onSearch={[Function]}
+    placeholder="Search for an author"
+  />
+  <Memo(ForwardRef)
+    className="w-100"
+    data-test-id="literature-drawer-radio-group"
+    onChange={[Function]}
+    value={null}
+  >
+    <List
+      dataSource={Array []}
+      itemLayout="horizontal"
+      pagination={
+        Object {
+          "hideOnSinglePage": true,
+          "pageSize": 20,
+          "size": "small",
+        }
+      }
+      renderItem={[Function]}
+    />
+  </Memo(ForwardRef)>
+  <Row
+    className="mt2"
+    justify="end"
+  >
+    <Col>
+      <Button
+        data-test-id="assign-literature-item-button"
+        disabled={true}
+        icon={<ForwardRef(SelectOutlined) />}
+        onClick={[Function]}
+        type="primary"
+      >
+        Claim
+      </Button>
+    </Col>
+  </Row>
+</Drawer>
+`;

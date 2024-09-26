@@ -1,0 +1,5 @@
+<strong>{{ affiliation.legacy_ICN }}</strong><br>
+<small>
+  <span *ngIf="isNotEmpty(affiliation.ICN)">{{affiliation.ICN[0]}}<br></span>
+  <span *ngIf="isNotEmpty(affiliation.institution_names)">{{affiliation.institution_names[0]}}<br></span>
+</small>

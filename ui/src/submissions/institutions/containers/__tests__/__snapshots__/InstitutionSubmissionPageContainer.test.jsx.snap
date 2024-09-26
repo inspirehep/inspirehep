@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InstitutionSubmissionPageContainer InstitutionSubmissionPage renders 1`] = `
+<SubmissionPage
+  description={
+    <span>
+      This form allows you to create a new institution record. It will appear in the 
+      <Link
+        to="/institutions"
+      >
+        Institutions List
+      </Link>
+       immediately.
+    </span>
+  }
+  title="Suggest institution"
+>
+  <toAllJS(InstitutionSubmission)
+    error={null}
+    onSubmit={[Function]}
+  />
+</SubmissionPage>
+`;

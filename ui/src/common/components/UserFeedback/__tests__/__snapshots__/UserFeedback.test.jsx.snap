@@ -1,0 +1,224 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserFeedback calls trackEvent with feedback on modal Ok and renders thank you 1`] = `
+<div
+  className="__UserFeedback__"
+>
+  <Button
+    className="feedback-button"
+    data-test-id="sticky"
+    icon={<ForwardRef(MessageOutlined) />}
+    onClick={[Function]}
+    size="large"
+    type="primary"
+  >
+    <ResponsiveView
+      min="sm"
+      render={[Function]}
+    />
+  </Button>
+  <Modal
+    afterClose={[Function]}
+    footer={null}
+    okButtonProps={
+      Object {
+        "disabled": true,
+      }
+    }
+    okText="Submit"
+    onCancel={[Function]}
+    onOk={[Function]}
+    open={false}
+    title="Your Feedback"
+  >
+    <ModalSuccessResult>
+      <div>
+        Thank you for your response.
+      </div>
+      <div>
+        For further feedback, please
+         
+        <LinkWithTargetBlank
+          as="a"
+          href="https://forms.gle/ZQi31GvXXHcsgXgM6"
+        >
+          take our survey
+        </LinkWithTargetBlank>
+        .
+      </div>
+      <div>
+        It takes around 5 minutes to complete.
+      </div>
+    </ModalSuccessResult>
+  </Modal>
+</div>
+`;
+
+exports[`UserFeedback renders 1`] = `
+<div
+  className="__UserFeedback__"
+>
+  <Button
+    className="feedback-button"
+    data-test-id="sticky"
+    icon={<ForwardRef(MessageOutlined) />}
+    onClick={[Function]}
+    size="large"
+    type="primary"
+  >
+    <ResponsiveView
+      min="sm"
+      render={[Function]}
+    />
+  </Button>
+  <Modal
+    afterClose={[Function]}
+    okButtonProps={
+      Object {
+        "disabled": undefined,
+      }
+    }
+    okText="Submit"
+    onCancel={[Function]}
+    onOk={[Function]}
+    open={false}
+    title="Your Feedback"
+  >
+    <div
+      className="mb4"
+    >
+      <div
+        className="mb1"
+      >
+        What is your opinion of the new INSPIRE?
+      </div>
+      <div>
+        <Rate
+          onChange={[Function]}
+          value={0}
+        />
+        <span
+          className="ant-rate-text"
+        />
+      </div>
+    </div>
+    <div>
+      <div
+        className="mb1"
+      >
+        Would you like to add a comment?
+      </div>
+      <div>
+        <ForwardRef
+          onChange={[Function]}
+          placeholder="Please give your feedback here"
+          rows={5}
+        />
+      </div>
+    </div>
+  </Modal>
+</div>
+`;
+
+exports[`UserFeedback renders when tracker is blocked 1`] = `
+<div
+  className="__UserFeedback__"
+>
+  <Button
+    className="feedback-button"
+    data-test-id="sticky"
+    icon={<ForwardRef(MessageOutlined) />}
+    onClick={[Function]}
+    size="large"
+    type="primary"
+  >
+    <ResponsiveView
+      min="sm"
+      render={[Function]}
+    />
+  </Button>
+  <Modal
+    afterClose={[Function]}
+    okButtonProps={
+      Object {
+        "disabled": true,
+      }
+    }
+    okText="Submit"
+    onCancel={[Function]}
+    onOk={[Function]}
+    open={false}
+    title="Your Feedback"
+  >
+    <div
+      className="mb4"
+    >
+      <Alert
+        description={
+          <React.Fragment>
+            <p>
+              To send us your feedback, please disable your adblocker or DoNotTrack and refresh the page.
+            </p>
+            <p>
+              Alternatively, you could send us your feedback using the
+               
+              <LinkWithTargetBlank
+                as="a"
+                href="https://forms.gle/ZQi31GvXXHcsgXgM6"
+              >
+                feedback form
+              </LinkWithTargetBlank>
+               
+              or
+              <a
+                href="https://help.inspirehep.net/knowledge-base/contact-us"
+                target="_blank"
+              >
+                contact us
+              </a>
+              .
+            </p>
+          </React.Fragment>
+        }
+        message="AdBlock detected"
+        showIcon={true}
+        type="warning"
+      />
+    </div>
+    <div
+      className="mb4"
+    >
+      <div
+        className="mb1"
+      >
+        What is your opinion of the new INSPIRE?
+      </div>
+      <div>
+        <Rate
+          disabled={true}
+          onChange={[Function]}
+          value={0}
+        />
+        <span
+          className="ant-rate-text"
+        />
+      </div>
+    </div>
+    <div>
+      <div
+        className="mb1"
+      >
+        Would you like to add a comment?
+      </div>
+      <div>
+        <ForwardRef
+          disabled={true}
+          onChange={[Function]}
+          placeholder="Please give your feedback here"
+          rows={5}
+        />
+      </div>
+    </div>
+  </Modal>
+</div>
+`;

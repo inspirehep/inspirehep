@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignDifferentProfileAction renders 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={false}
+    items={
+      Array [
+        Object {
+          "key": "1",
+          "label": <span
+            data-test-id="assign-self"
+            data-testid="assign-self"
+            onClick={[Function]}
+          >
+            Move to my profile
+          </span>,
+        },
+      ]
+    }
+    title={
+      <Tooltip
+        title={null}
+      >
+        <Button
+          data-test-id="claim-multiple"
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  />
+</UserActionWrapper>
+`;
+
+exports[`AssignDifferentProfileAction renders disabled 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={true}
+    items={
+      Array [
+        Object {
+          "key": "1",
+          "label": <span
+            data-test-id="assign-self"
+            data-testid="assign-self"
+            onClick={[Function]}
+          >
+            Move to my profile
+          </span>,
+        },
+      ]
+    }
+    title={
+      <Tooltip
+        title="Please select the papers you want to claim or remove from the profile."
+      >
+        <Button
+          data-test-id="claim-multiple"
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  />
+</UserActionWrapper>
+`;
+
+exports[`AssignDifferentProfileAction renders with claimingUnclaimedPapersDisabled 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={true}
+    items={
+      Array [
+        Object {
+          "key": "1",
+          "label": <span
+            data-test-id="assign-self"
+            data-testid="assign-self"
+            onClick={[Function]}
+          >
+            Move to my profile
+          </span>,
+        },
+      ]
+    }
+    title={
+      <Tooltip
+        title="Please select the papers you want to claim or remove from the profile."
+      >
+        <Button
+          data-test-id="claim-multiple"
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  />
+</UserActionWrapper>
+`;

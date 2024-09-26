@@ -1,0 +1,33 @@
+interactions:
+- request:
+    body: citations=michele+vallisneri+PRL+116%2C+221101+%282016%29
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '57'
+      Content-Type:
+      - application/x-www-form-urlencoded
+    method: POST
+    uri: https://grobid.inspirebeta.net/api/processCitation
+  response:
+    body:
+      string: "<biblStruct >\n\t<monogr>\n\t\t<title/>\n\t\t<imprint>\n\t\t\t<date\
+        \ type=\"published\" when=\"2016\" />\n\t\t\t<biblScope unit=\"volume\">116</biblScope>\n\
+        \t\t\t<biblScope unit=\"page\">221101</biblScope>\n\t\t</imprint>\n\t</monogr>\n\
+        </biblStruct>\n"
+    headers:
+      Content-Length:
+      - '215'
+      Content-Type:
+      - application/xml; charset=UTF-8
+      Date:
+      - Wed, 24 Jun 2020 09:10:57 GMT
+    status:
+      code: 200
+      message: OK
+version: 1

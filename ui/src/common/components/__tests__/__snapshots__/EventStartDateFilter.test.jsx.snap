@@ -1,0 +1,201 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventStartDateFilter renders with selection: a date range 1`] = `
+<Row
+  className="pa3 bg-white mb3"
+>
+  <AggregationBox
+    className="mb3"
+    headerAction={null}
+    name="Start Date"
+  >
+    <Row
+      align="middle"
+      className="mb3"
+      gutter={8}
+      type="flex"
+    >
+      <Col>
+        <EventTracker
+          eventAction="Start date facet"
+          eventCategory="Conferences search"
+          eventId="show upcoming conferences"
+          eventPropName="onChange"
+          extractEventArgsToForward={null}
+        >
+          <Switch
+            checked={false}
+            onAnimationEnd={[Function]}
+            onChange={[Function]}
+          />
+        </EventTracker>
+      </Col>
+      <Col>
+        Upcoming items
+      </Col>
+    </Row>
+    <EventTracker
+      eventAction="Start date facet"
+      eventCategory="Conferences search"
+      eventId="date range"
+      eventPropName="onChange"
+      extractEventArgsToForward={null}
+    >
+      <DateRangeFilter
+        onChange={[Function]}
+        range="2019-05-05--2020-01-01"
+      />
+    </EventTracker>
+  </AggregationBox>
+</Row>
+`;
+
+exports[`EventStartDateFilter renders with selection: all 1`] = `
+<Row
+  className="pa3 bg-white mb3"
+>
+  <AggregationBox
+    className="mb3"
+    headerAction={null}
+    name="Start Date"
+  >
+    <Row
+      align="middle"
+      className="mb3"
+      gutter={8}
+      type="flex"
+    >
+      <Col>
+        <EventTracker
+          eventAction="Start date facet"
+          eventCategory="Conferences search"
+          eventId="show upcoming conferences"
+          eventPropName="onChange"
+          extractEventArgsToForward={null}
+        >
+          <Switch
+            checked={false}
+            onAnimationEnd={[Function]}
+            onChange={[Function]}
+          />
+        </EventTracker>
+      </Col>
+      <Col>
+        Upcoming items
+      </Col>
+    </Row>
+    <EventTracker
+      eventAction="Start date facet"
+      eventCategory="Conferences search"
+      eventId="date range"
+      eventPropName="onChange"
+      extractEventArgsToForward={null}
+    >
+      <DateRangeFilter
+        onChange={[Function]}
+        range=""
+      />
+    </EventTracker>
+  </AggregationBox>
+</Row>
+`;
+
+exports[`EventStartDateFilter renders with selection: upcoming 1`] = `
+<Row
+  className="pa3 bg-white mb3"
+>
+  <AggregationBox
+    className="mb3"
+    headerAction={null}
+    name="Start Date"
+  >
+    <Row
+      align="middle"
+      className="mb3"
+      gutter={8}
+      type="flex"
+    >
+      <Col>
+        <EventTracker
+          eventAction="Start date facet"
+          eventCategory="Conferences search"
+          eventId="show upcoming conferences"
+          eventPropName="onChange"
+          extractEventArgsToForward={null}
+        >
+          <Switch
+            checked={true}
+            onAnimationEnd={[Function]}
+            onChange={[Function]}
+          />
+        </EventTracker>
+      </Col>
+      <Col>
+        Upcoming items
+      </Col>
+    </Row>
+    <EventTracker
+      eventAction="Start date facet"
+      eventCategory="Conferences search"
+      eventId="date range"
+      eventPropName="onChange"
+      extractEventArgsToForward={null}
+    >
+      <DateRangeFilter
+        onChange={[Function]}
+        range=""
+      />
+    </EventTracker>
+  </AggregationBox>
+</Row>
+`;
+
+exports[`EventStartDateFilter renders without selection 1`] = `
+<Row
+  className="pa3 bg-white mb3"
+>
+  <AggregationBox
+    className="mb3"
+    headerAction={null}
+    name="Start Date"
+  >
+    <Row
+      align="middle"
+      className="mb3"
+      gutter={8}
+      type="flex"
+    >
+      <Col>
+        <EventTracker
+          eventAction="Start date facet"
+          eventCategory="Conferences search"
+          eventId="show upcoming conferences"
+          eventPropName="onChange"
+          extractEventArgsToForward={null}
+        >
+          <Switch
+            checked={false}
+            onAnimationEnd={[Function]}
+            onChange={[Function]}
+          />
+        </EventTracker>
+      </Col>
+      <Col>
+        Upcoming items
+      </Col>
+    </Row>
+    <EventTracker
+      eventAction="Start date facet"
+      eventCategory="Conferences search"
+      eventId="date range"
+      eventPropName="onChange"
+      extractEventArgsToForward={null}
+    >
+      <DateRangeFilter
+        onChange={[Function]}
+        range=""
+      />
+    </EventTracker>
+  </AggregationBox>
+</Row>
+`;

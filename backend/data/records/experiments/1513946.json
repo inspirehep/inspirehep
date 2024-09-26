@@ -1,0 +1,42 @@
+{
+    "core": true,
+    "self": {
+        "$ref": "https://inspirebeta.net/api/experiments/1513946"
+    },
+    "urls": [
+        {
+            "value": "https://www-zeuthen.desy.de/~kjansen/etmc/",
+            "description": "home page"
+        },
+        {
+            "value": "https://github.com/etmc"
+        }
+    ],
+    "$schema": "https://inspirebeta.net/schemas/records/experiments.json",
+    "long_name": "ETM: European Twisted Mass",
+    "accelerator": {
+        "value": "NON"
+    },
+    "legacy_name": "LATTICE-ETM",
+    "_collections": [
+        "Experiments"
+    ],
+    "project_type": [
+        "experiment"
+    ],
+    "collaboration": {
+        "value": "ETM",
+        "curated_relation": false
+    },
+    "control_number": 1513946,
+    "legacy_version": "20200131223552.0",
+    "inspire_categories": [
+        {
+            "term": "Lattice"
+        }
+    ],
+    "legacy_creation_date": "2017-02-17",
+    "inspire_classification": [
+        "Non-experimental|Lattice Gauge Theory"
+    ]
+}

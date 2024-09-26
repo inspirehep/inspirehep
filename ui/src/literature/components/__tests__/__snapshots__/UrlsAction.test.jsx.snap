@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UrlsAction renders multiple, with and without description 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={false}
+    items={
+      Immutable.List [
+        Object {
+          "key": "Whatever",
+          "label": <span>
+            <EventTracker
+              eventAction="Link"
+              eventCategory="Home"
+              eventId="PdfDownload"
+              eventPropName="onClick"
+              extractEventArgsToForward={null}
+            >
+              <LinkWithTargetBlank
+                as="a"
+                href="https://www.whatever.com/pdfs/fulltext.pdf"
+              >
+                Whatever
+              </LinkWithTargetBlank>
+            </EventTracker>
+          </span>,
+        },
+        Object {
+          "key": "descriptionless.com/fulltext.pdf",
+          "label": <span>
+            <EventTracker
+              eventAction="Link"
+              eventCategory="Home"
+              eventId="PdfDownload"
+              eventPropName="onClick"
+              extractEventArgsToForward={null}
+            >
+              <LinkWithTargetBlank
+                as="a"
+                href="www.descriptionless.com/fulltext.pdf"
+              >
+                descriptionless.com/fulltext.pdf
+              </LinkWithTargetBlank>
+            </EventTracker>
+          </span>,
+        },
+      ]
+    }
+    title={
+      <Button>
+        <IconText
+          icon={<ForwardRef(DownloadOutlined) />}
+          text="download"
+        />
+      </Button>
+    }
+  />
+</UserActionWrapper>
+`;
+
+exports[`UrlsAction renders single 1`] = `
+<UserActionWrapper>
+  <EventTracker
+    eventAction="Link"
+    eventCategory="Home"
+    eventId="PdfDownload"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <LinkWithTargetBlank
+      as="a"
+      href="https://www.whatever.com/pdfs/fulltext.pdf"
+    >
+      <IconText
+        icon={<ForwardRef(DownloadOutlined) />}
+        text="pdf"
+      />
+    </LinkWithTargetBlank>
+  </EventTracker>
+</UserActionWrapper>
+`;

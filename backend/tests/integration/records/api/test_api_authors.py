@@ -1,0 +1,259 @@
+#
+# Copyright (C) 2019 CERN.
+#
+# inspirehep is free software; you can redistribute it and/or modify it under
+# the terms of the MIT License; see LICENSE file for more details.
+import uuid
+
+import pytest
+from helpers.providers.faker import faker
+from helpers.utils import create_pidstore, create_record
+from inspirehep.records.api import AuthorsRecord, InspireRecord, LiteratureRecord
+from invenio_pidstore.errors import PIDAlreadyExists
+from invenio_pidstore.models import PersistentIdentifier
+from invenio_records.models import RecordMetadata
+from jsonschema import ValidationError
+
+
+def test_authors_create(inspire_app):
+    data = faker.record("aut")
+    record = AuthorsRecord.create(data)
+
+    control_number = str(record["control_number"])
+    record_db = RecordMetadata.query.filter_by(id=record.id).one()
+
+    assert record == record_db.json
+
+    record_pid = PersistentIdentifier.query.filter_by(
+        pid_type="aut", pid_value=str(control_number)
+    ).one()
+
+    assert record.model.id == record_pid.object_uuid
+    assert control_number == record_pid.pid_value
+
+
+def test_authors_create_with_existing_control_number(inspire_app):
+    data = faker.record("aut", with_control_number=True)
+    existing_object_uuid = uuid.uuid4()
+
+    create_pidstore(
+        object_uuid=existing_object_uuid,
+        pid_type="aut",
+        pid_value=data["control_number"],
+    )
+
+    with pytest.raises(PIDAlreadyExists):
+        AuthorsRecord.create(data)
+
+
+def test_authors_create_with_invalid_data(inspire_app):
+    data = faker.record("aut", with_control_number=True)
+    data["invalid_key"] = "should throw an error"
+    record_control_number = str(data["control_number"])
+
+    with pytest.raises(ValidationError):
+        AuthorsRecord.create(data)
+
+    record_pid = PersistentIdentifier.query.filter_by(
+        pid_value=record_control_number
+    ).one_or_none()
+    assert record_pid is None
+
+
+def test_authors_update(inspire_app):
+    data = faker.record("aut", with_control_number=True)
+    record = AuthorsRecord.create(data)
+
+    assert data["control_number"] == record["control_number"]
+    data_update = {
+        "name": {
+            "name_variants": ["UPDATED"],
+            "preferred_name": "UPDATED",
+            "value": "UPDATED",
+        }
+    }
+    data.update(data_update)
+    record.update(data)
+    control_number = str(record["control_number"])
+    record_updated_db = RecordMetadata.query.filter_by(id=record.id).one()
+
+    assert data == record_updated_db.json
+
+    record_updated_pid = PersistentIdentifier.query.filter_by(
+        pid_type="aut", pid_value=str(control_number)
+    ).one()
+
+    assert record.model.id == record_updated_pid.object_uuid
+    assert control_number == record_updated_pid.pid_value
+
+
+def test_authors_create_or_update_with_new_record(inspire_app):
+    data = faker.record("aut")
+    record = AuthorsRecord.create_or_update(data)
+
+    control_number = str(record["control_number"])
+    record_db = RecordMetadata.query.filter_by(id=record.id).one()
+
+    assert record == record_db.json
+
+    record_pid = PersistentIdentifier.query.filter_by(
+        pid_type="aut", pid_value=str(control_number)
+    ).one()
+
+    assert record.model.id == record_pid.object_uuid
+    assert control_number == record_pid.pid_value
+
+
+def test_literature_create_or_update_with_existing_record(inspire_app):
+    data = faker.record("aut", with_control_number=True)
+    record = AuthorsRecord.create(data)
+
+    assert data["control_number"] == record["control_number"]
+
+    data_update = {
+        "name": {
+            "name_variants": ["UPDATED"],
+            "preferred_name": "UPDATED",
+            "value": "UPDATED",
+        }
+    }
+    data.update(data_update)
+
+    record_updated = AuthorsRecord.create_or_update(data)
+    control_number = str(record_updated["control_number"])
+
+    assert record["control_number"] == record_updated["control_number"]
+
+    record_updated_db = RecordMetadata.query.filter_by(id=record_updated.id).one()
+
+    assert data == record_updated_db.json
+
+    record_updated_pid = PersistentIdentifier.query.filter_by(
+        pid_type="aut", pid_value=str(control_number)
+    ).one()
+
+    assert record_updated.model.id == record_updated_pid.object_uuid
+    assert control_number == record_updated_pid.pid_value
+
+
+def test_get_record_from_db_depending_on_its_pid_type(inspire_app):
+    data = faker.record("aut")
+    record = InspireRecord.create(data)
+    record_from_db = InspireRecord.get_record(record.id)
+    assert isinstance(record_from_db, AuthorsRecord)
+
+
+def test_create_record_from_db_depending_on_its_pid_type(inspire_app):
+    data = faker.record("aut")
+    record = InspireRecord.create(data)
+    assert isinstance(record, AuthorsRecord)
+    assert record.pid_type == "aut"
+
+    record = AuthorsRecord.create(data)
+    assert isinstance(record, AuthorsRecord)
+    assert record.pid_type == "aut"
+
+
+def test_create_or_update_record_from_db_depending_on_its_pid_type(inspire_app):
+    data = faker.record("aut")
+    record = InspireRecord.create_or_update(data)
+    assert isinstance(record, AuthorsRecord)
+    assert record.pid_type == "aut"
+
+    data_update = {"name": {"value": "UPDATED"}}
+    data.update(data_update)
+    record = InspireRecord.create_or_update(data)
+    assert isinstance(record, AuthorsRecord)
+    assert record.pid_type == "aut"
+
+
+def test_get_author_papers(inspire_app):
+    author = create_record("aut")
+
+    author_cn = author["control_number"]
+    lit_data = {
+        "authors": [
+            {
+                "record": {
+                    "$ref": f"https://labs.inspirehep.net/api/authors/{author_cn}"
+                },
+                "full_name": author["name"]["value"],
+            }
+        ]
+    }
+    lit_1 = create_record("lit", data=lit_data)
+    lit_2 = create_record("lit")
+
+    author_papers = author.get_papers_uuids()
+    assert str(lit_1.id) in author_papers
+    assert str(lit_2.id) not in author_papers
+
+
+def test_orcid_url_also_supports_format_alias(inspire_app):
+    expected_content_type = "application/json"
+    expected_links = {
+        "json": "http://localhost:5000/api/orcid/0000-0002-9127-1687?format=json"
+    }
+    data = {"ids": [{"schema": "ORCID", "value": "0000-0002-9127-1687"}]}
+    create_record("aut", data)
+
+    with inspire_app.test_client() as client:
+        url = "/api/orcid/0000-0002-9127-1687"
+        response = client.get(f"{url}?format=json")
+
+    assert response.status_code == 200
+    assert response.content_type == expected_content_type
+    assert response.json["links"] == expected_links
+
+
+def test_redirection_works_for_authors(inspire_app):
+    redirected_record = create_record("aut")
+    record = create_record("aut", data={"deleted_records": [redirected_record["self"]]})
+
+    original_record = AuthorsRecord.get_uuid_from_pid_value(
+        redirected_record["control_number"], original_record=True
+    )
+    new_record = AuthorsRecord.get_uuid_from_pid_value(
+        redirected_record["control_number"]
+    )
+
+    assert original_record != new_record
+    assert original_record == redirected_record.id
+    assert new_record == record.id
+
+
+def test_get_stub_authors_by_pids(inspire_app):
+    author = create_record("aut")
+    author2 = create_record("aut", data={"stub": True})
+
+    authors_to_search = [
+        ("aut", str(author["control_number"])),
+        ("aut", str(author2["control_number"])),
+    ]
+
+    result = list(AuthorsRecord.get_stub_authors_by_pids(authors_to_search))
+    assert len(result) == 1
+
+
+def test_get_linked_author_paper_uuids_if_author_changed_bai(inspire_app):
+    data_aut = faker.record(
+        "aut", data={"ids": [{"schema": "INSPIRE BAI", "value": "A.Bai.1"}]}
+    )
+    author_record = AuthorsRecord(data=data_aut).create(data=data_aut)
+    data_lit = faker.record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "record": author_record["self"],
+                    "full_name": data_aut["name"]["value"],
+                }
+            ]
+        },
+    )
+    literature_record = LiteratureRecord(data=data_lit).create(data_lit)
+    new_ids = [{"schema": "INSPIRE BAI", "value": "A.Bai.2"}]
+    author_record["ids"] = new_ids
+    author_record.update(dict(author_record))
+    records_ids = author_record.get_linked_author_paper_uuids_if_author_changed_bai()
+    assert str(literature_record.id) in records_ids

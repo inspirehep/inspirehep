@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JobItem renders full job search result item 1`] = `
+<ResultItem
+  leftActions={false}
+>
+  <Row
+    align="middle"
+    type="flex"
+  >
+    <Col>
+      <Link
+        className="result-item-title pr1"
+        to="/jobs/12345"
+      >
+        <JobTitle
+          position="Job Offer"
+        />
+      </Link>
+    </Col>
+    <Col>
+      (
+      <InlineUL
+        separator=" • "
+        wrapperClassName="di"
+      >
+        <InstitutionsList
+          institutions={
+            Immutable.List [
+              Immutable.Map {
+                "value": "CERN",
+              },
+            ]
+          }
+        />
+        <RegionsList
+          regions={
+            Immutable.List [
+              "Europe",
+            ]
+          }
+        />
+      </InlineUL>
+      )
+    </Col>
+  </Row>
+  <Row
+    className="mt2"
+  >
+    <Col>
+      <ArxivCategoryList
+        arxivCategories={
+          Immutable.List [
+            "hep-ex",
+          ]
+        }
+        wrapperClassName="di"
+      />
+      <InlineUL
+        separator=" • "
+        wrapperClassName="di"
+      >
+        <ExperimentList
+          experiments={
+            Immutable.List [
+              Immutable.Map {
+                "name": "CERN-LHC-ATLAS",
+              },
+            ]
+          }
+        />
+        <RanksList
+          ranks={
+            Immutable.List [
+              "SENIOR",
+            ]
+          }
+        />
+      </InlineUL>
+    </Col>
+  </Row>
+  <Row
+    className="mt3"
+    justify="space-between"
+    type="flex"
+  >
+    <Col>
+      <DeadlineDate
+        deadlineDate="2020-05-31"
+      />
+    </Col>
+    <Col>
+      Posted 
+      <DateFromNow
+        date="2019-05-31T12:23:15.104851+00:00"
+      />
+    </Col>
+  </Row>
+</ResultItem>
+`;

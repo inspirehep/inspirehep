@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MultiSelectAggregation renders 1`] = `
+<div
+  className="__MultiSelectAggregation__"
+>
+  <SelectBox
+    className="w-100"
+    mode="multiple"
+    onChange={[MockFunction]}
+    options={
+      Array [
+        Object {
+          "display": undefined,
+          "value": "bucket1",
+        },
+        Object {
+          "display": undefined,
+          "value": "bucket2",
+        },
+      ]
+    }
+    placeholder="Test"
+    value={
+      Array [
+        "bucket1",
+      ]
+    }
+  />
+</div>
+`;
+
+exports[`MultiSelectAggregation renders with custom display values if configured 1`] = `
+<div
+  className="__MultiSelectAggregation__"
+>
+  <SelectBox
+    className="w-100"
+    mode="multiple"
+    onChange={[MockFunction]}
+    options={
+      Array [
+        Object {
+          "display": undefined,
+          "value": "unknown bucket",
+        },
+        Object {
+          "display": "Bucket (Cool)",
+          "value": "bucket",
+        },
+      ]
+    }
+    placeholder="Test"
+    value={
+      Array [
+        "bucket1",
+      ]
+    }
+  />
+</div>
+`;

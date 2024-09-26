@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserSettingsAction renders 1`] = `
+<Fragment>
+  <UserActionWrapper>
+    <Button
+      onClick={[Function]}
+    >
+      <IconText
+        icon={<ForwardRef(SettingOutlined) />}
+        text="settings"
+      />
+    </Button>
+  </UserActionWrapper>
+  <UserSettingsModal
+    onCancel={[Function]}
+    visible={false}
+  />
+</Fragment>
+`;

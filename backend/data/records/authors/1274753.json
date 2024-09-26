@@ -1,0 +1,52 @@
+{
+    "ids": [
+        {
+            "value": "G.Hotzel.1",
+            "schema": "INSPIRE BAI"
+        },
+        {
+            "value": "INSPIRE-00403919",
+            "schema": "INSPIRE ID"
+        }
+    ],
+    "name": {
+        "value": "Hotzel, Grit",
+        "name_variants": [
+            "Hoetzel, Grit"
+        ],
+        "preferred_name": "Grit Hotzel"
+    },
+    "self": {
+        "$ref": "https://inspirebeta.net/api/authors/1274753"
+    },
+    "stub": false,
+    "$schema": "https://inspirebeta.net/schemas/records/authors.json",
+    "deleted": false,
+    "positions": [
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/902858"
+            },
+            "current": true,
+            "institution": "Humboldt U., Berlin",
+            "curated_relation": true
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/902959"
+            },
+            "current": true,
+            "institution": "Leipzig U.",
+            "curated_relation": true
+        }
+    ],
+    "_collections": [
+        "Authors"
+    ],
+    "control_number": 1274753,
+    "legacy_version": "20150923151357.0",
+    "arxiv_categories": [
+        "hep-lat"
+    ],
+    "legacy_creation_date": "2013-12-26"
+}

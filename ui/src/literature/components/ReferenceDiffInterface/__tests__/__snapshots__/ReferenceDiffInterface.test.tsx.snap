@@ -1,0 +1,1597 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReferenceDiffInterface should render 1`] = `
+<DocumentFragment>
+  <div
+    class="ant-row ant-row-center __ReferenceDiffInterface__"
+  >
+    <div
+      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18"
+    >
+      <div
+        class="ant-row ant-row-center mv3"
+        style="margin-left: -16px; margin-right: -16px;"
+      >
+        <div
+          class="ant-col ant-col-24"
+          style="padding-left: 16px; padding-right: 16px;"
+        >
+          <div
+            class="__ContentBox__ h-100 md-pb3"
+          >
+            <div
+              class="ant-card ant-card-bordered h-100"
+            >
+              <div
+                class="ant-card-body"
+              >
+                <div
+                  class="pa2 md-pb3"
+                >
+                  <div>
+                    <div
+                      class="ant-row"
+                    >
+                      <div
+                        class="ant-col ant-col-24"
+                      />
+                    </div>
+                    <h2>
+                      <span
+                        data-test-id="literature-detail-title"
+                      >
+                        <span
+                          class="__Latex__"
+                        >
+                          Title
+                        </span>
+                      </span>
+                    </h2>
+                    <div>
+                      <div
+                        class="__InlineList__ di"
+                      >
+                        <ul>
+                          <li>
+                            <a
+                              href="/literature?q=collaboration:CMS"
+                            >
+                              CMS
+                            </a>
+                          </li>
+                        </ul>
+                        <span>
+                           Collaboration
+                        </span>
+                      </div>
+                      <span>
+                         and 
+                      </span>
+                      <div
+                        class="__InlineList__ di"
+                      >
+                        <ul>
+                          <li>
+                            <a
+                              href="/literature?q=collaboration:CMS"
+                            >
+                              CMS
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <span>
+                      2022-01-01
+                    </span>
+                    <div
+                      class="mt3"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="ant-row ant-row-space-between actions ph2"
+                >
+                  <div
+                    class="ant-col"
+                  >
+                    <span
+                      class="__UserAction__"
+                    >
+                      <button
+                        class="ant-btn ant-btn-default"
+                        type="button"
+                      >
+                        <span
+                          class="__IconText__"
+                        >
+                          <span
+                            class="icon"
+                          >
+                            <span
+                              aria-label="export"
+                              class="anticon anticon-export"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="export"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M888.3 757.4h-53.8c-4.2 0-7.7 3.5-7.7 7.7v61.8H197.1V197.1h629.8v61.8c0 4.2 3.5 7.7 7.7 7.7h53.8c4.2 0 7.7-3.4 7.7-7.7V158.7c0-17-13.7-30.7-30.7-30.7H158.7c-17 0-30.7 13.7-30.7 30.7v706.6c0 17 13.7 30.7 30.7 30.7h706.6c17 0 30.7-13.7 30.7-30.7V765.1c0-4.3-3.5-7.7-7.7-7.7zm18.6-251.7L765 393.7c-5.3-4.2-13-.4-13 6.3v76H438c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 000-12.6z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                          <span
+                            class="v-top"
+                          >
+                            cite
+                          </span>
+                        </span>
+                      </button>
+                    </span>
+                    <span
+                      class="__UserAction__"
+                    >
+                      <span
+                        class="ant-tooltip-disabled-compatible-wrapper ant-dropdown-trigger"
+                        style="display: inline-block; cursor: not-allowed;"
+                      >
+                        <button
+                          class="ant-btn ant-btn-default"
+                          data-test-id="btn-claiming-login"
+                          disabled=""
+                          style="pointer-events: none;"
+                          type="button"
+                        >
+                          <span
+                            class="__IconText__"
+                          >
+                            <span
+                              class="icon"
+                            >
+                              <span
+                                aria-label="file-done"
+                                class="anticon anticon-file-done"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="file-done"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm376 116c-119.3 0-216 96.7-216 216s96.7 216 216 216 216-96.7 216-216-96.7-216-216-216zm107.5 323.5C750.8 868.2 712.6 884 672 884s-78.8-15.8-107.5-44.5C535.8 810.8 520 772.6 520 732s15.8-78.8 44.5-107.5C593.2 595.8 631.4 580 672 580s78.8 15.8 107.5 44.5C808.2 653.2 824 691.4 824 732s-15.8 78.8-44.5 107.5zM761 656h-44.3c-2.6 0-5 1.2-6.5 3.3l-63.5 87.8-23.1-31.9a7.92 7.92 0 00-6.5-3.3H573c-6.5 0-10.3 7.4-6.5 12.7l73.8 102.1c3.2 4.4 9.7 4.4 12.9 0l114.2-158c3.9-5.3.1-12.7-6.4-12.7zM440 852H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                            <span
+                              class="v-top"
+                            >
+                              claim
+                            </span>
+                          </span>
+                        </button>
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="ant-col"
+                  >
+                    <span
+                      class="__UserAction__"
+                    >
+                      <a
+                        data-test-id="reference-search-button"
+                        href="/literature?q=citedby:recid:123456"
+                      >
+                        <span
+                          class="__IconText__"
+                        >
+                          <span
+                            class="icon"
+                          >
+                            <span
+                              aria-label="file-search"
+                              class="anticon anticon-file-search"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="file-search"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm144 452H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm445.7 51.5l-93.3-93.3C814.7 780.7 828 743.9 828 704c0-97.2-78.8-176-176-176s-176 78.8-176 176 78.8 176 176 176c35.8 0 69-10.7 96.8-29l94.7 94.7c1.6 1.6 3.6 2.3 5.6 2.3s4.1-.8 5.6-2.3l31-31a7.9 7.9 0 000-11.2zM652 816c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                          <span
+                            class="v-top"
+                          >
+                            reference search
+                          </span>
+                        </span>
+                      </a>
+                    </span>
+                    <span
+                      class="__UserAction__"
+                    >
+                      <a
+                        href="/literature?q=refersto:recid:123456"
+                      >
+                        <span
+                          class="__IconText__"
+                        >
+                          <span
+                            class="icon"
+                          >
+                            <span
+                              aria-label="login"
+                              class="anticon anticon-login"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="login"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <defs>
+                                  <style />
+                                </defs>
+                                <path
+                                  d="M521.7 82c-152.5-.4-286.7 78.5-363.4 197.7-3.4 5.3.4 12.3 6.7 12.3h70.3c4.8 0 9.3-2.1 12.3-5.8 7-8.5 14.5-16.7 22.4-24.5 32.6-32.5 70.5-58.1 112.7-75.9 43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 32.6 32.5 58.1 70.4 76 112.5C865.7 417.8 875 464.1 875 512c0 47.9-9.4 94.2-27.8 137.8-17.8 42.1-43.4 80-76 112.5s-70.5 58.1-112.7 75.9A352.8 352.8 0 01520.6 866c-47.9 0-94.3-9.4-137.9-27.8A353.84 353.84 0 01270 762.3c-7.9-7.9-15.3-16.1-22.4-24.5-3-3.7-7.6-5.8-12.3-5.8H165c-6.3 0-10.2 7-6.7 12.3C234.9 863.2 368.5 942 520.6 942c236.2 0 428-190.1 430.4-425.6C953.4 277.1 761.3 82.6 521.7 82zM395.02 624v-76h-314c-4.4 0-8-3.6-8-8v-56c0-4.4 3.6-8 8-8h314v-76c0-6.7 7.8-10.5 13-6.3l141.9 112a8 8 0 010 12.6l-141.9 112c-5.2 4.1-13 .4-13-6.3z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                          <span
+                            class="v-top"
+                          >
+                            1 citation
+                          </span>
+                        </span>
+                      </a>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-row"
+      >
+        <div
+          class="ant-col ant-col-24 mt3"
+        >
+          <div
+            class="__ContentBox__ h-100"
+          >
+            <div
+              class="ant-card ant-card-bordered h-100"
+            >
+              <div
+                class="ant-card-body"
+              >
+                <div
+                  class="pa2"
+                >
+                  <div>
+                    <div
+                      class="ant-card ant-card-bordered ant-card-small no-border"
+                    >
+                      <div
+                        class="ant-card-head"
+                      >
+                        <div
+                          class="ant-card-head-wrapper"
+                        >
+                          <div
+                            class="ant-card-head-title"
+                          >
+                            Reference 1 changed to
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="ant-card-body"
+                      >
+                        <div
+                          data-test-id="reference-item"
+                        >
+                          <li
+                            class="ant-list-item"
+                          >
+                            <div
+                              class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+                              style="margin-left: -12px; margin-right: -12px;"
+                              type="flex"
+                            >
+                              <div
+                                class="ant-col ant-col-xs-2 ant-col-lg-1"
+                                style="padding-left: 12px; padding-right: 12px;"
+                              >
+                                <div
+                                  class="flex"
+                                >
+                                  <span>
+                                    [1]
+                                  </span>
+                                </div>
+                              </div>
+                              <div
+                                class="ant-col"
+                                style="padding-left: 12px; padding-right: 12px; width: 100%;"
+                              >
+                                <div
+                                  class="ant-list-item-meta"
+                                >
+                                  <div
+                                    class="ant-list-item-meta-content"
+                                  >
+                                    <div
+                                      class="ant-list-item-meta-description"
+                                    >
+                                      <div
+                                        class="__InlineList__ di"
+                                      >
+                                        <ul>
+                                          <li>
+                                            <div
+                                              class="di"
+                                            >
+                                              <span>
+                                                Author2
+                                              </span>
+                                            </div>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                      <div
+                                        class="__InlineList__ secondary-container"
+                                      >
+                                        <ul>
+                                          <li>
+                                            <div
+                                              class="__InlineList__"
+                                            >
+                                              <ul>
+                                                <li>
+                                                  <span>
+                                                    <span>
+                                                      <i>
+                                                        Journal2
+                                                      </i>
+                                                    </span>
+                                                  </span>
+                                                </li>
+                                              </ul>
+                                            </div>
+                                             • 
+                                          </li>
+                                          <li>
+                                            <div
+                                              class="__InlineList__"
+                                            >
+                                              <span
+                                                class=""
+                                              >
+                                                DOI: 
+                                              </span>
+                                              <ul>
+                                                <li>
+                                                  <span>
+                                                    <a
+                                                      href="//doi.org/123456.12345"
+                                                      target="_blank"
+                                                    >
+                                                      123456.12345
+                                                    </a>
+                                                  </span>
+                                                </li>
+                                              </ul>
+                                            </div>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-row ant-row-space-between actions ph2"
+                >
+                  <div
+                    class="ant-col"
+                  />
+                  <div
+                    class="ant-col"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-row"
+      >
+        <div
+          class="ant-col ant-col-24 mt3"
+        >
+          <div
+            class="__ContentBox__ h-100"
+          >
+            <div
+              class="ant-card ant-card-bordered h-100"
+            >
+              <div
+                class="ant-card-body"
+              >
+                <div
+                  class="pa2"
+                >
+                  <div>
+                    <div
+                      class="ant-card ant-card-bordered ant-card-small no-border"
+                    >
+                      <div
+                        class="ant-card-head"
+                      >
+                        <div
+                          class="ant-card-head-wrapper"
+                        >
+                          <div
+                            class="ant-card-head-title"
+                          >
+                            Reference metadata
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="ant-card-body"
+                      >
+                        <div
+                          data-test-id="reference-item"
+                        >
+                          <li
+                            class="ant-list-item"
+                          >
+                            <div
+                              class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+                              style="margin-left: -12px; margin-right: -12px;"
+                              type="flex"
+                            >
+                              <div
+                                class="ant-col ant-col-xs-2 ant-col-lg-1"
+                                style="padding-left: 12px; padding-right: 12px;"
+                              >
+                                <div
+                                  class="flex"
+                                >
+                                  <span>
+                                    [1]
+                                  </span>
+                                </div>
+                              </div>
+                              <div
+                                class="ant-col"
+                                style="padding-left: 12px; padding-right: 12px; width: 100%;"
+                              >
+                                <div
+                                  class="ant-list-item-meta"
+                                >
+                                  <div
+                                    class="ant-list-item-meta-content"
+                                  >
+                                    <div
+                                      class="ant-list-item-meta-description"
+                                    >
+                                      <div
+                                        class="__InlineList__ di"
+                                      >
+                                        <ul>
+                                          <li>
+                                            <div
+                                              class="di"
+                                            >
+                                              <span>
+                                                Author
+                                              </span>
+                                            </div>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                      <div
+                                        class="__InlineList__ secondary-container"
+                                      >
+                                        <ul>
+                                          <li>
+                                            <div
+                                              class="__InlineList__"
+                                            >
+                                              <ul>
+                                                <li>
+                                                  <span>
+                                                    <span>
+                                                      <i>
+                                                        Journal
+                                                      </i>
+                                                    </span>
+                                                  </span>
+                                                </li>
+                                              </ul>
+                                            </div>
+                                             • 
+                                          </li>
+                                          <li>
+                                            <div
+                                              class="__InlineList__"
+                                            >
+                                              <span
+                                                class=""
+                                              >
+                                                DOI: 
+                                              </span>
+                                              <ul>
+                                                <li>
+                                                  <span>
+                                                    <a
+                                                      href="//doi.org/123456.12345"
+                                                      target="_blank"
+                                                    >
+                                                      123456.12345
+                                                    </a>
+                                                  </span>
+                                                </li>
+                                              </ul>
+                                            </div>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="ant-card ant-card-bordered ant-card-small no-border"
+                    >
+                      <div
+                        class="ant-card-body"
+                      >
+                        <p
+                          class="b mb0 mt4"
+                        >
+                          1) N. P.Armitage, E. J.Mele, and A.Vishwanath, Rev…. 90, 015001 (2018). 10.1103/RevModPhys.90.015001
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-row ant-row-space-between actions ph2"
+                >
+                  <div
+                    class="ant-col"
+                  />
+                  <div
+                    class="ant-col"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ReferenceDiffInterface should render with error 1`] = `
+<DocumentFragment>
+  <div
+    class="ant-row ant-row-center __ReferenceDiffInterface__"
+  >
+    <div
+      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18"
+    >
+      <div
+        class="ant-row ant-row-center mv3"
+        style="margin-left: -16px; margin-right: -16px;"
+      >
+        <div
+          class="ant-col ant-col-24"
+          style="padding-left: 16px; padding-right: 16px;"
+        >
+          <div
+            class="__ContentBox__ h-100 md-pb3"
+          >
+            <div
+              class="ant-card ant-card-bordered h-100"
+            >
+              <div
+                class="ant-card-body"
+              >
+                <div
+                  class="pa2 md-pb3"
+                >
+                  <div>
+                    <div
+                      class="ant-row"
+                    >
+                      <div
+                        class="ant-col ant-col-24"
+                      />
+                    </div>
+                    <h2>
+                      <span
+                        data-test-id="literature-detail-title"
+                      >
+                        <span
+                          class="__Latex__"
+                        >
+                          Title
+                        </span>
+                      </span>
+                    </h2>
+                    <div>
+                      <div
+                        class="__InlineList__ di"
+                      >
+                        <ul>
+                          <li>
+                            <a
+                              href="/literature?q=collaboration:CMS"
+                            >
+                              CMS
+                            </a>
+                          </li>
+                        </ul>
+                        <span>
+                           Collaboration
+                        </span>
+                      </div>
+                      <span>
+                         and 
+                      </span>
+                      <div
+                        class="__InlineList__ di"
+                      >
+                        <ul>
+                          <li>
+                            <a
+                              href="/literature?q=collaboration:CMS"
+                            >
+                              CMS
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <span>
+                      2022-01-01
+                    </span>
+                    <div
+                      class="mt3"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="ant-row ant-row-space-between actions ph2"
+                >
+                  <div
+                    class="ant-col"
+                  >
+                    <span
+                      class="__UserAction__"
+                    >
+                      <button
+                        class="ant-btn ant-btn-default"
+                        type="button"
+                      >
+                        <span
+                          class="__IconText__"
+                        >
+                          <span
+                            class="icon"
+                          >
+                            <span
+                              aria-label="export"
+                              class="anticon anticon-export"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="export"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M888.3 757.4h-53.8c-4.2 0-7.7 3.5-7.7 7.7v61.8H197.1V197.1h629.8v61.8c0 4.2 3.5 7.7 7.7 7.7h53.8c4.2 0 7.7-3.4 7.7-7.7V158.7c0-17-13.7-30.7-30.7-30.7H158.7c-17 0-30.7 13.7-30.7 30.7v706.6c0 17 13.7 30.7 30.7 30.7h706.6c17 0 30.7-13.7 30.7-30.7V765.1c0-4.3-3.5-7.7-7.7-7.7zm18.6-251.7L765 393.7c-5.3-4.2-13-.4-13 6.3v76H438c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 000-12.6z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                          <span
+                            class="v-top"
+                          >
+                            cite
+                          </span>
+                        </span>
+                      </button>
+                    </span>
+                    <span
+                      class="__UserAction__"
+                    >
+                      <span
+                        class="ant-tooltip-disabled-compatible-wrapper ant-dropdown-trigger"
+                        style="display: inline-block; cursor: not-allowed;"
+                      >
+                        <button
+                          class="ant-btn ant-btn-default"
+                          data-test-id="btn-claiming-login"
+                          disabled=""
+                          style="pointer-events: none;"
+                          type="button"
+                        >
+                          <span
+                            class="__IconText__"
+                          >
+                            <span
+                              class="icon"
+                            >
+                              <span
+                                aria-label="file-done"
+                                class="anticon anticon-file-done"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="file-done"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm376 116c-119.3 0-216 96.7-216 216s96.7 216 216 216 216-96.7 216-216-96.7-216-216-216zm107.5 323.5C750.8 868.2 712.6 884 672 884s-78.8-15.8-107.5-44.5C535.8 810.8 520 772.6 520 732s15.8-78.8 44.5-107.5C593.2 595.8 631.4 580 672 580s78.8 15.8 107.5 44.5C808.2 653.2 824 691.4 824 732s-15.8 78.8-44.5 107.5zM761 656h-44.3c-2.6 0-5 1.2-6.5 3.3l-63.5 87.8-23.1-31.9a7.92 7.92 0 00-6.5-3.3H573c-6.5 0-10.3 7.4-6.5 12.7l73.8 102.1c3.2 4.4 9.7 4.4 12.9 0l114.2-158c3.9-5.3.1-12.7-6.4-12.7zM440 852H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                            <span
+                              class="v-top"
+                            >
+                              claim
+                            </span>
+                          </span>
+                        </button>
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="ant-col"
+                  >
+                    <span
+                      class="__UserAction__"
+                    >
+                      <a
+                        data-test-id="reference-search-button"
+                        href="/literature?q=citedby:recid:123456"
+                      >
+                        <span
+                          class="__IconText__"
+                        >
+                          <span
+                            class="icon"
+                          >
+                            <span
+                              aria-label="file-search"
+                              class="anticon anticon-file-search"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="file-search"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm144 452H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm445.7 51.5l-93.3-93.3C814.7 780.7 828 743.9 828 704c0-97.2-78.8-176-176-176s-176 78.8-176 176 78.8 176 176 176c35.8 0 69-10.7 96.8-29l94.7 94.7c1.6 1.6 3.6 2.3 5.6 2.3s4.1-.8 5.6-2.3l31-31a7.9 7.9 0 000-11.2zM652 816c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                          <span
+                            class="v-top"
+                          >
+                            reference search
+                          </span>
+                        </span>
+                      </a>
+                    </span>
+                    <span
+                      class="__UserAction__"
+                    >
+                      <a
+                        href="/literature?q=refersto:recid:123456"
+                      >
+                        <span
+                          class="__IconText__"
+                        >
+                          <span
+                            class="icon"
+                          >
+                            <span
+                              aria-label="login"
+                              class="anticon anticon-login"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="login"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <defs>
+                                  <style />
+                                </defs>
+                                <path
+                                  d="M521.7 82c-152.5-.4-286.7 78.5-363.4 197.7-3.4 5.3.4 12.3 6.7 12.3h70.3c4.8 0 9.3-2.1 12.3-5.8 7-8.5 14.5-16.7 22.4-24.5 32.6-32.5 70.5-58.1 112.7-75.9 43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 32.6 32.5 58.1 70.4 76 112.5C865.7 417.8 875 464.1 875 512c0 47.9-9.4 94.2-27.8 137.8-17.8 42.1-43.4 80-76 112.5s-70.5 58.1-112.7 75.9A352.8 352.8 0 01520.6 866c-47.9 0-94.3-9.4-137.9-27.8A353.84 353.84 0 01270 762.3c-7.9-7.9-15.3-16.1-22.4-24.5-3-3.7-7.6-5.8-12.3-5.8H165c-6.3 0-10.2 7-6.7 12.3C234.9 863.2 368.5 942 520.6 942c236.2 0 428-190.1 430.4-425.6C953.4 277.1 761.3 82.6 521.7 82zM395.02 624v-76h-314c-4.4 0-8-3.6-8-8v-56c0-4.4 3.6-8 8-8h314v-76c0-6.7 7.8-10.5 13-6.3l141.9 112a8 8 0 010 12.6l-141.9 112c-5.2 4.1-13 .4-13-6.3z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                          <span
+                            class="v-top"
+                          >
+                            1 citation
+                          </span>
+                        </span>
+                      </a>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-row mb3"
+      >
+        <div
+          class="ant-col ant-col-24"
+        >
+          <div
+            class="ant-alert ant-alert-error"
+            data-show="true"
+            role="alert"
+          >
+            <span
+              aria-label="close-circle"
+              class="anticon anticon-close-circle ant-alert-icon"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="close-circle"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm165.4 618.2l-66-.3L512 563.4l-99.3 118.4-66.1.3c-4.4 0-8-3.5-8-8 0-1.9.7-3.7 1.9-5.2l130.1-155L340.5 359a8.32 8.32 0 01-1.9-5.2c0-4.4 3.6-8 8-8l66.1.3L512 464.6l99.3-118.4 66-.3c4.4 0 8 3.5 8 8 0 1.9-.7 3.7-1.9 5.2L553.5 514l130 155c1.2 1.5 1.9 3.3 1.9 5.2 0 4.4-3.6 8-8 8z"
+                />
+              </svg>
+            </span>
+            <div
+              class="ant-alert-content"
+            >
+              <div
+                class="ant-alert-message"
+              >
+                Error message
+              </div>
+            </div>
+            <button
+              class="ant-alert-close-icon"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                aria-label="close"
+                class="anticon anticon-close"
+                role="img"
+              >
+                <svg
+                  aria-hidden="true"
+                  data-icon="close"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  viewBox="64 64 896 896"
+                  width="1em"
+                >
+                  <path
+                    d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 00203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ReferenceDiffInterface should render without previous reference if it is unlinked 1`] = `
+<DocumentFragment>
+  <div
+    class="ant-row ant-row-center __ReferenceDiffInterface__"
+  >
+    <div
+      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18"
+    >
+      <div
+        class="ant-row ant-row-center mv3"
+        style="margin-left: -16px; margin-right: -16px;"
+      >
+        <div
+          class="ant-col ant-col-24"
+          style="padding-left: 16px; padding-right: 16px;"
+        >
+          <div
+            class="__ContentBox__ h-100 md-pb3"
+          >
+            <div
+              class="ant-card ant-card-bordered h-100"
+            >
+              <div
+                class="ant-card-body"
+              >
+                <div
+                  class="pa2 md-pb3"
+                >
+                  <div>
+                    <div
+                      class="ant-row"
+                    >
+                      <div
+                        class="ant-col ant-col-24"
+                      />
+                    </div>
+                    <h2>
+                      <span
+                        data-test-id="literature-detail-title"
+                      >
+                        <span
+                          class="__Latex__"
+                        >
+                          Title
+                        </span>
+                      </span>
+                    </h2>
+                    <div>
+                      <div
+                        class="__InlineList__ di"
+                      >
+                        <ul>
+                          <li>
+                            <a
+                              href="/literature?q=collaboration:CMS"
+                            >
+                              CMS
+                            </a>
+                          </li>
+                        </ul>
+                        <span>
+                           Collaboration
+                        </span>
+                      </div>
+                      <span>
+                         and 
+                      </span>
+                      <div
+                        class="__InlineList__ di"
+                      >
+                        <ul>
+                          <li>
+                            <a
+                              href="/literature?q=collaboration:CMS"
+                            >
+                              CMS
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <span>
+                      2022-01-01
+                    </span>
+                    <div
+                      class="mt3"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="ant-row ant-row-space-between actions ph2"
+                >
+                  <div
+                    class="ant-col"
+                  >
+                    <span
+                      class="__UserAction__"
+                    >
+                      <button
+                        class="ant-btn ant-btn-default"
+                        type="button"
+                      >
+                        <span
+                          class="__IconText__"
+                        >
+                          <span
+                            class="icon"
+                          >
+                            <span
+                              aria-label="export"
+                              class="anticon anticon-export"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="export"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M888.3 757.4h-53.8c-4.2 0-7.7 3.5-7.7 7.7v61.8H197.1V197.1h629.8v61.8c0 4.2 3.5 7.7 7.7 7.7h53.8c4.2 0 7.7-3.4 7.7-7.7V158.7c0-17-13.7-30.7-30.7-30.7H158.7c-17 0-30.7 13.7-30.7 30.7v706.6c0 17 13.7 30.7 30.7 30.7h706.6c17 0 30.7-13.7 30.7-30.7V765.1c0-4.3-3.5-7.7-7.7-7.7zm18.6-251.7L765 393.7c-5.3-4.2-13-.4-13 6.3v76H438c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 000-12.6z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                          <span
+                            class="v-top"
+                          >
+                            cite
+                          </span>
+                        </span>
+                      </button>
+                    </span>
+                    <span
+                      class="__UserAction__"
+                    >
+                      <span
+                        class="ant-tooltip-disabled-compatible-wrapper ant-dropdown-trigger"
+                        style="display: inline-block; cursor: not-allowed;"
+                      >
+                        <button
+                          class="ant-btn ant-btn-default"
+                          data-test-id="btn-claiming-login"
+                          disabled=""
+                          style="pointer-events: none;"
+                          type="button"
+                        >
+                          <span
+                            class="__IconText__"
+                          >
+                            <span
+                              class="icon"
+                            >
+                              <span
+                                aria-label="file-done"
+                                class="anticon anticon-file-done"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="file-done"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm376 116c-119.3 0-216 96.7-216 216s96.7 216 216 216 216-96.7 216-216-96.7-216-216-216zm107.5 323.5C750.8 868.2 712.6 884 672 884s-78.8-15.8-107.5-44.5C535.8 810.8 520 772.6 520 732s15.8-78.8 44.5-107.5C593.2 595.8 631.4 580 672 580s78.8 15.8 107.5 44.5C808.2 653.2 824 691.4 824 732s-15.8 78.8-44.5 107.5zM761 656h-44.3c-2.6 0-5 1.2-6.5 3.3l-63.5 87.8-23.1-31.9a7.92 7.92 0 00-6.5-3.3H573c-6.5 0-10.3 7.4-6.5 12.7l73.8 102.1c3.2 4.4 9.7 4.4 12.9 0l114.2-158c3.9-5.3.1-12.7-6.4-12.7zM440 852H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                            <span
+                              class="v-top"
+                            >
+                              claim
+                            </span>
+                          </span>
+                        </button>
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="ant-col"
+                  >
+                    <span
+                      class="__UserAction__"
+                    >
+                      <a
+                        data-test-id="reference-search-button"
+                        href="/literature?q=citedby:recid:123456"
+                      >
+                        <span
+                          class="__IconText__"
+                        >
+                          <span
+                            class="icon"
+                          >
+                            <span
+                              aria-label="file-search"
+                              class="anticon anticon-file-search"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="file-search"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm144 452H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm445.7 51.5l-93.3-93.3C814.7 780.7 828 743.9 828 704c0-97.2-78.8-176-176-176s-176 78.8-176 176 78.8 176 176 176c35.8 0 69-10.7 96.8-29l94.7 94.7c1.6 1.6 3.6 2.3 5.6 2.3s4.1-.8 5.6-2.3l31-31a7.9 7.9 0 000-11.2zM652 816c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                          <span
+                            class="v-top"
+                          >
+                            reference search
+                          </span>
+                        </span>
+                      </a>
+                    </span>
+                    <span
+                      class="__UserAction__"
+                    >
+                      <a
+                        href="/literature?q=refersto:recid:123456"
+                      >
+                        <span
+                          class="__IconText__"
+                        >
+                          <span
+                            class="icon"
+                          >
+                            <span
+                              aria-label="login"
+                              class="anticon anticon-login"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="login"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <defs>
+                                  <style />
+                                </defs>
+                                <path
+                                  d="M521.7 82c-152.5-.4-286.7 78.5-363.4 197.7-3.4 5.3.4 12.3 6.7 12.3h70.3c4.8 0 9.3-2.1 12.3-5.8 7-8.5 14.5-16.7 22.4-24.5 32.6-32.5 70.5-58.1 112.7-75.9 43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 32.6 32.5 58.1 70.4 76 112.5C865.7 417.8 875 464.1 875 512c0 47.9-9.4 94.2-27.8 137.8-17.8 42.1-43.4 80-76 112.5s-70.5 58.1-112.7 75.9A352.8 352.8 0 01520.6 866c-47.9 0-94.3-9.4-137.9-27.8A353.84 353.84 0 01270 762.3c-7.9-7.9-15.3-16.1-22.4-24.5-3-3.7-7.6-5.8-12.3-5.8H165c-6.3 0-10.2 7-6.7 12.3C234.9 863.2 368.5 942 520.6 942c236.2 0 428-190.1 430.4-425.6C953.4 277.1 761.3 82.6 521.7 82zM395.02 624v-76h-314c-4.4 0-8-3.6-8-8v-56c0-4.4 3.6-8 8-8h314v-76c0-6.7 7.8-10.5 13-6.3l141.9 112a8 8 0 010 12.6l-141.9 112c-5.2 4.1-13 .4-13-6.3z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                          <span
+                            class="v-top"
+                          >
+                            1 citation
+                          </span>
+                        </span>
+                      </a>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-row"
+      >
+        <div
+          class="ant-col ant-col-24 mt3"
+        >
+          <div
+            class="__ContentBox__ h-100"
+          >
+            <div
+              class="ant-card ant-card-bordered h-100"
+            >
+              <div
+                class="ant-card-body"
+              >
+                <div
+                  class="pa2"
+                >
+                  <div>
+                    <div
+                      class="ant-card ant-card-bordered ant-card-small no-border"
+                    >
+                      <div
+                        class="ant-card-head"
+                      >
+                        <div
+                          class="ant-card-head-wrapper"
+                        >
+                          <div
+                            class="ant-card-head-title"
+                          >
+                            Reference 1 changed to
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="ant-card-body"
+                      >
+                        <div
+                          data-test-id="reference-item"
+                        >
+                          <li
+                            class="ant-list-item"
+                          >
+                            <div
+                              class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+                              style="margin-left: -12px; margin-right: -12px;"
+                              type="flex"
+                            >
+                              <div
+                                class="ant-col ant-col-xs-2 ant-col-lg-1"
+                                style="padding-left: 12px; padding-right: 12px;"
+                              >
+                                <div
+                                  class="flex"
+                                >
+                                  <span>
+                                    [1]
+                                  </span>
+                                </div>
+                              </div>
+                              <div
+                                class="ant-col"
+                                style="padding-left: 12px; padding-right: 12px; width: 100%;"
+                              >
+                                <div
+                                  class="ant-list-item-meta"
+                                >
+                                  <div
+                                    class="ant-list-item-meta-content"
+                                  >
+                                    <div
+                                      class="ant-list-item-meta-description"
+                                    >
+                                      <div
+                                        class="__InlineList__ di"
+                                      >
+                                        <ul>
+                                          <li>
+                                            <div
+                                              class="di"
+                                            >
+                                              <span>
+                                                Author2
+                                              </span>
+                                            </div>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                      <div
+                                        class="__InlineList__ secondary-container"
+                                      >
+                                        <ul>
+                                          <li>
+                                            <div
+                                              class="__InlineList__"
+                                            >
+                                              <ul>
+                                                <li>
+                                                  <span>
+                                                    <span>
+                                                      <i>
+                                                        Journal2
+                                                      </i>
+                                                    </span>
+                                                  </span>
+                                                </li>
+                                              </ul>
+                                            </div>
+                                             • 
+                                          </li>
+                                          <li>
+                                            <div
+                                              class="__InlineList__"
+                                            >
+                                              <span
+                                                class=""
+                                              >
+                                                DOI: 
+                                              </span>
+                                              <ul>
+                                                <li>
+                                                  <span>
+                                                    <a
+                                                      href="//doi.org/123456.12345"
+                                                      target="_blank"
+                                                    >
+                                                      123456.12345
+                                                    </a>
+                                                  </span>
+                                                </li>
+                                              </ul>
+                                            </div>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-row ant-row-space-between actions ph2"
+                >
+                  <div
+                    class="ant-col"
+                  />
+                  <div
+                    class="ant-col"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-row"
+      >
+        <div
+          class="ant-col ant-col-24 mt3"
+        >
+          <div
+            class="__ContentBox__ h-100"
+          >
+            <div
+              class="ant-card ant-card-bordered h-100"
+            >
+              <div
+                class="ant-card-body"
+              >
+                <div
+                  class="pa2"
+                >
+                  <div>
+                    <div
+                      class="ant-card ant-card-bordered ant-card-small no-border"
+                    >
+                      <div
+                        class="ant-card-head"
+                      >
+                        <div
+                          class="ant-card-head-wrapper"
+                        >
+                          <div
+                            class="ant-card-head-title"
+                          >
+                            Reference metadata
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="ant-card-body"
+                      >
+                        <div
+                          data-test-id="reference-item"
+                        >
+                          <li
+                            class="ant-list-item"
+                          >
+                            <div
+                              class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+                              style="margin-left: -12px; margin-right: -12px;"
+                              type="flex"
+                            >
+                              <div
+                                class="ant-col ant-col-xs-2 ant-col-lg-1"
+                                style="padding-left: 12px; padding-right: 12px;"
+                              >
+                                <div
+                                  class="flex"
+                                >
+                                  <span>
+                                    [1]
+                                  </span>
+                                </div>
+                              </div>
+                              <div
+                                class="ant-col"
+                                style="padding-left: 12px; padding-right: 12px; width: 100%;"
+                              >
+                                <div
+                                  class="ant-list-item-meta"
+                                >
+                                  <div
+                                    class="ant-list-item-meta-content"
+                                  >
+                                    <div
+                                      class="ant-list-item-meta-description"
+                                    >
+                                      <div
+                                        class="__InlineList__ di"
+                                      >
+                                        <ul>
+                                          <li>
+                                            <div
+                                              class="di"
+                                            >
+                                              <span>
+                                                Author2
+                                              </span>
+                                            </div>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                      <div
+                                        class="__InlineList__ secondary-container"
+                                      >
+                                        <ul>
+                                          <li>
+                                            <div
+                                              class="__InlineList__"
+                                            >
+                                              <ul>
+                                                <li>
+                                                  <span>
+                                                    <span>
+                                                      <i>
+                                                        Journal2
+                                                      </i>
+                                                    </span>
+                                                  </span>
+                                                </li>
+                                              </ul>
+                                            </div>
+                                             • 
+                                          </li>
+                                          <li>
+                                            <div
+                                              class="__InlineList__"
+                                            >
+                                              <span
+                                                class=""
+                                              >
+                                                DOI: 
+                                              </span>
+                                              <ul>
+                                                <li>
+                                                  <span>
+                                                    <a
+                                                      href="//doi.org/123456.12345"
+                                                      target="_blank"
+                                                    >
+                                                      123456.12345
+                                                    </a>
+                                                  </span>
+                                                </li>
+                                              </ul>
+                                            </div>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="ant-card ant-card-bordered ant-card-small no-border"
+                    >
+                      <div
+                        class="ant-card-body"
+                      >
+                        <p
+                          class="b mb0 mt4"
+                        >
+                          3) New
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-row ant-row-space-between actions ph2"
+                >
+                  <div
+                    class="ant-col"
+                  />
+                  <div
+                    class="ant-col"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

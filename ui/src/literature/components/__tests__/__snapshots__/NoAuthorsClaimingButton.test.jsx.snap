@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoAuthorsClaimingButton renders 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={true}
+    title={
+      <Tooltip
+        title="This paper has no authors."
+      >
+        <Button
+          data-test-id="btn-claiming-authors"
+          disabled={true}
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  />
+</UserActionWrapper>
+`;

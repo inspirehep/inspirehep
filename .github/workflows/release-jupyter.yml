@@ -1,0 +1,49 @@
+name: Release Jupyter
+
+on:
+  workflow_call:
+    inputs:
+      sha:
+        description: The sha of the commit
+        type: string
+        required: true
+      ref:
+        description: The reference to build
+        type: string
+        required: true
+    secrets:
+      harbor_username:
+        description: Username to login to the image registry
+        required: true
+      harbor_password:
+        description: Password to login to the image registry
+        required: true
+    outputs:
+      image-id:
+        description: The ID of image that has been built
+        value: ${{ jobs.build.outputs.image-id }}
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      image-id: ${{ steps.build.outputs.image-id }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+
+      - id: build
+        name: Build and push
+        uses: cern-sis/gh-workflows/.github/actions/docker-build@v5.6.0
+        with:
+          username: ${{ secrets.harbor_username }}
+          password: ${{ secrets.harbor_password }}
+          build-args: COMMIT_HASH=${{ inputs.sha }}
+          image: "cern-sis/inspirehep/jupyter"
+          context: "./docker/jupyter"
+          registry: "registry.cern.ch"
+          tags:
+            type=ref,event=tag

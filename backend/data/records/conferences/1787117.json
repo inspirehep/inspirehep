@@ -1,0 +1,34 @@
+{
+    "cnum": "C19-09-23.7",
+    "self": {
+        "$ref": "https://inspirebeta.net/api/conferences/1787117"
+    },
+    "titles": [
+        {
+            "title": "International Conference on Strongly Correlated Electron Systems"
+        }
+    ],
+    "$schema": "https://inspirebeta.net/api/schemas/records/conferences.json",
+    "acronyms": [
+        "SCES 2019"
+    ],
+    "addresses": [
+        {
+            "cities": [
+                "Okayama"
+            ],
+            "country_code": "JP"
+        }
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "2019-09-28",
+    "opening_date": "2019-09-23",
+    "control_number": 1787117,
+    "inspire_categories": [
+        {
+            "term": "General Physics"
+        }
+    ]
+}

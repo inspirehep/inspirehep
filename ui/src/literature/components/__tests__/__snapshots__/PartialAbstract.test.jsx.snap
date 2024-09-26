@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PartialAbstract does not render if abstract is not passed 1`] = `""`;
+
+exports[`PartialAbstract should not append ellipsis when abstract length is less than the limit 1`] = `
+<div
+  className="__PartialAbstract__"
+>
+  <Latex>
+    A short abstract
+  </Latex>
+</div>
+`;
+
+exports[`PartialAbstract should render partial abstract 1`] = `
+<div
+  className="__PartialAbstract__"
+>
+  <Latex>
+    The phenomenon of CP violation is crucial to understand the asymmetry between matter and antimatter that exists in the Universe. Dramatic experimental progress has been made, in particular in measurements of the behaviour of particles containing the ...
+  </Latex>
+</div>
+`;

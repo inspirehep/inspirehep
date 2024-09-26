@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FiguresCarousel renders with all props 1`] = `
+<CarouselModal
+  onCancel={[MockFunction]}
+  visible={true}
+>
+  <Figure
+    key="https://picsum.photos/200/300"
+    url="https://picsum.photos/200/300"
+  />
+</CarouselModal>
+`;

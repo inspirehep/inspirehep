@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorResultItem renders full author result 1`] = `
+<ResultItem
+  leftActions={
+    <EditAuthorRecordAction
+      canEdit={true}
+      isCatalogerLoggedIn={false}
+      page="Authors search"
+      pidValue={12345}
+    />
+  }
+>
+  <Link
+    className="result-item-title"
+    to="/authors/12345"
+  >
+    <AuthorName
+      name={
+        Immutable.Map {
+          "value": "Urhan, Harun",
+        }
+      }
+    />
+  </Link>
+  <span
+    className="pl1"
+  >
+    (
+    <AffiliationList
+      affiliations={
+        Immutable.List [
+          Immutable.Map {
+            "institution": "CERN",
+            "current": "true",
+          },
+          Immutable.Map {
+            "institution": "CERN3",
+            "current": "true",
+          },
+        ]
+      }
+      separator=" and "
+    />
+    )
+  </span>
+  <div
+    className="mt1"
+  >
+    <ArxivCategoryList
+      arxivCategories={
+        Immutable.List [
+          "hep-th",
+        ]
+      }
+      wrapperClassName={null}
+    />
+    <ExperimentList
+      experiments={
+        Immutable.List [
+          Immutable.Map {
+            "name": "CERN-LHC-CMS",
+          },
+        ]
+      }
+      wrapperClassName="mt2"
+    />
+  </div>
+</ResultItem>
+`;
+
+exports[`AuthorResultItem renders with only name 1`] = `
+<ResultItem
+  leftActions={
+    <EditAuthorRecordAction
+      canEdit={false}
+      isCatalogerLoggedIn={false}
+      page="Authors search"
+      pidValue={12345}
+    />
+  }
+>
+  <Link
+    className="result-item-title"
+    to="/authors/12345"
+  >
+    <AuthorName
+      name={
+        Immutable.Map {
+          "value": "Urhan, Harun",
+        }
+      }
+    />
+  </Link>
+  <div
+    className="mt1"
+  >
+    <ArxivCategoryList
+      arxivCategories={null}
+      wrapperClassName={null}
+    />
+    <ExperimentList
+      experiments={null}
+      wrapperClassName="mt2"
+    />
+  </div>
+</ResultItem>
+`;

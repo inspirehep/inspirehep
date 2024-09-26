@@ -1,0 +1,122 @@
+interactions:
+- request:
+    body: '{"dag_run_id": "00000000-0000-0000-0000-000000000000", "conf": {"workflow_id":
+      "00000000-0000-0000-0000-000000000000"}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '119'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns
+  response:
+    body:
+      string: "{\n  \"conf\": {\n    \"workflow_id\": \"00000000-0000-0000-0000-000000000000\"\n
+        \ },\n  \"dag_id\": \"author_create_initialization_dag\",\n  \"dag_run_id\":
+        \"00000000-0000-0000-0000-000000000000\",\n  \"data_interval_end\": \"2024-07-30T12:14:27.272986+00:00\",\n
+        \ \"data_interval_start\": \"2024-07-30T12:14:27.272986+00:00\",\n  \"end_date\":
+        null,\n  \"execution_date\": \"2024-07-30T12:14:27.272986+00:00\",\n  \"external_trigger\":
+        true,\n  \"last_scheduling_decision\": null,\n  \"logical_date\": \"2024-07-30T12:14:27.272986+00:00\",\n
+        \ \"note\": null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n
+        \ \"state\": \"queued\"\n}\n"
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '579'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 30 Jul 2024 12:14:27 GMT
+      Server:
+      - gunicorn
+      X-Robots-Tag:
+      - noindex, nofollow
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"dag_run_id": "5c7e5277-c802-4bb6-871e-f4e8597204ea", "conf": {"workflow_id":
+      "5c7e5277-c802-4bb6-871e-f4e8597204ea", "native_name": "NATIVE_NAME", "alternate_name":
+      "NAME", "display_name": "FIRST_NAME", "family_name": "LAST_NAME", "given_name":
+      "GIVEN_NAME"}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '261'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns
+  response:
+    body:
+      string: "{\n  \"conf\": {\n    \"alternate_name\": \"NAME\",\n    \"display_name\":
+        \"FIRST_NAME\",\n    \"family_name\": \"LAST_NAME\",\n    \"given_name\":
+        \"GIVEN_NAME\",\n    \"native_name\": \"NATIVE_NAME\",\n    \"workflow_id\":
+        \"5c7e5277-c802-4bb6-871e-f4e8597204ea\"\n  },\n  \"dag_id\": \"author_create_initialization_dag\",\n
+        \ \"dag_run_id\": \"5c7e5277-c802-4bb6-871e-f4e8597204ea\",\n  \"data_interval_end\":
+        \"2024-07-30T12:14:27.429196+00:00\",\n  \"data_interval_start\": \"2024-07-30T12:14:27.429196+00:00\",\n
+        \ \"end_date\": null,\n  \"execution_date\": \"2024-07-30T12:14:27.429196+00:00\",\n
+        \ \"external_trigger\": true,\n  \"last_scheduling_decision\": null,\n  \"logical_date\":
+        \"2024-07-30T12:14:27.429196+00:00\",\n  \"note\": null,\n  \"run_type\":
+        \"manual\",\n  \"start_date\": null,\n  \"state\": \"queued\"\n}\n"
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '741'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 30 Jul 2024 12:14:27 GMT
+      Server:
+      - gunicorn
+      X-Robots-Tag:
+      - noindex, nofollow
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Content-Type:
+      - application/json
+    method: DELETE
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000000
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 30 Jul 2024 12:14:27 GMT
+      Server:
+      - gunicorn
+      X-Robots-Tag:
+      - noindex, nofollow
+    status:
+      code: 204
+      message: NO CONTENT
+version: 1

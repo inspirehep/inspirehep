@@ -1,0 +1,316 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderMenu renders when logged in 1`] = `
+<Menu
+  className="__HeaderMenu__"
+  items={
+    Array [
+      Object {
+        "children": Array [
+          Object {
+            "key": "help.search-tips",
+            "label": Array [
+              <span>
+                <LinkWithTargetBlank
+                  as="a"
+                  href="https://help.inspirehep.net/knowledge-base/inspire-paper-search"
+                >
+                  Search Tips
+                </LinkWithTargetBlank>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "help.tour",
+            "label": Array [
+              <span>
+                <Connect(LinkLikeButton)
+                  color="white"
+                >
+                  Take the tour
+                </Connect(LinkLikeButton)>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "help.help-center",
+            "label": Array [
+              <span>
+                <LinkWithTargetBlank
+                  as="a"
+                  href="https://help.inspirehep.net"
+                >
+                  Help Center
+                </LinkWithTargetBlank>
+              </span>,
+            ],
+          },
+        ],
+        "key": "help",
+        "label": "Help",
+        "popupClassName": "header-submenu ant-menu-dark",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "key": "submit.literature",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/literature"
+                >
+                  Literature
+                </Link>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "submit.author",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/authors"
+                >
+                  Author
+                </Link>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "submit.job",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/jobs"
+                >
+                  Job
+                </Link>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "submit.seminar",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/seminars"
+                >
+                  Seminar
+                </Link>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "submit.conference",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/conferences"
+                >
+                  Conference
+                </Link>
+              </span>,
+            ],
+          },
+        ],
+        "key": "submit",
+        "label": "Submit",
+        "popupClassName": "header-submenu ant-menu-dark",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "key": "my-profile",
+            "label": Array [
+              <Tooltip
+                title={
+                  <p>
+                    There is no profile associated to your account. Please
+                     
+                    <a
+                      href="https://help.inspirehep.net/knowledge-base/contact-us"
+                      target="_blank"
+                    >
+                      contact us
+                    </a>
+                  </p>
+                }
+              >
+                <Button
+                  disabled={true}
+                  ghost={true}
+                >
+                  My profile
+                </Button>
+              </Tooltip>,
+            ],
+          },
+          Object {
+            "key": "settings",
+            "label": Array [
+              <Link
+                to="/user/settings"
+              >
+                Settings
+              </Link>,
+            ],
+          },
+          Object {
+            "key": "logout",
+            "label": Array [
+              <LinkLikeButton
+                color="white"
+                dataTestId="logout"
+                disabled={false}
+                onClick={[MockFunction]}
+              >
+                Logout
+              </LinkLikeButton>,
+            ],
+          },
+          undefined,
+        ],
+        "key": "account",
+        "label": "Account",
+        "popupClassName": "header-submenu ant-menu-dark",
+      },
+    ]
+  }
+  mode="horizontal"
+  selectable={false}
+  theme="dark"
+/>
+`;
+
+exports[`HeaderMenu renders when not logged in 1`] = `
+<Menu
+  className="__HeaderMenu__"
+  items={
+    Array [
+      Object {
+        "children": Array [
+          Object {
+            "key": "help.search-tips",
+            "label": Array [
+              <span>
+                <LinkWithTargetBlank
+                  as="a"
+                  href="https://help.inspirehep.net/knowledge-base/inspire-paper-search"
+                >
+                  Search Tips
+                </LinkWithTargetBlank>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "help.tour",
+            "label": Array [
+              <span>
+                <Connect(LinkLikeButton)
+                  color="white"
+                >
+                  Take the tour
+                </Connect(LinkLikeButton)>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "help.help-center",
+            "label": Array [
+              <span>
+                <LinkWithTargetBlank
+                  as="a"
+                  href="https://help.inspirehep.net"
+                >
+                  Help Center
+                </LinkWithTargetBlank>
+              </span>,
+            ],
+          },
+        ],
+        "key": "help",
+        "label": "Help",
+        "popupClassName": "header-submenu ant-menu-dark",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "key": "submit.literature",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/literature"
+                >
+                  Literature
+                </Link>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "submit.author",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/authors"
+                >
+                  Author
+                </Link>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "submit.job",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/jobs"
+                >
+                  Job
+                </Link>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "submit.seminar",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/seminars"
+                >
+                  Seminar
+                </Link>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "submit.conference",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/conferences"
+                >
+                  Conference
+                </Link>
+              </span>,
+            ],
+          },
+        ],
+        "key": "submit",
+        "label": "Submit",
+        "popupClassName": "header-submenu ant-menu-dark",
+      },
+      Object {
+        "key": "login",
+        "label": <Link
+          to="/user/login"
+        >
+          Login
+        </Link>,
+      },
+    ]
+  }
+  mode="horizontal"
+  selectable={false}
+  theme="dark"
+/>
+`;

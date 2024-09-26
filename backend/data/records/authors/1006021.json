@@ -1,0 +1,129 @@
+{
+    "ids": [
+        {
+            "value": "M.D.Hildreth.1",
+            "schema": "INSPIRE BAI"
+        },
+        {
+            "value": "INSPIRE-00090190",
+            "schema": "INSPIRE ID"
+        },
+        {
+            "value": "HEPNAMES-271500",
+            "schema": "SPIRES"
+        }
+    ],
+    "name": {
+        "value": "Hildreth, Michael D.",
+        "name_variants": [
+            "Hildreth, Michael Douglas",
+            "Hildreth, Mike"
+        ],
+        "preferred_name": "Michael D. Hildreth"
+    },
+    "self": {
+        "$ref": "https://inspirebeta.net/api/authors/1006021"
+    },
+    "stub": false,
+    "status": "active",
+    "$schema": "https://inspirebeta.net/schemas/records/authors.json",
+    "deleted": false,
+    "advisors": [
+        {
+            "ids": [
+                {
+                    "value": "INSPIRE-00070132",
+                    "schema": "INSPIRE ID"
+                }
+            ],
+            "name": "Burke, David Lyle",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1014937"
+            },
+            "degree_type": "other"
+        }
+    ],
+    "positions": [
+        {
+            "rank": "SENIOR",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/903085"
+            },
+            "start_date": "2000",
+            "institution": "Notre Dame U.",
+            "curated_relation": true
+        },
+        {
+            "rank": "POSTDOC",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/902725"
+            },
+            "end_date": "1999",
+            "start_date": "1995",
+            "institution": "CERN",
+            "curated_relation": true
+        },
+        {
+            "rank": "PHD",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/903206"
+            },
+            "end_date": "1995",
+            "start_date": "1988",
+            "institution": "SLAC",
+            "curated_relation": true
+        }
+    ],
+    "_collections": [
+        "Authors"
+    ],
+    "control_number": 1006021,
+    "legacy_version": "20171222200520.0",
+    "email_addresses": [
+        {
+            "value": "hildreth.2@nd.edu",
+            "current": true
+        },
+        {
+            "value": "hildreth.2@nd.edu",
+            "hidden": true,
+            "current": true
+        },
+        {
+            "value": "hildreth.2@nd.edu",
+            "hidden": true,
+            "current": false
+        }
+    ],
+    "arxiv_categories": [
+        "physics.acc-ph",
+        "hep-ex"
+    ],
+    "project_membership": [
+        {
+            "name": "CERN-LHC-CMS",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/experiments/1108642"
+            },
+            "current": false,
+            "curated_relation": true
+        },
+        {
+            "name": "FNAL-E-0823",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/experiments/1110315"
+            },
+            "current": false,
+            "curated_relation": true
+        },
+        {
+            "name": "FNAL-E-0740",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/experiments/1109214"
+            },
+            "current": false,
+            "curated_relation": true
+        }
+    ],
+    "legacy_creation_date": "1996-06-22"
+}

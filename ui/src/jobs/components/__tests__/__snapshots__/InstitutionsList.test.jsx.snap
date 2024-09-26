@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InstitutionsList renders institutions 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li
+      key="Map { \\"value\\": \\"UC, Berkeley\\" }-0"
+    >
+      UC, Berkeley
+      , 
+    </li>
+    <li
+      key="Map { \\"value\\": \\"CERN\\" }-2"
+    >
+      CERN
+    </li>
+  </ul>
+</div>
+`;

@@ -1,0 +1,517 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LiteratureItem does not arxiv pdf download action if there is no eprint value 1`] = `
+<div
+  data-test-id="literature-result-item"
+>
+  <ResultItem
+    leftActions={
+      <React.Fragment>
+        <Connect(CiteModalAction)
+          recordId={12345}
+        />
+      </React.Fragment>
+    }
+    rightActions={
+      <React.Fragment>
+        <ReferenceSearchLinkAction
+          recordId={12345}
+        />
+        <IncomingLiteratureReferencesLinkAction
+          itemCount={0}
+          linkQuery="refersto:recid:12345"
+          referenceType="citation"
+          trackerEventId="Citations link"
+        />
+      </React.Fragment>
+    }
+  >
+    <div
+      data-test-id="literature-result-item-inner"
+    >
+      <div
+        className="flex flex-nowrap"
+      >
+        <div
+          className="flex-grow-1"
+        >
+          <Link
+            className="result-item-title"
+            data-test-id="literature-result-title-link"
+            to="/literature/12345"
+          >
+            <LiteratureTitle
+              title={
+                Immutable.Map {
+                  "title": "test",
+                }
+              }
+            />
+          </Link>
+        </div>
+        <ResponsiveView
+          min="sm"
+          render={[Function]}
+        />
+      </div>
+      <div
+        className="mt1"
+      >
+        <AuthorsAndCollaborations
+          authors={Immutable.List []}
+          collaborations={Immutable.List []}
+          collaborationsWithSuffix={Immutable.List []}
+          enableAuthorsShowAll={false}
+        />
+      </div>
+      <div
+        className="mt1"
+      >
+        <InlineUL
+          separator=" • "
+          wrapperClassName={null}
+        />
+      </div>
+    </div>
+  </ResultItem>
+</div>
+`;
+
+exports[`LiteratureItem renders 0 citations if it does not exist 1`] = `
+<div
+  data-test-id="literature-result-item"
+>
+  <ResultItem
+    leftActions={
+      <React.Fragment>
+        <Connect(CiteModalAction)
+          recordId={12345}
+        />
+      </React.Fragment>
+    }
+    rightActions={
+      <React.Fragment>
+        <ReferenceSearchLinkAction
+          recordId={12345}
+        />
+        <IncomingLiteratureReferencesLinkAction
+          itemCount={0}
+          linkQuery="refersto:recid:12345"
+          referenceType="citation"
+          trackerEventId="Citations link"
+        />
+      </React.Fragment>
+    }
+  >
+    <div
+      data-test-id="literature-result-item-inner"
+    >
+      <div
+        className="flex flex-nowrap"
+      >
+        <div
+          className="flex-grow-1"
+        >
+          <Link
+            className="result-item-title"
+            data-test-id="literature-result-title-link"
+            to="/literature/12345"
+          >
+            <LiteratureTitle
+              title={
+                Immutable.Map {
+                  "title": "test",
+                }
+              }
+            />
+          </Link>
+        </div>
+        <ResponsiveView
+          min="sm"
+          render={[Function]}
+        />
+      </div>
+      <div
+        className="mt1"
+      >
+        <AuthorsAndCollaborations
+          authors={Immutable.List []}
+          collaborations={Immutable.List []}
+          collaborationsWithSuffix={Immutable.List []}
+          enableAuthorsShowAll={false}
+        />
+      </div>
+      <div
+        className="mt1"
+      >
+        <InlineUL
+          separator=" • "
+          wrapperClassName={null}
+        />
+      </div>
+    </div>
+  </ResultItem>
+</div>
+`;
+
+exports[`LiteratureItem renders publication info when book exists but publication title not 1`] = `
+<div
+  data-test-id="literature-result-item"
+>
+  <ResultItem
+    leftActions={
+      <React.Fragment>
+        <Connect(CiteModalAction)
+          page="Literature"
+          recordId={12345}
+        />
+      </React.Fragment>
+    }
+    rightActions={
+      <React.Fragment>
+        <ReferenceSearchLinkAction
+          page="Literature"
+          recordId={12345}
+        />
+        <IncomingLiteratureReferencesLinkAction
+          eventCategory="Literature"
+          itemCount={0}
+          linkQuery="refersto:recid:12345"
+          referenceType="citation"
+          trackerEventId="Citations link"
+        />
+      </React.Fragment>
+    }
+  >
+    <div
+      data-test-id="literature-result-item-inner"
+    >
+      <div
+        className="flex flex-nowrap"
+      >
+        <div
+          className="flex-grow-1"
+        >
+          <Link
+            className="result-item-title"
+            data-test-id="literature-result-title-link"
+            to="/literature/12345"
+          >
+            <LiteratureTitle
+              title={
+                Immutable.Map {
+                  "title": "test",
+                }
+              }
+            />
+          </Link>
+        </div>
+        <ResponsiveView
+          min="sm"
+          render={[Function]}
+        />
+      </div>
+      <div
+        className="mt1"
+      >
+        <AuthorsAndCollaborations
+          authors={Immutable.List []}
+          collaborations={Immutable.List []}
+          collaborationsWithSuffix={Immutable.List []}
+          enableAuthorsShowAll={false}
+          page="Literature"
+        />
+      </div>
+      <div
+        className="mt1"
+      >
+        <InlineUL
+          separator=" • "
+          wrapperClassName={null}
+        >
+          <BookSeriesInfoList
+            bookSeries={
+              Immutable.List [
+                Immutable.Map {
+                  "title": "SpringerBriefs in Physics",
+                },
+              ]
+            }
+          />
+        </InlineUL>
+      </div>
+    </div>
+  </ResultItem>
+</div>
+`;
+
+exports[`LiteratureItem renders with all props set, including sub props 1`] = `
+<div
+  data-test-id="literature-result-item"
+>
+  <ResultItem
+    leftActions={
+      <React.Fragment>
+        <UrlsAction
+          eventAction="Download"
+          icon={<ForwardRef(FilePdfOutlined) />}
+          text="pdf"
+          trackerEventId="Pdf download"
+          urls={
+            Immutable.List [
+              Immutable.Map {
+                "value": "https://fulltext.cern/pdf/1",
+              },
+            ]
+          }
+        />
+        <UrlsAction
+          icon={<ForwardRef(LinkOutlined) />}
+          text="links"
+          trackerEventId="Literature file"
+          urls={
+            Immutable.List [
+              Immutable.Map {
+                "value": "http://lss.fnal.gov/conf/C8206282/pg209.pdf",
+              },
+            ]
+          }
+        />
+        <Connect(CiteModalAction)
+          recordId={12345}
+        />
+      </React.Fragment>
+    }
+    rightActions={
+      <React.Fragment>
+        <ReferenceSearchLinkAction
+          recordId={12345}
+        />
+        <IncomingLiteratureReferencesLinkAction
+          itemCount={12435}
+          linkQuery="refersto:recid:12345"
+          referenceType="citation"
+          trackerEventId="Citations link"
+        />
+      </React.Fragment>
+    }
+  >
+    <div
+      data-test-id="literature-result-item-inner"
+    >
+      <div
+        className="flex flex-nowrap"
+      >
+        <div
+          className="flex-grow-1"
+        >
+          <Link
+            className="result-item-title"
+            data-test-id="literature-result-title-link"
+            to="/literature/12345"
+          >
+            <LiteratureTitle
+              title={
+                Immutable.Map {
+                  "title": "test",
+                }
+              }
+            />
+          </Link>
+        </div>
+        <ResponsiveView
+          min="sm"
+          render={[Function]}
+        />
+      </div>
+      <div
+        className="mt1"
+      >
+        <AuthorsAndCollaborations
+          authors={
+            Immutable.List [
+              Immutable.Map {
+                "full_name": "Test, Author",
+              },
+            ]
+          }
+          collaborations={
+            Immutable.List [
+              Immutable.Map {
+                "value": "CMS",
+              },
+            ]
+          }
+          collaborationsWithSuffix={
+            Immutable.List [
+              Immutable.Map {
+                "value": "CMS Group",
+              },
+            ]
+          }
+          enableAuthorsShowAll={false}
+        />
+         (
+        <LiteratureDate
+          date="Jun 7, 1993"
+        />
+        )
+      </div>
+      <div
+        className="mt1"
+      >
+        <InlineUL
+          separator=" • "
+          wrapperClassName={null}
+        >
+          <PublicationInfoList
+            labeled={true}
+            publicationInfo={
+              Immutable.List [
+                Immutable.Map {
+                  "journal_title": "Test Jornal",
+                },
+              ]
+            }
+          />
+          <ConferenceInfoList
+            conferenceInfo={
+              Immutable.List [
+                Immutable.Map {
+                  "acronyms": Immutable.List [
+                    "MG15",
+                    "SAP16",
+                  ],
+                  "titles": Immutable.List [
+                    Immutable.Map {
+                      "title": "15th Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Astrophysics, and Relativistic Field Theories",
+                    },
+                  ],
+                },
+              ]
+            }
+            wrapperClassName={null}
+          />
+          <ArxivEprintList
+            eprints={
+              Immutable.List [
+                Immutable.Map {
+                  "value": "1234567890",
+                },
+              ]
+            }
+            page="Literature search"
+          />
+        </InlineUL>
+      </div>
+    </div>
+    <div
+      className="mt1"
+    >
+      <FulltextSnippet
+        snippet="A snippet of <em>fulltext</em>"
+      />
+    </div>
+    <Connect(AssignLiteratureItemDrawer)
+      itemLiteratureId={12345}
+    />
+  </ResultItem>
+</div>
+`;
+
+exports[`LiteratureItem renders with literature item claiming button on literature search page 1`] = `
+<div
+  data-test-id="literature-result-item"
+>
+  <ResultItem
+    leftActions={
+      <React.Fragment>
+        <Connect(CiteModalAction)
+          page="Literature"
+          recordId={12345}
+        />
+        <LiteratureClaimButton
+          controlNumber={12345}
+          hasAuthorProfile={true}
+          loggedIn={true}
+          page="Literature"
+        />
+      </React.Fragment>
+    }
+    rightActions={
+      <React.Fragment>
+        <ReferenceSearchLinkAction
+          page="Literature"
+          recordId={12345}
+        />
+        <IncomingLiteratureReferencesLinkAction
+          eventCategory="Literature"
+          itemCount={0}
+          linkQuery="refersto:recid:12345"
+          referenceType="citation"
+          trackerEventId="Citations link"
+        />
+      </React.Fragment>
+    }
+  >
+    <div
+      data-test-id="literature-result-item-inner"
+    >
+      <div
+        className="flex flex-nowrap"
+      >
+        <div
+          className="flex-grow-1"
+        >
+          <Link
+            className="result-item-title"
+            data-test-id="literature-result-title-link"
+            to="/literature/12345"
+          >
+            <LiteratureTitle
+              title={
+                Immutable.Map {
+                  "title": "test",
+                }
+              }
+            />
+          </Link>
+        </div>
+        <ResponsiveView
+          min="sm"
+          render={[Function]}
+        />
+      </div>
+      <div
+        className="mt1"
+      >
+        <AuthorsAndCollaborations
+          authors={Immutable.List []}
+          collaborations={Immutable.List []}
+          collaborationsWithSuffix={Immutable.List []}
+          enableAuthorsShowAll={false}
+          page="Literature"
+        />
+      </div>
+      <div
+        className="mt1"
+      >
+        <InlineUL
+          separator=" • "
+          wrapperClassName={null}
+        >
+          <BookSeriesInfoList
+            bookSeries={
+              Immutable.List [
+                Immutable.Map {
+                  "title": "SpringerBriefs in Physics",
+                },
+              ]
+            }
+          />
+        </InlineUL>
+      </div>
+    </div>
+  </ResultItem>
+</div>
+`;

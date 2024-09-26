@@ -1,0 +1,42 @@
+name: Push master
+
+on:
+  push:
+    branches: [master]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    uses: ./.github/workflows/integration-tests.yml
+    with:
+      ref: ${{ github.ref }}
+    secrets: inherit
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: send event
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v5.0.0
+        with:
+          event-type: update
+          images: |
+            inspirehep/hep@${{ needs.test.outputs.backend-image-id }}
+            inspirehep/ui@${{ needs.test.outputs.ui-image-id }}
+            inspirehep/editor@${{ needs.test.outputs.editor-image-id }}
+          token: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
+
+#   deploy-jupyter:
+#     needs:
+#     - test
+#     - deploy
+#     uses: ./.github/workflows/release-jupyter.yml
+#     with:
+#       sha: ${{ github.sha }}
+#       ref: ${{ github.ref }}
+#     secrets:
+#       harbor_username:  ${{ secrets.HARBOR_USERNAME }}
+#       harbor_password: ${{ secrets.HARBOR_PASSWORD }}

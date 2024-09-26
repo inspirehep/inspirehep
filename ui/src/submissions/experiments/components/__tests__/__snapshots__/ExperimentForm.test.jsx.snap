@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExperimentForm renders 1`] = `
+<Form
+  className="bg-white pa3"
+>
+  <Row
+    className="pt3 bg-white"
+  >
+    <Col
+      span={24}
+    >
+      <Field
+        component={[Function]}
+        label="* Experiment type"
+        mode="multiple"
+        name="project_type"
+        options={
+          Array [
+            Object {
+              "display": "Collaboration",
+              "value": "collaboration",
+            },
+            Object {
+              "display": "Experiment",
+              "value": "experiment",
+            },
+            Object {
+              "display": "Accelerator",
+              "value": "accelerator",
+            },
+          ]
+        }
+        placeholder="Select types"
+      />
+    </Col>
+  </Row>
+  <Row
+    className="mb3 pt2 bg-white"
+  >
+    <Col
+      span={24}
+    >
+      <Field
+        component={[Function]}
+        extractItemCompletionValue={[Function]}
+        label="* Legacy name"
+        name="legacy_name"
+        pidType="experiments"
+        placeholder="Legacy name, type for suggestions"
+        searchasyoutype="true"
+        suggesterName="experiment"
+      />
+    </Col>
+  </Row>
+  <Row
+    justify="end"
+    type="flex"
+  >
+    <SubmitButton />
+  </Row>
+</Form>
+`;

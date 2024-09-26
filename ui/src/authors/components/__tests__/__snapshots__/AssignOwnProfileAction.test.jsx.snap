@@ -1,0 +1,346 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignOwnProfileAction renders 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={false}
+    items={
+      Array [
+        Object {
+          "disabled": undefined,
+          "key": "1",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="assign-self"
+              data-testid="assign-self"
+              onClick={[Function]}
+            >
+              <Tooltip
+                title={null}
+              >
+                <p>
+                  This is my paper
+                </p>
+              </Tooltip>
+            </span>
+          </EventTracker>,
+        },
+        Object {
+          "key": "2",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is not my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="unassign"
+              data-testid="unassign"
+              onClick={[Function]}
+            >
+              This is not my paper
+            </span>
+          </EventTracker>,
+        },
+      ]
+    }
+    title={
+      <Tooltip
+        title={null}
+      >
+        <Button
+          data-test-id="btn-claim"
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  />
+</UserActionWrapper>
+`;
+
+exports[`AssignOwnProfileAction renders disabled 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={true}
+    items={
+      Array [
+        Object {
+          "disabled": true,
+          "key": "1",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="assign-self"
+              data-testid="assign-self"
+              onClick={[Function]}
+            >
+              <Tooltip
+                title="This paper is already claimed"
+              >
+                <p>
+                  This is my paper
+                </p>
+              </Tooltip>
+            </span>
+          </EventTracker>,
+        },
+        Object {
+          "key": "2",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is not my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="unassign"
+              data-testid="unassign"
+              onClick={[Function]}
+            >
+              This is not my paper
+            </span>
+          </EventTracker>,
+        },
+      ]
+    }
+    title={
+      <Tooltip
+        title="Please select the papers you want to claim or remove from the profile."
+      >
+        <Button
+          data-test-id="btn-claim"
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  />
+</UserActionWrapper>
+`;
+
+exports[`AssignOwnProfileAction renders plural form if numberOfSelected is more than 1 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={false}
+    items={
+      Array [
+        Object {
+          "disabled": undefined,
+          "key": "1",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="assign-self"
+              data-testid="assign-self"
+              onClick={[Function]}
+            >
+              <Tooltip
+                title={null}
+              >
+                <p>
+                  These are my papers
+                </p>
+              </Tooltip>
+            </span>
+          </EventTracker>,
+        },
+        Object {
+          "key": "2",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is not my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="unassign"
+              data-testid="unassign"
+              onClick={[Function]}
+            >
+              These are not my papers
+            </span>
+          </EventTracker>,
+        },
+      ]
+    }
+    title={
+      <Tooltip
+        title={null}
+      >
+        <Button
+          data-test-id="btn-claim"
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  />
+</UserActionWrapper>
+`;
+
+exports[`AssignOwnProfileAction renders singular form if numberOfSelected is 1 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={false}
+    items={
+      Array [
+        Object {
+          "disabled": undefined,
+          "key": "1",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="assign-self"
+              data-testid="assign-self"
+              onClick={[Function]}
+            >
+              <Tooltip
+                title={null}
+              >
+                <p>
+                  This is my paper
+                </p>
+              </Tooltip>
+            </span>
+          </EventTracker>,
+        },
+        Object {
+          "key": "2",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is not my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="unassign"
+              data-testid="unassign"
+              onClick={[Function]}
+            >
+              This is not my paper
+            </span>
+          </EventTracker>,
+        },
+      ]
+    }
+    title={
+      <Tooltip
+        title={null}
+      >
+        <Button
+          data-test-id="btn-claim"
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  />
+</UserActionWrapper>
+`;
+
+exports[`AssignOwnProfileAction renders with disabled assign action 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={false}
+    items={
+      Array [
+        Object {
+          "disabled": true,
+          "key": "1",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="assign-self"
+              data-testid="assign-self"
+              onClick={[Function]}
+            >
+              <Tooltip
+                title="This paper is already claimed"
+              >
+                <p>
+                  This is my paper
+                </p>
+              </Tooltip>
+            </span>
+          </EventTracker>,
+        },
+        Object {
+          "key": "2",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is not my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="unassign"
+              data-testid="unassign"
+              onClick={[Function]}
+            >
+              This is not my paper
+            </span>
+          </EventTracker>,
+        },
+      ]
+    }
+    title={
+      <Tooltip
+        title={null}
+      >
+        <Button
+          data-test-id="btn-claim"
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  />
+</UserActionWrapper>
+`;

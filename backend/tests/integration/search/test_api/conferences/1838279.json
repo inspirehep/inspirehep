@@ -1,0 +1,70 @@
+{
+    "addresses": [
+        {
+            "cities": [
+                "Baku"
+            ],
+            "country_code": "AZ"
+        }
+    ],
+    "cnum": "C22-10-24",
+    "core": true,
+    "self": {
+        "$ref": "https://inspirehep.net/api/conferences/1838279"
+    },
+    "series": [
+        {
+            "name": "CPOD"
+        }
+    ],
+    "titles": [
+        {
+            "title": "International conference on Critical Point and Onset of Deconfinement"
+        }
+    ],
+    "$schema": "https://inspirehep.net/api/schemas/records/conferences.json",
+    "acronyms": [
+        "CPOD2022"
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "2022-10-28",
+    "opening_date": "2022-10-24",
+    "control_number": 1838279,
+    "contact_details": [
+        {
+            "name": "Anar Rustamov",
+            "email": "a.rustamov@cern.ch"
+        }
+    ],
+    "short_description": {
+        "value": "<div>CPOD2022 - The International conference on Critical Point and Onset of Deconfinement will be held in Baku, Azerbaijan, during October 24 -&nbsp;October 28, 2022. The aim of the meeting is to discuss latest developments in understanding the phase structure of strongly interacting matter. Particular emphasis will be put on&nbsp;studies of critical phenomena associated with the second order phase transitions.</div><div><br></div>"
+    },
+    "inspire_categories": [
+        {
+            "term": "Experiment-Nucl"
+        },
+        {
+            "term": "Phenomenology-HEP"
+        },
+        {
+            "term": "Experiment-HEP"
+        },
+        {
+            "term": "Theory-Nucl"
+        },
+        {
+            "term": "Theory-HEP"
+        },
+        {
+            "term": "Astrophysics"
+        },
+        {
+            "term": "Lattice"
+        },
+        {
+            "term": "Data Analysis and Statistics"
+        }
+    ]
+}

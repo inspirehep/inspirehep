@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NumberOfResultsWithSelectedItemsNumber does not render selected when selected is 0 1`] = `
+<span>
+  <Connect(NumberOfResults) />
+</span>
+`;
+
+exports[`NumberOfResultsWithSelectedItemsNumber renders selected when selected is 1 1`] = `
+<span>
+  <FormattedNumber>
+    1
+  </FormattedNumber>
+   of
+   
+  <Connect(NumberOfResults) />
+</span>
+`;
+
+exports[`NumberOfResultsWithSelectedItemsNumber renders selected when selected is more than 1 1`] = `
+<span>
+  <FormattedNumber>
+    25
+  </FormattedNumber>
+   of
+   
+  <Connect(NumberOfResults) />
+</span>
+`;

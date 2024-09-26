@@ -1,0 +1,82 @@
+{
+    "ids": [
+        {
+            "value": "A.Jacholkowska.1",
+            "schema": "INSPIRE BAI"
+        },
+        {
+            "value": "CERN-402162",
+            "schema": "CERN"
+        },
+        {
+            "value": "INSPIRE-00344495",
+            "schema": "INSPIRE ID"
+        },
+        {
+            "value": "HEPNAMES-256374",
+            "schema": "SPIRES"
+        }
+    ],
+    "name": {
+        "value": "Jacholkowski, Agnieszka",
+        "name_variants": [
+            "Jacholkowska, Agnieszka",
+            "Jacholkowski, Agnieszka Julia"
+        ],
+        "preferred_name": "Agnieszka Jacholkowski"
+    },
+    "self": {
+        "$ref": "https://inspirebeta.net/api/authors/1004662"
+    },
+    "stub": false,
+    "status": "active",
+    "$schema": "https://inspirebeta.net/schemas/records/authors.json",
+    "deleted": false,
+    "positions": [
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/903100"
+            },
+            "current": true,
+            "institution": "LAL, Orsay",
+            "curated_relation": true
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/903024"
+            },
+            "current": true,
+            "institution": "Montpellier U.",
+            "curated_relation": true
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/902770"
+            },
+            "institution": "DESY",
+            "curated_relation": true
+        }
+    ],
+    "_collections": [
+        "Authors"
+    ],
+    "control_number": 1004662,
+    "legacy_version": "20160311154823.0",
+    "email_addresses": [
+        {
+            "value": "agnieszka.jacholkowska@cern.ch",
+            "current": true
+        }
+    ],
+    "project_membership": [
+        {
+            "name": "CERN-LEP-ALEPH",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/experiments/1109311"
+            },
+            "current": false,
+            "curated_relation": true
+        }
+    ],
+    "legacy_creation_date": "1996-06-20"
+}

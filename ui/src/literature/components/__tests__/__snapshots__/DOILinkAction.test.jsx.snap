@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DOILinkAction renders with a doi id 1`] = `
+<UserActionWrapper>
+  <DOILink
+    doi="10.1007/s11182-019-01606-1"
+  >
+    <IconText
+      icon={<ForwardRef(LinkOutlined) />}
+      text="DOI"
+    />
+  </DOILink>
+</UserActionWrapper>
+`;
+
+exports[`DOILinkAction renders with multiple doi ids 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={false}
+    items={
+      Immutable.List [
+        Object {
+          "key": "10.1007/s11182-019-01606-1",
+          "label": <span>
+            <DOILink
+              doi="10.1007/s11182-019-01606-1"
+              page={0}
+            >
+              10.1007/s11182-019-01606-1
+              <DOIMaterial
+                material={null}
+              />
+            </DOILink>
+          </span>,
+        },
+        Object {
+          "key": "10.1007/s11182-019-01606-2",
+          "label": <span>
+            <DOILink
+              doi="10.1007/s11182-019-01606-2"
+              page={1}
+            >
+              10.1007/s11182-019-01606-2
+              <DOIMaterial
+                material={null}
+              />
+            </DOILink>
+          </span>,
+        },
+      ]
+    }
+    title={
+      <Button>
+        <IconText
+          icon={<ForwardRef(LinkOutlined) />}
+          text="DOI"
+        />
+      </Button>
+    }
+  />
+</UserActionWrapper>
+`;
+
+exports[`DOILinkAction renders with multiple doi ids and material 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={false}
+    items={
+      Immutable.List [
+        Object {
+          "key": "10.1007/s11182-019-01606-1",
+          "label": <span>
+            <DOILink
+              doi="10.1007/s11182-019-01606-1"
+              page={0}
+            >
+              10.1007/s11182-019-01606-1
+              <DOIMaterial
+                material={null}
+              />
+            </DOILink>
+          </span>,
+        },
+        Object {
+          "key": "10.1007/s11182-019-01606-2",
+          "label": <span>
+            <DOILink
+              doi="10.1007/s11182-019-01606-2"
+              page={1}
+            >
+              10.1007/s11182-019-01606-2
+              <DOIMaterial
+                material="publication"
+              />
+            </DOILink>
+          </span>,
+        },
+      ]
+    }
+    title={
+      <Button>
+        <IconText
+          icon={<ForwardRef(LinkOutlined) />}
+          text="DOI"
+        />
+      </Button>
+    }
+  />
+</UserActionWrapper>
+`;

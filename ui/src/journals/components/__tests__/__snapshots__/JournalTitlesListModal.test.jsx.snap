@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JournalTitlesListModal renders with props 1`] = `
+<Modal
+  footer={null}
+  onCancel={[MockFunction]}
+  open={false}
+  title="Title variants"
+>
+  <List
+    dataSource={
+      Array [
+        "Test1",
+        "Test2",
+      ]
+    }
+    pagination={
+      Object {
+        "hideOnSinglePage": true,
+        "pageSize": 8,
+        "showSizeChanger": false,
+        "size": "small",
+      }
+    }
+    renderItem={[Function]}
+    size="small"
+  />
+</Modal>
+`;

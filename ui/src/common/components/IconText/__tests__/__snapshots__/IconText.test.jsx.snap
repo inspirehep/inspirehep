@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IconText renders with all props set 1`] = `
+<span
+  className="__IconText__ test"
+>
+  <span
+    className="icon"
+  >
+    <ForwardRef(InfoOutlined) />
+  </span>
+  <span
+    className="v-top"
+  >
+    Test
+  </span>
+</span>
+`;

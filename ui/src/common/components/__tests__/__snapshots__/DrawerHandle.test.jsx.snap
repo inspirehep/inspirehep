@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DrawerHandle renders DrawerHandle with all props 1`] = `
+<Fragment>
+  <Button
+    className="mt3"
+    data-test-id="handle-button"
+    onClick={[Function]}
+  >
+    Handle
+  </Button>
+  <Drawer
+    onClose={[Function]}
+    open={false}
+    placement="left"
+    title="Title"
+    width={256}
+  >
+    <div>
+      Content
+    </div>
+  </Drawer>
+</Fragment>
+`;
+
+exports[`DrawerHandle renders DrawerHandle with default props 1`] = `
+<Fragment>
+  <Button
+    className=""
+    data-test-id="handle-button"
+    onClick={[Function]}
+  >
+    Open
+  </Button>
+  <Drawer
+    onClose={[Function]}
+    open={false}
+    placement="left"
+    title="Title"
+    width={304}
+  >
+    <div>
+      Content
+    </div>
+  </Drawer>
+</Fragment>
+`;

@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InspireCategoryList renders with categories 1`] = `
+<ExpandableInlineList
+  extractKey={[Function]}
+  items={
+    Immutable.List [
+      Immutable.Map {
+        "value": "Accelerators",
+      },
+      Immutable.Map {
+        "value": "Lattice",
+      },
+    ]
+  }
+  label={null}
+  limit={10}
+  renderItem={[Function]}
+  separateItems={false}
+  separator=", "
+  suffix={null}
+  wrapperClassName="di"
+/>
+`;

@@ -1,0 +1,54 @@
+{
+  "core": true,
+  "ICN": ["CERN, Geneva"],
+  "_collections": ["Institutions"],
+  "urls": [
+    { "value": "http://www.cern.ch" },
+    { "description": "TWITTER", "value": "https://twitter.com/CERN" },
+    { "description": "YOUTUBE", "value": "https://www.youtube.com/user/CERNTV" }
+  ],
+  "external_system_identifiers": [
+    { "value": "grid.9132.9", "schema": "GRID" },
+    { "value": "INST-1147", "schema": "SPIRES" }
+  ],
+  "$schema": "https://labs.inspirehep.net/schemas/records/institutions.json",
+  "legacy_version": "20181213154155.0",
+  "extra_words": ["center"],
+  "addresses": [
+    {
+      "postal_address": [
+        "Organisation Europ\u00e9enne pour la Recherche Nucl\u00e9aire (CERN)",
+        "F-01631 Pr\u00e9vessin Cedex"
+      ],
+      "longitude": 6.05,
+      "postal_code": "01631",
+      "country_code": "FR",
+      "latitude": 46.2333333,
+      "cities": ["Pr\u00e9vessin"]
+    },
+    {
+      "cities": ["Geneva"],
+      "postal_code": "1211",
+      "postal_address": ["CH-1211 Gen\u00e8ve 23"],
+      "country_code": "CH"
+    }
+  ],
+  "control_number": 902725,
+  "self": { "$ref": "http://labs.inspirehep.net/api/institutions/902725" },
+  "name_variants": [
+    { "value": "Centre Europ\u00e9en de Recherches Nucl\u00e9aires" }
+  ],
+  "legacy_ICN": "CERN",
+  "_private_notes": [{ "value": "grid.9132.9 from Springer" }],
+  "institution_type": ["Research Center"],
+  "legacy_creation_date": "1989-07-16",
+  "historical_data": [
+    "Conseil europ\u00e9en pour la Recherche Nucl\u00e9aire (1952-1954)",
+    "Organisation europ\u00e9enne pour la Recherche nucl\u00e9aire (1954-now)",
+    "Sub title: Laboratoire europ\u00e9en pour la Physique des Particules (1984-now)",
+    "Sub title: European Laboratory for Particle Physics (1984-now)"
+  ],
+  "institution_hierarchy": [
+    { "acronym": "CERN", "name": "European Organization for Nuclear Research" }
+  ]
+}

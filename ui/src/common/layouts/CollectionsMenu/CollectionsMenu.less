@@ -1,0 +1,63 @@
+.__CollectionsMenu__ {
+  width: 100%;
+  padding-bottom: 0.3em;
+
+  @media (max-width: @screen-sm-max) {
+    display: none;
+  }
+  .button-no-background {
+    padding: 0;
+    background-color: @layout-header-background;
+    border-style: none;
+    border-width: 0;
+    & > span {
+      vertical-align: top;
+      line-height: 1.05;
+    }
+  }
+
+  .button-no-background:hover,
+  .button-no-background:active,
+  .button-no-background:focus {
+    color: @layout-header-background;
+    background: @layout-header-background;
+  }
+
+  .button-title:hover,
+  .button-title:active {
+    border-bottom: solid 0.15em white;
+  }
+}
+
+.more-collections-menu {
+  .ant-dropdown-menu {
+    background-color: @layout-header-background !important;
+    min-width: 160px;
+  }
+
+  .ant-dropdown-menu-item {
+    line-height: 2.5rem;
+    margin-top: 0.25rem;
+    padding: 0 1rem;
+    &:hover {
+      background-color: @layout-header-background !important;
+    }
+  }
+
+  .ant-dropdown-menu-item > a {
+    display: unset;
+    padding: 0;
+  }
+
+  .dropdown-link {
+    font-size: 1rem;
+    margin: 0;
+    text-align: left;
+    color: white;
+    &:hover {
+      background-color: @layout-header-background;
+      border-bottom: solid 0.15em white;
+      color: white;
+    }
+  }
+}

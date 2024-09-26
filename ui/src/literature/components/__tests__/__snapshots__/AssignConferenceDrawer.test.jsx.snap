@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignConferencesDrawer renders assign conferences search 1`] = `
+<Drawer
+  className="search-drawer"
+  onClose={[MockFunction]}
+  open={true}
+  placement="right"
+  title="You have selected 3 
+      papers. Select the
+      conference to assign the selected papers:"
+>
+  <Connect(EmbeddedSearchBox)
+    namespace="assignConference"
+  />
+  <Connect(NumberOfResults)
+    namespace="assignConference"
+  />
+  <Memo(ForwardRef)
+    className="w-100"
+    data-test-id="conference-radio-group"
+    onChange={[Function]}
+  >
+    <Connect(SearchResults)
+      namespace="assignConference"
+      renderItem={[Function]}
+    />
+  </Memo(ForwardRef)>
+  <Row
+    className="mt2"
+    justify="end"
+  >
+    <Col>
+      <Button
+        data-test-id="assign-conference-button"
+        disabled={true}
+        icon={<ForwardRef(SelectOutlined) />}
+        onClick={[Function]}
+        type="primary"
+      >
+        Assign
+      </Button>
+    </Col>
+  </Row>
+</Drawer>
+`;

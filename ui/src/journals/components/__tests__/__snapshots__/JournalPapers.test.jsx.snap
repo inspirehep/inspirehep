@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JournalPapers renders 1`] = `
+<Connect(LiteratureSearch)
+  baseQuery={
+    Object {
+      "q": "publication_info.journal_title:\\"JHEP\\"",
+    }
+  }
+  embedded={true}
+  namespace="journalPapers"
+  noResultsTitle="0 Journal papers"
+  page="Journal details"
+/>
+`;

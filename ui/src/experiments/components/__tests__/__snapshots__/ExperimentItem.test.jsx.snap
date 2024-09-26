@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExperimentItem renders with all props set 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <UrlsAction
+        eventCategory="Experiments search"
+        icon={<ForwardRef(LinkOutlined) />}
+        text="links"
+        trackerEventId="Experiment website"
+        urls={
+          Immutable.List [
+            Immutable.Map {
+              "value": "http://url.com",
+            },
+          ]
+        }
+      />
+      <Connect(Authorized)
+        authorizedRoles={
+          Immutable.List [
+            "superuser",
+            "cataloger",
+          ]
+        }
+      >
+        <EditRecordAction
+          page="Experiments detail"
+          pidType="experiments"
+          pidValue={1234}
+        />
+      </Connect(Authorized)>
+    </React.Fragment>
+  }
+  rightActions={
+    <IncomingLiteratureReferencesLinkAction
+      eventCategory="Experiments search"
+      itemCount={99}
+      linkQuery="accelerator_experiments.record.$ref:1234"
+      referenceType="paper"
+      trackerEventId="Papers link"
+    />
+  }
+>
+  <Row>
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/experiments/1234"
+      >
+        Experiment new
+      </Link>
+      <span
+        className="pl1"
+      >
+        (
+        <AffiliationList
+          affiliations={
+            Immutable.List [
+              Immutable.Map {
+                "value": "CERN",
+                "record": Immutable.Map {
+                  "$ref": "https://inspirehep.net/api/institutions/902725",
+                },
+                "curated_relation": true,
+              },
+              Immutable.Map {
+                "value": "University",
+              },
+            ]
+          }
+          separator=" • "
+        />
+        )
+      </span>
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      This is a long name describing the experiment
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <ExperimentCollaboration
+        collaboration={
+          Immutable.Map {
+            "value": "ATLAS",
+          }
+        }
+      />
+    </Col>
+  </Row>
+</ResultItem>
+`;
+
+exports[`ExperimentItem renders with only needed props 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <Connect(Authorized)
+        authorizedRoles={
+          Immutable.List [
+            "superuser",
+            "cataloger",
+          ]
+        }
+      >
+        <EditRecordAction
+          page="Experiments detail"
+          pidType="experiments"
+          pidValue={1234}
+        />
+      </Connect(Authorized)>
+    </React.Fragment>
+  }
+  rightActions={
+    <IncomingLiteratureReferencesLinkAction
+      eventCategory="Experiments search"
+      itemCount={0}
+      linkQuery="accelerator_experiments.record.$ref:1234"
+      referenceType="paper"
+      trackerEventId="Papers link"
+    />
+  }
+>
+  <Row>
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/experiments/1234"
+      >
+        Experiment new
+      </Link>
+    </Col>
+  </Row>
+</ResultItem>
+`;

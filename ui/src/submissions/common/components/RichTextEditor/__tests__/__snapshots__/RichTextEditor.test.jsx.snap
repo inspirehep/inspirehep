@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RichTextEditor renders 1`] = `
+<div
+  className="__RichTextEditor__ ant-input"
+>
+  <div
+    id="toolbar"
+  >
+    <EditorToolbar />
+  </div>
+  <Quill
+    formats={
+      Array [
+        "bold",
+        "italic",
+        "list",
+        "bullet",
+        "link",
+      ]
+    }
+    modules={
+      Object {
+        "toolbar": "#toolbar",
+      }
+    }
+    onChange={[MockFunction]}
+    theme="snow"
+  />
+</div>
+`;

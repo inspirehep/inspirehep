@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignNoProfileAction renders 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={true}
+    title={
+      <Tooltip
+        title={
+          <p>
+            There is no profile associated to your account. Please
+             
+            <a
+              href="https://help.inspirehep.net/knowledge-base/contact-us"
+              target="_blank"
+            >
+              contact us
+            </a>
+          </p>
+        }
+      >
+        <Button
+          data-test-id="btn-claiming-profile"
+          disabled={true}
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  />
+</UserActionWrapper>
+`;

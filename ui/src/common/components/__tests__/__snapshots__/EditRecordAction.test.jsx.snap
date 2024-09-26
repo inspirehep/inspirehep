@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditRecordAction renders edit button with pidType authors and pidValue 1`] = `
+<UserActionWrapper>
+  <EventTracker
+    eventAction="Edit"
+    eventCategory="Authors"
+    eventId="Edit authors record"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <LinkWithTargetBlank
+      as="a"
+      href="/submissions/authors/1"
+    >
+      <IconText
+        icon={<ForwardRef(EditOutlined) />}
+        text="edit"
+      />
+    </LinkWithTargetBlank>
+  </EventTracker>
+</UserActionWrapper>
+`;
+
+exports[`EditRecordAction renders edit button with pidType authors and pidValue for catalogers 1`] = `
+<UserActionWrapper>
+  <EventTracker
+    eventAction="Edit"
+    eventCategory="Authors"
+    eventId="Edit authors record"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <LinkWithTargetBlank
+      as="a"
+      href="/editor/record/authors/1"
+    >
+      <IconText
+        icon={<ForwardRef(EditOutlined) />}
+        text="edit"
+      />
+    </LinkWithTargetBlank>
+  </EventTracker>
+</UserActionWrapper>
+`;
+
+exports[`EditRecordAction renders edit button with pidType conferences and pidValue 1`] = `
+<UserActionWrapper>
+  <EventTracker
+    eventAction="Edit"
+    eventCategory="Conferences"
+    eventId="Edit conferences record"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <LinkWithTargetBlank
+      as="a"
+      href="/editor/record/conferences/1"
+    >
+      <IconText
+        icon={<ForwardRef(EditOutlined) />}
+        text="edit"
+      />
+    </LinkWithTargetBlank>
+  </EventTracker>
+</UserActionWrapper>
+`;
+
+exports[`EditRecordAction renders edit button with pidType institutions and pidValue 1`] = `
+<UserActionWrapper>
+  <EventTracker
+    eventAction="Edit"
+    eventCategory="Institutions"
+    eventId="Edit institutions record"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <LinkWithTargetBlank
+      as="a"
+      href="/editor/record/institutions/1"
+    >
+      <IconText
+        icon={<ForwardRef(EditOutlined) />}
+        text="edit"
+      />
+    </LinkWithTargetBlank>
+  </EventTracker>
+</UserActionWrapper>
+`;
+
+exports[`EditRecordAction renders edit button with pidType jobs and pidValue 1`] = `
+<UserActionWrapper>
+  <EventTracker
+    eventAction="Edit"
+    eventCategory="Jobs"
+    eventId="Edit jobs record"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <LinkWithTargetBlank
+      as="a"
+      href="/submissions/jobs/1"
+    >
+      <IconText
+        icon={<ForwardRef(EditOutlined) />}
+        text="edit"
+      />
+    </LinkWithTargetBlank>
+  </EventTracker>
+</UserActionWrapper>
+`;
+
+exports[`EditRecordAction renders edit button with pidType literature and pidValue 1`] = `
+<UserActionWrapper>
+  <EventTracker
+    eventAction="Edit"
+    eventCategory="Literature"
+    eventId="Edit literature record"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <LinkWithTargetBlank
+      as="a"
+      href="/editor/record/literature/1"
+    >
+      <IconText
+        icon={<ForwardRef(EditOutlined) />}
+        text="edit"
+      />
+    </LinkWithTargetBlank>
+  </EventTracker>
+</UserActionWrapper>
+`;
+
+exports[`EditRecordAction renders edit button with pidType seminars and pidValue 1`] = `
+<UserActionWrapper>
+  <EventTracker
+    eventAction="Edit"
+    eventCategory="Seminars"
+    eventId="Edit seminars record"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <LinkWithTargetBlank
+      as="a"
+      href="/submissions/seminars/1"
+    >
+      <IconText
+        icon={<ForwardRef(EditOutlined) />}
+        text="edit"
+      />
+    </LinkWithTargetBlank>
+  </EventTracker>
+</UserActionWrapper>
+`;

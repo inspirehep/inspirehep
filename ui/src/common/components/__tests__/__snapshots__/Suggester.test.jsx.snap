@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Suggester does not render results onSearch without waiting for debounce 1`] = `
+<ForwardRef(AutoComplete)
+  onSearch={[Function]}
+  onSelect={[Function]}
+/>
+`;
+
+exports[`Suggester renders empty if request fails 1`] = `
+<ForwardRef(AutoComplete)
+  onSearch={[Function]}
+  onSelect={[Function]}
+/>
+`;
+
+exports[`Suggester renders results onSearch 1`] = `
+<ForwardRef(AutoComplete)
+  onSearch={[Function]}
+  onSelect={[Function]}
+>
+  <Option
+    completionValue="Result 1"
+    key="Result 1"
+    suggestion={
+      Object {
+        "text": "Result 1",
+      }
+    }
+    value="Result 1"
+  >
+    Result 1
+  </Option>
+  <Option
+    completionValue="Result 2"
+    key="Result 2"
+    suggestion={
+      Object {
+        "text": "Result 2",
+      }
+    }
+    value="Result 2"
+  >
+    Result 2
+  </Option>
+</ForwardRef(AutoComplete)>
+`;
+
+exports[`Suggester renders results with custom extractItemCompletionValue 1`] = `
+<ForwardRef(AutoComplete)
+  onSearch={[Function]}
+  onSelect={[Function]}
+>
+  <Option
+    completionValue="Result"
+    key="1"
+    suggestion={
+      Object {
+        "id": "1",
+        "name": "Result",
+      }
+    }
+    value="1"
+  >
+    Result
+  </Option>
+</ForwardRef(AutoComplete)>
+`;
+
+exports[`Suggester renders results with custom extractUniqueItemValue 1`] = `
+<ForwardRef(AutoComplete)
+  onSearch={[Function]}
+  onSelect={[Function]}
+>
+  <Option
+    completionValue="Result 1 - Extra 1"
+    key="Result 1 - Extra 1"
+    suggestion={
+      Object {
+        "extra": "Extra 1",
+        "text": "Result 1",
+      }
+    }
+    value="Result 1 - Extra 1"
+  >
+    Result 1 - Extra 1
+  </Option>
+  <Option
+    completionValue="Result 2 - Extra 2"
+    key="Result 2 - Extra 2"
+    suggestion={
+      Object {
+        "extra": "Extra 2",
+        "text": "Result 2",
+      }
+    }
+    value="Result 2 - Extra 2"
+  >
+    Result 2 - Extra 2
+  </Option>
+</ForwardRef(AutoComplete)>
+`;
+
+exports[`Suggester renders results with custom result template 1`] = `
+<ForwardRef(AutoComplete)
+  onSearch={[Function]}
+  onSelect={[Function]}
+>
+  <Option
+    completionValue="Result 1"
+    key="Result 1"
+    suggestion={
+      Object {
+        "extra": "Extra 1",
+        "text": "Result 1",
+      }
+    }
+    value="Result 1"
+  >
+    <span>
+      Result 1
+       
+      <em>
+        Extra 1
+      </em>
+    </span>
+  </Option>
+  <Option
+    completionValue="Result 2"
+    key="Result 2"
+    suggestion={
+      Object {
+        "extra": "Extra 2",
+        "text": "Result 2",
+      }
+    }
+    value="Result 2"
+  >
+    <span>
+      Result 2
+       
+      <em>
+        Extra 2
+      </em>
+    </span>
+  </Option>
+</ForwardRef(AutoComplete)>
+`;

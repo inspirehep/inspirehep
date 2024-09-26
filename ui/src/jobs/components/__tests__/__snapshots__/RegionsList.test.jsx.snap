@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RegionsList renders regions 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li
+      key="Asia-0"
+    >
+      Asia
+      , 
+    </li>
+    <li
+      key="North America-2"
+    >
+      North America
+    </li>
+  </ul>
+</div>
+`;

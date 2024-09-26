@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loading render loading component 1`] = `
+<Row
+  align="middle"
+  className="w-100"
+  justify="center"
+  type="flex"
+>
+  <Col>
+    <div
+      className="tc pa4"
+      data-test-id="loading"
+    >
+      <Spin
+        tip="Loading ..."
+      />
+    </div>
+  </Col>
+</Row>
+`;

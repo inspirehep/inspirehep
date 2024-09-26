@@ -1,0 +1,19 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:dev": "cypress open",
+    "test": "cypress run",
+    "cypress": "cypress"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@cypress/skip-test": "^2.5.0",
+    "cypress": "^13.13.0",
+    "cypress-image-snapshot": "^4.0.1",
+    "moment": "^2.24.0"
+  }
+}

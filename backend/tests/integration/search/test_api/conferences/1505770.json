@@ -1,0 +1,132 @@
+{
+    "addresses": [
+        {
+            "cities": [
+                "Yaroslavl"
+            ],
+            "latitude": 57.6260744,
+            "longitude": 39.8844708,
+            "country_code": "RU"
+        }
+    ],
+    "cnum": "C17-06-26.3",
+    "core": true,
+    "self": {
+        "$ref": "https://labs.inspirehep.net/api/conferences/1505770"
+    },
+    "urls": [
+        {
+            "value": "http://qfthep.sinp.msu.ru/"
+        }
+    ],
+    "series": [
+        {
+            "name": "QFTHEP",
+            "number": 23
+        }
+    ],
+    "titles": [
+        {
+            "title": "23rd International Workshop on High Energy Physics and Quantum Field Theory"
+        }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+    "acronyms": [
+        "QFTHEP 2017"
+    ],
+    "keywords": [
+        {
+            "value": "High Energy Physics",
+            "source": "submitter"
+        },
+        {
+            "value": "Higgs boson",
+            "source": "submitter"
+        },
+        {
+            "value": "the LHC",
+            "source": "submitter"
+        },
+        {
+            "value": "super B-factories",
+            "source": "submitter"
+        },
+        {
+            "value": "the Standard Model",
+            "source": "submitter"
+        },
+        {
+            "value": "collider phenomenology",
+            "source": "submitter"
+        },
+        {
+            "value": "automatic calculations",
+            "source": "submitter"
+        },
+        {
+            "value": "astroparticle",
+            "source": "submitter"
+        },
+        {
+            "value": "cosmology",
+            "source": "submitter"
+        },
+        {
+            "value": "nucleus-nucleus collisions",
+            "source": "submitter"
+        },
+        {
+            "value": "detectors",
+            "source": "submitter"
+        }
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "2017-07-03",
+    "opening_date": "2017-06-26",
+    "public_notes": [
+        {
+            "value": "Will be published in:"
+        }
+    ],
+    "control_number": 1505770,
+    "legacy_version": "20190214092119.0",
+    "contact_details": [
+        {
+            "email": "qfthep2017@sinp.msu.ru"
+        }
+    ],
+    "short_description": {
+        "value": "The Workshop continues a series of workshops started by the Skobeltsyn Institute of Nuclear Physics of Lomonosov Moscow State University in 1985 and conceived with the purpose of presenting topics of current interest and providing a stimulating environment for scientific discussions on new developments in theoretical and experimental high energy physics and physical programs for future colliders. Traditionally the list of Workshop attendees includes a great number of active young scientists and students from Russia and other countries. This year Workshop is organized jointly by the D.V. Skobeltsyn Institute of Nuclear Physics, M.V. Lomonosov Moscow State University and the  Faculty of Physics, Yaroslavl State University.  The Workshop will take place in the park-hotel “Yaroslavl” situated in a pine forest on the right bank of the Kotorosl river, a tributary of the Volga river. Advisory Committee     A. Andrianov (SPbSU, St. Petersburg)     A. Bondar (BINP, Novosibirsk)     F. Boudjema (LAPPTH, Annecy)     D. Denisov (Fermilab, Batavia)     A. Djouadi (Un.PSUD, Paris)     J. Ellis (CERN, Geneva)     K. Ellis (University of Durham)     J. Fujimoto (KEK, Tsukuba)     F. Gianotti (CERN, Geneva)     I. Ginzburg (NMI, Novosibirsk)     R. Heuer (CERN, Geneva)     C. Hill (Fermilab, Batavia)     W. Hollik (MPI, Munich)     P. Jenni (CERN, Geneva)     L. Lipatov (PNPI, Gatchina)     V. Matveev (JINR, Dubna)     J. Mnich (DESY, Hamburg)     V. Novikov (ITEP, Moscow)     P. Osland (Univ. of Bergen)     M. Panasyuk (SINP MSU, Moscow)     V. Rubakov (INR RAN, Moscow)     R. Tenchini (CERN, Geneva)     N. Tyurin (IHEP, Protvino)     G. Weiglein (DESY, Hamburg) The main topics of the scientific program to be covered are:    1) Higgs and heavy scalar boson searches and other experimental results from the LHC;    2) Physics prospects at Linear Colliders and super B-factories;    3) Extensions of the Standard Model and their phenomenological consequences at the LHC and Linear Colliders;    4) Higher order corrections and resummations for collider phenomenology;    5) Automatic calculations and Monte Carlo simulations in high energy physics;    6) LHC/LC and astroparticle/cosmology connections;    7) Modern nuclear physics and relativistic nucleus-nucleus collisions;    8) Detectors for future experiments in high energy physics; The Workshop will include plenary and two parallel afternoon sessions. The plenary sessions will consist of invited lectures. The afternoon sessions will include original talks. The arrival day is June 26, the departure day is July 3 (afternoon).  The deadline for applications is April 1, 2017. You can find further information about the Workshop and register for participation at our website http://qfthep.sinp.msu.ru. All further correspondence concerning the Workshop should be addressed to the Secretaries of the Workshop by e-mail and/or fax: Dr. Nikolai Nikitin and Dr. Igor Lokhtin - Scientific secretaries Mr. Georgii F. Chernoluzhskiy - Executive secretary of the Workshop, Skobeltsyn Institute of Nuclear Physics, Lomonosov Moscow State University 119991 Moscow, Russia e-mail: qfthep2017@sinp.msu.ru ; Igor.Lokhtin@cern.ch Phone/Fax: +7 495 939 3064"
+    },
+    "alternative_titles": [
+        {
+            "title": "XXIII QFTHEP'2017"
+        }
+    ],
+    "inspire_categories": [
+        {
+            "term": "Astrophysics"
+        },
+        {
+            "term": "Computing"
+        },
+        {
+            "term": "Experiment-HEP"
+        },
+        {
+            "term": "Gravitation and Cosmology"
+        },
+        {
+            "term": "Phenomenology-HEP"
+        },
+        {
+            "term": "Theory-HEP"
+        },
+        {
+            "term": "Theory-Nucl"
+        }
+    ],
+    "legacy_creation_date": "2016-12-26"
+}

@@ -1,0 +1,62 @@
+{
+    "urls": [
+        {
+            "value": "https://www.physik.uni-hamburg.de/iexp/gruppe-horns.html"
+        }
+    ],
+    "ranks": [
+        "PHD"
+    ],
+    "status": "open",
+    "$schema": "https://inspirebeta.net/api/schemas/records/jobs.json",
+    "regions": [
+        "Europe"
+    ],
+    "position": "Cherenkov Telescope Array",
+    "description": "<div>The position is focused on the preparation and deployment of the next generation of imaging air Cherenkov telescopes in the framework of the <a href=\"https://www.cta-observatory.org/\">CTA project</a>. Within this project, we will contribute to the ongoing commissioning of <strong>the first telescopes of the LST-type (see </strong><a href=\"https://www.cta-observatory.org/\"><strong>https://www.cta-observatory.org/</strong></a><strong> for further details) on La Palma.</strong></div><div><br></div><div>The candidate should have a solid background on data analysis, optimization and programming. Additional experience in the operation and optimization of control loops is an asset. The candidate is expected to work on the mirror alignment procedures and participate in the science exploitation. The position comes without eaching duties, but there is the possibility of gaining teaching experience upon request.</div><div><br></div><div><strong>Requirements:</strong></div><div><strong> </strong>A university degree in a relevant field.</div><div><br></div><div>Universit\u00e4t Hamburg has been certified. audit familiengerechte hochschule.</div><div><br></div><div>The Free and Hanseatic City of Hamburg promotes equal opportunity. As women are currently underrepresented in this job category at Universit\u00e4t Hamburg according to the evaluation conducted under the Hamburg act on gender equality (Hamburgisches Gleichstellungsgesetz, HambGleiG), we encourage women to apply for this position. Equally qualified and suitable female applicants will receive preference. Qualified disabled candidates or applicants with equivalent status receive preference in the application process.</div><div><br></div><div>For further information, please contact Prof. Dr. Dieter Horns (dieter.horns@uni<a href=\"http://-hamburg.de\">-hamburg.de</a>) or consult our website at <a href=\"https://www.physik.uni-hamburg.de/en/iexp/gruppe-horns.html\">https://www.physik.uni-hamburg.de/en/iexp/gruppe-horns.html</a>.</div><div><br></div><div>In addition to your application please send 2 recommendation letters. Applications should include a cover letter, a tabular curriculum vitae, and copies of degree certificate(s). Please send applications by email until September 20th, 2020 to: <a href=\"mailto:dieter.horns@uni-hamburg.de\">dieter.horns@uni-hamburg.de</a>.</div><div><br></div>",
+    "_collections": [
+        "Jobs"
+    ],
+    "institutions": [
+        {
+            "value": "Hamburg U.",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/902832"
+            }
+        }
+    ],
+    "deadline_date": "2025-09-20",
+    "control_number": 1813119,
+    "contact_details": [
+        {
+            "name": "Prof. Dr. Dieter Horns (Universit\u00e4t Hamburg)",
+            "email": "dieter.horns@uni-hamburg.de"
+        }
+    ],
+    "arxiv_categories": [
+        "astro-ph"
+    ],
+    "reference_letters": {
+        "emails": [
+            "dieter.horns@uni-hamburg.de"
+        ]
+    },
+    "acquisition_source": {
+        "email": "dieter.horns@physik.uni-hamburg.de",
+        "orcid": "0000-0003-1945-0119",
+        "method": "submitter",
+        "source": "submitter",
+        "datetime": "2020-08-25T10:11:31.549153",
+        "internal_uid": 66665,
+        "submission_number": "None"
+    },
+    "accelerator_experiments": [
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/experiments/1339486"
+            },
+            "legacy_name": "CTA"
+        }
+    ],
+    "external_job_identifier": "CTA"
+}

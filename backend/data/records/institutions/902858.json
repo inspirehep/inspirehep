@@ -1,0 +1,89 @@
+{
+    "ICN": [
+        "Humboldt U., Berlin, Inst. Phys."
+    ],
+    "core": true,
+    "self": {
+        "$ref": "https://inspirebeta.net/api/institutions/902858"
+    },
+    "urls": [
+        {
+            "value": "http://www.physik.hu-berlin.de/"
+        }
+    ],
+    "$schema": "https://inspirebeta.net/schemas/records/institutions.json",
+    "addresses": [
+        {
+            "cities": [
+                "Berlin"
+            ],
+            "latitude": 52.43287,
+            "longitude": 13.52968,
+            "postal_code": "12489",
+            "country_code": "DE",
+            "postal_address": [
+                "Newtonstr. 15, 12489 Berlin"
+            ]
+        }
+    ],
+    "legacy_ICN": "Humboldt U., Berlin",
+    "extra_words": [
+        "Institute of Physics, Humbolt, Univ.",
+        "University",
+        "Lise-Meitner-Haus",
+        "D-12489",
+        "DE-12489",
+        "phys"
+    ],
+    "_collections": [
+        "Institutions"
+    ],
+    "_private_notes": [
+        {
+            "value": "grid.7468.d from Springer"
+        },
+        {
+            "value": "https://ror.org/01hcx6992 from grid.7468.d"
+        },
+        {
+            "value": "Includes Institut fur Physik"
+        }
+    ],
+    "control_number": 902858,
+    "legacy_version": "20201028112114.0",
+    "related_records": [
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/1080534"
+            },
+            "relation": "parent",
+            "curated_relation": true
+        }
+    ],
+    "institution_type": [
+        "University"
+    ],
+    "legacy_creation_date": "1989-08-07",
+    "institution_hierarchy": [
+        {
+            "name": "Institut f\u00fcr Physik"
+        },
+        {
+            "name": "Humboldt-Universit\u00e4t zu Berlin"
+        }
+    ],
+    "external_system_identifiers": [
+        {
+            "value": "grid.7468.d",
+            "schema": "GRID"
+        },
+        {
+            "value": "https://ror.org/01hcx6992",
+            "schema": "ROR"
+        },
+        {
+            "value": "INST-2569",
+            "schema": "SPIRES"
+        }
+    ]
+}

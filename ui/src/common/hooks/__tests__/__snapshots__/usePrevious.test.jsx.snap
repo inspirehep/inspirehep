@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`usePrevious renders previous and current value 1`] = `
+<span>
+  Previous: 
+  1
+  , Current: 
+  2
+</span>
+`;

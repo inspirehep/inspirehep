@@ -1,0 +1,64 @@
+{
+    "addresses": [
+        {
+            "cities": [
+                "Bagnères-de-Bigorre"
+            ],
+            "latitude": 43.065093,
+            "longitude": 0.1491049,
+            "country_code": "FR"
+        }
+    ],
+    "cnum": "C53-07-06",
+    "self": {
+        "$ref": "https://labs.inspirehep.net/api/conferences/978211"
+    },
+    "series": [
+        {
+            "name": "ICRC",
+            "number": 3
+        }
+    ],
+    "titles": [
+        {
+            "title": "3rd International Cosmic Ray Conference"
+        }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+    "acronyms": [
+        "ICRC 1953"
+    ],
+    "keywords": [
+        {
+            "value": "COSMIC RAY CONF. 1953 3RD"
+        },
+        {
+            "value": "SERIES-ICRC"
+        }
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "1953-07-12",
+    "opening_date": "1953-07-06",
+    "control_number": 978211,
+    "legacy_version": "20161028121256.0",
+    "inspire_categories": [
+        {
+            "term": "Astrophysics"
+        },
+        {
+            "term": "Instrumentation"
+        },
+        {
+            "term": "Experiment-HEP"
+        }
+    ],
+    "legacy_creation_date": "2011-11-30",
+    "external_system_identifiers": [
+        {
+            "value": "CONF-520691",
+            "schema": "SPIRES"
+        }
+    ]
+}

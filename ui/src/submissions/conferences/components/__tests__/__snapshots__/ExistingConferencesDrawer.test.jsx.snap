@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExistingConferencesDrawer renders drawer with number of conferences 1`] = `
+<Drawer
+  className="search-drawer"
+  closable={false}
+  onClose={[MockFunction]}
+  open={true}
+  placement="right"
+>
+  <p>
+    <strong>
+      5
+    </strong>
+     
+    conferences
+     found in these dates:
+  </p>
+  <Connect(SearchResults)
+    namespace="existingConferences"
+    renderItem={[Function]}
+  />
+  <Connect(SearchPagination)
+    namespace="existingConferences"
+  />
+</Drawer>
+`;

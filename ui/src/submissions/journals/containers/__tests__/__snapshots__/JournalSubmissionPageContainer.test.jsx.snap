@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JournalSubmissionPageContainer JournalSubmissionPage renders 1`] = `
+<SubmissionPage
+  description={
+    <span>
+      This form allows you to create a new journal record. It will appear in the 
+      <Link
+        to="/journals"
+      >
+        Journals List
+      </Link>
+       immediately.
+    </span>
+  }
+  title="Suggest journal"
+>
+  <JournalSubmission
+    error={null}
+    onSubmit={[Function]}
+  />
+</SubmissionPage>
+`;

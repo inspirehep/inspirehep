@@ -1,0 +1,85 @@
+{
+    "urls": [
+        {
+            "value": "https://www.apctp.org/plan.php/DEDA"
+        }
+    ],
+    "title": {
+        "title": "Dark Energy Changes Everything"
+    },
+    "series": [
+        {
+            "name": "Dark Energy in a Dark Age"
+        }
+    ],
+    "$schema": "https://inspirebeta.net/api/schemas/records/seminars.json",
+    "address": {
+        "cities": [
+            "APCTP Pohang"
+        ],
+        "country_code": "KR"
+    },
+    "abstract": {
+        "value": "<div>The talk will describe how the discovery of dark energy is forcing a reconsideration of everything from string theory to inflation to the future evolution of the universe.</div>"
+    },
+    "speakers": [
+        {
+            "name": "Steinhardt, Paul J.",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/987602"
+            },
+            "affiliations": [
+                {
+                    "value": "Princeton U. (main)",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/1118336"
+                    }
+                }
+            ]
+        }
+    ],
+    "timezone": "Asia/Seoul",
+    "join_urls": [
+        {
+            "value": "https://zoom.us/meeting/register/tJcuf-6pqzosGddjwntuptODFfahDgtipaAf",
+            "description": "zoom"
+        }
+    ],
+    "_collections": [
+        "Seminars"
+    ],
+    "end_datetime": "2023-08-25T07:00:00.000000",
+    "control_number": 1811657,
+    "start_datetime": "2023-08-25T06:00:00.000000",
+    "contact_details": [
+        {
+            "name": "\u00d3 Colg\u00e1in, Eoin",
+            "email": "ocolgain.eoin@apctp.org",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1045989"
+            }
+        }
+    ],
+    "acquisition_source": {
+        "email": "aritrabanerjee1989@gmail.com",
+        "orcid": "0000-0002-9619-7682",
+        "method": "submitter",
+        "source": "submitter",
+        "datetime": "2020-08-14T03:51:48.960353",
+        "internal_uid": 57668
+    },
+    "inspire_categories": [
+        {
+            "term": "Astrophysics"
+        },
+        {
+            "term": "Phenomenology-HEP"
+        },
+        {
+            "term": "Theory-HEP"
+        },
+        {
+            "term": "Gravitation and Cosmology"
+        }
+    ]
+}

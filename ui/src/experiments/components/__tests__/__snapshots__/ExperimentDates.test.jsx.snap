@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExperimentDates renders with all props set 1`] = `
+<InlineUL
+  separator=", "
+  wrapperClassName="di"
+>
+  <span>
+    Proposed: 
+    Feb 1, 1984
+  </span>
+  <span>
+    Approved: 
+    Feb 2, 1984
+  </span>
+  <span>
+    Started: 
+    Feb 3, 1984
+  </span>
+  <span>
+    Cancelled: 
+    Feb 4, 1984
+  </span>
+  <span>
+    Completed: 
+    Feb 5, 1984
+  </span>
+</InlineUL>
+`;
+
+exports[`ExperimentDates renders with partial dates 1`] = `
+<InlineUL
+  separator=", "
+  wrapperClassName={null}
+>
+  <span>
+    Proposed: 
+    1984
+  </span>
+  <span>
+    Approved: 
+    Feb, 1984
+  </span>
+  <span>
+    Started: 
+    Feb 3, 1984
+  </span>
+  <span>
+    Still Running
+  </span>
+</InlineUL>
+`;
+
+exports[`ExperimentDates renders without dateCancelled or dateCompleted 1`] = `
+<InlineUL
+  separator=", "
+  wrapperClassName={null}
+>
+  <span>
+    Proposed: 
+    Feb 1, 1984
+  </span>
+  <span>
+    Approved: 
+    Feb 2, 1984
+  </span>
+  <span>
+    Started: 
+    Feb 3, 1984
+  </span>
+  <span>
+    Still Running
+  </span>
+</InlineUL>
+`;

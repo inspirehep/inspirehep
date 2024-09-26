@@ -1,0 +1,68 @@
+#
+# Copyright (C) 2019 CERN.
+#
+# inspirehep is free software; you can redistribute it and/or modify it under
+# the terms of the MIT License; see LICENSE file for more details.
+
+import mock
+from helpers.providers.faker import faker
+from inspirehep.records.api import ExperimentsRecord
+from inspirehep.records.marshmallow.experiments import ExperimentsElasticSearchSchema
+
+
+@mock.patch("inspirehep.records.api.experiments.ExperimentLiterature")
+def test_experiment_serializer_should_serialize_whole_basic_record(
+    mock_experiment_literature_table,
+):
+    schema = ExperimentsElasticSearchSchema()
+    expected_result = {
+        "$schema": "http://localhost:5000/schemas/records/experiments.json",
+        "_collections": ["Experiments"],
+        "project_type": ["experiment"],
+    }
+
+    experiment = faker.record("exp", data={"experiment": {}})
+    result = schema.dump(experiment).data
+
+    assert result == expected_result
+
+
+@mock.patch("inspirehep.records.api.experiments.ExperimentLiterature")
+def test_experiment_serializer_populates_normalized_names_and_subgroups(
+    mock_experiment_literature_table,
+):
+    schema = ExperimentsElasticSearchSchema()
+    data = {
+        "accelerator": {"value": "ACC"},
+        "collaboration": {
+            "curated_relation": False,
+            "value": "COLLABORATION",
+            "subgroup_names": ["subgroup 1", "subgroup 2"],
+        },
+        "experiment": {"short_name": "EXP SHORT NAME", "value": "Experiment value"},
+        "institutions": [
+            {
+                "record": {
+                    "$ref": "http://labs.inspirehep.net/api/institutions/902725"
+                },
+                "value": "INST_VALUE",
+                "curated_relation": True,
+            }
+        ],
+        "legacy_name": "LEGACY-NAME",
+        "name_variants": ["NAME_V1", "NAME_V2", "NAME_V3"],
+    }
+
+    expected_normalized_name_variants = [
+        "COLLABORATION",
+        "NAME_V1",
+        "NAME_V2",
+        "NAME_V3",
+    ]
+    expected_normalized_subgroups = ["subgroup 1", "subgroup 2"]
+
+    experiment = ExperimentsRecord(faker.record("exp", data))
+    result = schema.dump(experiment).data
+
+    assert result["normalized_name_variants"] == expected_normalized_name_variants
+    assert result["normalized_subgroups"] == expected_normalized_subgroups

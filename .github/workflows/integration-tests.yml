@@ -1,0 +1,115 @@
+name: Integration tests
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: The reference to build
+        type: string
+        required: true
+    outputs:
+      backend-image-id:
+        description: The ID of image that has been buit
+        value: ${{ jobs.build-backend.outputs.image-id }}
+      ui-image-id:
+        description: The ID of image that has been buit
+        value: ${{ jobs.build-ui.outputs.image-id }}
+      editor-image-id:
+        description: The ID of image that has been buit
+        value: ${{ jobs.build-editor.outputs.image-id }}
+
+jobs:
+  build-backend:
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: inspirehep/hep
+      context: backend/
+    secrets: inherit
+
+  test-backend:
+    needs: build-backend
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - suite: unit
+            splits: 1
+          - suite: integration
+            splits: 8
+          - suite: integration-async
+            splits: 4
+    uses: ./.github/workflows/backend-tests.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: "inspirehep/hep@${{ needs.build-backend.outputs.image-id }}"
+      suite: ${{ matrix.suite }}
+      splits: ${{ matrix.splits }}
+
+  build-ui-build-stage:
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: inspirehep/ui-build
+      context: ui/
+      stage: build-stage
+    secrets: inherit
+
+  test-ui:
+    needs: build-ui-build-stage
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        run: >
+          docker run
+          --pull always
+          --network="host"
+          "inspirehep/ui-build@${{ needs.build-ui-build-stage.outputs.image-id }}"
+          yarn test
+
+  build-ui:
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: inspirehep/ui
+      context: ui/
+    secrets: inherit
+
+  build-editor-build-stage:
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: inspirehep/editor-build
+      context: record-editor/
+      stage: build-stage
+    secrets: inherit
+
+  test-editor:
+    needs: build-editor-build-stage
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        run: >
+          docker run
+          --pull always
+          --network="host"
+          "inspirehep/editor-build@${{ needs.build-editor-build-stage.outputs.image-id }}"
+          yarn lint
+
+  build-editor:
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: inspirehep/editor
+      context: record-editor/
+    secrets: inherit
+
+  test-e2e:
+    needs: [ build-backend, build-ui, build-editor ]
+    uses: ./.github/workflows/e2e-tests.yml
+    with:
+      ref: ${{ inputs.ref }}
+      backend-image: "inspirehep/hep@${{ needs.build-backend.outputs.image-id }}"
+      ui-image: "inspirehep/ui@${{ needs.build-ui.outputs.image-id }}"
+      editor-image: "inspirehep/editor@${{ needs.build-editor.outputs.image-id }}"
+    secrets: inherit

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DOILink renders with doi 1`] = `
+<EventTracker
+  eventAction="Link"
+  eventCategory="Literature detail"
+  eventId="Doi link"
+  eventPropName="onClick"
+  extractEventArgsToForward={null}
+>
+  <LinkWithTargetBlank
+    as="a"
+    href="//doi.org/12.1234/1234567890123_1234"
+  >
+    DOI
+  </LinkWithTargetBlank>
+</EventTracker>
+`;

@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Error500 renders Error500 1`] = `
+<ErrorPage
+  detail={
+    <span>
+      Please try again later or 
+      <Connect(GoBackLink)
+        color="black"
+      />
+    </span>
+  }
+  imageSrc="500.svg"
+  message="Something went wrong"
+  url=""
+/>
+`;

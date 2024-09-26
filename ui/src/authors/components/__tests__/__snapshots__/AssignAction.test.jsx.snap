@@ -1,0 +1,321 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignAction renders 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={false}
+    items={
+      Array [
+        Object {
+          "key": "1",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="assign-self"
+              data-testid="assign-self"
+              onClick={[Function]}
+            >
+              This is my paper
+            </span>
+          </EventTracker>,
+        },
+        Object {
+          "key": "2",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is not my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="unassign"
+              data-testid="unassign"
+              onClick={[Function]}
+            >
+              This is not my paper
+            </span>
+          </EventTracker>,
+        },
+        Object {
+          "key": "3",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="Assign to another author"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="assign-another"
+              data-testid="assign-another"
+              onClick={[Function]}
+            >
+              Assign to another author
+            </span>
+          </EventTracker>,
+        },
+      ]
+    }
+    title={
+      <Tooltip
+        title={null}
+      >
+        <Button
+          data-test-id="btn-claim"
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  />
+</UserActionWrapper>
+`;
+
+exports[`AssignAction renders disabled 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={true}
+    items={
+      Array [
+        Object {
+          "key": "1",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="assign-self"
+              data-testid="assign-self"
+              onClick={[Function]}
+            >
+              This is my paper
+            </span>
+          </EventTracker>,
+        },
+        Object {
+          "key": "2",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is not my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="unassign"
+              data-testid="unassign"
+              onClick={[Function]}
+            >
+              This is not my paper
+            </span>
+          </EventTracker>,
+        },
+        Object {
+          "key": "3",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="Assign to another author"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="assign-another"
+              data-testid="assign-another"
+              onClick={[Function]}
+            >
+              Assign to another author
+            </span>
+          </EventTracker>,
+        },
+      ]
+    }
+    title={
+      <Tooltip
+        title="Please select the papers you want to claim or remove from the profile."
+      >
+        <Button
+          data-test-id="btn-claim"
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  />
+</UserActionWrapper>
+`;
+
+exports[`AssignAction renders plural form if numberOfSelected is more than 1 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={false}
+    items={
+      Array [
+        Object {
+          "key": "1",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="assign-self"
+              data-testid="assign-self"
+              onClick={[Function]}
+            >
+              These are my papers
+            </span>
+          </EventTracker>,
+        },
+        Object {
+          "key": "2",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is not my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="unassign"
+              data-testid="unassign"
+              onClick={[Function]}
+            >
+              These are not my papers
+            </span>
+          </EventTracker>,
+        },
+        Object {
+          "key": "3",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="Assign to another author"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="assign-another"
+              data-testid="assign-another"
+              onClick={[Function]}
+            >
+              Assign to another author
+            </span>
+          </EventTracker>,
+        },
+      ]
+    }
+    title={
+      <Tooltip
+        title={null}
+      >
+        <Button
+          data-test-id="btn-claim"
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  />
+</UserActionWrapper>
+`;
+
+exports[`AssignAction renders singular form if numberOfSelected is 1 1`] = `
+<UserActionWrapper>
+  <DropdownMenu
+    disabled={false}
+    items={
+      Array [
+        Object {
+          "key": "1",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="assign-self"
+              data-testid="assign-self"
+              onClick={[Function]}
+            >
+              This is my paper
+            </span>
+          </EventTracker>,
+        },
+        Object {
+          "key": "2",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="This is not my paper"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="unassign"
+              data-testid="unassign"
+              onClick={[Function]}
+            >
+              This is not my paper
+            </span>
+          </EventTracker>,
+        },
+        Object {
+          "key": "3",
+          "label": <EventTracker
+            eventAction="Claim"
+            eventCategory="Author detail"
+            eventId="Assign to another author"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              data-test-id="assign-another"
+              data-testid="assign-another"
+              onClick={[Function]}
+            >
+              Assign to another author
+            </span>
+          </EventTracker>,
+        },
+      ]
+    }
+    title={
+      <Tooltip
+        title={null}
+      >
+        <Button
+          data-test-id="btn-claim"
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  />
+</UserActionWrapper>
+`;

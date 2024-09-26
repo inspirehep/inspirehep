@@ -1,0 +1,429 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SeminarItem renders with all props set 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <UrlsAction
+        icon={<ForwardRef(LinkOutlined) />}
+        page="Seminars search"
+        text="website"
+        trackerEventId="Seminar website"
+        urls={
+          Immutable.List [
+            Immutable.Map {
+              "value": "http://url.com",
+            },
+          ]
+        }
+      />
+      <UrlsAction
+        icon={<ForwardRef(VideoCameraAddOutlined) />}
+        page="Seminars search"
+        text="join"
+        trackerEventId="Meeting link"
+        urls={
+          Immutable.List [
+            Immutable.Map {
+              "value": "http://urljoin.com",
+              "description": "zoom",
+            },
+          ]
+        }
+      />
+      <UrlsAction
+        icon={<ForwardRef(FileOutlined) />}
+        page="Seminars search"
+        text="material"
+        trackerEventId="Material link"
+        urls={
+          Immutable.List [
+            Immutable.Map {
+              "value": "http://urlmaterial.com",
+              "description": "slides",
+            },
+          ]
+        }
+      />
+      <ExportToCalendarAction
+        page="Seminars search"
+        seminar={
+          Immutable.Map {
+            "urls": Immutable.List [
+              Immutable.Map {
+                "value": "http://url.com",
+              },
+            ],
+            "control_number": 12345,
+            "speakers": Immutable.List [
+              Immutable.Map {
+                "name": "John, Doe",
+                "affiliations": Immutable.List [
+                  Immutable.Map {
+                    "value": "CERN",
+                  },
+                ],
+              },
+            ],
+            "title": Immutable.Map {
+              "title": "test",
+            },
+            "start_datetime": "2020-05-15T11:45:00.000000",
+            "can_edit": true,
+            "join_urls": Immutable.List [
+              Immutable.Map {
+                "value": "http://urljoin.com",
+                "description": "zoom",
+              },
+            ],
+            "material_urls": Immutable.List [
+              Immutable.Map {
+                "value": "http://urlmaterial.com",
+                "description": "slides",
+              },
+            ],
+            "end_datetime": "2020-05-17T00:45:00.000000",
+          }
+        }
+      />
+      <EditRecordAction
+        page="Seminars search"
+        pidType="seminars"
+        pidValue={12345}
+      />
+    </React.Fragment>
+  }
+>
+  <Row
+    type="flex"
+  >
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/seminars/12345"
+      >
+        <EventTitle
+          title={
+            Immutable.Map {
+              "title": "test",
+            }
+          }
+        />
+      </Link>
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <AuthorList
+        authors={
+          Immutable.List [
+            Immutable.Map {
+              "name": "John, Doe",
+              "affiliations": Immutable.List [
+                Immutable.Map {
+                  "value": "CERN",
+                },
+              ],
+            },
+          ]
+        }
+        enableShowAll={false}
+        limit={5}
+        page="Seminars search"
+        total={-1}
+        wrapperClassName={null}
+      />
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <SeminarDateTimes
+        displayTimezone={false}
+        endDate="2020-05-17T00:45:00.000000"
+        startDate="2020-05-15T11:45:00.000000"
+        timezone="Europe/Zurich"
+      />
+    </Col>
+  </Row>
+</ResultItem>
+`;
+
+exports[`SeminarItem renders with only needed props 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <ExportToCalendarAction
+        page="Seminars search"
+        seminar={
+          Immutable.Map {
+            "title": Immutable.Map {
+              "title": "test",
+            },
+            "control_number": 12345,
+            "can_edit": true,
+            "speakers": Immutable.List [
+              Immutable.Map {
+                "name": "John, Doe",
+                "affiliations": Immutable.List [
+                  Immutable.Map {
+                    "value": "CERN",
+                  },
+                ],
+              },
+            ],
+            "start_datetime": "2020-05-15T11:45:00.000000",
+            "end_datetime": "2020-05-17T00:45:00.000000",
+          }
+        }
+      />
+      <EditRecordAction
+        page="Seminars search"
+        pidType="seminars"
+        pidValue={12345}
+      />
+    </React.Fragment>
+  }
+>
+  <Row
+    type="flex"
+  >
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/seminars/12345"
+      >
+        <EventTitle
+          title={
+            Immutable.Map {
+              "title": "test",
+            }
+          }
+        />
+      </Link>
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <AuthorList
+        authors={
+          Immutable.List [
+            Immutable.Map {
+              "name": "John, Doe",
+              "affiliations": Immutable.List [
+                Immutable.Map {
+                  "value": "CERN",
+                },
+              ],
+            },
+          ]
+        }
+        enableShowAll={false}
+        limit={5}
+        page="Seminars search"
+        total={-1}
+        wrapperClassName={null}
+      />
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <SeminarDateTimes
+        displayTimezone={false}
+        endDate="2020-05-17T00:45:00.000000"
+        startDate="2020-05-15T11:45:00.000000"
+        timezone="Europe/Zurich"
+      />
+    </Col>
+  </Row>
+</ResultItem>
+`;
+
+exports[`SeminarItem renders with selected timezone with a different time than local timezone 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <ExportToCalendarAction
+        page="Seminars search"
+        seminar={
+          Immutable.Map {
+            "title": Immutable.Map {
+              "title": "test",
+            },
+            "control_number": 12345,
+            "can_edit": true,
+            "speakers": Immutable.List [
+              Immutable.Map {
+                "name": "John, Doe",
+                "affiliations": Immutable.List [
+                  Immutable.Map {
+                    "value": "CERN",
+                  },
+                ],
+              },
+            ],
+            "start_datetime": "2020-05-15T11:45:00.000000",
+            "end_datetime": "2020-05-17T00:45:00.000000",
+          }
+        }
+      />
+      <EditRecordAction
+        page="Seminars search"
+        pidType="seminars"
+        pidValue={12345}
+      />
+    </React.Fragment>
+  }
+>
+  <Row
+    type="flex"
+  >
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/seminars/12345"
+      >
+        <EventTitle
+          title={
+            Immutable.Map {
+              "title": "test",
+            }
+          }
+        />
+      </Link>
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <AuthorList
+        authors={
+          Immutable.List [
+            Immutable.Map {
+              "name": "John, Doe",
+              "affiliations": Immutable.List [
+                Immutable.Map {
+                  "value": "CERN",
+                },
+              ],
+            },
+          ]
+        }
+        enableShowAll={false}
+        limit={5}
+        page="Seminars search"
+        total={-1}
+        wrapperClassName={null}
+      />
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <SeminarDateTimes
+        className="red"
+        displayTimezone={true}
+        endDate="2020-05-17T00:45:00.000000"
+        startDate="2020-05-15T11:45:00.000000"
+        timezone="America/Chicago"
+      />
+       
+      (
+      <SeminarDateTimes
+        displayTimezone={true}
+        endDate="2020-05-17T00:45:00.000000"
+        startDate="2020-05-15T11:45:00.000000"
+        timezone="Europe/Zurich"
+      />
+      )
+    </Col>
+  </Row>
+</ResultItem>
+`;
+
+exports[`SeminarItem renders with selected timezone with a same time as local timezone 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <ExportToCalendarAction
+        page="Seminars search"
+        seminar={
+          Immutable.Map {
+            "title": Immutable.Map {
+              "title": "test",
+            },
+            "control_number": 12345,
+            "can_edit": true,
+            "speakers": Immutable.List [
+              Immutable.Map {
+                "name": "John, Doe",
+                "affiliations": Immutable.List [
+                  Immutable.Map {
+                    "value": "CERN",
+                  },
+                ],
+              },
+            ],
+            "start_datetime": "2020-05-15T11:45:00.000000",
+            "end_datetime": "2020-05-17T00:45:00.000000",
+          }
+        }
+      />
+      <EditRecordAction
+        page="Seminars search"
+        pidType="seminars"
+        pidValue={12345}
+      />
+    </React.Fragment>
+  }
+>
+  <Row
+    type="flex"
+  >
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/seminars/12345"
+      >
+        <EventTitle
+          title={
+            Immutable.Map {
+              "title": "test",
+            }
+          }
+        />
+      </Link>
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <AuthorList
+        authors={
+          Immutable.List [
+            Immutable.Map {
+              "name": "John, Doe",
+              "affiliations": Immutable.List [
+                Immutable.Map {
+                  "value": "CERN",
+                },
+              ],
+            },
+          ]
+        }
+        enableShowAll={false}
+        limit={5}
+        page="Seminars search"
+        total={-1}
+        wrapperClassName={null}
+      />
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <SeminarDateTimes
+        displayTimezone={false}
+        endDate="2020-05-17T00:45:00.000000"
+        startDate="2020-05-15T11:45:00.000000"
+        timezone="Europe/Zurich"
+      />
+    </Col>
+  </Row>
+</ResultItem>
+`;

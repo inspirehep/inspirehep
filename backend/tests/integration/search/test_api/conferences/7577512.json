@@ -1,0 +1,22 @@
+{
+  "contact_details": [{ "email": "fakeemail@email.com" }],
+  "urls": [{ "value": "http://google.com/" }],
+  "_collections": ["Conferences"],
+  "deleted": false,
+  "cnum": "C19-10-01",
+  "addresses": [{ "cities": ["Paris"], "country_code": "FR" }],
+  "titles": [{ "title": "Conference that takes forever" }],
+  "acronyms": ["CTTF"],
+  "opening_date": "2019-10-01",
+  "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
+  "control_number": 7577512,
+  "closing_date": "2055-05-10",
+  "self": { "$ref": "http://labs.inspirehep.net/api/conferences/7577512" },
+  "inspire_categories": [{ "term": "Other" }],
+  "series": [{ "name": "Forever", "number": 999 }],
+  "public_notes": [
+    {
+      "value": "Will this conference be finished before INSPIRE?"
+    }
+  ]
+}

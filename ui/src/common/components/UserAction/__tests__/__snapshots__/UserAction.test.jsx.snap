@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserAction renders 1`] = `
+<span
+  className="__UserAction__"
+>
+  <Button>
+    <IconText
+      icon={<ForwardRef(ExpandOutlined) />}
+      text="cite"
+    />
+  </Button>
+</span>
+`;

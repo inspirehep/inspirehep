@@ -1,0 +1,34 @@
+{
+    "self": {
+        "$ref": "https://inspirebeta.net/api/journals/1213100"
+    },
+    "$schema": "https://inspirebeta.net/schemas/records/journals.json",
+    "short_title": "Calc.Var.Part.Differ.Equ",
+    "_collections": [
+        "Journals"
+    ],
+    "journal_title": {
+        "title": "Calculus of Variations and Partial Differential Equations"
+    },
+    "control_number": 1213100,
+    "legacy_version": "20210607130823.0",
+    "title_variants": [
+        "CALC VAR PARTIAL DIFFERENTIAL EQUATIONS",
+        "CALC VAR PARTIAL DIFFER EQU",
+        "CALC VAR PART DIFFER EQU",
+        "CALC VAR PART DIFF EQ",
+        "CALC VAR"
+    ],
+    "_harvesting_info": {
+        "method": "feed",
+        "coverage": "partial",
+        "last_seen_item": "Calc.Var.Part.Differ.Equ,60,2",
+        "date_last_harvest": "2021-06-07"
+    },
+    "inspire_categories": [
+        {
+            "term": "Math and Math Physics"
+        }
+    ],
+    "legacy_creation_date": "2013-01-18"
+}

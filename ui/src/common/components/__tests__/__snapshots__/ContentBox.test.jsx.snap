@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentBox does not render ContentBox without children 1`] = `""`;
+
+exports[`ContentBox renders ContentBox with actions 1`] = `
+<div
+  className="__ContentBox__ h-100"
+>
+  <ForwardRef
+    className="h-100"
+    loading={false}
+    title={null}
+  >
+    <div
+      className="pa2"
+    >
+      <div>
+        <div>
+          Defenders
+        </div>
+      </div>
+    </div>
+    <Row
+      className="actions ph2"
+      justify="space-between"
+    >
+      <Col />
+      <Col />
+    </Row>
+  </ForwardRef>
+</div>
+`;
+
+exports[`ContentBox renders ContentBox with actions and title with loading 1`] = `
+<div
+  className="__ContentBox__ h-100"
+>
+  <ForwardRef
+    className="h-100"
+    loading={true}
+    title="Jessica Jones"
+  >
+    <div
+      className="pa2"
+    >
+      <div>
+        <div>
+          Defenders
+        </div>
+      </div>
+    </div>
+    <Row
+      className="actions ph2"
+      justify="space-between"
+    >
+      <Col />
+      <Col />
+    </Row>
+  </ForwardRef>
+</div>
+`;
+
+exports[`ContentBox renders ContentBox with actions and title without loading 1`] = `
+<div
+  className="__ContentBox__ h-100"
+>
+  <ForwardRef
+    className="h-100"
+    loading={false}
+    title="Jessica Jones"
+  >
+    <div
+      className="pa2"
+    >
+      <div>
+        <div>
+          Defenders
+        </div>
+      </div>
+    </div>
+    <Row
+      className="actions ph2"
+      justify="space-between"
+    >
+      <Col />
+      <Col />
+    </Row>
+  </ForwardRef>
+</div>
+`;
+
+exports[`ContentBox renders ContentBox with subTitle and className 1`] = `
+<div
+  className="__ContentBox__ h-100 pa3"
+>
+  <ForwardRef
+    className="h-100"
+    loading={false}
+    title={null}
+  >
+    <div
+      className="pa2 pa3"
+    >
+      <h3
+        className="pb1"
+      >
+        Lame
+      </h3>
+      <div>
+        <div>
+          Defenders
+        </div>
+      </div>
+    </div>
+    <Row
+      className="actions ph2"
+      justify="space-between"
+    >
+      <Col />
+      <Col />
+    </Row>
+  </ForwardRef>
+</div>
+`;
+
+exports[`ContentBox renders ContentBox without actions 1`] = `
+<div
+  className="__ContentBox__ h-100"
+>
+  <ForwardRef
+    className="h-100"
+    loading={false}
+    title={null}
+  >
+    <div
+      className="pa2"
+    >
+      <div>
+        <div>
+          Defenders
+        </div>
+      </div>
+    </div>
+    <Row
+      className="actions ph2"
+      justify="space-between"
+    >
+      <Col />
+      <Col />
+    </Row>
+  </ForwardRef>
+</div>
+`;

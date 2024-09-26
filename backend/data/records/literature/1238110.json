@@ -1,0 +1,1377 @@
+{
+    "core": true,
+    "dois": [
+        {
+            "value": "10.1103/PhysRevD.88.054502"
+        }
+    ],
+    "self": {
+        "$ref": "https://inspirebeta.net/api/literature/1238110"
+    },
+    "titles": [
+        {
+            "title": "A new representation of the Adler function for lattice QCD",
+            "source": "arXiv"
+        }
+    ],
+    "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+    "authors": [
+        {
+            "uuid": "3b1bb58b-d0f4-40a7-bb47-56148ee61b6f",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1077384"
+            },
+            "full_name": "Francis, Anthony",
+            "affiliations": [
+                {
+                    "value": "Mainz U., Inst. Kernphys.",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/902981"
+                    }
+                },
+                {
+                    "value": "Helmholtz Inst., Mainz",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/912519"
+                    }
+                }
+            ],
+            "signature_block": "FRANCa",
+            "curated_relation": true
+        },
+        {
+            "uuid": "bec8bf54-54b1-4fd5-b77e-0dbf8ede1515",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1272234"
+            },
+            "full_name": "Jaeger, Benjamin",
+            "affiliations": [
+                {
+                    "value": "Mainz U., Inst. Kernphys.",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/902981"
+                    }
+                },
+                {
+                    "value": "Helmholtz Inst., Mainz",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/912519"
+                    }
+                }
+            ],
+            "signature_block": "JAGARb",
+            "curated_relation": true
+        },
+        {
+            "uuid": "be66ee71-1626-44b0-ac5d-f5c12edf7a6f",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1021390"
+            },
+            "full_name": "Meyer, Harvey B.",
+            "affiliations": [
+                {
+                    "value": "Mainz U., Inst. Kernphys.",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/902981"
+                    }
+                },
+                {
+                    "value": "Helmholtz Inst., Mainz",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/912519"
+                    }
+                }
+            ],
+            "signature_block": "MYARh"
+        },
+        {
+            "uuid": "dcd5d094-a826-4c91-afec-7c486a263874",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/983321"
+            },
+            "full_name": "Wittig, Hartmut",
+            "affiliations": [
+                {
+                    "value": "Mainz U., Inst. Kernphys.",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/902981"
+                    }
+                },
+                {
+                    "value": "Helmholtz Inst., Mainz",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/912519"
+                    }
+                }
+            ],
+            "signature_block": "WATAGh"
+        }
+    ],
+    "curated": true,
+    "figures": [
+        {
+            "key": "3eda21d515faa7dc3d15d0a343e6db76",
+            "url": "https://inspirebeta.net/files/3eda21d515faa7dc3d15d0a343e6db76",
+            "source": "arxiv",
+            "caption": "Relative finite-size effect on the Euclidean correlator (\\ref{eq:Gdef}) for a pion form factor given by the Gounaris-Sakurai (GS) parametrization and for free pions. For details see appendix~A.",
+            "filename": "Gtrat-both.png"
+        },
+        {
+            "key": "711f39b37773e3998f760f8fab17c09c",
+            "url": "https://inspirebeta.net/files/711f39b37773e3998f760f8fab17c09c",
+            "source": "arxiv",
+            "caption": "Local-conserved and smeared-smeared isovector vector correlation functions. The red shaded area shows the correlator entering Eq.\\ (\\ref{eq:PihatGt}) for the computation of $\\hat\\Pi(Q^2)$, the blue shaded area correlator is used to fit the lowest lying mass for extrapolation to all time beyond $x_0\\simeq T/4$.",
+            "filename": "corr-F6-iso.png"
+        },
+        {
+            "key": "81066f29aa9cb39534f85ca4ad5126fb",
+            "url": "https://inspirebeta.net/files/81066f29aa9cb39534f85ca4ad5126fb",
+            "source": "arxiv",
+            "caption": "The subtracted vacuum polarization $\\widehat\\Pi(Q^2)$ and $d\\widehat\\Pi(Q^2)/dQ^2$ computed from the red shaded correlator in Fig.\\ \\ref{fig:corr}. The data shown in black were obtained using the momentum-space method on the same ensemble with comparable statistics \\cite{DellaMorte:2012cf}.",
+            "filename": "pihat-F6-iso.png"
+        },
+        {
+            "key": "d7026d5b138c835a5ed2ccb1202259eb",
+            "url": "https://inspirebeta.net/files/d7026d5b138c835a5ed2ccb1202259eb",
+            "source": "arxiv",
+            "caption": "The integrand needed to compute the slope $D'(0)$ of the Adler function at $Q^2=0$. The bands of different color are the results obtained by replacing the data by a pure exponential falloff around the value $x_0=$cut[fm]. The area under this curve (divided by $3\\cdot(0.197)^{2}$) is equal to the intercept of the blue curve in \\fig\\ref{fig:pihat}.",
+            "filename": "slope-F6-iso.png"
+        },
+        {
+            "key": "f5953f46b62aa6deab44aa7ea7a3f59a",
+            "url": "https://inspirebeta.net/files/f5953f46b62aa6deab44aa7ea7a3f59a",
+            "source": "arxiv",
+            "caption": "The functions $\\widehat\\Pi(Q^2)$ and $D(Q^2)$ from our analysis and a phenomenological model \\cite{Bernecker:2011gh}. The horizontal axis has been rescaled by the ground-state mass $m_1=894(2)$MeV on the lattice and the physical $\\rho$ meson mass ($770$MeV) respectively. For reference the free result $D(Q^2)=\\frac{3}{2}$ is shown as a dotted line.",
+            "filename": "pihat2-F6-iso.png"
+        }
+    ],
+    "license": [
+        {
+            "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+            "imposing": "arXiv"
+        }
+    ],
+    "texkeys": [
+        "Francis:2013fzp",
+        "Francis:2013qna"
+    ],
+    "citeable": true,
+    "imprints": [
+        {
+            "date": "2013-09-04"
+        }
+    ],
+    "keywords": [
+        {
+            "value": "12.38.Gc",
+            "schema": "PACS"
+        },
+        {
+            "value": "13.40.Em",
+            "schema": "PACS"
+        },
+        {
+            "value": "13.66.Bc",
+            "schema": "PACS"
+        },
+        {
+            "value": "14.60.Ef",
+            "schema": "PACS"
+        },
+        {
+            "value": "current: correlation function",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "correlation function: Euclidean",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "vacuum polarization: hadronic",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "current: electromagnetic",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "finite size: effect",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "lattice field theory",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "flavor: dependence",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "operator product expansion",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "spectral representation",
+            "schema": "INSPIRE"
+        },
+        {
+            "value": "quantum chromodynamics: lattice",
+            "schema": "INSPIRE"
+        }
+    ],
+    "refereed": true,
+    "abstracts": [
+        {
+            "value": "We address several aspects of lattice QCD calculations of the hadronic vacuum polarization and the associated Adler function. We implement a representation derived previously which allows one to access these phenomenologically important functions for a continuous set of virtualities, irrespective of the flavor structure of the current. Secondly, we present a theoretical analysis of the finite-size effects on our particular representation of the Adler function, based on the operator product expansion at large momenta and on the spectral representation of the Euclidean correlator at small momenta. Finally, an analysis of the flavor structure of the electromagnetic current correlator is performed, where a recent theoretical estimate of the Wick-disconnected diagram contributions is rederived independently and confirmed.",
+            "source": "APS"
+        },
+        {
+            "value": "We address several aspects of lattice QCD calculations of the hadronic vacuum polarization and the associated Adler function. We implement a representation derived previously which allows one to access these phenomenologically important functions for a continuous set of virtualities, irrespective of the flavor structure of the current. Secondly we present a theoretical analysis of the finite-size effects on our particular representation of the Adler function, based on the operator product expansion at large momenta and on the spectral representation of the Euclidean correlator at small momenta. Finally, an analysis of the flavor structure of the electromagnetic current correlator is performed, where a recent theoretical estimate of the Wick-disconnected diagram contributions is rederived independently and confirmed.",
+            "source": "arXiv"
+        }
+    ],
+    "documents": [
+        {
+            "key": "7fc69d3ef44e0ec38d6eaf1b402fcdd6",
+            "url": "https://inspirebeta.net/files/7fc69d3ef44e0ec38d6eaf1b402fcdd6",
+            "hidden": true,
+            "source": "APS",
+            "filename": "fulltext.xml"
+        },
+        {
+            "key": "064021b175ef2b8f346c55233837af8d",
+            "url": "https://inspirebeta.net/files/064021b175ef2b8f346c55233837af8d",
+            "hidden": true,
+            "source": "arxiv",
+            "filename": "arXiv:1306.2532.pdf"
+        }
+    ],
+    "references": [
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/604400"
+            },
+            "reference": {
+                "misc": [
+                    "heplat/0212018"
+                ],
+                "label": "1",
+                "authors": [
+                    {
+                        "full_name": "Blum, T."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2003,
+                    "artid": "052001",
+                    "journal_title": "Phys.Rev.Lett.",
+                    "journal_volume": "91"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/635923"
+            },
+            "reference": {
+                "misc": [
+                    "(QCDSF Collaboration)"
+                ],
+                "label": "2",
+                "authors": [
+                    {
+                        "full_name": "G\u00f6ckeler, M."
+                    }
+                ],
+                "arxiv_eprint": "hep-lat/0312032",
+                "publication_info": {
+                    "year": 2004,
+                    "artid": "135",
+                    "page_start": "135",
+                    "journal_title": "Nucl.Phys.B",
+                    "journal_volume": "688"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/724054"
+            },
+            "reference": {
+                "label": "3",
+                "authors": [
+                    {
+                        "full_name": "Aubin, C."
+                    },
+                    {
+                        "full_name": "Blum, T."
+                    }
+                ],
+                "arxiv_eprint": "hep-lat/0608011",
+                "publication_info": {
+                    "year": 2007,
+                    "artid": "114502",
+                    "journal_title": "Phys.Rev.D",
+                    "journal_volume": "75"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/893768"
+            },
+            "reference": {
+                "label": "4",
+                "authors": [
+                    {
+                        "full_name": "Feng, X."
+                    },
+                    {
+                        "full_name": "Jansen, K."
+                    },
+                    {
+                        "full_name": "Petschlies, M."
+                    },
+                    {
+                        "full_name": "Renner, D.B."
+                    }
+                ],
+                "arxiv_eprint": "1103.4818",
+                "publication_info": {
+                    "year": 2011,
+                    "artid": "081802",
+                    "journal_title": "Phys.Rev.Lett.",
+                    "journal_volume": "107"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/917356"
+            },
+            "reference": {
+                "label": "5",
+                "authors": [
+                    {
+                        "full_name": "Boyle, P."
+                    },
+                    {
+                        "full_name": "Del Debbio, L."
+                    },
+                    {
+                        "full_name": "Kerrane, E."
+                    },
+                    {
+                        "full_name": "Zanotti, J."
+                    }
+                ],
+                "arxiv_eprint": "1107.1497",
+                "publication_info": {
+                    "year": 2012,
+                    "artid": "074504",
+                    "journal_title": "Phys.Rev.D",
+                    "journal_volume": "85"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1081162"
+            },
+            "reference": {
+                "label": "6",
+                "authors": [
+                    {
+                        "full_name": "Della Morte, M."
+                    },
+                    {
+                        "full_name": "J\u00e4ger, B."
+                    },
+                    {
+                        "full_name": "J\u00fcttner, A."
+                    },
+                    {
+                        "full_name": "Wittig, H."
+                    }
+                ],
+                "arxiv_eprint": "1112.2894",
+                "publication_info": {
+                    "year": 2012,
+                    "artid": "055",
+                    "page_start": "055",
+                    "journal_title": "JHEP",
+                    "journal_volume": "03"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1182522"
+            },
+            "reference": {
+                "label": "7",
+                "authors": [
+                    {
+                        "full_name": "de Divitiis, G."
+                    },
+                    {
+                        "full_name": "Petronzio, R."
+                    },
+                    {
+                        "full_name": "Tantalo, N."
+                    }
+                ],
+                "arxiv_eprint": "1208.5914",
+                "publication_info": {
+                    "year": 2012,
+                    "artid": "589",
+                    "page_start": "589",
+                    "journal_title": "Phys.Lett.B",
+                    "journal_volume": "718"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1114976"
+            },
+            "reference": {
+                "label": "8",
+                "authors": [
+                    {
+                        "full_name": "Aubin, C."
+                    },
+                    {
+                        "full_name": "Blum, T."
+                    },
+                    {
+                        "full_name": "Golterman, M."
+                    },
+                    {
+                        "full_name": "Peris, S."
+                    }
+                ],
+                "arxiv_eprint": "1205.3695",
+                "publication_info": {
+                    "year": 2012,
+                    "artid": "054509",
+                    "journal_title": "Phys.Rev.D",
+                    "journal_volume": "86"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1235543"
+            },
+            "reference": {
+                "misc": [
+                    "(2013)"
+                ],
+                "label": "9",
+                "authors": [
+                    {
+                        "full_name": "Feng, X."
+                    },
+                    {
+                        "full_name": "Hashimoto, S."
+                    },
+                    {
+                        "full_name": "Hotzel, G."
+                    },
+                    {
+                        "full_name": "Jansen, K."
+                    },
+                    {
+                        "full_name": "Petschlies, M."
+                    }
+                ],
+                "arxiv_eprint": "1305.5878"
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/919588"
+            },
+            "reference": {
+                "label": "10",
+                "authors": [
+                    {
+                        "full_name": "Bernecker, D."
+                    },
+                    {
+                        "full_name": "Meyer, H.B."
+                    }
+                ],
+                "arxiv_eprint": "1107.4388",
+                "publication_info": {
+                    "year": 2011,
+                    "artid": "148",
+                    "page_start": "148",
+                    "journal_title": "Eur.Phys.J.A",
+                    "journal_volume": "47"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/834510"
+            },
+            "reference": {
+                "label": "11",
+                "authors": [
+                    {
+                        "full_name": "J\u00fcttner, A."
+                    },
+                    {
+                        "full_name": "Della Morte, M."
+                    }
+                ],
+                "arxiv_eprint": "0910.3755",
+                "publication_info": {
+                    "year": 2009,
+                    "artid": "143",
+                    "page_start": "143",
+                    "journal_title": "PoS",
+                    "journal_volume": "LAT2009"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/868894"
+            },
+            "reference": {
+                "label": "12",
+                "authors": [
+                    {
+                        "full_name": "Della Morte, M."
+                    },
+                    {
+                        "full_name": "J\u00fcttner, A."
+                    }
+                ],
+                "arxiv_eprint": "1009.3783",
+                "publication_info": {
+                    "year": 2010,
+                    "artid": "154",
+                    "page_start": "154",
+                    "journal_title": "JHEP",
+                    "journal_volume": "11"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/321108"
+            },
+            "reference": {
+                "label": "13",
+                "authors": [
+                    {
+                        "full_name": "Dolinsky, S."
+                    },
+                    {
+                        "full_name": "Druzhinin, V."
+                    },
+                    {
+                        "full_name": "Dubrovin, M."
+                    },
+                    {
+                        "full_name": "Golubev, V."
+                    },
+                    {
+                        "full_name": "Ivanchenko, V."
+                    }
+                ],
+                "publication_info": {
+                    "year": 1991,
+                    "artid": "99",
+                    "page_start": "99",
+                    "journal_title": "Phys.Rept.",
+                    "journal_volume": "202"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1117458"
+            },
+            "reference": {
+                "label": "14",
+                "authors": [
+                    {
+                        "full_name": "Baikov, P."
+                    },
+                    {
+                        "full_name": "Chetyrkin, K."
+                    },
+                    {
+                        "full_name": "Kuhn, J."
+                    },
+                    {
+                        "full_name": "Rittinger, J."
+                    }
+                ],
+                "arxiv_eprint": "1206.1284",
+                "publication_info": {
+                    "year": 2012,
+                    "artid": "017",
+                    "page_start": "017",
+                    "journal_title": "JHEP",
+                    "journal_volume": "07"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/221545"
+            },
+            "reference": {
+                "label": "15",
+                "authors": [
+                    {
+                        "full_name": "Chetyrkin, K."
+                    },
+                    {
+                        "full_name": "Spiridonov, V."
+                    },
+                    {
+                        "full_name": "Gorishnii, S."
+                    }
+                ],
+                "publication_info": {
+                    "year": 1985,
+                    "artid": "149",
+                    "page_start": "149",
+                    "journal_title": "Phys.Lett.B",
+                    "journal_volume": "160"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/450546"
+            },
+            "reference": {
+                "label": "16",
+                "authors": [
+                    {
+                        "full_name": "Mallik, S."
+                    }
+                ],
+                "arxiv_eprint": "hep-ph/9710556",
+                "publication_info": {
+                    "year": 1998,
+                    "artid": "373",
+                    "page_start": "373",
+                    "journal_title": "Phys.Lett.B",
+                    "journal_volume": "416"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/819977"
+            },
+            "reference": {
+                "label": "17",
+                "authors": [
+                    {
+                        "full_name": "Meyer, H.B."
+                    }
+                ],
+                "arxiv_eprint": "0905.1663",
+                "publication_info": {
+                    "year": 2009,
+                    "artid": "059",
+                    "page_start": "059",
+                    "journal_title": "JHEP",
+                    "journal_volume": "07"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1115104"
+            },
+            "reference": {
+                "label": "18",
+                "authors": [
+                    {
+                        "full_name": "Brandt, B."
+                    },
+                    {
+                        "full_name": "Della Morte, M."
+                    },
+                    {
+                        "full_name": "J\u00e4ger, B."
+                    },
+                    {
+                        "full_name": "J\u00fcttner, A."
+                    },
+                    {
+                        "full_name": "Wittig, H."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2012,
+                    "artid": "223",
+                    "page_start": "223",
+                    "journal_title": "Prog.Part.Nucl.Phys.",
+                    "journal_volume": "67"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/222569"
+            },
+            "reference": {
+                "label": "19",
+                "authors": [
+                    {
+                        "full_name": "L\u00fcscher, M."
+                    }
+                ],
+                "publication_info": {
+                    "year": 1986,
+                    "artid": "177",
+                    "page_start": "177",
+                    "journal_title": "Commun.Math.Phys.",
+                    "journal_volume": "104"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/316484"
+            },
+            "reference": {
+                "label": "20",
+                "authors": [
+                    {
+                        "full_name": "L\u00fcscher, M."
+                    }
+                ],
+                "publication_info": {
+                    "year": 1991,
+                    "artid": "237",
+                    "page_start": "237",
+                    "journal_title": "Nucl.Phys.B",
+                    "journal_volume": "364"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/899092"
+            },
+            "reference": {
+                "label": "21",
+                "authors": [
+                    {
+                        "full_name": "Meyer, H.B."
+                    }
+                ],
+                "arxiv_eprint": "1105.1892",
+                "publication_info": {
+                    "year": 2011,
+                    "artid": "072002",
+                    "journal_title": "Phys.Rev.Lett.",
+                    "journal_volume": "107"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/53152"
+            },
+            "reference": {
+                "label": "22",
+                "authors": [
+                    {
+                        "full_name": "Gounaris, G."
+                    },
+                    {
+                        "full_name": "Sakurai, J."
+                    }
+                ],
+                "publication_info": {
+                    "year": 1968,
+                    "artid": "244",
+                    "page_start": "244",
+                    "journal_title": "Phys.Rev.Lett.",
+                    "journal_volume": "21"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1198438"
+            },
+            "reference": {
+                "label": "23",
+                "authors": [
+                    {
+                        "full_name": "Della Morte, M."
+                    },
+                    {
+                        "full_name": "J\u00e4ger, B."
+                    },
+                    {
+                        "full_name": "J\u00fcttner, A."
+                    },
+                    {
+                        "full_name": "Wittig, H."
+                    }
+                ],
+                "arxiv_eprint": "1211.1159",
+                "publication_info": {
+                    "year": 2012,
+                    "artid": "175",
+                    "page_start": "175",
+                    "journal_title": "PoS",
+                    "journal_volume": "LATTICE2012"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/89145"
+            },
+            "reference": {
+                "label": "24",
+                "authors": [
+                    {
+                        "full_name": "Wilson, K.G."
+                    }
+                ],
+                "publication_info": {
+                    "year": 1974,
+                    "artid": "2445",
+                    "page_start": "2445",
+                    "journal_title": "Phys.Rev.D",
+                    "journal_volume": "10"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/468446"
+            },
+            "reference": {
+                "misc": [
+                    "(ALPHA collaboration)"
+                ],
+                "label": "25",
+                "authors": [
+                    {
+                        "full_name": "Jansen, K."
+                    },
+                    {
+                        "full_name": "Sommer, R."
+                    }
+                ],
+                "arxiv_eprint": "hep-lat/9803017",
+                "publication_info": {
+                    "year": 1998,
+                    "artid": "185",
+                    "page_start": "185",
+                    "journal_title": "Nucl.Phys.B",
+                    "journal_volume": "530"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/659592"
+            },
+            "reference": {
+                "label": "26",
+                "authors": [
+                    {
+                        "full_name": "L\u00fcscher, M."
+                    }
+                ],
+                "arxiv_eprint": "hep-lat/0409106",
+                "publication_info": {
+                    "year": 2005,
+                    "artid": "199",
+                    "page_start": "199",
+                    "journal_title": "Comput.Phys.Commun.",
+                    "journal_volume": "165"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/765891"
+            },
+            "reference": {
+                "label": "27",
+                "authors": [
+                    {
+                        "full_name": "L\u00fcscher, M."
+                    }
+                ],
+                "arxiv_eprint": "0710.5417",
+                "publication_info": {
+                    "year": 2007,
+                    "artid": "011",
+                    "page_start": "011",
+                    "journal_title": "JHEP",
+                    "journal_volume": "12"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "reference": {
+                "misc": [
+                    "(2010)"
+                ],
+                "urls": [
+                    {
+                        "value": "http://luscher.web.cern.ch/luscher/DDHMC/index.html"
+                    }
+                ],
+                "label": "28"
+            }
+        },
+        {
+            "reference": {
+                "misc": [
+                    "(2010)"
+                ],
+                "urls": [
+                    {
+                        "value": "https://twiki.cern.ch/twiki/bin/view/CLS/WebIntro"
+                    }
+                ],
+                "label": "29"
+            }
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/1112989"
+            },
+            "reference": {
+                "label": "30",
+                "authors": [
+                    {
+                        "full_name": "Capitani, S."
+                    },
+                    {
+                        "full_name": "Della Morte, M."
+                    },
+                    {
+                        "full_name": "von Hippel, G."
+                    },
+                    {
+                        "full_name": "J\u00e4ger, B."
+                    },
+                    {
+                        "full_name": "J\u00fcttner, A."
+                    }
+                ],
+                "arxiv_eprint": "1205.0180",
+                "publication_info": {
+                    "year": 2012,
+                    "artid": "074502",
+                    "journal_title": "Phys.Rev.D",
+                    "journal_volume": "86"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/943412"
+            },
+            "reference": {
+                "label": "31",
+                "authors": [
+                    {
+                        "full_name": "Capitani, S."
+                    },
+                    {
+                        "full_name": "Della Morte, M."
+                    },
+                    {
+                        "full_name": "von Hippel, G."
+                    },
+                    {
+                        "full_name": "Knippschild, B."
+                    },
+                    {
+                        "full_name": "Wittig, H."
+                    }
+                ],
+                "arxiv_eprint": "1110.6365",
+                "publication_info": {
+                    "year": 2011,
+                    "artid": "145",
+                    "page_start": "145",
+                    "journal_title": "PoS",
+                    "journal_volume": "LATTICE2011"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/683674"
+            },
+            "reference": {
+                "label": "32",
+                "authors": [
+                    {
+                        "full_name": "Della Morte, M."
+                    },
+                    {
+                        "full_name": "Hoffmann, R."
+                    },
+                    {
+                        "full_name": "Knechtli, F."
+                    },
+                    {
+                        "full_name": "Sommer, R."
+                    },
+                    {
+                        "full_name": "Wolff, U."
+                    }
+                ],
+                "arxiv_eprint": "hep-lat/0505026",
+                "publication_info": {
+                    "year": 2005,
+                    "artid": "007",
+                    "page_start": "007",
+                    "journal_title": "JHEP",
+                    "journal_volume": "07"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/419085"
+            },
+            "reference": {
+                "label": "33",
+                "authors": [
+                    {
+                        "full_name": "L\u00fcscher, M."
+                    },
+                    {
+                        "full_name": "Sint, S."
+                    },
+                    {
+                        "full_name": "Sommer, R."
+                    },
+                    {
+                        "full_name": "Weisz, P."
+                    }
+                ],
+                "arxiv_eprint": "hep-lat/9605038",
+                "publication_info": {
+                    "year": 1996,
+                    "artid": "365",
+                    "page_start": "365",
+                    "journal_title": "Nucl.Phys.B",
+                    "journal_volume": "478"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/441735"
+            },
+            "reference": {
+                "misc": [
+                    "heplat/9704001"
+                ],
+                "label": "34",
+                "authors": [
+                    {
+                        "full_name": "Sint, S."
+                    },
+                    {
+                        "full_name": "Weisz, P."
+                    }
+                ],
+                "publication_info": {
+                    "year": 1997,
+                    "artid": "251",
+                    "page_start": "251",
+                    "journal_title": "Nucl.Phys.B",
+                    "journal_volume": "502"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/649615"
+            },
+            "reference": {
+                "label": "35",
+                "authors": [
+                    {
+                        "full_name": "de Divitiis, G."
+                    },
+                    {
+                        "full_name": "Petronzio, R."
+                    },
+                    {
+                        "full_name": "Tantalo, N."
+                    }
+                ],
+                "arxiv_eprint": "hep-lat/0405002",
+                "publication_info": {
+                    "year": 2004,
+                    "artid": "408",
+                    "page_start": "408",
+                    "journal_title": "Phys.Lett.B",
+                    "journal_volume": "595"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/665150"
+            },
+            "reference": {
+                "label": "36",
+                "authors": [
+                    {
+                        "full_name": "Sachrajda, C."
+                    },
+                    {
+                        "full_name": "Villadoro, G."
+                    }
+                ],
+                "arxiv_eprint": "hep-lat/0411033",
+                "publication_info": {
+                    "year": 2005,
+                    "artid": "73",
+                    "page_start": "73",
+                    "journal_title": "Phys.Lett.B",
+                    "journal_volume": "609"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/667021"
+            },
+            "reference": {
+                "label": "37",
+                "authors": [
+                    {
+                        "full_name": "Bedaque, P.F."
+                    },
+                    {
+                        "full_name": "Chen, J.-W."
+                    }
+                ],
+                "arxiv_eprint": "hep-lat/0412023",
+                "publication_info": {
+                    "year": 2005,
+                    "artid": "208",
+                    "page_start": "208",
+                    "journal_title": "Phys.Lett.B",
+                    "journal_volume": "616"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/813721"
+            },
+            "reference": {
+                "label": "38",
+                "authors": [
+                    {
+                        "full_name": "Jegerlehner, F."
+                    },
+                    {
+                        "full_name": "Nyffeler, A."
+                    }
+                ],
+                "arxiv_eprint": "0902.3360",
+                "publication_info": {
+                    "year": 2009,
+                    "artid": "1",
+                    "page_start": "1",
+                    "journal_title": "Phys.Rept.",
+                    "journal_volume": "477"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/300613"
+            },
+            "reference": {
+                "label": "39",
+                "authors": [
+                    {
+                        "full_name": "L\u00fcscher, M."
+                    }
+                ],
+                "publication_info": {
+                    "year": 1991,
+                    "artid": "531",
+                    "page_start": "531",
+                    "journal_title": "Nucl.Phys.B",
+                    "journal_volume": "354"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/859660"
+            },
+            "reference": {
+                "misc": [
+                    "(KLOE Collaboration)"
+                ],
+                "label": "40",
+                "authors": [
+                    {
+                        "full_name": "Ambrosino, F."
+                    }
+                ],
+                "arxiv_eprint": "1006.5313",
+                "publication_info": {
+                    "year": 2011,
+                    "artid": "102",
+                    "page_start": "102",
+                    "journal_title": "Phys.Lett.B",
+                    "journal_volume": "700"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "reference": {
+                "misc": [
+                    "The energy level extracted in this way does not necessarily correspond to a stable vector particle"
+                ],
+                "label": "41"
+            }
+        }
+    ],
+    "_collections": [
+        "Literature"
+    ],
+    "public_notes": [
+        {
+            "value": "9 pages, 5 figures",
+            "source": "arXiv"
+        }
+    ],
+    "arxiv_eprints": [
+        {
+            "value": "1306.2532",
+            "categories": [
+                "hep-lat",
+                "hep-ph"
+            ]
+        }
+    ],
+    "document_type": [
+        "article"
+    ],
+    "preprint_date": "2013-06-11",
+    "_private_notes": [
+        {
+            "value": "CDS-1554699",
+            "source": "CERN"
+        }
+    ],
+    "control_number": 1238110,
+    "legacy_version": "20170209212332.0",
+    "report_numbers": [
+        {
+            "value": "MITP-13-032"
+        },
+        {
+            "value": "HIM-2013-05"
+        }
+    ],
+    "number_of_pages": 10,
+    "publication_info": [
+        {
+            "year": 2013,
+            "artid": "054502",
+            "journal_title": "Phys.Rev.D",
+            "journal_volume": "88"
+        }
+    ],
+    "_desy_bookkeeping": [
+        {
+            "identifier": "DA13-kp31k"
+        },
+        {
+            "date": "2013-06-20",
+            "expert": "M",
+            "status": "abs"
+        },
+        {
+            "date": "2013-06-28",
+            "expert": "M",
+            "status": "printed"
+        },
+        {
+            "date": "2013-10-04",
+            "status": "final"
+        }
+    ],
+    "acquisition_source": {
+        "method": "oai",
+        "source": "arxiv"
+    },
+    "inspire_categories": [
+        {
+            "term": "Lattice"
+        },
+        {
+            "term": "Phenomenology-HEP"
+        }
+    ],
+    "legacy_creation_date": "2013-06-12"
+}

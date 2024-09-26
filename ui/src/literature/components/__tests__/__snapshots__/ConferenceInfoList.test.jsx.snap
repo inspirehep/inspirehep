@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConferenceInfoList renders conference link 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span
+    className=""
+  >
+    Contribution to
+    : 
+  </span>
+  <ul>
+    <li
+      key="111111-0"
+    >
+      <ConferenceInfo
+        conferenceInfo={
+          Immutable.Map {
+            "titles": Immutable.List [
+              Immutable.Map {
+                "title": "Test Conferece 2",
+              },
+            ],
+            "control_number": 111111,
+          }
+        }
+      />
+      , 
+    </li>
+    <li
+      key="222222-2"
+    >
+      <ConferenceInfo
+        conferenceInfo={
+          Immutable.Map {
+            "titles": Immutable.List [
+              Immutable.Map {
+                "title": "Test Conferece 2",
+              },
+            ],
+            "control_number": 222222,
+          }
+        }
+      />
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`ConferenceInfoList renders contribution label if document type is other than proceedings 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span
+    className=""
+  >
+    Contribution to
+    : 
+  </span>
+  <ul>
+    <li
+      key="111111-0"
+    >
+      <ConferenceInfo
+        conferenceInfo={
+          Immutable.Map {
+            "titles": Immutable.List [
+              Immutable.Map {
+                "title": "Test Conferece 2",
+              },
+            ],
+            "control_number": 111111,
+          }
+        }
+      />
+      , 
+    </li>
+    <li
+      key="222222-2"
+    >
+      <ConferenceInfo
+        conferenceInfo={
+          Immutable.Map {
+            "titles": Immutable.List [
+              Immutable.Map {
+                "title": "Test Conferece 2",
+              },
+            ],
+            "control_number": 222222,
+          }
+        }
+      />
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`ConferenceInfoList renders proceedings label if document type is proceedings 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span
+    className=""
+  >
+    Proceedings of
+    : 
+  </span>
+  <ul>
+    <li
+      key="111111-0"
+    >
+      <ConferenceInfo
+        conferenceInfo={
+          Immutable.Map {
+            "titles": Immutable.List [
+              Immutable.Map {
+                "title": "Test Conferece 2",
+              },
+            ],
+            "control_number": 111111,
+          }
+        }
+      />
+      , 
+    </li>
+    <li
+      key="222222-2"
+    >
+      <ConferenceInfo
+        conferenceInfo={
+          Immutable.Map {
+            "titles": Immutable.List [
+              Immutable.Map {
+                "title": "Test Conferece 2",
+              },
+            ],
+            "control_number": 222222,
+          }
+        }
+      />
+    </li>
+  </ul>
+</div>
+`;

@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Author renders editor 1`] = `
+<div
+  className="di"
+>
+  <UnlinkedAuthor
+    author={
+      Immutable.Map {
+        "full_name": "Name, Full",
+        "first_name": "Full",
+        "last_name": "Name",
+        "inspire_roles": Immutable.List [
+          "editor",
+        ],
+        "affiliations": Immutable.List [
+          Immutable.Map {
+            "value": "Affiliation",
+          },
+        ],
+      }
+    }
+  />
+  <EventTracker
+    eventAction="Link"
+    eventId="Author profile"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <span
+      className="pl1 secondary-color"
+    >
+      (
+      <AffiliationList
+        affiliations={
+          Immutable.List [
+            Immutable.Map {
+              "value": "Affiliation",
+            },
+          ]
+        }
+        separator=" and "
+      />
+      )
+    </span>
+  </EventTracker>
+  <Tooltip
+    title="editor"
+  >
+    (ed.)
+  </Tooltip>
+</div>
+`;
+
+exports[`Author renders linked author 1`] = `
+<div
+  className="di"
+>
+  <LinkedAuthor
+    author={
+      Immutable.Map {
+        "full_name": "Name, Full",
+        "record": Immutable.Map {
+          "$ref": "https://beta.inspirehep.net/api/authors/12345",
+        },
+        "bai": "Full.Name.1",
+      }
+    }
+  />
+  <EventTracker
+    eventAction="Link"
+    eventId="Author profile"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  />
+</div>
+`;
+
+exports[`Author renders supervisor 1`] = `
+<div
+  className="di"
+>
+  <UnlinkedAuthor
+    author={
+      Immutable.Map {
+        "full_name": "Name, Full",
+        "inspire_roles": Immutable.List [
+          "supervisor",
+        ],
+      }
+    }
+  />
+  <EventTracker
+    eventAction="Link"
+    eventId="Author profile"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  />
+</div>
+`;
+
+exports[`Author renders unlinked author with bai 1`] = `
+<div
+  className="di"
+>
+  <AuthorWithBAI
+    author={
+      Immutable.Map {
+        "full_name": "Name, Full",
+        "bai": "Full.Name.1",
+      }
+    }
+  />
+  <EventTracker
+    eventAction="Link"
+    eventId="Author profile"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  />
+</div>
+`;
+
+exports[`Author renders unlinkedAuthor with affiliations 1`] = `
+<div
+  className="di"
+>
+  <UnlinkedAuthor
+    author={
+      Immutable.Map {
+        "full_name": "Name, Full, Jr.",
+        "first_name": "Full, Jr.",
+        "last_name": "Name",
+        "affiliations": Immutable.List [
+          Immutable.Map {
+            "value": "Affiliation",
+          },
+        ],
+      }
+    }
+  />
+  <EventTracker
+    eventAction="Link"
+    eventId="Author profile"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <span
+      className="pl1 secondary-color"
+    >
+      (
+      <AffiliationList
+        affiliations={
+          Immutable.List [
+            Immutable.Map {
+              "value": "Affiliation",
+            },
+          ]
+        }
+        separator=" and "
+      />
+      )
+    </span>
+  </EventTracker>
+</div>
+`;

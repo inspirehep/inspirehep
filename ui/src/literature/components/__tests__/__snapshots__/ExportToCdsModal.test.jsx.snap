@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExportToCdsModal renders modal for one paper 1`] = `
+<Modal
+  footer={
+    Array [
+      <Button
+        onClick={[MockFunction]}
+        type="primary"
+      >
+        Confirm
+      </Button>,
+    ]
+  }
+  onCancel={[MockFunction]}
+  open={true}
+>
+  <p
+    data-testid="export-modal"
+  >
+    You have selected 
+    1
+     
+    paper
+    .
+    <br />
+    Are you sure you want to export it to CDS?
+  </p>
+</Modal>
+`;
+
+exports[`ExportToCdsModal renders not visible 1`] = `
+<Modal
+  footer={
+    Array [
+      <Button
+        onClick={[MockFunction]}
+        type="primary"
+      >
+        Confirm
+      </Button>,
+    ]
+  }
+  onCancel={[MockFunction]}
+>
+  <p
+    data-testid="export-modal"
+  >
+    You have selected 
+    1
+     
+    paper
+    .
+    <br />
+    Are you sure you want to export it to CDS?
+  </p>
+</Modal>
+`;

@@ -1,0 +1,67 @@
+{%- macro format_list(element_list) -%}
+    {%- for elem in element_list -%}
+        \VAR{ elem }
+        {%- if loop.revindex == 2 %} and {% elif not loop.last %}, {% endif -%}
+    {%- endfor -%}
+{%- endmacro -%}
+{%- macro publication_info(format, element) -%}
+         {%- if 'journal_title' in element -%}
+            \VAR{- element.journal_title }
+         {%- endif -%}
+         \VAR{- ' \\textbf{' ~ element.journal_volume ~ '}' if 'journal_volume' in element }
+         {%- if format == 'EU' -%}
+            \VAR{- ' (' ~ element.year ~ ')' if 'year' in element }
+            \VAR{- ' no.' ~ element.journal_issue if 'journal_issue' in element }
+            {%- if 'page_range' in element -%}
+                \VAR{ ', ' ~ element.page_range }
+            {%- elif 'artid' in element -%}
+                \VAR{ ', ' ~ element.artid }
+            {%- endif -%}
+         {%- elif format == 'US' -%}
+            \VAR{- ', no.' ~ element.journal_issue if 'journal_issue' in element }
+            {%- if 'page_range' in element -%}
+                \VAR{ ', ' ~ element.page_range }
+            {%- elif 'artid' in element -%}
+                \VAR{ ', ' ~ element.artid }
+            {%- endif -%}
+            \VAR{- ' (' ~ element.year ~ ')' if 'year' in element }
+         {%- endif -%}
+{%- endmacro -%}
+%\cite{\VAR{ data.texkeys }}
+\bibitem{\VAR{ data.texkeys }}
+\VAR{- '\n' if 'authors' in data or 'collaborations' in data }
+{%- if 'collaborations' in data -%}
+    {%- if 'authors' in data -%}
+        \VAR{ data.authors.0 }
+        \VAR{- ' \\textit{et al.}' if data.authors|length > 1 }
+    {%- endif -%}
+    \VAR{ ' [' }
+    \VAR{- format_list(data.collaborations) }
+    \VAR{- '],' }
+{%- elif 'authors' in data -%}
+    \VAR{- format_list(data.authors[:10]) ~ ',' }
+    \VAR{- ' \\textit{et al.}' if data.authors|length > 10 }
+{%- endif -%}
+\VAR{- '\n%``' ~ data.title ~ ",''" }
+{%- if 'journal_title' in data.publication_info -%}
+    \VAR{- '\n' }
+    \VAR{- publication_info(format, data.publication_info)}
+{%- endif -%}
+{%- if data.notes -%}
+    \VAR{ '\n[' }
+    {%- for note in data.notes -%}
+         \VAR{ 'erratum: ' if loop.index == 1 else '; erratum: '}
+         \VAR{- publication_info(format, note)}
+    {%- endfor -%}
+    \VAR{ ']' }
+{%- endif -%}
+{%- if 'book_publication_info' in data -%}
+    \VAR{- '\n' ~ data.book_publication_info ~ ','  if 'book_publication_info' in data}
+{%- endif -%}
+{%- if 'isbns' in data -%}
+    \VAR{- '\nISBN ' ~ data.isbns if 'book_publication_info' in data}
+{%- endif -%}
+\VAR{- '\ndoi:' ~ data.dois.0.value if 'dois' in data }
+\VAR{- '\n[arXiv:' ~ data.arxiv_eprints.0.value ~ ' [' ~ data.arxiv_eprints.0.categories.0 ~ ']].' if 'arxiv_eprints' in data and 'categories' in data.arxiv_eprints.0}
+\VAR{- '\n' ~ data.report_numbers.0.value ~ '.' if 'dois' not in data and 'arxiv_eprints' not in data and 'report_numbers' in data }
+\VAR{- '\n%' ~ data.citations ~ ' citations counted in INSPIRE as of ' ~ data.today if data.citations != 0 }

@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorAlert renders with custom message 1`] = `
+<Alert
+  description={
+    <span>
+      Please try again later or 
+      <Connect(GoBackLink) />
+    </span>
+  }
+  message="Terrible thing is happening!"
+  showIcon={true}
+  type="warning"
+/>
+`;
+
+exports[`ErrorAlert renders with default message 1`] = `
+<Alert
+  description={
+    <span>
+      Please try again later or 
+      <Connect(GoBackLink) />
+    </span>
+  }
+  message="Something went wrong"
+  showIcon={true}
+  type="warning"
+/>
+`;

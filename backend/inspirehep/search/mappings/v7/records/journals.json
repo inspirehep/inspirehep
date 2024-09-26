@@ -1,0 +1,311 @@
+{
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
+      "_all": {
+        "type": "text"
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      },
+      "_collections": {
+        "normalizer": "lowercase_normalizer",
+        "type": "keyword"
+      },
+      "_harvesting_info": {
+        "properties": {
+          "coverage": {
+            "type": "text"
+          },
+          "date_last_harvest": {
+            "format": "yyyy-MM-dd||yyyy-MM||yyyy",
+            "type": "date"
+          },
+          "last_seen_item": {
+            "type": "text"
+          },
+          "method": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "_private_notes": {
+        "properties": {
+          "source": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "text"
+          }
+        },
+        "type": "object"
+      },
+      "book_series": {
+        "type": "boolean"
+      },
+      "control_number": {
+        "type": "integer",
+        "copy_to": "_all"
+      },
+      "date_ended": {
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
+        "type": "date"
+      },
+      "date_started": {
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
+        "type": "date"
+      },
+      "deleted": {
+        "type": "boolean"
+      },
+      "deleted_recids": {
+        "type": "integer"
+      },
+      "deleted_records": {
+        "properties": {
+          "$ref": {
+            "type": "text",
+            "analyzer": "recid_analyzer"
+          }
+        },
+        "type": "object"
+      },
+      "doi_prefixes": {
+        "type": "keyword"
+      },
+      "inspire_categories": {
+        "properties": {
+          "source": {
+            "type": "keyword"
+          },
+          "term": {
+            "type": "keyword",
+            "copy_to": "_all"
+          }
+        },
+        "type": "object"
+      },
+      "issns": {
+        "properties": {
+          "medium": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword",
+            "copy_to": "_all"
+          }
+        },
+        "type": "object"
+      },
+      "journal_title": {
+        "properties": {
+          "source": {
+            "type": "keyword"
+          },
+          "subtitle": {
+            "type": "text"
+          },
+          "title": {
+            "copy_to": [
+              "journalautocomplete",
+              "lowercase_journal_titles",
+              "_all"
+            ],
+            "type": "text"
+          }
+        },
+        "type": "object"
+      },
+      "journalautocomplete": {
+        "type": "text"
+      },
+      "legacy_creation_date": {
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
+        "type": "date"
+      },
+      "legacy_version": {
+        "type": "text"
+      },
+      "license": {
+        "properties": {
+          "license": {
+            "type": "keyword"
+          },
+          "url": {
+            "type": "text"
+          }
+        },
+        "type": "object"
+      },
+      "lowercase_journal_titles": {
+        "normalizer": "journal_title_normalizer",
+        "type": "keyword"
+      },
+      "new_recid": {
+        "type": "integer"
+      },
+      "new_record": {
+        "properties": {
+          "$ref": {
+            "type": "text",
+            "analyzer": "recid_analyzer"
+          }
+        },
+        "type": "object"
+      },
+      "number_of_papers": {
+        "type": "integer"
+      },
+      "proceedings": {
+        "type": "boolean"
+      },
+      "public_notes": {
+        "properties": {
+          "source": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "text"
+          }
+        },
+        "type": "object"
+      },
+      "publisher": {
+        "type": "keyword",
+        "copy_to": "_all"
+      },
+      "refereed": {
+        "type": "boolean"
+      },
+      "related_records": {
+        "properties": {
+          "curated_relation": {
+            "type": "boolean"
+          },
+          "recid": {
+            "type": "integer"
+          },
+          "record": {
+            "properties": {
+              "$ref": {
+                "type": "text",
+                "analyzer": "recid_analyzer"
+              }
+            },
+            "type": "object"
+          },
+          "relation": {
+            "type": "keyword"
+          },
+          "relation_freetext": {
+            "type": "text"
+          }
+        },
+        "type": "object"
+      },
+      "self": {
+        "properties": {
+          "$ref": {
+            "type": "text",
+            "analyzer": "recid_analyzer"
+          }
+        },
+        "type": "object"
+      },
+      "self_recid": {
+        "type": "integer"
+      },
+      "short_title": {
+        "copy_to": [
+          "journalautocomplete",
+          "lowercase_journal_titles",
+          "_all"
+        ],
+        "type": "text"
+      },
+      "title_suggest": {
+        "type": "completion"
+      },
+      "title_variants": {
+        "copy_to": [
+          "journalautocomplete",
+          "lowercase_journal_titles",
+          "_all"
+        ],
+        "type": "text"
+      },
+      "urls": {
+        "properties": {
+          "description": {
+            "type": "text"
+          },
+          "value": {
+            "type": "text"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "lowercase_analyzer": {
+          "filter": "lowercase",
+          "tokenizer": "keyword",
+          "type": "custom"
+        },
+        "recid_analyzer": {
+          "tokenizer": "recid_tokenizer"
+        }
+      },
+      "normalizer": {
+        "lowercase_normalizer": {
+          "type": "custom",
+          "char_filter": [],
+          "filter": [
+            "lowercase"
+          ]
+        },
+        "journal_title_normalizer": {
+          "type": "custom",
+          "char_filter": [
+            "journal_title_punctuation",
+            "whitespace_normalization"
+          ],
+          "filter": [
+            "lowercase",
+            "trim"
+          ]
+        }
+      },
+      "char_filter": {
+        "journal_title_punctuation": {
+          "pattern": "[\\.,;'\\(\\)-]",
+          "replacement": " ",
+          "type": "pattern_replace"
+        },
+        "whitespace_normalization": {
+          "pattern": "\\s+",
+          "replacement": " ",
+          "type": "pattern_replace"
+        }
+      },
+      "tokenizer": {
+        "recid_tokenizer": {
+          "type": "pattern",
+          "pattern": "(\\d+)",
+          "group": 1
+        }
+      }
+    }
+  }
+}

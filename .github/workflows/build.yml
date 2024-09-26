@@ -1,0 +1,51 @@
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: The reference to build
+        type: string
+        required: true
+      image:
+        description: The name of the image to build
+        type: string
+        required: true
+      context:
+        description: The context used to build the image
+        type: string
+        required: true
+      stage:
+        description: The stage to build
+        type: string
+        required: false
+    outputs:
+      image-id:
+        description: The ID of image that has been built
+        value: ${{ jobs.build.outputs.image-id }}
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      image-id: ${{ steps.build.outputs.image-id }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+
+      - id: build
+        name: Build and push
+        uses: cern-sis/gh-workflows/.github/actions/docker-build@v6.0.0
+        with:
+          image: ${{ inputs.image }}
+          context: ${{ inputs.context }}
+          stage: ${{ inputs.stage }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=ref,event=tag
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
