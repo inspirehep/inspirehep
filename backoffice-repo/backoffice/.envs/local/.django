@@ -5,25 +5,22 @@ IPYTHONDIR=/app/.ipython
 
 # Redis
 # ------------------------------------------------------------------------------
-REDIS_URL=redis://redis:6379/0
+REDIS_URL=redis://cache:6379/0
 
 # Celery
 CELERY_BROKER_URL=amqp://guest:guest@mq:5672/
-CELERY_RESULT_BACKEND=redis://redis:6379/2
+CELERY_RESULT_BACKEND=redis://cache:6379/2
 CELERY_TASK_ALWAYS_EAGER=True
 # Flower
 CELERY_FLOWER_USER=debug
 CELERY_FLOWER_PASSWORD=debug
 
 # Opensearch
-OPENSEARCH_HOST=opensearch:9200
+OPENSEARCH_HOST=es:9200
 OPENSEARCH_INDEX_PREFIX=backoffice-backend-local
 
 # Airflow
-AIRFLOW_BASE_URL=http://airflow-webserver:8080
+AIRFLOW_BASE_URL=http://airflow-webserver:8070
 AIRFLOW_TOKEN=YWlyZmxvdzphaXJmbG93
 
 SERVICENOW_URL=https://cerntraining.service-now.com
-
-# Frontend
-FRONTEND_LOGIN_SUCCESS=http://127.0.0.1:5000/success
