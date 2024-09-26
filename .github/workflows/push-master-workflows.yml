@@ -1,0 +1,24 @@
+name: Push main (workflows)
+
+on:
+  workflow_call:
+
+jobs:
+  test:
+    name: Tests (workflows)
+    uses: ./.github/workflows/test-workflows.yml
+    with:
+      ref: ${{ github.ref }}
+    secrets: inherit
+  deploy:
+    name: Deploy (workflows)
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: send event
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v6.2.0
+        with:
+          event-type: update
+          images: |
+            cern-sis/inspire/backoffice@${{ needs.test.outputs.image-id }}
+          token: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
