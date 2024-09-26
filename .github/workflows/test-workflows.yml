@@ -44,7 +44,7 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - name: Test
-        working-directory: ./workflows
+        working-directory: ./backoffice-repo/workflows
         run: >
           docker run
           --network=host
