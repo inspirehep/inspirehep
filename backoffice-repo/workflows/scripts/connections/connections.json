@@ -1,0 +1,32 @@
+{
+  "inspire_connection": {
+    "conn_type": "http",
+    "description": "",
+    "login": "",
+    "password": null,
+    "host": "https://inspirebeta.net",
+    "port": null,
+    "schema": "",
+    "extra": ""
+  },
+  "inspire_db_connection": {
+    "conn_type": "postgres",
+    "description": "",
+    "login": "inspire",
+    "password": "inspire",
+    "host": "localhost",
+    "port": 5433,
+    "schema": "inspire",
+    "extra": "{}"
+  },
+  "backoffice_conn": {
+    "conn_type": "http",
+    "description": "",
+    "login": "",
+    "password": null,
+    "host": "http://host.docker.internal:8000",
+    "port": null,
+    "schema": "",
+    "extra": ""
+  }
+}

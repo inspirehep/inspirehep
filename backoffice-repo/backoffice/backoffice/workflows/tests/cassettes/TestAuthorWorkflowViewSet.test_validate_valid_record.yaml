@@ -1,0 +1,79 @@
+interactions:
+- request:
+    body: '{"dag_run_id": "00000000-0000-0000-0000-000000000000", "conf": {"workflow_id":
+      "00000000-0000-0000-0000-000000000000", "data": {"test": "test"}}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '145'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns
+  response:
+    body:
+      string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
+        \   \"workflow_id\": \"00000000-0000-0000-0000-000000000000\"\n  },\n  \"dag_id\":
+        \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000000\",\n
+        \ \"data_interval_end\": \"2024-09-20T15:32:59.147639+00:00\",\n  \"data_interval_start\":
+        \"2024-09-20T15:32:59.147639+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
+        \"2024-09-20T15:32:59.147639+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
+        null,\n  \"logical_date\": \"2024-09-20T15:32:59.147639+00:00\",\n  \"note\":
+        null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
+        \"queued\"\n}\n"
+    headers:
+      Cache-Control:
+      - no-store
+      Connection:
+      - close
+      Content-Length:
+      - '621'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 20 Sep 2024 15:32:59 GMT
+      Server:
+      - gunicorn
+      X-Robots-Tag:
+      - noindex, nofollow
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+    method: DELETE
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000000
+  response:
+    body:
+      string: ''
+    headers:
+      Cache-Control:
+      - no-store
+      Connection:
+      - close
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 20 Sep 2024 15:32:59 GMT
+      Server:
+      - gunicorn
+      X-Robots-Tag:
+      - noindex, nofollow
+    status:
+      code: 204
+      message: NO CONTENT
+version: 1
