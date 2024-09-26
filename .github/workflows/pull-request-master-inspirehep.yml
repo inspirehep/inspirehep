@@ -1,9 +1,10 @@
-name: Pull request master
+name: Pull request master (backend, ui & record-editor)
 
 on:
   pull_request_target:
     branches: [master]
-
+    paths-ignore:
+          - 'backoffice-repo/**'
 
 jobs:
   test:
