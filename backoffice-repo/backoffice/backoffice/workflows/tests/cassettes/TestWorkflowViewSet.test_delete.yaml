@@ -14,7 +14,7 @@ interactions:
       Content-Type:
       - application/json
     method: POST
-    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns
+    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns
   response:
     body:
       string: "{\n  \"conf\": {\n    \"workflow_id\": \"00000000-0000-0000-0000-000000000002\"\n
@@ -51,7 +51,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"conf\": {\n    \"workflow_id\": \"00000000-0000-0000-0000-000000000002\"\n
@@ -88,7 +88,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8080/api/v1/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8070/api/v1/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_approved_dag'
@@ -120,7 +120,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8080/api/v1/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8070/api/v1/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_rejected_dag'
@@ -152,7 +152,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"conf\": {\n    \"workflow_id\": \"00000000-0000-0000-0000-000000000002\"\n
@@ -189,7 +189,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8080/api/v1/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8070/api/v1/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_approved_dag'
@@ -221,7 +221,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8080/api/v1/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8070/api/v1/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_rejected_dag'
@@ -255,7 +255,7 @@ interactions:
       Content-Length:
       - '0'
     method: DELETE
-    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: ''
@@ -283,7 +283,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_initialization_dag'
@@ -315,7 +315,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8080/api/v1/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8070/api/v1/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_approved_dag'
@@ -347,7 +347,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8080/api/v1/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8070/api/v1/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_rejected_dag'
