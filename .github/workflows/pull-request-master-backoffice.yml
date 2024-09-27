@@ -1,8 +1,8 @@
-name: Pull request main (backoffice)
+name: Pull request master (backoffice)
 
 on:
   pull_request_target:
-    branches: [main]
+    branches: [master]
     paths:
       - 'backoffice-repo/backoffice/**'
 
