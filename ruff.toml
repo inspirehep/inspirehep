@@ -24,8 +24,9 @@ select = [
     "AIR",
 ]
 
-ignore = ["E501", "UP026"]
-
+[lint.per-file-ignores]
+"backend/**" = ["E501", "UP026"]
+"backoffice-repo/**" = ["E402"]
 
 [lint.pycodestyle]
 ignore-overlong-task-comments = true
