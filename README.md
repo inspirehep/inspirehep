@@ -103,10 +103,18 @@ $ brew file install
 ### Make
 
 This will prepare the whole inspire development with demo records:
-
 ```bash
 make run
-make setup
+```
+
+This spinup the whole inspirehep development with demo records but without the backoffice
+```bash
+make run-inspirehep
+```
+
+This will spin up a backoffice
+```bash
+make run-backoffice
 ```
 
 You can stop it by simply run
