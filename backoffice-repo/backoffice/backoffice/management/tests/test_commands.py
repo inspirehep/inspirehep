@@ -1,9 +1,8 @@
+from backoffice.workflows.models import Workflow
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.management import call_command
 from django.test import TestCase
-
-from backoffice.workflows.models import Workflow
 
 
 class CreateGroupsCommandTestCase(TestCase):

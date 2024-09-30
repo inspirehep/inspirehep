@@ -1,14 +1,13 @@
 import uuid
 
 import pytest
+from backoffice.workflows import constants
+from backoffice.workflows.api import utils
+from backoffice.workflows.constants import StatusChoices
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.test import TransactionTestCase
 from rest_framework.exceptions import ValidationError
-
-from backoffice.workflows import constants
-from backoffice.workflows.api import utils
-from backoffice.workflows.constants import StatusChoices
 
 User = get_user_model()
 Workflow = apps.get_model(app_label="workflows", model_name="Workflow")

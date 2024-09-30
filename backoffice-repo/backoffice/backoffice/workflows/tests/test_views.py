@@ -5,16 +5,6 @@ import dateutil
 import dateutil.parser
 import opensearchpy
 import pytest
-from django.apps import apps
-from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group
-from django.test import TransactionTestCase
-from django.urls import reverse
-from django_opensearch_dsl.registries import registry
-from parameterized import parameterized
-from rest_framework import status
-from rest_framework.test import APIClient
-
 from backoffice.workflows import airflow_utils
 from backoffice.workflows.api.serializers import (
     WorkflowSerializer,
@@ -28,6 +18,15 @@ from backoffice.workflows.constants import (
     WorkflowType,
 )
 from backoffice.workflows.models import WorkflowTicket
+from django.apps import apps
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
+from django.test import TransactionTestCase
+from django.urls import reverse
+from django_opensearch_dsl.registries import registry
+from parameterized import parameterized
+from rest_framework import status
+from rest_framework.test import APIClient
 
 User = get_user_model()
 Workflow = apps.get_model(app_label="workflows", model_name="Workflow")

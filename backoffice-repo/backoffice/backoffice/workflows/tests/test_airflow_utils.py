@@ -1,11 +1,10 @@
 import uuid
 
 import pytest
-from django.apps import apps
-from django.test import TransactionTestCase
-
 from backoffice.workflows import airflow_utils
 from backoffice.workflows.constants import WORKFLOW_DAGS, WorkflowType
+from django.apps import apps
+from django.test import TransactionTestCase
 
 Workflow = apps.get_model(app_label="workflows", model_name="Workflow")
 

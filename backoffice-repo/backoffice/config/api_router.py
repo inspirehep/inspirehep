@@ -1,6 +1,3 @@
-from django.conf import settings
-from rest_framework.routers import DefaultRouter, SimpleRouter
-
 from backoffice.users.api.views import UserViewSet
 from backoffice.workflows.api.views import (
     AuthorWorkflowViewSet,
@@ -8,6 +5,8 @@ from backoffice.workflows.api.views import (
     WorkflowTicketViewSet,
     WorkflowViewSet,
 )
+from django.conf import settings
+from rest_framework.routers import DefaultRouter, SimpleRouter
 
 router = DefaultRouter() if settings.DEBUG else SimpleRouter()
 
