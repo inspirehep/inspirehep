@@ -1,11 +1,10 @@
+from backoffice.management.permissions import IsAdminOrCuratorUser
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test import TransactionTestCase
 from rest_framework.response import Response
 from rest_framework.test import APIRequestFactory, force_authenticate
 from rest_framework.views import APIView
-
-from backoffice.management.permissions import IsAdminOrCuratorUser
 
 User = get_user_model()
 
