@@ -387,7 +387,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                         Restart current step
                       </Button>
                       <Button className="mb2 w-75" type="primary">
-                        <a href={`/editor/backoffice/${id}`} target="_blank">
+                        <a href={`/editor/backoffice/${id}`}>
                           <EditOutlined />
                           {'  '}
                           Open in Editor
