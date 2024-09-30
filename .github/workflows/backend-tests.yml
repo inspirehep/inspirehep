@@ -135,7 +135,7 @@ jobs:
           restore-keys: ${{ env.CACHE_PREFIX }}--combined
 
       - name: Download artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
 
       - name: Combine test durations
         uses: ./.github/actions/combine-durations
