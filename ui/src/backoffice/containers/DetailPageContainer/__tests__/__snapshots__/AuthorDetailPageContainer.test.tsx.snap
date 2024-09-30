@@ -605,7 +605,6 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                         >
                           <a
                             href="/editor/backoffice/undefined"
-                            target="_blank"
                           >
                             <span
                               aria-label="edit"
