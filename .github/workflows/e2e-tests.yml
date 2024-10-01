@@ -151,7 +151,7 @@ jobs:
           docker exec hep-web inspirehep importer demo-records
 
       - name: cypress
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
