@@ -34,7 +34,7 @@ jobs:
           tags: "type=sha"
 
       - name: send event
-        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v5.0.0
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v6.3.1
         with:
           event-type: release
           images: ${{ env.DOCKER_METADATA_OUTPUT_TAGS }}

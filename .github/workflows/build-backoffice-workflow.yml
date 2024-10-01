@@ -37,7 +37,7 @@ jobs:
 
       - id: build
         name: Build and push
-        uses: cern-sis/gh-workflows/.github/actions/docker-build@v6.2.0
+        uses: cern-sis/gh-workflows/.github/actions/docker-build@v6.3.1
         with:
           image: ${{ inputs.image }}
           context: ${{ inputs.context }}
