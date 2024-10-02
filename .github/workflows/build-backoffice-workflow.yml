@@ -44,6 +44,7 @@ jobs:
           dockerfile: ${{ inputs.dockerfile }}
           registry: registry.cern.ch
           cache: false
+          push: true
           tags: |
             type=ref,event=branch
             type=ref,event=pr

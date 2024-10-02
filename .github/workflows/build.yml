@@ -43,6 +43,7 @@ jobs:
           image: ${{ inputs.image }}
           context: ${{ inputs.context }}
           stage: ${{ inputs.stage }}
+          push: true
           tags: |
             type=ref,event=branch
             type=ref,event=pr
