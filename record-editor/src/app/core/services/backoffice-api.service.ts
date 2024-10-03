@@ -146,7 +146,7 @@ export class BackofficeApiService extends CommonApiService {
   private handleRequest<T>(requestFn: () => Promise<T>): Promise<T> {
     return requestFn().catch((error) => {
       if (error.status === 403) {
-        const refreshToken = localStorage.getItem('backoffice.refresh');
+        const refreshToken = localStorage.getItem('backoffice.refreshToken');
 
         if (!refreshToken) {
           return Promise.reject(error);
