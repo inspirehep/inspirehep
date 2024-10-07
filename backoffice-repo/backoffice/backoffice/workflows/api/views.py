@@ -60,6 +60,23 @@ class WorkflowViewSet(viewsets.ModelViewSet):
         airflow_utils.delete_workflow_dag_runs(instance.id, instance.workflow_type)
         super().perform_destroy(instance)
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        validation_errors = list(get_validation_errors(instance.data))
+        validation_errors_messages = [
+            {
+                "message": error.message,
+                "path": list(error.path),
+            }
+            for error in validation_errors
+        ]
+        response_data = {
+            "data": serializer.data,
+            "validation_errors": validation_errors_messages,
+        }
+        return Response(response_data)
+
 
 class WorkflowTicketViewSet(viewsets.ModelViewSet):
     serializer_class = WorkflowTicketSerializer
