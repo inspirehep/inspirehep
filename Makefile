@@ -1,5 +1,5 @@
 # Set the AIRFLOW_HOME environment variable
-export AIRFLOW_HOME=$(shell pwd)/backoffice-repo/workflows
+export AIRFLOW_HOME=$(shell pwd)/workflows
 export AIRFLOW_PROJ_DIR=$(AIRFLOW_HOME)
 
 sleep:

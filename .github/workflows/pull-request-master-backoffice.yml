@@ -4,7 +4,7 @@ on:
   pull_request_target:
     branches: [master]
     paths:
-      - 'backoffice-repo/backoffice/**'
+      - 'backoffice/**'
 
 jobs:
   lint:

@@ -18,8 +18,8 @@ jobs:
     with:
       ref: ${{ inputs.ref }}
       image: cern-sis/inspire/backoffice
-      context: ./backoffice-repo/backoffice
-      dockerfile: ./backoffice-repo/backoffice/Dockerfile
+      context: ./backoffice
+      dockerfile: ./backoffice/Dockerfile
     secrets: inherit
 
   test:
@@ -58,7 +58,7 @@ jobs:
             ref: ${{ inputs.ref }}
 
         - name: Test
-          working-directory: ./backoffice-repo/backoffice
+          working-directory: ./backoffice
           run: >
             docker run
             --pull always

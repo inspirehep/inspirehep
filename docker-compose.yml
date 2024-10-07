@@ -67,7 +67,7 @@ x-airflow-common: &airflow-common
   # Comment the image line, place your Dockerfile in the directory where you placed the docker-compose.yaml
   # and uncomment the "build" line below, Then run `docker-compose build` to build the images.
   build:
-    context: backoffice-repo/workflows
+    context: workflows
     dockerfile: Dockerfile.local
   environment: &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
@@ -105,7 +105,7 @@ x-airflow-common: &airflow-common
 services:
   backoffice-webserver:
     build:
-      context: backoffice-repo/backoffice
+      context: backoffice
       dockerfile: Dockerfile
     depends_on:
       cache:
@@ -115,10 +115,10 @@ services:
       es:
         condition: service_healthy
     volumes:
-      - ./backoffice-repo/backoffice:/app:z
+      - ./backoffice:/app:z
     env_file:
-      - ./backoffice-repo/backoffice/.envs/local/.django
-      - ./backoffice-repo/backoffice/.envs/local/.postgres
+      - ./backoffice/.envs/local/.django
+      - ./backoffice/.envs/local/.postgres
     ports:
       - '8001:8001'
     command: sh -c 'poetry run python manage.py migrate && poetry run python manage.py opensearch index rebuild --force && poetry run python manage.py opensearch document index --force && poetry run python manage.py runserver 0.0.0.0:8001'
