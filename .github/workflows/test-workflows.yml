@@ -18,8 +18,8 @@ jobs:
     with:
       ref: ${{ inputs.ref }}
       image: cern-sis/inspire/workflows
-      context: ./backoffice-repo/workflows
-      dockerfile: ./backoffice-repo/workflows/Dockerfile
+      context: ./workflows
+      dockerfile: ./workflows/Dockerfile
     secrets: inherit
   test:
     needs: build
@@ -44,7 +44,7 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - name: Test
-        working-directory: ./backoffice-repo/workflows
+        working-directory: ./workflows
         run: >
           docker run
           --network=host

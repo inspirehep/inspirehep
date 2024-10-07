@@ -4,7 +4,8 @@ on:
   pull_request_target:
     branches: [master]
     paths-ignore:
-      - 'backoffice-repo/**'
+      - 'backoffice/**'
+      - 'workflow/**'
 
 jobs:
   test:
