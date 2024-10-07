@@ -1,9 +1,8 @@
 from backoffice.users.api.views import UserViewSet
-from backoffice.workflows.api.views import (
+from backoffice.authors.api.views import (
     AuthorWorkflowViewSet,
-    DecisionViewSet,
-    WorkflowTicketViewSet,
-    WorkflowViewSet,
+    AuthorDecisionViewSet,
+    AuthorWorkflowTicketViewSet,
 )
 from django.conf import settings
 from rest_framework.routers import DefaultRouter, SimpleRouter
@@ -18,8 +17,12 @@ router.register("users", UserViewSet)
         "workflows/authors", AuthorWorkflowViewSet, basename="workflows-authors"
     ),
 )
-router.register("workflows", WorkflowViewSet, basename="workflows")
-(router.register("workflow-ticket", WorkflowTicketViewSet, basename="workflow-ticket"),)
-router.register("decisions", DecisionViewSet, basename="decisions")
+router.register("workflows", AuthorWorkflowViewSet, basename="workflows")
+(
+    router.register(
+        "workflow-ticket", AuthorWorkflowTicketViewSet, basename="workflow-ticket"
+    ),
+)
+router.register("decisions", AuthorDecisionViewSet, basename="decisions")
 app_name = "api"
 urlpatterns = router.urls

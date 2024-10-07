@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from requests.exceptions import RequestException
 from rest_framework import status
 
-from backoffice.workflows.constants import WORKFLOW_DAGS
+from backoffice.authors.constants import WORKFLOW_DAGS
 
 AIRFLOW_BASE_URL = environ.get("AIRFLOW_BASE_URL")
 
