@@ -19,7 +19,7 @@ from inspirehep.matcher.api import (
 from mock import patch
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_grobid_with_match(inspire_app):
     query = "[27] K. P. Das and R. C. Hwa, Phys. Lett. B 68, 459 (1977);"
 
@@ -37,7 +37,7 @@ def test_grobid_with_match(inspire_app):
     assert expected == result
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_grobid_without_match(inspire_app):
     query = "jessica"
 

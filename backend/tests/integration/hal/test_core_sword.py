@@ -53,7 +53,7 @@ def test_new_connection_can_be_configured_to_be_insecure(inspire_app):
         assert connection.h.h.disable_ssl_certificate_validation
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_service_document(inspire_app):
     user_name = inspire_app.config["HAL_USER_NAME"]
     user_pass = inspire_app.config["HAL_USER_PASS"]
@@ -73,7 +73,7 @@ def test_service_document(inspire_app):
     assert inspire_app.config["HAL_COL_IRI"] in hrefs
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_push_happy_flow(inspire_app, get_fixture):
     record_json = orjson.loads(get_fixture("hal_preprod_record.json"))
     record_data = faker.record("lit", data=record_json)
@@ -107,7 +107,7 @@ def test_push_happy_flow(inspire_app, get_fixture):
     assert receipt.parsed
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_push_again_on_already_existing_exception(inspire_app, get_fixture):
     record_json = orjson.loads(get_fixture("hal_preprod_record.json"))
     record_data = faker.record("lit", data=record_json)
@@ -153,7 +153,7 @@ def test_exception_in_hal_create(mock_hal_create, inspire_app, get_fixture):
     assert str(excinfo.value) == "Some error"
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_unicode_data(inspire_app, get_fixture):
     record_json = orjson.loads(get_fixture("hal_preprod_unicode_record.json"))
     record_data = faker.record("lit", data=record_json)

@@ -12,7 +12,7 @@ from inspirehep.tools.utils import find_references
 from werkzeug.datastructures import FileStorage
 
 
-@pytest.fixture()
+@pytest.fixture
 def literature_records(inspire_app):
     with freeze_time("2020-06-12"):
         aut1 = create_record("aut", data={"name": {"value": "Ellis, John R."}})

@@ -256,7 +256,7 @@ def test_return_record_for_publication_info_search_with_multiple_records_with_th
     assert response.status_code == 200
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_return_record_for_publication_info_search_example_2(inspire_app):
     query = "W. Buchmüller and O. Philipsen, Nucl. Phys. B 443 (1995) 47"
 
@@ -369,7 +369,7 @@ def test_return_record_for_publication_info_search_example_3(inspire_app):
     assert response.status_code == 200
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_return_record_for_publication_info_search_with_leading_zeros_in_page_artid(
     inspire_app,
 ):
@@ -420,7 +420,7 @@ def test_return_record_for_publication_info_search_with_leading_zeros_in_page_ar
     assert response.status_code == 200
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_return_record_for_publication_info_search_with_old_format(inspire_app):
     query = "JHEP 1806 (2018) 131"
 
@@ -486,7 +486,7 @@ def test_reference_search_with_exception(mock_get_reference_from_grobid, inspire
     assert response.status_code == 200
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_reference_search_without_journal_title(inspire_app):
     query = "michele vallisneri PRL 116, 221101 (2016)"
     with inspire_app.test_client() as client:
@@ -811,7 +811,7 @@ def test_citations_query_result(inspire_app):
     assert citation["control_number"] == record_citing["control_number"]
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_big_query_execute_without_recursion_depth_exception(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get(

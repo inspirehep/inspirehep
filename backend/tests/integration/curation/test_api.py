@@ -24,7 +24,7 @@ def create_records_from_datadir(datadir, record_type, path_in_datadir):
         create_record(record_type, data=data)
 
 
-@pytest.fixture()
+@pytest.fixture
 def _insert_experiments_into_db(inspire_app, datadir):
     experiments_path = os.path.join(datadir, "experiments")
     for record_filename in os.listdir(experiments_path):
@@ -32,7 +32,7 @@ def _insert_experiments_into_db(inspire_app, datadir):
         create_record("exp", data=data)
 
 
-@pytest.fixture()
+@pytest.fixture
 def _insert_ambiguous_experiments_into_db(inspire_app, datadir):
     ambiguous_experiments_path = os.path.join(datadir, "ambiguous_experiments")
     for record_filename in os.listdir(ambiguous_experiments_path):
@@ -42,12 +42,12 @@ def _insert_ambiguous_experiments_into_db(inspire_app, datadir):
         create_record("exp", data=data)
 
 
-@pytest.fixture()
+@pytest.fixture
 def _insert_literature_in_db(inspire_app, datadir):
     create_records_from_datadir(datadir, "lit", "literature")
 
 
-@pytest.fixture()
+@pytest.fixture
 def _insert_institutions_in_db(inspire_app, datadir):
     create_records_from_datadir(datadir, "ins", "institutions")
 
