@@ -71,8 +71,8 @@ x-airflow-common: &airflow-common
     dockerfile: Dockerfile.local
   environment: &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://inspirehep:inspirehep@db/inspirehep
-    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://inspirehep:inspirehep@db/inspirehep
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:postgres@db/workflows
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://postgres:postgres@db/workflows
     AIRFLOW__CELERY__BROKER_URL: redis://:@cache:6379/0
     AIRFLOW__CORE__FERNET_KEY: ''
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'false'
@@ -135,6 +135,8 @@ services:
     ports:
       - '5432:5432'
     command: postgres -c 'max_connections=200'
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   mq:
     extends:
       file: docker-compose.services.yml
