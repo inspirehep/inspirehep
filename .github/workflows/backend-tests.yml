@@ -55,8 +55,8 @@ jobs:
       postgres:
         image: postgres:14.1
         env:
-          POSTGRES_USER: inspirehep
-          POSTGRES_PASSWORD: inspirehep
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
           POSTGRES_DB: inspirehep
         ports:
           - 5432:5432

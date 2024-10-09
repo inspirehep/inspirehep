@@ -46,9 +46,9 @@ jobs:
       db:
         image: postgres:14.1
         env:
-          POSTGRES_DB: inspire
-          POSTGRES_USER: inspire
-          POSTGRES_PASSWORD: inspire
+          POSTGRES_DB: backoffice
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
     steps:
@@ -66,9 +66,9 @@ jobs:
             --entrypoint poetry
             --env DJANGO_SETTINGS_MODULE=config.settings.test
             --env DISABLE_SECURITY_PLUGIN=true
-            --env POSTGRES_DB=inspire
-            --env POSTGRES_USER=inspire
-            --env POSTGRES_PASSWORD=inspire
+            --env POSTGRES_DB=backoffice
+            --env POSTGRES_USER=postgres
+            --env POSTGRES_PASSWORD=postgres
             --env POSTGRES_HOST=127.0.0.1
             --env OPENSEARCH_HOST=127.0.0.1:9200
             registry.cern.ch/cern-sis/inspire/backoffice@${{ needs.build.outputs.image-id }}
