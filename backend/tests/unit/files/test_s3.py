@@ -8,7 +8,7 @@ import pytest
 from inspirehep.files.api.s3 import S3
 
 
-@pytest.fixture()
+@pytest.fixture
 def config_mock_fixture():
     with (
         mock.patch("inspirehep.files.api.s3.current_app") as app_mock,

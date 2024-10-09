@@ -1097,7 +1097,7 @@ def test_refextract_text_dedupe_references(inspire_app, override_config):
             assert len(references) == 1
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_authorlist_url(inspire_app):
     schema = load_schema("hep")
     subschema = schema["properties"]["authors"]
@@ -1152,7 +1152,7 @@ def test_authorlist_url_exception(inspire_app):
     assert response.status_code == 400
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_authorlist_url_is_normalizing_affiliaitons(inspire_app):
     schema = load_schema("hep")
     subschema = schema["properties"]["authors"]

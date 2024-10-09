@@ -189,14 +189,14 @@ def test_get_parent_record_for_proceedings_from_es(inspire_app):
     assert extracted_parent_record == parent_record
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_is_document_scanned_when_scanned_pdf(inspire_app):
     scanned_document_url = "http://solutions.weblite.ca/pdfocrx/scansmpl.pdf"
     file_data = download_file_from_url(scanned_document_url, check_file_size=True)
     assert is_document_scanned(file_data)
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_is_document_scanned_with_not_scanned_pdf(inspire_app):
     document_url = "https://inspirehep.net/files/e12e3c55e2844871904fdda01d6cd42d"
     file_data = download_file_from_url(document_url, check_file_size=True)
@@ -217,7 +217,7 @@ def test_author_by_recid(inspire_app):
     assert lit_author["full_name"] == author["name"]["value"]
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_is_document_scanned_doesnt_corrupt_document(inspire_app):
     document_url = "https://inspirehep.net/files/e12e3c55e2844871904fdda01d6cd42d"
     file_data = download_file_from_url(document_url, check_file_size=True)

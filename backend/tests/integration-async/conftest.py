@@ -87,7 +87,7 @@ def celery_session_app(app, celery_session_app):
     return celery_session_app
 
 
-@pytest.fixture()
+@pytest.fixture
 def clean_celery_session(celery_session_app, celery_session_worker):
     celery_session_app.control.purge()
     yield celery_session_worker
@@ -99,7 +99,7 @@ def celery_config():
     return {}
 
 
-@pytest.fixture()
+@pytest.fixture
 def cli(inspire_app):
     """Click CLI runner inside the Flask application."""
     runner = CliRunner()
@@ -108,7 +108,7 @@ def cli(inspire_app):
     return runner
 
 
-@pytest.fixture()
+@pytest.fixture
 def redis(inspire_app):
     redis_url = inspire_app.config.get("CACHE_REDIS_URL")
     redis = StrictRedis.from_url(redis_url, decode_responses=True)
@@ -118,7 +118,7 @@ def redis(inspire_app):
     redis.close()
 
 
-@pytest.fixture()
+@pytest.fixture
 def override_config(inspire_app):
     @contextmanager
     def _override_config(**kwargs):
@@ -143,18 +143,18 @@ def override_config(inspire_app):
     return _override_config
 
 
-@pytest.fixture()
+@pytest.fixture
 def inspire_app(app, cache):
     return app
 
 
-@pytest.fixture()
+@pytest.fixture
 def enable_self_citations(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_SELF_CITATIONS=True):
         yield inspire_app
 
 
-@pytest.fixture()
+@pytest.fixture
 def enable_disambiguation(inspire_app, override_config):
     with override_config(
         FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION=True,
@@ -164,13 +164,13 @@ def enable_disambiguation(inspire_app, override_config):
         yield inspire_app
 
 
-@pytest.fixture()
+@pytest.fixture
 def enable_files(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_FILES=True):
         yield inspire_app
 
 
-@pytest.fixture()
+@pytest.fixture
 def s3(inspire_app, enable_files):
     mock = mock_s3()
     mock.start()

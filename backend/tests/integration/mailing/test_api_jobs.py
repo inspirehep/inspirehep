@@ -79,12 +79,12 @@ def test_render_jobs_weekly_campaign_job_record_template_only(create_jobs):
         assert result in expected_results
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_subscribe_to_the_list(inspire_app):
     subscribe_to_jobs_weekly_list("luke@cage.com", "Luke", "Cage")
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_subscribe_to_the_list_with_invalid_email(inspire_app):
     with pytest.raises(ValueError, match="Bad Request"):
         subscribe_to_jobs_weekly_list("luke", "Luke", "Cage")

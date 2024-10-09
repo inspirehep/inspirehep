@@ -8,7 +8,7 @@ import orjson
 import pytest
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_view_subscribe_to_list(inspire_app):
     with inspire_app.test_client() as client:
         response = client.post(

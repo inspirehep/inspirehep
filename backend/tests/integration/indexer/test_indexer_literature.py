@@ -67,7 +67,7 @@ def test_regression_index_literature_record_with_related_records(inspire_app, da
     assert data["related_records"] == result["related_records"]
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_indexer_creates_proper_fulltext_links_for_hidden_documents_in_ui_display_files_enabled(
     inspire_app, s3
 ):
@@ -102,7 +102,7 @@ def test_indexer_creates_proper_fulltext_links_for_hidden_documents_in_ui_displa
         assert link["description"] in expected_fulltext_links
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
     inspire_app, s3
 ):

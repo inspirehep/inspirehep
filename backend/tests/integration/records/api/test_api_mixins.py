@@ -25,7 +25,7 @@ from inspirehep.records.models import (
 )
 
 
-@pytest.fixture()
+@pytest.fixture
 def journal_data():
     journal_data = {
         "_collections": ["Journals"],

@@ -6,7 +6,7 @@ from helpers.utils import create_record
 from inspirehep.records.api import LiteratureRecord
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 @freeze_time("2021-08-12")
 def test_hepdata_harvest_happy_flow(inspire_app, cli):
     record_1 = create_record("lit", data={"control_number": 1882568})
@@ -28,7 +28,7 @@ def test_hepdata_harvest_happy_flow(inspire_app, cli):
     ]
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_hepdata_harvest_happy_flow_with_date_passed(inspire_app, cli):
     record_1 = create_record("lit", data={"control_number": 1882568})
     cli.invoke(["hepdata", "harvest", "--since", "2021-08-16"])

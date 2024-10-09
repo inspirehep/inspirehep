@@ -833,7 +833,7 @@ def test_record_cannot_cite_itself(inspire_app):
     assert record.citation_count == 0
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_documents_with_large_size(inspire_app, override_config):
     with override_config(FILES_SIZE_LIMIT=1, FEATURE_FLAG_ENABLE_FILES=True):
         data = {
@@ -851,7 +851,7 @@ def test_documents_with_large_size(inspire_app, override_config):
         assert fs_error.value.code == 413
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_add_record_with_documents_and_figures(inspire_app, s3):
     expected_figure_key = "a29b7e90ba08cd1565146fe81ebbecd5"
     expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
@@ -906,7 +906,7 @@ def test_add_record_with_documents_and_figures(inspire_app, s3):
     assert metadata_figure["ContentType"] == "image/png"
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_adding_record_with_documents_adds_hidden(inspire_app, s3):
     expected_hidden_document_key = "b88e6b880b32d8ed06b9b740cfb6eb2a"
     create_s3_bucket(expected_hidden_document_key)
@@ -936,7 +936,7 @@ def test_adding_record_with_documents_adds_hidden(inspire_app, s3):
     assert current_s3_instance.file_exists(expected_hidden_document_key) is True
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_adding_record_with_duplicated_documents_and_figures(inspire_app, s3):
     expected_figure_key = "a29b7e90ba08cd1565146fe81ebbecd5"
     expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
@@ -1025,7 +1025,7 @@ def test_adding_record_with_duplicated_documents_and_figures(inspire_app, s3):
     assert current_s3_instance.file_exists(expected_document_key) is True
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_adding_record_with_document_without_filename(inspire_app, s3):
     expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
     create_s3_bucket(expected_document_key)
@@ -1055,7 +1055,7 @@ def test_adding_record_with_document_without_filename(inspire_app, s3):
     assert metadata_document["ContentDisposition"] == 'inline; filename="key"'
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_adding_record_with_document_without_filename_or_key(inspire_app, s3):
     expected_document_key = "2604ee85348bddb0f02bee24657a31f9"
     create_s3_bucket(expected_document_key)
@@ -1087,7 +1087,7 @@ def test_adding_record_with_document_without_filename_or_key(inspire_app, s3):
     )
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_adding_record_with_documents_with_existing_file_updates_metadata(
     inspire_app, s3
 ):
@@ -1116,7 +1116,7 @@ def test_adding_record_with_documents_with_existing_file_updates_metadata(
     assert metadata_document["ContentDisposition"] == 'inline; filename="file2.pdf"'
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_adding_record_with_documents_with_full_url_without_original_url(
     inspire_app, s3
 ):
@@ -1183,7 +1183,7 @@ def test_adding_record_with_documents_with_relative_url_without_original_url(
         assert expected_documents == record["documents"]
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_adding_deleted_record_with_documents_does_not_add_files(inspire_app, s3):
     expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
     create_s3_bucket(expected_document_key)
@@ -1202,7 +1202,7 @@ def test_adding_deleted_record_with_documents_does_not_add_files(inspire_app, s3
     assert current_s3_instance.file_exists(expected_document_key) is False
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_update_record_with_documents_and_figures(inspire_app, s3):
     expected_figure_key = "a29b7e90ba08cd1565146fe81ebbecd5"
     expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
@@ -1261,7 +1261,7 @@ def test_update_record_with_documents_and_figures(inspire_app, s3):
     assert metadata_figure["ContentType"] == "image/png"
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_update_record_remove_documents_and_figures(inspire_app, s3):
     expected_figure_key = "a29b7e90ba08cd1565146fe81ebbecd5"
     expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
@@ -1296,7 +1296,7 @@ def test_update_record_remove_documents_and_figures(inspire_app, s3):
     assert "documents" not in record
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_update_record_add_more_documents(inspire_app, s3):
     expected_document_key = "b88e6b880b32d8ed06b9b740cfb6eb2a"
     expected_updated_document_key = "f276b50c9e6401b5e212785a496efa4e"
@@ -1360,7 +1360,7 @@ def test_update_record_add_more_documents(inspire_app, s3):
     assert metadata_document["ContentType"] == "application/pdf"
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_not_adding_unsupported_files(inspire_app, s3):
     expected_document_key = "b98fd32e5ba4fa4e1c4bb547c66734a8"
     create_s3_bucket(expected_document_key)
@@ -2308,7 +2308,7 @@ def test_literature_get_modified_authors_after_metadata_update(inspire_app):
     assert len(list(record.get_modified_authors())) == 1
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_import_article_with_unknown_type_should_import_as_article(inspire_app):
     doi = "10.31234/osf.io/4ms5a"
     record = import_article(doi)
@@ -2316,7 +2316,7 @@ def test_import_article_with_unknown_type_should_import_as_article(inspire_app):
     assert record["document_type"] == ["article"]
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_index_fulltext_document_s3(inspire_app, s3):
     metadata = {"foo": "bar"}
     create_s3_bucket(KEY)
@@ -2345,7 +2345,7 @@ def test_index_fulltext_document_s3(inspire_app, s3):
     assert "text" in serialized_data["documents"][0]
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_index_fulltext_with_not_existing_doc_handle_exception(
     inspire_app, s3, override_config
 ):
@@ -2390,7 +2390,7 @@ def test_index_fulltext_with_not_existing_doc_handle_exception(
         assert "text" not in serialized_data["documents"][1]
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_get_documents_for_fulltext_works_for_arxiv(inspire_app, s3):
     metadata = {"foo": "bar"}
     create_s3_bucket(KEY)
@@ -2419,7 +2419,7 @@ def test_get_documents_for_fulltext_works_for_arxiv(inspire_app, s3):
     assert "text" in serialized_data["documents"][0]
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_add_record_with_scanned_documents(inspire_app, s3):
     expected_document_key = "8d2fc6d280b1385302910fd5162eaad2"
     create_s3_bucket(expected_document_key)
@@ -2448,7 +2448,7 @@ def test_add_record_with_scanned_documents(inspire_app, s3):
     assert record["documents"] == expected_documents
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 @mock.patch("inspirehep.records.api.literature.is_document_scanned")
 def test_add_record_with_fulltext_documents_ommit_scanned_check(
     mock_is_scanned, inspire_app, s3

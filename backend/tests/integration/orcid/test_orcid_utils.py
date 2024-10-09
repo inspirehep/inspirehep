@@ -49,7 +49,7 @@ from mock import patch
 pytestmark = pytest.mark.random_order(disabled=True)
 
 
-@pytest.fixture()
+@pytest.fixture
 def author_in_isolated_app(inspire_app):
     record = {
         "$schema": "http://localhost:5000/schemas/records/authors.json",
@@ -67,7 +67,7 @@ def author_in_isolated_app(inspire_app):
     return record["control_number"]
 
 
-@pytest.fixture()
+@pytest.fixture
 def user_remote_account(inspire_app):
     orcid = "0000-0003-4792-9178"
     test_user = TestUserIdentity.create_for_orcid(orcid)

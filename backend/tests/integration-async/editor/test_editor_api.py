@@ -16,7 +16,7 @@ from invenio_db import db
 from tenacity import stop_after_delay, wait_fixed
 
 
-@pytest.fixture()
+@pytest.fixture
 def record_with_two_revisions(inspire_app, clean_celery_session):
     record_data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
@@ -36,7 +36,7 @@ def record_with_two_revisions(inspire_app, clean_celery_session):
     return record["control_number"]
 
 
-@pytest.fixture()
+@pytest.fixture
 def hidden_record_with_two_revisions(inspire_app, clean_celery_session):
     record_data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",

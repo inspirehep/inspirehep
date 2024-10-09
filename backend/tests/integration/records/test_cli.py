@@ -16,7 +16,7 @@ from inspirehep.records.api import AuthorsRecord, JobsRecord, LiteratureRecord
 from inspirehep.records.models import InstitutionLiterature
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_create_record_with_one_url(inspire_app, cli):
     control_number = 20
     result = cli.invoke(
@@ -33,7 +33,7 @@ def test_create_record_with_one_url(inspire_app, cli):
     assert control_number == result_record["control_number"]
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_create_record_with_multiple_urls(inspire_app, cli):
     control_number_literature = 20
     control_number_author = 1_013_123
@@ -57,7 +57,7 @@ def test_create_record_with_multiple_urls(inspire_app, cli):
     assert control_number_author == result_record_author["control_number"]
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_create_record_with_unreachable_url(inspire_app, cli):
     url_unreachable = "http://something"
     result = cli.invoke(["importer", "records", "-u", url_unreachable])
@@ -68,7 +68,7 @@ def test_create_record_with_unreachable_url(inspire_app, cli):
     assert expected_message in result.output
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_create_record_with_not_existing_record(inspire_app, cli):
     control_number = 999_999
     result = cli.invoke(

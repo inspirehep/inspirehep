@@ -13,7 +13,7 @@ from inspirehep.mailing.providers.mailtrain import (
 )
 
 
-@pytest.mark.vrc()
+@pytest.mark.vrc
 def test_mailtrain_subscribe_user_to_list(inspire_app):
     list_id = "xKU-qcq8U"
     email = "test@email.ch"

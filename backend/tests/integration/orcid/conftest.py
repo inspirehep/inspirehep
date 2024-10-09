@@ -57,7 +57,7 @@ def vcr_config():
     }
 
 
-@pytest.fixture()
+@pytest.fixture
 def vcr(vcr):
     vcr.register_matcher(
         "accept", lambda r1, r2: r1.headers.get("Accept") == r2.headers.get("Accept")

@@ -90,7 +90,7 @@ def cleanup_record(record):
     User.query.filter_by(email=record["email"]).delete()
 
 
-@pytest.fixture()
+@pytest.fixture
 def _teardown_sample_user(inspire_app):
     yield
 
@@ -98,7 +98,7 @@ def _teardown_sample_user(inspire_app):
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER)
 
 
-@pytest.fixture()
+@pytest.fixture
 def _teardown_sample_user_2(inspire_app):
     yield
 
@@ -106,7 +106,7 @@ def _teardown_sample_user_2(inspire_app):
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER_2)
 
 
-@pytest.fixture()
+@pytest.fixture
 def _teardown_sample_user_edited(inspire_app):
     yield
 
@@ -114,7 +114,7 @@ def _teardown_sample_user_edited(inspire_app):
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER_EDITED)
 
 
-@pytest.fixture()
+@pytest.fixture
 def redis_setup(inspire_app):
     redis_url = current_app.config.get("CACHE_REDIS_URL")
     r = StrictRedis.from_url(redis_url)
@@ -124,21 +124,21 @@ def redis_setup(inspire_app):
     r.delete("legacy_orcid_tokens")
 
 
-@pytest.fixture()
+@pytest.fixture
 def app_with_config(inspire_app, override_config):
     config = {"ORCID_APP_CREDENTIALS": {"consumer_key": "0000-0000-0000-0000"}}
     with override_config(**config):
         yield inspire_app
 
 
-@pytest.fixture()
+@pytest.fixture
 def app_without_config(inspire_app, override_config):
     config = {"ORCID_APP_CREDENTIALS": {"consumer_key": None}}
     with override_config(**config):
         yield inspire_app
 
 
-@pytest.fixture()
+@pytest.fixture
 def inspire_record_author():
     factory_author = TestRecordMetadata.create_from_file(
         __name__,
@@ -148,7 +148,7 @@ def inspire_record_author():
     return factory_author.inspire_record
 
 
-@pytest.fixture()
+@pytest.fixture
 def inspire_record_literature():
     factory_literature = TestRecordMetadata.create_from_file(
         __name__,
@@ -158,7 +158,7 @@ def inspire_record_literature():
     return factory_literature.inspire_record
 
 
-@pytest.fixture()
+@pytest.fixture
 def assert_user_and_token_models():
     def _assert_user_and_token_models(orcid, token, email, name):
         user = User.query.filter_by(email=email).one_or_none()
@@ -178,7 +178,7 @@ def assert_user_and_token_models():
     return _assert_user_and_token_models
 
 
-@pytest.fixture()
+@pytest.fixture
 def _cache_fixture():
     CACHE_EXPIRE_ORIG = push_access_tokens.CACHE_EXPIRE
     push_access_tokens.CACHE_EXPIRE = 2  # Sec.

@@ -24,7 +24,7 @@ def test_import_article_view_400_bad_arxiv(inspire_app):
     assert resp.status_code == 400
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_import_article_view_404_non_existing_doi(inspire_app):
     with inspire_app.test_client() as client:
         resp = client.get("/literature/import/10.1016/j.physletb.2099.08.020")
@@ -71,7 +71,7 @@ def test_import_article_view_409_because_doi_already_exists(inspire_app):
         assert resp.status_code == 409
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_import_article_view_404_arxiv_not_found(inspire_app):
     with inspire_app.test_client() as client:
         resp = client.get("/literature/import/arXiv:0000.0000")
@@ -106,7 +106,7 @@ def test_import_article_view_404_website_not_reachable(inspire_app):
         assert resp.status_code == 502
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_import_article_view_500_arxiv_broken_record(inspire_app):
     arxiv_id = "0804.1111"
     with inspire_app.test_client() as client:
@@ -114,7 +114,7 @@ def test_import_article_view_500_arxiv_broken_record(inspire_app):
     assert resp.status_code == 500
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_import_article_uses_only_arxiv_if_there_is_no_doi_during_arxiv_import(
     inspire_app,
 ):
@@ -133,7 +133,7 @@ def test_import_article_uses_only_arxiv_if_there_is_no_doi_during_arxiv_import(
     assert result["arxiv_categories"] == ["hep-ph", "hep-ex"]
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_import_article_merges_crossref_after_arxiv_import(inspire_app):
     arxiv_id = "1607.06746"
     with inspire_app.test_client() as client:
@@ -144,7 +144,7 @@ def test_import_article_merges_crossref_after_arxiv_import(inspire_app):
     assert resp.status_code == 200
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_import_article_view_200_crossref(inspire_app):
     doi = "10.1016/j.physletb.2012.08.020"
 
