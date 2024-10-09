@@ -112,7 +112,7 @@ services:
         condition: service_started
       db:
         condition: service_started
-      es:
+      opensearch:
         condition: service_healthy
     volumes:
       - ./backoffice:/app:z
@@ -142,10 +142,10 @@ services:
     ports:
       - '5672:5672'
       - '15672:15672'
-  es:
+  opensearch:
     extends:
       file: docker-compose.services.yml
-      service: es
+      service: opensearch
     ports:
       - '9200:9200'
   ui:
@@ -200,7 +200,7 @@ services:
         condition: service_started
       db:
         condition: service_started
-      es:
+      opensearch:
         condition: service_healthy
       mq:
         condition: service_started

@@ -2,11 +2,11 @@ from django.conf import settings
 from django_opensearch_dsl import Document, fields
 from django_opensearch_dsl.registries import registry
 
-from backoffice.workflows.models import Workflow
+from backoffice.authors.models import AuthorWorkflow
 
 
 @registry.register_document
-class WorkflowDocument(Document):
+class AuthorWorkflowDocument(Document):
     id = fields.TextField()
     workflow_type = fields.KeywordField()
     data = fields.ObjectField(dynamic=True)
@@ -19,7 +19,6 @@ class WorkflowDocument(Document):
     )
 
     status = fields.KeywordField()
-    is_update = fields.BooleanField()
 
     class Index:
         name = settings.OPENSEARCH_INDEX_NAMES[__name__]
@@ -30,7 +29,7 @@ class WorkflowDocument(Document):
         }
 
     class Django:
-        model = Workflow
+        model = AuthorWorkflow
         fields = [
             "_created_at",
             "_updated_at",

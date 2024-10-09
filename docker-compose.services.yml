@@ -21,7 +21,7 @@ services:
       - 'INVENIO_CACHE_TYPE=RedisCache'
       - 'INVENIO_CELERY_BROKER_URL=amqp://guest:guest@mq/'
       - 'INVENIO_CELERY_RESULT_BACKEND=redis://cache:6379/2'
-      - "INVENIO_SEARCH_ELASTIC_HOSTS=['es:9200']"
+      - "INVENIO_SEARCH_ELASTIC_HOSTS=['opensearch:9200']"
       - 'INVENIO_SECRET_KEY=CHANGE_ME'
       - 'INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://inspirehep:inspirehep@db:5432/inspirehep'
       - 'INVENIO_INSPIRE_NEXT_URL=http://ui:8080'
@@ -55,7 +55,7 @@ services:
   mq:
     image: rabbitmq:3.12.0-management
     restart: 'always'
-  es:
+  opensearch:
     platform: linux/amd64
     image: registry.cern.ch/cern-sis/inspirehep/opensearch:2.13.0
     restart: 'always'
@@ -87,7 +87,7 @@ services:
   kibana:
     image: kibana:7.10.1
     environment:
-      - 'ELASTICSEARCH_URL=http://es:9200'
+      - 'ELASTICSEARCH_URL=http://opensearch:9200'
       - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
     ports: ['5601:5601']
   flower:

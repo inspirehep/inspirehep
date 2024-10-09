@@ -39,7 +39,7 @@ MEDIA_URL = "http://media.testserver/"
 # ------------------------------------------------------------------------------
 # Name of the Opensearch index
 OPENSEARCH_INDEX_NAMES = {
-    "backoffice.workflows.documents": "backoffice-backend-test-workflows",
+    "backoffice.authors.documents": "backoffice-backend-test-workflows",
 }
 # Force an index refresh with every save.
 OPENSEARCH_DSL_AUTO_REFRESH = True

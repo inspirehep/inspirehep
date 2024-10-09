@@ -3,10 +3,14 @@ from django.db.models import JSONField
 from django_json_widget.widgets import JSONEditorWidget
 
 from backoffice.management.permissions import IsAdminOrCuratorUser
-from backoffice.workflows.models import Decision, Workflow, WorkflowTicket
+from backoffice.authors.models import (
+    AuthorDecision,
+    AuthorWorkflow,
+    AuthorWorkflowTicket,
+)
 
 
-class WorkflowsAdminSite(admin.AdminSite):
+class AuthorWorkflowsAdminSite(admin.AdminSite):
     """
     Custom admin site for managing workflows.
 
@@ -63,8 +67,8 @@ class BaseModelAdmin(admin.ModelAdmin):
     }
 
 
-class WorkflowsDecisionsInline(admin.StackedInline):
-    model = Decision
+class AuthorWorkflowsDecisionsInline(admin.StackedInline):
+    model = AuthorDecision
     extra = 0
     can_delete = False
     show_change_link = True
@@ -78,8 +82,8 @@ class WorkflowsDecisionsInline(admin.StackedInline):
         return obj.action
 
 
-class WorkflowTicketsInline(admin.StackedInline):
-    model = WorkflowTicket
+class AuthorWorkflowTicketsInline(admin.StackedInline):
+    model = AuthorWorkflowTicket
     extra = 0
     can_delete = False
     show_change_link = True
@@ -89,7 +93,7 @@ class WorkflowTicketsInline(admin.StackedInline):
         return False
 
 
-@admin.register(Workflow)
+@admin.register(AuthorWorkflow)
 class WorkflowAdmin(BaseModelAdmin):
     """
     Admin class for Workflow model. Define get, update and delete permissions.
@@ -101,24 +105,20 @@ class WorkflowAdmin(BaseModelAdmin):
         "id",
         "workflow_type",
         "status",
-        "core",
-        "is_update",
         "_created_at",
         "_updated_at",
     )
     list_filter = [
         "workflow_type",
         "status",
-        "core",
-        "is_update",
         "_created_at",
         "_updated_at",
     ]
 
-    inlines = [WorkflowsDecisionsInline, WorkflowTicketsInline]
+    inlines = [AuthorWorkflowsDecisionsInline, AuthorWorkflowTicketsInline]
 
 
-@admin.register(Decision)
+@admin.register(AuthorDecision)
 class DecisionAdmin(BaseModelAdmin):
     """
     Admin class for Decision model. Define get, update and delete permissions.
@@ -137,7 +137,7 @@ class DecisionAdmin(BaseModelAdmin):
         return obj.action
 
 
-@admin.register(WorkflowTicket)
+@admin.register(AuthorWorkflowTicket)
 class WorkflowTicketAdmin(BaseModelAdmin):
     """
     Admin class for WorkflowTicket model. Define get, update and delete permissions.

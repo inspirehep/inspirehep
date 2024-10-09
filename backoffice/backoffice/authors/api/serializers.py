@@ -3,18 +3,26 @@ from os import environ
 from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
 from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
 from rest_framework import serializers
+from backoffice.authors.constants import (
+    DECISION_CHOICES,
+    StatusChoices,
+    WorkflowType,
+    allowed_workflow_types,
+)
+from backoffice.authors.documents import AuthorWorkflowDocument
+from backoffice.authors.models import (
+    AuthorDecision,
+    AuthorWorkflow,
+    AuthorWorkflowTicket,
+)
 
-from backoffice.workflows.constants import ResolutionDags, StatusChoices, WorkflowType
-from backoffice.workflows.documents import WorkflowDocument
-from backoffice.workflows.models import Decision, Workflow, WorkflowTicket
 
-
-class WorkflowTicketSerializer(serializers.ModelSerializer):
+class AuthorWorkflowTicketSerializer(serializers.ModelSerializer):
     ticket_url = serializers.SerializerMethodField()
-    workflow = serializers.PrimaryKeyRelatedField(queryset=Workflow.objects.all())
+    workflow = serializers.PrimaryKeyRelatedField(queryset=AuthorWorkflow.objects.all())
 
     class Meta:
-        model = WorkflowTicket
+        model = AuthorWorkflowTicket
         fields = "__all__"
 
     def get_ticket_url(self, obj):
@@ -24,26 +32,27 @@ class WorkflowTicketSerializer(serializers.ModelSerializer):
         )
 
 
-class DecisionSerializer(serializers.ModelSerializer):
-    workflow = serializers.PrimaryKeyRelatedField(queryset=Workflow.objects.all())
+class AuthorDecisionSerializer(serializers.ModelSerializer):
+    workflow = serializers.PrimaryKeyRelatedField(queryset=AuthorWorkflow.objects.all())
 
     class Meta:
-        model = Decision
+        model = AuthorDecision
         fields = "__all__"
 
 
-class WorkflowSerializer(serializers.ModelSerializer):
-    tickets = WorkflowTicketSerializer(many=True, read_only=True)
-    decisions = DecisionSerializer(many=True, read_only=True)
+class AuthorWorkflowSerializer(serializers.ModelSerializer):
+    tickets = AuthorWorkflowTicketSerializer(many=True, read_only=True)
+    decisions = AuthorDecisionSerializer(many=True, read_only=True)
+
+    def validate_workflow_type(self, value):
+        if value not in allowed_workflow_types:
+            raise serializers.ValidationError(
+                f"The field `workflow_type` should be on of {allowed_workflow_types}"
+            )
+        return value
 
     class Meta:
-        model = Workflow
-        fields = "__all__"
-
-
-class WorkflowDocumentSerializer(DocumentSerializer):
-    class Meta:
-        document = WorkflowDocument
+        model = AuthorWorkflow
         fields = "__all__"
 
 
@@ -60,24 +69,15 @@ class WorkflowDocumentSerializer(DocumentSerializer):
             value={
                 "workflow_type": WorkflowType.AUTHOR_CREATE,
                 "status": StatusChoices.RUNNING,
-                "core": False,
-                "is_update": False,
                 "data": {},
             },
         ),
     ],
 )
-class WorkflowAuthorSerializer(WorkflowSerializer):
-    def validate_workflow_type(self, value):
-        allowed_workflow_types = [
-            WorkflowType.AUTHOR_CREATE,
-            WorkflowType.AUTHOR_UPDATE,
-        ]
-        if value not in allowed_workflow_types:
-            raise serializers.ValidationError(
-                f"The field `workflow_type` should be on of {allowed_workflow_types}"
-            )
-        return value
+class AuthorWorkflowDocumentSerializer(DocumentSerializer):
+    class Meta:
+        document = AuthorWorkflowDocument
+        fields = "__all__"
 
 
 @extend_schema_serializer(
@@ -95,5 +95,5 @@ class WorkflowAuthorSerializer(WorkflowSerializer):
     ],
 )
 class AuthorResolutionSerializer(serializers.Serializer):
-    value = serializers.ChoiceField(choices=ResolutionDags)
+    value = serializers.ChoiceField(choices=DECISION_CHOICES)
     create_ticket = serializers.BooleanField(default=False)
