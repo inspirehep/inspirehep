@@ -5,7 +5,7 @@ export AIRFLOW_PROJ_DIR=$(AIRFLOW_HOME)
 sleep:
 	sleep 10
 
-run: services start-inspirehep sleep setup-inspirehep start-backoffice sleep setup-backoffice
+run: services start-inspirehep start-backoffice sleep setup-inspirehep sleep setup-backoffice
 run-inspirehep: services start-inspirehep sleep setup-inspirehep
 run-backoffice: services start-backoffice sleep setup-backoffice
 
