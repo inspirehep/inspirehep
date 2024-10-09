@@ -23,7 +23,7 @@ services:
       - 'INVENIO_CELERY_RESULT_BACKEND=redis://cache:6379/2'
       - "INVENIO_SEARCH_ELASTIC_HOSTS=['es:9200']"
       - 'INVENIO_SECRET_KEY=CHANGE_ME'
-      - 'INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://inspirehep:inspirehep@db:5432/inspirehep'
+      - 'INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://postgres:postgres@db:5432/inspirehep'
       - 'INVENIO_INSPIRE_NEXT_URL=http://ui:8080'
   cache:
     image: redis:5-alpine
@@ -42,9 +42,8 @@ services:
     restart: 'always'
     command: postgres -c 'max_connections=200'
     environment:
-      - 'POSTGRES_USER=inspirehep'
-      - 'POSTGRES_PASSWORD=inspirehep'
-      - 'POSTGRES_DB=inspirehep'
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=postgres'
     ports:
       - '5432:5432'
     healthcheck:
