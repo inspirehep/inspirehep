@@ -1,7 +1,6 @@
 import React from 'react';
 import { Row, Card, Button, Input } from 'antd';
 import { Field, Form, Formik } from 'formik';
-
 import DocumentHead from '../../common/components/DocumentHead';
 import { Credentials } from '../../types';
 
@@ -24,7 +23,7 @@ const LocalLoginPage = ({
 
   function renderLoginForm(formik: any) {
     return (
-      <Form data-testid="login-form">
+      <Form>
         <Row className="mb3">
           <Field
             name="email"

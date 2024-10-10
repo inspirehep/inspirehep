@@ -59,7 +59,6 @@ const User = ({
           component={LocalLoginPageContainer}
           redirectTo={previousUrl}
         />
-        {/* @ts-ignore */}
         <PrivateRoute exact path={USER_PROFILE} component={ProfilePage} />
       </SafeSwitch>
     </div>
