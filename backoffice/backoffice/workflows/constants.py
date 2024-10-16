@@ -12,13 +12,14 @@ DEFAULT_TICKET_TYPE = "author_create_curation"
 
 
 class StatusChoices(models.TextChoices):
+    QUEUED = "queued", "Queued"
     RUNNING = "running", "Running"
     APPROVAL = "approval", "Waiting for approva"
     COMPLETED = "completed", "Completed"
     ERROR = "error", "Error"
 
 
-DEFAULT_STATUS_CHOICE = StatusChoices.RUNNING
+DEFAULT_STATUS_CHOICE = StatusChoices.QUEUED
 
 
 class WorkflowType(models.TextChoices):
