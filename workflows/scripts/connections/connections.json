@@ -12,11 +12,11 @@
   "inspire_db_connection": {
     "conn_type": "postgres",
     "description": "",
-    "login": "inspire",
-    "password": "inspire",
-    "host": "localhost",
-    "port": 5433,
-    "schema": "inspire",
+    "login": "inspirehep",
+    "password": "inspirehep",
+    "host": "host.docker.internal",
+    "port": 5432,
+    "schema": "inspirehep",
     "extra": "{}"
   },
   "backoffice_conn": {

@@ -35,7 +35,6 @@ from backoffice.workflows.api.serializers import (
     WorkflowTicketSerializer,
 )
 from backoffice.workflows.constants import (
-    WORKFLOW_DAGS,
     ResolutionDags,
     StatusChoices,
     WorkflowType,
@@ -136,19 +135,9 @@ class AuthorWorkflowViewSet(viewsets.ViewSet):
             if validation_errors:
                 return self.render_validation_error_response(validation_errors)
         logger.info("Data passed schema validation, creating workflow.")
-        workflow = Workflow.objects.create(
+        Workflow.objects.create(
             data=serializer.validated_data["data"],
             workflow_type=serializer.validated_data["workflow_type"],
-        )
-        logger.info(
-            "Trigger Airflow DAG: %s for %s",
-            WORKFLOW_DAGS[workflow.workflow_type].initialize,
-            workflow.id,
-        )
-        airflow_utils.trigger_airflow_dag(
-            WORKFLOW_DAGS[workflow.workflow_type].initialize,
-            str(workflow.id),
-            workflow.data,
         )
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
