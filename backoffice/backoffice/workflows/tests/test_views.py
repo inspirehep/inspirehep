@@ -209,17 +209,22 @@ class TestAuthorWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
         response = self.api_client.patch(
             self.endpoint,
             format="json",
-            data={"status": "approval", "data": {"test": "test"}},
+            data={
+                "status": "approval",
+                "data": {
+                    "name": {
+                        "value": "John, Snow",
+                    },
+                    "_collections": ["Authors"],
+                },
+            },
         )
-
         workflow = Workflow.objects.filter(id=self.workflow.id)[0]
         self.assertEqual(response.status_code, 200)
         self.assertEqual(workflow.status, "approval")
         self.assertEqual(
             workflow.data,
-            {
-                "test": "test",
-            },
+            {"name": {"value": "John, Snow"}, "_collections": ["Authors"]},
         )
         self.assertEqual(response.json()["id"], str(self.workflow.id))
         self.assertIn("decisions", response.json())

@@ -14,16 +14,16 @@ interactions:
       Content-Type:
       - application/json
     method: POST
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns
   response:
     body:
       string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
         \   \"workflow_id\": \"00000000-0000-0000-0000-000000000001\"\n  },\n  \"dag_id\":
         \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000001\",\n
-        \ \"data_interval_end\": \"2024-08-30T11:32:15.498239+00:00\",\n  \"data_interval_start\":
-        \"2024-08-30T11:32:15.498239+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
-        \"2024-08-30T11:32:15.498239+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
-        null,\n  \"logical_date\": \"2024-08-30T11:32:15.498239+00:00\",\n  \"note\":
+        \ \"data_interval_end\": \"2024-10-16T16:02:31.348583+00:00\",\n  \"data_interval_start\":
+        \"2024-10-16T16:02:31.348583+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
+        \"2024-10-16T16:02:31.348583+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
+        null,\n  \"logical_date\": \"2024-10-16T16:02:31.348583+00:00\",\n  \"note\":
         null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
         \"queued\"\n}\n"
     headers:
@@ -36,7 +36,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 30 Aug 2024 11:32:15 GMT
+      - Wed, 16 Oct 2024 16:02:31 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -54,30 +54,29 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000001
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000001
   response:
     body:
       string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
         \   \"workflow_id\": \"00000000-0000-0000-0000-000000000001\"\n  },\n  \"dag_id\":
         \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000001\",\n
-        \ \"data_interval_end\": \"2024-08-30T11:32:15.498239+00:00\",\n  \"data_interval_start\":
-        \"2024-08-30T11:32:15.498239+00:00\",\n  \"end_date\": \"2024-08-30T11:32:33.069744+00:00\",\n
-        \ \"execution_date\": \"2024-08-30T11:32:15.498239+00:00\",\n  \"external_trigger\":
-        true,\n  \"last_scheduling_decision\": \"2024-08-30T11:32:33.062289+00:00\",\n
-        \ \"logical_date\": \"2024-08-30T11:32:15.498239+00:00\",\n  \"note\": null,\n
-        \ \"run_type\": \"manual\",\n  \"start_date\": \"2024-08-30T11:32:15.679527+00:00\",\n
-        \ \"state\": \"failed\"\n}\n"
+        \ \"data_interval_end\": \"2024-10-16T16:02:31.348583+00:00\",\n  \"data_interval_start\":
+        \"2024-10-16T16:02:31.348583+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
+        \"2024-10-16T16:02:31.348583+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
+        null,\n  \"logical_date\": \"2024-10-16T16:02:31.348583+00:00\",\n  \"note\":
+        null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
+        \"queued\"\n}\n"
     headers:
       Cache-Control:
       - no-store
       Connection:
       - close
       Content-Length:
-      - '711'
+      - '621'
       Content-Type:
       - application/json
       Date:
-      - Fri, 30 Aug 2024 11:32:48 GMT
+      - Wed, 16 Oct 2024 16:02:31 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -95,7 +94,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000001
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000001
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_approved_dag'
@@ -111,7 +110,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Fri, 30 Aug 2024 11:32:48 GMT
+      - Wed, 16 Oct 2024 16:02:31 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -129,7 +128,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000001
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000001
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_rejected_dag'
@@ -145,7 +144,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Fri, 30 Aug 2024 11:32:48 GMT
+      - Wed, 16 Oct 2024 16:02:31 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -163,30 +162,29 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000001
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000001
   response:
     body:
       string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
         \   \"workflow_id\": \"00000000-0000-0000-0000-000000000001\"\n  },\n  \"dag_id\":
         \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000001\",\n
-        \ \"data_interval_end\": \"2024-08-30T11:32:15.498239+00:00\",\n  \"data_interval_start\":
-        \"2024-08-30T11:32:15.498239+00:00\",\n  \"end_date\": \"2024-08-30T11:32:33.069744+00:00\",\n
-        \ \"execution_date\": \"2024-08-30T11:32:15.498239+00:00\",\n  \"external_trigger\":
-        true,\n  \"last_scheduling_decision\": \"2024-08-30T11:32:33.062289+00:00\",\n
-        \ \"logical_date\": \"2024-08-30T11:32:15.498239+00:00\",\n  \"note\": null,\n
-        \ \"run_type\": \"manual\",\n  \"start_date\": \"2024-08-30T11:32:15.679527+00:00\",\n
-        \ \"state\": \"failed\"\n}\n"
+        \ \"data_interval_end\": \"2024-10-16T16:02:31.348583+00:00\",\n  \"data_interval_start\":
+        \"2024-10-16T16:02:31.348583+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
+        \"2024-10-16T16:02:31.348583+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
+        null,\n  \"logical_date\": \"2024-10-16T16:02:31.348583+00:00\",\n  \"note\":
+        null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
+        \"queued\"\n}\n"
     headers:
       Cache-Control:
       - no-store
       Connection:
       - close
       Content-Length:
-      - '711'
+      - '621'
       Content-Type:
       - application/json
       Date:
-      - Fri, 30 Aug 2024 11:32:48 GMT
+      - Wed, 16 Oct 2024 16:02:31 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -204,7 +202,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000001
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000001
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_approved_dag'
@@ -220,7 +218,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Fri, 30 Aug 2024 11:32:48 GMT
+      - Wed, 16 Oct 2024 16:02:31 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -238,7 +236,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000001
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000001
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_rejected_dag'
@@ -254,7 +252,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Fri, 30 Aug 2024 11:32:48 GMT
+      - Wed, 16 Oct 2024 16:02:32 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -274,7 +272,7 @@ interactions:
       Content-Length:
       - '0'
     method: DELETE
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000001
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000001
   response:
     body:
       string: ''
@@ -286,7 +284,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 30 Aug 2024 11:32:48 GMT
+      - Wed, 16 Oct 2024 16:02:32 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -309,16 +307,16 @@ interactions:
       Content-Type:
       - application/json
     method: POST
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns
   response:
     body:
       string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
         \   \"workflow_id\": \"00000000-0000-0000-0000-000000000001\"\n  },\n  \"dag_id\":
         \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000001\",\n
-        \ \"data_interval_end\": \"2024-08-30T11:32:48.880207+00:00\",\n  \"data_interval_start\":
-        \"2024-08-30T11:32:48.880207+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
-        \"2024-08-30T11:32:48.880207+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
-        null,\n  \"logical_date\": \"2024-08-30T11:32:48.880207+00:00\",\n  \"note\":
+        \ \"data_interval_end\": \"2024-10-16T16:02:32.303092+00:00\",\n  \"data_interval_start\":
+        \"2024-10-16T16:02:32.303092+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
+        \"2024-10-16T16:02:32.303092+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
+        null,\n  \"logical_date\": \"2024-10-16T16:02:32.303092+00:00\",\n  \"note\":
         null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
         \"queued\"\n}\n"
     headers:
@@ -331,7 +329,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 30 Aug 2024 11:32:48 GMT
+      - Wed, 16 Oct 2024 16:02:32 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -351,7 +349,7 @@ interactions:
       Content-Length:
       - '0'
     method: DELETE
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000001
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000001
   response:
     body:
       string: ''
@@ -363,7 +361,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 30 Aug 2024 11:32:48 GMT
+      - Wed, 16 Oct 2024 16:02:32 GMT
       Server:
       - gunicorn
       X-Robots-Tag:

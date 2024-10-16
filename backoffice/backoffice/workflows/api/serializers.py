@@ -2,8 +2,10 @@ from os import environ
 
 from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
 from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
+from inspire_schemas.utils import get_validation_errors
 from rest_framework import serializers
 
+from backoffice.workflows.api import utils
 from backoffice.workflows.constants import ResolutionDags, StatusChoices, WorkflowType
 from backoffice.workflows.documents import WorkflowDocument
 from backoffice.workflows.models import Decision, Workflow, WorkflowTicket
@@ -68,15 +70,22 @@ class WorkflowDocumentSerializer(DocumentSerializer):
     ],
 )
 class WorkflowAuthorSerializer(WorkflowSerializer):
-    def validate_workflow_type(self, value):
-        allowed_workflow_types = [
+    data = serializers.JSONField(required=True)
+    workflow_type = serializers.ChoiceField(
+        choices=[
             WorkflowType.AUTHOR_CREATE,
             WorkflowType.AUTHOR_UPDATE,
-        ]
-        if value not in allowed_workflow_types:
-            raise serializers.ValidationError(
-                f"The field `workflow_type` should be on of {allowed_workflow_types}"
+        ],
+        required=True,
+    )
+
+    def validate_data(self, value):
+        validation_errors = list(get_validation_errors(value, schema="authors"))
+        if validation_errors:
+            validation_errors_msg = utils.render_validation_error_response(
+                validation_errors
             )
+            raise serializers.ValidationError(validation_errors_msg)
         return value
 
 
