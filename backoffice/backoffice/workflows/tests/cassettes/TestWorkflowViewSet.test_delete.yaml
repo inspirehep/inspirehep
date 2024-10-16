@@ -1,5 +1,29 @@
 interactions:
 - request:
+    body: '{"index":{"_id":"00000000-0000-0000-0000-000000000002","_index":"backoffice-backend-test-workflows"}}
+
+      {"id":"00000000-0000-0000-0000-000000000002","workflow_type":"AUTHOR_CREATE","data":{},"decisions":[],"status":"approval","is_update":false,"_created_at":"2024-10-16T16:02:33.607293+00:00","_updated_at":"2024-10-16T16:02:33.607305+00:00"}
+
+      '
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/_bulk?refresh=true
+  response:
+    body:
+      string: '{"took":17,"errors":false,"items":[{"index":{"_index":"backoffice-backend-test-workflows","_id":"00000000-0000-0000-0000-000000000002","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":6,"_primary_term":1,"status":200}}]}'
+    headers:
+      content-length:
+      - '283'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
     body: '{"dag_run_id": "00000000-0000-0000-0000-000000000002", "conf": {"workflow_id":
       "00000000-0000-0000-0000-000000000002"}}'
     headers:
@@ -14,18 +38,20 @@ interactions:
       Content-Type:
       - application/json
     method: POST
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns
   response:
     body:
       string: "{\n  \"conf\": {\n    \"workflow_id\": \"00000000-0000-0000-0000-000000000002\"\n
         \ },\n  \"dag_id\": \"author_create_initialization_dag\",\n  \"dag_run_id\":
-        \"00000000-0000-0000-0000-000000000002\",\n  \"data_interval_end\": \"2024-08-19T13:16:38.257736+00:00\",\n
-        \ \"data_interval_start\": \"2024-08-19T13:16:38.257736+00:00\",\n  \"end_date\":
-        null,\n  \"execution_date\": \"2024-08-19T13:16:38.257736+00:00\",\n  \"external_trigger\":
-        true,\n  \"last_scheduling_decision\": null,\n  \"logical_date\": \"2024-08-19T13:16:38.257736+00:00\",\n
+        \"00000000-0000-0000-0000-000000000002\",\n  \"data_interval_end\": \"2024-10-16T16:02:33.777652+00:00\",\n
+        \ \"data_interval_start\": \"2024-10-16T16:02:33.777652+00:00\",\n  \"end_date\":
+        null,\n  \"execution_date\": \"2024-10-16T16:02:33.777652+00:00\",\n  \"external_trigger\":
+        true,\n  \"last_scheduling_decision\": null,\n  \"logical_date\": \"2024-10-16T16:02:33.777652+00:00\",\n
         \ \"note\": null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n
         \ \"state\": \"queued\"\n}\n"
     headers:
+      Cache-Control:
+      - no-store
       Connection:
       - close
       Content-Length:
@@ -33,7 +59,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 19 Aug 2024 13:16:38 GMT
+      - Wed, 16 Oct 2024 16:02:33 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -51,18 +77,20 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"conf\": {\n    \"workflow_id\": \"00000000-0000-0000-0000-000000000002\"\n
         \ },\n  \"dag_id\": \"author_create_initialization_dag\",\n  \"dag_run_id\":
-        \"00000000-0000-0000-0000-000000000002\",\n  \"data_interval_end\": \"2024-08-19T13:16:38.257736+00:00\",\n
-        \ \"data_interval_start\": \"2024-08-19T13:16:38.257736+00:00\",\n  \"end_date\":
-        null,\n  \"execution_date\": \"2024-08-19T13:16:38.257736+00:00\",\n  \"external_trigger\":
-        true,\n  \"last_scheduling_decision\": null,\n  \"logical_date\": \"2024-08-19T13:16:38.257736+00:00\",\n
+        \"00000000-0000-0000-0000-000000000002\",\n  \"data_interval_end\": \"2024-10-16T16:02:33.777652+00:00\",\n
+        \ \"data_interval_start\": \"2024-10-16T16:02:33.777652+00:00\",\n  \"end_date\":
+        null,\n  \"execution_date\": \"2024-10-16T16:02:33.777652+00:00\",\n  \"external_trigger\":
+        true,\n  \"last_scheduling_decision\": null,\n  \"logical_date\": \"2024-10-16T16:02:33.777652+00:00\",\n
         \ \"note\": null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n
         \ \"state\": \"queued\"\n}\n"
     headers:
+      Cache-Control:
+      - no-store
       Connection:
       - close
       Content-Length:
@@ -70,7 +98,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 19 Aug 2024 13:16:38 GMT
+      - Wed, 16 Oct 2024 16:02:33 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -88,13 +116,15 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_approved_dag'
         and DagRun ID: '00000000-0000-0000-0000-000000000002' not found\",\n  \"status\":
-        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.8.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
+        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.9.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
     headers:
+      Cache-Control:
+      - no-store
       Connection:
       - close
       Content-Length:
@@ -102,7 +132,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Mon, 19 Aug 2024 13:16:38 GMT
+      - Wed, 16 Oct 2024 16:02:34 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -120,13 +150,15 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_rejected_dag'
         and DagRun ID: '00000000-0000-0000-0000-000000000002' not found\",\n  \"status\":
-        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.8.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
+        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.9.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
     headers:
+      Cache-Control:
+      - no-store
       Connection:
       - close
       Content-Length:
@@ -134,7 +166,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Mon, 19 Aug 2024 13:16:38 GMT
+      - Wed, 16 Oct 2024 16:02:34 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -152,18 +184,20 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"conf\": {\n    \"workflow_id\": \"00000000-0000-0000-0000-000000000002\"\n
         \ },\n  \"dag_id\": \"author_create_initialization_dag\",\n  \"dag_run_id\":
-        \"00000000-0000-0000-0000-000000000002\",\n  \"data_interval_end\": \"2024-08-19T13:16:38.257736+00:00\",\n
-        \ \"data_interval_start\": \"2024-08-19T13:16:38.257736+00:00\",\n  \"end_date\":
-        null,\n  \"execution_date\": \"2024-08-19T13:16:38.257736+00:00\",\n  \"external_trigger\":
-        true,\n  \"last_scheduling_decision\": null,\n  \"logical_date\": \"2024-08-19T13:16:38.257736+00:00\",\n
+        \"00000000-0000-0000-0000-000000000002\",\n  \"data_interval_end\": \"2024-10-16T16:02:33.777652+00:00\",\n
+        \ \"data_interval_start\": \"2024-10-16T16:02:33.777652+00:00\",\n  \"end_date\":
+        null,\n  \"execution_date\": \"2024-10-16T16:02:33.777652+00:00\",\n  \"external_trigger\":
+        true,\n  \"last_scheduling_decision\": null,\n  \"logical_date\": \"2024-10-16T16:02:33.777652+00:00\",\n
         \ \"note\": null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n
         \ \"state\": \"queued\"\n}\n"
     headers:
+      Cache-Control:
+      - no-store
       Connection:
       - close
       Content-Length:
@@ -171,7 +205,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 19 Aug 2024 13:16:38 GMT
+      - Wed, 16 Oct 2024 16:02:34 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -189,13 +223,15 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_approved_dag'
         and DagRun ID: '00000000-0000-0000-0000-000000000002' not found\",\n  \"status\":
-        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.8.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
+        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.9.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
     headers:
+      Cache-Control:
+      - no-store
       Connection:
       - close
       Content-Length:
@@ -203,7 +239,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Mon, 19 Aug 2024 13:16:38 GMT
+      - Wed, 16 Oct 2024 16:02:34 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -221,13 +257,15 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_rejected_dag'
         and DagRun ID: '00000000-0000-0000-0000-000000000002' not found\",\n  \"status\":
-        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.8.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
+        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.9.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
     headers:
+      Cache-Control:
+      - no-store
       Connection:
       - close
       Content-Length:
@@ -235,7 +273,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Mon, 19 Aug 2024 13:16:38 GMT
+      - Wed, 16 Oct 2024 16:02:34 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -255,17 +293,19 @@ interactions:
       Content-Length:
       - '0'
     method: DELETE
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: ''
     headers:
+      Cache-Control:
+      - no-store
       Connection:
       - close
       Content-Type:
       - application/json
       Date:
-      - Mon, 19 Aug 2024 13:16:38 GMT
+      - Wed, 16 Oct 2024 16:02:34 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -274,6 +314,28 @@ interactions:
       code: 204
       message: NO CONTENT
 - request:
+    body: '{"delete":{"_id":"00000000-0000-0000-0000-000000000002","_index":"backoffice-backend-test-workflows"}}
+
+      '
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/_bulk?refresh=true
+  response:
+    body:
+      string: '{"took":30,"errors":false,"items":[{"delete":{"_index":"backoffice-backend-test-workflows","_id":"00000000-0000-0000-0000-000000000002","_version":3,"result":"deleted","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":7,"_primary_term":1,"status":200}}]}'
+    headers:
+      content-length:
+      - '284'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
     body: null
     headers:
       Accept:
@@ -283,13 +345,15 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_initialization_dag'
         and DagRun ID: '00000000-0000-0000-0000-000000000002' not found\",\n  \"status\":
-        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.8.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
+        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.9.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
     headers:
+      Cache-Control:
+      - no-store
       Connection:
       - close
       Content-Length:
@@ -297,7 +361,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Mon, 19 Aug 2024 13:16:38 GMT
+      - Wed, 16 Oct 2024 16:02:34 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -315,13 +379,15 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_approved_dag'
         and DagRun ID: '00000000-0000-0000-0000-000000000002' not found\",\n  \"status\":
-        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.8.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
+        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.9.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
     headers:
+      Cache-Control:
+      - no-store
       Connection:
       - close
       Content-Length:
@@ -329,7 +395,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Mon, 19 Aug 2024 13:16:38 GMT
+      - Wed, 16 Oct 2024 16:02:34 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -347,13 +413,15 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000002
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000002
   response:
     body:
       string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_rejected_dag'
         and DagRun ID: '00000000-0000-0000-0000-000000000002' not found\",\n  \"status\":
-        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.8.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
+        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.9.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
     headers:
+      Cache-Control:
+      - no-store
       Connection:
       - close
       Content-Length:
@@ -361,7 +429,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Mon, 19 Aug 2024 13:16:38 GMT
+      - Wed, 16 Oct 2024 16:02:34 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
