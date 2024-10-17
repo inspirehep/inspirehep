@@ -17,27 +17,33 @@ interactions:
     uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns
   response:
     body:
-      string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_initialization_dag'
-        and DAGRun ID: '00000000-0000-0000-0000-000000000001' already exists\",\n
-        \ \"status\": 409,\n  \"title\": \"Conflict\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.9.3/stable-rest-api-ref.html#section/Errors/AlreadyExists\"\n}\n"
+      string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
+        \   \"workflow_id\": \"00000000-0000-0000-0000-000000000001\"\n  },\n  \"dag_id\":
+        \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000001\",\n
+        \ \"data_interval_end\": \"2024-10-18T11:54:48.274093+00:00\",\n  \"data_interval_start\":
+        \"2024-10-18T11:54:48.274093+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
+        \"2024-10-18T11:54:48.274093+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
+        null,\n  \"logical_date\": \"2024-10-18T11:54:48.274093+00:00\",\n  \"note\":
+        null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
+        \"queued\"\n}\n"
     headers:
       Cache-Control:
       - no-store
       Connection:
       - close
       Content-Length:
-      - '302'
+      - '621'
       Content-Type:
-      - application/problem+json
+      - application/json
       Date:
-      - Wed, 16 Oct 2024 16:02:28 GMT
+      - Fri, 18 Oct 2024 11:54:48 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
       - noindex, nofollow
     status:
-      code: 409
-      message: CONFLICT
+      code: 200
+      message: OK
 - request:
     body: null
     headers:
@@ -54,23 +60,23 @@ interactions:
       string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
         \   \"workflow_id\": \"00000000-0000-0000-0000-000000000001\"\n  },\n  \"dag_id\":
         \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000001\",\n
-        \ \"data_interval_end\": \"2024-10-16T16:02:27.947491+00:00\",\n  \"data_interval_start\":
-        \"2024-10-16T16:02:27.947491+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
-        \"2024-10-16T16:02:27.947491+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
-        \"2024-10-16T16:02:28.158307+00:00\",\n  \"logical_date\": \"2024-10-16T16:02:27.947491+00:00\",\n
-        \ \"note\": null,\n  \"run_type\": \"manual\",\n  \"start_date\": \"2024-10-16T16:02:28.122762+00:00\",\n
-        \ \"state\": \"running\"\n}\n"
+        \ \"data_interval_end\": \"2024-10-18T11:54:48.274093+00:00\",\n  \"data_interval_start\":
+        \"2024-10-18T11:54:48.274093+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
+        \"2024-10-18T11:54:48.274093+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
+        null,\n  \"logical_date\": \"2024-10-18T11:54:48.274093+00:00\",\n  \"note\":
+        null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
+        \"queued\"\n}\n"
     headers:
       Cache-Control:
       - no-store
       Connection:
       - close
       Content-Length:
-      - '682'
+      - '621'
       Content-Type:
       - application/json
       Date:
-      - Wed, 16 Oct 2024 16:02:28 GMT
+      - Fri, 18 Oct 2024 11:54:48 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -104,7 +110,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Wed, 16 Oct 2024 16:02:28 GMT
+      - Fri, 18 Oct 2024 11:54:48 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -138,7 +144,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Wed, 16 Oct 2024 16:02:29 GMT
+      - Fri, 18 Oct 2024 11:54:48 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -170,7 +176,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 16 Oct 2024 16:02:29 GMT
+      - Fri, 18 Oct 2024 11:54:48 GMT
       Server:
       - gunicorn
       X-Robots-Tag:

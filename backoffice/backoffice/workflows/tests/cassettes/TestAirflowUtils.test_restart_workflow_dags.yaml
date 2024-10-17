@@ -20,10 +20,10 @@ interactions:
       string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
         \   \"workflow_id\": \"00000000-0000-0000-0000-000000000001\"\n  },\n  \"dag_id\":
         \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000001\",\n
-        \ \"data_interval_end\": \"2024-10-16T16:02:31.348583+00:00\",\n  \"data_interval_start\":
-        \"2024-10-16T16:02:31.348583+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
-        \"2024-10-16T16:02:31.348583+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
-        null,\n  \"logical_date\": \"2024-10-16T16:02:31.348583+00:00\",\n  \"note\":
+        \ \"data_interval_end\": \"2024-10-18T11:54:49.928543+00:00\",\n  \"data_interval_start\":
+        \"2024-10-18T11:54:49.928543+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
+        \"2024-10-18T11:54:49.928543+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
+        null,\n  \"logical_date\": \"2024-10-18T11:54:49.928543+00:00\",\n  \"note\":
         null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
         \"queued\"\n}\n"
     headers:
@@ -36,7 +36,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 16 Oct 2024 16:02:31 GMT
+      - Fri, 18 Oct 2024 11:54:49 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -60,10 +60,10 @@ interactions:
       string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
         \   \"workflow_id\": \"00000000-0000-0000-0000-000000000001\"\n  },\n  \"dag_id\":
         \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000001\",\n
-        \ \"data_interval_end\": \"2024-10-16T16:02:31.348583+00:00\",\n  \"data_interval_start\":
-        \"2024-10-16T16:02:31.348583+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
-        \"2024-10-16T16:02:31.348583+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
-        null,\n  \"logical_date\": \"2024-10-16T16:02:31.348583+00:00\",\n  \"note\":
+        \ \"data_interval_end\": \"2024-10-18T11:54:49.928543+00:00\",\n  \"data_interval_start\":
+        \"2024-10-18T11:54:49.928543+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
+        \"2024-10-18T11:54:49.928543+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
+        null,\n  \"logical_date\": \"2024-10-18T11:54:49.928543+00:00\",\n  \"note\":
         null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
         \"queued\"\n}\n"
     headers:
@@ -76,7 +76,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 16 Oct 2024 16:02:31 GMT
+      - Fri, 18 Oct 2024 11:54:50 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -110,7 +110,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Wed, 16 Oct 2024 16:02:31 GMT
+      - Fri, 18 Oct 2024 11:54:50 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -144,7 +144,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Wed, 16 Oct 2024 16:02:31 GMT
+      - Fri, 18 Oct 2024 11:54:50 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -168,10 +168,10 @@ interactions:
       string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
         \   \"workflow_id\": \"00000000-0000-0000-0000-000000000001\"\n  },\n  \"dag_id\":
         \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000001\",\n
-        \ \"data_interval_end\": \"2024-10-16T16:02:31.348583+00:00\",\n  \"data_interval_start\":
-        \"2024-10-16T16:02:31.348583+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
-        \"2024-10-16T16:02:31.348583+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
-        null,\n  \"logical_date\": \"2024-10-16T16:02:31.348583+00:00\",\n  \"note\":
+        \ \"data_interval_end\": \"2024-10-18T11:54:49.928543+00:00\",\n  \"data_interval_start\":
+        \"2024-10-18T11:54:49.928543+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
+        \"2024-10-18T11:54:49.928543+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
+        null,\n  \"logical_date\": \"2024-10-18T11:54:49.928543+00:00\",\n  \"note\":
         null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
         \"queued\"\n}\n"
     headers:
@@ -184,7 +184,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 16 Oct 2024 16:02:31 GMT
+      - Fri, 18 Oct 2024 11:54:50 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -218,7 +218,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Wed, 16 Oct 2024 16:02:31 GMT
+      - Fri, 18 Oct 2024 11:54:50 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -252,7 +252,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Wed, 16 Oct 2024 16:02:32 GMT
+      - Fri, 18 Oct 2024 11:54:50 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -284,7 +284,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 16 Oct 2024 16:02:32 GMT
+      - Fri, 18 Oct 2024 11:54:50 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -313,10 +313,10 @@ interactions:
       string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
         \   \"workflow_id\": \"00000000-0000-0000-0000-000000000001\"\n  },\n  \"dag_id\":
         \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000001\",\n
-        \ \"data_interval_end\": \"2024-10-16T16:02:32.303092+00:00\",\n  \"data_interval_start\":
-        \"2024-10-16T16:02:32.303092+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
-        \"2024-10-16T16:02:32.303092+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
-        null,\n  \"logical_date\": \"2024-10-16T16:02:32.303092+00:00\",\n  \"note\":
+        \ \"data_interval_end\": \"2024-10-18T11:54:50.810267+00:00\",\n  \"data_interval_start\":
+        \"2024-10-18T11:54:50.810267+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
+        \"2024-10-18T11:54:50.810267+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
+        null,\n  \"logical_date\": \"2024-10-18T11:54:50.810267+00:00\",\n  \"note\":
         null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
         \"queued\"\n}\n"
     headers:
@@ -329,7 +329,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 16 Oct 2024 16:02:32 GMT
+      - Fri, 18 Oct 2024 11:54:50 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -361,7 +361,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 16 Oct 2024 16:02:32 GMT
+      - Fri, 18 Oct 2024 11:54:50 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
