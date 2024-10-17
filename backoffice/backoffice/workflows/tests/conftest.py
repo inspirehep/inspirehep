@@ -8,7 +8,7 @@ def vcr_config():
         "decode_compressed_response": True,
         "filter_headers": ("Authorization", "User-Agent"),
         "ignore_hosts": (
-            "opensearch",
+            "es",
             "flower",
             "mq",
             "postgres-backoffice",

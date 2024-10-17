@@ -20,10 +20,10 @@ interactions:
       string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
         \   \"workflow_id\": \"00000000-0000-0000-0000-000000000001\"\n  },\n  \"dag_id\":
         \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000001\",\n
-        \ \"data_interval_end\": \"2024-10-16T16:02:25.712666+00:00\",\n  \"data_interval_start\":
-        \"2024-10-16T16:02:25.712666+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
-        \"2024-10-16T16:02:25.712666+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
-        null,\n  \"logical_date\": \"2024-10-16T16:02:25.712666+00:00\",\n  \"note\":
+        \ \"data_interval_end\": \"2024-10-18T11:54:24.179475+00:00\",\n  \"data_interval_start\":
+        \"2024-10-18T11:54:24.179475+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
+        \"2024-10-18T11:54:24.179475+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
+        null,\n  \"logical_date\": \"2024-10-18T11:54:24.179475+00:00\",\n  \"note\":
         null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
         \"queued\"\n}\n"
     headers:
@@ -36,7 +36,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 16 Oct 2024 16:02:25 GMT
+      - Fri, 18 Oct 2024 11:54:24 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -60,10 +60,10 @@ interactions:
       string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
         \   \"workflow_id\": \"00000000-0000-0000-0000-000000000001\"\n  },\n  \"dag_id\":
         \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000001\",\n
-        \ \"data_interval_end\": \"2024-10-16T16:02:25.712666+00:00\",\n  \"data_interval_start\":
-        \"2024-10-16T16:02:25.712666+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
-        \"2024-10-16T16:02:25.712666+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
-        null,\n  \"logical_date\": \"2024-10-16T16:02:25.712666+00:00\",\n  \"note\":
+        \ \"data_interval_end\": \"2024-10-18T11:54:24.179475+00:00\",\n  \"data_interval_start\":
+        \"2024-10-18T11:54:24.179475+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
+        \"2024-10-18T11:54:24.179475+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
+        null,\n  \"logical_date\": \"2024-10-18T11:54:24.179475+00:00\",\n  \"note\":
         null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
         \"queued\"\n}\n"
     headers:
@@ -76,7 +76,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 16 Oct 2024 16:02:25 GMT
+      - Fri, 18 Oct 2024 11:54:24 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -110,7 +110,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Wed, 16 Oct 2024 16:02:25 GMT
+      - Fri, 18 Oct 2024 11:54:24 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -144,7 +144,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Wed, 16 Oct 2024 16:02:26 GMT
+      - Fri, 18 Oct 2024 11:54:24 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -176,7 +176,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 16 Oct 2024 16:02:26 GMT
+      - Fri, 18 Oct 2024 11:54:25 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -199,21 +199,25 @@ interactions:
     uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000001
   response:
     body:
-      string: ''
+      string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_initialization_dag'
+        and DagRun ID: '00000000-0000-0000-0000-000000000001' not found\",\n  \"status\":
+        404,\n  \"title\": \"Not Found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.9.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
     headers:
       Cache-Control:
       - no-store
       Connection:
       - close
+      Content-Length:
+      - '293'
       Content-Type:
-      - application/json
+      - application/problem+json
       Date:
-      - Wed, 16 Oct 2024 16:02:26 GMT
+      - Fri, 18 Oct 2024 11:54:25 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
       - noindex, nofollow
     status:
-      code: 204
-      message: NO CONTENT
+      code: 404
+      message: NOT FOUND
 version: 1

@@ -3,6 +3,7 @@ import { JsonPatch } from './json-patch';
 
 export interface WorkflowObject<T = object> {
   id: number;
+  validation_errors?: Array<ValidationError>;
   _extra_data?: {
     validation_errors?: Array<ValidationError>;
     callback_url?: string;
