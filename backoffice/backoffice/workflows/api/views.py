@@ -60,6 +60,19 @@ class WorkflowViewSet(viewsets.ModelViewSet):
         airflow_utils.delete_workflow_dag_runs(instance.id, instance.workflow_type)
         super().perform_destroy(instance)
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        validation_errors = list(get_validation_errors(instance.data))
+        validation_errors_msg = utils.render_validation_error_response(
+            validation_errors
+        )
+        response_data = {
+            "data": serializer.data,
+            "validation_errors": validation_errors_msg,
+        }
+        return Response(response_data)
+
 
 class WorkflowTicketViewSet(viewsets.ModelViewSet):
     serializer_class = WorkflowTicketSerializer
@@ -109,19 +122,6 @@ class DecisionViewSet(viewsets.ModelViewSet):
 class AuthorWorkflowViewSet(viewsets.ViewSet):
     serializer_class = WorkflowAuthorSerializer
 
-    def render_validation_error_response(self, validation_errors):
-        validation_errors_messages = [
-            {
-                "message": error.message,
-                "path": list(error.path),
-            }
-            for error in validation_errors
-        ]
-        return Response(
-            {"message": validation_errors_messages},
-            status=status.HTTP_400_BAD_REQUEST,
-        )
-
     @extend_schema(
         summary="Create/Update an Author",
         description="Creates/Updates an author, launches the required airflow dags.",
@@ -129,12 +129,9 @@ class AuthorWorkflowViewSet(viewsets.ViewSet):
     )
     def create(self, request):
         logger.info("Creating workflow with data: %s", request.data)
+
         serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            logger.info("Validating data against given schema: %s", request.data)
-            validation_errors = list(get_validation_errors(request.data.get("data")))
-            if validation_errors:
-                return self.render_validation_error_response(validation_errors)
+        serializer.is_valid(raise_exception=True)
         logger.info("Data passed schema validation, creating workflow.")
         workflow = Workflow.objects.create(
             data=serializer.validated_data["data"],
@@ -312,7 +309,13 @@ class AuthorWorkflowViewSet(viewsets.ViewSet):
             record_data = request.data
             validation_errors = list(get_validation_errors(record_data))
             if validation_errors:
-                return self.render_validation_error_response(validation_errors)
+                validation_errors_msg = utils.render_validation_error_response(
+                    validation_errors
+                )
+                return Response(
+                    {"message": validation_errors_msg},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
         except (SchemaNotFound, SchemaKeyNotFound) as e:
             return Response(
                 {"message": str(e)},

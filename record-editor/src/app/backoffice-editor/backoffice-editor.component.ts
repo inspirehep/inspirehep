@@ -86,8 +86,16 @@ export class BackofficeEditorComponent
     }
   }
 
+  private injectValidationErrorsIntoExtraData() {
+    this.workflowObject._extra_data.validation_errors = this.workflowObject.validation_errors;
+  }
+
   get workflowExtraData() {
-    return this.workflowObject._extra_data || {};
+    this.workflowObject._extra_data = this.workflowObject._extra_data || {};
+    if (this.workflowObject.validation_errors) {
+      this.injectValidationErrorsIntoExtraData();
+    }
+    return this.workflowObject._extra_data;
   }
 
   onValidationProblems(problems: SchemaValidationProblems) {

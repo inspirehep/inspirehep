@@ -1,7 +1,7 @@
 interactions:
 - request:
     body: '{"dag_run_id": "00000000-0000-0000-0000-000000000000", "conf": {"workflow_id":
-      "00000000-0000-0000-0000-000000000000"}}'
+      "00000000-0000-0000-0000-000000000000", "data": {"test": "test"}}}'
     headers:
       Accept:
       - '*/*'
@@ -10,30 +10,33 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '119'
+      - '145'
       Content-Type:
       - application/json
     method: POST
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns
   response:
     body:
-      string: "{\n  \"conf\": {\n    \"workflow_id\": \"00000000-0000-0000-0000-000000000000\"\n
-        \ },\n  \"dag_id\": \"author_create_initialization_dag\",\n  \"dag_run_id\":
-        \"00000000-0000-0000-0000-000000000000\",\n  \"data_interval_end\": \"2024-07-30T12:14:27.272986+00:00\",\n
-        \ \"data_interval_start\": \"2024-07-30T12:14:27.272986+00:00\",\n  \"end_date\":
-        null,\n  \"execution_date\": \"2024-07-30T12:14:27.272986+00:00\",\n  \"external_trigger\":
-        true,\n  \"last_scheduling_decision\": null,\n  \"logical_date\": \"2024-07-30T12:14:27.272986+00:00\",\n
-        \ \"note\": null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n
-        \ \"state\": \"queued\"\n}\n"
+      string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
+        \   \"workflow_id\": \"00000000-0000-0000-0000-000000000000\"\n  },\n  \"dag_id\":
+        \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000000\",\n
+        \ \"data_interval_end\": \"2024-10-18T11:55:01.749671+00:00\",\n  \"data_interval_start\":
+        \"2024-10-18T11:55:01.749671+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
+        \"2024-10-18T11:55:01.749671+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
+        null,\n  \"logical_date\": \"2024-10-18T11:55:01.749671+00:00\",\n  \"note\":
+        null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
+        \"queued\"\n}\n"
     headers:
+      Cache-Control:
+      - no-store
       Connection:
       - close
       Content-Length:
-      - '579'
+      - '621'
       Content-Type:
       - application/json
       Date:
-      - Tue, 30 Jul 2024 12:14:27 GMT
+      - Fri, 18 Oct 2024 11:55:01 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -42,10 +45,9 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"dag_run_id": "5c7e5277-c802-4bb6-871e-f4e8597204ea", "conf": {"workflow_id":
-      "5c7e5277-c802-4bb6-871e-f4e8597204ea", "native_name": "NATIVE_NAME", "alternate_name":
-      "NAME", "display_name": "FIRST_NAME", "family_name": "LAST_NAME", "given_name":
-      "GIVEN_NAME"}}'
+    body: '{"dag_run_id": "184df52c-c416-4c36-aa3a-682fa534eae3", "conf": {"workflow_id":
+      "184df52c-c416-4c36-aa3a-682fa534eae3", "data": {"name": {"value": "John, Snow"},
+      "_collections": ["Authors"], "$schema": "https://inspirehep.net/schemas/records/authors.json"}}}'
     headers:
       Accept:
       - '*/*'
@@ -54,32 +56,34 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '261'
+      - '257'
       Content-Type:
       - application/json
     method: POST
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns
   response:
     body:
-      string: "{\n  \"conf\": {\n    \"alternate_name\": \"NAME\",\n    \"display_name\":
-        \"FIRST_NAME\",\n    \"family_name\": \"LAST_NAME\",\n    \"given_name\":
-        \"GIVEN_NAME\",\n    \"native_name\": \"NATIVE_NAME\",\n    \"workflow_id\":
-        \"5c7e5277-c802-4bb6-871e-f4e8597204ea\"\n  },\n  \"dag_id\": \"author_create_initialization_dag\",\n
-        \ \"dag_run_id\": \"5c7e5277-c802-4bb6-871e-f4e8597204ea\",\n  \"data_interval_end\":
-        \"2024-07-30T12:14:27.429196+00:00\",\n  \"data_interval_start\": \"2024-07-30T12:14:27.429196+00:00\",\n
-        \ \"end_date\": null,\n  \"execution_date\": \"2024-07-30T12:14:27.429196+00:00\",\n
+      string: "{\n  \"conf\": {\n    \"data\": {\n      \"$schema\": \"https://inspirehep.net/schemas/records/authors.json\",\n
+        \     \"_collections\": [\n        \"Authors\"\n      ],\n      \"name\":
+        {\n        \"value\": \"John, Snow\"\n      }\n    },\n    \"workflow_id\":
+        \"184df52c-c416-4c36-aa3a-682fa534eae3\"\n  },\n  \"dag_id\": \"author_create_initialization_dag\",\n
+        \ \"dag_run_id\": \"184df52c-c416-4c36-aa3a-682fa534eae3\",\n  \"data_interval_end\":
+        \"2024-10-18T11:55:02.507784+00:00\",\n  \"data_interval_start\": \"2024-10-18T11:55:02.507784+00:00\",\n
+        \ \"end_date\": null,\n  \"execution_date\": \"2024-10-18T11:55:02.507784+00:00\",\n
         \ \"external_trigger\": true,\n  \"last_scheduling_decision\": null,\n  \"logical_date\":
-        \"2024-07-30T12:14:27.429196+00:00\",\n  \"note\": null,\n  \"run_type\":
+        \"2024-10-18T11:55:02.507784+00:00\",\n  \"note\": null,\n  \"run_type\":
         \"manual\",\n  \"start_date\": null,\n  \"state\": \"queued\"\n}\n"
     headers:
+      Cache-Control:
+      - no-store
       Connection:
       - close
       Content-Length:
-      - '741'
+      - '777'
       Content-Type:
       - application/json
       Date:
-      - Tue, 30 Jul 2024 12:14:27 GMT
+      - Fri, 18 Oct 2024 11:55:02 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -98,20 +102,20 @@ interactions:
       - keep-alive
       Content-Length:
       - '0'
-      Content-Type:
-      - application/json
     method: DELETE
-    uri: http://airflow-webserver:8070/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000000
+    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000000
   response:
     body:
       string: ''
     headers:
+      Cache-Control:
+      - no-store
       Connection:
       - close
       Content-Type:
       - application/json
       Date:
-      - Tue, 30 Jul 2024 12:14:27 GMT
+      - Fri, 18 Oct 2024 11:55:02 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
