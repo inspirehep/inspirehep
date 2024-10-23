@@ -1,16 +1,16 @@
 import uuid
 
 import pytest
-from backoffice.workflows import constants
-from backoffice.workflows.api import utils
-from backoffice.workflows.constants import StatusChoices
+from backoffice.authors import constants
+from backoffice.authors.api import utils
+from backoffice.authors.constants import StatusChoices
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.test import TransactionTestCase
 from rest_framework.exceptions import ValidationError
 
 User = get_user_model()
-Workflow = apps.get_model(app_label="workflows", model_name="Workflow")
+AuthorWorkflow = apps.get_model(app_label="authors", model_name="AuthorWorkflow")
 
 
 class TestUtils(TransactionTestCase):
@@ -19,8 +19,8 @@ class TestUtils(TransactionTestCase):
 
     def setUp(self):
         super().setUp()
-        self.workflow = Workflow.objects.create(
-            data={}, status=StatusChoices.APPROVAL, core=True, is_update=False
+        self.workflow = AuthorWorkflow.objects.create(
+            data={}, status=StatusChoices.APPROVAL
         )
         self.user = User.objects.create_user(
             email="testuser@test.com", password="12345"
@@ -28,7 +28,7 @@ class TestUtils(TransactionTestCase):
 
     def test_add_decision(self):
         decision_data = utils.add_decision(
-            self.workflow.id, self.user, constants.ResolutionDags.accept
+            self.workflow.id, self.user, constants.AuthorResolutionDags.accept
         )
 
         self.assertIsNotNone(decision_data)
@@ -39,5 +39,5 @@ class TestUtils(TransactionTestCase):
 
         with pytest.raises(ValidationError):
             utils.add_decision(
-                uuid.UUID(int=0), self.user, constants.ResolutionDags.accept
+                uuid.UUID(int=0), self.user, constants.AuthorResolutionDags.accept
             )

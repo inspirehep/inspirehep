@@ -2,7 +2,7 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
 
-from backoffice.workflows.models import Workflow
+from backoffice.authors.models import AuthorWorkflow
 
 
 class Command(BaseCommand):
@@ -17,7 +17,7 @@ class Command(BaseCommand):
         admin_group, _ = Group.objects.get_or_create(name="admin")
         curator_group, _ = Group.objects.get_or_create(name="curator")
 
-        content_type = ContentType.objects.get_for_model(Workflow)
+        content_type = ContentType.objects.get_for_model(AuthorWorkflow)
         permissions = Permission.objects.filter(content_type=content_type)
         admin_group.permissions.add(*permissions)
         curator_group.permissions.add(*permissions)

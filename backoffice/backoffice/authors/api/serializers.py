@@ -4,19 +4,22 @@ from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
 from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
 from inspire_schemas.utils import get_validation_errors
 from rest_framework import serializers
+from backoffice.authors.api import utils
+from backoffice.authors.constants import DECISION_CHOICES, StatusChoices, WorkflowType
+from backoffice.authors.documents import AuthorWorkflowDocument
+from backoffice.authors.models import (
+    AuthorDecision,
+    AuthorWorkflow,
+    AuthorWorkflowTicket,
+)
 
-from backoffice.workflows.api import utils
-from backoffice.workflows.constants import ResolutionDags, StatusChoices, WorkflowType
-from backoffice.workflows.documents import WorkflowDocument
-from backoffice.workflows.models import Decision, Workflow, WorkflowTicket
 
-
-class WorkflowTicketSerializer(serializers.ModelSerializer):
+class AuthorWorkflowTicketSerializer(serializers.ModelSerializer):
     ticket_url = serializers.SerializerMethodField()
-    workflow = serializers.PrimaryKeyRelatedField(queryset=Workflow.objects.all())
+    workflow = serializers.PrimaryKeyRelatedField(queryset=AuthorWorkflow.objects.all())
 
     class Meta:
-        model = WorkflowTicket
+        model = AuthorWorkflowTicket
         fields = "__all__"
 
     def get_ticket_url(self, obj):
@@ -26,26 +29,11 @@ class WorkflowTicketSerializer(serializers.ModelSerializer):
         )
 
 
-class DecisionSerializer(serializers.ModelSerializer):
-    workflow = serializers.PrimaryKeyRelatedField(queryset=Workflow.objects.all())
+class AuthorDecisionSerializer(serializers.ModelSerializer):
+    workflow = serializers.PrimaryKeyRelatedField(queryset=AuthorWorkflow.objects.all())
 
     class Meta:
-        model = Decision
-        fields = "__all__"
-
-
-class WorkflowSerializer(serializers.ModelSerializer):
-    tickets = WorkflowTicketSerializer(many=True, read_only=True)
-    decisions = DecisionSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Workflow
-        fields = "__all__"
-
-
-class WorkflowDocumentSerializer(DocumentSerializer):
-    class Meta:
-        document = WorkflowDocument
+        model = AuthorDecision
         fields = "__all__"
 
 
@@ -69,7 +57,9 @@ class WorkflowDocumentSerializer(DocumentSerializer):
         ),
     ],
 )
-class WorkflowAuthorSerializer(WorkflowSerializer):
+class AuthorWorkflowSerializer(serializers.ModelSerializer):
+    tickets = AuthorWorkflowTicketSerializer(many=True, read_only=True)
+    decisions = AuthorDecisionSerializer(many=True, read_only=True)
     data = serializers.JSONField(required=True)
     workflow_type = serializers.ChoiceField(
         choices=[
@@ -88,6 +78,34 @@ class WorkflowAuthorSerializer(WorkflowSerializer):
             raise serializers.ValidationError(validation_errors_msg)
         return value
 
+    class Meta:
+        model = AuthorWorkflow
+        fields = "__all__"
+
+
+@extend_schema_serializer(
+    exclude_fields=[
+        "_created_at",
+        "_updated_at",
+    ],  # Exclude internal fields from schema
+    examples=[
+        OpenApiExample(
+            "Author Workflow Serializer",
+            summary="Author Workflow Serializer no data",
+            description="Author Workflow Serializer",
+            value={
+                "workflow_type": WorkflowType.AUTHOR_CREATE,
+                "status": StatusChoices.RUNNING,
+                "data": {},
+            },
+        ),
+    ],
+)
+class AuthorWorkflowDocumentSerializer(DocumentSerializer):
+    class Meta:
+        document = AuthorWorkflowDocument
+        fields = "__all__"
+
 
 @extend_schema_serializer(
     examples=[
@@ -104,5 +122,5 @@ class WorkflowAuthorSerializer(WorkflowSerializer):
     ],
 )
 class AuthorResolutionSerializer(serializers.Serializer):
-    value = serializers.ChoiceField(choices=ResolutionDags)
+    value = serializers.ChoiceField(choices=DECISION_CHOICES)
     create_ticket = serializers.BooleanField(default=False)

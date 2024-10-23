@@ -2,8 +2,7 @@ import uuid
 
 from django.db import models
 
-from backoffice.users.models import User
-from backoffice.workflows.constants import (
+from backoffice.authors.constants import (
     DECISION_CHOICES,
     DEFAULT_STATUS_CHOICE,
     DEFAULT_TICKET_TYPE,
@@ -12,9 +11,10 @@ from backoffice.workflows.constants import (
     StatusChoices,
     WorkflowType,
 )
+from backoffice.users.models import User
 
 
-class Workflow(models.Model):
+class AuthorWorkflow(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     workflow_type = models.CharField(
@@ -28,16 +28,14 @@ class Workflow(models.Model):
         choices=StatusChoices.choices,
         default=DEFAULT_STATUS_CHOICE,
     )
-    core = models.BooleanField(default=False)
-    is_update = models.BooleanField(default=False)
 
     _created_at = models.DateTimeField(auto_now_add=True)
     _updated_at = models.DateTimeField(auto_now=True)
 
 
-class WorkflowTicket(models.Model):
+class AuthorWorkflowTicket(models.Model):
     workflow = models.ForeignKey(
-        Workflow, related_name="tickets", on_delete=models.CASCADE
+        AuthorWorkflow, related_name="tickets", on_delete=models.CASCADE
     )
     ticket_id = models.CharField(
         max_length=32, null=False, blank=False
@@ -49,7 +47,7 @@ class WorkflowTicket(models.Model):
     _updated_at = models.DateTimeField(auto_now=True)
 
 
-class Decision(models.Model):
+class AuthorDecision(models.Model):
     user = models.ForeignKey(
         User,
         to_field="email",
@@ -57,7 +55,7 @@ class Decision(models.Model):
         on_delete=models.CASCADE,
     )
     workflow = models.ForeignKey(
-        Workflow, related_name="decisions", on_delete=models.CASCADE
+        AuthorWorkflow, related_name="decisions", on_delete=models.CASCADE
     )
     action = models.CharField(max_length=30, choices=DECISION_CHOICES)
 
