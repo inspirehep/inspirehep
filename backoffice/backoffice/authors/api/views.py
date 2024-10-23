@@ -24,59 +24,34 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from backoffice.utils.pagination import OSStandardResultsSetPagination
-from backoffice.workflows import airflow_utils
-from backoffice.workflows.api import utils
-from backoffice.workflows.api.serializers import (
+from backoffice.authors import airflow_utils
+from backoffice.authors.api import utils
+from backoffice.authors.api.serializers import (
+    AuthorDecisionSerializer,
     AuthorResolutionSerializer,
-    DecisionSerializer,
-    WorkflowAuthorSerializer,
-    WorkflowDocumentSerializer,
-    WorkflowSerializer,
-    WorkflowTicketSerializer,
+    AuthorWorkflowDocumentSerializer,
+    AuthorWorkflowSerializer,
+    AuthorWorkflowTicketSerializer,
 )
-from backoffice.workflows.constants import (
+from backoffice.authors.constants import (
     WORKFLOW_DAGS,
-    ResolutionDags,
+    AuthorResolutionDags,
     StatusChoices,
     WorkflowType,
 )
-from backoffice.workflows.documents import WorkflowDocument
-from backoffice.workflows.models import Decision, Workflow, WorkflowTicket
+from backoffice.authors.documents import AuthorWorkflowDocument
+from backoffice.authors.models import (
+    AuthorDecision,
+    AuthorWorkflow,
+    AuthorWorkflowTicket,
+)
 
 logger = logging.getLogger(__name__)
 
 
-class WorkflowViewSet(viewsets.ModelViewSet):
-    queryset = Workflow.objects.all()
-    serializer_class = WorkflowSerializer
-
-    def get_queryset(self):
-        status = self.request.query_params.get("status")
-        if status:
-            return self.queryset.filter(status__status=status)
-        return self.queryset
-
-    def perform_destroy(self, instance):
-        airflow_utils.delete_workflow_dag_runs(instance.id, instance.workflow_type)
-        super().perform_destroy(instance)
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        validation_errors = list(get_validation_errors(instance.data))
-        validation_errors_msg = utils.render_validation_error_response(
-            validation_errors
-        )
-        response_data = {
-            "data": serializer.data,
-            "validation_errors": validation_errors_msg,
-        }
-        return Response(response_data)
-
-
-class WorkflowTicketViewSet(viewsets.ModelViewSet):
-    serializer_class = WorkflowTicketSerializer
-    queryset = WorkflowTicket.objects.all()
+class AuthorWorkflowTicketViewSet(viewsets.ModelViewSet):
+    serializer_class = AuthorWorkflowTicketSerializer
+    queryset = AuthorWorkflowTicket.objects.all()
 
     def retrieve(self, request, *args, **kwargs):
         workflow_id = kwargs.get("pk")
@@ -89,12 +64,12 @@ class WorkflowTicketViewSet(viewsets.ModelViewSet):
             )
 
         try:
-            workflow_ticket = WorkflowTicket.objects.get(
+            workflow_ticket = AuthorWorkflowTicket.objects.get(
                 workflow=workflow_id, ticket_type=ticket_type
             )
             serializer = self.serializer_class(workflow_ticket)
             return Response(serializer.data)
-        except WorkflowTicket.DoesNotExist:
+        except AuthorWorkflowTicket.DoesNotExist:
             return Response(
                 {"error": "Workflow ticket not found."},
                 status=status.HTTP_404_NOT_FOUND,
@@ -108,9 +83,9 @@ class WorkflowTicketViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class DecisionViewSet(viewsets.ModelViewSet):
-    serializer_class = DecisionSerializer
-    queryset = Decision.objects.all()
+class AuthorDecisionViewSet(viewsets.ModelViewSet):
+    serializer_class = AuthorDecisionSerializer
+    queryset = AuthorDecision.objects.all()
 
     def create(self, request, *args, **kwargs):
         data = utils.add_decision(
@@ -119,8 +94,21 @@ class DecisionViewSet(viewsets.ModelViewSet):
         return Response(data, status=status.HTTP_201_CREATED)
 
 
-class AuthorWorkflowViewSet(viewsets.ViewSet):
-    serializer_class = WorkflowAuthorSerializer
+class AuthorWorkflowViewSet(viewsets.ModelViewSet):
+    queryset = AuthorWorkflow.objects.all()
+    serializer_class = AuthorWorkflowSerializer
+    resolution_serializer = AuthorResolutionSerializer
+    resolution_dags = AuthorResolutionDags
+
+    def get_queryset(self):
+        status = self.request.query_params.get("status")
+        if status:
+            return self.queryset.filter(status__status=status)
+        return self.queryset
+
+    def perform_destroy(self, instance):
+        airflow_utils.delete_workflow_dag_runs(instance.id, instance.workflow_type)
+        super().perform_destroy(instance)
 
     @extend_schema(
         summary="Create/Update an Author",
@@ -133,7 +121,7 @@ class AuthorWorkflowViewSet(viewsets.ViewSet):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         logger.info("Data passed schema validation, creating workflow.")
-        workflow = Workflow.objects.create(
+        workflow = AuthorWorkflow.objects.create(
             data=serializer.validated_data["data"],
             workflow_type=serializer.validated_data["workflow_type"],
         )
@@ -150,8 +138,8 @@ class AuthorWorkflowViewSet(viewsets.ViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @extend_schema(
-        summary="Partially Updates Author",
-        description="Updates specific fields of the author.",
+        summary="Partially Updates Author Workflow",
+        description="Updates specific fields of the author workflow.",
         examples=[
             OpenApiExample(
                 "Status Update",
@@ -163,7 +151,7 @@ class AuthorWorkflowViewSet(viewsets.ViewSet):
     )
     def partial_update(self, request, pk=None):
         logger.info("Updating workflow with data: %s", request.data)
-        workflow_instance = get_object_or_404(Workflow, pk=pk)
+        workflow_instance = get_object_or_404(AuthorWorkflow, pk=pk)
         serializer = self.serializer_class(
             workflow_instance, data=request.data, partial=True
         )
@@ -180,21 +168,23 @@ class AuthorWorkflowViewSet(viewsets.ViewSet):
     @action(detail=True, methods=["post"])
     def resolve(self, request, pk=None):
         logger.info("Resolving data: %s", request.data)
-        serializer = AuthorResolutionSerializer(data=request.data)
+        serializer = self.resolution_serializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             extra_data = serializer.validated_data
             logger.info(
                 "Trigger Airflow DAG: %s for %s",
-                ResolutionDags[serializer.validated_data["value"]],
+                AuthorResolutionDags[serializer.validated_data["value"]],
                 pk,
             )
             utils.add_decision(pk, request.user, serializer.validated_data["value"])
 
             airflow_utils.trigger_airflow_dag(
-                ResolutionDags[serializer.validated_data["value"]].label, pk, extra_data
+                AuthorResolutionDags[serializer.validated_data["value"]].label,
+                pk,
+                extra_data,
             )
             workflow_serializer = self.serializer_class(
-                get_object_or_404(Workflow, pk=pk)
+                get_object_or_404(AuthorWorkflow, pk=pk)
             )
 
             return Response(workflow_serializer.data)
@@ -219,14 +209,14 @@ class AuthorWorkflowViewSet(viewsets.ViewSet):
     )
     @action(detail=True, methods=["post"])
     def restart(self, request, pk=None):
-        workflow = Workflow.objects.get(id=pk)
+        workflow = AuthorWorkflow.objects.get(id=pk)
 
         if request.data.get("restart_current_task"):
             return airflow_utils.restart_failed_tasks(
                 workflow.id, workflow.workflow_type
             )
 
-        Decision.objects.filter(workflow=workflow).delete()
+        AuthorDecision.objects.filter(workflow=workflow).delete()
         return airflow_utils.restart_workflow_dags(
             workflow.id, workflow.workflow_type, request.data.get("params")
         )
@@ -370,13 +360,13 @@ class AuthorWorkflowViewSet(viewsets.ViewSet):
         ],
     ),
 )
-class WorkflowDocumentView(BaseDocumentViewSet):
+class AuthorWorkflowDocumentView(BaseDocumentViewSet):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.search = self.search.extra(track_total_hits=True)
 
-    document = WorkflowDocument
-    serializer_class = WorkflowSerializer
+    document = AuthorWorkflowDocument
+    serializer_class = AuthorWorkflowDocumentSerializer
     pagination_class = OSStandardResultsSetPagination
     filter_backends = [
         DefaultOrderingFilterBackend,
@@ -396,7 +386,6 @@ class WorkflowDocumentView(BaseDocumentViewSet):
     filter_fields = {
         "status": "status",
         "workflow_type": "workflow_type",
-        "is_update": "is_update",
     }
 
     ordering_fields = {"_updated_at": "_updated_at", "_score": "_score"}
@@ -428,6 +417,3 @@ class WorkflowDocumentView(BaseDocumentViewSet):
             "enabled": True,
         },
     }
-
-    def get_serializer_class(self):
-        return WorkflowDocumentSerializer

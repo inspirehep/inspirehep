@@ -5,19 +5,19 @@ import dateutil
 import dateutil.parser
 import opensearchpy
 import pytest
-from backoffice.workflows import airflow_utils
-from backoffice.workflows.api.serializers import (
-    WorkflowSerializer,
-    WorkflowTicketSerializer,
+from backoffice.authors import airflow_utils
+from backoffice.authors.api.serializers import (
+    AuthorWorkflowTicketSerializer,
+    AuthorWorkflowSerializer,
 )
-from backoffice.workflows.constants import (
+from backoffice.authors.constants import (
     WORKFLOW_DAGS,
     AuthorCreateDags,
-    ResolutionDags,
+    AuthorResolutionDags,
     StatusChoices,
     WorkflowType,
 )
-from backoffice.workflows.models import WorkflowTicket
+from backoffice.authors.models import AuthorWorkflowTicket
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
@@ -29,8 +29,8 @@ from rest_framework import status
 from rest_framework.test import APIClient
 
 User = get_user_model()
-Workflow = apps.get_model(app_label="workflows", model_name="Workflow")
-Decision = apps.get_model(app_label="workflows", model_name="Decision")
+AuthorWorkflow = apps.get_model(app_label="authors", model_name="AuthorWorkflow")
+AuthorDecision = apps.get_model(app_label="authors", model_name="AuthorDecision")
 
 
 class BaseTransactionTestCase(TransactionTestCase):
@@ -62,11 +62,9 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
 
     def setUp(self):
         super().setUp()
-        self.workflow = Workflow.objects.create(
+        self.workflow = AuthorWorkflow.objects.create(
             data={},
             status=StatusChoices.APPROVAL,
-            core=True,
-            is_update=False,
             workflow_type=WorkflowType.AUTHOR_CREATE,
             id=uuid.UUID(int=2),
         )
@@ -92,25 +90,25 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_tickets(self):
-        WorkflowTicket.objects.create(
+        AuthorWorkflowTicket.objects.create(
             workflow=self.workflow, ticket_id="123", ticket_type="author_create_user"
         )
-        workflow_data = WorkflowSerializer(self.workflow).data
+        workflow_data = AuthorWorkflowSerializer(self.workflow).data
 
         assert "tickets" in workflow_data
         assert "ticket_id" in workflow_data["tickets"][0]
         assert "ticket_type" in workflow_data["tickets"][0]
 
     def test_decisions(self):
-        Decision.objects.create(
-            workflow=self.workflow, user=self.user, action=ResolutionDags.accept
+        AuthorDecision.objects.create(
+            workflow=self.workflow, user=self.user, action=AuthorResolutionDags.accept
         )
-        workflow_data = WorkflowSerializer(self.workflow).data
+        workflow_data = AuthorWorkflowSerializer(self.workflow).data
         assert "decisions" in workflow_data
         assert "action" in workflow_data["decisions"][0]
         assert "user" in workflow_data["decisions"][0]
 
-    @pytest.mark.vcr()
+    @pytest.mark.vcr
     def test_delete(self):
         self.api_client.force_authenticate(user=self.curator)
         airflow_utils.trigger_airflow_dag(
@@ -145,8 +143,8 @@ class TestWorkflowSearchViewSet(BaseTransactionTestCase):
             index.delete()
         index.create()
 
-        self.workflow = Workflow.objects.create(
-            data={}, status=StatusChoices.APPROVAL, core=True, is_update=False
+        self.workflow = AuthorWorkflow.objects.create(
+            data={}, status=StatusChoices.APPROVAL
         )
 
     def test_list_curator(self):
@@ -183,8 +181,8 @@ class TestAuthorWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
 
     def setUp(self):
         super().setUp()
-        self.workflow = Workflow.objects.create(
-            data={}, status=StatusChoices.APPROVAL, core=True, is_update=False
+        self.workflow = AuthorWorkflow.objects.create(
+            data={}, status=StatusChoices.APPROVAL
         )
 
     @property
@@ -201,7 +199,7 @@ class TestAuthorWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        workflow = Workflow.objects.filter(id=self.workflow.id)[0]
+        workflow = AuthorWorkflow.objects.filter(id=self.workflow.id)[0]
         assert workflow.status == "running"
 
     def test_patch_admin(self):
@@ -219,7 +217,8 @@ class TestAuthorWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
                 },
             },
         )
-        workflow = Workflow.objects.filter(id=self.workflow.id)[0]
+
+        workflow = AuthorWorkflow.objects.filter(id=self.workflow.id)[0]
         self.assertEqual(response.status_code, 200)
         self.assertEqual(workflow.status, "approval")
         self.assertEqual(
@@ -236,24 +235,22 @@ class TestAuthorWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
         self.assertEqual(response.status_code, 403)
 
 
-class TestWorkflowTicketViewSet(BaseTransactionTestCase):
+class TestAuthorWorkflowTicketViewSet(BaseTransactionTestCase):
     endpoint = "/api/workflow-ticket"
     reset_sequences = True
     fixtures = ["backoffice/fixtures/groups.json"]
 
     def setUp(self):
         super().setUp()
-        self.workflow = Workflow.objects.create(
-            data={}, status="running", core=True, is_update=False
-        )
-        self.workflow_ticket = WorkflowTicket.objects.create(
+        self.workflow = AuthorWorkflow.objects.create(data={}, status="running")
+        self.workflow_ticket = AuthorWorkflowTicket.objects.create(
             workflow=self.workflow, ticket_id="123", ticket_type="author_create_user"
         )
 
     def test_get_missing_params(self):
         self.api_client.force_authenticate(user=self.curator)
         response = self.api_client.get(
-            f"{TestWorkflowTicketViewSet.endpoint}/{self.workflow.id}/",
+            f"{TestAuthorWorkflowTicketViewSet.endpoint}/{self.workflow.id}/",
             format="json",
             data={},
         )
@@ -265,7 +262,7 @@ class TestWorkflowTicketViewSet(BaseTransactionTestCase):
         query_params = {"ticket_type": "test"}
         self.api_client.force_authenticate(user=self.curator)
         response = self.api_client.get(
-            f"{TestWorkflowTicketViewSet.endpoint}/{self.workflow.id}/",
+            f"{TestAuthorWorkflowTicketViewSet.endpoint}/{self.workflow.id}/",
             format="json",
             data=query_params,
         )
@@ -278,21 +275,23 @@ class TestWorkflowTicketViewSet(BaseTransactionTestCase):
 
         query_params = {"ticket_type": self.workflow_ticket.ticket_type}
         response = self.api_client.get(
-            f"{TestWorkflowTicketViewSet.endpoint}/{self.workflow.id}/",
+            f"{TestAuthorWorkflowTicketViewSet.endpoint}/{self.workflow.id}/",
             format="json",
             data=query_params,
         )
 
         assert response.status_code == 200
-        assert response.data == WorkflowTicketSerializer(self.workflow_ticket).data
+        assert (
+            response.data == AuthorWorkflowTicketSerializer(self.workflow_ticket).data
+        )
 
     def test_ticket_url(self):
-        assert "ticket_url" in WorkflowTicketSerializer(self.workflow_ticket).data
+        assert "ticket_url" in AuthorWorkflowTicketSerializer(self.workflow_ticket).data
 
     def test_create_missing_params(self):
         self.api_client.force_authenticate(user=self.curator)
         response = self.api_client.post(
-            f"{TestWorkflowTicketViewSet.endpoint}/", format="json", data={}
+            f"{TestAuthorWorkflowTicketViewSet.endpoint}/", format="json", data={}
         )
 
         assert response.status_code == 400
@@ -310,7 +309,7 @@ class TestWorkflowTicketViewSet(BaseTransactionTestCase):
             "ticket_type": "author_create_user",
         }
         response = self.api_client.post(
-            f"{TestWorkflowTicketViewSet.endpoint}/", format="json", data=data
+            f"{TestAuthorWorkflowTicketViewSet.endpoint}/", format="json", data=data
         )
 
         assert response.status_code == 201
@@ -321,7 +320,7 @@ class TestWorkflowTicketViewSet(BaseTransactionTestCase):
 
         assert (
             response.data
-            == WorkflowTicketSerializer(WorkflowTicket.objects.last()).data
+            == AuthorWorkflowTicketSerializer(AuthorWorkflowTicket.objects.last()).data
         )
 
 
@@ -333,11 +332,9 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
     def setUp(self):
         super().setUp()
 
-        self.workflow = Workflow.objects.create(
+        self.workflow = AuthorWorkflow.objects.create(
             data={"test": "test"},
             status="running",
-            core=True,
-            is_update=False,
             workflow_type=WorkflowType.AUTHOR_CREATE,
             id=uuid.UUID(int=0),
         )
@@ -353,7 +350,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             WORKFLOW_DAGS[self.workflow.workflow_type].initialize, self.workflow.id
         )
 
-    @pytest.mark.vcr()
+    @pytest.mark.vcr
     def test_create_author(self):
         self.api_client.force_authenticate(user=self.curator)
 
@@ -374,7 +371,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json(), data)
 
-    @pytest.mark.vcr()
+    @pytest.mark.vcr
     def test_accept_author(self):
         self.api_client.force_authenticate(user=self.curator)
         action = "accept"
@@ -388,7 +385,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            Decision.objects.filter(workflow=self.workflow.id)[0].action, action
+            AuthorDecision.objects.filter(workflow=self.workflow.id)[0].action, action
         )
         self.assertEqual(response.json()["id"], str(self.workflow.id))
         self.assertIn("decisions", response.json())
@@ -396,7 +393,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             WORKFLOW_DAGS[WorkflowType.AUTHOR_CREATE].approve, self.workflow.id
         )
 
-    @pytest.mark.vcr()
+    @pytest.mark.vcr
     def test_reject_author(self):
         self.api_client.force_authenticate(user=self.curator)
         action = "reject"
@@ -410,7 +407,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            Decision.objects.filter(workflow=self.workflow.id)[0].action, action
+            AuthorDecision.objects.filter(workflow=self.workflow.id)[0].action, action
         )
         self.assertEqual(response.json()["id"], str(self.workflow.id))
         self.assertIn("decisions", response.json())
@@ -419,7 +416,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             WORKFLOW_DAGS[WorkflowType.AUTHOR_CREATE].reject, self.workflow.id
         )
 
-    @pytest.mark.vcr()
+    @pytest.mark.vcr
     def test_restart_full_dagrun(self):
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
@@ -430,7 +427,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn("test", response.json()["conf"]["data"])
 
-    @pytest.mark.vcr()
+    @pytest.mark.vcr
     def test_restart_a_task(self):
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
@@ -442,7 +439,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-    @pytest.mark.vcr()
+    @pytest.mark.vcr
     def test_restart_with_params(self):
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
@@ -454,7 +451,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-    @pytest.mark.vcr()
+    @pytest.mark.vcr
     def test_validate_valid_record(self):
         self.api_client.force_authenticate(user=self.curator)
         data = {
@@ -470,7 +467,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         response = self.api_client.post(url, format="json", data=data)
         self.assertContains(response, "Record is valid.", status_code=200)
 
-    @pytest.mark.vcr()
+    @pytest.mark.vcr
     def test_validate_not_valid_record(self):
         self.api_client.force_authenticate(user=self.curator)
         data = {
@@ -499,7 +496,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json(), expected_response)
 
-    @pytest.mark.vcr()
+    @pytest.mark.vcr
     def test_validate_no_schema_record(self):
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
@@ -512,7 +509,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             status_code=400,
         )
 
-    @pytest.mark.vcr()
+    @pytest.mark.vcr
     def test_validate_invalid_schema_record(self):
         self.api_client.force_authenticate(user=self.curator)
         data = {
@@ -543,7 +540,7 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
             index.delete()
         index.create()
 
-        Workflow.objects.update_or_create(
+        AuthorWorkflow.objects.update_or_create(
             data={
                 "ids": [
                     {"value": "0000-0003-3302-3333", "schema": "ORCID"},
@@ -555,11 +552,9 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
                 ],
             },
             status=StatusChoices.APPROVAL,
-            core=True,
-            is_update=False,
             workflow_type=WorkflowType.AUTHOR_CREATE,
         )
-        Workflow.objects.update_or_create(
+        AuthorWorkflow.objects.update_or_create(
             data={
                 "ids": [
                     {"value": "0000-0003-3302-2222", "schema": "ORCID"},
@@ -571,8 +566,6 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
                 ],
             },
             status=StatusChoices.RUNNING,
-            core=True,
-            is_update=False,
             workflow_type=WorkflowType.AUTHOR_CREATE,
         )
 
@@ -674,9 +667,7 @@ class TestDecisionsViewSet(BaseTransactionTestCase):
 
     def setUp(self):
         super().setUp()
-        self.workflow = Workflow.objects.create(
-            data={}, status="running", core=True, is_update=False
-        )
+        self.workflow = AuthorWorkflow.objects.create(data={}, status="running")
 
     def test_create_decision(self):
         self.api_client.force_authenticate(user=self.curator)
