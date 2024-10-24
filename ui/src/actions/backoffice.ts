@@ -122,7 +122,6 @@ export function backofficeLogin(
           },
         }
       );
-
       if (response.status === 200) {
         const { access, refresh } = await response.data;
         storage.set('backoffice.token', access);
@@ -132,6 +131,7 @@ export function backofficeLogin(
         dispatch(push(BACKOFFICE));
       }
     } catch (err) {
+      
       const { error } = httpErrorToActionPayload(err);
       notifyLoginError(error?.detail);
       dispatch(backofficeLoginError({ error }));

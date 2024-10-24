@@ -85,3 +85,5 @@ SOCIALACCOUNT_PROVIDERS = {
         "BASE_DOMAIN": "sandbox.orcid.org",
     }
 }
+
+CORS_ALLOW_ALL_ORIGINS = True
