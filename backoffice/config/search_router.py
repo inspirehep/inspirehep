@@ -6,7 +6,9 @@ router = DefaultRouter() if settings.DEBUG else SimpleRouter()
 
 
 # Workflow
-router.register("workflows/search", AuthorWorkflowDocumentView, basename="workflow")
+router.register(
+    "workflows/authors/search", AuthorWorkflowDocumentView, basename="authors"
+)
 
 app_name = "search"
 urlpatterns = router.urls

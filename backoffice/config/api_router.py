@@ -12,17 +12,13 @@ router = DefaultRouter() if settings.DEBUG else SimpleRouter()
 router.register("users", UserViewSet)
 
 # Workflows
-(
-    router.register(
-        "workflows/authors", AuthorWorkflowViewSet, basename="workflows-authors"
-    ),
+router.register(
+    "workflows/authors/tickets", AuthorWorkflowTicketViewSet, basename="authors-tickets"
 )
-router.register("workflows", AuthorWorkflowViewSet, basename="workflows")
-(
-    router.register(
-        "workflow-ticket", AuthorWorkflowTicketViewSet, basename="workflow-ticket"
-    ),
+router.register(
+    "workflows/authors/decisions", AuthorDecisionViewSet, basename="authors-decisions"
 )
-router.register("decisions", AuthorDecisionViewSet, basename="decisions")
+router.register("workflows/authors", AuthorWorkflowViewSet, basename="authors")
+
 app_name = "api"
 urlpatterns = router.urls

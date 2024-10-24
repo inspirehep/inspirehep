@@ -262,7 +262,7 @@ export function fetchAuthor(
 ): (dispatch: ActionCreator<Action>) => Promise<void> {
   return async (dispatch) => {
     dispatch(fetchingAuthor());
-    const resolveQuery = `${BACKOFFICE_API}/${id}`;
+    const resolveQuery = `${BACKOFFICE_API}/workflows/authors/${id}`;
 
     try {
       const response = await httpClient.get(`${resolveQuery}`);
@@ -304,7 +304,7 @@ export function resolveAction(
     dispatch(resolvingAction(action));
     try {
       const response = await httpClient.post(
-        `${BACKOFFICE_API}/authors/${id}/${action}/`,
+        `${BACKOFFICE_API}/workflows/authors/${id}/${action}/`,
         payload
       );
 
@@ -350,7 +350,7 @@ export function deleteWorkflow(
   return async (dispatch) => {
     dispatch(deletingWorkflow());
     try {
-      await httpClient.delete(`${BACKOFFICE_API}/${id}/`);
+      await httpClient.delete(`${BACKOFFICE_API}/workflows/authors/${id}/`);
 
       dispatch(deleteWorkflowSuccess());
       notifyDeleteSuccess();

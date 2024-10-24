@@ -24,7 +24,7 @@
     "description": "",
     "login": "",
     "password": null,
-    "host": "http://host.docker.internal:8000",
+    "host": "http://host.docker.internal:8001",
     "port": null,
     "schema": "",
     "extra": ""

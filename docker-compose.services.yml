@@ -64,9 +64,10 @@ services:
       - cluster.name=opensearch-cluster
       - node.name=opensearch-node1
       - discovery.seed_hosts=opensearch-node1
-      - bootstrap.memory_lock=true
+      - bootstrap.memory_lock=false
+      - cluster.routing.allocation.disk.threshold_enabled=false
       - discovery.type=single-node
-      - 'ES_JAVA_OPTS=-Xms1024m -Xms1024m'
+      - 'OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g'
     ulimits:
       memlock:
         soft: -1

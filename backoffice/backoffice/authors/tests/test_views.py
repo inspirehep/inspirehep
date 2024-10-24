@@ -56,7 +56,7 @@ class BaseTransactionTestCase(TransactionTestCase):
 
 
 class TestWorkflowViewSet(BaseTransactionTestCase):
-    endpoint = "/api/workflows/"
+    endpoint = reverse("api:authors-list")
     reset_sequences = True
     fixtures = ["backoffice/fixtures/groups.json"]
 
@@ -118,7 +118,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
             self.workflow.id, self.workflow.workflow_type
         )
 
-        url = reverse("api:workflows-detail", kwargs={"pk": self.workflow.id})
+        url = reverse("api:authors-detail", kwargs={"pk": self.workflow.id})
         response = self.api_client.delete(url)
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
@@ -130,8 +130,8 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         )
 
 
-class TestWorkflowSearchViewSet(BaseTransactionTestCase):
-    endpoint = reverse("search:workflow-list")
+class TestAuthorWorkflowSearchViewSet(BaseTransactionTestCase):
+    endpoint = reverse("search:authors-list")
     reset_sequences = True
     fixtures = ["backoffice/fixtures/groups.json"]
 
@@ -175,7 +175,6 @@ class TestWorkflowSearchViewSet(BaseTransactionTestCase):
 
 
 class TestAuthorWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
-    endpoint_base_url = "/api/workflow-update"
     reset_sequences = True
     fixtures = ["backoffice/fixtures/groups.json"]
 
@@ -188,7 +187,7 @@ class TestAuthorWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
     @property
     def endpoint(self):
         return reverse(
-            "api:workflows-authors-detail",
+            "api:authors-detail",
             kwargs={"pk": self.workflow.id},
         )
 
@@ -236,7 +235,7 @@ class TestAuthorWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
 
 
 class TestAuthorWorkflowTicketViewSet(BaseTransactionTestCase):
-    endpoint = "/api/workflow-ticket"
+    endpoint = reverse("api:authors-tickets-list")
     reset_sequences = True
     fixtures = ["backoffice/fixtures/groups.json"]
 
@@ -250,7 +249,7 @@ class TestAuthorWorkflowTicketViewSet(BaseTransactionTestCase):
     def test_get_missing_params(self):
         self.api_client.force_authenticate(user=self.curator)
         response = self.api_client.get(
-            f"{TestAuthorWorkflowTicketViewSet.endpoint}/{self.workflow.id}/",
+            f"{self.endpoint}{self.workflow.id}/",
             format="json",
             data={},
         )
@@ -262,7 +261,7 @@ class TestAuthorWorkflowTicketViewSet(BaseTransactionTestCase):
         query_params = {"ticket_type": "test"}
         self.api_client.force_authenticate(user=self.curator)
         response = self.api_client.get(
-            f"{TestAuthorWorkflowTicketViewSet.endpoint}/{self.workflow.id}/",
+            f"{self.endpoint}{self.workflow.id}/",
             format="json",
             data=query_params,
         )
@@ -275,7 +274,7 @@ class TestAuthorWorkflowTicketViewSet(BaseTransactionTestCase):
 
         query_params = {"ticket_type": self.workflow_ticket.ticket_type}
         response = self.api_client.get(
-            f"{TestAuthorWorkflowTicketViewSet.endpoint}/{self.workflow.id}/",
+            f"{self.endpoint}{self.workflow.id}/",
             format="json",
             data=query_params,
         )
@@ -290,9 +289,7 @@ class TestAuthorWorkflowTicketViewSet(BaseTransactionTestCase):
 
     def test_create_missing_params(self):
         self.api_client.force_authenticate(user=self.curator)
-        response = self.api_client.post(
-            f"{TestAuthorWorkflowTicketViewSet.endpoint}/", format="json", data={}
-        )
+        response = self.api_client.post(self.endpoint, format="json", data={})
 
         assert response.status_code == 400
         assert response.json() == {
@@ -308,9 +305,8 @@ class TestAuthorWorkflowTicketViewSet(BaseTransactionTestCase):
             "ticket_id": "dc94caad1b4f71502d06117a3b4bcb25",
             "ticket_type": "author_create_user",
         }
-        response = self.api_client.post(
-            f"{TestAuthorWorkflowTicketViewSet.endpoint}/", format="json", data=data
-        )
+        # import ipdb; ipdb.set_trace()
+        response = self.api_client.post(self.endpoint, format="json", data=data)
 
         assert response.status_code == 201
 
@@ -325,7 +321,7 @@ class TestAuthorWorkflowTicketViewSet(BaseTransactionTestCase):
 
 
 class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
-    endpoint = "/api/authors/"
+    endpoint = reverse("api:authors-list")
     reset_sequences = True
     fixtures = ["backoffice/fixtures/groups.json"]
 
@@ -366,7 +362,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             },
         }
 
-        url = reverse("api:workflows-authors-list")
+        url = reverse("api:authors-list")
         response = self.api_client.post(url, format="json", data=data)
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json(), data)
@@ -378,7 +374,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         data = {"create_ticket": True, "value": action}
 
         response = self.api_client.post(
-            reverse("api:workflows-authors-resolve", kwargs={"pk": self.workflow.id}),
+            reverse("api:authors-resolve", kwargs={"pk": self.workflow.id}),
             format="json",
             data=data,
         )
@@ -400,7 +396,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         data = {"create_ticket": True, "value": action}
 
         response = self.api_client.post(
-            reverse("api:workflows-authors-resolve", kwargs={"pk": self.workflow.id}),
+            reverse("api:authors-resolve", kwargs={"pk": self.workflow.id}),
             format="json",
             data=data,
         )
@@ -420,7 +416,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
     def test_restart_full_dagrun(self):
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
-            "api:workflows-authors-restart",
+            "api:authors-restart",
             kwargs={"pk": self.workflow.id},
         )
         response = self.api_client.post(url)
@@ -431,7 +427,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
     def test_restart_a_task(self):
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
-            "api:workflows-authors-restart",
+            "api:authors-restart",
             kwargs={"pk": self.workflow.id},
         )
         response = self.api_client.post(
@@ -443,7 +439,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
     def test_restart_with_params(self):
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
-            "api:workflows-authors-restart",
+            "api:authors-restart",
             kwargs={"pk": self.workflow.id},
         )
         response = self.api_client.post(
@@ -462,7 +458,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             "$schema": "https://inspirehep.net/schemas/records/authors.json",
         }
         url = reverse(
-            "api:workflows-authors-validate",
+            "api:authors-validate",
         )
         response = self.api_client.post(url, format="json", data=data)
         self.assertContains(response, "Record is valid.", status_code=200)
@@ -479,7 +475,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             "_collections": ["Authors"],
         }
         url = reverse(
-            "api:workflows-authors-validate",
+            "api:authors-validate",
         )
         response = self.api_client.post(url, format="json", data=data)
         expected_response = {
@@ -500,7 +496,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
     def test_validate_no_schema_record(self):
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
-            "api:workflows-authors-validate",
+            "api:authors-validate",
         )
         response = self.api_client.post(url, format="json", data={})
         self.assertContains(
@@ -516,7 +512,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             "$schema": "https://inspirehep.net/schemas/records/notajsonschema.json",
         }
         url = reverse(
-            "api:workflows-authors-validate",
+            "api:authors-validate",
         )
         response = self.api_client.post(url, format="json", data=data)
         self.assertContains(
@@ -526,8 +522,8 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         )
 
 
-class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
-    endpoint = "/api/workflows/search/"
+class TestAuthorWorkflowSearchFilterViewSet(BaseTransactionTestCase):
+    endpoint = reverse("search:authors-list")
     reset_sequences = True
     fixtures = ["backoffice/fixtures/groups.json"]
 
@@ -572,7 +568,7 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
     def test_facets(self):
         self.api_client.force_authenticate(user=self.admin)
 
-        response = self.api_client.get(reverse("search:workflow-list"))
+        response = self.api_client.get(self.endpoint)
 
         assert "_filter_status" in response.json()["facets"]
         assert "_filter_workflow_type" in response.json()["facets"]
@@ -580,7 +576,7 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
     def test_search_data_name(self):
         self.api_client.force_authenticate(user=self.admin)
 
-        url = reverse("search:workflow-list") + "?search=John"
+        url = self.endpoint + "?search=John"
 
         response = self.api_client.get(url)
         results = response.json()["results"]
@@ -593,7 +589,7 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
 
         email = "john.smith@something.ch"
 
-        url = reverse("search:workflow-list") + f"{query_params}{email}"
+        url = self.endpoint + f"{query_params}{email}"
 
         response = self.api_client.get(url)
         results = response.json()["results"]
@@ -603,7 +599,7 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
     def test_filter_status(self):
         self.api_client.force_authenticate(user=self.admin)
 
-        url = reverse("search:workflow-list") + f"?status={StatusChoices.RUNNING}"
+        url = self.endpoint + f"?status={StatusChoices.RUNNING}"
 
         response = self.api_client.get(url)
 
@@ -613,10 +609,7 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
     def test_filter_workflow_type(self):
         self.api_client.force_authenticate(user=self.admin)
 
-        url = (
-            reverse("search:workflow-list")
-            + f'?workflow_type="={WorkflowType.AUTHOR_CREATE}'
-        )
+        url = self.endpoint + f'?workflow_type="={WorkflowType.AUTHOR_CREATE}'
 
         response = self.api_client.get(url)
 
@@ -626,9 +619,7 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
     def test_ordering_updated_at(self):
         self.api_client.force_authenticate(user=self.admin)
 
-        base_url = reverse("search:workflow-list")
-
-        urls = [base_url, base_url + "?ordering=-_updated_at"]
+        urls = [self.endpoint, self.endpoint + "?ordering=-_updated_at"]
 
         for url in urls:
             response = self.api_client.get(url)
@@ -645,14 +636,14 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
 
         search_str = "search=Frank Castle^10 OR John^6"
 
-        url = reverse("search:workflow-list") + f"?ordering=_score&{search_str}"
+        url = self.endpoint + f"?ordering=_score&{search_str}"
         response = self.api_client.get(url)
         self.assertEqual(
             response.json()["results"][0]["data"]["name"]["preferred_name"],
             "John Smith",
         )
 
-        url = reverse("search:workflow-list") + f"?ordering=-_score&{search_str}"
+        url = self.endpoint + f"?ordering=-_score&{search_str}"
         response = self.api_client.get(url)
         self.assertEqual(
             response.json()["results"][0]["data"]["name"]["preferred_name"],
@@ -676,6 +667,6 @@ class TestDecisionsViewSet(BaseTransactionTestCase):
             "action": "accept",
         }
 
-        url = reverse("api:decisions-list")
+        url = reverse("api:authors-decisions-list")
         response = self.api_client.post(url, format="json", data=data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
