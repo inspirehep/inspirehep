@@ -83,7 +83,6 @@ const BackofficeReducer = (state = initialState, action) => {
     case BACKOFFICE_DELETE_ERROR:
       return state.set('loading', false);
     default:
-      console.log("whoopsie")
       return state;
   }
 };

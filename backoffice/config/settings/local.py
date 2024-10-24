@@ -11,13 +11,7 @@ SECRET_KEY = env(
     default="uBCAZjYhsVU3Zg8k96GM2c0GqgnTHyj0L3UhNQd4kQTktLyFztesAqb81jucXSMY",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = [
-    "localhost",
-    "0.0.0.0",
-    "127.0.0.1",
-    "host.docker.internal",
-    "backoffice-webserver",
-]
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "host.docker.internal"]
 
 # CACHES
 # ------------------------------------------------------------------------------
@@ -91,6 +85,5 @@ SOCIALACCOUNT_PROVIDERS = {
         "BASE_DOMAIN": "sandbox.orcid.org",
     }
 }
-
 
 CORS_ALLOW_ALL_ORIGINS = True
