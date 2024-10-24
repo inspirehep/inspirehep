@@ -98,7 +98,6 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
             path={BACKOFFICE}
             component={Backoffice$}
             authorizedRoles={SUPERUSER_OR_CATALOGER}
-            backoffice
           />
           <Route path={LITERATURE} component={Literature} />
           <Route path={AUTHORS} component={Authors} />

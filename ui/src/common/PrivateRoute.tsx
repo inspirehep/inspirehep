@@ -10,9 +10,9 @@ interface PrivateRouteProps extends ComponentPropsWithoutRef<any> {
   loggedIn: boolean;
   userRoles: List<string>;
   authorizedRoles: List<string>;
+  loggedInToHoldingpen: boolean;
   component?: JSX.Element | string | any;
   backoffice?: boolean;
-  loggedInToBackoffice?: boolean;
 }
 
 function PrivateRoute({ ...props }: PrivateRouteProps) {
@@ -31,14 +31,10 @@ function PrivateRoute({ ...props }: PrivateRouteProps) {
     );
   }
 
-  const resolveLoggedIn = props.backoffice
-    ? props.loggedInToBackoffice && props.loggedIn
-    : props.loggedIn;
-
   return (
     <RouteOrRedirect
-      redirectTo={props.backoffice ? BACKOFFICE_LOGIN : USER_LOGIN}
-      condition={resolveLoggedIn || false}
+      redirectTo={props.holdingpen ? BACKOFFICE_LOGIN : USER_LOGIN}
+      condition={props.holdingpen ? props.loggedInToHoldingpen : props.loggedIn}
       component={props.component}
       {...props}
     />
