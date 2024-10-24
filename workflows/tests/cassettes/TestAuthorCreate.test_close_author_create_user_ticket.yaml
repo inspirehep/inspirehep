@@ -15,7 +15,7 @@ interactions:
       User-Agent:
       - python-requests/2.31.0
     method: GET
-    uri: http://host.docker.internal:8000/api/workflow-ticket/f8301c06-8fa1-4124-845e-c270b910af5f/?ticket_type=author_create_user
+    uri: http://host.docker.internal:8001/api/workflow-ticket/f8301c06-8fa1-4124-845e-c270b910af5f/?ticket_type=author_create_user
   response:
     body:
       string: '{"id":1,"ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=656f2d17878c929095f833340cbb3531","ticket_id":"656f2d17878c929095f833340cbb3531","ticket_type":"author_create_user","workflow_id":"f8301c06-8fa1-4124-845e-c270b910af5f"}'

@@ -31,10 +31,9 @@ export const BACKOFFICE = '/backoffice';
 export const BACKOFFICE_LOGIN = `${BACKOFFICE}/login`;
 export const BACKOFFICE_SEARCH = `${BACKOFFICE}/search`;
 export const BACKOFFICE_API =
-  'https://backoffice.dev.inspirebeta.net/api/workflows';
-export const BACKOFFICE_LOGIN_API =
-  'https://backoffice.dev.inspirebeta.net/api/token/';
-export const BACKOFFICE_SEARCH_API = `${BACKOFFICE_API}/search`;
+  'backoffice.dev.inspirebeta.net/api';
+export const BACKOFFICE_LOGIN_API = `${BACKOFFICE_API}/token/`;
+export const BACKOFFICE_SEARCH_API = `${BACKOFFICE_API}/workflows/authors/search`;
 
 export const ERRORS = '/errors';
 export const ERROR_401 = `${ERRORS}/401`;
