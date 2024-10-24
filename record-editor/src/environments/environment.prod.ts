@@ -7,5 +7,5 @@ export const environment = {
     'https://ac471ee3b1ef4d1f884bfeaebaf6d007@sentry.siscern.org/7',
   version,
   schemaUrl: 'https://inspirebeta.net/schemas/records/authors.json',
-  backofficeApiUrl: 'https://backoffice.dev.inspirebeta.net/api',
+  backofficeApiUrl: 'http://backoffice-webserver:8001/api',
 };
