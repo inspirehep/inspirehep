@@ -21,7 +21,7 @@ import { SUPERUSER_OR_CATALOGER } from '../common/authorization';
 const META_DESCRIPTION = 'Tool for curators to manage submissions and harvests';
 const TITLE = 'Backoffice';
 
-const Backoffice = ({loggedIn}: {loggedIn: boolean}) => {
+const Backoffice = ({ loggedIn }: { loggedIn: boolean }) => {
   return (
     <>
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
@@ -41,7 +41,7 @@ const Backoffice = ({loggedIn}: {loggedIn: boolean}) => {
             component={LocalLoginPageContainer}
             redirectTo={BACKOFFICE_LOGIN}
             authorizedRoles={SUPERUSER_OR_CATALOGER}
-            holdingpen
+            backoffice
           />
           <PrivateRoute
             exact

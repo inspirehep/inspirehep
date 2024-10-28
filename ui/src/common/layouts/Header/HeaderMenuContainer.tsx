@@ -17,7 +17,7 @@ const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
   onLogoutClick() {
     dispatch(userLogout());
   },
-  onLogout() {
+  onBackofficeLogoutClick() {
     dispatch(backofficeLogout());
   },
 });
