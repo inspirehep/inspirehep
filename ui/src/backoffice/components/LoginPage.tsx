@@ -5,12 +5,9 @@ import orcidLogo from '../../common/assets/orcid.svg';
 import DocumentHead from '../../common/components/DocumentHead';
 import ExternalLink from '../../common/components/ExternalLink';
 import { WHAT_IS_ORCID_URL } from '../../common/constants';
+import { BACKOFFICE_LOGIN_ORCID } from '../../common/routes';
 
-interface LoginPageProps {
-  onLoginFormSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
-}
-
-const LoginPage: React.FC<LoginPageProps> = ({ onLoginFormSubmit }) => {
+const LoginPage: React.FC = () => {
   return (
     <>
       <DocumentHead title="Login" />
@@ -29,10 +26,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginFormSubmit }) => {
               https://orcid.org/register
             </ExternalLink>
           </p>
-          <form
-            action="https://backoffice.dev.inspirebeta.net/accounts/orcid/login/"
-            method="post"
-          >
+          <form action={BACKOFFICE_LOGIN_ORCID} method="post">
             <button
               type="submit"
               className="login-button bg-white ba ant-btn"

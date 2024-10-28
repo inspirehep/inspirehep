@@ -12,6 +12,7 @@
     ASSIGN_NOT_LOGGED_IN_FEATURE_FLAG: true,
     SELF_CURATION_BUTTON: true,
     INSPIRE_WORKFLOWS_DAGS_URL: null,
+    BACKOFFICE_URL: 'http://localhost:8080',
     /* Example:
     BANNERS: [
       {

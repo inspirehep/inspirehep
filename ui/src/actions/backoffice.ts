@@ -33,7 +33,6 @@ import {
   BACKOFFICE,
   BACKOFFICE_LOGIN,
   BACKOFFICE_SEARCH,
-  BACKOFFICE_LOGIN_ORCID,
 } from '../common/routes';
 import { Credentials } from '../types';
 import storage from '../common/storage';
@@ -46,7 +45,8 @@ import {
 } from '../backoffice/notifications';
 import { refreshToken } from '../backoffice/utils/utils';
 
-const httpClient = axios.create();
+// withCredentials is needed for ORCID login with sessionId cookie
+const httpClient = axios.create({ withCredentials: true });
 
 // Request interceptor for API calls
 httpClient.interceptors.request.use(
@@ -63,7 +63,7 @@ httpClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor for API calls
+// Response interceptor for API calls, needed for local login with token
 httpClient.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -138,27 +138,6 @@ export function backofficeLocalLogin(
 
         dispatch(backofficeLoginSuccess());
         dispatch(push(BACKOFFICE));
-      }
-    } catch (err) {
-      const { error } = httpErrorToActionPayload(err);
-      notifyLoginError(error?.detail);
-      dispatch(backofficeLoginError({ error }));
-    }
-  };
-}
-
-export function backofficeLogin(): (
-  dispatch: ActionCreator<Action>
-) => Promise<void> {
-  return async (dispatch) => {
-    dispatch({ type: BACKOFFICE_LOGIN_REQUEST });
-    try {
-      const response = await httpClient.post(BACKOFFICE_LOGIN_ORCID);
-
-      if (response.status === 200) {
-        // TODO: how to authorise requests without token?
-
-        dispatch(backofficeLoginSuccess());
       }
     } catch (err) {
       const { error } = httpErrorToActionPayload(err);
@@ -403,13 +382,12 @@ export function isUserLoggedInToBackoffice(): (
   return async (dispatch) => {
     dispatch(checkForLogin());
     try {
-      const response = await httpClient.get(
-        'https://backoffice.dev.inspirebeta.net/api/_allauth/browser/v1/auth/session'
-      );
+      const response = await httpClient.get(`${BACKOFFICE_API}/users/me/`);
 
       if (response.status === 200) {
         dispatch(searchQueryReset());
         dispatch(fetchSearchResults());
+        dispatch(backofficeLoginSuccess());
       }
     } catch (err) {
       const { error } = httpErrorToActionPayload(err);

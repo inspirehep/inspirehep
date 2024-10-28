@@ -120,8 +120,8 @@ services:
       - ./backoffice/.envs/local/.django
       - ./backoffice/.envs/local/.postgres
     ports:
-      - '8001:8001'
-    command: sh -c 'poetry run python manage.py migrate && poetry run python manage.py opensearch index rebuild --force && poetry run python manage.py opensearch document index --force && poetry run python manage.py runserver 0.0.0.0:8001'
+      - '8080:8080'
+    command: sh -c 'poetry run python manage.py migrate && poetry run python manage.py opensearch index rebuild --force && poetry run python manage.py opensearch document index --force && poetry run python manage.py runserver 0.0.0.0:8080'
   cache:
     extends:
       file: docker-compose.services.yml
@@ -151,7 +151,7 @@ services:
   ui:
     image: inspirehep/nginx:1.19-with-vts
     ports:
-      - '8080:8080'
+      - '8001:8001'
     volumes:
       - ./ui/docker/nginx/config/dev.conf:/etc/nginx/conf.d/default.conf
     depends_on:
