@@ -1,4 +1,4 @@
-from allauth.socialaccount.providers.orcid.views import oauth2_login
+from allauth.socialaccount.providers.orcid.views import oauth2_login, oauth2_callback
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -41,6 +41,7 @@ urlpatterns += [
         SpectacularSwaggerView.as_view(url_name="api-schema"),
         name="api-docs",
     ),
+    path("api/oauth/authorized/orcid/", oauth2_callback, name="orcid_callback"),
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api/_allauth/", include("allauth.headless.urls")),
