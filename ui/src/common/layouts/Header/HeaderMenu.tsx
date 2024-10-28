@@ -35,13 +35,13 @@ const HeaderMenu = ({
   onLogoutClick,
   isCatalogerLoggedIn,
   profileControlNumber,
-  onLogout,
+  onBackofficeLogoutClick,
 }: {
   loggedIn: boolean;
   onLogoutClick: MouseEventHandler<HTMLElement>;
   isCatalogerLoggedIn?: boolean;
   profileControlNumber?: string;
-  onLogout: any;
+  onBackofficeLogoutClick: any;
   loggedInToBackoffice: boolean;
 }) => {
   const USER_PROFILE_URL = `/authors/${profileControlNumber}`;
@@ -208,7 +208,7 @@ const HeaderMenu = ({
       label: [
         <LinkLikeButton
           color="white"
-          onClick={() => onLogout()}
+          onClick={() => onBackofficeLogoutClick()}
           key="logout-backoffice"
         >
           Logout Backoffice

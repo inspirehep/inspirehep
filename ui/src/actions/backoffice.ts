@@ -155,6 +155,8 @@ export function backofficeLogout(): (
       storage.remove('backoffice.token');
       storage.remove('backoffice.refreshToken');
 
+      await httpClient.get(`${BACKOFFICE_API}/users/logout/`);
+
       dispatch(backofficeLogoutSuccess());
       dispatch(push(BACKOFFICE_LOGIN));
     } catch (error) {
