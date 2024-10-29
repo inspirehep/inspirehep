@@ -25,4 +25,4 @@ AIRFLOW_TOKEN=YWlyZmxvdzphaXJmbG93
 
 SERVICENOW_URL=https://cerntraining.service-now.com
 
-FRONTEND_LOGIN_SUCCESS=http://localhost:8001/backoffice
+FRONTEND_LOGIN_SUCCESS=http://localhost:8080/backoffice
