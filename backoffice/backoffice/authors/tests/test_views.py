@@ -365,7 +365,9 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         url = reverse("api:authors-list")
         response = self.api_client.post(url, format="json", data=data)
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json(), data)
+        self.assertEqual(response.json()["data"], data["data"])
+        self.assertEqual(response.json()["workflow_type"], data["workflow_type"])
+        self.assertIn("id", response.json())
 
     @pytest.mark.vcr
     def test_accept_author(self):

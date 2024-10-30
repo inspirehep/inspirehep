@@ -134,10 +134,7 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         logger.info("Data passed schema validation, creating workflow.")
-        workflow = AuthorWorkflow.objects.create(
-            data=serializer.validated_data["data"],
-            workflow_type=serializer.validated_data["workflow_type"],
-        )
+        workflow = serializer.save()
         logger.info(
             "Trigger Airflow DAG: %s for %s",
             WORKFLOW_DAGS[workflow.workflow_type].initialize,
