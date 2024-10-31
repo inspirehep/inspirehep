@@ -229,3 +229,6 @@ OPENSEARCH_DSL = {
 
 # Workaround because it wont add the connection settings automatically
 connections.configure(default=OPENSEARCH_DSL["default"])
+
+# Allow cookies to be sent in headers
+CORS_ALLOW_CREDENTIALS = True
