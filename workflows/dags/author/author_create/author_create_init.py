@@ -6,7 +6,7 @@ from airflow.models import Variable
 from airflow.models.param import Param
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.backoffice.workflow_ticket_management_hook import (
-    WorkflowTicketManagementHook,
+    AuthorWorkflowTicketManagementHook,
 )
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from include.utils.set_workflow_status import set_workflow_status_to_error
@@ -38,7 +38,7 @@ def author_create_initialization_dag():
     """
     inspire_http_hook = InspireHttpHook()
     workflow_management_hook = WorkflowManagementHook()
-    workflow_ticket_management_hook = WorkflowTicketManagementHook()
+    workflow_ticket_management_hook = AuthorWorkflowTicketManagementHook()
 
     @task()
     def set_workflow_status_to_running(**context):

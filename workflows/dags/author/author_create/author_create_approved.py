@@ -6,7 +6,7 @@ from airflow.models.param import Param
 from author.author_create.shared_tasks import close_author_create_user_ticket
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.backoffice.workflow_ticket_management_hook import (
-    WorkflowTicketManagementHook,
+    AuthorWorkflowTicketManagementHook,
 )
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
@@ -49,7 +49,7 @@ def author_create_approved_dag():
     inspire_http_hook = InspireHttpHook()
     inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
     workflow_management_hook = WorkflowManagementHook()
-    workflow_ticket_management_hook = WorkflowTicketManagementHook()
+    workflow_ticket_management_hook = AuthorWorkflowTicketManagementHook()
 
     @task()
     def set_workflow_status_to_running(**context):
