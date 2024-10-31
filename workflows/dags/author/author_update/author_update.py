@@ -4,7 +4,7 @@ from airflow.decorators import dag, task
 from airflow.models.param import Param
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.backoffice.workflow_ticket_management_hook import (
-    WorkflowTicketManagementHook,
+    AuthorWorkflowTicketManagementHook,
 )
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
@@ -40,7 +40,7 @@ def author_update_dag():
     inspire_http_hook = InspireHttpHook()
     inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
     workflow_management_hook = WorkflowManagementHook()
-    workflow_ticket_management_hook = WorkflowTicketManagementHook()
+    workflow_ticket_management_hook = AuthorWorkflowTicketManagementHook()
 
     @task()
     def set_author_update_workflow_status_to_running(**context):

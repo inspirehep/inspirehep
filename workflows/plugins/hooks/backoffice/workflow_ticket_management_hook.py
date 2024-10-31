@@ -2,7 +2,7 @@ from hooks.backoffice.base import BackofficeHook
 from requests import Response
 
 
-class WorkflowTicketManagementHook(BackofficeHook):
+class AuthorWorkflowTicketManagementHook(BackofficeHook):
     """
     A hook to update the status of a workflow in the backoffice system.
 
@@ -20,10 +20,10 @@ class WorkflowTicketManagementHook(BackofficeHook):
         headers: dict = None,
     ) -> None:
         super().__init__(method, http_conn_id, headers)
-        self.endpoint = "api/workflow-ticket/"
+        self.endpoint = "api/workflows/authors/tickets/"
 
     def get_ticket(self, workflow_id: str, ticket_type: str) -> dict:
-        endpoint = f"api/workflow-ticket/{workflow_id}/"
+        endpoint = f"{self.endpoint}{workflow_id}/"
         params = {"ticket_type": ticket_type}
         response = self.run_with_advanced_retry(
             _retry_args=self.tenacity_retry_kwargs,
@@ -36,7 +36,6 @@ class WorkflowTicketManagementHook(BackofficeHook):
     def create_ticket_entry(
         self, workflow_id: str, ticket_id: str, ticket_type: str
     ) -> Response:
-        endpoint = "api/workflow-ticket/"
         data = {
             "ticket_type": ticket_type,
             "ticket_id": ticket_id,
@@ -46,5 +45,5 @@ class WorkflowTicketManagementHook(BackofficeHook):
             _retry_args=self.tenacity_retry_kwargs,
             method="POST",
             data=data,
-            endpoint=endpoint,
+            endpoint=self.endpoint,
         )
