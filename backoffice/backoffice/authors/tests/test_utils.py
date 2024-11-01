@@ -8,6 +8,7 @@ from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.test import TransactionTestCase
 from rest_framework.exceptions import ValidationError
+from jsonschema.exceptions import ValidationError as JSONValidationError
 
 User = get_user_model()
 AuthorWorkflow = apps.get_model(app_label="authors", model_name="AuthorWorkflow")
@@ -41,3 +42,18 @@ class TestUtils(TransactionTestCase):
             utils.add_decision(
                 uuid.UUID(int=0), self.user, constants.AuthorResolutionDags.accept
             )
+
+    def test_render_validation_error_response(self):
+        validation_errors = [
+            JSONValidationError(message="error1", path=[]),
+            JSONValidationError(message="error2", path=[]),
+        ]
+
+        response = utils.render_validation_error_response(validation_errors)
+        self.assertEqual(
+            response,
+            [
+                {"message": "error1", "path": []},
+                {"message": "error2", "path": []},
+            ],
+        )

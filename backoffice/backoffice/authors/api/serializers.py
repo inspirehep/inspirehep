@@ -60,6 +60,7 @@ class AuthorDecisionSerializer(serializers.ModelSerializer):
 class AuthorWorkflowSerializer(serializers.ModelSerializer):
     tickets = AuthorWorkflowTicketSerializer(many=True, read_only=True)
     decisions = AuthorDecisionSerializer(many=True, read_only=True)
+    validation_errors = serializers.JSONField(required=False)
     data = serializers.JSONField(required=True)
     workflow_type = serializers.ChoiceField(
         choices=[

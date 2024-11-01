@@ -108,16 +108,13 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
-        serializer = self.get_serializer(instance)
         validation_errors = list(get_validation_errors(instance.data))
         validation_errors_msg = utils.render_validation_error_response(
             validation_errors
         )
-        response_data = {
-            "data": serializer.data,
-            "validation_errors": validation_errors_msg,
-        }
-        return Response(response_data)
+        instance.validation_errors = validation_errors_msg
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
 
     def perform_destroy(self, instance):
         airflow_utils.delete_workflow_dag_runs(instance.id, instance.workflow_type)
