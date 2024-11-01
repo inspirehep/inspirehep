@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: send event
-        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v6.3.1
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v6.4
         with:
           repo: cern-sis/kubernetes-inspire
           event-type: update
