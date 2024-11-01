@@ -1,13 +1,71 @@
 # Inspirehep
 
-## Pre requirements
+This is a monorepo that currently contains 3 main services (besides helper services)
+- Inspirehep - this is what the main inspire services, it serves the website inspirehep.net / inspirebeta.net and calls the required services
+- Backoffice - a Django app with the goal of fully replacing [inspire-next](https://github.com/inspirehep/inspire-next/) one day with the help of the workflows service
+- Workflows - an airflow service responsible for running the workflows.
 
-### Python
+Okay now the question is how do we develop on it?
 
-Python `3.11`
 
-You can also use [pyenv](https://github.com/pyenv/pyenv) for your python installations.
-Simply follow the [instructions](https://github.com/pyenv/pyenv#installation) and set the global version to 3.11.
+## Running with docker
+By far easiest way to get the project running in your machine is through docker (instruction on how to run it locally below for the brave ones), given that you have enough memory
+
+### Make
+Make will spin up the required services, depending on what you are working on.
+
+- This will prepare the whole inspire development with demo records:
+```bash
+make run
+```
+- This spinup the whole inspirehep development with demo records but without the backoffice
+```bash
+make run-inspirehep
+```
+- This will spin up a backoffice
+```bash
+make run-backoffice
+```
+- You can stop it by simply run
+```bash
+make stop
+```
+
+### Usage
+Upon spinning it up services should be available in the following routes:
+- Inspirehep - http://localhost:8080
+- Backoffice - http://localhost:8001
+- Airflow / Workflows - http://localhost:8070
+- Opensearch - http://localhost:9200
+- Postgres db  - http://localhost:5432
+
+### How to Log in
+
+- If you simply wish to login to [inspirehep](http://localhost:8080/user/login/local), use `admin@inspirehep.net:123456`
+- If you wish to login into [inspirehep/backoffice](http://localhost:8080/backoffice/login/local) or the [actual backoffice](http://localhost:8001/accounts/login/) use `admin@admin.com:admin`
+But if you want to test with orcid you will need to set the `ORCID_CLIENT_ID` and `ORCID_CLIENT_SECRET` extra steps must be done:
+If you wish to test orcid on `inspirehep`:
+   - Go to `backend/inspirehep/orcid/config.py` - They will correspond to `consumer_key` and `consumer_secret`
+If you wish to test orcid on `backoffice`:
+   - Go to `backoffice/.envs/local/.django` - Add `ORCID_CLIENT_ID` and `ORCID_CLIENT_SECRET` there.
+ 
+  You can find this values in the password manager for the sandbox orcid environment.
+ 
+  **⚠️ Do not forget to remove them before committing ⚠️**
+
+### Testing  (WORK IN PROGRESS)
+If you wish to run the tests for a given services here's the way to do it
+First exect into the container i.e.: `docker exec -it <container_name> /bin/bash` or via dockerdestkop
+Then depending on the service you are testing:
+- backoffice-webserver : `pytest .`
+- airflow-webserver: `pytest .`
+- inspire-hep: ?
+- backend: ?
+
+## Running Locally
+For running the enviroment locally you have the following prerequirements:
+
+### Pre requirements
 
 #### Debian / Ubuntu
 
@@ -95,58 +153,6 @@ And run
 ```bash
 $ brew file install
 ```
-
----
-
-## Run with docker
-
-### Make
-
-This will prepare the whole inspire development with demo records:
-```bash
-make run
-```
-
-This spinup the whole inspirehep development with demo records but without the backoffice
-```bash
-make run-inspirehep
-```
-
-This will spin up a backoffice
-```bash
-make run-backoffice
-```
-
-You can stop it by simply run
-
-```bash
-make stop
-```
-
-Alternatively you can follow the steps:
-
-### Step 1: In a terminal run
-
-```bash
-docker-compose up
-```
-
-### Step 2: On another browser run
-
-```bash
-docker-compose exec hep-web ./scripts/setup
-```
-
-### Step 3: Import records
-
-```bash
-docker-compose exec hep-web inspirehep importer demo-records
-```
-
-### Usage
-
-inspirehep should now be available under http://localhost:8080
-
 ---
 
 ## Run locally
