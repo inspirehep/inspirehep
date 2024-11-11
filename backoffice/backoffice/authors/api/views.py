@@ -108,7 +108,7 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
-        validation_errors = list(get_validation_errors(instance.data))
+        validation_errors = list(get_validation_errors(instance.data, schema="authors"))
         validation_errors_msg = utils.render_validation_error_response(
             validation_errors
         )

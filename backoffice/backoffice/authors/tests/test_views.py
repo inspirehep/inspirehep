@@ -370,6 +370,73 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         self.assertIn("id", response.json())
 
     @pytest.mark.vcr
+    def test_get_author(self):
+        self.api_client.force_authenticate(user=self.curator)
+        data = {
+            "workflow_type": WorkflowType.AUTHOR_CREATE,
+            "status": "running",
+            "data": {
+                "name": {
+                    "value": "John, Snow",
+                },
+                "_collections": ["Authors"],
+                "$schema": "https://inspirehep.net/schemas/records/authors.json",
+            },
+        }
+        url = reverse("api:authors-list")
+        response = self.api_client.post(url, format="json", data=data)
+        self.assertEqual(response.status_code, 201)
+
+        detail_url = reverse("api:authors-detail", kwargs={"pk": response.json()["id"]})
+        detail_response = self.api_client.get(detail_url)
+        self.assertEqual(detail_response.status_code, 200)
+        self.assertEqual(detail_response.json()["data"], data["data"])
+        self.assertEqual(detail_response.json()["validation_errors"], [])
+
+    @pytest.mark.vcr
+    def test_get_non_existent_author(self):
+        self.api_client.force_authenticate(user=self.curator)
+        detail_url = reverse(
+            "api:authors-detail", kwargs={"pk": "THISISFORSURENOTANID"}
+        )
+        detail_response = self.api_client.get(detail_url)
+        self.assertEqual(detail_response.status_code, 404)
+        self.assertEqual(detail_response.json()["detail"], "Not found.")
+
+    @pytest.mark.vcr
+    def test_get__author_with_errors(self):
+        self.api_client.force_authenticate(user=self.curator)
+        author_data = {
+            "name": {
+                "value": "Gooding, James, James Andrew, Jamie.",
+                "name_variants": ["James Andrew"],
+            },
+            "_collections": ["Authors"],
+        }
+        random_id = uuid.uuid4()
+        AuthorWorkflow.objects.create(
+            data=author_data,
+            status="running",
+            workflow_type=WorkflowType.AUTHOR_CREATE,
+            id=random_id,
+        )
+
+        detail_url = reverse("api:authors-detail", kwargs={"pk": random_id})
+        detail_response = self.api_client.get(detail_url)
+
+        self.assertEqual(detail_response.status_code, 200)
+        self.assertEqual(detail_response.json()["data"], author_data)
+        self.assertEqual(
+            detail_response.json()["validation_errors"],
+            [
+                {
+                    "message": "'Gooding, James, James Andrew, Jamie.' does not match '^[^,]+(,[^,]+)?(,?[^,]+)?$'",
+                    "path": ["name", "value"],
+                }
+            ],
+        )
+
+    @pytest.mark.vcr
     def test_accept_author(self):
         self.api_client.force_authenticate(user=self.curator)
         action = "accept"
