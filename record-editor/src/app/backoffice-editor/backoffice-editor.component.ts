@@ -29,6 +29,7 @@ import {
   AppConfigService,
   GlobalAppStateService,
   WorkflowErrorConverterService,
+  DomUtilsService,
 } from '../core/services';
 import { SubscriberComponent } from '../shared/classes';
 import { WorkflowObject } from '../shared/interfaces';
@@ -53,6 +54,7 @@ export class BackofficeEditorComponent
     private route: ActivatedRoute,
     private apiService: BackofficeApiService,
     private appConfigService: AppConfigService,
+    private domUtilsService: DomUtilsService,
     private globalAppStateService: GlobalAppStateService,
     private workflowErrorConverterService: WorkflowErrorConverterService
   ) {
@@ -60,6 +62,10 @@ export class BackofficeEditorComponent
   }
 
   ngOnInit(): void {
+    this.domUtilsService.registerBeforeUnloadPrompt();
+    this.domUtilsService.fitEditorHeightFullPageOnResize();
+    this.domUtilsService.fitEditorHeightFullPage();
+
     this.route.params.takeUntil(this.isDestroyed).subscribe(async (params) => {
       this.uuid = params['uuid'];
 

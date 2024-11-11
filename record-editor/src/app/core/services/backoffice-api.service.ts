@@ -29,7 +29,6 @@ import { CommonApiService } from './common-api.service';
 import { backofficeApiUrl, hepSchemaUrl } from '../../shared/config';
 import { ApiError } from '../../shared/classes';
 import { WorkflowObject } from '../../shared/interfaces';
-import { BackofficeApiAuthService } from '../services/backoffice-api-auth.service';
 
 export interface BackofficeWorkflow {
   id: number;
@@ -70,7 +69,6 @@ export class BackofficeApiService extends CommonApiService {
 
   constructor(
     protected http: Http,
-    private authService: BackofficeApiAuthService
   ) {
     super(http);
   }
@@ -84,15 +82,10 @@ export class BackofficeApiService extends CommonApiService {
     getFullObject?: boolean
   ): Promise<WorkflowObject | BackofficeWorkflow> {
     return this.handleRequest(async () => {
-      this.currentWorkflowObjectApiUrl = `${backofficeApiUrl}/workflows/${objectId}`;
-      const token = localStorage.getItem('backoffice.token');
+      this.currentWorkflowObjectApiUrl = `${backofficeApiUrl}/workflows/authors/${objectId}/`;
       const response = await this.fetchUrl<BackofficeWorkflow>(
-        this.currentWorkflowObjectApiUrl,
-        {
-          headers: new Headers({
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          }),
+        this.currentWorkflowObjectApiUrl, {
+          withCredentials: true
         }
       );
 
@@ -112,32 +105,19 @@ export class BackofficeApiService extends CommonApiService {
   }
 
   validateWorkflowObject(object: WorkflowObject): Observable<Object> {
-    const token = localStorage.getItem('backoffice.token');
-
     return this.http
-    .post(`${backofficeApiUrl}/workflows/authors/validate/`, object.metadata, {
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      }),
-    })
+    .post(`${backofficeApiUrl}/workflows/authors/validate/`, object.metadata,
+      { withCredentials: true, headers: new Headers({ 'Content-Type': 'application/json' }) })
     .catch((error) => Observable.throw(new ApiError(error)))
     .map((res) => res.json());
   }
 
   saveWorkflowObject(object: WorkflowObject, request_data): Observable<void> {
-    const token = localStorage.getItem('backoffice.token');
-
     return this.http
       .put(
         this.currentWorkflowObjectApiUrl,
         { ...request_data, data: object.metadata },
-        {
-          headers: new Headers({
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          }),
-        }
+        { withCredentials: true },
       )
       .catch((error) => Observable.throw(new ApiError(error)))
       .map((res) => res.json());
@@ -145,26 +125,8 @@ export class BackofficeApiService extends CommonApiService {
 
   private handleRequest<T>(requestFn: () => Promise<T>): Promise<T> {
     return requestFn().catch((error) => {
-      if (error.status === 403) {
-        const refreshToken = localStorage.getItem('backoffice.refreshToken');
-
-        if (!refreshToken) {
-          return Promise.reject(error);
-        }
-
-        return this.authService
-          .refreshToken(refreshToken)
-          .then((response) => {
-            localStorage.setItem('backoffice.token', response.access);
-
-            return requestFn();
-          })
-          .catch((refreshError) => {
-            return Promise.reject(refreshError);
-          });
-      }
-
       return Promise.reject(error);
     });
   }
+
 }

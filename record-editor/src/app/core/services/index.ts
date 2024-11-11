@@ -11,13 +11,11 @@ import { WorkflowErrorConverterService } from './workflow-error-converter.servic
 import { ReleaseLockService } from './release-lock-service';
 import { EditorErrorConverterService } from './editor-error-converter.service';
 import { BackofficeApiService } from './backoffice-api.service';
-import { BackofficeApiAuthService } from './backoffice-api-auth.service';
 
 export {
   CommonApiService,
   HoldingpenApiService,
   BackofficeApiService,
-  BackofficeApiAuthService,
   RecordApiService,
   AppConfigService,
   RecordCleanupService,
@@ -34,7 +32,6 @@ export const CORE_SERVICES = [
   CommonApiService,
   HoldingpenApiService,
   BackofficeApiService,
-  BackofficeApiAuthService,
   RecordApiService,
   AppConfigService,
   RecordCleanupService,
