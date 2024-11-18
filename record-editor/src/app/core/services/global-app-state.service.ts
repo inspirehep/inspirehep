@@ -31,7 +31,7 @@ export class GlobalAppStateService {
   readonly jsonBeingEdited$ = new ReplaySubject<object>(1);
 
   readonly pidValueBeingEdited$ = this.jsonBeingEdited$
-    .map(json => json['control_number'] || json['metadata']['control_number'])
+    .map(json => json['control_number'] || json['metadata']['control_number'] || json['id'])
     .distinctUntilChanged();
   readonly pidTypeBeingEdited$ = this.jsonBeingEdited$
     .map(json => {
