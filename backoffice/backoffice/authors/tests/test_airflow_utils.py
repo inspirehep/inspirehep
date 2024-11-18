@@ -1,5 +1,5 @@
 import uuid
-
+import json
 import pytest
 from backoffice.authors import airflow_utils
 from backoffice.authors.constants import WORKFLOW_DAGS, WorkflowType
@@ -11,8 +11,14 @@ class TestAirflowUtils(TransactionTestCase):
         self.workflow_id = uuid.UUID(int=1)
         self.workflow_type = WorkflowType.AUTHOR_CREATE
         self.dag_id = WORKFLOW_DAGS[self.workflow_type].initialize
+        self.extra_data = {"test": "test"}
+        self.workflow_serialized = {"id": "id"}
+
         self.response = airflow_utils.trigger_airflow_dag(
-            self.dag_id, str(self.workflow_id), {"test": "test"}
+            self.dag_id,
+            str(self.workflow_id),
+            self.extra_data,
+            self.workflow_serialized,
         )
 
     def tearDown(self):
@@ -20,7 +26,10 @@ class TestAirflowUtils(TransactionTestCase):
 
     @pytest.mark.vcr
     def test_trigger_airflow_dag(self):
+        json_content = json.loads(self.response.content)
         self.assertEqual(self.response.status_code, 200)
+        self.assertEqual(json_content["conf"]["data"], self.extra_data)
+        self.assertEqual(json_content["conf"]["workflow"], self.workflow_serialized)
 
     @pytest.mark.vcr
     def test_restart_failed_tasks(self):

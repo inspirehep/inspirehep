@@ -1,0 +1,132 @@
+interactions:
+- request:
+    body: '{"functional_category": "Author submissions", "template": "curator_new_author",
+      "subject": "Your suggestion to INSPIRE: author Third B", "template_context":
+      {"email": "micha.moshe.moskovic@cern.ch", "obj_url": "https://inspirebeta.net/backoffice/66277811-fe66-4335-9aff-984583fb1228"},
+      "caller_email": "micha.moshe.moskovic@cern.ch"}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '333'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: https://inspirebeta.net/api/tickets/create
+  response:
+    body:
+      string: '{"ticket_id":"dfa417a0870a561095f833340cbb3599","ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=dfa417a0870a561095f833340cbb3599"}
+
+        '
+    headers:
+      access-control-allow-origin:
+      - '*'
+      access-control-expose-headers:
+      - Content-Type, ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
+      alt-svc:
+      - h3=":443";ma=60;
+      content-length:
+      - '181'
+      content-type:
+      - application/json
+      date:
+      - Wed, 20 Nov 2024 15:30:34 GMT
+      server:
+      - gunicorn/19.10.0
+      x-proxy-backend:
+      - inspire-qa_hep-web_http
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"ticket_id": "dfa417a0870a561095f833340cbb3599", "template": "user_new_author",
+      "template_context": {"user_name": "micha.moshe.moskovic@cern.ch", "author_name":
+      "Third B"}, "user_email": "micha.moshe.moskovic@cern.ch"}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '219'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: https://inspirebeta.net/api/tickets/reply
+  response:
+    body:
+      string: '{"message":"Ticket was updated with the reply"}
+
+        '
+    headers:
+      access-control-allow-origin:
+      - '*'
+      access-control-expose-headers:
+      - Content-Type, ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
+      alt-svc:
+      - h3=":443";ma=60;
+      content-length:
+      - '48'
+      content-type:
+      - application/json
+      date:
+      - Wed, 20 Nov 2024 15:30:35 GMT
+      server:
+      - gunicorn/19.10.0
+      x-proxy-backend:
+      - inspire-qa_hep-web_http
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"ticket_type": "author_create_user", "ticket_id": "dfa417a0870a561095f833340cbb3599",
+      "workflow": "66277811-fe66-4335-9aff-984583fb1228"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '138'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8001/api/workflows/authors/tickets/
+  response:
+    body:
+      string: '{"id":5,"ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=dfa417a0870a561095f833340cbb3599","workflow":"66277811-fe66-4335-9aff-984583fb1228","ticket_id":"dfa417a0870a561095f833340cbb3599","ticket_type":"author_create_user","_created_at":"2024-11-20T15:30:35.448536Z","_updated_at":"2024-11-20T15:30:35.448543Z"}'
+    headers:
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '360'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Wed, 20 Nov 2024 15:30:35 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 201
+      message: Created
+version: 1

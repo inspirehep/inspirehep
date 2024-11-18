@@ -3,12 +3,15 @@ import logging
 
 from airflow.decorators import dag, task
 from airflow.models.param import Param
-from author.author_create.shared_tasks import close_author_create_user_ticket
+from airflow.utils.trigger_rule import TriggerRule
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.backoffice.workflow_ticket_management_hook import (
     AuthorWorkflowTicketManagementHook,
 )
-from hooks.inspirehep.inspire_http_hook import InspireHttpHook
+from hooks.inspirehep.inspire_http_hook import (
+    AUTHOR_CURATION_FUNCTIONAL_CATEGORY,
+    InspireHttpHook,
+)
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
@@ -16,6 +19,7 @@ from include.utils.set_workflow_status import (
     get_wf_status_from_inspire_response,
     set_workflow_status_to_error,
 )
+from include.utils.tickets import get_ticket_by_type
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +34,7 @@ logger = logging.getLogger(__name__)
     schedule=None,
     catchup=False,
     on_failure_callback=set_workflow_status_to_error,  # TODO: what if callback fails? Data in backoffice not up to date!
+    tags=["authors"],
 )
 def author_create_approved_dag():
     """Defines the DAG for the author creation workflow after curator's approval.
@@ -60,29 +65,40 @@ def author_create_approved_dag():
 
     @task.branch()
     def author_check_approval_branch(**context: dict) -> None:
-        """Branching for the workflow: based on create_ticket parameter
+        """Branching for the workflow: based on value parameter
         dag goes either to create_ticket_on_author_approval task or
         directly to create_author_on_inspire
         """
-        if context["params"]["create_ticket"]:
+        if context["params"]["data"]["value"] == "accept_curate":
             return "create_author_create_curation_ticket"
         else:
-            return "empty_task"
+            return "close_author_create_user_ticket"
 
     @task
     def create_author_create_curation_ticket(**context: dict) -> None:
-        endpoint = "api/tickets/create"
-        request_data = {
-            "functional_category": "",
-            "workflow_id": context["params"]["workflow_id"],
-            "subject": "test",  # TODO: update subject and description
-            "description": "test",
-            "caller_email": "",  # leave empty
-            "template": "curation_needed_author",  # TODO: check template
-        }
-        response = inspire_http_hook.call_api(
-            endpoint=endpoint, data=request_data, method="POST"
+        workflow_data = context["params"]["workflow"]["data"]
+        email = workflow_data["acquisition_source"]["email"]
+
+        bai = f"[{workflow_data.get('bai')}]" if workflow_data.get("bai") else ""
+
+        control_number = context["ti"].xcom_pull(
+            task_ids="create_author_on_inspire", key="control_number"
         )
+
+        inspire_http_hook.get_conn()
+
+        response = inspire_http_hook.create_ticket(
+            AUTHOR_CURATION_FUNCTIONAL_CATEGORY,
+            "curation_needed_author",
+            f"Curation needed for author"
+            f"{workflow_data.get('name').get('preferred_name')} {bai}",
+            email,
+            {
+                "email": email,
+                "record_url": f"{inspire_http_hook.base_url}/authors/{control_number}",
+            },
+        )
+
         workflow_ticket_management_hook.create_ticket_entry(
             workflow_id=context["params"]["workflow_id"],
             ticket_id=response.json()["ticket_id"],
@@ -100,12 +116,14 @@ def author_create_approved_dag():
         status = get_wf_status_from_inspire_response(response)
         if response.ok:
             control_number = response.json()["metadata"]["control_number"]
+            context["ti"].xcom_push(key="control_number", value=control_number)
             logger.info(f"Created author with control number: {control_number}")
             workflow_data["data"]["control_number"] = control_number
             workflow_management_hook.partial_update_workflow(
                 workflow_id=context["params"]["workflow_id"],
                 workflow_partial_update_data={"data": workflow_data["data"]},
             )
+        logger.info(f"Workflow status: {status}")
         return status
 
     @task.branch()
@@ -124,10 +142,26 @@ def author_create_approved_dag():
             status_name=status_name, workflow_id=context["params"]["workflow_id"]
         )
 
-    @task
-    def empty_task() -> None:
-        # Logic to combine the results of branches
-        pass
+    @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+    def close_author_create_user_ticket(**context: dict) -> None:
+        ticket_id = get_ticket_by_type(
+            context["params"]["workflow"], "author_create_user"
+        )["ticket_id"]
+
+        workflow_data = context["params"]["workflow"]["data"]
+        email = workflow_data["acquisition_source"]["email"]
+        control_number = context["ti"].xcom_pull(
+            task_ids="create_author_on_inspire", key="control_number"
+        )
+
+        inspire_http_hook.get_conn()
+
+        request_data = {
+            "user_name": workflow_data["acquisition_source"].get("given_names", email),
+            "author_name": workflow_data.get("name").get("preferred_name"),
+            "record_url": f"{inspire_http_hook.base_url}/authors/{control_number}",
+        }
+        inspire_http_hook.close_ticket(ticket_id, "user_accepted_author", request_data)
 
     @task()
     def set_author_create_workflow_status_to_error(**context: dict) -> None:
@@ -150,24 +184,8 @@ def author_create_approved_dag():
         set_author_create_workflow_status_to_completed()
     )
     set_workflow_status_to_error_task = set_author_create_workflow_status_to_error()
-    combine_ticket_and_no_ticket_task = empty_task()
 
     # task dependencies
-    ticket_branch = create_author_create_curation_ticket_task
-    (
-        ticket_branch
-        >> close_author_create_user_ticket_task
-        >> set_workflow_status_to_completed_task
-    )
-
-    no_ticket_branch = combine_ticket_and_no_ticket_task
-    (
-        no_ticket_branch
-        >> close_author_create_user_ticket_task
-        >> set_workflow_status_to_completed_task
-    )
-
-    author_check_approval_branch_task >> [ticket_branch, no_ticket_branch]
     (
         set_status_to_running_task
         >> create_author_on_inspire_task
@@ -177,6 +195,15 @@ def author_create_approved_dag():
         author_check_approval_branch_task,
         set_workflow_status_to_error_task,
     ]
+    (
+        [
+            author_check_approval_branch_task
+            >> create_author_create_curation_ticket_task,
+            author_check_approval_branch_task,
+        ]
+        >> close_author_create_user_ticket_task
+        >> set_workflow_status_to_completed_task
+    )
 
 
 author_create_approved_dag()

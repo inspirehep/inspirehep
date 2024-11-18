@@ -9,6 +9,11 @@ from requests import Response
 logger = logging.getLogger()
 
 
+AUTHOR_SUBMIT_FUNCTIONAL_CATEGORY = "Author submissions"
+AUTHOR_CURATION_FUNCTIONAL_CATEGORY = "Author curation"
+AUTHOR_UPDATE_FUNCTIONAL_CATEGORY = "Author updates"
+
+
 class InspireHttpHook(HttpHook):
     """
     Hook to interact with Inspire API
@@ -59,6 +64,62 @@ class InspireHttpHook(HttpHook):
             _retry_args=self.tenacity_retry_kwargs,
             endpoint=endpoint,
             headers=self.headers,
-            data=data,
+            json=data,
             method=method,
         )
+
+    def get_backoffice_url(self, workflow_id: str) -> str:
+        self.get_conn()
+        return f"{self.base_url}/backoffice/{workflow_id}"
+
+    def get_url(self) -> str:
+        self.get_conn()
+        return self.base_url
+
+    def create_ticket(
+        self, functional_category, template_name, subject, email, template_context
+    ):
+        # TODO add docstring
+        endpoint = "/api/tickets/create"
+
+        request_data = {
+            "functional_category": functional_category,
+            "template": template_name,
+            "subject": subject,
+            "template_context": template_context,
+            "caller_email": email,
+        }
+
+        return self.call_api(endpoint=endpoint, data=request_data, method="POST")
+
+    def reply_ticket(self, ticket_id, template, template_context, email):
+        # TODO add docstring
+        endpoint = "/api/tickets/reply"
+
+        request_data = {
+            "ticket_id": str(ticket_id),
+            "template": template,
+            "template_context": template_context,
+            "user_email": email,
+        }
+        logging.info(f"Replying to ticket {ticket_id}")
+
+        return self.call_api(endpoint=endpoint, data=request_data, method="POST")
+
+    def close_ticket(self, ticket_id, template=None, template_context=None):
+        # TODO add docstring
+        endpoint = "/api/tickets/resolve"
+
+        request_data = {"ticket_id": str(ticket_id)}
+        if template is not None:
+            request_data.update(
+                {
+                    "template": template,
+                    "template_context": template_context,
+                }
+            )
+
+        logging.info(f"Closing ticket {ticket_id}")
+        print(request_data)
+
+        return self.call_api(endpoint=endpoint, data=request_data, method="POST")

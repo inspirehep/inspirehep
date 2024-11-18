@@ -1,0 +1,44 @@
+interactions:
+- request:
+    body: '{"ticket_id": "4b451fa0870a561095f833340cbb3595", "template": "user_accepted_author",
+      "template_context": {"user_name": "micha.moshe.moskovic@cern.ch", "author_name":
+      "Third B", "record_url": "https://inspirebeta.net/authors/12345"}}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '233'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: https://inspirebeta.net/api/tickets/resolve
+  response:
+    body:
+      string: '{"message":"Ticket resolved"}
+
+        '
+    headers:
+      access-control-allow-origin:
+      - '*'
+      access-control-expose-headers:
+      - Content-Type, ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
+      alt-svc:
+      - h3=":443";ma=60;
+      content-length:
+      - '30'
+      content-type:
+      - application/json
+      date:
+      - Wed, 20 Nov 2024 15:49:49 GMT
+      server:
+      - gunicorn/19.10.0
+      x-proxy-backend:
+      - inspire-qa_hep-web_http
+    status:
+      code: 200
+      message: OK
+version: 1

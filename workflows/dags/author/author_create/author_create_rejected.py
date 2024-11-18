@@ -1,10 +1,14 @@
 import datetime
+import logging
 
 from airflow.decorators import dag, task
 from airflow.models.param import Param
-from author.author_create.shared_tasks import close_author_create_user_ticket
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
+from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from include.utils.set_workflow_status import set_workflow_status_to_error
+from include.utils.tickets import get_ticket_by_type
+
+logger = logging.getLogger(__name__)
 
 
 @dag(
@@ -17,6 +21,7 @@ from include.utils.set_workflow_status import set_workflow_status_to_error
     catchup=False,
     # TODO: what if callback fails? Data in backoffice not up to date!
     on_failure_callback=set_workflow_status_to_error,
+    tags=["authors"],
 )
 def author_create_rejected_dag() -> None:
     """
@@ -28,6 +33,7 @@ def author_create_rejected_dag() -> None:
     2. set_author_create_workflow_status_to_completed: Sets the status of
         the author creation workflow to 'completed'.
     """
+    inspire_http_hook = InspireHttpHook()
     workflow_management_hook = WorkflowManagementHook(AUTHORS)
 
     @task()
@@ -43,6 +49,14 @@ def author_create_rejected_dag() -> None:
         workflow_management_hook.set_workflow_status(
             status_name=status_name, workflow_id=context["params"]["workflow_id"]
         )
+
+    @task()
+    def close_author_create_user_ticket(**context: dict) -> None:
+        logger.info("Closing ticket for rejected author")
+        ticket_id = get_ticket_by_type(
+            context["params"]["workflow"], "author_create_user"
+        )["ticket_id"]
+        inspire_http_hook.close_ticket(ticket_id)
 
     # task definitions
     set_status_to_running_task = set_workflow_status_to_running()

@@ -140,7 +140,7 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
         airflow_utils.trigger_airflow_dag(
             WORKFLOW_DAGS[workflow.workflow_type].initialize,
             str(workflow.id),
-            workflow.data,
+            workflow=serializer.data,
         )
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -177,7 +177,6 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
         logger.info("Resolving data: %s", request.data)
         serializer = self.resolution_serializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            extra_data = serializer.validated_data
             logger.info(
                 "Trigger Airflow DAG: %s for %s",
                 AuthorResolutionDags[serializer.validated_data["value"]],
@@ -185,10 +184,13 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
             )
             utils.add_decision(pk, request.user, serializer.validated_data["value"])
 
+            workflow = self.get_serializer(AuthorWorkflow.objects.get(pk=pk)).data
+
             airflow_utils.trigger_airflow_dag(
                 AuthorResolutionDags[serializer.validated_data["value"]].label,
                 pk,
-                extra_data,
+                serializer.data,
+                workflow=workflow,
             )
             workflow = get_object_or_404(AuthorWorkflow, pk=pk)
             workflow.status = StatusChoices.PROCESSING
