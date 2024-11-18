@@ -8,7 +8,10 @@ from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagemen
 from hooks.backoffice.workflow_ticket_management_hook import (
     AuthorWorkflowTicketManagementHook,
 )
-from hooks.inspirehep.inspire_http_hook import InspireHttpHook
+from hooks.inspirehep.inspire_http_hook import (
+    AUTHOR_SUBMIT_FUNCTIONAL_CATEGORY,
+    InspireHttpHook,
+)
 from include.utils.set_workflow_status import set_workflow_status_to_error
 
 logger = logging.getLogger(__name__)
@@ -24,6 +27,7 @@ logger = logging.getLogger(__name__)
     catchup=False,
     # TODO: what if callback fails? Data in backoffice not up to date!
     on_failure_callback=set_workflow_status_to_error,
+    tags=["authors"],
 )
 def author_create_initialization_dag():
     """
@@ -59,24 +63,41 @@ def author_create_initialization_dag():
 
     @task()
     def create_author_create_user_ticket(**context: dict) -> None:
-        endpoint = "/api/tickets/create"
-        request_data = {
-            "functional_category": "Author curation",
-            "template": "user_new_author",
-            "workflow_id": context["params"]["workflow_id"],
-            "subject": "test",  # TODO: set the subject and description
-            "description": "test",
-            "caller_email": "",  # leave empty
-        }
-        response = inspire_http_hook.call_api(
-            endpoint=endpoint, data=request_data, method="POST"
+        workflow_data = context["params"]["workflow"]["data"]
+        email = workflow_data["acquisition_source"]["email"]
+
+        response = inspire_http_hook.create_ticket(
+            AUTHOR_SUBMIT_FUNCTIONAL_CATEGORY,
+            "curator_new_author",
+            f"Your suggestion to INSPIRE: author "
+            f"{workflow_data.get('name').get('preferred_name')}",
+            workflow_data["acquisition_source"]["email"],
+            {
+                "email": email,
+                "obj_url": inspire_http_hook.get_backoffice_url(
+                    context["params"]["workflow_id"]
+                ),
+            },
         )
-        logger.info(f"Ticket created. Response status code: {response.status_code}")
-        logger.info(response.json())
+
+        ticket_id = response.json()["ticket_id"]
+
+        response = inspire_http_hook.reply_ticket(
+            ticket_id,
+            "user_new_author",
+            {
+                "user_name": workflow_data["acquisition_source"].get(
+                    "given_names", email
+                ),
+                "author_name": workflow_data.get("name").get("preferred_name"),
+            },
+            email,
+        )
+
         workflow_ticket_management_hook.create_ticket_entry(
             workflow_id=context["params"]["workflow_id"],
             ticket_type="author_create_user",
-            ticket_id=response.json()["ticket_id"],
+            ticket_id=ticket_id,
         )
 
     @task()

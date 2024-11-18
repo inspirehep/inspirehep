@@ -6,7 +6,10 @@ from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagemen
 from hooks.backoffice.workflow_ticket_management_hook import (
     AuthorWorkflowTicketManagementHook,
 )
-from hooks.inspirehep.inspire_http_hook import InspireHttpHook
+from hooks.inspirehep.inspire_http_hook import (
+    AUTHOR_UPDATE_FUNCTIONAL_CATEGORY,
+    InspireHttpHook,
+)
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
@@ -25,6 +28,7 @@ from include.utils.set_workflow_status import (
     },
     catchup=False,
     on_failure_callback=set_workflow_status_to_error,  # TODO: what if callback fails? Data in backoffice not up to date!
+    tags=["authors"],
 )
 def author_update_dag():
     """
@@ -51,23 +55,38 @@ def author_update_dag():
 
     @task()
     def create_ticket_on_author_update(**context):
-        endpoint = "/api/tickets/create"
-        request_data = {
-            "functional_category": "Author updates",
-            "template": "curator_update_author",
-            "workflow_id": context["params"]["workflow_id"],
-            "subject": "test",
-            "description": "test",
-            "caller_email": "",
-        }
-        response = inspire_http_hook.call_api(
-            endpoint=endpoint, data=request_data, method="POST"
+        workflow_data = context["params"]["workflow"]["data"]
+        email = workflow_data["acquisition_source"]["email"]
+
+        subject = (
+            f"Update to author {workflow_data.get('name').get('preferred_name')}"
+            f" on INSPIRE"
         )
+        recid = workflow_data["control_number"]
+        url = inspire_http_hook.get_url()
+        template_context = {
+            "url": f"{url}/authors/{recid}",
+            "bibedit_url": f"{url}/record/{recid}",
+            "url_author_form": f"{url}/submissions/authors/{recid}",
+        }
+
+        response = inspire_http_hook.create_ticket(
+            AUTHOR_UPDATE_FUNCTIONAL_CATEGORY,
+            "curator_update_author",
+            subject,
+            email,
+            template_context,
+        )
+
+        ticket_id = response.json()["ticket_id"]
+
         workflow_ticket_management_hook.create_ticket_entry(
             workflow_id=context["params"]["workflow_id"],
-            ticket_type="author_update_curation",
-            ticket_id=response.json()["ticket_id"],
+            ticket_type="author_update_user",
+            ticket_id=ticket_id,
         )
+
+        return response.json()
 
     @task()
     def update_author_on_inspire(**context):

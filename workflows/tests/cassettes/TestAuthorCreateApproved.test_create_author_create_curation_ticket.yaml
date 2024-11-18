@@ -1,0 +1,90 @@
+interactions:
+- request:
+    body: '{"functional_category": "Author curation", "template": "curation_needed_author",
+      "subject": "Curation needed for author Third B ", "template_context": {"email":
+      "micha.moshe.moskovic@cern.ch", "record_url": "https://inspirebeta.net/authors/12345"},
+      "caller_email": "micha.moshe.moskovic@cern.ch"}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '296'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: https://inspirebeta.net/api/tickets/create
+  response:
+    body:
+      string: '{"ticket_id":"94c0745e870e1250225886640cbb3509","ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=94c0745e870e1250225886640cbb3509"}
+
+        '
+    headers:
+      access-control-allow-origin:
+      - '*'
+      access-control-expose-headers:
+      - Content-Type, ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
+      alt-svc:
+      - h3=":443";ma=60;
+      content-length:
+      - '181'
+      content-type:
+      - application/json
+      date:
+      - Mon, 25 Nov 2024 14:03:46 GMT
+      server:
+      - gunicorn/19.10.0
+      x-proxy-backend:
+      - inspire-qa_hep-web_http
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"ticket_type": "author_create_curation", "ticket_id": "94c0745e870e1250225886640cbb3509",
+      "workflow": "00000000-0000-0000-0000-000000001521"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '142'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8001/api/workflows/authors/tickets/
+  response:
+    body:
+      string: '{"id":2,"ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=94c0745e870e1250225886640cbb3509","workflow":"00000000-0000-0000-0000-000000001521","ticket_id":"94c0745e870e1250225886640cbb3509","ticket_type":"author_create_curation","_created_at":"2024-11-25T14:03:46.470233Z","_updated_at":"2024-11-25T14:03:46.470241Z"}'
+    headers:
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '364'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Mon, 25 Nov 2024 14:03:46 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 201
+      message: Created
+version: 1
