@@ -37,16 +37,14 @@ def author_create_initialization_dag():
 
     """
     inspire_http_hook = InspireHttpHook()
-    workflow_management_hook = WorkflowManagementHook()
+    workflow_management_hook = WorkflowManagementHook(AUTHORS)
     workflow_ticket_management_hook = AuthorWorkflowTicketManagementHook()
 
     @task()
     def set_workflow_status_to_running(**context):
         status_name = "running"
         workflow_management_hook.set_workflow_status(
-            status_name=status_name,
-            workflow_id=context["params"]["workflow_id"],
-            collection=AUTHORS,
+            status_name=status_name, workflow_id=context["params"]["workflow_id"]
         )
 
     @task()
@@ -57,7 +55,6 @@ def author_create_initialization_dag():
             workflow_partial_update_data={
                 "data": {**context["params"]["data"], "$schema": schema}
             },
-            collection=AUTHORS,
         )
 
     @task()
@@ -86,9 +83,7 @@ def author_create_initialization_dag():
     def set_author_create_workflow_status_to_approval(**context: dict) -> None:
         status_name = "approval"
         workflow_management_hook.set_workflow_status(
-            status_name=status_name,
-            workflow_id=context["params"]["workflow_id"],
-            collection=AUTHORS,
+            status_name=status_name, workflow_id=context["params"]["workflow_id"]
         )
 
     # task dependencies

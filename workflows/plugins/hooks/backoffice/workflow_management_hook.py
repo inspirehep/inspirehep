@@ -16,9 +16,11 @@ class WorkflowManagementHook(BackofficeHook):
     :type http_conn_id: str
     """
 
-    def set_workflow_status(
-        self, status_name: str, workflow_id: str, collection: str
-    ) -> Response:
+    def __init__(self, collection):
+        super().__init__()
+        self.endpoint = f"api/workflows/{collection}"
+
+    def set_workflow_status(self, status_name: str, workflow_id: str) -> Response:
         """
         Updates the status of a workflow in the backoffice system.
 
@@ -32,13 +34,11 @@ class WorkflowManagementHook(BackofficeHook):
             "status": status_name,
         }
         return self.partial_update_workflow(
-            workflow_partial_update_data=request_data,
-            workflow_id=workflow_id,
-            collection=collection,
+            workflow_partial_update_data=request_data, workflow_id=workflow_id
         )
 
     def get_workflow(self, workflow_id: str) -> dict:
-        endpoint = f"api/workflows/{workflow_id}"
+        endpoint = f"{self.endpoint}/{workflow_id}"
         response = self.run_with_advanced_retry(
             _retry_args=self.tenacity_retry_kwargs, method="GET", endpoint=endpoint
         )
@@ -46,7 +46,7 @@ class WorkflowManagementHook(BackofficeHook):
         return response.json()
 
     def update_workflow(self, workflow_id: str, workflow_data: dict) -> Response:
-        endpoint = f"api/workflows/{workflow_id}/"
+        endpoint = f"{self.endpoint}/{workflow_id}/"
         return self.run_with_advanced_retry(
             _retry_args=self.tenacity_retry_kwargs,
             method="PUT",
@@ -55,9 +55,9 @@ class WorkflowManagementHook(BackofficeHook):
         )
 
     def partial_update_workflow(
-        self, workflow_id: str, workflow_partial_update_data: dict, collection: str
+        self, workflow_id: str, workflow_partial_update_data: dict
     ) -> Response:
-        endpoint = f"api/workflows/{collection}/{workflow_id}/"
+        endpoint = f"{self.endpoint}/{workflow_id}/"
         return self.run_with_advanced_retry(
             _retry_args=self.tenacity_retry_kwargs,
             method="PATCH",

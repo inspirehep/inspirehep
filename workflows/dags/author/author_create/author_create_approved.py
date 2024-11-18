@@ -48,16 +48,14 @@ def author_create_approved_dag():
     """
     inspire_http_hook = InspireHttpHook()
     inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
-    workflow_management_hook = WorkflowManagementHook()
+    workflow_management_hook = WorkflowManagementHook(AUTHORS)
     workflow_ticket_management_hook = AuthorWorkflowTicketManagementHook()
 
     @task()
     def set_workflow_status_to_running(**context):
         status_name = "running"
         workflow_management_hook.set_workflow_status(
-            status_name=status_name,
-            workflow_id=context["params"]["workflow_id"],
-            collection=AUTHORS,
+            status_name=status_name, workflow_id=context["params"]["workflow_id"]
         )
 
     @task.branch()
@@ -107,7 +105,6 @@ def author_create_approved_dag():
             workflow_management_hook.partial_update_workflow(
                 workflow_id=context["params"]["workflow_id"],
                 workflow_partial_update_data={"data": workflow_data["data"]},
-                collection=AUTHORS,
             )
         return status
 
@@ -124,9 +121,7 @@ def author_create_approved_dag():
     def set_author_create_workflow_status_to_completed(**context: dict) -> None:
         status_name = "completed"
         workflow_management_hook.set_workflow_status(
-            status_name=status_name,
-            workflow_id=context["params"]["workflow_id"],
-            collection=AUTHORS,
+            status_name=status_name, workflow_id=context["params"]["workflow_id"]
         )
 
     @task
@@ -142,7 +137,6 @@ def author_create_approved_dag():
         workflow_management_hook.set_workflow_status(
             status_name=status_name,
             workflow_id=context["params"]["workflow_id"],
-            collection=AUTHORS,
         )
 
     # task definitions

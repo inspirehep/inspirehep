@@ -12,6 +12,6 @@ class TestAuthorCreate:
         }
     }
 
-    @pytest.mark.vcr()
+    @pytest.mark.vcr
     def test_close_author_create_user_ticket(self):
         close_author_create_user_ticket.function(**self.context)

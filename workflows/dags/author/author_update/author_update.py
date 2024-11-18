@@ -39,16 +39,14 @@ def author_update_dag():
     """
     inspire_http_hook = InspireHttpHook()
     inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
-    workflow_management_hook = WorkflowManagementHook()
+    workflow_management_hook = WorkflowManagementHook(AUTHORS)
     workflow_ticket_management_hook = AuthorWorkflowTicketManagementHook()
 
     @task()
     def set_author_update_workflow_status_to_running(**context):
         status_name = "running"
         workflow_management_hook.set_workflow_status(
-            status_name=status_name,
-            workflow_id=context["params"]["workflow_id"],
-            collection=AUTHORS,
+            status_name=status_name, workflow_id=context["params"]["workflow_id"]
         )
 
     @task()
@@ -94,9 +92,7 @@ def author_update_dag():
     def set_author_update_workflow_status_to_completed(**context):
         status_name = "completed"
         workflow_management_hook.set_workflow_status(
-            status_name=status_name,
-            workflow_id=context["params"]["workflow_id"],
-            collection=AUTHORS,
+            status_name=status_name, workflow_id=context["params"]["workflow_id"]
         )
 
     @task.branch()
@@ -114,9 +110,7 @@ def author_update_dag():
         ti = context["ti"]
         status_name = ti.xcom_pull(task_ids="update_author_on_inspire")
         workflow_management_hook.set_workflow_status(
-            status_name=status_name,
-            workflow_id=context["params"]["workflow_id"],
-            collection=AUTHORS,
+            status_name=status_name, workflow_id=context["params"]["workflow_id"]
         )
 
     # task definitions
