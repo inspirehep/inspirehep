@@ -81,3 +81,11 @@ export function onEmbeddedSearchWithoutAggregationsQueryChange(helper, _dispatch
     helper.fetchSearchResults();
   }
 }
+
+export function onBackofficeQueryChange(helper, _dispatch, _dueToNavigationToSearchPage) {
+  if (helper.isInitialQueryUpdate() || helper.hasQueryChanged()) {
+    helper.fetchSearchResults();
+    helper.updateLocation();
+    helper.fetchSearchAggregations()
+  }
+}

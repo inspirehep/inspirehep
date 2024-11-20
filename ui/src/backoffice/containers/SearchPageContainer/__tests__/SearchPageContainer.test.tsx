@@ -8,7 +8,7 @@ import { getStoreWithState } from '../../../../fixtures/store';
 import SearchPageContainer from '../SearchPageContainer';
 import { BACKOFFICE_SEARCH } from '../../../../common/routes';
 import { BACKOFFICE_SEARCH_REQUEST } from '../../../../actions/actionTypes';
-
+import { SEARCH_REQUEST } from '../../../../actions/actionTypes';
 describe('SearchPageContainer', () => {
   let store = getStoreWithState({
     backoffice: fromJS({
@@ -39,29 +39,5 @@ describe('SearchPageContainer', () => {
 
     expect(searchPage).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
-  });
-
-  it('should dispatch fetchSearchResults on mount', () => {
-    store.clearActions();
-    renderComponent(store);
-
-    expect(store.getActions()[0]).toEqual({
-      type: BACKOFFICE_SEARCH_REQUEST,
-    });
-  });
-
-  it('should dispatch fetchSearchResults when query changes', () => {
-    store.clearActions();
-
-    store = getStoreWithState({
-      backoffice: fromJS({
-        query: { page: 2, size: 10 },
-      }),
-    });
-    renderComponent(store);
-
-    expect(store.getActions()[0]).toEqual({
-      type: BACKOFFICE_SEARCH_REQUEST,
-    });
   });
 });

@@ -19,7 +19,8 @@ import {
   LITERATURE_REFERENCES_NS,
   JOURNALS_NS,
   JOURNAL_PAPERS_NS,
-  CURATE_REFERENCE_NS
+  CURATE_REFERENCE_NS,
+  BACKOFFICE_SEARCH_NS,
 } from './constants';
 import {
   START_DATE_UPCOMING,
@@ -35,6 +36,11 @@ const initialBaseQuery = {
 
 const initialLiteratureReferencesBaseQuery = {
   size: '25',
+  page: '1',
+};
+
+const initialBackofficeSearchBaseQuery = {
+  size: '10',
   page: '1',
 };
 
@@ -214,6 +220,16 @@ const namespacesState = {
     ...initialNamespaceState,
     baseQuery: initialLiteratureReferencesBaseQuery,
     query: initialLiteratureReferencesBaseQuery,
+  },
+  [BACKOFFICE_SEARCH_NS]: {
+    ...initialNamespaceState,
+    baseQuery: {
+      ...initialBackofficeSearchBaseQuery,
+    },
+    query: {
+      ...initialBackofficeSearchBaseQuery,
+
+    },
   },
 };
 

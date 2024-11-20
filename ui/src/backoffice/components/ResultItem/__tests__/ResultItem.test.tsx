@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
 import '@testing-library/jest-dom/extend-expect';
 
-import AuthorResultItem from '../AuthorResultItem';
+import AuthorResultItem from '../ResultItem';
 import { BACKOFFICE_SEARCH } from '../../../../common/routes';
 import { getStore } from '../../../../fixtures/store';
 

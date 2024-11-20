@@ -6,6 +6,7 @@ import AggregationFilters from '../components/AggregationFilters';
 import { convertSomeImmutablePropsToJS } from '../immutableToJS';
 
 const stateToProps = (state: RootStateOrAny, { namespace }: { namespace: string }) => ({
+  state: state.search.getIn(['namespaces', namespace]).toJS(),
   aggregations: state.search.getIn(['namespaces', namespace, 'aggregations']),
   initialAggregations: state.search.getIn([
     'namespaces',

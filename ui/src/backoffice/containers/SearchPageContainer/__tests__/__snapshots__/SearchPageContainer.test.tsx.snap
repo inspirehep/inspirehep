@@ -126,378 +126,180 @@ exports[`SearchPageContainer renders the SearchPage component 1`] = `
       </span>
     </div>
     <div
-      class="ant-row ant-row-center mt2 mb4"
-      style="margin-left: -16px; margin-right: -16px;"
+      class="ant-row"
     >
       <div
-        class="ant-col ant-col-xs-0 ant-col-lg-4"
-        style="padding-left: 16px; padding-right: 16px;"
+        class="ant-col ant-col-xs-24 ant-col-lg-24 ant-col-xl-24 ant-col-xxl-24"
       >
         <div
-          class="ant-card ant-card-bordered"
+          class="ant-row ant-row-start mt3"
+          style="margin-left: -16px; margin-right: -16px;"
         >
           <div
-            class="ant-card-body"
+            class="ant-col ant-col-xs-0 ant-col-lg-7"
+            style="padding-left: 16px; padding-right: 16px;"
           >
-            <p
-              class="facet-category"
-            >
-              Results per page
-            </p>
             <div
-              class="ant-select ant-select-single ant-select-show-arrow"
-              data-testid="select-results-per-page"
-              placement="bottomLeft"
-              style="width: 100%; margin-bottom: 1rem;"
+              class="ant-card ant-card-bordered ant-card-small"
             >
               <div
-                class="ant-select-selector"
+                class="ant-card-body"
               >
-                <span
-                  class="ant-select-selection-search"
+                <div
+                  style="padding: 0.5rem;"
                 >
-                  <input
-                    aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                    aria-autocomplete="list"
-                    aria-controls="rc_select_TEST_OR_SSR_list"
-                    aria-haspopup="listbox"
-                    aria-owns="rc_select_TEST_OR_SSR_list"
-                    autocomplete="off"
-                    class="ant-select-selection-search-input"
-                    id="rc_select_TEST_OR_SSR"
-                    readonly=""
-                    role="combobox"
-                    style="opacity: 0;"
-                    value=""
-                  />
-                </span>
-                <span
-                  class="ant-select-selection-item"
-                >
-                  10
-                </span>
-              </div>
-              <span
-                aria-hidden="true"
-                class="ant-select-arrow"
-                style="user-select: none;"
-                unselectable="on"
-              >
-                <span
-                  aria-label="down"
-                  class="anticon anticon-down ant-select-suffix"
-                  role="img"
-                >
-                  <svg
-                    aria-hidden="true"
-                    data-icon="down"
-                    fill="currentColor"
-                    focusable="false"
-                    height="1em"
-                    viewBox="64 64 896 896"
-                    width="1em"
+                  <div
+                    class="w-100 br1"
                   >
-                    <path
-                      d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                    />
-                  </svg>
-                </span>
-              </span>
+                    <div
+                      class="ant-row ant-row-space-between"
+                      type="flex"
+                    >
+                      <div
+                        class="ant-col"
+                        style="flex-basis: auto;"
+                      >
+                        <h3
+                          class="pb1 fw4"
+                        >
+                          Sort by
+                        </h3>
+                      </div>
+                      <div
+                        class="ant-col"
+                      />
+                    </div>
+                    <div
+                      class="ant-row w-100"
+                    >
+                      <div
+                        class="ant-col"
+                        style="flex-basis: auto;"
+                      >
+                        <div
+                          class="ant-select ant-select-single ant-select-show-arrow"
+                          data-testid="select-sort-by"
+                          placement="bottomLeft"
+                          style="width: 100%;"
+                        >
+                          <div
+                            class="ant-select-selector"
+                          >
+                            <span
+                              class="ant-select-selection-search"
+                            >
+                              <input
+                                aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                                aria-autocomplete="list"
+                                aria-controls="rc_select_TEST_OR_SSR_list"
+                                aria-haspopup="listbox"
+                                aria-owns="rc_select_TEST_OR_SSR_list"
+                                autocomplete="off"
+                                class="ant-select-selection-search-input"
+                                id="rc_select_TEST_OR_SSR"
+                                readonly=""
+                                role="combobox"
+                                style="opacity: 0;"
+                                value=""
+                              />
+                            </span>
+                            <span
+                              class="ant-select-selection-item"
+                            >
+                              Most recent
+                            </span>
+                          </div>
+                          <span
+                            aria-hidden="true"
+                            class="ant-select-arrow"
+                            style="user-select: none;"
+                            unselectable="on"
+                          >
+                            <span
+                              aria-label="down"
+                              class="anticon anticon-down ant-select-suffix"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="down"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <p
-              class="facet-category mt3"
-            >
-              Sort by
-            </p>
+          </div>
+          <div
+            class="ant-col ant-col-xs-24 ant-col-lg-17"
+            style="padding-left: 16px; padding-right: 16px;"
+          >
             <div
-              class="ant-select ant-select-single ant-select-show-arrow"
-              data-testid="select-sort-by"
-              placement="bottomLeft"
-              style="width: 100%; margin-bottom: 1rem;"
+              class="ant-row ant-row-no-wrap ant-row-space-between"
             >
+              <span
+                class="mr2"
+              />
               <div
-                class="ant-select-selector"
-              >
-                <span
-                  class="ant-select-selection-search"
-                >
-                  <input
-                    aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                    aria-autocomplete="list"
-                    aria-controls="rc_select_TEST_OR_SSR_list"
-                    aria-haspopup="listbox"
-                    aria-owns="rc_select_TEST_OR_SSR_list"
-                    autocomplete="off"
-                    class="ant-select-selection-search-input"
-                    id="rc_select_TEST_OR_SSR"
-                    readonly=""
-                    role="combobox"
-                    style="opacity: 0;"
-                    value=""
-                  />
-                </span>
-                <span
-                  class="ant-select-selection-item"
-                >
-                  Most recent
-                </span>
-              </div>
-              <span
-                aria-hidden="true"
-                class="ant-select-arrow"
-                style="user-select: none;"
-                unselectable="on"
-              >
-                <span
-                  aria-label="down"
-                  class="anticon anticon-down ant-select-suffix"
-                  role="img"
-                >
-                  <svg
-                    aria-hidden="true"
-                    data-icon="down"
-                    fill="currentColor"
-                    focusable="false"
-                    height="1em"
-                    viewBox="64 64 896 896"
-                    width="1em"
-                  >
-                    <path
-                      d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                    />
-                  </svg>
-                </span>
-              </span>
-            </div>
-            <div
-              class="ant-row ant-row-center mt4"
-            >
-              <button
-                class="ant-btn ant-btn-text __LinkLikeButton__ blue"
-                type="button"
+                class="ant-col"
+                style="width: 55%;"
               >
                 <span>
-                  Reset filters
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="ant-col ant-col-xs-24 ant-col-lg-20"
-        style="padding-left: 16px; padding-right: 16px;"
-      >
-        <div
-          class="ant-row ant-row-no-wrap ant-row-space-between"
-        >
-          <label
-            class="ant-checkbox-wrapper"
-          >
-            <span
-              class="ant-checkbox"
-            >
-              <input
-                class="ant-checkbox-input"
-                data-test-id="select-all-publications"
-                type="checkbox"
-                value=""
-              />
-              <span
-                class="ant-checkbox-inner"
-              />
-            </span>
-          </label>
-          <span
-            class="mr2"
-          />
-          <div
-            class="ant-col"
-            style="width: 55%;"
-          >
-            <span>
-              15 results
-            </span>
-          </div>
-          <div
-            class="ant-col"
-            style="width: 29%; padding-left: 5px; font-weight: 600;"
-          >
-            Action & Status
-          </div>
-          <div
-            class="ant-col"
-            style="width: 18%; padding-left: 5px; font-weight: 600;"
-          >
-            Submission Info
-          </div>
-          <div
-            class="ant-col"
-            style="width: 18%; padding-left: 5px; font-weight: 600;"
-          >
-            Subject Areas
-          </div>
-        </div>
-        <div
-          data-test-id="search-results"
-        />
-        <br />
-        <br />
-        <ul
-          class="ant-pagination __SearchPagination__"
-          style="text-align: center;"
-        >
-          <li
-            aria-disabled="true"
-            class="ant-pagination-prev ant-pagination-disabled"
-            title="Previous Page"
-          >
-            <button
-              class="ant-pagination-item-link"
-              disabled=""
-              tabindex="-1"
-              type="button"
-            >
-              <span
-                aria-label="left"
-                class="anticon anticon-left"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="left"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M724 218.3V141c0-6.7-7.7-10.4-12.9-6.3L260.3 486.8a31.86 31.86 0 000 50.3l450.8 352.1c5.3 4.1 12.9.4 12.9-6.3v-77.3c0-4.9-2.3-9.6-6.1-12.6l-360-281 360-281.1c3.8-3 6.1-7.7 6.1-12.6z"
-                  />
-                </svg>
-              </span>
-            </button>
-          </li>
-          <li
-            class="ant-pagination-item ant-pagination-item-1 ant-pagination-item-active"
-            tabindex="0"
-            title="1"
-          >
-            <a
-              rel="nofollow"
-            >
-              1
-            </a>
-          </li>
-          <li
-            class="ant-pagination-item ant-pagination-item-2"
-            tabindex="0"
-            title="2"
-          >
-            <a
-              rel="nofollow"
-            >
-              2
-            </a>
-          </li>
-          <li
-            aria-disabled="false"
-            class="ant-pagination-next"
-            tabindex="0"
-            title="Next Page"
-          >
-            <button
-              class="ant-pagination-item-link"
-              tabindex="-1"
-              type="button"
-            >
-              <span
-                aria-label="right"
-                class="anticon anticon-right"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="right"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
-                  />
-                </svg>
-              </span>
-            </button>
-          </li>
-          <li
-            class="ant-pagination-options"
-          >
-            <div
-              aria-label="Page Size"
-              class="ant-select ant-pagination-options-size-changer ant-select-single ant-select-show-arrow"
-              placement="bottomLeft"
-            >
-              <div
-                class="ant-select-selector"
-              >
-                <span
-                  class="ant-select-selection-search"
-                >
-                  <input
-                    aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                    aria-autocomplete="list"
-                    aria-controls="rc_select_TEST_OR_SSR_list"
-                    aria-expanded="false"
-                    aria-haspopup="listbox"
-                    aria-owns="rc_select_TEST_OR_SSR_list"
-                    autocomplete="off"
-                    class="ant-select-selection-search-input"
-                    id="rc_select_TEST_OR_SSR"
-                    readonly=""
-                    role="combobox"
-                    style="opacity: 0;"
-                    value=""
-                  />
-                </span>
-                <span
-                  class="ant-select-selection-item"
-                >
-                  10 / page
+                  0 results
                 </span>
               </div>
-              <span
-                aria-hidden="true"
-                class="ant-select-arrow"
-                style="user-select: none;"
-                unselectable="on"
+              <div
+                class="ant-col"
+                style="width: 29%; padding-left: 5px; font-weight: 600;"
               >
-                <span
-                  aria-label="down"
-                  class="anticon anticon-down ant-select-suffix"
-                  role="img"
-                >
-                  <svg
-                    aria-hidden="true"
-                    data-icon="down"
-                    fill="currentColor"
-                    focusable="false"
-                    height="1em"
-                    viewBox="64 64 896 896"
-                    width="1em"
-                  >
-                    <path
-                      d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                    />
-                  </svg>
-                </span>
-              </span>
+                Action & Status
+              </div>
+              <div
+                class="ant-col"
+                style="width: 18%; padding-left: 5px; font-weight: 600;"
+              >
+                Submission Info
+              </div>
+              <div
+                class="ant-col"
+                style="width: 18%; padding-left: 5px; font-weight: 600;"
+              >
+                Subject Areas
+              </div>
             </div>
-          </li>
-        </ul>
+            <div
+              class="ant-row"
+            >
+              <div
+                class="ant-col ant-col-xs-12 ant-col-lg-0"
+              />
+            </div>
+            <div
+              class="ant-row"
+            >
+              <div
+                class="ant-col ant-col-24"
+              >
+                <div
+                  data-test-id="search-results"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -11,12 +11,12 @@ import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import { BACKOFFICE_SEARCH } from '../../../common/routes';
 import {
   isUserLoggedInToBackoffice,
-  searchQueryReset,
-  searchQueryUpdate,
 } from '../../../actions/backoffice';
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
 import { COLLECTIONS, getIcon, handleSearch } from '../../utils/utils';
+import { searchQueryUpdate } from '../../../actions/search';
+import { BACKOFFICE_SEARCH_NS } from '../../../search/constants';
 
 interface DashboardPageContainerProps {
   dispatch: ActionCreator<Action>;
@@ -50,63 +50,16 @@ const DashboardPageContainer: React.FC<DashboardPageContainerProps> = ({
     ]) as List<Map<string, any>>;
   }, [facets]);
 
-  const handleSelectChange = useCallback(
-    (value: string) => {
-      const selectedCollection = COLLECTIONS.find(
-        (collection) => collection?.value === value
-      );
-      if (selectedCollection) {
-        dispatch(
-          searchQueryUpdate({
-            page: 1,
-            workflow_type: selectedCollection?.value,
-          })
-        );
-      } else {
-        dispatch(searchQueryReset());
-      }
-    },
-    [dispatch]
-  );
 
-  const renderSelectBefore = useMemo(
-    () => (
-      <Select
-        defaultValue={COLLECTIONS[0]?.key}
-        value={
-          COLLECTIONS.find(
-            (collection) => collection?.key === query?.get('workflow_type')
-          )?.key
-        }
-        className="select-before"
-        onChange={handleSelectChange}
-      >
-        {COLLECTIONS.map((item) => (
-          <Option value={item?.value || ''} key={item?.key}>
-            {item?.key}
-          </Option>
-        ))}
-      </Select>
-    ),
-    [query, handleSelectChange]
-  );
 
   const renderWorkflowStatus = useCallback(
     (type: Map<string, any>) =>
       (type?.getIn(['status', 'buckets']) as List<any>)?.map((status) => (
         <a
-          href={BACKOFFICE_SEARCH}
+          href={`${BACKOFFICE_SEARCH}?workflow_type=${type?.get('key')}&status=${status?.get('key')}`}
           key={status?.get('key')}
-          onClick={() =>
-            dispatch(
-              searchQueryUpdate({
-                page: 1,
-                size: 10,
-                workflow_type: type?.get('key'),
-                status: status?.get('key'),
-              })
-            )
-          }
+
+
         >
           <div
             className={classNames(
@@ -142,17 +95,9 @@ const DashboardPageContainer: React.FC<DashboardPageContainerProps> = ({
                 {type?.get('doc_count')}
               </p>
               <Link
-                to={BACKOFFICE_SEARCH}
+                to={`${BACKOFFICE_SEARCH}?workflow_type=${type?.get('key')}`}
                 className="normal f6"
-                onClick={() =>
-                  dispatch(
-                    searchQueryUpdate({
-                      page: 1,
-                      size: 10,
-                      workflow_type: type?.get('key'),
-                    })
-                  )
-                }
+
               >
                 View all
               </Link>
@@ -182,7 +127,6 @@ const DashboardPageContainer: React.FC<DashboardPageContainerProps> = ({
             <Link
               to={BACKOFFICE_SEARCH}
               className="db w-100 tc f5 mt4"
-              onClick={() => dispatch(searchQueryReset())}
               data-testid="view-all"
             >
               View all
@@ -212,13 +156,9 @@ const DashboardPageContainer: React.FC<DashboardPageContainerProps> = ({
         <h2 className="f2 center">Search Backoffice</h2>
         <div className="search-container">
           <Search
-            addonBefore={renderSelectBefore}
             enterButton
             placeholder="Search Backoffice"
-            onPressEnter={(event) =>
-              handleSearchEvent(event?.currentTarget?.value)
-            }
-            onSearch={handleSearchEvent}
+            onSearch={value => dispatch(searchQueryUpdate(BACKOFFICE_SEARCH_NS, { q: value || undefined }))}
           />
         </div>
         <h2 className="f2 center mb4">Overview</h2>

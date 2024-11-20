@@ -2,7 +2,6 @@ import React from 'react';
 import { connect, RootStateOrAny } from 'react-redux';
 
 import DashboardPageContainer from './containers/DashboardPageContainer/DashboardPageContainer';
-import SearchPageContainer from './containers/SearchPageContainer/SearchPageContainer';
 import {
   BACKOFFICE,
   BACKOFFICE_SEARCH,
@@ -17,9 +16,11 @@ import LoginPage from './components/LoginPage';
 import PrivateRoute from '../common/PrivateRoute';
 import LocalLoginPageContainer from './containers/LocalLoginPageContainer/LocalLoginPageContainer';
 import { SUPERUSER_OR_CATALOGER } from '../common/authorization';
+import SearchPageContainer from './containers/SearchPageContainer/SearchPageContainer';
 
 const META_DESCRIPTION = 'Tool for curators to manage submissions and harvests';
 const TITLE = 'Backoffice';
+
 
 const Backoffice = ({ loggedIn }: { loggedIn: boolean }) => {
   return (

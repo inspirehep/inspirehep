@@ -113,13 +113,6 @@ describe('DashboardPageContainer', () => {
 
     await waitFor(() => fireEvent.click(viewAllLink));
 
-    await waitFor(() =>
-      expect(store.getActions()).toEqual([
-        {
-          type: BACKOFFICE_SEARCH_QUERY_RESET,
-        },
-      ])
-    );
   });
 
   it('shows loading spinner when loading is true', () => {
