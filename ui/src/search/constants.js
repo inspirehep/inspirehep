@@ -6,7 +6,8 @@ import {
   SEMINARS,
   INSTITUTIONS,
   EXPERIMENTS,
-  JOURNALS
+  JOURNALS,
+  BACKOFFICE_SEARCH
 } from '../common/routes';
 
 export const AUTHORS_NS = 'authors';
@@ -31,6 +32,8 @@ export const ASSIGN_AUTHOR_NS = 'assignAuthor';
 export const ASSIGN_CONFERENCE_NS = 'assignConference';
 export const CURATE_REFERENCE_NS = 'curateReference';
 
+export const BACKOFFICE_SEARCH_NS = 'backofficeSearch';
+
 export const SEARCH_BOX_NAMESPACES = [
   LITERATURE_NS,
   AUTHORS_NS,
@@ -51,6 +54,7 @@ export const SEARCHABLE_COLLECTION_PATHNAMES = [
   INSTITUTIONS,
   EXPERIMENTS,
   JOURNALS,
+  BACKOFFICE_SEARCH
 ];
 
 export const NAMESPACE_TO_PATHNAME = {
@@ -77,4 +81,13 @@ export const NAMESPACE_TO_PATHNAME = {
   [EXPERIMENTS_NS]: EXPERIMENTS,
   [JOURNALS_NS]: JOURNALS,
   [JOURNAL_PAPERS_NS]: LITERATURE,
+  [BACKOFFICE_SEARCH_NS]: BACKOFFICE_SEARCH,
 };
+
+export const PATHNAME_TO_NAMESPACE = Object.entries(NAMESPACE_TO_PATHNAME).reduce(
+  (acc, [namespace, pathname]) => ({
+    ...acc,
+    [pathname]: namespace,
+  }),
+  {}
+);

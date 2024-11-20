@@ -1,63 +1,77 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
-import { Row, Col } from 'antd';
+import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
+import { Row, Col, Select, Card } from 'antd';
 import { connect, RootStateOrAny } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
-import { List, Map } from 'immutable';
-
-import './SearchPageContainer.less';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import PaginationContainer from '../../../common/containers/PaginationContainer';
+import ResultsContainer from '../../../common/containers/ResultsContainer';
+import NumberOfResultsContainer from '../../../common/containers/NumberOfResultsContainer';
+import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
+import DocumentHead from '../../../common/components/DocumentHead';
 import { SEARCH_PAGE_GUTTER } from '../../../common/constants';
-import SearchResults from '../../../common/components/SearchResults';
-import NumberOfResults from '../../../common/components/NumberOfResults';
-import SearchPagination from '../../../common/components/SearchPagination';
-import PublicationsSelectAllContainer from '../../../authors/containers/PublicationsSelectAllContainer';
-import AuthorResultItem from '../../components/ResultItem/AuthorResultItem';
-import {
-  fetchSearchResults,
-  searchQueryUpdate,
-} from '../../../actions/backoffice';
-import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
-import SearchFilters from '../../components/SearchFilters';
+import { searchQueryUpdate } from '../../../actions/search';
+import { BACKOFFICE_SEARCH_NS } from '../../../search/constants';
+import AggregationFiltersContainer from '../../../common/containers/AggregationFiltersContainer';
+import ResponsiveView from '../../../common/components/ResponsiveView';
+import DrawerHandle from '../../../common/components/DrawerHandle';
+import AggregationBox from '../../../common/components/AggregationBox';
+import { isSuperUser } from '../../../common/authorization';
+import WorkflowResultItem from '../../components/ResultItem/ResultItem';
 
-interface SearchPageContainerProps {
-  dispatch: ActionCreator<Action>;
-  results: List<any>;
-  loading: boolean;
-  totalResults: number;
-  query: Map<string, any>;
+const META_DESCRIPTION = 'Find workflows in backoffice';
+const TITLE = 'Workflows Search';
+
+function renderAuthorItem(item: Map<string, any>) {
+  return <WorkflowResultItem item={item} key={item.get('id')} />;
 }
 
-const renderResultItem = (item: Map<string, any>) => {
-  return <AuthorResultItem item={item} key={item.get('id')} />;
-};
-
-const SearchPageContainer: React.FC<SearchPageContainerProps> = ({
-  dispatch,
-  results,
-  totalResults,
-  query,
-}) => {
-  useEffect(() => {
-    dispatch(fetchSearchResults());
-  }, [query]);
-
+function BackofficeSearchPage({ loading, query, loadingAggregations, onSortByChange }: { loading: boolean, query: any, loadingAggregations: boolean, onSortByChange: (namespace: string, value: string) => void }) {
+  const renderAggregations = useCallback(
+    () => (
+      <LoadingOrChildren loading={loadingAggregations}>
+        <AggregationFiltersContainer namespace={BACKOFFICE_SEARCH_NS} page="Workflows search" />
+      </LoadingOrChildren>
+    ),
+    [loadingAggregations]
+  );
   return (
     <div
       className="__SearchPageContainer__"
       data-testid="backoffice-search-page"
     >
+      <DocumentHead title={TITLE} description={META_DESCRIPTION} />
       <Breadcrumbs title1="Search" href1="search" />
-      <Row className="mt2 mb4" gutter={SEARCH_PAGE_GUTTER} justify="center">
-        <SearchFilters />
-        <Col xs={24} lg={20}>
-          <EmptyOrChildren data={results} title="0 Results">
-            <>
+      <Row>
+        <Col xs={24} lg={24} xl={24} xxl={24}>
+          <Row className="mt3" gutter={SEARCH_PAGE_GUTTER} justify="start">
+            <Col xs={0} lg={7}>
+              <Card size="small">
+                <div style={{ padding: '0.5rem' }}>
+                  <AggregationBox name="Sort by">
+                    <Select
+                      defaultValue="-_updated_at"
+                      value={query?.get('ordering')}
+                      style={{ width: '100%', }}
+                      data-testid="select-sort-by"
+                      options={[
+                        { value: '-_updated_at', label: 'Most recent' },
+                        { value: '_updated_at', label: 'Least recent' },
+                      ]}
+                      onChange={(value: string) =>
+                        onSortByChange(BACKOFFICE_SEARCH_NS, value)
+                      }
+                    />
+                  </AggregationBox>
+                </div>
+                {renderAggregations()}
+              </Card>
+            </Col>
+            <Col xs={24} lg={17}>
               <Row justify="space-between" wrap={false}>
-                <PublicationsSelectAllContainer />
                 <span className="mr2" />
                 <Col style={{ width: '55%' }}>
-                  <NumberOfResults numberOfResults={totalResults} />
+                  <NumberOfResultsContainer namespace={BACKOFFICE_SEARCH_NS} />
                 </Col>
                 <Col
                   style={{ width: '29%', paddingLeft: '5px', fontWeight: 600 }}
@@ -75,42 +89,81 @@ const SearchPageContainer: React.FC<SearchPageContainerProps> = ({
                   Subject Areas
                 </Col>
               </Row>
-              <SearchResults
-                results={results}
-                renderItem={renderResultItem}
-                page={query?.get('page') || 1}
-                isCatalogerLoggedIn={false}
-                pageSize={query?.get('size') || 10}
-                isBackoffice
-              />
-              <br />
-              <br />
-              <SearchPagination
-                onPageChange={(page, size) =>
-                  dispatch(searchQueryUpdate({ ...query.toJS(), page, size }))
-                }
-                onSizeChange={(_page, size) =>
-                  dispatch(
-                    searchQueryUpdate({ ...query.toJS(), page: 1, size })
-                  )
-                }
-                page={query?.get('page') || 1}
-                total={totalResults}
-                pageSize={query?.get('size') || 10}
-              />
-            </>
-          </EmptyOrChildren>
+              <LoadingOrChildren loading={loading}>
+                <Row>
+                  <Col xs={12} lg={0}>
+                    <ResponsiveView
+                      max="md"
+                      render={() => (
+                        <DrawerHandle handleText="Filter" drawerTitle="Filter">
+
+                          <div style={{ padding: '0.5rem' }}>
+                            <AggregationBox name="Sort by">
+                              <Select
+                                defaultValue="-_updated_at"
+                                value={query?.get('ordering')}
+                                style={{ width: '100%', }}
+                                data-testid="select-sort-by"
+                                options={[
+                                  { value: '-_updated_at', label: 'Most recent' },
+                                  { value: '_updated_at', label: 'Least recent' },
+                                ]}
+                                onChange={(value: string) =>
+                                  onSortByChange(BACKOFFICE_SEARCH_NS, value)
+                                }
+                              />
+                            </AggregationBox>
+                          </div>
+                          {renderAggregations()}
+
+                        </DrawerHandle>
+                      )}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={24}>
+                    <ResultsContainer
+                      namespace={BACKOFFICE_SEARCH_NS}
+                      renderItem={renderAuthorItem}
+                    />
+                    <PaginationContainer namespace={BACKOFFICE_SEARCH_NS} />
+                  </Col>
+                </Row>
+              </LoadingOrChildren>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </div>
   );
+}
+
+BackofficeSearchPage.propTypes = {
+  loading: PropTypes.bool.isRequired,
 };
 
 const stateToProps = (state: RootStateOrAny) => ({
-  results: state.backoffice.get('searchResults'),
-  loading: state.backoffice.get('loading'),
-  totalResults: state.backoffice.get('totalResults'),
-  query: state.backoffice.get('query'),
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
+  loading: state.search.getIn(['namespaces', BACKOFFICE_SEARCH_NS, 'loading']),
+  loadingAggregations: state.search.getIn([
+    'namespaces',
+    BACKOFFICE_SEARCH_NS,
+    'loadingAggregations',
+  ]),
+  query: state.search.getIn([
+    'namespaces',
+    BACKOFFICE_SEARCH_NS,
+    'query',
+  ]),
+
 });
 
-export default connect(stateToProps)(SearchPageContainer);
+export const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
+  onSortByChange(namespace: string, value: string) {
+    /* @ts-ignore */
+    dispatch(searchQueryUpdate(namespace, {ordering: value}));
+  },
+});
+
+export default connect(stateToProps, dispatchToProps)(BackofficeSearchPage);

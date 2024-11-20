@@ -62,14 +62,7 @@ const AuthorResultItem = ({ item }: { item: any }) => {
   return (
     <div className="result-item result-item-action mv2">
       <Row justify="start" wrap={false}>
-        <Col className="col-pub-select">
-          <PublicationSelectContainer
-            claimed={false}
-            disabled={false}
-            isOwnProfile={false}
-            recordId={item.get('id')}
-          />
-        </Col>
+
         <Col className="col-details">
           <ResultItem>
             <Link

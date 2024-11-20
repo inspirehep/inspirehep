@@ -24,6 +24,7 @@ const AggregationFilters = ({
   initialAggregations,
   embedded,
   page,
+  state,
 }: {
   aggregations: Map<string, any>;
   numberOfResults: number;
@@ -34,6 +35,7 @@ const AggregationFilters = ({
   initialAggregations: Map<string, any>;
   embedded: boolean;
   page: number;
+  state: any;
 }) => {
   function compareAggregationEntries(
     [, aggregation1]: Map<string, any>[],

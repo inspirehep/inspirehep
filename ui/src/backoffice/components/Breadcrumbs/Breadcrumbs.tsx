@@ -4,14 +4,14 @@ import { HomeOutlined } from '@ant-design/icons';
 import { Map } from 'immutable';
 import { Action, ActionCreator } from 'redux';
 import { connect, RootStateOrAny } from 'react-redux';
-
+import { searchQueryUpdate } from '../../../actions/search';
 import './Breadcrumbs.less';
 import { BACKOFFICE } from '../../../common/routes';
-import { handleSearch } from '../../utils/utils';
+import { BACKOFFICE_SEARCH_NS } from '../../../search/constants';
 
 interface BreadcrumbItemProps {
-  dispatch: ActionCreator<Action>;
-  query: Map<string, any>;
+  onSearch: (namespace: string, value: string) => void;
+  query: string;
   title1: string;
   href1: string;
   title2?: string;
@@ -20,7 +20,7 @@ interface BreadcrumbItemProps {
 }
 
 const Breadcrumbs: React.FC<BreadcrumbItemProps> = ({
-  dispatch,
+  onSearch,
   query,
   title1,
   href1,
@@ -28,12 +28,12 @@ const Breadcrumbs: React.FC<BreadcrumbItemProps> = ({
   href2,
   dashboardPage = false,
 }) => {
-  const [inputValue, setInputValue] = useState(query?.get('search'));
+  const [inputValue, setInputValue] = useState(query || '');
 
   const { Search } = Input;
 
   useEffect(() => {
-    setInputValue(query?.get('search'));
+    setInputValue(query || '');
   }, [query]);
 
   return (
@@ -61,14 +61,10 @@ const Breadcrumbs: React.FC<BreadcrumbItemProps> = ({
           enterButton
           placeholder="Search Backoffice"
           onPressEnter={(event: React.KeyboardEvent<HTMLInputElement>) => {
-            handleSearch(
-              dispatch,
-              query?.get('workflow_type'),
-              event?.currentTarget?.value
-            );
+            onSearch(BACKOFFICE_SEARCH_NS, event?.currentTarget?.value)
           }}
           onSearch={(value: string) => {
-            handleSearch(dispatch, query?.get('workflow_type'), value);
+            onSearch(BACKOFFICE_SEARCH_NS, value);
           }}
           onChange={(event) => setInputValue(event?.target?.value)}
           value={inputValue}
@@ -80,11 +76,19 @@ const Breadcrumbs: React.FC<BreadcrumbItemProps> = ({
 };
 
 const stateToProps = (state: RootStateOrAny) => ({
-  query: state.backoffice.get('query'),
+  query: state.search.getIn([
+    'namespaces',
+    BACKOFFICE_SEARCH_NS,
+    'query',
+    'q',
+  ]),
+  namespace: BACKOFFICE_SEARCH_NS,
 });
 
-const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
-  dispatch,
+export const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
+  onSearch(namespace: string, value: string) {
+      dispatch(searchQueryUpdate(namespace, { q: value || undefined }));
+  },
 });
 
 export default connect(stateToProps, dispatchToProps)(Breadcrumbs);
