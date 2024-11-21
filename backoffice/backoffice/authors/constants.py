@@ -13,7 +13,8 @@ DEFAULT_TICKET_TYPE = "author_create_curation"
 
 class StatusChoices(models.TextChoices):
     RUNNING = "running", "Running"
-    APPROVAL = "approval", "Waiting for approva"
+    APPROVAL = "approval", "Waiting for approval"
+    PROCESSING = "processing", "Processing"
     COMPLETED = "completed", "Completed"
     ERROR = "error", "Error"
 

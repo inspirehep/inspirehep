@@ -447,13 +447,17 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             format="json",
             data=data,
         )
-
+        workflow = AuthorWorkflow.objects.get(id=self.workflow.id)
+        self.assertEqual(workflow.status, StatusChoices.PROCESSING)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             AuthorDecision.objects.filter(workflow=self.workflow.id)[0].action, action
         )
-        self.assertEqual(response.json()["id"], str(self.workflow.id))
-        self.assertIn("decisions", response.json())
+        response = response.json()
+        self.assertEqual(response["id"], str(self.workflow.id))
+        self.assertIn("decisions", response)
+        self.assertEqual(response["status"], "processing")
+
         airflow_utils.delete_workflow_dag(
             WORKFLOW_DAGS[WorkflowType.AUTHOR_CREATE].approve, self.workflow.id
         )
