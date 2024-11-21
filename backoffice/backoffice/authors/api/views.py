@@ -190,9 +190,10 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
                 pk,
                 extra_data,
             )
-            workflow_serializer = self.serializer_class(
-                get_object_or_404(AuthorWorkflow, pk=pk)
-            )
+            workflow = get_object_or_404(AuthorWorkflow, pk=pk)
+            workflow.status = StatusChoices.PROCESSING
+            workflow.save()
+            workflow_serializer = self.serializer_class(workflow)
 
             return Response(workflow_serializer.data)
 
