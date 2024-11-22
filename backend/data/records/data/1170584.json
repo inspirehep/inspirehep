@@ -1,0 +1,12 @@
+{
+    "$schema":"https://inspirehep.net/schemas/records/data.json",
+    "_collections":[
+        "Data"
+    ],
+    "control_number":1170584,
+    "deleted":false,
+    "legacy_version":"20120831055015.0",
+    "self":{
+        "$ref":"https://inspirehep.net/api/data/1170584"
+    }
+}

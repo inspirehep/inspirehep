@@ -11,6 +11,7 @@
 from .author import Author
 from .conferences import Conference
 from .experiments import Experiment
+from .data import Data
 from .institutions import Institution
 from .job import Job
 from .literature import Literature

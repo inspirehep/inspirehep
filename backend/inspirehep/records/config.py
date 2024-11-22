@@ -58,6 +58,7 @@ from inspirehep.search.facets import (
     must_match_all_or_missing_filter,
     range_author_count_filter,
     records_conferences,
+    records_data,
     records_experiments,
     records_hep,
     records_hep_cataloger,
@@ -503,6 +504,8 @@ DATA.update(
         "search_factory_imp": (
             "inspirehep.search.factories.search:search_factory_with_aggs"
         ),
+        "create_permission_factory_imp": SessionSuperuserPermission,
+        "update_permission_factory_imp": SessionCatalogerPermission,
     }
 )
 
@@ -660,6 +663,8 @@ EXPERIMENTS_FILTERS = {
     "institution": must_match_all_filter("institutions.value"),
 }
 
+DATA_FILTERS = {}
+
 RECORDS_REST_FACETS = {
     "hep-author-publication": hep_author_publications,
     "hep-author-citations": hep_author_citations,
@@ -672,6 +677,7 @@ RECORDS_REST_FACETS = {
     "records-conferences": records_conferences,
     "records-seminars": records_seminars,
     "records-experiments": records_experiments,
+    "records-data": records_data,
     "hep-experiment-papers": hep_experiment_papers,
 }
 CATALOGER_RECORDS_REST_FACETS = deepcopy(RECORDS_REST_FACETS)
@@ -725,6 +731,9 @@ RECORDS_REST_SORT_OPTIONS = {
             "default_order": "asc",
             "order": 2,
         },
+    },
+    "records-data": {
+        "bestmatch": {"title": "Best match", "fields": ["-_score"], "order": 1},
     },
     "records-conferences": {
         "dateasc": {"title": "Date ascending", "fields": ["opening_date"], "order": 1},

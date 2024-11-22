@@ -305,7 +305,6 @@ class TestAuthorWorkflowTicketViewSet(BaseTransactionTestCase):
             "ticket_id": "dc94caad1b4f71502d06117a3b4bcb25",
             "ticket_type": "author_create_user",
         }
-        # import ipdb; ipdb.set_trace()
         response = self.api_client.post(self.endpoint, format="json", data=data)
 
         assert response.status_code == 201

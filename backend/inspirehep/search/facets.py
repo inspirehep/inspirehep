@@ -641,3 +641,9 @@ def records_experiments(order=None):
             **experiment_institution_aggregation(order=next(order)),
         },
     }
+
+
+def records_data(order=None):
+    if order is None:
+        order = count(start=1)
+    return {"filters": {**current_app.config["DATA_FILTERS"]}, "aggs": {}}

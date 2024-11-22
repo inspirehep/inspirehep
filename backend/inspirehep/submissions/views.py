@@ -32,6 +32,7 @@ from inspirehep.mailing.api.seminars import send_seminar_confirmation_email
 from inspirehep.records.api import (
     AuthorsRecord,
     ConferencesRecord,
+    DataRecord,
     ExperimentsRecord,
     InstitutionsRecord,
     JobsRecord,
@@ -42,6 +43,7 @@ from inspirehep.serializers import jsonify
 from inspirehep.submissions.errors import RESTDataError, WorkflowStartError
 from inspirehep.submissions.loaders import author_v1 as author_loader_v1
 from inspirehep.submissions.loaders import conference_v1 as conference_loader_v1
+from inspirehep.submissions.loaders import data_v1 as data_loader_v1
 from inspirehep.submissions.loaders import experiment_v1 as experiment_loader_v1
 from inspirehep.submissions.loaders import institution_v1 as institution_loader_v1
 from inspirehep.submissions.loaders import job_v1 as job_loader_v1
@@ -319,6 +321,20 @@ class ExperimentSubmissionsResource(BaseSubmissionsResource):
 
         data = self.load_data_from_request()
         record = ExperimentsRecord(data=data).create(data)
+        db.session.commit()
+        return (jsonify({"control_number": record["control_number"]}), 201)
+
+
+class DataSubmissionsResource(BaseSubmissionsResource):
+    decorators = [login_required_with_roles([Roles.cataloger.value])]
+
+    def load_data_from_request(self):
+        return data_loader_v1()
+
+    def post(self):
+        """Adds new data record"""
+        data = self.load_data_from_request()
+        record = DataRecord(data=data).create(data)
         db.session.commit()
         return (jsonify({"control_number": record["control_number"]}), 201)
 
@@ -660,6 +676,9 @@ experiment_submission_view = ExperimentSubmissionsResource.as_view(
     "experiment_submission_view"
 )
 blueprint.add_url_rule("/experiments", view_func=experiment_submission_view)
+
+data_submission_view = DataSubmissionsResource.as_view("data_submission_view")
+blueprint.add_url_rule("/data", view_func=data_submission_view)
 
 conference_submission_view = ConferenceSubmissionsResource.as_view(
     "conference_submissions_view"
