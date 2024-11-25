@@ -19,7 +19,7 @@ class StatusChoices(models.TextChoices):
     ERROR = "error", "Error"
 
 
-DEFAULT_STATUS_CHOICE = StatusChoices.RUNNING
+DEFAULT_STATUS_CHOICE = StatusChoices.PROCESSING
 
 
 class WorkflowType(models.TextChoices):
