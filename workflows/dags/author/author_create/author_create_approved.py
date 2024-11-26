@@ -90,7 +90,7 @@ def author_create_approved_dag():
         response = inspire_http_hook.create_ticket(
             AUTHOR_CURATION_FUNCTIONAL_CATEGORY,
             "curation_needed_author",
-            f"Curation needed for author"
+            f"Curation needed for author "
             f"{workflow_data.get('name').get('preferred_name')} {bai}",
             email,
             {
