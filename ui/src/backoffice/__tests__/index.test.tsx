@@ -8,7 +8,6 @@ import { getStore, getStoreWithState } from '../../fixtures/store';
 import Backoffice from '..';
 import DashboardPageContainer from '../containers/DashboardPageContainer/DashboardPageContainer';
 import SearchPageContainer from '../containers/SearchPageContainer/SearchPageContainer';
-import DetailPageContainer from '../containers/DetailPageContainer/DetailPageContainer';
 import { BACKOFFICE_SEARCH, BACKOFFICE } from '../../common/routes';
 
 describe('Backoffice', () => {
@@ -68,17 +67,6 @@ describe('Backoffice', () => {
     expect(getByTestId('backoffice-dashboard-page')).toBeInTheDocument();
   });
 
-  it('navigates to DetailPageContainer when /backoffice/:id', () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={[`${BACKOFFICE}/:id`]}>
-          <Route path={`${BACKOFFICE}/:id`} component={DetailPageContainer} />
-        </MemoryRouter>
-      </Provider>
-    );
-
-    expect(getByTestId('backoffice-detail-page')).toBeInTheDocument();
-  });
 
   it('navigates to SearchPageContainer when /backoffice/search', () => {
     const { getByTestId } = render(

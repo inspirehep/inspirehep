@@ -4,6 +4,7 @@ import {
   CheckOutlined,
   HourglassOutlined,
   LoadingOutlined,
+  FieldTimeOutlined
 } from '@ant-design/icons';
 import { push } from 'connected-react-router';
 import { Action, ActionCreator } from 'redux';
@@ -45,6 +46,8 @@ export const getIcon = (status: string) => {
       return <CheckOutlined className="mr2" />;
     case 'running':
       return <LoadingOutlined className="mr2" />;
+    case 'processing':
+      return <FieldTimeOutlined className="mr2 processing" />;
     default:
       return null;
   }
