@@ -59,6 +59,11 @@ class TestAuthorCreateInit:
     context = base_context
 
     @pytest.mark.vcr
+    def test_set_schema(self):
+        task = self.dag.get_task("set_schema")
+        task.execute(context=self.context)
+
+    @pytest.mark.vcr
     def test_create_author_create_user_ticket(self):
         task = self.dag.get_task("create_author_create_user_ticket")
         task.execute(context=self.context)
@@ -78,4 +83,15 @@ class TestAuthorCreateApproved:
     @pytest.mark.vcr
     def test_create_author_create_curation_ticket(self):
         task = self.dag.get_task("create_author_create_curation_ticket")
+        task.execute(context=self.context)
+
+
+class TestAuthorUpdate:
+    dag = dagbag.get_dag("author_update_dag")
+    context = base_context
+    context["params"]["workflow"]["data"]["control_number"] = "12345"
+
+    @pytest.mark.vcr
+    def test_create_ticket_on_author_update(self):
+        task = self.dag.get_task("create_ticket_on_author_update")
         task.execute(context=self.context)

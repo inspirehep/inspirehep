@@ -82,7 +82,7 @@ def author_update_dag():
 
         workflow_ticket_management_hook.create_ticket_entry(
             workflow_id=context["params"]["workflow_id"],
-            ticket_type="author_update_user",
+            ticket_type="author_update_curation",
             ticket_id=ticket_id,
         )
 
