@@ -14,7 +14,7 @@ import { Map } from 'immutable';
 import { push } from 'connected-react-router';
 import classNames from 'classnames';
 
-import './DetailPageContainer.less';
+import './AuthorDetailPageContainer.less';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import ContentBox from '../../../common/components/ContentBox';
 import CollapsableForm from '../../../submissions/common/components/CollapsableForm';

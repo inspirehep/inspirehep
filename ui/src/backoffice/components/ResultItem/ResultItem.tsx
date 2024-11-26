@@ -4,12 +4,12 @@ import {
   LoadingOutlined,
   StopOutlined,
   WarningOutlined,
+  FieldTimeOutlined,
 } from '@ant-design/icons';
 import { Row, Col, Card } from 'antd';
 import { Link } from 'react-router-dom';
 
 import './ResultItem.less';
-import PublicationSelectContainer from '../../../authors/containers/PublicationSelectContainer';
 import ResultItem from '../../../common/components/ResultItem';
 import UnclickableTag from '../../../common/components/UnclickableTag';
 import { BACKOFFICE } from '../../../common/routes';
@@ -41,6 +41,11 @@ const renderWorkflowStatus = (status: string) => {
       description:
         'This workflow is currently running. Please wait for it to complete.',
     },
+    processing: {
+      icon: <FieldTimeOutlined className="mr2" />,
+      text: 'Processing',
+      description: 'This workflow is currently processing.',
+    },
   };
 
   const statusInfo = statuses[status];
@@ -55,7 +60,7 @@ const renderWorkflowStatus = (status: string) => {
   ) : null;
 };
 
-const AuthorResultItem = ({ item }: { item: any }) => {
+const WorkflowResultItem = ({ item }: { item: any }) => {
   const data = item?.get('data');
   const decision = item?.get('decisions')?.first();
 
@@ -128,4 +133,4 @@ const AuthorResultItem = ({ item }: { item: any }) => {
   );
 };
 
-export default AuthorResultItem;
+export default WorkflowResultItem;

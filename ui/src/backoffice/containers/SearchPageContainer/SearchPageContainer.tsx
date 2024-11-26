@@ -22,7 +22,7 @@ import WorkflowResultItem from '../../components/ResultItem/ResultItem';
 const META_DESCRIPTION = 'Find workflows in backoffice';
 const TITLE = 'Workflows Search';
 
-function renderAuthorItem(item: Map<string, any>) {
+function renderWorkflowItem(item: Map<string, any>) {
   return <WorkflowResultItem item={item} key={item.get('id')} />;
 }
 
@@ -125,7 +125,7 @@ function BackofficeSearchPage({ loading, query, loadingAggregations, onSortByCha
                   <Col span={24}>
                     <ResultsContainer
                       namespace={BACKOFFICE_SEARCH_NS}
-                      renderItem={renderAuthorItem}
+                      renderItem={renderWorkflowItem}
                     />
                     <PaginationContainer namespace={BACKOFFICE_SEARCH_NS} />
                   </Col>
