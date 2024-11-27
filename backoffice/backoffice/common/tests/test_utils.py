@@ -2,8 +2,8 @@ import uuid
 
 import pytest
 from backoffice.authors import constants
-from backoffice.authors.api import utils
-from backoffice.authors.constants import StatusChoices
+from backoffice.common import utils
+from backoffice.common.constants import StatusChoices
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.test import TransactionTestCase

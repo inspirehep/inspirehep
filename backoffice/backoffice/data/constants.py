@@ -1,5 +1,5 @@
 from django.db import models
-from backoffice.common.constants import WorkflowType
+from backoffice.authors.constants import WorkflowType
 
 # tickets
 TICKET_TYPES = (
@@ -10,7 +10,6 @@ TICKET_TYPES = (
 DEFAULT_TICKET_TYPE = "author_create_curation"
 
 # workflows
-
 allowed_workflow_types = [
     WorkflowType.AUTHOR_CREATE,
     WorkflowType.AUTHOR_UPDATE,

@@ -2,16 +2,17 @@ from os import environ
 
 from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
 from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
-from inspire_schemas.utils import get_validation_errors
 from rest_framework import serializers
-from backoffice.authors.api import utils
-from backoffice.authors.constants import DECISION_CHOICES, StatusChoices, WorkflowType
+from backoffice.authors.constants import DECISION_CHOICES, WorkflowType
+from backoffice.common.constants import StatusChoices
 from backoffice.authors.documents import AuthorWorkflowDocument
 from backoffice.authors.models import (
     AuthorDecision,
     AuthorWorkflow,
     AuthorWorkflowTicket,
 )
+
+from backoffice.common.serializers import AbstractWorkflowSerializer
 
 
 class AuthorWorkflowTicketSerializer(serializers.ModelSerializer):
@@ -57,11 +58,9 @@ class AuthorDecisionSerializer(serializers.ModelSerializer):
         ),
     ],
 )
-class AuthorWorkflowSerializer(serializers.ModelSerializer):
+class AuthorWorkflowSerializer(AbstractWorkflowSerializer):
     tickets = AuthorWorkflowTicketSerializer(many=True, read_only=True)
     decisions = AuthorDecisionSerializer(many=True, read_only=True)
-    validation_errors = serializers.JSONField(required=False)
-    data = serializers.JSONField(required=True)
     workflow_type = serializers.ChoiceField(
         choices=[
             WorkflowType.AUTHOR_CREATE,
@@ -71,13 +70,7 @@ class AuthorWorkflowSerializer(serializers.ModelSerializer):
     )
 
     def validate_data(self, value):
-        validation_errors = list(get_validation_errors(value, schema="authors"))
-        if validation_errors:
-            validation_errors_msg = utils.render_validation_error_response(
-                validation_errors
-            )
-            raise serializers.ValidationError(validation_errors_msg)
-        return value
+        return super().validate_data(value, schema="authors")
 
     class Meta:
         model = AuthorWorkflow

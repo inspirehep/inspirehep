@@ -1,36 +1,16 @@
-import uuid
-
 from django.db import models
 
 from backoffice.authors.constants import (
     DECISION_CHOICES,
-    DEFAULT_STATUS_CHOICE,
     DEFAULT_TICKET_TYPE,
-    DEFAULT_WORKFLOW_TYPE,
     TICKET_TYPES,
-    StatusChoices,
-    WorkflowType,
 )
 from backoffice.users.models import User
+from backoffice.common.models import AbstractWorkflow
 
 
-class AuthorWorkflow(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-
-    workflow_type = models.CharField(
-        max_length=30,
-        choices=WorkflowType.choices,
-        default=DEFAULT_WORKFLOW_TYPE,
-    )
-    data = models.JSONField()
-    status = models.CharField(
-        max_length=30,
-        choices=StatusChoices.choices,
-        default=DEFAULT_STATUS_CHOICE,
-    )
-
-    _created_at = models.DateTimeField(auto_now_add=True)
-    _updated_at = models.DateTimeField(auto_now=True)
+class AuthorWorkflow(AbstractWorkflow):
+    pass
 
 
 class AuthorWorkflowTicket(models.Model):

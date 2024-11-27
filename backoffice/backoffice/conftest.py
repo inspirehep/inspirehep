@@ -12,3 +12,20 @@ def _media_storage(settings, tmpdir):
 @pytest.fixture()
 def user(db) -> User:
     return UserFactory()
+
+
+@pytest.fixture(scope="session")
+def vcr_config():
+    return {
+        "ignore_localhost": True,
+        "decode_compressed_response": True,
+        "filter_headers": ("Authorization", "User-Agent"),
+        "ignore_hosts": (
+            "es",
+            "flower",
+            "mq",
+            "postgres-backoffice",
+            "redis",
+        ),
+        "record_mode": "once",
+    }
