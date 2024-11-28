@@ -2,7 +2,7 @@ interactions:
 - request:
     body: '{"functional_category": "Author curation", "template": "curation_needed_author",
       "subject": "Curation needed for author Third B ", "template_context": {"email":
-      "micha.moshe.moskovic@cern.ch", "record_url": "https://inspirebeta.net/authors/12345"},
+      "micha.moshe.moskovic@cern.ch", "record_url": "http://host.docker.internal:8080/authors/12345"},
       "caller_email": "micha.moshe.moskovic@cern.ch"}'
     headers:
       Accept:
@@ -16,7 +16,7 @@ interactions:
       Content-Type:
       - application/json
     method: POST
-    uri: https://inspirebeta.net/api/tickets/create
+    uri: http://host.docker.internal:8080/api/tickets/create
   response:
     body:
       string: '{"ticket_id":"94c0745e870e1250225886640cbb3509","ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=94c0745e870e1250225886640cbb3509"}

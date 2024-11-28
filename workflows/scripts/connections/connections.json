@@ -1,10 +1,30 @@
 {
-  "inspire_connection": {
+  "inspire_connection_qa": {
     "conn_type": "http",
     "description": "",
     "login": "",
     "password": null,
     "host": "https://inspirebeta.net",
+    "port": null,
+    "schema": "",
+    "extra": ""
+  },
+  "inspire_connection": {
+    "conn_type": "http",
+    "description": "",
+    "login": "",
+    "password": null,
+    "host": "http://host.docker.internal:8080",
+    "port": null,
+    "schema": "",
+    "extra": ""
+  },
+  "hepdata_connection": {
+    "conn_type": "http",
+    "description": "Used for data harvesting",
+    "login": "",
+    "password": null,
+    "host": "https://www.hepdata.net",
     "port": null,
     "schema": "",
     "extra": ""

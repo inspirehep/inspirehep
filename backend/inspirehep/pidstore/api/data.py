@@ -7,7 +7,8 @@
 
 from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.pidstore.minters.control_number import DataMinter
+from inspirehep.pidstore.minters.doi import DoiMinter
 
 
 class PidStoreData(PidStoreBase):
-    minters = [DataMinter]
+    minters = [DataMinter, DoiMinter]

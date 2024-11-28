@@ -2,7 +2,7 @@ interactions:
 - request:
     body: '{"functional_category": "Author submissions", "template": "curator_new_author",
       "subject": "Your suggestion to INSPIRE: author Third B", "template_context":
-      {"email": "micha.moshe.moskovic@cern.ch", "obj_url": "https://inspirebeta.net/backoffice/66277811-fe66-4335-9aff-984583fb1228"},
+      {"email": "micha.moshe.moskovic@cern.ch", "obj_url": "http://host.docker.internal:8080/backoffice/66277811-fe66-4335-9aff-984583fb1228"},
       "caller_email": "micha.moshe.moskovic@cern.ch"}'
     headers:
       Accept:
@@ -16,7 +16,7 @@ interactions:
       Content-Type:
       - application/json
     method: POST
-    uri: https://inspirebeta.net/api/tickets/create
+    uri: http://host.docker.internal:8080/api/tickets/create
   response:
     body:
       string: '{"ticket_id":"dfa417a0870a561095f833340cbb3599","ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=dfa417a0870a561095f833340cbb3599"}
@@ -58,7 +58,7 @@ interactions:
       Content-Type:
       - application/json
     method: POST
-    uri: https://inspirebeta.net/api/tickets/reply
+    uri: http://host.docker.internal:8080/api/tickets/reply
   response:
     body:
       string: '{"message":"Ticket was updated with the reply"}
