@@ -9,6 +9,8 @@ class DataWorkflowDocument(WorkflowDocument):
     pass
 
     class Index(WorkflowDocument.Index):
+        print("HOLDUP")
+        print(settings.OPENSEARCH_INDEX_NAMES)
         name = settings.OPENSEARCH_INDEX_NAMES[__name__]
 
     class Django(WorkflowDocument.Django):

@@ -13,7 +13,7 @@ from rest_framework.response import Response
 
 from backoffice.common import airflow_utils
 from backoffice.common.views import WorkflowViewSet, WorkflowDocumentView
-from backoffice.common import utils
+from backoffice.authors import utils
 from backoffice.authors.api.serializers import (
     AuthorDecisionSerializer,
     AuthorResolutionSerializer,
