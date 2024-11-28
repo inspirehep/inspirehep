@@ -2,8 +2,8 @@ interactions:
 - request:
     body: '{"functional_category": "Author updates", "template": "curator_update_author",
       "subject": "Update to author Third B on INSPIRE", "template_context": {"url":
-      "https://inspirebeta.net/authors/12345", "bibedit_url": "https://inspirebeta.net/record/12345",
-      "url_author_form": "https://inspirebeta.net/submissions/authors/12345"}, "caller_email":
+      "http://host.docker.internal:8080/authors/12345", "bibedit_url": "http://host.docker.internal:8080/record/12345",
+      "url_author_form": "http://host.docker.internal:8080/submissions/authors/12345"}, "caller_email":
       "micha.moshe.moskovic@cern.ch"}'
     headers:
       Accept:
@@ -17,7 +17,7 @@ interactions:
       Content-Type:
       - application/json
     method: POST
-    uri: https://inspirebeta.net/api/tickets/create
+    uri: http://host.docker.internal:8080/api/tickets/create
   response:
     body:
       string: '{"ticket_id":"9e67066e8746d250225886640cbb3565","ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=9e67066e8746d250225886640cbb3565"}

@@ -1,0 +1,202 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8080/api/doi/10.8756/tTM
+  response:
+    body:
+      string: '{"metadata":{"dois":[{"value":"10.8756/tTM","material":"data"}],"self":{"$ref":"http://localhost:8000/api/data/777"},"urls":[{"value":"http://HoXZ","description":"tempor
+        laboris nostrud amet dolor"},{"value":"http://CBBgCi","description":"irure"},{"value":"https://aE,","description":"reprehenderit
+        lab"},{"value":"http://Erus/87","description":"magna"},{"value":"https://lHCOlUYMP","description":"laborum
+        eiusmod nulla ad ea"}],"titles":[{"title":"Test title","source":"pariatur
+        adipisicing amet","subtitle":"voluptate eiusmod fugiat"},{"title":"sunt sit","source":"commodo","subtitle":"ea
+        Duis irure"},{"title":"mollit pariatur","source":"u","subtitle":"labore ut
+        culpa irure"},{"title":"Duis sit Lorem elit","source":"sint","subtitle":"dolor
+        ipsum culpa enim occaecat"}],"$schema":"https://inspirehep.net/schemas/records/data.json","_bucket":"Ut
+        aliquip","authors":[{"ids":[{"value":"Excepteur velit est","schema":"TWITTER"}],"uuid":"3ac00867-2732-5adf-bfa8-f7a4b20fb67a","emails":["hNHD4FI-0sDqF@jTtNYclz.py","mrCdhdyNoH@IrcKFCnJgyrMqAGa.lq","ZRyS-Nsg9d@fKgRavdVQTPZW.toax","0BO@wRZPbtVZClYSvbSocKkXENciixqKRX.vob","v4w2it@zwrIt.pih"],"record":{"$ref":"http://zFGgrQUmKkz/api/authors/123445"},"full_name":"Pc`a:,z;(]ImH,9]QmwXXY4","affiliations":[{"value":"ut","record":{"$ref":"http://M1/api/institutions/12346"},"curated_relation":true},{"value":"eu
+        velit","record":{"$ref":"http://i2ex9/api/institutions/634564"},"curated_relation":false},{"value":"D","record":{"$ref":"http://m9aE2NXYZ/api/institutions/45636"},"curated_relation":false},{"value":"Excepteur
+        culpa occaecat minim","record":{"$ref":"http://PGSz4/api/institutions/52345"},"curated_relation":true}],"credit_roles":["Visualization","Project
+        administration","Supervision","Investigation","Writing - review & editing"],"inspire_roles":["author"],"signature_block":"ut
+        ut","curated_relation":true,"raw_affiliations":[{"value":"voluptate aliquip","source":"ex
+        do officia"},{"value":"eu dolor","source":"ipsum ut"}],"alternative_names":["aliqua
+        aliquip dolor","est ","fugiat"],"affiliations_identifiers":[{"value":"grid.5.OSKbNeeu","schema":"GRID"},{"value":"grid.952242.bCL1tagP4I","schema":"GRID"}]},{"ids":[{"value":"n","schema":"TWITTER"},{"value":"Excepteur","schema":"TWITTER"}],"uuid":"932e15c2-b312-c684-e1fa-ea985235e7f1","emails":["oMVbenTBkDkqPa@mJEfvPmtBqVpMGv.xw","eFxHV1W1bp@HVo.bwhg","Mu-4Psc7NkV@YHjfMXCEBqHu.eknq"],"record":{"$ref":"http://K5X/api/authors/12345"},"full_name":"L,mo7fv}\\0V]?","affiliations":[{"value":"nisi
+        consequat","record":{"$ref":"http://lRC-uM/api/institutions/1234"},"curated_relation":true}],"credit_roles":["Validation","Writing
+        - original draft","Conceptualization","Data curation","Investigation"],"inspire_roles":["editor","supervisor","author"],"signature_block":"fugiat","curated_relation":false,"raw_affiliations":[{"value":"non
+        anim","source":"ad quis ut"},{"value":"dolore sint ex","source":"in Excepteur
+        esse"}],"alternative_names":["proident","Excepteur adipisicing ut consectetur","do"],"affiliations_identifiers":[{"value":"grid.13647.lvvFkuvEV","schema":"GRID"},{"value":"grid.11978285837.5ysI4o6","schema":"GRID"},{"value":"grid.8512.9Nh","schema":"GRID"},{"value":"grid.5803.ycJExkHX2yC","schema":"GRID"}]}],"deleted":false,"texkeys":["nostrud
+        non officia","velit dolore","velit nostrud exercitation quis ullamco"],"keywords":[{"value":"quis","source":"ea
+        laboris"},{"value":"aliquip ut ut ullamco ex","source":"aliqua cillum"},{"value":"labore","source":"aliquip"}],"abstracts":[{"value":"est
+        occaecat dolor in","source":"ut velit laboris"},{"value":"ad voluptat","source":"ea"},{"value":"anim
+        id sunt","source":"ut"},{"value":"mollit","source":"dolor eu et pariatur"}],"literature":[{"doi":{"value":"10.912/W/K[Bz","source":"amet
+        Ut"},"record":{"$ref":"http://XVxZ15mkm/api/literature/44707"}},{"record":{"$ref":"http://l/api/literature/873915"}}],"_collections":["Data"],"creation_date":"2005-05-03","collaborations":[{"value":"ex
+        occaecat sunt eu","record":{"$ref":"http://XcyD6G/api/experiments/1234456"}},{"value":"ut
+        eiusmod anim aute in","record":{"$ref":"http://lWwb6D/api/experiments/547678"}}],"control_number":777,"legacy_version":"ea","deleted_records":[{"$ref":"http://J3vLBvgzhC/api/data/546456"},{"$ref":"http://txGvpx7fpfb/api/data/34534567"}],"acquisition_source":{"email":"xnSAdJWSg358dN@gQEsvHyr.ga","orcid":"7331-1113-6863-4887","method":"oai","source":"dolore
+        mollit","datetime":"5096-09-22T20:00:59.888Z","internal_uid":-19966101,"submission_number":"n"},"accelerator_experiments":[{"record":{"$ref":"http://Wba/api/experiments/12234"},"experiment":"exercitation
+        officia sint","accelerator":"ipsum ess","institution":"veniam","legacy_name":"reprehenderit
+        incididunt eiusmod exercitation","curated_relation":true}]},"revision_id":7,"updated":"2024-12-11T14:56:27.449027+00:00","uuid":"e5430afb-8761-4eaf-9188-e9d3a7bd4207","created":"2024-12-11T14:02:11.066149+00:00","id":"10.8756/ttm","links":{"bibtex":"http://localhost:8000/api/doi/10.8756/ttm?format=bibtex","latex-eu":"http://localhost:8000/api/doi/10.8756/ttm?format=latex-eu","latex-us":"http://localhost:8000/api/doi/10.8756/ttm?format=latex-us","json":"http://localhost:8000/api/doi/10.8756/ttm?format=json","cv":"http://localhost:8000/api/doi/10.8756/ttm?format=cv"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '5272'
+      Content-Type:
+      - application/vnd+inspire.record.raw+json
+      Date:
+      - Wed, 11 Dec 2024 16:15:43 GMT
+      ETag:
+      - W/"7"
+      Last-Modified:
+      - Wed, 11 Dec 2024 14:56:27 GMT
+      Link:
+      - <bibtex>; rel="http://localhost:8000/api/doi/10.8756/ttm?format=bibtex", <latex-eu>;
+        rel="http://localhost:8000/api/doi/10.8756/ttm?format=latex-eu", <latex-us>;
+        rel="http://localhost:8000/api/doi/10.8756/ttm?format=latex-us", <json>; rel="http://localhost:8000/api/doi/10.8756/ttm?format=json",
+        <cv>; rel="http://localhost:8000/api/doi/10.8756/ttm?format=cv"
+      Server:
+      - nginx/1.19.1
+      Vary:
+      - Accept,Accept-Encoding,Accept-Language
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"dois": [{"value": "10.8756/tTM", "material": "data"}], "self": {"$ref":
+      "http://localhost:8000/api/data/777"}, "urls": [{"value": "http://HoXZ", "description":
+      "tempor laboris nostrud amet dolor"}, {"value": "http://CBBgCi", "description":
+      "irure"}, {"value": "https://aE,", "description": "reprehenderit lab"}, {"value":
+      "http://Erus/87", "description": "magna"}, {"value": "https://lHCOlUYMP", "description":
+      "laborum eiusmod nulla ad ea"}], "titles": [{"title": "Test title", "source":
+      "pariatur adipisicing amet", "subtitle": "voluptate eiusmod fugiat"}, {"title":
+      "sunt sit", "source": "commodo", "subtitle": "ea Duis irure"}, {"title": "mollit
+      pariatur", "source": "u", "subtitle": "labore ut culpa irure"}, {"title": "Duis
+      sit Lorem elit", "source": "sint", "subtitle": "dolor ipsum culpa enim occaecat"}],
+      "$schema": "https://inspirehep.net/schemas/records/data.json", "_bucket": "Ut
+      aliquip", "authors": [{"ids": [{"value": "Excepteur velit est", "schema": "TWITTER"}],
+      "uuid": "3ac00867-2732-5adf-bfa8-f7a4b20fb67a", "emails": ["hNHD4FI-0sDqF@jTtNYclz.py",
+      "mrCdhdyNoH@IrcKFCnJgyrMqAGa.lq", "ZRyS-Nsg9d@fKgRavdVQTPZW.toax", "0BO@wRZPbtVZClYSvbSocKkXENciixqKRX.vob",
+      "v4w2it@zwrIt.pih"], "record": {"$ref": "http://zFGgrQUmKkz/api/authors/123445"},
+      "full_name": "Pc`a:,z;(]ImH,9]QmwXXY4", "affiliations": [{"value": "ut", "record":
+      {"$ref": "http://M1/api/institutions/12346"}, "curated_relation": true}, {"value":
+      "eu velit", "record": {"$ref": "http://i2ex9/api/institutions/634564"}, "curated_relation":
+      false}, {"value": "D", "record": {"$ref": "http://m9aE2NXYZ/api/institutions/45636"},
+      "curated_relation": false}, {"value": "Excepteur culpa occaecat minim", "record":
+      {"$ref": "http://PGSz4/api/institutions/52345"}, "curated_relation": true}],
+      "credit_roles": ["Visualization", "Project administration", "Supervision", "Investigation",
+      "Writing - review & editing"], "inspire_roles": ["author"], "signature_block":
+      "ut ut", "curated_relation": true, "raw_affiliations": [{"value": "voluptate
+      aliquip", "source": "ex do officia"}, {"value": "eu dolor", "source": "ipsum
+      ut"}], "alternative_names": ["aliqua aliquip dolor", "est ", "fugiat"], "affiliations_identifiers":
+      [{"value": "grid.5.OSKbNeeu", "schema": "GRID"}, {"value": "grid.952242.bCL1tagP4I",
+      "schema": "GRID"}]}, {"ids": [{"value": "n", "schema": "TWITTER"}, {"value":
+      "Excepteur", "schema": "TWITTER"}], "uuid": "932e15c2-b312-c684-e1fa-ea985235e7f1",
+      "emails": ["oMVbenTBkDkqPa@mJEfvPmtBqVpMGv.xw", "eFxHV1W1bp@HVo.bwhg", "Mu-4Psc7NkV@YHjfMXCEBqHu.eknq"],
+      "record": {"$ref": "http://K5X/api/authors/12345"}, "full_name": "L,mo7fv}\\0V]?",
+      "affiliations": [{"value": "nisi consequat", "record": {"$ref": "http://lRC-uM/api/institutions/1234"},
+      "curated_relation": true}], "credit_roles": ["Validation", "Writing - original
+      draft", "Conceptualization", "Data curation", "Investigation"], "inspire_roles":
+      ["editor", "supervisor", "author"], "signature_block": "fugiat", "curated_relation":
+      false, "raw_affiliations": [{"value": "non anim", "source": "ad quis ut"}, {"value":
+      "dolore sint ex", "source": "in Excepteur esse"}], "alternative_names": ["proident",
+      "Excepteur adipisicing ut consectetur", "do"], "affiliations_identifiers": [{"value":
+      "grid.13647.lvvFkuvEV", "schema": "GRID"}, {"value": "grid.11978285837.5ysI4o6",
+      "schema": "GRID"}, {"value": "grid.8512.9Nh", "schema": "GRID"}, {"value": "grid.5803.ycJExkHX2yC",
+      "schema": "GRID"}]}], "deleted": false, "texkeys": ["nostrud non officia", "velit
+      dolore", "velit nostrud exercitation quis ullamco"], "keywords": [{"value":
+      "quis", "source": "ea laboris"}, {"value": "aliquip ut ut ullamco ex", "source":
+      "aliqua cillum"}, {"value": "labore", "source": "aliquip"}], "abstracts": [{"value":
+      "est occaecat dolor in", "source": "ut velit laboris"}, {"value": "ad voluptat",
+      "source": "ea"}, {"value": "anim id sunt", "source": "ut"}, {"value": "mollit",
+      "source": "dolor eu et pariatur"}], "literature": [{"doi": {"value": "10.912/W/K[Bz",
+      "source": "amet Ut"}, "record": {"$ref": "http://XVxZ15mkm/api/literature/44707"}},
+      {"record": {"$ref": "http://l/api/literature/873915"}}], "_collections": ["Data"],
+      "creation_date": "2005-05-03", "collaborations": [{"value": "ex occaecat sunt
+      eu", "record": {"$ref": "http://XcyD6G/api/experiments/1234456"}}, {"value":
+      "ut eiusmod anim aute in", "record": {"$ref": "http://lWwb6D/api/experiments/547678"}}],
+      "control_number": 777, "legacy_version": "ea", "deleted_records": [{"$ref":
+      "http://J3vLBvgzhC/api/data/546456"}, {"$ref": "http://txGvpx7fpfb/api/data/34534567"}],
+      "acquisition_source": {"email": "xnSAdJWSg358dN@gQEsvHyr.ga", "orcid": "7331-1113-6863-4887",
+      "method": "oai", "source": "dolore mollit", "datetime": "5096-09-22T20:00:59.888Z",
+      "internal_uid": -19966101, "submission_number": "n"}, "accelerator_experiments":
+      [{"record": {"$ref": "http://Wba/api/experiments/12234"}, "experiment": "exercitation
+      officia sint", "accelerator": "ipsum ess", "institution": "veniam", "legacy_name":
+      "reprehenderit incididunt eiusmod exercitation", "curated_relation": true}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '5059'
+      Content-Type:
+      - application/json
+      If-Match:
+      - '"7"'
+    method: PUT
+    uri: http://host.docker.internal:8080/api/data/777
+  response:
+    body:
+      string: '{"metadata":{"dois":[{"value":"10.8756/tTM","material":"data"}],"self":{"$ref":"http://localhost:8000/api/data/777"},"urls":[{"value":"http://HoXZ","description":"tempor
+        laboris nostrud amet dolor"},{"value":"http://CBBgCi","description":"irure"},{"value":"https://aE,","description":"reprehenderit
+        lab"},{"value":"http://Erus/87","description":"magna"},{"value":"https://lHCOlUYMP","description":"laborum
+        eiusmod nulla ad ea"}],"titles":[{"title":"Test title","source":"pariatur
+        adipisicing amet","subtitle":"voluptate eiusmod fugiat"},{"title":"sunt sit","source":"commodo","subtitle":"ea
+        Duis irure"},{"title":"mollit pariatur","source":"u","subtitle":"labore ut
+        culpa irure"},{"title":"Duis sit Lorem elit","source":"sint","subtitle":"dolor
+        ipsum culpa enim occaecat"}],"$schema":"https://inspirehep.net/schemas/records/data.json","_bucket":"Ut
+        aliquip","authors":[{"ids":[{"value":"Excepteur velit est","schema":"TWITTER"}],"uuid":"3ac00867-2732-5adf-bfa8-f7a4b20fb67a","emails":["hNHD4FI-0sDqF@jTtNYclz.py","mrCdhdyNoH@IrcKFCnJgyrMqAGa.lq","ZRyS-Nsg9d@fKgRavdVQTPZW.toax","0BO@wRZPbtVZClYSvbSocKkXENciixqKRX.vob","v4w2it@zwrIt.pih"],"record":{"$ref":"http://zFGgrQUmKkz/api/authors/123445"},"full_name":"Pc`a:,z;(]ImH,9]QmwXXY4","affiliations":[{"value":"ut","record":{"$ref":"http://M1/api/institutions/12346"},"curated_relation":true},{"value":"eu
+        velit","record":{"$ref":"http://i2ex9/api/institutions/634564"},"curated_relation":false},{"value":"D","record":{"$ref":"http://m9aE2NXYZ/api/institutions/45636"},"curated_relation":false},{"value":"Excepteur
+        culpa occaecat minim","record":{"$ref":"http://PGSz4/api/institutions/52345"},"curated_relation":true}],"credit_roles":["Visualization","Project
+        administration","Supervision","Investigation","Writing - review & editing"],"inspire_roles":["author"],"signature_block":"ut
+        ut","curated_relation":true,"raw_affiliations":[{"value":"voluptate aliquip","source":"ex
+        do officia"},{"value":"eu dolor","source":"ipsum ut"}],"alternative_names":["aliqua
+        aliquip dolor","est ","fugiat"],"affiliations_identifiers":[{"value":"grid.5.OSKbNeeu","schema":"GRID"},{"value":"grid.952242.bCL1tagP4I","schema":"GRID"}]},{"ids":[{"value":"n","schema":"TWITTER"},{"value":"Excepteur","schema":"TWITTER"}],"uuid":"932e15c2-b312-c684-e1fa-ea985235e7f1","emails":["oMVbenTBkDkqPa@mJEfvPmtBqVpMGv.xw","eFxHV1W1bp@HVo.bwhg","Mu-4Psc7NkV@YHjfMXCEBqHu.eknq"],"record":{"$ref":"http://K5X/api/authors/12345"},"full_name":"L,mo7fv}\\0V]?","affiliations":[{"value":"nisi
+        consequat","record":{"$ref":"http://lRC-uM/api/institutions/1234"},"curated_relation":true}],"credit_roles":["Validation","Writing
+        - original draft","Conceptualization","Data curation","Investigation"],"inspire_roles":["editor","supervisor","author"],"signature_block":"fugiat","curated_relation":false,"raw_affiliations":[{"value":"non
+        anim","source":"ad quis ut"},{"value":"dolore sint ex","source":"in Excepteur
+        esse"}],"alternative_names":["proident","Excepteur adipisicing ut consectetur","do"],"affiliations_identifiers":[{"value":"grid.13647.lvvFkuvEV","schema":"GRID"},{"value":"grid.11978285837.5ysI4o6","schema":"GRID"},{"value":"grid.8512.9Nh","schema":"GRID"},{"value":"grid.5803.ycJExkHX2yC","schema":"GRID"}]}],"deleted":false,"texkeys":["nostrud
+        non officia","velit dolore","velit nostrud exercitation quis ullamco"],"keywords":[{"value":"quis","source":"ea
+        laboris"},{"value":"aliquip ut ut ullamco ex","source":"aliqua cillum"},{"value":"labore","source":"aliquip"}],"abstracts":[{"value":"est
+        occaecat dolor in","source":"ut velit laboris"},{"value":"ad voluptat","source":"ea"},{"value":"anim
+        id sunt","source":"ut"},{"value":"mollit","source":"dolor eu et pariatur"}],"literature":[{"doi":{"value":"10.912/W/K[Bz","source":"amet
+        Ut"},"record":{"$ref":"http://XVxZ15mkm/api/literature/44707"}},{"record":{"$ref":"http://l/api/literature/873915"}}],"_collections":["Data"],"creation_date":"2005-05-03","collaborations":[{"value":"ex
+        occaecat sunt eu","record":{"$ref":"http://XcyD6G/api/experiments/1234456"}},{"value":"ut
+        eiusmod anim aute in","record":{"$ref":"http://lWwb6D/api/experiments/547678"}}],"control_number":777,"legacy_version":"ea","deleted_records":[{"$ref":"http://J3vLBvgzhC/api/data/546456"},{"$ref":"http://txGvpx7fpfb/api/data/34534567"}],"acquisition_source":{"email":"xnSAdJWSg358dN@gQEsvHyr.ga","orcid":"7331-1113-6863-4887","method":"oai","source":"dolore
+        mollit","datetime":"5096-09-22T20:00:59.888Z","internal_uid":-19966101,"submission_number":"n"},"accelerator_experiments":[{"record":{"$ref":"http://Wba/api/experiments/12234"},"experiment":"exercitation
+        officia sint","accelerator":"ipsum ess","institution":"veniam","legacy_name":"reprehenderit
+        incididunt eiusmod exercitation","curated_relation":true}]},"revision_id":8,"updated":"2024-12-11T16:15:43.855471+00:00","uuid":"e5430afb-8761-4eaf-9188-e9d3a7bd4207","created":"2024-12-11T14:02:11.066149+00:00","id":"777","links":{"json":"http://localhost:8000/api/data/777?format=json"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '4989'
+      Content-Type:
+      - application/vnd+inspire.record.raw+json
+      Date:
+      - Wed, 11 Dec 2024 16:15:43 GMT
+      ETag:
+      - W/"8"
+      Last-Modified:
+      - Wed, 11 Dec 2024 16:15:43 GMT
+      Link:
+      - <json>; rel="http://localhost:8000/api/data/777?format=json"
+      Server:
+      - nginx/1.19.1
+      Vary:
+      - Accept,Accept-Encoding,Accept-Language
+    status:
+      code: 200
+      message: OK
+version: 1

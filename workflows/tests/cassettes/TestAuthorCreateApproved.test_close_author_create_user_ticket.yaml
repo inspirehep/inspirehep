@@ -2,7 +2,7 @@ interactions:
 - request:
     body: '{"ticket_id": "4b451fa0870a561095f833340cbb3595", "template": "user_accepted_author",
       "template_context": {"user_name": "micha.moshe.moskovic@cern.ch", "author_name":
-      "Third B", "record_url": "https://inspirebeta.net/authors/12345"}}'
+      "Third B", "record_url": "http://host.docker.internal:8080/authors/12345"}}'
     headers:
       Accept:
       - application/vnd+inspire.record.raw+json
@@ -15,7 +15,7 @@ interactions:
       Content-Type:
       - application/json
     method: POST
-    uri: https://inspirebeta.net/api/tickets/resolve
+    uri: http://host.docker.internal:8080/api/tickets/resolve
   response:
     body:
       string: '{"message":"Ticket resolved"}
