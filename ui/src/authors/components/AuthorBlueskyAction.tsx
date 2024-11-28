@@ -1,23 +1,24 @@
 import React from 'react';
-import { XOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
 
+import Icon from '@ant-design/icons';
 import UserAction from '../../common/components/UserAction';
 import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 import EventTracker from '../../common/components/EventTracker';
+import { ReactComponent as blueskyLogo } from '../../common/assets/bluesky.svg';
 
-const AuthorTwitterAction = ({ twitter }: { twitter: string }) => {
-  const href = `//x.com/${twitter}`;
+const AuthorBlueskyAction = ({ bluesky }: { bluesky: string }) => {
+  const href = `//bsky.app/profile/${bluesky}`;
   return (
     <UserAction>
       <EventTracker
         eventCategory="Author detail"
         eventAction="Link"
-        eventId="Twitter"
+        eventId="Bluesky"
       >
         <LinkWithTargetBlank href={href}>
-          <Tooltip title="X / Twitter">
-            <XOutlined />
+          <Tooltip title="Bluesky">
+            <Icon component={blueskyLogo} style={{ color: 'rgb(95,95,95)' }} />
           </Tooltip>
         </LinkWithTargetBlank>
       </EventTracker>
@@ -25,4 +26,4 @@ const AuthorTwitterAction = ({ twitter }: { twitter: string }) => {
   );
 };
 
-export default AuthorTwitterAction;
+export default AuthorBlueskyAction;

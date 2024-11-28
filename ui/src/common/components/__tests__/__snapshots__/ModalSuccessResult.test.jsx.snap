@@ -5,7 +5,7 @@ exports[`ModalSuccessResult renders with children 1`] = `
   <div
     className="mb4 tc f-5"
   >
-    <ForwardRef(CheckCircleTwoTone)
+    <CheckCircleTwoTone
       twoToneColor="#52c41a"
     />
   </div>

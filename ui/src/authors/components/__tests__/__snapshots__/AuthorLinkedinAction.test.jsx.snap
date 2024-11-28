@@ -16,7 +16,7 @@ exports[`AuthorLinkedinAction renders with linkedin 1`] = `
         as="a"
         href="//linkedin.com/in/harunurhan"
       >
-        <ForwardRef(LinkedinOutlined) />
+        <LinkedinOutlined />
       </LinkWithTargetBlank>
     </EventTracker>
   </Tooltip>

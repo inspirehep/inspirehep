@@ -21,6 +21,8 @@ class Author(Schema):
     status = fields.Raw()
     arxiv_categories = fields.Raw()
     websites = fields.Raw()
+    bluesky = fields.Raw()
+    mastodon = fields.Raw()
     twitter = fields.Raw()
     blog = fields.Raw()
     linkedin = fields.Raw()
@@ -63,6 +65,12 @@ class Author(Schema):
             ),
             "emails": get_value(data, "email_addresses", default=missing),
             "status": get_value(data, "status", default=missing),
+            "bluesky": self.get_first_or_missing(
+                get_values_for_schema(data.get("ids", []), "BLUESKY")
+            ),
+            "mastodon": self.get_first_or_missing(
+                get_values_for_schema(data.get("ids", []), "MASTODON")
+            ),
             "twitter": self.get_first_or_missing(
                 get_values_for_schema(data.get("ids", []), "TWITTER")
             ),
@@ -159,6 +167,12 @@ class Author(Schema):
 
         status = data.get("status")
         author.set_status(status)
+
+        bluesky = data.get("bluesky")
+        author.add_bluesky(bluesky)
+
+        mastodon = data.get("mastodon")
+        author.add_mastodon(mastodon)
 
         twitter = data.get("twitter")
         author.add_twitter(twitter)

@@ -1,10 +1,6 @@
 import React from 'react';
 import { Map } from 'immutable';
-import {
-  LinkOutlined,
-  LinkedinOutlined,
-  TwitterOutlined,
-} from '@ant-design/icons';
+import { LinkOutlined, LinkedinOutlined, XOutlined } from '@ant-design/icons';
 
 import orcidLogo from '../../common/assets/orcid.svg';
 
@@ -22,8 +18,8 @@ function getLinkData(schema: string, value: string) {
       };
     case 'TWITTER':
       return {
-        href: `https://twitter.com/${value}`,
-        icon: <TwitterOutlined className="mr1" />,
+        href: `https://x.com/${value}`,
+        icon: <XOutlined className="mr1" />,
       };
     case 'ORCID':
       return {

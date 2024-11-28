@@ -1,14 +1,20 @@
 import React from 'react';
-import { Row, Col, Card } from 'antd';
+import { Row, Col, Card, Space } from 'antd';
 import useAxios from 'axios-hooks';
 // @ts-ignore
 import SanitizedHTML from 'react-sanitized-html';
 
+import Icon, { XOutlined } from '@ant-design/icons';
 import Loading from '../../common/components/Loading';
 import ExternalLink from '../../common/components/ExternalLink';
 import ContentBox from '../../common/components/ContentBox';
-import { BLOG_URL } from '../../common/constants';
-import twitterLogo from '../assets/twitter-icon.svg';
+import {
+  BLOG_URL,
+  INSPIRE_BLUESKY_ACCOUNT,
+  INSPIRE_TWITTER_ACCOUNT,
+} from '../../common/constants';
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
+import { ReactComponent as blueskyLogo } from '../../common/assets/bluesky.svg';
 
 interface Post {
   id: string;
@@ -86,12 +92,22 @@ const NewsAndUpdates = () => {
       </Row>
       <Row justify="center">
         <Col className="mt5">
-          <p className="tc">
-            <img className="logo mr2" src={twitterLogo} alt="Twitter logo" />
-            <a href="https://twitter.com/inspirehep" target="_blank">
-              Follow us on Twitter
-            </a>
-          </p>
+          <Space size="middle">
+            Follow us on
+            <LinkWithTargetBlank href={INSPIRE_BLUESKY_ACCOUNT}>
+              <Icon
+                style={{
+                  fontSize: '25px',
+                  color: '#1285FC',
+                }}
+                component={blueskyLogo}
+              />
+            </LinkWithTargetBlank>
+            •
+            <LinkWithTargetBlank href={INSPIRE_TWITTER_ACCOUNT}>
+              <XOutlined style={{ fontSize: '24px', color: 'black' }} />
+            </LinkWithTargetBlank>
+          </Space>
         </Col>
       </Row>
     </>

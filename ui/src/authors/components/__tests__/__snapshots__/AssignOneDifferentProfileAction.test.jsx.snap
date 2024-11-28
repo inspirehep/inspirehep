@@ -31,7 +31,7 @@ exports[`AssignDifferentProfileAction renders 1`] = `
         data-test-id="btn-claim"
       >
         <IconText
-          icon={<ForwardRef(FileDoneOutlined) />}
+          icon={<FileDoneOutlined />}
           text="claim"
         />
       </Button>
@@ -71,7 +71,7 @@ exports[`AssignDifferentProfileAction renders disabled 1`] = `
         data-test-id="btn-claim"
       >
         <IconText
-          icon={<ForwardRef(FileDoneOutlined) />}
+          icon={<FileDoneOutlined />}
           text="claim"
         />
       </Button>

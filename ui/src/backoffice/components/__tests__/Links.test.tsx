@@ -27,7 +27,7 @@ describe('Links Component', () => {
       },
       {
         schema: 'TWITTER',
-        value: 'twitter.com/user2',
+        value: 'x.com/user2',
       },
     ]);
 
@@ -56,7 +56,7 @@ describe('Links Component', () => {
     expect(getByText(/twitter/i)).toBeInTheDocument();
     expect(getByRole('link', { name: /john_doe/i })).toHaveAttribute(
       'href',
-      'https://twitter.com/john_doe'
+      'https://x.com/john_doe'
     );
   });
 

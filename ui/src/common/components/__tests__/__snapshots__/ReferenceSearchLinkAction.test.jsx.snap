@@ -13,7 +13,7 @@ exports[`ReferenceSearchLinkAction renders with required props 1`] = `
       to="/literature?q=citedby:recid:12345"
     >
       <IconText
-        icon={<ForwardRef(FileSearchOutlined) />}
+        icon={<FileSearchOutlined />}
         text="reference search"
       />
     </Link>

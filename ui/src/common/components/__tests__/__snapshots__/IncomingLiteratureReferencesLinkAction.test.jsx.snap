@@ -12,7 +12,7 @@ exports[`IncomingLiteratureReferencesLinkAction renders with required props 1`] 
       to="/literature?q=refersto:recid:888"
     >
       <IconText
-        icon={<ForwardRef(LoginOutlined) />}
+        icon={<LoginOutlined />}
         text={
           <React.Fragment>
             <FormattedNumber>
@@ -40,7 +40,7 @@ exports[`IncomingLiteratureReferencesLinkAction renders with required props when
       to="/literature?q=refersto:recid:888"
     >
       <IconText
-        icon={<ForwardRef(LoginOutlined) />}
+        icon={<LoginOutlined />}
         text={
           <React.Fragment>
             <FormattedNumber>

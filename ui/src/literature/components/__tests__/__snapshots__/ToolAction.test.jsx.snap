@@ -33,7 +33,7 @@ exports[`ToolAction renders 1`] = `
     title={
       <Button>
         <IconText
-          icon={<ForwardRef(ToolOutlined) />}
+          icon={<ToolOutlined />}
           text="tools"
         />
       </Button>
@@ -83,7 +83,7 @@ exports[`ToolAction renders disabled 1`] = `
     title={
       <Button>
         <IconText
-          icon={<ForwardRef(ToolOutlined) />}
+          icon={<ToolOutlined />}
           text="tools"
         />
       </Button>

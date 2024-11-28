@@ -14,7 +14,7 @@ exports[`EditRecordAction renders edit button with pidType authors and pidValue 
       href="/submissions/authors/1"
     >
       <IconText
-        icon={<ForwardRef(EditOutlined) />}
+        icon={<EditOutlined />}
         text="edit"
       />
     </LinkWithTargetBlank>
@@ -36,7 +36,7 @@ exports[`EditRecordAction renders edit button with pidType authors and pidValue 
       href="/editor/record/authors/1"
     >
       <IconText
-        icon={<ForwardRef(EditOutlined) />}
+        icon={<EditOutlined />}
         text="edit"
       />
     </LinkWithTargetBlank>
@@ -58,7 +58,7 @@ exports[`EditRecordAction renders edit button with pidType conferences and pidVa
       href="/editor/record/conferences/1"
     >
       <IconText
-        icon={<ForwardRef(EditOutlined) />}
+        icon={<EditOutlined />}
         text="edit"
       />
     </LinkWithTargetBlank>
@@ -80,7 +80,7 @@ exports[`EditRecordAction renders edit button with pidType institutions and pidV
       href="/editor/record/institutions/1"
     >
       <IconText
-        icon={<ForwardRef(EditOutlined) />}
+        icon={<EditOutlined />}
         text="edit"
       />
     </LinkWithTargetBlank>
@@ -102,7 +102,7 @@ exports[`EditRecordAction renders edit button with pidType jobs and pidValue 1`]
       href="/submissions/jobs/1"
     >
       <IconText
-        icon={<ForwardRef(EditOutlined) />}
+        icon={<EditOutlined />}
         text="edit"
       />
     </LinkWithTargetBlank>
@@ -124,7 +124,7 @@ exports[`EditRecordAction renders edit button with pidType literature and pidVal
       href="/editor/record/literature/1"
     >
       <IconText
-        icon={<ForwardRef(EditOutlined) />}
+        icon={<EditOutlined />}
         text="edit"
       />
     </LinkWithTargetBlank>
@@ -146,7 +146,7 @@ exports[`EditRecordAction renders edit button with pidType seminars and pidValue
       href="/submissions/seminars/1"
     >
       <IconText
-        icon={<ForwardRef(EditOutlined) />}
+        icon={<EditOutlined />}
         text="edit"
       />
     </LinkWithTargetBlank>

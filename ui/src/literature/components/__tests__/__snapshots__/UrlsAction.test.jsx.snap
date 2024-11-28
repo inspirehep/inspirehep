@@ -49,7 +49,7 @@ exports[`UrlsAction renders multiple, with and without description 1`] = `
     title={
       <Button>
         <IconText
-          icon={<ForwardRef(DownloadOutlined) />}
+          icon={<DownloadOutlined />}
           text="download"
         />
       </Button>
@@ -72,7 +72,7 @@ exports[`UrlsAction renders single 1`] = `
       href="https://www.whatever.com/pdfs/fulltext.pdf"
     >
       <IconText
-        icon={<ForwardRef(DownloadOutlined) />}
+        icon={<DownloadOutlined />}
         text="pdf"
       />
     </LinkWithTargetBlank>

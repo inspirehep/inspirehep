@@ -17,7 +17,8 @@ import {
   AUTHORLIST_TOOL_URL,
   INVENIO_URL,
   REPORT_METADATA_URL,
-  CONTACT_URL
+  CONTACT_URL,
+  INSPIRE_BLUESKY_ACCOUNT,
 } from '../../constants';
 import LinkWithTargetBlank from '../../components/LinkWithTargetBlank';
 import { BIBLIOGRAPHY_GENERATOR } from '../../routes';
@@ -111,7 +112,12 @@ const COLUMNS = [
         openExternal: true,
       },
       {
-        title: 'Twitter',
+        title: 'Bluesky',
+        url: INSPIRE_BLUESKY_ACCOUNT,
+        openExternal: true,
+      },
+      {
+        title: 'X',
         url: INSPIRE_TWITTER_ACCOUNT,
         openExternal: true,
       },

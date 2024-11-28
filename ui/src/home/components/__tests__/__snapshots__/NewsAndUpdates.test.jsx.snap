@@ -38,21 +38,44 @@ exports[`NewsAndUpdates renders 1`] = `
     <Col
       className="mt5"
     >
-      <p
-        className="tc"
+      <Space
+        size="middle"
       >
-        <img
-          alt="Twitter logo"
-          className="logo mr2"
-          src="twitter-icon.svg"
-        />
-        <a
-          href="https://twitter.com/inspirehep"
-          target="_blank"
+        Follow us on
+        <LinkWithTargetBlank
+          as="a"
+          href="https://bsky.app/profile/inspirehep.net"
         >
-          Follow us on Twitter
-        </a>
-      </p>
+          <AntdIcon
+            component={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "render": [Function],
+              }
+            }
+            style={
+              Object {
+                "color": "#1285FC",
+                "fontSize": "25px",
+              }
+            }
+          />
+        </LinkWithTargetBlank>
+        •
+        <LinkWithTargetBlank
+          as="a"
+          href="https://x.com/inspirehep"
+        >
+          <XOutlined
+            style={
+              Object {
+                "color": "black",
+                "fontSize": "24px",
+              }
+            }
+          />
+        </LinkWithTargetBlank>
+      </Space>
     </Col>
   </Row>
 </Fragment>

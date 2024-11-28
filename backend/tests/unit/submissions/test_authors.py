@@ -251,6 +251,58 @@ def test_load_author_linkedin():
     assert result == expected
 
 
+def test_dump_author_bluesky():
+    data = {
+        **DEFAULT_DATA_TO_DUMP,
+        "ids": [{"value": "username.bsky.social", "schema": "BLUESKY"}],
+    }
+
+    record = faker.record("aut", data=data)
+
+    result = Author().dump(record).data
+    expected = {**DEFAULT_DATA_DUMP, "bluesky": "username.bsky.social"}
+
+    assert result == expected
+
+
+def test_load_author_bluesky():
+    data = {**DEFAULT_DATA_TO_DUMP, "bluesky": "username.bsky.social"}
+
+    result = Author().load(data).data
+    expected = {
+        **DEFAULT_DATA_LOAD,
+        "ids": [{"schema": "BLUESKY", "value": "username.bsky.social"}],
+    }
+
+    assert result == expected
+
+
+def test_dump_author_mastodon():
+    data = {
+        **DEFAULT_DATA_TO_DUMP,
+        "ids": [{"value": "username@host", "schema": "MASTODON"}],
+    }
+
+    record = faker.record("aut", data=data)
+
+    result = Author().dump(record).data
+    expected = {**DEFAULT_DATA_DUMP, "mastodon": "username@host"}
+
+    assert result == expected
+
+
+def test_load_author_mastodon():
+    data = {**DEFAULT_DATA_TO_DUMP, "mastodon": "username@host"}
+
+    result = Author().load(data).data
+    expected = {
+        **DEFAULT_DATA_LOAD,
+        "ids": [{"schema": "MASTODON", "value": "username@host"}],
+    }
+
+    assert result == expected
+
+
 def test_dump_author_twitter():
     data = {
         **DEFAULT_DATA_TO_DUMP,

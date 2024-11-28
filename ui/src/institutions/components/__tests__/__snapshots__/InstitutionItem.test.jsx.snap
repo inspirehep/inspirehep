@@ -6,7 +6,7 @@ exports[`InstitutionItem renders with all props set 1`] = `
     <React.Fragment>
       <UrlsAction
         eventCategory="Institutions search"
-        icon={<ForwardRef(LinkOutlined) />}
+        icon={<LinkOutlined />}
         text="website"
         trackerEventId="Institution website"
         urls={

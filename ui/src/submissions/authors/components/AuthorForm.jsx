@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
 import { Col, Row, Tooltip } from 'antd';
 
+import { XOutlined } from '@ant-design/icons';
 import { authorStatusOptions } from '../schemas/constants';
 import {
   degreeTypeOptions,
@@ -170,9 +171,21 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             component={TextField}
           />
           <Field
+            name="bluesky"
+            label="Bluesky"
+            addonBefore="bsky.app/profile/"
+            component={TextField}
+          />
+          <Field
+            name="mastodon"
+            label="Mastodon"
+            placeholder="username@host"
+            component={TextField}
+          />
+          <Field
             name="twitter"
-            label="Twitter"
-            addonBefore="twitter.com/"
+            label={<XOutlined />}
+            addonBefore="x.com/"
             component={TextField}
           />
         </CollapsableForm.Section>

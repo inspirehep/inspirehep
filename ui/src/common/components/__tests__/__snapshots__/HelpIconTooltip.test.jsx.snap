@@ -4,6 +4,6 @@ exports[`HelpIconTooltip renders with help 1`] = `
 <Tooltip
   title="This is the help"
 >
-  <ForwardRef(QuestionCircleOutlined) />
+  <QuestionCircleOutlined />
 </Tooltip>
 `;

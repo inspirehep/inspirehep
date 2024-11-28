@@ -42,7 +42,7 @@ exports[`ProceedingsAction renders proceedings 1`] = `
     title={
       <Button>
         <IconText
-          icon={<ForwardRef(BookOutlined) />}
+          icon={<BookOutlined />}
           text="proceedings"
         />
       </Button>
@@ -58,7 +58,7 @@ exports[`ProceedingsAction renders single item 1`] = `
     href="/literature/12345"
   >
     <IconText
-      icon={<ForwardRef(BookOutlined) />}
+      icon={<BookOutlined />}
       text="proceedings"
     />
   </LinkWithTargetBlank>

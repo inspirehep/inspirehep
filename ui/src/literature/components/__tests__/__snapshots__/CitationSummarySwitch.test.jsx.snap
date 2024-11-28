@@ -17,9 +17,9 @@ exports[`CitationSummarySwitch renders checked 1`] = `
   >
     <Switch
       checked={true}
-      checkedChildren={<ForwardRef(BarChartOutlined) />}
+      checkedChildren={<BarChartOutlined />}
       onChange={[MockFunction]}
-      unCheckedChildren={<ForwardRef(BarChartOutlined) />}
+      unCheckedChildren={<BarChartOutlined />}
     />
   </Tooltip>
 </Fragment>
@@ -42,9 +42,9 @@ exports[`CitationSummarySwitch renders unchecked 1`] = `
   >
     <Switch
       checked={false}
-      checkedChildren={<ForwardRef(BarChartOutlined) />}
+      checkedChildren={<BarChartOutlined />}
       onChange={[MockFunction]}
-      unCheckedChildren={<ForwardRef(BarChartOutlined) />}
+      unCheckedChildren={<BarChartOutlined />}
     />
   </Tooltip>
 </Fragment>

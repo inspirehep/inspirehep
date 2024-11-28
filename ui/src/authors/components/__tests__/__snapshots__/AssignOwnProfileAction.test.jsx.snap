@@ -59,7 +59,7 @@ exports[`AssignOwnProfileAction renders 1`] = `
           data-test-id="btn-claim"
         >
           <IconText
-            icon={<ForwardRef(FileDoneOutlined) />}
+            icon={<FileDoneOutlined />}
             text="claim"
           />
         </Button>
@@ -128,7 +128,7 @@ exports[`AssignOwnProfileAction renders disabled 1`] = `
           data-test-id="btn-claim"
         >
           <IconText
-            icon={<ForwardRef(FileDoneOutlined) />}
+            icon={<FileDoneOutlined />}
             text="claim"
           />
         </Button>
@@ -197,7 +197,7 @@ exports[`AssignOwnProfileAction renders plural form if numberOfSelected is more 
           data-test-id="btn-claim"
         >
           <IconText
-            icon={<ForwardRef(FileDoneOutlined) />}
+            icon={<FileDoneOutlined />}
             text="claim"
           />
         </Button>
@@ -266,7 +266,7 @@ exports[`AssignOwnProfileAction renders singular form if numberOfSelected is 1 1
           data-test-id="btn-claim"
         >
           <IconText
-            icon={<ForwardRef(FileDoneOutlined) />}
+            icon={<FileDoneOutlined />}
             text="claim"
           />
         </Button>
@@ -335,7 +335,7 @@ exports[`AssignOwnProfileAction renders with disabled assign action 1`] = `
           data-test-id="btn-claim"
         >
           <IconText
-            icon={<ForwardRef(FileDoneOutlined) />}
+            icon={<FileDoneOutlined />}
             text="claim"
           />
         </Button>

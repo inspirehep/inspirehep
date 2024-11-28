@@ -26,7 +26,7 @@ exports[`Figure renders figure with all props 1`] = `
       onClick={[MockFunction]}
       src="https://picsum.photos/200/300"
       unloader={
-        <ForwardRef(FileImageOutlined)
+        <FileImageOutlined
           className="f2"
           style={
             Object {
@@ -67,7 +67,7 @@ exports[`Figure renders figure with only url 1`] = `
       }
       src="https://picsum.photos/200/300"
       unloader={
-        <ForwardRef(FileImageOutlined)
+        <FileImageOutlined
           className="f2"
           style={
             Object {

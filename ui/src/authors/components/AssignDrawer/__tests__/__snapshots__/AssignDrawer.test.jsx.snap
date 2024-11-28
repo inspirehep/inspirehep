@@ -45,7 +45,7 @@ exports[`AssignDrawer renders assign authors search 1`] = `
       <Button
         data-test-id="assign-button"
         disabled={true}
-        icon={<ForwardRef(SelectOutlined) />}
+        icon={<SelectOutlined />}
         onClick={[Function]}
         type="primary"
       >

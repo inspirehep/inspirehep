@@ -51,7 +51,7 @@ exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = 
         <Tooltip
           title="Contact author"
         >
-          <ForwardRef(MailOutlined) />
+          <MailOutlined />
         </Tooltip>
       </Button>
     }
@@ -75,7 +75,7 @@ exports[`AuthorEmailsAction renders single email 1`] = `
       <Tooltip
         title="Contact author"
       >
-        <ForwardRef(MailOutlined) />
+        <MailOutlined />
       </Tooltip>
     </LinkWithTargetBlank>
   </EventTracker>

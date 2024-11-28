@@ -5,7 +5,7 @@ exports[`ConferenceItem renders with all props set 1`] = `
   leftActions={
     <React.Fragment>
       <UrlsAction
-        icon={<ForwardRef(LinkOutlined) />}
+        icon={<LinkOutlined />}
         page="Conferences search"
         text="website"
         trackerEventId="Conferences website"

@@ -16,7 +16,7 @@ exports[`AuthorWebsitesAction renders only a url 1`] = `
       <Tooltip
         title="Author websites"
       >
-        <ForwardRef(LinkOutlined) />
+        <LinkOutlined />
       </Tooltip>
     </LinkWithTargetBlank>
   </EventTracker>
@@ -39,7 +39,7 @@ exports[`AuthorWebsitesAction renders only blog 1`] = `
       <Tooltip
         title="Author websites"
       >
-        <ForwardRef(LinkOutlined) />
+        <LinkOutlined />
       </Tooltip>
     </LinkWithTargetBlank>
   </EventTracker>
@@ -124,7 +124,7 @@ exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
         <Tooltip
           title="Author websites"
         >
-          <ForwardRef(LinkOutlined) />
+          <LinkOutlined />
         </Tooltip>
       </Button>
     }

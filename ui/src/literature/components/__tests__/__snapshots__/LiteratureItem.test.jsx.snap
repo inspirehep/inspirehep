@@ -254,7 +254,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
       <React.Fragment>
         <UrlsAction
           eventAction="Download"
-          icon={<ForwardRef(FilePdfOutlined) />}
+          icon={<FilePdfOutlined />}
           text="pdf"
           trackerEventId="Pdf download"
           urls={
@@ -266,7 +266,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
           }
         />
         <UrlsAction
-          icon={<ForwardRef(LinkOutlined) />}
+          icon={<LinkOutlined />}
           text="links"
           trackerEventId="Literature file"
           urls={

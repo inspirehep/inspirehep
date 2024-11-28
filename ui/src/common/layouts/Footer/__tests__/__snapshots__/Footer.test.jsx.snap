@@ -112,8 +112,13 @@ exports[`Footer renders when cataloger 1`] = `
           },
           Object {
             "openExternal": true,
-            "title": "Twitter",
-            "url": "https://twitter.com/inspirehep",
+            "title": "Bluesky",
+            "url": "https://bsky.app/profile/inspirehep.net",
+          },
+          Object {
+            "openExternal": true,
+            "title": "X",
+            "url": "https://x.com/inspirehep",
           },
           Object {
             "openExternal": true,
@@ -228,8 +233,13 @@ exports[`Footer renders when not cataloger 1`] = `
           },
           Object {
             "openExternal": true,
-            "title": "Twitter",
-            "url": "https://twitter.com/inspirehep",
+            "title": "Bluesky",
+            "url": "https://bsky.app/profile/inspirehep.net",
+          },
+          Object {
+            "openExternal": true,
+            "title": "X",
+            "url": "https://x.com/inspirehep",
           },
           Object {
             "openExternal": true,

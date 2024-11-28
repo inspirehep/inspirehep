@@ -42,7 +42,7 @@ exports[`CiteAllAction renders with disabled 1`] = `
           loading={false}
         >
           <IconText
-            icon={<ForwardRef(ExportOutlined) />}
+            icon={<ExportOutlined />}
             text="cite all"
           />
         </Button>
@@ -94,7 +94,7 @@ exports[`CiteAllAction renders with less than max citeable records results 1`] =
           loading={false}
         >
           <IconText
-            icon={<ForwardRef(ExportOutlined) />}
+            icon={<ExportOutlined />}
             text="cite all"
           />
         </Button>
@@ -146,7 +146,7 @@ exports[`CiteAllAction renders with loading 1`] = `
           loading={true}
         >
           <IconText
-            icon={<ForwardRef(ExportOutlined) />}
+            icon={<ExportOutlined />}
             text="cite all"
           />
         </Button>

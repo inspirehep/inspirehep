@@ -342,7 +342,7 @@ doi:10.1103/PhysRevLett.83.3370
                         <p
                           className="ant-upload-drag-icon"
                         >
-                          <ForwardRef(InboxOutlined) />
+                          <InboxOutlined />
                         </p>
                         <p
                           className="ant-upload-text"
