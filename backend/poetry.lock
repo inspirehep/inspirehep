@@ -2019,12 +2019,12 @@ tests = ["flake8 (>=3.5.0,<4.0)", "mock (>=2.0.0,<3.0)", "pytest (>=3.2.2,<4.0)"
 
 [[package]]
 name = "inspire-schemas"
-version = "61.6.1"
+version = "61.6.4"
 description = "Inspire JSON schemas and utilities to use them."
 optional = false
 python-versions = "*"
 files = [
-    {file = "inspire_schemas-61.6.1-py2.py3-none-any.whl", hash = "sha256:1e1cab96f57c967dbcc7714c79755b0918df9ab86aff82544530f5472a06c534"},
+    {file = "inspire_schemas-61.6.4-py2.py3-none-any.whl", hash = "sha256:03551e9655791b52cb04117169a26e2c007f007f2a5acd3a6042568bd1df6a00"},
 ]
 
 [package.dependencies]
@@ -3869,8 +3869,6 @@ files = [
     {file = "orjson-3.10.6-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:960db0e31c4e52fa0fc3ecbaea5b2d3b58f379e32a95ae6b0ebeaa25b93dfd34"},
     {file = "orjson-3.10.6-cp312-none-win32.whl", hash = "sha256:a6ea7afb5b30b2317e0bee03c8d34c8181bc5a36f2afd4d0952f378972c4efd5"},
     {file = "orjson-3.10.6-cp312-none-win_amd64.whl", hash = "sha256:874ce88264b7e655dde4aeaacdc8fd772a7962faadfb41abe63e2a4861abc3dc"},
-    {file = "orjson-3.10.6-cp313-none-win32.whl", hash = "sha256:efdf2c5cde290ae6b83095f03119bdc00303d7a03b42b16c54517baa3c4ca3d0"},
-    {file = "orjson-3.10.6-cp313-none-win_amd64.whl", hash = "sha256:8e190fe7888e2e4392f52cafb9626113ba135ef53aacc65cd13109eb9746c43e"},
     {file = "orjson-3.10.6-cp38-cp38-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl", hash = "sha256:66680eae4c4e7fc193d91cfc1353ad6d01b4801ae9b5314f17e11ba55e934183"},
     {file = "orjson-3.10.6-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:caff75b425db5ef8e8f23af93c80f072f97b4fb3afd4af44482905c9f588da28"},
     {file = "orjson-3.10.6-cp38-cp38-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:3722fddb821b6036fd2a3c814f6bd9b57a89dc6337b9924ecd614ebce3271394"},
@@ -6567,4 +6565,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.12"
-content-hash = "e7487056d75289b5a40c3a9129cb5e6ac0862d8593a72f66382059eaef7ed6f1"
+content-hash = "dbf6e6127522a6980a521f7cfb4bad2deb03904ba7b8a91bbd8590bde1ecfb00"

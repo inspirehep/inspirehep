@@ -11,6 +11,7 @@ import {
   INSTITUTION_PAPERS_NS,
   AUTHOR_CITATIONS_NS,
   EXPERIMENTS_NS,
+  DATA_NS,
   EXPERIMENT_PAPERS_NS,
   AUTHOR_SEMINARS_NS,
   LITERATURE_SEMINARS_NS,
@@ -128,6 +129,11 @@ const searchConfig = {
     persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
     onQueryChange: onEmbeddedLiteratureQueryChange,
     redirectableError: false,
+  },
+  [DATA_NS]: {
+    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    onQueryChange: onAggregationlessCollectionQueryChange,
+    redirectableError: true,
   },
   [AUTHOR_SEMINARS_NS]: {
     persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
