@@ -18,6 +18,8 @@ export const EXPERIMENTS = '/experiments';
 
 export const JOURNALS = '/journals';
 
+export const DATA = '/data';
+
 export const USER = '/user';
 export const USER_PROFILE = `${USER}/profile`;
 export const USER_LOGIN = `${USER}/login`;
@@ -64,6 +66,7 @@ export const EDIT_CONFERENCE = '/editor/record/conferences';
 export const EDIT_INSTITUTION = '/editor/record/institutions';
 export const EDIT_JOURNAL = '/editor/record/journals';
 export const EDIT_EXPERIMENT = '/editor/record/experiments';
+export const EDIT_DATA = '/editor/record/data';
 export const EDIT_SEMINAR = SUBMISSIONS_SEMINAR;
 
 export const BIBLIOGRAPHY_GENERATOR = '/bibliography-generator';

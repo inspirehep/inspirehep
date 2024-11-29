@@ -3,7 +3,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-from helpers.utils import create_record, create_record_factory
+from helpers.providers.faker import faker
+from helpers.utils import create_record, create_record_factory, create_user_and_token
 
 
 def test_data_application_json_get(inspire_app):
@@ -18,7 +19,24 @@ def test_data_application_json_get(inspire_app):
     assert expected_status_code == response_status_code
 
 
-def test_data_application_json_put(inspire_app):
+def test_data_application_json_put_with_token(inspire_app):
+    record = create_record("dat")
+    record_control_number = record["control_number"]
+    token = create_user_and_token()
+
+    expected_status_code = 200
+
+    headers = {"Authorization": "BEARER " + token.access_token, "If-Match": '"0"'}
+    with inspire_app.test_client() as client:
+        response = client.put(
+            f"/data/{record_control_number}", headers=headers, json=record
+        )
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
+def test_data_application_json_put_without_token(inspire_app):
     record = create_record_factory("dat", with_indexing=True)
     record_control_number = record.json["control_number"]
 
@@ -42,7 +60,21 @@ def test_data_application_json_delete(inspire_app):
     assert expected_status_code == response_status_code
 
 
-def test_data_application_json_post(inspire_app):
+def test_data_application_json_post_with_token(inspire_app):
+    expected_status_code = 201
+    token = create_user_and_token()
+
+    headers = {"Authorization": "BEARER " + token.access_token}
+    rec_data = faker.record("dat")
+
+    with inspire_app.test_client() as client:
+        response = client.post("/data", headers=headers, json=rec_data)
+
+    response_status_code = response.status_code
+    assert expected_status_code == response_status_code
+
+
+def test_data_application_json_post_without_token(inspire_app):
     expected_status_code = 401
     with inspire_app.test_client() as client:
         response = client.post("/data")

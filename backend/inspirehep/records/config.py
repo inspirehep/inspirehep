@@ -503,6 +503,21 @@ DATA.update(
         "search_factory_imp": (
             "inspirehep.search.factories.search:search_factory_with_aggs"
         ),
+        "create_permission_factory_imp": SessionSuperuserPermission,
+        "update_permission_factory_imp": SessionCatalogerPermission,
+        "search_serializers": {
+            "application/json": INSPIRE_SERIALIZERS + ":data_json_response_search",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+            + ":data_json_list_response",
+        },
+        "record_serializers": {
+            "application/json": INSPIRE_SERIALIZERS + ":data_json_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+            + ":data_json_detail_response",
+            "application/vnd+inspire.record.raw+json": (
+                f"{INSPIRE_SERIALIZERS}:raw_json_detail_response"
+            ),
+        },
     }
 )
 
@@ -745,6 +760,26 @@ RECORDS_REST_SORT_OPTIONS = {
             "title": "Date descending",
             "fields": ["-start_datetime"],
             "order": 2,
+        },
+    },
+    "records-data": {
+        "mostrecent": {
+            "title": "Most Recent",
+            "fields": ["control_number"],
+            "default_order": "asc",
+            "order": 1,
+        },
+        "leastrecent": {
+            "title": "Least Recent",
+            "fields": ["-control_number"],
+            "default_order": "asc",
+            "order": 2,
+        },
+        "mostcited": {
+            "title": "Most Cited",
+            "fields": ["-citation_count"],
+            "default_order": "asc",
+            "order": 3,
         },
     },
 }

@@ -13,6 +13,7 @@ import {
   SEMINARS,
   EXPERIMENTS,
   JOURNALS,
+  DATA,
 } from '../../routes';
 import { getRootOfLocationPathname } from '../../utils';
 import {
@@ -54,6 +55,14 @@ function CollectionsMenu({ currentPathname }: { currentPathname: string }) {
       label: [
         <Link key="3" className="dropdown-link" to={JOURNALS}>
           Journals
+        </Link>,
+      ],
+    },
+    {
+      key: '4',
+      label: [
+        <Link key="4" className="dropdown-link" to={DATA}>
+          Data
         </Link>,
       ],
     },
