@@ -457,11 +457,8 @@ def test_recalculate_references_after_institution_record_merge_when_author_has_t
             literature_record_from_es["authors"][2]["affiliations"], "record.$ref"
         )
         assert len(literature_record_from_es["authors"][2]["affiliations"]) == 2
-        assert (
-            literature_record_from_es["thesis_info"]["institutions"][0]["record"][
-                "$ref"
-            ]
-            == new_institution_record_reference
+        assert new_institution_record_reference in get_value(
+            literature_record_from_es["thesis_info"], "institutions.record.$ref"
         )
 
     assert_recalculate_references_task()

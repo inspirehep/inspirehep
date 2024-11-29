@@ -26,6 +26,7 @@ import {
   CONFERENCES,
   INSTITUTIONS,
   SEMINARS,
+  DATA,
   EXPERIMENTS,
   BIBLIOGRAPHY_GENERATOR,
   JOURNALS,
@@ -36,6 +37,7 @@ import { fetchLoggedInUser } from './actions/user';
 import Home from './home';
 import Literature from './literature';
 import Conferences from './conferences';
+import Data from './data';
 import Authors from './authors';
 import Jobs from './jobs';
 import User from './user';
@@ -107,6 +109,7 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
           <Route path={SEMINARS} component={Seminars} />
           <Route path={EXPERIMENTS} component={Experiments} />
           <Route path={JOURNALS} component={Journals} />
+          <Route path={DATA} component={Data} />
           <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
           <Route
             path={BIBLIOGRAPHY_GENERATOR}

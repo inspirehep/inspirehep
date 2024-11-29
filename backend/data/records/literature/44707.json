@@ -74,5 +74,12 @@
             "value": "SPIRES-6750567",
             "schema": "SPIRES"
         }
+    ],
+    "data": [
+        {
+            "record": {
+                "$ref": "http://XVxZ15mkm/api/data/777"
+            }
+        }
     ]
 }

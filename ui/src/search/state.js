@@ -10,6 +10,7 @@ import {
   INSTITUTIONS_NS,
   INSTITUTION_PAPERS_NS,
   AUTHOR_CITATIONS_NS,
+  DATA_NS,
   EXPERIMENTS_NS,
   EXPERIMENT_PAPERS_NS,
   AUTHOR_SEMINARS_NS,
@@ -173,6 +174,9 @@ const namespacesState = {
     },
   },
   [EXPERIMENTS_NS]: {
+    ...initialNamespaceState,
+  },
+  [DATA_NS]: {
     ...initialNamespaceState,
   },
   [EXPERIMENT_PAPERS_NS]: {

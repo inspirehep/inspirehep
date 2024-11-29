@@ -29,6 +29,9 @@ exports[`SearchBoxNamespaceSelect render initial state with all props set 1`] = 
       Object {
         "value": "journals",
       },
+      Object {
+        "value": "data",
+      },
     ]
   }
   popupClassName="header-dropdown"

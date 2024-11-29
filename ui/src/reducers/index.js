@@ -12,6 +12,7 @@ import authors from './authors';
 import jobs from './jobs';
 import conferences from './conferences';
 import institutions from './institutions';
+import data from './data';
 import seminars from './seminars';
 import experiments from './experiments';
 import journals from './journals';
@@ -41,6 +42,7 @@ export default function createRootReducer(history) {
     institutions,
     seminars,
     experiments,
+    data,
     bibliographyGenerator,
     journals,
     backoffice,
