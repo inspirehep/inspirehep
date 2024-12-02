@@ -22,7 +22,7 @@
     "lint": "./node_modules/eslint/bin/eslint.js ./src --ext \"**/*.{js,jsx,ts,tsx}\" --config .eslintrc"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.0.0",
+    "@ant-design/icons": "^5.5.1",
     "@babel/runtime": "7.0.0-beta.55",
     "@craco/craco": "6.4.3",
     "@sentry/browser": "^5.0.0",

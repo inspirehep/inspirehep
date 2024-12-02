@@ -34,7 +34,7 @@ exports[`AssignConferencesDrawer renders assign conferences search 1`] = `
       <Button
         data-test-id="assign-conference-button"
         disabled={true}
-        icon={<ForwardRef(SelectOutlined) />}
+        icon={<SelectOutlined />}
         onClick={[Function]}
         type="primary"
       >

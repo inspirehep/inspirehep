@@ -1,23 +1,25 @@
 import React from 'react';
-import { XOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
 
+import Icon from '@ant-design/icons';
 import UserAction from '../../common/components/UserAction';
 import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 import EventTracker from '../../common/components/EventTracker';
+import { ReactComponent as mastodonLogo } from '../../common/assets/mastodon.svg';
 
-const AuthorTwitterAction = ({ twitter }: { twitter: string }) => {
-  const href = `//x.com/${twitter}`;
+const AuthorMastodonAction = ({ mastodon }: { mastodon: string }) => {
+  const [user, host] = mastodon ? mastodon.split('@') : [];
+  const href = `//${host}/@${user}`;
   return (
     <UserAction>
       <EventTracker
         eventCategory="Author detail"
         eventAction="Link"
-        eventId="Twitter"
+        eventId="Mastodon"
       >
         <LinkWithTargetBlank href={href}>
-          <Tooltip title="X / Twitter">
-            <XOutlined />
+          <Tooltip title="Mastodon">
+            <Icon component={mastodonLogo} />
           </Tooltip>
         </LinkWithTargetBlank>
       </EventTracker>
@@ -25,4 +27,4 @@ const AuthorTwitterAction = ({ twitter }: { twitter: string }) => {
   );
 };
 
-export default AuthorTwitterAction;
+export default AuthorMastodonAction;
