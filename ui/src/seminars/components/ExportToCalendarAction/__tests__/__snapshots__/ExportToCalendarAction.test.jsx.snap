@@ -44,7 +44,7 @@ exports[`ExportToCalendarAction renders with seminar 1`] = `
     title={
       <Button>
         <IconText
-          icon={<ForwardRef(CalendarOutlined) />}
+          icon={<CalendarOutlined />}
           text="export"
         />
       </Button>

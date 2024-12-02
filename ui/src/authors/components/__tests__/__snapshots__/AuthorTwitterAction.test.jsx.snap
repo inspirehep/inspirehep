@@ -2,23 +2,23 @@
 
 exports[`AuthorTwitterAction renders with twitter 1`] = `
 <UserActionWrapper>
-  <Tooltip
-    title="Twitter"
+  <EventTracker
+    eventAction="Link"
+    eventCategory="Author detail"
+    eventId="Twitter"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
   >
-    <EventTracker
-      eventAction="Link"
-      eventCategory="Author detail"
-      eventId="Twitter"
-      eventPropName="onClick"
-      extractEventArgsToForward={null}
+    <LinkWithTargetBlank
+      as="a"
+      href="//x.com/harunurhan"
     >
-      <LinkWithTargetBlank
-        as="a"
-        href="//twitter.com/harunurhan"
+      <Tooltip
+        title="X / Twitter"
       >
-        <ForwardRef(TwitterOutlined) />
-      </LinkWithTargetBlank>
-    </EventTracker>
-  </Tooltip>
+        <XOutlined />
+      </Tooltip>
+    </LinkWithTargetBlank>
+  </EventTracker>
 </UserActionWrapper>
 `;

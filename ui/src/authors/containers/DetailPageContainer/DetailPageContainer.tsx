@@ -15,7 +15,7 @@ import {
   getCurrentAffiliationsFromPositions,
   getAuthorDisplayName,
   getAuthorMetaDescription,
-  getInspireId
+  getInspireId,
 } from '../../utils';
 import PositionsTimeline from '../../components/PositionsTimeline';
 import ArxivCategoryList from '../../../common/components/ArxivCategoryList';
@@ -48,6 +48,8 @@ import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank'
 import UserAction from '../../../common/components/UserAction';
 import { APIButton } from '../../../common/components/APIButton';
 import InspireID from '../../components/InspireID';
+import AuthorBlueskyAction from '../../components/AuthorBlueskyAction';
+import AuthorMastodonAction from '../../components/AuthorMastodonAction';
 
 function DetailPage({
   record,
@@ -102,6 +104,8 @@ function DetailPage({
   const experiments = metadata.get('project_membership');
 
   const twitter = metadata.get('twitter');
+  const bluesky = metadata.get('bluesky');
+  const mastodon = metadata.get('mastodon');
   const linkedin = metadata.get('linkedin');
   const urls = metadata.get('urls');
   const orcid = metadata.get('orcid');
@@ -191,6 +195,8 @@ function DetailPage({
                 leftActions={
                   <>
                     {emails && <AuthorEmailsAction emails={emails} />}
+                    {bluesky && <AuthorBlueskyAction bluesky={bluesky} />}
+                    {mastodon && <AuthorMastodonAction mastodon={mastodon} />}
                     {twitter && <AuthorTwitterAction twitter={twitter} />}
                     {linkedin && <AuthorLinkedinAction linkedin={linkedin} />}
                     {urls && <AuthorWebsitesAction websites={urls} />}
@@ -239,8 +245,14 @@ function DetailPage({
                 </h2>
                 <Row justify="space-between">
                   <Col xs={24} lg={12} className="mb3">
-                    <ArxivCategoryList arxivCategories={arxivCategories} wrapperClassName='arxiv-category mb3' />
-                    <ExperimentList experiments={experiments} wrapperClassName='experiments' />
+                    <ArxivCategoryList
+                      arxivCategories={arxivCategories}
+                      wrapperClassName="arxiv-category mb3"
+                    />
+                    <ExperimentList
+                      experiments={experiments}
+                      wrapperClassName="experiments"
+                    />
                     {bai && <AuthorBAI bai={bai} />}
                     {!orcid && inspireId && <InspireID id={inspireId} />}
                     {advisors && (

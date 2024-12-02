@@ -5,7 +5,7 @@ exports[`JournalItem renders with props 1`] = `
   leftActions={
     <React.Fragment>
       <UrlsAction
-        icon={<ForwardRef(LinkOutlined) />}
+        icon={<LinkOutlined />}
         page="Journals search"
         text="links"
         trackerEventId="Journal website"
@@ -46,7 +46,7 @@ exports[`JournalItem renders with props 1`] = `
           to="/literature?sort=mostrecent&size=25&page=1&q=publication_info.journal_title:\\"West Virginia U.\\""
         >
           <IconText
-            icon={<ForwardRef(LoginOutlined) />}
+            icon={<LoginOutlined />}
             text="2 papers"
           />
         </Link>

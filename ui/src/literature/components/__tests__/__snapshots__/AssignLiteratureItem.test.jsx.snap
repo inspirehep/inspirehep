@@ -30,7 +30,7 @@ exports[`AssignLiteratureItem renders 1`] = `
         data-test-id="btn-claiming-literature"
       >
         <IconText
-          icon={<ForwardRef(FileDoneOutlined) />}
+          icon={<FileDoneOutlined />}
           text="claim"
         />
       </Button>

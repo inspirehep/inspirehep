@@ -9,7 +9,7 @@ exports[`DisabledEditRecordAction renders with message 1`] = `
       disabled={true}
     >
       <IconText
-        icon={<ForwardRef(EditOutlined) />}
+        icon={<EditOutlined />}
         text="edit"
       />
     </Button>

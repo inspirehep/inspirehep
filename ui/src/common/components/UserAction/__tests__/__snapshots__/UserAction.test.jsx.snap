@@ -6,7 +6,7 @@ exports[`UserAction renders 1`] = `
 >
   <Button>
     <IconText
-      icon={<ForwardRef(ExpandOutlined) />}
+      icon={<ExpandOutlined />}
       text="cite"
     />
   </Button>

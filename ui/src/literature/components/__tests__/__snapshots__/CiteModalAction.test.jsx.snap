@@ -13,7 +13,7 @@ exports[`CiteModalAction renders with all props 1`] = `
         onClick={[Function]}
       >
         <IconText
-          icon={<ForwardRef(ExportOutlined) />}
+          icon={<ExportOutlined />}
           text="cite"
         />
       </Button>
@@ -53,7 +53,7 @@ exports[`CiteModalAction renders with all props 1`] = `
                     }
                   }
                 >
-                  <ForwardRef(CopyOutlined) />
+                  <CopyOutlined />
                    Copy to Clipboard
                 </Button>
               </CopyToClipboard>
@@ -67,7 +67,7 @@ exports[`CiteModalAction renders with all props 1`] = `
               <Button
                 onClick={[Function]}
               >
-                <ForwardRef(DownloadOutlined) />
+                <DownloadOutlined />
                  Download
               </Button>
             </EventTracker>
@@ -128,7 +128,7 @@ exports[`CiteModalAction renders with loading 1`] = `
         onClick={[Function]}
       >
         <IconText
-          icon={<ForwardRef(ExportOutlined) />}
+          icon={<ExportOutlined />}
           text="cite"
         />
       </Button>
@@ -168,7 +168,7 @@ exports[`CiteModalAction renders with loading 1`] = `
                     }
                   }
                 >
-                  <ForwardRef(CopyOutlined) />
+                  <CopyOutlined />
                    Copy to Clipboard
                 </Button>
               </CopyToClipboard>
@@ -182,7 +182,7 @@ exports[`CiteModalAction renders with loading 1`] = `
               <Button
                 onClick={[Function]}
               >
-                <ForwardRef(DownloadOutlined) />
+                <DownloadOutlined />
                  Download
               </Button>
             </EventTracker>
@@ -243,7 +243,7 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
         onClick={[Function]}
       >
         <IconText
-          icon={<ForwardRef(ExportOutlined) />}
+          icon={<ExportOutlined />}
           text="cite"
         />
       </Button>
@@ -292,7 +292,7 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
                     }
                   }
                 >
-                  <ForwardRef(CopyOutlined) />
+                  <CopyOutlined />
                    Copy to Clipboard
                 </Button>
               </CopyToClipboard>
@@ -306,7 +306,7 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
               <Button
                 onClick={[Function]}
               >
-                <ForwardRef(DownloadOutlined) />
+                <DownloadOutlined />
                  Download
               </Button>
             </EventTracker>

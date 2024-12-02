@@ -13,7 +13,7 @@ exports[`NoAuthorsClaimingButton renders 1`] = `
           disabled={true}
         >
           <IconText
-            icon={<ForwardRef(FileDoneOutlined) />}
+            icon={<FileDoneOutlined />}
             text="claim"
           />
         </Button>
