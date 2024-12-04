@@ -8,6 +8,10 @@ on:
       - 'workflows/**'
 
 jobs:
+  lint:
+    uses: ./.github/workflows/lint.yml
+    with:
+      ref: ${{ github.event.pull_request.head.sha }}
   test:
     uses: ./.github/workflows/integration-tests.yml
     with:
