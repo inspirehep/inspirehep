@@ -25,17 +25,12 @@ class InspireHTTPRecordManagementHook(InspireHttpHook):
             headers=self.headers,
             endpoint=f"/api/{pid_type}/{control_number}",
         )
+        response.raise_for_status()
         return response.json()
 
     def get_record_revision_id(self, pid_type: str, control_number: int) -> int:
-        response = self.run_with_advanced_retry(
-            _retry_args=self.tenacity_retry_kwargs,
-            method="GET",
-            headers=self.headers,
-            endpoint=f"/api/{pid_type}/{control_number}",
-        )
-        response.raise_for_status()
-        return response.json()["revision_id"]
+        record = self.get_record(pid_type=pid_type, control_number=control_number)
+        return record["revision_id"]
 
     def post_record(self, data: dict, pid_type: str) -> Response:
         return self.run_with_advanced_retry(

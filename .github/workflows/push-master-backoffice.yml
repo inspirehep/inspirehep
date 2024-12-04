@@ -1,4 +1,4 @@
-name: Push main (backoffice)
+name: Push master (backoffice)
 
 on:
   workflow_call:
