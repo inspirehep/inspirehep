@@ -55,7 +55,6 @@ exports[`NewsAndUpdates renders 1`] = `
             }
             style={
               Object {
-                "color": "#1285FC",
                 "fontSize": "25px",
               }
             }
