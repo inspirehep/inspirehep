@@ -1,0 +1,224 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.hepdata.net/record/ins2851948?format=json
+  response:
+    body:
+      string: '{"access_count":{"sum":164},"additional_resources":true,"breadcrumb_text":"Aad,
+        Georges et al.","coordinator":1265,"data_tables":[{"data":{"csv":"https://www.hepdata.net/download/table/ins2851948/Angularity
+        distribution/csv","json":"https://www.hepdata.net/download/table/ins2851948/Angularity
+        distribution/json","root":"https://www.hepdata.net/download/table/ins2851948/Angularity
+        distribution/root","yaml":"https://www.hepdata.net/download/table/ins2851948/Angularity
+        distribution/yaml","yoda":"https://www.hepdata.net/download/table/ins2851948/Angularity
+        distribution/yoda","yoda1":"https://www.hepdata.net/download/table/ins2851948/Angularity
+        distribution/yoda1"},"description":"The angularity, for data, background (pre-
+        and post-reweighting) and three $H\\rightarrow Za$ signal hypotheses (for
+        $a\\rightarrow q\\bar{q}/gg$ inclusively). Events are...","doi":"10.17182/hepdata.153859.v1/t1","id":1718733,"location":"Data
+        from Figure 1a","messages":false,"name":"Angularity distribution","processed_name":"Angularitydistribution","resources":[{"description":"Image
+        file","type":"png","url":"https://www.hepdata.net/record/resource/3760905?landing_page=true"},{"description":"Thumbnail
+        image file","type":"png","url":"https://www.hepdata.net/record/resource/3760906?landing_page=true"}]},{"data":{"csv":"https://www.hepdata.net/download/table/ins2851948/Modified
+        energy correlation function/csv","json":"https://www.hepdata.net/download/table/ins2851948/Modified
+        energy correlation function/json","root":"https://www.hepdata.net/download/table/ins2851948/Modified
+        energy correlation function/root","yaml":"https://www.hepdata.net/download/table/ins2851948/Modified
+        energy correlation function/yaml","yoda":"https://www.hepdata.net/download/table/ins2851948/Modified
+        energy correlation function/yoda","yoda1":"https://www.hepdata.net/download/table/ins2851948/Modified
+        energy correlation function/yoda1"},"description":"The modified energy correlation
+        function, for data, background (pre- and post-reweighting) and three $H\\rightarrow
+        Za$ signal hypotheses (for $a\\rightarrow q\\bar{q}/gg$...","doi":"10.17182/hepdata.153859.v1/t2","id":1718734,"location":"Data
+        from Figure 1b","messages":false,"name":"Modified energy correlation function","processed_name":"Modifiedenergycorrelationfunction","resources":[{"description":"Image
+        file","type":"png","url":"https://www.hepdata.net/record/resource/3760908?landing_page=true"},{"description":"Thumbnail
+        image file","type":"png","url":"https://www.hepdata.net/record/resource/3760909?landing_page=true"}]},{"data":{"csv":"https://www.hepdata.net/download/table/ins2851948/Z
+        boson transverse momentum/csv","json":"https://www.hepdata.net/download/table/ins2851948/Z
+        boson transverse momentum/json","root":"https://www.hepdata.net/download/table/ins2851948/Z
+        boson transverse momentum/root","yaml":"https://www.hepdata.net/download/table/ins2851948/Z
+        boson transverse momentum/yaml","yoda":"https://www.hepdata.net/download/table/ins2851948/Z
+        boson transverse momentum/yoda","yoda1":"https://www.hepdata.net/download/table/ins2851948/Z
+        boson transverse momentum/yoda1"},"description":"$Z$ boson transverse momentum,
+        for data, background (pre- and post-reweighting) and three $H\\rightarrow
+        Za$ signal hypotheses (for $a\\rightarrow q\\bar{q}/gg$ inclusively)....","doi":"10.17182/hepdata.153859.v1/t3","id":1718735,"location":"Data
+        from Figure 1c","messages":false,"name":"Z boson transverse momentum","processed_name":"Zbosontransversemomentum","resources":[{"description":"Image
+        file","type":"png","url":"https://www.hepdata.net/record/resource/3760911?landing_page=true"},{"description":"Thumbnail
+        image file","type":"png","url":"https://www.hepdata.net/record/resource/3760912?landing_page=true"}]},{"data":{"csv":"https://www.hepdata.net/download/table/ins2851948/Invariant
+        mass of the dilepton+jet system/csv","json":"https://www.hepdata.net/download/table/ins2851948/Invariant
+        mass of the dilepton+jet system/json","root":"https://www.hepdata.net/download/table/ins2851948/Invariant
+        mass of the dilepton+jet system/root","yaml":"https://www.hepdata.net/download/table/ins2851948/Invariant
+        mass of the dilepton+jet system/yaml","yoda":"https://www.hepdata.net/download/table/ins2851948/Invariant
+        mass of the dilepton+jet system/yoda","yoda1":"https://www.hepdata.net/download/table/ins2851948/Invariant
+        mass of the dilepton+jet system/yoda1"},"description":"Invariant mass of the
+        lepton pair plus jet system, for data, background (pre- and post-reweighting)
+        and three $H\\rightarrow Za$ signal...","doi":"10.17182/hepdata.153859.v1/t4","id":1718736,"location":"Data
+        from Figure 1d","messages":false,"name":"Invariant mass of the dilepton+jet
+        system","processed_name":"Invariantmassofthedilepton+jetsystem","resources":[{"description":"Image
+        file","type":"png","url":"https://www.hepdata.net/record/resource/3760914?landing_page=true"},{"description":"Thumbnail
+        image file","type":"png","url":"https://www.hepdata.net/record/resource/3760915?landing_page=true"}]},{"data":{"csv":"https://www.hepdata.net/download/table/ins2851948/Predicted
+        mass/csv","json":"https://www.hepdata.net/download/table/ins2851948/Predicted
+        mass/json","root":"https://www.hepdata.net/download/table/ins2851948/Predicted
+        mass/root","yaml":"https://www.hepdata.net/download/table/ins2851948/Predicted
+        mass/yaml","yoda":"https://www.hepdata.net/download/table/ins2851948/Predicted
+        mass/yoda","yoda1":"https://www.hepdata.net/download/table/ins2851948/Predicted
+        mass/yoda1"},"description":"Regression NN output variable, for data, reweighted
+        background, and three $H\\rightarrow Za$ signal hypotheses ($a\\rightarrow
+        q\\bar{q}/gg$ inclusively). Events are required...","doi":"10.17182/hepdata.153859.v1/t5","id":1718737,"location":"Data
+        from Figure 2a","messages":false,"name":"Predicted mass","processed_name":"Predictedmass","resources":[{"description":"Image
+        file","type":"png","url":"https://www.hepdata.net/record/resource/3760917?landing_page=true"},{"description":"Thumbnail
+        image file","type":"png","url":"https://www.hepdata.net/record/resource/3760918?landing_page=true"}]},{"data":{"csv":"https://www.hepdata.net/download/table/ins2851948/Classification
+        score/csv","json":"https://www.hepdata.net/download/table/ins2851948/Classification
+        score/json","root":"https://www.hepdata.net/download/table/ins2851948/Classification
+        score/root","yaml":"https://www.hepdata.net/download/table/ins2851948/Classification
+        score/yaml","yoda":"https://www.hepdata.net/download/table/ins2851948/Classification
+        score/yoda","yoda1":"https://www.hepdata.net/download/table/ins2851948/Classification
+        score/yoda1"},"description":"Classification NN output variable, for data,
+        reweighted background, and three $H\\rightarrow Za$ signal hypotheses ($a\\rightarrow
+        q\\bar{q}/gg$ inclusively). Events are required...","doi":"10.17182/hepdata.153859.v1/t6","id":1718738,"location":"Data
+        from Figure 2b","messages":false,"name":"Classification score","processed_name":"Classificationscore","resources":[{"description":"Image
+        file","type":"png","url":"https://www.hepdata.net/record/resource/3760920?landing_page=true"},{"description":"Thumbnail
+        image file","type":"png","url":"https://www.hepdata.net/record/resource/3760921?landing_page=true"}]},{"data":{"csv":"https://www.hepdata.net/download/table/ins2851948/Pre-fit
+        dilepton+jet mass/csv","json":"https://www.hepdata.net/download/table/ins2851948/Pre-fit
+        dilepton+jet mass/json","root":"https://www.hepdata.net/download/table/ins2851948/Pre-fit
+        dilepton+jet mass/root","yaml":"https://www.hepdata.net/download/table/ins2851948/Pre-fit
+        dilepton+jet mass/yaml","yoda":"https://www.hepdata.net/download/table/ins2851948/Pre-fit
+        dilepton+jet mass/yoda","yoda1":"https://www.hepdata.net/download/table/ins2851948/Pre-fit
+        dilepton+jet mass/yoda1"},"description":"Invariant mass of the lepton pair
+        plus jet system for data, reweighted background, and various signal hypotheses.
+        Events are required...","doi":"10.17182/hepdata.153859.v1/t7","id":1718739,"location":"Data
+        from Figure 3a","messages":false,"name":"Pre-fit dilepton+jet mass","processed_name":"Pre-fitdilepton+jetmass","resources":[{"description":"Image
+        file","type":"png","url":"https://www.hepdata.net/record/resource/3760923?landing_page=true"},{"description":"Thumbnail
+        image file","type":"png","url":"https://www.hepdata.net/record/resource/3760924?landing_page=true"}]},{"data":{"csv":"https://www.hepdata.net/download/table/ins2851948/Post-fit
+        dilepton+jet mass/csv","json":"https://www.hepdata.net/download/table/ins2851948/Post-fit
+        dilepton+jet mass/json","root":"https://www.hepdata.net/download/table/ins2851948/Post-fit
+        dilepton+jet mass/root","yaml":"https://www.hepdata.net/download/table/ins2851948/Post-fit
+        dilepton+jet mass/yaml","yoda":"https://www.hepdata.net/download/table/ins2851948/Post-fit
+        dilepton+jet mass/yoda","yoda1":"https://www.hepdata.net/download/table/ins2851948/Post-fit
+        dilepton+jet mass/yoda1"},"description":"Invariant mass of the lepton pair
+        plus jet system for data, reweighted background, and 2.0 GeV signal hypotheses.
+        Events are...","doi":"10.17182/hepdata.153859.v1/t8","id":1718740,"location":"Data
+        from Figure 3b","messages":false,"name":"Post-fit dilepton+jet mass","processed_name":"Post-fitdilepton+jetmass","resources":[{"description":"Image
+        file","type":"png","url":"https://www.hepdata.net/record/resource/3760926?landing_page=true"},{"description":"Thumbnail
+        image file","type":"png","url":"https://www.hepdata.net/record/resource/3760927?landing_page=true"}]},{"data":{"csv":"https://www.hepdata.net/download/table/ins2851948/Upper
+        limits for $%5Cmathcal{B}(a %5Cto gg)=1$/csv","json":"https://www.hepdata.net/download/table/ins2851948/Upper
+        limits for $%5Cmathcal{B}(a %5Cto gg)=1$/json","root":"https://www.hepdata.net/download/table/ins2851948/Upper
+        limits for $%5Cmathcal{B}(a %5Cto gg)=1$/root","yaml":"https://www.hepdata.net/download/table/ins2851948/Upper
+        limits for $%5Cmathcal{B}(a %5Cto gg)=1$/yaml","yoda":"https://www.hepdata.net/download/table/ins2851948/Upper
+        limits for $%5Cmathcal{B}(a %5Cto gg)=1$/yoda","yoda1":"https://www.hepdata.net/download/table/ins2851948/Upper
+        limits for $%5Cmathcal{B}(a %5Cto gg)=1$/yoda1"},"description":"Observed 95$\\%$
+        CL upper limits on $\\mathcal{B}(H \\to Za)=100\\%$ for $\\mathcal{B}(a \\to
+        gg)=100\\%$, and the expectation under the background-only hypothesis...","doi":"10.17182/hepdata.153859.v1/t9","id":1718741,"location":"Data
+        from Figure 4a","messages":false,"name":"Upper limits for $\\mathcal{B}(a
+        \\to gg)=1$","processed_name":"Upperlimitsfor$\\mathcal{B}(a\\togg)=1$","resources":[{"description":"Image
+        file","type":"png","url":"https://www.hepdata.net/record/resource/3760929?landing_page=true"},{"description":"Thumbnail
+        image file","type":"png","url":"https://www.hepdata.net/record/resource/3760930?landing_page=true"}]},{"data":{"csv":"https://www.hepdata.net/download/table/ins2851948/Upper
+        limits for $%5Cmathcal{B}(a%5Crightarrow q%5Cbar{q})=1$/csv","json":"https://www.hepdata.net/download/table/ins2851948/Upper
+        limits for $%5Cmathcal{B}(a%5Crightarrow q%5Cbar{q})=1$/json","root":"https://www.hepdata.net/download/table/ins2851948/Upper
+        limits for $%5Cmathcal{B}(a%5Crightarrow q%5Cbar{q})=1$/root","yaml":"https://www.hepdata.net/download/table/ins2851948/Upper
+        limits for $%5Cmathcal{B}(a%5Crightarrow q%5Cbar{q})=1$/yaml","yoda":"https://www.hepdata.net/download/table/ins2851948/Upper
+        limits for $%5Cmathcal{B}(a%5Crightarrow q%5Cbar{q})=1$/yoda","yoda1":"https://www.hepdata.net/download/table/ins2851948/Upper
+        limits for $%5Cmathcal{B}(a%5Crightarrow q%5Cbar{q})=1$/yoda1"},"description":"Observed
+        95$\\%$ confidence level upper limits on $\\mathcal{B}(H \\to Za)=100\\%$
+        for $\\mathcal{B}(a\\rightarrow q\\bar{q})=100\\%$, and the expectation under
+        the background-only hypothesis...","doi":"10.17182/hepdata.153859.v1/t10","id":1718742,"location":"Data
+        from Figure 4b","messages":false,"name":"Upper limits for $\\mathcal{B}(a\\rightarrow
+        q\\bar{q})=1$","processed_name":"Upperlimitsfor$\\mathcal{B}(a\\rightarrowq\\bar{q})=1$","resources":[{"description":"Image
+        file","type":"png","url":"https://www.hepdata.net/record/resource/3760932?landing_page=true"},{"description":"Thumbnail
+        image file","type":"png","url":"https://www.hepdata.net/record/resource/3760933?landing_page=true"}]}],"mode":"record","participant_count":3,"recid":153859,"record":{"abstract":"A
+        search for decays of the Higgs boson into a $Z$ boson and a light resonance,
+        with a mass of 0.5-3.5 GeV, is performed using the full 140 fb$^{-1}$ dataset
+        of 13 TeV proton-proton collisions recorded by the ATLAS detector during Run~2
+        of the LHC. Leptonic decays of the $Z$ boson and hadronic decays of the light
+        resonance are considered. The resonance can be interpreted as a $J/\\psi$
+        or $\\eta_c$ meson, an axion-like particle, or a light pseudoscalar in two-Higgs-doublet
+        models. Due to its low mass, it would be produced with high boost and reconstructed
+        as a single small-radius jet of hadrons. A neural network is used to correct
+        the Monte Carlo simulation of the background in a data-driven way. Two additional
+        neural networks are used to distinguish signal from background. A binned profile-likelihood
+        fit is performed on the final-state invariant mass distribution. No significant
+        excess of events relative to the expected background is observed, and upper
+        limits at 95% confidence level are set on the Higgs boson''s branching fraction
+        to a $Z$ boson and a light resonance. The exclusion limit is 10% for the lower
+        masses, and increases for higher masses. Upper limits on the effective coupling
+        $C^\\text{eff}_{ZH}/\\Lambda$ of an axion-like particle to a Higgs boson and
+        $Z$ boson are also set at 95% confidence level, and range from 0.9 to 2 TeV$^{-1}$.","access_urls":{"links":{"csv":"https://www.hepdata.net/download/submission/ins2851948/1/csv","json":"https://www.hepdata.net/download/submission/ins2851948/1/json","root":"https://www.hepdata.net/download/submission/ins2851948/1/root","yaml":"https://www.hepdata.net/download/submission/ins2851948/1/yaml","yoda":"https://www.hepdata.net/download/submission/ins2851948/1/yoda"}},"analyses":[],"arxiv_id":"arXiv:2411.16361","collaborations":["ATLAS"],"control_number":"153859","creation_date":"2024-11-25","data_abstract":"A
+        search for decays of the Higgs boson into a $Z$ boson and a light resonance,
+        with a mass of 0.5-4 GeV, is performed using the full 140 fb$^{-1}$ dataset
+        of 13 TeV proton-proton collisions recorded by the ATLAS detector during Run
+        2 of the LHC. Leptonic decays of the $Z$ boson and hadronic decays of the
+        light resonance are considered. The resonance can be interpreted as a $J/\\psi$
+        or $\\eta_c$ meson, an axion-like particle, or a light pseudoscalar in two-Higgs-doublet
+        models. Due to its low mass, it would be produced with high boost and reconstructed
+        as a single small-radius jet of hadrons. A neural network is used to correct
+        the Monte Carlo simulation of the background in a data-driven way. Two additional
+        neural networks are used to distinguish signal from background. A binned profile-likelihood
+        fit is performed on the final-state invariant mass distribution. Since no
+        significant excess of events relative to the expected background is observed,
+        95% CL upper limits are set on the Higgs boson''s branching fraction to a
+        $Z$ boson and a light resonance.","data_keywords":{"cmenergies":[{"gte":13000.0,"lte":13000.0}],"observables":["$m_{llj}$","Regression
+        NN output","CLS","Classification NN output","Angularity_{tracks}(0.2)","$p_{T_Z}$","M_{2,
+        tracks}(0.3)"],"phrases":["2HDM(+S)","Higgs boson"],"reactions":["p p --->
+        H ---> Z a"]},"doc_type":"publication","doi":null,"first_author":{"affiliation":"Marseille,
+        CPPM","full_name":"Aad, Georges"},"hepdata_doi":"10.17182/hepdata.153859","id":153859,"inspire_id":"2851948","journal_info":"CERN-EP-2024-261","keywords":[],"last_updated":"Wed,
+        04 Dec 2024 13:04:31 GMT","parent_child_join":{"name":"parent_publication"},"publication_date":"2024-12-04T00:00:00","recid":153859,"resources":[{"description":"Created
+        with hepdata_lib 0.16.0","type":"zenodo","url":"https://doi.org/10.5281/zenodo.1217998"}],"subject_area":["hep-ex"],"summary_authors":[{"affiliation":"Marseille,
+        CPPM","full_name":"Aad, Georges"},{"affiliation":"Bergen U.","full_name":"Aakvaag,
+        Erlend"},{"affiliation":"Oklahoma U.","full_name":"Abbott, Braden Keim"},{"affiliation":"New
+        York U., Abu Dhabi","full_name":"Abdelhameed, Sara"},{"affiliation":"Gottingen
+        U., II. Phys. Inst.","full_name":"Abeling, Kira"},{"affiliation":"Dortmund
+        U.","full_name":"Abicht, Nils Julius"},{"affiliation":"Brookhaven","full_name":"Abidi,
+        Haider"},{"affiliation":"Southern Methodist U.","full_name":"Aboelela, Mohammed"},{"affiliation":"Mohammed
+        V U., Agdal","full_name":"Aboulhorma, Asmaa"},{"affiliation":"Tel Aviv U.","full_name":"Abramowicz,
+        Halina"}],"title":"Search for Higgs boson decays into a $Z$ boson and a light
+        hadronically decaying resonance in 140 fb$^{-1}$ of 13 TeV $p$$p$ collisions
+        with the ATLAS detector","type":["article"],"uuid":"caa15267-c032-4e34-bbe0-d4ba232362a2","version":1,"year":"2024"},"record_type":"publication","related_recids":[],"related_to_this_recids":[],"resources_with_doi":[],"reviewers_notified":false,"site_url":"https://www.hepdata.net","status":"finished","table_id_to_show":1718733,"table_name_to_show":"Angularity
+        distribution","version":1,"version_count":1,"watched":false}
+
+        '
+    headers:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443";ma=60;
+      content-length:
+      - '17442'
+      content-type:
+      - application/json
+      date:
+      - Wed, 04 Dec 2024 15:06:21 GMT
+      permissions-policy:
+      - interest-cohort=()
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      retry-after:
+      - '59'
+      server:
+      - gunicorn
+      set-cookie:
+      - session=1b8865cf992d594c_67506fed.Xvz6uPpDX8bEDdKZnc36X8U65Bg; Domain=.www.hepdata.net;
+        Expires=Thu, 05 Dec 2024 03:06:21 GMT; HttpOnly; Path=/; SameSite=Lax
+      transfer-encoding:
+      - chunked
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - sameorigin
+      x-proxy-backend:
+      - hepdata-prod_hepdata-web_http
+      x-ratelimit-limit:
+      - '60'
+      x-ratelimit-remaining:
+      - '59'
+      x-ratelimit-reset:
+      - '1733324841'
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1
