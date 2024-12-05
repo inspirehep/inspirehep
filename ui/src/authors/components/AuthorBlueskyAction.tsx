@@ -18,7 +18,7 @@ const AuthorBlueskyAction = ({ bluesky }: { bluesky: string }) => {
       >
         <LinkWithTargetBlank href={href}>
           <Tooltip title="Bluesky">
-            <Icon component={blueskyLogo} style={{ color: 'rgb(95,95,95)' }} />
+            <Icon component={blueskyLogo} />
           </Tooltip>
         </LinkWithTargetBlank>
       </EventTracker>

@@ -14,7 +14,7 @@ import {
   INSPIRE_TWITTER_ACCOUNT,
 } from '../../common/constants';
 import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
-import { ReactComponent as blueskyLogo } from '../../common/assets/bluesky.svg';
+import { ReactComponent as blueskyFilledLogo } from '../../common/assets/bluesky-filled.svg';
 
 interface Post {
   id: string;
@@ -96,11 +96,8 @@ const NewsAndUpdates = () => {
             Follow us on
             <LinkWithTargetBlank href={INSPIRE_BLUESKY_ACCOUNT}>
               <Icon
-                style={{
-                  fontSize: '25px',
-                  color: '#1285FC',
-                }}
-                component={blueskyLogo}
+                component={blueskyFilledLogo}
+                style={{ fontSize: '25px' }}
               />
             </LinkWithTargetBlank>
             •
