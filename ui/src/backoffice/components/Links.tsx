@@ -21,6 +21,18 @@ function getLinkData(schema: string, value: string) {
         href: `https://x.com/${value}`,
         icon: <XOutlined className="mr1" />,
       };
+    case 'BLUESKY':
+      return {
+        href: `https://bsky.app/profile/${value}`,
+        icon: <XOutlined className="mr1" />,
+      };
+    case 'MASTODON': {
+      const [user, host] = value.split('@');
+      return {
+        href: `https://${host}/@${user}`,
+        icon: <XOutlined className="mr1" />,
+      };
+    }
     case 'ORCID':
       return {
         href: `https://orcid.org/my-orcid?orcid=${value}`,

@@ -49,6 +49,29 @@ describe('Links Component', () => {
     );
   });
 
+  it('should render Bluesky link correctly in Ids', () => {
+    const ids = Map([['0', Map({ schema: 'BLUESKY', value: 'john_doe' })]]);
+    const { getByText, getByRole } = render(<Ids ids={ids} />);
+
+    expect(getByText(/bluesky/i)).toBeInTheDocument();
+    expect(getByRole('link', { name: /john_doe/i })).toHaveAttribute(
+      'href',
+      'https://bsky.app/profile/john_doe'
+    );
+  });
+
+  it('should render Mastodon link correctly in Ids', () => {
+    const ids = Map([
+      ['0', Map({ schema: 'MASTODON', value: 'john_doe@example.com' })],
+    ]);
+    const { getByText, getByRole } = render(<Ids ids={ids} />);
+
+    expect(getByText(/mastodon/i)).toBeInTheDocument();
+    expect(
+      getByRole('link', { name: /john_doe@example.com/i })
+    ).toHaveAttribute('href', 'https://example.com/@john_doe');
+  });
+
   it('should render Twitter link correctly in Ids', () => {
     const ids = Map([['0', Map({ schema: 'TWITTER', value: 'john_doe' })]]);
     const { getByText, getByRole } = render(<Ids ids={ids} />);

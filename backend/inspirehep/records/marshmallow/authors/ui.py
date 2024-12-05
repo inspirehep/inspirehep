@@ -39,6 +39,8 @@ class AuthorsDetailSchema(AuthorsBaseSchema):
     should_display_positions = fields.Method(
         "get_should_display_positions", dump_only=True
     )
+    bluesky = fields.Method("get_bluesky", dump_only=True)
+    mastodon = fields.Method("get_mastodon", dump_only=True)
     twitter = fields.Method("get_twitter", dump_only=True)
     linkedin = fields.Method("get_linkedin", dump_only=True)
     orcid = fields.Method("get_orcid", dump_only=True)
@@ -52,6 +54,14 @@ class AuthorsDetailSchema(AuthorsBaseSchema):
         if facet_author_name is None:
             return get_facet_author_name_for_author(data)
         return facet_author_name
+
+    @staticmethod
+    def get_bluesky(data):
+        return get_first_value_for_schema(data.get("ids", []), "BLUESKY")
+
+    @staticmethod
+    def get_mastodon(data):
+        return get_first_value_for_schema(data.get("ids", []), "MASTODON")
 
     @staticmethod
     def get_twitter(data):
