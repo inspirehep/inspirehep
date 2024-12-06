@@ -109,7 +109,12 @@ THIRD_PARTY_APPS = [
     "django_json_widget",
 ]
 
-LOCAL_APPS = ["backoffice.users", "backoffice.authors", "backoffice.management"]
+LOCAL_APPS = [
+    "backoffice.users",
+    "backoffice.authors",
+    "backoffice.management",
+    "backoffice.data",
+]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -390,7 +395,8 @@ SOCIALACCOUNT_PROVIDERS = {
 # ------------------------------------------------------------------------------
 # Name of the Opensearch index
 OPENSEARCH_INDEX_NAMES = {
-    "backoffice.authors.documents": f'{env("OPENSEARCH_INDEX_PREFIX")}-workflows',
+    "backoffice.authors.documents": f'{env("OPENSEARCH_INDEX_PREFIX")}-author-workflows',
+    "backoffice.data.documents": f'{env("OPENSEARCH_INDEX_PREFIX")}-data-workflows',
 }
 
 OPENSEARCH_DSL = {
