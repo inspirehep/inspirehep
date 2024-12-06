@@ -13,6 +13,7 @@ from inspirehep.submissions.errors import LoaderDataError, RESTDataError
 from inspirehep.submissions.marshmallow import (
     Author,
     Conference,
+    Data,
     Experiment,
     Institution,
     Job,
@@ -27,13 +28,11 @@ def inspire_submission_marshmallow_loader(schema_class):
 
     def json_loader():
         request_json = request.get_json().get("data")
-
         context = {}
         pid_data = request.view_args.get("pid_value")
         if pid_data:
             pid = pid_data
             context["pid"] = pid
-
         try:
             result = schema_class(context=context).load(request_json)
         except ValueError as e:
@@ -54,5 +53,6 @@ job_v1 = inspire_submission_marshmallow_loader(Job)
 literature_v1 = inspire_submission_marshmallow_loader(Literature)
 seminar_v1 = inspire_submission_marshmallow_loader(Seminar)
 experiment_v1 = inspire_submission_marshmallow_loader(Experiment)
+data_v1 = inspire_submission_marshmallow_loader(Data)
 institution_v1 = inspire_submission_marshmallow_loader(Institution)
 journal_v1 = inspire_submission_marshmallow_loader(Journal)

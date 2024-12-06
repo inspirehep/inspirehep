@@ -9,6 +9,7 @@ from opensearch_dsl.query import Q
 from inspirehep.search.api import (
     AuthorsSearch,
     ConferencesSearch,
+    DataSearch,
     ExperimentsSearch,
     InstitutionsSearch,
     JobsSearch,
@@ -42,6 +43,10 @@ def experiments():
     return ExperimentsSearch()
 
 
+def data():
+    return DataSearch()
+
+
 def institutions():
     return InstitutionsSearch()
 
@@ -54,5 +59,6 @@ def get_indexable_record_searches():
         conferences(),
         seminars(),
         experiments(),
+        data(),
         institutions(),
     ]

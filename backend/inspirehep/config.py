@@ -99,6 +99,7 @@ COLLECTION_EQUIVALENCE = {
     "Jobs": "jobs",
     "Institutions": "institutions",
     "Experiments": "experiments",
+    "Data": "data",
 }
 
 NON_PRIVATE_LITERATURE_COLLECTIONS = {

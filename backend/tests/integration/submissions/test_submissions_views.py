@@ -24,6 +24,7 @@ from inspirehep.accounts.roles import Roles
 from inspirehep.records.api import (
     AuthorsRecord,
     ConferencesRecord,
+    DataRecord,
     ExperimentsRecord,
     InstitutionsRecord,
     JobsRecord,
@@ -2235,6 +2236,69 @@ def test_new_experiment_submission_with_no_cataloger_role(inspire_app):
         login_user_via_session(client, email=user.email)
         response = client.post(
             "/submissions/experiments",
+            content_type="application/json",
+            data=orjson.dumps({"data": form_data}),
+        )
+    assert response.status_code == 403
+
+
+REQUIRED_DATA_RECORD_DATA = {
+    "$schema": "http://localhost:5000/schemas/records/data.json",
+    "_collections": ["Data"],
+    "legacy_version": "7",
+}
+DATA_FORM_DATA = {"legacy_version": "7"}
+
+
+@pytest.mark.parametrize(
+    ("form_data", "expected_record_data"),
+    [(deepcopy(DATA_FORM_DATA), REQUIRED_DATA_RECORD_DATA)],
+)
+def test_new_data_submission(form_data, expected_record_data, inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/data",
+            content_type="application/json",
+            data=orjson.dumps({"data": form_data}),
+        )
+    assert response.status_code == 201
+
+    payload = orjson.loads(response.data)
+    data_id = payload["control_number"]
+    data_record = DataRecord.get_record_by_pid_value(data_id)
+    data_record_data = {
+        key: value
+        for (key, value) in data_record.items()
+        if key in expected_record_data
+    }
+    assert data_record_data == expected_record_data
+
+
+def test_new_data_submission_with_empty_data(
+    inspire_app,
+):
+    form_data = {}
+    user = create_user(role=Roles.cataloger.value)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/data",
+            content_type="application/json",
+            data=orjson.dumps({"data": form_data}),
+        )
+    assert response.status_code == 400
+    assert response.json["message"][0] == "Data is missing a value or values."
+
+
+def test_new_data_submission_with_no_cataloger_role(inspire_app):
+    form_data = {}
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/data",
             content_type="application/json",
             data=orjson.dumps({"data": form_data}),
         )

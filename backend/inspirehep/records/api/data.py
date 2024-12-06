@@ -16,22 +16,5 @@ class DataRecord(CitationMixin, InspireRecord):
     pid_type = "dat"
     pidstore_handler = PidStoreData
 
-    @classmethod
-    def create(
-        cls,
-        data,
-        *args,
-        **kwargs,
-    ):
-        record = super().create(data, **kwargs)
-        record.update_refs_in_citation_table()
-        return record
-
-    def update(
-        self,
-        data,
-        *args,
-        **kwargs,
-    ):
-        super().update(data)
+    def update_record_relationships(self):
         self.update_refs_in_citation_table()
