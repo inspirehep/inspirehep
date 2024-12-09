@@ -7,6 +7,7 @@ import {
   INSTITUTIONS,
   EXPERIMENTS,
   JOURNALS,
+  DATA,
   BACKOFFICE_SEARCH
 } from '../common/routes';
 
@@ -31,6 +32,7 @@ export const LITERATURE_SEMINARS_NS = 'literatureSeminars';
 export const ASSIGN_AUTHOR_NS = 'assignAuthor';
 export const ASSIGN_CONFERENCE_NS = 'assignConference';
 export const CURATE_REFERENCE_NS = 'curateReference';
+export const DATA_NS = 'data';
 
 export const BACKOFFICE_SEARCH_NS = 'backofficeSearch';
 
@@ -42,7 +44,8 @@ export const SEARCH_BOX_NAMESPACES = [
   CONFERENCES_NS,
   INSTITUTIONS_NS,
   EXPERIMENTS_NS,
-  JOURNALS_NS
+  JOURNALS_NS,
+  DATA_NS
 ];
 
 export const SEARCHABLE_COLLECTION_PATHNAMES = [
@@ -54,6 +57,7 @@ export const SEARCHABLE_COLLECTION_PATHNAMES = [
   INSTITUTIONS,
   EXPERIMENTS,
   JOURNALS,
+  DATA,
   BACKOFFICE_SEARCH
 ];
 
@@ -72,7 +76,7 @@ export const NAMESPACE_TO_PATHNAME = {
   [ASSIGN_AUTHOR_NS]: AUTHORS,
   [ASSIGN_CONFERENCE_NS]: CONFERENCES,
   [CURATE_REFERENCE_NS]: LITERATURE,
-
+  [DATA_NS]: DATA,
   [AUTHORS_NS]: AUTHORS,
   [JOBS_NS]: JOBS,
   [SEMINARS_NS]: SEMINARS,

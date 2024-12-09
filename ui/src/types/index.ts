@@ -6,6 +6,7 @@ import {
   INSTITUTIONS_PID_TYPE,
   SEMINARS_PID_TYPE,
   JOURNALS_PID_TYPE,
+  DATA_PID_TYPE,
 } from '../common/constants';
 
 declare global {
@@ -21,7 +22,9 @@ export type PidType =
   | typeof AUTHORS_PID_TYPE
   | typeof INSTITUTIONS_PID_TYPE
   | typeof SEMINARS_PID_TYPE
-  | typeof JOURNALS_PID_TYPE;
+  | typeof JOURNALS_PID_TYPE
+  | typeof DATA_PID_TYPE;
+
 
 export type PidValue = string | number;
 

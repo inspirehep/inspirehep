@@ -42,6 +42,7 @@ export function getState() {
     institutions: initialRecordState,
     experiments: initialRecordState,
     journals: initialRecordState,
+    data: initialRecordState,
     backoffice,
   };
 }
