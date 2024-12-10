@@ -24,6 +24,8 @@ global.document.getSelection = function() {};
 global.CONFIG = {};
 global.scrollTo = () => {};
 
+jest.mock('rc-notification/lib/Notification');
+
 // fix react-media
 window.matchMedia = (query) => ({
   matches: false,
