@@ -355,6 +355,20 @@ class DataSearch(InspireSearch):
         index = "records-data"
         doc_types = "_doc"
 
+    def query_from_iq(self, query_string):
+        """Initialize ES DSL object using INSPIRE query parser.
+
+        :param query_string: Query string as a user would input in INSPIRE's search box.
+        :type query_string: string
+        :returns: Elasticsearch DSL search class
+        """
+        if not query_string:
+            return self.query()
+        user_query = Q(IQ(query_string, self))
+        return self.query(
+            user_query,
+        )
+
 
 class ConferencesSearch(InspireSearch):
     """Elasticsearch-dsl specialized class to search in Conferences database."""

@@ -13,6 +13,7 @@ import {
   SEMINARS,
   EXPERIMENTS,
   JOURNALS,
+  DATA,
 } from '../../routes';
 import { getRootOfLocationPathname } from '../../utils';
 import {

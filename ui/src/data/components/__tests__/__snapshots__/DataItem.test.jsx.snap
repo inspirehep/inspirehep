@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataItem renders with all props set 1`] = `
+<div
+  data-test-id="data-result-item"
+>
+  <ResultItem
+    leftActions={<React.Fragment />}
+  >
+    <div
+      data-test-id="data-result-item-inner"
+    >
+      <div
+        className="flex flex-nowrap"
+      >
+        <div
+          className="flex-grow-1"
+        >
+          <Link
+            className="result-item-title"
+            data-test-id="data-result-title-link"
+            to="/data/1234"
+          >
+            <LiteratureTitle
+              title={
+                Immutable.Map {
+                  "source": "pariatur adipisicing amet",
+                  "subtitle": "voluptate eiusmod fugiat",
+                  "title": "Test title",
+                }
+              }
+            />
+          </Link>
+        </div>
+      </div>
+      <div
+        className="mt1"
+      >
+        <AuthorsAndCollaborations
+          authorCount={1}
+          authors={
+            Immutable.List [
+              Immutable.Map {
+                "affiliations": Immutable.List [
+                  Immutable.Map {
+                    "curated_relation": true,
+                    "record": Immutable.Map {
+                      "$ref": "http://M1/api/institutions/12346",
+                    },
+                    "value": "ut",
+                  },
+                ],
+                "urls": Immutable.List [
+                  Immutable.Map {
+                    "value": "http://url.com",
+                  },
+                ],
+                "dois": Immutable.List [
+                  Immutable.Map {
+                    "source": "in ad et",
+                    "value": "10.8756/tTM",
+                    "material": "data",
+                  },
+                  Immutable.Map {
+                    "source": "mollit deserunt eu",
+                    "value": "10.5/.Aww=bT@",
+                    "material": "version",
+                  },
+                  Immutable.Map {
+                    "source": "adipisicing et",
+                    "value": "10.0.9747720/#}O=W:$",
+                    "material": "part",
+                  },
+                ],
+              },
+            ]
+          }
+          collaborations={Immutable.List []}
+          collaborationsWithSuffix={Immutable.List []}
+          enableAuthorsShowAll={false}
+        />
+      </div>
+    </div>
+  </ResultItem>
+</div>
+`;
+
+exports[`DataItem renders with only needed props 1`] = `
+<div
+  data-test-id="data-result-item"
+>
+  <ResultItem
+    leftActions={<React.Fragment />}
+  >
+    <div
+      data-test-id="data-result-item-inner"
+    >
+      <div
+        className="flex flex-nowrap"
+      >
+        <div
+          className="flex-grow-1"
+        >
+          <Link
+            className="result-item-title"
+            data-test-id="data-result-title-link"
+            to="/data/1234"
+          >
+            <LiteratureTitle
+              title={
+                Immutable.Map {
+                  "source": "pariatur adipisicing amet",
+                  "subtitle": "voluptate eiusmod fugiat",
+                  "title": "Test title",
+                }
+              }
+            />
+          </Link>
+        </div>
+      </div>
+      <div
+        className="mt1"
+      >
+        <AuthorsAndCollaborations
+          authorCount={0}
+          authors={Immutable.List []}
+          collaborations={Immutable.List []}
+          collaborationsWithSuffix={Immutable.List []}
+          enableAuthorsShowAll={false}
+        />
+      </div>
+    </div>
+  </ResultItem>
+</div>
+`;
