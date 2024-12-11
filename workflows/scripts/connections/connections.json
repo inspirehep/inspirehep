@@ -9,6 +9,16 @@
     "schema": "",
     "extra": ""
   },
+  "hepdata_connection": {
+    "conn_type": "http",
+    "description": "Used for data harvesting",
+    "login": "",
+    "password": null,
+    "host": "https://www.hepdata.net",
+    "port": null,
+    "schema": "",
+    "extra": ""
+  },
   "inspire_db_connection": {
     "conn_type": "postgres",
     "description": "",
