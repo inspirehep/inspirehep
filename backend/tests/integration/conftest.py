@@ -43,7 +43,7 @@ def app_config(app_config):
     app_config["SERVER_NAME"] = "localhost:5000"
     app_config["SEARCH_INDEX_PREFIX"] = "test-integration-"
     app_config["SQLALCHEMY_DATABASE_URI"] = (
-        "postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep"
+        "postgresql+psycopg2://postgres:postgres@localhost/test-inspirehep"
     )
     app_config["FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS"] = True
     app_config["FILES_MAX_UPLOAD_THREADS"] = 1
