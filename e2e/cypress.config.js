@@ -4,6 +4,7 @@ module.exports = defineConfig({
   projectId: '439or1',
   videosFolder: 'cypress/__videos__',
   screenshotsFolder: 'cypress/__screenshots__',
+  defaultCommandTimeout: 10000,
   env: {
     inspirehep_url: 'localhost:8080',
     mobile_viewport_width: 375,
