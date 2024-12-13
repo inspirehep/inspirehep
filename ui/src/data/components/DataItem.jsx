@@ -10,6 +10,7 @@ import DOILinkAction from '../../literature/components/DOILinkAction';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import ResultItem from '../../common/components/ResultItem';
 
+import { filterDoisByMaterial } from '../utils';
 import { DATA } from '../../common/routes';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
 import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';
@@ -21,7 +22,7 @@ function DataItem({
   const title = metadata.getIn(['titles', 0]);
   const authors = metadata.get('authors');
   const authorCount = authors && authors.size || 0;
-  const dois = metadata.get('dois');
+  const dois = filterDoisByMaterial(metadata.get('dois', []));
   const recordId = metadata.get('control_number');
   const urls = metadata.get('urls');
   const canEdit = metadata.get('can_edit', false);

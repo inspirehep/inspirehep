@@ -59,14 +59,12 @@ const DetailPage = ({
                     trackerEventId="Data website"
                   />
                 )}
-                <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
-                  <EditRecordAction
-                    isCatalogerLoggedIn={isCatalogerLoggedIn}
-                    pidType="data"
-                    pidValue={recordId}
-                    page="Data detail"
-                  />
-                </AuthorizedContainer>
+                <EditRecordAction
+                  isCatalogerLoggedIn={isCatalogerLoggedIn}
+                  pidType="data"
+                  pidValue={recordId}
+                  page="Data detail"
+                />
                 {isSuperUserLoggedIn && (
                   <APIButton url={window.location.href} />
                 )}
