@@ -5,7 +5,13 @@ exports[`DataItem renders with all props set 1`] = `
   data-test-id="data-result-item"
 >
   <ResultItem
-    leftActions={<React.Fragment />}
+    leftActions={
+      <React.Fragment>
+        <DOILinkAction
+          dois={Array []}
+        />
+      </React.Fragment>
+    }
   >
     <div
       data-test-id="data-result-item-inner"
@@ -90,7 +96,13 @@ exports[`DataItem renders with only needed props 1`] = `
   data-test-id="data-result-item"
 >
   <ResultItem
-    leftActions={<React.Fragment />}
+    leftActions={
+      <React.Fragment>
+        <DOILinkAction
+          dois={Array []}
+        />
+      </React.Fragment>
+    }
   >
     <div
       data-test-id="data-result-item-inner"
