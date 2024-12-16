@@ -327,3 +327,34 @@ class JournalLiterature(db.Model):
     journal_paper = db.relationship(
         RecordMetadata, backref="journals", foreign_keys=[literature_uuid]
     )
+
+
+class DataLiterature(db.Model):
+    """Keeps track of papers linked to Data records."""
+
+    __tablename__ = "data_literature"
+    __table_args__ = (
+        db.Index("ix_data_literature_data_uuid", "data_uuid"),
+        db.Index("ix_data_literature_literature_uuid", "literature_uuid"),
+    )
+
+    data_uuid = db.Column(
+        UUIDType,
+        db.ForeignKey("records_metadata.id", name="fk_data_literature_data_uuid"),
+        nullable=False,
+        primary_key=True,
+    )
+    literature_uuid = db.Column(
+        UUIDType,
+        db.ForeignKey("records_metadata.id", name="fk_data_literature_literature_uuid"),
+        nullable=False,
+        primary_key=True,
+    )
+
+    data = db.relationship(
+        RecordMetadata, backref="data_papers", foreign_keys=[data_uuid]
+    )
+
+    data_paper = db.relationship(
+        RecordMetadata, backref="papers_data", foreign_keys=[literature_uuid]
+    )

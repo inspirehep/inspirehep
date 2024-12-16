@@ -19,7 +19,10 @@ def test_data_json(inspire_app, datadir):
     record = create_record_factory("dat", data=data)
     record_control_number = record.json["control_number"]
 
-    expected_metadata = deepcopy(record.json)
+    expected_metadata = deepcopy(record.json) | {
+        "citation_count": 0,
+        "citation_count_without_self_citations": 0,
+    }
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
     with inspire_app.test_client() as client:
@@ -42,7 +45,10 @@ def test_data_search_json(inspire_app, datadir):
 
     record = create_record("dat", data=data)
 
-    expected_result = deepcopy(record)
+    expected_result = deepcopy(record) | {
+        "citation_count": 0,
+        "citation_count_without_self_citations": 0,
+    }
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
     with inspire_app.test_client() as client:

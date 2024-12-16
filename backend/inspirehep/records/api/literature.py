@@ -35,6 +35,7 @@ from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.api.mixins import (
     CitationMixin,
     ConferencePaperAndProceedingsMixin,
+    DataPapersMixin,
     ExperimentPapersMixin,
     InstitutionPapersMixin,
     JournalPapersMixin,
@@ -82,6 +83,7 @@ class LiteratureRecord(
     InstitutionPapersMixin,
     JournalPapersMixin,
     InspireRecord,
+    DataPapersMixin,
 ):
     """Literature Record."""
 
