@@ -90,7 +90,7 @@ exports[`DataItem renders with all props set 1`] = `
               },
             ]
           }
-          collaborations={Immutable.List []}
+          collaborations={Array []}
           collaborationsWithSuffix={Immutable.List []}
           enableAuthorsShowAll={false}
         />
@@ -154,7 +154,7 @@ exports[`DataItem renders with only needed props 1`] = `
         <AuthorsAndCollaborations
           authorCount={0}
           authors={Immutable.List []}
-          collaborations={Immutable.List []}
+          collaborations={Array []}
           collaborationsWithSuffix={Immutable.List []}
           enableAuthorsShowAll={false}
         />
