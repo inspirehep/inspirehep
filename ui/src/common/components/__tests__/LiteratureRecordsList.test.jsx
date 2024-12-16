@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
-import LiteratureRecordsList from '../../../common/components/LiteratureRecordsList';
+import LiteratureRecordsList from '../LiteratureRecordsList';
 
 describe('LiteratureRecordsList', () => {
   it('renders with multiple records', () => {

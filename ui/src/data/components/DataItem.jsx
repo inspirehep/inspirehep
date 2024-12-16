@@ -23,6 +23,7 @@ function DataItem({ metadata, page }) {
   const recordId = metadata.get('control_number');
   const urls = metadata.get('urls');
   const canEdit = metadata.get('can_edit', false);
+  const collaborations = metadata.get('collaborations', []);
 
   return (
     <div data-test-id="data-result-item">
@@ -74,6 +75,7 @@ function DataItem({ metadata, page }) {
             <AuthorsAndCollaborations
               authorCount={authorCount}
               authors={authors}
+              collaborations={collaborations}
             />
           </div>
         </div>

@@ -42,6 +42,7 @@ const DetailPage = ({
   const dois = filterDoisByMaterial(metadata.get('dois', []));
   const recordId = metadata.get('control_number');
   const literatureRecords = metadata.get('literature');
+  const collaborations = metadata.get('collaborations');
 
   const urls = metadata.get('urls');
 
@@ -82,6 +83,7 @@ const DetailPage = ({
                   <AuthorsAndCollaborations
                     authorCount={authorCount}
                     authors={authors}
+                    collaborations={collaborations}
                     enableAuthorsShowAll
                     page="Data detail"
                   />
