@@ -28,7 +28,7 @@ import SeminarDateTimes from '../components/SeminarDateTimes';
 import { LOCAL_TIMEZONE, SEMINARS_PID_TYPE } from '../../common/constants';
 import ExportToCalendarAction from '../components/ExportToCalendarAction/ExportToCalendarAction';
 import UrlsAction from '../../literature/components/UrlsAction';
-import LiteratureRecordsList from '../components/LiteratureRecordsList';
+import LiteratureRecordsList from '../../common/components/LiteratureRecordsList';
 import { isSuperUser } from '../../common/authorization';
 import { APIButton } from '../../common/components/APIButton';
 

@@ -4,24 +4,21 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 
-
 import UrlsAction from '../../literature/components/UrlsAction';
 import DOILinkAction from '../../literature/components/DOILinkAction';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import ResultItem from '../../common/components/ResultItem';
 
-import { filterDoisByMaterial } from '../utils';
+import { filterDoisByMaterial, getPapersQueryString } from '../utils';
 import { DATA } from '../../common/routes';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
 import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';
+import IncomingLiteratureReferencesLinkAction from '../../common/components/IncomingLiteratureReferencesLinkAction';
 
-function DataItem({
-  metadata,
-  page,
-}) {
+function DataItem({ metadata, page }) {
   const title = metadata.getIn(['titles', 0]);
   const authors = metadata.get('authors');
-  const authorCount = authors && authors.size || 0;
+  const authorCount = (authors && authors.size) || 0;
   const dois = filterDoisByMaterial(metadata.get('dois', []));
   const recordId = metadata.get('control_number');
   const urls = metadata.get('urls');
@@ -43,10 +40,22 @@ function DataItem({
             {dois && <DOILinkAction dois={dois} page={page} />}
 
             {canEdit && (
-              <EditRecordAction pidType="data" pidValue={recordId} page={page} />
+              <EditRecordAction
+                pidType="data"
+                pidValue={recordId}
+                page={page}
+              />
             )}
-
           </>
+        }
+        rightActions={
+          <IncomingLiteratureReferencesLinkAction
+            itemCount={metadata.get('number_of_papers', 0)}
+            referenceType="paper"
+            linkQuery={getPapersQueryString(recordId)}
+            trackerEventId="Papers link"
+            eventCategory="Data search"
+          />
         }
       >
         <div data-test-id="data-result-item-inner">
@@ -60,7 +69,6 @@ function DataItem({
                 <LiteratureTitle title={title} />
               </Link>
             </div>
-
           </div>
           <div className="mt1">
             <AuthorsAndCollaborations
@@ -69,7 +77,6 @@ function DataItem({
             />
           </div>
         </div>
-
       </ResultItem>
     </div>
   );

@@ -12,6 +12,15 @@ exports[`DataItem renders with all props set 1`] = `
         />
       </React.Fragment>
     }
+    rightActions={
+      <IncomingLiteratureReferencesLinkAction
+        eventCategory="Data search"
+        itemCount={0}
+        linkQuery="data.record.$ref:1234"
+        referenceType="paper"
+        trackerEventId="Papers link"
+      />
+    }
   >
     <div
       data-test-id="data-result-item-inner"
@@ -102,6 +111,15 @@ exports[`DataItem renders with only needed props 1`] = `
           dois={Array []}
         />
       </React.Fragment>
+    }
+    rightActions={
+      <IncomingLiteratureReferencesLinkAction
+        eventCategory="Data search"
+        itemCount={0}
+        linkQuery="data.record.$ref:1234"
+        referenceType="paper"
+        trackerEventId="Papers link"
+      />
     }
   >
     <div

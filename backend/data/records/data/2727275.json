@@ -1,0 +1,583 @@
+{
+  "dois": [
+    {
+      "value": "10.17182/hepdata.151814",
+      "source": "hepdata",
+      "material": "data"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t1",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t2",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t3",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t4",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t5",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t6",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t7",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t8",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t9",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t10",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t11",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t12",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t13",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t14",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t15",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t16",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t17",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t18",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t19",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t20",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t21",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t22",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t23",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t24",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t25",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t26",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t27",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t28",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t29",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t30",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t31",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t32",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t33",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t34",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t35",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t36",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t37",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t38",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t39",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t40",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t41",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t42",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t43",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t44",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t45",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t46",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t47",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t48",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t49",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t50",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t51",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t52",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t53",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t54",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t55",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t56",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t57",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t58",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t59",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t60",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t61",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t62",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t63",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t64",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t65",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t66",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t67",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t68",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t69",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t70",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t71",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t72",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t73",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t74",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t75",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t76",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t77",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t78",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t79",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t80",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t81",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t82",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t83",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t84",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t85",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t86",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t87",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t88",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t89",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t90",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t91",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t92",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t93",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t94",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t95",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t96",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t97",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/t98",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814.v1/r1",
+      "source": "hepdata",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.151814",
+      "source": "hepdata",
+      "material": "version"
+    }
+  ],
+  "self": {
+    "$ref": "https://inspirebeta.net/api/data/2727275"
+  },
+  "urls": [
+    {
+      "value": "https://www.google.com",
+      "description": "web page with auxiliary material"
+    }
+  ],
+  "titles": [
+    {
+      "title": "Measurement of jet substructure in boosted $t\\bar{t}$ events with the ATLAS detector using 140 fb$^{-1}$ of 13 TeV $pp$ collisions",
+      "source": "hepdata"
+    }
+  ],
+  "$schema": "https://inspirehep.net/schemas/records/data.json",
+  "keywords": [
+    {
+      "value": "cmenergies: 13000.0-13000.0",
+      "source": "hepdata"
+    },
+    {
+      "value": "observables: 1/SIG*D2SIG/DD_2/DMTOP,D2SIG/DTAU_32/DMTOP,1/SIG*DSIG/DTAU_32,1/SIG*DSIG/DECF2,DSIG/DTAU_3,DSIG/DTAU_32,1/SIG*D2SIG/DTAU_32/DPT_TOP,D2SIG/DTAU_32/DPT_TOP,DSIG/DD_2,DSIG/DC_3,1/SIG*D2SIG/DD_2/DPT_TOP,D2SIG/DD_2/DMTOP,1/SIG*DSIG/DC_3,1/SIG*DSIG/DDISPERSION,1/SIG*DSIG/DTAU_21,1/SIG*DSIG/DTAU_3,D2SIG/DD_2/DPT_TOP,DSIG/DDISPERSION,DSIG/DTAU_21,DSIG/DLHA,DSIG/DECF2,1/SIG*D2SIG/DTAU_32/DMTOP,1/SIG*DSIG/DD_2,1/SIG*DSIG/DLHA",
+      "source": "hepdata"
+    },
+    {
+      "value": "Top",
+      "source": "hepdata"
+    },
+    {
+      "value": "Differential Cross Section",
+      "source": "hepdata"
+    },
+    {
+      "value": "Proton-Proton Scattering",
+      "source": "hepdata"
+    },
+    {
+      "value": "P P --> TOP TOPBAR X",
+      "source": "hepdata"
+    }
+  ],
+  "abstracts": [
+    {
+      "value": "Particle level differential cross-section measurements for top-pair production, in event with at least an hadronically decaying top-quark, as a function of substructure of the boosted top-quark. Only charged particles are used to build the substructure. Two topologies, $l$+jets and all-hadronic, are considered. The study was performed using data from pp collisions at centre-of-mass energy of 13 TeV collected in Run2 by the ATLAS detector at the CERN Large Hadron Collider (LHC), corresponding to an integrated luminosity of 140 fb$^{−1}$. Due to the large cross-section at the LHC, such measurements allow a detailed study of the properties top-quark substructure, enabling precision tests of several Monte  Carlo generators. The Monte Carlo predictions for measures of the broadness, and also the two-body structure, of the top-quark jets are found to be in good agreement with the measurements, while variables sensitive to the three-body structure of the top-quark jets exhibit some tension with the measured distributions\n.",
+      "source": "hepdata"
+    }
+  ],
+  "literature": [
+    {
+      "doi": {
+        "value": "10.1103/PhysRevD.109.112016"
+      },
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2732688"
+      }
+    }
+  ],
+  "_collections": [
+    "Data"
+  ],
+  "creation_date": "2024-12-13",
+  "collaborations": [
+    {
+      "value": "ATLAS"
+    }
+  ],
+  "control_number": 2727275,
+  "acquisition_source": {
+    "method": "hepcrawl",
+    "source": "hepdata",
+    "datetime": "2024-12-13T00:02:25.488823+00:00",
+    "submission_number": "2732688"
+  }
+}
