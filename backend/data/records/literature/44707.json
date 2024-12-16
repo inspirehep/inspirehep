@@ -80,6 +80,11 @@
             "record": {
                 "$ref": "http://XVxZ15mkm/api/data/777"
             }
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/data/2727275"
+            }
         }
     ]
 }

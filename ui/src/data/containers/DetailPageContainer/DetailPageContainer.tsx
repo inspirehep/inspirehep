@@ -21,6 +21,7 @@ import AuthorizedContainer from '../../../common/containers/AuthorizedContainer'
 import UrlsAction from '../../../literature/components/UrlsAction';
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
 import Abstract from '../../../literature/components/Abstract';
+import LiteratureRecordsList from '../../../common/components/LiteratureRecordsList';
 
 interface DetailPageProps {
   result: any; // TODO: define proper type for result
@@ -40,6 +41,7 @@ const DetailPage = ({
   const authorCount = (authors && authors.size) || 0;
   const dois = filterDoisByMaterial(metadata.get('dois', []));
   const recordId = metadata.get('control_number');
+  const literatureRecords = metadata.get('literature');
 
   const urls = metadata.get('urls');
 
@@ -86,16 +88,27 @@ const DetailPage = ({
                 </div>
               </Col>
             </Row>
-            <Row>
-              <Col>{dois && <DOIList dois={dois} />}</Col>
+            {dois && (
+              <Row>
+              <Col><DOIList dois={dois} /></Col>
             </Row>
-          </ContentBox>
-        </Col>
-        <Col xs={24} md={22} lg={21} xxl={18}>
-          <ContentBox>
-            <div>
-              <Abstract abstract={abstract} />
-            </div>
+            )}
+            {abstract && (
+              <Row className="mt2">
+                <Col>
+                  <Abstract abstract={abstract} />
+                </Col>
+              </Row>
+            )}
+            {literatureRecords && (
+              <Row className="mt2">
+                <Col>
+                  <LiteratureRecordsList
+                    literatureRecords={literatureRecords}
+                  />
+                </Col>
+              </Row>
+            )}
           </ContentBox>
         </Col>
       </Row>

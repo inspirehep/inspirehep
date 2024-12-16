@@ -4,10 +4,10 @@ import { List } from 'immutable';
 
 import { Link } from 'react-router-dom';
 
-import { LITERATURE } from '../../common/routes';
-import { pluralizeUnlessSingle } from '../../common/utils';
-import InlineDataList from '../../common/components/InlineList';
-import LiteratureTitle from '../../common/components/LiteratureTitle';
+import { LITERATURE } from '../routes';
+import { pluralizeUnlessSingle } from '../utils';
+import InlineDataList from './InlineList';
+import LiteratureTitle from './LiteratureTitle';
 
 function renderLiteratureRecord(literatureRecord) {
   const title = literatureRecord.getIn(['titles', 0]);
