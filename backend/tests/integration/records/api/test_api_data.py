@@ -173,14 +173,88 @@ def test_create_record_update_citation_table_for_literature_citation(inspire_app
 
 
 def test_data_citation_count_property(inspire_app):
-    data = faker.record("dat")
-    record = InspireRecord.create(data)
+    data_record = create_record("dat")
+    assert data_record.citation_count == 0
+    assert data_record.citation_count_without_self_citations == 0
 
-    data2 = faker.record("lit", data_citations=[record["control_number"]])
-    record2 = InspireRecord.create(data2)
+    create_record("lit", data_citations=[data_record["control_number"]])
+    assert data_record.citation_count == 1
+    assert data_record.citation_count_without_self_citations == 0
 
-    assert record.citation_count == 1
-    assert record2.citation_count == 0
+    rec3 = create_record("lit", data_citations=[data_record["control_number"]])
+    assert data_record.citation_count == 2
+    assert data_record.citation_count_without_self_citations == 0
+    assert rec3.citation_count == 0
+
+    rec3.delete()
+    assert data_record.citation_count == 1
+    assert data_record.citation_count_without_self_citations == 0
+
+
+# TODO Enable to test self-citations on authors
+@pytest.mark.skip(reason="self-citations with authors currently dont work")
+def test_self_citations_on_authors_calculated_on_record_creation(
+    inspire_app, enable_self_citations
+):
+    data_authors = {
+        "authors": [
+            {
+                "full_name": "Jean-Luc Picard",
+                "ids": [{"schema": "INSPIRE BAI", "value": "Jean.L.Picard.1"}],
+            }
+        ]
+    }
+
+    rec1 = create_record("dat", data=data_authors)
+    rec2 = create_record("lit", data=data_authors)
+
+    reference_data = {
+        "references": [
+            {"record": {"$ref": rec1["self"]["$ref"]}},
+            {"record": {"$ref": rec2["self"]["$ref"]}},
+        ]
+    }
+    reference_data.update(data_authors)
+
+    rec3 = create_record("lit", data=reference_data)
+
+    assert rec1.citation_count == 1
+    assert rec1.citation_count_without_self_citations == 0
+
+    assert rec2.citation_count == 1
+    assert rec2.citation_count_without_self_citations == 0
+
+    assert rec3.citation_count == 0
+    assert rec3.citation_count_without_self_citations == 0
+
+
+# TODO Enable to test self-citations on collaborations
+@pytest.mark.skip(reason="self-citations with collaborations currently dont work")
+def test_self_citations_on_collaborations_calculated_on_record_creation(
+    inspire_app, enable_self_citations
+):
+    collaborations = {"collaborations": [{"value": "COL1"}]}
+    rec1 = create_record("dat", data=collaborations)
+    rec2 = create_record("lit", data=collaborations)
+
+    reference_data = {
+        "references": [
+            {"record": {"$ref": rec1["self"]["$ref"]}},
+            {"record": {"$ref": rec2["self"]["$ref"]}},
+        ]
+    }
+    reference_data.update(collaborations)
+
+    rec3 = create_record("lit", data=reference_data)
+
+    assert rec1.citation_count == 1
+    assert rec1.citation_count_without_self_citations == 0
+
+    assert rec2.citation_count == 1
+    assert rec2.citation_count_without_self_citations == 0
+
+    assert rec3.citation_count == 0
+    assert rec3.citation_count_without_self_citations == 0
 
 
 def test_cn_redirection_works_for_data(inspire_app):
