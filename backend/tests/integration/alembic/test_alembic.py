@@ -14,6 +14,10 @@ from sqlalchemy.engine import reflection
 def test_downgrade(inspire_app):
     alembic = Alembic(current_app)
 
+    alembic.downgrade(target="3fd6471bb960")
+
+    assert "legacy_records_mirror" in _get_table_names()
+
     alembic.downgrade(target="72d010d89702")
     assert "ix_legacy_records_mirror_last_updated" in _get_indexes(
         "legacy_records_mirror"
@@ -344,6 +348,9 @@ def test_upgrade(inspire_app):
         "legacy_records_mirror"
     )
     assert "legacy_records_mirror" not in _get_table_names()
+
+    alembic.upgrade(target="503b34c08b0b")
+    assert "data_literature" in _get_table_names()
 
 
 def _get_indexes(tablename):
