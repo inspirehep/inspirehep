@@ -107,6 +107,7 @@ class LiteratureRecord(
         self.update_institution_relations()
         self.update_experiment_relations()
         self.update_journal_relations()
+        self.update_data_relations()
 
     @classmethod
     def create(

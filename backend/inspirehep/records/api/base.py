@@ -60,6 +60,7 @@ class InspireRecord(Record):
 
     experiment_field = "accelerator_experiments.record"
     journal_field = "publication_info.journal_record"
+    data_field = "data.record"
     nested_record_fields = []
 
     @staticmethod
@@ -632,6 +633,10 @@ class InspireRecord(Record):
     @property
     def linked_experiments_pids(self):
         return self.get_linked_pids_from_field(self.experiment_field)
+
+    @property
+    def linked_data_pids(self):
+        return self.get_linked_pids_from_field(self.data_field)
 
     @property
     def linked_journal_pids(self):
