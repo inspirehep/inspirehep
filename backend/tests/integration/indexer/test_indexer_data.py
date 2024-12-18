@@ -13,7 +13,10 @@ def test_index_data_record(inspire_app):
     record = create_record("dat")
 
     expected_count = 1
-    expected_metadata = deepcopy(record)
+    expected_metadata = deepcopy(record) | {
+        "citation_count": 0,
+        "citation_count_without_self_citations": 0,
+    }
     expected_metadata["_created"] = utils.isoformat(record.created)
     expected_metadata["_updated"] = utils.isoformat(record.updated)
 
