@@ -131,6 +131,7 @@ class CitationMixin(PapersAuthorsExtensionMixin):
             int: Citation count number for this record if it is literature or data
             record.
         """
+        print("self._citation_query().count()", self._citation_query().count())
         return self._citation_query().count()
 
     @property

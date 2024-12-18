@@ -324,6 +324,7 @@ class InspireRecord(Record):
             PidStoreBase.get_pid_from_record_uri(rec)
             for rec in flatten_list(get_value(data, full_path, []))
         ]
+        LOGGER.debug("Getting linked records from field", path=full_path, pids=pids)
         return pids
 
     @classmethod

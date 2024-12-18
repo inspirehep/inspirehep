@@ -82,8 +82,8 @@ class LiteratureRecord(
     ExperimentPapersMixin,
     InstitutionPapersMixin,
     JournalPapersMixin,
-    InspireRecord,
     DataPapersMixin,
+    InspireRecord,
 ):
     """Literature Record."""
 
