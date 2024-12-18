@@ -50,7 +50,7 @@ class WorkflowManagementHook(BackofficeHook):
         return self.run_with_advanced_retry(
             _retry_args=self.tenacity_retry_kwargs,
             method="PUT",
-            data=workflow_data,
+            json=workflow_data,
             endpoint=endpoint,
         )
 
@@ -61,6 +61,6 @@ class WorkflowManagementHook(BackofficeHook):
         return self.run_with_advanced_retry(
             _retry_args=self.tenacity_retry_kwargs,
             method="PATCH",
-            data=workflow_partial_update_data,
+            json=workflow_partial_update_data,
             endpoint=endpoint,
         )

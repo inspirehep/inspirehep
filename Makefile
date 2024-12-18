@@ -9,6 +9,7 @@ run: services start-inspirehep sleep setup-inspirehep start-backoffice sleep set
 run-inspirehep: services start-inspirehep sleep setup-inspirehep
 run-backoffice: services start-backoffice sleep setup-backoffice
 
+start: services start-inspirehep start-backoffice
 
 start-inspirehep:
 	echo -e "\033[0;32m Starting HEP. \033[0m"
