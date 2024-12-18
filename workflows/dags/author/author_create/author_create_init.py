@@ -21,13 +21,14 @@ logger = logging.getLogger(__name__)
     params={
         "workflow_id": Param(type="string", default=""),
         "data": Param(type="object", default={}),
+        "collection": Param(type="string", default=AUTHORS),
     },
     start_date=datetime.datetime(2024, 5, 5),
     schedule=None,
     catchup=False,
     # TODO: what if callback fails? Data in backoffice not up to date!
     on_failure_callback=set_workflow_status_to_error,
-    tags=["authors"],
+    tags=[AUTHORS],
 )
 def author_create_initialization_dag():
     """

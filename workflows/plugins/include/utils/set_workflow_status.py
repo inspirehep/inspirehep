@@ -1,6 +1,6 @@
 import logging
 
-from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
+from hooks.backoffice.workflow_management_hook import WorkflowManagementHook
 from requests import Response
 
 logger = logging.getLogger(__name__)
@@ -36,10 +36,10 @@ def set_workflow_status_to_error(context: dict) -> None:
         workflow_id (str): The identifier for the workflow.
     """
     logger.info("Setting workflow status to error")
-    response = WorkflowManagementHook().set_workflow_status(
-        status_name="error",
-        workflow_id=context["params"]["workflow_id"],
-        collection=AUTHORS,
+    response = WorkflowManagementHook(
+        collection=context["params"]["collection"]
+    ).set_workflow_status(
+        status_name="error", workflow_id=context["params"]["workflow_id"]
     )
     try:
         response.raise_for_status()

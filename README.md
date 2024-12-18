@@ -62,6 +62,11 @@ Then depending on the service you are testing:
 - inspire-hep: ?
 - backend: ?
 
+### Adding global variables:
+There are two ways of setting environment variables on hep:
+- `backend/inspirehep/config.py` 
+- `docker-compose.services.yml` - `INVENIO_` prefix must be added. Variables here overwrite `config.py`
+
 ## Running Locally
 For running the enviroment locally you have the following prerequirements:
 

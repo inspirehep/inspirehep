@@ -25,6 +25,8 @@ services:
       - 'INVENIO_SECRET_KEY=CHANGE_ME'
       - 'INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://inspirehep:inspirehep@db:5432/inspirehep'
       - 'INVENIO_INSPIRE_NEXT_URL=http://ui:8080'
+      - 'INVENIO_INSPIRE_BACKOFFICE_URL=http://host.docker.internal:8001'
+      - 'INVENIO_AUTHENTICATION_TOKEN_BACKOFFICE=2e04111a61e8f5ba6ecec52af21bbb9e81732085'
   cache:
     image: redis:5-alpine
     restart: 'always'
