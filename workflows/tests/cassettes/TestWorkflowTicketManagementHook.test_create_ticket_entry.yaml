@@ -1,0 +1,53 @@
+interactions:
+- request:
+    body: '{"ticket_type": "author_create_user", "ticket_id": 123, "workflow": "00000000-0000-0000-0000-000000001521"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '107'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8001/api/workflows/authors/tickets/
+  response:
+    body:
+      string: '{"id":2,"ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=123","workflow":"00000000-0000-0000-0000-000000001521","ticket_id":"123","ticket_type":"author_create_user","_created_at":"2024-12-19T13:52:15.812218Z","_updated_at":"2024-12-19T13:52:15.812236Z"}'
+    headers:
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '302'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 19 Dec 2024 13:52:15 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=91.01899999996022;desc="User CPU time", TimerPanel_stime;dur=0.0;desc="System
+        CPU time", TimerPanel_total;dur=91.01899999996022;desc="Total CPU time", TimerPanel_total_time;dur=95.46066698385403;desc="Elapsed
+        time", SQLPanel_sql_time;dur=2.541333145927638;desc="SQL 7 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 6520019f804e49ab876111351992ec13
+    status:
+      code: 201
+      message: Created
+version: 1

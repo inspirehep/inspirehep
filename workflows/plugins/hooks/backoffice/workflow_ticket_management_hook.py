@@ -41,8 +41,7 @@ class AuthorWorkflowTicketManagementHook(BackofficeHook):
             "ticket_id": ticket_id,
             "workflow": workflow_id,
         }
-        return self.run_with_advanced_retry(
-            _retry_args=self.tenacity_retry_kwargs,
+        return self.call_api(
             method="POST",
             data=data,
             endpoint=self.endpoint,
