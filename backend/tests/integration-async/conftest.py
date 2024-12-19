@@ -35,7 +35,7 @@ def app():
     app_config["TESTING"] = True
     app_config["SEARCH_INDEX_PREFIX"] = "test-integration-async-"
     app_config["SQLALCHEMY_DATABASE_URI"] = (
-        "postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep-async"
+        "postgresql+psycopg2://postgres:postgres@localhost/test-inspirehep-async"
     )
     app_config["FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS"] = True
     app.wsgi_app.mounts["/api"].config.update(app_config)

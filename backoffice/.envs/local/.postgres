@@ -2,6 +2,6 @@
 # ------------------------------------------------------------------------------
 POSTGRES_HOST=db
 POSTGRES_PORT=5432
-POSTGRES_DB=inspirehep
-POSTGRES_USER=inspirehep
-POSTGRES_PASSWORD=inspirehep
+POSTGRES_DB=backoffice
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
