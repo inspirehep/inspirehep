@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
     catchup=False,
     # TODO: what if callback fails? Data in backoffice not up to date!
     on_failure_callback=set_workflow_status_to_error,
-    tags=["authors"],
+    tags=[AUTHORS],
 )
 def author_create_rejected_dag() -> None:
     """

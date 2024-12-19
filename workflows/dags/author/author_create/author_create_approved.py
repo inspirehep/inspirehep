@@ -29,12 +29,13 @@ logger = logging.getLogger(__name__)
         "workflow_id": Param(type="string", default=""),
         "data": Param(type="object", default={}),
         "create_ticket": Param(type="boolean", default=False),
+        "collection": Param(type="string", default=AUTHORS),
     },
     start_date=datetime.datetime(2024, 5, 5),
     schedule=None,
     catchup=False,
     on_failure_callback=set_workflow_status_to_error,  # TODO: what if callback fails? Data in backoffice not up to date!
-    tags=["authors"],
+    tags=[AUTHORS],
 )
 def author_create_approved_dag():
     """Defines the DAG for the author creation workflow after curator's approval.
