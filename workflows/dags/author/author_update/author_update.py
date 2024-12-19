@@ -25,10 +25,11 @@ from include.utils.set_workflow_status import (
     params={
         "workflow_id": Param(type="string", default=""),
         "data": Param(type="object", default={}),
+        "collection": Param(type="string", default=AUTHORS),
     },
     catchup=False,
     on_failure_callback=set_workflow_status_to_error,  # TODO: what if callback fails? Data in backoffice not up to date!
-    tags=["authors"],
+    tags=[AUTHORS],
 )
 def author_update_dag():
     """
