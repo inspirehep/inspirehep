@@ -192,6 +192,10 @@ def data_harvest_dag():
                 post_response = inspire_http_record_management_hook.post_record(
                     data=new_record, pid_type="data"
                 )
+                logger.info(
+                    f"Data Record Created: "
+                    f"{post_response.json()['metadata']['self']['$ref']}"
+                )
                 return post_response.json()
 
             old_record = response["metadata"]
@@ -203,6 +207,10 @@ def data_harvest_dag():
                 pid_type="data",
                 control_number=old_record["control_number"],
                 revision_id=revision_id + 1,
+            )
+            logger.info(
+                f"Data Record Updated: "
+                f"{response.json()['metadata']['self']['$ref']}"
             )
             return response.json()
 
