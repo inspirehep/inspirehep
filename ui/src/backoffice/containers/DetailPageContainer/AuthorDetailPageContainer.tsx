@@ -75,9 +75,9 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
     'delete',
   ].filter(Boolean);
 
-  const handleResolveAction = (value: string, createTicket = false) => {
+  const handleResolveAction = (value: string) => {
     dispatch(
-      resolveAction(id, 'resolve', { value, create_ticket: createTicket })
+      resolveAction(id, 'resolve', { value})
     );
   };
 
