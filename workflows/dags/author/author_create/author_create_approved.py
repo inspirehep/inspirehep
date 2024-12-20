@@ -28,7 +28,6 @@ logger = logging.getLogger(__name__)
     params={
         "workflow_id": Param(type="string", default=""),
         "data": Param(type="object", default={}),
-        "create_ticket": Param(type="boolean", default=False),
         "collection": Param(type="string", default=AUTHORS),
     },
     start_date=datetime.datetime(2024, 5, 5),
