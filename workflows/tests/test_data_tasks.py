@@ -14,10 +14,18 @@ class TestDataHarvest:
     context = Context()
 
     @pytest.mark.vcr
-    def test_collect_ids(self):
+    def test_collect_ids_param(self):
         task = self.dag.get_task("collect_ids")
-        res = task.execute(context=self.context)
-        assert res == [2807680, 2779339]
+        res = task.execute(context=Context({"params": {"last_updated": "2024-12-15"}}))
+        assert res == [2693068, 2807749, 2809112]
+
+    @pytest.mark.vcr
+    def test_collect_ids_logical_date(self):
+        task = self.dag.get_task("collect_ids")
+        res = task.execute(
+            context=Context({"ds": "2024-12-16", "params": {"last_updated": ""}})
+        )
+        assert res == [2693068, 2807749, 2809112]
 
     @pytest.mark.vcr
     def test_download_record_versions(self):
@@ -50,6 +58,7 @@ class TestDataHarvest:
 
         assert res["keywords"][0]["value"] == "cmenergies: 13000.0-13000.0"
         assert res["keywords"][1]["value"] == "observables: m_MMC"
+        assert res["keywords"][2]["value"] == "observables: e=mc2"
 
         assert (
             res["urls"][0]["value"] == payload["base"]["record"]["resources"][0]["url"]

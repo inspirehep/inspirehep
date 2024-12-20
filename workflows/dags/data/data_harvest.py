@@ -1,9 +1,10 @@
 import datetime
 import logging
-from datetime import timedelta
 
 from airflow.decorators import dag, task, task_group
+from airflow.macros import ds_add
 from airflow.models import Variable
+from airflow.models.param import Param
 from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
@@ -19,6 +20,7 @@ logger = logging.getLogger(__name__)
     catchup=False,
     tags=["data"],
     max_active_runs=5,
+    params={"last_updated": Param(type=["null", "string"], default="")},
 )
 def data_harvest_dag():
     """Defines the DAG for the HEPData harvest workflow.
@@ -36,14 +38,15 @@ def data_harvest_dag():
     url = inspire_http_record_management_hook.get_url()
 
     @task(task_id="collect_ids")
-    def collect_ids():
+    def collect_ids(**context):
         """Collects the ids of the records that have been updated in the last two days.
 
         Returns: list of ids
         """
-
-        from_date = (datetime.datetime.now().date() - timedelta(days=1)).strftime(
-            "%Y-%m-%d"
+        from_date = (
+            context["params"]["last_updated"]
+            if context["params"]["last_updated"]
+            else ds_add(context["ds"], -1)
         )
         payload = {"inspire_ids": True, "last_updated": from_date, "sort_by": "latest"}
         hepdata_response = generic_http_hook.call_api(
@@ -115,7 +118,8 @@ def data_harvest_dag():
                                 f"{keyword}: {item[0]['lte']}-{item[0]['gte']}"
                             )
                     elif keyword == "observables":
-                        builder.add_keyword(f"{keyword}: {','.join(item)}")
+                        for value in item:
+                            builder.add_keyword(f"observables: {value}")
                     else:
                         for value in item:
                             builder.add_keyword(value)
