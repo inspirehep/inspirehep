@@ -17,8 +17,8 @@ class TestAirflowUtils(TransactionTestCase):
         self.response = airflow_utils.trigger_airflow_dag(
             self.dag_id,
             str(self.workflow_id),
-            self.extra_data,
-            self.workflow_serialized,
+            extra_data=self.extra_data,
+            workflow=self.workflow_serialized,
         )
 
     def tearDown(self):
@@ -69,15 +69,19 @@ class TestAirflowUtils(TransactionTestCase):
             self.workflow_id, self.workflow_type
         )
         self.assertEqual(response.status_code, 200)
+        json_content = json.loads(response.content)
+        self.assertEqual(json_content["conf"]["data"], self.extra_data)
+        self.assertEqual(json_content["conf"]["workflow"], self.workflow_serialized)
 
     @pytest.mark.vcr
     def test_delete_workflow_dag_runs(self):
         airflow_utils.delete_workflow_dag_runs(self.workflow_id, self.workflow_type)
 
     @pytest.mark.vcr
-    def test_fetch_data_workflow_dag(self):
-        result = airflow_utils.fetch_data_workflow_dag(
+    def test_fetch_conf_workflow_dag(self):
+        result = airflow_utils.fetch_conf_workflow_dag(
             self.workflow_id, self.workflow_type
         )
 
-        self.assertEqual(result, {"test": "test"})
+        self.assertEqual(result["data"], {"test": "test"})
+        self.assertEqual(result["workflow"], {"id": "id"})

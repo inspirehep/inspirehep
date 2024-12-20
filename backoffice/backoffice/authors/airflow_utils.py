@@ -159,15 +159,18 @@ def restart_workflow_dags(workflow_id, workflow_type, params=None):
 
     :param workflow_id: workflow_id  for dags that should be restarted
     :param workflow_type: type of workflow the will be restarted
-    :param params: parameters of new dag execution
+    :param params: parameters of new dag execution, if not provided will be fetched from the workflow
     :returns: request response
     """
+    conf = params if params else fetch_conf_workflow_dag(workflow_id, workflow_type)
 
-    data = fetch_data_workflow_dag(workflow_id, workflow_type)
     delete_workflow_dag_runs(workflow_id, workflow_type)
 
     return trigger_airflow_dag(
-        WORKFLOW_DAGS[workflow_type].initialize, str(workflow_id), params or data
+        WORKFLOW_DAGS[workflow_type].initialize,
+        str(workflow_id),
+        workflow=conf.get("workflow"),
+        extra_data=conf.get("data"),
     )
 
 
@@ -183,7 +186,7 @@ def delete_workflow_dag_runs(workflow_id, workflow_type):
         delete_workflow_dag(dag_id, str(workflow_id))
 
 
-def fetch_data_workflow_dag(workflow_id, workflow_type):
+def fetch_conf_workflow_dag(workflow_id, workflow_type):
     """Fetches Data that the workflow ran with
 
     :param workflow_id: workflow_id for dag to get data of
@@ -194,4 +197,4 @@ def fetch_data_workflow_dag(workflow_id, workflow_type):
     executed_dags_for_workflow = find_executed_dags(workflow_id, workflow_type)
 
     _, dag = next(iter(executed_dags_for_workflow.items()))
-    return dag["conf"].get("data")
+    return dag["conf"]
