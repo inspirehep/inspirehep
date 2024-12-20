@@ -1,0 +1,61 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.hepdata.net/search/ids?inspire_ids=True&last_updated=2024-12-15&sort_by=latest
+  response:
+    body:
+      string: '[2693068,2807749,2809112]
+
+        '
+    headers:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443";ma=60;
+      content-length:
+      - '26'
+      content-type:
+      - application/json
+      date:
+      - Fri, 20 Dec 2024 13:27:17 GMT
+      permissions-policy:
+      - interest-cohort=()
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      retry-after:
+      - '29'
+      server:
+      - gunicorn
+      set-cookie:
+      - session=350679c09a0fcb67_676570b5.rCaGWwHUs2OzQ84fS-iSUDafDik; Domain=.www.hepdata.net;
+        Expires=Sat, 21 Dec 2024 01:27:17 GMT; HttpOnly; Path=/; SameSite=Lax
+      transfer-encoding:
+      - chunked
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - sameorigin
+      x-proxy-backend:
+      - hepdata-prod_hepdata-web_http
+      x-ratelimit-limit:
+      - '60'
+      x-ratelimit-remaining:
+      - '58'
+      x-ratelimit-reset:
+      - '1734701267'
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1
