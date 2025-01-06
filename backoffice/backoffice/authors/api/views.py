@@ -219,17 +219,21 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
     )
     @action(detail=True, methods=["post"])
     def restart(self, request, pk=None):
-        workflow = AuthorWorkflow.objects.get(id=pk)
+        workflow = get_object_or_404(AuthorWorkflow, pk=pk)
 
         if request.data.get("restart_current_task"):
-            return airflow_utils.restart_failed_tasks(
-                workflow.id, workflow.workflow_type
+            airflow_utils.restart_failed_tasks(workflow.id, workflow.workflow_type)
+        else:
+            AuthorDecision.objects.filter(workflow=workflow).delete()
+            airflow_utils.restart_workflow_dags(
+                workflow.id, workflow.workflow_type, request.data.get("params")
             )
 
-        AuthorDecision.objects.filter(workflow=workflow).delete()
-        return airflow_utils.restart_workflow_dags(
-            workflow.id, workflow.workflow_type, request.data.get("params")
-        )
+        workflow.status = StatusChoices.PROCESSING
+        workflow.save()
+        workflow_serializer = self.serializer_class(workflow)
+
+        return Response(workflow_serializer.data)
 
     @extend_schema(
         summary="Validate record",
