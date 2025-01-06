@@ -39,18 +39,15 @@ class WorkflowManagementHook(BackofficeHook):
 
     def get_workflow(self, workflow_id: str) -> dict:
         endpoint = f"{self.endpoint}/{workflow_id}"
-        response = self.run_with_advanced_retry(
-            _retry_args=self.tenacity_retry_kwargs, method="GET", endpoint=endpoint
-        )
+        response = self.call_api(method="GET", endpoint=endpoint)
         response = self.run(endpoint=endpoint, headers=self.headers)
         return response.json()
 
     def update_workflow(self, workflow_id: str, workflow_data: dict) -> Response:
         endpoint = f"{self.endpoint}/{workflow_id}/"
-        return self.run_with_advanced_retry(
-            _retry_args=self.tenacity_retry_kwargs,
+        return self.call_api(
             method="PUT",
-            json=workflow_data,
+            data=workflow_data,
             endpoint=endpoint,
         )
 
@@ -58,9 +55,8 @@ class WorkflowManagementHook(BackofficeHook):
         self, workflow_id: str, workflow_partial_update_data: dict
     ) -> Response:
         endpoint = f"{self.endpoint}/{workflow_id}/"
-        return self.run_with_advanced_retry(
-            _retry_args=self.tenacity_retry_kwargs,
+        return self.call_api(
             method="PATCH",
-            json=workflow_partial_update_data,
+            data=workflow_partial_update_data,
             endpoint=endpoint,
         )

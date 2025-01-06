@@ -25,8 +25,7 @@ class AuthorWorkflowTicketManagementHook(BackofficeHook):
     def get_ticket(self, workflow_id: str, ticket_type: str) -> dict:
         endpoint = f"{self.endpoint}{workflow_id}/"
         params = {"ticket_type": ticket_type}
-        response = self.run_with_advanced_retry(
-            _retry_args=self.tenacity_retry_kwargs,
+        response = self.call_api(
             method="GET",
             endpoint=endpoint,
             params=params,
