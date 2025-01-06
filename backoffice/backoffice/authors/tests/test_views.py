@@ -493,7 +493,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         )
         response = self.api_client.post(url)
         self.assertEqual(response.status_code, 200)
-        self.assertIn("test", response.json()["conf"]["data"])
+        self.assertIn("test", response.json()["data"])
 
     @pytest.mark.vcr
     def test_restart_a_task(self):
