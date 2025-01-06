@@ -2,5 +2,5 @@ pytest
 coverage
 pytest-cov
 pytest-vcr==1.0.2
-vcrpy==6.0.1
+vcrpy==7.0.0
 freezegun==1.5.1
