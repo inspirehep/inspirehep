@@ -6,22 +6,19 @@ import './DetailPage.less';
 import {
   isCataloger,
   isSuperUser,
-  SUPERUSER_OR_CATALOGER,
 } from '../../../common/authorization';
 
 import fetchData from '../../../actions/data';
 import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
 import ContentBox from '../../../common/components/ContentBox';
-import { filterDoisByMaterial } from '../../utils';
 import LiteratureTitle from '../../../common/components/LiteratureTitle';
-import DOIList from '../../../literature/components/DOIList';
 import { APIButton } from '../../../common/components/APIButton';
 import EditRecordAction from '../../../common/components/EditRecordAction';
-import AuthorizedContainer from '../../../common/containers/AuthorizedContainer';
 import UrlsAction from '../../../literature/components/UrlsAction';
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
 import Abstract from '../../../literature/components/Abstract';
 import LiteratureRecordsList from '../../../common/components/LiteratureRecordsList';
+import DOIListShowAll from '../../components/DOIListShowAll';
 
 interface DetailPageProps {
   result: any; // TODO: define proper type for result
@@ -39,7 +36,7 @@ const DetailPage = ({
   const abstract = metadata.getIn(['abstracts', 0]);
   const authors = metadata.get('authors');
   const authorCount = (authors && authors.size) || 0;
-  const dois = filterDoisByMaterial(metadata.get('dois', []));
+  const dois = metadata.get('dois', []);
   const recordId = metadata.get('control_number');
   const literatureRecords = metadata.get('literature');
   const collaborations = metadata.get('collaborations');
@@ -90,11 +87,7 @@ const DetailPage = ({
                 </div>
               </Col>
             </Row>
-            {dois && (
-              <Row>
-              <Col><DOIList dois={dois} /></Col>
-            </Row>
-            )}
+            <DOIListShowAll dois={dois} />
             {abstract && (
               <Row className="mt2">
                 <Col>
