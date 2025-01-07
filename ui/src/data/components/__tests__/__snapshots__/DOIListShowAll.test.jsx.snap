@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DOIListShowAll renders correctly with data and other dois 1`] = `
+<Fragment>
+  <Row>
+    <Col>
+      <DOIList
+        dois={
+          Immutable.List [
+            Immutable.Map {
+              "material": "data",
+              "value": "doi1",
+            },
+            Immutable.Map {
+              "material": "data",
+              "value": "doi2",
+            },
+          ]
+        }
+        showLabel={true}
+      />
+    </Col>
+    <div
+      className="di pl1"
+    >
+      <SecondaryButton
+        onClick={[Function]}
+      >
+        Show All(
+        3
+        )
+      </SecondaryButton>
+    </div>
+  </Row>
+  <Modal
+    footer={null}
+    onCancel={[Function]}
+    open={false}
+    title="3 DOIs"
+    width="50%"
+  >
+    <DOIList
+      dois={
+        Immutable.List [
+          Immutable.Map {
+            "material": "data",
+            "value": "doi1",
+          },
+          Immutable.Map {
+            "material": "data",
+            "value": "doi2",
+          },
+          Immutable.Map {
+            "material": "article",
+            "value": "doi3",
+          },
+        ]
+      }
+      showLabel={false}
+    />
+  </Modal>
+</Fragment>
+`;
+
+exports[`DOIListShowAll renders correctly with dataDois only 1`] = `
+<Row>
+  <Col>
+    <DOIList
+      dois={
+        Immutable.List [
+          Immutable.Map {
+            "material": "data",
+            "value": "doi1",
+          },
+          Immutable.Map {
+            "material": "data",
+            "value": "doi2",
+          },
+        ]
+      }
+      showLabel={true}
+    />
+  </Col>
+</Row>
+`;
+
+exports[`DOIListShowAll renders correctly with default props 1`] = `""`;
+
+exports[`DOIListShowAll renders correctly with no dataDois 1`] = `""`;

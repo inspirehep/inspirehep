@@ -19,11 +19,11 @@ class DOIList extends Component {
   }
 
   render() {
-    const { dois, bold } = this.props;
+    const { dois, showLabel } = this.props;
 
     return (
       <InlineDataList
-        label={bold ? <b>DOI</b> : 'DOI'}
+        label={showLabel ? 'DOI' : null}
         items={dois}
         extractKey={(doi) => doi.get('value')}
         renderItem={DOIList.renderDoiItem}
@@ -34,10 +34,12 @@ class DOIList extends Component {
 
 DOIList.propTypes = {
   dois: PropTypes.instanceOf(List),
+  showLabel: PropTypes.bool
 };
 
 DOIList.defaultProps = {
   dois: null,
+  showLabel: true,
 };
 
 export default DOIList;

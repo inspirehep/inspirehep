@@ -198,6 +198,7 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
                       },
                     ]
                   }
+                  showLabel={true}
                 />
                 <URLList
                   urls={
@@ -317,6 +318,7 @@ exports[`ReferenceItem renders with full reference 1`] = `
                       },
                     ]
                   }
+                  showLabel={true}
                 />
               </InlineUL>
             </React.Fragment>
