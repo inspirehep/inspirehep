@@ -2,6 +2,7 @@ import React from 'react';
 
 import { connect, RootStateOrAny } from 'react-redux';
 import { Col, Row } from 'antd';
+import { List } from 'immutable';
 import './DetailPage.less';
 import {
   isCataloger,
@@ -36,10 +37,10 @@ const DetailPage = ({
   const abstract = metadata.getIn(['abstracts', 0]);
   const authors = metadata.get('authors');
   const authorCount = (authors && authors.size) || 0;
-  const dois = metadata.get('dois', []);
+  const dois = metadata.get('dois', List());
   const recordId = metadata.get('control_number');
   const literatureRecords = metadata.get('literature');
-  const collaborations = metadata.get('collaborations');
+  const collaborations = metadata.get('collaborations', List());
 
   const urls = metadata.get('urls');
 

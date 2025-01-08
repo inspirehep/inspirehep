@@ -109,6 +109,7 @@ describe('AggregationFilter', () => {
         selections={['bucket1']}
         aggregationType="tree"
         name="Test"
+        splitTreeBy="|"
       />
     );
     expect(wrapper).toMatchSnapshot();

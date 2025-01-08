@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 
 import DetailPageContainer from '../DetailPageContainer';
 import { getStoreWithState } from '../../../../fixtures/store';
+import { CITE_FORMAT_PREFERENCE } from "../../../../reducers/user";
 
 describe('DetailPageContainer', () => {
   it('renders initial state', () => {
@@ -47,15 +48,18 @@ describe('DetailPageContainer', () => {
         data: {
           record,
           metadata: {
+            control_number: 1234,
             titles: [
               {
                 title: 'Detail view',
               },
             ],
           },
+          created: '2025-01-01',
         },
         supervisors,
         totalReferences: 2,
+        references: [{ control_number: 1 }, { control_number: 2 }],
       }),
       search: fromJS({
         namespaces: {
@@ -66,6 +70,9 @@ describe('DetailPageContainer', () => {
       }),
       user: fromJS({
         loggedIn: true,
+        preferences: {
+          [CITE_FORMAT_PREFERENCE]: 'application/x-bibtex',
+        },
         data: {
           profile_control_number: null
         }

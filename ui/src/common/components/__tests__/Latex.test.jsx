@@ -10,7 +10,7 @@ describe('Latex', () => {
   });
 
   it('renders text with LaTex in $...$', () => {
-    const textWithLatex = 'ATLAS $B_{s} \u2192 \u00b5^{+} \u00b5^{\u2212}$';
+    const textWithLatex = 'ATLAS $B_{s} \\rightarrow \\mu^{+} \\mu^{-}$';
     const wrapper = mount(<Latex>{textWithLatex}</Latex>);
     expect(wrapper).toMatchSnapshot();
   });

@@ -42,6 +42,7 @@ exports[`ExportToCdsModal renders not visible 1`] = `
     ]
   }
   onCancel={[MockFunction]}
+  open={false}
 >
   <p
     data-testid="export-modal"

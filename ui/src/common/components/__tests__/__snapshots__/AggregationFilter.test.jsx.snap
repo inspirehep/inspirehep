@@ -103,5 +103,6 @@ exports[`AggregationFilter renders TreeAggregation if aggregation type is tree 1
       "bucket1",
     ]
   }
+  splitTreeBy="|"
 />
 `;

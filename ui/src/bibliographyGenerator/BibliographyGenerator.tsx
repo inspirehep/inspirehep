@@ -222,7 +222,7 @@ function BibliographyGenerator({
                       <Row className="mb3">
                         <Col span={24}>
                           {citationErrors.map((e) => (
-                            <div className="mb2">
+                            <div key={e.get('message')} className="mb2">
                               <Alert
                                 type="warning"
                                 message={e.get('message')}
