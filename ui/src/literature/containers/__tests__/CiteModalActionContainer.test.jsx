@@ -24,7 +24,7 @@ describe('CiteModalActionContainer', () => {
     const store = getStoreWithState({
       user: fromJS({
         preferences: {
-          [CITE_FORMAT_PREFERENCE]: 'x-bibtex',
+          [CITE_FORMAT_PREFERENCE]: 'application/x-bibtex',
         },
       }),
     });
@@ -34,7 +34,7 @@ describe('CiteModalActionContainer', () => {
       </Provider>
     );
     expect(wrapper.find(CiteModalAction)).toHaveProp({
-      initialCiteFormat: 'x-bibtex',
+      initialCiteFormat: 'application/x-bibtex',
       recordId: 12345,
     });
   });
@@ -46,7 +46,7 @@ describe('CiteModalActionContainer', () => {
         <CiteModalActionContainer recordId={12345} />
       </Provider>
     );
-    const format = 'x-bibtex';
+    const format = 'application/x-bibtex';
     const onCiteFormatChange = wrapper
       .find(CiteModalAction)
       .prop('onCiteFormatChange');

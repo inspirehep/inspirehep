@@ -22,6 +22,7 @@ describe('ExportToCdsModal', () => {
         onOk={jest.fn()}
         onCancel={jest.fn()}
         selectionSize={1}
+        visible={false}
       />
     );
     expect(wrapper).toMatchSnapshot();

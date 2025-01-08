@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Map } from 'immutable';
+import { List, Map } from 'immutable';
 
 import UrlsAction from '../../literature/components/UrlsAction';
 import DOILinkAction from '../../literature/components/DOILinkAction';
@@ -19,11 +19,11 @@ function DataItem({ metadata, page }) {
   const title = metadata.getIn(['titles', 0]);
   const authors = metadata.get('authors');
   const authorCount = (authors && authors.size) || 0;
-  const dois = filterDoisByMaterial(metadata.get('dois', []));
+  const dois = filterDoisByMaterial(metadata.get('dois', List()));
   const recordId = metadata.get('control_number');
   const urls = metadata.get('urls');
   const canEdit = metadata.get('can_edit', false);
-  const collaborations = metadata.get('collaborations', []);
+  const collaborations = metadata.get('collaborations', List());
 
   return (
     <div data-test-id="data-result-item">

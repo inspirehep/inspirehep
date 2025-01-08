@@ -102,7 +102,6 @@ function CollectionsMenu({ currentPathname }: { currentPathname: string }) {
       <Col>
         <DropdownMenu
           overlayClassName="more-collections-menu"
-          className="dropdown mh4 m-mh2"
           title={
             <Button
               className="button-no-background ml4"

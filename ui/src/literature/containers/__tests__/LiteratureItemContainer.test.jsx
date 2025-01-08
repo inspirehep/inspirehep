@@ -7,6 +7,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { getStoreWithState } from '../../../fixtures/store';
 import LiteratureItemContainer from '../LiteratureItemContainer';
 import LiteratureItem from '../../components/LiteratureItem';
+import { CITE_FORMAT_PREFERENCE } from '../../../reducers/user';
 
 describe('LiteratureItemContainer', () => {
   it('renders with props', () => {
@@ -38,6 +39,9 @@ describe('LiteratureItemContainer', () => {
 
     const store = getStoreWithState({
       user: fromJS({
+        preferences: {
+            [CITE_FORMAT_PREFERENCE]: 'application/x-bibtex'
+        },
         loggedIn: true,
         data: {
           profile_control_number: '1010819'

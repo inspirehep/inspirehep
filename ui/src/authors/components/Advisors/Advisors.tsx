@@ -13,6 +13,9 @@ function Advisors({ advisors }: { advisors: List<Map<string, string>> }) {
           .groupBy((advisor) => advisor.get('degree_type', 'other'))
           .map((advisorsOfDegree, degreeType) => (
             <AdvisorsOfDegree
+              // `degreeType` is a unique identifier for each group, not an array index
+              // eslint-disable-next-line react/no-array-index-key
+              key={degreeType}
               advisors={advisorsOfDegree as List<Map<string, string>>}
               degreeType={degreeType as keyof typeof DEGREE_TYPE_TO_DISPLAY}
             />

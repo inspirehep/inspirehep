@@ -6,7 +6,7 @@ describe('ExperimentAssociatedArticlesLink', () => {
   it('renders', () => {
     const wrapper = shallow(
       <ExperimentAssociatedArticlesLink
-        recordId="12345"
+        recordId={12345}
         legacyName="Experiment"
       />
     );

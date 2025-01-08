@@ -80,6 +80,7 @@ describe('ReferenceList', () => {
         error={null}
         references={fromJS([{ titles: [{ title: 'Reference 1' }] }])}
         total={0}
+        onPageChange={() => {}}
         query={{ size: 25, page: 1 }}
       />
     );
@@ -93,6 +94,7 @@ describe('ReferenceList', () => {
         error={fromJS({ message: 'error' })}
         references={fromJS([])}
         total={0}
+        onPageChange={() => {}}
         query={{ size: 25, page: 1 }}
       />
     );
@@ -108,6 +110,7 @@ it('calls onQueryChange and sets display to 50 references/page', () => {
       error={null}
       references={fromJS([{ titles: [{ title: 'Reference 1' }] }])}
       total={50}
+      onPageChange={() => {}}
       onSizeChange={onSizeChange}
       query={{ size: 50 }}
     />

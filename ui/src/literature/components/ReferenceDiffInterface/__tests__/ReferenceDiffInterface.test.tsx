@@ -13,7 +13,7 @@ describe('ReferenceDiffInterface', () => {
     metadata: fromJS({
       titles: [{ title: 'Title' }],
       date: '2022-01-01',
-      control_number: '123456',
+      control_number: 123456,
       thesis_info: null,
       isbns: null,
       imprints: null,
