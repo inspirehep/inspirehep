@@ -6,9 +6,11 @@ from airflow.macros import ds_add
 from airflow.models import Variable
 from airflow.models.param import Param
 from hooks.generic_http_hook import GenericHttpHook
+from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
+from inspire_utils.dedupers import dedupe_list
 from tenacity import RetryError
 
 logger = logging.getLogger(__name__)
@@ -29,10 +31,12 @@ def data_harvest_dag():
     1. collect_ids: Obtains all new data ids to process.
     2. download_record_versions: fetches a data record and all its previous versions
     3. build_record: Build a record that is compatible with the INSPIRE data schema
-    4. load_record: Creates or Updates the record on INSPIRE.
+    4. normalize_collaborations: Normalize the collaborations in the record.
+    5. load_record: Creates or Updates the record on INSPIRE.
     """
     generic_http_hook = GenericHttpHook(http_conn_id="hepdata_connection")
     inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
+    inspire_http_hook = InspireHttpHook()
 
     data_schema = Variable.get("data_schema")
     url = inspire_http_record_management_hook.get_url()
@@ -181,6 +185,43 @@ def data_harvest_dag():
             return data
 
         @task
+        def normalize_collaborations(record):
+            """Normalize the collaborations in the record.
+
+            Args: record (dict): The record to normalize.
+            Returns: dict: The normalized record.
+            """
+
+            collaborations = record.get("collaborations", [])
+
+            if not collaborations:
+                return record
+
+            payload = {
+                "collaborations": collaborations,
+                "workflow_id": record["acquisition_source"]["submission_number"],
+            }
+
+            response = inspire_http_hook.call_api(
+                endpoint="api/curation/literature/collaborations-normalization",
+                method="GET",
+                data=payload,
+            )
+            response.raise_for_status()
+            obj_accelerator_experiments = record.get("accelerator_experiments", [])
+            normalized_accelerator_experiments = response.json()[
+                "accelerator_experiments"
+            ]
+
+            if normalized_accelerator_experiments or obj_accelerator_experiments:
+                record["accelerator_experiments"] = dedupe_list(
+                    obj_accelerator_experiments + normalized_accelerator_experiments
+                )
+                record["collaborations"] = response.json()["normalized_collaborations"]
+
+            return record
+
+        @task
         def load_record(new_record):
             """Load the record to inspirehep.
 
@@ -222,6 +263,7 @@ def data_harvest_dag():
         record = build_record(
             data_schema=data_schema, inspire_url=url, payload=hepdata_record_versions
         )
+        record = normalize_collaborations(record)
         load_record(record)
 
     process_record.expand(record_id=collect_ids())
