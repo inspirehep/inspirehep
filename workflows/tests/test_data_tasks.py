@@ -94,6 +94,22 @@ class TestDataHarvest:
         assert json_response
 
     @pytest.mark.vcr
+    def test_normalize_collaborations(self):
+        # test what is returned if collaborations are initally empty
+        record = {
+            "collaborations": [{"value": "ETM"}],
+            "acquisition_source": {"submission_number": "123"},
+        }
+        task = self.dag.get_task("process_record.normalize_collaborations")
+        task.op_args = (record,)
+        json_response = task.execute(context=self.context)
+
+        assert "record" in json_response["collaborations"][0]
+        assert (
+            json_response["accelerator_experiments"][0]["legacy_name"] == "LATTICE-ETM"
+        )
+
+    @pytest.mark.vcr
     def test_load_record_post(self):
         record = {
             "_collections": ["Data"],
