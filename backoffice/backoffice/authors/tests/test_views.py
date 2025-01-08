@@ -1,4 +1,5 @@
 import contextlib
+from unittest.mock import patch
 import uuid
 
 import dateutil
@@ -496,6 +497,20 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         self.assertIn("test", response.json()["data"])
 
     @pytest.mark.vcr
+    @patch("backoffice.authors.airflow_utils.restart_workflow_dags", return_value=None)
+    def test_restart_full_dagrun_without_ran_dags(self, mock_restart_workflow_dags):
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:authors-restart",
+            kwargs={"pk": self.workflow.id},
+        )
+        response = self.api_client.post(url)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json(), {"error": "No run configuration found. Skipping restart."}
+        )
+
+    @pytest.mark.vcr
     def test_restart_a_task(self):
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
@@ -506,6 +521,22 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             url, format="json", data={"restart_current_task": True}
         )
         self.assertEqual(response.status_code, 200)
+
+    @pytest.mark.vcr
+    def test_restart_current_task_without_failed_dags(self):
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:authors-restart",
+            kwargs={"pk": self.workflow.id},
+        )
+        response = self.api_client.post(
+            url, format="json", data={"restart_current_task": True}
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json(),
+            {"error": "No failed tasks found to restart. Skipping restart."},
+        )
 
     @pytest.mark.vcr
     def test_restart_with_params(self):

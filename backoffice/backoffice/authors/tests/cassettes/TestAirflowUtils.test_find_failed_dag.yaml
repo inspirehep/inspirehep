@@ -1,7 +1,8 @@
 interactions:
 - request:
     body: '{"dag_run_id": "00000000-0000-0000-0000-000000000001", "conf": {"workflow_id":
-      "00000000-0000-0000-0000-000000000001", "data": {"test": "test"}}}'
+      "00000000-0000-0000-0000-000000000001", "data": {"test": "test"}, "workflow":
+      {"id": "id"}}}'
     headers:
       Accept:
       - '*/*'
@@ -10,7 +11,7 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '145'
+      - '171'
       Content-Type:
       - application/json
     method: POST
@@ -18,25 +19,25 @@ interactions:
   response:
     body:
       string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
-        \   \"workflow_id\": \"00000000-0000-0000-0000-000000000001\"\n  },\n  \"dag_id\":
-        \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000001\",\n
-        \ \"data_interval_end\": \"2024-10-18T11:54:27.435564+00:00\",\n  \"data_interval_start\":
-        \"2024-10-18T11:54:27.435564+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
-        \"2024-10-18T11:54:27.435564+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
-        null,\n  \"logical_date\": \"2024-10-18T11:54:27.435564+00:00\",\n  \"note\":
-        null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
-        \"queued\"\n}\n"
+        \   \"workflow\": {\n      \"id\": \"id\"\n    },\n    \"workflow_id\": \"00000000-0000-0000-0000-000000000001\"\n
+        \ },\n  \"dag_id\": \"author_create_initialization_dag\",\n  \"dag_run_id\":
+        \"00000000-0000-0000-0000-000000000001\",\n  \"data_interval_end\": \"2025-01-08T11:52:40.821938+00:00\",\n
+        \ \"data_interval_start\": \"2025-01-08T11:52:40.821938+00:00\",\n  \"end_date\":
+        null,\n  \"execution_date\": \"2025-01-08T11:52:40.821938+00:00\",\n  \"external_trigger\":
+        true,\n  \"last_scheduling_decision\": null,\n  \"logical_date\": \"2025-01-08T11:52:40.821938+00:00\",\n
+        \ \"note\": null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n
+        \ \"state\": \"queued\"\n}\n"
     headers:
       Cache-Control:
       - no-store
       Connection:
       - close
       Content-Length:
-      - '621'
+      - '663'
       Content-Type:
       - application/json
       Date:
-      - Fri, 18 Oct 2024 11:54:27 GMT
+      - Wed, 08 Jan 2025 11:52:40 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -58,14 +59,14 @@ interactions:
   response:
     body:
       string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
-        \   \"workflow_id\": \"00000000-0000-0000-0000-000000000001\"\n  },\n  \"dag_id\":
-        \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000001\",\n
-        \ \"data_interval_end\": \"2024-10-18T11:54:27.435564+00:00\",\n  \"data_interval_start\":
-        \"2024-10-18T11:54:27.435564+00:00\",\n  \"end_date\": \"2024-10-18T11:54:39.564360+00:00\",\n
-        \ \"execution_date\": \"2024-10-18T11:54:27.435564+00:00\",\n  \"external_trigger\":
-        true,\n  \"last_scheduling_decision\": \"2024-10-18T11:54:39.562850+00:00\",\n
-        \ \"logical_date\": \"2024-10-18T11:54:27.435564+00:00\",\n  \"note\": null,\n
-        \ \"run_type\": \"manual\",\n  \"start_date\": \"2024-10-18T11:54:27.664354+00:00\",\n
+        \   \"workflow\": {\n      \"id\": \"id\"\n    },\n    \"workflow_id\": \"00000000-0000-0000-0000-000000000001\"\n
+        \ },\n  \"dag_id\": \"author_create_initialization_dag\",\n  \"dag_run_id\":
+        \"00000000-0000-0000-0000-000000000001\",\n  \"data_interval_end\": \"2025-01-08T11:52:40.821938+00:00\",\n
+        \ \"data_interval_start\": \"2025-01-08T11:52:40.821938+00:00\",\n  \"end_date\":
+        \"2025-01-08T11:52:59.002708+00:00\",\n  \"execution_date\": \"2025-01-08T11:52:40.821938+00:00\",\n
+        \ \"external_trigger\": true,\n  \"last_scheduling_decision\": \"2025-01-08T11:52:59.001739+00:00\",\n
+        \ \"logical_date\": \"2025-01-08T11:52:40.821938+00:00\",\n  \"note\": null,\n
+        \ \"run_type\": \"manual\",\n  \"start_date\": \"2025-01-08T11:52:41.448123+00:00\",\n
         \ \"state\": \"failed\"\n}\n"
     headers:
       Cache-Control:
@@ -73,11 +74,11 @@ interactions:
       Connection:
       - close
       Content-Length:
-      - '711'
+      - '753'
       Content-Type:
       - application/json
       Date:
-      - Fri, 18 Oct 2024 11:54:47 GMT
+      - Wed, 08 Jan 2025 11:53:00 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -111,7 +112,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Fri, 18 Oct 2024 11:54:47 GMT
+      - Wed, 08 Jan 2025 11:53:00 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -145,7 +146,7 @@ interactions:
       Content-Type:
       - application/problem+json
       Date:
-      - Fri, 18 Oct 2024 11:54:47 GMT
+      - Wed, 08 Jan 2025 11:53:01 GMT
       Server:
       - gunicorn
       X-Robots-Tag:
@@ -177,7 +178,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 18 Oct 2024 11:54:48 GMT
+      - Wed, 08 Jan 2025 11:53:01 GMT
       Server:
       - gunicorn
       X-Robots-Tag:

@@ -4,6 +4,7 @@ import pytest
 from backoffice.authors import airflow_utils
 from backoffice.authors.constants import WORKFLOW_DAGS, WorkflowType
 from django.test import TransactionTestCase
+from requests import HTTPError, RequestException
 
 
 class TestAirflowUtils(TransactionTestCase):
@@ -14,7 +15,7 @@ class TestAirflowUtils(TransactionTestCase):
         self.extra_data = {"test": "test"}
         self.workflow_serialized = {"id": "id"}
 
-        self.response = airflow_utils.trigger_airflow_dag(
+        self.content, self.status_code = airflow_utils.trigger_airflow_dag(
             self.dag_id,
             str(self.workflow_id),
             extra_data=self.extra_data,
@@ -22,28 +23,31 @@ class TestAirflowUtils(TransactionTestCase):
         )
 
     def tearDown(self):
-        airflow_utils.delete_workflow_dag(self.dag_id, self.workflow_id)
+        try:
+            airflow_utils.delete_workflow_dag(self.dag_id, self.workflow_id)
+        except HTTPError:
+            pass
 
     @pytest.mark.vcr
     def test_trigger_airflow_dag(self):
-        json_content = json.loads(self.response.content)
-        self.assertEqual(self.response.status_code, 200)
+        json_content = json.loads(self.content)
+        self.assertEqual(self.status_code, 200)
         self.assertEqual(json_content["conf"]["data"], self.extra_data)
         self.assertEqual(json_content["conf"]["workflow"], self.workflow_serialized)
 
     @pytest.mark.vcr
     def test_restart_failed_tasks(self):
-        response = airflow_utils.restart_failed_tasks(
+        _, status_code = airflow_utils.restart_failed_tasks(
             self.workflow_id, self.workflow_type
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(status_code, 200)
 
     @pytest.mark.vcr
     def test_restart_failed_tasks_no_tasks(self):
         response = airflow_utils.restart_failed_tasks(
             self.workflow_id, self.workflow_type
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response, None)
 
     @pytest.mark.vcr
     def test_find_executed_dags(self):
@@ -60,16 +64,24 @@ class TestAirflowUtils(TransactionTestCase):
 
     @pytest.mark.vcr
     def test_delete_workflow_dag(self):
-        response = airflow_utils.delete_workflow_dag(self.dag_id, self.workflow_id)
-        self.assertEqual(response.status_code, 200)
+        _, status_code = airflow_utils.delete_workflow_dag(
+            self.dag_id, self.workflow_id
+        )
+        self.assertEqual(status_code, 204)
+
+    @pytest.mark.vcr
+    def test_delete_workflow_dag_error(self):
+        with self.assertRaises(RequestException) as context:
+            airflow_utils.delete_workflow_dag("THISISNOTVALID", self.workflow_id)
+        self.assertEqual(context.exception.response.status_code, 404)
 
     @pytest.mark.vcr
     def test_restart_workflow_dags(self):
-        response = airflow_utils.restart_workflow_dags(
+        content, status_code = airflow_utils.restart_workflow_dags(
             self.workflow_id, self.workflow_type
         )
-        self.assertEqual(response.status_code, 200)
-        json_content = json.loads(response.content)
+        self.assertEqual(status_code, 200)
+        json_content = json.loads(content)
         self.assertEqual(json_content["conf"]["data"], self.extra_data)
         self.assertEqual(json_content["conf"]["workflow"], self.workflow_serialized)
 
