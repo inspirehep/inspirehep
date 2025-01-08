@@ -19,6 +19,7 @@ from drf_spectacular.utils import (
 from inspire_schemas.errors import SchemaKeyNotFound, SchemaNotFound
 from inspire_schemas.utils import get_validation_errors
 from opensearch_dsl import TermsFacet
+from requests.exceptions import RequestException
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -117,7 +118,18 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     def perform_destroy(self, instance):
-        airflow_utils.delete_workflow_dag_runs(instance.id, instance.workflow_type)
+        try:
+            airflow_utils.delete_workflow_dag_runs(instance.id, instance.workflow_type)
+        except RequestException as e:
+            logger.error(
+                "Error deleting Airflow DAGs for workflow %s: %s",
+                instance.id,
+                e.response.json(),
+            )
+            return Response(
+                {"error": "Error deleting Airflow DAGs: %s" % e.response.json()},
+                status=e.response.status_code,
+            )
         super().perform_destroy(instance)
 
     @extend_schema(
@@ -137,11 +149,19 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
             WORKFLOW_DAGS[workflow.workflow_type].initialize,
             workflow.id,
         )
-        airflow_utils.trigger_airflow_dag(
-            WORKFLOW_DAGS[workflow.workflow_type].initialize,
-            str(workflow.id),
-            workflow=serializer.data,
-        )
+        try:
+            airflow_utils.trigger_airflow_dag(
+                WORKFLOW_DAGS[workflow.workflow_type].initialize,
+                str(workflow.id),
+                workflow=serializer.data,
+            )
+        except RequestException as e:
+            logger.error("Error triggering Airflow DAG: %s", e.response.json())
+            return Response(
+                {"error": "Error triggering Airflow DAG: %s" % e.response.json()},
+                status=e.response.status_code,
+            )
+
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @extend_schema(
@@ -185,13 +205,20 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
             utils.add_decision(pk, request.user, serializer.validated_data["value"])
 
             workflow = self.get_serializer(AuthorWorkflow.objects.get(pk=pk)).data
+            try:
+                airflow_utils.trigger_airflow_dag(
+                    AuthorResolutionDags[serializer.validated_data["value"]].label,
+                    pk,
+                    serializer.data,
+                    workflow=workflow,
+                )
+            except RequestException as e:
+                logger.error("Error triggering Airflow DAG: %s", e.response.json())
+                return Response(
+                    {"error": "Error triggering Airflow DAG: %s" % e.response.json()},
+                    status=e.response.status_code,
+                )
 
-            airflow_utils.trigger_airflow_dag(
-                AuthorResolutionDags[serializer.validated_data["value"]].label,
-                pk,
-                serializer.data,
-                workflow=workflow,
-            )
             workflow = get_object_or_404(AuthorWorkflow, pk=pk)
             workflow.status = StatusChoices.PROCESSING
             workflow.save()
@@ -221,12 +248,33 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
     def restart(self, request, pk=None):
         workflow = get_object_or_404(AuthorWorkflow, pk=pk)
 
-        if request.data.get("restart_current_task"):
-            airflow_utils.restart_failed_tasks(workflow.id, workflow.workflow_type)
-        else:
-            AuthorDecision.objects.filter(workflow=workflow).delete()
-            airflow_utils.restart_workflow_dags(
-                workflow.id, workflow.workflow_type, request.data.get("params")
+        try:
+            if request.data.get("restart_current_task"):
+                response = airflow_utils.restart_failed_tasks(
+                    workflow.id, workflow.workflow_type
+                )
+                error_msg = "No failed tasks found to restart. Skipping restart."
+            else:
+                AuthorDecision.objects.filter(workflow=workflow).delete()
+                response = airflow_utils.restart_workflow_dags(
+                    workflow.id, workflow.workflow_type, request.data.get("params")
+                )
+                error_msg = "No run configuration found. Skipping restart."
+
+            if response is None:
+                return Response(
+                    {"error": error_msg},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+        except RequestException as e:
+            logger.error(
+                "Error restarting Airflow DAGs for workflow %s: %s",
+                workflow.id,
+                e.response.json(),
+            )
+            return Response(
+                {"error": "Error restarting Airflow DAGs: %s" % e.response.json()},
+                status=e.response.status_code,
             )
 
         workflow.status = StatusChoices.PROCESSING

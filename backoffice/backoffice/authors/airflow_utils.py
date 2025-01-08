@@ -2,8 +2,6 @@ import logging
 from os import environ
 
 import requests
-from django.http import JsonResponse
-from requests.exceptions import RequestException
 from rest_framework import status
 import json
 from django.core.serializers.json import DjangoJSONEncoder
@@ -22,7 +20,7 @@ def trigger_airflow_dag(dag_id, workflow_id, extra_data=None, workflow=None):
 
     :param dag_id: name of the dag to run
     :param workflow_id: id of the workflow being triggered
-    :returns: request response
+    :returns: request response content
     """
 
     data = {"dag_run_id": str(workflow_id), "conf": {"workflow_id": str(workflow_id)}}
@@ -34,23 +32,19 @@ def trigger_airflow_dag(dag_id, workflow_id, extra_data=None, workflow=None):
 
     url = f"{AIRFLOW_BASE_URL}/api/v1/dags/{dag_id}/dagRuns"
 
-    try:
-        logger.info(
-            "Triggering DAG %s with data: %s and %s",
-            dag_id,
-            data,
-            url,
-        )
-        response = requests.post(
-            url,
-            data=json.dumps(data, cls=DjangoJSONEncoder),
-            headers=AIRFLOW_HEADERS | {"Content-Type": "application/json"},
-        )
-        response.raise_for_status()
-        return JsonResponse(response.json())
-    except RequestException:
-        data = {"error": response.json()}
-        return JsonResponse(data, status=status.HTTP_502_BAD_GATEWAY)
+    logger.info(
+        "Triggering DAG %s with data: %s and %s",
+        dag_id,
+        data,
+        url,
+    )
+    response = requests.post(
+        url,
+        data=json.dumps(data, cls=DjangoJSONEncoder),
+        headers=AIRFLOW_HEADERS | {"Content-Type": "application/json"},
+    )
+    response.raise_for_status()
+    return response.content, response.status_code
 
 
 def restart_failed_tasks(workflow_id, workflow_type):
@@ -58,11 +52,11 @@ def restart_failed_tasks(workflow_id, workflow_type):
 
     :param workflow_id: id of workflow to restart failed tasks
     :param workflow_type: type of workflow to retrieve
-    :returns: request response
+    :returns: request response content if dags were found, None otherwise
     """
-    dag_id = find_failed_dag(str(workflow_id), workflow_type)
+    dag_id = find_failed_dag(workflow_id, workflow_type)
     if dag_id is None:
-        return JsonResponse({"message": "There are no failing tasks, skipping restart"})
+        return None
 
     #  assumes current task is one of the failed tasks
     data = {
@@ -74,23 +68,19 @@ def restart_failed_tasks(workflow_id, workflow_type):
 
     url = f"{AIRFLOW_BASE_URL}/api/v1/dags/{dag_id}/clearTaskInstances"
 
-    try:
-        logger.info(
-            "Clearing Failed Tasks of DAG %s with data: %s and %s",
-            dag_id,
-            data,
-            url,
-        )
-        response = requests.post(
-            url,
-            json=data,
-            headers=AIRFLOW_HEADERS,
-        )
-        response.raise_for_status()
-        return JsonResponse(response.json())
-    except RequestException:
-        data = {"error": response.json()}
-        return JsonResponse(data, status=status.HTTP_424_FAILED_DEPENDENCY)
+    logger.info(
+        "Clearing Failed Tasks of DAG %s with data: %s and %s",
+        dag_id,
+        data,
+        url,
+    )
+    response = requests.post(
+        url,
+        json=data,
+        headers=AIRFLOW_HEADERS,
+    )
+    response.raise_for_status()
+    return response.content, response.status_code
 
 
 def find_executed_dags(workflow_id, workflow_type):
@@ -124,7 +114,6 @@ def find_failed_dag(workflow_id, workflow_type):
     """
 
     executed_dags_for_workflow = find_executed_dags(str(workflow_id), workflow_type)
-
     for dag, dag_data in executed_dags_for_workflow.items():
         if dag_data["state"] == "failed":
             return dag
@@ -134,24 +123,19 @@ def delete_workflow_dag(dag_id, workflow_id):
     """Delete dag run.
 
     :param dag_id: dag to be removed
-    :param workflow_id: id of workflow whoose dag execution should be deleted
-    :returns: request response
+    :param workflow_id: id of workflow whose dag execution should be deleted
+    :returns: request response content
     """
 
     url = f"{AIRFLOW_BASE_URL}/api/v1/dags/{dag_id}/dagRuns/{str(workflow_id)}"
-    try:
-        logger.info(
-            "Deleting dag Failed Tasks of DAG %s with no data and %s",
-            dag_id,
-            url,
-        )
-        response = requests.delete(url, headers=AIRFLOW_HEADERS)
-        response.raise_for_status()
-        return JsonResponse({"message": "Successfully deleted DAG"})
-    except RequestException:
-        return JsonResponse(
-            {"error": "Failed to delete DAG"}, status=status.HTTP_424_FAILED_DEPENDENCY
-        )
+    logger.info(
+        "Deleting dag Failed Tasks of DAG %s with no data and %s",
+        dag_id,
+        url,
+    )
+    response = requests.delete(url, headers=AIRFLOW_HEADERS)
+    response.raise_for_status()
+    return response.content, response.status_code
 
 
 def restart_workflow_dags(workflow_id, workflow_type, params=None):
@@ -160,9 +144,12 @@ def restart_workflow_dags(workflow_id, workflow_type, params=None):
     :param workflow_id: workflow_id  for dags that should be restarted
     :param workflow_type: type of workflow the will be restarted
     :param params: parameters of new dag execution, if not provided will be fetched from the workflow
-    :returns: request response
+    :returns: request response content
     """
     conf = params if params else fetch_conf_workflow_dag(workflow_id, workflow_type)
+
+    if not conf:
+        return None
 
     delete_workflow_dag_runs(workflow_id, workflow_type)
 
@@ -195,6 +182,8 @@ def fetch_conf_workflow_dag(workflow_id, workflow_type):
     """
 
     executed_dags_for_workflow = find_executed_dags(workflow_id, workflow_type)
+    if not executed_dags_for_workflow:
+        return None
 
     _, dag = next(iter(executed_dags_for_workflow.items()))
     return dag["conf"]
