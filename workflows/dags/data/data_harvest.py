@@ -124,7 +124,7 @@ def data_harvest_dag():
                         for value in item:
                             builder.add_keyword(value)
 
-            builder = DataBuilder(source="hepdata")
+            builder = DataBuilder(source="inspirehep")
 
             builder.add_creation_date(datetime.datetime.now(datetime.UTC).isoformat())
 
@@ -160,7 +160,7 @@ def data_harvest_dag():
             builder.add_title(base_record["record"]["title"])
 
             builder.add_acquisition_source(
-                method="hepcrawl",
+                method="inspirehep",
                 submission_number=base_record["record"]["inspire_id"],
                 datetime=datetime.datetime.now(datetime.UTC).isoformat(),
             )

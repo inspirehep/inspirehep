@@ -90,6 +90,9 @@ class TestDataHarvest:
             for doi in res["dois"]
         )
 
+        assert res["acquisition_source"]["source"] == "inspirehep"
+        assert any(doi["source"] == "inspirehep" for doi in res["dois"])
+
     @pytest.mark.vcr
     def test_load_record_put(self):
         record = {
