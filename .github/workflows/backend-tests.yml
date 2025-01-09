@@ -29,7 +29,7 @@ defaults:
 
 jobs:
   setup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       groups: ${{ steps.generate.outputs.groups }}
       seed: ${{ steps.generate.outputs.seed }}
@@ -41,7 +41,7 @@ jobs:
           printf 'seed=%d\n' $RANDOM >>$GITHUB_OUTPUT
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: setup
     strategy:
       fail-fast: false
@@ -119,7 +119,7 @@ jobs:
           path: test_durations
 
   update-durations:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: test
     steps:
       - name: Checkout
