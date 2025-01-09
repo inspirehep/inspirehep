@@ -1,0 +1,12 @@
+name: Push development (backoffice)
+
+on:
+  workflow_call:
+
+jobs:
+  test:
+    name: Tests (backoffice)
+    uses: ./.github/workflows/test-backoffice.yml
+    with:
+      ref: ${{ github.ref }}
+    secrets: inherit

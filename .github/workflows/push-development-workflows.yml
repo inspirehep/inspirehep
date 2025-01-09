@@ -1,0 +1,12 @@
+name: Push development (workflows)
+
+on:
+  workflow_call:
+
+jobs:
+  test:
+    name: Tests (workflows)
+    uses: ./.github/workflows/test-workflows.yml
+    with:
+      ref: ${{ github.ref }}
+    secrets: inherit
