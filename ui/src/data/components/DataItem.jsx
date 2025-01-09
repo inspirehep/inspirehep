@@ -38,8 +38,7 @@ function DataItem({ metadata, page }) {
                 page={page}
               />
             )}
-            {dois && <DOILinkAction dois={dois} page={page} />}
-
+            {dois.size > 0 && <DOILinkAction dois={dois} page={page} />}
             {canEdit && (
               <EditRecordAction
                 pidType="data"
