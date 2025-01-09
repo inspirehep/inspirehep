@@ -1,0 +1,11 @@
+name: Push development (inspirehep)
+
+on:
+  workflow_call:
+
+jobs:
+  test:
+    uses: ./.github/workflows/integration-tests.yml
+    with:
+      ref: ${{ github.ref }}
+    secrets: inherit
