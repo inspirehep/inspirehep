@@ -57,7 +57,7 @@ jobs:
 
   test-ui:
     needs: build-ui-build-stage
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: test
         run: >
@@ -86,7 +86,7 @@ jobs:
 
   test-editor:
     needs: build-editor-build-stage
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: test
         run: >

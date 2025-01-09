@@ -24,7 +24,7 @@ jobs:
 
   test:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     services:
       opensearch:
         image: registry.cern.ch/cern-sis/inspirehep/opensearch
