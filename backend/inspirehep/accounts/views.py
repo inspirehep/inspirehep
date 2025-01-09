@@ -86,8 +86,8 @@ def logout():
 def set_orcid_push_setting():
     orcid_account = get_current_user_remote_orcid_account()
 
-    data = request.json
-    allow_push = data["value"]
+    data1 = request.json
+    allow_push = data1["value"]
     orcid_account.extra_data["allow_push"] = allow_push
 
     db.session.add(orcid_account)
