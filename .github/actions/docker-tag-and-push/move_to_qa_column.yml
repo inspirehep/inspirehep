@@ -9,7 +9,7 @@ on:
 
 jobs:
   move_to_qa:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master'
     steps:
       - name: Echo PR number
