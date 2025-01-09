@@ -224,7 +224,7 @@
         "value": "ut eiusmod anim aute in"
       }
     ],
-    "control_number": 457569,
+    "control_number": 457570,
     "creation_date": "2005-05-03",
     "deleted": false,
     "deleted_records": [
@@ -233,13 +233,6 @@
       },
       {
         "$ref": "http://txGvpx7fpfb/api/data/34534567"
-      }
-    ],
-    "dois": [
-      {
-        "source": "in ad et",
-        "value": "10.8751/tTM",
-        "material": "data"
       }
     ],
     "keywords": [

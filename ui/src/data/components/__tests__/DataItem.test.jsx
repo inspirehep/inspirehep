@@ -23,25 +23,25 @@ describe('DataItem', () => {
               },
               value: "ut"
             },
-          ],
-          urls: [{ value: 'http://url.com' }],
-          dois: [
-            {
-              source: "in ad et",
-              value: "10.8756/tTM",
-              material: "data"
-            },
-            {
-              source: "mollit deserunt eu",
-              value: "10.5/.Aww=bT@",
-              material: "version"
-            },
-            {
-              source: "adipisicing et",
-              value: "10.0.9747720/#}O=W:$",
-              material: "part"
-            }
           ]
+        }
+      ],
+      urls: [{ value: 'http://url.com' }],
+      dois: [
+        {
+          source: "in ad et",
+          value: "10.8756/tTM",
+          material: "data"
+        },
+        {
+          source: "mollit deserunt eu",
+          value: "10.5/.Aww=bT@",
+          material: "version"
+        },
+        {
+          source: "adipisicing et",
+          value: "10.0.9747720/#}O=W:$",
+          material: "part"
         }
       ],
       control_number: 1234

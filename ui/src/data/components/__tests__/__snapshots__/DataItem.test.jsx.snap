@@ -7,8 +7,28 @@ exports[`DataItem renders with all props set 1`] = `
   <ResultItem
     leftActions={
       <React.Fragment>
+        <UrlsAction
+          icon={<LinkOutlined />}
+          text="links"
+          trackerEventId="Literature file"
+          urls={
+            Immutable.List [
+              Immutable.Map {
+                "value": "http://url.com",
+              },
+            ]
+          }
+        />
         <DOILinkAction
-          dois={Array []}
+          dois={
+            Immutable.List [
+              Immutable.Map {
+                "source": "in ad et",
+                "value": "10.8756/tTM",
+                "material": "data",
+              },
+            ]
+          }
         />
       </React.Fragment>
     }
@@ -65,28 +85,6 @@ exports[`DataItem renders with all props set 1`] = `
                     "value": "ut",
                   },
                 ],
-                "urls": Immutable.List [
-                  Immutable.Map {
-                    "value": "http://url.com",
-                  },
-                ],
-                "dois": Immutable.List [
-                  Immutable.Map {
-                    "source": "in ad et",
-                    "value": "10.8756/tTM",
-                    "material": "data",
-                  },
-                  Immutable.Map {
-                    "source": "mollit deserunt eu",
-                    "value": "10.5/.Aww=bT@",
-                    "material": "version",
-                  },
-                  Immutable.Map {
-                    "source": "adipisicing et",
-                    "value": "10.0.9747720/#}O=W:$",
-                    "material": "part",
-                  },
-                ],
               },
             ]
           }
@@ -105,13 +103,7 @@ exports[`DataItem renders with only needed props 1`] = `
   data-test-id="data-result-item"
 >
   <ResultItem
-    leftActions={
-      <React.Fragment>
-        <DOILinkAction
-          dois={Array []}
-        />
-      </React.Fragment>
-    }
+    leftActions={<React.Fragment />}
     rightActions={
       <IncomingLiteratureReferencesLinkAction
         eventCategory="Data search"
