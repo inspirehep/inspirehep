@@ -113,10 +113,11 @@ jobs:
           --random-order-seed ${{ needs.setup.outputs.seed }}
 
       - name: Upload partial durations
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: split-${{ matrix.group }}
           path: test_durations
+          overwrite: true
 
   update-durations:
     runs-on: ubuntu-latest
