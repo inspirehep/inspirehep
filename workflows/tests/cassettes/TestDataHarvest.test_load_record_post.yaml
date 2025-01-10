@@ -9,7 +9,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://host.docker.internal:8080/api/doi/10.1234567/test
+    uri: http://host.docker.internal:8080/api/doi/10.1234568/test
   response:
     body:
       string: '{"status": 404, "message": "PID does not exist."}'
@@ -21,7 +21,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 11 Dec 2024 16:16:05 GMT
+      - Fri, 10 Jan 2025 10:28:29 GMT
       Server:
       - nginx/1.19.1
     status:
@@ -37,7 +37,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://host.docker.internal:8080/api/doi/10.1234567/test
+    uri: http://host.docker.internal:8080/api/doi/10.1234568/test
   response:
     body:
       string: '{"status": 404, "message": "PID does not exist."}'
@@ -49,7 +49,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 11 Dec 2024 16:16:06 GMT
+      - Fri, 10 Jan 2025 10:28:30 GMT
       Server:
       - nginx/1.19.1
     status:
@@ -65,7 +65,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://host.docker.internal:8080/api/doi/10.1234567/test
+    uri: http://host.docker.internal:8080/api/doi/10.1234568/test
   response:
     body:
       string: '{"status": 404, "message": "PID does not exist."}'
@@ -77,7 +77,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 11 Dec 2024 16:16:08 GMT
+      - Fri, 10 Jan 2025 10:28:32 GMT
       Server:
       - nginx/1.19.1
     status:
@@ -93,7 +93,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://host.docker.internal:8080/api/doi/10.1234567/test
+    uri: http://host.docker.internal:8080/api/doi/10.1234568/test
   response:
     body:
       string: '{"status": 404, "message": "PID does not exist."}'
@@ -105,7 +105,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 11 Dec 2024 16:16:12 GMT
+      - Fri, 10 Jan 2025 10:28:36 GMT
       Server:
       - nginx/1.19.1
     status:
@@ -121,7 +121,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://host.docker.internal:8080/api/doi/10.1234567/test
+    uri: http://host.docker.internal:8080/api/doi/10.1234568/test
   response:
     body:
       string: '{"status": 404, "message": "PID does not exist."}'
@@ -133,7 +133,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 11 Dec 2024 16:16:20 GMT
+      - Fri, 10 Jan 2025 10:28:44 GMT
       Server:
       - nginx/1.19.1
     status:
@@ -141,7 +141,9 @@ interactions:
       message: NOT FOUND
 - request:
     body: '{"_collections": ["Data"], "$schema": "https://inspirehep.net/schemas/records/data.json",
-      "dois": [{"value": "10.1234567/test", "material": "data"}]}'
+      "dois": [{"value": "10.1234568/test", "material": "data"}], "acquisition_source":
+      {"source": "inspirehep", "submission_number": "2829504", "datetime": "2025-01-09T16:14:51.647320+00:00",
+      "method": "inspirehep"}}'
     headers:
       Accept:
       - application/vnd+inspire.record.raw+json
@@ -150,37 +152,37 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '149'
+      - '301'
       Content-Type:
       - application/json
     method: POST
     uri: http://host.docker.internal:8080/api/data
   response:
     body:
-      string: '{"metadata":{"_collections":["Data"],"$schema":"https://inspirehep.net/schemas/records/data.json","dois":[{"value":"10.1234567/test","material":"data"}],"control_number":2610637,"self":{"$ref":"http://localhost:8000/api/data/2610637"}},"revision_id":0,"updated":"2024-12-11T16:16:20.351311+00:00","uuid":"b765f128-72f8-4120-ac43-9242ad2c40a6","created":"2024-12-11T16:16:20.351308+00:00","id":"{2610637}","links":{"json":"http://localhost:8000/api/data/%7B2610637%7D?format=json"}}'
+      string: '{"links":{"json":"http://localhost:8000/api/data/%7B2727285%7D?format=json"},"revision_id":0,"uuid":"d0e25a25-c167-43c4-a5ed-0746758572df","created":"2025-01-10T10:28:44.881337+00:00","updated":"2025-01-10T10:28:44.881390+00:00","metadata":{"_collections":["Data"],"$schema":"https://inspirehep.net/schemas/records/data.json","dois":[{"value":"10.1234568/test","material":"data"}],"acquisition_source":{"source":"inspirehep","submission_number":"2829504","datetime":"2025-01-09T16:14:51.647320+00:00","method":"inspirehep"},"control_number":2727285,"self":{"$ref":"http://localhost:8000/api/data/2727285"}},"id":"{2727285}"}'
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - '481'
+      - '624'
       Content-Type:
       - application/vnd+inspire.record.raw+json
       Date:
-      - Wed, 11 Dec 2024 16:16:20 GMT
+      - Fri, 10 Jan 2025 10:28:44 GMT
       ETag:
       - W/"0"
       Last-Modified:
-      - Wed, 11 Dec 2024 16:16:20 GMT
+      - Fri, 10 Jan 2025 10:28:44 GMT
       Link:
-      - <json>; rel="http://localhost:8000/api/data/%7B2610637%7D?format=json"
+      - <json>; rel="http://localhost:8000/api/data/%7B2727285%7D?format=json"
       Server:
       - nginx/1.19.1
       Vary:
       - Accept,Accept-Encoding,Accept-Language
       location:
-      - http://localhost:8000/api/data/%7B2610637%7D
+      - http://localhost:8000/api/data/%7B2727285%7D
     status:
       code: 201
       message: CREATED

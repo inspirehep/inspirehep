@@ -4,7 +4,7 @@ interactions:
       "_collections": ["Authors"], "acquisition_source": {"datetime": "2024-11-18T11:34:19.809575",
       "email": "micha.moshe.moskovic@cern.ch", "internal_uid": 50872, "method": "submitter",
       "orcid": "0000-0002-7638-5686", "source": "submitter"}, "name": {"preferred_name":
-      "Third B", "value": "B, Third"}, "status": "active"}}'
+      "Third B", "value": "B, Third"}, "status": "active", "control_number": 123457}}'
     headers:
       Accept:
       - application/json
@@ -13,7 +13,7 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '393'
+      - '419'
       Content-Type:
       - application/json
     method: PATCH
@@ -21,30 +21,37 @@ interactions:
   response:
     body:
       string: '{"id":"00000000-0000-0000-0000-000000001521","tickets":[],"decisions":[],"data":{"$schema":"https://inspirehep.net/schemas/records/authors.json","_collections":["Authors"],"acquisition_source":{"datetime":"2024-11-18T11:34:19.809575","email":"micha.moshe.moskovic@cern.ch","internal_uid":50872,"method":"submitter","orcid":"0000-0002-7638-5686","source":"submitter"},"name":{"preferred_name":"Third
-        B","value":"B, Third"},"status":"active"},"workflow_type":"AUTHOR_CREATE","status":"running","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2024-11-26T14:13:56.571976Z"}'
+        B","value":"B, Third"},"status":"active","control_number":123457},"workflow_type":"AUTHOR_CREATE","status":"running","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-01-10T12:55:20.785555Z"}'
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '580'
+      - '604'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 26 Nov 2024 14:13:56 GMT
+      - Fri, 10 Jan 2025 12:55:21 GMT
       Referrer-Policy:
       - same-origin
       Server:
       - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=50.15399999999204;desc="User CPU time", TimerPanel_stime;dur=7.6459999999940464;desc="System
+        CPU time", TimerPanel_total;dur=57.799999999986085;desc="Total CPU time",
+        TimerPanel_total_time;dur=1219.1071679990273;desc="Elapsed time", SQLPanel_sql_time;dur=5.850291992828716;desc="SQL
+        10 queries", CachePanel_total_time;dur=0;desc="Cache 0 Calls"
       Vary:
       - Accept, Accept-Language, Cookie, origin
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
       - DENY
+      djdt-store-id:
+      - d5591da70a814de8bcd6c3172f8f4340
     status:
       code: 200
       message: OK

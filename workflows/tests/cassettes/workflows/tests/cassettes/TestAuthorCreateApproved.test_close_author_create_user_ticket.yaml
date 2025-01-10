@@ -1,8 +1,8 @@
 interactions:
 - request:
-    body: '{"ticket_id": "2e15a50d87c71e10225886640cbb3565", "template": "user_accepted_author",
+    body: '{"ticket_id": "4b451fa0870a561095f833340cbb3595", "template": "user_accepted_author",
       "template_context": {"user_name": "micha.moshe.moskovic@cern.ch", "author_name":
-      "Third B", "record_url": "http://host.docker.internal:8080/authors/123456"}}'
+      "Third B", "record_url": "http://host.docker.internal:8080/authors/12345"}}'
     headers:
       Accept:
       - application/vnd+inspire.record.raw+json
@@ -11,7 +11,7 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '243'
+      - '233'
       Content-Type:
       - application/json
     method: POST
@@ -22,16 +22,22 @@ interactions:
 
         '
     headers:
-      Connection:
-      - keep-alive
-      Content-Length:
+      access-control-allow-origin:
+      - '*'
+      access-control-expose-headers:
+      - Content-Type, ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
+      alt-svc:
+      - h3=":443";ma=60;
+      content-length:
       - '30'
-      Content-Type:
+      content-type:
       - application/json
-      Date:
-      - Fri, 10 Jan 2025 14:07:06 GMT
-      Server:
-      - nginx/1.19.1
+      date:
+      - Wed, 20 Nov 2024 15:49:49 GMT
+      server:
+      - gunicorn/19.10.0
+      x-proxy-backend:
+      - inspire-qa_hep-web_http
     status:
       code: 200
       message: OK

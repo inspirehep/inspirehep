@@ -2,7 +2,7 @@ interactions:
 - request:
     body: '{"functional_category": "Author curation", "template": "curation_needed_author",
       "subject": "Curation needed for author Third B ", "template_context": {"email":
-      "micha.moshe.moskovic@cern.ch", "record_url": "http://host.docker.internal:8080/authors/12345"},
+      "micha.moshe.moskovic@cern.ch", "record_url": "http://host.docker.internal:8080/authors/123456"},
       "caller_email": "micha.moshe.moskovic@cern.ch"}'
     headers:
       Accept:
@@ -12,38 +12,32 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '296'
+      - '306'
       Content-Type:
       - application/json
     method: POST
     uri: http://host.docker.internal:8080/api/tickets/create
   response:
     body:
-      string: '{"ticket_id":"94c0745e870e1250225886640cbb3509","ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=94c0745e870e1250225886640cbb3509"}
+      string: '{"ticket_id":"05ba6585870b1e10225886640cbb353b","ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=05ba6585870b1e10225886640cbb353b"}
 
         '
     headers:
-      access-control-allow-origin:
-      - '*'
-      access-control-expose-headers:
-      - Content-Type, ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
-      alt-svc:
-      - h3=":443";ma=60;
-      content-length:
+      Connection:
+      - keep-alive
+      Content-Length:
       - '181'
-      content-type:
+      Content-Type:
       - application/json
-      date:
-      - Mon, 25 Nov 2024 14:03:46 GMT
-      server:
-      - gunicorn/19.10.0
-      x-proxy-backend:
-      - inspire-qa_hep-web_http
+      Date:
+      - Fri, 10 Jan 2025 14:07:20 GMT
+      Server:
+      - nginx/1.19.1
     status:
       code: 200
       message: OK
 - request:
-    body: '{"ticket_type": "author_create_curation", "ticket_id": "94c0745e870e1250225886640cbb3509",
+    body: '{"ticket_type": "author_create_curation", "ticket_id": "05ba6585870b1e10225886640cbb353b",
       "workflow": "00000000-0000-0000-0000-000000001521"}'
     headers:
       Accept:
@@ -60,7 +54,7 @@ interactions:
     uri: http://host.docker.internal:8001/api/workflows/authors/tickets/
   response:
     body:
-      string: '{"id":2,"ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=94c0745e870e1250225886640cbb3509","workflow":"00000000-0000-0000-0000-000000001521","ticket_id":"94c0745e870e1250225886640cbb3509","ticket_type":"author_create_curation","_created_at":"2024-11-25T14:03:46.470233Z","_updated_at":"2024-11-25T14:03:46.470241Z"}'
+      string: '{"id":2,"ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=05ba6585870b1e10225886640cbb353b","workflow":"00000000-0000-0000-0000-000000001521","ticket_id":"05ba6585870b1e10225886640cbb353b","ticket_type":"author_create_curation","_created_at":"2025-01-10T14:07:20.509148Z","_updated_at":"2025-01-10T14:07:20.509226Z"}'
     headers:
       Allow:
       - GET, POST, HEAD, OPTIONS
@@ -73,17 +67,24 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Mon, 25 Nov 2024 14:03:46 GMT
+      - Fri, 10 Jan 2025 14:07:20 GMT
       Referrer-Policy:
       - same-origin
       Server:
       - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=43.54200000000219;desc="User CPU time", TimerPanel_stime;dur=2.266999999999797;desc="System
+        CPU time", TimerPanel_total;dur=45.80900000000199;desc="Total CPU time", TimerPanel_total_time;dur=52.82204200193519;desc="Elapsed
+        time", SQLPanel_sql_time;dur=5.886666993319523;desc="SQL 7 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
       Vary:
       - Accept, Accept-Language, Cookie, origin
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
       - DENY
+      djdt-store-id:
+      - 608e6384b3b74795bfd091bf2e9dcc51
     status:
       code: 201
       message: Created

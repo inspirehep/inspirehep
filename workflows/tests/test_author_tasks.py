@@ -40,9 +40,9 @@ base_context = {
             "tickets": [
                 {
                     "id": 6,
-                    "ticket_url": "https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=4b451fa0870a561095f833340cbb3595",
+                    "ticket_url": "https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=2e15a50d87c71e10225886640cbb3565",
                     "workflow": "a8604175-10d9-440b-88ed-56afa732bc7c",
-                    "ticket_id": "4b451fa0870a561095f833340cbb3595",
+                    "ticket_id": "2e15a50d87c71e10225886640cbb3565",
                     "ticket_type": "author_create_user",
                     "_created_at": "2024-11-20T15:33:18.704138Z",
                     "_updated_at": "2024-11-20T15:33:18.704145Z",
@@ -73,7 +73,7 @@ class TestAuthorCreateApproved:
     dag = dagbag.get_dag("author_create_approved_dag")
     context = base_context
     context["ti"] = Mock()
-    context["ti"].xcom_pull.return_value = "12345"
+    context["ti"].xcom_pull.return_value = 123456
 
     @pytest.mark.vcr
     def test_close_author_create_user_ticket(self):
@@ -89,7 +89,7 @@ class TestAuthorCreateApproved:
 class TestAuthorUpdate:
     dag = dagbag.get_dag("author_update_dag")
     context = base_context
-    context["params"]["workflow"]["data"]["control_number"] = "12345"
+    context["params"]["workflow"]["data"]["control_number"] = 123457
 
     @pytest.mark.vcr
     def test_create_ticket_on_author_update(self):
