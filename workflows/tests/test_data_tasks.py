@@ -99,6 +99,12 @@ class TestDataHarvest:
             "_collections": ["Data"],
             "$schema": "https://inspirehep.net/schemas/records/data.json",
             "dois": [{"value": "10.8756/tTM", "material": "data"}],
+            "acquisition_source": {
+                "source": "inspirehep",
+                "submission_number": "2829504",
+                "datetime": "2025-01-09T16:14:51.647320+00:00",
+                "method": "inspirehep",
+            },
         }
         task = self.dag.get_task("process_record.load_record")
         task.op_args = (record,)
@@ -126,7 +132,13 @@ class TestDataHarvest:
         record = {
             "_collections": ["Data"],
             "$schema": "https://inspirehep.net/schemas/records/data.json",
-            "dois": [{"value": "10.1234567/test", "material": "data"}],
+            "dois": [{"value": "10.1234568/test", "material": "data"}],
+            "acquisition_source": {
+                "source": "inspirehep",
+                "submission_number": "2829504",
+                "datetime": "2025-01-09T16:14:51.647320+00:00",
+                "method": "inspirehep",
+            },
         }
         task = self.dag.get_task("process_record.load_record")
         task.op_args = (record,)

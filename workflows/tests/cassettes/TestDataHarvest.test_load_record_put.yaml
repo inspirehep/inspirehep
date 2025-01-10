@@ -12,7 +12,10 @@ interactions:
     uri: http://host.docker.internal:8080/api/doi/10.8756/tTM
   response:
     body:
-      string: '{"metadata":{"dois":[{"value":"10.8756/tTM","material":"data"}],"self":{"$ref":"http://localhost:8000/api/data/777"},"urls":[{"value":"http://HoXZ","description":"tempor
+      string: '{"links":{"bibtex":"http://localhost:8000/api/doi/10.8756/ttm?format=bibtex","latex-eu":"http://localhost:8000/api/doi/10.8756/ttm?format=latex-eu","latex-us":"http://localhost:8000/api/doi/10.8756/ttm?format=latex-us","json":"http://localhost:8000/api/doi/10.8756/ttm?format=json","cv":"http://localhost:8000/api/doi/10.8756/ttm?format=cv"},"revision_id":0,"uuid":"639d8a22-e982-4fdb-b60d-8fce2e78fd34","created":"2025-01-10T08:59:12.166145+00:00","updated":"2025-01-10T08:59:12.166147+00:00","metadata":{"dois":[{"value":"10.8756/tTM","source":"in
+        ad et","material":"data"},{"value":"10.5/.Aww=bT@","source":"mollit deserunt
+        eu","material":"version"},{"value":"10.0.9747720/#}O=W:$","source":"adipisicing
+        et","material":"part"}],"self":{"$ref":"http://localhost:8000/api/data/777"},"urls":[{"value":"http://HoXZ","description":"tempor
         laboris nostrud amet dolor"},{"value":"http://CBBgCi","description":"irure"},{"value":"https://aE,","description":"reprehenderit
         lab"},{"value":"http://Erus/87","description":"magna"},{"value":"https://lHCOlUYMP","description":"laborum
         eiusmod nulla ad ea"}],"titles":[{"title":"Test title","source":"pariatur
@@ -40,22 +43,22 @@ interactions:
         eiusmod anim aute in","record":{"$ref":"http://lWwb6D/api/experiments/547678"}}],"control_number":777,"legacy_version":"ea","deleted_records":[{"$ref":"http://J3vLBvgzhC/api/data/546456"},{"$ref":"http://txGvpx7fpfb/api/data/34534567"}],"acquisition_source":{"email":"xnSAdJWSg358dN@gQEsvHyr.ga","orcid":"7331-1113-6863-4887","method":"oai","source":"dolore
         mollit","datetime":"5096-09-22T20:00:59.888Z","internal_uid":-19966101,"submission_number":"n"},"accelerator_experiments":[{"record":{"$ref":"http://Wba/api/experiments/12234"},"experiment":"exercitation
         officia sint","accelerator":"ipsum ess","institution":"veniam","legacy_name":"reprehenderit
-        incididunt eiusmod exercitation","curated_relation":true}]},"revision_id":7,"updated":"2024-12-11T14:56:27.449027+00:00","uuid":"e5430afb-8761-4eaf-9188-e9d3a7bd4207","created":"2024-12-11T14:02:11.066149+00:00","id":"10.8756/ttm","links":{"bibtex":"http://localhost:8000/api/doi/10.8756/ttm?format=bibtex","latex-eu":"http://localhost:8000/api/doi/10.8756/ttm?format=latex-eu","latex-us":"http://localhost:8000/api/doi/10.8756/ttm?format=latex-us","json":"http://localhost:8000/api/doi/10.8756/ttm?format=json","cv":"http://localhost:8000/api/doi/10.8756/ttm?format=cv"}}'
+        incididunt eiusmod exercitation","curated_relation":true}]},"id":"10.8756/ttm"}'
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - '5272'
+      - '5446'
       Content-Type:
       - application/vnd+inspire.record.raw+json
       Date:
-      - Wed, 11 Dec 2024 16:15:43 GMT
+      - Fri, 10 Jan 2025 10:29:41 GMT
       ETag:
-      - W/"7"
+      - W/"0"
       Last-Modified:
-      - Wed, 11 Dec 2024 14:56:27 GMT
+      - Fri, 10 Jan 2025 08:59:12 GMT
       Link:
       - <bibtex>; rel="http://localhost:8000/api/doi/10.8756/ttm?format=bibtex", <latex-eu>;
         rel="http://localhost:8000/api/doi/10.8756/ttm?format=latex-eu", <latex-us>;
@@ -123,9 +126,8 @@ interactions:
       "ut eiusmod anim aute in", "record": {"$ref": "http://lWwb6D/api/experiments/547678"}}],
       "control_number": 777, "legacy_version": "ea", "deleted_records": [{"$ref":
       "http://J3vLBvgzhC/api/data/546456"}, {"$ref": "http://txGvpx7fpfb/api/data/34534567"}],
-      "acquisition_source": {"email": "xnSAdJWSg358dN@gQEsvHyr.ga", "orcid": "7331-1113-6863-4887",
-      "method": "oai", "source": "dolore mollit", "datetime": "5096-09-22T20:00:59.888Z",
-      "internal_uid": -19966101, "submission_number": "n"}, "accelerator_experiments":
+      "acquisition_source": {"source": "inspirehep", "submission_number": "2829504",
+      "datetime": "2025-01-09T16:14:51.647320+00:00", "method": "inspirehep"}, "accelerator_experiments":
       [{"record": {"$ref": "http://Wba/api/experiments/12234"}, "experiment": "exercitation
       officia sint", "accelerator": "ipsum ess", "institution": "veniam", "legacy_name":
       "reprehenderit incididunt eiusmod exercitation", "curated_relation": true}]}'
@@ -137,16 +139,16 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '5059'
+      - '4979'
       Content-Type:
       - application/json
       If-Match:
-      - '"7"'
+      - '"0"'
     method: PUT
     uri: http://host.docker.internal:8080/api/data/777
   response:
     body:
-      string: '{"metadata":{"dois":[{"value":"10.8756/tTM","material":"data"}],"self":{"$ref":"http://localhost:8000/api/data/777"},"urls":[{"value":"http://HoXZ","description":"tempor
+      string: '{"links":{"json":"http://localhost:8000/api/data/777?format=json"},"revision_id":1,"uuid":"639d8a22-e982-4fdb-b60d-8fce2e78fd34","created":"2025-01-10T08:59:12.166145+00:00","updated":"2025-01-10T10:29:41.568306+00:00","metadata":{"dois":[{"value":"10.8756/tTM","material":"data"}],"self":{"$ref":"http://localhost:8000/api/data/777"},"urls":[{"value":"http://HoXZ","description":"tempor
         laboris nostrud amet dolor"},{"value":"http://CBBgCi","description":"irure"},{"value":"https://aE,","description":"reprehenderit
         lab"},{"value":"http://Erus/87","description":"magna"},{"value":"https://lHCOlUYMP","description":"laborum
         eiusmod nulla ad ea"}],"titles":[{"title":"Test title","source":"pariatur
@@ -171,25 +173,24 @@ interactions:
         id sunt","source":"ut"},{"value":"mollit","source":"dolor eu et pariatur"}],"literature":[{"doi":{"value":"10.912/W/K[Bz","source":"amet
         Ut"},"record":{"$ref":"http://XVxZ15mkm/api/literature/44707"}},{"record":{"$ref":"http://l/api/literature/873915"}}],"_collections":["Data"],"creation_date":"2005-05-03","collaborations":[{"value":"ex
         occaecat sunt eu","record":{"$ref":"http://XcyD6G/api/experiments/1234456"}},{"value":"ut
-        eiusmod anim aute in","record":{"$ref":"http://lWwb6D/api/experiments/547678"}}],"control_number":777,"legacy_version":"ea","deleted_records":[{"$ref":"http://J3vLBvgzhC/api/data/546456"},{"$ref":"http://txGvpx7fpfb/api/data/34534567"}],"acquisition_source":{"email":"xnSAdJWSg358dN@gQEsvHyr.ga","orcid":"7331-1113-6863-4887","method":"oai","source":"dolore
-        mollit","datetime":"5096-09-22T20:00:59.888Z","internal_uid":-19966101,"submission_number":"n"},"accelerator_experiments":[{"record":{"$ref":"http://Wba/api/experiments/12234"},"experiment":"exercitation
+        eiusmod anim aute in","record":{"$ref":"http://lWwb6D/api/experiments/547678"}}],"control_number":777,"legacy_version":"ea","deleted_records":[{"$ref":"http://J3vLBvgzhC/api/data/546456"},{"$ref":"http://txGvpx7fpfb/api/data/34534567"}],"acquisition_source":{"source":"inspirehep","submission_number":"2829504","datetime":"2025-01-09T16:14:51.647320+00:00","method":"inspirehep"},"accelerator_experiments":[{"record":{"$ref":"http://Wba/api/experiments/12234"},"experiment":"exercitation
         officia sint","accelerator":"ipsum ess","institution":"veniam","legacy_name":"reprehenderit
-        incididunt eiusmod exercitation","curated_relation":true}]},"revision_id":8,"updated":"2024-12-11T16:15:43.855471+00:00","uuid":"e5430afb-8761-4eaf-9188-e9d3a7bd4207","created":"2024-12-11T14:02:11.066149+00:00","id":"777","links":{"json":"http://localhost:8000/api/data/777?format=json"}}'
+        incididunt eiusmod exercitation","curated_relation":true}]},"id":"777"}'
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - '4989'
+      - '4915'
       Content-Type:
       - application/vnd+inspire.record.raw+json
       Date:
-      - Wed, 11 Dec 2024 16:15:43 GMT
+      - Fri, 10 Jan 2025 10:29:41 GMT
       ETag:
-      - W/"8"
+      - W/"1"
       Last-Modified:
-      - Wed, 11 Dec 2024 16:15:43 GMT
+      - Fri, 10 Jan 2025 10:29:41 GMT
       Link:
       - <json>; rel="http://localhost:8000/api/data/777?format=json"
       Server:

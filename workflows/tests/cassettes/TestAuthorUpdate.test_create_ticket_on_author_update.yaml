@@ -2,9 +2,9 @@ interactions:
 - request:
     body: '{"functional_category": "Author updates", "template": "curator_update_author",
       "subject": "Update to author Third B on INSPIRE", "template_context": {"url":
-      "http://host.docker.internal:8080/authors/12345", "bibedit_url": "http://host.docker.internal:8080/record/12345",
-      "url_author_form": "http://host.docker.internal:8080/submissions/authors/12345"}, "caller_email":
-      "micha.moshe.moskovic@cern.ch"}'
+      "http://host.docker.internal:8080/authors/123457", "bibedit_url": "http://host.docker.internal:8080/record/123457",
+      "url_author_form": "http://host.docker.internal:8080/submissions/authors/123457"},
+      "caller_email": "micha.moshe.moskovic@cern.ch"}'
     headers:
       Accept:
       - application/vnd+inspire.record.raw+json
@@ -13,38 +13,32 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '373'
+      - '403'
       Content-Type:
       - application/json
     method: POST
     uri: http://host.docker.internal:8080/api/tickets/create
   response:
     body:
-      string: '{"ticket_id":"9e67066e8746d250225886640cbb3565","ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=9e67066e8746d250225886640cbb3565"}
+      string: '{"ticket_id":"a0cae50587c3961095f833340cbb35af","ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=a0cae50587c3961095f833340cbb35af"}
 
         '
     headers:
-      access-control-allow-origin:
-      - '*'
-      access-control-expose-headers:
-      - Content-Type, ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
-      alt-svc:
-      - h3=":443";ma=60;
-      content-length:
+      Connection:
+      - keep-alive
+      Content-Length:
       - '181'
-      content-type:
+      Content-Type:
       - application/json
-      date:
-      - Tue, 26 Nov 2024 15:00:51 GMT
-      server:
-      - gunicorn/19.10.0
-      x-proxy-backend:
-      - inspire-qa_hep-web_http
+      Date:
+      - Fri, 10 Jan 2025 14:07:33 GMT
+      Server:
+      - nginx/1.19.1
     status:
       code: 200
       message: OK
 - request:
-    body: '{"ticket_type": "author_update_curation", "ticket_id": "9e67066e8746d250225886640cbb3565",
+    body: '{"ticket_type": "author_update_curation", "ticket_id": "a0cae50587c3961095f833340cbb35af",
       "workflow": "00000000-0000-0000-0000-000000001521"}'
     headers:
       Accept:
@@ -61,7 +55,7 @@ interactions:
     uri: http://host.docker.internal:8001/api/workflows/authors/tickets/
   response:
     body:
-      string: '{"id":3,"ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=9e67066e8746d250225886640cbb3565","workflow":"00000000-0000-0000-0000-000000001521","ticket_id":"9e67066e8746d250225886640cbb3565","ticket_type":"author_update_curation","_created_at":"2024-11-26T15:00:51.801217Z","_updated_at":"2024-11-26T15:00:51.801236Z"}'
+      string: '{"id":3,"ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=a0cae50587c3961095f833340cbb35af","workflow":"00000000-0000-0000-0000-000000001521","ticket_id":"a0cae50587c3961095f833340cbb35af","ticket_type":"author_update_curation","_created_at":"2025-01-10T14:07:33.956910Z","_updated_at":"2025-01-10T14:07:33.956932Z"}'
     headers:
       Allow:
       - GET, POST, HEAD, OPTIONS
@@ -74,17 +68,24 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 26 Nov 2024 15:00:51 GMT
+      - Fri, 10 Jan 2025 14:07:33 GMT
       Referrer-Policy:
       - same-origin
       Server:
       - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=29.92800000000173;desc="User CPU time", TimerPanel_stime;dur=2.7210000000010837;desc="System
+        CPU time", TimerPanel_total;dur=32.649000000002815;desc="Total CPU time",
+        TimerPanel_total_time;dur=42.54450000007637;desc="Elapsed time", SQLPanel_sql_time;dur=5.750543001340702;desc="SQL
+        7 queries", CachePanel_total_time;dur=0;desc="Cache 0 Calls"
       Vary:
       - Accept, Accept-Language, Cookie, origin
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
       - DENY
+      djdt-store-id:
+      - 458d324039cf4d64abd0e9884e40aee8
     status:
       code: 201
       message: Created

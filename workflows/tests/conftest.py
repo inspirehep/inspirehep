@@ -8,4 +8,5 @@ def vcr_config():
         "decode_compressed_response": True,
         "filter_headers": ("Authorization", "User-Agent"),
         "record_mode": "once",
+        "match_on": ["method", "scheme", "host", "port", "path", "query", "body"],
     }
