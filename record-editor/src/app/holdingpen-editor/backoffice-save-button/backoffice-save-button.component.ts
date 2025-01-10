@@ -56,6 +56,7 @@ export class BackofficeSaveButtonComponent
   private hasAnyValidationProblem = false;
   private savingInfoToast: ActiveToast;
 
+  type: string;
   uuid: string;
   fullWorkflowObject: BackofficeWorkflow;
 
@@ -77,9 +78,10 @@ export class BackofficeSaveButtonComponent
 
   ngOnInit() {
     this.route.params.takeUntil(this.isDestroyed).subscribe(async (params) => {
+      this.type = params['type'];
       this.uuid = params['uuid'];
     });
-    this.apiService.fetchWorkflowObject(this.uuid, true).then(
+    this.apiService.fetchWorkflowObject(this.type, this.uuid, true).then(
       (data) => { this.fullWorkflowObject = data as BackofficeWorkflow; }
     );
     this.globalAppStateService.hasAnyValidationProblem$
@@ -113,7 +115,7 @@ export class BackofficeSaveButtonComponent
 
   private cleanupAndSave() {
     this.recordCleanupService.cleanup(this.workflowObject.metadata);
-    this.apiService.validateWorkflowObject(this.workflowObject).subscribe(
+    this.apiService.validateWorkflowObject(this.type, this.workflowObject).subscribe(
       (data) => {
         delete this.workflowObject._extra_data['validation_errors'];
         this.jsonBeingEdited$.next(this.workflowObject);

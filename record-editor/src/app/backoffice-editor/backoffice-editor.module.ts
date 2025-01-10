@@ -30,7 +30,11 @@ import { SharedModule } from '../shared';
 import { HoldingpenEditorModule } from '../holdingpen-editor/holdingpen-editor.module';
 
 @NgModule({
-  imports: [SharedModule, BackofficeEditorRouter, HoldingpenEditorModule],
+  imports: [
+    SharedModule,
+    BackofficeEditorRouter,
+    HoldingpenEditorModule
+  ],
   declarations: [BackofficeEditorComponent],
 })
 export class BackofficeEditorModule {}

@@ -78,11 +78,12 @@ export class BackofficeApiService extends CommonApiService {
   }
 
   async fetchWorkflowObject(
+    type: string,
     objectId: string,
     getFullObject?: boolean
   ): Promise<WorkflowObject | BackofficeWorkflow> {
     return this.handleRequest(async () => {
-      this.currentWorkflowObjectApiUrl = `${backofficeApiUrl}/workflows/authors/${objectId}/`;
+      this.currentWorkflowObjectApiUrl = `${backofficeApiUrl}/workflows/${type}/${objectId}/`;
       const response = await this.fetchUrl<BackofficeWorkflow>(
         this.currentWorkflowObjectApiUrl, {
           withCredentials: true
@@ -104,9 +105,9 @@ export class BackofficeApiService extends CommonApiService {
     });
   }
 
-  validateWorkflowObject(object: WorkflowObject): Observable<Object> {
+  validateWorkflowObject(type: string, object: WorkflowObject): Observable<Object> {
     return this.http
-    .post(`${backofficeApiUrl}/workflows/authors/validate/`, object.metadata,
+    .post(`${backofficeApiUrl}/workflows/${type}/validate/`, object.metadata,
       { withCredentials: true, headers: new Headers({ 'Content-Type': 'application/json' }) })
     .catch((error) => Observable.throw(new ApiError(error)))
     .map((res) => res.json());

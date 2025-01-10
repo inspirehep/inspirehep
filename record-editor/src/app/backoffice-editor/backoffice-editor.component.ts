@@ -41,13 +41,12 @@ import { WorkflowObject } from '../shared/interfaces';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BackofficeEditorComponent
-  extends SubscriberComponent
-  implements OnInit {
+export class BackofficeEditorComponent extends SubscriberComponent implements OnInit {
   workflowObject: WorkflowObject;
   schema: Object;
   config: Object;
   workflowProblems: SchemaValidationProblems;
+  type: string;
   uuid: string;
 
   constructor(
@@ -67,9 +66,11 @@ export class BackofficeEditorComponent
     this.domUtilsService.fitEditorHeightFullPage();
 
     this.route.params.takeUntil(this.isDestroyed).subscribe(async (params) => {
+      this.type = params['type'];
       this.uuid = params['uuid'];
 
       this.workflowObject = await this.apiService.fetchWorkflowObject(
+        this.type,
         this.uuid
       ) as WorkflowObject;
       this.schema = await this.apiService.fetchSchema();

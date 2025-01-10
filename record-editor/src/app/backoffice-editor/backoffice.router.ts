@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { BackofficeEditorComponent } from './backoffice-editor.component';
 
 const backofficeEditorRoutes: Routes = [
-  { path: ':uuid', component: BackofficeEditorComponent },
+  { path: ':type/:uuid', component: BackofficeEditorComponent },
 ];
 
 @NgModule({
