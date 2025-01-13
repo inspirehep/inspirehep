@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { getAllByRole, render, screen } from '@testing-library/react';
 import { fromJS, Map } from 'immutable';
 
 import Links, { Ids, Urls } from '../Links';
@@ -83,7 +83,7 @@ describe('Links Component', () => {
     );
   });
 
-  it('should render ORCID link correctly in Ids', () => {
+  it('should render ORCID link with copy button correctly in Ids', () => {
     const ids = Map([
       ['0', Map({ schema: 'ORCID', value: '0000-0002-1825-0097' })],
     ]);
@@ -94,9 +94,12 @@ describe('Links Component', () => {
       'href',
       'https://orcid.org/0000-0002-1825-0097'
     );
-    const img = getByRole('img', { hidden: true });
-    expect(img).toHaveAttribute('src', orcidLogo);
-    expect(img).toHaveAttribute('alt', 'ORCID');
+    const logo = screen.getByAltText('ORCID');
+    expect(logo).toHaveAttribute('src', orcidLogo);
+
+    const copyIcon = screen.getByLabelText(/copy/i);
+    expect(copyIcon).toBeInTheDocument();
+  
   });
 
   it('should render generic link correctly in Ids', () => {
@@ -117,6 +120,14 @@ describe('Links Component', () => {
 
     expect(getByText(/linkedin/i)).toBeInTheDocument();
     expect(queryByRole('img')).toBeNull();
+  });
+
+  it('should not render copy button in Ids if not ORCID', () => {
+    const ids = Map([['0', Map({ schema: 'LINKEDIN', value: 'john-doe' })]]);
+    const { getByText, queryByLabelText } = render(<Ids ids={ids} />);
+
+    expect(getByText(/linkedin/i)).toBeInTheDocument();
+    expect(queryByLabelText(/copy/i)).toBeNull();
   });
 
   it('should render URL with description correctly', () => {
