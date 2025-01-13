@@ -4,7 +4,8 @@ import {
   CheckOutlined,
   HourglassOutlined,
   LoadingOutlined,
-  FieldTimeOutlined
+  FieldTimeOutlined,
+  StopOutlined
 } from '@ant-design/icons';
 import { push } from 'connected-react-router';
 import { Action, ActionCreator } from 'redux';
@@ -107,4 +108,40 @@ export const handleSearch = (
 
   dispatch(searchQueryUpdate(query));
   dispatch(push(BACKOFFICE_SEARCH));
+};
+
+export const getWorkflowStatusInfo = (status: string) => {
+  const statuses: {
+    [key: string]: { icon: JSX.Element; text: string; description: string };
+  } = {
+    completed: {
+      icon: <CheckOutlined className="mr2" />,
+      text: 'Completed',
+      description: 'This workflow has been completed.',
+    },
+    approval: {
+      icon: <StopOutlined className="mr2" />,
+      text: 'Waiting for approval',
+      description: 'This workflow has been halted until decision is made.',
+    },
+    error: {
+      icon: <WarningOutlined className="mr2" />,
+      text: 'Error',
+      description:
+        'This record is in error state. View record details for more information.',
+    },
+    running: {
+      icon: <LoadingOutlined className="mr2" />,
+      text: 'Running',
+      description:
+        'This workflow is currently running. Please wait for it to complete.',
+    },
+    processing: {
+      icon: <FieldTimeOutlined className="mr2" />,
+      text: 'Processing',
+      description: 'This workflow is currently processing.',
+    },
+  };
+
+  return statuses[status] || null;
 };
