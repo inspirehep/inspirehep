@@ -13,42 +13,11 @@ import './ResultItem.less';
 import ResultItem from '../../../common/components/ResultItem';
 import UnclickableTag from '../../../common/components/UnclickableTag';
 import { BACKOFFICE } from '../../../common/routes';
-import { resolveDecision } from '../../utils/utils';
+import { getWorkflowStatusInfo, resolveDecision } from '../../utils/utils';
+
 
 const renderWorkflowStatus = (status: string) => {
-  const statuses: {
-    [key: string]: { icon: JSX.Element; text: string; description: string };
-  } = {
-    completed: {
-      icon: <CheckOutlined className="mr2" />,
-      text: 'Completed',
-      description: 'This workflow has been completed.',
-    },
-    approval: {
-      icon: <StopOutlined className="mr2" />,
-      text: 'Waiting for approval',
-      description: 'This workflow has been halted until decision is made.',
-    },
-    error: {
-      icon: <WarningOutlined className="mr2" />,
-      text: 'Error',
-      description:
-        'This record is in error state. View record details for more information.',
-    },
-    running: {
-      icon: <LoadingOutlined className="mr2" />,
-      text: 'Running',
-      description:
-        'This workflow is currently running. Please wait for it to complete.',
-    },
-    processing: {
-      icon: <FieldTimeOutlined className="mr2" />,
-      text: 'Processing',
-      description: 'This workflow is currently processing.',
-    },
-  };
-
-  const statusInfo = statuses[status];
+  const statusInfo = getWorkflowStatusInfo(status);
   return statusInfo ? (
     <div>
       <p className={`b ${status.toLowerCase()} mt3`}>

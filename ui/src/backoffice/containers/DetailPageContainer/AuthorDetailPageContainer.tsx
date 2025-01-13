@@ -28,7 +28,7 @@ import {
   columnsAdvisors,
 } from './columnData';
 import { getConfigFor } from '../../../common/config';
-import { resolveDecision } from '../../utils/utils';
+import { getWorkflowStatusInfo, resolveDecision } from '../../utils/utils';
 import DeleteWorkflow from '../../components/DeleteWorkflow/DeleteWorkflow';
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
 import LinkLikeButton from '../../../common/components/LinkLikeButton/LinkLikeButton';
@@ -60,6 +60,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
   const tickets = author?.get('tickets')?.size !== 0 && author?.get('tickets');
   const decision = author?.getIn(['decisions', 0]) as Map<string, any>;
   const status = author?.get('status');
+  const statusInfo = status ? getWorkflowStatusInfo(status.toLowerCase()) : null;
 
   const shouldDisplayDecisionsBox =
     decision || status === 'approval' || (decision && status !== 'approval');
@@ -80,6 +81,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
       resolveAction(id, 'resolve', { value})
     );
   };
+
 
   return (
     <div
@@ -114,7 +116,9 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                         status === 'error' ? 'white' : ''
                       } w-100`}
                     >
-                      <p className="b f3 tc pv2">{status?.toUpperCase()}</p>
+                      <p className="b f3 tc pv2">
+                        {statusInfo ? statusInfo.text : 'Unknown Status'}
+                      </p>
                     </div>
                   </Col>
                 </Row>

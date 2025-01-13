@@ -161,7 +161,7 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
               <p
                 class="b f3 tc pv2"
               >
-                APPROVAL
+                Waiting for approval
               </p>
             </div>
           </div>
