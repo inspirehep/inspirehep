@@ -92,7 +92,7 @@ describe('Links Component', () => {
     expect(getByText(/orcid/i)).toBeInTheDocument();
     expect(getByRole('link', { name: /0000-0002-1825-0097/i })).toHaveAttribute(
       'href',
-      'https://orcid.org/my-orcid?orcid=0000-0002-1825-0097'
+      'https://orcid.org/0000-0002-1825-0097'
     );
     const img = getByRole('img', { hidden: true });
     expect(img).toHaveAttribute('src', orcidLogo);
