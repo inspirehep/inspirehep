@@ -174,6 +174,7 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             name="bluesky"
             label="Bluesky"
             addonBefore="bsky.app/profile/"
+            placeholder="username.bsky.social"
             component={TextField}
           />
           <Field
