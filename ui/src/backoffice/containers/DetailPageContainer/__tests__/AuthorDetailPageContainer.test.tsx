@@ -19,6 +19,8 @@ describe('AuthorDetailPageContainer', () => {
           name: {
             value: 'Doe, John',
             preferred_name: 'Johnny',
+            native_names: ['Name1', 'Name2'],
+            name_variants: ['Name3', 'Name4'],
           },
           status: 'active',
           acquisition_source: {
@@ -105,5 +107,90 @@ describe('AuthorDetailPageContainer', () => {
     );
 
     expect(screen.getByText('Loading ...')).toBeInTheDocument();
+  });
+});
+
+describe('AuthorDetailPageContainer - Name Fields', () => {
+  const renderComponent = (authorData: { [key: string]: any }) => {
+    const store = getStoreWithState({
+      backoffice: fromJS({
+        loading: false,
+        loggedIn: true,
+        author: fromJS({
+          data: authorData,
+          status: 'approval',
+        }),
+      }),
+    });
+
+    return render(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={[`${BACKOFFICE}/1`]}>
+          <AuthorDetailPageContainer />
+        </MemoryRouter>
+      </Provider>
+    );
+  };
+
+  it('should only display name', () => {
+    renderComponent({
+      name: { value: 'Doe, John' },
+    });
+    expect(screen.getAllByText('Doe, John')[0]).toBeInTheDocument();
+    expect(screen.queryByText('Preferred name:')).not.toBeInTheDocument();
+    expect(screen.queryByText('Native names:')).not.toBeInTheDocument();
+    expect(screen.queryByText('Name variants:')).not.toBeInTheDocument();
+  });
+
+  it('should not display missing preferred_name if its missing', () => {
+    renderComponent({
+      name: { value: 'Doe, John', native_names: ['Name1', 'Name2'], name_variants: ['Name3', 'Name4'] },
+    });
+    expect(screen.getAllByText('Doe, John')[0]).toBeInTheDocument();
+    expect(screen.getByText('Native names:')).toBeInTheDocument();
+    expect(screen.getByText('Name1; Name2')).toBeInTheDocument();
+    expect(screen.getByText('Name variants:')).toBeInTheDocument();
+    expect(screen.getByText('Name3; Name4')).toBeInTheDocument();
+    expect(screen.queryByText('Preferred name:')).not.toBeInTheDocument();
+  });
+
+  it('should not display missing name_variants if its missing', () => {
+    renderComponent({
+      name: { value: 'Doe, John', native_names: ['Name1', 'Name2'], preferred_name: 'Name3' },
+    });
+
+    expect(screen.getAllByText('Doe, John')[0]).toBeInTheDocument();
+    expect(screen.getByText('Native names:')).toBeInTheDocument();
+    expect(screen.getByText('Name1; Name2')).toBeInTheDocument();
+    expect(screen.getByText('Preferred name:')).toBeInTheDocument();
+    expect(screen.getByText('Name3')).toBeInTheDocument();
+    expect(screen.queryByText('Name variants:')).not.toBeInTheDocument();
+  });
+
+  it('should not display missing native_names if its missing', () => {
+    renderComponent({
+      name: { value: 'Doe, John', name_variants: ['Name1', 'Name2'], preferred_name: 'Name3' },
+    });
+
+    expect(screen.getAllByText('Doe, John')[0]).toBeInTheDocument();
+    expect(screen.getByText('Name variants:')).toBeInTheDocument();
+    expect(screen.getByText('Name1; Name2')).toBeInTheDocument();
+    expect(screen.getByText('Preferred name:')).toBeInTheDocument();
+    expect(screen.getByText('Name3')).toBeInTheDocument();
+    expect(screen.queryByText('Native names:')).not.toBeInTheDocument();
+  });
+
+  it('should display all name fields if all are present', () => {
+    renderComponent({
+      name: { value: 'Doe, John', native_names: ['Name1', 'Name2'], preferred_name: 'Name3', name_variants: ['Name4', 'Name5'] },
+    });
+
+    expect(screen.getAllByText('Doe, John')[0]).toBeInTheDocument();
+    expect(screen.getByText('Native names:')).toBeInTheDocument();
+    expect(screen.getByText('Name1; Name2')).toBeInTheDocument();
+    expect(screen.getByText('Preferred name:')).toBeInTheDocument();
+    expect(screen.getByText('Name3')).toBeInTheDocument();
+    expect(screen.getByText('Name variants:')).toBeInTheDocument();
+    expect(screen.getByText('Name4; Name5')).toBeInTheDocument();
   });
 });
