@@ -18,7 +18,7 @@ export const columnsInstitutions = [
   {
     title: 'End date',
     dataIndex: 'end_date',
-    render: (end: string) => (!end ? 'Present' : end),
+    render: (end: string) => (!end ? '-' : end),
   },
   {
     title: 'Rank',
