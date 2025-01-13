@@ -320,22 +320,20 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
                 description="The response when the record contains validation errors.",
                 response_only=True,
                 status_codes=["400"],
-                value={
-                    "message": [
-                        {
-                            "message": (
-                                "Additional properties are not allowed"
-                                "('affiliations', 'email' were unexpected)"
-                            ),
-                            "path": [],
-                        },
-                        {"message": "'' is not of type 'object'", "path": ["name"]},
-                        {
-                            "message": "'_collections' is a required property",
-                            "path": [],
-                        },
-                    ]
-                },
+                value=[
+                    {
+                        "message": (
+                            "Additional properties are not allowed"
+                            "('affiliations', 'email' were unexpected)"
+                        ),
+                        "path": [],
+                    },
+                    {"message": "'' is not of type 'object'", "path": ["name"]},
+                    {
+                        "message": "'_collections' is a required property",
+                        "path": [],
+                    },
+                ],
             ),
             OpenApiExample(
                 name="Schema not found",
@@ -365,7 +363,7 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
                     validation_errors
                 )
                 return Response(
-                    {"message": validation_errors_msg},
+                    validation_errors_msg,
                     status=status.HTTP_400_BAD_REQUEST,
                 )
         except (SchemaNotFound, SchemaKeyNotFound) as e:

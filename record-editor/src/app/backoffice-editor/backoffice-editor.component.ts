@@ -20,7 +20,12 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SchemaValidationProblems } from 'ng2-json-editor';
 
@@ -50,6 +55,7 @@ export class BackofficeEditorComponent extends SubscriberComponent implements On
   uuid: string;
 
   constructor(
+    private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
     private apiService: BackofficeApiService,
     private appConfigService: AppConfigService,
@@ -81,6 +87,22 @@ export class BackofficeEditorComponent extends SubscriberComponent implements On
         this.workflowObject.metadata
       );
     });
+
+    this.globalAppStateService.jsonBeingEdited$
+      .skip(1)
+      .takeUntil(this.isDestroyed)
+      .subscribe(json => {
+        this.workflowObject = json as WorkflowObject;
+        this.setWorkflowProblems();
+        this.changeDetectorRef.markForCheck();
+      });
+
+    this.appConfigService.onConfigChange
+      .takeUntil(this.isDestroyed)
+      .subscribe(config => {
+        this.config = Object.assign({}, config);
+        this.changeDetectorRef.markForCheck();
+      });
   }
 
   private setWorkflowProblems() {

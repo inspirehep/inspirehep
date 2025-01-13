@@ -27,7 +27,7 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SchemaValidationProblems, ValidationProblem } from 'ng2-json-editor';
+import { SchemaValidationProblems } from 'ng2-json-editor';
 import { ToastrService } from 'ngx-toastr';
 
 import {
