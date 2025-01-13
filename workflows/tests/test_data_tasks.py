@@ -68,6 +68,8 @@ class TestDataHarvest:
             == "https://inspirehep.net/api/literature/1906174"
         )
 
+        assert res["literature"][0]["doi"] == "10.1103/PhysRevD.104.112010"
+
         assert res["dois"][0]["value"] == "10.17182/hepdata.104458"
         assert res["dois"][0]["material"] == "data"
 
