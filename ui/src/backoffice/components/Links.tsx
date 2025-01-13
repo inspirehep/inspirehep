@@ -35,7 +35,7 @@ function getLinkData(schema: string, value: string) {
     }
     case 'ORCID':
       return {
-        href: `https://orcid.org/my-orcid?orcid=${value}`,
+        href: `https://orcid.org/${value}`,
         icon: (
           <img
             src={orcidLogo}
