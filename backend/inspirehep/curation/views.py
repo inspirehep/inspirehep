@@ -86,13 +86,13 @@ def add_keywords(args, pid_value):
 @parser.use_args(
     {
         "collaborations": fields.List(fields.Dict, required=True),
-        "workflow_id": fields.Int(required=True),
+        "workflow_id": fields.Int(required=False),
     },
     locations=("json",),
 )
 def collaborations_normalization(args):
     normalized_collaborations = normalize_collaborations(
-        args["collaborations"], args["workflow_id"]
+        args["collaborations"], args.get("workflow_id")
     )
     return jsonify(normalized_collaborations)
 

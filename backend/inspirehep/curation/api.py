@@ -21,7 +21,7 @@ from inspirehep.curation.utils import (
 LOGGER = structlog.getLogger()
 
 
-def normalize_collaborations(collaborations, wf_id):
+def normalize_collaborations(collaborations, wf_id=None):
     multi_search = collaboration_multi_search_query(collaborations)
     accelerator_experiments = []
     try:
@@ -47,7 +47,7 @@ def normalize_collaborations(collaborations, wf_id):
         if "record" in collaboration:
             continue
         matched_collaboration_name = find_collaboration_in_multisearch_response(
-            collaboration_response, subgroup_response, wf_id, collaboration
+            collaboration_response, subgroup_response, collaboration, wf_id
         )
         if not matched_collaboration_name:
             continue

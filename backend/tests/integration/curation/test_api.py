@@ -17,6 +17,17 @@ from inspirehep.curation.api import (
 )
 
 
+@pytest.mark.usefixtures("_insert_experiments_into_db")
+def test_normalize_collaborations_wo_wf_id(inspire_app):
+    res = normalize_collaborations([{"value": "ATLAS Muon"}])
+
+    assert (
+        res["accelerator_experiments"][0]["record"]["$ref"]
+        == "http://localhost:5000/api/experiments/1108541"
+    )
+    assert res["accelerator_experiments"][0]["legacy_name"] == "CERN-LHC-ATLAS"
+
+
 def create_records_from_datadir(datadir, record_type, path_in_datadir):
     experiments_path = os.path.join(datadir, path_in_datadir)
     for record_filename in os.listdir(experiments_path):
