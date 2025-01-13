@@ -129,6 +129,18 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                         {data?.getIn(['name', 'preferred_name'])}
                       </p>
                     )}
+                    {data?.getIn(['name', 'native_names']) && (
+                      <p>
+                        <b>Native names:</b>{' '}
+                        {data.getIn(['name', 'native_names']).join('; ')}
+                      </p>
+                    )}
+                    {data?.getIn(['name', 'name_variants']) && (
+                      <p>
+                        <b>Name variants:</b>{' '}
+                        {data.getIn(['name', 'name_variants']).join('; ')}
+                      </p>
+                    )}
                     {data?.get('status') && (
                       <p
                         className={classNames({
