@@ -164,7 +164,7 @@ def find_subgroup(subgroup, experiment):
 
 
 def find_collaboration_in_multisearch_response(
-    collaboration_response, subgroup_response, wf_id, collaboration
+    collaboration_response, subgroup_response, collaboration, wf_id=None
 ):
     response = collaboration_response or subgroup_response
     if not response:

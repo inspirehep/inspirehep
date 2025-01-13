@@ -197,15 +197,10 @@ def data_harvest_dag():
             if not collaborations:
                 return record
 
-            payload = {
-                "collaborations": collaborations,
-                "workflow_id": record["acquisition_source"]["submission_number"],
-            }
-
             response = inspire_http_hook.call_api(
                 endpoint="api/curation/literature/collaborations-normalization",
                 method="GET",
-                data=payload,
+                data={"collaborations": collaborations},
             )
             response.raise_for_status()
             obj_accelerator_experiments = record.get("accelerator_experiments", [])
