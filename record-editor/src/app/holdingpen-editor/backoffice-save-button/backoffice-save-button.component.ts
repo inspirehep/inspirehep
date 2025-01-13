@@ -123,7 +123,7 @@ export class BackofficeSaveButtonComponent
       (error) => {
         this.workflowObject._extra_data['validation_errors'] = error.body;
         this.jsonBeingEdited$.next(this.workflowObject);
-        this.displayErrorToast(error);
+        this.displayErrorToast();
       },
       () => {
         this.save();
@@ -141,14 +141,13 @@ export class BackofficeSaveButtonComponent
           this.toastrService.success(`Workflow object is saved`, 'Success');
         },
         (error) => {
-          this.displayErrorToast(error);
+          this.displayErrorToast();
         }
       );
   }
 
-  private displayErrorToast(error: ApiError) {
+  private displayErrorToast() {
     this.toastrService.clear(this.savingInfoToast.toastId);
-    const errorMessage = error.message || 'Could not save the workflow object';
-    this.toastrService.error(errorMessage, 'Error');
+    this.toastrService.error('Could not save the workflow object', 'Error');
   }
 }

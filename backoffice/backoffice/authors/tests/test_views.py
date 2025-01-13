@@ -581,17 +581,15 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             "api:authors-validate",
         )
         response = self.api_client.post(url, format="json", data=data)
-        expected_response = {
-            "message": [
-                {
-                    "message": (
-                        "'Gooding, James, James Andrew, Jamie.' "
-                        "does not match '^[^,]+(,[^,]+)?(,?[^,]+)?$'"
-                    ),
-                    "path": ["name", "value"],
-                },
-            ]
-        }
+        expected_response = [
+            {
+                "message": (
+                    "'Gooding, James, James Andrew, Jamie.' "
+                    "does not match '^[^,]+(,[^,]+)?(,?[^,]+)?$'"
+                ),
+                "path": ["name", "value"],
+            },
+        ]
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json(), expected_response)
 
