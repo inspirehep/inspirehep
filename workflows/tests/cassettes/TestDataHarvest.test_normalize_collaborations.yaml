@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: '{"collaborations": [{"value": "ETM"}], "workflow_id": "123"}'
+    body: '{"collaborations": [{"value": "ETM"}]}'
     headers:
       Accept:
       - application/vnd+inspire.record.raw+json
@@ -9,7 +9,7 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '60'
+      - '38'
       Content-Type:
       - application/json
     method: GET
@@ -27,7 +27,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 09 Jan 2025 13:37:36 GMT
+      - Tue, 14 Jan 2025 15:15:10 GMT
       Server:
       - nginx/1.19.1
     status:
