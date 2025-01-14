@@ -521,6 +521,24 @@ DATA.update(
     }
 )
 
+DATA_AUTHORS = deepcopy(DATA)
+DATA_AUTHORS.update(
+    {
+        "default_endpoint_prefix": False,
+        "search_factory_imp": (
+            "inspirehep.search.factories.search:search_factory_only_with_aggs"
+        ),
+        "pid_type": "dat",
+        "list_route": "/data/authors/",
+        "item_route": '/data/<inspirepid(dat,record_class="inspirehep.records.api.DataRecord"):pid_value>/authors',
+        "record_serializers": {
+            "application/json": (f"{INSPIRE_SERIALIZERS}:data_authors_json_response")
+        },
+        "search_serializers": {
+            "application/json": "invenio_records_rest.serializers:json_v1_search"
+        },
+    }
+)
 INSTITUTIONS = deepcopy(RECORD)
 INSTITUTIONS.update(
     {
@@ -623,6 +641,7 @@ RECORDS_REST_ENDPOINTS = {
     "conferences": CONFERENCES,
     "conferences_facets": CONFERENCES_FACETS,
     "data": DATA,
+    "data_authors": DATA_AUTHORS,
     "institutions": INSTITUTIONS,
     "seminars": SEMINARS,
     "seminars_facets": SEMINARS_FACETS,

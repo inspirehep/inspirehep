@@ -236,3 +236,135 @@ def test_data_detail_citation_count(inspire_app):
     response_metadata = response.json["metadata"]
 
     assert expected_citation_count == response_metadata["citation_count"]
+
+
+def test_data_detail_schema_limits_authors(inspire_app):
+    with inspire_app.test_client() as client:
+        headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+        authors = [{"full_name": f"Author {i}"} for i in range(15)]
+        data_record = create_record("dat", data={"authors": authors})
+
+        response = client.get(f"/data/{data_record['control_number']}", headers=headers)
+
+        response_metadata = response.json["metadata"]
+        assert "authors" in response_metadata
+        assert len(response_metadata["authors"]) == 10
+        assert response_metadata["number_of_authors"] == 15
+
+
+def test_data_detail_schema_fetches_for_author_count(inspire_app):
+    with inspire_app.test_client() as client:
+        headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+
+        literature_authors = [{"full_name": f"Author {i}"} for i in range(15)]
+        lit_record = create_record("lit", data={"authors": literature_authors})
+
+        data_record = create_record(
+            "dat",
+            data={
+                "literature": [
+                    {
+                        "record": {
+                            "$ref": f"http://localhost:5000/api/literature/{lit_record['control_number']}"
+                        }
+                    }
+                ]
+            },
+        )
+
+        response = client.get(f"/data/{data_record['control_number']}", headers=headers)
+        response_metadata = response.json["metadata"]
+        assert "authors" not in response_metadata
+        assert response_metadata["number_of_authors"] == 15
+
+
+def test_data_public_schema_does_not_limit_authors(inspire_app):
+    with inspire_app.test_client() as client:
+        authors = [{"full_name": f"Author {i}"} for i in range(15)]
+        data_record = create_record("dat", data={"authors": authors})
+
+        response = client.get(f"/data/{data_record['control_number']}")
+
+        response_metadata = response.json["metadata"]
+
+        assert "authors" in response_metadata
+        assert len(response_metadata["authors"]) == 15
+
+
+def test_data_authors_schema(inspire_app):
+    with inspire_app.test_client() as client:
+        headers = {"Accept": "application/json"}
+        authors = [{"full_name": f"Author {i}"} for i in range(15)]
+        data_record = create_record("dat", data={"authors": authors})
+
+        response = client.get(
+            f"/data/{data_record['control_number']}/authors", headers=headers
+        )
+
+        response_metadata = response.json["metadata"]
+        assert "authors" in response_metadata
+        assert len(response_metadata["authors"]) == 15
+
+
+def test_data_author_schema_fetches_from_linked_literature(inspire_app):
+    with inspire_app.test_client() as client:
+        headers = {"Accept": "application/json"}
+        literature_authors = [{"full_name": f"Author {i}"} for i in range(15)]
+        lit_record = create_record("lit", data={"authors": literature_authors})
+
+        data_record = create_record(
+            "dat",
+            data={
+                "literature": [
+                    {
+                        "record": {
+                            "$ref": f"http://localhost:5000/api/literature/{lit_record['control_number']}"
+                        }
+                    }
+                ]
+            },
+        )
+
+        response = client.get(
+            f"/data/{data_record['control_number']}/authors", headers=headers
+        )
+        response_metadata = response.json["metadata"]
+        assert "authors" in response_metadata
+        assert len(response_metadata["authors"]) == 15
+
+
+def test_data_elasticsearch_schema_limits_authors(inspire_app):
+    with inspire_app.test_client() as client:
+        authors = [{"full_name": f"Author {i}"} for i in range(15)]
+        create_record("dat", data={"authors": authors})
+
+        response = client.get("/data/")
+        response_data_hit = response.json["hits"]["hits"][0]["metadata"]
+        assert "authors" in response_data_hit
+        assert len(response_data_hit["authors"]) == 10
+        assert "number_of_authors" not in response_data_hit
+
+
+def test_data_elasticsearch_schema_fetches_from_linked_literature(inspire_app):
+    with inspire_app.test_client() as client:
+        literature_authors = [{"full_name": f"Author {i}"} for i in range(15)]
+        lit_record = create_record("lit", data={"authors": literature_authors})
+
+        create_record(
+            "dat",
+            data={
+                "literature": [
+                    {
+                        "record": {
+                            "$ref": f"http://localhost:5000/api/literature/{lit_record['control_number']}"
+                        }
+                    }
+                ]
+            },
+        )
+
+        response = client.get("/data/")
+        response_data_hit = response.json["hits"]["hits"][0]["metadata"]
+        assert "authors" in response_data_hit
+        assert len(response_data_hit["authors"]) == 10
+        assert "number_of_authors" not in response_data_hit

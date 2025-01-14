@@ -6,6 +6,7 @@
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.records.marshmallow.base import wrap_schema_class_with_metadata
+from inspirehep.records.marshmallow.data.authors import DataAuthorsSchema
 from inspirehep.records.marshmallow.data.base import (
     DataAdminSchema,
     DataPublicSchema,
@@ -47,3 +48,8 @@ data_json_list = JSONSerializer(
 data_json_list_response = search_responsify(
     data_json_list, "application/vnd+inspire.record.ui+json"
 )
+
+# Data Authors
+data_authors_json = JSONSerializer(wrap_schema_class_with_metadata(DataAuthorsSchema))
+
+data_authors_json_response = record_responsify(data_authors_json, "application/json")
