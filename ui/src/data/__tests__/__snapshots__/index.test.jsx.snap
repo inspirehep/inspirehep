@@ -1,21 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Data renders initial state 1`] = `
-<div
-  className="__Data__ w-100"
-  data-testid="data"
->
-  <SafeSwitch>
-    <Route
-      component={[Function]}
-      exact={true}
-      path="/data"
-    />
-    <Route
-      component={[Function]}
-      exact={true}
-      path="/data/:id"
-    />
-  </SafeSwitch>
-</div>
+<DocumentFragment>
+  <div
+    class="__Data__ w-100"
+    data-testid="data"
+  />
+</DocumentFragment>
 `;

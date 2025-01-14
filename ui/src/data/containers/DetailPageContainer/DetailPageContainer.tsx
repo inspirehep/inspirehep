@@ -4,10 +4,7 @@ import { connect, RootStateOrAny } from 'react-redux';
 import { Col, Row } from 'antd';
 import { List } from 'immutable';
 import './DetailPage.less';
-import {
-  isCataloger,
-  isSuperUser,
-} from '../../../common/authorization';
+import { isCataloger, isSuperUser } from '../../../common/authorization';
 
 import fetchData from '../../../actions/data';
 import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
@@ -46,7 +43,7 @@ const DetailPage = ({
 
   return (
     <>
-      <Row justify="center">
+      <Row justify="center" data-testid="detail-page-container">
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
             className="sm-pb3"
