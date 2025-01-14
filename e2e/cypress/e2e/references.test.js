@@ -117,7 +117,9 @@ describe('Reference container', () => {
         .find('[data-test-id="edit-reference"]')
         .as('editButton');
 
-      cy.get('@editButton', { timeout: 10000 }).click();
+      cy.get('@editButton', { timeout: 10000 })
+        .should('not.be.disabled')
+        .click();
 
       cy.get('[data-test-id="reference-embedded-search"]')
         .find('.ant-input-search-button')
@@ -176,7 +178,9 @@ describe('Reference container', () => {
         .find('[data-test-id="edit-reference"]')
         .as('editButton');
 
-      cy.get('@editButton', { timeout: 10000 }).click();
+      cy.get('@editButton', { timeout: 10000 })
+        .should('not.be.disabled')
+        .click();
 
       cy.get('[data-test-id="reference-embedded-search')
         .find('.ant-input-search-button')
@@ -245,7 +249,9 @@ describe('Reference container', () => {
         .find('[data-test-id="edit-reference"]')
         .as('editButton');
 
-      cy.get('@editButton', { timeout: 10000 }).click();
+      cy.get('@editButton', { timeout: 10000 })
+        .should('not.be.disabled')
+        .click();
       cy.get('[data-test-id="reference-embedded-search')
         .find('.ant-input-search-button')
         .click();
