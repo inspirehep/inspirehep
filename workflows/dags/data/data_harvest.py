@@ -88,7 +88,7 @@ def data_harvest_dag():
             return record
 
         @task.virtualenv(
-            requirements=["inspire-schemas"],
+            requirements=["inspire-schemas==61.6.9"],
             system_site_packages=False,
         )
         def build_record(data_schema, inspire_url, payload, **context):
@@ -146,7 +146,7 @@ def data_harvest_dag():
 
             if doi:
                 builder.add_literature(
-                    doi={"value": doi},
+                    doi=doi,
                     record={"$ref": f"{inspire_url}/api/literature/{inspire_id}"},
                 )
             else:
