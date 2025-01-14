@@ -1,89 +1,117 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DOIListShowAll renders correctly with data and other dois 1`] = `
-<Fragment>
-  <Row>
-    <Col>
-      <DOIList
-        dois={
-          Immutable.List [
-            Immutable.Map {
-              "material": "data",
-              "value": "doi1",
-            },
-            Immutable.Map {
-              "material": "data",
-              "value": "doi2",
-            },
-          ]
-        }
-        showLabel={true}
-      />
-    </Col>
-    <div
-      className="di pl1"
-    >
-      <SecondaryButton
-        onClick={[Function]}
-      >
-        Show All(
-        3
-        )
-      </SecondaryButton>
-    </div>
-  </Row>
-  <Modal
-    footer={null}
-    onCancel={[Function]}
-    open={false}
-    title="3 DOIs"
-    width="50%"
+<DocumentFragment>
+  <div
+    class="ant-row"
   >
-    <DOIList
-      dois={
-        Immutable.List [
-          Immutable.Map {
-            "material": "data",
-            "value": "doi1",
-          },
-          Immutable.Map {
-            "material": "data",
-            "value": "doi2",
-          },
-          Immutable.Map {
-            "material": "article",
-            "value": "doi3",
-          },
-        ]
-      }
-      showLabel={false}
-    />
-  </Modal>
-</Fragment>
+    <div
+      class="ant-col"
+    >
+      <div
+        class="__InlineList__"
+      >
+        <span
+          class=""
+        >
+          DOI: 
+        </span>
+        <ul>
+          <li>
+            <span>
+              <a
+                href="//doi.org/doi1"
+                target="_blank"
+              >
+                doi1
+              </a>
+              <span>
+                 (data)
+              </span>
+            </span>
+            , 
+          </li>
+          <li>
+            <span>
+              <a
+                href="//doi.org/doi2"
+                target="_blank"
+              >
+                doi2
+              </a>
+              <span>
+                 (data)
+              </span>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div
+      class="di pl1"
+    >
+      <button
+        class="__SecondaryButton__"
+        type="button"
+      >
+        Show All(3)
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`DOIListShowAll renders correctly with dataDois only 1`] = `
-<Row>
-  <Col>
-    <DOIList
-      dois={
-        Immutable.List [
-          Immutable.Map {
-            "material": "data",
-            "value": "doi1",
-          },
-          Immutable.Map {
-            "material": "data",
-            "value": "doi2",
-          },
-        ]
-      }
-      showLabel={true}
-    />
-  </Col>
-</Row>
+<DocumentFragment>
+  <div
+    class="ant-row"
+  >
+    <div
+      class="ant-col"
+    >
+      <div
+        class="__InlineList__"
+      >
+        <span
+          class=""
+        >
+          DOI: 
+        </span>
+        <ul>
+          <li>
+            <span>
+              <a
+                href="//doi.org/doi1"
+                target="_blank"
+              >
+                doi1
+              </a>
+              <span>
+                 (data)
+              </span>
+            </span>
+            , 
+          </li>
+          <li>
+            <span>
+              <a
+                href="//doi.org/doi2"
+                target="_blank"
+              >
+                doi2
+              </a>
+              <span>
+                 (data)
+              </span>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`DOIListShowAll renders correctly with default props 1`] = `""`;
+exports[`DOIListShowAll renders correctly with default props 1`] = `<DocumentFragment />`;
 
-exports[`DOIListShowAll renders correctly with no dataDois 1`] = `""`;
+exports[`DOIListShowAll renders correctly with no dataDois 1`] = `<DocumentFragment />`;

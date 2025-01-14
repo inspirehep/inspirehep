@@ -27,7 +27,9 @@ const DOIListShowAll = ({ dois }) => {
     return (
       <>
         <Row>
-          <Col><DOIList dois={dataDois} /></Col>
+          <Col>
+            <DOIList dois={dataDois} />
+          </Col>
           <div className="di pl1">
             <SecondaryButton onClick={onModalOpen}>
               Show All({dois.size})
@@ -50,9 +52,11 @@ const DOIListShowAll = ({ dois }) => {
   if (hasDataDois) {
     return (
       <Row>
-        <Col><DOIList dois={dataDois} /></Col>
+        <Col>
+          <DOIList dois={dataDois} />
+        </Col>
       </Row>
-    )
+    );
   }
 
   return null;
