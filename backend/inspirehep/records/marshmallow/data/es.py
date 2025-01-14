@@ -20,7 +20,7 @@ class DataElasticSearchSchema(ElasticSearchBaseSchema, DataRawSchema):
     number_of_authors = fields.Method("get_number_of_authors")
 
     def fetch_authors_from_literature(self, data):
-        literature = data.get("literature", [])
+        literature = get_value(data, "literature")
         if literature:
             control_number = get_recid_from_ref(get_value(literature[0], "record"))
             if control_number:
