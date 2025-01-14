@@ -68,6 +68,9 @@ class TestDataHarvest:
             == "https://inspirehep.net/api/literature/1906174"
         )
 
+        result = sorted(res["literature"], key=lambda x: x["doi"]["value"])
+        assert result[0]["doi"]["value"] == "10.1103/PhysRevD.104.112010"
+
         assert res["dois"][0]["value"] == "10.17182/hepdata.104458"
         assert res["dois"][0]["material"] == "data"
 
