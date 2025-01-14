@@ -6,7 +6,7 @@ import { List } from 'immutable';
 import './DetailPage.less';
 import { isSuperUser } from '../../../common/authorization';
 
-import fetchData from '../../../actions/data';
+import fetchData, { fetchDataAuthors } from '../../../actions/data';
 import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
 import ContentBox from '../../../common/components/ContentBox';
 import LiteratureTitle from '../../../common/components/LiteratureTitle';
@@ -21,18 +21,19 @@ import { getReferencingPapersQueryString } from '../../utils';
 
 interface DetailPageProps {
   result: any; // TODO: define proper type for result
+  authors: List<any>;
   isCatalogerLoggedIn: boolean;
   isSuperUserLoggedIn: boolean;
 }
 
 const DetailPage = ({
   result,
+  authors,
   isSuperUserLoggedIn,
 }: DetailPageProps) => {
   const metadata = result.get('metadata');
   const title = metadata.getIn(['titles', 0]);
   const abstract = metadata.getIn(['abstracts', 0]);
-  const authors = metadata.get('authors');
   const authorCount = (authors && authors.size) || 0;
   const dois = metadata.get('dois', List());
   const recordId = metadata.get('control_number');
@@ -118,6 +119,7 @@ const DetailPage = ({
 
 const mapStateToProps = (state: RootStateOrAny) => ({
   result: state.data.get('data'),
+  authors: state.data.get('authors'),
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 
@@ -125,6 +127,6 @@ const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: (id) => [fetchData(id)],
+  routeActions: (id) => [fetchData(id), fetchDataAuthors(id)],
   loadingStateSelector: (state) => !state.data.hasIn(['data', 'metadata']),
 });

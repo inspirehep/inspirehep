@@ -47,6 +47,7 @@ from .json import (
     seminars_json_response,
     seminars_json_response_search,
     data_json_detail_response,
+    data_authors_json_response,
     data_json_list_response,
     data_json_response,
     data_json_response_search,

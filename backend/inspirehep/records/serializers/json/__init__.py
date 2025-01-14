@@ -60,6 +60,7 @@ from .seminars import (
 )
 from .data import (
     data_json_detail_response,
+    data_authors_json_response,
     data_json_list_response,
     data_json_response,
     data_json_response_search,

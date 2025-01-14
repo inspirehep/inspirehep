@@ -49,40 +49,7 @@ exports[`DetailPageContainer renders initial state 1`] = `
                         </span>
                       </span>
                     </h2>
-                    <div>
-                      <div
-                        class="__InlineList__ di"
-                      >
-                        <ul>
-                          <li>
-                            <div
-                              class="di"
-                            >
-                              <span />
-                              <span
-                                class="pl1 secondary-color"
-                              >
-                                (
-                                <div
-                                  class="__InlineList__ di"
-                                >
-                                  <ul>
-                                    <li>
-                                      <a
-                                        href="/institutions/12346"
-                                      >
-                                        ut
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </div>
-                                )
-                              </span>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
+                    <div />
                   </div>
                 </div>
                 <div
@@ -282,40 +249,7 @@ exports[`DetailPageContainer renders with \`0\` citation count 1`] = `
                         </span>
                       </span>
                     </h2>
-                    <div>
-                      <div
-                        class="__InlineList__ di"
-                      >
-                        <ul>
-                          <li>
-                            <div
-                              class="di"
-                            >
-                              <span />
-                              <span
-                                class="pl1 secondary-color"
-                              >
-                                (
-                                <div
-                                  class="__InlineList__ di"
-                                >
-                                  <ul>
-                                    <li>
-                                      <a
-                                        href="/institutions/12346"
-                                      >
-                                        ut
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </div>
-                                )
-                              </span>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
+                    <div />
                   </div>
                 </div>
                 <div
