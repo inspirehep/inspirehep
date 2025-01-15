@@ -6,11 +6,11 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { BACKOFFICE } from '../../../../common/routes';
 import AuthorDetailPageContainer from '../AuthorDetailPageContainer';
-import { getStoreWithState } from '../../../../fixtures/store';
+import { getStore } from '../../../../fixtures/store';
 import { BACKOFFICE_RESOLVE_ACTION_REQUEST } from '../../../../actions/actionTypes';
 
 describe('AuthorDetailPageContainer', () => {
-  const store = getStoreWithState({
+  const store = getStore({
     backoffice: fromJS({
       loading: false,
       loggedIn: true,
@@ -92,7 +92,7 @@ describe('AuthorDetailPageContainer', () => {
   });
 
   it('should show the loading spinner when loading is true', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       backoffice: fromJS({
         loading: true,
       }),
@@ -112,7 +112,7 @@ describe('AuthorDetailPageContainer', () => {
 
 describe('AuthorDetailPageContainer - Name Fields', () => {
   const renderComponent = (authorData: { [key: string]: any }) => {
-    const store = getStoreWithState({
+    const store = getStore({
       backoffice: fromJS({
         loading: false,
         loggedIn: true,

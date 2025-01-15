@@ -116,7 +116,8 @@ describe('Reference container', () => {
       cy.get('@referenceItem')
         .find('[data-test-id="edit-reference"]')
         .as('editButton');
-
+        
+      cy.wait(3000);
       cy.get('@editButton', { timeout: 10000 })
         .should('not.be.disabled')
         .click();
@@ -178,6 +179,7 @@ describe('Reference container', () => {
         .find('[data-test-id="edit-reference"]')
         .as('editButton');
 
+      cy.wait(3000);
       cy.get('@editButton', { timeout: 10000 })
         .should('not.be.disabled')
         .click();
@@ -249,6 +251,7 @@ describe('Reference container', () => {
         .find('[data-test-id="edit-reference"]')
         .as('editButton');
 
+      cy.wait(3000);
       cy.get('@editButton', { timeout: 10000 })
         .should('not.be.disabled')
         .click();
