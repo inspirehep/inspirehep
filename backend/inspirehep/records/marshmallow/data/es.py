@@ -33,13 +33,16 @@ class DataElasticSearchSchema(ElasticSearchBaseSchema, DataRawSchema):
                 return literature_record[0].to_dict().get("authors", [])
 
     def get_number_of_authors(self, data):
-        authors = self.fetch_authors_from_literature(data)
+        authors = data.get("authors")
+        if not authors:
+            authors = self.fetch_authors_from_literature(data)
         return self.get_len_or_missing(authors)
 
     def dump(self, obj, *args, **kwargs):
-        fetched_authors = self.fetch_authors_from_literature(obj)
-        if fetched_authors:
-            obj["authors"] = fetched_authors[:10]
+        if not obj.get("authors"):
+            authors = self.fetch_authors_from_literature(obj)
+            if authors:
+                obj["authors"] = authors
         return super().dump(obj, *args, **kwargs)
 
     @staticmethod
