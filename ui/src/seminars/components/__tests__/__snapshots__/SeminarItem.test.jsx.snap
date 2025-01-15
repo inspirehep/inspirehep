@@ -324,7 +324,7 @@ exports[`SeminarItem renders with selected timezone with a different time than l
         startDate="2020-05-15T11:45:00.000000"
         timezone="America/Chicago"
       />
-       
+
       (
       <SeminarDateTimes
         displayTimezone={true}

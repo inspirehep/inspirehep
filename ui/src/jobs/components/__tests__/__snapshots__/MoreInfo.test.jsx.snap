@@ -3,7 +3,7 @@
 exports[`MoreInfo renders with urls 1`] = `
 <div>
   <strong>
-    More Information: 
+    More Information:
   </strong>
   <URLList
     urls={

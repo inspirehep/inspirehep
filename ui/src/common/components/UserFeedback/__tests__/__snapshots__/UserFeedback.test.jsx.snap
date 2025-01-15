@@ -37,7 +37,7 @@ exports[`UserFeedback calls trackEvent with feedback on modal Ok and renders tha
       </div>
       <div>
         For further feedback, please
-         
+
         <LinkWithTargetBlank
           as="a"
           href="https://forms.gle/ZQi31GvXXHcsgXgM6"
@@ -161,14 +161,14 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
             </p>
             <p>
               Alternatively, you could send us your feedback using the
-               
+
               <LinkWithTargetBlank
                 as="a"
                 href="https://forms.gle/ZQi31GvXXHcsgXgM6"
               >
                 feedback form
               </LinkWithTargetBlank>
-               
+
               or
               <a
                 href="https://help.inspirehep.net/knowledge-base/contact-us"

@@ -77,12 +77,12 @@ exports[`CheckboxAggregation render initial state with bucketHelp 1`] = `
           data-test-id="checkbox-aggregation-option-bucket1"
         >
           bucket1
-           
+
           <HelpIconTooltip
             help={
               <React.Fragment>
                 Published papers are believed to have undergone rigorous peer review.
-                 
+
                 <LinkWithTargetBlank
                   as="a"
                   href="https://inspirehep.net/info/faq/general#published"
@@ -117,12 +117,12 @@ exports[`CheckboxAggregation render initial state with bucketHelp 1`] = `
           data-test-id="checkbox-aggregation-option-bucket2"
         >
           bucket2
-           
+
           <HelpIconTooltip
             help={
               <React.Fragment>
                 Published papers are believed to have undergone rigorous peer review.
-                 
+
               </React.Fragment>
             }
           />
@@ -151,11 +151,11 @@ exports[`CheckboxAggregation render initial state with bucketHelp 1`] = `
           data-test-id="checkbox-aggregation-option-bucket3"
         >
           bucket3
-           
+
           <HelpIconTooltip
             help={
               <React.Fragment>
-                 
+
                 <LinkWithTargetBlank
                   as="a"
                   href="https://inspirehep.net/info/faq/general#published"
@@ -781,7 +781,7 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
   <SecondaryButton
     onClick={[Function]}
   >
-    Show 
+    Show
     1
      more
   </SecondaryButton>

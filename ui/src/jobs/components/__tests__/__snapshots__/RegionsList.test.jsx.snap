@@ -9,7 +9,7 @@ exports[`RegionsList renders regions 1`] = `
       key="Asia-0"
     >
       Asia
-      , 
+      ,
     </li>
     <li
       key="North America-2"

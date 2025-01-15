@@ -43,7 +43,7 @@ exports[`PublicationInfo renders either page start/end or artid 1`] = `
     ,
   </span>
   <span>
-     
+
     1-10
   </span>
 </span>
@@ -65,7 +65,7 @@ exports[`PublicationInfo renders only page_start when page_end is not available 
     ,
   </span>
   <span>
-     
+
     1
   </span>
 </span>
@@ -86,7 +86,7 @@ exports[`PublicationInfo renders with journal_title and alll others fields 1`] =
     }
   />
   <span>
-     
+
     1-2
   </span>
 </span>
@@ -108,7 +108,7 @@ exports[`PublicationInfo renders with journal_title and alll others fields 2`] =
     }
   />
   <span>
-     
+
     1-2
   </span>
 </span>

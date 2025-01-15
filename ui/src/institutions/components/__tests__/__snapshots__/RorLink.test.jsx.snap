@@ -2,7 +2,7 @@
 
 exports[`RorLink renders 1`] = `
 <span>
-  ROR Record: 
+  ROR Record:
   <LinkWithTargetBlank
     as="a"
     href="https://ror123.org"

@@ -12,7 +12,7 @@ exports[`ExistingConferencesDrawer renders drawer with number of conferences 1`]
     <strong>
       5
     </strong>
-     
+
     conferences
      found in these dates:
   </p>

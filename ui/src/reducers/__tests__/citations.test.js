@@ -63,8 +63,8 @@ describe('citations reducer', () => {
       aggregations: {
         citations_by_year: {
           value: {
-            '1993': 21,
-            '2000': 12,
+            1993: 21,
+            2000: 12,
           },
         },
       },

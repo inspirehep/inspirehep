@@ -9,14 +9,9 @@ import date from '../../common/schemas/date';
 import { DATE_RANGE_FORMAT } from '../../../common/constants';
 
 const conferenceSchema = object().shape({
-  name: string()
-    .trim()
-    .required()
-    .label('Conference Name'),
+  name: string().trim().required().label('Conference Name'),
   subtitle: string(),
-  acronyms: array()
-    .default([''])
-    .of(string().nullable()),
+  acronyms: array().default(['']).of(string().nullable()),
   series_name: string(),
   series_number: number().label('Series Number'),
   dates: array()
@@ -30,14 +25,8 @@ const conferenceSchema = object().shape({
     .default([{}])
     .of(
       object().shape({
-        city: string()
-          .trim()
-          .required()
-          .label('City'),
-        country: string()
-          .oneOf(countryValues)
-          .required()
-          .label('Country'),
+        city: string().trim().required().label('City'),
+        country: string().oneOf(countryValues).required().label('Country'),
         state: string(),
         venue: string(),
       })
@@ -50,18 +39,11 @@ const conferenceSchema = object().shape({
     .label('Field of Interest'),
   websites: array()
     .default([''])
-    .of(
-      string()
-        .nullable()
-        .url()
-        .label('Website')
-    ),
+    .of(string().nullable().url().label('Website')),
   contacts: contacts(),
   description: string(),
   additional_info: string(),
-  keywords: array()
-    .default([''])
-    .of(string().nullable()),
+  keywords: array().default(['']).of(string().nullable()),
 });
 
 export default conferenceSchema;

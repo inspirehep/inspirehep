@@ -19,7 +19,7 @@ exports[`LiteratureTitle renders with title and subtitle 1`] = `
   </Latex>
   <span>
     <span>
-       : 
+       :
     </span>
     <Latex>
       Test Literature Sub Title

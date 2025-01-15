@@ -13,7 +13,7 @@ exports[`InlineUL does not render null children 1`] = `
       >
         First div
       </div>
-      , 
+      ,
     </li>
     <li
       key=".2"
@@ -41,7 +41,7 @@ exports[`InlineUL renders children seperated by default 1`] = `
       >
         First div
       </div>
-      , 
+      ,
     </li>
     <li
       key=".1"
@@ -69,7 +69,7 @@ exports[`InlineUL renders children with class 1`] = `
       >
         First div
       </div>
-      , 
+      ,
     </li>
     <li
       key=".1"
@@ -97,7 +97,7 @@ exports[`InlineUL renders with separator passed 1`] = `
       >
         First div
       </div>
-       • 
+       •
     </li>
     <li
       key=".1"

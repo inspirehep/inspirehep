@@ -22,7 +22,7 @@ export default function getIcsFileContent(seminar) {
 
   const categories = seminar
     .get('inspire_categories', List())
-    .map(category => category.get('term'))
+    .map((category) => category.get('term'))
     .join(',');
 
   return [

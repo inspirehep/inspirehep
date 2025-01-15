@@ -6,7 +6,7 @@ exports[`AssignDrawer renders assign authors search 1`] = `
   onClose={[MockFunction]}
   open={true}
   placement="right"
-  title="You have selected 3 
+  title="You have selected 3
             papers. Select the
             author to assign the selected papers:"
 >

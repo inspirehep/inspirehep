@@ -30,7 +30,7 @@ export function readHistory(callback) {
     const historyFromStorage = (await storage.get(STORAGE_KEY)) || {};
 
     const history = {};
-    SEARCH_BOX_NAMESPACES.forEach(namespace => {
+    SEARCH_BOX_NAMESPACES.forEach((namespace) => {
       history[namespace] = new LRASet(
         historyFromStorage[namespace],
         HISTORY_LIMIT

@@ -3,7 +3,7 @@
 exports[`InstitutionPeople renders 1`] = `
 <span>
   List of
-   
+
   <Link
     to="/authors?q=positions.record.$ref:123"
   >

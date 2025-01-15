@@ -9,7 +9,7 @@ exports[`RanksList renders ranks 1`] = `
       key="POSTDOC-0"
     >
       PostDoc
-       • 
+       •
     </li>
     <li
       key="PHD-2"

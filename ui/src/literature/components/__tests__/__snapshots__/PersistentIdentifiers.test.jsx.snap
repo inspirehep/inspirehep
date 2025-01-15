@@ -8,7 +8,7 @@ exports[`PersistentIdentifiers renders with identifiers 1`] = `
     className=""
   >
     URN/HDL
-    : 
+    :
   </span>
   <ul>
     <li
@@ -28,7 +28,7 @@ exports[`PersistentIdentifiers renders with identifiers 1`] = `
           1866/20706
         </LinkWithTargetBlank>
       </EventTracker>
-      , 
+      ,
     </li>
     <li
       key="12345-2"

@@ -1,4 +1,4 @@
-files: ^(backend|backoffice|workflows)/
+files: ^(backend|backoffice|workflows|ui)/
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
@@ -17,3 +17,12 @@ repos:
       - id: ruff
         args: [ --fix ]
       - id: ruff-format
+  # Prettier for the React project
+  - repo: local
+    hooks:
+      - id: prettier-react
+        name: Prettier (React Project)
+        entry: npx prettier --write
+        language: node
+        types_or: [javascript, json, css, scss, markdown]
+        files: ^ui/.*\.(js|jsx|ts|tsx|json|css|scss|md)$

@@ -10,10 +10,10 @@ exports[`ExistingConferencesAlert renders alert and drawer 1`] = `
         >
           5
         </strong>
-         
-        other 
+
+        other
         conferences
-         
+
         found in these dates.
         <Button
           onClick={[Function]}

@@ -7,7 +7,7 @@ exports[`ConferenceSubmissionSuccessPageContainer ConferenceSubmissionSucessPage
       Successfully submitted, thank you for the submission! See the conference (
       C19-02-01
       )
-       
+
       <Link
         className="submission-link"
         to="/conferences/12345"

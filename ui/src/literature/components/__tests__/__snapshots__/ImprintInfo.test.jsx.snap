@@ -50,7 +50,7 @@ exports[`ImprintInfo renders imprints with date and place 1`] = `
         <span>
           Published:
            2004
-           in Cambridge, UK 
+           in Cambridge, UK
         </span>
       </div>
     </li>
@@ -70,7 +70,7 @@ exports[`ImprintInfo renders imprints with date and publisher 1`] = `
         <span>
           Published:
            2004
-           by Univ. Pr. 
+           by Univ. Pr.
         </span>
       </div>
     </li>
@@ -90,8 +90,8 @@ exports[`ImprintInfo renders imprints with date, publisher, and place 1`] = `
         <span>
           Published:
            2004
-           in Cambridge, UK 
-           by Univ. Pr. 
+           in Cambridge, UK
+           by Univ. Pr.
         </span>
       </div>
     </li>
@@ -110,7 +110,7 @@ exports[`ImprintInfo renders imprints with place 1`] = `
       <div>
         <span>
           Published:
-           in Cambridge, UK 
+           in Cambridge, UK
         </span>
       </div>
     </li>
@@ -129,7 +129,7 @@ exports[`ImprintInfo renders imprints with publisher 1`] = `
       <div>
         <span>
           Published:
-           by Univ. Pr. 
+           by Univ. Pr.
         </span>
       </div>
     </li>
@@ -148,8 +148,8 @@ exports[`ImprintInfo renders imprints with publisher and place 1`] = `
       <div>
         <span>
           Published:
-           in Cambridge, UK 
-           by Univ. Pr. 
+           in Cambridge, UK
+           by Univ. Pr.
         </span>
       </div>
     </li>
@@ -169,11 +169,11 @@ exports[`ImprintInfo renders multiple imprints 1`] = `
         <span>
           Published:
            2004
-           in Cambridge, UK 
-           by Univ. Pr. 
+           in Cambridge, UK
+           by Univ. Pr.
         </span>
       </div>
-       and 
+       and
     </li>
     <li
       key="undefined-2"
@@ -182,8 +182,8 @@ exports[`ImprintInfo renders multiple imprints 1`] = `
         <span>
           Published:
            2010
-           in Cambridge, UK 
-           by Univ. Pr. 
+           in Cambridge, UK
+           by Univ. Pr.
         </span>
       </div>
     </li>

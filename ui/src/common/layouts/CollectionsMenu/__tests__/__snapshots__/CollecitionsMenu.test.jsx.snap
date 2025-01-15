@@ -90,9 +90,9 @@ exports[`CollectionsMenu renders when authors page 1`] = `
           <span
             className="button-title f5 white"
           >
-             
+
             More...
-             
+
           </span>
         </Button>
       }
@@ -191,9 +191,9 @@ exports[`CollectionsMenu renders when conferences page 1`] = `
           <span
             className="button-title f5 white"
           >
-             
+
             More...
-             
+
           </span>
         </Button>
       }
@@ -292,9 +292,9 @@ exports[`CollectionsMenu renders when experiments page 1`] = `
           <span
             className="button-title f5 white"
           >
-             
+
             More...
-             
+
           </span>
         </Button>
       }
@@ -393,9 +393,9 @@ exports[`CollectionsMenu renders when home page 1`] = `
           <span
             className="button-title f5 white"
           >
-             
+
             More...
-             
+
           </span>
         </Button>
       }
@@ -494,9 +494,9 @@ exports[`CollectionsMenu renders when jobs page 1`] = `
           <span
             className="button-title f5 white"
           >
-             
+
             More...
-             
+
           </span>
         </Button>
       }
@@ -595,9 +595,9 @@ exports[`CollectionsMenu renders when literature page 1`] = `
           <span
             className="button-title f5 white"
           >
-             
+
             More...
-             
+
           </span>
         </Button>
       }
@@ -696,9 +696,9 @@ exports[`CollectionsMenu renders when seminars page 1`] = `
           <span
             className="button-title f5 white"
           >
-             
+
             More...
-             
+
           </span>
         </Button>
       }
@@ -797,9 +797,9 @@ exports[`CollectionsMenu renders when submissions page 1`] = `
           <span
             className="button-title f5 white"
           >
-             
+
             More...
-             
+
           </span>
         </Button>
       }

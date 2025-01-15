@@ -3,7 +3,7 @@ import { fromJS } from 'immutable';
 import {
   UI_CLOSE_BANNER,
   UI_CHANGE_GUIDE_MODAL_VISIBILITY,
-  UI_SCROLL_VIEWPORT_TO_PREVIOUS_REFERENCE
+  UI_SCROLL_VIEWPORT_TO_PREVIOUS_REFERENCE,
 } from '../actions/actionTypes';
 
 export const initialState = fromJS({

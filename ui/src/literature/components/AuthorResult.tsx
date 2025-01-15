@@ -18,7 +18,7 @@ const AuthorResult = ({
     const recordRef = item.get('record')?.toJS().$ref;
     return recordRef ? castPropToNumber(getRecordIdFromRef(recordRef)) : undefined;
   };
-  
+
   const isRadioButtonDisabled = (item: Map<string, string>): boolean => !getAuthorRecordIdFromRef(item);
 
   return (

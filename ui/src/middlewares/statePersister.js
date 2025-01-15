@@ -49,9 +49,11 @@ export function createPersistToStorageMiddleware() {
     });
   };
 
-  return ({ getState }) => (next) => (action) => {
-    const result = next(action);
-    writeStateToStorage(getState());
-    return result;
-  };
+  return ({ getState }) =>
+    (next) =>
+    (action) => {
+      const result = next(action);
+      writeStateToStorage(getState());
+      return result;
+    };
 }

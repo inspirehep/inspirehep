@@ -69,7 +69,7 @@ exports[`ConferenceItem renders with all props set 1`] = `
         closingDate="2019-11-28"
         openingDate="2019-11-21"
       />
-      . 
+      .
       <AddressList
         addresses={
           Immutable.List [

@@ -220,9 +220,9 @@ const CitationSummaryGraph = ({
                     xPercent={0.91}
                     yPercent={0.82}
                   />
-                  <YAxis 
+                  <YAxis
                     className="y-axis"
-                    tickFormat={abbreviateNumber} 
+                    tickFormat={abbreviateNumber}
                   />
                   <ChartLabel text="Papers" yPercent={-0.08} xPercent={0} />
                   <VerticalBarSeries

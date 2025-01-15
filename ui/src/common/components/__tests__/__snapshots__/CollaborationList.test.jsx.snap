@@ -67,7 +67,7 @@ exports[`CollaborationList renders with collaborations with and without suffix 1
     wrapperClassName="di"
   />
   <span>
-     and 
+     and
   </span>
   <InlineDataList
     extractKey={[Function]}

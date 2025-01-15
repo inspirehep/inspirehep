@@ -8,7 +8,7 @@ exports[`ExperimentList renders arxiv categories 1`] = `
     className=""
   >
     Experiments
-    : 
+    :
   </span>
   <ul>
     <li
@@ -19,7 +19,7 @@ exports[`ExperimentList renders arxiv categories 1`] = `
       >
         CERN-LHC-CMS
       </Link>
-      , 
+      ,
     </li>
     <li
       key="CERN-LHC-LHCb-2"

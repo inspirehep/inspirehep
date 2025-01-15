@@ -6,15 +6,8 @@ export default function contacts() {
     .default([{}])
     .of(
       emptyObjectOrShapeOf({
-        name: string()
-          .trim()
-          .required()
-          .label('Contact name'),
-        email: string()
-          .email()
-          .required()
-          .trim()
-          .label('Contact email'),
+        name: string().trim().required().label('Contact name'),
+        email: string().email().required().trim().label('Contact email'),
       })
     );
 }

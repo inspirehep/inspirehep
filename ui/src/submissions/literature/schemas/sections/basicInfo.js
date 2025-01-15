@@ -4,12 +4,8 @@ import { languageValues } from '../constants';
 import { inspireCategoryValues } from '../../../common/schemas/constants';
 
 export default {
-  title: string()
-    .required()
-    .label('Title'),
-  language: string()
-    .oneOf(languageValues)
-    .default(languageValues[0]),
+  title: string().required().label('Title'),
+  language: string().oneOf(languageValues).default(languageValues[0]),
   subjects: array()
     .of(string().oneOf(inspireCategoryValues))
     .min(1)
@@ -19,9 +15,7 @@ export default {
     .default([{}])
     .of(
       object().shape({
-        full_name: string()
-          .required()
-          .label('Full name'),
+        full_name: string().required().label('Full name'),
         affiliation: string(),
       })
     )
@@ -31,9 +25,7 @@ export default {
   collaboration: string(),
   experiment: string(),
   abstract: string(),
-  report_numbers: array()
-    .default([''])
-    .of(string().nullable()),
+  report_numbers: array().default(['']).of(string().nullable()),
   doi: string()
     .matches(new RegExp('^(doi:)?10\\.\\d+(\\.\\d+)?/\\S+$'))
     .label('DOI'),

@@ -32,7 +32,7 @@ describe('utils', () => {
       ]);
       expect(hasAdditionalDois(dois)).toBe(true);
     });
-  
+
     it('should return false if all DOIs have material equal to "data"', () => {
       const dois = List([
         Map({ material: 'data', value: 'doi1' }),
@@ -40,7 +40,7 @@ describe('utils', () => {
       ]);
       expect(hasAdditionalDois(dois)).toBe(false);
     });
-  
+
     it('should return false if the list of DOIs is empty', () => {
       const dois = List([]);
       expect(hasAdditionalDois(dois)).toBe(false);

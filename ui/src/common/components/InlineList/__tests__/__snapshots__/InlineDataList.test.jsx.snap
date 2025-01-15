@@ -63,7 +63,7 @@ exports[`InlineList renders items seperated by default 1`] = `
       <span>
         foo
       </span>
-      , 
+      ,
     </li>
     <li
       key="bar-2"
@@ -84,7 +84,7 @@ exports[`InlineList renders with all props set (array) 1`] = `
     className=""
   >
     Test
-    : 
+    :
   </span>
   <ul>
     <li
@@ -116,7 +116,7 @@ exports[`InlineList renders with all props set 1`] = `
     className=""
   >
     Test
-    : 
+    :
   </span>
   <ul>
     <li
@@ -125,7 +125,7 @@ exports[`InlineList renders with all props set 1`] = `
       <span>
         foo
       </span>
-      , 
+      ,
     </li>
     <li
       key="2-2"
@@ -152,7 +152,7 @@ exports[`InlineList renders wrapper with class 1`] = `
       <span>
         foo
       </span>
-      , 
+      ,
     </li>
     <li
       key="bar-2"

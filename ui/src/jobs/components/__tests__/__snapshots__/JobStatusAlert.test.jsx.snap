@@ -9,7 +9,7 @@ exports[`JobStatusAlert renders alert with status closed and correct type and me
   <Alert
     message={
       <span>
-        This job is 
+        This job is
         closed
         !
       </span>
@@ -27,7 +27,7 @@ exports[`JobStatusAlert renders alert with status pending and correct type and m
   <Alert
     message={
       <span>
-        This job is 
+        This job is
         pending
         !
       </span>

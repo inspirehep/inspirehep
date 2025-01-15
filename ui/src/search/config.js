@@ -51,112 +51,134 @@ const searchConfig = {
     redirectableError: true,
   },
   [AUTHORS_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    persistedQueryParamsDuringNewSearch:
+      defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onAggregationlessCollectionQueryChange,
     redirectableError: true,
   },
   [JOBS_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    persistedQueryParamsDuringNewSearch:
+      defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onJobsQueryChange,
     redirectableError: true,
   },
   [AUTHOR_PUBLICATIONS_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    persistedQueryParamsDuringNewSearch:
+      defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onEmbeddedLiteratureQueryChange,
     redirectableError: false,
   },
   [CONFERENCE_CONTRIBUTIONS_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    persistedQueryParamsDuringNewSearch:
+      defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onEmbeddedLiteratureQueryChange,
     redirectableError: false,
   },
   [INSTITUTIONS_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    persistedQueryParamsDuringNewSearch:
+      defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onAggregationlessCollectionQueryChange,
     redirectableError: true,
   },
   [INSTITUTION_PAPERS_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    persistedQueryParamsDuringNewSearch:
+      defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onEmbeddedLiteratureQueryChange,
     redirectableError: false,
   },
   [CONFERENCES_NS]: {
-    persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
+    persistedQueryParamsDuringNewSearch:
+      persistedQueryParamsDuringNewSearchForEvents,
     onQueryChange: onCollectionQueryChange,
     redirectableError: true,
   },
   [ASSIGN_CONFERENCE_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    persistedQueryParamsDuringNewSearch:
+      defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onEmbeddedSearchWithoutAggregationsQueryChange,
     redirectableError: false,
   },
   [EXISTING_CONFERENCES_NS]: {
-    persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
+    persistedQueryParamsDuringNewSearch:
+      persistedQueryParamsDuringNewSearchForEvents,
     onQueryChange: onEmbeddedSearchWithoutAggregationsQueryChange,
     redirectableError: false,
   },
   [ASSIGN_AUTHOR_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    persistedQueryParamsDuringNewSearch:
+      defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onEmbeddedSearchWithoutAggregationsQueryChange,
     redirectableError: false,
   },
   [SEMINARS_NS]: {
-    persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
+    persistedQueryParamsDuringNewSearch:
+      persistedQueryParamsDuringNewSearchForEvents,
     onQueryChange: onCollectionQueryChange,
     redirectableError: true,
   },
   [AUTHOR_CITATIONS_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    persistedQueryParamsDuringNewSearch:
+      defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onEmbeddedSearchWithAggregationsQueryChange,
     redirectableError: false,
   },
   [JOURNALS_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    persistedQueryParamsDuringNewSearch:
+      defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onAggregationlessCollectionQueryChange,
     redirectableError: true,
   },
   [JOURNAL_PAPERS_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    persistedQueryParamsDuringNewSearch:
+      defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onEmbeddedLiteratureQueryChange,
     redirectableError: false,
   },
   [EXPERIMENTS_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    persistedQueryParamsDuringNewSearch:
+      defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onCollectionQueryChange,
     redirectableError: true,
   },
   [EXPERIMENT_PAPERS_NS]: {
-    persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
+    persistedQueryParamsDuringNewSearch:
+      persistedQueryParamsDuringNewSearchForEvents,
     onQueryChange: onEmbeddedLiteratureQueryChange,
     redirectableError: false,
   },
   [DATA_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    persistedQueryParamsDuringNewSearch:
+      defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onAggregationlessCollectionQueryChange,
     redirectableError: true,
   },
   [AUTHOR_SEMINARS_NS]: {
-    persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
+    persistedQueryParamsDuringNewSearch:
+      persistedQueryParamsDuringNewSearchForEvents,
     onQueryChange: onEmbeddedSearchWithAggregationsQueryChange,
     redirectableError: false,
   },
   [LITERATURE_SEMINARS_NS]: {
-    persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
+    persistedQueryParamsDuringNewSearch:
+      persistedQueryParamsDuringNewSearchForEvents,
     onQueryChange: onEmbeddedSearchWithoutAggregationsQueryChange,
     redirectableError: false,
   },
   [LITERATURE_REFERENCES_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    persistedQueryParamsDuringNewSearch:
+      defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: () => {},
     redirectableError: false,
   },
   [CURATE_REFERENCE_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    persistedQueryParamsDuringNewSearch:
+      defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onEmbeddedSearchWithoutAggregationsQueryChange,
     redirectableError: false,
   },
   [BACKOFFICE_SEARCH_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    persistedQueryParamsDuringNewSearch:
+      defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onBackofficeQueryChange,
     redirectableError: true,
   },

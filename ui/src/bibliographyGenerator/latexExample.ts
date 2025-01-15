@@ -7,7 +7,7 @@ export const LATEX_EXAMPLE_1 = `
 SLAC--PUB--10812\\\\
 October 2012\\\\}
 \\end{flushright}
-                                                                              
+
 \\title{A Really Great Paper with Excellent Bibliography}
 \\author{Jane Q. Physicist \\\\
 Stanford Linear Accelerator Center \\\\
@@ -20,16 +20,16 @@ This paper is pretty eclectic, since it cites a buch of diverse
   things.  Of course, since it has no content, that is perhaps not so
   difficult.
 
-Primarily I want to refer the reader to Brodsky and Wu's recent work on the renormalization 
+Primarily I want to refer the reader to Brodsky and Wu's recent work on the renormalization
 group\\cite{Brodsky:2012ms}, which is relatively unrelated to the recent
 work by Beacom, Bell, and Dodelson \\cite{Beacom:2004yd}.  I should also point out that
 the paper by Kreitz and Brooks \\cite{physics/0309027} is being cited here in a
-purely self-serving manner.  
+purely self-serving manner.
 
 There are many papers by Dixon and others that I'd like to point out here
-\\cite{hep-th/0501240,hep-th/0412210,JHEP.0412.015}. 
+\\cite{hep-th/0501240,hep-th/0412210,JHEP.0412.015}.
 In particular I wish to point out that the work done in
-\\cite{JHEP.0412.015} is irrelevant to this paper.  
+\\cite{JHEP.0412.015} is irrelevant to this paper.
 
 There are some items in the paper \\cite{Akimov:2012vv} which I would like
 to draw your attention to, but it is likely that as above, I may be citing

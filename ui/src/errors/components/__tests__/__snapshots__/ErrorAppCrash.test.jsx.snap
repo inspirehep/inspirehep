@@ -8,7 +8,7 @@ exports[`ErrorAppCrash renders ErrorAppCrash 1`] = `
   <ErrorPage
     detail={
       <span>
-        Please try again later, you can 
+        Please try again later, you can
         <a
           href="/"
         >

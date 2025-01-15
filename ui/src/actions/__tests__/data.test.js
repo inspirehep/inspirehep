@@ -2,11 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 
 import { getStore } from '../../fixtures/store';
 import http from '../../common/http';
-import {
-  DATA_REQUEST,
-  DATA_SUCCESS,
-  DATA_ERROR,
-} from '../actionTypes';
+import { DATA_REQUEST, DATA_SUCCESS, DATA_ERROR } from '../actionTypes';
 import fetchData from '../data';
 
 const mockHttp = new MockAdapter(http.httpClient);

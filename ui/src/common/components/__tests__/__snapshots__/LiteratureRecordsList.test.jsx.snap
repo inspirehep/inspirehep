@@ -8,7 +8,7 @@ exports[`LiteratureRecordsList renders with multiple records 1`] = `
     className=""
   >
     INSPIRE papers
-    : 
+    :
   </span>
   <ul>
     <li
@@ -26,7 +26,7 @@ exports[`LiteratureRecordsList renders with multiple records 1`] = `
           }
         />
       </Link>
-      , 
+      ,
     </li>
     <li
       key="124-2"
@@ -56,7 +56,7 @@ exports[`LiteratureRecordsList renders with one record 1`] = `
     className=""
   >
     INSPIRE paper
-    : 
+    :
   </span>
   <ul>
     <li

@@ -14,7 +14,7 @@ exports[`ProceedingsAction renders proceedings 1`] = `
               href="/literature/12345"
             >
               <span>
-                Proceedings 
+                Proceedings
                 1
               </span>
             </LinkWithTargetBlank>

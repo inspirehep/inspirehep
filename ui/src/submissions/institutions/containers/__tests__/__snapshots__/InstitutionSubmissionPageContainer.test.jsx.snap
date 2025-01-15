@@ -4,7 +4,7 @@ exports[`InstitutionSubmissionPageContainer InstitutionSubmissionPage renders 1`
 <SubmissionPage
   description={
     <span>
-      This form allows you to create a new institution record. It will appear in the 
+      This form allows you to create a new institution record. It will appear in the
       <Link
         to="/institutions"
       >

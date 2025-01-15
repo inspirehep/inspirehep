@@ -65,7 +65,7 @@ exports[`ReferenceDiffInterface should render 1`] = `
                         </span>
                       </div>
                       <span>
-                         and 
+                         and
                       </span>
                       <div
                         class="__InlineList__ di"
@@ -390,7 +390,7 @@ exports[`ReferenceDiffInterface should render 1`] = `
                                                 </li>
                                               </ul>
                                             </div>
-                                             • 
+                                             •
                                           </li>
                                           <li>
                                             <div
@@ -399,7 +399,7 @@ exports[`ReferenceDiffInterface should render 1`] = `
                                               <span
                                                 class=""
                                               >
-                                                DOI: 
+                                                DOI:
                                               </span>
                                               <ul>
                                                 <li>
@@ -552,7 +552,7 @@ exports[`ReferenceDiffInterface should render 1`] = `
                                                 </li>
                                               </ul>
                                             </div>
-                                             • 
+                                             •
                                           </li>
                                           <li>
                                             <div
@@ -561,7 +561,7 @@ exports[`ReferenceDiffInterface should render 1`] = `
                                               <span
                                                 class=""
                                               >
-                                                DOI: 
+                                                DOI:
                                               </span>
                                               <ul>
                                                 <li>
@@ -688,7 +688,7 @@ exports[`ReferenceDiffInterface should render with error 1`] = `
                         </span>
                       </div>
                       <span>
-                         and 
+                         and
                       </span>
                       <div
                         class="__InlineList__ di"
@@ -1041,7 +1041,7 @@ exports[`ReferenceDiffInterface should render without previous reference if it i
                         </span>
                       </div>
                       <span>
-                         and 
+                         and
                       </span>
                       <div
                         class="__InlineList__ di"
@@ -1366,7 +1366,7 @@ exports[`ReferenceDiffInterface should render without previous reference if it i
                                                 </li>
                                               </ul>
                                             </div>
-                                             • 
+                                             •
                                           </li>
                                           <li>
                                             <div
@@ -1375,7 +1375,7 @@ exports[`ReferenceDiffInterface should render without previous reference if it i
                                               <span
                                                 class=""
                                               >
-                                                DOI: 
+                                                DOI:
                                               </span>
                                               <ul>
                                                 <li>
@@ -1528,7 +1528,7 @@ exports[`ReferenceDiffInterface should render without previous reference if it i
                                                 </li>
                                               </ul>
                                             </div>
-                                             • 
+                                             •
                                           </li>
                                           <li>
                                             <div
@@ -1537,7 +1537,7 @@ exports[`ReferenceDiffInterface should render without previous reference if it i
                                               <span
                                                 class=""
                                               >
-                                                DOI: 
+                                                DOI:
                                               </span>
                                               <ul>
                                                 <li>

@@ -2,7 +2,7 @@ import { string } from 'yup';
 import moment from 'moment';
 
 function getDateValidatorFor(format) {
-  return value => moment(value, format, Boolean(format)).isValid();
+  return (value) => moment(value, format, Boolean(format)).isValid();
 }
 
 export default function date(format) {

@@ -1298,7 +1298,7 @@ ogE4AUAApQFEAUQArgFGAUcArwFJAUoAsQFOAU4AswFQAVQAtAFXAVsAuQFdAWUAvg==")}
 </g>
 <g id="Upload-2">
 	<polygon style="opacity:0.5;fill:#BDC3C7;enable-background:new    ;" points="96.806,388.389 113.881,375.53 113.881,380.846 	"/>
-	
+
 		<line style="fill:none;stroke:#2C3E50;stroke-width:1.8054;stroke-miterlimit:10;" x1="-72.667" y1="472.522" x2="280.833" y2="472.522"/>
 	<polygon style="fill:#2C3E50;" points="101.545,413.392 86.194,413.392 86.194,377.057 91.39,377.057 101.568,394.094 	"/>
 	<path style="fill:#C18141;" d="M105.782,426.351c0,0-0.127,1.598,0.208,1.96c0.782,0.846,3.611,1.541,4.529,0.846
@@ -1322,9 +1322,9 @@ ogE4AUAApQFEAUQArgFGAUcArwFJAUoAsQFOAU4AswFQAVQAtAFXAVsAuQFdAWUAvg==")}
 	<path d="M115.295,374.383c-0.934-2.399,4.891-6.868,7.455-7.108c3.253-0.304,9.422,4.229,10.966,7.108
 		c2.374,4.427,3.238,17.874-1.32,20.05c-2.588,1.236-3.1-8.657-3.1-8.657s-1.683-6.158-3.174-7.566
 		C124.034,376.239,116.337,377.058,115.295,374.383z"/>
-	
+
 		<line style="fill:none;stroke:#BDC3C7;stroke-width:0.5955;stroke-miterlimit:10;" x1="122.385" y1="398.246" x2="122.385" y2="409.372"/>
-	
+
 		<line style="fill:none;stroke:#BDC3C7;stroke-width:0.5955;stroke-miterlimit:10;" x1="122.385" y1="451.165" x2="122.385" y2="414.983"/>
 	<polygon points="134.16,469.206 134.205,472.363 122.385,472.363 127.793,469.206 	"/>
 	<path style="fill:#C18141;" d="M120.369,409.223c0,0-1.29-1.47-1.891-1.486c-1.405-0.036-4.42,1.847-4.593,3.242
@@ -1370,7 +1370,7 @@ ogE4AUAApQFEAUQArgFGAUcArwFJAUoAsQFOAU4AswFQAVQAtAFXAVsAuQFdAWUAvg==")}
 	</g>
 	<circle style="fill:#2C3E50;" cx="26.659" cy="389.782" r="1.242"/>
 	<circle style="fill:none;stroke:#2C3E50;stroke-width:0.7965;stroke-miterlimit:10;" cx="26.659" cy="389.782" r="10.85"/>
-	
+
 		<line style="fill:none;stroke:#2C3E50;stroke-width:0.3473;stroke-miterlimit:10;" x1="26.659" y1="378.933" x2="26.659" y2="387.186"/>
 	<circle style="fill:none;stroke:#2C3E50;stroke-width:0.3982;stroke-miterlimit:10;" cx="26.659" cy="389.782" r="2.596"/>
 	<path style="fill:#ECF0F1;" d="M41.938,389.801c0.271,0.099,0.439-0.266,0.617-0.379c0.023,0.537-0.041,0.938-0.041,1.43
@@ -1415,13 +1415,13 @@ ogE4AUAApQFEAUQArgFGAUcArwFJAUoAsQFOAU4AswFQAVQAtAFXAVsAuQFdAWUAvg==")}
 	<rect x="13.944" y="411.487" style="fill:none;" width="43.267" height="12.954"/>
 	<text transform="matrix(1 0 0 1 16.84 415.332)" style="fill:#FFFFFF; font-family:'Montserrat-Regular'; font-size:5.1816px;">Access Denied</text>
 	<rect x="86.194" y="344.54" style="opacity:0.2;fill:#3B97D3;enable-background:new    ;" width="42.256" height="128.012"/>
-	
+
 		<rect x="129.181" y="344.54" style="opacity:0.2;fill:#3B97D3;stroke:#F0C419;stroke-width:0.9027;stroke-miterlimit:10;enable-background:new    ;" width="42.256" height="128.012"/>
-	
+
 		<rect x="129.181" y="344.54" style="fill:none;stroke:#2C3E50;stroke-width:1.8054;stroke-miterlimit:10;" width="42.256" height="128.012"/>
-	
+
 		<rect x="86.194" y="344.54" style="fill:none;stroke:#2C3E50;stroke-width:1.8054;stroke-miterlimit:10;" width="42.256" height="128.012"/>
-	
+
 		<rect x="124.792" y="398.787" style="fill:#2C3E50;stroke:#2C3E50;stroke-width:1.6535;stroke-miterlimit:10;" width="8.778" height="17.153"/>
 	<path style="fill:#2F4155;" d="M242.473,450.342c0,0,12.902,5.83,23.231,7.51l0.068-7.389c-7.637,0.473-23.257-7.747-23.257-7.747
 		L242.473,450.342z"/>
@@ -1571,9 +1571,9 @@ ogE4AUAApQFEAUQArgFGAUcArwFJAUoAsQFOAU4AswFQAVQAtAFXAVsAuQFdAWUAvg==")}
 	<rect x="241.38" y="472.567" style="fill:#2C3E50;" width="23.424" height="2.041"/>
 	<path style="fill:#FAB592;" d="M241.748,444.034v6.184h-7.15c0,0-2.256-2.619-2.126-3.672c0.247-1.995,4.56-4.69,6.57-4.638
 		C239.902,441.93,241.747,444.034,241.748,444.034L241.748,444.034z"/>
-	
+
 		<rect x="-56.998" y="330.905" transform="matrix(-0.9708 -0.2401 0.2401 -0.9708 -162.0378 652.9276)" style="fill:#2C3E50;stroke:#2C3E50;stroke-width:1.148;stroke-miterlimit:10;" width="31.502" height="10.858"/>
-	<polyline style="fill:none;stroke:#2C3E50;stroke-width:2;stroke-miterlimit:10;" points="-72.499,345.93 -56.999,345.93 
+	<polyline style="fill:none;stroke:#2C3E50;stroke-width:2;stroke-miterlimit:10;" points="-72.499,345.93 -56.999,345.93
 		-47.911,338.498 	"/>
 </g>
 <g>
