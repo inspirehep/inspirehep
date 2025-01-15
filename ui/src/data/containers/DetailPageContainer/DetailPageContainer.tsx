@@ -17,14 +17,17 @@ import AuthorsAndCollaborations from '../../../common/components/AuthorsAndColla
 import Abstract from '../../../literature/components/Abstract';
 import LiteratureRecordsList from '../../../common/components/LiteratureRecordsList';
 import DOIListShowAll from '../../components/DOIListShowAll';
+import { fetchLiteratureAuthors } from '../../../actions/literature';
 
 interface DetailPageProps {
+  authors: List<any>;
   result: any; // TODO: define proper type for result
   isCatalogerLoggedIn: boolean;
   isSuperUserLoggedIn: boolean;
 }
 
 const DetailPage = ({
+  authors,
   result,
   isCatalogerLoggedIn,
   isSuperUserLoggedIn,
@@ -32,8 +35,7 @@ const DetailPage = ({
   const metadata = result.get('metadata');
   const title = metadata.getIn(['titles', 0]);
   const abstract = metadata.getIn(['abstracts', 0]);
-  const authors = metadata.get('authors');
-  const authorCount = (authors && authors.size) || 0;
+  const authorCount = metadata.get('author_count');
   const dois = metadata.get('dois', List());
   const recordId = metadata.get('control_number');
   const literatureRecords = metadata.get('literature');
@@ -111,6 +113,7 @@ const DetailPage = ({
 
 const mapStateToProps = (state: RootStateOrAny) => ({
   result: state.data.get('data'),
+  authors: state.literature.get('authors'),
   isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
@@ -119,6 +122,7 @@ const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: (id) => [fetchData(id)],
+  // TODO somehow manage to load the id from literature field to load the authors...
+  routeActions: (id) => [fetchData(id), fetchLiteratureAuthors(1787272)],
   loadingStateSelector: (state) => !state.data.hasIn(['data', 'metadata']),
 });
