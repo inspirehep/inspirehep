@@ -146,7 +146,7 @@ def data_harvest_dag():
 
             if doi:
                 builder.add_literature(
-                    doi={"value": doi},
+                    doi=doi,
                     record={"$ref": f"{inspire_url}/api/literature/{inspire_id}"},
                 )
             else:
