@@ -35,7 +35,7 @@ exports[`AuthorList prefixes \`Supervisor\` when 2 or more supervisors are passe
           }
         }
       />
-      , 
+      ,
     </li>
     <li
       key="Test, Guy 2-2"

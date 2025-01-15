@@ -3,7 +3,7 @@
 exports[`NumberOfPages display \`page\` if number_of_pages is 1 1`] = `
 <div>
   1
-   
+
   page
 </div>
 `;
@@ -13,7 +13,7 @@ exports[`NumberOfPages renders empty if null 1`] = `""`;
 exports[`NumberOfPages renders with number of pages 1`] = `
 <div>
   100
-   
+
   pages
 </div>
 `;

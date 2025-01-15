@@ -5,7 +5,7 @@ exports[`ErrorNetwork renders ErrorNetwork 1`] = `
   detail={
     <span>
       Please check your internet connection and
-       
+
       <Connect(GoBackLink)>
         try again
       </Connect(GoBackLink)>

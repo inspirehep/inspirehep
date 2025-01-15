@@ -14,7 +14,7 @@ exports[`EmailList renders with emails 1`] = `
       >
         johndoe@yahoo.com
       </LinkWithTargetBlank>
-      , 
+      ,
     </li>
     <li
       key="johndoe2@yahoo.com-2"

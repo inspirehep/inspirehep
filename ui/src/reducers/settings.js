@@ -3,7 +3,7 @@ import { fromJS } from 'immutable';
 import {
   SETTINGS_CHANGE_EMAIL_ERROR,
   SETTINGS_CHANGE_EMAIL_SUCCESS,
-  SETTINGS_CHANGE_EMAIL_REQUEST
+  SETTINGS_CHANGE_EMAIL_REQUEST,
 } from '../actions/actionTypes';
 
 export const initialState = fromJS({
@@ -16,10 +16,7 @@ const settingsReducer = (state = initialState, action) => {
     case SETTINGS_CHANGE_EMAIL_REQUEST:
       return state
         .set('changeEmailRequest', true)
-        .set(
-          'changeEmailError',
-          initialState.get('changeEmailError')
-        );
+        .set('changeEmailError', initialState.get('changeEmailError'));
     case SETTINGS_CHANGE_EMAIL_ERROR:
       return state
         .set('changeEmailRequest', false)
@@ -27,10 +24,7 @@ const settingsReducer = (state = initialState, action) => {
     case SETTINGS_CHANGE_EMAIL_SUCCESS:
       return state
         .setIn(['data', 'email'], action.payload.value)
-        .set(
-          'changeEmailError',
-          initialState.get('changeEmailError')
-        )
+        .set('changeEmailError', initialState.get('changeEmailError'))
         .set('changeEmailRequest', false);
     default:
       return state;

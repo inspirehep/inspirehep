@@ -20,7 +20,7 @@ global.MutationObserver = class {
     return [];
   }
 };
-global.document.getSelection = function() {};
+global.document.getSelection = function () {};
 global.CONFIG = {};
 global.scrollTo = () => {};
 
@@ -36,7 +36,7 @@ window.matchMedia = (query) => ({
   addEventListener: jest.fn(),
   removeEventListener: jest.fn(),
   dispatchEvent: jest.fn(),
-})
+});
 
 global.window.location = {
   origin: 'http://localhost:3000',

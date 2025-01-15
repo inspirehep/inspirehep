@@ -9,7 +9,7 @@ describe('redirectToErrorPage middleware', () => {
   let mockDispatch;
 
   beforeEach(() => {
-    mirrorNext = jest.fn(value => value);
+    mirrorNext = jest.fn((value) => value);
     mockDispatch = jest.fn();
     dispatch = middleware({ dispatch: mockDispatch })(mirrorNext);
   });
@@ -17,13 +17,13 @@ describe('redirectToErrorPage middleware', () => {
   it('dispatches push to error page when redirectable error and returns result of next(action)', () => {
     Object.defineProperty(window, 'location', {
       writable: true,
-      value: { assign: jest.fn() }
+      value: { assign: jest.fn() },
     });
-    
+
     const action = {
       type: 'SOME_ERROR',
       payload: {
-        error: { status: 500 }
+        error: { status: 500 },
       },
       meta: { redirectableError: true },
     };
@@ -36,7 +36,7 @@ describe('redirectToErrorPage middleware', () => {
     const action = {
       type: 'SOME_ERROR',
       payload: {
-        error: { status: 500 }
+        error: { status: 500 },
       },
     };
     const result = dispatch(action);

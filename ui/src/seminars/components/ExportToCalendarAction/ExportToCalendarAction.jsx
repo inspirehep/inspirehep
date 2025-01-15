@@ -25,7 +25,7 @@ function ExportToCalendarAction({ seminar, page }) {
       'text/calendar'
     );
   }, [seminar]);
-  
+
   const menuItems = [
     {
       key: 'download',

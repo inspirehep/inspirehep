@@ -3,7 +3,7 @@
 exports[`ReferenceLettersContacts renders with referenceLetters 1`] = `
 <div>
   <strong>
-    Letters of Reference should be sent to: 
+    Letters of Reference should be sent to:
   </strong>
   <InlineUL
     separator=", "

@@ -21,7 +21,7 @@ exports[`LoginPage renders page 1`] = `
         <p
           class="pb2"
         >
-          To suggest content to INSPIRE, an ORCID is required. Registration is free, quick, and open to all! Sign up at 
+          To suggest content to INSPIRE, an ORCID is required. Registration is free, quick, and open to all! Sign up at
           <a
             href="https://orcid.org/register!"
             rel="noopener noreferrer"

@@ -9,8 +9,8 @@ function getLocationFromRootState(state) {
   return location || {};
 }
 
-export default function({ getState, dispatch }) {
-  return next => action => {
+export default function ({ getState, dispatch }) {
+  return (next) => (action) => {
     if (action.type === LOCATION_CHANGE && action.payload) {
       const currentLocation = getLocationFromRootState(getState());
       const result = next(action);

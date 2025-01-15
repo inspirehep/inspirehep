@@ -2,7 +2,7 @@ import { fromJS, List } from 'immutable';
 import {
   getCurrentAffiliationsFromPositions,
   getAuthorMetaDescription,
-  getInspireId
+  getInspireId,
 } from '../utils';
 
 describe('utils', () => {
@@ -93,16 +93,16 @@ describe('utils', () => {
     it('returns inspire id if present', () => {
       const ids = fromJS([
         {
-          value: "David.Lyle.Burke.1",
-          schema: "INSPIRE BAI"
-      },
-      {
-          value: "INSPIRE-00070132",
-          schema: "INSPIRE ID"
-      },
+          value: 'David.Lyle.Burke.1',
+          schema: 'INSPIRE BAI',
+        },
+        {
+          value: 'INSPIRE-00070132',
+          schema: 'INSPIRE ID',
+        },
       ]);
 
-      const expected = "INSPIRE-00070132";
+      const expected = 'INSPIRE-00070132';
       const inspireId = getInspireId(ids);
       expect(inspireId).toEqual(expected);
     });
@@ -110,9 +110,9 @@ describe('utils', () => {
     it('returns empty if no Inspire id', () => {
       const ids = fromJS([
         {
-          value: "David.Lyle.Burke.1",
-          schema: "INSPIRE BAI"
-      }
+          value: 'David.Lyle.Burke.1',
+          schema: 'INSPIRE BAI',
+        },
       ]);
 
       const inspireId = getInspireId(ids);

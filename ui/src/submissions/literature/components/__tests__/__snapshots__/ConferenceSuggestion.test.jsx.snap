@@ -20,14 +20,14 @@ exports[`ConferenceSuggestion renders with full conference 1`] = `
     <div>
       <span>
         1 May 1999
-         
+
       </span>
       <span>
         <span>
           Istanbul
-          , 
+          ,
         </span>
-         
+
         TR
       </span>
     </div>
@@ -53,10 +53,10 @@ exports[`ConferenceSuggestion renders with only title 1`] = `
     <div />
     <div>
       <span>
-         
+
       </span>
       <span>
-         
+
       </span>
     </div>
     <div>
@@ -79,10 +79,10 @@ exports[`ConferenceSuggestion renders with title and address but without city 1`
     <div />
     <div>
       <span>
-         
+
       </span>
       <span>
-         
+
         TR
       </span>
     </div>

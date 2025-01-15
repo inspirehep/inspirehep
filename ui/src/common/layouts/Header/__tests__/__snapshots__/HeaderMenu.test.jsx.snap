@@ -126,7 +126,7 @@ exports[`HeaderMenu renders when logged in 1`] = `
                 title={
                   <p>
                     There is no profile associated to your account.
-                     
+
                     <a
                       href="https://help.inspirehep.net/knowledge-base/corrections-2/#authors"
                       target="_blank"

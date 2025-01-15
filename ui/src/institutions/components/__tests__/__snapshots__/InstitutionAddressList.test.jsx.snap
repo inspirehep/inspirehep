@@ -24,7 +24,7 @@ exports[`InstitutionAddressList renders with addresses 1`] = `
           }
         }
       />
-       • 
+       •
     </li>
     <li
       key="Map { \\"cities\\": List [ \\"Geneva\\" ], \\"country\\": \\"Switzerland\\" }-2"

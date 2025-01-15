@@ -14,7 +14,7 @@ exports[`NumberOfResultsWithSelectedItemsNumber renders correctly with numberOfS
     5
   </FormattedNumber>
    of
-   
+
   <Connect(NumberOfResults)
     namespace="testNamespace"
   />

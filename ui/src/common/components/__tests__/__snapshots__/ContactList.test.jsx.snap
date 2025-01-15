@@ -8,7 +8,7 @@ exports[`ContactList renders with contacts with both email and name 1`] = `
     className="b"
   >
     Contact
-    : 
+    :
   </span>
   <ul>
     <li
@@ -32,7 +32,7 @@ exports[`ContactList renders with contacts with both email and name 1`] = `
         </LinkWithTargetBlank>
       </EventTracker>
       )
-      ; 
+      ;
     </li>
     <li
       key="johndoe2@yahoo.com-2"
@@ -68,7 +68,7 @@ exports[`ContactList renders with contacts with only email or name 1`] = `
     className="b"
   >
     Contact
-    : 
+    :
   </span>
   <ul>
     <li
@@ -87,7 +87,7 @@ exports[`ContactList renders with contacts with only email or name 1`] = `
           johndoe@yahoo.com
         </LinkWithTargetBlank>
       </EventTracker>
-      ; 
+      ;
     </li>
     <li
       key="John2-2"
@@ -108,7 +108,7 @@ exports[`ContactList renders with contacts with record and name 1`] = `
     className="b"
   >
     Contact
-    : 
+    :
   </span>
   <ul>
     <li

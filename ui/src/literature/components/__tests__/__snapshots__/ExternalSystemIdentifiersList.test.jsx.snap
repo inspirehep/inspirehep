@@ -8,7 +8,7 @@ exports[`ExternalSystemIdentifierList renders with external system identifiers 1
     className=""
   >
     View in
-    : 
+    :
   </span>
   <ul>
     <li
@@ -19,7 +19,7 @@ exports[`ExternalSystemIdentifierList renders with external system identifiers 1
       >
         CERN Document Server
       </a>
-      , 
+      ,
     </li>
     <li
       key="https://ui.adsabs.harvard.edu/abs/123.1234-2"

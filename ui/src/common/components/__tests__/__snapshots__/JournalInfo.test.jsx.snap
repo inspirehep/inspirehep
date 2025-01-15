@@ -6,7 +6,7 @@ exports[`JournalInfo renders with journal_title and all other fields 1`] = `
     Test Journal
   </i>
   <span>
-     
+
     TV
   </span>
   <span>
@@ -15,7 +15,7 @@ exports[`JournalInfo renders with journal_title and all other fields 1`] = `
     )
   </span>
   <span>
-     
+
     2
   </span>
 </span>

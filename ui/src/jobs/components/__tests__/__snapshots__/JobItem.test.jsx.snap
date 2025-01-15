@@ -90,7 +90,7 @@ exports[`JobItem renders full job search result item 1`] = `
       />
     </Col>
     <Col>
-      Posted 
+      Posted
       <DateFromNow
         date="2019-05-31T12:23:15.104851+00:00"
       />

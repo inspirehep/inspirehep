@@ -78,7 +78,7 @@ describe('DetailPageContainer', () => {
         }
       })
     });
-      
+
 
     const { asFragment } = render(
       <Router>

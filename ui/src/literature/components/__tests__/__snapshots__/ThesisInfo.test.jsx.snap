@@ -5,7 +5,7 @@ exports[`ThesisInfo renders empty if null 1`] = `""`;
 exports[`ThesisInfo renders full thesis info 1`] = `
 <span>
   <span>
-    Thesis: 
+    Thesis:
   </span>
   <span>
     <InlineDataList
@@ -24,7 +24,7 @@ exports[`ThesisInfo renders full thesis info 1`] = `
       suffix={null}
       wrapperClassName="di"
     />
-     
+
   </span>
   <span>
     (defense: 12-12-2012)
@@ -35,7 +35,7 @@ exports[`ThesisInfo renders full thesis info 1`] = `
 exports[`ThesisInfo renders with date and without defense date 1`] = `
 <span>
   <span>
-    Thesis: 
+    Thesis:
   </span>
   <span>
     <InlineDataList
@@ -48,7 +48,7 @@ exports[`ThesisInfo renders with date and without defense date 1`] = `
       suffix={null}
       wrapperClassName="di"
     />
-     
+
   </span>
   <span>
     (11-11-2011)
@@ -59,7 +59,7 @@ exports[`ThesisInfo renders with date and without defense date 1`] = `
 exports[`ThesisInfo renders with defense date 1`] = `
 <span>
   <span>
-    Thesis: 
+    Thesis:
   </span>
   <span>
     <InlineDataList
@@ -72,7 +72,7 @@ exports[`ThesisInfo renders with defense date 1`] = `
       suffix={null}
       wrapperClassName="di"
     />
-     
+
   </span>
   <span>
     (defense: 12-12-2012)
@@ -83,7 +83,7 @@ exports[`ThesisInfo renders with defense date 1`] = `
 exports[`ThesisInfo renders without any date 1`] = `
 <span>
   <span>
-    Thesis: 
+    Thesis:
   </span>
   <span>
     <InlineDataList
@@ -102,7 +102,7 @@ exports[`ThesisInfo renders without any date 1`] = `
       suffix={null}
       wrapperClassName="di"
     />
-     
+
   </span>
   <span />
 </span>

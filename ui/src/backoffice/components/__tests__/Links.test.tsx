@@ -99,7 +99,7 @@ describe('Links Component', () => {
 
     const copyIcon = screen.getByLabelText(/copy/i);
     expect(copyIcon).toBeInTheDocument();
-  
+
   });
 
   it('should render generic link correctly in Ids', () => {

@@ -12,7 +12,7 @@ exports[`OrcidPushSettingMessage renders when enabled 1`] = `
 <div>
   <p>
     This profile is already connected to the following ORCID:
-     
+
     <OrcidProfileLink
       orcid="0000-0001-8058-0014"
     />

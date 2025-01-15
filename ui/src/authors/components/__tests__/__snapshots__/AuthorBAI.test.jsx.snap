@@ -3,7 +3,7 @@
 exports[`AuthorBAI renders 1`] = `
 <span>
   Author Identifier:
-   
+
   <Link
     to="/literature?q=a%20F.Marchetto.1"
   >

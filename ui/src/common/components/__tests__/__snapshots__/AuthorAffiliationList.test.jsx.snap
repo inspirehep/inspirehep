@@ -18,7 +18,7 @@ exports[`AffiliationList renders author with multiple affiliations 1`] = `
           }
         }
       />
-       and 
+       and
     </li>
     <li
       key="CERN1-2"

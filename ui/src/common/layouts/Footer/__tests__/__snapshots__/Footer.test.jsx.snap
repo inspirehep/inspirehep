@@ -21,7 +21,7 @@ exports[`Footer renders when cataloger 1`] = `
         md={12}
         xs={24}
       >
-        Made with 
+        Made with
         <span
           className="red"
         >
@@ -154,7 +154,7 @@ exports[`Footer renders when not cataloger 1`] = `
         md={12}
         xs={24}
       >
-        Made with 
+        Made with
         <span
           className="red"
         >

@@ -18,7 +18,7 @@ const InstitutionSubmission = ({
   const modifyFormData = (formData) => ({...formData, ICN: [formData.identifier], legacy_ICN: formData.identifier});
 
   return (
-    <div>      
+    <div>
       {error && (
         <Row className="mb3">
           <Col span={24}>

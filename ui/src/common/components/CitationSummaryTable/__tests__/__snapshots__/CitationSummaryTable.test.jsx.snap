@@ -25,7 +25,7 @@ exports[`CitationSummaryTable renders table with null numbers 1`] = `
                 help={
                   <span>
                     Published papers are believed to have undergone rigorous peer review.
-                     
+
                     <LinkWithTargetBlank
                       as="a"
                       href="https://help.inspirehep.net/knowledge-base/faq/#faq-published"
@@ -65,7 +65,7 @@ exports[`CitationSummaryTable renders table with null numbers 1`] = `
               <LabelWithHelp
                 help={
                   <span>
-                    The h-index is defined as the number of papers with citation number higher or equal to h. 
+                    The h-index is defined as the number of papers with citation number higher or equal to h.
                     <Link
                       to="/literature/690567"
                     >
@@ -132,7 +132,7 @@ exports[`CitationSummaryTable renders table with only required props 1`] = `
                 help={
                   <span>
                     Published papers are believed to have undergone rigorous peer review.
-                     
+
                     <LinkWithTargetBlank
                       as="a"
                       href="https://help.inspirehep.net/knowledge-base/faq/#faq-published"
@@ -180,7 +180,7 @@ exports[`CitationSummaryTable renders table with only required props 1`] = `
               <LabelWithHelp
                 help={
                   <span>
-                    The h-index is defined as the number of papers with citation number higher or equal to h. 
+                    The h-index is defined as the number of papers with citation number higher or equal to h.
                     <Link
                       to="/literature/690567"
                     >
@@ -249,7 +249,7 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
                 help={
                   <span>
                     Published papers are believed to have undergone rigorous peer review.
-                     
+
                     <LinkWithTargetBlank
                       as="a"
                       href="https://help.inspirehep.net/knowledge-base/faq/#faq-published"
@@ -297,7 +297,7 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
               <LabelWithHelp
                 help={
                   <span>
-                    The h-index is defined as the number of papers with citation number higher or equal to h. 
+                    The h-index is defined as the number of papers with citation number higher or equal to h.
                     <Link
                       to="/literature/690567"
                     >

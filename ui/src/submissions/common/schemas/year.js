@@ -5,8 +5,7 @@ export default function year() {
     .integer()
     .min(1000)
     .max(2050)
-    .transform(
-      (currentValue, originalValue) =>
-        originalValue === '' ? undefined : currentValue
+    .transform((currentValue, originalValue) =>
+      originalValue === '' ? undefined : currentValue
     );
 }

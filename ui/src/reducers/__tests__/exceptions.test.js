@@ -43,7 +43,7 @@ describe('exceptions reducer', () => {
     const state = reducer(Map(), {
       type: types.EXCEPTIONS_ERROR,
       payload: {
-        error: { message: 'error' }
+        error: { message: 'error' },
       },
     });
     const expected = fromJS({

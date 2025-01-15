@@ -3,7 +3,7 @@
 exports[`ParentRecordInfo renders with parent record 1`] = `
 <div>
   <span>
-    Part of 
+    Part of
   </span>
   <Link
     to="/literature/1234"
@@ -16,19 +16,19 @@ exports[`ParentRecordInfo renders with parent record 1`] = `
 exports[`ParentRecordInfo renders with subtitle and pages in parent record 1`] = `
 <div>
   <span>
-    Part of 
+    Part of
   </span>
   <Link
     to="/literature/1234"
   >
     A title of book
     <span>
-       : 
+       :
       A subtitle
     </span>
   </Link>
   <span>
-    , 
+    ,
     1
     -
     10

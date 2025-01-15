@@ -18,7 +18,7 @@ exports[`IncomingLiteratureReferencesLinkAction renders with required props 1`] 
             <FormattedNumber>
               29
             </FormattedNumber>
-             
+
             citations
           </React.Fragment>
         }
@@ -46,7 +46,7 @@ exports[`IncomingLiteratureReferencesLinkAction renders with required props when
             <FormattedNumber>
               1
             </FormattedNumber>
-             
+
             paper
           </React.Fragment>
         }

@@ -63,7 +63,7 @@ describe('AssignDifferentProfileAction', () => {
     const dropdown = container.getElementsByClassName(
       'ant-dropdown-trigger'
     )[0];
-    
+
     await waitFor(() => fireEvent.mouseOver(dropdown));
     await waitFor(() => screen.getByTestId('assign-self').click());
 

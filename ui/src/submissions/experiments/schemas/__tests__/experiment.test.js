@@ -3,7 +3,7 @@ import { experimentValues } from '../constants';
 
 const dataWithRequiredFields = {
   project_type: [experimentValues[0]],
-  legacy_name: "LATTICE-ETM",
+  legacy_name: 'LATTICE-ETM',
 };
 
 describe('experimentSchema', () => {

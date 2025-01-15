@@ -8,7 +8,7 @@ exports[`DOIList renders with dois 1`] = `
     className=""
   >
     DOI
-    : 
+    :
   </span>
   <ul>
     <li
@@ -24,7 +24,7 @@ exports[`DOIList renders with dois 1`] = `
           material={null}
         />
       </span>
-      , 
+      ,
     </li>
     <li
       key="99.9999/9999999999999_9999-2"
@@ -62,7 +62,7 @@ exports[`DOIList renders with dois and showLabel as false 1`] = `
           material={null}
         />
       </span>
-      , 
+      ,
     </li>
     <li
       key="99.9999/9999999999999_9999-2"
@@ -90,7 +90,7 @@ exports[`DOIList renders with dois and showLabel as true 1`] = `
     className=""
   >
     DOI
-    : 
+    :
   </span>
   <ul>
     <li
@@ -106,7 +106,7 @@ exports[`DOIList renders with dois and showLabel as true 1`] = `
           material={null}
         />
       </span>
-      , 
+      ,
     </li>
     <li
       key="99.9999/9999999999999_9999-2"

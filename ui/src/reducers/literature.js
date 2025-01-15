@@ -129,10 +129,7 @@ const literatureReducer = (state = initialState, action) => {
         action.payload.literatureId
       );
     case LITERATURE_SET_CURATE_DRAWER_VISIBILITY:
-      return state.set(
-        'referenceDrawer',
-        action.payload.referenceId
-      );
+      return state.set('referenceDrawer', action.payload.referenceId);
     case LITERATURE_SELECTION_SET:
       const { literatureIds, selected } = action.payload;
       const selectionUpdate = Set(literatureIds);

@@ -166,7 +166,7 @@ exports[`PositionsTimeline renders with positions 1`] = `
       <div>
         <strong>
           UNDERGRADUATE
-          , 
+          ,
         </strong>
         <Affiliation
           affiliation={
@@ -188,7 +188,7 @@ exports[`PositionsTimeline renders with positions 1`] = `
       <div>
         <strong>
           PHD
-          , 
+          ,
         </strong>
         <Affiliation
           affiliation={
@@ -210,7 +210,7 @@ exports[`PositionsTimeline renders with positions 1`] = `
       <div>
         <strong>
           STAFF
-          , 
+          ,
         </strong>
         <Affiliation
           affiliation={
@@ -247,7 +247,7 @@ exports[`PositionsTimeline renders with single position 1`] = `
       <div>
         <strong>
           UNDERGRADUATE
-          , 
+          ,
         </strong>
         <Affiliation
           affiliation={

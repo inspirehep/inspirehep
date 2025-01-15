@@ -25,7 +25,7 @@ const AssignLiteratureItem = (props: AssignLiteratureItemProps) => {
     {
       key: '1',
       label: (
-        <EventTracker      
+        <EventTracker
           eventCategory={page}
           eventAction="Claim"
           eventId="Move to my profile"

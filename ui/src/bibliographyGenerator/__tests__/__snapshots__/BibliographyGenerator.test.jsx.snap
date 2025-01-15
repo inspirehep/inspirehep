@@ -57,7 +57,7 @@ exports[`BibliographyGenerator renders 1`] = `
                 <pre
                   className="latex-example"
                 >
-                  
+
 \\documentclass[12pt]{article}
 
 \\begin {document}
@@ -66,7 +66,7 @@ exports[`BibliographyGenerator renders 1`] = `
 SLAC--PUB--10812\\\\
 October 2012\\\\}
 \\end{flushright}
-                                                                              
+
 \\title{A Really Great Paper with Excellent Bibliography}
 \\author{Jane Q. Physicist \\\\
 Stanford Linear Accelerator Center \\\\
@@ -79,16 +79,16 @@ This paper is pretty eclectic, since it cites a buch of diverse
   things.  Of course, since it has no content, that is perhaps not so
   difficult.
 
-Primarily I want to refer the reader to Brodsky and Wu's recent work on the renormalization 
+Primarily I want to refer the reader to Brodsky and Wu's recent work on the renormalization
 group\\cite{Brodsky:2012ms}, which is relatively unrelated to the recent
 work by Beacom, Bell, and Dodelson \\cite{Beacom:2004yd}.  I should also point out that
 the paper by Kreitz and Brooks \\cite{physics/0309027} is being cited here in a
-purely self-serving manner.  
+purely self-serving manner.
 
 There are many papers by Dixon and others that I'd like to point out here
-\\cite{hep-th/0501240,hep-th/0412210,JHEP.0412.015}. 
+\\cite{hep-th/0501240,hep-th/0412210,JHEP.0412.015}.
 In particular I wish to point out that the work done in
-\\cite{JHEP.0412.015} is irrelevant to this paper.  
+\\cite{JHEP.0412.015} is irrelevant to this paper.
 
 There are some items in the paper \\cite{Akimov:2012vv} which I would like
 to draw your attention to, but it is likely that as above, I may be citing
@@ -109,12 +109,12 @@ Finally, let me make a mistake citing this paper \\cite{hep-scifi/0101001}.
 
 
 \\end{document}
-                    
+
                 </pre>
                 <p>
                   <strong>
                     This will warn about the unknown reference to
-                     
+
                     <code>
                       hep-scifi/0101001
                     </code>
@@ -124,7 +124,7 @@ Finally, let me make a mistake citing this paper \\cite{hep-scifi/0101001}.
                 <pre
                   className="latex-example"
                 >
-                  
+
 %\\cite{Brodsky:2012ms}
 \\bibitem{Brodsky:2012ms}
 S.~J.~Brodsky and X.~G.~Wu,
@@ -222,7 +222,7 @@ Phys. Rev. Lett. \\textbf{83} (1999), 3370-3373
 doi:10.1103/PhysRevLett.83.3370
 [arXiv:hep-ph/9905221 [hep-ph]].
 %8745 citations counted in INSPIRE as of 24 Jun 2020
-                    
+
                 </pre>
               </CollapsableFormSection>
             </CollapsableForm>
@@ -238,7 +238,7 @@ doi:10.1103/PhysRevLett.83.3370
                       Instructions
                     </h3>
                     <p>
-                      Write your paper in LaTeX as usual. Cite papers in your LaTeX file using the 
+                      Write your paper in LaTeX as usual. Cite papers in your LaTeX file using the
                       <Cite>
                         ...
                       </Cite>
@@ -246,38 +246,38 @@ doi:10.1103/PhysRevLett.83.3370
                     </p>
                     <ol>
                       <li>
-                        INSPIRE Texkeys, e.g. 
+                        INSPIRE Texkeys, e.g.
                         <Cite>
                           Beacom:2010kk
                         </Cite>
                       </li>
                       <li>
-                        arXiv eprint numbers, e.g. 
+                        arXiv eprint numbers, e.g.
                         <Cite>
                           1004.3311
                         </Cite>
                          or
-                         
+
                         <Cite>
                           hep-th/9711200
                         </Cite>
                       </li>
                       <li>
                         Journal references as present on INSPIRE, with the spaces and dots removed from the title, and dots used as separator between title, volume and page-number/article ID, e.g.
-                         
+
                         <Cite>
                           PhysRev.D66.010001
                         </Cite>
                       </li>
                       <li>
-                        ADS bibcodes, e.g. 
+                        ADS bibcodes, e.g.
                         <Cite>
                           1999IJTP...38.1113M
                         </Cite>
                       </li>
                       <li>
                         Report numbers, e.g.
-                         
+
                         <Cite>
                           CERN-PH-EP-2012-218
                         </Cite>
@@ -292,7 +292,7 @@ doi:10.1103/PhysRevLett.83.3370
                     <ul>
                       <li>
                         You can cite multiple papers at once by separating the keys with commas, such as
-                         
+
                         <Cite>
                           Beacom:2010kk, hep-th/9711200
                         </Cite>
@@ -305,11 +305,11 @@ doi:10.1103/PhysRevLett.83.3370
                         Do not worry about whether you have cited something before, INSPIRE will get the order right based on when you cited the references in the paper.
                       </li>
                       <li>
-                        The only allowed characters in 
+                        The only allowed characters in
                         <Cite>
                           ...
                         </Cite>
-                         
+
                         commands are letters, numbers and the following punctuation characters: “-”, “/”, “:”, “,” and “.”. If your citation key contains anything else, it will not be processed.
                       </li>
                       <li>

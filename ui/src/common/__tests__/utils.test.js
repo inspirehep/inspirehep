@@ -66,21 +66,21 @@ describe('utils', () => {
   describe('pluckMinMaxPair', () => {
     it('returns min max pair by using getter function on each item', () => {
       const list = fromJS([{ number: 1 }, { number: -1 }, { number: 0 }]);
-      const [min, max] = pluckMinMaxPair(list, item => item.get('number'));
+      const [min, max] = pluckMinMaxPair(list, (item) => item.get('number'));
       expect(min).toBe(-1);
       expect(max).toBe(1);
     });
 
     it('returns [0, 0] if list is empty', () => {
       const list = fromJS([]);
-      const [min, max] = pluckMinMaxPair(list, item => item.get('number'));
+      const [min, max] = pluckMinMaxPair(list, (item) => item.get('number'));
       expect(min).toBe(0);
       expect(max).toBe(0);
     });
 
     it('returns min === max if list has single item', () => {
       const list = fromJS([{ number: 1 }]);
-      const [min, max] = pluckMinMaxPair(list, item => item.get('number'));
+      const [min, max] = pluckMinMaxPair(list, (item) => item.get('number'));
       expect(min).toBe(1);
       expect(max).toBe(1);
     });
@@ -505,16 +505,7 @@ describe('utils', () => {
   describe('pickEvenlyDistributedElements', () => {
     it('returns evenly distributed sub array for half of the array 10', () => {
       const array = [
-        1990,
-        1991,
-        1992,
-        1993,
-        1994,
-        1995,
-        1996,
-        1997,
-        1998,
-        1999,
+        1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999,
       ];
       const numberOfElements = 5;
       const expected = [1990, 1992, 1994, 1996, 1998];
@@ -524,16 +515,7 @@ describe('utils', () => {
 
     it('returns evenly distributed sub array for 6 of the array 10', () => {
       const array = [
-        1990,
-        1991,
-        1992,
-        1993,
-        1994,
-        1995,
-        1996,
-        1997,
-        1998,
-        1999,
+        1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999,
       ];
       const numberOfElements = 6;
       const expected = [1990, 1992, 1994, 1996, 1998, 1999];
@@ -543,16 +525,7 @@ describe('utils', () => {
 
     it('returns evenly distributed sub array for 7 of the array of 10', () => {
       const array = [
-        1990,
-        1991,
-        1992,
-        1993,
-        1994,
-        1995,
-        1996,
-        1997,
-        1998,
-        1999,
+        1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999,
       ];
       const numberOfElements = 7;
       const expected = [1990, 1992, 1994, 1996, 1998, 1999];

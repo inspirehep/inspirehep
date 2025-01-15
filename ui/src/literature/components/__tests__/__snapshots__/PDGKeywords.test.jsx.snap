@@ -3,7 +3,7 @@
 exports[`PDGKeywords renders with keywords 1`] = `
 <div>
   PDG:
-   
+
   <LinkWithTargetBlank
     as="a"
     href="https://pdglive.lbl.gov/view/Q007TP"

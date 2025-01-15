@@ -512,11 +512,11 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                       Submission
                     </h3>
                     <div>
-                      Submitted by 
+                      Submitted by
                       <i>
                         joao.ramiro@cern.ch
                       </i>
-                       on 
+                       on
                       <b>
                         Invalid Date
                       </b>
