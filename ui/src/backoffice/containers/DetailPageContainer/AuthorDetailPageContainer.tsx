@@ -12,7 +12,6 @@ import { ActionCreator, Action } from 'redux';
 import { connect, RootStateOrAny } from 'react-redux';
 import { Map } from 'immutable';
 import { push } from 'connected-react-router';
-import classNames from 'classnames';
 
 import './AuthorDetailPageContainer.less';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
@@ -34,22 +33,25 @@ import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
 import LinkLikeButton from '../../../common/components/LinkLikeButton/LinkLikeButton';
 import { BACKOFFICE_SEARCH } from '../../../common/routes';
 import { isSuperUser } from '../../../common/authorization';
+import AuthorMainInfo from '../../components/Author/AuthorMainInfo';
+import UnclickableTag from '../../../common/components/UnclickableTag';
+import PrivateNotes from '../../components/Author/PrivateNotes';
 
-interface AuthorDetailPageContainerProps {
+type AuthorDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
   author: Map<string, any>;
   loading: boolean;
   actionInProgress: string | false;
   isSuperUserLoggedIn: boolean;
-}
+};
 
-const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
+const AuthorDetailPageContainer = ({
   dispatch,
   author,
   loading,
   actionInProgress,
   isSuperUserLoggedIn,
-}) => {
+}: AuthorDetailPageContainerProps) => {
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
@@ -60,7 +62,16 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
   const tickets = author?.get('tickets')?.size !== 0 && author?.get('tickets');
   const decision = author?.getIn(['decisions', 0]) as Map<string, any>;
   const status = author?.get('status');
-  const statusInfo = status ? getWorkflowStatusInfo(status.toLowerCase()) : null;
+  const statusInfo = status
+    ? getWorkflowStatusInfo(status.toLowerCase())
+    : null;
+  const urls = data?.get('urls');
+  const ids = data?.get('ids');
+  const acquisitionSourceEmail = data?.getIn(['acquisition_source', 'email']);
+  const acquisitionSourceDateTime = new Date(
+    data?.getIn(['acquisition_source', 'datetime'])
+  )?.toLocaleDateString();
+  const privateNotes = data?.get('_private_notes');
 
   const shouldDisplayDecisionsBox =
     decision || status === 'approval' || (decision && status !== 'approval');
@@ -70,18 +81,15 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
   const OPEN_SECTIONS = [
     data?.get('positions') && 'institutions',
     data?.get('project_membership') && 'projects',
-    (data?.get('urls') || data?.get('ids')) && 'links',
+    (urls || ids) && 'links',
     (data?.get('arxiv_categories') || data?.get('advisors')) && 'other',
     status === 'error' && 'errors',
     'delete',
   ].filter(Boolean);
 
   const handleResolveAction = (value: string) => {
-    dispatch(
-      resolveAction(id, 'resolve', { value})
-    );
+    dispatch(resolveAction(id, 'resolve', { value }));
   };
-
 
   return (
     <div
@@ -125,57 +133,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
               )}
               <Row className="mv3" justify="center" gutter={35}>
                 <Col xs={24} lg={16}>
-                  <ContentBox fullHeight={false} className="md-pb3 mb3">
-                    <h2>{data?.getIn(['name', 'value'])}</h2>
-                    {data?.getIn(['name', 'preferred_name']) && (
-                      <p>
-                        <b>Preferred name:</b>{' '}
-                        {data?.getIn(['name', 'preferred_name'])}
-                      </p>
-                    )}
-                    {data?.getIn(['name', 'native_names']) && (
-                      <p>
-                        <b>Native names:</b>{' '}
-                        {data.getIn(['name', 'native_names']).join('; ')}
-                      </p>
-                    )}
-                    {data?.getIn(['name', 'name_variants']) && (
-                      <p>
-                        <b>Name variants:</b>{' '}
-                        {data.getIn(['name', 'name_variants']).join('; ')}
-                      </p>
-                    )}
-                    {data?.get('status') && (
-                      <p
-                        className={classNames({
-                          mb0: !data
-                            ?.get('ids')
-                            ?.find(
-                              (id: { get: (arg0: string) => string }) =>
-                                id.get('schema') === 'ORCID'
-                            ),
-                        })}
-                      >
-                        <b>Status:</b> {data?.get('status')}
-                      </p>
-                    )}
-                    {data
-                      ?.get('ids')
-                      ?.find(
-                        (id: { get: (arg0: string) => string }) =>
-                          id.get('schema') === 'ORCID'
-                      ) && (
-                      <Ids
-                        ids={data
-                          ?.get('ids')
-                          ?.filter(
-                            (id: { get: (arg0: string) => string }) =>
-                              id?.get('schema') === 'ORCID'
-                          )}
-                        noIcon
-                      />
-                    )}
-                  </ContentBox>
+                  {data && <AuthorMainInfo data={data} />}
                   <CollapsableForm openSections={OPEN_SECTIONS}>
                     <CollapsableForm.Section
                       header="Institution history"
@@ -203,12 +161,9 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                         rowKey={(record) => `${record?.name}+${Math.random()}`}
                       />
                     </CollapsableForm.Section>
-                    {(data?.get('urls') || data?.get('ids')) && (
+                    {(urls || ids) && (
                       <CollapsableForm.Section header="Links" key="links">
-                        <Links
-                          urls={data?.get('urls')}
-                          ids={data?.get('ids')}
-                        />
+                        <Links urls={urls} ids={ids} />
                       </CollapsableForm.Section>
                     )}
                     <CollapsableForm.Section header="Other" key="other">
@@ -265,7 +220,19 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                       fullHeight={false}
                       subTitle="Decision"
                     >
-                      {!decision ? (
+                      {decision ? (
+                        <p className="mb0">
+                          This workflow is{' '}
+                          <UnclickableTag
+                            className={`decission-pill ${
+                              resolveDecision(decision?.get('action'))?.bg
+                            }`}
+                          >
+                            {resolveDecision(decision?.get('action'))
+                              ?.decision || 'completed'}
+                          </UnclickableTag>
+                        </p>
+                      ) : (
                         <div className="w-100 flex flex-column items-center">
                           <Button
                             className="font-white bg-completed w-75 mb2"
@@ -289,15 +256,6 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                             Reject
                           </Button>
                         </div>
-                      ) : (
-                        <p className="mb0">
-                          This workflow is{' '}
-                          <b>
-                            {resolveDecision(decision?.get('action'))
-                              ?.decision || 'completed'}
-                          </b>
-                          .
-                        </p>
                       )}
                     </ContentBox>
                   )}
@@ -306,39 +264,10 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                     fullHeight={false}
                     subTitle="Submission"
                   >
-                    Submitted by{' '}
-                    <i>{data?.getIn(['acquisition_source', 'email'])}</i> on{' '}
-                    <b>
-                      {new Date(
-                        data?.getIn(['acquisition_source', 'datetime'])
-                      )?.toLocaleDateString()}
-                    </b>
-                    .
+                    Submitted by <i>{acquisitionSourceEmail}</i> on{' '}
+                    <b>{acquisitionSourceDateTime}</b>.
                   </ContentBox>
-                  {data?.get('_private_notes') && (
-                    <ContentBox
-                      className="mb3"
-                      fullHeight={false}
-                      subTitle="Notes"
-                    >
-                      <i>
-                        {data
-                          ?.get('_private_notes')
-                          ?.map(
-                            (note: {
-                              get: (arg0: string) => {} | null | undefined;
-                            }) => (
-                              <p
-                                className="mb0"
-                                key={note?.get('value') as string}
-                              >
-                                &quot;{note?.get('value')}&quot;
-                              </p>
-                            )
-                          )}
-                      </i>
-                    </ContentBox>
-                  )}
+                  {privateNotes && <PrivateNotes privateNotes={privateNotes} />}
                   <ContentBox
                     className="mb3"
                     fullHeight={false}

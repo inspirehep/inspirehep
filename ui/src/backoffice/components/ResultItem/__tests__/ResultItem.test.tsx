@@ -51,7 +51,7 @@ describe('AuthorResultItem component', () => {
 
     const decisionPill = screen.getByText('Accept');
     expect(decisionPill).toBeInTheDocument();
-    expect(decisionPill).toHaveClass('decission-pill bg-halted ml1');
+    expect(decisionPill).toHaveClass('decission-pill bg-completed ml1');
 
     expect(screen.getByText('Completed')).toBeInTheDocument();
     expect(

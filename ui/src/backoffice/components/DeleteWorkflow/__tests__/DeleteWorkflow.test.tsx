@@ -2,10 +2,9 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
+import DeleteWorkflow from '../DeleteWorkflow';
 
-import DeleteWorkflow from '../DeleteWorkflow/DeleteWorkflow';
-
-jest.mock('../../../actions/backoffice', () => ({
+jest.mock('../../../../actions/backoffice', () => ({
   deleteWorkflow: jest.fn((id) => ({
     type: 'BACKOFFICE_DELETE_REQUEST',
     payload: id,
