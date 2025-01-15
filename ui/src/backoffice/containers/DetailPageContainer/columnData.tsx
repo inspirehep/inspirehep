@@ -44,6 +44,16 @@ export const columnsProjects = [
     dataIndex: 'name',
   },
   {
+    title: 'Start date',
+    dataIndex: 'start_date',
+    render: (start: string) => (!start ? '-' : start),
+  },
+  {
+    title: 'End date',
+    dataIndex: 'end_date',
+    render: (end: string) => (!end ? '-' : end),
+  },
+  {
     title: 'Current',
     dataIndex: 'current',
     render: (current: boolean) =>
@@ -53,16 +63,6 @@ export const columnsProjects = [
         <CloseCircleOutlined style={{ color: 'red' }} />
       ),
     align: 'center' as const,
-  },
-  {
-    title: 'Start date',
-    dataIndex: 'start_date',
-    render: (start: string) => (!start ? '-' : start),
-  },
-  {
-    title: 'End date',
-    dataIndex: 'end_date',
-    render: (end: string) => (!end ? 'Present' : end),
   },
 ];
 
