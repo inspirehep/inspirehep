@@ -1681,3 +1681,21 @@ def test_institution_search_in_all_field(inspire_app):
     for query in queries:
         result = InstitutionsSearch().query_from_iq(query).execute()
         assert result.hits[0]["control_number"] == record["control_number"]
+
+
+def test_referenced_data_record(inspire_app, override_config):
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
+        data_record = create_record("dat")
+        citing_record = create_record(
+            "lit",
+            data={"references": [{"record": {"$ref": data_record["self"]["$ref"]}}]},
+        )
+
+        result = (
+            LiteratureSearch()
+            .query_from_iq(f"refersto:recid:{data_record['control_number']}")
+            .execute()
+        )
+        assert result.hits[0]["control_number"] == citing_record["control_number"]
