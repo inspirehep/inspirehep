@@ -1,8 +1,17 @@
 {
   "root": true,
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false,
+    "babelOptions": {
+      "babelrc": false,
+      "configFile": false,
+      // your babel options
+      "presets": ["@babel/preset-env","@babel/preset-react"]
+    }
+  },
   "plugins": ["react-hooks"],
-  "extends": ["airbnb", "prettier", "prettier/react"],
+  "extends": ["airbnb","eslint:recommended", "plugin:react/recommended","plugin:prettier/recommended"],
   "env": {
     "browser": true,
     "jest": true
