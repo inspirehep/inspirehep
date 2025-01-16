@@ -31,6 +31,11 @@ def es_search(index):
     return current_search.client.search(index=get_index_alias(index))
 
 
+def search_index_flush_and_refresh(record_type):
+    index = current_app.config["PID_TYPE_TO_INDEX"][record_type]
+    current_search.flush_and_refresh(index)
+
+
 def get_index_alias(index):
     return build_alias_name(index, app=current_app)
 

@@ -46,6 +46,7 @@ describe('DataItem', () => {
         },
       ],
       control_number: 1234,
+      citation_count: 666
     });
 
     const { asFragment } = render(

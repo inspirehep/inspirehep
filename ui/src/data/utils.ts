@@ -1,7 +1,7 @@
 import { Map, List } from 'immutable';
 
-export function getPapersQueryString(recordId: number) {
-  return `data.record.$ref:${recordId}`;
+export function getReferencingPapersQueryString(recordId: number) {
+  return `refersto:recid:${recordId}`;
 }
 
 export function filterDoisByMaterial(dois: List<Map<string, any>>) {
