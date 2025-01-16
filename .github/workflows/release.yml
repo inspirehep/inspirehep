@@ -36,6 +36,7 @@ jobs:
       - name: send event
         uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v6.3.1
         with:
+          repo: cern-sis/kubernetes-inspire
           event-type: release
           images: ${{ env.DOCKER_METADATA_OUTPUT_TAGS }}
           token: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
