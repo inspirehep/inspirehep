@@ -7,7 +7,10 @@
 from copy import deepcopy
 
 import orjson
-from helpers.utils import create_record, create_record_factory
+from helpers.utils import (
+    create_record,
+    search_index_flush_and_refresh,
+)
 from marshmallow import utils
 
 
@@ -16,11 +19,24 @@ def test_data_json(inspire_app, datadir):
 
     data = orjson.loads((datadir / "1.json").read_text())
 
-    record = create_record_factory("dat", data=data)
-    record_control_number = record.json["control_number"]
+    record = create_record("dat", data=data)
+    record_control_number = record["control_number"]
 
-    expected_metadata = deepcopy(record.json) | {
-        "citation_count": 0,
+    create_record(
+        "lit",
+        data={
+            "titles": [{"title": "Lit title"}],
+            "references": [
+                {
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/data/{record_control_number}"
+                    }
+                }
+            ],
+        },
+    )
+    expected_metadata = deepcopy(record) | {
+        "citation_count": 1,
         "citation_count_without_self_citations": 0,
     }
     expected_created = utils.isoformat(record.created)
@@ -39,23 +55,39 @@ def test_data_json(inspire_app, datadir):
 
 
 def test_data_search_json(inspire_app, datadir):
-    headers = {"Accept": "application/json"}
-
     data = orjson.loads((datadir / "1.json").read_text())
-
     record = create_record("dat", data=data)
 
+    create_record(
+        "lit",
+        data={
+            "titles": [{"title": "Lit title"}],
+            "references": [
+                {
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/data/{record['control_number']}"
+                    }
+                }
+            ],
+        },
+    )
+
     expected_result = deepcopy(record) | {
-        "citation_count": 0,
+        "citation_count": 1,
         "citation_count_without_self_citations": 0,
     }
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
+
+    # to make sure we index the citation count
+    record.index(delay=False)
+    search_index_flush_and_refresh("dat")
+
     with inspire_app.test_client() as client:
+        headers = {"Accept": "application/json"}
         response = client.get("/data", headers=headers)
 
     response_data_hit = response.json["hits"]["hits"][0]
-
     response_created = response_data_hit["created"]
     response_updated = response_data_hit["updated"]
     response_metadata = response_data_hit["metadata"]
@@ -88,32 +120,119 @@ def test_data_detail_json_format(inspire_app):
 
 
 def test_data_detail_literature_records(inspire_app):
+    lit_record = create_record("lit", data={"titles": [{"title": "Lit title"}]})
+    record = create_record(
+        "dat",
+        data={
+            "literature": [
+                {
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/literature/{lit_record['control_number']}"
+                    }
+                }
+            ]
+        },
+    )
     with inspire_app.test_client() as client:
         headers = {"Accept": "application/vnd+inspire.record.ui+json"}
-        lit_record = create_record("lit", data={"titles": [{"title": "Lit title"}]})
-        record = create_record(
-            "dat",
-            data={
-                "literature": [
-                    {
-                        "record": {
-                            "$ref": f"http://localhost:5000/api/literature/{lit_record['control_number']}"
-                        }
-                    }
-                ]
-            },
-        )
-
         response = client.get(f"/data/{record['control_number']}", headers=headers)
 
-        response_metadata = response.json["metadata"]
-        expected_literature_records = [
-            {
-                "control_number": lit_record["control_number"],
-                "titles": [{"title": "Lit title"}],
-                "record": {
-                    "$ref": f"http://localhost:5000/api/literature/{lit_record['control_number']}"
-                },
-            }
-        ]
-        assert response_metadata["literature"] == expected_literature_records
+    response_metadata = response.json["metadata"]
+    expected_literature_records = [
+        {
+            "control_number": lit_record["control_number"],
+            "titles": [{"title": "Lit title"}],
+            "record": {
+                "$ref": f"http://localhost:5000/api/literature/{lit_record['control_number']}"
+            },
+        }
+    ]
+    assert response_metadata["literature"] == expected_literature_records
+
+
+def test_data_search_citation_count(inspire_app):
+    record = create_record(
+        "dat",
+    )
+    create_record(
+        "lit",
+        data={
+            "titles": [{"title": "Lit title"}],
+            "references": [
+                {
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/data/{record['control_number']}"
+                    }
+                }
+            ],
+        },
+    )
+
+    create_record(
+        "lit",
+        data={
+            "titles": [{"title": "Lit title 2"}],
+            "references": [
+                {
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/data/{record['control_number']}"
+                    }
+                }
+            ],
+        },
+    )
+
+    # to make sure we index the citation count
+    record.index(delay=False)
+    search_index_flush_and_refresh("dat")
+
+    with inspire_app.test_client() as client:
+        headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+        response = client.get("/data/", headers=headers)
+
+    response_metadata = response.json["hits"]["hits"][0]["metadata"]
+
+    expected_citation_count = 2
+    assert expected_citation_count == response_metadata["citation_count"]
+
+
+def test_data_detail_citation_count(inspire_app):
+    record = create_record(
+        "dat",
+    )
+    create_record(
+        "lit",
+        data={
+            "titles": [{"title": "Lit title"}],
+            "references": [
+                {
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/data/{record['control_number']}"
+                    }
+                }
+            ],
+        },
+    )
+
+    create_record(
+        "lit",
+        data={
+            "titles": [{"title": "Lit title 2"}],
+            "references": [
+                {
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/data/{record['control_number']}"
+                    }
+                }
+            ],
+        },
+    )
+
+    with inspire_app.test_client() as client:
+        headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+        response = client.get(f"/data/{record['control_number']}", headers=headers)
+
+    expected_citation_count = 2
+    response_metadata = response.json["metadata"]
+
+    assert expected_citation_count == response_metadata["citation_count"]

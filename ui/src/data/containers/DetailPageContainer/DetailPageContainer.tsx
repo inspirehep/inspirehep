@@ -17,6 +17,8 @@ import AuthorsAndCollaborations from '../../../common/components/AuthorsAndColla
 import Abstract from '../../../literature/components/Abstract';
 import LiteratureRecordsList from '../../../common/components/LiteratureRecordsList';
 import DOIListShowAll from '../../components/DOIListShowAll';
+import IncomingLiteratureReferencesLinkAction from '../../../common/components/IncomingLiteratureReferencesLinkAction';
+import { getReferencingPapersQueryString } from '../../utils';
 
 interface DetailPageProps {
   result: any; // TODO: define proper type for result
@@ -38,8 +40,8 @@ const DetailPage = ({
   const recordId = metadata.get('control_number');
   const literatureRecords = metadata.get('literature');
   const collaborations = metadata.get('collaborations', List());
-
   const urls = metadata.get('urls');
+  const citationCount = metadata.get('citation_count');
 
   return (
     <>
@@ -66,6 +68,20 @@ const DetailPage = ({
                 {isSuperUserLoggedIn && (
                   <APIButton url={window.location.href} />
                 )}
+              </>
+            }
+            rightActions={
+              <>
+                {citationCount ? (
+                  <IncomingLiteratureReferencesLinkAction
+                    itemCount={citationCount}
+                    referenceType="citation"
+                    linkQuery={getReferencingPapersQueryString(recordId)}
+                    trackerEventId="Citations link"
+                    eventCategory="Data search"
+                  />
+                ) : <></>
+                }
               </>
             }
           >

@@ -9,7 +9,7 @@ import DOILinkAction from '../../literature/components/DOILinkAction';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import ResultItem from '../../common/components/ResultItem';
 
-import { filterDoisByMaterial, getPapersQueryString } from '../utils';
+import { filterDoisByMaterial, getReferencingPapersQueryString } from '../utils';
 import { DATA } from '../../common/routes';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
 import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';
@@ -24,6 +24,7 @@ function DataItem({ metadata, page }) {
   const urls = metadata.get('urls');
   const canEdit = metadata.get('can_edit', false);
   const collaborations = metadata.get('collaborations', List());
+  const citationCount = metadata.get('citation_count');
 
   return (
     <div data-test-id="data-result-item">
@@ -49,13 +50,18 @@ function DataItem({ metadata, page }) {
           </>
         }
         rightActions={
-          <IncomingLiteratureReferencesLinkAction
-            itemCount={metadata.get('number_of_papers', 0)}
-            referenceType="paper"
-            linkQuery={getPapersQueryString(recordId)}
-            trackerEventId="Papers link"
-            eventCategory="Data search"
-          />
+          <>
+          {citationCount ? (
+              <IncomingLiteratureReferencesLinkAction
+                itemCount={citationCount}
+                referenceType="citation"
+                linkQuery={getReferencingPapersQueryString(recordId)}
+                trackerEventId="Citations link"
+                eventCategory="Data search"
+              />
+            ) : <></>
+          }
+          </>
         }
       >
         <div data-test-id="data-result-item-inner">
