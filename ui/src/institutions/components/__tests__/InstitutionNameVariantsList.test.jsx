@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 import InstitutionsNameVariantsList from '../InstitutionNameVariantsList';
 
@@ -13,9 +13,9 @@ describe('InstitutionNameVariantsList', () => {
         value: 'Name2',
       },
     ]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <InstitutionsNameVariantsList nameVariants={nameVariants} />
     );
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

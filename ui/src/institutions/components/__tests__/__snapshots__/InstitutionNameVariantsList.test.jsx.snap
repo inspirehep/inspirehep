@@ -1,31 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`InstitutionNameVariantsList renders 1`] = `
-<div
-  className="__InlineList__"
->
-  <span
-    className=""
+<DocumentFragment>
+  <div
+    class="__InlineList__"
   >
-    Name Variants
-    : 
-  </span>
-  <ul>
-    <li
-      key="Name1-0"
+    <span
+      class=""
     >
-      <span>
-        Name1
-      </span>
-      , 
-    </li>
-    <li
-      key="Name2-2"
-    >
-      <span>
-        Name2
-      </span>
-    </li>
-  </ul>
-</div>
+      Name Variants: 
+    </span>
+    <ul>
+      <li>
+        <span>
+          Name1
+        </span>
+        , 
+      </li>
+      <li>
+        <span>
+          Name2
+        </span>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;

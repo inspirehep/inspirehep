@@ -1,30 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`InstitutionHierarchyList renders 1`] = `
-<div
-  className="__InlineList__"
->
-  <ul>
-    <li
-      key="Name1-0"
-    >
-      <span>
-        Name1
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+  >
+    <ul>
+      <li>
         <span>
-           (
-          NA
-          )
+          Name1
+          <span>
+             (NA)
+          </span>
         </span>
-      </span>
-       • 
-    </li>
-    <li
-      key="Name2-2"
-    >
-      <span>
-        Name2
-      </span>
-    </li>
-  </ul>
-</div>
+         • 
+      </li>
+      <li>
+        <span>
+          Name2
+        </span>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;

@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import RorLink from '../RorLink';
 
 describe('RorLink', () => {
   it('renders', () => {
     const ror = 'https://ror123.org';
-    const wrapper = shallow(<RorLink ror={ror} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<RorLink ror={ror} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

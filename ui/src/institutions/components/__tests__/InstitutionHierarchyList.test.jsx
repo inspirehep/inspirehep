@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 import InstitutionHierarchyList from '../InstitutionHierarchyList';
 
@@ -14,9 +14,9 @@ describe('InstitutionHierarchyList', () => {
         name: 'Name2',
       },
     ]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <InstitutionHierarchyList hierarchies={hierarchies} />
     );
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

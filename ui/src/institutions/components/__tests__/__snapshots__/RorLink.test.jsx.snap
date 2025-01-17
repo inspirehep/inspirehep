@@ -1,13 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RorLink renders 1`] = `
-<span>
-  ROR Record: 
-  <LinkWithTargetBlank
-    as="a"
-    href="https://ror123.org"
-  >
-    https://ror123.org
-  </LinkWithTargetBlank>
-</span>
+<DocumentFragment>
+  <span>
+    ROR Record: 
+    <a
+      href="https://ror123.org"
+      target="_blank"
+    >
+      https://ror123.org
+    </a>
+  </span>
+</DocumentFragment>
 `;

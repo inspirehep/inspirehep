@@ -1,7 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { MemoryRouter } from 'react-router-dom';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
+import { Provider } from 'react-redux';
 import InstitutionItem from '../InstitutionItem';
+import { getStore } from '../../../fixtures/store';
 
 describe('InstitutionItem', () => {
   it('renders with all props set', () => {
@@ -24,8 +27,14 @@ describe('InstitutionItem', () => {
       number_of_papers: 1,
     });
 
-    const wrapper = shallow(<InstitutionItem metadata={metadata} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <InstitutionItem metadata={metadata} />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with only needed props', () => {
@@ -34,7 +43,13 @@ describe('InstitutionItem', () => {
       control_number: 123,
     });
 
-    const wrapper = shallow(<InstitutionItem metadata={metadata} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <InstitutionItem metadata={metadata} />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });

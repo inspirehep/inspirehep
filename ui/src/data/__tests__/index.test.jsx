@@ -40,7 +40,9 @@ describe('Data', () => {
       </Provider>
     );
     await Loadable.preloadAll();
-    expect(screen.getByTestId('detail-page-container')).toBeInTheDocument();
+    expect(
+      screen.getByTestId('data-detail-page-container')
+    ).toBeInTheDocument();
   });
 
   it('navigates to SearchPage when /data', async () => {
@@ -53,6 +55,8 @@ describe('Data', () => {
     );
     await Loadable.preloadAll();
 
-    expect(screen.getByTestId('search-page-container')).toBeInTheDocument();
+    expect(
+      screen.getByTestId('data-search-page-container')
+    ).toBeInTheDocument();
   });
 });
