@@ -27,7 +27,7 @@ import {
   columnsAdvisors,
 } from './columnData';
 import { getConfigFor } from '../../../common/config';
-import { getWorkflowStatusInfo, resolveDecision } from '../../utils/utils';
+import { getWorkflowStatusInfo, resolveDecision, filterByProperty } from '../../utils/utils';
 import DeleteWorkflow from '../../common/components/DeleteWorkflow/DeleteWorkflow';
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
 import LinkLikeButton from '../../../common/components/LinkLikeButton/LinkLikeButton';
@@ -164,7 +164,10 @@ const AuthorDetailPageContainer = ({
                     </CollapsableForm.Section>
                     {(urls || ids) && (
                       <CollapsableForm.Section header="Links" key="links">
-                        <Links urls={urls} ids={ids} />
+                        <Links 
+                          urls={filterByProperty(data, 'urls', 'schema', 'ORCID', false)}
+                          ids={filterByProperty(data, 'ids', 'schema', 'ORCID', false)} 
+                        />
                       </CollapsableForm.Section>
                     )}
                     <CollapsableForm.Section header="Other" key="other">

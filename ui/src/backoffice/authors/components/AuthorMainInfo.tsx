@@ -3,6 +3,7 @@ import { Map } from 'immutable';
 import classNames from 'classnames';
 import ContentBox from '../../../common/components/ContentBox';
 import { Ids } from '../../common/components/Links/Links';
+import { filterByProperty } from '../../utils/utils';
 
 type AuthorMainInfoProps = {
   data: any; // TODO: define proper type for data
@@ -16,12 +17,6 @@ const hasOrcidId = (data: any): boolean => {
     );
 };
 
-const filterOrcidIds = (data: any) => {
-  return data
-    .get('ids')
-    ?.filter((id: Map<string, any>) => id.get('schema') === 'ORCID');
-};
-
 const AuthorMainInfo = ({ data }: AuthorMainInfoProps) => {
   const name = data.getIn(['name', 'value']);
   const prefferedName = data.getIn(['name', 'preferred_name']);
@@ -29,7 +24,7 @@ const AuthorMainInfo = ({ data }: AuthorMainInfoProps) => {
   const nameVariants = data.getIn(['name', 'name_variants']);
   const status = data.get('status');
   const orcidIdExists = hasOrcidId(data);
-  const orcidIds = filterOrcidIds(data);
+  const orcidIds = filterByProperty(data, 'ids', 'schema', 'ORCID');
 
   return (
     <ContentBox fullHeight={false} className="md-pb3 mb3">
