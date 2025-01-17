@@ -9,6 +9,14 @@ import BibliographyGenerator from '../BibliographyGenerator';
 import { BIBLIOGRAPHY_GENERATOR_REQUEST } from '../../actions/actionTypes';
 
 describe('BibliographyGeneratorPageContainer', () => {
+  beforeAll(() => {
+    global.window.open = jest.fn();
+  });
+
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+
   it('passes props down', () => {
     const store = getStoreWithState({
       bibliographyGenerator: fromJS({
