@@ -209,12 +209,51 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                          Name3; Name4
                       </p>
                       <p
-                        class="mb0"
+                        class=""
                       >
                         <b>
                           Status:
                         </b>
                          active
+                      </p>
+                      <p
+                        class="mb0"
+                      >
+                        <b
+                          class="dib ttc"
+                        >
+                          orcid:
+                        </b>
+                         
+                        <a
+                          href="https://orcid.org/0000-0002-6357-9297"
+                          target="_blank"
+                        >
+                           0000-0002-6357-9297 
+                        </a>
+                        <span
+                          class="ml1 pointer"
+                        >
+                          <span
+                            aria-label="copy"
+                            class="anticon anticon-copy"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="copy"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
                       </p>
                     </div>
                   </div>
@@ -320,6 +359,58 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                       Project membership history
                     </h3>
                   </span>
+                </div>
+              </div>
+              <div
+                class="ant-collapse-item ant-collapse-item-active bg-white mb3 overflow-hidden"
+              >
+                <div
+                  aria-disabled="false"
+                  aria-expanded="true"
+                  class="ant-collapse-header"
+                  role="button"
+                  tabindex="0"
+                >
+                  <div
+                    class="ant-collapse-expand-icon"
+                  >
+                    <span
+                      aria-label="right"
+                      class="anticon anticon-right ant-collapse-arrow"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="right"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        style="transform: rotate(90deg);"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <span
+                    class="ant-collapse-header-text"
+                  >
+                    <h3
+                      class="fw6"
+                    >
+                      Links
+                    </h3>
+                  </span>
+                </div>
+                <div
+                  class="ant-collapse-content ant-collapse-content-active"
+                >
+                  <div
+                    class="ant-collapse-content-box"
+                  />
                 </div>
               </div>
               <div

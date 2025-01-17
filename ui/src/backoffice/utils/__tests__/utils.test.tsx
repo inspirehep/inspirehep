@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
-import { getIcon, refreshToken } from '../utils';
+import { getIcon, refreshToken, filterByProperty } from '../utils';
 import storage from '../../../common/storage';
 import { BACKOFFICE_LOGIN_API } from '../../../common/routes';
 
@@ -63,5 +63,37 @@ describe('refreshToken', () => {
       'newAccessToken'
     );
     expect(result).toBe('newAccessToken');
+  });
+});
+
+describe('filterByProperty', () => {
+  let testData: Map<string, Array<Map<string, string>>>;
+
+  beforeEach(() => {
+    const items = [
+      new Map<string, string>([['schema', 'ORCID'], ['value', '0000-0001-2345-6789']]),
+      new Map<string, string>([['schema', 'DOI'], ['value', '10.1000/xyz123']]),
+      new Map<string, string>([['schema', 'ORCID'], ['value', '0000-0002-6789-1234']]),
+    ];
+
+    testData = new Map([
+      ['ids', items],
+    ]);
+  });
+
+  it('should include only items with schema value "ORCID"', () => {
+    const result = filterByProperty(testData, 'ids', 'schema', 'ORCID', true);
+
+    expect(result).toHaveLength(2);
+    expect(result[0].get('schema')).toBe('ORCID');
+    expect(result[1].get('schema')).toBe('ORCID');
+  });
+
+  it('should exclude items with schema value "ORCID"', () => {
+    const result = filterByProperty(testData, 'ids', 'schema', 'ORCID', false);
+
+    expect(result).toHaveLength(1);
+    expect(result[0].get('schema')).toBe('DOI');
+    expect(result[0].get('value')).toBe('10.1000/xyz123');
   });
 });

@@ -145,3 +145,17 @@ export const getWorkflowStatusInfo = (status: string) => {
 
   return statuses[status] || null;
 };
+
+export const filterByProperty = (
+  data: Map<string, any>,
+  dataField: string,
+  property: string,
+  value: any,
+  include: boolean = true
+) => {
+  return data
+    ?.get(dataField)
+    ?.filter((item: Map<string, any>) => 
+      include ? item.get(property) === value : item.get(property) !== value
+    );
+};

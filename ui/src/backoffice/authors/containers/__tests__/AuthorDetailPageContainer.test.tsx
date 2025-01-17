@@ -1,6 +1,6 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor} from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -29,6 +29,9 @@ describe('AuthorDetailPageContainer', () => {
             method: 'submitter',
             source: 'submitter',
           },
+          ids: [
+            { schema: 'ORCID', value: '0000-0002-6357-9297' },
+          ],
         },
         status: 'approval',
       }),
@@ -48,6 +51,14 @@ describe('AuthorDetailPageContainer', () => {
     const { asFragment } = renderComponent();
 
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('should display ORCID link', () => {
+    renderComponent();
+
+    const link = screen.getByRole('link', {name: '0000-0002-6357-9297'});
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute('href', 'https://orcid.org/0000-0002-6357-9297');
   });
 
   it('should display the author name', () => {
