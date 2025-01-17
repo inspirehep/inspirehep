@@ -4,14 +4,14 @@ import { MemoryRouter, Route } from 'react-router-dom';
 import { fromJS } from 'immutable';
 import { render } from '@testing-library/react';
 
-import { getStore, getStoreWithState } from '../../fixtures/store';
+import { getStore } from '../../fixtures/store';
 import Backoffice from '..';
-import DashboardPageContainer from '../containers/DashboardPageContainer/DashboardPageContainer';
-import SearchPageContainer from '../containers/SearchPageContainer/SearchPageContainer';
+import SearchPageContainer from '../search/containers/SearchPageContainer';
 import { BACKOFFICE_SEARCH, BACKOFFICE } from '../../common/routes';
+import DashboardPageContainer from '../dashboard/containers/DashboardPageContainer';
 
 describe('Backoffice', () => {
-  const store = getStoreWithState({
+  const store = getStore({
     user: fromJS({
       loggedIn: true,
       data: {
