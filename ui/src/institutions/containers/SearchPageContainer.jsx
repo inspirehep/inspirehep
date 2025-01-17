@@ -30,6 +30,7 @@ function InstitutionSearchPage({ loading, isSuperUserLoggedIn }) {
         gutter={SEARCH_PAGE_GUTTER}
         type="flex"
         justify="center"
+        data-testid="institutions-search-page-container"
       >
         <Col xs={24} lg={16} xl={16} xxl={14}>
           <LoadingOrChildren loading={loading}>
@@ -61,7 +62,7 @@ InstitutionSearchPage.propTypes = {
   loading: PropTypes.bool.isRequired,
 };
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   loading: state.search.getIn(['namespaces', INSTITUTIONS_NS, 'loading']),
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });

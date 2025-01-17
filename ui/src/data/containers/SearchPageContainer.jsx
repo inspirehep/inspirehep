@@ -31,7 +31,7 @@ function DataSearchPage({ loading, isSuperUserLoggedIn }) {
         gutter={SEARCH_PAGE_GUTTER}
         type="flex"
         justify="center"
-        data-testid="search-page-container"
+        data-testid="data-search-page-container"
       >
         <Col xs={24} lg={16} xl={16} xxl={14}>
           <LoadingOrChildren loading={loading}>

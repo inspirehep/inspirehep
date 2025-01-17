@@ -57,7 +57,7 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
   return (
     <>
       <DocumentHead title={legacyIcn} description={metaDescription} />
-      <Row justify="center">
+      <Row justify="center" data-testid="institutions-detail-page-container">
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
             className="sm-pb3"
@@ -77,7 +77,9 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
                     page="Institutions detail"
                   />
                 </AuthorizedContainer>
-                {isSuperUserLoggedIn && <APIButton url={window.location.href} />}
+                {isSuperUserLoggedIn && (
+                  <APIButton url={window.location.href} />
+                )}
               </>
             }
           >

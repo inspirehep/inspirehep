@@ -45,7 +45,7 @@ const DetailPage = ({
 
   return (
     <>
-      <Row justify="center" data-testid="detail-page-container">
+      <Row justify="center" data-testid="data-detail-page-container">
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
             className="sm-pb3"
