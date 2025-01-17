@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect, RootStateOrAny } from 'react-redux';
 
-import DashboardPageContainer from './containers/DashboardPageContainer/DashboardPageContainer';
 import {
   BACKOFFICE,
   BACKOFFICE_SEARCH,
@@ -10,13 +9,14 @@ import {
   USER_LOGIN,
 } from '../common/routes';
 import SafeSwitch from '../common/components/SafeSwitch';
-import AuthorDetailPageContainer from './containers/DetailPageContainer/AuthorDetailPageContainer';
 import DocumentHead from '../common/components/DocumentHead';
-import LoginPage from './components/LoginPage';
 import PrivateRoute from '../common/PrivateRoute';
-import LocalLoginPageContainer from './containers/LocalLoginPageContainer/LocalLoginPageContainer';
 import { SUPERUSER_OR_CATALOGER } from '../common/authorization';
-import SearchPageContainer from './containers/SearchPageContainer/SearchPageContainer';
+import SearchPageContainer from './search/containers/SearchPageContainer';
+import DashboardPageContainer from './dashboard/containers/DashboardPageContainer';
+import LoginPage from './login/components/LoginPage';
+import LocalLoginPageContainer from './login/containers/LocalLoginPageContainer';
+import AuthorDetailPageContainer from './authors/containers/AuthorDetailPageContainer';
 
 const META_DESCRIPTION = 'Tool for curators to manage submissions and harvests';
 const TITLE = 'Backoffice';
