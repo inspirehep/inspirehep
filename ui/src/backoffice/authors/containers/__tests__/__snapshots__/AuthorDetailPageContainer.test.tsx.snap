@@ -45,7 +45,7 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
             <span
               class="ant-breadcrumb-separator"
             >
-              |
+              &gt;
             </span>
           </li>
           <li>
@@ -61,7 +61,7 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
             <span
               class="ant-breadcrumb-separator"
             >
-              |
+              &gt;
             </span>
           </li>
           <li>
@@ -77,7 +77,7 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
             <span
               class="ant-breadcrumb-separator"
             >
-              |
+              &gt;
             </span>
           </li>
           <li>
@@ -85,7 +85,7 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
               class="ant-breadcrumb-link"
             >
               <a
-                href="/backofficeundefined"
+                href="/backoffice/undefined"
               >
                 Doe, John
               </a>
@@ -93,7 +93,7 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
             <span
               class="ant-breadcrumb-separator"
             >
-              |
+              &gt;
             </span>
           </li>
         </ol>

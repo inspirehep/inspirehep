@@ -41,7 +41,7 @@ exports[`Breadcrumbs renders without crashing 1`] = `
           <span
             class="ant-breadcrumb-separator"
           >
-            |
+            &gt;
           </span>
         </li>
         <li>
@@ -57,7 +57,7 @@ exports[`Breadcrumbs renders without crashing 1`] = `
           <span
             class="ant-breadcrumb-separator"
           >
-            |
+            &gt;
           </span>
         </li>
         <li>
@@ -73,7 +73,7 @@ exports[`Breadcrumbs renders without crashing 1`] = `
           <span
             class="ant-breadcrumb-separator"
           >
-            |
+            &gt;
           </span>
         </li>
       </ol>
