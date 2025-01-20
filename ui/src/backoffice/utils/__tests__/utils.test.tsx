@@ -1,7 +1,5 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
-
 import { getIcon, refreshToken, filterByProperty } from '../utils';
 import storage from '../../../common/storage';
 import { BACKOFFICE_LOGIN_API } from '../../../common/routes';

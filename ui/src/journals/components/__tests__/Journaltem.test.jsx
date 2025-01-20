@@ -1,7 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
+import { render } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 import { JournalItem } from '../JournalItem';
+import { getStore } from '../../../fixtures/store';
 
 describe('JournalItem', () => {
   it('renders with props', () => {
@@ -11,13 +14,20 @@ describe('JournalItem', () => {
         publisher: ['Liverpool'],
         urls: [{ value: 'http://url.com' }],
         control_number: 1234,
-        journal_title: {title: 'Department of Physics'},
+        journal_title: { title: 'Department of Physics' },
         number_of_papers: 2
       })
     });
 
-    const wrapper = shallow(<JournalItem result={result} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <JournalItem result={result} />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with some props undefined', () => {
@@ -29,7 +39,14 @@ describe('JournalItem', () => {
       })
     });
 
-    const wrapper = shallow(<JournalItem result={result} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <JournalItem result={result} />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });

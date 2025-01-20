@@ -1,19 +1,19 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { fromJS, List, Map } from 'immutable';
+import { fromJS } from 'immutable';
 
-import { getStoreWithState } from '../../../fixtures/store';
-import DetailPageContainer, { DetailPage } from '../DetailPageContainer';
+import { render, screen } from '@testing-library/react';
+import { getStore } from '../../../fixtures/store';
+import DetailPageContainer from '../DetailPageContainer';
 
 describe('DetailPageContainer', () => {
-  it('pass props from state', () => {
-    const store = getStoreWithState({
+  it('renders journals details correctly', () => {
+    const store = getStore({
       journals: fromJS({
         data: {
           metadata: {
-            short_title: 'test',
+            short_title: 'short test',
             journal_title: { title: 'test' },
             urls: [{ value: 'https://www.springer.com/journal/526' }],
             public_notes: [{ value: 'Started with 1997, v.9701' }],
@@ -28,27 +28,24 @@ describe('DetailPageContainer', () => {
       }),
     });
 
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Router>
         <Provider store={store}>
           <DetailPageContainer />
         </Provider>
       </Router>
     );
-    expect(wrapper.find(DetailPage).prop('result')).toMatchObject(Map({
-        metadata: Map({
-          short_title: 'test',
-          journal_title: Map({ title: 'test' }),
-          urls: List([Map({ value: 'https://www.springer.com/journal/526' })]),
-          public_notes: List([Map({ value: 'Started with 1997, v.9701' })]),
-          title_variants: List([
-            'JOURNAL OF HIGH ENERGY PHYSICS',
-            'JOURNL OF HIGH ENERGY PHYSICS',
-          ]),
-          publisher: List(['Springer']),
-          control_number: 1234
-        }),
-      }),
-    );
+
+    const detailPage = getByTestId('journals-detail-page-container');
+    expect(detailPage).toBeInTheDocument();
+    expect(detailPage).toHaveTextContent('test');
+    expect(detailPage).toHaveTextContent('Show other names (2)');
+    expect(detailPage).toHaveTextContent('Springer');
+    expect(detailPage).toHaveTextContent('Started with 1997, v.9701');
+
+    const link = screen.getByRole('link', { name: /links/i });
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute('href', 'https://www.springer.com/journal/526');
+    expect(link).toHaveAttribute('target', '_blank');
   });
 });

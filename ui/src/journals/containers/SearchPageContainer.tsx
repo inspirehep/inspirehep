@@ -30,14 +30,16 @@ export interface JournalMetadata {
 
 export interface Journal {
   get: (metadata: string) => {
-    get: (metadataKey: keyof JournalMetadata) => Map<keyof JournalMetadata, JournalMetadata[keyof JournalMetadata]>;
+    get: (
+      metadataKey: keyof JournalMetadata
+    ) => Map<keyof JournalMetadata, JournalMetadata[keyof JournalMetadata]>;
   };
 }
 
 export const JournalSearchPage = ({
   loading,
   isCatalogerLoggedIn,
-  isSuperUserLoggedIn
+  isSuperUserLoggedIn,
 }: {
   loading: boolean;
   isCatalogerLoggedIn: boolean;
@@ -50,7 +52,12 @@ export const JournalSearchPage = ({
   return (
     <>
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
-      <Row className="mt3" gutter={SEARCH_PAGE_GUTTER} justify="center">
+      <Row
+        className="mt3"
+        gutter={SEARCH_PAGE_GUTTER}
+        justify="center"
+        data-testid="journals-search-page-container"
+      >
         <Col xs={24} lg={16} xl={16} xxl={14}>
           <LoadingOrChildren loading={loading}>
             <Row>
