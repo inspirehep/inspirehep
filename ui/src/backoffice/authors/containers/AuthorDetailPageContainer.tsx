@@ -225,7 +225,7 @@ const AuthorDetailPageContainer = ({
                         <p className="mb0">
                           This workflow is{' '}
                           <UnclickableTag
-                            className={`decission-pill ${
+                            className={`decision-pill ${
                               resolveDecision(decision?.get('action'))?.bg
                             }`}
                           >
