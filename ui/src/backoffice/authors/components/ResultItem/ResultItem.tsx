@@ -48,7 +48,7 @@ const WorkflowResultItem = ({ item }: { item: any }) => {
                   )}
                   {decision && (
                     <UnclickableTag
-                      className={`decission-pill ${resolveDecision(
+                      className={`decision-pill ${resolveDecision(
                         decision?.get('action')
                       )?.bg}`}
                     >
