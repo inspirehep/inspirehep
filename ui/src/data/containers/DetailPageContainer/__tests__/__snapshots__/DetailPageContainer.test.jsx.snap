@@ -4,7 +4,7 @@ exports[`DetailPageContainer renders initial state 1`] = `
 <DocumentFragment>
   <div
     class="ant-row ant-row-center"
-    data-testid="detail-page-container"
+    data-testid="data-detail-page-container"
   >
     <div
       class="ant-col mv3 ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18"
