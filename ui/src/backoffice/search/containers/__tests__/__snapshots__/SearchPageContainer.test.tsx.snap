@@ -45,7 +45,7 @@ exports[`SearchPageContainer renders the SearchPage component 1`] = `
             <span
               class="ant-breadcrumb-separator"
             >
-              |
+              &gt;
             </span>
           </li>
           <li>
@@ -61,7 +61,7 @@ exports[`SearchPageContainer renders the SearchPage component 1`] = `
             <span
               class="ant-breadcrumb-separator"
             >
-              |
+              &gt;
             </span>
           </li>
           <li>
@@ -77,7 +77,7 @@ exports[`SearchPageContainer renders the SearchPage component 1`] = `
             <span
               class="ant-breadcrumb-separator"
             >
-              |
+              &gt;
             </span>
           </li>
         </ol>

@@ -37,7 +37,7 @@ const Breadcrumbs = ({
 
   return (
     <div className="flex items-center justify-between">
-      <Breadcrumb separator="|" className="mv4">
+      <Breadcrumb separator=">" className="mv4">
         <Breadcrumb.Item>
           <a href="/">
             <HomeOutlined className="mr2" /> Inspirehep
@@ -51,7 +51,7 @@ const Breadcrumbs = ({
         </Breadcrumb.Item>
         {title2 && (
           <Breadcrumb.Item>
-            <a href={`${BACKOFFICE}${href2}`}>{title2}</a>
+            <a href={`${BACKOFFICE}/${href2}`}>{title2}</a>
           </Breadcrumb.Item>
         )}
       </Breadcrumb>

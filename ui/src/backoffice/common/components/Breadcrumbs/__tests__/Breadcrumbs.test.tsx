@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -34,5 +34,24 @@ describe('Breadcrumbs', () => {
     );
     const breadcrumbItems = getAllByRole('link');
     expect(breadcrumbItems).toHaveLength(4);
+  });
+
+  it('includes the correct link for href2', () => {
+    render(
+      <Provider store={getStore()}>
+        <MemoryRouter initialEntries={[BACKOFFICE]}>
+          <Breadcrumbs
+            title1="Search"
+            href1="backoffice"
+            title2="Author Detail"
+            href2="1234"
+          />
+        </MemoryRouter>
+      </Provider>
+    );
+    
+    const link = screen.getByRole('link', { name: 'Author Detail' });
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute('href', expect.stringContaining('/backoffice/1234'));
   });
 });
