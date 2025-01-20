@@ -65,7 +65,7 @@ export const DetailPage = ({
   return (
     <>
       <DocumentHead title={shortTitle} />
-      <Row justify="center">
+      <Row justify="center" data-testid="journals-detail-page-container">
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
             className="sm-pb3"

@@ -1,22 +1,25 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import { shallow, mount } from 'enzyme';
 import Loadable from 'react-loadable';
 
+import { render, screen } from '@testing-library/react';
+import { fromJS } from 'immutable';
 import { getStore } from '../../fixtures/store';
 import Journals from '..';
-import SearchPageContainer from '../containers/SearchPageContainer';
-import DetailPageContainer from '../containers/DetailPageContainer';
 
 describe('Journals', () => {
   it('renders initial state', () => {
-    const component = shallow(<Journals />);
-    expect(component).toMatchSnapshot();
+    const { asFragment } = render(
+      <MemoryRouter>
+        <Journals />
+      </MemoryRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('navigates to SearchPage when /journals', async () => {
-    const wrapper = mount(
+    render(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/journals']} initialIndex={0}>
           <Journals />
@@ -24,22 +27,38 @@ describe('Journals', () => {
       </Provider>
     );
     await Loadable.preloadAll();
-    wrapper.update();
 
-    expect(wrapper.find(SearchPageContainer)).toExist();
+    expect(
+      screen.getByTestId('journals-search-page-container')
+    ).toBeInTheDocument();
   });
 
   it('navigates to DetailPageContainer when /journals/:id', async () => {
-    const wrapper = mount(
-      <Provider store={getStore()}>
+    const store = getStore({
+      journals: fromJS({
+        data: {
+          metadata: {
+            short_title: "Calc.Var.Part.Differ.Equ",
+            journal_title: {
+              title: "Calculus of Variations and Partial Differential Equations"
+            },
+            control_number: 1213100,
+          },
+        },
+      }),
+    });
+    
+    render(
+      <Provider store={store}>
         <MemoryRouter initialEntries={['/journals/1']} initialIndex={0}>
           <Journals />
         </MemoryRouter>
       </Provider>
     );
     await Loadable.preloadAll();
-    wrapper.update();
 
-    expect(wrapper.find(DetailPageContainer)).toExist();
+    expect(
+      screen.getByTestId('journals-detail-page-container')
+    ).toBeInTheDocument();
   });
 });

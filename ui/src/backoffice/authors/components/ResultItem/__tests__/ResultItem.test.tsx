@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
-import '@testing-library/jest-dom/extend-expect';
 
 import AuthorResultItem from '../ResultItem';
 import { BACKOFFICE_SEARCH } from '../../../../../common/routes';
