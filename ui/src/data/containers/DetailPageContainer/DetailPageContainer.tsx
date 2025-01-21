@@ -71,8 +71,7 @@ const DetailPage = ({
               </>
             }
             rightActions={
-              <>
-                {citationCount ? (
+                citationCount !== null && citationCount !== undefined ? (
                   <IncomingLiteratureReferencesLinkAction
                     itemCount={citationCount}
                     referenceType="citation"
@@ -80,9 +79,7 @@ const DetailPage = ({
                     trackerEventId="Citations link"
                     eventCategory="Data search"
                   />
-                ) : <></>
-                }
-              </>
+                ): <></>
             }
           >
             <Row>

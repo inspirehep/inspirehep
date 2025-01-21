@@ -50,8 +50,7 @@ function DataItem({ metadata, page }) {
           </>
         }
         rightActions={
-          <>
-          {citationCount ? (
+          citationCount !== null  && citationCount !== undefined ? (
               <IncomingLiteratureReferencesLinkAction
                 itemCount={citationCount}
                 referenceType="citation"
@@ -60,8 +59,6 @@ function DataItem({ metadata, page }) {
                 eventCategory="Data search"
               />
             ) : <></>
-          }
-          </>
         }
       >
         <div data-test-id="data-result-item-inner">
