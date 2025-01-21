@@ -59,7 +59,7 @@ services:
     restart: 'always'
   es:
     platform: linux/amd64
-    image: registry.cern.ch/cern-sis/inspirehep/opensearch:2.13.0
+    image: registry.cern.ch/cern-sis/inspirehep/opensearch:2.15.0
     restart: 'always'
     environment:
       - DISABLE_SECURITY_PLUGIN=true
