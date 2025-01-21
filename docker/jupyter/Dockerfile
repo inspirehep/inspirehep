@@ -1,4 +1,4 @@
-FROM jupyter/scipy-notebook:python-3.8
+FROM registry.cern.ch/cern-sis/base-images/jupyter/scipy-notebook:python-3.8
 
 USER 0
 

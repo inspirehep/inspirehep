@@ -1,4 +1,4 @@
-FROM python:3.11.6-slim-bullseye as python
+FROM registry.cern.ch/cern-sis/base-images/python:3.11.6-slim-bullseye as python
 
 ARG APP_HOME=/app
 WORKDIR ${APP_HOME}
@@ -22,7 +22,7 @@ RUN curl -sSL https://install.python-poetry.org \
   | python - --version "${POETRY_VERSION}" \
   && poetry --version
 
-COPY poetry.lock pyproject.toml .
+COPY poetry.lock pyproject.toml ./
 RUN poetry install --no-root
 
 COPY . ${APP_HOME}
