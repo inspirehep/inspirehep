@@ -65,7 +65,7 @@ jobs:
         ports:
           - 5672:5672
       elasticsearch:
-        image: registry.cern.ch/cern-sis/inspirehep/opensearch
+        image: registry.cern.ch/cern-sis/inspirehep/opensearch:2.18.0
         env:
           bootstrap.memory_lock: true
           ES_JAVA_OPTS: -Xms1024m -Xmx1024m
