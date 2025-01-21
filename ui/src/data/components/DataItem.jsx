@@ -6,7 +6,6 @@ import { List, Map } from 'immutable';
 
 import UrlsAction from '../../literature/components/UrlsAction';
 import DOILinkAction from '../../literature/components/DOILinkAction';
-import EditRecordAction from '../../common/components/EditRecordAction';
 import ResultItem from '../../common/components/ResultItem';
 
 import { filterDoisByMaterial, getReferencingPapersQueryString } from '../utils';
@@ -22,7 +21,6 @@ function DataItem({ metadata, page }) {
   const dois = filterDoisByMaterial(metadata.get('dois', List()));
   const recordId = metadata.get('control_number');
   const urls = metadata.get('urls');
-  const canEdit = metadata.get('can_edit', false);
   const collaborations = metadata.get('collaborations', List());
   const citationCount = metadata.get('citation_count');
 
@@ -40,13 +38,6 @@ function DataItem({ metadata, page }) {
               />
             )}
             {dois.size > 0 && <DOILinkAction dois={dois} page={page} />}
-            {canEdit && (
-              <EditRecordAction
-                pidType="data"
-                pidValue={recordId}
-                page={page}
-              />
-            )}
           </>
         }
         rightActions={

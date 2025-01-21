@@ -4,14 +4,13 @@ import { connect, RootStateOrAny } from 'react-redux';
 import { Col, Row } from 'antd';
 import { List } from 'immutable';
 import './DetailPage.less';
-import { isCataloger, isSuperUser } from '../../../common/authorization';
+import { isSuperUser } from '../../../common/authorization';
 
 import fetchData from '../../../actions/data';
 import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
 import ContentBox from '../../../common/components/ContentBox';
 import LiteratureTitle from '../../../common/components/LiteratureTitle';
 import { APIButton } from '../../../common/components/APIButton';
-import EditRecordAction from '../../../common/components/EditRecordAction';
 import UrlsAction from '../../../literature/components/UrlsAction';
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
 import Abstract from '../../../literature/components/Abstract';
@@ -28,7 +27,6 @@ interface DetailPageProps {
 
 const DetailPage = ({
   result,
-  isCatalogerLoggedIn,
   isSuperUserLoggedIn,
 }: DetailPageProps) => {
   const metadata = result.get('metadata');
@@ -59,27 +57,23 @@ const DetailPage = ({
                     trackerEventId="Data website"
                   />
                 )}
-                <EditRecordAction
-                  isCatalogerLoggedIn={isCatalogerLoggedIn}
-                  pidType="data"
-                  pidValue={recordId}
-                  page="Data detail"
-                />
                 {isSuperUserLoggedIn && (
                   <APIButton url={window.location.href} />
                 )}
               </>
             }
             rightActions={
-                citationCount !== null && citationCount !== undefined ? (
-                  <IncomingLiteratureReferencesLinkAction
-                    itemCount={citationCount}
-                    referenceType="citation"
-                    linkQuery={getReferencingPapersQueryString(recordId)}
-                    trackerEventId="Citations link"
-                    eventCategory="Data search"
-                  />
-                ): <></>
+              citationCount !== null && citationCount !== undefined ? (
+                <IncomingLiteratureReferencesLinkAction
+                  itemCount={citationCount}
+                  referenceType="citation"
+                  linkQuery={getReferencingPapersQueryString(recordId)}
+                  trackerEventId="Citations link"
+                  eventCategory="Data search"
+                />
+              ) : (
+                <></>
+              )
             }
           >
             <Row>
@@ -124,7 +118,6 @@ const DetailPage = ({
 
 const mapStateToProps = (state: RootStateOrAny) => ({
   result: state.data.get('data'),
-  isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 
