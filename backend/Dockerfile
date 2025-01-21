@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-FROM python:3.11
+FROM registry.cern.ch/cern-sis/base-images/python:3.11
 
 WORKDIR /opt/inspire
 
