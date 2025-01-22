@@ -5,7 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import pytest
-from helpers.utils import create_record
+from helpers.utils import create_record, search_index_flush_and_refresh
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.record import get_value
 from inspirehep.matcher.api import (
@@ -1752,6 +1752,8 @@ def test_fuzzy_match_only_matches_first_author_when_thesis(inspire_app):
             }
         ],
     }
+
+    search_index_flush_and_refresh("lit")
 
     matches = fuzzy_match_literature_data(record)
     assert matches

@@ -6,7 +6,7 @@
 
 import mock
 from helpers.providers.faker import faker
-from helpers.utils import retry_test
+from helpers.utils import retry_test, search_index_flush_and_refresh
 from inspire_utils.record import get_value
 from inspirehep.records.api import InspireRecord
 from inspirehep.search.api import InspireSearch, LiteratureSearch
@@ -57,6 +57,10 @@ def test_recalculate_references_after_literature_record_merge(
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record_with_references
         )
+
+        search_index_flush_and_refresh("sem")
+        search_index_flush_and_refresh("lit")
+
         assert (
             seminar_record_from_es["literature_records"][0]["record"]["$ref"]
             == merged_literature_record["self"]["$ref"]
@@ -237,6 +241,11 @@ def test_recalculate_references_after_institution_record_merge(
     )
     merged_institution_record = InspireRecord.create(merged_institution_data)
     db.session.commit()
+
+    search_index_flush_and_refresh("aut")
+    search_index_flush_and_refresh("ins")
+    search_index_flush_and_refresh("lit")
+    search_index_flush_and_refresh("job")
 
     @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_recalculate_references_task():
