@@ -4,21 +4,36 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
 
-import AuthorResultItem from '../ResultItem';
+import ResultItem from '../ResultItem';
 import { BACKOFFICE_SEARCH } from '../../../../../common/routes';
 import { getStore } from '../../../../../fixtures/store';
+import { WorkflowTypes } from '../../../../constants';
 
-describe('AuthorResultItem component', () => {
-  const item = fromJS({
-    id: '123',
-    workflow_type: 'AUTHOR_UPDATE',
-    status: 'completed',
-    decisions: fromJS([
-      {
-        action: 'accept',
-      },
-    ]),
-    data: fromJS({
+describe('ResultItem component', () => {
+  const renderComponent = (workflowType: string, data: any) => {
+    const item = fromJS({
+      id: '123',
+      workflow_type: workflowType,
+      status: 'completed',
+      decisions: fromJS([
+        {
+          action: 'accept',
+        },
+      ]),
+      data,
+    });
+
+    return render(
+      <Provider store={getStore()}>
+        <MemoryRouter initialEntries={[BACKOFFICE_SEARCH]}>
+          <ResultItem item={item} />
+        </MemoryRouter>
+      </Provider>
+    );
+  };
+
+  it('renders the ResultItem component for Authors', () => {
+    const data = fromJS({
       name: fromJS({
         value: 'Doe, John',
         preferred_name: 'Johnny',
@@ -26,21 +41,14 @@ describe('AuthorResultItem component', () => {
       status: 'active',
       arxiv_categories: fromJS(['cs.AI', 'cs.CL']),
       acquisition_source: fromJS({
-        email: 'joao.ramiro@cern.ch',
-        method: 'submitter',
-        source: 'submitter',
+        datetime: '2025-01-07T16:29:31.315971',
+        email: 'john.doe@cern.ch',
+        method: 'submitter1',
+        source: 'submitter2',
       }),
-    }),
-  });
+    });
 
-  it('renders the AuthorResultItem component', () => {
-    render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={[BACKOFFICE_SEARCH]}>
-          <AuthorResultItem item={item} />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderComponent(WorkflowTypes.AUTHOR_UPDATE, data);
 
     const titleLink = screen.getByRole('link', { name: /Doe, John/i });
     expect(titleLink).toHaveAttribute('href', '/backoffice/123');
@@ -53,11 +61,12 @@ describe('AuthorResultItem component', () => {
     expect(decisionPill).toHaveClass('decision-pill bg-completed ml1');
 
     expect(screen.getByText('Completed')).toBeInTheDocument();
+    expect(screen.getByText('submitter2')).toBeInTheDocument();
     expect(
       screen.getByText('This workflow has been completed.')
     ).toBeInTheDocument();
 
-    expect(screen.getByText('joao.ramiro@cern.ch')).toBeInTheDocument();
+    expect(screen.getByText('john.doe@cern.ch')).toBeInTheDocument();
 
     expect(screen.getByText('cs.AI')).toBeInTheDocument();
     expect(screen.getByText('cs.CL')).toBeInTheDocument();

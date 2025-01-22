@@ -17,6 +17,7 @@ import {
   BACKOFFICE_SEARCH,
 } from '../../common/routes';
 import { searchQueryUpdate } from '../../actions/backoffice';
+import { WorkflowTypes } from '../constants';
 
 export const COLLECTIONS = [
   {
@@ -25,11 +26,11 @@ export const COLLECTIONS = [
   },
   {
     key: 'new authors',
-    value: 'AUTHOR_CREATE',
+    value: WorkflowTypes.AUTHOR_CREATE,
   },
   {
     key: 'author updates',
-    value: 'AUTHOR_UPDATE',
+    value: WorkflowTypes.AUTHOR_UPDATE,
   },
   {
     key: 'new literature submissions',

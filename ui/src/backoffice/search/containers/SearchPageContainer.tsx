@@ -17,8 +17,7 @@ import ResponsiveView from '../../../common/components/ResponsiveView';
 import DrawerHandle from '../../../common/components/DrawerHandle';
 import AggregationBox from '../../../common/components/AggregationBox';
 import { isSuperUser } from '../../../common/authorization';
-// TODO: This is only for authors now. Refactor and move the component to support all collections
-import ResultItem from '../../authors/components/ResultItem/ResultItem';
+import ResultItem from '../../common/components/ResultItem/ResultItem';
 import Breadcrumbs from '../../common/components/Breadcrumbs/Breadcrumbs';
 
 
