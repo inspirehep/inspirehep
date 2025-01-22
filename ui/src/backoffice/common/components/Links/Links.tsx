@@ -19,6 +19,22 @@ type UrlsProps = {
   urls: Map<string, any>;
 }
 
+type SocialPlatformMap = {
+  [key: string]: string;
+};
+
+const SocialPlatformMap = {
+  ORCID: "ORCID",
+  MASTODON: "Mastodon",
+  LINKEDIN: "LinkedIn",
+  BLUESKY: "Bluesky",
+  TWITTER: "Twitter",
+};
+
+const getPlatformDisplayName = (key: string): string => {
+  return SocialPlatformMap[key] || key;
+};
+
 function getLinkData(schema: string, value: string) {
   switch (schema) {
     case 'LINKEDIN':
@@ -82,7 +98,7 @@ export const Ids = ({
           <p key={value} className={noIcon ? 'mb0' : ''}>
             {!noIcon && icon}
             {schema && (
-              <b className="dib ttc">{schema.toLowerCase()}:</b>
+              <b className="dib ttc">{getPlatformDisplayName(schema)}:</b>
             )}{' '}
             <a href={href} target="_blank"> {value} </a>
             {showCopyBtn && (

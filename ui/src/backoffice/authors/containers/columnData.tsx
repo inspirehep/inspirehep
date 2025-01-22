@@ -11,12 +11,12 @@ export const columnsInstitutions = [
     dataIndex: 'institution',
   },
   {
-    title: 'Start date',
+    title: 'Start Date',
     dataIndex: 'start_date',
     render: (start: string) => (!start ? '-' : start),
   },
   {
-    title: 'End date',
+    title: 'End Date',
     dataIndex: 'end_date',
     render: (end: string) => (!end ? '-' : end),
   },

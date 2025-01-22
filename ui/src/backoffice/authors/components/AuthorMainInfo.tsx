@@ -19,7 +19,7 @@ const hasOrcidId = (data: any): boolean => {
 
 const AuthorMainInfo = ({ data }: AuthorMainInfoProps) => {
   const name = data.getIn(['name', 'value']);
-  const prefferedName = data.getIn(['name', 'preferred_name']);
+  const preferredName = data.getIn(['name', 'preferred_name']);
   const nativeNames = data.getIn(['name', 'native_names']);
   const nameVariants = data.getIn(['name', 'name_variants']);
   const status = data.get('status');
@@ -29,23 +29,23 @@ const AuthorMainInfo = ({ data }: AuthorMainInfoProps) => {
   return (
     <ContentBox fullHeight={false} className="md-pb3 mb3">
       <h2>{name}</h2>
-      {prefferedName && (
-        <p>
-          <b>Preferred name:</b> {prefferedName}
+      {preferredName && (
+        <p className='mb0'>
+          <b>Preferred name:</b> {preferredName}
         </p>
       )}
       {nativeNames && (
-        <p>
+        <p className='mb0'>
           <b>Native names:</b> {nativeNames.join('; ')}
         </p>
       )}
       {nameVariants && (
-        <p>
+        <p className='mb0'>
           <b>Name variants:</b> {nameVariants.join('; ')}
         </p>
       )}
       {status && (
-        <p className={classNames({ mb0: !orcidIdExists })}>
+        <p className={classNames({ mb0: orcidIdExists })}>
           <b>Status:</b> {status}
         </p>
       )}

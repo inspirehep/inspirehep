@@ -143,7 +143,7 @@ const AuthorDetailPageContainer = ({
                   {data && <AuthorMainInfo data={data} />}
                   <CollapsableForm openSections={OPEN_SECTIONS}>
                     <CollapsableForm.Section
-                      header="Institution history"
+                      header="Institution History"
                       key="institutions"
                     >
                       <Table
@@ -157,7 +157,7 @@ const AuthorDetailPageContainer = ({
                       />
                     </CollapsableForm.Section>
                     <CollapsableForm.Section
-                      header="Project membership history"
+                      header="Project Membership History"
                       key="projects"
                     >
                       <Table
