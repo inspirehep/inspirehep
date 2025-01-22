@@ -1,6 +1,11 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { fireEvent, render, screen, waitFor} from '@testing-library/react';
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -29,9 +34,7 @@ describe('AuthorDetailPageContainer', () => {
             method: 'submitter',
             source: 'submitter',
           },
-          ids: [
-            { schema: 'ORCID', value: '0000-0002-6357-9297' },
-          ],
+          ids: [{ schema: 'ORCID', value: '0000-0002-6357-9297' }],
         },
         status: 'approval',
       }),
@@ -56,9 +59,12 @@ describe('AuthorDetailPageContainer', () => {
   it('should display ORCID link', () => {
     renderComponent();
 
-    const link = screen.getByRole('link', {name: '0000-0002-6357-9297'});
+    const link = screen.getByRole('link', { name: '0000-0002-6357-9297' });
     expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute('href', 'https://orcid.org/0000-0002-6357-9297');
+    expect(link).toHaveAttribute(
+      'href',
+      'https://orcid.org/0000-0002-6357-9297'
+    );
   });
 
   it('should display the author name', () => {
@@ -121,15 +127,19 @@ describe('AuthorDetailPageContainer', () => {
   });
 });
 
-describe('AuthorDetailPageContainer - Name Fields', () => {
-  const renderComponent = (authorData: { [key: string]: any }) => {
+describe('AuthorDetailPageContainer - Name Fields and control number', () => {
+  const renderComponent = (
+    authorData: { [key: string]: any },
+    decisions?: { [key: string]: any }[]
+  ) => {
     const store = getStore({
       backoffice: fromJS({
         loading: false,
         loggedIn: true,
         author: fromJS({
-          data: authorData,
+          data: { ...authorData },
           status: 'approval',
+          ...(decisions && { decisions: fromJS(decisions) }),
         }),
       }),
     });
@@ -155,7 +165,11 @@ describe('AuthorDetailPageContainer - Name Fields', () => {
 
   it('should not display missing preferred_name if its missing', () => {
     renderComponent({
-      name: { value: 'Doe, John', native_names: ['Name1', 'Name2'], name_variants: ['Name3', 'Name4'] },
+      name: {
+        value: 'Doe, John',
+        native_names: ['Name1', 'Name2'],
+        name_variants: ['Name3', 'Name4'],
+      },
     });
     expect(screen.getAllByText('Doe, John')[0]).toBeInTheDocument();
     expect(screen.getByText('Native names:')).toBeInTheDocument();
@@ -167,7 +181,11 @@ describe('AuthorDetailPageContainer - Name Fields', () => {
 
   it('should not display missing name_variants if its missing', () => {
     renderComponent({
-      name: { value: 'Doe, John', native_names: ['Name1', 'Name2'], preferred_name: 'Name3' },
+      name: {
+        value: 'Doe, John',
+        native_names: ['Name1', 'Name2'],
+        preferred_name: 'Name3',
+      },
     });
 
     expect(screen.getAllByText('Doe, John')[0]).toBeInTheDocument();
@@ -180,7 +198,11 @@ describe('AuthorDetailPageContainer - Name Fields', () => {
 
   it('should not display missing native_names if its missing', () => {
     renderComponent({
-      name: { value: 'Doe, John', name_variants: ['Name1', 'Name2'], preferred_name: 'Name3' },
+      name: {
+        value: 'Doe, John',
+        name_variants: ['Name1', 'Name2'],
+        preferred_name: 'Name3',
+      },
     });
 
     expect(screen.getAllByText('Doe, John')[0]).toBeInTheDocument();
@@ -193,7 +215,12 @@ describe('AuthorDetailPageContainer - Name Fields', () => {
 
   it('should display all name fields if all are present', () => {
     renderComponent({
-      name: { value: 'Doe, John', native_names: ['Name1', 'Name2'], preferred_name: 'Name3', name_variants: ['Name4', 'Name5'] },
+      name: {
+        value: 'Doe, John',
+        native_names: ['Name1', 'Name2'],
+        preferred_name: 'Name3',
+        name_variants: ['Name4', 'Name5'],
+      },
     });
 
     expect(screen.getAllByText('Doe, John')[0]).toBeInTheDocument();
@@ -203,5 +230,39 @@ describe('AuthorDetailPageContainer - Name Fields', () => {
     expect(screen.getByText('Name3')).toBeInTheDocument();
     expect(screen.getByText('Name variants:')).toBeInTheDocument();
     expect(screen.getByText('Name4; Name5')).toBeInTheDocument();
+  });
+
+  it('should render the text and link when controlNumber is provided', () => {
+    const decisions = [
+      {
+        id: 32,
+        workflow: '2381efdb-2720-435a-bb8f-d0d768b01ecc',
+        action: 'accept',
+        _created_at: '2025-01-13T08:53:43.383108Z',
+        _updated_at: '2025-01-16T10:58:44.083627Z',
+        user: 'john.doe@cern.ch',
+      },
+    ];
+
+    renderComponent(
+      {
+        name: { value: 'Doe, John' },
+        control_number: 12345,
+      },
+      decisions
+    );
+
+    expect(screen.getByText('as')).toBeInTheDocument();
+
+    const link = screen.getByRole('link', { name: '12345' });
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute('href', '/authors/12345');
+  });
+
+  it('should not render the text and link when controlNumber is not provided', () => {
+    renderComponent({
+      name: { value: 'Doe, John' },
+    });
+    expect(screen.queryByText('as')).not.toBeInTheDocument();
   });
 });
