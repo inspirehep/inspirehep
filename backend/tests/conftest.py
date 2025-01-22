@@ -17,7 +17,7 @@ def vcr_config():
         "ignore_hosts": (
             "cache",
             "db",
-            "elasticsearch",
+            "es",
             "flower",
             "indexer",
             "localhost",
