@@ -10,7 +10,7 @@ import AuthorSubmission from '../components/AuthorSubmission';
 import uniqueOrcid from '../schemas/uniqueOrcid';
 import { AUTHORS_PID_TYPE } from '../../../common/constants';
 import SubmissionPage from '../../common/components/SubmissionPage';
-import { AUTHORS } from '../../../common/routes';
+import { AUTHORS, SUBMISSIONS_AUTHOR } from '../../../common/routes';
 
 const extraSchemaForNewAuthor = object().shape({ orcid: uniqueOrcid() });
 
@@ -26,18 +26,29 @@ class AuthorSubmissionPage extends Component {
   }
 
   render() {
-    const { error, query } = this.props;
+    const { error, query, profileControlNumber } = this.props;
     const { bai } = query;
     const initialFormData = { bai };
+    const authorUpdateUrl = `${SUBMISSIONS_AUTHOR}/${profileControlNumber}`;
     return (
       <SubmissionPage
         title="Suggest author"
         description={
-          <span>
-            This form allows you to create the profile of a new author. It will
-            be added to the <Link to={AUTHORS}>authors collection</Link> upon
-            approval.
-          </span>
+          <>
+            <span>
+              This form allows you to create the profile of a new author. It
+              will be added to the <Link to={AUTHORS}>authors collection</Link>{' '}
+              upon approval.
+            </span>
+            {profileControlNumber && (
+              <p className="mt-4">
+                <strong>
+                  Do you want to update your profile? Go to the{' '}
+                  <Link to={authorUpdateUrl}>author update form</Link>.
+                </strong>
+              </p>
+            )}
+          </>
         }
       >
         <AuthorSubmission
@@ -55,11 +66,13 @@ AuthorSubmissionPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   error: PropTypes.instanceOf(Map),
   query: PropTypes.objectOf(PropTypes.any).isRequired,
+  profileControlNumber: PropTypes.number
 };
 
 const stateToProps = (state) => ({
   error: state.submissions.get('submitError'),
   query: state.router.location.query,
+  profileControlNumber: state.user.getIn(['data', 'profile_control_number']),
 });
 
 const dispatchToProps = (dispatch) => ({ dispatch });
