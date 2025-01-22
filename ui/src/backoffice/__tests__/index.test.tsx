@@ -9,6 +9,7 @@ import Backoffice from '..';
 import SearchPageContainer from '../search/containers/SearchPageContainer';
 import { BACKOFFICE_SEARCH, BACKOFFICE } from '../../common/routes';
 import DashboardPageContainer from '../dashboard/containers/DashboardPageContainer';
+import { WorkflowTypes } from '../constants';
 
 describe('Backoffice', () => {
   const store = getStore({
@@ -25,12 +26,12 @@ describe('Backoffice', () => {
           workflow_type: fromJS({
             buckets: fromJS([
               {
-                key: 'AUTHOR_CREATE',
+                key: WorkflowTypes.AUTHOR_CREATE, 
                 doc_count: 1,
                 status: [{ key: 'error' }],
               },
               {
-                key: 'AUTHOR_UPDATE',
+                key: WorkflowTypes.AUTHOR_UPDATE,
                 doc_count: 1,
               },
               {

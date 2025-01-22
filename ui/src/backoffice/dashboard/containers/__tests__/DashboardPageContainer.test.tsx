@@ -8,6 +8,7 @@ import { getStore } from '../../../../fixtures/store';
 import DashboardPageContainer from '../DashboardPageContainer';
 import { BACKOFFICE } from '../../../../common/routes';
 import { BACKOFFICE_LOGIN_CHECK } from '../../../../actions/actionTypes';
+import { WorkflowTypes } from '../../../constants';
 
 describe('DashboardPageContainer', () => {
   let store = getStore({
@@ -20,12 +21,12 @@ describe('DashboardPageContainer', () => {
           workflow_type: fromJS({
             buckets: fromJS([
               {
-                key: 'AUTHOR_CREATE',
+                key: WorkflowTypes.AUTHOR_CREATE,
                 doc_count: 3,
                 status: [{ key: 'error' }],
               },
               {
-                key: 'AUTHOR_UPDATE',
+                key: WorkflowTypes.AUTHOR_UPDATE,
                 doc_count: 7,
               },
               {
