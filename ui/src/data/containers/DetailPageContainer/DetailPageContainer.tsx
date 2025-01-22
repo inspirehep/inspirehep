@@ -22,7 +22,6 @@ import { getReferencingPapersQueryString } from '../../utils';
 interface DetailPageProps {
   result: any; // TODO: define proper type for result
   authors: List<any>;
-  isCatalogerLoggedIn: boolean;
   isSuperUserLoggedIn: boolean;
 }
 

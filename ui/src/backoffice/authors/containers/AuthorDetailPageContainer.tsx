@@ -27,16 +27,21 @@ import {
   columnsAdvisors,
 } from './columnData';
 import { getConfigFor } from '../../../common/config';
-import { getWorkflowStatusInfo, resolveDecision, filterByProperty } from '../../utils/utils';
+import {
+  getWorkflowStatusInfo,
+  resolveDecision,
+  filterByProperty,
+} from '../../utils/utils';
 import DeleteWorkflow from '../../common/components/DeleteWorkflow/DeleteWorkflow';
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
 import LinkLikeButton from '../../../common/components/LinkLikeButton/LinkLikeButton';
-import { BACKOFFICE_SEARCH } from '../../../common/routes';
+import { AUTHORS, BACKOFFICE_SEARCH } from '../../../common/routes';
 import { isSuperUser } from '../../../common/authorization';
 import UnclickableTag from '../../../common/components/UnclickableTag';
 import Breadcrumbs from '../../common/components/Breadcrumbs/Breadcrumbs';
 import PrivateNotes from '../components/PrivateNotes';
 import AuthorMainInfo from '../components/AuthorMainInfo';
+import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
 
 type AuthorDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
@@ -60,6 +65,7 @@ const AuthorDetailPageContainer = ({
   }, []);
 
   const data = author?.get('data');
+  const controlNumber = data?.get('control_number');
   const tickets = author?.get('tickets')?.size !== 0 && author?.get('tickets');
   const decision = author?.getIn(['decisions', 0]) as Map<string, any>;
   const status = author?.get('status');
@@ -164,9 +170,21 @@ const AuthorDetailPageContainer = ({
                     </CollapsableForm.Section>
                     {(urls || ids) && (
                       <CollapsableForm.Section header="Links" key="links">
-                        <Links 
-                          urls={filterByProperty(data, 'urls', 'schema', 'ORCID', false)}
-                          ids={filterByProperty(data, 'ids', 'schema', 'ORCID', false)} 
+                        <Links
+                          urls={filterByProperty(
+                            data,
+                            'urls',
+                            'schema',
+                            'ORCID',
+                            false
+                          )}
+                          ids={filterByProperty(
+                            data,
+                            'ids',
+                            'schema',
+                            'ORCID',
+                            false
+                          )}
                         />
                       </CollapsableForm.Section>
                     )}
@@ -235,6 +253,16 @@ const AuthorDetailPageContainer = ({
                             {resolveDecision(decision?.get('action'))
                               ?.decision || 'completed'}
                           </UnclickableTag>
+                          {controlNumber && (
+                            <span>
+                              as{' '}
+                              <LinkWithTargetBlank
+                                href={`${AUTHORS}/${controlNumber}`}
+                              >
+                                {controlNumber}
+                              </LinkWithTargetBlank>
+                            </span>
+                          )}
                         </p>
                       ) : (
                         <div className="w-100 flex flex-column items-center">
