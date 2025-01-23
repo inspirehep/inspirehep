@@ -3,6 +3,7 @@
 exports[`EventStartDateFilter renders with selection: a date range 1`] = `
 <Row
   className="pa3 bg-white mb3"
+  data-testid="event-start-date-filter"
 >
   <AggregationBox
     className="mb3"
@@ -53,6 +54,7 @@ exports[`EventStartDateFilter renders with selection: a date range 1`] = `
 exports[`EventStartDateFilter renders with selection: all 1`] = `
 <Row
   className="pa3 bg-white mb3"
+  data-testid="event-start-date-filter"
 >
   <AggregationBox
     className="mb3"
@@ -103,6 +105,7 @@ exports[`EventStartDateFilter renders with selection: all 1`] = `
 exports[`EventStartDateFilter renders with selection: upcoming 1`] = `
 <Row
   className="pa3 bg-white mb3"
+  data-testid="event-start-date-filter"
 >
   <AggregationBox
     className="mb3"
@@ -153,6 +156,7 @@ exports[`EventStartDateFilter renders with selection: upcoming 1`] = `
 exports[`EventStartDateFilter renders without selection 1`] = `
 <Row
   className="pa3 bg-white mb3"
+  data-testid="event-start-date-filter"
 >
   <AggregationBox
     className="mb3"

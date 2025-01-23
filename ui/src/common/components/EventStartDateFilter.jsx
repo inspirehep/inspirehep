@@ -40,7 +40,7 @@ function EventStartDateFilter({ onChange, selection = '', switchTitle }) {
   );
 
   return (
-    <Row className="pa3 bg-white mb3">
+    <Row className="pa3 bg-white mb3" data-testid="event-start-date-filter">
       <AggregationBox name="Start Date" className="mb3">
         <Row className="mb3" type="flex" align="middle" gutter={8}>
           <Col>

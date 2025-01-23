@@ -1,429 +1,900 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SeminarItem renders with all props set 1`] = `
-<ResultItem
-  leftActions={
-    <React.Fragment>
-      <UrlsAction
-        icon={<LinkOutlined />}
-        page="Seminars search"
-        text="website"
-        trackerEventId="Seminar website"
-        urls={
-          Immutable.List [
-            Immutable.Map {
-              "value": "http://url.com",
-            },
-          ]
-        }
-      />
-      <UrlsAction
-        icon={<VideoCameraAddOutlined />}
-        page="Seminars search"
-        text="join"
-        trackerEventId="Meeting link"
-        urls={
-          Immutable.List [
-            Immutable.Map {
-              "value": "http://urljoin.com",
-              "description": "zoom",
-            },
-          ]
-        }
-      />
-      <UrlsAction
-        icon={<FileOutlined />}
-        page="Seminars search"
-        text="material"
-        trackerEventId="Material link"
-        urls={
-          Immutable.List [
-            Immutable.Map {
-              "value": "http://urlmaterial.com",
-              "description": "slides",
-            },
-          ]
-        }
-      />
-      <ExportToCalendarAction
-        page="Seminars search"
-        seminar={
-          Immutable.Map {
-            "urls": Immutable.List [
-              Immutable.Map {
-                "value": "http://url.com",
-              },
-            ],
-            "control_number": 12345,
-            "speakers": Immutable.List [
-              Immutable.Map {
-                "name": "John, Doe",
-                "affiliations": Immutable.List [
-                  Immutable.Map {
-                    "value": "CERN",
-                  },
-                ],
-              },
-            ],
-            "title": Immutable.Map {
-              "title": "test",
-            },
-            "start_datetime": "2020-05-15T11:45:00.000000",
-            "can_edit": true,
-            "join_urls": Immutable.List [
-              Immutable.Map {
-                "value": "http://urljoin.com",
-                "description": "zoom",
-              },
-            ],
-            "material_urls": Immutable.List [
-              Immutable.Map {
-                "value": "http://urlmaterial.com",
-                "description": "slides",
-              },
-            ],
-            "end_datetime": "2020-05-17T00:45:00.000000",
-          }
-        }
-      />
-      <EditRecordAction
-        page="Seminars search"
-        pidType="seminars"
-        pidValue={12345}
-      />
-    </React.Fragment>
-  }
->
-  <Row
-    type="flex"
+<DocumentFragment>
+  <div
+    class="__ContentBox__ h-100"
   >
-    <Col>
-      <Link
-        className="result-item-title"
-        to="/seminars/12345"
+    <div
+      class="ant-card ant-card-bordered h-100"
+    >
+      <div
+        class="ant-card-body"
       >
-        <EventTitle
-          title={
-            Immutable.Map {
-              "title": "test",
-            }
-          }
-        />
-      </Link>
-    </Col>
-  </Row>
-  <Row>
-    <Col>
-      <AuthorList
-        authors={
-          Immutable.List [
-            Immutable.Map {
-              "name": "John, Doe",
-              "affiliations": Immutable.List [
-                Immutable.Map {
-                  "value": "CERN",
-                },
-              ],
-            },
-          ]
-        }
-        enableShowAll={false}
-        limit={5}
-        page="Seminars search"
-        total={-1}
-        wrapperClassName={null}
-      />
-    </Col>
-  </Row>
-  <Row>
-    <Col>
-      <SeminarDateTimes
-        displayTimezone={false}
-        endDate="2020-05-17T00:45:00.000000"
-        startDate="2020-05-15T11:45:00.000000"
-        timezone="Europe/Zurich"
-      />
-    </Col>
-  </Row>
-</ResultItem>
+        <div
+          class="pa2"
+        >
+          <div>
+            <div
+              class="ant-row"
+              type="flex"
+            >
+              <div
+                class="ant-col"
+              >
+                <a
+                  class="result-item-title"
+                  href="/seminars/12345"
+                >
+                  <span
+                    class="detail-page-title"
+                  >
+                    <span
+                      class="__Latex__"
+                    >
+                      test
+                    </span>
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div
+              class="ant-row"
+            >
+              <div
+                class="ant-col"
+              >
+                <div
+                  class="__InlineList__"
+                >
+                  <ul>
+                    <li>
+                      <div
+                        class="di"
+                      >
+                        <span>
+                          John, Doe
+                        </span>
+                        <span
+                          class="pl1 secondary-color"
+                        >
+                          (
+                          <div
+                            class="__InlineList__ di"
+                          >
+                            <ul>
+                              <li>
+                                <span>
+                                  CERN
+                                </span>
+                              </li>
+                            </ul>
+                          </div>
+                          )
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-row"
+            >
+              <div
+                class="ant-col"
+              >
+                <span>
+                  15 May 2020, 01:45 PM - 17 May 2020, 02:45 AM
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-row ant-row-space-between actions ph2"
+        >
+          <div
+            class="ant-col"
+          >
+            <span
+              class="__UserAction__"
+            >
+              <a
+                href="http://url.com"
+                target="_blank"
+              >
+                <span
+                  class="__IconText__"
+                >
+                  <span
+                    class="icon"
+                  >
+                    <span
+                      aria-label="link"
+                      class="anticon anticon-link"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="link"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M574 665.4a8.03 8.03 0 00-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 00-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 000 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 000 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 00-11.3 0L372.3 598.7a8.03 8.03 0 000 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span
+                    class="v-top"
+                  >
+                    website
+                  </span>
+                </span>
+              </a>
+            </span>
+            <span
+              class="__UserAction__"
+            >
+              <a
+                href="http://urljoin.com"
+                target="_blank"
+              >
+                <span
+                  class="__IconText__"
+                >
+                  <span
+                    class="icon"
+                  >
+                    <span
+                      aria-label="video-camera-add"
+                      class="anticon anticon-video-camera-add"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="video-camera-add"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <defs>
+                          <style />
+                        </defs>
+                        <path
+                          d="M368 724H252V608c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v116H72c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h116v116c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V788h116c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z"
+                        />
+                        <path
+                          d="M912 302.3L784 376V224c0-35.3-28.7-64-64-64H128c-35.3 0-64 28.7-64 64v352h72V232h576v560H448v72h272c35.3 0 64-28.7 64-64V648l128 73.7c21.3 12.3 48-3.1 48-27.6V330c0-24.6-26.7-40-48-27.7zM888 625l-104-59.8V458.9L888 399v226z"
+                        />
+                        <path
+                          d="M320 360c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H208c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h112z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span
+                    class="v-top"
+                  >
+                    join
+                  </span>
+                </span>
+              </a>
+            </span>
+            <span
+              class="__UserAction__"
+            >
+              <a
+                href="http://urlmaterial.com"
+                target="_blank"
+              >
+                <span
+                  class="__IconText__"
+                >
+                  <span
+                    class="icon"
+                  >
+                    <span
+                      aria-label="file"
+                      class="anticon anticon-file"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="file"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span
+                    class="v-top"
+                  >
+                    material
+                  </span>
+                </span>
+              </a>
+            </span>
+            <span
+              class="__UserAction__"
+            >
+              <button
+                class="ant-btn ant-btn-default ant-dropdown-trigger"
+                type="button"
+              >
+                <span
+                  class="__IconText__"
+                >
+                  <span
+                    class="icon"
+                  >
+                    <span
+                      aria-label="calendar"
+                      class="anticon anticon-calendar"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="calendar"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V460h656v380zM184 392V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v136H184z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span
+                    class="v-top"
+                  >
+                    export
+                  </span>
+                </span>
+              </button>
+            </span>
+            <span
+              class="__UserAction__"
+            >
+              <a
+                href="/submissions/seminars/12345"
+                target="_blank"
+              >
+                <span
+                  class="__IconText__"
+                >
+                  <span
+                    class="icon"
+                  >
+                    <span
+                      aria-label="edit"
+                      class="anticon anticon-edit"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="edit"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span
+                    class="v-top"
+                  >
+                    edit
+                  </span>
+                </span>
+              </a>
+            </span>
+          </div>
+          <div
+            class="ant-col"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`SeminarItem renders with only needed props 1`] = `
-<ResultItem
-  leftActions={
-    <React.Fragment>
-      <ExportToCalendarAction
-        page="Seminars search"
-        seminar={
-          Immutable.Map {
-            "title": Immutable.Map {
-              "title": "test",
-            },
-            "control_number": 12345,
-            "can_edit": true,
-            "speakers": Immutable.List [
-              Immutable.Map {
-                "name": "John, Doe",
-                "affiliations": Immutable.List [
-                  Immutable.Map {
-                    "value": "CERN",
-                  },
-                ],
-              },
-            ],
-            "start_datetime": "2020-05-15T11:45:00.000000",
-            "end_datetime": "2020-05-17T00:45:00.000000",
-          }
-        }
-      />
-      <EditRecordAction
-        page="Seminars search"
-        pidType="seminars"
-        pidValue={12345}
-      />
-    </React.Fragment>
-  }
->
-  <Row
-    type="flex"
+<DocumentFragment>
+  <div
+    class="__ContentBox__ h-100"
   >
-    <Col>
-      <Link
-        className="result-item-title"
-        to="/seminars/12345"
+    <div
+      class="ant-card ant-card-bordered h-100"
+    >
+      <div
+        class="ant-card-body"
       >
-        <EventTitle
-          title={
-            Immutable.Map {
-              "title": "test",
-            }
-          }
-        />
-      </Link>
-    </Col>
-  </Row>
-  <Row>
-    <Col>
-      <AuthorList
-        authors={
-          Immutable.List [
-            Immutable.Map {
-              "name": "John, Doe",
-              "affiliations": Immutable.List [
-                Immutable.Map {
-                  "value": "CERN",
-                },
-              ],
-            },
-          ]
-        }
-        enableShowAll={false}
-        limit={5}
-        page="Seminars search"
-        total={-1}
-        wrapperClassName={null}
-      />
-    </Col>
-  </Row>
-  <Row>
-    <Col>
-      <SeminarDateTimes
-        displayTimezone={false}
-        endDate="2020-05-17T00:45:00.000000"
-        startDate="2020-05-15T11:45:00.000000"
-        timezone="Europe/Zurich"
-      />
-    </Col>
-  </Row>
-</ResultItem>
+        <div
+          class="pa2"
+        >
+          <div>
+            <div
+              class="ant-row"
+              type="flex"
+            >
+              <div
+                class="ant-col"
+              >
+                <a
+                  class="result-item-title"
+                  href="/seminars/12345"
+                >
+                  <span
+                    class="detail-page-title"
+                  >
+                    <span
+                      class="__Latex__"
+                    >
+                      test
+                    </span>
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div
+              class="ant-row"
+            >
+              <div
+                class="ant-col"
+              >
+                <div
+                  class="__InlineList__"
+                >
+                  <ul>
+                    <li>
+                      <div
+                        class="di"
+                      >
+                        <span>
+                          John, Doe
+                        </span>
+                        <span
+                          class="pl1 secondary-color"
+                        >
+                          (
+                          <div
+                            class="__InlineList__ di"
+                          >
+                            <ul>
+                              <li>
+                                <span>
+                                  CERN
+                                </span>
+                              </li>
+                            </ul>
+                          </div>
+                          )
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-row"
+            >
+              <div
+                class="ant-col"
+              >
+                <span>
+                  15 May 2020, 01:45 PM - 17 May 2020, 02:45 AM
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-row ant-row-space-between actions ph2"
+        >
+          <div
+            class="ant-col"
+          >
+            <span
+              class="__UserAction__"
+            >
+              <button
+                class="ant-btn ant-btn-default ant-dropdown-trigger"
+                type="button"
+              >
+                <span
+                  class="__IconText__"
+                >
+                  <span
+                    class="icon"
+                  >
+                    <span
+                      aria-label="calendar"
+                      class="anticon anticon-calendar"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="calendar"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V460h656v380zM184 392V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v136H184z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span
+                    class="v-top"
+                  >
+                    export
+                  </span>
+                </span>
+              </button>
+            </span>
+            <span
+              class="__UserAction__"
+            >
+              <a
+                href="/submissions/seminars/12345"
+                target="_blank"
+              >
+                <span
+                  class="__IconText__"
+                >
+                  <span
+                    class="icon"
+                  >
+                    <span
+                      aria-label="edit"
+                      class="anticon anticon-edit"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="edit"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span
+                    class="v-top"
+                  >
+                    edit
+                  </span>
+                </span>
+              </a>
+            </span>
+          </div>
+          <div
+            class="ant-col"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`SeminarItem renders with selected timezone with a different time than local timezone 1`] = `
-<ResultItem
-  leftActions={
-    <React.Fragment>
-      <ExportToCalendarAction
-        page="Seminars search"
-        seminar={
-          Immutable.Map {
-            "title": Immutable.Map {
-              "title": "test",
-            },
-            "control_number": 12345,
-            "can_edit": true,
-            "speakers": Immutable.List [
-              Immutable.Map {
-                "name": "John, Doe",
-                "affiliations": Immutable.List [
-                  Immutable.Map {
-                    "value": "CERN",
-                  },
-                ],
-              },
-            ],
-            "start_datetime": "2020-05-15T11:45:00.000000",
-            "end_datetime": "2020-05-17T00:45:00.000000",
-          }
-        }
-      />
-      <EditRecordAction
-        page="Seminars search"
-        pidType="seminars"
-        pidValue={12345}
-      />
-    </React.Fragment>
-  }
->
-  <Row
-    type="flex"
+<DocumentFragment>
+  <div
+    class="__ContentBox__ h-100"
   >
-    <Col>
-      <Link
-        className="result-item-title"
-        to="/seminars/12345"
+    <div
+      class="ant-card ant-card-bordered h-100"
+    >
+      <div
+        class="ant-card-body"
       >
-        <EventTitle
-          title={
-            Immutable.Map {
-              "title": "test",
-            }
-          }
-        />
-      </Link>
-    </Col>
-  </Row>
-  <Row>
-    <Col>
-      <AuthorList
-        authors={
-          Immutable.List [
-            Immutable.Map {
-              "name": "John, Doe",
-              "affiliations": Immutable.List [
-                Immutable.Map {
-                  "value": "CERN",
-                },
-              ],
-            },
-          ]
-        }
-        enableShowAll={false}
-        limit={5}
-        page="Seminars search"
-        total={-1}
-        wrapperClassName={null}
-      />
-    </Col>
-  </Row>
-  <Row>
-    <Col>
-      <SeminarDateTimes
-        className="red"
-        displayTimezone={true}
-        endDate="2020-05-17T00:45:00.000000"
-        startDate="2020-05-15T11:45:00.000000"
-        timezone="America/Chicago"
-      />
-       
-      (
-      <SeminarDateTimes
-        displayTimezone={true}
-        endDate="2020-05-17T00:45:00.000000"
-        startDate="2020-05-15T11:45:00.000000"
-        timezone="Europe/Zurich"
-      />
-      )
-    </Col>
-  </Row>
-</ResultItem>
+        <div
+          class="pa2"
+        >
+          <div>
+            <div
+              class="ant-row"
+              type="flex"
+            >
+              <div
+                class="ant-col"
+              >
+                <a
+                  class="result-item-title"
+                  href="/seminars/12345"
+                >
+                  <span
+                    class="detail-page-title"
+                  >
+                    <span
+                      class="__Latex__"
+                    >
+                      test
+                    </span>
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div
+              class="ant-row"
+            >
+              <div
+                class="ant-col"
+              >
+                <div
+                  class="__InlineList__"
+                >
+                  <ul>
+                    <li>
+                      <div
+                        class="di"
+                      >
+                        <span>
+                          John, Doe
+                        </span>
+                        <span
+                          class="pl1 secondary-color"
+                        >
+                          (
+                          <div
+                            class="__InlineList__ di"
+                          >
+                            <ul>
+                              <li>
+                                <span>
+                                  CERN
+                                </span>
+                              </li>
+                            </ul>
+                          </div>
+                          )
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-row"
+            >
+              <div
+                class="ant-col"
+              >
+                <span
+                  class="red"
+                >
+                  15 May 2020, 06:45 AM - 16 May 2020, 07:45 PM CST
+                </span>
+                 (
+                <span>
+                  15 May 2020, 01:45 PM - 17 May 2020, 02:45 AM CET
+                </span>
+                )
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-row ant-row-space-between actions ph2"
+        >
+          <div
+            class="ant-col"
+          >
+            <span
+              class="__UserAction__"
+            >
+              <button
+                class="ant-btn ant-btn-default ant-dropdown-trigger"
+                type="button"
+              >
+                <span
+                  class="__IconText__"
+                >
+                  <span
+                    class="icon"
+                  >
+                    <span
+                      aria-label="calendar"
+                      class="anticon anticon-calendar"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="calendar"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V460h656v380zM184 392V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v136H184z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span
+                    class="v-top"
+                  >
+                    export
+                  </span>
+                </span>
+              </button>
+            </span>
+            <span
+              class="__UserAction__"
+            >
+              <a
+                href="/submissions/seminars/12345"
+                target="_blank"
+              >
+                <span
+                  class="__IconText__"
+                >
+                  <span
+                    class="icon"
+                  >
+                    <span
+                      aria-label="edit"
+                      class="anticon anticon-edit"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="edit"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span
+                    class="v-top"
+                  >
+                    edit
+                  </span>
+                </span>
+              </a>
+            </span>
+          </div>
+          <div
+            class="ant-col"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`SeminarItem renders with selected timezone with a same time as local timezone 1`] = `
-<ResultItem
-  leftActions={
-    <React.Fragment>
-      <ExportToCalendarAction
-        page="Seminars search"
-        seminar={
-          Immutable.Map {
-            "title": Immutable.Map {
-              "title": "test",
-            },
-            "control_number": 12345,
-            "can_edit": true,
-            "speakers": Immutable.List [
-              Immutable.Map {
-                "name": "John, Doe",
-                "affiliations": Immutable.List [
-                  Immutable.Map {
-                    "value": "CERN",
-                  },
-                ],
-              },
-            ],
-            "start_datetime": "2020-05-15T11:45:00.000000",
-            "end_datetime": "2020-05-17T00:45:00.000000",
-          }
-        }
-      />
-      <EditRecordAction
-        page="Seminars search"
-        pidType="seminars"
-        pidValue={12345}
-      />
-    </React.Fragment>
-  }
->
-  <Row
-    type="flex"
+<DocumentFragment>
+  <div
+    class="__ContentBox__ h-100"
   >
-    <Col>
-      <Link
-        className="result-item-title"
-        to="/seminars/12345"
+    <div
+      class="ant-card ant-card-bordered h-100"
+    >
+      <div
+        class="ant-card-body"
       >
-        <EventTitle
-          title={
-            Immutable.Map {
-              "title": "test",
-            }
-          }
-        />
-      </Link>
-    </Col>
-  </Row>
-  <Row>
-    <Col>
-      <AuthorList
-        authors={
-          Immutable.List [
-            Immutable.Map {
-              "name": "John, Doe",
-              "affiliations": Immutable.List [
-                Immutable.Map {
-                  "value": "CERN",
-                },
-              ],
-            },
-          ]
-        }
-        enableShowAll={false}
-        limit={5}
-        page="Seminars search"
-        total={-1}
-        wrapperClassName={null}
-      />
-    </Col>
-  </Row>
-  <Row>
-    <Col>
-      <SeminarDateTimes
-        displayTimezone={false}
-        endDate="2020-05-17T00:45:00.000000"
-        startDate="2020-05-15T11:45:00.000000"
-        timezone="Europe/Zurich"
-      />
-    </Col>
-  </Row>
-</ResultItem>
+        <div
+          class="pa2"
+        >
+          <div>
+            <div
+              class="ant-row"
+              type="flex"
+            >
+              <div
+                class="ant-col"
+              >
+                <a
+                  class="result-item-title"
+                  href="/seminars/12345"
+                >
+                  <span
+                    class="detail-page-title"
+                  >
+                    <span
+                      class="__Latex__"
+                    >
+                      test
+                    </span>
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div
+              class="ant-row"
+            >
+              <div
+                class="ant-col"
+              >
+                <div
+                  class="__InlineList__"
+                >
+                  <ul>
+                    <li>
+                      <div
+                        class="di"
+                      >
+                        <span>
+                          John, Doe
+                        </span>
+                        <span
+                          class="pl1 secondary-color"
+                        >
+                          (
+                          <div
+                            class="__InlineList__ di"
+                          >
+                            <ul>
+                              <li>
+                                <span>
+                                  CERN
+                                </span>
+                              </li>
+                            </ul>
+                          </div>
+                          )
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-row"
+            >
+              <div
+                class="ant-col"
+              >
+                <span>
+                  15 May 2020, 01:45 PM - 17 May 2020, 02:45 AM
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-row ant-row-space-between actions ph2"
+        >
+          <div
+            class="ant-col"
+          >
+            <span
+              class="__UserAction__"
+            >
+              <button
+                class="ant-btn ant-btn-default ant-dropdown-trigger"
+                type="button"
+              >
+                <span
+                  class="__IconText__"
+                >
+                  <span
+                    class="icon"
+                  >
+                    <span
+                      aria-label="calendar"
+                      class="anticon anticon-calendar"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="calendar"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M880 184H712v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H384v-64c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v64H144c-17.7 0-32 14.3-32 32v664c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V216c0-17.7-14.3-32-32-32zm-40 656H184V460h656v380zM184 392V256h128v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h256v48c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-48h128v136H184z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span
+                    class="v-top"
+                  >
+                    export
+                  </span>
+                </span>
+              </button>
+            </span>
+            <span
+              class="__UserAction__"
+            >
+              <a
+                href="/submissions/seminars/12345"
+                target="_blank"
+              >
+                <span
+                  class="__IconText__"
+                >
+                  <span
+                    class="icon"
+                  >
+                    <span
+                      aria-label="edit"
+                      class="anticon anticon-edit"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="edit"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span
+                    class="v-top"
+                  >
+                    edit
+                  </span>
+                </span>
+              </a>
+            </span>
+          </div>
+          <div
+            class="ant-col"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;

@@ -63,7 +63,11 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
           abstract && abstract.get('value')
         )}
       />
-      <Row type="flex" justify="center">
+      <Row
+        type="flex"
+        justify="center"
+        data-testid="seminars-detail-page-container"
+      >
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
             className="sm-pb3"
