@@ -1,10 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import SeminarCountWarning from '../SeminarCountWarning';
 
 describe('SeminarCountWarning', () => {
   it('renders', () => {
-    const wrapper = shallow(<SeminarCountWarning />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<SeminarCountWarning />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

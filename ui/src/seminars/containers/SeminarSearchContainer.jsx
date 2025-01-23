@@ -72,6 +72,7 @@ function SeminarSearch({
       gutter={SEARCH_PAGE_GUTTER}
       type="flex"
       justify="start"
+      data-testid="seminars-search-page-container"
     >
       <Col xs={0} lg={7}>
         <ResponsiveView min="lg" render={renderAggregations} />
