@@ -14,7 +14,7 @@ describe('HeaderMenuContainer', () => {
         loggedIn: true,
         data: {
           profile_control_number: '1010819',
-        }
+        },
       }),
     });
     const wrapper = mount(

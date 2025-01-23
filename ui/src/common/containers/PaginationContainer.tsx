@@ -5,7 +5,10 @@ import { searchQueryUpdate } from '../../actions/search';
 import { castPropToNumber } from '../utils';
 import SearchPagination from '../components/SearchPagination';
 
-const stateToProps =  (state: RootStateOrAny, { namespace }: { namespace: string }) => ({
+const stateToProps = (
+  state: RootStateOrAny,
+  { namespace }: { namespace: string }
+) => ({
   page: castPropToNumber(
     state.search.getIn(['namespaces', namespace, 'query', 'page'])
   ),
@@ -15,7 +18,10 @@ const stateToProps =  (state: RootStateOrAny, { namespace }: { namespace: string
   total: state.search.getIn(['namespaces', namespace, 'total']),
 });
 
-export const dispatchToProps = (dispatch: ActionCreator<Action>, { namespace }: { namespace: string })  => ({
+export const dispatchToProps = (
+  dispatch: ActionCreator<Action>,
+  { namespace }: { namespace: string }
+) => ({
   onPageChange(page: number) {
     window.scrollTo(0, 0);
     dispatch(searchQueryUpdate(namespace, { page: String(page) }));

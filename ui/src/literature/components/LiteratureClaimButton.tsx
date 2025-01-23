@@ -11,7 +11,7 @@ const LiteratureClaimButton = ({
   hasAuthorProfile,
   authors,
   controlNumber,
-  page
+  page,
 }: {
   loggedIn: boolean;
   hasAuthorProfile: boolean;
@@ -21,18 +21,25 @@ const LiteratureClaimButton = ({
 }) => {
   const notLoggedInCondidtion = !loggedIn;
   const notAnAuthorContition = !hasAuthorProfile && loggedIn;
-  const noAuthorsCondition = hasAuthorProfile && loggedIn && authors && authors.size === 0;
+  const noAuthorsCondition =
+    hasAuthorProfile && loggedIn && authors && authors.size === 0;
   const hasAuthorsCondition = authors && authors.size > 0;
-  const allowClaimingCondition = !notLoggedInCondidtion && !notAnAuthorContition && hasAuthorsCondition;
+  const allowClaimingCondition =
+    !notLoggedInCondidtion && !notAnAuthorContition && hasAuthorsCondition;
 
   return (
     <>
       {notLoggedInCondidtion && <ClaimingDisabledButton />}
       {notAnAuthorContition && <AssignNoProfileAction />}
       {noAuthorsCondition && <NoAuthorsClaimingButton />}
-      {allowClaimingCondition && <AssignLiteratureItemContainer controlNumber={controlNumber} page={page} />}
+      {allowClaimingCondition && (
+        <AssignLiteratureItemContainer
+          controlNumber={controlNumber}
+          page={page}
+        />
+      )}
     </>
   );
-}
+};
 
 export default LiteratureClaimButton;

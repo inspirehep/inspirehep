@@ -50,12 +50,12 @@ function LiteratureDocumentHead({ metadata, created }) {
       {doi && <meta name="citation_doi" content={doi} />}
 
       {citationPdfUrls &&
-        citationPdfUrls.map(link => (
+        citationPdfUrls.map((link) => (
           <meta key={link} name="citation_pdf_url" content={link} />
         ))}
 
       {authors &&
-        authors.map(author => (
+        authors.map((author) => (
           <meta
             key={author.get('full_name')}
             name="citation_author"

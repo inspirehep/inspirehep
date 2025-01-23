@@ -52,7 +52,7 @@ function SeminarSearch({
   );
 
   const renderSeminarItem = useCallback(
-    result => (
+    (result) => (
       <SeminarItem
         metadata={result.get('metadata')}
         selectedTimezone={selectedTimezone}
@@ -92,9 +92,7 @@ function SeminarSearch({
               ) : (
                 <SeminarTimezone timezone={timezone} />
               )}
-              {isSuperUserLoggedIn && (
-                <APIButton url={window.location.href} />
-              )}
+              {isSuperUserLoggedIn && <APIButton url={window.location.href} />}
             </Col>
             <Col xs={12} lg={0}>
               <ResponsiveView

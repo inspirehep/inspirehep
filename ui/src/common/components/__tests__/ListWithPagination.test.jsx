@@ -15,7 +15,7 @@ describe('ListWithPagination', () => {
         page={1}
         total={100}
         onPageChange={jest.fn()}
-        renderItem={item => <List.Item key={item}>{item}</List.Item>}
+        renderItem={(item) => <List.Item key={item}>{item}</List.Item>}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -31,7 +31,7 @@ describe('ListWithPagination', () => {
         total={100}
         onPageChange={jest.fn()}
         onShowSizeChange={jest.fn()}
-        renderItem={item => <List.Item key={item}>{item}</List.Item>}
+        renderItem={(item) => <List.Item key={item}>{item}</List.Item>}
         title="Test"
         loading
       />
@@ -48,7 +48,7 @@ describe('ListWithPagination', () => {
         page={1}
         total={100}
         onPageChange={jest.fn()}
-        renderItem={item => <List.Item key={item}>{item}</List.Item>}
+        renderItem={(item) => <List.Item key={item}>{item}</List.Item>}
         grid
       />
     );
@@ -67,7 +67,7 @@ describe('ListWithPagination', () => {
         total={100}
         onPageChange={onPageChange}
         onSizeChange={onSizeChange}
-        renderItem={item => <List.Item key={item}>{item}</List.Item>}
+        renderItem={(item) => <List.Item key={item}>{item}</List.Item>}
       />
     );
     expect(wrapper.find(Pagination)).toHaveProp({

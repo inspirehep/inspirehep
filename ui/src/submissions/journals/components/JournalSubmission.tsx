@@ -34,7 +34,7 @@ export const JournalSubmission = ({
           <Formik
             initialValues={DEFAULT_FORM_DATA}
             validationSchema={journalSchema}
-            onSubmit={data => onFormikSubmit(modifyFormData(data))}
+            onSubmit={(data) => onFormikSubmit(modifyFormData(data))}
             validateOnChange={false}
             component={JournalForm}
           />

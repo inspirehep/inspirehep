@@ -10,9 +10,7 @@ const stateToProps = (state: RootStateOrAny) => ({
   loading: state.user.get('isSigningUp'),
 });
 
-export const dispatchToProps = (
-  dispatch: ActionCreator<Action>
-) => ({
+export const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
   onSignUp(data: string) {
     dispatch(userSignUp(data));
   },

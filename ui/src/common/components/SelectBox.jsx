@@ -4,7 +4,7 @@ import { Select } from 'antd';
 function SelectBox({ options, virtualScroll = false, ...selectProps }) {
   return (
     <Select dropdownMatchSelectWidth={virtualScroll} showArrow {...selectProps}>
-      {options.map(option => (
+      {options.map((option) => (
         <Select.Option key={option.value} value={option.value}>
           <span
             data-test-id={

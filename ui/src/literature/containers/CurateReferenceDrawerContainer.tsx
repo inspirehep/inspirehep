@@ -9,11 +9,14 @@ import { searchResultsReset } from '../../actions/search';
 import { CURATE_REFERENCE_NS } from '../../search/constants';
 import CurateReferenceDrawer from '../components/CurateReferenceDrawer/CurateReferenceDrawer';
 
-const stateToProps = (state: RootStateOrAny, { namespace }: { namespace: string }) => ({
+const stateToProps = (
+  state: RootStateOrAny,
+  { namespace }: { namespace: string }
+) => ({
   results: state.search.getIn(['namespaces', namespace, 'results']),
   referenceId: state.literature.get('referenceDrawer'),
   visible: state.literature.get('referenceDrawer') !== null,
-  loading: state.search.getIn(['namespaces', CURATE_REFERENCE_NS, 'loading'])
+  loading: state.search.getIn(['namespaces', CURATE_REFERENCE_NS, 'loading']),
 });
 
 const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
@@ -35,7 +38,15 @@ const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
     referenceId: number;
     newReferenceId: number;
   }) {
-    dispatch(curateReference({recordId, recordUuid, revisionId, referenceId, newReferenceId}));
+    dispatch(
+      curateReference({
+        recordId,
+        recordUuid,
+        revisionId,
+        referenceId,
+        newReferenceId,
+      })
+    );
   },
 });
 

@@ -10,10 +10,7 @@ import useSubmitCallback from '../../common/hooks/useSubmitCallback';
 
 const DEFAULT_FORM_DATA = experimentSchema.cast();
 
-const ExperimentSubmission = ({
-  onSubmit,
-  error = null,
-}) => {
+const ExperimentSubmission = ({ onSubmit, error = null }) => {
   const onFormikSubmit = useSubmitCallback(onSubmit);
   return (
     <div>
@@ -37,7 +34,7 @@ const ExperimentSubmission = ({
       </Row>
     </div>
   );
-}
+};
 
 ExperimentSubmission.propTypes = {
   error: PropTypes.objectOf(PropTypes.any),

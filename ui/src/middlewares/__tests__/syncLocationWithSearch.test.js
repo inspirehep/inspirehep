@@ -9,7 +9,7 @@ import {
   searchQueryUpdate,
   searchQueryReset,
   newSearch,
-  fetchAggregationsAndSearchQueryReset
+  fetchAggregationsAndSearchQueryReset,
 } from '../../actions/search';
 
 jest.mock('../../actions/search');
@@ -36,7 +36,7 @@ describe('syncLocationWithSearch middleware', () => {
         },
       });
       const getState = () => ({ search, router });
-      const mockNextFuncThatMirrors = action => action;
+      const mockNextFuncThatMirrors = (action) => action;
       const mockDispatch = jest.fn();
       const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
         mockNextFuncThatMirrors
@@ -70,7 +70,7 @@ describe('syncLocationWithSearch middleware', () => {
         },
       });
       const getState = () => ({ search, router });
-      const mockNextFuncThatMirrors = action => action;
+      const mockNextFuncThatMirrors = (action) => action;
       const mockDispatch = jest.fn();
       const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
         mockNextFuncThatMirrors
@@ -83,7 +83,9 @@ describe('syncLocationWithSearch middleware', () => {
       const resultAction = testMiddleware(action);
 
       expect(resultAction).toEqual(action);
-      expect(mockDispatch).toHaveBeenCalledWith(fetchAggregationsAndSearchQueryReset(namespace));
+      expect(mockDispatch).toHaveBeenCalledWith(
+        fetchAggregationsAndSearchQueryReset(namespace)
+      );
     });
 
     it('dispatches searchQueryReset if there is a POP (back) but pathname has not changed', () => {
@@ -102,7 +104,7 @@ describe('syncLocationWithSearch middleware', () => {
         },
       });
       const getState = () => ({ search, router });
-      const mockNextFuncThatMirrors = action => action;
+      const mockNextFuncThatMirrors = (action) => action;
       const mockDispatch = jest.fn();
       const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
         mockNextFuncThatMirrors
@@ -134,7 +136,7 @@ describe('syncLocationWithSearch middleware', () => {
         },
       });
       const getState = () => ({ search, router });
-      const mockNextFuncThatMirrors = action => action;
+      const mockNextFuncThatMirrors = (action) => action;
       const mockDispatch = jest.fn();
       const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
         mockNextFuncThatMirrors
@@ -161,7 +163,7 @@ describe('syncLocationWithSearch middleware', () => {
       };
       const router = { location };
       const getState = () => ({ router }); // previous state
-      const mockNextFuncThatMirrors = action => action;
+      const mockNextFuncThatMirrors = (action) => action;
       const mockDispatch = jest.fn();
       const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
         mockNextFuncThatMirrors
@@ -193,7 +195,7 @@ describe('syncLocationWithSearch middleware', () => {
       });
       const router = { location };
       const getState = () => ({ router, search }); // previous state
-      const mockNextFuncThatMirrors = action => action;
+      const mockNextFuncThatMirrors = (action) => action;
       const mockDispatch = jest.fn();
       const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
         mockNextFuncThatMirrors
@@ -218,7 +220,7 @@ describe('syncLocationWithSearch middleware', () => {
       };
       const router = { location };
       const getState = () => ({ router }); // previous state
-      const mockNextFuncThatMirrors = action => action;
+      const mockNextFuncThatMirrors = (action) => action;
       const mockDispatch = jest.fn();
       const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
         mockNextFuncThatMirrors
@@ -250,7 +252,7 @@ describe('syncLocationWithSearch middleware', () => {
         },
       });
       const getState = () => ({ search, router });
-      const mockNextFuncThatMirrors = action => action;
+      const mockNextFuncThatMirrors = (action) => action;
       const mockDispatch = jest.fn();
       const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
         mockNextFuncThatMirrors
@@ -282,7 +284,7 @@ describe('syncLocationWithSearch middleware', () => {
         },
       });
       const getState = () => ({ search, router });
-      const mockNextFuncThatMirrors = action => action;
+      const mockNextFuncThatMirrors = (action) => action;
       const mockDispatch = jest.fn();
       const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
         mockNextFuncThatMirrors
@@ -302,7 +304,7 @@ describe('syncLocationWithSearch middleware', () => {
   describe('on anything', () => {
     it('returns next(the action)', () => {
       const getState = () => ({});
-      const mockNextFuncThatMirrors = action => action;
+      const mockNextFuncThatMirrors = (action) => action;
       const mockDispatch = jest.fn();
       const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
         mockNextFuncThatMirrors

@@ -11,14 +11,14 @@ function PublicationsSelect({
   disabled,
   checked,
   isOwnProfile,
-}:{
-  onSelectClaimedPapers: Function,
-  onSelectUnclaimedPapers: Function,
-  onSelectPapers: Function,
-  claimed: boolean,
-  disabled: boolean,
-  checked: boolean,
-  isOwnProfile: boolean,
+}: {
+  onSelectClaimedPapers: Function;
+  onSelectUnclaimedPapers: Function;
+  onSelectPapers: Function;
+  claimed: boolean;
+  disabled: boolean;
+  checked: boolean;
+  isOwnProfile: boolean;
 }) {
   const onChange = (event: CheckboxChangeEvent) => {
     onSelectPapers(event);

@@ -25,7 +25,6 @@ export type PidType =
   | typeof JOURNALS_PID_TYPE
   | typeof DATA_PID_TYPE;
 
-
 export type PidValue = string | number;
 
 export interface User {

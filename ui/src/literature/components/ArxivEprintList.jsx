@@ -12,8 +12,8 @@ class ArxivEprintList extends Component {
       <InlineDataList
         label="e-Print"
         items={eprints}
-        extractKey={eprint => eprint.get('value')}
-        renderItem={eprint => <ArxivEprint eprint={eprint} />}
+        extractKey={(eprint) => eprint.get('value')}
+        renderItem={(eprint) => <ArxivEprint eprint={eprint} />}
       />
     );
   }

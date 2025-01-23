@@ -11,7 +11,7 @@ import EventTracker from '../EventTracker';
 const Author = ({
   author,
   page,
-  unlinked
+  unlinked,
 }: {
   author: Map<string, string>;
   page: string;

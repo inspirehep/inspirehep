@@ -53,7 +53,9 @@ class AuthorList extends Component {
             : null
         }
         extractKey={getAuthorName}
-        renderItem={author => <Author author={author} page={page} unlinked={unlinked} />}
+        renderItem={(author) => (
+          <Author author={author} page={page} unlinked={unlinked} />
+        )}
       />
     );
   }

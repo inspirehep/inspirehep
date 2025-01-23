@@ -4,13 +4,11 @@ import { Field, Form, Formik } from 'formik';
 import DocumentHead from '../../../common/components/DocumentHead';
 import { Credentials } from '../../../types';
 
-type LocalLoginPageProps = { 
+type LocalLoginPageProps = {
   onLoginFormSubmit: ((values: {}) => void | Promise<any>) & Function;
 };
 
-const LocalLoginPage = ({
-  onLoginFormSubmit,
-}: LocalLoginPageProps) => {
+const LocalLoginPage = ({ onLoginFormSubmit }: LocalLoginPageProps) => {
   function renderFormInput({
     form,
     field,

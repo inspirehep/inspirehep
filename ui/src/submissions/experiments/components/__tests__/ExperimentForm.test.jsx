@@ -5,9 +5,7 @@ import ExperimentForm from '../ExperimentForm';
 
 describe('ExperimentForm', () => {
   it('renders', () => {
-    const wrapper = shallow(
-      <ExperimentForm />
-    );
+    const wrapper = shallow(<ExperimentForm />);
     expect(wrapper).toMatchSnapshot();
   });
 });

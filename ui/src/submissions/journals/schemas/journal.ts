@@ -2,7 +2,7 @@ import { string, object } from 'yup';
 
 export const DEFAULT_FORM_DATA = {
   short_title: '',
-  journal_title: ''
+  journal_title: '',
 };
 
 export const journalSchema = object().shape({

@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { fromJS, Map } from 'immutable';
 
-
 import orcidLogo from '../../../../../common/assets/orcid.svg';
 import Links, { Ids, Urls } from '../Links';
 
@@ -100,7 +99,6 @@ describe('Links Component', () => {
 
     const copyIcon = screen.getByLabelText(/copy/i);
     expect(copyIcon).toBeInTheDocument();
-  
   });
 
   it('should render generic link correctly in Ids', () => {

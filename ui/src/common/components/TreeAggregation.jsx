@@ -23,12 +23,12 @@ function renderTitle(name, docCount) {
 
 function buildTreeData(buckets, splitTreeBy) {
   let tree = {};
-  buckets.forEach(bucket => {
+  buckets.forEach((bucket) => {
     const docCount = bucket.get('doc_count');
     const key = bucket.get('key');
     // convert to list just for `flatMap`, since Array.prototype.flatMap needs to be polyfilled
     // a|b|c => turns into [children, a, children, b, children, c] (the path of the node)
-    const path = List(key.split(splitTreeBy)).flatMap(node => [
+    const path = List(key.split(splitTreeBy)).flatMap((node) => [
       'children',
       node,
     ]);
@@ -52,10 +52,10 @@ function buildTreeData(buckets, splitTreeBy) {
 function TreeAggregation({ onChange, buckets, name, selections, splitTreeBy }) {
   const [selectedKeys] = useState(forceArray(selections));
 
-  const tree = useMemo(() => buildTreeData(buckets, splitTreeBy), [
-    buckets,
-    splitTreeBy,
-  ]);
+  const tree = useMemo(
+    () => buildTreeData(buckets, splitTreeBy),
+    [buckets, splitTreeBy]
+  );
 
   return (
     <AggregationBox name={name}>
@@ -64,7 +64,7 @@ function TreeAggregation({ onChange, buckets, name, selections, splitTreeBy }) {
         checkable
         checkStrictly
         checkedKeys={selectedKeys}
-        onCheck={event => onChange(event.checked)}
+        onCheck={(event) => onChange(event.checked)}
         selectable={false}
         treeData={tree}
         defaultExpandedKeys={selectedKeys}

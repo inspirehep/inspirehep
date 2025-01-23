@@ -5,7 +5,7 @@ import { stringify } from 'qs';
 
 export function appendQueryToLocationSearch(query: {}): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootStateOrAny
 ) => void {
   return (dispatch, getState) => {
     const { router } = getState();

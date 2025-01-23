@@ -11,7 +11,9 @@ const MOST_RECENT_BLOG_POSTS_URL = `${BLOG_URL}/wp-json/wp/v2/posts?per_page=3&c
 function renderBlogPost(post) {
   return (
     <div key={post.id}>
-      <LinkWithTargetBlank href={post.link}>{post.title.rendered}</LinkWithTargetBlank>
+      <LinkWithTargetBlank href={post.link}>
+        {post.title.rendered}
+      </LinkWithTargetBlank>
     </div>
   );
 }

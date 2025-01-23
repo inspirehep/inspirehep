@@ -27,22 +27,21 @@ const InlineDataList = ({
   wrapperClassName: string;
   labelClassName?: string;
 }) => {
-  return (
-    items &&
-    getSizeOfArrayOrImmutableList(items) > 0 ? (
-      <div className={classnames('__InlineList__', wrapperClassName)}>
-        {label && <span className={classnames(labelClassName)}>{label}: </span>}
-        <ul>
-          {items.map((item, index) => (
-            <li key={`${extractKey(item)}-${index * 2}`}>
-              {renderItem(item, index)}
-              {separateItems && index < items.size - 1 && separator}
-            </li>
-          ))}
-        </ul>
-        {suffix}
-      </div>
-    ) : <></>
+  return items && getSizeOfArrayOrImmutableList(items) > 0 ? (
+    <div className={classnames('__InlineList__', wrapperClassName)}>
+      {label && <span className={classnames(labelClassName)}>{label}: </span>}
+      <ul>
+        {items.map((item, index) => (
+          <li key={`${extractKey(item)}-${index * 2}`}>
+            {renderItem(item, index)}
+            {separateItems && index < items.size - 1 && separator}
+          </li>
+        ))}
+      </ul>
+      {suffix}
+    </div>
+  ) : (
+    <></>
   );
 };
 

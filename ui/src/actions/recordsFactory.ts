@@ -5,7 +5,7 @@ import { RootStateOrAny } from 'react-redux';
 import {
   isCancelError,
   UI_SERIALIZER_REQUEST_OPTIONS,
-  HttpClientWrapper
+  HttpClientWrapper,
 } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
 
@@ -16,11 +16,11 @@ export function generateRecordFetchAction({
   fetchErrorActionType,
   requestOptions = UI_SERIALIZER_REQUEST_OPTIONS,
 }: {
-  pidType: string,
-  fetchingActionActionType: string,
-  fetchSuccessActionType: string,
-  fetchErrorActionType: string,
-  requestOptions?: { headers: { Accept: string; }; },
+  pidType: string;
+  fetchingActionActionType: string;
+  fetchSuccessActionType: string;
+  fetchErrorActionType: string;
+  requestOptions?: { headers: { Accept: string } };
 }) {
   const fetching = (recordId: number) => ({
     type: fetchingActionActionType,
@@ -38,29 +38,34 @@ export function generateRecordFetchAction({
     meta: { redirectableError: true },
   });
 
-  return (recordId: number) => async (dispatch: ActionCreator<Action>, getState: () => RootStateOrAny, http: HttpClientWrapper) => {
-    dispatch(fetching(recordId));
-    try {
-      const response = await http.get(
-        `/${pidType}/${recordId}`,
-        requestOptions,
-        fetchingActionActionType
-      );
+  return (recordId: number) =>
+    async (
+      dispatch: ActionCreator<Action>,
+      getState: () => RootStateOrAny,
+      http: HttpClientWrapper
+    ) => {
+      dispatch(fetching(recordId));
+      try {
+        const response = await http.get(
+          `/${pidType}/${recordId}`,
+          requestOptions,
+          fetchingActionActionType
+        );
 
-      const { responseURL } = response.request;
-      if (responseURL.endsWith(recordId)) {
-        dispatch(fetchSuccess(response.data));
-      } else {
-        // REDIRECT
-        const parts = responseURL.split('/');
-        const redirectedId = parts[parts.length - 1];
-        dispatch(replace(`/${pidType}/${redirectedId}`));
+        const { responseURL } = response.request;
+        if (responseURL.endsWith(recordId)) {
+          dispatch(fetchSuccess(response.data));
+        } else {
+          // REDIRECT
+          const parts = responseURL.split('/');
+          const redirectedId = parts[parts.length - 1];
+          dispatch(replace(`/${pidType}/${redirectedId}`));
+        }
+      } catch (err) {
+        if (!isCancelError(err as Error)) {
+          const { error } = httpErrorToActionPayload(err);
+          dispatch(fetchError({ error }));
+        }
       }
-    } catch (err) {
-      if (!isCancelError(err as Error)) {
-        const { error } = httpErrorToActionPayload(err);
-        dispatch(fetchError({ error }));
-      }
-    }
-  };
+    };
 }

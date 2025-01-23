@@ -11,9 +11,7 @@ describe('AuthorsAndCollaborations', () => {
         full_name: 'Test, Guy 1',
       },
     ]);
-    const wrapper = shallow(
-      <AuthorsAndCollaborations authors={authors} />
-    );
+    const wrapper = shallow(<AuthorsAndCollaborations authors={authors} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -169,9 +167,7 @@ describe('AuthorsAndCollaborations', () => {
       },
     ]);
     const wrapper = shallow(
-      <AuthorsAndCollaborations
-        collaborations={collaborations}
-      />
+      <AuthorsAndCollaborations collaborations={collaborations} />
     );
     expect(wrapper).toMatchSnapshot();
   });

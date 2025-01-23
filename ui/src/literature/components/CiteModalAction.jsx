@@ -95,18 +95,16 @@ class CiteModalAction extends Component {
 
   render() {
     const { initialCiteFormat } = this.props;
-    const {
-      modalVisible,
-      citeContent,
-      errorMessage,
-      format,
-      loading,
-      page,
-    } = this.state;
+    const { modalVisible, citeContent, errorMessage, format, loading, page } =
+      this.state;
     return (
       <>
         <UserAction>
-          <EventTracker eventCategory={page} eventAction="Open modal" eventId="Cite">
+          <EventTracker
+            eventCategory={page}
+            eventAction="Open modal"
+            eventId="Cite"
+          >
             <Button onClick={this.onCiteClick}>
               <IconText text="cite" icon={<ExportOutlined />} />
             </Button>
@@ -134,37 +132,40 @@ class CiteModalAction extends Component {
               </Row>
               <Row type="flex" justify="space-between">
                 <div>
-              <EventTracker
-                  eventCategory={page} eventAction="Copy to clipboard"
-                  eventId="Copy citation"
-                  eventPropName="onChange"
-                  extractEventArgsToForward={args => [args[0]]}
-                >
-                  <CopyToClipboard
-                    text={citeContent}
-                    onCopy={this.onModalCancel}
+                  <EventTracker
+                    eventCategory={page}
+                    eventAction="Copy to clipboard"
+                    eventId="Copy citation"
+                    eventPropName="onChange"
+                    extractEventArgsToForward={(args) => [args[0]]}
                   >
-                    <Button style={{ marginRight: 12 }}>
-                      <CopyOutlined /> Copy to Clipboard
-                    </Button>
-                  </CopyToClipboard>
+                    <CopyToClipboard
+                      text={citeContent}
+                      onCopy={this.onModalCancel}
+                    >
+                      <Button style={{ marginRight: 12 }}>
+                        <CopyOutlined /> Copy to Clipboard
+                      </Button>
+                    </CopyToClipboard>
                   </EventTracker>
-                <EventTracker
-                  eventCategory={page} eventAction="Download"
-                  eventId="Download citation"
-                  eventPropName="onChange"
-                  extractEventArgsToForward={args => [args[0]]}
-                >
-                  <Button onClick={this.onDownloadClick}>
-                    <DownloadOutlined /> Download
-                  </Button>
-                </EventTracker>
+                  <EventTracker
+                    eventCategory={page}
+                    eventAction="Download"
+                    eventId="Download citation"
+                    eventPropName="onChange"
+                    extractEventArgsToForward={(args) => [args[0]]}
+                  >
+                    <Button onClick={this.onDownloadClick}>
+                      <DownloadOutlined /> Download
+                    </Button>
+                  </EventTracker>
                 </div>
                 <EventTracker
-                  eventCategory={page} eventAction="Select"
+                  eventCategory={page}
+                  eventAction="Select"
                   eventId="Cite format selection"
                   eventPropName="onChange"
-                  extractEventArgsToForward={args => [args[0]]}
+                  extractEventArgsToForward={(args) => [args[0]]}
                 >
                   <SelectBox
                     style={{ width: 140 }}

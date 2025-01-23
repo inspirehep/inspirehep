@@ -59,7 +59,10 @@ function getSelectedBar(state: RootStateOrAny, namespace: string) {
   return null;
 }
 
-const stateToProps = (state: RootStateOrAny, { namespace }: { namespace: string }) => ({
+const stateToProps = (
+  state: RootStateOrAny,
+  { namespace }: { namespace: string }
+) => ({
   loading: state.citations.get('loadingCitationSummary'),
   citeableData: state.citations.getIn([
     'citationSummary',
@@ -82,7 +85,10 @@ const stateToProps = (state: RootStateOrAny, { namespace }: { namespace: string 
   excludeSelfCitations: shouldExcludeSelfCitations(state),
 });
 
-const dispatchToProps = (dispatch: ActionCreator<Action>, { namespace }: { namespace: string }) => ({
+const dispatchToProps = (
+  dispatch: ActionCreator<Action>,
+  { namespace }: { namespace: string }
+) => ({
   // TODO: rename to onSelectedBarChange
   onSelectBarChange(bar: Bar, excludeSelfCitations: boolean) {
     const query = barToQuery(bar, excludeSelfCitations);
@@ -90,6 +96,7 @@ const dispatchToProps = (dispatch: ActionCreator<Action>, { namespace }: { names
   },
 });
 
-export default connect(stateToProps, dispatchToProps)(
-  convertAllImmutablePropsToJS(CitationSummaryGraph)
-);
+export default connect(
+  stateToProps,
+  dispatchToProps
+)(convertAllImmutablePropsToJS(CitationSummaryGraph));

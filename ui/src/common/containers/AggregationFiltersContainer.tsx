@@ -5,7 +5,10 @@ import { searchQueryUpdate } from '../../actions/search';
 import AggregationFilters from '../components/AggregationFilters';
 import { convertSomeImmutablePropsToJS } from '../immutableToJS';
 
-const stateToProps = (state: RootStateOrAny, { namespace }: { namespace: string }) => ({
+const stateToProps = (
+  state: RootStateOrAny,
+  { namespace }: { namespace: string }
+) => ({
   state: state.search.getIn(['namespaces', namespace]).toJS(),
   aggregations: state.search.getIn(['namespaces', namespace, 'aggregations']),
   initialAggregations: state.search.getIn([
@@ -17,7 +20,10 @@ const stateToProps = (state: RootStateOrAny, { namespace }: { namespace: string 
   numberOfResults: state.search.getIn(['namespaces', namespace, 'total']),
 });
 
-export const dispatchToProps = (dispatch: ActionCreator<Action>, { namespace }: { namespace: string }) => ({
+export const dispatchToProps = (
+  dispatch: ActionCreator<Action>,
+  { namespace }: { namespace: string }
+) => ({
   onAggregationChange(aggregationKey: string, selections: any) {
     dispatch(
       searchQueryUpdate(namespace, { [aggregationKey]: selections, page: '1' })
@@ -25,7 +31,10 @@ export const dispatchToProps = (dispatch: ActionCreator<Action>, { namespace }: 
   },
 });
 
-export default connect(stateToProps, dispatchToProps)(
+export default connect(
+  stateToProps,
+  dispatchToProps
+)(
   // @ts-ignore
   convertSomeImmutablePropsToJS(AggregationFilters, ['query'])
 );

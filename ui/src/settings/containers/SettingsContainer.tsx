@@ -13,7 +13,6 @@ export const stateToProps = (state: RootStateOrAny) => ({
   userEmail: state.user.getIn(['data', 'email']),
 });
 
-
 const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
   onChangeEmailAddress({ email }: { email: string }) {
     dispatch(changeEmailAddress({ email }));

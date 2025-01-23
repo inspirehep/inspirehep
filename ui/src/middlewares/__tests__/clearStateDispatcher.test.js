@@ -13,7 +13,7 @@ describe('clearStateDispatcher middleware', () => {
         },
       };
       const getState = () => ({ router });
-      const mockNextFuncThatMirrors = action => action;
+      const mockNextFuncThatMirrors = (action) => action;
       const mockDispatch = jest.fn();
       const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
         mockNextFuncThatMirrors
@@ -45,7 +45,7 @@ describe('clearStateDispatcher middleware', () => {
         },
       };
       const getState = () => ({ router });
-      const mockNextFuncThatMirrors = action => action;
+      const mockNextFuncThatMirrors = (action) => action;
       const mockDispatch = jest.fn();
       const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
         mockNextFuncThatMirrors
@@ -70,7 +70,7 @@ describe('clearStateDispatcher middleware', () => {
   describe('on anything else', () => {
     it('returns next(the action)', () => {
       const getState = () => ({});
-      const mockNextFuncThatMirrors = action => action;
+      const mockNextFuncThatMirrors = (action) => action;
       const mockDispatch = jest.fn();
       const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
         mockNextFuncThatMirrors

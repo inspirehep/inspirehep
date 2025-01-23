@@ -11,17 +11,19 @@ function CitationSummarySwitch({
   onChange,
   citationSummaryEnablingPreference,
 }) {
-  useEffect(
-    () => {
-      onCitationSummaryUserPreferenceChange(citationSummaryEnablingPreference);
-    },
-    [onCitationSummaryUserPreferenceChange, citationSummaryEnablingPreference]
-  );
+  useEffect(() => {
+    onCitationSummaryUserPreferenceChange(citationSummaryEnablingPreference);
+  }, [
+    onCitationSummaryUserPreferenceChange,
+    citationSummaryEnablingPreference,
+  ]);
   const actionName = checked ? 'Hide' : 'Show';
   const tooltipHelp = `${actionName} Citation Summary`;
   return (
     <>
-      <span className="pr2 dn di-m di-l" style={{ verticalAlign: 'middle' }}>Citation Summary</span>
+      <span className="pr2 dn di-m di-l" style={{ verticalAlign: 'middle' }}>
+        Citation Summary
+      </span>
       <Tooltip title={tooltipHelp}>
         <Switch
           checkedChildren={CHART_ICON}

@@ -31,7 +31,7 @@ describe('LRASet', () => {
 
   it('filters by function and returns array', () => {
     const set = new LRASet([1, 2, 3, 4, 5], 5);
-    expect(set.filter(value => value > 3)).toEqual([4, 5]);
+    expect(set.filter((value) => value > 3)).toEqual([4, 5]);
   });
 
   it('is serilized as an array wen JSON.stringified', () => {

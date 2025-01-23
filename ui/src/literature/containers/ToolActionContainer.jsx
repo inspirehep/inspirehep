@@ -9,8 +9,9 @@ import {
 import { MAX_BULK_ASSIGN } from '../constants';
 
 const stateToProps = (state) => {
-  const literatureSelectionSize = state.literature.get('literatureSelection')
-    .size;
+  const literatureSelectionSize = state.literature.get(
+    'literatureSelection'
+  ).size;
   return {
     selectionSize: literatureSelectionSize,
     disabledBulkAssign:

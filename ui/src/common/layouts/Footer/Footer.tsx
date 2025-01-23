@@ -31,7 +31,7 @@ interface Column {
       url: string;
       openExternal: boolean;
       onlyCatalogers: boolean;
-    }
+    },
   ];
 }
 

@@ -8,7 +8,7 @@ import InlineDataList, {
 
 function postalAddressesContainWord(postalAddresses, word) {
   return postalAddresses.some(
-    address => address.toLowerCase().indexOf(word.toLowerCase()) > -1
+    (address) => address.toLowerCase().indexOf(word.toLowerCase()) > -1
   );
 }
 
@@ -20,14 +20,12 @@ function InstitutionAddress({ address }) {
     <span>
       <InlineUL separator={SEPARATOR_COMMA} wrapperClassName="di">
         {postalAddresses.size > 0 && <InlineDataList items={postalAddresses} />}
-        {city &&
-          !postalAddressesContainWord(postalAddresses, city) && (
-            <span>{city}</span>
-          )}
-        {country &&
-          !postalAddressesContainWord(postalAddresses, country) && (
-            <span>{country}</span>
-          )}
+        {city && !postalAddressesContainWord(postalAddresses, city) && (
+          <span>{city}</span>
+        )}
+        {country && !postalAddressesContainWord(postalAddresses, country) && (
+          <span>{country}</span>
+        )}
       </InlineUL>
     </span>
   );

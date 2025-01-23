@@ -29,9 +29,7 @@ describe('CurateReferenceDrawer', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(
-      screen.getByText('Find the correct reference:')
-    ).toBeInTheDocument();
+    expect(screen.getByText('Find the correct reference:')).toBeInTheDocument();
   });
 
   it('should render reference item correctly', () => {

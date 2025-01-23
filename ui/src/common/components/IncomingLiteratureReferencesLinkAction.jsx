@@ -18,7 +18,11 @@ const IncomingLiteratureReferencesLinkAction = ({
   eventCategory,
 }) => (
   <UserAction>
-    <EventTracker eventCategory={eventCategory} eventAction="Literature references search" eventId={trackerEventId}>
+    <EventTracker
+      eventCategory={eventCategory}
+      eventAction="Literature references search"
+      eventId={trackerEventId}
+    >
       <Link to={`${LITERATURE}?q=${linkQuery}`}>
         <IconText
           text={

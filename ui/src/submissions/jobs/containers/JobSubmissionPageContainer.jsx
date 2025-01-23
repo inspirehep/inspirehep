@@ -44,10 +44,10 @@ JobSubmissionPage.propTypes = {
   error: PropTypes.instanceOf(Map),
 };
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   error: state.submissions.get('submitError'),
 });
 
-const dispatchToProps = dispatch => ({ dispatch });
+const dispatchToProps = (dispatch) => ({ dispatch });
 
 export default connect(stateToProps, dispatchToProps)(JobSubmissionPage);

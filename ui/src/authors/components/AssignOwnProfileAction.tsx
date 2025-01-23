@@ -70,7 +70,12 @@ function AssignOwnProfileAction({
           eventAction="Claim"
           eventId="This is not my paper"
         >
-          <span data-test-id="unassign" data-testid="unassign" key="unassign" onClick={onSelfUnassign}>
+          <span
+            data-test-id="unassign"
+            data-testid="unassign"
+            key="unassign"
+            onClick={onSelfUnassign}
+          >
             {numberOfSelected === 1
               ? 'This is not my paper'
               : 'These are not my papers'}

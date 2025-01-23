@@ -2,9 +2,9 @@ import React, { ComponentPropsWithoutRef } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 interface RouteOrRedirectProps extends ComponentPropsWithoutRef<any> {
-  component: any,
-  condition: boolean,
-  redirectTo: string,
+  component: any;
+  condition: boolean;
+  redirectTo: string;
 }
 
 function RouteOrRedirect({
@@ -16,8 +16,12 @@ function RouteOrRedirect({
   return (
     <Route
       {...rest}
-      render={props =>
-        condition ? <Component {...props} /> : <Redirect to={redirectTo || '/'} />
+      render={(props) =>
+        condition ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to={redirectTo || '/'} />
+        )
       }
     />
   );

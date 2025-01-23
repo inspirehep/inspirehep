@@ -8,7 +8,10 @@ describe('InlineList', () => {
   it('renders items seperated by default', () => {
     const items = fromJS(['foo', 'bar']);
     const wrapper = shallow(
-      <InlineDataList items={items} renderItem={item => <span>{item}</span>} />
+      <InlineDataList
+        items={items}
+        renderItem={(item) => <span>{item}</span>}
+      />
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -19,7 +22,7 @@ describe('InlineList', () => {
       <InlineDataList
         separateItems={false}
         items={items}
-        renderItem={item => <span>{item}</span>}
+        renderItem={(item) => <span>{item}</span>}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -31,7 +34,7 @@ describe('InlineList', () => {
       <InlineDataList
         wrapperClassName="di"
         items={items}
-        renderItem={item => <span>{item}</span>}
+        renderItem={(item) => <span>{item}</span>}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -43,35 +46,41 @@ describe('InlineList', () => {
       <InlineDataList
         separateItems={false}
         items={items}
-        renderItem={item => <span>{item}</span>}
+        renderItem={(item) => <span>{item}</span>}
       />
     );
     expect(wrapper).toMatchSnapshot();
   });
 
   it('renders with all props set', () => {
-    const items = fromJS([{ id: 1, value: 'foo' }, { id: 2, value: 'bar' }]);
+    const items = fromJS([
+      { id: 1, value: 'foo' },
+      { id: 2, value: 'bar' },
+    ]);
     const wrapper = shallow(
       <InlineDataList
         label="Test"
         suffix={<span>Suffix</span>}
         items={items}
-        extractKey={item => item.get('id')}
-        renderItem={item => <span>{item.get('value')}</span>}
+        extractKey={(item) => item.get('id')}
+        renderItem={(item) => <span>{item.get('value')}</span>}
       />
     );
     expect(wrapper).toMatchSnapshot();
   });
 
   it('renders with all props set (array)', () => {
-    const items = [{ id: 1, value: 'foo' }, { id: 2, value: 'bar' }];
+    const items = [
+      { id: 1, value: 'foo' },
+      { id: 2, value: 'bar' },
+    ];
     const wrapper = shallow(
       <InlineDataList
         label="Test"
         suffix={<span>Suffix</span>}
         items={items}
-        extractKey={item => item.id}
-        renderItem={item => <span>{item.value}</span>}
+        extractKey={(item) => item.id}
+        renderItem={(item) => <span>{item.value}</span>}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -83,7 +92,7 @@ describe('InlineList', () => {
         label="Test"
         suffix={<span>Suffix</span>}
         items={null}
-        renderItem={item => <span>{item}</span>}
+        renderItem={(item) => <span>{item}</span>}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -95,7 +104,7 @@ describe('InlineList', () => {
         label="Test"
         suffix={<span>Suffix</span>}
         items={[]}
-        renderItem={item => <span>{item}</span>}
+        renderItem={(item) => <span>{item}</span>}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -107,7 +116,7 @@ describe('InlineList', () => {
         label="Test"
         suffix={<span>Suffix</span>}
         items={fromJS([])}
-        renderItem={item => <span>{item}</span>}
+        renderItem={(item) => <span>{item}</span>}
       />
     );
     expect(wrapper).toMatchSnapshot();

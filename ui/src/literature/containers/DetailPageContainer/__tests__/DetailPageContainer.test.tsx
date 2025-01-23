@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 
 import DetailPageContainer from '../DetailPageContainer';
 import { getStoreWithState } from '../../../../fixtures/store';
-import { CITE_FORMAT_PREFERENCE } from "../../../../reducers/user";
+import { CITE_FORMAT_PREFERENCE } from '../../../../reducers/user';
 
 describe('DetailPageContainer', () => {
   it('renders initial state', () => {
@@ -74,11 +74,10 @@ describe('DetailPageContainer', () => {
           [CITE_FORMAT_PREFERENCE]: 'application/x-bibtex',
         },
         data: {
-          profile_control_number: null
-        }
-      })
+          profile_control_number: null,
+        },
+      }),
     });
-      
 
     const { asFragment } = render(
       <Router>

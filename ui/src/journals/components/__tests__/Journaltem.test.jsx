@@ -15,8 +15,8 @@ describe('JournalItem', () => {
         urls: [{ value: 'http://url.com' }],
         control_number: 1234,
         journal_title: { title: 'Department of Physics' },
-        number_of_papers: 2
-      })
+        number_of_papers: 2,
+      }),
     });
 
     const { asFragment } = render(
@@ -36,7 +36,7 @@ describe('JournalItem', () => {
         short_title: 'West Virginia U.',
         control_number: 1234,
         journal_title: 'Department of Physics',
-      })
+      }),
     });
 
     const { asFragment } = render(

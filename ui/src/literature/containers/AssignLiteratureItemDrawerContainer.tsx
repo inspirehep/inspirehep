@@ -18,7 +18,9 @@ interface RootState {
 
 const stateToProps = (state: RootState) => ({
   authors: state.literature.get('allAuthors') as Map<string, string>[],
-  literatureId: state.literature.get('assignLiteratureItemDrawerVisible') as number,
+  literatureId: state.literature.get(
+    'assignLiteratureItemDrawerVisible'
+  ) as number,
   currentUserRecordId: Number(state.user.getIn(['data', 'recid'])),
 });
 

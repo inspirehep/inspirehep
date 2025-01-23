@@ -1,4 +1,4 @@
-import { AUTHORS_PID_TYPE } from "../common/constants";
+import { AUTHORS_PID_TYPE } from '../common/constants';
 
 export enum WorkflowTypes {
   AUTHOR_CREATE = 'AUTHOR_CREATE',

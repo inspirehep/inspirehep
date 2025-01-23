@@ -31,15 +31,8 @@ class ListWithPagination extends Component {
   }
 
   renderPagination() {
-    const {
-      pageSize,
-      loading,
-      total,
-      page,
-      onPageChange,
-      grid,
-      onSizeChange,
-    } = this.props;
+    const { pageSize, loading, total, page, onPageChange, grid, onSizeChange } =
+      this.props;
 
     return (
       <Pagination

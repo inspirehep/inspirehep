@@ -18,7 +18,9 @@ class AffiliationList extends Component {
         wrapperClassName="di"
         separator={separator}
         items={affiliations}
-        renderItem={(affiliation) => AffiliationList.renderAffiliation(affiliation, unlinked)}
+        renderItem={(affiliation) =>
+          AffiliationList.renderAffiliation(affiliation, unlinked)
+        }
         extractKey={getInstitutionName}
       />
     );

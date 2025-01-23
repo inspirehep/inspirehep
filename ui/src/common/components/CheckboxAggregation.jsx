@@ -59,7 +59,7 @@ class CheckboxAggregation extends Component {
     this.setState({ selectionMap });
     const selections = selectionMap
       .keySeq()
-      .filter(bucketKey => selectionMap.get(bucketKey))
+      .filter((bucketKey) => selectionMap.get(bucketKey))
       .toArray();
     onChange(selections);
   }
@@ -87,7 +87,9 @@ class CheckboxAggregation extends Component {
             <>
               {bucketText}{' '}
               {bucketLink && (
-                <LinkWithTargetBlank href={bucketLink}>Learn More</LinkWithTargetBlank>
+                <LinkWithTargetBlank href={bucketLink}>
+                  Learn More
+                </LinkWithTargetBlank>
               )}
             </>
           }
@@ -126,7 +128,7 @@ class CheckboxAggregation extends Component {
         <Col>
           <Checkbox
             checked={selectionMap.get(bucketKey)}
-            onChange={event => {
+            onChange={(event) => {
               this.onSelectionChange(bucketKey, event.target.checked);
             }}
           >

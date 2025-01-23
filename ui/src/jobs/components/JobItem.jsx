@@ -37,7 +37,13 @@ class JobItem extends Component {
     return (
       <ResultItem
         leftActions={
-          canEdit && <EditRecordAction pidType="jobs" pidValue={recordId} page="Jobs search" />
+          canEdit && (
+            <EditRecordAction
+              pidType="jobs"
+              pidValue={recordId}
+              page="Jobs search"
+            />
+          )
         }
       >
         <Row type="flex" align="middle">
@@ -47,10 +53,12 @@ class JobItem extends Component {
             </Link>
           </Col>
           <Col>
-            (<InlineUL wrapperClassName="di" separator={SEPARATOR_MIDDLEDOT}>
+            (
+            <InlineUL wrapperClassName="di" separator={SEPARATOR_MIDDLEDOT}>
               {institutions && <InstitutionsList institutions={institutions} />}
               <RegionsList regions={regions} />
-            </InlineUL>)
+            </InlineUL>
+            )
           </Col>
         </Row>
         <Row className="mt2">

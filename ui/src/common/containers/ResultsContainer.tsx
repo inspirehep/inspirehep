@@ -4,7 +4,10 @@ import SearchResults from '../components/SearchResults';
 import { castPropToNumber } from '../utils';
 import { isCataloger } from '../authorization';
 
-const stateToProps = (state: RootStateOrAny, { namespace }: { namespace: string }) => ({
+const stateToProps = (
+  state: RootStateOrAny,
+  { namespace }: { namespace: string }
+) => ({
   results: state.search.getIn(['namespaces', namespace, 'results']),
   isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
   page: castPropToNumber(

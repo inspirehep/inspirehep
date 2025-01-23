@@ -4,7 +4,9 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
 
-import ExperimentSubmissionPageContainer, { ExperimentSubmissionPage } from '../ExperimentSubmissionPageContainer';
+import ExperimentSubmissionPageContainer, {
+  ExperimentSubmissionPage,
+} from '../ExperimentSubmissionPageContainer';
 
 import { getStoreWithState } from '../../../../fixtures/store';
 

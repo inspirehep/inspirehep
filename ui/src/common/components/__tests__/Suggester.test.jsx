@@ -10,7 +10,7 @@ const mockHttp = new MockAdapter(http.httpClient);
 
 // TODO: use fake timers after https://github.com/facebook/jest/pull/7776
 function wait(milisec = REQUEST_DEBOUNCE_MS + 25) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => resolve(), milisec);
   });
 }
@@ -69,7 +69,7 @@ describe('Suggester', () => {
       <Suggester
         pidType="literature"
         suggesterName="abstract_source"
-        extractUniqueItemValue={result => `${result.text} - ${result.extra}`}
+        extractUniqueItemValue={(result) => `${result.text} - ${result.extra}`}
       />
     );
     await wrapper.instance().onSearch('test');
@@ -97,8 +97,8 @@ describe('Suggester', () => {
       <Suggester
         pidType="literature"
         suggesterName="abstract_source"
-        extractItemCompletionValue={suggestion => suggestion.name}
-        extractUniqueItemValue={suggestion => suggestion.id}
+        extractItemCompletionValue={(suggestion) => suggestion.name}
+        extractUniqueItemValue={(suggestion) => suggestion.id}
       />
     );
     await wrapper.instance().onSearch('test');
@@ -154,7 +154,7 @@ describe('Suggester', () => {
       <Suggester
         pidType="literature"
         suggesterName="abstract_source"
-        renderResultItem={result => (
+        renderResultItem={(result) => (
           <span>
             {result.text} <em>{result.extra}</em>
           </span>
@@ -189,7 +189,7 @@ describe('Suggester', () => {
         onChange={onChange}
         onSelect={onSelect}
         pidType="literature"
-        extractUniqueItemValue={suggestion => suggestion.id}
+        extractUniqueItemValue={(suggestion) => suggestion.id}
         suggesterName="abstract_source"
       />
     );
@@ -229,8 +229,8 @@ describe('Suggester', () => {
         onChange={onChange}
         onSelect={onSelect}
         pidType="literature"
-        extractItemCompletionValue={suggestion => suggestion.name}
-        extractUniqueItemValue={suggestion => suggestion.id}
+        extractItemCompletionValue={(suggestion) => suggestion.name}
+        extractUniqueItemValue={(suggestion) => suggestion.id}
         suggesterName="abstract_source"
       />
     );
@@ -268,8 +268,8 @@ describe('Suggester', () => {
       <Suggester
         onChange={onChange}
         pidType="literature"
-        extractItemCompletionValue={suggestion => suggestion.name}
-        extractUniqueItemValue={suggestion => suggestion.id}
+        extractItemCompletionValue={(suggestion) => suggestion.name}
+        extractUniqueItemValue={(suggestion) => suggestion.id}
         suggesterName="abstract_source"
       />
     );

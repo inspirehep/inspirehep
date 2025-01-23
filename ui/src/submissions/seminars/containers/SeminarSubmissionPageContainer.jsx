@@ -31,11 +31,11 @@ SeminarSubmissionPage.propTypes = {
   error: PropTypes.instanceOf(Map),
 };
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   error: state.submissions.get('submitError'),
 });
 
-const dispatchToProps = dispatch => ({
+const dispatchToProps = (dispatch) => ({
   async onSubmit(formData) {
     await dispatch(submit(SEMINARS_PID_TYPE, formData));
   },

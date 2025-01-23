@@ -71,7 +71,9 @@ describe('AssignAction', () => {
     await waitFor(() => fireEvent.mouseOver(dropdown));
     await waitFor(() => screen.getByTestId('assign-self').click());
 
-    await waitFor(() => expect(onAssign).toHaveBeenCalledWith({ from: 123, to: 123 }));
+    await waitFor(() =>
+      expect(onAssign).toHaveBeenCalledWith({ from: 123, to: 123 })
+    );
   });
 
   it('calls onAssign on unassign click ', async () => {

@@ -51,13 +51,11 @@ describe('CheckboxAggregation', () => {
     ]);
     const bucketHelp = fromJS({
       [keyBucket1]: {
-        text:
-          'Published papers are believed to have undergone rigorous peer review.',
+        text: 'Published papers are believed to have undergone rigorous peer review.',
         link: 'https://inspirehep.net/info/faq/general#published',
       },
       [keyBucket2]: {
-        text:
-          'Published papers are believed to have undergone rigorous peer review.',
+        text: 'Published papers are believed to have undergone rigorous peer review.',
       },
       [keyBucket3]: {
         link: 'https://inspirehep.net/info/faq/general#published',

@@ -67,7 +67,9 @@ export function userSignUpRequest() {
   };
 }
 
-export function userSignUp(userEmail: string): (
+export function userSignUp(
+  userEmail: string
+): (
   dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
@@ -101,7 +103,9 @@ export function fetchLoggedInUser(): (
   };
 }
 
-export function userLocalLogin(credentials: Credentials): (
+export function userLocalLogin(
+  credentials: Credentials
+): (
   dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
@@ -181,7 +185,9 @@ function updateOrcidPushSettingError(error: { error: Error }) {
   };
 }
 
-export function updateOrcidPushSetting(value: boolean): (
+export function updateOrcidPushSetting(
+  value: boolean
+): (
   dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper

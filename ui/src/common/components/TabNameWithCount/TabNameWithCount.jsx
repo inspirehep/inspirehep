@@ -9,7 +9,11 @@ class TabNameWithCount extends Component {
   render() {
     const { name, loading, count, page } = this.props;
     return (
-      <EventTracker eventCategory={page} eventAction="Tab selection" eventId={`${name} tab`}>
+      <EventTracker
+        eventCategory={page}
+        eventAction="Tab selection"
+        eventId={`${name} tab`}
+      >
         <span>
           <span>{name}</span>
           <span className="ml1">

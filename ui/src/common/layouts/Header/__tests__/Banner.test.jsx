@@ -10,7 +10,7 @@ describe('Banner', () => {
     const wrapper = shallow(
       <Banner
         id="release-04.2020"
-        message="<strong>Welcome to the new INSPIRE! <a href=&quot;/release&quot;>learn more</a></strong>"
+        message='<strong>Welcome to the new INSPIRE! <a href="/release">learn more</a></strong>'
         closedBannersById={fromJS({})}
         currentPathname="/"
         onClose={jest.fn()}
@@ -23,7 +23,7 @@ describe('Banner', () => {
     const wrapper = shallow(
       <Banner
         id="release-04.2020"
-        message="<strong>Welcome to the new INSPIRE! <a href=&quot;/release&quot;>learn more</a></strong>"
+        message='<strong>Welcome to the new INSPIRE! <a href="/release">learn more</a></strong>'
         closedBannersById={fromJS({ 'release-04.2020': true })}
         currentPathname="/"
         onClose={jest.fn()}

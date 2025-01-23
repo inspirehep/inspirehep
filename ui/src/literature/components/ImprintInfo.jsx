@@ -4,7 +4,9 @@ import { List } from 'immutable';
 import moment from 'moment';
 import { hasDayMonthAndYear, hasMonthAndYear } from '../../common/utils';
 
-import InlineDataList, { SEPARATOR_AND } from '../../common/components/InlineList';
+import InlineDataList, {
+  SEPARATOR_AND,
+} from '../../common/components/InlineList';
 
 function formatDate(date) {
   if (hasDayMonthAndYear(date)) {

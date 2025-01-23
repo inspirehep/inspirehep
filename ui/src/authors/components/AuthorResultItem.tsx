@@ -54,7 +54,7 @@ const AuthorResultItem = ({
       )}
       <div className="mt1">
         <ArxivCategoryList arxivCategories={arxivCategories} />
-        <ExperimentList experiments={experiments} wrapperClassName='mt2' />
+        <ExperimentList experiments={experiments} wrapperClassName="mt2" />
       </div>
     </ResultItem>
   );

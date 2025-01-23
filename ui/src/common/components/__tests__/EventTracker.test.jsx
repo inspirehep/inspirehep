@@ -14,7 +14,11 @@ describe('EventTracker', () => {
   it('calls trackEvent and onClick of the child', () => {
     const onChildClick = jest.fn();
     const wrapper = shallow(
-      <EventTracker eventId="DudeButton" eventCategory="User" eventAction ="btn click">
+      <EventTracker
+        eventId="DudeButton"
+        eventCategory="User"
+        eventAction="btn click"
+      >
         <button type="button" onClick={onChildClick}>
           Dude
         </button>
@@ -28,7 +32,12 @@ describe('EventTracker', () => {
   it('calls trackEvent and custom event prop of the child with eventPropName', () => {
     const onChildBlur = jest.fn();
     const wrapper = shallow(
-      <EventTracker eventPropName="onBlur" eventId="DudeButton" eventCategory="User" eventAction ="btn blur">
+      <EventTracker
+        eventPropName="onBlur"
+        eventId="DudeButton"
+        eventCategory="User"
+        eventAction="btn blur"
+      >
         <button type="button" onBlur={onChildBlur}>
           Dude
         </button>
@@ -41,7 +50,12 @@ describe('EventTracker', () => {
 
   it('calls trackEvent only if child does not have this event', () => {
     const wrapper = shallow(
-      <EventTracker eventPropName="onClick" eventId="DudeDiv" eventCategory="User" eventAction ="btn click">
+      <EventTracker
+        eventPropName="onClick"
+        eventId="DudeDiv"
+        eventCategory="User"
+        eventAction="btn click"
+      >
         <div>Dude</div>
       </EventTracker>
     );
@@ -54,9 +68,10 @@ describe('EventTracker', () => {
       <EventTracker
         eventId="DudeButton"
         eventPropName="onClick"
-        eventCategory="User" eventAction ="btn click"
-        extractEventArgsToForward={eventArgs =>
-          eventArgs.filter(arg => typeof arg === 'string')
+        eventCategory="User"
+        eventAction="btn click"
+        extractEventArgsToForward={(eventArgs) =>
+          eventArgs.filter((arg) => typeof arg === 'string')
         }
       >
         <button type="button">Dude</button>
@@ -71,7 +86,12 @@ describe('EventTracker', () => {
 
   it('renders only children', () => {
     const wrapper = shallow(
-      <EventTracker eventPropName="onBlur" eventId="DudeInput" eventCategory="User" eventAction ="btn blur">
+      <EventTracker
+        eventPropName="onBlur"
+        eventId="DudeInput"
+        eventCategory="User"
+        eventAction="btn blur"
+      >
         <input onBlur={jest.fn()} />
       </EventTracker>
     );

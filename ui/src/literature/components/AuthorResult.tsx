@@ -13,13 +13,18 @@ const AuthorResult = ({
   item: Map<string, string>;
   page: string;
 }) => {
-  const getAuthorRecordIdFromRef = (item: Map<string, string>): number | undefined => {
+  const getAuthorRecordIdFromRef = (
+    item: Map<string, string>
+  ): number | undefined => {
     // @ts-ignore
     const recordRef = item.get('record')?.toJS().$ref;
-    return recordRef ? castPropToNumber(getRecordIdFromRef(recordRef)) : undefined;
+    return recordRef
+      ? castPropToNumber(getRecordIdFromRef(recordRef))
+      : undefined;
   };
-  
-  const isRadioButtonDisabled = (item: Map<string, string>): boolean => !getAuthorRecordIdFromRef(item);
+
+  const isRadioButtonDisabled = (item: Map<string, string>): boolean =>
+    !getAuthorRecordIdFromRef(item);
 
   return (
     <Row>

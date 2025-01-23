@@ -34,8 +34,7 @@ exports[`EventTitle renders with everything 1`] = `
     </Latex>
   </span>
   <span>
-     
-    (
+     (
     Test
     )
   </span>

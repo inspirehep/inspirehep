@@ -11,12 +11,14 @@ import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAc
 function renderDOIDropdownAction(doi, page) {
   return {
     key: doi.get('value'),
-    label: <span key={doi.get('value')}>
-      <DOILink doi={doi.get('value')} page={page} >
-        {doi.get('value')}
-        <DOIMaterial material={doi.get('material')} />
-      </DOILink>
-    </span>
+    label: (
+      <span key={doi.get('value')}>
+        <DOILink doi={doi.get('value')} page={page}>
+          {doi.get('value')}
+          <DOIMaterial material={doi.get('material')} />
+        </DOILink>
+      </span>
+    ),
   };
 }
 

@@ -5,9 +5,7 @@ import Logo from '../Logo';
 
 describe('Logo', () => {
   it('renders', () => {
-    const wrapper = shallow((
-      <Logo />
-    ));
+    const wrapper = shallow(<Logo />);
     expect(wrapper).toMatchSnapshot();
   });
 });

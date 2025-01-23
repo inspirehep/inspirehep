@@ -1,4 +1,12 @@
-import React, { useCallback, useState, useMemo, forwardRef, MutableRefObject, PropsWithChildren, ReactNode } from 'react';
+import React, {
+  useCallback,
+  useState,
+  useMemo,
+  forwardRef,
+  MutableRefObject,
+  PropsWithChildren,
+  ReactNode,
+} from 'react';
 import Modal from 'react-modal';
 import { Carousel, Row, Col, Button } from 'antd';
 
@@ -14,7 +22,8 @@ interface CarouselModalProps {
   onCancel: Function;
 }
 
-const CarouselModal: React.FC<PropsWithChildren<CarouselModalProps>> = forwardRef((props, ref) => {
+const CarouselModal: React.FC<PropsWithChildren<CarouselModalProps>> =
+  forwardRef((props, ref) => {
     const { children, visible = false, onCancel } = props;
 
     const [carouselIndex, setCarouselIndex] = useState(0);
@@ -147,8 +156,7 @@ const CarouselModal: React.FC<PropsWithChildren<CarouselModalProps>> = forwardRe
         )}
       </>
     );
-  }
-);
+  });
 
 CarouselModal.displayName = 'CarouselModal';
 

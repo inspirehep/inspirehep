@@ -7,7 +7,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { getStoreWithState } from '../../../fixtures/store';
 import SettingsContainer from '../SettingsContainer';
 
-describe('SettingsContainer',  () => {
+describe('SettingsContainer', () => {
   it('passes props from state', async () => {
     const store = getStoreWithState({
       settings: fromJS({
@@ -35,6 +35,5 @@ describe('SettingsContainer',  () => {
     expect(getByTestId('true test@o2.pl')).toBeInTheDocument();
     expect(getByTestId('12345')).toBeInTheDocument();
     expect(getByTestId('123-456')).toBeInTheDocument();
-
   });
 });

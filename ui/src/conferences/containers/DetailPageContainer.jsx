@@ -62,12 +62,21 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
             className="sm-pb3"
             rightActions={
               contributionsCount !== 0 && (
-                <ConferenceContributionLink recordId={controlNumber} contributionsCount={contributionsCount} />
+                <ConferenceContributionLink
+                  recordId={controlNumber}
+                  contributionsCount={contributionsCount}
+                />
               )
             }
             leftActions={
               <>
-                {urls && <UrlsAction urls={urls} page="Conferences detail" trackerEventId="Conferences website" />}
+                {urls && (
+                  <UrlsAction
+                    urls={urls}
+                    page="Conferences detail"
+                    trackerEventId="Conferences website"
+                  />
+                )}
                 {proceedings && <ProceedingsAction proceedings={proceedings} />}
                 {canEdit && (
                   <EditRecordAction
@@ -76,7 +85,7 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
                     page="Conferences detail"
                   />
                 )}
-                { isSuperUserLoggedIn && (
+                {isSuperUserLoggedIn && (
                   <APIButton url={window.location.href} />
                 )}
               </>
@@ -170,7 +179,7 @@ DetailPage.propTypes = {
   record: PropTypes.instanceOf(Map).isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   record: state.conferences.get('data'),
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
@@ -178,9 +187,10 @@ const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: id => [
+  routeActions: (id) => [
     fetchConference(id),
     newSearch(CONFERENCE_CONTRIBUTIONS_NS),
   ],
-  loadingStateSelector: state => !state.conferences.hasIn(['data', 'metadata']),
+  loadingStateSelector: (state) =>
+    !state.conferences.hasIn(['data', 'metadata']),
 });

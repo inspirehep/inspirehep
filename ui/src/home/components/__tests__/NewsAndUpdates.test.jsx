@@ -5,9 +5,7 @@ import NewsAndUpdates from '../NewsAndUpdates';
 
 describe('NewsAndUpdates', () => {
   it('renders', () => {
-    const wrapper = shallow(
-      <NewsAndUpdates />
-    );
+    const wrapper = shallow(<NewsAndUpdates />);
     expect(wrapper).toMatchSnapshot();
   });
 });

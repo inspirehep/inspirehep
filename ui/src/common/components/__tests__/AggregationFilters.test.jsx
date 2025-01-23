@@ -49,8 +49,7 @@ describe('AggregationFilters', () => {
           type: 'checkbox',
           bucket_help: {
             published: {
-              text:
-                'Published papers are believed to have undergone rigorous peer review.',
+              text: 'Published papers are believed to have undergone rigorous peer review.',
               link: 'https://inspirehep.net/info/faq/general#published',
             },
           },

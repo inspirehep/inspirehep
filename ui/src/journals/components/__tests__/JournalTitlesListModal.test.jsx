@@ -36,5 +36,4 @@ describe('JournalTitlesListModal', () => {
 
     expect(screen.queryByText('Title variants')).not.toBeInTheDocument();
   });
-
 });

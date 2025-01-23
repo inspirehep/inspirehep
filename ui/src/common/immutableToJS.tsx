@@ -21,7 +21,7 @@ export function convertAllImmutablePropsToJS(WrappedComponent: React.FC<any>) {
     WrappedComponent
   );
   return Wrapper;
-};
+}
 
 export const convertSomeImmutablePropsToJS = (
   WrappedComponent: React.FC,

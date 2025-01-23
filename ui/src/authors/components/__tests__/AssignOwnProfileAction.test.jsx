@@ -66,7 +66,9 @@ describe('AssignOwnProfileAction', () => {
     await waitFor(() => fireEvent.mouseOver(dropdown));
     await waitFor(() => screen.getByTestId('assign-self').click());
 
-    await waitFor(() => expect(onAssign).toHaveBeenCalledWith({ from: 123, to: 123 }));
+    await waitFor(() =>
+      expect(onAssign).toHaveBeenCalledWith({ from: 123, to: 123 })
+    );
   });
 
   it('calls onUnssign on unassign click ', async () => {
@@ -84,7 +86,7 @@ describe('AssignOwnProfileAction', () => {
     const dropdown = container.getElementsByClassName(
       'ant-dropdown-trigger'
     )[0];
-    
+
     await waitFor(() => fireEvent.mouseOver(dropdown));
     await waitFor(() => screen.getByTestId('unassign').click());
 

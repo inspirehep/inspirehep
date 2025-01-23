@@ -26,16 +26,17 @@ class CollaborationList extends Component {
               </span>
             )
           }
-          extractKey={collaboration => collaboration.get('value')}
+          extractKey={(collaboration) => collaboration.get('value')}
           renderItem={CollaborationList.renderCollaboration}
         />
-        {!collaborations.isEmpty() &&
-          !collaborationsWithSuffix.isEmpty() && <span> and </span>}
+        {!collaborations.isEmpty() && !collaborationsWithSuffix.isEmpty() && (
+          <span> and </span>
+        )}
         <InlineDataList
           wrapperClassName="di"
           separator={SEPARATOR_AND}
           items={collaborationsWithSuffix}
-          extractKey={collaboration => collaboration.get('value')}
+          extractKey={(collaboration) => collaboration.get('value')}
           renderItem={CollaborationList.renderCollaboration}
         />
       </Fragment>

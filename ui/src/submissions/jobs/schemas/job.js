@@ -16,23 +16,11 @@ export function isValidDeadlineDate(value) {
 }
 
 const jobSchema = object().shape({
-  status: string()
-    .oneOf(statusValues)
-    .default('pending')
-    .required(),
-  title: string()
-    .trim()
-    .required()
-    .label('Title'),
+  status: string().oneOf(statusValues).default('pending').required(),
+  title: string().trim().required().label('Title'),
   external_job_identifier: string(),
-  regions: array()
-    .of(string().oneOf(regionValues))
-    .required()
-    .label('Region'),
-  ranks: array()
-    .of(string().oneOf(rankValues))
-    .required()
-    .label('Rank'),
+  regions: array().of(string().oneOf(regionValues)).required().label('Region'),
+  ranks: array().of(string().oneOf(rankValues)).required().label('Rank'),
   field_of_interest: array()
     .of(string().oneOf(fieldOfInterestValues))
     .required()
@@ -41,10 +29,7 @@ const jobSchema = object().shape({
     .default([{}])
     .of(
       object().shape({
-        value: string()
-          .trim()
-          .required()
-          .label('Institution'),
+        value: string().trim().required().label('Institution'),
       })
     )
     .required()
@@ -53,25 +38,15 @@ const jobSchema = object().shape({
     .default([{}])
     .of(
       emptyObjectOrShapeOf({
-        legacy_name: string()
-          .trim()
-          .required()
-          .label('Experiment'),
+        legacy_name: string().trim().required().label('Experiment'),
       })
     ),
   contacts: array()
     .default([{}])
     .of(
       object().shape({
-        name: string()
-          .trim()
-          .required()
-          .label('Contact name'),
-        email: string()
-          .email()
-          .trim()
-          .required()
-          .label('Contact email'),
+        name: string().trim().required().label('Contact name'),
+        email: string().email().trim().required().label('Contact email'),
       })
     ),
   deadline_date: mixed().when('status', {
@@ -86,26 +61,13 @@ const jobSchema = object().shape({
       )
       .label('Deadline'),
   }),
-  description: string()
-    .trim()
-    .required()
-    .label('Description'),
-  url: string()
-    .url()
-    .label('URL'),
+  description: string().trim().required().label('Description'),
+  url: string().url().label('URL'),
   reference_letters: array()
     .default([''])
     .of(
       OR(
-        [
-          string()
-            .nullable()
-            .url(),
-          string()
-            .nullable()
-            .email()
-            .trim(),
-        ],
+        [string().nullable().url(), string().nullable().email().trim()],
         'Must be a url or an email'
       )
     ),

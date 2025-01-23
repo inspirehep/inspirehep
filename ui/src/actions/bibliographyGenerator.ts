@@ -10,7 +10,10 @@ import {
 import { httpErrorToActionPayload } from '../common/utils';
 import { BIBLIOGRAPHY_GENERATOR } from '../common/routes';
 
-function submitBibliographyGeneratorSuccess(payload: { data: { download_url: string }, error: Error }) {
+function submitBibliographyGeneratorSuccess(payload: {
+  data: { download_url: string };
+  error: Error;
+}) {
   return {
     type: BIBLIOGRAPHY_GENERATOR_SUCCESS,
     payload,

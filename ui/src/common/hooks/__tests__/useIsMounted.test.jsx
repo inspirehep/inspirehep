@@ -7,14 +7,11 @@ import useIsMounted from '../useIsMounted';
 function TestAsyncButton({ asyncOnClick }) {
   const isMounted = useIsMounted();
 
-  const onClick = useCallback(
-    async () => {
-      if (isMounted) {
-        await asyncOnClick();
-      }
-    },
-    [isMounted, asyncOnClick]
-  );
+  const onClick = useCallback(async () => {
+    if (isMounted) {
+      await asyncOnClick();
+    }
+  }, [isMounted, asyncOnClick]);
   return <button onClick={onClick}>Test Async</button>;
 }
 

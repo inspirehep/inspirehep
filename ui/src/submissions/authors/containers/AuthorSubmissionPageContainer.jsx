@@ -66,7 +66,7 @@ AuthorSubmissionPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   error: PropTypes.instanceOf(Map),
   query: PropTypes.objectOf(PropTypes.any).isRequired,
-  profileControlNumber: PropTypes.number
+  profileControlNumber: PropTypes.number,
 };
 
 const stateToProps = (state) => ({

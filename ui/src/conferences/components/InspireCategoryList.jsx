@@ -16,7 +16,7 @@ function InspireCategoryList({ categories }) {
       separateItems={false}
       wrapperClassName="di"
       items={categories}
-      extractKey={category => category.get('term')}
+      extractKey={(category) => category.get('term')}
       renderItem={renderCategory}
     />
   );

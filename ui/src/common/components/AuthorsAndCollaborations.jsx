@@ -12,7 +12,8 @@ class AuthorsAndCollaborations extends Component {
   }
 
   renderAuthorList(wrapperClassName, limit) {
-    const { authors, authorCount, enableAuthorsShowAll, page, unlinked } = this.props;
+    const { authors, authorCount, enableAuthorsShowAll, page, unlinked } =
+      this.props;
     return (
       <Fragment>
         <AuthorList

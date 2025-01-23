@@ -8,7 +8,8 @@ import SuggesterField from '../../common/components/SuggesterField';
 import { EXPERIMENT_TYPE_OPTIONS } from '../schemas/constants';
 
 const ExperimentForm = () => {
-  const getSuggestionSourceLegacyName = (suggestion) => suggestion._source.legacy_name;
+  const getSuggestionSourceLegacyName = (suggestion) =>
+    suggestion._source.legacy_name;
 
   return (
     <Form className="bg-white pa3">

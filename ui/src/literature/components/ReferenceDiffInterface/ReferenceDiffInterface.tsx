@@ -215,9 +215,7 @@ function ReferenceDiffInterface({
                   />
                   <ThesisInfo thesisInfo={thesisInfo} />
                   {linkedBooks && (
-                    <ParentRecordInfo
-                      parentRecord={linkedBooks}
-                    />
+                    <ParentRecordInfo parentRecord={linkedBooks} />
                   )}
                   {bookSeries && <BookSeriesInfoList bookSeries={bookSeries} />}
                   {publicationInfoWithTitle &&

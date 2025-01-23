@@ -30,17 +30,17 @@ const AuthorMainInfo = ({ data }: AuthorMainInfoProps) => {
     <ContentBox fullHeight={false} className="md-pb3 mb3">
       <h2>{name}</h2>
       {preferredName && (
-        <p className='mb0'>
+        <p className="mb0">
           <b>Preferred name:</b> {preferredName}
         </p>
       )}
       {nativeNames && (
-        <p className='mb0'>
+        <p className="mb0">
           <b>Native names:</b> {nativeNames.join('; ')}
         </p>
       )}
       {nameVariants && (
-        <p className='mb0'>
+        <p className="mb0">
           <b>Name variants:</b> {nameVariants.join('; ')}
         </p>
       )}

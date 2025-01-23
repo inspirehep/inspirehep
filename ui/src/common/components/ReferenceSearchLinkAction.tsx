@@ -7,10 +7,23 @@ import { LITERATURE } from '../routes';
 import UserAction from './UserAction';
 import EventTracker from './EventTracker';
 
-const ReferenceSearchLinkAction = ({ recordId, page }: { recordId: number, page: string }) => (
+const ReferenceSearchLinkAction = ({
+  recordId,
+  page,
+}: {
+  recordId: number;
+  page: string;
+}) => (
   <UserAction>
-    <EventTracker eventCategory={page} eventAction="Search" eventId="Reference search">
-      <Link to={`${LITERATURE}?q=citedby:recid:${recordId}`} data-test-id="reference-search-button">
+    <EventTracker
+      eventCategory={page}
+      eventAction="Search"
+      eventId="Reference search"
+    >
+      <Link
+        to={`${LITERATURE}?q=citedby:recid:${recordId}`}
+        data-test-id="reference-search-button"
+      >
         <IconText text="reference search" icon={<FileSearchOutlined />} />
       </Link>
     </EventTracker>

@@ -9,7 +9,6 @@ import { clearLiteratureSelection } from '../../actions/literature';
 import { UI_CITATION_SUMMARY_PARAM } from '../../literature/containers/CitationSummarySwitchContainer';
 import { UI_EXCLUDE_SELF_CITATIONS_PARAM } from '../../literature/containers/ExcludeSelfCitationsContainer';
 
-
 const stateToProps = (state: RootStateOrAny) => ({
   value: state.search.getIn([
     'namespaces',

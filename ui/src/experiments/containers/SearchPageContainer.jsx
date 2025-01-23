@@ -24,11 +24,18 @@ function renderExperimentItem(result) {
   return <ExperimentItem metadata={result.get('metadata')} />;
 }
 
-function ExperimentSearchPage({ loading, loadingAggregations, isSuperUserLoggedIn }) {
+function ExperimentSearchPage({
+  loading,
+  loadingAggregations,
+  isSuperUserLoggedIn,
+}) {
   const renderAggregations = useCallback(
     () => (
       <LoadingOrChildren loading={loadingAggregations}>
-        <AggregationFiltersContainer namespace={EXPERIMENTS_NS} page="Experiments search" />
+        <AggregationFiltersContainer
+          namespace={EXPERIMENTS_NS}
+          page="Experiments search"
+        />
       </LoadingOrChildren>
     ),
     [loadingAggregations]
@@ -86,7 +93,7 @@ ExperimentSearchPage.propTypes = {
   loadingAggregations: PropTypes.bool.isRequired,
 };
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
   loading: state.search.getIn(['namespaces', EXPERIMENTS_NS, 'loading']),
   loadingAggregations: state.search.getIn([

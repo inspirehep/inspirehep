@@ -14,8 +14,8 @@ describe('CitationsByYearGraphContainer', () => {
         loadingCitationsByYear: false,
         errorCitationsByYear: null,
         byYear: {
-          '1999': 134,
-          '2002': 125,
+          1999: 134,
+          2002: 125,
         },
       }),
     });
@@ -30,8 +30,8 @@ describe('CitationsByYearGraphContainer', () => {
 
     expect(dummyWrapper).toHaveProp({
       citationsByYear: {
-        '1999': 134,
-        '2002': 125,
+        1999: 134,
+        2002: 125,
       },
       error: null,
       loading: false,

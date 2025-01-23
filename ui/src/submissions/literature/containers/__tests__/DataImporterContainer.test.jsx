@@ -40,7 +40,7 @@ describe('DataImporterContainer', () => {
 
     const actions = store.getActions();
     const expectedAction = actions.find(
-      action =>
+      (action) =>
         action.type === INITIAL_FORM_DATA_REQUEST &&
         action.payload.id === importValue
     );

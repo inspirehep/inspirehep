@@ -18,15 +18,17 @@ function fetchSuccess<T>(result: T) {
   };
 }
 
-function fetchError(error: { error: Error}) {
+function fetchError(error: { error: Error }) {
   return {
     type: INSPECT_ERROR,
     payload: error,
-    meta: { redirectableError: true }
+    meta: { redirectableError: true },
   };
 }
 
-export default function fetch(id: number): (
+export default function fetch(
+  id: number
+): (
   dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper

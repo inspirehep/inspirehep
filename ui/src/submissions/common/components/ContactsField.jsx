@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { Field, useFormikContext } from 'formik';
 import { Row, Col } from 'antd';
 
-
 import ArrayOf from './ArrayOf';
 import TextField from './TextField';
 import AuthorSuggesterField from './AuthorSuggesterField';
-
 
 function ContactsField({ label = 'Contact Detail(s)', name = 'contacts' }) {
   const { values } = useFormikContext();
@@ -17,7 +15,7 @@ function ContactsField({ label = 'Contact Detail(s)', name = 'contacts' }) {
       name={name}
       emptyItem={{}}
       values={values}
-      renderItem={itemName => (
+      renderItem={(itemName) => (
         <Row type="flex" justify="space-between">
           <Col span={11}>
             <AuthorSuggesterField
@@ -41,11 +39,9 @@ function ContactsField({ label = 'Contact Detail(s)', name = 'contacts' }) {
   );
 }
 
-
 ContactsField.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string,
 };
-
 
 export default ContactsField;

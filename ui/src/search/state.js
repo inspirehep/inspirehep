@@ -232,7 +232,6 @@ const namespacesState = {
     },
     query: {
       ...initialBackofficeSearchBaseQuery,
-
     },
   },
 };

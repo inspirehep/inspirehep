@@ -26,7 +26,10 @@ import ExperimentPapers from './ExperimentPapers';
 import { makeCompliantMetaDescription } from '../../common/utils';
 import { EXPERIMENT_PAPERS_NS } from '../../search/constants';
 import { EXPERIMENTS_PID_TYPE } from '../../common/constants';
-import { SUPERUSER_OR_CATALOGER, isSuperUser } from '../../common/authorization';
+import {
+  SUPERUSER_OR_CATALOGER,
+  isSuperUser,
+} from '../../common/authorization';
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import { APIButton } from '../../common/components/APIButton';
@@ -91,7 +94,7 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
             </Row>
             <Row>
               <Col>
-                <h2 className='detail-page-title'>
+                <h2 className="detail-page-title">
                   {legacyName}
                   {institutions && (
                     <span className="pl1 f6">

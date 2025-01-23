@@ -11,7 +11,7 @@ function renderAuthorSuggestion(suggestion) {
 
   const { positions } = suggestion._source;
   const currentPosition =
-    positions && positions.find(position => position.current);
+    positions && positions.find((position) => position.current);
 
   return (
     <span>

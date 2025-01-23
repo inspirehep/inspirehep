@@ -14,9 +14,12 @@ function renderAdvisor(advisor: Map<string, string>) {
   return <Advisor advisor={advisor} />;
 }
 
-function AdvisorsOfDegree<T>({ advisors, degreeType }: {
-  advisors: List<Map<string, T>>,
-  degreeType: keyof typeof DEGREE_TYPE_TO_DISPLAY
+function AdvisorsOfDegree<T>({
+  advisors,
+  degreeType,
+}: {
+  advisors: List<Map<string, T>>;
+  degreeType: keyof typeof DEGREE_TYPE_TO_DISPLAY;
 }) {
   const degreeTypeDisplay =
     degreeType === 'other' ? '' : `${DEGREE_TYPE_TO_DISPLAY[degreeType]} `;

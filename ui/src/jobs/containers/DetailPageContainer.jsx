@@ -63,11 +63,16 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
           <ContentBox
             leftActions={[
               canEdit && (
-                <EditRecordAction key="edit" pidType="jobs" pidValue={controlNumber} page="Jobs detail" />
+                <EditRecordAction
+                  key="edit"
+                  pidType="jobs"
+                  pidValue={controlNumber}
+                  page="Jobs detail"
+                />
               ),
               isSuperUserLoggedIn && (
-                <APIButton key="api"  url={window.location.href} />
-              )
+                <APIButton key="api" url={window.location.href} />
+              ),
             ]}
           >
             <Row>
@@ -151,7 +156,7 @@ DetailPage.propTypes = {
   record: PropTypes.instanceOf(Map).isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loading: state.jobs.get('loading'),
   record: state.jobs.get('data'),
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
@@ -161,6 +166,6 @@ const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: id => [fetchJob(id)],
-  loadingStateSelector: state => !state.jobs.hasIn(['data', 'metadata']),
+  routeActions: (id) => [fetchJob(id)],
+  loadingStateSelector: (state) => !state.jobs.hasIn(['data', 'metadata']),
 });

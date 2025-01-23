@@ -11,7 +11,10 @@ export const SUPERUSER_OR_CATALOGER = List(['superuser', 'cataloger']);
 export const SUPERUSER = List(['superuser']);
 const SUPERUSER_OR_BETAUSER = List(['superuser', 'betauser']);
 
-export function isAuthorized(userRoles: List<string>, authorizedRoles: List<string>) {
+export function isAuthorized(
+  userRoles: List<string>,
+  authorizedRoles: List<string>
+) {
   return doSetsHaveCommonItem(Set(userRoles), Set(authorizedRoles));
 }
 

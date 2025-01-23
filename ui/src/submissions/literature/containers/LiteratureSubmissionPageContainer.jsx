@@ -43,19 +43,16 @@ function LiteratureSubmissionPage({ error, importedFormData, onSubmit }) {
   const onDataImportSkipClick = useCallback(() => {
     setDataImportSkipped(true);
   }, []);
-  const onDocTypeChange = useCallback(newDocType => {
+  const onDocTypeChange = useCallback((newDocType) => {
     setDocType(newDocType);
   }, []);
 
-  useEffect(
-    () => {
-      if (importedFormData) {
-        const newDocType = importedFormData.get('document_type');
-        setDocType(newDocType);
-      }
-    },
-    [importedFormData]
-  );
+  useEffect(() => {
+    if (importedFormData) {
+      const newDocType = importedFormData.get('document_type');
+      setDocType(newDocType);
+    }
+  }, [importedFormData]);
   return (
     <SubmissionPage
       title="Suggest content"
@@ -121,12 +118,12 @@ LiteratureSubmissionPage.propTypes = {
   importedFormData: PropTypes.instanceOf(Map),
 };
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   error: state.submissions.get('submitError'),
   importedFormData: state.submissions.get('initialData'),
 });
 
-const dispatchToProps = dispatch => ({
+const dispatchToProps = (dispatch) => ({
   async onSubmit(formData) {
     await dispatch(submit(LITERATURE_PID_TYPE, formData));
   },

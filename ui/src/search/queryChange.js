@@ -2,7 +2,11 @@
 import { fetchCitationSummary } from '../actions/citations';
 import { isCitationSummaryEnabled } from '../literature/containers/CitationSummarySwitchContainer';
 
-export function onLiteratureQueryChange(helper, _dispatch, _dueToNavigationToSearchPage) {
+export function onLiteratureQueryChange(
+  helper,
+  _dispatch,
+  _dueToNavigationToSearchPage
+) {
   if (helper.isInitialQueryUpdate() || helper.hasQueryChanged()) {
     helper.fetchSearchResults();
     helper.updateLocation();
@@ -20,7 +24,11 @@ export function onLiteratureQueryChange(helper, _dispatch, _dueToNavigationToSea
   helper.fetchSearchAggregations();
 }
 
-export function onEmbeddedLiteratureQueryChange(helper, _dispatch, _dueToNavigationToSearchPage) {
+export function onEmbeddedLiteratureQueryChange(
+  helper,
+  _dispatch,
+  _dueToNavigationToSearchPage
+) {
   if (helper.hasQueryChanged()) {
     helper.fetchSearchResults();
   }
@@ -34,7 +42,11 @@ export function onEmbeddedLiteratureQueryChange(helper, _dispatch, _dueToNavigat
   }
 }
 
-export function onEmbeddedSearchWithAggregationsQueryChange(helper, _dispatch, _dueToNavigationToSearchPage) {
+export function onEmbeddedSearchWithAggregationsQueryChange(
+  helper,
+  _dispatch,
+  _dueToNavigationToSearchPage
+) {
   if (helper.hasQueryChanged()) {
     helper.fetchSearchResults();
   }
@@ -44,14 +56,22 @@ export function onEmbeddedSearchWithAggregationsQueryChange(helper, _dispatch, _
   }
 }
 
-export function onAggregationlessCollectionQueryChange(helper, _dispatch, _dueToNavigationToSearchPage) {
+export function onAggregationlessCollectionQueryChange(
+  helper,
+  _dispatch,
+  _dueToNavigationToSearchPage
+) {
   if (helper.hasQueryChanged() || helper.isInitialQueryUpdate()) {
     helper.fetchSearchResults();
     helper.updateLocation();
   }
 }
 
-export function onJobsQueryChange(helper, _dispatch, _dueToNavigationToSearchPage) {
+export function onJobsQueryChange(
+  helper,
+  _dispatch,
+  _dueToNavigationToSearchPage
+) {
   if (helper.isInitialQueryUpdate() || helper.hasQueryChanged()) {
     helper.fetchSearchResults();
     helper.updateLocation();
@@ -62,7 +82,11 @@ export function onJobsQueryChange(helper, _dispatch, _dueToNavigationToSearchPag
   }
 }
 
-export function onCollectionQueryChange(helper, _dispatch, _dueToNavigationToSearchPage) {
+export function onCollectionQueryChange(
+  helper,
+  _dispatch,
+  _dueToNavigationToSearchPage
+) {
   if (helper.isInitialQueryUpdate() || helper.hasQueryChanged()) {
     helper.fetchSearchResults();
     helper.updateLocation();
@@ -76,16 +100,24 @@ export function onCollectionQueryChange(helper, _dispatch, _dueToNavigationToSea
   }
 }
 
-export function onEmbeddedSearchWithoutAggregationsQueryChange(helper, _dispatch, _dueToNavigationToSearchPage) {
+export function onEmbeddedSearchWithoutAggregationsQueryChange(
+  helper,
+  _dispatch,
+  _dueToNavigationToSearchPage
+) {
   if (helper.hasQueryChanged()) {
     helper.fetchSearchResults();
   }
 }
 
-export function onBackofficeQueryChange(helper, _dispatch, _dueToNavigationToSearchPage) {
+export function onBackofficeQueryChange(
+  helper,
+  _dispatch,
+  _dueToNavigationToSearchPage
+) {
   if (helper.isInitialQueryUpdate() || helper.hasQueryChanged()) {
     helper.fetchSearchResults();
     helper.updateLocation();
-    helper.fetchSearchAggregations()
+    helper.fetchSearchAggregations();
   }
 }

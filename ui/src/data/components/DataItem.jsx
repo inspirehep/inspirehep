@@ -8,7 +8,10 @@ import UrlsAction from '../../literature/components/UrlsAction';
 import DOILinkAction from '../../literature/components/DOILinkAction';
 import ResultItem from '../../common/components/ResultItem';
 
-import { filterDoisByMaterial, getReferencingPapersQueryString } from '../utils';
+import {
+  filterDoisByMaterial,
+  getReferencingPapersQueryString,
+} from '../utils';
 import { DATA } from '../../common/routes';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
 import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';
@@ -41,15 +44,17 @@ function DataItem({ metadata, page }) {
           </>
         }
         rightActions={
-          citationCount !== null  && citationCount !== undefined ? (
-              <IncomingLiteratureReferencesLinkAction
-                itemCount={citationCount}
-                referenceType="citation"
-                linkQuery={getReferencingPapersQueryString(recordId)}
-                trackerEventId="Citations link"
-                eventCategory="Data search"
-              />
-            ) : <></>
+          citationCount !== null && citationCount !== undefined ? (
+            <IncomingLiteratureReferencesLinkAction
+              itemCount={citationCount}
+              referenceType="citation"
+              linkQuery={getReferencingPapersQueryString(recordId)}
+              trackerEventId="Citations link"
+              eventCategory="Data search"
+            />
+          ) : (
+            <></>
+          )
         }
       >
         <div data-test-id="data-result-item-inner">

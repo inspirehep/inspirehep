@@ -18,7 +18,7 @@ class KeywordList extends Component {
         separateItems={false}
         wrapperClassName="di"
         items={keywords}
-        extractKey={keyword => keyword.get('value')}
+        extractKey={(keyword) => keyword.get('value')}
         renderItem={renderKeyword}
       />
     );

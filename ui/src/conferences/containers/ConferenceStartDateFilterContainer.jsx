@@ -11,7 +11,7 @@ import {
   DATE_DESC,
 } from '../../common/constants';
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   selection: state.search.getIn([
     'namespaces',
     CONFERENCES_NS,
@@ -20,7 +20,7 @@ const stateToProps = state => ({
   ]),
 });
 
-export const dispatchToProps = dispatch => ({
+export const dispatchToProps = (dispatch) => ({
   onChange(selection) {
     const query = { [START_DATE]: selection, page: '1' };
 

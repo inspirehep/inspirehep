@@ -173,7 +173,7 @@ describe('AuthorPublicationsContainer', () => {
         ...initialState,
         publicationSelection: {
           papersIds: [1234, 12345],
-          selected: true
+          selected: true,
         },
       }),
     });

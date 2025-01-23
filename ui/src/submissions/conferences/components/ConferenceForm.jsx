@@ -28,7 +28,7 @@ function ConferenceForm({ values }) {
         name="acronyms"
         label="Acronym(s)"
         emptyItem=""
-        renderItem={itemName => (
+        renderItem={(itemName) => (
           <Field onlyChild name={itemName} component={TextField} />
         )}
       />
@@ -54,7 +54,7 @@ function ConferenceForm({ values }) {
         name="addresses"
         label="* Address(es)"
         emptyItem={{}}
-        renderItem={itemName => (
+        renderItem={(itemName) => (
           <Row type="flex" justify="space-between">
             <Col span={11}>
               <Field
@@ -105,7 +105,7 @@ function ConferenceForm({ values }) {
         name="websites"
         label="Conference Website(s)"
         emptyItem=""
-        renderItem={itemName => (
+        renderItem={(itemName) => (
           <Field onlyChild name={itemName} component={TextField} />
         )}
       />
@@ -121,7 +121,7 @@ function ConferenceForm({ values }) {
         name="keywords"
         label="Keywords"
         emptyItem=""
-        renderItem={itemName => (
+        renderItem={(itemName) => (
           <Field onlyChild name={itemName} component={TextField} />
         )}
       />

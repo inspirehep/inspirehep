@@ -16,7 +16,7 @@ import {
   EDIT_SEMINAR,
   EDIT_JOURNAL,
   EDIT_EXPERIMENT,
-  EDIT_DATA
+  EDIT_DATA,
 } from '../routes';
 import { PidValue, PidType } from '../../types';
 
@@ -29,7 +29,7 @@ const pidTypeToEditRoutePrefix = {
   seminars: EDIT_SEMINAR,
   journals: EDIT_JOURNAL,
   experiments: EDIT_EXPERIMENT,
-  data: EDIT_DATA
+  data: EDIT_DATA,
 };
 
 interface EditRecordActionProps {
@@ -52,7 +52,11 @@ export default function EditRecordAction({
 
   return (
     <UserAction>
-      <EventTracker eventCategory={page} eventAction="Edit" eventId={`Edit ${pidType} record`}>
+      <EventTracker
+        eventCategory={page}
+        eventAction="Edit"
+        eventId={`Edit ${pidType} record`}
+      >
         <LinkWithTargetBlank href={`${pidTypeRoute}/${pidValue}`}>
           <IconText text="edit" icon={<EditOutlined />} />
         </LinkWithTargetBlank>

@@ -15,15 +15,12 @@ export const ExperimentSubmissionPage = ({ error, onSubmit }) => (
     title="Suggest experiment"
     description={
       <span>
-        This form allows you to create a new experiment record. It will
-        appear in the <Link to={EXPERIMENTS}>Experiments List</Link> immediately.
+        This form allows you to create a new experiment record. It will appear
+        in the <Link to={EXPERIMENTS}>Experiments List</Link> immediately.
       </span>
     }
   >
-    <ExperimentSubmission
-      error={error}
-      onSubmit={onSubmit}
-    />
+    <ExperimentSubmission error={error} onSubmit={onSubmit} />
   </SubmissionPage>
 );
 
@@ -32,11 +29,11 @@ ExperimentSubmissionPage.propTypes = {
   error: PropTypes.instanceOf(Map),
 };
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   error: state.submissions.get('submitError'),
 });
 
-const dispatchToProps = dispatch => ({
+const dispatchToProps = (dispatch) => ({
   async onSubmit(formData) {
     await dispatch(submit(EXPERIMENTS_PID_TYPE, formData));
   },
