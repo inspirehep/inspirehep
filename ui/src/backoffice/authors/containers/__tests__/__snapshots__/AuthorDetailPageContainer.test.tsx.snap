@@ -190,26 +190,32 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                       <h2>
                         Doe, John
                       </h2>
-                      <p>
+                      <p
+                        class="mb0"
+                      >
                         <b>
                           Preferred name:
                         </b>
                          Johnny
                       </p>
-                      <p>
+                      <p
+                        class="mb0"
+                      >
                         <b>
                           Native names:
                         </b>
                          Name1; Name2
                       </p>
-                      <p>
+                      <p
+                        class="mb0"
+                      >
                         <b>
                           Name variants:
                         </b>
                          Name3; Name4
                       </p>
                       <p
-                        class=""
+                        class="mb0"
                       >
                         <b>
                           Status:
@@ -222,7 +228,7 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                         <b
                           class="dib ttc"
                         >
-                          orcid:
+                          ORCID:
                         </b>
                          
                         <a
@@ -312,7 +318,7 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                     <h3
                       class="fw6"
                     >
-                      Institution history
+                      Institution History
                     </h3>
                   </span>
                 </div>
@@ -356,7 +362,7 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                     <h3
                       class="fw6"
                     >
-                      Project membership history
+                      Project Membership History
                     </h3>
                   </span>
                 </div>
