@@ -52,16 +52,15 @@ class ArrayOf extends Component {
                       data-test-id={`container-${name}.${index}`}
                     >
                       <Col span={22}>{renderItem(`${name}.${index}`)}</Col>
-                      {allowItemDelete &&
-                        items.length > 1 && (
-                          <Col span={1} offset={1}>
-                            <MinusCircleOutlined
-                              role="button"
-                              className="remove-button"
-                              onClick={() => remove(index)}
-                            />
-                          </Col>
-                        )}
+                      {allowItemDelete && items.length > 1 && (
+                        <Col span={1} offset={1}>
+                          <MinusCircleOutlined
+                            role="button"
+                            className="remove-button"
+                            onClick={() => remove(index)}
+                          />
+                        </Col>
+                      )}
                     </Row>
                   ))}
               </Form.Item>

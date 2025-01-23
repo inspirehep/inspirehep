@@ -8,17 +8,9 @@ import { Button, Row, Col } from 'antd';
 import TextField from '../../submissions/common/components/TextField';
 
 const SCHEMA = object().shape({
-  email: string()
-    .email()
-    .required()
-    .trim()
-    .label('Email'),
-  first_name: string()
-    .required()
-    .label('First Name'),
-  last_name: string()
-    .required()
-    .label('Last Name'),
+  email: string().email().required().trim().label('Email'),
+  first_name: string().required().label('First Name'),
+  last_name: string().required().label('Last Name'),
 });
 
 const FULL_ROW = { span: 24 };
@@ -48,7 +40,11 @@ function SubscribeJobsForm({ onSubmit }) {
         />
         <Row type="flex" justify="end">
           <Col>
-            <Button disabled={!isValid || !dirty} type="primary" htmlType="submit">
+            <Button
+              disabled={!isValid || !dirty}
+              type="primary"
+              htmlType="submit"
+            >
               Subscribe
             </Button>
           </Col>
@@ -59,7 +55,12 @@ function SubscribeJobsForm({ onSubmit }) {
   );
 
   return (
-    <Formik validationSchema={SCHEMA} initialValues={{}} onSubmit={onSubmit} validateOnChange={false}>
+    <Formik
+      validationSchema={SCHEMA}
+      initialValues={{}}
+      onSubmit={onSubmit}
+      validateOnChange={false}
+    >
       {renderForm}
     </Formik>
   );

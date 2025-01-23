@@ -5,9 +5,7 @@ import InstitutionForm from '../InstitutionForm';
 
 describe('InstitutionForm', () => {
   it('renders', () => {
-    const wrapper = shallow(
-      <InstitutionForm />
-    );
+    const wrapper = shallow(<InstitutionForm />);
     expect(wrapper).toMatchSnapshot();
   });
 });

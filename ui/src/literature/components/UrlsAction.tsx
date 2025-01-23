@@ -53,15 +53,17 @@ function UrlsAction({
       const [href, display] = linkToHrefDisplayPair(url);
       return {
         key: display,
-        label: <span key={href}>
-          <EventTracker
-            eventCategory={page}
-            eventAction={eventAction || 'Link'}
-            eventId={trackerEventId}
-          >
-            <LinkWithTargetBlank href={href}>{display}</LinkWithTargetBlank>
-          </EventTracker>
-        </span>
+        label: (
+          <span key={href}>
+            <EventTracker
+              eventCategory={page}
+              eventAction={eventAction || 'Link'}
+              eventId={trackerEventId}
+            >
+              <LinkWithTargetBlank href={href}>{display}</LinkWithTargetBlank>
+            </EventTracker>
+          </span>
+        ),
       };
     },
     [trackerEventId, page, eventAction]

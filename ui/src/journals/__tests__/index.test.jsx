@@ -38,16 +38,17 @@ describe('Journals', () => {
       journals: fromJS({
         data: {
           metadata: {
-            short_title: "Calc.Var.Part.Differ.Equ",
+            short_title: 'Calc.Var.Part.Differ.Equ',
             journal_title: {
-              title: "Calculus of Variations and Partial Differential Equations"
+              title:
+                'Calculus of Variations and Partial Differential Equations',
             },
             control_number: 1213100,
           },
         },
       }),
     });
-    
+
     render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/journals/1']} initialIndex={0}>

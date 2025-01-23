@@ -62,7 +62,7 @@ describe('ReferenceList', () => {
         total={50}
         onPageChange={onPageChange}
         query={{ size: 25, page: 1 }}
-        />
+      />
     );
     const page = 2;
     const size = 25;

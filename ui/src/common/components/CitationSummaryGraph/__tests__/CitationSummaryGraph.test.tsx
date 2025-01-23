@@ -3,7 +3,10 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 
 import { getStore } from '../../../../fixtures/store';
-import CitationSummaryGraph, { Bar, HOVERED_BLUE } from '../CitationSummaryGraph';
+import CitationSummaryGraph, {
+  Bar,
+  HOVERED_BLUE,
+} from '../CitationSummaryGraph';
 import { CITEABLE_BAR_TYPE } from '../../../constants';
 
 describe('CitationSummaryGraph', () => {

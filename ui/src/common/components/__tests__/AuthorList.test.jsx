@@ -117,12 +117,7 @@ describe('AuthorList', () => {
     const wrapper = shallow(<AuthorList limit={4} authors={authors} />);
 
     // Can not dive since root is a Fragment
-    expect(
-      wrapper
-        .find(InlineDataList)
-        .first()
-        .dive()
-    ).toMatchSnapshot();
+    expect(wrapper.find(InlineDataList).first().dive()).toMatchSnapshot();
   });
 
   it('prefixes `Supervisor` when 1 supervisor is passed', () => {
@@ -134,12 +129,7 @@ describe('AuthorList', () => {
     const wrapper = shallow(
       <AuthorList authors={supervisors} forSupervisors />
     );
-    expect(
-      wrapper
-        .find(InlineDataList)
-        .first()
-        .dive()
-    ).toMatchSnapshot();
+    expect(wrapper.find(InlineDataList).first().dive()).toMatchSnapshot();
   });
 
   it('prefixes `Supervisor` when 2 or more supervisors are passed', () => {
@@ -154,12 +144,7 @@ describe('AuthorList', () => {
     const wrapper = shallow(
       <AuthorList authors={supervisors} forSupervisors />
     );
-    expect(
-      wrapper
-        .find(InlineDataList)
-        .first()
-        .dive()
-    ).toMatchSnapshot();
+    expect(wrapper.find(InlineDataList).first().dive()).toMatchSnapshot();
   });
 
   it('should display `authors` in modal title by default', () => {

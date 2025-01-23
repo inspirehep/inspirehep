@@ -40,7 +40,11 @@ function OrcidPushSetting({
           title={renderPopConfirmTitle(enabled)}
           onConfirm={onSettingToggleConfirm}
         >
-          <Switch loading={isUpdating} checked={enabled} data-test-id="orcid-switch" />
+          <Switch
+            loading={isUpdating}
+            checked={enabled}
+            data-test-id="orcid-switch"
+          />
         </Popconfirm>
       </div>
       <div>

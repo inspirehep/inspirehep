@@ -1,7 +1,4 @@
-import React, {
-  useCallback,
-  useMemo,
-} from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { DatePicker, Row } from 'antd';
@@ -28,7 +25,7 @@ function DateRangeFilter({ onChange, range = '' }) {
   );
 
   const isLaterThanEndDate = useCallback(
-    dateAsMoment => {
+    (dateAsMoment) => {
       if (!dateAsMoment || !endDateMoment) {
         return false;
       }
@@ -38,7 +35,7 @@ function DateRangeFilter({ onChange, range = '' }) {
   );
 
   const isEarlierThanStartDate = useCallback(
-    dateAsMoment => {
+    (dateAsMoment) => {
       if (!dateAsMoment || !startDateMoment) {
         return false;
       }

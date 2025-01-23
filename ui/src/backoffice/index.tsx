@@ -21,7 +21,6 @@ import AuthorDetailPageContainer from './authors/containers/AuthorDetailPageCont
 const META_DESCRIPTION = 'Tool for curators to manage submissions and harvests';
 const TITLE = 'Backoffice';
 
-
 const Backoffice = ({ loggedIn }: { loggedIn: boolean }) => {
   return (
     <>

@@ -27,12 +27,12 @@ export function getInstitutionMetaDescription(institution) {
   const legacyICNText = institution.get('legacy_ICN');
   const institutionHierarchiesText = institution
     .get('institution_hierarchy', List())
-    .map(hierarchy => getInstitutionHierarchiesText(hierarchy))
+    .map((hierarchy) => getInstitutionHierarchiesText(hierarchy))
     .filter(Boolean)
     .join(ITEM_SEPARATOR);
   const addressText = institution
     .get('addresses', List())
-    .map(address => getAddressText(address))
+    .map((address) => getAddressText(address))
     .filter(Boolean)
     .join(ITEM_SEPARATOR);
 

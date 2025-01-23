@@ -23,7 +23,7 @@ const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
     dispatch(unassignPapers({ from }));
   },
 
-  onAssign({ from, to }: { from: string, to: string }) {
+  onAssign({ from, to }: { from: string; to: string }) {
     dispatch(assignPapers({ from, to }));
   },
 });

@@ -30,9 +30,7 @@ describe('DropdownMenu', () => {
         onClick: mockOnClick3,
       },
     ];
-    const wrapper = shallow(
-      <DropdownMenu title="title" items={items} />
-    );
+    const wrapper = shallow(<DropdownMenu title="title" items={items} />);
     expect(wrapper).toMatchSnapshot();
   });
 

@@ -6,7 +6,8 @@ import SubmitButton from '../../common/components/SubmitButton';
 import SuggesterField from '../../common/components/SuggesterField';
 
 const InstitutionsForm = () => {
-  const getSuggestionSourceLegacyICN = (suggestion) => suggestion._source.legacy_ICN;
+  const getSuggestionSourceLegacyICN = (suggestion) =>
+    suggestion._source.legacy_ICN;
 
   return (
     <Form className="bg-white pa3">

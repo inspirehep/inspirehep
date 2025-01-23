@@ -8,7 +8,9 @@ import LinkWithTargetBlank from './LinkWithTargetBlank';
 class URLList extends Component {
   static renderURLItem(url) {
     return (
-      <LinkWithTargetBlank href={url.get('value')}>{url.get('value')}</LinkWithTargetBlank>
+      <LinkWithTargetBlank href={url.get('value')}>
+        {url.get('value')}
+      </LinkWithTargetBlank>
     );
   }
 
@@ -19,7 +21,7 @@ class URLList extends Component {
       <InlineDataList
         wrapperClassName={wrapperClassName}
         items={urls}
-        extractKey={url => url.get('value')}
+        extractKey={(url) => url.get('value')}
         renderItem={URLList.renderURLItem}
       />
     );

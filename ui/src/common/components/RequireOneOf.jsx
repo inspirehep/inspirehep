@@ -6,9 +6,10 @@ function isPresent(value) {
 }
 
 function RequireOneOf({ dependencies, children }) {
-  const isAtLeastOnePresent = useMemo(() => dependencies.some(isPresent), [
-    dependencies,
-  ]);
+  const isAtLeastOnePresent = useMemo(
+    () => dependencies.some(isPresent),
+    [dependencies]
+  );
   return isAtLeastOnePresent ? children : null;
 }
 

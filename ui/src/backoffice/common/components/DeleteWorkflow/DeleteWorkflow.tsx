@@ -8,7 +8,7 @@ import { deleteWorkflow } from '../../../../actions/backoffice';
 type DeleteWorkflowProps = {
   dispatch: ActionCreator<Action>;
   id: string;
-}
+};
 
 const DeleteWorkflow = ({ dispatch, id }: DeleteWorkflowProps) => {
   const [open, setOpen] = useState(false);

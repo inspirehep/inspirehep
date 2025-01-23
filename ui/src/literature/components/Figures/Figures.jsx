@@ -11,9 +11,10 @@ function Figures({ figures }) {
   const [isCarouselVisible, setCarouselVisible] = useState(false);
   const carouselRef = useRef();
 
-  const onCarouselCancel = useCallback(() => setCarouselVisible(false), [
-    setCarouselVisible,
-  ]);
+  const onCarouselCancel = useCallback(
+    () => setCarouselVisible(false),
+    [setCarouselVisible]
+  );
 
   const renderListItem = useCallback(
     (figure, index) => (

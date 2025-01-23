@@ -2,7 +2,7 @@ import { journalSchema } from '../journal';
 
 const dataWithRequiredFields = {
   short_title: 'test_journal',
-  journal_title: 'test_journal'
+  journal_title: 'test_journal',
 };
 
 describe('journalSchema', () => {

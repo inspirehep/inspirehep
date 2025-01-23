@@ -15,9 +15,13 @@ import { SUBMISSIONS } from '../common/routes';
 import { httpErrorToActionPayload } from '../common/utils';
 import { HttpClientWrapper } from '../common/http';
 
-export const REDIRECT_TO_EDITOR = List(['experiments', 'institutions', 'journals']);
+export const REDIRECT_TO_EDITOR = List([
+  'experiments',
+  'institutions',
+  'journals',
+]);
 
-function submitSuccess(payload: { pidType: string, pidValue: number}) {
+function submitSuccess(payload: { pidType: string; pidValue: number }) {
   return {
     type: SUBMIT_SUCCESS,
     payload,
@@ -30,14 +34,16 @@ function submitRequest() {
   };
 }
 
-function submitError(error: {error: Error}) {
+function submitError(error: { error: Error }) {
   return {
     type: SUBMIT_ERROR,
     payload: error,
   };
 }
 
-function fetchingInitialFormData(payload: { pidType: string, pidValue: number } | { id?: number }) {
+function fetchingInitialFormData(
+  payload: { pidType: string; pidValue: number } | { id?: number }
+) {
   return {
     type: INITIAL_FORM_DATA_REQUEST,
     payload, // only used for testing
@@ -58,7 +64,10 @@ function fetchInitialFormDataSuccess(data: Record<string, string | string[]>) {
   };
 }
 
-export function submit<T>(pidType: string, data: T): (
+export function submit<T>(
+  pidType: string,
+  data: T
+): (
   dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
@@ -69,18 +78,25 @@ export function submit<T>(pidType: string, data: T): (
       const response = await http.post(`${SUBMISSIONS}/${pidType}`, { data });
       dispatch(submitSuccess(response.data));
       if (REDIRECT_TO_EDITOR.includes(pidType)) {
-        window.open(`/editor/record/${pidType}/${response.data.control_number}`, '_self');
+        window.open(
+          `/editor/record/${pidType}/${response.data.control_number}`,
+          '_self'
+        );
       } else {
         dispatch(push(`/submissions/${pidType}/new/success`));
       }
     } catch (err) {
-      const { error } = httpErrorToActionPayload(err)
+      const { error } = httpErrorToActionPayload(err);
       dispatch(submitError({ error }));
     }
   };
 }
 
-export function submitUpdate(pidType: string, pidValue: number, data: Record<string, string | string[] | number>): (
+export function submitUpdate(
+  pidType: string,
+  pidValue: number,
+  data: Record<string, string | string[] | number>
+): (
   dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
@@ -94,13 +110,16 @@ export function submitUpdate(pidType: string, pidValue: number, data: Record<str
       dispatch(submitSuccess(response.data));
       dispatch(push(`/submissions/${pidType}/${pidValue}/success`));
     } catch (err) {
-      const { error } = httpErrorToActionPayload(err)
+      const { error } = httpErrorToActionPayload(err);
       dispatch(submitError({ error }));
     }
   };
 }
 
-export function fetchUpdateFormData(pidType: string, pidValue: number): (
+export function fetchUpdateFormData(
+  pidType: string,
+  pidValue: number
+): (
   dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
@@ -111,13 +130,15 @@ export function fetchUpdateFormData(pidType: string, pidValue: number): (
       const response = await http.get(`${SUBMISSIONS}/${pidType}/${pidValue}`);
       dispatch(fetchInitialFormDataSuccess(response.data));
     } catch (err) {
-      const error = httpErrorToActionPayload(err)
+      const error = httpErrorToActionPayload(err);
       dispatch(fetchInitialFormDataError(error));
     }
   };
 }
 
-export function importExternalLiterature(id: number): (
+export function importExternalLiterature(
+  id: number
+): (
   dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
@@ -128,7 +149,7 @@ export function importExternalLiterature(id: number): (
       const response = await http.get(`/literature/import/${id}`);
       dispatch(fetchInitialFormDataSuccess(response.data));
     } catch (error) {
-      const errorPayload = httpErrorToActionPayload(error)
+      const errorPayload = httpErrorToActionPayload(error);
       dispatch(fetchInitialFormDataError(errorPayload));
     }
   };

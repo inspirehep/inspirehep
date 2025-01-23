@@ -11,8 +11,8 @@ class ExternalSystemIdentifierList extends Component {
       <InlineDataList
         label="View in"
         items={externalSystemIdentifiers}
-        extractKey={esid => esid.get('url_link')}
-        renderItem={esid => (
+        extractKey={(esid) => esid.get('url_link')}
+        renderItem={(esid) => (
           <a href={esid.get('url_link')}>{esid.get('url_name')}</a>
         )}
       />

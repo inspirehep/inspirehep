@@ -11,10 +11,10 @@ class ConferenceInfoList extends Component {
     return (
       <InlineDataList
         wrapperClassName={wrapperClassName}
-        label={isProceedings ? "Proceedings of" : "Contribution to"}
+        label={isProceedings ? 'Proceedings of' : 'Contribution to'}
         items={conferenceInfo}
-        extractKey={info => info.get('control_number')}
-        renderItem={info => <ConferenceInfo conferenceInfo={info} />}
+        extractKey={(info) => info.get('control_number')}
+        renderItem={(info) => <ConferenceInfo conferenceInfo={info} />}
       />
     );
   }

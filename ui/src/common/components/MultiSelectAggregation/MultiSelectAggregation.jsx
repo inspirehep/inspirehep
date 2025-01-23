@@ -18,7 +18,7 @@ class MultiSelectAggregation extends Component {
     const { onChange, buckets, selections, name } = this.props;
     // TODO: optimize by running this only when `buckets` changed
     const selectOptions = buckets
-      .map(bucket => ({
+      .map((bucket) => ({
         value: bucket.get('key'),
         display: this.getSelectOptionDisplayForBucket(bucket),
       }))

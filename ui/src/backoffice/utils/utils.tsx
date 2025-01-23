@@ -5,7 +5,7 @@ import {
   HourglassOutlined,
   LoadingOutlined,
   FieldTimeOutlined,
-  StopOutlined
+  StopOutlined,
 } from '@ant-design/icons';
 import { push } from 'connected-react-router';
 import { Action, ActionCreator } from 'redux';
@@ -156,7 +156,7 @@ export const filterByProperty = (
 ) => {
   return data
     ?.get(dataField)
-    ?.filter((item: Map<string, any>) => 
+    ?.filter((item: Map<string, any>) =>
       include ? item.get(property) === value : item.get(property) !== value
     );
 };

@@ -16,5 +16,4 @@ function LinkedAuthor({ author }: { author: Map<string, string> }) {
   );
 }
 
-
 export default LinkedAuthor;

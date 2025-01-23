@@ -23,7 +23,7 @@ describe('jobs - async action creators', () => {
 
       const store = getStore();
       await store.dispatch(fetchJob(123));
-      expect(store.getActions()).toEqual(expectedActions);      
+      expect(store.getActions()).toEqual(expectedActions);
     });
 
     it('creates JOB_ERROR', async () => {
@@ -42,7 +42,7 @@ describe('jobs - async action creators', () => {
 
       const store = getStore();
       await store.dispatch(fetchJob(123));
-      expect(store.getActions()).toEqual(expectedActions);      
+      expect(store.getActions()).toEqual(expectedActions);
     });
   });
 });

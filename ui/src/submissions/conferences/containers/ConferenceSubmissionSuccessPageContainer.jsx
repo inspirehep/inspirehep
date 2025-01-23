@@ -12,7 +12,10 @@ export function ConferenceSubmissionSucessPage({ cnum, recordId }) {
         <span>
           Successfully submitted, thank you for the submission! See the
           conference ({cnum}){' '}
-          <Link to={`${CONFERENCES}/${recordId}`} className="submission-link">here</Link>.
+          <Link to={`${CONFERENCES}/${recordId}`} className="submission-link">
+            here
+          </Link>
+          .
         </span>
       }
     />
@@ -24,7 +27,7 @@ ConferenceSubmissionSucessPage.propTypes = {
   recordId: PropTypes.number.isRequired,
 };
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   cnum: state.submissions.getIn(['successData', 'cnum']),
   recordId: state.submissions.getIn(['successData', 'pid_value']),
 });

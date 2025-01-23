@@ -16,7 +16,11 @@ export const ChangeEmailForm = ({
   loading,
   email,
 }: {
-  onChangeEmailAddress: (({ email }: { email: string }) => void | Promise<any>) &
+  onChangeEmailAddress: (({
+    email,
+  }: {
+    email: string;
+  }) => void | Promise<any>) &
     Function;
   loading: boolean;
   email: string;

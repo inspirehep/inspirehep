@@ -17,14 +17,11 @@ function ExistingConferencesAlert({
   const onShowMoreClick = useCallback(() => setDrawerVisible(true), []);
   const onDrawerClose = useCallback(() => setDrawerVisible(false), []);
 
-  useEffect(
-    () => {
-      if (openingDate && closingDate) {
-        onDatesChange([openingDate, closingDate]);
-      }
-    },
-    [onDatesChange, openingDate, closingDate]
-  );
+  useEffect(() => {
+    if (openingDate && closingDate) {
+      onDatesChange([openingDate, closingDate]);
+    }
+  }, [onDatesChange, openingDate, closingDate]);
 
   return (
     numberOfConferences > 0 && (

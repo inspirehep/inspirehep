@@ -26,7 +26,7 @@ describe('Backoffice', () => {
           workflow_type: fromJS({
             buckets: fromJS([
               {
-                key: WorkflowTypes.AUTHOR_CREATE, 
+                key: WorkflowTypes.AUTHOR_CREATE,
                 doc_count: 1,
                 status: [{ key: 'error' }],
               },
@@ -67,7 +67,6 @@ describe('Backoffice', () => {
 
     expect(getByTestId('backoffice-dashboard-page')).toBeInTheDocument();
   });
-
 
   it('navigates to SearchPageContainer when /backoffice/search', () => {
     const { getByTestId } = render(

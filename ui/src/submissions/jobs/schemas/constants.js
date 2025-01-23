@@ -19,9 +19,8 @@ const OTHER_OPTION_VALUE = 'other';
 export const fieldOfInterestOptions = arxivCategoryOptions.concat({
   value: OTHER_OPTION_VALUE,
 });
-export const fieldOfInterestValues = arxivCategoryValues.concat(
-  OTHER_OPTION_VALUE
-);
+export const fieldOfInterestValues =
+  arxivCategoryValues.concat(OTHER_OPTION_VALUE);
 
 export const unAuthorizedStatusOptions = [
   { value: 'open' },

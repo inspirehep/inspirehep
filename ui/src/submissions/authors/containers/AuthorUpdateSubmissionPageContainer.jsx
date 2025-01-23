@@ -29,9 +29,8 @@ class AuthorUpdateSubmissionPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const prevRecordId = AuthorUpdateSubmissionPage.getRecordIdFromProps(
-      prevProps
-    );
+    const prevRecordId =
+      AuthorUpdateSubmissionPage.getRecordIdFromProps(prevProps);
     if (this.recordId !== prevRecordId) {
       this.dispatch(fetchUpdateFormData(AUTHORS_PID_TYPE, this.recordId));
     }
@@ -98,7 +97,7 @@ AuthorUpdateSubmissionPage.propTypes = {
   loadingUpdateFormData: PropTypes.bool.isRequired,
 };
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   error: state.submissions.get('submitError'),
   isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
   updateFormData: state.submissions.get('initialData'),
@@ -106,8 +105,9 @@ const stateToProps = state => ({
   loadingUpdateFormData: state.submissions.get('loadingInitialData'),
 });
 
-const dispatchToProps = dispatch => ({ dispatch });
+const dispatchToProps = (dispatch) => ({ dispatch });
 
-export default connect(stateToProps, dispatchToProps)(
-  AuthorUpdateSubmissionPage
-);
+export default connect(
+  stateToProps,
+  dispatchToProps
+)(AuthorUpdateSubmissionPage);

@@ -22,7 +22,7 @@ describe('DetailPageContainer', () => {
               'JOURNL OF HIGH ENERGY PHYSICS',
             ],
             publisher: ['Springer'],
-            control_number: 1234
+            control_number: 1234,
           },
         },
       }),
@@ -45,7 +45,10 @@ describe('DetailPageContainer', () => {
 
     const link = screen.getByRole('link', { name: /links/i });
     expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute('href', 'https://www.springer.com/journal/526');
+    expect(link).toHaveAttribute(
+      'href',
+      'https://www.springer.com/journal/526'
+    );
     expect(link).toHaveAttribute('target', '_blank');
   });
 });

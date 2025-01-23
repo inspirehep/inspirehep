@@ -1,4 +1,4 @@
-import { Map } from "immutable";
+import { Map } from 'immutable';
 
 export function getPageDisplay(pagesInfo: Map<string, any>) {
   if (pagesInfo.has('page_start') && pagesInfo.has('page_end')) {

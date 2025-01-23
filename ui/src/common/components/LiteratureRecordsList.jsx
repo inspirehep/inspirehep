@@ -29,7 +29,7 @@ function LiteratureRecordsList({ literatureRecords }) {
         literatureRecords && literatureRecords.size
       )}`}
       items={literatureRecords}
-      extractKey={literatureRecord => literatureRecord.get('control_number')}
+      extractKey={(literatureRecord) => literatureRecord.get('control_number')}
       renderItem={renderLiteratureRecord}
     />
   );

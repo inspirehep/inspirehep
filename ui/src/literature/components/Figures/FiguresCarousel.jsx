@@ -7,7 +7,7 @@ import CarouselModal from '../../../common/components/CarouselModal';
 
 const FiguresCarousel = forwardRef(({ figures, visible, onCancel }, ref) => (
   <CarouselModal visible={visible} onCancel={onCancel} ref={ref}>
-    {figures.map(figure => (
+    {figures.map((figure) => (
       <Figure
         key={figure.get('url')}
         url={figure.get('url')}

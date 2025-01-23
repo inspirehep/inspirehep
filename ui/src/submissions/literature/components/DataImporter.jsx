@@ -35,7 +35,9 @@ class DataImporter extends Component {
         {recordId && (
           <>
             {'. '}{' '}
-            <LinkWithTargetBlank href={`http://inspirehep.net/record/${recordId}`}>
+            <LinkWithTargetBlank
+              href={`http://inspirehep.net/record/${recordId}`}
+            >
               See the record
             </LinkWithTargetBlank>
           </>

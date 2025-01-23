@@ -8,15 +8,17 @@ describe('PersistentIdentifiers', () => {
   it('renders with identifiers', () => {
     const identifiers = fromJS([
       {
-        value: "1866/20706",
-        schema: "HDL"
+        value: '1866/20706',
+        schema: 'HDL',
       },
       {
-        value: "12345",
-        schema: "URN"
-      }
+        value: '12345',
+        schema: 'URN',
+      },
     ]);
-    const wrapper = shallow(<PersistentIdentifiers identifiers={identifiers} />);
+    const wrapper = shallow(
+      <PersistentIdentifiers identifiers={identifiers} />
+    );
     expect(wrapper.dive()).toMatchSnapshot();
   });
 });

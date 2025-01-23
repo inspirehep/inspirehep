@@ -7,7 +7,11 @@ import InlineDataList from '../../common/components/InlineList';
 
 class EmailList extends Component {
   static renderEmail(email) {
-    return <LinkWithTargetBlank href={`mailto:${email}`}>{email}</LinkWithTargetBlank>;
+    return (
+      <LinkWithTargetBlank href={`mailto:${email}`}>
+        {email}
+      </LinkWithTargetBlank>
+    );
   }
 
   render() {

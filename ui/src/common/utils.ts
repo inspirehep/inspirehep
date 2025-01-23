@@ -17,14 +17,17 @@ export function castPropToNumber(prop: any) {
   return prop !== undefined ? Number(prop) : undefined;
 }
 
-export function pluckMinMaxPair(list: List<number>, valueGetter: (item: number) => number) {
+export function pluckMinMaxPair(
+  list: List<number>,
+  valueGetter: (item: number) => number
+) {
   if (list.isEmpty()) {
     return [0, 0];
   }
   let min = Infinity;
   let max = -Infinity;
 
-  list.forEach(item => {
+  list.forEach((item) => {
     const value = valueGetter(item);
     max = Math.max(max, value);
     min = Math.min(min, value);
@@ -54,7 +57,10 @@ export function getSizeOfArrayOrImmutableList(arrayOrList: any[] | List<any>) {
   return Array.isArray(arrayOrList) ? arrayOrList.length : arrayOrList.size;
 }
 
-export function getFromObjectOrImmutableMap(objectOrMap: { [key: string]: any } | Map<string, any>, key: string) {
+export function getFromObjectOrImmutableMap(
+  objectOrMap: { [key: string]: any } | Map<string, any>,
+  key: string
+) {
   return Map.isMap(objectOrMap) ? objectOrMap.get(key) : objectOrMap[key];
 }
 
@@ -77,7 +83,7 @@ export function doSetsHaveCommonItem(set1: Set<any>, set2: Set<any>) {
 }
 
 export function hasAnyOfKeys(map: Map<string, any>, keys: string[]) {
-  return keys.some(key => map.has(key));
+  return keys.some((key) => map.has(key));
 }
 
 export function isEmptyObjectShallow(object: { [key: string]: any }) {
@@ -86,18 +92,23 @@ export function isEmptyObjectShallow(object: { [key: string]: any }) {
   }
 
   return !Object.keys(object).some(
-    key => !(object[key] == null || object[key] === '')
+    (key) => !(object[key] == null || object[key] === '')
   );
 }
 
 export function mergeWithConcattingArrays(destObject: any, ...sources: any) {
   const clonedDestObject = cloneDeep(destObject);
   // eslint-disable-next-line consistent-return
-  return mergeWith(clonedDestObject, ...sources, (objValue: any, srcValue: any) => {
-    if (Array.isArray(objValue) && Array.isArray(srcValue)) {
-      return objValue.concat(srcValue);
+  return mergeWith(
+    clonedDestObject,
+    ...sources,
+    // eslint-disable-next-line consistent-return
+    (objValue: any, srcValue: any) => {
+      if (Array.isArray(objValue) && Array.isArray(srcValue)) {
+        return objValue.concat(srcValue);
+      }
     }
-  });
+  );
 }
 
 export function httpErrorToActionPayload(httpError: any) {
@@ -120,7 +131,10 @@ export function httpErrorToActionPayload(httpError: any) {
 }
 
 // adapted from facebook/fbjs shallowEqual
-export function shallowEqual(objA: { [key: string]: any }, objB: { [key: string]: any }) {
+export function shallowEqual(
+  objA: { [key: string]: any },
+  objB: { [key: string]: any }
+) {
   if (Object.is(objA, objB)) {
     return true;
   }
@@ -161,14 +175,17 @@ export function getSearchRank(index: number, page: number, pageSize: number) {
 export function wait(milisec: number) {
   return new Promise((resolve) => {
     setTimeout(resolve, milisec);
-});
+  });
 }
 
 export function pluralizeUnlessSingle(singularWord: string, count: number) {
   return count !== 1 ? `${singularWord}s` : singularWord;
 }
 
-export function pickEvenlyDistributedElements(array: any[], numberOfElements: number) {
+export function pickEvenlyDistributedElements(
+  array: any[],
+  numberOfElements: number
+) {
   if (numberOfElements <= 1) {
     throw new Error('number of elements must be greater than 1');
   }
@@ -249,7 +266,10 @@ export function stripHtml(richText: string) {
   return richText.replace(HTML_TAG_REGEXP, '');
 }
 
-export function truncateStringWithEllipsis(string: string, charCountLimit: number) {
+export function truncateStringWithEllipsis(
+  string: string,
+  charCountLimit: number
+) {
   if (string.length > charCountLimit) {
     const truncated = string.slice(0, charCountLimit - 3);
     return `${truncated}...`;
@@ -296,11 +316,16 @@ export function getInstitutionName(affiliation: Map<string, any>) {
   return affiliation.get('value') || affiliation.get('institution');
 }
 
-export function doTimezonesHaveDifferentTimes(timezone1: string, timezone2: string) {
+export function doTimezonesHaveDifferentTimes(
+  timezone1: string,
+  timezone2: string
+) {
   const now = Date.now();
   return (
     // @ts-ignore
-    moment.tz.zone(timezone1).utcOffset(now) !== moment.tz.zone(timezone2).utcOffset(now)
+    moment.tz.zone(timezone1).utcOffset(now) !==
+    // @ts-ignore
+    moment.tz.zone(timezone2).utcOffset(now)
   );
 }
 

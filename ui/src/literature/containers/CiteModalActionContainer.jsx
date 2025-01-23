@@ -4,11 +4,11 @@ import { setPreference } from '../../actions/user';
 import CiteModalAction from '../components/CiteModalAction';
 import { CITE_FORMAT_PREFERENCE } from '../../reducers/user';
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   initialCiteFormat: state.user.getIn(['preferences', CITE_FORMAT_PREFERENCE]),
 });
 
-export const dispatchToProps = dispatch => ({
+export const dispatchToProps = (dispatch) => ({
   onCiteFormatChange(format) {
     dispatch(setPreference(CITE_FORMAT_PREFERENCE, format));
   },

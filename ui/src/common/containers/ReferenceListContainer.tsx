@@ -52,7 +52,7 @@ const dispatchToProps = (
   onEditReferenceClick(referenceId: number) {
     dispatch(setCurateDrawerVisibility(referenceId));
   },
-  
+
   setScrollElement(element: string) {
     dispatch(setScrollElement(element));
   },

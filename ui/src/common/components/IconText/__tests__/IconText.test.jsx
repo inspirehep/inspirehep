@@ -6,7 +6,9 @@ import IconText from '../IconText';
 
 describe('IconText', () => {
   it('renders with all props set', () => {
-    const wrapper = shallow(<IconText icon={<InfoOutlined />} text="Test" className="test" />);
+    const wrapper = shallow(
+      <IconText icon={<InfoOutlined />} text="Test" className="test" />
+    );
     expect(wrapper).toMatchSnapshot();
   });
 });

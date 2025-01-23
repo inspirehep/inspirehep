@@ -34,7 +34,7 @@ class DOIList extends Component {
 
 DOIList.propTypes = {
   dois: PropTypes.instanceOf(List),
-  showLabel: PropTypes.bool
+  showLabel: PropTypes.bool,
 };
 
 DOIList.defaultProps = {

@@ -13,14 +13,12 @@ import {
   SEARCHABLE_COLLECTION_PATHNAMES,
   LITERATURE_NS,
   BACKOFFICE_SEARCH_NS,
-  PATHNAME_TO_NAMESPACE
- } from '../search/constants';
+  PATHNAME_TO_NAMESPACE,
+} from '../search/constants';
 
 const PRESERVE_FULL_PATH_NAMESPACES = [
   NAMESPACE_TO_PATHNAME[BACKOFFICE_SEARCH_NS],
 ];
-
-
 
 const idInUrlRegExp = new RegExp('/\\d+');
 function isSearchPage(location) {
@@ -66,7 +64,7 @@ export default function ({ dispatch, getState }) {
           return PATHNAME_TO_NAMESPACE[pathname];
         }
         return getRootOfLocationPathname(pathname);
-      }
+      };
 
       const prevNamespace = getNamespace(prevLocation.pathname);
       const nextNamespace = getNamespace(nextLocation.pathname);
@@ -79,7 +77,6 @@ export default function ({ dispatch, getState }) {
         prevLocation.pathname !== nextLocation.pathname &&
         isSearchPage(prevLocation)
       ) {
-
         dispatch(newSearch(prevNamespace));
         if (nextNamespace === LITERATURE_NS) {
           // fetch literature aggregations when `back` is clicked
@@ -88,7 +85,6 @@ export default function ({ dispatch, getState }) {
       }
 
       if (isSearchPage(nextLocation)) {
-
         const { isFirstRendering } = action.payload;
         if (
           isFirstRendering || // when first route that user hits the application is a search page
@@ -102,7 +98,9 @@ export default function ({ dispatch, getState }) {
           ) {
             if (nextNamespace === LITERATURE_NS) {
               // reset query and fetch aggregations when `back` is clicked within literature collection
-              dispatch(fetchAggregationsAndSearchQueryReset(nextNamespace, true));
+              dispatch(
+                fetchAggregationsAndSearchQueryReset(nextNamespace, true)
+              );
             } else {
               dispatch(searchQueryReset(nextNamespace));
             }

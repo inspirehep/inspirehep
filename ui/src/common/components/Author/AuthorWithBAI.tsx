@@ -12,7 +12,9 @@ function renderCreateProfileTooltipMessage(author: Map<string, string>) {
     <>
       <div>The author does not have an INSPIRE profile</div>
       <div>
-        <LinkWithTargetBlank href={`${SUBMISSIONS_AUTHOR}?bai=${author.get('bai')}`}>
+        <LinkWithTargetBlank
+          href={`${SUBMISSIONS_AUTHOR}?bai=${author.get('bai')}`}
+        >
           Create profile
         </LinkWithTargetBlank>
       </div>

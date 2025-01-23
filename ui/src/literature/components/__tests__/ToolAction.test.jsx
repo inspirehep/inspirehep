@@ -69,10 +69,12 @@ describe('ToolAction', () => {
     const dropdown = container.getElementsByClassName(
       'ant-dropdown-trigger'
     )[0];
-    
+
     await waitFor(() => fireEvent.mouseOver(dropdown));
     await waitFor(() => screen.getByTestId('export-to-CDS').click());
 
-    await waitFor(() => expect(screen.getByTestId('export-modal')).toBeInTheDocument);
+    await waitFor(
+      () => expect(screen.getByTestId('export-modal')).toBeInTheDocument
+    );
   });
 });

@@ -34,25 +34,29 @@ describe('LiteratureItemContainer', () => {
           ],
         },
       ],
-      fulltext_highlight: List(['A snippet of <em>fulltext</em>'])
+      fulltext_highlight: List(['A snippet of <em>fulltext</em>']),
     });
 
     const store = getStoreWithState({
       user: fromJS({
         preferences: {
-            [CITE_FORMAT_PREFERENCE]: 'application/x-bibtex'
+          [CITE_FORMAT_PREFERENCE]: 'application/x-bibtex',
         },
         loggedIn: true,
         data: {
-          profile_control_number: '1010819'
-        }
+          profile_control_number: '1010819',
+        },
       }),
     });
 
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <LiteratureItemContainer searchRank={1} metadata={metadata} isCatalogerLoggedIn />
+          <LiteratureItemContainer
+            searchRank={1}
+            metadata={metadata}
+            isCatalogerLoggedIn
+          />
         </MemoryRouter>
       </Provider>
     );
@@ -62,7 +66,7 @@ describe('LiteratureItemContainer', () => {
       hasAuthorProfile: true,
       metadata,
       isCatalogerLoggedIn: true,
-      searchRank: 1
+      searchRank: 1,
     });
   });
 });

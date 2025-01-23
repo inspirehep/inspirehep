@@ -41,7 +41,7 @@ describe('inspect reducer', () => {
     const state = reducer(Map(), {
       type: INSPECT_ERROR,
       payload: {
-        error: { message: 'error' }
+        error: { message: 'error' },
       },
     });
     const expected = fromJS({

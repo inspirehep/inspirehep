@@ -56,7 +56,7 @@ function LiteratureSearch({
   enableCitationSummary,
   numberOfSelected,
   page,
-  isSuperUserLoggedIn
+  isSuperUserLoggedIn,
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -96,7 +96,8 @@ function LiteratureSearch({
     !assignAuthorView &&
     !assignAuthorDifferentProfileView;
 
-  const assignNotLoggedInViewCondition = assignNotLoggedInView && !assignNoProfileViewCondition;
+  const assignNotLoggedInViewCondition =
+    assignNotLoggedInView && !assignNoProfileViewCondition;
 
   return (
     <Row

@@ -4,7 +4,9 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
 
-import JournalSubmissionPageContainer, { JournalSubmissionPage } from '../JournalSubmissionPageContainer';
+import JournalSubmissionPageContainer, {
+  JournalSubmissionPage,
+} from '../JournalSubmissionPageContainer';
 
 import { getStoreWithState } from '../../../../fixtures/store';
 
@@ -14,7 +16,8 @@ describe('JournalSubmissionPageContainer', () => {
       submissions: fromJS({
         submitError: {
           message: null,
-      }}),
+        },
+      }),
     });
     const wrapper = mount(
       <Provider store={store}>

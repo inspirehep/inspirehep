@@ -9,11 +9,17 @@ import {
   setPublicationsUnclaimedSelection,
 } from '../../actions/authors';
 
-const stateToProps = (state: RootStateOrAny, { recordId }: { recordId: number }) => ({
+const stateToProps = (
+  state: RootStateOrAny,
+  { recordId }: { recordId: number }
+) => ({
   checked: state.authors.get('publicationSelection').has(recordId),
 });
 
-const dispatchToProps = (dispatch: ActionCreator<Action>, { recordId }: { recordId: number }) => ({
+const dispatchToProps = (
+  dispatch: ActionCreator<Action>,
+  { recordId }: { recordId: number }
+) => ({
   onSelectClaimedPapers(event: CheckboxChangeEvent) {
     dispatch(setPublicationsClaimedSelection([recordId], event.target.checked));
   },

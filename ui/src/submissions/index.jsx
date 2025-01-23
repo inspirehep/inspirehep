@@ -86,7 +86,7 @@ class Submissions extends Component {
               exact
               authorizedRoles={SUPERUSER_OR_CATALOGER}
               path={SUBMISSIONS_INSTITUTION}
-              component={InstitutionSubmissionPageContainer} 
+              component={InstitutionSubmissionPageContainer}
             />
             <PrivateRoute
               exact

@@ -28,7 +28,9 @@ const SearchBox = ({
   className?: string;
 }) => {
   const [inputValue, setInputValue] = useState(value);
-  const [autoCompleteOptions, setAutoCompleteOptions] = useState<Set<{value: any; label: JSX.Element}> | never[]>([]);
+  const [autoCompleteOptions, setAutoCompleteOptions] = useState<
+    Set<{ value: any; label: JSX.Element }> | never[]
+  >([]);
   const [shouldSearch, setShouldSearch] = useState(false);
 
   // always override inputValue when `value` prop is changed
@@ -42,14 +44,21 @@ const SearchBox = ({
     (event) => {
       const newValue = event.target.value;
       setInputValue(newValue);
-      const namespaceHistory: Set<string> = HISTORY_BY_NAMESPACE[namespace as keyof typeof HISTORY_BY_NAMESPACE];
-      if (newValue && HISTORY_BY_NAMESPACE[namespace as keyof typeof HISTORY_BY_NAMESPACE]) {
-        const options: Set<{value: any; label: JSX.Element}> = namespaceHistory
-          .filter((searchQuery: string | any[]) => searchQuery.includes(newValue))
-          .map((searchQuery: any) => ({
-            value: searchQuery,
-            label: <IconText icon={<HistoryOutlined />} text={searchQuery} />,
-          }));
+      const namespaceHistory: Set<string> =
+        HISTORY_BY_NAMESPACE[namespace as keyof typeof HISTORY_BY_NAMESPACE];
+      if (
+        newValue &&
+        HISTORY_BY_NAMESPACE[namespace as keyof typeof HISTORY_BY_NAMESPACE]
+      ) {
+        const options: Set<{ value: any; label: JSX.Element }> =
+          namespaceHistory
+            .filter((searchQuery: string | any[]) =>
+              searchQuery.includes(newValue)
+            )
+            .map((searchQuery: any) => ({
+              value: searchQuery,
+              label: <IconText icon={<HistoryOutlined />} text={searchQuery} />,
+            }));
         setAutoCompleteOptions(options);
       } else {
         setAutoCompleteOptions([]);
@@ -75,7 +84,11 @@ const SearchBox = ({
         onSearch(namespace, inputValue);
 
         if (inputValue) {
-          (HISTORY_BY_NAMESPACE[namespace as keyof typeof HISTORY_BY_NAMESPACE] as Set<string>).add(inputValue.trim());
+          (
+            HISTORY_BY_NAMESPACE[
+              namespace as keyof typeof HISTORY_BY_NAMESPACE
+            ] as Set<string>
+          ).add(inputValue.trim());
           persistHistory(HISTORY_BY_NAMESPACE);
         }
         setShouldSearch(false);

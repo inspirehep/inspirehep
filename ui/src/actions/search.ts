@@ -42,7 +42,9 @@ function searchError(namespace: string, errorPayload: { error: Error }) {
   let { redirectableError } =
     searchConfig[namespace as keyof typeof searchConfig];
 
-  if (errorPayload.error.message === 'The syntax of the search query is invalid.') {
+  if (
+    errorPayload.error.message === 'The syntax of the search query is invalid.'
+  ) {
     redirectableError = false;
   }
 
@@ -142,7 +144,13 @@ export function fetchSearchAggregations(
 
 export function searchQueryUpdate(
   namespace: string,
-  query: { size?: number; q?: string; assigned?: number, page?: string, sort?: boolean },
+  query: {
+    size?: number;
+    q?: string;
+    assigned?: number;
+    page?: string;
+    sort?: boolean;
+  },
   dueToNavigationToSearchPage = false
 ): (
   dispatch: ActionCreator<Action>,
@@ -201,9 +209,12 @@ export function searchResultsReset(namespace: string) {
   };
 }
 
-export function fetchAggregationsAndSearchQueryReset(namespace: string, shouldReset: boolean): (
+export function fetchAggregationsAndSearchQueryReset(
+  namespace: string,
+  shouldReset: boolean
+): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootStateOrAny
 ) => Promise<void> {
   return async (dispatch, getState) => {
     const prevState = getState();
@@ -212,7 +223,7 @@ export function fetchAggregationsAndSearchQueryReset(namespace: string, shouldRe
       dispatch({
         type: SEARCH_QUERY_RESET,
         payload: { namespace },
-      })
+      });
     }
 
     const nextState = getState();

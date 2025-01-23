@@ -26,13 +26,20 @@ function renderConferenceItem(result) {
   return <ConferenceItem metadata={result.get('metadata')} />;
 }
 
-function ConferenceSearchPage({ loading, loadingAggregations, isSuperUserLoggedIn }) {
+function ConferenceSearchPage({
+  loading,
+  loadingAggregations,
+  isSuperUserLoggedIn,
+}) {
   const renderAggregations = useCallback(
     () => (
       <>
         <ConferenceStartDateFilterContainer switchTitle="Upcoming conferences" />
         <LoadingOrChildren loading={loadingAggregations}>
-          <AggregationFiltersContainer namespace={CONFERENCES_NS} page="Conferences search" />
+          <AggregationFiltersContainer
+            namespace={CONFERENCES_NS}
+            page="Conferences search"
+          />
         </LoadingOrChildren>
       </>
     ),
@@ -103,7 +110,7 @@ ConferenceSearchPage.propTypes = {
   loadingAggregations: PropTypes.bool.isRequired,
 };
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
   loading: state.search.getIn(['namespaces', CONFERENCES_NS, 'loading']),
   loadingAggregations: state.search.getIn([

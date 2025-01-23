@@ -11,7 +11,7 @@ export const FREETEXT_RADIO = 'freetext';
 
 function HowToSearch() {
   const [selectedRadio, setSelectedRadio] = useState(SPIRES_RADIO);
-  const onRadioChange = useCallback(event => {
+  const onRadioChange = useCallback((event) => {
     setSelectedRadio(event.target.value);
   }, []);
 

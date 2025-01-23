@@ -7,7 +7,7 @@ export const initialState = fromJS({
   error: null,
 });
 
-export const onRequest = state => state.set('loading', true);
+export const onRequest = (state) => state.set('loading', true);
 export const onSuccess = (state, action) =>
   state
     .set('loading', false)

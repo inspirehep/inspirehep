@@ -5,9 +5,7 @@ import { JournalForm } from '../JournalForm';
 
 describe('JournalForm', () => {
   it('renders', () => {
-    const wrapper = shallow(
-      <JournalForm />
-    );
+    const wrapper = shallow(<JournalForm />);
     expect(wrapper).toMatchSnapshot();
   });
 });

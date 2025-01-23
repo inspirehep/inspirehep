@@ -9,7 +9,11 @@ class DOILink extends Component {
     const { children, doi, page } = this.props;
     const href = `//doi.org/${doi}`;
     return (
-      <EventTracker eventCategory={page || 'Literature detail'} eventAction="Link" eventId="Doi link">
+      <EventTracker
+        eventCategory={page || 'Literature detail'}
+        eventAction="Link"
+        eventId="Doi link"
+      >
         <LinkWithTargetBlank href={href}>{children}</LinkWithTargetBlank>
       </EventTracker>
     );

@@ -36,7 +36,7 @@ describe('CurateReferenceDrawerContainer', () => {
         <CurateReferenceDrawerContainer
           namespace={CURATE_REFERENCE_NS}
           recordId={1234}
-          recordUuid='1234'
+          recordUuid="1234"
           revisionId={1}
         />
       </Provider>
@@ -49,4 +49,3 @@ describe('CurateReferenceDrawerContainer', () => {
     });
   });
 });
-

@@ -76,9 +76,9 @@ class CiteAllAction extends Component {
           disabled={disabled}
           onClick={this.onCiteClick}
           title={this.renderDropdownTitle(disabled)}
-          items={CITE_FORMAT_OPTIONS.map(format => ({
+          items={CITE_FORMAT_OPTIONS.map((format) => ({
             key: format.value,
-            label: <span key={format.value}>{format.display}</span>
+            label: <span key={format.value}>{format.display}</span>,
           }))}
         />
       </UserAction>

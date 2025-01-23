@@ -139,7 +139,7 @@ SearchPage.propTypes = {
   loadingAggregations: PropTypes.bool.isRequired,
 };
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
   loading: state.search.getIn(['namespaces', JOBS_NS, 'loading']),
   loadingAggregations: state.search.getIn([

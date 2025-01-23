@@ -46,7 +46,9 @@ describe('ConferenceInfoList', () => {
         control_number: 222222,
       },
     ]);
-    const wrapper = shallow(<ConferenceInfoList conferenceInfo={info} isProceedings={false} />);
+    const wrapper = shallow(
+      <ConferenceInfoList conferenceInfo={info} isProceedings={false} />
+    );
     expect(wrapper.dive()).toMatchSnapshot();
   });
   it('renders proceedings label if document type is proceedings', () => {
@@ -68,7 +70,9 @@ describe('ConferenceInfoList', () => {
         control_number: 222222,
       },
     ]);
-    const wrapper = shallow(<ConferenceInfoList conferenceInfo={info} isProceedings />);
+    const wrapper = shallow(
+      <ConferenceInfoList conferenceInfo={info} isProceedings />
+    );
     expect(wrapper.dive()).toMatchSnapshot();
   });
 });

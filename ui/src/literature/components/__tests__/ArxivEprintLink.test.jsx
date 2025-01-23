@@ -5,11 +5,7 @@ import ArxivEprintLink from '../ArxivEprintLink';
 
 describe('ArxivEprintLink', () => {
   it('renders with arXiv id', () => {
-    const wrapper = shallow((
-      <ArxivEprintLink>
-        123.123456
-      </ArxivEprintLink>
-    ));
+    const wrapper = shallow(<ArxivEprintLink>123.123456</ArxivEprintLink>);
     expect(wrapper).toMatchSnapshot();
   });
 });

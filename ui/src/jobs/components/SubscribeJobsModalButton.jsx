@@ -94,7 +94,11 @@ export default class SubscribeJobsModalButton extends Component {
     const { isModalVisible, isSubscriptionSubmitted } = this.state;
     return (
       <>
-        <EventTracker eventCategory="Jobs search" eventAction="Subscribe" eventId="Subscribe jobs" >
+        <EventTracker
+          eventCategory="Jobs search"
+          eventAction="Subscribe"
+          eventId="Subscribe jobs"
+        >
           <LinkLikeButton onClick={this.onClick}>
             <MailOutlined />
             <ResponsiveView

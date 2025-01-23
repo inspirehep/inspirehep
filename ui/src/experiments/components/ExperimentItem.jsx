@@ -38,13 +38,13 @@ function ExperimentItem({ metadata }) {
               eventCategory="Experiments search"
             />
           )}
-                <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
-                  <EditRecordAction
-                    pidType={EXPERIMENTS_PID_TYPE}
-                    pidValue={recordId}
-                    page="Experiments detail"
-                  />
-                </AuthorizedContainer>
+          <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
+            <EditRecordAction
+              pidType={EXPERIMENTS_PID_TYPE}
+              pidValue={recordId}
+              page="Experiments detail"
+            />
+          </AuthorizedContainer>
         </>
       }
       rightActions={

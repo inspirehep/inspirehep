@@ -44,8 +44,8 @@ class SearchPage extends Component {
                 <Col>
                   <NumberOfResultsContainer namespace={AUTHORS_NS} />
                   {isSuperUserLoggedIn && (
-                      <APIButton url={window.location.href} />
-                    )}
+                    <APIButton url={window.location.href} />
+                  )}
                 </Col>
               </Row>
               <Row>

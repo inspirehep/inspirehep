@@ -9,7 +9,7 @@ describe('LogoutUser middleware', () => {
   let mockDispatch;
 
   beforeEach(() => {
-    mirrorNext = jest.fn(value => value);
+    mirrorNext = jest.fn((value) => value);
     mockDispatch = jest.fn();
     dispatch = middleware({ dispatch: mockDispatch })(mirrorNext);
   });

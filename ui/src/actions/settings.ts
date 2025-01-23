@@ -6,7 +6,7 @@ import { HttpClientWrapper } from '../common/http';
 import {
   SETTINGS_CHANGE_EMAIL_REQUEST,
   SETTINGS_CHANGE_EMAIL_SUCCESS,
-  SETTINGS_CHANGE_EMAIL_ERROR
+  SETTINGS_CHANGE_EMAIL_ERROR,
 } from './actionTypes';
 import { httpErrorToActionPayload } from '../common/utils';
 
@@ -38,7 +38,11 @@ function notifyEmailChangeSuccesss() {
   });
 }
 
-export function changeEmailAddress({ email }: { email: string }): (
+export function changeEmailAddress({
+  email,
+}: {
+  email: string;
+}): (
   dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
@@ -46,7 +50,9 @@ export function changeEmailAddress({ email }: { email: string }): (
   return async (dispatch, getState, http) => {
     dispatch(changeEmailAddressRequest());
     try {
-      const response = await http.post('/accounts/settings/update-email', { new_email: email });
+      const response = await http.post('/accounts/settings/update-email', {
+        new_email: email,
+      });
       dispatch(changeEmailAddressSuccess(response.data));
       notifyEmailChangeSuccesss();
     } catch (err) {

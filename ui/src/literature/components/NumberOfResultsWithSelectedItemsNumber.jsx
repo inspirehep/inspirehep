@@ -14,10 +14,11 @@ function getFormattedNumberOfSelectedOrNull(numberOfSelected) {
   );
 }
 
-function NumberOfResults({ namespace, numberOfSelected}) {
+function NumberOfResults({ namespace, numberOfSelected }) {
   return (
     <span>
-      {!!numberOfSelected && getFormattedNumberOfSelectedOrNull(numberOfSelected)}
+      {!!numberOfSelected &&
+        getFormattedNumberOfSelectedOrNull(numberOfSelected)}
       <NumberOfResultsContainer namespace={namespace} />
     </span>
   );

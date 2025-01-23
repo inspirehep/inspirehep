@@ -12,7 +12,7 @@ describe('ClientPaginatedList', () => {
     const wrapper = shallow(
       <ClientPaginatedList
         items={items}
-        renderItem={item => <List.Item key={item}>{item}</List.Item>}
+        renderItem={(item) => <List.Item key={item}>{item}</List.Item>}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -24,7 +24,7 @@ describe('ClientPaginatedList', () => {
       <ClientPaginatedList
         items={items}
         pageSize={10}
-        renderItem={item => <List.Item key={item}>{item}</List.Item>}
+        renderItem={(item) => <List.Item key={item}>{item}</List.Item>}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -36,7 +36,7 @@ describe('ClientPaginatedList', () => {
       <ClientPaginatedList
         loading
         items={items}
-        renderItem={item => <List.Item key={item}>{item}</List.Item>}
+        renderItem={(item) => <List.Item key={item}>{item}</List.Item>}
         pageSize={10}
       />
     );
@@ -49,7 +49,7 @@ describe('ClientPaginatedList', () => {
       <ClientPaginatedList
         loading
         items={items}
-        renderItem={item => <List.Item key={item}>{item}</List.Item>}
+        renderItem={(item) => <List.Item key={item}>{item}</List.Item>}
         pageSize={10}
         grid
       />
@@ -63,7 +63,7 @@ describe('ClientPaginatedList', () => {
     const wrapper = shallow(
       <ClientPaginatedList
         items={items}
-        renderItem={item => <List.Item key={item}>{item}</List.Item>}
+        renderItem={(item) => <List.Item key={item}>{item}</List.Item>}
         pageSize={10}
       />
     );
@@ -78,7 +78,7 @@ describe('ClientPaginatedList', () => {
     const wrapper = shallow(
       <ClientPaginatedList
         items={items}
-        renderItem={item => <List.Item key={item}>{item}</List.Item>}
+        renderItem={(item) => <List.Item key={item}>{item}</List.Item>}
       />
     );
     expect(wrapper).toMatchSnapshot();

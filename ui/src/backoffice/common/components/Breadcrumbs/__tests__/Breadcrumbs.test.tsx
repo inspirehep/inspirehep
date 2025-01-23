@@ -49,9 +49,12 @@ describe('Breadcrumbs', () => {
         </MemoryRouter>
       </Provider>
     );
-    
+
     const link = screen.getByRole('link', { name: 'Author Detail' });
     expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute('href', expect.stringContaining('/backoffice/1234'));
+    expect(link).toHaveAttribute(
+      'href',
+      expect.stringContaining('/backoffice/1234')
+    );
   });
 });

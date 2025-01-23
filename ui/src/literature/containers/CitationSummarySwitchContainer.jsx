@@ -26,11 +26,10 @@ export function isCitationSummaryEnabled(state) {
   );
 }
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   checked: isCitationSummaryEnabledOnLocation(state),
-  citationSummaryEnablingPreference: isCitationSummaryEnabledOnUserPreferences(
-    state
-  ),
+  citationSummaryEnablingPreference:
+    isCitationSummaryEnabledOnUserPreferences(state),
 });
 
 const dispatchToProps = (dispatch, { namespace }) => ({

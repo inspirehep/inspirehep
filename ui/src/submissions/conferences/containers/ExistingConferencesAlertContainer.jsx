@@ -4,7 +4,7 @@ import { RANGE_AGGREGATION_SELECTION_SEPARATOR } from '../../../common/constants
 import { searchQueryUpdate } from '../../../actions/search';
 import ExistingConferencesAlert from '../components/ExistingConferencesAlert';
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   numberOfConferences: state.search.getIn([
     'namespaces',
     EXISTING_CONFERENCES_NS,
@@ -12,7 +12,7 @@ const stateToProps = state => ({
   ]),
 });
 
-const dispatchToProps = dispatch => ({
+const dispatchToProps = (dispatch) => ({
   onDatesChange([openingDate, closingDate]) {
     dispatch(
       searchQueryUpdate(EXISTING_CONFERENCES_NS, {

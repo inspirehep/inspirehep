@@ -12,7 +12,7 @@ function extractKeyFromRelatedRecord(relatedRecord) {
 
 function RelatedRecordsList({ relatedRecords, relationType, label, pidType }) {
   const renderRelatedRecord = useCallback(
-    relatedRecord => (
+    (relatedRecord) => (
       <Link to={`/${pidType}/${relatedRecord.get('control_number')}`}>
         {relatedRecord.get('legacy_ICN') || relatedRecord.get('legacy_name')}
       </Link>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Alert } from 'antd';
 import { Formik } from 'formik';
@@ -10,15 +10,16 @@ import useSubmitCallback from '../../common/hooks/useSubmitCallback';
 
 const DEFAULT_FORM_DATA = institutionSchema.cast();
 
-const InstitutionSubmission = ({
-  onSubmit,
-  error = null,
-}) => {
+const InstitutionSubmission = ({ onSubmit, error = null }) => {
   const onFormikSubmit = useSubmitCallback(onSubmit);
-  const modifyFormData = (formData) => ({...formData, ICN: [formData.identifier], legacy_ICN: formData.identifier});
+  const modifyFormData = (formData) => ({
+    ...formData,
+    ICN: [formData.identifier],
+    legacy_ICN: formData.identifier,
+  });
 
   return (
-    <div>      
+    <div>
       {error && (
         <Row className="mb3">
           <Col span={24}>
@@ -31,7 +32,7 @@ const InstitutionSubmission = ({
           <Formik
             initialValues={DEFAULT_FORM_DATA}
             validationSchema={institutionSchema}
-            onSubmit={data => onFormikSubmit(modifyFormData(data))}
+            onSubmit={(data) => onFormikSubmit(modifyFormData(data))}
             validateOnChange={false}
             component={InstitutionForm}
           />

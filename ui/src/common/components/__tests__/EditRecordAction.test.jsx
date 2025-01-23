@@ -13,14 +13,22 @@ import {
 describe('EditRecordAction', () => {
   it('renders edit button with pidType literature and pidValue', () => {
     const wrapper = shallow(
-      <EditRecordAction pidType={LITERATURE_PID_TYPE} pidValue={1} page="Literature" />
+      <EditRecordAction
+        pidType={LITERATURE_PID_TYPE}
+        pidValue={1}
+        page="Literature"
+      />
     );
     expect(wrapper).toMatchSnapshot();
   });
 
   it('renders edit button with pidType authors and pidValue', () => {
     const wrapper = shallow(
-      <EditRecordAction pidType={AUTHORS_PID_TYPE} pidValue={1} page="Authors" />
+      <EditRecordAction
+        pidType={AUTHORS_PID_TYPE}
+        pidValue={1}
+        page="Authors"
+      />
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -39,7 +47,11 @@ describe('EditRecordAction', () => {
 
   it('renders edit button with pidType conferences and pidValue', () => {
     const wrapper = shallow(
-      <EditRecordAction pidType={CONFERENCES_PID_TYPE} pidValue={1} page="Conferences" />
+      <EditRecordAction
+        pidType={CONFERENCES_PID_TYPE}
+        pidValue={1}
+        page="Conferences"
+      />
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -53,14 +65,22 @@ describe('EditRecordAction', () => {
 
   it('renders edit button with pidType institutions and pidValue', () => {
     const wrapper = shallow(
-      <EditRecordAction pidType={INSTITUTIONS_PID_TYPE} pidValue={1} page="Institutions" />
+      <EditRecordAction
+        pidType={INSTITUTIONS_PID_TYPE}
+        pidValue={1}
+        page="Institutions"
+      />
     );
     expect(wrapper).toMatchSnapshot();
   });
 
   it('renders edit button with pidType seminars and pidValue', () => {
     const wrapper = shallow(
-      <EditRecordAction pidType={SEMINARS_PID_TYPE} pidValue={1} page="Seminars" />
+      <EditRecordAction
+        pidType={SEMINARS_PID_TYPE}
+        pidValue={1}
+        page="Seminars"
+      />
     );
     expect(wrapper).toMatchSnapshot();
   });

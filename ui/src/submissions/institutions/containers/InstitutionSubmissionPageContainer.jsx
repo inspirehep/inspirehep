@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
@@ -11,19 +11,16 @@ import { INSTITUTIONS_PID_TYPE } from '../../../common/constants';
 import { INSTITUTIONS } from '../../../common/routes';
 
 export const InstitutionSubmissionPage = ({ error, onSubmit }) => (
-    <SubmissionPage
-      title="Suggest institution"
-      description={
-        <span>
-          This form allows you to create a new institution record. It will
-          appear in the <Link to={INSTITUTIONS}>Institutions List</Link> immediately.
-        </span>
-      }
-    >
-    <InstitutionSubmission
-      error={error}
-      onSubmit={onSubmit}
-    />
+  <SubmissionPage
+    title="Suggest institution"
+    description={
+      <span>
+        This form allows you to create a new institution record. It will appear
+        in the <Link to={INSTITUTIONS}>Institutions List</Link> immediately.
+      </span>
+    }
+  >
+    <InstitutionSubmission error={error} onSubmit={onSubmit} />
   </SubmissionPage>
 );
 
@@ -32,14 +29,17 @@ InstitutionSubmissionPage.propTypes = {
   error: PropTypes.instanceOf(Map),
 };
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   error: state.submissions.get('submitError'),
 });
 
-const dispatchToProps = dispatch => ({
+const dispatchToProps = (dispatch) => ({
   async onSubmit(formData) {
     await dispatch(submit(INSTITUTIONS_PID_TYPE, formData));
   },
 });
 
-export default connect(stateToProps, dispatchToProps)(InstitutionSubmissionPage);
+export default connect(
+  stateToProps,
+  dispatchToProps
+)(InstitutionSubmissionPage);

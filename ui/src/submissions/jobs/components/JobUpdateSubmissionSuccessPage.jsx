@@ -14,7 +14,11 @@ class JobUpdateSubmissionSuccessPage extends Component {
         message={
           <span>
             Successfully submitted, thank you for the submission! See the
-            updates <Link to={`${JOBS}/${id}`} className="submission-link">here</Link>.
+            updates{' '}
+            <Link to={`${JOBS}/${id}`} className="submission-link">
+              here
+            </Link>
+            .
           </span>
         }
       />

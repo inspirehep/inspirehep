@@ -191,7 +191,8 @@ const CitationSummaryGraph = ({
   );
 
   const yDomainMax = Math.max(
-    (publishedSeriesData.length !== 0 && maxBy(publishedSeriesData, 'y')?.y) || 0,
+    (publishedSeriesData.length !== 0 && maxBy(publishedSeriesData, 'y')?.y) ||
+      0,
     (citeableSeriesData.length !== 0 && maxBy(citeableSeriesData, 'y')?.y) || 0
   );
 
@@ -213,24 +214,27 @@ const CitationSummaryGraph = ({
                 >
                   <XAxis
                     className="x-axis"
-                    tickFormat={(v) => xValueToLabel[v as keyof typeof xValueToLabel]}
+                    tickFormat={(v) =>
+                      xValueToLabel[v as keyof typeof xValueToLabel]
+                    }
                   />
                   <ChartLabel
                     text="Citations"
                     xPercent={0.91}
                     yPercent={0.82}
                   />
-                  <YAxis 
-                    className="y-axis"
-                    tickFormat={abbreviateNumber} 
-                  />
+                  <YAxis className="y-axis" tickFormat={abbreviateNumber} />
                   <ChartLabel text="Papers" yPercent={-0.08} xPercent={0} />
                   <VerticalBarSeries
                     colorType="literal"
                     data={citeableSeriesData}
                     barWidth={BAR_WIDTH}
-                    onValueMouseOver={onCiteableBarHover as RVValueEventHandler<VerticalBarSeriesPoint>}
-                    onValueClick={onCiteableBarClick as RVValueEventHandler<VerticalBarSeriesPoint>}
+                    onValueMouseOver={
+                      onCiteableBarHover as RVValueEventHandler<VerticalBarSeriesPoint>
+                    }
+                    onValueClick={
+                      onCiteableBarClick as RVValueEventHandler<VerticalBarSeriesPoint>
+                    }
                     onValueMouseOut={onBarMouseOut}
                     data-test-id="citeable-bar-series"
                     className="pointer"
@@ -244,8 +248,12 @@ const CitationSummaryGraph = ({
                     colorType="literal"
                     data={publishedSeriesData}
                     barWidth={BAR_WIDTH}
-                    onValueMouseOver={onPublishedBarHover as RVValueEventHandler<VerticalBarSeriesPoint>}
-                    onValueClick={onPublishedBarClick as RVValueEventHandler<VerticalBarSeriesPoint>}
+                    onValueMouseOver={
+                      onPublishedBarHover as RVValueEventHandler<VerticalBarSeriesPoint>
+                    }
+                    onValueClick={
+                      onPublishedBarClick as RVValueEventHandler<VerticalBarSeriesPoint>
+                    }
                     onValueMouseOut={onBarMouseOut}
                     data-test-id="published-bar-series"
                     className="pointer"

@@ -25,7 +25,7 @@ function fetchError(error: { error: Error }) {
   return {
     type: EXCEPTIONS_ERROR,
     payload: error,
-    meta: { redirectableError: true }
+    meta: { redirectableError: true },
   };
 }
 

@@ -31,7 +31,7 @@ export function shouldExcludeSelfCitations(state) {
   );
 }
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   excluded: selfCitationsExcludedOnLocation(state),
   preference: selfCitationsExcludedOnUserPreferences(state),
 });

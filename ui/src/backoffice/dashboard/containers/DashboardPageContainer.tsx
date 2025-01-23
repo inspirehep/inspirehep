@@ -166,7 +166,7 @@ const DashboardPageContainer = ({
 
 const mapStateToProps = (state: RootStateOrAny) => ({
   facets: state.backoffice.get('facets'),
-  loading: state.backoffice.get('loading')
+  loading: state.backoffice.get('loading'),
 });
 
 export default connect(mapStateToProps)(DashboardPageContainer);

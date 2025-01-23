@@ -15,7 +15,7 @@ describe('ActionsDropdownOrAction', () => {
         renderAction={(url, title) => (
           <LinkWithTargetBlank href={url}>{title}</LinkWithTargetBlank>
         )}
-        renderDropdownAction={url => (
+        renderDropdownAction={(url) => (
           <Menu.Item key={url}>
             <LinkWithTargetBlank href={url}>{url}</LinkWithTargetBlank>
           </Menu.Item>
@@ -34,7 +34,7 @@ describe('ActionsDropdownOrAction', () => {
         renderAction={(url, title) => (
           <LinkWithTargetBlank href={url}>{title}</LinkWithTargetBlank>
         )}
-        renderDropdownAction={url => (
+        renderDropdownAction={(url) => (
           <Menu.Item key={url}>
             <LinkWithTargetBlank href={url}>{url}</LinkWithTargetBlank>
           </Menu.Item>

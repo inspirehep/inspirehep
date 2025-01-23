@@ -5,9 +5,7 @@ import RichTextEditor from '../RichTextEditor';
 
 describe('RichTextEditor', () => {
   it('renders', () => {
-    const wrapper = shallow(
-      <RichTextEditor onChange={jest.fn()} />
-    );
+    const wrapper = shallow(<RichTextEditor onChange={jest.fn()} />);
     expect(wrapper).toMatchSnapshot();
   });
 });

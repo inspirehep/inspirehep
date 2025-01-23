@@ -53,10 +53,7 @@ describe('CiteModalAction', () => {
     const setCiteContentFor = jest.fn();
     wrapper.instance().setCiteContentFor = setCiteContentFor;
     wrapper.update();
-    const onCiteClick = wrapper
-      .find(UserAction)
-      .find(Button)
-      .prop('onClick');
+    const onCiteClick = wrapper.find(UserAction).find(Button).prop('onClick');
     onCiteClick();
     expect(wrapper.state('modalVisible')).toBe(true);
     expect(setCiteContentFor).toHaveBeenCalledWith(initialCiteFormat);
@@ -74,10 +71,7 @@ describe('CiteModalAction', () => {
     wrapper.instance().setCiteContentFor = setCiteContentFor;
     wrapper.setState({ citeContent: 'CONTENT' });
     wrapper.update();
-    const onCiteClick = wrapper
-      .find(UserAction)
-      .find(Button)
-      .prop('onClick');
+    const onCiteClick = wrapper.find(UserAction).find(Button).prop('onClick');
     onCiteClick();
     expect(wrapper.state('modalVisible')).toBe(true);
     expect(setCiteContentFor).not.toHaveBeenCalled();

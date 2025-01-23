@@ -28,9 +28,8 @@ class JobUpdateSubmissionPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const prevRecordId = JobUpdateSubmissionPage.getRecordIdFromProps(
-      prevProps
-    );
+    const prevRecordId =
+      JobUpdateSubmissionPage.getRecordIdFromProps(prevProps);
     if (this.recordId !== prevRecordId) {
       this.dispatch(fetchUpdateFormData(JOBS_PID_TYPE, this.recordId));
     }
@@ -84,13 +83,13 @@ JobUpdateSubmissionPage.propTypes = {
   loadingUpdateFormData: PropTypes.bool.isRequired,
 };
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   error: state.submissions.get('submitError'),
   updateFormData: state.submissions.get('initialData'),
   updateFormDataError: state.submissions.get('initialDataError'),
   loadingUpdateFormData: state.submissions.get('loadingInitialData'),
 });
 
-const dispatchToProps = dispatch => ({ dispatch });
+const dispatchToProps = (dispatch) => ({ dispatch });
 
 export default connect(stateToProps, dispatchToProps)(JobUpdateSubmissionPage);

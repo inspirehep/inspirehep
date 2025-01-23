@@ -41,7 +41,7 @@ const ALLOWED_DOC_TYPES = Object.keys(FORMS_BY_DOC_TYPE);
 
 function fallbackToArticleIfNotAllowed(docType) {
   const isAllowed = ALLOWED_DOC_TYPES.some(
-    allowedDocType => docType === allowedDocType
+    (allowedDocType) => docType === allowedDocType
   );
   return isAllowed ? docType : 'article';
 }
@@ -57,9 +57,8 @@ function LiteratureSubmission({
     [docType]
   );
 
-  const { component, schema, defaultData } = FORMS_BY_DOC_TYPE[
-    normalizedDocType
-  ];
+  const { component, schema, defaultData } =
+    FORMS_BY_DOC_TYPE[normalizedDocType];
   const initialValues = useMemo(
     () => ({ ...defaultData, ...initialFormData }),
     [defaultData, initialFormData]
@@ -67,20 +66,17 @@ function LiteratureSubmission({
 
   const [initialErrors, setInitialErrors] = useState();
 
-  useAsyncEffect(
-    async () => {
-      try {
-        const hasImportedData = Boolean(initialFormData);
-        if (hasImportedData) {
-          await schema.validate(initialValues);
-        }
-      } catch (yupErrors) {
-        const errors = yupToFormErrors(yupErrors);
-        setInitialErrors(errors);
+  useAsyncEffect(async () => {
+    try {
+      const hasImportedData = Boolean(initialFormData);
+      if (hasImportedData) {
+        await schema.validate(initialValues);
       }
-    },
-    [initialValues, schema]
-  );
+    } catch (yupErrors) {
+      const errors = yupToFormErrors(yupErrors);
+      setInitialErrors(errors);
+    }
+  }, [initialValues, schema]);
 
   const onFormikSubmit = useSubmitCallback(onSubmit);
   return (

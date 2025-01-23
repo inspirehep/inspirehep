@@ -1,13 +1,14 @@
 {
   "root": true,
   "parser": "babel-eslint",
-  "plugins": ["react-hooks"],
-  "extends": ["airbnb", "prettier", "prettier/react"],
+  "plugins": ["react-hooks", "prettier"],
+  "extends": ["airbnb",  "prettier"],
   "env": {
     "browser": true,
     "jest": true
   },
   "rules": {
+    "prettier/prettier": "error",
     "func-names": "off",
     "no-plusplus": "off",
     "no-param-reassign": [

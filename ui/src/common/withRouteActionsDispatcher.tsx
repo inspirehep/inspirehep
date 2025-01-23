@@ -16,7 +16,9 @@ export default function withRouteActionsDispatcher(
     loadingStateSelector,
   }: {
     routeParamSelector: ({ id }: { id: number }) => number;
-    routeActions: (id: number) => (
+    routeActions: (
+      id: number
+    ) => (
       | ((
           dispatch: Dispatch<AnyAction>,
           getState: () => RootStateOrAny,
@@ -33,8 +35,8 @@ export default function withRouteActionsDispatcher(
     loading,
     ...props
   }: {
-    match: { params: { id: number, old?: number, new?: number } };
-    dispatch:  ActionCreator<Action>;
+    match: { params: { id: number; old?: number; new?: number } };
+    dispatch: ActionCreator<Action>;
     loading: boolean;
   }) => {
     const selectedParam = routeParamSelector(match.params);

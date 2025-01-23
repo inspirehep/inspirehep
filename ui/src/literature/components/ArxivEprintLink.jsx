@@ -15,7 +15,11 @@ class ArxivEprintLink extends Component {
 
     const href = `//arxiv.org/abs/${this.arxivId}`;
     return (
-      <EventTracker eventCategory={page} eventAction="link" eventId="Arvix eprint link">
+      <EventTracker
+        eventCategory={page}
+        eventAction="link"
+        eventId="Arvix eprint link"
+      >
         <LinkWithTargetBlank href={href}>{this.arxivId}</LinkWithTargetBlank>
       </EventTracker>
     );

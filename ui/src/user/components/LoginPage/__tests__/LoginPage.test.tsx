@@ -7,9 +7,7 @@ jest.mock('../../../../actions/user');
 
 describe('LoginPage', () => {
   it('renders page', () => {
-    const { asFragment } = render(
-      <LoginPage previousUrl="/" />
-    );
+    const { asFragment } = render(<LoginPage previousUrl="/" />);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -19,6 +17,9 @@ describe('LoginPage', () => {
 
     const loginPage = getByTestId('login-page');
     const button = within(loginPage).getByTestId('login-button');
-    expect(button).toHaveAttribute('href', `/api/accounts/login?next=${previousUrl}`);
+    expect(button).toHaveAttribute(
+      'href',
+      `/api/accounts/login?next=${previousUrl}`
+    );
   });
 });

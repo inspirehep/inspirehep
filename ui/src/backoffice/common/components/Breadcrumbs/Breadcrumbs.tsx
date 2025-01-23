@@ -16,7 +16,7 @@ type BreadcrumbItemProps = {
   title2?: string;
   href2?: string;
   dashboardPage?: boolean;
-}
+};
 
 const Breadcrumbs = ({
   onSearch,
@@ -60,7 +60,7 @@ const Breadcrumbs = ({
           enterButton
           placeholder="Search Backoffice"
           onPressEnter={(event: React.KeyboardEvent<HTMLInputElement>) => {
-            onSearch(BACKOFFICE_SEARCH_NS, event?.currentTarget?.value)
+            onSearch(BACKOFFICE_SEARCH_NS, event?.currentTarget?.value);
           }}
           onSearch={(value: string) => {
             onSearch(BACKOFFICE_SEARCH_NS, value);
@@ -75,18 +75,13 @@ const Breadcrumbs = ({
 };
 
 const stateToProps = (state: RootStateOrAny) => ({
-  query: state.search.getIn([
-    'namespaces',
-    BACKOFFICE_SEARCH_NS,
-    'query',
-    'q',
-  ]),
+  query: state.search.getIn(['namespaces', BACKOFFICE_SEARCH_NS, 'query', 'q']),
   namespace: BACKOFFICE_SEARCH_NS,
 });
 
 export const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
   onSearch(namespace: string, value: string) {
-      dispatch(searchQueryUpdate(namespace, { q: value || undefined }));
+    dispatch(searchQueryUpdate(namespace, { q: value || undefined }));
   },
 });
 

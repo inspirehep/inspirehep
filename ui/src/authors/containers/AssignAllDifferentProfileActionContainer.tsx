@@ -10,7 +10,7 @@ const stateToProps = (state: RootStateOrAny) => ({
 });
 
 const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
-  onAssign({ from, to }: { from: string, to: string }) {
+  onAssign({ from, to }: { from: string; to: string }) {
     dispatch(assignDifferentProfile({ from, to }));
   },
 });

@@ -7,6 +7,6 @@ function LinkWithEncodedLiteratureQuery({ query }: { query: string }) {
   return (
     <Link to={`${LITERATURE}?q=${encodeURIComponent(query)}`}>{query}</Link>
   );
-};
+}
 
 export default LinkWithEncodedLiteratureQuery;

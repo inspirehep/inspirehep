@@ -46,7 +46,7 @@ describe('DataItem', () => {
         },
       ],
       control_number: 1234,
-      citation_count: 666
+      citation_count: 666,
     });
 
     const { asFragment } = render(
@@ -98,7 +98,7 @@ describe('DataItem', () => {
         },
       ],
       control_number: 1234,
-      citation_count: 0
+      citation_count: 0,
     });
 
     const { asFragment } = render(
@@ -108,7 +108,6 @@ describe('DataItem', () => {
     );
     expect(asFragment()).toMatchSnapshot();
   });
-
 
   it('renders with only needed props', () => {
     const metadata = fromJS({

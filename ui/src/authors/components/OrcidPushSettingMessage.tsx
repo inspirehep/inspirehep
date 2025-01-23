@@ -2,7 +2,13 @@ import React from 'react';
 
 import OrcidProfileLink from '../../common/components/OrcidProfileLink';
 
-function OrcidPushSettingMessage({ orcid, enabled }: { orcid: string, enabled: boolean }) {
+function OrcidPushSettingMessage({
+  orcid,
+  enabled,
+}: {
+  orcid: string;
+  enabled: boolean;
+}) {
   if (enabled) {
     return (
       <div>

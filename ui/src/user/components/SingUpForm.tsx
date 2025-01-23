@@ -23,7 +23,12 @@ function SingUpForm({
     Function;
 }) {
   return (
-    <Formik validationSchema={SCHEMA} initialValues={{}} onSubmit={onSignUp} validateOnChange={false}>
+    <Formik
+      validationSchema={SCHEMA}
+      initialValues={{}}
+      onSubmit={onSignUp}
+      validateOnChange={false}
+    >
       {(props) => (
         <Form>
           <Field

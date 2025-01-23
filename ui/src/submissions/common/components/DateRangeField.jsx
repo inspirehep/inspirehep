@@ -25,12 +25,9 @@ function DateRangeField({ value = [], ...props }) {
     [form, name]
   );
 
-  const onBlur = useCallback(
-    () => {
-      form.setFieldTouched(name, true);
-    },
-    [form, name]
-  );
+  const onBlur = useCallback(() => {
+    form.setFieldTouched(name, true);
+  }, [form, name]);
 
   return (
     <DatePicker.RangePicker

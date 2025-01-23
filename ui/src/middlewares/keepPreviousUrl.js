@@ -4,7 +4,7 @@ import { HOME } from '../common/routes';
 let previousUrl = HOME;
 
 export default () => {
-  return next => action => {
+  return (next) => (action) => {
     if (action.type === LOCATION_CHANGE) {
       const { location } = action.payload;
       location.previousUrl = previousUrl;

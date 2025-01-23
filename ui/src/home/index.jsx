@@ -26,7 +26,12 @@ function Home() {
   return (
     <>
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
-      <Row className="__Home__" justify="center" align="middle" data-testid="home">
+      <Row
+        className="__Home__"
+        justify="center"
+        align="middle"
+        data-testid="home"
+      >
         <Col span={24}>
           <HomePageSection
             title="Discover High-Energy Physics Content"
@@ -35,7 +40,11 @@ function Home() {
             <>
               <SearchBoxContainer />
               <div className="tc f5 mt4" data-test-id="scroll-button">
-                <EventTracker eventCategory="Home page" eventAction="Link" eventId="How to search" >
+                <EventTracker
+                  eventCategory="Home page"
+                  eventAction="Link"
+                  eventId="How to search"
+                >
                   <LinkLikeButton onClick={scrollToSection} color="blue middle">
                     How to search?
                   </LinkLikeButton>

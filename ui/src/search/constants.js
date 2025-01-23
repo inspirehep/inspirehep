@@ -8,7 +8,7 @@ import {
   EXPERIMENTS,
   JOURNALS,
   DATA,
-  BACKOFFICE_SEARCH
+  BACKOFFICE_SEARCH,
 } from '../common/routes';
 
 export const AUTHORS_NS = 'authors';
@@ -45,7 +45,7 @@ export const SEARCH_BOX_NAMESPACES = [
   INSTITUTIONS_NS,
   EXPERIMENTS_NS,
   JOURNALS_NS,
-  DATA_NS
+  DATA_NS,
 ];
 
 export const SEARCHABLE_COLLECTION_PATHNAMES = [
@@ -58,7 +58,7 @@ export const SEARCHABLE_COLLECTION_PATHNAMES = [
   EXPERIMENTS,
   JOURNALS,
   DATA,
-  BACKOFFICE_SEARCH
+  BACKOFFICE_SEARCH,
 ];
 
 export const NAMESPACE_TO_PATHNAME = {
@@ -88,7 +88,9 @@ export const NAMESPACE_TO_PATHNAME = {
   [BACKOFFICE_SEARCH_NS]: BACKOFFICE_SEARCH,
 };
 
-export const PATHNAME_TO_NAMESPACE = Object.entries(NAMESPACE_TO_PATHNAME).reduce(
+export const PATHNAME_TO_NAMESPACE = Object.entries(
+  NAMESPACE_TO_PATHNAME
+).reduce(
   (acc, [namespace, pathname]) => ({
     ...acc,
     [pathname]: namespace,

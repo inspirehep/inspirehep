@@ -20,11 +20,10 @@ import { isSuperUser } from '../../../common/authorization';
 import ResultItem from '../../common/components/ResultItem/ResultItem';
 import Breadcrumbs from '../../common/components/Breadcrumbs/Breadcrumbs';
 
-
-type BackofficeSearchPageProps = { 
-  loading: boolean; 
-  query: any; 
-  loadingAggregations: boolean; 
+type BackofficeSearchPageProps = {
+  loading: boolean;
+  query: any;
+  loadingAggregations: boolean;
   onSortByChange: (namespace: string, value: string) => void;
 };
 
@@ -35,11 +34,19 @@ function renderWorkflowItem(item: Map<string, any>) {
   return <ResultItem item={item} key={item.get('id')} />;
 }
 
-const BackofficeSearchPage = ({ loading, query, loadingAggregations, onSortByChange }: BackofficeSearchPageProps ) => {
+const BackofficeSearchPage = ({
+  loading,
+  query,
+  loadingAggregations,
+  onSortByChange,
+}: BackofficeSearchPageProps) => {
   const renderAggregations = useCallback(
     () => (
       <LoadingOrChildren loading={loadingAggregations}>
-        <AggregationFiltersContainer namespace={BACKOFFICE_SEARCH_NS} page="Workflows search" />
+        <AggregationFiltersContainer
+          namespace={BACKOFFICE_SEARCH_NS}
+          page="Workflows search"
+        />
       </LoadingOrChildren>
     ),
     [loadingAggregations]
@@ -61,7 +68,7 @@ const BackofficeSearchPage = ({ loading, query, loadingAggregations, onSortByCha
                     <Select
                       defaultValue="-_updated_at"
                       value={query?.get('ordering')}
-                      style={{ width: '100%', }}
+                      style={{ width: '100%' }}
                       data-testid="select-sort-by"
                       options={[
                         { value: '-_updated_at', label: 'Most recent' },
@@ -105,17 +112,22 @@ const BackofficeSearchPage = ({ loading, query, loadingAggregations, onSortByCha
                       max="md"
                       render={() => (
                         <DrawerHandle handleText="Filter" drawerTitle="Filter">
-
                           <div style={{ padding: '0.5rem' }}>
                             <AggregationBox name="Sort by">
                               <Select
                                 defaultValue="-_updated_at"
                                 value={query?.get('ordering')}
-                                style={{ width: '100%', }}
+                                style={{ width: '100%' }}
                                 data-testid="select-sort-by"
                                 options={[
-                                  { value: '-_updated_at', label: 'Most recent' },
-                                  { value: '_updated_at', label: 'Least recent' },
+                                  {
+                                    value: '-_updated_at',
+                                    label: 'Most recent',
+                                  },
+                                  {
+                                    value: '_updated_at',
+                                    label: 'Least recent',
+                                  },
                                 ]}
                                 onChange={(value: string) =>
                                   onSortByChange(BACKOFFICE_SEARCH_NS, value)
@@ -124,7 +136,6 @@ const BackofficeSearchPage = ({ loading, query, loadingAggregations, onSortByCha
                             </AggregationBox>
                           </div>
                           {renderAggregations()}
-
                         </DrawerHandle>
                       )}
                     />
@@ -146,7 +157,7 @@ const BackofficeSearchPage = ({ loading, query, loadingAggregations, onSortByCha
       </Row>
     </div>
   );
-}
+};
 
 BackofficeSearchPage.propTypes = {
   loading: PropTypes.bool.isRequired,
@@ -160,18 +171,13 @@ const stateToProps = (state: RootStateOrAny) => ({
     BACKOFFICE_SEARCH_NS,
     'loadingAggregations',
   ]),
-  query: state.search.getIn([
-    'namespaces',
-    BACKOFFICE_SEARCH_NS,
-    'query',
-  ]),
-
+  query: state.search.getIn(['namespaces', BACKOFFICE_SEARCH_NS, 'query']),
 });
 
 export const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
   onSortByChange(namespace: string, value: string) {
     /* @ts-ignore */
-    dispatch(searchQueryUpdate(namespace, {ordering: value}));
+    dispatch(searchQueryUpdate(namespace, { ordering: value }));
   },
 });
 

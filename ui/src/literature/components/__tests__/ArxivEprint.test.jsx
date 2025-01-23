@@ -10,11 +10,7 @@ describe('ArxivEprint', () => {
       value: '123.12345',
       categories: ['cat'],
     });
-    const wrapper = shallow((
-      <ArxivEprint
-        eprint={eprint}
-      />
-    ));
+    const wrapper = shallow(<ArxivEprint eprint={eprint} />);
     expect(wrapper).toMatchSnapshot();
   });
 });

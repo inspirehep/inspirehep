@@ -34,7 +34,11 @@ function AssignDrawer({
   onAssign,
 }: {
   visible: boolean;
-  onDrawerClose: ((e: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>) => void) | undefined;
+  onDrawerClose:
+    | ((
+        e: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>
+      ) => void)
+    | undefined;
   selectedPapers: Set<string>;
   onAssign: Function;
 }) {
@@ -68,7 +72,10 @@ function AssignDrawer({
         onChange={onSelectedAuthorChange}
       >
         {/* @ts-ignore */}
-        <ResultsContainer namespace={ASSIGN_AUTHOR_NS} renderItem={renderAuthorItem} />
+        <ResultsContainer
+          namespace={ASSIGN_AUTHOR_NS}
+          renderItem={renderAuthorItem}
+        />
         <div className="mv2">
           <Radio value="new">
             <strong>New author</strong>

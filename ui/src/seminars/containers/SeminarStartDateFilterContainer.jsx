@@ -12,7 +12,7 @@ import {
   LOCAL_TIMEZONE,
 } from '../../common/constants';
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   selection: state.search.getIn([
     'namespaces',
     SEMINARS_NS,

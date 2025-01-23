@@ -86,10 +86,13 @@ class ReferenceItem extends Component {
       'collaborations_with_suffix'
     );
 
-    const enableEdit =  getConfigFor('SELF_CURATION_BUTTON') && !disableEdit;
+    const enableEdit = getConfigFor('SELF_CURATION_BUTTON') && !disableEdit;
 
     return (
-      <div data-test-id="reference-item" id={reference_index && `reference-${reference_index}`}>
+      <div
+        data-test-id="reference-item"
+        id={reference_index && `reference-${reference_index}`}
+      >
         <List.Item>
           <Row
             gutter={24}

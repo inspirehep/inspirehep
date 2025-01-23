@@ -21,7 +21,6 @@ const resolveSuccessMessage = (
     numberOfPapers
   )} will be ${action} your profile.`;
 
-
 const resolveSuccessMessageMixedPapers = (
   numberOfClaimedPapers: number,
   numberOfUnclaimedPapers: number
@@ -58,7 +57,7 @@ export function assignSuccess({
     duration: null,
     description: (
       <span data-test-id="claim-notification-description">
-        Selected papers ({literatureIds.join(", ")}) will be moved from{' '}
+        Selected papers ({literatureIds.join(', ')}) will be moved from{' '}
         <LinkWithTargetBlank href={`${AUTHORS}/${from}`}>
           {from}
         </LinkWithTargetBlank>{' '}
