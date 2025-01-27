@@ -18,6 +18,8 @@ import LiteratureRecordsList from '../../../common/components/LiteratureRecordsL
 import DOIListShowAll from '../../components/DOIListShowAll';
 import IncomingLiteratureReferencesLinkAction from '../../../common/components/IncomingLiteratureReferencesLinkAction';
 import { getReferencingPapersQueryString } from '../../utils';
+import DocumentHead from '../../../common/components/DocumentHead';
+import { makeCompliantMetaDescription } from '../../../common/utils';
 
 interface DetailPageProps {
   result: any; // TODO: define proper type for result
@@ -41,8 +43,12 @@ const DetailPage = ({
   const urls = metadata.get('urls');
   const citationCount = metadata.get('citation_count');
 
+  const metaDescription =
+    abstract && makeCompliantMetaDescription(abstract.get('value'));
+
   return (
     <>
+      <DocumentHead title={title.get('title')} description={metaDescription} />
       <Row justify="center" data-testid="data-detail-page-container">
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
