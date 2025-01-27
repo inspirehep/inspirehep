@@ -1,18 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Experiments renders initial state 1`] = `
-<div
-  className="w-100"
->
-  <Route
-    component={[Function]}
-    exact={true}
-    path="/experiments"
+<DocumentFragment>
+  <div
+    class="w-100"
   />
-  <Route
-    component={[Function]}
-    exact={true}
-    path="/experiments/:id"
-  />
-</div>
+</DocumentFragment>
 `;

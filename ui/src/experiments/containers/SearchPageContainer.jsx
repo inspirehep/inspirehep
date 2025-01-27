@@ -44,7 +44,7 @@ function ExperimentSearchPage({
   return (
     <>
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
-      <Row>
+      <Row data-testid="experiments-search-page-container">
         <Col xs={24} lg={22} xl={20} xxl={18}>
           <Row className="mt3" gutter={SEARCH_PAGE_GUTTER} justify="start">
             <Col xs={0} lg={7}>
