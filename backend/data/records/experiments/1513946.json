@@ -38,5 +38,10 @@
     "legacy_creation_date": "2017-02-17",
     "inspire_classification": [
         "Non-experimental|Lattice Gauge Theory"
-    ]
+    ],
+    "date_started":"1984-02-01",
+    "date_approved":"1984-02-02",
+    "date_proposed":"1984-02-03",
+    "date_cancelled":"1984-02-04",
+    "date_completed":"1984-02-05"
 }

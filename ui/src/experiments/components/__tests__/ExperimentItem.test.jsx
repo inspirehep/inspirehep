@@ -1,7 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 import ExperimentItem from '../ExperimentItem';
+import { getStore } from '../../../fixtures/store';
 
 describe('ExperimentItem', () => {
   it('renders with all props set', () => {
@@ -26,8 +29,14 @@ describe('ExperimentItem', () => {
       urls: [{ value: 'http://url.com' }],
     });
 
-    const wrapper = shallow(<ExperimentItem metadata={metadata} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <ExperimentItem metadata={metadata} />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with only needed props', () => {
@@ -36,7 +45,13 @@ describe('ExperimentItem', () => {
       control_number: 1234,
     });
 
-    const wrapper = shallow(<ExperimentItem metadata={metadata} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <ExperimentItem metadata={metadata} />{' '}
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });

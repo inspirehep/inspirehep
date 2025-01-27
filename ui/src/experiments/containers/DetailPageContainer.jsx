@@ -62,7 +62,7 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
         title={legacyName}
         description={makeCompliantMetaDescription(description)}
       />
-      <Row justify="center">
+      <Row justify="center" data-testid="experiments-detail-page-container">
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
             className="sm-pb3"
