@@ -22,11 +22,18 @@ import {
   JOBS_PID_TYPE,
   CONFERENCES_PID_TYPE,
   SEMINARS_PID_TYPE,
+  DATA_PID_TYPE,
 } from '../../constants';
 import CollectionLink from './CollectionLink';
 import DropdownMenu from '../../components/DropdownMenu';
 
-function CollectionsMenu({ currentPathname }: { currentPathname: string }) {
+function CollectionsMenu({
+  canAccessDataCollection,
+  currentPathname,
+}: {
+  canAccessDataCollection?: boolean;
+  currentPathname: string;
+}) {
   const activeCollection = useMemo(
     () => getRootOfLocationPathname(currentPathname),
     [currentPathname]
@@ -61,7 +68,11 @@ function CollectionsMenu({ currentPathname }: { currentPathname: string }) {
   ];
 
   return (
-    <Row className="__CollectionsMenu__" justify="center">
+    <Row
+      className="__CollectionsMenu__"
+      justify="center"
+      data-testid="collections-menu"
+    >
       <Col>
         <CollectionLink
           active={activeCollection === LITERATURE_PID_TYPE}
@@ -99,6 +110,13 @@ function CollectionsMenu({ currentPathname }: { currentPathname: string }) {
           Conferences
         </CollectionLink>
       </Col>
+      {canAccessDataCollection && (
+        <Col>
+          <CollectionLink active={activeCollection === DATA_PID_TYPE} to={DATA}>
+            Data
+          </CollectionLink>
+        </Col>
+      )}
       <Col>
         <DropdownMenu
           overlayClassName="more-collections-menu"
@@ -118,6 +136,7 @@ function CollectionsMenu({ currentPathname }: { currentPathname: string }) {
 }
 
 CollectionsMenu.propTypes = {
+  canAccessDataCollection: PropTypes.bool,
   currentPathname: PropTypes.string.isRequired,
 };
 
