@@ -17,7 +17,7 @@ function linkToHrefDisplayPair(link: Map<string, string>) {
 }
 
 interface UrlsActionProps {
-  urls: List<string>;
+  urls: List<string>; // TODO: Fix this type. This is wrong, we should read a List of Map objects, not a List of strings
   text: string;
   icon: JSX.Element;
   trackerEventId: string;

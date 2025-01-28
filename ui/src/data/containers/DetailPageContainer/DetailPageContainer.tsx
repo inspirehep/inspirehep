@@ -2,8 +2,9 @@ import React from 'react';
 
 import { connect, RootStateOrAny } from 'react-redux';
 import { Col, Row } from 'antd';
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 import './DetailPage.less';
+import { FileOutlined } from '@ant-design/icons';
 import { isSuperUser } from '../../../common/authorization';
 
 import fetchData, { fetchDataAuthors } from '../../../actions/data';
@@ -17,7 +18,10 @@ import Abstract from '../../../literature/components/Abstract';
 import LiteratureRecordsList from '../../../common/components/LiteratureRecordsList';
 import DOIListShowAll from '../../components/DOIListShowAll';
 import IncomingLiteratureReferencesLinkAction from '../../../common/components/IncomingLiteratureReferencesLinkAction';
-import { getReferencingPapersQueryString } from '../../utils';
+import {
+  getReferencingPapersQueryString,
+  transformLiteratureRecords,
+} from '../../utils';
 import DocumentHead from '../../../common/components/DocumentHead';
 import { makeCompliantMetaDescription } from '../../../common/utils';
 
@@ -42,6 +46,7 @@ const DetailPage = ({
   const collaborations = metadata.get('collaborations', List());
   const urls = metadata.get('urls');
   const citationCount = metadata.get('citation_count');
+  const literatureLinks = transformLiteratureRecords(literatureRecords);
 
   const metaDescription =
     abstract && makeCompliantMetaDescription(abstract.get('value'));
@@ -65,6 +70,15 @@ const DetailPage = ({
                 )}
                 {isSuperUserLoggedIn && (
                   <APIButton url={window.location.href} />
+                )}
+                {literatureLinks && (
+                  <UrlsAction
+                    urls={literatureLinks as any}
+                    icon={<FileOutlined />}
+                    text="literature"
+                    trackerEventId="Literature links"
+                    page="Literature detail"
+                  />
                 )}
               </>
             }

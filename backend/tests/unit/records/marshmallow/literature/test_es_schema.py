@@ -18,8 +18,9 @@ from mock import patch
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
     return_value=[],
 )
+@patch("inspirehep.records.marshmallow.literature.ui.current_app")
 def test_es_schema_removes_supervisors_from_authors(
-    mock_referenced_authors, mock_cv_format
+    mock_referenced_authors, mock_cv_format, current_app_mock
 ):
     schema = LiteratureElasticSearchSchema()
     authors = [
@@ -42,8 +43,9 @@ def test_es_schema_removes_supervisors_from_authors(
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
     return_value=[],
 )
+@patch("inspirehep.records.marshmallow.literature.ui.current_app")
 def test_es_schema_removes_supervisors_from_facet_author_name(
-    mock_referenced_authors, mock_cv_format
+    mock_referenced_authors, mock_cv_format, current_app_mock
 ):
     schema = LiteratureElasticSearchSchema()
     authors = [

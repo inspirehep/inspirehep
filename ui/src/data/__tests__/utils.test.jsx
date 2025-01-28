@@ -1,5 +1,10 @@
 import { List, Map } from 'immutable';
-import { filterDoisByMaterial, hasAdditionalDois } from '../utils';
+import {
+  filterDoisByMaterial,
+  hasAdditionalDois,
+  transformLiteratureRecords,
+} from '../utils';
+import { LITERATURE } from '../../common/routes';
 
 describe('utils', () => {
   describe('filterDoisByMaterial', () => {
@@ -44,6 +49,34 @@ describe('utils', () => {
     it('should return false if the list of DOIs is empty', () => {
       const dois = List([]);
       expect(hasAdditionalDois(dois)).toBe(false);
+    });
+  });
+
+  describe('transformLiteratureRecords', () => {
+    it('returns null when literatureRecords is empty', () => {
+      const literatureRecords = List();
+      const result = transformLiteratureRecords(literatureRecords);
+      expect(result).toBeNull();
+    });
+
+    it('returns a list of maps when literatureRecords contains valid records', () => {
+      const literatureRecords = List([
+        Map({
+          control_number: 1,
+          record: Map({
+            $ref: 'http://example.com/record/1',
+          }),
+        }),
+      ]);
+      const result = transformLiteratureRecords(literatureRecords);
+      expect(result).toEqual(
+        List([
+          Map({
+            value: `${LITERATURE}/1`,
+            description: 1,
+          }),
+        ])
+      );
     });
   });
 });
