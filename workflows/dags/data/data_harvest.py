@@ -32,7 +32,7 @@ def data_harvest_dag():
     2. download_record_versions: fetches a data record and all its previous versions
     3. build_record: Build a record that is compatible with the INSPIRE data schema
     4. normalize_collaborations: Normalize the collaborations in the record.
-    5. load_record: Creates or Updates the record on INSPIRE
+    5. load_record: Creates or Updates the record on INSPIRE.
     """
     generic_http_hook = GenericHttpHook(http_conn_id="hepdata_connection")
     inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
