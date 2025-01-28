@@ -6,7 +6,7 @@
 
 import orjson
 from flask import current_app, request
-from inspire_dojson.utils import get_record_ref
+from inspire_dojson.utils import get_recid_from_ref, get_record_ref
 from inspire_utils.date import format_date
 from inspire_utils.record import get_value, get_values_for_schema
 from marshmallow import fields, missing, pre_dump
@@ -44,6 +44,7 @@ from inspirehep.records.marshmallow.literature.utils import (
     get_parent_records,
 )
 from inspirehep.records.utils import get_literature_earliest_date
+from inspirehep.utils import get_inspirehep_url
 
 DATASET_SCHEMA_TO_URL_PREFIX_MAP = {
     "hepdata": "https://www.hepdata.net/record/",
@@ -250,6 +251,9 @@ class LiteratureDetailSchema(
         return urls or missing
 
     def get_datasets(self, data):
+        if current_app.config.get("FEATURE_FLAG_ENABLE_LITERATURE_DATA_LINKS"):
+            return self.get_datasets_from_data_links(data)
+
         dataset_links = []
         all_links = get_value(data, "external_system_identifiers", [])
         for link in all_links:
@@ -262,6 +266,18 @@ class LiteratureDetailSchema(
                 dataset_links.append(
                     {"value": dataset_url, "description": dataset_description}
                 )
+        return dataset_links or missing
+
+    def get_datasets_from_data_links(self, data):
+        inspirehep_url = get_inspirehep_url()
+        dataset_links = []
+        all_links = get_value(data, "data", [])
+        for link in all_links:
+            data_control_number = get_recid_from_ref(link.get("record"))
+            data_ui_link = f"{inspirehep_url}/data/{data_control_number}"
+            dataset_links.append(
+                {"value": data_ui_link, "description": data_control_number}
+            )
         return dataset_links or missing
 
     def get_documents_without_fulltext(self, data):

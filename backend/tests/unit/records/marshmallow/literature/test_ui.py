@@ -132,7 +132,8 @@ def test_internal_fulltext_files_turned_off(current_s3_mock, current_app_mock):
     assert "fulltext_links" not in serialized
 
 
-def test_arxiv_url():
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
+def test_arxiv_url(current_app_mock):
     expected_data = [
         {"value": "https://arxiv.org/pdf/nucl-th/9310030", "description": "arXiv"}
     ]
@@ -146,14 +147,16 @@ def test_arxiv_url():
     assert serialized["fulltext_links"] == expected_data
 
 
-def test_arxiv_missing_value():
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
+def test_arxiv_missing_value(current_app_mock):
     entry_data = {"arxiv_eprints": [{"categories": ["nucl-th"]}], "control_number": 1}
     serializer = LiteratureDetailSchema()
     serialized = serializer.dump(entry_data).data
     assert "fulltext_links" not in serialized
 
 
-def test_kek_url():
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
+def test_kek_url(current_app_mock):
     expected_data = [
         {
             "description": "KEK scanned document",
@@ -170,7 +173,8 @@ def test_kek_url():
     assert serialized["fulltext_links"] == expected_data
 
 
-def test_kek_missing_value():
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
+def test_kek_missing_value(current_app_mock):
     entry_data = {
         "external_system_identifiers": [{"schema": "KEKSCAN"}],
         "control_number": 1,
@@ -180,7 +184,8 @@ def test_kek_missing_value():
     assert "fulltext_links" not in serialized
 
 
-def test_arxiv_paper_without_ads_id_gets_ads_link_with_arxiv():
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
+def test_arxiv_paper_without_ads_id_gets_ads_link_with_arxiv(current_app_mock):
     expected_data = [
         {
             "url_name": "ADS Abstract Service",
@@ -198,7 +203,8 @@ def test_arxiv_paper_without_ads_id_gets_ads_link_with_arxiv():
     assert serialized["external_system_identifiers"] == expected_data
 
 
-def test_arxiv_paper_with_ads_id_does_not_get_ads_link_with_arxiv():
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
+def test_arxiv_paper_with_ads_id_does_not_get_ads_link_with_arxiv(current_app_mock):
     expected_data = [
         {
             "url_name": "ADS Abstract Service",
@@ -217,7 +223,9 @@ def test_arxiv_paper_with_ads_id_does_not_get_ads_link_with_arxiv():
     assert serialized["external_system_identifiers"] == expected_data
 
 
-def test_dataset_links():
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
+def test_dataset_links(current_app_mock):
+    current_app_mock.config = {"FEATURE_FLAG_ENABLE_LITERATURE_DATA_LINKS": False}
     external_system_identifiers = {
         "external_system_identifiers": [
             {"schema": "HEPDATA", "value": "hep-123"},
@@ -232,7 +240,27 @@ def test_dataset_links():
     assert serialized["dataset_links"] == expected_data
 
 
-def test_literature_detail_serializes_date_from_dictionary():
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
+def test_dataset_links_data(current_app_mock):
+    current_app_mock.config = {"FEATURE_FLAG_ENABLE_LITERATURE_DATA_LINKS": True}
+
+    entry_data = {
+        "data": [
+            {"record": {"$ref": "https://inspirebeta.net/api/data/2727272"}},
+            {"record": {"$ref": "https://inspirebeta.net/api/data/2727275"}},
+        ]
+    }
+    expected_data = [
+        {"value": "https://inspirebeta.net/data/2727272", "description": 2727272},
+        {"value": "https://inspirebeta.net/data/2727275", "description": 2727275},
+    ]
+    serializer = LiteratureDetailSchema()
+    serialized = serializer.dump(entry_data).data
+    assert serialized["dataset_links"] == expected_data
+
+
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
+def test_literature_detail_serializes_date_from_dictionary(current_app_mock):
     data = {"preprint_date": "2020-09-15"}
     expected_data = {"date": "Sep 15, 2020", "preprint_date": "2020-09-15"}
     serializer = LiteratureDetailSchema()
@@ -240,6 +268,7 @@ def test_literature_detail_serializes_date_from_dictionary():
     assert serialized == expected_data
 
 
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
 @pytest.mark.parametrize(
     ("collections", "expected_is_collection_hidden"),
     [
@@ -248,7 +277,9 @@ def test_literature_detail_serializes_date_from_dictionary():
         (["FermiLab"], True),
     ],
 )
-def test_literature_is_collection_hidden(collections, expected_is_collection_hidden):
+def test_literature_is_collection_hidden(
+    current_app_mock, collections, expected_is_collection_hidden
+):
     serializer = LiteratureDetailSchema()
     serialized = serializer.dump({"_collections": collections}).data
 
@@ -282,7 +313,8 @@ def test_documents_doesnt_contain_error_from_fulltext(
     assert "_error" not in serialized
 
 
-def test_filter_non_pdg_keywords():
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
+def test_filter_non_pdg_keywords(current_app_mock):
     data = {
         "keywords": [
             {"schema": "PDG", "source": "PDG", "value": "M013WX"},
@@ -295,7 +327,8 @@ def test_filter_non_pdg_keywords():
     assert serialized["keywords"] == expected_data
 
 
-def test_filter_pdg_keywords():
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
+def test_filter_pdg_keywords(current_app_mock):
     data = {
         "keywords": [
             {"schema": "PDG", "source": "PDG", "value": "M013WX"},

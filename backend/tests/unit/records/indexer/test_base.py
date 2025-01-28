@@ -41,7 +41,9 @@ from inspirehep.records.api import LiteratureRecord
 @mock.patch("inspirehep.indexer.base.current_app")
 @mock.patch("inspirehep.records.api.base.RecordMetadata")
 @mock.patch("inspirehep.records.api.mixins.current_app")
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
 def test_indexer_prepare_record(
+    current_app_mock_ui,
     mixins_current_app_mock,
     record_metadata_mock,
     current_app_mock,
