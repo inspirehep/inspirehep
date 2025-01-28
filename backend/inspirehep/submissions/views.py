@@ -221,19 +221,20 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
             LOGGER.info(
                 "Sending author submission to backoffice", data=payload_backoffice
             )
-            self.send_post_request_to_workflows(
+            return self.send_post_request_to_workflows(
                 current_app.config["INSPIRE_BACKOFFICE_URL"],
                 "/api/workflows/authors/",
                 payload_backoffice,
                 current_app.config["AUTHENTICATION_TOKEN_BACKOFFICE"],
                 bearer_keyword="Token",
             )
-        return self.send_post_request_to_workflows(
-            current_app.config["INSPIRE_NEXT_URL"],
-            "/workflows/authors",
-            payload,
-            current_app.config["AUTHENTICATION_TOKEN"],
-        )
+        else:
+            return self.send_post_request_to_workflows(
+                current_app.config["INSPIRE_NEXT_URL"],
+                "/workflows/authors",
+                payload,
+                current_app.config["AUTHENTICATION_TOKEN"],
+            )
 
     def create_ticket(self, record, rt_template):
         control_number = record["control_number"]
