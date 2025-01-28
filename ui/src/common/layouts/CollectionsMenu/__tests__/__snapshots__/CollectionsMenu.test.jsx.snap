@@ -1,0 +1,861 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CollectionsMenu renders when authors page 1`] = `
+<DocumentFragment>
+  <div
+    class="ant-row ant-row-center __CollectionsMenu__"
+    data-testid="collections-menu"
+  >
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/literature"
+        >
+          Literature
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white active"
+          href="/authors"
+        >
+          Authors
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/jobs"
+        >
+          Jobs
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/seminars"
+        >
+          Seminars
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/conferences"
+        >
+          Conferences
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <button
+        class="ant-btn ant-btn-default ant-dropdown-trigger button-no-background ml4"
+        type="button"
+      >
+        <span
+          class="button-title f5 white"
+        >
+           More... 
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CollectionsMenu renders when conferences page 1`] = `
+<DocumentFragment>
+  <div
+    class="ant-row ant-row-center __CollectionsMenu__"
+    data-testid="collections-menu"
+  >
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/literature"
+        >
+          Literature
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/authors"
+        >
+          Authors
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/jobs"
+        >
+          Jobs
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/seminars"
+        >
+          Seminars
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white active"
+          href="/conferences"
+        >
+          Conferences
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <button
+        class="ant-btn ant-btn-default ant-dropdown-trigger button-no-background ml4"
+        type="button"
+      >
+        <span
+          class="button-title f5 white"
+        >
+           More... 
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CollectionsMenu renders when data page 1`] = `
+<DocumentFragment>
+  <div
+    class="ant-row ant-row-center __CollectionsMenu__"
+    data-testid="collections-menu"
+  >
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/literature"
+        >
+          Literature
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/authors"
+        >
+          Authors
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/jobs"
+        >
+          Jobs
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/seminars"
+        >
+          Seminars
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/conferences"
+        >
+          Conferences
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white active"
+          href="/data"
+        >
+          Data
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <button
+        class="ant-btn ant-btn-default ant-dropdown-trigger button-no-background ml4"
+        type="button"
+      >
+        <span
+          class="button-title f5 white"
+        >
+           More... 
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CollectionsMenu renders when experiments page 1`] = `
+<DocumentFragment>
+  <div
+    class="ant-row ant-row-center __CollectionsMenu__"
+    data-testid="collections-menu"
+  >
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/literature"
+        >
+          Literature
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/authors"
+        >
+          Authors
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/jobs"
+        >
+          Jobs
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/seminars"
+        >
+          Seminars
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/conferences"
+        >
+          Conferences
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <button
+        class="ant-btn ant-btn-default ant-dropdown-trigger button-no-background ml4"
+        type="button"
+      >
+        <span
+          class="button-title f5 white"
+        >
+           More... 
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CollectionsMenu renders when home page 1`] = `
+<DocumentFragment>
+  <div
+    class="ant-row ant-row-center __CollectionsMenu__"
+    data-testid="collections-menu"
+  >
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/literature"
+        >
+          Literature
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/authors"
+        >
+          Authors
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/jobs"
+        >
+          Jobs
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/seminars"
+        >
+          Seminars
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/conferences"
+        >
+          Conferences
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <button
+        class="ant-btn ant-btn-default ant-dropdown-trigger button-no-background ml4"
+        type="button"
+      >
+        <span
+          class="button-title f5 white"
+        >
+           More... 
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CollectionsMenu renders when jobs page 1`] = `
+<DocumentFragment>
+  <div
+    class="ant-row ant-row-center __CollectionsMenu__"
+    data-testid="collections-menu"
+  >
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/literature"
+        >
+          Literature
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/authors"
+        >
+          Authors
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white active"
+          href="/jobs"
+        >
+          Jobs
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/seminars"
+        >
+          Seminars
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/conferences"
+        >
+          Conferences
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <button
+        class="ant-btn ant-btn-default ant-dropdown-trigger button-no-background ml4"
+        type="button"
+      >
+        <span
+          class="button-title f5 white"
+        >
+           More... 
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CollectionsMenu renders when literature page 1`] = `
+<DocumentFragment>
+  <div
+    class="ant-row ant-row-center __CollectionsMenu__"
+    data-testid="collections-menu"
+  >
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white active"
+          href="/literature"
+        >
+          Literature
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/authors"
+        >
+          Authors
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/jobs"
+        >
+          Jobs
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/seminars"
+        >
+          Seminars
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/conferences"
+        >
+          Conferences
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <button
+        class="ant-btn ant-btn-default ant-dropdown-trigger button-no-background ml4"
+        type="button"
+      >
+        <span
+          class="button-title f5 white"
+        >
+           More... 
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CollectionsMenu renders when seminars page 1`] = `
+<DocumentFragment>
+  <div
+    class="ant-row ant-row-center __CollectionsMenu__"
+    data-testid="collections-menu"
+  >
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/literature"
+        >
+          Literature
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/authors"
+        >
+          Authors
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/jobs"
+        >
+          Jobs
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white active"
+          href="/seminars"
+        >
+          Seminars
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/conferences"
+        >
+          Conferences
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <button
+        class="ant-btn ant-btn-default ant-dropdown-trigger button-no-background ml4"
+        type="button"
+      >
+        <span
+          class="button-title f5 white"
+        >
+           More... 
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CollectionsMenu renders when submissions page 1`] = `
+<DocumentFragment>
+  <div
+    class="ant-row ant-row-center __CollectionsMenu__"
+    data-testid="collections-menu"
+  >
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/literature"
+        >
+          Literature
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/authors"
+        >
+          Authors
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/jobs"
+        >
+          Jobs
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/seminars"
+        >
+          Seminars
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/conferences"
+        >
+          Conferences
+        </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <button
+        class="ant-btn ant-btn-default ant-dropdown-trigger button-no-background ml4"
+        type="button"
+      >
+        <span
+          class="button-title f5 white"
+        >
+           More... 
+        </span>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

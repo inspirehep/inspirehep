@@ -1,32 +1,47 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import CollectionLink from '../CollectionLink';
 
 describe('CollectionLink', () => {
   it('renders default', () => {
-    const wrapper = shallow(<CollectionLink to="/literature" />);
+    const { asFragment } = render(
+      <MemoryRouter>
+        <CollectionLink to="/literature" />
+      </MemoryRouter>
+    );
 
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders active', () => {
-    const wrapper = shallow(<CollectionLink to="/literature" active />);
+    const { asFragment } = render(
+      <MemoryRouter>
+        <CollectionLink to="/literature" active />
+      </MemoryRouter>
+    );
 
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders new', () => {
-    const wrapper = shallow(<CollectionLink to="/literature" newCollection />);
+    const { asFragment } = render(
+      <MemoryRouter>
+        <CollectionLink to="/literature" newCollection />
+      </MemoryRouter>
+    );
 
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders active and new', () => {
-    const wrapper = shallow(
-      <CollectionLink to="/literature" active newCollection />
+    const { asFragment } = render(
+      <MemoryRouter>
+        <CollectionLink to="/literature" active newCollection />
+      </MemoryRouter>
     );
 
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });
