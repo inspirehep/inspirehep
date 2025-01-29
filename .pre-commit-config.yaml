@@ -1,11 +1,13 @@
-files: ^(backend|backoffice|workflows)/
+files: ^(backend|backoffice|workflows|ui)/
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
       - id: check-yaml
       - id: end-of-file-fixer
+        files: ^(backend|backoffice|workflows)/
       - id: trailing-whitespace
+        files: ^(backend|backoffice|workflows)/
       - id: fix-byte-order-marker
       - id: mixed-line-ending
       - id: name-tests-test
@@ -17,3 +19,9 @@ repos:
       - id: ruff
         args: [ --fix ]
       - id: ruff-format
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v7.32.0
+    hooks:
+      - id: eslint
+        files: ui\/.*\.(js|jsx|ts|tsx)$
+        args: ["./ui/src",--config, ui/.eslintrc]
