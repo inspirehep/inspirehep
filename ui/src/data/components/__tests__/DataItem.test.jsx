@@ -27,6 +27,40 @@ describe('DataItem', () => {
           ],
         },
       ],
+      literature: [
+        {
+          record: {
+            $ref: 'http://XVxZ15mkm/api/literature/44707',
+          },
+          titles: [
+            {
+              title: 'Discovery of a companion of Sirius',
+            },
+            {
+              title: 'Discovery of a companion of Sirius',
+              source: 'arXiv',
+            },
+          ],
+          control_number: 44707,
+        },
+        {
+          record: {
+            $ref: 'http://l/api/literature/873915',
+          },
+          titles: [
+            {
+              title:
+                'Very high order lattice perturbation theory for Wilson loops',
+            },
+            {
+              title:
+                'Very high order lattice perturbation theory for Wilson loops',
+              source: 'arXiv',
+            },
+          ],
+          control_number: 873915,
+        },
+      ],
       urls: [{ value: 'http://url.com' }],
       dois: [
         {
