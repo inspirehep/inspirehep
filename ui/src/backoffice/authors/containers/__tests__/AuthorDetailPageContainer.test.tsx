@@ -1,6 +1,12 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import {
+  fireEvent,
+  prettyDOM,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -8,36 +14,37 @@ import { BACKOFFICE } from '../../../../common/routes';
 import AuthorDetailPageContainer from '../AuthorDetailPageContainer';
 import { getStore } from '../../../../fixtures/store';
 import { BACKOFFICE_RESOLVE_ACTION_REQUEST } from '../../../../actions/actionTypes';
+import backoffice from '../../..';
 
-describe('AuthorDetailPageContainer', () => {
-  const store = getStore({
-    backoffice: fromJS({
-      loading: false,
-      loggedIn: true,
-      author: fromJS({
-        data: {
-          name: {
-            value: 'Doe, John',
-            preferred_name: 'Johnny',
-            native_names: ['Name1', 'Name2'],
-            name_variants: ['Name3', 'Name4'],
+describe('AuthorDetailPageContainer', (ids: any = []) => {
+  const renderComponent = (ids: any = []) => {
+    const store = getStore({
+      backoffice: fromJS({
+        loading: false,
+        loggedIn: true,
+        author: fromJS({
+          data: {
+            name: {
+              value: 'Doe, John',
+              preferred_name: 'Johnny',
+              native_names: ['Name1', 'Name2'],
+              name_variants: ['Name3', 'Name4'],
+            },
+            status: 'active',
+            acquisition_source: {
+              email: 'joao.ramiro@cern.ch',
+              orcid: '0000-0002-6357-9297',
+              method: 'submitter',
+              source: 'submitter',
+            },
+            ids: [{ schema: 'ORCID', value: '0000-0002-6357-9297' }, ...ids],
           },
-          status: 'active',
-          acquisition_source: {
-            email: 'joao.ramiro@cern.ch',
-            orcid: '0000-0002-6357-9297',
-            method: 'submitter',
-            source: 'submitter',
-          },
-          ids: [{ schema: 'ORCID', value: '0000-0002-6357-9297' }],
-        },
-        status: 'approval',
+          status: 'approval',
+        }),
       }),
-    }),
-  });
+    });
 
-  const renderComponent = () =>
-    render(
+    const renderedComponent = render(
       <Provider store={store}>
         <MemoryRouter initialEntries={[`${BACKOFFICE}/1`]}>
           <AuthorDetailPageContainer />
@@ -45,10 +52,13 @@ describe('AuthorDetailPageContainer', () => {
       </Provider>
     );
 
-  it('should render the AuthorDetailPageContainer', () => {
-    const { asFragment } = renderComponent();
+    return { renderedComponent, store };
+  };
 
-    expect(asFragment()).toMatchSnapshot();
+  it('should render the AuthorDetailPageContainer', () => {
+    const { renderedComponent } = renderComponent();
+
+    expect(renderedComponent.asFragment()).toMatchSnapshot();
   });
 
   it('should display ORCID link', () => {
@@ -60,6 +70,20 @@ describe('AuthorDetailPageContainer', () => {
       'href',
       'https://orcid.org/0000-0002-6357-9297'
     );
+  });
+
+  it('should not contain a Links section', () => {
+    renderComponent();
+
+    const linkHeader = screen.queryByRole('heading', { name: 'Links' });
+    expect(linkHeader).toBeNull();
+  });
+
+  it('should contain a Links section', () => {
+    renderComponent([{ schema: 'INSPIRE BAI', value: 'A.Einstein.1' }]);
+
+    const linkHeader = screen.getByRole('heading', { name: 'Links' });
+    expect(linkHeader).toBeInTheDocument();
   });
 
   it('should display the author name', () => {
@@ -89,11 +113,9 @@ describe('AuthorDetailPageContainer', () => {
   });
 
   it('should call the dispatch function when "Restart workflow" button is clicked', async () => {
-    renderComponent();
-
-    const restartButton = screen.getByText('Restart workflow');
-
+    const { store } = renderComponent();
     store.clearActions();
+    const restartButton = screen.getByText('Restart workflow');
 
     await waitFor(() => fireEvent.click(restartButton));
 
