@@ -9,22 +9,14 @@ type AuthorMainInfoProps = {
   data: any; // TODO: define proper type for data
 };
 
-const hasOrcidId = (data: any): boolean => {
-  return data
-    .get('ids')
-    ?.find(
-      (id: { get: (arg0: string) => string }) => id.get('schema') === 'ORCID'
-    );
-};
-
 const AuthorMainInfo = ({ data }: AuthorMainInfoProps) => {
   const name = data.getIn(['name', 'value']);
   const preferredName = data.getIn(['name', 'preferred_name']);
   const nativeNames = data.getIn(['name', 'native_names']);
   const nameVariants = data.getIn(['name', 'name_variants']);
   const status = data.get('status');
-  const orcidIdExists = hasOrcidId(data);
   const orcidIds = filterByProperty(data, 'ids', 'schema', 'ORCID');
+  const orcidIdExists = orcidIds && orcidIds.size > 0;
 
   return (
     <ContentBox fullHeight={false} className="md-pb3 mb3">

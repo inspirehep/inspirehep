@@ -73,7 +73,7 @@ const AuthorDetailPageContainer = ({
     ? getWorkflowStatusInfo(status.toLowerCase())
     : null;
   const urls = data?.get('urls');
-  const ids = data?.get('ids');
+  const filteredIds = filterByProperty(data, 'ids', 'schema', 'ORCID', false);
   const acquisitionSourceEmail = data?.getIn(['acquisition_source', 'email']);
   const acquisitionSourceDateTime = new Date(
     data?.getIn(['acquisition_source', 'datetime'])
@@ -88,7 +88,7 @@ const AuthorDetailPageContainer = ({
   const OPEN_SECTIONS = [
     data?.get('positions') && 'institutions',
     data?.get('project_membership') && 'projects',
-    (urls || ids) && 'links',
+    (urls || filteredIds?.size) && 'links',
     (data?.get('arxiv_categories') || data?.get('advisors')) && 'other',
     status === 'error' && 'errors',
     'delete',
@@ -168,24 +168,9 @@ const AuthorDetailPageContainer = ({
                         rowKey={(record) => `${record?.name}+${Math.random()}`}
                       />
                     </CollapsableForm.Section>
-                    {(urls || ids) && (
+                    {(urls || filteredIds?.size) && (
                       <CollapsableForm.Section header="Links" key="links">
-                        <Links
-                          urls={filterByProperty(
-                            data,
-                            'urls',
-                            'schema',
-                            'ORCID',
-                            false
-                          )}
-                          ids={filterByProperty(
-                            data,
-                            'ids',
-                            'schema',
-                            'ORCID',
-                            false
-                          )}
-                        />
+                        <Links urls={urls} ids={filteredIds} />
                       </CollapsableForm.Section>
                     )}
                     <CollapsableForm.Section header="Other" key="other">
