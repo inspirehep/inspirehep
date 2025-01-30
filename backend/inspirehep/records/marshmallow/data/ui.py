@@ -38,4 +38,4 @@ class DataDetailSchema(DataBaseSchema):
 
 
 class DataListSchema(DataBaseSchema):
-    pass
+    literature = fields.Nested(LiteratureRecordSchemaV1, dump_only=True, many=True)

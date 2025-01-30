@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { List, Map } from 'immutable';
 
+import { FileOutlined } from '@ant-design/icons';
 import UrlsAction from '../../literature/components/UrlsAction';
 import DOILinkAction from '../../literature/components/DOILinkAction';
 import ResultItem from '../../common/components/ResultItem';
@@ -11,6 +12,7 @@ import ResultItem from '../../common/components/ResultItem';
 import {
   filterDoisByMaterial,
   getReferencingPapersQueryString,
+  transformLiteratureRecords,
 } from '../utils';
 import { DATA } from '../../common/routes';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
@@ -26,6 +28,8 @@ function DataItem({ metadata, page }) {
   const urls = metadata.get('urls');
   const collaborations = metadata.get('collaborations', List());
   const citationCount = metadata.get('citation_count');
+  const literatureRecords = metadata.get('literature');
+  const literatureLinks = transformLiteratureRecords(literatureRecords);
 
   return (
     <div data-test-id="data-result-item">
@@ -41,6 +45,15 @@ function DataItem({ metadata, page }) {
               />
             )}
             {dois.size > 0 && <DOILinkAction dois={dois} page={page} />}
+            {literatureLinks && (
+              <UrlsAction
+                urls={literatureLinks}
+                icon={<FileOutlined />}
+                text="literature"
+                trackerEventId="Literature links"
+                page="Literature detail"
+              />
+            )}
           </>
         }
         rightActions={
