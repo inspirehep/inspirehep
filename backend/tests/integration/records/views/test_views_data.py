@@ -3,6 +3,9 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import urllib.parse
+
+import orjson
 from helpers.providers.faker import faker
 from helpers.utils import create_record, create_record_factory, create_user_and_token
 
@@ -118,3 +121,144 @@ def test_data_returns_301_when_pid_is_redirected(inspire_app):
     assert response.status_code == 301
     assert response.location.split("/")[-1] == str(record.control_number)
     assert response.location.split("/")[-2] == "data"
+
+
+def test_data_facets(inspire_app):
+    create_record("dat")
+    with inspire_app.test_client() as client:
+        response = client.get("/data/facets")
+    response_data = orjson.loads(response.data)
+    response_status_code = response.status_code
+    response_data_facet_keys = list(response_data.get("aggregations").keys())
+
+    expected_status_code = 200
+    expected_facet_keys = ["author"]
+    assert expected_status_code == response_status_code
+    assert expected_facet_keys == response_data_facet_keys
+    assert len(response_data["hits"]["hits"]) == 0
+
+
+def test_data_facets_author_count(inspire_app):
+    create_record(
+        "dat", data={"authors": [{"full_name": "Author 1"}, {"full_name": "Author 2"}]}
+    )
+    with inspire_app.test_client() as client:
+        response = client.get("/data/facets")
+    response_data = orjson.loads(response.data)
+    author_count_agg = response_data.get("aggregations")["author"]
+    buckets = author_count_agg["buckets"]
+    assert len(buckets) == 2
+    assert buckets[0]["doc_count"] == 1
+    assert buckets[1]["doc_count"] == 1
+
+
+def test_data_facets_author_filter(inspire_app):
+    author = create_record("aut", faker.record("aut"))
+    authors = [
+        {
+            "record": {
+                "$ref": f"http://localhost:8000/api/authors/{author['control_number']}"
+            },
+            "full_name": author["name"]["value"],
+        }
+    ]
+    create_record("dat", data={"authors": authors})
+    create_record("dat", data={"authors": [{"full_name": "Author2"}]})
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/data?author={author['control_number']}_{urllib.parse.quote(author['name']['value'])}"
+        )
+    response_data = orjson.loads(response.data)
+    assert response_data["hits"]["total"] == 1
+    assert (
+        response_data["hits"]["hits"][0]["metadata"]["authors"][0]["full_name"]
+        == author["name"]["value"]
+    )
+
+
+def test_data_facets_author_filter_from_literature(inspire_app):
+    author = create_record("aut", faker.record("aut"))
+    authors = [
+        {
+            "record": {
+                "$ref": f"http://localhost:8000/api/authors/{author['control_number']}"
+            },
+            "full_name": author["name"]["value"],
+        }
+    ]
+    literature = create_record("lit", data={"authors": authors})
+    create_record("dat", data={"literature": [{"record": literature["self"]}]})
+    create_record("dat", data={"authors": [{"full_name": "Author2"}]})
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/data?author={author['control_number']}_{urllib.parse.quote(author['name']['value'])}"
+        )
+    response_data = orjson.loads(response.data)
+    assert response_data["hits"]["total"] == 1
+    assert (
+        response_data["hits"]["hits"][0]["metadata"]["authors"][0]["full_name"]
+        == author["name"]["value"]
+    )
+
+
+def test_data_facets_author_updated_literature(inspire_app):
+    author1 = create_record("aut", faker.record("aut"))
+    author2 = create_record("aut", faker.record("aut"))
+
+    authors1 = [
+        {
+            "record": {
+                "$ref": f"http://localhost:8000/api/authors/{author1['control_number']}"
+            },
+            "full_name": author1["name"]["value"],
+        }
+    ]
+    authors_updated = authors1 + [
+        {
+            "record": {
+                "$ref": f"http://localhost:8000/api/authors/{author2['control_number']}"
+            },
+            "full_name": author2["name"]["value"],
+        }
+    ]
+
+    literature = create_record("lit", data={"authors": authors1})
+    create_record("dat", data={"literature": [{"record": literature["self"]}]})
+
+    with inspire_app.test_client() as client:
+        response1 = client.get(
+            f"/data?author={author1['control_number']}_{urllib.parse.quote(author1['name']['value'])}"
+        )
+        response2 = client.get(
+            f"/data?author={author2['control_number']}_{urllib.parse.quote(author2['name']['value'])}"
+        )
+    response_data1 = orjson.loads(response1.data)
+    response_data2 = orjson.loads(response2.data)
+    assert response_data1["hits"]["total"] == 1
+    assert (
+        response_data1["hits"]["hits"][0]["metadata"]["authors"][0]["full_name"]
+        == author1["name"]["value"]
+    )
+    assert response_data2["hits"]["total"] == 0
+
+    literature["authors"] = authors_updated
+    literature.update(dict(literature))
+    with inspire_app.test_client() as client:
+        response1 = client.get(
+            f"/data?author={author1['control_number']}_{urllib.parse.quote(author1['name']['value'])}"
+        )
+        response2 = client.get(
+            f"/data?author={author2['control_number']}_{urllib.parse.quote(author2['name']['value'])}"
+        )
+    response_data1 = orjson.loads(response1.data)
+    response_data2 = orjson.loads(response2.data)
+    assert response_data1["hits"]["total"] == 1
+    assert (
+        response_data1["hits"]["hits"][0]["metadata"]["authors"][0]["full_name"]
+        == author1["name"]["value"]
+    )
+    assert response_data2["hits"]["total"] == 1
+    assert (
+        response_data2["hits"]["hits"][0]["metadata"]["authors"][1]["full_name"]
+        == author2["name"]["value"]
+    )
