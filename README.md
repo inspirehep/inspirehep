@@ -176,6 +176,16 @@ $ cd ui
 $ yarn install
 ```
 
+Also setup your **VS Code** so as to use Prettier as the default formatter.
+
+Press `CMD+,` and type `defaultFormatter`. 
+
+From the list choose `Prettier - Code formatter`.
+
+Reload your **VS Code** so as the changes to take effect.
+
+For formatting a file, you can do `CMD+Shift+P` and choose the `Format document` option. This will automatically format your file.
+
 ### Editor
 
 ```bash
