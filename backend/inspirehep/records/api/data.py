@@ -49,3 +49,7 @@ class DataRecord(CitationMixin, InspireRecord):
     def hard_delete(self):
         self.delete_relations_with_literature()
         super().hard_delete()
+
+    def reindex(self):
+        """Reindex the data record."""
+        self.index()

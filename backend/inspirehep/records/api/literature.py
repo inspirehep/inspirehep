@@ -32,6 +32,7 @@ from inspirehep.hal.api import push_to_hal
 from inspirehep.orcid.api import push_to_orcid
 from inspirehep.pidstore.api import PidStoreLiterature
 from inspirehep.records.api.base import InspireRecord
+from inspirehep.records.api.data import DataRecord
 from inspirehep.records.api.mixins import (
     CitationMixin,
     ConferencePaperAndProceedingsMixin,
@@ -59,7 +60,7 @@ from inspirehep.records.utils import (
     is_document_scanned,
     remove_author_bai_from_id_list,
 )
-from inspirehep.search.api import LiteratureSearch
+from inspirehep.search.api import DataSearch, LiteratureSearch
 from inspirehep.utils import chunker, hash_data
 
 LOGGER = structlog.getLogger()
@@ -240,6 +241,8 @@ class LiteratureRecord(
             and not data.get("deleted")
         ):
             disambiguate_authors.delay(str(self.id), version_id=self.model.version_id)
+
+        self.reindex_linked_data_records()
 
     def get_modified_authors(self):
         previous_authors = self._previous_version.get("authors", [])
@@ -574,6 +577,18 @@ class LiteratureRecord(
             dict: Properly serialized and prepared record with full
         """
         return self.get_enhanced_es_data(serializer=self.es_fulltext_serializer)
+
+    def reindex_linked_data_records(self):
+        """Reindex linked data records."""
+        linked_data_records = (
+            DataSearch()
+            .query_from_iq(f"literature.record.$ref:{self.control_number}")
+            .execute()
+            .hits
+        )
+        for data_record in linked_data_records:
+            data_record = DataRecord.get_record_by_pid_value(data_record.control_number)
+            data_record.reindex()
 
 
 def import_article(identifier):
