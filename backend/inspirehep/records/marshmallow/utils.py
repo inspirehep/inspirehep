@@ -71,3 +71,38 @@ def get_acquisition_source_without_email(data):
     if "email" in acquisition_source:
         del acquisition_source["email"]
     return acquisition_source
+
+
+def get_facet_author_name_lit_and_dat(record):
+    from inspirehep.pidstore.api.base import PidStoreBase
+    from inspirehep.records.api.base import InspireRecord
+
+    """Prepare record for ``facet_author_name`` field."""
+    authors_with_record = list(
+        InspireRecord.get_linked_records_from_dict_field(record, "authors.record")
+    )
+    found_authors_control_numbers = set(
+        [
+            author["control_number"]
+            for author in authors_with_record
+            if author.get("control_number")
+        ]
+    )
+    authors_without_record = [
+        author
+        for author in record.get("authors", [])
+        if "record" not in author
+        or int(PidStoreBase.get_pid_from_record_uri(author["record"].get("$ref"))[1])
+        not in found_authors_control_numbers
+    ]
+    result = []
+
+    for author in authors_with_record:
+        result.append(get_facet_author_name_for_author(author))
+
+    for author in authors_without_record:
+        result.append(
+            "NOREC_{}".format(get_display_name_for_author_name(author["full_name"]))
+        )
+
+    return result

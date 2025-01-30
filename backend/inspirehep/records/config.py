@@ -58,6 +58,7 @@ from inspirehep.search.facets import (
     must_match_all_or_missing_filter,
     range_author_count_filter,
     records_conferences,
+    records_data,
     records_experiments,
     records_hep,
     records_hep_cataloger,
@@ -539,6 +540,22 @@ DATA_AUTHORS.update(
         },
     }
 )
+
+DATA_FACETS = deepcopy(DATA)
+DATA_FACETS.update(
+    {
+        "default_endpoint_prefix": False,
+        "search_factory_imp": (
+            "inspirehep.search.factories.search:search_factory_only_with_aggs"
+        ),
+        "list_route": "/data/facets/",
+        "search_serializers": {
+            "application/json": f"{INSPIRE_SERIALIZERS}:facets_json_response_search"
+        },
+    }
+)
+
+
 INSTITUTIONS = deepcopy(RECORD)
 INSTITUTIONS.update(
     {
@@ -642,6 +659,7 @@ RECORDS_REST_ENDPOINTS = {
     "conferences_facets": CONFERENCES_FACETS,
     "data": DATA,
     "data_authors": DATA_AUTHORS,
+    "data_facets": DATA_FACETS,
     "institutions": INSTITUTIONS,
     "seminars": SEMINARS,
     "seminars_facets": SEMINARS_FACETS,
@@ -694,6 +712,10 @@ EXPERIMENTS_FILTERS = {
     "institution": must_match_all_filter("institutions.value"),
 }
 
+DATA_FILTERS = {
+    "author": must_match_all_filter("facet_author_name"),
+}
+
 RECORDS_REST_FACETS = {
     "hep-author-publication": hep_author_publications,
     "hep-author-citations": hep_author_citations,
@@ -705,6 +727,7 @@ RECORDS_REST_FACETS = {
     "records-jobs": records_jobs,
     "records-conferences": records_conferences,
     "records-seminars": records_seminars,
+    "records-data": records_data,
     "records-experiments": records_experiments,
     "hep-experiment-papers": hep_experiment_papers,
 }

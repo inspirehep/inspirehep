@@ -721,19 +721,19 @@ class JournalPapersMixin:
         return set(self.get_records_ids_by_pids(list(pids_changed)))
 
 
-class DataPapersMixin:
+class DataLiteratureMixin:
     def clean_data_literature_relations(self):
         DataLiterature.query.filter_by(literature_uuid=self.id).delete()
 
-    def create_data_relations(self):
-        data_recids = self.linked_data_pids
-        datas = self.get_records_by_pids(data_recids)
+    def create_literature_relations(self):
+        literature_recids = self.linked_literature_pids
+        literatures = self.get_records_by_pids(literature_recids)
         data_literature_relations_waiting_for_commit = []
 
-        for data in datas:
-            if not data.get("deleted"):
+        for literature in literatures:
+            if not literature.get("deleted"):
                 data_literature_relations_waiting_for_commit.append(
-                    DataLiterature(data_uuid=data.id, literature_uuid=self.id)
+                    DataLiterature(data_uuid=self.id, literature_uuid=literature.id)
                 )
         if len(data_literature_relations_waiting_for_commit) == 0:
             return
@@ -748,7 +748,7 @@ class DataPapersMixin:
     def update_data_relations(self):
         self.clean_data_literature_relations()
         if not self.get("deleted"):
-            self.create_data_relations()
+            self.create_literature_relations()
 
     def hard_delete(self):
         self.clean_data_literature_relations()
@@ -760,12 +760,12 @@ class DataPapersMixin:
         changed_deleted_status = self.get("deleted", False) ^ prev_version.get(
             "deleted", False
         )
-        pids_latest = list(self.linked_data_pids)
+        pids_latest = list(self.linked_literature_pids)
 
         if changed_deleted_status:
             return set(self.get_records_ids_by_pids(pids_latest))
 
-        pids_previous = self._previous_version.linked_data_pids
+        pids_previous = self._previous_version.linked_literature_pids
 
         pids_changed = set.symmetric_difference(set(pids_latest), set(pids_previous))
 

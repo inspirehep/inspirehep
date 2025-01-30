@@ -54,7 +54,6 @@ def index_record(self, uuid, record_version=None, force_delete=None):
     record = InspireRecord.get_record(
         uuid, with_deleted=True, record_version=record_version
     )
-
     InspireRecordIndexer().index(
         record, record_version=record_version, force_delete=force_delete
     )

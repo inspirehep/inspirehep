@@ -9,7 +9,9 @@ from flask_sqlalchemy import models_committed
 from invenio_records.models import RecordMetadata
 
 from inspirehep.records.api import InspireRecord
-from inspirehep.records.tasks import redirect_references_to_merged_record
+from inspirehep.records.tasks import (
+    redirect_references_to_merged_record,
+)
 
 LOGGER = structlog.getLogger()
 

@@ -35,7 +35,6 @@ from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.api.mixins import (
     CitationMixin,
     ConferencePaperAndProceedingsMixin,
-    DataPapersMixin,
     ExperimentPapersMixin,
     InstitutionPapersMixin,
     JournalPapersMixin,
@@ -51,6 +50,7 @@ from inspirehep.records.marshmallow.literature import (
     LiteratureElasticSearchSchema,
     LiteratureFulltextElasticSearchSchema,
 )
+from inspirehep.records.models import DataLiterature
 from inspirehep.records.utils import (
     download_file_from_url,
     get_literature_earliest_date,
@@ -82,7 +82,6 @@ class LiteratureRecord(
     ExperimentPapersMixin,
     InstitutionPapersMixin,
     JournalPapersMixin,
-    DataPapersMixin,
     InspireRecord,
 ):
     """Literature Record."""
@@ -107,7 +106,6 @@ class LiteratureRecord(
         self.update_institution_relations()
         self.update_experiment_relations()
         self.update_journal_relations()
-        self.update_data_relations()
 
     @classmethod
     def create(
@@ -549,6 +547,20 @@ class LiteratureRecord(
             return uuids
         LOGGER.info("No references changed", uuid=str(self.id))
         return set()
+
+    def get_linked_datas_if_authors_changed(self):
+        """Gets all data record where linked literature authors changed
+
+        Returns:
+            list(uuid): List of all data uuids with changed authors in linked literature
+        """
+        authors = self.get_modified_authors()
+        if not authors:
+            return set()
+        linked_data_records = DataLiterature.query.filter_by(
+            literature_uuid=self.id
+        ).all()
+        return set([record.data_uuid for record in linked_data_records])
 
     @classmethod
     def fix_entries_by_update_date(cls, before=None, after=None, max_chunk=100):
