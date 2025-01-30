@@ -270,6 +270,15 @@ def hep_filters():
     return filters
 
 
+def data_filters():
+    """Parameter author looks like 1234_Name%20Surname, thus the splitting."""
+    filters = {**current_app.config["DATA_FILTERS"]}
+    if request:
+        author_recid = request.values.get("author", "", type=str).split("_")[0]
+        filters.update(**nested_filters(author_recid))
+    return filters
+
+
 def seminars_filters():
     filters = {**current_app.config["SEMINARS_FILTERS"]}
     if request:
@@ -548,6 +557,17 @@ def records_seminars(order=None):
             **seminar_series_aggregation(order=next(order)),
             **seminar_subject_aggregation(order=next(order)),
             **seminar_accessibility_aggregation(order=next(order)),
+        },
+    }
+
+
+def records_data(order=None):
+    if order is None:
+        order = count(start=1)
+    return {
+        "filters": data_filters(),
+        "aggs": {
+            **hep_author_aggregation(order=next(order)),
         },
     }
 

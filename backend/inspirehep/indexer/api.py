@@ -13,6 +13,7 @@ def get_references_to_update(record):
     uuids_to_reindex = set()
     if isinstance(record, LiteratureRecord):
         uuids_to_reindex |= record.get_linked_papers_if_reference_changed()
+        uuids_to_reindex |= record.get_linked_datas_if_authors_changed()
         if current_app.config.get("FEATURE_FLAG_ENABLE_SELF_CITATIONS"):
             uuids_to_reindex |= (
                 record.get_all_connected_records_uuids_of_modified_authors()
@@ -31,5 +32,4 @@ def get_references_to_update(record):
         uuids_to_reindex |= (
             record.get_linked_literature_record_uuids_if_conference_title_changed()
         )
-
     return uuids_to_reindex

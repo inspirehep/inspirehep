@@ -699,3 +699,24 @@ def test_hep_experiment_papers_cataloger_facets(inspire_app):
         ]()["aggs"]
         assert filters == expected_filters
         assert aggregations == expected_aggregations
+
+
+def test_records_data_facets(inspire_app):
+    with current_app.test_request_context():
+        expected_filters = {
+            "author",
+            "self_affiliations",
+            "self_author_names",
+            "affiliations",
+            "self_curated_relation",
+        }
+        expected_aggregations = {**hep_author_aggregation(order=1)}
+
+        filters = current_app.config["RECORDS_REST_FACETS"]["records-data"]()[
+            "filters"
+        ].keys()
+        aggregations = current_app.config["RECORDS_REST_FACETS"]["records-data"]()[
+            "aggs"
+        ]
+        assert filters == expected_filters
+        assert aggregations == expected_aggregations

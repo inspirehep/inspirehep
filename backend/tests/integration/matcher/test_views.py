@@ -109,7 +109,6 @@ def test_exact_match(inspire_app):
         ],
     }
     record = create_record("lit", record_data)
-    print(record)
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -118,7 +117,6 @@ def test_exact_match(inspire_app):
             data=orjson.dumps({"data": record_data}),
             headers={"Content-Type": "application/json"},
         )
-        print(response.json)
     assert response.status_code == 200
     assert record["control_number"] in response.json["matched_ids"]
 
