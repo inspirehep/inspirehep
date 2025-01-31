@@ -1,0 +1,120 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.hepdata.net/search/ids?inspire_ids=True&last_updated=2025-01-25&sort_by=latest
+  response:
+    body:
+      string: '[2846106,2836178,2872775,2872501]
+
+        '
+    headers:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443";ma=60;
+      content-length:
+      - '34'
+      content-type:
+      - application/json
+      date:
+      - Mon, 03 Feb 2025 13:22:37 GMT
+      permissions-policy:
+      - interest-cohort=()
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      retry-after:
+      - '60'
+      server:
+      - gunicorn
+      set-cookie:
+      - session=ae88aea732751134_67a0c31d.p3L-3XEtP37iCxKBijecugLw_-o; Domain=.www.hepdata.net;
+        Expires=Tue, 04 Feb 2025 01:22:37 GMT; HttpOnly; Path=/; SameSite=Lax
+      transfer-encoding:
+      - chunked
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - sameorigin
+      x-proxy-backend:
+      - hepdata-prod_hepdata-web_http
+      x-ratelimit-limit:
+      - '60'
+      x-ratelimit-remaining:
+      - '59'
+      x-ratelimit-reset:
+      - '1738589018'
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.hepdata.net/search/ids?inspire_ids=True&last_updated=2025-01-30&sort_by=latest
+  response:
+    body:
+      string: '[2846106,2836178]
+
+        '
+    headers:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443";ma=60;
+      content-length:
+      - '18'
+      content-type:
+      - application/json
+      date:
+      - Mon, 03 Feb 2025 13:22:37 GMT
+      permissions-policy:
+      - interest-cohort=()
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      retry-after:
+      - '60'
+      server:
+      - gunicorn
+      set-cookie:
+      - session=391a8555c6446562_67a0c31d.5rDsKmvxvMxWODzSsA1tP-uGKMI; Domain=.www.hepdata.net;
+        Expires=Tue, 04 Feb 2025 01:22:37 GMT; HttpOnly; Path=/; SameSite=Lax
+      transfer-encoding:
+      - chunked
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - sameorigin
+      x-proxy-backend:
+      - hepdata-prod_hepdata-web_http
+      x-ratelimit-limit:
+      - '60'
+      x-ratelimit-remaining:
+      - '58'
+      x-ratelimit-reset:
+      - '1738589018'
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

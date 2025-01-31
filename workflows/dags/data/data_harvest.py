@@ -21,8 +21,10 @@ logger = logging.getLogger(__name__)
     schedule="@daily",
     catchup=False,
     tags=["data"],
-    max_active_runs=5,
-    params={"last_updated": Param(type=["null", "string"], default="")},
+    params={
+        "last_updated_from": Param(type=["null", "string"], default=""),
+        "last_updated_to": Param(type=["null", "string"], default=""),
+    },
 )
 def data_harvest_dag():
     """Defines the DAG for the HEPData harvest workflow.
@@ -48,14 +50,26 @@ def data_harvest_dag():
         Returns: list of ids
         """
         from_date = (
-            context["params"]["last_updated"]
-            if context["params"]["last_updated"]
+            context["params"]["last_updated_from"]
+            if context["params"]["last_updated_from"]
             else ds_add(context["ds"], -1)
         )
+        to_date = context["params"]["last_updated_to"]
+
         payload = {"inspire_ids": True, "last_updated": from_date, "sort_by": "latest"}
         hepdata_response = generic_http_hook.call_api(
             endpoint="/search/ids", method="GET", params=payload
         )
+        if to_date:
+            payload = {
+                "inspire_ids": True,
+                "last_updated": to_date,
+                "sort_by": "latest",
+            }
+            hepdata_to_response = generic_http_hook.call_api(
+                endpoint="/search/ids", method="GET", params=payload
+            )
+            return list(set(hepdata_response.json()) - set(hepdata_to_response.json()))
 
         return hepdata_response.json()
 
