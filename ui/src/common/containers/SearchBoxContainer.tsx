@@ -2,12 +2,13 @@ import { connect, RootStateOrAny } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
 
 import SearchBox from '../components/SearchBox';
-import { searchQueryUpdate } from '../../actions/search';
+import { searchAI, searchQueryUpdate } from '../../actions/search';
 import { LITERATURE_NS } from '../../search/constants';
 import { appendQueryToLocationSearch } from '../../actions/router';
 import { clearLiteratureSelection } from '../../actions/literature';
 import { UI_CITATION_SUMMARY_PARAM } from '../../literature/containers/CitationSummarySwitchContainer';
 import { UI_EXCLUDE_SELF_CITATIONS_PARAM } from '../../literature/containers/ExcludeSelfCitationsContainer';
+import { getConfigFor } from '../config';
 
 const stateToProps = (state: RootStateOrAny) => ({
   value: state.search.getIn([
@@ -30,6 +31,9 @@ export const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
       );
     } else {
       dispatch(clearLiteratureSelection());
+      if (getConfigFor('QUERY_AI_ON_SEARCH_FEATURE_FLAG')) {
+        dispatch(searchAI(value));
+      }
     }
 
     dispatch(searchQueryUpdate(namespace, { q: value }));
