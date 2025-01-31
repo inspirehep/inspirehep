@@ -23,6 +23,7 @@ import {
 import { httpErrorToActionPayload } from '../common/utils';
 import SearchHelper from '../search/helper';
 import searchConfig from '../search/config';
+import { getClientId } from '../tracker';
 
 function searching(namespace: string) {
   return {
@@ -59,6 +60,32 @@ export function newSearch(namespace: string) {
   return {
     type: NEW_SEARCH_REQUEST,
     payload: { namespace },
+  };
+}
+
+// Temporary function to collect data for the AI service.
+export function searchAI(
+  query: string
+): (
+  dispatch: ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
+  return async (dispatch, getState, http) => {
+    try {
+      const parserResponse = await http.get(`/search/query-parser?q=${query}`);
+      // Only send free-form queries to the AI service for the moment
+      /* eslint-disable no-underscore-dangle */
+      if (parserResponse.data?.match?._all) {
+        await http.post(`/ai/v1/query`, {
+          query,
+          user: getState().user.getIn(['data', 'email']),
+          matomo_client_id: getClientId(),
+        });
+      }
+    } catch (err) {
+      console.error('Error while calling AI service: ', err);
+    }
   };
 }
 

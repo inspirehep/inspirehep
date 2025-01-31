@@ -82,6 +82,8 @@ export class HttpClientWrapper {
       config.withCredentials = true;
       config.url = transformBackofficeUrl(url);
       config.headers.Accept = 'application/json';
+    } else if (url.startsWith('/ai')) {
+      config.baseURL = '/';
     } else {
       config.baseURL = '/api';
     }
