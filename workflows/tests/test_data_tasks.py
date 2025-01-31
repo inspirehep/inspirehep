@@ -11,20 +11,37 @@ dagbag = DagBag()
 @freeze_time("2024-12-11")
 class TestDataHarvest:
     dag = dagbag.get_dag("data_harvest_dag")
-    context = Context()
 
     @pytest.mark.vcr
     def test_collect_ids_param(self):
         task = self.dag.get_task("collect_ids")
-        res = task.execute(context=Context({"params": {"last_updated": "2024-12-15"}}))
+        res = task.execute(
+            context={
+                "params": {"last_updated_from": "2024-12-15", "last_updated_to": ""}
+            }
+        )
         assert res == [2693068, 2807749, 2809112]
+
+    @pytest.mark.vcr
+    def test_collect_ids_param_with_to_date(self):
+        task = self.dag.get_task("collect_ids")
+
+        task.op_kwargs = {
+            "params": {
+                "last_updated_from": "2025-01-25",
+                "last_updated_to": "2025-01-30",
+            }
+        }
+
+        res = task.execute_callable()
+
+        assert res == [2872501, 2872775]
 
     @pytest.mark.vcr
     def test_collect_ids_logical_date(self):
         task = self.dag.get_task("collect_ids")
-        res = task.execute(
-            context=Context({"ds": "2024-12-16", "params": {"last_updated": ""}})
-        )
+        task.op_kwargs = {"params": {"last_updated_from": "", "last_updated_to": ""}}
+        res = task.execute(context=Context({"ds": "2024-12-16"}))
         assert res == [2693068, 2807749, 2809112]
 
     @pytest.mark.vcr
@@ -32,7 +49,7 @@ class TestDataHarvest:
         id = "1906174"
         task = self.dag.get_task("process_record.download_record_versions")
         task.op_args = (id,)
-        res = task.execute(context=self.context)
+        res = task.execute(context=Context())
         assert res["base"]["record"]["inspire_id"] == id
         assert res["base"]["record"]["version"] == 3
         assert all(value in res for value in [1, 2])
@@ -52,7 +69,7 @@ class TestDataHarvest:
             "inspire_url": "https://inspirehep.net",
             "payload": payload,
         }
-        res = task.execute(context=self.context)
+        res = task.execute(context=Context())
         assert res["$schema"] == "data_schema"
         assert res["_collections"] == ["Data"]
 
@@ -112,7 +129,7 @@ class TestDataHarvest:
         }
         task = self.dag.get_task("process_record.load_record")
         task.op_args = (record,)
-        json_response = task.execute(context=self.context)
+        json_response = task.execute(context=Context())
         assert json_response
 
     @pytest.mark.vcr
@@ -124,7 +141,7 @@ class TestDataHarvest:
         }
         task = self.dag.get_task("process_record.normalize_collaborations")
         task.op_args = (record,)
-        json_response = task.execute(context=self.context)
+        json_response = task.execute(context=Context())
 
         assert "record" in json_response["collaborations"][0]
         assert (
@@ -146,5 +163,5 @@ class TestDataHarvest:
         }
         task = self.dag.get_task("process_record.load_record")
         task.op_args = (record,)
-        json_response = task.execute(context=self.context)
+        json_response = task.execute(context=Context())
         assert json_response
