@@ -28,7 +28,7 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     outputs:
-      image-id: ${{ steps.build.outputs.image-tags }}
+      image-id: ${{ steps.build.outputs.image-id }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
