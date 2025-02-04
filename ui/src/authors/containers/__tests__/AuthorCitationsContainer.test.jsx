@@ -1,16 +1,20 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 
-import { getStoreWithState } from '../../../fixtures/store';
-import LiteratureSearchContainer from '../../../literature/containers/LiteratureSearchContainer';
+import { render } from '@testing-library/react';
+import { getStore } from '../../../fixtures/store';
 import { AUTHOR_CITATIONS_NS } from '../../../search/constants';
 import AuthorCitationsContainer from '../AuthorCitationsContainer';
+import LiteratureSearchContainer from '../../../literature/containers/LiteratureSearchContainer';
+
+jest.mock('../../../literature/containers/LiteratureSearchContainer', () =>
+  jest.fn(() => <div data-testid="literature-citations-search-container" />)
+);
 
 describe('AuthorCitationsContainer', () => {
   it('passes all props to LiteratureSearchContainer', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       authors: fromJS({
         data: {
           metadata: {
@@ -19,17 +23,19 @@ describe('AuthorCitationsContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <AuthorCitationsContainer />
       </Provider>
     );
 
-    expect(wrapper.find(LiteratureSearchContainer)).toHaveProp({
-      namespace: AUTHOR_CITATIONS_NS,
-      baseQuery: {
-        q: 'refersto a T.Dude.1',
-      },
-    });
+    expect(LiteratureSearchContainer).toHaveBeenCalledWith(
+      expect.objectContaining({
+        namespace: AUTHOR_CITATIONS_NS,
+        baseQuery: { q: 'refersto a T.Dude.1' },
+      }),
+      {}
+    );
   });
 });
