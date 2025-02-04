@@ -32,6 +32,7 @@ import {
   AUTHOR_PUBLICATIONS_NS,
   AUTHOR_CITATIONS_NS,
   AUTHOR_SEMINARS_NS,
+  AUTHOR_DATA_NS,
 } from '../../../search/constants';
 import { newSearch, searchBaseQueriesUpdate } from '../../../actions/search';
 import DeletedAlert from '../../../common/components/DeletedAlert';
@@ -50,29 +51,28 @@ import { APIButton } from '../../../common/components/APIButton';
 import InspireID from '../../components/InspireID';
 import AuthorBlueskyAction from '../../components/AuthorBlueskyAction';
 import AuthorMastodonAction from '../../components/AuthorMastodonAction';
+import AuthorDataContainer from '../AuthorDataContainer';
 
 function DetailPage({
-  record,
-  publicationsQuery,
-  userOrcid,
   dispatch,
-  publicationsCount,
-  citingPapersCount,
-  loadingPublications,
-  seminarsCount,
   isCatalogerLoggedIn,
   isSuperUserLoggedIn,
+  loadingPublications,
+  publicationsCount,
+  publicationsQuery,
+  record,
+  seminarsCount,
+  userOrcid,
 }: {
-  record: Map<string, any>;
-  publicationsQuery: Map<string, string>;
-  userOrcid: string;
   dispatch: ActionCreator<Action>;
-  publicationsCount: number;
-  citingPapersCount: number;
-  loadingPublications: boolean;
-  seminarsCount: number;
   isCatalogerLoggedIn: boolean;
   isSuperUserLoggedIn: boolean;
+  loadingPublications: boolean;
+  publicationsCount: number;
+  publicationsQuery: Map<string, string>;
+  record: Map<string, any>;
+  seminarsCount: number;
+  userOrcid: string;
 }) {
   const authorFacetName = publicationsQuery.getIn(['author', 0]) as string;
   const metadata = record.get('metadata');
@@ -121,14 +121,16 @@ function DetailPage({
     [metadata]
   );
 
+  const canAccessDataTab = isCatalogerLoggedIn || isSuperUserLoggedIn;
+
   let tabItems = [
     {
       label: (
-        <Tooltip title="Research from the author">
+        <Tooltip title="Literature from the author">
           <span>
             <TabNameWithCount
               loading={publicationsCount === null && loadingPublications}
-              name="Research works"
+              name="Literature"
               count={publicationsCount}
               page="Author detail"
             />
@@ -142,13 +144,38 @@ function DetailPage({
         </ContentBox>
       ),
     },
+  ];
+
+  if (canAccessDataTab) {
+    tabItems = [
+      ...tabItems,
+      {
+        label: (
+          <Tooltip title="Datasets from the author">
+            <span>
+              <span>Datasets</span>
+            </span>
+          </Tooltip>
+        ),
+        key: '2',
+        children: (
+          <ContentBox className="remove-top-border-of-card">
+            <AuthorDataContainer />
+          </ContentBox>
+        ),
+      },
+    ];
+  }
+
+  tabItems = [
+    ...tabItems,
     {
       label: (
         <Tooltip title="Research citing the author">
-          <span>Cited By {citingPapersCount === 0 && <span> (0)</span>}</span>
+          <span>Cited By</span>
         </Tooltip>
       ),
-      key: '2',
+      key: canAccessDataTab ? '3' : '2',
       children: (
         <ContentBox className="remove-top-border-of-card">
           <AuthorCitationsContainer />
@@ -166,7 +193,7 @@ function DetailPage({
             <span>Seminars</span>
           </Tooltip>
         ),
-        key: '3',
+        key: canAccessDataTab ? '4' : '3',
         children: (
           <ContentBox className="remove-top-border-of-card">
             <AuthorSeminars />
@@ -308,11 +335,6 @@ const mapStateToProps = (state: RootStateOrAny) => ({
     AUTHOR_PUBLICATIONS_NS,
     'initialTotal',
   ]),
-  citingPapersCount: state.search.getIn([
-    'namespaces',
-    AUTHOR_CITATIONS_NS,
-    'initialTotal',
-  ]),
   seminarsCount: state.search.getIn([
     'namespaces',
     AUTHOR_SEMINARS_NS,
@@ -335,6 +357,7 @@ export default withRouteActionsDispatcher(DetailPageContainer, {
     fetchAuthor(id),
     newSearch(AUTHOR_PUBLICATIONS_NS),
     newSearch(AUTHOR_CITATIONS_NS),
+    newSearch(AUTHOR_DATA_NS),
     newSearch(AUTHOR_SEMINARS_NS),
     searchBaseQueriesUpdate(AUTHOR_SEMINARS_NS, {
       baseQuery: { q: `speakers.record.$ref:${id}` },

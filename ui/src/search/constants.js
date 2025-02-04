@@ -17,6 +17,7 @@ export const LITERATURE_REFERENCES_NS = 'literatureReferences';
 export const JOBS_NS = 'jobs';
 export const AUTHOR_PUBLICATIONS_NS = 'authorPublications';
 export const AUTHOR_CITATIONS_NS = 'authorCitations';
+export const AUTHOR_DATA_NS = 'authorData';
 export const CONFERENCE_CONTRIBUTIONS_NS = 'conferenceContributions';
 export const CONFERENCES_NS = 'conferences';
 export const EXISTING_CONFERENCES_NS = 'existingConferences';
@@ -67,6 +68,7 @@ export const NAMESPACE_TO_PATHNAME = {
 
   [AUTHOR_PUBLICATIONS_NS]: LITERATURE,
   [AUTHOR_CITATIONS_NS]: LITERATURE,
+  [AUTHOR_DATA_NS]: DATA,
   [CONFERENCE_CONTRIBUTIONS_NS]: LITERATURE,
   [INSTITUTION_PAPERS_NS]: LITERATURE,
   [EXISTING_CONFERENCES_NS]: CONFERENCES_NS,

@@ -10,7 +10,7 @@ import { AUTHOR_PUBLICATIONS_NS } from '../../../search/constants';
 import { initialState } from '../../../reducers/authors';
 
 jest.mock('../../../literature/containers/LiteratureSearchContainer', () =>
-  jest.fn(() => <div data-testid="literature-search-container" />)
+  jest.fn(() => <div data-testid="literature-publications-search-container" />)
 );
 
 describe('AuthorPublicationsContainer with LiteratureSearchContainer mocked', () => {
