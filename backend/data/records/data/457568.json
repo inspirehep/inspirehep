@@ -105,7 +105,7 @@
           "0BO@wRZPbtVZClYSvbSocKkXENciixqKRX.vob",
           "v4w2it@zwrIt.pih"
         ],
-        "full_name": "Pc`a:,z;(]ImH,9]QmwXXY4",
+        "full_name": "Matthias Wolf",
         "ids": [
           {
             "schema": "TWITTER",
@@ -126,7 +126,7 @@
           }
         ],
         "record": {
-          "$ref": "http://zFGgrQUmKkz/api/authors/123445"
+          "$ref": "https://inspirebeta.com/api/authors/1078577"
         },
         "signature_block": "ut ut",
         "uuid": "3ac00867-2732-5adf-bfa8-f7a4b20fb67a"

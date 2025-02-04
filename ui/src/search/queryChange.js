@@ -42,6 +42,16 @@ export function onEmbeddedLiteratureQueryChange(
   }
 }
 
+export function onEmbeddedDataQueryChange(
+  helper,
+  _dispatch,
+  _dueToNavigationToSearchPage
+) {
+  if (helper.hasQueryChanged()) {
+    helper.fetchSearchResults();
+  }
+}
+
 export function onEmbeddedSearchWithAggregationsQueryChange(
   helper,
   _dispatch,
