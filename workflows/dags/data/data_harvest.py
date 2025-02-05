@@ -17,9 +17,10 @@ logger = logging.getLogger(__name__)
 
 
 @dag(
-    start_date=datetime.datetime(2024, 11, 28),
+    start_date=datetime.datetime(1970, 1, 1),
     schedule="@daily",
-    catchup=False,
+    catchup=True,
+    max_active_runs=10,
     tags=["data"],
     params={
         "last_updated_from": Param(type=["null", "string"], default=""),
@@ -54,24 +55,26 @@ def data_harvest_dag():
             if context["params"]["last_updated_from"]
             else ds_add(context["ds"], -1)
         )
-        to_date = context["params"]["last_updated_to"]
+        to_date = (
+            context["params"]["last_updated_to"]
+            if context["params"]["last_updated_to"]
+            else context["ds"]
+        )
 
         payload = {"inspire_ids": True, "last_updated": from_date, "sort_by": "latest"}
         hepdata_response = generic_http_hook.call_api(
             endpoint="/search/ids", method="GET", params=payload
         )
-        if to_date:
-            payload = {
-                "inspire_ids": True,
-                "last_updated": to_date,
-                "sort_by": "latest",
-            }
-            hepdata_to_response = generic_http_hook.call_api(
-                endpoint="/search/ids", method="GET", params=payload
-            )
-            return list(set(hepdata_response.json()) - set(hepdata_to_response.json()))
 
-        return hepdata_response.json()
+        payload = {
+            "inspire_ids": True,
+            "last_updated": to_date,
+            "sort_by": "latest",
+        }
+        hepdata_to_response = generic_http_hook.call_api(
+            endpoint="/search/ids", method="GET", params=payload
+        )
+        return list(set(hepdata_response.json()) - set(hepdata_to_response.json()))
 
     @task_group
     def process_record(record_id):
@@ -79,7 +82,7 @@ def data_harvest_dag():
         building the record and loading it to inspirehep.
         """
 
-        @task(max_active_tis_per_dag=5)
+        @task(max_active_tis_per_dag=20)
         def download_record_versions(id):
             """Download the versions of the record.
 

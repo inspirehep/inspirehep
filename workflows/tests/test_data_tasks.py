@@ -17,10 +17,11 @@ class TestDataHarvest:
         task = self.dag.get_task("collect_ids")
         res = task.execute(
             context={
-                "params": {"last_updated_from": "2024-12-15", "last_updated_to": ""}
+                "params": {"last_updated_from": "2024-12-15", "last_updated_to": ""},
+                "ds": "2024-12-20",
             }
         )
-        assert res == [2693068, 2807749, 2809112]
+        assert res == [2809112, 2807749]
 
     @pytest.mark.vcr
     def test_collect_ids_param_with_to_date(self):
@@ -41,8 +42,8 @@ class TestDataHarvest:
     def test_collect_ids_logical_date(self):
         task = self.dag.get_task("collect_ids")
         task.op_kwargs = {"params": {"last_updated_from": "", "last_updated_to": ""}}
-        res = task.execute(context=Context({"ds": "2024-12-16"}))
-        assert res == [2693068, 2807749, 2809112]
+        res = task.execute(context=Context({"ds": "2025-02-04"}))
+        assert res == [2827552]
 
     @pytest.mark.vcr
     def test_download_record_versions(self):
