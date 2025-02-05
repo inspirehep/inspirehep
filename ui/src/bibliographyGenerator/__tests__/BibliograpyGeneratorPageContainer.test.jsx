@@ -1,12 +1,16 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
-
 import BibliographyGeneratorPageContainer from '../BibliographyGeneratorPageContainer';
-import { getStoreWithState } from '../../fixtures/store';
 import BibliographyGenerator from '../BibliographyGenerator';
+import { getStore } from '../../fixtures/store';
 import { BIBLIOGRAPHY_GENERATOR_REQUEST } from '../../actions/actionTypes';
+
+jest.mock('../BibliographyGenerator', () => {
+  const MockBibliographyGenerator = jest.fn(() => null);
+  return MockBibliographyGenerator;
+});
 
 describe('BibliographyGeneratorPageContainer', () => {
   beforeAll(() => {
@@ -17,34 +21,19 @@ describe('BibliographyGeneratorPageContainer', () => {
     jest.clearAllMocks();
   });
 
-  it('passes props down', () => {
-    const store = getStoreWithState({
-      bibliographyGenerator: fromJS({
-        data: { download_url: 'https://google.com' },
-        citationErrors: [
-          {
-            message: 'Citation error 1',
-          },
-        ],
-        error: { message: 'Error' },
-        loading: false,
-      }),
-    });
-    const wrapper = mount(
-      <Provider store={store}>
-        <BibliographyGeneratorPageContainer />
-      </Provider>
-    );
-    expect(wrapper.find(BibliographyGenerator)).toHaveProp({
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('passes props to BibliographyGenerator component', () => {
+    const expectedState = {
       data: fromJS({ download_url: 'https://google.com' }),
       citationErrors: fromJS([{ message: 'Citation error 1' }]),
       error: fromJS({ message: 'Error' }),
       loading: false,
-    });
-  });
+    };
 
-  it('dispatches BIBLIOGRAPHY_GENERATOR_REQUEST on submission', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       bibliographyGenerator: fromJS({
         data: { download_url: 'https://google.com' },
         citationErrors: [
@@ -56,19 +45,54 @@ describe('BibliographyGeneratorPageContainer', () => {
         loading: false,
       }),
     });
+
+    render(
+      <Provider store={store}>
+        <BibliographyGeneratorPageContainer />
+      </Provider>
+    );
+
+    expect(BibliographyGenerator).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expectedState.data,
+        citationErrors: expectedState.citationErrors,
+        error: expectedState.error,
+        loading: expectedState.loading,
+      }),
+      expect.any(Object)
+    );
+  });
+
+  it('dispatches BIBLIOGRAPHY_GENERATOR_REQUEST on submission', () => {
+    const store = getStore({
+      bibliographyGenerator: fromJS({
+        data: { download_url: 'https://google.com' },
+        citationErrors: [
+          {
+            message: 'Citation error 1',
+          },
+        ],
+        error: { message: 'Error' },
+        loading: false,
+      }),
+    });
+
+    render(
+      <Provider store={store}>
+        <BibliographyGeneratorPageContainer />
+      </Provider>
+    );
+
+    const { onSubmit } = BibliographyGenerator.mock.calls[0][0];
+
     const data = {
       format: 'bibtex',
       fileupload: {
         file: 'this is a file',
       },
     };
-    const wrapper = mount(
-      <Provider store={store}>
-        <BibliographyGeneratorPageContainer />
-      </Provider>
-    );
-    const onSubmit = wrapper.find(BibliographyGenerator).prop('onSubmit');
     onSubmit(data);
+
     const expectedActions = [
       {
         type: BIBLIOGRAPHY_GENERATOR_REQUEST,
