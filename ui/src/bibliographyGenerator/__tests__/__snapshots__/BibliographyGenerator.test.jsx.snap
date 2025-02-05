@@ -1,286 +1,142 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BibliographyGenerator renders 1`] = `
-<Fragment>
-  <DocumentHead
-    description="Generate a LaTeX/BibTeX bibliography from citations in a LaTeX file."
-    title="Bibliography Generator"
-  />
-  <Row
-    className="overflow-x-auto"
+exports[`BibliographyGenerator renders successfully 1`] = `
+<DocumentFragment>
+  <div
+    class="ant-row ant-row-center overflow-x-auto"
     data-testid="bibliography"
-    justify="center"
   >
-    <Col
-      className="mt3 mb3"
-      lg={16}
-      md={21}
-      xl={15}
-      xs={24}
-      xxl={14}
+    <div
+      class="ant-col mt3 mb3 ant-col-xs-24 ant-col-md-21 ant-col-lg-16 ant-col-xl-15 ant-col-xxl-14"
     >
-      <Row
-        className="mb3 pa3 bg-white"
+      <div
+        class="ant-row mb3 pa3 bg-white"
       >
-        <Col>
+        <div
+          class="ant-col"
+        >
           <h2>
             Bibliography generator
           </h2>
           <p>
             Generate a LaTeX/BibTeX bibliography from citations in a LaTeX file.
           </p>
-        </Col>
-      </Row>
-      <ForwardRef(InternalForm)
-        initialValues={
-          Object {
-            "format": "bibtex",
-          }
-        }
-        name="bibliography-generator-form"
-        onFinish={[MockFunction]}
+        </div>
+      </div>
+      <form
+        class="ant-form ant-form-horizontal"
+        id="bibliography-generator-form"
       >
-        <Row>
-          <Col>
-            <CollapsableForm
-              openSections={Array []}
+        <div
+          class="ant-row"
+        >
+          <div
+            class="ant-col"
+          >
+            <div
+              class="ant-collapse ant-collapse-icon-position-start ant-collapse-borderless __CollapsableForm__"
             >
-              <CollapsableFormSection
-                header="Example"
-                key="example"
+              <div
+                class="ant-collapse-item bg-white mb3 overflow-hidden"
               >
-                <p>
-                  <strong>
-                    Here is an example of a LaTeX file that could be sent to our bibliography service, the output as LaTeX is shown below.
-                  </strong>
-                </p>
-                <pre
-                  className="latex-example"
+                <div
+                  aria-disabled="false"
+                  aria-expanded="false"
+                  class="ant-collapse-header"
+                  role="button"
+                  tabindex="0"
                 >
-                  
-\\documentclass[12pt]{article}
-
-\\begin {document}
-\\begin{flushright}
-{\\small
-SLAC--PUB--10812\\\\
-October 2012\\\\}
-\\end{flushright}
-                                                                              
-\\title{A Really Great Paper with Excellent Bibliography}
-\\author{Jane Q. Physicist \\\\
-Stanford Linear Accelerator Center \\\\
-Stanford University, Stanford, California 94309 \\\\
-}
-
-\\maketitle
-
-This paper is pretty eclectic, since it cites a buch of diverse
-  things.  Of course, since it has no content, that is perhaps not so
-  difficult.
-
-Primarily I want to refer the reader to Brodsky and Wu's recent work on the renormalization 
-group\\cite{Brodsky:2012ms}, which is relatively unrelated to the recent
-work by Beacom, Bell, and Dodelson \\cite{Beacom:2004yd}.  I should also point out that
-the paper by Kreitz and Brooks \\cite{physics/0309027} is being cited here in a
-purely self-serving manner.  
-
-There are many papers by Dixon and others that I'd like to point out here
-\\cite{hep-th/0501240,hep-th/0412210,JHEP.0412.015}. 
-In particular I wish to point out that the work done in
-\\cite{JHEP.0412.015} is irrelevant to this paper.  
-
-There are some items in the paper \\cite{Akimov:2012vv} which I would like
-to draw your attention to, but it is likely that as above, I may be citing
-this for the wrong reasons.
-
-
-I had better cite the most recent Review of Particle Properties
-\\cite{Nakamura:2010zzi}, since that
-gets quite a lot of cites, while citing a few papers about stringy topics
-\\cite{hep-th/9711200} is also worthwhile.  No paper is complete without a cite to
-some extra-dimensional papers like \\cite{hep-ph/9803315,hep-ph/9905221}.
-Finally, let me make a mistake citing this paper \\cite{hep-scifi/0101001}.
-
-\\begin{thebibliography}{99}
-
-
-\\end{thebibliography}
-
-
-\\end{document}
-                    
-                </pre>
-                <p>
-                  <strong>
-                    This will warn about the unknown reference to
-                     
-                    <code>
-                      hep-scifi/0101001
-                    </code>
-                     and generate a file containing:
-                  </strong>
-                </p>
-                <pre
-                  className="latex-example"
-                >
-                  
-%\\cite{Brodsky:2012ms}
-\\bibitem{Brodsky:2012ms}
-S.~J.~Brodsky and X.~G.~Wu,
-%\`\`Self-Consistency Requirements of the Renormalization Group for Setting the Renormalization Scale,''
-Phys. Rev. D \\textbf{86} (2012), 054018
-doi:10.1103/PhysRevD.86.054018
-[arXiv:1208.0700 [hep-ph]].
-%53 citations counted in INSPIRE as of 24 Jun 2020
-
-%\\cite{Beacom:2004yd}
-\\bibitem{Beacom:2004yd}
-J.~F.~Beacom, N.~F.~Bell and S.~Dodelson,
-%\`\`Neutrinoless universe,''
-Phys. Rev. Lett. \\textbf{93} (2004), 121302
-doi:10.1103/PhysRevLett.93.121302
-[arXiv:astro-ph/0404585 [astro-ph]].
-%143 citations counted in INSPIRE as of 24 Jun 2020
-
-%\\cite{physics/0309027}
-\\bibitem{physics/0309027}
-P.~A.~Kreitz and T.~C.~Brooks,
-%\`\`Subject access through community partnerships: A Case study,''
-Sci. Tech. Libraries \\textbf{24} (2003), 153-172
-doi:10.1300/J122v24n01_10
-[arXiv:physics/0309027 [physics.hist-ph]].
-%4 citations counted in INSPIRE as of 24 Jun 2020
-
-%\\cite{hep-th/0501240}
-\\bibitem{hep-th/0501240}
-Z.~Bern, L.~J.~Dixon and D.~A.~Kosower,
-%\`\`On-shell recurrence relations for one-loop QCD amplitudes,''
-Phys. Rev. D \\textbf{71} (2005), 105013
-doi:10.1103/PhysRevD.71.105013
-[arXiv:hep-th/0501240 [hep-th]].
-%226 citations counted in INSPIRE as of 24 Jun 2020
-
-%\\cite{hep-th/0412210}
-\\bibitem{hep-th/0412210}
-Z.~Bern, L.~J.~Dixon and D.~A.~Kosower,
-%\`\`All Next-to-maximally-helicity-violating one-loop gluon amplitudes in N=4 super-Yang-Mills theory,''
-Phys. Rev. D \\textbf{72} (2005), 045014
-doi:10.1103/PhysRevD.72.045014
-[arXiv:hep-th/0412210 [hep-th]].
-%136 citations counted in INSPIRE as of 24 Jun 2020
-
-%\\cite{JHEP.0412.015}
-\\bibitem{JHEP.0412.015}
-L.~J.~Dixon, E.~Glover and V.~V.~Khoze,
-%\`\`MHV rules for Higgs plus multi-gluon amplitudes,''
-JHEP \\textbf{12} (2004), 015
-doi:10.1088/1126-6708/2004/12/015
-[arXiv:hep-th/0411092 [hep-th]].
-%192 citations counted in INSPIRE as of 24 Jun 2020
-
-%\\cite{Akimov:2012vv}
-\\bibitem{Akimov:2012vv}
-T.~Alexander \\textit{et al.} [DarkSide],
-%\`\`Light Yield in DarkSide-10: A Prototype Two-Phase Argon TPC for Dark Matter Searches,''
-Astropart. Phys. \\textbf{49} (2013), 44-51
-doi:10.1016/j.astropartphys.2013.08.004
-[arXiv:1204.6218 [astro-ph.IM]].
-%69 citations counted in INSPIRE as of 24 Jun 2020
-
-%\\cite{Nakamura:2010zzi}
-\\bibitem{Nakamura:2010zzi}
-K.~Nakamura \\textit{et al.} [Particle Data Group],
-%\`\`Review of particle physics,''
-J. Phys. G \\textbf{37} (2010), 075021
-doi:10.1088/0954-3899/37/7A/075021
-%6467 citations counted in INSPIRE as of 24 Jun 2020
-
-%\\cite{hep-th/9711200}
-\\bibitem{hep-th/9711200}
-J.~M.~Maldacena,
-%\`\`The Large N limit of superconformal field theories and supergravity,''
-Int. J. Theor. Phys. \\textbf{38} (1999), 1113-1133
-doi:10.1023/A:1026654312961
-[arXiv:hep-th/9711200 [hep-th]].
-%15702 citations counted in INSPIRE as of 24 Jun 2020
-
-%\\cite{hep-ph/9803315}
-\\bibitem{hep-ph/9803315}
-N.~Arkani-Hamed, S.~Dimopoulos and G.~Dvali,
-%\`\`The Hierarchy problem and new dimensions at a millimeter,''
-Phys. Lett. B \\textbf{429} (1998), 263-272
-doi:10.1016/S0370-2693(98)00466-3
-[arXiv:hep-ph/9803315 [hep-ph]].
-%6724 citations counted in INSPIRE as of 24 Jun 2020
-
-%\\cite{hep-ph/9905221}
-\\bibitem{hep-ph/9905221}
-L.~Randall and R.~Sundrum,
-%\`\`A Large mass hierarchy from a small extra dimension,''
-Phys. Rev. Lett. \\textbf{83} (1999), 3370-3373
-doi:10.1103/PhysRevLett.83.3370
-[arXiv:hep-ph/9905221 [hep-ph]].
-%8745 citations counted in INSPIRE as of 24 Jun 2020
-                    
-                </pre>
-              </CollapsableFormSection>
-            </CollapsableForm>
-            <Row
-              className="pa3 bg-white"
+                  <div
+                    class="ant-collapse-expand-icon"
+                  >
+                    <span
+                      aria-label="right"
+                      class="anticon anticon-right ant-collapse-arrow"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="right"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <span
+                    class="ant-collapse-header-text"
+                  >
+                    <h3
+                      class="fw6"
+                    >
+                      Example
+                    </h3>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-row pa3 bg-white"
             >
-              <Col>
-                <Row
-                  className="mb3"
+              <div
+                class="ant-col"
+              >
+                <div
+                  class="ant-row mb3"
                 >
-                  <Col>
+                  <div
+                    class="ant-col"
+                  >
                     <h3>
                       Instructions
                     </h3>
                     <p>
                       Write your paper in LaTeX as usual. Cite papers in your LaTeX file using the 
-                      <Cite>
-                        ...
-                      </Cite>
+                      <code>
+                        \\cite{...}
+                      </code>
                        macro. The citation keys will be used to retrieve the bibliographic information for the referenced papers from the INSPIRE database. The following types of citation keys are supported:
                     </p>
                     <ol>
                       <li>
                         INSPIRE Texkeys, e.g. 
-                        <Cite>
-                          Beacom:2010kk
-                        </Cite>
+                        <code>
+                          \\cite{Beacom:2010kk}
+                        </code>
                       </li>
                       <li>
                         arXiv eprint numbers, e.g. 
-                        <Cite>
-                          1004.3311
-                        </Cite>
-                         or
-                         
-                        <Cite>
-                          hep-th/9711200
-                        </Cite>
+                        <code>
+                          \\cite{1004.3311}
+                        </code>
+                         or 
+                        <code>
+                          \\cite{hep-th/9711200}
+                        </code>
                       </li>
                       <li>
-                        Journal references as present on INSPIRE, with the spaces and dots removed from the title, and dots used as separator between title, volume and page-number/article ID, e.g.
-                         
-                        <Cite>
-                          PhysRev.D66.010001
-                        </Cite>
+                        Journal references as present on INSPIRE, with the spaces and dots removed from the title, and dots used as separator between title, volume and page-number/article ID, e.g. 
+                        <code>
+                          \\cite{PhysRev.D66.010001}
+                        </code>
                       </li>
                       <li>
                         ADS bibcodes, e.g. 
-                        <Cite>
-                          1999IJTP...38.1113M
-                        </Cite>
+                        <code>
+                          \\cite{1999IJTP...38.1113M}
+                        </code>
                       </li>
                       <li>
-                        Report numbers, e.g.
-                         
-                        <Cite>
-                          CERN-PH-EP-2012-218
-                        </Cite>
+                        Report numbers, e.g. 
+                        <code>
+                          \\cite{CERN-PH-EP-2012-218}
+                        </code>
                       </li>
                     </ol>
                     <p>
@@ -291,11 +147,10 @@ doi:10.1103/PhysRevLett.83.3370
                     </p>
                     <ul>
                       <li>
-                        You can cite multiple papers at once by separating the keys with commas, such as
-                         
-                        <Cite>
-                          Beacom:2010kk, hep-th/9711200
-                        </Cite>
+                        You can cite multiple papers at once by separating the keys with commas, such as 
+                        <code>
+                          \\cite{Beacom:2010kk, hep-th/9711200}
+                        </code>
                         . Each of them will appear as a separate entry in the bibliography.
                       </li>
                       <li>
@@ -306,102 +161,234 @@ doi:10.1103/PhysRevLett.83.3370
                       </li>
                       <li>
                         The only allowed characters in 
-                        <Cite>
-                          ...
-                        </Cite>
-                         
-                        commands are letters, numbers and the following punctuation characters: “-”, “/”, “:”, “,” and “.”. If your citation key contains anything else, it will not be processed.
+                        <code>
+                          \\cite{...}
+                        </code>
+                         commands are letters, numbers and the following punctuation characters: “-”, “/”, “:”, “,” and “.”. If your citation key contains anything else, it will not be processed.
                       </li>
                       <li>
                         You have to send a LaTeX file containing citations, you can’t send a BibTeX database.
                       </li>
                     </ul>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col
-                    span={24}
-                  >
-                    <InternalFormItem
-                      name="fileupload"
-                      rules={
-                        Array [
-                          Object {
-                            "message": "Please select a file",
-                            "required": true,
-                          },
-                        ]
-                      }
-                    >
-                      <Dragger
-                        accept=".tex"
-                        beforeUpload={[Function]}
-                        name="file"
-                        onRemove={[Function]}
-                      >
-                        <p
-                          className="ant-upload-drag-icon"
-                        >
-                          <InboxOutlined />
-                        </p>
-                        <p
-                          className="ant-upload-text"
-                        >
-                          LaTeX file
-                        </p>
-                        <p
-                          className="ant-upload-hint"
-                        >
-                          Click or drag file to this area to upload
-                        </p>
-                      </Dragger>
-                    </InternalFormItem>
-                    <InternalFormItem
-                      label="Output format"
-                      name="format"
-                    >
-                      <SelectBox
-                        options={
-                          Array [
-                            Object {
-                              "display": "BibTeX",
-                              "value": "bibtex",
-                            },
-                            Object {
-                              "display": "LaTeX (US)",
-                              "value": "latex_us",
-                            },
-                            Object {
-                              "display": "LaTeX (EU)",
-                              "value": "latex_eu",
-                            },
-                          ]
-                        }
-                      />
-                    </InternalFormItem>
-                  </Col>
-                </Row>
-                <Row
-                  justify="end"
+                  </div>
+                </div>
+                <div
+                  class="ant-row"
                 >
-                  <InternalFormItem
-                    className="no-margin-bottom"
+                  <div
+                    class="ant-col ant-col-24"
                   >
-                    <Button
-                      disabled={true}
-                      htmlType="submit"
-                      type="primary"
+                    <div
+                      class="ant-form-item"
                     >
-                      Submit
-                    </Button>
-                  </InternalFormItem>
-                </Row>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </ForwardRef(InternalForm)>
-    </Col>
-  </Row>
-</Fragment>
+                      <div
+                        class="ant-row ant-form-item-row"
+                      >
+                        <div
+                          class="ant-col ant-form-item-control"
+                        >
+                          <div
+                            class="ant-form-item-control-input"
+                          >
+                            <div
+                              class="ant-form-item-control-input-content"
+                            >
+                              <span>
+                                <div
+                                  class="ant-upload ant-upload-drag"
+                                >
+                                  <span
+                                    class="ant-upload ant-upload-btn"
+                                    role="button"
+                                    tabindex="0"
+                                  >
+                                    <input
+                                      accept=".tex"
+                                      aria-required="true"
+                                      id="bibliography-generator-form_fileupload"
+                                      style="display: none;"
+                                      type="file"
+                                    />
+                                    <div
+                                      class="ant-upload-drag-container"
+                                    >
+                                      <p
+                                        class="ant-upload-drag-icon"
+                                      >
+                                        <span
+                                          aria-label="inbox"
+                                          class="anticon anticon-inbox"
+                                          role="img"
+                                        >
+                                          <svg
+                                            aria-hidden="true"
+                                            data-icon="inbox"
+                                            fill="currentColor"
+                                            focusable="false"
+                                            height="1em"
+                                            viewBox="0 0 1024 1024"
+                                            width="1em"
+                                          >
+                                            <path
+                                              d="M885.2 446.3l-.2-.8-112.2-285.1c-5-16.1-19.9-27.2-36.8-27.2H281.2c-17 0-32.1 11.3-36.9 27.6L139.4 443l-.3.7-.2.8c-1.3 4.9-1.7 9.9-1 14.8-.1 1.6-.2 3.2-.2 4.8V830a60.9 60.9 0 0060.8 60.8h627.2c33.5 0 60.8-27.3 60.9-60.8V464.1c0-1.3 0-2.6-.1-3.7.4-4.9 0-9.6-1.3-14.1zm-295.8-43l-.3 15.7c-.8 44.9-31.8 75.1-77.1 75.1-22.1 0-41.1-7.1-54.8-20.6S436 441.2 435.6 419l-.3-15.7H229.5L309 210h399.2l81.7 193.3H589.4zm-375 76.8h157.3c24.3 57.1 76 90.8 140.4 90.8 33.7 0 65-9.4 90.3-27.2 22.2-15.6 39.5-37.4 50.7-63.6h156.5V814H214.4V480.1z"
+                                            />
+                                          </svg>
+                                        </span>
+                                      </p>
+                                      <p
+                                        class="ant-upload-text"
+                                      >
+                                        LaTeX file
+                                      </p>
+                                      <p
+                                        class="ant-upload-hint"
+                                      >
+                                        Click or drag file to this area to upload
+                                      </p>
+                                    </div>
+                                  </span>
+                                </div>
+                                <div
+                                  class="ant-upload-list ant-upload-list-text"
+                                />
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="ant-form-item"
+                    >
+                      <div
+                        class="ant-row ant-form-item-row"
+                      >
+                        <div
+                          class="ant-col ant-form-item-label"
+                        >
+                          <label
+                            class=""
+                            for="bibliography-generator-form_format"
+                            title="Output format"
+                          >
+                            Output format
+                          </label>
+                        </div>
+                        <div
+                          class="ant-col ant-form-item-control"
+                        >
+                          <div
+                            class="ant-form-item-control-input"
+                          >
+                            <div
+                              class="ant-form-item-control-input-content"
+                            >
+                              <div
+                                class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow"
+                                placement="bottomLeft"
+                              >
+                                <div
+                                  class="ant-select-selector"
+                                >
+                                  <span
+                                    class="ant-select-selection-search"
+                                  >
+                                    <input
+                                      aria-activedescendant="bibliography-generator-form_format_list_0"
+                                      aria-autocomplete="list"
+                                      aria-controls="bibliography-generator-form_format_list"
+                                      aria-haspopup="listbox"
+                                      aria-owns="bibliography-generator-form_format_list"
+                                      autocomplete="off"
+                                      class="ant-select-selection-search-input"
+                                      id="bibliography-generator-form_format"
+                                      readonly=""
+                                      role="combobox"
+                                      style="opacity: 0;"
+                                      value=""
+                                    />
+                                  </span>
+                                  <span
+                                    class="ant-select-selection-item"
+                                  >
+                                    <span>
+                                      BibTeX
+                                    </span>
+                                  </span>
+                                </div>
+                                <span
+                                  aria-hidden="true"
+                                  class="ant-select-arrow"
+                                  style="user-select: none;"
+                                  unselectable="on"
+                                >
+                                  <span
+                                    aria-label="down"
+                                    class="anticon anticon-down ant-select-suffix"
+                                    role="img"
+                                  >
+                                    <svg
+                                      aria-hidden="true"
+                                      data-icon="down"
+                                      fill="currentColor"
+                                      focusable="false"
+                                      height="1em"
+                                      viewBox="64 64 896 896"
+                                      width="1em"
+                                    >
+                                      <path
+                                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                                      />
+                                    </svg>
+                                  </span>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-row ant-row-end"
+                >
+                  <div
+                    class="ant-form-item no-margin-bottom"
+                  >
+                    <div
+                      class="ant-row ant-form-item-row"
+                    >
+                      <div
+                        class="ant-col ant-form-item-control"
+                      >
+                        <div
+                          class="ant-form-item-control-input"
+                        >
+                          <div
+                            class="ant-form-item-control-input-content"
+                          >
+                            <button
+                              class="ant-btn ant-btn-primary"
+                              disabled=""
+                              type="submit"
+                            >
+                              <span>
+                                Submit
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
 `;
