@@ -355,14 +355,6 @@ const AuthorDetailPageContainer = ({
                           Open in Editor
                         </a>
                       </Button>
-                      <Button
-                        className="w-75"
-                        onClick={() => {}}
-                        loading={actionInProgress === 'skip'}
-                      >
-                        <PlayCircleOutlined />
-                        Skip to next step
-                      </Button>
                     </div>
                   </ContentBox>
                 </Col>
