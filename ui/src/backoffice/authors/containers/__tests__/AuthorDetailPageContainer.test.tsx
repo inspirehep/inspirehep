@@ -72,18 +72,36 @@ describe('AuthorDetailPageContainer', (ids: any = []) => {
     );
   });
 
-  it('should not contain a Links section', () => {
+  it('should not contain a Identifiers section', () => {
     renderComponent();
 
-    const linkHeader = screen.queryByRole('heading', { name: 'Links' });
+    const linkHeader = screen.queryByRole('heading', {
+      name: 'Identifiers & Links',
+    });
     expect(linkHeader).toBeNull();
   });
 
-  it('should contain a Links section', () => {
+  it('should contain a Identifiers section', () => {
     renderComponent([{ schema: 'INSPIRE BAI', value: 'A.Einstein.1' }]);
 
-    const linkHeader = screen.getByRole('heading', { name: 'Links' });
+    const linkHeader = screen.getByRole('heading', {
+      name: 'Identifiers & Links',
+    });
     expect(linkHeader).toBeInTheDocument();
+  });
+
+  it('CERN ID, INSPIRE ID and INSPIRE BAI Ids are not links', () => {
+    renderComponent([
+      { schema: 'INSPIRE BAI', value: 'A.Einstein.1' },
+      { schema: 'INSPIRE ID', value: 'INSPIRE-00679173' },
+      { schema: 'CERN', value: 'CERN-830340' },
+    ]);
+    const inpireBai = screen.getByText('A.Einstein.1');
+    const inspireId = screen.getByText('INSPIRE-00679173');
+    const cernId = screen.getByText('CERN-830340');
+    expect(inpireBai.tagName).toBe('SPAN');
+    expect(inspireId.tagName).toBe('SPAN');
+    expect(cernId.tagName).toBe('SPAN');
   });
 
   it('should display the author name', () => {

@@ -1,13 +1,16 @@
 import React from 'react';
 import { Map } from 'immutable';
-import {
+import Icon, {
   CopyOutlined,
   LinkOutlined,
   LinkedinOutlined,
   XOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import orcidLogo from '../../../../common/assets/orcid.svg';
+import { ReactComponent as mastodonLogo } from '../../../../common/assets/mastodon.svg';
+import { ReactComponent as blueskyLogo } from '../../../../common/assets/bluesky.svg';
+import { ReactComponent as orcidLogo } from '../../../../common/assets/orcid.svg';
 
 type LinksProps = {
   urls: Map<string, any>;
@@ -48,29 +51,36 @@ function getLinkData(schema: string, value: string) {
     case 'BLUESKY':
       return {
         href: `https://bsky.app/profile/${value}`,
-        icon: <XOutlined className="mr1" />,
+        icon: <Icon component={blueskyLogo} className="mr1" />,
       };
     case 'MASTODON': {
       const [user, host] = value.split('@');
       return {
         href: `https://${host}/@${user}`,
-        icon: <XOutlined className="mr1" />,
+        icon: <Icon component={mastodonLogo} className="mr1" />,
       };
     }
     case 'ORCID':
       return {
         href: `https://orcid.org/${value}`,
-        icon: (
-          <img
-            src={orcidLogo}
-            alt="ORCID"
-            width={16}
-            height={16}
-            className="mr1"
-          />
-        ),
+        icon: <Icon component={orcidLogo} className="mr1" />,
         show_copy_btn: true,
       };
+    case 'CERN': {
+      return {
+        icon: <UserOutlined className="mr1" />,
+      };
+    }
+    case 'INSPIRE ID': {
+      return {
+        icon: <UserOutlined className="mr1" />,
+      };
+    }
+    case 'INSPIRE BAI': {
+      return {
+        icon: <UserOutlined className="mr1" />,
+      };
+    }
     default:
       return {
         href: value,
@@ -78,6 +88,26 @@ function getLinkData(schema: string, value: string) {
       };
   }
 }
+
+const Id = ({
+  schema,
+  value,
+  href,
+}: {
+  schema: string;
+  value: string;
+  href: string | undefined;
+}) => {
+  if (!href) {
+    return <span>{value}</span>;
+  }
+  return (
+    <a href={href} target="_blank">
+      {' '}
+      {value}{' '}
+    </a>
+  );
+};
 
 export const Ids = ({ ids, noIcon = false }: IdsProps) => (
   <>
@@ -95,10 +125,7 @@ export const Ids = ({ ids, noIcon = false }: IdsProps) => (
           {schema && (
             <b className="dib ttc">{socialPlatformMap[schema] || schema}:</b>
           )}{' '}
-          <a href={href} target="_blank">
-            {' '}
-            {value}{' '}
-          </a>
+          <Id schema={schema} value={value} href={href} />
           {showCopyBtn && (
             <CopyToClipboard text={value}>
               <span className="ml1 pointer">
