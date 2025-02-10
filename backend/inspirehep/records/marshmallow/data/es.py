@@ -9,6 +9,9 @@ from inspire_utils.record import get_value
 from marshmallow import fields
 
 from inspirehep.records.marshmallow.base import ElasticSearchBaseSchema
+from inspirehep.records.marshmallow.common.literature_record import (
+    LiteratureRecordSchemaV1,
+)
 from inspirehep.records.marshmallow.data.base import DataRawSchema
 from inspirehep.records.marshmallow.fields.list_with_limit import ListWithLimit
 from inspirehep.records.marshmallow.literature.common.author import AuthorSchemaV1
@@ -17,6 +20,7 @@ from inspirehep.search.api import LiteratureSearch
 
 class DataElasticSearchSchema(ElasticSearchBaseSchema, DataRawSchema):
     authors = ListWithLimit(fields.Nested(AuthorSchemaV1, dump_only=True), limit=10)
+    literature = fields.Nested(LiteratureRecordSchemaV1, dump_only=True, many=True)
 
     def fetch_authors_from_literature(self, data):
         literature = get_value(data, "literature")
