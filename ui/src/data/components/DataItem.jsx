@@ -52,6 +52,7 @@ function DataItem({ metadata, page }) {
                 text="literature"
                 trackerEventId="Literature links"
                 page="Literature detail"
+                isTargetBlank={false}
               />
             )}
           </>

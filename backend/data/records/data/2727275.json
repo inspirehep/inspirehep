@@ -556,15 +556,6 @@
   ],
   "literature": [
     {
-      "doi": {
-        "source": "amet Ut",
-        "value": "10.912/W/K[Bz"
-      },
-      "record": {
-        "$ref": "https://inspirebeta.net/api/literature/44707"
-      }
-    },
-    {
       "record": {
         "$ref": "https://inspirebeta.net/api/literature/873915"
       }
