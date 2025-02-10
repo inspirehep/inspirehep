@@ -169,7 +169,10 @@ const AuthorDetailPageContainer = ({
                       />
                     </CollapsableForm.Section>
                     {(urls || filteredIds?.size) && (
-                      <CollapsableForm.Section header="Links" key="links">
+                      <CollapsableForm.Section
+                        header="Identifiers & Links"
+                        key="links"
+                      >
                         <Links urls={urls} ids={filteredIds} />
                       </CollapsableForm.Section>
                     )}

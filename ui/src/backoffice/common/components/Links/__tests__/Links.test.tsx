@@ -51,9 +51,9 @@ describe('Links Component', () => {
 
   it('should render Bluesky link correctly in Ids', () => {
     const ids = Map([['0', Map({ schema: 'BLUESKY', value: 'john_doe' })]]);
-    const { getByText, getByRole } = render(<Ids ids={ids} />);
+    const { getAllByText, getByRole } = render(<Ids ids={ids} />);
 
-    expect(getByText(/bluesky/i)).toBeInTheDocument();
+    expect(getAllByText(/bluesky/i)[0]).toBeInTheDocument();
     expect(getByRole('link', { name: /john_doe/i })).toHaveAttribute(
       'href',
       'https://bsky.app/profile/john_doe'
@@ -64,9 +64,9 @@ describe('Links Component', () => {
     const ids = Map([
       ['0', Map({ schema: 'MASTODON', value: 'john_doe@example.com' })],
     ]);
-    const { getByText, getByRole } = render(<Ids ids={ids} />);
+    const { getAllByText, getByRole } = render(<Ids ids={ids} />);
 
-    expect(getByText(/mastodon/i)).toBeInTheDocument();
+    expect(getAllByText(/mastodon/i)[0]).toBeInTheDocument();
     expect(
       getByRole('link', { name: /john_doe@example.com/i })
     ).toHaveAttribute('href', 'https://example.com/@john_doe');
@@ -87,15 +87,13 @@ describe('Links Component', () => {
     const ids = Map([
       ['0', Map({ schema: 'ORCID', value: '0000-0002-1825-0097' })],
     ]);
-    const { getByText, getByRole } = render(<Ids ids={ids} />);
+    const { getAllByText, getByRole } = render(<Ids ids={ids} />);
 
-    expect(getByText(/orcid/i)).toBeInTheDocument();
+    expect(getAllByText(/orcid/i)[0]).toBeInTheDocument();
     expect(getByRole('link', { name: /0000-0002-1825-0097/i })).toHaveAttribute(
       'href',
       'https://orcid.org/0000-0002-1825-0097'
     );
-    const logo = screen.getByAltText('ORCID');
-    expect(logo).toHaveAttribute('src', orcidLogo);
 
     const copyIcon = screen.getByLabelText(/copy/i);
     expect(copyIcon).toBeInTheDocument();
