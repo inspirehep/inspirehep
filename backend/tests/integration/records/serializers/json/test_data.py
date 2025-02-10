@@ -368,3 +368,35 @@ def test_data_elasticsearch_schema_fetches_from_linked_literature(inspire_app):
         assert "authors" in response_data_hit
         assert len(response_data_hit["authors"]) == 10
         assert "number_of_authors" not in response_data_hit
+
+
+def test_data_elasticsearch_schema_serialize_literature(inspire_app):
+    with inspire_app.test_client() as client:
+        lit_record = create_record("lit", data={"titles": [{"title": "Lit title"}]})
+        create_record(
+            "dat",
+            data={
+                "literature": [
+                    {
+                        "record": {
+                            "$ref": f"http://localhost:5000/api/literature/{lit_record['control_number']}"
+                        }
+                    }
+                ]
+            },
+        )
+
+        expected_literature = [
+            {
+                "control_number": lit_record["control_number"],
+                "titles": [{"title": "Lit title"}],
+                "record": {
+                    "$ref": f"http://localhost:5000/api/literature/{lit_record['control_number']}"
+                },
+            }
+        ]
+
+        response = client.get("/data/")
+        response_data = orjson.loads(response.data)
+        response_data_hit = response_data["hits"]["hits"][0]["metadata"]
+        assert response_data_hit["literature"] == expected_literature

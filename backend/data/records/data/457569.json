@@ -264,12 +264,12 @@
           "value": "10.912/W/K[Bz"
         },
         "record": {
-          "$ref": "http://XVxZ15mkm/api/literature/44707"
+          "$ref": "https://inspirebeta.net/api/literature/44707"
         }
       },
       {
         "record": {
-          "$ref": "http://l/api/literature/873915"
+          "$ref": "https://inspirebeta.net/api/literature/873915"
         }
       }
     ],

@@ -557,16 +557,20 @@
   "literature": [
     {
       "doi": {
-        "value": "10.1103/PhysRevD.109.112016"
+        "source": "amet Ut",
+        "value": "10.912/W/K[Bz"
       },
       "record": {
-        "$ref": "https://inspirebeta.net/api/literature/2732688"
+        "$ref": "https://inspirebeta.net/api/literature/44707"
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/873915"
       }
     }
   ],
-  "_collections": [
-    "Data"
-  ],
+  "_collections": ["Data"],
   "creation_date": "2024-12-13",
   "collaborations": [
     {
