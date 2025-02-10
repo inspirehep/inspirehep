@@ -3,6 +3,7 @@ import { List, Map } from 'immutable';
 import { Menu } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 
+import { Link } from 'react-router-dom';
 import IconText from '../../common/components/IconText';
 import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 import { removeProtocolAndWwwFromUrl } from '../../common/utils';
@@ -23,6 +24,7 @@ interface UrlsActionProps {
   trackerEventId: string;
   page: string;
   eventAction?: string;
+  isTargetBlank?: boolean;
 }
 
 function UrlsAction({
@@ -32,20 +34,26 @@ function UrlsAction({
   trackerEventId,
   page,
   eventAction,
+  isTargetBlank = true,
 }: UrlsActionProps) {
   const renderUrlsAction = useCallback(
-    (url, title) => (
-      <EventTracker
-        eventCategory={page}
-        eventAction={eventAction || 'Link'}
-        eventId={trackerEventId}
-      >
-        <LinkWithTargetBlank href={url.get('value')}>
-          {title}
-        </LinkWithTargetBlank>
-      </EventTracker>
-    ),
-    [trackerEventId, page, eventAction]
+    (url, title) => {
+      const value = url.get('value');
+      return (
+        <EventTracker
+          eventCategory={page}
+          eventAction={eventAction || 'Link'}
+          eventId={trackerEventId}
+        >
+          {isTargetBlank ? (
+            <LinkWithTargetBlank href={value}>{title}</LinkWithTargetBlank>
+          ) : (
+            <Link to={value}>{title}</Link>
+          )}
+        </EventTracker>
+      );
+    },
+    [trackerEventId, page, eventAction, isTargetBlank]
   );
 
   const renderUrlsDropdownAction = useCallback(
@@ -60,13 +68,17 @@ function UrlsAction({
               eventAction={eventAction || 'Link'}
               eventId={trackerEventId}
             >
-              <LinkWithTargetBlank href={href}>{display}</LinkWithTargetBlank>
+              {isTargetBlank ? (
+                <LinkWithTargetBlank href={href}>{display}</LinkWithTargetBlank>
+              ) : (
+                <Link to={href}>{display}</Link>
+              )}
             </EventTracker>
           </span>
         ),
       };
     },
-    [trackerEventId, page, eventAction]
+    [trackerEventId, page, eventAction, isTargetBlank]
   );
 
   const ACTION_TITLE = <IconText icon={icon} text={text} />;
