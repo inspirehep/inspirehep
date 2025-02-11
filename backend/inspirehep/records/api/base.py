@@ -439,11 +439,10 @@ class InspireRecord(Record):
             old_record.update(dict(old_record))
 
     def redirect_pids(self, pids):
-        if current_app.config.get("FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS"):
-            for pid in pids:
-                pid_type, pid_value = PidStoreBase.get_pid_from_record_uri(pid["$ref"])
-                self.redirect_pid(pid_type, pid_value)
-            return pids
+        for pid in pids:
+            pid_type, pid_value = PidStoreBase.get_pid_from_record_uri(pid["$ref"])
+            self.redirect_pid(pid_type, pid_value)
+        return pids
 
     @classmethod
     def delete_records_from_deleted_records(cls, data):
