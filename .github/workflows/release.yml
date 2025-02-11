@@ -33,10 +33,17 @@ jobs:
             inspirehep/editor
           tags: "type=sha"
 
-      - name: send event
+      - name: send event inspire
         uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v6.3.1
         with:
           repo: cern-sis/kubernetes-inspire
           event-type: release
           images: ${{ env.DOCKER_METADATA_OUTPUT_TAGS }}
+          token: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
+      - name: send event airflow
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v6.3.1
+        with:
+          repo: cern-sis/kubernetes-airflow
+          event-type: release
+          images: ${{ fromJSON(needs.test.outputs.json).tags[1] }} #registry.cern.ch/cern-sis/inspire/workflows@${{ needs.test.outputs.image-id }}
           token: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
