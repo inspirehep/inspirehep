@@ -32,16 +32,8 @@ def test_cds_sync_fail(inspire_app_for_cds_sync, cli):
     assert "Task didn't finish correctly." in result.output
 
 
-def test_cds_sync_feature_flag_check_in_cli(inspire_app, cli, override_config):
-    with override_config(
-        FEATURE_FLAG_ENABLE_CDS_SYNC=False, CDS_SERVER_API="http://localhost:9876/api/"
-    ):
-        result = cli.invoke(["cds", "sync"])
-    assert "Feature flag for CDS sync is not enabled." in result.output
-
-
 def test_cds_sync_checks_cds_server_url(inspire_app, cli, override_config):
-    with override_config(FEATURE_FLAG_ENABLE_CDS_SYNC=True, CDS_SERVER_API=""):
+    with override_config(CDS_SERVER_API=""):
         result = cli.invoke(["cds", "sync", "--since", "2020-11-11"])
     assert "Server config is missing." in result.output
 

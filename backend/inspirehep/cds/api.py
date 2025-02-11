@@ -30,9 +30,6 @@ RETRY_BACKOFF = 5
 
 def sync_identifiers(since=None):
     LOGGER.info("Starting CDS Sync", since=since)
-    if not current_app.config.get("FEATURE_FLAG_ENABLE_CDS_SYNC", False):
-        LOGGER.warning("CDS sync is currently disabled by feature flag.")
-        return
 
     last_run = CDSRun.get_last_successful_run()
     last_run_date = last_run.date if last_run else None

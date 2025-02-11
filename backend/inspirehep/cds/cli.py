@@ -6,7 +6,6 @@
 from datetime import date, datetime
 
 import click
-from flask import current_app
 from flask.cli import with_appcontext
 
 from inspirehep.cds.api import sync_identifiers
@@ -33,9 +32,6 @@ def cds():
 @with_appcontext
 def sync(since=None):
     """Starts sync form CDS server"""
-    if not current_app.config.get("FEATURE_FLAG_ENABLE_CDS_SYNC"):
-        click.echo("Feature flag for CDS sync is not enabled.")
-        exit(-1)
     if not since:
         last_run = CDSRun.get_last_successful_run()
         since = last_run.date.date() if last_run else None

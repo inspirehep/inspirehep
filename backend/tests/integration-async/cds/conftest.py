@@ -13,9 +13,7 @@ import requests_mock
 
 @pytest.fixture
 def inspire_app_with_config_for_cds_sync(inspire_app, override_config):
-    with override_config(
-        FEATURE_FLAG_ENABLE_CDS_SYNC=True, CDS_SERVER_API="http://localhost:9876/api/"
-    ):
+    with override_config(CDS_SERVER_API="http://localhost:9876/api/"):
         yield inspire_app
 
 
