@@ -20,6 +20,9 @@ on:
         type: string
         required: false
     outputs:
+      json:
+        description: JSON output of tags and labels
+        value: ${{ jobs.build.outputs.json }}
       image-id:
         description: The ID of image that has been built
         value: ${{ jobs.build.outputs.image-id }}
@@ -29,6 +32,7 @@ jobs:
     runs-on: ubuntu-24.04
     outputs:
       image-id: ${{ steps.build.outputs.image-id }}
+      json: ${{ steps.build.outputs.json }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -37,7 +41,7 @@ jobs:
 
       - id: build
         name: Build and push
-        uses: cern-sis/gh-workflows/.github/actions/docker-build@v6.3.1
+        uses: cern-sis/gh-workflows/.github/actions/docker-build@v6.5
         with:
           image: ${{ inputs.image }}
           context: ${{ inputs.context }}
