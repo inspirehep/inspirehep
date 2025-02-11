@@ -37,7 +37,6 @@ def app():
     app_config["SQLALCHEMY_DATABASE_URI"] = (
         "postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep-async"
     )
-    app_config["FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS"] = True
     app.wsgi_app.mounts["/api"].config.update(app_config)
     # We cannot have `api` app with the same SERVER_NAME
     app_config["SERVER_NAME"] = "localhost:5000"

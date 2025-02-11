@@ -660,20 +660,6 @@ def test_after_redirection_old_record_is_aware_where_it_is_redirected(inspire_ap
     assert record_1_from_db.redirected_record_ref == record_2["self"]
 
 
-def test_feature_flag_for_redirection_disables_redirection_when_turned_off(
-    inspire_app, override_config
-):
-    with override_config(FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS=False):
-        record_1 = create_record("lit")
-
-        create_record("lit", data={"deleted_records": [record_1["self"]]})
-        record_1_from_db = LiteratureRecord.get_record_by_pid_value(
-            record_1["control_number"]
-        )
-
-    assert record_1_from_db.id == record_1.id
-
-
 def test_creating_record_with_deleted_key_registers_control_number_with_deleted_status(
     inspire_app,
 ):
@@ -708,27 +694,6 @@ def test_create_or_update_when_redirection_enabled_updates_original_record(inspi
     )
     assert deleted_rec["titles"][0] == expected_title
     assert new_rec["titles"][0] == rec_which_deletes["titles"][0]
-
-
-def test_create_record_which_redirects_non_existing_pid_when_redirection_is_turned_off(
-    inspire_app, override_config
-):
-    # Not raises Missing PID
-    NEW_CONFIG = {"FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS": False}
-    with override_config(**NEW_CONFIG):
-        rec = create_record(
-            "lit",
-            data={
-                "deleted_records": [
-                    {"$ref": "http://localhost:5000/api/literature/12345"}
-                ]
-            },
-        )
-    # PID and record are created correctly.
-    assert PersistentIdentifier.query.filter_by(
-        pid_type="lit", pid_value=rec["control_number"]
-    )
-    assert LiteratureRecord.get_record_by_pid_value(rec["control_number"])
 
 
 def test_deleted_record_from_legacy_is_created_with_obj_uuid_and_recid(inspire_app):

@@ -4,7 +4,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import structlog
-from flask import current_app
 from inspire_utils.record import get_values_for_schema
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
@@ -18,7 +17,6 @@ from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.api.mixins import StudentsAdvisorMixin
 from inspirehep.records.marshmallow.authors import AuthorsElasticSearchSchema
 from inspirehep.records.models import RecordCitations, RecordsAuthors
-from inspirehep.records.utils import get_author_by_recid
 from inspirehep.search.api import AuthorsSearch
 from inspirehep.utils import chunker
 
@@ -73,25 +71,8 @@ class AuthorsRecord(StudentsAdvisorMixin, InspireRecord):
     @classmethod
     def create(cls, data, id_=None, *args, **kwargs):
         record = super().create(data, id_, **kwargs)
-        if current_app.config.get("FEATURE_FLAG_ENABLE_ASSIGN_AUTHOR_PAPERS"):
-            record.assign_author_to_papers()
         record.update_students_advisors_table()
         return record
-
-    def assign_author_to_papers(self):
-        from inspirehep.records.api.literature import LiteratureRecord
-
-        author_papers_ids = [
-            str(record_control_number)
-            for record_control_number in self.query_author_papers(
-                str(self["control_number"])
-            )
-        ]
-        author_papers = LiteratureRecord.get_records_batched(author_papers_ids)
-        for paper in author_papers:
-            author = get_author_by_recid(paper, self["control_number"])
-            author["record"] = self.get("self")
-            paper.update(dict(paper))
 
     @staticmethod
     def query_author_papers(recid):
