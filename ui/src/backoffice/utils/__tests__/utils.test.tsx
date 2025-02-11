@@ -109,11 +109,14 @@ describe('filterByProperty', () => {
 });
 
 describe('formatDateTime', () => {
-  it('should return a formatted date-time string for a valid date', () => {
+  it('should return an object with formatted date and time for a valid date', () => {
     const rawDateTime = '2024-02-11T15:30:00Z';
     const result = formatDateTime(rawDateTime);
 
-    expect(result).toBe('2024-02-11 15:30');
+    expect(result).toEqual({
+      date: '2024-02-11',
+      time: '15:30',
+    });
   });
 
   it('should return undefined for an invalid date', () => {
