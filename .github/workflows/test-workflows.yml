@@ -8,6 +8,9 @@ on:
         type: string
         required: true
     outputs:
+      json:
+        description: JSON output of tags and labels
+        value: ${{ jobs.build.outputs.json }}
       image-id:
         description: The ID of image that has been built
         value: ${{ jobs.build.outputs.image-id }}
