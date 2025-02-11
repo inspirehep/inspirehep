@@ -4,7 +4,7 @@ import { Row, Col, Card } from 'antd';
 import './ResultItem.less';
 import { Link } from 'react-router-dom';
 import UnclickableTag from '../../../../common/components/UnclickableTag';
-import { getWorkflowStatusInfo } from '../../../utils/utils';
+import { getWorkflowStatusInfo, formatDateTime } from '../../../utils/utils';
 import { WORKFLOW_TYPES } from '../../../constants';
 import { AUTHORS_PID_TYPE } from '../../../../common/constants';
 import ResultItem from '../../../../common/components/ResultItem';
@@ -37,8 +37,7 @@ const WorkflowResultItem = ({ item }: { item: any }) => {
   const workflowId = item?.get('id');
   const data = item?.get('data');
   const dateTime = data?.getIn(['acquisition_source', 'datetime']);
-  const acquisitionSourceDatetime =
-    dateTime && new Date(dateTime).toLocaleDateString();
+  const acquisitionSourceDatetime = formatDateTime(dateTime);
   const acquisitionSourceSource = data?.getIn(['acquisition_source', 'source']);
   const acquisitionSourceEmail = data?.getIn(['acquisition_source', 'email']);
   const workflowTypeKey = item?.get(
@@ -66,7 +65,10 @@ const WorkflowResultItem = ({ item }: { item: any }) => {
         <Col className="col-info">
           <Card>
             {acquisitionSourceDatetime && (
-              <p className="waiting">{acquisitionSourceDatetime}</p>
+              <>
+                <p className="waiting">{acquisitionSourceDatetime.date}</p>
+                <p className="waiting">{acquisitionSourceDatetime.time}</p>
+              </>
             )}
             {acquisitionSourceSource && (
               <p className="waiting">{acquisitionSourceSource}</p>

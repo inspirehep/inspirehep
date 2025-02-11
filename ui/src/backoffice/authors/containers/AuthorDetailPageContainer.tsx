@@ -78,7 +78,10 @@ const AuthorDetailPageContainer = ({
   const acquisitionSourceEmail = data?.getIn(['acquisition_source', 'email']);
   const rawDateTime = data?.getIn(['acquisition_source', 'datetime']);
 
-  const acquisitionSourceDateTime = formatDateTime(rawDateTime);
+  const formattedDateTime = formatDateTime(rawDateTime);
+  const acquisitionSourceDateTime = formattedDateTime
+    ? `${formattedDateTime.date} ${formattedDateTime.time}`
+    : undefined;
 
   const privateNotes = data?.get('_private_notes');
 

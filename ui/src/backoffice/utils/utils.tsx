@@ -161,12 +161,14 @@ export const filterByProperty = (
     );
 };
 
-export const formatDateTime = (rawDateTime: string): string | undefined => {
+export const formatDateTime = (
+  rawDateTime: string
+): { date: string; time: string } | undefined => {
   try {
     const isoString = new Date(rawDateTime).toISOString();
     const [datePart, timePart] = isoString.split('T');
     const formattedTimePart = timePart.slice(0, 5);
-    return `${datePart} ${formattedTimePart}`;
+    return { date: datePart, time: formattedTimePart };
   } catch (error) {
     return undefined;
   }
