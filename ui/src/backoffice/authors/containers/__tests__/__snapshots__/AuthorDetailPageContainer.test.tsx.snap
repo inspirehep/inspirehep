@@ -561,10 +561,6 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                       <i>
                         joao.ramiro@cern.ch
                       </i>
-                       on 
-                      <b>
-                        Invalid Date
-                      </b>
                       .
                     </div>
                   </div>

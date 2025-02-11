@@ -160,3 +160,14 @@ export const filterByProperty = (
       include ? item.get(property) === value : item.get(property) !== value
     );
 };
+
+export const formatDateTime = (rawDateTime: string): string | undefined => {
+  try {
+    const isoString = new Date(rawDateTime).toISOString();
+    const [datePart, timePart] = isoString.split('T');
+    const formattedTimePart = timePart.slice(0, 5);
+    return `${datePart} ${formattedTimePart}`;
+  } catch (error) {
+    return undefined;
+  }
+};
