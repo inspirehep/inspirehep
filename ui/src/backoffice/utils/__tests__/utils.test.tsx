@@ -1,6 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { getIcon, refreshToken, filterByProperty } from '../utils';
+import {
+  getIcon,
+  refreshToken,
+  filterByProperty,
+  formatDateTime,
+} from '../utils';
 import storage from '../../../common/storage';
 import { BACKOFFICE_LOGIN_API } from '../../../common/routes';
 
@@ -100,5 +105,21 @@ describe('filterByProperty', () => {
     expect(result).toHaveLength(1);
     expect(result[0].get('schema')).toBe('DOI');
     expect(result[0].get('value')).toBe('10.1000/xyz123');
+  });
+});
+
+describe('formatDateTime', () => {
+  it('should return a formatted date-time string for a valid date', () => {
+    const rawDateTime = '2024-02-11T15:30:00Z';
+    const result = formatDateTime(rawDateTime);
+
+    expect(result).toBe('2024-02-11 15:30');
+  });
+
+  it('should return undefined for an invalid date', () => {
+    const rawDateTime = 'invalid-date-string';
+    const result = formatDateTime(rawDateTime);
+
+    expect(result).toBeUndefined();
   });
 });

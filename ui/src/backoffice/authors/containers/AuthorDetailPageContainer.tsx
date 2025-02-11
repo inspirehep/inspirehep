@@ -31,6 +31,7 @@ import {
   getWorkflowStatusInfo,
   resolveDecision,
   filterByProperty,
+  formatDateTime,
 } from '../../utils/utils';
 import DeleteWorkflow from '../../common/components/DeleteWorkflow/DeleteWorkflow';
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
@@ -75,9 +76,10 @@ const AuthorDetailPageContainer = ({
   const urls = data?.get('urls');
   const filteredIds = filterByProperty(data, 'ids', 'schema', 'ORCID', false);
   const acquisitionSourceEmail = data?.getIn(['acquisition_source', 'email']);
-  const acquisitionSourceDateTime = new Date(
-    data?.getIn(['acquisition_source', 'datetime'])
-  )?.toLocaleDateString();
+  const rawDateTime = data?.getIn(['acquisition_source', 'datetime']);
+
+  const acquisitionSourceDateTime = formatDateTime(rawDateTime);
+
   const privateNotes = data?.get('_private_notes');
 
   const shouldDisplayDecisionsBox =
@@ -281,8 +283,15 @@ const AuthorDetailPageContainer = ({
                     fullHeight={false}
                     subTitle="Submission"
                   >
-                    Submitted by <i>{acquisitionSourceEmail}</i> on{' '}
-                    <b>{acquisitionSourceDateTime}</b>.
+                    Submitted by <i>{acquisitionSourceEmail}</i>
+                    {acquisitionSourceDateTime ? (
+                      <>
+                        {' '}
+                        on <b>{acquisitionSourceDateTime}</b>.
+                      </>
+                    ) : (
+                      '.'
+                    )}
                   </ContentBox>
                   {privateNotes && <PrivateNotes privateNotes={privateNotes} />}
                   <ContentBox
