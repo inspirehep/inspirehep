@@ -16,7 +16,6 @@ def test_minter_mint_new_record_without_texkey(inspire_app, override_config):
         "publication_info": [{"year": 2000}],
     }
     with override_config(
-        FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True,
         PIDSTORE_TEXKEY_RANDOM_PART_SIZE=RANDOM_PART_SIZE,
     ):
         record = create_record("lit", data=data)
@@ -38,8 +37,7 @@ def test_minter_mint_new_record_with_texkey(inspire_app, override_config):
         "publication_info": [{"year": 2000}],
         "texkeys": ["Janeway:2000abc"],
     }
-    with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
-        record = create_record("lit", data=data)
+    record = create_record("lit", data=data)
 
     expected_pid_value = "Janeway:2000abc"
     pid = (
@@ -58,11 +56,11 @@ def test_minter_mint_new_record_with_texkey_when_texkey_already_in_use(
         "publication_info": [{"year": 2000}],
         "texkeys": ["Janeway:2000abc"],
     }
-    with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
-        create_record("lit", data=data)
 
-        with pytest.raises(PIDAlreadyExistsError):
-            create_record("lit", data=data)
+    create_record("lit", data=data)
+
+    with pytest.raises(PIDAlreadyExistsError):
+        create_record("lit", data=data)
 
 
 def test_minter_mint_record_update_with_texkey_changed(inspire_app, override_config):
@@ -70,11 +68,11 @@ def test_minter_mint_record_update_with_texkey_changed(inspire_app, override_con
         "authors": [{"full_name": "Janeway, K."}],
         "publication_info": [{"year": 2000}],
     }
-    with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
-        record = create_record("lit", data=data)
-        data = dict(record)
-        data["publication_info"][0]["year"] = 1999
-        record.update(data)
+
+    record = create_record("lit", data=data)
+    data = dict(record)
+    data["publication_info"][0]["year"] = 1999
+    record.update(data)
 
     pid_current = PersistentIdentifier.query.filter(
         PersistentIdentifier.pid_value == record["texkeys"][0]
@@ -91,8 +89,7 @@ def test_minter_mint_record_update_with_texkey_changed(inspire_app, override_con
 
     data = dict(record)
     data["publication_info"][0]["year"] = 2000
-    with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
-        record.update(data)
+    record.update(data)
 
     old_pid_active = PersistentIdentifier.query.filter(
         PersistentIdentifier.pid_value == pid_current.pid_value
@@ -119,8 +116,7 @@ def test_minter_deletes_pids_when_record_is_deleted(inspire_app, override_config
         "publication_info": [{"year": 2000}],
         "texkeys": ["Janeway:2000abc", "Janeway:2000def"],
     }
-    with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
-        record = create_record("lit", data=data)
+    record = create_record("lit", data=data)
 
     pids = PersistentIdentifier.query.filter(
         PersistentIdentifier.pid_type == "texkey"
@@ -129,8 +125,7 @@ def test_minter_deletes_pids_when_record_is_deleted(inspire_app, override_config
     assert pids[0].status == PIDStatus.REGISTERED
     assert pids[1].status == PIDStatus.REGISTERED
 
-    with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
-        record.delete()
+    record.delete()
     pids = PersistentIdentifier.query.filter(
         PersistentIdentifier.pid_type == "texkey"
     ).all()
@@ -139,28 +134,11 @@ def test_minter_deletes_pids_when_record_is_deleted(inspire_app, override_config
     assert pids[1].status == PIDStatus.DELETED
 
 
-def test_minter_texkey_featureflag_test(inspire_app, override_config):
-    data = {
-        "authors": [{"full_name": "Janeway, K."}],
-        "publication_info": [{"year": 2000}],
-    }
-    with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=False):
-        record = create_record("lit", data=data)
-
-    pid_count = (
-        PersistentIdentifier.query.filter(PersistentIdentifier.object_uuid == record.id)
-        .filter(PersistentIdentifier.pid_type == "texkey")
-        .count()
-    )
-    assert pid_count == 0
-
-
 def test_minter_ignores_texkey_pid_when_missing_data_to_create_it(
     inspire_app, override_config
 ):
     data = {"authors": [{"full_name": "Janeway, K."}]}
-    with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
-        record = create_record("lit", data=data)
+    record = create_record("lit", data=data)
     pid_count = (
         PersistentIdentifier.query.filter(PersistentIdentifier.object_uuid == record.id)
         .filter(PersistentIdentifier.pid_type == "texkey")
@@ -171,8 +149,7 @@ def test_minter_ignores_texkey_pid_when_missing_data_to_create_it(
     assert pid_count == 0
 
     data = {"publication_info": [{"year": 2000}]}
-    with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
-        record = create_record("lit", data=data)
+    record = create_record("lit", data=data)
     pid_count = (
         PersistentIdentifier.query.filter(PersistentIdentifier.object_uuid == record.id)
         .filter(PersistentIdentifier.pid_type == "texkey")
@@ -195,8 +172,7 @@ def test_minter_creates_record_with_texkey_provided_and_new_one_when_metadata_re
     expected_existing_texkeys = ["Janeway:1999abc", "Janewaj:2000def"]
     expected_new_texkey = "Janeway:2000"
     expected_texkeys_count = 3
-    with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
-        record = create_record("lit", data=data)
+    record = create_record("lit", data=data)
 
     assert len(record["texkeys"]) == expected_texkeys_count
 
@@ -221,12 +197,11 @@ def test_minter_creates_record_with_texkey_provided_and_new_one_when_metadata_re
 def test_minter_reuses_texkey_from_deleted_record_if_specified_in_metadata(
     inspire_app, override_config
 ):
-    with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
-        expected_texkey = "Texkey:2000abcd"
-        data = {"texkeys": [expected_texkey]}
-        record = create_record("lit", data=data)
-        record.delete()
-        record_2 = create_record("lit", data=data)
+    expected_texkey = "Texkey:2000abcd"
+    data = {"texkeys": [expected_texkey]}
+    record = create_record("lit", data=data)
+    record.delete()
+    record_2 = create_record("lit", data=data)
     texkey = PersistentIdentifier.query.filter(
         PersistentIdentifier.pid_value == expected_texkey
     ).one()
@@ -239,12 +214,11 @@ def test_minter_undeleting_record(inspire_app, override_config):
         "authors": [{"full_name": "Janeway, K."}],
         "publication_info": [{"year": 2000}],
     }
-    with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
-        record = create_record("lit", data=data)
-        record.delete()
-        data = dict(record)
-        del data["deleted"]
-        record.update(data, force_undelete=True)
+    record = create_record("lit", data=data)
+    record.delete()
+    data = dict(record)
+    del data["deleted"]
+    record.update(data, force_undelete=True)
     texkey = PersistentIdentifier.query.filter(
         PersistentIdentifier.object_uuid == record.id,
         PersistentIdentifier.pid_type == "texkey",
@@ -257,8 +231,7 @@ def test_minter_deletes_texkey_missing_in_metadata(inspire_app, override_config)
         "authors": [{"full_name": "Janeway, K."}],
         "publication_info": [{"year": 2000}],
     }
-    with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
-        record = create_record("lit", data=data)
+    record = create_record("lit", data=data)
     generated_texkeys = record["texkeys"]
 
     assert len(generated_texkeys) == 1
@@ -267,8 +240,7 @@ def test_minter_deletes_texkey_missing_in_metadata(inspire_app, override_config)
     del data["texkeys"]
     data["publication_info"][0]["year"] = 2001
 
-    with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
-        record.update(data)
+    record.update(data)
     assert record["texkeys"] != generated_texkeys
     assert (
         PersistentIdentifier.query.filter_by(pid_value=generated_texkeys[0]).count()

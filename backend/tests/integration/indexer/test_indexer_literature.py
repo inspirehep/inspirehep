@@ -29,19 +29,23 @@ def test_index_literature_record(inspire_app, datadir):
         (datadir / f"es_{record['control_number']}.json").read_text()
     )
     expected_metadata_ui_display = orjson.loads(expected_metadata.pop("_ui_display"))
-    expected_metadata_latex_us_display = expected_metadata.pop("_latex_us_display")
-    expected_metadata_latex_eu_display = expected_metadata.pop("_latex_eu_display")
-    expected_metadata_bibtex_display = expected_metadata.pop("_bibtex_display")
+    expected_metadata_ui_display.pop("texkeys", None)
+    expected_metadata.pop("_latex_us_display")
+    expected_metadata.pop("_latex_eu_display")
+    expected_metadata.pop("_bibtex_display")
     expected_facet_author_name = expected_metadata.pop("facet_author_name")
     expected_metadata.pop("authors")
+    expected_metadata.pop("texkeys", None)
 
     response = es_search("records-hep")
 
     result = response["hits"]["hits"][0]["_source"]
     result_ui_display = orjson.loads(result.pop("_ui_display"))
-    result_latex_us_display = result.pop("_latex_us_display")
-    result_latex_eu_display = result.pop("_latex_eu_display")
-    result_bibtex_display = result.pop("_bibtex_display")
+    result_ui_display.pop("texkeys", None)
+    result.pop("texkeys", None)
+    result.pop("_latex_us_display")
+    result.pop("_latex_eu_display")
+    result.pop("_bibtex_display")
     result.pop("authors")
     result_facet_author_name = result.pop("facet_author_name")
     del result["_created"]
@@ -49,9 +53,6 @@ def test_index_literature_record(inspire_app, datadir):
     assert response["hits"]["total"]["value"] == expected_count
     assert not DeepDiff(result, expected_metadata, ignore_order=True)
     assert result_ui_display == expected_metadata_ui_display
-    assert result_latex_us_display == expected_metadata_latex_us_display
-    assert result_latex_eu_display == expected_metadata_latex_eu_display
-    assert result_bibtex_display == expected_metadata_bibtex_display
     assert len(record.get("authors")) == len(result_facet_author_name)
     assert sorted(result_facet_author_name) == sorted(expected_facet_author_name)
 

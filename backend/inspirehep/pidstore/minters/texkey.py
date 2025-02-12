@@ -4,7 +4,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import structlog
-from flask import current_app
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
@@ -79,8 +78,6 @@ class TexKeyMinter(Minter):
 
     @classmethod
     def mint(cls, object_uuid, data):
-        if not current_app.config.get("FEATURE_FLAG_ENABLE_TEXKEY_MINTER"):
-            return
         minter = cls.prepare_and_mint(object_uuid, data)
         return minter
 
@@ -102,14 +99,10 @@ class TexKeyMinter(Minter):
 
     @classmethod
     def update(cls, object_uuid, data):
-        if not current_app.config.get("FEATURE_FLAG_ENABLE_TEXKEY_MINTER"):
-            return
         cls.prepare_and_mint(object_uuid, data)
 
     @classmethod
     def delete(cls, object_uuid, data):
-        if not current_app.config.get("FEATURE_FLAG_ENABLE_TEXKEY_MINTER"):
-            return
         minter = cls(object_uuid, data)
         minter.validate()
         texkeys = [
