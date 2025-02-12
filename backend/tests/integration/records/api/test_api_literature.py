@@ -419,7 +419,6 @@ def test_dump_for_es(inspire_app):
 @freeze_time("1994-12-19")
 def test_dump_for_es_adds_latex_and_bibtex_displays(inspire_app):
     additional_fields = {
-        "texkeys": ["a123bx"],
         "titles": [{"title": "Jessica Jones"}],
         "authors": [
             {"full_name": "Castle, Frank"},
@@ -444,26 +443,36 @@ def test_dump_for_es_adds_latex_and_bibtex_displays(inspire_app):
     }
     data = faker.record("lit", data=additional_fields)
     record = LiteratureRecord.create(data)
+    texkey = record["texkeys"][0]
+    et_al_string = "et al."
     dump = record.serialize_for_es()
     expected_latex_eu_display = (
-        "%\\cite{a123bx}\n\\bibitem{a123bx}\nF.~Castle \\textit{et al.}"
+        f"%\\cite{{{texkey}}}\n\\bibitem{{{texkey}}}\nF.~Castle \\textit{{{et_al_string}}}"
         " [LHCb],\n%``Jessica Jones,''\nPhys. Rev. A \\textbf{58} (2014),"
         " 500-593\ndoi:10.1088/1361-6633/aa5514\n[arXiv:1607.06746 [hep-th]].\n%0"
         " citations counted in INSPIRE as of 19 Dec 1994"
     )
     expected_latex_us_display = (
-        "%\\cite{a123bx}\n\\bibitem{a123bx}\nF.~Castle \\textit{et al.}"
+        f"%\\cite{{{texkey}}}\n\\bibitem{{{texkey}}}\nF.~Castle \\textit{{{et_al_string}}}"
         " [LHCb],\n%``Jessica Jones,''\nPhys. Rev. A \\textbf{58}, 500-593"
         " (2014)\ndoi:10.1088/1361-6633/aa5514\n[arXiv:1607.06746 [hep-th]].\n%0"
         " citations counted in INSPIRE as of 19 Dec 1994"
     )
     expected_bibtex_display = (
-        '@article{a123bx,\n    author = "Castle, Frank and Smith, John and Black, Joe'
-        ' Jr. and Jimmy",\n    collaboration = "LHCb",\n    title = "{Jessica'
-        ' Jones}",\n    eprint = "1607.06746",\n    archivePrefix = "arXiv",\n   '
-        ' primaryClass = "hep-th",\n    reportNumber = "DESY-17-036",\n    doi ='
-        ' "10.1088/1361-6633/aa5514",\n    journal = "Phys. Rev. A",\n    volume ='
-        ' "58",\n    pages = "500--593",\n    year = "2014"\n}\n'
+        f"@article{{{texkey},\n"
+        '    author = "Castle, Frank and Smith, John and Black, Joe Jr. and Jimmy",\n'
+        '    collaboration = "LHCb",\n'
+        '    title = "{Jessica Jones}",\n'
+        '    eprint = "1607.06746",\n'
+        '    archivePrefix = "arXiv",\n'
+        '    primaryClass = "hep-th",\n'
+        '    reportNumber = "DESY-17-036",\n'
+        '    doi = "10.1088/1361-6633/aa5514",\n'
+        '    journal = "Phys. Rev. A",\n'
+        '    volume = "58",\n'
+        '    pages = "500--593",\n'
+        '    year = "2014"\n'
+        "}\n"
     )
     assert expected_latex_eu_display == dump["_latex_eu_display"]
     assert expected_latex_us_display == dump["_latex_us_display"]

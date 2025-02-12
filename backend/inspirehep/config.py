@@ -24,7 +24,6 @@ from inspirehep.utils import include_table_check
 
 # Feature flags
 # =============
-FEATURE_FLAG_ENABLE_TEXKEY_MINTER = False
 FEATURE_FLAG_ENABLE_BAI_PROVIDER = False
 FEATURE_FLAG_ENABLE_BAI_CREATION = False
 FEATURE_FLAG_ENABLE_FILES = False

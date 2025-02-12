@@ -233,6 +233,9 @@ class TestOrcidPushTask:
             ).read_text()
         )
         self.inspire_record = create_record("lit", data=record_data)
+        self.inspire_record.pop(
+            "texkeys", None
+        )  # NOTE: poping texkeys as they generate a random value and causing side effects
         self.recid = self.inspire_record["control_number"]
 
     def setup(self, method):
@@ -251,7 +254,6 @@ class TestOrcidPushTask:
             FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
         ):
             orcid_push(self.orcid, self.recid, self.oauth_token)
-
         assert not self.cache.has_work_content_changed(self.inspire_record)
 
     def test_push_new_work_invalid_data_orcid(self, override_config):

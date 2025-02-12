@@ -160,7 +160,6 @@ def test_latex_eu_search_response(inspire_app):
 def test_latex_eu_search_response_full_record(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
     data = {
-        "texkeys": ["a123bx"],
         "titles": [{"title": "Jessica Jones"}],
         "authors": [
             {"full_name": "Castle, Frank"},
@@ -183,12 +182,13 @@ def test_latex_eu_search_response_full_record(inspire_app):
         ],
         "report_numbers": [{"value": "DESY-17-036"}],
     }
-    create_record("lit", data=data)
+    record = create_record("lit", data=data)
+    texkey = record["texkeys"][0]
 
     expected_status_code = 200
     expected_result = (
-        "%\\cite{a123bx}\n"
-        "\\bibitem{a123bx}\n"
+        f"%\\cite{{{texkey}}}\n"
+        f"\\bibitem{{{texkey}}}\n"
         "F.~Castle \\textit{et al.} [LHCb],\n"
         "%``Jessica Jones,''\n"
         "Phys. Rev. A \\textbf{58} (2014), 500-593\n"
@@ -241,7 +241,6 @@ def test_latex_us_search_response(inspire_app):
 def test_latex_us_search_response_full_record(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
     data = {
-        "texkeys": ["a123bx"],
         "titles": [{"title": "Jessica Jones"}],
         "authors": [
             {"full_name": "Castle, Frank"},
@@ -264,12 +263,13 @@ def test_latex_us_search_response_full_record(inspire_app):
         ],
         "report_numbers": [{"value": "DESY-17-036"}],
     }
-    create_record("lit", data=data)
+    record = create_record("lit", data=data)
+    texkey = record["texkeys"][0]
 
     expected_status_code = 200
     expected_result = (
-        "%\\cite{a123bx}\n"
-        "\\bibitem{a123bx}\n"
+        f"%\\cite{{{texkey}}}\n"
+        f"\\bibitem{{{texkey}}}\n"
         "F.~Castle \\textit{et al.} [LHCb],\n"
         "%``Jessica Jones,''\n"
         "Phys. Rev. A \\textbf{58}, 500-593 (2014)\n"
@@ -596,7 +596,6 @@ def test_latex_returns_names_correctly(input_author, expected_name, inspire_app)
 def test_latex_eu_search_response_full_book_record(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
     data = {
-        "texkeys": ["a123bx"],
         "titles": [{"title": "Jessica Jones"}],
         "authors": [
             {"full_name": "Castle, Frank"},
@@ -622,12 +621,14 @@ def test_latex_eu_search_response_full_book_record(inspire_app):
         "imprints": [{"date": "2019-12-05", "publisher": "Princeton University Press"}],
         "isbns": [{"value": "9781108705011"}],
     }
-    create_record("lit", data=data)
+
+    record = create_record("lit", data=data)
+    texkey = record["texkeys"][0]
 
     expected_status_code = 200
     expected_result = (
-        "%\\cite{a123bx}\n"
-        "\\bibitem{a123bx}\n"
+        f"%\\cite{{{texkey}}}\n"
+        f"\\bibitem{{{texkey}}}\n"
         "F.~Castle \\textit{et al.} [LHCb],\n"
         "%``Jessica Jones,''\n"
         "Phys. Rev. A \\textbf{58} (2019), 500-593\n"
@@ -650,7 +651,6 @@ def test_latex_eu_search_response_full_book_record(inspire_app):
 def test_latex_eu_search_response_full_book_record_with_missing_publisher(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
     data = {
-        "texkeys": ["a123bx"],
         "titles": [{"title": "Jessica Jones"}],
         "authors": [
             {"full_name": "Castle, Frank"},
@@ -677,12 +677,13 @@ def test_latex_eu_search_response_full_book_record_with_missing_publisher(inspir
         "isbns": [{"value": "9781108705011"}],
     }
 
-    create_record("lit", data=data)
+    record = create_record("lit", data=data)
+    texkey = record["texkeys"][0]
 
     expected_status_code = 200
     expected_result = (
-        "%\\cite{a123bx}\n"
-        "\\bibitem{a123bx}\n"
+        f"%\\cite{{{texkey}}}\n"
+        f"\\bibitem{{{texkey}}}\n"
         "F.~Castle \\textit{et al.} [LHCb],\n"
         "%``Jessica Jones,''\n"
         "Phys. Rev. A \\textbf{58} (2019), 500-593\n"
@@ -705,7 +706,6 @@ def test_latex_eu_search_response_full_book_record_with_missing_publisher(inspir
 def test_latex_eu_search_response_full_book_record_with_missing_year(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
     data = {
-        "texkeys": ["a123bx"],
         "titles": [{"title": "Jessica Jones"}],
         "authors": [
             {"full_name": "Castle, Frank"},
@@ -731,12 +731,13 @@ def test_latex_eu_search_response_full_book_record_with_missing_year(inspire_app
         "imprints": [{"publisher": "Princeton University Press"}],
         "isbns": [{"value": "9781108705011"}],
     }
-    create_record("lit", data=data)
+    record = create_record("lit", data=data)
+    texkey = record["texkeys"][0]
 
     expected_status_code = 200
     expected_result = (
-        "%\\cite{a123bx}\n"
-        "\\bibitem{a123bx}\n"
+        f"%\\cite{{{texkey}}}\n"
+        f"\\bibitem{{{texkey}}}\n"
         "F.~Castle \\textit{et al.} [LHCb],\n"
         "%``Jessica Jones,''\n"
         "Phys. Rev. A \\textbf{58} (2019), 500-593\n"
@@ -759,7 +760,6 @@ def test_latex_eu_search_response_full_book_record_with_missing_year(inspire_app
 def test_latex_eu_search_response_full_book_recordwith_missing_isbn(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
     data = {
-        "texkeys": ["a123bx"],
         "titles": [{"title": "Jessica Jones"}],
         "authors": [
             {"full_name": "Castle, Frank"},
@@ -784,12 +784,13 @@ def test_latex_eu_search_response_full_book_recordwith_missing_isbn(inspire_app)
         "document_type": ["book"],
         "imprints": [{"date": "2019-12-05", "publisher": "Princeton University Press"}],
     }
-    create_record("lit", data=data)
+    record = create_record("lit", data=data)
+    texkey = record["texkeys"][0]
 
     expected_status_code = 200
     expected_result = (
-        "%\\cite{a123bx}\n"
-        "\\bibitem{a123bx}\n"
+        f"%\\cite{{{texkey}}}\n"
+        f"\\bibitem{{{texkey}}}\n"
         "F.~Castle \\textit{et al.} [LHCb],\n"
         "%``Jessica Jones,''\n"
         "Phys. Rev. A \\textbf{58} (2019), 500-593\n"
@@ -811,7 +812,6 @@ def test_latex_eu_search_response_full_book_recordwith_missing_isbn(inspire_app)
 def test_latex_us_search_response_full_book_record(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
     data = {
-        "texkeys": ["a123bx"],
         "titles": [{"title": "Jessica Jones"}],
         "authors": [
             {"full_name": "Castle, Frank"},
@@ -837,12 +837,13 @@ def test_latex_us_search_response_full_book_record(inspire_app):
         "imprints": [{"date": "2019-12-05", "publisher": "Princeton University Press"}],
         "isbns": [{"value": "9781108705011"}],
     }
-    create_record("lit", data=data)
+    record = create_record("lit", data=data)
+    texkey = record["texkeys"][0]
 
     expected_status_code = 200
     expected_result = (
-        "%\\cite{a123bx}\n"
-        "\\bibitem{a123bx}\n"
+        f"%\\cite{{{texkey}}}\n"
+        f"\\bibitem{{{texkey}}}\n"
         "F.~Castle \\textit{et al.} [LHCb],\n"
         "%``Jessica Jones,''\n"
         "Phys. Rev. A \\textbf{58}, 500-593 (2019)\n"
@@ -865,7 +866,6 @@ def test_latex_us_search_response_full_book_record(inspire_app):
 def test_latex_us_search_response_full_book_record_with_missing_publisher(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
     data = {
-        "texkeys": ["a123bx"],
         "titles": [{"title": "Jessica Jones"}],
         "authors": [
             {"full_name": "Castle, Frank"},
@@ -891,12 +891,13 @@ def test_latex_us_search_response_full_book_record_with_missing_publisher(inspir
         "imprints": [{"date": "2019-12-05"}],
         "isbns": [{"value": "9781108705011"}],
     }
-    create_record("lit", data=data)
+    record = create_record("lit", data=data)
+    texkey = record["texkeys"][0]
 
     expected_status_code = 200
     expected_result = (
-        "%\\cite{a123bx}\n"
-        "\\bibitem{a123bx}\n"
+        f"%\\cite{{{texkey}}}\n"
+        f"\\bibitem{{{texkey}}}\n"
         "F.~Castle \\textit{et al.} [LHCb],\n"
         "%``Jessica Jones,''\n"
         "Phys. Rev. A \\textbf{58}, 500-593 (2019)\n"
@@ -919,7 +920,6 @@ def test_latex_us_search_response_full_book_record_with_missing_publisher(inspir
 def test_latex_us_search_response_full_book_record_with_missing_year(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
     data = {
-        "texkeys": ["a123bx"],
         "titles": [{"title": "Jessica Jones"}],
         "authors": [
             {"full_name": "Castle, Frank"},
@@ -945,12 +945,13 @@ def test_latex_us_search_response_full_book_record_with_missing_year(inspire_app
         "imprints": [{"publisher": "Princeton University Press"}],
         "isbns": [{"value": "9781108705011"}],
     }
-    create_record("lit", data=data)
+    record = create_record("lit", data=data)
+    texkey = record["texkeys"][0]
 
     expected_status_code = 200
     expected_result = (
-        "%\\cite{a123bx}\n"
-        "\\bibitem{a123bx}\n"
+        f"%\\cite{{{texkey}}}\n"
+        f"\\bibitem{{{texkey}}}\n"
         "F.~Castle \\textit{et al.} [LHCb],\n"
         "%``Jessica Jones,''\n"
         "Phys. Rev. A \\textbf{58}, 500-593 (2019)\n"
@@ -973,7 +974,6 @@ def test_latex_us_search_response_full_book_record_with_missing_year(inspire_app
 def test_latex_us_search_response_full_book_record_with_missing_isbn(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
     data = {
-        "texkeys": ["a123bx"],
         "titles": [{"title": "Jessica Jones"}],
         "authors": [
             {"full_name": "Castle, Frank"},
@@ -998,12 +998,13 @@ def test_latex_us_search_response_full_book_record_with_missing_isbn(inspire_app
         "document_type": ["book"],
         "imprints": [{"date": "2019-12-05", "publisher": "Princeton University Press"}],
     }
-    create_record("lit", data=data)
+    record = create_record("lit", data=data)
+    texkey = record["texkeys"][0]
 
     expected_status_code = 200
     expected_result = (
-        "%\\cite{a123bx}\n"
-        "\\bibitem{a123bx}\n"
+        f"%\\cite{{{texkey}}}\n"
+        f"\\bibitem{{{texkey}}}\n"
         "F.~Castle \\textit{et al.} [LHCb],\n"
         "%``Jessica Jones,''\n"
         "Phys. Rev. A \\textbf{58}, 500-593 (2019)\n"

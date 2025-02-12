@@ -18,9 +18,7 @@ from invenio_db import db
 from invenio_oauthclient.errors import AlreadyLinkedError
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, User, UserIdentity
 from invenio_oauthclient.utils import oauth_link_external_id
-from redis import StrictRedis
 from requests.exceptions import RequestException
-from simplejson import loads
 from sqlalchemy.orm.exc import FlushError
 
 from inspirehep.orcid import domain_models, exceptions
@@ -30,29 +28,6 @@ from inspirehep.orcid.utils import get_literature_recids_for_orcid
 LOGGER = structlog.getLogger()
 USER_EMAIL_EMPTY_PATTERN = "{}@FAKEEMAILINSPIRE.FAKE"
 ORCID_REGEX = r"\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"
-
-
-def legacy_orcid_arrays():
-    """
-    Generator to fetch token data from redis.
-
-    Note: this function consumes the queue populated by the legacy tasklet:
-    inspire/bibtasklets/bst_orcidsync.py
-
-    Yields:
-        list: user data in the form of [orcid, token, email, name]
-    """
-    # XXX: temp redis url when we use orcid push in kb8s
-    redis_url = current_app.config.get("MIGRATION_REDIS_URL")
-    if redis_url is None:
-        redis_url = current_app.config.get("CACHE_REDIS_URL")
-    r = StrictRedis.from_url(redis_url)
-
-    key = "legacy_orcid_tokens"
-    token = r.lpop(key)
-    while token:
-        yield loads(token)
-        token = r.lpop(key)
 
 
 def _link_user_and_token(user, name, orcid, access_token):
