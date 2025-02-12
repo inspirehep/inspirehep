@@ -25,7 +25,7 @@ function Header({
   const [stickyContainerRef, , stickyContainerHeight] = useResizeObserver();
 
   return (
-    <div className={classNames('__Header__', { holdingpen: isBackofficePage })}>
+    <div className={classNames('__Header__', { backoffice: isBackofficePage })}>
       <div ref={stickyContainerRef} className="sticky" data-test-id="sticky">
         <Banners />
         {isBetaPage && <BetaRibbon />}

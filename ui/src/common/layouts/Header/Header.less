@@ -40,8 +40,18 @@
     }
   }
 
-  &.holdingpen .fake-collections-menu {
+  &.backoffice .fake-collections-menu {
     width: 100%;
     height: 10px;
+    background-color: @layout-header-background;
+    position: fixed;
+    top: @layout-header-height;
+    left: 0;
+    z-index: @zindex-header;
+
+    @media (max-width: @screen-xs-max) {
+      position: initial;
+      z-index: initial;
+    }
   }
 }
