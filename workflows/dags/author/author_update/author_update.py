@@ -2,6 +2,7 @@ import datetime
 
 from airflow.decorators import dag, task
 from airflow.models.param import Param
+from author.shared_tasks import set_submission_number
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.backoffice.workflow_ticket_management_hook import (
     AuthorWorkflowTicketManagementHook,
@@ -133,21 +134,17 @@ def author_update_dag():
             status_name=status_name, workflow_id=context["params"]["workflow_id"]
         )
 
-    # task definitions
-    set_workflow_status_to_running_task = set_author_update_workflow_status_to_running()
-    create_ticket_task = create_ticket_on_author_update()
-    update_author_on_inspire_task = update_author_on_inspire()
-    set_status_to_completed_task = set_author_update_workflow_status_to_completed()
-    set_status_to_error_task = set_author_update_workflow_status_to_error()
-    author_update_success_branch_task = author_update_success_branch()
-
     # task dependencies
     (
-        set_workflow_status_to_running_task
-        >> create_ticket_task
-        >> update_author_on_inspire_task
-        >> author_update_success_branch_task
-        >> [set_status_to_error_task, set_status_to_completed_task]
+        set_author_update_workflow_status_to_running()
+        >> set_submission_number()
+        >> create_ticket_on_author_update()
+        >> update_author_on_inspire()
+        >> author_update_success_branch()
+        >> [
+            set_author_update_workflow_status_to_error(),
+            set_author_update_workflow_status_to_completed(),
+        ]
     )
 
 

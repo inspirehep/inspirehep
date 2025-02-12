@@ -64,6 +64,15 @@ class TestAuthorCreateInit:
         task.execute(context=self.context)
 
     @pytest.mark.vcr
+    def test_set_submission_number(self):
+        task = self.dag.get_task("set_submission_number")
+        result = task.execute(context=self.context)
+        assert (
+            result.json()["data"]["acquisition_source"]["submission_number"]
+            == self.context["params"]["workflow_id"]
+        )
+
+    @pytest.mark.vcr
     def test_create_author_create_user_ticket(self):
         task = self.dag.get_task("create_author_create_user_ticket")
         task.execute(context=self.context)
