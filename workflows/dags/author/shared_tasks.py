@@ -15,4 +15,4 @@ def set_submission_number(**context):
                 "acquisition_source": acquisition_source,
             }
         },
-    )
+    ).json()
