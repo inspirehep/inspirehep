@@ -8,6 +8,4 @@ export const environment = {
   baseUrl: '',
   sentryPublicDSN: null,
   version: null,
-  schemaUrl: 'https://inspirebeta.net/schemas/records/authors.json',
-  backofficeApiUrl: 'http://localhost:8001/api',
 };

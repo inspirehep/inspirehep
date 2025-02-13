@@ -13,6 +13,8 @@
     SELF_CURATION_BUTTON: true,
     INSPIRE_WORKFLOWS_DAGS_URL: null,
     BACKOFFICE_URL: 'http://localhost:8001',
+    EDITOR_SCHEMA_URL: 'https://inspirebeta.net/schemas/records/authors.json',
+    EDITOR_BACKOFFICE_API_URL: 'http://localhost:8001/api',
     /* Example:
     BANNERS: [
       {

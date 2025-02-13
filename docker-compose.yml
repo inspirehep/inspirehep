@@ -168,6 +168,7 @@ services:
       - './ui/src:/usr/src/app/src'
       - './ui/package.json:/usr/src/app/package.json'
       - './ui/yarn.lock:/usr/src/app/yarn.lock'
+      - './ui/public:/usr/src/app/public'
   record-editor:
     build:
       context: record-editor
