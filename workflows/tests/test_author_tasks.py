@@ -68,7 +68,7 @@ class TestAuthorCreateInit:
         task = self.dag.get_task("set_submission_number")
         result = task.execute(context=self.context)
         assert (
-            result.json()["data"]["acquisition_source"]["submission_number"]
+            result["data"]["acquisition_source"]["submission_number"]
             == self.context["params"]["workflow_id"]
         )
 
