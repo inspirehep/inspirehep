@@ -22,9 +22,26 @@
 
 import { environment } from '../../../environments/environment';
 
+declare global {
+  interface Window {
+    CONFIG: { [key: string]: any };
+  }
+}
+
+function getConfigFor(configKey: string, notSetValue: any = null) {
+  try {
+    return window.CONFIG[configKey] !== null
+      ? window.CONFIG[configKey]
+      : notSetValue;
+  } catch (error) {
+    console.error(error); // eslint-disable-line no-console
+    return notSetValue;
+  }
+}
+
 export const apiUrl = `${environment.baseUrl}/api`;
 export const editorApiUrl = `${apiUrl}/editor`;
 export const matcherApiUrl = `${apiUrl}/matcher`;
 export const holdingpenApiUrl = `${apiUrl}/holdingpen`;
-export const backofficeApiUrl = `${environment.backofficeApiUrl}`;
-export const hepSchemaUrl = `${environment.schemaUrl}`;
+export const backofficeApiUrl = getConfigFor('EDITOR_BACKOFFICE_API_URL');
+export const hepSchemaUrl = getConfigFor('EDITOR_SCHEMA_URL');
