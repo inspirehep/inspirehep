@@ -114,6 +114,8 @@ class TestDataHarvest:
         assert res["acquisition_source"]["source"] == "HEPData"
         assert any(doi["source"] == "HEPData" for doi in res["dois"])
 
+        assert res["creation_date"] == payload[1]["record"]["creation_date"]
+
     @pytest.mark.vcr
     def test_load_record_put(self):
         record = {
