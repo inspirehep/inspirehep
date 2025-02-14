@@ -26,6 +26,7 @@ import {
 } from '../../constants';
 import CollectionLink from './CollectionLink';
 import DropdownMenu from '../../components/DropdownMenu';
+import UnclickableTag from '../../components/UnclickableTag';
 
 function CollectionsMenu({
   canAccessDataCollection,
@@ -115,6 +116,9 @@ function CollectionsMenu({
           <CollectionLink active={activeCollection === DATA_PID_TYPE} to={DATA}>
             Data
           </CollectionLink>
+          <UnclickableTag color="processing" className="beta-tag">
+            BETA
+          </UnclickableTag>
         </Col>
       )}
       <Col>
