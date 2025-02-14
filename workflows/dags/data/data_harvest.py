@@ -144,9 +144,9 @@ def data_harvest_dag():
 
             builder = DataBuilder(source="HEPData")
 
-            builder.add_creation_date(datetime.datetime.now(datetime.UTC).isoformat())
-
             base_record = payload["base"]
+
+            builder.add_creation_date(base_record["record"]["creation_date"])
 
             for collaboration in base_record["record"]["collaborations"]:
                 builder.add_collaboration(collaboration)
