@@ -283,7 +283,7 @@ def bulk_data_harvest_dag():
                     f"Data Record Updated: "
                     f"{update_response.json()['metadata']['self']['$ref']}"
                 )
-            except RetryError:
+            except (RetryError, AirflowException):
                 logger.info(
                     f"Unable to update data record {old_record['control_number']}"
                 )
