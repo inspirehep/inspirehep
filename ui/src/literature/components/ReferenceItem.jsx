@@ -20,7 +20,6 @@ import {
 } from '../../common/components/InlineList';
 import IconText from '../../common/components/IconText';
 import LinkLikeButton from '../../common/components/LinkLikeButton/LinkLikeButton';
-import { getConfigFor } from '../../common/config';
 
 class ReferenceItem extends Component {
   static renderLabel(reference) {
@@ -86,7 +85,7 @@ class ReferenceItem extends Component {
       'collaborations_with_suffix'
     );
 
-    const enableEdit = getConfigFor('SELF_CURATION_BUTTON') && !disableEdit;
+    const enableEdit = !disableEdit;
 
     return (
       <div

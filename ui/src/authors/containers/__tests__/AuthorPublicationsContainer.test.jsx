@@ -1,52 +1,21 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
-import { getStoreWithState } from '../../../fixtures/store';
-import AuthorPublicationsContainer, {
-  AuthorPublications,
-} from '../AuthorPublicationsContainer';
-import LiteratureSearchContainer from '../../../literature/containers/LiteratureSearchContainer';
-import { AUTHOR_PUBLICATIONS_NS } from '../../../search/constants';
+import { render } from '@testing-library/react';
+import { getStore } from '../../../fixtures/store';
+import AuthorPublicationsContainer from '../AuthorPublicationsContainer';
+import AuthorPublications from '../../components/AuthorPublications';
 import { initialState } from '../../../reducers/authors';
 
-describe('AuthorPublicationsContainer', () => {
-  it('passes all props to LiteratureSearchContainer', () => {
-    const store = getStoreWithState({
-      authors: fromJS({
-        ...initialState,
-        publicationSelection: {},
-        publicationSelectionUnclaimed: [],
-        publicationSelectionClaimed: [],
-        data: {
-          metadata: {
-            facet_author_name: '1234_ThatDude',
-          },
-        },
-      }),
-    });
-    const wrapper = mount(
-      <Provider store={store}>
-        <AuthorPublicationsContainer />
-      </Provider>
-    );
+jest.mock('../../components/AuthorPublications', () =>
+  jest.fn(() => <div data-testid="author-publications" />)
+);
 
-    expect(wrapper.find(LiteratureSearchContainer)).toHaveProp({
-      namespace: AUTHOR_PUBLICATIONS_NS,
-      baseQuery: {
-        author: ['1234_ThatDude'],
-      },
-      baseAggregationsQuery: {
-        author_recid: '1234_ThatDude',
-      },
-      numberOfSelected: 0,
-    });
-  });
-
+describe('AuthorPublicationsContainer with AuthorPublications mocked', () => {
   it('set assignView true if cataloger is logged in and flag is enabled', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         loggedIn: true,
         data: {
@@ -54,7 +23,8 @@ describe('AuthorPublicationsContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
           <AuthorPublicationsContainer />
@@ -62,14 +32,16 @@ describe('AuthorPublicationsContainer', () => {
       </Provider>
     );
 
-    expect(wrapper.find(AuthorPublications)).toHaveProp({
-      assignView: true,
-    });
+    expect(AuthorPublications).toHaveBeenCalledWith(
+      expect.objectContaining({
+        assignView: true,
+      }),
+      {}
+    );
   });
 
-  // TODO: Remove test case when the flag is not needed anymore
   it('set assignView true if superuser is logged in', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         loggedIn: true,
         data: {
@@ -77,7 +49,8 @@ describe('AuthorPublicationsContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
           <AuthorPublicationsContainer />
@@ -85,14 +58,16 @@ describe('AuthorPublicationsContainer', () => {
       </Provider>
     );
 
-    expect(wrapper.find(AuthorPublications)).toHaveProp({
-      assignView: true,
-    });
+    expect(AuthorPublications).toHaveBeenCalledWith(
+      expect.objectContaining({
+        assignView: true,
+      }),
+      {}
+    );
   });
 
   it('set assignDifferentProfileView when user has a profile', () => {
-    global.CONFIG = { ASSIGN_DIFFERENT_PROFILE_UI_FEATURE_FLAG: true };
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         data: { recid: 3 },
       }),
@@ -109,21 +84,25 @@ describe('AuthorPublicationsContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
           <AuthorPublicationsContainer />
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(AuthorPublications)).toHaveProp({
-      assignViewDifferentProfile: true,
-    });
+
+    expect(AuthorPublications).toHaveBeenCalledWith(
+      expect.objectContaining({
+        assignViewDifferentProfile: true,
+      }),
+      {}
+    );
   });
 
   it('set assignViewNoProfile when user logged_in', () => {
-    global.CONFIG = { ASSIGN_NO_PROFILE_UI_FEATURE_FLAG: true };
-    const store = getStoreWithState({
+    const store = getStore({
       authors: fromJS({
         ...initialState,
         publicationSelection: {},
@@ -132,21 +111,25 @@ describe('AuthorPublicationsContainer', () => {
       }),
       user: fromJS({ loggedIn: true }),
     });
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
           <AuthorPublicationsContainer />
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(AuthorPublications)).toHaveProp({
-      assignViewNoProfile: true,
-    });
+
+    expect(AuthorPublications).toHaveBeenCalledWith(
+      expect.objectContaining({
+        assignViewNoProfile: true,
+      }),
+      {}
+    );
   });
 
   it('set assignViewNoProfile when user logged_in', () => {
-    global.CONFIG = { ASSIGN_NOT_LOGGED_IN_FEATURE_FLAG: true };
-    const store = getStoreWithState({
+    const store = getStore({
       authors: fromJS({
         ...initialState,
         publicationSelection: {},
@@ -155,20 +138,25 @@ describe('AuthorPublicationsContainer', () => {
       }),
       user: fromJS({ loggedIn: false }),
     });
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
           <AuthorPublicationsContainer />
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(AuthorPublications)).toHaveProp({
-      assignViewNotLoggedIn: true,
-    });
+
+    expect(AuthorPublications).toHaveBeenCalledWith(
+      expect.objectContaining({
+        assignViewNotLoggedIn: true,
+      }),
+      {}
+    );
   });
 
   it('set correct numberOfSelected when publications are selected', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       authors: fromJS({
         ...initialState,
         publicationSelection: {
@@ -177,15 +165,19 @@ describe('AuthorPublicationsContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
           <AuthorPublicationsContainer />
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(AuthorPublications)).toHaveProp({
-      numberOfSelected: 2,
-    });
+    expect(AuthorPublications).toHaveBeenCalledWith(
+      expect.objectContaining({
+        numberOfSelected: 2,
+      }),
+      {}
+    );
   });
 });

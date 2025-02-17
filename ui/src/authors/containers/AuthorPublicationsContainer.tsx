@@ -1,73 +1,8 @@
 import React, { useMemo } from 'react';
 import { connect, RootStateOrAny } from 'react-redux';
 
-import LiteratureSearchContainer from '../../literature/containers/LiteratureSearchContainer';
-import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
 import { isCataloger, isSuperUser } from '../../common/authorization';
-import AssignViewContext from '../AssignViewContext';
-import AssignViewOwnProfileContext from '../assignViewOwnProfileContext';
-import AssignViewDifferentProfileContext from '../assignViewDifferentProfileContext';
-import AssignViewNoProfileContext from '../assignViewNoProfileContext';
-import AssignViewNotLoggedInContext from '../assignViewNotLoggedInContext';
-
-import AssignDrawerContainer from './AssignDrawerContainer';
-import { getConfigFor } from '../../common/config';
-
-export function AuthorPublications({
-  authorFacetName,
-  assignView,
-  assignViewOwnProfile,
-  assignViewDifferentProfile,
-  assignViewNoProfile,
-  numberOfSelected,
-  assignViewNotLoggedIn,
-}: {
-  authorFacetName: string;
-  assignView: boolean;
-  assignViewOwnProfile: boolean;
-  assignViewDifferentProfile: boolean;
-  assignViewNoProfile: boolean;
-  assignViewNotLoggedIn: boolean;
-  numberOfSelected: number;
-}) {
-  const baseQuery = useMemo(
-    () => ({
-      author: [authorFacetName],
-    }),
-    [authorFacetName]
-  );
-  const baseAggregationsQuery = useMemo(
-    () => ({
-      author_recid: authorFacetName,
-    }),
-    [authorFacetName]
-  );
-
-  return (
-    <AssignViewNotLoggedInContext.Provider value={assignViewNotLoggedIn}>
-      <AssignViewNoProfileContext.Provider value={assignViewNoProfile}>
-        <AssignViewDifferentProfileContext.Provider
-          value={assignViewDifferentProfile}
-        >
-          <AssignViewOwnProfileContext.Provider value={assignViewOwnProfile}>
-            <AssignViewContext.Provider value={assignView}>
-              <LiteratureSearchContainer
-                namespace={AUTHOR_PUBLICATIONS_NS}
-                baseQuery={baseQuery}
-                baseAggregationsQuery={baseAggregationsQuery}
-                noResultsTitle="0 Research works"
-                embedded
-                numberOfSelected={numberOfSelected}
-                page="Author publications"
-              />
-              {assignView && <AssignDrawerContainer />}
-            </AssignViewContext.Provider>
-          </AssignViewOwnProfileContext.Provider>
-        </AssignViewDifferentProfileContext.Provider>
-      </AssignViewNoProfileContext.Provider>
-    </AssignViewNotLoggedInContext.Provider>
-  );
-}
+import AuthorPublications from '../components/AuthorPublications';
 
 function enableDifferentProfileView(state: RootStateOrAny) {
   if (state.user.getIn(['data', 'recid'])) {
@@ -85,18 +20,10 @@ const stateToProps = (state: RootStateOrAny) => ({
   assignView:
     isSuperUser(state.user.getIn(['data', 'roles'])) ||
     isCataloger(state.user.getIn(['data', 'roles'])),
-  assignViewOwnProfile:
-    state.authors.getIn(['data', 'metadata', 'can_edit']) &&
-    getConfigFor('ASSIGN_OWN_PROFILE_UI_FEATURE_FLAG'),
-  assignViewDifferentProfile:
-    enableDifferentProfileView(state) &&
-    getConfigFor('ASSIGN_DIFFERENT_PROFILE_UI_FEATURE_FLAG'),
-  assignViewNoProfile:
-    state.user.get('loggedIn') &&
-    getConfigFor('ASSIGN_NO_PROFILE_UI_FEATURE_FLAG'),
-  assignViewNotLoggedIn:
-    !state.user.get('loggedIn') &&
-    getConfigFor('ASSIGN_NOT_LOGGED_IN_FEATURE_FLAG'),
+  assignViewOwnProfile: state.authors.getIn(['data', 'metadata', 'can_edit']),
+  assignViewDifferentProfile: enableDifferentProfileView(state),
+  assignViewNoProfile: state.user.get('loggedIn'),
+  assignViewNotLoggedIn: !state.user.get('loggedIn'),
   numberOfSelected: state.authors.get('publicationSelection').size,
 });
 
