@@ -154,10 +154,7 @@
             "copy_to": "_all"
           },
           "legacy_name": {
-            "copy_to": [
-              "facet_experiment",
-              "_all"
-            ],
+            "copy_to": ["facet_experiment", "_all"],
             "type": "text"
           },
           "recid": {
@@ -204,10 +201,7 @@
       "arxiv_eprints": {
         "properties": {
           "categories": {
-            "copy_to": [
-              "facet_arxiv_categories",
-              "_all"
-            ],
+            "copy_to": ["facet_arxiv_categories", "_all"],
             "type": "keyword"
           },
           "value": {
@@ -665,10 +659,7 @@
             "type": "object"
           },
           "value": {
-            "copy_to": [
-              "facet_collaborations",
-              "_all"
-            ],
+            "copy_to": ["facet_collaborations", "_all"],
             "type": "text"
           }
         },
@@ -989,6 +980,32 @@
         },
         "type": "object"
       },
+      "literature": {
+        "properties": {
+          "control_number": {
+            "type": "integer"
+          },
+          "record": {
+            "properties": {
+              "$ref": {
+                "analyzer": "recid_analyzer",
+                "type": "text"
+              }
+            },
+            "type": "object"
+          },
+          "titles": {
+            "properties": {
+              "source": {
+                "type": "keyword"
+              },
+              "title": {
+                "type": "text"
+              }
+            }
+          }
+        }
+      },
       "new_recid": {
         "type": "integer"
       },
@@ -1045,10 +1062,7 @@
       "publication_info": {
         "properties": {
           "artid": {
-            "copy_to": [
-              "publication_info.page_artid",
-              "_all"
-            ],
+            "copy_to": ["publication_info.page_artid", "_all"],
             "type": "keyword"
           },
           "cnum": {
@@ -1117,10 +1131,7 @@
             "type": "keyword"
           },
           "page_start": {
-            "copy_to": [
-              "publication_info.page_artid",
-              "_all"
-            ],
+            "copy_to": ["publication_info.page_artid", "_all"],
             "type": "keyword"
           },
           "parent_isbn": {
@@ -1559,17 +1570,11 @@
             "type": "keyword"
           },
           "subtitle": {
-            "copy_to": [
-              "titles.full_title",
-              "_all"
-            ],
+            "copy_to": ["titles.full_title", "_all"],
             "type": "text"
           },
           "title": {
-            "copy_to": [
-              "titles.full_title",
-              "_all"
-            ],
+            "copy_to": ["titles.full_title", "_all"],
             "type": "text"
           }
         },
@@ -1597,9 +1602,7 @@
     "analysis": {
       "analyzer": {
         "author_name_analyzer": {
-          "filter": [
-            "icu_folding"
-          ],
+          "filter": ["icu_folding"],
           "tokenizer": "icu_tokenizer",
           "type": "custom"
         },
@@ -1609,34 +1612,20 @@
           "type": "custom"
         },
         "report_number": {
-          "char_filter": [
-            "alphanumeric_normalizer"
-          ],
-          "filter": [
-            "lowercase_normalizer"
-          ],
+          "char_filter": ["alphanumeric_normalizer"],
+          "filter": ["lowercase_normalizer"],
           "tokenizer": "keyword",
           "type": "custom"
         },
         "title": {
-          "char_filter": [
-            "tex_normalizer"
-          ],
-          "filter": [
-            "lowercase_normalizer",
-            "ascii_normalizer"
-          ],
+          "char_filter": ["tex_normalizer"],
+          "filter": ["lowercase_normalizer", "ascii_normalizer"],
           "tokenizer": "icu_tokenizer",
           "type": "custom"
         },
         "title_whitespace_tokenized": {
-          "char_filter": [
-            "tex_normalizer"
-          ],
-          "filter": [
-            "lowercase_normalizer",
-            "ascii_normalizer"
-          ],
+          "char_filter": ["tex_normalizer"],
+          "filter": ["lowercase_normalizer", "ascii_normalizer"],
           "tokenizer": "whitespace",
           "type": "custom"
         },
@@ -1644,13 +1633,8 @@
           "tokenizer": "recid_tokenizer"
         },
         "names_analyzer": {
-          "filter": [
-            "ascii_normalizer",
-            "lowercase_normalizer"
-          ],
-          "char_filter": [
-            "dot_to_whitespace_normalizer"
-          ],
+          "filter": ["ascii_normalizer", "lowercase_normalizer"],
+          "char_filter": ["dot_to_whitespace_normalizer"],
           "tokenizer": "standard",
           "type": "custom"
         },
@@ -1660,9 +1644,7 @@
             "initial_normalizer",
             "lowercase_normalizer"
           ],
-          "char_filter": [
-            "dot_to_whitespace_normalizer"
-          ],
+          "char_filter": ["dot_to_whitespace_normalizer"],
           "tokenizer": "standard",
           "type": "custom"
         }
@@ -1671,15 +1653,11 @@
         "lowercase_normalizer": {
           "type": "custom",
           "char_filter": [],
-          "filter": [
-            "lowercase"
-          ]
+          "filter": ["lowercase"]
         },
         "page_artid_normalizer": {
           "type": "custom",
-          "char_filter": [
-            "remove_leading_zero_normalizer"
-          ],
+          "char_filter": ["remove_leading_zero_normalizer"],
           "filter": []
         }
       },
