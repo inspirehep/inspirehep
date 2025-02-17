@@ -46,5 +46,5 @@ jobs:
         with:
           repo: cern-sis/kubernetes-airflow
           event-type: release
-          images: ${{ fromJSON(needs.meta.outputs.json).tags[3] }} #registry.cern.ch/cern-sis/inspire/workflows@${{ needs.test.outputs.image-id }}
+          images: ${{ env.DOCKER_METADATA_OUTPUT_TAGS }}
           token: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
