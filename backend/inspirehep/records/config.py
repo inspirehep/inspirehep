@@ -784,13 +784,13 @@ RECORDS_REST_SORT_OPTIONS = {
     "records-data": {
         "mostrecent": {
             "title": "Most Recent",
-            "fields": ["control_number"],
+            "fields": ["-creation_date"],
             "default_order": "asc",
             "order": 1,
         },
         "leastrecent": {
             "title": "Least Recent",
-            "fields": ["-control_number"],
+            "fields": ["creation_date"],
             "default_order": "asc",
             "order": 2,
         },

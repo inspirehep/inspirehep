@@ -963,6 +963,10 @@
         "format": "yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
       },
+      "creation_date": {
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
+        "type": "date"
+      },
       "license": {
         "properties": {
           "imposing": {
