@@ -1,7 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import ReferenceItem from '../ReferenceItem';
 
 describe('ReferenceItem', () => {
@@ -22,10 +23,12 @@ describe('ReferenceItem', () => {
       collaborations: [{ value: 'Test Collab.' }],
       collaborations_with_suffix: [{ value: 'Test Group' }],
     });
-    const wrapper = shallow(
-      <ReferenceItem reference={reference} reference_index="123" />
+    const { asFragment } = render(
+      <MemoryRouter>
+        <ReferenceItem reference={reference} reference_index="123" />
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders unlinked reference (no control_number)', () => {
@@ -43,39 +46,51 @@ describe('ReferenceItem', () => {
       collaborations: [{ value: 'Test Collab.' }],
       collaborations_with_suffix: [{ value: 'Test Group' }],
     });
-    const wrapper = shallow(
-      <ReferenceItem reference={reference} reference_index="123" />
+    const { asFragment } = render(
+      <MemoryRouter>
+        <ReferenceItem reference={reference} reference_index="123" />
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders misc if present', () => {
     const reference = fromJS({
       misc: 'A Misc',
     });
-    const wrapper = shallow(
-      <ReferenceItem reference={reference} reference_index="123" />
+    const { asFragment } = render(
+      <MemoryRouter>
+        <ReferenceItem reference={reference} reference_index="123" />
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('does not render misc if title present', () => {
     const reference = fromJS({
       titles: [{ title: 'Title' }],
     });
-    const wrapper = shallow(
-      <ReferenceItem reference={reference} reference_index="123" />
+    const { asFragment } = render(
+      <MemoryRouter>
+        <ReferenceItem reference={reference} reference_index="123" />
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders without edit button if disableEdit', () => {
     const reference = fromJS({
       titles: [{ title: 'Title' }],
     });
-    const wrapper = shallow(
-      <ReferenceItem reference={reference} reference_index="123" disableEdit />
+    const { asFragment } = render(
+      <MemoryRouter>
+        <ReferenceItem
+          reference={reference}
+          reference_index="123"
+          disableEdit
+        />
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

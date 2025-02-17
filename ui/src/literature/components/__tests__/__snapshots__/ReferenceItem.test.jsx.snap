@@ -1,414 +1,749 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ReferenceItem does not render misc if title present 1`] = `
-<div
-  data-test-id="reference-item"
-  id="reference-123"
->
-  <ForwardRef(InternalItem)>
-    <Row
-      align="middle"
-      className="w-100 flex-nowrap"
-      gutter={24}
-      justify="start"
-      type="flex"
+<DocumentFragment>
+  <div
+    data-test-id="reference-item"
+    id="reference-123"
+  >
+    <li
+      class="ant-list-item"
     >
-      <Col
-        lg={1}
-        xs={2}
+      <div
+        class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+        style="margin-left: -12px; margin-right: -12px;"
+        type="flex"
       >
         <div
-          className="flex"
-        />
-      </Col>
-      <Col
-        style={
-          Object {
-            "width": "100%",
-          }
-        }
-      >
-        <Meta
-          description={
-            <React.Fragment>
-              <AuthorsAndCollaborations
-                authors={Immutable.List []}
-                collaborations={Immutable.List []}
-                collaborationsWithSuffix={Immutable.List []}
-                enableAuthorsShowAll={false}
-                page="Literature detail"
-              />
-              <InlineUL
-                separator=" • "
-                wrapperClassName="secondary-container"
-              />
-            </React.Fragment>
-          }
-          title={
+          class="ant-col ant-col-xs-2 ant-col-lg-1"
+          style="padding-left: 12px; padding-right: 12px;"
+        >
+          <div
+            class="flex"
+          />
+        </div>
+        <div
+          class="ant-col"
+          style="padding-left: 12px; padding-right: 12px; width: 100%;"
+        >
+          <div
+            class="ant-list-item-meta"
+          >
             <div
-              className="f5"
-              data-test-id="reference-title"
+              class="ant-list-item-meta-content"
             >
-              <LiteratureTitle
-                title={
-                  Immutable.Map {
-                    "title": "Title",
-                  }
-                }
-              />
+              <h4
+                class="ant-list-item-meta-title"
+              >
+                <div
+                  class="f5"
+                  data-test-id="reference-title"
+                >
+                  <span
+                    data-test-id="literature-detail-title"
+                  >
+                    <span
+                      class="__Latex__"
+                    >
+                      Title
+                    </span>
+                  </span>
+                </div>
+              </h4>
+              <div
+                class="ant-list-item-meta-description"
+              >
+                <div
+                  class="__InlineList__ secondary-container"
+                >
+                  <ul />
+                </div>
+              </div>
             </div>
-          }
-        />
-      </Col>
-    </Row>
-  </ForwardRef(InternalItem)>
-</div>
+          </div>
+        </div>
+        <div
+          class="ant-col ant-col-2 pr3"
+          style="padding-left: 12px; padding-right: 12px;"
+        >
+          <div
+            class="flex items-center justify-center"
+            data-test-id="edit-reference"
+          >
+            <button
+              class="ant-btn ant-btn-text __LinkLikeButton__ blue disabled"
+              disabled=""
+              type="button"
+            >
+              <span
+                class="__IconText__ flex items-center justify-center pr2"
+              >
+                <span
+                  class="icon"
+                >
+                  <span
+                    aria-label="edit"
+                    class="anticon anticon-edit"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="edit"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  class="v-top"
+                >
+                  edit
+                </span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`ReferenceItem renders misc if present 1`] = `
-<div
-  data-test-id="reference-item"
-  id="reference-123"
->
-  <ForwardRef(InternalItem)>
-    <Row
-      align="middle"
-      className="w-100 flex-nowrap"
-      gutter={24}
-      justify="start"
-      type="flex"
+<DocumentFragment>
+  <div
+    data-test-id="reference-item"
+    id="reference-123"
+  >
+    <li
+      class="ant-list-item"
     >
-      <Col
-        lg={1}
-        xs={2}
+      <div
+        class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+        style="margin-left: -12px; margin-right: -12px;"
+        type="flex"
       >
         <div
-          className="flex"
-        />
-      </Col>
-      <Col
-        style={
-          Object {
-            "width": "100%",
-          }
-        }
-      >
-        <Meta
-          description={
-            <React.Fragment>
-              <div>
-                A Misc
+          class="ant-col ant-col-xs-2 ant-col-lg-1"
+          style="padding-left: 12px; padding-right: 12px;"
+        >
+          <div
+            class="flex"
+          />
+        </div>
+        <div
+          class="ant-col"
+          style="padding-left: 12px; padding-right: 12px; width: 100%;"
+        >
+          <div
+            class="ant-list-item-meta"
+          >
+            <div
+              class="ant-list-item-meta-content"
+            >
+              <div
+                class="ant-list-item-meta-description"
+              >
+                <div>
+                  A Misc
+                </div>
+                <div
+                  class="__InlineList__ secondary-container"
+                >
+                  <ul />
+                </div>
               </div>
-              <AuthorsAndCollaborations
-                authors={Immutable.List []}
-                collaborations={Immutable.List []}
-                collaborationsWithSuffix={Immutable.List []}
-                enableAuthorsShowAll={false}
-                page="Literature detail"
-              />
-              <InlineUL
-                separator=" • "
-                wrapperClassName="secondary-container"
-              />
-            </React.Fragment>
-          }
-          title={null}
-        />
-      </Col>
-    </Row>
-  </ForwardRef(InternalItem)>
-</div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-col ant-col-2 pr3"
+          style="padding-left: 12px; padding-right: 12px;"
+        >
+          <div
+            class="flex items-center justify-center"
+            data-test-id="edit-reference"
+          >
+            <button
+              class="ant-btn ant-btn-text __LinkLikeButton__ blue disabled"
+              disabled=""
+              type="button"
+            >
+              <span
+                class="__IconText__ flex items-center justify-center pr2"
+              >
+                <span
+                  class="icon"
+                >
+                  <span
+                    aria-label="edit"
+                    class="anticon anticon-edit"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="edit"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  class="v-top"
+                >
+                  edit
+                </span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
-<div
-  data-test-id="reference-item"
-  id="reference-123"
->
-  <ForwardRef(InternalItem)>
-    <Row
-      align="middle"
-      className="w-100 flex-nowrap"
-      gutter={24}
-      justify="start"
-      type="flex"
+<DocumentFragment>
+  <div
+    data-test-id="reference-item"
+    id="reference-123"
+  >
+    <li
+      class="ant-list-item"
     >
-      <Col
-        lg={1}
-        xs={2}
+      <div
+        class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+        style="margin-left: -12px; margin-right: -12px;"
+        type="flex"
       >
         <div
-          className="flex"
-        />
-      </Col>
-      <Col
-        style={
-          Object {
-            "width": "100%",
-          }
-        }
-      >
-        <Meta
-          description={
-            <React.Fragment>
-              <AuthorsAndCollaborations
-                authors={
-                  Immutable.List [
-                    Immutable.Map {
-                      "full_name": "Author",
-                    },
-                  ]
-                }
-                collaborations={
-                  Immutable.List [
-                    Immutable.Map {
-                      "value": "Test Collab.",
-                    },
-                  ]
-                }
-                collaborationsWithSuffix={
-                  Immutable.List [
-                    Immutable.Map {
-                      "value": "Test Group",
-                    },
-                  ]
-                }
-                enableAuthorsShowAll={false}
-                page="Literature detail"
-              />
-              <InlineUL
-                separator=" • "
-                wrapperClassName="secondary-container"
-              >
-                <PublicationInfoList
-                  labeled={false}
-                  publicationInfo={
-                    Immutable.List [
-                      Immutable.Map {
-                        "journal_title": "Journal",
-                      },
-                    ]
-                  }
-                />
-                <DOIList
-                  dois={
-                    Immutable.List [
-                      Immutable.Map {
-                        "value": "123456.12345",
-                      },
-                    ]
-                  }
-                  showLabel={true}
-                />
-                <URLList
-                  urls={
-                    Immutable.List [
-                      Immutable.Map {
-                        "value": "https://dude.guy",
-                      },
-                    ]
-                  }
-                  wrapperClassName={null}
-                />
-              </InlineUL>
-            </React.Fragment>
-          }
-          title={
+          class="ant-col ant-col-xs-2 ant-col-lg-1"
+          style="padding-left: 12px; padding-right: 12px;"
+        >
+          <div
+            class="flex"
+          />
+        </div>
+        <div
+          class="ant-col"
+          style="padding-left: 12px; padding-right: 12px; width: 100%;"
+        >
+          <div
+            class="ant-list-item-meta"
+          >
             <div
-              className="f5"
-              data-test-id="reference-title"
+              class="ant-list-item-meta-content"
             >
-              <LiteratureTitle
-                title={
-                  Immutable.Map {
-                    "title": "Title",
-                  }
-                }
-              />
+              <h4
+                class="ant-list-item-meta-title"
+              >
+                <div
+                  class="f5"
+                  data-test-id="reference-title"
+                >
+                  <span
+                    data-test-id="literature-detail-title"
+                  >
+                    <span
+                      class="__Latex__"
+                    >
+                      Title
+                    </span>
+                  </span>
+                </div>
+              </h4>
+              <div
+                class="ant-list-item-meta-description"
+              >
+                <div
+                  class="__InlineList__ di"
+                >
+                  <ul>
+                    <li>
+                      <a
+                        href="/literature?q=collaboration:Test Collab."
+                      >
+                        Test Collab.
+                      </a>
+                    </li>
+                  </ul>
+                  <span>
+                     Collaboration
+                  </span>
+                </div>
+                <span>
+                   and 
+                </span>
+                <div
+                  class="__InlineList__ di"
+                >
+                  <ul>
+                    <li>
+                      <a
+                        href="/literature?q=collaboration:Test Group"
+                      >
+                        Test Group
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <span
+                  class="mh1"
+                >
+                  •
+                </span>
+                <div
+                  class="__InlineList__ di"
+                >
+                  <ul>
+                    <li>
+                      <div
+                        class="di"
+                      >
+                        <span>
+                          Author
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <span>
+                   for the collaboration
+                </span>
+                <span>
+                  s
+                </span>
+                <span>
+                  .
+                </span>
+                <div
+                  class="__InlineList__ secondary-container"
+                >
+                  <ul>
+                    <li>
+                      <div
+                        class="__InlineList__"
+                      >
+                        <ul>
+                          <li>
+                            <span>
+                              <span>
+                                <i>
+                                  Journal
+                                </i>
+                              </span>
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                       • 
+                    </li>
+                    <li>
+                      <div
+                        class="__InlineList__"
+                      >
+                        <span
+                          class=""
+                        >
+                          DOI: 
+                        </span>
+                        <ul>
+                          <li>
+                            <span>
+                              <a
+                                href="//doi.org/123456.12345"
+                                target="_blank"
+                              >
+                                123456.12345
+                              </a>
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                       • 
+                    </li>
+                    <li>
+                      <div
+                        class="__InlineList__"
+                      >
+                        <ul>
+                          <li>
+                            <a
+                              href="https://dude.guy"
+                              target="_blank"
+                            >
+                              https://dude.guy
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
-          }
-        />
-      </Col>
-    </Row>
-  </ForwardRef(InternalItem)>
-</div>
+          </div>
+        </div>
+        <div
+          class="ant-col ant-col-2 pr3"
+          style="padding-left: 12px; padding-right: 12px;"
+        >
+          <div
+            class="flex items-center justify-center"
+            data-test-id="edit-reference"
+          >
+            <button
+              class="ant-btn ant-btn-text __LinkLikeButton__ blue disabled"
+              disabled=""
+              type="button"
+            >
+              <span
+                class="__IconText__ flex items-center justify-center pr2"
+              >
+                <span
+                  class="icon"
+                >
+                  <span
+                    aria-label="edit"
+                    class="anticon anticon-edit"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="edit"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  class="v-top"
+                >
+                  edit
+                </span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`ReferenceItem renders with full reference 1`] = `
-<div
-  data-test-id="reference-item"
-  id="reference-123"
->
-  <ForwardRef(InternalItem)>
-    <Row
-      align="middle"
-      className="w-100 flex-nowrap"
-      gutter={24}
-      justify="start"
-      type="flex"
+<DocumentFragment>
+  <div
+    data-test-id="reference-item"
+    id="reference-123"
+  >
+    <li
+      class="ant-list-item"
     >
-      <Col
-        lg={1}
-        xs={2}
+      <div
+        class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+        style="margin-left: -12px; margin-right: -12px;"
+        type="flex"
       >
         <div
-          className="flex"
+          class="ant-col ant-col-xs-2 ant-col-lg-1"
+          style="padding-left: 12px; padding-right: 12px;"
         >
-          <span>
-            [
-            123
-            ]
-          </span>
+          <div
+            class="flex"
+          >
+            <span>
+              [123]
+            </span>
+          </div>
         </div>
-      </Col>
-      <Col
-        style={
-          Object {
-            "width": "100%",
-          }
-        }
-      >
-        <Meta
-          description={
-            <React.Fragment>
-              <AuthorsAndCollaborations
-                authors={
-                  Immutable.List [
-                    Immutable.Map {
-                      "full_name": "Author",
-                    },
-                  ]
-                }
-                collaborations={
-                  Immutable.List [
-                    Immutable.Map {
-                      "value": "Test Collab.",
-                    },
-                  ]
-                }
-                collaborationsWithSuffix={
-                  Immutable.List [
-                    Immutable.Map {
-                      "value": "Test Group",
-                    },
-                  ]
-                }
-                enableAuthorsShowAll={false}
-                page="Literature detail"
-              />
-              <InlineUL
-                separator=" • "
-                wrapperClassName="secondary-container"
-              >
-                <PublicationInfoList
-                  labeled={false}
-                  publicationInfo={
-                    Immutable.List [
-                      Immutable.Map {
-                        "journal_title": "Journal",
-                      },
-                    ]
-                  }
-                />
-                <DOIList
-                  dois={
-                    Immutable.List [
-                      Immutable.Map {
-                        "value": "123456.12345",
-                      },
-                    ]
-                  }
-                  showLabel={true}
-                />
-              </InlineUL>
-            </React.Fragment>
-          }
-          title={
+        <div
+          class="ant-col"
+          style="padding-left: 12px; padding-right: 12px; width: 100%;"
+        >
+          <div
+            class="ant-list-item-meta"
+          >
             <div
-              data-test-id="reference-title"
+              class="ant-list-item-meta-content"
             >
-              <Link
-                className="f5"
-                to="/literature/12345"
+              <h4
+                class="ant-list-item-meta-title"
               >
-                <LiteratureTitle
-                  title={
-                    Immutable.Map {
-                      "title": "Title",
-                    }
-                  }
-                />
-              </Link>
+                <div
+                  data-test-id="reference-title"
+                >
+                  <a
+                    class="f5"
+                    href="/literature/12345"
+                  >
+                    <span
+                      data-test-id="literature-detail-title"
+                    >
+                      <span
+                        class="__Latex__"
+                      >
+                        Title
+                      </span>
+                    </span>
+                  </a>
+                </div>
+              </h4>
+              <div
+                class="ant-list-item-meta-description"
+              >
+                <div
+                  class="__InlineList__ di"
+                >
+                  <ul>
+                    <li>
+                      <a
+                        href="/literature?q=collaboration:Test Collab."
+                      >
+                        Test Collab.
+                      </a>
+                    </li>
+                  </ul>
+                  <span>
+                     Collaboration
+                  </span>
+                </div>
+                <span>
+                   and 
+                </span>
+                <div
+                  class="__InlineList__ di"
+                >
+                  <ul>
+                    <li>
+                      <a
+                        href="/literature?q=collaboration:Test Group"
+                      >
+                        Test Group
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <span
+                  class="mh1"
+                >
+                  •
+                </span>
+                <div
+                  class="__InlineList__ di"
+                >
+                  <ul>
+                    <li>
+                      <div
+                        class="di"
+                      >
+                        <span>
+                          Author
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <span>
+                   for the collaboration
+                </span>
+                <span>
+                  s
+                </span>
+                <span>
+                  .
+                </span>
+                <div
+                  class="__InlineList__ secondary-container"
+                >
+                  <ul>
+                    <li>
+                      <div
+                        class="__InlineList__"
+                      >
+                        <ul>
+                          <li>
+                            <span>
+                              <span>
+                                <i>
+                                  Journal
+                                </i>
+                              </span>
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                       • 
+                    </li>
+                    <li>
+                      <div
+                        class="__InlineList__"
+                      >
+                        <span
+                          class=""
+                        >
+                          DOI: 
+                        </span>
+                        <ul>
+                          <li>
+                            <span>
+                              <a
+                                href="//doi.org/123456.12345"
+                                target="_blank"
+                              >
+                                123456.12345
+                              </a>
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
-          }
-        />
-      </Col>
-    </Row>
-  </ForwardRef(InternalItem)>
-</div>
+          </div>
+        </div>
+        <div
+          class="ant-col ant-col-2 pr3"
+          style="padding-left: 12px; padding-right: 12px;"
+        >
+          <div
+            class="flex items-center justify-center"
+            data-test-id="edit-reference"
+          >
+            <button
+              class="ant-btn ant-btn-text __LinkLikeButton__ blue disabled"
+              disabled=""
+              type="button"
+            >
+              <span
+                class="__IconText__ flex items-center justify-center pr2"
+              >
+                <span
+                  class="icon"
+                >
+                  <span
+                    aria-label="edit"
+                    class="anticon anticon-edit"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="edit"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  class="v-top"
+                >
+                  edit
+                </span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`ReferenceItem renders without edit button if disableEdit 1`] = `
-<div
-  data-test-id="reference-item"
-  id="reference-123"
->
-  <ForwardRef(InternalItem)>
-    <Row
-      align="middle"
-      className="w-100 flex-nowrap"
-      gutter={24}
-      justify="start"
-      type="flex"
+<DocumentFragment>
+  <div
+    data-test-id="reference-item"
+    id="reference-123"
+  >
+    <li
+      class="ant-list-item"
     >
-      <Col
-        lg={1}
-        xs={2}
+      <div
+        class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+        style="margin-left: -12px; margin-right: -12px;"
+        type="flex"
       >
         <div
-          className="flex"
-        />
-      </Col>
-      <Col
-        style={
-          Object {
-            "width": "100%",
-          }
-        }
-      >
-        <Meta
-          description={
-            <React.Fragment>
-              <AuthorsAndCollaborations
-                authors={Immutable.List []}
-                collaborations={Immutable.List []}
-                collaborationsWithSuffix={Immutable.List []}
-                enableAuthorsShowAll={false}
-                page="Literature detail"
-              />
-              <InlineUL
-                separator=" • "
-                wrapperClassName="secondary-container"
-              />
-            </React.Fragment>
-          }
-          title={
+          class="ant-col ant-col-xs-2 ant-col-lg-1"
+          style="padding-left: 12px; padding-right: 12px;"
+        >
+          <div
+            class="flex"
+          />
+        </div>
+        <div
+          class="ant-col"
+          style="padding-left: 12px; padding-right: 12px; width: 100%;"
+        >
+          <div
+            class="ant-list-item-meta"
+          >
             <div
-              className="f5"
-              data-test-id="reference-title"
+              class="ant-list-item-meta-content"
             >
-              <LiteratureTitle
-                title={
-                  Immutable.Map {
-                    "title": "Title",
-                  }
-                }
-              />
+              <h4
+                class="ant-list-item-meta-title"
+              >
+                <div
+                  class="f5"
+                  data-test-id="reference-title"
+                >
+                  <span
+                    data-test-id="literature-detail-title"
+                  >
+                    <span
+                      class="__Latex__"
+                    >
+                      Title
+                    </span>
+                  </span>
+                </div>
+              </h4>
+              <div
+                class="ant-list-item-meta-description"
+              >
+                <div
+                  class="__InlineList__ secondary-container"
+                >
+                  <ul />
+                </div>
+              </div>
             </div>
-          }
-        />
-      </Col>
-    </Row>
-  </ForwardRef(InternalItem)>
-</div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </div>
+</DocumentFragment>
 `;
