@@ -400,3 +400,17 @@ def test_data_elasticsearch_schema_serialize_literature(inspire_app):
         response_data = orjson.loads(response.data)
         response_data_hit = response_data["hits"]["hits"][0]["metadata"]
         assert response_data_hit["literature"] == expected_literature
+
+
+def test_data_detail_sets_date(inspire_app):
+    with inspire_app.test_client() as client:
+        headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+
+        data_record = create_record(
+            "dat",
+            data={"creation_date": "2022-01-01"},
+        )
+
+        response = client.get(f"/data/{data_record['control_number']}", headers=headers)
+        response_metadata = response.json["metadata"]
+        assert response_metadata["date"] == "Jan 1, 2022"

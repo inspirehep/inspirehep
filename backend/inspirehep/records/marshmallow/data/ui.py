@@ -4,6 +4,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from inspire_utils.date import format_date
 from marshmallow import fields, missing
 
 from inspirehep.records.marshmallow.common.literature_record import (
@@ -22,6 +23,7 @@ class DataBaseSchema(DataPublicSchema):
 class DataDetailSchema(DataBaseSchema):
     literature = fields.Nested(LiteratureRecordSchemaV1, dump_only=True, many=True)
     authors = ListWithLimit(fields.Nested(AuthorSchemaV1, dump_only=True), limit=10)
+    date = fields.Method("get_date")
     number_of_authors = fields.Method("get_number_of_authors")
 
     def get_number_of_authors(self, data):
@@ -29,6 +31,13 @@ class DataDetailSchema(DataBaseSchema):
         if not authors:
             authors = get_authors(data)
         return self.get_len_or_missing(authors)
+
+    def get_date(self, data):
+        return (
+            format_date(data.get("creation_date"))
+            if "creation_date" in data
+            else missing
+        )
 
     @staticmethod
     def get_len_or_missing(maybe_none_list):

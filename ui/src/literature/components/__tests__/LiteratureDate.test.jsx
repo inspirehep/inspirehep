@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import LiteratureDate from '../LiteratureDate';
+import LiteratureDate from '../../../common/components/LiteratureDate';
 
 describe('LiteratureDate', () => {
   it('renders with date', () => {

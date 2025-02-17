@@ -12,7 +12,7 @@ import ResultsContainer from '../../../common/containers/ResultsContainer';
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
 import LiteratureTitle from '../../../common/components/LiteratureTitle';
 import { LITERATURE } from '../../../common/routes';
-import LiteratureDate from '../LiteratureDate';
+import LiteratureDate from '../../../common/components/LiteratureDate';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
 import PaginationContainer from '../../../common/containers/PaginationContainer';
 

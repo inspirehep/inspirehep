@@ -20,7 +20,7 @@ import KeywordList from '../../../common/components/KeywordList';
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
 import ExternalSystemIdentifierList from '../../components/ExternalSystemIdentifierList';
 import ContentBox from '../../../common/components/ContentBox';
-import LiteratureDate from '../../components/LiteratureDate';
+import LiteratureDate from '../../../common/components/LiteratureDate';
 import PublicationInfoList from '../../../common/components/PublicationInfoList';
 import ReportNumberList from '../../components/ReportNumberList';
 import ThesisInfo from '../../components/ThesisInfo';

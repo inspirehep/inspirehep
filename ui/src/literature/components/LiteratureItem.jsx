@@ -11,7 +11,7 @@ import {
 } from '@ant-design/icons';
 
 import ArxivEprintList from './ArxivEprintList';
-import LiteratureDate from './LiteratureDate';
+import LiteratureDate from '../../common/components/LiteratureDate';
 import PublicNotesList from '../../common/components/PublicNotesList/PublicNotesList';
 import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';
 import PublicationInfoList from '../../common/components/PublicationInfoList';
