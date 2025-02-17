@@ -31,6 +31,7 @@ jobs:
             inspirehep/hep
             inspirehep/ui
             inspirehep/editor
+            registry.cern.ch/cern-sis/inspire/workflows
           tags: "type=sha"
 
       - name: send event inspire
@@ -45,5 +46,5 @@ jobs:
         with:
           repo: cern-sis/kubernetes-airflow
           event-type: release
-          images: ${{ fromJSON(needs.test.outputs.json).tags[1] }} #registry.cern.ch/cern-sis/inspire/workflows@${{ needs.test.outputs.image-id }}
+          images: ${{ fromJSON(needs.meta.outputs.json).tags[3] }} #registry.cern.ch/cern-sis/inspire/workflows@${{ needs.test.outputs.image-id }}
           token: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
