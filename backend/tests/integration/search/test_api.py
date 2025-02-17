@@ -1699,3 +1699,32 @@ def test_referenced_data_record(inspire_app, override_config):
             .execute()
         )
         assert result.hits[0]["control_number"] == citing_record["control_number"]
+
+
+def test_search_data_creation_date_sorting(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    url = "api/data"
+
+    create_record(
+        "dat",
+        data={"creation_date": "2026-02-02"},
+    )
+
+    create_record(
+        "dat",
+        data={"creation_date": "2027-02-02"},
+    )
+
+    with inspire_app.test_client() as client:
+        response1 = client.get(
+            url, headers=headers, query_string={"sort": "mostrecent"}
+        )
+        response2 = client.get(
+            url, headers=headers, query_string={"sort": "leastrecent"}
+        )
+    assert (
+        response1.json["hits"]["hits"][0]["metadata"]["creation_date"] == "2027-02-02"
+    )
+    assert (
+        response2.json["hits"]["hits"][0]["metadata"]["creation_date"] == "2026-02-02"
+    )
