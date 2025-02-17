@@ -10,6 +10,7 @@ import { isSuperUser } from '../../../common/authorization';
 import fetchData, { fetchDataAuthors } from '../../../actions/data';
 import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
 import ContentBox from '../../../common/components/ContentBox';
+import LiteratureDate from '../../../common/components/LiteratureDate';
 import LiteratureTitle from '../../../common/components/LiteratureTitle';
 import { APIButton } from '../../../common/components/APIButton';
 import UrlsAction from '../../../literature/components/UrlsAction';
@@ -41,6 +42,7 @@ const DetailPage = ({
   const abstract = metadata.getIn(['abstracts', 0]);
   const authorCount = (authors && authors.size) || 0;
   const dois = metadata.get('dois', List());
+  const date = metadata.get('date');
   const recordId = metadata.get('control_number');
   const literatureRecords = metadata.get('literature');
   const collaborations = metadata.get('collaborations', List());
@@ -100,6 +102,7 @@ const DetailPage = ({
                     page="Data detail"
                   />
                 </div>
+                {date && <LiteratureDate date={date} />}
               </Col>
             </Row>
             <DOIListShowAll dois={dois} />

@@ -23,7 +23,7 @@ import ExternalSystemIdentifierList from '../ExternalSystemIdentifierList';
 import ImprintInfo from '../ImprintInfo';
 import IsbnList from '../IsbnList';
 import LiteratureClaimButton from '../LiteratureClaimButton';
-import LiteratureDate from '../LiteratureDate';
+import LiteratureDate from '../../../common/components/LiteratureDate';
 import NumberOfPages from '../NumberOfPages';
 import ParentRecordInfo from '../ParentRecordInfo';
 import { PDGKeywords } from '../PDGKeywords';
