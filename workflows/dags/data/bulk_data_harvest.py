@@ -84,6 +84,7 @@ def bulk_data_harvest_dag():
         Returns: dict: The record versions.
         """
         payloads = []
+        logger.info(f"Downloading {len(ids)} records")
         for id in ids:
             hepdata_response = generic_http_hook.call_api(
                 endpoint=f"/record/ins{id}?format=json"
@@ -105,7 +106,7 @@ def bulk_data_harvest_dag():
         requirements=["inspire-schemas==61.6.9"],
         system_site_packages=False,
     )
-    def build_records(data_schema, inspire_url, payloads, **context):
+    def build_records(data_schema, inspire_url, payloads, logger, **context):
         """Build the record from the payload.
 
         Args: data_schema (str): The schema of the data.
@@ -143,6 +144,8 @@ def bulk_data_harvest_dag():
                         builder.add_keyword(value)
 
         inspire_records = []
+
+        logger.info(f"Building {len(payloads)} records")
         for payload in payloads:
             builder = DataBuilder(source="HEPData")
 
@@ -210,28 +213,30 @@ def bulk_data_harvest_dag():
         Returns: dict: The normalized record.
         """
         normalized_records = []
+
+        logger.info(f"Normalizing {len(records)} records")
         for record in records:
             collaborations = record.get("collaborations", [])
 
-            if not collaborations:
-                continue
-
-            response = inspire_http_hook.call_api(
-                endpoint="api/curation/literature/collaborations-normalization",
-                method="GET",
-                data={"collaborations": collaborations},
-            )
-            response.raise_for_status()
-            obj_accelerator_experiments = record.get("accelerator_experiments", [])
-            normalized_accelerator_experiments = response.json()[
-                "accelerator_experiments"
-            ]
-
-            if normalized_accelerator_experiments or obj_accelerator_experiments:
-                record["accelerator_experiments"] = dedupe_list(
-                    obj_accelerator_experiments + normalized_accelerator_experiments
+            if collaborations:
+                response = inspire_http_hook.call_api(
+                    endpoint="api/curation/literature/collaborations-normalization",
+                    method="GET",
+                    data={"collaborations": collaborations},
                 )
-                record["collaborations"] = response.json()["normalized_collaborations"]
+                response.raise_for_status()
+                obj_accelerator_experiments = record.get("accelerator_experiments", [])
+                normalized_accelerator_experiments = response.json()[
+                    "accelerator_experiments"
+                ]
+
+                if normalized_accelerator_experiments or obj_accelerator_experiments:
+                    record["accelerator_experiments"] = dedupe_list(
+                        obj_accelerator_experiments + normalized_accelerator_experiments
+                    )
+                    record["collaborations"] = response.json()[
+                        "normalized_collaborations"
+                    ]
 
             normalized_records.append(record)
         return normalized_records
@@ -245,6 +250,7 @@ def bulk_data_harvest_dag():
 
         responses = []
 
+        logger.info(f"Loading {len(new_records)} records")
         for new_record in new_records:
             try:
                 response = inspire_http_record_management_hook.get_record(
@@ -293,7 +299,10 @@ def bulk_data_harvest_dag():
 
     hepdata_record_versions = download_record_versions(collect_ids())
     records = build_records(
-        data_schema=data_schema, inspire_url=url, payloads=hepdata_record_versions
+        data_schema=data_schema,
+        inspire_url=url,
+        payloads=hepdata_record_versions,
+        logger=logger,
     )
     records = normalize_collaborations(records)
     load_records(records)
