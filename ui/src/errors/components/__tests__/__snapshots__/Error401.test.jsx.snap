@@ -1,10 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Error401 renders Error401 with correct props 1`] = `
-<ErrorPage
-  detail={null}
-  imageSrc="401.svg"
-  message="Sorry, you are not authorised to view this page."
-  url=""
-/>
+<DocumentFragment>
+  <div
+    align="middle"
+    class="ant-col ant-col-14 mt3 mb3"
+    justify="center"
+  >
+    <div
+      class="ant-row"
+    >
+      <div
+        class="ant-col ant-col-24"
+      >
+        <h3
+          class="f2 sm-f3"
+        >
+          Sorry, you are not authorised to view this page.
+        </h3>
+      </div>
+    </div>
+    <div
+      class="ant-row"
+    >
+      <div
+        class="ant-col ant-col-24"
+      >
+        <img
+          alt="ERROR"
+          src="401.svg"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;

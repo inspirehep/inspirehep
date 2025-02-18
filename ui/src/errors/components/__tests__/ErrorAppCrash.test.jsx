@@ -1,10 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import ErrorAppCrash from '../ErrorAppCrash';
 
 describe('ErrorAppCrash', () => {
   it('renders ErrorAppCrash', () => {
-    const wrapper = shallow(<ErrorAppCrash />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<ErrorAppCrash />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

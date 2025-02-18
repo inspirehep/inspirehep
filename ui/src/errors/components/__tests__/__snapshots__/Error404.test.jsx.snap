@@ -1,10 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Error404 renders Error404 with correct props 1`] = `
-<ErrorPage
-  detail={null}
-  imageSrc="404.svg"
-  message="Sorry, we were not able to find what you were looking for..."
-  url=""
-/>
+<DocumentFragment>
+  <div
+    align="middle"
+    class="ant-col ant-col-14 mt3 mb3"
+    justify="center"
+  >
+    <div
+      class="ant-row"
+    >
+      <div
+        class="ant-col ant-col-24"
+      >
+        <h3
+          class="f2 sm-f3"
+        >
+          Sorry, we were not able to find what you were looking for...
+        </h3>
+      </div>
+    </div>
+    <div
+      class="ant-row"
+    >
+      <div
+        class="ant-col ant-col-24"
+      >
+        <img
+          alt="ERROR"
+          src="404.svg"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
