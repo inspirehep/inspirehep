@@ -1,25 +1,63 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ErrorAppCrash renders ErrorAppCrash 1`] = `
-<Row
-  justify="center"
-  type="flex"
->
-  <ErrorPage
-    detail={
-      <span>
-        Please try again later, you can 
-        <a
-          href="/"
+<DocumentFragment>
+  <div
+    class="ant-row ant-row-center"
+    type="flex"
+  >
+    <div
+      align="middle"
+      class="ant-col ant-col-14 mt3 mb3"
+      justify="center"
+    >
+      <div
+        class="ant-row"
+      >
+        <div
+          class="ant-col ant-col-24"
         >
-          go back home
-        </a>
-         now.
-      </span>
-    }
-    imageSrc="500.svg"
-    message="Something went wrong"
-    url=""
-  />
-</Row>
+          <h3
+            class="f2 sm-f3"
+          >
+            Something went wrong
+          </h3>
+        </div>
+      </div>
+      <div
+        class="ant-row"
+      >
+        <div
+          class="ant-col ant-col-24"
+        >
+          <h3
+            class="f3 normal sm-f4"
+          >
+            <span>
+              Please try again later, you can 
+              <a
+                href="/"
+              >
+                go back home
+              </a>
+               now.
+            </span>
+          </h3>
+        </div>
+      </div>
+      <div
+        class="ant-row"
+      >
+        <div
+          class="ant-col ant-col-24"
+        >
+          <img
+            alt="ERROR"
+            src="500.svg"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;

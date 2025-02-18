@@ -1,17 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Error500 renders Error500 1`] = `
-<ErrorPage
-  detail={
-    <span>
-      Please try again later or 
-      <Connect(GoBackLink)
-        color="black"
-      />
-    </span>
-  }
-  imageSrc="500.svg"
-  message="Something went wrong"
-  url=""
-/>
+<DocumentFragment>
+  <div
+    align="middle"
+    class="ant-col ant-col-14 mt3 mb3"
+    justify="center"
+  >
+    <div
+      class="ant-row"
+    >
+      <div
+        class="ant-col ant-col-24"
+      >
+        <h3
+          class="f2 sm-f3"
+        >
+          Something went wrong
+        </h3>
+      </div>
+    </div>
+    <div
+      class="ant-row"
+    >
+      <div
+        class="ant-col ant-col-24"
+      >
+        <h3
+          class="f3 normal sm-f4"
+        >
+          <span>
+            Please try again later or 
+            <button
+              class="ant-btn ant-btn-text __LinkLikeButton__ blue big"
+              type="button"
+            >
+              <span>
+                go back
+              </span>
+            </button>
+          </span>
+        </h3>
+      </div>
+    </div>
+    <div
+      class="ant-row"
+    >
+      <div
+        class="ant-col ant-col-24"
+      >
+        <img
+          alt="ERROR"
+          src="500.svg"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;

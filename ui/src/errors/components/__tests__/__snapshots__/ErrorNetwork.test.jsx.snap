@@ -1,17 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ErrorNetwork renders ErrorNetwork 1`] = `
-<ErrorPage
-  detail={
-    <span>
-      Please check your internet connection and
-       
-      <Connect(GoBackLink)>
-        try again
-      </Connect(GoBackLink)>
-    </span>
-  }
-  imageSrc="500.svg"
-  message="Connection error!"
-/>
+<DocumentFragment>
+  <div
+    align="middle"
+    class="ant-col ant-col-14 mt3 mb3"
+    justify="center"
+  >
+    <div
+      class="ant-row"
+    >
+      <div
+        class="ant-col ant-col-24"
+      >
+        <h3
+          class="f2 sm-f3"
+        >
+          Connection error!
+        </h3>
+      </div>
+    </div>
+    <div
+      class="ant-row"
+    >
+      <div
+        class="ant-col ant-col-24"
+      >
+        <h3
+          class="f3 normal sm-f4"
+        >
+          <span>
+            Please check your internet connection and 
+            <button
+              class="ant-btn ant-btn-text __LinkLikeButton__ blue big"
+              type="button"
+            >
+              <span>
+                try again
+              </span>
+            </button>
+          </span>
+        </h3>
+      </div>
+    </div>
+    <div
+      class="ant-row"
+    >
+      <div
+        class="ant-col ant-col-24"
+      >
+        <img
+          alt="ERROR"
+          src="500.svg"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
