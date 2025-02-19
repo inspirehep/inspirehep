@@ -1,0 +1,112 @@
+{
+  "dois": [
+    {
+      "value": "10.17182/hepdata.156182",
+      "source": "HEPData",
+      "material": "data"
+    },
+    {
+      "value": "10.17182/hepdata.156182.v1/t1",
+      "source": "HEPData",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.156182.v1/t2",
+      "source": "HEPData",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.156182.v1/t3",
+      "source": "HEPData",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.156182.v1/t4",
+      "source": "HEPData",
+      "material": "part"
+    },
+    {
+      "value": "10.17182/hepdata.156182",
+      "source": "HEPData",
+      "material": "version"
+    }
+  ],
+  "self": {
+    "$ref": "https://inspirehep.net/api/data/2891171"
+  },
+  "urls": [
+    {
+      "value": "https://cms-results.web.cern.ch/cms-results/public-results/preliminary-results/HIN-24-010/index.html",
+      "description": "Webpage with all figures and tables"
+    }
+  ],
+  "titles": [
+    {
+      "title": "Search for medium effects using jet axis decorrelation in inclusive jets from PbPb collisions at $\\sqrt{s_\\text{NN}}$ = 5.02 TeV",
+      "source": "HEPData"
+    }
+  ],
+  "$schema": "https://inspirehep.net/schemas/records/data.json",
+  "keywords": [
+    {
+      "value": "cmenergies: 5020.0-5020.0",
+      "source": "HEPData"
+    },
+    {
+      "value": "observables: $\\frac{1}{N} \\frac{dN}{d\\Delta j}$",
+      "source": "HEPData"
+    },
+    {
+      "value": "observables: $\\Delta j$",
+      "source": "HEPData"
+    },
+    {
+      "value": "Jet axis decorrelation",
+      "source": "HEPData"
+    },
+    {
+      "value": "PB PB --\u003E DIJET CHARGED X",
+      "source": "HEPData"
+    }
+  ],
+  "abstracts": [
+    {
+      "value": "The jet axis decorrelation in inclusive jets is studied using lead-lead (PbPb) collisions at a center-of-mass energy per nucleon pair of 5.02 TeV. The jet axis decorrelation is defined as the angular difference between two definitions of the jet axis. It is obtained by applying two recombination schemes on all the constituents of a given jet reconstructed by the anti-$k_{\\mathrm{T}}$ sequential algorithm with a distance parameter of $R = 0.4$. The data set, corresponding to an integrated luminosity of $0.662~\\mathrm{nb}^{-1}$, was collected in 2018 with the CMS detector at the CERN LHC. The jet axis decorrelations are examined across collision centrality selections and intervals of jet transverse momentum. A centrality dependent evolution of the measured distributions is observed, with a progressive narrowing seen in more central events. This narrowing could result from medium-induced modification of the internal jet structure or reflect color charge effects in energy loss. This new measurement probes jet substructure in previously unexplored kinematic domains and show great promise for providing new insights on the color charge dependence of energy loss to jet-quenching models.",
+      "source": "HEPData"
+    }
+  ],
+  "literature": [
+    {
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/2890802"
+      }
+    }
+  ],
+  "_collections": [
+    "Data"
+  ],
+  "creation_date": "2025-02-18",
+  "collaborations": [
+    {
+      "value": "CMS",
+      "record": {
+        "$ref": "https://inspirehep.net/api/experiments/1108642"
+      }
+    }
+  ],
+  "control_number": 2891171,
+  "acquisition_source": {
+    "method": "inspirehep",
+    "source": "HEPData",
+    "datetime": "2025-02-20T00:03:30.523208+00:00",
+    "submission_number": "2890802"
+  },
+  "accelerator_experiments": [
+    {
+      "record": {
+        "$ref": "https://inspirehep.net/api/experiments/1108642"
+      },
+      "legacy_name": "CERN-LHC-CMS"
+    }
+  ]
+}

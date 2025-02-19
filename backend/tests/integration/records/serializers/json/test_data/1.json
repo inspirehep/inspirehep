@@ -1,4 +1,12 @@
 {
-  "$schema": "https://qa.inspirehep.net/schemas/records/data.json",
-  "_collections": ["Data"]
+  "$schema": "https://inspirebeta.net/schemas/records/data.json",
+  "_collections": ["Data"],
+  "titles": [
+    {
+      "title": "test"
+    }],
+  "dois": [
+      {
+        "value": "10.17182/hepdata.127768"
+      }]
 }
