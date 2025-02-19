@@ -102,7 +102,7 @@ def data_harvest_dag():
             return record
 
         @task.virtualenv(
-            requirements=["inspire-schemas==61.6.9"],
+            requirements=["inspire-schemas==61.6.10"],
             system_site_packages=False,
         )
         def build_record(data_schema, inspire_url, payload, **context):

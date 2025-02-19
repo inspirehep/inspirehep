@@ -135,12 +135,11 @@ def test_get_record_from_db_depending_on_its_pid_type(inspire_app):
 
 
 def test_create_record_from_db_depending_on_its_pid_type(inspire_app):
-    data = faker.record("dat")
-    record = InspireRecord.create(data)
+    record = InspireRecord.create(faker.record("dat"))
     assert isinstance(record, DataRecord)
     assert record.pid_type == "dat"
 
-    record = DataRecord.create(data)
+    record = DataRecord.create(faker.record("dat"))
     assert isinstance(record, DataRecord)
     assert record.pid_type == "dat"
 

@@ -143,6 +143,12 @@ class RecordProvider(BaseProvider):
         return {
             "$schema": "http://localhost:5000/schemas/records/data.json",
             "_collections": ["Data"],
+            "titles": [{"title": fake.sentence()}],
+            "dois": [
+                {
+                    "value": RecordProvider.doi(),
+                }
+            ],
         }
 
     @staticmethod
