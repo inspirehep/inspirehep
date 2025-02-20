@@ -79,6 +79,25 @@ exports[`CollectionsMenu renders when authors page 1`] = `
     <div
       class="ant-col"
     >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/data"
+        >
+          Data
+        </a>
+      </span>
+      <span
+        class="ant-tag ant-tag-processing __UnclickableTag__ beta-tag"
+      >
+        BETA
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
       <button
         class="ant-btn ant-btn-default ant-dropdown-trigger button-no-background ml4"
         type="button"
@@ -168,6 +187,25 @@ exports[`CollectionsMenu renders when conferences page 1`] = `
         >
           Conferences
         </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/data"
+        >
+          Data
+        </a>
+      </span>
+      <span
+        class="ant-tag ant-tag-processing __UnclickableTag__ beta-tag"
+      >
+        BETA
       </span>
     </div>
     <div
@@ -380,6 +418,25 @@ exports[`CollectionsMenu renders when experiments page 1`] = `
     <div
       class="ant-col"
     >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/data"
+        >
+          Data
+        </a>
+      </span>
+      <span
+        class="ant-tag ant-tag-processing __UnclickableTag__ beta-tag"
+      >
+        BETA
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
       <button
         class="ant-btn ant-btn-default ant-dropdown-trigger button-no-background ml4"
         type="button"
@@ -469,6 +526,25 @@ exports[`CollectionsMenu renders when home page 1`] = `
         >
           Conferences
         </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/data"
+        >
+          Data
+        </a>
+      </span>
+      <span
+        class="ant-tag ant-tag-processing __UnclickableTag__ beta-tag"
+      >
+        BETA
       </span>
     </div>
     <div
@@ -568,6 +644,25 @@ exports[`CollectionsMenu renders when jobs page 1`] = `
     <div
       class="ant-col"
     >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/data"
+        >
+          Data
+        </a>
+      </span>
+      <span
+        class="ant-tag ant-tag-processing __UnclickableTag__ beta-tag"
+      >
+        BETA
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
       <button
         class="ant-btn ant-btn-default ant-dropdown-trigger button-no-background ml4"
         type="button"
@@ -657,6 +752,25 @@ exports[`CollectionsMenu renders when literature page 1`] = `
         >
           Conferences
         </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/data"
+        >
+          Data
+        </a>
+      </span>
+      <span
+        class="ant-tag ant-tag-processing __UnclickableTag__ beta-tag"
+      >
+        BETA
       </span>
     </div>
     <div
@@ -756,6 +870,25 @@ exports[`CollectionsMenu renders when seminars page 1`] = `
     <div
       class="ant-col"
     >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/data"
+        >
+          Data
+        </a>
+      </span>
+      <span
+        class="ant-tag ant-tag-processing __UnclickableTag__ beta-tag"
+      >
+        BETA
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
       <button
         class="ant-btn ant-btn-default ant-dropdown-trigger button-no-background ml4"
         type="button"
@@ -845,6 +978,25 @@ exports[`CollectionsMenu renders when submissions page 1`] = `
         >
           Conferences
         </a>
+      </span>
+    </div>
+    <div
+      class="ant-col"
+    >
+      <span
+        class="__CollectionLink__ mh4 m-mh2"
+      >
+        <a
+          class="link f5 white"
+          href="/data"
+        >
+          Data
+        </a>
+      </span>
+      <span
+        class="ant-tag ant-tag-processing __UnclickableTag__ beta-tag"
+      >
+        BETA
       </span>
     </div>
     <div
