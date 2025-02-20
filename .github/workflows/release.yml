@@ -32,6 +32,7 @@ jobs:
             inspirehep/ui
             inspirehep/editor
             registry.cern.ch/cern-sis/inspire/workflows
+            registry.cern.ch/cern-sis/inspire/backoffice
           tags: "type=sha"
 
       - name: send event inspire
