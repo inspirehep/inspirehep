@@ -9,7 +9,6 @@ describe('SearchBoxNamespaceSelect', () => {
       <SearchBoxNamespaceSelect
         onSearchScopeChange={jest.fn()}
         searchScopeName="authors"
-        canAccessDataCollection
       />
     );
     expect(asFragment()).toMatchSnapshot();
@@ -21,7 +20,6 @@ describe('SearchBoxNamespaceSelect', () => {
       <SearchBoxNamespaceSelect
         searchScopeName="literature"
         onSearchScopeChange={onSearchScopeChange}
-        canAccessDataCollection
       />
     );
 
@@ -30,20 +28,5 @@ describe('SearchBoxNamespaceSelect', () => {
     const newScopeOption = getByText('jobs');
     fireEvent.click(newScopeOption);
     expect(onSearchScopeChange).toBeCalledWith('jobs', expect.any(Object));
-  });
-
-  it('does not show "data" option if canAccessDataCollection is false', () => {
-    const onSearchScopeChange = jest.fn();
-    const { getByRole, queryByText } = render(
-      <SearchBoxNamespaceSelect
-        searchScopeName="literature"
-        onSearchScopeChange={onSearchScopeChange}
-        canAccessDataCollection={false}
-      />
-    );
-
-    const selectBox = getByRole('combobox');
-    fireEvent.mouseDown(selectBox);
-    expect(queryByText('data')).not.toBeInTheDocument();
   });
 });
