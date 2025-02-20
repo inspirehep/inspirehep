@@ -28,13 +28,7 @@ import CollectionLink from './CollectionLink';
 import DropdownMenu from '../../components/DropdownMenu';
 import UnclickableTag from '../../components/UnclickableTag';
 
-function CollectionsMenu({
-  canAccessDataCollection,
-  currentPathname,
-}: {
-  canAccessDataCollection?: boolean;
-  currentPathname: string;
-}) {
+function CollectionsMenu({ currentPathname }: { currentPathname: string }) {
   const activeCollection = useMemo(
     () => getRootOfLocationPathname(currentPathname),
     [currentPathname]
@@ -111,16 +105,14 @@ function CollectionsMenu({
           Conferences
         </CollectionLink>
       </Col>
-      {canAccessDataCollection && (
-        <Col>
-          <CollectionLink active={activeCollection === DATA_PID_TYPE} to={DATA}>
-            Data
-          </CollectionLink>
-          <UnclickableTag color="processing" className="beta-tag">
-            BETA
-          </UnclickableTag>
-        </Col>
-      )}
+      <Col>
+        <CollectionLink active={activeCollection === DATA_PID_TYPE} to={DATA}>
+          Data
+        </CollectionLink>
+        <UnclickableTag color="processing" className="beta-tag">
+          BETA
+        </UnclickableTag>
+      </Col>
       <Col>
         <DropdownMenu
           overlayClassName="more-collections-menu"
@@ -140,7 +132,6 @@ function CollectionsMenu({
 }
 
 CollectionsMenu.propTypes = {
-  canAccessDataCollection: PropTypes.bool,
   currentPathname: PropTypes.string.isRequired,
 };
 
