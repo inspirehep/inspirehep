@@ -7,7 +7,7 @@ import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 import { PAPER_SEARCH_URL } from '../../common/constants';
 
 const SPIRES_RADIO = 'spires';
-export const FREETEXT_RADIO = 'freetext';
+const FREETEXT_RADIO = 'freetext';
 
 function HowToSearch() {
   const [selectedRadio, setSelectedRadio] = useState(SPIRES_RADIO);

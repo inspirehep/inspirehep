@@ -55,6 +55,7 @@ const TABLE_DATA = [
 function SpiresExamples() {
   return (
     <Table
+      data-testid="spires-examples"
       bordered
       size="small"
       dataSource={TABLE_DATA}
