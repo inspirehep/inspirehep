@@ -1,215 +1,241 @@
 {
-  "dois": [
-    {
-      "value": "10.17182/hepdata.153885",
-      "source": "hepdata",
-      "material": "data"
-    },
-    {
-      "value": "10.17182/hepdata.153885/t20",
-      "source": "hepdata",
-      "material": "data"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t1",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t2",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t3",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t4",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t5",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t6",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t7",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t8",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t9",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t10",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t11",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t12",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t13",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t14",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t15",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t16",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t17",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t18",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t19",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t20",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t21",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t22",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t23",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t24",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t25",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t26",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t27",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t28",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t29",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885.v1/t30",
-      "source": "hepdata",
-      "material": "part"
-    },
-    {
-      "value": "10.17182/hepdata.153885",
-      "source": "hepdata",
-      "material": "version"
-    }
-  ],
-  "self": {
-    "$ref": "https://inspirebeta.net/api/data/2727274"
+"dois": [
+  {
+    "value": "10.17182/hepdata.153885",
+    "source": "HEPData",
+    "material": "data"
   },
-  "titles": [
-    {
-      "title": "Energy Dependence of Polarized $\\mathbf{\\gamma\\gamma\\rightarrow e^{+}e^{-}}$ in Peripheral Au+Au Collisions at RHIC",
-      "source": "hepdata"
-    }
-  ],
-  "$schema": "https://inspirehep.net/schemas/records/data.json",
-  "keywords": [
-    {
-      "value": "observables: $\\Delta\\phi$,$-2<cos(4\\Delta\\phi)>$,$p_{T}$,$\\sqrt{< p_{T}^{2} >} (MeV/c)$,$M_{ee}$,$p_{T}^{2}$,Excess Yield",
-      "source": "hepdata"
-    }
-  ],
-  "literature": [
-    {
-      "doi": {
-        "source": "amet Ut",
-        "value": "10.912/W/K[Bz"
-      },
-      "record": {
-        "$ref": "https://inspirebeta.net/api/literature/44707"
-      }
-    },
-    {
-      "record": {
-        "$ref": "https://inspirebeta.net/api/literature/873915"
-      }
-    }
-  ],
-  "_collections": ["Data"],
-  "creation_date": "2024-12-13",
-  "collaborations": [
-    {
-      "value": "STAR"
-    }
-  ],
-  "control_number": 2727274,
-  "acquisition_source": {
-    "method": "hepcrawl",
-    "source": "hepdata",
-    "datetime": "2024-12-13T00:02:15.023125+00:00",
-    "submission_number": "2809899"
+  {
+    "value": "10.17182/hepdata.153885.v1/t1",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t2",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t3",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t4",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t5",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t6",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t7",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t8",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t9",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t10",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t11",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t12",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t13",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t14",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t15",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t16",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t17",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t18",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t19",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t20",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t21",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t22",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t23",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t24",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t25",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t26",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t27",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t28",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t29",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885.v1/t30",
+    "source": "HEPData",
+    "material": "part"
+  },
+  {
+    "value": "10.17182/hepdata.153885",
+    "source": "HEPData",
+    "material": "version"
   }
+],
+"self": {
+  "$ref": "https://inspirehep.net/api/data/2875579"
+},
+"titles": [
+  {
+    "title": "Energy Dependence of Polarized $\\mathbf{\\gamma\\gamma\\rightarrow e^{+}e^{-}}$ in Peripheral Au+Au Collisions at RHIC",
+    "source": "HEPData"
+  }
+],
+"$schema": "https://inspirehep.net/schemas/records/data.json",
+"keywords": [
+  {
+    "value": "observables: $p_{T}$",
+    "source": "HEPData"
+  },
+  {
+    "value": "observables: $M_{ee}$",
+    "source": "HEPData"
+  },
+  {
+    "value": "observables: $\\sqrt{\u003C p_{T}^{2} \u003E} (MeV/c)$",
+    "source": "HEPData"
+  },
+  {
+    "value": "observables: $-2\u003Ccos(4\\Delta\\phi)\u003E$",
+    "source": "HEPData"
+  },
+  {
+    "value": "observables: $\\Delta\\phi$",
+    "source": "HEPData"
+  },
+  {
+    "value": "observables: $p_{T}^{2}$",
+    "source": "HEPData"
+  },
+  {
+    "value": "observables: Excess Yield",
+    "source": "HEPData"
+  }
+],
+"literature": [
+  {
+    "doi": {
+      "value": "10.1103/PhysRevC.111.014909"
+    },
+    "record": {
+      "$ref": "http://localhost:8080/api/literature/1452707"
+    }
+  }
+],
+"_collections": [
+  "Data"
+],
+"creation_date": "2024-07-20",
+"collaborations": [
+  {
+    "value": "STAR",
+    "record": {
+      "$ref": "https://inspirehep.net/api/experiments/1108784"
+    }
+  }
+],
+"control_number": 2727274,
+"acquisition_source": {
+  "method": "inspirehep",
+  "source": "HEPData",
+  "datetime": "2025-02-17T20:42:56.146503+00:00",
+  "submission_number": "2809899"
+},
+"accelerator_experiments": [
+  {
+    "record": {
+      "$ref": "https://inspirehep.net/api/experiments/1108784"
+    },
+    "legacy_name": "BNL-RHIC-STAR"
+  }
+]
 }

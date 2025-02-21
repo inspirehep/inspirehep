@@ -4,10 +4,15 @@ import { List } from 'immutable';
 
 import ExpandableInlineList from './ExpandableInlineList';
 import UnclickableTag from './UnclickableTag';
+import Latex from './Latex';
 
 function renderKeyword(keyword) {
   const keywordValue = keyword.get('value');
-  return <UnclickableTag color="blue">{keywordValue}</UnclickableTag>;
+  return (
+    <UnclickableTag color="blue">
+      <Latex>{keywordValue}</Latex>
+    </UnclickableTag>
+  );
 }
 
 class KeywordList extends Component {
