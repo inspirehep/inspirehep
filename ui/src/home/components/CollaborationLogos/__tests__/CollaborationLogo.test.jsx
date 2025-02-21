@@ -1,17 +1,21 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import CollaborationLogo from '../CollaborationLogo';
 
 describe('CollaborationLogo', () => {
   it('render with all props', () => {
-    const wrapper = shallow(
-      <CollaborationLogo
-        name="CERN"
-        href="https://home.cern"
-        src="/link/to/logo.png"
-      />
+    const { getByRole } = render(
+      <MemoryRouter>
+        <CollaborationLogo
+          name="CERN"
+          href="https://home.cern"
+          src="/link/to/logo.png"
+        />
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    const linkElement = getByRole('link', { name: /cern/i });
+    expect(linkElement).toHaveAttribute('href', 'https://home.cern');
   });
 });

@@ -20,7 +20,7 @@ function renderExample(freetextSearch: string) {
 function FreetextExamples() {
   return (
     <ContentBox>
-      <p>
+      <p data-testid="freetext-examples">
         Users can also type free text searches using any combination of author
         names, title, dates etc.
       </p>
