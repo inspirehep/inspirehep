@@ -54,6 +54,14 @@ describe('DetailPageContainer', () => {
             date: 'Feb 5, 2025',
             control_number: 1234,
             citation_count: citations_count,
+            accelerator_experiments: [
+              {
+                record: {
+                  $ref: 'http://localhost:8080/api/experiments/1513946',
+                },
+                name: 'LATTICE-ETM',
+              },
+            ],
           },
         },
       }),
@@ -88,5 +96,11 @@ describe('DetailPageContainer', () => {
     const { getByText } = renderComponent();
 
     expect(getByText('Feb 5, 2025')).toBeInTheDocument();
+  });
+
+  it('renders the experiments', () => {
+    const { getByText } = renderComponent();
+
+    expect(getByText('LATTICE-ETM')).toBeInTheDocument();
   });
 });

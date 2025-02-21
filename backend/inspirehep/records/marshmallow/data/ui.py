@@ -7,6 +7,7 @@
 from inspire_utils.date import format_date
 from marshmallow import fields, missing
 
+from inspirehep.records.marshmallow.common import AcceleratorExperimentSchemaV1
 from inspirehep.records.marshmallow.common.literature_record import (
     LiteratureRecordSchemaV1,
 )
@@ -25,6 +26,9 @@ class DataDetailSchema(DataBaseSchema):
     authors = ListWithLimit(fields.Nested(AuthorSchemaV1, dump_only=True), limit=10)
     date = fields.Method("get_date")
     number_of_authors = fields.Method("get_number_of_authors")
+    accelerator_experiments = fields.Nested(
+        AcceleratorExperimentSchemaV1, dump_only=True, many=True
+    )
 
     def get_number_of_authors(self, data):
         authors = data.get("authors")
