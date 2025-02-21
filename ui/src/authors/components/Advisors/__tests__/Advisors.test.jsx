@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-
+import { MemoryRouter } from 'react-router-dom';
 import Advisors from '../Advisors';
 
 describe('Advisors', () => {
@@ -27,7 +27,11 @@ describe('Advisors', () => {
         degree_type: 'phd',
       },
     ]);
-    const wrapper = shallow(<Advisors advisors={advisors} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <MemoryRouter>
+        <Advisors advisors={advisors} />
+      </MemoryRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });

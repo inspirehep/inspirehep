@@ -67,7 +67,7 @@ function AssignDrawer({
       {/* @ts-ignore */}
       <NumberOfResultsContainer namespace={ASSIGN_AUTHOR_NS} />
       <Radio.Group
-        data-test-id="author-radio-group"
+        data-testid="author-radio-group"
         className="w-100"
         onChange={onSelectedAuthorChange}
       >
@@ -85,7 +85,7 @@ function AssignDrawer({
       <Row className="mt2" justify="end">
         <Col>
           <Button
-            data-test-id="assign-button"
+            data-testid="assign-button"
             disabled={selectedAuthorId == null}
             icon={<SelectOutlined />}
             type="primary"

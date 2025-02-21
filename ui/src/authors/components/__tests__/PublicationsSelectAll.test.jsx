@@ -1,7 +1,6 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS, Set, List } from 'immutable';
-import { Checkbox } from 'antd';
 
 import PublicationsSelectAll from '../PublicationsSelectAll';
 
@@ -20,19 +19,19 @@ describe('PublicationsSelectAll', () => {
       },
     ]);
     const selection = Set([1, 2]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <PublicationsSelectAll
         publications={publications}
         selection={selection}
         onChange={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders disabled', () => {
-    const wrapper = shallow(<PublicationsSelectAll disabled />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<PublicationsSelectAll disabled />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('render unchecked if all publications are not part of the selection', () => {
@@ -49,14 +48,14 @@ describe('PublicationsSelectAll', () => {
       },
     ]);
     const selection = Set([2]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <PublicationsSelectAll
         publications={publications}
         selection={selection}
         onChange={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('calls onChange with publication ids when checkbox change', () => {
@@ -78,15 +77,14 @@ describe('PublicationsSelectAll', () => {
     ]);
     const onChange = jest.fn();
     const selection = Set([2]);
-    const wrapper = shallow(
+    const { getByRole } = render(
       <PublicationsSelectAll
         publications={publications}
         selection={selection}
         onChange={onChange}
       />
     );
-    const onCheckboxChange = wrapper.find(Checkbox).prop('onChange');
-    onCheckboxChange({ target: { checked: true } });
+    getByRole('checkbox').click();
     expect(onChange).toHaveBeenCalledWith(
       List([1, 2]),
       List([false, false]),

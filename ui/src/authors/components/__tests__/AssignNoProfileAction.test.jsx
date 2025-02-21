@@ -1,10 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import AssignNoProfileAction from '../AssignNoProfileAction';
 
 describe('AssignNoProfileAction', () => {
   it('renders', () => {
-    const wrapper = shallow(<AssignNoProfileAction />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<AssignNoProfileAction />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

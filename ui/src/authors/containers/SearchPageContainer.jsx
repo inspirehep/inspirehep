@@ -37,6 +37,7 @@ class SearchPage extends Component {
           gutter={SEARCH_PAGE_GUTTER}
           type="flex"
           justify="center"
+          data-testid="authors-search-page-container"
         >
           <Col xs={24} lg={16} xl={16} xxl={14}>
             <LoadingOrChildren loading={loading}>

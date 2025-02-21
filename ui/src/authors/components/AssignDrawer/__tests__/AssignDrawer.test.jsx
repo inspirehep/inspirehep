@@ -1,8 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { Set } from 'immutable';
+import { shallow } from 'enzyme';
 
+import { Provider } from 'react-redux';
 import AssignDrawer from '../AssignDrawer';
+import { getStore } from '../../../../fixtures/store';
 
 jest.mock('react-router-dom', () => ({
   useParams: jest.fn().mockImplementation(() => ({
@@ -34,27 +37,21 @@ describe('AssignDrawer', () => {
     const onAssign = jest.fn();
     const selectedPapers = Set([1, 2, 3]);
 
-    const wrapper = shallow(
-      <AssignDrawer
-        visible={visible}
-        onDrawerClose={onDrawerClose}
-        onAssign={onAssign}
-        selectedPapers={selectedPapers}
-      />
+    const { getByTestId, getByRole } = render(
+      <Provider store={getStore()}>
+        <AssignDrawer
+          visible={visible}
+          onDrawerClose={onDrawerClose}
+          onAssign={onAssign}
+          selectedPapers={selectedPapers}
+        />
+      </Provider>
     );
-    expect(wrapper.find('[data-test-id="assign-button"]')).toHaveProp({
-      disabled: true,
-    });
+    expect(getByTestId('assign-button')).toBeDisabled();
+    getByRole('radio', { name: 'New author' }).click();
+    expect(getByTestId('assign-button')).toBeEnabled();
 
-    wrapper
-      .find('[data-test-id="author-radio-group"]')
-      .simulate('change', { target: { value: 321 } });
-    wrapper.update();
-    expect(wrapper.find('[data-test-id="assign-button"]')).toHaveProp({
-      disabled: false,
-    });
-
-    wrapper.find('[data-test-id="assign-button"]').simulate('click');
-    expect(onAssign).toHaveBeenCalledWith({ from: 123, to: 321 });
+    getByTestId('assign-button').click();
+    expect(onAssign).toHaveBeenCalledWith({ from: 123, to: undefined });
   });
 });

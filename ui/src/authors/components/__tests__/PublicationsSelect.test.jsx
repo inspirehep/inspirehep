@@ -1,6 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Checkbox } from 'antd';
+import { render } from '@testing-library/react';
 
 import PublicationsSelect from '../PublicationsSelect';
 
@@ -9,7 +8,7 @@ describe('PublicationsSelect', () => {
     const onSelectClaimedPapers = jest.fn();
     const onSelectUnclaimedPapers = jest.fn();
     const onSelectPapers = jest.fn();
-    const wrapper = shallow(
+    const { asFragment, getByRole } = render(
       <PublicationsSelect
         claimed
         isOwnProfile
@@ -18,17 +17,17 @@ describe('PublicationsSelect', () => {
         onSelectPapers={onSelectPapers}
       />
     );
-    expect(wrapper).toMatchSnapshot();
-    const onCheckboxChange = wrapper.find(Checkbox).prop('onChange');
-    onCheckboxChange({ target: { checked: true } });
+    expect(asFragment()).toMatchSnapshot();
+    getByRole('checkbox').click();
     expect(onSelectClaimedPapers).toHaveBeenCalled();
     expect(onSelectPapers).toHaveBeenCalled();
   });
+
   it('renders checked when selected', () => {
     const onSelectClaimedPapers = jest.fn();
     const onSelectUnclaimedPapers = jest.fn();
     const onSelectPapers = jest.fn();
-    const wrapper = shallow(
+    const { asFragment } = render(
       <PublicationsSelect
         claimed
         checked
@@ -37,13 +36,13 @@ describe('PublicationsSelect', () => {
         onSelectPapers={onSelectPapers}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
   it('renders unchecked when not selected', () => {
     const onSelectClaimedPapers = jest.fn();
     const onSelectUnclaimedPapers = jest.fn();
     const onSelectPapers = jest.fn();
-    const wrapper = shallow(
+    const { asFragment } = render(
       <PublicationsSelect
         claimed
         checked={false}
@@ -52,6 +51,6 @@ describe('PublicationsSelect', () => {
         onSelectPapers={onSelectPapers}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

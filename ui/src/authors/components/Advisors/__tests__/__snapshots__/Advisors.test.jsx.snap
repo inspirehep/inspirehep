@@ -1,49 +1,76 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Advisors renders advisors 1`] = `
-<Fragment>
-  <AdvisorsOfDegree
-    advisors={
-      Immutable.List [
-        Immutable.Map {
-          "name": "Degreeless Advisor",
-        },
-        Immutable.Map {
-          "name": "Other Advisor",
-          "degree_type": "other",
-        },
-      ]
-    }
-    degreeType="other"
-    key="other"
-  />
-  <AdvisorsOfDegree
-    advisors={
-      Immutable.List [
-        Immutable.Map {
-          "name": "Master Advisor",
-          "degree_type": "master",
-        },
-      ]
-    }
-    degreeType="master"
-    key="master"
-  />
-  <AdvisorsOfDegree
-    advisors={
-      Immutable.List [
-        Immutable.Map {
-          "name": "PhD Advisor",
-          "degree_type": "phd",
-        },
-        Immutable.Map {
-          "name": "Another PhD Advisor",
-          "degree_type": "phd",
-        },
-      ]
-    }
-    degreeType="phd"
-    key="phd"
-  />
-</Fragment>
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+  >
+    <span
+      class=""
+    >
+      Advisors: 
+    </span>
+    <ul>
+      <li>
+        <a
+          href="/authors?q=Degreeless%20Advisor"
+        >
+          Degreeless Advisor
+        </a>
+        , 
+      </li>
+      <li>
+        <a
+          href="/authors?q=Other%20Advisor"
+        >
+          Other Advisor
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div
+    class="__InlineList__"
+  >
+    <span
+      class=""
+    >
+      Master Advisor: 
+    </span>
+    <ul>
+      <li>
+        <a
+          href="/authors?q=Master%20Advisor"
+        >
+          Master Advisor
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div
+    class="__InlineList__"
+  >
+    <span
+      class=""
+    >
+      PhD Advisors: 
+    </span>
+    <ul>
+      <li>
+        <a
+          href="/authors?q=PhD%20Advisor"
+        >
+          PhD Advisor
+        </a>
+        , 
+      </li>
+      <li>
+        <a
+          href="/authors?q=Another%20PhD%20Advisor"
+        >
+          Another PhD Advisor
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;

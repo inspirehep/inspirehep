@@ -1,107 +1,86 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AdvisorsOfDegree renders other advisors 1`] = `
-<div
-  className="__InlineList__"
->
-  <span
-    className=""
+<DocumentFragment>
+  <div
+    class="__InlineList__"
   >
-    Advisors
-    : 
-  </span>
-  <ul>
-    <li
-      key="Yoda-0"
+    <span
+      class=""
     >
-      <Advisor
-        advisor={
-          Immutable.Map {
-            "name": "Yoda",
-          }
-        }
-      />
-      , 
-    </li>
-    <li
-      key="Another Dude-2"
-    >
-      <Advisor
-        advisor={
-          Immutable.Map {
-            "name": "Another Dude",
-            "degree_type": "other",
-          }
-        }
-      />
-    </li>
-  </ul>
-</div>
+      Advisors: 
+    </span>
+    <ul>
+      <li>
+        <a
+          href="/authors?q=Yoda"
+        >
+          Yoda
+        </a>
+        , 
+      </li>
+      <li>
+        <a
+          href="/authors?q=Another%20Dude"
+        >
+          Another Dude
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`AdvisorsOfDegree renders phd advisors 1`] = `
-<div
-  className="__InlineList__"
->
-  <span
-    className=""
+<DocumentFragment>
+  <div
+    class="__InlineList__"
   >
-    PhD Advisors
-    : 
-  </span>
-  <ul>
-    <li
-      key="Yoda-0"
+    <span
+      class=""
     >
-      <Advisor
-        advisor={
-          Immutable.Map {
-            "name": "Yoda",
-            "degree_type": "phd",
-          }
-        }
-      />
-      , 
-    </li>
-    <li
-      key="Another Dude-2"
-    >
-      <Advisor
-        advisor={
-          Immutable.Map {
-            "name": "Another Dude",
-            "degree_type": "phd",
-          }
-        }
-      />
-    </li>
-  </ul>
-</div>
+      PhD Advisors: 
+    </span>
+    <ul>
+      <li>
+        <a
+          href="/authors?q=Yoda"
+        >
+          Yoda
+        </a>
+        , 
+      </li>
+      <li>
+        <a
+          href="/authors?q=Another%20Dude"
+        >
+          Another Dude
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`AdvisorsOfDegree renders the master advisor 1`] = `
-<div
-  className="__InlineList__"
->
-  <span
-    className=""
+<DocumentFragment>
+  <div
+    class="__InlineList__"
   >
-    Master Advisor
-    : 
-  </span>
-  <ul>
-    <li
-      key="Yoda-0"
+    <span
+      class=""
     >
-      <Advisor
-        advisor={
-          Immutable.Map {
-            "name": "Yoda",
-            "degree_type": "master",
-          }
-        }
-      />
-    </li>
-  </ul>
-</div>
+      Master Advisor: 
+    </span>
+    <ul>
+      <li>
+        <a
+          href="/authors?q=Yoda"
+        >
+          Yoda
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;

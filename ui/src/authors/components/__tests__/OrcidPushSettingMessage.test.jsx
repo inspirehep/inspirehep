@@ -1,20 +1,20 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import OrcidPushSettingMessage from '../OrcidPushSettingMessage';
 
 describe('OrcidPushSettingMessage', () => {
   it('renders when enabled', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <OrcidPushSettingMessage orcid="0000-0001-8058-0014" enabled />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders when disabled', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <OrcidPushSettingMessage orcid="0000-0001-8058-0014" enabled={false} />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });
