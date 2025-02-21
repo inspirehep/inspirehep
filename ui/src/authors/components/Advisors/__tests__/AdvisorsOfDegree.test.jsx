@@ -1,7 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
+import { MemoryRouter } from 'react-router-dom';
 import AdvisorsOfDegree from '../AdvisorsOfDegree';
 
 describe('AdvisorsOfDegree', () => {
@@ -15,10 +16,12 @@ describe('AdvisorsOfDegree', () => {
         degree_type: 'other',
       },
     ]);
-    const wrapper = shallow(
-      <AdvisorsOfDegree advisors={advisors} degreeType="other" />
+    const { asFragment } = render(
+      <MemoryRouter>
+        <AdvisorsOfDegree advisors={advisors} degreeType="other" />
+      </MemoryRouter>
     );
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders phd advisors', () => {
@@ -32,10 +35,12 @@ describe('AdvisorsOfDegree', () => {
         degree_type: 'phd',
       },
     ]);
-    const wrapper = shallow(
-      <AdvisorsOfDegree advisors={advisors} degreeType="phd" />
+    const { asFragment } = render(
+      <MemoryRouter>
+        <AdvisorsOfDegree advisors={advisors} degreeType="phd" />
+      </MemoryRouter>
     );
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders the master advisor', () => {
@@ -45,9 +50,11 @@ describe('AdvisorsOfDegree', () => {
         degree_type: 'master',
       },
     ]);
-    const wrapper = shallow(
-      <AdvisorsOfDegree advisors={advisors} degreeType="master" />
+    const { asFragment } = render(
+      <MemoryRouter>
+        <AdvisorsOfDegree advisors={advisors} degreeType="master" />
+      </MemoryRouter>
     );
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

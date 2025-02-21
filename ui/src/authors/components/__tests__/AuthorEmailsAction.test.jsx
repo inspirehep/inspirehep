@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import AuthorEmailsAction from '../AuthorEmailsAction';
@@ -10,13 +10,13 @@ describe('AuthorEmailsAction', () => {
       { value: 'dude@email.cern' },
       { value: 'other-dude@email.cern' },
     ]);
-    const wrapper = shallow(<AuthorEmailsAction emails={emails} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<AuthorEmailsAction emails={emails} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders single email', () => {
     const emails = fromJS([{ value: 'dude@email.cern' }]);
-    const wrapper = shallow(<AuthorEmailsAction emails={emails} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<AuthorEmailsAction emails={emails} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

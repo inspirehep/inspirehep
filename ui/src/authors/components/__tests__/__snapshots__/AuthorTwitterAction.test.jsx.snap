@@ -1,24 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AuthorTwitterAction renders with twitter 1`] = `
-<UserActionWrapper>
-  <EventTracker
-    eventAction="Link"
-    eventCategory="Author detail"
-    eventId="Twitter"
-    eventPropName="onClick"
-    extractEventArgsToForward={null}
+<DocumentFragment>
+  <span
+    class="__UserAction__"
   >
-    <LinkWithTargetBlank
-      as="a"
+    <a
       href="//x.com/harunurhan"
+      target="_blank"
     >
-      <Tooltip
-        title="X / Twitter"
+      <span
+        aria-label="x"
+        class="anticon anticon-x"
+        role="img"
       >
-        <XOutlined />
-      </Tooltip>
-    </LinkWithTargetBlank>
-  </EventTracker>
-</UserActionWrapper>
+        <svg
+          aria-hidden="true"
+          data-icon="x"
+          fill="currentColor"
+          fill-rule="evenodd"
+          focusable="false"
+          height="1em"
+          viewBox="64 64 896 896"
+          width="1em"
+        >
+          <path
+            d="M921 912L601.11 445.75l.55.43L890.08 112H793.7L558.74 384 372.15 112H119.37l298.65 435.31-.04-.04L103 912h96.39L460.6 609.38 668.2 912zM333.96 184.73l448.83 654.54H706.4L257.2 184.73z"
+          />
+        </svg>
+      </span>
+    </a>
+  </span>
+</DocumentFragment>
 `;

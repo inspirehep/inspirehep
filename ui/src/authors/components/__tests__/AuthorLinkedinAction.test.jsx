@@ -1,11 +1,13 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import AuthorLinkedinAction from '../AuthorLinkedinAction';
 
 describe('AuthorLinkedinAction', () => {
   it('renders with linkedin', () => {
-    const wrapper = shallow(<AuthorLinkedinAction linkedin="harunurhan" />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <AuthorLinkedinAction linkedin="harunurhan" />
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });

@@ -1,73 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`OrcidPushSetting renders when disabled 1`] = `
-<Fragment>
+<DocumentFragment>
   <div
-    className="mb3"
+    class="mb3"
   >
     <span
-      className="mr2"
+      class="mr2"
     >
       Export your INSPIRE works to ORCID
     </span>
-    <ForwardRef
-      onConfirm={[Function]}
-      title={
-        <React.Fragment>
-          <p>
-            Your INSPIRE claimed works will be exported to your ORCID account.
-          </p>
-          <span>
-            Are you sure?
-          </span>
-        </React.Fragment>
-      }
+    <button
+      aria-checked="false"
+      class="ant-switch"
+      data-test-id="orcid-switch"
+      role="switch"
+      type="button"
     >
-      <Switch
-        checked={false}
-        data-test-id="orcid-switch"
-        loading={false}
+      <div
+        class="ant-switch-handle"
       />
-    </ForwardRef>
+      <span
+        class="ant-switch-inner"
+      />
+    </button>
   </div>
   <div>
-    <Connect(OrcidPushSettingMessage) />
+    <div
+      data-testid="orcid-push-setting-message"
+    >
+      <p>
+        Your INSPIRE works are not exported to your ORCID yet. Please note that only the publications that are verified as yours on INSPIRE will be exported to ORCID.
+      </p>
+    </div>
   </div>
-</Fragment>
+</DocumentFragment>
 `;
 
 exports[`OrcidPushSetting renders when enabled 1`] = `
-<Fragment>
+<DocumentFragment>
   <div
-    className="mb3"
+    class="mb3"
   >
     <span
-      className="mr2"
+      class="mr2"
     >
       Export your INSPIRE works to ORCID
     </span>
-    <ForwardRef
-      onConfirm={[Function]}
-      title={
-        <React.Fragment>
-          <p>
-            Your INSPIRE works will no longer be exported to your ORCID account.
-          </p>
-          <span>
-            Are you sure?
-          </span>
-        </React.Fragment>
-      }
+    <button
+      aria-checked="true"
+      class="ant-switch ant-switch-checked"
+      data-test-id="orcid-switch"
+      role="switch"
+      type="button"
     >
-      <Switch
-        checked={true}
-        data-test-id="orcid-switch"
-        loading={false}
+      <div
+        class="ant-switch-handle"
       />
-    </ForwardRef>
+      <span
+        class="ant-switch-inner"
+      />
+    </button>
   </div>
   <div>
-    <Connect(OrcidPushSettingMessage) />
+    <div
+      data-testid="orcid-push-setting-message"
+    >
+      <p>
+        Your INSPIRE works are not exported to your ORCID yet. Please note that only the publications that are verified as yours on INSPIRE will be exported to ORCID.
+      </p>
+    </div>
   </div>
-</Fragment>
+</DocumentFragment>
 `;
