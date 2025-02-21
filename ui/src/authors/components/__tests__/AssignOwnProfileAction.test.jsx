@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { render, waitFor, fireEvent, screen } from '@testing-library/react';
 
 import AssignOwnProfileAction from '../AssignOwnProfileAction';
@@ -12,26 +11,28 @@ jest.mock('react-router-dom', () => ({
 
 describe('AssignOwnProfileAction', () => {
   it('renders', () => {
-    const wrapper = shallow(<AssignOwnProfileAction onAssign={jest.fn()} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <AssignOwnProfileAction onAssign={jest.fn()} />
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders singular form if numberOfSelected is 1', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AssignOwnProfileAction onAssign={jest.fn()} numberOfSelected={1} />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders plural form if numberOfSelected is more than 1', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AssignOwnProfileAction onAssign={jest.fn()} numberOfSelected={123} />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders disabled', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AssignOwnProfileAction
         onAssignToAnotherAuthor={jest.fn()}
         onAssign={jest.fn()}
@@ -39,18 +40,18 @@ describe('AssignOwnProfileAction', () => {
         disabledAssignAction
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with disabled assign action', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AssignOwnProfileAction
         onAssignToAnotherAuthor={jest.fn()}
         onAssign={jest.fn()}
         disabledAssignAction
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('calls onAssign on assign-self click ', async () => {

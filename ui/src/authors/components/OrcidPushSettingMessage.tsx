@@ -11,7 +11,7 @@ function OrcidPushSettingMessage({
 }) {
   if (enabled) {
     return (
-      <div>
+      <div data-testid="orcid-push-setting-message">
         <p>
           This profile is already connected to the following ORCID:{' '}
           <OrcidProfileLink orcid={orcid} />
@@ -22,7 +22,7 @@ function OrcidPushSettingMessage({
   }
 
   return (
-    <div>
+    <div data-testid="orcid-push-setting-message">
       <p>
         Your INSPIRE works are not exported to your ORCID yet. Please note that
         only the publications that are verified as yours on INSPIRE will be

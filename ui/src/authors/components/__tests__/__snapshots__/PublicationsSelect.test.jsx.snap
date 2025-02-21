@@ -1,21 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PublicationsSelect renders checked when selected 1`] = `
-<Checkbox
-  checked={true}
-  onChange={[Function]}
-/>
+<DocumentFragment>
+  <label
+    class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
+  >
+    <span
+      class="ant-checkbox ant-checkbox-checked"
+    >
+      <input
+        checked=""
+        class="ant-checkbox-input"
+        type="checkbox"
+        value=""
+      />
+      <span
+        class="ant-checkbox-inner"
+      />
+    </span>
+  </label>
+</DocumentFragment>
 `;
 
 exports[`PublicationsSelect renders unchecked when not selected 1`] = `
-<Checkbox
-  checked={false}
-  onChange={[Function]}
-/>
+<DocumentFragment>
+  <label
+    class="ant-checkbox-wrapper"
+  >
+    <span
+      class="ant-checkbox"
+    >
+      <input
+        class="ant-checkbox-input"
+        type="checkbox"
+        value=""
+      />
+      <span
+        class="ant-checkbox-inner"
+      />
+    </span>
+  </label>
+</DocumentFragment>
 `;
 
 exports[`PublicationsSelect sets publication selection on checkbox change 1`] = `
-<Checkbox
-  onChange={[Function]}
-/>
+<DocumentFragment>
+  <label
+    class="ant-checkbox-wrapper"
+  >
+    <span
+      class="ant-checkbox"
+    >
+      <input
+        class="ant-checkbox-input"
+        type="checkbox"
+        value=""
+      />
+      <span
+        class="ant-checkbox-inner"
+      />
+    </span>
+  </label>
+</DocumentFragment>
 `;

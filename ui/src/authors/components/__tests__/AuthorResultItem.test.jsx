@@ -1,7 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
+import { MemoryRouter } from 'react-router-dom';
 import AuthorResultItem from '../AuthorResultItem';
 
 describe('AuthorResultItem', () => {
@@ -11,8 +12,12 @@ describe('AuthorResultItem', () => {
       name: { value: 'Urhan, Harun' },
       control_number: 12345,
     });
-    const wrapper = shallow(<AuthorResultItem metadata={metadata} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <MemoryRouter>
+        <AuthorResultItem metadata={metadata} />
+      </MemoryRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders full author result', () => {
@@ -29,7 +34,11 @@ describe('AuthorResultItem', () => {
       arxiv_categories: ['hep-th'],
       urls: [{ value: 'https://cern.ch/1' }],
     });
-    const wrapper = shallow(<AuthorResultItem metadata={metadata} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <MemoryRouter>
+        <AuthorResultItem metadata={metadata} />
+      </MemoryRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });

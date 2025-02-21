@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { render, waitFor, fireEvent, screen } from '@testing-library/react';
 
 import AssignDifferentProfileAction from '../AssignDifferentProfileAction';
@@ -12,7 +11,7 @@ jest.mock('react-router-dom', () => ({
 
 describe('AssignDifferentProfileAction', () => {
   it('renders', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AssignDifferentProfileAction
         onAssign={jest.fn()}
         disabled={false}
@@ -21,11 +20,11 @@ describe('AssignDifferentProfileAction', () => {
         claimingClaimedPapersDisabled={false}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders disabled', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AssignDifferentProfileAction
         onAssign={jest.fn()}
         disabled
@@ -34,11 +33,11 @@ describe('AssignDifferentProfileAction', () => {
         claimingClaimedPapersDisabled
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with claimingUnclaimedPapersDisabled', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AssignDifferentProfileAction
         onAssign={jest.fn()}
         disabled
@@ -47,7 +46,7 @@ describe('AssignDifferentProfileAction', () => {
         claimingClaimedPapersDisabled
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('calls onAssign on assign-self click ', async () => {

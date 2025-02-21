@@ -215,7 +215,11 @@ function DetailPage({
         title={getAuthorDisplayName(name)}
         description={metaDescription}
       />
-      <Row className="__DetailPage__" justify="center">
+      <Row
+        className="__DetailPage__"
+        justify="center"
+        data-testid="authors-detail-page-container"
+      >
         <Col xs={24} md={22} lg={21} xxl={18}>
           <Row
             className="mv3"

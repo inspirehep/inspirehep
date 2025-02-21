@@ -1,33 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Advisor renders linked 1`] = `
-<Link
-  to="/authors/12345"
->
-  Yoda
-</Link>
+<DocumentFragment>
+  <a
+    href="/authors/12345"
+  >
+    Yoda
+  </a>
+</DocumentFragment>
 `;
 
 exports[`Advisor renders unliked 1`] = `
-<Link
-  to="/authors?q=Yoda"
->
-  Yoda
-</Link>
+<DocumentFragment>
+  <a
+    href="/authors?q=Yoda"
+  >
+    Yoda
+  </a>
+</DocumentFragment>
 `;
 
 exports[`Advisor renders with first_name and last_name 1`] = `
-<Link
-  to="/authors/12345"
->
-  John Yoda
-</Link>
+<DocumentFragment>
+  <a
+    href="/authors/12345"
+  >
+    John Yoda
+  </a>
+</DocumentFragment>
 `;
 
 exports[`Advisor renders with only first_name 1`] = `
-<Link
-  to="/authors/12345"
->
-  John 
-</Link>
+<DocumentFragment>
+  <a
+    href="/authors/12345"
+  >
+    John 
+  </a>
+</DocumentFragment>
 `;

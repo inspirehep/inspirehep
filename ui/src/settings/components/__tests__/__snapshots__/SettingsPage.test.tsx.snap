@@ -869,7 +869,9 @@ exports[`SettingsPage renders page with orcid section when user has orcid profil
                   </button>
                 </div>
                 <div>
-                  <div>
+                  <div
+                    data-testid="orcid-push-setting-message"
+                  >
                     <p>
                       Your INSPIRE works are not exported to your ORCID yet. Please note that only the publications that are verified as yours on INSPIRE will be exported to ORCID.
                     </p>

@@ -1,15 +1,14 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
-import { getStoreWithState } from '../../../fixtures/store';
+import { getStore } from '../../../fixtures/store';
 import OrcidPushSettingMessageContainer from '../OrcidPushSettingMessageContainer';
-import OrcidPushSettingMessage from '../../components/OrcidPushSettingMessage';
 
 describe('OrcidPushSettingMessageContainer', () => {
   it('passes state to props', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         data: {
           allow_orcid_push: false,
@@ -25,14 +24,13 @@ describe('OrcidPushSettingMessageContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <OrcidPushSettingMessageContainer />
       </Provider>
     );
-    expect(wrapper.find(OrcidPushSettingMessage)).toHaveProp({
-      orcid: '0000-0001-8058-0014',
-      enabled: false,
-    });
+    expect(getByTestId('orcid-push-setting-message')).toHaveTextContent(
+      'Your INSPIRE works are not exported to your ORCID yet.'
+    );
   });
 });

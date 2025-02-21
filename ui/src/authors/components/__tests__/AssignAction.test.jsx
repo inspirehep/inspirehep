@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { render, waitFor, fireEvent, screen } from '@testing-library/react';
 
 import AssignAction from '../AssignAction';
@@ -12,14 +11,14 @@ jest.mock('react-router-dom', () => ({
 
 describe('AssignAction', () => {
   it('renders', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AssignAction onAssignToAnotherAuthor={jest.fn()} onAssign={jest.fn()} />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders disabled', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AssignAction
         onAssignToAnotherAuthor={jest.fn()}
         onAssign={jest.fn()}
@@ -27,11 +26,11 @@ describe('AssignAction', () => {
         disabled
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders singular form if numberOfSelected is 1', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AssignAction
         onAssignToAnotherAuthor={jest.fn()}
         onAssign={jest.fn()}
@@ -39,11 +38,11 @@ describe('AssignAction', () => {
         numberOfSelected={1}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders plural form if numberOfSelected is more than 1', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AssignAction
         onAssignToAnotherAuthor={jest.fn()}
         onAssign={jest.fn()}
@@ -51,7 +50,7 @@ describe('AssignAction', () => {
         numberOfSelected={123}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('calls onAssign on assign-self click ', async () => {
