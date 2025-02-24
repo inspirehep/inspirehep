@@ -32,9 +32,9 @@ const MOST_RECENT_BLOG_POSTS_URL = `${BLOG_URL}/wp-json/wp/v2/posts?per_page=3`;
 
 function renderBlogPost(post: Post) {
   return (
-    <ExternalLink href={post.link}>
-      <Row justify="center">
-        <Col sm={24} lg={14} className="mb2 __ContentBox__">
+    <Row justify="center">
+      <Col sm={24} lg={14} className="mb2 __ContentBox__">
+        <ExternalLink href={post.link}>
           <Card>
             <div className="pa2">
               <div className="flex flex-nowrap">
@@ -52,9 +52,9 @@ function renderBlogPost(post: Post) {
               </span>
             </div>
           </Card>
-        </Col>
-      </Row>
-    </ExternalLink>
+        </ExternalLink>
+      </Col>
+    </Row>
   );
 }
 
