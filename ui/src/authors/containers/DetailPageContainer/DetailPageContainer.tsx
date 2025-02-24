@@ -54,6 +54,7 @@ import AuthorMastodonAction from '../../components/AuthorMastodonAction';
 import AuthorDataContainer from '../AuthorDataContainer';
 
 function DetailPage({
+  datasetsCount,
   dispatch,
   isCatalogerLoggedIn,
   isSuperUserLoggedIn,
@@ -64,6 +65,7 @@ function DetailPage({
   seminarsCount,
   userOrcid,
 }: {
+  datasetsCount: number;
   dispatch: ActionCreator<Action>;
   isCatalogerLoggedIn: boolean;
   isSuperUserLoggedIn: boolean;
@@ -115,6 +117,8 @@ function DetailPage({
   const advisors = metadata.get('advisors');
   const canEdit = metadata.get('can_edit', false);
   const inspireId = getInspireId(metadata.get('ids'));
+  const hasDatasetsCount =
+    datasetsCount !== null && datasetsCount !== undefined;
 
   const metaDescription = useMemo(
     () => getAuthorMetaDescription(metadata),
@@ -153,7 +157,9 @@ function DetailPage({
         label: (
           <Tooltip title="Datasets from the author">
             <span>
-              <span>Datasets</span>
+              <span>
+                Datasets {hasDatasetsCount && <span> ({datasetsCount})</span>}
+              </span>
             </span>
           </Tooltip>
         ),
@@ -333,6 +339,11 @@ const mapStateToProps = (state: RootStateOrAny) => ({
   publicationsCount: state.search.getIn([
     'namespaces',
     AUTHOR_PUBLICATIONS_NS,
+    'initialTotal',
+  ]),
+  datasetsCount: state.search.getIn([
+    'namespaces',
+    AUTHOR_DATA_NS,
     'initialTotal',
   ]),
   seminarsCount: state.search.getIn([
