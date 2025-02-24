@@ -168,6 +168,7 @@ function ReferenceDiffInterface({
                         text="datasets"
                         trackerEventId="Dataset links"
                         page="Literature detail"
+                        isTargetBlank={false}
                       />
                     )}
                   </>
