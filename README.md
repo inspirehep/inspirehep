@@ -200,7 +200,7 @@ $ yarn install
 First you need to start all the services (postgreSQL, Redis, ElasticSearch, RabbitMQ)
 
 ```bash
-$ docker-compose -f docker-compose.services.yml up es mq db cache
+$ docker compose -f docker-compose.services.yml up es mq db cache
 ```
 
 And initialize database, ES, rabbitMQ, redis and s3
@@ -375,7 +375,7 @@ A selection of demo records can be found in `data` directory and they are struct
 # Local
 $ poetry run inspirehep importer records -u https://inspirehep.net/api/literature/20 -u https://inspirehep.net/api/literature/1726642
 # Docker
-$ docker-compose exec hep-web inspirehep importer records -u https://inspirehep.net/api/literature/20 -u https://inspirehep.net/api/literature/1726642
+$ docker compose exec hep-web inspirehep importer records -u https://inspirehep.net/api/literature/20 -u https://inspirehep.net/api/literature/1726642
 
 # `--save` will save the imported record also to the data folder
 $ <...> inspirehep importer records -u https://inspirehep.net/api/literature/20 --save
@@ -389,7 +389,7 @@ Valid `--token` or `backend/inspirehep/config.py:AUTHENTICATION_TOKEN` is requir
 # Local
 $ poetry run inspirehep importer records -d data/records/literature
 # Docker
-$ docker-compose exec hep-web inspirehep importer records -d data/records/literature
+$ docker compose exec hep-web inspirehep importer records -d data/records/literature
 ```
 
 #### With files
@@ -398,7 +398,7 @@ $ docker-compose exec hep-web inspirehep importer records -d data/records/litera
 # Local
 $ poetry run inspirehep importer records -f data/records/literature/374836.json -f data/records/authors/999108.json
 # Docker
-$ docker-compose exec hep-web inspirehep importer records -f data/records/literature/374836.json -f data/records/authors/999108.json
+$ docker compose exec hep-web inspirehep importer records -f data/records/literature/374836.json -f data/records/authors/999108.json
 ```
 
 #### All records
@@ -407,5 +407,5 @@ $ docker-compose exec hep-web inspirehep importer records -f data/records/litera
 # Local
 $ poetry run inspirehep importer demo-records
 # Docker
-$ docker-compose exec hep-web inspirehep importer demo-records
+$ docker compose exec hep-web inspirehep importer demo-records
 ```
