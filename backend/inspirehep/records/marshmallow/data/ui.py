@@ -47,4 +47,5 @@ class DataDetailSchema(DataBaseSchema):
 
 
 class DataListSchema(DataBaseSchema):
-    pass
+    class Meta:
+        exclude = ["facet_author_name"]
