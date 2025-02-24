@@ -191,7 +191,6 @@ def test_data_search_citation_count(inspire_app):
         response = client.get("/data/", headers=headers)
 
     response_metadata = response.json["hits"]["hits"][0]["metadata"]
-
     expected_citation_count = 2
     assert expected_citation_count == response_metadata["citation_count"]
 
@@ -414,3 +413,22 @@ def test_data_detail_sets_date(inspire_app):
         response = client.get(f"/data/{data_record['control_number']}", headers=headers)
         response_metadata = response.json["metadata"]
         assert response_metadata["date"] == "Jan 1, 2022"
+
+
+def test_data_search_serializer_excludes_facet_author_name(inspire_app):
+    author = create_record("aut")
+    authors = [
+        {
+            "record": {
+                "$ref": f"http://localhost:8000/api/authors/{author['control_number']}"
+            },
+            "full_name": author["name"]["value"],
+        }
+    ]
+    create_record("dat", data={"authors": authors})
+    with inspire_app.test_client() as client:
+        headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+        response = client.get("/data", headers=headers)
+        response_data = orjson.loads(response.data)
+        response_data_hit = response_data["hits"]["hits"][0]["metadata"]
+        assert "facet_author_name" not in response_data_hit
