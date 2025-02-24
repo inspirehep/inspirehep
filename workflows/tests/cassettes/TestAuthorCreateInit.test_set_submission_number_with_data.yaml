@@ -1,0 +1,59 @@
+interactions:
+- request:
+    body: '{"data": {"$schema": "https://inspirehep.net/schemas/records/authors.json",
+      "_collections": ["Authors"], "acquisition_source": {"datetime": "2024-11-18T11:34:19.809575",
+      "email": "micha.moshe.moskovic@cern.ch", "internal_uid": 50872, "method": "submitter",
+      "orcid": "0000-0002-7638-5686", "source": "submitter", "submission_number":
+      "00000000-0000-0000-0000-000000001521"}, "name": {"preferred_name": "Third B",
+      "value": "B, Third"}, "status": "active", "control_number": 123457}}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '480'
+      Content-Type:
+      - application/json
+    method: PATCH
+    uri: http://host.docker.internal:8001/api/workflows/authors/00000000-0000-0000-0000-000000001521/
+  response:
+    body:
+      string: '{"id":"00000000-0000-0000-0000-000000001521","tickets":[],"decisions":[],"data":{"$schema":"https://inspirehep.net/schemas/records/authors.json","_collections":["Authors"],"acquisition_source":{"datetime":"2024-11-18T11:34:19.809575","email":"micha.moshe.moskovic@cern.ch","internal_uid":50872,"method":"submitter","orcid":"0000-0002-7638-5686","source":"submitter","submission_number":"00000000-0000-0000-0000-000000001521"},"name":{"preferred_name":"Third
+        B","value":"B, Third"},"status":"active","control_number":123457},"workflow_type":"AUTHOR_CREATE","status":"running","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-02-24T16:37:24.308424Z"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '663'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Mon, 24 Feb 2025 16:37:24 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=63.51099999994858;desc="User CPU time", TimerPanel_stime;dur=2.542999999946005;desc="System
+        CPU time", TimerPanel_total;dur=66.05399999989459;desc="Total CPU time", TimerPanel_total_time;dur=95.99600004730746;desc="Elapsed
+        time", SQLPanel_sql_time;dur=5.455000151414424;desc="SQL 10 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 8b11d466c7c1443180c88c65d1bd2898
+    status:
+      code: 200
+      message: OK
+version: 1

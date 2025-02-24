@@ -64,8 +64,19 @@ class TestAuthorCreateInit:
         task.execute(context=self.context)
 
     @pytest.mark.vcr
-    def test_set_submission_number(self):
+    def test_set_submission_number_no_data(self):
         task = self.dag.get_task("set_submission_number")
+        task.op_args = (None,)
+        result = task.execute(context=self.context)
+        assert (
+            result["data"]["acquisition_source"]["submission_number"]
+            == self.context["params"]["workflow_id"]
+        )
+
+    @pytest.mark.vcr
+    def test_set_submission_number_with_data(self):
+        task = self.dag.get_task("set_submission_number")
+        task.op_args = (base_context["params"]["workflow"],)
         result = task.execute(context=self.context)
         assert (
             result["data"]["acquisition_source"]["submission_number"]
