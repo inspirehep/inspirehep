@@ -56,12 +56,12 @@ def author_create_initialization_dag():
     @task()
     def set_schema(**context):
         schema = Variable.get("author_schema")
-        workflow_management_hook.partial_update_workflow(
+        return workflow_management_hook.partial_update_workflow(
             workflow_id=context["params"]["workflow_id"],
             workflow_partial_update_data={
                 "data": {**context["params"]["workflow"]["data"], "$schema": schema}
             },
-        )
+        ).json()
 
     @task()
     def create_author_create_user_ticket(**context: dict) -> None:
@@ -109,11 +109,13 @@ def author_create_initialization_dag():
             status_name=status_name, workflow_id=context["params"]["workflow_id"]
         )
 
+    data_w_schema = set_schema()
+
     # task dependencies
     (
         set_workflow_status_to_running()
-        >> set_schema()
-        >> set_submission_number()
+        >> data_w_schema
+        >> set_submission_number(data_w_schema)
         >> create_author_create_user_ticket()
         >> set_author_create_workflow_status_to_approval()
     )
