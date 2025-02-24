@@ -4,7 +4,6 @@ import logging
 from airflow.decorators import dag, task
 from airflow.models import Variable
 from airflow.models.param import Param
-from author.shared_tasks import set_submission_number
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.backoffice.workflow_ticket_management_hook import (
     AuthorWorkflowTicketManagementHook,
@@ -113,7 +112,7 @@ def author_create_initialization_dag():
     (
         set_workflow_status_to_running()
         >> set_schema()
-        >> set_submission_number()
+        # >> set_submission_number()
         >> create_author_create_user_ticket()
         >> set_author_create_workflow_status_to_approval()
     )
