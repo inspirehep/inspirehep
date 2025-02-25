@@ -109,13 +109,12 @@ def author_create_initialization_dag():
             status_name=status_name, workflow_id=context["params"]["workflow_id"]
         )
 
-    data_w_schema = set_schema()
+    data_with_schema = set_schema()
 
-    # task dependencies
     (
         set_workflow_status_to_running()
-        >> data_w_schema
-        >> set_submission_number(data_w_schema)
+        >> data_with_schema
+        >> set_submission_number(data_with_schema)
         >> create_author_create_user_ticket()
         >> set_author_create_workflow_status_to_approval()
     )

@@ -61,7 +61,8 @@ class TestAuthorCreateInit:
     @pytest.mark.vcr
     def test_set_schema(self):
         task = self.dag.get_task("set_schema")
-        task.execute(context=self.context)
+        result = task.execute(context=self.context)
+        assert result["data"]["$schema"]
 
     @pytest.mark.vcr
     def test_set_submission_number_no_data(self):
