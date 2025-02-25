@@ -97,7 +97,7 @@ Werkzeug = "2.1.0"
 SQLAlchemy = "^1.3.13"
 opensearch-py = "2.2.0"
 parsel = "^1.9.1"
-inspire-schemas = "^61.6.10"
+inspire-schemas = "^61.6.12"
 
 [tool.poetry.dev-dependencies]
 coverage = {version = "^7.0.0", extras = ["toml"]}
