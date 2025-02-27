@@ -178,7 +178,7 @@ CELERY_TASK_ANNOTATIONS = [Annotator()]
 # ========
 #: Database URI including user and password
 SQLALCHEMY_DATABASE_URI = (
-    "postgresql+psycopg2://inspirehep:inspirehep@localhost:5432/inspirehep"
+    "postgresql+psycopg2://postgres:postgres@localhost:5432/inspirehep"
 )
 
 SQLALCHEMY_ENGINE_OPTIONS = {
