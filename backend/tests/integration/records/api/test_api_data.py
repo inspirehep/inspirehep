@@ -77,7 +77,37 @@ def test_data_update(inspire_app):
     assert data == record_updated_db.json
 
     record_updated_pid = PersistentIdentifier.query.filter_by(
-        pid_type="dat", pid_value=str(control_number)
+        pid_type="dat", pid_value=control_number
+    ).one()
+
+    assert record.model.id == record_updated_pid.object_uuid
+    assert control_number == record_updated_pid.pid_value
+
+
+def test_data_update_with_literature_record(inspire_app):
+    record_literature = create_record("lit")
+    record_literature_control_number = record_literature["control_number"]
+
+    data = faker.record("dat", with_control_number=True)
+    data["literature"] = [
+        {
+            "record": {
+                "$ref": f"http://localhost:8000/api/literature/{record_literature_control_number}"
+            }
+        }
+    ]
+    record = DataRecord.create(data)
+    data_update = {"dois": [{"value": "10.1000/UPDATED"}]}
+    data.update(data_update)
+    record.update(data)
+
+    control_number = str(record["control_number"])
+    record_updated_db = RecordMetadata.query.filter_by(id=record.id).one()
+
+    assert data == record_updated_db.json
+
+    record_updated_pid = PersistentIdentifier.query.filter_by(
+        pid_type="dat", pid_value=control_number
     ).one()
 
     assert record.model.id == record_updated_pid.object_uuid
@@ -94,7 +124,7 @@ def test_data_create_or_update_with_new_record(inspire_app):
     assert record == record_db.json
 
     record_pid = PersistentIdentifier.query.filter_by(
-        pid_type="dat", pid_value=str(control_number)
+        pid_type="dat", pid_value=control_number
     ).one()
 
     assert record.model.id == record_pid.object_uuid
