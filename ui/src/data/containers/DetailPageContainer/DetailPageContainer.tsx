@@ -19,10 +19,7 @@ import Abstract from '../../../literature/components/Abstract';
 import LiteratureRecordsList from '../../../common/components/LiteratureRecordsList';
 import DOIListShowAll from '../../components/DOIListShowAll';
 import IncomingLiteratureReferencesLinkAction from '../../../common/components/IncomingLiteratureReferencesLinkAction';
-import {
-  getReferencingPapersQueryString,
-  transformLiteratureRecords,
-} from '../../utils';
+import { getReferencingPapersQueryString } from '../../utils';
 import DocumentHead from '../../../common/components/DocumentHead';
 import { makeCompliantMetaDescription } from '../../../common/utils';
 
