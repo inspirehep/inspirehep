@@ -132,24 +132,10 @@ def test_data_facets(inspire_app):
     response_data_facet_keys = list(response_data.get("aggregations").keys())
 
     expected_status_code = 200
-    expected_facet_keys = ["author"]
+    expected_facet_keys = ["collaboration", "creation_date"]
     assert expected_status_code == response_status_code
-    assert expected_facet_keys == response_data_facet_keys
+    assert sorted(expected_facet_keys) == sorted(response_data_facet_keys)
     assert len(response_data["hits"]["hits"]) == 0
-
-
-def test_data_facets_author_count(inspire_app):
-    create_record(
-        "dat", data={"authors": [{"full_name": "Author 1"}, {"full_name": "Author 2"}]}
-    )
-    with inspire_app.test_client() as client:
-        response = client.get("/data/facets")
-    response_data = orjson.loads(response.data)
-    author_count_agg = response_data.get("aggregations")["author"]
-    buckets = author_count_agg["buckets"]
-    assert len(buckets) == 2
-    assert buckets[0]["doc_count"] == 1
-    assert buckets[1]["doc_count"] == 1
 
 
 def test_data_facets_author_filter(inspire_app):

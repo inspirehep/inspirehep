@@ -2,6 +2,8 @@ from flask import current_app
 from inspirehep.search.aggregations import (
     conf_series_aggregation,
     conf_subject_aggregation,
+    data_collaboration_aggregation,
+    data_creation_date_aggregation,
     experiment_inspire_classification_aggregation,
     experiment_institution_aggregation,
     hep_arxiv_categories_aggregation,
@@ -705,12 +707,17 @@ def test_records_data_facets(inspire_app):
     with current_app.test_request_context():
         expected_filters = {
             "author",
+            "collaboration",
+            "creation_date",
             "self_affiliations",
             "self_author_names",
             "affiliations",
             "self_curated_relation",
         }
-        expected_aggregations = {**hep_author_aggregation(order=1)}
+        expected_aggregations = {
+            **data_creation_date_aggregation(order=1),
+            **data_collaboration_aggregation(order=2),
+        }
 
         filters = current_app.config["RECORDS_REST_FACETS"]["records-data"]()[
             "filters"
