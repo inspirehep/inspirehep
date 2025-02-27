@@ -723,7 +723,7 @@ class JournalPapersMixin:
 
 class DataLiteratureMixin:
     def clean_data_literature_relations(self):
-        DataLiterature.query.filter_by(literature_uuid=self.id).delete()
+        DataLiterature.query.filter_by(data_uuid=self.id).delete()
 
     def create_literature_relations(self):
         literature_recids = self.linked_literature_pids

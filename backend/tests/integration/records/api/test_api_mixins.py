@@ -17,6 +17,7 @@ from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.api.authors import AuthorsRecord
 from inspirehep.records.api.journals import JournalsRecord
 from inspirehep.records.models import (
+    DataLiterature,
     ExperimentLiterature,
     InstitutionLiterature,
     JournalLiterature,
@@ -960,3 +961,75 @@ def test_new_enum_value_in_records_literature_is_populated(inspire_app):
     assert len(results) == 1
     assert results[0].id_type == "recid"
     assert results[0].author_id == str(author["control_number"])
+
+
+def test_creating_data_record_with_linked_literature_populates_relation_table(
+    inspire_app,
+):
+    record_literature = create_record("lit")
+    control_number_literature = record_literature["control_number"]
+
+    data = {
+        "literature": [
+            {
+                "record": {
+                    "$ref": f"http://localhost:8000/api/literature/{control_number_literature}"
+                }
+            }
+        ]
+    }
+    record_data = create_record("dat", data)
+    assert DataLiterature.query.filter_by(data_uuid=record_data.id).count() == 1
+
+
+def test_data_updating_record_updates_literature_relation_table(inspire_app):
+    record_literature = create_record("lit")
+    control_number_literature = record_literature["control_number"]
+
+    record_literature_2 = create_record("lit")
+    control_number_literature_2 = record_literature_2["control_number"]
+
+    data = {
+        "literature": [
+            {
+                "record": {
+                    "$ref": f"http://localhost:8000/api/literature/{control_number_literature}"
+                }
+            }
+        ]
+    }
+    record_data = create_record("dat", data)
+    assert DataLiterature.query.filter_by(data_uuid=record_data.id).count() == 1
+
+    record_data["literature"].append(
+        {
+            "record": {
+                "$ref": f"http://localhost:8000/api/literature/{control_number_literature_2}"
+            }
+        }
+    )
+
+    record_data.update(dict(record_data))
+    assert DataLiterature.query.filter_by(data_uuid=record_data.id).count() == 2
+
+
+def test_data_literature_relation_cleanup_after_delete(
+    inspire_app,
+):
+    record_literature = create_record("lit")
+    control_number_literature = record_literature["control_number"]
+
+    data = {
+        "literature": [
+            {
+                "record": {
+                    "$ref": f"http://localhost:8000/api/literature/{control_number_literature}"
+                }
+            }
+        ]
+    }
+    record_data = create_record("dat", data)
+    assert DataLiterature.query.filter_by(data_uuid=record_data.id).count() == 1
+
+    record_data.hard_delete()
+    assert DataLiterature.query.filter_by(data_uuid=record_data.id).count() == 0
