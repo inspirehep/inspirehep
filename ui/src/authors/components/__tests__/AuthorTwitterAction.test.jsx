@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import AuthorTwitterAction from '../AuthorTwitterAction';
 
 describe('AuthorTwitterAction', () => {
   it('renders with twitter', () => {
-    const wrapper = shallow(<AuthorTwitterAction twitter="harunurhan" />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<AuthorTwitterAction twitter="harunurhan" />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

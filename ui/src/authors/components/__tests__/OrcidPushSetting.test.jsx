@@ -1,40 +1,47 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Popconfirm } from 'antd';
+import { render } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { getStore } from '../../../fixtures/store';
 
 import OrcidPushSetting from '../OrcidPushSetting';
 
 describe('OrcidPushSetting', () => {
   it('renders when enabled', () => {
-    const wrapper = shallow(
-      <OrcidPushSetting onChange={jest.fn()} isUpdating={false} enabled />
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <OrcidPushSetting onChange={jest.fn()} isUpdating={false} enabled />
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders when disabled', () => {
-    const wrapper = shallow(
-      <OrcidPushSetting
-        onChange={jest.fn()}
-        isUpdating={false}
-        enabled={false}
-      />
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <OrcidPushSetting
+          onChange={jest.fn()}
+          isUpdating={false}
+          enabled={false}
+        />
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('calls on change when toggling is confirmed', () => {
     const onChange = jest.fn();
     const currentEnabled = true;
-    const wrapper = shallow(
-      <OrcidPushSetting
-        onChange={onChange}
-        isUpdating={false}
-        enabled={currentEnabled}
-      />
+    const { getByText, getByRole } = render(
+      <Provider store={getStore()}>
+        <OrcidPushSetting
+          onChange={onChange}
+          isUpdating={false}
+          enabled={currentEnabled}
+        />
+      </Provider>
     );
-    const onConfirm = wrapper.find(Popconfirm).prop('onConfirm');
-    onConfirm();
+    getByRole('switch').click();
+    getByText('OK').click();
     expect(onChange).toHaveBeenCalledWith(!currentEnabled);
   });
 });

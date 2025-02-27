@@ -1,273 +1,194 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PositionsTimeline renders all when ExpandListToggle is toggled by default 1`] = `
-<Fragment>
-  <Timeline>
-    <TimelineItem
-      key="#undefined@Inst 1"
-    >
-      <div />
-      <div>
-        <Affiliation
-          affiliation={
-            Immutable.Map {
-              "institution": "Inst 1",
-            }
-          }
-        />
-      </div>
-    </TimelineItem>
-    <TimelineItem
-      key="#undefined@Inst 2"
-    >
-      <div />
-      <div>
-        <Affiliation
-          affiliation={
-            Immutable.Map {
-              "institution": "Inst 2",
-            }
-          }
-        />
-      </div>
-    </TimelineItem>
-    <TimelineItem
-      key="#undefined@Inst 3"
-    >
-      <div />
-      <div>
-        <Affiliation
-          affiliation={
-            Immutable.Map {
-              "institution": "Inst 3",
-            }
-          }
-        />
-      </div>
-    </TimelineItem>
-    <TimelineItem
-      key="#undefined@Inst 4"
-    >
-      <div />
-      <div>
-        <Affiliation
-          affiliation={
-            Immutable.Map {
-              "institution": "Inst 4",
-            }
-          }
-        />
-      </div>
-    </TimelineItem>
-    <TimelineItem
-      key="#undefined@Inst 5"
-    >
-      <div />
-      <div>
-        <Affiliation
-          affiliation={
-            Immutable.Map {
-              "institution": "Inst 5",
-            }
-          }
-        />
-      </div>
-    </TimelineItem>
-    <TimelineItem
-      key="#undefined@Inst 6"
-    >
-      <div />
-      <div>
-        <Affiliation
-          affiliation={
-            Immutable.Map {
-              "institution": "Inst 6",
-            }
-          }
-        />
-      </div>
-    </TimelineItem>
-  </Timeline>
-  <ExpandListToggle
-    expandLabel="Show all positions"
-    expanded={true}
-    limit={3}
-    onToggle={[Function]}
-    size={6}
-  />
-</Fragment>
-`;
-
 exports[`PositionsTimeline renders only first 3 by default 1`] = `
-<Fragment>
-  <Timeline>
-    <TimelineItem
-      key="#undefined@Inst 1"
+<DocumentFragment>
+  <ul
+    class="ant-timeline"
+  >
+    <li
+      class="ant-timeline-item"
     >
-      <div />
-      <div>
-        <Affiliation
-          affiliation={
-            Immutable.Map {
-              "institution": "Inst 1",
-            }
-          }
-        />
+      <div
+        class="ant-timeline-item-tail"
+      />
+      <div
+        class="ant-timeline-item-head ant-timeline-item-head-blue"
+      />
+      <div
+        class="ant-timeline-item-content"
+      >
+        <div />
+        <div>
+          <span>
+            Inst 1
+          </span>
+        </div>
       </div>
-    </TimelineItem>
-    <TimelineItem
-      key="#undefined@Inst 2"
+    </li>
+    <li
+      class="ant-timeline-item"
     >
-      <div />
-      <div>
-        <Affiliation
-          affiliation={
-            Immutable.Map {
-              "institution": "Inst 2",
-            }
-          }
-        />
+      <div
+        class="ant-timeline-item-tail"
+      />
+      <div
+        class="ant-timeline-item-head ant-timeline-item-head-blue"
+      />
+      <div
+        class="ant-timeline-item-content"
+      >
+        <div />
+        <div>
+          <span>
+            Inst 2
+          </span>
+        </div>
       </div>
-    </TimelineItem>
-    <TimelineItem
-      key="#undefined@Inst 3"
+    </li>
+    <li
+      class="ant-timeline-item ant-timeline-item-last"
     >
-      <div />
-      <div>
-        <Affiliation
-          affiliation={
-            Immutable.Map {
-              "institution": "Inst 3",
-            }
-          }
-        />
+      <div
+        class="ant-timeline-item-tail"
+      />
+      <div
+        class="ant-timeline-item-head ant-timeline-item-head-blue"
+      />
+      <div
+        class="ant-timeline-item-content"
+      >
+        <div />
+        <div>
+          <span>
+            Inst 3
+          </span>
+        </div>
       </div>
-    </TimelineItem>
-  </Timeline>
-  <ExpandListToggle
-    expandLabel="Show all positions"
-    expanded={false}
-    limit={3}
-    onToggle={[Function]}
-    size={6}
-  />
-</Fragment>
+    </li>
+  </ul>
+  <button
+    class="__SecondaryButton__"
+    type="button"
+  >
+    Show all positions (6)
+  </button>
+</DocumentFragment>
 `;
 
 exports[`PositionsTimeline renders with positions 1`] = `
-<Fragment>
-  <Timeline>
-    <TimelineItem
-      key="#1990-1994@Inst 1"
+<DocumentFragment>
+  <ul
+    class="ant-timeline"
+  >
+    <li
+      class="ant-timeline-item"
     >
-      <div>
-        1990-1994
+      <div
+        class="ant-timeline-item-tail"
+      />
+      <div
+        class="ant-timeline-item-head ant-timeline-item-head-blue"
+      />
+      <div
+        class="ant-timeline-item-content"
+      >
+        <div>
+          1990-1994
+        </div>
+        <div>
+          <strong>
+            UNDERGRADUATE, 
+          </strong>
+          <span>
+            Inst 1
+          </span>
+        </div>
       </div>
-      <div>
-        <strong>
-          UNDERGRADUATE
-          , 
-        </strong>
-        <Affiliation
-          affiliation={
-            Immutable.Map {
-              "institution": "Inst 1",
-              "display_date": "1990-1994",
-              "rank": "UNDERGRADUATE",
-            }
-          }
-        />
-      </div>
-    </TimelineItem>
-    <TimelineItem
-      key="#1994-2000@Inst 2"
+    </li>
+    <li
+      class="ant-timeline-item"
     >
-      <div>
-        1994-2000
+      <div
+        class="ant-timeline-item-tail"
+      />
+      <div
+        class="ant-timeline-item-head ant-timeline-item-head-blue"
+      />
+      <div
+        class="ant-timeline-item-content"
+      >
+        <div>
+          1994-2000
+        </div>
+        <div>
+          <strong>
+            PHD, 
+          </strong>
+          <span>
+            Inst 2
+          </span>
+        </div>
       </div>
-      <div>
-        <strong>
-          PHD
-          , 
-        </strong>
-        <Affiliation
-          affiliation={
-            Immutable.Map {
-              "institution": "Inst 2",
-              "display_date": "1994-2000",
-              "rank": "PHD",
-            }
-          }
-        />
-      </div>
-    </TimelineItem>
-    <TimelineItem
-      key="#2000-present@CERN"
+    </li>
+    <li
+      class="ant-timeline-item ant-timeline-item-last"
     >
-      <div>
-        2000-present
+      <div
+        class="ant-timeline-item-tail"
+      />
+      <div
+        class="ant-timeline-item-head ant-timeline-item-head-blue"
+      />
+      <div
+        class="ant-timeline-item-content"
+      >
+        <div>
+          2000-present
+        </div>
+        <div>
+          <strong>
+            STAFF, 
+          </strong>
+          <span>
+            CERN
+          </span>
+        </div>
       </div>
-      <div>
-        <strong>
-          STAFF
-          , 
-        </strong>
-        <Affiliation
-          affiliation={
-            Immutable.Map {
-              "institution": "CERN",
-              "display_date": "2000-present",
-              "rank": "STAFF",
-              "current": true,
-            }
-          }
-        />
-      </div>
-    </TimelineItem>
-  </Timeline>
-  <ExpandListToggle
-    expandLabel="Show all positions"
-    expanded={false}
-    limit={3}
-    onToggle={[Function]}
-    size={3}
-  />
-</Fragment>
+    </li>
+  </ul>
+</DocumentFragment>
 `;
 
 exports[`PositionsTimeline renders with single position 1`] = `
-<Fragment>
-  <Timeline>
-    <TimelineItem
-      key="#present@Inst 1"
+<DocumentFragment>
+  <ul
+    class="ant-timeline"
+  >
+    <li
+      class="ant-timeline-item ant-timeline-item-last"
     >
-      <div>
-        present
+      <div
+        class="ant-timeline-item-tail"
+      />
+      <div
+        class="ant-timeline-item-head ant-timeline-item-head-blue"
+      />
+      <div
+        class="ant-timeline-item-content"
+      >
+        <div>
+          present
+        </div>
+        <div>
+          <strong>
+            UNDERGRADUATE, 
+          </strong>
+          <span>
+            Inst 1
+          </span>
+        </div>
       </div>
-      <div>
-        <strong>
-          UNDERGRADUATE
-          , 
-        </strong>
-        <Affiliation
-          affiliation={
-            Immutable.Map {
-              "institution": "Inst 1",
-              "rank": "UNDERGRADUATE",
-              "display_date": "present",
-              "current": true,
-            }
-          }
-        />
-      </div>
-    </TimelineItem>
-  </Timeline>
-  <ExpandListToggle
-    expandLabel="Show all positions"
-    expanded={false}
-    limit={3}
-    onToggle={[Function]}
-    size={1}
-  />
-</Fragment>
+    </li>
+  </ul>
+</DocumentFragment>
 `;

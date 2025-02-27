@@ -1,10 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import ClaimingDisabledButton from '../ClaimingDisabledButton';
 
 describe('ClaimingDisabledButton', () => {
   it('renders', () => {
-    const wrapper = shallow(<ClaimingDisabledButton />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<ClaimingDisabledButton />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

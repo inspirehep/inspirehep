@@ -294,7 +294,7 @@ describe('Author collection', () => {
       ).click();
 
       cy.get('input[value="1274753"]').first().click();
-      cy.get('[data-test-id="assign-button"').click();
+      cy.get('[data-testid="assign-button"').click();
 
       cy.wait('@getAssignSuccess');
 
@@ -324,7 +324,7 @@ describe('Author collection', () => {
       cy.get('[data-test-id="assign-another"]').click();
 
       cy.get('input[value="new"]').click();
-      cy.get('[data-test-id="assign-button"').click();
+      cy.get('[data-testid="assign-button"').click();
 
       cy.wait('@getAssignNewSuccess');
 

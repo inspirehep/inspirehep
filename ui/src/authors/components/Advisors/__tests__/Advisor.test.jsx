@@ -1,6 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
+import { MemoryRouter } from 'react-router-dom';
 
 import Advisor from '../Advisor';
 
@@ -12,8 +13,12 @@ describe('Advisor', () => {
         $ref: 'https://inspirehep.net/api/authors/12345',
       },
     });
-    const wrapper = shallow(<Advisor advisor={advisor} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <MemoryRouter>
+        <Advisor advisor={advisor} />
+      </MemoryRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with first_name and last_name', () => {
@@ -25,8 +30,12 @@ describe('Advisor', () => {
         $ref: 'https://inspirehep.net/api/authors/12345',
       },
     });
-    const wrapper = shallow(<Advisor advisor={advisor} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <MemoryRouter>
+        <Advisor advisor={advisor} />
+      </MemoryRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with only first_name', () => {
@@ -37,15 +46,23 @@ describe('Advisor', () => {
         $ref: 'https://inspirehep.net/api/authors/12345',
       },
     });
-    const wrapper = shallow(<Advisor advisor={advisor} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <MemoryRouter>
+        <Advisor advisor={advisor} />
+      </MemoryRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders unliked', () => {
     const advisor = fromJS({
       name: 'Yoda',
     });
-    const wrapper = shallow(<Advisor advisor={advisor} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <MemoryRouter>
+        <Advisor advisor={advisor} />
+      </MemoryRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });

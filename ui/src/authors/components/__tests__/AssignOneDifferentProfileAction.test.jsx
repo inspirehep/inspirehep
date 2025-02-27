@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { render, waitFor, fireEvent, screen } from '@testing-library/react';
 
 import AssignOneDifferentProfileAction from '../AssignOneDifferentProfileAction';
@@ -12,24 +11,24 @@ jest.mock('react-router-dom', () => ({
 
 describe('AssignDifferentProfileAction', () => {
   it('renders', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AssignOneDifferentProfileAction
         onAssign={jest.fn()}
         currentUserId={33}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders disabled', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AssignOneDifferentProfileAction
         onAssign={jest.fn()}
         currentUserId={33}
         claimingUnclaimedPapersDisabled={false}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('calls onAssign on click', async () => {

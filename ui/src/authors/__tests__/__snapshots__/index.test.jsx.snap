@@ -1,19 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Authors renders initial state 1`] = `
-<div
-  className="__Authors__"
-  data-testid="authors"
->
-  <Route
-    component={[Function]}
-    exact={true}
-    path="/authors"
+<DocumentFragment>
+  <div
+    class="__Authors__"
+    data-testid="authors"
   />
-  <Route
-    component={[Function]}
-    exact={true}
-    path="/authors/:id"
-  />
-</div>
+</DocumentFragment>
 `;

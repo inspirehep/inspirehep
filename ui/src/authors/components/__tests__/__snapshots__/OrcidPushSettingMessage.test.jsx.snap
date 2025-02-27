@@ -1,24 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`OrcidPushSettingMessage renders when disabled 1`] = `
-<div>
-  <p>
-    Your INSPIRE works are not exported to your ORCID yet. Please note that only the publications that are verified as yours on INSPIRE will be exported to ORCID.
-  </p>
-</div>
+<DocumentFragment>
+  <div
+    data-testid="orcid-push-setting-message"
+  >
+    <p>
+      Your INSPIRE works are not exported to your ORCID yet. Please note that only the publications that are verified as yours on INSPIRE will be exported to ORCID.
+    </p>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`OrcidPushSettingMessage renders when enabled 1`] = `
-<div>
-  <p>
-    This profile is already connected to the following ORCID:
-     
-    <OrcidProfileLink
-      orcid="0000-0001-8058-0014"
-    />
-  </p>
-  <p>
-    Your claimed works will be exported automatically.
-  </p>
-</div>
+<DocumentFragment>
+  <div
+    data-testid="orcid-push-setting-message"
+  >
+    <p>
+      This profile is already connected to the following ORCID: 
+      <a
+        href="//orcid.org/0000-0001-8058-0014"
+        target="_blank"
+      >
+        0000-0001-8058-0014
+      </a>
+    </p>
+    <p>
+      Your claimed works will be exported automatically.
+    </p>
+  </div>
+</DocumentFragment>
 `;

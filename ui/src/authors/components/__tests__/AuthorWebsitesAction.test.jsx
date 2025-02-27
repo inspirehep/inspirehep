@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import AuthorWebsitesAction from '../AuthorWebsitesAction';
@@ -11,21 +11,21 @@ describe('AuthorWebsitesAction', () => {
       { description: 'BLOG', value: 'https://author.wordpress.com' },
       { value: 'www.descriptionless.com/url' },
     ]);
-    const wrapper = shallow(<AuthorWebsitesAction websites={websites} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<AuthorWebsitesAction websites={websites} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders only blog', () => {
     const websites = fromJS([
       { description: 'blog', value: 'https://author.wordpress.com' },
     ]);
-    const wrapper = shallow(<AuthorWebsitesAction websites={websites} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<AuthorWebsitesAction websites={websites} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders only a url', () => {
     const websites = fromJS([{ value: 'www.descriptionless.com/url' }]);
-    const wrapper = shallow(<AuthorWebsitesAction websites={websites} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<AuthorWebsitesAction websites={websites} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

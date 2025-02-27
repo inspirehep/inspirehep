@@ -1,9 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import PositionsTimeline from '../PositionsTimeline';
-import ExpandListToggle from '../../../common/components/ExpandListToggle';
 
 describe('PositionsTimeline', () => {
   it('renders with positions', () => {
@@ -25,8 +24,8 @@ describe('PositionsTimeline', () => {
         current: true,
       },
     ]);
-    const wrapper = shallow(<PositionsTimeline positions={positions} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<PositionsTimeline positions={positions} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with single position', () => {
@@ -38,8 +37,8 @@ describe('PositionsTimeline', () => {
         current: true,
       },
     ]);
-    const wrapper = shallow(<PositionsTimeline positions={positions} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<PositionsTimeline positions={positions} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders only first 3 by default', () => {
@@ -51,8 +50,8 @@ describe('PositionsTimeline', () => {
       { institution: 'Inst 5' },
       { institution: 'Inst 6' },
     ]);
-    const wrapper = shallow(<PositionsTimeline positions={positions} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<PositionsTimeline positions={positions} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders all when ExpandListToggle is toggled by default', () => {
@@ -64,11 +63,13 @@ describe('PositionsTimeline', () => {
       { institution: 'Inst 5' },
       { institution: 'Inst 6' },
     ]);
-    const wrapper = shallow(<PositionsTimeline positions={positions} />);
-    const toggleWrapper = wrapper.find(ExpandListToggle);
-    const onExpandToggle = toggleWrapper.prop('onToggle');
-    onExpandToggle();
-    wrapper.update();
-    expect(wrapper).toMatchSnapshot();
+    const { getByText, getByRole } = render(
+      <PositionsTimeline positions={positions} />
+    );
+    const toggleButton = getByRole('button');
+    toggleButton.click();
+    expect(getByText('Inst 4')).toBeInTheDocument();
+    expect(getByText('Inst 5')).toBeInTheDocument();
+    expect(getByText('Inst 6')).toBeInTheDocument();
   });
 });

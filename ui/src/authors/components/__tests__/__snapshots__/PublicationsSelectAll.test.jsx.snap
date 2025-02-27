@@ -1,25 +1,69 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PublicationsSelectAll render unchecked if all publications are not part of the selection 1`] = `
-<Checkbox
-  checked={false}
-  data-test-id="select-all-publications"
-  onChange={[Function]}
-/>
+<DocumentFragment>
+  <label
+    class="ant-checkbox-wrapper"
+  >
+    <span
+      class="ant-checkbox"
+    >
+      <input
+        class="ant-checkbox-input"
+        data-test-id="select-all-publications"
+        type="checkbox"
+        value=""
+      />
+      <span
+        class="ant-checkbox-inner"
+      />
+    </span>
+  </label>
+</DocumentFragment>
 `;
 
 exports[`PublicationsSelectAll renders checked if all publications are part of the selection 1`] = `
-<Checkbox
-  checked={true}
-  data-test-id="select-all-publications"
-  onChange={[Function]}
-/>
+<DocumentFragment>
+  <label
+    class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
+  >
+    <span
+      class="ant-checkbox ant-checkbox-checked"
+    >
+      <input
+        checked=""
+        class="ant-checkbox-input"
+        data-test-id="select-all-publications"
+        type="checkbox"
+        value=""
+      />
+      <span
+        class="ant-checkbox-inner"
+      />
+    </span>
+  </label>
+</DocumentFragment>
 `;
 
 exports[`PublicationsSelectAll renders disabled 1`] = `
-<Checkbox
-  data-test-id="select-all-publications"
-  disabled={true}
-  onChange={[Function]}
-/>
+<DocumentFragment>
+  <label
+    class="ant-checkbox-wrapper ant-checkbox-wrapper-disabled"
+  >
+    <span
+      class="ant-checkbox ant-checkbox-disabled"
+    >
+      <input
+        class="ant-checkbox-input"
+        data-test-id="select-all-publications"
+        disabled=""
+        type="checkbox"
+        value=""
+      />
+      <span
+        class="ant-checkbox-inner"
+      />
+    </span>
+  </label>
+</DocumentFragment>
 `;
