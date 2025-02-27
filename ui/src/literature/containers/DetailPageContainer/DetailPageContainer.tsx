@@ -249,6 +249,7 @@ function DetailPage({
                         text="datasets"
                         trackerEventId="Dataset links"
                         page="Literature detail"
+                        isTargetBlank={false}
                       />
                     )}
                     {isSuperUserLoggedIn && (

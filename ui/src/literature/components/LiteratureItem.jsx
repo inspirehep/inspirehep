@@ -136,6 +136,7 @@ function LiteratureItem({
                 text="datasets"
                 trackerEventId="Dataset links"
                 page={page}
+                isTargetBlank={false}
               />
             )}
             {canEdit && (
