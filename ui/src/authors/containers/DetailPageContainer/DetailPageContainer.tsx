@@ -51,7 +51,7 @@ import { APIButton } from '../../../common/components/APIButton';
 import InspireID from '../../components/InspireID';
 import AuthorBlueskyAction from '../../components/AuthorBlueskyAction';
 import AuthorMastodonAction from '../../components/AuthorMastodonAction';
-import AuthorDataContainer from '../AuthorDataContainer';
+import DataSearchPageContainer from '../../../data/containers/DataSearchPageContainer';
 
 function DetailPage({
   datasetsCount,
@@ -81,12 +81,16 @@ function DetailPage({
   const updateTime = record.get('updated') as string;
   useEffect(
     () => {
-      // check if author is fetched and author facet name is added to query of AUTHOR_PUBLICATIONS_NS
-      // by AuthorPublicationsContainer.
       if (authorFacetName) {
         const query = publicationsQuery.toJS();
-        // FIXME: localize dispatch(action) to relevant components, instead of dispatching in parent detail page
         dispatch(fetchCitationsByYear(query));
+        dispatch(
+          searchBaseQueriesUpdate(AUTHOR_DATA_NS, {
+            baseQuery: {
+              author: [authorFacetName],
+            },
+          })
+        );
       }
     },
     [dispatch, authorFacetName] // eslint-disable-line react-hooks/exhaustive-deps
@@ -125,7 +129,8 @@ function DetailPage({
     [metadata]
   );
 
-  const canAccessDataTab = isCatalogerLoggedIn || isSuperUserLoggedIn;
+  const canAccessDataTab =
+    (isCatalogerLoggedIn || isSuperUserLoggedIn) && hasDatasetsCount;
 
   let tabItems = [
     {
@@ -158,7 +163,7 @@ function DetailPage({
           <Tooltip title="Datasets from the author">
             <span>
               <span>
-                Datasets {hasDatasetsCount && <span> ({datasetsCount})</span>}
+                Datasets <span> ({datasetsCount})</span>
               </span>
             </span>
           </Tooltip>
@@ -166,7 +171,7 @@ function DetailPage({
         key: '2',
         children: (
           <ContentBox className="remove-top-border-of-card">
-            <AuthorDataContainer />
+            <DataSearchPageContainer namespace={AUTHOR_DATA_NS} />
           </ContentBox>
         ),
       },

@@ -25,6 +25,15 @@ import SearchHelper from '../search/helper';
 import searchConfig from '../search/config';
 import { getClientId } from '../tracker';
 
+type Query = {
+  [key: string]: string | string[];
+};
+
+type SearchParams = {
+  baseQuery: Query;
+  baseAggregationsQuery?: Query;
+};
+
 function searching(namespace: string) {
   return {
     type: SEARCH_REQUEST,
@@ -261,10 +270,7 @@ export function fetchAggregationsAndSearchQueryReset(
 
 export function searchBaseQueriesUpdate(
   namespace: string,
-  {
-    baseQuery,
-    baseAggregationsQuery,
-  }: { baseQuery: { q: string }; baseAggregationsQuery?: { q: string } }
+  { baseQuery, baseAggregationsQuery }: SearchParams
 ): (
   dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
