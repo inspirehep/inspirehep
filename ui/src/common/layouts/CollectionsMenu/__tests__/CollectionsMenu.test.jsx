@@ -99,10 +99,7 @@ describe('CollectionsMenu', () => {
   it('renders when data page', () => {
     const { asFragment } = render(
       <MemoryRouter>
-        <CollectionsMenu
-          currentPathname={`${DATA}/1`}
-          canAccessDataCollection
-        />
+        <CollectionsMenu currentPathname={`${DATA}/1`} />
       </MemoryRouter>
     );
 
