@@ -5,6 +5,8 @@ from helpers.utils import create_record, create_user
 from inspirehep.search.aggregations import (
     conf_series_aggregation,
     conf_subject_aggregation,
+    data_collaboration_aggregation,
+    data_creation_date_aggregation,
     experiment_inspire_classification_aggregation,
     experiment_institution_aggregation,
     hep_arxiv_categories_aggregation,
@@ -30,7 +32,7 @@ from inspirehep.search.aggregations import (
     seminar_series_aggregation,
     seminar_subject_aggregation,
 )
-from inspirehep.search.facets import hep_filters
+from inspirehep.search.facets import data_filters, hep_filters
 from invenio_accounts.testutils import login_user_via_session
 
 
@@ -1268,6 +1270,74 @@ def test_hep_experiments_aggregation_and_filter(inspire_app, override_config):
 
         with inspire_app.test_client() as client:
             response = client.get("/literature?experiments=CERN-LHC-ATLAS").json
+        assert len(response["hits"]["hits"]) == 1
+        assert (
+            response["hits"]["hits"][0]["metadata"]["control_number"]
+            == expected_record["control_number"]
+        )
+
+
+def test_data_collaboration_aggregation_and_filter(inspire_app, override_config):
+    config = {
+        "RECORDS_REST_FACETS": {
+            "records-data": {
+                "filters": data_filters(),
+                "aggs": {**data_collaboration_aggregation(1)},
+            }
+        }
+    }
+
+    with override_config(**config):
+        expected_record = create_record(
+            "dat", data={"collaborations": [{"value": "CMS"}]}
+        )
+        create_record("dat", data={"collaborations": [{"value": "CDF"}]})
+        with inspire_app.test_client() as client:
+            response1 = client.get("/data/facets").json
+        expected_aggregation = {
+            "meta": {"title": "Collaboration", "type": "checkbox", "order": 1},
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [{"key": "CDF", "doc_count": 1}, {"key": "CMS", "doc_count": 1}],
+        }
+        assert response1["aggregations"]["collaboration"] == expected_aggregation
+
+        with inspire_app.test_client() as client:
+            response2 = client.get("/data?collaboration=CMS").json
+        assert len(response2["hits"]["hits"]) == 1
+        assert (
+            response2["hits"]["hits"][0]["metadata"]["control_number"]
+            == expected_record["control_number"]
+        )
+
+
+def test_data_earliest_date_aggregation_and_filter(inspire_app, override_config):
+    config = {
+        "RECORDS_REST_FACETS": {
+            "records-data": {
+                "filters": data_filters(),
+                "aggs": {**data_creation_date_aggregation(1)},
+            }
+        }
+    }
+
+    with override_config(**config):
+        expected_record = create_record("dat", data={"creation_date": "2019-06-28"})
+        create_record("dat", data={"creation_date": "2015-06-28"})
+
+        with inspire_app.test_client() as client:
+            response = client.get("/data/facets").json
+        creation_date_aggregation = {
+            "meta": {"title": "Date of dataset", "type": "range", "order": 1},
+            "buckets": [
+                {"doc_count": 1, "key": 1420070400000, "key_as_string": "2015"},
+                {"doc_count": 1, "key": 1546300800000, "key_as_string": "2019"},
+            ],
+        }
+        assert response["aggregations"]["creation_date"] == creation_date_aggregation
+
+        with inspire_app.test_client() as client:
+            response = client.get("/data?creation_date=2018--2019").json
         assert len(response["hits"]["hits"]) == 1
         assert (
             response["hits"]["hits"][0]["metadata"]["control_number"]

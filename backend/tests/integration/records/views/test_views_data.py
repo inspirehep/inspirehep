@@ -132,9 +132,9 @@ def test_data_facets(inspire_app):
     response_data_facet_keys = list(response_data.get("aggregations").keys())
 
     expected_status_code = 200
-    expected_facet_keys = ["author"]
+    expected_facet_keys = ["author", "collaboration", "creation_date"]
     assert expected_status_code == response_status_code
-    assert expected_facet_keys == response_data_facet_keys
+    assert sorted(expected_facet_keys) == sorted(response_data_facet_keys)
     assert len(response_data["hits"]["hits"]) == 0
 
 
