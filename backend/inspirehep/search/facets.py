@@ -13,6 +13,8 @@ from opensearch_dsl.query import Q, Range
 from inspirehep.search.aggregations import (
     conf_series_aggregation,
     conf_subject_aggregation,
+    data_collaboration_aggregation,
+    data_creation_date_aggregation,
     experiment_inspire_classification_aggregation,
     experiment_institution_aggregation,
     hep_arxiv_categories_aggregation,
@@ -567,7 +569,8 @@ def records_data(order=None):
     return {
         "filters": data_filters(),
         "aggs": {
-            **hep_author_aggregation(order=next(order)),
+            **data_creation_date_aggregation(order=next(order)),
+            **data_collaboration_aggregation(order=next(order)),
         },
     }
 
