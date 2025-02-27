@@ -714,6 +714,8 @@ EXPERIMENTS_FILTERS = {
 
 DATA_FILTERS = {
     "author": must_match_all_filter("facet_author_name"),
+    "collaboration": must_match_all_filter("facet_collaborations"),
+    "creation_date": range_filter("creation_date", format="yyyy", end_date_math="/y"),
 }
 
 RECORDS_REST_FACETS = {

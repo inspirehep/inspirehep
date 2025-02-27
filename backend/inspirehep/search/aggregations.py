@@ -752,3 +752,26 @@ def experiment_institution_aggregation(order):
             "meta": {"title": "Institution", "order": order, "type": "checkbox"},
         }
     }
+
+
+def data_collaboration_aggregation(order, title="Collaboration", agg_type="checkbox"):
+    return {
+        "collaboration": {
+            "terms": {"field": "facet_collaborations", "size": 20},
+            "meta": {"title": title, "order": order, "type": agg_type},
+        }
+    }
+
+
+def data_creation_date_aggregation(order, title="Date of dataset", agg_type="range"):
+    return {
+        "creation_date": {
+            "date_histogram": {
+                "field": "creation_date",
+                "interval": "year",
+                "format": "yyyy",
+                "min_doc_count": 1,
+            },
+            "meta": {"title": title, "order": order, "type": agg_type},
+        }
+    }
