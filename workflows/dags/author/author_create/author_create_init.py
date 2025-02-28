@@ -4,6 +4,7 @@ import logging
 from airflow.decorators import dag, task
 from airflow.models import Variable
 from airflow.models.param import Param
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from author.shared_tasks import set_submission_number
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.backoffice.workflow_ticket_management_hook import (
@@ -14,6 +15,7 @@ from hooks.inspirehep.inspire_http_hook import (
     InspireHttpHook,
 )
 from include.utils.set_workflow_status import set_workflow_status_to_error
+from include.utils.tickets import get_ticket_by_type
 
 logger = logging.getLogger(__name__)
 
@@ -68,6 +70,9 @@ def author_create_initialization_dag():
         workflow_data = context["params"]["workflow"]["data"]
         email = workflow_data["acquisition_source"]["email"]
 
+        if get_ticket_by_type(context["params"]["workflow"], "author_create_user"):
+            return
+
         response = inspire_http_hook.create_ticket(
             AUTHOR_SUBMIT_FUNCTIONAL_CATEGORY,
             "curator_new_author",
@@ -102,6 +107,21 @@ def author_create_initialization_dag():
             ticket_id=ticket_id,
         )
 
+    @task.branch()
+    def author_check_approval_branch(**context: dict) -> None:
+        """Branching for the workflow: based on value parameter
+        dag goes either to create_ticket_on_author_approval task or
+        directly to create_author_on_inspire
+        """
+
+        workflow_data = context["params"]["workflow"]["data"]
+        decisions = workflow_data.get("decisions")
+        if not decisions:
+            return "set_author_create_workflow_status_to_approval"
+        elif decisions[0]["value"] in ["accept_curate", "accept"]:
+            return "trigger_accept"
+        return "trigger_reject"
+
     @task()
     def set_author_create_workflow_status_to_approval(**context: dict) -> None:
         status_name = "approval"
@@ -110,13 +130,33 @@ def author_create_initialization_dag():
         )
 
     data_with_schema = set_schema()
+    set_submission_number_task = set_submission_number(data_with_schema)
+
+    trigger_accept = TriggerDagRunOperator(
+        task_id="trigger_accept",
+        trigger_dag_id="author_create_approved_dag",
+        conf='{"workflow": '
+        '{{ti.xcom_pull(task_ids="set_submission_number") | tojson}}}',
+    )
+
+    trigger_reject = TriggerDagRunOperator(
+        task_id="trigger_reject",
+        trigger_dag_id="author_create_rejected_dag",
+        conf='{"workflow": '
+        '{{ti.xcom_pull(task_ids="set_submission_number") | tojson}}}',
+    )
 
     (
         set_workflow_status_to_running()
         >> data_with_schema
-        >> set_submission_number(data_with_schema)
+        >> set_submission_number_task
         >> create_author_create_user_ticket()
-        >> set_author_create_workflow_status_to_approval()
+        >> author_check_approval_branch()
+        >> [
+            trigger_accept,
+            trigger_reject,
+            set_author_create_workflow_status_to_approval(),
+        ]
     )
 
 

@@ -4,6 +4,6 @@ logger = logging.getLogger(__name__)
 
 
 def get_ticket_by_type(workflow, ticket_type):
-    for ticket in workflow["tickets"]:
+    for ticket in workflow.get("tickets", []):
         if ticket["ticket_type"] == ticket_type:
             return ticket

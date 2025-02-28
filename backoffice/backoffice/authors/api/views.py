@@ -254,12 +254,17 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
                     workflow.id, workflow.workflow_type
                 )
                 error_msg = "No failed tasks found to restart. Skipping restart."
-            else:
-                AuthorDecision.objects.filter(workflow=workflow).delete()
+            elif airflow_utils.find_failed_dag(workflow.id, workflow.workflow_type):
                 response = airflow_utils.restart_workflow_dags(
-                    workflow.id, workflow.workflow_type, request.data.get("params")
+                    workflow.id,
+                    workflow.workflow_type,
+                    request.data.get("params"),
+                    workflow=self.serializer_class(workflow).data,
                 )
                 error_msg = "No run configuration found. Skipping restart."
+            else:
+                response = None
+                error_msg = "Workflow has already ran successfully. Skipping restart."
 
             if response is None:
                 return Response(
