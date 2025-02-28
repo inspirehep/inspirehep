@@ -486,13 +486,28 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         )
 
     @pytest.mark.vcr
-    def test_restart_full_dagrun(self):
+    def test_restart_successful_dagrun(self):
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
             "api:authors-restart",
             kwargs={"pk": self.workflow.id},
         )
         response = self.api_client.post(url)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json()["error"],
+            "Workflow has already ran successfully. Skipping restart.",
+        )
+
+    @pytest.mark.vcr
+    def test_restart_failed_dagrun(self):
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:authors-restart",
+            kwargs={"pk": self.workflow.id},
+        )
+        response = self.api_client.post(url)
+
         self.assertEqual(response.status_code, 200)
         self.assertIn("test", response.json()["data"])
 
@@ -546,9 +561,10 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             kwargs={"pk": self.workflow.id},
         )
         response = self.api_client.post(
-            url, format="json", data={"params": {"workflow_id": self.workflow.id}}
+            url, format="json", data={"params": {"workflow": {"id": self.workflow.id}}}
         )
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["id"], str(self.workflow.id))
 
     @pytest.mark.vcr
     def test_validate_valid_record(self):
