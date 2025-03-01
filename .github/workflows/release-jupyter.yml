@@ -37,7 +37,7 @@ jobs:
 
       - id: build
         name: Build and push
-        uses: cern-sis/gh-workflows/.github/actions/docker-build@v6.3.1
+        uses: cern-sis/gh-workflows/.github/actions/docker-build@v6.4.1
         with:
           username: ${{ secrets.harbor_username }}
           password: ${{ secrets.harbor_password }}
