@@ -122,15 +122,15 @@ function DetailPage({
   const canEdit = metadata.get('can_edit', false);
   const inspireId = getInspireId(metadata.get('ids'));
   const hasDatasetsCount =
-    datasetsCount !== null && datasetsCount !== undefined;
+    datasetsCount !== null && datasetsCount !== undefined && datasetsCount > 0;
 
   const metaDescription = useMemo(
     () => getAuthorMetaDescription(metadata),
     [metadata]
   );
 
-  const canAccessDataTab = true;
-  // (isCatalogerLoggedIn || isSuperUserLoggedIn) && hasDatasetsCount;
+  const canAccessDataTab =
+    (isCatalogerLoggedIn || isSuperUserLoggedIn) && hasDatasetsCount;
 
   let tabItems = [
     {
