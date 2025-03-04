@@ -129,8 +129,8 @@ function DetailPage({
     [metadata]
   );
 
-  const canAccessDataTab =
-    (isCatalogerLoggedIn || isSuperUserLoggedIn) && hasDatasetsCount;
+  const canAccessDataTab = true;
+  // (isCatalogerLoggedIn || isSuperUserLoggedIn) && hasDatasetsCount;
 
   let tabItems = [
     {
@@ -318,6 +318,7 @@ function DetailPage({
                 type="card"
                 tabBarStyle={{ marginBottom: 0 }}
                 items={tabItems}
+                destroyInactiveTabPane
               />
             </Col>
           </Row>
