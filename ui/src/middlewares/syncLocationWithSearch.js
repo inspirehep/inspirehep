@@ -14,11 +14,14 @@ import {
   LITERATURE_NS,
   BACKOFFICE_SEARCH_NS,
   PATHNAME_TO_NAMESPACE,
+  DATA_NS,
 } from '../search/constants';
 
 const PRESERVE_FULL_PATH_NAMESPACES = [
   NAMESPACE_TO_PATHNAME[BACKOFFICE_SEARCH_NS],
 ];
+
+const RESET_QUERY_AND_AGGS_NAMESPACES = [LITERATURE_NS, DATA_NS];
 
 const idInUrlRegExp = new RegExp('/\\d+');
 function isSearchPage(location) {
@@ -78,7 +81,7 @@ export default function ({ dispatch, getState }) {
         isSearchPage(prevLocation)
       ) {
         dispatch(newSearch(prevNamespace));
-        if (nextNamespace === LITERATURE_NS) {
+        if (RESET_QUERY_AND_AGGS_NAMESPACES.includes(nextNamespace)) {
           // fetch literature aggregations when `back` is clicked
           dispatch(fetchAggregationsAndSearchQueryReset(nextNamespace));
         }
@@ -96,7 +99,7 @@ export default function ({ dispatch, getState }) {
             prevLocation.pathname === nextLocation.pathname &&
             action.payload.action === 'POP'
           ) {
-            if (nextNamespace === LITERATURE_NS) {
+            if (RESET_QUERY_AND_AGGS_NAMESPACES.includes(nextNamespace)) {
               // reset query and fetch aggregations when `back` is clicked within literature collection
               dispatch(
                 fetchAggregationsAndSearchQueryReset(nextNamespace, true)

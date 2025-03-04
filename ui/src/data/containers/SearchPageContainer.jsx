@@ -9,7 +9,7 @@ const TITLE = 'Data Search';
 const SearchPage = () => (
   <>
     <DocumentHead title={TITLE} description={META_DESCRIPTION} />
-    <DataSearchPageContainer namespace={DATA_NS} />
+    <DataSearchPageContainer namespace={DATA_NS} page="Data search" />
   </>
 );
 
