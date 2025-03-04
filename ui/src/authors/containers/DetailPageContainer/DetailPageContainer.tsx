@@ -129,9 +129,6 @@ function DetailPage({
     [metadata]
   );
 
-  const canAccessDataTab =
-    (isCatalogerLoggedIn || isSuperUserLoggedIn) && hasDatasetsCount;
-
   let tabItems = [
     {
       label: (
@@ -155,7 +152,7 @@ function DetailPage({
     },
   ];
 
-  if (canAccessDataTab) {
+  if (hasDatasetsCount) {
     tabItems = [
       ...tabItems,
       {
@@ -190,7 +187,7 @@ function DetailPage({
           <span>Cited By</span>
         </Tooltip>
       ),
-      key: canAccessDataTab ? '3' : '2',
+      key: hasDatasetsCount ? '3' : '2',
       children: (
         <ContentBox className="remove-top-border-of-card">
           <AuthorCitationsContainer />
@@ -208,7 +205,7 @@ function DetailPage({
             <span>Seminars</span>
           </Tooltip>
         ),
-        key: canAccessDataTab ? '4' : '3',
+        key: hasDatasetsCount ? '4' : '3',
         children: (
           <ContentBox className="remove-top-border-of-card">
             <AuthorSeminars />
