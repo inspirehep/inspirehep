@@ -171,7 +171,11 @@ function DetailPage({
         key: '2',
         children: (
           <ContentBox className="remove-top-border-of-card">
-            <DataSearchPageContainer namespace={AUTHOR_DATA_NS} />
+            <DataSearchPageContainer
+              namespace={AUTHOR_DATA_NS}
+              embedded
+              page="Author datasets"
+            />
           </ContentBox>
         ),
       },

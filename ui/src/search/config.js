@@ -126,7 +126,7 @@ const searchConfig = {
   [AUTHOR_DATA_NS]: {
     persistedQueryParamsDuringNewSearch:
       defaultPersistedQueryParamsDuringNewSearch,
-    onQueryChange: onEmbeddedSearchWithoutAggregationsQueryChange,
+    onQueryChange: onEmbeddedSearchWithAggregationsQueryChange,
     redirectableError: false,
   },
   [JOURNALS_NS]: {
@@ -156,7 +156,7 @@ const searchConfig = {
   [DATA_NS]: {
     persistedQueryParamsDuringNewSearch:
       defaultPersistedQueryParamsDuringNewSearch,
-    onQueryChange: onAggregationlessCollectionQueryChange,
+    onQueryChange: onCollectionQueryChange,
     redirectableError: true,
   },
   [AUTHOR_SEMINARS_NS]: {
