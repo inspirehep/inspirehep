@@ -18,6 +18,7 @@ const stateToProps = (
   ]),
   query: state.search.getIn(['namespaces', namespace, 'query']),
   numberOfResults: state.search.getIn(['namespaces', namespace, 'total']),
+  namespace,
 });
 
 export const dispatchToProps = (

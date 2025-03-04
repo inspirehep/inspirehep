@@ -24,7 +24,7 @@ const AggregationFilters = ({
   initialAggregations,
   embedded,
   page,
-  state,
+  namespace,
 }: {
   aggregations: Map<string, any>;
   numberOfResults: number;
@@ -35,7 +35,7 @@ const AggregationFilters = ({
   initialAggregations: Map<string, any>;
   embedded: boolean;
   page: number;
-  state: any;
+  namespace: string;
 }) => {
   function compareAggregationEntries(
     [, aggregation1]: Map<string, any>[],
@@ -90,6 +90,7 @@ const AggregationFilters = ({
                     onAggregationChange(aggregationKey, selections);
                   }}
                   splitTreeBy={aggregation.getIn(['meta', 'split_tree_by'])}
+                  namespace={namespace}
                 />
               </EventTracker>
             </Col>

@@ -11,6 +11,17 @@ import AggregationBox from '../AggregationBox';
 import styleVariables from '../../../styleVariables';
 import './RangeAggregation.less';
 import { RANGE_AGGREGATION_SELECTION_SEPARATOR } from '../../constants';
+import {
+  AUTHOR_CITATIONS_NS,
+  AUTHOR_DATA_NS,
+  AUTHOR_PUBLICATIONS_NS,
+  CONFERENCE_CONTRIBUTIONS_NS,
+  DATA_NS,
+  EXPERIMENT_PAPERS_NS,
+  INSTITUTION_PAPERS_NS,
+  JOURNAL_PAPERS_NS,
+  LITERATURE_NS,
+} from '../../../search/constants';
 
 export const HALF_BAR_WIDTH = 0.4;
 const NO_MARGIN = {
@@ -133,12 +144,36 @@ function getSliderMarks([lower, upper], [min, max]) {
   };
 }
 
+function getHintTitles(namespace) {
+  switch (namespace) {
+    case DATA_NS:
+    case AUTHOR_DATA_NS:
+      return {
+        selectedTitle: 'Selected Datasets',
+        totalTitle: 'Total Datasets',
+      };
+    case AUTHOR_PUBLICATIONS_NS:
+    case AUTHOR_CITATIONS_NS:
+    case CONFERENCE_CONTRIBUTIONS_NS:
+    case EXPERIMENT_PAPERS_NS:
+    case INSTITUTION_PAPERS_NS:
+    case JOURNAL_PAPERS_NS:
+    case LITERATURE_NS:
+    default:
+      return {
+        selectedTitle: 'Selected Papers',
+        totalTitle: 'Total Papers',
+      };
+  }
+}
+
 function RangeAggregation({
   name,
   initialBuckets,
   buckets,
   selections,
   onChange,
+  namespace,
 }) {
   const [hoveredBar, setHoveredBar] = useState(null);
 
@@ -233,6 +268,8 @@ function RangeAggregation({
     superSqueeze: sliderEndpoints[1] - sliderEndpoints[0] < 14,
   });
 
+  const { selectedTitle, totalTitle } = getHintTitles(namespace);
+
   return (
     <AggregationBox name={name}>
       <div className={rowClassName}>
@@ -255,13 +292,12 @@ function RangeAggregation({
                 const initialCount =
                   keyToCountForInitialBuckets[bucketKey] || 0;
                 return [
-                  // FIXME: awkward x, y titles for a generic range filter
                   {
-                    title: 'Selected Papers',
+                    title: selectedTitle,
                     value: addCommasToNumber(count),
                   },
                   {
-                    title: 'Total Papers',
+                    title: totalTitle,
                     value: addCommasToNumber(initialCount),
                   },
                   { title: 'Year', value: bucketKey },
@@ -297,6 +333,7 @@ function RangeAggregation({
 RangeAggregation.propTypes = {
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
+  namespace: PropTypes.string,
   selections: PropTypes.string,
   buckets: PropTypes.instanceOf(List),
   initialBuckets: PropTypes.instanceOf(List),
