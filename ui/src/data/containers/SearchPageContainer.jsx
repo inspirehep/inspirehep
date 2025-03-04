@@ -1,4 +1,5 @@
 import React from 'react';
+import { Col, Row } from 'antd';
 import DocumentHead from '../../common/components/DocumentHead';
 import DataSearchPageContainer from './DataSearchPageContainer';
 import { DATA_NS } from '../../search/constants';
@@ -9,7 +10,11 @@ const TITLE = 'Data Search';
 const SearchPage = () => (
   <>
     <DocumentHead title={TITLE} description={META_DESCRIPTION} />
-    <DataSearchPageContainer namespace={DATA_NS} page="Data search" />
+    <Row>
+      <Col xs={24} lg={22} xl={20} xxl={18}>
+        <DataSearchPageContainer namespace={DATA_NS} page="Data search" />
+      </Col>
+    </Row>
   </>
 );
 
