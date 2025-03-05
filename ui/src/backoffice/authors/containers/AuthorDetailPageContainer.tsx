@@ -306,16 +306,22 @@ const AuthorDetailPageContainer = ({
                     subTitle="SNow information"
                   >
                     {tickets && (
-                      <p className="mb0">
-                        See related ticket
-                        <a
-                          href={tickets?.first()?.get('ticket_url')}
-                          target="_blank"
-                        >
-                          {' '}
-                          #{tickets?.first()?.get('ticket_id')}
-                        </a>
-                      </p>
+                      <>
+                        <p className="mb0">See related tickets</p>
+                        <ul className="mb0">
+                          {tickets.map((ticket: any) => (
+                            <li className="mb0">
+                              <a
+                                key={ticket.get('ticket_id')}
+                                href={ticket.get('ticket_url')}
+                                target="_blank"
+                              >
+                                #{ticket.get('ticket_id')}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
                     )}
                   </ContentBox>
                   {isSuperUserLoggedIn && (

@@ -40,6 +40,10 @@ describe('AuthorDetailPageContainer', (ids: any = []) => {
             ids: [{ schema: 'ORCID', value: '0000-0002-6357-9297' }, ...ids],
           },
           status: 'approval',
+          tickets: [
+            { ticket_id: 'ticket1', ticket_url: 'www.ticket1.com' },
+            { ticket_id: 'ticket2', ticket_url: 'www.ticket2.com' },
+          ],
         }),
       }),
     });
@@ -159,6 +163,21 @@ describe('AuthorDetailPageContainer', (ids: any = []) => {
     );
 
     expect(screen.getByText('Loading ...')).toBeInTheDocument();
+  });
+
+  it('should not show all the tickets', () => {
+    renderComponent();
+
+    expect(
+      screen.getByRole('link', {
+        name: '#ticket1',
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', {
+        name: '#ticket2',
+      })
+    ).toBeInTheDocument();
   });
 });
 
