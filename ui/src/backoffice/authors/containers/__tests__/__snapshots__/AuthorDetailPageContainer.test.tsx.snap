@@ -592,6 +592,68 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                     <h3
                       class="pb1"
                     >
+                      SNow information
+                    </h3>
+                    <div>
+                      <p
+                        class="mb0"
+                      >
+                        See related tickets
+                      </p>
+                      <ul
+                        class="mb0"
+                      >
+                        <li
+                          class="mb0"
+                        >
+                          <a
+                            href="www.ticket1.com"
+                            target="_blank"
+                          >
+                            #ticket1
+                          </a>
+                        </li>
+                        <li
+                          class="mb0"
+                        >
+                          <a
+                            href="www.ticket2.com"
+                            target="_blank"
+                          >
+                            #ticket2
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div
+                    class="ant-row ant-row-space-between actions ph2"
+                  >
+                    <div
+                      class="ant-col"
+                    />
+                    <div
+                      class="ant-col"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="__ContentBox__ mb3"
+            >
+              <div
+                class="ant-card ant-card-bordered h-100"
+              >
+                <div
+                  class="ant-card-body"
+                >
+                  <div
+                    class="pa2 mb3"
+                  >
+                    <h3
+                      class="pb1"
+                    >
                       Actions
                     </h3>
                     <div>
