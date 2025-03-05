@@ -961,6 +961,17 @@ graph = ["objgraph (>=1.7.2)"]
 profile = ["gprof2dot (>=2022.7.29)"]
 
 [[package]]
+name = "distro"
+version = "1.9.0"
+description = "Distro - an OS platform information API"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "distro-1.9.0-py3-none-any.whl", hash = "sha256:7bffd925d65168f85027d8da9af6bddab658135b840670a223589bc0c8ef02b2"},
+    {file = "distro-1.9.0.tar.gz", hash = "sha256:2fa77c6fd8940f116ee1d6b94a2f90b13b5ea8d019b98bc8bafdcabcdd9bdbed"},
+]
+
+[[package]]
 name = "dnspython"
 version = "2.6.1"
 description = "DNS toolkit"
@@ -6551,7 +6562,24 @@ docs = ["Sphinx", "furo", "repoze.sphinx.autointerface"]
 test = ["coverage[toml]", "zope.event", "zope.testing"]
 testing = ["coverage[toml]", "zope.event", "zope.testing"]
 
+[[package]]
+name = "zulip"
+version = "0.9.0"
+description = "Bindings for the Zulip message API"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "zulip-0.9.0-py3-none-any.whl", hash = "sha256:a315db3e990c6b94aef323540b7f386485e8fc359dbd26af526c20dbe9068217"},
+    {file = "zulip-0.9.0.tar.gz", hash = "sha256:7a14149e5d9e3fcc53b13e998719fd1f6ccb8289bc60fccbaa1aafcd0a9d0843"},
+]
+
+[package.dependencies]
+click = "*"
+distro = "*"
+requests = {version = ">=0.12.1", extras = ["security"]}
+typing-extensions = ">=4.5.0"
+
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.12"
-content-hash = "9887515b6c7bab03b393c7756ace06591e58588062878081c1599b4ae2443ced"
+content-hash = "ed01470be7317b09854b97893accfd977bac6049a2bf65f29946037ddea99760"
