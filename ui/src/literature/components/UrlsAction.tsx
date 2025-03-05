@@ -38,7 +38,14 @@ function UrlsAction({
 }: UrlsActionProps) {
   const renderUrlsAction = useCallback(
     (url, title) => {
-      const value = url.get('value');
+      // TODO: THIS IS A TEMPORARY FIX TO MAKE THE DATASET LINKS WORK
+      let value = url.get('value');
+      if (text === 'datasets') {
+        value = value.replace(
+          'https://www.hepdata.net/record/ins',
+          '/data/?q=literature.record.$ref:'
+        );
+      }
       return (
         <EventTracker
           eventCategory={page}
@@ -58,7 +65,15 @@ function UrlsAction({
 
   const renderUrlsDropdownAction = useCallback(
     (url) => {
-      const [href, display] = linkToHrefDisplayPair(url);
+      // TODO: THIS IS A TEMPORARY FIX TO MAKE THE DATASET LINKS WORK
+      // eslint-disable-next-line prefer-const
+      let [href, display] = linkToHrefDisplayPair(url);
+      if (text === 'datasets') {
+        href = href.replace(
+          'https://www.hepdata.net/record/ins',
+          '/data/?q=literature.record.$ref:'
+        );
+      }
       return {
         key: display,
         label: (

@@ -146,4 +146,66 @@ describe('UrlsAction', () => {
     );
     expect(screen.getByRole('link')).not.toHaveAttribute('target', '_blank');
   });
+
+  it('renders single when hepdata', () => {
+    const links = fromJS([
+      {
+        description: 'test',
+        value: 'https://www.hepdata.net/record/ins2878694',
+      },
+    ]);
+    render(
+      <UrlsAction
+        urls={links}
+        text="datasets"
+        icon={<DownloadOutlined />}
+        trackerEventId="PdfDownload"
+        page="Home"
+      />
+    );
+    expect(screen.getByText('datasets')).toBeInTheDocument();
+    expect(screen.getByRole('link')).toHaveAttribute(
+      'href',
+      '/data/?q=literature.record.$ref:2878694'
+    );
+  });
+
+  it('renders multiple hepdata links', async () => {
+    const links = fromJS([
+      {
+        description: '1234',
+        value: 'https://www.hepdata.net/record/ins2878694',
+      },
+      {
+        description: '5678',
+        value: 'https://www.hepdata.net/record/ins2878691',
+      },
+    ]);
+    render(
+      <MemoryRouter>
+        <UrlsAction
+          urls={links}
+          icon={<FileOutlined />}
+          text="datasets"
+          trackerEventId="Literature links"
+          page="Literature detail"
+          isTargetBlank={false}
+        />
+      </MemoryRouter>
+    );
+
+    await userEvent.hover(screen.getByText('datasets'));
+    await waitFor(() => {
+      expect(screen.getByText('1234')).toBeInTheDocument();
+      expect(screen.getByText('5678')).toBeInTheDocument();
+      expect(screen.getByRole('link', { name: '1234' })).toHaveAttribute(
+        'href',
+        '/data/?q=literature.record.$ref:2878694'
+      );
+      expect(screen.getByRole('link', { name: '5678' })).toHaveAttribute(
+        'href',
+        '/data/?q=literature.record.$ref:2878691'
+      );
+    });
+  });
 });
