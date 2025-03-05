@@ -5,6 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import hashlib
+import os
 import resource
 import signal
 from contextlib import contextmanager
@@ -12,12 +13,32 @@ from functools import partial
 from math import ceil
 
 import structlog
+import zulip
 from flask import current_app
 from flask_celeryext.app import current_celery_app
 from redis import StrictRedis
 from redis_lock import Lock
 
 LOGGER = structlog.getLogger()
+
+
+def send_zulip_notification(message: str):
+    try:
+        zulip_client = zulip.Client()
+    except zulip.ConfigNotFoundError:
+        LOGGER.error("Zulip configuration not found")
+        return
+
+    result = zulip_client.send_message(
+        {
+            "type": "stream",
+            "to": os.environ.get("ZULIP_CHANNEL"),
+            "topic": os.environ.get("ZULIP_TOPIC"),
+            "content": message,
+        }
+    )
+    if result.get("result") != "success":
+        LOGGER.error("Failed to send Zulip message", message=result)
 
 
 def include_table_check(object, name, type_, *args, **kwargs):
