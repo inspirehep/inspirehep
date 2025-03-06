@@ -81,7 +81,7 @@ Cypress.Commands.add('requestEditor', ({ collection, recordId }) => {
 });
 
 Cypress.Commands.add('waitForSearchResults', () => {
-  cy.get('[data-test-id="search-results"]', { timeout: 20000 }).should(
+  cy.get('[data-testid="search-results"]', { timeout: 20000 }).should(
     'be.visible'
   );
 });

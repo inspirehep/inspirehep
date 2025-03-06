@@ -5,7 +5,7 @@ import SelectBox from './SelectBox';
 const SortBy = ({ sort, onSortChange, sortOptions }) =>
   sortOptions && (
     <SelectBox
-      data-test-id="sort-by-select"
+      data-testid="sort-by-select"
       onChange={onSortChange}
       defaultValue={sort}
       options={sortOptions}

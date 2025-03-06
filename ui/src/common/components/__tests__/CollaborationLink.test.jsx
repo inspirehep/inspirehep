@@ -1,13 +1,21 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import CollaborationLink from '../CollaborationLink';
 
 describe('CollaborationLink', () => {
   it('renders with collaboration', () => {
-    const wrapper = shallow(
-      <CollaborationLink>Alias Investigations</CollaborationLink>
+    const { getByRole } = render(
+      <MemoryRouter>
+        <CollaborationLink>Alias Investigations</CollaborationLink>
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    const link = getByRole('link', { name: 'Alias Investigations' });
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute(
+      'href',
+      '/literature?q=collaboration:Alias Investigations'
+    );
   });
 });

@@ -253,7 +253,7 @@ exports[`Literature navigates to SearchPageContainer when /literature 1`] = `
                 class="ant-col ant-col-24"
               >
                 <div
-                  data-test-id="search-results"
+                  data-testid="search-results"
                 />
               </div>
             </div>

@@ -1,12 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Drawer } from 'antd';
 
+import { render } from '@testing-library/react';
 import DrawerHandle from '../DrawerHandle';
 
 describe('DrawerHandle', () => {
-  it('renders DrawerHandle with all props', () => {
-    const wrapper = shallow(
+  it('renders DrawerHandle with all props', async () => {
+    const { getByTestId, getByText } = render(
       <DrawerHandle
         className="mt3"
         handleText="Handle"
@@ -16,27 +15,30 @@ describe('DrawerHandle', () => {
         <div>Content</div>
       </DrawerHandle>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByTestId('handle-button')).toBeInTheDocument();
+    expect(getByText('Handle')).toBeInTheDocument();
   });
 
   it('renders DrawerHandle with default props', () => {
-    const wrapper = shallow(
+    const { getByTestId, getByText } = render(
       <DrawerHandle drawerTitle="Title">
         <div>Content</div>
       </DrawerHandle>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByTestId('handle-button')).toBeInTheDocument();
+    expect(getByText('Open')).toBeInTheDocument();
   });
 
   it('makes drawer visible on handle click', () => {
-    const wrapper = shallow(
+    const { getByTestId, getByText } = render(
       <DrawerHandle drawerTitle="Title">
         <div>Content</div>
       </DrawerHandle>
     );
-
-    wrapper.find('[data-test-id="handle-button"]').simulate('click');
-    wrapper.update();
-    expect(wrapper.find(Drawer).prop('open')).toBe(true);
+    const button = getByTestId('handle-button');
+    button.click();
+    expect(getByText('Open')).toBeInTheDocument();
+    expect(getByText('Title')).toBeInTheDocument();
+    expect(getByText('Content')).toBeInTheDocument();
   });
 });

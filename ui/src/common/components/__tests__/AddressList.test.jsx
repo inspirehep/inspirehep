@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
+import { render } from '@testing-library/react';
 import AddressList from '../AddressList';
 
 describe('AddressList', () => {
@@ -15,7 +15,9 @@ describe('AddressList', () => {
         country: 'Switzerland',
       },
     ]);
-    const wrapper = shallow(<AddressList addresses={addresses} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { getByText } = render(<AddressList addresses={addresses} />);
+    expect(getByText('CERN')).toBeInTheDocument();
+    expect(getByText('Geneva')).toBeInTheDocument();
+    expect(getByText('Switzerland')).toBeInTheDocument();
   });
 });

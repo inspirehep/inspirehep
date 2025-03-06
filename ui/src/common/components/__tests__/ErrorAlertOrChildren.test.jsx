@@ -1,25 +1,40 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { getStore } from '../../../fixtures/store';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 
 describe('ErrorAlertOrChildren', () => {
   it('renders error if present', () => {
-    const wrapper = shallow(
-      <ErrorAlertOrChildren error={fromJS({ message: 'Error' })}>
-        Nope
-      </ErrorAlertOrChildren>
+    const { getByText, getByRole } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <ErrorAlertOrChildren error={fromJS({ message: 'Error' })}>
+            Nope
+          </ErrorAlertOrChildren>
+        </MemoryRouter>
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(getByText('Error')).toBeInTheDocument();
+    expect(getByRole('button', { name: 'go back' })).toBeInTheDocument();
   });
 
-  it('renders children without eror', () => {
-    const wrapper = shallow(
-      <ErrorAlertOrChildren error={null}>
-        <div>Test</div>
-      </ErrorAlertOrChildren>
+  it('renders children without error', () => {
+    const { getByText } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <ErrorAlertOrChildren error={null}>
+            <div>Test</div>
+          </ErrorAlertOrChildren>
+        </MemoryRouter>
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(getByText('Test')).toBeInTheDocument();
+    expect(screen.queryByText('Error')).not.toBeInTheDocument();
   });
 });

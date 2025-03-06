@@ -38,7 +38,7 @@ export default class DrawerHandle extends Component<
     return (
       <>
         <Button
-          data-test-id="handle-button"
+          data-testid="handle-button"
           className={className}
           onClick={this.onDrawerHandleClick}
         >

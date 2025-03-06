@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
+import { render } from '@testing-library/react';
 import URLList from '../URLList';
 
 describe('URLList', () => {
@@ -14,7 +14,8 @@ describe('URLList', () => {
         value: 'url2',
       },
     ]);
-    const wrapper = shallow(<URLList urls={urls} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByRole } = render(<URLList urls={urls} />);
+    expect(getByRole('link', { name: 'url1' })).toHaveAttribute('href', 'url1');
+    expect(getByRole('link', { name: 'url2' })).toHaveAttribute('href', 'url2');
   });
 });

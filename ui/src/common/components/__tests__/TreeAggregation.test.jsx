@@ -1,7 +1,7 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { shallow } from 'enzyme';
 
+import { render } from '@testing-library/react';
 import TreeAggregation from '../TreeAggregation';
 
 describe('TreeAggregation', () => {
@@ -32,7 +32,7 @@ describe('TreeAggregation', () => {
         doc_count: 1,
       },
     ]);
-    const wrapper = shallow(
+    const { getByText } = render(
       <TreeAggregation
         onChange={jest.fn()}
         buckets={buckets}
@@ -42,6 +42,11 @@ describe('TreeAggregation', () => {
         splitTreeBy="|"
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Test')).toBeInTheDocument();
+    expect(getByText('a')).toBeInTheDocument();
+    expect(getByText('b')).toBeInTheDocument();
+    expect(getByText('c')).toBeInTheDocument();
+    expect(getByText('d')).toBeInTheDocument();
+    expect(getByText('j')).toBeInTheDocument();
   });
 });

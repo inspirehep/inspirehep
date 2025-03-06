@@ -1,16 +1,25 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import CollaborationList from '../CollaborationList';
 
 describe('CollaborationList', () => {
   it('renders with collaboration without suffix', () => {
     const collaborations = fromJS([{ value: 'Alias Investigations' }]);
-    const wrapper = shallow(
-      <CollaborationList collaborations={collaborations} />
+    const { getByRole, getByText } = render(
+      <MemoryRouter>
+        <CollaborationList collaborations={collaborations} />
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    const link = getByRole('link', { name: 'Alias Investigations' });
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute(
+      'href',
+      '/literature?q=collaboration:Alias Investigations'
+    );
+    expect(getByText('Collaboration')).toBeInTheDocument();
   });
 
   it('renders with collaborations without suffix', () => {
@@ -18,10 +27,25 @@ describe('CollaborationList', () => {
       { value: 'Alias Investigations' },
       { value: 'Nelson and Murdock' },
     ]);
-    const wrapper = shallow(
-      <CollaborationList collaborations={collaborations} />
+    const { getByRole, getByText } = render(
+      <MemoryRouter>
+        <CollaborationList collaborations={collaborations} />
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    const link = getByRole('link', { name: 'Alias Investigations' });
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute(
+      'href',
+      '/literature?q=collaboration:Alias Investigations'
+    );
+    const link2 = getByRole('link', { name: 'Nelson and Murdock' });
+    expect(link2).toBeInTheDocument();
+    expect(link2).toHaveAttribute(
+      'href',
+      '/literature?q=collaboration:Nelson and Murdock'
+    );
+    expect(getByText('and')).toBeInTheDocument();
+    expect(getByText('Collaborations')).toBeInTheDocument();
   });
 
   it('renders with collaborations with and without suffix', () => {
@@ -37,13 +61,28 @@ describe('CollaborationList', () => {
       { value: 'Defenders Group and Avengers' },
       { value: 'Defenders Task Force and Avengers' },
     ]);
-    const wrapper = shallow(
-      <CollaborationList
-        collaborations={collaborations}
-        collaborationsWithSuffix={collaborationsWithSuffix}
-      />
+    const { getByRole, getByText } = render(
+      <MemoryRouter>
+        <CollaborationList
+          collaborations={collaborations}
+          collaborationsWithSuffix={collaborationsWithSuffix}
+        />
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    const link = getByRole('link', { name: 'Avangers Groups' });
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute(
+      'href',
+      '/literature?q=collaboration:Avangers Groups'
+    );
+
+    const link2 = getByRole('link', { name: 'Nelson and Murdock' });
+    expect(link2).toBeInTheDocument();
+    expect(link2).toHaveAttribute(
+      'href',
+      '/literature?q=collaboration:Nelson and Murdock'
+    );
+    expect(getByText('Collaborations')).toBeInTheDocument();
   });
 
   it('renders with collaborations with suffix', () => {
@@ -54,9 +93,18 @@ describe('CollaborationList', () => {
       { value: 'Avangers Consortium' },
       { value: 'Avangers Team' },
     ]);
-    const wrapper = shallow(
-      <CollaborationList collaborationsWithSuffix={collaborationsWithSuffix} />
+    const { getByRole } = render(
+      <MemoryRouter>
+        <CollaborationList
+          collaborationsWithSuffix={collaborationsWithSuffix}
+        />
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    const link = getByRole('link', { name: 'Avangers Groups' });
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute(
+      'href',
+      '/literature?q=collaboration:Avangers Groups'
+    );
   });
 });

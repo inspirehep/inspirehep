@@ -1,16 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 
+import { render } from '@testing-library/react';
 import NewFeatureTag from '../NewFeatureTag';
 
 describe('NewFeatureTag', () => {
   it('renders', () => {
-    const wrapper = shallow(<NewFeatureTag />);
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('renders with class name', () => {
-    const wrapper = shallow(<NewFeatureTag className="test" />);
-    expect(wrapper).toMatchSnapshot();
+    const { container, getByText } = render(<NewFeatureTag className="test" />);
+    expect(getByText('New')).toBeInTheDocument();
+    expect(container.firstChild).toHaveClass('test');
   });
 });

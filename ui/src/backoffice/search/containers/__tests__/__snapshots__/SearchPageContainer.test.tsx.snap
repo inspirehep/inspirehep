@@ -294,7 +294,7 @@ exports[`SearchPageContainer renders the SearchPage component 1`] = `
                 class="ant-col ant-col-24"
               >
                 <div
-                  data-test-id="search-results"
+                  data-testid="search-results"
                 />
               </div>
             </div>

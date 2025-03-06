@@ -1,6 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import ContactList from '../ContactList';
 
 describe('ContactList', () => {
@@ -15,8 +16,20 @@ describe('ContactList', () => {
         name: 'John2',
       },
     ]);
-    const wrapper = shallow(<ContactList contacts={contactDetails} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { getByText, getByRole } = render(
+      <ContactList contacts={contactDetails} />
+    );
+    expect(getByText('Contact:')).toBeInTheDocument();
+    expect(getByText('John')).toBeInTheDocument();
+    expect(getByRole('link', { name: 'johndoe@yahoo.com' })).toHaveAttribute(
+      'href',
+      'mailto:johndoe@yahoo.com'
+    );
+    expect(getByText('John2')).toBeInTheDocument();
+    expect(getByRole('link', { name: 'johndoe2@yahoo.com' })).toHaveAttribute(
+      'href',
+      'mailto:johndoe2@yahoo.com'
+    );
   });
 
   it('renders with contacts with record and name', () => {
@@ -26,8 +39,16 @@ describe('ContactList', () => {
         record: { $ref: 'http://inspirehep.net/api/authors/12345' },
       },
     ]);
-    const wrapper = shallow(<ContactList contacts={contactDetails} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { getByText, getByRole } = render(
+      <MemoryRouter>
+        <ContactList contacts={contactDetails} />
+      </MemoryRouter>
+    );
+    expect(getByText('Contact:')).toBeInTheDocument();
+    expect(getByRole('link', { name: 'John' })).toHaveAttribute(
+      'href',
+      '/authors/12345'
+    );
   });
 
   it('renders with contacts with only email or name', () => {
@@ -39,7 +60,14 @@ describe('ContactList', () => {
         name: 'John2',
       },
     ]);
-    const wrapper = shallow(<ContactList contacts={contactDetails} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { getByText, getByRole } = render(
+      <ContactList contacts={contactDetails} />
+    );
+    expect(getByText('Contact:')).toBeInTheDocument();
+    expect(getByRole('link', { name: 'johndoe@yahoo.com' })).toHaveAttribute(
+      'href',
+      'mailto:johndoe@yahoo.com'
+    );
+    expect(getByText('John2')).toBeInTheDocument();
   });
 });

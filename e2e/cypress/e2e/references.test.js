@@ -27,7 +27,7 @@ describe('References', () => {
 
       cy.waitForRoute();
 
-      cy.get('[data-test-id="search-results"]')
+      cy.get('[data-testid="search-results"]')
         .children()
         .should('have.length', 4);
     });

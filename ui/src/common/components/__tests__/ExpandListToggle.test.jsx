@@ -1,12 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 
+import { render, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import ExpandListToggle from '../ExpandListToggle';
-import SecondaryButton from '../SecondaryButton';
 
 describe('ExpandListToggle', () => {
   it('renders toggle size > limit', () => {
-    const wrapper = shallow(
+    const { getByText } = render(
       <ExpandListToggle
         size={10}
         limit={5}
@@ -14,11 +14,11 @@ describe('ExpandListToggle', () => {
         expanded={false}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Show all (10)')).toBeInTheDocument();
   });
 
   it('does not render toggle size == limit', () => {
-    const wrapper = shallow(
+    const { queryByRole } = render(
       <ExpandListToggle
         size={5}
         limit={5}
@@ -26,11 +26,11 @@ describe('ExpandListToggle', () => {
         expanded={false}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(queryByRole('button')).toBeNull();
   });
 
   it('does not render toggle size < limit', () => {
-    const wrapper = shallow(
+    const { queryByRole } = render(
       <ExpandListToggle
         size={3}
         limit={5}
@@ -38,22 +38,25 @@ describe('ExpandListToggle', () => {
         expanded={false}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(queryByRole('button')).toBeNull();
   });
 
   it('renders toggle with expanded true', () => {
-    const wrapper = shallow(
+    const { getByText } = render(
       <ExpandListToggle size={10} limit={5} onToggle={jest.fn()} expanded />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Hide')).toBeInTheDocument();
   });
 
-  it('calls onToggle when button is clicked', () => {
+  it('calls onToggle when button is clicked', async () => {
     const onToggle = jest.fn();
-    const wrapper = shallow(
+    const { getByRole } = render(
       <ExpandListToggle size={10} limit={5} onToggle={onToggle} expanded />
     );
-    wrapper.find(SecondaryButton).simulate('click');
-    expect(onToggle).toHaveBeenCalledTimes(1);
+    const button = getByRole('button', { name: 'Hide' });
+    await userEvent.click(button);
+    await waitFor(() => {
+      expect(onToggle).toHaveBeenCalledTimes(1);
+    });
   });
 });

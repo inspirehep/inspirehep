@@ -1,18 +1,20 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 
+import { render } from '@testing-library/react';
 import GoBackLink from '../GoBackLink';
 
 describe('GoBackLink', () => {
   it('renders with default children', () => {
-    const wrapper = shallow(<GoBackLink onClick={jest.fn()} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByRole } = render(<GoBackLink onClick={jest.fn()} />);
+    const button = getByRole('button', { name: /go back/i });
+    expect(button).toBeInTheDocument();
   });
 
   it('renders with custom children', () => {
-    const wrapper = shallow(
+    const { getByRole } = render(
       <GoBackLink onClick={jest.fn()}>custom</GoBackLink>
     );
-    expect(wrapper).toMatchSnapshot();
+    const button = getByRole('button', { name: /custom/i });
+    expect(button).toBeInTheDocument();
   });
 });
