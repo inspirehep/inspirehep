@@ -24,7 +24,11 @@ LOGGER = structlog.getLogger()
 
 def send_zulip_notification(message: str):
     try:
-        zulip_client = zulip.Client()
+        zulip_client = zulip.Client(
+            api_key=os.environ.get("ZULIP_NOTIFICATION_API_KEY"),
+            email=os.environ.get("ZULIP_NOTIFICATION_EMAIL"),
+            site=os.environ.get("ZULIP_NOTIFICATION_SITE"),
+        )
     except zulip.ConfigNotFoundError:
         LOGGER.error("Zulip configuration not found")
         return
