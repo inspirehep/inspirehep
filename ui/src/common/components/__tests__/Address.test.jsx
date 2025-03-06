@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
+import { render } from '@testing-library/react';
 import Address from '../Address';
 
 describe('Address', () => {
@@ -9,31 +9,38 @@ describe('Address', () => {
     const address = fromJS({
       cities: ['Geneva', 'Ignored'],
     });
-    const wrapper = shallow(<Address address={address} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText, queryByText } = render(<Address address={address} />);
+    expect(getByText('Geneva')).toBeInTheDocument();
+    expect(queryByText('Ignored')).toBeNull();
   });
+
   it('renders with only country', () => {
     const address = fromJS({
       country: 'Switzerland',
     });
-    const wrapper = shallow(<Address address={address} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<Address address={address} />);
+    expect(getByText('Switzerland')).toBeInTheDocument();
   });
+
   it('renders with only place name', () => {
     const address = fromJS({
       place_name: 'CERN',
     });
-    const wrapper = shallow(<Address address={address} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<Address address={address} />);
+    expect(getByText('CERN')).toBeInTheDocument();
   });
+
   it('renders with city and country', () => {
     const address = fromJS({
       cities: ['Geneva', 'Ignored'],
       country: 'Switzerland',
     });
-    const wrapper = shallow(<Address address={address} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText, queryByText } = render(<Address address={address} />);
+    expect(getByText('Geneva')).toBeInTheDocument();
+    expect(queryByText('Ignored')).toBeNull();
+    expect(getByText('Switzerland')).toBeInTheDocument();
   });
+
   it('renders all', () => {
     const address = fromJS({
       cities: ['Meyrin'],
@@ -41,12 +48,17 @@ describe('Address', () => {
       state: 'Geneva',
       place_name: 'CERN',
     });
-    const wrapper = shallow(<Address address={address} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<Address address={address} />);
+    expect(getByText('Meyrin')).toBeInTheDocument();
+    expect(getByText('Switzerland')).toBeInTheDocument();
+    expect(getByText('Geneva')).toBeInTheDocument();
+    expect(getByText('CERN')).toBeInTheDocument();
   });
+
   it('renders empty', () => {
     const address = fromJS({});
-    const wrapper = shallow(<Address address={address} />);
-    expect(wrapper).toMatchSnapshot();
+    const { queryAllByRole } = render(<Address address={address} />);
+    const listItems = queryAllByRole('listitem');
+    expect(listItems).toHaveLength(0);
   });
 });

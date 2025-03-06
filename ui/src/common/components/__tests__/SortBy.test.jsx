@@ -1,26 +1,29 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { render } from '@testing-library/react';
 import SortBy from '../SortBy';
 import SelectBox from '../SelectBox';
 
 describe('SortBy', () => {
   it('renders with all props set', () => {
-    const wrapper = shallow(
+    const { getByText } = render(
       <SortBy
         sort="mostrecent"
         onSortChange={jest.fn()}
         sortOptions={[{ value: 'mostrecent', display: 'Most Recent' }]}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(getByText('Most Recent')).toBeInTheDocument();
   });
 
   it('does not render if sortOptions missing', () => {
-    const wrapper = shallow(
+    const { queryByTestId } = render(
       <SortBy sort="mostrecent" onSortChange={jest.fn()} />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(queryByTestId('sort-by-select')).toBeNull();
   });
 
   it('calls onSortChange when select box change', () => {

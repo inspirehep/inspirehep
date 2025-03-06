@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`FormattedNumber renders with children 1`] = `
-<Fragment>
-  1,243,553
-</Fragment>
-`;

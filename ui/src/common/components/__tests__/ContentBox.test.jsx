@@ -1,60 +1,79 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-
+import { render } from '@testing-library/react';
 import ContentBox from '../ContentBox';
 
 describe('ContentBox', () => {
   it('renders ContentBox with actions and title without loading', () => {
-    const wrapper = shallow(
-      <ContentBox title="Jessica Jones" actions={[<h2 key="pi">PI</h2>]}>
-        <div>Defenders</div>
-      </ContentBox>
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('renders ContentBox with actions and title with loading', () => {
-    const wrapper = shallow(
+    const { getByText } = render(
       <ContentBox
         title="Jessica Jones"
-        loading
-        actions={[<h1 key="pi">PI</h1>]}
+        leftActions={[<h2 key="pi">PI</h2>]}
+        rightActions={[<h2 key="pi2">PI2</h2>]}
       >
         <div>Defenders</div>
       </ContentBox>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Jessica Jones')).toBeInTheDocument();
+    expect(getByText('Defenders')).toBeInTheDocument();
+    expect(getByText('PI')).toBeInTheDocument();
+    expect(getByText('PI2')).toBeInTheDocument();
   });
 
-  it('renders ContentBox with actions', () => {
-    const wrapper = shallow(
-      <ContentBox actions={[<h2 key="pi">PI</h2>]}>
+  it('renders ContentBox with actions and title with loading', () => {
+    const { container, getByText } = render(
+      <ContentBox
+        title="Jessica Jones"
+        loading
+        leftActions={[<h1 key="pi">PI</h1>]}
+      >
         <div>Defenders</div>
       </ContentBox>
     );
-    expect(wrapper).toMatchSnapshot();
+    const loadingElement = container.querySelector('.ant-card-loading');
+    expect(getByText('Jessica Jones')).toBeInTheDocument();
+    expect(loadingElement).toBeInTheDocument();
+  });
+
+  it('renders ContentBox with actions', () => {
+    const { getByText } = render(
+      <ContentBox
+        leftActions={[<h2 key="pi">PI</h2>]}
+        rightActions={[<h2 key="pi2">PI2</h2>]}
+      >
+        <div>Defenders</div>
+      </ContentBox>
+    );
+    expect(getByText('Defenders')).toBeInTheDocument();
+    expect(getByText('PI')).toBeInTheDocument();
+    expect(getByText('PI2')).toBeInTheDocument();
   });
 
   it('renders ContentBox without actions', () => {
-    const wrapper = shallow(
+    const { getByText, queryByText } = render(
       <ContentBox>
         <div>Defenders</div>
       </ContentBox>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Defenders')).toBeInTheDocument();
+    expect(queryByText('PI')).toBeNull();
   });
 
   it('renders ContentBox with subTitle and className', () => {
-    const wrapper = shallow(
+    const { container, getByText } = render(
       <ContentBox subTitle="Lame" className="pa3">
         <div>Defenders</div>
       </ContentBox>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Lame')).toBeInTheDocument();
+    expect(getByText('Defenders')).toBeInTheDocument();
+    const className = container.querySelector('.pa3');
+    expect(className).toBeInTheDocument();
   });
 
   it('does not render ContentBox without children', () => {
-    const wrapper = shallow(<ContentBox actions={[<h2 key="pi">PI</h2>]} />);
-    expect(wrapper).toMatchSnapshot();
+    const { queryByText } = render(
+      <ContentBox leftActions={[<h2 key="pi">PI</h2>]} />
+    );
+    expect(queryByText('PI')).toBeNull();
   });
 });

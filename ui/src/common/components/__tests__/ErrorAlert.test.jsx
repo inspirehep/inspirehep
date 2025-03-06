@@ -1,18 +1,31 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 
+import { render } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 import ErrorAlert from '../ErrorAlert';
+import { getStore } from '../../../fixtures/store';
 
 describe('ErrorAlert', () => {
   it('renders with custom message', () => {
-    const wrapper = shallow(
-      <ErrorAlert message="Terrible thing is happening!" />
+    const { getByText } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <ErrorAlert message="Terrible thing is happening!" />
+        </MemoryRouter>
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Terrible thing is happening!')).toBeInTheDocument();
   });
 
   it('renders with default message', () => {
-    const wrapper = shallow(<ErrorAlert />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <ErrorAlert />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(getByText('Something went wrong')).toBeInTheDocument();
   });
 });

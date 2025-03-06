@@ -1,7 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import Affiliation from '../Affiliation';
 
 describe('Affiliation', () => {
@@ -10,16 +11,21 @@ describe('Affiliation', () => {
       institution: 'CERN2',
       record: { $ref: 'http://inspirehep.net/api/institutions/12345' },
     });
-    const wrapper = shallow(<Affiliation affiliation={affiliation} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByRole } = render(
+      <MemoryRouter>
+        <Affiliation affiliation={affiliation} />
+      </MemoryRouter>
+    );
+    expect(getByRole('link')).toBeInTheDocument();
+    expect(getByRole('link')).toHaveAttribute('href', '/institutions/12345');
   });
 
   it('renders unlinked affiliation with institution', () => {
     const affiliation = fromJS({
       institution: 'CERN2',
     });
-    const wrapper = shallow(<Affiliation affiliation={affiliation} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<Affiliation affiliation={affiliation} />);
+    expect(getByText('CERN2')).toBeInTheDocument();
   });
 
   it('renders linked affiliation with value', () => {
@@ -27,15 +33,20 @@ describe('Affiliation', () => {
       value: 'CERN2',
       record: { $ref: 'http://inspirehep.net/api/institutions/12345' },
     });
-    const wrapper = shallow(<Affiliation affiliation={affiliation} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByRole } = render(
+      <MemoryRouter>
+        <Affiliation affiliation={affiliation} />
+      </MemoryRouter>
+    );
+    expect(getByRole('link')).toBeInTheDocument();
+    expect(getByRole('link')).toHaveAttribute('href', '/institutions/12345');
   });
 
   it('renders unlinked affiliation with value', () => {
     const affiliation = fromJS({
       value: 'CERN2',
     });
-    const wrapper = shallow(<Affiliation affiliation={affiliation} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<Affiliation affiliation={affiliation} />);
+    expect(getByText('CERN2')).toBeInTheDocument();
   });
 });

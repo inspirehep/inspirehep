@@ -5,9 +5,13 @@ import { APIButton } from '../APIButton';
 
 describe('APIButton', () => {
   it('renders APIButton', () => {
-    const { asFragment } = render(
+    const { getByRole } = render(
       <APIButton url="https://inspirebeta.net/authors/1306569" />
     );
-    expect(asFragment()).toMatchSnapshot();
+    expect(getByRole('link')).toBeInTheDocument();
+    expect(getByRole('link')).toHaveAttribute(
+      'href',
+      'https://inspirebeta.net/api/authors/1306569'
+    );
   });
 });

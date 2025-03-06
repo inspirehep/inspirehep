@@ -1,7 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import Author from '..';
 
 describe('Author', () => {
@@ -16,8 +17,9 @@ describe('Author', () => {
         },
       ],
     });
-    const wrapper = shallow(<Author author={author} recordId={12345} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<Author author={author} recordId={12345} />);
+    expect(getByText('Full Name, Jr.')).toBeInTheDocument();
+    expect(getByText('Affiliation')).toBeInTheDocument();
   });
 
   it('renders editor', () => {
@@ -32,8 +34,9 @@ describe('Author', () => {
         },
       ],
     });
-    const wrapper = shallow(<Author recordId={12345} author={author} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<Author recordId={12345} author={author} />);
+    expect(getByText('Full Name')).toBeInTheDocument();
+    expect(getByText('Affiliation')).toBeInTheDocument();
   });
 
   it('renders supervisor', () => {
@@ -41,8 +44,8 @@ describe('Author', () => {
       full_name: 'Name, Full',
       inspire_roles: ['supervisor'],
     });
-    const wrapper = shallow(<Author recordId={12345} author={author} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<Author recordId={12345} author={author} />);
+    expect(getByText('Name, Full')).toBeInTheDocument();
   });
 
   it('renders linked author', () => {
@@ -53,8 +56,15 @@ describe('Author', () => {
       },
       bai: 'Full.Name.1',
     });
-    const wrapper = shallow(<Author recordId={12345} author={author} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByRole } = render(
+      <MemoryRouter>
+        <Author recordId={12345} author={author} />
+      </MemoryRouter>
+    );
+    const link = getByRole('link', {
+      name: 'Name, Full',
+    });
+    expect(link).toHaveAttribute('href', '/authors/12345');
   });
 
   it('renders unlinked author with bai', () => {
@@ -62,7 +72,14 @@ describe('Author', () => {
       full_name: 'Name, Full',
       bai: 'Full.Name.1',
     });
-    const wrapper = shallow(<Author recordId={12345} author={author} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByRole } = render(
+      <MemoryRouter>
+        <Author recordId={12345} author={author} />
+      </MemoryRouter>
+    );
+    const link = getByRole('link', {
+      name: 'Name, Full',
+    });
+    expect(link).toHaveAttribute('href', '/literature?q=a%20Full.Name.1');
   });
 });

@@ -1,15 +1,16 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
+import { render } from '@testing-library/react';
 import ArxivCategoryList from '../ArxivCategoryList';
 
 describe('ArxivCategoryList', () => {
   it('renders arxiv categories', () => {
     const arxivCategories = fromJS(['hep-ex', 'hep-ph']);
-    const wrapper = shallow(
+    const { getByText } = render(
       <ArxivCategoryList arxivCategories={arxivCategories} />
     );
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(getByText('hep-ex')).toBeInTheDocument();
+    expect(getByText('hep-ph')).toBeInTheDocument();
   });
 });

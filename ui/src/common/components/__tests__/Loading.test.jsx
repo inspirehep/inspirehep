@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 
+import { render } from '@testing-library/react';
 import Loading from '../Loading';
 
 describe('Loading', () => {
   it('render loading component', () => {
-    const wrapper = shallow(<Loading />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<Loading />);
+    expect(getByText('Loading ...')).toBeInTheDocument();
   });
 });

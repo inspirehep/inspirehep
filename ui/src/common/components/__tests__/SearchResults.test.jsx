@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
+import { render } from '@testing-library/react';
 import SearchResults from '../SearchResults';
 
 describe('SearchResults', () => {
@@ -16,7 +16,7 @@ describe('SearchResults', () => {
         value: 'value2',
       },
     ]);
-    const wrapper = shallow(
+    const { getByText } = render(
       <SearchResults
         results={results}
         renderItem={(result) => <span>{result.get('value')}</span>}
@@ -25,17 +25,18 @@ describe('SearchResults', () => {
         pageSize={10}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('value1')).toBeInTheDocument();
+    expect(getByText('value2')).toBeInTheDocument();
   });
 
   it('renders with required props', () => {
-    const wrapper = shallow(
+    const { getByTestId } = render(
       <SearchResults
         renderItem={(result) => <span>{result.get('value')}</span>}
         page={1}
         pageSize={15}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByTestId('search-results')).toBeInTheDocument();
   });
 });

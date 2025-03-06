@@ -7,7 +7,7 @@ describe('Conference Search', () => {
     cy.visit('/conferences?start_date=all');
     cy.waitForRoute();
     cy.waitForSearchResults();
-    cy.get('[data-test-id="search-results"]')
+    cy.get('[data-testid="search-results"]')
       .children()
       .should('have.length', 7);
   });
@@ -17,7 +17,7 @@ describe('Conference Search', () => {
     cy.visit('/conferences?start_date=upcoming');
     cy.waitForRoute();
     cy.waitForSearchResults();
-    cy.get('[data-test-id="search-results"]')
+    cy.get('[data-testid="search-results"]')
       .children()
       .should('have.length', 1);
   });

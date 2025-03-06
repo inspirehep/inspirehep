@@ -66,16 +66,16 @@ describe('Assign Conference', () => {
       cy.waitForRoute();
       cy.waitForSearchResults();
       cy.waitForLoading();
-      cy.get('[data-test-id="search-results"]')
+      cy.get('[data-testid="search-results"]')
         .children()
         .contains('Correlated Weyl Fermions in Oxides')
-        .parentsUntil('[data-test-id="search-results"]')
+        .parentsUntil('[data-testid="search-results"]')
         .find('[type="checkbox"]')
         .check();
-      cy.get('[data-test-id="search-results"]')
+      cy.get('[data-testid="search-results"]')
         .children()
         .contains('Muon g – 2 theory: The hadronic part')
-        .parentsUntil('[data-test-id="search-results"]')
+        .parentsUntil('[data-testid="search-results"]')
         .find('[type="checkbox"]')
         .check();
       cy.matchSnapshots('assignConferenceChecked', { skipMobile: true });
@@ -89,13 +89,13 @@ describe('Assign Conference', () => {
       cy.get('.ant-drawer-content', { timeout: 5000 }).should('be.visible');
       cy.get('.ant-drawer-content').find('[type="button"]').eq(1).click();
       cy.get('.ant-drawer-content')
-        .get('[data-test-id="search-results"]', { timeout: 10000 })
+        .get('[data-testid="search-results"]', { timeout: 10000 })
         .should('be.visible');
       cy.get('.ant-drawer-content')
-        .find('[data-test-id="search-results"]')
+        .find('[data-testid="search-results"]')
         .children()
         .contains('HP2022')
-        .parentsUntil('[data-test-id="search-results"]')
+        .parentsUntil('[data-testid="search-results"]')
         .find('[type="radio"]')
         .check();
       cy.get('[data-test-id="assign-conference-button"]').click();
@@ -131,16 +131,16 @@ describe('Export to CDS', () => {
     cy.visit('/literature');
     cy.waitForRoute();
     cy.waitForSearchResults();
-    cy.get('[data-test-id="search-results"]')
+    cy.get('[data-testid="search-results"]')
       .children()
       .contains('Correlated Weyl Fermions in Oxides')
-      .parentsUntil('[data-test-id="search-results"]')
+      .parentsUntil('[data-testid="search-results"]')
       .find('[type="checkbox"]')
       .check();
-    cy.get('[data-test-id="search-results"]')
+    cy.get('[data-testid="search-results"]')
       .children()
       .contains('Muon g – 2 theory: The hadronic part')
-      .parentsUntil('[data-test-id="search-results"]')
+      .parentsUntil('[data-testid="search-results"]')
       .find('[type="checkbox"]')
       .check();
     cy.get('[type="button"]')

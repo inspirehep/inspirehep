@@ -37,7 +37,7 @@ const SearchResults = ({
     );
   };
   return (
-    <div data-test-id="search-results">
+    <div data-testid="search-results">
       {results.map((result, index) => renderResults(result, index))}
     </div>
   );

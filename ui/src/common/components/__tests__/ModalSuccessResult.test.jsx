@@ -1,15 +1,15 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 
+import { render } from '@testing-library/react';
 import ModalSuccessResult from '../ModalSuccessResult';
 
 describe('ModalSuccessResult', () => {
   it('renders with children', () => {
-    const wrapper = shallow(
+    const { getByText } = render(
       <ModalSuccessResult>
         <span>Successfully did the thing</span>
       </ModalSuccessResult>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Successfully did the thing')).toBeInTheDocument();
   });
 });
