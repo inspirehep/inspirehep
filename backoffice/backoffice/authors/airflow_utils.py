@@ -138,15 +138,22 @@ def delete_workflow_dag(dag_id, workflow_id):
     return response.content, response.status_code
 
 
-def restart_workflow_dags(workflow_id, workflow_type, params=None):
+def restart_workflow_dags(workflow_id, workflow_type, params=None, workflow=None):
     """Restarts dags of a given workflow.
 
     :param workflow_id: workflow_id  for dags that should be restarted
     :param workflow_type: type of workflow the will be restarted
     :param params: parameters of new dag execution, if not provided will be fetched from the workflow
+    :param workflow: workflow data to be used in the new dag if not provided workflow data from previous execution will be used
     :returns: request response content
     """
-    conf = params if params else fetch_conf_workflow_dag(workflow_id, workflow_type)
+
+    if params:
+        conf = params
+    elif workflow:
+        conf = {"workflow": workflow}
+    else:
+        conf = fetch_conf_workflow_dag(workflow_id, workflow_type)
 
     if not conf:
         return None

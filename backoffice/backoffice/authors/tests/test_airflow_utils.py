@@ -86,6 +86,15 @@ class TestAirflowUtils(TransactionTestCase):
         self.assertEqual(json_content["conf"]["workflow"], self.workflow_serialized)
 
     @pytest.mark.vcr
+    def test_restart_workflow_dags_with_workflow(self):
+        content, status_code = airflow_utils.restart_workflow_dags(
+            self.workflow_id, self.workflow_type, workflow=self.workflow_serialized
+        )
+        self.assertEqual(status_code, 200)
+        json_content = json.loads(content)
+        self.assertEqual(json_content["conf"]["workflow"], self.workflow_serialized)
+
+    @pytest.mark.vcr
     def test_delete_workflow_dag_runs(self):
         airflow_utils.delete_workflow_dag_runs(self.workflow_id, self.workflow_type)
 

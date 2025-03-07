@@ -3,7 +3,10 @@ from unittest.mock import Mock
 import pytest
 from airflow.models import DagBag
 
+from tests.test_utils import task_test
+
 dagbag = DagBag()
+
 
 base_context = {
     "params": {
@@ -88,6 +91,28 @@ class TestAuthorCreateInit:
     def test_create_author_create_user_ticket(self):
         task = self.dag.get_task("create_author_create_user_ticket")
         task.execute(context=self.context)
+
+    def test_author_check_approval_branch(self):
+        result = task_test(
+            "author_create_initialization_dag",
+            "author_check_approval_branch",
+            {"workflow": {"data": {}}},
+        )
+        assert result == "set_author_create_workflow_status_to_approval"
+
+        result = task_test(
+            "author_create_initialization_dag",
+            "author_check_approval_branch",
+            {"workflow": {"data": {"decisions": [{"value": "accept"}]}}},
+        )
+        assert result == "trigger_accept"
+
+        result = task_test(
+            "author_create_initialization_dag",
+            "author_check_approval_branch",
+            {"workflow": {"data": {"decisions": [{"value": "reject"}]}}},
+        )
+        assert result == "trigger_reject"
 
 
 class TestAuthorCreateApproved:
