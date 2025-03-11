@@ -71,17 +71,6 @@ export const columnsSubject = [
     title: 'Term',
     dataIndex: 'term',
   },
-  {
-    title: 'Action',
-    // TODO 0: Add action to remove term
-    render: () => (
-      <span className="blue b pointer">
-        <CloseOutlined />
-      </span>
-    ),
-    width: '10%',
-    align: 'center' as const,
-  },
 ];
 
 export const columnsAdvisors = [

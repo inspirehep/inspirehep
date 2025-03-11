@@ -310,9 +310,8 @@ const AuthorDetailPageContainer = ({
                         <p className="mb0">See related tickets</p>
                         <ul className="mb0">
                           {tickets.map((ticket: any) => (
-                            <li className="mb0">
+                            <li className="mb0" key={ticket.get('ticket_id')}>
                               <a
-                                key={ticket.get('ticket_id')}
                                 href={ticket.get('ticket_url')}
                                 target="_blank"
                               >
