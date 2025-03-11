@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`SeminarTimezone renders with timezone 1`] = `"Times in Europe/Zurich (CEST)"`;

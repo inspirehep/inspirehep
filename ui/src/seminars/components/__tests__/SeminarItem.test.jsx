@@ -25,14 +25,17 @@ describe('SeminarItem', () => {
       ],
     });
 
-    const { asFragment } = render(
+    const { getByText } = render(
       <Provider store={getStore()}>
         <MemoryRouter>
           <SeminarItem metadata={metadata} />
         </MemoryRouter>
       </Provider>
     );
-    expect(asFragment()).toMatchSnapshot();
+    expect(getByText('John, Doe')).toBeInTheDocument();
+    expect(
+      getByText('15 May 2020, 01:45 PM - 17 May 2020, 02:45 AM')
+    ).toBeInTheDocument();
   });
 
   it('renders with only needed props', () => {
@@ -45,14 +48,17 @@ describe('SeminarItem', () => {
       end_datetime: '2020-05-17T00:45:00.000000',
     });
 
-    const { asFragment } = render(
+    const { getByText } = render(
       <Provider store={getStore()}>
         <MemoryRouter>
           <SeminarItem metadata={metadata} />
         </MemoryRouter>
       </Provider>
     );
-    expect(asFragment()).toMatchSnapshot();
+    expect(getByText('John, Doe')).toBeInTheDocument();
+    expect(
+      getByText('15 May 2020, 01:45 PM - 17 May 2020, 02:45 AM')
+    ).toBeInTheDocument();
   });
 
   it('renders with selected timezone with a different time than local timezone', () => {
@@ -65,14 +71,16 @@ describe('SeminarItem', () => {
       end_datetime: '2020-05-17T00:45:00.000000',
     });
 
-    const { asFragment } = render(
+    const { getByText } = render(
       <Provider store={getStore()}>
         <MemoryRouter>
           <SeminarItem metadata={metadata} selectedTimezone="America/Chicago" />
         </MemoryRouter>
       </Provider>
     );
-    expect(asFragment()).toMatchSnapshot();
+    expect(getByText('John, Doe')).toBeInTheDocument();
+    expect(getByText(/15 May 2020, 06:45 AM/i)).toBeInTheDocument();
+    expect(getByText(/15 May 2020, 01:45 PM/i)).toBeInTheDocument();
   });
 
   it('renders with selected timezone with a same time as local timezone', () => {
@@ -85,13 +93,16 @@ describe('SeminarItem', () => {
       end_datetime: '2020-05-17T00:45:00.000000',
     });
 
-    const { asFragment } = render(
+    const { getByText } = render(
       <Provider store={getStore()}>
         <MemoryRouter>
           <SeminarItem metadata={metadata} selectedTimezone="Europe/Zurich" />
         </MemoryRouter>
       </Provider>
     );
-    expect(asFragment()).toMatchSnapshot();
+    expect(getByText('John, Doe')).toBeInTheDocument();
+    expect(
+      getByText('15 May 2020, 01:45 PM - 17 May 2020, 02:45 AM')
+    ).toBeInTheDocument();
   });
 });

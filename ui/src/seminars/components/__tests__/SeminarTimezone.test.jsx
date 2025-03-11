@@ -1,13 +1,13 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { advanceTo, clear } from 'jest-date-mock';
+import { render } from '@testing-library/react';
 import SeminarTimezone from '../SeminarTimezone';
 
 describe('SeminarTimezone', () => {
   it('renders with timezone', () => {
     advanceTo('2020-09-10');
-    const wrapper = shallow(<SeminarTimezone timezone="Europe/Zurich" />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<SeminarTimezone timezone="Europe/Zurich" />);
+    expect(getByText('Times in Europe/Zurich (CEST)')).toBeInTheDocument();
     clear();
   });
 });
