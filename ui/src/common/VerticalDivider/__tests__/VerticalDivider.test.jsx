@@ -1,11 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import VerticalDivider from '../VerticalDivider';
 
 describe('VerticalDivider', () => {
   it('renders', () => {
-    const wrapper = shallow(<VerticalDivider />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByRole } = render(<VerticalDivider />);
+
+    expect(getByRole('separator')).toBeInTheDocument();
   });
 });

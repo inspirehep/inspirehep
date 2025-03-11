@@ -1,16 +1,18 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-
+import { render } from '@testing-library/react';
 import Footer from '../Footer';
 
 describe('Footer', () => {
   it('renders when cataloger', () => {
-    const wrapper = shallow(<Footer isCatalogerLoggedIn />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByRole } = render(<Footer isCatalogerLoggedIn />);
+    expect(getByRole('link', { name: 'Holdingpen' })).toBeInTheDocument();
+    expect(getByRole('link', { name: 'Author list' })).toBeInTheDocument();
   });
 
   it('renders when not cataloger', () => {
-    const wrapper = shallow(<Footer isCatalogerLoggedIn={false} />);
-    expect(wrapper).toMatchSnapshot();
+    const { queryByRole } = render(<Footer isCatalogerLoggedIn={false} />);
+    expect(queryByRole('link', { name: 'Holdingpen' })).not.toBeInTheDocument();
+    expect(
+      queryByRole('link', { name: 'Author list' })
+    ).not.toBeInTheDocument();
   });
 });

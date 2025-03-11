@@ -1,34 +1,55 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { getStore } from '../../../../fixtures/store';
 import Header from '../Header';
 
 describe('Header', () => {
   it('renders with search box if it is not on home or submission', () => {
-    const wrapper = shallow(
-      <Header isSubmissionsPage={false} isHomePage={false} isBetaPage={false} />
+    const { getByTestId } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <Header
+            isSubmissionsPage={false}
+            isHomePage={false}
+            isBetaPage={false}
+          />
+        </MemoryRouter>
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByTestId('searchbox')).toBeInTheDocument();
   });
 
   it('renders without search box if it is on homepage `/`', () => {
-    const wrapper = shallow(
-      <Header isSubmissionsPage={false} isHomePage isBetaPage={false} />
+    const { queryByTestId } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <Header isSubmissionsPage={false} isHomePage isBetaPage={false} />
+        </MemoryRouter>
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(queryByTestId('searchbox')).toBeNull();
   });
 
   it('renders without search box if it is on submission page', () => {
-    const wrapper = shallow(
-      <Header isSubmissionsPage isHomePage={false} isBetaPage={false} />
+    const { queryByTestId } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <Header isSubmissionsPage isHomePage={false} isBetaPage={false} />
+        </MemoryRouter>
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(queryByTestId('searchbox')).toBeNull();
   });
 
   it('renders with Banner and Ribbon if it is on beta page', () => {
-    const wrapper = shallow(
-      <Header isSubmissionsPage={false} isHomePage={false} isBetaPage />
+    const { getByText } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <Header isSubmissionsPage={false} isHomePage={false} isBetaPage />
+        </MemoryRouter>
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Beta')).toBeInTheDocument();
   });
 });

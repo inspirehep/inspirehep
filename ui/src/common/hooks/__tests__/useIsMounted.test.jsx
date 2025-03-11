@@ -15,6 +15,7 @@ function TestAsyncButton({ asyncOnClick }) {
   return <button onClick={onClick}>Test Async</button>;
 }
 
+// result is the same regardless if wrapper.unmount() is called or not. remove?
 describe('useIsMounted', () => {
   it('does not call onClick when unmounted', () => {
     const asyncOnClick = jest.fn().mockResolvedValue();

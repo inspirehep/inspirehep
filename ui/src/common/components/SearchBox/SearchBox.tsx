@@ -103,7 +103,10 @@ const SearchBox = ({
     // when search scope is rendered using `Input.addonBefore` prop, inside autocomplete
     // that's why it's pulled out, and classNames are set manually to make it look like an addon
     <>
-      <span className={classNames('__SearchBox__ ant-input-group', className)}>
+      <span
+        data-testid="searchbox"
+        className={classNames('__SearchBox__ ant-input-group', className)}
+      >
         <span className="ant-input-group-addon">
           <SearchBoxNamespaceSelectContainer />
         </span>
