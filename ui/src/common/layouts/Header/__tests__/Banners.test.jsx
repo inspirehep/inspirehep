@@ -1,6 +1,6 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-
+import { render } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { getStore } from '../../../../fixtures/store';
 import Banners from '../Banners';
 
 describe('Banners', () => {
@@ -9,8 +9,8 @@ describe('Banners', () => {
   });
 
   it('renders nothing if banners config not set', () => {
-    const wrapper = shallow(<Banners />);
-    expect(wrapper).toMatchSnapshot();
+    const { container } = render(<Banners />);
+    expect(container).toBeEmptyDOMElement();
   });
 
   it('renders banners if banners config is set', () => {
@@ -26,7 +26,12 @@ describe('Banners', () => {
         },
       ],
     };
-    const wrapper = shallow(<Banners />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(
+      <Provider store={getStore()}>
+        <Banners />
+      </Provider>
+    );
+    expect(getByText('Maintenance in progress')).toBeInTheDocument();
+    expect(getByText('We are just out of beta')).toBeInTheDocument();
   });
 });

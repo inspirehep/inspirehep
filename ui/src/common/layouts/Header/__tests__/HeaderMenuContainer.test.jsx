@@ -1,15 +1,14 @@
-import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
-import { getStoreWithState } from '../../../../fixtures/store';
+import { getStore } from '../../../../fixtures/store';
 import HeaderMenuContainer from '../HeaderMenuContainer';
 import HeaderMenu from '../HeaderMenu';
 
 describe('HeaderMenuContainer', () => {
   it('passes props from state', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         loggedIn: true,
         data: {

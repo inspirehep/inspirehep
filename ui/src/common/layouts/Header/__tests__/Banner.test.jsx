@@ -1,5 +1,5 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 import { Alert } from 'antd';
 
@@ -7,7 +7,7 @@ import Banner from '../Banner';
 
 describe('Banner', () => {
   it('renders when it is not closed', () => {
-    const wrapper = shallow(
+    const { container } = render(
       <Banner
         id="release-04.2020"
         message='<strong>Welcome to the new INSPIRE! <a href="/release">learn more</a></strong>'
@@ -16,11 +16,12 @@ describe('Banner', () => {
         onClose={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(container.hasChildNodes()).toBe(true);
   });
 
   it('does not render when it is closed', () => {
-    const wrapper = shallow(
+    const { container } = render(
       <Banner
         id="release-04.2020"
         message='<strong>Welcome to the new INSPIRE! <a href="/release">learn more</a></strong>'
@@ -29,11 +30,11 @@ describe('Banner', () => {
         onClose={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(container.hasChildNodes()).toBe(false);
   });
 
   it('renders when pathname is a match', () => {
-    const wrapper = shallow(
+    const { container } = render(
       <Banner
         id="release-feature-04.2020"
         message="We have a new literature feature"
@@ -43,11 +44,11 @@ describe('Banner', () => {
         onClose={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(container.hasChildNodes()).toBe(true);
   });
 
   it('does not render when pathname is not a match', () => {
-    const wrapper = shallow(
+    const { container } = render(
       <Banner
         id="release-feature-04.2020"
         message="We have a new feature"
@@ -57,11 +58,11 @@ describe('Banner', () => {
         onClose={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(container.hasChildNodes()).toBe(false);
   });
 
   it('renders with custom style', () => {
-    const wrapper = shallow(
+    const { getByRole } = render(
       <Banner
         id="files-outage-20.04.2020"
         type="warning"
@@ -77,7 +78,9 @@ describe('Banner', () => {
         onClose={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    const banner = getByRole('alert');
+    expect(banner).toHaveClass('ant-alert-warning');
   });
 
   it('calls onClose with id, after Alert close', () => {

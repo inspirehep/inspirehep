@@ -30,6 +30,7 @@ exports[`Home renders home page 1`] = `
           >
             <span
               class="__SearchBox__ ant-input-group"
+              data-testid="searchbox"
             >
               <span
                 class="ant-input-group-addon"
