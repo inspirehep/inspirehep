@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, useMemo } from 'react';
 import classNames from 'classnames';
-import { Card, Input, Select, Tabs } from 'antd';
+import { Card, Input, Tabs } from 'antd';
 import { Link } from 'react-router-dom';
 import { Action, ActionCreator } from 'redux';
 import { connect, RootStateOrAny } from 'react-redux';
@@ -15,6 +15,7 @@ import { searchQueryUpdate } from '../../../actions/search';
 import { BACKOFFICE_SEARCH_NS } from '../../../search/constants';
 import { BACKOFFICE_SEARCH } from '../../../common/routes';
 import Breadcrumbs from '../../common/components/Breadcrumbs/Breadcrumbs';
+import DocumentHead from '../../../common/components/DocumentHead';
 
 interface DashboardPageContainerProps {
   dispatch: ActionCreator<Action>;
@@ -22,7 +23,10 @@ interface DashboardPageContainerProps {
   loading: boolean;
 }
 
-const { Option } = Select;
+const META_DESCRIPTION =
+  'Welcome to the Backoffice Dashboard. Manage workflows, track statuses, and access important tools and resources to streamline your backoffice operations.';
+const TITLE = 'Home - Backoffice';
+
 const { Search } = Input;
 
 const TEXT_CENTER: Record<string | number, string & {}> = {
@@ -137,6 +141,7 @@ const DashboardPageContainer = ({
       className="__DashboardPageContainer__"
       data-testid="backoffice-dashboard-page"
     >
+      <DocumentHead title={TITLE} description={META_DESCRIPTION} />
       <Breadcrumbs title1="Dashboard" href1="" dashboardPage />
       <div className="inner-container mt4">
         <h2 className="f2 center">Search Backoffice</h2>
