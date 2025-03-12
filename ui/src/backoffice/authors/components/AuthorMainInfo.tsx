@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import ContentBox from '../../../common/components/ContentBox';
 import { Ids } from '../../common/components/Links/Links';
 import { filterByProperty } from '../../utils/utils';
+import DocumentHead from '../../../common/components/DocumentHead';
 
 type AuthorMainInfoProps = {
   data: any; // TODO: define proper type for data
@@ -19,30 +20,36 @@ const AuthorMainInfo = ({ data }: AuthorMainInfoProps) => {
   const orcidIdExists = orcidIds && orcidIds.size > 0;
 
   return (
-    <ContentBox fullHeight={false} className="md-pb3 mb3">
-      <h2>{name}</h2>
-      {preferredName && (
-        <p className="mb0">
-          <b>Preferred name:</b> {preferredName}
-        </p>
-      )}
-      {nativeNames && (
-        <p className="mb0">
-          <b>Native names:</b> {nativeNames.join('; ')}
-        </p>
-      )}
-      {nameVariants && (
-        <p className="mb0">
-          <b>Name variants:</b> {nameVariants.join('; ')}
-        </p>
-      )}
-      {status && (
-        <p className={classNames({ mb0: orcidIdExists })}>
-          <b>Status:</b> {status}
-        </p>
-      )}
-      {orcidIdExists && <Ids ids={orcidIds} noIcon />}
-    </ContentBox>
+    <>
+      <DocumentHead
+        title={`${name} - Backoffice`}
+        description="Explore detailed information about the author."
+      />
+      <ContentBox fullHeight={false} className="md-pb3 mb3">
+        <h2>{name}</h2>
+        {preferredName && (
+          <p className="mb0">
+            <b>Preferred name:</b> {preferredName}
+          </p>
+        )}
+        {nativeNames && (
+          <p className="mb0">
+            <b>Native names:</b> {nativeNames.join('; ')}
+          </p>
+        )}
+        {nameVariants && (
+          <p className="mb0">
+            <b>Name variants:</b> {nameVariants.join('; ')}
+          </p>
+        )}
+        {status && (
+          <p className={classNames({ mb0: orcidIdExists })}>
+            <b>Status:</b> {status}
+          </p>
+        )}
+        {orcidIdExists && <Ids ids={orcidIds} noIcon />}
+      </ContentBox>
+    </>
   );
 };
 

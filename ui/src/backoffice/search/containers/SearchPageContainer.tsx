@@ -28,7 +28,7 @@ type BackofficeSearchPageProps = {
 };
 
 const META_DESCRIPTION = 'Find workflows in backoffice';
-const TITLE = 'Workflows Search';
+const TITLE = 'Search - Backoffice';
 
 function renderWorkflowItem(item: Map<string, any>) {
   return <ResultItem item={item} key={item.get('id')} />;
