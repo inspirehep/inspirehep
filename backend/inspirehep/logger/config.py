@@ -8,8 +8,11 @@ import logging
 import sys
 
 import structlog
+from celery import shared_task
 from celery.signals import setup_logging, task_failure, task_postrun, task_prerun
 from structlog_sentry import SentryJsonProcessor
+
+from inspirehep.utils import send_zulip_notification
 
 # Sentry
 # ======
@@ -89,8 +92,40 @@ def setup_basic_logging(*args, **kwargs):
     logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.INFO)
 
 
+def construct_failure_message(task_name, exception, affected_records):
+    """Construct a failure message based on the task name, exception, and affected records."""
+    if not isinstance(affected_records, list):
+        affected_records = [affected_records]
+    affected_records = "\n".join(f"- {record}" for record in affected_records)
+    return f"**Task name**: `{task_name}`\n\n **Error message**: {exception} \n\n **Affected record(s)**:\n {affected_records}"
+
+
+def get_failure_message_by_task(task_name, exception, kwargs):
+    """Return a failure message based on the task name."""
+    task_messages = {
+        "inspirehep.indexer.tasks.batch_index": construct_failure_message(
+            task_name, exception, kwargs.get("records_uuids", "Unknown records")
+        ),
+        "inspirehep.indexer.tasks.index_record": construct_failure_message(
+            task_name, exception, kwargs.get("uuid", "Unknown record")
+        ),
+    }
+    return task_messages.get(task_name)
+
+
+@shared_task(
+    ignore_result=True,
+    soft_time_limit=5,
+    time_limit=10,
+)
+def send_zulip_notification_async(message):
+    """Send a Zulip notification asynchronously."""
+    send_zulip_notification(message)
+
+
 @task_failure.connect
 def log_error(
+    sender=None,
     task_id=None,
     exception=None,
     args=None,
@@ -108,3 +143,7 @@ def log_error(
         task_args=args,
         task_kwargs=kwargs,
     )
+    task_name = sender.name if sender else "Unknown Task"
+    message = get_failure_message_by_task(task_name, exception, kwargs)
+    if message:
+        send_zulip_notification_async.delay(message)
