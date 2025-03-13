@@ -114,7 +114,38 @@ class TestDataHarvest:
         assert res["acquisition_source"]["source"] == "HEPData"
         assert any(doi["source"] == "HEPData" for doi in res["dois"])
 
-        assert res["creation_date"] == payload[1]["record"]["creation_date"]
+        # check that the record has the correct creation date
+        assert res["creation_date"] == "2023-11-13"  # from last_updated_field
+
+    def test_creation_date_from_last_updated(self):
+        payload = {}
+        with open("tests/data_records/ins1906174_version3.json") as f:
+            payload["base"] = json.load(f)
+
+        task = self.dag.get_task("process_record.build_record")
+        task.op_kwargs = {
+            "data_schema": "data_schema",
+            "inspire_url": "https://inspirehep.net",
+            "payload": payload,
+        }
+        res = task.execute(context=Context())
+        assert res["creation_date"] == "2023-11-13"  # from last_updated_field
+
+    def test_creation_date_fallback(self):
+        payload = {}
+        with open("tests/data_records/ins1906174_version4.json") as f:
+            payload["base"] = json.load(f)
+
+        task = self.dag.get_task("process_record.build_record")
+        task.op_kwargs = {
+            "data_schema": "data_schema",
+            "inspire_url": "https://inspirehep.net",
+            "payload": payload,
+        }
+        res = task.execute(context=Context())
+        assert (
+            res["creation_date"] == payload["base"]["record"]["creation_date"]
+        )  # from creation_date field
 
     @pytest.mark.vcr
     def test_load_record_put(self):

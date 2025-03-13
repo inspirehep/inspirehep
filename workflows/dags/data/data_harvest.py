@@ -117,6 +117,7 @@ def data_harvest_dag():
             import re
 
             from inspire_schemas.builders import DataBuilder
+            from inspire_utils.date import normalize_date
 
             def add_version_specific_dois(record, builder):
                 """Add dois to the record."""
@@ -142,11 +143,23 @@ def data_harvest_dag():
                         for value in item:
                             builder.add_keyword(value)
 
+            def add_date(record, builder):
+                """Add date to the record."""
+                creation_date = record["creation_date"]
+                last_updated = record.get("last_updated")
+                final_date = creation_date
+                if last_updated:
+                    try:
+                        last_updated = normalize_date(last_updated)
+                        if last_updated != "1970-01-01":  # Dummy date added by HEPData
+                            final_date = last_updated
+                    except ValueError:
+                        pass
+                builder.add_creation_date(final_date)
+
             builder = DataBuilder(source="HEPData")
 
             base_record = payload["base"]
-
-            builder.add_creation_date(base_record["record"]["creation_date"])
 
             for collaboration in base_record["record"]["collaborations"]:
                 builder.add_collaboration(collaboration)
@@ -154,6 +167,7 @@ def data_harvest_dag():
             builder.add_abstract(base_record["record"]["data_abstract"])
 
             add_keywords(base_record["record"], builder)
+            add_date(base_record["record"], builder)
 
             doi = base_record["record"].get("doi")
             inspire_id = base_record["record"]["inspire_id"]
