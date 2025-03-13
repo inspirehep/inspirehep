@@ -4281,7 +4281,7 @@
       { "schema": "PDG", "value": "S046PHA" },
       { "schema": "PDG", "value": "S046WNO" }
     ],
-    "last_updated": "Mon, 13 Nov 2023 13:29:57 GMT",
+    "last_updated": "Thu, 01 Jan 1970 00:00:00 GMT",
     "parent_child_join": { "name": "parent_publication" },
     "publication_date": "2021-11-01T00:00:00",
     "recid": 104458,
@@ -4343,13 +4343,6 @@
       }
     ],
     "subject_area": ["hep-ex"],
-    "resources": [
-      {
-        "description": "web page with auxiliary material",
-        "type": "html",
-        "url": "http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-17-022/"
-      }
-    ],
     "summary_authors": [
       { "affiliation": "Marseille, CPPM", "full_name": "Aad, Georges" },
       { "affiliation": "Oklahoma U.", "full_name": "Abbott, Braden Keim" },
