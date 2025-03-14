@@ -23,7 +23,7 @@ LOGGER = structlog.getLogger()
 
 
 @shared_task(
-    ignore_results=False,
+    ignore_result=False,
     queue="assign",
     acks_late=True,
     retry_backoff=2,
@@ -130,7 +130,7 @@ def assign_conference(record, conference_ref, cnum):
 
 
 @shared_task(
-    ignore_results=False,
+    ignore_result=False,
     queue="assign",
     acks_late=True,
     retry_backoff=2,
