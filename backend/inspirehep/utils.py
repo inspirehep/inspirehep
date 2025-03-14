@@ -18,6 +18,7 @@ from flask import current_app
 from flask_celeryext.app import current_celery_app
 from redis import StrictRedis
 from redis_lock import Lock
+from werkzeug.utils import import_string
 
 LOGGER = structlog.getLogger()
 
@@ -43,6 +44,31 @@ def send_zulip_notification(message: str):
     )
     if result.get("result") != "success":
         LOGGER.error("Failed to send Zulip message", message=result)
+
+
+def get_failure_message_for_batch_index(task_name, exception, **kwargs):
+    affected_records = "\n".join(
+        f"- {record}" for record in kwargs.get("records_uuids", [])
+    )
+    return f"**Task name**: `{task_name}`\n\n **Error message**: {exception} \n\n **Affected record(s)**:\n {affected_records}"
+
+
+def get_failure_message_for_index_record(task_name, exception, **kwargs):
+    affected_record = kwargs.get("uuid")
+    return f"**Task name**: `{task_name}`\n\n **Error message**: {exception} \n\n **Affected record**: {affected_record}"
+
+
+def default_failure_message(task_name, exception, **kwargs):
+    return f"**Task name**: `{task_name}`\n\n **Error message**: {exception}"
+
+
+def get_failure_message_by_task(func_path, task_name, exception, **kwargs):
+    """Return a failure message based on the task name."""
+    try:
+        builder = import_string(func_path)
+    except ImportError:
+        builder = default_failure_message
+    return builder(task_name, exception, **kwargs)
 
 
 def include_table_check(object, name, type_, *args, **kwargs):
