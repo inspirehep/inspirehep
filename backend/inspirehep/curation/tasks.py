@@ -28,7 +28,7 @@ def _update_record_keywords_with_new_pdg_keywords(record, pdg_keywords):
 
 
 @shared_task(
-    ignore_results=False,
+    ignore_result=False,
     queue="curation",
     acks_late=True,
     retry_backoff=2,

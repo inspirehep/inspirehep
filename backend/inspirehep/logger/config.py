@@ -8,8 +8,11 @@ import logging
 import sys
 
 import structlog
+from celery import shared_task
 from celery.signals import setup_logging, task_failure, task_postrun, task_prerun
 from structlog_sentry import SentryJsonProcessor
+
+from inspirehep.utils import get_failure_message_by_task, send_zulip_notification
 
 # Sentry
 # ======
@@ -74,6 +77,12 @@ root_logger.setLevel(logging.INFO)
 
 # Celery logging
 # ==============
+FAILURE_MESSAGE_BY_TASK = {
+    "inspirehep.indexer.tasks.batch_index": "inspirehep.utils.get_failure_message_for_batch_index",
+    "inspirehep.indexer.tasks.index_record": "inspirehep.utils.get_failure_message_for_index_record",
+}
+
+
 @task_prerun.connect
 def log_task_context(sender, task_id, task, *args, **kwargs):
     structlog.threadlocal.bind_threadlocal(task_id=task_id, task=task.name)
@@ -89,8 +98,19 @@ def setup_basic_logging(*args, **kwargs):
     logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.INFO)
 
 
+@shared_task(
+    ignore_result=True,
+    soft_time_limit=5,
+    time_limit=10,
+)
+def send_zulip_notification_async(message):
+    """Send a Zulip notification asynchronously."""
+    send_zulip_notification(message)
+
+
 @task_failure.connect
 def log_error(
+    sender=None,
     task_id=None,
     exception=None,
     args=None,
@@ -108,3 +128,9 @@ def log_error(
         task_args=args,
         task_kwargs=kwargs,
     )
+    task_name = sender.name if sender else "Unknown Task"
+    func_path = FAILURE_MESSAGE_BY_TASK.get(task_name)
+    if func_path:
+        message = get_failure_message_by_task(func_path, task_name, exception, **kwargs)
+        if message:
+            send_zulip_notification_async.delay(message)

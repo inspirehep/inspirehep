@@ -150,7 +150,7 @@ def regenerate_author_records_table_entries(uuids_to_regenerate):
 
 
 @shared_task(
-    ignore_results=False,
+    ignore_result=False,
     acks_late=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
@@ -164,7 +164,7 @@ def populate_journal_literature(uuids):
 
 
 @shared_task(
-    ignore_results=False,
+    ignore_result=False,
     acks_late=True,
     retry_backoff=True,
     retry_kwargs={"max_retries": 8},
