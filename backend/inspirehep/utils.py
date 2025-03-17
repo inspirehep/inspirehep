@@ -37,8 +37,8 @@ def send_zulip_notification(message: str):
     result = zulip_client.send_message(
         {
             "type": "stream",
-            "to": os.environ.get("ZULIP_CHANNEL"),
-            "topic": os.environ.get("ZULIP_TOPIC"),
+            "to": os.environ.get("ZULIP_NOTIFICATION_CHANNEL"),
+            "topic": os.environ.get("ZULIP_NOTIFICATION_TOPIC"),
             "content": message,
         }
     )
@@ -56,13 +56,19 @@ def format_failure_message_for_multiple(task_name, exception, affected_records):
     )
 
 
-def format_failure_message_for_single(task_name, exception, affected_record):
+def format_failure_message_for_single(
+    task_name, exception, affected_record, affected_orcid=None
+):
     """Return a formatted failure message based on the affected record."""
-    return (
+    failure_message = (
         f"**Task name**: `{task_name}`\n\n"
         f"**Error message**: {exception} \n\n"
         f"**Affected record**: {affected_record}"
     )
+    if affected_orcid:
+        failure_message += f"\n\n **Affected ORCID**: {affected_orcid}"
+
+    return failure_message
 
 
 def format_failure_message_for_no_records(task_name, exception):
@@ -77,6 +83,12 @@ def get_failure_message_for_batch_index(task_name, exception, **kwargs):
 
 def get_failure_message_for_index_record(task_name, exception, **kwargs):
     return format_failure_message_for_single(task_name, exception, kwargs.get("uuid"))
+
+
+def get_failure_message_for_orcid_push(task_name, exception, **kwargs):
+    return format_failure_message_for_single(
+        task_name, exception, kwargs.get("rec_id"), kwargs.get("orcid")
+    )
 
 
 def get_failure_message_for_match_references_by_uuids(task_name, exception, uuids=None):
