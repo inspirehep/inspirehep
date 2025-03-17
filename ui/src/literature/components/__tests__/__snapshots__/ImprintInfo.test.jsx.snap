@@ -3,6 +3,7 @@
 exports[`ImprintInfo renders date with month and day 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <ul>
     <li
@@ -22,6 +23,7 @@ exports[`ImprintInfo renders date with month and day 1`] = `
 exports[`ImprintInfo renders imprints with date 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <ul>
     <li
@@ -41,6 +43,7 @@ exports[`ImprintInfo renders imprints with date 1`] = `
 exports[`ImprintInfo renders imprints with date and place 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <ul>
     <li
@@ -61,6 +64,7 @@ exports[`ImprintInfo renders imprints with date and place 1`] = `
 exports[`ImprintInfo renders imprints with date and publisher 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <ul>
     <li
@@ -81,6 +85,7 @@ exports[`ImprintInfo renders imprints with date and publisher 1`] = `
 exports[`ImprintInfo renders imprints with date, publisher, and place 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <ul>
     <li
@@ -102,6 +107,7 @@ exports[`ImprintInfo renders imprints with date, publisher, and place 1`] = `
 exports[`ImprintInfo renders imprints with place 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <ul>
     <li
@@ -121,6 +127,7 @@ exports[`ImprintInfo renders imprints with place 1`] = `
 exports[`ImprintInfo renders imprints with publisher 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <ul>
     <li
@@ -140,6 +147,7 @@ exports[`ImprintInfo renders imprints with publisher 1`] = `
 exports[`ImprintInfo renders imprints with publisher and place 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <ul>
     <li
@@ -160,6 +168,7 @@ exports[`ImprintInfo renders imprints with publisher and place 1`] = `
 exports[`ImprintInfo renders multiple imprints 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <ul>
     <li

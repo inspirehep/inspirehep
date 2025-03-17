@@ -1,6 +1,6 @@
-import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import LinkedAuthor from '../LinkedAuthor';
 
 describe('AuthorWithBAI', () => {
@@ -12,7 +12,13 @@ describe('AuthorWithBAI', () => {
       },
       bai: 'Full.Name.1',
     });
-    const wrapper = shallow(<LinkedAuthor author={author} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByTestId } = render(
+      <MemoryRouter>
+        <LinkedAuthor author={author} />
+      </MemoryRouter>
+    );
+    const authorLink = getByTestId('author-link');
+    expect(authorLink).toHaveAttribute('href', '/authors/12345');
+    expect(authorLink).toHaveTextContent('Name, Full');
   });
 });

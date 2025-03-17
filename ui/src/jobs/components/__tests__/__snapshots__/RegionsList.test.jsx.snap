@@ -3,6 +3,7 @@
 exports[`RegionsList renders regions 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <ul>
     <li

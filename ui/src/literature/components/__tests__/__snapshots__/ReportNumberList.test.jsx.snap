@@ -3,6 +3,7 @@
 exports[`ReportNumberList renders with report numbers 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <span
     className=""

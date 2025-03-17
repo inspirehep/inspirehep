@@ -3,6 +3,7 @@
 exports[`IsbnList renders isbns with medium and without medium 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <span
     className=""

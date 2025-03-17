@@ -1,99 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TabNameWithCount displays count if loading is false 1`] = `
-<EventTracker
-  eventAction="Tab selection"
-  eventId="Test tab"
-  eventPropName="onClick"
-  extractEventArgsToForward={null}
->
-  <span>
-    <span>
-      Test
-    </span>
-    <span
-      className="ml1"
-    >
-      <span>
-        (
-        <FormattedNumber>
-          10
-        </FormattedNumber>
-        )
-      </span>
-    </span>
-  </span>
-</EventTracker>
-`;
-
-exports[`TabNameWithCount does not display count if loading is true 1`] = `
-<EventTracker
-  eventAction="Tab selection"
-  eventId="Test tab"
-  eventPropName="onClick"
-  extractEventArgsToForward={null}
->
-  <span>
-    <span>
-      Test
-    </span>
-    <span
-      className="ml1"
-    >
-      <span
-        data-test-id="loading"
-      >
-        <LoadingOutlined
-          className="ml1"
-          spin={true}
-        />
-      </span>
-    </span>
-  </span>
-</EventTracker>
-`;
-
-exports[`TabNameWithCount renders when loading true 1`] = `
-<EventTracker
-  eventAction="Tab selection"
-  eventId="Test tab"
-  eventPropName="onClick"
-  extractEventArgsToForward={null}
->
-  <span>
-    <span>
-      Test
-    </span>
-    <span
-      className="ml1"
-    >
-      <span
-        data-test-id="loading"
-      >
-        <LoadingOutlined
-          className="ml1"
-          spin={true}
-        />
-      </span>
-    </span>
-  </span>
-</EventTracker>
-`;
-
 exports[`TabNameWithCount renders with required props 1`] = `
-<EventTracker
-  eventAction="Tab selection"
-  eventId="Test tab"
-  eventPropName="onClick"
-  extractEventArgsToForward={null}
->
+<DocumentFragment>
   <span>
     <span>
       Test
     </span>
     <span
-      className="ml1"
+      class="ml1"
     />
   </span>
-</EventTracker>
+</DocumentFragment>
 `;

@@ -3,6 +3,7 @@
 exports[`PersistentIdentifiers renders with identifiers 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <span
     className=""

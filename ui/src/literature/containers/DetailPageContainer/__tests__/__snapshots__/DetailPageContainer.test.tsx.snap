@@ -57,6 +57,7 @@ exports[`DetailPageContainer renders initial state 1`] = `
                     <div>
                       <div
                         class="__InlineList__ di"
+                        data-testid="inline-data-list"
                       >
                         <ul>
                           <li>
@@ -127,6 +128,7 @@ exports[`DetailPageContainer renders initial state 1`] = `
                     >
                       <div
                         class="__InlineList__"
+                        data-testid="inline-data-list"
                       >
                         <span
                           class=""

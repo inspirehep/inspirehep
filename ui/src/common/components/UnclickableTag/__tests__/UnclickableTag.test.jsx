@@ -1,11 +1,10 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import UnclickableTag from '../UnclickableTag';
 
 describe('UnclickableTag', () => {
   it('renders with all props set', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <UnclickableTag
         className="this-is-a-test-class"
         color="blue"
@@ -15,11 +14,14 @@ describe('UnclickableTag', () => {
         This is a tag
       </UnclickableTag>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders without props', () => {
-    const wrapper = shallow(<UnclickableTag>This is a tag</UnclickableTag>);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(
+      <UnclickableTag>This is a tag</UnclickableTag>
+    );
+
+    expect(getByText('This is a tag')).toBeInTheDocument();
   });
 });

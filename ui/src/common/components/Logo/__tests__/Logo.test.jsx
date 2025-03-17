@@ -1,11 +1,15 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
+import { MemoryRouter } from 'react-router-dom';
 import Logo from '../Logo';
 
 describe('Logo', () => {
   it('renders', () => {
-    const wrapper = shallow(<Logo />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <MemoryRouter>
+        <Logo />
+      </MemoryRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });

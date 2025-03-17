@@ -3,6 +3,7 @@
 exports[`ConferenceInfoList renders conference link 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <span
     className=""
@@ -51,6 +52,7 @@ exports[`ConferenceInfoList renders conference link 1`] = `
 exports[`ConferenceInfoList renders contribution label if document type is other than proceedings 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <span
     className=""
@@ -99,6 +101,7 @@ exports[`ConferenceInfoList renders contribution label if document type is other
 exports[`ConferenceInfoList renders proceedings label if document type is proceedings 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <span
     className=""

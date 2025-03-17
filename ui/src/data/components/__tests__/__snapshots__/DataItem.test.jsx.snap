@@ -59,6 +59,7 @@ exports[`DataItem renders with \`0\` citation count 1`] = `
                 >
                   <div
                     class="__InlineList__ di"
+                    data-testid="inline-data-list"
                   >
                     <ul>
                       <li>
@@ -72,6 +73,7 @@ exports[`DataItem renders with \`0\` citation count 1`] = `
                             (
                             <div
                               class="__InlineList__ di"
+                              data-testid="inline-data-list"
                             >
                               <ul>
                                 <li>
@@ -296,6 +298,7 @@ exports[`DataItem renders with all props set 1`] = `
                 >
                   <div
                     class="__InlineList__ di"
+                    data-testid="inline-data-list"
                   >
                     <ul>
                       <li>
@@ -309,6 +312,7 @@ exports[`DataItem renders with all props set 1`] = `
                             (
                             <div
                               class="__InlineList__ di"
+                              data-testid="inline-data-list"
                             >
                               <ul>
                                 <li>

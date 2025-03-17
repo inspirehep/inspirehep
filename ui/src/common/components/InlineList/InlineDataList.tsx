@@ -28,7 +28,10 @@ const InlineDataList = ({
   labelClassName?: string;
 }) => {
   return items && getSizeOfArrayOrImmutableList(items) > 0 ? (
-    <div className={classnames('__InlineList__', wrapperClassName)}>
+    <div
+      className={classnames('__InlineList__', wrapperClassName)}
+      data-testid="inline-data-list"
+    >
       {label && <span className={classnames(labelClassName)}>{label}: </span>}
       <ul>
         {items.map((item, index) => (

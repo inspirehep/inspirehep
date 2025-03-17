@@ -33,6 +33,7 @@ exports[`ExperimentItem renders with all props set 1`] = `
                   (
                   <div
                     class="__InlineList__ di"
+                    data-testid="inline-data-list"
                   >
                     <ul>
                       <li>

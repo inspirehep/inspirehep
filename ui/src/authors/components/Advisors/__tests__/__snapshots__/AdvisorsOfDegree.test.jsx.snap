@@ -4,6 +4,7 @@ exports[`AdvisorsOfDegree renders other advisors 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
+    data-testid="inline-data-list"
   >
     <span
       class=""
@@ -35,6 +36,7 @@ exports[`AdvisorsOfDegree renders phd advisors 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
+    data-testid="inline-data-list"
   >
     <span
       class=""
@@ -66,6 +68,7 @@ exports[`AdvisorsOfDegree renders the master advisor 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
+    data-testid="inline-data-list"
   >
     <span
       class=""

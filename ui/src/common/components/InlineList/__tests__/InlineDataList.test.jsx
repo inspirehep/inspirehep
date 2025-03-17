@@ -1,5 +1,4 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import InlineDataList from '../InlineDataList';
@@ -7,49 +6,52 @@ import InlineDataList from '../InlineDataList';
 describe('InlineList', () => {
   it('renders items seperated by default', () => {
     const items = fromJS(['foo', 'bar']);
-    const wrapper = shallow(
+    const { getByText } = render(
       <InlineDataList
         items={items}
         renderItem={(item) => <span>{item}</span>}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('foo')).toBeInTheDocument();
+    expect(getByText('bar')).toBeInTheDocument();
+    expect(getByText(',')).toBeInTheDocument();
   });
 
   it('renders item without separator', () => {
     const items = fromJS(['foo', 'bar']);
-    const wrapper = shallow(
+    const { queryByText } = render(
       <InlineDataList
         separateItems={false}
         items={items}
         renderItem={(item) => <span>{item}</span>}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(queryByText(',')).toBeNull();
   });
 
   it('renders wrapper with class', () => {
     const items = fromJS(['foo', 'bar']);
-    const wrapper = shallow(
+    const { getByTestId } = render(
       <InlineDataList
         wrapperClassName="di"
         items={items}
         renderItem={(item) => <span>{item}</span>}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByTestId('inline-data-list')).toHaveClass('di');
   });
 
   it('renders items (array) without separator', () => {
     const items = ['foo', 'bar'];
-    const wrapper = shallow(
+    const { queryByText } = render(
       <InlineDataList
         separateItems={false}
         items={items}
         renderItem={(item) => <span>{item}</span>}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(queryByText(',')).toBeNull();
   });
 
   it('renders with all props set', () => {
@@ -57,7 +59,7 @@ describe('InlineList', () => {
       { id: 1, value: 'foo' },
       { id: 2, value: 'bar' },
     ]);
-    const wrapper = shallow(
+    const { getByText } = render(
       <InlineDataList
         label="Test"
         suffix={<span>Suffix</span>}
@@ -66,7 +68,10 @@ describe('InlineList', () => {
         renderItem={(item) => <span>{item.get('value')}</span>}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Test:')).toBeInTheDocument();
+    expect(getByText('foo')).toBeInTheDocument();
+    expect(getByText('bar')).toBeInTheDocument();
+    expect(getByText('Suffix')).toBeInTheDocument();
   });
 
   it('renders with all props set (array)', () => {
@@ -74,7 +79,7 @@ describe('InlineList', () => {
       { id: 1, value: 'foo' },
       { id: 2, value: 'bar' },
     ];
-    const wrapper = shallow(
+    const { getByText } = render(
       <InlineDataList
         label="Test"
         suffix={<span>Suffix</span>}
@@ -83,11 +88,14 @@ describe('InlineList', () => {
         renderItem={(item) => <span>{item.value}</span>}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Test:')).toBeInTheDocument();
+    expect(getByText('foo')).toBeInTheDocument();
+    expect(getByText('bar')).toBeInTheDocument();
+    expect(getByText('Suffix')).toBeInTheDocument();
   });
 
   it('does not render if items are null', () => {
-    const wrapper = shallow(
+    const { container } = render(
       <InlineDataList
         label="Test"
         suffix={<span>Suffix</span>}
@@ -95,11 +103,11 @@ describe('InlineList', () => {
         renderItem={(item) => <span>{item}</span>}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toBeEmptyDOMElement();
   });
 
   it('does not render if empty array passed', () => {
-    const wrapper = shallow(
+    const { container } = render(
       <InlineDataList
         label="Test"
         suffix={<span>Suffix</span>}
@@ -107,11 +115,11 @@ describe('InlineList', () => {
         renderItem={(item) => <span>{item}</span>}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toBeEmptyDOMElement();
   });
 
   it('does not render if empty list passed', () => {
-    const wrapper = shallow(
+    const { container } = render(
       <InlineDataList
         label="Test"
         suffix={<span>Suffix</span>}
@@ -119,6 +127,6 @@ describe('InlineList', () => {
         renderItem={(item) => <span>{item}</span>}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toBeEmptyDOMElement();
   });
 });

@@ -1,15 +1,13 @@
-import React from 'react';
-import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
+import { render } from '@testing-library/react';
 
-import { getStoreWithState } from '../../../fixtures/store';
+import { getStore } from '../../../fixtures/store';
 import CitationsByYearGraphContainer from '../CitationsByYearGraphContainer';
-import CitationsByYearGraph from '../../components/CitationsByYearGraph';
 
 describe('CitationsByYearGraphContainer', () => {
   it('pass props from state', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       citations: fromJS({
         loadingCitationsByYear: false,
         errorCitationsByYear: null,
@@ -20,21 +18,15 @@ describe('CitationsByYearGraphContainer', () => {
       }),
     });
 
-    const wrapper = mount(
+    const { getByText } = render(
       <Provider store={store}>
         <CitationsByYearGraphContainer />
       </Provider>
     );
 
-    const dummyWrapper = wrapper.find(CitationsByYearGraph);
-
-    expect(dummyWrapper).toHaveProp({
-      citationsByYear: {
-        1999: 134,
-        2002: 125,
-      },
-      error: null,
-      loading: false,
-    });
+    expect(getByText(1999)).toBeInTheDocument();
+    expect(getByText(2002)).toBeInTheDocument();
+    expect(getByText(134)).toBeInTheDocument();
+    expect(getByText(125)).toBeInTheDocument();
   });
 });

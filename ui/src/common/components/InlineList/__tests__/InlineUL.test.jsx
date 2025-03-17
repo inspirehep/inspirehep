@@ -1,41 +1,42 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { InlineUL } from '..';
 import { SEPARATOR_MIDDLEDOT } from '../constants';
 
 describe('InlineUL', () => {
-  it('renders children seperated by default', () => {
-    const wrapper = shallow(
+  it('renders children separated by default', () => {
+    const { asFragment } = render(
       <InlineUL>
         <div>First div</div>
         <div>Second div</div>
       </InlineUL>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders children with class', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <InlineUL wrapperClassName="di">
         <div>First div</div>
         <div>Second div</div>
       </InlineUL>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with separator passed', () => {
-    const wrapper = shallow(
+    const { getAllByRole, getByText } = render(
       <InlineUL separator={SEPARATOR_MIDDLEDOT}>
         <div>First div</div>
         <div>Second div</div>
       </InlineUL>
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(getAllByRole('listitem')).toHaveLength(2);
+    expect(getByText(SEPARATOR_MIDDLEDOT.trim())).toBeInTheDocument();
   });
 
   it('does not render null children', () => {
-    const wrapper = shallow(
+    const { getAllByRole } = render(
       <InlineUL>
         <div>First div</div>
         {null}
@@ -43,6 +44,6 @@ describe('InlineUL', () => {
         {null}
       </InlineUL>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getAllByRole('listitem')).toHaveLength(2);
   });
 });

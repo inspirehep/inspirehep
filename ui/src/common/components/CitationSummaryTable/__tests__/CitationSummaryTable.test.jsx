@@ -1,5 +1,4 @@
-import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import CitationSummaryTable from '../CitationSummaryTable';
@@ -30,7 +29,7 @@ describe('CitationSummaryTable', () => {
         published: 9,
       },
     });
-    const wrapper = shallow(
+    const { asFragment } = render(
       <CitationSummaryTable
         publishedBucket={publishedBucket}
         citeableBucket={citeableBucket}
@@ -39,12 +38,12 @@ describe('CitationSummaryTable', () => {
         error={null}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders table with only required props', () => {
-    const wrapper = shallow(<CitationSummaryTable loading={false} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<CitationSummaryTable loading={false} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders table with null numbers', () => {
@@ -72,7 +71,7 @@ describe('CitationSummaryTable', () => {
         published: 9,
       },
     });
-    const wrapper = shallow(
+    const { asFragment } = render(
       <CitationSummaryTable
         publishedBucket={publishedBucket}
         citeableBucket={citeableBucket}
@@ -81,7 +80,7 @@ describe('CitationSummaryTable', () => {
         error={null}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('calls render props', () => {
@@ -111,7 +110,7 @@ describe('CitationSummaryTable', () => {
     });
     const renderNumberOfCiteablePapers = jest.fn();
     const renderNumberOfPublishedPapers = jest.fn();
-    mount(
+    render(
       <CitationSummaryTable
         publishedBucket={publishedBucket}
         citeableBucket={citeableBucket}

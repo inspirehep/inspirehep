@@ -10,6 +10,7 @@ exports[`InstitutionAddress renders all 1`] = `
         <li>
           <div
             class="__InlineList__"
+            data-testid="inline-data-list"
           >
             <ul>
               <li>
@@ -61,6 +62,7 @@ exports[`InstitutionAddress renders with city already in postal address 1`] = `
         <li>
           <div
             class="__InlineList__"
+            data-testid="inline-data-list"
           >
             <ul>
               <li>
@@ -88,6 +90,7 @@ exports[`InstitutionAddress renders with country already in postal address 1`] =
         <li>
           <div
             class="__InlineList__"
+            data-testid="inline-data-list"
           >
             <ul>
               <li>
@@ -133,6 +136,7 @@ exports[`InstitutionAddress renders with only postal address 1`] = `
         <li>
           <div
             class="__InlineList__"
+            data-testid="inline-data-list"
           >
             <ul>
               <li>

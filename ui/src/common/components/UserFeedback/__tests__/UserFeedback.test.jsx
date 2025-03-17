@@ -1,7 +1,7 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import { Button, Modal, Rate, Input } from 'antd';
+import { render } from '@testing-library/react';
+import { Modal, Rate, Input } from 'antd';
 
+import { shallow } from 'enzyme';
 import { trackEvent, checkIsTrackerBlocked } from '../../../../tracker';
 import UserFeedback from '../UserFeedback';
 
@@ -13,23 +13,18 @@ describe('UserFeedback', () => {
     checkIsTrackerBlocked.mockClear();
   });
 
-  it('renders', () => {
-    const wrapper = shallow(<UserFeedback />);
-    expect(wrapper).toMatchSnapshot();
-  });
-
   it('renders when tracker is blocked', () => {
     checkIsTrackerBlocked.mockImplementation(() => true);
-    const wrapper = shallow(<UserFeedback />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText, getByRole } = render(<UserFeedback />);
+
+    getByRole('button').click();
+    expect(getByText('AdBlock detected')).toBeInTheDocument();
   });
 
   it('sets modal visible true on feedback button click', () => {
-    const wrapper = shallow(<UserFeedback />);
-    wrapper.find(Button).simulate('click');
-    wrapper.update();
-    const modalWrapper = wrapper.find(Modal);
-    expect(modalWrapper).toHaveProp('open', true);
+    const { getByTestId, getByRole } = render(<UserFeedback />);
+    getByRole('button').click();
+    expect(getByTestId('user-feedback')).toBeInTheDocument();
   });
 
   it('calls trackEvent with feedback on modal Ok and renders thank you', () => {

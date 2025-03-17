@@ -3,6 +3,7 @@
 exports[`EmailList renders with emails 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <ul>
     <li

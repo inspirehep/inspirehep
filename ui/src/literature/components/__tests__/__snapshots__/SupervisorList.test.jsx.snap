@@ -3,6 +3,7 @@
 exports[`SupervisorList renders with multiple supervisors 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <span
     className=""
@@ -43,6 +44,7 @@ exports[`SupervisorList renders with multiple supervisors 1`] = `
 exports[`SupervisorList renders with one supervisor 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <span
     className=""
