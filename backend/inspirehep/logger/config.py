@@ -80,6 +80,7 @@ root_logger.setLevel(logging.INFO)
 FAILURE_MESSAGE_BY_TASK = {
     "inspirehep.indexer.tasks.batch_index": "inspirehep.utils.get_failure_message_for_batch_index",
     "inspirehep.indexer.tasks.index_record": "inspirehep.utils.get_failure_message_for_index_record",
+    "inspirehep.matcher.tasks.match_references_by_uuids": "inspirehep.utils.get_failure_message_for_match_references_by_uuids",
 }
 
 
@@ -103,9 +104,9 @@ def setup_basic_logging(*args, **kwargs):
     soft_time_limit=5,
     time_limit=10,
 )
-def send_zulip_notification_async(task_name, exception, **kwargs):
+def send_zulip_notification_async(task_name, exception, *args, **kwargs):
     """Send a Zulip notification asynchronously."""
-    message = get_failure_message_by_task(task_name, exception, **kwargs)
+    message = get_failure_message_by_task(task_name, exception, *args, **kwargs)
     if message:
         send_zulip_notification(message)
 
@@ -131,7 +132,13 @@ def log_error(
         task_kwargs=kwargs,
     )
     task_name = sender.name if sender else "Unknown Task"
-    exception_message = str(exception)  # Extract the exception message
+    exception_message = (
+        f"{type(exception).__module__}.{type(exception).__name__} - {str(exception)}"
+        if exception
+        else "No exception message"
+    )
+    if args is None:
+        args = ()
     if kwargs is None:
         kwargs = {}
-    send_zulip_notification_async.delay(task_name, exception_message, **kwargs)
+    send_zulip_notification_async.delay(task_name, exception_message, *args, **kwargs)
