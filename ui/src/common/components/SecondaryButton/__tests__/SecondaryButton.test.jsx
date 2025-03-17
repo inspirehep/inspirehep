@@ -1,22 +1,21 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import SecondaryButton from '../SecondaryButton';
 
 describe('SecondaryButton', () => {
   it('renders button', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <SecondaryButton onClick={jest.fn()}>Test</SecondaryButton>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('calls onClick when button is clicked', () => {
     const onClick = jest.fn();
-    const wrapper = shallow(
+    const { getByRole } = render(
       <SecondaryButton onClick={onClick}>Test</SecondaryButton>
     );
-    wrapper.find('button').simulate('click');
+    getByRole('button').click();
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 });

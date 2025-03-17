@@ -1,18 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`IconText renders with all props set 1`] = `
-<span
-  className="__IconText__ test"
->
+<DocumentFragment>
   <span
-    className="icon"
+    class="__IconText__ test"
   >
-    <InfoOutlined />
+    <span
+      class="icon"
+    >
+      <span
+        aria-label="info"
+        class="anticon anticon-info"
+        role="img"
+      >
+        <svg
+          aria-hidden="true"
+          data-icon="info"
+          fill="currentColor"
+          focusable="false"
+          height="1em"
+          viewBox="64 64 896 896"
+          width="1em"
+        >
+          <path
+            d="M448 224a64 64 0 10128 0 64 64 0 10-128 0zm96 168h-64c-4.4 0-8 3.6-8 8v464c0 4.4 3.6 8 8 8h64c4.4 0 8-3.6 8-8V400c0-4.4-3.6-8-8-8z"
+          />
+        </svg>
+      </span>
+    </span>
+    <span
+      class="v-top"
+    >
+      Test
+    </span>
   </span>
-  <span
-    className="v-top"
-  >
-    Test
-  </span>
-</span>
+</DocumentFragment>
 `;

@@ -3,6 +3,7 @@
 exports[`AuthorList prefixes \`Supervisor\` when 1 supervisor is passed 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <ul>
     <li
@@ -23,6 +24,7 @@ exports[`AuthorList prefixes \`Supervisor\` when 1 supervisor is passed 1`] = `
 exports[`AuthorList prefixes \`Supervisor\` when 2 or more supervisors are passed 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <ul>
     <li
@@ -106,6 +108,7 @@ exports[`AuthorList renders all authors if they are less than the limit without 
 exports[`AuthorList renders authors by using AuthorLink 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <ul>
     <li

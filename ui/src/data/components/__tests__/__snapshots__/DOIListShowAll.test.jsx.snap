@@ -10,6 +10,7 @@ exports[`DOIListShowAll renders correctly with data and other dois 1`] = `
     >
       <div
         class="__InlineList__"
+        data-testid="inline-data-list"
       >
         <span
           class=""
@@ -71,6 +72,7 @@ exports[`DOIListShowAll renders correctly with dataDois only 1`] = `
     >
       <div
         class="__InlineList__"
+        data-testid="inline-data-list"
       >
         <span
           class=""

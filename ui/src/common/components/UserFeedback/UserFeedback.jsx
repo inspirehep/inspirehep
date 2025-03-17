@@ -180,6 +180,7 @@ class UserFeedback extends Component {
           </Button>
         )}
         <Modal
+          data-testid="user-feedback"
           title="Your Feedback"
           open={isModalVisible}
           onOk={this.onFeedbackSubmit}

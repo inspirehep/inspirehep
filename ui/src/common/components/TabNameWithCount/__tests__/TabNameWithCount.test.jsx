@@ -1,30 +1,30 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import TabNameWithCount from '../TabNameWithCount';
 
 describe('TabNameWithCount', () => {
   it('renders with required props', () => {
-    const wrapper = shallow(<TabNameWithCount name="Test" />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<TabNameWithCount name="Test" />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders when loading true', () => {
-    const wrapper = shallow(<TabNameWithCount name="Test" loading />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByTestId } = render(<TabNameWithCount name="Test" loading />);
+    expect(getByTestId('loading')).toBeInTheDocument();
   });
 
   it('does not display count if loading is true', () => {
-    const wrapper = shallow(
+    const { getByTestId, queryByText } = render(
       <TabNameWithCount name="Test" loading count={10} />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByTestId('loading')).toBeInTheDocument();
+    expect(queryByText('(10)')).toBeNull();
   });
 
   it('displays count if loading is false', () => {
-    const wrapper = shallow(
+    const { getByText } = render(
       <TabNameWithCount name="Test" loading={false} count={10} />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('(10)')).toBeInTheDocument();
   });
 });

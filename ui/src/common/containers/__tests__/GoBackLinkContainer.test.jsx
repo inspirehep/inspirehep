@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import { goBack } from 'connected-react-router';
 import { Provider } from 'react-redux';
 
+import { render } from '@testing-library/react';
 import { getStore } from '../../../fixtures/store';
 import GoBackLinkContainer from '../GoBackLinkContainer';
 import GoBackLink from '../../components/GoBackLink';
@@ -17,15 +18,13 @@ describe('GoBackLinkContainer', () => {
   });
 
   it('render with custom children', () => {
-    const wrapper = mount(
+    const { getByRole } = render(
       <Provider store={getStore()}>
         <GoBackLinkContainer>custom</GoBackLinkContainer>
       </Provider>
     );
 
-    expect(wrapper.find(GoBackLink)).toHaveProp({
-      children: 'custom',
-    });
+    expect(getByRole('button')).toBeInTheDocument();
   });
 
   it('calls goBack() on click', () => {

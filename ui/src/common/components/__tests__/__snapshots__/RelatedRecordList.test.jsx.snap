@@ -3,6 +3,7 @@
 exports[`RelatedRecordsList renders with multiple records 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <span
     className=""
@@ -37,6 +38,7 @@ exports[`RelatedRecordsList renders with multiple records 1`] = `
 exports[`RelatedRecordsList renders with one record 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <span
     className=""

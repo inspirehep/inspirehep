@@ -29,6 +29,7 @@ exports[`AuthorResultItem renders full author result 1`] = `
               (
               <div
                 class="__InlineList__ di"
+                data-testid="inline-data-list"
               >
                 <ul>
                   <li>
@@ -51,6 +52,7 @@ exports[`AuthorResultItem renders full author result 1`] = `
             >
               <div
                 class="__InlineList__"
+                data-testid="inline-data-list"
               >
                 <ul>
                   <li>
@@ -64,6 +66,7 @@ exports[`AuthorResultItem renders full author result 1`] = `
               </div>
               <div
                 class="__InlineList__ mt2"
+                data-testid="inline-data-list"
               >
                 <span
                   class=""

@@ -4,6 +4,7 @@ exports[`InstitutionAddressList renders with addresses 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__ di"
+    data-testid="inline-data-list"
   >
     <ul>
       <li>
@@ -15,6 +16,7 @@ exports[`InstitutionAddressList renders with addresses 1`] = `
               <li>
                 <div
                   class="__InlineList__"
+                  data-testid="inline-data-list"
                 >
                   <ul>
                     <li>

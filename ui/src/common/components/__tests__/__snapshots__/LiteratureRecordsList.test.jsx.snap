@@ -3,6 +3,7 @@
 exports[`LiteratureRecordsList renders with multiple records 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <span
     className=""
@@ -51,6 +52,7 @@ exports[`LiteratureRecordsList renders with multiple records 1`] = `
 exports[`LiteratureRecordsList renders with one record 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <span
     className=""

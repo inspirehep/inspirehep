@@ -1,11 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SecondaryButton renders button 1`] = `
-<button
-  className="__SecondaryButton__"
-  onClick={[MockFunction]}
-  type="button"
->
-  Test
-</button>
+<DocumentFragment>
+  <button
+    class="__SecondaryButton__"
+    type="button"
+  >
+    Test
+  </button>
+</DocumentFragment>
 `;

@@ -1,13 +1,9 @@
-import React from 'react';
 import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
+import { render } from '@testing-library/react';
 
-import {
-  getStoreWithState,
-  getStore,
-  mockActionCreator,
-} from '../../../fixtures/store';
+import { getStore, mockActionCreator } from '../../../fixtures/store';
 import PaginationContainer from '../PaginationContainer';
 import SearchPagination from '../../components/SearchPagination';
 import { LITERATURE_NS } from '../../../search/constants';
@@ -19,7 +15,7 @@ mockActionCreator(searchQueryUpdate);
 describe('PaginationContainer', () => {
   it('passes page, size and total from search namespace state', () => {
     const namespace = LITERATURE_NS;
-    const store = getStoreWithState({
+    const store = getStore({
       search: fromJS({
         namespaces: {
           [namespace]: {
@@ -29,16 +25,15 @@ describe('PaginationContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+    const { getByText, container } = render(
       <Provider store={store}>
         <PaginationContainer namespace={namespace} />
       </Provider>
     );
-    expect(wrapper.find(SearchPagination)).toHaveProp({
-      page: 2,
-      pageSize: 10,
-      total: 100,
-    });
+
+    const element = container.querySelector('.ant-pagination-item-active');
+    expect(element.textContent).toBe('2');
+    expect(getByText('10 / page')).toBeInTheDocument();
   });
 
   it('dispatcheds searchQueryUpdate onPageChange', () => {

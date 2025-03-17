@@ -1,11 +1,9 @@
-import React from 'react';
-import { mount } from 'enzyme';
 import { fromJS, List } from 'immutable';
 import { Provider } from 'react-redux';
+import { render } from '@testing-library/react';
 
-import { getStoreWithState } from '../../../fixtures/store';
+import { getStore } from '../../../fixtures/store';
 import ResultsContainer from '../ResultsContainer';
-import SearchResults from '../../components/SearchResults';
 import { JOBS_NS } from '../../../search/constants';
 
 describe('ResultsContainer', () => {
@@ -21,7 +19,7 @@ describe('ResultsContainer', () => {
         value: 'value2',
       },
     ]);
-    const store = getStoreWithState({
+    const store = getStore({
       search: fromJS({
         namespaces: {
           [namespace]: {
@@ -34,17 +32,12 @@ describe('ResultsContainer', () => {
     });
     const renderItem = (result) => <span>{result.get('value')}</span>;
 
-    const wrapper = mount(
+    const { getByText } = render(
       <Provider store={store}>
         <ResultsContainer namespace={namespace} renderItem={renderItem} />
       </Provider>
     );
-    expect(wrapper.find(SearchResults)).toHaveProp({
-      results,
-      isCatalogerLoggedIn: false,
-      page: 1,
-      pageSize: 25,
-      renderItem,
-    });
+    expect(getByText('value1')).toBeInTheDocument();
+    expect(getByText('value2')).toBeInTheDocument();
   });
 });

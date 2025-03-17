@@ -18,7 +18,7 @@ class TabNameWithCount extends Component {
           <span>{name}</span>
           <span className="ml1">
             {loading ? (
-              <span data-test-id="loading">
+              <span data-testid="loading">
                 <LoadingOutlined className="ml1" spin />
               </span>
             ) : (

@@ -1,45 +1,45 @@
-import React from 'react';
+import { render } from '@testing-library/react';
 import { fromJS, List } from 'immutable';
-import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 
-import { getStoreWithState } from '../../../fixtures/store';
+import { getStore } from '../../../fixtures/store';
 import AuthorizedContainer from '../AuthorizedContainer';
 
 describe('AuthorizedContainer', () => {
   it('renders children if user is authorized', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         data: {
           roles: ['superuser'],
         },
       }),
     });
-    const wrapper = mount(
+    const { getByText } = render(
       <Provider store={store}>
         <AuthorizedContainer authorizedRoles={List(['superuser', 'cataloger'])}>
           <div>SECRET DIV [work in progress]</div>
         </AuthorizedContainer>
       </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(getByText('SECRET DIV [work in progress]')).toBeInTheDocument();
   });
 
   it('does not render if user is not authorized', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         data: {
           roles: ['unauthorized'],
         },
       }),
     });
-    const wrapper = mount(
+    const { queryByText } = render(
       <Provider store={store}>
         <AuthorizedContainer authorizedRoles={List(['superuser'])}>
           <div>SECRET DIV [work in progress]</div>
         </AuthorizedContainer>
       </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(queryByText('SECRET DIV [work in progress]')).toBeNull();
   });
 });

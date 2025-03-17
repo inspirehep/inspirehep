@@ -3,6 +3,7 @@
 exports[`RanksList renders ranks 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <ul>
     <li

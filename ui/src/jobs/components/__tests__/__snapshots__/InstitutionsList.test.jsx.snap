@@ -3,6 +3,7 @@
 exports[`InstitutionsList renders institutions 1`] = `
 <div
   className="__InlineList__"
+  data-testid="inline-data-list"
 >
   <ul>
     <li

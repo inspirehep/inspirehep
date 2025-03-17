@@ -1,14 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UserAction renders 1`] = `
-<span
-  className="__UserAction__"
->
-  <Button>
-    <IconText
-      icon={<ExpandOutlined />}
-      text="cite"
-    />
-  </Button>
-</span>
+<DocumentFragment>
+  <span
+    class="__UserAction__"
+  >
+    <button
+      class="ant-btn ant-btn-default"
+      type="button"
+    >
+      <span
+        class="__IconText__"
+      >
+        <span
+          class="icon"
+        >
+          <span
+            aria-label="expand"
+            class="anticon anticon-expand"
+            role="img"
+          >
+            <svg
+              aria-hidden="true"
+              data-icon="expand"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="64 64 896 896"
+              width="1em"
+            >
+              <defs>
+                <style />
+              </defs>
+              <path
+                d="M342 88H120c-17.7 0-32 14.3-32 32v224c0 8.8 7.2 16 16 16h48c8.8 0 16-7.2 16-16V168h174c8.8 0 16-7.2 16-16v-48c0-8.8-7.2-16-16-16zm578 576h-48c-8.8 0-16 7.2-16 16v176H682c-8.8 0-16 7.2-16 16v48c0 8.8 7.2 16 16 16h222c17.7 0 32-14.3 32-32V680c0-8.8-7.2-16-16-16zM342 856H168V680c0-8.8-7.2-16-16-16h-48c-8.8 0-16 7.2-16 16v224c0 17.7 14.3 32 32 32h222c8.8 0 16-7.2 16-16v-48c0-8.8-7.2-16-16-16zM904 88H682c-8.8 0-16 7.2-16 16v48c0 8.8 7.2 16 16 16h174v176c0 8.8 7.2 16 16 16h48c8.8 0 16-7.2 16-16V120c0-17.7-14.3-32-32-32z"
+              />
+            </svg>
+          </span>
+        </span>
+        <span
+          class="v-top"
+        >
+          cite
+        </span>
+      </span>
+    </button>
+  </span>
+</DocumentFragment>
 `;
