@@ -83,6 +83,7 @@ FAILURE_MESSAGE_BY_TASK = {
     "inspirehep.matcher.tasks.match_references_by_uuids": "inspirehep.utils.get_failure_message_for_match_references_by_uuids",
     "inspirehep.records.tasks.redirect_references_to_merged_record": "inspirehep.utils.get_failure_message_for_redirect_references_to_merged_record",
     "inspirehep.hal.tasks.hal_push": "inspirehep.utils.get_failure_message_for_hal_push",
+    "inspirehep.orcid.tasks.orcid_push": "inspirehep.utils.get_failure_message_for_orcid_push",
 }
 
 
