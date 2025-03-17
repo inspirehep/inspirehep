@@ -46,19 +46,51 @@ def send_zulip_notification(message: str):
         LOGGER.error("Failed to send Zulip message", message=result)
 
 
-def get_failure_message_for_batch_index(task_name, exception, **kwargs):
+def get_failure_message_for_batch_index(task_name, exception, *args, **kwargs):
     affected_records = "\n".join(
         f"- {record}" for record in kwargs.get("records_uuids", [])
     )
-    return f"**Task name**: `{task_name}`\n\n **Error message**: {exception} \n\n **Affected record(s)**:\n {affected_records}"
+    return (
+        f"**Task name**: `{task_name}`\n\n"
+        f"**Error message**: {exception} \n\n"
+        f"**Affected record(s)**:\n {affected_records}"
+    )
 
 
-def get_failure_message_for_index_record(task_name, exception, **kwargs):
+def get_failure_message_for_index_record(task_name, exception, *args, **kwargs):
     affected_record = kwargs.get("uuid")
-    return f"**Task name**: `{task_name}`\n\n **Error message**: {exception} \n\n **Affected record**: {affected_record}"
+    return (
+        f"**Task name**: `{task_name}`\n\n"
+        f"**Error message**: {exception} \n\n"
+        f"**Affected record**: {affected_record}"
+    )
 
 
-def get_failure_message_by_task(task_name, exception, **kwargs):
+def extract_uuid_list(*args):
+    """Safely extracts the first inner list of UUIDs from the given args."""
+    try:
+        if args and isinstance(args[0], list):
+            return args[0]
+    except Exception as e:
+        LOGGER.error(f"Error occurred while extracting UUID list. {e}")
+    return None
+
+
+def get_failure_message_for_match_references_by_uuids(
+    task_name, exception, *args, **kwargs
+):
+    uuids = extract_uuid_list(*args)
+    if uuids:
+        affected_records = "\n".join(f"- {record}" for record in uuids)
+        return (
+            f"**Task name**: `{task_name}`\n\n"
+            f"**Error message**: {exception} \n\n"
+            f"**Affected record(s)**:\n {affected_records}"
+        )
+    return f"**Task name**: `{task_name}`\n\n" f"**Error message**: {exception}"
+
+
+def get_failure_message_by_task(task_name, exception, *args, **kwargs):
     """Return a failure message based on the task name."""
     func_path = current_app.config["FAILURE_MESSAGE_BY_TASK"].get(task_name)
     try:
@@ -66,7 +98,7 @@ def get_failure_message_by_task(task_name, exception, **kwargs):
     except Exception as e:
         LOGGER.error(f"Failed to import task {e}")
         return None
-    return builder(task_name, exception, **kwargs)
+    return builder(task_name, exception, *args, **kwargs)
 
 
 def include_table_check(object, name, type_, *args, **kwargs):
