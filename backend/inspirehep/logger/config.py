@@ -81,6 +81,7 @@ FAILURE_MESSAGE_BY_TASK = {
     "inspirehep.indexer.tasks.batch_index": "inspirehep.utils.get_failure_message_for_batch_index",
     "inspirehep.indexer.tasks.index_record": "inspirehep.utils.get_failure_message_for_index_record",
     "inspirehep.matcher.tasks.match_references_by_uuids": "inspirehep.utils.get_failure_message_for_match_references_by_uuids",
+    "inspirehep.records.tasks.redirect_references_to_merged_record": "inspirehep.utils.get_failure_message_for_redirect_references_to_merged_record",
 }
 
 
