@@ -46,24 +46,37 @@ def send_zulip_notification(message: str):
         LOGGER.error("Failed to send Zulip message", message=result)
 
 
-def get_failure_message_for_batch_index(task_name, exception, *args, **kwargs):
-    affected_records = "\n".join(
-        f"- {record}" for record in kwargs.get("records_uuids", [])
-    )
+def format_failure_message_for_multiple(task_name, exception, affected_records):
+    """Return a formatted failure message based on the number of affected records."""
+    affected_records_list = "\n".join(f"- {record}" for record in affected_records)
     return (
         f"**Task name**: `{task_name}`\n\n"
         f"**Error message**: {exception} \n\n"
-        f"**Affected record(s)**:\n {affected_records}"
+        f"**Affected record(s)**:\n {affected_records_list}"
     )
 
 
-def get_failure_message_for_index_record(task_name, exception, *args, **kwargs):
-    affected_record = kwargs.get("uuid")
+def format_failure_message_for_single(task_name, exception, affected_record):
+    """Return a formatted failure message based on the affected record."""
     return (
         f"**Task name**: `{task_name}`\n\n"
         f"**Error message**: {exception} \n\n"
         f"**Affected record**: {affected_record}"
     )
+
+
+def format_failure_message_for_no_records(task_name, exception):
+    return f"**Task name**: `{task_name}`\n\n" f"**Error message**: {exception}"
+
+
+def get_failure_message_for_batch_index(task_name, exception, *args, **kwargs):
+    return format_failure_message_for_multiple(
+        task_name, exception, kwargs.get("records_uuids", [])
+    )
+
+
+def get_failure_message_for_index_record(task_name, exception, *args, **kwargs):
+    return format_failure_message_for_single(task_name, exception, kwargs.get("uuid"))
 
 
 def extract_uuid_list(*args):
@@ -81,13 +94,17 @@ def get_failure_message_for_match_references_by_uuids(
 ):
     uuids = extract_uuid_list(*args)
     if uuids:
-        affected_records = "\n".join(f"- {record}" for record in uuids)
-        return (
-            f"**Task name**: `{task_name}`\n\n"
-            f"**Error message**: {exception} \n\n"
-            f"**Affected record(s)**:\n {affected_records}"
-        )
-    return f"**Task name**: `{task_name}`\n\n" f"**Error message**: {exception}"
+        return format_failure_message_for_multiple(task_name, exception, uuids)
+    return format_failure_message_for_no_records(task_name, exception)
+
+
+def get_failure_message_for_redirect_references_to_merged_record(
+    task_name, exception, *args, **kwargs
+):
+    uuid = args[0]
+    if uuid:
+        return format_failure_message_for_single(task_name, exception, uuid)
+    return format_failure_message_for_no_records(task_name, exception)
 
 
 def get_failure_message_by_task(task_name, exception, *args, **kwargs):
