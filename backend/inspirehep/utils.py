@@ -69,42 +69,40 @@ def format_failure_message_for_no_records(task_name, exception):
     return f"**Task name**: `{task_name}`\n\n" f"**Error message**: {exception}"
 
 
-def get_failure_message_for_batch_index(task_name, exception, *args, **kwargs):
+def get_failure_message_for_batch_index(task_name, exception, **kwargs):
     return format_failure_message_for_multiple(
         task_name, exception, kwargs.get("records_uuids", [])
     )
 
 
-def get_failure_message_for_index_record(task_name, exception, *args, **kwargs):
+def get_failure_message_for_index_record(task_name, exception, **kwargs):
     return format_failure_message_for_single(task_name, exception, kwargs.get("uuid"))
 
 
-def extract_uuid_list(*args):
-    """Safely extracts the first inner list of UUIDs from the given args."""
-    try:
-        if args and isinstance(args[0], list):
-            return args[0]
-    except Exception as e:
-        LOGGER.error(f"Error occurred while extracting UUID list. {e}")
-    return None
-
-
-def get_failure_message_for_match_references_by_uuids(
-    task_name, exception, *args, **kwargs
-):
-    uuids = extract_uuid_list(*args)
-    if uuids:
+def get_failure_message_for_match_references_by_uuids(task_name, exception, uuids=None):
+    if uuids and isinstance(uuids, list):
         return format_failure_message_for_multiple(task_name, exception, uuids)
     return format_failure_message_for_no_records(task_name, exception)
 
 
 def get_failure_message_for_redirect_references_to_merged_record(
-    task_name, exception, *args, **kwargs
+    task_name, exception, uuid=None
 ):
-    uuid = args[0]
     if uuid:
         return format_failure_message_for_single(task_name, exception, uuid)
     return format_failure_message_for_no_records(task_name, exception)
+
+
+def get_failure_message_for_hal_push(
+    task_name, exception, recid=None, record_version=None
+):
+    if not recid:
+        return format_failure_message_for_no_records(task_name, exception)
+
+    if record_version:
+        recid = f"{recid} (version {record_version})"
+
+    return format_failure_message_for_single(task_name, exception, recid)
 
 
 def get_failure_message_by_task(task_name, exception, *args, **kwargs):
