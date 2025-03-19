@@ -106,13 +106,13 @@ def get_failure_message_for_redirect_references_to_merged_record(
 
 
 def get_failure_message_for_hal_push(
-    task_name, exception, recid=None, record_version=None
+    task_name, exception, recid=None, record_version_id=None
 ):
     if not recid:
         return format_failure_message_for_no_records(task_name, exception)
 
-    if record_version:
-        recid = f"{recid} (version {record_version})"
+    if record_version_id:
+        recid = f"{recid} (version {record_version_id})"
 
     return format_failure_message_for_single(task_name, exception, recid)
 
