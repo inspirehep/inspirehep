@@ -13,6 +13,7 @@ jobs:
     with:
       ref: ${{ github.event.pull_request.head.sha }}
   test:
+    needs: lint
     uses: ./.github/workflows/integration-tests.yml
     with:
       ref: ${{ github.event.pull_request.head.sha }}
