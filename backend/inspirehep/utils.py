@@ -85,6 +85,36 @@ def get_failure_message_for_index_record(task_name, exception, **kwargs):
     return format_failure_message_for_single(task_name, exception, kwargs.get("uuid"))
 
 
+def get_failure_message_for_disambiguate_records(
+    task_name, exception, uuid=None, record_version_id=None, **kwargs
+):
+    if isinstance(uuid, list):
+        if not record_version_id:
+            return format_failure_message_for_multiple(task_name, exception, uuid)
+        uuid = [
+            f"{u} (version {rec_id})"
+            for u, rec_id in zip(uuid, record_version_id, strict=False)
+        ]
+        return format_failure_message_for_multiple(task_name, exception, uuid)
+    if record_version_id:
+        uuid = f"{uuid} (version {record_version_id})"
+
+    return format_failure_message_for_single(task_name, exception, uuid)
+
+
+def get_failure_message_for_celery_starmap(task_name, exception, *args, **kwargs):
+    if not kwargs.get("task"):
+        return
+    task_name = kwargs.get("task", {})["task"]
+    items = kwargs.get("it", [])
+    uuids = [arg[0] for arg in items]
+    version_ids = [arg[1] for arg in items]
+
+    return get_failure_message_by_task(
+        task_name, exception, uuids, version_ids, *args, **kwargs
+    )
+
+
 def get_failure_message_for_orcid_push(task_name, exception, **kwargs):
     return format_failure_message_for_single(
         task_name, exception, kwargs.get("rec_id"), kwargs.get("orcid")
