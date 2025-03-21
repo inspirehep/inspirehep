@@ -25,6 +25,46 @@ from requests.exceptions import RequestException
 from sqlalchemy.exc import OperationalError
 
 
+def test_search_with_special_characters_returns_correct_status_code(inspire_app):
+    query = '+ - = && || > < ! ( ) { } [ ] ^ " ~ * ? : \ /'  # OS reserved special characters
+
+    with inspire_app.test_client() as client:
+        response = client.get("api/authors", query_string={"q": query})
+    assert response.status_code == 200
+
+    with inspire_app.test_client() as client:
+        response = client.get("api/literature", query_string={"q": query})
+    assert response.status_code == 200
+
+    with inspire_app.test_client() as client:
+        response = client.get("api/conferences", query_string={"q": query})
+    assert response.status_code == 200
+
+    with inspire_app.test_client() as client:
+        response = client.get("api/jobs", query_string={"q": query})
+    assert response.status_code == 200
+
+    with inspire_app.test_client() as client:
+        response = client.get("api/institutions", query_string={"q": query})
+    assert response.status_code == 200
+
+    with inspire_app.test_client() as client:
+        response = client.get("api/journals", query_string={"q": query})
+    assert response.status_code == 200
+
+    with inspire_app.test_client() as client:
+        response = client.get("api/experiments", query_string={"q": query})
+    assert response.status_code == 200
+
+    with inspire_app.test_client() as client:
+        response = client.get("api/seminars", query_string={"q": query})
+    assert response.status_code == 200
+
+    with inspire_app.test_client() as client:
+        response = client.get("api/data", query_string={"q": query})
+    assert response.status_code == 200
+
+
 def test_literature_get_records_by_pids_returns_correct_record(inspire_app):
     record1 = create_record("lit")
     record1_control_number = record1["control_number"]
