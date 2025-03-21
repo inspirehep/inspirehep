@@ -1,5 +1,4 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import PublicationInfoList from '../PublicationInfoList';
@@ -11,10 +10,11 @@ describe('PublicationInfoList', () => {
         journal_title: 'Test Journal',
       },
     ]);
-    const wrapper = shallow(
+    const { getByText } = render(
       <PublicationInfoList publicationInfo={publicationInfo} />
     );
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(getByText(/Test Journal/i)).toBeInTheDocument();
+    expect(getByText(/Published in:/i)).toBeInTheDocument();
   });
 
   it('renders without label if labeled false', () => {
@@ -23,24 +23,25 @@ describe('PublicationInfoList', () => {
         journal_title: 'Test Journal',
       },
     ]);
-    const wrapper = shallow(
+    const { queryByText } = render(
       <PublicationInfoList labeled={false} publicationInfo={publicationInfo} />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(queryByText(/Published in:/i)).toBeNull();
   });
 
+  // TODO: wrapperClassName is not being used in the component fix test
   it('renders with wrapperClassName', () => {
     const publicationInfo = fromJS([
       {
         journal_title: 'Test Journal',
       },
     ]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <PublicationInfoList
         wrapperClassName="test"
         publicationInfo={publicationInfo}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

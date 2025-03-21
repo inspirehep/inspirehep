@@ -1,6 +1,6 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
+import { MemoryRouter } from 'react-router-dom';
 import LiteratureRecordsList from '../LiteratureRecordsList';
 
 describe('LiteratureRecordsList', () => {
@@ -17,10 +17,19 @@ describe('LiteratureRecordsList', () => {
         record: { $ref: 'http://localhost:5000/api/literature/124' },
       },
     ]);
-    const wrapper = shallow(
-      <LiteratureRecordsList literatureRecords={literatureRecords} />
+    const { getByRole } = render(
+      <MemoryRouter>
+        <LiteratureRecordsList literatureRecords={literatureRecords} />
+      </MemoryRouter>
     );
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(getByRole('link', { name: 'Title1' })).toHaveAttribute(
+      'href',
+      '/literature/123'
+    );
+    expect(getByRole('link', { name: 'Title2' })).toHaveAttribute(
+      'href',
+      '/literature/124'
+    );
   });
   it('renders with one record', () => {
     const literatureRecords = fromJS([
@@ -30,9 +39,14 @@ describe('LiteratureRecordsList', () => {
         record: { $ref: 'http://localhost:5000/api/literature/123' },
       },
     ]);
-    const wrapper = shallow(
-      <LiteratureRecordsList literatureRecords={literatureRecords} />
+    const { getByRole } = render(
+      <MemoryRouter>
+        <LiteratureRecordsList literatureRecords={literatureRecords} />
+      </MemoryRouter>
     );
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(getByRole('link', { name: 'Title1' })).toHaveAttribute(
+      'href',
+      '/literature/123'
+    );
   });
 });

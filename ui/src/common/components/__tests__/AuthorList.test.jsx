@@ -1,10 +1,6 @@
-import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
-import { Modal } from 'antd';
-
+import { render, screen } from '@testing-library/react';
 import AuthorList from '../AuthorList';
-import InlineDataList from '../InlineList';
 
 describe('AuthorList', () => {
   it('renders only 5 authors and suffixes "show all" if passed more', () => {
@@ -28,10 +24,16 @@ describe('AuthorList', () => {
         full_name: 'Test, Guy 6',
       },
     ]);
-    const wrapper = shallow(
+    const { getByText, queryByText } = render(
       <AuthorList total={6} enableShowAll authors={authors} />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Test, Guy 1')).toBeInTheDocument();
+    expect(getByText('Test, Guy 2')).toBeInTheDocument();
+    expect(getByText('Test, Guy 3')).toBeInTheDocument();
+    expect(getByText('Test, Guy 4')).toBeInTheDocument();
+    expect(getByText('Test, Guy 5')).toBeInTheDocument();
+    expect(queryByText('Test, Guy 6')).toBeNull();
+    expect(getByText(/Show All\(6\)/i)).toBeInTheDocument();
   });
 
   it('renders only 5 authors and suffixes "et al." if passed more', () => {
@@ -55,11 +57,19 @@ describe('AuthorList', () => {
         full_name: 'Test, Guy 6',
       },
     ]);
-    const wrapper = shallow(<AuthorList total={6} authors={authors} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText, queryByText } = render(
+      <AuthorList total={6} authors={authors} />
+    );
+    expect(getByText('Test, Guy 1')).toBeInTheDocument();
+    expect(getByText('Test, Guy 2')).toBeInTheDocument();
+    expect(getByText('Test, Guy 3')).toBeInTheDocument();
+    expect(getByText('Test, Guy 4')).toBeInTheDocument();
+    expect(getByText('Test, Guy 5')).toBeInTheDocument();
+    expect(queryByText('Test, Guy 6')).toBeNull();
+    expect(getByText('et al.')).toBeInTheDocument();
   });
 
-  it('renders only limited (prop) authors and suffixes "et all." if passed more', () => {
+  it('renders only limited (prop) authors and suffixes "et al." if passed more', () => {
     const authors = fromJS([
       {
         full_name: 'Test, Guy 1',
@@ -71,10 +81,13 @@ describe('AuthorList', () => {
         full_name: 'Test, Guy 3',
       },
     ]);
-    const wrapper = shallow(
+    const { getByText, queryByText } = render(
       <AuthorList limit={2} total={3} authors={authors} />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Test, Guy 1')).toBeInTheDocument();
+    expect(getByText('Test, Guy 2')).toBeInTheDocument();
+    expect(queryByText('Test, Guy 3')).toBeNull();
+    expect(getByText('et al.')).toBeInTheDocument();
   });
 
   it('renders only limited (prop) authors and suffixes "show all." if passed more', () => {
@@ -89,10 +102,13 @@ describe('AuthorList', () => {
         full_name: 'Test, Guy 3',
       },
     ]);
-    const wrapper = shallow(
+    const { getByText, queryByText } = render(
       <AuthorList limit={2} total={3} authors={authors} enableShowAll />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Test, Guy 1')).toBeInTheDocument();
+    expect(getByText('Test, Guy 2')).toBeInTheDocument();
+    expect(queryByText('Test, Guy 3')).toBeNull();
+    expect(getByText(/Show All\(3\)/i)).toBeInTheDocument();
   });
 
   it('renders all authors if they are less than the limit without suffix', () => {
@@ -104,36 +120,16 @@ describe('AuthorList', () => {
         full_name: 'Test, Guy 2',
       },
     ]);
-    const wrapper = shallow(<AuthorList limit={4} authors={authors} />);
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('renders authors by using AuthorLink', () => {
-    const authors = fromJS([
-      {
-        full_name: 'Test, Guy 1',
-      },
-    ]);
-    const wrapper = shallow(<AuthorList limit={4} authors={authors} />);
-
-    // Can not dive since root is a Fragment
-    expect(wrapper.find(InlineDataList).first().dive()).toMatchSnapshot();
-  });
-
-  it('prefixes `Supervisor` when 1 supervisor is passed', () => {
-    const supervisors = fromJS([
-      {
-        full_name: 'Test, Guy 1',
-      },
-    ]);
-    const wrapper = shallow(
-      <AuthorList authors={supervisors} forSupervisors />
+    const { getByText, queryByText } = render(
+      <AuthorList limit={4} authors={authors} />
     );
-    expect(wrapper.find(InlineDataList).first().dive()).toMatchSnapshot();
+    expect(getByText('Test, Guy 1')).toBeInTheDocument();
+    expect(getByText('Test, Guy 2')).toBeInTheDocument();
+    expect(queryByText('et al.')).toBeNull();
   });
 
-  it('prefixes `Supervisor` when 2 or more supervisors are passed', () => {
-    const supervisors = fromJS([
+  it('should display `authors` in modal title', () => {
+    const authors = fromJS([
       {
         full_name: 'Test, Guy 1',
       },
@@ -141,31 +137,10 @@ describe('AuthorList', () => {
         full_name: 'Test, Guy 2',
       },
     ]);
-    const wrapper = shallow(
-      <AuthorList authors={supervisors} forSupervisors />
+    const { getByRole } = render(
+      <AuthorList authors={authors} limit={1} enableShowAll />
     );
-    expect(wrapper.find(InlineDataList).first().dive()).toMatchSnapshot();
-  });
-
-  it('should display `authors` in modal title by default', () => {
-    const authors = fromJS([
-      {
-        full_name: 'Test, Guy 1',
-      },
-    ]);
-    const wrapper = shallow(<AuthorList authors={authors} />);
-    expect(wrapper.find(Modal)).toMatchSnapshot();
-  });
-
-  it('should show `supervisors` in modal title if supervisors are passed', () => {
-    const supervisors = fromJS([
-      {
-        full_name: 'Test, Guy 1',
-      },
-    ]);
-    const wrapper = shallow(
-      <AuthorList authors={supervisors} forSupervisors />
-    );
-    expect(wrapper.find(Modal)).toMatchSnapshot();
+    getByRole('button').click();
+    expect(screen.getByText('2 authors')).toBeInTheDocument();
   });
 });

@@ -1,22 +1,25 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import RouterLinkButton from '../RouterLinkButton';
 
 describe('RouterLinkButton', () => {
   it('renders with className', () => {
-    const wrapper = shallow(
-      <RouterLinkButton className="test" to="/test">
-        Test
-      </RouterLinkButton>
+    const { getByRole } = render(
+      <MemoryRouter>
+        <RouterLinkButton className="test" to="/test">
+          Test
+        </RouterLinkButton>
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByRole('link')).toHaveClass('test');
   });
 
   it('renders without className', () => {
-    const wrapper = shallow(
-      <RouterLinkButton to="/test">Test</RouterLinkButton>
+    const { getByRole } = render(
+      <MemoryRouter>
+        <RouterLinkButton to="/test">Test</RouterLinkButton>
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByRole('link')).toHaveAttribute('href', '/test');
   });
 });

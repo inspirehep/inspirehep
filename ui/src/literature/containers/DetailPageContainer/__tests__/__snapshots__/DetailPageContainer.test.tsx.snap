@@ -561,7 +561,7 @@ exports[`DetailPageContainer renders initial state 1`] = `
                           <div>
                             <div
                               class="ant-list ant-list-split ant-list-something-after-last-item"
-                              data-test-id="pagination-list"
+                              data-testid="pagination-list"
                             >
                               <div
                                 class="ant-spin-nested-loading"

@@ -10,7 +10,9 @@ exports[`CitationSummaryTable renders table with null numbers 1`] = `
         <tr>
           <th />
           <th>
-            <span>
+            <span
+              data-testid="label-with-help"
+            >
               Citeable 
               <span
                 aria-label="question-circle"
@@ -37,7 +39,9 @@ exports[`CitationSummaryTable renders table with null numbers 1`] = `
             </span>
           </th>
           <th>
-            <span>
+            <span
+              data-testid="label-with-help"
+            >
               Published 
               <span
                 aria-label="question-circle"
@@ -80,7 +84,9 @@ exports[`CitationSummaryTable renders table with null numbers 1`] = `
         </tr>
         <tr>
           <th>
-            <span>
+            <span
+              data-testid="label-with-help"
+            >
               h-index 
               <span
                 aria-label="question-circle"
@@ -140,7 +146,9 @@ exports[`CitationSummaryTable renders table with only required props 1`] = `
         <tr>
           <th />
           <th>
-            <span>
+            <span
+              data-testid="label-with-help"
+            >
               Citeable 
               <span
                 aria-label="question-circle"
@@ -167,7 +175,9 @@ exports[`CitationSummaryTable renders table with only required props 1`] = `
             </span>
           </th>
           <th>
-            <span>
+            <span
+              data-testid="label-with-help"
+            >
               Published 
               <span
                 aria-label="question-circle"
@@ -218,7 +228,9 @@ exports[`CitationSummaryTable renders table with only required props 1`] = `
         </tr>
         <tr>
           <th>
-            <span>
+            <span
+              data-testid="label-with-help"
+            >
               h-index 
               <span
                 aria-label="question-circle"
@@ -278,7 +290,9 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
         <tr>
           <th />
           <th>
-            <span>
+            <span
+              data-testid="label-with-help"
+            >
               Citeable 
               <span
                 aria-label="question-circle"
@@ -305,7 +319,9 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
             </span>
           </th>
           <th>
-            <span>
+            <span
+              data-testid="label-with-help"
+            >
               Published 
               <span
                 aria-label="question-circle"
@@ -356,7 +372,9 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
         </tr>
         <tr>
           <th>
-            <span>
+            <span
+              data-testid="label-with-help"
+            >
               h-index 
               <span
                 aria-label="question-circle"

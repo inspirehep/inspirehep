@@ -1,5 +1,4 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import LiteratureTitle from '../LiteratureTitle';
@@ -9,8 +8,8 @@ describe('LiteratureTitle', () => {
     const title = fromJS({
       title: 'Test Literature Title',
     });
-    const wrapper = shallow(<LiteratureTitle title={title} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<LiteratureTitle title={title} />);
+    expect(getByText('Test Literature Title')).toBeInTheDocument();
   });
 
   it('renders with title and subtitle', () => {
@@ -18,7 +17,8 @@ describe('LiteratureTitle', () => {
       title: 'Test Literature Title',
       subtitle: 'Test Literature Sub Title',
     });
-    const wrapper = shallow(<LiteratureTitle title={title} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<LiteratureTitle title={title} />);
+    expect(getByText('Test Literature Title')).toBeInTheDocument();
+    expect(getByText('Test Literature Sub Title')).toBeInTheDocument();
   });
 });

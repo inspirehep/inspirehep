@@ -1,38 +1,41 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS, Range } from 'immutable';
 import { List } from 'antd';
 
 import ClientPaginatedList from '../ClientPaginatedList';
-import ListWithPagination from '../ListWithPagination';
 
 describe('ClientPaginatedList', () => {
   it('renders first page', () => {
     const items = Range(1, 100).toList();
-    const wrapper = shallow(
+    const { container, getByText } = render(
       <ClientPaginatedList
         items={items}
         renderItem={(item) => <List.Item key={item}>{item}</List.Item>}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(getByText('1-25 of 99')).toBeInTheDocument();
+    const element = container.querySelector('.ant-pagination-item-active');
+    expect(element.textContent).toBe('1');
   });
 
   it('renders first page with custom pageSize', () => {
     const items = Range(1, 100).toList();
-    const wrapper = shallow(
+    const { getByText, container } = render(
       <ClientPaginatedList
         items={items}
         pageSize={10}
         renderItem={(item) => <List.Item key={item}>{item}</List.Item>}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('1-10 of 99')).toBeInTheDocument();
+    const element = container.querySelector('.ant-pagination-item-active');
+    expect(element.textContent).toBe('1');
   });
 
   it('renders as loading if set', () => {
     const items = Range(1, 100).toList();
-    const wrapper = shallow(
+    const { getByText } = render(
       <ClientPaginatedList
         loading
         items={items}
@@ -40,12 +43,13 @@ describe('ClientPaginatedList', () => {
         pageSize={10}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(getByText('•••')).toBeInTheDocument();
   });
 
   it('renders in grid mode', () => {
     const items = Range(1, 100).toList();
-    const wrapper = shallow(
+    const { getByTestId } = render(
       <ClientPaginatedList
         loading
         items={items}
@@ -54,34 +58,39 @@ describe('ClientPaginatedList', () => {
         grid
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByTestId('pagination-list')).toHaveClass('ant-list-grid');
   });
 
   it('renders the new page on page change', () => {
     const items = Range(1, 100).toList();
-    const page = 2;
-    const wrapper = shallow(
+    const { container, getAllByRole } = render(
       <ClientPaginatedList
         items={items}
         renderItem={(item) => <List.Item key={item}>{item}</List.Item>}
         pageSize={10}
       />
     );
-    const onPageChange = wrapper.find(ListWithPagination).prop('onPageChange');
-    onPageChange(page);
-    wrapper.update();
-    expect(wrapper).toMatchSnapshot();
+
+    expect(
+      container.querySelector('.ant-pagination-item-active').textContent
+    ).toBe('1');
+
+    getAllByRole('button')[1].click();
+
+    expect(
+      container.querySelector('.ant-pagination-item-active').textContent
+    ).toBe('2');
   });
 
   it('does not render at all if empty', () => {
     const items = fromJS([]);
-    const wrapper = shallow(
+    const { container } = render(
       <ClientPaginatedList
         items={items}
         renderItem={(item) => <List.Item key={item}>{item}</List.Item>}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toBeEmptyDOMElement();
   });
 
   describe('getPageItems', () => {

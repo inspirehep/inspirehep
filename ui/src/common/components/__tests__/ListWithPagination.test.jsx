@@ -1,5 +1,5 @@
-import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { Range } from 'immutable';
 import { List, Pagination } from 'antd';
 
@@ -8,7 +8,7 @@ import ListWithPagination from '../ListWithPagination';
 describe('ListWithPagination', () => {
   it('renders with required props', () => {
     const pageItems = Range(0, 25).toList();
-    const wrapper = shallow(
+    const { container, getByText } = render(
       <ListWithPagination
         pageItems={pageItems}
         pageSize={50}
@@ -18,12 +18,14 @@ describe('ListWithPagination', () => {
         renderItem={(item) => <List.Item key={item}>{item}</List.Item>}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('1-50 of 100')).toBeInTheDocument();
+    const element = container.querySelector('.ant-pagination-item-active');
+    expect(element.textContent).toBe('1');
   });
 
   it('renders with all props', () => {
     const pageItems = Range(1, 25).toList();
-    const wrapper = shallow(
+    const { asFragment } = render(
       <ListWithPagination
         pageItems={pageItems}
         pageSize={25}
@@ -36,12 +38,12 @@ describe('ListWithPagination', () => {
         loading
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders in grid mode', () => {
     const pageItems = Range(1, 25).toList();
-    const wrapper = shallow(
+    const { asFragment } = render(
       <ListWithPagination
         pageItems={pageItems}
         pageSize={50}
@@ -52,7 +54,7 @@ describe('ListWithPagination', () => {
         grid
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('sets onPageChange and onSizeChange to Pagination', () => {

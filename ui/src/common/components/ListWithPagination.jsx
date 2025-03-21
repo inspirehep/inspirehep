@@ -48,6 +48,7 @@ class ListWithPagination extends Component {
         showSizeChanger={onSizeChange != null}
         pageSizeOptions={PAGE_SIZE_OPTIONS}
         responsive
+        data-testid="list-pagination"
       />
     );
   }
@@ -67,7 +68,7 @@ class ListWithPagination extends Component {
         grid={grid ? GRID_CONFIG : undefined}
         dataSource={pageItems}
         renderItem={this.renderItem}
-        data-test-id="pagination-list"
+        data-testid="pagination-list"
       />
     );
   }
