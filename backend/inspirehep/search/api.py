@@ -129,7 +129,11 @@ class InspireSearch(RecordsSearch, SearchMixin):
             if size > max_page_size:
                 raise MaximumSearchPageSizeExceeded(max_size=max_page_size)
         with RecursionLimit(current_app.config.get("SEARCH_MAX_RECURSION_LIMIT", 5000)):
-            return super().execute(*args, **kwargs)
+            try:
+                return super().execute(*args, **kwargs)
+            except RequestError:
+                self.query = Q("match_none")
+                return super().execute(*args, **kwargs)
 
 
 class LiteratureSearch(InspireSearch):

@@ -1,0 +1,36 @@
+interactions:
+- request:
+    body: citations=%2B+-+%3D+%26%26+%7C%7C+%3E+%3C+%21+%28+%29+%7B+%7D+%5B+%5D+%5E+%22+~+%2A+%3F+%3A+%5C+%2F
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '99'
+      Content-Type:
+      - application/x-www-form-urlencoded
+    method: POST
+    uri: https://grobid.inspirebeta.net/api/processCitation
+  response:
+    body:
+      string: '<html><body><h1>403 Forbidden</h1>
+
+        Request forbidden by administrative rules.
+
+        </body></html>
+
+        '
+    headers:
+      cache-control:
+      - no-cache
+      content-length:
+      - '93'
+      content-type:
+      - text/html
+    status:
+      code: 403
+      message: Forbidden
+version: 1
