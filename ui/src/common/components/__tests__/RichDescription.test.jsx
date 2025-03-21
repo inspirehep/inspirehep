@@ -1,11 +1,12 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import RichDescription from '../RichDescription';
 
 describe('RichDescription', () => {
   it('renders with description', () => {
-    const wrapper = shallow(<RichDescription>description</RichDescription>);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <RichDescription>description</RichDescription>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });

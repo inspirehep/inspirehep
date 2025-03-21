@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LabelWithHelp renders label with help 1`] = `
-<span>
+<span
+  data-testid="label-with-help"
+>
   Label
    
   <HelpIconTooltip

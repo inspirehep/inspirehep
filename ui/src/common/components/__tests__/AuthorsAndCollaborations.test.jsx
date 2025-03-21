@@ -1,7 +1,7 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
+import { MemoryRouter } from 'react-router-dom';
 import AuthorsAndCollaborations from '../AuthorsAndCollaborations';
 
 describe('AuthorsAndCollaborations', () => {
@@ -11,8 +11,10 @@ describe('AuthorsAndCollaborations', () => {
         full_name: 'Test, Guy 1',
       },
     ]);
-    const wrapper = shallow(<AuthorsAndCollaborations authors={authors} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(
+      <AuthorsAndCollaborations authors={authors} />
+    );
+    expect(getByText('Test, Guy 1')).toBeInTheDocument();
   });
 
   it('renders only author list if collaborations are missing (extra author props)', () => {
@@ -21,14 +23,15 @@ describe('AuthorsAndCollaborations', () => {
         full_name: 'Test, Guy 1',
       },
     ]);
-    const wrapper = shallow(
+    const { getByText } = render(
       <AuthorsAndCollaborations
         authors={authors}
         authorCount={1}
         enableAuthorsShowAll
       />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(getByText('Test, Guy 1')).toBeInTheDocument();
   });
 
   it('renders only one collaboration and author for the collaboration', () => {
@@ -42,15 +45,18 @@ describe('AuthorsAndCollaborations', () => {
         value: 'Test Collab 1',
       },
     ]);
-    const wrapper = shallow(
-      <AuthorsAndCollaborations
-        enableAuthorsShowAll
-        authors={authors}
-        authorCount={1}
-        collaborations={collaborations}
-      />
+    const { getByText } = render(
+      <MemoryRouter>
+        <AuthorsAndCollaborations
+          enableAuthorsShowAll
+          authors={authors}
+          authorCount={1}
+          collaborations={collaborations}
+        />
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Test Collab 1')).toBeInTheDocument();
+    expect(getByText('Test, Guy 1')).toBeInTheDocument();
   });
 
   it('renders multiple collaborations and author for the collaborations', () => {
@@ -67,15 +73,19 @@ describe('AuthorsAndCollaborations', () => {
         value: 'Test Collab 2',
       },
     ]);
-    const wrapper = shallow(
-      <AuthorsAndCollaborations
-        enableAuthorsShowAll
-        authors={authors}
-        authorCount={1}
-        collaborations={collaborations}
-      />
+    const { getByText } = render(
+      <MemoryRouter>
+        <AuthorsAndCollaborations
+          enableAuthorsShowAll
+          authors={authors}
+          authorCount={1}
+          collaborations={collaborations}
+        />
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Test Collab 1')).toBeInTheDocument();
+    expect(getByText('Test Collab 2')).toBeInTheDocument();
+    expect(getByText('Test, Guy 1')).toBeInTheDocument();
   });
 
   it('renders collaboration list with single item and author list with limit 1 if there are multiple authors', () => {
@@ -92,15 +102,18 @@ describe('AuthorsAndCollaborations', () => {
         value: 'Test 1 Group',
       },
     ]);
-    const wrapper = shallow(
-      <AuthorsAndCollaborations
-        enableAuthorsShowAll
-        authors={authors}
-        authorCount={12}
-        collaborationsWithSuffix={collaborationsWithSuffix}
-      />
+    const { getByText, queryByText } = render(
+      <MemoryRouter>
+        <AuthorsAndCollaborations
+          enableAuthorsShowAll
+          authors={authors}
+          authorCount={12}
+          collaborationsWithSuffix={collaborationsWithSuffix}
+        />
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Test, Guy 1')).toBeInTheDocument();
+    expect(queryByText('Test, Guy 2')).toBeNull();
   });
 
   it('renders collaboration list and author list if collaborations and authors have multiple items', () => {
@@ -125,16 +138,23 @@ describe('AuthorsAndCollaborations', () => {
         value: 'Test Collab 1',
       },
     ]);
-    const wrapper = shallow(
-      <AuthorsAndCollaborations
-        enableAuthorsShowAll
-        authors={authors}
-        authorCount={12}
-        collaborations={collaborations}
-        collaborationsWithSuffix={collaborationsWithSuffix}
-      />
+    const { getByText, getAllByTestId } = render(
+      <MemoryRouter>
+        <AuthorsAndCollaborations
+          enableAuthorsShowAll
+          authors={authors}
+          authorCount={12}
+          collaborations={collaborations}
+          collaborationsWithSuffix={collaborationsWithSuffix}
+        />
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Test Collab 1')).toBeInTheDocument();
+    expect(getByText('Test 1 Group')).toBeInTheDocument();
+    expect(getByText('Test 2 Group')).toBeInTheDocument();
+    expect(getByText('Test, Guy 1')).toBeInTheDocument();
+    expect(getByText(/Show All\(2\)/i)).toBeInTheDocument();
+    expect(getAllByTestId('inline-data-list')).toHaveLength(3);
   });
 
   it('does not render bullet if authors missing', () => {
@@ -151,13 +171,19 @@ describe('AuthorsAndCollaborations', () => {
         value: 'Test Collab 1',
       },
     ]);
-    const wrapper = shallow(
-      <AuthorsAndCollaborations
-        collaborations={collaborations}
-        collaborationsWithSuffix={collaborationsWithSuffix}
-      />
+    const { getByText, getAllByTestId } = render(
+      <MemoryRouter>
+        <AuthorsAndCollaborations
+          collaborations={collaborations}
+          collaborationsWithSuffix={collaborationsWithSuffix}
+        />
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(getByText('Test Collab 1')).toBeInTheDocument();
+    expect(getByText('Test 1 Group')).toBeInTheDocument();
+    expect(getByText('Test 2 Group')).toBeInTheDocument();
+    expect(getAllByTestId('inline-data-list')).toHaveLength(2);
   });
 
   it('does not render bullet if authors missing with single collaboration', () => {
@@ -166,9 +192,12 @@ describe('AuthorsAndCollaborations', () => {
         value: 'Test Collab 1',
       },
     ]);
-    const wrapper = shallow(
-      <AuthorsAndCollaborations collaborations={collaborations} />
+    const { getAllByTestId, getByText } = render(
+      <MemoryRouter>
+        <AuthorsAndCollaborations collaborations={collaborations} />
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Test Collab 1')).toBeInTheDocument();
+    expect(getAllByTestId('inline-data-list')).toHaveLength(1);
   });
 });

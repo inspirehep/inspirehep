@@ -58,7 +58,7 @@ describe('Reference container', () => {
       cy.visit('/literature/1374620');
       cy.waitForRoute();
 
-      cy.get('[data-test-id="pagination-list"]').as('paginationList');
+      cy.get('[data-testid="pagination-list"]').as('paginationList');
       cy.get('@paginationList')
         .find('.ant-list-items')
         .children()
@@ -228,7 +228,7 @@ describe('Reference container', () => {
       cy.visit('/literature/1688995');
       cy.waitForLoading();
 
-      cy.get('[data-test-id="pagination-list"]').as('paginationList');
+      cy.get('[data-testid="pagination-list"]').as('paginationList');
       cy.get('@paginationList')
         .find('.ant-list-items')
         .children()

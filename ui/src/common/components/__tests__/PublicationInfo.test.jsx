@@ -1,7 +1,5 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-
 import PublicationInfo from '../PublicationInfo';
 
 describe('PublicationInfo', () => {
@@ -9,11 +7,11 @@ describe('PublicationInfo', () => {
     const info = fromJS({
       journal_title: 'Test Journal',
     });
-    const wrapper = shallow(<PublicationInfo info={info} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<PublicationInfo info={info} />);
+    getByText(/Test Journal/i);
   });
 
-  it('renders with journal_title and alll others fields', () => {
+  it('renders with journal_title and all others fields', () => {
     const info = fromJS({
       journal_title: 'Test Journal',
       journal_volume: 'TV',
@@ -22,11 +20,15 @@ describe('PublicationInfo', () => {
       page_end: '2',
       artid: '012345',
     });
-    const wrapper = shallow(<PublicationInfo info={info} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText, queryByText } = render(<PublicationInfo info={info} />);
+    expect(getByText(/Test Journal/i)).toBeInTheDocument();
+    expect(getByText(/TV/i)).toBeInTheDocument();
+    expect(getByText(/\(2016\)/i)).toBeInTheDocument();
+    expect(getByText(/1-2/i)).toBeInTheDocument();
+    expect(queryByText(/012345/i)).toBeNull();
   });
 
-  it('renders with journal_title and alll others fields', () => {
+  it('renders with journal_title and all others fields', () => {
     const info = fromJS({
       journal_title: 'Test Journal',
       journal_volume: 'TV',
@@ -36,22 +38,26 @@ describe('PublicationInfo', () => {
       artid: '012345',
       pubinfo_freetext: 'Test. Pub. Info. Freetext',
     });
-    const wrapper = shallow(<PublicationInfo info={info} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText, queryByText } = render(<PublicationInfo info={info} />);
+    expect(getByText(/Test Journal/i)).toBeInTheDocument();
+    expect(getByText(/TV/i)).toBeInTheDocument();
+    expect(getByText(/\(2016\)/i)).toBeInTheDocument();
+    expect(getByText(/1-2/i)).toBeInTheDocument();
+    expect(queryByText(/Test. Pub. Info. Freetext/i)).toBeNull();
   });
 
   it('renders with pubinfo_freetext', () => {
     const info = fromJS({
       pubinfo_freetext: 'Test. Pub. Info. Freetext',
     });
-    const wrapper = shallow(<PublicationInfo info={info} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<PublicationInfo info={info} />);
+    expect(getByText(/Test. Pub. Info. Freetext/i)).toBeInTheDocument();
   });
 
   it('renders without pubinfo_freetext or journal_title', () => {
     const info = fromJS({});
-    const wrapper = shallow(<PublicationInfo info={info} />);
-    expect(wrapper).toMatchSnapshot();
+    const { container } = render(<PublicationInfo info={info} />);
+    expect(container).toBeEmptyDOMElement();
   });
 
   it('renders with material', () => {
@@ -59,8 +65,8 @@ describe('PublicationInfo', () => {
       journal_title: 'Test Journal',
       material: 'erratum',
     });
-    const wrapper = shallow(<PublicationInfo info={info} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<PublicationInfo info={info} />);
+    expect(getByText(/\(erratum\)/i)).toBeInTheDocument();
   });
 
   it('does not render material if it is publication', () => {
@@ -68,8 +74,8 @@ describe('PublicationInfo', () => {
       journal_title: 'Test Journal',
       material: 'publication',
     });
-    const wrapper = shallow(<PublicationInfo info={info} />);
-    expect(wrapper).toMatchSnapshot();
+    const { queryByText } = render(<PublicationInfo info={info} />);
+    expect(queryByText(/\(publication\)/i)).toBeNull();
   });
 
   it('renders either page start/end or artid', () => {
@@ -80,8 +86,9 @@ describe('PublicationInfo', () => {
       artid: 123,
       journal_issue: 2,
     });
-    const wrapper = shallow(<PublicationInfo info={info} />);
-    expect(wrapper).toMatchSnapshot();
+
+    const { getByText } = render(<PublicationInfo info={info} />);
+    expect(getByText(/1-10/i)).toBeInTheDocument();
   });
 
   it('renders only page_start when page_end is not available', () => {
@@ -91,8 +98,9 @@ describe('PublicationInfo', () => {
       artid: 123,
       journal_issue: 2,
     });
-    const wrapper = shallow(<PublicationInfo info={info} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<PublicationInfo info={info} />);
+    expect(getByText(/1/i)).toBeInTheDocument();
+    expect(getByText(/,/i)).toBeInTheDocument();
   });
 
   it('does not display a comma when page info or artid is not available', () => {
@@ -100,7 +108,7 @@ describe('PublicationInfo', () => {
       journal_title: 'Test Journal',
       journal_issue: 2,
     });
-    const wrapper = shallow(<PublicationInfo info={info} />);
-    expect(wrapper).toMatchSnapshot();
+    const { queryByText } = render(<PublicationInfo info={info} />);
+    expect(queryByText(/,/i)).toBeNull();
   });
 });

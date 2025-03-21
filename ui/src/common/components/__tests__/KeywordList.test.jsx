@@ -1,5 +1,4 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import KeywordList from '../KeywordList';
@@ -14,8 +13,8 @@ describe('KeywordList', () => {
         value: 'LHC-B',
       },
     ]);
-    const wrapper = shallow(<KeywordList keywords={keywords} />);
-    // FIXME: we need to .dive().dive() to be able test list items
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<KeywordList keywords={keywords} />);
+    expect(getByText('CMS')).toBeInTheDocument();
+    expect(getByText('LHC-B')).toBeInTheDocument();
   });
 });

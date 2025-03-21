@@ -6,7 +6,7 @@ class LabelWithHelp extends Component {
   render() {
     const { help, label } = this.props;
     return (
-      <span>
+      <span data-testid="label-with-help">
         {label} <HelpIconTooltip help={help} />
       </span>
     );

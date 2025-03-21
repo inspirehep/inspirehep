@@ -1,17 +1,29 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import { Route } from 'react-router-dom';
-
+import { render } from '@testing-library/react';
+import { Route, MemoryRouter } from 'react-router-dom';
 import SafeSwitch from '../SafeSwitch';
 
 describe('SafeSwitch', () => {
-  it('renders childrens and redirect to errors', () => {
+  it('renders childrens ', () => {
     const Foo = () => <div>Foo Component</div>;
-    const wrapper = shallow(
-      <SafeSwitch>
-        <Route path="/foo" component={Foo} />
-      </SafeSwitch>
+    const { getByText } = render(
+      <MemoryRouter initialEntries={['/foo']}>
+        <SafeSwitch>
+          <Route path="/foo" component={Foo} />
+        </SafeSwitch>
+      </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Foo Component')).toBeInTheDocument();
+  });
+
+  it('redirect to errors', () => {
+    const Foo = () => <div>Foo Component</div>;
+    const { container } = render(
+      <MemoryRouter initialEntries={['/bad_route']}>
+        <SafeSwitch>
+          <Route path="/foo" component={Foo} />
+        </SafeSwitch>
+      </MemoryRouter>
+    );
+    expect(container).toBeEmptyDOMElement();
   });
 });

@@ -1,5 +1,4 @@
-import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { MemoryRouter, Route, Switch } from 'react-router-dom';
 
 import RouteOrRedirect from '../RouteOrRedirect';
@@ -8,7 +7,7 @@ const Test = () => <div>Test Component</div>;
 
 describe('RouteOrRedirect', () => {
   it('renders component if condition is true', () => {
-    const wrapper = mount(
+    const { getByText } = render(
       <MemoryRouter initialEntries={['/test']} initialIndex={0}>
         <Switch>
           <RouteOrRedirect
@@ -21,12 +20,12 @@ describe('RouteOrRedirect', () => {
         </Switch>
       </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Test Component')).toBeInTheDocument();
   });
 
   it('redirects if condition is false', () => {
     const Another = () => <div>Another Component</div>;
-    const wrapper = mount(
+    const { queryByText, getByText } = render(
       <MemoryRouter initialEntries={['/test']} initialIndex={0}>
         <Switch>
           <Route exact path="/another" component={Another} />
@@ -40,6 +39,8 @@ describe('RouteOrRedirect', () => {
         </Switch>
       </MemoryRouter>
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(getByText('Another Component')).toBeInTheDocument();
+    expect(queryByText('Test Component')).toBeNull();
   });
 });
