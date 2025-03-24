@@ -70,6 +70,7 @@ x-airflow-common: &airflow-common
     context: workflows
     dockerfile: Dockerfile.local
   environment: &airflow-common-env
+    AIRFLOW__WEBSERVER__BASE_URL: ${AIRFLOW__WEBSERVER__BASE_URL}
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:postgres@db/workflows
     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://postgres:postgres@db/workflows
