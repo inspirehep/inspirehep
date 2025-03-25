@@ -57,9 +57,9 @@ class TestDataHarvest:
     def test_build_record(self):
         payload = {}
         with open("tests/data_records/ins1906174_version1.json") as f:
-            payload[1] = json.load(f)
+            payload["1"] = json.load(f)
         with open("tests/data_records/ins1906174_version2.json") as f:
-            payload[2] = json.load(f)
+            payload["2"] = json.load(f)
         with open("tests/data_records/ins1906174_version3.json") as f:
             payload["base"] = json.load(f)
 
@@ -115,7 +115,8 @@ class TestDataHarvest:
         assert any(doi["source"] == "HEPData" for doi in res["dois"])
 
         # check that the record has the correct creation date
-        assert res["creation_date"] == "2023-11-13"  # from last_updated_field
+        # from last_updated_field of first version
+        assert res["creation_date"] == "2021-09-06"
 
     def test_creation_date_from_last_updated(self):
         payload = {}

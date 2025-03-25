@@ -4343,13 +4343,6 @@
       }
     ],
     "subject_area": ["hep-ex"],
-    "resources": [
-      {
-        "description": "web page with auxiliary material",
-        "type": "html",
-        "url": "http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-17-022/"
-      }
-    ],
     "summary_authors": [
       { "affiliation": "Marseille, CPPM", "full_name": "Aad, Georges" },
       { "affiliation": "Oklahoma U.", "full_name": "Abbott, Braden Keim" },
