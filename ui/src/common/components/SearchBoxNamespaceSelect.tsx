@@ -13,6 +13,7 @@ const SearchBoxNamespaceSelect = ({
   onSearchScopeChange: Function;
 }) => (
   <SelectBox
+    listHeight={400}
     popupClassName="header-dropdown"
     onChange={onSearchScopeChange}
     value={searchScopeName}
