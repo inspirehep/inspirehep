@@ -174,7 +174,8 @@ def bulk_data_harvest_dag():
             builder.add_abstract(base_record["record"]["data_abstract"])
 
             add_keywords(base_record["record"], builder)
-            add_date(base_record["record"], builder)
+            record_v1 = payload.get("1", base_record)
+            add_date(record_v1["record"], builder)
 
             doi = base_record["record"].get("doi")
             inspire_id = base_record["record"]["inspire_id"]
