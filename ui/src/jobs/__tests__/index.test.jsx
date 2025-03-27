@@ -1,36 +1,42 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import { shallow, mount } from 'enzyme';
 import Loadable from 'react-loadable';
 
+import { render } from '@testing-library/react';
+import { fromJS } from 'immutable';
 import { getStore } from '../../fixtures/store';
 import Jobs from '..';
-import DetailPageContainer from '../containers/DetailPageContainer';
-import SearchPageContainer from '../containers/SearchPageContainer';
 
 describe('Jobs', () => {
-  it('renders initial state', () => {
-    const component = shallow(<Jobs />);
-    expect(component).toMatchSnapshot();
-  });
-
   it('navigates to DetailPageContainer when /jobs/:id', async () => {
-    const wrapper = mount(
-      <Provider store={getStore()}>
+    const store = getStore({
+      jobs: fromJS({
+        data: {
+          metadata: {
+            position: 'Postdoctoral position in the NEWS-G experiment',
+            control_number: 2904369,
+            deadline_date: '2025-07-01',
+          },
+          created: '2025-03-26T16:25:11.340978+00:00',
+          updated: '2025-03-26T16:25:11.340978+00:00',
+        },
+      }),
+    });
+    const { getByTestId } = render(
+      <Provider store={store}>
         <MemoryRouter initialEntries={['/jobs/123']} initialIndex={0}>
           <Jobs />
         </MemoryRouter>
       </Provider>
     );
     await Loadable.preloadAll();
-    wrapper.update();
 
-    expect(wrapper.find(DetailPageContainer)).toExist();
+    expect(getByTestId('jobs-detail-page-container')).toBeInTheDocument();
   });
 
   it('navigates to SerachPage when /jobs', async () => {
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/jobs']} initialIndex={0}>
           <Jobs />
@@ -38,8 +44,7 @@ describe('Jobs', () => {
       </Provider>
     );
     await Loadable.preloadAll();
-    wrapper.update();
 
-    expect(wrapper.find(SearchPageContainer)).toExist();
+    expect(getByTestId('jobs-search-page-container')).toBeInTheDocument();
   });
 });

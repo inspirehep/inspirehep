@@ -1,12 +1,11 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import DeadlineDate from '../DeadlineDate';
 
 describe('DeadlineDate', () => {
   it('renders with deadlineDate', () => {
-    const wrapper = shallow(
+    const { getByText } = render(
       <DeadlineDate deadlineDate="2003-03-12T00:00:00+00:00" />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Deadline on Mar 12, 2003')).toBeInTheDocument();
   });
 });

@@ -1,7 +1,5 @@
-import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
-
+import { render } from '@testing-library/react';
 import InstitutionsList from '../InstitutionsList';
 
 describe('InstitutionsList', () => {
@@ -14,7 +12,10 @@ describe('InstitutionsList', () => {
         value: 'CERN',
       },
     ]);
-    const wrapper = shallow(<InstitutionsList institutions={institutions} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { getByText } = render(
+      <InstitutionsList institutions={institutions} />
+    );
+    expect(getByText('UC, Berkeley,')).toBeInTheDocument();
+    expect(getByText('CERN')).toBeInTheDocument();
   });
 });

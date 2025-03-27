@@ -90,7 +90,11 @@ class SearchPage extends Component {
               <ResponsiveView min="lg" render={this.renderAggregations} />
             </Col>
           </Row>
-          <Row type="flex" justify="center">
+          <Row
+            type="flex"
+            justify="center"
+            data-testid="jobs-search-page-container"
+          >
             <Col xs={24} lg={16} xl={16} xxl={14}>
               <LoadingOrChildren loading={loading}>
                 <Row type="flex" align="middle" justify="end">

@@ -1,7 +1,6 @@
-import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
-
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import JobItem from '../JobItem';
 
 describe('JobItem', () => {
@@ -21,7 +20,18 @@ describe('JobItem', () => {
         },
       ],
     });
-    const wrapper = shallow(<JobItem metadata={metadata} created={created} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(
+      <MemoryRouter>
+        <JobItem metadata={metadata} created={created} />
+      </MemoryRouter>
+    );
+    expect(getByText('Job Offer')).toBeInTheDocument();
+    expect(getByText('Deadline on May 31, 2020')).toBeInTheDocument();
+    expect(getByText('CERN')).toBeInTheDocument();
+    expect(getByText('CERN-LHC-ATLAS')).toBeInTheDocument();
+    expect(getByText('hep-ex')).toBeInTheDocument();
+    expect(getByText('Europe')).toBeInTheDocument();
+    expect(getByText('Senior (permanent)')).toBeInTheDocument();
+    expect(getByText('6 years ago')).toBeInTheDocument();
   });
 });
