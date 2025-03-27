@@ -19,6 +19,8 @@
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
 
+import contextlib
+
 import mock
 import orjson
 import pytest
@@ -29,6 +31,8 @@ from inspirehep.hal.core.sword import (
     Connection,
     HttpLib2LayerIgnoreCert,
     _new_connection,
+    create,
+    update,
 )
 from inspirehep.hal.errors import HALCreateException
 from inspirehep.hal.tasks import _hal_push, hal_push, update_record_with_new_ids
@@ -231,3 +235,32 @@ def test_id_is_not_written_to_record_for_stale_data_push(
     assert get_values_for_schema(record["external_system_identifiers"], "HAL") == [
         "hal:123456"
     ]
+
+
+_original_request = HttpLib2LayerIgnoreCert.request
+
+
+@mock.patch("inspirehep.hal.core.sword.HttpLib2LayerIgnoreCert.request", autospec=True)
+def test_create_sends_force_doublon_by_title_header(mock_request, inspire_app):
+    mock_request.side_effect = lambda self, *args, **kwargs: _original_request(
+        self, *args, **kwargs
+    )
+    with contextlib.suppress(Exception):
+        create("<xml>test</xml>", None)
+    mock_request.assert_called_once()
+
+    headers = mock_request.call_args.kwargs["headers"]
+    assert headers["ForceDoublonByTitle"] == "1"
+
+
+@mock.patch("inspirehep.hal.core.sword.HttpLib2LayerIgnoreCert.request", autospec=True)
+def test_update_sends_force_doublon_by_title_header(mock_request, inspire_app):
+    mock_request.side_effect = lambda self, *args, **kwargs: _original_request(
+        self, *args, **kwargs
+    )
+    with contextlib.suppress(Exception):
+        update("<xml>test</xml>", "123", None)
+    mock_request.assert_called_once()
+
+    headers = mock_request.call_args.kwargs["headers"]
+    assert headers["ForceDoublonByTitle"] == "1"
