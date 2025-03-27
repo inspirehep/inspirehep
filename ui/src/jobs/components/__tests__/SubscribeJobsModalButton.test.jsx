@@ -1,67 +1,79 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import { Modal } from 'antd';
-
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import SubscribeJobsModalButton from '../SubscribeJobsModalButton';
 import subscribeJobMailingList from '../../subscribeJobMailingList';
-import LinkLikeButton from '../../../common/components/LinkLikeButton/LinkLikeButton';
-import SubscribeJobsForm from '../SubscribeJobsForm';
 
 jest.mock('../../subscribeJobMailingList');
 
 describe('SubscribeJobsModalButton', () => {
+  beforeEach(() => {
+    jest.clearAllMocks(); // Clear all mocks before each test
+  });
+
   it('renders with initial state', () => {
-    const wrapper = shallow(<SubscribeJobsModalButton />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByTestId } = render(<SubscribeJobsModalButton />);
+    expect(getByTestId('subscribe-jobs-button')).toBeInTheDocument();
   });
 
   it('sets modal visible on button click', () => {
-    const wrapper = shallow(<SubscribeJobsModalButton />);
-
-    wrapper.find(LinkLikeButton).prop('onClick')();
-    expect(wrapper.find(Modal).prop('open')).toBe(true);
+    const { getByTestId } = render(<SubscribeJobsModalButton />);
+    const button = getByTestId('subscribe-jobs-button');
+    fireEvent.click(button);
+    expect(screen.getByText('Subscribe')).toBeInTheDocument();
   });
 
-  it('renders with error alert if hasError', () => {
-    const wrapper = shallow(<SubscribeJobsModalButton />);
+  it('renders with error alert if hasError', async () => {
+    subscribeJobMailingList.mockRejectedValue(new Error('An error occurred'));
+    render(<SubscribeJobsModalButton />);
+    fireEvent.click(screen.getByTestId('subscribe-jobs-button'));
+    expect(screen.getByText('Subscribe')).toBeInTheDocument();
+    fireEvent.change(screen.getByPlaceholderText(/email/i), {
+      target: { value: 'harun@cern.ch' },
+    });
+    fireEvent.change(screen.getByPlaceholderText(/first name/i), {
+      target: { value: 'Harun' },
+    });
+    fireEvent.change(screen.getByPlaceholderText(/last name/i), {
+      target: { value: 'Urhan' },
+    });
 
-    wrapper.setState({ hasError: true });
-    wrapper.update();
-    expect(wrapper).toMatchSnapshot();
+    fireEvent.click(screen.getByTestId('subscribe-submit'));
+    await waitFor(() => {
+      expect(subscribeJobMailingList).toHaveBeenCalledTimes(1);
+      const alert = screen.getByRole('alert');
+      expect(alert).toBeInTheDocument();
+      expect(
+        screen.getByText('Could not subscribe, please try again.')
+      ).toBeInTheDocument();
+    });
   });
 
-  it('renders confirmation if subscription is submitted', () => {
-    const wrapper = shallow(<SubscribeJobsModalButton />);
+  it('calls subscribeJobMailingList on form submit and render confirmation', async () => {
+    subscribeJobMailingList.mockResolvedValue({});
+    render(<SubscribeJobsModalButton />);
+    fireEvent.click(screen.getByTestId('subscribe-jobs-button'));
+    expect(screen.getByText('Subscribe')).toBeInTheDocument();
+    fireEvent.change(screen.getByPlaceholderText(/email/i), {
+      target: { value: 'harun@cern.ch' },
+    });
+    fireEvent.change(screen.getByPlaceholderText(/first name/i), {
+      target: { value: 'Harun' },
+    });
+    fireEvent.change(screen.getByPlaceholderText(/last name/i), {
+      target: { value: 'Urhan' },
+    });
 
-    wrapper.setState({ isSubscriptionSubmitted: true });
-    wrapper.update();
-    expect(wrapper).toMatchSnapshot();
-  });
+    fireEvent.click(screen.getByTestId('subscribe-submit'));
 
-  it('sets isSubscriptionSubmitted false after modal is closed', () => {
-    const wrapper = shallow(<SubscribeJobsModalButton />);
-
-    wrapper.setState({ isSubscriptionSubmitted: true });
-
-    const afterModalClose = wrapper.find(Modal).prop('afterClose');
-    afterModalClose();
-
-    expect(wrapper).toHaveState({ isSubscriptionSubmitted: false });
-  });
-
-  it('calls subscribeJobMailingList on SubscribeJobsFrom submit', () => {
-    const wrapper = shallow(<SubscribeJobsModalButton />);
-
-    const onSubscribeFormSubmit = wrapper
-      .find(SubscribeJobsForm)
-      .prop('onSubmit');
-    const data = {
-      email: 'harun@cern.ch',
-      first_name: 'Harun',
-      last_name: 'Urhan',
-    };
-    onSubscribeFormSubmit(data);
-    expect(subscribeJobMailingList).toHaveBeenCalledWith(data);
-    expect(wrapper.find(Modal).prop('open')).toBe(false);
+    await waitFor(() => {
+      expect(subscribeJobMailingList).toHaveBeenCalledTimes(1);
+      expect(subscribeJobMailingList).toHaveBeenCalledWith({
+        email: 'harun@cern.ch',
+        first_name: 'Harun',
+        last_name: 'Urhan',
+      });
+      expect(
+        screen.getByText('You have successfully subscribed!')
+      ).toBeInTheDocument();
+    });
   });
 });
