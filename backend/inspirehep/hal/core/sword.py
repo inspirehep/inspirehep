@@ -68,6 +68,12 @@ class HttpLib2LayerIgnoreCert(HttpLib2Layer):
     def __init__(self, *args, **kwargs):
         self.h = httplib2.Http(*args, **kwargs)
 
+    def request(self, uri, method, headers=None, payload=None):
+        if headers is None:
+            headers = {}
+        headers["ForceDoublonByTitle"] = "1"
+        return super().request(uri, method, headers, payload)
+
 
 def _new_connection():
     user_name = current_app.config["HAL_USER_NAME"]
