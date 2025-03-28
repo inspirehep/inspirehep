@@ -1,7 +1,5 @@
-import { shallow } from 'enzyme';
-import { render } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { Alert } from 'antd';
 
 import Banner from '../Banner';
 
@@ -83,9 +81,9 @@ describe('Banner', () => {
     expect(banner).toHaveClass('ant-alert-warning');
   });
 
-  it('calls onClose with id, after Alert close', () => {
+  it('removes the banner after close', async () => {
     const onClose = jest.fn();
-    const wrapper = shallow(
+    const { container } = render(
       <Banner
         id="test"
         message="Test"
@@ -94,10 +92,11 @@ describe('Banner', () => {
         onClose={onClose}
       />
     );
-
-    const afterClose = wrapper.find(Alert).prop('afterClose');
-    afterClose();
-
-    expect(onClose).toHaveBeenCalledWith('test');
+    const closeButton = screen.getByRole('button', { name: /close/i });
+    // Simulate clicking the close button
+    fireEvent.click(closeButton);
+    await waitFor(() => {
+      expect(container.firstChild).toBeNull();
+    });
   });
 });

@@ -1,12 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { goBack } from 'connected-react-router';
 import { Provider } from 'react-redux';
 
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { getStore } from '../../../fixtures/store';
 import GoBackLinkContainer from '../GoBackLinkContainer';
-import GoBackLink from '../../components/GoBackLink';
 
 jest.mock('connected-react-router');
 
@@ -28,13 +26,16 @@ describe('GoBackLinkContainer', () => {
   });
 
   it('calls goBack() on click', () => {
-    const wrapper = mount(
-      <Provider store={getStore()}>
+    const store = getStore();
+    const { getByTestId } = render(
+      <Provider store={store}>
         <GoBackLinkContainer />
       </Provider>
     );
-    const onClick = wrapper.find(GoBackLink).prop('onClick');
-    onClick();
+
+    const goBackLink = getByTestId('go-back-link');
+    fireEvent.click(goBackLink);
+
     expect(goBack).toHaveBeenCalled();
   });
 });

@@ -1,9 +1,5 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import SortBy from '../SortBy';
-import SelectBox from '../SelectBox';
 
 describe('SortBy', () => {
   it('renders with all props set', () => {
@@ -26,18 +22,23 @@ describe('SortBy', () => {
     expect(queryByTestId('sort-by-select')).toBeNull();
   });
 
-  it('calls onSortChange when select box change', () => {
+  it('calls onSortChange when select box change', async () => {
     const onSortChange = jest.fn();
-    const wrapper = shallow(
+    const { getByRole, getByText } = render(
       <SortBy
         sort="mostrecent"
         onSortChange={onSortChange}
-        sortOptions={[{ value: 'mostrecent', display: 'Most Recent' }]}
+        sortOptions={[
+          { value: 'mostrecent', display: 'Most Recent' },
+          { value: 'mostcited', display: 'Most Cited' },
+        ]}
       />
     );
-    const onSelectBoxChange = wrapper.find(SelectBox).prop('onChange');
-    const sort = 'mostcited';
-    onSelectBoxChange(sort);
-    expect(onSortChange).toBeCalledWith(sort);
+    const selectBox = getByRole('combobox');
+    fireEvent.mouseDown(selectBox);
+    const mostCited = getByText('Most Cited');
+    fireEvent.click(mostCited);
+    expect(onSortChange).toHaveBeenCalledTimes(1);
+    expect(onSortChange.mock.calls[0][0]).toBe('mostcited');
   });
 });
