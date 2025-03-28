@@ -1,6 +1,5 @@
-import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
+import { render } from '@testing-library/react';
 import ReferenceLettersContacts from '../ReferenceLettersContacts';
 
 describe('ReferenceLettersContacts', () => {
@@ -12,9 +11,23 @@ describe('ReferenceLettersContacts', () => {
       ],
       emails: ['awi_moni@yahoo.com', 'mariahmoni@gmail.com'],
     });
-    const wrapper = shallow(
+    const { getByRole } = render(
       <ReferenceLettersContacts referenceLetters={referenceLetters} />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(
+      getByRole('link', { name: 'https://qa.inspirehep.net' })
+    ).toHaveAttribute('href', 'https://qa.inspirehep.net');
+    expect(getByRole('link', { name: 'www.google.com' })).toHaveAttribute(
+      'href',
+      'www.google.com'
+    );
+    expect(getByRole('link', { name: 'awi_moni@yahoo.com' })).toHaveAttribute(
+      'href',
+      'mailto:awi_moni@yahoo.com'
+    );
+    expect(getByRole('link', { name: 'mariahmoni@gmail.com' })).toHaveAttribute(
+      'href',
+      'mailto:mariahmoni@gmail.com'
+    );
   });
 });

@@ -121,6 +121,7 @@ const SearchBox = ({
         >
           <Input.Search
             data-test-id="search-box-input"
+            data-testid="search-box-input"
             placeholder={placeholder}
             size="large"
             enterButton

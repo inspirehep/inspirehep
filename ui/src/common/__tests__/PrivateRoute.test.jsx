@@ -1,15 +1,14 @@
-import React from 'react';
-import { mount } from 'enzyme';
 import { fromJS, List } from 'immutable';
 import { Provider } from 'react-redux';
 import { MemoryRouter, Route, Switch } from 'react-router-dom';
 
-import { getStoreWithState } from '../../fixtures/store';
+import { render } from '@testing-library/react';
+import { getStore } from '../../fixtures/store';
 import PrivateRoute from '../PrivateRoute';
 
 describe('PrivateRoute', () => {
   it('redirects to login if not logged in ', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         loggedIn: false,
         data: {
@@ -19,7 +18,7 @@ describe('PrivateRoute', () => {
     });
     const Private = () => <div>Private Page</div>;
     const UserLogin = () => <div>User Login Page</div>;
-    const wrapper = mount(
+    const { getByText } = render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/private']} initialIndex={0}>
           <Switch>
@@ -29,11 +28,11 @@ describe('PrivateRoute', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('User Login Page')).toBeInTheDocument();
   });
 
   it('routes if logged in', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         loggedIn: true,
         data: {
@@ -42,7 +41,7 @@ describe('PrivateRoute', () => {
       }),
     });
     const Private = () => <div>Private Page</div>;
-    const wrapper = mount(
+    const { getByText } = render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/private']} initialIndex={0}>
           <Switch>
@@ -51,11 +50,11 @@ describe('PrivateRoute', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Private Page')).toBeInTheDocument();
   });
 
   it('redirects 401 if logged in but not authorized', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         loggedIn: true,
         data: {
@@ -65,7 +64,7 @@ describe('PrivateRoute', () => {
     });
     const Authorized = () => <div>Authorized Page</div>;
     const Error401 = () => <div>Error 401 Page</div>;
-    const wrapper = mount(
+    const { getByText } = render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/authorized']} initialIndex={0}>
           <Switch>
@@ -80,11 +79,11 @@ describe('PrivateRoute', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Error 401 Page')).toBeInTheDocument();
   });
 
   it('routes if logged in user is authorized', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         loggedIn: true,
         data: {
@@ -93,7 +92,7 @@ describe('PrivateRoute', () => {
       }),
     });
     const Authorized = () => <div>Authorized Page</div>;
-    const wrapper = mount(
+    const { getByText } = render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/authorized']} initialIndex={0}>
           <Switch>
@@ -107,6 +106,6 @@ describe('PrivateRoute', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('Authorized Page')).toBeInTheDocument();
   });
 });

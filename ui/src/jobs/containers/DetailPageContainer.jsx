@@ -58,7 +58,11 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
   return (
     <>
       <DocumentHead title={position} description={metaDescription} />
-      <Row type="flex" justify="center">
+      <Row
+        type="flex"
+        justify="center"
+        data-testid="jobs-detail-page-container"
+      >
         <Col className="mt3" xs={24} md={21} lg={19} xl={18}>
           <ContentBox
             leftActions={[

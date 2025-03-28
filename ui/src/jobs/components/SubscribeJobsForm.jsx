@@ -44,6 +44,7 @@ function SubscribeJobsForm({ onSubmit }) {
               disabled={!isValid || !dirty}
               type="primary"
               htmlType="submit"
+              data-testid="subscribe-submit"
             >
               Subscribe
             </Button>

@@ -99,7 +99,10 @@ export default class SubscribeJobsModalButton extends Component {
           eventAction="Subscribe"
           eventId="Subscribe jobs"
         >
-          <LinkLikeButton onClick={this.onClick}>
+          <LinkLikeButton
+            onClick={this.onClick}
+            dataTestId="subscribe-jobs-button"
+          >
             <MailOutlined />
             <ResponsiveView
               min="sm"

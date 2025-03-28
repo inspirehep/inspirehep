@@ -1,6 +1,5 @@
-import React from 'react';
-import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
+import { render } from '@testing-library/react';
 import MoreInfo from '../MoreInfo';
 
 describe('MoreInfo', () => {
@@ -13,7 +12,17 @@ describe('MoreInfo', () => {
         value: 'url2',
       },
     ]);
-    const wrapper = shallow(<MoreInfo urls={urls} />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText, getByRole } = render(<MoreInfo urls={urls} />);
+    expect(getByText('More Information:')).toBeInTheDocument();
+    expect(
+      getByRole('link', {
+        name: 'url1',
+      })
+    ).toHaveAttribute('href', 'url1');
+    expect(
+      getByRole('link', {
+        name: 'url2',
+      })
+    ).toHaveAttribute('href', 'url2');
   });
 });

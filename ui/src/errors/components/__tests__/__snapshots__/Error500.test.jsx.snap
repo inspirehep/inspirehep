@@ -33,6 +33,8 @@ exports[`Error500 renders Error500 1`] = `
             Please try again later or 
             <button
               class="ant-btn ant-btn-text __LinkLikeButton__ blue big"
+              data-test-id="go-back-link"
+              data-testid="go-back-link"
               type="button"
             >
               <span>

@@ -1,7 +1,6 @@
 /* eslint-disable react/button-has-type, react/prop-types */
-import React, { useCallback } from 'react';
-import { mount } from 'enzyme';
-
+import { useCallback } from 'react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import useIsMounted from '../useIsMounted';
 
 function TestAsyncButton({ asyncOnClick }) {
@@ -19,9 +18,10 @@ function TestAsyncButton({ asyncOnClick }) {
 describe('useIsMounted', () => {
   it('does not call onClick when unmounted', () => {
     const asyncOnClick = jest.fn().mockResolvedValue();
-    const wrapper = mount(<TestAsyncButton asyncOnClick={asyncOnClick} />);
-    wrapper.find('button').simulate('click');
-    wrapper.unmount();
+    const { unmount } = render(<TestAsyncButton asyncOnClick={asyncOnClick} />);
+    const button = screen.getByRole('button');
+    fireEvent.click(button);
+    unmount();
     expect(asyncOnClick).not.toHaveBeenCalled();
   });
 });
