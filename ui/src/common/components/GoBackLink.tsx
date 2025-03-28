@@ -10,7 +10,11 @@ const GoBackLink = ({
   onClick: MouseEventHandler<HTMLElement>;
 }) => {
   return (
-    <LinkLikeButton color="blue big" onClick={onClick}>
+    <LinkLikeButton
+      color="blue big"
+      onClick={onClick}
+      dataTestId="go-back-link"
+    >
       {children}
     </LinkLikeButton>
   );

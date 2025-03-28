@@ -6,7 +6,7 @@ jest.mock('../../subscribeJobMailingList');
 
 describe('SubscribeJobsModalButton', () => {
   beforeEach(() => {
-    jest.clearAllMocks(); // Clear all mocks before each test
+    jest.clearAllMocks();
   });
 
   it('renders with initial state', () => {
