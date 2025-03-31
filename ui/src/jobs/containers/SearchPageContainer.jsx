@@ -17,6 +17,8 @@ import DocumentHead from '../../common/components/DocumentHead';
 import { JOBS_NS } from '../../search/constants';
 import { APIButton } from '../../common/components/APIButton';
 import { isSuperUser } from '../../common/authorization';
+import { columnSize } from '../../common/utils';
+import EmptyOrChildren from '../../common/components/EmptyOrChildren';
 
 const META_DESCRIPTION =
   'Jobs in High-Energy Physics. A listing of academic and research jobs of interest to the community in high energy physics, nuclear physics, accelerator physics and astrophysics.';
@@ -80,7 +82,8 @@ class SearchPage extends Component {
 
   // TODO: investigate if it is better to use `Context` to pass namespace rather than props
   render() {
-    const { loading, isSuperUserLoggedIn } = this.props;
+    const { loading, isSuperUserLoggedIn, results, numberOfResults } =
+      this.props;
     return (
       <>
         <DocumentHead title={TITLE} description={META_DESCRIPTION} />
@@ -95,41 +98,43 @@ class SearchPage extends Component {
             justify="center"
             data-testid="jobs-search-page-container"
           >
-            <Col xs={24} lg={16} xl={16} xxl={14}>
-              <LoadingOrChildren loading={loading}>
-                <Row type="flex" align="middle" justify="end">
-                  <Col xs={12} lg={12}>
-                    <NumberOfResultsContainer namespace={JOBS_NS} />
-                    {isSuperUserLoggedIn && (
-                      <APIButton url={window.location.href} />
-                    )}
-                  </Col>
-                  <Col className="tr" xs={12} lg={0}>
-                    <ResponsiveView
-                      max="md"
-                      render={SearchPage.renderSubscribeJobsModalButton}
-                    />
-                  </Col>
-                  <Col xs={12} lg={0}>
-                    <ResponsiveView
-                      max="md"
-                      render={this.renderAggregationsDrawer}
-                    />
-                  </Col>
-                  <Col className="tr" span={12}>
-                    <SortByContainer namespace={JOBS_NS} />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col span={24}>
-                    <ResultsContainer
-                      namespace={JOBS_NS}
-                      renderItem={SearchPage.renderJobResultItem}
-                    />
-                    <PaginationContainer namespace={JOBS_NS} />
-                  </Col>
-                </Row>
-              </LoadingOrChildren>
+            <Col {...columnSize(numberOfResults)}>
+              <EmptyOrChildren data={results} title="0 Jobs">
+                <LoadingOrChildren loading={loading}>
+                  <Row type="flex" align="middle" justify="end">
+                    <Col xs={12} lg={12}>
+                      <NumberOfResultsContainer namespace={JOBS_NS} />
+                      {isSuperUserLoggedIn && (
+                        <APIButton url={window.location.href} />
+                      )}
+                    </Col>
+                    <Col className="tr" xs={12} lg={0}>
+                      <ResponsiveView
+                        max="md"
+                        render={SearchPage.renderSubscribeJobsModalButton}
+                      />
+                    </Col>
+                    <Col xs={12} lg={0}>
+                      <ResponsiveView
+                        max="md"
+                        render={this.renderAggregationsDrawer}
+                      />
+                    </Col>
+                    <Col className="tr" span={12}>
+                      <SortByContainer namespace={JOBS_NS} />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={24}>
+                      <ResultsContainer
+                        namespace={JOBS_NS}
+                        renderItem={SearchPage.renderJobResultItem}
+                      />
+                      <PaginationContainer namespace={JOBS_NS} />
+                    </Col>
+                  </Row>
+                </LoadingOrChildren>
+              </EmptyOrChildren>
             </Col>
           </Row>
         </div>
@@ -151,6 +156,8 @@ const stateToProps = (state) => ({
     JOBS_NS,
     'loadingAggregations',
   ]),
+  results: state.search.getIn(['namespaces', JOBS_NS, 'results']),
+  numberOfResults: state.search.getIn(['namespaces', JOBS_NS, 'total']),
 });
 
 export default connect(stateToProps)(SearchPage);

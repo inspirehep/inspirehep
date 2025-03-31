@@ -75,6 +75,19 @@ export const CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM =
   'citation_count_without_self_citations';
 
 export const SEARCH_PAGE_GUTTER = { xs: 0, lg: 32 };
+export const SEARCH_PAGE_COL_SIZE_WITH_FACETS = {
+  xs: 24,
+  lg: 22,
+  xl: 20,
+  xxl: 18,
+};
+export const SEARCH_PAGE_COL_SIZE_WITHOUT_FACETS = {
+  xs: 24,
+  lg: 16,
+  xl: 16,
+  xxl: 14,
+};
+export const SEARCH_PAGE_COL_SIZE_NO_RESULTS = { xs: 24 };
 
 export const LOCAL_TIMEZONE =
   Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
