@@ -16,6 +16,8 @@ import ResponsiveView from '../../common/components/ResponsiveView';
 import DrawerHandle from '../../common/components/DrawerHandle';
 import { APIButton } from '../../common/components/APIButton';
 import { isSuperUser } from '../../common/authorization';
+import { columnSize } from '../../common/utils';
+import EmptyOrChildren from '../../common/components/EmptyOrChildren';
 
 const META_DESCRIPTION = 'Find experiments in High Energy Physics';
 const TITLE = 'Experiments Search';
@@ -28,6 +30,8 @@ function ExperimentSearchPage({
   loading,
   loadingAggregations,
   isSuperUserLoggedIn,
+  results,
+  numberOfResults,
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -45,43 +49,48 @@ function ExperimentSearchPage({
     <>
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
       <Row data-testid="experiments-search-page-container">
-        <Col xs={24} lg={22} xl={20} xxl={18}>
-          <Row className="mt3" gutter={SEARCH_PAGE_GUTTER} justify="start">
-            <Col xs={0} lg={7}>
-              <ResponsiveView min="lg" render={renderAggregations} />
-            </Col>
-            <Col xs={24} lg={17}>
-              <LoadingOrChildren loading={loading}>
-                <Row>
-                  <Col xs={24} lg={12}>
-                    <NumberOfResultsContainer namespace={EXPERIMENTS_NS} />
-                    {isSuperUserLoggedIn && (
-                      <APIButton url={window.location.href} />
-                    )}
-                  </Col>
-                  <Col xs={12} lg={0}>
-                    <ResponsiveView
-                      max="md"
-                      render={() => (
-                        <DrawerHandle handleText="Filter" drawerTitle="Filter">
-                          {renderAggregations()}
-                        </DrawerHandle>
+        <Col {...columnSize(numberOfResults, true)}>
+          <EmptyOrChildren data={results} title="0 Experiments">
+            <Row className="mt3" gutter={SEARCH_PAGE_GUTTER} justify="start">
+              <Col xs={0} lg={7}>
+                <ResponsiveView min="lg" render={renderAggregations} />
+              </Col>
+              <Col xs={24} lg={17}>
+                <LoadingOrChildren loading={loading}>
+                  <Row>
+                    <Col xs={24} lg={12}>
+                      <NumberOfResultsContainer namespace={EXPERIMENTS_NS} />
+                      {isSuperUserLoggedIn && (
+                        <APIButton url={window.location.href} />
                       )}
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col span={24}>
-                    <ResultsContainer
-                      namespace={EXPERIMENTS_NS}
-                      renderItem={renderExperimentItem}
-                    />
-                    <PaginationContainer namespace={EXPERIMENTS_NS} />
-                  </Col>
-                </Row>
-              </LoadingOrChildren>
-            </Col>
-          </Row>
+                    </Col>
+                    <Col xs={12} lg={0}>
+                      <ResponsiveView
+                        max="md"
+                        render={() => (
+                          <DrawerHandle
+                            handleText="Filter"
+                            drawerTitle="Filter"
+                          >
+                            {renderAggregations()}
+                          </DrawerHandle>
+                        )}
+                      />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={24}>
+                      <ResultsContainer
+                        namespace={EXPERIMENTS_NS}
+                        renderItem={renderExperimentItem}
+                      />
+                      <PaginationContainer namespace={EXPERIMENTS_NS} />
+                    </Col>
+                  </Row>
+                </LoadingOrChildren>
+              </Col>
+            </Row>
+          </EmptyOrChildren>
         </Col>
       </Row>
     </>
@@ -101,6 +110,8 @@ const stateToProps = (state) => ({
     EXPERIMENTS_NS,
     'loadingAggregations',
   ]),
+  results: state.search.getIn(['namespaces', EXPERIMENTS_NS, 'results']),
+  numberOfResults: state.search.getIn(['namespaces', EXPERIMENTS_NS, 'total']),
 });
 
 export default connect(stateToProps)(ExperimentSearchPage);

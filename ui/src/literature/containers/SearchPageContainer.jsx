@@ -15,12 +15,18 @@ import { isCataloger, isSuperUser } from '../../common/authorization';
 import SearchFeedback from '../../common/components/SearchFeedback/SearchFeedback';
 import EventTracker from '../../common/components/EventTracker';
 import { getConfigFor } from '../../common/config';
+import { columnSize } from '../../common/utils';
 
 const META_DESCRIPTION =
   'Find articles, conference papers, proceedings, books, theses, reviews, lectures and reports in High Energy Physics';
 const TITLE = 'Literature Search';
 
-export function SearchPage({ assignView, numberOfSelected, error }) {
+export function SearchPage({
+  assignView,
+  numberOfSelected,
+  numberOfResults,
+  error,
+}) {
   const noResultsMessage = (
     <>
       <em>
@@ -41,6 +47,7 @@ export function SearchPage({ assignView, numberOfSelected, error }) {
       )}
     </>
   );
+
   return (
     <>
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
@@ -59,7 +66,7 @@ export function SearchPage({ assignView, numberOfSelected, error }) {
         </Row>
       ) : (
         <Row>
-          <Col xs={24} lg={22} xl={20} xxl={18}>
+          <Col {...columnSize(numberOfResults, true)}>
             <AssignViewContext.Provider value={assignView}>
               <LiteratureSearchContainer
                 namespace={LITERATURE_NS}
@@ -87,7 +94,8 @@ const stateToProps = (state) => ({
     isSuperUser(state.user.getIn(['data', 'roles'])) ||
     isCataloger(state.user.getIn(['data', 'roles'])),
   numberOfSelected: state.literature.get('literatureSelection').size,
-  error: state.search.getIn(['namespaces', 'literature', 'error']),
+  numberOfResults: state.search.getIn(['namespaces', LITERATURE_NS, 'total']),
+  error: state.search.getIn(['namespaces', LITERATURE_NS, 'error']),
 });
 
 const SearchPageContainer = connect(stateToProps)(SearchPage);

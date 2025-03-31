@@ -13,6 +13,8 @@ import { SEARCH_PAGE_GUTTER } from '../../common/constants';
 import { JournalItem } from '../components/JournalItem';
 import { isCataloger, isSuperUser } from '../../common/authorization';
 import { APIButton } from '../../common/components/APIButton';
+import EmptyOrChildren from '../../common/components/EmptyOrChildren';
+import { columnSize } from '../../common/utils';
 
 const META_DESCRIPTION = 'Find journals publishing about High Energy Physics';
 const TITLE = 'Journals Search';
@@ -40,10 +42,14 @@ export const JournalSearchPage = ({
   loading,
   isCatalogerLoggedIn,
   isSuperUserLoggedIn,
+  results,
+  numberOfResults,
 }: {
   loading: boolean;
   isCatalogerLoggedIn: boolean;
   isSuperUserLoggedIn: boolean;
+  results: Journal[];
+  numberOfResults: number;
 }) => {
   const renderJournalItem = (result: Journal, correctUserRole: boolean) => (
     <JournalItem result={result} isCatalogerLoggedIn={correctUserRole} />
@@ -58,28 +64,30 @@ export const JournalSearchPage = ({
         justify="center"
         data-testid="journals-search-page-container"
       >
-        <Col xs={24} lg={16} xl={16} xxl={14}>
-          <LoadingOrChildren loading={loading}>
-            <Row>
-              <Col>
-                <NumberOfResultsContainer namespace={JOURNALS_NS} />
-                {isSuperUserLoggedIn && (
-                  <APIButton url={window.location.href} />
-                )}
-              </Col>
-            </Row>
-            <Row>
-              <Col span={24}>
-                <ResultsContainer
-                  namespace={JOURNALS_NS}
-                  renderItem={(item: Journal) =>
-                    renderJournalItem(item, isCatalogerLoggedIn)
-                  }
-                />
-                <PaginationContainer namespace={JOURNALS_NS} />
-              </Col>
-            </Row>
-          </LoadingOrChildren>
+        <Col {...columnSize(numberOfResults)}>
+          <EmptyOrChildren data={results} title="0 Journals">
+            <LoadingOrChildren loading={loading}>
+              <Row>
+                <Col>
+                  <NumberOfResultsContainer namespace={JOURNALS_NS} />
+                  {isSuperUserLoggedIn && (
+                    <APIButton url={window.location.href} />
+                  )}
+                </Col>
+              </Row>
+              <Row>
+                <Col span={24}>
+                  <ResultsContainer
+                    namespace={JOURNALS_NS}
+                    renderItem={(item: Journal) =>
+                      renderJournalItem(item, isCatalogerLoggedIn)
+                    }
+                  />
+                  <PaginationContainer namespace={JOURNALS_NS} />
+                </Col>
+              </Row>
+            </LoadingOrChildren>
+          </EmptyOrChildren>
         </Col>
       </Row>
     </>
@@ -90,6 +98,8 @@ const stateToProps = (state: RootStateOrAny) => ({
   loading: state.search.getIn(['namespaces', JOURNALS_NS, 'loading']),
   isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
+  results: state.search.getIn(['namespaces', JOURNALS_NS, 'results']),
+  numberOfResults: state.search.getIn(['namespaces', JOURNALS_NS, 'total']),
 });
 
 export default connect(stateToProps)(JournalSearchPage);

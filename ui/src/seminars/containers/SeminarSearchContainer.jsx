@@ -20,6 +20,7 @@ import SeminarTimezone from '../components/SeminarTimezone';
 import { doTimezonesHaveDifferentTimes } from '../../common/utils';
 import { APIButton } from '../../common/components/APIButton';
 import { isSuperUser } from '../../common/authorization';
+import EmptyOrChildren from '../../common/components/EmptyOrChildren';
 
 function SeminarSearch({
   loading,
@@ -29,6 +30,7 @@ function SeminarSearch({
   enableDateFilter,
   embedded,
   isSuperUserLoggedIn,
+  results,
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -78,50 +80,54 @@ function SeminarSearch({
         <ResponsiveView min="lg" render={renderAggregations} />
       </Col>
       <Col xs={24} lg={17}>
-        <LoadingOrChildren loading={loading}>
-          <Row type="flex" align="middle" justify="end">
-            <Col xs={24} lg={12}>
-              <NumberOfResultsContainer namespace={namespace} />
-              <VerticalDivider />
-              {timezoneDifferentThanLocal ? (
-                <Alert
-                  type="error"
-                  message={<SeminarTimezone timezone={timezone} />}
-                  className="di"
-                />
-              ) : (
-                <SeminarTimezone timezone={timezone} />
-              )}
-              {isSuperUserLoggedIn && <APIButton url={window.location.href} />}
-            </Col>
-            <Col xs={12} lg={0}>
-              <ResponsiveView
-                max="md"
-                render={() => (
-                  <DrawerHandle
-                    className="mt2"
-                    handleText="Filter"
-                    drawerTitle="Filter"
-                  >
-                    {renderAggregations()}
-                  </DrawerHandle>
+        <EmptyOrChildren data={results} title="0 Seminars">
+          <LoadingOrChildren loading={loading}>
+            <Row type="flex" align="middle" justify="end">
+              <Col xs={24} lg={12}>
+                <NumberOfResultsContainer namespace={namespace} />
+                <VerticalDivider />
+                {timezoneDifferentThanLocal ? (
+                  <Alert
+                    type="error"
+                    message={<SeminarTimezone timezone={timezone} />}
+                    className="di"
+                  />
+                ) : (
+                  <SeminarTimezone timezone={timezone} />
                 )}
-              />
-            </Col>
-            <Col className="tr" span={12}>
-              <SortByContainer namespace={namespace} />
-            </Col>
-          </Row>
-          <Row>
-            <Col span={24}>
-              <ResultsContainer
-                namespace={namespace}
-                renderItem={renderSeminarItem}
-              />
-              <PaginationContainer namespace={namespace} />
-            </Col>
-          </Row>
-        </LoadingOrChildren>
+                {isSuperUserLoggedIn && (
+                  <APIButton url={window.location.href} />
+                )}
+              </Col>
+              <Col xs={12} lg={0}>
+                <ResponsiveView
+                  max="md"
+                  render={() => (
+                    <DrawerHandle
+                      className="mt2"
+                      handleText="Filter"
+                      drawerTitle="Filter"
+                    >
+                      {renderAggregations()}
+                    </DrawerHandle>
+                  )}
+                />
+              </Col>
+              <Col className="tr" span={12}>
+                <SortByContainer namespace={namespace} />
+              </Col>
+            </Row>
+            <Row>
+              <Col span={24}>
+                <ResultsContainer
+                  namespace={namespace}
+                  renderItem={renderSeminarItem}
+                />
+                <PaginationContainer namespace={namespace} />
+              </Col>
+            </Row>
+          </LoadingOrChildren>
+        </EmptyOrChildren>
       </Col>
     </Row>
   );
@@ -151,6 +157,7 @@ const stateToProps = (state, { namespace }) => ({
     'query',
     'timezone',
   ]),
+  results: state.search.getIn(['namespaces', namespace, 'results']),
 });
 
 export default connect(stateToProps)(SeminarSearch);

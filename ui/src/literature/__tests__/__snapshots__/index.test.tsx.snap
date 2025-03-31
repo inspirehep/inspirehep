@@ -121,7 +121,7 @@ exports[`Literature navigates to SearchPageContainer when /literature 1`] = `
       class="ant-row"
     >
       <div
-        class="ant-col ant-col-xs-24 ant-col-lg-22 ant-col-xl-20 ant-col-xxl-18"
+        class="ant-col ant-col-xs-24"
       >
         <div
           class="ant-row ant-row-center mt3"

@@ -6,6 +6,11 @@ import { List, Map, Set } from 'immutable';
 // @ts-ignore
 import NumberAbbreviator from 'number-abbreviate';
 import { LITERATURE } from './routes';
+import {
+  SEARCH_PAGE_COL_SIZE_WITH_FACETS,
+  SEARCH_PAGE_COL_SIZE_WITHOUT_FACETS,
+  SEARCH_PAGE_COL_SIZE_NO_RESULTS,
+} from './constants';
 
 export function forceArray(maybeArray: any) {
   return maybeArray === undefined || Array.isArray(maybeArray)
@@ -335,4 +340,13 @@ export function hasMonthAndYear(date: string) {
 
 export function hasDayMonthAndYear(date: string) {
   return date.length >= 8;
+}
+
+export function columnSize(numberOfResults: number, hasFacets?: boolean) {
+  if (numberOfResults) {
+    return hasFacets
+      ? SEARCH_PAGE_COL_SIZE_WITH_FACETS
+      : SEARCH_PAGE_COL_SIZE_WITHOUT_FACETS;
+  }
+  return SEARCH_PAGE_COL_SIZE_NO_RESULTS;
 }
