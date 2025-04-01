@@ -12,8 +12,8 @@ interactions:
     uri: https://api.orcid.org/v2.0/0000-0002-6665-4934/works
   response:
     body:
-      string: "{\n  \"error\" : \"invalid_token\",\n  \"error_description\" : \"Invalid\
-        \ access token: invalid\"\n}"
+      string: "{\n  \"error\" : \"invalid_token\",\n  \"error_description\" : \"Invalid
+        access token: invalid\"\n}"
     headers:
       access-control-allow-origin:
       - '*'
@@ -33,8 +33,6 @@ interactions:
       - no-cache
       server:
       - nginx/1.4.6 (Ubuntu)
-      transfer-encoding:
-      - chunked
       www-authenticate:
       - 'Bearer realm="ORCID T2 API", error="invalid_token", error_description="Invalid
         access token: invalid"'
@@ -60,8 +58,8 @@ interactions:
     uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/works
   response:
     body:
-      string: "{\n  \"error\" : \"invalid_token\",\n  \"error_description\" : \"Invalid\
-        \ access token: invalid\"\n}"
+      string: "{\n  \"error\" : \"invalid_token\",\n  \"error_description\" : \"Invalid
+        access token: invalid\"\n}"
     headers:
       Access-Control-Allow-Origin:
       - '*'
@@ -95,4 +93,305 @@ interactions:
     status:
       code: 401
       message: Unauthorized
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-*/_flush?wait_if_ongoing=true
+  response:
+    body:
+      string: '{"_shards":{"total":36,"successful":18,"failed":0}}'
+    headers:
+      content-length:
+      - '51'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-*/_refresh
+  response:
+    body:
+      string: '{"_shards":{"total":36,"successful":18,"failed":0}}'
+    headers:
+      content-length:
+      - '51'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: GET
+    uri: http://es:9200/_cluster/health?wait_for_status=yellow
+  response:
+    body:
+      string: '{"cluster_name":"opensearch-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"discovered_master":true,"discovered_cluster_manager":true,"active_primary_shards":31,"active_shards":31,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":28,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":52.54237288135594}'
+    headers:
+      content-length:
+      - '469'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: GET
+    uri: http://es:9200/*/_alias
+  response:
+    body:
+      string: '{"backoffice-backend-local-workflows":{"aliases":{}},"test-integration-records-conferences-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-conferences":{}}},"test-integration-records-seminars-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-seminars":{}}},"test-integration-async-records-data-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-data":{}}},"test-integration-async-records-experiments-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-experiments":{}}},"records-conferences-1743665434":{"aliases":{"records":{},"records-conferences":{}}},"records-seminars-1743665434":{"aliases":{"records":{},"records-seminars":{}}},"test-integration-records-authors-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-authors":{}}},"test-integration-records-journals-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-journals":{}}},"records-jobs-1743665434":{"aliases":{"records":{},"records-jobs":{}}},"test-integration-records-institutions-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-institutions":{}}},"records-institutions-1743665434":{"aliases":{"records":{},"records-institutions":{}}},"test-integration-async-records-institutions-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-institutions":{}}},".opensearch-observability":{"aliases":{}},".opensearch-sap-log-types-config":{"aliases":{}},"records-authors-1743665434":{"aliases":{"records":{},"records-authors":{}}},"test-integration-async-records-authors-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-authors":{}}},"records-hep-1743665434":{"aliases":{"records":{},"records-hep":{}}},"test-integration-async-records-journals-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-journals":{}}},"test-integration-records-data-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-data":{}}},"test-integration-async-records-conferences-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-conferences":{}}},"records-experiments-1743665434":{"aliases":{"records":{},"records-experiments":{}}},"test-integration-records-experiments-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-experiments":{}}},"test-integration-records-hep-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-hep":{}}},"records-journals-1743665434":{"aliases":{"records":{},"records-journals":{}}},"records-data-1743665434":{"aliases":{"records":{},"records-data":{}}},"test-integration-records-jobs-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-jobs":{}}},".plugins-ml-config":{"aliases":{}},"test-integration-async-records-jobs-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-jobs":{}}},"test-integration-async-records-seminars-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-seminars":{}}},"test-integration-async-records-hep-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-hep":{}}}}'
+    headers:
+      content-length:
+      - '3371'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-experiments/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":250809,"parentTaskId":250808,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":195750,"memory_in_bytes":16728}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-seminars/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":250814,"parentTaskId":250813,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":87375,"memory_in_bytes":15896}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-authors/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":250819,"parentTaskId":250818,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":83541,"memory_in_bytes":9824}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-journals/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":250824,"parentTaskId":250823,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":78792,"memory_in_bytes":12856}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-jobs/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":250829,"parentTaskId":250828,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":69125,"memory_in_bytes":7752}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-hep/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":250834,"parentTaskId":250833,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":95208,"memory_in_bytes":12648}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-conferences/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":250839,"parentTaskId":250838,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":292708,"memory_in_bytes":10784}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-data/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":250844,"parentTaskId":250843,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":127500,"memory_in_bytes":12648}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-institutions/_delete_by_query
+  response:
+    body:
+      string: '{"took":1,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":250849,"parentTaskId":250848,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":789208,"memory_in_bytes":12624}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: GET
+    uri: http://es:9200/_ingest/pipeline/file_content
+  response:
+    body:
+      string: '{"file_content":{"description":"Extract information from documents
+        array","processors":[{"foreach":{"field":"documents","ignore_missing":true,"processor":{"attachment":{"field":"_ingest._value.text","target_field":"_ingest._value.attachment","properties":["content"],"indexed_chars":-1,"ignore_missing":true,"on_failure":[{"set":{"description":"Set
+        ''_error.message''","field":"_ingest._value._error.message","value":"Fulltext
+        indexing failed with message {{ _ingest.on_failure_message }}","override":true}}]}}}},{"foreach":{"field":"documents","ignore_missing":true,"processor":{"remove":{"field":"_ingest._value.text","ignore_missing":true}}}}]}}'
+    headers:
+      content-length:
+      - '646'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
 version: 1

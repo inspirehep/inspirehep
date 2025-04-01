@@ -1,12 +1,11 @@
 interactions:
 - request:
-    body: "<work:work xmlns:work=\"http://www.orcid.org/ns/work\" xmlns:common=\"\
-      http://www.orcid.org/ns/common\"><work:title><common:title>Some Results Arising\
-      \ from the Study of ORCID push</common:title></work:title><work:citation><work:citation-type>bibtex</work:citation-type><work:citation-value>@article{666,\n\
-      \    author = \"Rossoni, A.\",\n    title = \"{Some Results Arising from the\
-      \ Study of ORCID push}\",\n    doi = \"10.1111/test.orcid.push\",\n    month\
-      \ = \"5\",\n    year = \"2017\"\n}\n</work:citation-value></work:citation><work:type>journal-article</work:type><common:external-ids><common:external-id><common:external-id-type>other-id</common:external-id-type><common:external-id-value>666</common:external-id-value><common:external-id-url>http://inspirehep.net/record/666</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id><common:external-id><common:external-id-type>doi</common:external-id-type><common:external-id-value>10.1111/test.orcid.push</common:external-id-value><common:external-id-url>http://dx.doi.org/10.1111/test.orcid.push</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id></common:external-ids><work:url>http://inspirehep.net/record/666</work:url><work:contributors><work:contributor><work:credit-name>Rossoni,\
-      \ A.</work:credit-name><work:contributor-attributes><work:contributor-sequence>first</work:contributor-sequence><work:contributor-role>author</work:contributor-role></work:contributor-attributes></work:contributor></work:contributors></work:work>"
+    body: "<work:work xmlns:work=\"http://www.orcid.org/ns/work\" xmlns:common=\"http://www.orcid.org/ns/common\"><work:title><common:title>Some
+      Results Arising from the Study of ORCID push</common:title></work:title><work:citation><work:citation-type>bibtex</work:citation-type><work:citation-value>@article{666,\n
+      \   author = \"Rossoni, A.\",\n    title = \"{Some Results Arising from the
+      Study of ORCID push}\",\n    doi = \"10.1111/test.orcid.push\",\n    month =
+      \"5\",\n    year = \"2017\"\n}\n</work:citation-value></work:citation><work:type>journal-article</work:type><common:external-ids><common:external-id><common:external-id-type>other-id</common:external-id-type><common:external-id-value>666</common:external-id-value><common:external-id-url>http://inspirehep.net/record/666</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id><common:external-id><common:external-id-type>doi</common:external-id-type><common:external-id-value>10.1111/test.orcid.push</common:external-id-value><common:external-id-url>http://dx.doi.org/10.1111/test.orcid.push</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id></common:external-ids><work:url>http://inspirehep.net/record/666</work:url><work:contributors><work:contributor><work:credit-name>Rossoni,
+      A.</work:credit-name><work:contributor-attributes><work:contributor-sequence>first</work:contributor-sequence><work:contributor-role>author</work:contributor-role></work:contributor-attributes></work:contributor></work:contributors></work:work>"
     headers:
       Accept:
       - application/orcid+json
@@ -53,4 +52,306 @@ interactions:
     status:
       code: 201
       message: Created
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-*/_flush?wait_if_ongoing=true
+  response:
+    body:
+      string: '{"_shards":{"total":36,"successful":18,"failed":0}}'
+    headers:
+      content-length:
+      - '51'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-*/_refresh
+  response:
+    body:
+      string: '{"_shards":{"total":36,"successful":18,"failed":0}}'
+    headers:
+      content-length:
+      - '51'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: GET
+    uri: http://es:9200/_cluster/health?wait_for_status=yellow
+  response:
+    body:
+      string: '{"cluster_name":"opensearch-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"discovered_master":true,"discovered_cluster_manager":true,"active_primary_shards":31,"active_shards":31,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":28,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":52.54237288135594}'
+    headers:
+      content-length:
+      - '469'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: GET
+    uri: http://es:9200/*/_alias
+  response:
+    body:
+      string: '{"backoffice-backend-local-workflows":{"aliases":{}},"test-integration-records-conferences-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-conferences":{}}},"test-integration-records-seminars-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-seminars":{}}},"test-integration-async-records-data-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-data":{}}},"test-integration-async-records-experiments-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-experiments":{}}},"records-conferences-1743665434":{"aliases":{"records":{},"records-conferences":{}}},"records-seminars-1743665434":{"aliases":{"records":{},"records-seminars":{}}},"test-integration-records-authors-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-authors":{}}},"test-integration-records-journals-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-journals":{}}},"records-jobs-1743665434":{"aliases":{"records":{},"records-jobs":{}}},"test-integration-records-institutions-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-institutions":{}}},"records-institutions-1743665434":{"aliases":{"records":{},"records-institutions":{}}},"test-integration-async-records-institutions-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-institutions":{}}},".opensearch-observability":{"aliases":{}},".opensearch-sap-log-types-config":{"aliases":{}},"records-authors-1743665434":{"aliases":{"records":{},"records-authors":{}}},"test-integration-async-records-authors-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-authors":{}}},"records-hep-1743665434":{"aliases":{"records":{},"records-hep":{}}},"test-integration-async-records-journals-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-journals":{}}},"test-integration-records-data-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-data":{}}},"test-integration-async-records-conferences-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-conferences":{}}},"records-experiments-1743665434":{"aliases":{"records":{},"records-experiments":{}}},"test-integration-records-experiments-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-experiments":{}}},"test-integration-records-hep-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-hep":{}}},"records-journals-1743665434":{"aliases":{"records":{},"records-journals":{}}},"records-data-1743665434":{"aliases":{"records":{},"records-data":{}}},"test-integration-records-jobs-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-jobs":{}}},".plugins-ml-config":{"aliases":{}},"test-integration-async-records-jobs-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-jobs":{}}},"test-integration-async-records-seminars-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-seminars":{}}},"test-integration-async-records-hep-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-hep":{}}}}'
+    headers:
+      content-length:
+      - '3371'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-experiments/_delete_by_query
+  response:
+    body:
+      string: '{"took":1,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":243974,"parentTaskId":243973,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":314042,"memory_in_bytes":16680}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-seminars/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":243979,"parentTaskId":243978,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":136292,"memory_in_bytes":12808}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-authors/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":243984,"parentTaskId":243983,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":90625,"memory_in_bytes":9776}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-journals/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":243989,"parentTaskId":243988,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":133042,"memory_in_bytes":12856}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-jobs/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":243994,"parentTaskId":243993,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":64000,"memory_in_bytes":7800}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-hep/_delete_by_query
+  response:
+    body:
+      string: '{"took":1,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":243999,"parentTaskId":243998,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":256958,"memory_in_bytes":21032}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-conferences/_delete_by_query
+  response:
+    body:
+      string: '{"took":4,"timed_out":false,"total":1,"deleted":1,"batches":1,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query+fetch/scroll]","taskId":244011,"parentTaskId":244010,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":179958,"memory_in_bytes":8944}}'
+      - '{"action":"indices:data/read/search[phase/query]","taskId":244004,"parentTaskId":244003,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":420000,"memory_in_bytes":17480}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-data/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":244016,"parentTaskId":244015,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":187208,"memory_in_bytes":12648}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-institutions/_delete_by_query
+  response:
+    body:
+      string: '{"took":1,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":244021,"parentTaskId":244020,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":139000,"memory_in_bytes":12600}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: GET
+    uri: http://es:9200/_ingest/pipeline/file_content
+  response:
+    body:
+      string: '{"file_content":{"description":"Extract information from documents
+        array","processors":[{"foreach":{"field":"documents","ignore_missing":true,"processor":{"attachment":{"field":"_ingest._value.text","target_field":"_ingest._value.attachment","properties":["content"],"indexed_chars":-1,"ignore_missing":true,"on_failure":[{"set":{"description":"Set
+        ''_error.message''","field":"_ingest._value._error.message","value":"Fulltext
+        indexing failed with message {{ _ingest.on_failure_message }}","override":true}}]}}}},{"foreach":{"field":"documents","ignore_missing":true,"processor":{"remove":{"field":"_ingest._value.text","ignore_missing":true}}}}]}}'
+    headers:
+      content-length:
+      - '646'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
 version: 1
