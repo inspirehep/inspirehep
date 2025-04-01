@@ -66,6 +66,7 @@ class DataImporter extends Component {
                 type="error"
                 showIcon
                 closable
+                data-testid="data-importer-error"
               />
             </Col>
           </Row>
@@ -77,6 +78,7 @@ class DataImporter extends Component {
         >
           <Input
             data-test-id="import-input"
+            data-testid="import-input"
             placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
             onChange={this.onImportChange}
             onPressEnter={this.onImportClick}
@@ -86,6 +88,7 @@ class DataImporter extends Component {
           <Col>
             <LinkLikeButton
               dataTestId="skip-import-button"
+              data-testid="skip-import-button"
               onClick={onSkipClick}
             >
               Skip and fill the form manually
@@ -94,6 +97,7 @@ class DataImporter extends Component {
           <Col>
             <Button
               data-test-id="import-button"
+              data-testid="import-button"
               type="primary"
               onClick={this.onImportClick}
               loading={isImporting}

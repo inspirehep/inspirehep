@@ -1,11 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import EditorToolbar from '../EditorToolbar';
 
 describe('RichTextEditor', () => {
   it('renders', () => {
-    const wrapper = shallow(<EditorToolbar />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<EditorToolbar />);
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });

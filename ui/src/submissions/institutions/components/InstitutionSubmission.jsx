@@ -23,7 +23,13 @@ const InstitutionSubmission = ({ onSubmit, error = null }) => {
       {error && (
         <Row className="mb3">
           <Col span={24}>
-            <Alert message={error.message} type="error" showIcon closable />
+            <Alert
+              message={error.message}
+              type="error"
+              showIcon
+              closable
+              data-testid="institution-alert"
+            />
           </Col>
         </Row>
       )}

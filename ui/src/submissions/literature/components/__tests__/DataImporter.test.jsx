@@ -1,13 +1,13 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import DataImporter from '../DataImporter';
-import LinkLikeButton from '../../../../common/components/LinkLikeButton/LinkLikeButton';
 
 describe('DataImporter', () => {
   it('renders without error while importing', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <DataImporter
         error={null}
         isImporting
@@ -15,11 +15,12 @@ describe('DataImporter', () => {
         onSkipClick={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with error with a message', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <DataImporter
         error={fromJS({ message: 'error' })}
         isImporting={false}
@@ -27,11 +28,12 @@ describe('DataImporter', () => {
         onSkipClick={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with error with message and recid', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <DataImporter
         error={fromJS({ message: 'error', recid: '12345' })}
         isImporting={false}
@@ -39,11 +41,11 @@ describe('DataImporter', () => {
         onSkipClick={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with error without a message', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <DataImporter
         error={fromJS({ data: 'error' })}
         isImporting={false}
@@ -51,13 +53,15 @@ describe('DataImporter', () => {
         onSkipClick={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(asFragment()).toMatchSnapshot();
   });
 
-  it('calls onImportClick with import value when import button is clicked', () => {
+  it('calls onImportClick with import value when import button is clicked', async () => {
     const importValue = 'arXiv:1001.1234';
     const onImportClick = jest.fn();
-    const wrapper = shallow(
+
+    render(
       <DataImporter
         error={null}
         isImporting={false}
@@ -65,16 +69,20 @@ describe('DataImporter', () => {
         onSkipClick={jest.fn()}
       />
     );
-    wrapper
-      .find('[data-test-id="import-input"]')
-      .simulate('change', { target: { value: importValue } });
-    wrapper.find('[data-test-id="import-button"]').simulate('click');
+
+    const importInput = screen.getByTestId('import-input');
+    const importButton = screen.getByTestId('import-button');
+
+    await userEvent.type(importInput, importValue);
+    await userEvent.click(importButton);
+
     expect(onImportClick).toHaveBeenCalledWith(importValue);
   });
 
-  it('calls onSkipClick prop when skip button is clicked', () => {
+  it('calls onSkipClick prop when skip button is clicked', async () => {
     const onSkipClick = jest.fn();
-    const wrapper = shallow(
+
+    render(
       <DataImporter
         error={null}
         isImporting={false}
@@ -82,7 +90,10 @@ describe('DataImporter', () => {
         onSkipClick={onSkipClick}
       />
     );
-    wrapper.find(LinkLikeButton).simulate('click');
+
+    const skipButton = screen.getByTestId('skip-import-button');
+    await userEvent.click(skipButton);
+
     expect(onSkipClick).toHaveBeenCalledTimes(1);
   });
 });

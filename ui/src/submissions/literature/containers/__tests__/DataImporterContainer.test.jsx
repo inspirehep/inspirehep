@@ -1,12 +1,12 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import userEvent from '@testing-library/user-event';
 
 import { getStoreWithState, getStore } from '../../../../fixtures/store';
 import DataImporterContainer from '../DataImporterContainer';
 import { INITIAL_FORM_DATA_REQUEST } from '../../../../actions/actionTypes';
-import DataImporter from '../../components/DataImporter';
 
 describe('DataImporterContainer', () => {
   it('passes props from state', () => {
@@ -16,27 +16,33 @@ describe('DataImporterContainer', () => {
         initialDataError: { message: 'Import Error' },
       }),
     });
-    const wrapper = mount(
+
+    const { getByTestId } = render(
       <Provider store={store}>
         <DataImporterContainer onSkipClick={jest.fn()} />
       </Provider>
     );
-    expect(wrapper.find(DataImporter)).toHaveProp({
-      isImporting: true,
-      error: fromJS({ message: 'Import Error' }),
-    });
+
+    expect(getByTestId('data-importer-error')).toHaveTextContent(
+      'Import Error'
+    );
   });
 
-  it('dispatches initial data request on import click', () => {
+  it('dispatches initial data request on import click', async () => {
     const store = getStore();
     const importValue = 'arXiv:1001.1234';
-    const wrapper = mount(
+
+    const { getByTestId } = render(
       <Provider store={store}>
         <DataImporterContainer onSkipClick={jest.fn()} />
       </Provider>
     );
-    const onImportClick = wrapper.find(DataImporter).prop('onImportClick');
-    onImportClick(importValue);
+
+    const importInput = getByTestId('import-input');
+    const importButton = getByTestId('import-button');
+
+    await userEvent.type(importInput, importValue);
+    await userEvent.click(importButton);
 
     const actions = store.getActions();
     const expectedAction = actions.find(
@@ -44,6 +50,7 @@ describe('DataImporterContainer', () => {
         action.type === INITIAL_FORM_DATA_REQUEST &&
         action.payload.id === importValue
     );
+
     expect(expectedAction).toBeDefined();
   });
 });

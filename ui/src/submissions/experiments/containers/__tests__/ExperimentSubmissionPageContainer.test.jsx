@@ -1,14 +1,14 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
+import { render } from '@testing-library/react';
 
 import ExperimentSubmissionPageContainer, {
   ExperimentSubmissionPage,
 } from '../ExperimentSubmissionPageContainer';
-
-import { getStoreWithState } from '../../../../fixtures/store';
+import { getStoreWithState, getStore } from '../../../../fixtures/store';
 
 describe('ExperimentSubmissionSuccessPageContainer', () => {
   it('passes props to ExperimentSubmissionSucessPage', () => {
@@ -17,24 +17,28 @@ describe('ExperimentSubmissionSuccessPageContainer', () => {
         submitError: null,
       }),
     });
-    const wrapper = mount(
+    const { queryByTestId } = render(
       <Provider store={store}>
         <MemoryRouter>
           <ExperimentSubmissionPageContainer />
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(ExperimentSubmissionPage)).toHaveProp({
-      error: null,
-    });
+
+    expect(queryByTestId('experiment-alert')).not.toBeInTheDocument();
   });
 
   describe('ExperimentSubmissionSucessPage', () => {
     it('renders', () => {
-      const component = shallow(
-        <ExperimentSubmissionPage error={null} onSubmit={() => {}} />
+      const { asFragment } = render(
+        <Provider store={getStore()}>
+          <MemoryRouter>
+            <ExperimentSubmissionPage error={null} onSubmit={() => {}} />
+          </MemoryRouter>
+        </Provider>
       );
-      expect(component).toMatchSnapshot();
+
+      expect(asFragment()).toMatchSnapshot();
     });
   });
 });

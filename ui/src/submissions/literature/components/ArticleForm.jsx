@@ -40,7 +40,7 @@ class ArticleForm extends Component {
   render() {
     const { values } = this.props;
     return (
-      <Form>
+      <Form data-testid="article-form">
         <CollapsableForm openSections={OPEN_SECTIONS}>
           <CollapsableForm.Section header="Links" key="links">
             <LinkFields />

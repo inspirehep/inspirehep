@@ -1,21 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CollapseFormSection renders when header is not present 1`] = `
-<CollapsePanel
-  className="bg-white mb3 overflow-hidden"
-  header={null}
-/>
+<DocumentFragment>
+  <div
+    class="ant-collapse-item bg-white mb3 overflow-hidden"
+  >
+    <div
+      aria-disabled="false"
+      aria-expanded="false"
+      class="ant-collapse-header"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="ant-collapse-expand-icon"
+      >
+        <i
+          class="arrow"
+        />
+      </div>
+      <span
+        class="ant-collapse-header-text"
+      />
+    </div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`CollapseFormSection renders with all props 1`] = `
-<CollapsePanel
-  className="bg-white mb3 overflow-hidden"
-  header={
-    <h3
-      className="fw6"
+<DocumentFragment>
+  <div
+    class="ant-collapse-item bg-white mb3 overflow-hidden"
+  >
+    <div
+      aria-disabled="false"
+      aria-expanded="false"
+      class="ant-collapse-header"
+      role="button"
+      tabindex="0"
     >
-      header
-    </h3>
-  }
-/>
+      <div
+        class="ant-collapse-expand-icon"
+      >
+        <i
+          class="arrow"
+        />
+      </div>
+      <span
+        class="ant-collapse-header-text"
+      >
+        <h3
+          class="fw6"
+        >
+          header
+        </h3>
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
 `;

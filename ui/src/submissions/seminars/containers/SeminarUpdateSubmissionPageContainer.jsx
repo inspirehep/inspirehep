@@ -35,6 +35,7 @@ function SeminarUpdateSubmissionPage({
     <SubmissionPage
       title="Update a seminar"
       description="All modifications will appear immediately."
+      testId="seminar-update-submission-page"
     >
       <LoadingOrChildren loading={loadingUpdateFormData}>
         <ErrorAlertOrChildren error={updateFormDataError}>

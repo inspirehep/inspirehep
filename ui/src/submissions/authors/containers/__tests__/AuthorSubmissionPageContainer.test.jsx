@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
+
 import { getStore } from '../../../../fixtures/store';
 import AuthorSubmissionPageContainer from '../AuthorSubmissionPageContainer';
 import { SUBMISSIONS_AUTHOR } from '../../../../common/routes';

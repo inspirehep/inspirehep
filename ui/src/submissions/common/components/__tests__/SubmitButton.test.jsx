@@ -1,6 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { useFormikContext } from 'formik';
+import { render } from '@testing-library/react';
+
 import SubmitButton from '../SubmitButton';
 
 jest.mock('formik');
@@ -13,8 +14,9 @@ describe('SubmitButton', () => {
       isValidating: false,
     };
     useFormikContext.mockImplementation(() => contextValue);
-    const wrapper = shallow(<SubmitButton />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<SubmitButton />);
+
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with loading', () => {
@@ -24,7 +26,9 @@ describe('SubmitButton', () => {
       isValidating: false,
     };
     useFormikContext.mockImplementation(() => contextValue);
-    const wrapper = shallow(<SubmitButton />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment, getByRole } = render(<SubmitButton />);
+
+    expect(asFragment()).toMatchSnapshot();
+    expect(getByRole('img')).toHaveAttribute('aria-label', 'loading');
   });
 });

@@ -50,6 +50,7 @@ class AuthorSubmissionPage extends Component {
             )}
           </>
         }
+        testId="author-submission-page"
       >
         <AuthorSubmission
           error={error}

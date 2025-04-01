@@ -32,6 +32,7 @@ class JobSubmissionPage extends Component {
             in the <Link to={`${JOBS}?q=`}>Jobs List</Link> upon approval.
           </span>
         }
+        testId="job-submission-page"
       >
         <JobSubmission error={error} onSubmit={this.onSubmit} />
       </SubmissionPage>

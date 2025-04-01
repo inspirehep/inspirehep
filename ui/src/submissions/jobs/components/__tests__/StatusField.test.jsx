@@ -1,25 +1,45 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import StatusField from '../StatusField';
 
 describe('StatusField', () => {
   it('renders if can modify but not cataloger logged in', () => {
-    const wrapper = shallow(
-      <StatusField canModify isCatalogerLoggedIn={false} />
+    const { asFragment } = render(
+      <StatusField
+        canModify
+        isCatalogerLoggedIn={false}
+        form={{ errors: {} }}
+        field={{ name: {} }}
+      />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders if can modify and cataloger logged in', () => {
-    const wrapper = shallow(<StatusField canModify isCatalogerLoggedIn />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <StatusField
+        canModify
+        isCatalogerLoggedIn
+        form={{ errors: {} }}
+        field={{ name: {} }}
+      />
+    );
+
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders if can not modify and not cataloger logged in', () => {
-    const wrapper = shallow(
-      <StatusField canModify={false} isCatalogerLoggedIn={false} />
+    const { asFragment } = render(
+      <StatusField
+        canModify={false}
+        isCatalogerLoggedIn={false}
+        form={{ errors: {} }}
+        field={{ name: {} }}
+      />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });

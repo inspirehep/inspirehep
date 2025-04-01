@@ -1,11 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import RichTextEditor from '../RichTextEditor';
 
 describe('RichTextEditor', () => {
   it('renders', () => {
-    const wrapper = shallow(<RichTextEditor onChange={jest.fn()} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<RichTextEditor onChange={jest.fn()} />);
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });

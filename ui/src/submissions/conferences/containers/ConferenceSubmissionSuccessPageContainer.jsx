@@ -18,6 +18,7 @@ export function ConferenceSubmissionSucessPage({ cnum, recordId }) {
           .
         </span>
       }
+      testId="conference-submission-success-page"
     />
   );
 }

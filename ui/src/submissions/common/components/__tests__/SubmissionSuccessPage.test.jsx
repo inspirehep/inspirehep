@@ -1,11 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import SubmissionSuccessPage from '../SubmissionSuccessPage';
 
 describe('SubmissionSuccessPage', () => {
   it('renders', () => {
-    const wrapper = shallow(<SubmissionSuccessPage />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<SubmissionSuccessPage />);
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });

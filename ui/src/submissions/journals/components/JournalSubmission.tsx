@@ -25,7 +25,13 @@ export const JournalSubmission = ({
       {error && (
         <Row className="mb3">
           <Col span={24}>
-            <Alert message={error} type="error" showIcon closable />
+            <Alert
+              message={error}
+              type="error"
+              showIcon
+              closable
+              data-testid="journal-alert"
+            />
           </Col>
         </Row>
       )}

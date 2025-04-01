@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import BookSuggestion from '../BookSuggestion';
 
@@ -9,15 +9,17 @@ describe('BookSuggestion', () => {
       titles: [{ title: 'A Book' }],
       authors: [{ full_name: '' }],
     };
-    const wrapper = shallow(<BookSuggestion book={book} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<BookSuggestion book={book} />);
+
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with only title', () => {
     const book = {
       titles: [{ title: 'A Book' }],
     };
-    const wrapper = shallow(<BookSuggestion book={book} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<BookSuggestion book={book} />);
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });

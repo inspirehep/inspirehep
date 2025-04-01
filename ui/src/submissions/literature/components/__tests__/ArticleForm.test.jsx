@@ -1,18 +1,22 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
+import { Formik } from 'formik';
 
 import ArticleForm from '../ArticleForm';
 
 describe('ArticleForm', () => {
   it('renders all props', () => {
-    const wrapper = shallow(
-      <ArticleForm
-        isSubmitting={false}
-        isValidating={false}
-        isValid
-        values={{}}
-      />
+    const { asFragment } = render(
+      <Formik>
+        <ArticleForm
+          isSubmitting={false}
+          isValidating={false}
+          isValid
+          values={{}}
+        />
+      </Formik>
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });
