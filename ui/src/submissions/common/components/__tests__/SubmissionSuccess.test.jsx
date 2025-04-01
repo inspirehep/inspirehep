@@ -1,18 +1,20 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import SubmissionSuccess from '../SubmissionSuccess';
 
 describe('SubmissionSuccess', () => {
   it('renders with default message', () => {
-    const wrapper = shallow(<SubmissionSuccess />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<SubmissionSuccess />);
+
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with custom message', () => {
-    const wrapper = shallow(
+    const { asFragment, getByText } = render(
       <SubmissionSuccess message={<strong>Custom Success</strong>} />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment).toMatchSnapshot();
+    expect(getByText(/Custom Success/i)).toBeInTheDocument();
   });
 });

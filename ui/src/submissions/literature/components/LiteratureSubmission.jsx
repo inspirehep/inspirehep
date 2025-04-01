@@ -89,7 +89,7 @@ function LiteratureSubmission({
         </Row>
       )}
       <Row>
-        <Col span={24}>
+        <Col span={24} data-testid="formik-wrapper">
           <Formik
             enableReinitialize
             initialErrors={initialErrors}

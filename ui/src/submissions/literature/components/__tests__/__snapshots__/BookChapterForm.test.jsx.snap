@@ -1,78 +1,1145 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BookChapterForm renders all props 1`] = `
-<Form>
-  <CollapsableForm
-    openSections={
-      Array [
-        "basic_info",
-        "links",
-        "publication_info",
-      ]
-    }
+<DocumentFragment>
+  <form
+    action="#"
   >
-    <CollapsableFormSection
-      header="Links"
-      key="links"
+    <div
+      class="ant-collapse ant-collapse-icon-position-start ant-collapse-borderless __CollapsableForm__"
     >
-      <LinkFields />
-    </CollapsableFormSection>
-    <CollapsableFormSection
-      header="Basic Info"
-      key="basic_info"
+      <div
+        class="ant-collapse-item ant-collapse-item-active bg-white mb3 overflow-hidden"
+      >
+        <div
+          aria-disabled="false"
+          aria-expanded="true"
+          class="ant-collapse-header"
+          role="button"
+          tabindex="0"
+        >
+          <div
+            class="ant-collapse-expand-icon"
+          >
+            <span
+              aria-label="right"
+              class="anticon anticon-right ant-collapse-arrow"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="right"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                style="transform: rotate(90deg);"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
+                />
+              </svg>
+            </span>
+          </div>
+          <span
+            class="ant-collapse-header-text"
+          >
+            <h3
+              class="fw6"
+            >
+              Links
+            </h3>
+          </span>
+        </div>
+        <div
+          class="ant-collapse-content ant-collapse-content-active"
+        >
+          <div
+            class="ant-collapse-content-box"
+          >
+            <div
+              class="ant-form-item"
+            >
+              <div
+                class="ant-row ant-form-item-row"
+              >
+                <div
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                >
+                  <label
+                    class=""
+                    title=""
+                  >
+                    <span
+                      data-testid="label-with-help"
+                    >
+                      <span>
+                        Link to PDF
+                      </span>
+                       
+                      <span
+                        aria-label="question-circle"
+                        class="anticon anticon-question-circle"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="question-circle"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                          />
+                          <path
+                            d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </label>
+                </div>
+                <div
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                >
+                  <div
+                    class="ant-form-item-control-input"
+                  >
+                    <div
+                      class="ant-form-item-control-input-content"
+                    >
+                      <input
+                        class="ant-input"
+                        data-test-id="pdf_link"
+                        form="[object Object]"
+                        name="pdf_link"
+                        placeholder="https://example.com/document.pdf"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-form-item"
+            >
+              <div
+                class="ant-row ant-form-item-row"
+              >
+                <div
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                >
+                  <label
+                    class=""
+                    title=""
+                  >
+                    <span
+                      data-testid="label-with-help"
+                    >
+                      <span>
+                        Link to additional info
+                      </span>
+                       
+                      <span
+                        aria-label="question-circle"
+                        class="anticon anticon-question-circle"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="question-circle"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                          />
+                          <path
+                            d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </label>
+                </div>
+                <div
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                >
+                  <div
+                    class="ant-form-item-control-input"
+                  >
+                    <div
+                      class="ant-form-item-control-input-content"
+                    >
+                      <input
+                        class="ant-input"
+                        data-test-id="additional_link"
+                        form="[object Object]"
+                        name="additional_link"
+                        placeholder="https://example.com/page.html"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-collapse-item ant-collapse-item-active bg-white mb3 overflow-hidden"
+      >
+        <div
+          aria-disabled="false"
+          aria-expanded="true"
+          class="ant-collapse-header"
+          role="button"
+          tabindex="0"
+        >
+          <div
+            class="ant-collapse-expand-icon"
+          >
+            <span
+              aria-label="right"
+              class="anticon anticon-right ant-collapse-arrow"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="right"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                style="transform: rotate(90deg);"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
+                />
+              </svg>
+            </span>
+          </div>
+          <span
+            class="ant-collapse-header-text"
+          >
+            <h3
+              class="fw6"
+            >
+              Basic Info
+            </h3>
+          </span>
+        </div>
+        <div
+          class="ant-collapse-content ant-collapse-content-active"
+        >
+          <div
+            class="ant-collapse-content-box"
+          >
+            <div
+              class="ant-form-item"
+            >
+              <div
+                class="ant-row ant-form-item-row"
+              >
+                <div
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                >
+                  <label
+                    class=""
+                    title=""
+                  >
+                    <span>
+                      * Title
+                    </span>
+                  </label>
+                </div>
+                <div
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                >
+                  <div
+                    class="ant-form-item-control-input"
+                  >
+                    <div
+                      class="ant-form-item-control-input-content"
+                    >
+                      <input
+                        class="ant-input"
+                        data-test-id="title"
+                        form="[object Object]"
+                        name="title"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-form-item"
+            >
+              <div
+                class="ant-row ant-form-item-row"
+              >
+                <div
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                >
+                  <label
+                    class=""
+                    title=""
+                  >
+                    <span>
+                      * Language
+                    </span>
+                  </label>
+                </div>
+                <div
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                >
+                  <div
+                    class="ant-form-item-control-input"
+                  >
+                    <div
+                      class="ant-form-item-control-input-content"
+                    >
+                      <div
+                        class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow"
+                        data-test-id="language"
+                        data-test-type="single-select"
+                        form="[object Object]"
+                        name="language"
+                        placement="bottomLeft"
+                      >
+                        <div
+                          class="ant-select-selector"
+                        >
+                          <span
+                            class="ant-select-selection-search"
+                          >
+                            <input
+                              aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                              aria-autocomplete="list"
+                              aria-controls="rc_select_TEST_OR_SSR_list"
+                              aria-haspopup="listbox"
+                              aria-owns="rc_select_TEST_OR_SSR_list"
+                              autocomplete="off"
+                              class="ant-select-selection-search-input"
+                              id="rc_select_TEST_OR_SSR"
+                              readonly=""
+                              role="combobox"
+                              style="opacity: 0;"
+                              value=""
+                            />
+                          </span>
+                          <span
+                            class="ant-select-selection-placeholder"
+                          />
+                        </div>
+                        <span
+                          aria-hidden="true"
+                          class="ant-select-arrow"
+                          style="user-select: none;"
+                          unselectable="on"
+                        >
+                          <span
+                            aria-label="down"
+                            class="anticon anticon-down ant-select-suffix"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="down"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-form-item"
+            >
+              <div
+                class="ant-row ant-form-item-row"
+              >
+                <div
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                >
+                  <label
+                    class=""
+                    title=""
+                  >
+                    <span>
+                      * Subjects
+                    </span>
+                  </label>
+                </div>
+                <div
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                >
+                  <div
+                    class="ant-form-item-control-input"
+                  >
+                    <div
+                      class="ant-form-item-control-input-content"
+                    >
+                      <div
+                        class="ant-select ant-select-in-form-item ant-select-multiple ant-select-show-arrow ant-select-show-search"
+                        data-test-id="subjects"
+                        data-test-type="multiple-select"
+                        form="[object Object]"
+                        name="subjects"
+                        placement="bottomLeft"
+                      >
+                        <div
+                          class="ant-select-selector"
+                        >
+                          <span
+                            class="ant-select-selection-search"
+                            style="width: 0px;"
+                          >
+                            <input
+                              aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                              aria-autocomplete="list"
+                              aria-controls="rc_select_TEST_OR_SSR_list"
+                              aria-haspopup="listbox"
+                              aria-owns="rc_select_TEST_OR_SSR_list"
+                              autocomplete="off"
+                              class="ant-select-selection-search-input"
+                              id="rc_select_TEST_OR_SSR"
+                              readonly=""
+                              role="combobox"
+                              style="opacity: 0;"
+                              value=""
+                            />
+                            <span
+                              aria-hidden="true"
+                              class="ant-select-selection-search-mirror"
+                            >
+                               
+                            </span>
+                          </span>
+                          <span
+                            class="ant-select-selection-placeholder"
+                          />
+                        </div>
+                        <span
+                          aria-hidden="true"
+                          class="ant-select-arrow"
+                          style="user-select: none;"
+                          unselectable="on"
+                        >
+                          <span
+                            aria-label="down"
+                            class="anticon anticon-down ant-select-suffix"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="down"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="__ArrayOf__"
+            >
+              <div
+                class="ant-form-item"
+              >
+                <div
+                  class="ant-row ant-form-item-row"
+                >
+                  <div
+                    class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                  >
+                    <label
+                      class=""
+                      title=""
+                    >
+                      <span>
+                        * Authors
+                      </span>
+                    </label>
+                  </div>
+                  <div
+                    class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                  >
+                    <div
+                      class="ant-form-item-control-input"
+                    >
+                      <div
+                        class="ant-form-item-control-input-content"
+                      >
+                        <div
+                          class="ant-form-item items-container"
+                        >
+                          <div
+                            class="ant-row ant-form-item-row"
+                          >
+                            <div
+                              class="ant-col ant-form-item-control"
+                            >
+                              <div
+                                class="ant-form-item-control-input"
+                              >
+                                <div
+                                  class="ant-form-item-control-input-content"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="ant-form-item add-button"
+                        >
+                          <div
+                            class="ant-row ant-form-item-row"
+                          >
+                            <div
+                              class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                            >
+                              <div
+                                class="ant-form-item-control-input"
+                              >
+                                <div
+                                  class="ant-form-item-control-input-content"
+                                >
+                                  <button
+                                    class="ant-btn ant-btn-dashed"
+                                    data-test-id="authors-add-item"
+                                    type="button"
+                                  >
+                                    <span
+                                      aria-label="plus"
+                                      class="anticon anticon-plus"
+                                      role="img"
+                                    >
+                                      <svg
+                                        aria-hidden="true"
+                                        data-icon="plus"
+                                        fill="currentColor"
+                                        focusable="false"
+                                        height="1em"
+                                        viewBox="64 64 896 896"
+                                        width="1em"
+                                      >
+                                        <path
+                                          d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"
+                                        />
+                                        <path
+                                          d="M192 474h672q8 0 8 8v60q0 8-8 8H160q-8 0-8-8v-60q0-8 8-8z"
+                                        />
+                                      </svg>
+                                    </span>
+                                    <span>
+                                       Add new field
+                                    </span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-form-item"
+            >
+              <div
+                class="ant-row ant-form-item-row"
+              >
+                <div
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                >
+                  <label
+                    class=""
+                    title=""
+                  >
+                    <span>
+                      Experiment
+                    </span>
+                  </label>
+                </div>
+                <div
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                >
+                  <div
+                    class="ant-form-item-control-input"
+                  >
+                    <div
+                      class="ant-form-item-control-input-content"
+                    >
+                      <div
+                        class="ant-select ant-select-in-form-item ant-select-auto-complete ant-select-single ant-select-show-search"
+                        data-test-id="experiment"
+                        data-test-type="suggester"
+                        form="[object Object]"
+                        name="experiment"
+                        placement="bottomLeft"
+                        searchasyoutype="true"
+                      >
+                        <div
+                          class="ant-select-selector"
+                        >
+                          <span
+                            class="ant-select-selection-search"
+                          >
+                            <input
+                              aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                              aria-autocomplete="list"
+                              aria-controls="rc_select_TEST_OR_SSR_list"
+                              aria-haspopup="listbox"
+                              aria-owns="rc_select_TEST_OR_SSR_list"
+                              autocomplete="off"
+                              class="ant-select-selection-search-input"
+                              id="rc_select_TEST_OR_SSR"
+                              role="combobox"
+                              value=""
+                            />
+                          </span>
+                          <span
+                            class="ant-select-selection-placeholder"
+                          >
+                            Experiment, type for suggestions
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-form-item"
+            >
+              <div
+                class="ant-row ant-form-item-row"
+              >
+                <div
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                >
+                  <label
+                    class=""
+                    title=""
+                  >
+                    <span>
+                      Abstract
+                    </span>
+                  </label>
+                </div>
+                <div
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                >
+                  <div
+                    class="ant-form-item-control-input"
+                  >
+                    <div
+                      class="ant-form-item-control-input-content"
+                    >
+                      <textarea
+                        class="ant-input"
+                        data-test-id="abstract"
+                        form="[object Object]"
+                        name="abstract"
+                        rows="4"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="__ArrayOf__"
+            >
+              <div
+                class="ant-form-item"
+              >
+                <div
+                  class="ant-row ant-form-item-row"
+                >
+                  <div
+                    class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                  >
+                    <label
+                      class=""
+                      title=""
+                    >
+                      <span>
+                        Report Numbers
+                      </span>
+                    </label>
+                  </div>
+                  <div
+                    class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                  >
+                    <div
+                      class="ant-form-item-control-input"
+                    >
+                      <div
+                        class="ant-form-item-control-input-content"
+                      >
+                        <div
+                          class="ant-form-item items-container"
+                        >
+                          <div
+                            class="ant-row ant-form-item-row"
+                          >
+                            <div
+                              class="ant-col ant-form-item-control"
+                            >
+                              <div
+                                class="ant-form-item-control-input"
+                              >
+                                <div
+                                  class="ant-form-item-control-input-content"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="ant-form-item add-button"
+                        >
+                          <div
+                            class="ant-row ant-form-item-row"
+                          >
+                            <div
+                              class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                            >
+                              <div
+                                class="ant-form-item-control-input"
+                              >
+                                <div
+                                  class="ant-form-item-control-input-content"
+                                >
+                                  <button
+                                    class="ant-btn ant-btn-dashed"
+                                    data-test-id="report_numbers-add-item"
+                                    type="button"
+                                  >
+                                    <span
+                                      aria-label="plus"
+                                      class="anticon anticon-plus"
+                                      role="img"
+                                    >
+                                      <svg
+                                        aria-hidden="true"
+                                        data-icon="plus"
+                                        fill="currentColor"
+                                        focusable="false"
+                                        height="1em"
+                                        viewBox="64 64 896 896"
+                                        width="1em"
+                                      >
+                                        <path
+                                          d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"
+                                        />
+                                        <path
+                                          d="M192 474h672q8 0 8 8v60q0 8-8 8H160q-8 0-8-8v-60q0-8 8-8z"
+                                        />
+                                      </svg>
+                                    </span>
+                                    <span>
+                                       Add new field
+                                    </span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-form-item"
+            >
+              <div
+                class="ant-row ant-form-item-row"
+              >
+                <div
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                >
+                  <label
+                    class=""
+                    title=""
+                  >
+                    <span>
+                      DOI
+                    </span>
+                  </label>
+                </div>
+                <div
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                >
+                  <div
+                    class="ant-form-item-control-input"
+                  >
+                    <div
+                      class="ant-form-item-control-input-content"
+                    >
+                      <input
+                        class="ant-input"
+                        data-test-id="doi"
+                        form="[object Object]"
+                        name="doi"
+                        placeholder="e.g. 10.1086/305772 or doi:10.1086/305772"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-collapse-item ant-collapse-item-active bg-white mb3 overflow-hidden"
+      >
+        <div
+          aria-disabled="false"
+          aria-expanded="true"
+          class="ant-collapse-header"
+          role="button"
+          tabindex="0"
+        >
+          <div
+            class="ant-collapse-expand-icon"
+          >
+            <span
+              aria-label="right"
+              class="anticon anticon-right ant-collapse-arrow"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="right"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                style="transform: rotate(90deg);"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
+                />
+              </svg>
+            </span>
+          </div>
+          <span
+            class="ant-collapse-header-text"
+          >
+            <h3
+              class="fw6"
+            >
+              Publication Info
+            </h3>
+          </span>
+        </div>
+        <div
+          class="ant-collapse-content ant-collapse-content-active"
+        >
+          <div
+            class="ant-collapse-content-box"
+          >
+            <div
+              class="ant-form-item"
+            >
+              <div
+                class="ant-row ant-form-item-row"
+              >
+                <div
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                >
+                  <label
+                    class=""
+                    title=""
+                  >
+                    <span>
+                      Book Title
+                    </span>
+                  </label>
+                </div>
+                <div
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                >
+                  <div
+                    class="ant-form-item-control-input"
+                  >
+                    <div
+                      class="ant-form-item-control-input-content"
+                    >
+                      <div
+                        class="ant-select ant-select-in-form-item ant-select-auto-complete ant-select-single ant-select-show-search"
+                        data-test-id="book_title"
+                        data-test-type="suggester"
+                        form="[object Object]"
+                        name="book_title"
+                        placement="bottomLeft"
+                      >
+                        <div
+                          class="ant-select-selector"
+                        >
+                          <span
+                            class="ant-select-selection-search"
+                          >
+                            <input
+                              aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                              aria-autocomplete="list"
+                              aria-controls="rc_select_TEST_OR_SSR_list"
+                              aria-haspopup="listbox"
+                              aria-owns="rc_select_TEST_OR_SSR_list"
+                              autocomplete="off"
+                              class="ant-select-selection-search-input"
+                              id="rc_select_TEST_OR_SSR"
+                              role="combobox"
+                              value=""
+                            />
+                          </span>
+                          <span
+                            class="ant-select-selection-placeholder"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-form-item"
+            >
+              <div
+                class="ant-row ant-form-item-row"
+              >
+                <div
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                >
+                  <label
+                    class=""
+                    title=""
+                  >
+                    <span>
+                      Start Page
+                    </span>
+                  </label>
+                </div>
+                <div
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                >
+                  <div
+                    class="ant-form-item-control-input"
+                  >
+                    <div
+                      class="ant-form-item-control-input-content"
+                    >
+                      <input
+                        class="ant-input"
+                        data-test-id="start_page"
+                        form="[object Object]"
+                        name="start_page"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-form-item"
+            >
+              <div
+                class="ant-row ant-form-item-row"
+              >
+                <div
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                >
+                  <label
+                    class=""
+                    title=""
+                  >
+                    <span>
+                      End Page
+                    </span>
+                  </label>
+                </div>
+                <div
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                >
+                  <div
+                    class="ant-form-item-control-input"
+                  >
+                    <div
+                      class="ant-form-item-control-input-content"
+                    >
+                      <input
+                        class="ant-input"
+                        data-test-id="end_page"
+                        form="[object Object]"
+                        name="end_page"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-collapse-item bg-white mb3 overflow-hidden"
+      >
+        <div
+          aria-disabled="false"
+          aria-expanded="false"
+          class="ant-collapse-header"
+          role="button"
+          tabindex="0"
+        >
+          <div
+            class="ant-collapse-expand-icon"
+          >
+            <span
+              aria-label="right"
+              class="anticon anticon-right ant-collapse-arrow"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="right"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
+                />
+              </svg>
+            </span>
+          </div>
+          <span
+            class="ant-collapse-header-text"
+          >
+            <h3
+              class="fw6"
+            >
+              References
+            </h3>
+          </span>
+        </div>
+      </div>
+      <div
+        class="ant-collapse-item bg-white mb3 overflow-hidden"
+      >
+        <div
+          aria-disabled="false"
+          aria-expanded="false"
+          class="ant-collapse-header"
+          role="button"
+          tabindex="0"
+        >
+          <div
+            class="ant-collapse-expand-icon"
+          >
+            <span
+              aria-label="right"
+              class="anticon anticon-right ant-collapse-arrow"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="right"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
+                />
+              </svg>
+            </span>
+          </div>
+          <span
+            class="ant-collapse-header-text"
+          >
+            <h3
+              class="fw6"
+            >
+              Comments
+            </h3>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="ant-row ant-row-end"
+      type="flex"
     >
-      <BasicInfoFields
-        values={Object {}}
-        withCollaborationField={false}
-      />
-    </CollapsableFormSection>
-    <CollapsableFormSection
-      header="Publication Info"
-      key="publication_info"
-    >
-      <Field
-        component={[Function]}
-        extractItemCompletionValue={[Function]}
-        label="Book Title"
-        name="book_title"
-        pidType="literature"
-        recordFieldPath="parent_book_record"
-        renderResultItem={[Function]}
-        suggesterName="book_title"
-      />
-      <Field
-        component={[Function]}
-        label="Start Page"
-        name="start_page"
-      />
-      <Field
-        component={[Function]}
-        label="End Page"
-        name="end_page"
-      />
-    </CollapsableFormSection>
-    <CollapsableFormSection
-      header="References"
-      key="references"
-    >
-      <ReferencesField
-        values={Object {}}
-      />
-    </CollapsableFormSection>
-    <CollapsableFormSection
-      header="Comments"
-      key="comments"
-    >
-      <CommentsField
-        values={Object {}}
-      />
-    </CollapsableFormSection>
-  </CollapsableForm>
-  <Row
-    justify="end"
-    type="flex"
-  >
-    <SubmitButton />
-  </Row>
-</Form>
+      <button
+        class="ant-btn ant-btn-primary"
+        data-test-id="submit-button"
+        type="submit"
+      >
+        <span>
+          Submit
+        </span>
+      </button>
+    </div>
+  </form>
+</DocumentFragment>
 `;

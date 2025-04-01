@@ -4,9 +4,13 @@ import PropTypes from 'prop-types';
 
 class SubmissionSuccess extends Component {
   render() {
-    const { message } = this.props;
+    const { message, testId } = this.props;
     return (
-      <Row type="flex" justify="center">
+      <Row
+        type="flex"
+        justify="center"
+        data-testid={testId || 'submission-success-page'}
+      >
         <Col className="mv3" span={14}>
           <Alert message={message} type="success" showIcon />
         </Col>

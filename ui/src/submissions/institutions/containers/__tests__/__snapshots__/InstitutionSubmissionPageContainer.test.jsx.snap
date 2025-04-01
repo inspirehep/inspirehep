@@ -1,23 +1,148 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`InstitutionSubmissionPageContainer InstitutionSubmissionPage renders 1`] = `
-<SubmissionPage
-  description={
-    <span>
-      This form allows you to create a new institution record. It will appear in the 
-      <Link
-        to="/institutions"
+<DocumentFragment>
+  <div
+    class="ant-row ant-row-center"
+    data-testid="institution-submission-page"
+    type="flex"
+  >
+    <div
+      class="ant-col mt3 mb3 ant-col-xs-24 ant-col-md-21 ant-col-lg-16 ant-col-xl-15 ant-col-xxl-14"
+    >
+      <div
+        class="ant-row mb3 pa3 bg-white"
       >
-        Institutions List
-      </Link>
-       immediately.
-    </span>
-  }
-  title="Suggest institution"
->
-  <toAllJS(InstitutionSubmission)
-    error={null}
-    onSubmit={[Function]}
-  />
-</SubmissionPage>
+        <div
+          class="ant-col ant-col-24"
+        >
+          <h3>
+            Suggest institution
+          </h3>
+          <span>
+            This form allows you to create a new institution record. It will appear in the 
+            <a
+              href="/institutions"
+            >
+              Institutions List
+            </a>
+             immediately.
+          </span>
+        </div>
+      </div>
+      <div
+        class="ant-row"
+      >
+        <div
+          class="ant-col ant-col-24"
+        >
+          <div>
+            <div
+              class="ant-row"
+            >
+              <div
+                class="ant-col ant-col-24"
+              >
+                <form
+                  action="#"
+                  class="bg-white pa3"
+                >
+                  <div
+                    class="ant-row mb3 pt2 bg-white"
+                  >
+                    <div
+                      class="ant-col ant-col-24"
+                    >
+                      <div
+                        class="ant-form-item"
+                      >
+                        <div
+                          class="ant-row ant-form-item-row"
+                        >
+                          <div
+                            class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                          >
+                            <label
+                              class=""
+                              title=""
+                            >
+                              <span>
+                                * Institution name
+                              </span>
+                            </label>
+                          </div>
+                          <div
+                            class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                          >
+                            <div
+                              class="ant-form-item-control-input"
+                            >
+                              <div
+                                class="ant-form-item-control-input-content"
+                              >
+                                <div
+                                  class="ant-select ant-select-in-form-item ant-select-auto-complete ant-select-single ant-select-show-search"
+                                  data-test-id="identifier"
+                                  data-test-type="suggester"
+                                  form="[object Object]"
+                                  name="identifier"
+                                  placement="bottomLeft"
+                                  searchasyoutype="true"
+                                >
+                                  <div
+                                    class="ant-select-selector"
+                                  >
+                                    <span
+                                      class="ant-select-selection-search"
+                                    >
+                                      <input
+                                        aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                                        aria-autocomplete="list"
+                                        aria-controls="rc_select_TEST_OR_SSR_list"
+                                        aria-haspopup="listbox"
+                                        aria-owns="rc_select_TEST_OR_SSR_list"
+                                        autocomplete="off"
+                                        class="ant-select-selection-search-input"
+                                        id="rc_select_TEST_OR_SSR"
+                                        role="combobox"
+                                        value=""
+                                      />
+                                    </span>
+                                    <span
+                                      class="ant-select-selection-placeholder"
+                                    >
+                                      Institution, type for suggestions
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="ant-row ant-row-end"
+                    type="flex"
+                  >
+                    <button
+                      class="ant-btn ant-btn-primary"
+                      data-test-id="submit-button"
+                      type="submit"
+                    >
+                      <span>
+                        Submit
+                      </span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;

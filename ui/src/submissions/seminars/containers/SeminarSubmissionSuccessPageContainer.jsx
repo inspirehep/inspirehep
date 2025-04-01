@@ -17,6 +17,7 @@ export function SeminarSubmissionSuccessPage({ recordId }) {
           .
         </span>
       }
+      testId="seminar-submission-success-page"
     />
   );
 }

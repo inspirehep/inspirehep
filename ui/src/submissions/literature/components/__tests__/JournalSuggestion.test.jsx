@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import JournalSuggestion from '../JournalSuggestion';
 
@@ -11,15 +11,17 @@ describe('JournalSuggestion', () => {
         title: 'Cool Journal of Tests',
       },
     };
-    const wrapper = shallow(<JournalSuggestion journal={journal} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<JournalSuggestion journal={journal} />);
+
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with only short_title', () => {
     const journal = {
       short_title: 'CJRL',
     };
-    const wrapper = shallow(<JournalSuggestion journal={journal} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<JournalSuggestion journal={journal} />);
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });

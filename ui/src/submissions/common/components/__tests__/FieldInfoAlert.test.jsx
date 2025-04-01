@@ -1,13 +1,15 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import FieldInfoAlert from '../FieldInfoAlert';
 
 describe('FieldInfoAlert', () => {
   it('renders with alert description', () => {
-    const wrapper = shallow(
+    const { asFragment, getByText } = render(
       <FieldInfoAlert description={<span>Watch out for this field!</span>} />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(asFragment()).toMatchSnapshot();
+    expect(getByText('Watch out for this field!')).toBeInTheDocument();
   });
 });

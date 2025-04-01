@@ -1,381 +1,646 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DataImporter renders with error with a message 1`] = `
-<div>
-  <Row
-    className="mb3"
-  >
-    <Col
-      span={24}
+<DocumentFragment>
+  <div>
+    <div
+      class="ant-row mb3"
     >
-      <Alert
-        message="Fill in the field to automatically import more data from arXiv or DOI"
-        type="info"
-      />
-    </Col>
-  </Row>
-  <Row
-    className="mb3"
-  >
-    <Col
-      span={24}
+      <div
+        class="ant-col ant-col-24"
+      >
+        <div
+          class="ant-alert ant-alert-info ant-alert-no-icon"
+          data-show="true"
+          role="alert"
+        >
+          <div
+            class="ant-alert-content"
+          >
+            <div
+              class="ant-alert-message"
+            >
+              Fill in the field to automatically import more data from arXiv or DOI
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="ant-row mb3"
     >
-      <Alert
-        closable={true}
-        message={
-          <React.Fragment>
-            error
-          </React.Fragment>
-        }
-        showIcon={true}
-        type="error"
-      />
-    </Col>
-  </Row>
-  <InternalFormItem
-    label={
-      <Tooltip
-        title="From arXiv or DOI"
+      <div
+        class="ant-col ant-col-24"
       >
-        From arXiv or DOI
-      </Tooltip>
-    }
-    labelCol={
-      Object {
-        "md": Object {
-          "span": 5,
-        },
-        "sm": Object {
-          "span": 24,
-        },
-      }
-    }
-    wrapperCol={
-      Object {
-        "md": Object {
-          "span": 19,
-        },
-        "sm": Object {
-          "span": 24,
-        },
-      }
-    }
-  >
-    <ForwardRef
-      data-test-id="import-input"
-      onChange={[Function]}
-      onPressEnter={[Function]}
-      placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
-    />
-  </InternalFormItem>
-  <Row
-    align="middle"
-    justify="space-between"
-    type="flex"
-  >
-    <Col>
-      <LinkLikeButton
-        color="blue"
-        dataTestId="skip-import-button"
-        disabled={false}
-        onClick={[MockFunction]}
+        <div
+          class="ant-alert ant-alert-error"
+          data-show="true"
+          data-testid="data-importer-error"
+          role="alert"
+        >
+          <span
+            aria-label="close-circle"
+            class="anticon anticon-close-circle ant-alert-icon"
+            role="img"
+          >
+            <svg
+              aria-hidden="true"
+              data-icon="close-circle"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="64 64 896 896"
+              width="1em"
+            >
+              <path
+                d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm165.4 618.2l-66-.3L512 563.4l-99.3 118.4-66.1.3c-4.4 0-8-3.5-8-8 0-1.9.7-3.7 1.9-5.2l130.1-155L340.5 359a8.32 8.32 0 01-1.9-5.2c0-4.4 3.6-8 8-8l66.1.3L512 464.6l99.3-118.4 66-.3c4.4 0 8 3.5 8 8 0 1.9-.7 3.7-1.9 5.2L553.5 514l130 155c1.2 1.5 1.9 3.3 1.9 5.2 0 4.4-3.6 8-8 8z"
+              />
+            </svg>
+          </span>
+          <div
+            class="ant-alert-content"
+          >
+            <div
+              class="ant-alert-message"
+            >
+              error
+            </div>
+          </div>
+          <button
+            class="ant-alert-close-icon"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              aria-label="close"
+              class="anticon anticon-close"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="close"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 00203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="ant-form-item"
+    >
+      <div
+        class="ant-row ant-form-item-row"
       >
-        Skip and fill the form manually
-      </LinkLikeButton>
-    </Col>
-    <Col>
-      <Button
-        data-test-id="import-button"
-        loading={false}
-        onClick={[Function]}
-        type="primary"
+        <div
+          class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+        >
+          <label
+            class=""
+            title=""
+          >
+            <span>
+              From arXiv or DOI
+            </span>
+          </label>
+        </div>
+        <div
+          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+        >
+          <div
+            class="ant-form-item-control-input"
+          >
+            <div
+              class="ant-form-item-control-input-content"
+            >
+              <input
+                class="ant-input"
+                data-test-id="import-input"
+                data-testid="import-input"
+                placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="ant-row ant-row-space-between ant-row-middle"
+      type="flex"
+    >
+      <div
+        class="ant-col"
       >
-        Import
-      </Button>
-    </Col>
-  </Row>
-</div>
+        <button
+          class="ant-btn ant-btn-text __LinkLikeButton__ blue"
+          data-test-id="skip-import-button"
+          data-testid="skip-import-button"
+          type="button"
+        >
+          <span>
+            Skip and fill the form manually
+          </span>
+        </button>
+      </div>
+      <div
+        class="ant-col"
+      >
+        <button
+          class="ant-btn ant-btn-primary"
+          data-test-id="import-button"
+          data-testid="import-button"
+          type="button"
+        >
+          <span>
+            Import
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`DataImporter renders with error with message and recid 1`] = `
-<div>
-  <Row
-    className="mb3"
-  >
-    <Col
-      span={24}
+<DocumentFragment>
+  <div>
+    <div
+      class="ant-row mb3"
     >
-      <Alert
-        message="Fill in the field to automatically import more data from arXiv or DOI"
-        type="info"
-      />
-    </Col>
-  </Row>
-  <Row
-    className="mb3"
-  >
-    <Col
-      span={24}
+      <div
+        class="ant-col ant-col-24"
+      >
+        <div
+          class="ant-alert ant-alert-info ant-alert-no-icon"
+          data-show="true"
+          role="alert"
+        >
+          <div
+            class="ant-alert-content"
+          >
+            <div
+              class="ant-alert-message"
+            >
+              Fill in the field to automatically import more data from arXiv or DOI
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="ant-row mb3"
     >
-      <Alert
-        closable={true}
-        message={
-          <React.Fragment>
-            error
-            <React.Fragment>
-              . 
-               
-              <LinkWithTargetBlank
-                as="a"
+      <div
+        class="ant-col ant-col-24"
+      >
+        <div
+          class="ant-alert ant-alert-error"
+          data-show="true"
+          data-testid="data-importer-error"
+          role="alert"
+        >
+          <span
+            aria-label="close-circle"
+            class="anticon anticon-close-circle ant-alert-icon"
+            role="img"
+          >
+            <svg
+              aria-hidden="true"
+              data-icon="close-circle"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="64 64 896 896"
+              width="1em"
+            >
+              <path
+                d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm165.4 618.2l-66-.3L512 563.4l-99.3 118.4-66.1.3c-4.4 0-8-3.5-8-8 0-1.9.7-3.7 1.9-5.2l130.1-155L340.5 359a8.32 8.32 0 01-1.9-5.2c0-4.4 3.6-8 8-8l66.1.3L512 464.6l99.3-118.4 66-.3c4.4 0 8 3.5 8 8 0 1.9-.7 3.7-1.9 5.2L553.5 514l130 155c1.2 1.5 1.9 3.3 1.9 5.2 0 4.4-3.6 8-8 8z"
+              />
+            </svg>
+          </span>
+          <div
+            class="ant-alert-content"
+          >
+            <div
+              class="ant-alert-message"
+            >
+              error.  
+              <a
                 href="http://inspirehep.net/record/12345"
+                target="_blank"
               >
                 See the record
-              </LinkWithTargetBlank>
-            </React.Fragment>
-          </React.Fragment>
-        }
-        showIcon={true}
-        type="error"
-      />
-    </Col>
-  </Row>
-  <InternalFormItem
-    label={
-      <Tooltip
-        title="From arXiv or DOI"
+              </a>
+            </div>
+          </div>
+          <button
+            class="ant-alert-close-icon"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              aria-label="close"
+              class="anticon anticon-close"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="close"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 00203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="ant-form-item"
+    >
+      <div
+        class="ant-row ant-form-item-row"
       >
-        From arXiv or DOI
-      </Tooltip>
-    }
-    labelCol={
-      Object {
-        "md": Object {
-          "span": 5,
-        },
-        "sm": Object {
-          "span": 24,
-        },
-      }
-    }
-    wrapperCol={
-      Object {
-        "md": Object {
-          "span": 19,
-        },
-        "sm": Object {
-          "span": 24,
-        },
-      }
-    }
-  >
-    <ForwardRef
-      data-test-id="import-input"
-      onChange={[Function]}
-      onPressEnter={[Function]}
-      placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
-    />
-  </InternalFormItem>
-  <Row
-    align="middle"
-    justify="space-between"
-    type="flex"
-  >
-    <Col>
-      <LinkLikeButton
-        color="blue"
-        dataTestId="skip-import-button"
-        disabled={false}
-        onClick={[MockFunction]}
+        <div
+          class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+        >
+          <label
+            class=""
+            title=""
+          >
+            <span>
+              From arXiv or DOI
+            </span>
+          </label>
+        </div>
+        <div
+          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+        >
+          <div
+            class="ant-form-item-control-input"
+          >
+            <div
+              class="ant-form-item-control-input-content"
+            >
+              <input
+                class="ant-input"
+                data-test-id="import-input"
+                data-testid="import-input"
+                placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="ant-row ant-row-space-between ant-row-middle"
+      type="flex"
+    >
+      <div
+        class="ant-col"
       >
-        Skip and fill the form manually
-      </LinkLikeButton>
-    </Col>
-    <Col>
-      <Button
-        data-test-id="import-button"
-        loading={false}
-        onClick={[Function]}
-        type="primary"
+        <button
+          class="ant-btn ant-btn-text __LinkLikeButton__ blue"
+          data-test-id="skip-import-button"
+          data-testid="skip-import-button"
+          type="button"
+        >
+          <span>
+            Skip and fill the form manually
+          </span>
+        </button>
+      </div>
+      <div
+        class="ant-col"
       >
-        Import
-      </Button>
-    </Col>
-  </Row>
-</div>
+        <button
+          class="ant-btn ant-btn-primary"
+          data-test-id="import-button"
+          data-testid="import-button"
+          type="button"
+        >
+          <span>
+            Import
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`DataImporter renders with error without a message 1`] = `
-<div>
-  <Row
-    className="mb3"
-  >
-    <Col
-      span={24}
+<DocumentFragment>
+  <div>
+    <div
+      class="ant-row mb3"
     >
-      <Alert
-        message="Fill in the field to automatically import more data from arXiv or DOI"
-        type="info"
-      />
-    </Col>
-  </Row>
-  <Row
-    className="mb3"
-  >
-    <Col
-      span={24}
+      <div
+        class="ant-col ant-col-24"
+      >
+        <div
+          class="ant-alert ant-alert-info ant-alert-no-icon"
+          data-show="true"
+          role="alert"
+        >
+          <div
+            class="ant-alert-content"
+          >
+            <div
+              class="ant-alert-message"
+            >
+              Fill in the field to automatically import more data from arXiv or DOI
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="ant-row mb3"
     >
-      <Alert
-        closable={true}
-        message={
-          <React.Fragment>
-            Something went wrong during the import
-          </React.Fragment>
-        }
-        showIcon={true}
-        type="error"
-      />
-    </Col>
-  </Row>
-  <InternalFormItem
-    label={
-      <Tooltip
-        title="From arXiv or DOI"
+      <div
+        class="ant-col ant-col-24"
       >
-        From arXiv or DOI
-      </Tooltip>
-    }
-    labelCol={
-      Object {
-        "md": Object {
-          "span": 5,
-        },
-        "sm": Object {
-          "span": 24,
-        },
-      }
-    }
-    wrapperCol={
-      Object {
-        "md": Object {
-          "span": 19,
-        },
-        "sm": Object {
-          "span": 24,
-        },
-      }
-    }
-  >
-    <ForwardRef
-      data-test-id="import-input"
-      onChange={[Function]}
-      onPressEnter={[Function]}
-      placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
-    />
-  </InternalFormItem>
-  <Row
-    align="middle"
-    justify="space-between"
-    type="flex"
-  >
-    <Col>
-      <LinkLikeButton
-        color="blue"
-        dataTestId="skip-import-button"
-        disabled={false}
-        onClick={[MockFunction]}
+        <div
+          class="ant-alert ant-alert-error"
+          data-show="true"
+          data-testid="data-importer-error"
+          role="alert"
+        >
+          <span
+            aria-label="close-circle"
+            class="anticon anticon-close-circle ant-alert-icon"
+            role="img"
+          >
+            <svg
+              aria-hidden="true"
+              data-icon="close-circle"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="64 64 896 896"
+              width="1em"
+            >
+              <path
+                d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm165.4 618.2l-66-.3L512 563.4l-99.3 118.4-66.1.3c-4.4 0-8-3.5-8-8 0-1.9.7-3.7 1.9-5.2l130.1-155L340.5 359a8.32 8.32 0 01-1.9-5.2c0-4.4 3.6-8 8-8l66.1.3L512 464.6l99.3-118.4 66-.3c4.4 0 8 3.5 8 8 0 1.9-.7 3.7-1.9 5.2L553.5 514l130 155c1.2 1.5 1.9 3.3 1.9 5.2 0 4.4-3.6 8-8 8z"
+              />
+            </svg>
+          </span>
+          <div
+            class="ant-alert-content"
+          >
+            <div
+              class="ant-alert-message"
+            >
+              Something went wrong during the import
+            </div>
+          </div>
+          <button
+            class="ant-alert-close-icon"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              aria-label="close"
+              class="anticon anticon-close"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="close"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 00203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="ant-form-item"
+    >
+      <div
+        class="ant-row ant-form-item-row"
       >
-        Skip and fill the form manually
-      </LinkLikeButton>
-    </Col>
-    <Col>
-      <Button
-        data-test-id="import-button"
-        loading={false}
-        onClick={[Function]}
-        type="primary"
+        <div
+          class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+        >
+          <label
+            class=""
+            title=""
+          >
+            <span>
+              From arXiv or DOI
+            </span>
+          </label>
+        </div>
+        <div
+          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+        >
+          <div
+            class="ant-form-item-control-input"
+          >
+            <div
+              class="ant-form-item-control-input-content"
+            >
+              <input
+                class="ant-input"
+                data-test-id="import-input"
+                data-testid="import-input"
+                placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="ant-row ant-row-space-between ant-row-middle"
+      type="flex"
+    >
+      <div
+        class="ant-col"
       >
-        Import
-      </Button>
-    </Col>
-  </Row>
-</div>
+        <button
+          class="ant-btn ant-btn-text __LinkLikeButton__ blue"
+          data-test-id="skip-import-button"
+          data-testid="skip-import-button"
+          type="button"
+        >
+          <span>
+            Skip and fill the form manually
+          </span>
+        </button>
+      </div>
+      <div
+        class="ant-col"
+      >
+        <button
+          class="ant-btn ant-btn-primary"
+          data-test-id="import-button"
+          data-testid="import-button"
+          type="button"
+        >
+          <span>
+            Import
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`DataImporter renders without error while importing 1`] = `
-<div>
-  <Row
-    className="mb3"
-  >
-    <Col
-      span={24}
+<DocumentFragment>
+  <div>
+    <div
+      class="ant-row mb3"
     >
-      <Alert
-        message="Fill in the field to automatically import more data from arXiv or DOI"
-        type="info"
-      />
-    </Col>
-  </Row>
-  <InternalFormItem
-    label={
-      <Tooltip
-        title="From arXiv or DOI"
+      <div
+        class="ant-col ant-col-24"
       >
-        From arXiv or DOI
-      </Tooltip>
-    }
-    labelCol={
-      Object {
-        "md": Object {
-          "span": 5,
-        },
-        "sm": Object {
-          "span": 24,
-        },
-      }
-    }
-    wrapperCol={
-      Object {
-        "md": Object {
-          "span": 19,
-        },
-        "sm": Object {
-          "span": 24,
-        },
-      }
-    }
-  >
-    <ForwardRef
-      data-test-id="import-input"
-      onChange={[Function]}
-      onPressEnter={[Function]}
-      placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
-    />
-  </InternalFormItem>
-  <Row
-    align="middle"
-    justify="space-between"
-    type="flex"
-  >
-    <Col>
-      <LinkLikeButton
-        color="blue"
-        dataTestId="skip-import-button"
-        disabled={false}
-        onClick={[MockFunction]}
+        <div
+          class="ant-alert ant-alert-info ant-alert-no-icon"
+          data-show="true"
+          role="alert"
+        >
+          <div
+            class="ant-alert-content"
+          >
+            <div
+              class="ant-alert-message"
+            >
+              Fill in the field to automatically import more data from arXiv or DOI
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="ant-form-item"
+    >
+      <div
+        class="ant-row ant-form-item-row"
       >
-        Skip and fill the form manually
-      </LinkLikeButton>
-    </Col>
-    <Col>
-      <Button
-        data-test-id="import-button"
-        loading={true}
-        onClick={[Function]}
-        type="primary"
+        <div
+          class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+        >
+          <label
+            class=""
+            title=""
+          >
+            <span>
+              From arXiv or DOI
+            </span>
+          </label>
+        </div>
+        <div
+          class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+        >
+          <div
+            class="ant-form-item-control-input"
+          >
+            <div
+              class="ant-form-item-control-input-content"
+            >
+              <input
+                class="ant-input"
+                data-test-id="import-input"
+                data-testid="import-input"
+                placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="ant-row ant-row-space-between ant-row-middle"
+      type="flex"
+    >
+      <div
+        class="ant-col"
       >
-        Import
-      </Button>
-    </Col>
-  </Row>
-</div>
+        <button
+          class="ant-btn ant-btn-text __LinkLikeButton__ blue"
+          data-test-id="skip-import-button"
+          data-testid="skip-import-button"
+          type="button"
+        >
+          <span>
+            Skip and fill the form manually
+          </span>
+        </button>
+      </div>
+      <div
+        class="ant-col"
+      >
+        <button
+          class="ant-btn ant-btn-primary ant-btn-loading"
+          data-test-id="import-button"
+          data-testid="import-button"
+          type="button"
+        >
+          <span
+            class="ant-btn-loading-icon"
+          >
+            <span
+              aria-label="loading"
+              class="anticon anticon-loading anticon-spin"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="loading"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="0 0 1024 1024"
+                width="1em"
+              >
+                <path
+                  d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
+                />
+              </svg>
+            </span>
+          </span>
+          <span>
+            Import
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;

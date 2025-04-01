@@ -1,18 +1,21 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import CollapseFormSection from '../CollapseFormSection';
 
 describe('CollapseFormSection', () => {
   it('renders with all props', () => {
-    const wrapper = shallow(
+    const { asFragment, getByText } = render(
       <CollapseFormSection header="header" key="some_key" />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(asFragment()).toMatchSnapshot();
+    expect(getByText('header')).toBeInTheDocument();
   });
 
   it('renders when header is not present', () => {
-    const wrapper = shallow(<CollapseFormSection key="some_key" />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<CollapseFormSection key="some_key" />);
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });
