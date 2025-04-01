@@ -209,10 +209,11 @@ def _disambiguate_authors(authors_to_disambiguate, record):
 
 
 @shared_task(
-    ignore_result=False,
+    ignore_result=True,
     bind=True,
     retry_backoff=True,
     queue="disambiguation",
+    acks_late=True,
     max_retries=6,
     autoretry_for=[*DB_TASK_EXCEPTIONS, *ES_TASK_EXCEPTIONS],
 )

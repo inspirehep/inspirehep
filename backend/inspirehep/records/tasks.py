@@ -27,13 +27,13 @@ LOGGER = structlog.getLogger()
 
 
 @shared_task(
-    bind=True,
     retry_backoff=True,
+    ignore_result=True,
     acks_late=True,
     retry_kwargs={"max_retries": 6},
     autoretry_for=DB_TASK_EXCEPTIONS,
 )
-def update_records_relations(self, uuids):
+def update_records_relations(uuids):
     """Task which updates records_citations, institution_literature, experiment_literature and conference_literature tables with
     relation to proper literature records.
 
@@ -65,14 +65,14 @@ def update_records_relations(self, uuids):
 
 
 @shared_task(
-    bind=True,
+    ignore_result=True,
     queue="redirect_references",
     retry_backoff=True,
     acks_late=True,
     retry_kwargs={"max_retries": 6},
     autoretry_for=(*DB_TASK_EXCEPTIONS, *ES_TASK_EXCEPTIONS),
 )
-def redirect_references_to_merged_record(self, uuid):
+def redirect_references_to_merged_record(uuid):
     record = InspireRecord.get_record(uuid, with_deleted=True)
     new_record_ref = record["new_record"]["$ref"]
     deleted_record_ref = record["self"]["$ref"]
@@ -150,7 +150,7 @@ def regenerate_author_records_table_entries(uuids_to_regenerate):
 
 
 @shared_task(
-    ignore_result=False,
+    ignore_result=True,
     acks_late=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
@@ -164,7 +164,7 @@ def populate_journal_literature(uuids):
 
 
 @shared_task(
-    ignore_result=False,
+    ignore_result=True,
     acks_late=True,
     retry_backoff=True,
     retry_kwargs={"max_retries": 8},

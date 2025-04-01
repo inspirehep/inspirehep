@@ -23,7 +23,7 @@ LOGGER = structlog.getLogger()
 
 
 @shared_task(
-    ignore_result=False,
+    ignore_result=True,
     queue="assign",
     acks_late=True,
     retry_backoff=2,
@@ -130,7 +130,7 @@ def assign_conference(record, conference_ref, cnum):
 
 
 @shared_task(
-    ignore_result=False,
+    ignore_result=True,
     queue="assign",
     acks_late=True,
     retry_backoff=2,
@@ -157,14 +157,14 @@ def export_papers_to_cds(literature_recids):
 
 
 @shared_task(
+    ignore_result=True,
     queue="assign",
-    bind=True,
+    acks_late=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
     autoretry_for=DB_TASK_EXCEPTIONS,
 )
 def assign_papers(
-    self,
     from_author_recid,
     to_author_record,
     author_papers_recids,
@@ -197,14 +197,14 @@ def _get_claimed_author_name_for_paper(from_author_recid, paper_authors):
 
 
 @shared_task(
+    ignore_result=True,
     queue="assign",
-    bind=True,
+    acks_late=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
     autoretry_for=DB_TASK_EXCEPTIONS,
 )
 def create_rt_ticket_for_claiming_action(
-    self,
     from_author_recid,
     to_author_recid,
     claimed_literature_recids,

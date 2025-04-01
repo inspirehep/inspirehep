@@ -10,7 +10,7 @@ from celery import shared_task
 from inspirehep.snow.api import InspireSnow
 
 
-@shared_task(ignore_result=False, max_retries=5)
+@shared_task(ignore_result=True, acks_late=True, max_retries=5)
 def async_create_ticket_with_template(
     queue,
     requestor,

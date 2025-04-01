@@ -23,7 +23,6 @@ MAX_RETRY_COUNT = 3
 
 
 @shared_task(
-    ignore_result=False,
     queue="matcher",
     acks_late=True,
     retry_backoff=RETRY_BACKOFF,

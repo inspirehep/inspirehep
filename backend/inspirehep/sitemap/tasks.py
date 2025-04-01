@@ -20,7 +20,7 @@ LOGGER = structlog.getLogger()
 
 
 @shared_task(
-    ignore_result=False,
+    ignore_result=True,
     queue="sitemap",
     acks_late=True,
     retry_backoff=2,
