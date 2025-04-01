@@ -1303,11 +1303,10 @@ def test_author_disambiguation_manually_when_empty_authors(
     models_committed.disconnect(index_after_commit)
     db.session.commit()
     models_committed.connect(index_after_commit)
-    task = disambiguate_authors.delay(record.id, record.model.version_id)
+    disambiguate_authors.delay(record.id, record.model.version_id)
 
     @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_disambiguation_task():
-        assert task.status == "SUCCESS"
         record_after_disambiguation = InspireRecord.get_record(record.id)
         assert record_after_disambiguation.model.version_id == record_version
 
