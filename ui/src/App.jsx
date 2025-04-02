@@ -31,7 +31,6 @@ import {
   BIBLIOGRAPHY_GENERATOR,
   JOURNALS,
 } from './common/routes';
-import UserFeedback from './common/components/UserFeedback';
 import { setUserCategoryFromRoles, setClientId } from './tracker';
 import { fetchLoggedInUser } from './actions/user';
 import Home from './home';
@@ -117,7 +116,6 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
           />
           <Route path={ERRORS} component={Errors} />
         </SafeSwitch>
-        <UserFeedback />
         <GuideModalContainer />
       </Layout.Content>
       <Footer />

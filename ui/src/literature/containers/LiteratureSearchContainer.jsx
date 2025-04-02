@@ -40,6 +40,9 @@ import AssignAllDifferentProfileActionContainer from '../../authors/containers/A
 import AssignNoProfileAction from '../../authors/components/AssignNoProfileAction';
 import ClaimingDisabledButton from '../../authors/components/ClaimingDisabledButton';
 import { APIButton } from '../../common/components/APIButton';
+import SearchFeedback from '../../common/components/SearchFeedback/SearchFeedback';
+import EventTracker from '../../common/components/EventTracker';
+import { getConfigFor } from '../../common/config';
 
 function LiteratureSearch({
   loading,
@@ -245,6 +248,15 @@ function LiteratureSearch({
                     </Row>
                   )}
                 />
+                {getConfigFor('SEARCH_FEEDBACK_CARD_FEATURE_FLAG') && (
+                  <EventTracker
+                    eventCategory="Feedback modal"
+                    eventAction="Open"
+                    eventId="Bottom of results"
+                  >
+                    <SearchFeedback style={{ marginBottom: '10px' }} />
+                  </EventTracker>
+                )}
                 <PaginationContainer namespace={namespace} />
               </Col>
             </Row>
