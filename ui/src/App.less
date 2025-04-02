@@ -1,5 +1,5 @@
 body {
-  // For Chrome 'overscrolling' of the page  not working correctly with Header's 
+  // For Chrome 'overscrolling' of the page  not working correctly with Header's
   // 'position: fixed' property, resulting in unsticking the menu bar from header
   // https://chromestatus.com/feature/5381155556687872
   overscroll-behavior-y: none;
@@ -27,14 +27,13 @@ body {
   .content {
     display: flex;
 
-    // :fist-child to avoid setting padding for `UserFeedback`
-    & > *:first-child:not(.__Jobs__) {
+    & > *:not(.__Jobs__) {
       @media (min-width: @screen-xs-max) {
         padding: 0 2.85rem;
       }
     }
 
-    & > *:first-child:not(.__Home__) {
+    & > *:not(.__Home__) {
       margin-bottom: 1rem;
 
       @media (max-width: @screen-lg-max) {
@@ -42,7 +41,7 @@ body {
       }
     }
 
-    & > *:first-child.__Home__ {
+    & > .__Home__ {
       padding: 0;
     }
   }
@@ -238,4 +237,11 @@ body {
       padding-right: 5px;
     }
   }
+}
+
+.ant-message {
+  z-index: @zindex-message;
+  position: absolute;
+  bottom: 20px !important;
+  top: unset !important;
 }

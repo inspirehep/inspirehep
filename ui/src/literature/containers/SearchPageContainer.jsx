@@ -12,12 +12,35 @@ import { PAPER_SEARCH_URL } from '../../common/constants';
 import AssignViewContext from '../AssignViewContext';
 import AssignConferencesDrawerContainer from './AssignConferencesDrawerContainer';
 import { isCataloger, isSuperUser } from '../../common/authorization';
+import SearchFeedback from '../../common/components/SearchFeedback/SearchFeedback';
+import EventTracker from '../../common/components/EventTracker';
+import { getConfigFor } from '../../common/config';
 
 const META_DESCRIPTION =
   'Find articles, conference papers, proceedings, books, theses, reviews, lectures and reports in High Energy Physics';
 const TITLE = 'Literature Search';
 
 export function SearchPage({ assignView, numberOfSelected, error }) {
+  const noResultsMessage = (
+    <>
+      <em>
+        You might want to check out our{' '}
+        <LinkWithTargetBlank href={PAPER_SEARCH_URL}>
+          search tips
+        </LinkWithTargetBlank>
+        .
+      </em>
+      {getConfigFor('SEARCH_FEEDBACK_CARD_FEATURE_FLAG') && (
+        <EventTracker
+          eventCategory="Feedback modal"
+          eventAction="Open"
+          eventId="No results"
+        >
+          <SearchFeedback style={{ marginTop: 40 }} />
+        </EventTracker>
+      )}
+    </>
+  );
   return (
     <>
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
@@ -30,13 +53,7 @@ export function SearchPage({ assignView, numberOfSelected, error }) {
               image={<WarningOutlined />}
               description="The search query is malformed"
             >
-              <em>
-                Oops! You might want to check out our{' '}
-                <LinkWithTargetBlank href={PAPER_SEARCH_URL}>
-                  search tips
-                </LinkWithTargetBlank>
-                .
-              </em>
+              {noResultsMessage}
             </Empty>
           </Col>
         </Row>
@@ -48,15 +65,7 @@ export function SearchPage({ assignView, numberOfSelected, error }) {
                 namespace={LITERATURE_NS}
                 noResultsTitle="0 Results"
                 page="Literature search"
-                noResultsDescription={
-                  <em>
-                    Oops! You might want to check out our{' '}
-                    <LinkWithTargetBlank href={PAPER_SEARCH_URL}>
-                      search tips
-                    </LinkWithTargetBlank>
-                    .
-                  </em>
-                }
+                noResultsDescription={noResultsMessage}
                 numberOfSelected={numberOfSelected}
               />
               {assignView && <AssignConferencesDrawerContainer />}

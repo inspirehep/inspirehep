@@ -34,6 +34,7 @@ module.exports = {
   '@zindex-modal': 1041,
   '@zindex-drawer': 1041,
   '@zindex-carousel': 1060,
+  '@zindex-message': 1070,
   '@layout-header-height': '64px',
   '@layout-header-background': '#001529',
   '@modal-mask-bg': 'rgba(0, 0, 0, 0.45)',
