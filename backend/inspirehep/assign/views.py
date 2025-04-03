@@ -223,7 +223,7 @@ def literature_assign_conferences_view(args):
 def literature_export_to_cds(args):
     literature_recids = args["literature_recids"]
     try:
-        export_papers_to_cds(literature_recids)
+        export_papers_to_cds.delay(literature_recids)
     except Exception:
         LOGGER.exception("Cannot start 'export_to_cds' task.")
         return jsonify({"message": "Internal Error"}), 500
