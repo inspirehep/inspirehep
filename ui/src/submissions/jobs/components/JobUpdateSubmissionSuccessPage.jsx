@@ -21,6 +21,7 @@ class JobUpdateSubmissionSuccessPage extends Component {
             .
           </span>
         }
+        testId="job-submission-success-page"
       />
     );
   }

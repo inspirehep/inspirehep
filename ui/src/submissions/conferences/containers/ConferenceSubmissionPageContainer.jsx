@@ -21,6 +21,7 @@ function ConferenceSubmissionPage({ error, onSubmit }) {
           immediately.
         </span>
       }
+      testId="conference-submission-page"
     >
       <ConferenceSubmission error={error} onSubmit={onSubmit} />
     </SubmissionPage>

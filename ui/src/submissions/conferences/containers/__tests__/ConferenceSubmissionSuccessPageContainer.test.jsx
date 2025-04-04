@@ -1,43 +1,50 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
+import { render } from '@testing-library/react';
 
 import ConferenceSubmissionSuccessPageContainer, {
   ConferenceSubmissionSucessPage,
 } from '../ConferenceSubmissionSuccessPageContainer';
-import { getStoreWithState } from '../../../../fixtures/store';
+import { getStore } from '../../../../fixtures/store';
 
 describe('ConferenceSubmissionSuccessPageContainer', () => {
+  const store = getStore({
+    submissions: fromJS({
+      successData: {
+        pid_value: 12345,
+        cnum: 'C19-02-01',
+      },
+    }),
+  });
+
   it('passes props to ConferenceSubmissionSucessPage', () => {
-    const store = getStoreWithState({
-      submissions: fromJS({
-        successData: {
-          pid_value: 12345,
-          cnum: 'C19-02-01',
-        },
-      }),
-    });
-    const wrapper = mount(
+    const { getByText, getByRole } = render(
       <Provider store={store}>
         <MemoryRouter>
           <ConferenceSubmissionSuccessPageContainer />
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(ConferenceSubmissionSucessPage)).toHaveProp({
-      cnum: 'C19-02-01',
-      recordId: 12345,
-    });
+
+    expect(
+      getByText(/Successfully submitted, thank you for the submission!/i)
+    ).toBeInTheDocument();
+    expect(getByRole('link')).toHaveAttribute('href', '/conferences/12345');
+    expect(getByText(/C19-02-01/i)).toBeInTheDocument();
   });
 
   describe('ConferenceSubmissionSucessPage', () => {
     it('renders', () => {
-      const component = shallow(
-        <ConferenceSubmissionSucessPage cnum="C19-02-01" recordId={12345} />
+      const { asFragment } = render(
+        <Provider store={store}>
+          <MemoryRouter>
+            <ConferenceSubmissionSucessPage cnum="C19-02-01" recordId={12345} />
+          </MemoryRouter>
+        </Provider>
       );
-      expect(component).toMatchSnapshot();
+      expect(asFragment()).toMatchSnapshot();
     });
   });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import ExistingConferencesAlert from '../ExistingConferencesAlert';
 
@@ -9,13 +9,16 @@ describe('ExistingConferencesAlert', () => {
     const onDatesChange = jest.fn();
     const numberOfConferences = 5;
 
-    const wrapper = shallow(
+    const { asFragment, getByTestId } = render(
       <ExistingConferencesAlert
         dates={dates}
         onDatesChange={onDatesChange}
         numberOfConferences={numberOfConferences}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
+    expect(getByTestId('conferences-exist-alert-number')).toHaveTextContent(
+      '5'
+    );
   });
 });

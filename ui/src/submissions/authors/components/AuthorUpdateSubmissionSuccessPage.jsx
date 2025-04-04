@@ -16,6 +16,7 @@ function AuthorUpdateSubmissionSuccessPage({ match }) {
           the best performance of the INSPIRE database.
         </span>
       }
+      testId="author-update-submission-success-page"
     />
   );
 }

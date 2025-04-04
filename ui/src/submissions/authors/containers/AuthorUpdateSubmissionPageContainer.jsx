@@ -68,6 +68,7 @@ class AuthorUpdateSubmissionPage extends Component {
             All modifications will appear immediately.
           </span>
         }
+        testId="author-update-submission-page"
       >
         <LoadingOrChildren loading={loadingUpdateFormData}>
           <ErrorAlertOrChildren error={updateFormDataError}>

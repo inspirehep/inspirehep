@@ -67,6 +67,7 @@ function LiteratureSubmissionPage({ error, importedFormData, onSubmit }) {
           and transfer it to INSPIRE.
         </span>
       }
+      testId="literature-submission-page"
     >
       <Row className="mb3 pa3 bg-white">
         <Col span={24}>

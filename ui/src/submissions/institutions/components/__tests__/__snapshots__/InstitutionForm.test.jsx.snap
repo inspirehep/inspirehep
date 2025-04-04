@@ -1,32 +1,100 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`InstitutionForm renders 1`] = `
-<Form
-  className="bg-white pa3"
->
-  <Row
-    className="mb3 pt2 bg-white"
+<DocumentFragment>
+  <form
+    action="#"
+    class="bg-white pa3"
   >
-    <Col
-      span={24}
+    <div
+      class="ant-row mb3 pt2 bg-white"
     >
-      <Field
-        component={[Function]}
-        extractItemCompletionValue={[Function]}
-        label="* Institution name"
-        name="identifier"
-        pidType="institutions"
-        placeholder="Institution, type for suggestions"
-        searchasyoutype="true"
-        suggesterName="affiliation"
-      />
-    </Col>
-  </Row>
-  <Row
-    justify="end"
-    type="flex"
-  >
-    <SubmitButton />
-  </Row>
-</Form>
+      <div
+        class="ant-col ant-col-24"
+      >
+        <div
+          class="ant-form-item"
+        >
+          <div
+            class="ant-row ant-form-item-row"
+          >
+            <div
+              class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+            >
+              <label
+                class=""
+                title=""
+              >
+                <span>
+                  * Institution name
+                </span>
+              </label>
+            </div>
+            <div
+              class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+            >
+              <div
+                class="ant-form-item-control-input"
+              >
+                <div
+                  class="ant-form-item-control-input-content"
+                >
+                  <div
+                    class="ant-select ant-select-in-form-item ant-select-auto-complete ant-select-single ant-select-show-search"
+                    data-test-id="identifier"
+                    data-test-type="suggester"
+                    form="[object Object]"
+                    name="identifier"
+                    placement="bottomLeft"
+                    searchasyoutype="true"
+                  >
+                    <div
+                      class="ant-select-selector"
+                    >
+                      <span
+                        class="ant-select-selection-search"
+                      >
+                        <input
+                          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                          aria-autocomplete="list"
+                          aria-controls="rc_select_TEST_OR_SSR_list"
+                          aria-haspopup="listbox"
+                          aria-owns="rc_select_TEST_OR_SSR_list"
+                          autocomplete="off"
+                          class="ant-select-selection-search-input"
+                          id="rc_select_TEST_OR_SSR"
+                          role="combobox"
+                          value=""
+                        />
+                      </span>
+                      <span
+                        class="ant-select-selection-placeholder"
+                      >
+                        Institution, type for suggestions
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="ant-row ant-row-end"
+      type="flex"
+    >
+      <button
+        class="ant-btn ant-btn-primary"
+        data-test-id="submit-button"
+        type="submit"
+      >
+        <span>
+          Submit
+        </span>
+      </button>
+    </div>
+  </form>
+</DocumentFragment>
 `;

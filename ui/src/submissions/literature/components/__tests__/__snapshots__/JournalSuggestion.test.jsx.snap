@@ -1,33 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JournalSuggestion renders with full journal 1`] = `
-<Fragment>
+<DocumentFragment>
   <div>
     <strong>
       CJRL
     </strong>
   </div>
   <div
-    className="f7"
+    class="f7"
   >
     <span>
       Cool Journal of Tests
     </span>
   </div>
-</Fragment>
+</DocumentFragment>
 `;
 
 exports[`JournalSuggestion renders with only short_title 1`] = `
-<Fragment>
+<DocumentFragment>
   <div>
     <strong>
       CJRL
     </strong>
   </div>
   <div
-    className="f7"
+    class="f7"
   >
     <span />
   </div>
-</Fragment>
+</DocumentFragment>
 `;

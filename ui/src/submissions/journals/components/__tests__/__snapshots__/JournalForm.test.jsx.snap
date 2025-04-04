@@ -1,31 +1,112 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JournalForm renders 1`] = `
-<Form
-  className="bg-white pa3"
->
-  <Row
-    className="mb3 pt2 bg-white"
+<DocumentFragment>
+  <form
+    action="#"
+    class="bg-white pa3"
   >
-    <Col
-      span={24}
+    <div
+      class="ant-row mb3 pt2 bg-white"
     >
-      <Field
-        component={[Function]}
-        label="* Short title"
-        name="short_title"
-      />
-      <Field
-        component={[Function]}
-        label="* Journal Title"
-        name="journal_title"
-      />
-    </Col>
-  </Row>
-  <Row
-    justify="end"
-  >
-    <SubmitButton />
-  </Row>
-</Form>
+      <div
+        class="ant-col ant-col-24"
+      >
+        <div
+          class="ant-form-item"
+        >
+          <div
+            class="ant-row ant-form-item-row"
+          >
+            <div
+              class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+            >
+              <label
+                class=""
+                title=""
+              >
+                <span>
+                  * Short title
+                </span>
+              </label>
+            </div>
+            <div
+              class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+            >
+              <div
+                class="ant-form-item-control-input"
+              >
+                <div
+                  class="ant-form-item-control-input-content"
+                >
+                  <input
+                    class="ant-input"
+                    data-test-id="short_title"
+                    form="[object Object]"
+                    name="short_title"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-form-item"
+        >
+          <div
+            class="ant-row ant-form-item-row"
+          >
+            <div
+              class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+            >
+              <label
+                class=""
+                title=""
+              >
+                <span>
+                  * Journal Title
+                </span>
+              </label>
+            </div>
+            <div
+              class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+            >
+              <div
+                class="ant-form-item-control-input"
+              >
+                <div
+                  class="ant-form-item-control-input-content"
+                >
+                  <input
+                    class="ant-input"
+                    data-test-id="journal_title"
+                    form="[object Object]"
+                    name="journal_title"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="ant-row ant-row-end"
+    >
+      <button
+        class="ant-btn ant-btn-primary"
+        data-test-id="submit-button"
+        type="submit"
+      >
+        <span>
+          Submit
+        </span>
+      </button>
+    </div>
+  </form>
+</DocumentFragment>
 `;

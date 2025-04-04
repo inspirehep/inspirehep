@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
@@ -7,36 +7,39 @@ import { fromJS } from 'immutable';
 import JournalSubmissionPageContainer, {
   JournalSubmissionPage,
 } from '../JournalSubmissionPageContainer';
-
-import { getStoreWithState } from '../../../../fixtures/store';
+import { getStore } from '../../../../fixtures/store';
 
 describe('JournalSubmissionPageContainer', () => {
+  const store = getStore({
+    submissions: fromJS({
+      submitError: {
+        message: null,
+      },
+    }),
+  });
   it('passes props to JournalSubmissionPage', () => {
-    const store = getStoreWithState({
-      submissions: fromJS({
-        submitError: {
-          message: null,
-        },
-      }),
-    });
-    const wrapper = mount(
+    const { queryByTestId } = render(
       <Provider store={store}>
         <MemoryRouter>
           <JournalSubmissionPageContainer />
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(JournalSubmissionPage)).toHaveProp({
-      error: null,
-    });
+
+    expect(queryByTestId('journal-alert')).not.toBeInTheDocument();
   });
 
   describe('JournalSubmissionPage', () => {
     it('renders', () => {
-      const component = shallow(
-        <JournalSubmissionPage error={null} onSubmit={() => {}} />
+      const { asFragment } = render(
+        <Provider store={store}>
+          <MemoryRouter>
+            <JournalSubmissionPage error={null} onSubmit={() => {}} />
+          </MemoryRouter>
+        </Provider>
       );
-      expect(component).toMatchSnapshot();
+
+      expect(asFragment()).toMatchSnapshot();
     });
   });
 });

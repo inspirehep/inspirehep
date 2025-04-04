@@ -1,18 +1,22 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
+import { Formik } from 'formik';
 
 import BookChapterForm from '../BookChapterForm';
 
 describe('BookChapterForm', () => {
   it('renders all props', () => {
-    const wrapper = shallow(
-      <BookChapterForm
-        isSubmitting={false}
-        isValidating={false}
-        isValid
-        values={{}}
-      />
+    const { asFragment } = render(
+      <Formik>
+        <BookChapterForm
+          isSubmitting={false}
+          isValidating={false}
+          isValid
+          values={{}}
+        />
+      </Formik>
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });

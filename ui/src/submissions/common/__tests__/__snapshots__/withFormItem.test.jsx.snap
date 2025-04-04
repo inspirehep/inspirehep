@@ -1,198 +1,169 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`withFormItem passes all props correctly to Form.Item and wrapped Input component (with error) 1`] = `
-<InternalFormItem
-  className=""
-  hasFeedback={true}
-  help={
-    <span
-      data-test-id="test-error"
-    >
-      Error
-    </span>
-  }
-  label={
-    <Tooltip
-      title="Test Label"
-    >
-      Test Label
-    </Tooltip>
-  }
-  labelCol={
-    Object {
-      "md": Object {
-        "span": 5,
-      },
-      "sm": Object {
-        "span": 24,
-      },
-    }
-  }
-  validateStatus="error"
-  wrapperCol={
-    Object {
-      "md": Object {
-        "span": 19,
-      },
-      "sm": Object {
-        "span": 24,
-      },
-    }
-  }
->
-  <TestField
-    data-test-id="test"
-    fieldProp1="fp1"
-    form={
-      Object {
-        "errors": Object {
-          "test": "Error",
-        },
-        "touched": Object {
-          "test": true,
-        },
-      }
-    }
-    frieldProp2="fp2"
-    name="test"
-    normalProp1="np1"
-    normalProp2="np2"
-  />
-  <span
-    className="pl2"
+<DocumentFragment>
+  <div
+    class="ant-form-item ant-form-item-with-help ant-form-item-has-feedback ant-form-item-has-error"
   >
-    Test Suffix
-  </span>
-</InternalFormItem>
+    <div
+      class="ant-row ant-form-item-row"
+    >
+      <div
+        class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+      >
+        <label
+          class=""
+          title=""
+        >
+          <span>
+            Test Label
+          </span>
+        </label>
+      </div>
+      <div
+        class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+      >
+        <div
+          class="ant-form-item-control-input"
+        >
+          <div
+            class="ant-form-item-control-input-content"
+          >
+            <input />
+            <span
+              class="pl2"
+            >
+              Test Suffix
+            </span>
+          </div>
+        </div>
+        <div
+          style="display: flex; flex-wrap: nowrap;"
+        >
+          <div
+            class="ant-form-item-explain ant-form-item-explain-connected"
+            role="alert"
+          >
+            <div
+              class="ant-form-item-explain-error"
+            >
+              <span
+                data-test-id="test-error"
+              >
+                Error
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`withFormItem passes all props correctly to Form.Item and wrapped Input component (without error) 1`] = `
-<InternalFormItem
-  className=""
-  hasFeedback={false}
-  label={
-    <Tooltip
-      title="Test Label"
-    >
-      Test Label
-    </Tooltip>
-  }
-  labelCol={
-    Object {
-      "md": Object {
-        "span": 5,
-      },
-      "sm": Object {
-        "span": 24,
-      },
-    }
-  }
-  validateStatus=""
-  wrapperCol={
-    Object {
-      "md": Object {
-        "span": 19,
-      },
-      "sm": Object {
-        "span": 24,
-      },
-    }
-  }
->
-  <TestField
-    data-test-id="test"
-    fieldProp1="fp1"
-    form={
-      Object {
-        "errors": Object {},
-        "touched": Object {
-          "test": true,
-        },
-      }
-    }
-    frieldProp2="fp2"
-    name="test"
-    normalProp1="np1"
-    normalProp2="np2"
-  />
-  <span
-    className="pl2"
+<DocumentFragment>
+  <div
+    class="ant-form-item"
   >
-    Test Suffix
-  </span>
-</InternalFormItem>
+    <div
+      class="ant-row ant-form-item-row"
+    >
+      <div
+        class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+      >
+        <label
+          class=""
+          title=""
+        >
+          <span>
+            Test Label
+          </span>
+        </label>
+      </div>
+      <div
+        class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+      >
+        <div
+          class="ant-form-item-control-input"
+        >
+          <div
+            class="ant-form-item-control-input-content"
+          >
+            <input />
+            <span
+              class="pl2"
+            >
+              Test Suffix
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`withFormItem passes props correctly to Form.Item and wrapped Input component (without error and custom layout) 1`] = `
-<InternalFormItem
-  className=""
-  hasFeedback={false}
-  label={
-    <Tooltip
-      title="Test Label"
+<DocumentFragment>
+  <div
+    class="ant-form-item"
+  >
+    <div
+      class="ant-row ant-form-item-row"
     >
-      Test Label
-    </Tooltip>
-  }
-  labelCol={
-    Object {
-      "offset": 2,
-      "span": 3,
-    }
-  }
-  validateStatus=""
-  wrapperCol={
-    Object {
-      "span": 10,
-    }
-  }
->
-  <TestField
-    data-test-id="test"
-    fieldProp1="fp1"
-    form={
-      Object {
-        "errors": Object {},
-        "touched": Object {
-          "test": true,
-        },
-      }
-    }
-    frieldProp2="fp2"
-    name="test"
-    normalProp1="np1"
-    normalProp2="np2"
-  />
-</InternalFormItem>
+      <div
+        class="ant-col ant-col-3 ant-col-offset-2 ant-form-item-label"
+      >
+        <label
+          class=""
+          title=""
+        >
+          <span>
+            Test Label
+          </span>
+        </label>
+      </div>
+      <div
+        class="ant-col ant-col-10 ant-form-item-control"
+      >
+        <div
+          class="ant-form-item-control-input"
+        >
+          <div
+            class="ant-form-item-control-input-content"
+          >
+            <input />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`withFormItem passes props correctly to Form.Item and wrapped Input component (without error and only child) 1`] = `
-<InternalFormItem
-  className="mb2-important"
-  hasFeedback={false}
-  labelCol={null}
-  validateStatus=""
-  wrapperCol={
-    Object {
-      "span": 24,
-    }
-  }
->
-  <TestField
-    data-test-id="test"
-    fieldProp1="fp1"
-    form={
-      Object {
-        "errors": Object {},
-        "touched": Object {
-          "test": true,
-        },
-      }
-    }
-    frieldProp2="fp2"
-    name="test"
-    normalProp1="np1"
-    normalProp2="np2"
-  />
-</InternalFormItem>
+<DocumentFragment>
+  <div
+    class="ant-form-item mb2-important"
+  >
+    <div
+      class="ant-row ant-form-item-row"
+    >
+      <div
+        class="ant-col ant-col-24 ant-form-item-control"
+      >
+        <div
+          class="ant-form-item-control-input"
+        >
+          <div
+            class="ant-form-item-control-input-content"
+          >
+            <input />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;

@@ -33,6 +33,7 @@ export const JournalSubmissionPage = ({
         the <Link to={JOURNALS}>Journals List</Link> immediately.
       </span>
     }
+    testId="journal-submission-page"
   >
     <JournalSubmission error={error} onSubmit={onSubmit} />
   </SubmissionPage>

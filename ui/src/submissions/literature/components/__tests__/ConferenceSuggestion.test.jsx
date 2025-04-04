@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import ConferenceSuggestion from '../ConferenceSuggestion';
 
@@ -16,8 +16,11 @@ describe('ConferenceSuggestion', () => {
       ],
       opening_date: '1 May 1999',
     };
-    const wrapper = shallow(<ConferenceSuggestion conference={conference} />);
-    expect(wrapper).toMatchSnapshot();
+
+    const { asFragment } = render(
+      <ConferenceSuggestion conference={conference} />
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with only title', () => {
@@ -28,8 +31,11 @@ describe('ConferenceSuggestion', () => {
         },
       ],
     };
-    const wrapper = shallow(<ConferenceSuggestion conference={conference} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <ConferenceSuggestion conference={conference} />
+    );
+
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with title and address but without city', () => {
@@ -41,7 +47,10 @@ describe('ConferenceSuggestion', () => {
       ],
       address: [{ country_code: 'TR' }],
     };
-    const wrapper = shallow(<ConferenceSuggestion conference={conference} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <ConferenceSuggestion conference={conference} />
+    );
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });

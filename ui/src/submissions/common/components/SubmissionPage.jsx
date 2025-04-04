@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
 
-function SubmissionPage({ title, description, children }) {
+function SubmissionPage({ title, description, children, testId }) {
   return (
-    <Row type="flex" justify="center">
+    <Row type="flex" justify="center" data-testid={testId}>
       <Col className="mt3 mb3" xs={24} md={21} lg={16} xl={15} xxl={14}>
         <Row className="mb3 pa3 bg-white">
           <Col span={24}>

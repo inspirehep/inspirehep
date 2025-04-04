@@ -19,6 +19,7 @@ export const InstitutionSubmissionPage = ({ error, onSubmit }) => (
         in the <Link to={INSTITUTIONS}>Institutions List</Link> immediately.
       </span>
     }
+    testId="institution-submission-page"
   >
     <InstitutionSubmission error={error} onSubmit={onSubmit} />
   </SubmissionPage>

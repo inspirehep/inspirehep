@@ -1,11 +1,17 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
+import { Formik } from 'formik';
 
 import ExperimentForm from '../ExperimentForm';
 
 describe('ExperimentForm', () => {
   it('renders', () => {
-    const wrapper = shallow(<ExperimentForm />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <Formik>
+        <ExperimentForm />
+      </Formik>
+    );
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });

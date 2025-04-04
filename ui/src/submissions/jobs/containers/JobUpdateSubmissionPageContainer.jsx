@@ -59,6 +59,7 @@ class JobUpdateSubmissionPage extends Component {
       <SubmissionPage
         title="Update a job opening"
         description="All modifications will appear immediately."
+        testId="job-update-submission-page"
       >
         <LoadingOrChildren loading={loadingUpdateFormData}>
           <ErrorAlertOrChildren error={updateFormDataError}>

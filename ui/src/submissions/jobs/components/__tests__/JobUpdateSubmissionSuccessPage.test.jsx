@@ -1,12 +1,24 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { Provider } from 'react-redux';
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 
 import JobUpdateSubmissionSuccessPage from '../JobUpdateSubmissionSuccessPage';
+import { getStore } from '../../../../fixtures/store';
 
 describe('JobUpdateSubmissionSuccessPage', () => {
   it('renders', () => {
     const match = { params: { id: '1' } };
-    const wrapper = shallow(<JobUpdateSubmissionSuccessPage match={match} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter
+          initialEntries={[`/submissions/jobs/${match.params.id}/success`]}
+        >
+          <JobUpdateSubmissionSuccessPage match={match} />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });
