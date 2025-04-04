@@ -1,0 +1,580 @@
+interactions:
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-*/_flush?wait_if_ongoing=true
+  response:
+    body:
+      string: '{"_shards":{"total":36,"successful":18,"failed":0}}'
+    headers:
+      content-length:
+      - '51'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-*/_refresh
+  response:
+    body:
+      string: '{"_shards":{"total":36,"successful":18,"failed":0}}'
+    headers:
+      content-length:
+      - '51'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: GET
+    uri: http://es:9200/_cluster/health?wait_for_status=yellow
+  response:
+    body:
+      string: '{"cluster_name":"opensearch-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"discovered_master":true,"discovered_cluster_manager":true,"active_primary_shards":31,"active_shards":31,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":28,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":52.54237288135594}'
+    headers:
+      content-length:
+      - '469'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: GET
+    uri: http://es:9200/*/_alias
+  response:
+    body:
+      string: '{"backoffice-backend-local-workflows":{"aliases":{}},"test-integration-records-conferences-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-conferences":{}}},"test-integration-records-seminars-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-seminars":{}}},"test-integration-async-records-data-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-data":{}}},"test-integration-async-records-experiments-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-experiments":{}}},"records-conferences-1743665434":{"aliases":{"records":{},"records-conferences":{}}},"records-seminars-1743665434":{"aliases":{"records":{},"records-seminars":{}}},"test-integration-records-authors-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-authors":{}}},"test-integration-records-journals-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-journals":{}}},"records-jobs-1743665434":{"aliases":{"records":{},"records-jobs":{}}},"test-integration-records-institutions-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-institutions":{}}},"records-institutions-1743665434":{"aliases":{"records":{},"records-institutions":{}}},"test-integration-async-records-institutions-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-institutions":{}}},".opensearch-observability":{"aliases":{}},".opensearch-sap-log-types-config":{"aliases":{}},"records-authors-1743665434":{"aliases":{"records":{},"records-authors":{}}},"test-integration-async-records-authors-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-authors":{}}},"records-hep-1743665434":{"aliases":{"records":{},"records-hep":{}}},"test-integration-async-records-journals-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-journals":{}}},"test-integration-records-data-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-data":{}}},"test-integration-async-records-conferences-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-conferences":{}}},"records-experiments-1743665434":{"aliases":{"records":{},"records-experiments":{}}},"test-integration-records-experiments-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-experiments":{}}},"test-integration-records-hep-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-hep":{}}},"records-journals-1743665434":{"aliases":{"records":{},"records-journals":{}}},"records-data-1743665434":{"aliases":{"records":{},"records-data":{}}},"test-integration-records-jobs-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-jobs":{}}},".plugins-ml-config":{"aliases":{}},"test-integration-async-records-jobs-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-jobs":{}}},"test-integration-async-records-seminars-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-seminars":{}}},"test-integration-async-records-hep-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-hep":{}}}}'
+    headers:
+      content-length:
+      - '3371'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-experiments/_delete_by_query
+  response:
+    body:
+      string: '{"took":1,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":175281,"parentTaskId":175280,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":253167,"memory_in_bytes":13984}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-seminars/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":175286,"parentTaskId":175285,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":238708,"memory_in_bytes":6992}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-authors/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":175291,"parentTaskId":175290,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":132250,"memory_in_bytes":10192}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-journals/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":175296,"parentTaskId":175295,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":82167,"memory_in_bytes":10032}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-jobs/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":175301,"parentTaskId":175300,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":111334,"memory_in_bytes":12008}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-hep/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":175306,"parentTaskId":175305,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":182709,"memory_in_bytes":14864}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-conferences/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":175311,"parentTaskId":175310,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":179167,"memory_in_bytes":12008}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-data/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":175316,"parentTaskId":175315,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":133084,"memory_in_bytes":10176}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-institutions/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":175321,"parentTaskId":175320,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":165375,"memory_in_bytes":11944}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: GET
+    uri: http://es:9200/_ingest/pipeline/file_content
+  response:
+    body:
+      string: '{"file_content":{"description":"Extract information from documents
+        array","processors":[{"foreach":{"field":"documents","ignore_missing":true,"processor":{"attachment":{"field":"_ingest._value.text","target_field":"_ingest._value.attachment","properties":["content"],"indexed_chars":-1,"ignore_missing":true,"on_failure":[{"set":{"description":"Set
+        ''_error.message''","field":"_ingest._value._error.message","value":"Fulltext
+        indexing failed with message {{ _ingest.on_failure_message }}","override":true}}]}}}},{"foreach":{"field":"documents","ignore_missing":true,"processor":{"remove":{"field":"_ingest._value.text","ignore_missing":true}}}}]}}'
+    headers:
+      content-length:
+      - '646'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-*/_flush?wait_if_ongoing=true
+  response:
+    body:
+      string: '{"_shards":{"total":36,"successful":18,"failed":0}}'
+    headers:
+      content-length:
+      - '51'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-*/_refresh
+  response:
+    body:
+      string: '{"_shards":{"total":36,"successful":18,"failed":0}}'
+    headers:
+      content-length:
+      - '51'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: GET
+    uri: http://es:9200/_cluster/health?wait_for_status=yellow
+  response:
+    body:
+      string: '{"cluster_name":"opensearch-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"discovered_master":true,"discovered_cluster_manager":true,"active_primary_shards":31,"active_shards":31,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":28,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":52.54237288135594}'
+    headers:
+      content-length:
+      - '469'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"author_suggest":{"input":["Casey Davis"]},"_updated":"2025-04-03T15:12:59.832449+00:00","_created":"2025-04-03T15:12:59.832442+00:00","name":{"value":"Casey
+      Davis"},"self":{"$ref":"http://host.docker.internal:5000/api/authors/994473"},"$schema":"http://localhost:5000/schemas/records/authors.json","_collections":["Authors"],"control_number":994473}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: PUT
+    uri: http://es:9200/test-integration-records-authors/_doc/896cfc96-2c39-40d3-bdfb-4e982d25a134?version=0&version_type=external_gte
+  response:
+    body:
+      string: '{"_index":"test-integration-records-authors-1743685760","_id":"896cfc96-2c39-40d3-bdfb-4e982d25a134","_version":0,"result":"created","_shards":{"total":2,"successful":1,"failed":0},"_seq_no":8,"_primary_term":1}'
+    headers:
+      Location:
+      - /test-integration-records-authors-1743685760/_doc/896cfc96-2c39-40d3-bdfb-4e982d25a134
+      content-length:
+      - '211'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 201
+      message: Created
+- request:
+    body: '{"query":{"bool":{"minimum_should_match":"0<1","filter":[{"match_all":{}}],"must":[{"nested":{"path":"authors","query":{"match":{"authors.recid":994473}}}}]}},"track_total_hits":true}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-hep/_search?_source=_id&size=10000
+  response:
+    body:
+      string: '{"took":4,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":{"value":0,"relation":"eq"},"max_score":null,"hits":[]}}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":175406,"parentTaskId":175405,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":4366583,"memory_in_bytes":22512}}'
+      content-length:
+      - '160'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-authors/_flush?wait_if_ongoing=true
+  response:
+    body:
+      string: '{"_shards":{"total":2,"successful":1,"failed":0}}'
+    headers:
+      content-length:
+      - '49'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-authors/_refresh
+  response:
+    body:
+      string: '{"_shards":{"total":2,"successful":1,"failed":0}}'
+    headers:
+      content-length:
+      - '49'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: GET
+    uri: http://es:9200/_cluster/health?wait_for_status=yellow
+  response:
+    body:
+      string: '{"cluster_name":"opensearch-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"discovered_master":true,"discovered_cluster_manager":true,"active_primary_shards":31,"active_shards":31,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":28,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":52.54237288135594}'
+    headers:
+      content-length:
+      - '469'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"positions":[{"rank":"POSTDOC","record":{"$ref":"http://labs.inspirehep.net/api/institutions/903523"},"current":true,"start_date":"2014","institution":"LPHE,
+      Lausanne","curated_relation":true},{"rank":"POSTDOC","record":{"$ref":"http://labs.inspirehep.net/api/institutions/903832"},"end_date":"2014","start_date":"2011","institution":"NIKHEF,
+      Amsterdam","curated_relation":true},{"rank":"PHD","record":{"$ref":"http://labs.inspirehep.net/api/institutions/902877"},"end_date":"2011","start_date":"2008","institution":"INFN,
+      Bari","curated_relation":true}],"advisors":[{"ids":[{"value":"INSPIRE-00114021","schema":"INSPIRE
+      ID"}],"name":"Palano, Antimo","record":{"$ref":"https://inspirehep.net/api/authors/994473"},"degree_type":"other"}],"author_suggest":{"input":["Maurizio
+      Martinelli","Martinelli, Maurizio"]},"project_membership":[{"name":"CERN-LHC-LHCB","record":{"$ref":"http://labs.inspirehep.net/api/experiments/1110643"},"current":false,"curated_relation":true},{"name":"SLAC-PEP2-BABAR","record":{"$ref":"http://labs.inspirehep.net/api/experiments/1108553"},"current":false,"curated_relation":true}],"_updated":"2025-04-03T15:12:59.933648+00:00","_created":"2009-06-26T00:00:00+00:00","ids":[{"value":"INSPIRE-00144085","schema":"INSPIRE
+      ID"},{"value":"CERN-658298","schema":"CERN"},{"value":"Maurizio.Martinelli.1","schema":"INSPIRE
+      BAI"},{"value":"0000-0003-4792-9178","schema":"ORCID"},{"value":"HEPNAMES-876380","schema":"SPIRES"}],"name":{"value":"Martinelli,
+      Maurizio","preferred_name":"Maurizio Martinelli"},"self":{"$ref":"http://host.docker.internal:5000/api/authors/1061000"},"stub":false,"status":"active","$schema":"https://labs.inspirehep.net/schemas/records/authors.json","deleted":false,"_collections":["Authors"],"control_number":1061000,"legacy_version":"20150929185951.0","email_addresses":[{"value":"maurizio.martinelli@cern.ch","current":true},{"value":"maurizio.martinelli@ba.infn.it","current":false}],"arxiv_categories":["hep-ex"],"legacy_creation_date":"2009-06-26"}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: PUT
+    uri: http://es:9200/test-integration-records-authors/_doc/a0ad867f-b254-4e23-be68-69f9a264a316?version=0&version_type=external_gte
+  response:
+    body:
+      string: '{"_index":"test-integration-records-authors-1743685760","_id":"a0ad867f-b254-4e23-be68-69f9a264a316","_version":0,"result":"created","_shards":{"total":2,"successful":1,"failed":0},"_seq_no":9,"_primary_term":1}'
+    headers:
+      Location:
+      - /test-integration-records-authors-1743685760/_doc/a0ad867f-b254-4e23-be68-69f9a264a316
+      content-length:
+      - '211'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 201
+      message: Created
+- request:
+    body: '{"query":{"bool":{"minimum_should_match":"0<1","filter":[{"match_all":{}}],"must":[{"nested":{"path":"authors","query":{"match":{"authors.recid":1061000}}}}]}},"track_total_hits":true}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-hep/_search?_source=_id&size=10000
+  response:
+    body:
+      string: '{"took":1,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":{"value":0,"relation":"eq"},"max_score":null,"hits":[]}}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":175420,"parentTaskId":175419,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":1111667,"memory_in_bytes":22560}}'
+      content-length:
+      - '160'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-authors/_flush?wait_if_ongoing=true
+  response:
+    body:
+      string: '{"_shards":{"total":2,"successful":1,"failed":0}}'
+    headers:
+      content-length:
+      - '49'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-authors/_refresh
+  response:
+    body:
+      string: '{"_shards":{"total":2,"successful":1,"failed":0}}'
+    headers:
+      content-length:
+      - '49'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: GET
+    uri: http://es:9200/_cluster/health?wait_for_status=yellow
+  response:
+    body:
+      string: '{"cluster_name":"opensearch-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"discovered_master":true,"discovered_cluster_manager":true,"active_primary_shards":31,"active_shards":31,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":28,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":52.54237288135594}'
+    headers:
+      content-length:
+      - '469'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+version: 1

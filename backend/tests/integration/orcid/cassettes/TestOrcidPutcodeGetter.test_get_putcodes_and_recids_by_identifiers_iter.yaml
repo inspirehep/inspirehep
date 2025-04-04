@@ -2,135 +2,464 @@ interactions:
 - request:
     body: null
     headers:
-      Accept: [application/orcid+json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
+      Accept:
+      - application/orcid+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
     method: GET
     uri: https://api.orcid.org/v2.0/0000-0002-0942-3697/works
   response:
-    body: {string: "{\n  \"last-modified-date\" : {\n    \"value\"\
-        \ : 1544548825366\n  },\n  \"group\" : [ {\n    \"last-modified-date\" : {\n\
-        \      \"value\" : 1544548825366\n    },\n    \"external-ids\" : {\n     \
-        \ \"external-id\" : [ {\n        \"external-id-type\" : \"doi\",\n       \
-        \ \"external-id-value\" : \"10.1000/test.orcid.push\",\n        \"external-id-url\"\
-        \ : {\n          \"value\" : \"http://dx.doi.org/10.1000/test.orcid.push\"\
-        \n        },\n        \"external-id-relationship\" : \"SELF\"\n      }, {\n\
-        \        \"external-id-type\" : \"other-id\",\n        \"external-id-value\"\
-        \ : \"999\",\n        \"external-id-url\" : {\n          \"value\" : \"https://labs.inspirehep.net/literature/20\"\
-        \n        },\n        \"external-id-relationship\" : \"SELF\"\n      } ]\n\
-        \    },\n    \"work-summary\" : [ {\n      \"put-code\" : 51548299,\n    \
-        \  \"created-date\" : {\n        \"value\" : 1544548825366\n      },\n   \
-        \   \"last-modified-date\" : {\n        \"value\" : 1544548825366\n      },\n\
-        \      \"source\" : {\n        \"source-orcid\" : null,\n        \"source-client-id\"\
-        \ : {\n          \"uri\" : \"http://orcid.org/client/0000-0001-8607-8906\"\
-        ,\n          \"path\" : \"0000-0001-8607-8906\",\n          \"host\" : \"\
-        orcid.org\"\n        },\n        \"source-name\" : {\n          \"value\"\
-        \ : \"INSPIRE-HEP\"\n        }\n      },\n      \"title\" : {\n        \"\
-        title\" : {\n          \"value\" : \"ORCID Push test\"\n        },\n     \
-        \   \"subtitle\" : null,\n        \"translated-title\" : null\n      },\n\
-        \      \"external-ids\" : {\n        \"external-id\" : [ {\n          \"external-id-type\"\
-        \ : \"doi\",\n          \"external-id-value\" : \"10.1000/test.orcid.push\"\
-        ,\n          \"external-id-url\" : {\n            \"value\" : \"http://dx.doi.org/10.1000/test.orcid.push\"\
-        \n          },\n          \"external-id-relationship\" : \"SELF\"\n      \
-        \  }, {\n          \"external-id-type\" : \"other-id\",\n          \"external-id-value\"\
-        \ : \"999\",\n          \"external-id-url\" : {\n            \"value\" : \"\
-        https://labs.inspirehep.net/literature/20\"\n          },\n          \"external-id-relationship\"\
-        \ : \"SELF\"\n        } ]\n      },\n      \"type\" : \"JOURNAL_ARTICLE\"\
-        ,\n      \"publication-date\" : {\n        \"year\" : {\n          \"value\"\
-        \ : \"1975\"\n        },\n        \"month\" : null,\n        \"day\" : null,\n\
-        \        \"media-type\" : null\n      },\n      \"visibility\" : \"PUBLIC\"\
-        ,\n      \"path\" : \"/0000-0002-0942-3697/work/51548299\",\n      \"display-index\"\
-        \ : \"0\"\n    } ]\n  }, {\n    \"last-modified-date\" : {\n      \"value\"\
-        \ : 1544017863912\n    },\n    \"external-ids\" : {\n      \"external-id\"\
-        \ : [ {\n        \"external-id-type\" : \"doi\",\n        \"external-id-value\"\
-        \ : \"10.1000/orcid-test-andrea-rossoni\",\n        \"external-id-url\" :\
-        \ {\n          \"value\" : \"http://dx.doi.org/10.1000/orcid-test-andrea-rossoni\"\
-        \n        },\n        \"external-id-relationship\" : \"SELF\"\n      } ]\n\
-        \    },\n    \"work-summary\" : [ {\n      \"put-code\" : 51344802,\n    \
-        \  \"created-date\" : {\n        \"value\" : 1544017863912\n      },\n   \
-        \   \"last-modified-date\" : {\n        \"value\" : 1544017863912\n      },\n\
-        \      \"source\" : {\n        \"source-orcid\" : null,\n        \"source-client-id\"\
-        \ : {\n          \"uri\" : \"http://orcid.org/client/0000-0001-8607-8906\"\
-        ,\n          \"path\" : \"0000-0001-8607-8906\",\n          \"host\" : \"\
-        orcid.org\"\n        },\n        \"source-name\" : {\n          \"value\"\
-        \ : \"INSPIRE-HEP\"\n        }\n      },\n      \"title\" : {\n        \"\
-        title\" : {\n          \"value\" : \"Physics experiment\"\n        },\n  \
-        \      \"subtitle\" : null,\n        \"translated-title\" : null\n      },\n\
-        \      \"external-ids\" : {\n        \"external-id\" : [ {\n          \"external-id-type\"\
-        \ : \"doi\",\n          \"external-id-value\" : \"10.1000/orcid-test-andrea-rossoni\"\
-        ,\n          \"external-id-url\" : {\n            \"value\" : \"http://dx.doi.org/10.1000/orcid-test-andrea-rossoni\"\
-        \n          },\n          \"external-id-relationship\" : \"SELF\"\n      \
-        \  } ]\n      },\n      \"type\" : \"JOURNAL_ARTICLE\",\n      \"publication-date\"\
-        \ : null,\n      \"visibility\" : \"PUBLIC\",\n      \"path\" : \"/0000-0002-0942-3697/work/51344802\"\
-        ,\n      \"display-index\" : \"0\"\n    } ]\n  } ],\n  \"path\" : \"/0000-0002-0942-3697/works\"\
-        \n}"}
+    body:
+      string: "{\n  \"last-modified-date\" : {\n    \"value\" : 1544548825366\n  },\n
+        \ \"group\" : [ {\n    \"last-modified-date\" : {\n      \"value\" : 1544548825366\n
+        \   },\n    \"external-ids\" : {\n      \"external-id\" : [ {\n        \"external-id-type\"
+        : \"doi\",\n        \"external-id-value\" : \"10.1000/test.orcid.push\",\n
+        \       \"external-id-url\" : {\n          \"value\" : \"http://dx.doi.org/10.1000/test.orcid.push\"\n
+        \       },\n        \"external-id-relationship\" : \"SELF\"\n      }, {\n
+        \       \"external-id-type\" : \"other-id\",\n        \"external-id-value\"
+        : \"999\",\n        \"external-id-url\" : {\n          \"value\" : \"https://labs.inspirehep.net/literature/20\"\n
+        \       },\n        \"external-id-relationship\" : \"SELF\"\n      } ]\n    },\n
+        \   \"work-summary\" : [ {\n      \"put-code\" : 51548299,\n      \"created-date\"
+        : {\n        \"value\" : 1544548825366\n      },\n      \"last-modified-date\"
+        : {\n        \"value\" : 1544548825366\n      },\n      \"source\" : {\n        \"source-orcid\"
+        : null,\n        \"source-client-id\" : {\n          \"uri\" : \"http://orcid.org/client/0000-0001-8607-8906\",\n
+        \         \"path\" : \"0000-0001-8607-8906\",\n          \"host\" : \"orcid.org\"\n
+        \       },\n        \"source-name\" : {\n          \"value\" : \"INSPIRE-HEP\"\n
+        \       }\n      },\n      \"title\" : {\n        \"title\" : {\n          \"value\"
+        : \"ORCID Push test\"\n        },\n        \"subtitle\" : null,\n        \"translated-title\"
+        : null\n      },\n      \"external-ids\" : {\n        \"external-id\" : [
+        {\n          \"external-id-type\" : \"doi\",\n          \"external-id-value\"
+        : \"10.1000/test.orcid.push\",\n          \"external-id-url\" : {\n            \"value\"
+        : \"http://dx.doi.org/10.1000/test.orcid.push\"\n          },\n          \"external-id-relationship\"
+        : \"SELF\"\n        }, {\n          \"external-id-type\" : \"other-id\",\n
+        \         \"external-id-value\" : \"999\",\n          \"external-id-url\"
+        : {\n            \"value\" : \"https://labs.inspirehep.net/literature/20\"\n
+        \         },\n          \"external-id-relationship\" : \"SELF\"\n        }
+        ]\n      },\n      \"type\" : \"JOURNAL_ARTICLE\",\n      \"publication-date\"
+        : {\n        \"year\" : {\n          \"value\" : \"1975\"\n        },\n        \"month\"
+        : null,\n        \"day\" : null,\n        \"media-type\" : null\n      },\n
+        \     \"visibility\" : \"PUBLIC\",\n      \"path\" : \"/0000-0002-0942-3697/work/51548299\",\n
+        \     \"display-index\" : \"0\"\n    } ]\n  }, {\n    \"last-modified-date\"
+        : {\n      \"value\" : 1544017863912\n    },\n    \"external-ids\" : {\n      \"external-id\"
+        : [ {\n        \"external-id-type\" : \"doi\",\n        \"external-id-value\"
+        : \"10.1000/orcid-test-andrea-rossoni\",\n        \"external-id-url\" : {\n
+        \         \"value\" : \"http://dx.doi.org/10.1000/orcid-test-andrea-rossoni\"\n
+        \       },\n        \"external-id-relationship\" : \"SELF\"\n      } ]\n    },\n
+        \   \"work-summary\" : [ {\n      \"put-code\" : 51344802,\n      \"created-date\"
+        : {\n        \"value\" : 1544017863912\n      },\n      \"last-modified-date\"
+        : {\n        \"value\" : 1544017863912\n      },\n      \"source\" : {\n        \"source-orcid\"
+        : null,\n        \"source-client-id\" : {\n          \"uri\" : \"http://orcid.org/client/0000-0001-8607-8906\",\n
+        \         \"path\" : \"0000-0001-8607-8906\",\n          \"host\" : \"orcid.org\"\n
+        \       },\n        \"source-name\" : {\n          \"value\" : \"INSPIRE-HEP\"\n
+        \       }\n      },\n      \"title\" : {\n        \"title\" : {\n          \"value\"
+        : \"Physics experiment\"\n        },\n        \"subtitle\" : null,\n        \"translated-title\"
+        : null\n      },\n      \"external-ids\" : {\n        \"external-id\" : [
+        {\n          \"external-id-type\" : \"doi\",\n          \"external-id-value\"
+        : \"10.1000/orcid-test-andrea-rossoni\",\n          \"external-id-url\" :
+        {\n            \"value\" : \"http://dx.doi.org/10.1000/orcid-test-andrea-rossoni\"\n
+        \         },\n          \"external-id-relationship\" : \"SELF\"\n        }
+        ]\n      },\n      \"type\" : \"JOURNAL_ARTICLE\",\n      \"publication-date\"
+        : null,\n      \"visibility\" : \"PUBLIC\",\n      \"path\" : \"/0000-0002-0942-3697/work/51344802\",\n
+        \     \"display-index\" : \"0\"\n    } ]\n  } ],\n  \"path\" : \"/0000-0002-0942-3697/works\"\n}"
     headers:
-      access-control-allow-origin: ['*']
-      cache-control: ['no-cache, no-store, max-age=0, must-revalidate']
-      connection: [keep-alive]
-      content-length: ['3896']
-      content-type: [application/orcid+json; qs=2;charset=UTF-8]
-      date: ['Tue, 11 Dec 2018 18:16:44 GMT']
-      expires: ['0']
-      pragma: [no-cache]
-      server: [nginx/1.4.6 (Ubuntu)]
-      transfer-encoding: [chunked]
-      x-content-type-options: [nosniff]
-      x-frame-options: [DENY]
-      x-xss-protection: [1; mode=block]
-    status: {code: 200, message: OK}
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      connection:
+      - keep-alive
+      content-length:
+      - '3896'
+      content-type:
+      - application/orcid+json; qs=2;charset=UTF-8
+      date:
+      - Tue, 11 Dec 2018 18:16:44 GMT
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      server:
+      - nginx/1.4.6 (Ubuntu)
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
 - request:
     body: null
     headers:
-      Accept: [application/orcid+json]
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
+      Accept:
+      - application/orcid+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
     method: GET
     uri: https://api.orcid.org/v2.0/0000-0002-0942-3697/works/51344802
   response:
-    body: {string: "{\n  \"bulk\" : [ {\n    \"work\" : {\n     \
-        \ \"created-date\" : {\n        \"value\" : 1544017863912\n      },\n    \
-        \  \"last-modified-date\" : {\n        \"value\" : 1544017863912\n      },\n\
-        \      \"source\" : {\n        \"source-orcid\" : null,\n        \"source-client-id\"\
-        \ : {\n          \"uri\" : \"http://orcid.org/client/0000-0001-8607-8906\"\
-        ,\n          \"path\" : \"0000-0001-8607-8906\",\n          \"host\" : \"\
-        orcid.org\"\n        },\n        \"source-name\" : {\n          \"value\"\
-        \ : \"INSPIRE-HEP\"\n        }\n      },\n      \"put-code\" : 51344802,\n\
-        \      \"path\" : null,\n      \"title\" : {\n        \"title\" : {\n    \
-        \      \"value\" : \"Physics experiment\"\n        },\n        \"subtitle\"\
-        \ : null,\n        \"translated-title\" : null\n      },\n      \"journal-title\"\
-        \ : null,\n      \"short-description\" : null,\n      \"citation\" : {\n \
-        \       \"citation-type\" : \"BIBTEX\",\n        \"citation-value\" : \"@article{1680808,\\\
-        n    author = \\\"Andrea, Rossoni\\\",\\n    doi = \\\"10.1000/orcid-test-andrea-rossoni\\\
-        \",\\n    title = \\\"Physics experiment\\\"\\n}\\n\"\n      },\n      \"\
-        type\" : \"JOURNAL_ARTICLE\",\n      \"publication-date\" : null,\n      \"\
-        external-ids\" : {\n        \"external-id\" : [ {\n          \"external-id-type\"\
-        \ : \"doi\",\n          \"external-id-value\" : \"10.1000/orcid-test-andrea-rossoni\"\
-        ,\n          \"external-id-url\" : {\n            \"value\" : \"http://dx.doi.org/10.1000/orcid-test-andrea-rossoni\"\
-        \n          },\n          \"external-id-relationship\" : \"SELF\"\n      \
-        \  } ]\n      },\n      \"url\" : {\n        \"value\" : \"http://inspirehep.net/record/1680808\"\
-        \n      },\n      \"contributors\" : {\n        \"contributor\" : [ {\n  \
-        \        \"contributor-orcid\" : {\n            \"uri\" : \"http://orcid.org/0000-0002-0942-3697\"\
-        ,\n            \"path\" : \"0000-0002-0942-3697\",\n            \"host\" :\
-        \ \"orcid.org\"\n          },\n          \"credit-name\" : {\n           \
-        \ \"value\" : \"Andrea Rossoni\"\n          },\n          \"contributor-email\"\
-        \ : null,\n          \"contributor-attributes\" : {\n            \"contributor-sequence\"\
-        \ : \"FIRST\",\n            \"contributor-role\" : \"AUTHOR\"\n          }\n\
-        \        } ]\n      },\n      \"language-code\" : null,\n      \"country\"\
-        \ : null,\n      \"visibility\" : \"PUBLIC\"\n    }\n  } ]\n}"}
+    body:
+      string: "{\n  \"bulk\" : [ {\n    \"work\" : {\n      \"created-date\" : {\n
+        \       \"value\" : 1544017863912\n      },\n      \"last-modified-date\"
+        : {\n        \"value\" : 1544017863912\n      },\n      \"source\" : {\n        \"source-orcid\"
+        : null,\n        \"source-client-id\" : {\n          \"uri\" : \"http://orcid.org/client/0000-0001-8607-8906\",\n
+        \         \"path\" : \"0000-0001-8607-8906\",\n          \"host\" : \"orcid.org\"\n
+        \       },\n        \"source-name\" : {\n          \"value\" : \"INSPIRE-HEP\"\n
+        \       }\n      },\n      \"put-code\" : 51344802,\n      \"path\" : null,\n
+        \     \"title\" : {\n        \"title\" : {\n          \"value\" : \"Physics
+        experiment\"\n        },\n        \"subtitle\" : null,\n        \"translated-title\"
+        : null\n      },\n      \"journal-title\" : null,\n      \"short-description\"
+        : null,\n      \"citation\" : {\n        \"citation-type\" : \"BIBTEX\",\n
+        \       \"citation-value\" : \"@article{1680808,\\n    author = \\\"Andrea,
+        Rossoni\\\",\\n    doi = \\\"10.1000/orcid-test-andrea-rossoni\\\",\\n    title
+        = \\\"Physics experiment\\\"\\n}\\n\"\n      },\n      \"type\" : \"JOURNAL_ARTICLE\",\n
+        \     \"publication-date\" : null,\n      \"external-ids\" : {\n        \"external-id\"
+        : [ {\n          \"external-id-type\" : \"doi\",\n          \"external-id-value\"
+        : \"10.1000/orcid-test-andrea-rossoni\",\n          \"external-id-url\" :
+        {\n            \"value\" : \"http://dx.doi.org/10.1000/orcid-test-andrea-rossoni\"\n
+        \         },\n          \"external-id-relationship\" : \"SELF\"\n        }
+        ]\n      },\n      \"url\" : {\n        \"value\" : \"http://inspirehep.net/record/1680808\"\n
+        \     },\n      \"contributors\" : {\n        \"contributor\" : [ {\n          \"contributor-orcid\"
+        : {\n            \"uri\" : \"http://orcid.org/0000-0002-0942-3697\",\n            \"path\"
+        : \"0000-0002-0942-3697\",\n            \"host\" : \"orcid.org\"\n          },\n
+        \         \"credit-name\" : {\n            \"value\" : \"Andrea Rossoni\"\n
+        \         },\n          \"contributor-email\" : null,\n          \"contributor-attributes\"
+        : {\n            \"contributor-sequence\" : \"FIRST\",\n            \"contributor-role\"
+        : \"AUTHOR\"\n          }\n        } ]\n      },\n      \"language-code\"
+        : null,\n      \"country\" : null,\n      \"visibility\" : \"PUBLIC\"\n    }\n
+        \ } ]\n}"
     headers:
-      access-control-allow-origin: ['*']
-      cache-control: ['no-cache, no-store, max-age=0, must-revalidate']
-      connection: [keep-alive]
-      content-length: ['2101']
-      content-type: [application/orcid+json; qs=2;charset=UTF-8]
-      date: ['Tue, 11 Dec 2018 18:16:45 GMT']
-      expires: ['0']
-      pragma: [no-cache]
-      server: [nginx/1.4.6 (Ubuntu)]
-      transfer-encoding: [chunked]
-      x-content-type-options: [nosniff]
-      x-frame-options: [DENY]
-      x-xss-protection: [1; mode=block]
-    status: {code: 200, message: OK}
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      connection:
+      - keep-alive
+      content-length:
+      - '2101'
+      content-type:
+      - application/orcid+json; qs=2;charset=UTF-8
+      date:
+      - Tue, 11 Dec 2018 18:16:45 GMT
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      server:
+      - nginx/1.4.6 (Ubuntu)
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-*/_flush?wait_if_ongoing=true
+  response:
+    body:
+      string: '{"_shards":{"total":36,"successful":18,"failed":0}}'
+    headers:
+      content-length:
+      - '51'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-*/_refresh
+  response:
+    body:
+      string: '{"_shards":{"total":36,"successful":18,"failed":0}}'
+    headers:
+      content-length:
+      - '51'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: GET
+    uri: http://es:9200/_cluster/health?wait_for_status=yellow
+  response:
+    body:
+      string: '{"cluster_name":"opensearch-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"discovered_master":true,"discovered_cluster_manager":true,"active_primary_shards":31,"active_shards":31,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":28,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":52.54237288135594}'
+    headers:
+      content-length:
+      - '469'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: GET
+    uri: http://es:9200/*/_alias
+  response:
+    body:
+      string: '{"backoffice-backend-local-workflows":{"aliases":{}},"test-integration-records-conferences-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-conferences":{}}},"test-integration-records-seminars-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-seminars":{}}},"test-integration-async-records-data-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-data":{}}},"test-integration-async-records-experiments-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-experiments":{}}},"records-conferences-1743665434":{"aliases":{"records":{},"records-conferences":{}}},"records-seminars-1743665434":{"aliases":{"records":{},"records-seminars":{}}},"test-integration-records-authors-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-authors":{}}},"test-integration-records-journals-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-journals":{}}},"records-jobs-1743665434":{"aliases":{"records":{},"records-jobs":{}}},"test-integration-records-institutions-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-institutions":{}}},"records-institutions-1743665434":{"aliases":{"records":{},"records-institutions":{}}},"test-integration-async-records-institutions-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-institutions":{}}},".opensearch-observability":{"aliases":{}},".opensearch-sap-log-types-config":{"aliases":{}},"records-authors-1743665434":{"aliases":{"records":{},"records-authors":{}}},"test-integration-async-records-authors-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-authors":{}}},"records-hep-1743665434":{"aliases":{"records":{},"records-hep":{}}},"test-integration-async-records-journals-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-journals":{}}},"test-integration-records-data-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-data":{}}},"test-integration-async-records-conferences-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-conferences":{}}},"records-experiments-1743665434":{"aliases":{"records":{},"records-experiments":{}}},"test-integration-records-experiments-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-experiments":{}}},"test-integration-records-hep-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-hep":{}}},"records-journals-1743665434":{"aliases":{"records":{},"records-journals":{}}},"records-data-1743665434":{"aliases":{"records":{},"records-data":{}}},"test-integration-records-jobs-1743685760":{"aliases":{"test-integration-records":{},"test-integration-records-jobs":{}}},".plugins-ml-config":{"aliases":{}},"test-integration-async-records-jobs-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-jobs":{}}},"test-integration-async-records-seminars-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-seminars":{}}},"test-integration-async-records-hep-1743667699":{"aliases":{"test-integration-async-records":{},"test-integration-async-records-hep":{}}}}'
+    headers:
+      content-length:
+      - '3371'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-experiments/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":251053,"parentTaskId":251052,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":213000,"memory_in_bytes":16704}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-seminars/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":251058,"parentTaskId":251057,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":81250,"memory_in_bytes":15872}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-authors/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":251063,"parentTaskId":251062,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":87209,"memory_in_bytes":9800}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-journals/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":251068,"parentTaskId":251067,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":74417,"memory_in_bytes":12784}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-jobs/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":251073,"parentTaskId":251072,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":109250,"memory_in_bytes":7776}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-hep/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":251078,"parentTaskId":251077,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":282083,"memory_in_bytes":12576}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-conferences/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":251083,"parentTaskId":251082,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":82084,"memory_in_bytes":10808}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-data/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":251088,"parentTaskId":251087,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":88459,"memory_in_bytes":12624}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"query" : {"match_all" : {} }}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-institutions/_delete_by_query
+  response:
+    body:
+      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":251093,"parentTaskId":251092,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":97875,"memory_in_bytes":12576}}'
+      content-length:
+      - '215'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: GET
+    uri: http://es:9200/_ingest/pipeline/file_content
+  response:
+    body:
+      string: '{"file_content":{"description":"Extract information from documents
+        array","processors":[{"foreach":{"field":"documents","ignore_missing":true,"processor":{"attachment":{"field":"_ingest._value.text","target_field":"_ingest._value.attachment","properties":["content"],"indexed_chars":-1,"ignore_missing":true,"on_failure":[{"set":{"description":"Set
+        ''_error.message''","field":"_ingest._value._error.message","value":"Fulltext
+        indexing failed with message {{ _ingest.on_failure_message }}","override":true}}]}}}},{"foreach":{"field":"documents","ignore_missing":true,"processor":{"remove":{"field":"_ingest._value.text","ignore_missing":true}}}}]}}'
+    headers:
+      content-length:
+      - '646'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
 version: 1

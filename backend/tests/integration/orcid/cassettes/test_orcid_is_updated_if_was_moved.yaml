@@ -2,145 +2,6 @@ interactions:
 - request:
     body: null
     headers:
-      Accept:
-      - application/orcid+json
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-    method: GET
-    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/works
-  response:
-    body:
-      string: "{\n  \"last-modified-date\" : null,\n  \"group\" : [ ],\n  \"path\"
-        : \"/0000-0003-1134-6827/works\"\n}"
-    headers:
-      Access-Control-Allow-Origin:
-      - '*'
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/orcid+json; qs=2;charset=UTF-8
-      Date:
-      - Thu, 30 Apr 2020 11:49:15 GMT
-      Expires:
-      - '0'
-      Pragma:
-      - no-cache
-      Server:
-      - nginx/1.16.1
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-XSS-Protection:
-      - 1; mode=block
-      content-length:
-      - '91'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/orcid+json
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-    method: GET
-    uri: https://api.orcid.org/v2.0/0000-0001-8627-769X/works
-  response:
-    body:
-      string: "{\n  \"last-modified-date\" : null,\n  \"group\" : [ ],\n  \"path\"
-        : \"/0000-0001-8627-769X/works\"\n}"
-    headers:
-      Access-Control-Allow-Origin:
-      - '*'
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/orcid+json; qs=2;charset=UTF-8
-      Date:
-      - Thu, 30 Apr 2020 11:49:16 GMT
-      Expires:
-      - '0'
-      Pragma:
-      - no-cache
-      Server:
-      - nginx/1.16.1
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-XSS-Protection:
-      - 1; mode=block
-      content-length:
-      - '91'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: "<work:work xmlns:work=\"http://www.orcid.org/ns/work\" xmlns:common=\"http://www.orcid.org/ns/common\"><work:title><common:title>Some
-      Results Arising from the Study of ORCID push</common:title></work:title><work:citation><work:citation-type>bibtex</work:citation-type><work:citation-value>@article{45,\n
-      \   author = \"Rossoni, A.\",\n    title = \"{Some Results Arising from the
-      Study of ORCID push}\",\n    doi = \"10.1111/test.orcid.push\",\n    month =
-      \"5\",\n    year = \"2017\"\n}\n</work:citation-value></work:citation><work:type>journal-article</work:type><common:external-ids><common:external-id><common:external-id-type>other-id</common:external-id-type><common:external-id-value>45</common:external-id-value><common:external-id-url>http://inspirehep.net/record/45</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id><common:external-id><common:external-id-type>doi</common:external-id-type><common:external-id-value>10.1111/test.orcid.push</common:external-id-value><common:external-id-url>http://dx.doi.org/10.1111/test.orcid.push</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id></common:external-ids><work:url>http://inspirehep.net/record/45</work:url><work:contributors><work:contributor><work:credit-name>Rossoni,
-      A.</work:credit-name><work:contributor-attributes><work:contributor-sequence>first</work:contributor-sequence><work:contributor-role>author</work:contributor-role></work:contributor-attributes></work:contributor></work:contributors></work:work>"
-    headers:
-      Accept:
-      - application/orcid+json
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '1584'
-      Content-Type:
-      - application/orcid+xml
-    method: POST
-    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/work
-  response:
-    body:
-      string: ''
-    headers:
-      Access-Control-Allow-Origin:
-      - '*'
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '0'
-      Content-Type:
-      - application/orcid+json; qs=2;charset=UTF-8
-      Date:
-      - Thu, 30 Apr 2020 11:49:17 GMT
-      Expires:
-      - '0'
-      Location:
-      - http://api.orcid.org/v2.0/0000-0003-1134-6827/work/73151499
-      Pragma:
-      - no-cache
-      Server:
-      - nginx/1.16.1
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-XSS-Protection:
-      - 1; mode=block
-    status:
-      code: 201
-      message: Created
-- request:
-    body: null
-    headers:
       connection:
       - keep-alive
       content-type:
@@ -232,7 +93,7 @@ interactions:
       string: '{"took":1,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
     headers:
       TASK_RESOURCE_USAGE:
-      - '{"action":"indices:data/read/search[phase/query]","taskId":229129,"parentTaskId":229128,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":303875,"memory_in_bytes":14552}}'
+      - '{"action":"indices:data/read/search[phase/query]","taskId":175970,"parentTaskId":175969,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":534084,"memory_in_bytes":14416}}'
       content-length:
       - '215'
       content-type:
@@ -254,7 +115,7 @@ interactions:
       string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
     headers:
       TASK_RESOURCE_USAGE:
-      - '{"action":"indices:data/read/search[phase/query]","taskId":229134,"parentTaskId":229133,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":104833,"memory_in_bytes":12720}}'
+      - '{"action":"indices:data/read/search[phase/query]","taskId":175975,"parentTaskId":175974,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":125917,"memory_in_bytes":6992}}'
       content-length:
       - '215'
       content-type:
@@ -273,10 +134,11 @@ interactions:
     uri: http://es:9200/test-integration-records-authors/_delete_by_query
   response:
     body:
-      string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
+      string: '{"took":5,"timed_out":false,"total":2,"deleted":2,"batches":1,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
     headers:
       TASK_RESOURCE_USAGE:
-      - '{"action":"indices:data/read/search[phase/query]","taskId":229139,"parentTaskId":229138,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":128834,"memory_in_bytes":9736}}'
+      - '{"action":"indices:data/read/search[phase/query+fetch/scroll]","taskId":175987,"parentTaskId":175986,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":135541,"memory_in_bytes":8152}}'
+      - '{"action":"indices:data/read/search[phase/query]","taskId":175980,"parentTaskId":175979,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":1529250,"memory_in_bytes":22128}}'
       content-length:
       - '215'
       content-type:
@@ -298,7 +160,7 @@ interactions:
       string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
     headers:
       TASK_RESOURCE_USAGE:
-      - '{"action":"indices:data/read/search[phase/query]","taskId":229144,"parentTaskId":229143,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":59709,"memory_in_bytes":12768}}'
+      - '{"action":"indices:data/read/search[phase/query]","taskId":175992,"parentTaskId":175991,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":143917,"memory_in_bytes":10416}}'
       content-length:
       - '215'
       content-type:
@@ -320,7 +182,7 @@ interactions:
       string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
     headers:
       TASK_RESOURCE_USAGE:
-      - '{"action":"indices:data/read/search[phase/query]","taskId":229149,"parentTaskId":229148,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":36458,"memory_in_bytes":8720}}'
+      - '{"action":"indices:data/read/search[phase/query]","taskId":175997,"parentTaskId":175996,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":79584,"memory_in_bytes":12680}}'
       content-length:
       - '215'
       content-type:
@@ -342,7 +204,7 @@ interactions:
       string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
     headers:
       TASK_RESOURCE_USAGE:
-      - '{"action":"indices:data/read/search[phase/query]","taskId":229154,"parentTaskId":229153,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":124333,"memory_in_bytes":20944}}'
+      - '{"action":"indices:data/read/search[phase/query]","taskId":176002,"parentTaskId":176001,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":161333,"memory_in_bytes":14688}}'
       content-length:
       - '215'
       content-type:
@@ -364,7 +226,7 @@ interactions:
       string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
     headers:
       TASK_RESOURCE_USAGE:
-      - '{"action":"indices:data/read/search[phase/query]","taskId":229159,"parentTaskId":229158,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":57750,"memory_in_bytes":9736}}'
+      - '{"action":"indices:data/read/search[phase/query]","taskId":176007,"parentTaskId":176006,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":108417,"memory_in_bytes":12728}}'
       content-length:
       - '215'
       content-type:
@@ -386,7 +248,7 @@ interactions:
       string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
     headers:
       TASK_RESOURCE_USAGE:
-      - '{"action":"indices:data/read/search[phase/query]","taskId":229164,"parentTaskId":229163,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":89375,"memory_in_bytes":12512}}'
+      - '{"action":"indices:data/read/search[phase/query]","taskId":176012,"parentTaskId":176011,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":107541,"memory_in_bytes":10176}}'
       content-length:
       - '215'
       content-type:
@@ -408,7 +270,7 @@ interactions:
       string: '{"took":0,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
     headers:
       TASK_RESOURCE_USAGE:
-      - '{"action":"indices:data/read/search[phase/query]","taskId":229169,"parentTaskId":229168,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":53625,"memory_in_bytes":12560}}'
+      - '{"action":"indices:data/read/search[phase/query]","taskId":176017,"parentTaskId":176016,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":100375,"memory_in_bytes":11944}}'
       content-length:
       - '215'
       content-type:
@@ -434,6 +296,172 @@ interactions:
     headers:
       content-length:
       - '646'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-*/_flush?wait_if_ongoing=true
+  response:
+    body:
+      string: '{"_shards":{"total":36,"successful":18,"failed":0}}'
+    headers:
+      content-length:
+      - '51'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-*/_refresh
+  response:
+    body:
+      string: '{"_shards":{"total":36,"successful":18,"failed":0}}'
+    headers:
+      content-length:
+      - '51'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: GET
+    uri: http://es:9200/_cluster/health?wait_for_status=yellow
+  response:
+    body:
+      string: '{"cluster_name":"opensearch-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"discovered_master":true,"discovered_cluster_manager":true,"active_primary_shards":31,"active_shards":31,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":28,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":52.54237288135594}'
+    headers:
+      content-length:
+      - '469'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"author_suggest":{"input":["Smith, John"]},"_updated":"2025-04-03T15:13:01.010071+00:00","_created":"2025-04-03T15:13:01.010068+00:00","ids":[{"value":"J.Smith.1","schema":"INSPIRE
+      BAI"},{"value":"0000-0003-4792-9178","schema":"ORCID"}],"name":{"value":"Smith,
+      John"},"self":{"$ref":"http://host.docker.internal:5000/api/authors/1061001"},"$schema":"http://localhost:5000/schemas/records/authors.json","_collections":["Authors"],"control_number":1061001}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: PUT
+    uri: http://es:9200/test-integration-records-authors/_doc/c33e71cf-70b5-40a1-ae17-2553922e0764?version=0&version_type=external_gte
+  response:
+    body:
+      string: '{"_index":"test-integration-records-authors-1743685760","_id":"c33e71cf-70b5-40a1-ae17-2553922e0764","_version":0,"result":"created","_shards":{"total":2,"successful":1,"failed":0},"_seq_no":20,"_primary_term":1}'
+    headers:
+      Location:
+      - /test-integration-records-authors-1743685760/_doc/c33e71cf-70b5-40a1-ae17-2553922e0764
+      content-length:
+      - '212'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 201
+      message: Created
+- request:
+    body: '{"query":{"bool":{"minimum_should_match":"0<1","filter":[{"match_all":{}}],"must":[{"nested":{"path":"authors","query":{"match":{"authors.recid":1061001}}}}]}},"track_total_hits":true}'
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-hep/_search?_source=_id&size=10000
+  response:
+    body:
+      string: '{"took":1,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":{"value":0,"relation":"eq"},"max_score":null,"hits":[]}}'
+    headers:
+      TASK_RESOURCE_USAGE:
+      - '{"action":"indices:data/read/search[phase/query]","taskId":176102,"parentTaskId":176101,"nodeId":"Hwf7AKBlTXKyPeseIX6AKg","taskResourceUsage":{"cpu_time_in_nanos":576375,"memory_in_bytes":22560}}'
+      content-length:
+      - '160'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-authors/_flush?wait_if_ongoing=true
+  response:
+    body:
+      string: '{"_shards":{"total":2,"successful":1,"failed":0}}'
+    headers:
+      content-length:
+      - '49'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: POST
+    uri: http://es:9200/test-integration-records-authors/_refresh
+  response:
+    body:
+      string: '{"_shards":{"total":2,"successful":1,"failed":0}}'
+    headers:
+      content-length:
+      - '49'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+    method: GET
+    uri: http://es:9200/_cluster/health?wait_for_status=yellow
+  response:
+    body:
+      string: '{"cluster_name":"opensearch-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"discovered_master":true,"discovered_cluster_manager":true,"active_primary_shards":31,"active_shards":31,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":28,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":52.54237288135594}'
+    headers:
+      content-length:
+      - '469'
       content-type:
       - application/json; charset=UTF-8
     status:
