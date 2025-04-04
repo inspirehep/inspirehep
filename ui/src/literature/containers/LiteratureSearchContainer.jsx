@@ -102,6 +102,9 @@ function LiteratureSearch({
   const assignNotLoggedInViewCondition =
     assignNotLoggedInView && !assignNoProfileViewCondition;
 
+  const showSearchFeedbackCardCondition =
+    getConfigFor('SEARCH_FEEDBACK_CARD_FEATURE_FLAG') && !embedded;
+
   return (
     <Row
       className="mt3"
@@ -248,7 +251,7 @@ function LiteratureSearch({
                     </Row>
                   )}
                 />
-                {getConfigFor('SEARCH_FEEDBACK_CARD_FEATURE_FLAG') && (
+                {showSearchFeedbackCardCondition && (
                   <EventTracker
                     eventCategory="Feedback modal"
                     eventAction="Open"
