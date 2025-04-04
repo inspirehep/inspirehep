@@ -44,6 +44,30 @@ def test_error_message_on_pid_already_exists(inspire_app):
     assert expected_message == response_message
 
 
+def test_error_with_unknown_exception(inspire_app):
+    token = create_user_and_token()
+
+    data = {
+        "name": {
+            "preferred_name": "TEST SCHEMA ISSUE",
+            "value": "Test Schema Issue, Test Schema Issue",
+        },
+        "_collections": ["Authors"],
+    }
+
+    headers = {"Authorization": "BEARER " + token.access_token}
+    with inspire_app.test_client() as client:
+        response = client.post(
+            "/api/authors",
+            headers=headers,
+            content_type="application/json",
+            data=orjson.dumps(data),
+        )
+
+    assert response.status_code == 500
+    assert response.json["message"] == "MissingSchema: Unexpected error"
+
+
 def test_does_not_return_deleted_pid_error_if_cataloger(inspire_app):
     cataloger = create_user(role="cataloger")
     record = create_record("con")
