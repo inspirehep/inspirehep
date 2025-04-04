@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { fromJS, Set } from 'immutable';
 
@@ -15,10 +15,24 @@ jest.mock('react-router-dom', () => ({
   })),
 }));
 
+jest.mock('../../components/AssignDifferentProfileAction', () => {
+  const actual = jest.requireActual(
+    '../../components/AssignDifferentProfileAction'
+  );
+  return {
+    __esModule: true,
+    default: jest.fn((props) => <actual.default {...props} />),
+  };
+});
+
 jest.mock('../../../actions/authors');
 mockActionCreator(assignDifferentProfile);
 
 describe('AssignDifferentProfileActionContainer', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('sets disabled=false if publication selection is not empty', () => {
     const store = getStore({
       authors: fromJS({
@@ -30,15 +44,20 @@ describe('AssignDifferentProfileActionContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <AssignAllDifferentProfileActionContainer />
       </Provider>
     );
-    expect(wrapper.find(AssignDifferentProfileAction)).toHaveProp({
-      disabled: false,
-      currentUserId: 8,
-    });
+
+    expect(AssignDifferentProfileAction).toBeCalledWith(
+      expect.objectContaining({
+        disabled: false,
+        currentUserId: 8,
+      }),
+      expect.anything()
+    );
   });
 
   it('sets disabled=true if publication selection is empty', () => {
@@ -52,33 +71,52 @@ describe('AssignDifferentProfileActionContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <AssignAllDifferentProfileActionContainer />
       </Provider>
     );
-    expect(wrapper.find(AssignDifferentProfileAction)).toHaveProp({
-      disabled: true,
-    });
+
+    expect(AssignDifferentProfileAction).toBeCalledWith(
+      expect.objectContaining({
+        disabled: true,
+        currentUserId: 8,
+      }),
+      expect.anything()
+    );
   });
 
-  it('dispatches assignDifferentProfile with on onAssign ', () => {
-    const store = getStore();
-    const wrapper = mount(
+  it('dispatches assignDifferentProfile with on onAssign ', async () => {
+    const store = getStore({
+      authors: fromJS({
+        publicationSelection: [1, 2],
+      }),
+      user: fromJS({
+        data: {
+          recid: 321,
+        },
+      }),
+    });
+
+    const { getByTestId } = render(
       <Provider store={store}>
         <AssignAllDifferentProfileActionContainer />
       </Provider>
     );
-    const from = 123;
-    const to = 321;
-    const onAssign = wrapper
-      .find(AssignDifferentProfileAction)
-      .prop('onAssign');
-    onAssign({
-      from,
-      to,
+
+    const claimButton = getByTestId('claim-multiple');
+    expect(claimButton).toBeInTheDocument();
+
+    fireEvent.mouseOver(claimButton);
+
+    await waitFor(() => {
+      const assignOption = getByTestId('assign-self');
+      expect(assignOption).toBeInTheDocument();
+      fireEvent.click(assignOption);
     });
-    const expectedActions = [assignDifferentProfile({ from, to })];
+
+    const expectedActions = [assignDifferentProfile({ from: 123, to: 321 })];
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

@@ -97,7 +97,7 @@ function AssignOwnProfileAction({
                 : null
             }
           >
-            <Button data-test-id="btn-claim">
+            <Button data-test-id="btn-claim" data-testid="btn-claim">
               <IconText text="claim" icon={<FileDoneOutlined />} />
             </Button>
           </Tooltip>

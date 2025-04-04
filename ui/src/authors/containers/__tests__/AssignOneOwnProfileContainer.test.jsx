@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
@@ -15,13 +15,20 @@ import {
   setPublicationsUnclaimedSelection,
   clearPublicationsUnclaimedSelection,
 } from '../../../actions/authors';
-import AssignOwnProfileAction from '../../components/AssignOwnProfileAction';
 
 jest.mock('react-router-dom', () => ({
   useParams: jest.fn().mockImplementation(() => ({
     id: 123,
   })),
 }));
+
+jest.mock('../../components/AssignOwnProfileAction', () => {
+  const actual = jest.requireActual('../../components/AssignOwnProfileAction');
+  return {
+    __esModule: true,
+    default: jest.fn((props) => <actual.default {...props} />),
+  };
+});
 
 jest.mock('../../../actions/authors');
 mockActionCreator(assignOwnPapers);
@@ -34,13 +41,15 @@ mockActionCreator(setPublicationsUnclaimedSelection);
 mockActionCreator(clearPublicationsUnclaimedSelection);
 
 describe('AssignOneOwnProfileActionContainer', () => {
-  it('selects one paper and dispatches assignOwnPapers when paper unclaimed', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('selects one paper and dispatches assignOwnPapers when paper unclaimed', async () => {
     const store = getStore();
     const paperRecordId = 12345;
-    const from = 123;
-    const to = 321;
     const disabledAssignAction = false;
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <AssignOneOwnProfileContainer
           recordId={paperRecordId}
@@ -48,8 +57,15 @@ describe('AssignOneOwnProfileActionContainer', () => {
         />
       </Provider>
     );
-    const onAssign = wrapper.find(AssignOwnProfileAction).prop('onAssign');
-    onAssign({ from, to });
+
+    const dropdownTrigger = getByTestId('btn-claim');
+    fireEvent.mouseOver(dropdownTrigger);
+
+    await waitFor(() => {
+      const assignOption = getByTestId('assign-self');
+      expect(assignOption).toBeInTheDocument();
+      fireEvent.click(assignOption);
+    });
 
     const expectedActions = [
       clearPublicationSelection(),
@@ -57,17 +73,16 @@ describe('AssignOneOwnProfileActionContainer', () => {
       clearPublicationsUnclaimedSelection(),
       setPublicationSelection([paperRecordId], true),
       setPublicationsUnclaimedSelection([paperRecordId], true),
-      assignOwnPapers({ from, to }),
+      assignOwnPapers({ from: 123, to: 123 }),
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('selects one paper and dispatches unassignOwnPapers when paper unclaimed', () => {
+  it('selects one paper and dispatches unassignOwnPapers when paper unclaimed', async () => {
     const store = getStore();
     const paperRecordId = 12345;
-    const from = 123;
     const disabledAssignAction = false;
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <AssignOneOwnProfileContainer
           recordId={paperRecordId}
@@ -75,8 +90,15 @@ describe('AssignOneOwnProfileActionContainer', () => {
         />
       </Provider>
     );
-    const onUnassign = wrapper.find(AssignOwnProfileAction).prop('onUnassign');
-    onUnassign({ from });
+
+    const dropdownTrigger = getByTestId('btn-claim');
+    fireEvent.mouseOver(dropdownTrigger);
+
+    await waitFor(() => {
+      const unassignOption = getByTestId('unassign');
+      expect(unassignOption).toBeInTheDocument();
+      fireEvent.click(unassignOption);
+    });
 
     const expectedActions = [
       clearPublicationSelection(),
@@ -84,16 +106,15 @@ describe('AssignOneOwnProfileActionContainer', () => {
       clearPublicationsUnclaimedSelection(),
       setPublicationSelection([paperRecordId], true),
       setPublicationsUnclaimedSelection([paperRecordId], true),
-      unassignOwnPapers({ from }),
+      unassignOwnPapers({ from: 123 }),
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });
-  it('selects one paper and dispatches unassignOwnPapers when paper claimed', () => {
+  it('selects one paper and dispatches unassignOwnPapers when paper claimed', async () => {
     const store = getStore();
     const paperRecordId = 12345;
-    const from = 123;
     const disabledAssignAction = true;
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <AssignOneOwnProfileContainer
           recordId={paperRecordId}
@@ -101,8 +122,15 @@ describe('AssignOneOwnProfileActionContainer', () => {
         />
       </Provider>
     );
-    const onUnassign = wrapper.find(AssignOwnProfileAction).prop('onUnassign');
-    onUnassign({ from });
+
+    const dropdownTrigger = getByTestId('btn-claim');
+    fireEvent.mouseOver(dropdownTrigger);
+
+    await waitFor(() => {
+      const unassignOption = getByTestId('unassign');
+      expect(unassignOption).toBeInTheDocument();
+      fireEvent.click(unassignOption);
+    });
 
     const expectedActions = [
       clearPublicationSelection(),
@@ -110,7 +138,7 @@ describe('AssignOneOwnProfileActionContainer', () => {
       clearPublicationsUnclaimedSelection(),
       setPublicationSelection([paperRecordId], true),
       setPublicationsClaimedSelection([paperRecordId], true),
-      unassignOwnPapers({ from }),
+      unassignOwnPapers({ from: 123 }),
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });

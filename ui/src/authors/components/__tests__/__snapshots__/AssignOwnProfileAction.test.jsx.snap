@@ -8,6 +8,7 @@ exports[`AssignOwnProfileAction renders 1`] = `
     <button
       class="ant-btn ant-btn-default ant-dropdown-trigger"
       data-test-id="btn-claim"
+      data-testid="btn-claim"
       type="button"
     >
       <span
@@ -55,6 +56,7 @@ exports[`AssignOwnProfileAction renders disabled 1`] = `
     <button
       class="ant-btn ant-btn-default ant-dropdown-trigger"
       data-test-id="btn-claim"
+      data-testid="btn-claim"
       type="button"
     >
       <span
@@ -102,6 +104,7 @@ exports[`AssignOwnProfileAction renders plural form if numberOfSelected is more 
     <button
       class="ant-btn ant-btn-default ant-dropdown-trigger"
       data-test-id="btn-claim"
+      data-testid="btn-claim"
       type="button"
     >
       <span
@@ -149,6 +152,7 @@ exports[`AssignOwnProfileAction renders singular form if numberOfSelected is 1 1
     <button
       class="ant-btn ant-btn-default ant-dropdown-trigger"
       data-test-id="btn-claim"
+      data-testid="btn-claim"
       type="button"
     >
       <span
@@ -196,6 +200,7 @@ exports[`AssignOwnProfileAction renders with disabled assign action 1`] = `
     <button
       class="ant-btn ant-btn-default ant-dropdown-trigger"
       data-test-id="btn-claim"
+      data-testid="btn-claim"
       type="button"
     >
       <span

@@ -49,7 +49,7 @@ function AssignDifferentProfileAction({
                 : null
             }
           >
-            <Button data-test-id="claim-multiple">
+            <Button data-test-id="claim-multiple" data-testid="claim-multiple">
               <IconText text="claim" icon={<FileDoneOutlined />} />
             </Button>
           </Tooltip>

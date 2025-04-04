@@ -1,6 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import { fromJS } from 'immutable';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 
@@ -10,7 +11,6 @@ import {
   assignDifferentProfile,
 } from '../../../actions/authors';
 import AssignOneDifferentProfileContainer from '../AssignOneDifferentProfileContainer';
-import AssignOneDifferentProfileAction from '../../components/AssignOneDifferentProfileAction';
 
 jest.mock('react-router-dom', () => ({
   useParams: jest.fn().mockImplementation(() => ({
@@ -18,19 +18,37 @@ jest.mock('react-router-dom', () => ({
   })),
 }));
 
+jest.mock('../../components/AssignOneDifferentProfileAction', () => {
+  const actual = jest.requireActual(
+    '../../components/AssignOneDifferentProfileAction'
+  );
+  return {
+    __esModule: true,
+    default: jest.fn((props) => <actual.default {...props} />),
+  };
+});
+
 jest.mock('../../../actions/authors');
 mockActionCreator(assignDifferentProfile);
 mockActionCreator(setPublicationSelection);
 mockActionCreator(clearPublicationSelection);
 
 describe('AssignOneDifferentProfileActionContainer', () => {
-  it('selects one paper and dispatches assignDifferentProfile', () => {
-    const store = getStore();
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('selects one paper and dispatches assignDifferentProfile with userCanNotClaimProfile=true', async () => {
+    const store = getStore({
+      user: fromJS({
+        data: {
+          recid: 456,
+        },
+      }),
+    });
     const paperRecordId = 12345;
-    const from = 123;
-    const to = 321;
     const userCanNotClaimProfile = true;
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <AssignOneDifferentProfileContainer
           recordId={paperRecordId}
@@ -38,25 +56,35 @@ describe('AssignOneDifferentProfileActionContainer', () => {
         />
       </Provider>
     );
-    const onAssign = wrapper
-      .find(AssignOneDifferentProfileAction)
-      .prop('onAssign');
-    onAssign({ from, to });
+
+    const dropdownTrigger = getByTestId('btn-claim');
+    fireEvent.mouseOver(dropdownTrigger);
+
+    await waitFor(() => {
+      const assignOption = getByTestId('assign-self');
+      expect(assignOption).toBeInTheDocument();
+      fireEvent.click(assignOption);
+    });
 
     const expectedActions = [
       clearPublicationSelection(),
       setPublicationSelection([paperRecordId], true),
-      assignDifferentProfile({ from, to }),
+      assignDifferentProfile({ from: 123, to: 456 }),
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });
-  it('selects one paper and dispatches assignDifferentProfile', () => {
-    const store = getStore();
+
+  it('selects one paper and dispatches assignDifferentProfile with userCanNotClaimProfile=false', async () => {
+    const store = getStore({
+      user: fromJS({
+        data: {
+          recid: 123,
+        },
+      }),
+    });
     const paperRecordId = 12345;
-    const from = 123;
-    const to = 321;
     const userCanNotClaimProfile = false;
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <AssignOneDifferentProfileContainer
           recordId={paperRecordId}
@@ -64,25 +92,35 @@ describe('AssignOneDifferentProfileActionContainer', () => {
         />
       </Provider>
     );
-    const onAssign = wrapper
-      .find(AssignOneDifferentProfileAction)
-      .prop('onAssign');
-    onAssign({ from, to });
+
+    const dropdownTrigger = getByTestId('btn-claim');
+    fireEvent.mouseOver(dropdownTrigger);
+
+    await waitFor(() => {
+      const assignOption = getByTestId('assign-self');
+      expect(assignOption).toBeInTheDocument();
+      fireEvent.click(assignOption);
+    });
 
     const expectedActions = [
       clearPublicationSelection(),
       setPublicationSelection([paperRecordId], true),
-      assignDifferentProfile({ from, to }),
+      assignDifferentProfile({ from: 123, to: 123 }),
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });
-  it('selects one paper and dispatches assignDifferentProfile', () => {
-    const store = getStore();
+
+  it('selects one paper and dispatches assignDifferentProfile (third test)', async () => {
+    const store = getStore({
+      user: fromJS({
+        data: {
+          recid: 789,
+        },
+      }),
+    });
     const paperRecordId = 12345;
-    const from = 123;
-    const to = 321;
     const userCanNotClaimProfile = false;
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <AssignOneDifferentProfileContainer
           recordId={paperRecordId}
@@ -90,15 +128,20 @@ describe('AssignOneDifferentProfileActionContainer', () => {
         />
       </Provider>
     );
-    const onAssign = wrapper
-      .find(AssignOneDifferentProfileAction)
-      .prop('onAssign');
-    onAssign({ from, to });
+
+    const dropdownTrigger = getByTestId('btn-claim');
+    fireEvent.mouseOver(dropdownTrigger);
+
+    await waitFor(() => {
+      const assignOption = getByTestId('assign-self');
+      expect(assignOption).toBeInTheDocument();
+      fireEvent.click(assignOption);
+    });
 
     const expectedActions = [
       clearPublicationSelection(),
       setPublicationSelection([paperRecordId], true),
-      assignDifferentProfile({ from, to }),
+      assignDifferentProfile({ from: 123, to: 789 }),
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
@@ -8,7 +8,18 @@ import OrcidPushSettingContainer from '../OrcidPushSettingContainer';
 import { USER_SET_ORCID_PUSH_SETTING_REQUEST } from '../../../actions/actionTypes';
 import OrcidPushSetting from '../../components/OrcidPushSetting';
 
+jest.mock('../../components/OrcidPushSetting', () => {
+  const actual = jest.requireActual('../../components/OrcidPushSetting');
+  return {
+    __esModule: true,
+    default: jest.fn((props) => <actual.default {...props} />),
+  };
+});
+
 describe('OrcidPushSettingContainer', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   it('passes state to props', () => {
     const store = getStoreWithState({
       user: fromJS({
@@ -27,18 +38,22 @@ describe('OrcidPushSettingContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+    render(
       <Provider store={store}>
         <OrcidPushSettingContainer />
       </Provider>
     );
-    expect(wrapper.find(OrcidPushSetting)).toHaveProp({
-      isUpdating: false,
-      enabled: true,
-    });
+
+    expect(OrcidPushSetting).toHaveBeenCalledWith(
+      expect.objectContaining({
+        isUpdating: false,
+        enabled: true,
+      }),
+      expect.anything()
+    );
   });
 
-  it('dispatches USER_SET_ORCID_PUSH_SETTING_REQUEST on change', () => {
+  it('dispatches USER_SET_ORCID_PUSH_SETTING_REQUEST on change', async () => {
     const store = getStoreWithState({
       user: fromJS({
         data: {
@@ -56,14 +71,24 @@ describe('OrcidPushSettingContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <OrcidPushSettingContainer />
       </Provider>
     );
-    const onSettingChange = wrapper.find(OrcidPushSetting).prop('onChange');
+
+    const switchElement = getByTestId('orcid-switch');
+    fireEvent.click(switchElement);
+
+    await waitFor(() => {
+      const confirmButton = document.querySelector(
+        '.ant-popconfirm .ant-btn-primary'
+      );
+      expect(confirmButton).toBeInTheDocument();
+      fireEvent.click(confirmButton);
+    });
+
     const settingValue = false;
-    onSettingChange(settingValue);
     const expectedActions = [
       {
         type: USER_SET_ORCID_PUSH_SETTING_REQUEST,

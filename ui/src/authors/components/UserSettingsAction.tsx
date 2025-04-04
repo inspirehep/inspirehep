@@ -18,7 +18,7 @@ function UserSettingsAction() {
   return (
     <>
       <UserAction>
-        <Button onClick={onClick}>
+        <Button onClick={onClick} data-testid="user-settings-button">
           <IconText text="settings" icon={<SettingOutlined />} />
         </Button>
       </UserAction>
