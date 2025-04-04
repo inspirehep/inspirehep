@@ -2,8 +2,8 @@ import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Set, Map } from 'immutable';
 import { SelectOutlined } from '@ant-design/icons';
-
 import { Drawer, Radio, Row, Col, Button } from 'antd';
+
 import ResultsContainer from '../../../common/containers/ResultsContainer';
 import { ASSIGN_AUTHOR_NS } from '../../../search/constants';
 import AuthorResultItem from '../AuthorResultItem';
@@ -59,7 +59,7 @@ function AssignDrawer({
       placement="right"
       onClose={onDrawerClose}
       open={visible}
-      title={`You have selected ${selectedPapers.size} 
+      title={`You have selected ${selectedPapers.size}
             ${pluralizeUnlessSingle('paper', selectedPapers.size)}. Select the
             author to assign the selected papers:`}
     >

@@ -44,6 +44,7 @@ function OrcidPushSetting({
             loading={isUpdating}
             checked={enabled}
             data-test-id="orcid-switch"
+            data-testid="orcid-switch"
           />
         </Popconfirm>
       </div>

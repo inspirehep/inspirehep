@@ -857,6 +857,7 @@ exports[`SettingsPage renders page with orcid section when user has orcid profil
                     aria-checked="false"
                     class="ant-switch"
                     data-test-id="orcid-switch"
+                    data-testid="orcid-switch"
                     role="switch"
                     type="button"
                   >
