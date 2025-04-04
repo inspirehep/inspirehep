@@ -1,34 +1,59 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Button } from 'antd';
+import { fireEvent, render } from '@testing-library/react';
 
 import UserSettingsAction from '../UserSettingsAction';
 import UserSettingsModal from '../UserSettingsModal';
 
+jest.mock('../UserSettingsModal', () => {
+  const actual = jest.requireActual('../UserSettingsModal');
+  return {
+    __esModule: true,
+    default: jest.fn((props) => <actual.default {...props} />),
+  };
+});
+
+jest.mock('../../containers/OrcidPushSettingContainer', () => () => (
+  <div data-testid="orcid-push-setting">ORCID Push Settings</div>
+));
+
+function wait(milisec = 2500) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), milisec);
+  });
+}
+
 describe('UserSettingsAction', () => {
   it('renders', () => {
-    const wrapper = shallow(<UserSettingsAction />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<UserSettingsAction />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
-  it('sets modal visible on click and invisible on modal cancel', () => {
-    const wrapper = shallow(<UserSettingsAction />);
+  it('sets modal visible on click and invisible on modal cancel', async () => {
+    const screen = render(<UserSettingsAction />, { container: document.body });
 
-    expect(wrapper.find(UserSettingsModal)).toHaveProp({
-      visible: false,
-    });
+    expect(UserSettingsModal).toBeCalledWith(
+      expect.objectContaining({
+        visible: false,
+      }),
+      expect.anything()
+    );
 
-    wrapper.find(Button).simulate('click');
-    wrapper.update();
-    expect(wrapper.find(UserSettingsModal)).toHaveProp({
-      visible: true,
-    });
+    const settingsBtn = screen.getByTestId('user-settings-button');
+    fireEvent.click(settingsBtn);
 
-    const onModalCancel = wrapper.find(UserSettingsModal).prop('onCancel');
-    onModalCancel();
-    wrapper.update();
-    expect(wrapper.find(UserSettingsModal)).toHaveProp({
-      visible: false,
-    });
+    await wait();
+
+    const closeButton = screen.getByLabelText('Close');
+
+    expect(closeButton).toBeInTheDocument();
+
+    fireEvent.click(closeButton);
+
+    expect(UserSettingsModal).toBeCalledWith(
+      expect.objectContaining({
+        visible: false,
+      }),
+      expect.anything()
+    );
   });
 });

@@ -1,8 +1,8 @@
 import React from 'react';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
-
 import { render } from '@testing-library/react';
+
 import { getStore } from '../../../fixtures/store';
 import AuthorPublicationsContainer from '../AuthorPublicationsContainer';
 import LiteratureSearchContainer from '../../../literature/containers/LiteratureSearchContainer';

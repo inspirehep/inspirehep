@@ -2,8 +2,8 @@ import React from 'react';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-
 import { render } from '@testing-library/react';
+
 import { getStore } from '../../../fixtures/store';
 import AuthorPublicationsContainer from '../AuthorPublicationsContainer';
 import AuthorPublications from '../../components/AuthorPublications';

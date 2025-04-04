@@ -1,4 +1,5 @@
 import { fromJS, List } from 'immutable';
+
 import {
   getCurrentAffiliationsFromPositions,
   getAuthorMetaDescription,
