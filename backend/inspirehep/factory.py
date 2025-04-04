@@ -4,6 +4,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from flask import jsonify
 from invenio_app.factory import app_class, instance_path
 from invenio_base.app import create_app_factory
 from invenio_base.wsgi import wsgi_proxyfix
@@ -11,6 +12,7 @@ from invenio_config import create_config_loader
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 
 from inspirehep import config
+from inspirehep.errors import BaseRestError
 
 env_prefix = "INVENIO"
 
@@ -19,6 +21,24 @@ def config_loader(app, **kwargs_config):
     invenio_config_loader = create_config_loader(config=config, env_prefix=env_prefix)
     result = invenio_config_loader(app, **kwargs_config)
     app.url_map.strict_slashes = False
+    return result
+
+
+def config_loader_with_error_handler(app, **kwargs_config):
+    result = config_loader(app, **kwargs_config)
+
+    # Catch all exceptions and ensure they are REST exceptions
+    @app.errorhandler(Exception)
+    def default_handler(error):
+        if isinstance(error, BaseRestError):
+            return error
+        code = error.code if hasattr(error, "code") else 500
+        message = (
+            error.description if hasattr(error, "description") else "Unexpected error"
+        )
+        exception_name = error.__class__.__name__
+        return jsonify(message=f"{exception_name}: {message}", status=code), code
+
     return result
 
 
@@ -55,7 +75,7 @@ def create_wsgi_factory(mounts_factories):
 
 create_api = create_app_factory(
     "inspirehep_api",
-    config_loader=config_loader,
+    config_loader=config_loader_with_error_handler,
     blueprint_entry_points=["invenio_base.api_blueprints"],
     extension_entry_points=["invenio_base.api_apps"],
     converter_entry_points=["invenio_base.api_converters"],
