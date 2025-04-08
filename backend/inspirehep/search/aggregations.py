@@ -310,6 +310,7 @@ def hep_curation_collection_aggregation(
     non_cern_collaborations = [
         "CDF",
         "D0",
+        "NANCY",
         "nanograv",
         "PLANCK",
     ]
@@ -319,11 +320,11 @@ def hep_curation_collection_aggregation(
         for experiment in cern_experiments
     ]
     cern_collaboration_matches = [
-        {"match": {"collaborations.value": collaboration}}
+        {"match": {"collaborations.value": {"query": collaboration, "operator": "and"}}}
         for collaboration in cern_collaborations
     ]
     non_cern_collaboration_matches = [
-        {"match": {"collaborations.value": collaboration}}
+        {"match": {"collaborations.value": {"query": collaboration, "operator": "and"}}}
         for collaboration in non_cern_collaborations
     ]
 
@@ -364,6 +365,32 @@ def hep_curation_collection_aggregation(
                         "query": {
                             "match": {
                                 "authors.raw_affiliations.value": {
+                                    "query": "CERN",
+                                    "operator": "and",
+                                }
+                            }
+                        },
+                    }
+                },
+                {
+                    "nested": {
+                        "path": "supervisors",
+                        "query": {
+                            "match": {
+                                "supervisors.affiliations.value": {
+                                    "query": "CERN",
+                                    "operator": "and",
+                                }
+                            }
+                        },
+                    }
+                },
+                {
+                    "nested": {
+                        "path": "supervisors",
+                        "query": {
+                            "match": {
+                                "supervisors.raw_affiliations.value": {
                                     "query": "CERN",
                                     "operator": "and",
                                 }
@@ -413,6 +440,19 @@ def hep_curation_collection_aggregation(
                 },
                 {"match_phrase": {"_private_notes.value": "Not CERN"}},
                 {"match": {"_collections": "CDS Hidden"}},
+                {
+                    "nested": {
+                        "path": "authors",
+                        "query": {
+                            "match": {
+                                "authors.affiliations.value": {
+                                    "query": "UCT-CERN Res. Ctr.",
+                                    "operator": "and",
+                                }
+                            }
+                        },
+                    }
+                },
                 *non_cern_collaboration_matches,
             ],
             "minimum_should_match": 1,
