@@ -117,9 +117,14 @@ def get_revisions(endpoint, pid_value):
         revisions = []
         for revision in reversed(record.revisions):
             transaction_id = revision.model.transaction_id
-
-            user = Transaction.query.filter(Transaction.id == transaction_id).one().user
-            user_email = user.email if user else "system"
+            transaction = Transaction.query.filter(
+                Transaction.id == transaction_id
+            ).one_or_none()
+            if transaction:
+                user = transaction.user
+                user_email = user.email if user else "system"
+            else:
+                user_email = "system"
 
             revisions.append(
                 {
@@ -218,18 +223,6 @@ def get_rt_users():
 def get_rt_queues():
     """View to get all rt queues"""
     return jsonify(InspireSnow().get_formatted_functional_category_list())
-
-
-def _simplify_ticket_response(ticket):
-    return dict(
-        id=ticket["Id"],
-        queue=ticket["Queue"],
-        subject=ticket["Subject"],
-        description=ticket["Text"],
-        owner=ticket["Owner"],
-        date=ticket["Created"],
-        link=ticket["Link"],
-    )
 
 
 @blueprint.route("/refextract/text", methods=["POST"])
