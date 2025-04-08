@@ -1,4 +1,4 @@
-import React, { useState, CSSProperties } from 'react';
+import React, { useState, CSSProperties, MouseEventHandler } from 'react';
 import { Card, Modal, Form, Input, message, Typography } from 'antd';
 import { useForm, useWatch } from 'antd/lib/form/Form';
 import { getClientId, trackEvent } from '../../../tracker';
@@ -6,7 +6,13 @@ import http from '../../http';
 
 const { TextArea } = Input;
 
-const SearchFeedback = ({ style }: { style?: CSSProperties }) => {
+const SearchFeedback = ({
+  style,
+  onClick,
+}: {
+  style?: CSSProperties;
+  onClick?: MouseEventHandler<HTMLDivElement>;
+}) => {
   const [feedbackModalVisible, setFeedbackModalVisible] = useState(false);
   const [form] = useForm();
 
@@ -95,7 +101,10 @@ const SearchFeedback = ({ style }: { style?: CSSProperties }) => {
           ...style,
         }}
         bodyStyle={{ padding: 12 }}
-        onClick={() => setFeedbackModalVisible(true)}
+        onClick={(event) => {
+          setFeedbackModalVisible(true);
+          if (onClick) onClick(event); // Necessary for matomo tracking
+        }}
       >
         <Typography.Text strong style={{ color: '#1890ff' }}>
           Not finding what you are looking for?
