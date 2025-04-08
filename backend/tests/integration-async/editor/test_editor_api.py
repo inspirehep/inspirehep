@@ -10,9 +10,11 @@ import pytest
 from celery.app.annotations import MapAnnotation, resolve_all
 from helpers.utils import create_record_async, create_user, logout, retry_test
 from inspirehep.accounts.roles import Roles
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api import InspireRecord, LiteratureRecord
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
+from invenio_records.models import RecordMetadata
+from sqlalchemy_continuum import transaction_class
 from tenacity import stop_after_delay, wait_fixed
 
 
@@ -81,6 +83,47 @@ def test_get_revisions_with_error(inspire_app, clean_celery_session):
 
 def test_get_revisions(inspire_app, clean_celery_session, record_with_two_revisions):
     user = create_user(role=Roles.cataloger.value)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f"/api/editor/literature/{record_with_two_revisions}/revisions",
+            content_type="application/json",
+        )
+
+    assert response.status_code == 200
+
+    result = orjson.loads(response.data)
+
+    assert result[0]["revision_id"] == 1
+    assert result[1]["revision_id"] == 0
+
+    assert result[0]["user_email"] == "system"
+    assert result[1]["user_email"] == "system"
+
+
+def test_get_revisions_with_transaction_missing(
+    inspire_app, clean_celery_session, record_with_two_revisions
+):
+    user = create_user(role=Roles.cataloger.value)
+    Transaction = transaction_class(RecordMetadata)
+    record = InspireRecord.get_record_by_pid_value(
+        record_with_two_revisions, "lit", original_record=True
+    )
+    record_revisions = list(reversed(record.revisions))
+    last_revision = record_revisions[-1]
+    transaction_id = last_revision.model.transaction_id
+    transaction = Transaction.query.filter(
+        Transaction.id == transaction_id
+    ).one_or_none()
+    if transaction:
+        db.session.delete(transaction)
+        db.session.commit()
+
+    deleted_transaction = Transaction.query.filter(
+        Transaction.id == transaction_id
+    ).one_or_none()
+    assert deleted_transaction is None
+
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(
