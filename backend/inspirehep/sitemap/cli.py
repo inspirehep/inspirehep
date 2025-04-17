@@ -24,7 +24,7 @@ def sitemap():
 @with_appcontext
 def generate():
     try:
-        create_sitemap()
+        create_sitemap().delay()
         click.secho("Task started.", fg="green")
     except Exception:
         click.secho("Failed.", fg="red")
