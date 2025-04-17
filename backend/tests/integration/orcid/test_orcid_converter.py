@@ -535,3 +535,51 @@ def test_bibtext_do_not_add_bibtex_citation(inspire_app, datadir):
     xml_root = converter.get_xml()
     top_level_tags = [etree.QName(node).localname for node in xml_root.getchildren()]
     assert "citation" not in top_level_tags
+
+
+def test_strip_xml_from_title(inspire_app, datadir):
+    data = orjson.loads(
+        (datadir / "test_orcid_converter_TestBibtexCitation.json").read_text()
+    )
+    data["titles"] = [
+        {
+            "title": 'Measurement of <math display="inline"><msubsup><mi mathvariant="normal">Ω</mi><mi mathvariant="normal">c</mi><mn>0</mn></msubsup></math> baryon production and branching-fraction ratio <math display="inline"><mi>BR</mi><mo stretchy="false">(</mo><msubsup><mi mathvariant="normal">Ω</mi><mi mathvariant="normal">c</mi><mn>0</mn></msubsup><mo stretchy="false">→</mo><msup><mi mathvariant="normal">Ω</mi><mo>-</mo></msup><msup><mi mathvariant="normal">e</mi><mo>+</mo></msup><msub><mi>ν</mi><mi mathvariant="normal">e</mi></msub><mo stretchy="false">)</mo><mo>/</mo><mi>BR</mi><mo stretchy="false">(</mo><msubsup><mi mathvariant="normal">Ω</mi><mi mathvariant="normal">c</mi><mn>0</mn></msubsup><mo stretchy="false">→</mo><msup><mi mathvariant="normal">Ω</mi><mo>-</mo></msup><msup><mi>π</mi><mo>+</mo></msup><mo stretchy="false">)</mo></math> in <math display="inline"><mi>p</mi><mi>p</mi></math> collisions at <math display="inline"><msqrt><mi>s</mi></msqrt><mo>=</mo><mn>13</mn><mtext>\u2009</mtext><mtext>\u2009</mtext><mi>TeV</mi></math>',
+            "source": "arXiv",
+        }
+    ]
+    record = create_record("lit", data=data)
+    converter = OrcidConverter(
+        record=record, url_pattern="http://inspirehep.net/record/{recid}"
+    )
+    xml_root = converter.get_xml()
+
+    result_title = xml_root.find(
+        "work:title", {"work": "http://www.orcid.org/ns/work"}
+    )[0].text
+
+    expected_title = "Measurement of Ωc0 baryon production and branching-fraction ratio BR(Ωc0→Ω-e+νe)/BR(Ωc0→Ω-π+) in pp collisions at s=13\u2009\u2009TeV"
+    assert expected_title == result_title
+
+
+def test_strip_xml_from_title_with_special_characters(inspire_app, datadir):
+    data = orjson.loads(
+        (datadir / "test_orcid_converter_TestBibtexCitation.json").read_text()
+    )
+    data["titles"] = [
+        {
+            "title": "Hubble tension between z < 5 and z > 9",
+            "source": "arXiv",
+        }
+    ]
+    record = create_record("lit", data=data)
+    converter = OrcidConverter(
+        record=record, url_pattern="http://inspirehep.net/record/{recid}"
+    )
+    xml_root = converter.get_xml()
+
+    result_title = xml_root.find(
+        "work:title", {"work": "http://www.orcid.org/ns/work"}
+    )[0].text
+
+    expected_title = "Hubble tension between z < 5 and z > 9"
+    assert expected_title == result_title

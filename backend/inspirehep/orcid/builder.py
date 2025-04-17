@@ -6,6 +6,7 @@
 
 from lxml import etree
 from lxml.builder import ElementMaker
+from lxml.html import fragment_fromstring
 from six import text_type
 
 _NAMESPACES = {
@@ -41,6 +42,13 @@ class OrcidBuilder:
         """
         return etree.tostring(self.get_xml())
 
+    def _maybe_strip_xml(self, maybe_xml_string):
+        try:
+            fragment = fragment_fromstring(maybe_xml_string, create_parent="div")
+            return fragment.text_content()
+        except Exception:
+            return maybe_xml_string
+
     def add_title(self, title, subtitle=None, translated_title=None):
         """Set a title of the work, and optionaly a subtitle.
 
@@ -49,7 +57,8 @@ class OrcidBuilder:
             subtitle (string): subtitle of the work
             translated_title (Tuple[string, string]): tuple consiting of the translated title and its language code
         """
-        title_field = _WORK.title(_COMMON.title(title))
+        stripped_xml_title = self._maybe_strip_xml(title)
+        title_field = _WORK.title(_COMMON.title(stripped_xml_title))
 
         if subtitle:
             title_field.append(_COMMON.subtitle(subtitle))
