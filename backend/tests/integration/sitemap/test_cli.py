@@ -36,7 +36,6 @@ def test_generate_multiple_sitemap_files_with_multiple_collection(
 
     config = {"SITEMAP_PAGE_SIZE": 1}
     with override_config(**config):
-        # create_sitemap()
         result = cli.invoke(["sitemap", "generate"])
     assert result.exit_code == 0
 
