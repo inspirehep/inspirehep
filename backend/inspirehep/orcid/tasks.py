@@ -245,7 +245,7 @@ def _find_user_matching(orcid, email):
     return User.query.filter_by(email=email).one_or_none()
 
 
-@shared_task(ignore_result=True, acks_late=True)
+@shared_task
 def push_account_literature_to_orcid(orcid, token):
     recids = get_literature_recids_for_orcid(orcid)
     for recid in recids:

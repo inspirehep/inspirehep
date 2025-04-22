@@ -15,8 +15,8 @@ from inspirehep.records.api import InspireRecord
 LOGGER = structlog.getLogger()
 
 
-@shared_task
-def batch_index(records_uuids, request_timeout=None):
+@shared_task(ignore_result=False, bind=True)
+def batch_index(self, records_uuids, request_timeout=None):
     """Process all provided references and index them in bulk.
     Be sure that uuids are not duplicated in batch.
     Args:
@@ -33,12 +33,12 @@ def batch_index(records_uuids, request_timeout=None):
 
 @shared_task(
     ignore_result=True,
+    bind=True,
     retry_backoff=2,
-    acks_late=True,
     retry_kwargs={"max_retries": 6},
     autoretry_for=(*DB_TASK_EXCEPTIONS, *ES_TASK_EXCEPTIONS),
 )
-def index_record(uuid, record_version=None, force_delete=None):
+def index_record(self, uuid, record_version=None, force_delete=None):
     """Record indexing.
 
     Args:
