@@ -209,6 +209,7 @@ def _disambiguate_authors(authors_to_disambiguate, record):
 
 
 @shared_task(
+    ignore_result=True,
     bind=True,
     retry_backoff=True,
     queue="disambiguation",
