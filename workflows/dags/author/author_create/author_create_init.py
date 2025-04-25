@@ -108,7 +108,7 @@ def author_create_initialization_dag():
             ticket_id=ticket_id,
         )
 
-    @task.branch()
+    @task.branch(on_failure_callback=task_failure_alert)
     def author_check_approval_branch(**context: dict) -> None:
         """Branching for the workflow: based on value parameter
         dag goes either to create_ticket_on_author_approval task or

@@ -64,7 +64,7 @@ def author_create_approved_dag():
             status_name=status_name, workflow_id=context["params"]["workflow_id"]
         )
 
-    @task.branch()
+    @task.branch(on_failure_callback=task_failure_alert)
     def author_check_approval_branch(**context: dict) -> None:
         """Branching for the workflow: based on value parameter
         dag goes either to create_ticket_on_author_approval task or
@@ -127,7 +127,7 @@ def author_create_approved_dag():
         logger.info(f"Workflow status: {status}")
         return status
 
-    @task.branch()
+    @task.branch(on_failure_callback=task_failure_alert)
     def author_create_success_branch(**context: dict) -> str:
         ti = context["ti"]
         workflow_status = ti.xcom_pull(task_ids="create_author_on_inspire")
