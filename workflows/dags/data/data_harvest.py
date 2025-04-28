@@ -26,6 +26,7 @@ logger = logging.getLogger(__name__)
         "last_updated_from": Param(type=["null", "string"], default=""),
         "last_updated_to": Param(type=["null", "string"], default=""),
     },
+    on_failure_callback=task_failure_alert,
 )
 def data_harvest_dag():
     """Defines the DAG for the HEPData harvest workflow.
@@ -44,7 +45,7 @@ def data_harvest_dag():
     data_schema = Variable.get("data_schema")
     url = inspire_http_record_management_hook.get_url()
 
-    @task(task_id="collect_ids", on_failure_callback=task_failure_alert)
+    @task(task_id="collect_ids")
     def collect_ids(**context):
         """Collects the ids of the records that have been updated in the last two days.
 
@@ -80,7 +81,7 @@ def data_harvest_dag():
         building the record and loading it to inspirehep.
         """
 
-        @task(max_active_tis_per_dag=5, on_failure_callback=task_failure_alert)
+        @task(max_active_tis_per_dag=5)
         def download_record_versions(id):
             """Download the versions of the record.
 
@@ -105,7 +106,6 @@ def data_harvest_dag():
         @task.virtualenv(
             requirements=["inspire-schemas==61.6.10"],
             system_site_packages=False,
-            on_failure_callback=task_failure_alert,
         )
         def build_record(data_schema, inspire_url, payload, **context):
             """Build the record from the payload.
@@ -215,7 +215,7 @@ def data_harvest_dag():
             data["$schema"] = data_schema
             return data
 
-        @task(on_failure_callback=task_failure_alert)
+        @task
         def normalize_collaborations(record):
             """Normalize the collaborations in the record.
 
@@ -247,7 +247,7 @@ def data_harvest_dag():
 
             return record
 
-        @task(on_failure_callback=task_failure_alert)
+        @task
         def load_record(new_record):
             """Load the record to inspirehep.
 
