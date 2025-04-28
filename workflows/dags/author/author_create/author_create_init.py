@@ -14,8 +14,7 @@ from hooks.inspirehep.inspire_http_hook import (
     AUTHOR_SUBMIT_FUNCTIONAL_CATEGORY,
     InspireHttpHook,
 )
-from include.utils.alerts import task_failure_alert
-from include.utils.set_workflow_status import set_workflow_status_to_error
+from include.utils.alerts import dag_failure_callback
 from include.utils.tickets import get_ticket_by_type
 
 logger = logging.getLogger(__name__)
@@ -30,8 +29,7 @@ logger = logging.getLogger(__name__)
     start_date=datetime.datetime(2024, 5, 5),
     schedule=None,
     catchup=False,
-    # TODO: what if callback fails? Data in backoffice not up to date!
-    on_failure_callback=set_workflow_status_to_error,
+    on_failure_callback=dag_failure_callback,
     tags=[AUTHORS],
 )
 def author_create_initialization_dag():
@@ -49,14 +47,14 @@ def author_create_initialization_dag():
     workflow_management_hook = WorkflowManagementHook(AUTHORS)
     workflow_ticket_management_hook = AuthorWorkflowTicketManagementHook()
 
-    @task(on_failure_callback=task_failure_alert)
+    @task
     def set_workflow_status_to_running(**context):
         status_name = "running"
         workflow_management_hook.set_workflow_status(
             status_name=status_name, workflow_id=context["params"]["workflow_id"]
         )
 
-    @task(on_failure_callback=task_failure_alert)
+    @task
     def set_schema(**context):
         schema = Variable.get("author_schema")
         return workflow_management_hook.partial_update_workflow(
@@ -66,7 +64,7 @@ def author_create_initialization_dag():
             },
         ).json()
 
-    @task(on_failure_callback=task_failure_alert)
+    @task
     def create_author_create_user_ticket(**context: dict) -> None:
         workflow_data = context["params"]["workflow"]["data"]
         email = workflow_data["acquisition_source"]["email"]
@@ -108,7 +106,7 @@ def author_create_initialization_dag():
             ticket_id=ticket_id,
         )
 
-    @task.branch(on_failure_callback=task_failure_alert)
+    @task.branch
     def author_check_approval_branch(**context: dict) -> None:
         """Branching for the workflow: based on value parameter
         dag goes either to create_ticket_on_author_approval task or
@@ -123,7 +121,7 @@ def author_create_initialization_dag():
             return "trigger_accept"
         return "trigger_reject"
 
-    @task(on_failure_callback=task_failure_alert)
+    @task
     def set_author_create_workflow_status_to_approval(**context: dict) -> None:
         status_name = "approval"
         workflow_management_hook.set_workflow_status(

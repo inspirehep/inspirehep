@@ -15,10 +15,9 @@ from hooks.inspirehep.inspire_http_hook import (
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
-from include.utils.alerts import task_failure_alert
+from include.utils.alerts import dag_failure_callback
 from include.utils.set_workflow_status import (
     get_wf_status_from_inspire_response,
-    set_workflow_status_to_error,
 )
 from include.utils.tickets import get_ticket_by_type
 
@@ -34,7 +33,7 @@ logger = logging.getLogger(__name__)
     start_date=datetime.datetime(2024, 5, 5),
     schedule=None,
     catchup=False,
-    on_failure_callback=set_workflow_status_to_error,  # TODO: what if callback fails? Data in backoffice not up to date!
+    on_failure_callback=dag_failure_callback,
     tags=[AUTHORS],
 )
 def author_create_approved_dag():
@@ -57,14 +56,14 @@ def author_create_approved_dag():
     workflow_management_hook = WorkflowManagementHook(AUTHORS)
     workflow_ticket_management_hook = AuthorWorkflowTicketManagementHook()
 
-    @task(on_failure_callback=task_failure_alert)
+    @task
     def set_workflow_status_to_running(**context):
         status_name = "running"
         workflow_management_hook.set_workflow_status(
             status_name=status_name, workflow_id=context["params"]["workflow_id"]
         )
 
-    @task.branch(on_failure_callback=task_failure_alert)
+    @task.branch
     def author_check_approval_branch(**context: dict) -> None:
         """Branching for the workflow: based on value parameter
         dag goes either to create_ticket_on_author_approval task or
@@ -75,7 +74,7 @@ def author_create_approved_dag():
         else:
             return "close_author_create_user_ticket"
 
-    @task(on_failure_callback=task_failure_alert)
+    @task
     def create_author_create_curation_ticket(**context: dict) -> None:
         workflow_data = context["params"]["workflow"]["data"]
         email = workflow_data["acquisition_source"]["email"]
@@ -106,7 +105,7 @@ def author_create_approved_dag():
             ticket_type="author_create_curation",
         )
 
-    @task(do_xcom_push=True, on_failure_callback=task_failure_alert)
+    @task(do_xcom_push=True)
     def create_author_on_inspire(**context: dict) -> str:
         workflow_data = workflow_management_hook.get_workflow(
             workflow_id=context["params"]["workflow_id"]
@@ -127,7 +126,7 @@ def author_create_approved_dag():
         logger.info(f"Workflow status: {status}")
         return status
 
-    @task.branch(on_failure_callback=task_failure_alert)
+    @task.branch
     def author_create_success_branch(**context: dict) -> str:
         ti = context["ti"]
         workflow_status = ti.xcom_pull(task_ids="create_author_on_inspire")
@@ -136,7 +135,7 @@ def author_create_approved_dag():
         else:
             return "set_author_create_workflow_status_to_error"
 
-    @task(on_failure_callback=task_failure_alert)
+    @task
     def set_author_create_workflow_status_to_completed(**context: dict) -> None:
         status_name = "completed"
         workflow_management_hook.set_workflow_status(
@@ -145,7 +144,6 @@ def author_create_approved_dag():
 
     @task(
         trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
-        on_failure_callback=task_failure_alert,
     )
     def close_author_create_user_ticket(**context: dict) -> None:
         ticket_id = get_ticket_by_type(
@@ -167,7 +165,7 @@ def author_create_approved_dag():
         }
         inspire_http_hook.close_ticket(ticket_id, "user_accepted_author", request_data)
 
-    @task(on_failure_callback=task_failure_alert)
+    @task
     def set_author_create_workflow_status_to_error(**context: dict) -> None:
         ti = context["ti"]
         status_name = ti.xcom_pull(task_ids="create_author_on_inspire")

@@ -14,10 +14,9 @@ from hooks.inspirehep.inspire_http_hook import (
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
-from include.utils.alerts import task_failure_alert
+from include.utils.alerts import dag_failure_callback
 from include.utils.set_workflow_status import (
     get_wf_status_from_inspire_response,
-    set_workflow_status_to_error,
 )
 
 
@@ -30,7 +29,7 @@ from include.utils.set_workflow_status import (
         "collection": Param(type="string", default=AUTHORS),
     },
     catchup=False,
-    on_failure_callback=set_workflow_status_to_error,  # TODO: what if callback fails? Data in backoffice not up to date!
+    on_failure_callback=dag_failure_callback,
     tags=[AUTHORS],
 )
 def author_update_dag():
@@ -49,14 +48,14 @@ def author_update_dag():
     workflow_management_hook = WorkflowManagementHook(AUTHORS)
     workflow_ticket_management_hook = AuthorWorkflowTicketManagementHook()
 
-    @task(on_failure_callback=task_failure_alert)
+    @task
     def set_author_update_workflow_status_to_running(**context):
         status_name = "running"
         workflow_management_hook.set_workflow_status(
             status_name=status_name, workflow_id=context["params"]["workflow_id"]
         )
 
-    @task(on_failure_callback=task_failure_alert)
+    @task
     def create_ticket_on_author_update(**context):
         workflow_data = context["params"]["workflow"]["data"]
         email = workflow_data["acquisition_source"]["email"]
@@ -91,7 +90,7 @@ def author_update_dag():
 
         return response.json()
 
-    @task(on_failure_callback=task_failure_alert)
+    @task
     def update_author_on_inspire(**context):
         workflow_data = workflow_management_hook.get_workflow(
             workflow_id=context["params"]["workflow_id"]
@@ -110,14 +109,14 @@ def author_update_dag():
         status = get_wf_status_from_inspire_response(response)
         return status
 
-    @task(on_failure_callback=task_failure_alert)
+    @task
     def set_author_update_workflow_status_to_completed(**context):
         status_name = "completed"
         workflow_management_hook.set_workflow_status(
             status_name=status_name, workflow_id=context["params"]["workflow_id"]
         )
 
-    @task.branch(on_failure_callback=task_failure_alert)
+    @task.branch
     def author_update_success_branch(**context):
         ti = context["ti"]
         workflow_status = ti.xcom_pull(task_ids="update_author_on_inspire")
@@ -127,7 +126,7 @@ def author_update_dag():
         else:
             return "set_author_update_workflow_status_to_error"
 
-    @task(on_failure_callback=task_failure_alert)
+    @task
     def set_author_update_workflow_status_to_error(**context):
         ti = context["ti"]
         status_name = ti.xcom_pull(task_ids="update_author_on_inspire")

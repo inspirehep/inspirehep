@@ -2,7 +2,7 @@ from airflow.decorators import task
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 
 
-@task()
+@task
 def set_submission_number(workflow=None, **context):
     workflow_data = (
         context["params"]["workflow"]["data"] if not workflow else workflow["data"]
