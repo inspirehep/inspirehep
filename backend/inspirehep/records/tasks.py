@@ -74,8 +74,16 @@ def update_records_relations(self, uuids):
 )
 def redirect_references_to_merged_record(self, uuid):
     record = InspireRecord.get_record(uuid, with_deleted=True)
-    new_record_ref = record["new_record"]["$ref"]
-    deleted_record_ref = record["self"]["$ref"]
+    new_record = record.get("new_record")
+    deleted_record = record.get("self")
+    if not (new_record and deleted_record):
+        LOGGER.error(
+            "redirect_references_to_merged_record: Missing 'new_record' or 'self' for uuid. Cannot update merged references.",
+            uuid=str(uuid),
+        )
+        return
+    new_record_ref = new_record["$ref"]
+    deleted_record_ref = deleted_record["$ref"]
     record_schema = PidStoreBase.get_schema_name_from_uri(record["$schema"])
     possible_refs_to_record = get_refs_to_schemas()[record_schema]
     update_references_pointing_to_merged_record(
