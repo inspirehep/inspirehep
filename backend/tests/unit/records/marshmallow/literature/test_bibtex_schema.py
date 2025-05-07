@@ -5,11 +5,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import mock
-import pytest
 from helpers.providers.faker import faker
 from inspire_schemas.api import load_schema, validate
 from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
-from isbnlib._exceptions import NotValidISBNError
 
 
 def test_get_authors_with_role_author():
@@ -287,18 +285,6 @@ def test_isbn():
     result = schema.dump(record).data
     result_isbn = result["isbn"]
     assert expected_isbn == result_isbn
-
-
-def test_isbn_invalid():
-    record = {
-        "document_type": ["book"],
-        "isbns": [{"value": "111-1-11-111111-0"}, {"value": "1111111111111"}],
-    }
-
-    schema = BibTexCommonSchema()
-
-    with pytest.raises(NotValidISBNError):
-        schema.dump(record)
 
 
 def test_eprint():

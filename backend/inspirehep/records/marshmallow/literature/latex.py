@@ -11,7 +11,7 @@ from idutils import normalize_isbn
 from inspire_utils.helpers import remove_tags
 from inspire_utils.name import format_name
 from inspire_utils.record import get_value
-from isbn import ISBNError
+from isbnlib import ISBNLibException
 from lxml.etree import XMLSyntaxError
 from marshmallow import fields, missing
 from prometheus_client import Counter
@@ -183,6 +183,6 @@ class LatexSchema(BaseSchema):
         for isbn in isbns:
             try:
                 normalized_isbns.append(normalize_isbn(isbn))
-            except ISBNError:
+            except ISBNLibException:
                 normalized_isbns.append(isbn)
         return ", ".join(normalized_isbns)
