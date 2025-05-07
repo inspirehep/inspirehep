@@ -12,7 +12,7 @@ from inspire_schemas.readers.literature import LiteratureReader
 from inspire_utils.date import PartialDate
 from inspire_utils.helpers import remove_tags
 from inspire_utils.record import get_value
-from isbn import ISBNError
+from isbnlib import ISBNLibException
 from lxml.etree import XMLSyntaxError
 from marshmallow import fields, pre_dump
 from prometheus_client import Counter
@@ -362,7 +362,7 @@ class BibTexCommonSchema(BaseSchema):
         def hyphenate_if_possible(no_hyphens):
             try:
                 return normalize_isbn(no_hyphens)
-            except ISBNError:
+            except ISBNLibException:
                 return no_hyphens
 
         isbns = get_value(data, "isbns.value", [])
