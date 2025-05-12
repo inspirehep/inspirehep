@@ -343,18 +343,6 @@ urllib3 = {version = ">=1.25.4,<2.1", markers = "python_version >= \"3.10\""}
 crt = ["awscrt (==0.16.26)"]
 
 [[package]]
-name = "bump2version"
-version = "1.0.1"
-description = "Version-bump your software with a single command!"
-optional = false
-python-versions = ">=3.5"
-groups = ["main"]
-files = [
-    {file = "bump2version-1.0.1-py2.py3-none-any.whl", hash = "sha256:37f927ea17cde7ae2d7baf832f8e80ce3777624554a653006c9144f8017fe410"},
-    {file = "bump2version-1.0.1.tar.gz", hash = "sha256:762cb2bfad61f4ec8e2bdf452c7c267416f8c70dd9ecb1653fd0bbb01fa936e6"},
-]
-
-[[package]]
 name = "celery"
 version = "5.3.4"
 description = "Distributed Task Queue."
@@ -1971,18 +1959,18 @@ files = [
 
 [[package]]
 name = "inspire-schemas"
-version = "61.6.14"
+version = "61.6.16"
 description = "Inspire JSON schemas and utilities to use them."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "inspire_schemas-61.6.14-py2.py3-none-any.whl", hash = "sha256:1566b1eec5a77f1a588d2e588b91d1ca7fa4a794aefdfc78431e31e6405d264f"},
+    {file = "inspire-schemas-61.6.16.tar.gz", hash = "sha256:4c95a2ec1a271c4dc3c08dd2dbc71fa5c96fc1b419e7ae3992e92732bdc143af"},
+    {file = "inspire_schemas-61.6.16-py2.py3-none-any.whl", hash = "sha256:e616b59fe465e3cea43be0a3aacfd5d4460aaa2a4f67153724cbe9ca5804e0f5"},
 ]
 
 [package.dependencies]
 bleach = ">=3.2.1,<4.0"
-bump2version = {version = ">=1.0,<2.0", markers = "python_version >= \"3\""}
 idutils = {version = ">=1.2.1,<2.0", markers = "python_version >= \"3\""}
 inspire-utils = ">=3.0.65,<4.0"
 isodate = "*"
@@ -4836,4 +4824,4 @@ testing = ["coverage[toml]", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.11"
-content-hash = "3c53872d3987a20099a4f2f5cb863e042e0945baf3a3970613ae1ea221550be7"
+content-hash = "1671a16ae86a3b9ecde24b0f4f69aaa7984d181d83c7144c16f189ecbf0418fc"
