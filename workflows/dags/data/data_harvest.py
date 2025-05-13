@@ -110,7 +110,7 @@ def data_harvest_dag():
         def build_record(data_schema, inspire_url, payload, **context):
             """Build the record from the payload.
 
-            Args: data_schema (str): The schema of the data.
+            Args: data_schsema (str): The schema of the data.
                     payload (dict): The payload of the record.
 
             Returns: dict: The built record.
