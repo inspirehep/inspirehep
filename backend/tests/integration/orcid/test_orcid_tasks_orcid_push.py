@@ -187,6 +187,30 @@ class TestOrcidPushRetryTask:
         self.mock_pusher.return_value.push.assert_called_once()
         mock_orcid_push_task_retry.assert_called_once()
 
+    def test_requestexception_no_request(self, override_config):
+        exc = RequestException()
+        exc.response = mock.Mock()
+        exc.request = None
+        self.mock_pusher.return_value.push.side_effect = exc
+
+        with (
+            override_config(
+                FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
+                FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
+            ),
+            mock.patch(
+                "inspirehep.orcid.tasks.orcid_push.retry", side_effect=RequestException
+            ) as mock_orcid_push_task_retry,
+            pytest.raises(RequestException),
+        ):
+            orcid_push(self.orcid, self.recid, self.oauth_token)
+
+        self.mock_pusher.assert_called_once_with(
+            self.orcid, self.recid, self.oauth_token
+        )
+        self.mock_pusher.return_value.push.assert_called_once()
+        mock_orcid_push_task_retry.assert_called_once()
+
     def test_retry_not_triggered(self, override_config):
         self.mock_pusher.return_value.push.side_effect = IOError
 
