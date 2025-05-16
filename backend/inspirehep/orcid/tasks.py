@@ -206,10 +206,10 @@ def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
 
         # Enrich exception message.
         if isinstance(exc, RequestException):
-            message = (exc.args[0:1] or ("",))[0]
+            message = str((exc.args[0:1] or ("",))[0])
             with contextlib.suppress(AttributeError):
                 message += f"\nResponse={exc.response.content}"
-            if exc.request:
+            with contextlib.suppress(AttributeError):
                 message += f"\nRequest={exc.request.method} {exc.request.url}"
             exc.args = (message,) + exc.args[1:]
 
