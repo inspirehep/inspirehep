@@ -209,7 +209,8 @@ def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
             message = (exc.args[0:1] or ("",))[0]
             with contextlib.suppress(AttributeError):
                 message += f"\nResponse={exc.response.content}"
-            message += f"\nRequest={exc.request.method} {exc.request.url}"
+            if exc.request:
+                message += f"\nRequest={exc.request.method} {exc.request.url}"
             exc.args = (message,) + exc.args[1:]
 
         # If max_retries=3, then self.request.retries is: [0, 1, 2, 3]
