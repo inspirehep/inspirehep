@@ -207,6 +207,9 @@ def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
         # Enrich exception message.
         if isinstance(exc, RequestException):
             message = (exc.args[0:1] or ("",))[0]
+            # if isinstance(exc, MaxRetryError):
+            #     raise Exception("Retried too many times")
+            message += f"\nMax retries exceeded with url={exc.request.url}"
             with contextlib.suppress(AttributeError):
                 message += f"\nResponse={exc.response.content}"
             message += f"\nRequest={exc.request.method} {exc.request.url}"

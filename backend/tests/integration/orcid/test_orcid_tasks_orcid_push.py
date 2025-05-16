@@ -35,6 +35,7 @@ from inspirehep.orcid import exceptions as domain_exceptions
 from inspirehep.orcid.cache import OrcidCache
 from inspirehep.orcid.tasks import orcid_push
 from requests.exceptions import RequestException
+from urllib3.exceptions import MaxRetryError
 
 # The tests are written in a specific order, disable random
 pytestmark = pytest.mark.random_order(disabled=True)
@@ -207,6 +208,31 @@ class TestOrcidPushRetryTask:
         )
         self.mock_pusher.return_value.push.assert_called_once()
         mock_orcid_push_task_retry.assert_not_called()
+
+    def test_requestexception_maxretry(self, override_config):
+        exc = RequestException()
+        exc.args = [MaxRetryError(url="www.google.com", pool=2)]
+        exc.request = mock.Mock()
+        self.mock_pusher.return_value.push.side_effect = exc
+
+        with (
+            override_config(
+                FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
+                FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
+            ),
+            mock.patch(
+                "inspirehep.orcid.tasks.orcid_push.retry", side_effect=RequestException
+            ) as mock_orcid_push_task_retry,
+            pytest.raises(RequestException),
+        ):
+            orcid_push(self.orcid, self.recid, self.oauth_token)
+
+        self.mock_pusher.assert_called_once_with(
+            self.orcid, self.recid, self.oauth_token
+        )
+        self.mock_pusher.return_value.push.assert_called_once()
+        mock_orcid_push_task_retry.assert_called_once()
+        pytest.raises(RequestException)
 
 
 def get_local_access_tokens(orcid):
