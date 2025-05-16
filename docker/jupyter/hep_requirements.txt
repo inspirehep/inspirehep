@@ -81,11 +81,11 @@ importlib-metadata==4.13.0; python_version < "3.9" and python_version >= "3.7" a
 importlib-resources==6.0.0; python_version < "3.9" and python_version >= "3.8"
 incremental==17.5.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 infinity==1.4
-inspire-dojson @ git+https://github.com/inspirehep/inspire-dojson.git@master
+inspire-dojson==63.2.31
 inspire-json-merger==11.0.29
 inspire-matcher==9.0.27
 inspire-query-parser==6.0.51
-inspire-schemas==61.5.26
+inspire-schemas==61.6.16
 inspire-service-orcid @ git+https://github.com/inspirehep/inspire-service-orcid.git@1a0e762e58bc9cac65f7665b9831993c017fd8bb
 inspire-utils==3.0.37
 intervals==0.8.1
