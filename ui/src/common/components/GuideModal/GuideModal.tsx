@@ -1,6 +1,6 @@
 import React from 'react';
 import { Spin } from 'antd';
-import Image from 'react-image';
+import { Img } from 'react-image';
 
 import useResponsiveCheck from '../../hooks/useResponsiveCheck';
 import CarouselModal from '../CarouselModal';
@@ -28,7 +28,7 @@ function GuideModal({
         <p className="mb0">Take the tour to discover new INSPIRE features.</p>
       </div>
       {guideSteps.map((step) => (
-        <Image key={step} loader={IMAGE_LOADER} alt="Guide Step" src={step} />
+        <Img key={step} loader={IMAGE_LOADER} alt="Guide Step" src={step} />
       ))}
       <div className="f2 tc bg-white pa5">
         <p>Thanks for taking the tour of the new INSPIRE!</p>

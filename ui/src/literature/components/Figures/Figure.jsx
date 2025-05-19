@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Image from 'react-image';
+import { Img } from 'react-image';
 import { Spin } from 'antd';
 import { FileImageOutlined } from '@ant-design/icons';
 
@@ -16,7 +16,7 @@ function Figure({ url, className, onClick, caption }) {
   return (
     <div className="__Figure__ bg-white pa3">
       <figure className="mv1">
-        <Image
+        <Img
           onClick={onClick}
           className={classNames(className, 'ba pa1 db center w-auto h-auto', {
             pointer: onClick,
@@ -25,6 +25,7 @@ function Figure({ url, className, onClick, caption }) {
           alt="Figure"
           loader={LOADER}
           unloader={UNLOADER}
+          decode={false}
         />
         {caption && (
           <figcaption className="mt3">
