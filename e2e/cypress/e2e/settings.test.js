@@ -5,20 +5,21 @@ describe('settings', () => {
 
   beforeEach(() => {
     cy.login('johnellis');
+    cy.registerRoute();
+    cy.visit('');
+    cy.waitForRoute();
+    cy.registerRoute();
     cy.visit('/user/settings');
+    cy.waitForRoute();
   });
 
   onlyOn('headless', () => {
     it.skip('matches image snapshot', () => {
-      cy.visit('/user/settings');
-      cy.wait(10000);
       cy.matchSnapshots('Settings');
     });
   });
 
   it('enables submit button when email is correct', () => {
-    cy.visit('/user/settings');
-    cy.wait(10000);
 
     cy.get('[data-test-id=email]')
       .clear()
@@ -28,9 +29,6 @@ describe('settings', () => {
   });
 
   it('should display validation error when email is incorrect', () => {
-    cy.visit('/user/settings');
-    cy.wait(10000);
-
     cy.get('[data-test-id=email]').clear().type('johnrellis@inspirehep').blur();
 
     cy.get('[data-test-id=email-error]').should('be.visible');
@@ -39,25 +37,19 @@ describe('settings', () => {
   it('redirects to update author form', () => {
     const recordId = 1010819;
 
-    cy.visit('/user/settings');
-    cy.wait(10000);
-
     cy.get('[data-test-id="author-form"]').click();
 
     cy.url().should('include', `/submissions/authors/${recordId}`);
   });
 
   it('exports to orcid', () => {
-    cy.visit('/user/settings');
-    cy.wait(10000);
-
     cy.get('[data-test-id="orcid-switch"]').click();
     cy.get('div[class~="ant-popconfirm"]')
       .find('button[class~="ant-btn-primary"]')
       .click();
 
     cy.reload();
-    cy.wait(10000);
+    cy.waitForRoute();
 
     cy.get('[data-test-id="orcid-switch"]').should(
       'have.attr',
@@ -67,16 +59,13 @@ describe('settings', () => {
   });
 
   it('unexports from orcid', () => {
-    cy.visit('/user/settings');
-    cy.wait(10000);
-
     cy.get('[data-test-id="orcid-switch"]').click();
     cy.get('div[class~="ant-popconfirm"]')
       .find('button[class~="ant-btn-primary"]')
       .click();
 
     cy.reload();
-    cy.wait(10000);
+    cy.waitForRoute();
 
     cy.get('[data-test-id="orcid-switch"]').should(
       'have.attr',
@@ -86,9 +75,6 @@ describe('settings', () => {
   });
 
   it('changes user email', () => {
-    cy.visit('/user/settings');
-    cy.wait(10000);
-
     cy.registerRoute({
       url: '/api/accounts/settings/update-email',
       method: 'POST',

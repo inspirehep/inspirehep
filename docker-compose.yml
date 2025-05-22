@@ -378,3 +378,11 @@ services:
       - bash
       - -c
       - airflow
+
+  cypress:
+    image: cypress/included:14.4.0
+    volumes:
+      - ./e2e:/tests
+    environment:
+      - NODE_ENV=test
+    working_dir: /tests

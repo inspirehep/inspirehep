@@ -8,6 +8,7 @@ sleep:
 run: services start-inspirehep start-backoffice sleep setup-inspirehep sleep setup-backoffice
 run-inspirehep: services start-inspirehep sleep setup-inspirehep
 run-backoffice: services start-backoffice sleep setup-backoffice
+run-e2e-test: start-cypress
 
 start: services start-inspirehep start-backoffice
 
@@ -20,6 +21,16 @@ start-backoffice:
 	echo -e "\033[0;32m Starting Backoffice. \033[0m"	
 	docker compose up -d airflow-init airflow-worker airflow-webserver airflow-triggerer airflow-scheduler backoffice-webserver
 	echo -e "\033[0;32m Backoffice Started. \033[0m"
+
+start-cypress:
+	docker compose up -d --force-recreate cache db mq s3 es
+	docker compose up -d --force-recreate hep-worker hep-web record-editor hep-ui ui
+	sleep 5
+	docker compose exec hep-web ./scripts/setup
+	docker compose exec hep-web inspirehep importer demo-records
+	sleep 5
+	bash -c "docker compose run --rm cypress cypress run --browser firefox --headless --env inspirehep_url=http://host.docker.internal:8080 | tee >(sed 's/\x1b\[[0-9;]*m//g' > cypress.log)"
+	echo -e "\033[0;32m Cypress tests finished. \033[0m"
 
 setup-backoffice: django-setup airflow-setup
 

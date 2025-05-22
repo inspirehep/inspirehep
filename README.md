@@ -327,11 +327,12 @@ Note that `jest` automatically run tests that changed files (unstaged) affect.
 
 ### cypress (e2e)
 
-Runs everything from scratch, identical to CI
+Runs everything from scratch and saves the output into `cypress.log` file.
+
+**⚠️ Be careful, this will recreate all InspireHEP docker containers ⚠️**
 
 ```bash
-$ sh cypress-tests-chrome.sh
-$ sh cypress-tests-firefox.sh
+$ make run-e2e-test
 ```
 
 Opens cypress runner GUI runs them against local dev server (localhost:8080)
@@ -342,20 +343,12 @@ $ yarn test:dev
 $ yarn test:dev --env inspirehep_url=<any url that serves inspirehep ui>
 ```
 
-#### visual tests
-
-Visual tests are run only on `headless` mode. So `yarn test:dev` which uses the headed browser will ignore them.
-Running existing visual tests and updating/creating snapshots requires `cypress-tests.sh` script.
-
-For continuous runs (when local DB is running and has required records etc.), the script can be reduced to only the last part `sh cypress-tests-run.sh`.
-
-If required, tests can run against `localhost:3000` by simply modifying `--host` option in `sh cypress-tests-run.sh`.
-
-#### working with (visual) tests more efficiently
+If you just want to start the e2e tests without running all services just use:
+`docker compose run --rm cypress cypress run --browser firefox --headless --env inspirehep_url=http://host.docker.internal:8080`
 
 You may not always need to run tests exactly like on the CI environment.
 
-- To run specific suite, just change `test` script in `e2e/package.json` temporarily to `cypress run --spec cypress/integration/<spec.test.js>`
+- To run specific suite, just add `--spec cypress/e2e/<spec.test.js>` to the docker compose run command. E.g `docker compose run --rm cypress cypress run --browser firefox --headless --env inspirehep_url=http://host.docker.internal:8080 --spec cypress/e2e/jobs.test.js`
 
 ## How to import records
 
