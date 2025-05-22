@@ -1,5 +1,6 @@
 import contextlib
-from unittest.mock import patch
+import json
+from unittest.mock import MagicMock, patch
 import uuid
 
 import dateutil
@@ -26,6 +27,7 @@ from django.test import TransactionTestCase
 from django.urls import reverse
 from django_opensearch_dsl.registries import registry
 from parameterized import parameterized
+from requests.exceptions import RequestException
 from rest_framework import status
 from rest_framework.test import APIClient
 
@@ -368,6 +370,30 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(response.json()["data"], data["data"])
         self.assertEqual(response.json()["workflow_type"], data["workflow_type"])
         self.assertIn("id", response.json())
+
+    @pytest.mark.vcr
+    @patch("backoffice.authors.airflow_utils.trigger_airflow_dag")
+    def test_create_returns_503_if_airflow_fails(self, mock_trigger_airflow_dag):
+        self.api_client.force_authenticate(user=self.curator)
+        mock_response = MagicMock()
+        mock_response.status_code = 503
+        mock_response.text = "Service Unavailable"
+        mock_response.json.side_effect = json.JSONDecodeError("Expecting value", "", 0)
+        mock_trigger_airflow_dag.side_effect = RequestException(response=mock_response)
+        data = {
+            "workflow_type": WorkflowType.AUTHOR_CREATE,
+            "status": "running",
+            "data": {
+                "name": {"value": "John, Snow"},
+                "_collections": ["Authors"],
+                "$schema": "https://inspirehep.net/schemas/records/authors.json",
+            },
+        }
+        url = reverse("api:authors-list")
+        response = self.api_client.post(url, format="json", data=data)
+
+        assert response.status_code == 503
+        assert response.json() == {"error": "Error triggering Airflow DAG"}
 
     @pytest.mark.vcr
     def test_get_author(self):
