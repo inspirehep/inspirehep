@@ -45,3 +45,14 @@ class InspireHTTPRecordManagementHook(InspireHttpHook):
             json=data,
             endpoint=f"api/{pid_type}",
         )
+
+    def search_records(self, pid_type: str, query_params: dict) -> Response:
+        search_headers = {**self.headers, "Accept": "application/json"}
+        response = self.run_with_advanced_retry(
+            _retry_args=self.tenacity_retry_kwargs,
+            method="GET",
+            headers=search_headers,
+            endpoint=f"/api/{pid_type}",
+            params=query_params,
+        )
+        return response.json()

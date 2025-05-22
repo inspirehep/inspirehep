@@ -1,0 +1,60 @@
+interactions:
+- request:
+    body: '{"$schema": "https://inspirehep.net/schemas/records/hep.json", "_collections":
+      ["Literature"], "control_number": 1674998, "core": false, "document_type": ["article"],
+      "dois": [{"source": "submitter", "value": "10.1093/mnras/stx1357"}, {"value":
+      "10.1093/mnras/stx1357"}], "external_system_identifiers": [{"schema": "CDS",
+      "value": "8888888"}], "self": {"$ref": "http://localhost:8000/api/literature/1674998"},
+      "titles": [{"source": "submitter", "title": "The Hi-GAL compact source catalogue
+      \u2013 I. The physical properties of the clumps in the inner Galaxy (\u221271\u00b00
+      < \u2113 < 67\u00b00)"}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '601'
+      Content-Type:
+      - application/json
+      If-Match:
+      - '"0"'
+    method: PUT
+    uri: http://host.docker.internal:8080/api/literature/1674998
+  response:
+    body:
+      string: "{\"links\":{\"bibtex\":\"http://localhost:8000/api/literature/1674998?format=bibtex\",\"latex-eu\":\"http://localhost:8000/api/literature/1674998?format=latex-eu\",\"latex-us\":\"http://localhost:8000/api/literature/1674998?format=latex-us\",\"json\":\"http://localhost:8000/api/literature/1674998?format=json\",\"cv\":\"http://localhost:8000/api/literature/1674998?format=cv\",\"citations\":\"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A1674998\"},\"metadata\":{\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"_collections\":[\"Literature\"],\"control_number\":1674998,\"core\":false,\"document_type\":[\"article\"],\"dois\":[{\"source\":\"submitter\",\"value\":\"10.1093/mnras/stx1357\"},{\"value\":\"10.1093/mnras/stx1357\"}],\"external_system_identifiers\":[{\"schema\":\"CDS\",\"value\":\"8888888\"}],\"self\":{\"$ref\":\"http://localhost:8000/api/literature/1674998\"},\"titles\":[{\"source\":\"submitter\",\"title\":\"The
+        Hi-GAL compact source catalogue \u2013 I. The physical properties of the clumps
+        in the inner Galaxy (\u221271\xB00 < \u2113 < 67\xB00)\"}]},\"updated\":\"2025-05-26T12:19:27.630159+00:00\",\"uuid\":\"fee1ada5-635e-4534-be94-613dcb7724bf\",\"id\":\"1674998\",\"revision_id\":1,\"created\":\"2025-05-26T11:10:30.733940+00:00\"}"
+    headers:
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1172'
+      Content-Type:
+      - application/vnd+inspire.record.raw+json
+      Date:
+      - Mon, 26 May 2025 12:19:27 GMT
+      ETag:
+      - W/"1"
+      Last-Modified:
+      - Mon, 26 May 2025 12:19:27 GMT
+      Link:
+      - <bibtex>; rel="http://localhost:8000/api/literature/1674998?format=bibtex",
+        <latex-eu>; rel="http://localhost:8000/api/literature/1674998?format=latex-eu",
+        <latex-us>; rel="http://localhost:8000/api/literature/1674998?format=latex-us",
+        <json>; rel="http://localhost:8000/api/literature/1674998?format=json", <cv>;
+        rel="http://localhost:8000/api/literature/1674998?format=cv", <citations>;
+        rel="http://localhost:8000/api/literature/?q=refersto%3Arecid%3A1674998"
+      Server:
+      - nginx/1.19.1
+      Vary:
+      - Accept,Accept-Encoding,Accept-Language
+    status:
+      code: 200
+      message: OK
+version: 1

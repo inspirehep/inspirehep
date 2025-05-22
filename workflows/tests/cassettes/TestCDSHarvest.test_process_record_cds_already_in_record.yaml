@@ -1,0 +1,82 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8080/api/literature?q=arxiv%3A1706.01046+OR+control_number%3A1674999+OR+dois.value%3A10.1093%2Fmnras%2Fstx1358&fields=control_number
+  response:
+    body:
+      string: '{"hits":{"hits":[{"created":"2025-05-27T09:46:50.582500+00:00","id":"1674999","metadata":{"control_number":1674999},"updated":"2025-05-27T09:46:50.582502+00:00","links":{"bibtex":"http://localhost:8000/api/literature/1674999?format=bibtex","latex-eu":"http://localhost:8000/api/literature/1674999?format=latex-eu","latex-us":"http://localhost:8000/api/literature/1674999?format=latex-us","json":"http://localhost:8000/api/literature/1674999?format=json","cv":"http://localhost:8000/api/literature/1674999?format=cv","citations":"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A1674999"}}],"total":1},"links":{"self":"http://localhost:8000/api/literature/?q=arxiv%3A1706.01046+OR+control_number%3A1674999+OR+dois.value%3A10.1093%2Fmnras%2Fstx1358&size=10&page=1&fields=control_number","bibtex":"http://localhost:8000/api/literature/?q=arxiv%3A1706.01046+OR+control_number%3A1674999+OR+dois.value%3A10.1093%2Fmnras%2Fstx1358&size=10&page=1&format=bibtex","latex-eu":"http://localhost:8000/api/literature/?q=arxiv%3A1706.01046+OR+control_number%3A1674999+OR+dois.value%3A10.1093%2Fmnras%2Fstx1358&size=10&page=1&format=latex-eu","latex-us":"http://localhost:8000/api/literature/?q=arxiv%3A1706.01046+OR+control_number%3A1674999+OR+dois.value%3A10.1093%2Fmnras%2Fstx1358&size=10&page=1&format=latex-us","json":"http://localhost:8000/api/literature/?q=arxiv%3A1706.01046+OR+control_number%3A1674999+OR+dois.value%3A10.1093%2Fmnras%2Fstx1358&size=10&page=1&fields=control_number&format=json","cv":"http://localhost:8000/api/literature/?q=arxiv%3A1706.01046+OR+control_number%3A1674999+OR+dois.value%3A10.1093%2Fmnras%2Fstx1358&size=10&page=1&format=cv"}}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1659'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 27 May 2025 09:57:03 GMT
+      Link:
+      - <self>; rel="http://localhost:8000/api/literature/?q=arxiv%3A1706.01046+OR+control_number%3A1674999+OR+dois.value%3A10.1093%2Fmnras%2Fstx1358&size=10&page=1&fields=control_number",
+        <bibtex>; rel="http://localhost:8000/api/literature/?q=arxiv%3A1706.01046+OR+control_number%3A1674999+OR+dois.value%3A10.1093%2Fmnras%2Fstx1358&size=10&page=1&format=bibtex",
+        <latex-eu>; rel="http://localhost:8000/api/literature/?q=arxiv%3A1706.01046+OR+control_number%3A1674999+OR+dois.value%3A10.1093%2Fmnras%2Fstx1358&size=10&page=1&format=latex-eu",
+        <latex-us>; rel="http://localhost:8000/api/literature/?q=arxiv%3A1706.01046+OR+control_number%3A1674999+OR+dois.value%3A10.1093%2Fmnras%2Fstx1358&size=10&page=1&format=latex-us",
+        <json>; rel="http://localhost:8000/api/literature/?q=arxiv%3A1706.01046+OR+control_number%3A1674999+OR+dois.value%3A10.1093%2Fmnras%2Fstx1358&size=10&page=1&fields=control_number&format=json",
+        <cv>; rel="http://localhost:8000/api/literature/?q=arxiv%3A1706.01046+OR+control_number%3A1674999+OR+dois.value%3A10.1093%2Fmnras%2Fstx1358&size=10&page=1&format=cv"
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8080/api/literature/1674999
+  response:
+    body:
+      string: "{\"created\":\"2025-05-27T09:46:50.582500+00:00\",\"id\":\"1674999\",\"uuid\":\"09b85a33-eba5-493b-905e-6237a8d7d1b8\",\"revision_id\":0,\"metadata\":{\"core\":false,\"dois\":[{\"value\":\"10.1093/mnras/stx1358\",\"source\":\"submitter\"},{\"value\":\"10.1093/mnras/stx1358\"}],\"self\":{\"$ref\":\"http://localhost:8000/api/literature/1674999\"},\"titles\":[{\"title\":\"The
+        Hi-GAL compact source catalogue \u2013 I. The physical properties of the clumps
+        in the inner Galaxy (\u221271\xB00 < \u2113 < 67\xB00)\",\"source\":\"submitter\"}],\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"_collections\":[\"Literature\"],\"document_type\":[\"article\"],\"control_number\":1674999,\"external_system_identifiers\":[{\"value\":\"2635152\",\"schema\":\"CDS\"}]},\"updated\":\"2025-05-27T09:46:50.582502+00:00\",\"links\":{\"bibtex\":\"http://localhost:8000/api/literature/1674999?format=bibtex\",\"latex-eu\":\"http://localhost:8000/api/literature/1674999?format=latex-eu\",\"latex-us\":\"http://localhost:8000/api/literature/1674999?format=latex-us\",\"json\":\"http://localhost:8000/api/literature/1674999?format=json\",\"cv\":\"http://localhost:8000/api/literature/1674999?format=cv\",\"citations\":\"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A1674999\"}}"
+    headers:
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1172'
+      Content-Type:
+      - application/vnd+inspire.record.raw+json
+      Date:
+      - Tue, 27 May 2025 09:57:03 GMT
+      ETag:
+      - W/"0"
+      Last-Modified:
+      - Tue, 27 May 2025 09:46:50 GMT
+      Link:
+      - <bibtex>; rel="http://localhost:8000/api/literature/1674999?format=bibtex",
+        <latex-eu>; rel="http://localhost:8000/api/literature/1674999?format=latex-eu",
+        <latex-us>; rel="http://localhost:8000/api/literature/1674999?format=latex-us",
+        <json>; rel="http://localhost:8000/api/literature/1674999?format=json", <cv>;
+        rel="http://localhost:8000/api/literature/1674999?format=cv", <citations>;
+        rel="http://localhost:8000/api/literature/?q=refersto%3Arecid%3A1674999"
+      Server:
+      - nginx/1.19.1
+      Vary:
+      - Accept,Accept-Encoding,Accept-Language
+    status:
+      code: 200
+      message: OK
+version: 1
