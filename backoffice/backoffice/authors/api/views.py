@@ -121,15 +121,13 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
         try:
             airflow_utils.delete_workflow_dag_runs(instance.id, instance.workflow_type)
         except RequestException as e:
-            logger.error(
-                "Error deleting Airflow DAGs for workflow %s: %s",
+            return utils.handle_request_exception(
+                "Error deleting Airflow DAGs for workflow %s",
+                e,
                 instance.id,
-                e.response.json(),
+                response_text="Error deleting Airflow DAGs for workflow %s",
             )
-            return Response(
-                {"error": "Error deleting Airflow DAGs: %s" % e.response.json()},
-                status=e.response.status_code,
-            )
+
         super().perform_destroy(instance)
 
     @extend_schema(
@@ -156,12 +154,10 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
                 workflow=serializer.data,
             )
         except RequestException as e:
-            logger.error("Error triggering Airflow DAG: %s", e.response.json())
-            return Response(
-                {"error": "Error triggering Airflow DAG: %s" % e.response.json()},
-                status=e.response.status_code,
+            return utils.handle_request_exception(
+                "Error triggering Airflow DAG",
+                e,
             )
-
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @extend_schema(
@@ -213,10 +209,9 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
                     workflow=workflow,
                 )
             except RequestException as e:
-                logger.error("Error triggering Airflow DAG: %s", e.response.json())
-                return Response(
-                    {"error": "Error triggering Airflow DAG: %s" % e.response.json()},
-                    status=e.response.status_code,
+                return utils.handle_request_exception(
+                    "Error triggering Airflow DAG",
+                    e,
                 )
 
             workflow = get_object_or_404(AuthorWorkflow, pk=pk)
@@ -272,14 +267,11 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
                     status=status.HTTP_400_BAD_REQUEST,
                 )
         except RequestException as e:
-            logger.error(
-                "Error restarting Airflow DAGs for workflow %s: %s",
+            return utils.handle_request_exception(
+                "Error restarting Airflow DAGs for workflow %s",
+                e,
                 workflow.id,
-                e.response.json(),
-            )
-            return Response(
-                {"error": "Error restarting Airflow DAGs: %s" % e.response.json()},
-                status=e.response.status_code,
+                response_text="Error restarting Airflow DAGs for workflow %s",
             )
 
         workflow.status = StatusChoices.PROCESSING
