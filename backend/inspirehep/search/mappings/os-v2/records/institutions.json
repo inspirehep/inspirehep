@@ -149,7 +149,8 @@
         "type": "keyword"
       },
       "legacy_ICN": {
-        "type": "keyword"
+        "type": "keyword",
+        "copy_to": "_all"
       },
       "legacy_creation_date": {
         "format": "yyyy-MM-dd||yyyy-MM||yyyy",

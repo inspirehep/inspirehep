@@ -1709,6 +1709,7 @@ def test_institution_search_in_all_field(inspire_app):
         "ins",
         data={
             "ICN": ["CERN"],
+            "legacy_ICN": "OAW, Vienna",
             "extra_words": ["cern is awesome"],
             "historical_data": ["cern is best place to work"],
             "public_notes": [{"value": "drilling in the office is great"}],
@@ -1717,7 +1718,7 @@ def test_institution_search_in_all_field(inspire_app):
         },
     )
 
-    queries = ["awesome", "best place", "drilling", "cern.ch", "meyrin", "0000"]
+    queries = ["awesome", "best place", "drilling", "cern.ch", "meyrin", "0000", "oaw"]
     for query in queries:
         result = InstitutionsSearch().query_from_iq(query).execute()
         assert result.hits[0]["control_number"] == record["control_number"]
