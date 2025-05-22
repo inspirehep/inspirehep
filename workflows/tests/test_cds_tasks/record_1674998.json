@@ -1,0 +1,44 @@
+{
+  "created": "2025-05-26T11:10:30.733940+00:00",
+  "id": "1674998",
+  "links": {
+    "bibtex": "http://localhost:8000/api/literature/1674998?format=bibtex",
+    "citations": "http://localhost:8000/api/literature/?q=refersto%3Arecid%3A1674998",
+    "cv": "http://localhost:8000/api/literature/1674998?format=cv",
+    "json": "http://localhost:8000/api/literature/1674998?format=json",
+    "latex-eu": "http://localhost:8000/api/literature/1674998?format=latex-eu",
+    "latex-us": "http://localhost:8000/api/literature/1674998?format=latex-us"
+  },
+  "metadata": {
+    "$schema": "https://inspirehep.net/schemas/records/hep.json",
+    "_collections": [
+      "Literature"
+    ],
+    "control_number": 1674998,
+    "core": false,
+    "document_type": [
+      "article"
+    ],
+    "dois": [
+      {
+        "source": "submitter",
+        "value": "10.1093/mnras/stx1357"
+      },
+      {
+        "value": "10.1093/mnras/stx1357"
+      }
+    ],
+    "self": {
+      "$ref": "http://localhost:8000/api/literature/1674998"
+    },
+    "titles": [
+      {
+        "source": "submitter",
+        "title": "The Hi-GAL compact source catalogue – I. The physical properties of the clumps in the inner Galaxy (−71°0 < ℓ < 67°0)"
+      }
+    ]
+  },
+  "revision_id": 0,
+  "updated": "2025-05-26T11:10:30.733942+00:00",
+  "uuid": "fee1ada5-635e-4534-be94-613dcb7724bf"
+}

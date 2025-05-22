@@ -1,0 +1,29 @@
+{
+    "_collections": [
+        "Literature"
+    ],
+    "control_number": 1674997,
+    "core": false,
+    "dois": [
+      {
+        "value": "10.1093/mnras/stx1356",
+        "source": "submitter"
+      },
+      {
+        "value": "10.1093/mnras/stx1356"
+      }
+    ],
+    "self": {
+      "$ref": "https://inspirehep.net/api/literature/1674997"
+    },
+    "titles": [
+      {
+        "title": "The Hi-GAL compact source catalogue \u2013 I. The physical properties of the clumps in the inner Galaxy (\u221271\u00b00 < \u2113 < 67\u00b00)",
+        "source": "submitter"
+      }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/hep.json",
+    "document_type": [
+        "article"
+    ]
+  }

@@ -1,5 +1,4 @@
-import json
-
+import orjson
 import pytest
 from airflow.models import DagBag
 from airflow.utils.context import Context
@@ -54,14 +53,12 @@ class TestDataHarvest:
         assert res["base"]["record"]["version"] == 3
         assert all(value in res for value in [1, 2])
 
-    def test_build_record(self):
-        payload = {}
-        with open("tests/data_records/ins1906174_version1.json") as f:
-            payload["1"] = json.load(f)
-        with open("tests/data_records/ins1906174_version2.json") as f:
-            payload["2"] = json.load(f)
-        with open("tests/data_records/ins1906174_version3.json") as f:
-            payload["base"] = json.load(f)
+    def test_build_record(self, datadir):
+        payload = {
+            "1": orjson.loads((datadir / "ins1906174_version1.json").read_text()),
+            "2": orjson.loads((datadir / "ins1906174_version2.json").read_text()),
+            "base": orjson.loads((datadir / "ins1906174_version3.json").read_text()),
+        }
 
         task = self.dag.get_task("process_record.build_record")
         task.op_kwargs = {
@@ -118,11 +115,10 @@ class TestDataHarvest:
         # from last_updated_field of first version
         assert res["creation_date"] == "2021-09-06"
 
-    def test_creation_date_from_last_updated(self):
-        payload = {}
-        with open("tests/data_records/ins1906174_version3.json") as f:
-            payload["base"] = json.load(f)
-
+    def test_creation_date_from_last_updated(self, datadir):
+        payload = {
+            "base": orjson.loads((datadir / "ins1906174_version3.json").read_text())
+        }
         task = self.dag.get_task("process_record.build_record")
         task.op_kwargs = {
             "data_schema": "data_schema",
@@ -132,11 +128,10 @@ class TestDataHarvest:
         res = task.execute(context=Context())
         assert res["creation_date"] == "2023-11-13"  # from last_updated_field
 
-    def test_creation_date_fallback(self):
-        payload = {}
-        with open("tests/data_records/ins1906174_version4.json") as f:
-            payload["base"] = json.load(f)
-
+    def test_creation_date_fallback(self, datadir):
+        payload = {
+            "base": orjson.loads((datadir / "ins1906174_version4.json").read_text())
+        }
         task = self.dag.get_task("process_record.build_record")
         task.op_kwargs = {
             "data_schema": "data_schema",
