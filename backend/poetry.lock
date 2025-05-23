@@ -2159,15 +2159,15 @@ tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (
 
 [[package]]
 name = "inspire-json-merger"
-version = "11.0.40"
+version = "11.0.42"
 description = "INSPIRE-specific configuration of the JSON Merger."
 optional = false
 python-versions = "*"
 groups = ["main"]
 markers = "platform_machine == \"aarch64\" or platform_machine == \"ppc64le\" or platform_machine == \"x86_64\" or platform_machine == \"amd64\" or platform_machine == \"AMD64\" or platform_machine == \"win32\" or platform_machine == \"WIN32\" or platform_machine != \"aarch64\" and platform_machine != \"ppc64le\" and platform_machine != \"x86_64\" and platform_machine != \"amd64\" and platform_machine != \"AMD64\" and platform_machine != \"win32\" and platform_machine != \"WIN32\""
 files = [
-    {file = "inspire-json-merger-11.0.40.tar.gz", hash = "sha256:cdd6e59f8da796583344daafe5e4acd3f90c855a58d8c7108d4f1506280fe8f5"},
-    {file = "inspire_json_merger-11.0.40-py3-none-any.whl", hash = "sha256:26f8a18061d06d330198efaf751af7289078b9ae4752fb9edbcb8dbdea676cc3"},
+    {file = "inspire-json-merger-11.0.42.tar.gz", hash = "sha256:c2196d046db15202f2c7efb314b06a3cf0327a0e88a155e68d5178b6d15c50b2"},
+    {file = "inspire_json_merger-11.0.42-py3-none-any.whl", hash = "sha256:fa1db95d9293bdd3906ebe052d95a9a67e43fd8c4a6500f6deb4668fcf84e25d"},
 ]
 
 [package.dependencies]
@@ -7155,4 +7155,4 @@ typing-extensions = ">=4.5.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.12"
-content-hash = "a3539aa5c4fe91d00282e8ed86ba8f53aefc480e48a17680d33d157e1c2ec273"
+content-hash = "ba66716f6f5793051620c416bb789469c4b8ff026e75668fc1ba523cc08f597e"
