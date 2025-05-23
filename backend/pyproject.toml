@@ -23,7 +23,7 @@ msgpack = "==0.6.2"
 python = ">=3.11,<3.12"
 inspire-utils = ">=3.0.63"
 inspire-service-orcid = {git = "https://github.com/inspirehep/inspire-service-orcid.git", rev = "1a0e762e58bc9cac65f7665b9831993c017fd8bb"}
-inspire-json-merger = "^11.0.40"
+inspire-json-merger = "^11.0.42"
 
 invenio-access= {git = "https://github.com/inspirehep/invenio-access.git", rev = "1.4.3"}
 invenio-accounts = {git = "https://github.com/inspirehep/invenio-accounts.git", branch = "rest-api"}
