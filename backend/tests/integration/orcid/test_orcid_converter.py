@@ -319,14 +319,17 @@ def test_format_book(inspire_app, datadir):
             <common:external-id>
                 <common:external-id-type>isbn</common:external-id-type>
                 <common:external-id-value>9780521187961</common:external-id-value>
+                <common:external-id-relationship>self</common:external-id-relationship>
             </common:external-id>
             <common:external-id>
                 <common:external-id-type>isbn</common:external-id-type>
                 <common:external-id-value>9780521845076</common:external-id-value>
+                <common:external-id-relationship>self</common:external-id-relationship>
             </common:external-id>
             <common:external-id>
                 <common:external-id-type>isbn</common:external-id-type>
                 <common:external-id-value>9780511242960</common:external-id-value>
+                <common:external-id-relationship>self</common:external-id-relationship>
             </common:external-id>
         </common:external-ids>
         <work:url>http://inspirehep.net/record/{record_control_number}</work:url>
@@ -583,3 +586,24 @@ def test_strip_xml_from_title_with_special_characters(inspire_app, datadir):
 
     expected_title = "Hubble tension between z < 5 and z > 9"
     assert expected_title == result_title
+
+
+def test_isbn_with_relationship(inspire_app, datadir):
+    data = orjson.loads(
+        (datadir / "test_orcid_converter_TestBibtexCitation.json").read_text()
+    )
+    data["isbns"] = [{"value": "9789151311128"}]
+    record = create_record("lit", data=data)
+    converter = OrcidConverter(
+        record=record, url_pattern="http://inspirehep.net/record/{recid}"
+    )
+    xml_root = converter.get_xml()
+
+    relationship = xml_root.find(
+        ".//common:external-id[common:external-id-type='isbn']/common:external-id-relationship",
+        {
+            "work": "http://www.orcid.org/ns/work",
+            "common": "http://www.orcid.org/ns/common",
+        },
+    )
+    assert relationship is not None

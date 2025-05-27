@@ -126,7 +126,7 @@ class OrcidConverter:
             )
 
         for isbn in get_value(self.record, "isbns.value", []):
-            builder.add_external_id("isbn", isbn)
+            builder.add_external_id("isbn", isbn, relationship="self")
             self._external_identifiers.append(ExternalIdentifier("isbn", isbn))
 
         # Add URL pointing to INSPIRE to ORCID
