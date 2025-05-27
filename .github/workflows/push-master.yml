@@ -26,3 +26,6 @@ jobs:
     needs: lint
     uses: ./.github/workflows/push-master-inspirehep.yml
     secrets: inherit
+  renderer:
+    uses: ./.github/workflows/push-master-renderer.yml
+    secrets: inherit

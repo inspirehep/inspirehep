@@ -1,0 +1,31 @@
+name: Push master (renderer)
+
+on:
+  workflow_call:
+
+
+jobs:
+  build-dockerfile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+        
+
+      - name: Build and push
+        uses: cern-sis/gh-workflows/.github/actions/docker-build@v6.5
+        with:
+          image: cern-sis/inspire/renderer
+          context: ./renderer
+          dockerfile: ./renderer/Dockerfile
+          registry: registry.cern.ch
+          cache: false
+          push: true
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=ref,event=tag
+          username: ${{ secrets.HARBOR_USERNAME }}
+          password: ${{ secrets.HARBOR_PASSWORD }}

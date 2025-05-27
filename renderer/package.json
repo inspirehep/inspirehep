@@ -1,0 +1,20 @@
+{
+  "name": "renderer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.817.0",
+    "cache-manager": "^6.4.3",
+    "express": "^5.1.0",
+    "keyv-s3": "^2.0.4",
+    "puppeteer": "^24.9.0"
+  }
+}

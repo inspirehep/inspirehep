@@ -1,0 +1,28 @@
+name: Pull request master (renderer)
+
+on:
+  pull_request_target:
+    branches: [master]
+    paths:
+      - 'renderer/**'
+
+jobs:
+  build-dockerfile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./renderer
+          file: ./renderer/Dockerfile
+          push: false
