@@ -2,7 +2,7 @@ name: Push development
 
 on:
   push:
-    branches: 'action-development-*'
+    branches: ['action-development-*']
 
 defaults:
   run:
