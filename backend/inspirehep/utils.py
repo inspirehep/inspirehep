@@ -22,6 +22,8 @@ from werkzeug.utils import import_string
 
 LOGGER = structlog.getLogger()
 
+MAX_CHARACTERS_IN_ZULIP_MESSAGE = 200
+
 
 def send_zulip_notification(message: str):
     zulip_api_key = os.environ.get("ZULIP_NOTIFICATION_API_KEY")
@@ -48,12 +50,23 @@ def send_zulip_notification(message: str):
         LOGGER.error("Failed to send Zulip message", message=result)
 
 
+def make_error_message(exception):
+    """
+    If the exception text is longer than `threshold` chars, wrap it
+    in a spoiler block; otherwise just return it.
+    """
+    if len(exception) > MAX_CHARACTERS_IN_ZULIP_MESSAGE:
+        return f"```spoiler Error Message\n\n{exception}\n\n```\n\n"
+    return f"**Error message**: {exception}\n\n"
+
+
 def format_failure_message_for_multiple(task_name, exception, affected_records):
     """Return a formatted failure message based on the number of affected records."""
     affected_records_list = "\n".join(f"- {record}" for record in affected_records)
+    error_message_section = make_error_message(exception)
     return (
         f"**Task name**: `{task_name}`\n\n"
-        f"**Error message**: {exception} \n\n"
+        f"{error_message_section}"
         f"**Affected record(s)**:\n {affected_records_list}"
     )
 
@@ -62,9 +75,10 @@ def format_failure_message_for_single(
     task_name, exception, affected_record, affected_orcid=None
 ):
     """Return a formatted failure message based on the affected record."""
+    error_message_section = make_error_message(exception)
     failure_message = (
         f"**Task name**: `{task_name}`\n\n"
-        f"**Error message**: {exception} \n\n"
+        f"{error_message_section}"
         f"**Affected record**: {affected_record}"
     )
     if affected_orcid:
@@ -74,7 +88,8 @@ def format_failure_message_for_single(
 
 
 def format_failure_message_for_no_records(task_name, exception):
-    return f"**Task name**: `{task_name}`\n\n" f"**Error message**: {exception}"
+    error_message_section = make_error_message(exception)
+    return f"**Task name**: `{task_name}`\n\n" f"{error_message_section}"
 
 
 def get_failure_message_for_batch_index(task_name, exception, **kwargs):
