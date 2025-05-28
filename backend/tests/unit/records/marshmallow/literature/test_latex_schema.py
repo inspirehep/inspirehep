@@ -265,8 +265,8 @@ def test_schema_replaces_underscore_in_doi():
     }
 
     expected = [
-        {"value": "10.1142/9789811219313\\_0086"},
-        {"source": "Springer", "value": "10.1007/978-981-15-6292-1\\_4"},
+        {"value": "10.1142/9789811219313{\\_}0086"},
+        {"source": "Springer", "value": "10.1007/978-981-15-6292-1{\\_}4"},
     ]
     result = orjson.loads(schema.dumps(record).data)
 

@@ -71,7 +71,7 @@ def latex_encode(text, contains_math=False):
     ]
 
     encode = UnicodeToLatexEncoder(
-        replacement_latex_protection="braces-after-macro",
+        replacement_latex_protection="braces-almost-all",
         conversion_rules=conversion_rules,
     ).unicode_to_latex
 
