@@ -71,7 +71,7 @@ def latex_encode(text, contains_math=False):
     ]
 
     encode = UnicodeToLatexEncoder(
-        replacement_latex_protection="braces-after-macro",
+        replacement_latex_protection="braces-almost-all",
         conversion_rules=conversion_rules,
     ).unicode_to_latex
 
@@ -84,6 +84,18 @@ def latex_encode(text, contains_math=False):
     )
 
     return encoded_text
+
+
+def custom_replacement_latex_protection(repl):
+    k = repl.rfind("\\")
+    if k >= 0:
+        # macro
+        if repl[k + 1 :].isalpha():
+            return repl + "{}"
+        # character
+        else:
+            return "{" + repl + "}"
+    return repl
 
 
 def get_authors_without_emails(data):
