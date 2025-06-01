@@ -3,6 +3,6 @@ coverage
 pytest-cov
 pytest-vcr==1.0.2
 vcrpy==6.0.1
-freezegun==1.5.1
+freezegun==1.5.2
 pytest-datadir
 orjson>=3.4.6,<4.0.0
