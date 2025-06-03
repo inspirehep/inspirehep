@@ -59,7 +59,7 @@ describe('Literature and Conferences', () => {
 
 describe('Assign Conference', () => {
   onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
+    it('matches image snapshot', () => {
       cy.login('admin');
       cy.registerRoute();
       cy.visit('/literature');

@@ -2,7 +2,7 @@ import { onlyOn } from '@cypress/skip-test';
 
 describe('Home Page', () => {
   onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
+    it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/');
       cy.waitForRoute();

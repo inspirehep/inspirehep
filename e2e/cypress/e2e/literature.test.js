@@ -2,7 +2,7 @@ import { onlyOn } from '@cypress/skip-test';
 
 describe('Literature Search', () => {
   onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
+    it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/literature?ui-citation-summary=true');
       cy.waitForRoute();
@@ -10,7 +10,7 @@ describe('Literature Search', () => {
       cy.matchSnapshots('LiteratureSearch');
     });
 
-    it.skip('matches image snapshot for cataloger', () => {
+    it('matches image snapshot for cataloger', () => {
       cy.login('cataloger');
       cy.registerRoute();
       cy.visit('/literature?ui-citation-summary=true');
@@ -34,7 +34,7 @@ describe('Literature Search', () => {
 
 describe('Literature Detail', () => {
   onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
+    it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/literature/1235543');
       cy.waitForRoute();
@@ -49,25 +49,25 @@ describe('Literature Submission', () => {
   });
 
   onlyOn('headless', () => {
-    it.skip('matches image snapshot for article form', () => {
+    it('matches image snapshot for article form', () => {
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('article');
       cy.matchSnapshots('ArticleSubmission', { skipMobile: true });
     });
 
-    it.skip('matches image snapshot for thesis form', () => {
+    it('matches image snapshot for thesis form', () => {
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('thesis');
       cy.matchSnapshots('ThesisSubmission', { skipMobile: true });
     });
 
-    it.skip('matches image snapshot for book form', () => {
+    it('matches image snapshot for book form', () => {
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('book');
       cy.matchSnapshots('BookSubmission', { skipMobile: true });
     });
 
-    it.skip('matches image snapshot for book chapter form', () => {
+    it('matches image snapshot for book chapter form', () => {
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('bookChapter');
       cy.matchSnapshots('BookChapterSubmission', { skipMobile: true });
