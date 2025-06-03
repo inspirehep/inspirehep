@@ -26,6 +26,7 @@ async function getBrowser() {
     browser = await puppeteer.launch({
       headless: true,
       ignoreHTTPSErrors: true,
+      args:['--no-sandbox --disable-gpu']
     });
   }
   return browser;
