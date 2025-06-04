@@ -133,7 +133,7 @@ jobs:
         with:
           path: test_durations
           key: ${{ env.CACHE_PREFIX }}-combined-${{ inputs.ref }}
-          restore-keys: ${{ env.CACHE_PREFIX }}--combined
+          restore-keys: ${{ env.CACHE_PREFIX }}-combined
 
       - name: Download artifacts
         uses: actions/download-artifact@v4
