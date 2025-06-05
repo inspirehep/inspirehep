@@ -1,7 +1,6 @@
-import { mount } from 'enzyme';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { Range } from 'immutable';
-import { List, Pagination } from 'antd';
+import { List } from 'antd';
 
 import ListWithPagination from '../ListWithPagination';
 
@@ -61,7 +60,7 @@ describe('ListWithPagination', () => {
     const pageItems = Range(1, 25).toList();
     const onPageChange = jest.fn();
     const onSizeChange = jest.fn();
-    const wrapper = mount(
+    const screen = render(
       <ListWithPagination
         pageItems={pageItems}
         pageSize={25}
@@ -72,10 +71,10 @@ describe('ListWithPagination', () => {
         renderItem={(item) => <List.Item key={item}>{item}</List.Item>}
       />
     );
-    expect(wrapper.find(Pagination)).toHaveProp({
-      onChange: onPageChange,
-      onShowSizeChange: onSizeChange,
-    });
+
+    fireEvent.click(screen.getByTitle('Next Page'));
+
+    expect(onPageChange).toHaveBeenCalled();
   });
 
   describe('getPaginationRangeInfo', () => {

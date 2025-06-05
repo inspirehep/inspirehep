@@ -7,6 +7,7 @@ import CarouselModal from '../CarouselModal';
 import LinkWithTargetBlank from '../LinkWithTargetBlank';
 import { BLOG_URL } from '../../constants';
 import { GUIDE_STEPS_MOBILE, GUIDE_STEPS_DESKTOP } from './steps';
+import guideStep10Mobile from './steps/guide-step-10-mobile.png';
 
 const IMAGE_LOADER = (
   <Spin style={{ margin: 'auto', display: 'block', padding: '2rem 0' }} />

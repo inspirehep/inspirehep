@@ -1,45 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ActionsDropdownOrAction renders with multiple values 1`] = `
-<UserActionWrapper>
-  <DropdownMenu
-    disabled={false}
-    items={
-      Immutable.List [
-        <MenuItem>
-          <LinkWithTargetBlank
-            as="a"
-            href="dude.com/1"
-          >
-            dude.com/1
-          </LinkWithTargetBlank>
-        </MenuItem>,
-        <MenuItem>
-          <LinkWithTargetBlank
-            as="a"
-            href="dude.com/2"
-          >
-            dude.com/2
-          </LinkWithTargetBlank>
-        </MenuItem>,
-      ]
-    }
-    title={
-      <Button>
+<DocumentFragment>
+  <span
+    class="__UserAction__"
+  >
+    <button
+      class="ant-btn ant-btn-default ant-dropdown-trigger"
+      type="button"
+    >
+      <span>
         Dude URL
-      </Button>
-    }
-  />
-</UserActionWrapper>
+      </span>
+    </button>
+  </span>
+</DocumentFragment>
 `;
 
 exports[`ActionsDropdownOrAction renders with single value 1`] = `
-<UserActionWrapper>
-  <LinkWithTargetBlank
-    as="a"
-    href="dude.com/1"
+<DocumentFragment>
+  <span
+    class="__UserAction__"
   >
-    Dude URL
-  </LinkWithTargetBlank>
-</UserActionWrapper>
+    <a
+      href="dude.com/1"
+      target="_blank"
+    >
+      Dude URL
+    </a>
+  </span>
+</DocumentFragment>
 `;

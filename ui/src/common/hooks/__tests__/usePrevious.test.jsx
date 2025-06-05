@@ -1,5 +1,6 @@
 import { act } from 'react-dom/test-utils';
 import { render } from '@testing-library/react';
+
 import usePrevious from '../usePrevious';
 
 // eslint-disable-next-line react/prop-types

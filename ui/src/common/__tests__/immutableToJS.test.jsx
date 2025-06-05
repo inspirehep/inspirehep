@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import {
@@ -22,14 +22,14 @@ describe('immutableToJS', () => {
       const mutableProp = {
         array: [{ foo: 'bar' }],
       };
-      const wrapper = shallow(
+      const { asFragment } = render(
         <ImmutableDummy
           immutableProp={immutableProp}
           mutableProp={mutableProp}
           primitiveProp={primitiveProp}
         />
       );
-      expect(wrapper).toMatchSnapshot();
+      expect(asFragment()).toMatchSnapshot();
     });
   });
 
@@ -49,7 +49,7 @@ describe('immutableToJS', () => {
       const mutableProp = {
         array: [{ foo: 'bar' }],
       };
-      const wrapper = shallow(
+      const { asFragment } = render(
         <ImmutableDummy
           immutableProp1={immutableProp1}
           immutableProp2={immutableProp2}
@@ -57,7 +57,7 @@ describe('immutableToJS', () => {
           primitiveProp={primitiveProp}
         />
       );
-      expect(wrapper).toMatchSnapshot();
+      expect(asFragment()).toMatchSnapshot();
     });
   });
 });

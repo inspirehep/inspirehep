@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 import { Menu } from 'antd';
 
@@ -9,7 +9,7 @@ import LinkWithTargetBlank from '../LinkWithTargetBlank';
 describe('ActionsDropdownOrAction', () => {
   it('renders with multiple values', () => {
     const urls = fromJS(['dude.com/1', 'dude.com/2']);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <ActionsDropdownOrAction
         values={urls}
         renderAction={(url, title) => (
@@ -23,12 +23,12 @@ describe('ActionsDropdownOrAction', () => {
         title="Dude URL"
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with single value', () => {
     const urls = fromJS(['dude.com/1']);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <ActionsDropdownOrAction
         values={urls}
         renderAction={(url, title) => (
@@ -42,6 +42,6 @@ describe('ActionsDropdownOrAction', () => {
         title="Dude URL"
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

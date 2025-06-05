@@ -1,11 +1,9 @@
-import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
-import { render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 
 import { getStore } from '../../../fixtures/store';
 import SearchBoxNamespaceSelectContainer from '../SearchBoxNamespaceSelectContainer';
-import SearchBoxNamespaceSelect from '../../components/SearchBoxNamespaceSelect';
 import { CHANGE_SEARCH_BOX_NAMESPACE } from '../../../actions/actionTypes';
 import { AUTHORS_NS } from '../../../search/constants';
 
@@ -29,21 +27,27 @@ describe('SearchBoxNamespaceSelectContainer', () => {
   it('dispatches CHANGE_SEARCH_BOX_NAMESPACE on change', async () => {
     const searchBoxNamespace = AUTHORS_NS;
     const store = getStore();
-    const wrapper = mount(
+
+    const screen = render(
       <Provider store={store}>
         <SearchBoxNamespaceSelectContainer />
       </Provider>
     );
-    const onSearchScopeChange = wrapper
-      .find(SearchBoxNamespaceSelect)
-      .prop('onSearchScopeChange');
-    onSearchScopeChange(searchBoxNamespace);
+
+    const select = document.querySelector('.ant-select-selector');
+    const clickEvent = document.createEvent('MouseEvents');
+    clickEvent.initEvent('mousedown', true, true);
+    select.dispatchEvent(clickEvent);
+
+    fireEvent.click(screen.getAllByText('authors')[1]);
+
     const expectedActions = [
       {
         type: CHANGE_SEARCH_BOX_NAMESPACE,
         payload: { searchBoxNamespace },
       },
     ];
-    expect(store.getActions()).toEqual(expectedActions);
+
+    await waitFor(() => expect(store.getActions()).toEqual(expectedActions));
   });
 });

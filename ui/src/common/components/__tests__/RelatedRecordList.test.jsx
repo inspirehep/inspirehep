@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 import { MemoryRouter } from 'react-router-dom';
+
 import RelatedRecordsList from '../RelatedRecordsList';
 import { INSTITUTIONS_PID_TYPE, EXPERIMENTS_PID_TYPE } from '../../constants';
 

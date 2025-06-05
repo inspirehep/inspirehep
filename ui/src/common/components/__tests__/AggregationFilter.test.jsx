@@ -1,6 +1,6 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import AggregationFilter from '../AggregationFilter';
 import RangeAggregation from '../RangeAggregation';
@@ -31,7 +31,7 @@ describe('AggregationFilter', () => {
       },
     ]);
 
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AggregationFilter
         onChange={jest.fn()}
         buckets={buckets}
@@ -41,7 +41,7 @@ describe('AggregationFilter', () => {
         aggregationType="range"
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
     RangeAggregation.defaultProps.maximumMax = realMaximumMaxDefaultValue;
   });
 
@@ -56,7 +56,7 @@ describe('AggregationFilter', () => {
         doc_count: 2,
       },
     ]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AggregationFilter
         onChange={jest.fn()}
         buckets={buckets}
@@ -65,7 +65,7 @@ describe('AggregationFilter', () => {
         aggregationType="checkbox"
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders MultiSelectAggregation if aggregation type is multiselect', () => {
@@ -79,7 +79,7 @@ describe('AggregationFilter', () => {
         doc_count: 2,
       },
     ]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AggregationFilter
         onChange={jest.fn()}
         buckets={buckets}
@@ -88,7 +88,7 @@ describe('AggregationFilter', () => {
         name="Test"
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders TreeAggregation if aggregation type is tree', () => {
@@ -102,7 +102,7 @@ describe('AggregationFilter', () => {
         doc_count: 2,
       },
     ]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AggregationFilter
         onChange={jest.fn()}
         buckets={buckets}
@@ -112,6 +112,6 @@ describe('AggregationFilter', () => {
         splitTreeBy="|"
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

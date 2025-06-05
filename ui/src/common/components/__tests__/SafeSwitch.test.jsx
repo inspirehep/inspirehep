@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import { Route, MemoryRouter } from 'react-router-dom';
+
 import SafeSwitch from '../SafeSwitch';
 
 describe('SafeSwitch', () => {
