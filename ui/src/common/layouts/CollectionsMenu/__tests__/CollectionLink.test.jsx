@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+
 import CollectionLink from '../CollectionLink';
 
 describe('CollectionLink', () => {

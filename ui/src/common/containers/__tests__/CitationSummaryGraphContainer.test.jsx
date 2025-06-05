@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 
@@ -20,6 +20,11 @@ jest.mock('../../../actions/citations');
 
 jest.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
+
+jest.mock('../../components/CitationSummaryGraph/CitationSummaryGraph', () => {
+  const MockCitationSummaryGraph = jest.fn(() => null);
+  return MockCitationSummaryGraph;
+});
 
 const mockCiteableData = [
   {
@@ -138,32 +143,43 @@ describe('CitationSummaryGraphContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
-    expect(wrapper.find(CitationSummaryGraph)).toHaveProp({
-      citeableData: mockCiteableData,
-      publishedData: mockPublishedData,
-      error: mockError,
-      loading: mockLoading,
-      selectedBar: null,
-      excludeSelfCitations: true,
-    });
+
+    expect(CitationSummaryGraph).toHaveBeenCalledWith(
+      expect.objectContaining({
+        citeableData: mockCiteableData,
+        publishedData: mockPublishedData,
+        error: mockError,
+        loading: mockLoading,
+        selectedBar: null,
+        excludeSelfCitations: true,
+      }),
+      expect.any(Object)
+    );
   });
 
   it('dispatches SEARCH_QUERY_UPDATE for author publication namespace with clean query when onSelectBarChange called with null', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore();
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
-    const onSelectBarChange = wrapper
-      .find(CitationSummaryGraph)
-      .prop('onSelectBarChange');
+
+    const lastCall =
+      CitationSummaryGraph.mock.calls[
+        CitationSummaryGraph.mock.calls.length - 1
+      ];
+    const props = lastCall[0];
+    const { onSelectBarChange } = props;
+
     onSelectBarChange(null);
 
     const query = {
@@ -181,18 +197,28 @@ describe('CitationSummaryGraphContainer', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const excludeSelfCitations = true;
     const store = getStore();
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
-    wrapper.find(CitationSummaryGraph).prop('onSelectBarChange')(
+
+    const lastCall =
+      CitationSummaryGraph.mock.calls[
+        CitationSummaryGraph.mock.calls.length - 1
+      ];
+    const props = lastCall[0];
+    const { onSelectBarChange } = props;
+
+    onSelectBarChange(
       {
         xValue: '0--0',
         type: CITEABLE_BAR_TYPE,
       },
       excludeSelfCitations
     );
+
     const query = {
       [CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM]: '0--0',
       citeable: true,
@@ -207,18 +233,28 @@ describe('CitationSummaryGraphContainer', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const excludeSelfCitations = false;
     const store = getStore();
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
-    wrapper.find(CitationSummaryGraph).prop('onSelectBarChange')(
+
+    const lastCall =
+      CitationSummaryGraph.mock.calls[
+        CitationSummaryGraph.mock.calls.length - 1
+      ];
+    const props = lastCall[0];
+    const { onSelectBarChange } = props;
+
+    onSelectBarChange(
       {
         xValue: '0--0',
         type: PUBLISHED_BAR_TYPE,
       },
       excludeSelfCitations
     );
+
     const query = {
       [CITATION_COUNT_PARAM]: '0--0',
       citeable: true,
@@ -241,17 +277,22 @@ describe('CitationSummaryGraphContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
-    expect(wrapper.find(CitationSummaryGraph)).toHaveProp({
-      selectedBar: {
-        type: 'citeable',
-        xValue: '500--250',
-      },
-    });
+
+    expect(CitationSummaryGraph).toHaveBeenCalledWith(
+      expect.objectContaining({
+        selectedBar: {
+          type: 'citeable',
+          xValue: '500--250',
+        },
+      }),
+      expect.any(Object)
+    );
   });
 
   it('sets selectedBar prop from author publications namespace state for a published bar', () => {
@@ -266,16 +307,21 @@ describe('CitationSummaryGraphContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
-    expect(wrapper.find(CitationSummaryGraph)).toHaveProp({
-      selectedBar: {
-        type: 'published',
-        xValue: '0--0',
-      },
-    });
+
+    expect(CitationSummaryGraph).toHaveBeenCalledWith(
+      expect.objectContaining({
+        selectedBar: {
+          type: 'published',
+          xValue: '0--0',
+        },
+      }),
+      expect.any(Object)
+    );
   });
 });

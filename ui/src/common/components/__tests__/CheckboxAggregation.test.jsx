@@ -1,7 +1,7 @@
 import React from 'react';
-import { List, fromJS } from 'immutable';
-import { shallow } from 'enzyme';
-import { Checkbox } from 'antd';
+import { fromJS } from 'immutable';
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import CheckboxAggregation, {
   BUCKET_NAME_SPLITTER,
@@ -19,7 +19,7 @@ describe('CheckboxAggregation', () => {
         doc_count: 2,
       },
     ]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <CheckboxAggregation
         onChange={jest.fn()}
         buckets={buckets}
@@ -28,7 +28,7 @@ describe('CheckboxAggregation', () => {
         splitDisplayName
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('render initial state with bucketHelp', () => {
@@ -61,7 +61,7 @@ describe('CheckboxAggregation', () => {
         link: 'https://inspirehep.net/info/faq/general#published',
       },
     });
-    const wrapper = shallow(
+    const { asFragment } = render(
       <CheckboxAggregation
         onChange={jest.fn()}
         buckets={buckets}
@@ -71,7 +71,7 @@ describe('CheckboxAggregation', () => {
         splitDisplayName
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('render initial state without splitDisplayName', () => {
@@ -85,7 +85,7 @@ describe('CheckboxAggregation', () => {
         doc_count: 2,
       },
     ]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <CheckboxAggregation
         onChange={jest.fn()}
         buckets={buckets}
@@ -93,7 +93,7 @@ describe('CheckboxAggregation', () => {
         selections="bucket1"
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with show more button if buckets are more than 10', () => {
@@ -143,7 +143,7 @@ describe('CheckboxAggregation', () => {
         doc_count: 2,
       },
     ]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <CheckboxAggregation
         onChange={jest.fn()}
         buckets={buckets}
@@ -151,7 +151,7 @@ describe('CheckboxAggregation', () => {
         selections={['bucket1']}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('render more than 10 after show more clicked', () => {
@@ -201,7 +201,7 @@ describe('CheckboxAggregation', () => {
         doc_count: 2,
       },
     ]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <CheckboxAggregation
         onChange={jest.fn()}
         buckets={buckets}
@@ -209,61 +209,51 @@ describe('CheckboxAggregation', () => {
         selections={['bucket1']}
       />
     );
-    wrapper.instance().onShowMoreClick();
-    wrapper.update();
-    expect(wrapper).toMatchSnapshot();
-  });
 
-  it('derives selectionMap state from prop selections', () => {
-    const selections = ['selected1', 'selected2'];
-    const wrapper = shallow(
-      <CheckboxAggregation
-        onChange={jest.fn()}
-        buckets={List()}
-        name="Test"
-        selections={selections}
-      />
-    );
-    const { selectionMap } = wrapper.instance().state;
-    expect(selectionMap.get('selected1')).toBe(true);
-    expect(selectionMap.get('selected2')).toBe(true);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   describe('onSelectionChange', () => {
-    it('calls onChange with all selections', () => {
+    it('calls onChange with all selections', async () => {
       const onChange = jest.fn();
-      const wrapper = shallow(
-        <CheckboxAggregation onChange={onChange} buckets={List()} name="Test" />
-      );
-      wrapper.instance().onSelectionChange('selected1', true);
-      expect(onChange).toHaveBeenCalledWith(['selected1']);
-      wrapper.instance().onSelectionChange('selected2', true);
-      expect(onChange).toHaveBeenCalledWith(['selected1', 'selected2']);
-    });
-
-    it('calls onChange with checked bucket when checkbox item of the bucket changes', () => {
       const buckets = fromJS([
-        {
-          key: 'bucket1',
-          doc_count: 1,
-        },
+        { key: 'selected1', doc_count: 10 },
+        { key: 'selected2', doc_count: 5 },
       ]);
-      const onChange = jest.fn();
-      const wrapper = shallow(
+
+      const user = userEvent.setup();
+      const { getByLabelText } = render(
         <CheckboxAggregation
           onChange={onChange}
           buckets={buckets}
           name="Test"
         />
       );
-      const event = {
-        target: {
-          checked: true,
-        },
-      };
-      const onCheckboxItemChange = wrapper.find(Checkbox).prop('onChange');
-      onCheckboxItemChange(event);
-      expect(onChange).toBeCalledWith(['bucket1']);
+
+      await user.click(getByLabelText('selected1'));
+      expect(onChange).toHaveBeenLastCalledWith(['selected1']);
+
+      await user.click(getByLabelText('selected2'));
+      expect(onChange).toHaveBeenLastCalledWith(['selected1', 'selected2']);
+    });
+
+    it('calls onChange with checked bucket when checkbox item of the bucket changes', async () => {
+      const onChange = jest.fn();
+      const buckets = fromJS([{ key: 'bucket1', doc_count: 10 }]);
+
+      const user = userEvent.setup();
+      const { getByLabelText } = render(
+        <CheckboxAggregation
+          onChange={onChange}
+          buckets={buckets}
+          name="Test"
+        />
+      );
+
+      const checkbox = getByLabelText('bucket1');
+      await user.click(checkbox);
+
+      expect(onChange).toHaveBeenCalledWith(['bucket1']);
     });
   });
 });

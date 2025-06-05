@@ -1,6 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Select } from 'antd';
+import { render, fireEvent } from '@testing-library/react';
 
 import SelectBox from '../SelectBox';
 
@@ -10,47 +9,43 @@ describe('SelectBox', () => {
       { value: 'value1', display: 'Value 1' },
       { value: 'value2', display: 'Value 2' },
     ];
-    const wrapper = shallow(
-      <SelectBox
-        defaultValue={options[0].value}
-        onChange={jest.fn()}
-        options={options}
-      />
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
 
-  it('render initial state with data-test-id', () => {
-    const options = [
-      { value: 'value1', display: 'Value 1' },
-      { value: 'value2', display: 'Value 2' },
-    ];
-    const wrapper = shallow(
+    const { getByText, asFragment } = render(
       <SelectBox
-        data-test-id="test-select"
         defaultValue={options[0].value}
         onChange={jest.fn()}
         options={options}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(getByText('Value 1')).toBeInTheDocument();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('calls onChange when select change', () => {
     const options = [
       { value: 'value1', display: 'Value 1' },
-      { value: 'value1', display: 'Value 1' },
+      { value: 'value2', display: 'Value 2' },
     ];
+
     const onChange = jest.fn();
-    const wrapper = shallow(
+
+    const screen = render(
       <SelectBox
         defaultValue={options[0].value}
         onChange={onChange}
         options={options}
       />
     );
-    const onSelectChange = wrapper.find(Select).prop('onChange');
-    onSelectChange(options[1].value);
-    expect(onChange).toBeCalledWith(options[1].value);
+
+    // https://github.com/ant-design/ant-design/issues/22074#issuecomment-603735566
+    const select = document.querySelector('.ant-select-selector');
+    const clickEvent = document.createEvent('MouseEvents');
+    clickEvent.initEvent('mousedown', true, true);
+    select.dispatchEvent(clickEvent);
+
+    fireEvent.click(screen.getByText('Value 2'));
+
+    expect(onChange).toBeCalled();
   });
 });

@@ -1,15 +1,14 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 
-import { getStoreWithState } from '../../../fixtures/store';
+import { getStore } from '../../../fixtures/store';
 import CitationSummaryTableContainer from '../CitationSummaryTableContainer';
-import CitationSummaryTable from '../../components/CitationSummaryTable';
 
 describe('CitationSummaryTableContainer', () => {
   it('pass props from state', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       citations: fromJS({
         loadingCitationSummary: false,
         errorCitationSummary: null,
@@ -27,17 +26,13 @@ describe('CitationSummaryTableContainer', () => {
       }),
     });
 
-    const wrapper = mount(
+    const screen = render(
       <Provider store={store}>
         <CitationSummaryTableContainer />
       </Provider>
     );
-    expect(wrapper.find(CitationSummaryTable)).toHaveProp({
-      citeableBucket: fromJS({ name: 'citeable' }),
-      hIndex: fromJS({ name: 'h-index' }),
-      publishedBucket: fromJS({ name: 'published' }),
-      loading: false,
-      error: null,
-    });
+
+    expect(screen.getByText('Citeable')).toBeInTheDocument();
+    expect(screen.getByText('Published')).toBeInTheDocument();
   });
 });

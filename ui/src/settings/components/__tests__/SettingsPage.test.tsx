@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { fromJS } from 'immutable';
+import { fromJS, Map } from 'immutable';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -29,7 +29,7 @@ describe('SettingsPage', () => {
   });
 
   it('renders page with error', () => {
-    const error = fromJS({
+    const error = Map({
       error: {
         status: 404,
         message: 'This is an error yo',

@@ -1,8 +1,8 @@
 import React from 'react';
 import { goBack } from 'connected-react-router';
 import { Provider } from 'react-redux';
-
 import { fireEvent, render } from '@testing-library/react';
+
 import { getStore } from '../../../fixtures/store';
 import GoBackLinkContainer from '../GoBackLinkContainer';
 

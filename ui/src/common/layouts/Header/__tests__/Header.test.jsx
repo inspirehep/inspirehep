@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+
 import { getStore } from '../../../../fixtures/store';
 import Header from '../Header';
 

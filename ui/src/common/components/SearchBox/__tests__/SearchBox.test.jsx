@@ -1,5 +1,6 @@
 import { fireEvent, render } from '@testing-library/react';
 import { Provider } from 'react-redux';
+
 import SearchBox from '../SearchBox';
 import { LITERATURE_NS } from '../../../../search/constants';
 import { getStore } from '../../../../fixtures/store';
@@ -17,6 +18,7 @@ describe('SearchBox', () => {
         />
       </Provider>
     );
+
     expect(asFragment()).toMatchSnapshot();
   });
 

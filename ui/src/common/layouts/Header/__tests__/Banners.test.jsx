@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
+
 import { getStore } from '../../../../fixtures/store';
 import Banners from '../Banners';
 

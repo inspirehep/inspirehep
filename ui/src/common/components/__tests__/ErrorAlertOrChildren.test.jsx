@@ -1,9 +1,9 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+
 import { getStore } from '../../../fixtures/store';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 
