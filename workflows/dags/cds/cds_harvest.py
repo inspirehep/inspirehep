@@ -95,7 +95,7 @@ def cds_harvest_dag():
             return {"original_record": record, "cds_id": cds_id}
 
         @task.virtualenv(
-            requirements=["inspire-schemas>=61.6.16"],
+            requirements=["inspire-schemas>=61.6.17"],
             system_site_packages=False,
         )
         def build_record(payload):
