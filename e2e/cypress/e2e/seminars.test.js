@@ -3,7 +3,7 @@ import moment from 'moment';
 
 describe('Seminar Search', () => {
   onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
+    it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/seminars?start_date=all');
       cy.waitForRoute();
@@ -15,7 +15,7 @@ describe('Seminar Search', () => {
 
 describe('Seminar Detail', () => {
   onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
+    it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/seminars/1799778');
       cy.waitForRoute();
@@ -30,13 +30,13 @@ describe('Seminar Submission', () => {
   });
 
   onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
+    it('matches image snapshot', () => {
       cy.visit('/submissions/seminars');
       cy.get('form').should('be.visible');
       cy.matchSnapshots('SeminarSubmission', { skipMobile: true });
     });
 
-    it.skip('matches image snapshot for Seminar update', () => {
+    it('matches image snapshot for Seminar update', () => {
       cy.registerRoute();
       cy.visit('/submissions/seminars/1799778');
       cy.waitForRoute();

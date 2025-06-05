@@ -2,7 +2,7 @@ import { onlyOn } from '@cypress/skip-test';
 
 describe('Institution Search', () => {
   onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
+    it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/institutions');
       cy.waitForRoute();
@@ -14,7 +14,7 @@ describe('Institution Search', () => {
 
 describe('Institution Detail', () => {
   onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
+    it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/institutions/902858?ui-citation-summary=true');
       cy.waitForRoute();
@@ -30,7 +30,7 @@ describe('Institution Submission', () => {
   });
 
   onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
+    it('matches image snapshot', () => {
       cy.visit('/submissions/institutions');
       cy.get('form').should('be.visible');
       cy.matchSnapshots('InstitutionSubmission', { skipMobile: true });

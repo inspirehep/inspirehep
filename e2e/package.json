@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test:dev": "cypress open",
-    "test": "cypress run",
+    "test": "cypress run --browser /Applications/Firefox.app/Contents/MacOS/firefox",
     "cypress": "cypress"
   },
   "author": "",
