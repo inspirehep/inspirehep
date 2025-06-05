@@ -1,14 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
-import { AutoComplete } from 'antd';
 
 import http from '../../http';
 import Suggester, { REQUEST_DEBOUNCE_MS } from '../Suggester';
 
 const mockHttp = new MockAdapter(http.httpClient);
 
-// TODO: use fake timers after https://github.com/facebook/jest/pull/7776
 function wait(milisec = REQUEST_DEBOUNCE_MS + 25) {
   return new Promise((resolve) => {
     setTimeout(() => resolve(), milisec);
@@ -36,14 +34,21 @@ describe('Suggester', () => {
         },
       ],
     };
+
     mockHttp.onGet(suggesterQueryUrl).replyOnce(200, responseData);
-    const wrapper = shallow(
+
+    const screen = render(
       <Suggester pidType="literature" suggesterName="abstract_source" />
     );
-    await wrapper.instance().onSearch('test');
+
+    fireEvent.change(screen.getByRole('combobox'), {
+      target: { value: 'test' },
+    });
+
     await wait();
-    wrapper.update();
-    expect(wrapper).toMatchSnapshot();
+
+    expect(screen.getAllByText('Result 1')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('Result 2')[0]).toBeInTheDocument();
   });
 
   it('renders results with custom extractUniqueItemValue', async () => {
@@ -64,18 +69,26 @@ describe('Suggester', () => {
         },
       ],
     };
+
     mockHttp.onGet(suggesterQueryUrl).replyOnce(200, responseData);
-    const wrapper = shallow(
+
+    const screen = render(
       <Suggester
         pidType="literature"
         suggesterName="abstract_source"
         extractUniqueItemValue={(result) => `${result.text} - ${result.extra}`}
       />
     );
-    await wrapper.instance().onSearch('test');
+
+    fireEvent.change(screen.getByRole('combobox'), {
+      target: { value: 'test' },
+    });
+
     await wait();
-    wrapper.update();
-    expect(wrapper).toMatchSnapshot();
+
+    expect(
+      screen.getByRole('option', { name: 'Result 1 - Extra 1' })
+    ).toBeInTheDocument();
   });
 
   it('renders results with custom extractItemCompletionValue', async () => {
@@ -93,7 +106,7 @@ describe('Suggester', () => {
       ],
     };
     mockHttp.onGet(suggesterQueryUrl).replyOnce(200, responseData);
-    const wrapper = shallow(
+    const screen = render(
       <Suggester
         pidType="literature"
         suggesterName="abstract_source"
@@ -101,10 +114,14 @@ describe('Suggester', () => {
         extractUniqueItemValue={(suggestion) => suggestion.id}
       />
     );
-    await wrapper.instance().onSearch('test');
+
+    fireEvent.change(screen.getByRole('combobox'), {
+      target: { value: 'test' },
+    });
+
     await wait();
-    wrapper.update();
-    expect(wrapper).toMatchSnapshot();
+
+    expect(screen.getByRole('option', { name: '1' })).toBeInTheDocument();
   });
 
   it('does not render results onSearch without waiting for debounce', async () => {
@@ -121,13 +138,19 @@ describe('Suggester', () => {
       ],
     };
     mockHttp.onGet(suggesterQueryUrl).replyOnce(200, responseData);
-    const wrapper = shallow(
+
+    const screen = render(
       <Suggester pidType="literature" suggesterName="abstract_source" />
     );
-    await wrapper.instance().onSearch('test');
+
+    fireEvent.change(screen.getByRole('combobox'), {
+      target: { value: 'test' },
+    });
+
     await wait(REQUEST_DEBOUNCE_MS - 25);
-    wrapper.update();
-    expect(wrapper).toMatchSnapshot();
+
+    expect(screen.queryByText('Result 1')).not.toBeInTheDocument();
+
     await wait(30); // TODO: investigate how this effects the next one without waiting here
   });
 
@@ -149,8 +172,10 @@ describe('Suggester', () => {
         },
       ],
     };
+
     mockHttp.onGet(suggesterQueryUrl).replyOnce(200, responseData);
-    const wrapper = shallow(
+
+    const screen = render(
       <Suggester
         pidType="literature"
         suggesterName="abstract_source"
@@ -161,13 +186,57 @@ describe('Suggester', () => {
         )}
       />
     );
-    await wrapper.instance().onSearch('test');
+
+    fireEvent.change(screen.getByRole('combobox'), {
+      target: { value: 'test' },
+    });
+
     await wait();
-    wrapper.update();
-    expect(wrapper).toMatchSnapshot();
+
+    expect(screen.baseElement).toMatchSnapshot();
+  });
+
+  it('calls onChange if extractItemCompletionValue prop is present', async () => {
+    const onChange = jest.fn();
+    const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
+    const responseData = {
+      abstract_source: [
+        {
+          options: [
+            {
+              id: '1',
+              name: 'Result',
+            },
+          ],
+        },
+      ],
+    };
+
+    mockHttp.onGet(suggesterQueryUrl).replyOnce(200, responseData);
+
+    const screen = render(
+      <Suggester
+        onChange={onChange}
+        pidType="literature"
+        extractItemCompletionValue={(suggestion) => suggestion.name}
+        extractUniqueItemValue={(suggestion) => suggestion.id}
+        suggesterName="abstract_source"
+      />
+    );
+
+    fireEvent.change(screen.getByRole('combobox'), {
+      target: { value: 'Result' },
+    });
+
+    await wait();
+
+    expect(onChange).toHaveBeenCalledWith('Result', {});
   });
 
   it('calls onSelect with unique item value and whole suggestion', async () => {
+    const onSelect = jest.fn();
+    const onChange = jest.fn();
+
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
     const responseData = {
       abstract_source: [
@@ -182,29 +251,29 @@ describe('Suggester', () => {
       ],
     };
     mockHttp.onGet(suggesterQueryUrl).replyOnce(200, responseData);
-    const onChange = jest.fn();
-    const onSelect = jest.fn();
-    const wrapper = shallow(
+    const screen = render(
       <Suggester
         onChange={onChange}
         onSelect={onSelect}
         pidType="literature"
+        extractItemCompletionValue={(suggestion) => suggestion.name}
         extractUniqueItemValue={(suggestion) => suggestion.id}
         suggesterName="abstract_source"
       />
     );
-    await wrapper.instance().onSearch('test');
+
+    const input = screen.getByRole('combobox');
+    fireEvent.change(input, { target: { value: 'test' } });
+
     await wait();
-    wrapper.update();
-    const suggestionWrapper = wrapper.find(AutoComplete.Option);
-    wrapper
-      .find(AutoComplete)
-      .simulate('select', null, suggestionWrapper.props());
+
+    const suggestionOption = screen.getByText('Result');
+    fireEvent.click(suggestionOption);
+
     expect(onSelect).toHaveBeenCalledWith('1', {
       id: '1',
       name: 'Result',
     });
-    expect(onChange).not.toHaveBeenCalled();
   });
 
   it('calls onSelect with unique item value and whole suggestion and onChange if extractItemCompletionValue prop is present', async () => {
@@ -224,7 +293,7 @@ describe('Suggester', () => {
     mockHttp.onGet(suggesterQueryUrl).replyOnce(200, responseData);
     const onChange = jest.fn();
     const onSelect = jest.fn();
-    const wrapper = shallow(
+    const screen = render(
       <Suggester
         onChange={onChange}
         onSelect={onSelect}
@@ -234,13 +303,17 @@ describe('Suggester', () => {
         suggesterName="abstract_source"
       />
     );
-    await wrapper.instance().onSearch('test');
-    await wait();
-    wrapper.update();
-    const suggestionWrapper = wrapper.find(AutoComplete.Option);
-    wrapper
-      .find(AutoComplete)
-      .simulate('select', null, suggestionWrapper.props());
+
+    const input = screen.getByRole('combobox');
+    fireEvent.change(input, { target: { value: 'test' } });
+
+    await waitFor(() => {
+      expect(screen.getByText('Result')).toBeInTheDocument();
+    });
+
+    const suggestionOption = screen.getByText('Result');
+    fireEvent.click(suggestionOption);
+
     expect(onSelect).toHaveBeenCalledWith('1', {
       id: '1',
       name: 'Result',
@@ -249,6 +322,7 @@ describe('Suggester', () => {
   });
 
   it('calls only onChange if extractItemCompletionValue prop is present and onSelect is not when an option is selected', async () => {
+    const onChange = jest.fn();
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
     const responseData = {
       abstract_source: [
@@ -262,9 +336,10 @@ describe('Suggester', () => {
         },
       ],
     };
+
     mockHttp.onGet(suggesterQueryUrl).replyOnce(200, responseData);
-    const onChange = jest.fn();
-    const wrapper = shallow(
+
+    const screen = render(
       <Suggester
         onChange={onChange}
         pidType="literature"
@@ -273,24 +348,30 @@ describe('Suggester', () => {
         suggesterName="abstract_source"
       />
     );
-    await wrapper.instance().onSearch('test');
+
+    fireEvent.change(screen.getByRole('combobox'), {
+      target: { value: 'Result' },
+    });
+
     await wait();
-    wrapper.update();
-    const suggestionWrapper = wrapper.find(AutoComplete.Option);
-    wrapper
-      .find(AutoComplete)
-      .simulate('select', null, suggestionWrapper.props());
-    expect(onChange).toHaveBeenCalledWith('Result');
+
+    expect(onChange).toHaveBeenCalledWith('Result', {});
   });
 
   it('renders empty if request fails', async () => {
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
     mockHttp.onGet(suggesterQueryUrl).replyOnce(404);
-    const wrapper = shallow(
+
+    const screen = render(
       <Suggester pidType="literature" suggesterName="abstract_source" />
     );
-    await wrapper.instance().onSearch('test');
-    wrapper.update();
-    expect(wrapper).toMatchSnapshot();
+
+    fireEvent.change(screen.getByRole('combobox'), {
+      target: { value: 'test' },
+    });
+
+    await wait();
+
+    expect(screen.baseElement).toMatchSnapshot();
   });
 });

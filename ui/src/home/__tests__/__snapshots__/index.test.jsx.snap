@@ -37,6 +37,7 @@ exports[`Home renders home page 1`] = `
               >
                 <div
                   class="ant-select ant-select-single ant-select-show-arrow"
+                  data-testid="select-box"
                   placement="bottomLeft"
                 >
                   <div

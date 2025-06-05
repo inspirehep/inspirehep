@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Alert, Col, Card } from 'antd';
 import { Link } from 'react-router-dom';
+import { Map } from 'immutable';
 
 import OrcidPushSettingContainer from '../../authors/containers/OrcidPushSettingContainer';
 import DocumentHead from '../../common/components/DocumentHead';
@@ -26,7 +27,7 @@ const SettingsPage = ({
     Function;
   loading: boolean;
   userEmail: string;
-  error?: Map<string, string | number>;
+  error?: Map<string, string | any>;
   profileControlNumber?: number;
   userOrcid?: string;
 }) => {

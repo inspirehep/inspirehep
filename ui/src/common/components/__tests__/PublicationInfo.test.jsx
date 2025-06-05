@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
+
 import PublicationInfo from '../PublicationInfo';
 
 describe('PublicationInfo', () => {

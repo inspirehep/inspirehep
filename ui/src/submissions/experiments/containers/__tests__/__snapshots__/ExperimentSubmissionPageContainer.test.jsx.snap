@@ -84,6 +84,7 @@ exports[`ExperimentSubmissionSuccessPageContainer ExperimentSubmissionSucessPage
                                   class="ant-select ant-select-in-form-item ant-select-multiple ant-select-show-arrow ant-select-show-search"
                                   data-test-id="project_type"
                                   data-test-type="multiple-select"
+                                  data-testid="select-box"
                                   form="[object Object]"
                                   name="project_type"
                                   placement="bottomLeft"

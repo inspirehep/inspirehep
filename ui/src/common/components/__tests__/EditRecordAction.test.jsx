@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+
 import EditRecordAction from '../EditRecordAction';
 import {
   INSTITUTIONS_PID_TYPE,

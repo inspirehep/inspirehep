@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+
 import { InlineUL } from '..';
 import { SEPARATOR_MIDDLEDOT } from '../constants';
 

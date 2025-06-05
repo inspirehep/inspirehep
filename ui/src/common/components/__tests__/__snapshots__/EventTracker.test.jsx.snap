@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EventTracker renders only children 1`] = `
-<input
-  onBlur={[Function]}
-/>
+<DocumentFragment>
+  <input
+    data-testid="test-button"
+  />
+</DocumentFragment>
 `;

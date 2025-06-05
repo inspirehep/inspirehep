@@ -1,8 +1,8 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+
 import EventSeries from '../EventSeries';
 import { CONFERENCES_PID_TYPE, SEMINARS_PID_TYPE } from '../../constants';
 

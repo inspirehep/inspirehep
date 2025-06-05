@@ -1,21 +1,19 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Input } from 'antd';
+import { render } from '@testing-library/react';
 
 import EmbeddedSearchBox from '../EmbeddedSearchBox';
 
 describe('ErrorAlert', () => {
   it('renders with all props', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <EmbeddedSearchBox onSearch={jest.fn()} placeholder="Type to search" />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with default message', () => {
     const onSearch = jest.fn();
-    const wrapper = shallow(<EmbeddedSearchBox onSearch={onSearch} />);
-    expect(wrapper).toMatchSnapshot();
-    expect(wrapper.find(Input.Search).prop('onSearch')).toBe(onSearch);
+    const { asFragment } = render(<EmbeddedSearchBox onSearch={onSearch} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

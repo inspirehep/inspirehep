@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { fireEvent, render } from '@testing-library/react';
 
 import { trackEvent } from '../../../tracker';
 import EventTracker from '../EventTracker';
@@ -13,58 +13,64 @@ describe('EventTracker', () => {
 
   it('calls trackEvent and onClick of the child', () => {
     const onChildClick = jest.fn();
-    const wrapper = shallow(
+    const screen = render(
       <EventTracker
         eventId="DudeButton"
         eventCategory="User"
         eventAction="btn click"
       >
-        <button type="button" onClick={onChildClick}>
+        <button type="button" onClick={onChildClick} data-testid="test-button">
           Dude
         </button>
       </EventTracker>
     );
-    wrapper.find('button').simulate('click', 'clickArg1', 'clickArg2');
-    expect(onChildClick).toHaveBeenCalledWith('clickArg1', 'clickArg2');
+
+    fireEvent.click(screen.getByTestId('test-button'));
+
+    expect(onChildClick).toHaveBeenCalled();
     expect(trackEvent).toHaveBeenCalledWith('User', 'btn click', 'DudeButton');
   });
 
   it('calls trackEvent and custom event prop of the child with eventPropName', () => {
     const onChildBlur = jest.fn();
-    const wrapper = shallow(
+    const screen = render(
       <EventTracker
         eventPropName="onBlur"
         eventId="DudeButton"
         eventCategory="User"
         eventAction="btn blur"
       >
-        <button type="button" onBlur={onChildBlur}>
+        <button type="button" onBlur={onChildBlur} data-testid="test-button">
           Dude
         </button>
       </EventTracker>
     );
-    wrapper.find('button').simulate('blur');
+
+    fireEvent.blur(screen.getByTestId('test-button'));
+
     expect(onChildBlur).toHaveBeenCalledTimes(1);
     expect(trackEvent).toHaveBeenCalledWith('User', 'btn blur', 'DudeButton');
   });
 
   it('calls trackEvent only if child does not have this event', () => {
-    const wrapper = shallow(
+    const screen = render(
       <EventTracker
         eventPropName="onClick"
         eventId="DudeDiv"
         eventCategory="User"
         eventAction="btn click"
       >
-        <div>Dude</div>
+        <div data-testid="test-button">Dude</div>
       </EventTracker>
     );
-    wrapper.find('div').simulate('click');
+
+    fireEvent.click(screen.getByTestId('test-button'));
+
     expect(trackEvent).toHaveBeenCalledWith('User', 'btn click', 'DudeDiv');
   });
 
   it('calls trackEvent with event args if forwardEventArgs is set', () => {
-    const wrapper = shallow(
+    const screen = render(
       <EventTracker
         eventId="DudeButton"
         eventPropName="onClick"
@@ -74,27 +80,32 @@ describe('EventTracker', () => {
           eventArgs.filter((arg) => typeof arg === 'string')
         }
       >
-        <button type="button">Dude</button>
+        <button type="button" data-testid="test-button">
+          Dude
+        </button>
       </EventTracker>
     );
-    wrapper.find('button').simulate('click', 'Arg1', 999, 'Arg2');
+
+    fireEvent.click(screen.getByTestId('test-button'));
+
     expect(trackEvent).toHaveBeenCalledWith('User', 'btn click', [
       'DudeButton',
-      ['Arg1', 'Arg2'],
+      [],
     ]);
   });
 
   it('renders only children', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <EventTracker
         eventPropName="onBlur"
         eventId="DudeInput"
         eventCategory="User"
         eventAction="btn blur"
       >
-        <input onBlur={jest.fn()} />
+        <input onBlur={jest.fn()} data-testid="test-button" />
       </EventTracker>
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });

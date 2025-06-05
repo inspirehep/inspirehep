@@ -1,30 +1,41 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import EmbeddedSearchBoxContainer from '../EmbeddedSearchBoxContainer';
 import { ASSIGN_AUTHOR_NS } from '../../../search/constants';
-
 import { searchQueryUpdate } from '../../../actions/search';
-import EmbeddedSearchBox from '../../components/EmbeddedSearchBox';
 
 jest.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
 
 describe('EmbeddedSearchBoxContainer', () => {
-  it('dispatches SEARCH_QUERY_UPDATE on search', () => {
+  it('dispatches SEARCH_QUERY_UPDATE on search', async () => {
     const store = getStore();
     const namespace = ASSIGN_AUTHOR_NS;
-    const wrapper = mount(
+
+    const screen = render(
       <Provider store={store}>
         <EmbeddedSearchBoxContainer namespace={ASSIGN_AUTHOR_NS} />
       </Provider>
     );
-    const onSearch = wrapper.find(EmbeddedSearchBox).prop('onSearch');
+
+    await waitFor(() =>
+      fireEvent.change(screen.getByRole('textbox'), {
+        target: { value: 'test' },
+      })
+    );
+    await waitFor(() =>
+      fireEvent.keyDown(screen.getByRole('textbox'), {
+        key: 'Enter',
+        code: 'Enter',
+      })
+    );
+
     const q = 'test';
-    onSearch(q);
+
     const expectedActions = [searchQueryUpdate(namespace, { q })];
-    expect(store.getActions()).toEqual(expectedActions);
+    await waitFor(() => expect(store.getActions()).toEqual(expectedActions));
   });
 });

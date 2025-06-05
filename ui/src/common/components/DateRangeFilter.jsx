@@ -74,6 +74,7 @@ function DateRangeFilter({ onChange, range = '' }) {
       <Row className="mb2">
         <DatePicker
           data-test-id="start-date-picker"
+          data-testid="start-date-picker"
           format={DATE_RANGE_FORMAT}
           className="w-100"
           onChange={onStartDateChange}
@@ -85,6 +86,7 @@ function DateRangeFilter({ onChange, range = '' }) {
       <Row>
         <DatePicker
           data-test-id="end-date-picker"
+          data-testid="end-date-picker"
           format={DATE_RANGE_FORMAT}
           onChange={onEndDateChange}
           className="w-100"

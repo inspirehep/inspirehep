@@ -1,8 +1,8 @@
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
-
 import { render } from '@testing-library/react';
+
 import { getStore } from '../../../../fixtures/store';
 import FooterContainer from '../FooterContainer';
 

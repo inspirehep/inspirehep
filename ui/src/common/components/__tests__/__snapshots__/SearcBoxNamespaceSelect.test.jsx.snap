@@ -4,6 +4,7 @@ exports[`SearchBoxNamespaceSelect render initial state with all props set 1`] = 
 <DocumentFragment>
   <div
     class="ant-select ant-select-single ant-select-show-arrow"
+    data-testid="select-box"
     placement="bottomLeft"
   >
     <div

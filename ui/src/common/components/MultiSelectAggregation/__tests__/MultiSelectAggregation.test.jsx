@@ -1,9 +1,8 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { shallow } from 'enzyme';
+import { fireEvent, render } from '@testing-library/react';
 
 import MultiSelectAggregation from '../MultiSelectAggregation';
-import SelectBox from '../../SelectBox';
 
 import * as constants from '../constants';
 
@@ -21,7 +20,7 @@ describe('MultiSelectAggregation', () => {
         doc_count: 2,
       },
     ]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <MultiSelectAggregation
         name="Test"
         onChange={jest.fn()}
@@ -29,7 +28,7 @@ describe('MultiSelectAggregation', () => {
         selections={['bucket1']}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with custom display values if configured', () => {
@@ -48,7 +47,7 @@ describe('MultiSelectAggregation', () => {
         bucket: 'Bucket (Cool)',
       },
     };
-    const wrapper = shallow(
+    const { asFragment } = render(
       <MultiSelectAggregation
         name="Test"
         onChange={jest.fn()}
@@ -56,26 +55,28 @@ describe('MultiSelectAggregation', () => {
         selections={['bucket1']}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('calls onChange with checked bucket on select box selections change', () => {
+    const onChange = jest.fn();
     const buckets = fromJS([
       {
         key: 'bucket1',
         doc_count: 1,
       },
     ]);
-    const onChange = jest.fn();
-    const wrapper = shallow(
+    const screen = render(
       <MultiSelectAggregation
         onChange={onChange}
         buckets={buckets}
         name="Test"
       />
     );
-    const onSelectBoxChange = wrapper.find(SelectBox).prop('onChange');
-    onSelectBoxChange(['bucket1']);
-    expect(onChange).toHaveBeenCalledWith(['bucket1']);
+
+    fireEvent.mouseDown(screen.getByRole('combobox'));
+    fireEvent.click(screen.getAllByText('bucket1')[1]);
+
+    expect(onChange).toHaveBeenCalledWith(['bucket1'], expect.anything());
   });
 });

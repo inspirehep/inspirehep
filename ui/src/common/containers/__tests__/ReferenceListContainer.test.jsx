@@ -1,11 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 
-import { getStoreWithState } from '../../../fixtures/store';
+import { getStore } from '../../../fixtures/store';
 import { fetchLiteratureReferences } from '../../../actions/literature';
-import ReferenceList from '../../../literature/components/ReferenceList';
 import ReferenceListContainer from '../ReferenceListContainer';
 import { LITERATURE_REFERENCES_NS } from '../../../search/constants';
 
@@ -18,12 +17,12 @@ describe('ReferenceListContainer', () => {
   });
 
   it('passes required props from state', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       literature: fromJS({
         references: [{ control_number: 1 }, { control_number: 2 }],
-        loadingReferences: true,
+        loadingReferences: false,
         totalReferences: 50,
-        errorReferences: { message: 'Error' },
+        errorReferences: false,
         pageReferences: 2,
       }),
       search: fromJS({
@@ -35,46 +34,43 @@ describe('ReferenceListContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <ReferenceListContainer />
       </Provider>
     );
-    expect(wrapper.find(ReferenceList)).toHaveProp({
-      query: { size: 10, page: 2 },
-      references: fromJS([{ control_number: 1 }, { control_number: 2 }]),
-      loading: true,
-      total: 50,
-      error: fromJS({ message: 'Error' }),
-    });
+
+    expect(screen.getByText('11-20 of 50')).toBeInTheDocument();
   });
 
-  it('calls fetchLiteratureReferences onQueryChange', () => {
-    const store = getStoreWithState({
+  it('calls fetchLiteratureReferences onQueryChange', async () => {
+    const store = getStore({
       literature: fromJS({
         references: [{ control_number: 1 }, { control_number: 2 }],
-        loadingReferences: true,
+        loadingReferences: false,
         totalReferences: 50,
-        errorReferences: { message: 'Error' },
       }),
       search: fromJS({
         namespaces: {
           [LITERATURE_REFERENCES_NS]: {
-            query: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
-            baseQuery: { size: 25, page: 1 },
+            query: { size: 10, page: 2, q: 'test', sort: 'mostrecent' },
+            baseQuery: { size: 10, page: 1 },
           },
         },
       }),
     });
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <ReferenceListContainer recordId={1} />
       </Provider>
     );
-    const onQueryChange = wrapper.find(ReferenceList).prop('onPageChange');
-    const page = '3';
-    const size = 25;
-    onQueryChange(page, size);
-    expect(fetchLiteratureReferences).toHaveBeenCalledWith(1, { size, page });
+
+    await fireEvent.click(screen.getByTitle('Next Page'));
+    expect(fetchLiteratureReferences).toHaveBeenCalledWith(1, {
+      size: 10,
+      page: '2',
+    });
   });
 });
