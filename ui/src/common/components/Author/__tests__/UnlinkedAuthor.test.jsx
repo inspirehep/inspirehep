@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
+
 import UnlinkedAuthor from '../UnlinkedAuthor';
 
 describe('AuthorWithBAI', () => {

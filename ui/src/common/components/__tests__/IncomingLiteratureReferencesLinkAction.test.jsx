@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+
 import IncomingLiteratureReferencesLinkAction from '../IncomingLiteratureReferencesLinkAction';
 
 describe('IncomingLiteratureReferencesLinkAction', () => {

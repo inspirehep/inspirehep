@@ -7,6 +7,7 @@ import CarouselModal from '../CarouselModal';
 import LinkWithTargetBlank from '../LinkWithTargetBlank';
 import { BLOG_URL } from '../../constants';
 import { GUIDE_STEPS_MOBILE, GUIDE_STEPS_DESKTOP } from './steps';
+import guideStep10Mobile from './steps/guide-step-10-mobile.png';
 
 const IMAGE_LOADER = (
   <Spin style={{ margin: 'auto', display: 'block', padding: '2rem 0' }} />
@@ -27,8 +28,13 @@ function GuideModal({
         <p>Welcome to INSPIRE!</p>
         <p className="mb0">Take the tour to discover new INSPIRE features.</p>
       </div>
-      {guideSteps.map((step) => (
-        <Img key={step} loader={IMAGE_LOADER} alt="Guide Step" src={step} />
+      {guideSteps?.map((step, i) => (
+        <Img
+          key={`guideStep10Mobile-${i.toString()}`}
+          loader={IMAGE_LOADER}
+          alt="Guide Step"
+          src={step}
+        />
       ))}
       <div className="f2 tc bg-white pa5">
         <p>Thanks for taking the tour of the new INSPIRE!</p>

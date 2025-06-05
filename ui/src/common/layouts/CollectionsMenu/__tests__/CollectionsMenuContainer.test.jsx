@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { render } from '@testing-library/react';
+
 import { getStore } from '../../../../fixtures/store';
 import CollectionsMenuContainer from '../CollectionsMenuContainer';
 import { SUBMISSIONS_AUTHOR } from '../../../routes';

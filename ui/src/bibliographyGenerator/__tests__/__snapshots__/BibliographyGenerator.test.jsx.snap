@@ -285,6 +285,7 @@ exports[`BibliographyGenerator renders successfully 1`] = `
                             >
                               <div
                                 class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow"
+                                data-testid="select-box"
                                 placement="bottomLeft"
                               >
                                 <div
