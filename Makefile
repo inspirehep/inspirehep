@@ -19,7 +19,7 @@ start-inspirehep:
 
 start-backoffice:
 	echo -e "\033[0;32m Starting Backoffice. \033[0m"	
-	docker compose up -d airflow-init airflow-worker airflow-webserver airflow-triggerer airflow-scheduler backoffice-webserver
+	docker compose up -d airflow-init airflow-worker airflow-webserver airflow-triggerer airflow-scheduler backoffice-webserver backoffice-worker
 	echo -e "\033[0;32m Backoffice Started. \033[0m"
 
 start-cypress:
