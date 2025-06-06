@@ -142,7 +142,7 @@ opensearch-dsl = "^2.1.0"
 opensearch-py = "2.6.0"
 djangorestframework-simplejwt = "^5.3.1"
 django-json-widget = "^2.0.1"
-sentry-sdk = "1.19.1"
+sentry-sdk = "1.45.1"
 django-allauth = {version = "65.0.1", extras = ["headless"]}
 inspire-schemas = "^61.6.16"
 
