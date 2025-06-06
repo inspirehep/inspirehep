@@ -15,6 +15,7 @@
     "cache-manager": "^6.4.3",
     "express": "^5.1.0",
     "keyv-s3": "^2.0.4",
+    "p-limit": "^6.2.0",
     "puppeteer": "^24.9.0"
   }
 }
