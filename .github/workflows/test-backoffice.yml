@@ -39,7 +39,7 @@ jobs:
         image: rabbitmq:3-management
         ports:
           - 5672:5672
-      redis:
+      cache:
         image: redis:6
         ports:
           - 6379:6379
