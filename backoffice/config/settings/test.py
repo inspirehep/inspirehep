@@ -52,3 +52,5 @@ OPENSEARCH_DSL = {
         "timeout": 30,
     },
 }
+
+CELERY_TASK_ALWAYS_EAGER = True
