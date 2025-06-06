@@ -111,7 +111,7 @@ x-airflow-common: &airflow-common
       condition: service_healthy
 
 services:
-  backoffice-webserver:
+  backoffice-webserver: &django
     build:
       context: backoffice
       dockerfile: Dockerfile
@@ -130,6 +130,13 @@ services:
     ports:
       - '8001:8001'
     command: sh -c 'poetry run python manage.py migrate && poetry run python manage.py opensearch index rebuild --force && poetry run python manage.py opensearch document index --force && poetry run python manage.py runserver 0.0.0.0:8001'
+  backoffice-worker:
+    <<: *django
+    ports: []
+    entrypoint: celery
+    command:  -A config.celery_app worker -l INFO
+    
+   
   cache:
     extends:
       file: docker-compose.services.yml
