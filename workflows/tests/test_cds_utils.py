@@ -1,7 +1,9 @@
 from include.utils.cds import (
     build_literature_search_params,
+    get_identifiers_for_scheme,
     get_record_for_provided_ids,
     has_any_id,
+    has_any_rdm_id,
     search_and_return_single,
 )
 
@@ -31,6 +33,109 @@ def test_has_any_id_with_any_id_present():
         },
     }
     assert has_any_id(record) is True
+
+
+def test_get_identifiers_for_scheme_basic():
+    identifiers = [
+        {"scheme": "inspire", "identifier": "123"},
+        {"scheme": "arxiv", "identifier": "arxiv:456"},
+        {"scheme": "cds_ref", "identifier": "789"},
+    ]
+    assert get_identifiers_for_scheme(identifiers, "inspire") == ["123"]
+    assert get_identifiers_for_scheme(identifiers, "arxiv") == ["arxiv:456"]
+    assert get_identifiers_for_scheme(identifiers, "cds_ref") == ["789"]
+
+
+def test_has_any_rdm_id_has_id_and_inspire_identifier():
+    record = {
+        "id": "cds-1",
+        "metadata": {
+            "identifiers": [
+                {"scheme": "inspire", "identifier": "INSPIRE-1"},
+            ]
+        },
+    }
+    assert has_any_rdm_id(record) is True
+
+
+def test_has_any_rdm_id_has_id_and_arxiv_identifier():
+    record = {
+        "id": "cds-2",
+        "metadata": {
+            "identifiers": [
+                {"scheme": "arxiv", "identifier": "arxiv:1234"},
+            ]
+        },
+    }
+    assert has_any_rdm_id(record) is True
+
+
+def test_has_any_rdm_id_has_id_and_doi():
+    record = {
+        "id": "cds-3",
+        "metadata": {"identifiers": []},
+        "pids": {"doi": {"identifier": "10.1234/abc"}},
+    }
+    assert has_any_rdm_id(record) is True
+
+
+def test_has_any_rdm_id_has_id_and_parent_doi():
+    record = {
+        "id": "cds-3",
+        "parent": {"pids": {"doi": {"identifier": "10.1234/abc"}}},
+        "metadata": {"identifiers": []},
+    }
+    assert has_any_rdm_id(record) is True
+
+
+def test_has_any_rdm_id_has_id_doi_and_parent_doi():
+    record = {
+        "id": "cds-3",
+        "parent": {"pids": {"doi": {"identifier": "10.1234/abc"}}},
+        "metadata": {"identifiers": []},
+        "pids": {"doi": {"identifier": "10.1234/abcd"}},
+    }
+    assert has_any_rdm_id(record) is True
+
+
+def test_has_any_rdm_id_has_id_and_cds_ref():
+    record = {
+        "id": "cds-4",
+        "metadata": {
+            "identifiers": [
+                {"scheme": "cds_ref", "identifier": "CDS-REF-1"},
+            ]
+        },
+    }
+    assert has_any_rdm_id(record) is True
+
+
+def test_has_any_rdm_id_no_cds_id():
+    record = {
+        "metadata": {
+            "identifiers": [
+                {"scheme": "inspire", "identifier": "INSPIRE-1"},
+            ]
+        }
+    }
+    assert has_any_rdm_id(record) is False
+
+
+def test_has_any_rdm_id_has_id_no_identifiers():
+    record = {"id": "cds-5", "metadata": {"identifiers": []}}
+    assert has_any_rdm_id(record) is False
+
+
+def test_has_any_rdm_id_has_all_no_correct_scheme():
+    record = {
+        "id": "cds-6",
+        "metadata": {
+            "identifiers": [
+                {"scheme": "other", "identifier": "OTHER-1"},
+            ]
+        },
+    }
+    assert has_any_rdm_id(record) is False
 
 
 def test_build_literature_search_url_multiple_clauses():
