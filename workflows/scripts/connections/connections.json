@@ -58,5 +58,15 @@
     "port": null,
     "schema": "",
     "extra": ""
+  },
+  "cds_rdm_connection": {
+    "conn_type": "http",
+    "description": "Used for cds rdm harvesting",
+    "login": "",
+    "password": null,
+    "host": "https://repository.cern",
+    "port": null,
+    "schema": "",
+    "extra": ""
   }
 }

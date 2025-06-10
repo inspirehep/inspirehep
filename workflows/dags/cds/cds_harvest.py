@@ -2,16 +2,14 @@ import datetime
 import logging
 
 from airflow.decorators import dag, task, task_group
-from airflow.exceptions import AirflowException, AirflowSkipException
 from airflow.models.param import Param
 from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
 from include.utils.alerts import task_failure_alert
-from include.utils.cds import get_record_for_provided_ids, has_any_id
-from include.utils.constants import LITERATURE_PID_TYPE
-from inspire_utils.record import get_value, get_values_for_schema
+from include.utils.cds import has_any_id, retrieve_and_validate_record, update_record
+from inspire_utils.record import get_value
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +20,7 @@ logger = logging.getLogger(__name__)
     catchup=False,
     tags=["cds"],
     params={
-        "since": Param(type=["null", "string"], default=""),
+        "since": Param(type=["string"], default=""),
     },
     on_failure_callback=task_failure_alert,
 )
@@ -61,38 +59,15 @@ def cds_harvest_dag():
                 cds_record, "metadata.control_number", []
             )
 
-            record_id = get_record_for_provided_ids(
+            return retrieve_and_validate_record(
                 inspire_http_record_management_hook,
+                cds_id,
                 control_numbers,
                 arxivs,
                 dois,
                 report_numbers,
+                schema="CDS",
             )
-            if not record_id:
-                raise AirflowSkipException(
-                    f"Skipping CDS hit {cds_id} (no record found in Inspire)"
-                )
-
-            try:
-                record = inspire_http_record_management_hook.get_record(
-                    pid_type=LITERATURE_PID_TYPE, control_number=record_id
-                )
-            except AirflowException as e:
-                raise AirflowSkipException(
-                    f"Skipping CDS hit {cds_id}"
-                    f"(no record found in Inspire: {record_id})"
-                ) from e
-
-            record_metadata = record["metadata"]
-            ids = record_metadata.get("external_system_identifiers", [])
-            values = get_values_for_schema(ids, "CDS")
-            if cds_id in values:
-                raise AirflowSkipException(
-                    f"Correct CDS identifier is already present in the record. "
-                    f"Record ID: {record_metadata['control_number']}, CDS ID: {cds_id}",
-                )
-
-            return {"original_record": record, "cds_id": cds_id}
 
         @task.virtualenv(
             requirements=["inspire-schemas>=61.6.16"],
@@ -111,22 +86,7 @@ def cds_harvest_dag():
 
         @task(task_id="update_inspire_record")
         def update_inspire_record(payload):
-            updated_record = payload["updated_record"]
-            control_number = updated_record["control_number"]
-            revision_id = payload["revision"]
-            logger.info(
-                f"Updating record with {payload['updated_record']} "
-                f"and with revision ID {revision_id}"
-            )
-            response = inspire_http_record_management_hook.update_record(
-                data=updated_record,
-                pid_type=LITERATURE_PID_TYPE,
-                control_number=control_number,
-                revision_id=revision_id + 1,
-            )
-            response.raise_for_status()
-            logger.info(f"Record {control_number} updated successfully.")
-            return response.json()
+            return update_record(inspire_http_record_management_hook, payload)
 
         result = process_record(cds_record)
         built = build_record(result)

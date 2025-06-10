@@ -1,8 +1,10 @@
 import logging
 
+from airflow.exceptions import AirflowException, AirflowSkipException
 from idutils import is_arxiv
 from include.utils.constants import LITERATURE_PID_TYPE
-from inspire_utils.record import get_value
+from inspire_utils.helpers import force_list
+from inspire_utils.record import get_value, get_values_for_schema
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +24,35 @@ def has_any_id(cds_record):
             get_value(cds_record, "metadata.report_numbers.value", []),
         ]
     )
+
+
+def has_any_rdm_id(cds_record):
+    cds_id = cds_record.get("id")
+    if not cds_id:
+        logger.info(f"Cannot extract CDS id from CDS RDM response: {cds_record}")
+        return False
+    identifiers = get_value(cds_record, "metadata.identifiers", [])
+    return any(
+        [
+            get_identifiers_for_scheme(identifiers, "inspire"),
+            get_identifiers_for_scheme(identifiers, "arxiv"),
+            get_dois(cds_record),
+            get_identifiers_for_scheme(identifiers, "cds_ref"),
+        ]
+    )
+
+
+def get_dois(cds_record):
+    dois = force_list(get_value(cds_record, "pids.doi.identifier", []))
+    parent_dois = force_list(get_value(cds_record, "parent.pids.doi.identifier", []))
+    return dois + parent_dois
+
+
+def get_identifiers_for_scheme(elements, schema):
+    """Return all identifiers from elements having a given scheme."""
+    return [
+        element["identifier"] for element in elements if element["scheme"] == schema
+    ]
 
 
 def search_and_return_single(
@@ -95,3 +126,65 @@ def build_literature_search_params(
             clauses.add(f'report_numbers.value.fuzzy:"{report_number}"')
 
     return " OR ".join(sorted(clauses))
+
+
+def update_record(inspire_http_record_management_hook, payload):
+    updated_record = payload["updated_record"]
+    control_number = updated_record["control_number"]
+    revision_id = payload["revision"]
+    logger.info(
+        f"Updating record with {payload['updated_record']} "
+        f"and with revision ID {revision_id}"
+    )
+    response = inspire_http_record_management_hook.update_record(
+        data=updated_record,
+        pid_type=LITERATURE_PID_TYPE,
+        control_number=control_number,
+        revision_id=revision_id + 1,
+    )
+    response.raise_for_status()
+    logger.info(f"Record {control_number} updated successfully.")
+    return response.json()
+
+
+def retrieve_and_validate_record(
+    inspire_http_record_management_hook,
+    cds_id,
+    control_numbers,
+    arxivs,
+    dois,
+    report_numbers,
+    schema,
+):
+    record_id = get_record_for_provided_ids(
+        inspire_http_record_management_hook,
+        control_numbers,
+        arxivs,
+        dois,
+        report_numbers,
+    )
+    if not record_id:
+        raise AirflowSkipException(
+            f"Skipping CDS hit {cds_id} (no record found in Inspire)"
+        )
+
+    try:
+        record = inspire_http_record_management_hook.get_record(
+            pid_type=LITERATURE_PID_TYPE,
+            control_number=record_id,
+        )
+    except AirflowException as e:
+        raise AirflowSkipException(
+            f"Skipping CDS hit {cds_id}" f" (no record found in Inspire: {record_id})",
+        ) from e
+
+    metadata = record.get("metadata", {})
+    external_ids = metadata.get("external_system_identifiers", [])
+    existing_cds_ids = get_values_for_schema(external_ids, schema)
+    if cds_id in existing_cds_ids:
+        raise AirflowSkipException(
+            f"Correct CDS identifier is already present in the record. "
+            f"Record ID: {metadata.get('control_number')}, CDS ID: {cds_id}",
+        )
+
+    return {"original_record": record, "cds_id": cds_id}
