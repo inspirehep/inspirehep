@@ -212,6 +212,7 @@ inspirehep_disambiguation = "inspirehep.disambiguation.tasks"
 inspirehep_hal = "inspirehep.hal.tasks"
 inspirehep_cds = "inspirehep.cds.tasks"
 inspirehep_curation = "inspirehep.curation.tasks"
+inspirehep_sitemap = "inspirehep.sitemap.tasks"
 
 
 [tool.poetry.group.dev.dependencies]
