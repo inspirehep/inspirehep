@@ -35,7 +35,7 @@ async function getBrowser() {
   }
   return browser;
 }
-const limit = pLimit.default(p_limit);
+const limit = pLimit.default(parseInt(p_limit));
 const MAX_BROWSER_LIFETIME = 1000 * 60 * 10; 
 
 app.get("/render", async (req, res) => {
