@@ -6,6 +6,7 @@ const { createCache } = require("cache-manager");
 const pLimit = require("p-limit");
 const app = express();
 const PORT = process.env.PORT || 8080;
+const p_limit = process.env.PLIMIT || 1;
 
 const keyvS3 = new KeyvS3({
   namespace: process.env.AWS_CACHE_NAMESPACE,
@@ -34,8 +35,7 @@ async function getBrowser() {
   }
   return browser;
 }
-
-const limit = pLimit.default(1);
+const limit = pLimit.default(p_limit);
 const MAX_BROWSER_LIFETIME = 1000 * 60 * 10; 
 
 app.get("/render", async (req, res) => {
