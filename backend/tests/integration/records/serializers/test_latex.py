@@ -543,9 +543,9 @@ def test_latex_encodes_non_latex_chars(inspire_app):
     }
     record = create_record("lit", data)
     expected = (
-        "%\\cite{Gerard2020:abc}\n\\bibitem{Gerard2020:abc}\nP.~G\\'erard"
-        " [DA\\ensuremath{\\Phi}NE],\n%``About \\ensuremath{\\gamma}-ray"
-        " bursts,''\nAnnales H. Poincar\\'e \\textbf{42}, 314\ndoi:10.1234/567\\_89\n%0"
+        "%\\cite{Gerard2020:abc}\n\\bibitem{Gerard2020:abc}\nP.~G{\\'e}rard"
+        " [DA{\\ensuremath{\\Phi}}NE],\n%``About {\\ensuremath{\\gamma}}-ray"
+        " bursts,''\nAnnales H. Poincar{\\'e} \\textbf{42}, 314\ndoi:10.1234/567{\\_}89\n%0"
         " citations counted in INSPIRE as of 16 Sep 2020"
     )
 
@@ -1075,7 +1075,7 @@ def test_latex_strips_mathml_with_and_in_title(inspire_app):
     record_control_number = record["control_number"]
     expected_data = (
         f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\n%``Inert"
-        " Higgs \\& Dark Matter for CDF II W-Boson Mass and Detection Prospects,''\n%0"
+        " Higgs {\\&} Dark Matter for CDF II W-Boson Mass and Detection Prospects,''\n%0"
         " citations counted in INSPIRE as of 19 Dec 1994"
     )
     with inspire_app.test_client() as client:
@@ -1109,8 +1109,8 @@ def test_latex_leaves_mathml_in_title_when_conversion_error(
     record_control_number = record["control_number"]
     expected_data = (
         f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\n%``Inert"
-        " Higgs \\& Dark Matter for CDF II \\ensuremath{<}math"
-        " display=''inline''\\ensuremath{>}\\ensuremath{<}mi\\ensuremath{>}W\\ensuremath{<}/mi\\ensuremath{>}\\ensuremath{<}/math\\ensuremath{>}-Boson"
+        " Higgs {\\&} Dark Matter for CDF II {\\ensuremath{<}}math"
+        " display=''inline''{\\ensuremath{>}}{\\ensuremath{<}}mi{\\ensuremath{>}}W{\\ensuremath{<}}/mi{\\ensuremath{>}}{\\ensuremath{<}}/math{\\ensuremath{>}}-Boson"
         " Mass and Detection Prospects,''\n%0 citations counted in INSPIRE as of 19"
         " Dec 1994"
     )
