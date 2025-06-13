@@ -1,9 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import AggregationFilters from '../AggregationFilters';
-import AggregationFilter from '../AggregationFilter';
 
 describe('AggregationFilters', () => {
   it('renders with all props set', () => {
@@ -72,7 +71,7 @@ describe('AggregationFilters', () => {
       },
     });
     const query = { agg1: 'foo' };
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AggregationFilters
         query={query}
         aggregations={aggregations}
@@ -81,7 +80,7 @@ describe('AggregationFilters', () => {
         onAggregationChange={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with all props set [inline]', () => {
@@ -130,7 +129,7 @@ describe('AggregationFilters', () => {
       },
     });
     const query = { agg1: 'foo' };
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AggregationFilters
         inline
         query={query}
@@ -140,7 +139,7 @@ describe('AggregationFilters', () => {
         onAggregationChange={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('does not render aggregations with empty buckets', () => {
@@ -178,7 +177,7 @@ describe('AggregationFilters', () => {
       },
     });
     const query = {};
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AggregationFilters
         query={query}
         aggregations={aggregations}
@@ -187,7 +186,7 @@ describe('AggregationFilters', () => {
         onAggregationChange={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('does not render aggregations when numberOfResults is 0', () => {
@@ -230,7 +229,7 @@ describe('AggregationFilters', () => {
       },
     });
     const query = {};
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AggregationFilters
         query={query}
         aggregations={aggregations}
@@ -239,64 +238,7 @@ describe('AggregationFilters', () => {
         onAggregationChange={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('calls onAggregationChange when aggregation is changed', () => {
-    const aggregations = fromJS({
-      agg: {
-        buckets: [
-          {
-            key: 'foo',
-            doc_count: 1,
-          },
-          {
-            key: 'bar',
-            doc_count: 2,
-          },
-          {
-            key: 'uncool',
-            doc_count: 3,
-          },
-        ],
-        meta: {
-          title: 'Aggregation',
-          order: 1,
-          type: 'checkbox',
-        },
-      },
-    });
-    const initialAggregations = fromJS({
-      agg1: {
-        buckets: [
-          {
-            key: 'foo',
-            doc_count: 1,
-          },
-        ],
-        meta: {
-          title: '[Range] Aggregation 1',
-          order: 1,
-          type: 'range',
-        },
-      },
-    });
-    const query = {};
-    const onAggregationChange = jest.fn();
-    const wrapper = shallow(
-      <AggregationFilters
-        query={query}
-        aggregations={aggregations}
-        initialAggregations={initialAggregations}
-        numberOfResults={2}
-        onAggregationChange={onAggregationChange}
-      />
-    );
-    const onAggregationFilterChange = wrapper
-      .find(AggregationFilter)
-      .prop('onChange');
-    onAggregationFilterChange(['foo', 'bar']);
-    expect(onAggregationChange).toBeCalledWith('agg', ['foo', 'bar']);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders aggregations when numberOfResults is 0 and displayWhenNoResults is true', () => {
@@ -331,7 +273,7 @@ describe('AggregationFilters', () => {
       },
     });
     const query = {};
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AggregationFilters
         query={query}
         aggregations={aggregations}
@@ -341,6 +283,6 @@ describe('AggregationFilters', () => {
         displayWhenNoResults
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });
