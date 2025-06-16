@@ -224,6 +224,26 @@ def test_arxiv_paper_with_ads_id_does_not_get_ads_link_with_arxiv(current_app_mo
 
 
 @mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
+def test_cds_with_cdsrdm_creates_links_correctly(current_app_mock):
+    expected_data = [
+        {
+            "url_name": "CERN Document Server",
+            "url_link": "https://repository.cern/records/123",
+        }
+    ]
+
+    entry_data = {
+        "external_system_identifiers": [
+            {"schema": "CDS", "value": "test-123"},
+            {"schema": "CDSRDM", "value": "123"},
+        ],
+    }
+    serializer = LiteratureDetailSchema()
+    serialized = serializer.dump(entry_data).data
+    assert serialized["external_system_identifiers"] == expected_data
+
+
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
 def test_dataset_links(current_app_mock):
     current_app_mock.config = {"FEATURE_FLAG_ENABLE_LITERATURE_DATA_LINKS": False}
     external_system_identifiers = {

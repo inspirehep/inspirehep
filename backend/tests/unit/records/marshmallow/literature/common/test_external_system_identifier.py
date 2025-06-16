@@ -72,6 +72,100 @@ def test_all_schema_types_except_kekscan():
     assert expected == orjson.loads(result)
 
 
+def test_cds_when_no_cdsrdm():
+    class TestSchema(Schema):
+        external_system_identifiers = fields.Nested(
+            ExternalSystemIdentifierSchemaV1, dump_only=True, many=True
+        )
+
+    schema = TestSchema()
+    dump = {
+        "external_system_identifiers": [
+            {"schema": "ads", "value": "ads-id"},
+            {"schema": "CDS", "value": "cds-id"},
+        ]
+    }
+    expected = {
+        "external_system_identifiers": [
+            {
+                "url_link": "https://ui.adsabs.harvard.edu/abs/ads-id",
+                "url_name": "ADS Abstract Service",
+            },
+            {
+                "url_link": "http://cds.cern.ch/record/cds-id",
+                "url_name": "CERN Document Server",
+            },
+        ]
+    }
+
+    result = schema.dumps(dump).data
+
+    assert expected == orjson.loads(result)
+
+
+def test_cds_keeps_cdsrdm_when_both_cds_and_cdsrdm():
+    class TestSchema(Schema):
+        external_system_identifiers = fields.Nested(
+            ExternalSystemIdentifierSchemaV1, dump_only=True, many=True
+        )
+
+    schema = TestSchema()
+    dump = {
+        "external_system_identifiers": [
+            {"schema": "ads", "value": "ads-id"},
+            {"schema": "CDS", "value": "cds-id"},
+            {"schema": "CDSRDM", "value": "cds-rdm-id"},
+        ]
+    }
+    expected = {
+        "external_system_identifiers": [
+            {
+                "url_link": "https://ui.adsabs.harvard.edu/abs/ads-id",
+                "url_name": "ADS Abstract Service",
+            },
+            {
+                "url_link": "https://repository.cern/records/cds-rdm-id",
+                "url_name": "CERN Document Server",
+            },
+        ]
+    }
+
+    result = schema.dumps(dump).data
+
+    assert expected == orjson.loads(result)
+
+
+def test_cdsrdm():
+    class TestSchema(Schema):
+        external_system_identifiers = fields.Nested(
+            ExternalSystemIdentifierSchemaV1, dump_only=True, many=True
+        )
+
+    schema = TestSchema()
+    dump = {
+        "external_system_identifiers": [
+            {"schema": "ads", "value": "ads-id"},
+            {"schema": "CDSRDM", "value": "cds-rdm-id"},
+        ]
+    }
+    expected = {
+        "external_system_identifiers": [
+            {
+                "url_link": "https://ui.adsabs.harvard.edu/abs/ads-id",
+                "url_name": "ADS Abstract Service",
+            },
+            {
+                "url_link": "https://repository.cern/records/cds-rdm-id",
+                "url_name": "CERN Document Server",
+            },
+        ]
+    }
+
+    result = schema.dumps(dump).data
+
+    assert expected == orjson.loads(result)
+
+
 def test_takes_first_id_foreach_url_name():
     class TestSchema(Schema):
         external_system_identifiers = fields.Nested(
