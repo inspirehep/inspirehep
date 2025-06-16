@@ -5,7 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-from marshmallow import Schema, fields, missing, post_dump
+from marshmallow import Schema, fields, missing, post_dump, pre_dump
 
 
 class ExternalSystemIdentifierSchemaV1(Schema):
@@ -15,6 +15,7 @@ class ExternalSystemIdentifierSchemaV1(Schema):
     schema_to_url_name_map = {
         "ads": "ADS Abstract Service",
         "cds": "CERN Document Server",
+        "cdsrdm": "CERN Document Server",
         "euclid": "Project Euclid",
         "hal": "HAL Science Ouverte",
         "kekscan": "KEK scanned document",
@@ -27,6 +28,7 @@ class ExternalSystemIdentifierSchemaV1(Schema):
     schema_to_url_link_prefix_map = {
         "ads": "https://ui.adsabs.harvard.edu/abs/",
         "cds": "http://cds.cern.ch/record/",
+        "cdsrdm": "https://repository.cern/records/",
         "euclid": "http://projecteuclid.org/",
         "hal": "https://hal.science/",
         "kekscan": "https://lib-extopc.kek.jp/preprints/PDF/",
@@ -73,6 +75,16 @@ class ExternalSystemIdentifierSchemaV1(Schema):
         yymm = extid[:4]
         kekscan_url_prefix = cls.schema_to_url_link_prefix_map["kekscan"]
         return f"{kekscan_url_prefix}{year}/{yymm}/{extid}.pdf"
+
+    @pre_dump(pass_many=True)
+    def filter_cds_if_rdm_present(self, data, many):
+        if many:
+            has_rdm = any(item.get("schema", "").lower() == "cdsrdm" for item in data)
+            if has_rdm:
+                return [
+                    item for item in data if item.get("schema", "").lower() != "cds"
+                ]
+        return data
 
     @post_dump(pass_many=True)
     def filter(self, data, many):
