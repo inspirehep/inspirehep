@@ -71,5 +71,6 @@ jobs:
             --env POSTGRES_PASSWORD=postgres
             --env POSTGRES_HOST=127.0.0.1
             --env OPENSEARCH_HOST=127.0.0.1:9200
+            --env REDIS_URL=redis://127.0.0.1:6379/2
             registry.cern.ch/cern-sis/inspire/backoffice@${{ needs.build.outputs.image-id }}
             run pytest
