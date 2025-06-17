@@ -106,6 +106,7 @@ def data_harvest_dag():
         @task.virtualenv(
             requirements=["inspire-schemas==61.6.10"],
             system_site_packages=False,
+            venv_cache_path="/opt/airflow/venvs",
         )
         def build_record(data_schema, inspire_url, payload, **context):
             """Build the record from the payload.

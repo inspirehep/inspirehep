@@ -102,6 +102,7 @@ def cds_rdm_harvest_dag():
         @task.virtualenv(
             requirements=["inspire-schemas>=61.6.16"],
             system_site_packages=False,
+            venv_cache_path="/opt/airflow/venvs",
         )
         def build_record(payload):
             from inspire_schemas.builders import LiteratureBuilder
