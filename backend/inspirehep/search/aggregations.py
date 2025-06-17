@@ -438,6 +438,14 @@ def hep_curation_collection_aggregation(
                         }
                     }
                 },
+                {
+                    "match": {
+                        "external_system_identifiers.schema": {
+                            "query": "CDSRDM",
+                            "operator": "and",
+                        }
+                    }
+                },
                 {"match_phrase": {"_private_notes.value": "Not CERN"}},
                 {"match": {"_collections": "CDS Hidden"}},
                 {
