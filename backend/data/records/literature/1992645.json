@@ -1,0 +1,95 @@
+{
+    "core": false,
+    "dois": [
+      {
+        "value": "10.5281/zenodo.5788550"
+      }
+    ],
+    "self": {
+      "$ref": "https://inspirebeta.net/api/literature/1992645"
+    },
+    "urls": [
+      {
+        "value": "https://github.com/inspirehep/rest-api-doc"
+      }
+    ],
+    "titles": [
+      {
+        "title": "The INSPIRE REST API",
+        "source": "submitter"
+      }
+    ],
+    "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+    "authors": [
+      {
+        "uuid": "d78906bb-9838-4204-8a0e-87bcb4718ba5",
+        "record": {
+          "$ref": "https://inspirebeta.net/api/authors/1259096"
+        },
+        "full_name": "Moskovic, Micha",
+        "affiliations": [
+          {
+            "value": "CERN",
+            "record": {
+              "$ref": "https://inspirebeta.net/api/institutions/902725"
+            }
+          }
+        ],
+        "signature_block": "MASCAVACm",
+        "curated_relation": true
+      }
+    ],
+    "curated": true,
+    "license": [
+      {
+        "url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+        "license": "CC-BY-4.0"
+      }
+    ],
+    "texkeys": [
+      "Moskovic:2021zjs"
+    ],
+    "citeable": true,
+    "imprints": [
+      {
+        "date": "2021-12-17"
+      }
+    ],
+    "abstracts": [
+      {
+        "value": "INSPIRE is a trusted community hub that helps researchers to share and find accurate scholarly information in high energy physics. In addition to a regular web interface for interactive access to its content, a REST API is provided for programmatic access. The present document explains how to use this REST API.",
+        "source": "submitter"
+      }
+    ],
+    "_export_to": {
+      "CDS": true
+    },
+    "_collections": [
+      "Literature"
+    ],
+    "document_type": [
+      "article"
+    ],
+    "control_number": 1992645,
+    "acquisition_source": {
+      "email": "micha.moshe.moskovic@cern.ch",
+      "orcid": "0000-0002-7638-5686",
+      "method": "submitter",
+      "source": "submitter",
+      "datetime": "2021-12-17T11:27:00.898217",
+      "internal_uid": 50872,
+      "submission_number": "3622643"
+    },
+    "inspire_categories": [
+      {
+        "term": "Computing",
+        "source": "curator"
+      }
+    ],
+    "external_system_identifiers": [
+      {
+        "value": "2798415",
+        "schema": "CDS"
+      }
+    ]
+  }
