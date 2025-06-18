@@ -279,6 +279,20 @@ exports[`Home renders home page 1`] = `
                   />
                 </a>
               </div>
+              <div
+                class="ant-col ma3"
+              >
+                <a
+                  href="https://www.tib.eu/en/"
+                  target="_blank"
+                >
+                  <img
+                    alt="TIB"
+                    height="40"
+                    src="collab-logo-TIB.png"
+                  />
+                </a>
+              </div>
             </div>
           </div>
         </div>
