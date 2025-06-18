@@ -123,6 +123,9 @@ LITERATURE.update(
             "application/vnd+inspire.record.raw+json": (
                 f"{INSPIRE_SERIALIZERS}:raw_json_detail_response"
             ),
+            "application/vnd+inspire.record.cds+json": (
+                f"{INSPIRE_SERIALIZERS}:literature_json_cds_response"
+            ),
             "application/x-bibtex": f"{INSPIRE_SERIALIZERS}:literature_bibtex_response",
             "application/vnd+inspire.latex.eu+x-latex": (
                 f"{INSPIRE_SERIALIZERS}:latex_response_eu"

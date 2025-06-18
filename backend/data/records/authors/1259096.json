@@ -1,0 +1,121 @@
+{
+    "email_addresses": [
+      {
+        "value": "micha.moshe.moskovic@cern.ch",
+        "current": true
+      },
+      {
+        "value": "moskovic@to.infn.it"
+      },
+      {
+        "value": "mmoskovi@ulb.ac.be"
+      }
+    ],
+    "positions": [
+      {
+        "rank": "STAFF",
+        "hidden": false,
+        "record": {
+          "$ref": "https://inspirebeta.net/api/institutions/902725"
+        },
+        "current": true,
+        "start_date": "2019",
+        "institution": "CERN",
+        "curated_relation": true
+      },
+      {
+        "rank": "POSTDOC",
+        "hidden": false,
+        "record": {
+          "$ref": "https://inspirebeta.net/api/institutions/902725"
+        },
+        "current": false,
+        "end_date": "2019",
+        "start_date": "2016",
+        "institution": "CERN",
+        "curated_relation": true
+      },
+      {
+        "rank": "POSTDOC",
+        "hidden": false,
+        "record": {
+          "$ref": "https://inspirebeta.net/api/institutions/902889"
+        },
+        "current": false,
+        "end_date": "2016",
+        "start_date": "2014",
+        "institution": "INFN, Turin",
+        "curated_relation": true
+      },
+      {
+        "rank": "PHD",
+        "hidden": false,
+        "record": {
+          "$ref": "https://inspirebeta.net/api/institutions/909579"
+        },
+        "current": false,
+        "end_date": "2014",
+        "start_date": "2010",
+        "institution": "Brussels U., PTM",
+        "curated_relation": true
+      }
+    ],
+    "advisors": [
+        {
+            "ids": [
+                {
+                    "value": "INSPIRE-00090190",
+                    "schema": "INSPIRE ID"
+                }
+            ],
+            "name": "Hildreth, Michael D.",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1006021"
+            },
+            "degree_type": "phd"
+        }
+    ],
+    "ids": [
+      {
+        "value": "Micha.Moskovic.1",
+        "schema": "INSPIRE BAI"
+      },
+      {
+        "value": "INSPIRE-00391618",
+        "schema": "INSPIRE ID"
+      },
+      {
+        "value": "0000-0002-7638-5686",
+        "schema": "ORCID"
+      },
+      {
+        "value": "micha-moskovic",
+        "schema": "LINKEDIN"
+      }
+    ],
+    "name": {
+      "value": "Moskovic, Micha",
+      "preferred_name": "Micha Moskovic"
+    },
+    "stub": false,
+    "status": "active",
+    "$schema": "https://inspirebeta.net/schemas/records/authors.json",
+    "deleted": false,
+    "_collections": [
+      "Authors"
+    ],
+    "control_number": 1259096,
+    "legacy_version": "20210625210800.0",
+    "arxiv_categories": [
+      "hep-th"
+    ],
+    "acquisition_source": {
+      "email": "joao.ramiro@cern.ch",
+      "orcid": "0000-0002-6357-9297",
+      "method": "submitter",
+      "source": "submitter",
+      "datetime": "2024-08-09T14:37:52.791054",
+      "internal_uid": 81650
+    },
+    "legacy_creation_date": "2013-10-16"
+  }
