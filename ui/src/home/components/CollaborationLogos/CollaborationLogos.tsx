@@ -8,6 +8,7 @@ import fermilabLogo from './logos/collab-logo-Fermilab.png';
 import ihepLogo from './logos/collab-logo-IHEP.png';
 import in2p3Logo from './logos/collab-logo-IN2P3.png';
 import slacLogo from './logos/collab-logo-SLAC.png';
+import tibLogo from './logos/collab-logo-TIB.png';
 
 function CollaborationLogos() {
   return (
@@ -48,6 +49,13 @@ function CollaborationLogos() {
           name="SLAC"
           href="https://slac.stanford.edu"
           src={slacLogo}
+        />
+      </Col>
+      <Col className="ma3">
+        <CollaborationLogo
+          name="TIB"
+          href="https://www.tib.eu/en/"
+          src={tibLogo}
         />
       </Col>
     </Row>
