@@ -15,6 +15,7 @@ from inspirehep.records.marshmallow.literature import (
     LiteratureListWrappedSchema,
     LiteraturePublicListSchema,
     LiteraturePublicSchema,
+    LiteraturePublicSchemaCDS,
 )
 from inspirehep.serializers import (
     ConditionalMultiSchemaJSONSerializer,
@@ -55,9 +56,19 @@ literature_json_response_search = search_responsify(
     literature_json_search, "application/json"
 )
 
+
+literature_json_cds = JSONSerializer(
+    wrap_schema_class_with_metadata(LiteraturePublicSchemaCDS)
+)
+
+literature_json_cds_response = record_responsify(
+    literature_json_cds, "application/vnd+inspire.record.cds+json"
+)
+
 literature_detail = JSONSerializer(
     wrap_schema_class_with_metadata(LiteratureDetailSchema)
 )
+
 literature_list = JSONSerializerLiteratureSearch(
     LiteratureListWrappedSchema, index_name="records-hep"
 )
