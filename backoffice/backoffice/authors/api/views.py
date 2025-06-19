@@ -243,13 +243,21 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
     def restart(self, request, pk=None):
         workflow = get_object_or_404(AuthorWorkflow, pk=pk)
 
+        restart_current_task = request.data.get("restart_current_task")
+        has_failed_dag = airflow_utils.find_failed_dag(
+            workflow.id, workflow.workflow_type
+        )
+        has_no_executions = not airflow_utils.find_executed_dags(
+            workflow.id, workflow.workflow_type
+        )
+
         try:
-            if request.data.get("restart_current_task"):
+            if restart_current_task:
                 response = airflow_utils.restart_failed_tasks(
                     workflow.id, workflow.workflow_type
                 )
                 error_msg = "No failed tasks found to restart. Skipping restart."
-            elif airflow_utils.find_failed_dag(workflow.id, workflow.workflow_type):
+            elif has_failed_dag or has_no_executions:
                 response = airflow_utils.restart_workflow_dags(
                     workflow.id,
                     workflow.workflow_type,
