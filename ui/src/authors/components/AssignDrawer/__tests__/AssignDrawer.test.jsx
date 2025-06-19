@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { Set } from 'immutable';
-import { shallow } from 'enzyme';
 
 import { Provider } from 'react-redux';
 import AssignDrawer from '../AssignDrawer';
@@ -20,15 +19,18 @@ describe('AssignDrawer', () => {
     const onAssign = jest.fn();
     const selectedPapers = Set([1, 2, 3]);
 
-    const wrapper = shallow(
-      <AssignDrawer
-        visible={visible}
-        onDrawerClose={onDrawerClose}
-        onAssign={onAssign}
-        selectedPapers={selectedPapers}
-      />
+    const screen = render(
+      <Provider store={getStore()}>
+        <AssignDrawer
+          visible={visible}
+          onDrawerClose={onDrawerClose}
+          onAssign={onAssign}
+          selectedPapers={selectedPapers}
+        />
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(screen.baseElement).toMatchSnapshot();
   });
 
   it('calls onAssign on assign button click', () => {

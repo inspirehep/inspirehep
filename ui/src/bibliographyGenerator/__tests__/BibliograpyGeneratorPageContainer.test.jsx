@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
+
 import BibliographyGeneratorPageContainer from '../BibliographyGeneratorPageContainer';
 import BibliographyGenerator from '../BibliographyGenerator';
 import { getStore } from '../../fixtures/store';
