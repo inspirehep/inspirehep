@@ -104,6 +104,18 @@ def find_executed_dags(workflow_id, workflow_type):
     return executed_dags_for_workflow
 
 
+def find_failed_dag_for_workflow(executed_dags_for_workflow):
+    """Finds all failed dags for a given workflow.
+
+    :param executed_dags_for_workflow: dictionary with executed dags and their status
+
+    :returns: list of failed dag ids
+    """
+    for dag, dag_data in executed_dags_for_workflow.items():
+        if dag_data["state"] == "failed":
+            return dag
+
+
 def find_failed_dag(workflow_id, workflow_type):
     """For a given workflow find failed dags.
 
@@ -114,9 +126,7 @@ def find_failed_dag(workflow_id, workflow_type):
     """
 
     executed_dags_for_workflow = find_executed_dags(str(workflow_id), workflow_type)
-    for dag, dag_data in executed_dags_for_workflow.items():
-        if dag_data["state"] == "failed":
-            return dag
+    return find_failed_dag_for_workflow(executed_dags_for_workflow)
 
 
 def delete_workflow_dag(dag_id, workflow_id):

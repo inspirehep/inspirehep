@@ -243,23 +243,36 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
     def restart(self, request, pk=None):
         workflow = get_object_or_404(AuthorWorkflow, pk=pk)
 
+        restart_current_task = request.data.get("restart_current_task")
         try:
-            if request.data.get("restart_current_task"):
+            if restart_current_task:
                 response = airflow_utils.restart_failed_tasks(
                     workflow.id, workflow.workflow_type
                 )
                 error_msg = "No failed tasks found to restart. Skipping restart."
-            elif airflow_utils.find_failed_dag(workflow.id, workflow.workflow_type):
-                response = airflow_utils.restart_workflow_dags(
-                    workflow.id,
-                    workflow.workflow_type,
-                    request.data.get("params"),
-                    workflow=self.serializer_class(workflow).data,
-                )
-                error_msg = "No run configuration found. Skipping restart."
             else:
-                response = None
-                error_msg = "Workflow has already ran successfully. Skipping restart."
+                executed_dags = airflow_utils.find_executed_dags(
+                    workflow.id, workflow.workflow_type
+                )
+
+                has_failed_dag = airflow_utils.find_failed_dag_for_workflow(
+                    executed_dags
+                )
+                has_no_executions = not executed_dags
+
+                if has_failed_dag or has_no_executions:
+                    response = airflow_utils.restart_workflow_dags(
+                        workflow.id,
+                        workflow.workflow_type,
+                        request.data.get("params"),
+                        workflow=self.serializer_class(workflow).data,
+                    )
+                    error_msg = "No run configuration found. Skipping restart."
+                else:
+                    response = None
+                    error_msg = (
+                        "Workflow has already ran successfully. Skipping restart."
+                    )
 
             if response is None:
                 return Response(
