@@ -1,12 +1,13 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
+
 import DisabledEditRecordAction from '../DisabledEditRecordAction';
 
 describe('DisabledEditRecordAction', () => {
   it('renders with message', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <DisabledEditRecordAction message="Can not be edited" />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

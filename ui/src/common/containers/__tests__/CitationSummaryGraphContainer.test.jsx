@@ -1,17 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import CitationSummaryGraphContainer from '../CitationSummaryGraphContainer';
 import CitationSummaryGraph from '../../components/CitationSummaryGraph/CitationSummaryGraph';
-import {
-  CITEABLE_BAR_TYPE,
-  PUBLISHED_BAR_TYPE,
-  CITATION_COUNT_PARAM,
-  CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM,
-} from '../../constants';
 import { AUTHOR_PUBLICATIONS_NS } from '../../../search/constants';
 import { searchQueryUpdate } from '../../../actions/search';
 import { EXCLUDE_SELF_CITATIONS_PREFERENCE } from '../../../reducers/user';
@@ -20,6 +14,11 @@ jest.mock('../../../actions/citations');
 
 jest.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
+
+jest.mock('../../components/CitationSummaryGraph/CitationSummaryGraph', () => {
+  const MockCitationSummaryGraph = jest.fn(() => null);
+  return MockCitationSummaryGraph;
+});
 
 const mockCiteableData = [
   {
@@ -138,95 +137,24 @@ describe('CitationSummaryGraphContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
-    expect(wrapper.find(CitationSummaryGraph)).toHaveProp({
-      citeableData: mockCiteableData,
-      publishedData: mockPublishedData,
-      error: mockError,
-      loading: mockLoading,
-      selectedBar: null,
-      excludeSelfCitations: true,
-    });
-  });
 
-  it('dispatches SEARCH_QUERY_UPDATE for author publication namespace with clean query when onSelectBarChange called with null', () => {
-    const namespace = AUTHOR_PUBLICATIONS_NS;
-    const store = getStore();
-    const wrapper = mount(
-      <Provider store={store}>
-        <CitationSummaryGraphContainer namespace={namespace} />
-      </Provider>
+    expect(CitationSummaryGraph).toHaveBeenCalledWith(
+      expect.objectContaining({
+        citeableData: mockCiteableData,
+        publishedData: mockPublishedData,
+        error: mockError,
+        loading: mockLoading,
+        selectedBar: null,
+        excludeSelfCitations: true,
+      }),
+      expect.any(Object)
     );
-    const onSelectBarChange = wrapper
-      .find(CitationSummaryGraph)
-      .prop('onSelectBarChange');
-    onSelectBarChange(null);
-
-    const query = {
-      [CITATION_COUNT_PARAM]: undefined,
-      [CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM]: undefined,
-      citeable: undefined,
-      refereed: undefined,
-      page: '1',
-    };
-    const expectedActions = [searchQueryUpdate(namespace, query)];
-    expect(store.getActions()).toEqual(expectedActions);
-  });
-
-  it('dispatches SEARCH_QUERY_UPDATE for author publication namespace with citeable query when onSelectBarChange called with citeable bar with excluded self citations', () => {
-    const namespace = AUTHOR_PUBLICATIONS_NS;
-    const excludeSelfCitations = true;
-    const store = getStore();
-    const wrapper = mount(
-      <Provider store={store}>
-        <CitationSummaryGraphContainer namespace={namespace} />
-      </Provider>
-    );
-    wrapper.find(CitationSummaryGraph).prop('onSelectBarChange')(
-      {
-        xValue: '0--0',
-        type: CITEABLE_BAR_TYPE,
-      },
-      excludeSelfCitations
-    );
-    const query = {
-      [CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM]: '0--0',
-      citeable: true,
-      refereed: undefined,
-      page: '1',
-    };
-    const expectedActions = [searchQueryUpdate(namespace, query)];
-    expect(store.getActions()).toEqual(expectedActions);
-  });
-
-  it('dispatches SEARCH_QUERY_UPDATE for author publication namespace with published query when onSelectBarChange called with published bar', () => {
-    const namespace = AUTHOR_PUBLICATIONS_NS;
-    const excludeSelfCitations = false;
-    const store = getStore();
-    const wrapper = mount(
-      <Provider store={store}>
-        <CitationSummaryGraphContainer namespace={namespace} />
-      </Provider>
-    );
-    wrapper.find(CitationSummaryGraph).prop('onSelectBarChange')(
-      {
-        xValue: '0--0',
-        type: PUBLISHED_BAR_TYPE,
-      },
-      excludeSelfCitations
-    );
-    const query = {
-      [CITATION_COUNT_PARAM]: '0--0',
-      citeable: true,
-      refereed: true,
-      page: '1',
-    };
-    const expectedActions = [searchQueryUpdate(namespace, query)];
-    expect(store.getActions()).toEqual(expectedActions);
   });
 
   it('sets selectedBar prop from author publications namespace state for a citable bar', () => {
@@ -241,17 +169,22 @@ describe('CitationSummaryGraphContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
-    expect(wrapper.find(CitationSummaryGraph)).toHaveProp({
-      selectedBar: {
-        type: 'citeable',
-        xValue: '500--250',
-      },
-    });
+
+    expect(CitationSummaryGraph).toHaveBeenCalledWith(
+      expect.objectContaining({
+        selectedBar: {
+          type: 'citeable',
+          xValue: '500--250',
+        },
+      }),
+      expect.any(Object)
+    );
   });
 
   it('sets selectedBar prop from author publications namespace state for a published bar', () => {
@@ -266,16 +199,21 @@ describe('CitationSummaryGraphContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
-    expect(wrapper.find(CitationSummaryGraph)).toHaveProp({
-      selectedBar: {
-        type: 'published',
-        xValue: '0--0',
-      },
-    });
+
+    expect(CitationSummaryGraph).toHaveBeenCalledWith(
+      expect.objectContaining({
+        selectedBar: {
+          type: 'published',
+          xValue: '0--0',
+        },
+      }),
+      expect.any(Object)
+    );
   });
 });

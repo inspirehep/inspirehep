@@ -1,7 +1,7 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-
 import { render } from '@testing-library/react';
+
 import EventTitle from '../EventTitle';
 
 describe('EventTitle', () => {

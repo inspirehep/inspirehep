@@ -1,6 +1,7 @@
 /* eslint-disable react/button-has-type, react/prop-types */
 import { useCallback } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
+
 import useIsMounted from '../useIsMounted';
 
 function TestAsyncButton({ asyncOnClick }) {

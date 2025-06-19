@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
-
 import { render } from '@testing-library/react';
+
 import URLList from '../URLList';
 
 describe('URLList', () => {
