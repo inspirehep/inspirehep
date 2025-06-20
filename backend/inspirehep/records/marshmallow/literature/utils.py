@@ -34,10 +34,23 @@ def get_pages(data):
 
 
 def get_parent_records(data):
-    book_records = InspireRecord.get_linked_records_from_dict_field(
-        data, "publication_info.parent_record"
+    record = InspireRecord(data)
+    linked_pids_order = [
+        pid
+        for _, pid in record.get_linked_pids_from_field(
+            "publication_info.parent_record"
+        )
+    ]
+    book_records = list(
+        InspireRecord.get_linked_records_from_dict_field(
+            data, "publication_info.parent_record"
+        )
     )
-    return list(book_records)
+
+    return sorted(
+        book_records,
+        key=lambda rec: linked_pids_order.index(str(rec["control_number"])),
+    )
 
 
 def get_parent_record(data):

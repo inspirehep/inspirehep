@@ -1,0 +1,95 @@
+{
+    "core": false,
+    "dois": [
+      {
+        "value": "10.1016/c2013-0-01806-3"
+      }
+    ],
+    "self": {
+      "$ref": "https://inspirebeta.net/api/literature/2610294"
+    },
+    "urls": [
+      {
+        "value": "https://www.elsevier.com/books/collected-papers-of-ld-landau/ter-haar/978-0-08-010586-4"
+      }
+    ],
+    "isbns": [
+      {
+        "value": "9780080105864"
+      },
+      {
+        "value": "9781483152707",
+        "medium": "online"
+      }
+    ],
+    "titles": [
+      {
+        "title": "Collected Papers of L.D. Landau",
+        "source": "submitter"
+      }
+    ],
+    "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+    "authors": [
+      {
+        "uuid": "0ede95f3-cf9f-4a5c-9671-d222f439847d",
+        "record": {
+          "$ref": "https://inspirebeta.net/api/authors/1050541"
+        },
+        "full_name": "ter Haar, D.",
+        "inspire_roles": [
+          "editor"
+        ],
+        "signature_block": "HARd",
+        "curated_relation": true
+      }
+    ],
+    "curated": false,
+    "texkeys": [
+      "terHaar:1965zry",
+      "terHaaar:1965gia"
+    ],
+    "imprints": [
+      {
+        "date": "1965",
+        "publisher": "Pergamon"
+      }
+    ],
+    "abstracts": [
+      {
+        "value": "Collected Papers of L. D. Landau brings together the collected papers of L. D. Landau in the field of physics. The discussion is divided into the following sections: low-temperature physics (including superconductivity); solid-state physics; plasma physics; hydrodynamics; astrophysics; nuclear physics and cosmic rays; quantum mechanics; quantum field theory; and miscellaneous works. Topics covered include the intermediate state of supraconductors; the absorption of sound in solids; the properties of metals at very low temperatures; and production of showers by heavy particles. This volume is comprised of 100 chapters and begins with Landau's paper on the theory of the spectra of diatomic molecules, followed by his studies on the damping problem in wave mechanics; quantum electrodynamics in configuration space; electron motion in crystal lattices; and the internal temperature of stars. Some of Landau's theories, such as those of stars, energy transfer on collisions, phase transitions, and specific heat anomalies are discussed. Subsequent chapters focus on the structure of the undisplaced scattering line; the transport equation in the case of Coulomb interactions; scattering of light by light; and the origin of stellar energy. This book will be a valuable resource for physicists as well as physics students and researchers.",
+        "source": "submitter"
+      }
+    ],
+    "copyright": [
+      {
+        "year": 1965,
+        "holder": "Elsevier"
+      }
+    ],
+    "_collections": [
+      "Literature"
+    ],
+    "document_type": [
+      "book"
+    ],
+    "control_number": 2610294,
+    "publication_info": [
+      {
+        "year": 1965
+      }
+    ],
+    "acquisition_source": {
+      "email": "hoc@fnal.gov",
+      "orcid": "0000-0002-1895-5310",
+      "method": "submitter",
+      "source": "submitter",
+      "datetime": "2022-12-05T13:56:43.534916",
+      "internal_uid": 50032,
+      "submission_number": "4919463"
+    },
+    "inspire_categories": [
+      {
+        "term": "General Physics"
+      }
+    ]
+  }
