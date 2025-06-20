@@ -133,6 +133,16 @@ def test_get_parent_records(inspire_app):
     assert parent_record_1 in extracted_parent_records
     assert parent_record_2 in extracted_parent_records
 
+    extracted_control_numbers = [r["control_number"] for r in extracted_parent_records]
+    expected_order = [
+        parent_record_1["control_number"],
+        parent_record_2["control_number"],
+    ]
+
+    assert (
+        extracted_control_numbers == expected_order
+    ), f"Expected order {expected_order}, but got {extracted_control_numbers}"
+
 
 def test_get_parent_record(inspire_app):
     parent_record = create_record("lit")

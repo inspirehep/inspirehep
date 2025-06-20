@@ -1,0 +1,301 @@
+{
+    "core": false,
+    "dois": [
+      {
+        "value": "10.1103/PhysRev.58.1006",
+        "material": "publication"
+      },
+      {
+        "value": "10.1016/b978-0-08-010586-4.50045-6",
+        "material": "reprint"
+      }
+    ],
+    "self": {
+      "$ref": "https://inspirebeta.net/api/literature/2610370"
+    },
+    "urls": [
+      {
+        "value": "http://www.zentralblatt-math.org/zbmath/search/?q=an%3A66.1167.01",
+        "description": "Jahrbuch der Mathematik"
+      },
+      {
+        "value": "http://eqworld.ipmnet.ru/ru/library/books/Tamm_t1_1975ru.djvu",
+        "description": "EqWorld (fulltext [Собр. научн. тр. (Sobr. nauchn. tr.)], DJVU)"
+      },
+      {
+        "value": "http://web.archive.org/web/20071111201517/https://eqworld.ipmnet.ru/ru/library/books/Tamm_t1_1975ru.djvu",
+        "description": "Internet Archive (fulltext [Собр. научн. тр. (Sobr. nauchn. tr.)], DJVU)"
+      }
+    ],
+    "titles": [
+      {
+        "title": "On the nature of the nuclear forces"
+      },
+      {
+        "title": "ON THE NATURE OF THE NUCLEAR FORCES",
+        "source": "submitter"
+      }
+    ],
+    "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+    "authors": [
+      {
+        "ids": [
+          {
+            "value": "INSPIRE-00147020",
+            "schema": "INSPIRE ID"
+          },
+          {
+            "value": "HEPNAMES-419974",
+            "schema": "SPIRES"
+          }
+        ],
+        "uuid": "bf6e5b34-4372-404e-9ee4-f0cccb31efee",
+        "record": {
+          "$ref": "https://inspirebeta.net/api/authors/1019139"
+        },
+        "full_name": "Landau, L.",
+        "signature_block": "LANDl",
+        "curated_relation": true,
+        "alternative_names": [
+          "Ландау, Л.Д."
+        ]
+      },
+      {
+        "ids": [
+          {
+            "value": "INSPIRE-00165155",
+            "schema": "INSPIRE ID"
+          },
+          {
+            "value": "HEPNAMES-900923",
+            "schema": "SPIRES"
+          }
+        ],
+        "uuid": "8e5a268b-7a60-4480-80e9-ce089d549f7f",
+        "record": {
+          "$ref": "https://inspirebeta.net/api/authors/1062560"
+        },
+        "full_name": "Tamm, I.",
+        "signature_block": "TANi",
+        "curated_relation": true,
+        "alternative_names": [
+          "Тамм, И.Е."
+        ]
+      }
+    ],
+    "curated": true,
+    "texkeys": [
+      "Landau:1940kko",
+      "Landau:1965flv"
+    ],
+    "citeable": true,
+    "imprints": [
+      {
+        "date": "1940-12-01"
+      },
+      {
+        "date": "1940"
+      },
+      {
+        "date": "1965",
+        "place": "Oxford",
+        "publisher": "Pergamon Press"
+      },
+      {
+        "date": "1975",
+        "place": "Moscow",
+        "publisher": "Наука [Nauka]"
+      }
+    ],
+    "refereed": true,
+    "languages": [
+      "en",
+      "ru"
+    ],
+    "references": [
+      {
+        "record": {
+          "$ref": "https://inspirebeta.net/api/literature/47488"
+        },
+        "raw_refs": [
+          {
+            "value": "1. I. TAMM, Phys. Rev. 58, 952 (1940).",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "label": "1",
+          "authors": [
+            {
+              "full_name": "Tamm, I."
+            }
+          ],
+          "publication_info": {
+            "year": 1940,
+            "artid": "952",
+            "page_start": "952",
+            "journal_title": "Phys.Rev.",
+            "journal_volume": "58"
+          }
+        },
+        "curated_relation": true
+      },
+      {
+        "record": {
+          "$ref": "https://inspirebeta.net/api/literature/2610369"
+        },
+        "raw_refs": [
+          {
+            "value": "2. L. LANDAU, Phys. Rev. 58, 1006 (1940).",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "label": "2",
+          "authors": [
+            {
+              "full_name": "Landau, L."
+            }
+          ],
+          "publication_info": {
+            "year": 1940,
+            "artid": "1006.2",
+            "page_start": "1006.2",
+            "journal_title": "Phys.Rev.",
+            "journal_volume": "58"
+          }
+        },
+        "curated_relation": true
+      },
+      {
+        "raw_refs": [
+          {
+            "value": "3. H. BETHE and R. PEIERLS, Proc. Roy. Soc. A 148, 146 (1935).",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "label": "3",
+          "authors": [
+            {
+              "full_name": "Bethe, H."
+            },
+            {
+              "full_name": "Peierls, R."
+            }
+          ],
+          "publication_info": {
+            "year": 1935,
+            "artid": "146",
+            "page_start": "146",
+            "journal_title": "Proc.Roy.Soc.Lond.A",
+            "journal_volume": "148"
+          }
+        },
+        "curated_relation": true
+      }
+    ],
+    "_collections": [
+      "Literature"
+    ],
+    "public_notes": [
+      {
+        "value": "List of references drawn from the English version [Phys.Rev. 58(1940)1006]. The English version of the article is reprinted in: D. ter Haar (Ed.): Collected Papers of L D Landau. Edited and with an introduction by D ter Haar. Pergamon Press, Oxford, 1965, item 40, pp. 272-273 (ISBN-13: 978-0-08-010586-4). The Russian version of the article [Dokl.Akad.Nauk SSSR 29(1940)555] is reprinted in: И. Е. Тамм [I. E. Tamm]: Собрание научных трудов в двух томах. Том 1. Электродинамика. Квантовая механика и теория твердого тела. Теория ядерных сил и атомного ядра [Sobranie nauchnykh trudov v dvukh tomakh. Tom 1. Èlektrodinamika. Kvantovaya mekhanika i teoriya tverdogo tela. Teoriya yadernykh sil i atomnogo yadra]. Наука [Nauka], Moscow, 1975, item 27, pp. 326-327 (The book is freely available online at the EqWorld site: http://eqworld.ipmnet.ru/ru/library/books/Tamm_t1_1975ru.djvu  , archived at the Internet Archive: http://web.archive.org/web/20071111201517/https://eqworld.ipmnet.ru/ru/library/books/Tamm_t1_1975ru.djvu )."
+      }
+    ],
+    "document_type": [
+      "article",
+      "book chapter"
+    ],
+    "control_number": 2610370,
+    "number_of_pages": 2,
+    "publication_info": [
+      {
+        "year": 1940,
+        "page_start": "1006",
+        "journal_issue": "11",
+        "journal_title": "Phys.Rev.",
+        "journal_record": {
+          "$ref": "https://inspirebeta.net/api/journals/1214516"
+        },
+        "journal_volume": "58",
+        "curated_relation": true
+      },
+      {
+        "year": 1940,
+        "page_end": "557",
+        "page_start": "556",
+        "journal_issue": "8-9",
+        "journal_title": "Compt.Rend.Acad.Sci.URSS",
+        "journal_record": {
+          "$ref": "https://inspirebeta.net/api/journals/1213104"
+        },
+        "journal_volume": "29",
+        "curated_relation": true
+      },
+      {
+        "year": 1940,
+        "page_end": "556",
+        "page_start": "555",
+        "journal_issue": "8-9",
+        "journal_title": "Dokl.Akad.Nauk SSSR",
+        "journal_record": {
+          "$ref": "https://inspirebeta.net/api/journals/1214770"
+        },
+        "journal_volume": "29",
+        "curated_relation": true
+      },
+      {
+        "year": 1965,
+        "page_end": "273",
+        "page_start": "272",
+        "parent_isbn": "9780080105864",
+        "parent_record": {
+          "$ref": "https://inspirebeta.net/api/literature/2610294"
+        },
+        "curated_relation": true
+      },
+      {
+        "year": 1975,
+        "page_end": "327",
+        "page_start": "326",
+        "parent_record": {
+          "$ref": "https://inspirebeta.net/api/literature/2786837"
+        },
+        "curated_relation": true
+      }
+    ],
+    "acquisition_source": {
+      "email": "jtrombet@fnal.gov",
+      "orcid": "0000-0002-9381-2678",
+      "method": "submitter",
+      "source": "submitter",
+      "datetime": "2022-12-05T17:33:31.328177",
+      "internal_uid": 73552,
+      "submission_number": "4919844"
+    },
+    "inspire_categories": [
+      {
+        "term": "Phenomenology-HEP"
+      },
+      {
+        "term": "Theory-Nucl"
+      }
+    ],
+    "title_translations": [
+      {
+        "title": "О происхождении ядерных сил [O proiskhozhdenii yadernykh sil]",
+        "language": "ru"
+      }
+    ],
+    "external_system_identifiers": [
+      {
+        "value": "1940PhRv...58Q1006L",
+        "schema": "ADS"
+      },
+      {
+        "value": "0028.94402",
+        "schema": "ZBLATT"
+      }
+    ]
+  }
