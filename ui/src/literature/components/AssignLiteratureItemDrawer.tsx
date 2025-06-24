@@ -85,6 +85,7 @@ function AssignLiteratureItemDrawer({
         className="w-100"
         onChange={onSelectedAuthorChange}
         data-test-id="literature-drawer-radio-group"
+        data-testid="literature-drawer-radio-group"
         value={selectedAuthorId || null}
       >
         <List
@@ -105,6 +106,7 @@ function AssignLiteratureItemDrawer({
         <Col>
           <Button
             data-test-id="assign-literature-item-button"
+            data-testid="assign-literature-item-button"
             disabled={selectedAuthorId == null}
             icon={<SelectOutlined />}
             type="primary"

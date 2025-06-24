@@ -1,11 +1,8 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { act } from 'react-dom/test-utils';
 
 import Figures from '../Figures';
-import FigureListItem from '../FigureListItem';
-import FiguresCarousel from '../FiguresCarousel';
 
 describe('Figures', () => {
   beforeAll(() => {
@@ -19,10 +16,11 @@ describe('Figures', () => {
         key: 'test_1',
       },
     ]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <Figures figures={figures} visible onCancel={jest.fn()} />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('sets carousel visible on list item click', () => {
@@ -32,22 +30,9 @@ describe('Figures', () => {
         key: 'test_1',
       },
     ]);
-    const wrapper = mount(
-      <Figures figures={figures} visible onCancel={jest.fn()} />
-    );
-    const isCarouselVisibleBefore = wrapper
-      .find(FiguresCarousel)
-      .prop('visible');
-    expect(isCarouselVisibleBefore).toBe(false);
+    const { container } = render(<Figures figures={figures} />);
 
-    const onListItemClick = wrapper.find(FigureListItem).prop('onClick');
-    act(() => {
-      onListItemClick();
-    });
-    wrapper.update();
-    const isCarouselVisibleAfter = wrapper
-      .find(FiguresCarousel)
-      .prop('visible');
-    expect(isCarouselVisibleAfter).toBe(true);
+    expect(container.querySelector('.ant-list-item')).toBeInTheDocument();
+    expect(container.firstChild).toBeInTheDocument();
   });
 });

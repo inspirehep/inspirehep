@@ -1,6 +1,6 @@
 import React from 'react';
-
 import { fireEvent, render, screen } from '@testing-library/react';
+
 import Figure from '../Figure';
 
 jest.mock('react-image', () => ({

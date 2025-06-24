@@ -1,355 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CiteModalAction renders with all props 1`] = `
-<Fragment>
-  <UserActionWrapper>
-    <EventTracker
-      eventAction="Open modal"
-      eventId="Cite"
-      eventPropName="onClick"
-      extractEventArgsToForward={null}
-    >
-      <Button
-        onClick={[Function]}
-      >
-        <IconText
-          icon={<ExportOutlined />}
-          text="cite"
-        />
-      </Button>
-    </EventTracker>
-  </UserActionWrapper>
-  <Modal
-    footer={null}
-    onCancel={[Function]}
-    open={false}
-    title="Cite Article"
+<DocumentFragment>
+  <span
+    class="__UserAction__"
   >
-    <LoadingOrChildren
-      loading={false}
+    <button
+      class="ant-btn ant-btn-default"
+      type="button"
     >
-      <div>
-        <Row>
-          <pre />
-        </Row>
-        <Row
-          justify="space-between"
-          type="flex"
-        >
-          <div>
-            <EventTracker
-              eventAction="Copy to clipboard"
-              eventId="Copy citation"
-              eventPropName="onChange"
-              extractEventArgsToForward={[Function]}
-            >
-              <CopyToClipboard
-                onCopy={[Function]}
-              >
-                <Button
-                  style={
-                    Object {
-                      "marginRight": 12,
-                    }
-                  }
-                >
-                  <CopyOutlined />
-                   Copy to Clipboard
-                </Button>
-              </CopyToClipboard>
-            </EventTracker>
-            <EventTracker
-              eventAction="Download"
-              eventId="Download citation"
-              eventPropName="onChange"
-              extractEventArgsToForward={[Function]}
-            >
-              <Button
-                onClick={[Function]}
-              >
-                <DownloadOutlined />
-                 Download
-              </Button>
-            </EventTracker>
-          </div>
-          <EventTracker
-            eventAction="Select"
-            eventId="Cite format selection"
-            eventPropName="onChange"
-            extractEventArgsToForward={[Function]}
-          >
-            <SelectBox
-              defaultValue="application/x-bibtex"
-              onChange={[Function]}
-              options={
-                Array [
-                  Object {
-                    "display": "BibTeX",
-                    "value": "application/x-bibtex",
-                  },
-                  Object {
-                    "display": "LaTeX (EU)",
-                    "value": "application/vnd+inspire.latex.eu+x-latex",
-                  },
-                  Object {
-                    "display": "LaTeX (US)",
-                    "value": "application/vnd+inspire.latex.us+x-latex",
-                  },
-                  Object {
-                    "display": "CV (html)",
-                    "value": "text/vnd+inspire.html+html",
-                  },
-                ]
-              }
-              style={
-                Object {
-                  "width": 140,
-                }
-              }
-            />
-          </EventTracker>
-        </Row>
-      </div>
-    </LoadingOrChildren>
-  </Modal>
-</Fragment>
-`;
-
-exports[`CiteModalAction renders with loading 1`] = `
-<Fragment>
-  <UserActionWrapper>
-    <EventTracker
-      eventAction="Open modal"
-      eventId="Cite"
-      eventPropName="onClick"
-      extractEventArgsToForward={null}
-    >
-      <Button
-        onClick={[Function]}
+      <span
+        class="__IconText__"
       >
-        <IconText
-          icon={<ExportOutlined />}
-          text="cite"
-        />
-      </Button>
-    </EventTracker>
-  </UserActionWrapper>
-  <Modal
-    footer={null}
-    onCancel={[Function]}
-    open={false}
-    title="Cite Article"
-  >
-    <LoadingOrChildren
-      loading={true}
-    >
-      <div>
-        <Row>
-          <pre />
-        </Row>
-        <Row
-          justify="space-between"
-          type="flex"
+        <span
+          class="icon"
         >
-          <div>
-            <EventTracker
-              eventAction="Copy to clipboard"
-              eventId="Copy citation"
-              eventPropName="onChange"
-              extractEventArgsToForward={[Function]}
-            >
-              <CopyToClipboard
-                onCopy={[Function]}
-              >
-                <Button
-                  style={
-                    Object {
-                      "marginRight": 12,
-                    }
-                  }
-                >
-                  <CopyOutlined />
-                   Copy to Clipboard
-                </Button>
-              </CopyToClipboard>
-            </EventTracker>
-            <EventTracker
-              eventAction="Download"
-              eventId="Download citation"
-              eventPropName="onChange"
-              extractEventArgsToForward={[Function]}
-            >
-              <Button
-                onClick={[Function]}
-              >
-                <DownloadOutlined />
-                 Download
-              </Button>
-            </EventTracker>
-          </div>
-          <EventTracker
-            eventAction="Select"
-            eventId="Cite format selection"
-            eventPropName="onChange"
-            extractEventArgsToForward={[Function]}
+          <span
+            aria-label="export"
+            class="anticon anticon-export"
+            role="img"
           >
-            <SelectBox
-              defaultValue="application/x-bibtex"
-              onChange={[Function]}
-              options={
-                Array [
-                  Object {
-                    "display": "BibTeX",
-                    "value": "application/x-bibtex",
-                  },
-                  Object {
-                    "display": "LaTeX (EU)",
-                    "value": "application/vnd+inspire.latex.eu+x-latex",
-                  },
-                  Object {
-                    "display": "LaTeX (US)",
-                    "value": "application/vnd+inspire.latex.us+x-latex",
-                  },
-                  Object {
-                    "display": "CV (html)",
-                    "value": "text/vnd+inspire.html+html",
-                  },
-                ]
-              }
-              style={
-                Object {
-                  "width": 140,
-                }
-              }
-            />
-          </EventTracker>
-        </Row>
-      </div>
-    </LoadingOrChildren>
-  </Modal>
-</Fragment>
-`;
-
-exports[`CiteModalAction shows an alert with the error message when there is an error in setCiteContentFor 1`] = `
-<Fragment>
-  <UserActionWrapper>
-    <EventTracker
-      eventAction="Open modal"
-      eventId="Cite"
-      eventPropName="onClick"
-      extractEventArgsToForward={null}
-    >
-      <Button
-        onClick={[Function]}
-      >
-        <IconText
-          icon={<ExportOutlined />}
-          text="cite"
-        />
-      </Button>
-    </EventTracker>
-  </UserActionWrapper>
-  <Modal
-    footer={null}
-    onCancel={[Function]}
-    open={false}
-    title="Cite Article"
-  >
-    <LoadingOrChildren
-      loading={false}
-    >
-      <div>
-        <div
-          className="mb3"
-        >
-          <Alert
-            description="There is an error"
-            showIcon={true}
-            type="error"
-          />
-        </div>
-        <Row>
-          <pre />
-        </Row>
-        <Row
-          justify="space-between"
-          type="flex"
-        >
-          <div>
-            <EventTracker
-              eventAction="Copy to clipboard"
-              eventId="Copy citation"
-              eventPropName="onChange"
-              extractEventArgsToForward={[Function]}
+            <svg
+              aria-hidden="true"
+              data-icon="export"
+              fill="currentColor"
+              fill-rule="evenodd"
+              focusable="false"
+              height="1em"
+              viewBox="64 64 896 896"
+              width="1em"
             >
-              <CopyToClipboard
-                onCopy={[Function]}
-              >
-                <Button
-                  style={
-                    Object {
-                      "marginRight": 12,
-                    }
-                  }
-                >
-                  <CopyOutlined />
-                   Copy to Clipboard
-                </Button>
-              </CopyToClipboard>
-            </EventTracker>
-            <EventTracker
-              eventAction="Download"
-              eventId="Download citation"
-              eventPropName="onChange"
-              extractEventArgsToForward={[Function]}
-            >
-              <Button
-                onClick={[Function]}
-              >
-                <DownloadOutlined />
-                 Download
-              </Button>
-            </EventTracker>
-          </div>
-          <EventTracker
-            eventAction="Select"
-            eventId="Cite format selection"
-            eventPropName="onChange"
-            extractEventArgsToForward={[Function]}
-          >
-            <SelectBox
-              defaultValue="application/x-bibtex"
-              onChange={[Function]}
-              options={
-                Array [
-                  Object {
-                    "display": "BibTeX",
-                    "value": "application/x-bibtex",
-                  },
-                  Object {
-                    "display": "LaTeX (EU)",
-                    "value": "application/vnd+inspire.latex.eu+x-latex",
-                  },
-                  Object {
-                    "display": "LaTeX (US)",
-                    "value": "application/vnd+inspire.latex.us+x-latex",
-                  },
-                  Object {
-                    "display": "CV (html)",
-                    "value": "text/vnd+inspire.html+html",
-                  },
-                ]
-              }
-              style={
-                Object {
-                  "width": 140,
-                }
-              }
-            />
-          </EventTracker>
-        </Row>
-      </div>
-    </LoadingOrChildren>
-  </Modal>
-</Fragment>
+              <path
+                d="M880 912H144c-17.7 0-32-14.3-32-32V144c0-17.7 14.3-32 32-32h360c4.4 0 8 3.6 8 8v56c0 4.4-3.6 8-8 8H184v656h656V520c0-4.4 3.6-8 8-8h56c4.4 0 8 3.6 8 8v360c0 17.7-14.3 32-32 32zM770.87 199.13l-52.2-52.2a8.01 8.01 0 014.7-13.6l179.4-21c5.1-.6 9.5 3.7 8.9 8.9l-21 179.4c-.8 6.6-8.9 9.4-13.6 4.7l-52.4-52.4-256.2 256.2a8.03 8.03 0 01-11.3 0l-42.4-42.4a8.03 8.03 0 010-11.3l256.1-256.3z"
+              />
+            </svg>
+          </span>
+        </span>
+        <span
+          class="v-top"
+        >
+          cite
+        </span>
+      </span>
+    </button>
+  </span>
+</DocumentFragment>
 `;

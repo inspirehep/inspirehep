@@ -1,30 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Abstract does not display abstractSource when it is null 1`] = `
-<div>
+<DocumentFragment>
   <div>
-    Abstract:
-  </div>
-  <Latex>
-    Test abstract
-  </Latex>
-</div>
-`;
-
-exports[`Abstract does not render if abstract is null 1`] = `""`;
-
-exports[`Abstract renders with abstract 1`] = `
-<div>
-  <div>
-    Abstract:
-    <span>
-       (
-      arXiv
-      )
+    <div>
+      Abstract:
+    </div>
+    <span
+      class="__Latex__"
+    >
+      Test abstract
     </span>
   </div>
-  <Latex>
-    Test abstract
-  </Latex>
-</div>
+</DocumentFragment>
+`;
+
+exports[`Abstract does not render if abstract is null 1`] = `<DocumentFragment />`;
+
+exports[`Abstract renders with abstract 1`] = `
+<DocumentFragment>
+  <div>
+    <div>
+      Abstract:
+      <span>
+         (arXiv)
+      </span>
+    </div>
+    <span
+      class="__Latex__"
+    >
+      Test abstract
+    </span>
+  </div>
+</DocumentFragment>
 `;

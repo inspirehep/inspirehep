@@ -1,10 +1,16 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import FiguresCarousel from '../FiguresCarousel';
 
 describe('FiguresCarousel', () => {
+  beforeAll(() => {
+    const rootElement = document.createElement('div');
+    rootElement.setAttribute('id', 'root');
+    document.body.appendChild(rootElement);
+  });
+
   it('renders with all props', () => {
     const figures = fromJS([
       {
@@ -12,8 +18,8 @@ describe('FiguresCarousel', () => {
         key: 'test_FiguresCarousel_1',
       },
     ]);
-    const mockRef = { current: null };
-    const wrapper = shallow(
+    const mockRef = React.createRef();
+    render(
       <FiguresCarousel
         figures={figures}
         visible
@@ -21,6 +27,9 @@ describe('FiguresCarousel', () => {
         ref={mockRef}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    const modalContent = document.querySelector('.__CarouselModal__');
+    expect(modalContent).toBeInTheDocument();
+    expect(modalContent).toMatchSnapshot();
   });
 });

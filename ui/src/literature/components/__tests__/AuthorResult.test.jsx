@@ -1,9 +1,11 @@
 import React from 'react';
-import { Radio } from 'antd';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { Map } from 'immutable';
+import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 import AuthorResult from '../AuthorResult';
+import { getStore } from '../../../fixtures/store';
 
 describe('AuthorResult', () => {
   it('renders', () => {
@@ -14,8 +16,14 @@ describe('AuthorResult', () => {
       }),
     });
 
-    const wrapper = shallow(<AuthorResult item={authors} page="Page" />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter initialEntries={['/']}>
+          <AuthorResult item={authors} page="Page" />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders correct value if author record exists', () => {
@@ -26,24 +34,32 @@ describe('AuthorResult', () => {
       }),
     });
 
-    const wrapper = shallow(<AuthorResult item={authors} page="Page" />);
+    const { getByTestId } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter initialEntries={['/']}>
+          <AuthorResult item={authors} page="Page" />
+        </MemoryRouter>
+      </Provider>
+    );
 
-    expect(wrapper.find(Radio)).toHaveProp({
-      value: 1016091,
-      disabled: false,
-    });
+    expect(getByTestId('literature-drawer-radio-1016091')).toBeInTheDocument();
   });
 
-  it('renders undefined value if no author record doesnt exist', () => {
+  it('renders undefined value if no author record exist', () => {
     const authors = Map({
       full_name: 'Test, A',
     });
 
-    const wrapper = shallow(<AuthorResult item={authors} page="Page" />);
+    const { getByTestId } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter initialEntries={['/']}>
+          <AuthorResult item={authors} page="Page" />
+        </MemoryRouter>
+      </Provider>
+    );
 
-    expect(wrapper.find(Radio)).toHaveProp({
-      value: undefined,
-      disabled: true,
-    });
+    expect(getByTestId('literature-drawer-radio-undefined')).toHaveAttribute(
+      'disabled'
+    );
   });
 });

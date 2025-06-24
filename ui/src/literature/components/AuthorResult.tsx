@@ -33,6 +33,7 @@ const AuthorResult = ({
           value={getAuthorRecordIdFromRef(item)}
           disabled={isRadioButtonDisabled(item)}
           data-test-id={`literature-drawer-radio-${getAuthorRecordIdFromRef(item)}`}
+          data-testid={`literature-drawer-radio-${getAuthorRecordIdFromRef(item)}`}
         />
       </Col>
       <Col flex="1 1 1px" className="pb2">

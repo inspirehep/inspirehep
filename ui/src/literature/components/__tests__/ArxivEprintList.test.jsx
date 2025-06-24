@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import ArxivEprintList from '../ArxivEprintList';
@@ -11,7 +11,7 @@ describe('ArxivEprintList', () => {
         value: '123.12345',
       },
     ]);
-    const wrapper = shallow(<ArxivEprintList eprints={eprints} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<ArxivEprintList eprints={eprints} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

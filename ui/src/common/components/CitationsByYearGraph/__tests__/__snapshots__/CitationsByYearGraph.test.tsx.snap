@@ -1726,6 +1726,7 @@ exports[`CitationsByYearGraph renders without citations 1`] = `
       <div
         class="tc pa4"
         data-test-id="loading"
+        data-testid="loading-spinner"
       >
         <div
           aria-busy="true"

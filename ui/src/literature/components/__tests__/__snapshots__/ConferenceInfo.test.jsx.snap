@@ -1,117 +1,122 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ConferenceInfo renders with acronyms 1`] = `
-<span>
-  <Link
-    data-test-id="literature-conference-link"
-    to="/conferences/1639582"
-  >
-    <InlineDataList
-      extractKey={[Function]}
-      items={
-        Immutable.List [
-          "MG15",
-          "SAP16",
-        ]
-      }
-      label={null}
-      renderItem={[Function]}
-      separateItems={true}
-      separator=" and "
-      suffix={null}
-      wrapperClassName="di"
-    />
-  </Link>
-</span>
+<DocumentFragment>
+  <span>
+    <a
+      data-test-id="literature-conference-link"
+      href="/conferences/1639582"
+    >
+      <div
+        class="__InlineList__ di"
+        data-testid="inline-data-list"
+      >
+        <ul>
+          <li>
+            <span>
+              MG15
+            </span>
+             and 
+          </li>
+          <li>
+            <span>
+              SAP16
+            </span>
+          </li>
+        </ul>
+      </div>
+    </a>
+  </span>
+</DocumentFragment>
 `;
 
 exports[`ConferenceInfo renders with acronyms and start and end page 1`] = `
-<span>
-  <Link
-    data-test-id="literature-conference-link"
-    to="/conferences/1639582"
-  >
-    <InlineDataList
-      extractKey={[Function]}
-      items={
-        Immutable.List [
-          "MG15",
-        ]
-      }
-      label={null}
-      renderItem={[Function]}
-      separateItems={true}
-      separator=" and "
-      suffix={null}
-      wrapperClassName="di"
-    />
-  </Link>
+<DocumentFragment>
   <span>
-    , 
-    1-20
+    <a
+      data-test-id="literature-conference-link"
+      href="/conferences/1639582"
+    >
+      <div
+        class="__InlineList__ di"
+        data-testid="inline-data-list"
+      >
+        <ul>
+          <li>
+            <span>
+              MG15
+            </span>
+          </li>
+        </ul>
+      </div>
+    </a>
+    <span>
+      , 1-20
+    </span>
   </span>
-</span>
+</DocumentFragment>
 `;
 
 exports[`ConferenceInfo renders with only page end 1`] = `
-<span>
-  <Link
-    data-test-id="literature-conference-link"
-    to="/conferences/1639582"
-  >
-    <InlineDataList
-      extractKey={[Function]}
-      items={
-        Immutable.List [
-          "MG15",
-        ]
-      }
-      label={null}
-      renderItem={[Function]}
-      separateItems={true}
-      separator=" and "
-      suffix={null}
-      wrapperClassName="di"
-    />
-  </Link>
-</span>
+<DocumentFragment>
+  <span>
+    <a
+      data-test-id="literature-conference-link"
+      href="/conferences/1639582"
+    >
+      <div
+        class="__InlineList__ di"
+        data-testid="inline-data-list"
+      >
+        <ul>
+          <li>
+            <span>
+              MG15
+            </span>
+          </li>
+        </ul>
+      </div>
+    </a>
+  </span>
+</DocumentFragment>
 `;
 
 exports[`ConferenceInfo renders with only page start 1`] = `
-<span>
-  <Link
-    data-test-id="literature-conference-link"
-    to="/conferences/1639582"
-  >
-    <InlineDataList
-      extractKey={[Function]}
-      items={
-        Immutable.List [
-          "MG15",
-        ]
-      }
-      label={null}
-      renderItem={[Function]}
-      separateItems={true}
-      separator=" and "
-      suffix={null}
-      wrapperClassName="di"
-    />
-  </Link>
+<DocumentFragment>
   <span>
-    , 
-    1
+    <a
+      data-test-id="literature-conference-link"
+      href="/conferences/1639582"
+    >
+      <div
+        class="__InlineList__ di"
+        data-testid="inline-data-list"
+      >
+        <ul>
+          <li>
+            <span>
+              MG15
+            </span>
+          </li>
+        </ul>
+      </div>
+    </a>
+    <span>
+      , 1
+    </span>
   </span>
-</span>
+</DocumentFragment>
 `;
 
 exports[`ConferenceInfo renders without acronyms present 1`] = `
-<span>
-  <Link
-    data-test-id="literature-conference-link"
-    to="/conferences/1639582"
-  >
-    15th Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Astrophysics, and Relativistic Field Theories
-  </Link>
-</span>
+<DocumentFragment>
+  <span>
+    <a
+      data-test-id="literature-conference-link"
+      href="/conferences/1639582"
+    >
+      15th Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Astrophysics, and Relativistic Field Theories
+    </a>
+  </span>
+</DocumentFragment>
 `;

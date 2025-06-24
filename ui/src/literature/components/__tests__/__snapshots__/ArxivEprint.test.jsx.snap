@@ -1,14 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ArxivEprint renders with arXiv id 1`] = `
-<span>
-  <ArxivEprintLink>
-    123.12345
-  </ArxivEprintLink>
+<DocumentFragment>
   <span>
-     [
-    cat
-    ]
+    <a
+      href="//arxiv.org/abs/123.12345"
+      target="_blank"
+    >
+      123.12345
+    </a>
+    <span>
+       [cat]
+    </span>
   </span>
-</span>
+</DocumentFragment>
 `;

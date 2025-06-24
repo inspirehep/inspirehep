@@ -1,33 +1,76 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AuthorResult renders 1`] = `
-<Row>
-  <Col
-    flex="0 1 1px"
+<DocumentFragment>
+  <div
+    class="ant-row"
   >
-    <Radio
-      data-test-id="literature-drawer-radio-1016091"
-      disabled={false}
-      value={1016091}
-    />
-  </Col>
-  <Col
-    className="pb2"
-    flex="1 1 1px"
-  >
-    <ResultItem>
-      <Author
-        author={
-          Immutable.Map {
-            "full_name": "Test, A",
-            "record": Immutable.Map {
-              "$ref": "https://inspirebeta.net/api/authors/1016091",
-            },
-          }
-        }
-        page="Page"
-      />
-    </ResultItem>
-  </Col>
-</Row>
+    <div
+      class="ant-col"
+      style="flex: 0 1 1px;"
+    >
+      <label
+        class="ant-radio-wrapper"
+      >
+        <span
+          class="ant-radio"
+        >
+          <input
+            class="ant-radio-input"
+            data-test-id="literature-drawer-radio-1016091"
+            data-testid="literature-drawer-radio-1016091"
+            type="radio"
+            value="1016091"
+          />
+          <span
+            class="ant-radio-inner"
+          />
+        </span>
+      </label>
+    </div>
+    <div
+      class="ant-col pb2"
+      style="flex: 1 1 1px;"
+    >
+      <div
+        class="__ContentBox__ h-100"
+      >
+        <div
+          class="ant-card ant-card-bordered h-100"
+        >
+          <div
+            class="ant-card-body"
+          >
+            <div
+              class="pa2"
+            >
+              <div>
+                <div
+                  class="di"
+                >
+                  <a
+                    data-testid="author-link"
+                    href="/authors/1016091"
+                  >
+                    Test, A
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-row ant-row-space-between actions ph2"
+            >
+              <div
+                class="ant-col"
+              />
+              <div
+                class="ant-col"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;

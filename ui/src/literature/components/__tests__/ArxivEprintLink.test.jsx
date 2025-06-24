@@ -1,11 +1,13 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import ArxivEprintLink from '../ArxivEprintLink';
 
 describe('ArxivEprintLink', () => {
   it('renders with arXiv id', () => {
-    const wrapper = shallow(<ArxivEprintLink>123.123456</ArxivEprintLink>);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <ArxivEprintLink>123.123456</ArxivEprintLink>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });

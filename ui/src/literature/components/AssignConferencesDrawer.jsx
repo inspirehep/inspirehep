@@ -47,7 +47,7 @@ function AssignDrawer({ visible, onDrawerClose, onAssign, selectedPapers }) {
       placement="right"
       onClose={onDrawerClose}
       open={visible}
-      title={`You have selected ${selectedPapers.size} 
+      title={`You have selected ${selectedPapers.size}
       ${pluralizeUnlessSingle('paper', selectedPapers.size)}. Select the
       conference to assign the selected papers:`}
     >
@@ -55,6 +55,7 @@ function AssignDrawer({ visible, onDrawerClose, onAssign, selectedPapers }) {
       <NumberOfResultsContainer namespace={ASSIGN_CONFERENCE_NS} />
       <Radio.Group
         data-test-id="conference-radio-group"
+        data-testid="conference-radio-group"
         className="w-100"
         onChange={onSelectedConferenceChange}
       >
@@ -67,6 +68,7 @@ function AssignDrawer({ visible, onDrawerClose, onAssign, selectedPapers }) {
         <Col>
           <Button
             data-test-id="assign-conference-button"
+            data-testid="assign-conference-button"
             disabled={selectedConferenceId == null}
             icon={<SelectOutlined />}
             type="primary"

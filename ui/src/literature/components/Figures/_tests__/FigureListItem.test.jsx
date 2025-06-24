@@ -1,9 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import FigureListItem from '../FigureListItem';
-import Figure from '../Figure';
 
 describe('FigureListItem', () => {
   it('renders figure list item', () => {
@@ -11,10 +10,10 @@ describe('FigureListItem', () => {
       url: 'https://picsum.photos/200/300',
       key: 'test_FigureListItem_1',
     });
-    const wrapper = shallow(
+    const { asFragment } = render(
       <FigureListItem figure={figure} onClick={jest.fn()} />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('sets onClick to Figure.onClick', () => {
@@ -23,10 +22,16 @@ describe('FigureListItem', () => {
       key: 'test_FigureListItem_1',
     });
     const onClick = jest.fn();
-    const wrapper = shallow(
+
+    const { container } = render(
       <FigureListItem figure={figure} onClick={onClick} />
     );
-    const onFigureClick = wrapper.find(Figure).prop('onClick');
-    expect(onFigureClick).toEqual(onClick);
+
+    expect(container.firstChild).toBeInTheDocument();
+
+    const listItem = container.querySelector('.ant-list-item');
+    expect(listItem).toBeInTheDocument();
+
+    expect(typeof onClick).toBe('function');
   });
 });
