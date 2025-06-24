@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { render, waitFor, fireEvent, screen } from '@testing-library/react';
 
 import AssignLiteratureItem from '../AssignLiteratureItem';
@@ -11,8 +10,14 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('AssignLiteratureItem', () => {
+  beforeAll(() => {
+    const rootElement = document.createElement('div');
+    rootElement.setAttribute('id', 'root');
+    document.body.appendChild(rootElement);
+  });
+
   it('renders', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <AssignLiteratureItem
         controlNumber={123456}
         currentUserRecordId={123456}
@@ -20,7 +25,7 @@ describe('AssignLiteratureItem', () => {
       />
     );
 
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('calls onAssign on assign-self click', async () => {

@@ -47,7 +47,10 @@ const AssignLiteratureItem = (props: AssignLiteratureItemProps) => {
     <UserAction>
       <DropdownMenu
         title={
-          <Button data-test-id="btn-claiming-literature">
+          <Button
+            data-test-id="btn-claiming-literature"
+            data-testid="btn-claiming-literature"
+          >
             <IconText text="claim" icon={<FileDoneOutlined />} />
           </Button>
         }

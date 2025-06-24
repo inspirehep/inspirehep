@@ -1,43 +1,69 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Figures renders with figures 1`] = `
-<EmptyOrChildren
-  data={
-    Immutable.List [
-      Immutable.Map {
-        "url": "https://picsum.photos/200/300",
-        "key": "test_1",
-      },
-    ]
-  }
-  title="0 Figures"
->
-  <ClientPaginatedList
-    grid={true}
-    items={
-      Immutable.List [
-        Immutable.Map {
-          "url": "https://picsum.photos/200/300",
-          "key": "test_1",
-        },
-      ]
-    }
-    loading={false}
-    pageSize={12}
-    renderItem={[Function]}
-    title={null}
-  />
-  <FiguresCarousel
-    figures={
-      Immutable.List [
-        Immutable.Map {
-          "url": "https://picsum.photos/200/300",
-          "key": "test_1",
-        },
-      ]
-    }
-    onCancel={[Function]}
-    visible={false}
-  />
-</EmptyOrChildren>
+<DocumentFragment>
+  <div
+    class="ant-list ant-list-split ant-list-grid ant-list-something-after-last-item"
+    data-testid="pagination-list"
+  >
+    <div
+      class="ant-spin-nested-loading"
+    >
+      <div
+        class="ant-spin-container"
+      >
+        <div
+          class="ant-row"
+          style="margin-left: -8px; margin-right: -8px;"
+        >
+          <div>
+            <div
+              class="ant-col"
+              style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;"
+            >
+              <div
+                class="ant-list-item"
+              >
+                <div
+                  class="__Figure__ bg-white pa3"
+                >
+                  <figure
+                    class="mv1"
+                  >
+                    <div
+                      aria-busy="true"
+                      aria-live="polite"
+                      class="ant-spin ant-spin-spinning"
+                      style="margin: auto; display: block; padding: 2rem 0px;"
+                    >
+                      <span
+                        class="ant-spin-dot ant-spin-dot-spin"
+                      >
+                        <i
+                          class="ant-spin-dot-item"
+                        />
+                        <i
+                          class="ant-spin-dot-item"
+                        />
+                        <i
+                          class="ant-spin-dot-item"
+                        />
+                        <i
+                          class="ant-spin-dot-item"
+                        />
+                      </span>
+                    </div>
+                  </figure>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="ant-list-footer"
+    />
+  </div>
+</DocumentFragment>
 `;

@@ -25,6 +25,7 @@ exports[`Literature navigates to DetailPageContainer when /literature/:id 1`] = 
         <div
           class="tc pa4"
           data-test-id="loading"
+          data-testid="loading-spinner"
         >
           <div
             aria-busy="true"
@@ -76,6 +77,7 @@ exports[`Literature navigates to ReferenceDiffInterfaceContainer when /literatur
         <div
           class="tc pa4"
           data-test-id="loading"
+          data-testid="loading-spinner"
         >
           <div
             aria-busy="true"

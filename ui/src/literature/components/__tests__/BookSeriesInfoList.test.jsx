@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import BookSeriesInfoList from '../BookSeriesInfoList';
@@ -16,8 +16,10 @@ describe('BookSeriesInfoList', () => {
         volume: '2',
       },
     ]);
-    const wrapper = shallow(<BookSeriesInfoList bookSeries={bookSeries} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <BookSeriesInfoList bookSeries={bookSeries} />
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders one book series info', () => {
@@ -27,7 +29,9 @@ describe('BookSeriesInfoList', () => {
         volume: '1',
       },
     ]);
-    const wrapper = shallow(<BookSeriesInfoList bookSeries={bookSeries} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <BookSeriesInfoList bookSeries={bookSeries} />
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });

@@ -1,45 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BookSeriesInfoList renders many book series info 1`] = `
-<InlineDataList
-  extractKey={[Function]}
-  items={
-    Immutable.List [
-      Immutable.Map {
-        "title": "A title of book",
-        "volume": "1",
-      },
-      Immutable.Map {
-        "title": "Another title of book",
-        "volume": "2",
-      },
-    ]
-  }
-  label="Published in"
-  renderItem={[Function]}
-  separateItems={true}
-  separator=" and "
-  suffix={null}
-  wrapperClassName={null}
-/>
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
+  >
+    <span
+      class=""
+    >
+      Published in: 
+    </span>
+    <ul>
+      <li>
+        <span>
+          A title of book, 1
+        </span>
+         and 
+      </li>
+      <li>
+        <span>
+          Another title of book, 2
+        </span>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`BookSeriesInfoList renders one book series info 1`] = `
-<InlineDataList
-  extractKey={[Function]}
-  items={
-    Immutable.List [
-      Immutable.Map {
-        "title": "A title of book",
-        "volume": "1",
-      },
-    ]
-  }
-  label="Published in"
-  renderItem={[Function]}
-  separateItems={true}
-  separator=" and "
-  suffix={null}
-  wrapperClassName={null}
-/>
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
+  >
+    <span
+      class=""
+    >
+      Published in: 
+    </span>
+    <ul>
+      <li>
+        <span>
+          A title of book, 1
+        </span>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;

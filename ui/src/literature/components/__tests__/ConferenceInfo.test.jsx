@@ -1,7 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
+import { MemoryRouter } from 'react-router-dom';
 import ConferenceInfo from '../ConferenceInfo';
 
 describe('ConferenceInfo', () => {
@@ -15,8 +16,12 @@ describe('ConferenceInfo', () => {
         },
       ],
     });
-    const wrapper = shallow(<ConferenceInfo conferenceInfo={info} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <MemoryRouter>
+        <ConferenceInfo conferenceInfo={info} />
+      </MemoryRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with acronyms', () => {
@@ -30,8 +35,12 @@ describe('ConferenceInfo', () => {
         },
       ],
     });
-    const wrapper = shallow(<ConferenceInfo conferenceInfo={info} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <MemoryRouter>
+        <ConferenceInfo conferenceInfo={info} />
+      </MemoryRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with acronyms and start and end page', () => {
@@ -47,8 +56,12 @@ describe('ConferenceInfo', () => {
       page_start: 1,
       page_end: 20,
     });
-    const wrapper = shallow(<ConferenceInfo conferenceInfo={info} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <MemoryRouter>
+        <ConferenceInfo conferenceInfo={info} />
+      </MemoryRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with only page start', () => {
@@ -63,8 +76,12 @@ describe('ConferenceInfo', () => {
       ],
       page_start: 1,
     });
-    const wrapper = shallow(<ConferenceInfo conferenceInfo={info} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <MemoryRouter>
+        <ConferenceInfo conferenceInfo={info} />
+      </MemoryRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with only page end', () => {
@@ -79,7 +96,11 @@ describe('ConferenceInfo', () => {
       ],
       page_end: 20,
     });
-    const wrapper = shallow(<ConferenceInfo conferenceInfo={info} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <MemoryRouter>
+        <ConferenceInfo conferenceInfo={info} />
+      </MemoryRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });

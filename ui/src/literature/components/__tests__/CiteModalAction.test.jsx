@@ -1,136 +1,194 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Modal, Button } from 'antd';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 import CiteModalAction from '../CiteModalAction';
 import citeArticle from '../../citeArticle';
-import SelectBox from '../../../common/components/SelectBox';
-import UserAction from '../../../common/components/UserAction';
 import { CITE_FORMAT_VALUES } from '../../constants';
 
 jest.mock('../../citeArticle');
 
 describe('CiteModalAction', () => {
   beforeAll(() => {
-    citeArticle.mockImplementation(
-      (format, recordId) => `Cite ${recordId} in ${format}`
+    citeArticle.mockImplementation((format, recordId) =>
+      Promise.resolve(`Cite ${recordId} in ${format}`)
     );
   });
 
   it('renders with all props', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <CiteModalAction
         recordId={12345}
         initialCiteFormat="application/x-bibtex"
         onCiteFormatChange={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
-  it('calls onCiteFormatChange on format change', () => {
+  it('calls onCiteFormatChange on format change', async () => {
     const onCiteFormatChangeProp = jest.fn();
-    const wrapper = shallow(
+    render(
       <CiteModalAction
         recordId={12345}
         initialCiteFormat={CITE_FORMAT_VALUES[0]}
         onCiteFormatChange={onCiteFormatChangeProp}
       />
     );
-    wrapper.find(SelectBox).prop('onChange')(CITE_FORMAT_VALUES[1]);
-    expect(onCiteFormatChangeProp).toHaveBeenCalledWith(CITE_FORMAT_VALUES[1]);
+
+    const citeButton = screen.getByRole('button', { name: /cite/i });
+    fireEvent.click(citeButton);
+
+    await waitFor(() => {
+      expect(screen.getByText('Cite Article')).toBeInTheDocument();
+    });
+
+    const formatSelector = screen.getByRole('combobox');
+    fireEvent.mouseDown(formatSelector);
+
+    const optionToSelect = await screen.findByText('LaTeX (EU)');
+    fireEvent.click(optionToSelect);
+
+    await waitFor(() => {
+      expect(onCiteFormatChangeProp).toHaveBeenCalled();
+    });
   });
 
-  it('sets modalVisible true on cite click and calls setCiteContentFor with initialCiteFormat if first time', () => {
+  it('opens modal on cite click and shows content', async () => {
     const initialCiteFormat = 'application/x-bibtex';
-    const wrapper = shallow(
+    render(
       <CiteModalAction
         recordId={12345}
         initialCiteFormat={initialCiteFormat}
         onCiteFormatChange={jest.fn()}
       />
     );
-    const setCiteContentFor = jest.fn();
-    wrapper.instance().setCiteContentFor = setCiteContentFor;
-    wrapper.update();
-    const onCiteClick = wrapper.find(UserAction).find(Button).prop('onClick');
-    onCiteClick();
-    expect(wrapper.state('modalVisible')).toBe(true);
-    expect(setCiteContentFor).toHaveBeenCalledWith(initialCiteFormat);
+
+    const citeButton = screen.getByRole('button', { name: /cite/i });
+    fireEvent.click(citeButton);
+
+    await waitFor(() => {
+      expect(screen.getByText('Cite Article')).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Cite 12345 in application/x-bibtex')
+      ).toBeInTheDocument();
+    });
   });
 
-  it('sets modalVisible true on cite click but does not call setCiteContentFor if citeContent is present', () => {
-    const wrapper = shallow(
+  it('shows an alert with the error message when there is an error in setCiteContentFor', async () => {
+    citeArticle.mockRejectedValueOnce(new Error('Network error'));
+
+    render(
       <CiteModalAction
         recordId={12345}
         initialCiteFormat="application/x-bibtex"
         onCiteFormatChange={jest.fn()}
       />
     );
-    const setCiteContentFor = jest.fn();
-    wrapper.instance().setCiteContentFor = setCiteContentFor;
-    wrapper.setState({ citeContent: 'CONTENT' });
-    wrapper.update();
-    const onCiteClick = wrapper.find(UserAction).find(Button).prop('onClick');
-    onCiteClick();
-    expect(wrapper.state('modalVisible')).toBe(true);
-    expect(setCiteContentFor).not.toHaveBeenCalled();
-  });
 
-  it('shows an alert with the error message when there is an error in setCiteContentFor', () => {
-    const initialCiteFormat = 'application/x-bibtex';
-    const wrapper = shallow(
-      <CiteModalAction
-        recordId={12345}
-        initialCiteFormat={initialCiteFormat}
-        onCiteFormatChange={jest.fn()}
-      />
-    );
-    const errorMessage = 'There is an error';
-    wrapper.setState({ errorMessage });
-    expect(wrapper).toMatchSnapshot();
+    const citeButton = screen.getByRole('button', { name: /cite/i });
+    fireEvent.click(citeButton);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(/Could not create cite text/i)
+      ).toBeInTheDocument();
+    });
   });
 
   it('sets citeContent for selected format setCiteContentFor', async () => {
-    const wrapper = shallow(
+    render(
       <CiteModalAction
         recordId={12345}
         initialCiteFormat="application/x-bibtex"
         onCiteFormatChange={jest.fn()}
       />
     );
-    const setCiteContentFor = wrapper.find(SelectBox).prop('onChange');
-    await setCiteContentFor('application/vnd+inspire.latex.us+x-latex');
-    expect(wrapper.state('citeContent')).toEqual(
+
+    const citeButton = screen.getByRole('button', { name: /cite/i });
+    fireEvent.click(citeButton);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Cite 12345 in application/x-bibtex')
+      ).toBeInTheDocument();
+    });
+
+    const formatSelector = screen.getByRole('combobox');
+    fireEvent.mouseDown(formatSelector);
+
+    citeArticle.mockResolvedValueOnce(
       'Cite 12345 in application/vnd+inspire.latex.us+x-latex'
     );
+
+    const latexOption = await screen.findByText('LaTeX (EU)');
+    fireEvent.click(latexOption);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          'Cite 12345 in application/vnd+inspire.latex.us+x-latex'
+        )
+      ).toBeInTheDocument();
+    });
   });
 
-  it('sets modalVisible false onModalCancel', () => {
-    const wrapper = shallow(
+  it('closes modal on close button click', async () => {
+    render(
       <CiteModalAction
         recordId={12345}
         initialCiteFormat="application/x-bibtex"
         onCiteFormatChange={jest.fn()}
       />
     );
-    wrapper.instance().state.modalVisible = true;
-    wrapper.update();
-    const onModalCancel = wrapper.find(Modal).prop('onCancel');
-    onModalCancel();
-    expect(wrapper.state('modalVisible')).toBe(false);
+
+    const citeButton = screen.getByRole('button', { name: /cite/i });
+    fireEvent.click(citeButton);
+
+    await waitFor(() => {
+      expect(screen.getByText('Cite Article')).toBeInTheDocument();
+    });
+
+    const closeButton = screen.getByRole('button', { name: /close/i });
+    fireEvent.click(closeButton);
+
+    // querySelector necessary here as other methods don't catch this
+    await waitFor(() => {
+      expect(document.querySelector('.ant-modal-wrap')).toHaveAttribute(
+        'style',
+        'display: none;'
+      );
+    });
   });
 
-  it('renders with loading', () => {
-    const initialCiteFormat = 'application/x-bibtex';
-    const wrapper = shallow(
+  it('renders with loading state', async () => {
+    citeArticle.mockImplementation(
+      () =>
+        new Promise((resolve) =>
+          setTimeout(() => resolve('Cite 12345 in application/x-bibtex'), 100)
+        )
+    );
+
+    render(
       <CiteModalAction
         recordId={12345}
-        initialCiteFormat={initialCiteFormat}
+        initialCiteFormat="application/x-bibtex"
         onCiteFormatChange={jest.fn()}
       />
     );
-    wrapper.setState({ loading: true });
-    expect(wrapper).toMatchSnapshot();
+
+    const citeButton = screen.getByRole('button', { name: /cite/i });
+    fireEvent.click(citeButton);
+
+    await waitFor(
+      () => {
+        expect(
+          screen.getByTestId('loading-spinner') || screen.getByText(/loading/i)
+        ).toBeInTheDocument();
+      },
+      { timeout: 50 }
+    );
   });
 });

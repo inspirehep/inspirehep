@@ -1,6 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
+
 import Abstract from '../Abstract';
 
 describe('Abstract', () => {
@@ -9,20 +10,20 @@ describe('Abstract', () => {
       source: 'arXiv',
       value: 'Test abstract',
     });
-    const wrapper = shallow(<Abstract abstract={abstract} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<Abstract abstract={abstract} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('does not display abstractSource when it is null', () => {
     const abstract = fromJS({
       value: 'Test abstract',
     });
-    const wrapper = shallow(<Abstract abstract={abstract} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<Abstract abstract={abstract} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('does not render if abstract is null', () => {
-    const wrapper = shallow(<Abstract />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<Abstract />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

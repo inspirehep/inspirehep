@@ -1,8 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
+import { MemoryRouter } from 'react-router-dom';
 
+import { Provider } from 'react-redux';
 import ConferenceInfoList from '../ConferenceInfoList';
+import { getStore } from '../../../fixtures/store';
 
 describe('ConferenceInfoList', () => {
   it('renders conference link', () => {
@@ -24,8 +27,14 @@ describe('ConferenceInfoList', () => {
         control_number: 222222,
       },
     ]);
-    const wrapper = shallow(<ConferenceInfoList conferenceInfo={info} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <ConferenceInfoList conferenceInfo={info} />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
   it('renders contribution label if document type is other than proceedings', () => {
     const info = fromJS([
@@ -46,10 +55,16 @@ describe('ConferenceInfoList', () => {
         control_number: 222222,
       },
     ]);
-    const wrapper = shallow(
-      <ConferenceInfoList conferenceInfo={info} isProceedings={false} />
+
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <ConferenceInfoList conferenceInfo={info} isProceedings={false} />
+        </MemoryRouter>
+      </Provider>
     );
-    expect(wrapper.dive()).toMatchSnapshot();
+
+    expect(asFragment()).toMatchSnapshot();
   });
   it('renders proceedings label if document type is proceedings', () => {
     const info = fromJS([
@@ -70,9 +85,13 @@ describe('ConferenceInfoList', () => {
         control_number: 222222,
       },
     ]);
-    const wrapper = shallow(
-      <ConferenceInfoList conferenceInfo={info} isProceedings />
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <ConferenceInfoList conferenceInfo={info} isProceedings />
+        </MemoryRouter>
+      </Provider>
     );
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

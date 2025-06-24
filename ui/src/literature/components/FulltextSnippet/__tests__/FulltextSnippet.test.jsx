@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import { FulltextSnippet } from '../FulltextSnippet';
 
@@ -7,7 +7,7 @@ describe('FulltextSnippet', () => {
   it('renders', () => {
     const snippet = 'A snippet of <em>fulltext</em>';
 
-    const wrapper = shallow(<FulltextSnippet snippet={snippet} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<FulltextSnippet snippet={snippet} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

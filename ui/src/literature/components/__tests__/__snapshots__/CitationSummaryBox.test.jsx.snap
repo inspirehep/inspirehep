@@ -1,37 +1,258 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CitationSummaryBox renders 1`] = `
-<ContentBox
-  className=""
-  leftActions={null}
-  loading={false}
-  rightActions={null}
-  subTitle="Citation Summary"
-  title={null}
->
-  <Connect(ExcludeSelfCitations)
-    namespace="literature"
-  />
-  <Row
-    gutter={
-      Object {
-        "lg": 32,
-        "xs": 0,
-      }
-    }
+<DocumentFragment>
+  <div
+    class="__ContentBox__ h-100"
   >
-    <Col
-      span={24}
+    <div
+      class="ant-card ant-card-bordered h-100"
     >
-      <Connect(CitationSummaryTable) />
-    </Col>
-    <Col
-      span={24}
-    >
-      <Connect(toAllJS(CitationSummaryGraph))
-        namespace="literature"
-      />
-    </Col>
-  </Row>
-</ContentBox>
+      <div
+        class="ant-card-body"
+      >
+        <div
+          class="pa2"
+        >
+          <h3
+            class="pb1"
+          >
+            Citation Summary
+          </h3>
+          <div>
+            <label
+              class="ant-checkbox-wrapper"
+            >
+              <span
+                class="ant-checkbox"
+              >
+                <input
+                  class="ant-checkbox-input"
+                  type="checkbox"
+                  value=""
+                />
+                <span
+                  class="ant-checkbox-inner"
+                />
+              </span>
+              <span>
+                <span
+                  data-testid="label-with-help"
+                >
+                  Exclude self-citations 
+                  <span
+                    aria-label="question-circle"
+                    class="anticon anticon-question-circle"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="question-circle"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                      />
+                      <path
+                        d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </span>
+            </label>
+            <div
+              class="ant-row"
+              style="margin-left: -16px; margin-right: -16px;"
+            >
+              <div
+                class="ant-col ant-col-24"
+                style="padding-left: 16px; padding-right: 16px;"
+              >
+                <div
+                  class="__CitationTable__"
+                >
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th />
+                        <th>
+                          <span
+                            data-testid="label-with-help"
+                          >
+                            Citeable 
+                            <span
+                              aria-label="question-circle"
+                              class="anticon anticon-question-circle"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="question-circle"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                                />
+                                <path
+                                  d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </th>
+                        <th>
+                          <span
+                            data-testid="label-with-help"
+                          >
+                            Published 
+                            <span
+                              aria-label="question-circle"
+                              class="anticon anticon-question-circle"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="question-circle"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                                />
+                                <path
+                                  d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>
+                          Papers
+                        </th>
+                        <td>
+                          0
+                        </td>
+                        <td>
+                          0
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>
+                          Citations
+                        </th>
+                        <td>
+                          0
+                        </td>
+                        <td>
+                          0
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>
+                          <span
+                            data-testid="label-with-help"
+                          >
+                            h-index 
+                            <span
+                              aria-label="question-circle"
+                              class="anticon anticon-question-circle"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="question-circle"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                                />
+                                <path
+                                  d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </th>
+                        <td>
+                          0
+                        </td>
+                        <td>
+                          0
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>
+                          Citations/paper (avg)
+                        </th>
+                        <td>
+                          0
+                        </td>
+                        <td>
+                          0
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div
+                class="ant-col ant-col-24"
+                style="padding-left: 16px; padding-right: 16px;"
+              >
+                <div
+                  class="__CitationSummaryGraph__"
+                >
+                  <div
+                    class="ant-row ant-row-middle"
+                  >
+                    <div
+                      class="ant-col ant-col-24"
+                    >
+                      <div
+                        style="width: 100%; height: 100%;"
+                      >
+                        <div
+                          class="rv-xy-plot "
+                          style="width: 0px; height: 250px;"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-row ant-row-space-between actions ph2"
+        >
+          <div
+            class="ant-col"
+          />
+          <div
+            class="ant-col"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
