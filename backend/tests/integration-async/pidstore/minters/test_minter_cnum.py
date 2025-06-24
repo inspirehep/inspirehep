@@ -7,7 +7,7 @@
 import pytest
 from helpers.providers.faker import faker
 from inspirehep.pidstore.errors import CNUMChanged
-from inspirehep.records.api import ConferencesRecord
+from inspirehep.records.api.conferences import ConferencesRecord
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 

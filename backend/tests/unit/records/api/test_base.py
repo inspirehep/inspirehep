@@ -7,8 +7,6 @@ import mock
 from helpers.providers.faker import faker
 from inspirehep.records.api import (
     AuthorsRecord,
-    ConferencesRecord,
-    DataRecord,
     ExperimentsRecord,
     InspireRecord,
     InstitutionsRecord,
@@ -16,6 +14,8 @@ from inspirehep.records.api import (
     JournalsRecord,
     LiteratureRecord,
 )
+from inspirehep.records.api.conferences import ConferencesRecord
+from inspirehep.records.api.data import DataRecord
 from inspirehep.records.api.seminars import SeminarsRecord
 
 

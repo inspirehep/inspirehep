@@ -5,8 +5,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from inspire_utils.date import format_date
-from marshmallow import fields, missing
-
 from inspirehep.records.marshmallow.common import AcceleratorExperimentSchemaV1
 from inspirehep.records.marshmallow.common.literature_record import (
     LiteratureRecordSchemaV1,
@@ -15,6 +13,7 @@ from inspirehep.records.marshmallow.data.base import DataPublicSchema
 from inspirehep.records.marshmallow.data.utils import get_authors
 from inspirehep.records.marshmallow.fields.list_with_limit import ListWithLimit
 from inspirehep.records.marshmallow.literature.common.author import AuthorSchemaV1
+from marshmallow import fields, missing
 
 
 class DataBaseSchema(DataPublicSchema):

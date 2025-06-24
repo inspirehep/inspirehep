@@ -10,8 +10,6 @@
 
 from .authors import AuthorsRecord  # noqa F401
 from .base import InspireRecord  # noqa F401
-from .conferences import ConferencesRecord  # noqa F401
-from .data import DataRecord  # noqa F401
 from .experiments import ExperimentsRecord  # noqa F401
 from .institutions import InstitutionsRecord  # noqa F401
 from .jobs import JobsRecord  # noqa F401

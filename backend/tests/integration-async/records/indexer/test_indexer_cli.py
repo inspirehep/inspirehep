@@ -9,14 +9,14 @@ from helpers.utils import generate_records
 from inspirehep.indexer.cli import get_query_records_to_index
 from inspirehep.records.api import (
     AuthorsRecord,
-    ConferencesRecord,
-    DataRecord,
     ExperimentsRecord,
     InstitutionsRecord,
     JobsRecord,
     JournalsRecord,
     LiteratureRecord,
 )
+from inspirehep.records.api.conferences import ConferencesRecord
+from inspirehep.records.api.data import DataRecord
 from invenio_records.models import RecordMetadata
 from mock import patch
 

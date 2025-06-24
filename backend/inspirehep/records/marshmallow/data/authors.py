@@ -5,9 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from inspire_dojson.utils import strip_empty_values
-from marshmallow import Schema, fields, post_dump
-
 from inspirehep.records.marshmallow.data.utils import get_authors
+from marshmallow import Schema, fields, post_dump
 
 
 class DataAuthorsSchema(Schema):

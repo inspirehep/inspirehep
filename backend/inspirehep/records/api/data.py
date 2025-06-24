@@ -6,7 +6,7 @@
 from inspirehep.pidstore.api import PidStoreData
 from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.api.mixins import CitationMixin, DataLiteratureMixin
-from inspirehep.records.marshmallow.data import DataElasticSearchSchema
+from inspirehep.records.marshmallow.data.es import DataElasticSearchSchema
 from inspirehep.records.models import DataLiterature
 
 
