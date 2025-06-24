@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import LiteratureDate from '../../../common/components/LiteratureDate';
 
 describe('LiteratureDate', () => {
   it('renders with date', () => {
-    const wrapper = shallow(<LiteratureDate date="1993-06-07" />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<LiteratureDate date="1993-06-07" />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

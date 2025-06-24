@@ -1,63 +1,104 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PDGKeywords renders with keywords 1`] = `
-<div>
-  PDG:
-   
-  <LinkWithTargetBlank
-    as="a"
-    href="https://pdglive.lbl.gov/view/Q007TP"
-  >
-    <Latex>
-      \\Gamma($  \${{\\mathit W}^{+}}$   $\\rightarrow$   \${{\\mathit \\ell}^{+}}{{\\mathit \\nu}})/\\Gamma_{\\text{total}}
-    </Latex>
-  </LinkWithTargetBlank>
-  <div
-    className="di pl2"
-  >
-    <SecondaryButton
-      onClick={[Function]}
+<DocumentFragment>
+  <div>
+    PDG: 
+    <a
+      href="https://pdglive.lbl.gov/view/Q007TP"
+      target="_blank"
     >
-      Show All(
-      2
-      )
-    </SecondaryButton>
+      <span
+        class="__Latex__"
+      >
+        \\Gamma(
+        <span
+          class="katex"
+        >
+          <span
+            class="katex-mathml"
+          >
+            <math
+              xmlns="http://www.w3.org/1998/Math/MathML"
+            >
+              <semantics>
+                <mrow />
+                <annotation
+                  encoding="application/x-tex"
+                >
+                    
+                </annotation>
+              </semantics>
+            </math>
+          </span>
+          <span
+            aria-hidden="true"
+            class="katex-html"
+          />
+        </span>
+        {{\\mathit W}^{+}}
+        <span
+          class="katex"
+        >
+          <span
+            class="katex-mathml"
+          >
+            <math
+              xmlns="http://www.w3.org/1998/Math/MathML"
+            >
+              <semantics>
+                <mrow />
+                <annotation
+                  encoding="application/x-tex"
+                >
+                     
+                </annotation>
+              </semantics>
+            </math>
+          </span>
+          <span
+            aria-hidden="true"
+            class="katex-html"
+          />
+        </span>
+        \\rightarrow
+        <span
+          class="katex"
+        >
+          <span
+            class="katex-mathml"
+          >
+            <math
+              xmlns="http://www.w3.org/1998/Math/MathML"
+            >
+              <semantics>
+                <mrow />
+                <annotation
+                  encoding="application/x-tex"
+                >
+                     
+                </annotation>
+              </semantics>
+            </math>
+          </span>
+          <span
+            aria-hidden="true"
+            class="katex-html"
+          />
+        </span>
+        {{\\mathit \\ell}^{+}}{{\\mathit \\nu}})/\\Gamma_{\\text{total}}
+      </span>
+    </a>
+    <div
+      class="di pl2"
+    >
+      <button
+        class="__SecondaryButton__"
+        type="button"
+      >
+        Show All(2)
+      </button>
+    </div>
   </div>
-  <Modal
-    bodyStyle={
-      Object {
-        "padding": "12px 24px 24px 24px",
-      }
-    }
-    footer={null}
-    onCancel={[Function]}
-    open={false}
-    title="PDG keywords"
-    width="50%"
-  >
-    <List
-      dataSource={
-        Immutable.List [
-          Immutable.Map {
-            "value": "Q007TP",
-            "description": "\\\\Gamma($  \${{\\\\mathit W}^{+}}$   $\\\\rightarrow$   \${{\\\\mathit \\\\ell}^{+}}{{\\\\mathit \\\\nu}})/\\\\Gamma_{\\\\text{total}}",
-          },
-          Immutable.Map {
-            "value": "2137",
-            "description": "test",
-          },
-        ]
-      }
-      pagination={
-        Object {
-          "hideOnSinglePage": true,
-          "pageSize": 10,
-          "size": "small",
-        }
-      }
-      renderItem={[Function]}
-      size="small"
-    />
-  </Modal>
-</div>
+</DocumentFragment>
 `;

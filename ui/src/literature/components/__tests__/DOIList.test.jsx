@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import DOIList from '../DOIList';
@@ -13,8 +13,8 @@ describe('DOIList', () => {
         material: 'erratum',
       },
     ]);
-    const wrapper = shallow(<DOIList dois={dois} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<DOIList dois={dois} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with dois and showLabel as true', () => {
@@ -25,8 +25,8 @@ describe('DOIList', () => {
         material: 'erratum',
       },
     ]);
-    const wrapper = shallow(<DOIList dois={dois} showLabel />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<DOIList dois={dois} showLabel />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with dois and showLabel as false', () => {
@@ -37,7 +37,7 @@ describe('DOIList', () => {
         material: 'erratum',
       },
     ]);
-    const wrapper = shallow(<DOIList dois={dois} showLabel={false} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<DOIList dois={dois} showLabel={false} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

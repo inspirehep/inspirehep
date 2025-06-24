@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import ReportNumberList from '../ReportNumberList';
@@ -11,7 +11,9 @@ describe('ReportNumberList', () => {
         value: 'ABCD-AB-CD-1234-123',
       },
     ]);
-    const wrapper = shallow(<ReportNumberList reportNumbers={reportNumbers} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(
+      <ReportNumberList reportNumbers={reportNumbers} />
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });

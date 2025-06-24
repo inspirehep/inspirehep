@@ -1,16 +1,16 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import DOIMaterial from '../DOIMaterial';
 
 describe('DOIMaterial', () => {
   it('renders with material', () => {
-    const wrapper = shallow(<DOIMaterial material="myMaterial" />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<DOIMaterial material="myMaterial" />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('does not render without material', () => {
-    const wrapper = shallow(<DOIMaterial />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<DOIMaterial />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

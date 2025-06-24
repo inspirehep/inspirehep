@@ -1,10 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
+
 import NoAuthorsClaimingButton from '../NoAuthorsClaimingButton';
 
 describe('NoAuthorsClaimingButton', () => {
   it('renders', () => {
-    const wrapper = shallow(<NoAuthorsClaimingButton />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<NoAuthorsClaimingButton />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

@@ -1,11 +1,15 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
+import { Button } from 'antd';
+
 import DropdownMenu from '../../../common/components/DropdownMenu';
 
 describe('DropdownMenu', () => {
   it('renders correctly with default props', () => {
-    const wrapper = shallow(<DropdownMenu title="title" />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <DropdownMenu title={<Button>title</Button>} />
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders correctly with items and onClick handlers', () => {
@@ -30,8 +34,10 @@ describe('DropdownMenu', () => {
         onClick: mockOnClick3,
       },
     ];
-    const wrapper = shallow(<DropdownMenu title="title" items={items} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <DropdownMenu title={<Button>title</Button>} items={items} />
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders correctly with disabled prop', () => {
@@ -44,10 +50,10 @@ describe('DropdownMenu', () => {
         onClick: mockOnClick,
       },
     ];
-    const wrapper = shallow(
-      <DropdownMenu title="title" items={items} disabled />
+    const { asFragment } = render(
+      <DropdownMenu title={<Button>title</Button>} items={items} disabled />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders correctly with overlayClassName', () => {
@@ -60,13 +66,13 @@ describe('DropdownMenu', () => {
         onClick: mockOnClick,
       },
     ];
-    const wrapper = shallow(
+    const { asFragment } = render(
       <DropdownMenu
-        title="title"
+        title={<Button>title</Button>}
         items={items}
         overlayClassName="custom-class"
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

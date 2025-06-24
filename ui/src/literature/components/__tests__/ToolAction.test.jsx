@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, waitFor, fireEvent, screen } from '@testing-library/react';
-import { shallow } from 'enzyme';
 
 import ToolAction from '../ToolAction';
 
@@ -12,18 +11,18 @@ jest.mock('react-router-dom', () => ({
 
 describe('ToolAction', () => {
   it('renders', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <ToolAction
         onAssignToConference={jest.fn()}
         onExportToCds={jest.fn()}
         selectionSize={3}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders disabled', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <ToolAction
         onAssignToConference={jest.fn()}
         disabledBulkAssign
@@ -31,7 +30,7 @@ describe('ToolAction', () => {
         selectionSize={3}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('calls onAssignToConference on assign-conference click ', async () => {

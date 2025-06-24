@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import IsbnList from '../IsbnList';
@@ -15,7 +15,7 @@ describe('IsbnList', () => {
         value: '1231139632475',
       },
     ]);
-    const wrapper = shallow(<IsbnList isbns={isbns} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<IsbnList isbns={isbns} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

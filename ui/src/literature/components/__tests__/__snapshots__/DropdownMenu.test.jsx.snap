@@ -1,86 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DropdownMenu renders correctly with default props 1`] = `
-<Dropdown
-  disabled={false}
-  menu={
-    Object {
-      "items": undefined,
-      "onClick": undefined,
-    }
-  }
->
-  title
-</Dropdown>
+<DocumentFragment>
+  <button
+    class="ant-btn ant-btn-default ant-dropdown-trigger"
+    type="button"
+  >
+    <span>
+      title
+    </span>
+  </button>
+</DocumentFragment>
 `;
 
 exports[`DropdownMenu renders correctly with disabled prop 1`] = `
-<Dropdown
-  disabled={true}
-  menu={
-    Object {
-      "items": Array [
-        Object {
-          "key": "1",
-          "label": "Item 1",
-          "onClick": [MockFunction],
-        },
-      ],
-      "onClick": undefined,
-    }
-  }
->
-  title
-</Dropdown>
+<DocumentFragment>
+  <button
+    class="ant-btn ant-btn-default ant-dropdown-trigger"
+    disabled=""
+    type="button"
+  >
+    <span>
+      title
+    </span>
+  </button>
+</DocumentFragment>
 `;
 
 exports[`DropdownMenu renders correctly with items and onClick handlers 1`] = `
-<Dropdown
-  disabled={false}
-  menu={
-    Object {
-      "items": Array [
-        Object {
-          "key": "1",
-          "label": "Item 1",
-          "onClick": [MockFunction],
-        },
-        Object {
-          "key": "2",
-          "label": "Item 2",
-          "onClick": [MockFunction],
-        },
-        Object {
-          "key": "3",
-          "label": "Item 3",
-          "onClick": [MockFunction],
-        },
-      ],
-      "onClick": undefined,
-    }
-  }
->
-  title
-</Dropdown>
+<DocumentFragment>
+  <button
+    class="ant-btn ant-btn-default ant-dropdown-trigger"
+    type="button"
+  >
+    <span>
+      title
+    </span>
+  </button>
+</DocumentFragment>
 `;
 
 exports[`DropdownMenu renders correctly with overlayClassName 1`] = `
-<Dropdown
-  disabled={false}
-  menu={
-    Object {
-      "items": Array [
-        Object {
-          "key": "1",
-          "label": "Item 1",
-          "onClick": [MockFunction],
-        },
-      ],
-      "onClick": undefined,
-    }
-  }
-  overlayClassName="custom-class"
->
-  title
-</Dropdown>
+<DocumentFragment>
+  <button
+    class="ant-btn ant-btn-default ant-dropdown-trigger"
+    type="button"
+  >
+    <span>
+      title
+    </span>
+  </button>
+</DocumentFragment>
 `;

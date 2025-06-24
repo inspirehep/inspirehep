@@ -1,30 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NumberOfResultsWithSelectedItemsNumber renders correctly with default props 1`] = `
-<span>
-  <Connect(NumberOfResults)
-    namespace="testNamespace"
-  />
-</span>
+<DocumentFragment>
+  <span>
+    <span>
+       results
+    </span>
+  </span>
+</DocumentFragment>
 `;
 
 exports[`NumberOfResultsWithSelectedItemsNumber renders correctly with numberOfSelected 1`] = `
-<span>
-  <FormattedNumber>
-    5
-  </FormattedNumber>
-   of
-   
-  <Connect(NumberOfResults)
-    namespace="testNamespace"
-  />
-</span>
+<DocumentFragment>
+  <span>
+    5 of 
+    <span>
+       results
+    </span>
+  </span>
+</DocumentFragment>
 `;
 
 exports[`NumberOfResultsWithSelectedItemsNumber renders correctly with numberOfSelected as 0 1`] = `
-<span>
-  <Connect(NumberOfResults)
-    namespace="testNamespace"
-  />
-</span>
+<DocumentFragment>
+  <span>
+    <span>
+       results
+    </span>
+  </span>
+</DocumentFragment>
 `;

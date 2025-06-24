@@ -1,517 +1,1320 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LiteratureItem does not arxiv pdf download action if there is no eprint value 1`] = `
-<div
-  data-test-id="literature-result-item"
->
-  <ResultItem
-    leftActions={
-      <React.Fragment>
-        <Connect(CiteModalAction)
-          recordId={12345}
-        />
-      </React.Fragment>
-    }
-    rightActions={
-      <React.Fragment>
-        <ReferenceSearchLinkAction
-          recordId={12345}
-        />
-        <IncomingLiteratureReferencesLinkAction
-          itemCount={0}
-          linkQuery="refersto:recid:12345"
-          referenceType="citation"
-          trackerEventId="Citations link"
-        />
-      </React.Fragment>
-    }
+<DocumentFragment>
+  <div
+    data-test-id="literature-result-item"
   >
     <div
-      data-test-id="literature-result-item-inner"
+      class="__ContentBox__ h-100"
     >
       <div
-        className="flex flex-nowrap"
+        class="ant-card ant-card-bordered h-100"
       >
         <div
-          className="flex-grow-1"
+          class="ant-card-body"
         >
-          <Link
-            className="result-item-title"
-            data-test-id="literature-result-title-link"
-            to="/literature/12345"
+          <div
+            class="pa2"
           >
-            <LiteratureTitle
-              title={
-                Immutable.Map {
-                  "title": "test",
-                }
-              }
-            />
-          </Link>
+            <div>
+              <div
+                data-test-id="literature-result-item-inner"
+              >
+                <div
+                  class="flex flex-nowrap"
+                >
+                  <div
+                    class="flex-grow-1"
+                  >
+                    <a
+                      class="result-item-title"
+                      data-test-id="literature-result-title-link"
+                      href="/literature/12345"
+                    >
+                      <span
+                        data-test-id="literature-detail-title"
+                      >
+                        <span
+                          class="__Latex__"
+                        >
+                          test
+                        </span>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="mt1"
+                />
+                <div
+                  class="mt1"
+                >
+                  <div
+                    class="__InlineList__"
+                  >
+                    <ul />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-row ant-row-space-between actions ph2"
+          >
+            <div
+              class="ant-col"
+            >
+              <span
+                class="__UserAction__"
+              >
+                <button
+                  class="ant-btn ant-btn-default"
+                  type="button"
+                >
+                  <span
+                    class="__IconText__"
+                  >
+                    <span
+                      class="icon"
+                    >
+                      <span
+                        aria-label="export"
+                        class="anticon anticon-export"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="export"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M880 912H144c-17.7 0-32-14.3-32-32V144c0-17.7 14.3-32 32-32h360c4.4 0 8 3.6 8 8v56c0 4.4-3.6 8-8 8H184v656h656V520c0-4.4 3.6-8 8-8h56c4.4 0 8 3.6 8 8v360c0 17.7-14.3 32-32 32zM770.87 199.13l-52.2-52.2a8.01 8.01 0 014.7-13.6l179.4-21c5.1-.6 9.5 3.7 8.9 8.9l-21 179.4c-.8 6.6-8.9 9.4-13.6 4.7l-52.4-52.4-256.2 256.2a8.03 8.03 0 01-11.3 0l-42.4-42.4a8.03 8.03 0 010-11.3l256.1-256.3z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      class="v-top"
+                    >
+                      cite
+                    </span>
+                  </span>
+                </button>
+              </span>
+            </div>
+            <div
+              class="ant-col"
+            >
+              <span
+                class="__UserAction__"
+              >
+                <a
+                  data-test-id="reference-search-button"
+                  href="/literature?q=citedby:recid:12345"
+                >
+                  <span
+                    class="__IconText__"
+                  >
+                    <span
+                      class="icon"
+                    >
+                      <span
+                        aria-label="file-search"
+                        class="anticon anticon-file-search"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-search"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm144 452H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm445.7 51.5l-93.3-93.3C814.7 780.7 828 743.9 828 704c0-97.2-78.8-176-176-176s-176 78.8-176 176 78.8 176 176 176c35.8 0 69-10.7 96.8-29l94.7 94.7c1.6 1.6 3.6 2.3 5.6 2.3s4.1-.8 5.6-2.3l31-31a7.9 7.9 0 000-11.2zM652 816c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      class="v-top"
+                    >
+                      reference search
+                    </span>
+                  </span>
+                </a>
+              </span>
+              <span
+                class="__UserAction__"
+              >
+                <a
+                  href="/literature?q=refersto:recid:12345"
+                >
+                  <span
+                    class="__IconText__"
+                  >
+                    <span
+                      class="icon"
+                    >
+                      <span
+                        aria-label="login"
+                        class="anticon anticon-login"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="login"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <defs>
+                            <style />
+                          </defs>
+                          <path
+                            d="M521.7 82c-152.5-.4-286.7 78.5-363.4 197.7-3.4 5.3.4 12.3 6.7 12.3h70.3c4.8 0 9.3-2.1 12.3-5.8 7-8.5 14.5-16.7 22.4-24.5 32.6-32.5 70.5-58.1 112.7-75.9 43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 32.6 32.5 58.1 70.4 76 112.5C865.7 417.8 875 464.1 875 512c0 47.9-9.4 94.2-27.8 137.8-17.8 42.1-43.4 80-76 112.5s-70.5 58.1-112.7 75.9A352.8 352.8 0 01520.6 866c-47.9 0-94.3-9.4-137.9-27.8A353.84 353.84 0 01270 762.3c-7.9-7.9-15.3-16.1-22.4-24.5-3-3.7-7.6-5.8-12.3-5.8H165c-6.3 0-10.2 7-6.7 12.3C234.9 863.2 368.5 942 520.6 942c236.2 0 428-190.1 430.4-425.6C953.4 277.1 761.3 82.6 521.7 82zM395.02 624v-76h-314c-4.4 0-8-3.6-8-8v-56c0-4.4 3.6-8 8-8h314v-76c0-6.7 7.8-10.5 13-6.3l141.9 112a8 8 0 010 12.6l-141.9 112c-5.2 4.1-13 .4-13-6.3z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      class="v-top"
+                    >
+                      0 citations
+                    </span>
+                  </span>
+                </a>
+              </span>
+            </div>
+          </div>
         </div>
-        <ResponsiveView
-          min="sm"
-          render={[Function]}
-        />
-      </div>
-      <div
-        className="mt1"
-      >
-        <AuthorsAndCollaborations
-          authors={Immutable.List []}
-          collaborations={Immutable.List []}
-          collaborationsWithSuffix={Immutable.List []}
-          enableAuthorsShowAll={false}
-        />
-      </div>
-      <div
-        className="mt1"
-      >
-        <InlineUL
-          separator=" • "
-          wrapperClassName={null}
-        />
       </div>
     </div>
-  </ResultItem>
-</div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`LiteratureItem renders 0 citations if it does not exist 1`] = `
-<div
-  data-test-id="literature-result-item"
->
-  <ResultItem
-    leftActions={
-      <React.Fragment>
-        <Connect(CiteModalAction)
-          recordId={12345}
-        />
-      </React.Fragment>
-    }
-    rightActions={
-      <React.Fragment>
-        <ReferenceSearchLinkAction
-          recordId={12345}
-        />
-        <IncomingLiteratureReferencesLinkAction
-          itemCount={0}
-          linkQuery="refersto:recid:12345"
-          referenceType="citation"
-          trackerEventId="Citations link"
-        />
-      </React.Fragment>
-    }
+<DocumentFragment>
+  <div
+    data-test-id="literature-result-item"
   >
     <div
-      data-test-id="literature-result-item-inner"
+      class="__ContentBox__ h-100"
     >
       <div
-        className="flex flex-nowrap"
+        class="ant-card ant-card-bordered h-100"
       >
         <div
-          className="flex-grow-1"
+          class="ant-card-body"
         >
-          <Link
-            className="result-item-title"
-            data-test-id="literature-result-title-link"
-            to="/literature/12345"
+          <div
+            class="pa2"
           >
-            <LiteratureTitle
-              title={
-                Immutable.Map {
-                  "title": "test",
-                }
-              }
-            />
-          </Link>
+            <div>
+              <div
+                data-test-id="literature-result-item-inner"
+              >
+                <div
+                  class="flex flex-nowrap"
+                >
+                  <div
+                    class="flex-grow-1"
+                  >
+                    <a
+                      class="result-item-title"
+                      data-test-id="literature-result-title-link"
+                      href="/literature/12345"
+                    >
+                      <span
+                        data-test-id="literature-detail-title"
+                      >
+                        <span
+                          class="__Latex__"
+                        >
+                          test
+                        </span>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="mt1"
+                />
+                <div
+                  class="mt1"
+                >
+                  <div
+                    class="__InlineList__"
+                  >
+                    <ul />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-row ant-row-space-between actions ph2"
+          >
+            <div
+              class="ant-col"
+            >
+              <span
+                class="__UserAction__"
+              >
+                <button
+                  class="ant-btn ant-btn-default"
+                  type="button"
+                >
+                  <span
+                    class="__IconText__"
+                  >
+                    <span
+                      class="icon"
+                    >
+                      <span
+                        aria-label="export"
+                        class="anticon anticon-export"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="export"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M880 912H144c-17.7 0-32-14.3-32-32V144c0-17.7 14.3-32 32-32h360c4.4 0 8 3.6 8 8v56c0 4.4-3.6 8-8 8H184v656h656V520c0-4.4 3.6-8 8-8h56c4.4 0 8 3.6 8 8v360c0 17.7-14.3 32-32 32zM770.87 199.13l-52.2-52.2a8.01 8.01 0 014.7-13.6l179.4-21c5.1-.6 9.5 3.7 8.9 8.9l-21 179.4c-.8 6.6-8.9 9.4-13.6 4.7l-52.4-52.4-256.2 256.2a8.03 8.03 0 01-11.3 0l-42.4-42.4a8.03 8.03 0 010-11.3l256.1-256.3z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      class="v-top"
+                    >
+                      cite
+                    </span>
+                  </span>
+                </button>
+              </span>
+            </div>
+            <div
+              class="ant-col"
+            >
+              <span
+                class="__UserAction__"
+              >
+                <a
+                  data-test-id="reference-search-button"
+                  href="/literature?q=citedby:recid:12345"
+                >
+                  <span
+                    class="__IconText__"
+                  >
+                    <span
+                      class="icon"
+                    >
+                      <span
+                        aria-label="file-search"
+                        class="anticon anticon-file-search"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-search"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm144 452H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm445.7 51.5l-93.3-93.3C814.7 780.7 828 743.9 828 704c0-97.2-78.8-176-176-176s-176 78.8-176 176 78.8 176 176 176c35.8 0 69-10.7 96.8-29l94.7 94.7c1.6 1.6 3.6 2.3 5.6 2.3s4.1-.8 5.6-2.3l31-31a7.9 7.9 0 000-11.2zM652 816c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      class="v-top"
+                    >
+                      reference search
+                    </span>
+                  </span>
+                </a>
+              </span>
+              <span
+                class="__UserAction__"
+              >
+                <a
+                  href="/literature?q=refersto:recid:12345"
+                >
+                  <span
+                    class="__IconText__"
+                  >
+                    <span
+                      class="icon"
+                    >
+                      <span
+                        aria-label="login"
+                        class="anticon anticon-login"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="login"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <defs>
+                            <style />
+                          </defs>
+                          <path
+                            d="M521.7 82c-152.5-.4-286.7 78.5-363.4 197.7-3.4 5.3.4 12.3 6.7 12.3h70.3c4.8 0 9.3-2.1 12.3-5.8 7-8.5 14.5-16.7 22.4-24.5 32.6-32.5 70.5-58.1 112.7-75.9 43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 32.6 32.5 58.1 70.4 76 112.5C865.7 417.8 875 464.1 875 512c0 47.9-9.4 94.2-27.8 137.8-17.8 42.1-43.4 80-76 112.5s-70.5 58.1-112.7 75.9A352.8 352.8 0 01520.6 866c-47.9 0-94.3-9.4-137.9-27.8A353.84 353.84 0 01270 762.3c-7.9-7.9-15.3-16.1-22.4-24.5-3-3.7-7.6-5.8-12.3-5.8H165c-6.3 0-10.2 7-6.7 12.3C234.9 863.2 368.5 942 520.6 942c236.2 0 428-190.1 430.4-425.6C953.4 277.1 761.3 82.6 521.7 82zM395.02 624v-76h-314c-4.4 0-8-3.6-8-8v-56c0-4.4 3.6-8 8-8h314v-76c0-6.7 7.8-10.5 13-6.3l141.9 112a8 8 0 010 12.6l-141.9 112c-5.2 4.1-13 .4-13-6.3z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      class="v-top"
+                    >
+                      0 citations
+                    </span>
+                  </span>
+                </a>
+              </span>
+            </div>
+          </div>
         </div>
-        <ResponsiveView
-          min="sm"
-          render={[Function]}
-        />
-      </div>
-      <div
-        className="mt1"
-      >
-        <AuthorsAndCollaborations
-          authors={Immutable.List []}
-          collaborations={Immutable.List []}
-          collaborationsWithSuffix={Immutable.List []}
-          enableAuthorsShowAll={false}
-        />
-      </div>
-      <div
-        className="mt1"
-      >
-        <InlineUL
-          separator=" • "
-          wrapperClassName={null}
-        />
       </div>
     </div>
-  </ResultItem>
-</div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`LiteratureItem renders publication info when book exists but publication title not 1`] = `
-<div
-  data-test-id="literature-result-item"
->
-  <ResultItem
-    leftActions={
-      <React.Fragment>
-        <Connect(CiteModalAction)
-          page="Literature"
-          recordId={12345}
-        />
-      </React.Fragment>
-    }
-    rightActions={
-      <React.Fragment>
-        <ReferenceSearchLinkAction
-          page="Literature"
-          recordId={12345}
-        />
-        <IncomingLiteratureReferencesLinkAction
-          eventCategory="Literature"
-          itemCount={0}
-          linkQuery="refersto:recid:12345"
-          referenceType="citation"
-          trackerEventId="Citations link"
-        />
-      </React.Fragment>
-    }
+<DocumentFragment>
+  <div
+    data-test-id="literature-result-item"
   >
     <div
-      data-test-id="literature-result-item-inner"
+      class="__ContentBox__ h-100"
     >
       <div
-        className="flex flex-nowrap"
+        class="ant-card ant-card-bordered h-100"
       >
         <div
-          className="flex-grow-1"
+          class="ant-card-body"
         >
-          <Link
-            className="result-item-title"
-            data-test-id="literature-result-title-link"
-            to="/literature/12345"
+          <div
+            class="pa2"
           >
-            <LiteratureTitle
-              title={
-                Immutable.Map {
-                  "title": "test",
-                }
-              }
-            />
-          </Link>
+            <div>
+              <div
+                data-test-id="literature-result-item-inner"
+              >
+                <div
+                  class="flex flex-nowrap"
+                >
+                  <div
+                    class="flex-grow-1"
+                  >
+                    <a
+                      class="result-item-title"
+                      data-test-id="literature-result-title-link"
+                      href="/literature/12345"
+                    >
+                      <span
+                        data-test-id="literature-detail-title"
+                      >
+                        <span
+                          class="__Latex__"
+                        >
+                          test
+                        </span>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="mt1"
+                />
+                <div
+                  class="mt1"
+                >
+                  <div
+                    class="__InlineList__"
+                  >
+                    <ul>
+                      <li>
+                        <div
+                          class="__InlineList__"
+                          data-testid="inline-data-list"
+                        >
+                          <span
+                            class=""
+                          >
+                            Published in: 
+                          </span>
+                          <ul>
+                            <li>
+                              <span>
+                                SpringerBriefs in Physics
+                              </span>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-row ant-row-space-between actions ph2"
+          >
+            <div
+              class="ant-col"
+            >
+              <span
+                class="__UserAction__"
+              >
+                <button
+                  class="ant-btn ant-btn-default"
+                  type="button"
+                >
+                  <span
+                    class="__IconText__"
+                  >
+                    <span
+                      class="icon"
+                    >
+                      <span
+                        aria-label="export"
+                        class="anticon anticon-export"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="export"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M880 912H144c-17.7 0-32-14.3-32-32V144c0-17.7 14.3-32 32-32h360c4.4 0 8 3.6 8 8v56c0 4.4-3.6 8-8 8H184v656h656V520c0-4.4 3.6-8 8-8h56c4.4 0 8 3.6 8 8v360c0 17.7-14.3 32-32 32zM770.87 199.13l-52.2-52.2a8.01 8.01 0 014.7-13.6l179.4-21c5.1-.6 9.5 3.7 8.9 8.9l-21 179.4c-.8 6.6-8.9 9.4-13.6 4.7l-52.4-52.4-256.2 256.2a8.03 8.03 0 01-11.3 0l-42.4-42.4a8.03 8.03 0 010-11.3l256.1-256.3z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      class="v-top"
+                    >
+                      cite
+                    </span>
+                  </span>
+                </button>
+              </span>
+            </div>
+            <div
+              class="ant-col"
+            >
+              <span
+                class="__UserAction__"
+              >
+                <a
+                  data-test-id="reference-search-button"
+                  href="/literature?q=citedby:recid:12345"
+                >
+                  <span
+                    class="__IconText__"
+                  >
+                    <span
+                      class="icon"
+                    >
+                      <span
+                        aria-label="file-search"
+                        class="anticon anticon-file-search"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-search"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm144 452H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm445.7 51.5l-93.3-93.3C814.7 780.7 828 743.9 828 704c0-97.2-78.8-176-176-176s-176 78.8-176 176 78.8 176 176 176c35.8 0 69-10.7 96.8-29l94.7 94.7c1.6 1.6 3.6 2.3 5.6 2.3s4.1-.8 5.6-2.3l31-31a7.9 7.9 0 000-11.2zM652 816c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      class="v-top"
+                    >
+                      reference search
+                    </span>
+                  </span>
+                </a>
+              </span>
+              <span
+                class="__UserAction__"
+              >
+                <a
+                  href="/literature?q=refersto:recid:12345"
+                >
+                  <span
+                    class="__IconText__"
+                  >
+                    <span
+                      class="icon"
+                    >
+                      <span
+                        aria-label="login"
+                        class="anticon anticon-login"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="login"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <defs>
+                            <style />
+                          </defs>
+                          <path
+                            d="M521.7 82c-152.5-.4-286.7 78.5-363.4 197.7-3.4 5.3.4 12.3 6.7 12.3h70.3c4.8 0 9.3-2.1 12.3-5.8 7-8.5 14.5-16.7 22.4-24.5 32.6-32.5 70.5-58.1 112.7-75.9 43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 32.6 32.5 58.1 70.4 76 112.5C865.7 417.8 875 464.1 875 512c0 47.9-9.4 94.2-27.8 137.8-17.8 42.1-43.4 80-76 112.5s-70.5 58.1-112.7 75.9A352.8 352.8 0 01520.6 866c-47.9 0-94.3-9.4-137.9-27.8A353.84 353.84 0 01270 762.3c-7.9-7.9-15.3-16.1-22.4-24.5-3-3.7-7.6-5.8-12.3-5.8H165c-6.3 0-10.2 7-6.7 12.3C234.9 863.2 368.5 942 520.6 942c236.2 0 428-190.1 430.4-425.6C953.4 277.1 761.3 82.6 521.7 82zM395.02 624v-76h-314c-4.4 0-8-3.6-8-8v-56c0-4.4 3.6-8 8-8h314v-76c0-6.7 7.8-10.5 13-6.3l141.9 112a8 8 0 010 12.6l-141.9 112c-5.2 4.1-13 .4-13-6.3z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      class="v-top"
+                    >
+                      0 citations
+                    </span>
+                  </span>
+                </a>
+              </span>
+            </div>
+          </div>
         </div>
-        <ResponsiveView
-          min="sm"
-          render={[Function]}
-        />
-      </div>
-      <div
-        className="mt1"
-      >
-        <AuthorsAndCollaborations
-          authors={Immutable.List []}
-          collaborations={Immutable.List []}
-          collaborationsWithSuffix={Immutable.List []}
-          enableAuthorsShowAll={false}
-          page="Literature"
-        />
-      </div>
-      <div
-        className="mt1"
-      >
-        <InlineUL
-          separator=" • "
-          wrapperClassName={null}
-        >
-          <BookSeriesInfoList
-            bookSeries={
-              Immutable.List [
-                Immutable.Map {
-                  "title": "SpringerBriefs in Physics",
-                },
-              ]
-            }
-          />
-        </InlineUL>
       </div>
     </div>
-  </ResultItem>
-</div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`LiteratureItem renders with all props set, including sub props 1`] = `
-<div
-  data-test-id="literature-result-item"
->
-  <ResultItem
-    leftActions={
-      <React.Fragment>
-        <UrlsAction
-          eventAction="Download"
-          icon={<FilePdfOutlined />}
-          text="pdf"
-          trackerEventId="Pdf download"
-          urls={
-            Immutable.List [
-              Immutable.Map {
-                "value": "https://fulltext.cern/pdf/1",
-              },
-            ]
-          }
-        />
-        <UrlsAction
-          icon={<LinkOutlined />}
-          text="links"
-          trackerEventId="Literature file"
-          urls={
-            Immutable.List [
-              Immutable.Map {
-                "value": "http://lss.fnal.gov/conf/C8206282/pg209.pdf",
-              },
-            ]
-          }
-        />
-        <Connect(CiteModalAction)
-          recordId={12345}
-        />
-      </React.Fragment>
-    }
-    rightActions={
-      <React.Fragment>
-        <ReferenceSearchLinkAction
-          recordId={12345}
-        />
-        <IncomingLiteratureReferencesLinkAction
-          itemCount={12435}
-          linkQuery="refersto:recid:12345"
-          referenceType="citation"
-          trackerEventId="Citations link"
-        />
-      </React.Fragment>
-    }
+<DocumentFragment>
+  <div
+    data-test-id="literature-result-item"
   >
     <div
-      data-test-id="literature-result-item-inner"
+      class="__ContentBox__ h-100"
     >
       <div
-        className="flex flex-nowrap"
+        class="ant-card ant-card-bordered h-100"
       >
         <div
-          className="flex-grow-1"
+          class="ant-card-body"
         >
-          <Link
-            className="result-item-title"
-            data-test-id="literature-result-title-link"
-            to="/literature/12345"
+          <div
+            class="pa2"
           >
-            <LiteratureTitle
-              title={
-                Immutable.Map {
-                  "title": "test",
-                }
-              }
-            />
-          </Link>
+            <div>
+              <div
+                data-test-id="literature-result-item-inner"
+              >
+                <div
+                  class="flex flex-nowrap"
+                >
+                  <div
+                    class="flex-grow-1"
+                  >
+                    <a
+                      class="result-item-title"
+                      data-test-id="literature-result-title-link"
+                      href="/literature/12345"
+                    >
+                      <span
+                        data-test-id="literature-detail-title"
+                      >
+                        <span
+                          class="__Latex__"
+                        >
+                          test
+                        </span>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="mt1"
+                >
+                  <div
+                    class="__InlineList__ di"
+                    data-testid="inline-data-list"
+                  >
+                    <ul>
+                      <li>
+                        <a
+                          href="/literature?q=collaboration:CMS"
+                        >
+                          CMS
+                        </a>
+                      </li>
+                    </ul>
+                    <span>
+                       Collaboration
+                    </span>
+                  </div>
+                  <span>
+                     and 
+                  </span>
+                  <div
+                    class="__InlineList__ di"
+                    data-testid="inline-data-list"
+                  >
+                    <ul>
+                      <li>
+                        <a
+                          href="/literature?q=collaboration:CMS Group"
+                        >
+                          CMS Group
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <span
+                    class="mh1"
+                  >
+                    •
+                  </span>
+                  <div
+                    class="__InlineList__ di"
+                    data-testid="inline-data-list"
+                  >
+                    <ul>
+                      <li>
+                        <div
+                          class="di"
+                        >
+                          <span>
+                            Test, Author
+                          </span>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <span>
+                     for the collaboration
+                  </span>
+                  <span>
+                    s
+                  </span>
+                  <span>
+                    .
+                  </span>
+                   (
+                  <span>
+                    Jun 7, 1993
+                  </span>
+                  )
+                </div>
+                <div
+                  class="mt1"
+                >
+                  <div
+                    class="__InlineList__"
+                  >
+                    <ul>
+                      <li>
+                        <div
+                          class="__InlineList__"
+                          data-testid="inline-data-list"
+                        >
+                          <span
+                            class=""
+                          >
+                            Published in: 
+                          </span>
+                          <ul>
+                            <li>
+                              <span>
+                                <span>
+                                  <i>
+                                    Test Jornal
+                                  </i>
+                                </span>
+                              </span>
+                            </li>
+                          </ul>
+                        </div>
+                         • 
+                      </li>
+                      <li>
+                        <div
+                          class="__InlineList__"
+                          data-testid="inline-data-list"
+                        >
+                          <span
+                            class=""
+                          >
+                            Contribution to: 
+                          </span>
+                          <ul>
+                            <li>
+                              <span>
+                                <a
+                                  data-test-id="literature-conference-link"
+                                  href="/conferences/undefined"
+                                >
+                                  <div
+                                    class="__InlineList__ di"
+                                    data-testid="inline-data-list"
+                                  >
+                                    <ul>
+                                      <li>
+                                        <span>
+                                          MG15
+                                        </span>
+                                         and 
+                                      </li>
+                                      <li>
+                                        <span>
+                                          SAP16
+                                        </span>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </a>
+                              </span>
+                            </li>
+                          </ul>
+                        </div>
+                         • 
+                      </li>
+                      <li>
+                        <div
+                          class="__InlineList__"
+                          data-testid="inline-data-list"
+                        >
+                          <span
+                            class=""
+                          >
+                            e-Print: 
+                          </span>
+                          <ul>
+                            <li>
+                              <span>
+                                <a
+                                  href="//arxiv.org/abs/1234567890"
+                                  target="_blank"
+                                >
+                                  1234567890
+                                </a>
+                              </span>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="mt1"
+              >
+                <div
+                  class="__FulltextSnippet__"
+                >
+                  "
+                  <div>
+                    A snippet of 
+                    <em>
+                      fulltext
+                    </em>
+                  </div>
+                   ..."
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-row ant-row-space-between actions ph2"
+          >
+            <div
+              class="ant-col"
+            >
+              <span
+                class="__UserAction__"
+              >
+                <a
+                  href="https://fulltext.cern/pdf/1"
+                  target="_blank"
+                >
+                  <span
+                    class="__IconText__"
+                  >
+                    <span
+                      class="icon"
+                    >
+                      <span
+                        aria-label="file-pdf"
+                        class="anticon anticon-file-pdf"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-pdf"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M531.3 574.4l.3-1.4c5.8-23.9 13.1-53.7 7.4-80.7-3.8-21.3-19.5-29.6-32.9-30.2-15.8-.7-29.9 8.3-33.4 21.4-6.6 24-.7 56.8 10.1 98.6-13.6 32.4-35.3 79.5-51.2 107.5-29.6 15.3-69.3 38.9-75.2 68.7-1.2 5.5.2 12.5 3.5 18.8 3.7 7 9.6 12.4 16.5 15 3 1.1 6.6 2 10.8 2 17.6 0 46.1-14.2 84.1-79.4 5.8-1.9 11.8-3.9 17.6-5.9 27.2-9.2 55.4-18.8 80.9-23.1 28.2 15.1 60.3 24.8 82.1 24.8 21.6 0 30.1-12.8 33.3-20.5 5.6-13.5 2.9-30.5-6.2-39.6-13.2-13-45.3-16.4-95.3-10.2-24.6-15-40.7-35.4-52.4-65.8zM421.6 726.3c-13.9 20.2-24.4 30.3-30.1 34.7 6.7-12.3 19.8-25.3 30.1-34.7zm87.6-235.5c5.2 8.9 4.5 35.8.5 49.4-4.9-19.9-5.6-48.1-2.7-51.4.8.1 1.5.7 2.2 2zm-1.6 120.5c10.7 18.5 24.2 34.4 39.1 46.2-21.6 4.9-41.3 13-58.9 20.2-4.2 1.7-8.3 3.4-12.3 5 13.3-24.1 24.4-51.4 32.1-71.4zm155.6 65.5c.1.2.2.5-.4.9h-.2l-.2.3c-.8.5-9 5.3-44.3-8.6 40.6-1.9 45 7.3 45.1 7.4zm191.4-388.2L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      class="v-top"
+                    >
+                      pdf
+                    </span>
+                  </span>
+                </a>
+              </span>
+              <span
+                class="__UserAction__"
+              >
+                <a
+                  href="http://lss.fnal.gov/conf/C8206282/pg209.pdf"
+                  target="_blank"
+                >
+                  <span
+                    class="__IconText__"
+                  >
+                    <span
+                      class="icon"
+                    >
+                      <span
+                        aria-label="link"
+                        class="anticon anticon-link"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="link"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M574 665.4a8.03 8.03 0 00-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 00-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 000 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 000 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 00-11.3 0L372.3 598.7a8.03 8.03 0 000 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      class="v-top"
+                    >
+                      links
+                    </span>
+                  </span>
+                </a>
+              </span>
+              <span
+                class="__UserAction__"
+              >
+                <button
+                  class="ant-btn ant-btn-default"
+                  type="button"
+                >
+                  <span
+                    class="__IconText__"
+                  >
+                    <span
+                      class="icon"
+                    >
+                      <span
+                        aria-label="export"
+                        class="anticon anticon-export"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="export"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M880 912H144c-17.7 0-32-14.3-32-32V144c0-17.7 14.3-32 32-32h360c4.4 0 8 3.6 8 8v56c0 4.4-3.6 8-8 8H184v656h656V520c0-4.4 3.6-8 8-8h56c4.4 0 8 3.6 8 8v360c0 17.7-14.3 32-32 32zM770.87 199.13l-52.2-52.2a8.01 8.01 0 014.7-13.6l179.4-21c5.1-.6 9.5 3.7 8.9 8.9l-21 179.4c-.8 6.6-8.9 9.4-13.6 4.7l-52.4-52.4-256.2 256.2a8.03 8.03 0 01-11.3 0l-42.4-42.4a8.03 8.03 0 010-11.3l256.1-256.3z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      class="v-top"
+                    >
+                      cite
+                    </span>
+                  </span>
+                </button>
+              </span>
+            </div>
+            <div
+              class="ant-col"
+            >
+              <span
+                class="__UserAction__"
+              >
+                <a
+                  data-test-id="reference-search-button"
+                  href="/literature?q=citedby:recid:12345"
+                >
+                  <span
+                    class="__IconText__"
+                  >
+                    <span
+                      class="icon"
+                    >
+                      <span
+                        aria-label="file-search"
+                        class="anticon anticon-file-search"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-search"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm144 452H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm445.7 51.5l-93.3-93.3C814.7 780.7 828 743.9 828 704c0-97.2-78.8-176-176-176s-176 78.8-176 176 78.8 176 176 176c35.8 0 69-10.7 96.8-29l94.7 94.7c1.6 1.6 3.6 2.3 5.6 2.3s4.1-.8 5.6-2.3l31-31a7.9 7.9 0 000-11.2zM652 816c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      class="v-top"
+                    >
+                      reference search
+                    </span>
+                  </span>
+                </a>
+              </span>
+              <span
+                class="__UserAction__"
+              >
+                <a
+                  href="/literature?q=refersto:recid:12345"
+                >
+                  <span
+                    class="__IconText__"
+                  >
+                    <span
+                      class="icon"
+                    >
+                      <span
+                        aria-label="login"
+                        class="anticon anticon-login"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="login"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <defs>
+                            <style />
+                          </defs>
+                          <path
+                            d="M521.7 82c-152.5-.4-286.7 78.5-363.4 197.7-3.4 5.3.4 12.3 6.7 12.3h70.3c4.8 0 9.3-2.1 12.3-5.8 7-8.5 14.5-16.7 22.4-24.5 32.6-32.5 70.5-58.1 112.7-75.9 43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 32.6 32.5 58.1 70.4 76 112.5C865.7 417.8 875 464.1 875 512c0 47.9-9.4 94.2-27.8 137.8-17.8 42.1-43.4 80-76 112.5s-70.5 58.1-112.7 75.9A352.8 352.8 0 01520.6 866c-47.9 0-94.3-9.4-137.9-27.8A353.84 353.84 0 01270 762.3c-7.9-7.9-15.3-16.1-22.4-24.5-3-3.7-7.6-5.8-12.3-5.8H165c-6.3 0-10.2 7-6.7 12.3C234.9 863.2 368.5 942 520.6 942c236.2 0 428-190.1 430.4-425.6C953.4 277.1 761.3 82.6 521.7 82zM395.02 624v-76h-314c-4.4 0-8-3.6-8-8v-56c0-4.4 3.6-8 8-8h314v-76c0-6.7 7.8-10.5 13-6.3l141.9 112a8 8 0 010 12.6l-141.9 112c-5.2 4.1-13 .4-13-6.3z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      class="v-top"
+                    >
+                      12,435 citations
+                    </span>
+                  </span>
+                </a>
+              </span>
+            </div>
+          </div>
         </div>
-        <ResponsiveView
-          min="sm"
-          render={[Function]}
-        />
-      </div>
-      <div
-        className="mt1"
-      >
-        <AuthorsAndCollaborations
-          authors={
-            Immutable.List [
-              Immutable.Map {
-                "full_name": "Test, Author",
-              },
-            ]
-          }
-          collaborations={
-            Immutable.List [
-              Immutable.Map {
-                "value": "CMS",
-              },
-            ]
-          }
-          collaborationsWithSuffix={
-            Immutable.List [
-              Immutable.Map {
-                "value": "CMS Group",
-              },
-            ]
-          }
-          enableAuthorsShowAll={false}
-        />
-         (
-        <LiteratureDate
-          date="Jun 7, 1993"
-        />
-        )
-      </div>
-      <div
-        className="mt1"
-      >
-        <InlineUL
-          separator=" • "
-          wrapperClassName={null}
-        >
-          <PublicationInfoList
-            labeled={true}
-            publicationInfo={
-              Immutable.List [
-                Immutable.Map {
-                  "journal_title": "Test Jornal",
-                },
-              ]
-            }
-          />
-          <ConferenceInfoList
-            conferenceInfo={
-              Immutable.List [
-                Immutable.Map {
-                  "acronyms": Immutable.List [
-                    "MG15",
-                    "SAP16",
-                  ],
-                  "titles": Immutable.List [
-                    Immutable.Map {
-                      "title": "15th Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Astrophysics, and Relativistic Field Theories",
-                    },
-                  ],
-                },
-              ]
-            }
-            wrapperClassName={null}
-          />
-          <ArxivEprintList
-            eprints={
-              Immutable.List [
-                Immutable.Map {
-                  "value": "1234567890",
-                },
-              ]
-            }
-            page="Literature search"
-          />
-        </InlineUL>
       </div>
     </div>
-    <div
-      className="mt1"
-    >
-      <FulltextSnippet
-        snippet="A snippet of <em>fulltext</em>"
-      />
-    </div>
-    <Connect(AssignLiteratureItemDrawer)
-      itemLiteratureId={12345}
-    />
-  </ResultItem>
-</div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`LiteratureItem renders with literature item claiming button on literature search page 1`] = `
-<div
-  data-test-id="literature-result-item"
->
-  <ResultItem
-    leftActions={
-      <React.Fragment>
-        <Connect(CiteModalAction)
-          page="Literature"
-          recordId={12345}
-        />
-        <LiteratureClaimButton
-          controlNumber={12345}
-          hasAuthorProfile={true}
-          loggedIn={true}
-          page="Literature"
-        />
-      </React.Fragment>
-    }
-    rightActions={
-      <React.Fragment>
-        <ReferenceSearchLinkAction
-          page="Literature"
-          recordId={12345}
-        />
-        <IncomingLiteratureReferencesLinkAction
-          eventCategory="Literature"
-          itemCount={0}
-          linkQuery="refersto:recid:12345"
-          referenceType="citation"
-          trackerEventId="Citations link"
-        />
-      </React.Fragment>
-    }
+<DocumentFragment>
+  <div
+    data-test-id="literature-result-item"
   >
     <div
-      data-test-id="literature-result-item-inner"
+      class="__ContentBox__ h-100"
     >
       <div
-        className="flex flex-nowrap"
+        class="ant-card ant-card-bordered h-100"
       >
         <div
-          className="flex-grow-1"
+          class="ant-card-body"
         >
-          <Link
-            className="result-item-title"
-            data-test-id="literature-result-title-link"
-            to="/literature/12345"
+          <div
+            class="pa2"
           >
-            <LiteratureTitle
-              title={
-                Immutable.Map {
-                  "title": "test",
-                }
-              }
-            />
-          </Link>
+            <div>
+              <div
+                data-test-id="literature-result-item-inner"
+              >
+                <div
+                  class="flex flex-nowrap"
+                >
+                  <div
+                    class="flex-grow-1"
+                  >
+                    <a
+                      class="result-item-title"
+                      data-test-id="literature-result-title-link"
+                      href="/literature/12345"
+                    >
+                      <span
+                        data-test-id="literature-detail-title"
+                      >
+                        <span
+                          class="__Latex__"
+                        >
+                          test
+                        </span>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="mt1"
+                />
+                <div
+                  class="mt1"
+                >
+                  <div
+                    class="__InlineList__"
+                  >
+                    <ul>
+                      <li>
+                        <div
+                          class="__InlineList__"
+                          data-testid="inline-data-list"
+                        >
+                          <span
+                            class=""
+                          >
+                            Published in: 
+                          </span>
+                          <ul>
+                            <li>
+                              <span>
+                                SpringerBriefs in Physics
+                              </span>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-row ant-row-space-between actions ph2"
+          >
+            <div
+              class="ant-col"
+            >
+              <span
+                class="__UserAction__"
+              >
+                <button
+                  class="ant-btn ant-btn-default"
+                  type="button"
+                >
+                  <span
+                    class="__IconText__"
+                  >
+                    <span
+                      class="icon"
+                    >
+                      <span
+                        aria-label="export"
+                        class="anticon anticon-export"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="export"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M880 912H144c-17.7 0-32-14.3-32-32V144c0-17.7 14.3-32 32-32h360c4.4 0 8 3.6 8 8v56c0 4.4-3.6 8-8 8H184v656h656V520c0-4.4 3.6-8 8-8h56c4.4 0 8 3.6 8 8v360c0 17.7-14.3 32-32 32zM770.87 199.13l-52.2-52.2a8.01 8.01 0 014.7-13.6l179.4-21c5.1-.6 9.5 3.7 8.9 8.9l-21 179.4c-.8 6.6-8.9 9.4-13.6 4.7l-52.4-52.4-256.2 256.2a8.03 8.03 0 01-11.3 0l-42.4-42.4a8.03 8.03 0 010-11.3l256.1-256.3z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      class="v-top"
+                    >
+                      cite
+                    </span>
+                  </span>
+                </button>
+              </span>
+            </div>
+            <div
+              class="ant-col"
+            >
+              <span
+                class="__UserAction__"
+              >
+                <a
+                  data-test-id="reference-search-button"
+                  href="/literature?q=citedby:recid:12345"
+                >
+                  <span
+                    class="__IconText__"
+                  >
+                    <span
+                      class="icon"
+                    >
+                      <span
+                        aria-label="file-search"
+                        class="anticon anticon-file-search"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="file-search"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm144 452H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm445.7 51.5l-93.3-93.3C814.7 780.7 828 743.9 828 704c0-97.2-78.8-176-176-176s-176 78.8-176 176 78.8 176 176 176c35.8 0 69-10.7 96.8-29l94.7 94.7c1.6 1.6 3.6 2.3 5.6 2.3s4.1-.8 5.6-2.3l31-31a7.9 7.9 0 000-11.2zM652 816c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      class="v-top"
+                    >
+                      reference search
+                    </span>
+                  </span>
+                </a>
+              </span>
+              <span
+                class="__UserAction__"
+              >
+                <a
+                  href="/literature?q=refersto:recid:12345"
+                >
+                  <span
+                    class="__IconText__"
+                  >
+                    <span
+                      class="icon"
+                    >
+                      <span
+                        aria-label="login"
+                        class="anticon anticon-login"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          data-icon="login"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <defs>
+                            <style />
+                          </defs>
+                          <path
+                            d="M521.7 82c-152.5-.4-286.7 78.5-363.4 197.7-3.4 5.3.4 12.3 6.7 12.3h70.3c4.8 0 9.3-2.1 12.3-5.8 7-8.5 14.5-16.7 22.4-24.5 32.6-32.5 70.5-58.1 112.7-75.9 43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 32.6 32.5 58.1 70.4 76 112.5C865.7 417.8 875 464.1 875 512c0 47.9-9.4 94.2-27.8 137.8-17.8 42.1-43.4 80-76 112.5s-70.5 58.1-112.7 75.9A352.8 352.8 0 01520.6 866c-47.9 0-94.3-9.4-137.9-27.8A353.84 353.84 0 01270 762.3c-7.9-7.9-15.3-16.1-22.4-24.5-3-3.7-7.6-5.8-12.3-5.8H165c-6.3 0-10.2 7-6.7 12.3C234.9 863.2 368.5 942 520.6 942c236.2 0 428-190.1 430.4-425.6C953.4 277.1 761.3 82.6 521.7 82zM395.02 624v-76h-314c-4.4 0-8-3.6-8-8v-56c0-4.4 3.6-8 8-8h314v-76c0-6.7 7.8-10.5 13-6.3l141.9 112a8 8 0 010 12.6l-141.9 112c-5.2 4.1-13 .4-13-6.3z"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <span
+                      class="v-top"
+                    >
+                      0 citations
+                    </span>
+                  </span>
+                </a>
+              </span>
+            </div>
+          </div>
         </div>
-        <ResponsiveView
-          min="sm"
-          render={[Function]}
-        />
-      </div>
-      <div
-        className="mt1"
-      >
-        <AuthorsAndCollaborations
-          authors={Immutable.List []}
-          collaborations={Immutable.List []}
-          collaborationsWithSuffix={Immutable.List []}
-          enableAuthorsShowAll={false}
-          page="Literature"
-        />
-      </div>
-      <div
-        className="mt1"
-      >
-        <InlineUL
-          separator=" • "
-          wrapperClassName={null}
-        >
-          <BookSeriesInfoList
-            bookSeries={
-              Immutable.List [
-                Immutable.Map {
-                  "title": "SpringerBriefs in Physics",
-                },
-              ]
-            }
-          />
-        </InlineUL>
       </div>
     </div>
-  </ResultItem>
-</div>
+  </div>
+</DocumentFragment>
 `;

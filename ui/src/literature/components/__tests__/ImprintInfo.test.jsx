@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import ImprintInfo from '../ImprintInfo';
@@ -11,8 +11,8 @@ describe('ImprintInfo', () => {
         date: '2004',
       },
     ]);
-    const wrapper = shallow(<ImprintInfo imprint={imprint} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<ImprintInfo imprint={imprint} />);
+    expect(asFragment()).toMatchSnapshot();
   });
   it('renders imprints with place', () => {
     const imprint = fromJS([
@@ -20,8 +20,8 @@ describe('ImprintInfo', () => {
         place: 'Cambridge, UK',
       },
     ]);
-    const wrapper = shallow(<ImprintInfo imprint={imprint} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<ImprintInfo imprint={imprint} />);
+    expect(asFragment()).toMatchSnapshot();
   });
   it('renders imprints with publisher', () => {
     const imprint = fromJS([
@@ -29,8 +29,8 @@ describe('ImprintInfo', () => {
         publisher: 'Univ. Pr.',
       },
     ]);
-    const wrapper = shallow(<ImprintInfo imprint={imprint} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<ImprintInfo imprint={imprint} />);
+    expect(asFragment()).toMatchSnapshot();
   });
   it('renders imprints with date and publisher', () => {
     const imprint = fromJS([
@@ -39,8 +39,8 @@ describe('ImprintInfo', () => {
         publisher: 'Univ. Pr.',
       },
     ]);
-    const wrapper = shallow(<ImprintInfo imprint={imprint} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<ImprintInfo imprint={imprint} />);
+    expect(asFragment()).toMatchSnapshot();
   });
   it('renders imprints with date and place', () => {
     const imprint = fromJS([
@@ -49,8 +49,8 @@ describe('ImprintInfo', () => {
         place: 'Cambridge, UK',
       },
     ]);
-    const wrapper = shallow(<ImprintInfo imprint={imprint} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<ImprintInfo imprint={imprint} />);
+    expect(asFragment()).toMatchSnapshot();
   });
   it('renders imprints with publisher and place', () => {
     const imprint = fromJS([
@@ -59,8 +59,8 @@ describe('ImprintInfo', () => {
         place: 'Cambridge, UK',
       },
     ]);
-    const wrapper = shallow(<ImprintInfo imprint={imprint} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<ImprintInfo imprint={imprint} />);
+    expect(asFragment()).toMatchSnapshot();
   });
   it('renders imprints with date, publisher, and place', () => {
     const imprint = fromJS([
@@ -70,8 +70,8 @@ describe('ImprintInfo', () => {
         place: 'Cambridge, UK',
       },
     ]);
-    const wrapper = shallow(<ImprintInfo imprint={imprint} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<ImprintInfo imprint={imprint} />);
+    expect(asFragment()).toMatchSnapshot();
   });
   it('renders multiple imprints', () => {
     const imprint = fromJS([
@@ -86,8 +86,8 @@ describe('ImprintInfo', () => {
         place: 'Cambridge, UK',
       },
     ]);
-    const wrapper = shallow(<ImprintInfo imprint={imprint} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<ImprintInfo imprint={imprint} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders date with month and day', () => {
@@ -96,7 +96,7 @@ describe('ImprintInfo', () => {
         date: '2018-06-17',
       },
     ]);
-    const wrapper = shallow(<ImprintInfo imprint={imprint} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    const { asFragment } = render(<ImprintInfo imprint={imprint} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

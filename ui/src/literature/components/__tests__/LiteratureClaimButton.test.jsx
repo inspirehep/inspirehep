@@ -1,12 +1,14 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
+import { Provider } from 'react-redux';
 
 import LiteratureClaimButton from '../LiteratureClaimButton';
+import { getStore } from '../../../fixtures/store';
 
 describe('LiteratureClaimButton', () => {
   it('renders disabled when user is not logged in', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <LiteratureClaimButton
         loggedIn={false}
         hasAuthorProfile={false}
@@ -14,10 +16,10 @@ describe('LiteratureClaimButton', () => {
         controlNumber={123456}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
   it('renders disabled when user is logged in but doesnt have profile', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <LiteratureClaimButton
         loggedIn
         hasAuthorProfile={false}
@@ -25,10 +27,10 @@ describe('LiteratureClaimButton', () => {
         controlNumber={123456}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
   it('renders disabled when user is logged in and has profile but there is no authors', () => {
-    const wrapper = shallow(
+    const { asFragment } = render(
       <LiteratureClaimButton
         loggedIn
         hasAuthorProfile
@@ -36,7 +38,7 @@ describe('LiteratureClaimButton', () => {
         controlNumber={123456}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
   it('renders enabled', () => {
     const authors = fromJS([
@@ -50,14 +52,16 @@ describe('LiteratureClaimButton', () => {
         full_name: 'Test, Guy 3',
       },
     ]);
-    const wrapper = shallow(
-      <LiteratureClaimButton
-        loggedIn
-        hasAuthorProfile
-        authors={authors}
-        controlNumber={123456}
-      />
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <LiteratureClaimButton
+          loggedIn
+          hasAuthorProfile
+          authors={authors}
+          controlNumber={123456}
+        />
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

@@ -1,9 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS, List } from 'immutable';
+import { Provider } from 'react-redux';
 
+import { MemoryRouter } from 'react-router-dom';
 import LiteratureItem from '../LiteratureItem';
 import { LITERATURE_NS } from '../../../search/constants';
+import { getStore } from '../../../fixtures/store';
 
 describe('LiteratureItem', () => {
   it('renders with all props set, including sub props', () => {
@@ -32,10 +35,14 @@ describe('LiteratureItem', () => {
       ],
       fulltext_highlight: List(['A snippet of <em>fulltext</em>']),
     });
-    const wrapper = shallow(
-      <LiteratureItem metadata={metadata} searchRank={2} />
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <LiteratureItem metadata={metadata} searchRank={2} />
+        </MemoryRouter>
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('does not arxiv pdf download action if there is no eprint value', () => {
@@ -43,10 +50,14 @@ describe('LiteratureItem', () => {
       control_number: 12345,
       titles: [{ title: 'test' }],
     });
-    const wrapper = shallow(
-      <LiteratureItem metadata={metadata} searchRank={1} />
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <LiteratureItem metadata={metadata} searchRank={1} />
+        </MemoryRouter>
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders 0 citations if it does not exist', () => {
@@ -54,10 +65,14 @@ describe('LiteratureItem', () => {
       control_number: 12345,
       titles: [{ title: 'test' }],
     });
-    const wrapper = shallow(
-      <LiteratureItem metadata={metadata} searchRank={2} />
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <LiteratureItem metadata={metadata} searchRank={2} />
+        </MemoryRouter>
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders publication info when book exists but publication title not', () => {
@@ -77,10 +92,18 @@ describe('LiteratureItem', () => {
         },
       ],
     });
-    const wrapper = shallow(
-      <LiteratureItem metadata={metadata} searchRank={3} page="Literature" />
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <LiteratureItem
+            metadata={metadata}
+            searchRank={3}
+            page="Literature"
+          />
+        </MemoryRouter>
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with literature item claiming button on literature search page', () => {
@@ -100,16 +123,20 @@ describe('LiteratureItem', () => {
         },
       ],
     });
-    const wrapper = shallow(
-      <LiteratureItem
-        metadata={metadata}
-        searchRank={3}
-        loggedIn
-        hasAuthorProfile
-        namespace={LITERATURE_NS}
-        page="Literature"
-      />
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <MemoryRouter>
+          <LiteratureItem
+            metadata={metadata}
+            searchRank={3}
+            loggedIn
+            hasAuthorProfile
+            namespace={LITERATURE_NS}
+            page="Literature"
+          />
+        </MemoryRouter>
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

@@ -1,15 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LiteratureSelectAll render unchecked if all publications are not part of the selection 1`] = `
-<Checkbox
-  checked={false}
-  onChange={[Function]}
-/>
+<DocumentFragment>
+  <label
+    class="ant-checkbox-wrapper"
+  >
+    <span
+      class="ant-checkbox"
+    >
+      <input
+        class="ant-checkbox-input"
+        type="checkbox"
+        value=""
+      />
+      <span
+        class="ant-checkbox-inner"
+      />
+    </span>
+  </label>
+</DocumentFragment>
 `;
 
 exports[`LiteratureSelectAll renders checked if all publications are part of the selection 1`] = `
-<Checkbox
-  checked={true}
-  onChange={[Function]}
-/>
+<DocumentFragment>
+  <label
+    class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
+  >
+    <span
+      class="ant-checkbox ant-checkbox-checked"
+    >
+      <input
+        checked=""
+        class="ant-checkbox-input"
+        type="checkbox"
+        value=""
+      />
+      <span
+        class="ant-checkbox-inner"
+      />
+    </span>
+  </label>
+</DocumentFragment>
 `;

@@ -1,37 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ParentRecordInfo renders with parent record 1`] = `
-<div>
-  <span>
-    Part of 
-  </span>
-  <Link
-    to="/literature/1234"
-  >
-    A title of book
-  </Link>
-</div>
+<DocumentFragment>
+  <div>
+    <span>
+      Part of 
+    </span>
+    <a
+      href="/literature/1234"
+    >
+      A title of book
+    </a>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`ParentRecordInfo renders with subtitle and pages in parent record 1`] = `
-<div>
-  <span>
-    Part of 
-  </span>
-  <Link
-    to="/literature/1234"
-  >
-    A title of book
+<DocumentFragment>
+  <div>
     <span>
-       : 
-      A subtitle
+      Part of 
     </span>
-  </Link>
-  <span>
-    , 
-    1
-    -
-    10
-  </span>
-</div>
+    <a
+      href="/literature/1234"
+    >
+      A title of book
+      <span>
+         : A subtitle
+      </span>
+    </a>
+    <span>
+      , 1-10
+    </span>
+  </div>
+</DocumentFragment>
 `;
