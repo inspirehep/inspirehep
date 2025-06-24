@@ -1,203 +1,669 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ReferenceList does not render the list if total 0 1`] = `
-<ContentBox
-  className="__ReferenceList__"
-  leftActions={null}
-  loading={false}
-  rightActions={null}
-  subTitle={null}
-  title={null}
->
-  <LoadingOrChildren
-    loading={false}
+<DocumentFragment>
+  <div
+    class="__ContentBox__ h-100 __ReferenceList__"
   >
-    <ErrorAlertOrChildren
-      error={null}
+    <div
+      class="ant-card ant-card-bordered h-100"
     >
-      <EmptyOrChildren
-        data={
-          Immutable.List [
-            Immutable.Map {
-              "titles": Immutable.List [
-                Immutable.Map {
-                  "title": "Reference 1",
-                },
-              ],
-            },
-          ]
-        }
-        title="0 References"
-      />
-    </ErrorAlertOrChildren>
-  </LoadingOrChildren>
-</ContentBox>
+      <div
+        class="ant-card-body"
+      >
+        <div
+          class="pa2 __ReferenceList__"
+        >
+          <div />
+        </div>
+        <div
+          class="ant-row ant-row-space-between actions ph2"
+        >
+          <div
+            class="ant-col"
+          />
+          <div
+            class="ant-col"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`ReferenceList renders items with (page * index) key if title is absent 1`] = `
-<ContentBox
-  className="__ReferenceList__"
-  leftActions={null}
-  loading={false}
-  rightActions={null}
-  subTitle={null}
-  title={null}
->
-  <LoadingOrChildren
-    loading={false}
+<DocumentFragment>
+  <div
+    class="__ContentBox__ h-100 __ReferenceList__"
   >
-    <ErrorAlertOrChildren
-      error={null}
+    <div
+      class="ant-card ant-card-bordered h-100"
     >
-      <EmptyOrChildren
-        data={
-          Immutable.List [
-            Immutable.Map {
-              "publication_info": Immutable.List [
-                Immutable.Map {
-                  "journal_title": "Journal 1",
-                },
-              ],
-            },
-            Immutable.Map {
-              "authors": Immutable.List [
-                Immutable.Map {
-                  "full_name": "Author 2",
-                },
-              ],
-            },
-          ]
-        }
-        title="0 References"
+      <div
+        class="ant-card-body"
       >
-        <ListWithPagination
-          loading={false}
-          onPageChange={[Function]}
-          onSizeChange={[Function]}
-          page={1}
-          pageItems={
-            Immutable.List [
-              Immutable.Map {
-                "publication_info": Immutable.List [
-                  Immutable.Map {
-                    "journal_title": "Journal 1",
-                  },
-                ],
-              },
-              Immutable.Map {
-                "authors": Immutable.List [
-                  Immutable.Map {
-                    "full_name": "Author 2",
-                  },
-                ],
-              },
-            ]
-          }
-          pageSize={25}
-          renderItem={[Function]}
-          title={null}
-          total={1}
-        />
-      </EmptyOrChildren>
-    </ErrorAlertOrChildren>
-  </LoadingOrChildren>
-</ContentBox>
+        <div
+          class="pa2 __ReferenceList__"
+        >
+          <div>
+            <div
+              class="ant-list ant-list-split ant-list-something-after-last-item"
+              data-testid="pagination-list"
+            >
+              <div
+                class="ant-spin-nested-loading"
+              >
+                <div
+                  class="ant-spin-container"
+                >
+                  <ul
+                    class="ant-list-items"
+                  >
+                    <div
+                      data-test-id="reference-item"
+                      id="0"
+                    >
+                      <li
+                        class="ant-list-item"
+                      >
+                        <div
+                          class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+                          style="margin-left: -12px; margin-right: -12px;"
+                          type="flex"
+                        >
+                          <div
+                            class="ant-col ant-col-xs-2 ant-col-lg-1"
+                            style="padding-left: 12px; padding-right: 12px;"
+                          >
+                            <div
+                              class="flex"
+                            />
+                          </div>
+                          <div
+                            class="ant-col"
+                            style="padding-left: 12px; padding-right: 12px; width: 100%;"
+                          >
+                            <div
+                              class="ant-list-item-meta"
+                            >
+                              <div
+                                class="ant-list-item-meta-content"
+                              >
+                                <div
+                                  class="ant-list-item-meta-description"
+                                >
+                                  <div
+                                    class="__InlineList__ secondary-container"
+                                  >
+                                    <ul>
+                                      <li>
+                                        <div
+                                          class="__InlineList__"
+                                          data-testid="inline-data-list"
+                                        >
+                                          <ul>
+                                            <li>
+                                              <span>
+                                                <span>
+                                                  <i>
+                                                    Journal 1
+                                                  </i>
+                                                </span>
+                                              </span>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="ant-col ant-col-2 pr3"
+                            style="padding-left: 12px; padding-right: 12px;"
+                          >
+                            <div
+                              class="flex items-center justify-center"
+                              data-test-id="edit-reference"
+                            >
+                              <button
+                                class="ant-btn ant-btn-text __LinkLikeButton__ blue disabled"
+                                disabled=""
+                                type="button"
+                              >
+                                <span
+                                  class="__IconText__ flex items-center justify-center pr2"
+                                >
+                                  <span
+                                    class="icon"
+                                  >
+                                    <span
+                                      aria-label="edit"
+                                      class="anticon anticon-edit"
+                                      role="img"
+                                    >
+                                      <svg
+                                        aria-hidden="true"
+                                        data-icon="edit"
+                                        fill="currentColor"
+                                        focusable="false"
+                                        height="1em"
+                                        viewBox="64 64 896 896"
+                                        width="1em"
+                                      >
+                                        <path
+                                          d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="v-top"
+                                  >
+                                    edit
+                                  </span>
+                                </span>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </div>
+                    <div
+                      data-test-id="reference-item"
+                      id="reference-1"
+                    >
+                      <li
+                        class="ant-list-item"
+                      >
+                        <div
+                          class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+                          style="margin-left: -12px; margin-right: -12px;"
+                          type="flex"
+                        >
+                          <div
+                            class="ant-col ant-col-xs-2 ant-col-lg-1"
+                            style="padding-left: 12px; padding-right: 12px;"
+                          >
+                            <div
+                              class="flex"
+                            />
+                          </div>
+                          <div
+                            class="ant-col"
+                            style="padding-left: 12px; padding-right: 12px; width: 100%;"
+                          >
+                            <div
+                              class="ant-list-item-meta"
+                            >
+                              <div
+                                class="ant-list-item-meta-content"
+                              >
+                                <div
+                                  class="ant-list-item-meta-description"
+                                >
+                                  <div
+                                    class="__InlineList__ di"
+                                    data-testid="inline-data-list"
+                                  >
+                                    <ul>
+                                      <li>
+                                        <div
+                                          class="di"
+                                        >
+                                          <span>
+                                            Author 2
+                                          </span>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <div
+                                    class="__InlineList__ secondary-container"
+                                  >
+                                    <ul />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="ant-col ant-col-2 pr3"
+                            style="padding-left: 12px; padding-right: 12px;"
+                          >
+                            <div
+                              class="flex items-center justify-center"
+                              data-test-id="edit-reference"
+                            >
+                              <button
+                                class="ant-btn ant-btn-text __LinkLikeButton__ blue disabled"
+                                disabled=""
+                                type="button"
+                              >
+                                <span
+                                  class="__IconText__ flex items-center justify-center pr2"
+                                >
+                                  <span
+                                    class="icon"
+                                  >
+                                    <span
+                                      aria-label="edit"
+                                      class="anticon anticon-edit"
+                                      role="img"
+                                    >
+                                      <svg
+                                        aria-hidden="true"
+                                        data-icon="edit"
+                                        fill="currentColor"
+                                        focusable="false"
+                                        height="1em"
+                                        viewBox="64 64 896 896"
+                                        width="1em"
+                                      >
+                                        <path
+                                          d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="v-top"
+                                  >
+                                    edit
+                                  </span>
+                                </span>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+              <div
+                class="ant-list-footer"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-row ant-row-space-between actions ph2"
+        >
+          <div
+            class="ant-col"
+          />
+          <div
+            class="ant-col"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`ReferenceList renders with error 1`] = `
-<ContentBox
-  className="__ReferenceList__"
-  leftActions={null}
-  loading={false}
-  rightActions={null}
-  subTitle={null}
-  title={null}
->
-  <LoadingOrChildren
-    loading={false}
+<DocumentFragment>
+  <div
+    class="__ContentBox__ h-100 __ReferenceList__"
   >
-    <ErrorAlertOrChildren
-      error={
-        Immutable.Map {
-          "message": "error",
-        }
-      }
+    <div
+      class="ant-card ant-card-bordered h-100"
     >
-      <EmptyOrChildren
-        data={Immutable.List []}
-        title="0 References"
-      />
-    </ErrorAlertOrChildren>
-  </LoadingOrChildren>
-</ContentBox>
+      <div
+        class="ant-card-body"
+      >
+        <div
+          class="pa2 __ReferenceList__"
+        >
+          <div>
+            <div
+              class="ant-alert ant-alert-warning ant-alert-with-description"
+              data-show="true"
+              role="alert"
+            >
+              <span
+                aria-label="exclamation-circle"
+                class="anticon anticon-exclamation-circle ant-alert-icon"
+                role="img"
+              >
+                <svg
+                  aria-hidden="true"
+                  data-icon="exclamation-circle"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  viewBox="64 64 896 896"
+                  width="1em"
+                >
+                  <path
+                    d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                  />
+                  <path
+                    d="M464 688a48 48 0 1096 0 48 48 0 10-96 0zm24-112h48c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8z"
+                  />
+                </svg>
+              </span>
+              <div
+                class="ant-alert-content"
+              >
+                <div
+                  class="ant-alert-message"
+                >
+                  error
+                </div>
+                <div
+                  class="ant-alert-description"
+                >
+                  <span>
+                    Please try again later or 
+                    <button
+                      class="ant-btn ant-btn-text __LinkLikeButton__ blue big"
+                      data-test-id="go-back-link"
+                      data-testid="go-back-link"
+                      type="button"
+                    >
+                      <span>
+                        go back
+                      </span>
+                    </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-row ant-row-space-between actions ph2"
+        >
+          <div
+            class="ant-col"
+          />
+          <div
+            class="ant-col"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`ReferenceList renders with references 1`] = `
-<ContentBox
-  className="__ReferenceList__"
-  leftActions={null}
-  loading={false}
-  rightActions={null}
-  subTitle={null}
-  title={null}
->
-  <LoadingOrChildren
-    loading={false}
+<DocumentFragment>
+  <div
+    class="__ContentBox__ h-100 __ReferenceList__"
   >
-    <ErrorAlertOrChildren
-      error={null}
+    <div
+      class="ant-card ant-card-bordered h-100"
     >
-      <EmptyOrChildren
-        data={
-          Immutable.List [
-            Immutable.Map {
-              "titles": Immutable.List [
-                Immutable.Map {
-                  "title": "Reference 1",
-                },
-              ],
-            },
-            Immutable.Map {
-              "titles": Immutable.List [
-                Immutable.Map {
-                  "title": "Reference 2",
-                },
-              ],
-            },
-          ]
-        }
-        title="0 References"
+      <div
+        class="ant-card-body"
       >
-        <ListWithPagination
-          loading={false}
-          onPageChange={[Function]}
-          onSizeChange={[Function]}
-          page={1}
-          pageItems={
-            Immutable.List [
-              Immutable.Map {
-                "titles": Immutable.List [
-                  Immutable.Map {
-                    "title": "Reference 1",
-                  },
-                ],
-              },
-              Immutable.Map {
-                "titles": Immutable.List [
-                  Immutable.Map {
-                    "title": "Reference 2",
-                  },
-                ],
-              },
-            ]
-          }
-          pageSize={25}
-          renderItem={[Function]}
-          title={null}
-          total={1}
-        />
-      </EmptyOrChildren>
-    </ErrorAlertOrChildren>
-  </LoadingOrChildren>
-</ContentBox>
+        <div
+          class="pa2 __ReferenceList__"
+        >
+          <div>
+            <div
+              class="ant-list ant-list-split ant-list-something-after-last-item"
+              data-testid="pagination-list"
+            >
+              <div
+                class="ant-spin-nested-loading"
+              >
+                <div
+                  class="ant-spin-container"
+                >
+                  <ul
+                    class="ant-list-items"
+                  >
+                    <div
+                      data-test-id="reference-item"
+                      id="0"
+                    >
+                      <li
+                        class="ant-list-item"
+                      >
+                        <div
+                          class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+                          style="margin-left: -12px; margin-right: -12px;"
+                          type="flex"
+                        >
+                          <div
+                            class="ant-col ant-col-xs-2 ant-col-lg-1"
+                            style="padding-left: 12px; padding-right: 12px;"
+                          >
+                            <div
+                              class="flex"
+                            />
+                          </div>
+                          <div
+                            class="ant-col"
+                            style="padding-left: 12px; padding-right: 12px; width: 100%;"
+                          >
+                            <div
+                              class="ant-list-item-meta"
+                            >
+                              <div
+                                class="ant-list-item-meta-content"
+                              >
+                                <h4
+                                  class="ant-list-item-meta-title"
+                                >
+                                  <div
+                                    class="f5"
+                                    data-test-id="reference-title"
+                                  >
+                                    <span
+                                      data-test-id="literature-detail-title"
+                                    >
+                                      <span
+                                        class="__Latex__"
+                                      >
+                                        Reference 1
+                                      </span>
+                                    </span>
+                                  </div>
+                                </h4>
+                                <div
+                                  class="ant-list-item-meta-description"
+                                >
+                                  <div
+                                    class="__InlineList__ secondary-container"
+                                  >
+                                    <ul />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="ant-col ant-col-2 pr3"
+                            style="padding-left: 12px; padding-right: 12px;"
+                          >
+                            <div
+                              class="flex items-center justify-center"
+                              data-test-id="edit-reference"
+                            >
+                              <button
+                                class="ant-btn ant-btn-text __LinkLikeButton__ blue disabled"
+                                disabled=""
+                                type="button"
+                              >
+                                <span
+                                  class="__IconText__ flex items-center justify-center pr2"
+                                >
+                                  <span
+                                    class="icon"
+                                  >
+                                    <span
+                                      aria-label="edit"
+                                      class="anticon anticon-edit"
+                                      role="img"
+                                    >
+                                      <svg
+                                        aria-hidden="true"
+                                        data-icon="edit"
+                                        fill="currentColor"
+                                        focusable="false"
+                                        height="1em"
+                                        viewBox="64 64 896 896"
+                                        width="1em"
+                                      >
+                                        <path
+                                          d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="v-top"
+                                  >
+                                    edit
+                                  </span>
+                                </span>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </div>
+                    <div
+                      data-test-id="reference-item"
+                      id="reference-1"
+                    >
+                      <li
+                        class="ant-list-item"
+                      >
+                        <div
+                          class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+                          style="margin-left: -12px; margin-right: -12px;"
+                          type="flex"
+                        >
+                          <div
+                            class="ant-col ant-col-xs-2 ant-col-lg-1"
+                            style="padding-left: 12px; padding-right: 12px;"
+                          >
+                            <div
+                              class="flex"
+                            />
+                          </div>
+                          <div
+                            class="ant-col"
+                            style="padding-left: 12px; padding-right: 12px; width: 100%;"
+                          >
+                            <div
+                              class="ant-list-item-meta"
+                            >
+                              <div
+                                class="ant-list-item-meta-content"
+                              >
+                                <h4
+                                  class="ant-list-item-meta-title"
+                                >
+                                  <div
+                                    class="f5"
+                                    data-test-id="reference-title"
+                                  >
+                                    <span
+                                      data-test-id="literature-detail-title"
+                                    >
+                                      <span
+                                        class="__Latex__"
+                                      >
+                                        Reference 2
+                                      </span>
+                                    </span>
+                                  </div>
+                                </h4>
+                                <div
+                                  class="ant-list-item-meta-description"
+                                >
+                                  <div
+                                    class="__InlineList__ secondary-container"
+                                  >
+                                    <ul />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="ant-col ant-col-2 pr3"
+                            style="padding-left: 12px; padding-right: 12px;"
+                          >
+                            <div
+                              class="flex items-center justify-center"
+                              data-test-id="edit-reference"
+                            >
+                              <button
+                                class="ant-btn ant-btn-text __LinkLikeButton__ blue disabled"
+                                disabled=""
+                                type="button"
+                              >
+                                <span
+                                  class="__IconText__ flex items-center justify-center pr2"
+                                >
+                                  <span
+                                    class="icon"
+                                  >
+                                    <span
+                                      aria-label="edit"
+                                      class="anticon anticon-edit"
+                                      role="img"
+                                    >
+                                      <svg
+                                        aria-hidden="true"
+                                        data-icon="edit"
+                                        fill="currentColor"
+                                        focusable="false"
+                                        height="1em"
+                                        viewBox="64 64 896 896"
+                                        width="1em"
+                                      >
+                                        <path
+                                          d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="v-top"
+                                  >
+                                    edit
+                                  </span>
+                                </span>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+              <div
+                class="ant-list-footer"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-row ant-row-space-between actions ph2"
+        >
+          <div
+            class="ant-col"
+          />
+          <div
+            class="ant-col"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;

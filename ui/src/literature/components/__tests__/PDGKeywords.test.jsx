@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import { PDGKeywords } from '../PDGKeywords';
@@ -18,7 +18,7 @@ describe('PDGKeywords', () => {
         description: 'test',
       },
     ]);
-    const wrapper = shallow(<PDGKeywords keywords={keywords} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<PDGKeywords keywords={keywords} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

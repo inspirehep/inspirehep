@@ -1,130 +1,119 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DOIList renders with dois 1`] = `
-<div
-  className="__InlineList__"
-  data-testid="inline-data-list"
->
-  <span
-    className=""
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
   >
-    DOI
-    : 
-  </span>
-  <ul>
-    <li
-      key="12.1234/1234567890123_1234-0"
+    <span
+      class=""
     >
-      <span>
-        <DOILink
-          doi="12.1234/1234567890123_1234"
-        >
-          12.1234/1234567890123_1234
-        </DOILink>
-        <DOIMaterial
-          material={null}
-        />
-      </span>
-      , 
-    </li>
-    <li
-      key="99.9999/9999999999999_9999-2"
-    >
-      <span>
-        <DOILink
-          doi="99.9999/9999999999999_9999"
-        >
-          99.9999/9999999999999_9999
-        </DOILink>
-        <DOIMaterial
-          material="erratum"
-        />
-      </span>
-    </li>
-  </ul>
-</div>
+      DOI: 
+    </span>
+    <ul>
+      <li>
+        <span>
+          <a
+            href="//doi.org/12.1234/1234567890123_1234"
+            target="_blank"
+          >
+            12.1234/1234567890123_1234
+          </a>
+        </span>
+        , 
+      </li>
+      <li>
+        <span>
+          <a
+            href="//doi.org/99.9999/9999999999999_9999"
+            target="_blank"
+          >
+            99.9999/9999999999999_9999
+          </a>
+          <span>
+             (erratum)
+          </span>
+        </span>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`DOIList renders with dois and showLabel as false 1`] = `
-<div
-  className="__InlineList__"
-  data-testid="inline-data-list"
->
-  <ul>
-    <li
-      key="12.1234/1234567890123_1234-0"
-    >
-      <span>
-        <DOILink
-          doi="12.1234/1234567890123_1234"
-        >
-          12.1234/1234567890123_1234
-        </DOILink>
-        <DOIMaterial
-          material={null}
-        />
-      </span>
-      , 
-    </li>
-    <li
-      key="99.9999/9999999999999_9999-2"
-    >
-      <span>
-        <DOILink
-          doi="99.9999/9999999999999_9999"
-        >
-          99.9999/9999999999999_9999
-        </DOILink>
-        <DOIMaterial
-          material="erratum"
-        />
-      </span>
-    </li>
-  </ul>
-</div>
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
+  >
+    <ul>
+      <li>
+        <span>
+          <a
+            href="//doi.org/12.1234/1234567890123_1234"
+            target="_blank"
+          >
+            12.1234/1234567890123_1234
+          </a>
+        </span>
+        , 
+      </li>
+      <li>
+        <span>
+          <a
+            href="//doi.org/99.9999/9999999999999_9999"
+            target="_blank"
+          >
+            99.9999/9999999999999_9999
+          </a>
+          <span>
+             (erratum)
+          </span>
+        </span>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`DOIList renders with dois and showLabel as true 1`] = `
-<div
-  className="__InlineList__"
-  data-testid="inline-data-list"
->
-  <span
-    className=""
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
   >
-    DOI
-    : 
-  </span>
-  <ul>
-    <li
-      key="12.1234/1234567890123_1234-0"
+    <span
+      class=""
     >
-      <span>
-        <DOILink
-          doi="12.1234/1234567890123_1234"
-        >
-          12.1234/1234567890123_1234
-        </DOILink>
-        <DOIMaterial
-          material={null}
-        />
-      </span>
-      , 
-    </li>
-    <li
-      key="99.9999/9999999999999_9999-2"
-    >
-      <span>
-        <DOILink
-          doi="99.9999/9999999999999_9999"
-        >
-          99.9999/9999999999999_9999
-        </DOILink>
-        <DOIMaterial
-          material="erratum"
-        />
-      </span>
-    </li>
-  </ul>
-</div>
+      DOI: 
+    </span>
+    <ul>
+      <li>
+        <span>
+          <a
+            href="//doi.org/12.1234/1234567890123_1234"
+            target="_blank"
+          >
+            12.1234/1234567890123_1234
+          </a>
+        </span>
+        , 
+      </li>
+      <li>
+        <span>
+          <a
+            href="//doi.org/99.9999/9999999999999_9999"
+            target="_blank"
+          >
+            99.9999/9999999999999_9999
+          </a>
+          <span>
+             (erratum)
+          </span>
+        </span>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;

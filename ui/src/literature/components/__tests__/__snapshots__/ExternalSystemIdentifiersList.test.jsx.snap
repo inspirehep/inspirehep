@@ -1,36 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExternalSystemIdentifierList renders with external system identifiers 1`] = `
-<div
-  className="__InlineList__"
-  data-testid="inline-data-list"
->
-  <span
-    className=""
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
   >
-    View in
-    : 
-  </span>
-  <ul>
-    <li
-      key="https://cds.cern.ch/record/12345-0"
+    <span
+      class=""
     >
-      <a
-        href="https://cds.cern.ch/record/12345"
-      >
-        CERN Document Server
-      </a>
-      , 
-    </li>
-    <li
-      key="https://ui.adsabs.harvard.edu/abs/123.1234-2"
-    >
-      <a
-        href="https://ui.adsabs.harvard.edu/abs/123.1234"
-      >
-        ADS Abstract Service
-      </a>
-    </li>
-  </ul>
-</div>
+      View in: 
+    </span>
+    <ul>
+      <li>
+        <a
+          href="https://cds.cern.ch/record/12345"
+        >
+          CERN Document Server
+        </a>
+        , 
+      </li>
+      <li>
+        <a
+          href="https://ui.adsabs.harvard.edu/abs/123.1234"
+        >
+          ADS Abstract Service
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;

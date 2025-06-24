@@ -1,33 +1,41 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
+import { Provider } from 'react-redux';
 import NumberOfResultsWithSelectedItemsNumber from '../NumberOfResultsWithSelectedItemsNumber';
+import { getStore } from '../../../fixtures/store';
 
 describe('NumberOfResultsWithSelectedItemsNumber', () => {
   it('renders correctly with default props', () => {
-    const wrapper = shallow(
-      <NumberOfResultsWithSelectedItemsNumber namespace="testNamespace" />
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <NumberOfResultsWithSelectedItemsNumber namespace="testNamespace" />
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders correctly with numberOfSelected', () => {
-    const wrapper = shallow(
-      <NumberOfResultsWithSelectedItemsNumber
-        namespace="testNamespace"
-        numberOfSelected={5}
-      />
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <NumberOfResultsWithSelectedItemsNumber
+          namespace="testNamespace"
+          numberOfSelected={5}
+        />
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders correctly with numberOfSelected as 0', () => {
-    const wrapper = shallow(
-      <NumberOfResultsWithSelectedItemsNumber
-        namespace="testNamespace"
-        numberOfSelected={0}
-      />
+    const { asFragment } = render(
+      <Provider store={getStore()}>
+        <NumberOfResultsWithSelectedItemsNumber
+          namespace="testNamespace"
+          numberOfSelected={0}
+        />
+      </Provider>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

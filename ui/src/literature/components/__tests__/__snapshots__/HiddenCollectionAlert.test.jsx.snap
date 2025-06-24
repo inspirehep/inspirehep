@@ -1,23 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HiddenCollectionAlert renders alert 1`] = `
-<div
-  className="mb2"
->
-  <Alert
-    message={
-      <span>
-        This record is not part of the INSPIRE Literature collection.
-         
-        <LinkWithTargetBlank
-          as="a"
-          href="https://help.inspirehep.net/knowledge-base/faq/#not-part"
+<DocumentFragment>
+  <div
+    class="mb2"
+  >
+    <div
+      class="ant-alert ant-alert-warning ant-alert-no-icon"
+      data-show="true"
+      role="alert"
+    >
+      <div
+        class="ant-alert-content"
+      >
+        <div
+          class="ant-alert-message"
         >
-          Learn More
-        </LinkWithTargetBlank>
-      </span>
-    }
-    type="warning"
-  />
-</div>
+          <span>
+            This record is not part of the INSPIRE Literature collection. 
+            <a
+              href="https://help.inspirehep.net/knowledge-base/faq/#not-part"
+              target="_blank"
+            >
+              Learn More
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;

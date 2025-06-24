@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import PersistentIdentifiers from '../PersistentIdentifiers';
@@ -16,9 +16,9 @@ describe('PersistentIdentifiers', () => {
         schema: 'URN',
       },
     ]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <PersistentIdentifiers identifiers={identifiers} />
     );
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

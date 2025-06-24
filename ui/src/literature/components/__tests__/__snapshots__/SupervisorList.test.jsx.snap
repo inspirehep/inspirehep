@@ -1,70 +1,63 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SupervisorList renders with multiple supervisors 1`] = `
-<div
-  className="__InlineList__"
-  data-testid="inline-data-list"
->
-  <span
-    className=""
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
   >
-    Supervisors
-    : 
-  </span>
-  <ul>
-    <li
-      key="123-0"
+    <span
+      class=""
     >
-      <Author
-        author={
-          Immutable.Map {
-            "uuid": "123",
-            "full_name": "John Doe",
-          }
-        }
-      />
-      , 
-    </li>
-    <li
-      key="456-2"
-    >
-      <Author
-        author={
-          Immutable.Map {
-            "uuid": "456",
-            "full_name": "Jane Doe",
-          }
-        }
-      />
-    </li>
-  </ul>
-</div>
+      Supervisors: 
+    </span>
+    <ul>
+      <li>
+        <div
+          class="di"
+        >
+          <span>
+            John Doe
+          </span>
+        </div>
+        , 
+      </li>
+      <li>
+        <div
+          class="di"
+        >
+          <span>
+            Jane Doe
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`SupervisorList renders with one supervisor 1`] = `
-<div
-  className="__InlineList__"
-  data-testid="inline-data-list"
->
-  <span
-    className=""
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
   >
-    Supervisor
-    : 
-  </span>
-  <ul>
-    <li
-      key="123-0"
+    <span
+      class=""
     >
-      <Author
-        author={
-          Immutable.Map {
-            "uuid": "123",
-            "full_name": "John Doe",
-          }
-        }
-      />
-    </li>
-  </ul>
-</div>
+      Supervisor: 
+    </span>
+    <ul>
+      <li>
+        <div
+          class="di"
+        >
+          <span>
+            John Doe
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;

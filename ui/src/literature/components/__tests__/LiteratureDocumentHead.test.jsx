@@ -1,12 +1,13 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
+import { Helmet } from 'react-helmet';
 
 import LiteratureDocumentHead from '../LiteratureDocumentHead';
 
 describe('LiteratureDocumentHead', () => {
   it('renders with only title', () => {
-    const wrapper = shallow(
+    render(
       <LiteratureDocumentHead
         metadata={fromJS({
           titles: [
@@ -17,7 +18,10 @@ describe('LiteratureDocumentHead', () => {
         created="2019-01-16T00:00:00+00:00"
       />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    const helmet = Helmet.peek();
+    const title = helmet.title.join('');
+    expect(title).toEqual('The title - INSPIRE');
   });
 
   it('renders full literature', () => {
@@ -49,12 +53,16 @@ describe('LiteratureDocumentHead', () => {
         { journal_title: 'Test Jornal 2 (which will not be used)' },
       ],
     });
-    const wrapper = shallow(
+
+    render(
       <LiteratureDocumentHead
         metadata={metadata}
         created="2019-01-16T00:00:00+00:00"
       />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    const helmet = Helmet.peek();
+    const title = helmet.title.join('');
+    expect(title).toEqual('Test Title - INSPIRE');
   });
 });

@@ -1,54 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PersistentIdentifiers renders with identifiers 1`] = `
-<div
-  className="__InlineList__"
-  data-testid="inline-data-list"
->
-  <span
-    className=""
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
   >
-    URN/HDL
-    : 
-  </span>
-  <ul>
-    <li
-      key="1866/20706-0"
+    <span
+      class=""
     >
-      <EventTracker
-        eventAction="Link"
-        eventCategory="Literature detail"
-        eventId="HDL link"
-        eventPropName="onClick"
-        extractEventArgsToForward={null}
-      >
-        <LinkWithTargetBlank
-          as="a"
+      URN/HDL: 
+    </span>
+    <ul>
+      <li>
+        <a
           href="//hdl.handle.net/1866/20706"
+          target="_blank"
         >
           1866/20706
-        </LinkWithTargetBlank>
-      </EventTracker>
-      , 
-    </li>
-    <li
-      key="12345-2"
-    >
-      <EventTracker
-        eventAction="Link"
-        eventCategory="Literature detail"
-        eventId="URN link"
-        eventPropName="onClick"
-        extractEventArgsToForward={null}
-      >
-        <LinkWithTargetBlank
-          as="a"
+        </a>
+        , 
+      </li>
+      <li>
+        <a
           href="https://nbn-resolving.org//12345"
+          target="_blank"
         >
           12345
-        </LinkWithTargetBlank>
-      </EventTracker>
-    </li>
-  </ul>
-</div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;

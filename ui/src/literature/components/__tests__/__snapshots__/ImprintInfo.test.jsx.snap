@@ -1,201 +1,180 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ImprintInfo renders date with month and day 1`] = `
-<div
-  className="__InlineList__"
-  data-testid="inline-data-list"
->
-  <ul>
-    <li
-      key="undefined-0"
-    >
-      <div>
-        <span>
-          Published:
-           Jun 17, 2018
-        </span>
-      </div>
-    </li>
-  </ul>
-</div>
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
+  >
+    <ul>
+      <li>
+        <div>
+          <span>
+            Published: Jun 17, 2018
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`ImprintInfo renders imprints with date 1`] = `
-<div
-  className="__InlineList__"
-  data-testid="inline-data-list"
->
-  <ul>
-    <li
-      key="undefined-0"
-    >
-      <div>
-        <span>
-          Published:
-           2004
-        </span>
-      </div>
-    </li>
-  </ul>
-</div>
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
+  >
+    <ul>
+      <li>
+        <div>
+          <span>
+            Published: 2004
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`ImprintInfo renders imprints with date and place 1`] = `
-<div
-  className="__InlineList__"
-  data-testid="inline-data-list"
->
-  <ul>
-    <li
-      key="undefined-0"
-    >
-      <div>
-        <span>
-          Published:
-           2004
-           in Cambridge, UK 
-        </span>
-      </div>
-    </li>
-  </ul>
-</div>
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
+  >
+    <ul>
+      <li>
+        <div>
+          <span>
+            Published: 2004 in Cambridge, UK 
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`ImprintInfo renders imprints with date and publisher 1`] = `
-<div
-  className="__InlineList__"
-  data-testid="inline-data-list"
->
-  <ul>
-    <li
-      key="undefined-0"
-    >
-      <div>
-        <span>
-          Published:
-           2004
-           by Univ. Pr. 
-        </span>
-      </div>
-    </li>
-  </ul>
-</div>
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
+  >
+    <ul>
+      <li>
+        <div>
+          <span>
+            Published: 2004 by Univ. Pr. 
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`ImprintInfo renders imprints with date, publisher, and place 1`] = `
-<div
-  className="__InlineList__"
-  data-testid="inline-data-list"
->
-  <ul>
-    <li
-      key="undefined-0"
-    >
-      <div>
-        <span>
-          Published:
-           2004
-           in Cambridge, UK 
-           by Univ. Pr. 
-        </span>
-      </div>
-    </li>
-  </ul>
-</div>
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
+  >
+    <ul>
+      <li>
+        <div>
+          <span>
+            Published: 2004 in Cambridge, UK  by Univ. Pr. 
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`ImprintInfo renders imprints with place 1`] = `
-<div
-  className="__InlineList__"
-  data-testid="inline-data-list"
->
-  <ul>
-    <li
-      key="undefined-0"
-    >
-      <div>
-        <span>
-          Published:
-           in Cambridge, UK 
-        </span>
-      </div>
-    </li>
-  </ul>
-</div>
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
+  >
+    <ul>
+      <li>
+        <div>
+          <span>
+            Published: in Cambridge, UK 
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`ImprintInfo renders imprints with publisher 1`] = `
-<div
-  className="__InlineList__"
-  data-testid="inline-data-list"
->
-  <ul>
-    <li
-      key="undefined-0"
-    >
-      <div>
-        <span>
-          Published:
-           by Univ. Pr. 
-        </span>
-      </div>
-    </li>
-  </ul>
-</div>
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
+  >
+    <ul>
+      <li>
+        <div>
+          <span>
+            Published: by Univ. Pr. 
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`ImprintInfo renders imprints with publisher and place 1`] = `
-<div
-  className="__InlineList__"
-  data-testid="inline-data-list"
->
-  <ul>
-    <li
-      key="undefined-0"
-    >
-      <div>
-        <span>
-          Published:
-           in Cambridge, UK 
-           by Univ. Pr. 
-        </span>
-      </div>
-    </li>
-  </ul>
-</div>
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
+  >
+    <ul>
+      <li>
+        <div>
+          <span>
+            Published: in Cambridge, UK  by Univ. Pr. 
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`ImprintInfo renders multiple imprints 1`] = `
-<div
-  className="__InlineList__"
-  data-testid="inline-data-list"
->
-  <ul>
-    <li
-      key="undefined-0"
-    >
-      <div>
-        <span>
-          Published:
-           2004
-           in Cambridge, UK 
-           by Univ. Pr. 
-        </span>
-      </div>
-       and 
-    </li>
-    <li
-      key="undefined-2"
-    >
-      <div>
-        <span>
-          Published:
-           2010
-           in Cambridge, UK 
-           by Univ. Pr. 
-        </span>
-      </div>
-    </li>
-  </ul>
-</div>
+<DocumentFragment>
+  <div
+    class="__InlineList__"
+    data-testid="inline-data-list"
+  >
+    <ul>
+      <li>
+        <div>
+          <span>
+            Published: 2004 in Cambridge, UK  by Univ. Pr. 
+          </span>
+        </div>
+         and 
+      </li>
+      <li>
+        <div>
+          <span>
+            Published: 2010 in Cambridge, UK  by Univ. Pr. 
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
 `;

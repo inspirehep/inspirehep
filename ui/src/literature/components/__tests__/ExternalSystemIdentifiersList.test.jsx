@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import ExternalSystemIdentifierList from '../ExternalSystemIdentifierList';
@@ -16,11 +16,11 @@ describe('ExternalSystemIdentifierList', () => {
         url_name: 'ADS Abstract Service',
       },
     ]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <ExternalSystemIdentifierList
         externalSystemIdentifiers={externalSystemIdentifiers}
       />
     );
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

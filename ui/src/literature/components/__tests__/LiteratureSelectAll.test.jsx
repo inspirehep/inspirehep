@@ -1,7 +1,6 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { fireEvent, render } from '@testing-library/react';
 import { fromJS, Set, List } from 'immutable';
-import { Checkbox } from 'antd';
 
 import LiteratureSelectAll from '../LiteratureSelectAll';
 
@@ -20,14 +19,14 @@ describe('LiteratureSelectAll', () => {
       },
     ]);
     const selection = Set([1, 2]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <LiteratureSelectAll
         publications={publications}
         selection={selection}
         onChange={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('render unchecked if all publications are not part of the selection', () => {
@@ -44,14 +43,14 @@ describe('LiteratureSelectAll', () => {
       },
     ]);
     const selection = Set([2]);
-    const wrapper = shallow(
+    const { asFragment } = render(
       <LiteratureSelectAll
         publications={publications}
         selection={selection}
         onChange={jest.fn()}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('calls onChange with publication ids when checkbox change', () => {
@@ -67,17 +66,19 @@ describe('LiteratureSelectAll', () => {
         },
       },
     ]);
+
     const onChange = jest.fn();
     const selection = Set([2]);
-    const wrapper = shallow(
+    const { getByRole } = render(
       <LiteratureSelectAll
         publications={publications}
         selection={selection}
         onChange={onChange}
       />
     );
-    const onCheckboxChange = wrapper.find(Checkbox).prop('onChange');
-    onCheckboxChange({ target: { checked: true } });
+    const checkbox = getByRole('checkbox');
+    fireEvent.click(checkbox);
+
     expect(onChange).toHaveBeenCalledWith(List([1, 2]), true);
   });
 });

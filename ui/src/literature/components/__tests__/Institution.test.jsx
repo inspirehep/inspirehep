@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import Institution from '../Institution';
@@ -9,13 +9,13 @@ describe('Institution', () => {
     const institution = fromJS({
       name: 'CERN',
     });
-    const wrapper = shallow(<Institution institution={institution} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<Institution institution={institution} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders empty if instution does not has name', () => {
     const institution = fromJS({});
-    const wrapper = shallow(<Institution institution={institution} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(<Institution institution={institution} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

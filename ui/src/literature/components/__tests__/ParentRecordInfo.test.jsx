@@ -1,6 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
+import { MemoryRouter } from 'react-router-dom';
 
 import ParentRecordInfo from '../ParentRecordInfo';
 
@@ -12,8 +13,12 @@ describe('ParentRecordInfo', () => {
         record: { $ref: 'http://localhost:5000/api/literature/1234' },
       },
     ]);
-    const wrapper = shallow(<ParentRecordInfo parentRecord={parentRecord} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <MemoryRouter>
+        <ParentRecordInfo parentRecord={parentRecord} />
+      </MemoryRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders with subtitle and pages in parent record', () => {
@@ -26,7 +31,11 @@ describe('ParentRecordInfo', () => {
         record: { $ref: 'http://localhost:5000/api/literature/1234' },
       },
     ]);
-    const wrapper = shallow(<ParentRecordInfo parentRecord={parentRecord} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <MemoryRouter>
+        <ParentRecordInfo parentRecord={parentRecord} />
+      </MemoryRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });
