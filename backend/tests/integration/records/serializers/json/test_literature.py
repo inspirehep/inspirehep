@@ -2115,3 +2115,113 @@ def test_literature_cds_adds_multiple_affiliation_identifiers(inspire_app):
         "value": "https://ror.org/01ggx4158",
         "schema": "ROR",
     } in response_data_metadata["authors"][0]["affiliations_identifiers"]
+
+
+def test_literature_cds_already_contains_affiliation_identifiers(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.cds+json"}
+    author_record = create_record(
+        "aut",
+        data={
+            "ids": [{"schema": "ORCID", "value": "0000-0002-7638-5686"}],
+            "name": {"value": "Author, Test"},
+        },
+    )
+    institution_record = create_record(
+        "ins",
+        data={
+            "external_system_identifiers": [
+                {"value": "grid.9132.9", "schema": "GRID"},
+                {"value": "https://ror.org/00fw8bp86", "schema": "ROR"},
+                {"value": "INST-1147", "schema": "SPIRES"},
+            ]
+        },
+    )
+    lit_record = create_record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "full_name": "Author, Test",
+                    "record": author_record["self"],
+                    "affiliations": [
+                        {"value": "CERN", "record": institution_record["self"]}
+                    ],
+                    "affiliations_identifiers": [
+                        {"value": "https://ror.org/00fw8bp86", "schema": "ROR"},
+                        {"value": "grid.470046.1", "schema": "GRID"},
+                    ],
+                }
+            ]
+        },
+    )
+    expected_status_code = 200
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{lit_record['control_number']}", headers=headers
+        )
+    response_status_code = response.status_code
+    response_data = orjson.loads(response.data)
+
+    response_data_metadata = response_data["metadata"]
+
+    assert expected_status_code == response_status_code
+    assert {
+        "value": "https://ror.org/00fw8bp86",
+        "schema": "ROR",
+    } in response_data_metadata["authors"][0]["affiliations_identifiers"]
+
+
+def test_literature_cds_extends_affiliation_identifiers(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.cds+json"}
+    author_record = create_record(
+        "aut",
+        data={
+            "ids": [{"schema": "ORCID", "value": "0000-0002-7638-5686"}],
+            "name": {"value": "Author, Test"},
+        },
+    )
+    institution_record = create_record(
+        "ins",
+        data={
+            "external_system_identifiers": [
+                {"value": "grid.9132.9", "schema": "GRID"},
+                {"value": "https://ror.org/00fw8bp86", "schema": "ROR"},
+                {"value": "INST-1147", "schema": "SPIRES"},
+            ]
+        },
+    )
+    lit_record = create_record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "full_name": "Author, Test",
+                    "record": author_record["self"],
+                    "affiliations": [
+                        {"value": "CERN", "record": institution_record["self"]}
+                    ],
+                    "affiliations_identifiers": [
+                        {"value": "grid.9132.9", "schema": "GRID"}
+                    ],
+                }
+            ]
+        },
+    )
+    expected_status_code = 200
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{lit_record['control_number']}", headers=headers
+        )
+    response_status_code = response.status_code
+    response_data = orjson.loads(response.data)
+
+    response_data_metadata = response_data["metadata"]
+
+    assert expected_status_code == response_status_code
+    assert {
+        "value": "https://ror.org/00fw8bp86",
+        "schema": "ROR",
+    } in response_data_metadata["authors"][0]["affiliations_identifiers"]
+    assert {"value": "grid.9132.9", "schema": "GRID"} in response_data_metadata[
+        "authors"
+    ][0]["affiliations_identifiers"]
