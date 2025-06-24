@@ -439,8 +439,8 @@ CONFERENCES.update(
         "search_class": ConferencesSearch,
         "search_index": "records-conferences",
         "list_route": "/conferences/",
-        "item_route": '/conferences/<inspirepid(con,record_class="inspirehep.records.api:ConferencesRecord"):pid_value>',
-        "record_class": "inspirehep.records.api:ConferencesRecord",
+        "item_route": '/conferences/<inspirepid(con,record_class="inspirehep.records.api.conferences:ConferencesRecord"):pid_value>',
+        "record_class": "inspirehep.records.api.conferences:ConferencesRecord",
         "search_factory_imp": (
             "inspirehep.search.factories.search:search_factory_with_aggs"
         ),
@@ -502,8 +502,8 @@ DATA.update(
         "search_class": DataSearch,
         "search_index": "records-data",
         "list_route": "/data/",
-        "item_route": '/data/<inspirepid(dat,record_class="inspirehep.records.api:DataRecord"):pid_value>',
-        "record_class": "inspirehep.records.api:DataRecord",
+        "item_route": '/data/<inspirepid(dat,record_class="inspirehep.records.api.data:DataRecord"):pid_value>',
+        "record_class": "inspirehep.records.api.data:DataRecord",
         "search_factory_imp": (
             "inspirehep.search.factories.search:search_factory_with_aggs"
         ),
@@ -534,7 +534,7 @@ DATA_AUTHORS.update(
         ),
         "pid_type": "dat",
         "list_route": "/data/authors/",
-        "item_route": '/data/<inspirepid(dat,record_class="inspirehep.records.api.DataRecord"):pid_value>/authors',
+        "item_route": '/data/<inspirepid(dat,record_class="inspirehep.records.api.data.DataRecord"):pid_value>/authors',
         "record_serializers": {
             "application/json": (f"{INSPIRE_SERIALIZERS}:data_authors_json_response")
         },

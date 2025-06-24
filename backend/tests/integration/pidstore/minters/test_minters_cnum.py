@@ -7,7 +7,7 @@
 import pytest
 from helpers.utils import create_record
 from inspirehep.pidstore.errors import CNUMChanged
-from inspirehep.records.api import ConferencesRecord
+from inspirehep.records.api.conferences import ConferencesRecord
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from jsonschema.exceptions import ValidationError

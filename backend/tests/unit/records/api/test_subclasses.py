@@ -5,14 +5,14 @@
 # the terms of the MIT License; see LICENSE file for more details.
 from inspirehep.records.api import (
     AuthorsRecord,
-    ConferencesRecord,
-    DataRecord,
     ExperimentsRecord,
     InstitutionsRecord,
     JobsRecord,
     JournalsRecord,
     LiteratureRecord,
 )
+from inspirehep.records.api.conferences import ConferencesRecord
+from inspirehep.records.api.data import DataRecord
 
 
 def test_subclasses_for_institutions():
