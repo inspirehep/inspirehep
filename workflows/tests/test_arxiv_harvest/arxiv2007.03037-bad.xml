@@ -1,0 +1,36 @@
+<record
+	xmlns="http://www.openarchives.org/OAI/2.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header>
+		<identifier>oai:arXiv.org:2007.03037</identifier>
+		<datestamp>2025-06-25</datestamp>
+		<setSpec>math:math:AG</setSpec>
+		<setSpec>physics:hep-th</setSpec>
+	</header>
+	<metadata>
+		<arXiv
+			xmlns="http://arxiv.org/OAI/arXiv/"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://arxiv.org/OAI/arXiv/ https://oaipmh.arxiv.org/OAI/arXiv.xsd">
+			<id>2007.03037</id>
+			<created>2023-05-11</created>
+			<updated>2025-06-25</updated>
+			<authors>
+				<author>
+					<keyname>Feyzbakhsh</keyname>
+					<forenames>Soheyla</forenames>
+				</author>
+				<author>
+					<keyname>Thomas</keyname>
+					<forenames>Richard P.</forenames>
+				</author>
+			</authors>
+			<title>Curve counting and S-duality</title>
+			<categories>math.AG hep-th</categories>
+			<comments>Referee\'s corrections implemented; journal version. 25 pages, 4 figures</comments>
+			<msc-class>14N35, 14D20, 14J60, 14F05</msc-class>
+			<journal-ref>Ã‰pijournal de GÃ©omÃ©trie AlgÃ©brique, Volume 7 (May 12, 2023) epiga:9818</journal-ref>
+			<doi>10.46298/epiga.2023.volume7.9818</doi>
+			<license>http://creativecommons.org/licenses/by-sa/4.0/</license>
+		</arXiv>
+	</metadata>
+</record>

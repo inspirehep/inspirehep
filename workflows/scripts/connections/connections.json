@@ -68,5 +68,15 @@
     "port": null,
     "schema": "",
     "extra": ""
+  },
+    "arxiv_oaipmh_connection": {
+    "conn_type": "http",
+    "description": "Used for arxiv harvestin",
+    "login": "",
+    "password": null,
+    "host": "https://oaipmh.arxiv.org/oai",
+    "port": null,
+    "schema": "",
+    "extra": ""
   }
 }
