@@ -8,6 +8,8 @@ from inspirehep.records.marshmallow.literature.base import (
 
 
 def merge_orcids(author, resolved_authors_by_id):
+    if not author.get("curated_relation"):
+        return
     recid = get_recid_from_ref(author.get("record", {}))
     has_orcid = any(
         author_id.get("schema") == "ORCID" for author_id in author.get("ids", [])

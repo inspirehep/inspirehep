@@ -1920,6 +1920,7 @@ def test_literature_cds_keeps_list_as_is_when_records_not_found(inspire_app):
                 {
                     "full_name": "Author, Test",
                     "record": {"$ref": "http://localhost:5000/api/authors/123456789"},
+                    "curated_relation": True,
                     "ids": [{"schema": "ORCID", "value": "0000-0003-1134-6827"}],
                     "affiliations": [
                         {
@@ -1976,6 +1977,7 @@ def test_literature_cds_adds_ids_and_affiliation_identifiers(inspire_app):
                 {
                     "full_name": "Author, Test",
                     "record": author_record["self"],
+                    "curated_relation": True,
                     "affiliations": [
                         {"value": "CERN", "record": institution_record["self"]}
                     ],
@@ -2020,6 +2022,7 @@ def test_literature_cds_extends_already_existing_ids(inspire_app):
                 {
                     "full_name": "Author, Test",
                     "record": author_record["self"],
+                    "curated_relation": True,
                     "ids": [{"schema": "INSPIRE BAI", "value": "Test.Author.1"}],
                 }
             ]
@@ -2044,6 +2047,40 @@ def test_literature_cds_extends_already_existing_ids(inspire_app):
         "schema": "ORCID",
         "value": "0000-0002-7638-5686",
     } in response_data_metadata["authors"][0]["ids"]
+
+
+def test_literature_cds_skips_orcid_resolution_if_not_curated_relation(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.cds+json"}
+    author_record = create_record(
+        "aut",
+        data={
+            "ids": [{"schema": "ORCID", "value": "0000-0002-7638-5686"}],
+            "name": {"value": "Author, Test"},
+        },
+    )
+    lit_record = create_record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "full_name": "Author, Test",
+                    "record": author_record["self"],
+                }
+            ]
+        },
+    )
+    expected_status_code = 200
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{lit_record['control_number']}", headers=headers
+        )
+    response_status_code = response.status_code
+    response_data = orjson.loads(response.data)
+
+    response_data_metadata = response_data["metadata"]
+
+    assert expected_status_code == response_status_code
+    assert "ids" not in response_data_metadata["authors"][0]
 
 
 def test_literature_cds_adds_multiple_affiliation_identifiers(inspire_app):
@@ -2081,6 +2118,7 @@ def test_literature_cds_adds_multiple_affiliation_identifiers(inspire_app):
                 {
                     "full_name": "Author, Test",
                     "record": author_record["self"],
+                    "curated_relation": True,
                     "affiliations": [
                         {"value": "CERN", "record": institution_record["self"]},
                         {
@@ -2143,6 +2181,7 @@ def test_literature_cds_already_contains_affiliation_identifiers(inspire_app):
                 {
                     "full_name": "Author, Test",
                     "record": author_record["self"],
+                    "curated_relation": True,
                     "affiliations": [
                         {"value": "CERN", "record": institution_record["self"]}
                     ],
@@ -2197,6 +2236,7 @@ def test_literature_cds_extends_affiliation_identifiers(inspire_app):
                 {
                     "full_name": "Author, Test",
                     "record": author_record["self"],
+                    "curated_relation": True,
                     "affiliations": [
                         {"value": "CERN", "record": institution_record["self"]}
                     ],
