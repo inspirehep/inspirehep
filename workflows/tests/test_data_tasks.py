@@ -7,7 +7,7 @@ from freezegun import freeze_time
 dagbag = DagBag()
 
 
-@freeze_time("2024-12-11")
+@freeze_time("2024-12-15")
 class TestDataHarvest:
     dag = dagbag.get_dag("data_harvest_dag")
 

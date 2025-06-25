@@ -1,0 +1,45 @@
+<record
+	xmlns="http://www.openarchives.org/OAI/2.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header>
+		<identifier>oai:arXiv.org:1608.06937</identifier>
+		<datestamp>2025-06-25</datestamp>
+		<setSpec>physics:hep-ph</setSpec>
+		<setSpec>physics:hep-lat</setSpec>
+		<setSpec>physics:hep-th</setSpec>
+	</header>
+	<metadata>
+		<arXiv
+			xmlns="http://arxiv.org/OAI/arXiv/"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://arxiv.org/OAI/arXiv/ https://oaipmh.arxiv.org/OAI/arXiv.xsd">
+			<id>1608.06937</id>
+			<created>2016-08-24</created>
+			<updated>2025-06-25</updated>
+			<authors>
+				<author>
+					<keyname>Grosvenor</keyname>
+					<forenames>Kevin T.</forenames>
+				</author>
+				<author>
+					<keyname>Horava</keyname>
+					<forenames>Petr</forenames>
+				</author>
+				<author>
+					<keyname>Mogni</keyname>
+					<forenames>Christopher J.</forenames>
+				</author>
+				<author>
+					<keyname>Yan</keyname>
+					<forenames>Ziqi</forenames>
+				</author>
+			</authors>
+			<title>Nonrelativistic Short-Distance Completions of a Naturally Light Higgs</title>
+			<categories>hep-ph hep-lat hep-th</categories>
+			<comments>6 pages</comments>
+			<journal-ref>Phys.Lett. B 868 (2025) 139665</journal-ref>
+			<doi>10.1016/j.physletb.2025.139665</doi>
+			<license>http://arxiv.org/licenses/nonexclusive-distrib/1.0/</license>
+			<abstract>Nonrelativistic scalar field theories can exhibit a natural cascading hierarchy of scales, protected by a hierarchy of polynomial shift symmetries. Using a simple model, we argue that a high-energy cross-over to such nonrelativistic behavior naturally leads to light scalars, and thus represents a useful ingredient for technically natural resolutions of scalar mass hierarchies, perhaps even the Higgs mass hierarchy puzzle.</abstract>
+		</arXiv>
+	</metadata>
+</record>
