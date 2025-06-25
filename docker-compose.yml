@@ -74,7 +74,7 @@ x-airflow-common: &airflow-common
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:postgres@db/workflows
     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://postgres:postgres@db/workflows
-    AIRFLOW__CELERY__BROKER_URL: redis://:@cache:6379/0
+    AIRFLOW__CELERY__BROKER_URL: redis://:@cache:6379/3
     AIRFLOW__CORE__FERNET_KEY: ''
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'false'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
@@ -122,6 +122,8 @@ services:
         condition: service_started
       es:
         condition: service_healthy
+      backoffice-mq:
+        condition: service_started
     volumes:
       - ./backoffice:/app:z
     env_file:
@@ -135,6 +137,9 @@ services:
     ports: []
     entrypoint: celery
     command:  -A config.celery_app worker -l INFO
+    depends_on:
+      backoffice-mq:
+        condition: service_started
     
    
   cache:
@@ -159,6 +164,13 @@ services:
     ports:
       - '5672:5672'
       - '15672:15672'
+  backoffice-mq:
+    extends:
+      file: docker-compose.services.yml
+      service: mq
+    ports:
+      - '5673:5672'
+      - '15673:15672'
   es:
     extends:
       file: docker-compose.services.yml
