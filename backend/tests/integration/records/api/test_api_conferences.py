@@ -9,7 +9,8 @@ from operator import itemgetter
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_pidstore, create_record
-from inspirehep.records.api import ConferencesRecord, InspireRecord
+from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.conferences import ConferencesRecord
 from inspirehep.records.models import ConferenceLiterature
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier

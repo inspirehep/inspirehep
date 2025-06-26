@@ -6,7 +6,8 @@
 
 from flask import current_app
 
-from inspirehep.records.api import AuthorsRecord, ConferencesRecord, LiteratureRecord
+from inspirehep.records.api import AuthorsRecord, LiteratureRecord
+from inspirehep.records.api.conferences import ConferencesRecord
 
 
 def get_references_to_update(record):

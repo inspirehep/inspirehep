@@ -31,13 +31,13 @@ from inspirehep.mailing.api.conferences import send_conference_confirmation_emai
 from inspirehep.mailing.api.seminars import send_seminar_confirmation_email
 from inspirehep.records.api import (
     AuthorsRecord,
-    ConferencesRecord,
     ExperimentsRecord,
     InstitutionsRecord,
     JobsRecord,
     JournalsRecord,
     SeminarsRecord,
 )
+from inspirehep.records.api.conferences import ConferencesRecord
 from inspirehep.serializers import jsonify
 from inspirehep.submissions.errors import RESTDataError, WorkflowStartError
 from inspirehep.submissions.loaders import author_v1 as author_loader_v1

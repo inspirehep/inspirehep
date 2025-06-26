@@ -6,7 +6,7 @@
 
 from helpers.providers.faker import faker
 from helpers.utils import retry_test
-from inspirehep.records.api import DataRecord
+from inspirehep.records.api.data import DataRecord
 from inspirehep.search.api import DataSearch
 from invenio_db import db
 from invenio_search import current_search

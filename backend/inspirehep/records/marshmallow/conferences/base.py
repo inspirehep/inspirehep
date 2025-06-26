@@ -5,14 +5,13 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import structlog
-from marshmallow import fields
-
 from inspirehep.records.marshmallow.base import RecordBaseSchema
 from inspirehep.records.marshmallow.common import ContactDetailsItemWithoutEmail
 from inspirehep.records.marshmallow.conferences.common.proceeding_info_item import (
     ProceedingInfoItemSchemaV1,
 )
 from inspirehep.records.marshmallow.utils import get_adresses_with_country
+from marshmallow import fields
 
 LOGGER = structlog.getLogger()
 

@@ -16,7 +16,7 @@ from inspire_utils.record import get_value
 from inspire_utils.urls import record_url_by_pattern
 
 from inspirehep.orcid.builder import OrcidBuilder
-from inspirehep.records.api import ConferencesRecord
+from inspirehep.records.api.conferences import ConferencesRecord
 from inspirehep.records.serializers.bibtex import literature_bibtex
 
 LOGGER = logging.getLogger(__name__)

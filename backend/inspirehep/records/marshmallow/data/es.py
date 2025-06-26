@@ -6,9 +6,6 @@
 
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.record import get_value
-from invenio_pidstore.errors import PIDDoesNotExistError
-from marshmallow import fields, pre_dump
-
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.marshmallow.base import ElasticSearchBaseSchema
 from inspirehep.records.marshmallow.common.literature_record import (
@@ -20,6 +17,8 @@ from inspirehep.records.marshmallow.literature.common.author import AuthorSchema
 from inspirehep.records.marshmallow.utils import (
     get_facet_author_name_lit_and_dat,
 )
+from invenio_pidstore.errors import PIDDoesNotExistError
+from marshmallow import fields, pre_dump
 
 
 class DataElasticSearchSchema(ElasticSearchBaseSchema, DataRawSchema):

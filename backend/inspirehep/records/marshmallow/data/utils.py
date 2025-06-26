@@ -1,6 +1,5 @@
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.record import get_value
-
 from inspirehep.records.marshmallow.literature.common.author import AuthorSchemaV1
 from inspirehep.search.api import LiteratureSearch
 

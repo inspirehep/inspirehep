@@ -4,7 +4,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 from inspirehep.records.marshmallow.common.mixins import CatalogerCanEditMixin
-from inspirehep.records.marshmallow.conferences import (
+from inspirehep.records.marshmallow.conferences.base import (
     ConferencesPublicListSchema,
     ConferencesPublicSchema,
 )

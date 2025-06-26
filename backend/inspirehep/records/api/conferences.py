@@ -6,7 +6,7 @@
 
 from inspirehep.pidstore.api.conferences import PidStoreConferences
 from inspirehep.records.api.base import InspireRecord
-from inspirehep.records.marshmallow.conferences import ConferencesElasticSearchSchema
+from inspirehep.records.marshmallow.conferences.es import ConferencesElasticSearchSchema
 from inspirehep.records.models import (
     ConferenceLiterature,
     ConferenceToLiteratureRelationshipType,

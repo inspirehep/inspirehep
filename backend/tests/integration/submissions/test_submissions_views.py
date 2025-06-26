@@ -23,13 +23,13 @@ from inspire_utils.record import get_value
 from inspirehep.accounts.roles import Roles
 from inspirehep.records.api import (
     AuthorsRecord,
-    ConferencesRecord,
     ExperimentsRecord,
     InstitutionsRecord,
     JobsRecord,
     JournalsRecord,
     SeminarsRecord,
 )
+from inspirehep.records.api.conferences import ConferencesRecord
 from invenio_accounts.testutils import login_user_via_session
 from mock import patch
 
