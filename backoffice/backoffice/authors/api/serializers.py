@@ -5,7 +5,11 @@ from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
 from inspire_schemas.utils import get_validation_errors
 from rest_framework import serializers
 from backoffice.authors.api import utils
-from backoffice.authors.constants import DECISION_CHOICES, StatusChoices, WorkflowType
+from backoffice.authors.constants import (
+    AUTHOR_DECISION_CHOICES,
+    AuthorStatusChoices,
+    AuthorWorkflowType,
+)
 from backoffice.authors.documents import AuthorWorkflowDocument
 from backoffice.authors.models import (
     AuthorDecision,
@@ -48,8 +52,8 @@ class AuthorDecisionSerializer(serializers.ModelSerializer):
             summary="Author Workflow Serializer no data",
             description="Author Workflow Serializer",
             value={
-                "workflow_type": WorkflowType.AUTHOR_CREATE,
-                "status": StatusChoices.RUNNING,
+                "workflow_type": AuthorWorkflowType.AUTHOR_CREATE,
+                "status": AuthorStatusChoices.RUNNING,
                 "core": False,
                 "is_update": False,
                 "data": {},
@@ -64,8 +68,8 @@ class AuthorWorkflowSerializer(serializers.ModelSerializer):
     data = serializers.JSONField(required=True)
     workflow_type = serializers.ChoiceField(
         choices=[
-            WorkflowType.AUTHOR_CREATE,
-            WorkflowType.AUTHOR_UPDATE,
+            AuthorWorkflowType.AUTHOR_CREATE,
+            AuthorWorkflowType.AUTHOR_UPDATE,
         ],
         required=True,
     )
@@ -95,8 +99,8 @@ class AuthorWorkflowSerializer(serializers.ModelSerializer):
             summary="Author Workflow Serializer no data",
             description="Author Workflow Serializer",
             value={
-                "workflow_type": WorkflowType.AUTHOR_CREATE,
-                "status": StatusChoices.RUNNING,
+                "workflow_type": AuthorWorkflowType.AUTHOR_CREATE,
+                "status": AuthorStatusChoices.RUNNING,
                 "data": {},
             },
         ),
@@ -123,5 +127,5 @@ class AuthorWorkflowDocumentSerializer(DocumentSerializer):
     ],
 )
 class AuthorResolutionSerializer(serializers.Serializer):
-    value = serializers.ChoiceField(choices=DECISION_CHOICES)
+    value = serializers.ChoiceField(choices=AUTHOR_DECISION_CHOICES)
     create_ticket = serializers.BooleanField(default=False)
