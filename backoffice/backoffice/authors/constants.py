@@ -1,17 +1,17 @@
 from django.db import models
 
 # tickets
-TICKET_TYPES = (
+AUTHOR_TICKET_TYPES = (
     ("author_create_curation", "Author create curation"),
     ("author_create_user", "Author create user"),
     ("author_update_curation", "Author update curation"),
 )
-DEFAULT_TICKET_TYPE = "author_create_curation"
+AUTHOR_DEFAULT_TICKET_TYPE = "author_create_curation"
 
 # workflows
 
 
-class StatusChoices(models.TextChoices):
+class AuthorStatusChoices(models.TextChoices):
     RUNNING = "running", "Running"
     APPROVAL = "approval", "Waiting for approval"
     PROCESSING = "processing", "Processing"
@@ -19,22 +19,15 @@ class StatusChoices(models.TextChoices):
     ERROR = "error", "Error"
 
 
-DEFAULT_STATUS_CHOICE = StatusChoices.PROCESSING
+AUTHOR_DEFAULT_STATUS_CHOICE = AuthorStatusChoices.PROCESSING
 
 
-class WorkflowType(models.TextChoices):
-    HEP_CREATE = "HEP_CREATE", "HEP create"
-    HEP_UPDATE = "HEP_UPDATE", "HEP update"
+class AuthorWorkflowType(models.TextChoices):
     AUTHOR_CREATE = "AUTHOR_CREATE", "Author create"
     AUTHOR_UPDATE = "AUTHOR_UPDATE", "Author update"
 
 
-DEFAULT_WORKFLOW_TYPE = WorkflowType.HEP_CREATE
-
-allowed_workflow_types = [
-    WorkflowType.AUTHOR_CREATE,
-    WorkflowType.AUTHOR_UPDATE,
-]
+AUTHOR_DEFAULT_WORKFLOW_TYPE = AuthorWorkflowType.AUTHOR_CREATE
 
 
 class AuthorResolutionDags(models.TextChoices):
@@ -43,7 +36,7 @@ class AuthorResolutionDags(models.TextChoices):
     accept_curate = "accept_curate", "author_create_approved_dag"
 
 
-DECISION_CHOICES = AuthorResolutionDags.choices
+AUTHOR_DECISION_CHOICES = AuthorResolutionDags.choices
 
 
 class AuthorCreateDags(models.TextChoices):
@@ -54,11 +47,3 @@ class AuthorCreateDags(models.TextChoices):
 
 class AuthorUpdateDags(models.TextChoices):
     initialize = "author_update_dag", "initialize"
-
-
-WORKFLOW_DAGS = {
-    WorkflowType.HEP_CREATE: "",
-    WorkflowType.HEP_UPDATE: "",
-    WorkflowType.AUTHOR_CREATE: AuthorCreateDags,
-    WorkflowType.AUTHOR_UPDATE: AuthorUpdateDags,
-}

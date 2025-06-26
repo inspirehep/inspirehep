@@ -34,11 +34,11 @@ from backoffice.authors.api.serializers import (
     AuthorWorkflowSerializer,
     AuthorWorkflowTicketSerializer,
 )
+from backoffice.common.constants import WORKFLOW_DAGS
 from backoffice.authors.constants import (
-    WORKFLOW_DAGS,
     AuthorResolutionDags,
-    StatusChoices,
-    WorkflowType,
+    AuthorStatusChoices,
+    AuthorWorkflowType,
 )
 from backoffice.authors.documents import AuthorWorkflowDocument
 from backoffice.authors.models import (
@@ -167,7 +167,7 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
             OpenApiExample(
                 "Status Update",
                 value={
-                    "status": StatusChoices.COMPLETED,
+                    "status": AuthorStatusChoices.COMPLETED,
                 },
             ),
         ],
@@ -215,7 +215,7 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
                 )
 
             workflow = get_object_or_404(AuthorWorkflow, pk=pk)
-            workflow.status = StatusChoices.PROCESSING
+            workflow.status = AuthorStatusChoices.PROCESSING
             workflow.save()
             workflow_serializer = self.serializer_class(workflow)
 
@@ -287,7 +287,7 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
                 response_text="Error restarting Airflow DAGs for workflow %s",
             )
 
-        workflow.status = StatusChoices.PROCESSING
+        workflow.status = AuthorStatusChoices.PROCESSING
         workflow.save()
         workflow_serializer = self.serializer_class(workflow)
 
@@ -416,7 +416,7 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
                 description="status",
                 required=False,
                 type=OpenApiTypes.STR,
-                enum=StatusChoices.values,
+                enum=AuthorStatusChoices.values,
                 location=OpenApiParameter.QUERY,
             ),
             OpenApiParameter(
@@ -424,7 +424,7 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
                 description="workflow_type",
                 required=False,
                 type=OpenApiTypes.STR,
-                enum=WorkflowType.values,
+                enum=AuthorWorkflowType.values,
                 location=OpenApiParameter.QUERY,
             ),
         ],

@@ -11,7 +11,7 @@ from jsonschema.exceptions import ValidationError as JSONValidationError
 
 from backoffice.authors import constants
 from backoffice.authors.api import utils
-from backoffice.authors.constants import StatusChoices
+from backoffice.authors.constants import AuthorStatusChoices
 
 User = get_user_model()
 AuthorWorkflow = apps.get_model(app_label="authors", model_name="AuthorWorkflow")
@@ -24,7 +24,7 @@ class TestUtils(TransactionTestCase):
     def setUp(self):
         super().setUp()
         self.workflow = AuthorWorkflow.objects.create(
-            data={}, status=StatusChoices.APPROVAL
+            data={}, status=AuthorStatusChoices.APPROVAL
         )
         self.user = User.objects.create_user(
             email="testuser@test.com", password="12345"

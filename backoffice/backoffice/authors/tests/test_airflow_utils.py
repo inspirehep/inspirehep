@@ -2,7 +2,8 @@ import uuid
 import json
 import pytest
 from backoffice.authors import airflow_utils
-from backoffice.authors.constants import WORKFLOW_DAGS, WorkflowType
+from backoffice.authors.constants import AuthorWorkflowType
+from backoffice.common.constants import WORKFLOW_DAGS
 from django.test import TransactionTestCase
 from requests import HTTPError, RequestException
 
@@ -10,7 +11,7 @@ from requests import HTTPError, RequestException
 class TestAirflowUtils(TransactionTestCase):
     def setUp(self):
         self.workflow_id = uuid.UUID(int=1)
-        self.workflow_type = WorkflowType.AUTHOR_CREATE
+        self.workflow_type = AuthorWorkflowType.AUTHOR_CREATE
         self.dag_id = WORKFLOW_DAGS[self.workflow_type].initialize
         self.extra_data = {"test": "test"}
         self.workflow_serialized = {"id": "id"}
