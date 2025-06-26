@@ -1,21 +1,21 @@
 from django.db import models
 
-from backoffice.authors.constants import (
+from backoffice.hep.constants import (
     DECISION_CHOICES,
     DEFAULT_STATUS_CHOICE,
     DEFAULT_TICKET_TYPE,
     DEFAULT_WORKFLOW_TYPE,
     TICKET_TYPES,
     StatusChoices,
-    WorkflowType,
+    HepWorkflowType,
 )
 from backoffice.common.models import BaseDecision, BaseWorkflow, BaseWorkflowTicket
 
 
-class AuthorWorkflow(BaseWorkflow):
+class HepWorkflow(BaseWorkflow):
     workflow_type = models.CharField(
         max_length=30,
-        choices=WorkflowType.choices,
+        choices=HepWorkflowType.choices,
         default=DEFAULT_WORKFLOW_TYPE,
     )
     status = models.CharField(
@@ -25,17 +25,17 @@ class AuthorWorkflow(BaseWorkflow):
     )
 
 
-class AuthorWorkflowTicket(BaseWorkflowTicket):
+class HepWorkflowTicket(BaseWorkflowTicket):
     workflow = models.ForeignKey(
-        AuthorWorkflow, related_name="tickets", on_delete=models.CASCADE
+        HepWorkflow, related_name="tickets", on_delete=models.CASCADE
     )
     ticket_type = models.CharField(
         max_length=30, choices=TICKET_TYPES, default=DEFAULT_TICKET_TYPE
     )
 
 
-class AuthorDecision(BaseDecision):
+class HepDecision(BaseDecision):
     workflow = models.ForeignKey(
-        AuthorWorkflow, related_name="decisions", on_delete=models.CASCADE
+        HepWorkflow, related_name="decisions", on_delete=models.CASCADE
     )
     action = models.CharField(max_length=30, choices=DECISION_CHOICES)

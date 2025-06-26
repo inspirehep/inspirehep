@@ -109,7 +109,12 @@ THIRD_PARTY_APPS = [
     "django_json_widget",
 ]
 
-LOCAL_APPS = ["backoffice.users", "backoffice.authors", "backoffice.management"]
+LOCAL_APPS = [
+    "backoffice.users",
+    "backoffice.authors",
+    "backoffice.hep",
+    "backoffice.management",
+]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 

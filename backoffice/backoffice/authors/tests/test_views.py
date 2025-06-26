@@ -13,13 +13,13 @@ from backoffice.authors.api.serializers import (
     AuthorWorkflowSerializer,
 )
 from backoffice.authors.constants import (
-    WORKFLOW_DAGS,
     AuthorCreateDags,
     AuthorResolutionDags,
     StatusChoices,
     WorkflowType,
 )
 from backoffice.authors.models import AuthorWorkflowTicket
+from backoffice.common.constants import WORKFLOW_DAGS
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group

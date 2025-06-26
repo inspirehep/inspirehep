@@ -23,18 +23,11 @@ DEFAULT_STATUS_CHOICE = StatusChoices.PROCESSING
 
 
 class WorkflowType(models.TextChoices):
-    HEP_CREATE = "HEP_CREATE", "HEP create"
-    HEP_UPDATE = "HEP_UPDATE", "HEP update"
     AUTHOR_CREATE = "AUTHOR_CREATE", "Author create"
     AUTHOR_UPDATE = "AUTHOR_UPDATE", "Author update"
 
 
-DEFAULT_WORKFLOW_TYPE = WorkflowType.HEP_CREATE
-
-allowed_workflow_types = [
-    WorkflowType.AUTHOR_CREATE,
-    WorkflowType.AUTHOR_UPDATE,
-]
+DEFAULT_WORKFLOW_TYPE = WorkflowType.AUTHOR_CREATE
 
 
 class AuthorResolutionDags(models.TextChoices):
@@ -54,11 +47,3 @@ class AuthorCreateDags(models.TextChoices):
 
 class AuthorUpdateDags(models.TextChoices):
     initialize = "author_update_dag", "initialize"
-
-
-WORKFLOW_DAGS = {
-    WorkflowType.HEP_CREATE: "",
-    WorkflowType.HEP_UPDATE: "",
-    WorkflowType.AUTHOR_CREATE: AuthorCreateDags,
-    WorkflowType.AUTHOR_UPDATE: AuthorUpdateDags,
-}
