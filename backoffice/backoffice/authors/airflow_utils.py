@@ -6,7 +6,7 @@ from rest_framework import status
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 
-from backoffice.authors.constants import WORKFLOW_DAGS
+from backoffice.common.constants import WORKFLOW_DAGS
 
 AIRFLOW_BASE_URL = environ.get("AIRFLOW_BASE_URL")
 

@@ -34,8 +34,8 @@ from backoffice.authors.api.serializers import (
     AuthorWorkflowSerializer,
     AuthorWorkflowTicketSerializer,
 )
+from backoffice.common.constants import WORKFLOW_DAGS
 from backoffice.authors.constants import (
-    WORKFLOW_DAGS,
     AuthorResolutionDags,
     StatusChoices,
     WorkflowType,
