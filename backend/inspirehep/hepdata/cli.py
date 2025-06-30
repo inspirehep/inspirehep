@@ -10,7 +10,7 @@ import requests
 import structlog
 from flask.cli import with_appcontext
 from inspire_utils.record import get_values_for_schema
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from invenio_db import db
 
 LOGGER = structlog.getLogger()

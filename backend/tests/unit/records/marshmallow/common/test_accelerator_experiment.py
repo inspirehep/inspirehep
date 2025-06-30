@@ -6,7 +6,7 @@
 
 import mock
 import orjson
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.marshmallow.common import AcceleratorExperimentSchemaV1
 
 

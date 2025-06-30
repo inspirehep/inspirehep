@@ -9,7 +9,7 @@ from inspirehep.assign.tasks import (
     assign_paper_to_conference,
     export_papers_to_cds,
 )
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 
 
 def test_assign_conference_happy_flow(inspire_app):

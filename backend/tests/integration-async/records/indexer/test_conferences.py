@@ -9,8 +9,8 @@ import orjson
 from helpers.providers.faker import faker
 from helpers.utils import es_search, retry_test
 from inspire_utils.record import get_value
-from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.api.conferences import ConferencesRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.marshmallow.conferences.common.proceeding_info_item import (
     ProceedingInfoItemSchemaV1,
 )

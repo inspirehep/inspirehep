@@ -13,9 +13,9 @@ import mock
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_record
-from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.api.authors import AuthorsRecord
 from inspirehep.records.api.journals import JournalsRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.models import (
     DataLiterature,
     ExperimentLiterature,

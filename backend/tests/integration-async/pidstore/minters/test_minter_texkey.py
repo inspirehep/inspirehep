@@ -1,5 +1,5 @@
 from helpers.providers.faker import faker
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from invenio_db import db
 
 

@@ -13,7 +13,7 @@ from helpers.utils import (
     create_user,
     create_user_and_token,
 )
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.models import WorkflowsRecordSources
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db

@@ -16,7 +16,8 @@ from helpers.providers.faker import faker
 from helpers.utils import create_pidstore, create_record, create_record_factory
 from inspirehep.pidstore.errors import WrongRedirectionPidStatus
 from inspirehep.pidstore.models import InspireRedirect
-from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.errors import (
     CannotUndeleteRedirectedRecord,
     MissingSerializerError,

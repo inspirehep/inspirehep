@@ -110,7 +110,7 @@ RECORD = {
 LITERATURE = deepcopy(RECORD)
 LITERATURE.update(
     {
-        "record_class": "inspirehep.records.api:LiteratureRecord",
+        "record_class": "inspirehep.records.api.literature:LiteratureRecord",
         "pid_type": "lit",
         "pid_minter": "literature_minter",
         "search_class": LiteratureSearch,
@@ -158,7 +158,7 @@ LITERATURE.update(
             ),
         },
         "list_route": "/literature/",
-        "item_route": '/literature/<inspirepid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
+        "item_route": '/literature/<inspirepid(lit,record_class="inspirehep.records.api.literature.LiteratureRecord"):pid_value>',
         "read_permission_factory_imp": LiteratureCollectionReadPermissionCheck,
         "create_permission_factory_imp": SessionSuperuserPermission,
         "update_permission_factory_imp": LiteratureCollectionReadWritePermissionCheck,
@@ -211,7 +211,7 @@ LITERATURE_AUTHORS.update(
         ),
         "pid_type": "lit",
         "list_route": "/literature/authors/",
-        "item_route": '/literature/<inspirepid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>/authors',
+        "item_route": '/literature/<inspirepid(lit,record_class="inspirehep.records.api.literature.LiteratureRecord"):pid_value>/authors',
         "record_serializers": {
             "application/json": (
                 f"{INSPIRE_SERIALIZERS}:literature_authors_json_response"
@@ -226,7 +226,7 @@ LITERATURE_ARXIV = deepcopy(LITERATURE)
 LITERATURE_ARXIV.update(
     {
         "pid_type": "arxiv",
-        "item_route": '/arxiv/<arxivpath(arxiv,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
+        "item_route": '/arxiv/<arxivpath(arxiv,record_class="inspirehep.records.api.literature.LiteratureRecord"):pid_value>',
     }
 )
 

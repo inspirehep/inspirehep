@@ -11,7 +11,8 @@ from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
 from helpers.utils import retry_test
 from inspirehep.indexer.tasks import index_record
-from inspirehep.records.api import AuthorsRecord, InspireRecord, LiteratureRecord
+from inspirehep.records.api import AuthorsRecord, InspireRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import AuthorsSearch, LiteratureSearch
 from invenio_db import db

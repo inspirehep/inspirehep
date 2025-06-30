@@ -6,7 +6,7 @@
 
 import mock
 from inspirehep.indexer.base import InspireRecordIndexer
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 
 
 @mock.patch(

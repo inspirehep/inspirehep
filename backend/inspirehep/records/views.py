@@ -276,7 +276,7 @@ def reference_self_curation(args):
 
 
 @blueprint.route(
-    '/literature/<inspirepid(lit,record_class="inspirehep.records.api:LiteratureRecord"):pid_value>/diff/<int:old_revision>..<int:new_revision>'
+    '/literature/<inspirepid(lit,record_class="inspirehep.records.api.literature:LiteratureRecord"):pid_value>/diff/<int:old_revision>..<int:new_revision>'
 )
 @login_required_with_roles([Roles.superuser.value, Roles.cataloger.value])
 def literature_reference_difference_between_versions(
@@ -322,11 +322,11 @@ workflows_record_sources_view = WorkflowsRecordSourcesResource.as_view(
     WorkflowsRecordSourcesResource.view_name
 )
 blueprint.add_url_rule(
-    '/literature/<inspirepid(lit,record_class="inspirehep.records.api:LiteratureRecord"):pid_value>/citations',
+    '/literature/<inspirepid(lit,record_class="inspirehep.records.api.literature:LiteratureRecord"):pid_value>/citations',
     view_func=literature_citations_view,
 )
 blueprint.add_url_rule(
-    '/literature/<inspirepid(lit,record_class="inspirehep.records.api:LiteratureRecord"):pid_value>/references',
+    '/literature/<inspirepid(lit,record_class="inspirehep.records.api.literature:LiteratureRecord"):pid_value>/references',
     view_func=literature_references_view,
 )
 blueprint.add_url_rule(

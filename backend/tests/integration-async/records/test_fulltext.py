@@ -11,7 +11,7 @@ import orjson
 from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
 from helpers.utils import retry_test
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import LiteratureSearch
 from invenio_db import db

@@ -6,8 +6,8 @@
 
 from helpers.providers.faker import faker
 from helpers.utils import retry_test
-from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.api.experiments import ExperimentsRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.search.api import ExperimentsSearch
 from invenio_db import db
 from invenio_search import current_search

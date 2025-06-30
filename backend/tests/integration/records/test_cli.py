@@ -12,7 +12,8 @@ import pytest
 from freezegun import freeze_time
 from helpers.providers.faker import faker
 from helpers.utils import create_record
-from inspirehep.records.api import AuthorsRecord, JobsRecord, LiteratureRecord
+from inspirehep.records.api import AuthorsRecord, JobsRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.models import InstitutionLiterature
 
 

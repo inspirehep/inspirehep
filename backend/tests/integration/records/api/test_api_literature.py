@@ -19,8 +19,8 @@ from helpers.utils import (
     create_s3_file,
 )
 from inspirehep.files.api import current_s3_instance
-from inspirehep.records.api import InspireRecord, LiteratureRecord
-from inspirehep.records.api.literature import import_article
+from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.literature import LiteratureRecord, import_article
 from inspirehep.records.errors import (
     ExistingArticleError,
     FileSizeExceededError,

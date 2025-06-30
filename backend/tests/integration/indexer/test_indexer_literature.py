@@ -10,7 +10,7 @@ from deepdiff import DeepDiff
 from freezegun import freeze_time
 from helpers.providers.faker import faker
 from helpers.utils import create_record, create_s3_bucket, es_search
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.search.api import LiteratureSearch
 
 OAI_TIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"

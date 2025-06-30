@@ -6,7 +6,7 @@
 
 import mock
 from helpers.providers.faker import faker
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 
 
 @mock.patch("inspirehep.hal.api.current_celery_app.send_task")

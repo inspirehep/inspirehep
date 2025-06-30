@@ -16,7 +16,7 @@ from helpers.utils import (
     logout,
 )
 from inspirehep.accounts.roles import Roles
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.errors import MaxResultWindowRESTError
 from invenio_accounts.testutils import login_user_via_session
 from invenio_search import current_search

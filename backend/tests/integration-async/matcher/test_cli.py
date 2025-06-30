@@ -6,7 +6,7 @@
 
 from helpers.utils import create_record_async, es_search, retry_test
 from inspire_utils.record import get_value
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from invenio_search import current_search
 from tenacity import stop_after_delay, wait_fixed
 

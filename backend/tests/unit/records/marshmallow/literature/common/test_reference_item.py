@@ -7,7 +7,8 @@
 import mock
 import orjson
 from inspire_schemas.api import load_schema, validate
-from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.marshmallow.literature.common import (
     ReferenceItemSchemaV1,
     ReferenceItemSchemaV2,
