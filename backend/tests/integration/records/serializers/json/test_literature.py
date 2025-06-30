@@ -978,6 +978,7 @@ def test_literature_detail_links(inspire_app):
         "bibtex": f"http://localhost:5000/literature/{cn}?format=bibtex",
         "citations": f"http://localhost:5000/literature/?q=refersto%3Arecid%3A{cn}",
         "json": f"http://localhost:5000/literature/{cn}?format=json",
+        "json-expanded": f"http://localhost:5000/literature/{cn}?format=json-expanded",
         "latex-eu": f"http://localhost:5000/literature/{cn}?format=latex-eu",
         "latex-us": f"http://localhost:5000/literature/{cn}?format=latex-us",
         "cv": f"http://localhost:5000/literature/{cn}?format=cv",
@@ -1911,8 +1912,8 @@ def test_literature_list_populates_author_bai_and_keeps_other_ids(inspire_app):
     ][0]["ids"]
 
 
-def test_literature_cds_keeps_list_as_is_when_records_not_found(inspire_app):
-    headers = {"Accept": "application/vnd+inspire.record.cds+json"}
+def test_literature_expanded_keeps_list_as_is_when_records_not_found(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.expanded+json"}
     lit_record = create_record(
         "lit",
         data={
@@ -1951,8 +1952,8 @@ def test_literature_cds_keeps_list_as_is_when_records_not_found(inspire_app):
     } in response_data_metadata["authors"][0]["ids"]
 
 
-def test_literature_cds_adds_ids_and_affiliation_identifiers(inspire_app):
-    headers = {"Accept": "application/vnd+inspire.record.cds+json"}
+def test_literature_expanded_adds_ids_and_affiliation_identifiers(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.expanded+json"}
     author_record = create_record(
         "aut",
         data={
@@ -2006,8 +2007,8 @@ def test_literature_cds_adds_ids_and_affiliation_identifiers(inspire_app):
     } in response_data_metadata["authors"][0]["affiliations_identifiers"]
 
 
-def test_literature_cds_extends_already_existing_ids(inspire_app):
-    headers = {"Accept": "application/vnd+inspire.record.cds+json"}
+def test_literature_expanded_extends_already_existing_ids(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.expanded+json"}
     author_record = create_record(
         "aut",
         data={
@@ -2049,8 +2050,10 @@ def test_literature_cds_extends_already_existing_ids(inspire_app):
     } in response_data_metadata["authors"][0]["ids"]
 
 
-def test_literature_cds_skips_orcid_resolution_if_not_curated_relation(inspire_app):
-    headers = {"Accept": "application/vnd+inspire.record.cds+json"}
+def test_literature_expanded_skips_orcid_resolution_if_not_curated_relation(
+    inspire_app,
+):
+    headers = {"Accept": "application/vnd+inspire.record.expanded+json"}
     author_record = create_record(
         "aut",
         data={
@@ -2083,8 +2086,8 @@ def test_literature_cds_skips_orcid_resolution_if_not_curated_relation(inspire_a
     assert "ids" not in response_data_metadata["authors"][0]
 
 
-def test_literature_cds_adds_multiple_affiliation_identifiers(inspire_app):
-    headers = {"Accept": "application/vnd+inspire.record.cds+json"}
+def test_literature_expanded_adds_multiple_affiliation_identifiers(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.expanded+json"}
     author_record = create_record(
         "aut",
         data={
@@ -2155,8 +2158,8 @@ def test_literature_cds_adds_multiple_affiliation_identifiers(inspire_app):
     } in response_data_metadata["authors"][0]["affiliations_identifiers"]
 
 
-def test_literature_cds_already_contains_affiliation_identifiers(inspire_app):
-    headers = {"Accept": "application/vnd+inspire.record.cds+json"}
+def test_literature_expanded_already_contains_affiliation_identifiers(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.expanded+json"}
     author_record = create_record(
         "aut",
         data={
@@ -2210,8 +2213,8 @@ def test_literature_cds_already_contains_affiliation_identifiers(inspire_app):
     } in response_data_metadata["authors"][0]["affiliations_identifiers"]
 
 
-def test_literature_cds_extends_affiliation_identifiers(inspire_app):
-    headers = {"Accept": "application/vnd+inspire.record.cds+json"}
+def test_literature_expanded_extends_affiliation_identifiers(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.expanded+json"}
     author_record = create_record(
         "aut",
         data={
@@ -2265,3 +2268,59 @@ def test_literature_cds_extends_affiliation_identifiers(inspire_app):
     assert {"value": "grid.9132.9", "schema": "GRID"} in response_data_metadata[
         "authors"
     ][0]["affiliations_identifiers"]
+
+
+def test_literature_list_expanded_adds_ids_and_affiliation_identifiers(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.expanded+json"}
+    author_record = create_record(
+        "aut",
+        data={
+            "ids": [{"schema": "ORCID", "value": "0000-0002-7638-5686"}],
+            "name": {"value": "Author, Test"},
+        },
+    )
+    institution_record = create_record(
+        "ins",
+        data={
+            "external_system_identifiers": [
+                {"value": "grid.9132.9", "schema": "GRID"},
+                {"value": "https://ror.org/01ggx4157", "schema": "ROR"},
+                {"value": "INST-1147", "schema": "SPIRES"},
+            ]
+        },
+    )
+    create_record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "full_name": "Author, Test",
+                    "record": author_record["self"],
+                    "curated_relation": True,
+                    "affiliations": [
+                        {"value": "CERN", "record": institution_record["self"]}
+                    ],
+                }
+            ]
+        },
+    )
+    expected_status_code = 200
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
+    response_status_code = response.status_code
+    response_data = orjson.loads(response.data)
+
+    response_data_hits = response_data["hits"]["hits"]
+    response_data_hits_len = len(response_data_hits)
+    response_data_hits_metadata = response_data_hits[0]["metadata"]
+
+    assert response_data_hits_len == 1
+    assert expected_status_code == response_status_code
+    assert {
+        "schema": "ORCID",
+        "value": "0000-0002-7638-5686",
+    } in response_data_hits_metadata["authors"][0]["ids"]
+    assert {
+        "value": "https://ror.org/01ggx4157",
+        "schema": "ROR",
+    } in response_data_hits_metadata["authors"][0]["affiliations_identifiers"]

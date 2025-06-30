@@ -15,4 +15,3 @@ from .base import (
 from .es import LiteratureElasticSearchSchema, LiteratureFulltextElasticSearchSchema
 from .references import LiteratureReferencesSchema
 from .ui import LiteratureDetailSchema, LiteratureListWrappedSchema
-from .cds import LiteraturePublicSchemaCDS

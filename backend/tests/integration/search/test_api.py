@@ -873,6 +873,7 @@ def test_public_api_generates_correct_links_in_literature_search(inspire_app):
             "http://localhost:5000/api/literature/?q=&size=10&page=1&format=latex-us"
         ),
         "json": "http://localhost:5000/api/literature/?q=&size=10&page=1&format=json",
+        "json-expanded": "http://localhost:5000/api/literature/?q=&size=10&page=1&format=json-expanded",
         "cv": "http://localhost:5000/api/literature/?q=&size=10&page=1&format=cv",
     }
     record = create_record("lit")
@@ -882,6 +883,7 @@ def test_public_api_generates_correct_links_in_literature_search(inspire_app):
         "latex-eu": f"http://localhost:5000/api/literature/{cn}?format=latex-eu",
         "latex-us": f"http://localhost:5000/api/literature/{cn}?format=latex-us",
         "json": f"http://localhost:5000/api/literature/{cn}?format=json",
+        "json-expanded": f"http://localhost:5000/api/literature/{cn}?format=json-expanded",
         "citations": f"http://localhost:5000/api/literature/?q=refersto%3Arecid%3A{cn}",
         "cv": f"http://localhost:5000/api/literature/{cn}?format=cv",
     }
@@ -995,12 +997,6 @@ def test_public_api_generates_correct_links_in_conferences_search(inspire_app):
     assert record_details_links == expected_details_links
 
 
-@pytest.mark.xfail(
-    reason=(
-        "Json Serializer for search is not yet configured for data collection so it's"
-        " using default Invenio one."
-    )
-)
 def test_public_api_generates_correct_links_in_data_search(inspire_app):
     expected_search_links = {
         "self": "http://localhost:5000/api/data/?q=&size=10&page=1",
@@ -1139,6 +1135,7 @@ def test_public_api_generates_correct_links_in_literature_search_with_fields(
             "http://localhost:5000/api/literature/?q=&size=1&page=3&fields=ids,authors"
         ),
         "cv": "http://localhost:5000/api/literature/?q=&size=1&page=2&format=cv",
+        "json-expanded": "http://localhost:5000/api/literature/?q=&size=1&page=2&format=json-expanded",
     }
     create_record("lit")
     create_record("lit")
