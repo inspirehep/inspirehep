@@ -9,10 +9,10 @@ from inspirehep.records.api import (
     InstitutionsRecord,
     JobsRecord,
     JournalsRecord,
-    LiteratureRecord,
 )
 from inspirehep.records.api.conferences import ConferencesRecord
 from inspirehep.records.api.data import DataRecord
+from inspirehep.records.api.literature import LiteratureRecord
 
 
 def test_subclasses_for_institutions():

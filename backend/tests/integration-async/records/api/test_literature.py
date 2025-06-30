@@ -7,9 +7,9 @@ import copy
 
 from helpers.providers.faker import faker
 from helpers.utils import retry_test
-from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.api.conferences import ConferencesRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.models import RecordsAuthors
 from invenio_db import db
 from tenacity import stop_after_delay, wait_fixed

@@ -7,7 +7,7 @@ from helpers.providers.faker import faker
 from helpers.utils import create_s3_bucket, create_s3_file, retry_test
 from inspirehep.files.api import current_s3_instance
 from inspirehep.indexer.tasks import batch_index
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import LiteratureSearch
 from invenio_db import db

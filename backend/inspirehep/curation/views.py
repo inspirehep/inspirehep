@@ -17,7 +17,7 @@ from inspirehep.curation.api import (
     normalize_affiliations,
     normalize_collaborations,
 )
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.search.api import JournalsSearch
 from inspirehep.serializers import jsonify
 

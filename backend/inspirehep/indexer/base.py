@@ -24,7 +24,7 @@ class InspireRecordIndexer(RecordIndexer):
 
     @staticmethod
     def _prepare_record(record, index, doc_type="_doc", arguments=None, **kwargs):
-        from inspirehep.records.api import LiteratureRecord
+        from inspirehep.records.api.literature import LiteratureRecord
 
         data = (
             record.serialize_for_es_with_fulltext()
@@ -63,7 +63,7 @@ class InspireRecordIndexer(RecordIndexer):
             dict: dict with preprocessed record for bulk indexing
 
         """
-        from inspirehep.records.api import LiteratureRecord
+        from inspirehep.records.api.literature import LiteratureRecord
 
         index_from_record = self.record_to_index(record)
         if not index:
@@ -181,7 +181,7 @@ class InspireRecordIndexer(RecordIndexer):
             return arguments
 
     def index(self, record, force_delete=None, record_version=None):
-        from inspirehep.records.api import LiteratureRecord
+        from inspirehep.records.api.literature import LiteratureRecord
 
         if not force_delete:
             deleted = record.get("deleted", False)

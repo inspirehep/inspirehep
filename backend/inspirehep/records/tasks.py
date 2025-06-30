@@ -19,7 +19,8 @@ from sqlalchemy.exc import OperationalError
 
 from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
 from inspirehep.pidstore.api import PidStoreBase
-from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.search.api import InspireSearch
 from inspirehep.utils import flatten_list
 

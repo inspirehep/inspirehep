@@ -2,7 +2,8 @@ import orjson
 from helpers.providers.faker import faker
 from helpers.utils import create_user, retry_test
 from inspirehep.accounts.roles import Roles
-from inspirehep.records.api import AuthorsRecord, LiteratureRecord
+from inspirehep.records.api import AuthorsRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.utils import get_author_by_recid
 from inspirehep.search.api import LiteratureSearch
 from invenio_accounts.testutils import login_user_via_session

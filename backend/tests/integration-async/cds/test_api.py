@@ -8,7 +8,7 @@ import requests
 from helpers.providers.faker import faker
 from inspirehep.cds.api import sync_identifiers
 from inspirehep.cds.models import CDSRun, CDSRunStatus
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from invenio_db import db
 
 

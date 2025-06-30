@@ -18,7 +18,7 @@ from inspirehep.orcid import exceptions, push_access_tokens, utils
 from inspirehep.orcid.cache import OrcidCache
 from inspirehep.orcid.converter import OrcidConverter
 from inspirehep.orcid.putcode_getter import OrcidPutcodeGetter
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.utils import distributed_lock
 
 LOGGER = structlog.getLogger()

@@ -20,7 +20,7 @@ from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
 from inspirehep.hal.core.sword import create, update
 from inspirehep.hal.core.tei import convert_to_tei
 from inspirehep.hal.errors import HALCreateException
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.utils import distributed_lock
 
 LOGGER = structlog.getLogger()

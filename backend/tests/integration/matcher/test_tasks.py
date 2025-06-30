@@ -7,7 +7,7 @@ import pytest
 from helpers.utils import create_record
 from inspire_utils.record import get_value
 from inspirehep.matcher.tasks import match_references_by_uuids
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from sqlalchemy.orm.exc import NoResultFound
 
 

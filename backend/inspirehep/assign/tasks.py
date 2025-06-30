@@ -13,8 +13,9 @@ from invenio_pidstore.errors import PIDDoesNotExistError
 from jsonschema import ValidationError
 
 from inspirehep.errors import DB_TASK_EXCEPTIONS
-from inspirehep.records.api import AuthorsRecord, LiteratureRecord
+from inspirehep.records.api import AuthorsRecord
 from inspirehep.records.api.conferences import ConferencesRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.errors import MissingArgumentError
 from inspirehep.records.utils import get_author_by_recid
 from inspirehep.submissions.tasks import async_create_ticket_with_template

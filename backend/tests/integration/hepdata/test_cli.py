@@ -3,7 +3,7 @@ import pytest
 import requests
 from freezegun import freeze_time
 from helpers.utils import create_record
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 
 
 @pytest.mark.vcr

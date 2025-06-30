@@ -7,7 +7,7 @@
 import pytest
 from helpers.providers.faker import faker
 from inspirehep.hal.tasks import hal_push
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from invenio_db import db
 from sqlalchemy.orm.exc import StaleDataError
 

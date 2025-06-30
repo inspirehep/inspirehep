@@ -7,7 +7,8 @@ from copy import deepcopy
 
 import pytest
 from helpers.providers.faker import faker
-from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from invenio_db import db
 from jsonschema import ValidationError
 

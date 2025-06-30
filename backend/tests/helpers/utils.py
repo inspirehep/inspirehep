@@ -16,7 +16,8 @@ from helpers.factories.models.records import RecordMetadataFactory
 from helpers.factories.models.user_access_token import AccessTokenFactory, UserFactory
 from helpers.providers.faker import faker
 from inspirehep.files import current_s3_instance
-from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.utils import get_inspirehep_url
 from invenio_db import db
 from invenio_search import current_search

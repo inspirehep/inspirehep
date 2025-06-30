@@ -2,7 +2,7 @@ from datetime import datetime
 
 import mock
 from helpers.providers.faker import faker
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 
 
 def test_earliest_date_fallback_to_created_property_when_created_missing_returns_none():

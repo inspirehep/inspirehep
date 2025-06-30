@@ -18,7 +18,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from inspirehep.cds.errors import CDSSyncError, MissingCDSServerConfig
 from inspirehep.cds.models import CDSRun, CDSRunStatus
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.search.api import LiteratureSearch
 
 LOGGER = structlog.getLogger()
