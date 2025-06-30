@@ -399,6 +399,7 @@ def test_dump_for_es(inspire_app):
     dump = record.serialize_for_es()
 
     assert "_ui_display" in dump
+    assert "_expanded_display" in dump
     assert "_latex_us_display" in dump
     assert "_latex_eu_display" in dump
     assert "_bibtex_display" in dump

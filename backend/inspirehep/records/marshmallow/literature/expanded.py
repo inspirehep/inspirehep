@@ -1,7 +1,10 @@
+import orjson
 from inspire_dojson.utils import get_recid_from_ref
+from inspire_utils.record import get_value
 from marshmallow import fields
 
 from inspirehep.records.api import InspireRecord
+from inspirehep.records.marshmallow.base import EnvelopeSchema
 from inspirehep.records.marshmallow.literature.base import (
     LiteraturePublicSchema,
 )
@@ -62,7 +65,7 @@ def merge_affiliation_identifiers(author, resolved_institutions_by_id):
             author["affiliations_identifiers"] = ror_ids
 
 
-class LiteraturePublicSchemaCDS(LiteraturePublicSchema):
+class LiteratureExpandedPublicSchema(LiteraturePublicSchema):
     authors = fields.Method("get_authors")
 
     @staticmethod
@@ -86,3 +89,21 @@ class LiteraturePublicSchemaCDS(LiteraturePublicSchema):
             updated_authors.append(author)
 
         return updated_authors
+
+
+class LiteratureExpandedWrappedSchema(EnvelopeSchema):
+    """Special case for expanded authors display.
+
+    We index a stringified JSON and we have to transform it to JSON again.
+    """
+
+    metadata = fields.Method("get_expanded_display", dump_only=True)
+
+    def get_expanded_display(self, data):
+        try:
+            expanded_display = orjson.loads(
+                get_value(data, "metadata._expanded_display", "")
+            )
+            return expanded_display
+        except orjson.JSONDecodeError:
+            return {}

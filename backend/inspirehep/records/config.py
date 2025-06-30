@@ -123,8 +123,8 @@ LITERATURE.update(
             "application/vnd+inspire.record.raw+json": (
                 f"{INSPIRE_SERIALIZERS}:raw_json_detail_response"
             ),
-            "application/vnd+inspire.record.cds+json": (
-                f"{INSPIRE_SERIALIZERS}:literature_json_cds_response"
+            "application/vnd+inspire.record.expanded+json": (
+                f"{INSPIRE_SERIALIZERS}:literature_json_expanded_response"
             ),
             "application/x-bibtex": f"{INSPIRE_SERIALIZERS}:literature_bibtex_response",
             "application/vnd+inspire.latex.eu+x-latex": (
@@ -143,6 +143,9 @@ LITERATURE.update(
             ),
             "application/vnd+inspire.record.ui+json": (
                 f"{INSPIRE_SERIALIZERS}:literature_json_list_response"
+            ),
+            "application/vnd+inspire.record.expanded+json": (
+                f"{INSPIRE_SERIALIZERS}:literature_json_expanded_list_response"
             ),
             "application/x-bibtex": (
                 f"{INSPIRE_SERIALIZERS}:literature_bibtex_response_search"
@@ -176,6 +179,7 @@ LITERATURE.update(
             "latex-eu": "application/vnd+inspire.latex.eu+x-latex",
             "latex-us": "application/vnd+inspire.latex.us+x-latex",
             "json": "application/json",
+            "json-expanded": "application/vnd+inspire.record.expanded+json",
             "cv": "text/vnd+inspire.html+html",
         },
         "search_serializers_aliases": {
@@ -183,6 +187,7 @@ LITERATURE.update(
             "latex-eu": "application/vnd+inspire.latex.eu+x-latex",
             "latex-us": "application/vnd+inspire.latex.us+x-latex",
             "json": "application/json",
+            "json-expanded": "application/vnd+inspire.record.expanded+json",
             "cv": "text/vnd+inspire.html+html",
         },
     },
@@ -843,6 +848,13 @@ LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE = {
         "_updated",
         "_collections",
     ],
+    "application/vnd+inspire.record.expanded+json": [
+        "_expanded_display",
+        "control_number",
+        "_created",
+        "_updated",
+        "_collections",
+    ],
     "application/vnd+inspire.latex.us+x-latex": ["_latex_us_display"],
     "application/vnd+inspire.latex.eu+x-latex": ["_latex_eu_display"],
     "application/x-bibtex": ["_bibtex_display"],
@@ -851,6 +863,7 @@ LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE = {
 LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE = {
     "application/json": [
         "_ui_display",
+        "_expanded_display",
         "_latex_us_display",
         "_latex_eu_display",
         "_bibtex_display",

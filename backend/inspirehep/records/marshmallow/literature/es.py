@@ -29,6 +29,9 @@ from inspirehep.records.marshmallow.literature.common.author import (
 from inspirehep.records.marshmallow.literature.common.thesis_info import (
     ThesisInfoSchemaForESV1,
 )
+from inspirehep.records.marshmallow.literature.expanded import (
+    LiteratureExpandedPublicSchema,
+)
 from inspirehep.records.marshmallow.literature.ui import LiteratureDetailSchema
 from inspirehep.records.marshmallow.utils import (
     get_facet_author_name_lit_and_dat,
@@ -43,6 +46,7 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
 
     _oai = fields.Method("get_oai", dump_only=True)
     _ui_display = fields.Method("get_ui_display", dump_only=True)
+    _expanded_display = fields.Method("get_expanded_display", dump_only=True)
     _latex_us_display = fields.Method("get_latex_us_display", dump_only=True)
     _latex_eu_display = fields.Method("get_latex_eu_display", dump_only=True)
     _bibtex_display = fields.Method("get_bibtex_display", dump_only=True)
@@ -100,6 +104,11 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
 
     def get_ui_display(self, record):
         return orjson.dumps(LiteratureDetailSchema().dump(record).data).decode("utf-8")
+
+    def get_expanded_display(self, record):
+        return orjson.dumps(LiteratureExpandedPublicSchema().dump(record).data).decode(
+            "utf-8"
+        )
 
     def get_latex_us_display(self, record):
         from inspirehep.records.serializers.latex import latex_US

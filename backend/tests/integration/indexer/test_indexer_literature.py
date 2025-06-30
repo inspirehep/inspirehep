@@ -46,6 +46,7 @@ def test_index_literature_record(inspire_app, datadir):
     result.pop("_latex_us_display")
     result.pop("_latex_eu_display")
     result.pop("_bibtex_display")
+    result.pop("_expanded_display")
     result.pop("authors")
     result_facet_author_name = result.pop("facet_author_name")
     del result["_created"]
@@ -359,3 +360,12 @@ def test_indexer_does_not_have_oai_set(inspire_app):
     record.index(delay=False)
     result_record = LiteratureSearch.get_record_data_from_es(record)
     assert "_oai" not in result_record
+
+
+def test_indexer_adds_data_in_expanded_display_field(inspire_app):
+    record_data = faker.record("lit")
+    record = LiteratureRecord.create(record_data)
+    record.index(delay=False)
+    result_record = LiteratureSearch.get_record_data_from_es(record)
+    assert "_expanded_display" in result_record
+    assert "control_number" in result_record["_expanded_display"]

@@ -121,6 +121,11 @@
         "index": false,
         "doc_values": false
       },
+      "_expanded_display": {
+        "type": "keyword",
+        "index": false,
+        "doc_values": false
+      },
       "abstracts": {
         "properties": {
           "abstract_source_suggest": {
