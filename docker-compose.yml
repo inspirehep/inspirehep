@@ -70,28 +70,24 @@ x-airflow-common: &airflow-common
     context: workflows
     dockerfile: Dockerfile.local
   environment: &airflow-common-env
-    AIRFLOW__WEBSERVER__BASE_URL: ${AIRFLOW__WEBSERVER__BASE_URL}
+    AIRFLOW__API__BASE_URL: "http://airflow-api-server:8080"
+    AIRFLOW__CORE__EXECUTION_API_SERVER_URL: "http://airflow-api-server:8080/execution"
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:postgres@db/workflows
     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://postgres:postgres@db/workflows
-    AIRFLOW__CELERY__BROKER_URL: redis://:@cache:6379/3
+    AIRFLOW__CELERY__BROKER_URL: redis://cache:6379/3
+    AIRFLOW__API_AUTH__JWT_SECRET: DAgXd73oNoQdTMmhNUwefw==
     AIRFLOW__CORE__FERNET_KEY: ''
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'false'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
-    AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'
-    AIRFLOW__WEBSERVER__RELOAD_ON_PLUGIN_CHANGE: 'true' # used when modifying plugins
+    AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS: "admin:admin"
+    AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS: 'true'
+    AIRFLOW__FAB__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'
     # yamllint disable rule:line-length
     # Use simple http server on scheduler for health checks
     # See https://airflow.apache.org/docs/apache-airflow/stable/administration-and-deployment/logging-monitoring/check-health.html#scheduler-health-check-server
     # yamllint enable rule:line-length
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
-    AIRFLOW__SMTP__SMTP_HOST: ${AIRFLOW__SMTP__SMTP_HOST}
-    AIRFLOW__SMTP__SMTP_STARTTLS: False
-    AIRFLOW__SMTP__SMTP_USER: ''
-    AIRFLOW__SMTP__SMTP_PASSWORD: ''
-    AIRFLOW__SMTP__SMTP_SSL: False
-    AIRFLOW__SMTP__SMTP_PORT: '25'
-    AIRFLOW__SMTP__SMTP_MAIL_FROM: ${AIRFLOW__SMTP__SMTP_MAIL_FROM}
     # WARNING: Use _PIP_ADDITIONAL_REQUIREMENTS option ONLY for a quick checks
     # for other purpose (development, test and especially production usage) build/extend Airflow image.
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
@@ -247,9 +243,9 @@ services:
     ports:
       - '4572:4572'
       - '4566:4566'
-  airflow-webserver:
+  airflow-api-server:
     <<: *airflow-common
-    command: webserver
+    command: api-server
     ports:
       - '8070:8080'
     healthcheck:
@@ -259,6 +255,14 @@ services:
       retries: 5
       start_period: 30s
     restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-dag-processor:
+    <<: *airflow-common
+    command: dag-processor
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:

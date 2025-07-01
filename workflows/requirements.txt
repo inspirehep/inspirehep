@@ -1,6 +1,5 @@
-
--c https://raw.githubusercontent.com/apache/airflow/constraints-2.11.0/constraints-3.11.txt
-apache-airflow==2.11.0
+-c https://raw.githubusercontent.com/apache/airflow/constraints-3.0.3/constraints-3.11.txt
+apache-airflow==3.0.3
 inspire-utils~=3.0.63
 idutils
 Sickle==0.7.0
