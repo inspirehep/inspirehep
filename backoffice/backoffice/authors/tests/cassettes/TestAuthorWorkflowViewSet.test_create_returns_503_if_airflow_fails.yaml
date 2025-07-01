@@ -14,7 +14,7 @@ interactions:
       Content-Type:
       - application/json
     method: POST
-    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns
+    uri: http://airflow-api-server:8080/api/v2/dags/author_create_initialization_dag/dagRuns
   response:
     body:
       string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
@@ -56,7 +56,7 @@ interactions:
       Content-Length:
       - '0'
     method: DELETE
-    uri: http://airflow-webserver:8080/api/v1/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000000
+    uri: http://airflow-api-server:8080/api/v2/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000000
   response:
     body:
       string: ''
