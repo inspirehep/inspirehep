@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
@@ -13,7 +13,6 @@ import { fetchCitationSummary } from '../../../actions/citations';
 import ExcludeSelfCitationsContainer, {
   UI_EXCLUDE_SELF_CITATIONS_PARAM,
 } from '../ExcludeSelfCitationsContainer';
-import ExcludeSelfCitations from '../../components/ExcludeSelfCitations';
 import { EXCLUDE_SELF_CITATIONS_PREFERENCE } from '../../../reducers/user';
 import { appendQueryToLocationSearch } from '../../../actions/router';
 import { setPreference } from '../../../actions/user';
@@ -32,17 +31,50 @@ mockActionCreator(appendQueryToLocationSearch);
 jest.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
 
+jest.mock('../../components/ExcludeSelfCitations', () => (props) => (
+  <div
+    data-testid="exclude-self-citations"
+    data-props={JSON.stringify({
+      excluded: props.excluded,
+      preference: props.preference,
+    })}
+  >
+    <button
+      type="button"
+      data-testid="on-change-button"
+      onClick={() => props.onChange(true)}
+    >
+      Change True
+    </button>
+    <button
+      type="button"
+      data-testid="on-change-false-button"
+      onClick={() => props.onChange(false)}
+    >
+      Change False
+    </button>
+    <button
+      type="button"
+      data-testid="on-preference-change-button"
+      onClick={() => props.onPreferenceChange(true)}
+    >
+      Preference Change
+    </button>
+  </div>
+));
+
 describe('ExcludeSelfCitationsContainer', () => {
   it('dispatches setPreference and fetchCitationSummary when excluded', () => {
     const namespace = LITERATURE_NS;
     const store = getStore();
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <ExcludeSelfCitationsContainer namespace={namespace} />
       </Provider>
     );
-    const onChange = wrapper.find(ExcludeSelfCitations).prop('onChange');
-    onChange(true);
+
+    const changeButton = getByTestId('on-change-button');
+    changeButton.click();
 
     const expectedActions = [
       setPreference(EXCLUDE_SELF_CITATIONS_PREFERENCE, true),
@@ -58,13 +90,14 @@ describe('ExcludeSelfCitationsContainer', () => {
   it('also removes excluded self citations param when when not exluced', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore();
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <ExcludeSelfCitationsContainer namespace={namespace} />
       </Provider>
     );
-    const onChange = wrapper.find(ExcludeSelfCitations).prop('onChange');
-    onChange(false);
+
+    const changeFalseButton = getByTestId('on-change-false-button');
+    changeFalseButton.click();
 
     expect(store.getActions()).toContainEqual(
       appendQueryToLocationSearch({
@@ -84,14 +117,16 @@ describe('ExcludeSelfCitationsContainer', () => {
       },
     });
 
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <ExcludeSelfCitationsContainer namespace={namespace} />
       </Provider>
     );
-    expect(wrapper.find(ExcludeSelfCitations)).toHaveProp({
-      excluded: true,
-    });
+
+    const component = getByTestId('exclude-self-citations');
+    const props = JSON.parse(component.getAttribute('data-props'));
+
+    expect(props.excluded).toBe(true);
   });
 
   it('sets excluded false if exclude self citations param is missing', () => {
@@ -103,14 +138,16 @@ describe('ExcludeSelfCitationsContainer', () => {
       },
     });
 
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <ExcludeSelfCitationsContainer namespace={namespace} />
       </Provider>
     );
-    expect(wrapper.find(ExcludeSelfCitations)).toHaveProp({
-      excluded: false,
-    });
+
+    const component = getByTestId('exclude-self-citations');
+    const props = JSON.parse(component.getAttribute('data-props'));
+
+    expect(props.excluded).toBe(false);
   });
 
   it('sets preference from state', () => {
@@ -121,28 +158,29 @@ describe('ExcludeSelfCitationsContainer', () => {
       }),
     });
 
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <ExcludeSelfCitationsContainer namespace={namespace} />
       </Provider>
     );
-    expect(wrapper.find(ExcludeSelfCitations)).toHaveProp({
-      preference: true,
-    });
+
+    const component = getByTestId('exclude-self-citations');
+    const props = JSON.parse(component.getAttribute('data-props'));
+
+    expect(props.preference).toBe(true);
   });
 
   it('dispatches appendQueryToLocationSearch onPreferenceChange if the citation summary is enabled', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore();
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <ExcludeSelfCitationsContainer namespace={namespace} />
       </Provider>
     );
-    const onPreferenceChange = wrapper
-      .find(ExcludeSelfCitations)
-      .prop('onPreferenceChange');
-    onPreferenceChange(true);
+
+    const preferenceChangeButton = getByTestId('on-preference-change-button');
+    preferenceChangeButton.click();
 
     const expectedActions = [
       appendQueryToLocationSearch({ [UI_EXCLUDE_SELF_CITATIONS_PARAM]: true }),

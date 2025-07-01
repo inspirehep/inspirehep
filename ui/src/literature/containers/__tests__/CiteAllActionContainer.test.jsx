@@ -1,12 +1,23 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
 import { getStoreWithState } from '../../../fixtures/store';
 import CiteAllActionContainer from '../CiteAllActionContainer';
-import CiteAllAction from '../../components/CiteAllAction';
 import { LITERATURE_NS } from '../../../search/constants';
+
+jest.mock('../../components/CiteAllAction', () => (props) => (
+  <div
+    data-testid="cite-all-action"
+    data-props={JSON.stringify({
+      query: props.query,
+      numberOfResults: props.numberOfResults,
+    })}
+  >
+    CiteAllAction Mock
+  </div>
+));
 
 describe('CiteAllActionContainer', () => {
   it('passes literature namespace query and number of results', () => {
@@ -21,14 +32,16 @@ describe('CiteAllActionContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <CiteAllActionContainer namespace={namespace} />
       </Provider>
     );
-    expect(wrapper.find(CiteAllAction)).toHaveProp({
-      query: { sort: 'mostcited', q: 'query' },
-    });
-    expect(wrapper.find(CiteAllAction)).toHaveProp({ numberOfResults: 11 });
+
+    const component = getByTestId('cite-all-action');
+    const props = JSON.parse(component.getAttribute('data-props'));
+
+    expect(props.query).toEqual({ sort: 'mostcited', q: 'query' });
+    expect(props.numberOfResults).toBe(11);
   });
 });
