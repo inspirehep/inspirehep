@@ -142,7 +142,7 @@ def arxiv_harvest_dag():
 
         return records["failed_records"]
 
-    @task(task_id="summarize_failures")
+    @task(task_id="check_failures")
     def check_failures(failed_records):
         """Check if there are any failed records and raise an exception if there are.
 
