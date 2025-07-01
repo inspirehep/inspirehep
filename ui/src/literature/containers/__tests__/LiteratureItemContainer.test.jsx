@@ -1,13 +1,18 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS, List } from 'immutable';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
 import { getStoreWithState } from '../../../fixtures/store';
 import LiteratureItemContainer from '../LiteratureItemContainer';
-import LiteratureItem from '../../components/LiteratureItem';
 import { CITE_FORMAT_PREFERENCE } from '../../../reducers/user';
+
+jest.mock('../../components/LiteratureItem', () => (props) => (
+  <div data-testid="literature-item" data-props={JSON.stringify(props)}>
+    LiteratureItem Mock
+  </div>
+));
 
 describe('LiteratureItemContainer', () => {
   it('renders with props', () => {
@@ -49,7 +54,7 @@ describe('LiteratureItemContainer', () => {
       }),
     });
 
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <MemoryRouter>
           <LiteratureItemContainer
@@ -61,10 +66,13 @@ describe('LiteratureItemContainer', () => {
       </Provider>
     );
 
-    expect(wrapper.find(LiteratureItem)).toHaveProp({
+    const literatureItem = getByTestId('literature-item');
+    const props = JSON.parse(literatureItem.getAttribute('data-props'));
+
+    expect(props).toEqual({
       loggedIn: true,
       hasAuthorProfile: true,
-      metadata,
+      metadata: metadata.toJS(),
       isCatalogerLoggedIn: true,
       searchRank: 1,
     });

@@ -1,15 +1,32 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 
 import { getStoreWithState, getStore } from '../../../fixtures/store';
 import CiteModalActionContainer from '../CiteModalActionContainer';
-import CiteModalAction from '../../components/CiteModalAction';
 import { setPreference } from '../../../actions/user';
 import { CITE_FORMAT_PREFERENCE } from '../../../reducers/user';
 
 jest.mock('../../../actions/user');
+
+jest.mock('../../components/CiteModalAction', () => (props) => (
+  <div
+    data-testid="cite-modal-action"
+    data-props={JSON.stringify({
+      initialCiteFormat: props.initialCiteFormat,
+      recordId: props.recordId,
+    })}
+  >
+    <button
+      type="button"
+      data-testid="cite-format-change-button"
+      onClick={() => props.onCiteFormatChange('application/x-bibtex')}
+    >
+      Change Cite Format
+    </button>
+  </div>
+));
 
 describe('CiteModalActionContainer', () => {
   beforeAll(() => {
@@ -28,12 +45,16 @@ describe('CiteModalActionContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <CiteModalActionContainer recordId={12345} />
       </Provider>
     );
-    expect(wrapper.find(CiteModalAction)).toHaveProp({
+
+    const component = getByTestId('cite-modal-action');
+    const props = JSON.parse(component.getAttribute('data-props'));
+
+    expect(props).toEqual({
       initialCiteFormat: 'application/x-bibtex',
       recordId: 12345,
     });
@@ -41,16 +62,16 @@ describe('CiteModalActionContainer', () => {
 
   it('calls setPreferredCiteFormat on CiteModalAction cite format change', () => {
     const store = getStore();
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <CiteModalActionContainer recordId={12345} />
       </Provider>
     );
+
+    const changeButton = getByTestId('cite-format-change-button');
+    changeButton.click();
+
     const format = 'application/x-bibtex';
-    const onCiteFormatChange = wrapper
-      .find(CiteModalAction)
-      .prop('onCiteFormatChange');
-    onCiteFormatChange(format);
     expect(setPreference).toHaveBeenCalledWith(CITE_FORMAT_PREFERENCE, format);
   });
 });

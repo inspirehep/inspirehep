@@ -1,17 +1,29 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS, Set } from 'immutable';
 import { Provider } from 'react-redux';
 
 import { getStore } from '../../../fixtures/store';
 import AssignLiteratureItemDrawerContainer from '../AssignLiteratureItemDrawerContainer';
-import AssignLiteratureItemDrawer from '../../components/AssignLiteratureItemDrawer';
 
 jest.mock('react-router-dom', () => ({
   useParams: jest.fn().mockImplementation(() => ({
     id: 123,
   })),
 }));
+
+jest.mock('../../components/AssignLiteratureItemDrawer', () => (props) => (
+  <div
+    data-testid="assign-literature-item-drawer"
+    data-props={JSON.stringify({
+      authors: props.authors ? props.authors.toJS() : props.authors,
+      literatureId: props.literatureId,
+      currentUserRecordId: props.currentUserRecordId,
+    })}
+  >
+    AssignLiteratureItemDrawer Mock
+  </div>
+));
 
 describe('AssignLiteratureItemDrawerContainer', () => {
   it('passes state to props', () => {
@@ -27,16 +39,17 @@ describe('AssignLiteratureItemDrawerContainer', () => {
       }),
     });
 
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <AssignLiteratureItemDrawerContainer itemLiteratureId={123459} />
       </Provider>
     );
 
-    expect(wrapper.find(AssignLiteratureItemDrawer)).toHaveProp({
-      authors: Set([{ full_name: 'Test, Author' }]),
-      literatureId: 123456,
-      currentUserRecordId: 123457,
-    });
+    const component = getByTestId('assign-literature-item-drawer');
+    const props = JSON.parse(component.getAttribute('data-props'));
+
+    expect(props.authors).toEqual([{ full_name: 'Test, Author' }]);
+    expect(props.literatureId).toBe(123456);
+    expect(props.currentUserRecordId).toBe(123457);
   });
 });
