@@ -1,4 +1,6 @@
-apache-airflow==2.9.3
+
+-c https://raw.githubusercontent.com/apache/airflow/constraints-2.11.0/constraints-3.11.txt
+apache-airflow==2.11.0
 inspire-utils~=3.0.63
 idutils
 Sickle==0.7.0
