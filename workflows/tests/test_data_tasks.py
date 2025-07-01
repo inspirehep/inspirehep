@@ -31,15 +31,19 @@ class TestDataHarvest:
                 "last_updated_to": "2025-01-30",
             }
         }
-
-        res = task.execute_callable()
-
+        res = task.execute(context={"ds": ""})
         assert res == [2872501, 2872775]
 
     @pytest.mark.vcr
     def test_collect_ids_logical_date(self):
         task = self.dag.get_task("collect_ids")
-        task.op_kwargs = {"params": {"last_updated_from": "", "last_updated_to": ""}}
+
+        task.op_kwargs = {
+            "params": {
+                "last_updated_from": "",
+                "last_updated_to": "",
+            }
+        }
         res = task.execute(context=Context({"ds": "2024-12-16"}))
         assert res == [2693068, 2807749, 2809112]
 
@@ -61,11 +65,7 @@ class TestDataHarvest:
         }
 
         task = self.dag.get_task("process_record.build_record")
-        task.op_kwargs = {
-            "data_schema": "data_schema",
-            "inspire_url": "https://inspirehep.net",
-            "payload": payload,
-        }
+        task.op_args = ("data_schema", "https://inspirehep.net", payload)
         res = task.execute(context=Context())
         assert res["$schema"] == "data_schema"
         assert res["_collections"] == ["Data"]
@@ -120,11 +120,7 @@ class TestDataHarvest:
             "base": orjson.loads((datadir / "ins1906174_version3.json").read_text())
         }
         task = self.dag.get_task("process_record.build_record")
-        task.op_kwargs = {
-            "data_schema": "data_schema",
-            "inspire_url": "https://inspirehep.net",
-            "payload": payload,
-        }
+        task.op_args = ("data_schema", "https://inspirehep.net", payload)
         res = task.execute(context=Context())
         assert res["creation_date"] == "2023-11-13"  # from last_updated_field
 
@@ -133,11 +129,7 @@ class TestDataHarvest:
             "base": orjson.loads((datadir / "ins1906174_version4.json").read_text())
         }
         task = self.dag.get_task("process_record.build_record")
-        task.op_kwargs = {
-            "data_schema": "data_schema",
-            "inspire_url": "https://inspirehep.net",
-            "payload": payload,
-        }
+        task.op_args = ("data_schema", "https://inspirehep.net", payload)
         res = task.execute(context=Context())
         assert (
             res["creation_date"] == payload["base"]["record"]["creation_date"]
