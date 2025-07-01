@@ -1,4 +1,4 @@
-FROM registry.cern.ch/cern-sis/base-images/apache/airflow:2.9.3-python3.11
+FROM registry.cern.ch/cern-sis/base-images/apache/airflow:2.11.0-python3.11
 
 WORKDIR /opt/airflow
 
