@@ -1,20 +1,25 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import { shallow, mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+
 import { getStore } from '../../fixtures/store';
 import Holdingpen from '..';
-import DashboardPageContainer from '../containers/DashboardPageContainer';
-import InspectPageContainer from '../containers/InspectPageContainer';
 
 describe('Holdingpen', () => {
   it('renders initial state', () => {
-    const component = shallow(<Holdingpen />);
-    expect(component).toMatchSnapshot();
+    render(
+      <Provider store={getStore()}>
+        <MemoryRouter initialEntries={['/holdingpen']} initialIndex={0}>
+          <Holdingpen />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(screen.getByTestId('holdingpen')).toBeInTheDocument();
   });
 
   it('navigates to DashboardPageContainer when /holdingpen/dashboard', () => {
-    const wrapper = mount(
+    render(
       <Provider store={getStore()}>
         <MemoryRouter
           initialEntries={['/holdingpen/dashboard']}
@@ -24,12 +29,12 @@ describe('Holdingpen', () => {
         </MemoryRouter>
       </Provider>
     );
-
-    expect(wrapper.find(DashboardPageContainer)).toExist();
+    // DashboardPageContainer renders "DashboardPage" text
+    expect(screen.getByText('DashboardPage')).toBeInTheDocument();
   });
 
   it('navigates to InspectPageContainer when /holdingpen/inspect/:id', () => {
-    const wrapper = mount(
+    render(
       <Provider store={getStore()}>
         <MemoryRouter
           initialEntries={['/holdingpen/inspect/1']}
@@ -39,6 +44,7 @@ describe('Holdingpen', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(InspectPageContainer)).toExist();
+    // InspectPageContainer renders a div with class __InspectPage__
+    expect(document.querySelector('.__InspectPage__')).toBeInTheDocument();
   });
 });

@@ -1,26 +1,46 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 
-import {
-  getStoreWithState,
-  getStore,
-  mockActionCreator,
-} from '../../../fixtures/store';
+import { getStore, mockActionCreator } from '../../../fixtures/store';
 import { CONFERENCES_NS } from '../../../search/constants';
 import ConferenceStartDateFilterContainer from '../ConferenceStartDateFilterContainer';
 import { START_DATE_ALL, START_DATE_UPCOMING } from '../../../common/constants';
-import EventStartDateFilter from '../../../common/components/EventStartDateFilter';
 
 import { searchQueryUpdate } from '../../../actions/search';
+
+global.AnimationEvent =
+  global.AnimationEvent ||
+  class AnimationEvent extends Event {
+    // Empty constructor for test mocking
+  };
+
+jest.mock('../../../common/components/EventStartDateFilter', () => (props) => {
+  global.eventStartDateFilterOnChange = props.onChange;
+  return (
+    <div data-testid="event-start-date-filter">
+      <div role="switch" aria-checked={props.selection === 'upcoming'} />
+    </div>
+  );
+});
+
+jest.mock('../../../common/components/DateRangeFilter', () => (props) => {
+  global.dateRangeFilterOnChange = props.onChange;
+  return <div data-testid="mock-date-range-filter" />;
+});
 
 jest.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
 
 describe('ConferenceStartDateFilterContainer', () => {
+  beforeEach(() => {
+    global.eventStartDateFilterOnChange = undefined;
+    global.dateRangeFilterOnChange = undefined;
+  });
+
   it('passes conference search query start_date', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       search: fromJS({
         namespaces: {
           [CONFERENCES_NS]: {
@@ -31,26 +51,27 @@ describe('ConferenceStartDateFilterContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
+    const { getByRole } = render(
       <Provider store={store}>
         <ConferenceStartDateFilterContainer switchTitle="title" />
       </Provider>
     );
-
-    expect(wrapper.find(EventStartDateFilter)).toHaveProp({
-      selection: START_DATE_ALL,
-    });
+    const switchEl = getByRole('switch');
+    expect(switchEl).toHaveAttribute('aria-checked', 'false');
   });
 
   it('dispatches SEARCH_QUERY_UPDATE onChange with start_date and sort=datedesc if all', () => {
     const store = getStore();
-    const wrapper = mount(
+    render(
       <Provider store={store}>
         <ConferenceStartDateFilterContainer switchTitle="title" />
       </Provider>
     );
-    const onChange = wrapper.find(EventStartDateFilter).prop('onChange');
-    onChange(START_DATE_ALL);
+
+    if (typeof global.eventStartDateFilterOnChange === 'function') {
+      global.eventStartDateFilterOnChange(START_DATE_ALL);
+    }
+
     const expectedActions = [
       searchQueryUpdate(CONFERENCES_NS, {
         start_date: START_DATE_ALL,
@@ -63,13 +84,16 @@ describe('ConferenceStartDateFilterContainer', () => {
 
   it('dispatches SEARCH_QUERY_UPDATE onChange with start_date and sort=dateasc if upcoming', () => {
     const store = getStore();
-    const wrapper = mount(
+    render(
       <Provider store={store}>
         <ConferenceStartDateFilterContainer switchTitle="title" />
       </Provider>
     );
-    const onChange = wrapper.find(EventStartDateFilter).prop('onChange');
-    onChange(START_DATE_UPCOMING);
+
+    if (typeof global.eventStartDateFilterOnChange === 'function') {
+      global.eventStartDateFilterOnChange(START_DATE_UPCOMING);
+    }
+
     const expectedActions = [
       searchQueryUpdate(CONFERENCES_NS, {
         start_date: START_DATE_UPCOMING,
@@ -82,13 +106,15 @@ describe('ConferenceStartDateFilterContainer', () => {
 
   it('dispatches SEARCH_QUERY_UPDATE onChange with start_date without if specific date', () => {
     const store = getStore();
-    const wrapper = mount(
+    render(
       <Provider store={store}>
         <ConferenceStartDateFilterContainer switchTitle="title" />
       </Provider>
     );
-    const onChange = wrapper.find(EventStartDateFilter).prop('onChange');
-    onChange('2020-02-13--');
+
+    if (typeof global.eventStartDateFilterOnChange === 'function') {
+      global.eventStartDateFilterOnChange('2020-02-13--');
+    }
     const expectedActions = [
       searchQueryUpdate(CONFERENCES_NS, {
         start_date: '2020-02-13--',

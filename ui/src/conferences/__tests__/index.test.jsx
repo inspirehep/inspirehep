@@ -1,45 +1,60 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import { shallow, mount } from 'enzyme';
+import { render, screen, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import Loadable from 'react-loadable';
 
 import { getStore } from '../../fixtures/store';
 import Conferences from '..';
-import DetailPageContainer from '../containers/DetailPageContainer';
-import SearchPageContainer from '../containers/SearchPageContainer';
+
+jest.mock('../containers/DetailPageContainer', () => () => (
+  <div data-testid="detail-page-container">Detail Page</div>
+));
+
+jest.mock('../containers/SearchPageContainer', () => () => (
+  <div data-testid="search-page-container">Search Page</div>
+));
+
+const renderWithProviders = (ui, { route = '/', ...renderOptions } = {}) => {
+  const store = getStore();
+
+  function Wrapper({ children }) {
+    return (
+      <Provider store={store}>
+        <MemoryRouter initialEntries={[route]} initialIndex={0}>
+          {children}
+        </MemoryRouter>
+      </Provider>
+    );
+  }
+
+  return render(ui, { wrapper: Wrapper, ...renderOptions });
+};
 
 describe('Conferences', () => {
+  beforeEach(async () => {
+    await Loadable.preloadAll();
+  });
+
   it('renders initial state', () => {
-    const component = shallow(<Conferences />);
-    expect(component).toMatchSnapshot();
+    renderWithProviders(<Conferences />);
+    expect(screen.getByTestId('conferences')).toBeInTheDocument();
   });
 
   it('navigates to DetailPageContainer when /conferences/:id', async () => {
-    const wrapper = mount(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/conferences/123']} initialIndex={0}>
-          <Conferences />
-        </MemoryRouter>
-      </Provider>
-    );
-    await Loadable.preloadAll();
-    wrapper.update();
+    renderWithProviders(<Conferences />, { route: '/conferences/123' });
 
-    expect(wrapper.find(DetailPageContainer)).toExist();
+    await waitFor(() => {
+      expect(screen.getByTestId('detail-page-container')).toBeInTheDocument();
+    });
   });
 
-  it('navigates to SerachPage when /conferences', async () => {
-    const wrapper = mount(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/conferences']} initialIndex={0}>
-          <Conferences />
-        </MemoryRouter>
-      </Provider>
-    );
-    await Loadable.preloadAll();
-    wrapper.update();
+  it('navigates to SearchPage when /conferences', async () => {
+    renderWithProviders(<Conferences />, { route: '/conferences' });
 
-    expect(wrapper.find(SearchPageContainer)).toExist();
+    await waitFor(() => {
+      expect(screen.getByTestId('search-page-container')).toBeInTheDocument();
+    });
   });
 });
