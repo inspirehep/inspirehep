@@ -1,11 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 
-import { getStoreWithState } from '../../../fixtures/store';
+import { getStore } from '../../../fixtures/store';
 import CurateReferenceDrawerContainer from '../CurateReferenceDrawerContainer';
-import CurateReferenceDrawer from '../../components/CurateReferenceDrawer/CurateReferenceDrawer';
 import { CURATE_REFERENCE_NS } from '../../../search/constants';
 
 jest.mock('react-router-dom', () => ({
@@ -14,11 +13,26 @@ jest.mock('react-router-dom', () => ({
   })),
 }));
 
+jest.mock(
+  '../../components/CurateReferenceDrawer/CurateReferenceDrawer',
+  () => {
+    return function MockCurateReferenceDrawer(props: any) {
+      return (
+        <div data-testid="curate-reference-drawer">
+          <div data-testid="reference-id">{props.referenceId}</div>
+          <div data-testid="visible">{props.visible ? 'true' : 'false'}</div>
+          <div data-testid="loading">{props.loading ? 'true' : 'false'}</div>
+        </div>
+      );
+    };
+  }
+);
+
 describe('CurateReferenceDrawerContainer', () => {
   it('passes state to props', () => {
     const namespace = CURATE_REFERENCE_NS;
 
-    const store = getStoreWithState({
+    const store = getStore({
       literature: fromJS({
         referenceDrawer: 123456,
       }),
@@ -31,7 +45,7 @@ describe('CurateReferenceDrawerContainer', () => {
       }),
     });
 
-    const wrapper = mount(
+    render(
       <Provider store={store}>
         <CurateReferenceDrawerContainer
           namespace={CURATE_REFERENCE_NS}
@@ -42,10 +56,8 @@ describe('CurateReferenceDrawerContainer', () => {
       </Provider>
     );
 
-    expect(wrapper.find(CurateReferenceDrawer)).toHaveProp({
-      referenceId: 123456,
-      visible: true,
-      loading: false,
-    });
+    expect(screen.getByTestId('reference-id')).toHaveTextContent('123456');
+    expect(screen.getByTestId('visible')).toHaveTextContent('true');
+    expect(screen.getByTestId('loading')).toHaveTextContent('false');
   });
 });
