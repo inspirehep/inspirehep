@@ -4,13 +4,13 @@ import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import userEvent from '@testing-library/user-event';
 
-import { getStoreWithState, getStore } from '../../../../fixtures/store';
+import { getStore } from '../../../../fixtures/store';
 import DataImporterContainer from '../DataImporterContainer';
 import { INITIAL_FORM_DATA_REQUEST } from '../../../../actions/actionTypes';
 
 describe('DataImporterContainer', () => {
   it('passes props from state', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       submissions: fromJS({
         loadingInitialData: true,
         initialDataError: { message: 'Import Error' },

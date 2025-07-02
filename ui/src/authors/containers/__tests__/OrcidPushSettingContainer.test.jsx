@@ -3,7 +3,7 @@ import { render, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
-import { getStoreWithState } from '../../../fixtures/store';
+import { getStore } from '../../../fixtures/store';
 import OrcidPushSettingContainer from '../OrcidPushSettingContainer';
 import { USER_SET_ORCID_PUSH_SETTING_REQUEST } from '../../../actions/actionTypes';
 import OrcidPushSetting from '../../components/OrcidPushSetting';
@@ -21,7 +21,7 @@ describe('OrcidPushSettingContainer', () => {
     jest.clearAllMocks();
   });
   it('passes state to props', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         data: {
           allow_orcid_push: true,
@@ -54,7 +54,7 @@ describe('OrcidPushSettingContainer', () => {
   });
 
   it('dispatches USER_SET_ORCID_PUSH_SETTING_REQUEST on change', async () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         data: {
           allow_orcid_push: true,

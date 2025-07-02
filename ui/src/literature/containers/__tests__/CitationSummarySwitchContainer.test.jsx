@@ -3,11 +3,7 @@ import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
-import {
-  getStore,
-  getStoreWithState,
-  mockActionCreator,
-} from '../../../fixtures/store';
+import { getStore, mockActionCreator } from '../../../fixtures/store';
 import CitationSummarySwitchContainer, {
   UI_CITATION_SUMMARY_PARAM,
 } from '../CitationSummarySwitchContainer';
@@ -100,7 +96,7 @@ describe('CitationSummarySwitchContainer', () => {
 
   it('sets checked if citation summary param is set', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
-    const store = getStoreWithState({
+    const store = getStore({
       router: {
         location: {
           search: `?${UI_CITATION_SUMMARY_PARAM}=true`,
@@ -123,7 +119,7 @@ describe('CitationSummarySwitchContainer', () => {
 
   it('sets unchecked if hash is not set', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
-    const store = getStoreWithState({
+    const store = getStore({
       location: {
         search: '?another-thing=5',
         query: { 'another-thing': 5 },
@@ -144,7 +140,7 @@ describe('CitationSummarySwitchContainer', () => {
 
   it('sets citationSummaryEnablingPreference from state', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         preferences: { [CITATION_SUMMARY_ENABLING_PREFERENCE]: true },
       }),

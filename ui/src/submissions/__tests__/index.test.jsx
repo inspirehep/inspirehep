@@ -5,7 +5,7 @@ import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 import Loadable from 'react-loadable';
 
-import { getStore, getStoreWithState } from '../../fixtures/store';
+import { getStore } from '../../fixtures/store';
 import Submissions from '..';
 
 describe('Submissions', () => {
@@ -19,7 +19,7 @@ describe('Submissions', () => {
     document.body.appendChild(element);
   });
 
-  const store = getStoreWithState({
+  const store = getStore({
     user: fromJS({
       loggedIn: true,
       data: {

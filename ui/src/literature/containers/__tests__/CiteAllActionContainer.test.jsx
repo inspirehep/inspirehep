@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
-import { getStoreWithState } from '../../../fixtures/store';
+import { getStore } from '../../../fixtures/store';
 import CiteAllActionContainer from '../CiteAllActionContainer';
 import { LITERATURE_NS } from '../../../search/constants';
 
@@ -22,7 +22,7 @@ jest.mock('../../components/CiteAllAction', () => (props) => (
 describe('CiteAllActionContainer', () => {
   it('passes literature namespace query and number of results', () => {
     const namespace = LITERATURE_NS;
-    const store = getStoreWithState({
+    const store = getStore({
       search: fromJS({
         namespaces: {
           [namespace]: {

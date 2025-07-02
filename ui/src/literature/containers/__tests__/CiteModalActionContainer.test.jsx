@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 
-import { getStoreWithState, getStore } from '../../../fixtures/store';
+import { getStore } from '../../../fixtures/store';
 import CiteModalActionContainer from '../CiteModalActionContainer';
 import { setPreference } from '../../../actions/user';
 import { CITE_FORMAT_PREFERENCE } from '../../../reducers/user';
@@ -38,7 +38,7 @@ describe('CiteModalActionContainer', () => {
   });
 
   it('passes user preferred cite format as initialCiteFormat', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         preferences: {
           [CITE_FORMAT_PREFERENCE]: 'application/x-bibtex',
