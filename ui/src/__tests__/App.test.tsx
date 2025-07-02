@@ -5,11 +5,7 @@ import { render, within } from '@testing-library/react';
 import { fromJS, List } from 'immutable';
 import Loadable from 'react-loadable';
 
-import {
-  getStore,
-  getStoreWithState,
-  mockActionCreator,
-} from '../fixtures/store';
+import { getStore, mockActionCreator } from '../fixtures/store';
 import App from '../App';
 import { setUserCategoryFromRoles } from '../tracker';
 import { userSignUp, fetchLoggedInUser } from '../actions/user';
@@ -26,7 +22,7 @@ describe('App', () => {
   });
 
   it('calls to set user category with roles on render', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         loggedIn: true,
         data: {
@@ -65,7 +61,7 @@ describe('App', () => {
   });
 
   it('navigates to Holdingpen when /holdingpen if logged in', async () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         loggedIn: true,
         data: {
@@ -89,7 +85,7 @@ describe('App', () => {
   });
 
   it('does not navigate to Holdingpen when /holdingpen if not logged in', async () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         loggedIn: false,
         data: {
@@ -112,7 +108,7 @@ describe('App', () => {
   });
 
   it('navigates to Backoffice when /backoffice if superuser logged in', async () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         loggedIn: true,
         data: {
@@ -136,7 +132,7 @@ describe('App', () => {
   });
 
   it('does not navigate to backoffice when /backoffice if not logged in', async () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         loggedIn: false,
         data: {
@@ -215,7 +211,7 @@ describe('App', () => {
   });
 
   it('navigates to Submissions when /submissions if logged in', async () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         loggedIn: true,
         data: {
@@ -238,7 +234,7 @@ describe('App', () => {
   });
 
   it('does not navigate to Submissions when /submissions if not logged in', async () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         loggedIn: false,
         data: {

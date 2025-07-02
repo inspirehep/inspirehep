@@ -5,7 +5,7 @@ import { render, waitFor } from '@testing-library/react';
 import Loadable from 'react-loadable';
 import { fromJS } from 'immutable';
 
-import { getStore, getStoreWithState } from '../../fixtures/store';
+import { getStore } from '../../fixtures/store';
 import Literature from '..';
 
 describe('Literature', () => {
@@ -38,7 +38,7 @@ describe('Literature', () => {
   });
 
   it('navigates to ReferenceDiffInterfaceContainer when /literature/:id/diff/:old..:new', async () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         loggedIn: true,
         data: {
@@ -59,7 +59,7 @@ describe('Literature', () => {
   });
 
   it('does not navigate to ReferenceDiffInterfaceContainer when user is not authorised', async () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         loggedIn: true,
         data: {

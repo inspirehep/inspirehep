@@ -5,10 +5,10 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
 import SettingsPage from '../SettingsPage';
-import { getStoreWithState } from '../../../fixtures/store';
+import { getStore } from '../../../fixtures/store';
 
 describe('SettingsPage', () => {
-  const store = getStoreWithState({
+  const store = getStore({
     user: fromJS({
       loggedIn: true,
       data: {

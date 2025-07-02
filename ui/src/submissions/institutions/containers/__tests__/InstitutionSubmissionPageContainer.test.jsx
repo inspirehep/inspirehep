@@ -7,11 +7,11 @@ import { fromJS } from 'immutable';
 import InstitutionSubmissionPageContainer, {
   InstitutionSubmissionPage,
 } from '../InstitutionSubmissionPageContainer';
-import { getStoreWithState, getStore } from '../../../../fixtures/store';
+import { getStore } from '../../../../fixtures/store';
 
 describe('InstitutionSubmissionPageContainer', () => {
   it('passes props to InstitutionSubmissionPage', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       submissions: fromJS({
         submitError: null,
       }),

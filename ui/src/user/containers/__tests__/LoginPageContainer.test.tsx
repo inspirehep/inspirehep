@@ -2,12 +2,12 @@ import React from 'react';
 import { render, within } from '@testing-library/react';
 import { Provider } from 'react-redux';
 
-import { getStoreWithState } from '../../../fixtures/store';
+import { getStore } from '../../../fixtures/store';
 import LoginPageContainer from '../LoginPageContainer';
 
 describe('LoginPageContainer', () => {
   it('passes props from state', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       router: {
         location: {
           previousUrl: '/jobs?q=cern',

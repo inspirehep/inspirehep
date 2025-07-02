@@ -4,7 +4,7 @@ import { fromJS, List } from 'immutable';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
-import { getStoreWithState } from '../../../fixtures/store';
+import { getStore } from '../../../fixtures/store';
 import LiteratureItemContainer from '../LiteratureItemContainer';
 import { CITE_FORMAT_PREFERENCE } from '../../../reducers/user';
 
@@ -42,7 +42,7 @@ describe('LiteratureItemContainer', () => {
       fulltext_highlight: List(['A snippet of <em>fulltext</em>']),
     });
 
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         preferences: {
           [CITE_FORMAT_PREFERENCE]: 'application/x-bibtex',

@@ -2,13 +2,13 @@ import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
-import { getStoreWithState } from '../../../../fixtures/store';
+import { getStore } from '../../../../fixtures/store';
 import HeaderContainer from '../HeaderContainer';
 import { SUBMISSIONS, HOME } from '../../../routes';
 
 describe('HeaderContainer', () => {
   it('passes props from state when submissions page', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       router: {
         location: {
           pathname: `${SUBMISSIONS}/page`,
@@ -28,7 +28,7 @@ describe('HeaderContainer', () => {
   });
 
   it('passes props from state when home page', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       router: {
         location: {
           pathname: `${HOME}`,

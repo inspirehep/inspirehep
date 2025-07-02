@@ -4,12 +4,12 @@ import { Provider } from 'react-redux';
 import { fromJS, Map } from 'immutable';
 import { MemoryRouter } from 'react-router-dom';
 
-import { getStoreWithState } from '../../../fixtures/store';
+import { getStore } from '../../../fixtures/store';
 import SettingsContainer from '../SettingsContainer';
 
 describe('SettingsContainer', () => {
   it('passes props from state', async () => {
-    const store = getStoreWithState({
+    const store = getStore({
       settings: fromJS({
         changeEmailError: Map({ message: 'Error' }),
         changeEmailRequest: true,

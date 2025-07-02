@@ -4,11 +4,7 @@ import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
 import { initialState } from '../../../reducers/authors';
-import {
-  getStore,
-  mockActionCreator,
-  getStoreWithState,
-} from '../../../fixtures/store';
+import { getStore, mockActionCreator } from '../../../fixtures/store';
 import PublicationSelectContainer from '../PublicationSelectContainer';
 
 import {
@@ -52,7 +48,7 @@ describe('PublicationSelectContainer', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
   it('passes correct checked value if publication is selected', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       authors: fromJS({
         ...initialState,
         publicationSelection: [1, 2, 3],
@@ -67,7 +63,7 @@ describe('PublicationSelectContainer', () => {
     expect(getByRole('checkbox')).toBeChecked();
   });
   it('renders checkbox checked when select all is checked', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       authors: fromJS({
         ...initialState,
         publicationSelection: [1, 2, 3],

@@ -6,7 +6,7 @@ import { fromJS } from 'immutable';
 import ExistingConferencesAlertContainer from '../ExistingConferencesAlertContainer';
 import { EXISTING_CONFERENCES_NS } from '../../../../search/constants';
 import { SEARCH_QUERY_UPDATE } from '../../../../actions/actionTypes';
-import { getStore, getStoreWithState } from '../../../../fixtures/store';
+import { getStore } from '../../../../fixtures/store';
 import { RANGE_AGGREGATION_SELECTION_SEPARATOR } from '../../../../common/constants';
 
 describe('ExistingConferencesAlertContainer', () => {
@@ -42,7 +42,7 @@ describe('ExistingConferencesAlertContainer', () => {
   it('passes numberOfConferences', () => {
     const startingDate = '2020-01-24';
     const closingDate = '2020-09-20';
-    const store = getStoreWithState({
+    const store = getStore({
       search: fromJS({
         namespaces: {
           [EXISTING_CONFERENCES_NS]: {

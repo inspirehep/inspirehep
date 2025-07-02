@@ -1,6 +1,6 @@
 import { replace } from 'connected-react-router';
 
-import { getStoreWithState } from '../../fixtures/store';
+import { getStore } from '../../fixtures/store';
 import { appendQueryToLocationSearch } from '../router';
 
 describe('router', () => {
@@ -11,7 +11,7 @@ describe('router', () => {
         search: '?foo=bar',
         query: { foo: 'bar' },
       };
-      const store = getStoreWithState({
+      const store = getStore({
         router: {
           location: currentLocation,
         },

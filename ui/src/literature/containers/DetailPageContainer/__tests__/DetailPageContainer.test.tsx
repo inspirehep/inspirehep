@@ -5,7 +5,7 @@ import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 
 import DetailPageContainer from '../DetailPageContainer';
-import { getStoreWithState } from '../../../../fixtures/store';
+import { getStore } from '../../../../fixtures/store';
 import { CITE_FORMAT_PREFERENCE } from '../../../../reducers/user';
 
 describe('DetailPageContainer', () => {
@@ -42,7 +42,7 @@ describe('DetailPageContainer', () => {
       },
     ]);
 
-    const store = getStoreWithState({
+    const store = getStore({
       literature: fromJS({
         authors,
         data: {

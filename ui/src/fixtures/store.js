@@ -60,11 +60,3 @@ export function getStore(overrideState = {}) {
   const mockStore = configureMockStore([thunkMiddleware]);
   return mockStore({ ...getState(), ...overrideState });
 }
-
-/**
- * DEPRECATED! use `getStore` instead
- */
-export function getStoreWithState(state) {
-  const mockStore = configureMockStore([thunkMiddleware]);
-  return mockStore({ ...getState(), ...state });
-}

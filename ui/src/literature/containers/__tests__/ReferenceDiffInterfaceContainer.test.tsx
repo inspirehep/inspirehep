@@ -5,12 +5,12 @@ import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
 import ReferenceDiffInterfaceContainer from '../ReferenceDiffInterfaceContainer';
-import { getStoreWithState } from '../../../fixtures/store';
+import { getStore } from '../../../fixtures/store';
 import { initialState } from '../../../reducers/literature';
 
 describe('ReferenceDiffInterfaceContainer', () => {
   it('dispatches fetchLiterature, fetchLiteratureAuthors and fetchReferencesDiff on load', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       literature: fromJS({
         ...initialState,
         data: {},

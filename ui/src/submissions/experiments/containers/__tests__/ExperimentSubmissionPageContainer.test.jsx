@@ -8,11 +8,11 @@ import { render } from '@testing-library/react';
 import ExperimentSubmissionPageContainer, {
   ExperimentSubmissionPage,
 } from '../ExperimentSubmissionPageContainer';
-import { getStoreWithState, getStore } from '../../../../fixtures/store';
+import { getStore } from '../../../../fixtures/store';
 
 describe('ExperimentSubmissionSuccessPageContainer', () => {
   it('passes props to ExperimentSubmissionSucessPage', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       submissions: fromJS({
         submitError: null,
       }),

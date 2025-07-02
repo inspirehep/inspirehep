@@ -1,7 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 import { fromJS, Set } from 'immutable';
 import { advanceTo, clear } from 'jest-date-mock';
-import { getStore, getStoreWithState } from '../../fixtures/store';
+import { getStore } from '../../fixtures/store';
 import http from '../../common/http';
 import {
   LITERATURE_ERROR,
@@ -131,7 +131,7 @@ describe('literature - async action creators', () => {
         },
       ];
 
-      const store = getStoreWithState({
+      const store = getStore({
         search: fromJS({
           namespaces: {
             [LITERATURE_REFERENCES_NS]: {

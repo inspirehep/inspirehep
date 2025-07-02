@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
 
-import { getStore, getStoreWithState } from '../../../fixtures/store';
+import { getStore } from '../../../fixtures/store';
 import { USER_SIGN_UP_REQUEST } from '../../../actions/actionTypes';
 import { initialState } from '../../../reducers/user';
 import SignUpPageContainer from '../SignUpPageContainer';
@@ -37,7 +37,7 @@ describe('SignUpPageContainer', () => {
   });
 
   it('passes errors, onSubmit, and loading from the state', () => {
-    const store = getStoreWithState({
+    const store = getStore({
       user: fromJS({
         isSigningUp: true,
         signUpError: {
