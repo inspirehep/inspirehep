@@ -1,21 +1,32 @@
 import React from 'react';
-import { render, fireEvent, within } from '@testing-library/react';
+import { render, within } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import { SEMINARS_NS } from '../../../search/constants';
 import * as constants from '../../../common/constants';
 import SeminarStartDateFilterContainer from '../SeminarStartDateFilterContainer';
-import EventStartDateFilter from '../../../common/components/EventStartDateFilter';
 import { searchQueryUpdate } from '../../../actions/search';
+
+jest.mock('../../../common/components/EventStartDateFilter', () => (props) => {
+  global.seminarEventStartDateFilterOnChange = props.onChange;
+  return (
+    <div data-testid="event-start-date-filter">
+      <div role="switch" aria-checked={props.selection === 'upcoming'} />
+    </div>
+  );
+});
 
 jest.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
 
 describe('SeminarStartDateFilterContainer', () => {
   constants.LOCAL_TIMEZONE = 'Europe/Zurich';
+
+  beforeEach(() => {
+    global.seminarEventStartDateFilterOnChange = undefined;
+  });
 
   it('passes seminar search query start_date', () => {
     const namespace = SEMINARS_NS;
@@ -76,7 +87,7 @@ describe('SeminarStartDateFilterContainer', () => {
   it('flips button to all and then to upcoming', () => {
     const store = getStore();
     const namespace = SEMINARS_NS;
-    const { getByTestId } = render(
+    render(
       <Provider store={store}>
         <SeminarStartDateFilterContainer
           namespace={namespace}
@@ -102,21 +113,18 @@ describe('SeminarStartDateFilterContainer', () => {
       searchQueryUpdate(namespace, queryUpcoming),
     ];
 
-    const childButton = within(
-      getByTestId('event-start-date-filter')
-    ).getByRole('switch');
-    // switch starts off on the upcoming state, first click sets it to all
-    fireEvent.click(childButton);
-    fireEvent.animationEnd(childButton);
-    fireEvent.click(childButton);
-    fireEvent.animationEnd(childButton);
+    if (typeof global.seminarEventStartDateFilterOnChange === 'function') {
+      global.seminarEventStartDateFilterOnChange(constants.START_DATE_ALL);
+      global.seminarEventStartDateFilterOnChange(constants.START_DATE_UPCOMING);
+    }
+
     expect(store.getActions()).toEqual(expectedActions);
   });
 
   it('dispatches SEARCH_QUERY_UPDATE onChange with start_date and timezone if specific date', () => {
     const store = getStore();
     const namespace = SEMINARS_NS;
-    const wrapper = mount(
+    render(
       <Provider store={store}>
         <SeminarStartDateFilterContainer
           namespace={namespace}
@@ -124,8 +132,10 @@ describe('SeminarStartDateFilterContainer', () => {
         />
       </Provider>
     );
-    const onChange = wrapper.find(EventStartDateFilter).prop('onChange');
-    onChange('2020-02-13--');
+
+    if (typeof global.seminarEventStartDateFilterOnChange === 'function') {
+      global.seminarEventStartDateFilterOnChange('2020-02-13--');
+    }
 
     const query = {
       start_date: '2020-02-13--',

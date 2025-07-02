@@ -1,24 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`InspireCategoryList renders with categories 1`] = `
-<ExpandableInlineList
-  extractKey={[Function]}
-  items={
-    Immutable.List [
-      Immutable.Map {
-        "value": "Accelerators",
-      },
-      Immutable.Map {
-        "value": "Lattice",
-      },
-    ]
-  }
-  label={null}
-  limit={10}
-  renderItem={[Function]}
-  separateItems={false}
-  separator=", "
-  suffix={null}
-  wrapperClassName="di"
-/>
+<DocumentFragment>
+  <div>
+    <div
+      class="__InlineList__ di"
+      data-testid="inline-data-list"
+    >
+      <ul>
+        <li>
+          <span
+            class="ant-tag __UnclickableTag__"
+          />
+        </li>
+        <li>
+          <span
+            class="ant-tag __UnclickableTag__"
+          />
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
 `;

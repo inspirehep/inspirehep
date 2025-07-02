@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import InspireCategoryList from '../InspireCategoryList';
@@ -14,8 +14,9 @@ describe('InspireCategoryList', () => {
         value: 'Lattice',
       },
     ]);
-    const wrapper = shallow(<InspireCategoryList categories={categories} />);
-    // FIXME: we need to .dive().dive() to be able test list items
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <InspireCategoryList categories={categories} />
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });
