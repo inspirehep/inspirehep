@@ -17,7 +17,7 @@ UI for inspirehep
 * react-scripts: provides scripts for running app in dev mode, building for prod and running tests
   * this provides all setup for webpack, babel etc.
 * jest: for running unit and ui tests
-* enzyme: react testing utilities
+* testing-library: react testing utilities
 * eslint: linter for js and jsx files (uses airbnb's styleguide)
 * pupeteer: for running ui tests on headless chrome (+ image snapshot testing)
 * docker: ui tests are running inside docker with production build.
@@ -28,8 +28,7 @@ UI for inspirehep
 
 **Always check existing test cases for similar things that you want to test (`Component`, `reducer`, `async action` etc.)**
 
-* use [enzyme](https://airbnb.io/enzyme), do not use `ReactTestUtils` directly.
-* utilize [enzyme-matchers](https://github.com/FormidableLabs/enzyme-matchers).
+* use [testing-library/react](https://testing-library.com/docs/react-testing-library/intro/), do not use `ReactTestUtils` directly.
 
 #### components
 

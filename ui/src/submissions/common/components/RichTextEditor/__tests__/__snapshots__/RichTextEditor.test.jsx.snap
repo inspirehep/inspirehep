@@ -291,11 +291,13 @@ exports[`RichTextEditor renders 1`] = `
         class="ql-container ql-snow"
       >
         <div
-          class="ql-editor"
+          class="ql-editor ql-blank"
           contenteditable="true"
           data-gramm="false"
         >
-          <div />
+          <div>
+            <br />
+          </div>
         </div>
         <div
           class="ql-clipboard"
