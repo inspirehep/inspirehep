@@ -1,10 +1,10 @@
-from os import environ
-
 from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
 from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
-from inspire_schemas.utils import get_validation_errors
 from rest_framework import serializers
-from backoffice.authors.api import utils
+from backoffice.common.serializers import (
+    BaseWorkflowTicketSerializer,
+    BaseWorkflowSerializer,
+)
 from backoffice.authors.constants import (
     AUTHOR_DECISION_CHOICES,
     AuthorStatusChoices,
@@ -18,19 +18,11 @@ from backoffice.authors.models import (
 )
 
 
-class AuthorWorkflowTicketSerializer(serializers.ModelSerializer):
-    ticket_url = serializers.SerializerMethodField()
+class AuthorWorkflowTicketSerializer(BaseWorkflowTicketSerializer):
     workflow = serializers.PrimaryKeyRelatedField(queryset=AuthorWorkflow.objects.all())
 
-    class Meta:
+    class Meta(BaseWorkflowTicketSerializer.Meta):
         model = AuthorWorkflowTicket
-        fields = "__all__"
-
-    def get_ticket_url(self, obj):
-        return (
-            f"{environ.get('SERVICENOW_URL')}"
-            f"/nav_to.do?uri=/u_request_fulfillment.do?sys_id={obj.ticket_id}"
-        )
 
 
 class AuthorDecisionSerializer(serializers.ModelSerializer):
@@ -61,11 +53,10 @@ class AuthorDecisionSerializer(serializers.ModelSerializer):
         ),
     ],
 )
-class AuthorWorkflowSerializer(serializers.ModelSerializer):
+class AuthorWorkflowSerializer(BaseWorkflowSerializer):
+    schema_name = "authors"
     tickets = AuthorWorkflowTicketSerializer(many=True, read_only=True)
     decisions = AuthorDecisionSerializer(many=True, read_only=True)
-    validation_errors = serializers.JSONField(required=False)
-    data = serializers.JSONField(required=True)
     workflow_type = serializers.ChoiceField(
         choices=[
             AuthorWorkflowType.AUTHOR_CREATE,
@@ -74,18 +65,8 @@ class AuthorWorkflowSerializer(serializers.ModelSerializer):
         required=True,
     )
 
-    def validate_data(self, value):
-        validation_errors = list(get_validation_errors(value, schema="authors"))
-        if validation_errors:
-            validation_errors_msg = utils.render_validation_error_response(
-                validation_errors
-            )
-            raise serializers.ValidationError(validation_errors_msg)
-        return value
-
-    class Meta:
+    class Meta(BaseWorkflowSerializer.Meta):
         model = AuthorWorkflow
-        fields = "__all__"
 
 
 @extend_schema_serializer(
