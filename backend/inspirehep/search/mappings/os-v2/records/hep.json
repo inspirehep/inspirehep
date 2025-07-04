@@ -121,7 +121,7 @@
         "index": false,
         "doc_values": false
       },
-      "_expanded_display": {
+      "_expanded_authors_display": {
         "type": "keyword",
         "index": false,
         "doc_values": false
