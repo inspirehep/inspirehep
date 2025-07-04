@@ -26,7 +26,11 @@ from rest_framework.response import Response
 
 from backoffice.utils.pagination import OSStandardResultsSetPagination
 from backoffice.authors import airflow_utils
-from backoffice.authors.api import utils
+from backoffice.authors.api.utils import add_decision
+from backoffice.common.utils import (
+    handle_request_exception,
+    render_validation_error_response,
+)
 from backoffice.authors.api.serializers import (
     AuthorDecisionSerializer,
     AuthorResolutionSerializer,
@@ -35,6 +39,7 @@ from backoffice.authors.api.serializers import (
     AuthorWorkflowTicketSerializer,
 )
 from backoffice.common.constants import WORKFLOW_DAGS
+from backoffice.common.views import BaseWorkflowTicketViewSet
 from backoffice.authors.constants import (
     AuthorResolutionDags,
     AuthorStatusChoices,
@@ -50,38 +55,9 @@ from backoffice.authors.models import (
 logger = logging.getLogger(__name__)
 
 
-class AuthorWorkflowTicketViewSet(viewsets.ModelViewSet):
+class AuthorWorkflowTicketViewSet(BaseWorkflowTicketViewSet):
     serializer_class = AuthorWorkflowTicketSerializer
     queryset = AuthorWorkflowTicket.objects.all()
-
-    def retrieve(self, request, *args, **kwargs):
-        workflow_id = kwargs.get("pk")
-        ticket_type = request.query_params.get("ticket_type")
-
-        if not workflow_id or not ticket_type:
-            return Response(
-                {"error": "Both workflow and ticket_type are required."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        try:
-            workflow_ticket = AuthorWorkflowTicket.objects.get(
-                workflow=workflow_id, ticket_type=ticket_type
-            )
-            serializer = self.serializer_class(workflow_ticket)
-            return Response(serializer.data)
-        except AuthorWorkflowTicket.DoesNotExist:
-            return Response(
-                {"error": "Workflow ticket not found."},
-                status=status.HTTP_404_NOT_FOUND,
-            )
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class AuthorDecisionViewSet(viewsets.ModelViewSet):
@@ -89,7 +65,7 @@ class AuthorDecisionViewSet(viewsets.ModelViewSet):
     queryset = AuthorDecision.objects.all()
 
     def create(self, request, *args, **kwargs):
-        data = utils.add_decision(
+        data = add_decision(
             request.data["workflow_id"], request.user, request.data["action"]
         )
         return Response(data, status=status.HTTP_201_CREATED)
@@ -110,9 +86,7 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         validation_errors = list(get_validation_errors(instance.data, schema="authors"))
-        validation_errors_msg = utils.render_validation_error_response(
-            validation_errors
-        )
+        validation_errors_msg = render_validation_error_response(validation_errors)
         instance.validation_errors = validation_errors_msg
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
@@ -121,7 +95,7 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
         try:
             airflow_utils.delete_workflow_dag_runs(instance.id, instance.workflow_type)
         except RequestException as e:
-            return utils.handle_request_exception(
+            return handle_request_exception(
                 "Error deleting Airflow DAGs for workflow %s",
                 e,
                 instance.id,
@@ -154,7 +128,7 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
                 workflow=serializer.data,
             )
         except RequestException as e:
-            return utils.handle_request_exception(
+            return handle_request_exception(
                 "Error triggering Airflow DAG",
                 e,
             )
@@ -198,7 +172,7 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
                 AuthorResolutionDags[serializer.validated_data["value"]],
                 pk,
             )
-            utils.add_decision(pk, request.user, serializer.validated_data["value"])
+            add_decision(pk, request.user, serializer.validated_data["value"])
 
             workflow = self.get_serializer(AuthorWorkflow.objects.get(pk=pk)).data
             try:
@@ -209,7 +183,7 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
                     workflow=workflow,
                 )
             except RequestException as e:
-                return utils.handle_request_exception(
+                return handle_request_exception(
                     "Error triggering Airflow DAG",
                     e,
                 )
@@ -280,7 +254,7 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
                     status=status.HTTP_400_BAD_REQUEST,
                 )
         except RequestException as e:
-            return utils.handle_request_exception(
+            return handle_request_exception(
                 "Error restarting Airflow DAGs for workflow %s",
                 e,
                 workflow.id,
@@ -369,7 +343,7 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
             record_data = request.data
             validation_errors = list(get_validation_errors(record_data))
             if validation_errors:
-                validation_errors_msg = utils.render_validation_error_response(
+                validation_errors_msg = render_validation_error_response(
                     validation_errors
                 )
                 return Response(
