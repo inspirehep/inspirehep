@@ -1,6 +1,6 @@
 import logging
 
-from airflow.models import Variable
+from airflow.sdk import Variable
 from hooks.generic_http_hook import GenericHttpHook
 
 logger = logging.getLogger()
