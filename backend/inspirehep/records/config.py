@@ -848,13 +848,6 @@ LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE = {
         "_updated",
         "_collections",
     ],
-    "application/vnd+inspire.record.expanded+json": [
-        "_expanded_display",
-        "control_number",
-        "_created",
-        "_updated",
-        "_collections",
-    ],
     "application/vnd+inspire.latex.us+x-latex": ["_latex_us_display"],
     "application/vnd+inspire.latex.eu+x-latex": ["_latex_eu_display"],
     "application/x-bibtex": ["_bibtex_display"],
@@ -863,7 +856,7 @@ LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE = {
 LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE = {
     "application/json": [
         "_ui_display",
-        "_expanded_display",
+        "_expanded_authors_display",
         "_latex_us_display",
         "_latex_eu_display",
         "_bibtex_display",
