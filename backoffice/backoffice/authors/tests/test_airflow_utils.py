@@ -1,7 +1,7 @@
 import uuid
 import json
 import pytest
-from backoffice.authors import airflow_utils
+from backoffice.common import airflow_utils
 from backoffice.authors.constants import AuthorWorkflowType
 from backoffice.common.constants import WORKFLOW_DAGS
 from django.test import TransactionTestCase
