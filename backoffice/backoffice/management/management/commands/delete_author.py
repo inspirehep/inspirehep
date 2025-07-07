@@ -22,7 +22,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         client = get_opensearch_client()
-        index_name = settings.OPENSEARCH_INDEX_NAMES.get("backoffice.authors.documents")
+        index_name = settings.OPENSEARCH_INDEX_NAMES.get(settings.AUTHORS_DOCUMENTS)
         uuid_value = str(options["uuid"])
 
         try:

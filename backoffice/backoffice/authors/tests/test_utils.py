@@ -6,8 +6,8 @@ from django.test import TransactionTestCase
 from rest_framework.exceptions import ValidationError
 
 from backoffice.authors import constants
-from backoffice.authors.api import utils
 from backoffice.authors.constants import AuthorStatusChoices
+from backoffice.authors.utils import add_author_decision
 
 User = get_user_model()
 AuthorWorkflow = apps.get_model(app_label="authors", model_name="AuthorWorkflow")
@@ -27,16 +27,24 @@ class TestUtils(TransactionTestCase):
         )
 
     def test_add_decision(self):
-        decision_data = utils.add_decision(
-            self.workflow.id, self.user, constants.AuthorResolutionDags.accept
+        decision_data = add_author_decision(
+            self.workflow.id,
+            self.user,
+            constants.AuthorResolutionDags.accept,
         )
         self.assertIsNotNone(decision_data)
 
     def test_add_decision_validation_errors(self):
         with pytest.raises(ValidationError):
-            utils.add_decision(self.workflow.id, self.user, "wrong")
+            add_author_decision(
+                self.workflow.id,
+                self.user,
+                "wrong",
+            )
 
         with pytest.raises(ValidationError):
-            utils.add_decision(
-                uuid.UUID(int=0), self.user, constants.AuthorResolutionDags.accept
+            add_author_decision(
+                uuid.UUID(int=0),
+                self.user,
+                constants.AuthorResolutionDags.accept,
             )

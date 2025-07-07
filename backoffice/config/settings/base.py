@@ -393,9 +393,13 @@ SOCIALACCOUNT_PROVIDERS = {
 
 # Opensearch
 # ------------------------------------------------------------------------------
+AUTHORS_DOCUMENTS = "backoffice.authors.documents"
+HEP_DOCUMENTS = "backoffice.hep.documents"
+
 # Name of the Opensearch index
 OPENSEARCH_INDEX_NAMES = {
-    "backoffice.authors.documents": f'{env("OPENSEARCH_INDEX_PREFIX")}-workflows',
+    AUTHORS_DOCUMENTS: f'{env("OPENSEARCH_INDEX_PREFIX")}-workflows',
+    HEP_DOCUMENTS: f'{env("OPENSEARCH_INDEX_PREFIX")}-hep-workflows',
 }
 
 OPENSEARCH_DSL = {

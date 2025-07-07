@@ -1,5 +1,6 @@
 from json import JSONDecodeError
-
+from django_opensearch_dsl.registries import registry
+from django.conf import settings
 from rest_framework.response import Response
 import logging
 
@@ -47,4 +48,15 @@ def handle_request_exception(error_text, exception, *args, response_text=None):
     return Response(
         {"error": f"{formatted_response}"},
         status=getattr(exception.response, "status_code", 502),
+    )
+
+
+def get_index_for_document(document_key):
+    """
+    Return the OpenSearch index object for the given document_key,
+    or None if no index with that name exists.
+    """
+    target_name = settings.OPENSEARCH_INDEX_NAMES[document_key]
+    return next(
+        (idx for idx in registry.get_indices() if idx._name == target_name), None
     )

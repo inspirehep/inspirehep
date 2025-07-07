@@ -25,12 +25,12 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from backoffice.utils.pagination import OSStandardResultsSetPagination
-from backoffice.authors import airflow_utils
-from backoffice.authors.api.utils import add_decision
+from backoffice.common import airflow_utils
 from backoffice.common.utils import (
     handle_request_exception,
     render_validation_error_response,
 )
+from backoffice.authors.utils import add_author_decision
 from backoffice.authors.api.serializers import (
     AuthorDecisionSerializer,
     AuthorResolutionSerializer,
@@ -65,7 +65,7 @@ class AuthorDecisionViewSet(viewsets.ModelViewSet):
     queryset = AuthorDecision.objects.all()
 
     def create(self, request, *args, **kwargs):
-        data = add_decision(
+        data = add_author_decision(
             request.data["workflow_id"], request.user, request.data["action"]
         )
         return Response(data, status=status.HTTP_201_CREATED)
@@ -172,7 +172,7 @@ class AuthorWorkflowViewSet(viewsets.ModelViewSet):
                 AuthorResolutionDags[serializer.validated_data["value"]],
                 pk,
             )
-            add_decision(pk, request.user, serializer.validated_data["value"])
+            add_author_decision(pk, request.user, serializer.validated_data["value"])
 
             workflow = self.get_serializer(AuthorWorkflow.objects.get(pk=pk)).data
             try:
