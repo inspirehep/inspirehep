@@ -79,18 +79,24 @@
     "schema": "",
     "extra": ""
   },
-    "smtp_default": {
-    "conn_type": "smtp",
-    "description": "SMTP connection for sending emails",
-    "login": "",
-    "password": "",
-    "host": "email-server.inspire.ch",
-    "port": 25,
-    "schema": "",
-    "extra": {
-    "from_email": "no-reply@inspire.ch",
-    "retry_limit": 5,
-    "disable_tls": true,
-    "disable_ssl": true}
+    "backoffice_db_connection": {
+    "conn_type": "postgres",
+    "description": "Used for cds rdm harvesting",
+    "login": "postgres",
+    "password": "postgres",
+    "host": "db",
+    "port": 5432,
+    "schema": "backoffice",
+    "extra": ""
+  },
+    "opensearch_backoffice_connection": {
+    "conn_type": "opensearch",
+    "description": null,
+    "login": null,
+    "password": null,
+    "host": "es",
+    "port": 9200,
+    "schema": null,
+    "extra": null
   }
 }
