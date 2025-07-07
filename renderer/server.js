@@ -7,6 +7,7 @@ const pLimit = require("p-limit");
 const app = express();
 const PORT = process.env.PORT || 8080;
 const p_limit = process.env.PLIMIT || 1;
+const promMid = require('express-prometheus-middleware');
 
 const keyvS3 = new KeyvS3({
   namespace: process.env.AWS_CACHE_NAMESPACE,
@@ -37,6 +38,16 @@ async function getBrowser() {
 }
 const limit = pLimit.default(parseInt(p_limit));
 const MAX_BROWSER_LIFETIME = 1000 * 60 * 10; 
+
+app.use(
+  promMid({
+    metricsPath: "/metrics",
+    collectDefaultMetrics: true,
+    requestDurationBuckets: [1, 2, 3, 5, 10, 20],
+    requestLengthBuckets: [512, 1024, 5120, 10240, 51200, 102400],
+    responseLengthBuckets: [512, 1024, 5120, 10240, 51200, 102400],
+  })
+);
 
 app.get("/render", async (req, res) => {
   return limit(() => renderPage(req, res));
