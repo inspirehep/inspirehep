@@ -99,6 +99,7 @@ class InspireRecordIndexer(RecordIndexer):
                 (with uuids of failed records)
 
         """
+        LOGGER.info("Bulk index started.", uuids=records_uuids)
         if not request_timeout:
             request_timeout = current_app.config["INDEXER_BULK_REQUEST_TIMEOUT"]
         max_chunk_bytes = max_chunk_bytes or 100 * 1014 * 1024  # default ES setting
