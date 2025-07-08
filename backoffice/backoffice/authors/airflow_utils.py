@@ -10,7 +10,11 @@ from backoffice.common.constants import WORKFLOW_DAGS
 
 AIRFLOW_BASE_URL = environ.get("AIRFLOW_BASE_URL")
 
-AIRFLOW_HEADERS = {"Authorization": f"Basic {environ.get('AIRFLOW_TOKEN')}"}
+AIRFLOW_HEADERS = (
+    {"Authorization": f"Basic {environ.get('AIRFLOW_TOKEN')}"}
+    if environ.get("AIRFLOW_TOKEN")
+    else {}
+)
 
 logger = logging.getLogger(__name__)
 
@@ -23,14 +27,18 @@ def trigger_airflow_dag(dag_id, workflow_id, extra_data=None, workflow=None):
     :returns: request response content
     """
 
-    data = {"dag_run_id": str(workflow_id), "conf": {"workflow_id": str(workflow_id)}}
+    data = {
+        "dag_run_id": str(workflow_id),
+        "logical_date": None,
+        "conf": {"workflow_id": str(workflow_id)},
+    }
 
     if extra_data:
         data["conf"]["data"] = extra_data
     if workflow:
         data["conf"]["workflow"] = workflow
 
-    url = f"{AIRFLOW_BASE_URL}/api/v1/dags/{dag_id}/dagRuns"
+    url = f"{AIRFLOW_BASE_URL}/api/v2/dags/{dag_id}/dagRuns"
 
     logger.info(
         "Triggering DAG %s with data: %s and %s",
@@ -66,7 +74,7 @@ def restart_failed_tasks(workflow_id, workflow_type):
         "only_failed": True,
     }
 
-    url = f"{AIRFLOW_BASE_URL}/api/v1/dags/{dag_id}/clearTaskInstances"
+    url = f"{AIRFLOW_BASE_URL}/api/v2/dags/{dag_id}/clearTaskInstances"
 
     logger.info(
         "Clearing Failed Tasks of DAG %s with data: %s and %s",
@@ -95,7 +103,7 @@ def find_executed_dags(workflow_id, workflow_type):
     # find dags that were executed
     for dag_id in WORKFLOW_DAGS[workflow_type]:
         response = requests.get(
-            f"{AIRFLOW_BASE_URL}/api/v1/dags/{dag_id}/dagRuns/{workflow_id}",
+            f"{AIRFLOW_BASE_URL}/api/v2/dags/{dag_id}/dagRuns/{workflow_id}",
             headers=AIRFLOW_HEADERS,
         )
         if response.status_code == status.HTTP_200_OK:
@@ -137,7 +145,7 @@ def delete_workflow_dag(dag_id, workflow_id):
     :returns: request response content
     """
 
-    url = f"{AIRFLOW_BASE_URL}/api/v1/dags/{dag_id}/dagRuns/{str(workflow_id)}"
+    url = f"{AIRFLOW_BASE_URL}/api/v2/dags/{dag_id}/dagRuns/{str(workflow_id)}"
     logger.info(
         "Deleting dag Failed Tasks of DAG %s with no data and %s",
         dag_id,

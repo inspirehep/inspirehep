@@ -19,7 +19,7 @@ start-inspirehep:
 
 start-backoffice:
 	echo -e "\033[0;32m Starting Backoffice. \033[0m"	
-	docker compose up -d airflow-init airflow-worker airflow-webserver airflow-triggerer airflow-scheduler backoffice-webserver backoffice-worker
+	docker compose up -d airflow-init airflow-worker airflow-api-server airflow-dag-processor airflow-triggerer airflow-scheduler backoffice-webserver backoffice-worker
 	echo -e "\033[0;32m Backoffice Started. \033[0m"
 
 start-cypress:
@@ -43,10 +43,9 @@ django-setup:
 	echo "Backoffice initialized"
 
 airflow-setup:
-	docker compose exec airflow-webserver /entrypoint airflow connections import ./scripts/connections/connections.json
-	docker compose exec airflow-webserver /entrypoint airflow variables import ./scripts/variables/variables.json
+	docker compose exec airflow-api-server /entrypoint airflow connections import ./scripts/connections/connections.json
+	docker compose exec airflow-api-server /entrypoint airflow variables import ./scripts/variables/variables.json
 	echo "\033[31mCHANGE inspire_token in Admin->Variables\033[0m"
-	echo "\033[1;32musername: airflow / password: airflow \033[0m"
 	echo "Workflows initialized"
 
 
