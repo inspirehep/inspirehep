@@ -17,6 +17,7 @@ from inspire_utils.dedupers import dedupe_list
 from invenio_db import db
 from invenio_records.models import RecordMetadata
 from invenio_records_rest.utils import set_headers_for_record_caching_and_concurrency
+from pylatexenc.latex2text import LatexNodes2Text
 from sqlalchemy_continuum import transaction_class, version_class
 
 from inspirehep.accounts.api import (
@@ -360,6 +361,7 @@ def authorlist_xml():
         parsed_authors = AuthorXMLParser(request.json["xml"]).parse()
         affiliations = {}
         for author in parsed_authors:
+            author["full_name"] = LatexNodes2Text().latex_to_text(author["full_name"])
             author_affiliations = author.get("affiliations", [])
             if author_affiliations:
                 assign_institution_reference_to_affiliations(
