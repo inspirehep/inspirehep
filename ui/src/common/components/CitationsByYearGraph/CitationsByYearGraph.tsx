@@ -12,7 +12,7 @@ import {
   RVNearestXEventHandler,
 } from 'react-vis';
 import 'react-vis/dist/style.css';
-import maxBy from 'lodash.maxby';
+import maxBy from 'lodash/maxBy';
 import { Map } from 'immutable';
 
 import styleVariables from '../../../styleVariables';
