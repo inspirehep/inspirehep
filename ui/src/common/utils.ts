@@ -1,5 +1,4 @@
-import mergeWith from 'lodash.mergewith';
-import cloneDeep from 'lodash.clonedeep';
+import { mergeWith, cloneDeep } from 'lodash';
 import moment from 'moment-timezone';
 import { List, Map, Set } from 'immutable';
 // TODO: use different package suitable for typescript (this one doesn't have types)

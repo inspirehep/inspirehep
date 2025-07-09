@@ -1,5 +1,5 @@
 import { stringify } from 'qs';
-import omit from 'lodash.omit';
+import omit from 'lodash/omit';
 import { replace, push } from 'connected-react-router';
 
 import { shallowEqual } from '../common/utils';
