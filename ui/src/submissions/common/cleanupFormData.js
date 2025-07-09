@@ -1,6 +1,5 @@
-import isEmpty from 'lodash.isempty';
-import isPlainObject from 'lodash.isplainobject';
-import transform from 'lodash.transform';
+import { isEmpty, isPlainObject } from 'lodash';
+import transform from 'lodash/transform';
 
 /**
  * - Removes empty objects, strings, arrays
