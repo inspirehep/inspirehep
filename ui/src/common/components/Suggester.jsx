@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { AutoComplete } from 'antd';
-import debounce from 'lodash.debounce';
+import debounce from 'lodash/debounce';
 
 import http, { isCancelError } from '../http';
 
