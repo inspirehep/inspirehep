@@ -21,11 +21,11 @@
         <foaf:Person>
             <foaf:name>Michael Finger</foaf:name>
             <foaf:givenName>Michael</foaf:givenName>
-            <foaf:familyName>Finger</foaf:familyName>
+            <foaf:familyName>V{\'a}zquez Finger</foaf:familyName>
             <cal:authorNameNative lang=""/>
             <cal:authorSuffix>Jr.</cal:authorSuffix>
             <cal:authorStatus/>
-            <cal:authorNamePaper>M. Finger Jr.</cal:authorNamePaper>
+            <cal:authorNamePaper>M. V{\'a}zquez Finger Jr.</cal:authorNamePaper>
             <cal:authorAffiliations>
                 <cal:authorAffiliation organizationid="a0" />
             </cal:authorAffiliations>

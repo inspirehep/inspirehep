@@ -663,7 +663,7 @@ def test_authorlist_xml(inspire_app, datadir):
     expected = {
         "authors": [
             {
-                "full_name": "Finger, Michael, Jr.",
+                "full_name": "Vázquez Finger, Michael, Jr.",
                 "affiliations": [{"value": "CERN"}],
                 "ids": [
                     {"value": "INSPIRE-00171357", "schema": "INSPIRE ID"},
@@ -699,7 +699,7 @@ def test_authorlist_xml_normalizing_affiliations(inspire_app, datadir):
     expected = {
         "authors": [
             {
-                "full_name": "Finger, Michael, Jr.",
+                "full_name": "Vázquez Finger, Michael, Jr.",
                 "affiliations": [
                     {
                         "value": "CERN",
