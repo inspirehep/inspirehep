@@ -78,5 +78,15 @@
     "port": null,
     "schema": "",
     "extra": ""
+  },
+    "s3_conn": {
+    "conn_type": "aws",
+    "description": "Used for arxiv harvestin",
+    "login": "airflow",
+    "password": "airflow-inspire",
+    "host": "http://s3:9000",
+    "port": null,
+    "schema": "",
+    "extra": {"endpoint_url":"http://s3:9000"}
   }
 }
