@@ -46,6 +46,23 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
 
+      - name: Spin up S3
+        run: docker compose up -d s3 create_buckets
+
+      - name: Sleep for S3 to be ready
+        run: sleep 20
+      
+      - name: Set up Airflow
+        run: docker compose ps
+
+      - name: Wait for S3
+        run: |
+          for i in {1..10}; do
+            curl -f http://localhost:9000/minio/health/ready && break
+            echo "Waiting for S3s..."
+            sleep 3
+          done
+
       - name: Test
         working-directory: ./workflows
         run: >
@@ -64,4 +81,4 @@ jobs:
           -e AIRFLOW__CORE__LOAD_EXAMPLES="false"
           -e AIRFLOW__API__AUTH_BACKENDS="airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
           registry.cern.ch/cern-sis/inspire/workflows@${{ needs.build.outputs.image-id }}
-          bash -c "pip install -r requirements-test.txt && airflow db migrate && airflow connections import /opt/airflow/scripts/connections/connections.json && airflow variables import /opt/airflow/scripts/variables/variables.json && pytest /opt/airflow/tests"
+          bash -c "curl http://s3:9000 && pip install -r requirements-test.txt && airflow db migrate && airflow connections import /opt/airflow/scripts/connections/connections.json && airflow variables import /opt/airflow/scripts/variables/variables.json && pytest /opt/airflow/tests"

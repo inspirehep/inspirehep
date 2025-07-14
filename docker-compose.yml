@@ -240,13 +240,6 @@ services:
       service: flower
     ports:
       - '5555:5555'
-  s3:
-    extends:
-      file: docker-compose.services.yml
-      service: s3
-    ports:
-      - '4572:4572'
-      - '4566:4566'
   airflow-webserver:
     <<: *airflow-common
     command: webserver
@@ -405,3 +398,30 @@ services:
     environment:
       - NODE_ENV=test
     working_dir: /tests
+
+
+  s3:
+    image: minio/minio
+    expose:
+      - 9000
+      - 9001
+    command: server /data --console-address ":9001"
+    ports:
+        - "9000:9000"
+        - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=airflow
+      - MINIO_ROOT_PASSWORD=airflow-inspire
+
+  create_buckets:
+    image: minio/mc
+    environment:
+      - MINIO_ROOT_USER=airflow
+      - MINIO_ROOT_PASSWORD=airflow-inspire
+    volumes:
+    - ${AIRFLOW_PROJ_DIR:-.}/scripts/setup_s3.sh:/setup_s3.sh
+    - ${AIRFLOW_PROJ_DIR:-.}/data:/opt/airflow/data
+    depends_on:
+      - s3
+    entrypoint: >
+      /bin/sh setup_s3.sh
