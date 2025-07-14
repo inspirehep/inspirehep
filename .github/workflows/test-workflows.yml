@@ -46,6 +46,9 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
 
+      - name: Spin up Docker containers
+        run: docker compose up -d s3 create_buckets
+
       - name: Test
         working-directory: ./workflows
         run: >
@@ -58,6 +61,7 @@ jobs:
           -e AIRFLOW__CORE__EXECUTOR=CeleryExecutor
           -e AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@127.0.0.1:5432/airflow
           -e AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@127.0.0.1:5432/airflow
+          -e AIRFLOW_CONN_S3_CONN="aws://airflow:airflow-inspire@localhost:9000/?endpoint_url=http%3A%2F%2Flocalhost%3A9000"
           -e AIRFLOW__CELERY__BROKER_URL=redis://:@127.0.0.1:6379/0
           -e AIRFLOW__CORE__FERNET_KEY=""
           -e AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION="true"

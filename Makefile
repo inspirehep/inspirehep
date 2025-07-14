@@ -69,4 +69,4 @@ load-records:
 	docker compose exec hep-web inspirehep importer demo-records
 
 services:
-	docker compose up -d cache db mq s3 es
+	docker compose up -d cache db mq s3 es create_buckets
