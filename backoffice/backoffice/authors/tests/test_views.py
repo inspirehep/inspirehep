@@ -522,7 +522,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
             response.json()["error"],
-            "Workflow has already ran successfully. Skipping restart.",
+            "Workflow has already run successfully. Skipping restart.",
         )
 
     @pytest.mark.vcr
