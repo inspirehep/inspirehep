@@ -1,14 +1,14 @@
 from django.conf import settings
 from django_opensearch_dsl.registries import registry
 
-from backoffice.authors.models import AuthorWorkflow
+from backoffice.hep.models import HepWorkflow
 from backoffice.common.documents import BaseWorkflowDocument
 
 
 @registry.register_document
-class AuthorWorkflowDocument(BaseWorkflowDocument):
+class HepWorkflowDocument(BaseWorkflowDocument):
     class Index(BaseWorkflowDocument.Index):
-        name = settings.OPENSEARCH_INDEX_NAMES.get(settings.AUTHORS_DOCUMENTS)
+        name = settings.OPENSEARCH_INDEX_NAMES.get(settings.HEP_DOCUMENTS)
 
     class Django(BaseWorkflowDocument.Django):
-        model = AuthorWorkflow
+        model = HepWorkflow

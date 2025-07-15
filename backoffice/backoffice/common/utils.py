@@ -1,21 +1,11 @@
 from json import JSONDecodeError
-
+from django_opensearch_dsl.registries import registry
+from django.conf import settings
 from rest_framework.response import Response
-from backoffice.authors.api.serializers import AuthorDecisionSerializer
 import logging
 
 
 logger = logging.getLogger(__name__)
-
-
-def add_decision(workflow_id, user, action):
-    serializer_class = AuthorDecisionSerializer
-    data = {"workflow": workflow_id, "user": user, "action": action}
-
-    serializer = serializer_class(data=data)
-    if serializer.is_valid(raise_exception=True):
-        serializer.save()
-        return serializer.data
 
 
 def render_validation_error_response(validation_errors):
@@ -58,4 +48,15 @@ def handle_request_exception(error_text, exception, *args, response_text=None):
     return Response(
         {"error": f"{formatted_response}"},
         status=getattr(exception.response, "status_code", 502),
+    )
+
+
+def get_index_for_document(document_key):
+    """
+    Return the OpenSearch index object for the given document_key,
+    or None if no index with that name exists.
+    """
+    target_name = settings.OPENSEARCH_INDEX_NAMES[document_key]
+    return next(
+        (idx for idx in registry.get_indices() if idx._name == target_name), None
     )

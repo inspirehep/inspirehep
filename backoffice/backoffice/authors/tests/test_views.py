@@ -7,7 +7,7 @@ import dateutil
 import dateutil.parser
 import opensearchpy
 import pytest
-from backoffice.authors import airflow_utils
+from backoffice.common import airflow_utils
 from backoffice.authors.api.serializers import (
     AuthorWorkflowTicketSerializer,
     AuthorWorkflowSerializer,
@@ -25,11 +25,12 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test import TransactionTestCase
 from django.urls import reverse
-from django_opensearch_dsl.registries import registry
 from parameterized import parameterized
 from requests.exceptions import RequestException
 from rest_framework import status
 from rest_framework.test import APIClient
+from django.conf import settings
+from backoffice.common.utils import get_index_for_document
 
 User = get_user_model()
 AuthorWorkflow = apps.get_model(app_label="authors", model_name="AuthorWorkflow")
@@ -140,8 +141,7 @@ class TestAuthorWorkflowSearchViewSet(BaseTransactionTestCase):
 
     def setUp(self):
         super().setUp()
-
-        index = registry.get_indices().pop()
+        index = get_index_for_document(settings.AUTHORS_DOCUMENTS)
         with contextlib.suppress(opensearchpy.exceptions.NotFoundError):
             index.delete()
         index.create()
@@ -372,7 +372,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         self.assertIn("id", response.json())
 
     @pytest.mark.vcr
-    @patch("backoffice.authors.airflow_utils.trigger_airflow_dag")
+    @patch("backoffice.common.airflow_utils.trigger_airflow_dag")
     def test_create_returns_503_if_airflow_fails(self, mock_trigger_airflow_dag):
         self.api_client.force_authenticate(user=self.curator)
         mock_response = MagicMock()
@@ -522,7 +522,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
             response.json()["error"],
-            "Workflow has already ran successfully. Skipping restart.",
+            "Workflow has already run successfully. Skipping restart.",
         )
 
     @pytest.mark.vcr
@@ -680,8 +680,7 @@ class TestAuthorWorkflowSearchFilterViewSet(BaseTransactionTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-
-        index = registry.get_indices().pop()
+        index = get_index_for_document(settings.AUTHORS_DOCUMENTS)
         with contextlib.suppress(opensearchpy.exceptions.NotFoundError):
             index.delete()
         index.create()

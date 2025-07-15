@@ -78,19 +78,5 @@
     "port": null,
     "schema": "",
     "extra": ""
-  },
-    "smtp_default": {
-    "conn_type": "smtp",
-    "description": "SMTP connection for sending emails",
-    "login": "",
-    "password": "",
-    "host": "email-server.inspire.ch",
-    "port": 25,
-    "schema": "",
-    "extra": {
-    "from_email": "no-reply@inspire.ch",
-    "retry_limit": 5,
-    "disable_tls": true,
-    "disable_ssl": true}
   }
 }
