@@ -4,6 +4,11 @@ from backoffice.authors.api.views import (
     AuthorDecisionViewSet,
     AuthorWorkflowTicketViewSet,
 )
+from backoffice.hep.api.views import (
+    HepWorkflowViewSet,
+    HepDecisionViewSet,
+    HepWorkflowTicketViewSet,
+)
 from django.conf import settings
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
@@ -19,6 +24,12 @@ router.register(
     "workflows/authors/decisions", AuthorDecisionViewSet, basename="authors-decisions"
 )
 router.register("workflows/authors", AuthorWorkflowViewSet, basename="authors")
+
+router.register(
+    "workflows/hep/tickets", HepWorkflowTicketViewSet, basename="hep-tickets"
+)
+router.register("workflows/hep/decisions", HepDecisionViewSet, basename="hep-decisions")
+router.register("workflows/hep", HepWorkflowViewSet, basename="hep")
 
 app_name = "api"
 urlpatterns = router.urls

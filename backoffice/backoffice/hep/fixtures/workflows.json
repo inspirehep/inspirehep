@@ -1,0 +1,32 @@
+[
+    {
+        "model": "hep.hepworkflow",
+        "pk": "00000000-0000-0000-0000-000000001111",
+        "fields": {
+            "workflow_type": "HEP_CREATE",
+            "data": {
+                "titles": [
+                    {
+                        "title": "A New Discovery in High Energy Physics"
+                    }
+                ],
+                "_collections": [
+                    "Literature"
+                ],
+                "document_type": ["article"],
+                "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+                "acquisition_source": {
+                    "email": "user@cern.ch",
+                    "orcid": "0000-0000-0000-0000",
+                    "method": "submitter",
+                    "source": "submitter",
+                    "datetime": "2024-11-18T11:34:19.809575",
+                    "internal_uid": 50872
+                }
+            },
+            "status": "running",
+            "_created_at": "2024-11-25T13:49:53.009Z",
+            "_updated_at": "2024-11-25T13:49:54.756Z"
+        }
+    }
+    ]
