@@ -16,11 +16,16 @@ class TestCDSRDMHarvest:
     def test_get_cds_rdm_data_vcr(self):
         task = self.dag.get_task("get_cds_rdm_data")
         context = {
-            "ds": "2025-06-01",
-            "params": {"since": "2025-06-01"},
+            "ds": "2025-06-01T00:00:00",
+            "params": {
+                "since": "2025-06-01T00:00:00",
+                "until": "2025-07-01T00:00:00",
+            },
             "task_instance": None,
         }
         task.render_template_fields(context)
+        q = task.data["q"]
+        assert q == "updated:[2025-06-01T00:00:00 TO 2025-07-01T00:00:00]"
         res = task.execute(
             context=context,
         )
