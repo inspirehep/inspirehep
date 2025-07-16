@@ -567,13 +567,14 @@ class InspireRecord(Record):
 
         return serializer().dump(self).data
 
-    def index(self, force_delete=None, delay=True):
+    def index(self, force_delete=None, delay=True, skip_reference_reindexing=False):
         """Index record in ES.
 
         Args:
             force_delete: set to True if record has to be deleted,
                 If not set, tries to determine automatically if record should be deleted
             delay: if True will start the index task async otherwise async.
+            skip_reference_reindexing: if True will skip the reference reindexing step.
         """
         from inspirehep.indexer.tasks import index_record
 
@@ -581,6 +582,7 @@ class InspireRecord(Record):
             "uuid": str(self.id),
             "record_version": self.model.version_id,
             "force_delete": force_delete,
+            "skip_reference_reindexing": skip_reference_reindexing,
         }
         LOGGER.info(
             "Record indexing",
