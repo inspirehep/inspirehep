@@ -47,9 +47,9 @@ function SeminarForm({ values }) {
         name="timezone"
         label="Timezone"
         showSearch
-        virtualScroll
         options={timeZoneOptions}
         component={SelectField}
+        dataTestId="timezone"
       />
       <ArrayOf
         values={values}

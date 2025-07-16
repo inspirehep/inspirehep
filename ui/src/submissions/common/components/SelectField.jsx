@@ -28,7 +28,7 @@ class SelectField extends Component {
         {...otherProps}
         mode={mode}
         data-test-type={`${mode || 'single'}-select`}
-        defaultValue={value}
+        value={value}
         onBlur={this.onBlur}
         onChange={this.onChange}
       />
