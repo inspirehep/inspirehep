@@ -22,6 +22,10 @@ LOGGER = structlog.getLogger()
 class InspireRecordIndexer(RecordIndexer):
     """Extend Invenio indexer to properly index Inspire records"""
 
+    def __init__(self, skip_indexing_references=False, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._skip_indexing_references = skip_indexing_references
+
     @staticmethod
     def _prepare_record(record, index, doc_type="_doc", arguments=None, **kwargs):
         from inspirehep.records.api.literature import LiteratureRecord
@@ -155,7 +159,11 @@ class InspireRecordIndexer(RecordIndexer):
             if record.get("deleted", False):
                 try:
                     # When record is not in es then dsl is throwing TransportError(404)
-                    record.index(delay=False, force_delete=True)
+                    record.index(
+                        delay=False,
+                        force_delete=True,
+                        skip_indexing_references=self._skip_indexing_references,
+                    )
                 except TransportError:
                     LOGGER.warning("Record not found in ES!", uuid=str(record.id))
                 return None
