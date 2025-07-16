@@ -71,13 +71,14 @@ def test_reindex_one_type_of_record_with_fulltext(
             "kwargs": {
                 "records_uuids": [str(record_lit.id)],
                 "request_timeout": inspire_app.config["INDEXER_BULK_REQUEST_TIMEOUT"],
+                "skip_indexing_references": False,
             },
             "queue": "indexer_task",
         }
 
 
 @mock.patch("inspirehep.indexer.cli.batch_index")
-def test_reindex_all_is_reuindexing_with_fulltext(
+def test_reindex_all_is_reindexing_with_fulltext(
     mock_index_fulltext, inspire_app, cli, override_config
 ):
     with override_config(FEATURE_FLAG_ENABLE_FULLTEXT=True):
@@ -89,6 +90,7 @@ def test_reindex_all_is_reuindexing_with_fulltext(
             "kwargs": {
                 "records_uuids": [str(record_lit.id)],
                 "request_timeout": inspire_app.config["INDEXER_BULK_REQUEST_TIMEOUT"],
+                "skip_indexing_references": True,
             },
             "queue": "indexer_task",
         }
@@ -486,3 +488,27 @@ def test_cli_removes_files_pipeline(inspire_app, cli):
     ingest_client = IngestClient(current_search.client)
     with pytest.raises(NotFoundError):
         ingest_client.get_pipeline(inspire_app.config["ES_FULLTEXT_PIPELINE_NAME"])
+
+
+@mock.patch("inspirehep.indexer.cli.batch_index")
+def test_reindex_all_skips_reference_reindexing(mock_batch_index, inspire_app, cli):
+    create_record("lit")
+    cli.invoke(["index", "reindex", "--all"])
+
+    assert mock_batch_index.called_once()
+    assert (
+        mock_batch_index.mock_calls[0][2]["kwargs"]["skip_indexing_references"] is True
+    )
+
+
+@mock.patch("inspirehep.indexer.cli.batch_index")
+def test_reindex_specific_type_enables_reference_reindexing(
+    mock_batch_index, inspire_app, cli
+):
+    create_record("lit")
+    cli.invoke(["index", "reindex", "-p", "lit"])
+
+    assert mock_batch_index.called_once()
+    assert (
+        mock_batch_index.mock_calls[0][2]["kwargs"]["skip_indexing_references"] is False
+    )
