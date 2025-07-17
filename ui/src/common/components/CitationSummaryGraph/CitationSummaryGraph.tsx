@@ -15,7 +15,7 @@ import { Map } from 'immutable';
 
 import './CitationSummaryGraph.less';
 import 'react-vis/dist/style.css';
-import maxBy from 'lodash.maxby';
+import maxBy from 'lodash/maxBy';
 import LoadingOrChildren from '../LoadingOrChildren';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 import { CITEABLE_BAR_TYPE, PUBLISHED_BAR_TYPE } from '../../constants';

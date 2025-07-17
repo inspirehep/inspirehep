@@ -7,7 +7,7 @@ import { closeBanner, changeGuideModalVisibility } from '../ui';
 
 describe('ui - action creator', () => {
   it('closeBanner creates UI_CLOSE_BANNER', async () => {
-    const id = 1;
+    const id = '1';
     const expectedActions = [
       {
         type: UI_CLOSE_BANNER,
