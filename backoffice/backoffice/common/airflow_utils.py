@@ -11,7 +11,7 @@ from backoffice.common.constants import WORKFLOW_DAGS
 AIRFLOW_BASE_URL = environ.get("AIRFLOW_BASE_URL")
 
 AIRFLOW_HEADERS = (
-    {"Authorization": f"Basic {environ.get('AIRFLOW_TOKEN')}"}
+    {"Authorization": f"Bearer {environ.get('AIRFLOW_TOKEN')}"}
     if environ.get("AIRFLOW_TOKEN")
     else {}
 )
