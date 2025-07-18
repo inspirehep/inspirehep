@@ -1,7 +1,6 @@
 import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
+import { renderWithRouter } from '../../../fixtures/render';
 import DataItem from '../DataItem';
 
 describe('DataItem', () => {
@@ -83,11 +82,9 @@ describe('DataItem', () => {
       citation_count: 666,
     });
 
-    const { asFragment } = render(
-      <MemoryRouter initialEntries={['/data']} initialIndex={0}>
-        <DataItem metadata={metadata} />
-      </MemoryRouter>
-    );
+    const { asFragment } = renderWithRouter(<DataItem metadata={metadata} />, {
+      route: '/data',
+    });
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -135,11 +132,9 @@ describe('DataItem', () => {
       citation_count: 0,
     });
 
-    const { asFragment } = render(
-      <MemoryRouter initialEntries={['/data']} initialIndex={0}>
-        <DataItem metadata={metadata} />
-      </MemoryRouter>
-    );
+    const { asFragment } = renderWithRouter(<DataItem metadata={metadata} />, {
+      route: '/data',
+    });
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -155,11 +150,9 @@ describe('DataItem', () => {
       control_number: 1234,
     });
 
-    const { asFragment } = render(
-      <MemoryRouter initialEntries={['/data']} initialIndex={0}>
-        <DataItem metadata={metadata} />
-      </MemoryRouter>
-    );
+    const { asFragment } = renderWithRouter(<DataItem metadata={metadata} />, {
+      route: '/data',
+    });
     expect(asFragment()).toMatchSnapshot();
   });
 });

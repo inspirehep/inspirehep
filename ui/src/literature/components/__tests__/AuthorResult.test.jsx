@@ -1,11 +1,8 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { Map } from 'immutable';
-import { MemoryRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
 
 import AuthorResult from '../AuthorResult';
-import { getStore } from '../../../fixtures/store';
+import { renderWithProviders } from '../../../fixtures/render';
 
 describe('AuthorResult', () => {
   it('renders', () => {
@@ -16,13 +13,10 @@ describe('AuthorResult', () => {
       }),
     });
 
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/']}>
-          <AuthorResult item={authors} page="Page" />
-        </MemoryRouter>
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <AuthorResult item={authors} page="Page" />
     );
+
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -34,12 +28,8 @@ describe('AuthorResult', () => {
       }),
     });
 
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/']}>
-          <AuthorResult item={authors} page="Page" />
-        </MemoryRouter>
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <AuthorResult item={authors} page="Page" />
     );
 
     expect(getByTestId('literature-drawer-radio-1016091')).toBeInTheDocument();
@@ -50,12 +40,8 @@ describe('AuthorResult', () => {
       full_name: 'Test, A',
     });
 
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/']}>
-          <AuthorResult item={authors} page="Page" />
-        </MemoryRouter>
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <AuthorResult item={authors} page="Page" />
     );
 
     expect(getByTestId('literature-drawer-radio-undefined')).toHaveAttribute(

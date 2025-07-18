@@ -1,10 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 
+import { renderWithProviders } from '../../../../fixtures/render';
 import ExistingConferencesDrawer from '../ExistingConferencesDrawer';
-import { getStore } from '../../../../fixtures/store';
 
 describe('ExistingConferencesDrawer', () => {
   it('renders drawer with number of conferences', async () => {
@@ -12,16 +9,13 @@ describe('ExistingConferencesDrawer', () => {
     const onDrawerClose = jest.fn();
     const numberOfConferences = 5;
 
-    const { baseElement } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/conferences']} initialIndex={0}>
-          <ExistingConferencesDrawer
-            visible={visible}
-            onDrawerClose={onDrawerClose}
-            numberOfConferences={numberOfConferences}
-          />
-        </MemoryRouter>
-      </Provider>
+    const { baseElement } = renderWithProviders(
+      <ExistingConferencesDrawer
+        visible={visible}
+        onDrawerClose={onDrawerClose}
+        numberOfConferences={numberOfConferences}
+      />,
+      { route: '/submissions/conferences' }
     );
 
     expect(baseElement).toHaveTextContent('5');

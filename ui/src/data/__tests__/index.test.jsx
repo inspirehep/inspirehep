@@ -1,24 +1,18 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import Loadable from 'react-loadable';
 import { fromJS } from 'immutable';
-import { getStore } from '../../fixtures/store';
+import { renderWithProviders, renderWithRouter } from '../../fixtures/render';
 import Data from '..';
 
 describe('Data', () => {
   it('renders initial state', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <Data />
-      </MemoryRouter>
-    );
+    const { asFragment } = renderWithRouter(<Data />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('navigates to DetailPageContainer when /data/:id', async () => {
-    const store = getStore({
+    const initialState = {
       data: fromJS({
         data: {
           metadata: {
@@ -31,14 +25,11 @@ describe('Data', () => {
           },
         },
       }),
+    };
+    renderWithProviders(<Data />, {
+      initialState,
+      route: '/data/123',
     });
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/data/123']} initialIndex={0}>
-          <Data />
-        </MemoryRouter>
-      </Provider>
-    );
     await Loadable.preloadAll();
     expect(
       screen.getByTestId('data-detail-page-container')
@@ -46,15 +37,10 @@ describe('Data', () => {
   });
 
   it('navigates to SearchPage when /data', async () => {
-    render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/data']} initialIndex={0}>
-          <Data />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<Data />, {
+      route: '/data',
+    });
     await Loadable.preloadAll();
-
     expect(
       screen.getByTestId('data-search-page-container')
     ).toBeInTheDocument();

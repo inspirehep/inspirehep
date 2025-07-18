@@ -1,8 +1,6 @@
-import { fireEvent, render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
+import { fireEvent } from '@testing-library/react';
 import { fromJS } from 'immutable';
-
+import { renderWithProviders } from '../../../../fixtures/render';
 import { getStore } from '../../../../fixtures/store';
 import BannerContainer from '../BannerContainer';
 
@@ -24,12 +22,9 @@ describe('BannerContainer', () => {
         closedBannersById,
       }),
     });
-    const { getByText } = render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <BannerContainer {...REQUIRED_BANNER_PROPS} />
-        </MemoryRouter>
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <BannerContainer {...REQUIRED_BANNER_PROPS} />,
+      { store }
     );
 
     expect(getByText('Test')).toBeInTheDocument();
@@ -49,12 +44,9 @@ describe('BannerContainer', () => {
       }),
     });
 
-    const screen = render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <BannerContainer {...REQUIRED_BANNER_PROPS} id={bannerId} closable />
-        </MemoryRouter>
-      </Provider>
+    const screen = renderWithProviders(
+      <BannerContainer {...REQUIRED_BANNER_PROPS} id={bannerId} closable />,
+      { store }
     );
 
     const closeButton = screen.getByRole('button');

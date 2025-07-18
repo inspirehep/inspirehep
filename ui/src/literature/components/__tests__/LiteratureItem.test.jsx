@@ -1,12 +1,9 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { fromJS, List } from 'immutable';
-import { Provider } from 'react-redux';
 
-import { MemoryRouter } from 'react-router-dom';
+import { renderWithProviders } from '../../../fixtures/render';
 import LiteratureItem from '../LiteratureItem';
 import { LITERATURE_NS } from '../../../search/constants';
-import { getStore } from '../../../fixtures/store';
 
 describe('LiteratureItem', () => {
   it('renders with all props set, including sub props', () => {
@@ -35,12 +32,8 @@ describe('LiteratureItem', () => {
       ],
       fulltext_highlight: List(['A snippet of <em>fulltext</em>']),
     });
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter>
-          <LiteratureItem metadata={metadata} searchRank={2} />
-        </MemoryRouter>
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <LiteratureItem metadata={metadata} searchRank={2} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -50,12 +43,8 @@ describe('LiteratureItem', () => {
       control_number: 12345,
       titles: [{ title: 'test' }],
     });
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter>
-          <LiteratureItem metadata={metadata} searchRank={1} />
-        </MemoryRouter>
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <LiteratureItem metadata={metadata} searchRank={1} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -65,12 +54,8 @@ describe('LiteratureItem', () => {
       control_number: 12345,
       titles: [{ title: 'test' }],
     });
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter>
-          <LiteratureItem metadata={metadata} searchRank={2} />
-        </MemoryRouter>
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <LiteratureItem metadata={metadata} searchRank={2} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -92,16 +77,8 @@ describe('LiteratureItem', () => {
         },
       ],
     });
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter>
-          <LiteratureItem
-            metadata={metadata}
-            searchRank={3}
-            page="Literature"
-          />
-        </MemoryRouter>
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <LiteratureItem metadata={metadata} searchRank={3} page="Literature" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -123,19 +100,15 @@ describe('LiteratureItem', () => {
         },
       ],
     });
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter>
-          <LiteratureItem
-            metadata={metadata}
-            searchRank={3}
-            loggedIn
-            hasAuthorProfile
-            namespace={LITERATURE_NS}
-            page="Literature"
-          />
-        </MemoryRouter>
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <LiteratureItem
+        metadata={metadata}
+        searchRank={3}
+        loggedIn
+        hasAuthorProfile
+        namespace={LITERATURE_NS}
+        page="Literature"
+      />
     );
     expect(asFragment()).toMatchSnapshot();
   });

@@ -1,12 +1,12 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { fireEvent, waitFor } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import { getStore } from '../../../fixtures/store';
 import OrcidPushSettingContainer from '../OrcidPushSettingContainer';
 import { USER_SET_ORCID_PUSH_SETTING_REQUEST } from '../../../actions/actionTypes';
 import OrcidPushSetting from '../../components/OrcidPushSetting';
+import { renderWithProviders } from '../../../fixtures/render';
 
 jest.mock('../../components/OrcidPushSetting', () => {
   const actual = jest.requireActual('../../components/OrcidPushSetting');
@@ -38,11 +38,7 @@ describe('OrcidPushSettingContainer', () => {
         },
       }),
     });
-    render(
-      <Provider store={store}>
-        <OrcidPushSettingContainer />
-      </Provider>
-    );
+    renderWithProviders(<OrcidPushSettingContainer />, { store });
 
     expect(OrcidPushSetting).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -71,11 +67,9 @@ describe('OrcidPushSettingContainer', () => {
         },
       }),
     });
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <OrcidPushSettingContainer />
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<OrcidPushSettingContainer />, {
+      store,
+    });
 
     const switchElement = getByTestId('orcid-switch');
     fireEvent.click(switchElement);

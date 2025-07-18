@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { screen } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import ExistingConferencesAlertContainer from '../ExistingConferencesAlertContainer';
@@ -8,6 +7,7 @@ import { EXISTING_CONFERENCES_NS } from '../../../../search/constants';
 import { SEARCH_QUERY_UPDATE } from '../../../../actions/actionTypes';
 import { getStore } from '../../../../fixtures/store';
 import { RANGE_AGGREGATION_SELECTION_SEPARATOR } from '../../../../common/constants';
+import { renderWithProviders } from '../../../../fixtures/render';
 
 describe('ExistingConferencesAlertContainer', () => {
   it('dispatches SEARCH_QUERY_UPDATE initially', () => {
@@ -16,12 +16,9 @@ describe('ExistingConferencesAlertContainer', () => {
     const store = getStore();
     const namespace = EXISTING_CONFERENCES_NS;
 
-    render(
-      <Provider store={store}>
-        <ExistingConferencesAlertContainer
-          dates={[startingDate, closingDate]}
-        />
-      </Provider>
+    renderWithProviders(
+      <ExistingConferencesAlertContainer dates={[startingDate, closingDate]} />,
+      { store }
     );
 
     const expectedActions = [
@@ -52,12 +49,9 @@ describe('ExistingConferencesAlertContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <ExistingConferencesAlertContainer
-          dates={[startingDate, closingDate]}
-        />
-      </Provider>
+    renderWithProviders(
+      <ExistingConferencesAlertContainer dates={[startingDate, closingDate]} />,
+      { store }
     );
 
     expect(

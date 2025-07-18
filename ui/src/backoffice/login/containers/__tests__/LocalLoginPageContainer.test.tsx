@@ -1,12 +1,11 @@
 import React from 'react';
-import { render, fireEvent, screen, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import LocalLoginPageContainer from '../LocalLoginPageContainer';
 import { getStore } from '../../../../fixtures/store';
 import { BACKOFFICE_LOGIN } from '../../../../common/routes';
+import { renderWithProviders } from '../../../../fixtures/render';
 
 const store = getStore({
   backoffice: fromJS({
@@ -17,13 +16,11 @@ const store = getStore({
 
 describe('LoginPageContainer', () => {
   it('should dispatch backofficeLogin action on form submit', async () => {
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={[BACKOFFICE_LOGIN]}>
-          <LocalLoginPageContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<LocalLoginPageContainer />, {
+      route: BACKOFFICE_LOGIN,
+      store,
+    });
+
     const emailInput = screen.getByTestId('email');
     const passwordInput = screen.getByTestId('password');
     const loginButton = screen.getByTestId('login');

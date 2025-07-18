@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
+import { screen } from '@testing-library/react';
 
-import { render, screen } from '@testing-library/react';
 import { getStore } from '../../../fixtures/store';
 import DetailPageContainer from '../DetailPageContainer';
+import { renderWithProviders } from '../../../fixtures/render';
 
 describe('DetailPageContainer', () => {
   it('renders journals details correctly', () => {
@@ -28,12 +28,11 @@ describe('DetailPageContainer', () => {
       }),
     });
 
-    const { getByTestId } = render(
+    const { getByTestId } = renderWithProviders(
       <Router>
-        <Provider store={store}>
-          <DetailPageContainer />
-        </Provider>
-      </Router>
+        <DetailPageContainer />
+      </Router>,
+      { store }
     );
 
     const detailPage = getByTestId('journals-detail-page-container');

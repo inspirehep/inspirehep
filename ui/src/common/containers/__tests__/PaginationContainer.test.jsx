@@ -1,7 +1,7 @@
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
 
+import { renderWithProviders } from '../../../fixtures/render';
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import PaginationContainer from '../PaginationContainer';
 import { LITERATURE_NS } from '../../../search/constants';
@@ -23,10 +23,9 @@ describe('PaginationContainer', () => {
         },
       }),
     });
-    const { getByText, container } = render(
-      <Provider store={store}>
-        <PaginationContainer namespace={namespace} />
-      </Provider>
+    const { getByText, container } = renderWithProviders(
+      <PaginationContainer namespace={namespace} />,
+      { store }
     );
 
     const element = container.querySelector('.ant-pagination-item-active');
@@ -46,10 +45,9 @@ describe('PaginationContainer', () => {
       }),
     });
 
-    const screen = render(
-      <Provider store={store}>
-        <PaginationContainer namespace={namespace} />
-      </Provider>
+    const screen = renderWithProviders(
+      <PaginationContainer namespace={namespace} />,
+      { store }
     );
 
     fireEvent.click(screen.getByTitle('Next Page'));
@@ -70,10 +68,9 @@ describe('PaginationContainer', () => {
       }),
     });
 
-    const screen = render(
-      <Provider store={store}>
-        <PaginationContainer namespace={namespace} />
-      </Provider>
+    const screen = renderWithProviders(
+      <PaginationContainer namespace={namespace} />,
+      { store }
     );
 
     fireEvent.mouseDown(screen.getByRole('combobox'));

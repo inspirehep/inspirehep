@@ -1,30 +1,20 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import Loadable from 'react-loadable';
 import { fromJS } from 'immutable';
-import { getStore } from '../../fixtures/store';
+import { renderWithProviders, renderWithRouter } from '../../fixtures/render';
 import Institutions from '..';
 
 describe('Institutions', () => {
   it('renders initial state', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <Institutions />
-      </MemoryRouter>
-    );
+    const { asFragment } = renderWithRouter(<Institutions />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('navigates to SearchPage when /institutions', async () => {
-    render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/institutions']} initialIndex={0}>
-          <Institutions />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<Institutions />, {
+      route: '/institutions',
+    });
     await Loadable.preloadAll();
     expect(
       screen.getByTestId('institutions-search-page-container')
@@ -32,7 +22,7 @@ describe('Institutions', () => {
   });
 
   it('navigates to DetailPageContainer when /institutions/:id', async () => {
-    const store = getStore({
+    const initialState = {
       institutions: fromJS({
         data: {
           metadata: {
@@ -46,14 +36,11 @@ describe('Institutions', () => {
           },
         },
       }),
+    };
+    renderWithProviders(<Institutions />, {
+      route: '/institutions/1',
+      initialState,
     });
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/institutions/1']} initialIndex={0}>
-          <Institutions />
-        </MemoryRouter>
-      </Provider>
-    );
     await Loadable.preloadAll();
 
     expect(

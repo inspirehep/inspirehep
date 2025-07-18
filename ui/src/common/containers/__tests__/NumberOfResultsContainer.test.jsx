@@ -1,10 +1,9 @@
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
 
 import { getStore } from '../../../fixtures/store';
 import NumberOfResultsContainer from '../NumberOfResultsContainer';
 import { AUTHOR_PUBLICATIONS_NS } from '../../../search/constants';
+import { renderWithProviders } from '../../../fixtures/render';
 
 describe('NumberOfResultsContainer', () => {
   it('passes search namepspace total state', () => {
@@ -18,10 +17,9 @@ describe('NumberOfResultsContainer', () => {
         },
       }),
     });
-    const { getByText } = render(
-      <Provider store={store}>
-        <NumberOfResultsContainer namespace={namespace} />
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <NumberOfResultsContainer namespace={namespace} />,
+      { store }
     );
     expect(getByText('5 results')).toBeInTheDocument();
   });

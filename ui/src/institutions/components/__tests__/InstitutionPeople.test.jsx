@@ -1,15 +1,13 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+
+import { renderWithRouter } from '../../../fixtures/render';
 import InstitutionPeople from '../InstitutionPeople';
 
 describe('InstitutionPeople', () => {
   it('renders', () => {
     const recordId = 123;
-    const { asFragment } = render(
-      <MemoryRouter>
-        <InstitutionPeople recordId={recordId} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <InstitutionPeople recordId={recordId} />
     );
     expect(asFragment()).toMatchSnapshot();
   });

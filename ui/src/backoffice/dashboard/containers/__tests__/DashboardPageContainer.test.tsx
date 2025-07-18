@@ -1,7 +1,5 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { screen, fireEvent, waitFor } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import { getStore } from '../../../../fixtures/store';
@@ -9,6 +7,7 @@ import DashboardPageContainer from '../DashboardPageContainer';
 import { BACKOFFICE } from '../../../../common/routes';
 import { BACKOFFICE_LOGIN_CHECK } from '../../../../actions/actionTypes';
 import { WorkflowTypes } from '../../../constants';
+import { renderWithProviders } from '../../../../fixtures/render';
 
 describe('DashboardPageContainer', () => {
   let store = getStore({
@@ -69,13 +68,10 @@ describe('DashboardPageContainer', () => {
   });
 
   const renderComponent = () =>
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={[BACKOFFICE]}>
-          <DashboardPageContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<DashboardPageContainer />, {
+      store,
+      route: BACKOFFICE,
+    });
 
   it('renders without crashing', () => {
     renderComponent();

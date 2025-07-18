@@ -1,16 +1,12 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 import Loadable from 'react-loadable';
-
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { getStore } from '../../fixtures/store';
+import { renderWithProviders } from '../../fixtures/render';
 import Jobs from '..';
 
 describe('Jobs', () => {
   it('navigates to DetailPageContainer when /jobs/:id', async () => {
-    const store = getStore({
+    const initialState = {
       jobs: fromJS({
         data: {
           metadata: {
@@ -22,27 +18,20 @@ describe('Jobs', () => {
           updated: '2025-03-26T16:25:11.340978+00:00',
         },
       }),
+    };
+    const { getByTestId } = renderWithProviders(<Jobs />, {
+      route: '/jobs/123',
+      initialState,
     });
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/jobs/123']} initialIndex={0}>
-          <Jobs />
-        </MemoryRouter>
-      </Provider>
-    );
     await Loadable.preloadAll();
 
     expect(getByTestId('jobs-detail-page-container')).toBeInTheDocument();
   });
 
-  it('navigates to SerachPage when /jobs', async () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/jobs']} initialIndex={0}>
-          <Jobs />
-        </MemoryRouter>
-      </Provider>
-    );
+  it('navigates to SearchPage when /jobs', async () => {
+    const { getByTestId } = renderWithProviders(<Jobs />, {
+      route: '/jobs',
+    });
     await Loadable.preloadAll();
 
     expect(getByTestId('jobs-search-page-container')).toBeInTheDocument();

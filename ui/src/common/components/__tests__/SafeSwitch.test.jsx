@@ -1,29 +1,31 @@
-import { render } from '@testing-library/react';
-import { Route, MemoryRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
+import { renderWithRouter } from '../../../fixtures/render';
 import SafeSwitch from '../SafeSwitch';
 
 describe('SafeSwitch', () => {
-  it('renders childrens ', () => {
+  it('renders children ', () => {
     const Foo = () => <div>Foo Component</div>;
-    const { getByText } = render(
-      <MemoryRouter initialEntries={['/foo']}>
-        <SafeSwitch>
+    const { getByText } = renderWithRouter(
+      <SafeSwitch>
+        <Switch>
           <Route path="/foo" component={Foo} />
-        </SafeSwitch>
-      </MemoryRouter>
+        </Switch>
+      </SafeSwitch>,
+      { route: '/foo' }
     );
     expect(getByText('Foo Component')).toBeInTheDocument();
   });
 
   it('redirect to errors', () => {
     const Foo = () => <div>Foo Component</div>;
-    const { container } = render(
-      <MemoryRouter initialEntries={['/bad_route']}>
-        <SafeSwitch>
+    const { container } = renderWithRouter(
+      <SafeSwitch>
+        <Switch>
           <Route path="/foo" component={Foo} />
-        </SafeSwitch>
-      </MemoryRouter>
+        </Switch>
+      </SafeSwitch>,
+      { route: '/bad_route' }
     );
     expect(container).toBeEmptyDOMElement();
   });

@@ -1,7 +1,6 @@
-import { getAllByRole, render } from '@testing-library/react';
+import { getAllByRole } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { MemoryRouter } from 'react-router-dom';
-
+import { renderWithRouter } from '../../../fixtures/render';
 import ExperimentList from '../ExperimentList';
 
 describe('ExperimentList', () => {
@@ -13,10 +12,8 @@ describe('ExperimentList', () => {
       },
       { name: 'CERN-LHC-LHCb' },
     ]);
-    const { container, getByRole } = render(
-      <MemoryRouter>
-        <ExperimentList experiments={experiments} />
-      </MemoryRouter>
+    const { container, getByRole } = renderWithRouter(
+      <ExperimentList experiments={experiments} />
     );
     expect(getByRole('link', { name: 'CERN-LHC-CMS' })).toHaveAttribute(
       'href',

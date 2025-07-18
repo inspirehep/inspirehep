@@ -1,31 +1,18 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 
+import { renderWithProviders } from '../../../fixtures/render';
 import ErrorAlert from '../ErrorAlert';
-import { getStore } from '../../../fixtures/store';
 
 describe('ErrorAlert', () => {
   it('renders with custom message', () => {
-    const { getByText } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter>
-          <ErrorAlert message="Terrible thing is happening!" />
-        </MemoryRouter>
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <ErrorAlert message="Terrible thing is happening!" />
     );
     expect(getByText('Terrible thing is happening!')).toBeInTheDocument();
   });
 
   it('renders with default message', () => {
-    const { getByText } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter>
-          <ErrorAlert />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByText } = renderWithProviders(<ErrorAlert />);
     expect(getByText('Something went wrong')).toBeInTheDocument();
   });
 });

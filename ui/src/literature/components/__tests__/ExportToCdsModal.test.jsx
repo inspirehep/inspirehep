@@ -1,10 +1,8 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
 
+import { renderWithProviders } from '../../../fixtures/render';
 import ExportToCdsModal from '../ExportToCdsModal';
-import { getStore } from '../../../fixtures/store';
 
 describe('ExportToCdsModal', () => {
   beforeAll(() => {
@@ -14,17 +12,13 @@ describe('ExportToCdsModal', () => {
   });
 
   it('renders modal for one paper', () => {
-    const { baseElement } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/']}>
-          <ExportToCdsModal
-            onOk={jest.fn()}
-            onCancel={jest.fn()}
-            visible
-            selectionSize={1}
-          />
-        </MemoryRouter>
-      </Provider>
+    const { baseElement } = renderWithProviders(
+      <ExportToCdsModal
+        onOk={jest.fn()}
+        onCancel={jest.fn()}
+        visible
+        selectionSize={1}
+      />
     );
     expect(baseElement).toMatchSnapshot();
   });

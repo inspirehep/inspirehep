@@ -1,18 +1,14 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-
+import { renderWithRouter } from '../../../fixtures/render';
 import EventSeries from '../EventSeries';
 import { CONFERENCES_PID_TYPE, SEMINARS_PID_TYPE } from '../../constants';
 
 describe('EventSeries', () => {
   it('renders with only name', () => {
     const series = fromJS([{ name: 'Conference Name' }]);
-    const { getByText, getByRole } = render(
-      <MemoryRouter>
-        <EventSeries series={series} pidType={CONFERENCES_PID_TYPE} />
-      </MemoryRouter>
+    const { getByText, getByRole } = renderWithRouter(
+      <EventSeries series={series} pidType={CONFERENCES_PID_TYPE} />
     );
     const link = getByRole('link', {
       name: 'Conference Name',
@@ -26,10 +22,8 @@ describe('EventSeries', () => {
 
   it('renders conference series with name and number', () => {
     const series = fromJS([{ name: 'Conference Name', number: 10 }]);
-    const { getByText, getByRole } = render(
-      <MemoryRouter>
-        <EventSeries series={series} pidType={CONFERENCES_PID_TYPE} />
-      </MemoryRouter>
+    const { getByText, getByRole } = renderWithRouter(
+      <EventSeries series={series} pidType={CONFERENCES_PID_TYPE} />
     );
     const link = getByRole('link', {
       name: 'Conference Name',
@@ -47,10 +41,8 @@ describe('EventSeries', () => {
       { name: 'Conference 2', number: 10 },
       { name: 'Conference 3' },
     ]);
-    const { getByText, getByRole } = render(
-      <MemoryRouter>
-        <EventSeries series={series} pidType={CONFERENCES_PID_TYPE} />
-      </MemoryRouter>
+    const { getByText, getByRole } = renderWithRouter(
+      <EventSeries series={series} pidType={CONFERENCES_PID_TYPE} />
     );
 
     const link = getByRole('link', {
@@ -81,10 +73,8 @@ describe('EventSeries', () => {
 
   it('renders seminar series with name and number', () => {
     const series = fromJS([{ name: 'Seminar Name', number: 10 }]);
-    const { getByText, getByRole } = render(
-      <MemoryRouter>
-        <EventSeries series={series} pidType={SEMINARS_PID_TYPE} />
-      </MemoryRouter>
+    const { getByText, getByRole } = renderWithRouter(
+      <EventSeries series={series} pidType={SEMINARS_PID_TYPE} />
     );
     const link = getByRole('link', {
       name: 'Seminar Name',

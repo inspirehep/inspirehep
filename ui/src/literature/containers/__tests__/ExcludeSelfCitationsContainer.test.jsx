@@ -1,6 +1,4 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
@@ -8,7 +6,6 @@ import {
   LITERATURE_NS,
   AUTHOR_PUBLICATIONS_NS,
 } from '../../../search/constants';
-
 import { fetchCitationSummary } from '../../../actions/citations';
 import ExcludeSelfCitationsContainer, {
   UI_EXCLUDE_SELF_CITATIONS_PARAM,
@@ -21,6 +18,7 @@ import {
   CITATION_COUNT_PARAM,
   CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM,
 } from '../../../common/constants';
+import { renderWithProviders } from '../../../fixtures/render';
 
 jest.mock('../../../actions/citations');
 mockActionCreator(fetchCitationSummary);
@@ -67,10 +65,9 @@ describe('ExcludeSelfCitationsContainer', () => {
   it('dispatches setPreference and fetchCitationSummary when excluded', () => {
     const namespace = LITERATURE_NS;
     const store = getStore();
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <ExcludeSelfCitationsContainer namespace={namespace} />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <ExcludeSelfCitationsContainer namespace={namespace} />,
+      { store }
     );
 
     const changeButton = getByTestId('on-change-button');
@@ -90,10 +87,9 @@ describe('ExcludeSelfCitationsContainer', () => {
   it('also removes excluded self citations param when when not exluced', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore();
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <ExcludeSelfCitationsContainer namespace={namespace} />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <ExcludeSelfCitationsContainer namespace={namespace} />,
+      { store }
     );
 
     const changeFalseButton = getByTestId('on-change-false-button');
@@ -117,10 +113,9 @@ describe('ExcludeSelfCitationsContainer', () => {
       },
     });
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <ExcludeSelfCitationsContainer namespace={namespace} />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <ExcludeSelfCitationsContainer namespace={namespace} />,
+      { store }
     );
 
     const component = getByTestId('exclude-self-citations');
@@ -138,10 +133,9 @@ describe('ExcludeSelfCitationsContainer', () => {
       },
     });
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <ExcludeSelfCitationsContainer namespace={namespace} />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <ExcludeSelfCitationsContainer namespace={namespace} />,
+      { store }
     );
 
     const component = getByTestId('exclude-self-citations');
@@ -158,10 +152,9 @@ describe('ExcludeSelfCitationsContainer', () => {
       }),
     });
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <ExcludeSelfCitationsContainer namespace={namespace} />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <ExcludeSelfCitationsContainer namespace={namespace} />,
+      { store }
     );
 
     const component = getByTestId('exclude-self-citations');
@@ -173,10 +166,9 @@ describe('ExcludeSelfCitationsContainer', () => {
   it('dispatches appendQueryToLocationSearch onPreferenceChange if the citation summary is enabled', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore();
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <ExcludeSelfCitationsContainer namespace={namespace} />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <ExcludeSelfCitationsContainer namespace={namespace} />,
+      { store }
     );
 
     const preferenceChangeButton = getByTestId('on-preference-change-button');

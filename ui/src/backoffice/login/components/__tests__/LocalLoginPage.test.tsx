@@ -1,11 +1,10 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { screen, fireEvent, waitFor } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import LocalLoginPage from '../LocalLoginPage';
 import { BACKOFFICE_LOGIN } from '../../../../common/routes';
+import { renderWithProviders } from '../../../../fixtures/render';
 import { getStore } from '../../../../fixtures/store';
 
 jest.mock('../../../../common/components/DocumentHead', () => ({
@@ -17,20 +16,20 @@ jest.mock('../../../../common/components/DocumentHead', () => ({
 
 describe('LocalLoginPage', () => {
   const onLoginFormSubmit = jest.fn();
-  const store = getStore({
-    backoffice: fromJS({
-      loading: false,
-      loggedIn: false,
-    }),
-  });
 
   const setup = () => {
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={[BACKOFFICE_LOGIN]}>
-          <LocalLoginPage onLoginFormSubmit={onLoginFormSubmit} />
-        </MemoryRouter>
-      </Provider>
+    const store = getStore({
+      backoffice: fromJS({
+        loading: false,
+        loggedIn: false,
+      }),
+    });
+    renderWithProviders(
+      <LocalLoginPage onLoginFormSubmit={onLoginFormSubmit} />,
+      {
+        store,
+        route: BACKOFFICE_LOGIN,
+      }
     );
   };
 

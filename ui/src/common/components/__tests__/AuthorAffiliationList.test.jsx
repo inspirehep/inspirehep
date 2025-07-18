@@ -1,8 +1,8 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
-import { MemoryRouter } from 'react-router-dom';
+import { renderWithRouter } from '../../../fixtures/render';
 import AffiliationList from '../AffiliationList';
 
 describe('AffiliationList', () => {
@@ -13,10 +13,8 @@ describe('AffiliationList', () => {
         record: { $ref: 'http://inspirehep.net/api/institutions/12345' },
       },
     ]);
-    const { getByRole } = render(
-      <MemoryRouter>
-        <AffiliationList affiliations={affiliations} />
-      </MemoryRouter>
+    const { getByRole } = renderWithRouter(
+      <AffiliationList affiliations={affiliations} />
     );
     expect(getByRole('link')).toBeInTheDocument();
     expect(getByRole('link')).toHaveAttribute('href', '/institutions/12345');
@@ -32,10 +30,8 @@ describe('AffiliationList', () => {
         value: 'CERN1',
       },
     ]);
-    const { getByRole } = render(
-      <MemoryRouter>
-        <AffiliationList affiliations={affiliations} />
-      </MemoryRouter>
+    const { getByRole } = renderWithRouter(
+      <AffiliationList affiliations={affiliations} />
     );
     expect(getByRole('link')).toBeInTheDocument();
     expect(getByRole('link')).toHaveAttribute('href', '/institutions/12345');

@@ -1,10 +1,8 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { fromJS, List } from 'immutable';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 
 import { getStore } from '../../../fixtures/store';
+import { renderWithProviders } from '../../../fixtures/render';
 import LiteratureItemContainer from '../LiteratureItemContainer';
 import { CITE_FORMAT_PREFERENCE } from '../../../reducers/user';
 
@@ -54,16 +52,13 @@ describe('LiteratureItemContainer', () => {
       }),
     });
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <LiteratureItemContainer
-            searchRank={1}
-            metadata={metadata}
-            isCatalogerLoggedIn
-          />
-        </MemoryRouter>
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <LiteratureItemContainer
+        searchRank={1}
+        metadata={metadata}
+        isCatalogerLoggedIn
+      />,
+      { store }
     );
 
     const literatureItem = getByTestId('literature-item');

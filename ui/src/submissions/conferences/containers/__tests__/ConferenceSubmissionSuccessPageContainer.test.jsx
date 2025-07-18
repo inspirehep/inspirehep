@@ -1,8 +1,6 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
-import { render } from '@testing-library/react';
+import { renderWithProviders } from '../../../../fixtures/render';
 
 import ConferenceSubmissionSuccessPageContainer, {
   ConferenceSubmissionSucessPage,
@@ -20,12 +18,9 @@ describe('ConferenceSubmissionSuccessPageContainer', () => {
   });
 
   it('passes props to ConferenceSubmissionSucessPage', () => {
-    const { getByText, getByRole } = render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <ConferenceSubmissionSuccessPageContainer />
-        </MemoryRouter>
-      </Provider>
+    const { getByText, getByRole } = renderWithProviders(
+      <ConferenceSubmissionSuccessPageContainer />,
+      { store }
     );
 
     expect(
@@ -37,12 +32,9 @@ describe('ConferenceSubmissionSuccessPageContainer', () => {
 
   describe('ConferenceSubmissionSucessPage', () => {
     it('renders', () => {
-      const { asFragment } = render(
-        <Provider store={store}>
-          <MemoryRouter>
-            <ConferenceSubmissionSucessPage cnum="C19-02-01" recordId={12345} />
-          </MemoryRouter>
-        </Provider>
+      const { asFragment } = renderWithProviders(
+        <ConferenceSubmissionSucessPage cnum="C19-02-01" recordId={12345} />,
+        { store }
       );
       expect(asFragment()).toMatchSnapshot();
     });

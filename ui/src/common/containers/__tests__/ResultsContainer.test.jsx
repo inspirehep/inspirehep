@@ -1,7 +1,6 @@
 import { fromJS, List } from 'immutable';
-import { Provider } from 'react-redux';
-import { render } from '@testing-library/react';
 
+import { renderWithProviders } from '../../../fixtures/render';
 import { getStore } from '../../../fixtures/store';
 import ResultsContainer from '../ResultsContainer';
 import { JOBS_NS } from '../../../search/constants';
@@ -32,10 +31,11 @@ describe('ResultsContainer', () => {
     });
     const renderItem = (result) => <span>{result.get('value')}</span>;
 
-    const { getByText } = render(
-      <Provider store={store}>
-        <ResultsContainer namespace={namespace} renderItem={renderItem} />
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <ResultsContainer namespace={namespace} renderItem={renderItem} />,
+      {
+        store,
+      }
     );
     expect(getByText('value1')).toBeInTheDocument();
     expect(getByText('value2')).toBeInTheDocument();

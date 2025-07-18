@@ -1,6 +1,4 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
 import { fromJS, Set } from 'immutable';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
@@ -11,6 +9,7 @@ import {
   exportToCds,
 } from '../../../actions/literature';
 import * as constants from '../../constants';
+import { renderWithProviders } from '../../../fixtures/render';
 
 jest.mock('../../../actions/literature');
 jest.mock('../../components/ToolAction', () =>
@@ -33,11 +32,7 @@ describe('ToolActionContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <ToolActionContainer />
-      </Provider>
-    );
+    renderWithProviders(<ToolActionContainer />, { store });
 
     expect(ToolAction).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -60,11 +55,7 @@ describe('ToolActionContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <ToolActionContainer />
-      </Provider>
-    );
+    renderWithProviders(<ToolActionContainer />, { store });
 
     expect(ToolAction).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -83,11 +74,7 @@ describe('ToolActionContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <ToolActionContainer />
-      </Provider>
-    );
+    renderWithProviders(<ToolActionContainer />, { store });
 
     const toolActionProps = ToolAction.mock.calls[0][0];
 
@@ -105,11 +92,7 @@ describe('ToolActionContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <ToolActionContainer />
-      </Provider>
-    );
+    renderWithProviders(<ToolActionContainer />, { store });
 
     const toolActionProps = ToolAction.mock.calls[0][0];
 

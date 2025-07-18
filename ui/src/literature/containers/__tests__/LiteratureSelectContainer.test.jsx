@@ -1,12 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Provider } from 'react-redux';
-import { fromJS } from 'immutable';
 
+import { fromJS } from 'immutable';
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import LiteratureSelectContainer from '../LiteratureSelectContainer';
 import { setLiteratureSelection } from '../../../actions/literature';
+import { renderWithProviders } from '../../../fixtures/render';
 
 jest.mock('../../../actions/literature');
 mockActionCreator(setLiteratureSelection);
@@ -20,11 +20,7 @@ describe('LiteratureSelectContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <LiteratureSelectContainer recordId={1} />
-      </Provider>
-    );
+    renderWithProviders(<LiteratureSelectContainer recordId={1} />, { store });
 
     const checkbox = screen.getByRole('checkbox');
     expect(checkbox).not.toBeChecked();
@@ -43,11 +39,7 @@ describe('LiteratureSelectContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <LiteratureSelectContainer recordId={1} />
-      </Provider>
-    );
+    renderWithProviders(<LiteratureSelectContainer recordId={1} />, { store });
 
     const checkbox = screen.getByRole('checkbox');
     expect(checkbox).toBeChecked();
@@ -65,11 +57,7 @@ describe('LiteratureSelectContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <LiteratureSelectContainer recordId={1} />
-      </Provider>
-    );
+    renderWithProviders(<LiteratureSelectContainer recordId={1} />, { store });
 
     const checkbox = screen.getByRole('checkbox');
     expect(checkbox).toBeChecked();
@@ -82,11 +70,7 @@ describe('LiteratureSelectContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <LiteratureSelectContainer recordId={1} />
-      </Provider>
-    );
+    renderWithProviders(<LiteratureSelectContainer recordId={1} />, { store });
 
     const checkbox = screen.getByRole('checkbox');
     expect(checkbox).not.toBeChecked();

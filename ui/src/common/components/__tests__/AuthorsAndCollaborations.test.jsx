@@ -1,7 +1,7 @@
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { MemoryRouter } from 'react-router-dom';
+import { render } from '@testing-library/react';
 
+import { renderWithRouter } from '../../../fixtures/render';
 import AuthorsAndCollaborations from '../AuthorsAndCollaborations';
 
 describe('AuthorsAndCollaborations', () => {
@@ -45,15 +45,13 @@ describe('AuthorsAndCollaborations', () => {
         value: 'Test Collab 1',
       },
     ]);
-    const { getByText } = render(
-      <MemoryRouter>
-        <AuthorsAndCollaborations
-          enableAuthorsShowAll
-          authors={authors}
-          authorCount={1}
-          collaborations={collaborations}
-        />
-      </MemoryRouter>
+    const { getByText } = renderWithRouter(
+      <AuthorsAndCollaborations
+        enableAuthorsShowAll
+        authors={authors}
+        authorCount={1}
+        collaborations={collaborations}
+      />
     );
     expect(getByText('Test Collab 1')).toBeInTheDocument();
     expect(getByText('Test, Guy 1')).toBeInTheDocument();
@@ -73,15 +71,13 @@ describe('AuthorsAndCollaborations', () => {
         value: 'Test Collab 2',
       },
     ]);
-    const { getByText } = render(
-      <MemoryRouter>
-        <AuthorsAndCollaborations
-          enableAuthorsShowAll
-          authors={authors}
-          authorCount={1}
-          collaborations={collaborations}
-        />
-      </MemoryRouter>
+    const { getByText } = renderWithRouter(
+      <AuthorsAndCollaborations
+        enableAuthorsShowAll
+        authors={authors}
+        authorCount={1}
+        collaborations={collaborations}
+      />
     );
     expect(getByText('Test Collab 1')).toBeInTheDocument();
     expect(getByText('Test Collab 2')).toBeInTheDocument();
@@ -102,15 +98,13 @@ describe('AuthorsAndCollaborations', () => {
         value: 'Test 1 Group',
       },
     ]);
-    const { getByText, queryByText } = render(
-      <MemoryRouter>
-        <AuthorsAndCollaborations
-          enableAuthorsShowAll
-          authors={authors}
-          authorCount={12}
-          collaborationsWithSuffix={collaborationsWithSuffix}
-        />
-      </MemoryRouter>
+    const { getByText, queryByText } = renderWithRouter(
+      <AuthorsAndCollaborations
+        enableAuthorsShowAll
+        authors={authors}
+        authorCount={12}
+        collaborationsWithSuffix={collaborationsWithSuffix}
+      />
     );
     expect(getByText('Test, Guy 1')).toBeInTheDocument();
     expect(queryByText('Test, Guy 2')).toBeNull();
@@ -138,16 +132,14 @@ describe('AuthorsAndCollaborations', () => {
         value: 'Test Collab 1',
       },
     ]);
-    const { getByText, getAllByTestId } = render(
-      <MemoryRouter>
-        <AuthorsAndCollaborations
-          enableAuthorsShowAll
-          authors={authors}
-          authorCount={12}
-          collaborations={collaborations}
-          collaborationsWithSuffix={collaborationsWithSuffix}
-        />
-      </MemoryRouter>
+    const { getByText, getAllByTestId } = renderWithRouter(
+      <AuthorsAndCollaborations
+        enableAuthorsShowAll
+        authors={authors}
+        authorCount={12}
+        collaborations={collaborations}
+        collaborationsWithSuffix={collaborationsWithSuffix}
+      />
     );
     expect(getByText('Test Collab 1')).toBeInTheDocument();
     expect(getByText('Test 1 Group')).toBeInTheDocument();
@@ -171,13 +163,11 @@ describe('AuthorsAndCollaborations', () => {
         value: 'Test Collab 1',
       },
     ]);
-    const { getByText, getAllByTestId } = render(
-      <MemoryRouter>
-        <AuthorsAndCollaborations
-          collaborations={collaborations}
-          collaborationsWithSuffix={collaborationsWithSuffix}
-        />
-      </MemoryRouter>
+    const { getByText, getAllByTestId } = renderWithRouter(
+      <AuthorsAndCollaborations
+        collaborations={collaborations}
+        collaborationsWithSuffix={collaborationsWithSuffix}
+      />
     );
 
     expect(getByText('Test Collab 1')).toBeInTheDocument();
@@ -192,10 +182,8 @@ describe('AuthorsAndCollaborations', () => {
         value: 'Test Collab 1',
       },
     ]);
-    const { getAllByTestId, getByText } = render(
-      <MemoryRouter>
-        <AuthorsAndCollaborations collaborations={collaborations} />
-      </MemoryRouter>
+    const { getAllByTestId, getByText } = renderWithRouter(
+      <AuthorsAndCollaborations collaborations={collaborations} />
     );
     expect(getByText('Test Collab 1')).toBeInTheDocument();
     expect(getAllByTestId('inline-data-list')).toHaveLength(1);

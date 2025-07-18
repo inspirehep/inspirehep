@@ -1,12 +1,11 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
 
 import { getStore } from '../../../fixtures/store';
 import CiteModalActionContainer from '../CiteModalActionContainer';
 import { setPreference } from '../../../actions/user';
 import { CITE_FORMAT_PREFERENCE } from '../../../reducers/user';
+import { renderWithProviders } from '../../../fixtures/render';
 
 jest.mock('../../../actions/user');
 
@@ -45,10 +44,9 @@ describe('CiteModalActionContainer', () => {
         },
       }),
     });
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <CiteModalActionContainer recordId={12345} />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <CiteModalActionContainer recordId={12345} />,
+      { store }
     );
 
     const component = getByTestId('cite-modal-action');
@@ -61,11 +59,8 @@ describe('CiteModalActionContainer', () => {
   });
 
   it('calls setPreferredCiteFormat on CiteModalAction cite format change', () => {
-    const store = getStore();
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <CiteModalActionContainer recordId={12345} />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <CiteModalActionContainer recordId={12345} />
     );
 
     const changeButton = getByTestId('cite-format-change-button');

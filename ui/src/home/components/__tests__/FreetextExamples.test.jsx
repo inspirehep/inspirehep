@@ -1,16 +1,11 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { renderWithRouter } from '../../../fixtures/render';
 import FreetextExamples from '../FreetextExamples';
 
 describe('FreetextExamples', () => {
   it('renders', () => {
-    const { getByRole } = render(
-      <MemoryRouter>
-        <FreetextExamples />
-      </MemoryRouter>
-    );
+    const { getByRole } = renderWithRouter(<FreetextExamples />);
 
     expect(getByRole('link', { name: /1207.7214/i })).toHaveAttribute(
       'href',

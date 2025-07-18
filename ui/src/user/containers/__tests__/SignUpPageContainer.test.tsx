@@ -1,10 +1,9 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
 
+import { renderWithProviders } from '../../../fixtures/render';
 import { getStore } from '../../../fixtures/store';
 import { USER_SIGN_UP_REQUEST } from '../../../actions/actionTypes';
 import { initialState } from '../../../reducers/user';
@@ -14,13 +13,10 @@ describe('SignUpPageContainer', () => {
   it('calls userSignUp onLoginClick', async () => {
     const store = getStore(initialState);
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/']} initialIndex={0}>
-          <SignUpPageContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<SignUpPageContainer />, {
+      store,
+      route: '/',
+    });
 
     const emailInput = getByTestId('email');
     await waitFor(() =>
@@ -46,10 +42,9 @@ describe('SignUpPageContainer', () => {
       }),
     });
 
-    const { getByTestId, getByText } = render(
-      <Provider store={store}>
-        <SignUpPageContainer />
-      </Provider>
+    const { getByTestId, getByText } = renderWithProviders(
+      <SignUpPageContainer />,
+      { store }
     );
 
     expect(getByTestId('error')).toBeInTheDocument();

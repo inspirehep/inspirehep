@@ -1,7 +1,5 @@
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { MemoryRouter } from 'react-router-dom';
-
+import { renderWithRouter } from '../../../fixtures/render';
 import LiteratureRecordsList from '../LiteratureRecordsList';
 
 describe('LiteratureRecordsList', () => {
@@ -18,10 +16,8 @@ describe('LiteratureRecordsList', () => {
         record: { $ref: 'http://localhost:5000/api/literature/124' },
       },
     ]);
-    const { getByRole } = render(
-      <MemoryRouter>
-        <LiteratureRecordsList literatureRecords={literatureRecords} />
-      </MemoryRouter>
+    const { getByRole } = renderWithRouter(
+      <LiteratureRecordsList literatureRecords={literatureRecords} />
     );
     expect(getByRole('link', { name: 'Title1' })).toHaveAttribute(
       'href',
@@ -40,10 +36,8 @@ describe('LiteratureRecordsList', () => {
         record: { $ref: 'http://localhost:5000/api/literature/123' },
       },
     ]);
-    const { getByRole } = render(
-      <MemoryRouter>
-        <LiteratureRecordsList literatureRecords={literatureRecords} />
-      </MemoryRouter>
+    const { getByRole } = renderWithRouter(
+      <LiteratureRecordsList literatureRecords={literatureRecords} />
     );
     expect(getByRole('link', { name: 'Title1' })).toHaveAttribute(
       'href',

@@ -1,22 +1,16 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-
+import { renderWithProviders } from '../../../fixtures/render';
 import ConferenceContributionLink from '../ConferenceContributionLink';
 import { getStore } from '../../../fixtures/store';
 
 describe('ConferenceContributionLink', () => {
   it('renders ConferenceContributionLink', () => {
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/']} initialIndex={0}>
-          <ConferenceContributionLink
-            recordId="123456"
-            contributionsCount={25}
-          />
-        </MemoryRouter>
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <ConferenceContributionLink recordId="123456" contributionsCount={25} />,
+      {
+        store: getStore(),
+        route: '/',
+      }
     );
     expect(asFragment()).toMatchSnapshot();
   });

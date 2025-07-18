@@ -1,11 +1,8 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { MemoryRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-
+import { renderWithProviders } from '../../../fixtures/render';
 import AssignLiteratureItemDrawer from '../AssignLiteratureItemDrawer';
-import { getStore } from '../../../fixtures/store';
 
 describe('AssignLiteratureItemDrawer', () => {
   beforeAll(() => {
@@ -27,20 +24,16 @@ describe('AssignLiteratureItemDrawer', () => {
       },
     ]);
 
-    const { baseElement } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/']}>
-          <AssignLiteratureItemDrawer
-            authors={authors}
-            literatureId={literatureId}
-            onDrawerClose={onDrawerClose}
-            onAssign={onAssign}
-            currentUserRecordId={12345676}
-            itemLiteratureId={122334}
-            page="Page"
-          />
-        </MemoryRouter>
-      </Provider>
+    const { baseElement } = renderWithProviders(
+      <AssignLiteratureItemDrawer
+        authors={authors}
+        literatureId={literatureId}
+        onDrawerClose={onDrawerClose}
+        onAssign={onAssign}
+        currentUserRecordId={12345676}
+        itemLiteratureId={122334}
+        page="Page"
+      />
     );
     expect(baseElement).toMatchSnapshot();
   });
@@ -58,20 +51,16 @@ describe('AssignLiteratureItemDrawer', () => {
       },
     ]);
 
-    const { getByTestId, getByRole } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/']}>
-          <AssignLiteratureItemDrawer
-            literatureId={literatureId}
-            onDrawerClose={onDrawerClose}
-            onAssign={onAssignClick}
-            currentUserRecordId={12345676}
-            authors={authors}
-            itemLiteratureId={122334}
-            page="Page"
-          />
-        </MemoryRouter>
-      </Provider>
+    const { getByTestId, getByRole } = renderWithProviders(
+      <AssignLiteratureItemDrawer
+        literatureId={literatureId}
+        onDrawerClose={onDrawerClose}
+        onAssign={onAssignClick}
+        currentUserRecordId={12345676}
+        authors={authors}
+        itemLiteratureId={122334}
+        page="Page"
+      />
     );
 
     const assignButton = getByTestId('assign-literature-item-button');

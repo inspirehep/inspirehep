@@ -2,10 +2,10 @@ import React from 'react';
 import { fromJS } from 'immutable';
 import { DownloadOutlined, FileOutlined } from '@ant-design/icons';
 import { render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 
 import UrlsAction from '../UrlsAction';
+import { renderWithRouter } from '../../../fixtures/render';
 
 describe('UrlsAction', () => {
   it('renders multiple, with and without description and target blank', async () => {
@@ -60,17 +60,15 @@ describe('UrlsAction', () => {
         value: '/literature/5678',
       },
     ]);
-    render(
-      <MemoryRouter>
-        <UrlsAction
-          urls={links}
-          icon={<FileOutlined />}
-          text="literature"
-          trackerEventId="Literature links"
-          page="Literature detail"
-          isTargetBlank={false}
-        />
-      </MemoryRouter>
+    renderWithRouter(
+      <UrlsAction
+        urls={links}
+        icon={<FileOutlined />}
+        text="literature"
+        trackerEventId="Literature links"
+        page="Literature detail"
+        isTargetBlank={false}
+      />
     );
 
     await userEvent.hover(screen.getByText('literature'));
@@ -127,17 +125,15 @@ describe('UrlsAction', () => {
         value: '/literature/1234',
       },
     ]);
-    render(
-      <MemoryRouter>
-        <UrlsAction
-          urls={links}
-          icon={<FileOutlined />}
-          text="literature"
-          trackerEventId="Literature links"
-          page="Literature detail"
-          isTargetBlank={false}
-        />
-      </MemoryRouter>
+    renderWithRouter(
+      <UrlsAction
+        urls={links}
+        icon={<FileOutlined />}
+        text="literature"
+        trackerEventId="Literature links"
+        page="Literature detail"
+        isTargetBlank={false}
+      />
     );
     expect(screen.getByText('literature')).toBeInTheDocument();
     expect(screen.getByRole('link')).toHaveAttribute(
@@ -181,17 +177,15 @@ describe('UrlsAction', () => {
         value: 'https://www.hepdata.net/record/ins2878691',
       },
     ]);
-    render(
-      <MemoryRouter>
-        <UrlsAction
-          urls={links}
-          icon={<FileOutlined />}
-          text="datasets"
-          trackerEventId="Literature links"
-          page="Literature detail"
-          isTargetBlank={false}
-        />
-      </MemoryRouter>
+    renderWithRouter(
+      <UrlsAction
+        urls={links}
+        icon={<FileOutlined />}
+        text="datasets"
+        trackerEventId="Literature links"
+        page="Literature detail"
+        isTargetBlank={false}
+      />
     );
 
     await userEvent.hover(screen.getByText('datasets'));

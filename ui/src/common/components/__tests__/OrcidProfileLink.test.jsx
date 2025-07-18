@@ -1,17 +1,13 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-
+import { renderWithRouter } from '../../../fixtures/render';
 import OrcidProfileLink from '../OrcidProfileLink';
 
 describe('OrcidProfileLink', () => {
   it('renders with all props set', () => {
-    const { getByRole } = render(
-      <MemoryRouter>
-        <OrcidProfileLink className="test" orcid="0000-0001-8058-0014">
-          Orcid: <strong>0000-0001-8058-0014</strong>
-        </OrcidProfileLink>
-      </MemoryRouter>
+    const { getByRole } = renderWithRouter(
+      <OrcidProfileLink className="test" orcid="0000-0001-8058-0014">
+        Orcid: <strong>0000-0001-8058-0014</strong>
+      </OrcidProfileLink>
     );
     const linkElement = getByRole('link', {
       name: /Orcid: 0000-0001-8058-0014/i,
@@ -25,10 +21,8 @@ describe('OrcidProfileLink', () => {
   });
 
   it('renders with only orcid', () => {
-    const { getByRole } = render(
-      <MemoryRouter>
-        <OrcidProfileLink orcid="0000-0001-8058-0014" />
-      </MemoryRouter>
+    const { getByRole } = renderWithRouter(
+      <OrcidProfileLink orcid="0000-0001-8058-0014" />
     );
 
     const linkElement = getByRole('link', {
