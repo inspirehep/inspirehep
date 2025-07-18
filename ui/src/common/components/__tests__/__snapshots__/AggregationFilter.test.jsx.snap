@@ -125,7 +125,7 @@ exports[`AggregationFilter renders MultiSelectAggregation if aggregation type is
     class="__MultiSelectAggregation__"
   >
     <div
-      class="ant-select w-100 ant-select-multiple ant-select-show-arrow ant-select-show-search"
+      class="ant-select ant-select-multiple ant-select-show-arrow ant-select-show-search"
       data-testid="select-box"
       placement="bottomLeft"
     >
