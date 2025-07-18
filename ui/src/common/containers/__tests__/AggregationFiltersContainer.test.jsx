@@ -1,13 +1,13 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import AggregationFiltersContainer from '../AggregationFiltersContainer';
 import AggregationFilters from '../../components/AggregationFilters';
 import { LITERATURE_NS } from '../../../search/constants';
 import { searchQueryUpdate } from '../../../actions/search';
+import { renderWithProviders } from '../../../fixtures/render';
 
 jest.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
@@ -78,11 +78,9 @@ describe('AggregationFiltersContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <AggregationFiltersContainer namespace={namespace} />
-      </Provider>
-    );
+    renderWithProviders(<AggregationFiltersContainer namespace={namespace} />, {
+      store,
+    });
 
     expect(AggregationFilters).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -154,10 +152,9 @@ describe('AggregationFiltersContainer', () => {
       }),
     });
 
-    const screen = render(
-      <Provider store={store}>
-        <AggregationFiltersContainer namespace={namespace} />
-      </Provider>
+    const screen = renderWithProviders(
+      <AggregationFiltersContainer namespace={namespace} />,
+      { store }
     );
 
     fireEvent.click(screen.getByText('agg1key'));

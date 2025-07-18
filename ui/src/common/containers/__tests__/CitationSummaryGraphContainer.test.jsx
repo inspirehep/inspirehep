@@ -1,8 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
 
+import { renderWithProviders } from '../../../fixtures/render';
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import CitationSummaryGraphContainer from '../CitationSummaryGraphContainer';
 import CitationSummaryGraph from '../../components/CitationSummaryGraph/CitationSummaryGraph';
@@ -144,10 +143,9 @@ describe('CitationSummaryGraphContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <CitationSummaryGraphContainer namespace={namespace} />
-      </Provider>
+    renderWithProviders(
+      <CitationSummaryGraphContainer namespace={namespace} />,
+      { store }
     );
 
     expect(CitationSummaryGraph).toHaveBeenCalledWith(
@@ -167,10 +165,9 @@ describe('CitationSummaryGraphContainer', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore();
 
-    render(
-      <Provider store={store}>
-        <CitationSummaryGraphContainer namespace={namespace} />
-      </Provider>
+    renderWithProviders(
+      <CitationSummaryGraphContainer namespace={namespace} />,
+      { store }
     );
 
     const lastCall =
@@ -198,10 +195,9 @@ describe('CitationSummaryGraphContainer', () => {
     const excludeSelfCitations = true;
     const store = getStore();
 
-    render(
-      <Provider store={store}>
-        <CitationSummaryGraphContainer namespace={namespace} />
-      </Provider>
+    renderWithProviders(
+      <CitationSummaryGraphContainer namespace={namespace} />,
+      { store }
     );
 
     const lastCall =
@@ -234,10 +230,9 @@ describe('CitationSummaryGraphContainer', () => {
     const excludeSelfCitations = false;
     const store = getStore();
 
-    render(
-      <Provider store={store}>
-        <CitationSummaryGraphContainer namespace={namespace} />
-      </Provider>
+    renderWithProviders(
+      <CitationSummaryGraphContainer namespace={namespace} />,
+      { store }
     );
 
     const lastCall =
@@ -278,10 +273,9 @@ describe('CitationSummaryGraphContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <CitationSummaryGraphContainer namespace={namespace} />
-      </Provider>
+    renderWithProviders(
+      <CitationSummaryGraphContainer namespace={namespace} />,
+      { store }
     );
 
     expect(CitationSummaryGraph).toHaveBeenCalledWith(
@@ -308,10 +302,9 @@ describe('CitationSummaryGraphContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <CitationSummaryGraphContainer namespace={namespace} />
-      </Provider>
+    renderWithProviders(
+      <CitationSummaryGraphContainer namespace={namespace} />,
+      { store }
     );
 
     expect(CitationSummaryGraph).toHaveBeenCalledWith(

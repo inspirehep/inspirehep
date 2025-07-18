@@ -1,8 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
-import { MemoryRouter } from 'react-router-dom';
+import { renderWithRouter } from '../../../fixtures/render';
 import AuthorResultItem from '../AuthorResultItem';
 
 describe('AuthorResultItem', () => {
@@ -12,10 +11,8 @@ describe('AuthorResultItem', () => {
       name: { value: 'Urhan, Harun' },
       control_number: 12345,
     });
-    const { asFragment } = render(
-      <MemoryRouter>
-        <AuthorResultItem metadata={metadata} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <AuthorResultItem metadata={metadata} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -34,10 +31,8 @@ describe('AuthorResultItem', () => {
       arxiv_categories: ['hep-th'],
       urls: [{ value: 'https://cern.ch/1' }],
     });
-    const { asFragment } = render(
-      <MemoryRouter>
-        <AuthorResultItem metadata={metadata} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <AuthorResultItem metadata={metadata} />
     );
     expect(asFragment()).toMatchSnapshot();
   });

@@ -1,10 +1,9 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
 import { getStore } from '../../../fixtures/store';
 import OrcidPushSettingMessageContainer from '../OrcidPushSettingMessageContainer';
+import { renderWithProviders } from '../../../fixtures/render';
 
 describe('OrcidPushSettingMessageContainer', () => {
   it('passes state to props', () => {
@@ -24,10 +23,9 @@ describe('OrcidPushSettingMessageContainer', () => {
         },
       }),
     });
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <OrcidPushSettingMessageContainer />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <OrcidPushSettingMessageContainer />,
+      { store }
     );
     expect(getByTestId('orcid-push-setting-message')).toHaveTextContent(
       'Your INSPIRE works are not exported to your ORCID yet.'

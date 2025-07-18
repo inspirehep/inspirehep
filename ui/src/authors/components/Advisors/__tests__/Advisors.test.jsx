@@ -1,7 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { MemoryRouter } from 'react-router-dom';
+
+import { renderWithRouter } from '../../../../fixtures/render';
 import Advisors from '../Advisors';
 
 describe('Advisors', () => {
@@ -27,11 +27,7 @@ describe('Advisors', () => {
         degree_type: 'phd',
       },
     ]);
-    const { asFragment } = render(
-      <MemoryRouter>
-        <Advisors advisors={advisors} />
-      </MemoryRouter>
-    );
+    const { asFragment } = renderWithRouter(<Advisors advisors={advisors} />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

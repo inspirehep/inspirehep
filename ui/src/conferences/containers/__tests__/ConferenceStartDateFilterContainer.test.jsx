@@ -1,13 +1,11 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import { CONFERENCES_NS } from '../../../search/constants';
 import ConferenceStartDateFilterContainer from '../ConferenceStartDateFilterContainer';
 import { START_DATE_ALL, START_DATE_UPCOMING } from '../../../common/constants';
-
+import { renderWithProviders } from '../../../fixtures/render';
 import { searchQueryUpdate } from '../../../actions/search';
 
 global.AnimationEvent =
@@ -51,10 +49,9 @@ describe('ConferenceStartDateFilterContainer', () => {
         },
       }),
     });
-    const { getByRole } = render(
-      <Provider store={store}>
-        <ConferenceStartDateFilterContainer switchTitle="title" />
-      </Provider>
+    const { getByRole } = renderWithProviders(
+      <ConferenceStartDateFilterContainer switchTitle="title" />,
+      { store }
     );
     const switchEl = getByRole('switch');
     expect(switchEl).toHaveAttribute('aria-checked', 'false');
@@ -62,10 +59,9 @@ describe('ConferenceStartDateFilterContainer', () => {
 
   it('dispatches SEARCH_QUERY_UPDATE onChange with start_date and sort=datedesc if all', () => {
     const store = getStore();
-    render(
-      <Provider store={store}>
-        <ConferenceStartDateFilterContainer switchTitle="title" />
-      </Provider>
+    renderWithProviders(
+      <ConferenceStartDateFilterContainer switchTitle="title" />,
+      { store }
     );
 
     if (typeof global.eventStartDateFilterOnChange === 'function') {
@@ -84,10 +80,9 @@ describe('ConferenceStartDateFilterContainer', () => {
 
   it('dispatches SEARCH_QUERY_UPDATE onChange with start_date and sort=dateasc if upcoming', () => {
     const store = getStore();
-    render(
-      <Provider store={store}>
-        <ConferenceStartDateFilterContainer switchTitle="title" />
-      </Provider>
+    renderWithProviders(
+      <ConferenceStartDateFilterContainer switchTitle="title" />,
+      { store }
     );
 
     if (typeof global.eventStartDateFilterOnChange === 'function') {
@@ -106,10 +101,9 @@ describe('ConferenceStartDateFilterContainer', () => {
 
   it('dispatches SEARCH_QUERY_UPDATE onChange with start_date without if specific date', () => {
     const store = getStore();
-    render(
-      <Provider store={store}>
-        <ConferenceStartDateFilterContainer switchTitle="title" />
-      </Provider>
+    renderWithProviders(
+      <ConferenceStartDateFilterContainer switchTitle="title" />,
+      { store }
     );
 
     if (typeof global.eventStartDateFilterOnChange === 'function') {

@@ -1,9 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { fromJS } from 'immutable';
 
+import { renderWithRouter } from '../../../fixtures/render';
 import ConferenceItem from '../ConferenceItem';
 
 jest.mock('../ConferenceDates', () => ({ openingDate, closingDate }) => (
@@ -63,8 +63,6 @@ jest.mock(
       </div>
     )
 );
-
-const renderWithRouter = (ui) => render(<MemoryRouter>{ui}</MemoryRouter>);
 
 describe('ConferenceItem', () => {
   it('renders with all props set', () => {

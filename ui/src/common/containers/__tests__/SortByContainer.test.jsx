@@ -1,8 +1,8 @@
-import { render, waitFor, fireEvent } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { waitFor, fireEvent } from '@testing-library/react';
 import { fromJS } from 'immutable';
 import userEvent from '@testing-library/user-event';
 
+import { renderWithProviders } from '../../../fixtures/render';
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import SortByContainer from '../SortByContainer';
 import { LITERATURE_NS } from '../../../search/constants';
@@ -24,10 +24,11 @@ describe('SortByContainer', () => {
         },
       }),
     });
-    const { getByText } = render(
-      <Provider store={store}>
-        <SortByContainer namespace={namespace} />
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <SortByContainer namespace={namespace} />,
+      {
+        store,
+      }
     );
     expect(getByText('mostrecent')).toBeInTheDocument();
   });
@@ -50,10 +51,11 @@ describe('SortByContainer', () => {
 
     const user = userEvent.setup();
 
-    const screen = render(
-      <Provider store={store}>
-        <SortByContainer namespace={namespace} />
-      </Provider>
+    const screen = renderWithProviders(
+      <SortByContainer namespace={namespace} />,
+      {
+        store,
+      }
     );
 
     await user.click(screen.getByRole('combobox'));

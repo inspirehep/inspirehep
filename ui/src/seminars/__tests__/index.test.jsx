@@ -1,31 +1,21 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import Loadable from 'react-loadable';
-
+import { renderWithProviders, renderWithRouter } from '../../fixtures/render';
 import { getStore } from '../../fixtures/store';
 import Seminars from '..';
 
 describe('Seminars', () => {
   it('renders initial state', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <Seminars />
-      </MemoryRouter>
-    );
+    const { asFragment } = renderWithRouter(<Seminars />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('navigates to SearchPage when /seminars', async () => {
-    render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/seminars']} initialIndex={0}>
-          <Seminars />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<Seminars />, {
+      route: '/seminars',
+    });
     await Loadable.preloadAll();
 
     expect(
@@ -49,13 +39,10 @@ describe('Seminars', () => {
         },
       }),
     });
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/seminars/123']} initialIndex={0}>
-          <Seminars />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<Seminars />, {
+      route: '/seminars/123',
+      store,
+    });
     await Loadable.preloadAll();
 
     expect(

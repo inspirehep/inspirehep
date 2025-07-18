@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { renderWithRouter } from '../../../fixtures/render';
 import HowToSubmit from '../HowToSubmit';
 import {
   SUBMISSIONS_AUTHOR,
@@ -13,11 +12,7 @@ import {
 
 describe('HowToSubmit', () => {
   it('renders the component with correct content', () => {
-    const { getByText, getAllByRole } = render(
-      <MemoryRouter>
-        <HowToSubmit />
-      </MemoryRouter>
-    );
+    const { getByText, getAllByRole } = renderWithRouter(<HowToSubmit />);
 
     expect(getByText('Literature')).toBeInTheDocument();
     expect(getByText('Author')).toBeInTheDocument();

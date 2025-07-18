@@ -1,8 +1,7 @@
 import React from 'react';
-
-import { MemoryRouter } from 'react-router-dom';
-import { render } from '@testing-library/react';
 import useAxios from 'axios-hooks';
+
+import { renderWithRouter } from '../../../fixtures/render';
 import NewsAndUpdates from '../NewsAndUpdates';
 
 jest.mock('axios-hooks');
@@ -41,10 +40,8 @@ describe('NewsAndUpdates', () => {
   });
 
   it('renders the component with correct content and links', async () => {
-    const { getByText, getByRole, getAllByRole } = render(
-      <MemoryRouter>
-        <NewsAndUpdates />
-      </MemoryRouter>
+    const { getByText, getByRole, getAllByRole } = renderWithRouter(
+      <NewsAndUpdates />
     );
 
     mockData.forEach((post) => {

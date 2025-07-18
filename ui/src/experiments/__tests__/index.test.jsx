@@ -1,24 +1,17 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import { render } from '@testing-library/react';
 import Loadable from 'react-loadable';
 import { fromJS } from 'immutable';
-import { getStore } from '../../fixtures/store';
+import { renderWithProviders, renderWithRouter } from '../../fixtures/render';
 import Experiments from '..';
 
 describe('Experiments', () => {
   it('renders initial state', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <Experiments />
-      </MemoryRouter>
-    );
+    const { asFragment } = renderWithRouter(<Experiments />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('navigates to DetailPageContainer when /experiments/:id', async () => {
-    const store = getStore({
+    const initialState = {
       experiments: fromJS({
         data: {
           metadata: {
@@ -27,15 +20,12 @@ describe('Experiments', () => {
           },
         },
       }),
-    });
+    };
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/experiments/123']} initialIndex={0}>
-          <Experiments />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<Experiments />, {
+      initialState,
+      route: '/experiments/123',
+    });
     await Loadable.preloadAll();
 
     expect(
@@ -44,7 +34,7 @@ describe('Experiments', () => {
   });
 
   it('contains all the required links in the DetailPageContainer', async () => {
-    const store = getStore({
+    const initialState = {
       experiments: fromJS({
         data: {
           metadata: {
@@ -54,15 +44,12 @@ describe('Experiments', () => {
           },
         },
       }),
-    });
+    };
 
-    const { getByRole } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/experiments/123']} initialIndex={0}>
-          <Experiments />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByRole } = renderWithProviders(<Experiments />, {
+      initialState,
+      route: '/experiments/123',
+    });
     await Loadable.preloadAll();
 
     const experimentCollaboration = getByRole('link', {
@@ -103,7 +90,7 @@ describe('Experiments', () => {
   });
 
   it('contains all the required dates in the DetailPageContainer', async () => {
-    const store = getStore({
+    const initialState = {
       experiments: fromJS({
         data: {
           metadata: {
@@ -117,15 +104,12 @@ describe('Experiments', () => {
           },
         },
       }),
-    });
+    };
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/experiments/123']} initialIndex={0}>
-          <Experiments />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<Experiments />, {
+      initialState,
+      route: '/experiments/123',
+    });
     await Loadable.preloadAll();
 
     const experimentDetailPage = getByTestId(
@@ -139,13 +123,9 @@ describe('Experiments', () => {
   });
 
   it('navigates to SearchPage when /experiments', async () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/experiments']} initialIndex={0}>
-          <Experiments />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<Experiments />, {
+      route: '/experiments',
+    });
     await Loadable.preloadAll();
 
     expect(

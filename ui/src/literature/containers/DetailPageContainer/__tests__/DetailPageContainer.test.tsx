@@ -2,11 +2,11 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
 
 import DetailPageContainer from '../DetailPageContainer';
 import { getStore } from '../../../../fixtures/store';
 import { CITE_FORMAT_PREFERENCE } from '../../../../reducers/user';
+import { renderWithProviders } from '../../../../fixtures/render';
 
 describe('DetailPageContainer', () => {
   it('renders initial state', () => {
@@ -79,12 +79,11 @@ describe('DetailPageContainer', () => {
       }),
     });
 
-    const { asFragment } = render(
+    const { asFragment } = renderWithProviders(
       <Router>
-        <Provider store={store}>
-          <DetailPageContainer />
-        </Provider>
-      </Router>
+        <DetailPageContainer />
+      </Router>,
+      { store }
     );
     expect(asFragment()).toMatchSnapshot();
   });

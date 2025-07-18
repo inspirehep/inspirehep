@@ -1,8 +1,5 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import { render } from '@testing-library/react';
-
+import { renderWithProviders } from '../../../../fixtures/render';
 import { getStore } from '../../../../fixtures/store';
 import CollectionsMenuContainer from '../CollectionsMenuContainer';
 import { SUBMISSIONS_AUTHOR } from '../../../routes';
@@ -17,12 +14,9 @@ describe('CollectionsMenuContainer', () => {
       },
     });
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <CollectionsMenuContainer onHeightChange={jest.fn()} />
-        </MemoryRouter>
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <CollectionsMenuContainer onHeightChange={jest.fn()} />,
+      { store }
     );
 
     const collectionsMenu = getByTestId('collections-menu');

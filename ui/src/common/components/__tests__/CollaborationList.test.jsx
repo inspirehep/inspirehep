@@ -1,17 +1,13 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { render } from '@testing-library/react';
-
-import { MemoryRouter } from 'react-router-dom';
+import { renderWithRouter } from '../../../fixtures/render';
 import CollaborationList from '../CollaborationList';
 
 describe('CollaborationList', () => {
   it('renders with collaboration without suffix', () => {
     const collaborations = fromJS([{ value: 'Alias Investigations' }]);
-    const { getByRole, getByText } = render(
-      <MemoryRouter>
-        <CollaborationList collaborations={collaborations} />
-      </MemoryRouter>
+    const { getByRole, getByText } = renderWithRouter(
+      <CollaborationList collaborations={collaborations} />
     );
     const link = getByRole('link', { name: 'Alias Investigations' });
     expect(link).toBeInTheDocument();
@@ -27,10 +23,8 @@ describe('CollaborationList', () => {
       { value: 'Alias Investigations' },
       { value: 'Nelson and Murdock' },
     ]);
-    const { getByRole, getByText } = render(
-      <MemoryRouter>
-        <CollaborationList collaborations={collaborations} />
-      </MemoryRouter>
+    const { getByRole, getByText } = renderWithRouter(
+      <CollaborationList collaborations={collaborations} />
     );
     const link = getByRole('link', { name: 'Alias Investigations' });
     expect(link).toBeInTheDocument();
@@ -61,13 +55,11 @@ describe('CollaborationList', () => {
       { value: 'Defenders Group and Avengers' },
       { value: 'Defenders Task Force and Avengers' },
     ]);
-    const { getByRole, getByText } = render(
-      <MemoryRouter>
-        <CollaborationList
-          collaborations={collaborations}
-          collaborationsWithSuffix={collaborationsWithSuffix}
-        />
-      </MemoryRouter>
+    const { getByRole, getByText } = renderWithRouter(
+      <CollaborationList
+        collaborations={collaborations}
+        collaborationsWithSuffix={collaborationsWithSuffix}
+      />
     );
     const link = getByRole('link', { name: 'Avangers Groups' });
     expect(link).toBeInTheDocument();
@@ -93,12 +85,8 @@ describe('CollaborationList', () => {
       { value: 'Avangers Consortium' },
       { value: 'Avangers Team' },
     ]);
-    const { getByRole } = render(
-      <MemoryRouter>
-        <CollaborationList
-          collaborationsWithSuffix={collaborationsWithSuffix}
-        />
-      </MemoryRouter>
+    const { getByRole } = renderWithRouter(
+      <CollaborationList collaborationsWithSuffix={collaborationsWithSuffix} />
     );
     const link = getByRole('link', { name: 'Avangers Groups' });
     expect(link).toBeInTheDocument();

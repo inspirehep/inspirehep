@@ -1,12 +1,12 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { fromJS, Set } from 'immutable';
-import { Provider } from 'react-redux';
 
 import { getStore } from '../../../fixtures/store';
 import AssignLiteratureItemDrawerContainer from '../AssignLiteratureItemDrawerContainer';
+import { renderWithProviders } from '../../../fixtures/render';
 
 jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
   useParams: jest.fn().mockImplementation(() => ({
     id: 123,
   })),
@@ -26,7 +26,7 @@ jest.mock('../../components/AssignLiteratureItemDrawer', () => (props) => (
 ));
 
 describe('AssignLiteratureItemDrawerContainer', () => {
-  it('passes state to props', () => {
+  it('passes state to props', async () => {
     const store = getStore({
       literature: fromJS({
         allAuthors: Set([{ full_name: 'Test, Author' }]),
@@ -37,15 +37,22 @@ describe('AssignLiteratureItemDrawerContainer', () => {
           recid: 123457,
         },
       }),
+      router: {
+        location: {
+          pathname: '/literature/123459',
+        },
+      },
     });
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <AssignLiteratureItemDrawerContainer itemLiteratureId={123459} />
-      </Provider>
+    const { findByTestId } = renderWithProviders(
+      <AssignLiteratureItemDrawerContainer itemLiteratureId={123459} />,
+      {
+        store,
+        route: '/literature/123459',
+      }
     );
 
-    const component = getByTestId('assign-literature-item-drawer');
+    const component = await findByTestId('assign-literature-item-drawer');
     const props = JSON.parse(component.getAttribute('data-props'));
 
     expect(props.authors).toEqual([{ full_name: 'Test, Author' }]);

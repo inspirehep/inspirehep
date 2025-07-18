@@ -1,20 +1,11 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import Home from '..';
-import { getStore } from '../../fixtures/store';
+import { renderWithProviders } from '../../fixtures/render';
 
 describe('Home', () => {
   it('renders home page', () => {
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter>
-          <Home />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment } = renderWithProviders(<Home />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

@@ -1,13 +1,13 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Provider } from 'react-redux';
 import { fromJS, Set } from 'immutable';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import LiteratureSelectAllContainer from '../LiteratureSelectAllContainer';
 import { setLiteratureSelection } from '../../../actions/literature';
 import { LITERATURE_NS } from '../../../search/constants';
+import { renderWithProviders } from '../../../fixtures/render';
 
 jest.mock('../../../actions/literature');
 mockActionCreator(setLiteratureSelection);
@@ -40,11 +40,7 @@ describe('LiteratureSelectAllContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <LiteratureSelectAllContainer />
-      </Provider>
-    );
+    renderWithProviders(<LiteratureSelectAllContainer />, { store });
 
     const checkbox = screen.getByRole('checkbox');
     expect(checkbox).toBeChecked();
@@ -77,11 +73,7 @@ describe('LiteratureSelectAllContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <LiteratureSelectAllContainer />
-      </Provider>
-    );
+    renderWithProviders(<LiteratureSelectAllContainer />, { store });
 
     const checkbox = screen.getByRole('checkbox');
     expect(checkbox).not.toBeChecked();
@@ -114,11 +106,7 @@ describe('LiteratureSelectAllContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <LiteratureSelectAllContainer />
-      </Provider>
-    );
+    renderWithProviders(<LiteratureSelectAllContainer />, { store });
 
     const checkbox = screen.getByRole('checkbox');
     expect(checkbox).not.toBeChecked();
@@ -157,11 +145,7 @@ describe('LiteratureSelectAllContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <LiteratureSelectAllContainer />
-      </Provider>
-    );
+    renderWithProviders(<LiteratureSelectAllContainer />, { store });
 
     const checkbox = screen.getByRole('checkbox');
     await user.click(checkbox);
@@ -198,11 +182,7 @@ describe('LiteratureSelectAllContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <LiteratureSelectAllContainer />
-      </Provider>
-    );
+    renderWithProviders(<LiteratureSelectAllContainer />, { store });
 
     const checkbox = screen.getByRole('checkbox');
     await user.click(checkbox);
@@ -227,11 +207,7 @@ describe('LiteratureSelectAllContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <LiteratureSelectAllContainer />
-      </Provider>
-    );
+    renderWithProviders(<LiteratureSelectAllContainer />, { store });
 
     const checkbox = screen.getByRole('checkbox');
     expect(checkbox).toBeChecked();

@@ -1,10 +1,8 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import { render } from '@testing-library/react';
 
 import { getStore } from '../../../fixtures/store';
+import { renderWithProviders } from '../../../fixtures/render';
 import AuthorPublicationsContainer from '../AuthorPublicationsContainer';
 import AuthorPublications from '../../components/AuthorPublications';
 import { initialState } from '../../../reducers/authors';
@@ -24,13 +22,10 @@ describe('AuthorPublicationsContainer with AuthorPublications mocked', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
-          <AuthorPublicationsContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<AuthorPublicationsContainer />, {
+      store,
+      route: '/authors/123',
+    });
 
     expect(AuthorPublications).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -50,13 +45,10 @@ describe('AuthorPublicationsContainer with AuthorPublications mocked', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
-          <AuthorPublicationsContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<AuthorPublicationsContainer />, {
+      store,
+      route: '/authors/123',
+    });
 
     expect(AuthorPublications).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -85,13 +77,10 @@ describe('AuthorPublicationsContainer with AuthorPublications mocked', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
-          <AuthorPublicationsContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<AuthorPublicationsContainer />, {
+      store,
+      route: '/authors/123',
+    });
 
     expect(AuthorPublications).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -112,13 +101,10 @@ describe('AuthorPublicationsContainer with AuthorPublications mocked', () => {
       user: fromJS({ loggedIn: true }),
     });
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
-          <AuthorPublicationsContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<AuthorPublicationsContainer />, {
+      store,
+      route: '/authors/123',
+    });
 
     expect(AuthorPublications).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -139,13 +125,10 @@ describe('AuthorPublicationsContainer with AuthorPublications mocked', () => {
       user: fromJS({ loggedIn: false }),
     });
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
-          <AuthorPublicationsContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<AuthorPublicationsContainer />, {
+      store,
+      route: '/authors/123',
+    });
 
     expect(AuthorPublications).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -166,13 +149,11 @@ describe('AuthorPublicationsContainer with AuthorPublications mocked', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
-          <AuthorPublicationsContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<AuthorPublicationsContainer />, {
+      store,
+      route: '/authors/123',
+    });
+
     expect(AuthorPublications).toHaveBeenCalledWith(
       expect.objectContaining({
         numberOfSelected: 2,

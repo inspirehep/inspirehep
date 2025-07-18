@@ -1,17 +1,15 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
 import { initialState } from '../../../reducers/authors';
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import PublicationSelectContainer from '../PublicationSelectContainer';
-
 import {
   setPublicationSelection,
   setPublicationsClaimedSelection,
   setPublicationsUnclaimedSelection,
 } from '../../../actions/authors';
+import { renderWithProviders } from '../../../fixtures/render';
 
 jest.mock('../../../actions/authors');
 mockActionCreator(setPublicationSelection);
@@ -21,10 +19,9 @@ mockActionCreator(setPublicationsUnclaimedSelection);
 describe('PublicationSelectContainer', () => {
   it('dispatches setPublicationSelection and setPublicationsClaimedSelection on change', () => {
     const store = getStore();
-    const { getByRole } = render(
-      <Provider store={store}>
-        <PublicationSelectContainer recordId={1} claimed isOwnProfile />
-      </Provider>
+    const { getByRole } = renderWithProviders(
+      <PublicationSelectContainer recordId={1} claimed isOwnProfile />,
+      { store }
     );
     getByRole('checkbox').click();
     const expectedActions = [
@@ -35,10 +32,9 @@ describe('PublicationSelectContainer', () => {
   });
   it('dispatches setPublicationSelection on change for unclaimed record', () => {
     const store = getStore();
-    const { getByRole } = render(
-      <Provider store={store}>
-        <PublicationSelectContainer recordId={1} claimed={false} isOwnProfile />
-      </Provider>
+    const { getByRole } = renderWithProviders(
+      <PublicationSelectContainer recordId={1} claimed={false} isOwnProfile />,
+      { store }
     );
     getByRole('checkbox').click();
     const expectedActions = [
@@ -54,10 +50,9 @@ describe('PublicationSelectContainer', () => {
         publicationSelection: [1, 2, 3],
       }),
     });
-    const { getByRole } = render(
-      <Provider store={store}>
-        <PublicationSelectContainer recordId={1} claimed />
-      </Provider>
+    const { getByRole } = renderWithProviders(
+      <PublicationSelectContainer recordId={1} claimed />,
+      { store }
     );
 
     expect(getByRole('checkbox')).toBeChecked();
@@ -69,10 +64,9 @@ describe('PublicationSelectContainer', () => {
         publicationSelection: [1, 2, 3],
       }),
     });
-    const { asFragment } = render(
-      <Provider store={store}>
-        <PublicationSelectContainer recordId={1} claimed />
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <PublicationSelectContainer recordId={1} claimed />,
+      { store }
     );
 
     expect(asFragment()).toMatchSnapshot();

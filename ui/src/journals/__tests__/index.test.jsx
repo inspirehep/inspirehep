@@ -1,31 +1,21 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 import Loadable from 'react-loadable';
-
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { getStore } from '../../fixtures/store';
+
+import { renderWithProviders, renderWithRouter } from '../../fixtures/render';
 import Journals from '..';
 
 describe('Journals', () => {
   it('renders initial state', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <Journals />
-      </MemoryRouter>
-    );
+    const { asFragment } = renderWithRouter(<Journals />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('navigates to SearchPage when /journals', async () => {
-    render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/journals']} initialIndex={0}>
-          <Journals />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<Journals />, {
+      route: '/journals',
+    });
     await Loadable.preloadAll();
 
     expect(
@@ -34,7 +24,7 @@ describe('Journals', () => {
   });
 
   it('navigates to DetailPageContainer when /journals/:id', async () => {
-    const store = getStore({
+    const initialState = {
       journals: fromJS({
         data: {
           metadata: {
@@ -47,15 +37,12 @@ describe('Journals', () => {
           },
         },
       }),
-    });
+    };
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/journals/1']} initialIndex={0}>
-          <Journals />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<Journals />, {
+      route: '/journals/1',
+      initialState,
+    });
     await Loadable.preloadAll();
 
     expect(

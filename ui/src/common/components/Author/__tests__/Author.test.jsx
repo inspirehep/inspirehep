@@ -1,8 +1,8 @@
 import React from 'react';
 import { fromJS } from 'immutable';
 import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 
+import { renderWithRouter } from '../../../../fixtures/render';
 import Author from '..';
 
 describe('Author', () => {
@@ -56,10 +56,8 @@ describe('Author', () => {
       },
       bai: 'Full.Name.1',
     });
-    const { getByRole } = render(
-      <MemoryRouter>
-        <Author recordId={12345} author={author} />
-      </MemoryRouter>
+    const { getByRole } = renderWithRouter(
+      <Author recordId={12345} author={author} />
     );
     const link = getByRole('link', {
       name: 'Name, Full',
@@ -72,10 +70,8 @@ describe('Author', () => {
       full_name: 'Name, Full',
       bai: 'Full.Name.1',
     });
-    const { getByRole } = render(
-      <MemoryRouter>
-        <Author recordId={12345} author={author} />
-      </MemoryRouter>
+    const { getByRole } = renderWithRouter(
+      <Author recordId={12345} author={author} />
     );
     const link = getByRole('link', {
       name: 'Name, Full',

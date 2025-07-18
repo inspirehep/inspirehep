@@ -272,6 +272,5 @@ exports[`ExperimentItem renders with only needed props 1`] = `
       </div>
     </div>
   </div>
-   
 </DocumentFragment>
 `;

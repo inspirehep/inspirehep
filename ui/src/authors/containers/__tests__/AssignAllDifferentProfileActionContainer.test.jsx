@@ -1,19 +1,17 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { fireEvent, waitFor } from '@testing-library/react';
 import { fromJS, Set } from 'immutable';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import AssignAllDifferentProfileActionContainer from '../AssignAllDifferentProfileActionContainer';
-
 import { assignDifferentProfile } from '../../../actions/authors';
 import AssignDifferentProfileAction from '../../components/AssignDifferentProfileAction';
+import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('react-router-dom', () => ({
-  useParams: jest.fn().mockImplementation(() => ({
-    id: 123,
-  })),
-}));
+jest.mock('react-router-dom', () => {
+  const actual = jest.requireActual('react-router-dom');
+  return { ...actual, useParams: jest.fn().mockReturnValue({ id: 123 }) };
+});
 
 jest.mock('../../components/AssignDifferentProfileAction', () => {
   const actual = jest.requireActual(
@@ -45,11 +43,9 @@ describe('AssignDifferentProfileActionContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <AssignAllDifferentProfileActionContainer />
-      </Provider>
-    );
+    renderWithProviders(<AssignAllDifferentProfileActionContainer />, {
+      store,
+    });
 
     expect(AssignDifferentProfileAction).toBeCalledWith(
       expect.objectContaining({
@@ -72,11 +68,9 @@ describe('AssignDifferentProfileActionContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <AssignAllDifferentProfileActionContainer />
-      </Provider>
-    );
+    renderWithProviders(<AssignAllDifferentProfileActionContainer />, {
+      store,
+    });
 
     expect(AssignDifferentProfileAction).toBeCalledWith(
       expect.objectContaining({
@@ -99,10 +93,9 @@ describe('AssignDifferentProfileActionContainer', () => {
       }),
     });
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <AssignAllDifferentProfileActionContainer />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <AssignAllDifferentProfileActionContainer />,
+      { store }
     );
 
     const claimButton = getByTestId('claim-multiple');

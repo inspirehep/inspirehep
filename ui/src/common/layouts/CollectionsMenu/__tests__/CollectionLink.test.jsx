@@ -1,44 +1,34 @@
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-
+import { renderWithRouter } from '../../../../fixtures/render';
 import CollectionLink from '../CollectionLink';
 
 describe('CollectionLink', () => {
   it('renders default', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <CollectionLink to="/literature" />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <CollectionLink to="/literature" />
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders active', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <CollectionLink to="/literature" active />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <CollectionLink to="/literature" active />
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders new', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <CollectionLink to="/literature" newCollection />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <CollectionLink to="/literature" newCollection />
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders active and new', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <CollectionLink to="/literature" active newCollection />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <CollectionLink to="/literature" active newCollection />
     );
 
     expect(asFragment()).toMatchSnapshot();

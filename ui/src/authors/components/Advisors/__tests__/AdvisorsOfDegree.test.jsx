@@ -1,8 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
-import { MemoryRouter } from 'react-router-dom';
+import { renderWithRouter } from '../../../../fixtures/render';
 import AdvisorsOfDegree from '../AdvisorsOfDegree';
 
 describe('AdvisorsOfDegree', () => {
@@ -16,10 +15,8 @@ describe('AdvisorsOfDegree', () => {
         degree_type: 'other',
       },
     ]);
-    const { asFragment } = render(
-      <MemoryRouter>
-        <AdvisorsOfDegree advisors={advisors} degreeType="other" />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <AdvisorsOfDegree advisors={advisors} degreeType="other" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -35,10 +32,8 @@ describe('AdvisorsOfDegree', () => {
         degree_type: 'phd',
       },
     ]);
-    const { asFragment } = render(
-      <MemoryRouter>
-        <AdvisorsOfDegree advisors={advisors} degreeType="phd" />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <AdvisorsOfDegree advisors={advisors} degreeType="phd" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -50,10 +45,8 @@ describe('AdvisorsOfDegree', () => {
         degree_type: 'master',
       },
     ]);
-    const { asFragment } = render(
-      <MemoryRouter>
-        <AdvisorsOfDegree advisors={advisors} degreeType="master" />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <AdvisorsOfDegree advisors={advisors} degreeType="master" />
     );
     expect(asFragment()).toMatchSnapshot();
   });

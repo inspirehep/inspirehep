@@ -1,9 +1,8 @@
-import { render } from '@testing-library/react';
 import { fromJS, List } from 'immutable';
-import { Provider } from 'react-redux';
 
 import { getStore } from '../../../fixtures/store';
 import AuthorizedContainer from '../AuthorizedContainer';
+import { renderWithProviders } from '../../../fixtures/render';
 
 describe('AuthorizedContainer', () => {
   it('renders children if user is authorized', () => {
@@ -14,12 +13,11 @@ describe('AuthorizedContainer', () => {
         },
       }),
     });
-    const { getByText } = render(
-      <Provider store={store}>
-        <AuthorizedContainer authorizedRoles={List(['superuser', 'cataloger'])}>
-          <div>SECRET DIV [work in progress]</div>
-        </AuthorizedContainer>
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <AuthorizedContainer authorizedRoles={List(['superuser', 'cataloger'])}>
+        <div>SECRET DIV [work in progress]</div>
+      </AuthorizedContainer>,
+      { store }
     );
 
     expect(getByText('SECRET DIV [work in progress]')).toBeInTheDocument();
@@ -33,12 +31,11 @@ describe('AuthorizedContainer', () => {
         },
       }),
     });
-    const { queryByText } = render(
-      <Provider store={store}>
-        <AuthorizedContainer authorizedRoles={List(['superuser'])}>
-          <div>SECRET DIV [work in progress]</div>
-        </AuthorizedContainer>
-      </Provider>
+    const { queryByText } = renderWithProviders(
+      <AuthorizedContainer authorizedRoles={List(['superuser'])}>
+        <div>SECRET DIV [work in progress]</div>
+      </AuthorizedContainer>,
+      { store }
     );
     expect(queryByText('SECRET DIV [work in progress]')).toBeNull();
   });

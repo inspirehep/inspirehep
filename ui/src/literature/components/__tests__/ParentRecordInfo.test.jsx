@@ -1,8 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { MemoryRouter } from 'react-router-dom';
 
+import { renderWithRouter } from '../../../fixtures/render';
 import ParentRecordInfo from '../ParentRecordInfo';
 
 describe('ParentRecordInfo', () => {
@@ -13,10 +12,8 @@ describe('ParentRecordInfo', () => {
         record: { $ref: 'http://localhost:5000/api/literature/1234' },
       },
     ]);
-    const { asFragment } = render(
-      <MemoryRouter>
-        <ParentRecordInfo parentRecord={parentRecord} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <ParentRecordInfo parentRecord={parentRecord} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -31,10 +28,8 @@ describe('ParentRecordInfo', () => {
         record: { $ref: 'http://localhost:5000/api/literature/1234' },
       },
     ]);
-    const { asFragment } = render(
-      <MemoryRouter>
-        <ParentRecordInfo parentRecord={parentRecord} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <ParentRecordInfo parentRecord={parentRecord} />
     );
     expect(asFragment()).toMatchSnapshot();
   });

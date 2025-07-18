@@ -1,11 +1,9 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
+
 import SeminarItem from '../SeminarItem';
 import * as constants from '../../../common/constants';
-import { getStore } from '../../../fixtures/store';
+import { renderWithProviders } from '../../../fixtures/render';
 
 describe('SeminarItem', () => {
   constants.LOCAL_TIMEZONE = 'Europe/Zurich';
@@ -25,12 +23,8 @@ describe('SeminarItem', () => {
       ],
     });
 
-    const { getByText } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter>
-          <SeminarItem metadata={metadata} />
-        </MemoryRouter>
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <SeminarItem metadata={metadata} />
     );
     expect(getByText('John, Doe')).toBeInTheDocument();
     expect(
@@ -48,12 +42,8 @@ describe('SeminarItem', () => {
       end_datetime: '2020-05-17T00:45:00.000000',
     });
 
-    const { getByText } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter>
-          <SeminarItem metadata={metadata} />
-        </MemoryRouter>
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <SeminarItem metadata={metadata} />
     );
     expect(getByText('John, Doe')).toBeInTheDocument();
     expect(
@@ -71,12 +61,8 @@ describe('SeminarItem', () => {
       end_datetime: '2020-05-17T00:45:00.000000',
     });
 
-    const { getByText } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter>
-          <SeminarItem metadata={metadata} selectedTimezone="America/Chicago" />
-        </MemoryRouter>
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <SeminarItem metadata={metadata} selectedTimezone="America/Chicago" />
     );
     expect(getByText('John, Doe')).toBeInTheDocument();
     expect(getByText(/15 May 2020, 06:45 AM/i)).toBeInTheDocument();
@@ -93,12 +79,8 @@ describe('SeminarItem', () => {
       end_datetime: '2020-05-17T00:45:00.000000',
     });
 
-    const { getByText } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter>
-          <SeminarItem metadata={metadata} selectedTimezone="Europe/Zurich" />
-        </MemoryRouter>
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <SeminarItem metadata={metadata} selectedTimezone="Europe/Zurich" />
     );
     expect(getByText('John, Doe')).toBeInTheDocument();
     expect(

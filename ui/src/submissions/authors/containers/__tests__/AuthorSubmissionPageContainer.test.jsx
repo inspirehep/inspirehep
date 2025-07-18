@@ -1,8 +1,7 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
+import { screen } from '@testing-library/react';
 import { fromJS } from 'immutable';
+import { renderWithProviders } from '../../../../fixtures/render';
 
 import { getStore } from '../../../../fixtures/store';
 import AuthorSubmissionPageContainer from '../AuthorSubmissionPageContainer';
@@ -15,13 +14,7 @@ describe('AuthorSubmissionPageContainer', () => {
       user: fromJS({ data: { profile_control_number: 12345 } }),
     });
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <AuthorSubmissionPageContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<AuthorSubmissionPageContainer />, { store });
 
     expect(
       screen.getByText(/Do you want to update your profile\?/i)
@@ -37,13 +30,7 @@ describe('AuthorSubmissionPageContainer', () => {
       user: fromJS({ data: { profile_control_number: null } }),
     });
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <AuthorSubmissionPageContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<AuthorSubmissionPageContainer />, { store });
 
     expect(
       screen.queryByText(/Do you want to update your profile\?/i)

@@ -3,11 +3,10 @@ import { render, waitFor, fireEvent, screen } from '@testing-library/react';
 
 import AssignOwnProfileAction from '../AssignOwnProfileAction';
 
-jest.mock('react-router-dom', () => ({
-  useParams: jest.fn().mockImplementation(() => ({
-    id: 123,
-  })),
-}));
+jest.mock('react-router-dom', () => {
+  const actual = jest.requireActual('react-router-dom');
+  return { ...actual, useParams: jest.fn().mockReturnValue({ id: 123 }) };
+});
 
 describe('AssignOwnProfileAction', () => {
   it('renders', () => {

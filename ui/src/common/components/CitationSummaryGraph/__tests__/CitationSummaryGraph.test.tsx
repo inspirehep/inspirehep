@@ -1,6 +1,6 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { screen, fireEvent, waitFor, render } from '@testing-library/react';
 
+import { renderWithProviders } from '../../../../fixtures/render';
 import { getStore } from '../../../../fixtures/store';
 import CitationSummaryGraph, {
   Bar,
@@ -82,19 +82,17 @@ describe('CitationSummaryGraph', () => {
   };
 
   it('should render a graph with correct data', () => {
-    const { asFragment } = render(
-      <Provider store={store}>
-        <CitationSummaryGraph {...testData} />
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <CitationSummaryGraph {...testData} />,
+      { store }
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should render a graph with x and y axes', () => {
-    const { container } = render(
-      <Provider store={store}>
-        <CitationSummaryGraph {...testData} />
-      </Provider>
+    const { container } = renderWithProviders(
+      <CitationSummaryGraph {...testData} />,
+      { store }
     );
     const xAxis = container.getElementsByClassName('x-axis');
     const yAxis = container.getElementsByClassName('y-axis');
@@ -103,10 +101,9 @@ describe('CitationSummaryGraph', () => {
   });
 
   it('should highlight the hovered bar', () => {
-    const { container } = render(
-      <Provider store={store}>
-        <CitationSummaryGraph {...testData} />
-      </Provider>
+    const { container } = renderWithProviders(
+      <CitationSummaryGraph {...testData} />,
+      { store }
     );
     const citeableBars = container.getElementsByClassName(
       'rv-xy-plot__series rv-xy-plot__series--bar'
@@ -124,10 +121,9 @@ describe('CitationSummaryGraph', () => {
       ...testData,
       onSelectBarChange,
     };
-    const { container } = render(
-      <Provider store={store}>
-        <CitationSummaryGraph {...testDataWithSelection} />
-      </Provider>
+    const { container } = renderWithProviders(
+      <CitationSummaryGraph {...testDataWithSelection} />,
+      { store }
     );
     const citeableBars = container.getElementsByClassName(
       'rv-xy-plot__series rv-xy-plot__series--bar'
@@ -149,10 +145,9 @@ describe('CitationSummaryGraph', () => {
       selectedBar: { xValue: 1, type: 'citeable' } as Bar,
       onSelectBarChange,
     };
-    const { container } = render(
-      <Provider store={store}>
-        <CitationSummaryGraph {...testDataWithSelection} />
-      </Provider>
+    const { container } = renderWithProviders(
+      <CitationSummaryGraph {...testDataWithSelection} />,
+      { store }
     );
     const citeableBars = container.getElementsByClassName(
       'rv-xy-plot__series rv-xy-plot__series--bar'

@@ -1,8 +1,6 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-
-import { MemoryRouter } from 'react-router-dom';
+import { renderWithRouter } from '../../../fixtures/render';
 import ConferenceInfo from '../ConferenceInfo';
 
 describe('ConferenceInfo', () => {
@@ -16,10 +14,8 @@ describe('ConferenceInfo', () => {
         },
       ],
     });
-    const { asFragment } = render(
-      <MemoryRouter>
-        <ConferenceInfo conferenceInfo={info} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <ConferenceInfo conferenceInfo={info} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -35,10 +31,8 @@ describe('ConferenceInfo', () => {
         },
       ],
     });
-    const { asFragment } = render(
-      <MemoryRouter>
-        <ConferenceInfo conferenceInfo={info} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <ConferenceInfo conferenceInfo={info} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -56,10 +50,8 @@ describe('ConferenceInfo', () => {
       page_start: 1,
       page_end: 20,
     });
-    const { asFragment } = render(
-      <MemoryRouter>
-        <ConferenceInfo conferenceInfo={info} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <ConferenceInfo conferenceInfo={info} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -76,10 +68,8 @@ describe('ConferenceInfo', () => {
       ],
       page_start: 1,
     });
-    const { asFragment } = render(
-      <MemoryRouter>
-        <ConferenceInfo conferenceInfo={info} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <ConferenceInfo conferenceInfo={info} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -96,10 +86,8 @@ describe('ConferenceInfo', () => {
       ],
       page_end: 20,
     });
-    const { asFragment } = render(
-      <MemoryRouter>
-        <ConferenceInfo conferenceInfo={info} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <ConferenceInfo conferenceInfo={info} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
