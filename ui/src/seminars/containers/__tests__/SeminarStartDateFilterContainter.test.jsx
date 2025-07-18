@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, within } from '@testing-library/react';
+import { within } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
 
+import { renderWithProviders } from '../../../fixtures/render';
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import { SEMINARS_NS } from '../../../search/constants';
 import * as constants from '../../../common/constants';
@@ -41,15 +41,13 @@ describe('SeminarStartDateFilterContainer', () => {
         },
       }),
     });
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <SeminarStartDateFilterContainer
-          namespace={namespace}
-          switchTitle="title"
-        />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <SeminarStartDateFilterContainer
+        namespace={namespace}
+        switchTitle="title"
+      />,
+      { store }
     );
-
     const childButton = within(
       getByTestId('event-start-date-filter')
     ).getByRole('switch');
@@ -69,15 +67,13 @@ describe('SeminarStartDateFilterContainer', () => {
         },
       }),
     });
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <SeminarStartDateFilterContainer
-          namespace={namespace}
-          switchTitle="title"
-        />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <SeminarStartDateFilterContainer
+        namespace={namespace}
+        switchTitle="title"
+      />,
+      { store }
     );
-
     const childButton = within(
       getByTestId('event-start-date-filter')
     ).getByRole('switch');
@@ -87,13 +83,12 @@ describe('SeminarStartDateFilterContainer', () => {
   it('flips button to all and then to upcoming', () => {
     const store = getStore();
     const namespace = SEMINARS_NS;
-    render(
-      <Provider store={store}>
-        <SeminarStartDateFilterContainer
-          namespace={namespace}
-          switchTitle="title"
-        />
-      </Provider>
+    renderWithProviders(
+      <SeminarStartDateFilterContainer
+        namespace={namespace}
+        switchTitle="title"
+      />,
+      { store }
     );
 
     const queryAll = {
@@ -124,13 +119,12 @@ describe('SeminarStartDateFilterContainer', () => {
   it('dispatches SEARCH_QUERY_UPDATE onChange with start_date and timezone if specific date', () => {
     const store = getStore();
     const namespace = SEMINARS_NS;
-    render(
-      <Provider store={store}>
-        <SeminarStartDateFilterContainer
-          namespace={namespace}
-          switchTitle="title"
-        />
-      </Provider>
+    renderWithProviders(
+      <SeminarStartDateFilterContainer
+        namespace={namespace}
+        switchTitle="title"
+      />,
+      { store }
     );
 
     if (typeof global.seminarEventStartDateFilterOnChange === 'function') {

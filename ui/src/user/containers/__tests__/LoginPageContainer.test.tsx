@@ -1,9 +1,9 @@
 import React from 'react';
-import { render, within } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { within } from '@testing-library/react';
 
 import { getStore } from '../../../fixtures/store';
 import LoginPageContainer from '../LoginPageContainer';
+import { renderWithProviders } from '../../../fixtures/render';
 
 describe('LoginPageContainer', () => {
   it('passes props from state', () => {
@@ -15,11 +15,9 @@ describe('LoginPageContainer', () => {
       },
     });
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <LoginPageContainer />
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<LoginPageContainer />, {
+      store,
+    });
 
     const loginPage = getByTestId('login-page');
     const button = within(loginPage).getByTestId('login-button');

@@ -1,16 +1,16 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { Set } from 'immutable';
 
-import { Provider } from 'react-redux';
+import { renderWithProviders } from '../../../../fixtures/render';
 import AssignDrawer from '../AssignDrawer';
-import { getStore } from '../../../../fixtures/store';
 
-jest.mock('react-router-dom', () => ({
-  useParams: jest.fn().mockImplementation(() => ({
-    id: 123,
-  })),
-}));
+jest.mock('react-router-dom', () => {
+  const actual = jest.requireActual('react-router-dom');
+  return {
+    ...actual,
+    useParams: jest.fn().mockReturnValue({ id: 123 }),
+  };
+});
 
 describe('AssignDrawer', () => {
   it('renders assign authors search', () => {
@@ -19,15 +19,13 @@ describe('AssignDrawer', () => {
     const onAssign = jest.fn();
     const selectedPapers = Set([1, 2, 3]);
 
-    const screen = render(
-      <Provider store={getStore()}>
-        <AssignDrawer
-          visible={visible}
-          onDrawerClose={onDrawerClose}
-          onAssign={onAssign}
-          selectedPapers={selectedPapers}
-        />
-      </Provider>
+    const screen = renderWithProviders(
+      <AssignDrawer
+        visible={visible}
+        onDrawerClose={onDrawerClose}
+        onAssign={onAssign}
+        selectedPapers={selectedPapers}
+      />
     );
 
     expect(screen.baseElement).toMatchSnapshot();
@@ -39,15 +37,13 @@ describe('AssignDrawer', () => {
     const onAssign = jest.fn();
     const selectedPapers = Set([1, 2, 3]);
 
-    const { getByTestId, getByRole } = render(
-      <Provider store={getStore()}>
-        <AssignDrawer
-          visible={visible}
-          onDrawerClose={onDrawerClose}
-          onAssign={onAssign}
-          selectedPapers={selectedPapers}
-        />
-      </Provider>
+    const { getByTestId, getByRole } = renderWithProviders(
+      <AssignDrawer
+        visible={visible}
+        onDrawerClose={onDrawerClose}
+        onAssign={onAssign}
+        selectedPapers={selectedPapers}
+      />
     );
     expect(getByTestId('assign-button')).toBeDisabled();
     getByRole('radio', { name: 'New author' }).click();

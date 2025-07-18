@@ -1,10 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
 
+import { renderWithProviders } from '../../../fixtures/render';
 import LiteratureClaimButton from '../LiteratureClaimButton';
-import { getStore } from '../../../fixtures/store';
 
 describe('LiteratureClaimButton', () => {
   it('renders disabled when user is not logged in', () => {
@@ -52,15 +51,13 @@ describe('LiteratureClaimButton', () => {
         full_name: 'Test, Guy 3',
       },
     ]);
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <LiteratureClaimButton
-          loggedIn
-          hasAuthorProfile
-          authors={authors}
-          controlNumber={123456}
-        />
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <LiteratureClaimButton
+        loggedIn
+        hasAuthorProfile
+        authors={authors}
+        controlNumber={123456}
+      />
     );
     expect(asFragment()).toMatchSnapshot();
   });

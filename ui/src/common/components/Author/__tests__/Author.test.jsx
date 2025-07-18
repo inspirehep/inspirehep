@@ -1,8 +1,6 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-
+import { renderWithRouter } from '../../../../fixtures/render';
 import Author from '..';
 
 describe('Author', () => {
@@ -17,7 +15,9 @@ describe('Author', () => {
         },
       ],
     });
-    const { getByText } = render(<Author author={author} recordId={12345} />);
+    const { getByText } = renderWithRouter(
+      <Author author={author} recordId={12345} />
+    );
     expect(getByText('Full Name, Jr.')).toBeInTheDocument();
     expect(getByText('Affiliation')).toBeInTheDocument();
   });
@@ -34,7 +34,9 @@ describe('Author', () => {
         },
       ],
     });
-    const { getByText } = render(<Author recordId={12345} author={author} />);
+    const { getByText } = renderWithRouter(
+      <Author recordId={12345} author={author} />
+    );
     expect(getByText('Full Name')).toBeInTheDocument();
     expect(getByText('Affiliation')).toBeInTheDocument();
   });
@@ -44,7 +46,9 @@ describe('Author', () => {
       full_name: 'Name, Full',
       inspire_roles: ['supervisor'],
     });
-    const { getByText } = render(<Author recordId={12345} author={author} />);
+    const { getByText } = renderWithRouter(
+      <Author recordId={12345} author={author} />
+    );
     expect(getByText('Name, Full')).toBeInTheDocument();
   });
 
@@ -56,10 +60,8 @@ describe('Author', () => {
       },
       bai: 'Full.Name.1',
     });
-    const { getByRole } = render(
-      <MemoryRouter>
-        <Author recordId={12345} author={author} />
-      </MemoryRouter>
+    const { getByRole } = renderWithRouter(
+      <Author recordId={12345} author={author} />
     );
     const link = getByRole('link', {
       name: 'Name, Full',
@@ -72,10 +74,8 @@ describe('Author', () => {
       full_name: 'Name, Full',
       bai: 'Full.Name.1',
     });
-    const { getByRole } = render(
-      <MemoryRouter>
-        <Author recordId={12345} author={author} />
-      </MemoryRouter>
+    const { getByRole } = renderWithRouter(
+      <Author recordId={12345} author={author} />
     );
     const link = getByRole('link', {
       name: 'Name, Full',

@@ -1,8 +1,6 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-
+import { renderWithProviders } from '../../../fixtures/render';
 import ReferenceItem from '../ReferenceItem';
 
 describe('ReferenceItem', () => {
@@ -23,10 +21,8 @@ describe('ReferenceItem', () => {
       collaborations: [{ value: 'Test Collab.' }],
       collaborations_with_suffix: [{ value: 'Test Group' }],
     });
-    const { asFragment } = render(
-      <MemoryRouter>
-        <ReferenceItem reference={reference} reference_index="123" />
-      </MemoryRouter>
+    const { asFragment } = renderWithProviders(
+      <ReferenceItem reference={reference} reference_index="123" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -46,10 +42,8 @@ describe('ReferenceItem', () => {
       collaborations: [{ value: 'Test Collab.' }],
       collaborations_with_suffix: [{ value: 'Test Group' }],
     });
-    const { asFragment } = render(
-      <MemoryRouter>
-        <ReferenceItem reference={reference} reference_index="123" />
-      </MemoryRouter>
+    const { asFragment } = renderWithProviders(
+      <ReferenceItem reference={reference} reference_index="123" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -58,10 +52,8 @@ describe('ReferenceItem', () => {
     const reference = fromJS({
       misc: 'A Misc',
     });
-    const { asFragment } = render(
-      <MemoryRouter>
-        <ReferenceItem reference={reference} reference_index="123" />
-      </MemoryRouter>
+    const { asFragment } = renderWithProviders(
+      <ReferenceItem reference={reference} reference_index="123" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -70,10 +62,8 @@ describe('ReferenceItem', () => {
     const reference = fromJS({
       titles: [{ title: 'Title' }],
     });
-    const { asFragment } = render(
-      <MemoryRouter>
-        <ReferenceItem reference={reference} reference_index="123" />
-      </MemoryRouter>
+    const { asFragment } = renderWithProviders(
+      <ReferenceItem reference={reference} reference_index="123" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -82,14 +72,8 @@ describe('ReferenceItem', () => {
     const reference = fromJS({
       titles: [{ title: 'Title' }],
     });
-    const { asFragment } = render(
-      <MemoryRouter>
-        <ReferenceItem
-          reference={reference}
-          reference_index="123"
-          disableEdit
-        />
-      </MemoryRouter>
+    const { asFragment } = renderWithProviders(
+      <ReferenceItem reference={reference} reference_index="123" disableEdit />
     );
     expect(asFragment()).toMatchSnapshot();
   });

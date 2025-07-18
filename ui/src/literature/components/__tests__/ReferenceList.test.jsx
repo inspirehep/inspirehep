@@ -1,10 +1,9 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
 
 import ReferenceList from '../ReferenceList';
-import { getStore } from '../../../fixtures/store';
+import { renderWithProviders } from '../../../fixtures/render';
 
 describe('ReferenceList', () => {
   it('renders with references', () => {
@@ -16,7 +15,7 @@ describe('ReferenceList', () => {
         titles: [{ title: 'Reference 2' }],
       },
     ]);
-    const { asFragment } = render(
+    const { asFragment } = renderWithProviders(
       <ReferenceList
         loading={false}
         error={null}
@@ -39,7 +38,7 @@ describe('ReferenceList', () => {
         authors: [{ full_name: 'Author 2' }],
       },
     ]);
-    const { asFragment } = render(
+    const { asFragment } = renderWithProviders(
       <ReferenceList
         loading={false}
         error={null}
@@ -58,7 +57,7 @@ describe('ReferenceList', () => {
     const page = 2;
     const size = 25;
 
-    const { getByText } = render(
+    const { getByText } = renderWithProviders(
       <ReferenceList
         loading={false}
         error={null}
@@ -89,17 +88,15 @@ describe('ReferenceList', () => {
   });
 
   it('renders with error', () => {
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <ReferenceList
-          loading={false}
-          error={fromJS({ message: 'error' })}
-          references={fromJS([])}
-          total={0}
-          onPageChange={() => {}}
-          query={{ size: 25, page: 1 }}
-        />
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <ReferenceList
+        loading={false}
+        error={fromJS({ message: 'error' })}
+        references={fromJS([])}
+        total={0}
+        onPageChange={() => {}}
+        query={{ size: 25, page: 1 }}
+      />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -125,7 +122,7 @@ it('calls onQueryChange and sets display to 50 references/page', () => {
     { titles: [{ title: 'Reference 11' }] },
   ]);
 
-  const screen = render(
+  const screen = renderWithProviders(
     <ReferenceList
       loading={false}
       error={null}

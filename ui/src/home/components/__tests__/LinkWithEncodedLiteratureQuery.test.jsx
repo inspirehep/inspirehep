@@ -1,16 +1,12 @@
 import React from 'react';
-
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { renderWithProviders } from '../../../fixtures/render';
 import LinkWithEncodedLiteratureQuery from '../LinkWithEncodedLiteratureQuery';
 
 describe('LinkWithEncodedLiteratureQuery', () => {
   it('renders the component with special characters', () => {
     const query = 'this is an encoded query , / ? : @ & = + $ #';
-    const { getByText } = render(
-      <MemoryRouter>
-        <LinkWithEncodedLiteratureQuery query={query} />
-      </MemoryRouter>
+    const { getByText } = renderWithProviders(
+      <LinkWithEncodedLiteratureQuery query={query} />
     );
     const linkElement = getByText(query);
     expect(linkElement).toBeInTheDocument();
@@ -22,12 +18,9 @@ describe('LinkWithEncodedLiteratureQuery', () => {
 
   it('renders the component without special characters', () => {
     const query = 'this is a query';
-    const { getByText } = render(
-      <MemoryRouter>
-        <LinkWithEncodedLiteratureQuery query={query} />
-      </MemoryRouter>
+    const { getByText } = renderWithProviders(
+      <LinkWithEncodedLiteratureQuery query={query} />
     );
-
     const linkElement = getByText(query);
     expect(linkElement).toBeInTheDocument();
     expect(linkElement).toHaveAttribute(

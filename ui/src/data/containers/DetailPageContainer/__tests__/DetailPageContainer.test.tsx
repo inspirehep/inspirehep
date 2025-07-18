@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
 
+import { renderWithProviders } from '../../../../fixtures/render';
 import DetailPageContainer from '../DetailPageContainer';
 import { getStore } from '../../../../fixtures/store';
 
@@ -70,12 +69,11 @@ describe('DetailPageContainer', () => {
       }),
     });
 
-    const renderedComponent = render(
+    const renderedComponent = renderWithProviders(
       <Router>
-        <Provider store={store}>
-          <DetailPageContainer />
-        </Provider>
-      </Router>
+        <DetailPageContainer />
+      </Router>,
+      { store }
     );
 
     return renderedComponent;

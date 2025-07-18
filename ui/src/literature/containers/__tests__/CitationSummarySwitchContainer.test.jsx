@@ -1,6 +1,4 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
@@ -15,6 +13,7 @@ import {
 } from '../../../search/constants';
 import { setPreference } from '../../../actions/user';
 import { fetchCitationSummary } from '../../../actions/citations';
+import { renderWithProviders } from '../../../fixtures/render';
 
 jest.mock('../../../actions/router');
 mockActionCreator(appendQueryToLocationSearch);
@@ -59,10 +58,9 @@ describe('CitationSummarySwitchContainer', () => {
   it('dispatches setPreference and fetchCitationSummary when switch is toggled to true', () => {
     const namespace = LITERATURE_NS;
     const store = getStore();
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <CitationSummarySwitchContainer namespace={namespace} />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <CitationSummarySwitchContainer namespace={namespace} />,
+      { store }
     );
 
     const changeTrueButton = getByTestId('on-change-true-button');
@@ -78,10 +76,9 @@ describe('CitationSummarySwitchContainer', () => {
   it('removes citation summary param when switch is toggled to false', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore();
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <CitationSummarySwitchContainer namespace={namespace} />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <CitationSummarySwitchContainer namespace={namespace} />,
+      { store }
     );
 
     const changeFalseButton = getByTestId('on-change-false-button');
@@ -105,10 +102,9 @@ describe('CitationSummarySwitchContainer', () => {
       },
     });
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <CitationSummarySwitchContainer namespace={namespace} />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <CitationSummarySwitchContainer namespace={namespace} />,
+      { store }
     );
 
     const component = getByTestId('citation-summary-switch');
@@ -126,10 +122,9 @@ describe('CitationSummarySwitchContainer', () => {
       },
     });
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <CitationSummarySwitchContainer namespace={namespace} />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <CitationSummarySwitchContainer namespace={namespace} />,
+      { store }
     );
 
     const component = getByTestId('citation-summary-switch');
@@ -146,10 +141,9 @@ describe('CitationSummarySwitchContainer', () => {
       }),
     });
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <CitationSummarySwitchContainer namespace={namespace} />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <CitationSummarySwitchContainer namespace={namespace} />,
+      { store }
     );
 
     const component = getByTestId('citation-summary-switch');
@@ -161,10 +155,9 @@ describe('CitationSummarySwitchContainer', () => {
   it('dispatches appendQueryToLocationSearch onCitationSummaryUserPreferenceChange if the citation summary is enabled', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore();
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <CitationSummarySwitchContainer namespace={namespace} />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <CitationSummarySwitchContainer namespace={namespace} />,
+      { store }
     );
 
     const preferenceChangeButton = getByTestId('on-preference-change-button');

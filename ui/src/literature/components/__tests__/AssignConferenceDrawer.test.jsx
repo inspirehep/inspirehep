@@ -1,18 +1,15 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import { Set, fromJS } from 'immutable';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 
 import AssignConferencesDrawer from '../AssignConferencesDrawer';
 import { getStore } from '../../../fixtures/store';
+import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useParams: jest.fn().mockImplementation(() => ({
-    id: 123,
-  })),
-}));
+jest.mock('react-router-dom', () => {
+  const actual = jest.requireActual('react-router-dom');
+  return { ...actual, useParams: jest.fn().mockReturnValue({ id: 123 }) };
+});
 
 describe('AssignConferencesDrawer', () => {
   beforeAll(() => {
@@ -26,17 +23,13 @@ describe('AssignConferencesDrawer', () => {
     const onAssign = jest.fn();
     const selectedPapers = Set([1, 2, 3]);
 
-    const { baseElement } = render(
-      <MemoryRouter>
-        <Provider store={getStore()}>
-          <AssignConferencesDrawer
-            visible
-            onDrawerClose={onDrawerClose}
-            onAssign={onAssign}
-            selectedPapers={selectedPapers}
-          />
-        </Provider>
-      </MemoryRouter>
+    const { baseElement } = renderWithProviders(
+      <AssignConferencesDrawer
+        visible
+        onDrawerClose={onDrawerClose}
+        onAssign={onAssign}
+        selectedPapers={selectedPapers}
+      />
     );
     expect(baseElement).toMatchSnapshot();
   });
@@ -95,17 +88,14 @@ describe('AssignConferencesDrawer', () => {
       }),
     });
 
-    render(
-      <MemoryRouter>
-        <Provider store={store}>
-          <AssignConferencesDrawer
-            visible
-            onDrawerClose={onDrawerClose}
-            onAssign={onAssign}
-            selectedPapers={selectedPapers}
-          />
-        </Provider>
-      </MemoryRouter>
+    renderWithProviders(
+      <AssignConferencesDrawer
+        visible
+        onDrawerClose={onDrawerClose}
+        onAssign={onAssign}
+        selectedPapers={selectedPapers}
+      />,
+      { store }
     );
 
     const assignButton = screen.getByTestId('assign-conference-button');

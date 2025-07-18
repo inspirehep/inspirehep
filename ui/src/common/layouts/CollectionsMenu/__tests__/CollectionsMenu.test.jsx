@@ -1,6 +1,4 @@
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-
+import { renderWithRouter } from '../../../../fixtures/render';
 import CollectionsMenu from '../CollectionsMenu';
 import {
   HOME,
@@ -16,90 +14,72 @@ import {
 
 describe('CollectionsMenu', () => {
   it('renders when home page', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <CollectionsMenu currentPathname={HOME} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <CollectionsMenu currentPathname={HOME} />
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders when submissions page', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <CollectionsMenu currentPathname={SUBMISSIONS_LITERATURE} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <CollectionsMenu currentPathname={SUBMISSIONS_LITERATURE} />
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders when literature page', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <CollectionsMenu currentPathname={LITERATURE} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <CollectionsMenu currentPathname={LITERATURE} />
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders when jobs page', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <CollectionsMenu currentPathname={`${JOBS}/12345`} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <CollectionsMenu currentPathname={`${JOBS}/12345`} />
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders when conferences page', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <CollectionsMenu currentPathname={`${CONFERENCES}/5555`} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <CollectionsMenu currentPathname={`${CONFERENCES}/5555`} />
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders when authors page', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <CollectionsMenu currentPathname={AUTHORS} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <CollectionsMenu currentPathname={AUTHORS} />
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders when seminars page', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <CollectionsMenu currentPathname={`${SEMINARS}/1`} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <CollectionsMenu currentPathname={`${SEMINARS}/1`} />
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders when experiments page', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <CollectionsMenu currentPathname={`${EXPERIMENTS}/1`} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <CollectionsMenu currentPathname={`${EXPERIMENTS}/1`} />
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders when data page', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <CollectionsMenu currentPathname={`${DATA}/1`} />
-      </MemoryRouter>
+    const { asFragment } = renderWithRouter(
+      <CollectionsMenu currentPathname={`${DATA}/1`} />
     );
 
     expect(asFragment()).toMatchSnapshot();

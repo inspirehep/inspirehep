@@ -1,19 +1,11 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import { getStore } from '../../../fixtures/store';
+
+import { renderWithProviders } from '../../../fixtures/render';
 import ErrorNetwork from '../ErrorNetwork';
 
 describe('ErrorNetwork', () => {
   it('renders ErrorNetwork', () => {
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter>
-          <ErrorNetwork />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment } = renderWithProviders(<ErrorNetwork />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

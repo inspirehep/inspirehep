@@ -1,19 +1,11 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
+
 import Error500 from '../Error500';
-import { getStore } from '../../../fixtures/store';
+import { renderWithProviders } from '../../../fixtures/render';
 
 describe('Error500', () => {
   it('renders Error500', () => {
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter>
-          <Error500 />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment } = renderWithProviders(<Error500 />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

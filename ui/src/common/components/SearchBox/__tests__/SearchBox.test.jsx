@@ -1,36 +1,27 @@
-import { fireEvent, render } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { fireEvent } from '@testing-library/react';
 
 import SearchBox from '../SearchBox';
 import { LITERATURE_NS } from '../../../../search/constants';
-import { getStore } from '../../../../fixtures/store';
+import { renderWithProviders } from '../../../../fixtures/render';
 
 describe('SearchBox', () => {
   it('render initial state with all props set', () => {
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <SearchBox
-          namespace={LITERATURE_NS}
-          value="value"
-          placeholder="placeholder"
-          searchScopeName="scope"
-          onSearch={jest.fn()}
-        />
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <SearchBox
+        namespace={LITERATURE_NS}
+        value="value"
+        placeholder="placeholder"
+        searchScopeName="scope"
+        onSearch={jest.fn()}
+      />
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders new value on change', () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <SearchBox
-          value="value"
-          namespace={LITERATURE_NS}
-          onSearch={jest.fn()}
-        />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <SearchBox value="value" namespace={LITERATURE_NS} onSearch={jest.fn()} />
     );
     const input = getByTestId('search-box-input');
     fireEvent.change(input, { target: { value: 'new' } });
@@ -38,14 +29,12 @@ describe('SearchBox', () => {
   });
 
   it('overrides internal state with prop', () => {
-    const { rerender, getByTestId } = render(
-      <Provider store={getStore()}>
-        <SearchBox
-          value="internal"
-          namespace={LITERATURE_NS}
-          onSearch={jest.fn()}
-        />
-      </Provider>
+    const { rerender, getByTestId } = renderWithProviders(
+      <SearchBox
+        value="internal"
+        namespace={LITERATURE_NS}
+        onSearch={jest.fn()}
+      />
     );
 
     const input = getByTestId('search-box-input');
@@ -54,13 +43,7 @@ describe('SearchBox', () => {
     expect(input).toHaveValue('internal');
 
     rerender(
-      <Provider store={getStore()}>
-        <SearchBox
-          value="prop"
-          namespace={LITERATURE_NS}
-          onSearch={jest.fn()}
-        />
-      </Provider>
+      <SearchBox value="prop" namespace={LITERATURE_NS} onSearch={jest.fn()} />
     );
 
     expect(input).toHaveValue('prop');

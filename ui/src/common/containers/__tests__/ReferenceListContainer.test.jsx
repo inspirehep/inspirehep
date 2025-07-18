@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
 
+import { renderWithProviders } from '../../../fixtures/render';
 import { getStore } from '../../../fixtures/store';
 import { fetchLiteratureReferences } from '../../../actions/literature';
 import ReferenceListContainer from '../ReferenceListContainer';
@@ -35,11 +35,7 @@ describe('ReferenceListContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <ReferenceListContainer />
-      </Provider>
-    );
+    renderWithProviders(<ReferenceListContainer />, { store });
 
     expect(screen.getByText('11-20 of 50')).toBeInTheDocument();
   });
@@ -61,11 +57,7 @@ describe('ReferenceListContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <ReferenceListContainer recordId={1} />
-      </Provider>
-    );
+    renderWithProviders(<ReferenceListContainer recordId={1} />, { store });
 
     await fireEvent.click(screen.getByTitle('Next Page'));
     expect(fetchLiteratureReferences).toHaveBeenCalledWith(1, {

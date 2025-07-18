@@ -1,20 +1,12 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import {
-  fireEvent,
-  prettyDOM,
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 
 import { BACKOFFICE } from '../../../../common/routes';
 import AuthorDetailPageContainer from '../AuthorDetailPageContainer';
 import { getStore } from '../../../../fixtures/store';
+import { renderWithProviders } from '../../../../fixtures/render';
 import { BACKOFFICE_RESOLVE_ACTION_REQUEST } from '../../../../actions/actionTypes';
-import backoffice from '../../..';
 
 describe('AuthorDetailPageContainer', (ids: any = []) => {
   const renderComponent = (ids: any = []) => {
@@ -48,12 +40,12 @@ describe('AuthorDetailPageContainer', (ids: any = []) => {
       }),
     });
 
-    const renderedComponent = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={[`${BACKOFFICE}/1`]}>
-          <AuthorDetailPageContainer />
-        </MemoryRouter>
-      </Provider>
+    const renderedComponent = renderWithProviders(
+      <AuthorDetailPageContainer />,
+      {
+        store,
+        route: `${BACKOFFICE}/1`,
+      }
     );
 
     return { renderedComponent, store };
@@ -154,13 +146,10 @@ describe('AuthorDetailPageContainer', (ids: any = []) => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={[`${BACKOFFICE}/1`]}>
-          <AuthorDetailPageContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<AuthorDetailPageContainer />, {
+      store,
+      route: `${BACKOFFICE}/1`,
+    });
 
     expect(screen.getByText('Loading ...')).toBeInTheDocument();
   });
@@ -198,13 +187,10 @@ describe('AuthorDetailPageContainer - Name Fields and control number', () => {
       }),
     });
 
-    return render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={[`${BACKOFFICE}/1`]}>
-          <AuthorDetailPageContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    return renderWithProviders(<AuthorDetailPageContainer />, {
+      store,
+      route: `${BACKOFFICE}/1`,
+    });
   };
 
   it('should only display name', () => {

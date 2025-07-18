@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { fireEvent, waitFor } from '@testing-library/react';
 import { fromJS, Set } from 'immutable';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
@@ -12,12 +11,12 @@ import {
   unassignPapers,
 } from '../../../actions/authors';
 import AssignAction from '../../components/AssignAction';
+import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('react-router-dom', () => ({
-  useParams: jest.fn().mockImplementation(() => ({
-    id: 123,
-  })),
-}));
+jest.mock('react-router-dom', () => {
+  const actual = jest.requireActual('react-router-dom');
+  return { ...actual, useParams: jest.fn().mockReturnValue({ id: 123 }) };
+});
 
 jest.mock('../../components/AssignAction', () => {
   const actual = jest.requireActual('../../components/AssignAction');
@@ -48,11 +47,7 @@ describe('AssignAllActionContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <AssignAllActionContainer />
-      </Provider>
-    );
+    renderWithProviders(<AssignAllActionContainer />, { store });
 
     expect(AssignAction).toBeCalledWith(
       expect.objectContaining({
@@ -69,11 +64,7 @@ describe('AssignAllActionContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <AssignAllActionContainer />
-      </Provider>
-    );
+    renderWithProviders(<AssignAllActionContainer />, { store });
 
     expect(AssignAction).toBeCalledWith(
       expect.objectContaining({
@@ -90,11 +81,7 @@ describe('AssignAllActionContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <AssignAllActionContainer />
-      </Provider>
-    );
+    renderWithProviders(<AssignAllActionContainer />, { store });
 
     expect(AssignAction).toBeCalledWith(
       expect.objectContaining({
@@ -111,10 +98,9 @@ describe('AssignAllActionContainer', () => {
       }),
     });
 
-    const { container, getByTestId } = render(
-      <Provider store={store}>
-        <AssignAllActionContainer />
-      </Provider>
+    const { container, getByTestId } = renderWithProviders(
+      <AssignAllActionContainer />,
+      { store }
     );
 
     const dropdown = container.getElementsByClassName(
@@ -135,11 +121,7 @@ describe('AssignAllActionContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <AssignAllActionContainer />
-      </Provider>
-    );
+    renderWithProviders(<AssignAllActionContainer />, { store });
 
     const from = 123;
     const to = 321;
@@ -158,11 +140,7 @@ describe('AssignAllActionContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <AssignAllActionContainer />
-      </Provider>
-    );
+    renderWithProviders(<AssignAllActionContainer />, { store });
 
     const from = 123;
 

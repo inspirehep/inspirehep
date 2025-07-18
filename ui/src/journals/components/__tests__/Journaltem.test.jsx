@@ -1,10 +1,7 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
+import { renderWithProviders } from '../../../fixtures/render';
 import { JournalItem } from '../JournalItem';
-import { getStore } from '../../../fixtures/store';
 
 describe('JournalItem', () => {
   it('renders with props', () => {
@@ -19,12 +16,8 @@ describe('JournalItem', () => {
       }),
     });
 
-    const { getByText, getByRole } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter>
-          <JournalItem result={result} />
-        </MemoryRouter>
-      </Provider>
+    const { getByText, getByRole } = renderWithProviders(
+      <JournalItem result={result} />
     );
     expect(getByText('West Virginia U.')).toBeInTheDocument();
     expect(getByText('2 papers')).toBeInTheDocument();
@@ -45,12 +38,8 @@ describe('JournalItem', () => {
       }),
     });
 
-    const { getByText, getByRole } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter>
-          <JournalItem result={result} />
-        </MemoryRouter>
-      </Provider>
+    const { getByText, getByRole } = renderWithProviders(
+      <JournalItem result={result} />
     );
     expect(getByText('West Virginia U.')).toBeInTheDocument();
     expect(getByText('Department of Physics')).toBeInTheDocument();

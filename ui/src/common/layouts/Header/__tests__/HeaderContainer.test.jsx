@@ -1,7 +1,4 @@
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-
+import { renderWithProviders } from '../../../../fixtures/render';
 import { getStore } from '../../../../fixtures/store';
 import HeaderContainer from '../HeaderContainer';
 import { SUBMISSIONS, HOME } from '../../../routes';
@@ -15,12 +12,9 @@ describe('HeaderContainer', () => {
         },
       },
     });
-    const { queryByText, queryByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <HeaderContainer />
-        </MemoryRouter>
-      </Provider>
+    const { queryByText, queryByTestId } = renderWithProviders(
+      <HeaderContainer />,
+      { store }
     );
 
     expect(queryByTestId('searchbox')).toBeNull();
@@ -35,12 +29,9 @@ describe('HeaderContainer', () => {
         },
       },
     });
-    const { queryByText, queryByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <HeaderContainer />
-        </MemoryRouter>
-      </Provider>
+    const { queryByText, queryByTestId } = renderWithProviders(
+      <HeaderContainer />,
+      { store }
     );
 
     expect(queryByTestId('searchbox')).toBeNull();

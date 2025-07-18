@@ -1,8 +1,7 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { render } from '@testing-library/react';
 
-import { MemoryRouter } from 'react-router-dom';
+import { renderWithRouter } from '../../../fixtures/render';
 import Affiliation from '../Affiliation';
 
 describe('Affiliation', () => {
@@ -11,10 +10,8 @@ describe('Affiliation', () => {
       institution: 'CERN2',
       record: { $ref: 'http://inspirehep.net/api/institutions/12345' },
     });
-    const { getByRole } = render(
-      <MemoryRouter>
-        <Affiliation affiliation={affiliation} />
-      </MemoryRouter>
+    const { getByRole } = renderWithRouter(
+      <Affiliation affiliation={affiliation} />
     );
     expect(getByRole('link')).toBeInTheDocument();
     expect(getByRole('link')).toHaveAttribute('href', '/institutions/12345');
@@ -24,7 +21,9 @@ describe('Affiliation', () => {
     const affiliation = fromJS({
       institution: 'CERN2',
     });
-    const { getByText } = render(<Affiliation affiliation={affiliation} />);
+    const { getByText } = renderWithRouter(
+      <Affiliation affiliation={affiliation} />
+    );
     expect(getByText('CERN2')).toBeInTheDocument();
   });
 
@@ -33,10 +32,8 @@ describe('Affiliation', () => {
       value: 'CERN2',
       record: { $ref: 'http://inspirehep.net/api/institutions/12345' },
     });
-    const { getByRole } = render(
-      <MemoryRouter>
-        <Affiliation affiliation={affiliation} />
-      </MemoryRouter>
+    const { getByRole } = renderWithRouter(
+      <Affiliation affiliation={affiliation} />
     );
     expect(getByRole('link')).toBeInTheDocument();
     expect(getByRole('link')).toHaveAttribute('href', '/institutions/12345');
@@ -46,7 +43,9 @@ describe('Affiliation', () => {
     const affiliation = fromJS({
       value: 'CERN2',
     });
-    const { getByText } = render(<Affiliation affiliation={affiliation} />);
+    const { getByText } = renderWithRouter(
+      <Affiliation affiliation={affiliation} />
+    );
     expect(getByText('CERN2')).toBeInTheDocument();
   });
 });

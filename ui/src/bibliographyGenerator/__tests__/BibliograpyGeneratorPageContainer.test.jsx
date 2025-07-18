@@ -1,12 +1,11 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
 import BibliographyGeneratorPageContainer from '../BibliographyGeneratorPageContainer';
 import BibliographyGenerator from '../BibliographyGenerator';
 import { getStore } from '../../fixtures/store';
 import { BIBLIOGRAPHY_GENERATOR_REQUEST } from '../../actions/actionTypes';
+import { renderWithProviders } from '../../fixtures/render';
 
 jest.mock('../BibliographyGenerator', () => {
   const MockBibliographyGenerator = jest.fn(() => null);
@@ -47,11 +46,7 @@ describe('BibliographyGeneratorPageContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <BibliographyGeneratorPageContainer />
-      </Provider>
-    );
+    renderWithProviders(<BibliographyGeneratorPageContainer />, { store });
 
     expect(BibliographyGenerator).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -78,11 +73,7 @@ describe('BibliographyGeneratorPageContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <BibliographyGeneratorPageContainer />
-      </Provider>
-    );
+    renderWithProviders(<BibliographyGeneratorPageContainer />, { store });
 
     const { onSubmit } = BibliographyGenerator.mock.calls[0][0];
 

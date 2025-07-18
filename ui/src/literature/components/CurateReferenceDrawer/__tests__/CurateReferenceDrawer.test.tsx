@@ -1,13 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { Map, fromJS } from 'immutable';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-
 import CurateReferenceDrawer, {
   renderReferenceItem,
 } from '../CurateReferenceDrawer';
-import { getStore } from '../../../../fixtures/store';
+import { renderWithProviders } from '../../../../fixtures/render';
 
 describe('CurateReferenceDrawer', () => {
   const defaultProps = {
@@ -22,13 +19,7 @@ describe('CurateReferenceDrawer', () => {
   };
 
   it('should render correctly', () => {
-    render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/']} initialIndex={0}>
-          <CurateReferenceDrawer {...defaultProps} />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<CurateReferenceDrawer {...defaultProps} />);
     expect(screen.getByText('Find the correct reference:')).toBeInTheDocument();
   });
 
@@ -44,13 +35,7 @@ describe('CurateReferenceDrawer', () => {
       }),
     });
 
-    render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/']} initialIndex={0}>
-          {renderReferenceItem(result)}
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(renderReferenceItem(result));
     expect(screen.getByText('Title')).toBeInTheDocument();
     expect(screen.getByText('Urhan, Harun')).toBeInTheDocument();
     expect(screen.getByText('2022-05-12')).toBeInTheDocument();

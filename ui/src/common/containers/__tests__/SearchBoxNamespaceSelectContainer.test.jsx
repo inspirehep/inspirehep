@@ -1,7 +1,7 @@
-import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
 
+import { renderWithProviders } from '../../../fixtures/render';
 import { getStore } from '../../../fixtures/store';
 import SearchBoxNamespaceSelectContainer from '../SearchBoxNamespaceSelectContainer';
 import { CHANGE_SEARCH_BOX_NAMESPACE } from '../../../actions/actionTypes';
@@ -15,10 +15,11 @@ describe('SearchBoxNamespaceSelectContainer', () => {
         searchBoxNamespace,
       }),
     });
-    const { getByText } = render(
-      <Provider store={store}>
-        <SearchBoxNamespaceSelectContainer />
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <SearchBoxNamespaceSelectContainer />,
+      {
+        store,
+      }
     );
 
     expect(getByText(AUTHORS_NS)).toBeInTheDocument();
@@ -28,11 +29,9 @@ describe('SearchBoxNamespaceSelectContainer', () => {
     const searchBoxNamespace = AUTHORS_NS;
     const store = getStore();
 
-    const screen = render(
-      <Provider store={store}>
-        <SearchBoxNamespaceSelectContainer />
-      </Provider>
-    );
+    const screen = renderWithProviders(<SearchBoxNamespaceSelectContainer />, {
+      store,
+    });
 
     const select = document.querySelector('.ant-select-selector');
     const clickEvent = document.createEvent('MouseEvents');
