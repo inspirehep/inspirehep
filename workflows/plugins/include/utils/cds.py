@@ -9,23 +9,6 @@ from inspire_utils.record import get_value, get_values_for_schema
 logger = logging.getLogger(__name__)
 
 
-def has_any_id(cds_record):
-    cds_id = cds_record.get("id") or get_value(
-        cds_record, "metadata.control_number", []
-    )
-    if not cds_id:
-        logger.info(f"Cannot extract CDS id from CDS response: {cds_record}")
-        return False
-    return any(
-        [
-            get_value(cds_record, "metadata.other_ids", []),
-            get_value(cds_record, "metadata.eprints", []),
-            get_value(cds_record, "metadata.dois.value", []),
-            get_value(cds_record, "metadata.report_numbers.value", []),
-        ]
-    )
-
-
 def has_any_rdm_id(cds_record):
     cds_id = cds_record.get("id")
     if not cds_id:
@@ -156,6 +139,53 @@ def retrieve_and_validate_record(
     report_numbers,
     schema,
 ):
+    record_id = get_record_for_provided_ids(
+        inspire_http_record_management_hook,
+        control_numbers,
+        arxivs,
+        dois,
+        report_numbers,
+    )
+    if not record_id:
+        logger.info(f"Skipping CDS hit {cds_id} (no record found in Inspire)")
+        return None
+
+    try:
+        record = inspire_http_record_management_hook.get_record(
+            pid_type=LITERATURE_PID_TYPE,
+            control_number=record_id,
+        )
+    except AirflowException:
+        logger.info(
+            f"Skipping CDS hit {cds_id}" f" (no record found in Inspire: {record_id})",
+        )
+        return None
+
+    metadata = record.get("metadata", {})
+    external_ids = metadata.get("external_system_identifiers", [])
+    existing_cds_ids = get_values_for_schema(external_ids, schema)
+    if cds_id in existing_cds_ids:
+        logger.info(
+            f"Correct CDS identifier is already present in the record. "
+            f"Record ID: {metadata.get('control_number')}, CDS ID: {cds_id}",
+        )
+        return None
+
+    return {"original_record": record, "cds_id": cds_id}
+
+
+def retrieve_and_validate_rdm_record(
+    inspire_http_record_management_hook,
+    cds_id,
+    control_numbers,
+    arxivs,
+    dois,
+    report_numbers,
+    schema,
+):
+    logger.warning(
+        "DEPRECATED: This function is deprecated and will be removed in the future.",
+    )
     record_id = get_record_for_provided_ids(
         inspire_http_record_management_hook,
         control_numbers,

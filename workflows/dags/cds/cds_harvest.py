@@ -9,7 +9,7 @@ from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
 from include.utils.alerts import task_failure_alert
-from include.utils.cds import has_any_id, retrieve_and_validate_record, update_record
+from include.utils.cds import retrieve_and_validate_record, update_record
 from inspire_utils.record import get_value
 
 logger = logging.getLogger(__name__)
@@ -42,25 +42,28 @@ def cds_harvest_dag():
             endpoint="/api/inspire2cdsids", method="GET", params={"since": since}
         )
         cds_response.raise_for_status()
+        results = []
         hits = cds_response.json().get("hits", [])
         logger.info(f"CDS response: {len(hits)}")
-        filtered_hits = [hit for hit in hits if has_any_id(hit)]
-        logger.info(f"Filtered CDS response: {len(filtered_hits)}")
-        return filtered_hits
+        for cds_record in hits:
+            cds_id = cds_record.get("id") or get_value(
+                cds_record, "metadata.control_number", []
+            )
+            if not cds_id:
+                logger.info(f"Cannot extract CDS id from CDS response: {cds_record}")
+                continue
 
-    @task_group
-    def process_cds_response(cds_record):
-        @task(task_id="process_record")
-        def process_record(cds_record):
             control_numbers = get_value(cds_record, "metadata.other_ids", [])
             arxivs = get_value(cds_record, "metadata.eprints", [])
             dois = get_value(cds_record, "metadata.dois.value", [])
             report_numbers = get_value(cds_record, "metadata.report_numbers.value", [])
-            cds_id = cds_record.get("id") or get_value(
-                cds_record, "metadata.control_number", []
-            )
+            if not any([control_numbers, arxivs, dois, report_numbers]):
+                logger.info(
+                    f"CDS record {cds_id} does not have any identifiers to harvest."
+                )
+                continue
 
-            return retrieve_and_validate_record(
+            record = retrieve_and_validate_record(
                 inspire_http_record_management_hook,
                 cds_id,
                 control_numbers,
@@ -69,7 +72,13 @@ def cds_harvest_dag():
                 report_numbers,
                 schema="CDS",
             )
+            if record:
+                results.append(record)
+        logger.info(f"{len(results)} CDS records eligible for update.")
+        return results
 
+    @task_group
+    def process_cds_response(cds_record):
         @task.virtualenv(
             requirements=["inspire-schemas>=61.6.16"],
             system_site_packages=False,
@@ -90,8 +99,7 @@ def cds_harvest_dag():
         def update_inspire_record(payload):
             return update_record(inspire_http_record_management_hook, payload)
 
-        result = process_record(cds_record)
-        built = build_record(result)
+        built = build_record(cds_record)
         update_inspire_record(built)
 
     hits = get_cds_data()
