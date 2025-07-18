@@ -13,7 +13,7 @@ from include.utils.cds import (
     get_dois,
     get_identifiers_for_scheme,
     has_any_rdm_id,
-    retrieve_and_validate_record,
+    retrieve_and_validate_rdm_record,
     update_record,
 )
 from inspire_utils.record import get_value
@@ -93,7 +93,7 @@ def cds_rdm_harvest_dag():
             dois = get_dois(cds_record)
             report_numbers = get_identifiers_for_scheme(identifiers, "cds_ref")
 
-            return retrieve_and_validate_record(
+            return retrieve_and_validate_rdm_record(
                 inspire_http_record_management_hook,
                 cds_id,
                 control_numbers,

@@ -1,0 +1,38 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8080/api/literature?q=report_numbers.value.fuzzy%3A%22ATL-COM-PHYS-2025-193%22&fields=control_number
+  response:
+    body:
+      string: '{"hits":{"hits":[],"total":0},"links":{"self":"http://localhost:8000/api/literature/?q=report_numbers.value.fuzzy%3A%22ATL-COM-PHYS-2025-193%22&size=10&page=1&fields=control_number","bibtex":"http://localhost:8000/api/literature/?q=report_numbers.value.fuzzy%3A%22ATL-COM-PHYS-2025-193%22&size=10&page=1&format=bibtex","latex-eu":"http://localhost:8000/api/literature/?q=report_numbers.value.fuzzy%3A%22ATL-COM-PHYS-2025-193%22&size=10&page=1&format=latex-eu","latex-us":"http://localhost:8000/api/literature/?q=report_numbers.value.fuzzy%3A%22ATL-COM-PHYS-2025-193%22&size=10&page=1&format=latex-us","json":"http://localhost:8000/api/literature/?q=report_numbers.value.fuzzy%3A%22ATL-COM-PHYS-2025-193%22&size=10&page=1&fields=control_number&format=json","json-expanded":"http://localhost:8000/api/literature/?q=report_numbers.value.fuzzy%3A%22ATL-COM-PHYS-2025-193%22&size=10&page=1&format=json-expanded","cv":"http://localhost:8000/api/literature/?q=report_numbers.value.fuzzy%3A%22ATL-COM-PHYS-2025-193%22&size=10&page=1&format=cv"}}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1037'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 21 Jul 2025 12:33:41 GMT
+      Link:
+      - <self>; rel="http://localhost:8000/api/literature/?q=report_numbers.value.fuzzy%3A%22ATL-COM-PHYS-2025-193%22&size=10&page=1&fields=control_number",
+        <bibtex>; rel="http://localhost:8000/api/literature/?q=report_numbers.value.fuzzy%3A%22ATL-COM-PHYS-2025-193%22&size=10&page=1&format=bibtex",
+        <latex-eu>; rel="http://localhost:8000/api/literature/?q=report_numbers.value.fuzzy%3A%22ATL-COM-PHYS-2025-193%22&size=10&page=1&format=latex-eu",
+        <latex-us>; rel="http://localhost:8000/api/literature/?q=report_numbers.value.fuzzy%3A%22ATL-COM-PHYS-2025-193%22&size=10&page=1&format=latex-us",
+        <json>; rel="http://localhost:8000/api/literature/?q=report_numbers.value.fuzzy%3A%22ATL-COM-PHYS-2025-193%22&size=10&page=1&fields=control_number&format=json",
+        <json-expanded>; rel="http://localhost:8000/api/literature/?q=report_numbers.value.fuzzy%3A%22ATL-COM-PHYS-2025-193%22&size=10&page=1&format=json-expanded",
+        <cv>; rel="http://localhost:8000/api/literature/?q=report_numbers.value.fuzzy%3A%22ATL-COM-PHYS-2025-193%22&size=10&page=1&format=cv"
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+version: 1

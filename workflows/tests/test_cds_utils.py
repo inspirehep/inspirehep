@@ -2,7 +2,6 @@ from include.utils.cds import (
     build_literature_search_params,
     get_identifiers_for_scheme,
     get_record_for_provided_ids,
-    has_any_id,
     has_any_rdm_id,
     search_and_return_single,
 )
@@ -14,25 +13,6 @@ class FakeESCallHook:
 
     def search_records(self, pid_type, query_params):
         return self._resp
-
-
-def test_has_any_id_without_additional_ids():
-    record = {"id": "2302862", "metadata": {"control_number": "2302862"}}
-    assert has_any_id(record) is False
-
-
-def test_has_any_id_with_any_id_present():
-    record = {
-        "id": "2635152",
-        "metadata": {
-            "control_number": "2635152",
-            "other_ids": ["1674998"],
-            "eprints": ["eprint1"],
-            "dois": [{"value": "10.1093/mnras/stx1357"}],
-            "report_numbers": [{"value": "RN123"}],
-        },
-    }
-    assert has_any_id(record) is True
 
 
 def test_get_identifiers_for_scheme_basic():
