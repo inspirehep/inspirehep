@@ -90,13 +90,19 @@ def get_query_records_to_index(pid_types):
     return query
 
 
-def dispatch_indexing_task(items, batch_size, queue_name):
+def dispatch_indexing_task(
+    items, batch_size, queue_name, skip_reference_reindexing=False
+):
     tasks = []
     request_timeout = current_app.config.get("INDEXER_BULK_REQUEST_TIMEOUT")
     for batch in chunker(items, batch_size):
         uuids = [str(item[0]) for item in batch]
         indexer_task = batch_index.apply_async(
-            kwargs={"records_uuids": uuids, "request_timeout": request_timeout},
+            kwargs={
+                "records_uuids": uuids,
+                "request_timeout": request_timeout,
+                "skip_reference_reindexing": skip_reference_reindexing,
+            },
             queue=queue_name,
         )
         tasks.append(indexer_task)
@@ -218,12 +224,15 @@ def reindex_records(
 
     all_tasks = []
     query = get_query_records_to_index(pidtypes)
+    skip_reference_reindexing = bool(all)
     with click.progressbar(
         query.yield_per(db_batch_size),
         length=query.count(),
         label=f"Scheduling indexing tasks to the '{queue_name}' queue.",
     ) as items:
-        created_tasks = dispatch_indexing_task(items, batch_size, queue_name)
+        created_tasks = dispatch_indexing_task(
+            items, batch_size, queue_name, skip_reference_reindexing
+        )
         all_tasks.extend(created_tasks)
 
     click.secho(f"Created {len(all_tasks)} bulk-indexing tasks.", fg="green")
