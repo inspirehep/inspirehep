@@ -57,6 +57,7 @@ def arxiv_harvest_dag():
     1. fetch_records: fetches records from arXiv using OAI-PMH protocol for each set.
     2. build_records: converts the raw XML records into json using the ArxivParser.
     3. load_record: pushes records to the backoffice
+    4. check_failures: checks and reports any failed records
     """
 
     conn = BaseHook.get_connection("arxiv_oaipmh_connection")
