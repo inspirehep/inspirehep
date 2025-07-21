@@ -57,7 +57,7 @@ def _response_filter(responses):
     tags=["cds_rdm"],
     params={
         "since": Param(type=["string"], default=""),
-        "until": Param(type=["string"], default=datetime.datetime.now().isoformat()),
+        "until": Param(type=["string"], default=""),
     },
     on_failure_callback=task_failure_alert,
 )
@@ -70,7 +70,10 @@ def cds_rdm_harvest_dag():
         method="GET",
         endpoint="/api/records",
         data={
-            "q": "updated:[{{ params.since or ds }} TO {{ params.until }}]",
+            "q": (
+                "updated:[{{ params.since or macros.ds_add(ds, -1) }} "
+                "TO {{ params.until or ds }}]"
+            ),
             "page": 1,
             "size": 50,
             "sort": "newest",

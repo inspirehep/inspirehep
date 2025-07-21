@@ -16,7 +16,7 @@ class TestCDSHarvest:
     def test_get_cds_data_vcr(self):
         task = self.dag.get_task("get_cds_data")
         res = task.execute(
-            context={"ds": "2025-05-23", "params": {"since": "2025-05-23"}}
+            context={"ds": "2025-06-23", "params": {"since": "2025-05-23"}}
         )
         assert len(res)
 

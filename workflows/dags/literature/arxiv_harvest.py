@@ -4,6 +4,7 @@ import logging
 from airflow.decorators import dag, task, task_group
 from airflow.exceptions import AirflowException
 from airflow.hooks.base import BaseHook
+from airflow.macros import ds_add
 from airflow.models.param import Param
 from include.utils.alerts import task_failure_alert
 from sickle import Sickle, oaiexceptions
@@ -83,7 +84,7 @@ def arxiv_harvest_dag():
             Returns: list: The list of raw xml records.
             """
 
-            from_date = context["params"]["from"] or context["ds"]
+            from_date = context["params"]["from"] or ds_add(context["ds"], -1)
             until_date = context["params"]["until"]
 
             oaiargs = {

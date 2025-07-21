@@ -44,7 +44,7 @@ class TestDataHarvest:
                 "last_updated_to": "",
             }
         }
-        res = task.execute(context=Context({"ds": "2024-12-16"}))
+        res = task.execute(context=Context({"ds": "2024-12-17"}))
         assert res == [2693068, 2807749, 2809112]
 
     @pytest.mark.vcr
