@@ -97,17 +97,3 @@ services:
   flower:
     image: mher/flower:0.9.5
     command: --broker=amqp://guest:guest@mq/ --broker_api=http://guest:guest@mq/api/
-  s3:
-    image: localstack/localstack:1.2.0
-    hostname: localstack
-    container_name: '${LOCALSTACK_DOCKER_NAME-localstack}'
-    ports:
-      - '4572:4572'
-      - '4566:4566'
-    environment:
-      - SERVICES=s3
-      - DEBUG=1
-      - DEFAULT_REGION=us-east-1
-      - DATA_DIR=/home/localstack/data
-    volumes:
-      - './.localstack:/tmp/localstack'
