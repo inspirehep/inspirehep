@@ -10,7 +10,6 @@ from backoffice.hep.api.serializers import (
     HepWorkflowTicketSerializer,
     HepDecisionSerializer,
 )
-from backoffice.common.constants import WORKFLOW_DAGS
 from backoffice.common.views import BaseWorkflowTicketViewSet, BaseWorkflowViewSet
 from backoffice.hep.models import HepWorkflowTicket, HepDecision, HepWorkflow
 from backoffice.hep.documents import HepWorkflowDocument
@@ -84,12 +83,7 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         logger.info("Data passed schema validation, creating workflow.")
-        workflow = serializer.save()
-        logger.info(
-            "Trigger Airflow DAG: %s for %s",
-            WORKFLOW_DAGS[workflow.workflow_type].initialize,
-            workflow.id,
-        )
+        serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
