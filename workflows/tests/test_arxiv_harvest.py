@@ -19,7 +19,7 @@ class TestArxivHarvest:
             "params": {"from": "", "until": "", "metadata_prefix": "arXiv"}
         }
         task.op_args = ("physics:hep-th",)
-        res = task.execute(context=Context({"ds": "2025-07-01"}))
+        res = task.execute(context=Context({"ds": "2025-07-02"}))
         assert len(res)
         assert "oai:arXiv.org:2101.11905" in res[0]
         assert "oai:arXiv.org:2207.10712" in res[1]
@@ -35,7 +35,7 @@ class TestArxivHarvest:
             }
         }
         task.op_args = ("physics:hep-th",)
-        res = task.execute(context=Context({"ds": "2025-07-02"}))
+        res = task.execute(context=Context({"ds": "2025-07-03"}))
         assert len(res)
         assert "oai:arXiv.org:2101.11905" in res[0]
         assert "oai:arXiv.org:2207.10712" in res[1]
@@ -48,7 +48,7 @@ class TestArxivHarvest:
         }
         task.op_args = ("physics:hep-th",)
 
-        res = task.execute(context=Context({"ds": "2025-07-01"}))
+        res = task.execute(context=Context({"ds": "2025-07-02"}))
 
         assert len(res) == 0
 

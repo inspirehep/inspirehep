@@ -2,6 +2,7 @@ import datetime
 import logging
 
 from airflow.decorators import dag, task, task_group
+from airflow.macros import ds_add
 from airflow.models.param import Param
 from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
@@ -35,7 +36,7 @@ def cds_harvest_dag():
 
         Returns: data from cds
         """
-        since = context["params"]["since"] or context["ds"]
+        since = context["params"]["since"] or ds_add(context["ds"], -1)
         logger.info(f"Harvesting CDS data since {since}")
         cds_response = generic_http_hook.call_api(
             endpoint="/api/inspire2cdsids", method="GET", params={"since": since}

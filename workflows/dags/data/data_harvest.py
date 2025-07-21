@@ -54,7 +54,7 @@ def data_harvest_dag():
         from_date = (
             context["params"]["last_updated_from"]
             if context["params"]["last_updated_from"]
-            else ds_add(context["ds"], -1)
+            else ds_add(context["ds"], -2)
         )
         to_date = context["params"]["last_updated_to"]
 
