@@ -39,7 +39,11 @@ from inspirehep.records.api import (
 )
 from inspirehep.records.api.conferences import ConferencesRecord
 from inspirehep.serializers import jsonify
-from inspirehep.submissions.errors import RESTDataError, WorkflowStartError
+from inspirehep.submissions.errors import (
+    RESTDataError,
+    WorkflowConflictError,
+    WorkflowStartError,
+)
 from inspirehep.submissions.loaders import author_v1 as author_loader_v1
 from inspirehep.submissions.loaders import conference_v1 as conference_loader_v1
 from inspirehep.submissions.loaders import experiment_v1 as experiment_loader_v1
@@ -109,7 +113,12 @@ class BaseSubmissionsResource(MethodView):
                 endpoint=endpoint,
                 bearer_keyword=bearer_keyword,
             )
-            raise WorkflowStartError from e
+            match response.status_code:
+                case 409:
+                    raise WorkflowConflictError from e
+                case _:
+                    raise WorkflowStartError from e
+
         LOGGER.info("Workflow creation successful", response=response.text)
         return response.json()
 

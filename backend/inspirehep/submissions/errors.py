@@ -18,6 +18,11 @@ class WorkflowStartError(RESTException):
     )
 
 
+class WorkflowConflictError(RESTException):
+    code = 409
+    description = "A conflict occurred while processing the submission, please resolve the conflict and try again."
+
+
 class LoaderDataError(RESTException):
     def __init__(
         self,
