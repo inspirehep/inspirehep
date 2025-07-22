@@ -1,9 +1,13 @@
 import orjson
 import pytest
-from airflow.exceptions import AirflowSkipException
 from airflow.models import DagBag
 from airflow.utils.context import Context
 from freezegun import freeze_time
+from hooks.inspirehep.inspire_http_record_management_hook import (
+    InspireHTTPRecordManagementHook,
+)
+from include.utils.cds import retrieve_and_validate_record
+from inspire_utils.record import get_values_for_schema
 
 dagbag = DagBag()
 
@@ -26,67 +30,55 @@ class TestCDSRDMHarvest:
         task.render_template_fields(context)
         q = task.data["q"]
         assert q == "updated:[2025-06-01T00:00:00 TO 2025-07-01T00:00:00]"
-        res = task.execute(
-            context=context,
+
+    @pytest.mark.vcr
+    def test_skip_when_cds_id_already_present(self):
+        hook = InspireHTTPRecordManagementHook()
+        result = retrieve_and_validate_record(
+            inspire_http_record_management_hook=hook,
+            cds_id="2635152",
+            control_numbers=["1675000"],
+            arxivs=[],
+            dois=[],
+            report_numbers=[],
+            schema="CDSRDM",
         )
-        assert len(res)
+        assert result is None
 
     @pytest.mark.vcr
-    def test_process_record_cds_rdm_already_in_record(self):
-        cds_record = {
-            "id": "2635152",
-            "metadata": {
-                "identifiers": [
-                    {"scheme": "inspire", "identifier": "1675000"},
-                ]
-            },
-        }
-
-        task = self.dag.get_task("process_cds_rdm_response.process_record")
-        task.op_args = (cds_record,)
-        with pytest.raises(AirflowSkipException) as excinfo:
-            task.execute(context=Context())
-
-        msg = str(excinfo.value)
-        assert "Correct CDS identifier is already present in the record." in msg
+    def test_skip_when_no_inspire_record_found(self):
+        hook = InspireHTTPRecordManagementHook()
+        result = retrieve_and_validate_record(
+            inspire_http_record_management_hook=hook,
+            cds_id="2635152",
+            control_numbers=["123456"],
+            arxivs=[],
+            dois=[],
+            report_numbers=[],
+            schema="CDSRDM",
+        )
+        assert result is None
 
     @pytest.mark.vcr
-    def test_process_record_cds_rdm_no_record_found_in_inspire(self):
-        cds_record = {
-            "id": "2635152",
-            "metadata": {
-                "identifiers": [
-                    {"scheme": "inspire", "identifier": "123456"},
-                ]
-            },
-        }
-        task = self.dag.get_task("process_cds_rdm_response.process_record")
-        task.op_args = (cds_record,)
-        with pytest.raises(AirflowSkipException) as excinfo:
-            task.execute(context=Context())
+    def test_successful_retrieve_and_validate(self):
+        hook = InspireHTTPRecordManagementHook()
+        result = retrieve_and_validate_record(
+            inspire_http_record_management_hook=hook,
+            cds_id="8888888",
+            control_numbers=["1675001"],
+            arxivs=[],
+            dois=["10.1093/mnras/stx1360"],
+            report_numbers=[],
+            schema="CDSRDM",
+        )
+        assert isinstance(result, dict)
+        assert result["cds_id"] == "8888888"
+        assert "original_record" in result
 
-        msg = str(excinfo.value)
-        assert "Skipping CDS hit 2635152 (no record found in Inspire)" in msg
-
-    @pytest.mark.vcr
-    def test_process_record_cds_not_in_record(self):
-        cds_record = {
-            "id": "8888888",
-            "pids": {"doi": {"identifier": "10.1093/mnras/stx1360"}},
-            "metadata": {
-                "identifiers": [
-                    {"scheme": "inspire", "identifier": "1675001"},
-                ]
-            },
-        }
-        task = self.dag.get_task("process_cds_rdm_response.process_record")
-        task.op_args = (cds_record,)
-        res = task.execute(context=Context())
-
-        assert isinstance(res, dict)
-        assert res["cds_id"] == "8888888"
-        assert "original_record" in res
-        assert "external_system_identifiers" not in res["original_record"]["metadata"]
+        metadata = result["original_record"]["metadata"]
+        external_ids = metadata.get("external_system_identifiers", [])
+        existing_cds = get_values_for_schema(external_ids, "CDSRDM")
+        assert "8888888" not in existing_cds
 
     def test_build_record(self, datadir):
         payload = {

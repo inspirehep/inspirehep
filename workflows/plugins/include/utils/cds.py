@@ -1,28 +1,12 @@
 import logging
 
-from airflow.exceptions import AirflowException, AirflowSkipException
+from airflow.exceptions import AirflowException
 from idutils import is_arxiv
 from include.utils.constants import LITERATURE_PID_TYPE
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value, get_values_for_schema
 
 logger = logging.getLogger(__name__)
-
-
-def has_any_rdm_id(cds_record):
-    cds_id = cds_record.get("id")
-    if not cds_id:
-        logger.info(f"Cannot extract CDS id from CDS RDM response: {cds_record}")
-        return False
-    identifiers = get_value(cds_record, "metadata.identifiers", [])
-    return any(
-        [
-            get_identifiers_for_scheme(identifiers, "inspire"),
-            get_identifiers_for_scheme(identifiers, "arxiv"),
-            get_dois(cds_record),
-            get_identifiers_for_scheme(identifiers, "cds_ref"),
-        ]
-    )
 
 
 def get_dois(cds_record):
@@ -170,51 +154,5 @@ def retrieve_and_validate_record(
             f"Record ID: {metadata.get('control_number')}, CDS ID: {cds_id}",
         )
         return None
-
-    return {"original_record": record, "cds_id": cds_id}
-
-
-def retrieve_and_validate_rdm_record(
-    inspire_http_record_management_hook,
-    cds_id,
-    control_numbers,
-    arxivs,
-    dois,
-    report_numbers,
-    schema,
-):
-    logger.warning(
-        "DEPRECATED: This function is deprecated and will be removed in the future.",
-    )
-    record_id = get_record_for_provided_ids(
-        inspire_http_record_management_hook,
-        control_numbers,
-        arxivs,
-        dois,
-        report_numbers,
-    )
-    if not record_id:
-        raise AirflowSkipException(
-            f"Skipping CDS hit {cds_id} (no record found in Inspire)"
-        )
-
-    try:
-        record = inspire_http_record_management_hook.get_record(
-            pid_type=LITERATURE_PID_TYPE,
-            control_number=record_id,
-        )
-    except AirflowException as e:
-        raise AirflowSkipException(
-            f"Skipping CDS hit {cds_id}" f" (no record found in Inspire: {record_id})",
-        ) from e
-
-    metadata = record.get("metadata", {})
-    external_ids = metadata.get("external_system_identifiers", [])
-    existing_cds_ids = get_values_for_schema(external_ids, schema)
-    if cds_id in existing_cds_ids:
-        raise AirflowSkipException(
-            f"Correct CDS identifier is already present in the record. "
-            f"Record ID: {metadata.get('control_number')}, CDS ID: {cds_id}",
-        )
 
     return {"original_record": record, "cds_id": cds_id}
