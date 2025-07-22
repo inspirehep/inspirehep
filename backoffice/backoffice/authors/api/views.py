@@ -20,7 +20,7 @@ from django_elasticsearch_dsl_drf.filter_backends import (
 from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
 from backoffice.utils.pagination import OSStandardResultsSetPagination
 from opensearch_dsl import TermsFacet
-from backoffice.authors.utils import add_author_decision
+from backoffice.authors.utils import add_author_decision, is_another_author_running
 from backoffice.authors.api.serializers import (
     AuthorDecisionSerializer,
     AuthorResolutionSerializer,
@@ -201,6 +201,17 @@ class AuthorWorkflowViewSet(BaseWorkflowViewSet):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         logger.info("Data passed schema validation, creating workflow.")
+
+        ids = request.data.get("data", {}).get("ids", [])
+        if is_another_author_running(ids):
+            logger.info("An author with the same ORCID is currently being processed.")
+            return Response(
+                {
+                    "error": "An author with the same ORCID is currently being processed, please wait for blocking workflows to finish"
+                },
+                status=status.HTTP_409_CONFLICT,
+            )
+
         workflow = serializer.save()
         logger.info(
             "Trigger Airflow DAG: %s for %s",

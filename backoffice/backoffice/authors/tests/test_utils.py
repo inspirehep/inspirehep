@@ -6,7 +6,7 @@ from django.test import TransactionTestCase
 from rest_framework.exceptions import ValidationError
 
 from backoffice.authors.constants import AuthorStatusChoices, AuthorResolutionDags
-from backoffice.authors.utils import add_author_decision
+from backoffice.authors.utils import add_author_decision, is_another_author_running
 
 User = get_user_model()
 AuthorWorkflow = apps.get_model(app_label="authors", model_name="AuthorWorkflow")
@@ -19,7 +19,8 @@ class TestUtils(TransactionTestCase):
     def setUp(self):
         super().setUp()
         self.workflow = AuthorWorkflow.objects.create(
-            data={}, status=AuthorStatusChoices.APPROVAL
+            data={"ids": [{"schema": "ORCID", "value": "0019-0002-5467-525X"}]},
+            status=AuthorStatusChoices.APPROVAL,
         )
         self.user = User.objects.create_user(
             email="testuser@test.com", password="12345"
@@ -47,3 +48,14 @@ class TestUtils(TransactionTestCase):
                 self.user,
                 AuthorResolutionDags.accept,
             )
+
+    def test_is_another_author_running(self):
+        result = is_another_author_running(
+            [{"value": "0009-0012-5467-525X", "schema": "ORCID"}]
+        )
+        self.assertFalse(result)
+
+        result = is_another_author_running(
+            [{"value": "0019-0002-5467-525X", "schema": "ORCID"}]
+        )
+        self.assertTrue(result)

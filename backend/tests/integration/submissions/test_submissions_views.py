@@ -154,6 +154,38 @@ def test_new_author_submit_with_workflows_error(inspire_app, requests_mock):
     assert response.status_code == 503
 
 
+def test_new_author_submit_with_conflict_error(
+    inspire_app, requests_mock, override_config
+):
+    with override_config(
+        FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE=True,
+    ):
+        requests_mock.post(
+            f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/authors/",
+            status_code=409,
+            json={"error": "Author already exists"},
+        )
+
+        token = create_user_and_token()
+        headers = {"Authorization": "BEARER " + token.access_token}
+        with inspire_app.test_client() as client:
+            response = client.post(
+                "/submissions/authors",
+                content_type="application/json",
+                data=orjson.dumps(
+                    {
+                        "data": {
+                            "given_name": "John",
+                            "display_name": "John Doe",
+                            "status": "active",
+                        }
+                    }
+                ),
+                headers=headers,
+            )
+    assert response.status_code == 409
+
+
 def test_new_author_submit_works_with_session_login(inspire_app, requests_mock):
     requests_mock.post(
         f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",

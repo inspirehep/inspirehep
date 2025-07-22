@@ -35,7 +35,10 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         super().setUp()
 
         self.workflow = AuthorWorkflow.objects.create(
-            data={"test": "test"},
+            data={
+                "test": "test",
+                "ids": [{"value": "0009-0002-5467-525X", "schema": "ORCID"}],
+            },
             status="running",
             workflow_type=AuthorWorkflowType.AUTHOR_CREATE,
             id=uuid.UUID(int=0),
@@ -98,6 +101,31 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
 
         assert response.status_code == 503
         assert response.json() == {"error": "Error triggering Airflow DAG"}
+
+    @pytest.mark.vcr
+    def test_create_returns_409_if_orcid_exists(self):
+        author_data = {
+            "name": {"value": "John, Snow"},
+            "_collections": ["Authors"],
+            "$schema": "https://inspirehep.net/schemas/records/authors.json",
+            "ids": [
+                {
+                    "schema": "ORCID",
+                    "value": "0009-0002-5467-525X",
+                }
+            ],
+        }
+
+        self.api_client.force_authenticate(user=self.curator)
+        data = {
+            "workflow_type": AuthorWorkflowType.AUTHOR_CREATE,
+            "status": "running",
+            "data": author_data,
+        }
+        url = reverse("api:authors-list")
+        response = self.api_client.post(url, format="json", data=data)
+
+        assert response.status_code == 409
 
     @pytest.mark.vcr
     def test_get_author(self):
