@@ -1,0 +1,84 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8080/api/literature?q=control_number%3A1675000&fields=control_number
+  response:
+    body:
+      string: '{"hits":{"hits":[{"links":{"bibtex":"http://localhost:8000/api/literature/1675000?format=bibtex","latex-eu":"http://localhost:8000/api/literature/1675000?format=latex-eu","latex-us":"http://localhost:8000/api/literature/1675000?format=latex-us","json":"http://localhost:8000/api/literature/1675000?format=json","json-expanded":"http://localhost:8000/api/literature/1675000?format=json-expanded","cv":"http://localhost:8000/api/literature/1675000?format=cv","citations":"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A1675000"},"updated":"2025-07-22T11:31:35.341450+00:00","id":"1675000","metadata":{"control_number":1675000},"created":"2025-07-22T11:31:35.341448+00:00"}],"total":1},"links":{"self":"http://localhost:8000/api/literature/?q=control_number%3A1675000&size=10&page=1&fields=control_number","bibtex":"http://localhost:8000/api/literature/?q=control_number%3A1675000&size=10&page=1&format=bibtex","latex-eu":"http://localhost:8000/api/literature/?q=control_number%3A1675000&size=10&page=1&format=latex-eu","latex-us":"http://localhost:8000/api/literature/?q=control_number%3A1675000&size=10&page=1&format=latex-us","json":"http://localhost:8000/api/literature/?q=control_number%3A1675000&size=10&page=1&fields=control_number&format=json","json-expanded":"http://localhost:8000/api/literature/?q=control_number%3A1675000&size=10&page=1&format=json-expanded","cv":"http://localhost:8000/api/literature/?q=control_number%3A1675000&size=10&page=1&format=cv"}}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1478'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 22 Jul 2025 11:44:46 GMT
+      Link:
+      - <self>; rel="http://localhost:8000/api/literature/?q=control_number%3A1675000&size=10&page=1&fields=control_number",
+        <bibtex>; rel="http://localhost:8000/api/literature/?q=control_number%3A1675000&size=10&page=1&format=bibtex",
+        <latex-eu>; rel="http://localhost:8000/api/literature/?q=control_number%3A1675000&size=10&page=1&format=latex-eu",
+        <latex-us>; rel="http://localhost:8000/api/literature/?q=control_number%3A1675000&size=10&page=1&format=latex-us",
+        <json>; rel="http://localhost:8000/api/literature/?q=control_number%3A1675000&size=10&page=1&fields=control_number&format=json",
+        <json-expanded>; rel="http://localhost:8000/api/literature/?q=control_number%3A1675000&size=10&page=1&format=json-expanded",
+        <cv>; rel="http://localhost:8000/api/literature/?q=control_number%3A1675000&size=10&page=1&format=cv"
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8080/api/literature/1675000
+  response:
+    body:
+      string: "{\"links\":{\"bibtex\":\"http://localhost:8000/api/literature/1675000?format=bibtex\",\"latex-eu\":\"http://localhost:8000/api/literature/1675000?format=latex-eu\",\"latex-us\":\"http://localhost:8000/api/literature/1675000?format=latex-us\",\"json\":\"http://localhost:8000/api/literature/1675000?format=json\",\"json-expanded\":\"http://localhost:8000/api/literature/1675000?format=json-expanded\",\"cv\":\"http://localhost:8000/api/literature/1675000?format=cv\",\"citations\":\"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A1675000\"},\"revision_id\":0,\"updated\":\"2025-07-22T11:31:35.341450+00:00\",\"id\":\"1675000\",\"metadata\":{\"core\":false,\"dois\":[{\"value\":\"10.1093/mnras/stx1359\",\"source\":\"submitter\"},{\"value\":\"10.1093/mnras/stx1359\"}],\"self\":{\"$ref\":\"http://localhost:8000/api/literature/1675000\"},\"titles\":[{\"title\":\"The
+        Hi-GAL compact source catalogue \u2013 I. The physical properties of the clumps
+        in the inner Galaxy (\u221271\xB00 < \u2113 < 67\xB00)\",\"source\":\"submitter\"}],\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"_collections\":[\"Literature\"],\"document_type\":[\"article\"],\"control_number\":1675000,\"external_system_identifiers\":[{\"value\":\"2635152\",\"schema\":\"CDSRDM\"}]},\"created\":\"2025-07-22T11:31:35.341448+00:00\",\"uuid\":\"bf708329-39a9-454c-906f-0140c597b20c\"}"
+    headers:
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1259'
+      Content-Type:
+      - application/vnd+inspire.record.raw+json
+      Date:
+      - Tue, 22 Jul 2025 11:44:46 GMT
+      ETag:
+      - W/"0"
+      Last-Modified:
+      - Tue, 22 Jul 2025 11:31:35 GMT
+      Link:
+      - <bibtex>; rel="http://localhost:8000/api/literature/1675000?format=bibtex",
+        <latex-eu>; rel="http://localhost:8000/api/literature/1675000?format=latex-eu",
+        <latex-us>; rel="http://localhost:8000/api/literature/1675000?format=latex-us",
+        <json>; rel="http://localhost:8000/api/literature/1675000?format=json", <json-expanded>;
+        rel="http://localhost:8000/api/literature/1675000?format=json-expanded", <cv>;
+        rel="http://localhost:8000/api/literature/1675000?format=cv", <citations>;
+        rel="http://localhost:8000/api/literature/?q=refersto%3Arecid%3A1675000"
+      Server:
+      - nginx/1.19.1
+      Vary:
+      - Accept,Accept-Encoding,Accept-Language
+    status:
+      code: 200
+      message: OK
+version: 1

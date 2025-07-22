@@ -12,8 +12,7 @@ from include.utils.alerts import task_failure_alert
 from include.utils.cds import (
     get_dois,
     get_identifiers_for_scheme,
-    has_any_rdm_id,
-    retrieve_and_validate_rdm_record,
+    retrieve_and_validate_record,
     update_record,
 )
 from inspire_utils.record import get_value
@@ -34,20 +33,47 @@ def _pagination_fn(response):
     return {"data": next_params}
 
 
-def _response_filter(responses):
-    all_hits = []
+def _response_filter(responses, hook):
+    results = []
     for response in responses:
         logger.info(f"URL:{response.request.url}")
         payload = response.json()
         hits = get_value(payload, "hits.hits", [])
         logger.info(f"Fetched {len(hits)} records from CDS")
-        filtered = [h for h in hits if has_any_rdm_id(h)]
-        logger.info(f"{len(filtered)} records passed filter")
-        all_hits.extend(filtered)
+        for cds_record in hits:
+            cds_id = cds_record.get("id")
+            if not cds_id:
+                logger.info(
+                    f"Cannot extract CDS id from CDS RDM response: {cds_record}"
+                )
+                continue
+            identifiers = get_value(cds_record, "metadata.identifiers", [])
+            control_numbers = get_identifiers_for_scheme(identifiers, "inspire")
+            arxivs = get_identifiers_for_scheme(identifiers, "arxiv")
+            dois = get_dois(cds_record)
+            report_numbers = get_identifiers_for_scheme(identifiers, "cds_ref")
+            if not any([control_numbers, arxivs, dois, report_numbers]):
+                logger.info(
+                    f"CDS RDM record {cds_id} does not have any identifiers to harvest."
+                )
+                continue
+
+            record = retrieve_and_validate_record(
+                hook,
+                cds_id,
+                control_numbers,
+                arxivs,
+                dois,
+                report_numbers,
+                schema="CDSRDM",
+            )
+            if record:
+                results.append(record)
     logger.info(
-        f"Total pages: {len(responses)} Total filtered records: {len(all_hits)}"
+        f"Total pages: {len(responses)}. "
+        f"{len(results)} CDS records eligible for update."
     )
-    return all_hits
+    return results
 
 
 @dag(
@@ -78,31 +104,13 @@ def cds_rdm_harvest_dag():
             "size": 50,
             "sort": "newest",
         },
-        response_filter=_response_filter,
+        response_filter=lambda responses,
+        hook=inspire_http_record_management_hook: _response_filter(responses, hook),
         pagination_function=_pagination_fn,
     )
 
     @task_group
     def process_cds_rdm_response(cds_record):
-        @task(task_id="process_record")
-        def process_record(cds_record):
-            cds_id = cds_record.get("id")
-            identifiers = get_value(cds_record, "metadata.identifiers", [])
-            control_numbers = get_identifiers_for_scheme(identifiers, "inspire")
-            arxivs = get_identifiers_for_scheme(identifiers, "arxiv")
-            dois = get_dois(cds_record)
-            report_numbers = get_identifiers_for_scheme(identifiers, "cds_ref")
-
-            return retrieve_and_validate_rdm_record(
-                inspire_http_record_management_hook,
-                cds_id,
-                control_numbers,
-                arxivs,
-                dois,
-                report_numbers,
-                schema="CDSRDM",
-            )
-
         @task.virtualenv(
             requirements=["inspire-schemas>=61.6.16"],
             system_site_packages=False,
@@ -123,8 +131,7 @@ def cds_rdm_harvest_dag():
         def update_inspire_record(payload):
             return update_record(inspire_http_record_management_hook, payload)
 
-        result = process_record(cds_record)
-        built = build_record(result)
+        built = build_record(cds_record)
         update_inspire_record(built)
 
     hits = get_cds_rdm_data.output

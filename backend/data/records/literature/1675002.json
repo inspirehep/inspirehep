@@ -1,0 +1,26 @@
+{
+    "_collections": [
+        "Literature"
+    ],
+    "control_number": 1675002,
+    "core": false,
+    "dois": [
+      {
+        "value": "10.17181/849dc-57n53",
+        "source": "submitter"
+      }
+    ],
+    "self": {
+      "$ref": "https://inspirehep.net/api/literature/1675002"
+    },
+    "titles": [
+      {
+        "title": "The testing of mapped tasks",
+        "source": "submitter"
+      }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/hep.json",
+    "document_type": [
+        "article"
+    ]
+  }
