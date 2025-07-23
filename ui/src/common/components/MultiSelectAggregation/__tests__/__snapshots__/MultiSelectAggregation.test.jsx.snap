@@ -6,7 +6,7 @@ exports[`MultiSelectAggregation renders 1`] = `
     class="__MultiSelectAggregation__"
   >
     <div
-      class="ant-select w-100 ant-select-multiple ant-select-show-arrow ant-select-show-search"
+      class="ant-select ant-select-multiple ant-select-show-arrow ant-select-show-search"
       data-testid="select-box"
       placement="bottomLeft"
     >
@@ -113,7 +113,7 @@ exports[`MultiSelectAggregation renders with custom display values if configured
     class="__MultiSelectAggregation__"
   >
     <div
-      class="ant-select w-100 ant-select-multiple ant-select-show-arrow ant-select-show-search"
+      class="ant-select ant-select-multiple ant-select-show-arrow ant-select-show-search"
       data-testid="select-box"
       placement="bottomLeft"
     >
