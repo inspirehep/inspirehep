@@ -23,6 +23,11 @@ from drf_spectacular.utils import (
     extend_schema,
     extend_schema_view,
 )
+from requests.exceptions import RequestException
+from backoffice.common import airflow_utils
+from backoffice.common.utils import (
+    handle_request_exception,
+)
 from django_elasticsearch_dsl_drf.filter_backends import (
     CompoundSearchFilterBackend,
     DefaultOrderingFilterBackend,
@@ -31,6 +36,8 @@ from django_elasticsearch_dsl_drf.filter_backends import (
     OrderingFilterBackend,
 )
 from backoffice.hep.constants import HepStatusChoices, HepWorkflowType
+from backoffice.common.constants import WORKFLOW_DAGS
+
 
 logger = logging.getLogger(__name__)
 
@@ -83,7 +90,16 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         logger.info("Data passed schema validation, creating workflow.")
-        serializer.save()
+        workflow = serializer.save()
+        try:
+            airflow_utils.trigger_airflow_dag(
+                WORKFLOW_DAGS[workflow.workflow_type], str(workflow.id)
+            )
+        except RequestException as e:
+            return handle_request_exception(
+                "Error triggering Airflow DAG",
+                e,
+            )
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 

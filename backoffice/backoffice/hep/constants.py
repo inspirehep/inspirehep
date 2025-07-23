@@ -10,6 +10,7 @@ HEP_DEFAULT_TICKET_TYPE = "hep_create_curation"
 class HepStatusChoices(models.TextChoices):
     RUNNING = "running", "Running"
     APPROVAL = "approval", "Waiting for approval"
+    BLOCKED = "blocked", "Blocked"
     PROCESSING = "processing", "Processing"
     COMPLETED = "completed", "Completed"
     ERROR = "error", "Error"

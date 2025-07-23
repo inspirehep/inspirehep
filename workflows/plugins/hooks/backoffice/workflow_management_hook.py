@@ -2,7 +2,7 @@ from hooks.backoffice.base import BackofficeHook
 from requests import Response
 
 AUTHORS = "authors"
-LITERATURE = "literature"
+HEP = "hep"
 
 
 class WorkflowManagementHook(BackofficeHook):
