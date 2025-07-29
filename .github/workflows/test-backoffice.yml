@@ -36,7 +36,7 @@ jobs:
         ports:
           - 9200:9200
       rabbitmq:
-        image: rabbitmq:3-management
+        image: rabbitmq:4-management-alpine
         ports:
           - 5672:5672
       redis:
