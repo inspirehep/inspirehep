@@ -49,7 +49,7 @@ jobs:
         group: ${{ fromJSON(needs.setup.outputs.groups) }}
     services:
       redis:
-        image: redis
+        image: redis:8-alpine
         ports:
           - 6379:6379
       postgres:

@@ -29,7 +29,7 @@ services:
       - 'INVENIO_AUTHENTICATION_TOKEN_BACKOFFICE=2e04111a61e8f5ba6ecec52af21bbb9e81732085'
       - 'INVENIO_FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE=True'
   cache:
-    image: redis:5-alpine
+    image: redis:8-alpine
     restart: 'always'
     read_only: true
     ports:
