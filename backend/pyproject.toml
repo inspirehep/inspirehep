@@ -53,6 +53,7 @@ pybtex = "*"
 cryptography = "^36.0.2"
 flask-kvsession = {git = "https://github.com/inspirehep/flask-kvsession.git"}
 python-redis-lock = "^3.3"
+redis="^6.2.0"
 lxml = "~=5.0"
 fqn-decorators = "~=1.2,>=1.2.3"
 editdistance = "^0.8.1"
