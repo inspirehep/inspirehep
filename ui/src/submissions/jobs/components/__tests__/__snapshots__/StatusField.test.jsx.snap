@@ -22,8 +22,6 @@ exports[`StatusField renders if can modify and cataloger logged in 1`] = `
               data-test-id="[object Object]"
               data-test-type="single-select"
               data-testid="select-box"
-              form="[object Object]"
-              name="[object Object]"
               placement="bottomLeft"
             >
               <div
@@ -108,8 +106,6 @@ exports[`StatusField renders if can modify but not cataloger logged in 1`] = `
               data-test-id="[object Object]"
               data-test-type="single-select"
               data-testid="select-box"
-              form="[object Object]"
-              name="[object Object]"
               placement="bottomLeft"
             >
               <div
@@ -194,8 +190,6 @@ exports[`StatusField renders if can not modify and not cataloger logged in 1`] =
               data-test-id="[object Object]"
               data-test-type="single-select"
               data-testid="select-box"
-              form="[object Object]"
-              name="[object Object]"
               placement="bottomLeft"
             >
               <div
