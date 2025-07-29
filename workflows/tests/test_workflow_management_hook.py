@@ -1,5 +1,9 @@
 import pytest
-from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
+from hooks.backoffice.workflow_management_hook import (
+    AUTHORS,
+    HEP,
+    WorkflowManagementHook,
+)
 from tenacity import RetryError
 
 
@@ -61,3 +65,20 @@ class TestWorkflowManagementHook:
             ]
             == "departed"
         )
+
+    @pytest.mark.vcr
+    def test_post_workflow(self):
+        workflow_management_hook = WorkflowManagementHook(HEP)
+        workflow_data = {
+            "workflow_type": "HEP_CREATE",
+            "data": {
+                "document_type": ["article"],
+                "_collections": ["Literature"],
+                "titles": [{"title": "Test Workflow Management Hook"}],
+            },
+        }
+        response = workflow_management_hook.post_workflow(workflow_data)
+        assert response.status_code == 201
+        response_data = response.json()
+        assert response_data["data"]["document_type"] == ["article"]
+        assert response_data["status"] == "processing"
