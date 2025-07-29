@@ -2,7 +2,7 @@ from hooks.backoffice.base import BackofficeHook
 from requests import Response
 
 AUTHORS = "authors"
-LITERATURE = "literature"
+HEP = "hep"
 
 
 class WorkflowManagementHook(BackofficeHook):
@@ -58,5 +58,13 @@ class WorkflowManagementHook(BackofficeHook):
         return self.call_api(
             method="PATCH",
             data=workflow_partial_update_data,
+            endpoint=endpoint,
+        )
+
+    def post_workflow(self, workflow_data: dict) -> Response:
+        endpoint = f"{self.endpoint}/"
+        return self.call_api(
+            method="POST",
+            data=workflow_data,
             endpoint=endpoint,
         )

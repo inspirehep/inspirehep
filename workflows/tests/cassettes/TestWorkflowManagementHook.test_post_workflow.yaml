@@ -1,0 +1,56 @@
+interactions:
+- request:
+    body: '{"workflow_type": "HEP_CREATE", "data": {"document_type": ["article"],
+      "_collections": ["Literature"], "titles": [{"title": "Test Workflow Management
+      Hook"}]}}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '159'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8001/api/workflows/hep/
+  response:
+    body:
+      string: '{"id":"229f9a2c-af9e-4b5e-8925-0269363e30a5","data":{"document_type":["article"],"_collections":["Literature"],"titles":[{"title":"Test
+        Workflow Management Hook"}]},"tickets":[],"decisions":[],"workflow_type":"HEP_CREATE","_created_at":"2025-07-30T09:00:11.441399Z","_updated_at":"2025-07-30T09:00:11.441476Z","status":"processing"}'
+    headers:
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '332'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Wed, 30 Jul 2025 09:00:11 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=174.19900000001576;desc="User CPU time", TimerPanel_stime;dur=3.4090000000048803;desc="System
+        CPU time", TimerPanel_total;dur=177.60800000002064;desc="Total CPU time",
+        TimerPanel_total_time;dur=185.70550001459196;desc="Elapsed time", SQLPanel_sql_time;dur=7.892582914792001;desc="SQL
+        8 queries", CachePanel_total_time;dur=0;desc="Cache 0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 9f6ec77ffa4245b9a024ccb423e11874
+    status:
+      code: 201
+      message: Created
+version: 1

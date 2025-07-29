@@ -100,14 +100,40 @@ class TestArxivHarvest:
         assert len(result["parsed_records"]) == 1
         assert len(result["failed_records"]) == 1
 
-    def test_load_record(self):
-        pass
+    @pytest.mark.vcr
+    def test_load_records(self):
+        parsed_records = {
+            "parsed_records": [
+                {
+                    "workflow_type": "HEP_CREATE",
+                    "data": {
+                        "document_type": ["article"],
+                        "_collections": ["Literature"],
+                        "titles": [{"title": "Test Workflow Management Hook"}],
+                    },
+                },
+                {
+                    "workflow_type": "WRONG",
+                    "data": {
+                        "document_type": ["article"],
+                        "_collections": ["Literature"],
+                        "titles": [{"title": "Test Workflow Management Hook"}],
+                    },
+                },
+            ]
+        }
+        task = self.dag.get_task("process_records.load_records")
+        s3_key = write_object(s3_hook, parsed_records)
+        task.op_args = (s3_key,)
+        res = task.execute(context=Context())
+        result = read_object(s3_hook, res)
+        assert len(result["failed_records"]) == 1
 
     def test_check_failures_success(self):
         s3_keys = [write_object(s3_hook, {"failed_records": []}) for _ in range(2)]
 
         task = self.dag.get_task("check_failures")
-        task.op_args = (s3_keys,)
+        task.op_args = (s3_keys, s3_keys)
         task.execute(context=Context())
 
     def test_check_failures_fail(self):
@@ -115,7 +141,7 @@ class TestArxivHarvest:
 
         s3_keys = [write_object(s3_hook, {"failed_records": []}) for _ in range(2)]
         s3_keys.append(write_object(s3_hook, {"failed_records": ["record"]}))
-        task.op_args = (s3_keys,)
+        task.op_args = (s3_keys, [])
 
         with pytest.raises(AirflowException) as exc_info:
             task.execute(context=Context())
