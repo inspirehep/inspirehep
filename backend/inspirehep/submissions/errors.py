@@ -20,7 +20,7 @@ class WorkflowStartError(RESTException):
 
 class WorkflowConflictError(RESTException):
     code = 409
-    description = "A conflict occurred while processing the submission, please resolve the conflict and try again."
+    description = "An author with the same orcid is currently being processed. Please try again later."
 
 
 class LoaderDataError(RESTException):
