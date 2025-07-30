@@ -414,9 +414,7 @@ def test_disable_conference_update_feature_flag_disabled(
     update_function_mock.assert_called()
 
 
-def test_self_citations_in_detail_view_not_logged_user(
-    inspire_app, enable_self_citations
-):
+def test_self_citations_in_detail_view_not_logged_user(inspire_app):
     author_1 = {
         "full_name": "James T Kirk",
         "ids": [{"schema": "INSPIRE BAI", "value": "James.T.Kirk.1"}],

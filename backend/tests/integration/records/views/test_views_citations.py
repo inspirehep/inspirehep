@@ -112,9 +112,7 @@ def test_citation_summary_facet(inspire_app):
     assert len(response_data["hits"]["hits"]) == 0
 
 
-def test_citation_summary_without_self_citations_facet(
-    inspire_app, enable_self_citations
-):
+def test_citation_summary_without_self_citations_facet(inspire_app):
     unpublished_paper_data = {
         "refereed": False,
         "citation_count": 8,

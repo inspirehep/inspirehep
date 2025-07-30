@@ -1857,9 +1857,7 @@ def test_hard_deleting_record_removes_entries_in_authors_records_table(inspire_a
     )
 
 
-def test_self_citations_on_authors_calculated_on_record_creation(
-    inspire_app, enable_self_citations
-):
+def test_self_citations_on_authors_calculated_on_record_creation(inspire_app):
     data_authors = {
         "authors": [
             {
@@ -1886,9 +1884,7 @@ def test_self_citations_on_authors_calculated_on_record_creation(
     assert rec3.citation_count_without_self_citations == 0
 
 
-def test_mixed_self_citations_on_authors_calculated_on_record_creation(
-    inspire_app, enable_self_citations
-):
+def test_mixed_self_citations_on_authors_calculated_on_record_creation(inspire_app):
     author_1 = {
         "full_name": "James T Kirk",
         "ids": [{"schema": "INSPIRE BAI", "value": "James.T.Kirk.1"}],
@@ -1927,9 +1923,7 @@ def test_mixed_self_citations_on_authors_calculated_on_record_creation(
     assert rec3.citation_count_without_self_citations == 0
 
 
-def test_self_citations_on_authors_calculated_on_record_update(
-    inspire_app, enable_self_citations
-):
+def test_self_citations_on_authors_calculated_on_record_update(inspire_app):
     data_authors = {
         "authors": [
             {
@@ -1969,9 +1963,7 @@ def test_self_citations_on_authors_calculated_on_record_update(
     assert rec3.citation_count_without_self_citations == 0
 
 
-def test_self_citations_on_authors_calculated_on_other_record_update(
-    inspire_app, enable_self_citations
-):
+def test_self_citations_on_authors_calculated_on_other_record_update(inspire_app):
     author_1 = {
         "full_name": "James T Kirk",
         "ids": [{"schema": "INSPIRE BAI", "value": "James.T.Kirk.1"}],
@@ -2004,9 +1996,7 @@ def test_self_citations_on_authors_calculated_on_other_record_update(
     assert rec2.citation_count_without_self_citations == 0
 
 
-def test_self_citations_on_collaborations_calculated_on_record_creation(
-    inspire_app, enable_self_citations
-):
+def test_self_citations_on_collaborations_calculated_on_record_creation(inspire_app):
     data_collaborations = {"collaborations": [{"value": "COL1"}]}
     rec1 = create_record("lit", data=data_collaborations)
     rec2 = create_record(
@@ -2027,7 +2017,7 @@ def test_self_citations_on_collaborations_calculated_on_record_creation(
 
 
 def test_mixed_self_citations_on_collaborations_calculated_on_record_creation(
-    inspire_app, enable_self_citations
+    inspire_app,
 ):
     collaboration_1 = {"value": "COL1"}
     collaboration_2 = {"value": "COL2"}
@@ -2058,9 +2048,7 @@ def test_mixed_self_citations_on_collaborations_calculated_on_record_creation(
     assert rec3.citation_count_without_self_citations == 0
 
 
-def test_self_citations_on_collaborations_calculated_on_record_update(
-    inspire_app, enable_self_citations
-):
+def test_self_citations_on_collaborations_calculated_on_record_update(inspire_app):
     data_collaborations = {"collaborations": [{"value": "COL1"}]}
     rec1 = create_record("lit", data=data_collaborations)
     rec2 = create_record(
@@ -2094,7 +2082,7 @@ def test_self_citations_on_collaborations_calculated_on_record_update(
 
 
 def test_self_citations_on_collaborations_calculated_on_other_record_update(
-    inspire_app, enable_self_citations
+    inspire_app,
 ):
     collaboration_1 = {"value": "COL1"}
     collaboration_2 = {"value": "COL2"}
