@@ -4,7 +4,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from flask import current_app
 
 from inspirehep.records.api import AuthorsRecord
 from inspirehep.records.api.conferences import ConferencesRecord
@@ -16,13 +15,10 @@ def get_references_to_update(record):
     if isinstance(record, LiteratureRecord):
         uuids_to_reindex |= record.get_linked_papers_if_reference_changed()
         uuids_to_reindex |= record.get_linked_datas_if_authors_changed()
-        if current_app.config.get("FEATURE_FLAG_ENABLE_SELF_CITATIONS"):
-            uuids_to_reindex |= (
-                record.get_all_connected_records_uuids_of_modified_authors()
-            )
-            uuids_to_reindex |= (
-                record.get_all_connected_records_uuids_of_modified_collaborations()
-            )
+        uuids_to_reindex |= record.get_all_connected_records_uuids_of_modified_authors()
+        uuids_to_reindex |= (
+            record.get_all_connected_records_uuids_of_modified_collaborations()
+        )
     if isinstance(record, AuthorsRecord):
         uuids_to_reindex |= (
             record.get_linked_author_records_uuids_if_author_changed_name()

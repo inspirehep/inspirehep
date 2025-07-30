@@ -62,12 +62,6 @@ def disable_files(inspire_app, override_config):
 
 
 @pytest.fixture
-def enable_self_citations(inspire_app, override_config):
-    with override_config(FEATURE_FLAG_ENABLE_SELF_CITATIONS=True):
-        yield inspire_app
-
-
-@pytest.fixture
 def enable_hal_push(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_HAL_PUSH=True):
         yield inspire_app

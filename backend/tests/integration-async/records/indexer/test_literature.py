@@ -329,7 +329,7 @@ def test_literature_citations_superseded_status_change_and_cited_records_are_rei
 
 
 def test_literature_regression_changing_bai_in_record_reindex_records_which_are_citing_changed_one(
-    inspire_app, clean_celery_session, enable_self_citations, override_config
+    inspire_app, clean_celery_session, override_config
 ):
     with override_config(
         FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True

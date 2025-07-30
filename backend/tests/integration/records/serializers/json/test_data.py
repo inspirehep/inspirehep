@@ -37,7 +37,7 @@ def test_data_json(inspire_app, datadir):
     )
     expected_metadata = deepcopy(record) | {
         "citation_count": 1,
-        "citation_count_without_self_citations": 0,
+        "citation_count_without_self_citations": 1,
     }
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
@@ -74,7 +74,7 @@ def test_data_search_json(inspire_app, datadir):
 
     expected_result = deepcopy(record) | {
         "citation_count": 1,
-        "citation_count_without_self_citations": 0,
+        "citation_count_without_self_citations": 1,
     }
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)

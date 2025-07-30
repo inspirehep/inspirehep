@@ -209,23 +209,21 @@ def test_data_citation_count_property(inspire_app):
 
     create_record("lit", data_citations=[data_record["control_number"]])
     assert data_record.citation_count == 1
-    assert data_record.citation_count_without_self_citations == 0
+    assert data_record.citation_count_without_self_citations == 1
 
     rec3 = create_record("lit", data_citations=[data_record["control_number"]])
     assert data_record.citation_count == 2
-    assert data_record.citation_count_without_self_citations == 0
+    assert data_record.citation_count_without_self_citations == 2
     assert rec3.citation_count == 0
 
     rec3.delete()
     assert data_record.citation_count == 1
-    assert data_record.citation_count_without_self_citations == 0
+    assert data_record.citation_count_without_self_citations == 1
 
 
 # TODO Enable to test self-citations on authors
 @pytest.mark.skip(reason="self-citations with authors currently dont work")
-def test_self_citations_on_authors_calculated_on_record_creation(
-    inspire_app, enable_self_citations
-):
+def test_self_citations_on_authors_calculated_on_record_creation(inspire_app):
     data_authors = {
         "authors": [
             {
@@ -260,9 +258,7 @@ def test_self_citations_on_authors_calculated_on_record_creation(
 
 # TODO Enable to test self-citations on collaborations
 @pytest.mark.skip(reason="self-citations with collaborations currently dont work")
-def test_self_citations_on_collaborations_calculated_on_record_creation(
-    inspire_app, enable_self_citations
-):
+def test_self_citations_on_collaborations_calculated_on_record_creation(inspire_app):
     collaborations = {"collaborations": [{"value": "COL1"}]}
     rec1 = create_record("dat", data=collaborations)
     rec2 = create_record("lit", data=collaborations)

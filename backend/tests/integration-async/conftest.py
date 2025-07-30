@@ -148,12 +148,6 @@ def inspire_app(app, cache):
 
 
 @pytest.fixture
-def enable_self_citations(inspire_app, override_config):
-    with override_config(FEATURE_FLAG_ENABLE_SELF_CITATIONS=True):
-        yield inspire_app
-
-
-@pytest.fixture
 def enable_disambiguation(inspire_app, override_config):
     with override_config(
         FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION=True,

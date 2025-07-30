@@ -5,7 +5,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import structlog
-from flask import current_app
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.date import fill_missing_date_parts
 from inspire_utils.record import get_value
@@ -121,9 +120,7 @@ class CitationMixin(PapersAuthorsExtensionMixin):
             query: Query containing all citations for this record
         """
         query = RecordCitations.query.filter(RecordCitations.cited_id == self.id)
-        if exclude_self_citations and current_app.config.get(
-            "FEATURE_FLAG_ENABLE_SELF_CITATIONS"
-        ):
+        if exclude_self_citations:
             query = query.filter(RecordCitations.is_self_citation.is_(False))
         return query
 
@@ -143,9 +140,7 @@ class CitationMixin(PapersAuthorsExtensionMixin):
             int: Citation count number for this record if it is literature or data
             record.
         """
-        if current_app.config.get("FEATURE_FLAG_ENABLE_SELF_CITATIONS"):
-            return self._citation_query(exclude_self_citations=True).count()
-        return 0
+        return self._citation_query(exclude_self_citations=True).count()
 
     def _citations_by_year(self):
         """Return the number of citations received per year for the current record.
@@ -247,9 +242,8 @@ class CitationMixin(PapersAuthorsExtensionMixin):
         if references_waiting_for_commit:
             db.session.bulk_save_objects(references_waiting_for_commit)
 
-        if current_app.config.get("FEATURE_FLAG_ENABLE_SELF_CITATIONS"):
-            LOGGER.info("Starting self citations check")
-            self.update_self_citations()
+        LOGGER.info("Starting self citations check")
+        self.update_self_citations()
         LOGGER.info(
             "Record citations updated",
             recid=current_record_control_number,
