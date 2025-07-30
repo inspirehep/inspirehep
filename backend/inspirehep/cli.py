@@ -10,7 +10,6 @@
 from invenio_base.app import create_cli
 
 from inspirehep.accounts.cli import users
-from inspirehep.cds.cli import cds
 from inspirehep.curation.cli import curation
 from inspirehep.disambiguation.cli import disambiguation
 from inspirehep.factory import create_app
@@ -39,7 +38,6 @@ cli.add_command(sitemap)
 cli.add_command(index)
 cli.add_command(match)
 cli.add_command(inspire_pidstore)
-cli.add_command(cds)
 cli.add_command(disambiguation)
 cli.add_command(hepdata)
 cli.add_command(curation)
