@@ -82,25 +82,24 @@ def test_author_get_requires_authentication(inspire_app):
 
 @freeze_time("2019-06-17")
 def test_new_author_submit(inspire_app, requests_mock):
+    data = {
+        "given_name": "John",
+        "display_name": "John Doe",
+        "status": "active",
+    }
     requests_mock.post(
-        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
-        json={"workflow_object_id": 30},
+        f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/authors/",
+        json={"data": data, "workflow_type": "AUTHOR_CREATE"},
     )
-    user = create_user()
+    user_and_token = create_user_and_token()
+    headers = {"Authorization": "BEARER " + user_and_token.access_token}
     with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
+        login_user_via_session(client, email=user_and_token.user.email)
         response = client.post(
             "/submissions/authors",
             content_type="application/json",
-            data=orjson.dumps(
-                {
-                    "data": {
-                        "given_name": "John",
-                        "display_name": "John Doe",
-                        "status": "active",
-                    }
-                }
-            ),
+            data=orjson.dumps({"data": data}),
+            headers=headers,
         )
 
     assert response.status_code == 200
@@ -109,30 +108,35 @@ def test_new_author_submit(inspire_app, requests_mock):
     post_data = history.json()
     assert "Authorization" in history.headers
     assert (
-        f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
+        f"Token {current_app.config['AUTHENTICATION_TOKEN']}"
         == history.headers["Authorization"]
     )
-    assert history.url == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors"
+    assert (
+        history.url
+        == f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/authors/"
+    )
     expected_data = {
         "data": {
             "_collections": ["Authors"],
             "acquisition_source": {
-                "email": user.email,
+                "email": user_and_token.user.email,
                 "method": "submitter",
                 "source": "submitter",
-                "internal_uid": user.id,
+                "internal_uid": user_and_token.user.id,
                 "datetime": "2019-06-17T00:00:00",
             },
             "name": {"value": "John", "preferred_name": "John Doe"},
             "status": "active",
-        }
+        },
+        "workflow_type": "AUTHOR_CREATE",
     }
     assert expected_data == post_data
 
 
 def test_new_author_submit_with_workflows_error(inspire_app, requests_mock):
     requests_mock.post(
-        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors", status_code=500
+        f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/authors/",
+        status_code=500,
     )
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
@@ -155,44 +159,38 @@ def test_new_author_submit_with_workflows_error(inspire_app, requests_mock):
 
 
 def test_new_author_submit_with_conflict_error(
-    inspire_app, requests_mock, override_config
+    inspire_app,
+    requests_mock,
 ):
-    with override_config(
-        FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE=True,
-    ):
-        requests_mock.post(
-            f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/authors/",
-            status_code=409,
-            json={"error": "Author already exists"},
-        )
+    requests_mock.post(
+        f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/authors/",
+        status_code=409,
+        json={"error": "Author already exists"},
+    )
 
-        token = create_user_and_token()
-        headers = {"Authorization": "BEARER " + token.access_token}
-        with inspire_app.test_client() as client:
-            response = client.post(
-                "/submissions/authors",
-                content_type="application/json",
-                data=orjson.dumps(
-                    {
-                        "data": {
-                            "given_name": "John",
-                            "display_name": "John Doe",
-                            "status": "active",
-                        }
+    token = create_user_and_token()
+    headers = {"Authorization": "BEARER " + token.access_token}
+    with inspire_app.test_client() as client:
+        response = client.post(
+            "/submissions/authors",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "data": {
+                        "given_name": "John",
+                        "display_name": "John Doe",
+                        "status": "active",
                     }
-                ),
-                headers=headers,
-            )
+                }
+            ),
+            headers=headers,
+        )
     assert response.status_code == 409
 
 
 def test_new_author_submit_works_with_session_login(inspire_app, requests_mock):
     requests_mock.post(
-        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
-        json={"workflow_object_id": 30},
-    )
-    requests_mock.post(
-        f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/",
+        f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/authors/",
         json={"id": "1e309a22-07d6-46e3-8814-1e0d796f7b42"},
     )
     user = create_user()
@@ -310,7 +308,7 @@ def test_update_author(inspire_app):
     with inspire_app.test_client() as client, requests_mock.Mocker() as request_mock:
         login_user_via_session(client, email=user.email)
         request_mock.post(
-            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
+            f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/authors/",
             json={},
             status_code=200,
         )
@@ -375,7 +373,7 @@ def test_update_author_with_new_orcid(inspire_app):
         login_user_via_session(client, email=user.email)
 
         request_mock.post(
-            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
+            f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/authors/",
             json={},
             status_code=200,
         )
@@ -432,7 +430,7 @@ def test_update_author_with_extra_data(inspire_app):
         login_user_via_session(client, email=user.email)
 
         request_mock.post(
-            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
+            f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/authors/",
             json={},
             status_code=200,
         )
@@ -487,7 +485,7 @@ def test_update_author_with_new_bai(inspire_app):
     with inspire_app.test_client() as client, requests_mock.Mocker() as request_mock:
         login_user_via_session(client, email=user.email)
         request_mock.post(
-            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
+            f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/authors/",
             json={},
             status_code=200,
         )
@@ -568,11 +566,12 @@ def test_update_author_creates_new_workflow(inspire_app, override_config):
                 },
                 "status": "active",
                 "urls": [{"value": "http://test1.com"}, {"value": "http://test2.com"}],
-            }
+            },
+            "workflow_type": "AUTHOR_UPDATE",
         }
 
         request_mock.post(
-            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
+            f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/authors/",
             json={},
             status_code=200,
         )

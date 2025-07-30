@@ -223,27 +223,16 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
         :return object: inspire next response
         """
         record["acquisition_source"] = self.get_acquisition_source()
-        payload = {"data": record}
-        payload_backoffice = {"data": record, "workflow_type": workflow_type}
+        payload = {"data": record, "workflow_type": workflow_type}
 
-        if current_app.config.get("FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE"):
-            LOGGER.info(
-                "Sending author submission to backoffice", data=payload_backoffice
-            )
-            return self.send_post_request_to_workflows(
-                current_app.config["INSPIRE_BACKOFFICE_URL"],
-                "/api/workflows/authors/",
-                payload_backoffice,
-                current_app.config["AUTHENTICATION_TOKEN_BACKOFFICE"],
-                bearer_keyword="Token",
-            )
-        else:
-            return self.send_post_request_to_workflows(
-                current_app.config["INSPIRE_NEXT_URL"],
-                "/workflows/authors",
-                payload,
-                current_app.config["AUTHENTICATION_TOKEN"],
-            )
+        LOGGER.info("Sending author submission to backoffice", data=payload)
+        return self.send_post_request_to_workflows(
+            current_app.config["INSPIRE_BACKOFFICE_URL"],
+            "/api/workflows/authors/",
+            payload,
+            current_app.config["AUTHENTICATION_TOKEN_BACKOFFICE"],
+            bearer_keyword="Token",
+        )
 
     def create_ticket(self, record, rt_template):
         control_number = record["control_number"]
