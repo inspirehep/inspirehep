@@ -21,6 +21,7 @@
 
 import os
 
+import mock
 import orjson
 import pkg_resources
 from helpers.providers.faker import faker
@@ -29,7 +30,8 @@ from inspirehep.records.api import InspireRecord
 from lxml import etree
 
 
-def test_convert_to_tei(inspire_app, get_fixture):
+@mock.patch("inspirehep.hal.api.current_celery_app.send_task")
+def test_convert_to_tei(mock_push_to_hal, inspire_app, get_fixture):
     record_json = orjson.loads(get_fixture("convert_to_tei.json"))
     record_data = faker.record("lit", data=record_json)
     record = InspireRecord.create(record_data)
@@ -45,7 +47,8 @@ def test_convert_to_tei(inspire_app, get_fixture):
     record.delete()
 
 
-def test_convert_to_tei_handles_preprints(inspire_app, get_fixture):
+@mock.patch("inspirehep.hal.api.current_celery_app.send_task")
+def test_convert_to_tei_handles_preprints(mock_push_to_hal, inspire_app, get_fixture):
     record_json = orjson.loads(get_fixture("convert_to_tei_handles_preprints.json"))
     record_data = faker.record("lit", data=record_json)
     record = InspireRecord.create(record_data)

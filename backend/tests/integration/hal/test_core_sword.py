@@ -78,7 +78,10 @@ def test_service_document(inspire_app):
 
 
 @pytest.mark.vcr
-def test_push_happy_flow(inspire_app, get_fixture):
+@mock.patch(
+    "inspirehep.hal.api.current_celery_app.send_task"
+)  # mocking the task sending as create will trigger it
+def test_push_happy_flow(mock_push_to_hal, inspire_app, get_fixture):
     record_json = orjson.loads(get_fixture("hal_preprod_record.json"))
     record_data = faker.record("lit", data=record_json)
     record = InspireRecord.create(record_data)
@@ -112,7 +115,10 @@ def test_push_happy_flow(inspire_app, get_fixture):
 
 
 @pytest.mark.vcr
-def test_push_again_on_already_existing_exception(inspire_app, get_fixture):
+@mock.patch("inspirehep.hal.api.current_celery_app.send_task")
+def test_push_again_on_already_existing_exception(
+    mock_push_to_hal, inspire_app, get_fixture
+):
     record_json = orjson.loads(get_fixture("hal_preprod_record.json"))
     record_data = faker.record("lit", data=record_json)
     record = InspireRecord.create(record_data)
@@ -143,7 +149,10 @@ def test_push_again_on_already_existing_exception(inspire_app, get_fixture):
 @mock.patch(
     "inspirehep.hal.tasks._hal_create", side_effect=HALCreateException("Some error")
 )
-def test_exception_in_hal_create(mock_hal_create, inspire_app, get_fixture):
+@mock.patch("inspirehep.hal.api.current_celery_app.send_task")
+def test_exception_in_hal_create(
+    mock_push_to_hal, mock_hal_create, inspire_app, get_fixture
+):
     record_json = orjson.loads(get_fixture("hal_preprod_record.json"))
     record_data = faker.record("lit", data=record_json)
     record = InspireRecord.create(record_data)
@@ -158,7 +167,8 @@ def test_exception_in_hal_create(mock_hal_create, inspire_app, get_fixture):
 
 
 @pytest.mark.vcr
-def test_unicode_data(inspire_app, get_fixture):
+@mock.patch("inspirehep.hal.api.current_celery_app.send_task")
+def test_unicode_data(mock_push_to_hal, inspire_app, get_fixture):
     record_json = orjson.loads(get_fixture("hal_preprod_unicode_record.json"))
     record_data = faker.record("lit", data=record_json)
     record = InspireRecord.create(record_data)
@@ -184,8 +194,9 @@ def test_unicode_data(inspire_app, get_fixture):
 
 @mock.patch("inspirehep.hal.tasks._hal_create", return_value=None)
 @mock.patch("inspirehep.hal.tasks.distributed_lock")
+@mock.patch("inspirehep.hal.api.current_celery_app.send_task")
 def test_lock_is_created_for_hal_push_task(
-    mocked_lock, mock_hal_create, inspire_app, get_fixture
+    mock_push_to_hal, mocked_lock, mock_hal_create, inspire_app, get_fixture
 ):
     record_json = orjson.loads(get_fixture("hal_preprod_record.json"))
     record_data = faker.record("lit", data=record_json)
@@ -205,8 +216,13 @@ def test_lock_is_created_for_hal_push_task(
 
 @mock.patch("inspirehep.hal.tasks.update_record_with_new_ids")
 @mock.patch("inspirehep.hal.tasks._hal_create")
+@mock.patch("inspirehep.hal.api.current_celery_app.send_task")
 def test_id_is_not_written_to_record_for_stale_data_push(
-    mock_hal_create, mock_update_record_with_new_ids, inspire_app, get_fixture
+    mock_push_to_hal,
+    mock_hal_create,
+    mock_update_record_with_new_ids,
+    inspire_app,
+    get_fixture,
 ):
     hal_create_receipt = Deposit_Receipt()
     hal_create_receipt.id = "hal:123456"

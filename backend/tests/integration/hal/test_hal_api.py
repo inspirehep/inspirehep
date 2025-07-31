@@ -10,18 +10,17 @@ from inspirehep.records.api.literature import LiteratureRecord
 
 
 @mock.patch("inspirehep.hal.api.current_celery_app.send_task")
-def test_push_to_hal_pass_version_id(mock_push_to_hal, inspire_app, override_config):
-    with override_config(FEATURE_FLAG_ENABLE_HAL_PUSH=True):
-        data = faker.record(
-            "lit", with_control_number=True, data={"_export_to": {"HAL": True}}
-        )
-        record = LiteratureRecord.create(data)
-        record.update(dict(record))
+def test_push_to_hal_pass_version_id(mock_push_to_hal, inspire_app):
+    data = faker.record(
+        "lit", with_control_number=True, data={"_export_to": {"HAL": True}}
+    )
+    record = LiteratureRecord.create(data)
+    record.update(dict(record))
 
-        assert len(mock_push_to_hal.mock_calls) == 2
-        assert mock_push_to_hal.mock_calls[0][2] == {
-            "kwargs": {"recid": record["control_number"], "record_version_id": 1}
-        }
-        assert mock_push_to_hal.mock_calls[1][2] == {
-            "kwargs": {"recid": record["control_number"], "record_version_id": 2}
-        }
+    assert len(mock_push_to_hal.mock_calls) == 2
+    assert mock_push_to_hal.mock_calls[0][2] == {
+        "kwargs": {"recid": record["control_number"], "record_version_id": 1}
+    }
+    assert mock_push_to_hal.mock_calls[1][2] == {
+        "kwargs": {"recid": record["control_number"], "record_version_id": 2}
+    }

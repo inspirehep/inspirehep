@@ -26,6 +26,13 @@ import pkg_resources
 import pytest
 
 
+@pytest.fixture(scope="module")
+def app_config(app_config):
+    app_config["HAL_USER_NAME"] = "hal_user_name"
+    app_config["HAL_USER_PASS"] = "hal_user_pass"
+    return app_config
+
+
 @pytest.fixture
 def get_fixture():
     def _get_fixture(filename):

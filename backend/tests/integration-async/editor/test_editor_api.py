@@ -395,7 +395,7 @@ def test_editor_locks_are_passed_in_payload_when_another_user_editing(
 ):
     from inspirehep.disambiguation.tasks import disambiguate_authors
 
-    with override_config(FEATURE_FLAG_ENABLE_HAL_PUSH=True):
+    with override_config(HAL_USER_NAME="hal_user_name", HAL_USER_PASS="hal_user_pass"):
         celery_task_annotation = MapAnnotation({"countdown": 1.5})
 
         user = create_user(role=Roles.cataloger.value)
