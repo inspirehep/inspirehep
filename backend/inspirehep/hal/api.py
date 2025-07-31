@@ -15,8 +15,11 @@ LOGGER = structlog.getLogger()
 
 def push_to_hal(record):
     """If needed, queue the push of the new changes to HAL."""
-    if not current_app.config["FEATURE_FLAG_ENABLE_HAL_PUSH"]:
-        LOGGER.info("HAL push feature flag not enabled")
+    if (
+        not current_app.config["HAL_USER_NAME"]
+        or not current_app.config["HAL_USER_PASS"]
+    ):
+        LOGGER.info("HAL push not enabled!")
         return
 
     # Ensure there is a control number. This is not always the case because of broken store_record.

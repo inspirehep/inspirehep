@@ -68,7 +68,7 @@ HAL_SERVICE_DOCUMENT_IRI = (
 )
 """IRI used by the SWORD protocol when testing service document on preprod."""
 
-HAL_USER_NAME = "hal_user_name"
+HAL_USER_NAME = None
 """Name of the INSPIRE user on HAL.
 Note:
     Its real value is stored in ``tbag``. In particular ``QA_HAL_USER_NAME``
@@ -77,7 +77,7 @@ Note:
     instance.
 """
 
-HAL_USER_PASS = "hal_user_pass"
+HAL_USER_PASS = None
 """Password of the INSPIRE user on HAL.
 Note:
     Its real value is stored in ``tbag``. In particular ``QA_HAL_USER_PASS``
