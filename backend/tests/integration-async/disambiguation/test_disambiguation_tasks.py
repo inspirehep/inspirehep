@@ -209,52 +209,6 @@ def test_disambiguate_authors_doesnt_match_when_author_is_ambiguous(
     assert_disambiguation_task()
 
 
-def test_disambiguation_doesnt_run_with_feature_flag_disabling_it(
-    inspire_app, clean_celery_session
-):
-    author_data = faker.record("aut", with_control_number=True)
-    author_data.update(
-        {
-            "name": {"value": "Gross, Brian"},
-            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
-            "email_addresses": [{"current": True, "value": "test@test.com"}],
-        }
-    )
-    author_record = InspireRecord.create(author_data)
-    db.session.commit()
-
-    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
-    def assert_authors_records_exist_in_es():
-        author_record_from_es = InspireSearch.get_record_data_from_es(author_record)
-        assert author_record_from_es
-
-    assert_authors_records_exist_in_es()
-
-    literature_data = faker.record("lit", with_control_number=True)
-    literature_data.update(
-        {
-            "authors": [
-                {
-                    "full_name": "Gross, Brian",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
-                    "emails": ["test@test.com"],
-                }
-            ]
-        }
-    )
-    literature_record = LiteratureRecord.create(literature_data)
-    db.session.commit()
-
-    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(5))
-    def assert_disambiguation_task():
-        literature_record_from_es = InspireSearch.get_record_data_from_es(
-            literature_record
-        )
-        assert not literature_record_from_es["authors"][0].get("record")
-
-    assert_disambiguation_task()
-
-
 def test_disambiguation_runs_after_lit_record_update(
     inspire_app, clean_celery_session, enable_disambiguation
 ):
@@ -1366,8 +1320,6 @@ def test_editor_lock_is_created_when_disambiguation_runs(
 
     remove_lock_side_effect.counter = 0
     mocked_remove_lock.side_effect = remove_lock_side_effect
-
-    disambiguate_authors.delay(literature_record.id, literature_record.model.version_id)
 
     @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_lock_created():

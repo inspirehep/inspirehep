@@ -14,7 +14,6 @@ def test_disambiguate_all(inspire_app, cli, clean_celery_session, override_confi
     with override_config(
         FEATURE_FLAG_ENABLE_BAI_PROVIDER=True,
         FEATURE_FLAG_ENABLE_BAI_CREATION=True,
-        FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION=False,
     ):
         record_uuids = []
         for _ in range(3):
@@ -100,7 +99,6 @@ def test_disambiguate_selected_record(
     with override_config(
         FEATURE_FLAG_ENABLE_BAI_PROVIDER=True,
         FEATURE_FLAG_ENABLE_BAI_CREATION=True,
-        FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION=False,
     ):
         disambiguated_author_ref = "https://inspirebeta.net/api/authors/2131540"
         record = create_record(

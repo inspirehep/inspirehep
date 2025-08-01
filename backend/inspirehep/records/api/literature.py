@@ -136,11 +136,7 @@ class LiteratureRecord(
         else:
             push_to_orcid(record)
             push_to_hal(record)
-        if (
-            not disable_disambiguation
-            and current_app.config["FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION"]
-            and not data.get("deleted")
-        ):
+        if not disable_disambiguation and not data.get("deleted"):
             disambiguate_authors.delay(
                 str(record.id), version_id=record.model.version_id
             )
@@ -232,11 +228,7 @@ class LiteratureRecord(
         else:
             push_to_orcid(self)
             push_to_hal(self)
-        if (
-            not disable_disambiguation
-            and current_app.config["FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION"]
-            and not data.get("deleted")
-        ):
+        if not disable_disambiguation and not data.get("deleted"):
             disambiguate_authors.delay(str(self.id), version_id=self.model.version_id)
 
     def get_modified_authors(self):
