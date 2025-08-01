@@ -82,3 +82,10 @@ class TestWorkflowManagementHook:
         response_data = response.json()
         assert response_data["data"]["document_type"] == ["article"]
         assert response_data["status"] == "processing"
+
+    @pytest.mark.vcr
+    def test_filter_workflows(self):
+        response = self.workflow_management_hook.filter_workflows({"status": "running"})
+
+        assert response["count"] == 1
+        assert response["results"][0]["id"] == self.test_workflow_id

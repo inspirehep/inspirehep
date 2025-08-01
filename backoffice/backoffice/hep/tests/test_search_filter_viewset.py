@@ -121,3 +121,16 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
             if previous_date is not None:
                 assert cur_date < previous_date
             previous_date = cur_date
+
+    def test_filter_arxiv_eprints(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        arxiv_value = "2507.26819"
+
+        response = self.api_client.get(
+            self.endpoint,
+            data={"data.arxiv_eprints.value": arxiv_value},
+            format="json",
+        )
+        for item in response.json()["results"]:
+            assert item["data"]["arxiv_eprints"][0]["value"] == arxiv_value

@@ -1,0 +1,178 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/hep/00000000-0000-0000-0000-000000001111
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 31 Jul 2025 13:46:34 GMT
+      Location:
+      - /api/workflows/hep/00000000-0000-0000-0000-000000001111/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/hep/00000000-0000-0000-0000-000000001111/
+  response:
+    body:
+      string: '{"id":"00000000-0000-0000-0000-000000001111","validation_errors":[],"data":{"titles":[{"title":"A
+        New Discovery in High Energy Physics"}],"$schema":"https://inspirebeta.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[],"workflow_type":"HEP_CREATE","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-07-31T12:53:41.668546Z","status":"blocked"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '601'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 31 Jul 2025 13:46:34 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=56.87000000000353;desc="User CPU time", TimerPanel_stime;dur=0.0;desc="System
+        CPU time", TimerPanel_total;dur=56.87000000000353;desc="Total CPU time", TimerPanel_total_time;dur=66.42241700319573;desc="Elapsed
+        time", SQLPanel_sql_time;dur=8.133835217449814;desc="SQL 12 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 76c796de198e4afb835b39e3f92c4f5d
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/hep/00000000-0000-0000-0000-000000001111
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 31 Jul 2025 13:46:34 GMT
+      Location:
+      - /api/workflows/hep/00000000-0000-0000-0000-000000001111/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/hep/00000000-0000-0000-0000-000000001111/
+  response:
+    body:
+      string: '{"id":"00000000-0000-0000-0000-000000001111","validation_errors":[],"data":{"titles":[{"title":"A
+        New Discovery in High Energy Physics"}],"$schema":"https://inspirebeta.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[],"workflow_type":"HEP_CREATE","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-07-31T12:53:41.668546Z","status":"blocked"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '601'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 31 Jul 2025 13:46:34 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=41.78799999999683;desc="User CPU time", TimerPanel_stime;dur=0.5470000000116215;desc="System
+        CPU time", TimerPanel_total;dur=42.33500000000845;desc="Total CPU time", TimerPanel_total_time;dur=47.95449995435774;desc="Elapsed
+        time", SQLPanel_sql_time;dur=5.26383297983557;desc="SQL 12 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 0844387ef1464073adce1a7f3d9ad103
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -1,0 +1,103 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/hep/search/?status__in=running__approval__error__matching__fuzzy_matching__blocked&data.arxiv_eprints.value=xxx
+  response:
+    body:
+      string: '{"count":0,"next":null,"previous":null,"facets":{"_filter_workflow_type":{"doc_count":0,"workflow_type":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[]}},"_filter_status":{"doc_count":0,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[]}}},"results":[]}'
+    headers:
+      Allow:
+      - GET, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '303'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 31 Jul 2025 12:53:41 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=40.50700000000518;desc="User CPU time", TimerPanel_stime;dur=0.0;desc="System
+        CPU time", TimerPanel_total;dur=40.50700000000518;desc="Total CPU time", TimerPanel_total_time;dur=66.30974996369332;desc="Elapsed
+        time", SQLPanel_sql_time;dur=3.5473739844746888;desc="SQL 5 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - f520fba6d1d6453b902c7505549f3edf
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"status": "blocked"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '21'
+      Content-Type:
+      - application/json
+    method: PATCH
+    uri: http://host.docker.internal:8001/api/workflows/hep/00000000-0000-0000-0000-000000001111/
+  response:
+    body:
+      string: '{"id":"00000000-0000-0000-0000-000000001111","data":{"titles":[{"title":"A
+        New Discovery in High Energy Physics"}],"$schema":"https://inspirebeta.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[],"workflow_type":"HEP_CREATE","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-07-31T12:53:41.668546Z","status":"blocked"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '578'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 31 Jul 2025 12:53:41 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=163.95400000000393;desc="User CPU time", TimerPanel_stime;dur=0.7230000000006953;desc="System
+        CPU time", TimerPanel_total;dur=164.67700000000463;desc="Total CPU time",
+        TimerPanel_total_time;dur=171.59250000258908;desc="Elapsed time", SQLPanel_sql_time;dur=5.604998907074332;desc="SQL
+        9 queries", CachePanel_total_time;dur=0;desc="Cache 0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - f52a6946817c434984d2398a169846bc
+    status:
+      code: 200
+      message: OK
+version: 1
