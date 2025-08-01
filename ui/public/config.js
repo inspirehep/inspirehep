@@ -6,7 +6,7 @@
     REACT_APP_SENTRY_ENVIRONMENT: null,
     BANNERS: null,
     DISPLAY_GUIDE_ON_START: false,
-    INSPIRE_WORKFLOWS_DAGS_URL: null,
+    INSPIRE_WORKFLOWS_DAGS_URL: 'http://localhost:8070/dags/',
     BACKOFFICE_URL: 'http://localhost:8001',
     EDITOR_SCHEMA_URL: 'https://inspirebeta.net/schemas/records/authors.json',
     EDITOR_BACKOFFICE_API_URL: 'http://localhost:8001/api',
