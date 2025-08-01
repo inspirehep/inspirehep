@@ -11,7 +11,6 @@ def test_fast_bai_minter_cli(inspire_app, cli, override_config):
     with override_config(
         FEATURE_FLAG_ENABLE_BAI_PROVIDER=True,
         FEATURE_FLAG_ENABLE_BAI_CREATION=False,
-        FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION=False,
     ):
         create_record("aut")
         create_record(

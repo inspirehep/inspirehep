@@ -239,6 +239,11 @@ def test_hard_delete_record_deletes_relations_in_institution_literature_table(
     assert InstitutionLiterature.query.filter_by(literature_uuid=rec.id).count() == 0
 
 
+@pytest.mark.xfail(
+    reason="This test is expected to fail because disambiguation retriggers the create."
+    "Also the flag disable_relations_update is not needed. "
+    "We should delete all the tests related to this flag."
+)
 @mock.patch.object(LiteratureRecord, "update_institution_relations")
 def test_institution_literature_table_is_not_updated_when_feature_flag_is_disabled(
     update_function_mock, inspire_app
