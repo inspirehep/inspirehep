@@ -11,7 +11,7 @@ from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
-from include.utils.alerts import task_failure_alert
+from include.utils.alerts import FailedDagNotifier
 from inspire_utils.dedupers import dedupe_list
 
 logger = logging.getLogger(__name__)
@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
         "last_updated_from": Param(type=["null", "string"], default=""),
         "last_updated_to": Param(type=["null", "string"], default=""),
     },
-    on_failure_callback=task_failure_alert,
+    on_failure_callback=FailedDagNotifier(),
 )
 def data_harvest_dag():
     """Defines the DAG for the HEPData harvest workflow.

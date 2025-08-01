@@ -8,7 +8,7 @@ from airflow.providers.http.operators.http import HttpOperator
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
-from include.utils.alerts import task_failure_alert
+from include.utils.alerts import FailedDagNotifier
 from include.utils.cds import (
     get_dois,
     get_identifiers_for_scheme,
@@ -85,7 +85,7 @@ def _response_filter(responses, hook):
         "since": Param(type=["string"], default=""),
         "until": Param(type=["string"], default=""),
     },
-    on_failure_callback=task_failure_alert,
+    on_failure_callback=FailedDagNotifier(),
 )
 def cds_rdm_harvest_dag():
     inspire_http_record_management_hook = InspireHTTPRecordManagementHook()

@@ -5,7 +5,7 @@ from airflow.decorators import dag, task
 from airflow.models.param import Param
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
-from include.utils.alerts import dag_failure_callback
+from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.tickets import get_ticket_by_type
 
 logger = logging.getLogger(__name__)
@@ -15,12 +15,11 @@ logger = logging.getLogger(__name__)
     params={
         "workflow_id": Param(type="string", default=""),
         "data": Param(type="object", default={}),
-        "collection": Param(type="string", default=AUTHORS),
     },
     start_date=datetime.datetime(2024, 5, 5),
     schedule=None,
     catchup=False,
-    on_failure_callback=dag_failure_callback,
+    on_failure_callback=FailedDagNotifierSetError(collection=AUTHORS),
     tags=[AUTHORS],
 )
 def author_create_rejected_dag() -> None:

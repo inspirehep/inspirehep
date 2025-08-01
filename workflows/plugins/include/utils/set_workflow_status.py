@@ -28,7 +28,7 @@ def get_wf_status_from_inspire_response(response: Response) -> str:
     return workflow_status
 
 
-def set_workflow_status_to_error(context: dict) -> None:
+def set_workflow_status_to_error(collection, context: dict) -> None:
     """
     Sets the workflow status to error.
 
@@ -36,10 +36,8 @@ def set_workflow_status_to_error(context: dict) -> None:
         workflow_id (str): The identifier for the workflow.
     """
     logger.info("Setting workflow status to error")
-    response = WorkflowManagementHook(
-        collection=context["params"]["collection"]
-    ).set_workflow_status(
-        status_name="error", workflow_id=context["params"]["workflow_id"]
+    response = WorkflowManagementHook(collection=collection).set_workflow_status(
+        status_name="error", workflow_id=context["run_id"]
     )
     try:
         response.raise_for_status()

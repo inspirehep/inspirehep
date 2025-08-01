@@ -8,7 +8,7 @@ from airflow.macros import ds_add
 from airflow.models.param import Param
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
-from include.utils.alerts import task_failure_alert
+from include.utils.alerts import FailedDagNotifier
 from include.utils.s3 import read_object, write_object
 from sickle import Sickle, oaiexceptions
 
@@ -51,7 +51,7 @@ logger = logging.getLogger(__name__)
             ],
         ),
     },
-    on_failure_callback=task_failure_alert,
+    on_failure_callback=FailedDagNotifier(),
 )
 def arxiv_harvest_dag():
     """Defines the DAG for the arXiv harvest workflow.
