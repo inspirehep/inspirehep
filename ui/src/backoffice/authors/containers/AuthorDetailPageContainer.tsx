@@ -70,6 +70,7 @@ const AuthorDetailPageContainer = ({
   const tickets = author?.get('tickets')?.size !== 0 && author?.get('tickets');
   const decision = author?.getIn(['decisions', 0]) as Map<string, any>;
   const status = author?.get('status');
+  const workflow_type = author?.get('workflow_type');
   const statusInfo = status
     ? getWorkflowStatusInfo(status.toLowerCase())
     : null;
@@ -102,6 +103,13 @@ const AuthorDetailPageContainer = ({
   const handleResolveAction = (value: string) => {
     dispatch(resolveAction(id, 'resolve', { value }));
   };
+
+  const getDag = (workflow_type: string): string =>
+    workflow_type === 'AUTHOR_CREATE'
+      ? 'author_create_initialization_dag'
+      : 'author_update_dag';
+
+  const DAG_FULL_URL = `${DAGS_URL}${getDag(workflow_type)}/runs/${id}`;
 
   return (
     <div
@@ -216,10 +224,9 @@ const AuthorDetailPageContainer = ({
                       <CollapsableForm.Section header="Errors" key="errors">
                         <p>
                           See error details here:{' '}
-                          <a
-                            href={`${DAGS_URL}${id}`}
-                            target="_blank"
-                          >{`${DAGS_URL}${id}`}</a>
+                          <a href={DAG_FULL_URL} target="_blank">
+                            {DAG_FULL_URL}
+                          </a>
                         </p>
                       </CollapsableForm.Section>
                     )}
@@ -331,7 +338,7 @@ const AuthorDetailPageContainer = ({
                     >
                       <div className="flex flex-column items-center">
                         <Button className="w-75">
-                          <a href={`${DAGS_URL}${id}`} target="_blank">
+                          <a href={DAG_FULL_URL} target="_blank">
                             See running dags
                           </a>
                         </Button>
