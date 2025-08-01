@@ -1,0 +1,99 @@
+interactions:
+- request:
+    body: '{"index":{"_id":"00000000-0000-0000-0000-000000000002","_index":"backoffice-backend-test-hep-workflows"}}
+
+      {"id":"00000000-0000-0000-0000-000000000002","workflow_type":"HEP_CREATE","data":{},"decisions":[],"status":"approval","_created_at":"2025-07-31T13:09:24.779554+00:00","_updated_at":"2025-07-31T13:09:24.779567+00:00"}
+
+      '
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+      user-agent:
+      - opensearch-py/2.6.0 (Python 3.11.6)
+    method: POST
+    uri: http://es:9200/_bulk?refresh=true
+  response:
+    body:
+      string: '{"took":567,"errors":false,"items":[{"index":{"_index":"backoffice-backend-test-hep-workflows","_id":"00000000-0000-0000-0000-000000000002","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+    headers:
+      content-length:
+      - '288'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"dag_run_id": "c4bcc6df-f244-4ef9-8085-ff3ce557c8ca", "logical_date":
+      null, "conf": {"workflow_id": "c4bcc6df-f244-4ef9-8085-ff3ce557c8ca"}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '141'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.31.0
+    method: POST
+    uri: http://airflow-api-server:8080/api/v2/dags/hep_create_dag/dagRuns
+  response:
+    body:
+      string: !!binary |
+        H4sIAAVri2gA/5VR0W7DIAz8F55LRUhISL5jT50mRMBk0SjpCGyaqv77nLTbWqmbtDd85zufzZFY
+        PaiYgxot6YipemNq66jjVUUrcC2VTArqXGlAiMZIo8lm1az9z3BQJoJOoBBDxk/DaLTHKgHpQvZ+
+        Q14zZLBKJxRwxgVlDS2Lh6LsWNtxsa25KGSzQ/WcdEw3Wgj2psa3VmNIEN9wytp/n0LhF7Fspx3i
+        v8wXUpZsne/1nNRsnsFmP4ZBWTDjPE7h2il9HDAN2euQtT9nXuJdtkQgxXEYIOLG/QfiEdBTH0Zk
+        zBQc6Y7kfYovzk/v/7j5aUPCdH2GQb1BXLLNpHs8ktWJFa2sWcMo17KmDbSW6sb0tEZ/ztu6Fk5g
+        jItQhbzvl6Pwvz60z8F6UEHvlyURm6mbvEXdN3fx+8p2lt/5b97xsqvYtsIsstj9GOToz+LT033T
+        0yfQ0jb4pwIAAA==
+    headers:
+      content-encoding:
+      - gzip
+      content-type:
+      - application/json
+      date:
+      - Thu, 31 Jul 2025 13:09:25 GMT
+      server:
+      - uvicorn
+      transfer-encoding:
+      - chunked
+      vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"index":{"_id":"c4bcc6df-f244-4ef9-8085-ff3ce557c8ca","_index":"backoffice-backend-test-hep-workflows"}}
+
+      {"id":"c4bcc6df-f244-4ef9-8085-ff3ce557c8ca","workflow_type":"HEP_CREATE","data":{"titles":[{"title":"The
+      MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"]},"decisions":[],"status":"running","_created_at":"2025-07-31T13:09:25.546204+00:00","_updated_at":"2025-07-31T13:09:25.546219+00:00"}
+
+      '
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+      user-agent:
+      - opensearch-py/2.6.0 (Python 3.11.6)
+    method: POST
+    uri: http://es:9200/_bulk?refresh=true
+  response:
+    body:
+      string: '{"took":56,"errors":false,"items":[{"index":{"_index":"backoffice-backend-test-hep-workflows","_id":"c4bcc6df-f244-4ef9-8085-ff3ce557c8ca","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":1,"_primary_term":1,"status":201}}]}'
+    headers:
+      content-length:
+      - '287'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+version: 1
