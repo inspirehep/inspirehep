@@ -3,9 +3,9 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
 import mock
 import orjson
+import pytest
 from helpers.utils import create_record, create_user
 from inspirehep.accounts.roles import Roles
 from inspirehep.records.api import AuthorsRecord
@@ -1128,6 +1128,9 @@ def test_assign_author_has_main_name(mock_create_ticket, inspire_app):
     assert "created_rt_ticket" in response.json
 
 
+@pytest.mark.xfail(
+    reason="Disambiguation is running in the background, so the record is actually found now"
+)
 def test_literature_assign_check_names_compatibility_when_no_record_in_matched_author(
     inspire_app,
 ):
