@@ -41,11 +41,6 @@ def mint_bais(yes_i_know, create):
             "Cannot mint BAIs without FEATURE_FLAG_ENABLE_BAI_PROVIDER set!", err=True
         )
         return
-    if current_app.config.get("FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION"):
-        click.echo(
-            "Cannot mint BAIs with FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION set!",
-            err=True,
-        )
     if not yes_i_know:
         if create:
             click.confirm(
@@ -157,11 +152,6 @@ def fast_mint_bais(yes_i_know):
             "Cannot mint BAIs without FEATURE_FLAG_ENABLE_BAI_PROVIDER set!", err=True
         )
         return
-    if current_app.config.get("FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION"):
-        click.echo(
-            "Cannot mint BAIs with FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION set!",
-            err=True,
-        )
     if not yes_i_know:
         click.confirm(
             "Do you want to create new BAIs for authors records which are missing one?",

@@ -36,9 +36,11 @@ def test_index_literature_record(inspire_app, datadir):
     expected_facet_author_name = expected_metadata.pop("facet_author_name")
     expected_metadata.pop("authors")
     expected_metadata.pop("texkeys", None)
+    expected_metadata.pop("_created")
+    expected_metadata.pop("_updated")
+    expected_metadata.pop("_expanded_authors_display", None)
 
     response = es_search("records-hep")
-
     result = response["hits"]["hits"][0]["_source"]
     result_ui_display = orjson.loads(result.pop("_ui_display"))
     result_ui_display.pop("texkeys", None)
