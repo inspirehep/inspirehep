@@ -4,6 +4,15 @@ from requests import Response
 AUTHORS = "authors"
 HEP = "hep"
 
+RUNNING_STATUSES = [
+    "running",
+    "approval",
+    "error",
+    "matching",
+    "fuzzy_matching",
+    "blocked",
+]
+
 
 class WorkflowManagementHook(BackofficeHook):
     """
@@ -68,3 +77,8 @@ class WorkflowManagementHook(BackofficeHook):
             data=workflow_data,
             endpoint=endpoint,
         )
+
+    def filter_workflows(self, params) -> dict:
+        endpoint = f"{self.endpoint}/search/"
+        response = self.call_api(method="GET", endpoint=endpoint, params=params)
+        return response.json()

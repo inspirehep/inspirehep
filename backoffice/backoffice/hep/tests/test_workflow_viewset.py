@@ -1,5 +1,5 @@
 import uuid
-
+import pytest
 from django.urls import reverse
 from backoffice.common.tests.base import BaseTransactionTestCase
 from backoffice.hep.api.serializers import (
@@ -69,3 +69,30 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         assert "decisions" in workflow_data
         assert "action" in workflow_data["decisions"][0]
         assert "user" in workflow_data["decisions"][0]
+
+    @pytest.mark.vcr
+    def test_create_hep(self):
+        self.api_client.force_authenticate(user=self.curator)
+
+        data = {
+            "workflow_type": HepWorkflowType.HEP_CREATE,
+            "status": "running",
+            "data": {
+                "_collections": ["Literature"],
+                "titles": [
+                    {
+                        "source": "submitter",
+                        "title": "The MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer",
+                    }
+                ],
+                "document_type": ["article"],
+                "$schema": "https://inspirehep.net/schemas/records/hep.json",
+            },
+        }
+
+        url = reverse("api:hep-list")
+        response = self.api_client.post(url, format="json", data=data)
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.json()["data"], data["data"])
+        self.assertEqual(response.json()["workflow_type"], data["workflow_type"])
+        self.assertIn("id", response.json())
