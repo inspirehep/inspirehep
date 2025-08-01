@@ -1,0 +1,52 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/authors/search/?status=running
+  response:
+    body:
+      string: '{"count":1,"next":null,"previous":null,"facets":{"_filter_workflow_type":{"doc_count":1,"workflow_type":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"AUTHOR_CREATE","doc_count":1,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"running","doc_count":1}]}}]}},"_filter_status":{"doc_count":1,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"running","doc_count":1}]}}},"results":[{"status":"running","decisions":[],"_updated_at":"2024-11-25T13:49:54.756000+00:00","workflow_type":"AUTHOR_CREATE","id":"00000000-0000-0000-0000-000000001521","_created_at":"2024-11-25T13:49:53.009000+00:00","data":{"name":{"value":"B,
+        Third","preferred_name":"Third B"},"status":"active","$schema":"https://inspirebeta.net/schemas/records/authors.json","_collections":["Authors"],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}}}]}'
+    headers:
+      Allow:
+      - GET, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '1044'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 31 Jul 2025 13:00:54 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=172.1900000000005;desc="User CPU time", TimerPanel_stime;dur=5.454000000000292;desc="System
+        CPU time", TimerPanel_total;dur=177.6440000000008;desc="Total CPU time", TimerPanel_total_time;dur=298.9299999899231;desc="Elapsed
+        time", SQLPanel_sql_time;dur=4.013957979623228;desc="SQL 5 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 332ca8e68bb7460a862d787250861e13
+    status:
+      code: 200
+      message: OK
+version: 1

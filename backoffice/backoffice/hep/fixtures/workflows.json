@@ -13,6 +13,17 @@
                 "_collections": [
                     "Literature"
                 ],
+                  "arxiv_eprints": [
+    {
+      "value": "2507.26819",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.LG",
+        "cs.RO"
+      ]
+    }
+  ],
                 "document_type": ["article"],
                 "$schema": "https://inspirebeta.net/schemas/records/hep.json",
                 "acquisition_source": {
