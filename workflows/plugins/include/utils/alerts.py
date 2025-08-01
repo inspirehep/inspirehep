@@ -1,6 +1,7 @@
 import logging
 import os
 
+from airflow.sdk import BaseNotifier
 from airflow.utils.email import send_email
 from include.utils.set_workflow_status import (
     set_workflow_status_to_error,
@@ -16,10 +17,11 @@ def task_failure_alert(context):
     if not recipient:
         logger.error("Cannot send email.")
         return
-
     dag_id = context.get("dag").dag_id if context.get("dag") else "unknown"
+    workflow_id = context.get("run_id", "unknown")
     log_url = (
-        context.get("task_instance").log_url if context.get("task_instance") else None
+        f"{os.environ.get('AIRFLOW__WEBSERVER__BASE_URL')}"
+        f"/dags/{dag_id}/runs/{workflow_id}/?state=failed"
     )
     log_url_display = f'<a href="{log_url}">Log URL</a>' if log_url else "N/A"
 
@@ -35,12 +37,24 @@ def task_failure_alert(context):
     )
 
 
-def dag_failure_callback(context):
-    """Callback function for DAG failure."""
-    try:
-        task_failure_alert(context)
-    except Exception as e:
-        logger.error(f"Error in sending alert: {e}")
+class FailedDagNotifier(BaseNotifier):
+    def __init__(self, collection=None):
+        self.collection = collection
 
-    # TODO: what if callback fails? Data in backoffice not up to date!
-    set_workflow_status_to_error(context)
+    def notify(self, context):
+        """Callback function for DAG failure."""
+        try:
+            task_failure_alert(context)
+        except Exception as e:
+            logger.error(f"Error in sending alert: {e}")
+
+
+class FailedDagNotifierSetError(FailedDagNotifier):
+    def notify(self, context):
+        """Callback function for DAG failure."""
+
+        super().notify(context)
+
+        # TODO: what if callback fails? Data in backoffice not up to date!
+        if self.collection:
+            set_workflow_status_to_error(self.collection, context)

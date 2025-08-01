@@ -14,7 +14,7 @@ from hooks.inspirehep.inspire_http_hook import (
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
-from include.utils.alerts import dag_failure_callback
+from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.set_workflow_status import (
     get_wf_status_from_inspire_response,
 )
@@ -26,10 +26,9 @@ from include.utils.set_workflow_status import (
     params={
         "workflow_id": Param(type="string", default=""),
         "data": Param(type="object", default={}),
-        "collection": Param(type="string", default=AUTHORS),
     },
     catchup=False,
-    on_failure_callback=dag_failure_callback,
+    on_failure_callback=FailedDagNotifierSetError(collection=AUTHORS),
     tags=[AUTHORS],
 )
 def author_update_dag():

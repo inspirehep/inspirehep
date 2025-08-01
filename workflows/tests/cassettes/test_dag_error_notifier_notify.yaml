@@ -1,0 +1,230 @@
+interactions:
+- request:
+    body: '{"status": "error"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '19'
+      Content-Type:
+      - application/json
+    method: PATCH
+    uri: http://host.docker.internal:8001/api/workflows/authors/00000000-0000-0000-0000-000000001521/
+  response:
+    body:
+      string: '{"id":"00000000-0000-0000-0000-000000001521","data":{"name":{"value":"B,
+        Third","preferred_name":"Third B"},"status":"active","$schema":"https://inspirebeta.net/schemas/records/authors.json","_collections":["Authors"],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[],"workflow_type":"AUTHOR_CREATE","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-08-04T11:10:35.092119Z","status":"error"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '563'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Mon, 04 Aug 2025 11:10:35 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=113.42600000000402;desc="User CPU time", TimerPanel_stime;dur=12.630999999998949;desc="System
+        CPU time", TimerPanel_total;dur=126.05700000000297;desc="Total CPU time",
+        TimerPanel_total_time;dur=140.1655840454623;desc="Elapsed time", SQLPanel_sql_time;dur=11.931375949643552;desc="SQL
+        9 queries", CachePanel_total_time;dur=0;desc="Cache 0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 23e402cccedb4366bd94f9fbcbc67822
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/authors/00000000-0000-0000-0000-000000001521
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Mon, 04 Aug 2025 11:10:35 GMT
+      Location:
+      - /api/workflows/authors/00000000-0000-0000-0000-000000001521/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/authors/00000000-0000-0000-0000-000000001521/
+  response:
+    body:
+      string: '{"id":"00000000-0000-0000-0000-000000001521","validation_errors":[],"data":{"name":{"value":"B,
+        Third","preferred_name":"Third B"},"status":"active","$schema":"https://inspirebeta.net/schemas/records/authors.json","_collections":["Authors"],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[],"workflow_type":"AUTHOR_CREATE","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-08-04T11:10:35.092119Z","status":"error"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '586'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Mon, 04 Aug 2025 11:10:35 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=67.80699999998774;desc="User CPU time", TimerPanel_stime;dur=1.0170000000044865;desc="System
+        CPU time", TimerPanel_total;dur=68.82399999999222;desc="Total CPU time", TimerPanel_total_time;dur=76.78845897316933;desc="Elapsed
+        time", SQLPanel_sql_time;dur=8.603624068200588;desc="SQL 12 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 2e91ab8186814d209c2732eb4b0d4353
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/authors/00000000-0000-0000-0000-000000001521
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Mon, 04 Aug 2025 11:10:35 GMT
+      Location:
+      - /api/workflows/authors/00000000-0000-0000-0000-000000001521/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/authors/00000000-0000-0000-0000-000000001521/
+  response:
+    body:
+      string: '{"id":"00000000-0000-0000-0000-000000001521","validation_errors":[],"data":{"name":{"value":"B,
+        Third","preferred_name":"Third B"},"status":"active","$schema":"https://inspirebeta.net/schemas/records/authors.json","_collections":["Authors"],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[],"workflow_type":"AUTHOR_CREATE","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-08-04T11:10:35.092119Z","status":"error"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '586'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Mon, 04 Aug 2025 11:10:35 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=57.839000000001306;desc="User CPU time", TimerPanel_stime;dur=1.7539999999911515;desc="System
+        CPU time", TimerPanel_total;dur=59.59299999999246;desc="Total CPU time", TimerPanel_total_time;dur=77.85054197302088;desc="Elapsed
+        time", SQLPanel_sql_time;dur=7.893499976489693;desc="SQL 12 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - b12d61f325ca44ad8c370d20a023094b
+    status:
+      code: 200
+      message: OK
+version: 1

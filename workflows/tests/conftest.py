@@ -6,6 +6,9 @@ import pytest
 dags_path = Path(__file__).resolve().parents[1] / "dags"
 sys.path.insert(0, str(dags_path))
 
+plugins_path = Path(__file__).resolve().parents[1] / "plugins"
+sys.path.insert(0, str(plugins_path))
+
 
 @pytest.fixture(scope="session")
 def vcr_config():

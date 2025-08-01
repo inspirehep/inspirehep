@@ -8,7 +8,7 @@ from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
-from include.utils.alerts import task_failure_alert
+from include.utils.alerts import FailedDagNotifier
 from include.utils.cds import retrieve_and_validate_record, update_record
 from inspire_utils.record import get_value
 
@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
     params={
         "since": Param(type=["string"], default=""),
     },
-    on_failure_callback=task_failure_alert,
+    on_failure_callback=FailedDagNotifier(),
 )
 def cds_harvest_dag():
     """Defines the DAG for the CDS harvest workflow."""
