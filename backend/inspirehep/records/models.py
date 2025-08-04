@@ -166,7 +166,7 @@ class RecordsAuthors(db.Model):
         ),
         db.Index("ix_records_authors_id_type_authors_id", "id_type", "author_id"),
     )
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.BigInteger, primary_key=True)
     author_id = db.Column(Text, nullable=False)
     id_type = db.Column(
         ENUM(*[key.value for key in AuthorSchemaType], name="enum_author_schema_type"),
