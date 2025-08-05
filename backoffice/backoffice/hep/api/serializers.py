@@ -104,5 +104,5 @@ class HepWorkflowDocumentSerializer(DocumentSerializer):
     ],
 )
 class HepResolutionSerializer(serializers.Serializer):
-    value = serializers.ChoiceField(choices=HEP_DECISION_CHOICES)
-    create_ticket = serializers.BooleanField(default=False)
+    action = serializers.ChoiceField(choices=HEP_DECISION_CHOICES)
+    value = serializers.CharField(max_length=30, default="")

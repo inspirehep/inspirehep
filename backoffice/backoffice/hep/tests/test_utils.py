@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.test import TransactionTestCase
 from rest_framework.exceptions import ValidationError
 
-from backoffice.hep.constants import HepStatusChoices, HepResolutionDags
+from backoffice.hep.constants import HepStatusChoices, HepResolutions
 from backoffice.hep.utils import add_hep_decision
 
 User = get_user_model()
@@ -29,7 +29,7 @@ class TestUtils(TransactionTestCase):
         decision_data = add_hep_decision(
             self.workflow.id,
             self.user,
-            HepResolutionDags.accept,
+            HepResolutions.approval,
         )
         self.assertIsNotNone(decision_data)
 
@@ -45,5 +45,5 @@ class TestUtils(TransactionTestCase):
             add_hep_decision(
                 uuid.UUID(int=0),
                 self.user,
-                HepResolutionDags.accept,
+                HepResolutions.approval,
             )
