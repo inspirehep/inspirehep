@@ -9,7 +9,7 @@ from hooks.backoffice.workflow_management_hook import (
     RUNNING_STATUSES,
     WorkflowManagementHook,
 )
-from include.utils.alerts import dag_failure_callback
+from include.utils.alerts import FailedDagNotifierSetError
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
     start_date=datetime.datetime(2024, 5, 5),
     schedule=None,
     catchup=False,
-    on_failure_callback=dag_failure_callback,
+    on_failure_callback=FailedDagNotifierSetError(collection=HEP),
     tags=[HEP],
 )
 def hep_create_dag():
