@@ -6,6 +6,7 @@ from airflow.exceptions import AirflowException, AirflowSkipException
 from airflow.hooks.base import BaseHook
 from airflow.macros import ds_add
 from airflow.models.param import Param
+from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.alerts import FailedDagNotifier
@@ -69,6 +70,7 @@ def arxiv_harvest_dag():
     sickle = Sickle(conn.host)
     s3_hook = S3Hook(aws_conn_id="s3_conn")
     s3_conn = BaseHook.get_connection("s3_conn")
+    bucket_name = Variable.get("s3_bucket_name")
 
     @task(task_id="get_sets")
     def get_sets(**context):
@@ -113,7 +115,9 @@ def arxiv_harvest_dag():
                 raise AirflowSkipException(f"No records for '{set}'") from None
 
             return write_object(
-                s3_hook, {"records": [record.raw for record in records]}
+                s3_hook,
+                {"records": [record.raw for record in records]},
+                bucket_name=bucket_name,
             )
 
         @task.virtualenv(
@@ -121,7 +125,7 @@ def arxiv_harvest_dag():
             system_site_packages=False,
             venv_cache_path="/opt/airflow/venvs",
         )
-        def build_records(records_key, s3_creds, **context):
+        def build_records(records_key, s3_creds, bucket_name, **context):
             """Build the records from the arXiv xml response.
 
             Args: records list(str): The list of raw xml records from arXiv.
@@ -140,7 +144,7 @@ def arxiv_harvest_dag():
             from inspire_schemas.parsers.arxiv import ArxivParser
 
             s3_client = get_s3_client(s3_creds)
-            records_data = read_object(s3_client, records_key)
+            records_data = read_object(s3_client, records_key, bucket_name=bucket_name)
 
             parsed_records = []
             failed_records = []
@@ -153,6 +157,7 @@ def arxiv_harvest_dag():
             return write_object(
                 s3_client,
                 {"parsed_records": parsed_records, "failed_records": failed_records},
+                bucket_name=bucket_name,
             )
 
         @task
@@ -161,7 +166,7 @@ def arxiv_harvest_dag():
 
             Args: new_records list(dict): The records to load.
             """
-            data = read_object(s3_hook, records_key)
+            data = read_object(s3_hook, records_key, bucket_name=bucket_name)
 
             failed_records = []
             for record in data["parsed_records"]:
@@ -185,7 +190,11 @@ def arxiv_harvest_dag():
                     )
                     failed_records.append(record)
 
-                return write_object(s3_hook, {"failed_records": failed_records})
+                return write_object(
+                    s3_hook,
+                    {"failed_records": failed_records},
+                    bucket_name=bucket_name,
+                )
 
         record_keys = fetch_records(set)
         build_record_keys = build_records(
@@ -195,6 +204,7 @@ def arxiv_harvest_dag():
                 "secret": s3_conn.password,
                 "host": s3_conn.extra_dejson.get("endpoint_url"),
             },
+            bucket_name=bucket_name,
         )
         failed_load_record_keys = load_records(build_record_keys)
 
@@ -212,7 +222,9 @@ def arxiv_harvest_dag():
             """Gather all failed records from the given keys."""
             failed_records = []
             for key in all_record_keys:
-                failed_records += read_object(s3_hook, key)["failed_records"]
+                failed_records += read_object(s3_hook, key, bucket_name=bucket_name)[
+                    "failed_records"
+                ]
             return failed_records
 
         all_record_keys = build_record_keys + failed_load_record_keys
