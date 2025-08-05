@@ -133,3 +133,15 @@ def test_process_bulk_record_for_index_default_values(
     assert record_to_index_mock.call_count == 1
     assert prepare_record_mock.call_count == 1
     assert expected_data == bulk_data
+
+
+@mock.patch("inspirehep.records.api.InspireRecord.get_record")
+def test_bulk_action_catches_recursion_error_in_deleted_records(mock_get_record):
+    record = LiteratureRecord({})
+    record["deleted"] = True
+    record.index = mock.Mock(side_effect=RecursionError("max recursion exceeded"))
+    mock_get_record.return_value = record
+
+    indexer = InspireRecordIndexer()
+    result = indexer.bulk_action(record.id)
+    assert result is None

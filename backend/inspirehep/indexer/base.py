@@ -164,6 +164,11 @@ class InspireRecordIndexer(RecordIndexer):
                         force_delete=True,
                         skip_indexing_references=self._skip_indexing_references,
                     )
+                except RecursionError:
+                    LOGGER.exception(
+                        "RecursionError! Circular reference detected while indexing",
+                        uuid=str(record_uuid),
+                    )
                 except TransportError:
                     LOGGER.warning("Record not found in ES!", uuid=str(record.id))
                 return None
