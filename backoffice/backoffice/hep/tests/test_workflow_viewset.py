@@ -9,7 +9,7 @@ from backoffice.hep.models import HepWorkflowTicket
 from backoffice.hep.constants import (
     HepWorkflowType,
     HepStatusChoices,
-    HepResolutionDags,
+    HepResolutions,
 )
 from django.apps import apps
 
@@ -63,7 +63,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
 
     def test_decisions(self):
         HepDecision.objects.create(
-            workflow=self.workflow, user=self.user, action=HepResolutionDags.accept
+            workflow=self.workflow, user=self.user, action=HepResolutions.exact_match
         )
         workflow_data = HepWorkflowSerializer(self.workflow).data
         assert "decisions" in workflow_data

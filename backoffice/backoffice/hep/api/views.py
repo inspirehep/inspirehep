@@ -3,13 +3,17 @@ import logging
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 
+from django.shortcuts import get_object_or_404
+
 from backoffice.hep.utils import add_hep_decision
 from backoffice.hep.api.serializers import (
     HepWorkflowSerializer,
     HepWorkflowDocumentSerializer,
     HepWorkflowTicketSerializer,
     HepDecisionSerializer,
+    HepResolutionSerializer,
 )
+from rest_framework.decorators import action
 from backoffice.common.views import BaseWorkflowTicketViewSet, BaseWorkflowViewSet
 from backoffice.hep.models import HepWorkflowTicket, HepDecision, HepWorkflow
 from backoffice.hep.documents import HepWorkflowDocument
@@ -23,13 +27,11 @@ from drf_spectacular.utils import (
     extend_schema,
     extend_schema_view,
 )
-
 from requests.exceptions import RequestException
 from backoffice.common import airflow_utils
 from backoffice.common.utils import (
     handle_request_exception,
 )
-
 from django_elasticsearch_dsl_drf.filter_backends import (
     CompoundSearchFilterBackend,
     DefaultOrderingFilterBackend,
@@ -37,7 +39,7 @@ from django_elasticsearch_dsl_drf.filter_backends import (
     FilteringFilterBackend,
     OrderingFilterBackend,
 )
-from backoffice.hep.constants import HepStatusChoices, HepWorkflowType
+from backoffice.hep.constants import HepResolutions, HepStatusChoices, HepWorkflowType
 from backoffice.common.constants import WORKFLOW_DAGS
 
 logger = logging.getLogger(__name__)
@@ -53,6 +55,7 @@ class HepDecisionViewSet(viewsets.ModelViewSet):
     queryset = HepDecision.objects.all()
 
     def create(self, request, *args, **kwargs):
+        logger.info("Creating decision with data: %s", request.data)
         data = add_hep_decision(
             request.data["workflow_id"], request.user, request.data["action"]
         )
@@ -83,6 +86,7 @@ class HepDecisionViewSet(viewsets.ModelViewSet):
 class HepWorkflowViewSet(BaseWorkflowViewSet):
     queryset = HepWorkflow.objects.all()
     serializer_class = HepWorkflowSerializer
+    resolution_serializer = HepResolutionSerializer
     schema_name = "hep"
 
     def create(self, request):
@@ -102,6 +106,42 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
                 e,
             )
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    @action(detail=True, methods=["post"])
+    def resolve(self, request, pk=None):
+        logger.info("Resolving data: %s", request.data)
+        serializer = self.resolution_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        logger.info(
+            "Restarting HEP DAG Run %s after choice: %s",
+            pk,
+            serializer.validated_data["value"],
+        )
+        add_hep_decision(
+            pk,
+            request.user,
+            serializer.validated_data["action"],
+            serializer.validated_data["value"],
+        )
+
+        try:
+            airflow_utils.clear_airflow_dag_tasks(
+                WORKFLOW_DAGS[HepWorkflowType.HEP_CREATE],
+                pk,
+                tasks=[HepResolutions[serializer.validated_data["action"]].label],
+            )
+        except RequestException as e:
+            return handle_request_exception(
+                "Error clearing Airflow DAG",
+                e,
+            )
+
+        workflow = get_object_or_404(HepWorkflow, pk=pk)
+        workflow.status = HepStatusChoices.PROCESSING
+        workflow.save()
+        workflow_serializer = self.serializer_class(workflow)
+        return Response(workflow_serializer.data)
 
 
 @extend_schema_view(

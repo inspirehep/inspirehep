@@ -39,3 +39,4 @@ class HepDecision(BaseDecision):
         HepWorkflow, related_name="decisions", on_delete=models.CASCADE
     )
     action = models.CharField(max_length=30, choices=HEP_DECISION_CHOICES)
+    value = models.CharField(max_length=30, default="", blank=True)

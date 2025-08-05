@@ -4,14 +4,20 @@ import random
 
 from airflow.decorators import dag, task
 from airflow.models.param import Param
+from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+from airflow.utils.trigger_rule import TriggerRule
 from hooks.backoffice.workflow_management_hook import (
     HEP,
     RUNNING_STATUSES,
     WorkflowManagementHook,
 )
 from include.utils.alerts import FailedDagNotifierSetError
+from include.utils.s3 import read_object, write_object
+from include.utils.workflows import get_decision
 
 logger = logging.getLogger(__name__)
+
+s3_hook = S3Hook(aws_conn_id="s3_conn")
 
 
 @dag(
@@ -40,7 +46,12 @@ def hep_create_dag():
 
     @task
     def get_workflow_data(**context):
-        return workflow_management_hook.get_workflow(context["params"]["workflow_id"])
+        workflow_data = workflow_management_hook.get_workflow(
+            context["params"]["workflow_id"]
+        )
+        return write_object(
+            s3_hook, workflow_data, context["params"]["workflow_id"], overwrite=True
+        )
 
     @task
     def set_workflow_status_to_running(
@@ -54,7 +65,8 @@ def hep_create_dag():
         )
 
     @task.short_circuit(ignore_downstream_trigger_rules=False)
-    def check_for_blocking_workflows(workflow_data, **context):
+    def check_for_blocking_workflows(**context):
+        workflow_data = read_object(s3_hook, context["params"]["workflow_id"])
         filter_params = {
             "status__in": {"__".join(RUNNING_STATUSES)},
             "data.arxiv_eprints.value": {
@@ -79,26 +91,43 @@ def hep_create_dag():
         if is_persisten_identifier_match:
             return "direct_update"
 
-        return "set_workflow_status_to_matching"
+        return "await_decision_exact_match"
 
     @task
     def set_workflow_status_to_matching(**context):
-        print("set to wait for curator exact_matching")
         workflow_management_hook.set_workflow_status(
             status_name="matching", workflow_id=context["params"]["workflow_id"]
         )
 
     @task.branch
-    def decision_exact_match(**context):
-        # to be replaced with actual matching logic
-        is_exact_match = random.choice([True, False])
+    def await_decision_exact_match(**context):
+        workflow_data = workflow_management_hook.get_workflow(
+            context["params"]["workflow_id"]
+        )
 
-        if is_exact_match:
+        decision = get_decision(workflow_data.get("decisions"), "exact_match")
+        if decision:
+            write_object(
+                s3_hook, workflow_data, context["params"]["workflow_id"], overwrite=True
+            )
+            return "set_workflow_status_to_running"
+
+        return "set_workflow_status_to_matching"
+
+    @task.branch
+    def check_is_update(**context):
+        """
+        Check if the workflow is an update or create.
+        """
+
+        workflow_data = read_object(s3_hook, context["params"]["workflow_id"])
+        # update the update logic
+        decision = get_decision(workflow_data.get("decisions"), "exact_match")
+        if decision and decision.get("value"):
             return "direct_update"
-
         return "direct_create"
 
-    @task
+    @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def direct_update(**context):
         print("direct update")
 
@@ -106,7 +135,7 @@ def hep_create_dag():
     def direct_create(**context):
         print("direct create")
 
-    @task
+    @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def set_workflow_status_to_completed(**context):
         """
         Set the status of the workflow to "completed".
@@ -115,23 +144,28 @@ def hep_create_dag():
             status_name="completed", workflow_id=context["params"]["workflow_id"]
         )
 
-    workflow_data = get_workflow_data()
-    decision_exact_match_task = decision_exact_match()
+    await_decision_exact_match_task = await_decision_exact_match()
     direct_update_task = direct_update()
     direct_create_task = direct_create()
     set_workflow_status_to_matching_task = set_workflow_status_to_matching()
+    set_workflow_status_to_running_task = set_workflow_status_to_running()
 
     (
-        workflow_data
+        get_workflow_data()
         >> set_workflow_status_to_running()
-        >> check_for_blocking_workflows(workflow_data)
+        >> check_for_blocking_workflows()
         >> check_persistent_identifier_match()
-        >> [direct_update_task, set_workflow_status_to_matching_task]
+        >> [direct_update_task, await_decision_exact_match_task]
     )
 
+    await_decision_exact_match_task >> [
+        set_workflow_status_to_running_task,
+        set_workflow_status_to_matching_task,
+    ]
+
     (
-        set_workflow_status_to_matching_task
-        >> decision_exact_match_task
+        set_workflow_status_to_running_task
+        >> check_is_update()
         >> [direct_update_task, direct_create_task]
         >> set_workflow_status_to_completed()
     )
