@@ -3,6 +3,7 @@ from unittest.mock import patch
 import pytest
 from airflow.exceptions import AirflowException, AirflowSkipException
 from airflow.models import DagBag
+from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.utils.context import Context
 from include.utils.s3 import read_object, write_object
@@ -16,6 +17,7 @@ s3_creds = {
     "secret": s3_conn.password,
     "host": s3_conn.extra_dejson.get("endpoint_url"),
 }
+bucket_name = Variable.get("s3_bucket_name")
 
 
 class TestArxivHarvest:
@@ -29,7 +31,7 @@ class TestArxivHarvest:
         }
         task.op_args = ("physics:hep-th",)
         res = task.execute(context=Context({"ds": "2025-07-02"}))
-        result = read_object(s3_hook, res)
+        result = read_object(s3_hook, res, bucket_name=bucket_name)
         assert len(result["records"])
         assert "oai:arXiv.org:2101.11905" in result["records"][0]
         assert "oai:arXiv.org:2207.10712" in result["records"][1]
@@ -46,7 +48,7 @@ class TestArxivHarvest:
         }
         task.op_args = ("physics:hep-th",)
         res = task.execute(context=Context({"ds": "2025-07-03"}))
-        result = read_object(s3_hook, res)
+        result = read_object(s3_hook, res, bucket_name=bucket_name)
 
         assert len(result["records"])
         assert "oai:arXiv.org:2101.11905" in result["records"][0]
@@ -70,14 +72,14 @@ class TestArxivHarvest:
         for xml_file in xml_files:
             xml_string = (datadir / xml_file).read_text(encoding="utf-8")
             records.append(xml_string)
-        s3_key = write_object(s3_hook, {"records": records})
+        s3_key = write_object(s3_hook, {"records": records}, bucket_name=bucket_name)
 
         task = self.dag.get_task("process_records.build_records")
-        task.op_args = (s3_key, s3_creds)
+        task.op_args = (s3_key, s3_creds, bucket_name)
 
         res = task.execute(context=Context())
 
-        result = read_object(s3_hook, res)
+        result = read_object(s3_hook, res, bucket_name=bucket_name)
 
         assert len(result["parsed_records"]) == 2
         assert len(result["failed_records"]) == 0
@@ -89,14 +91,13 @@ class TestArxivHarvest:
         for xml_file in xml_files:
             xml_string = (datadir / xml_file).read_text(encoding="utf-8")
             records.append(xml_string)
-
-        s3_key = write_object(s3_hook, {"records": records})
+        s3_key = write_object(s3_hook, {"records": records}, bucket_name=bucket_name)
 
         task = self.dag.get_task("process_records.build_records")
-        task.op_args = (s3_key, s3_creds)
+        task.op_args = (s3_key, s3_creds, bucket_name)
 
         res = task.execute(context=Context())
-        result = read_object(s3_hook, res)
+        result = read_object(s3_hook, res, bucket_name=bucket_name)
         assert len(result["parsed_records"]) == 1
         assert len(result["failed_records"]) == 1
 
@@ -123,14 +124,17 @@ class TestArxivHarvest:
             ]
         }
         task = self.dag.get_task("process_records.load_records")
-        s3_key = write_object(s3_hook, parsed_records)
+        s3_key = write_object(s3_hook, parsed_records, bucket_name=bucket_name)
         task.op_args = (s3_key,)
         res = task.execute(context=Context())
-        result = read_object(s3_hook, res)
+        result = read_object(s3_hook, res, bucket_name=bucket_name)
         assert len(result["failed_records"]) == 1
 
     def test_check_failures_success(self):
-        s3_keys = [write_object(s3_hook, {"failed_records": []}) for _ in range(2)]
+        s3_keys = [
+            write_object(s3_hook, {"failed_records": []}, bucket_name=bucket_name)
+            for _ in range(2)
+        ]
 
         task = self.dag.get_task("check_failures")
         task.op_args = (s3_keys, s3_keys)
@@ -139,8 +143,15 @@ class TestArxivHarvest:
     def test_check_failures_fail(self):
         task = self.dag.get_task("check_failures")
 
-        s3_keys = [write_object(s3_hook, {"failed_records": []}) for _ in range(2)]
-        s3_keys.append(write_object(s3_hook, {"failed_records": ["record"]}))
+        s3_keys = [
+            write_object(s3_hook, {"failed_records": []}, bucket_name=bucket_name)
+            for _ in range(2)
+        ]
+        s3_keys.append(
+            write_object(
+                s3_hook, {"failed_records": ["record"]}, bucket_name=bucket_name
+            )
+        )
         task.op_args = (s3_keys, [])
 
         with pytest.raises(AirflowException) as exc_info:
