@@ -1,11 +1,13 @@
 import pytest
 from airflow.models import DagBag
-from freezegun import freeze_time
+from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+from include.utils.s3 import write_object
 
 dagbag = DagBag()
 
+s3_hook = S3Hook(aws_conn_id="s3_conn")
 
-@freeze_time("2024-12-15")
+
 class Test_HEPCreateDAG:
     dag = dagbag.get_dag("hep_create_dag")
     context = {
@@ -19,24 +21,27 @@ class Test_HEPCreateDAG:
         task = self.dag.get_task("get_workflow_data")
 
         res = task.execute(context=self.context)
-        assert res["id"] == self.context["params"]["workflow_id"]
+        assert res == self.context["params"]["workflow_id"]
 
     @pytest.mark.vcr
     def test_check_for_blocking_workflows_block(self):
         task = self.dag.get_task("check_for_blocking_workflows")
 
-        workflow_data = {
-            "data": {
-                "arxiv_eprints": [
-                    {
-                        "value": "2507.26819",
-                    }
-                ]
-            }
-        }
-        result = task.python_callable(
-            workflow_data=workflow_data, params=self.context["params"]
+        write_object(
+            s3_hook,
+            {
+                "data": {
+                    "arxiv_eprints": [
+                        {
+                            "value": "2507.26819",
+                        }
+                    ]
+                }
+            },
+            self.context["params"]["workflow_id"],
+            overwrite=True,
         )
+        result = task.python_callable(params=self.context["params"])
 
         assert result is False
 
@@ -44,17 +49,38 @@ class Test_HEPCreateDAG:
     def test_check_for_blocking_workflows_continue(self):
         task = self.dag.get_task("check_for_blocking_workflows")
 
-        workflow_data = {
-            "data": {
-                "arxiv_eprints": [
-                    {
-                        "value": "xxx",
-                    }
-                ]
-            }
-        }
-        result = task.python_callable(
-            workflow_data=workflow_data, params=self.context["params"]
+        write_object(
+            s3_hook,
+            {
+                "data": {
+                    "arxiv_eprints": [
+                        {
+                            "value": "xxx",
+                        }
+                    ]
+                }
+            },
+            self.context["params"]["workflow_id"],
+            overwrite=True,
         )
+        result = task.python_callable(params=self.context["params"])
 
         assert result
+
+    @pytest.mark.vcr
+    def test_await_decision_exact_match(self):
+        task = self.dag.get_task("await_decision_exact_match")
+        result = task.python_callable(params=self.context["params"])
+
+        assert result == "set_workflow_status_to_running"
+
+    def test_check_is_update(self):
+        write_object(
+            s3_hook,
+            {"decisions": [{"action": "exact_match", "value": True}]},
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+        task = self.dag.get_task("check_is_update")
+        result = task.python_callable(params=self.context["params"])
+        assert result == "direct_update"
