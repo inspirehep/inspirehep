@@ -102,7 +102,32 @@ class TestArxivHarvest:
         assert len(result["failed_records"]) == 1
 
     @pytest.mark.vcr
-    def test_load_records(self):
+    def test_load_records_failed(self):
+        parsed_records = {
+            "parsed_records": [
+                {
+                    "document_type": ["article"],
+                    "_collections": ["Literature"],
+                    "titles": [{"title": "Test Workflow Management Hook"}],
+                },
+                {
+                    "document_type": ["article"],
+                    "_collections": ["Literature"],
+                },
+            ]
+        }
+        task = self.dag.get_task("process_records.load_records")
+        s3_key = write_object(s3_hook, parsed_records, bucket_name=bucket_name)
+        task.op_args = (s3_key,)
+        res = task.execute(context=Context())
+        result = read_object(s3_hook, res, bucket_name=bucket_name)
+        assert len(result["failed_records"]) == 1
+
+    @pytest.mark.vcr
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.post_workflow"
+    )
+    def test_load_records_multiple(self, mock_post_workflow):
         parsed_records = {
             "parsed_records": [
                 {
@@ -114,7 +139,7 @@ class TestArxivHarvest:
                     },
                 },
                 {
-                    "workflow_type": "WRONG",
+                    "workflow_type": "HEP_CREATE",
                     "data": {
                         "document_type": ["article"],
                         "_collections": ["Literature"],
@@ -126,9 +151,8 @@ class TestArxivHarvest:
         task = self.dag.get_task("process_records.load_records")
         s3_key = write_object(s3_hook, parsed_records, bucket_name=bucket_name)
         task.op_args = (s3_key,)
-        res = task.execute(context=Context())
-        result = read_object(s3_hook, res, bucket_name=bucket_name)
-        assert len(result["failed_records"]) == 1
+        task.execute(context=Context())
+        assert mock_post_workflow.call_count == 2
 
     def test_check_failures_success(self):
         s3_keys = [

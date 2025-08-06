@@ -1,0 +1,315 @@
+interactions:
+- request:
+    body: '{"data": {"document_type": ["article"], "_collections": ["Literature"],
+      "titles": [{"title": "Test Workflow Management Hook"}]}, "workflow_type": "HEP_CREATE"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '159'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8001/api/workflows/hep/
+  response:
+    body:
+      string: '{"id":"75e3d4ea-e3aa-4bee-b0ce-ab23683b9176","data":{"document_type":["article"],"_collections":["Literature"],"titles":[{"title":"Test
+        Workflow Management Hook"}]},"tickets":[],"decisions":[],"workflow_type":"HEP_CREATE","_created_at":"2025-08-06T14:21:31.373992Z","_updated_at":"2025-08-06T14:21:31.374247Z","status":"processing"}'
+    headers:
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '332'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Wed, 06 Aug 2025 14:21:31 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=187.50099999999748;desc="User CPU time", TimerPanel_stime;dur=6.95899999999483;desc="System
+        CPU time", TimerPanel_total;dur=194.4599999999923;desc="Total CPU time", TimerPanel_total_time;dur=375.19691699890245;desc="Elapsed
+        time", SQLPanel_sql_time;dur=14.994373997978983;desc="SQL 8 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 1980d29bffb94411aedce1609bcb3e0e
+    status:
+      code: 201
+      message: Created
+- request:
+    body: '{"data": {"document_type": ["article"], "_collections": ["Literature"]},
+      "workflow_type": "HEP_CREATE"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '103'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8001/api/workflows/hep/
+  response:
+    body:
+      string: '{"data":[{"message":"''titles'' is a required property","path":[]}]}'
+    headers:
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Wed, 06 Aug 2025 14:21:31 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=36.97399999998652;desc="User CPU time", TimerPanel_stime;dur=1.7650000000060118;desc="System
+        CPU time", TimerPanel_total;dur=38.73899999999253;desc="Total CPU time", TimerPanel_total_time;dur=46.92758400051389;desc="Elapsed
+        time", SQLPanel_sql_time;dur=4.85004100119113;desc="SQL 5 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 21a736a9c55242f89ab8c38cb592ed1c
+    status:
+      code: 400
+      message: Bad Request
+- request:
+    body: '{"data": {"document_type": ["article"], "_collections": ["Literature"]},
+      "workflow_type": "HEP_CREATE"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '103'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8001/api/workflows/hep/
+  response:
+    body:
+      string: '{"data":[{"message":"''titles'' is a required property","path":[]}]}'
+    headers:
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Wed, 06 Aug 2025 14:21:32 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=33.699999999953434;desc="User CPU time", TimerPanel_stime;dur=1.7039999999894917;desc="System
+        CPU time", TimerPanel_total;dur=35.403999999942926;desc="Total CPU time",
+        TimerPanel_total_time;dur=40.65791699940746;desc="Elapsed time", SQLPanel_sql_time;dur=3.611833997638314;desc="SQL
+        5 queries", CachePanel_total_time;dur=0;desc="Cache 0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - dd981a9e0ecf413d95e4d12f7ed34825
+    status:
+      code: 400
+      message: Bad Request
+- request:
+    body: '{"data": {"document_type": ["article"], "_collections": ["Literature"]},
+      "workflow_type": "HEP_CREATE"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '103'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8001/api/workflows/hep/
+  response:
+    body:
+      string: '{"data":[{"message":"''titles'' is a required property","path":[]}]}'
+    headers:
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Wed, 06 Aug 2025 14:21:34 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=43.018999999958396;desc="User CPU time", TimerPanel_stime;dur=0.7310000000018135;desc="System
+        CPU time", TimerPanel_total;dur=43.74999999996021;desc="Total CPU time", TimerPanel_total_time;dur=50.53779099944222;desc="Elapsed
+        time", SQLPanel_sql_time;dur=5.480167999849073;desc="SQL 5 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - ad7936c94404429f994dd9ee4d93190c
+    status:
+      code: 400
+      message: Bad Request
+- request:
+    body: '{"data": {"document_type": ["article"], "_collections": ["Literature"]},
+      "workflow_type": "HEP_CREATE"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '103'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8001/api/workflows/hep/
+  response:
+    body:
+      string: '{"data":[{"message":"''titles'' is a required property","path":[]}]}'
+    headers:
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Wed, 06 Aug 2025 14:21:38 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=39.37800000005609;desc="User CPU time", TimerPanel_stime;dur=2.825999999998885;desc="System
+        CPU time", TimerPanel_total;dur=42.204000000054975;desc="Total CPU time",
+        TimerPanel_total_time;dur=48.396916999990935;desc="Elapsed time", SQLPanel_sql_time;dur=6.285456998739392;desc="SQL
+        5 queries", CachePanel_total_time;dur=0;desc="Cache 0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 3aa3c53afdb049bca04f60ef5a038f89
+    status:
+      code: 400
+      message: Bad Request
+- request:
+    body: '{"data": {"document_type": ["article"], "_collections": ["Literature"]},
+      "workflow_type": "HEP_CREATE"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '103'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8001/api/workflows/hep/
+  response:
+    body:
+      string: '{"data":[{"message":"''titles'' is a required property","path":[]}]}'
+    headers:
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '66'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Wed, 06 Aug 2025 14:21:47 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=39.43800000001829;desc="User CPU time", TimerPanel_stime;dur=3.9130000000113796;desc="System
+        CPU time", TimerPanel_total;dur=43.35100000002967;desc="Total CPU time", TimerPanel_total_time;dur=49.55604200040398;desc="Elapsed
+        time", SQLPanel_sql_time;dur=4.858624999542371;desc="SQL 5 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 79e10a1b8f2a46debe5909c1c78522e7
+    status:
+      code: 400
+      message: Bad Request
+version: 1

@@ -190,11 +190,11 @@ def arxiv_harvest_dag():
                     )
                     failed_records.append(record)
 
-                return write_object(
-                    s3_hook,
-                    {"failed_records": failed_records},
-                    bucket_name=bucket_name,
-                )
+            return write_object(
+                s3_hook,
+                {"failed_records": failed_records},
+                bucket_name=bucket_name,
+            )
 
         record_keys = fetch_records(set)
         build_record_keys = build_records(
