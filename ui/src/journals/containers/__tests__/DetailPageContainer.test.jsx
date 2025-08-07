@@ -50,5 +50,12 @@ describe('DetailPageContainer', () => {
       'https://www.springer.com/journal/526'
     );
     expect(link).toHaveAttribute('target', '_blank');
+
+    const link2 = screen.getByRole('link', { name: /Articles published in/i });
+    expect(link2).toBeInTheDocument();
+    expect(link2).toHaveAttribute(
+      'href',
+      '/literature?sort=mostrecent&size=25&page=1&q=publication_info.journal_title.raw:"short test"'
+    );
   });
 });

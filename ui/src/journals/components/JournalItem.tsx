@@ -64,7 +64,7 @@ export const JournalItem = ({
               eventId="Journal papers"
             >
               <Link
-                to={`${LITERATURE}?sort=mostrecent&size=25&page=1&q=publication_info.journal_title:"${shortTitle}"`}
+                to={`${LITERATURE}?sort=mostrecent&size=25&page=1&q=publication_info.journal_title.raw:"${shortTitle}"`}
               >
                 <IconText
                   text={`${numberOfPapers} ${pluralizeUnlessSingle(

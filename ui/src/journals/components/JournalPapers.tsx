@@ -6,7 +6,7 @@ import { JOURNAL_PAPERS_NS } from '../../search/constants';
 export const JournalPapers = ({ journalName }: { journalName: string }) => {
   const baseQuery = useMemo(
     () => ({
-      q: `publication_info.journal_title:"${journalName}"`,
+      q: `publication_info.journal_title.raw:"${journalName}"`,
     }),
     [journalName]
   );

@@ -19,15 +19,21 @@ describe('JournalItem', () => {
       }),
     });
 
-    const { asFragment } = render(
+    const { getByText, getByRole } = render(
       <Provider store={getStore()}>
         <MemoryRouter>
           <JournalItem result={result} />
         </MemoryRouter>
       </Provider>
     );
+    expect(getByText('West Virginia U.')).toBeInTheDocument();
+    expect(getByText('2 papers')).toBeInTheDocument();
 
-    expect(asFragment()).toMatchSnapshot();
+    const link = getByRole('link', { name: 'login 2 papers' });
+    expect(link).toHaveAttribute(
+      'href',
+      '/literature?sort=mostrecent&size=25&page=1&q=publication_info.journal_title.raw:"West Virginia U."'
+    );
   });
 
   it('renders with some props undefined', () => {
@@ -39,14 +45,16 @@ describe('JournalItem', () => {
       }),
     });
 
-    const { asFragment } = render(
+    const { getByText, getByRole } = render(
       <Provider store={getStore()}>
         <MemoryRouter>
           <JournalItem result={result} />
         </MemoryRouter>
       </Provider>
     );
-
-    expect(asFragment()).toMatchSnapshot();
+    expect(getByText('West Virginia U.')).toBeInTheDocument();
+    expect(getByText('Department of Physics')).toBeInTheDocument();
+    const link = getByRole('link', { name: 'West Virginia U.' });
+    expect(link).toHaveAttribute('href', '/journals/1234');
   });
 });
