@@ -7,13 +7,12 @@
 import re
 
 from inspire_dojson.utils import get_recid_from_ref
+from inspirehep.records.api.base import InspireRecord
 from pylatexenc.latexencode import (
     RULE_DICT,
     UnicodeToLatexConversionRule,
     UnicodeToLatexEncoder,
 )
-
-from inspirehep.records.api import InspireRecord
 
 # The regex selects math delimited by ``$...$`` or ``\(...\)``
 # where the delimiters are not escaped

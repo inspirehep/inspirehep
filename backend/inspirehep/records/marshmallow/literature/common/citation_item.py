@@ -5,9 +5,10 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from inspire_dojson.utils import strip_empty_values
-from marshmallow import Schema, fields, post_dump
-
-from inspirehep.records.marshmallow.fields import ListWithLimit, NestedField
+from inspirehep.records.marshmallow.fields.list_with_limit import ListWithLimit
+from inspirehep.records.marshmallow.fields.nested_without_empty_objects import (
+    NestedField,
+)
 from inspirehep.records.marshmallow.literature.common.author import AuthorSchemaV1
 from inspirehep.records.marshmallow.literature.common.collaboration import (
     CollaborationSchemaV1,
@@ -18,6 +19,7 @@ from inspirehep.records.marshmallow.literature.common.collaboration_with_suffix 
 from inspirehep.records.marshmallow.literature.common.publication_info_item import (
     PublicationInfoItemSchemaV1,
 )
+from marshmallow import Schema, fields, post_dump
 
 
 class CitationItemSchemaV1(Schema):

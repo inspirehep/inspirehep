@@ -3,9 +3,11 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-from inspirehep.pidstore.api import PidStoreInstitutions
+from inspirehep.pidstore.api.institutions import PidStoreInstitutions
 from inspirehep.records.api.base import InspireRecord
-from inspirehep.records.marshmallow.institutions import InstitutionsElasticSearchSchema
+from inspirehep.records.marshmallow.institutions.es import (
+    InstitutionsElasticSearchSchema,
+)
 from inspirehep.records.models import InstitutionLiterature
 
 

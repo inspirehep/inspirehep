@@ -14,10 +14,6 @@ You overwrite and set instance-specific configuration by either:
 
 from copy import deepcopy
 
-from invenio_records_rest.facets import range_filter, terms_filter
-from invenio_records_rest.utils import allow_all, deny_all
-from invenio_rest.errors import RESTException
-
 from inspirehep.access_control import (
     LiteratureCollectionReadPermissionCheck,
     LiteratureCollectionReadWritePermissionCheck,
@@ -68,6 +64,9 @@ from inspirehep.search.facets import (
     should_match_and_missing_filter,
 )
 from inspirehep.serializers import jsonify
+from invenio_records_rest.facets import range_filter, terms_filter
+from invenio_records_rest.utils import allow_all, deny_all
+from invenio_rest.errors import RESTException
 
 
 def default_handler(error):

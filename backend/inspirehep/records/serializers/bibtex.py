@@ -4,11 +4,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import structlog
-from pybtex.database import BibliographyData, Entry, Person
-from pybtex.database.output.bibtex import Writer
-
 from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
 from inspirehep.serializers import record_responsify, search_responsify
+from pybtex.database import BibliographyData, Entry, Person
+from pybtex.database.output.bibtex import Writer
 
 LOGGER = structlog.getLogger()
 

@@ -1,7 +1,4 @@
 from flask import Blueprint, request
-from webargs import fields
-from webargs.flaskparser import FlaskParser
-
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
 from inspirehep.matcher.api import (
@@ -10,6 +7,8 @@ from inspirehep.matcher.api import (
     match_references,
 )
 from inspirehep.serializers import jsonify
+from webargs import fields
+from webargs.flaskparser import FlaskParser
 
 blueprint = Blueprint("inspirehep_matcher", __name__, url_prefix="/matcher")
 parser = FlaskParser()

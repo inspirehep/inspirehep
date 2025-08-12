@@ -5,7 +5,10 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
-from inspirehep.records.marshmallow.fields import NonHiddenNested, NonHiddenRaw
+from inspirehep.records.marshmallow.fields.non_hidden import (
+    NonHiddenNested,
+    NonHiddenRaw,
+)
 from marshmallow import Schema, fields
 
 

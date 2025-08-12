@@ -3,8 +3,6 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-from marshmallow import fields
-
 from inspirehep.records.marshmallow.fields.nested_without_empty_objects import (
     NestedField,
 )
@@ -16,6 +14,7 @@ from inspirehep.records.marshmallow.institutions.common.related_records import (
 )
 from inspirehep.records.marshmallow.utils import get_first_value_for_schema
 from inspirehep.search.api import InstitutionsSearch
+from marshmallow import fields
 
 
 class InstitutionsBaseSchema(InstitutionsPublicSchema):

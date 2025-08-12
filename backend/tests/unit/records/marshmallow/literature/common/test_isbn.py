@@ -5,7 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
-from inspirehep.records.marshmallow.literature.common import IsbnSchemaV1
+from inspirehep.records.marshmallow.literature.common.isbn import IsbnSchemaV1
 
 
 def test_isbn_medium_online_becomes_eBook():

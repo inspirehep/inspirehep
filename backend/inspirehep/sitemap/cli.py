@@ -7,7 +7,6 @@
 import click
 import structlog
 from flask.cli import with_appcontext
-
 from inspirehep.sitemap.tasks import create_sitemap
 
 LOGGER = structlog.getLogger()

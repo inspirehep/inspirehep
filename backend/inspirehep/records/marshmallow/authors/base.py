@@ -5,13 +5,12 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from inspire_utils.record import get_value
+from inspirehep.records.marshmallow.base import RecordBaseSchema
+from inspirehep.records.marshmallow.fields.non_hidden import NonHiddenRaw
+from inspirehep.records.models import StudentsAdvisors
 from invenio_db import db
 from invenio_records.api import RecordMetadata
 from marshmallow import Schema, fields
-
-from inspirehep.records.marshmallow.base import RecordBaseSchema
-from inspirehep.records.marshmallow.fields import NonHiddenRaw
-from inspirehep.records.models import StudentsAdvisors
 
 
 class AuthorsRawSchema(RecordBaseSchema):

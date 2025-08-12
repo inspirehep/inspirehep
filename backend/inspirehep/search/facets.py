@@ -7,9 +7,6 @@ from datetime import datetime
 from itertools import count
 
 from flask import current_app, request
-from invenio_records_rest.facets import range_filter
-from opensearch_dsl.query import Q, Range
-
 from inspirehep.search.aggregations import (
     conf_series_aggregation,
     conf_subject_aggregation,
@@ -42,6 +39,8 @@ from inspirehep.search.aggregations import (
     seminar_subject_aggregation,
 )
 from inspirehep.search.utils import minify_painless
+from invenio_records_rest.facets import range_filter
+from opensearch_dsl.query import Q, Range
 
 
 def range_author_count_filter(field):

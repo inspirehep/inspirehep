@@ -7,14 +7,13 @@
 import structlog
 from celery import shared_task
 from inspire_utils.dedupers import dedupe_list
+from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
+from inspirehep.matcher.api import match_references
+from inspirehep.records.api.literature import LiteratureRecord
 from invenio_db import db
 from invenio_records.api import RecordMetadata
 from sqlalchemy import cast, not_, or_, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
-
-from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
-from inspirehep.matcher.api import match_references
-from inspirehep.records.api.literature import LiteratureRecord
 
 LOGGER = structlog.getLogger()
 

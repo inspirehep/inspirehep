@@ -4,18 +4,17 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from marshmallow import fields
-
 from inspirehep.accounts.api import can_user_edit_author_record
 from inspirehep.records.marshmallow.authors.base import AuthorsPublicSchema
-from inspirehep.records.marshmallow.authors.common import PositionSchemaV1
 from inspirehep.records.marshmallow.authors.common.advisor import AdvisorSchemaV1
-from inspirehep.records.marshmallow.fields import NonHiddenNested
+from inspirehep.records.marshmallow.authors.common.position import PositionSchemaV1
+from inspirehep.records.marshmallow.fields.non_hidden import NonHiddenNested
 from inspirehep.records.marshmallow.utils import (
     get_acquisition_source_without_email,
     get_facet_author_name_for_author,
     get_first_value_for_schema,
 )
+from marshmallow import fields
 
 
 class AuthorsBaseSchema(AuthorsPublicSchema):

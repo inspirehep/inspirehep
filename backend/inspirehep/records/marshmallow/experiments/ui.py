@@ -3,8 +3,6 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-from marshmallow import fields
-
 from inspirehep.records.marshmallow.experiments.base import ExperimentsPublicSchema
 from inspirehep.records.marshmallow.experiments.common.related_records import (
     ParentExperimentSchemaV1,
@@ -15,6 +13,7 @@ from inspirehep.records.marshmallow.fields.nested_without_empty_objects import (
     NestedField,
 )
 from inspirehep.search.api import ExperimentsSearch
+from marshmallow import fields
 
 
 class ExperimentsBaseSchema(ExperimentsPublicSchema):

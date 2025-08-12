@@ -10,11 +10,6 @@ import re
 import structlog
 from celery import shared_task
 from inspire_utils.record import get_value, get_values_for_schema
-from invenio_db import db
-from lxml import etree
-from sqlalchemy.orm.exc import StaleDataError
-from sword2.exceptions import RequestTimeOut
-
 from inspirehep.editor.editor_soft_lock import EditorSoftLock
 from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
 from inspirehep.hal.core.sword import create, update
@@ -22,6 +17,10 @@ from inspirehep.hal.core.tei import convert_to_tei
 from inspirehep.hal.errors import HALCreateException
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.utils import distributed_lock
+from invenio_db import db
+from lxml import etree
+from sqlalchemy.orm.exc import StaleDataError
+from sword2.exceptions import RequestTimeOut
 
 LOGGER = structlog.getLogger()
 

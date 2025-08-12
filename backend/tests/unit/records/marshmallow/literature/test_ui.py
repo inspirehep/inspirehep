@@ -6,7 +6,7 @@
 
 import mock
 import pytest
-from inspirehep.records.marshmallow.literature import LiteratureDetailSchema
+from inspirehep.records.marshmallow.literature.ui import LiteratureDetailSchema
 
 
 @mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")

@@ -5,6 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import structlog
 from flask import request
+from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
+from inspirehep.pidstore.models import InspireRedirect
 from invenio_pidstore.errors import (
     PIDDeletedError,
     PIDMissingObjectError,
@@ -14,9 +16,6 @@ from invenio_pidstore.errors import (
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_pidstore.resolver import Resolver
 from sqlalchemy.orm.exc import NoResultFound
-
-from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
-from inspirehep.pidstore.models import InspireRedirect
 
 LOGGER = structlog.getLogger()
 

@@ -7,12 +7,11 @@
 import structlog
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
-from invenio_pidstore.errors import PIDAlreadyExists, PIDDoesNotExistError
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-
 from inspirehep.pidstore.errors import MissingSchema, PIDAlreadyExistsError
 from inspirehep.pidstore.providers.external import InspireExternalIdProvider
 from inspirehep.pidstore.providers.recid import InspireRecordIdProvider
+from invenio_pidstore.errors import PIDAlreadyExists, PIDDoesNotExistError
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 LOGGER = structlog.getLogger()
 

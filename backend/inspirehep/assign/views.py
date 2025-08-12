@@ -8,10 +8,6 @@ import structlog
 from flask import Blueprint, request
 from flask_celeryext.app import current_celery_app
 from inspire_dojson.utils import get_recid_from_ref
-from invenio_db import db
-from webargs import fields
-from webargs.flaskparser import FlaskParser
-
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
 from inspirehep.assign.tasks import (
@@ -26,6 +22,9 @@ from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.utils import get_author_by_recid
 from inspirehep.serializers import jsonify
 from inspirehep.utils import chunker, count_consumers_for_queue
+from invenio_db import db
+from webargs import fields
+from webargs.flaskparser import FlaskParser
 
 blueprint = Blueprint("inspirehep_assign", __name__, url_prefix="/assign")
 parser = FlaskParser()

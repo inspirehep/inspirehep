@@ -5,7 +5,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
-from inspirehep.records.marshmallow.literature.common import CitationItemSchemaV1
+from inspirehep.records.marshmallow.literature.common.citation_item import (
+    CitationItemSchemaV1,
+)
 
 
 def test_returns_non_empty_fields():

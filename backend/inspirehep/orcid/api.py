@@ -7,7 +7,6 @@
 import structlog
 from flask import current_app
 from flask_celeryext.app import current_celery_app
-
 from inspirehep.orcid import push_access_tokens
 from inspirehep.orcid.utils import get_orcids_for_push
 

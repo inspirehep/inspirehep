@@ -6,8 +6,10 @@
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.records.marshmallow.base import wrap_schema_class_with_metadata
-from inspirehep.records.marshmallow.institutions import InstitutionsPublicSchema
-from inspirehep.records.marshmallow.institutions.base import InstitutionsAdminSchema
+from inspirehep.records.marshmallow.institutions.base import (
+    InstitutionsAdminSchema,
+    InstitutionsPublicSchema,
+)
 from inspirehep.records.marshmallow.institutions.ui import (
     InstitutionsDetailSchema,
     InstitutionsListSchema,

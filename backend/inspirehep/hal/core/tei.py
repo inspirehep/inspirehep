@@ -22,15 +22,14 @@
 from flask import render_template
 from inspire_schemas.readers import ConferenceReader, LiteratureReader
 from inspire_utils.record import get_value
-from langdetect import detect
-from langdetect.lang_detect_exception import LangDetectException
-
 from inspirehep.hal.utils import (
     get_authors,
     get_conference_record,
     get_divulgation,
     get_domains,
 )
+from langdetect import detect
+from langdetect.lang_detect_exception import LangDetectException
 
 ARTICLE_LIKE_DOCUMENT_TYPES = {"activity report", "article", "note", "report"}
 

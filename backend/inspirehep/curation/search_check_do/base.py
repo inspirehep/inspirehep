@@ -6,12 +6,11 @@
 import os
 from abc import ABC, abstractmethod
 
-from invenio_db import db
-from structlog import get_logger
-
 from inspirehep.records.api import InspireRecord
 from inspirehep.search.api import IQ, LiteratureSearch
 from inspirehep.utils import chunker
+from invenio_db import db
+from structlog import get_logger
 
 
 class SearchCheckDo(ABC):

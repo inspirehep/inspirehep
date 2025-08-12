@@ -7,8 +7,6 @@
 """Submissions Loaders"""
 
 from flask import request
-from invenio_records_rest.loaders.marshmallow import MarshmallowErrors
-
 from inspirehep.submissions.errors import LoaderDataError, RESTDataError
 from inspirehep.submissions.marshmallow import (
     Author,
@@ -20,6 +18,7 @@ from inspirehep.submissions.marshmallow import (
     Literature,
     Seminar,
 )
+from invenio_records_rest.loaders.marshmallow import MarshmallowErrors
 
 
 def inspire_submission_marshmallow_loader(schema_class):

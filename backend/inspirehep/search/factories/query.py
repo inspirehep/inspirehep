@@ -6,11 +6,10 @@
 
 import inspire_query_parser
 from flask import current_app
-from opensearch_dsl import Q
-
-from inspirehep.pidstore.api import PidStoreBase
+from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.search.errors import MalformatedQuery
 from inspirehep.search.utils import RecursionLimit
+from opensearch_dsl import Q
 
 
 def replace_recid_in_citedby_query(query):

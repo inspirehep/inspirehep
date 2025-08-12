@@ -6,11 +6,10 @@
 
 import structlog
 from celery import shared_task
-
 from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
 from inspirehep.indexer.api import get_references_to_update
 from inspirehep.indexer.base import InspireRecordIndexer
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 
 LOGGER = structlog.getLogger()
 

@@ -10,9 +10,8 @@ import sys
 import structlog
 from celery import shared_task
 from celery.signals import setup_logging, task_failure, task_postrun, task_prerun
-from structlog_sentry import SentryJsonProcessor
-
 from inspirehep.utils import get_failure_message_by_task, send_zulip_notification
+from structlog_sentry import SentryJsonProcessor
 
 # Sentry
 # ======

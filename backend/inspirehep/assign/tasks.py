@@ -8,10 +8,6 @@ from celery import shared_task
 from inspire_dojson.utils import get_recid_from_ref, get_record_ref
 from inspire_schemas.builders import LiteratureBuilder
 from inspire_utils.record import get_value
-from invenio_db import db
-from invenio_pidstore.errors import PIDDoesNotExistError
-from jsonschema import ValidationError
-
 from inspirehep.errors import DB_TASK_EXCEPTIONS
 from inspirehep.records.api import AuthorsRecord
 from inspirehep.records.api.conferences import ConferencesRecord
@@ -20,6 +16,9 @@ from inspirehep.records.errors import MissingArgumentError
 from inspirehep.records.utils import get_author_by_recid
 from inspirehep.submissions.tasks import async_create_ticket_with_template
 from inspirehep.utils import get_inspirehep_url
+from invenio_db import db
+from invenio_pidstore.errors import PIDDoesNotExistError
+from jsonschema import ValidationError
 
 LOGGER = structlog.getLogger()
 

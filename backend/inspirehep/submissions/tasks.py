@@ -6,7 +6,6 @@
 
 
 from celery import shared_task
-
 from inspirehep.snow.api import InspireSnow
 
 

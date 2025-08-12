@@ -10,7 +10,7 @@ import pkg_resources
 import pytest
 from botocore.exceptions import ClientError
 from helpers.utils import create_s3_bucket, create_s3_file
-from inspirehep.files.api import current_s3_instance
+from inspirehep.files.proxies import current_s3_instance
 from mock import patch
 
 KEY = "b50c2ea2d26571e0c5a3411e320586289fd715c2"

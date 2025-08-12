@@ -11,14 +11,13 @@ from idutils import normalize_isbn
 from inspire_utils.helpers import remove_tags
 from inspire_utils.name import format_name
 from inspire_utils.record import get_value
+from inspirehep.records.marshmallow.base import BaseSchema
+from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
+from inspirehep.records.marshmallow.literature.utils import latex_encode
 from isbnlib import ISBNLibException
 from lxml.etree import XMLSyntaxError
 from marshmallow import fields, missing
 from prometheus_client import Counter
-
-from inspirehep.records.marshmallow.base import BaseSchema
-from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
-from inspirehep.records.marshmallow.literature.utils import latex_encode
 
 latex_conversion_success = Counter(
     "latex_title_serialization_success", "Latex title serialization success"

@@ -3,16 +3,17 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-from marshmallow import fields
-
 from inspirehep.accounts.api import can_user_edit_record
-from inspirehep.records.marshmallow.common import ContactDetailsItemWithoutEmail
+from inspirehep.records.marshmallow.common.contact_details_items import (
+    ContactDetailsItemWithoutEmail,
+)
 from inspirehep.records.marshmallow.common.literature_record import (
     LiteratureRecordSchemaV1,
 )
 from inspirehep.records.marshmallow.seminars.base import SeminarsPublicSchema
 from inspirehep.records.marshmallow.seminars.common.speaker import SpeakerSchemaV1
 from inspirehep.records.marshmallow.utils import get_acquisition_source_without_email
+from marshmallow import fields
 
 
 class SeminarsBaseSchema(SeminarsPublicSchema):

@@ -5,7 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-from inspirehep.records.api import AuthorsRecord
+from inspirehep.records.api.authors import AuthorsRecord
 from inspirehep.records.api.conferences import ConferencesRecord
 from inspirehep.records.api.literature import LiteratureRecord
 

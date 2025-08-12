@@ -4,7 +4,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from inspirehep.records.marshmallow.journals import JournalsBaseSchema
+from inspirehep.records.marshmallow.journals.ui import JournalsBaseSchema
 
 
 def test_journal_title():

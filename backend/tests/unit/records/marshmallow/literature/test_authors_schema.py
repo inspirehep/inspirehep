@@ -6,7 +6,7 @@
 
 import orjson
 from helpers.providers.faker import faker
-from inspirehep.records.marshmallow.literature import LiteratureAuthorsSchema
+from inspirehep.records.marshmallow.literature.authors import LiteratureAuthorsSchema
 
 
 def test_authors_schema():

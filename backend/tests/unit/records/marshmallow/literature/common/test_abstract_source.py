@@ -9,7 +9,7 @@ from copy import deepcopy
 import mock
 import orjson
 from helpers.providers.faker import faker
-from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSchema
+from inspirehep.records.marshmallow.literature.es import LiteratureElasticSearchSchema
 
 
 @mock.patch(

@@ -7,7 +7,7 @@
 """INSPIRE module that adds more fun to the platform."""
 
 import pytest
-from inspirehep.pidstore.api import PidStoreBase
+from inspirehep.pidstore.api.base import PidStoreBase
 from mock import MagicMock, patch
 
 
@@ -15,7 +15,7 @@ from mock import MagicMock, patch
     ("pid_type", "expected"), [("lit", "literature"), ("jes", None)]
 )
 @patch(
-    "inspirehep.pidstore.api.PidStoreBase._get_config_pid_types_to_endpoints",
+    "inspirehep.pidstore.api.base.PidStoreBase._get_config_pid_types_to_endpoints",
     return_value={"lit": "literature"},
 )
 def test_get_endpoint_from_pid_type(
@@ -30,7 +30,7 @@ def test_get_endpoint_from_pid_type(
     ("endpoint", "expected"), [("literature", "lit"), ("jes", None), (None, None)]
 )
 @patch(
-    "inspirehep.pidstore.api.PidStoreBase._get_config_pid_types_to_endpoints",
+    "inspirehep.pidstore.api.base.PidStoreBase._get_config_pid_types_to_endpoints",
     return_value={"lit": "literature"},
 )
 def test_get_pid_type_from_endpoint(
@@ -53,11 +53,11 @@ def test_get_pid_type_from_endpoint(
     ],
 )
 @patch(
-    "inspirehep.pidstore.api.PidStoreBase._get_config_pid_types_to_endpoints",
+    "inspirehep.pidstore.api.base.PidStoreBase._get_config_pid_types_to_endpoints",
     return_value={"lit": "literature"},
 )
 @patch(
-    "inspirehep.pidstore.api.PidStoreBase._get_config_pid_types_to_schema",
+    "inspirehep.pidstore.api.base.PidStoreBase._get_config_pid_types_to_schema",
     return_value={"hep": "lit", "jobs": "job"},
 )
 def test_get_pid_type_from_schema(

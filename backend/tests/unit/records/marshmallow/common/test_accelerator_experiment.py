@@ -7,7 +7,9 @@
 import mock
 import orjson
 from inspirehep.records.api.literature import LiteratureRecord
-from inspirehep.records.marshmallow.common import AcceleratorExperimentSchemaV1
+from inspirehep.records.marshmallow.common.accelerator_experiment import (
+    AcceleratorExperimentSchemaV1,
+)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")

@@ -4,11 +4,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from invenio_records_rest.serializers.json import MarshmallowMixin, PreprocessorMixin
-
 from inspirehep.records.marshmallow.literature.latex import LatexSchema
 from inspirehep.records.serializers.jinja import jinja_latex_env
 from inspirehep.serializers import record_responsify, search_responsify
+from invenio_records_rest.serializers.json import MarshmallowMixin, PreprocessorMixin
 
 
 class LatexSerializer(MarshmallowMixin, PreprocessorMixin):

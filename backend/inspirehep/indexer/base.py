@@ -153,7 +153,7 @@ class InspireRecordIndexer(RecordIndexer):
 
     def bulk_action(self, record_uuid):
         try:
-            from inspirehep.records.api import InspireRecord
+            from inspirehep.records.api.base import InspireRecord
 
             record = InspireRecord.get_record(record_uuid, with_deleted=True)
             if record.get("deleted", False):

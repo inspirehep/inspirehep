@@ -7,7 +7,9 @@
 
 import orjson
 from helpers.utils import create_record, es_search
-from inspirehep.records.marshmallow.institutions import InstitutionsElasticSearchSchema
+from inspirehep.records.marshmallow.institutions.es import (
+    InstitutionsElasticSearchSchema,
+)
 from marshmallow import utils
 
 

@@ -4,12 +4,11 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from marshmallow import fields
-
 from inspirehep.records.marshmallow.base import RecordBaseSchema
-from inspirehep.records.marshmallow.fields import NonHiddenRaw
+from inspirehep.records.marshmallow.fields.non_hidden import NonHiddenRaw
 from inspirehep.records.marshmallow.literature.utils import get_authors_without_emails
 from inspirehep.records.marshmallow.utils import get_acquisition_source_without_email
+from marshmallow import fields
 
 
 class LiteratureRawSchema(RecordBaseSchema):

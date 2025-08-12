@@ -5,7 +5,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from flask_mail import Mail
-
 from inspirehep.mailing.utils import humanize_date_to_natural_time
 
 

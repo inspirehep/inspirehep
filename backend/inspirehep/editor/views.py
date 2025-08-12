@@ -14,12 +14,6 @@ from flask_login import current_user
 from inspire_schemas.api import load_schema
 from inspire_schemas.parsers.author_xml import AuthorXMLParser
 from inspire_utils.dedupers import dedupe_list
-from invenio_db import db
-from invenio_records.models import RecordMetadata
-from invenio_records_rest.utils import set_headers_for_record_caching_and_concurrency
-from pylatexenc.latex2text import LatexNodes2Text
-from sqlalchemy_continuum import transaction_class, version_class
-
 from inspirehep.accounts.api import (
     check_permissions_for_private_collection_read,
     check_permissions_for_private_collection_read_write,
@@ -33,7 +27,7 @@ from inspirehep.curation.api import (
 from inspirehep.editor.authorlist_utils import authorlist
 from inspirehep.editor.editor_soft_lock import EditorSoftLock
 from inspirehep.editor.errors import EditorGetRevisionError, EditorRevertToRevisionError
-from inspirehep.files.api import current_s3_instance
+from inspirehep.files.proxies import current_s3_instance
 from inspirehep.matcher.api import get_affiliations_from_pdf, match_references
 from inspirehep.matcher.utils import create_journal_dict, map_refextract_to_schema
 from inspirehep.pidstore.api.base import PidStoreBase
@@ -42,6 +36,11 @@ from inspirehep.serializers import jsonify
 from inspirehep.snow.api import InspireSnow
 from inspirehep.snow.errors import EditTicketException
 from inspirehep.utils import hash_data
+from invenio_db import db
+from invenio_records.models import RecordMetadata
+from invenio_records_rest.utils import set_headers_for_record_caching_and_concurrency
+from pylatexenc.latex2text import LatexNodes2Text
+from sqlalchemy_continuum import transaction_class, version_class
 
 blueprint = Blueprint("inspirehep_editor", __name__, url_prefix="/editor")
 LOGGER = structlog.getLogger()
