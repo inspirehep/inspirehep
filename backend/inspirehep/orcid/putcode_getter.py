@@ -13,11 +13,10 @@ from flask import current_app
 from inspire_service_orcid import exceptions as orcid_client_exceptions
 from inspire_service_orcid import utils as inspire_service_orcid_utils
 from inspire_service_orcid.client import OrcidClient
-from invenio_db import db
-
 from inspirehep.orcid import exceptions, push_access_tokens
 from inspirehep.orcid.converter import ExternalIdentifier
 from inspirehep.pidstore.api.base import PidStoreBase
+from invenio_db import db
 
 INSPIRE_WORK_URL_REGEX = re.compile(
     r"https?://(?:labs\.)?inspirehep\.net/(?:record|literature)/(\d+)", re.IGNORECASE

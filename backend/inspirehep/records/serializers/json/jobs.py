@@ -5,7 +5,10 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from inspirehep.records.marshmallow.base import wrap_schema_class_with_metadata
-from inspirehep.records.marshmallow.jobs import JobsPublicListSchema, JobsPublicSchema
+from inspirehep.records.marshmallow.jobs.base import (
+    JobsPublicListSchema,
+    JobsPublicSchema,
+)
 from inspirehep.records.marshmallow.jobs.ui import JobsDetailSchema, JobsListSchema
 from inspirehep.serializers import JSONSerializer, record_responsify, search_responsify
 

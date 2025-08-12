@@ -6,8 +6,6 @@
 
 """Submissions serializers."""
 
-from invenio_records_rest.serializers.json import JSONSerializer
-
 from inspirehep.submissions.marshmallow import (
     Author,
     Conference,
@@ -18,6 +16,7 @@ from inspirehep.submissions.marshmallow import (
     Seminar,
 )
 from inspirehep.submissions.marshmallow.job import Job
+from invenio_records_rest.serializers.json import JSONSerializer
 
 literature_v1 = JSONSerializer(Literature)
 author_v1 = JSONSerializer(Author)

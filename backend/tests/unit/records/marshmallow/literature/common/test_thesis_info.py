@@ -6,7 +6,9 @@
 
 import mock
 import orjson
-from inspirehep.records.marshmallow.literature.common import ThesisInfoSchemaV1
+from inspirehep.records.marshmallow.literature.common.thesis_info import (
+    ThesisInfoSchemaV1,
+)
 
 
 def test_degree_type_phd_becomes_PhD():

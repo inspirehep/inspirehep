@@ -9,10 +9,9 @@ from itertools import chain
 
 from inspire_schemas.utils import normalize_collaboration_name
 from inspire_utils.helpers import force_list
-from marshmallow import fields
-
 from inspirehep.records.marshmallow.base import ElasticSearchBaseSchema
 from inspirehep.records.marshmallow.experiments.base import ExperimentsRawSchema
+from marshmallow import fields
 
 
 class ExperimentsElasticSearchSchema(ElasticSearchBaseSchema, ExperimentsRawSchema):

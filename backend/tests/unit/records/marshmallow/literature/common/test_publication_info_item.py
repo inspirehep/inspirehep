@@ -5,7 +5,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
-from inspirehep.records.marshmallow.literature.common import PublicationInfoItemSchemaV1
+from inspirehep.records.marshmallow.literature.common.publication_info_item import (
+    PublicationInfoItemSchemaV1,
+)
 
 
 def test_returns_non_empty_fields_if_jonurnal_title_present():

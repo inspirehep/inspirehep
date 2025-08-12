@@ -7,9 +7,8 @@
 from datetime import datetime
 
 import structlog
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-
 from inspirehep.pidstore.providers.base import InspireBaseProvider
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 LOGGER = structlog.getLogger()
 

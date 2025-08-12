@@ -5,10 +5,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 from flask import current_app
 from inspire_utils.record import get_values_for_schema
-
 from inspirehep.pidstore.minters.base import Minter
-from inspirehep.pidstore.providers import InspireExternalIdProvider
 from inspirehep.pidstore.providers.bai import InspireBAIProvider
+from inspirehep.pidstore.providers.external import InspireExternalIdProvider
 
 
 class BAIMinter(Minter):

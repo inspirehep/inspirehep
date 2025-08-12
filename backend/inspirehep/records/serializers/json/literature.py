@@ -4,8 +4,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from marshmallow import Schema
-
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.records.marshmallow.base import wrap_schema_class_with_metadata
 from inspirehep.records.marshmallow.literature import (
@@ -28,6 +26,7 @@ from inspirehep.serializers import (
     record_responsify,
     search_responsify,
 )
+from marshmallow import Schema
 
 # Facets
 facets_json = JSONSerializerFacets(Schema)

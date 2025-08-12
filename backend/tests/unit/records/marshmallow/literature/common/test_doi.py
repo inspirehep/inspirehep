@@ -6,7 +6,7 @@
 
 
 import orjson
-from inspirehep.records.marshmallow.literature.common import DOISchemaV1
+from inspirehep.records.marshmallow.literature.common.doi import DOISchemaV1
 from marshmallow import Schema, fields
 
 

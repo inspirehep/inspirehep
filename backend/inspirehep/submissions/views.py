@@ -14,11 +14,6 @@ from flask.views import MethodView
 from flask_login import current_user
 from inspire_schemas.builders import JobBuilder
 from inspire_utils.record import get_value
-from invenio_db import db
-from invenio_pidstore.errors import PIDDoesNotExistError
-from jsonschema import SchemaError, ValidationError
-from requests.exceptions import RequestException
-
 from inspirehep.accounts.api import (
     can_user_edit_author_record,
     can_user_edit_record,
@@ -57,6 +52,10 @@ from inspirehep.submissions.serializers import seminar_v1 as seminar_serializer_
 from inspirehep.submissions.tasks import async_create_ticket_with_template
 from inspirehep.submissions.utils import has_30_days_passed_after_deadline
 from inspirehep.utils import get_inspirehep_url
+from invenio_db import db
+from invenio_pidstore.errors import PIDDoesNotExistError
+from jsonschema import SchemaError, ValidationError
+from requests.exceptions import RequestException
 
 blueprint = Blueprint("inspirehep_submissions", __name__, url_prefix="/submissions")
 

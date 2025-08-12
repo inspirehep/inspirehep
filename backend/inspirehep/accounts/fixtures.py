@@ -11,13 +11,12 @@ import string
 import click
 from flask import current_app
 from flask_security.utils import hash_password
+from inspirehep.accounts.roles import Roles
 from invenio_access.models import ActionRoles
 from invenio_accounts.models import Role
 from invenio_db import db
 from invenio_oauth2server.models import Client, Token
 from invenio_oauthclient.models import RemoteAccount, UserIdentity
-
-from inspirehep.accounts.roles import Roles
 
 
 def generate_random_string(size):

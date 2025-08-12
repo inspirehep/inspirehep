@@ -4,7 +4,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from inspirehep.records.api import JobsRecord
+from inspirehep.records.api.jobs import JobsRecord
 from inspirehep.submissions.marshmallow.job import Job
 
 DEFAULT_DATA_TO_DUMP = {

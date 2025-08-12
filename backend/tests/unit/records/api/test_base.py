@@ -5,16 +5,26 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import mock
 from helpers.providers.faker import faker
-from inspirehep.records.api import (
+from inspirehep.records.api.authors import (
     AuthorsRecord,
-    ExperimentsRecord,
+)
+from inspirehep.records.api.base import (
     InspireRecord,
-    InstitutionsRecord,
-    JobsRecord,
-    JournalsRecord,
 )
 from inspirehep.records.api.conferences import ConferencesRecord
 from inspirehep.records.api.data import DataRecord
+from inspirehep.records.api.experiments import (
+    ExperimentsRecord,
+)
+from inspirehep.records.api.institutions import (
+    InstitutionsRecord,
+)
+from inspirehep.records.api.jobs import (
+    JobsRecord,
+)
+from inspirehep.records.api.journals import (
+    JournalsRecord,
+)
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.api.seminars import SeminarsRecord
 

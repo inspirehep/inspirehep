@@ -6,8 +6,8 @@
 
 import mock
 import orjson
-from inspirehep.records.marshmallow.literature.common import AuthorSchemaV1
 from inspirehep.records.marshmallow.literature.common.author import (
+    AuthorSchemaV1,
     FirstAuthorSchemaV1,
     SupervisorSchema,
 )

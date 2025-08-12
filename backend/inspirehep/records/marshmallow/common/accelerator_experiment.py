@@ -6,9 +6,8 @@
 
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.record import get_value
+from inspirehep.records.api.base import InspireRecord
 from marshmallow import Schema, fields, pre_dump
-
-from inspirehep.records.api import InspireRecord
 
 
 class AcceleratorExperimentSchemaV1(Schema):

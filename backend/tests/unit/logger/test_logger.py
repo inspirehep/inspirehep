@@ -6,7 +6,7 @@
 
 import mock
 from flask import Flask
-from inspirehep.logger import InspireLogger
+from inspirehep.logger.ext import InspireLogger
 
 
 @mock.patch("inspirehep.logger.ext.sentry_sdk.init")

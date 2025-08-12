@@ -5,7 +5,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
-from inspirehep.records.marshmallow.fields import NestedField
+from inspirehep.records.marshmallow.fields.nested_without_empty_objects import (
+    NestedField,
+)
 from marshmallow import Schema, fields
 
 

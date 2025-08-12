@@ -5,20 +5,19 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import structlog
 from inspire_utils.record import get_values_for_schema
+from inspirehep.pidstore.api.authors import PidStoreAuthors
+from inspirehep.pidstore.api.base import PidStoreBase
+from inspirehep.records.api.base import InspireRecord
+from inspirehep.records.api.mixins import StudentsAdvisorMixin
+from inspirehep.records.marshmallow.authors.es import AuthorsElasticSearchSchema
+from inspirehep.records.models import RecordCitations, RecordsAuthors
+from inspirehep.search.api import AuthorsSearch
+from inspirehep.utils import chunker
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.api import RecordMetadata
 from sqlalchemy import cast, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
-
-from inspirehep.pidstore.api import PidStoreAuthors
-from inspirehep.pidstore.api.base import PidStoreBase
-from inspirehep.records.api.base import InspireRecord
-from inspirehep.records.api.mixins import StudentsAdvisorMixin
-from inspirehep.records.marshmallow.authors import AuthorsElasticSearchSchema
-from inspirehep.records.models import RecordCitations, RecordsAuthors
-from inspirehep.search.api import AuthorsSearch
-from inspirehep.utils import chunker
 
 LOGGER = structlog.getLogger()
 

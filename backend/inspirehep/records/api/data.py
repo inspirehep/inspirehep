@@ -3,7 +3,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-from inspirehep.pidstore.api import PidStoreData
+from inspirehep.pidstore.api.data import PidStoreData
 from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.api.mixins import CitationMixin, DataLiteratureMixin
 from inspirehep.records.marshmallow.data.es import DataElasticSearchSchema

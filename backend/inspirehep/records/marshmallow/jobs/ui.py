@@ -4,19 +4,20 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 from inspire_utils.record import get_value
-from marshmallow import fields
-
 from inspirehep.accounts.api import (
     get_current_user_orcid,
     is_superuser_or_cataloger_logged_in,
 )
-from inspirehep.records.marshmallow.common import ContactDetailsItemWithoutEmail
+from inspirehep.records.marshmallow.common.contact_details_items import (
+    ContactDetailsItemWithoutEmail,
+)
 from inspirehep.records.marshmallow.jobs.base import JobsPublicSchema
 from inspirehep.records.marshmallow.jobs.utils import (
     get_reference_letters_without_email,
 )
 from inspirehep.records.marshmallow.utils import get_acquisition_source_without_email
 from inspirehep.submissions.utils import has_30_days_passed_after_deadline
+from marshmallow import fields
 
 
 class JobsBaseSchema(JobsPublicSchema):

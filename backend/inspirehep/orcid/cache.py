@@ -9,9 +9,8 @@ import io
 
 import flask
 from flask import current_app as app
-from redis import StrictRedis
-
 from inspirehep.orcid.converter import OrcidConverter
+from redis import StrictRedis
 
 CACHE_PREFIX = None
 

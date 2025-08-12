@@ -4,8 +4,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from marshmallow import Schema, fields, missing
-
 from inspirehep.records.marshmallow.fields.list_with_limit import ListWithLimit
 from inspirehep.records.marshmallow.fields.nested_without_empty_objects import (
     NestedField,
@@ -21,6 +19,7 @@ from inspirehep.records.marshmallow.literature.common.doi import DOISchemaV1
 from inspirehep.records.marshmallow.literature.common.publication_info_item import (
     PublicationInfoItemSchemaV1,
 )
+from marshmallow import Schema, fields, missing
 
 
 class CVSchema(Schema):

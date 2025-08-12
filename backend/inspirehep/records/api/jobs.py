@@ -3,12 +3,11 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-from opensearch_dsl import Q
-
-from inspirehep.pidstore.api import PidStoreJobs
+from inspirehep.pidstore.api.jobs import PidStoreJobs
 from inspirehep.records.api.base import InspireRecord
-from inspirehep.records.marshmallow.jobs import JobsElasticSearchSchema
+from inspirehep.records.marshmallow.jobs.es import JobsElasticSearchSchema
 from inspirehep.search.api import JobsSearch
+from opensearch_dsl import Q
 
 
 class JobsRecord(InspireRecord):

@@ -6,7 +6,6 @@
 
 from flask import Blueprint, abort, request
 from inspire_query_parser import parse_query
-
 from inspirehep.serializers import jsonify
 
 blueprint = Blueprint("inspirehep_search", __name__, url_prefix="/search")

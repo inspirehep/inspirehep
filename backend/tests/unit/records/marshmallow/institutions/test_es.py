@@ -6,8 +6,10 @@
 
 import mock
 from helpers.providers.faker import faker
-from inspirehep.records.api import InstitutionsRecord
-from inspirehep.records.marshmallow.institutions import InstitutionsElasticSearchSchema
+from inspirehep.records.api.institutions import InstitutionsRecord
+from inspirehep.records.marshmallow.institutions.es import (
+    InstitutionsElasticSearchSchema,
+)
 
 
 def test_institutions_serializer_should_serialize_whole_basic_record():

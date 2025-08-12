@@ -6,7 +6,7 @@
 
 import orjson
 from inspire_schemas.api import load_schema, validate
-from inspirehep.records.marshmallow.authors.common import PositionSchemaV1
+from inspirehep.records.marshmallow.authors.common.position import PositionSchemaV1
 
 
 def test_returns_display_date_if_start_and_end_date_present():

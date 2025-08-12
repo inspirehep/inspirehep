@@ -8,9 +8,8 @@
 import requests
 import structlog
 from flask import current_app
-from invenio_pidstore.models import PIDStatus, RecordIdentifier
-
 from inspirehep.pidstore.providers.base import InspireBaseProvider
+from invenio_pidstore.models import PIDStatus, RecordIdentifier
 
 LOGGER = structlog.getLogger()
 

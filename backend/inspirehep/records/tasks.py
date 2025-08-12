@@ -11,18 +11,17 @@ from inspire_schemas.utils import get_refs_to_schemas
 from inspire_utils.dedupers import dedupe_all_lists
 from inspire_utils.helpers import maybe_int
 from inspire_utils.record import get_value
+from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
+from inspirehep.pidstore.api.base import PidStoreBase
+from inspirehep.records.api.base import InspireRecord
+from inspirehep.records.api.literature import LiteratureRecord
+from inspirehep.search.api import InspireSearch
+from inspirehep.utils import flatten_list
 from invenio_db import db
 from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
 from opensearch_dsl import Q
 from sqlalchemy.exc import OperationalError
-
-from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
-from inspirehep.pidstore.api import PidStoreBase
-from inspirehep.records.api import InspireRecord
-from inspirehep.records.api.literature import LiteratureRecord
-from inspirehep.search.api import InspireSearch
-from inspirehep.utils import flatten_list
 
 LOGGER = structlog.getLogger()
 

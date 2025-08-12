@@ -12,16 +12,15 @@ import structlog
 from click import UsageError
 from flask import current_app
 from flask.cli import with_appcontext
+from inspirehep.indexer.tasks import batch_index
+from inspirehep.records.api import InspireRecord
+from inspirehep.utils import chunker
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_search import current_search
 from invenio_search.cli import index
 from opensearchpy.client.ingest import IngestClient
 from opensearchpy.exceptions import NotFoundError
-
-from inspirehep.indexer.tasks import batch_index
-from inspirehep.records.api import InspireRecord
-from inspirehep.utils import chunker
 
 LOGGER = structlog.getLogger()
 FULLTEXT_PIPELINE_SETUP = {
