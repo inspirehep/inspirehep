@@ -29,7 +29,7 @@ def assert_record_not_in_es(recid):
 
 @pytest.mark.xfail(reason="it takes to long to put attachment in es")
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.LiteratureFulltextElasticSearchSchema.get_documents_with_fulltext",
+    "inspirehep.records.marshmallow.literature.es.LiteratureFulltextElasticSearchSchema.get_documents_with_fulltext",
     return_value=[
         {
             "source": "arxiv",
@@ -76,7 +76,7 @@ def test_fulltext_indexer(inspire_app, clean_celery_session, override_config):
 
 @pytest.mark.xfail(reason="it takes to long to put attachment in es")
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.LiteratureFulltextElasticSearchSchema.get_documents_with_fulltext",
+    "inspirehep.records.marshmallow.literature.es.LiteratureFulltextElasticSearchSchema.get_documents_with_fulltext",
     side_effect=[
         [
             {
