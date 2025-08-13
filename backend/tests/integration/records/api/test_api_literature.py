@@ -19,7 +19,7 @@ from helpers.utils import (
     create_s3_file,
 )
 from inspirehep.files.proxies import current_s3_instance
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.api.literature import LiteratureRecord, import_article
 from inspirehep.records.errors import (
     ExistingArticleError,

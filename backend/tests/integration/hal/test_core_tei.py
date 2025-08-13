@@ -26,7 +26,7 @@ import orjson
 import pkg_resources
 from helpers.providers.faker import faker
 from inspirehep.hal.core.tei import convert_to_tei
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 from lxml import etree
 
 

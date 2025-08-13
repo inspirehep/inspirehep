@@ -13,7 +13,7 @@ from click import UsageError
 from flask import current_app
 from flask.cli import with_appcontext
 from inspirehep.indexer.tasks import batch_index
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 from inspirehep.utils import chunker
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus

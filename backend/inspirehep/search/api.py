@@ -9,6 +9,12 @@ import structlog
 from flask import current_app, request
 from inspire_schemas.utils import convert_old_publication_info_to_new
 from inspire_utils.record import get_value
+from invenio_search import current_search_client as es
+from invenio_search.api import DefaultFilter, RecordsSearch
+from opensearch_dsl.query import Match, Q
+from opensearchpy import RequestError
+from requests.exceptions import RequestException
+
 from inspirehep.accounts.api import (
     get_allowed_collections_for_user,
     is_superuser_or_cataloger_logged_in,
@@ -21,11 +27,6 @@ from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.search.errors import MalformatedQuery, MaximumSearchPageSizeExceeded
 from inspirehep.search.factories.query import inspire_query_factory
 from inspirehep.search.utils import RecursionLimit
-from invenio_search import current_search_client as es
-from invenio_search.api import DefaultFilter, RecordsSearch
-from opensearch_dsl.query import Match, Q
-from opensearchpy import RequestError
-from requests.exceptions import RequestException
 
 IQ = inspire_query_factory()
 LOGGER = structlog.getLogger()

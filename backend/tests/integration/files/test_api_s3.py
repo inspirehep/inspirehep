@@ -97,7 +97,7 @@ def test_file_exists_when_file_is_missing(inspire_app, s3):
 
 
 @patch(
-    "inspirehep.files.api.current_s3_instance.client.head_object",
+    "inspirehep.files.proxies.current_s3_instance.client.head_object",
     side_effect=ClientError({"Error": {"Code": "500", "Message": "Error"}}, "load"),
 )
 def test_file_exists_when_error_occurs(mock_client_head_object, inspire_app, s3):

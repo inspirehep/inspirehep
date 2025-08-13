@@ -6,7 +6,7 @@
 import os
 from abc import ABC, abstractmethod
 
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 from inspirehep.search.api import IQ, LiteratureSearch
 from inspirehep.utils import chunker
 from invenio_db import db

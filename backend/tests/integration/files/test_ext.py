@@ -6,7 +6,7 @@
 from concurrent.futures import ThreadPoolExecutor
 
 from flask import Flask, current_app
-from inspirehep.files import InspireS3
+from inspirehep.files.ext import InspireS3
 from inspirehep.files.proxies import current_s3_instance
 
 

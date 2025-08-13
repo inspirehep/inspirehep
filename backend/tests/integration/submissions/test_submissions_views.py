@@ -21,15 +21,25 @@ from helpers.utils import (
 from inspire_utils.query import ordered
 from inspire_utils.record import get_value
 from inspirehep.accounts.roles import Roles
-from inspirehep.records.api import (
+from inspirehep.records.api.authors import (
     AuthorsRecord,
-    ExperimentsRecord,
-    InstitutionsRecord,
-    JobsRecord,
-    JournalsRecord,
-    SeminarsRecord,
 )
 from inspirehep.records.api.conferences import ConferencesRecord
+from inspirehep.records.api.experiments import (
+    ExperimentsRecord,
+)
+from inspirehep.records.api.institutions import (
+    InstitutionsRecord,
+)
+from inspirehep.records.api.jobs import (
+    JobsRecord,
+)
+from inspirehep.records.api.journals import (
+    JournalsRecord,
+)
+from inspirehep.records.api.seminars import (
+    SeminarsRecord,
+)
 from invenio_accounts.testutils import login_user_via_session
 from mock import patch
 

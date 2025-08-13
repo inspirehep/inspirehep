@@ -8,7 +8,8 @@ import uuid
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_pidstore, create_record
-from inspirehep.records.api import AuthorsRecord, InspireRecord
+from inspirehep.records.api.authors import AuthorsRecord
+from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.api.literature import LiteratureRecord
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier

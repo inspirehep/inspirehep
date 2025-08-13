@@ -12,7 +12,7 @@ import orjson
 from helpers.providers.faker import faker
 from helpers.utils import create_record, create_record_factory, create_user, logout
 from inspirehep.accounts.roles import Roles
-from inspirehep.files import current_s3_instance
+from inspirehep.files.proxies import current_s3_instance
 from inspirehep.records.errors import MaxResultWindowRESTError
 from invenio_accounts.testutils import login_user_via_session
 
