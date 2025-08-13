@@ -6,10 +6,11 @@
 import orjson
 from flask import current_app
 from freezegun.api import FakeDatetime
-from inspirehep.search.utils import RecursionLimit
 from opensearchpy import SerializationError
 from opensearchpy.compat import string_types
 from opensearchpy.serializer import JSONSerializer
+
+from inspirehep.search.utils import RecursionLimit
 
 
 class ORJSONSerializerES(JSONSerializer):

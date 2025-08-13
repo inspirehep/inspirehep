@@ -1,6 +1,6 @@
 from helpers.providers.faker import faker
 from helpers.utils import retry_test
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.models import JournalLiterature
 from inspirehep.search.api import JournalsSearch, LiteratureSearch
 from invenio_db import db

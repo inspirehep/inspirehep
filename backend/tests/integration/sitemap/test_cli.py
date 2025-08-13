@@ -9,7 +9,7 @@ from io import BytesIO
 from flask import render_template
 from helpers.utils import create_record, es_search
 from inspire_utils.record import get_value
-from inspirehep.files import current_s3_instance
+from inspirehep.files.proxies import current_s3_instance
 from inspirehep.utils import get_inspirehep_url
 from lxml import etree
 

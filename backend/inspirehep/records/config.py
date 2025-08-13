@@ -75,7 +75,11 @@ def default_handler(error):
     return jsonify(message=message, status=code), code
 
 
-INSPIRE_SERIALIZERS = "inspirehep.records.serializers"
+INSPIRE_BIBTEX_SERIALIZERS = "inspirehep.records.serializers.bibtex"
+INSPIRE_CV_SERIALIZERS = "inspirehep.records.serializers.cv"
+INSPIRE_JINJA_SERIALIZERS = "inspirehep.records.serializers.jinja"
+INSPIRE_JSON_SERIALIZERS = "inspirehep.records.serializers.json"
+INSPIRE_LATEX_SERIALIZERS = "inspirehep.records.serializers.latex"
 
 # /literature endpoints
 RECORD = {
@@ -115,48 +119,48 @@ LITERATURE.update(
         "search_class": LiteratureSearch,
         "search_index": "records-hep",
         "record_serializers": {
-            "application/json": f"{INSPIRE_SERIALIZERS}:literature_json_response",
+            "application/json": f"{INSPIRE_JSON_SERIALIZERS}.literature:literature_json_response",
             "application/vnd+inspire.record.ui+json": (
-                f"{INSPIRE_SERIALIZERS}:literature_json_detail_response"
+                f"{INSPIRE_JSON_SERIALIZERS}.literature:literature_json_detail_response"
             ),
             "application/vnd+inspire.record.raw+json": (
-                f"{INSPIRE_SERIALIZERS}:raw_json_detail_response"
+                f"{INSPIRE_JSON_SERIALIZERS}.raw:raw_json_detail_response"
             ),
             "application/vnd+inspire.record.expanded+json": (
-                f"{INSPIRE_SERIALIZERS}:literature_json_expanded_response"
+                f"{INSPIRE_JSON_SERIALIZERS}.literature:literature_json_expanded_response"
             ),
-            "application/x-bibtex": f"{INSPIRE_SERIALIZERS}:literature_bibtex_response",
+            "application/x-bibtex": f"{INSPIRE_BIBTEX_SERIALIZERS}:literature_bibtex_response",
             "application/vnd+inspire.latex.eu+x-latex": (
-                f"{INSPIRE_SERIALIZERS}:latex_response_eu"
+                f"{INSPIRE_LATEX_SERIALIZERS}:latex_response_eu"
             ),
             "application/vnd+inspire.latex.us+x-latex": (
-                f"{INSPIRE_SERIALIZERS}:latex_response_us"
+                f"{INSPIRE_LATEX_SERIALIZERS}:latex_response_us"
             ),
             "text/vnd+inspire.html+html": (
-                f"{INSPIRE_SERIALIZERS}:literature_cv_html_response"
+                f"{INSPIRE_CV_SERIALIZERS}:literature_cv_html_response"
             ),
         },
         "search_serializers": {
             "application/json": (
-                f"{INSPIRE_SERIALIZERS}:literature_json_response_search"
+                f"{INSPIRE_JSON_SERIALIZERS}.literature:literature_json_response_search"
             ),
             "application/vnd+inspire.record.ui+json": (
-                f"{INSPIRE_SERIALIZERS}:literature_json_list_response"
+                f"{INSPIRE_JSON_SERIALIZERS}.literature:literature_json_list_response"
             ),
             "application/vnd+inspire.record.expanded+json": (
-                f"{INSPIRE_SERIALIZERS}:literature_json_expanded_list_response"
+                f"{INSPIRE_JSON_SERIALIZERS}.literature:literature_json_expanded_list_response"
             ),
             "application/x-bibtex": (
-                f"{INSPIRE_SERIALIZERS}:literature_bibtex_response_search"
+                f"{INSPIRE_BIBTEX_SERIALIZERS}:literature_bibtex_response_search"
             ),
             "text/vnd+inspire.html+html": (
-                f"{INSPIRE_SERIALIZERS}:literature_cv_html_response_search"
+                f"{INSPIRE_CV_SERIALIZERS}:literature_cv_html_response_search"
             ),
             "application/vnd+inspire.latex.eu+x-latex": (
-                f"{INSPIRE_SERIALIZERS}:literature_latex_eu_response_search"
+                f"{INSPIRE_LATEX_SERIALIZERS}:literature_latex_eu_response_search"
             ),
             "application/vnd+inspire.latex.us+x-latex": (
-                f"{INSPIRE_SERIALIZERS}:literature_latex_us_response_search"
+                f"{INSPIRE_LATEX_SERIALIZERS}:literature_latex_us_response_search"
             ),
         },
         "list_route": "/literature/",
@@ -202,7 +206,7 @@ LITERATURE_FACETS.update(
         "search_class": LiteratureAggregationsSearch,
         "list_route": "/literature/facets/",
         "search_serializers": {
-            "application/json": f"{INSPIRE_SERIALIZERS}:facets_json_response_search"
+            "application/json": f"{INSPIRE_JSON_SERIALIZERS}.literature:facets_json_response_search"
         },
     }
 )
@@ -218,7 +222,7 @@ LITERATURE_AUTHORS.update(
         "item_route": '/literature/<inspirepid(lit,record_class="inspirehep.records.api.literature.LiteratureRecord"):pid_value>/authors',
         "record_serializers": {
             "application/json": (
-                f"{INSPIRE_SERIALIZERS}:literature_authors_json_response"
+                f"{INSPIRE_JSON_SERIALIZERS}.literature:literature_authors_json_response"
             )
         },
         "search_serializers": {
@@ -238,7 +242,7 @@ DOI = deepcopy(LITERATURE)
 DOI.update(
     {
         "pid_type": "doi",
-        "item_route": '/doi/<doipath(doi,record_class="inspirehep.records.api.InspireRecord"):pid_value>',
+        "item_route": '/doi/<doipath(doi,record_class="inspirehep.records.api.base.InspireRecord"):pid_value>',
     }
 )
 
@@ -250,19 +254,21 @@ AUTHORS.update(
         "search_class": AuthorsSearch,
         "search_index": "records-authors",
         "record_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":authors_json_response",
+            "application/json": INSPIRE_JSON_SERIALIZERS
+            + ".authors:authors_json_response",
             "application/vnd+inspire.record.raw+json": (
-                f"{INSPIRE_SERIALIZERS}:raw_json_detail_response"
+                f"{INSPIRE_JSON_SERIALIZERS}.raw:raw_json_detail_response"
             ),
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":authors_json_detail_response",
-            "application/vnd+inspire.record.control_number+json": INSPIRE_SERIALIZERS
-            + ":authors_control_number_only_json_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_JSON_SERIALIZERS
+            + ".authors:authors_json_detail_response",
+            "application/vnd+inspire.record.control_number+json": INSPIRE_JSON_SERIALIZERS
+            + ".authors:authors_control_number_only_json_response",
         },
         "search_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":authors_json_response_search",
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":authors_json_list_response",
+            "application/json": INSPIRE_JSON_SERIALIZERS
+            + ".authors:authors_json_response_search",
+            "application/vnd+inspire.record.ui+json": INSPIRE_JSON_SERIALIZERS
+            + ".authors:authors_json_list_response",
         },
         "suggesters": {
             "author": {
@@ -271,8 +277,8 @@ AUTHORS.update(
             }
         },
         "list_route": "/authors/",
-        "item_route": '/authors/<inspirepid(aut,record_class="inspirehep.records.api:AuthorsRecord"):pid_value>',
-        "record_class": "inspirehep.records.api:AuthorsRecord",
+        "item_route": '/authors/<inspirepid(aut,record_class="inspirehep.records.api.authors:AuthorsRecord"):pid_value>',
+        "record_class": "inspirehep.records.api.authors:AuthorsRecord",
         "search_factory_imp": (
             "inspirehep.search.factories.search:search_factory_with_aggs"
         ),
@@ -285,7 +291,7 @@ AUTHORS_ORCID = deepcopy(AUTHORS)
 AUTHORS_ORCID.update(
     {
         "pid_type": "orcid",
-        "item_route": '/orcid/<pidpath(orcid,record_class="inspirehep.records.api.AuthorsRecord"):pid_value>',
+        "item_route": '/orcid/<pidpath(orcid,record_class="inspirehep.records.api.authors.AuthorsRecord"):pid_value>',
     }
 )
 
@@ -297,23 +303,24 @@ JOBS.update(
         "search_class": JobsSearch,
         "search_index": "records-jobs",
         "list_route": "/jobs/",
-        "item_route": '/jobs/<inspirepid(job,record_class="inspirehep.records.api:JobsRecord"):pid_value>',
-        "record_class": "inspirehep.records.api:JobsRecord",
+        "item_route": '/jobs/<inspirepid(job,record_class="inspirehep.records.api.jobs:JobsRecord"):pid_value>',
+        "record_class": "inspirehep.records.api.jobs:JobsRecord",
         "search_factory_imp": (
             "inspirehep.search.factories.search:search_factory_with_aggs"
         ),
         "search_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":jobs_json_response_search",
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":jobs_json_list_response",
+            "application/json": INSPIRE_JSON_SERIALIZERS
+            + ".jobs:jobs_json_response_search",
+            "application/vnd+inspire.record.ui+json": INSPIRE_JSON_SERIALIZERS
+            + ".jobs:jobs_json_list_response",
         },
         "record_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":jobs_json_response",
+            "application/json": INSPIRE_JSON_SERIALIZERS + ".jobs:jobs_json_response",
             "application/vnd+inspire.record.raw+json": (
-                f"{INSPIRE_SERIALIZERS}:raw_json_detail_response"
+                f"{INSPIRE_JSON_SERIALIZERS}.raw:raw_json_detail_response"
             ),
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":jobs_json_detail_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_JSON_SERIALIZERS
+            + ".jobs:jobs_json_detail_response",
         },
     }
 )
@@ -326,7 +333,7 @@ JOBS_FACETS.update(
         ),
         "list_route": "/jobs/facets/",
         "search_serializers": {
-            "application/json": f"{INSPIRE_SERIALIZERS}:facets_json_response_search"
+            "application/json": f"{INSPIRE_JSON_SERIALIZERS}.literature:facets_json_response_search"
         },
     }
 )
@@ -339,10 +346,10 @@ JOURNALS.update(
         "search_class": JournalsSearch,
         "search_index": "records-journals",
         "list_route": "/journals/",
-        "item_route": '/journals/<inspirepid(jou,record_class="inspirehep.records.api:JournalsRecord"):pid_value>',
+        "item_route": '/journals/<inspirepid(jou,record_class="inspirehep.records.api.journals:JournalsRecord"):pid_value>',
         "create_permission_factory_imp": SessionSuperuserPermission,
         "update_permission_factory_imp": SessionCatalogerPermission,
-        "record_class": "inspirehep.records.api:JournalsRecord",
+        "record_class": "inspirehep.records.api.journals:JournalsRecord",
         "search_factory_imp": (
             "inspirehep.search.factories.search:search_factory_with_aggs"
         ),
@@ -353,16 +360,18 @@ JOURNALS.update(
             }
         },
         "search_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":journals_json_response_search",
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":journals_json_list_response",
+            "application/json": INSPIRE_JSON_SERIALIZERS
+            + ".journals:journals_json_response_search",
+            "application/vnd+inspire.record.ui+json": INSPIRE_JSON_SERIALIZERS
+            + ".journals:journals_json_list_response",
         },
         "record_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":journals_json_response",
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":journals_json_detail_response",
+            "application/json": INSPIRE_JSON_SERIALIZERS
+            + ".journals:journals_json_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_JSON_SERIALIZERS
+            + ".journals:journals_json_detail_response",
             "application/vnd+inspire.record.raw+json": (
-                f"{INSPIRE_SERIALIZERS}:raw_json_detail_response"
+                f"{INSPIRE_JSON_SERIALIZERS}.raw:raw_json_detail_response"
             ),
         },
     }
@@ -376,10 +385,10 @@ EXPERIMENTS.update(
         "search_class": ExperimentsSearch,
         "search_index": "records-experiments",
         "list_route": "/experiments/",
-        "item_route": '/experiments/<inspirepid(exp,record_class="inspirehep.records.api:ExperimentsRecord"):pid_value>',
+        "item_route": '/experiments/<inspirepid(exp,record_class="inspirehep.records.api.experiments:ExperimentsRecord"):pid_value>',
         "create_permission_factory_imp": SessionSuperuserPermission,
         "update_permission_factory_imp": SessionCatalogerPermission,
-        "record_class": "inspirehep.records.api:ExperimentsRecord",
+        "record_class": "inspirehep.records.api.experiments:ExperimentsRecord",
         "search_factory_imp": (
             "inspirehep.search.factories.search:search_factory_with_aggs"
         ),
@@ -405,17 +414,18 @@ EXPERIMENTS.update(
             }
         },
         "search_serializers": {
-            "application/json": INSPIRE_SERIALIZERS
-            + ":experiments_json_response_search",
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":experiments_json_list_response",
+            "application/json": INSPIRE_JSON_SERIALIZERS
+            + ".experiments:experiments_json_response_search",
+            "application/vnd+inspire.record.ui+json": INSPIRE_JSON_SERIALIZERS
+            + ".experiments:experiments_json_list_response",
         },
         "record_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":experiments_json_response",
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":experiments_json_detail_response",
+            "application/json": INSPIRE_JSON_SERIALIZERS
+            + ".experiments:experiments_json_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_JSON_SERIALIZERS
+            + ".experiments:experiments_json_detail_response",
             "application/vnd+inspire.record.raw+json": (
-                f"{INSPIRE_SERIALIZERS}:raw_json_detail_response"
+                f"{INSPIRE_JSON_SERIALIZERS}.raw:raw_json_detail_response"
             ),
         },
     }
@@ -430,7 +440,7 @@ EXPERIMENTS_FACETS.update(
         ),
         "list_route": "/experiments/facets/",
         "search_serializers": {
-            "application/json": f"{INSPIRE_SERIALIZERS}:facets_json_response_search"
+            "application/json": f"{INSPIRE_JSON_SERIALIZERS}.literature:facets_json_response_search"
         },
     }
 )
@@ -468,17 +478,18 @@ CONFERENCES.update(
         },
         "update_permission_factory_imp": SessionCatalogerPermission,
         "search_serializers": {
-            "application/json": INSPIRE_SERIALIZERS
-            + ":conferences_json_response_search",
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":conferences_json_list_response",
+            "application/json": INSPIRE_JSON_SERIALIZERS
+            + ".conferences:conferences_json_response_search",
+            "application/vnd+inspire.record.ui+json": INSPIRE_JSON_SERIALIZERS
+            + ".conferences:conferences_json_list_response",
         },
         "record_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":conferences_json_response",
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":conferences_json_detail_response",
+            "application/json": INSPIRE_JSON_SERIALIZERS
+            + ".conferences:conferences_json_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_JSON_SERIALIZERS
+            + ".conferences:conferences_json_detail_response",
             "application/vnd+inspire.record.raw+json": (
-                f"{INSPIRE_SERIALIZERS}:raw_json_detail_response"
+                f"{INSPIRE_JSON_SERIALIZERS}.raw:raw_json_detail_response"
             ),
         },
     }
@@ -493,7 +504,7 @@ CONFERENCES_FACETS.update(
         ),
         "list_route": "/conferences/facets/",
         "search_serializers": {
-            "application/json": f"{INSPIRE_SERIALIZERS}:facets_json_response_search"
+            "application/json": f"{INSPIRE_JSON_SERIALIZERS}.literature:facets_json_response_search"
         },
     }
 )
@@ -514,16 +525,17 @@ DATA.update(
         "create_permission_factory_imp": SessionSuperuserPermission,
         "update_permission_factory_imp": SessionCatalogerPermission,
         "search_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":data_json_response_search",
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":data_json_list_response",
+            "application/json": INSPIRE_JSON_SERIALIZERS
+            + ".data:data_json_response_search",
+            "application/vnd+inspire.record.ui+json": INSPIRE_JSON_SERIALIZERS
+            + ".data:data_json_list_response",
         },
         "record_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":data_json_response",
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":data_json_detail_response",
+            "application/json": INSPIRE_JSON_SERIALIZERS + ".data:data_json_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_JSON_SERIALIZERS
+            + ".data:data_json_detail_response",
             "application/vnd+inspire.record.raw+json": (
-                f"{INSPIRE_SERIALIZERS}:raw_json_detail_response"
+                f"{INSPIRE_JSON_SERIALIZERS}.raw:raw_json_detail_response"
             ),
         },
     }
@@ -540,7 +552,9 @@ DATA_AUTHORS.update(
         "list_route": "/data/authors/",
         "item_route": '/data/<inspirepid(dat,record_class="inspirehep.records.api.data.DataRecord"):pid_value>/authors',
         "record_serializers": {
-            "application/json": (f"{INSPIRE_SERIALIZERS}:data_authors_json_response")
+            "application/json": (
+                f"{INSPIRE_JSON_SERIALIZERS}.data:data_authors_json_response"
+            )
         },
         "search_serializers": {
             "application/json": "invenio_records_rest.serializers:json_v1_search"
@@ -557,7 +571,7 @@ DATA_FACETS.update(
         ),
         "list_route": "/data/facets/",
         "search_serializers": {
-            "application/json": f"{INSPIRE_SERIALIZERS}:facets_json_response_search"
+            "application/json": f"{INSPIRE_JSON_SERIALIZERS}.literature:facets_json_response_search"
         },
     }
 )
@@ -571,8 +585,8 @@ INSTITUTIONS.update(
         "search_class": InstitutionsSearch,
         "search_index": "records-institutions",
         "list_route": "/institutions/",
-        "item_route": '/institutions/<inspirepid(ins,record_class="inspirehep.records.api:InstitutionsRecord"):pid_value>',
-        "record_class": "inspirehep.records.api:InstitutionsRecord",
+        "item_route": '/institutions/<inspirepid(ins,record_class="inspirehep.records.api.institutions:InstitutionsRecord"):pid_value>',
+        "record_class": "inspirehep.records.api.institutions:InstitutionsRecord",
         "search_factory_imp": (
             "inspirehep.search.factories.search:search_factory_with_aggs"
         ),
@@ -584,17 +598,18 @@ INSTITUTIONS.update(
         },
         "update_permission_factory_imp": SessionCatalogerPermission,
         "search_serializers": {
-            "application/json": INSPIRE_SERIALIZERS
-            + ":institutions_json_response_search",
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":institutions_json_list_response",
+            "application/json": INSPIRE_JSON_SERIALIZERS
+            + ".institutions:institutions_json_response_search",
+            "application/vnd+inspire.record.ui+json": INSPIRE_JSON_SERIALIZERS
+            + ".institutions:institutions_json_list_response",
         },
         "record_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":institutions_json_response",
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":institutions_json_detail_response",
+            "application/json": INSPIRE_JSON_SERIALIZERS
+            + ".institutions:institutions_json_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_JSON_SERIALIZERS
+            + ".institutions:institutions_json_detail_response",
             "application/vnd+inspire.record.raw+json": (
-                f"{INSPIRE_SERIALIZERS}:raw_json_detail_response"
+                f"{INSPIRE_JSON_SERIALIZERS}.raw:raw_json_detail_response"
             ),
         },
     }
@@ -608,22 +623,24 @@ SEMINARS.update(
         "search_class": SeminarsSearch,
         "search_index": "records-seminars",
         "list_route": "/seminars/",
-        "item_route": '/seminars/<inspirepid(sem,record_class="inspirehep.records.api:SeminarsRecord"):pid_value>',
-        "record_class": "inspirehep.records.api:SeminarsRecord",
+        "item_route": '/seminars/<inspirepid(sem,record_class="inspirehep.records.api.seminars:SeminarsRecord"):pid_value>',
+        "record_class": "inspirehep.records.api.seminars:SeminarsRecord",
         "search_factory_imp": (
             "inspirehep.search.factories.search:search_factory_with_aggs"
         ),
         "search_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":seminars_json_response_search",
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":seminars_json_list_response",
+            "application/json": INSPIRE_JSON_SERIALIZERS
+            + ".seminars:seminars_json_response_search",
+            "application/vnd+inspire.record.ui+json": INSPIRE_JSON_SERIALIZERS
+            + ".seminars:seminars_json_list_response",
         },
         "record_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":seminars_json_response",
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":seminars_json_detail_response",
+            "application/json": INSPIRE_JSON_SERIALIZERS
+            + ".seminars:seminars_json_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_JSON_SERIALIZERS
+            + ".seminars:seminars_json_detail_response",
             "application/vnd+inspire.record.raw+json": (
-                f"{INSPIRE_SERIALIZERS}:raw_json_detail_response"
+                f"{INSPIRE_JSON_SERIALIZERS}.raw:raw_json_detail_response"
             ),
         },
         "suggesters": {
@@ -644,7 +661,7 @@ SEMINARS_FACETS.update(
         ),
         "list_route": "/seminars/facets/",
         "search_serializers": {
-            "application/json": f"{INSPIRE_SERIALIZERS}:facets_json_response_search"
+            "application/json": f"{INSPIRE_JSON_SERIALIZERS}.literature:facets_json_response_search"
         },
     }
 )

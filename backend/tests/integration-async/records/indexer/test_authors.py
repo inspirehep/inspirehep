@@ -8,7 +8,7 @@ from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
 from helpers.utils import es_search, retry_test
 from inspire_utils.record import get_value
-from inspirehep.records.api import AuthorsRecord
+from inspirehep.records.api.authors import AuthorsRecord
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.search.api import AuthorsSearch, LiteratureSearch
 from invenio_db import db

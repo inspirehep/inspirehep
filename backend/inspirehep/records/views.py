@@ -22,7 +22,9 @@ from inspirehep.records.errors import (
     MaxResultWindowRESTError,
     UnknownImportIdentifierError,
 )
-from inspirehep.records.marshmallow.literature.common import ReferenceItemSchemaV2
+from inspirehep.records.marshmallow.literature.common.reference_item import (
+    ReferenceItemSchemaV2,
+)
 from inspirehep.records.marshmallow.literature.references import (
     LiteratureReferencesSchema,
 )

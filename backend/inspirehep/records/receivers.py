@@ -6,7 +6,7 @@
 
 import structlog
 from flask_sqlalchemy import models_committed
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.tasks import (
     redirect_references_to_merged_record,
 )

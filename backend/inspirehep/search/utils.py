@@ -7,9 +7,10 @@ import sys
 from contextlib import AbstractContextManager
 
 from flask import current_app, request
-from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from six import string_types
 from werkzeug.utils import import_string
+
+from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 
 
 def get_facet_configuration(search_index):

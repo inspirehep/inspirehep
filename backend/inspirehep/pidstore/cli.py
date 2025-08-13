@@ -10,7 +10,7 @@ from flask import current_app
 from flask.cli import with_appcontext
 from inspirehep.pidstore.errors import MissingSchema
 from inspirehep.pidstore.minters.bai import BAIMinter
-from inspirehep.records.api import AuthorsRecord
+from inspirehep.records.api.authors import AuthorsRecord
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 

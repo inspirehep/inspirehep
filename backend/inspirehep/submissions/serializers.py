@@ -6,16 +6,28 @@
 
 """Submissions serializers."""
 
-from inspirehep.submissions.marshmallow import (
+from inspirehep.submissions.marshmallow.author import (
     Author,
+)
+from inspirehep.submissions.marshmallow.conferences import (
     Conference,
+)
+from inspirehep.submissions.marshmallow.experiments import (
     Experiment,
+)
+from inspirehep.submissions.marshmallow.institutions import (
     Institution,
-    Journal,
-    Literature,
-    Seminar,
 )
 from inspirehep.submissions.marshmallow.job import Job
+from inspirehep.submissions.marshmallow.journals import (
+    Journal,
+)
+from inspirehep.submissions.marshmallow.literature import (
+    Literature,
+)
+from inspirehep.submissions.marshmallow.seminars import (
+    Seminar,
+)
 from invenio_records_rest.serializers.json import JSONSerializer
 
 literature_v1 = JSONSerializer(Literature)

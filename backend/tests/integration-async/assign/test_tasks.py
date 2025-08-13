@@ -1,6 +1,6 @@
 from helpers.utils import create_record, retry_test
 from inspirehep.assign.tasks import assign_papers
-from inspirehep.records.api import AuthorsRecord
+from inspirehep.records.api.authors import AuthorsRecord
 from inspirehep.search.api import LiteratureSearch
 from invenio_db import db
 from invenio_search import current_search
