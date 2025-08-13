@@ -104,7 +104,7 @@ def data_harvest_dag():
             return record
 
         @task.virtualenv(
-            requirements=["inspire-schemas==61.6.10"],
+            requirements=["inspire-schemas==61.6.19"],
             system_site_packages=False,
             venv_cache_path="/opt/airflow/venvs",
         )
@@ -116,103 +116,10 @@ def data_harvest_dag():
 
             Returns: dict: The built record.
             """
-            import datetime
-            import re
+            from inspire_schemas.parsers.hepdata import HEPDataParser
 
-            from inspire_schemas.builders import DataBuilder
-            from inspire_utils.date import normalize_date
-
-            def add_version_specific_dois(record, builder):
-                """Add dois to the record."""
-                for data_table in record["data_tables"]:
-                    builder.add_doi(data_table["doi"], material="part")
-                for resource_with_doi in record["resources_with_doi"]:
-                    builder.add_doi(resource_with_doi["doi"], material="part")
-
-                builder.add_doi(record["record"]["hepdata_doi"], material="version")
-
-            def add_keywords(record, builder):
-                """Add keywords to the record."""
-                for keyword, item in record.get("data_keywords", {}).items():
-                    if keyword == "cmenergies":
-                        if len(item) >= 1 and "lte" in item[0] and "gte" in item[0]:
-                            builder.add_keyword(
-                                f"{keyword}: {item[0]['lte']}-{item[0]['gte']}"
-                            )
-                    elif keyword == "observables":
-                        for value in item:
-                            builder.add_keyword(f"observables: {value}")
-                    else:
-                        for value in item:
-                            builder.add_keyword(value)
-
-            def add_date(record, builder):
-                """Add date to the record."""
-                creation_date = record["creation_date"]
-                last_updated = record.get("last_updated")
-                final_date = creation_date
-                if last_updated:
-                    try:
-                        last_updated = normalize_date(last_updated)
-                        if last_updated != "1970-01-01":  # Dummy date added by HEPData
-                            final_date = last_updated
-                    except ValueError:
-                        pass
-                builder.add_creation_date(final_date)
-
-            builder = DataBuilder(source="HEPData")
-
-            base_record = payload["base"]
-
-            for collaboration in base_record["record"]["collaborations"]:
-                builder.add_collaboration(collaboration)
-
-            builder.add_abstract(base_record["record"]["data_abstract"])
-
-            add_keywords(base_record["record"], builder)
-            record_v1 = payload.get("1", base_record)
-            add_date(record_v1["record"], builder)
-
-            doi = base_record["record"].get("doi")
-            inspire_id = base_record["record"]["inspire_id"]
-
-            if doi:
-                builder.add_literature(
-                    doi=doi,
-                    record={"$ref": f"{inspire_url}/api/literature/{inspire_id}"},
-                )
-            else:
-                builder.add_literature(
-                    record={"$ref": f"{inspire_url}/api/literature/{inspire_id}"},
-                )
-
-            for resource in base_record["record"]["resources"]:
-                if resource["url"].startswith(
-                    "https://www.hepdata.net/record/resource/"
-                ):
-                    continue
-                builder.add_url(resource["url"], description=resource["description"])
-
-            builder.add_title(base_record["record"]["title"])
-
-            builder.add_acquisition_source(
-                method="inspirehep",
-                submission_number=base_record["record"]["inspire_id"],
-                datetime=datetime.datetime.now(datetime.UTC).isoformat(),
-            )
-
-            mtc = re.match(r"(.*?)\.v\d+", base_record["record"]["hepdata_doi"])
-            if mtc:
-                builder.add_doi(doi=mtc.group(1), material="data")
-            else:
-                builder.add_doi(
-                    doi=base_record["record"]["hepdata_doi"], material="data"
-                )
-
-            for _, record_version in payload.items():
-                add_version_specific_dois(record_version, builder)
-
-            data = builder.record
+            parser = HEPDataParser(payload, inspire_url)
+            data = parser.parse()
             data["$schema"] = data_schema
             return data
 

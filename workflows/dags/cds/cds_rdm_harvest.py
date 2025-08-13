@@ -112,7 +112,7 @@ def cds_rdm_harvest_dag():
     @task_group
     def process_cds_rdm_response(cds_record):
         @task.virtualenv(
-            requirements=["inspire-schemas>=61.6.16"],
+            requirements=["inspire-schemas>=61.6.19"],
             system_site_packages=False,
             venv_cache_path="/opt/airflow/venvs",
         )

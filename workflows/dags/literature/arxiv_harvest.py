@@ -121,7 +121,7 @@ def arxiv_harvest_dag():
             )
 
         @task.virtualenv(
-            requirements=["inspire-schemas>=61.6.18", "boto3"],
+            requirements=["inspire-schemas>=61.6.19", "boto3"],
             system_site_packages=False,
             venv_cache_path="/opt/airflow/venvs",
         )
