@@ -6,11 +6,16 @@ describe('ResultItem', () => {
   it('render initial state with all props set', () => {
     const { getByText } = render(
       <ResultItem
-        title={<strong>title</strong>}
         leftActions={
           <ul>
             <li>action 1</li>
             <li>action 2</li>
+          </ul>
+        }
+        rightActions={
+          <ul>
+            <li>action 3</li>
+            <li>action 4</li>
           </ul>
         }
       >
@@ -23,5 +28,7 @@ describe('ResultItem', () => {
     expect(getByText('Content')).toBeInTheDocument();
     expect(getByText('action 1')).toBeInTheDocument();
     expect(getByText('action 2')).toBeInTheDocument();
+    expect(getByText('action 3')).toBeInTheDocument();
+    expect(getByText('action 4')).toBeInTheDocument();
   });
 });
