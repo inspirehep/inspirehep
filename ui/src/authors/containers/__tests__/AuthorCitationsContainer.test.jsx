@@ -1,12 +1,11 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
-import { render } from '@testing-library/react';
 
 import { getStore } from '../../../fixtures/store';
 import { AUTHOR_CITATIONS_NS } from '../../../search/constants';
 import AuthorCitationsContainer from '../AuthorCitationsContainer';
 import LiteratureSearchContainer from '../../../literature/containers/LiteratureSearchContainer';
+import { renderWithProviders } from '../../../fixtures/render';
 
 jest.mock('../../../literature/containers/LiteratureSearchContainer', () =>
   jest.fn(() => <div data-testid="literature-citations-search-container" />)
@@ -24,11 +23,7 @@ describe('AuthorCitationsContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <AuthorCitationsContainer />
-      </Provider>
-    );
+    renderWithProviders(<AuthorCitationsContainer />, { store });
 
     expect(LiteratureSearchContainer).toHaveBeenCalledWith(
       expect.objectContaining({

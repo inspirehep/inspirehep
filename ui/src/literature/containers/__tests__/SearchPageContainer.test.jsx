@@ -1,10 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-
 import { getStore } from '../../../fixtures/store';
+import { renderWithProviders } from '../../../fixtures/render';
 import SearchPageContainer from '../SearchPageContainer';
 import { LITERATURE_NS } from '../../../search/constants';
 
@@ -61,13 +59,7 @@ describe('SearchPageContainer Container', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/literature']} initialIndex={0}>
-          <SearchPageContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<SearchPageContainer />, { store });
 
     expect(screen.getByTestId('assign-conferences-drawer')).toBeInTheDocument();
     expect(
@@ -96,13 +88,7 @@ describe('SearchPageContainer Container', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/literature']} initialIndex={0}>
-          <SearchPageContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<SearchPageContainer />, { store });
 
     expect(
       screen.queryByTestId('assign-conferences-drawer')
@@ -135,13 +121,7 @@ describe('SearchPageContainer Container', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/literature']} initialIndex={0}>
-          <SearchPageContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<SearchPageContainer />, { store });
 
     expect(
       screen.getByText('The search query is malformed')

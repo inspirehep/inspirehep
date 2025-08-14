@@ -1,11 +1,9 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Loadable from 'react-loadable';
 
-import { getStore } from '../../fixtures/store';
+import { renderWithProviders } from '../../fixtures/render';
 import Conferences from '..';
 
 jest.mock('../containers/DetailPageContainer', () => () => (
@@ -15,22 +13,6 @@ jest.mock('../containers/DetailPageContainer', () => () => (
 jest.mock('../containers/SearchPageContainer', () => () => (
   <div data-testid="search-page-container">Search Page</div>
 ));
-
-const renderWithProviders = (ui, { route = '/', ...renderOptions } = {}) => {
-  const store = getStore();
-
-  function Wrapper({ children }) {
-    return (
-      <Provider store={store}>
-        <MemoryRouter initialEntries={[route]} initialIndex={0}>
-          {children}
-        </MemoryRouter>
-      </Provider>
-    );
-  }
-
-  return render(ui, { wrapper: Wrapper, ...renderOptions });
-};
 
 describe('Conferences', () => {
   beforeEach(async () => {

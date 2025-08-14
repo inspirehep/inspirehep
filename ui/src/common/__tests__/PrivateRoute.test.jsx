@@ -1,9 +1,8 @@
 import { fromJS, List } from 'immutable';
-import { Provider } from 'react-redux';
-import { MemoryRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
-import { render } from '@testing-library/react';
 import { getStore } from '../../fixtures/store';
+import { renderWithProviders } from '../../fixtures/render';
 import PrivateRoute from '../PrivateRoute';
 
 describe('PrivateRoute', () => {
@@ -18,15 +17,15 @@ describe('PrivateRoute', () => {
     });
     const Private = () => <div>Private Page</div>;
     const UserLogin = () => <div>User Login Page</div>;
-    const { getByText } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/private']} initialIndex={0}>
-          <Switch>
-            <Route exact path="/user/login" component={UserLogin} />
-            <PrivateRoute exact path="/private" component={Private} />
-          </Switch>
-        </MemoryRouter>
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <Switch>
+        <Route exact path="/user/login" component={UserLogin} />
+        <PrivateRoute exact path="/private" component={Private} />
+      </Switch>,
+      {
+        route: '/private',
+        store,
+      }
     );
     expect(getByText('User Login Page')).toBeInTheDocument();
   });
@@ -41,14 +40,14 @@ describe('PrivateRoute', () => {
       }),
     });
     const Private = () => <div>Private Page</div>;
-    const { getByText } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/private']} initialIndex={0}>
-          <Switch>
-            <PrivateRoute exact path="/private" component={Private} />
-          </Switch>
-        </MemoryRouter>
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <Switch>
+        <PrivateRoute exact path="/private" component={Private} />
+      </Switch>,
+      {
+        route: '/private',
+        store,
+      }
     );
     expect(getByText('Private Page')).toBeInTheDocument();
   });
@@ -64,20 +63,20 @@ describe('PrivateRoute', () => {
     });
     const Authorized = () => <div>Authorized Page</div>;
     const Error401 = () => <div>Error 401 Page</div>;
-    const { getByText } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/authorized']} initialIndex={0}>
-          <Switch>
-            <Route exact path="/errors/401" component={Error401} />
-            <PrivateRoute
-              exact
-              path="/authorized"
-              authorizedRoles={List(['authorizeduser'])}
-              component={Authorized}
-            />
-          </Switch>
-        </MemoryRouter>
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <Switch>
+        <Route exact path="/errors/401" component={Error401} />
+        <PrivateRoute
+          exact
+          path="/authorized"
+          authorizedRoles={List(['authorizeduser'])}
+          component={Authorized}
+        />
+      </Switch>,
+      {
+        route: '/authorized',
+        store,
+      }
     );
     expect(getByText('Error 401 Page')).toBeInTheDocument();
   });
@@ -92,19 +91,19 @@ describe('PrivateRoute', () => {
       }),
     });
     const Authorized = () => <div>Authorized Page</div>;
-    const { getByText } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/authorized']} initialIndex={0}>
-          <Switch>
-            <PrivateRoute
-              exact
-              path="/authorized"
-              authorizedRoles={List(['authorizeduser'])}
-              component={Authorized}
-            />
-          </Switch>
-        </MemoryRouter>
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <Switch>
+        <PrivateRoute
+          exact
+          path="/authorized"
+          authorizedRoles={List(['authorizeduser'])}
+          component={Authorized}
+        />
+      </Switch>,
+      {
+        route: '/authorized',
+        store,
+      }
     );
     expect(getByText('Authorized Page')).toBeInTheDocument();
   });

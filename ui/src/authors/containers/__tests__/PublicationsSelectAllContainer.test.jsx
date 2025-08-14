@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { fireEvent } from '@testing-library/react';
 import { fromJS, Set } from 'immutable';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
@@ -12,6 +11,7 @@ import {
 } from '../../../actions/authors';
 import PublicationsSelectAll from '../../components/PublicationsSelectAll';
 import { AUTHOR_PUBLICATIONS_NS } from '../../../search/constants';
+import { renderWithProviders } from '../../../fixtures/render';
 
 jest.mock('../../components/PublicationsSelectAll', () => {
   const actual = jest.requireActual('../../components/PublicationsSelectAll');
@@ -61,11 +61,7 @@ describe('PublicationsSelectAllContainer', () => {
         },
       }),
     });
-    render(
-      <Provider store={store}>
-        <PublicationsSelectAllContainer />
-      </Provider>
-    );
+    renderWithProviders(<PublicationsSelectAllContainer />, { store });
 
     expect(PublicationsSelectAll).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -114,10 +110,9 @@ describe('PublicationsSelectAllContainer', () => {
         },
       }),
     });
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <PublicationsSelectAllContainer />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <PublicationsSelectAllContainer />,
+      { store }
     );
 
     const checkbox = getByTestId('select-all-publications');

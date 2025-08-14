@@ -1,11 +1,9 @@
 import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
 import ReferenceDiffInterfaceContainer from '../ReferenceDiffInterfaceContainer';
 import { getStore } from '../../../fixtures/store';
+import { renderWithProviders } from '../../../fixtures/render';
 import { initialState } from '../../../reducers/literature';
 
 describe('ReferenceDiffInterfaceContainer', () => {
@@ -32,13 +30,7 @@ describe('ReferenceDiffInterfaceContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/literature/123/diff/1..2']}>
-          <ReferenceDiffInterfaceContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<ReferenceDiffInterfaceContainer />, { store });
     expect(JSON.stringify(store.getActions())).toContain('LITERATURE_REQUEST');
     expect(JSON.stringify(store.getActions())).toContain(
       'LITERATURE_AUTHORS_REQUEST'

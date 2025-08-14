@@ -1,12 +1,11 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
 import userEvent from '@testing-library/user-event';
 
 import { getStore } from '../../../../fixtures/store';
 import DataImporterContainer from '../DataImporterContainer';
 import { INITIAL_FORM_DATA_REQUEST } from '../../../../actions/actionTypes';
+import { renderWithProviders } from '../../../../fixtures/render';
 
 describe('DataImporterContainer', () => {
   it('passes props from state', () => {
@@ -17,10 +16,9 @@ describe('DataImporterContainer', () => {
       }),
     });
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <DataImporterContainer onSkipClick={jest.fn()} />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <DataImporterContainer onSkipClick={jest.fn()} />,
+      { store }
     );
 
     expect(getByTestId('data-importer-error')).toHaveTextContent(
@@ -32,10 +30,9 @@ describe('DataImporterContainer', () => {
     const store = getStore();
     const importValue = 'arXiv:1001.1234';
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <DataImporterContainer onSkipClick={jest.fn()} />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <DataImporterContainer onSkipClick={jest.fn()} />,
+      { store }
     );
 
     const importInput = getByTestId('import-input');

@@ -1,10 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { fromJS, Map } from 'immutable';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-
 import SettingsPage from '../SettingsPage';
+import { renderWithProviders } from '../../../fixtures/render';
 import { getStore } from '../../../fixtures/store';
 
 describe('SettingsPage', () => {
@@ -18,7 +15,7 @@ describe('SettingsPage', () => {
   });
 
   it('renders page', () => {
-    const { asFragment } = render(
+    const { asFragment } = renderWithProviders(
       <SettingsPage
         loading={false}
         onChangeEmailAddress={jest.fn()}
@@ -36,7 +33,7 @@ describe('SettingsPage', () => {
       },
     });
 
-    const { asFragment } = render(
+    const { asFragment } = renderWithProviders(
       <SettingsPage
         loading={false}
         error={error}
@@ -49,35 +46,35 @@ describe('SettingsPage', () => {
   });
 
   it('renders page with authors profile section when user has author profile', () => {
-    const { asFragment } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/user/settings']} initialIndex={0}>
-          <SettingsPage
-            profileControlNumber={1234567}
-            loading={false}
-            onChangeEmailAddress={jest.fn()}
-            userEmail="test@test.pl"
-          />
-        </MemoryRouter>
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <SettingsPage
+        profileControlNumber={1234567}
+        loading={false}
+        onChangeEmailAddress={jest.fn()}
+        userEmail="test@test.pl"
+      />,
+      {
+        route: '/user/settings',
+        store,
+      }
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders page with orcid section when user has orcid profile', () => {
-    const { asFragment } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/user/settings']} initialIndex={0}>
-          <SettingsPage
-            profileControlNumber={1234567}
-            userOrcid="1234567"
-            loading={false}
-            onChangeEmailAddress={jest.fn()}
-            userEmail="test@test.pl"
-          />
-        </MemoryRouter>
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <SettingsPage
+        profileControlNumber={1234567}
+        userOrcid="1234567"
+        loading={false}
+        onChangeEmailAddress={jest.fn()}
+        userEmail="test@test.pl"
+      />,
+      {
+        route: '/user/settings',
+        store,
+      }
     );
 
     expect(asFragment()).toMatchSnapshot();

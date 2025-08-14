@@ -1,11 +1,10 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
 import { getStore } from '../../../fixtures/store';
 import CiteAllActionContainer from '../CiteAllActionContainer';
 import { LITERATURE_NS } from '../../../search/constants';
+import { renderWithProviders } from '../../../fixtures/render';
 
 jest.mock('../../components/CiteAllAction', () => (props) => (
   <div
@@ -32,10 +31,9 @@ describe('CiteAllActionContainer', () => {
         },
       }),
     });
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <CiteAllActionContainer namespace={namespace} />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <CiteAllActionContainer namespace={namespace} />,
+      { store }
     );
 
     const component = getByTestId('cite-all-action');

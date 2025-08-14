@@ -1,8 +1,5 @@
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
-import { render } from '@testing-library/react';
-
+import { renderWithProviders } from '../../../../fixtures/render';
 import { getStore } from '../../../../fixtures/store';
 import FooterContainer from '../FooterContainer';
 
@@ -15,13 +12,7 @@ describe('FooterContainer', () => {
         },
       }),
     });
-    const { getByRole } = render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <FooterContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByRole } = renderWithProviders(<FooterContainer />, { store });
 
     expect(getByRole('link', { name: 'Holdingpen' })).toBeInTheDocument();
     expect(getByRole('link', { name: 'Author list' })).toBeInTheDocument();
@@ -35,13 +26,7 @@ describe('FooterContainer', () => {
         },
       }),
     });
-    const { queryByRole } = render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <FooterContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { queryByRole } = renderWithProviders(<FooterContainer />, { store });
 
     expect(queryByRole('link', { name: 'Holdingpen' })).not.toBeInTheDocument();
     expect(

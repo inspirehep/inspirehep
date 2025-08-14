@@ -1,8 +1,6 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-
+import { renderWithRouter } from '../../../fixtures/render';
 import ContactList from '../ContactList';
 
 describe('ContactList', () => {
@@ -17,7 +15,7 @@ describe('ContactList', () => {
         name: 'John2',
       },
     ]);
-    const { getByText, getByRole } = render(
+    const { getByText, getByRole } = renderWithRouter(
       <ContactList contacts={contactDetails} />
     );
     expect(getByText('Contact:')).toBeInTheDocument();
@@ -40,10 +38,8 @@ describe('ContactList', () => {
         record: { $ref: 'http://inspirehep.net/api/authors/12345' },
       },
     ]);
-    const { getByText, getByRole } = render(
-      <MemoryRouter>
-        <ContactList contacts={contactDetails} />
-      </MemoryRouter>
+    const { getByText, getByRole } = renderWithRouter(
+      <ContactList contacts={contactDetails} />
     );
     expect(getByText('Contact:')).toBeInTheDocument();
     expect(getByRole('link', { name: 'John' })).toHaveAttribute(
@@ -61,7 +57,7 @@ describe('ContactList', () => {
         name: 'John2',
       },
     ]);
-    const { getByText, getByRole } = render(
+    const { getByText, getByRole } = renderWithRouter(
       <ContactList contacts={contactDetails} />
     );
     expect(getByText('Contact:')).toBeInTheDocument();

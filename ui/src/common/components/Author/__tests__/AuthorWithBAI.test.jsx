@@ -1,7 +1,6 @@
 import { fromJS } from 'immutable';
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 
+import { renderWithRouter } from '../../../../fixtures/render';
 import AuthorWithBAI from '../AuthorWithBAI';
 
 describe('AuthorWithBAI', () => {
@@ -11,11 +10,7 @@ describe('AuthorWithBAI', () => {
       bai: 'Name.Full.1',
     });
 
-    const { getByRole } = render(
-      <MemoryRouter>
-        <AuthorWithBAI author={author} />
-      </MemoryRouter>
-    );
+    const { getByRole } = renderWithRouter(<AuthorWithBAI author={author} />);
 
     const link = getByRole('link', {
       name: 'Name, Full',

@@ -1,10 +1,8 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 import Loadable from 'react-loadable';
 
+import { renderWithProviders } from '../../fixtures/render';
 import { getStore } from '../../fixtures/store';
 import Submissions from '..';
 
@@ -30,16 +28,9 @@ describe('Submissions', () => {
 
   // GENERIC SUBMISSION SUCCESS PAGE
   it('navigates to SubmissionSuccessPage when /submissions/success', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/submissions/success']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/success',
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();
@@ -48,31 +39,17 @@ describe('Submissions', () => {
 
   // AUTHOR SUBMISSION
   it('navigates to AuthorSubmissionPageContainer when /submissions/authors and renders correctly', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/submissions/authors']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/authors',
+    });
     expect(asFragment()).toMatchSnapshot();
     expect(getByTestId('author-submission-page')).toBeInTheDocument();
   });
 
   it('navigates to AuthorUpdateSubmissionPageContainer when /submissions/authors/:id and renders correctly', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/submissions/authors/1']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/authors/1',
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();
@@ -80,16 +57,9 @@ describe('Submissions', () => {
   });
 
   it.only('navigates to SubmissionSuccessPage when /submissions/authors/new/success', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/submissions/authors/new/success']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/authors/new/success',
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();
@@ -97,16 +67,9 @@ describe('Submissions', () => {
   });
 
   it('navigates to SubmissionSuccessPage when /submissions/authors/1/success', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/submissions/authors/1/success']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/authors/1/success',
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();
@@ -117,16 +80,10 @@ describe('Submissions', () => {
 
   // LITERATURE SUBMISSION
   it('navigates to LiteratureSubmissionPageContainer when /submissions/literature if whatever user and renders correctly', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter
-          initialEntries={['/submissions/literature']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/literature',
+      store,
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();
@@ -134,16 +91,9 @@ describe('Submissions', () => {
   });
 
   it('navigates to SubmissionSuccessPage when /submissions/literature/new/success', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/submissions/literature/new/success']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/literature/new/success',
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();
@@ -152,13 +102,9 @@ describe('Submissions', () => {
 
   // JOBS SUBMISSION
   it('navigates to JobSubmissionPageContainer when /submissions/jobs', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/submissions/jobs']} initialIndex={0}>
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/jobs',
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();
@@ -166,13 +112,9 @@ describe('Submissions', () => {
   });
 
   it('navigates to JobUpdateSubmissionPageContainer when /submissions/jobs/:id', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/submissions/jobs/1']} initialIndex={0}>
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/jobs/1',
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();
@@ -180,16 +122,9 @@ describe('Submissions', () => {
   });
 
   it('navigates to JobUpdateSubmissionSuccessPage when /submissions/jobs/1/success', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/submissions/jobs/1/success']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/jobs/1/success',
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();
@@ -198,16 +133,9 @@ describe('Submissions', () => {
 
   // CONFERENCE SUBMISSION
   it('navigates to ConferenceSubmissionPageContainer when /submissions/conferences', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/submissions/conferences']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/conferences',
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();
@@ -215,16 +143,9 @@ describe('Submissions', () => {
   });
 
   it('navigates to ConferenceSubmissionSuccessPageContainer when /submissions/conferences/new/success', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/submissions/conferences/new/success']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/conferences/new/success',
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();
@@ -235,16 +156,9 @@ describe('Submissions', () => {
 
   // SEMINAR SUBMISSION
   it('navigates to SeminarSubmissionPageContainer when /submissions/seminars', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/submissions/seminars']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/seminars',
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();
@@ -252,16 +166,9 @@ describe('Submissions', () => {
   });
 
   it('navigates to SeminarUpdateSubmissionPageContainer when /submissions/seminars/:id', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/submissions/seminars/1']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/seminars/1',
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();
@@ -269,16 +176,9 @@ describe('Submissions', () => {
   });
 
   it('navigates to SeminarSubmissionSuccessPageContainer when /submissions/seminars/new/success', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/submissions/seminars/new/success']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/seminars/new/success',
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();
@@ -286,16 +186,9 @@ describe('Submissions', () => {
   });
 
   it('navigates to SeminarSubmissionSuccessPageContainer when /submissions/seminars/1/success', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/submissions/seminars/1/success']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/seminars/1/success',
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();
@@ -304,16 +197,10 @@ describe('Submissions', () => {
 
   // EXPERIMENT SUBMISSION
   it('navigates to ExperimentSubmissionPageContainer when /submissions/experiments', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter
-          initialEntries={['/submissions/experiments']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/experiments',
+      store,
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();
@@ -322,16 +209,10 @@ describe('Submissions', () => {
 
   // JOURNAL SUBMISSION
   it('navigates to JournalSubmissionPageContainer when /submissions/journals', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter
-          initialEntries={['/submissions/journals']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/journals',
+      store,
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();
@@ -340,16 +221,10 @@ describe('Submissions', () => {
 
   // INSTITUTION SUBMISSION
   it('navigates to InstitutuinsSubmissionPageContainer when /submissions/institutions', async () => {
-    const { asFragment, getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter
-          initialEntries={['/submissions/institutions']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { asFragment, getByTestId } = renderWithProviders(<Submissions />, {
+      route: '/submissions/institutions',
+      store,
+    });
     await Loadable.preloadAll();
 
     expect(asFragment()).toMatchSnapshot();

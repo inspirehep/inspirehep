@@ -1,8 +1,6 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
+import { renderWithProviders } from '../../../../fixtures/render';
 
 import JournalSubmissionPageContainer, {
   JournalSubmissionPage,
@@ -18,12 +16,9 @@ describe('JournalSubmissionPageContainer', () => {
     }),
   });
   it('passes props to JournalSubmissionPage', () => {
-    const { queryByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <JournalSubmissionPageContainer />
-        </MemoryRouter>
-      </Provider>
+    const { queryByTestId } = renderWithProviders(
+      <JournalSubmissionPageContainer />,
+      { store }
     );
 
     expect(queryByTestId('journal-alert')).not.toBeInTheDocument();
@@ -31,12 +26,9 @@ describe('JournalSubmissionPageContainer', () => {
 
   describe('JournalSubmissionPage', () => {
     it('renders', () => {
-      const { asFragment } = render(
-        <Provider store={store}>
-          <MemoryRouter>
-            <JournalSubmissionPage error={null} onSubmit={() => {}} />
-          </MemoryRouter>
-        </Provider>
+      const { asFragment } = renderWithProviders(
+        <JournalSubmissionPage error={null} onSubmit={() => {}} />,
+        { store }
       );
 
       expect(asFragment()).toMatchSnapshot();

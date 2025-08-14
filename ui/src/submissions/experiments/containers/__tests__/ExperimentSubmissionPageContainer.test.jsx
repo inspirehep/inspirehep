@@ -1,9 +1,6 @@
 import React from 'react';
-
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
-import { render } from '@testing-library/react';
+import { renderWithProviders } from '../../../../fixtures/render';
 
 import ExperimentSubmissionPageContainer, {
   ExperimentSubmissionPage,
@@ -17,12 +14,9 @@ describe('ExperimentSubmissionSuccessPageContainer', () => {
         submitError: null,
       }),
     });
-    const { queryByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <ExperimentSubmissionPageContainer />
-        </MemoryRouter>
-      </Provider>
+    const { queryByTestId } = renderWithProviders(
+      <ExperimentSubmissionPageContainer />,
+      { store }
     );
 
     expect(queryByTestId('experiment-alert')).not.toBeInTheDocument();
@@ -30,12 +24,9 @@ describe('ExperimentSubmissionSuccessPageContainer', () => {
 
   describe('ExperimentSubmissionSucessPage', () => {
     it('renders', () => {
-      const { asFragment } = render(
-        <Provider store={getStore()}>
-          <MemoryRouter>
-            <ExperimentSubmissionPage error={null} onSubmit={() => {}} />
-          </MemoryRouter>
-        </Provider>
+      const { asFragment } = renderWithProviders(
+        <ExperimentSubmissionPage error={null} onSubmit={() => {}} />,
+        { store: getStore() }
       );
 
       expect(asFragment()).toMatchSnapshot();

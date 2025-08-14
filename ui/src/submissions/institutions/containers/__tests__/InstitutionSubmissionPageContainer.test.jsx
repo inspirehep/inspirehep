@@ -1,8 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
+
+import { renderWithProviders } from '../../../../fixtures/render';
 
 import InstitutionSubmissionPageContainer, {
   InstitutionSubmissionPage,
@@ -16,12 +15,9 @@ describe('InstitutionSubmissionPageContainer', () => {
         submitError: null,
       }),
     });
-    const { queryByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <InstitutionSubmissionPageContainer />
-        </MemoryRouter>
-      </Provider>
+    const { queryByTestId } = renderWithProviders(
+      <InstitutionSubmissionPageContainer />,
+      { store }
     );
 
     expect(queryByTestId('institution-alert')).not.toBeInTheDocument();
@@ -29,12 +25,9 @@ describe('InstitutionSubmissionPageContainer', () => {
 
   describe('InstitutionSubmissionPage', () => {
     it('renders', () => {
-      const { asFragment } = render(
-        <Provider store={getStore()}>
-          <MemoryRouter>
-            <InstitutionSubmissionPage error={null} onSubmit={() => {}} />
-          </MemoryRouter>
-        </Provider>
+      const { asFragment } = renderWithProviders(
+        <InstitutionSubmissionPage error={null} onSubmit={() => {}} />,
+        { store: getStore() }
       );
 
       expect(asFragment()).toMatchSnapshot();

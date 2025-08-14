@@ -1,29 +1,26 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { renderWithProviders } from '../../../fixtures/render';
 import { getStore } from '../../../fixtures/store';
 
 import OrcidPushSetting from '../OrcidPushSetting';
 
 describe('OrcidPushSetting', () => {
   it('renders when enabled', () => {
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <OrcidPushSetting onChange={jest.fn()} isUpdating={false} enabled />
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <OrcidPushSetting onChange={jest.fn()} isUpdating={false} enabled />,
+      { store: getStore() }
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders when disabled', () => {
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <OrcidPushSetting
-          onChange={jest.fn()}
-          isUpdating={false}
-          enabled={false}
-        />
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <OrcidPushSetting
+        onChange={jest.fn()}
+        isUpdating={false}
+        enabled={false}
+      />,
+      { store: getStore() }
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -31,14 +28,13 @@ describe('OrcidPushSetting', () => {
   it('calls on change when toggling is confirmed', () => {
     const onChange = jest.fn();
     const currentEnabled = true;
-    const { getByText, getByRole } = render(
-      <Provider store={getStore()}>
-        <OrcidPushSetting
-          onChange={onChange}
-          isUpdating={false}
-          enabled={currentEnabled}
-        />
-      </Provider>
+    const { getByText, getByRole } = renderWithProviders(
+      <OrcidPushSetting
+        onChange={onChange}
+        isUpdating={false}
+        enabled={currentEnabled}
+      />,
+      { store: getStore() }
     );
     getByRole('switch').click();
     getByText('OK').click();

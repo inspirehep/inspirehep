@@ -1,11 +1,10 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import { render, within } from '@testing-library/react';
+import { within } from '@testing-library/react';
 import { fromJS, List } from 'immutable';
 import Loadable from 'react-loadable';
 
 import { getStore, mockActionCreator } from '../fixtures/store';
+import { renderWithProviders } from '../fixtures/render';
 import App from '../App';
 import { setUserCategoryFromRoles } from '../tracker';
 import { userSignUp, fetchLoggedInUser } from '../actions/user';
@@ -30,13 +29,9 @@ describe('App', () => {
         },
       }),
     });
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+
+    renderWithProviders(<App />, { store });
+
     expect(setUserCategoryFromRoles).toHaveBeenLastCalledWith(
       List(['cataloger'])
     );
@@ -44,13 +39,7 @@ describe('App', () => {
 
   it('dispatches fetchLoggedInUser on render', () => {
     const store = getStore();
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+    renderWithProviders(<App />, { store });
     const expectedActions = [
       {
         type: 'fetchLoggedInUser',
@@ -69,13 +58,10 @@ describe('App', () => {
         },
       }),
     });
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/holdingpen']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<App />, {
+      store,
+      route: '/holdingpen',
+    });
     await Loadable.preloadAll();
 
     const app = getByTestId('app');
@@ -93,13 +79,10 @@ describe('App', () => {
         },
       }),
     });
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/holdingpen']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<App />, {
+      store,
+      route: '/holdingpen',
+    });
     await Loadable.preloadAll();
     const app = getByTestId('app');
     const holdingpen = within(app).queryByTestId('holdingpen');
@@ -116,13 +99,10 @@ describe('App', () => {
         },
       }),
     });
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={[BACKOFFICE]} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<App />, {
+      store,
+      route: BACKOFFICE,
+    });
     await Loadable.preloadAll();
 
     const app = getByTestId('app');
@@ -140,13 +120,10 @@ describe('App', () => {
         },
       }),
     });
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={[BACKOFFICE]} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<App />, {
+      store,
+      route: BACKOFFICE,
+    });
     await Loadable.preloadAll();
     const app = getByTestId('app');
     const backoffice = within(app).queryByTestId('backoffice');
@@ -155,13 +132,7 @@ describe('App', () => {
   });
 
   it('navigates to User when /user', () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/user']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<App />, { route: '/user' });
     const app = getByTestId('app');
     const user = within(app).getByTestId('user');
 
@@ -169,13 +140,9 @@ describe('App', () => {
   });
 
   it('navigates to Literature when /literature', () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/literature']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<App />, {
+      route: '/literature',
+    });
     const app = getByTestId('app');
     const literature = within(app).getByTestId('literature');
 
@@ -183,13 +150,7 @@ describe('App', () => {
   });
 
   it('navigates to Authors when /authors', () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/authors']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<App />, { route: '/authors' });
     const app = getByTestId('app');
     const authors = within(app).getByTestId('authors');
 
@@ -197,13 +158,9 @@ describe('App', () => {
   });
 
   it('navigates to Conferences when /conferences', () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/conferences']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<App />, {
+      route: '/conferences',
+    });
     const app = getByTestId('app');
     const conferences = within(app).getByTestId('conferences');
 
@@ -219,13 +176,10 @@ describe('App', () => {
         },
       }),
     });
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/submissions']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<App />, {
+      store,
+      route: '/submissions',
+    });
     await Loadable.preloadAll();
     const app = getByTestId('app');
     const submissions = within(app).getByTestId('submissions');
@@ -242,13 +196,10 @@ describe('App', () => {
         },
       }),
     });
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/submissions']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<App />, {
+      store,
+      route: '/submissions',
+    });
     await Loadable.preloadAll();
 
     const app = getByTestId('app');
@@ -258,13 +209,7 @@ describe('App', () => {
   });
 
   it('navigates to Home when /', () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<App />, { route: '/' });
     const app = getByTestId('app');
     const home = within(app).getByTestId('home');
 
@@ -272,13 +217,7 @@ describe('App', () => {
   });
 
   it('navigates to Errors when /errors', () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/errors']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<App />, { route: '/errors' });
     const app = getByTestId('app');
     const errors = within(app).getByTestId('errors');
 
@@ -286,13 +225,9 @@ describe('App', () => {
   });
 
   it('redirects to Errors when /anythingElse', () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/anythingElse']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<App />, {
+      route: '/anythingElse',
+    });
     const app = getByTestId('app');
     const errors = within(app).getByTestId('errors');
 
@@ -300,13 +235,7 @@ describe('App', () => {
   });
 
   it('navigates to Jobs when /jobs', () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/jobs']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<App />, { route: '/jobs' });
     const app = getByTestId('app');
     const jobs = within(app).getByTestId('jobs');
 
@@ -314,16 +243,9 @@ describe('App', () => {
   });
 
   it('navigates to BibliographyGenerator when /bibliography-generator', () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/bibliography-generator']}
-          initialIndex={0}
-        >
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<App />, {
+      route: '/bibliography-generator',
+    });
     const app = getByTestId('app');
     const bibliography = within(app).getByTestId('bibliography');
 
@@ -331,13 +253,9 @@ describe('App', () => {
   });
 
   it('navigates to Journals when /journals', () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/journals']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<App />, {
+      route: '/journals',
+    });
     const app = getByTestId('app');
     const journals = within(app).getByTestId('journals');
 

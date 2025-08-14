@@ -1,8 +1,9 @@
 import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
+
 import { fromJS } from 'immutable';
 import { getStore } from '../../../fixtures/store';
 import JobTitle from '../JobTitle';
+import { renderWithProviders } from '../../../fixtures/render';
 
 describe('JobTitle', () => {
   it('renders with only position', () => {
@@ -18,10 +19,9 @@ describe('JobTitle', () => {
         },
       }),
     });
-    const { getByText } = render(
-      <Provider store={store}>
-        <JobTitle position="VP of Happiness" externalJobId="R00123" />
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <JobTitle position="VP of Happiness" externalJobId="R00123" />,
+      { store }
     );
     expect(getByText('VP of Happiness')).toBeInTheDocument();
     expect(getByText('(R00123)')).toBeInTheDocument();
