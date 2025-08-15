@@ -1,13 +1,12 @@
 import structlog
 from flask import Blueprint
-from webargs import fields
-from webargs.flaskparser import FlaskParser
-
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
 from inspirehep.serializers import jsonify
 from inspirehep.snow.api import InspireSnow
 from inspirehep.snow.errors import CreateTicketException, EditTicketException
+from webargs import fields
+from webargs.flaskparser import FlaskParser
 
 blueprint = Blueprint(
     "inspirehep_snow", __name__, url_prefix="/tickets", template_folder="templates"

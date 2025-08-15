@@ -7,7 +7,7 @@
 """INSPIRE module that adds more fun to the platform."""
 
 from helpers.utils import create_record
-from inspirehep.pidstore.api import PidStoreBase
+from inspirehep.pidstore.api.base import PidStoreBase
 
 
 def test_get_config_for_endpoints(appctx):

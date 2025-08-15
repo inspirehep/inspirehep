@@ -6,14 +6,13 @@
 import re
 
 from inspire_utils.record import get_values_for_schema
+from inspirehep.records.utils import get_ref_from_pid, remove_author_bai_from_id_list
+from inspirehep.search.api import AuthorsSearch
+from inspirehep.utils import chunker, flatten_list
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from search_check_do import SearchCheckDo
 from sqlalchemy.orm import aliased
-
-from inspirehep.records.utils import get_ref_from_pid, remove_author_bai_from_id_list
-from inspirehep.search.api import AuthorsSearch
-from inspirehep.utils import chunker, flatten_list
 
 
 class SciPostSetRefereed(SearchCheckDo):

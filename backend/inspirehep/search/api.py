@@ -23,9 +23,9 @@ from inspirehep.matcher.api import (
     get_reference_from_grobid,
     match_reference_control_numbers_with_relaxed_journal_titles,
 )
-from inspirehep.pidstore.api import PidStoreBase
+from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.search.errors import MalformatedQuery, MaximumSearchPageSizeExceeded
-from inspirehep.search.factories import inspire_query_factory
+from inspirehep.search.factories.query import inspire_query_factory
 from inspirehep.search.utils import RecursionLimit
 
 IQ = inspire_query_factory()

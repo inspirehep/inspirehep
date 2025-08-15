@@ -6,12 +6,11 @@
 
 import structlog
 from flask import current_app, request
-from invenio_records_rest.errors import InvalidQueryRESTError
-from invenio_records_rest.sorter import default_sorter_factory
-
 from inspirehep.search.errors import FieldsParamForbidden
 from inspirehep.search.factories.facet import inspire_facets_factory
 from inspirehep.search.factories.filter import inspire_filter_factory
+from invenio_records_rest.errors import InvalidQueryRESTError
+from invenio_records_rest.sorter import default_sorter_factory
 
 LOGGER = structlog.getLogger()
 

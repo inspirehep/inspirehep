@@ -5,7 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 from helpers.providers.faker import faker
 from helpers.utils import retry_test
-from inspirehep.records.api import JobsRecord
+from inspirehep.records.api.jobs import JobsRecord
 from inspirehep.search.api import JobsSearch
 from invenio_db import db
 from invenio_search import current_search

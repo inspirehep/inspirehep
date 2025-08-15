@@ -182,11 +182,11 @@ inspirehep_hal = "inspirehep.hal.config"
 inspirehep_snow = "inspirehep.snow.config"
 
 [tool.poetry.plugins."invenio_base.api_apps"]
-inspirehep_logger = "inspirehep.logger:InspireLogger"
-inspirehep_mailing = "inspirehep.mailing:InspireMailing"
-inspirehep_orcid = "inspirehep.orcid:InspireOrcid"
-inspirehep_records = "inspirehep.records:InspireRecords"
-inspirehep_s3 = "inspirehep.files:InspireS3"
+inspirehep_logger = "inspirehep.logger.ext:InspireLogger"
+inspirehep_mailing = "inspirehep.mailing.ext:InspireMailing"
+inspirehep_orcid = "inspirehep.orcid.ext:InspireOrcid"
+inspirehep_records = "inspirehep.records.ext:InspireRecords"
+inspirehep_s3 = "inspirehep.files.ext:InspireS3"
 
 [tool.poetry.plugins."invenio_base.api_converters"]
 doipath = "inspirehep.pidstore.converters:DOIPathConverter"

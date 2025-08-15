@@ -5,7 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
-from inspirehep.records.marshmallow.fields import ListWithLimit
+from inspirehep.records.marshmallow.fields.list_with_limit import ListWithLimit
 from marshmallow import Schema, fields
 
 

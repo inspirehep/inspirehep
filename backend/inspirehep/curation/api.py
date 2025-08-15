@@ -7,7 +7,6 @@
 import structlog
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
-
 from inspirehep.curation.utils import (
     assign_institution,
     collaboration_multi_search_query,

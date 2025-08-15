@@ -7,7 +7,6 @@
 import structlog
 from flask import current_app
 from flask_mail import Message
-
 from inspirehep.mailing.utils import strip_html_tags
 
 LOGGER = structlog.getLogger()

@@ -7,10 +7,9 @@
 import re
 
 from inspire_utils.helpers import force_list
-from marshmallow import fields
-
 from inspirehep.records.marshmallow.base import ElasticSearchBaseSchema
 from inspirehep.records.marshmallow.institutions.base import InstitutionsRawSchema
+from marshmallow import fields
 
 
 class InstitutionsElasticSearchSchema(ElasticSearchBaseSchema, InstitutionsRawSchema):

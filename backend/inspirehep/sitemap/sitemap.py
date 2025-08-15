@@ -4,7 +4,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from inspirehep.pidstore.api import PidStoreBase
+from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.sitemap.collections import get_indexable_record_searches
 from inspirehep.utils import get_inspirehep_url
 

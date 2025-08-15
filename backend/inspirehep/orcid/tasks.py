@@ -14,16 +14,15 @@ from celery import shared_task
 from celery.exceptions import SoftTimeLimitExceeded
 from flask import current_app
 from inspire_utils.record import get_value
+from inspirehep.orcid import domain_models, exceptions
+from inspirehep.orcid import exceptions as domain_exceptions
+from inspirehep.orcid.utils import get_literature_recids_for_orcid
 from invenio_db import db
 from invenio_oauthclient.errors import AlreadyLinkedError
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, User, UserIdentity
 from invenio_oauthclient.utils import oauth_link_external_id
 from requests.exceptions import RequestException
 from sqlalchemy.orm.exc import FlushError
-
-from inspirehep.orcid import domain_models, exceptions
-from inspirehep.orcid import exceptions as domain_exceptions
-from inspirehep.orcid.utils import get_literature_recids_for_orcid
 
 LOGGER = structlog.getLogger()
 USER_EMAIL_EMPTY_PATTERN = "{}@FAKEEMAILINSPIRE.FAKE"

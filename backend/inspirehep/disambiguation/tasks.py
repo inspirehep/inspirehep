@@ -15,8 +15,8 @@ from inspirehep.matcher.validators import (
     affiliations_validator,
     collaboration_validator,
 )
-from inspirehep.records.api import InspireRecord
 from inspirehep.records.api.authors import AuthorsRecord
+from inspirehep.records.api.base import InspireRecord
 from invenio_db import db
 from sqlalchemy.orm.exc import StaleDataError
 

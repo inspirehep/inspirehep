@@ -11,14 +11,13 @@ import structlog
 from flask import current_app
 from inspire_utils.name import format_name
 from inspire_utils.record import get_value
+from inspirehep.pidstore.errors import PIDAlreadyExistsError
+from inspirehep.pidstore.providers.base import InspireBaseProvider
+from inspirehep.records.marshmallow.utils import get_first_value_for_schema
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from sqlalchemy.exc import IntegrityError
 from unidecode import unidecode
-
-from inspirehep.pidstore.errors import PIDAlreadyExistsError
-from inspirehep.pidstore.providers.base import InspireBaseProvider
-from inspirehep.records.marshmallow.utils import get_first_value_for_schema
 
 LOGGER = structlog.getLogger()
 

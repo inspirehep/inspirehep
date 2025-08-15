@@ -5,7 +5,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
-from inspirehep.records.marshmallow.literature.common import ConferenceInfoItemSchemaV1
+from inspirehep.records.marshmallow.literature.common.conference_info_item import (
+    ConferenceInfoItemSchemaV1,
+)
 from invenio_pidstore.errors import PIDDoesNotExistError
 from mock import patch
 

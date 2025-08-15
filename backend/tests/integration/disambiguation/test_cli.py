@@ -5,7 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import mock
 from helpers.utils import create_record
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 
 
 def test_clean_stub_authors_removes_stub_authors(inspire_app, cli):

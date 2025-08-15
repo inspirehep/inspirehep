@@ -10,15 +10,14 @@ import structlog
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_schemas.utils import normalize_collaboration_name
 from inspire_utils.record import get_value
+from inspirehep.curation.errors import SubGroupNotFound
+from inspirehep.records.api.journals import JournalsRecord
+from inspirehep.search.api import InstitutionsSearch, LiteratureSearch
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_search import current_search_client
 from invenio_search.utils import prefix_index
 from opensearch_dsl import MultiSearch, Q, Search
-
-from inspirehep.curation.errors import SubGroupNotFound
-from inspirehep.records.api import JournalsRecord
-from inspirehep.search.api import InstitutionsSearch, LiteratureSearch
 
 LOGGER = structlog.getLogger()
 

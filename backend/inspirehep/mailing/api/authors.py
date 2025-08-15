@@ -6,7 +6,6 @@
 
 import structlog
 from flask import current_app, render_template
-
 from inspirehep.mailing.providers.flask_mail import send_email
 
 LOGGER = structlog.getLogger()

@@ -8,10 +8,6 @@ import structlog
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.date import fill_missing_date_parts
 from inspire_utils.record import get_value
-from invenio_db import db
-from invenio_pidstore.models import PersistentIdentifier
-from sqlalchemy import and_, func, not_, or_, text
-
 from inspirehep.records.models import (
     AuthorSchemaType,
     ConferenceLiterature,
@@ -24,6 +20,9 @@ from inspirehep.records.models import (
     RecordsAuthors,
     StudentsAdvisors,
 )
+from invenio_db import db
+from invenio_pidstore.models import PersistentIdentifier
+from sqlalchemy import and_, func, not_, or_, text
 
 LOGGER = structlog.getLogger()
 

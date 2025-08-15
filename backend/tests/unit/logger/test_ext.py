@@ -5,7 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from flask import Flask
-from inspirehep.logger import InspireLogger
+from inspirehep.logger.ext import InspireLogger
 
 
 def test_ext():

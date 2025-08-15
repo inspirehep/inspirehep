@@ -13,8 +13,6 @@ import requests
 import structlog
 from flask import current_app, render_template
 from inspire_utils.record import get_value
-from invenio_cache import current_cache
-
 from inspirehep.snow.errors import (
     CreateTicketException,
     EditTicketException,
@@ -22,6 +20,7 @@ from inspirehep.snow.errors import (
 )
 from inspirehep.snow.utils import get_response_result, strip_lines
 from inspirehep.utils import DistributedLockError, distributed_lock
+from invenio_cache import current_cache
 
 LOGGER = structlog.getLogger()
 

@@ -10,11 +10,10 @@ import pytz
 import structlog
 from feedgen.feed import FeedGenerator
 from flask import Blueprint, Response, current_app, request
-from redis import StrictRedis
-
 from inspirehep.mailing.api.jobs import subscribe_to_jobs_weekly_list
 from inspirehep.mailing.loaders import JobsWeeklySubscribeSchema
 from inspirehep.serializers import jsonify
+from redis import StrictRedis
 
 LOGGER = structlog.getLogger()
 

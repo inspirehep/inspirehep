@@ -6,7 +6,7 @@
 
 import orjson
 from helpers.providers.faker import faker
-from inspirehep.records.marshmallow.authors import (
+from inspirehep.records.marshmallow.authors.base import (
     AuthorsAdminSchema,
     AuthorsOnlyControlNumberSchema,
     AuthorsPublicListSchema,

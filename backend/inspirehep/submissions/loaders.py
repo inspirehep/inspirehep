@@ -7,19 +7,32 @@
 """Submissions Loaders"""
 
 from flask import request
-from invenio_records_rest.loaders.marshmallow import MarshmallowErrors
-
 from inspirehep.submissions.errors import LoaderDataError, RESTDataError
-from inspirehep.submissions.marshmallow import (
+from inspirehep.submissions.marshmallow.author import (
     Author,
+)
+from inspirehep.submissions.marshmallow.conferences import (
     Conference,
+)
+from inspirehep.submissions.marshmallow.experiments import (
     Experiment,
+)
+from inspirehep.submissions.marshmallow.institutions import (
     Institution,
+)
+from inspirehep.submissions.marshmallow.job import (
     Job,
+)
+from inspirehep.submissions.marshmallow.journals import (
     Journal,
+)
+from inspirehep.submissions.marshmallow.literature import (
     Literature,
+)
+from inspirehep.submissions.marshmallow.seminars import (
     Seminar,
 )
+from invenio_records_rest.loaders.marshmallow import MarshmallowErrors
 
 
 def inspire_submission_marshmallow_loader(schema_class):

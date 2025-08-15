@@ -10,10 +10,9 @@ from flask import current_app
 from flask_login import current_user
 from inspire_schemas.api import load_schema
 from inspire_utils.record import get_value, get_values_for_schema
+from inspirehep.accounts.roles import Roles
 from invenio_oauthclient.models import RemoteAccount, UserIdentity
 from sqlalchemy.exc import SQLAlchemyError
-
-from inspirehep.accounts.roles import Roles
 
 LOGGER = structlog.getLogger()
 

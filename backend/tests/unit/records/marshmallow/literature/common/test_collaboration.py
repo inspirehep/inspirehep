@@ -5,8 +5,10 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
-from inspirehep.records.marshmallow.literature.common import (
+from inspirehep.records.marshmallow.literature.common.collaboration import (
     CollaborationSchemaV1,
+)
+from inspirehep.records.marshmallow.literature.common.collaboration_with_suffix import (
     CollaborationWithSuffixSchemaV1,
 )
 

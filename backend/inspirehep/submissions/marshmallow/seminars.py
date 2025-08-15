@@ -13,13 +13,12 @@ from flask import url_for
 from inspire_schemas.builders import SeminarBuilder
 from inspire_schemas.utils import country_code_to_name, country_name_to_code
 from inspire_utils.record import get_value
-from invenio_pidstore.errors import PIDDoesNotExistError
-from marshmallow import Schema, fields, missing, post_load, pre_dump
-
 from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.submissions.errors import InvalidDataError
 from inspirehep.utils import get_inspirehep_url
+from invenio_pidstore.errors import PIDDoesNotExistError
+from marshmallow import Schema, fields, missing, post_load, pre_dump
 
 FORM_DATE_FORMAT = "%Y-%m-%d %I:%M %p"
 ISO_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"

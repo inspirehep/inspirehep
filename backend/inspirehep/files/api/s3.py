@@ -9,9 +9,8 @@ import structlog
 from boto3.s3.transfer import TransferConfig
 from botocore.exceptions import ClientError
 from flask import current_app
-from werkzeug.utils import secure_filename
-
 from inspirehep.utils import get_inspirehep_url
+from werkzeug.utils import secure_filename
 
 LOGGER = structlog.getLogger()
 

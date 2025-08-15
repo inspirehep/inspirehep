@@ -15,7 +15,6 @@ from inspire_dojson.utils import get_recid_from_ref, get_record_ref
 from inspire_matcher import match
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
-
 from inspirehep.matcher.parsers import GrobidAuthors, GrobidReferenceParser
 from inspirehep.matcher.serializers import LiteratureSummary
 

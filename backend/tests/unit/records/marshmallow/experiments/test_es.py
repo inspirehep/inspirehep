@@ -6,8 +6,8 @@
 
 import mock
 from helpers.providers.faker import faker
-from inspirehep.records.api import ExperimentsRecord
-from inspirehep.records.marshmallow.experiments import ExperimentsElasticSearchSchema
+from inspirehep.records.api.experiments import ExperimentsRecord
+from inspirehep.records.marshmallow.experiments.es import ExperimentsElasticSearchSchema
 
 
 @mock.patch("inspirehep.records.api.experiments.ExperimentLiterature")

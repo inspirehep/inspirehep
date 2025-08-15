@@ -23,7 +23,7 @@ from helpers.utils import (
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.record import get_value
 from inspirehep.accounts.roles import Roles
-from inspirehep.files import current_s3_instance
+from inspirehep.files.proxies import current_s3_instance
 from inspirehep.snow.api import InspireSnow
 from invenio_accounts.testutils import login_user_via_session
 from mock import patch

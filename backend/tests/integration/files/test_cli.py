@@ -4,8 +4,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from inspirehep.files import current_s3_instance
 from inspirehep.files.cli import BUCKETS
+from inspirehep.files.proxies import current_s3_instance
 
 
 def test_create_buckets(inspire_app, s3, cli, override_config):

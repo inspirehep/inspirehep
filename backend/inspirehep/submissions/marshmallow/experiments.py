@@ -1,8 +1,7 @@
 from flask import url_for
 from inspire_utils.record import get_value
-from marshmallow import Schema, fields, post_load
-
 from inspirehep.submissions.errors import InvalidDataError
+from marshmallow import Schema, fields, post_load
 
 
 class Experiment(Schema):

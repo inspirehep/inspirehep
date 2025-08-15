@@ -4,10 +4,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import structlog
+from inspirehep.pidstore.providers.base import InspireBaseProvider
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-
-from inspirehep.pidstore.providers.base import InspireBaseProvider
 
 LOGGER = structlog.getLogger()
 

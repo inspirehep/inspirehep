@@ -4,8 +4,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from opensearch_dsl.query import Q
-
 from inspirehep.search.api import (
     AuthorsSearch,
     ConferencesSearch,
@@ -15,6 +13,7 @@ from inspirehep.search.api import (
     LiteratureSearch,
     SeminarsSearch,
 )
+from opensearch_dsl.query import Q
 
 
 def jobs():

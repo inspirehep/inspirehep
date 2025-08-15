@@ -7,12 +7,11 @@
 
 from flask import current_app
 from flask_login import current_user
+from inspirehep.accounts.api import get_current_user_remote_orcid_account
+from inspirehep.records.utils import get_pid_for_pid
 from invenio_db import db
 from invenio_oauthclient.utils import oauth_link_external_id
 from invenio_pidstore.models import PersistentIdentifier
-
-from inspirehep.accounts.api import get_current_user_remote_orcid_account
-from inspirehep.records.utils import get_pid_for_pid
 
 
 def get_current_user_data():

@@ -6,19 +6,18 @@
 
 
 import structlog
-from invenio_db import db
-from invenio_pidstore.errors import PIDInvalidAction
-from invenio_pidstore.models import PIDStatus
-from sqlalchemy.exc import IntegrityError, SQLAlchemyError
-from sqlalchemy.orm import backref
-from sqlalchemy_utils.models import Timestamp
-
 from inspirehep.pidstore.errors import (
     PidRedirectionMissing,
     PidStatusBroken,
     WrongPidTypeRedirection,
     WrongRedirectionPidStatus,
 )
+from invenio_db import db
+from invenio_pidstore.errors import PIDInvalidAction
+from invenio_pidstore.models import PIDStatus
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from sqlalchemy.orm import backref
+from sqlalchemy_utils.models import Timestamp
 
 LOGGER = structlog.getLogger()
 

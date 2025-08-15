@@ -14,11 +14,6 @@ from flask.views import MethodView
 from flask_login import current_user
 from inspire_schemas.builders import JobBuilder
 from inspire_utils.record import get_value
-from invenio_db import db
-from invenio_pidstore.errors import PIDDoesNotExistError
-from jsonschema import SchemaError, ValidationError
-from requests.exceptions import RequestException
-
 from inspirehep.accounts.api import (
     can_user_edit_author_record,
     can_user_edit_record,
@@ -29,15 +24,25 @@ from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
 from inspirehep.mailing.api.conferences import send_conference_confirmation_email
 from inspirehep.mailing.api.seminars import send_seminar_confirmation_email
-from inspirehep.records.api import (
+from inspirehep.records.api.authors import (
     AuthorsRecord,
-    ExperimentsRecord,
-    InstitutionsRecord,
-    JobsRecord,
-    JournalsRecord,
-    SeminarsRecord,
 )
 from inspirehep.records.api.conferences import ConferencesRecord
+from inspirehep.records.api.experiments import (
+    ExperimentsRecord,
+)
+from inspirehep.records.api.institutions import (
+    InstitutionsRecord,
+)
+from inspirehep.records.api.jobs import (
+    JobsRecord,
+)
+from inspirehep.records.api.journals import (
+    JournalsRecord,
+)
+from inspirehep.records.api.seminars import (
+    SeminarsRecord,
+)
 from inspirehep.serializers import jsonify
 from inspirehep.submissions.errors import (
     RESTDataError,
@@ -57,6 +62,10 @@ from inspirehep.submissions.serializers import seminar_v1 as seminar_serializer_
 from inspirehep.submissions.tasks import async_create_ticket_with_template
 from inspirehep.submissions.utils import has_30_days_passed_after_deadline
 from inspirehep.utils import get_inspirehep_url
+from invenio_db import db
+from invenio_pidstore.errors import PIDDoesNotExistError
+from jsonschema import SchemaError, ValidationError
+from requests.exceptions import RequestException
 
 blueprint = Blueprint("inspirehep_submissions", __name__, url_prefix="/submissions")
 
@@ -647,7 +656,7 @@ blueprint.add_url_rule("/literature", view_func=literature_submission_view)
 job_submission_view = JobSubmissionsResource.as_view("job_submission_view")
 blueprint.add_url_rule("/jobs", view_func=job_submission_view)
 blueprint.add_url_rule(
-    '/jobs/<pid(job,record_class="inspirehep.records.api.JobsRecord"):pid_value>',
+    '/jobs/<pid(job,record_class="inspirehep.records.api.jobs.JobsRecord"):pid_value>',
     view_func=job_submission_view,
 )
 

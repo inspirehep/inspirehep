@@ -22,15 +22,11 @@ from inspire_schemas.parsers.arxiv import ArxivParser
 from inspire_schemas.parsers.crossref import CrossrefParser
 from inspire_schemas.utils import is_arxiv, normalize_arxiv
 from inspire_utils.record import get_value
-from invenio_db import db
-from jsonschema import ValidationError
-from pdfminer.pdftypes import PDFException
-
 from inspirehep.disambiguation.tasks import disambiguate_authors
-from inspirehep.files.api import current_s3_instance
+from inspirehep.files.proxies import current_s3_instance
 from inspirehep.hal.api import push_to_hal
 from inspirehep.orcid.api import push_to_orcid
-from inspirehep.pidstore.api import PidStoreLiterature
+from inspirehep.pidstore.api.literature import PidStoreLiterature
 from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.api.mixins import (
     CitationMixin,
@@ -46,7 +42,7 @@ from inspirehep.records.errors import (
     UnknownImportIdentifierError,
     UnsupportedFileError,
 )
-from inspirehep.records.marshmallow.literature import (
+from inspirehep.records.marshmallow.literature.es import (
     LiteratureElasticSearchSchema,
     LiteratureFulltextElasticSearchSchema,
 )
@@ -61,6 +57,9 @@ from inspirehep.records.utils import (
 )
 from inspirehep.search.api import LiteratureSearch
 from inspirehep.utils import chunker, hash_data
+from invenio_db import db
+from jsonschema import ValidationError
+from pdfminer.pdftypes import PDFException
 
 LOGGER = structlog.getLogger()
 

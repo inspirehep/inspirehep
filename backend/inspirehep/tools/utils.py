@@ -8,9 +8,8 @@
 import re
 from os.path import splitext
 
-from werkzeug.utils import secure_filename
-
 from inspirehep.search.api import LiteratureSearch
+from werkzeug.utils import secure_filename
 
 FORMAT_TO_SOURCE_FIELD = {
     "latex_eu": "_latex_eu_display",

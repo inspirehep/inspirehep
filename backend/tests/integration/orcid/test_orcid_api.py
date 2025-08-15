@@ -25,7 +25,7 @@ import mock
 import orjson
 import pkg_resources
 import pytest
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.api.literature import LiteratureRecord
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, User, UserIdentity

@@ -8,16 +8,15 @@ from copy import deepcopy
 from unicodedata import normalize
 
 from inspire_dojson.utils import get_recid_from_ref
-from invenio_pidstore.errors import PIDDoesNotExistError
-from marshmallow import Schema, fields, missing, pre_dump
-
 from inspirehep.pidstore.api.base import PidStoreBase
-from inspirehep.records.api import AuthorsRecord
+from inspirehep.records.api.authors import AuthorsRecord
 from inspirehep.records.marshmallow.utils import (
     get_first_name,
     get_first_value_for_schema,
     get_last_name,
 )
+from invenio_pidstore.errors import PIDDoesNotExistError
+from marshmallow import Schema, fields, missing, pre_dump
 
 
 class FirstAuthorSchemaV1(Schema):

@@ -9,11 +9,6 @@ import string
 import structlog
 from flask import current_app
 from inspire_utils.record import get_value
-from invenio_db import db
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-from sqlalchemy.exc import IntegrityError
-from unidecode import unidecode
-
 from inspirehep.pidstore.errors import (
     CannotGenerateUniqueTexKey,
     NoAvailableTexKeyFound,
@@ -23,6 +18,10 @@ from inspirehep.pidstore.errors import (
 )
 from inspirehep.pidstore.providers.base import InspireBaseProvider
 from inspirehep.records.utils import get_literature_earliest_date
+from invenio_db import db
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+from sqlalchemy.exc import IntegrityError
+from unidecode import unidecode
 
 LOGGER = structlog.getLogger()
 

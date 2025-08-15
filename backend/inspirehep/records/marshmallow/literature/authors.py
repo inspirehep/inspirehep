@@ -5,11 +5,14 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from inspire_dojson.utils import strip_empty_values
+from inspirehep.records.marshmallow.fields.nested_without_empty_objects import (
+    NestedField,
+)
+from inspirehep.records.marshmallow.literature.common.author import (
+    AuthorSchemaV1,
+    SupervisorSchema,
+)
 from marshmallow import Schema, fields, post_dump
-
-from inspirehep.records.marshmallow.fields import NestedField
-from inspirehep.records.marshmallow.literature.common import AuthorSchemaV1
-from inspirehep.records.marshmallow.literature.common.author import SupervisorSchema
 
 
 class LiteratureAuthorsSchema(Schema):

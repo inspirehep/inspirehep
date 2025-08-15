@@ -7,11 +7,10 @@
 from functools import partial
 
 import structlog
+from inspirehep.pidstore.resolvers import InspireResolver
 from invenio_records.api import Record
 from invenio_records_rest.utils import PIDConverter, obj_or_import_string
 from werkzeug.routing import PathConverter
-
-from inspirehep.pidstore.resolvers import InspireResolver
 
 LOGGER = structlog.getLogger()
 

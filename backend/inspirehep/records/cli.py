@@ -17,15 +17,10 @@ from flask import current_app
 from flask.cli import with_appcontext
 from flask_celeryext.app import current_celery_app
 from inspire_utils.record import get_value
-from invenio_db import db
-from invenio_pidstore.models import PersistentIdentifier
-from invenio_records.api import RecordMetadata
-from sqlalchemy import DateTime, cast, not_, or_, type_coerce
-from sqlalchemy.dialects.postgresql import JSONB
-
 from inspirehep.mailing.api.jobs import send_job_deadline_reminder
-from inspirehep.pidstore.api import PidStoreBase
-from inspirehep.records.api import InspireRecord, JobsRecord
+from inspirehep.pidstore.api.base import PidStoreBase
+from inspirehep.records.api.base import InspireRecord
+from inspirehep.records.api.jobs import JobsRecord
 from inspirehep.records.models import RecordsAuthors
 from inspirehep.records.tasks import (
     populate_journal_literature,
@@ -35,6 +30,11 @@ from inspirehep.records.tasks import (
 )
 from inspirehep.search.api import LiteratureSearch
 from inspirehep.utils import chunker
+from invenio_db import db
+from invenio_pidstore.models import PersistentIdentifier
+from invenio_records.api import RecordMetadata
+from sqlalchemy import DateTime, cast, not_, or_, type_coerce
+from sqlalchemy.dialects.postgresql import JSONB
 
 LOGGER = structlog.getLogger()
 

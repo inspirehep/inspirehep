@@ -10,7 +10,7 @@ import pytest
 from celery.app.annotations import MapAnnotation, resolve_all
 from helpers.utils import create_record_async, create_user, logout, retry_test
 from inspirehep.accounts.roles import Roles
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.api.literature import LiteratureRecord
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db

@@ -7,7 +7,6 @@ import structlog
 from flask import current_app
 from flask_celeryext.app import current_celery_app
 from inspire_utils.record import get_value
-
 from inspirehep.editor.editor_soft_lock import EditorSoftLock
 
 LOGGER = structlog.getLogger()

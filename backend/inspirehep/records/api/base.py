@@ -15,6 +15,16 @@ from flask import current_app
 from inspire_dojson.utils import strip_empty_values
 from inspire_schemas.utils import get_validation_errors
 from inspire_utils.record import get_value
+from inspirehep.indexer.base import InspireRecordIndexer
+from inspirehep.pidstore.api.base import PidStoreBase
+from inspirehep.pidstore.models import InspireRedirect
+from inspirehep.records.errors import (
+    CannotUndeleteRedirectedRecord,
+    MissingSerializerError,
+    WrongRecordSubclass,
+)
+from inspirehep.records.utils import get_ref_from_pid
+from inspirehep.utils import chunker, flatten_list
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus, RecordIdentifier
@@ -30,17 +40,6 @@ from sqlalchemy.orm.attributes import flag_modified
 from sqlalchemy.orm.exc import NoResultFound, StaleDataError
 from sqlalchemy.sql.expression import cast
 from sqlalchemy_continuum import version_class
-
-from inspirehep.indexer.base import InspireRecordIndexer
-from inspirehep.pidstore.api import PidStoreBase
-from inspirehep.pidstore.models import InspireRedirect
-from inspirehep.records.errors import (
-    CannotUndeleteRedirectedRecord,
-    MissingSerializerError,
-    WrongRecordSubclass,
-)
-from inspirehep.records.utils import get_ref_from_pid
-from inspirehep.utils import chunker, flatten_list
 
 LOGGER = structlog.getLogger()
 

@@ -12,11 +12,7 @@ import structlog
 from flask import current_app
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
-from invenio_db import db
-from invenio_pidstore.models import PersistentIdentifier
-from marshmallow import fields, missing, pre_dump
-
-from inspirehep.files.api import current_s3_instance
+from inspirehep.files.proxies import current_s3_instance
 from inspirehep.oai.utils import is_cds_set, is_cern_arxiv_set
 from inspirehep.records.marshmallow.base import ElasticSearchBaseSchema
 from inspirehep.records.marshmallow.literature.base import LiteratureRawSchema
@@ -35,6 +31,9 @@ from inspirehep.records.marshmallow.utils import (
     get_facet_author_name_lit_and_dat,
 )
 from inspirehep.records.models import RecordCitations, RecordsAuthors
+from invenio_db import db
+from invenio_pidstore.models import PersistentIdentifier
+from marshmallow import fields, missing, pre_dump
 
 LOGGER = structlog.getLogger()
 

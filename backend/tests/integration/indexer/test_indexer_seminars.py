@@ -5,7 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import orjson
 from helpers.utils import create_record, es_search
-from inspirehep.records.marshmallow.seminars import SeminarsElasticSearchSchema
+from inspirehep.records.marshmallow.seminars.es import SeminarsElasticSearchSchema
 from marshmallow import utils
 
 

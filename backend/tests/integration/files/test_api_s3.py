@@ -10,7 +10,7 @@ import pkg_resources
 import pytest
 from botocore.exceptions import ClientError
 from helpers.utils import create_s3_bucket, create_s3_file
-from inspirehep.files.api import current_s3_instance
+from inspirehep.files.proxies import current_s3_instance
 from mock import patch
 
 KEY = "b50c2ea2d26571e0c5a3411e320586289fd715c2"
@@ -97,7 +97,7 @@ def test_file_exists_when_file_is_missing(inspire_app, s3):
 
 
 @patch(
-    "inspirehep.files.api.current_s3_instance.client.head_object",
+    "inspirehep.files.proxies.current_s3_instance.client.head_object",
     side_effect=ClientError({"Error": {"Code": "500", "Message": "Error"}}, "load"),
 )
 def test_file_exists_when_error_occurs(mock_client_head_object, inspire_app, s3):

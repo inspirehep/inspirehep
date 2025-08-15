@@ -7,14 +7,14 @@
 import orjson
 from helpers.utils import create_record, create_user
 from inspirehep.accounts.roles import Roles
-from inspirehep.records.marshmallow.seminars import (
-    SeminarsDetailSchema,
-    SeminarsListSchema,
-)
 from inspirehep.records.marshmallow.seminars.base import (
     SeminarsAdminSchema,
     SeminarsPublicListSchema,
     SeminarsPublicSchema,
+)
+from inspirehep.records.marshmallow.seminars.ui import (
+    SeminarsDetailSchema,
+    SeminarsListSchema,
 )
 from invenio_accounts.testutils import login_user_via_session
 from marshmallow import utils

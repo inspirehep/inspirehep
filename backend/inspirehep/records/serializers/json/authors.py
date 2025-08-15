@@ -5,13 +5,15 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
-from inspirehep.records.marshmallow.authors import (
+from inspirehep.records.marshmallow.authors.base import (
     AuthorsAdminSchema,
-    AuthorsDetailSchema,
-    AuthorsListSchema,
     AuthorsOnlyControlNumberSchema,
     AuthorsPublicListSchema,
     AuthorsPublicSchema,
+)
+from inspirehep.records.marshmallow.authors.ui import (
+    AuthorsDetailSchema,
+    AuthorsListSchema,
 )
 from inspirehep.records.marshmallow.base import wrap_schema_class_with_metadata
 from inspirehep.serializers import (

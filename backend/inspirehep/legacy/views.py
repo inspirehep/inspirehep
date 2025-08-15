@@ -5,8 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from flask import Blueprint, abort, current_app, redirect, request
-
-from inspirehep.pidstore.api import PidStoreBase
+from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.utils import get_pid_for_pid
 
 blueprint = Blueprint("inspirehep_legacy", __name__, url_prefix="")

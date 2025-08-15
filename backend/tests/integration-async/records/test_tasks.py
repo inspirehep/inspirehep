@@ -8,7 +8,7 @@ import mock
 from helpers.providers.faker import faker
 from helpers.utils import retry_test, search_index_flush_and_refresh
 from inspire_utils.record import get_value
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 from inspirehep.search.api import InspireSearch, LiteratureSearch
 from invenio_db import db
 from tenacity import stop_after_delay, wait_fixed

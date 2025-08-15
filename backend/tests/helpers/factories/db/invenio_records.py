@@ -15,7 +15,7 @@ import pkg_resources
 from helpers.factories.db.base import TestBaseModel
 from helpers.factories.db.invenio_pidstore import TestPersistentIdentifier
 from inspirehep.accounts.fixtures import generate_random_string
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 from invenio_records.models import RecordMetadata
 from invenio_search import current_search_client as es
 

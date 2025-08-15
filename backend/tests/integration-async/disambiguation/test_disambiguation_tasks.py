@@ -12,7 +12,8 @@ from helpers.utils import create_user, retry_test
 from inspire_utils.record import get_values_for_schema
 from inspirehep.disambiguation.tasks import disambiguate_authors
 from inspirehep.editor.editor_soft_lock import EditorSoftLock
-from inspirehep.records.api import AuthorsRecord, InspireRecord
+from inspirehep.records.api.authors import AuthorsRecord
+from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import AuthorsSearch, InspireSearch

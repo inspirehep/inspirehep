@@ -7,13 +7,6 @@ import structlog
 from flask import Blueprint, abort, current_app, request
 from flask.views import MethodView
 from flask_login import current_user
-from invenio_db import db
-from invenio_records_rest.views import pass_record
-from requests.exceptions import RequestException
-from sqlalchemy.orm.exc import StaleDataError
-from webargs import fields
-from webargs.flaskparser import FlaskParser
-
 from inspirehep.accounts.decorators import login_required, login_required_with_roles
 from inspirehep.accounts.roles import Roles
 from inspirehep.pidstore.api.base import PidStoreBase
@@ -29,7 +22,9 @@ from inspirehep.records.errors import (
     MaxResultWindowRESTError,
     UnknownImportIdentifierError,
 )
-from inspirehep.records.marshmallow.literature.common import ReferenceItemSchemaV2
+from inspirehep.records.marshmallow.literature.common.reference_item import (
+    ReferenceItemSchemaV2,
+)
 from inspirehep.records.marshmallow.literature.references import (
     LiteratureReferencesSchema,
 )
@@ -42,6 +37,12 @@ from inspirehep.records.utils import (
 from inspirehep.search.api import LiteratureSearch
 from inspirehep.serializers import jsonify
 from inspirehep.submissions.serializers import literature_v1
+from invenio_db import db
+from invenio_records_rest.views import pass_record
+from requests.exceptions import RequestException
+from sqlalchemy.orm.exc import StaleDataError
+from webargs import fields
+from webargs.flaskparser import FlaskParser
 
 LOGGER = structlog.getLogger()
 blueprint = Blueprint("inspirehep_records", __name__, url_prefix="")

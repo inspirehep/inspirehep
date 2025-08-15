@@ -5,7 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import orjson
 from helpers.utils import retry_test
-from inspirehep.records.api import SeminarsRecord
+from inspirehep.records.api.seminars import SeminarsRecord
 from inspirehep.search.api import SeminarsSearch
 from invenio_db import db
 from invenio_search import current_search

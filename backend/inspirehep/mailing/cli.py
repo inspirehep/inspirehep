@@ -7,7 +7,6 @@
 import click
 import structlog
 from flask.cli import with_appcontext
-
 from inspirehep.mailing.api.jobs import (
     get_jobs_from_last_week,
     get_jobs_weekly_html_content,

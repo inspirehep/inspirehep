@@ -5,17 +5,18 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-from marshmallow import fields
-
 from inspirehep.records.marshmallow.base import RecordBaseSchema
-from inspirehep.records.marshmallow.common import (
+from inspirehep.records.marshmallow.common.accelerator_experiment import (
     AcceleratorExperimentSchemaV1,
+)
+from inspirehep.records.marshmallow.common.contact_details_items import (
     ContactDetailsItemWithoutEmail,
 )
 from inspirehep.records.marshmallow.jobs.utils import (
     get_reference_letters_without_email,
 )
 from inspirehep.records.marshmallow.utils import get_acquisition_source_without_email
+from marshmallow import fields
 
 
 class JobsRawSchema(RecordBaseSchema):

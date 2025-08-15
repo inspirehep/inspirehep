@@ -8,8 +8,8 @@ from copy import deepcopy
 
 import mock
 from helpers.providers.faker import faker
-from inspirehep.records.api import JournalsRecord
-from inspirehep.records.marshmallow.journals import JournalsElasticSearchSchema
+from inspirehep.records.api.journals import JournalsRecord
+from inspirehep.records.marshmallow.journals.es import JournalsElasticSearchSchema
 
 
 @mock.patch("inspirehep.records.api.journals.JournalLiterature")

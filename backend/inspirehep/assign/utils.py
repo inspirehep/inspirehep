@@ -9,17 +9,16 @@ from flask import request
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.name import ParsedName
 from inspire_utils.record import get_value
+from inspirehep.accounts.api import get_current_user_orcid
+from inspirehep.records.api.authors import AuthorsRecord
+from inspirehep.records.utils import get_author_by_recid
+from inspirehep.search.api import LiteratureSearch
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
 from sqlalchemy.orm.exc import NoResultFound
 from unidecode import unidecode
-
-from inspirehep.accounts.api import get_current_user_orcid
-from inspirehep.records.api import AuthorsRecord
-from inspirehep.records.utils import get_author_by_recid
-from inspirehep.search.api import LiteratureSearch
 
 LOGGER = structlog.getLogger()
 

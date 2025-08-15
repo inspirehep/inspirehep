@@ -7,15 +7,23 @@
 import pytest
 from helpers.utils import generate_records
 from inspirehep.indexer.cli import get_query_records_to_index
-from inspirehep.records.api import (
+from inspirehep.records.api.authors import (
     AuthorsRecord,
-    ExperimentsRecord,
-    InstitutionsRecord,
-    JobsRecord,
-    JournalsRecord,
 )
 from inspirehep.records.api.conferences import ConferencesRecord
 from inspirehep.records.api.data import DataRecord
+from inspirehep.records.api.experiments import (
+    ExperimentsRecord,
+)
+from inspirehep.records.api.institutions import (
+    InstitutionsRecord,
+)
+from inspirehep.records.api.jobs import (
+    JobsRecord,
+)
+from inspirehep.records.api.journals import (
+    JournalsRecord,
+)
 from inspirehep.records.api.literature import LiteratureRecord
 from invenio_records.models import RecordMetadata
 from mock import patch

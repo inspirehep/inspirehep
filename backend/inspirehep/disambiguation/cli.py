@@ -12,7 +12,7 @@ from flask.cli import with_appcontext
 from flask_celeryext.app import current_celery_app
 from inspirehep.disambiguation.tasks import disambiguate_authors
 from inspirehep.errors import DB_TASK_EXCEPTIONS
-from inspirehep.records.api import AuthorsRecord
+from inspirehep.records.api.authors import AuthorsRecord
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.models import RecordsAuthors
 from inspirehep.search.api import AuthorsSearch, LiteratureSearch

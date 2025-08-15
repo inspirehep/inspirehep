@@ -12,17 +12,16 @@ from inspire_schemas.readers.literature import LiteratureReader
 from inspire_utils.date import PartialDate
 from inspire_utils.helpers import remove_tags
 from inspire_utils.record import get_value
-from isbnlib import ISBNLibException
-from lxml.etree import XMLSyntaxError
-from marshmallow import fields, pre_dump
-from prometheus_client import Counter
-from six import text_type
-
 from inspirehep.records.marshmallow.base import BaseSchema
 from inspirehep.records.marshmallow.literature.utils import (
     get_parent_record,
     latex_encode,
 )
+from isbnlib import ISBNLibException
+from lxml.etree import XMLSyntaxError
+from marshmallow import fields, pre_dump
+from prometheus_client import Counter
+from six import text_type
 
 bibtex_conversion_success = Counter(
     "bibtex_title_serialization_success", "Bibtex title serialization success"

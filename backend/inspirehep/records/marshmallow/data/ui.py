@@ -5,7 +5,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from inspire_utils.date import format_date
-from inspirehep.records.marshmallow.common import AcceleratorExperimentSchemaV1
+from inspirehep.records.marshmallow.common.accelerator_experiment import (
+    AcceleratorExperimentSchemaV1,
+)
 from inspirehep.records.marshmallow.common.literature_record import (
     LiteratureRecordSchemaV1,
 )

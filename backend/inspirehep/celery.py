@@ -45,7 +45,8 @@ class CeleryTask(AppContextTask):
             return self.run(*args, **kwargs)
 
 
-celery = create_celery_app(create_app(LOGGING_SENTRY_CELERY=True))
+inspire_app = create_app(LOGGING_SENTRY_CELERY=True)
+celery = create_celery_app(inspire_app)
 celery.Task = CeleryTask
 
 

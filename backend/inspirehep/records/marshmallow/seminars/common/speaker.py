@@ -4,9 +4,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from marshmallow import Schema, fields, missing
-
 from inspirehep.records.marshmallow.utils import get_first_name, get_last_name
+from marshmallow import Schema, fields, missing
 
 
 class SpeakerSchemaV1(Schema):

@@ -20,7 +20,7 @@ from tenacity import stop_after_delay, wait_fixed
 
 
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.LiteratureFulltextElasticSearchSchema.get_documents_with_fulltext",
+    "inspirehep.records.marshmallow.literature.es.LiteratureFulltextElasticSearchSchema.get_documents_with_fulltext",
     return_value=[
         {
             "source": "arxiv",
@@ -76,7 +76,7 @@ def test_highlighting(
 
 
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.LiteratureFulltextElasticSearchSchema.get_documents_with_fulltext",
+    "inspirehep.records.marshmallow.literature.es.LiteratureFulltextElasticSearchSchema.get_documents_with_fulltext",
     return_value=[
         {
             "source": "arxiv",

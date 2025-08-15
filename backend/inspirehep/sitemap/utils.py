@@ -7,8 +7,7 @@
 from io import BytesIO
 
 from flask import current_app
-
-from inspirehep.files.api import current_s3_instance
+from inspirehep.files.proxies import current_s3_instance
 from inspirehep.utils import get_inspirehep_url
 
 SITEMAP_MIME_TYPE = "application/xml"

@@ -7,10 +7,9 @@
 from itertools import chain
 
 from inspire_utils.helpers import force_list
-from marshmallow import fields
-
 from inspirehep.records.marshmallow.authors.base import AuthorsRawSchema
 from inspirehep.records.marshmallow.base import ElasticSearchBaseSchema
+from marshmallow import fields
 
 
 class AuthorsElasticSearchSchema(ElasticSearchBaseSchema, AuthorsRawSchema):

@@ -29,7 +29,7 @@ from inspirehep.hal.utils import (
     get_divulgation,
     get_domains,
 )
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 
 
 @mock.patch("inspirehep.hal.api.current_celery_app.send_task")

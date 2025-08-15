@@ -40,7 +40,7 @@ from inspirehep.orcid.utils import (
     get_orcids_for_push,
     update_moved_orcid,
 )
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 from invenio_db import db
 from invenio_pidstore.errors import PIDAlreadyExists
 from mock import patch

@@ -8,7 +8,7 @@ import mock
 import orjson
 from helpers.providers.faker import faker
 from helpers.utils import create_user, retry_test
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 from inspirehep.search.api import InspireSearch
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db

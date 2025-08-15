@@ -2,9 +2,8 @@ from datetime import datetime
 
 import structlog
 from flask import current_app
-from redis import StrictRedis
-
 from inspirehep.config import EDITOR_LOCK_EXPIRATION_TIME
+from redis import StrictRedis
 
 LOGGER = structlog.getLogger()
 

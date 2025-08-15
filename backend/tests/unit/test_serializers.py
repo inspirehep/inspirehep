@@ -1,5 +1,5 @@
 import orjson
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 from inspirehep.serializers import (
     ConditionalMultiSchemaJSONSerializer,
     JSONSerializerFacets,

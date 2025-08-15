@@ -5,7 +5,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
-from inspirehep.records.marshmallow.literature import LiteratureReferencesSchema
+from inspirehep.records.marshmallow.literature.references import (
+    LiteratureReferencesSchema,
+)
 
 
 def test_references_schema_without_references():

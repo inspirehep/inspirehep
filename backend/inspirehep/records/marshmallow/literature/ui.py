@@ -9,30 +9,47 @@ from flask import current_app, request
 from inspire_dojson.utils import get_recid_from_ref, get_record_ref
 from inspire_utils.date import format_date
 from inspire_utils.record import get_value, get_values_for_schema
-from marshmallow import fields, missing, pre_dump
-
 from inspirehep.accounts.api import (
     check_permissions_for_private_collection_read_write,
     is_user_logged_in,
 )
 from inspirehep.assign.utils import can_claim, is_assign_view_enabled
-from inspirehep.files.api import current_s3_instance
+from inspirehep.files.proxies import current_s3_instance
 from inspirehep.records.marshmallow.base import EnvelopeSchema
-from inspirehep.records.marshmallow.common import AcceleratorExperimentSchemaV1
+from inspirehep.records.marshmallow.common.accelerator_experiment import (
+    AcceleratorExperimentSchemaV1,
+)
 from inspirehep.records.marshmallow.common.mixins import (
     CanEditByCollectionPermissionMixin,
 )
-from inspirehep.records.marshmallow.fields import ListWithLimit, NonHiddenNested
+from inspirehep.records.marshmallow.fields.list_with_limit import ListWithLimit
+from inspirehep.records.marshmallow.fields.non_hidden import NonHiddenNested
 from inspirehep.records.marshmallow.literature.base import LiteraturePublicSchema
-from inspirehep.records.marshmallow.literature.common import (
+from inspirehep.records.marshmallow.literature.common.author import (
     AuthorSchemaV1,
+)
+from inspirehep.records.marshmallow.literature.common.collaboration import (
     CollaborationSchemaV1,
+)
+from inspirehep.records.marshmallow.literature.common.collaboration_with_suffix import (
     CollaborationWithSuffixSchemaV1,
+)
+from inspirehep.records.marshmallow.literature.common.conference_info_item import (
     ConferenceInfoItemSchemaV1,
+)
+from inspirehep.records.marshmallow.literature.common.doi import (
     DOISchemaV1,
+)
+from inspirehep.records.marshmallow.literature.common.external_system_identifier import (
     ExternalSystemIdentifierSchemaV1,
+)
+from inspirehep.records.marshmallow.literature.common.isbn import (
     IsbnSchemaV1,
+)
+from inspirehep.records.marshmallow.literature.common.publication_info_item import (
     PublicationInfoItemSchemaV1,
+)
+from inspirehep.records.marshmallow.literature.common.thesis_info import (
     ThesisInfoSchemaV1,
 )
 from inspirehep.records.marshmallow.literature.pdg_identifiers_latex import (
@@ -45,6 +62,7 @@ from inspirehep.records.marshmallow.literature.utils import (
 )
 from inspirehep.records.utils import get_literature_earliest_date
 from inspirehep.utils import get_inspirehep_url
+from marshmallow import fields, missing, pre_dump
 
 DATASET_SCHEMA_TO_URL_PREFIX_MAP = {
     "hepdata": "https://www.hepdata.net/record/",

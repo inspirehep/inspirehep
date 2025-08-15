@@ -5,7 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
-from inspirehep.records.marshmallow.literature.common import (
+from inspirehep.records.marshmallow.literature.common.external_system_identifier import (
     ExternalSystemIdentifierSchemaV1,
 )
 from marshmallow import Schema, fields

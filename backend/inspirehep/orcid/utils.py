@@ -12,6 +12,11 @@ import structlog
 from flask import current_app
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.record import get_value, get_values_for_schema
+from inspirehep.mailing.api.authors import send_orcid_push_disabled_email
+from inspirehep.orcid.push_access_tokens import delete_access_token
+from inspirehep.pidstore.models import InspireRedirect
+from inspirehep.records.api.authors import AuthorsRecord
+from inspirehep.search.api import LiteratureSearch
 from invenio_accounts.models import User
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, UserIdentity
@@ -22,12 +27,6 @@ from opensearch_dsl import Q
 from sqlalchemy import cast, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm.exc import NoResultFound
-
-from inspirehep.mailing.api.authors import send_orcid_push_disabled_email
-from inspirehep.orcid.push_access_tokens import delete_access_token
-from inspirehep.pidstore.models import InspireRedirect
-from inspirehep.records.api import AuthorsRecord
-from inspirehep.search.api import LiteratureSearch
 
 LOGGER = structlog.getLogger()
 

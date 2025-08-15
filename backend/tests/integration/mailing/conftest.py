@@ -11,7 +11,7 @@ import orjson
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_record
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 from invenio_search import current_search
 
 

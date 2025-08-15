@@ -8,7 +8,7 @@ import orjson
 import pytest
 from helpers.utils import create_record, create_user
 from inspirehep.accounts.roles import Roles
-from inspirehep.records.api import AuthorsRecord
+from inspirehep.records.api.authors import AuthorsRecord
 from inspirehep.records.api.literature import LiteratureRecord
 from invenio_accounts.testutils import login_user_via_session
 from sqlalchemy.exc import ResourceClosedError

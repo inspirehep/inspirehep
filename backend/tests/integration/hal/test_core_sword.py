@@ -36,7 +36,7 @@ from inspirehep.hal.core.sword import (
 )
 from inspirehep.hal.errors import HALCreateException
 from inspirehep.hal.tasks import _hal_push, hal_push, update_record_with_new_ids
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 from mock import patch
 from sqlalchemy.orm.exc import StaleDataError
 from sword2.deposit_receipt import Deposit_Receipt

@@ -7,11 +7,11 @@
 import mock
 import orjson
 from helpers.providers.faker import faker
-from inspirehep.records.marshmallow.literature import LiteratureListWrappedSchema
 from inspirehep.records.marshmallow.literature.base import (
     LiteraturePublicListSchema,
     LiteratureRawSchema,
 )
+from inspirehep.records.marshmallow.literature.ui import LiteratureListWrappedSchema
 
 
 def test_literature_related_records():

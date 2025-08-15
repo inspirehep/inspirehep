@@ -135,7 +135,7 @@ def test_process_bulk_record_for_index_default_values(
     assert expected_data == bulk_data
 
 
-@mock.patch("inspirehep.records.api.InspireRecord.get_record")
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_record")
 def test_bulk_action_catches_recursion_error_in_deleted_records(mock_get_record):
     record = LiteratureRecord({})
     record["deleted"] = True

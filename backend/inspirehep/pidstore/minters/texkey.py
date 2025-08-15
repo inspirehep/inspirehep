@@ -5,9 +5,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import structlog
 from inspire_utils.record import get_value
-from invenio_db import db
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-
 from inspirehep.pidstore.errors import (
     CannotGenerateUniqueTexKey,
     NoAvailableTexKeyFound,
@@ -16,6 +13,8 @@ from inspirehep.pidstore.errors import (
 )
 from inspirehep.pidstore.minters.base import Minter
 from inspirehep.pidstore.providers.texkey import InspireTexKeyProvider
+from invenio_db import db
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 LOGGER = structlog.getLogger()
 

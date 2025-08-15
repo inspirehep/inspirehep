@@ -7,9 +7,10 @@
 from inspire_dojson.utils import get_recid_from_ref, strip_empty_values
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value, get_values_for_schema
-from marshmallow import Schema, fields, missing, post_dump, pre_dump
-
-from inspirehep.records.marshmallow.fields import ListWithLimit, NestedField
+from inspirehep.records.marshmallow.fields.list_with_limit import ListWithLimit
+from inspirehep.records.marshmallow.fields.nested_without_empty_objects import (
+    NestedField,
+)
 from inspirehep.records.marshmallow.literature.common.author import AuthorSchemaV1
 from inspirehep.records.marshmallow.literature.common.collaboration import (
     CollaborationSchemaV1,
@@ -20,6 +21,7 @@ from inspirehep.records.marshmallow.literature.common.collaboration_with_suffix 
 from inspirehep.records.marshmallow.literature.common.publication_info_item import (
     PublicationInfoItemSchemaV1,
 )
+from marshmallow import Schema, fields, missing, post_dump, pre_dump
 
 
 class ReferenceItemSchemaV1(Schema):

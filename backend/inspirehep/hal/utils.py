@@ -10,8 +10,7 @@ from flask import current_app
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.name import ParsedName
 from inspire_utils.record import get_values_for_schema
-
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.base import InspireRecord
 
 
 def get_authors(record):

@@ -7,7 +7,7 @@
 import pytest
 from freezegun import freeze_time
 from helpers.utils import create_record
-from inspirehep.files import current_s3_instance
+from inspirehep.files.proxies import current_s3_instance
 from inspirehep.tools.utils import find_references
 from werkzeug.datastructures import FileStorage
 

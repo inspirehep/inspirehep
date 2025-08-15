@@ -1,11 +1,10 @@
 import orjson
 from inspire_utils.record import get_value
-from marshmallow import fields
-
 from inspirehep.records.marshmallow.literature.base import (
     LiteraturePublicSchema,
 )
 from inspirehep.records.marshmallow.literature.utils import get_expanded_authors
+from marshmallow import fields
 
 
 class LiteratureExpandedPublicSchema(LiteraturePublicSchema):

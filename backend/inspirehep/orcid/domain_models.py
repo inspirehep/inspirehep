@@ -11,15 +11,14 @@ import structlog
 from flask import current_app
 from inspire_service_orcid import exceptions as orcid_client_exceptions
 from inspire_service_orcid.client import OrcidClient
-from invenio_db import db
-from invenio_pidstore.errors import PIDDoesNotExistError
-
 from inspirehep.orcid import exceptions, push_access_tokens, utils
 from inspirehep.orcid.cache import OrcidCache
 from inspirehep.orcid.converter import OrcidConverter
 from inspirehep.orcid.putcode_getter import OrcidPutcodeGetter
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.utils import distributed_lock
+from invenio_db import db
+from invenio_pidstore.errors import PIDDoesNotExistError
 
 LOGGER = structlog.getLogger()
 ORCID_REGEX = r"\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"

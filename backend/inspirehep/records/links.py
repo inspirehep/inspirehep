@@ -4,9 +4,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 from flask import current_app, request, url_for
+from inspirehep.pidstore.api.base import PidStoreBase
 from invenio_records_rest import current_records_rest
-
-from inspirehep.pidstore.api import PidStoreBase
 
 
 def inspire_detail_links_factory(pid, record=None, record_hit=None, *args, **kwargs):

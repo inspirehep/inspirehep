@@ -15,14 +15,13 @@ from inspire_dojson.utils import get_recid_from_ref, get_record_ref
 from inspire_utils.date import earliest_date
 from inspire_utils.helpers import force_list, maybe_int
 from inspire_utils.record import get_value, get_values_for_schema
-from invenio_db import db
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-from sqlalchemy.orm import aliased
-
-from inspirehep.pidstore.api import PidStoreBase
+from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.errors import DownloadFileError, FileSizeExceededError
 from inspirehep.submissions.tasks import async_create_ticket_with_template
 from inspirehep.utils import get_inspirehep_url
+from invenio_db import db
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+from sqlalchemy.orm import aliased
 
 LOGGER = structlog.getLogger()
 
