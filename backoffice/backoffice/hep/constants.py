@@ -29,10 +29,10 @@ class HepWorkflowType(models.TextChoices):
 HEP_DEFAULT_WORKFLOW_TYPE = HepWorkflowType.HEP_CREATE
 
 
-class HepResolutionDags(models.TextChoices):
-    accept = "accept", "hep_create_approved_dag"
-    reject = "reject", "hep_create_rejected_dag"
-    accept_curate = "accept_curate", "hep_create_approved_dag"
+class HepResolutions(models.TextChoices):
+    exact_match = "exact_match", "await_decision_exact_match"
+    fuzzy_match = "fuzzy_match", "fuzzy_match"
+    approval = "approval", "approval"
 
 
-HEP_DECISION_CHOICES = HepResolutionDags.choices
+HEP_DECISION_CHOICES = HepResolutions.choices
