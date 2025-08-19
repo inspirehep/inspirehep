@@ -62,7 +62,7 @@ export class ReferenceBriefPipe implements PipeTransform {
     if (item.has('authors')) {
       author = item.getIn(['authors', 0, 'full_name'], '') + ' ';
       if (item.get('authors').size > 1) {
-        author += 'el al. ';
+        author += 'et al. ';
       }
     }
     if (item.has('publication_info')) {
