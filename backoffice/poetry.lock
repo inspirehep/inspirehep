@@ -1959,14 +1959,14 @@ files = [
 
 [[package]]
 name = "inspire-schemas"
-version = "61.6.19"
+version = "61.6.23"
 description = "Inspire JSON schemas and utilities to use them."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "inspire-schemas-61.6.19.tar.gz", hash = "sha256:2da8cba31536891165218f6232badaab25bd29bee94820c0ed8983a6c1140678"},
-    {file = "inspire_schemas-61.6.19-py2.py3-none-any.whl", hash = "sha256:dc32e88c8bf079749c07e87064455cf0d9db1f07133853ad77ed4880542c2943"},
+    {file = "inspire_schemas-61.6.23-py2.py3-none-any.whl", hash = "sha256:09edec3c2c4c0ff449209b4613249f044f6c013491b33f81baf7fd91d0d3fd1f"},
+    {file = "inspire_schemas-61.6.23.tar.gz", hash = "sha256:13df23486013e38ece0441d85e12513eb2dbd2a1b9a0a35db67f433c7c66d6be"},
 ]
 
 [package.dependencies]
@@ -1989,14 +1989,14 @@ tests = ["check-manifest", "coverage", "deepdiff", "idutils (>=1.2.1,<2.0)", "in
 
 [[package]]
 name = "inspire-utils"
-version = "3.0.65"
+version = "3.0.66"
 description = "INSPIRE-specific utils."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "inspire-utils-3.0.65.tar.gz", hash = "sha256:f6637a0015294c86dce4d4adea16b36cebd2c679de97290aaa9094cd5330d224"},
-    {file = "inspire_utils-3.0.65-py3-none-any.whl", hash = "sha256:de29cf7ca5928931c9c8bced5644e124883712c2284c6d7df178b5c18b7a0968"},
+    {file = "inspire_utils-3.0.66-py3-none-any.whl", hash = "sha256:6b6ecbfe12b69928e948c10aa9d54bc1e583ac7a8197809fb883aa1322b1235d"},
+    {file = "inspire_utils-3.0.66.tar.gz", hash = "sha256:6e470d3ca372006f4b371a24c5851117d235f85b2f3e712ada7a32e3581f347d"},
 ]
 
 [package.dependencies]
@@ -2009,7 +2009,7 @@ six = ">=1.10.0,<2.0"
 Unidecode = ">=1.2.0,<2.0"
 
 [package.extras]
-all = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pre-commit (==3.5.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=8.2.2,<9.0)", "unicode-string-literal (>=1.1,<2.0)"]
+all = ["flake8-future-import (>=0.4.3,<1.0)", "flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "mock (>=2.0.0,<3.0)", "pre-commit (==3.5.0)", "pre-commit (==3.5.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=8.2.2,<9.0)", "pytest (>=8.2.2,<9.0)", "unicode-string-literal (>=1.1,<2.0)", "unicode-string-literal (>=1.1,<2.0)"]
 dev = ["pre-commit (==3.5.0)"]
 tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=8.2.2,<9.0)", "unicode-string-literal (>=1.1,<2.0)"]
 
@@ -4825,4 +4825,4 @@ testing = ["coverage[toml]", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.11"
-content-hash = "fe6a51f8d040ab55bf36fbb16f5dfed9799673f21005bf437d5089e13f513f7b"
+content-hash = "a14ecb67a59337b183b4ae73abccd8c7fab9db52714a6d052be93a9cc795e33e"
