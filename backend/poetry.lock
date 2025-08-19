@@ -2159,15 +2159,15 @@ tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (
 
 [[package]]
 name = "inspire-json-merger"
-version = "11.0.42"
+version = "11.0.44"
 description = "INSPIRE-specific configuration of the JSON Merger."
 optional = false
 python-versions = "*"
 groups = ["main"]
 markers = "platform_machine == \"aarch64\" or platform_machine == \"ppc64le\" or platform_machine == \"x86_64\" or platform_machine == \"amd64\" or platform_machine == \"AMD64\" or platform_machine == \"win32\" or platform_machine == \"WIN32\" or platform_machine != \"aarch64\" and platform_machine != \"ppc64le\" and platform_machine != \"x86_64\" and platform_machine != \"amd64\" and platform_machine != \"AMD64\" and platform_machine != \"win32\" and platform_machine != \"WIN32\""
 files = [
-    {file = "inspire-json-merger-11.0.42.tar.gz", hash = "sha256:c2196d046db15202f2c7efb314b06a3cf0327a0e88a155e68d5178b6d15c50b2"},
-    {file = "inspire_json_merger-11.0.42-py3-none-any.whl", hash = "sha256:fa1db95d9293bdd3906ebe052d95a9a67e43fd8c4a6500f6deb4668fcf84e25d"},
+    {file = "inspire_json_merger-11.0.44-py3-none-any.whl", hash = "sha256:68a2583b1c44d970ae87b8fce07a076ccc350dada62093ff11004ddce5461383"},
+    {file = "inspire_json_merger-11.0.44.tar.gz", hash = "sha256:32ca311415f71bb90eb84d0c23788d28f50290f74b64076697a6f64c29870217"},
 ]
 
 [package.dependencies]
@@ -2177,21 +2177,21 @@ munkres = "1.0.12"
 pyrsistent = ">=0.14.0,<1.0"
 
 [package.extras]
-all = ["decorator (>=4.1.2,<5.0)", "inspire-schemas (==61.5.31)", "mock (>=2.0.0,<3.0)", "pre-commit (==3.5.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=8.0.2,<9.0)", "pytest-cov (>=2.5.1,<3.0)"]
+all = ["decorator (>=4.1.2,<5.0)", "decorator (>=4.1.2,<5.0)", "inspire-schemas (==61.5.31)", "inspire-schemas (==61.5.31)", "mock (>=2.0.0,<3.0)", "mock (>=2.0.0,<3.0)", "pre-commit (==3.5.0)", "pre-commit (==3.5.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=8.0.2,<9.0)", "pytest (>=8.0.2,<9.0)", "pytest-cov (>=2.5.1,<3.0)", "pytest-cov (>=2.5.1,<3.0)"]
 dev = ["pre-commit (==3.5.0)"]
 tests = ["decorator (>=4.1.2,<5.0)", "inspire-schemas (==61.5.31)", "mock (>=2.0.0,<3.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=8.0.2,<9.0)", "pytest-cov (>=2.5.1,<3.0)"]
 
 [[package]]
 name = "inspire-matcher"
-version = "9.0.45"
+version = "9.0.46"
 description = "Find the records in INSPIRE most similar to a given record or reference."
 optional = false
 python-versions = "*"
 groups = ["main"]
 markers = "platform_machine == \"aarch64\" or platform_machine == \"ppc64le\" or platform_machine == \"x86_64\" or platform_machine == \"amd64\" or platform_machine == \"AMD64\" or platform_machine == \"win32\" or platform_machine == \"WIN32\" or platform_machine != \"aarch64\" and platform_machine != \"ppc64le\" and platform_machine != \"x86_64\" and platform_machine != \"amd64\" and platform_machine != \"AMD64\" and platform_machine != \"win32\" and platform_machine != \"WIN32\""
 files = [
-    {file = "inspire-matcher-9.0.45.tar.gz", hash = "sha256:5927b04a30a0fa9bc1d1794deffba424ac44b426bff2852a01814ef188239acb"},
-    {file = "inspire_matcher-9.0.45-py3-none-any.whl", hash = "sha256:6012bdcbb43c06774f2c7f7bbc64a4b5aba021a6f24b8baf7dca08757509429f"},
+    {file = "inspire_matcher-9.0.46-py3-none-any.whl", hash = "sha256:87a3986a6012103ccb97b129e970ada89edb76f602599ffda52a6b982fce9e2f"},
+    {file = "inspire_matcher-9.0.46.tar.gz", hash = "sha256:1c1a3c85420bbaaeec36d5021172d980193c60a5ea3c8e6b93ad587fabecc487"},
 ]
 
 [package.dependencies]
@@ -2203,7 +2203,7 @@ pyyaml = {version = ">=6.0,<7.0", markers = "python_version >= \"3.6\""}
 six = ">=1.11.0,<2.0"
 
 [package.extras]
-all = ["mock (>=3.0.0,<4.0)", "pre-commit (>=4.2.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=8.3.5)", "pytest-cov (>=2.5.1,<3.0)", "pytest-pep8", "unicode-string-literal (>=1.1,<2.0)"]
+all = ["mock (>=3.0.0,<4.0)", "mock (>=3.0.0,<4.0)", "pre-commit (>=4.2.0)", "pre-commit (>=4.2.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=8.3.5)", "pytest (>=8.3.5)", "pytest-cov (>=2.5.1,<3.0)", "pytest-cov (>=2.5.1,<3.0)", "pytest-pep8", "pytest-pep8", "unicode-string-literal (>=1.1,<2.0)", "unicode-string-literal (>=1.1,<2.0)"]
 dev = ["pre-commit (>=4.2.0)"]
 elasticsearch7 = ["elasticsearch (>=7.0,<8.0)", "elasticsearch-dsl (>=7.0,<8.0)"]
 opensearch2 = ["opensearch-dsl (>=2.0.0,<3.0.0)", "opensearch-py (>=2.0.0,<3.0.0)"]
@@ -2211,41 +2211,41 @@ tests = ["mock (>=3.0.0,<4.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=8.3.5)", "py
 
 [[package]]
 name = "inspire-query-parser"
-version = "6.0.53"
+version = "6.0.61"
 description = "A PEG-based query parser for INSPIRE."
 optional = false
 python-versions = "*"
 groups = ["main"]
 markers = "platform_machine == \"aarch64\" or platform_machine == \"ppc64le\" or platform_machine == \"x86_64\" or platform_machine == \"amd64\" or platform_machine == \"AMD64\" or platform_machine == \"win32\" or platform_machine == \"WIN32\" or platform_machine != \"aarch64\" and platform_machine != \"ppc64le\" and platform_machine != \"x86_64\" and platform_machine != \"amd64\" and platform_machine != \"AMD64\" and platform_machine != \"win32\" and platform_machine != \"WIN32\""
 files = [
-    {file = "inspire-query-parser-6.0.53.tar.gz", hash = "sha256:f8f0ad424619a4b8d91513cc7d35f1b70d35de56912d911948015cc402dada63"},
-    {file = "inspire_query_parser-6.0.53-py3-none-any.whl", hash = "sha256:dfccde0e2760aef6c7d413c8bc91d4bc8b6aa6fa81565dc6a5f14a61282e1c26"},
+    {file = "inspire_query_parser-6.0.61-py3-none-any.whl", hash = "sha256:28fe2b7e3952111cf5f5fc7542974f5fd86b463577ea89885fe4a4c2a61dcf54"},
+    {file = "inspire_query_parser-6.0.61.tar.gz", hash = "sha256:04a0b6c23c6d310444b620f957fddfb974f5faa54dad4d4b2a0ea5ad84e4b2b5"},
 ]
 
 [package.dependencies]
-datefinder = ">=0.7.1,<0.8.0"
+datefinder = ">=0.7.1"
 inspire-schemas = ">=61.0,<62.0"
 inspire-utils = ">=3.0.0,<4.0"
-pypeg2 = ">=2.15.2,<3.0"
-python-dateutil = ">=2.6.1,<3.0"
-six = ">=1.11.0,<2.0"
+pypeg2 = ">=2.15.2"
+python-dateutil = ">=2.6.1"
+six = ">=1.11.0"
 
 [package.extras]
-all = ["flake8 (>=3.5.0,<4.0)", "mock (>=2.0.0,<3.0)", "pre-commit (==3.5.0)", "pytest (>=3.2.2,<4.0)", "pytest-cov (>=2.0,<=2.6.0)"]
-dev = ["pre-commit (==3.5.0)"]
-tests = ["flake8 (>=3.5.0,<4.0)", "mock (>=2.0.0,<3.0)", "pytest (>=3.2.2,<4.0)", "pytest-cov (>=2.0,<=2.6.0)"]
+all = ["flake8 (>=3.5.0)", "flake8 (>=3.5.0)", "mock (>=2.0.0)", "mock (>=2.0.0)", "pre-commit (>=4.2.0)", "pre-commit (>=4.2.0)", "pytest (>=6.2.5)", "pytest (>=6.2.5)", "pytest-cov (>=2.6.0)", "pytest-cov (>=2.6.0)"]
+dev = ["pre-commit (>=4.2.0)"]
+tests = ["flake8 (>=3.5.0)", "mock (>=2.0.0)", "pytest (>=6.2.5)", "pytest-cov (>=2.6.0)"]
 
 [[package]]
 name = "inspire-schemas"
-version = "61.6.19"
+version = "61.6.23"
 description = "Inspire JSON schemas and utilities to use them."
 optional = false
 python-versions = "*"
 groups = ["main"]
 markers = "platform_machine == \"aarch64\" or platform_machine == \"ppc64le\" or platform_machine == \"x86_64\" or platform_machine == \"amd64\" or platform_machine == \"AMD64\" or platform_machine == \"win32\" or platform_machine == \"WIN32\" or platform_machine != \"aarch64\" and platform_machine != \"ppc64le\" and platform_machine != \"x86_64\" and platform_machine != \"amd64\" and platform_machine != \"AMD64\" and platform_machine != \"win32\" and platform_machine != \"WIN32\""
 files = [
-    {file = "inspire-schemas-61.6.19.tar.gz", hash = "sha256:2da8cba31536891165218f6232badaab25bd29bee94820c0ed8983a6c1140678"},
-    {file = "inspire_schemas-61.6.19-py2.py3-none-any.whl", hash = "sha256:dc32e88c8bf079749c07e87064455cf0d9db1f07133853ad77ed4880542c2943"},
+    {file = "inspire_schemas-61.6.23-py2.py3-none-any.whl", hash = "sha256:09edec3c2c4c0ff449209b4613249f044f6c013491b33f81baf7fd91d0d3fd1f"},
+    {file = "inspire_schemas-61.6.23.tar.gz", hash = "sha256:13df23486013e38ece0441d85e12513eb2dbd2a1b9a0a35db67f433c7c66d6be"},
 ]
 
 [package.dependencies]
@@ -2289,15 +2289,15 @@ resolved_reference = "1a0e762e58bc9cac65f7665b9831993c017fd8bb"
 
 [[package]]
 name = "inspire-utils"
-version = "3.0.65"
+version = "3.0.66"
 description = "INSPIRE-specific utils."
 optional = false
 python-versions = "*"
 groups = ["main"]
 markers = "platform_machine == \"aarch64\" or platform_machine == \"ppc64le\" or platform_machine == \"x86_64\" or platform_machine == \"amd64\" or platform_machine == \"AMD64\" or platform_machine == \"win32\" or platform_machine == \"WIN32\" or platform_machine != \"aarch64\" and platform_machine != \"ppc64le\" and platform_machine != \"x86_64\" and platform_machine != \"amd64\" and platform_machine != \"AMD64\" and platform_machine != \"win32\" and platform_machine != \"WIN32\""
 files = [
-    {file = "inspire-utils-3.0.65.tar.gz", hash = "sha256:f6637a0015294c86dce4d4adea16b36cebd2c679de97290aaa9094cd5330d224"},
-    {file = "inspire_utils-3.0.65-py3-none-any.whl", hash = "sha256:de29cf7ca5928931c9c8bced5644e124883712c2284c6d7df178b5c18b7a0968"},
+    {file = "inspire_utils-3.0.66-py3-none-any.whl", hash = "sha256:6b6ecbfe12b69928e948c10aa9d54bc1e583ac7a8197809fb883aa1322b1235d"},
+    {file = "inspire_utils-3.0.66.tar.gz", hash = "sha256:6e470d3ca372006f4b371a24c5851117d235f85b2f3e712ada7a32e3581f347d"},
 ]
 
 [package.dependencies]
@@ -2310,7 +2310,7 @@ six = ">=1.10.0,<2.0"
 Unidecode = ">=1.2.0,<2.0"
 
 [package.extras]
-all = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pre-commit (==3.5.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=8.2.2,<9.0)", "unicode-string-literal (>=1.1,<2.0)"]
+all = ["flake8-future-import (>=0.4.3,<1.0)", "flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "mock (>=2.0.0,<3.0)", "pre-commit (==3.5.0)", "pre-commit (==3.5.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=8.2.2,<9.0)", "pytest (>=8.2.2,<9.0)", "unicode-string-literal (>=1.1,<2.0)", "unicode-string-literal (>=1.1,<2.0)"]
 dev = ["pre-commit (==3.5.0)"]
 tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=4.6.0,<5.0)", "pytest (>=8.2.2,<9.0)", "unicode-string-literal (>=1.1,<2.0)"]
 
@@ -7156,4 +7156,4 @@ typing-extensions = ">=4.5.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.12"
-content-hash = "a6989a2f5bffbc3ddc8072259473b1b7ab3ea65764b54bd616a2399b04bed6f3"
+content-hash = "7a2ceaa08ccb8be3d6754d5aae8b8289a3db732da87fe10d8f9603d7edd07ee5"
