@@ -6,25 +6,24 @@ import { connect, RootStateOrAny } from 'react-redux';
 import { searchQueryUpdate } from '../../../../actions/search';
 import './Breadcrumbs.less';
 import { BACKOFFICE } from '../../../../common/routes';
-import { BACKOFFICE_SEARCH_NS } from '../../../../search/constants';
 
 type BreadcrumbItemProps = {
+  namespace: string;
   onSearch: (namespace: string, value: string) => void;
   query: string;
   title1: string;
   href1: string;
   title2?: string;
-  href2?: string;
   dashboardPage?: boolean;
 };
 
 const Breadcrumbs = ({
+  namespace,
   onSearch,
   query,
   title1,
   href1,
   title2,
-  href2,
   dashboardPage = false,
 }: BreadcrumbItemProps) => {
   const [inputValue, setInputValue] = useState(query || '');
@@ -36,8 +35,8 @@ const Breadcrumbs = ({
   }, [query]);
 
   return (
-    <div className="flex items-center justify-between">
-      <Breadcrumb separator=">" className="mv4">
+    <div className="flex items-center justify-between mt3 mb2">
+      <Breadcrumb separator=">">
         <Breadcrumb.Item>
           <a href="/">
             <HomeOutlined className="mr2" /> Inspirehep
@@ -47,11 +46,11 @@ const Breadcrumbs = ({
           <a href={BACKOFFICE}>Backoffice</a>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <a href={`${BACKOFFICE}/${title2 ? 'search' : href1}`}>{title1}</a>
+          <a href={`${BACKOFFICE}/${href1}`}>{title1}</a>
         </Breadcrumb.Item>
         {title2 && (
           <Breadcrumb.Item>
-            <a href={`${BACKOFFICE}/${href2}`}>{title2}</a>
+            <p>{title2}</p>
           </Breadcrumb.Item>
         )}
       </Breadcrumb>
@@ -60,10 +59,10 @@ const Breadcrumbs = ({
           enterButton
           placeholder="Search Backoffice"
           onPressEnter={(event: React.KeyboardEvent<HTMLInputElement>) => {
-            onSearch(BACKOFFICE_SEARCH_NS, event?.currentTarget?.value);
+            onSearch(namespace, event?.currentTarget?.value);
           }}
           onSearch={(value: string) => {
-            onSearch(BACKOFFICE_SEARCH_NS, value);
+            onSearch(namespace, value);
           }}
           onChange={(event) => setInputValue(event?.target?.value)}
           value={inputValue}
@@ -74,9 +73,11 @@ const Breadcrumbs = ({
   );
 };
 
-const stateToProps = (state: RootStateOrAny) => ({
-  query: state.search.getIn(['namespaces', BACKOFFICE_SEARCH_NS, 'query', 'q']),
-  namespace: BACKOFFICE_SEARCH_NS,
+const stateToProps = (
+  state: RootStateOrAny,
+  { namespace }: { namespace: string }
+) => ({
+  query: state.search.getIn(['namespaces', namespace, 'query', 'q']),
 });
 
 export const dispatchToProps = (dispatch: ActionCreator<Action>) => ({

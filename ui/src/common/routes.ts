@@ -34,12 +34,12 @@ export const HOLDINGPEN_INSPECT = `${HOLDINGPEN}/inspect`;
 export const BACKOFFICE = '/backoffice';
 export const BACKOFFICE_LOGIN = `${BACKOFFICE}/login`;
 export const BACKOFFICE_LOCAL_LOGIN = `${BACKOFFICE_LOGIN}/local`;
-export const BACKOFFICE_SEARCH = `${BACKOFFICE}/search`;
+export const BACKOFFICE_AUTHORS_SEARCH = `${BACKOFFICE}${AUTHORS}/search`;
+export const BACKOFFICE_LITERATURE_SEARCH = `${BACKOFFICE}${LITERATURE}/search`;
 export const BACKOFFICE_BACKEND = getConfigFor('BACKOFFICE_URL');
 export const BACKOFFICE_API = `${BACKOFFICE_BACKEND}/api`;
 export const BACKOFFICE_LOGIN_ORCID = `${BACKOFFICE_BACKEND}/accounts/orcid/login/`;
 export const BACKOFFICE_LOGIN_API = `${BACKOFFICE_API}/token/`;
-export const BACKOFFICE_SEARCH_API = `${BACKOFFICE_API}/workflows/authors/search`;
 
 export const ERRORS = '/errors';
 export const ERROR_401 = `${ERRORS}/401`;

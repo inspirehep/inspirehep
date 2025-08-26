@@ -11,10 +11,10 @@ exports[`Backoffice renders initial state 1`] = `
       data-testid="backoffice-dashboard-page"
     >
       <div
-        class="flex items-center justify-between"
+        class="flex items-center justify-between mt3 mb2"
       >
         <nav
-          class="ant-breadcrumb mv4"
+          class="ant-breadcrumb"
         >
           <ol>
             <li>
@@ -104,6 +104,68 @@ exports[`Backoffice renders initial state 1`] = `
             <span
               class="ant-input-wrapper ant-input-group"
             >
+              <span
+                class="ant-input-group-addon"
+              >
+                <div
+                  class="ant-select ant-select-single ant-select-show-arrow"
+                  placement="bottomLeft"
+                >
+                  <div
+                    class="ant-select-selector"
+                  >
+                    <span
+                      class="ant-select-selection-search"
+                    >
+                      <input
+                        aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                        aria-autocomplete="list"
+                        aria-controls="rc_select_TEST_OR_SSR_list"
+                        aria-haspopup="listbox"
+                        aria-owns="rc_select_TEST_OR_SSR_list"
+                        autocomplete="off"
+                        class="ant-select-selection-search-input"
+                        id="rc_select_TEST_OR_SSR"
+                        readonly=""
+                        role="combobox"
+                        style="opacity: 0;"
+                        value=""
+                      />
+                    </span>
+                    <span
+                      class="ant-select-selection-item"
+                    >
+                      Authors
+                    </span>
+                  </div>
+                  <span
+                    aria-hidden="true"
+                    class="ant-select-arrow"
+                    style="user-select: none;"
+                    unselectable="on"
+                  >
+                    <span
+                      aria-label="down"
+                      class="anticon anticon-down ant-select-suffix"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="down"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </span>
               <input
                 class="ant-input"
                 placeholder="Search Backoffice"
@@ -232,125 +294,9 @@ exports[`Backoffice renders initial state 1`] = `
                 role="tabpanel"
                 tabindex="0"
               >
-                <a
-                  class="db w-100 tc f5 mt4"
-                  data-testid="view-all"
-                  href="/backoffice/search"
-                >
-                  View all
-                </a>
                 <div
                   class="cards-container mt4"
-                >
-                  <div
-                    class="ant-card ant-card-bordered new-authors"
-                  >
-                    <div
-                      class="ant-card-head"
-                      style="text-align: center;"
-                    >
-                      <div
-                        class="ant-card-head-wrapper"
-                      >
-                        <div
-                          class="ant-card-head-title"
-                        >
-                          <div>
-                            <p>
-                              new authors
-                            </p>
-                            <p
-                              class="f2 mb0 black"
-                            >
-                              1
-                            </p>
-                            <a
-                              class="normal f6"
-                              href="/backoffice/search?workflow_type=AUTHOR_CREATE"
-                            >
-                              View all
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="ant-card-body"
-                    />
-                  </div>
-                  <div
-                    class="ant-card ant-card-bordered author-updates"
-                  >
-                    <div
-                      class="ant-card-head"
-                      style="text-align: center;"
-                    >
-                      <div
-                        class="ant-card-head-wrapper"
-                      >
-                        <div
-                          class="ant-card-head-title"
-                        >
-                          <div>
-                            <p>
-                              author updates
-                            </p>
-                            <p
-                              class="f2 mb0 black"
-                            >
-                              1
-                            </p>
-                            <a
-                              class="normal f6"
-                              href="/backoffice/search?workflow_type=AUTHOR_UPDATE"
-                            >
-                              View all
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="ant-card-body"
-                    />
-                  </div>
-                  <div
-                    class="ant-card ant-card-bordered new-literature-submissions"
-                  >
-                    <div
-                      class="ant-card-head"
-                      style="text-align: center;"
-                    >
-                      <div
-                        class="ant-card-head-wrapper"
-                      >
-                        <div
-                          class="ant-card-head-title"
-                        >
-                          <div>
-                            <p>
-                              new literature submissions
-                            </p>
-                            <p
-                              class="f2 mb0 black"
-                            >
-                              1
-                            </p>
-                            <a
-                              class="normal f6"
-                              href="/backoffice/search?workflow_type=HEP_CREATE"
-                            >
-                              View all
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="ant-card-body"
-                    />
-                  </div>
-                </div>
+                />
               </div>
             </div>
           </div>

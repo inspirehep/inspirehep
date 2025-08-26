@@ -6,7 +6,8 @@ import {
   AUTHOR_PUBLICATIONS_NS,
   AUTHOR_SEMINARS_NS,
   AUTHORS_NS,
-  BACKOFFICE_SEARCH_NS,
+  BACKOFFICE_AUTHORS_SEARCH_NS,
+  BACKOFFICE_LITERATURE_SEARCH_NS,
   CONFERENCE_CONTRIBUTIONS_NS,
   CONFERENCES_NS,
   CURATE_REFERENCE_NS,
@@ -183,7 +184,13 @@ const searchConfig = {
     onQueryChange: onEmbeddedSearchWithoutAggregationsQueryChange,
     redirectableError: false,
   },
-  [BACKOFFICE_SEARCH_NS]: {
+  [BACKOFFICE_AUTHORS_SEARCH_NS]: {
+    persistedQueryParamsDuringNewSearch:
+      defaultPersistedQueryParamsDuringNewSearch,
+    onQueryChange: onBackofficeQueryChange,
+    redirectableError: true,
+  },
+  [BACKOFFICE_LITERATURE_SEARCH_NS]: {
     persistedQueryParamsDuringNewSearch:
       defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onBackofficeQueryChange,

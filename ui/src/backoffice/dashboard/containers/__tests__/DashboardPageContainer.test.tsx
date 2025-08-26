@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, fireEvent, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import { getStore } from '../../../../fixtures/store';
@@ -98,20 +98,12 @@ describe('DashboardPageContainer', () => {
     });
   });
 
-  it('handles View all link click', async () => {
-    renderComponent();
-
-    const viewAllLink = screen.getByTestId('view-all');
-
-    store.clearActions();
-
-    await waitFor(() => fireEvent.click(viewAllLink));
-  });
-
   it('shows loading spinner when loading is true', () => {
     store = getStore({
       backoffice: fromJS({
-        loading: true,
+        dashboard: {
+          loading: true,
+        },
       }),
     });
 
