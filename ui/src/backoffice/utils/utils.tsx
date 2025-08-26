@@ -6,18 +6,18 @@ import {
   LoadingOutlined,
   FieldTimeOutlined,
   StopOutlined,
+  ControlOutlined,
 } from '@ant-design/icons';
-import { push } from 'connected-react-router';
 import { Action, ActionCreator } from 'redux';
 
 import storage from '../../common/storage';
-import {
-  BACKOFFICE_LOGIN,
-  BACKOFFICE_LOGIN_API,
-  BACKOFFICE_SEARCH,
-} from '../../common/routes';
-import { searchQueryUpdate } from '../../actions/backoffice';
+import { BACKOFFICE_LOGIN, BACKOFFICE_LOGIN_API } from '../../common/routes';
+import { searchQueryUpdate } from '../../actions/search';
 import { WorkflowTypes } from '../constants';
+import {
+  BACKOFFICE_AUTHORS_SEARCH_NS,
+  BACKOFFICE_LITERATURE_SEARCH_NS,
+} from '../../search/constants';
 
 export const COLLECTIONS = [
   {
@@ -34,7 +34,7 @@ export const COLLECTIONS = [
   },
   {
     key: 'new literature submissions',
-    value: 'HEP_CREATE',
+    value: WorkflowTypes.HEP_CREATE,
   },
 ];
 
@@ -49,7 +49,11 @@ export const getIcon = (status: string) => {
     case 'running':
       return <LoadingOutlined className="mr2" />;
     case 'processing':
-      return <FieldTimeOutlined className="mr2 processing" />;
+      return <FieldTimeOutlined className="mr2" />;
+    case 'blocked':
+      return <StopOutlined className="mr2" />;
+    case 'matching':
+      return <ControlOutlined className="mr2" />;
     default:
       return null;
   }
@@ -98,17 +102,19 @@ export const resolveDecision = (decision: string | number) => {
 
 export const handleSearch = (
   dispatch: ActionCreator<Action>,
-  type: string,
-  searchValue: string
+  searchValue: string,
+  namespace:
+    | typeof BACKOFFICE_AUTHORS_SEARCH_NS
+    | typeof BACKOFFICE_LITERATURE_SEARCH_NS
 ) => {
-  const query = {
-    page: 1,
-    search: searchValue,
-    workflow_type: type,
-  };
-
-  dispatch(searchQueryUpdate(query));
-  dispatch(push(BACKOFFICE_SEARCH));
+  if (!searchValue) {
+    dispatch(searchQueryUpdate(namespace, {}));
+  } else {
+    const query = {
+      q: searchValue,
+    };
+    dispatch(searchQueryUpdate(namespace, query));
+  }
 };
 
 export const getWorkflowStatusInfo = (status: string) => {
@@ -141,6 +147,16 @@ export const getWorkflowStatusInfo = (status: string) => {
       icon: <FieldTimeOutlined className="mr2" />,
       text: 'Processing',
       description: 'This workflow is currently processing.',
+    },
+    blocked: {
+      icon: <StopOutlined className="mr2" />,
+      text: 'Blocked',
+      description: 'This workflow is currently blocked.',
+    },
+    matching: {
+      icon: <ControlOutlined className="mr2" />,
+      text: 'Matching',
+      description: 'This workflow is currently matching.',
     },
   };
 

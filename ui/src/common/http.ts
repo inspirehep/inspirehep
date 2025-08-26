@@ -8,14 +8,22 @@ import axios, {
 import { startCase } from 'lodash';
 import { BACKOFFICE_API } from './routes';
 
-function transformBackofficeUrl(url: string) {
-  let newUrl = url;
-  const match = url.match(/\/backoffice\/search/);
-  if (match) {
-    newUrl = newUrl.replace('/facets', '').replace('q=', 'search=');
-    return newUrl.replace(`/backoffice/search`, `/workflows/authors/search/`);
+function transformBackofficeUrl(url: string): string {
+  const match = url.match(/\/backoffice\/(authors|literature)\/search/);
+
+  if (!match) {
+    return url;
   }
-  return url;
+
+  const type = match[1];
+  const workflowType = type === 'literature' ? 'hep' : type;
+
+  const newUrl = url
+    .replace('/facets', '')
+    .replace('q=', 'search=')
+    .replace(`/backoffice/${type}/search`, `/workflows/${workflowType}/search`);
+
+  return newUrl;
 }
 
 function transformBackofficeResponse(data: any) {
@@ -91,7 +99,10 @@ export class HttpClientWrapper {
   }
 
   private static handleResponseInterceptor(response: AxiosResponse) {
-    if (response.config.url?.includes('/workflows/authors/search')) {
+    if (
+      response.config.url?.includes('/workflows/authors/search') ||
+      response.config.url?.includes('/workflows/hep/search')
+    ) {
       return {
         ...response,
         data: transformBackofficeResponse(response.data),

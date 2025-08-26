@@ -1,13 +1,7 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col, Button, Table } from 'antd';
-import {
-  EditOutlined,
-  RedoOutlined,
-  SyncOutlined,
-  PlayCircleOutlined,
-} from '@ant-design/icons';
+import { EditOutlined, RedoOutlined, SyncOutlined } from '@ant-design/icons';
 import { ActionCreator, Action } from 'redux';
 import { connect, RootStateOrAny } from 'react-redux';
 import { Map } from 'immutable';
@@ -36,13 +30,14 @@ import {
 import DeleteWorkflow from '../../common/components/DeleteWorkflow/DeleteWorkflow';
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
 import LinkLikeButton from '../../../common/components/LinkLikeButton/LinkLikeButton';
-import { AUTHORS, BACKOFFICE_SEARCH } from '../../../common/routes';
+import { AUTHORS, BACKOFFICE_AUTHORS_SEARCH } from '../../../common/routes';
 import { isSuperUser } from '../../../common/authorization';
 import UnclickableTag from '../../../common/components/UnclickableTag';
 import Breadcrumbs from '../../common/components/Breadcrumbs/Breadcrumbs';
 import PrivateNotes from '../components/PrivateNotes';
 import AuthorMainInfo from '../components/AuthorMainInfo';
 import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
+import { BACKOFFICE_AUTHORS_SEARCH_NS } from '../../../search/constants';
 
 type AuthorDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
@@ -117,10 +112,10 @@ const AuthorDetailPageContainer = ({
       data-testid="backoffice-detail-page"
     >
       <Breadcrumbs
-        title1="Search"
-        href1={`${document.referrer}`}
+        title1="Search authors"
+        href1="authors/search"
         title2={data?.getIn(['name', 'value']) || 'Details'}
-        href2={id}
+        namespace={BACKOFFICE_AUTHORS_SEARCH_NS}
       />
       <LoadingOrChildren loading={loading}>
         <EmptyOrChildren
@@ -128,7 +123,9 @@ const AuthorDetailPageContainer = ({
           title={
             <>
               Author not found <br />
-              <LinkLikeButton onClick={() => dispatch(push(BACKOFFICE_SEARCH))}>
+              <LinkLikeButton
+                onClick={() => dispatch(push(BACKOFFICE_AUTHORS_SEARCH))}
+              >
                 <p>Go to search page</p>
               </LinkLikeButton>
             </>
