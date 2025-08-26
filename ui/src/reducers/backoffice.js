@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable';
+import { toPlainObject } from 'lodash';
 
 import {
   BACKOFFICE_LOGIN_ERROR,
@@ -20,6 +21,12 @@ import {
   BACKOFFICE_DELETE_SUCCESS,
   BACKOFFICE_DELETE_ERROR,
   BACKOFFICE_DELETE_REQUEST,
+  BACKOFFICE_DASHBOARD_REQUEST,
+  BACKOFFICE_DASHBOARD_SUCCESS,
+  BACKOFFICE_DASHBOARD_ERROR,
+  BACKOFFICE_LITERATURE_REQUEST,
+  BACKOFFICE_LITERATURE_SUCCESS,
+  BACKOFFICE_LITERATURE_ERROR,
 } from '../actions/actionTypes';
 
 export const initialState = fromJS({
@@ -29,8 +36,13 @@ export const initialState = fromJS({
   totalResults: 0,
   loading: false,
   author: [],
+  literature: [],
   facets: [],
   actionInProgress: false,
+  dashboard: {
+    loading: false,
+    facets: {},
+  },
 });
 
 const BackofficeReducer = (state = initialState, action) => {
@@ -66,6 +78,16 @@ const BackofficeReducer = (state = initialState, action) => {
       return state
         .set('loading', false)
         .set('author', fromJS(action.payload.data));
+    case BACKOFFICE_LITERATURE_REQUEST:
+      return state.set('loading', true);
+    case BACKOFFICE_LITERATURE_ERROR:
+      return state
+        .set('loading', false)
+        .set('literature', initialState.get('literature'));
+    case BACKOFFICE_LITERATURE_SUCCESS:
+      return state
+        .set('loading', false)
+        .set('literature', fromJS(action.payload.data));
     case BACKOFFICE_SEARCH_QUERY_UPDATE:
       return state.set('query', fromJS(action.payload));
     case BACKOFFICE_SEARCH_QUERY_RESET:
@@ -84,6 +106,20 @@ const BackofficeReducer = (state = initialState, action) => {
         .set('loading', false);
     case BACKOFFICE_DELETE_ERROR:
       return state.set('loading', false);
+    case BACKOFFICE_DASHBOARD_REQUEST:
+      return state.set('dashboard', { loading: true });
+    case BACKOFFICE_DASHBOARD_SUCCESS: {
+      const newFacets = fromJS(toPlainObject(action.payload));
+      return state
+        .updateIn(['dashboard', 'facets'], (facets) =>
+          facets && typeof facets.mergeDeep === 'function'
+            ? facets.mergeDeep(newFacets)
+            : newFacets
+        )
+        .setIn(['dashboard', 'loading'], false);
+    }
+    case BACKOFFICE_DASHBOARD_ERROR:
+      return state.set('dashboard', initialState.get('dashboard'));
     default:
       return state;
   }

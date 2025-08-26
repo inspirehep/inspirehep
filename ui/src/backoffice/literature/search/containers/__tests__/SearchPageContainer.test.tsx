@@ -4,9 +4,9 @@ import { Provider } from 'react-redux';
 import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
-import { getStore } from '../../../../fixtures/store';
+import { getStore } from '../../../../../fixtures/store';
 import SearchPageContainer from '../SearchPageContainer';
-import { BACKOFFICE_SEARCH } from '../../../../common/routes';
+import { BACKOFFICE_LITERATURE_SEARCH } from '../../../../../common/routes';
 
 describe('SearchPageContainer', () => {
   const store = getStore({
@@ -25,7 +25,7 @@ describe('SearchPageContainer', () => {
   const renderComponent = (store: any) =>
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={[BACKOFFICE_SEARCH]}>
+        <MemoryRouter initialEntries={[BACKOFFICE_LITERATURE_SEARCH]}>
           <SearchPageContainer />
         </MemoryRouter>
       </Provider>

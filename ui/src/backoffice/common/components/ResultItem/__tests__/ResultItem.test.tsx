@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
 
 import ResultItem from '../ResultItem';
-import { BACKOFFICE_SEARCH } from '../../../../../common/routes';
+import { BACKOFFICE_AUTHORS_SEARCH } from '../../../../../common/routes';
 import { getStore } from '../../../../../fixtures/store';
 import { WorkflowTypes } from '../../../../constants';
 
@@ -25,7 +25,7 @@ describe('ResultItem component', () => {
 
     return render(
       <Provider store={getStore()}>
-        <MemoryRouter initialEntries={[BACKOFFICE_SEARCH]}>
+        <MemoryRouter initialEntries={[BACKOFFICE_AUTHORS_SEARCH]}>
           <ResultItem item={item} />
         </MemoryRouter>
       </Provider>
@@ -51,7 +51,7 @@ describe('ResultItem component', () => {
     renderComponent(WorkflowTypes.AUTHOR_UPDATE, data);
 
     const titleLink = screen.getByRole('link', { name: /Doe, John/i });
-    expect(titleLink).toHaveAttribute('href', '/backoffice/123');
+    expect(titleLink).toHaveAttribute('href', '/backoffice/authors/123');
 
     expect(screen.getByText('Author')).toBeInTheDocument();
     expect(screen.getByText('Update')).toBeInTheDocument();

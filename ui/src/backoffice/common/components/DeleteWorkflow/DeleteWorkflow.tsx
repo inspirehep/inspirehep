@@ -4,6 +4,7 @@ import { Action, ActionCreator } from 'redux';
 
 import './DeleteWorkflow.less';
 import { deleteWorkflow } from '../../../../actions/backoffice';
+import { AUTHORS_NS } from '../../../../search/constants';
 
 type DeleteWorkflowProps = {
   dispatch: ActionCreator<Action>;
