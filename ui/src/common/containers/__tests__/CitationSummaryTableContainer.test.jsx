@@ -1,10 +1,9 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
 
 import { getStore } from '../../../fixtures/store';
 import CitationSummaryTableContainer from '../CitationSummaryTableContainer';
+import { renderWithProviders } from '../../../fixtures/render';
 
 describe('CitationSummaryTableContainer', () => {
   it('pass props from state', () => {
@@ -26,10 +25,9 @@ describe('CitationSummaryTableContainer', () => {
       }),
     });
 
-    const screen = render(
-      <Provider store={store}>
-        <CitationSummaryTableContainer />
-      </Provider>
+    const screen = renderWithProviders(
+      <CitationSummaryTableContainer />,
+      store
     );
 
     expect(screen.getByText('Citeable')).toBeInTheDocument();

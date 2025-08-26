@@ -1,15 +1,12 @@
 import React from 'react';
-
-import { fireEvent, render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { fireEvent } from '@testing-library/react';
+import { renderWithProviders } from '../../../fixtures/render';
 import HowToSearch from '../HowToSearch';
 
 describe('HowToSearch', () => {
   it('renders with spires examples by default', () => {
-    const { getByTestId, getByLabelText } = render(
-      <MemoryRouter>
-        <HowToSearch />
-      </MemoryRouter>
+    const { getByTestId, getByLabelText } = renderWithProviders(
+      <HowToSearch />
     );
     const spiresRadioButton = getByLabelText('SPIRES');
     expect(spiresRadioButton).toBeChecked();
@@ -17,10 +14,8 @@ describe('HowToSearch', () => {
   });
 
   it('renders freetext examples after freetext radio option is selected', () => {
-    const { getByTestId, getByText, getByLabelText } = render(
-      <MemoryRouter>
-        <HowToSearch />
-      </MemoryRouter>
+    const { getByTestId, getByText, getByLabelText } = renderWithProviders(
+      <HowToSearch />
     );
     fireEvent.click(getByText('free text'));
     const freeTextRadioButton = getByLabelText('free text');

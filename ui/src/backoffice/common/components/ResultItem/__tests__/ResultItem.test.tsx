@@ -1,12 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
+import { screen } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import ResultItem from '../ResultItem';
 import { BACKOFFICE_SEARCH } from '../../../../../common/routes';
-import { getStore } from '../../../../../fixtures/store';
+import { renderWithProviders } from '../../../../../fixtures/render';
 import { WorkflowTypes } from '../../../../constants';
 
 describe('ResultItem component', () => {
@@ -23,13 +21,9 @@ describe('ResultItem component', () => {
       data,
     });
 
-    return render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={[BACKOFFICE_SEARCH]}>
-          <ResultItem item={item} />
-        </MemoryRouter>
-      </Provider>
-    );
+    return renderWithProviders(<ResultItem item={item} />, {
+      route: BACKOFFICE_SEARCH,
+    });
   };
 
   it('renders the ResultItem component for Authors', () => {

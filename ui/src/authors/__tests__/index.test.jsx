@@ -1,31 +1,21 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import { render } from '@testing-library/react';
 import Loadable from 'react-loadable';
 import { fromJS } from 'immutable';
 
 import { getStore } from '../../fixtures/store';
+import { renderWithProviders } from '../../fixtures/render';
 import Authors from '..';
 
 describe('Authors', () => {
   it('renders initial state', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <Authors />
-      </MemoryRouter>
-    );
+    const { asFragment } = renderWithProviders(<Authors />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('navigates to SearchPageContainer when /authors', async () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/authors']} initialIndex={0}>
-          <Authors />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<Authors />, {
+      route: '/authors',
+    });
     await Loadable.preloadAll();
     expect(getByTestId('authors-search-page-container')).toBeInTheDocument();
   });
@@ -51,13 +41,10 @@ describe('Authors', () => {
       }),
     });
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/authors/1']} initialIndex={0}>
-          <Authors />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<Authors />, {
+      store,
+      route: '/authors/1',
+    });
     await Loadable.preloadAll();
 
     expect(getByTestId('authors-detail-page-container')).toBeInTheDocument();

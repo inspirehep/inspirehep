@@ -1,16 +1,10 @@
 import React from 'react';
-
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { renderWithProviders } from '../../../fixtures/render';
 import SpiresExamples from '../SpiresExamples';
 
 describe('SpiresExamples', () => {
   it('renders', () => {
-    const { getByText, getAllByRole } = render(
-      <MemoryRouter>
-        <SpiresExamples />
-      </MemoryRouter>
-    );
+    const { getByText, getAllByRole } = renderWithProviders(<SpiresExamples />);
 
     expect(getByText('Search by')).toBeInTheDocument();
     expect(getByText('Use operators')).toBeInTheDocument();

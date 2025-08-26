@@ -1,9 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
 import { fromJS, Map } from 'immutable';
-import { MemoryRouter } from 'react-router-dom';
-
+import { renderWithProviders } from '../../../fixtures/render';
 import { getStore } from '../../../fixtures/store';
 import SettingsContainer from '../SettingsContainer';
 
@@ -23,13 +21,10 @@ describe('SettingsContainer', () => {
       }),
     });
 
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/user/settings']} initialIndex={0}>
-          <SettingsContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { getByTestId } = renderWithProviders(<SettingsContainer />, {
+      route: '/user/settings',
+      store,
+    });
 
     expect(getByTestId('Error')).toBeInTheDocument();
     expect(getByTestId('true test@o2.pl')).toBeInTheDocument();

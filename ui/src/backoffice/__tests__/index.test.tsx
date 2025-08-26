@@ -1,10 +1,9 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { fromJS } from 'immutable';
-import { render } from '@testing-library/react';
 
 import { getStore } from '../../fixtures/store';
+import { renderWithProviders } from '../../fixtures/render';
 import Backoffice from '..';
 import SearchPageContainer from '../search/containers/SearchPageContainer';
 import { BACKOFFICE_SEARCH, BACKOFFICE } from '../../common/routes';
@@ -46,35 +45,26 @@ describe('Backoffice', () => {
   });
 
   it('renders initial state', () => {
-    const { container } = render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={[BACKOFFICE]}>
-          <Backoffice />
-        </MemoryRouter>
-      </Provider>
-    );
+    const { container } = renderWithProviders(<Backoffice />, {
+      store,
+      route: BACKOFFICE,
+    });
     expect(container).toMatchSnapshot();
   });
 
   it('navigates to DashboardPageContainer when /backoffice/dashboard', () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={[BACKOFFICE]}>
-          <Route path={BACKOFFICE} component={DashboardPageContainer} />
-        </MemoryRouter>
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <Route path={BACKOFFICE} component={DashboardPageContainer} />,
+      { route: BACKOFFICE }
     );
 
     expect(getByTestId('backoffice-dashboard-page')).toBeInTheDocument();
   });
 
   it('navigates to SearchPageContainer when /backoffice/search', () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={[BACKOFFICE_SEARCH]}>
-          <Route path={BACKOFFICE_SEARCH} component={SearchPageContainer} />
-        </MemoryRouter>
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <Route path={BACKOFFICE_SEARCH} component={SearchPageContainer} />,
+      { route: BACKOFFICE_SEARCH }
     );
 
     expect(getByTestId('backoffice-search-page')).toBeInTheDocument();

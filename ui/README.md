@@ -29,21 +29,17 @@ UI for inspirehep
 **Always check existing test cases for similar things that you want to test (`Component`, `reducer`, `async action` etc.)**
 
 * use [testing-library/react](https://testing-library.com/docs/react-testing-library/intro/), do not use `ReactTestUtils` directly.
+* use `renderWithRouter` to render a component with router context.
 
 #### components
 
-* use `shallow` for snapshot testing
-* use `dive` with shallow for components that are wrapped by `HOC`, or to assert logic of a render prop
+* use `asFragment` for snapshot testing
 * do not test render results of a child component, test only props of a child component (`toHaveProp()`)
   * prefer snapshot testing unless explicit `toHaveProp()` assertion is necessary, (it is when testing function props, such as event callbacks)
 
 #### containers
 
-* use `mount` to render a container with a provider that has mock store.
-  * example: `<Provider store={getStore({...})}>`
-* wrap the container with `
-* use `find(Component)` to get wrapper of the "dummy" component
-* use `dummyWrapper.toHaveProp({...})` to assert `stateToProps` logic
+* use `renderWithProviders` to render a container with a provider that has mock store.
 * use `mockStore.getActions()` to assert logic of `dispatchToProps`.
   * mock action creators that are returning functions with `jest.mock` and `mockActionCreator` utility
   * call the action create instead of hard coding the action object, when creating expected actions for assertions

@@ -1,7 +1,7 @@
 import { fromJS } from 'immutable';
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+
 import JobItem from '../JobItem';
+import { renderWithRouter } from '../../../fixtures/render';
 
 describe('JobItem', () => {
   it('renders full job search result item', () => {
@@ -20,10 +20,8 @@ describe('JobItem', () => {
         },
       ],
     });
-    const { getByText } = render(
-      <MemoryRouter>
-        <JobItem metadata={metadata} created={created} />
-      </MemoryRouter>
+    const { getByText } = renderWithRouter(
+      <JobItem metadata={metadata} created={created} />
     );
     expect(getByText('Job Offer')).toBeInTheDocument();
     expect(getByText('Deadline on May 31, 2020')).toBeInTheDocument();

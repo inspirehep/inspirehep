@@ -1,22 +1,20 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { fireEvent, waitFor } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
-
 import {
   setPublicationSelection,
   clearPublicationSelection,
   assignDifferentProfile,
 } from '../../../actions/authors';
 import AssignOneDifferentProfileContainer from '../AssignOneDifferentProfileContainer';
+import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('react-router-dom', () => ({
-  useParams: jest.fn().mockImplementation(() => ({
-    id: 123,
-  })),
-}));
+jest.mock('react-router-dom', () => {
+  const actual = jest.requireActual('react-router-dom');
+  return { ...actual, useParams: jest.fn().mockReturnValue({ id: 123 }) };
+});
 
 jest.mock('../../components/AssignOneDifferentProfileAction', () => {
   const actual = jest.requireActual(
@@ -48,13 +46,12 @@ describe('AssignOneDifferentProfileActionContainer', () => {
     });
     const paperRecordId = 12345;
     const userCanNotClaimProfile = true;
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <AssignOneDifferentProfileContainer
-          recordId={paperRecordId}
-          userCanNotClaimProfile={userCanNotClaimProfile}
-        />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <AssignOneDifferentProfileContainer
+        recordId={paperRecordId}
+        userCanNotClaimProfile={userCanNotClaimProfile}
+      />,
+      { store }
     );
 
     const dropdownTrigger = getByTestId('btn-claim');
@@ -84,13 +81,12 @@ describe('AssignOneDifferentProfileActionContainer', () => {
     });
     const paperRecordId = 12345;
     const userCanNotClaimProfile = false;
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <AssignOneDifferentProfileContainer
-          recordId={paperRecordId}
-          userCanNotClaimProfile={userCanNotClaimProfile}
-        />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <AssignOneDifferentProfileContainer
+        recordId={paperRecordId}
+        userCanNotClaimProfile={userCanNotClaimProfile}
+      />,
+      { store }
     );
 
     const dropdownTrigger = getByTestId('btn-claim');
@@ -120,13 +116,12 @@ describe('AssignOneDifferentProfileActionContainer', () => {
     });
     const paperRecordId = 12345;
     const userCanNotClaimProfile = false;
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <AssignOneDifferentProfileContainer
-          recordId={paperRecordId}
-          userCanNotClaimProfile={userCanNotClaimProfile}
-        />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <AssignOneDifferentProfileContainer
+        recordId={paperRecordId}
+        userCanNotClaimProfile={userCanNotClaimProfile}
+      />,
+      { store }
     );
 
     const dropdownTrigger = getByTestId('btn-claim');

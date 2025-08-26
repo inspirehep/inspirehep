@@ -1,8 +1,7 @@
 import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
 
-import { getStore } from '../../../../fixtures/store';
 import Banners from '../Banners';
+import { renderWithProviders } from '../../../../fixtures/render';
 
 describe('Banners', () => {
   beforeEach(() => {
@@ -27,11 +26,7 @@ describe('Banners', () => {
         },
       ],
     };
-    const { getByText } = render(
-      <Provider store={getStore()}>
-        <Banners />
-      </Provider>
-    );
+    const { getByText } = renderWithProviders(<Banners />);
     expect(getByText('Maintenance in progress')).toBeInTheDocument();
     expect(getByText('We are just out of beta')).toBeInTheDocument();
   });

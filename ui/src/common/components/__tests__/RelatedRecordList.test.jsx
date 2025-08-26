@@ -1,7 +1,5 @@
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { MemoryRouter } from 'react-router-dom';
-
+import { renderWithRouter } from '../../../fixtures/render';
 import RelatedRecordsList from '../RelatedRecordsList';
 import { INSTITUTIONS_PID_TYPE, EXPERIMENTS_PID_TYPE } from '../../constants';
 
@@ -17,15 +15,13 @@ describe('RelatedRecordsList', () => {
         legacy_ICN: 'Inst 3',
       },
     ]);
-    const { getByText, getByRole } = render(
-      <MemoryRouter>
-        <RelatedRecordsList
-          relatedRecords={relatedRecords}
-          relationType="Subsidiary"
-          label="Institution"
-          pidType={INSTITUTIONS_PID_TYPE}
-        />
-      </MemoryRouter>
+    const { getByText, getByRole } = renderWithRouter(
+      <RelatedRecordsList
+        relatedRecords={relatedRecords}
+        relationType="Subsidiary"
+        label="Institution"
+        pidType={INSTITUTIONS_PID_TYPE}
+      />
     );
     expect(getByText(/Subsidiary Institutions/i)).toBeInTheDocument();
     expect(getByRole('link', { name: 'Inst 1' })).toHaveAttribute(
@@ -44,15 +40,13 @@ describe('RelatedRecordsList', () => {
         legacy_ICN: 'Inst 1',
       },
     ]);
-    const { getByText, getByRole } = render(
-      <MemoryRouter>
-        <RelatedRecordsList
-          relatedRecords={relatedRecords}
-          relationType="Subsidiary"
-          label="Experiment"
-          pidType={EXPERIMENTS_PID_TYPE}
-        />
-      </MemoryRouter>
+    const { getByText, getByRole } = renderWithRouter(
+      <RelatedRecordsList
+        relatedRecords={relatedRecords}
+        relationType="Subsidiary"
+        label="Experiment"
+        pidType={EXPERIMENTS_PID_TYPE}
+      />
     );
     expect(getByText(/Subsidiary Experiment/i)).toBeInTheDocument();
     expect(getByRole('link', { name: 'Inst 1' })).toHaveAttribute(

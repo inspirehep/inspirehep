@@ -1,19 +1,17 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { fireEvent, waitFor } from '@testing-library/react';
 import { fromJS, Set } from 'immutable';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import AssignAllOwnProfileActionContainer from '../AssignAllOwnProfileActionContainer';
-
 import { assignOwnPapers, unassignOwnPapers } from '../../../actions/authors';
 import AssignOwnProfileAction from '../../components/AssignOwnProfileAction';
+import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('react-router-dom', () => ({
-  useParams: jest.fn().mockImplementation(() => ({
-    id: 123,
-  })),
-}));
+jest.mock('react-router-dom', () => {
+  const actual = jest.requireActual('react-router-dom');
+  return { ...actual, useParams: jest.fn().mockReturnValue({ id: 123 }) };
+});
 
 jest.mock('../../components/AssignOwnProfileAction', () => {
   const actual = jest.requireActual('../../components/AssignOwnProfileAction');
@@ -40,11 +38,7 @@ describe('AssignOwnProfileActionContainer', () => {
         publicationSelectionUnclaimed: [2],
       }),
     });
-    render(
-      <Provider store={store}>
-        <AssignAllOwnProfileActionContainer />
-      </Provider>
-    );
+    renderWithProviders(<AssignAllOwnProfileActionContainer />, { store });
 
     expect(AssignOwnProfileAction).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -63,11 +57,7 @@ describe('AssignOwnProfileActionContainer', () => {
         publicationSelection: Set([1, 2]),
       }),
     });
-    render(
-      <Provider store={store}>
-        <AssignAllOwnProfileActionContainer />
-      </Provider>
-    );
+    renderWithProviders(<AssignAllOwnProfileActionContainer />, { store });
 
     expect(AssignOwnProfileAction).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -86,11 +76,7 @@ describe('AssignOwnProfileActionContainer', () => {
         publicationSelectionUnclaimed: [],
       }),
     });
-    render(
-      <Provider store={store}>
-        <AssignAllOwnProfileActionContainer />
-      </Provider>
-    );
+    renderWithProviders(<AssignAllOwnProfileActionContainer />, { store });
 
     expect(AssignOwnProfileAction).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -109,11 +95,7 @@ describe('AssignOwnProfileActionContainer', () => {
         publicationSelection: Set([1, 2]),
       }),
     });
-    render(
-      <Provider store={store}>
-        <AssignAllOwnProfileActionContainer />
-      </Provider>
-    );
+    renderWithProviders(<AssignAllOwnProfileActionContainer />, { store });
 
     expect(AssignOwnProfileAction).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -131,10 +113,9 @@ describe('AssignOwnProfileActionContainer', () => {
         publicationSelectionUnclaimed: [1, 2],
       }),
     });
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <AssignAllOwnProfileActionContainer />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <AssignAllOwnProfileActionContainer />,
+      { store }
     );
 
     const dropdownTrigger = getByTestId('btn-claim');
@@ -158,10 +139,9 @@ describe('AssignOwnProfileActionContainer', () => {
         publicationSelectionUnclaimed: [],
       }),
     });
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <AssignAllOwnProfileActionContainer />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <AssignAllOwnProfileActionContainer />,
+      { store }
     );
 
     const dropdownTrigger = getByTestId('btn-claim');

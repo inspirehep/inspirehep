@@ -1,9 +1,7 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { fireEvent } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { MemoryRouter } from 'react-router-dom';
-
+import { renderWithProviders } from '../../../fixtures/render';
 import { getStore } from '../../../fixtures/store';
 import GuideModalContainer from '../GuideModalContainer';
 import { UI_CHANGE_GUIDE_MODAL_VISIBILITY } from '../../../actions/actionTypes';
@@ -34,11 +32,7 @@ describe('GuideModalContainer', () => {
         guideModalVisibility: false,
       }),
     });
-    const screen = render(
-      <Provider store={store}>
-        <GuideModalContainer />
-      </Provider>
-    );
+    const screen = renderWithProviders(<GuideModalContainer />, { store });
 
     await wait();
 
@@ -52,13 +46,7 @@ describe('GuideModalContainer', () => {
       }),
     });
 
-    const screen = render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <GuideModalContainer />
-        </MemoryRouter>
-      </Provider>
-    );
+    const screen = renderWithProviders(<GuideModalContainer />, { store });
 
     fireEvent.click(screen.getByRole('button', { name: 'close' }));
 

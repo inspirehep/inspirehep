@@ -1,9 +1,8 @@
 import { fromJS } from 'immutable';
-import { Provider } from 'react-redux';
-import { render } from '@testing-library/react';
 
 import { getStore } from '../../../fixtures/store';
 import CitationsByYearGraphContainer from '../CitationsByYearGraphContainer';
+import { renderWithProviders } from '../../../fixtures/render';
 
 describe('CitationsByYearGraphContainer', () => {
   it('pass props from state', () => {
@@ -18,10 +17,9 @@ describe('CitationsByYearGraphContainer', () => {
       }),
     });
 
-    const { getByText } = render(
-      <Provider store={store}>
-        <CitationsByYearGraphContainer />
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <CitationsByYearGraphContainer />,
+      { store }
     );
 
     expect(getByText(1999)).toBeInTheDocument();

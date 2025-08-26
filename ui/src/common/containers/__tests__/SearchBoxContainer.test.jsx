@@ -1,8 +1,8 @@
 import React from 'react';
-import { fireEvent, render, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { fireEvent, waitFor } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
+import { renderWithProviders } from '../../../fixtures/render';
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import SearchBoxContainer from '../SearchBoxContainer';
 import { searchQueryUpdate } from '../../../actions/search';
@@ -31,11 +31,7 @@ describe('SearchBoxContainer', () => {
         },
       }),
     });
-    const screen = render(
-      <Provider store={store}>
-        <SearchBoxContainer />
-      </Provider>
-    );
+    const screen = renderWithProviders(<SearchBoxContainer />, { store });
 
     expect(screen.getAllByRole('combobox')[1]).toHaveValue('test');
   });
@@ -48,11 +44,7 @@ describe('SearchBoxContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <SearchBoxContainer />
-      </Provider>
-    );
+    renderWithProviders(<SearchBoxContainer />, { store });
 
     const search = document.querySelector('.ant-input-search-button');
     await fireEvent.click(search);
@@ -72,11 +64,7 @@ describe('SearchBoxContainer', () => {
       }),
     });
 
-    render(
-      <Provider store={store}>
-        <SearchBoxContainer />
-      </Provider>
-    );
+    renderWithProviders(<SearchBoxContainer />, { store });
 
     const search = document.querySelector('.ant-input-search-button');
     await fireEvent.click(search);

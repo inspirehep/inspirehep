@@ -1,11 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { List, Map, fromJS } from 'immutable';
-import { MemoryRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-
 import ReferenceDiffInterface from '../ReferenceDiffInterface';
-import { getStore } from '../../../../fixtures/store';
+import { renderWithProviders } from '../../../../fixtures/render';
 
 describe('ReferenceDiffInterface', () => {
   const authors = List([]);
@@ -74,48 +70,40 @@ describe('ReferenceDiffInterface', () => {
   const error = undefined;
 
   it('should render', () => {
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/']} initialIndex={0}>
-          <ReferenceDiffInterface
-            authors={authors}
-            record={record}
-            supervisors={supervisors}
-            loggedIn={loggedIn}
-            hasAuthorProfile={hasAuthorProfile}
-            references={references}
-            referenceId={referenceId}
-            previousReference={previousReference as Map<string, any>}
-            currentReference={currentReference as Map<string, any>}
-            loading={loading}
-            error={error}
-          />
-        </MemoryRouter>
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <ReferenceDiffInterface
+        authors={authors}
+        record={record}
+        supervisors={supervisors}
+        loggedIn={loggedIn}
+        hasAuthorProfile={hasAuthorProfile}
+        references={references}
+        referenceId={referenceId}
+        previousReference={previousReference as Map<string, any>}
+        currentReference={currentReference as Map<string, any>}
+        loading={loading}
+        error={error}
+      />
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should render with error', () => {
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/']} initialIndex={0}>
-          <ReferenceDiffInterface
-            authors={authors}
-            record={record}
-            supervisors={supervisors}
-            loggedIn={loggedIn}
-            hasAuthorProfile={hasAuthorProfile}
-            references={references}
-            referenceId={referenceId}
-            previousReference={previousReference as Map<string, any>}
-            currentReference={currentReference as Map<string, any>}
-            loading={loading}
-            error={Map({ message: 'Error message' })}
-          />
-        </MemoryRouter>
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <ReferenceDiffInterface
+        authors={authors}
+        record={record}
+        supervisors={supervisors}
+        loggedIn={loggedIn}
+        hasAuthorProfile={hasAuthorProfile}
+        references={references}
+        referenceId={referenceId}
+        previousReference={previousReference as Map<string, any>}
+        currentReference={currentReference as Map<string, any>}
+        loading={loading}
+        error={Map({ message: 'Error message' })}
+      />
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -134,26 +122,22 @@ describe('ReferenceDiffInterface', () => {
       authors: [{ full_name: 'Author2' }],
     });
 
-    const { asFragment } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/']} initialIndex={0}>
-          <ReferenceDiffInterface
-            authors={authors}
-            record={record}
-            supervisors={supervisors}
-            loggedIn={loggedIn}
-            hasAuthorProfile={hasAuthorProfile}
-            references={references}
-            referenceId={referenceId}
-            previousReference={
-              previousReferenceWithoutControlNumber as Map<string, any>
-            }
-            currentReference={currentReference as Map<string, any>}
-            loading={loading}
-            error={error}
-          />
-        </MemoryRouter>
-      </Provider>
+    const { asFragment } = renderWithProviders(
+      <ReferenceDiffInterface
+        authors={authors}
+        record={record}
+        supervisors={supervisors}
+        loggedIn={loggedIn}
+        hasAuthorProfile={hasAuthorProfile}
+        references={references}
+        referenceId={referenceId}
+        previousReference={
+          previousReferenceWithoutControlNumber as Map<string, any>
+        }
+        currentReference={currentReference as Map<string, any>}
+        loading={loading}
+        error={error}
+      />
     );
 
     expect(asFragment()).toMatchSnapshot();

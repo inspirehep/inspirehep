@@ -1,15 +1,11 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-
+import { renderWithRouter } from '../../../fixtures/render';
 import CollaborationLink from '../CollaborationLink';
 
 describe('CollaborationLink', () => {
   it('renders with collaboration', () => {
-    const { getByRole } = render(
-      <MemoryRouter>
-        <CollaborationLink>Alias Investigations</CollaborationLink>
-      </MemoryRouter>
+    const { getByRole } = renderWithRouter(
+      <CollaborationLink>Alias Investigations</CollaborationLink>
     );
     const link = getByRole('link', { name: 'Alias Investigations' });
     expect(link).toBeInTheDocument();

@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { fireEvent, waitFor } from '@testing-library/react';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import AssignOneOwnProfileContainer from '../AssignOneOwnProfileContainer';
@@ -15,12 +14,12 @@ import {
   setPublicationsUnclaimedSelection,
   clearPublicationsUnclaimedSelection,
 } from '../../../actions/authors';
+import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('react-router-dom', () => ({
-  useParams: jest.fn().mockImplementation(() => ({
-    id: 123,
-  })),
-}));
+jest.mock('react-router-dom', () => {
+  const actual = jest.requireActual('react-router-dom');
+  return { ...actual, useParams: jest.fn().mockReturnValue({ id: 123 }) };
+});
 
 jest.mock('../../components/AssignOwnProfileAction', () => {
   const actual = jest.requireActual('../../components/AssignOwnProfileAction');
@@ -49,13 +48,12 @@ describe('AssignOneOwnProfileActionContainer', () => {
     const store = getStore();
     const paperRecordId = 12345;
     const disabledAssignAction = false;
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <AssignOneOwnProfileContainer
-          recordId={paperRecordId}
-          disabledAssignAction={disabledAssignAction}
-        />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <AssignOneOwnProfileContainer
+        recordId={paperRecordId}
+        disabledAssignAction={disabledAssignAction}
+      />,
+      { store }
     );
 
     const dropdownTrigger = getByTestId('btn-claim');
@@ -82,13 +80,12 @@ describe('AssignOneOwnProfileActionContainer', () => {
     const store = getStore();
     const paperRecordId = 12345;
     const disabledAssignAction = false;
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <AssignOneOwnProfileContainer
-          recordId={paperRecordId}
-          disabledAssignAction={disabledAssignAction}
-        />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <AssignOneOwnProfileContainer
+        recordId={paperRecordId}
+        disabledAssignAction={disabledAssignAction}
+      />,
+      { store }
     );
 
     const dropdownTrigger = getByTestId('btn-claim');
@@ -114,13 +111,12 @@ describe('AssignOneOwnProfileActionContainer', () => {
     const store = getStore();
     const paperRecordId = 12345;
     const disabledAssignAction = true;
-    const { getByTestId } = render(
-      <Provider store={store}>
-        <AssignOneOwnProfileContainer
-          recordId={paperRecordId}
-          disabledAssignAction={disabledAssignAction}
-        />
-      </Provider>
+    const { getByTestId } = renderWithProviders(
+      <AssignOneOwnProfileContainer
+        recordId={paperRecordId}
+        disabledAssignAction={disabledAssignAction}
+      />,
+      { store }
     );
 
     const dropdownTrigger = getByTestId('btn-claim');

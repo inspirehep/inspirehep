@@ -1,15 +1,9 @@
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-
+import { renderWithRouter } from '../../../../fixtures/render';
 import Logo from '../Logo';
 
 describe('Logo', () => {
   it('renders', () => {
-    const { asFragment } = render(
-      <MemoryRouter>
-        <Logo />
-      </MemoryRouter>
-    );
+    const { asFragment } = renderWithRouter(<Logo />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

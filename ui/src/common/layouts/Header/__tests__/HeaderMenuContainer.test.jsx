@@ -1,10 +1,9 @@
-import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
-import { render } from '@testing-library/react';
 import { getStore } from '../../../../fixtures/store';
 import HeaderMenuContainer from '../HeaderMenuContainer';
 import HeaderMenu from '../HeaderMenu';
+import { renderWithProviders } from '../../../../fixtures/render';
 
 jest.mock('../HeaderMenu', () =>
   jest.fn(() => <div data-testid="header-menu" />)
@@ -20,11 +19,7 @@ describe('HeaderMenuContainer', () => {
         },
       }),
     });
-    render(
-      <Provider store={store}>
-        <HeaderMenuContainer />
-      </Provider>
-    );
+    renderWithProviders(<HeaderMenuContainer />, { store });
     expect(HeaderMenu).toHaveBeenCalledWith(
       expect.objectContaining({
         loggedIn: true,

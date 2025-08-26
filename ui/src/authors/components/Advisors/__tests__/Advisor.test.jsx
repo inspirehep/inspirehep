@@ -1,8 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { MemoryRouter } from 'react-router-dom';
 
+import { renderWithRouter } from '../../../../fixtures/render';
 import Advisor from '../Advisor';
 
 describe('Advisor', () => {
@@ -13,11 +12,7 @@ describe('Advisor', () => {
         $ref: 'https://inspirehep.net/api/authors/12345',
       },
     });
-    const { asFragment } = render(
-      <MemoryRouter>
-        <Advisor advisor={advisor} />
-      </MemoryRouter>
-    );
+    const { asFragment } = renderWithRouter(<Advisor advisor={advisor} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -30,11 +25,7 @@ describe('Advisor', () => {
         $ref: 'https://inspirehep.net/api/authors/12345',
       },
     });
-    const { asFragment } = render(
-      <MemoryRouter>
-        <Advisor advisor={advisor} />
-      </MemoryRouter>
-    );
+    const { asFragment } = renderWithRouter(<Advisor advisor={advisor} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -46,11 +37,7 @@ describe('Advisor', () => {
         $ref: 'https://inspirehep.net/api/authors/12345',
       },
     });
-    const { asFragment } = render(
-      <MemoryRouter>
-        <Advisor advisor={advisor} />
-      </MemoryRouter>
-    );
+    const { asFragment } = renderWithRouter(<Advisor advisor={advisor} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -58,11 +45,7 @@ describe('Advisor', () => {
     const advisor = fromJS({
       name: 'Yoda',
     });
-    const { asFragment } = render(
-      <MemoryRouter>
-        <Advisor advisor={advisor} />
-      </MemoryRouter>
-    );
+    const { asFragment } = renderWithRouter(<Advisor advisor={advisor} />);
     expect(asFragment()).toMatchSnapshot();
   });
 });
