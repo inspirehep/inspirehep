@@ -167,7 +167,7 @@ def export_papers_to_cds(literature_recids):
 def assign_papers(
     self,
     from_author_recid,
-    to_author_record,
+    to_author_recid,
     author_papers_recids,
     is_stub_author=False,
 ):
@@ -181,9 +181,7 @@ def assign_papers(
                 literature_recid=recid,
             )
             continue
-        lit_author["record"] = get_record_ref(
-            to_author_record["control_number"], endpoint="authors"
-        )
+        lit_author["record"] = get_record_ref(to_author_recid, endpoint="authors")
         if not is_stub_author:
             lit_author["curated_relation"] = True
         record.update(dict(record))

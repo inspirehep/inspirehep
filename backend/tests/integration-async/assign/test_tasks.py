@@ -50,7 +50,7 @@ def test_assign_from_an_author_to_another(inspire_app, clean_celery_session):
 
     assign_papers.delay(
         from_author_recid=from_author["control_number"],
-        to_author_record=to_author,
+        to_author_recid=to_author["control_number"],
         author_papers_recids=[
             literature_1["control_number"],
             literature_2["control_number"],
@@ -104,7 +104,7 @@ def test_assign_from_an_author_to_another_that_is_not_stub(
 
     assign_papers.delay(
         from_author_recid=from_author["control_number"],
-        to_author_record=to_author,
+        to_author_recid=to_author["control_number"],
         author_papers_recids=[literature["control_number"]],
     )
 
