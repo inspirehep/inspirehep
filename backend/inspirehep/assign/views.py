@@ -36,19 +36,26 @@ def get_literature_records_by_recid(recids):
     return LiteratureRecord.get_records_by_pids(pids)
 
 
-def unstub_author_by_recid(author_recid):
-    author = AuthorsRecord.get_record_by_pid_value(author_recid)
-    if author.get("stub") is True:
-        author["stub"] = False
-        author.update(dict(author))
-
-
 def get_author_signatures(from_author_recid, author_papers):
     signatures = [
         get_author_by_recid(record, from_author_recid) for record in author_papers
     ]
     valid_signatures = [signature for signature in signatures if signature]
     return valid_signatures
+
+
+def unstub_author(author_recid):
+    try:
+        author = AuthorsRecord.get_record_by_pid_value(author_recid)
+        if author.get("stub") is True:
+            author["stub"] = False
+            author.update(dict(author))
+            db.session.commit()
+            LOGGER.info("Successfully unstubbed author", author_recid=author_recid)
+        else:
+            LOGGER.info("Author was already unstubbed", author_recid=author_recid)
+    except Exception as e:
+        LOGGER.error("Failed to unstub author", author_recid=author_recid, error=str(e))
 
 
 def assign_to_new_stub_author(author_record, literature_recids):
@@ -66,6 +73,7 @@ def assign_to_new_stub_author(author_record, literature_recids):
         )
         stub_author_data = {"name": author_record["name"]}
     to_author = create_new_stub_author(**stub_author_data)
+    to_author_recid = to_author["control_number"]
     db.session.commit()
     num_workers = count_consumers_for_queue("assign")
     for batch in chunker(literature_recids, 10, num_workers):
@@ -73,27 +81,26 @@ def assign_to_new_stub_author(author_record, literature_recids):
             "inspirehep.assign.tasks.assign_papers",
             kwargs={
                 "from_author_recid": from_author_recid,
-                "to_author_record": to_author,
+                "to_author_recid": to_author_recid,
                 "author_papers_recids": batch,
                 "is_stub_author": True,
             },
         )
-    return to_author["control_number"]
+    return to_author_recid
 
 
 def assign_to_author(from_author_recid, to_author_recid, literature_recids):
-    author_record = AuthorsRecord.get_record_by_pid_value(to_author_recid)
     num_workers = count_consumers_for_queue("assign")
+    unstub_author(to_author_recid)
     for batch in chunker(literature_recids, 10, num_workers):
         current_celery_app.send_task(
             "inspirehep.assign.tasks.assign_papers",
             kwargs={
                 "from_author_recid": from_author_recid,
-                "to_author_record": author_record,
+                "to_author_recid": to_author_recid,
                 "author_papers_recids": batch,
             },
         )
-    unstub_author_by_recid(to_author_recid)
 
 
 @blueprint.route("literature/assign", methods=["POST"])

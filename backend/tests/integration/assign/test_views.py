@@ -132,7 +132,7 @@ def test_assign_from_an_author_to_another(mock_assign, inspire_app):
     "inspirehep.accounts.api.get_current_user_orcid", return_value="0000-0003-1134-6827"
 )
 def test_regression_assign_from_an_author_to_another_with_checking_record_ids(
-    mock_assign, mock_orcid, inspire_app
+    mock_orcid, mock_assign, inspire_app
 ):
     cataloger = create_user()
     author_data = {
