@@ -34,7 +34,7 @@ def read_object(s3_hook, key, bucket_name="data-store"):
     return json.loads(content["Body"].read().decode("utf-8"))
 
 
-def write_object(s3_hook, data, key=None, bucket_name="data-store"):
+def write_object(s3_hook, data, key=None, bucket_name="data-store", overwrite=False):
     """Write an object to S3.
     Args:
         s3_hook (S3Hook or boto3.client): The S3 hook or client to use.
@@ -59,5 +59,6 @@ def write_object(s3_hook, data, key=None, bucket_name="data-store"):
             json.dumps(data),
             key=key,
             bucket_name=bucket_name,
+            replace=overwrite,
         )
     return key
