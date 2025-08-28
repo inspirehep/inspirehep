@@ -3,8 +3,9 @@ import logging
 from urllib.parse import parse_qs, urlparse
 
 from airflow.decorators import dag, task, task_group
+from airflow.macros import ds_add
 from airflow.models.param import Param
-from airflow.providers.http.operators.http import HttpOperator
+from airflow.providers.http.hooks.http import HttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
@@ -76,6 +77,75 @@ def _response_filter(responses, hook):
     return results
 
 
+def _get_total_count(since, until):
+    hook = HttpHook(http_conn_id="cds_rdm_connection", method="GET")
+    response = hook.run(
+        endpoint="/api/records",
+        data={
+            "q": f"updated:[{since} TO {until}]",
+            "page": 1,
+            "size": 1,
+        },
+    )
+    total = response.json().get("hits", {}).get("total", 0)
+    logger.info(f"Total records for range {since} to {until}: {total}")
+    return total
+
+
+def _split_time_range_once(since_str, until_str):
+    """
+    Split a time range into exactly two halves.
+    """
+    since_dt = datetime.datetime.fromisoformat(since_str)
+    until_dt = datetime.datetime.fromisoformat(until_str)
+    midpoint = since_dt + (until_dt - since_dt) / 2
+
+    return [
+        (
+            since_dt.strftime("%Y-%m-%dT%H:%M:%S"),
+            midpoint.strftime("%Y-%m-%dT%H:%M:%S"),
+        ),
+        (
+            midpoint.strftime("%Y-%m-%dT%H:%M:%S"),
+            until_dt.strftime("%Y-%m-%dT%H:%M:%S"),
+        ),
+    ]
+
+
+def _get_time_ranges(since, until, max_results=10000, min_minutes=5):
+    total = _get_total_count(since, until)
+    if total == 0:
+        logger.info(f"Range {since} to {until} has no records, skipping")
+        return []
+
+    if total <= max_results:
+        logger.info(f"Range {since} to {until} has {total} records (within limit)")
+        return [(since, until)]
+
+    since_dt = datetime.datetime.fromisoformat(since)
+    until_dt = datetime.datetime.fromisoformat(until)
+    duration_minutes = (until_dt - since_dt).total_seconds() / 60
+    if duration_minutes <= min_minutes:
+        logger.warning(
+            f"Range {since} to {until} still has {total} records, "
+            f"but cannot split further (< {min_minutes} minutes)"
+        )
+        return [(since, until)]
+
+    logger.info(
+        f"Range {since} to {until} has {total} records (exceeds limit), splitting..."
+    )
+
+    sub_ranges = _split_time_range_once(since, until)
+    all_ranges = []
+    for sub_since, sub_until in sub_ranges:
+        all_ranges.extend(
+            _get_time_ranges(sub_since, sub_until, max_results, min_minutes)
+        )
+
+    return all_ranges
+
+
 @dag(
     start_date=datetime.datetime(2025, 5, 22),
     schedule="0 4 * * *",
@@ -90,24 +160,63 @@ def _response_filter(responses, hook):
 def cds_rdm_harvest_dag():
     inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
 
-    get_cds_rdm_data = HttpOperator(
-        task_id="get_cds_rdm_data",
-        http_conn_id="cds_rdm_connection",
-        method="GET",
-        endpoint="/api/records",
-        data={
-            "q": (
-                "updated:[{{ params.since or macros.ds_add(ds, -1) }} "
-                "TO {{ params.until or ds }}]"
-            ),
+    @task
+    def determine_time_ranges(**context):
+        params = context.get("params", {})
+        ds = context.get("ds")
+        since = params.get("since") or ds_add(ds, -1)
+        until = params.get("until") or ds
+
+        if isinstance(since, datetime.datetime):
+            since = since.strftime("%Y-%m-%dT00:00:00")
+        elif isinstance(since, str) and "T" not in since:
+            since = f"{since}T00:00:00"
+
+        if isinstance(until, datetime.datetime):
+            until = until.strftime("%Y-%m-%dT00:00:00")
+        elif isinstance(until, str) and "T" not in until:
+            until = f"{until}T00:00:00"
+
+        logger.info(f"Determining time ranges for harvest from {since} to {until}")
+        time_ranges = _get_time_ranges(since, until)
+        logger.info(f"Will harvest {len(time_ranges)} time ranges: {time_ranges}")
+        return [{"since": tr[0], "until": tr[1]} for tr in time_ranges]
+
+    @task
+    def get_cds_records_for_range(time_range_dict):
+        """Get CDS records for a specific query using HttpHook directly."""
+        since = time_range_dict["since"]
+        until = time_range_dict["until"]
+        query_params = {
+            "q": f"updated:[{since} TO {until}]",
             "page": 1,
             "size": 50,
             "sort": "newest",
-        },
-        response_filter=lambda responses,
-        hook=inspire_http_record_management_hook: _response_filter(responses, hook),
-        pagination_function=_pagination_fn,
-    )
+        }
+
+        hook = HttpHook(http_conn_id="cds_rdm_connection", method="GET")
+        all_responses = []
+        current_params = query_params.copy()
+
+        while True:
+            logger.info(
+                f"Fetching page {current_params['page']} with params: {current_params}"
+            )
+            response = hook.run(endpoint="/api/records", data=current_params)
+            if not response:
+                logger.warning("No response received")
+                break
+            all_responses.append(response)
+            pagination_result = _pagination_fn(response)
+            if not pagination_result:
+                break
+            current_params.update(pagination_result["data"])
+
+        logger.info(f"Processing {len(all_responses)} responses with response filter")
+        results = _response_filter(all_responses, inspire_http_record_management_hook)
+
+        logger.info(f"Total records collected for this range: {len(results)}")
+        return results
 
     @task_group
     def process_cds_rdm_response(cds_record):
@@ -134,8 +243,22 @@ def cds_rdm_harvest_dag():
         built = build_record(cds_record)
         update_inspire_record(built)
 
-    hits = get_cds_rdm_data.output
-    process_cds_rdm_response.expand(cds_record=hits)
+    @task
+    def flatten_results(results_list):
+        """Flatten the list of lists from multiple time ranges."""
+        flattened = []
+        for results in results_list:
+            if isinstance(results, list):
+                flattened.extend(results)
+            elif results:  # Handle single records
+                flattened.append(results)
+        logger.info(f"Total records to process: {len(flattened)}")
+        return flattened
+
+    time_ranges = determine_time_ranges()
+    harvest_results = get_cds_records_for_range.expand(time_range_dict=time_ranges)
+    all_records = flatten_results(harvest_results)
+    process_cds_rdm_response.expand(cds_record=all_records)
 
 
 cds_rdm_harvest_dag()
