@@ -1,0 +1,481 @@
+interactions:
+- request:
+    body: '{"_collections": ["Literature"], "control_number": 1675001, "core": false,
+      "dois": [{"value": "10.1093/mnras/stx1360", "source": "submitter"}, {"value":
+      "10.1093/mnras/stx1360"}], "self": {"$ref": "https://inspirehep.net/api/literature/1675001"},
+      "titles": [{"title": "The Hi-GAL compact source catalogue \u2013 I. The physical
+      properties of the clumps in the inner Galaxy (\u221271\u00b00 < \u2113 < 67\u00b00)",
+      "source": "submitter"}], "$schema": "https://inspirehep.net/schemas/records/hep.json",
+      "document_type": ["article"], "external_system_identifiers": [{"value": "8888880",
+      "schema": "CDSRDM"}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '605'
+      Content-Type:
+      - application/json
+      If-Match:
+      - '"0"'
+    method: PUT
+    uri: http://host.docker.internal:8080/api/literature/1675001
+  response:
+    body:
+      string: "{\"links\":{\"bibtex\":\"http://localhost:8000/api/literature/1675001?format=bibtex\",\"latex-eu\":\"http://localhost:8000/api/literature/1675001?format=latex-eu\",\"latex-us\":\"http://localhost:8000/api/literature/1675001?format=latex-us\",\"json\":\"http://localhost:8000/api/literature/1675001?format=json\",\"json-expanded\":\"http://localhost:8000/api/literature/1675001?format=json-expanded\",\"cv\":\"http://localhost:8000/api/literature/1675001?format=cv\",\"citations\":\"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A1675001\"},\"metadata\":{\"_collections\":[\"Literature\"],\"control_number\":1675001,\"core\":false,\"dois\":[{\"value\":\"10.1093/mnras/stx1360\",\"source\":\"submitter\"},{\"value\":\"10.1093/mnras/stx1360\"}],\"self\":{\"$ref\":\"http://localhost:8000/api/literature/1675001\"},\"titles\":[{\"title\":\"The
+        Hi-GAL compact source catalogue \u2013 I. The physical properties of the clumps
+        in the inner Galaxy (\u221271\xB00 < \u2113 < 67\xB00)\",\"source\":\"submitter\"}],\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"document_type\":[\"article\"],\"external_system_identifiers\":[{\"value\":\"8888880\",\"schema\":\"CDSRDM\"}]},\"id\":\"1675001\",\"updated\":\"2025-09-06T16:18:04.029128+00:00\",\"uuid\":\"e8a43af7-57e3-422e-bb8d-3cbda8705250\",\"revision_id\":1,\"created\":\"2025-09-06T16:16:04.522123+00:00\"}"
+    headers:
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1259'
+      Content-Type:
+      - application/vnd+inspire.record.raw+json
+      Date:
+      - Sat, 06 Sep 2025 16:18:04 GMT
+      ETag:
+      - W/"1"
+      Last-Modified:
+      - Sat, 06 Sep 2025 16:18:04 GMT
+      Link:
+      - <bibtex>; rel="http://localhost:8000/api/literature/1675001?format=bibtex",
+        <latex-eu>; rel="http://localhost:8000/api/literature/1675001?format=latex-eu",
+        <latex-us>; rel="http://localhost:8000/api/literature/1675001?format=latex-us",
+        <json>; rel="http://localhost:8000/api/literature/1675001?format=json", <json-expanded>;
+        rel="http://localhost:8000/api/literature/1675001?format=json-expanded", <cv>;
+        rel="http://localhost:8000/api/literature/1675001?format=cv", <citations>;
+        rel="http://localhost:8000/api/literature/?q=refersto%3Arecid%3A1675001"
+      Server:
+      - nginx/1.19.1
+      Vary:
+      - Accept,Accept-Encoding,Accept-Language
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"_collections": ["Literature"], "control_number": 1675001, "core": false,
+      "dois": [{"value": "10.1093/mnras/stx1360", "source": "submitter"}, {"value":
+      "10.1093/mnras/stx1360"}], "self": {"$ref": "https://inspirehep.net/api/literature/1675001"},
+      "titles": [{"title": "The Hi-GAL compact source catalogue \u2013 I. The physical
+      properties of the clumps in the inner Galaxy (\u221271\u00b00 < \u2113 < 67\u00b00)",
+      "source": "submitter"}], "$schema": "https://inspirehep.net/schemas/records/hep.json",
+      "document_type": ["article"], "external_system_identifiers": [{"value": "8888881",
+      "schema": "CDSRDM"}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '605'
+      Content-Type:
+      - application/json
+      If-Match:
+      - '"0"'
+    method: PUT
+    uri: http://host.docker.internal:8080/api/literature/1675001
+  response:
+    body:
+      string: "{\n  \"message\": \"The record version 1 is not matching the current
+        version 0\", \n  \"status\": 412\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '96'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 06 Sep 2025 16:18:04 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 412
+      message: PRECONDITION FAILED
+- request:
+    body: '{"_collections": ["Literature"], "control_number": 1675001, "core": false,
+      "dois": [{"value": "10.1093/mnras/stx1360", "source": "submitter"}, {"value":
+      "10.1093/mnras/stx1360"}], "self": {"$ref": "https://inspirehep.net/api/literature/1675001"},
+      "titles": [{"title": "The Hi-GAL compact source catalogue \u2013 I. The physical
+      properties of the clumps in the inner Galaxy (\u221271\u00b00 < \u2113 < 67\u00b00)",
+      "source": "submitter"}], "$schema": "https://inspirehep.net/schemas/records/hep.json",
+      "document_type": ["article"], "external_system_identifiers": [{"value": "8888881",
+      "schema": "CDSRDM"}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '605'
+      Content-Type:
+      - application/json
+      If-Match:
+      - '"0"'
+    method: PUT
+    uri: http://host.docker.internal:8080/api/literature/1675001
+  response:
+    body:
+      string: "{\n  \"message\": \"The record version 1 is not matching the current
+        version 0\", \n  \"status\": 412\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '96'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 06 Sep 2025 16:18:05 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 412
+      message: PRECONDITION FAILED
+- request:
+    body: '{"_collections": ["Literature"], "control_number": 1675001, "core": false,
+      "dois": [{"value": "10.1093/mnras/stx1360", "source": "submitter"}, {"value":
+      "10.1093/mnras/stx1360"}], "self": {"$ref": "https://inspirehep.net/api/literature/1675001"},
+      "titles": [{"title": "The Hi-GAL compact source catalogue \u2013 I. The physical
+      properties of the clumps in the inner Galaxy (\u221271\u00b00 < \u2113 < 67\u00b00)",
+      "source": "submitter"}], "$schema": "https://inspirehep.net/schemas/records/hep.json",
+      "document_type": ["article"], "external_system_identifiers": [{"value": "8888881",
+      "schema": "CDSRDM"}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '605'
+      Content-Type:
+      - application/json
+      If-Match:
+      - '"0"'
+    method: PUT
+    uri: http://host.docker.internal:8080/api/literature/1675001
+  response:
+    body:
+      string: "{\n  \"message\": \"The record version 1 is not matching the current
+        version 0\", \n  \"status\": 412\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '96'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 06 Sep 2025 16:18:07 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 412
+      message: PRECONDITION FAILED
+- request:
+    body: '{"_collections": ["Literature"], "control_number": 1675001, "core": false,
+      "dois": [{"value": "10.1093/mnras/stx1360", "source": "submitter"}, {"value":
+      "10.1093/mnras/stx1360"}], "self": {"$ref": "https://inspirehep.net/api/literature/1675001"},
+      "titles": [{"title": "The Hi-GAL compact source catalogue \u2013 I. The physical
+      properties of the clumps in the inner Galaxy (\u221271\u00b00 < \u2113 < 67\u00b00)",
+      "source": "submitter"}], "$schema": "https://inspirehep.net/schemas/records/hep.json",
+      "document_type": ["article"], "external_system_identifiers": [{"value": "8888881",
+      "schema": "CDSRDM"}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '605'
+      Content-Type:
+      - application/json
+      If-Match:
+      - '"0"'
+    method: PUT
+    uri: http://host.docker.internal:8080/api/literature/1675001
+  response:
+    body:
+      string: "{\n  \"message\": \"The record version 1 is not matching the current
+        version 0\", \n  \"status\": 412\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '96'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 06 Sep 2025 16:18:11 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 412
+      message: PRECONDITION FAILED
+- request:
+    body: '{"_collections": ["Literature"], "control_number": 1675001, "core": false,
+      "dois": [{"value": "10.1093/mnras/stx1360", "source": "submitter"}, {"value":
+      "10.1093/mnras/stx1360"}], "self": {"$ref": "https://inspirehep.net/api/literature/1675001"},
+      "titles": [{"title": "The Hi-GAL compact source catalogue \u2013 I. The physical
+      properties of the clumps in the inner Galaxy (\u221271\u00b00 < \u2113 < 67\u00b00)",
+      "source": "submitter"}], "$schema": "https://inspirehep.net/schemas/records/hep.json",
+      "document_type": ["article"], "external_system_identifiers": [{"value": "8888881",
+      "schema": "CDSRDM"}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '605'
+      Content-Type:
+      - application/json
+      If-Match:
+      - '"0"'
+    method: PUT
+    uri: http://host.docker.internal:8080/api/literature/1675001
+  response:
+    body:
+      string: "{\n  \"message\": \"The record version 1 is not matching the current
+        version 0\", \n  \"status\": 412\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '96'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 06 Sep 2025 16:18:19 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 412
+      message: PRECONDITION FAILED
+- request:
+    body: '{"_collections": ["Literature"], "control_number": 1675001, "core": false,
+      "dois": [{"value": "10.1093/mnras/stx1360", "source": "submitter"}, {"value":
+      "10.1093/mnras/stx1360"}], "self": {"$ref": "https://inspirehep.net/api/literature/1675001"},
+      "titles": [{"title": "The Hi-GAL compact source catalogue \u2013 I. The physical
+      properties of the clumps in the inner Galaxy (\u221271\u00b00 < \u2113 < 67\u00b00)",
+      "source": "submitter"}], "$schema": "https://inspirehep.net/schemas/records/hep.json",
+      "document_type": ["article"], "external_system_identifiers": [{"value": "8888882",
+      "schema": "CDSRDM"}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '605'
+      Content-Type:
+      - application/json
+      If-Match:
+      - '"0"'
+    method: PUT
+    uri: http://host.docker.internal:8080/api/literature/1675001
+  response:
+    body:
+      string: "{\n  \"message\": \"The record version 1 is not matching the current
+        version 0\", \n  \"status\": 412\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '96'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 06 Sep 2025 16:18:19 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 412
+      message: PRECONDITION FAILED
+- request:
+    body: '{"_collections": ["Literature"], "control_number": 1675001, "core": false,
+      "dois": [{"value": "10.1093/mnras/stx1360", "source": "submitter"}, {"value":
+      "10.1093/mnras/stx1360"}], "self": {"$ref": "https://inspirehep.net/api/literature/1675001"},
+      "titles": [{"title": "The Hi-GAL compact source catalogue \u2013 I. The physical
+      properties of the clumps in the inner Galaxy (\u221271\u00b00 < \u2113 < 67\u00b00)",
+      "source": "submitter"}], "$schema": "https://inspirehep.net/schemas/records/hep.json",
+      "document_type": ["article"], "external_system_identifiers": [{"value": "8888882",
+      "schema": "CDSRDM"}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '605'
+      Content-Type:
+      - application/json
+      If-Match:
+      - '"0"'
+    method: PUT
+    uri: http://host.docker.internal:8080/api/literature/1675001
+  response:
+    body:
+      string: "{\n  \"message\": \"The record version 1 is not matching the current
+        version 0\", \n  \"status\": 412\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '96'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 06 Sep 2025 16:18:20 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 412
+      message: PRECONDITION FAILED
+- request:
+    body: '{"_collections": ["Literature"], "control_number": 1675001, "core": false,
+      "dois": [{"value": "10.1093/mnras/stx1360", "source": "submitter"}, {"value":
+      "10.1093/mnras/stx1360"}], "self": {"$ref": "https://inspirehep.net/api/literature/1675001"},
+      "titles": [{"title": "The Hi-GAL compact source catalogue \u2013 I. The physical
+      properties of the clumps in the inner Galaxy (\u221271\u00b00 < \u2113 < 67\u00b00)",
+      "source": "submitter"}], "$schema": "https://inspirehep.net/schemas/records/hep.json",
+      "document_type": ["article"], "external_system_identifiers": [{"value": "8888882",
+      "schema": "CDSRDM"}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '605'
+      Content-Type:
+      - application/json
+      If-Match:
+      - '"0"'
+    method: PUT
+    uri: http://host.docker.internal:8080/api/literature/1675001
+  response:
+    body:
+      string: "{\n  \"message\": \"The record version 1 is not matching the current
+        version 0\", \n  \"status\": 412\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '96'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 06 Sep 2025 16:18:22 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 412
+      message: PRECONDITION FAILED
+- request:
+    body: '{"_collections": ["Literature"], "control_number": 1675001, "core": false,
+      "dois": [{"value": "10.1093/mnras/stx1360", "source": "submitter"}, {"value":
+      "10.1093/mnras/stx1360"}], "self": {"$ref": "https://inspirehep.net/api/literature/1675001"},
+      "titles": [{"title": "The Hi-GAL compact source catalogue \u2013 I. The physical
+      properties of the clumps in the inner Galaxy (\u221271\u00b00 < \u2113 < 67\u00b00)",
+      "source": "submitter"}], "$schema": "https://inspirehep.net/schemas/records/hep.json",
+      "document_type": ["article"], "external_system_identifiers": [{"value": "8888882",
+      "schema": "CDSRDM"}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '605'
+      Content-Type:
+      - application/json
+      If-Match:
+      - '"0"'
+    method: PUT
+    uri: http://host.docker.internal:8080/api/literature/1675001
+  response:
+    body:
+      string: "{\n  \"message\": \"The record version 1 is not matching the current
+        version 0\", \n  \"status\": 412\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '96'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 06 Sep 2025 16:18:26 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 412
+      message: PRECONDITION FAILED
+- request:
+    body: '{"_collections": ["Literature"], "control_number": 1675001, "core": false,
+      "dois": [{"value": "10.1093/mnras/stx1360", "source": "submitter"}, {"value":
+      "10.1093/mnras/stx1360"}], "self": {"$ref": "https://inspirehep.net/api/literature/1675001"},
+      "titles": [{"title": "The Hi-GAL compact source catalogue \u2013 I. The physical
+      properties of the clumps in the inner Galaxy (\u221271\u00b00 < \u2113 < 67\u00b00)",
+      "source": "submitter"}], "$schema": "https://inspirehep.net/schemas/records/hep.json",
+      "document_type": ["article"], "external_system_identifiers": [{"value": "8888882",
+      "schema": "CDSRDM"}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '605'
+      Content-Type:
+      - application/json
+      If-Match:
+      - '"0"'
+    method: PUT
+    uri: http://host.docker.internal:8080/api/literature/1675001
+  response:
+    body:
+      string: "{\n  \"message\": \"The record version 1 is not matching the current
+        version 0\", \n  \"status\": 412\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '96'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 06 Sep 2025 16:18:34 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 412
+      message: PRECONDITION FAILED
+version: 1
