@@ -1,0 +1,67 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://repository.cern/api/records?q=updated%3A%5B1990-08-01T00%3A00%3A00+TO+1990-08-01T00%3A00%3A01%5D&page=1&size=1
+  response:
+    body:
+      string: '{"hits": {"hits": [], "total": 0}, "aggregations": {"access_status":
+        {"buckets": [], "label": "Access status"}, "file_type": {"buckets": [], "label":
+        "File type"}, "resource_type": {"buckets": [], "label": "Resource types"}},
+        "sortBy": "bestmatch", "links": {"self": "https://repository.cern/api/records?page=1&q=updated%3A%5B1990-08-01T00%3A00%3A00%20TO%201990-08-01T00%3A00%3A01%5D&size=1&sort=bestmatch"}}'
+    headers:
+      access-control-allow-origin:
+      - '*'
+      access-control-expose-headers:
+      - Content-Type, ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
+      content-length:
+      - '408'
+      content-security-policy:
+      - 'default-src ''self'' data: ''unsafe-inline'' blob: cdnjs.cloudflare.com webanalytics.web.cern.ch
+        test-matomo-wf.web.cern.ch'
+      content-type:
+      - application/json
+      date:
+      - Tue, 02 Sep 2025 11:33:05 GMT
+      permissions-policy:
+      - interest-cohort=()
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      retry-after:
+      - '59'
+      server:
+      - nginx
+      set-cookie:
+      - 382001b253b8c740614b8a7905e9bbd5=b1e8510788ba06997e99e6f4540828b1; path=/;
+        HttpOnly; Secure; SameSite=None
+      strict-transport-security:
+      - max-age=31556926; includeSubDomains
+      transfer-encoding:
+      - chunked
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - sameorigin
+      x-ratelimit-limit:
+      - '133'
+      x-ratelimit-remaining:
+      - '130'
+      x-ratelimit-reset:
+      - '1756812845'
+      x-request-id:
+      - 51215ef2c58ddcf8ccafe69fb8b45c40
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1
