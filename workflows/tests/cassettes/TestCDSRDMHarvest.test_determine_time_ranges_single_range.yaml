@@ -1,0 +1,169 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://repository.cern/api/records?q=updated%3A%5B2025-06-01T00%3A00%3A00+TO+2025-07-01T00%3A00%3A00%5D&page=1&size=1
+  response:
+    body:
+      string: '{"hits": {"hits": [{"id": "atdbg-38836", "created": "2025-06-16T14:46:57.013365+00:00",
+        "updated": "2025-06-16T14:46:57.416506+00:00", "links": {"self": "https://repository.cern/api/records/atdbg-38836",
+        "self_html": "https://repository.cern/records/atdbg-38836", "preview_html":
+        "https://repository.cern/records/atdbg-38836?preview=1", "doi": "https://doi.org/10.17181/atdbg-38836",
+        "self_doi": "https://doi.org/10.17181/atdbg-38836", "self_doi_html": "https://repository.cern/doi/10.17181/atdbg-38836",
+        "reserve_doi": "https://repository.cern/api/records/atdbg-38836/draft/pids/doi",
+        "parent": "https://repository.cern/api/records/1b9sh-yhv72", "parent_html":
+        "https://repository.cern/records/1b9sh-yhv72", "parent_doi": "https://doi.org/10.17181/1b9sh-yhv72",
+        "parent_doi_html": "https://repository.cern/doi/10.17181/1b9sh-yhv72", "self_iiif_manifest":
+        "https://repository.cern/api/iiif/record:atdbg-38836/manifest", "self_iiif_sequence":
+        "https://repository.cern/api/iiif/record:atdbg-38836/sequence/default", "files":
+        "https://repository.cern/api/records/atdbg-38836/files", "media_files": "https://repository.cern/api/records/atdbg-38836/media-files",
+        "thumbnails": {"10": "https://repository.cern/api/iiif/record:atdbg-38836:High-Energy%20Calibration%20of%20the%20Timepix3%20Radiation%20Monitor.pdf/full/%5E10,/0/default.jpg",
+        "50": "https://repository.cern/api/iiif/record:atdbg-38836:High-Energy%20Calibration%20of%20the%20Timepix3%20Radiation%20Monitor.pdf/full/%5E50,/0/default.jpg",
+        "100": "https://repository.cern/api/iiif/record:atdbg-38836:High-Energy%20Calibration%20of%20the%20Timepix3%20Radiation%20Monitor.pdf/full/%5E100,/0/default.jpg",
+        "250": "https://repository.cern/api/iiif/record:atdbg-38836:High-Energy%20Calibration%20of%20the%20Timepix3%20Radiation%20Monitor.pdf/full/%5E250,/0/default.jpg",
+        "750": "https://repository.cern/api/iiif/record:atdbg-38836:High-Energy%20Calibration%20of%20the%20Timepix3%20Radiation%20Monitor.pdf/full/%5E750,/0/default.jpg",
+        "1200": "https://repository.cern/api/iiif/record:atdbg-38836:High-Energy%20Calibration%20of%20the%20Timepix3%20Radiation%20Monitor.pdf/full/%5E1200,/0/default.jpg"},
+        "archive": "https://repository.cern/api/records/atdbg-38836/files-archive",
+        "archive_media": "https://repository.cern/api/records/atdbg-38836/media-files-archive",
+        "latest": "https://repository.cern/api/records/atdbg-38836/versions/latest",
+        "latest_html": "https://repository.cern/records/atdbg-38836/latest", "versions":
+        "https://repository.cern/api/records/atdbg-38836/versions", "draft": "https://repository.cern/api/records/atdbg-38836/draft",
+        "access_links": "https://repository.cern/api/records/atdbg-38836/access/links",
+        "access_grants": "https://repository.cern/api/records/atdbg-38836/access/grants",
+        "access_users": "https://repository.cern/api/records/atdbg-38836/access/users",
+        "access_groups": "https://repository.cern/api/records/atdbg-38836/access/groups",
+        "access_request": "https://repository.cern/api/records/atdbg-38836/access/request",
+        "access": "https://repository.cern/api/records/atdbg-38836/access", "communities":
+        "https://repository.cern/api/records/atdbg-38836/communities", "communities-suggestions":
+        "https://repository.cern/api/records/atdbg-38836/communities-suggestions",
+        "requests": "https://repository.cern/api/records/atdbg-38836/requests"}, "revision_id":
+        5, "parent": {"id": "1b9sh-yhv72", "access": {"owned_by": {"user": "40440"},
+        "settings": {"allow_user_requests": false, "allow_guest_requests": false,
+        "accept_conditions_text": null, "secret_link_expiration": 0}}, "communities":
+        {"ids": ["ad8d4abd-9809-4dc3-b4bf-dd403c9d6a8d"], "default": "ad8d4abd-9809-4dc3-b4bf-dd403c9d6a8d",
+        "entries": [{"id": "ad8d4abd-9809-4dc3-b4bf-dd403c9d6a8d", "created": "2025-05-14T16:07:31.996800+00:00",
+        "updated": "2025-07-11T14:41:41.728373+00:00", "links": {}, "revision_id":
+        8, "slug": "cern-research", "metadata": {"title": "CERN Research"}, "access":
+        {"visibility": "public", "members_visibility": "public", "member_policy":
+        "open", "record_submission_policy": "open", "review_policy": "closed"}, "deletion_status":
+        {"is_deleted": false, "status": "P"}, "children": {"allow": false}}]}, "pids":
+        {"doi": {"identifier": "10.17181/1b9sh-yhv72", "provider": "datacite", "client":
+        "datacite"}}}, "versions": {"is_latest": true, "index": 1}, "is_published":
+        true, "is_draft": false, "pids": {"doi": {"identifier": "10.17181/atdbg-38836",
+        "provider": "datacite", "client": "datacite"}, "oai": {"identifier": "oai:oai:repository.cern::atdbg-38836",
+        "provider": "oai"}}, "metadata": {"resource_type": {"id": "publication-thesis",
+        "title": {"de": "Abschlussarbeit", "en": "Thesis"}}, "creators": [{"person_or_org":
+        {"type": "personal", "name": "Revani, Emanuela", "given_name": "Emanuela",
+        "family_name": "Revani"}, "affiliations": [{"name": "Constructor University
+        (DE)"}]}], "title": "High-Energy Calibration of the Timepix3 Radiation Monitor",
+        "publisher": "CERN", "publication_date": "2025-05-20", "subjects": [{"id":
+        "Detectors and Experimental Techniques", "subject": "Detectors and Experimental
+        Techniques", "scheme": "CERN"}], "contributors": [{"person_or_org": {"type":
+        "personal", "name": "Prelipcean, Daniel", "given_name": "Daniel", "family_name":
+        "Prelipcean", "identifiers": [{"identifier": "0000-0002-4855-194X", "scheme":
+        "orcid"}]}, "role": {"id": "supervisor", "title": {"de": "SupervisorIn", "en":
+        "Supervisor"}}, "affiliations": [{"id": "01ggx4157", "name": "European Organization
+        for Nuclear Research", "identifiers": [{"identifier": "01ggx4157", "scheme":
+        "ror"}]}]}, {"person_or_org": {"type": "personal", "name": "Wagner, Veit",
+        "given_name": "Veit", "family_name": "Wagner", "identifiers": [{"identifier":
+        "0000-0002-6831-8600", "scheme": "orcid"}]}, "role": {"id": "supervisor",
+        "title": {"de": "SupervisorIn", "en": "Supervisor"}}, "affiliations": [{"name":
+        "Constructor University"}]}], "dates": [{"date": "2025-05-20", "type": {"id":
+        "submitted", "title": {"de": "Eingereicht", "en": "Submitted"}}}], "languages":
+        [{"id": "eng", "title": {"en": "English"}}], "version": "v1", "rights": [{"id":
+        "cc-by-4.0", "title": {"en": "Creative Commons Attribution 4.0 International"},
+        "description": {"en": "The Creative Commons Attribution license allows re-distribution
+        and re-use of a licensed work on the condition that the creator is appropriately
+        credited."}, "icon": "cc-by-icon", "props": {"url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+        "scheme": "spdx"}}], "description": "<p>The fundamental goal of this thesis
+        is to perform a High-Energy Calibration of the Timepix3 Radiation Monitor
+        in the context of the Radiation to Electronics (R2E) activity at the European
+        Organisation for Nuclear Research (CERN). To achieve this, two test campaigns
+        have been conducted at Centro Nacional de Acceleradores (CNA) in Sevilla,
+        Spain, by irradiating the Timepix3 with hadron beams in the MeV range. This
+        extends the detector''s usability beyond the linear calibration regime, leading
+        to performance optimization in the radiation field measurements at the CERN
+        accelerator complex.&nbsp;</p>"}, "custom_fields": {"cern:departments": [{"id":
+        "SY", "title": {"en": "SY"}}], "cern:programmes": {"id": "CERN Short Term
+        Internship Program", "title": {"en": "CERN Short Term Internship Program"}},
+        "thesis:thesis": {"university": "Constructor University", "department": "Department
+        of Physics", "type": "Bachelors", "date_submitted": "2025-05-20", "date_defended":
+        "2025-05-14"}}, "access": {"record": "public", "files": "public", "embargo":
+        {"active": false, "reason": null}, "status": "open"}, "files": {"enabled":
+        true, "order": [], "count": 1, "total_bytes": 5039126, "entries": {"High-Energy
+        Calibration of the Timepix3 Radiation Monitor.pdf": {"id": "93b97bcc-443f-4eed-b33c-25a0de10c4f8",
+        "checksum": "md5:466b141f8e311f7d3d69601aba066f4e", "ext": "pdf", "size":
+        5039126, "mimetype": "application/pdf", "key": "High-Energy Calibration of
+        the Timepix3 Radiation Monitor.pdf", "metadata": {"width": 612, "height":
+        792}, "access": {"hidden": false}}}}, "media_files": {"enabled": false, "order":
+        [], "count": 0, "total_bytes": 0, "entries": {}}, "status": "published", "deletion_status":
+        {"is_deleted": false, "status": "P"}, "stats": {"this_version": {"views":
+        24, "unique_views": 22, "downloads": 21, "unique_downloads": 19, "data_volume":
+        105821646.0}, "all_versions": {"views": 24, "unique_views": 22, "downloads":
+        21, "unique_downloads": 19, "data_volume": 105821646.0}}}], "total": 14},
+        "aggregations": {"access_status": {"buckets": [{"key": "open", "doc_count":
+        14, "label": "Open", "is_selected": false}], "label": "Access status"}, "file_type":
+        {"buckets": [{"key": "pdf", "doc_count": 14, "label": "PDF", "is_selected":
+        false}], "label": "File type"}, "resource_type": {"buckets": [{"key": "publication",
+        "doc_count": 8, "label": "Publication", "is_selected": false, "inner": {"buckets":
+        [{"key": "publication-thesis", "doc_count": 7, "label": "Thesis", "is_selected":
+        false}]}}, {"key": "presentation", "doc_count": 6, "label": "Presentation",
+        "is_selected": false, "inner": {"buckets": []}}], "label": "Resource types"}},
+        "sortBy": "bestmatch", "links": {"self": "https://repository.cern/api/records?page=1&q=updated%3A%5B2025-06-01T00%3A00%3A00%20TO%202025-07-01T00%3A00%3A00%5D&size=1&sort=bestmatch",
+        "next": "https://repository.cern/api/records?page=2&q=updated%3A%5B2025-06-01T00%3A00%3A00%20TO%202025-07-01T00%3A00%3A00%5D&size=1&sort=bestmatch"}}'
+    headers:
+      access-control-allow-origin:
+      - '*'
+      access-control-expose-headers:
+      - Content-Type, ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
+      content-length:
+      - '9463'
+      content-security-policy:
+      - 'default-src ''self'' data: ''unsafe-inline'' blob: cdnjs.cloudflare.com webanalytics.web.cern.ch
+        test-matomo-wf.web.cern.ch'
+      content-type:
+      - application/json
+      date:
+      - Tue, 02 Sep 2025 11:33:04 GMT
+      permissions-policy:
+      - interest-cohort=()
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      retry-after:
+      - '60'
+      server:
+      - nginx
+      set-cookie:
+      - 382001b253b8c740614b8a7905e9bbd5=b1e8510788ba06997e99e6f4540828b1; path=/;
+        HttpOnly; Secure; SameSite=None
+      strict-transport-security:
+      - max-age=31556926; includeSubDomains
+      transfer-encoding:
+      - chunked
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - sameorigin
+      x-ratelimit-limit:
+      - '133'
+      x-ratelimit-remaining:
+      - '132'
+      x-ratelimit-reset:
+      - '1756812845'
+      x-request-id:
+      - bd6657df7186cc6b2dc997c3b4ecc1f5
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1
