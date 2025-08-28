@@ -25,29 +25,30 @@ interactions:
     uri: http://host.docker.internal:8080/api/literature/1675001
   response:
     body:
-      string: "{\"updated\":\"2025-06-11T12:32:25.575097+00:00\",\"created\":\"2025-06-11T12:19:52.325299+00:00\",\"metadata\":{\"_collections\":[\"Literature\"],\"control_number\":1675001,\"core\":false,\"dois\":[{\"value\":\"10.1093/mnras/stx1360\",\"source\":\"submitter\"},{\"value\":\"10.1093/mnras/stx1360\"}],\"self\":{\"$ref\":\"http://localhost:8000/api/literature/1675001\"},\"titles\":[{\"title\":\"The
+      string: "{\"metadata\":{\"_collections\":[\"Literature\"],\"control_number\":1675001,\"core\":false,\"dois\":[{\"value\":\"10.1093/mnras/stx1360\",\"source\":\"submitter\"},{\"value\":\"10.1093/mnras/stx1360\"}],\"self\":{\"$ref\":\"http://localhost:8000/api/literature/1675001\"},\"titles\":[{\"title\":\"The
         Hi-GAL compact source catalogue \u2013 I. The physical properties of the clumps
-        in the inner Galaxy (\u221271\xB00 < \u2113 < 67\xB00)\",\"source\":\"submitter\"}],\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"document_type\":[\"article\"],\"external_system_identifiers\":[{\"value\":\"8888888\",\"schema\":\"CDSRDM\"}]},\"uuid\":\"f3e9ce9b-8887-47d9-84ef-792aa7275012\",\"links\":{\"bibtex\":\"http://localhost:8000/api/literature/1675001?format=bibtex\",\"latex-eu\":\"http://localhost:8000/api/literature/1675001?format=latex-eu\",\"latex-us\":\"http://localhost:8000/api/literature/1675001?format=latex-us\",\"json\":\"http://localhost:8000/api/literature/1675001?format=json\",\"cv\":\"http://localhost:8000/api/literature/1675001?format=cv\",\"citations\":\"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A1675001\"},\"revision_id\":1,\"id\":\"1675001\"}"
+        in the inner Galaxy (\u221271\xB00 < \u2113 < 67\xB00)\",\"source\":\"submitter\"}],\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"document_type\":[\"article\"],\"external_system_identifiers\":[{\"value\":\"8888888\",\"schema\":\"CDSRDM\"}]},\"created\":\"2025-09-01T12:17:09.360218+00:00\",\"uuid\":\"1837ef30-3ce5-417e-a4e1-df087c7a9590\",\"updated\":\"2025-09-02T11:33:04.317295+00:00\",\"id\":\"1675001\",\"links\":{\"bibtex\":\"http://localhost:8000/api/literature/1675001?format=bibtex\",\"latex-eu\":\"http://localhost:8000/api/literature/1675001?format=latex-eu\",\"latex-us\":\"http://localhost:8000/api/literature/1675001?format=latex-us\",\"json\":\"http://localhost:8000/api/literature/1675001?format=json\",\"json-expanded\":\"http://localhost:8000/api/literature/1675001?format=json-expanded\",\"cv\":\"http://localhost:8000/api/literature/1675001?format=cv\",\"citations\":\"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A1675001\"},\"revision_id\":1}"
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - '1175'
+      - '1259'
       Content-Type:
       - application/vnd+inspire.record.raw+json
       Date:
-      - Wed, 11 Jun 2025 12:32:25 GMT
+      - Tue, 02 Sep 2025 11:33:04 GMT
       ETag:
       - W/"1"
       Last-Modified:
-      - Wed, 11 Jun 2025 12:32:25 GMT
+      - Tue, 02 Sep 2025 11:33:04 GMT
       Link:
       - <bibtex>; rel="http://localhost:8000/api/literature/1675001?format=bibtex",
         <latex-eu>; rel="http://localhost:8000/api/literature/1675001?format=latex-eu",
         <latex-us>; rel="http://localhost:8000/api/literature/1675001?format=latex-us",
-        <json>; rel="http://localhost:8000/api/literature/1675001?format=json", <cv>;
+        <json>; rel="http://localhost:8000/api/literature/1675001?format=json", <json-expanded>;
+        rel="http://localhost:8000/api/literature/1675001?format=json-expanded", <cv>;
         rel="http://localhost:8000/api/literature/1675001?format=cv", <citations>;
         rel="http://localhost:8000/api/literature/?q=refersto%3Arecid%3A1675001"
       Server:
