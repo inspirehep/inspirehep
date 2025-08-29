@@ -965,6 +965,25 @@ def test_exact_match_literature_data_returns_matched_many_workflows(inspire_app)
     assert matched_record_1["control_number"] in match
 
 
+def test_exact_match_literature_data_returns_noduplicates(inspire_app):
+    original_record_data = {
+        "dois": [
+            {"value": "10.1103/PhysRevLett.121.022003"},
+            {
+                "value": "10.1103/PhysRevLett.121.022003",
+                "source": "arXiv",
+                "material": "publication",
+            },
+        ],
+        "arxiv_eprints": [{"value": "1801.07224", "categories": ["hep-lat", "hep-ph"]}],
+    }
+
+    create_record("lit", original_record_data)
+
+    match = exact_match_literature_data(original_record_data)
+    assert len(match) == 1
+
+
 def test_exact_match_literature_data_no_match(inspire_app):
     original_record_data = {
         "dois": [{"value": "10.1007/s10714-022-02939-y", "source": "Springer"}],
