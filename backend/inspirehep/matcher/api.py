@@ -255,9 +255,9 @@ def exact_match_literature_data(data):
     exact_match_workflow_matcher_config = current_app.config[
         "EXACT_LITERATURE_MATCH_CONFIG"
     ]
-    matches = dedupe_list(match(data, exact_match_workflow_matcher_config))
+    matches = match(data, exact_match_workflow_matcher_config)
     matched_record_ids = [match["_source"]["control_number"] for match in matches]
-    return matched_record_ids
+    return dedupe_list(matched_record_ids)
 
 
 def fuzzy_match_literature_data(data):
