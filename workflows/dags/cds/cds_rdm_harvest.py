@@ -20,6 +20,10 @@ from inspire_utils.record import get_value
 
 logger = logging.getLogger(__name__)
 
+DEFAULT_MAX_RESULTS = 10000
+DEFAULT_MIN_MINUTES = 5
+DEFAULT_MAX_TASKS = 25
+
 
 def _pagination_fn(response):
     next_url = response.json().get("links", {}).get("next")
@@ -112,7 +116,9 @@ def _split_time_range_once(since_str, until_str):
     ]
 
 
-def _get_time_ranges(since, until, max_results=10000, min_minutes=5):
+def _get_time_ranges(
+    since, until, max_results=DEFAULT_MAX_RESULTS, min_minutes=DEFAULT_MIN_MINUTES
+):
     total = _get_total_count(since, until)
     if total == 0:
         logger.info(f"Range {since} to {until} has no records, skipping")
@@ -154,6 +160,21 @@ def _get_time_ranges(since, until, max_results=10000, min_minutes=5):
     params={
         "since": Param(type=["string"], default=""),
         "until": Param(type=["string"], default=""),
+        "max_results": Param(
+            type=["integer"],
+            default=DEFAULT_MAX_RESULTS,
+            description="Maximum number of results per time range",
+        ),
+        "min_minutes": Param(
+            type=["integer"],
+            default=DEFAULT_MIN_MINUTES,
+            description="Minimum duration (in minutes) for time ranges",
+        ),
+        "max_tasks": Param(
+            type=["integer"],
+            default=DEFAULT_MAX_TASKS,
+            description="Maximum number of concurrent tasks",
+        ),
     },
     on_failure_callback=FailedDagNotifier(),
 )
@@ -178,7 +199,18 @@ def cds_rdm_harvest_dag():
             until = f"{until}T00:00:00"
 
         logger.info(f"Determining time ranges for harvest from {since} to {until}")
-        time_ranges = _get_time_ranges(since, until)
+        max_tasks = params.get("max_tasks", DEFAULT_MAX_TASKS)
+        time_ranges = _get_time_ranges(
+            since,
+            until,
+            max_results=params.get("max_results", DEFAULT_MAX_RESULTS),
+            min_minutes=params.get("min_minutes", DEFAULT_MIN_MINUTES),
+        )
+        if len(time_ranges) > max_tasks:
+            logger.warning(f"Too many time ranges generated: {len(time_ranges)}")
+            raise ValueError(
+                "Too many time ranges generated, please narrow the date range."
+            )
         logger.info(f"Will harvest {len(time_ranges)} time ranges: {time_ranges}")
         return [{"since": tr[0], "until": tr[1]} for tr in time_ranges]
 
