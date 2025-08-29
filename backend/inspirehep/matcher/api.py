@@ -256,8 +256,18 @@ def exact_match_literature_data(data):
     exact_match_workflow_matcher_config = current_app.config[
         "EXACT_LITERATURE_MATCH_CONFIG"
     ]
+    print("MATCHYMATCHY")
+    match_list = list(match(data, exact_match_workflow_matcher_config))
     matches = dedupe_list(match(data, exact_match_workflow_matcher_config))
+
     matched_record_ids = [match["_source"]["control_number"] for match in matches]
+    print(len(matches), matched_record_ids)
+    print(match_list[0] == match_list[1])
+    print("MATCHYMATCHY1")
+    print(match_list[0])
+    print("MATCHYMATCHY2")
+    print(match_list[1])
+    print("MATCHYMATCHY3")
     return matched_record_ids
 
 
