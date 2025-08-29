@@ -1,0 +1,193 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://repository.cern/api/records?q=updated%3A%5B2025-01-01T00%3A00%3A00+TO+2025-07-01T00%3A00%3A00%5D&page=1&size=1
+  response:
+    body:
+      string: '{"hits": {"hits": [{"id": "zaq3w-y8q07", "created": "2022-06-02T08:19:37+00:00",
+        "updated": "2025-05-15T15:15:37.934909+00:00", "links": {"self": "https://repository.cern/api/records/zaq3w-y8q07",
+        "self_html": "https://repository.cern/records/zaq3w-y8q07", "preview_html":
+        "https://repository.cern/records/zaq3w-y8q07?preview=1", "reserve_doi": "https://repository.cern/api/records/zaq3w-y8q07/draft/pids/doi",
+        "parent": "https://repository.cern/api/records/h4snk-s0406", "parent_html":
+        "https://repository.cern/records/h4snk-s0406", "self_iiif_manifest": "https://repository.cern/api/iiif/record:zaq3w-y8q07/manifest",
+        "self_iiif_sequence": "https://repository.cern/api/iiif/record:zaq3w-y8q07/sequence/default",
+        "files": "https://repository.cern/api/records/zaq3w-y8q07/files", "media_files":
+        "https://repository.cern/api/records/zaq3w-y8q07/media-files", "thumbnails":
+        {"10": "https://repository.cern/api/iiif/record:zaq3w-y8q07:Fulltext.pdf/full/%5E10,/0/default.jpg",
+        "50": "https://repository.cern/api/iiif/record:zaq3w-y8q07:Fulltext.pdf/full/%5E50,/0/default.jpg",
+        "100": "https://repository.cern/api/iiif/record:zaq3w-y8q07:Fulltext.pdf/full/%5E100,/0/default.jpg",
+        "250": "https://repository.cern/api/iiif/record:zaq3w-y8q07:Fulltext.pdf/full/%5E250,/0/default.jpg",
+        "750": "https://repository.cern/api/iiif/record:zaq3w-y8q07:Fulltext.pdf/full/%5E750,/0/default.jpg",
+        "1200": "https://repository.cern/api/iiif/record:zaq3w-y8q07:Fulltext.pdf/full/%5E1200,/0/default.jpg"},
+        "archive": "https://repository.cern/api/records/zaq3w-y8q07/files-archive",
+        "archive_media": "https://repository.cern/api/records/zaq3w-y8q07/media-files-archive",
+        "latest": "https://repository.cern/api/records/zaq3w-y8q07/versions/latest",
+        "latest_html": "https://repository.cern/records/zaq3w-y8q07/latest", "versions":
+        "https://repository.cern/api/records/zaq3w-y8q07/versions", "draft": "https://repository.cern/api/records/zaq3w-y8q07/draft",
+        "access_links": "https://repository.cern/api/records/zaq3w-y8q07/access/links",
+        "access_grants": "https://repository.cern/api/records/zaq3w-y8q07/access/grants",
+        "access_users": "https://repository.cern/api/records/zaq3w-y8q07/access/users",
+        "access_groups": "https://repository.cern/api/records/zaq3w-y8q07/access/groups",
+        "access_request": "https://repository.cern/api/records/zaq3w-y8q07/access/request",
+        "access": "https://repository.cern/api/records/zaq3w-y8q07/access", "communities":
+        "https://repository.cern/api/records/zaq3w-y8q07/communities", "communities-suggestions":
+        "https://repository.cern/api/records/zaq3w-y8q07/communities-suggestions",
+        "requests": "https://repository.cern/api/records/zaq3w-y8q07/requests"}, "revision_id":
+        7, "parent": {"id": "h4snk-s0406", "access": {"owned_by": {"user": "22762"},
+        "settings": {"allow_user_requests": false, "allow_guest_requests": false,
+        "accept_conditions_text": null, "secret_link_expiration": 0}}, "communities":
+        {"ids": ["ad8d4abd-9809-4dc3-b4bf-dd403c9d6a8d"], "default": "ad8d4abd-9809-4dc3-b4bf-dd403c9d6a8d",
+        "entries": [{"id": "ad8d4abd-9809-4dc3-b4bf-dd403c9d6a8d", "created": "2025-05-14T16:07:31.996800+00:00",
+        "updated": "2025-07-11T14:41:41.728373+00:00", "links": {}, "revision_id":
+        8, "slug": "cern-research", "metadata": {"title": "CERN Research"}, "access":
+        {"visibility": "public", "members_visibility": "public", "member_policy":
+        "open", "record_submission_policy": "open", "review_policy": "closed"}, "deletion_status":
+        {"is_deleted": false, "status": "P"}, "children": {"allow": false}}]}, "pids":
+        {}}, "versions": {"is_latest": true, "index": 2}, "is_published": true, "is_draft":
+        false, "pids": {"oai": {"identifier": "oai:oai:repository.cern::zaq3w-y8q07",
+        "provider": "oai"}}, "metadata": {"resource_type": {"id": "publication-thesis",
+        "title": {"de": "Abschlussarbeit", "en": "Thesis"}}, "creators": [{"person_or_org":
+        {"type": "personal", "name": "Ceruti, Gabriele", "given_name": "Gabriele",
+        "family_name": "Ceruti", "identifiers": [{"identifier": "2778709", "scheme":
+        "lcds"}]}, "affiliations": [{"name": "Milan Polytech"}]}], "title": "Preliminary
+        Mechanical Design of a Superconducting Magnet \"Canted-Cosine-Theta (CCT)\"
+        for a New Gantry for Hadron Therapy", "publication_date": "2022-06-02", "subjects":
+        [{"id": "Engineering", "subject": "Engineering", "scheme": "CERN"}, {"id":
+        "Accelerators and Storage Rings", "subject": "Accelerators and Storage Rings",
+        "scheme": "CERN"}], "contributors": [{"person_or_org": {"type": "personal",
+        "name": "Rossi, Lucio", "given_name": "Lucio", "family_name": "Rossi"}, "role":
+        {"id": "supervisor", "title": {"de": "SupervisorIn", "en": "Supervisor"}},
+        "affiliations": [{"name": "LASA Segrate"}]}, {"person_or_org": {"type": "personal",
+        "name": "Perini, Diego", "given_name": "Diego", "family_name": "Perini"},
+        "role": {"id": "supervisor", "title": {"de": "SupervisorIn", "en": "Supervisor"}},
+        "affiliations": [{"id": "01ggx4157", "name": "European Organization for Nuclear
+        Research", "identifiers": [{"identifier": "01ggx4157", "scheme": "ror"}]}]},
+        {"person_or_org": {"type": "personal", "name": "Giglio, Marco", "given_name":
+        "Marco", "family_name": "Giglio"}, "role": {"id": "supervisor", "title": {"de":
+        "SupervisorIn", "en": "Supervisor"}}, "affiliations": [{"name": "Milan Polytech"}]}],
+        "languages": [{"id": "eng", "title": {"en": "English"}}], "identifiers": [{"identifier":
+        "2808359", "scheme": "lcds"}, {"identifier": "CERN-THESIS-2022-036", "scheme":
+        "cds_ref"}], "description": "Hadron therapy is a medical treatment that uses
+        carbon ions and protons to cure cancer. Carbon ions are really promising for
+        radioresistant tumours, but their use is limited by the size and cost of the
+        necessary infrastructure. An essential element of the infrastructure is the
+        gantry, which significantly improves treatment effectiveness but can weigh
+        hundreds of tons and cost around 25% of the total cost of the facility. A
+        huge contribution to the weight of the gantry is due to the dipole magnets.
+        This thesis reports a complete preliminary mechanical design based on a new
+        superconducting magnet layout, which may drastically reduce the gantry''s
+        weight and cost: the Canted-Cosine-Theta (CCT). The thesis starts by explaining
+        why hadron therapy is more effective than traditional treatments, the European
+        collaborations providing the frame of this thesis activity, their scope and
+        why the CCT magnet can help make the gantry cheaper and lighter. The thesis
+        continues by showing the methods that permit an efficient generation of the
+        magnet''s geometry by CAD software.  The work continues exposing the first
+        mechanical design evaluated, how it was improved and the obtained results.
+        The thesis concludes by explaining how to machine and assemble the magnet
+        and its mechanical structure."}, "custom_fields": {"cern:departments": [{"id":
+        "EN", "title": {"en": "EN"}}], "cern:programmes": {"id": "CERN Short Term
+        Internship Program", "title": {"en": "CERN Short Term Internship Program"}},
+        "thesis:thesis": {"university": "Milan, Polytech.", "type": "master", "date_submitted":
+        "2022", "date_defended": "2022-04-28"}}, "access": {"record": "public", "files":
+        "public", "embargo": {"active": false, "reason": null}, "status": "open"},
+        "files": {"enabled": true, "order": [], "count": 2, "total_bytes": 49910607,
+        "entries": {"Fulltext.pdf": {"id": "3787bdb8-d480-4a01-acfa-e58f75ed2378",
+        "checksum": "md5:b08fd96e885162844343d229b8d76d69", "ext": "pdf", "size":
+        44540890, "mimetype": "application/pdf", "key": "Fulltext.pdf", "metadata":
+        {}, "access": {"hidden": false}}, "Executive summary.pdf": {"id": "72ba8047-7efd-42d5-aa88-a0b09fb52983",
+        "checksum": "md5:6031387d877cc2915691d5919ecba41c", "ext": "pdf", "size":
+        5369717, "mimetype": "application/pdf", "key": "Executive summary.pdf", "metadata":
+        {}, "access": {"hidden": false}}}}, "media_files": {"enabled": false, "order":
+        [], "count": 0, "total_bytes": 0, "entries": {}}, "status": "published", "deletion_status":
+        {"is_deleted": false, "status": "P"}, "stats": {"this_version": {"views":
+        1190, "unique_views": 745, "downloads": 289, "unique_downloads": 200, "data_volume":
+        2413614019.0}, "all_versions": {"views": 1190, "unique_views": 745, "downloads":
+        1879, "unique_downloads": 628, "data_volume": 73233629119.0}}}], "total":
+        3076}, "aggregations": {"access_status": {"buckets": [{"key": "open", "doc_count":
+        2893, "label": "Open", "is_selected": false}, {"key": "metadata-only", "doc_count":
+        95, "label": "Metadata-only", "is_selected": false}, {"key": "restricted",
+        "doc_count": 88, "label": "Restricted", "is_selected": false}], "label": "Access
+        status"}, "file_type": {"buckets": [{"key": "pdf", "doc_count": 2810, "label":
+        "PDF", "is_selected": false}, {"key": "docx", "doc_count": 64, "label": "DOCX",
+        "is_selected": false}, {"key": "gz", "doc_count": 12, "label": "GZ", "is_selected":
+        false}, {"key": "odt", "doc_count": 5, "label": "ODT", "is_selected": false},
+        {"key": "zip", "doc_count": 5, "label": "ZIP", "is_selected": false}, {"key":
+        "bin", "doc_count": 4, "label": "BIN", "is_selected": false}, {"key": "tex",
+        "doc_count": 4, "label": "TEX", "is_selected": false}, {"key": "pptx", "doc_count":
+        3, "label": "PPTX", "is_selected": false}, {"key": "png", "doc_count": 2,
+        "label": "PNG", "is_selected": false}, {"key": "doc", "doc_count": 1, "label":
+        "DOC", "is_selected": false}], "label": "File type"}, "resource_type": {"buckets":
+        [{"key": "publication", "doc_count": 3065, "label": "Publication", "is_selected":
+        false, "inner": {"buckets": [{"key": "publication-technicalnote", "doc_count":
+        2700, "label": "Technical note", "is_selected": false}, {"key": "publication-thesis",
+        "doc_count": 308, "label": "Thesis", "is_selected": false}, {"key": "publication-preprint",
+        "doc_count": 21, "label": "Preprint", "is_selected": false}, {"key": "publication-report",
+        "doc_count": 8, "label": "Report", "is_selected": false}, {"key": "publication-conferencepaper",
+        "doc_count": 7, "label": "Conference paper", "is_selected": false}, {"key":
+        "publication-article", "doc_count": 2, "label": "Journal article", "is_selected":
+        false}, {"key": "publication-conferenceproceeding", "doc_count": 2, "label":
+        "Conference proceeding", "is_selected": false}, {"key": "publication-workingpaper",
+        "doc_count": 1, "label": "Working paper", "is_selected": false}]}}, {"key":
+        "presentation", "doc_count": 6, "label": "Presentation", "is_selected": false,
+        "inner": {"buckets": []}}, {"key": "model", "doc_count": 4, "label": "Model",
+        "is_selected": false, "inner": {"buckets": []}}, {"key": "other", "doc_count":
+        1, "label": "Other", "is_selected": false, "inner": {"buckets": []}}], "label":
+        "Resource types"}}, "sortBy": "bestmatch", "links": {"self": "https://repository.cern/api/records?page=1&q=updated%3A%5B2025-01-01T00%3A00%3A00%20TO%202025-07-01T00%3A00%3A00%5D&size=1&sort=bestmatch",
+        "next": "https://repository.cern/api/records?page=2&q=updated%3A%5B2025-01-01T00%3A00%3A00%20TO%202025-07-01T00%3A00%3A00%5D&size=1&sort=bestmatch"}}'
+    headers:
+      access-control-allow-origin:
+      - '*'
+      access-control-expose-headers:
+      - Content-Type, ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
+      content-length:
+      - '10947'
+      content-security-policy:
+      - 'default-src ''self'' data: ''unsafe-inline'' blob: cdnjs.cloudflare.com webanalytics.web.cern.ch
+        test-matomo-wf.web.cern.ch'
+      content-type:
+      - application/json
+      date:
+      - Fri, 29 Aug 2025 16:14:17 GMT
+      permissions-policy:
+      - interest-cohort=()
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      retry-after:
+      - '59'
+      server:
+      - nginx
+      set-cookie:
+      - 382001b253b8c740614b8a7905e9bbd5=1690d2994eadba1d5a15a827e2db2c38; path=/;
+        HttpOnly; Secure; SameSite=None
+      strict-transport-security:
+      - max-age=31556926; includeSubDomains
+      transfer-encoding:
+      - chunked
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - sameorigin
+      x-ratelimit-limit:
+      - '133'
+      x-ratelimit-remaining:
+      - '131'
+      x-ratelimit-reset:
+      - '1756484117'
+      x-request-id:
+      - c275099bb99839862d64dc86124f9cde
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

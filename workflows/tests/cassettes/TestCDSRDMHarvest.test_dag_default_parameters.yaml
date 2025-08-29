@@ -1,0 +1,194 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://repository.cern/api/records?q=updated%3A%5B2025-07-01T00%3A00%3A00+TO+2025-07-02T00%3A00%3A00%5D&page=1&size=1
+  response:
+    body:
+      string: '{"hits": {"hits": [{"id": "q5qv7-mc268", "created": "2025-06-19T12:02:01.479746+00:00",
+        "updated": "2025-07-01T07:33:21.875854+00:00", "links": {"self": "https://repository.cern/api/records/q5qv7-mc268",
+        "self_html": "https://repository.cern/records/q5qv7-mc268", "preview_html":
+        "https://repository.cern/records/q5qv7-mc268?preview=1", "doi": "https://doi.org/10.17181/q5qv7-mc268",
+        "self_doi": "https://doi.org/10.17181/q5qv7-mc268", "self_doi_html": "https://repository.cern/doi/10.17181/q5qv7-mc268",
+        "reserve_doi": "https://repository.cern/api/records/q5qv7-mc268/draft/pids/doi",
+        "parent": "https://repository.cern/api/records/fsw28-b8s34", "parent_html":
+        "https://repository.cern/records/fsw28-b8s34", "parent_doi": "https://doi.org/10.17181/fsw28-b8s34",
+        "parent_doi_html": "https://repository.cern/doi/10.17181/fsw28-b8s34", "self_iiif_manifest":
+        "https://repository.cern/api/iiif/record:q5qv7-mc268/manifest", "self_iiif_sequence":
+        "https://repository.cern/api/iiif/record:q5qv7-mc268/sequence/default", "files":
+        "https://repository.cern/api/records/q5qv7-mc268/files", "media_files": "https://repository.cern/api/records/q5qv7-mc268/media-files",
+        "thumbnails": {"10": "https://repository.cern/api/iiif/record:q5qv7-mc268:Serafim_Catarina_PhD_Dissertation_CERN_UnivHelsinki.pdf/full/%5E10,/0/default.jpg",
+        "50": "https://repository.cern/api/iiif/record:q5qv7-mc268:Serafim_Catarina_PhD_Dissertation_CERN_UnivHelsinki.pdf/full/%5E50,/0/default.jpg",
+        "100": "https://repository.cern/api/iiif/record:q5qv7-mc268:Serafim_Catarina_PhD_Dissertation_CERN_UnivHelsinki.pdf/full/%5E100,/0/default.jpg",
+        "250": "https://repository.cern/api/iiif/record:q5qv7-mc268:Serafim_Catarina_PhD_Dissertation_CERN_UnivHelsinki.pdf/full/%5E250,/0/default.jpg",
+        "750": "https://repository.cern/api/iiif/record:q5qv7-mc268:Serafim_Catarina_PhD_Dissertation_CERN_UnivHelsinki.pdf/full/%5E750,/0/default.jpg",
+        "1200": "https://repository.cern/api/iiif/record:q5qv7-mc268:Serafim_Catarina_PhD_Dissertation_CERN_UnivHelsinki.pdf/full/%5E1200,/0/default.jpg"},
+        "archive": "https://repository.cern/api/records/q5qv7-mc268/files-archive",
+        "archive_media": "https://repository.cern/api/records/q5qv7-mc268/media-files-archive",
+        "latest": "https://repository.cern/api/records/q5qv7-mc268/versions/latest",
+        "latest_html": "https://repository.cern/records/q5qv7-mc268/latest", "versions":
+        "https://repository.cern/api/records/q5qv7-mc268/versions", "draft": "https://repository.cern/api/records/q5qv7-mc268/draft",
+        "access_links": "https://repository.cern/api/records/q5qv7-mc268/access/links",
+        "access_grants": "https://repository.cern/api/records/q5qv7-mc268/access/grants",
+        "access_users": "https://repository.cern/api/records/q5qv7-mc268/access/users",
+        "access_groups": "https://repository.cern/api/records/q5qv7-mc268/access/groups",
+        "access_request": "https://repository.cern/api/records/q5qv7-mc268/access/request",
+        "access": "https://repository.cern/api/records/q5qv7-mc268/access", "communities":
+        "https://repository.cern/api/records/q5qv7-mc268/communities", "communities-suggestions":
+        "https://repository.cern/api/records/q5qv7-mc268/communities-suggestions",
+        "requests": "https://repository.cern/api/records/q5qv7-mc268/requests"}, "revision_id":
+        11, "parent": {"id": "fsw28-b8s34", "access": {"owned_by": {"user": "17721"},
+        "settings": {"allow_user_requests": false, "allow_guest_requests": false,
+        "accept_conditions_text": null, "secret_link_expiration": 0}}, "communities":
+        {"ids": ["ad8d4abd-9809-4dc3-b4bf-dd403c9d6a8d"], "default": "ad8d4abd-9809-4dc3-b4bf-dd403c9d6a8d",
+        "entries": [{"id": "ad8d4abd-9809-4dc3-b4bf-dd403c9d6a8d", "created": "2025-05-14T16:07:31.996800+00:00",
+        "updated": "2025-07-11T14:41:41.728373+00:00", "links": {}, "revision_id":
+        8, "slug": "cern-research", "metadata": {"title": "CERN Research"}, "access":
+        {"visibility": "public", "members_visibility": "public", "member_policy":
+        "open", "record_submission_policy": "open", "review_policy": "closed"}, "deletion_status":
+        {"is_deleted": false, "status": "P"}, "children": {"allow": false}}]}, "pids":
+        {"doi": {"identifier": "10.17181/fsw28-b8s34", "provider": "datacite", "client":
+        "datacite"}}}, "versions": {"is_latest": true, "index": 1}, "is_published":
+        true, "is_draft": false, "pids": {"doi": {"identifier": "10.17181/q5qv7-mc268",
+        "provider": "datacite", "client": "datacite"}, "oai": {"identifier": "oai:oai:repository.cern::q5qv7-mc268",
+        "provider": "oai"}}, "metadata": {"resource_type": {"id": "publication-thesis",
+        "title": {"de": "Abschlussarbeit", "en": "Thesis"}}, "creators": [{"person_or_org":
+        {"type": "personal", "name": "Palma Serafim, Catarina Filipa", "given_name":
+        "Catarina Filipa", "family_name": "Palma Serafim"}, "affiliations": [{"id":
+        "040af2s02", "name": "University of Helsinki", "identifiers": [{"identifier":
+        "040af2s02", "scheme": "ror"}]}]}], "title": "Behavior of Metal Surfaces Exposed
+        to High-Fluence Hydrogen Ion Irradiation in Vacuum Breakdown Conditions",
+        "publisher": "University of Helsinki", "publication_date": "2025-05-31", "subjects":
+        [{"id": "Engineering", "subject": "Engineering", "scheme": "CERN"}], "contributors":
+        [{"person_or_org": {"type": "personal", "name": "Djurabekova, Flyura", "given_name":
+        "Flyura", "family_name": "Djurabekova"}, "role": {"id": "supervisor", "title":
+        {"de": "SupervisorIn", "en": "Supervisor"}}, "affiliations": [{"id": "040af2s02",
+        "name": "University of Helsinki", "identifiers": [{"identifier": "040af2s02",
+        "scheme": "ror"}]}]}, {"person_or_org": {"type": "personal", "name": "Calatroni,
+        Sergio", "given_name": "Sergio", "family_name": "Calatroni"}, "role": {"id":
+        "supervisor", "title": {"de": "SupervisorIn", "en": "Supervisor"}}, "affiliations":
+        [{"id": "01ggx4157", "name": "European Organization for Nuclear Research",
+        "identifiers": [{"identifier": "01ggx4157", "scheme": "ror"}]}]}], "languages":
+        [{"id": "eng", "title": {"en": "English"}}], "identifiers": [{"identifier":
+        "2954-2952", "scheme": "issn"}, {"identifier": "http://hdl.handle.net/10138/595645",
+        "scheme": "url"}, {"identifier": "978-952-84-0916-8", "scheme": "isbn"}, {"identifier":
+        "978-952-84-0915-1", "scheme": "isbn"}], "description": "<p>Radio Frequency
+        Quadrupoles (RFQs) operating in linear accelerators often face&nbsp;significant
+        challenges in terms of surface degradation. Concerns are focused upon&nbsp;vacuum
+        arcs or vacuum breakdowns, phenomena triggered by the exposure of the&nbsp;surfaces
+        to high accelerating fields. Additionally, surface degradation in the form&nbsp;of
+        blistering, caused by beam losses under hydrogen ion beam operation, exposes&nbsp;also
+        a concern, not only because it can affect accelerator operation by itself,
+        but&nbsp;because it has not yet been clarified if the increase of roughness
+        due to blisters&nbsp;could induce an increase of breakdown rate.&nbsp;The
+        work developed in this thesis, aims to address these phenomena by exploring
+        what are the implications in terms of breakdown resistance when a material&nbsp;went
+        through hydrogen ions irradiation. All the tests were sequentially done in&nbsp;different
+        metals, in order to assess better alternative material candidates for future
+        RFQ manufacturing, guaranteeing higher efficiency and durability. In this&nbsp;sense,
+        seven materials were selected for the experiments: pure oxygen free copper,
+        copper chromium zirconium, copper beryllium, stainless steel, titanium alloy,&nbsp;niobium
+        and tantalum. Materials were selected based either on their higher mechanical
+        strength compared to copper, or on their higher hydrogen diffusivity,&nbsp;in
+        both cases aiming at reducing the surface blistering phenomenon. Irradiation&nbsp;was
+        performed using low energy H&minus; beam, while a DC pulsed high voltage experimental
+        system was used to study the high-voltage conditioning process and&nbsp;electrical
+        breakdown statistics. Metallurgical properties of the materials were&nbsp;investigated
+        using advanced microscopic techniques to observe and characterize the different
+        surfaces and to compare results before and after irradiation and&nbsp;breakdown
+        testing.&nbsp;The author has identified the materials with the higher electric
+        field handling&nbsp;capabilities and robustness to low-energy irradiation.
+        Also, additional studies&nbsp;were specifically conducted in irradiated copper
+        samples, where blistering growth&nbsp;has been identified to be dependent
+        on crystal orientations. Furthermore, and&nbsp;contrarily to what it was anticipated,
+        it has been concluded that blistering caused&nbsp;by irradiation have no detrimental
+        effects in conditioning procedures. However,&nbsp;carbon contamination due
+        to hydrocarbon cracking during the irradiation process,&nbsp;has been identified
+        as a main concern for accelerating structures, with results&nbsp;showing a
+        direct consequence on lower electric field performance with the presence of
+        carbon.&nbsp;Taking in consideration the latest finding, studies involving
+        oxygen plasma treatment, in order to remove carbon from contaminated surfaces,
+        were conducted in&nbsp;CuBe2, Cu-OFE and SS316LN. Treated materials were tested
+        with high pulsing voltages and results compared with non-irradiated electrodes
+        and irradiated&nbsp;without treatment. The study has identified plasma treatment,
+        as a successful method to remove carbon from metal surfaces, allowing irradiated
+        materials&nbsp;to achieve performances comparable with the electric field
+        strength of pristine&nbsp;surfaces.</p>"}, "custom_fields": {"cern:programmes":
+        {"id": "CERN Doctoral Student Program", "title": {"en": "CERN Doctoral Student
+        Program"}}, "thesis:thesis": {"university": "University of Helsinki", "type":
+        "PhD", "date_defended": "2025-05-31"}}, "access": {"record": "public", "files":
+        "public", "embargo": {"active": false, "reason": null}, "status": "open"},
+        "files": {"enabled": true, "default_preview": "Serafim_Catarina_PhD_Dissertation_CERN_UnivHelsinki.pdf",
+        "order": [], "count": 1, "total_bytes": 109551997, "entries": {"Serafim_Catarina_PhD_Dissertation_CERN_UnivHelsinki.pdf":
+        {"id": "5a003297-a884-4934-a95c-bc343362f885", "checksum": "md5:fcdb823951bddb84ba0017c10b5b85d8",
+        "ext": "pdf", "size": 109551997, "mimetype": "application/pdf", "key": "Serafim_Catarina_PhD_Dissertation_CERN_UnivHelsinki.pdf",
+        "metadata": {"width": 499, "height": 709}, "access": {"hidden": false}}}},
+        "media_files": {"enabled": false, "order": [], "count": 0, "total_bytes":
+        0, "entries": {}}, "status": "published", "deletion_status": {"is_deleted":
+        false, "status": "P"}, "stats": {"this_version": {"views": 38, "unique_views":
+        30, "downloads": 39, "unique_downloads": 29, "data_volume": 4272527883.0},
+        "all_versions": {"views": 38, "unique_views": 30, "downloads": 39, "unique_downloads":
+        29, "data_volume": 4272527883.0}}}], "total": 1}, "aggregations": {"access_status":
+        {"buckets": [{"key": "open", "doc_count": 1, "label": "Open", "is_selected":
+        false}], "label": "Access status"}, "file_type": {"buckets": [{"key": "pdf",
+        "doc_count": 1, "label": "PDF", "is_selected": false}], "label": "File type"},
+        "resource_type": {"buckets": [{"key": "publication", "doc_count": 1, "label":
+        "Publication", "is_selected": false, "inner": {"buckets": [{"key": "publication-thesis",
+        "doc_count": 1, "label": "Thesis", "is_selected": false}]}}], "label": "Resource
+        types"}}, "sortBy": "bestmatch", "links": {"self": "https://repository.cern/api/records?page=1&q=updated%3A%5B2025-07-01T00%3A00%3A00%20TO%202025-07-02T00%3A00%3A00%5D&size=1&sort=bestmatch"}}'
+    headers:
+      access-control-allow-origin:
+      - '*'
+      access-control-expose-headers:
+      - Content-Type, ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
+      content-length:
+      - '11466'
+      content-security-policy:
+      - 'default-src ''self'' data: ''unsafe-inline'' blob: cdnjs.cloudflare.com webanalytics.web.cern.ch
+        test-matomo-wf.web.cern.ch'
+      content-type:
+      - application/json
+      date:
+      - Fri, 29 Aug 2025 16:14:24 GMT
+      permissions-policy:
+      - interest-cohort=()
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      retry-after:
+      - '52'
+      server:
+      - nginx
+      set-cookie:
+      - 382001b253b8c740614b8a7905e9bbd5=63566de04580d24a58bb4055d72ec1d1; path=/;
+        HttpOnly; Secure; SameSite=None
+      strict-transport-security:
+      - max-age=31556926; includeSubDomains
+      transfer-encoding:
+      - chunked
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - sameorigin
+      x-ratelimit-limit:
+      - '133'
+      x-ratelimit-remaining:
+      - '56'
+      x-ratelimit-reset:
+      - '1756484117'
+      x-request-id:
+      - 9c423f6b44bb30cb4737c5575be8e4d9
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1
