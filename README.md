@@ -408,9 +408,4 @@ $ docker compose exec hep-web inspirehep importer demo-records
 Bumping airflow is generally easy.
 - workflows/Dockerfile.local - update the airflow version (e.g. 3.0.3 -> 3.0.5)
 - workflows/Dockerfile - update the airflow version (e.g. 3.0.3 -> 3.0.5)
-- requirements.txt - update the airflow version (e.g. 3.0.3 -> 3.0.5)
-- workflows/constraints.txt - must be regenerated (because our sentry deployment is very old):
-  - fetch https://raw.githubusercontent.com/apache/airflow/constraints-3.x.x/constraints-3.11.txt
-  - replace the contents of constraints.txt with it.
-  - remove `fastapi-cloud-cli` dependency
-  - downgrade the `sentry-sdk` constraint to `1.19.1`
+- requirements.txt - update the airflow version (e.g. 3.0.3 -> 3.0.5) and the constraints
