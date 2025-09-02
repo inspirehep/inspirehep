@@ -320,6 +320,8 @@ exports[`ArticleForm renders all props 1`] = `
                         data-test-id="language"
                         data-test-type="single-select"
                         data-testid="select-box"
+                        form="[object Object]"
+                        name="language"
                         placement="bottomLeft"
                       >
                         <div
@@ -411,6 +413,8 @@ exports[`ArticleForm renders all props 1`] = `
                         data-test-id="subjects"
                         data-test-type="multiple-select"
                         data-testid="select-box"
+                        form="[object Object]"
+                        name="subjects"
                         placement="bottomLeft"
                       >
                         <div

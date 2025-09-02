@@ -44,6 +44,8 @@ exports[`ExperimentForm renders 1`] = `
                     data-test-id="project_type"
                     data-test-type="multiple-select"
                     data-testid="select-box"
+                    form="[object Object]"
+                    name="project_type"
                     placement="bottomLeft"
                   >
                     <div
