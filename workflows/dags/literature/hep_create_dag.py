@@ -14,8 +14,11 @@ from hooks.backoffice.workflow_management_hook import (
     RUNNING_STATUSES,
     WorkflowManagementHook,
 )
+from hooks.generic_http_hook import GenericHttpHook
+from include.inspire.guess_coreness import calculate_coreness
 from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.s3 import read_object, write_object
+from inspire_utils.record import get_value
 from literature.exact_match_tasks import (
     await_decision_exact_match,
     check_decision_exact_match,
@@ -46,16 +49,10 @@ bucket_name = Variable.get("s3_bucket_name")
 )
 def hep_create_dag():
     """
-    Initialize a DAG for author create workflow.
-
-    Tasks:
-    1. create_ticket_on_author_create: Creates a ticket using the InspireHttpHook
-        to call the API endpoint.
-    2. set_author_create_workflow_status_to_approval: Sets the workflow status
-        to "approval" using the WorkflowManagementHook.
-
+    Initialize a DAG for hep create workflow.
     """
 
+    classifier_http_hook = GenericHttpHook(http_conn_id="classifier_connection")
     workflow_management_hook = WorkflowManagementHook(HEP)
 
     @task
@@ -102,8 +99,28 @@ def hep_create_dag():
 
     @task_group
     def preprocessing():
-        pre1 = EmptyOperator(task_id="pre1")
-        return [pre1]
+        @task
+        def guess_coreness(**context):
+            workflow_data = read_object(
+                s3_hook, bucket_name, context["params"]["workflow_id"]
+            )
+            payload = {
+                "title": get_value(workflow_data, "titles.title[0]", ""),
+                "abstract": get_value(workflow_data, "abstracts.value[0]", ""),
+            }
+
+            response = classifier_http_hook.call_api(
+                endpoint="/api/predict/coreness",
+                method="POST",
+                data=payload,
+            )
+
+            results = response.json()
+
+            return calculate_coreness(results)
+
+        guess_coreness()
+        # after implementing all the enhancements, write the result to the s3 only once
 
     dummy_set_update_flag = EmptyOperator(task_id="dummy_set_update_flag")
     dummy_get_fuzzy_matches = EmptyOperator(task_id="dummy_get_fuzzy_matches")
