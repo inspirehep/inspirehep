@@ -1,0 +1,36 @@
+interactions:
+- request:
+    body: '{"data": {"arxiv_eprints": [{"value": "1801.07224"}]}}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '54'
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8080/api/matcher/exact-match
+  response:
+    body:
+      string: '{"matched_ids":[1649231]}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '26'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 01 Sep 2025 15:38:59 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+version: 1
