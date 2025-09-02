@@ -1,10 +1,12 @@
 import datetime
 import logging
-import random
 
-from airflow.decorators import dag, task
+from airflow.decorators import dag, task_group
 from airflow.models.param import Param
+from airflow.operators.empty import EmptyOperator
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+from airflow.sdk import task
+from airflow.utils.edgemodifier import Label
 from airflow.utils.trigger_rule import TriggerRule
 from hooks.backoffice.workflow_management_hook import (
     HEP,
@@ -13,7 +15,17 @@ from hooks.backoffice.workflow_management_hook import (
 )
 from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.s3 import read_object, write_object
-from include.utils.workflows import get_decision
+from literature.exact_match_tasks import (
+    await_decision_exact_match,
+    check_decision_exact_match,
+    check_for_exact_matches,
+    get_exact_matches,
+)
+from literature.set_workflow_status_tasks import (
+    set_workflow_status_to_completed,
+    set_workflow_status_to_matching,
+    set_workflow_status_to_running,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -53,17 +65,6 @@ def hep_create_dag():
             s3_hook, workflow_data, context["params"]["workflow_id"], overwrite=True
         )
 
-    @task
-    def set_workflow_status_to_running(
-        **context,
-    ):
-        """
-        Set the status of the workflow to the given status name.
-        """
-        workflow_management_hook.set_workflow_status(
-            status_name="running", workflow_id=context["params"]["workflow_id"]
-        )
-
     @task.short_circuit(ignore_downstream_trigger_rules=False)
     def check_for_blocking_workflows(**context):
         workflow_data = read_object(s3_hook, context["params"]["workflow_id"])
@@ -83,92 +84,81 @@ def hep_create_dag():
         )
         return False
 
-    @task.branch
-    def check_persistent_identifier_match(**context):
-        # to be replaced with actual matching logic
-        is_persisten_identifier_match = random.choice([True, False])
-
-        if is_persisten_identifier_match:
-            return "direct_update"
-
-        return "await_decision_exact_match"
-
-    @task
-    def set_workflow_status_to_matching(**context):
-        workflow_management_hook.set_workflow_status(
-            status_name="matching", workflow_id=context["params"]["workflow_id"]
-        )
-
-    @task.branch
-    def await_decision_exact_match(**context):
-        workflow_data = workflow_management_hook.get_workflow(
-            context["params"]["workflow_id"]
-        )
-
-        decision = get_decision(workflow_data.get("decisions"), "exact_match")
-        if decision:
-            write_object(
-                s3_hook, workflow_data, context["params"]["workflow_id"], overwrite=True
-            )
-            return "set_workflow_status_to_running"
-
-        return "set_workflow_status_to_matching"
-
-    @task.branch
-    def check_is_update(**context):
-        """
-        Check if the workflow is an update or create.
-        """
-
-        workflow_data = read_object(s3_hook, context["params"]["workflow_id"])
-        # update the update logic
-        decision = get_decision(workflow_data.get("decisions"), "exact_match")
-        if decision and decision.get("value"):
-            return "direct_update"
-        return "direct_create"
+    @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+    def set_update_flag(**context):
+        return True
 
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
-    def direct_update(**context):
-        print("direct update")
+    def get_fuzzy_matches(**context):
+        return True
 
-    @task
-    def direct_create(**context):
-        print("direct create")
+    @task_group
+    def preprocessing():
+        pre1 = EmptyOperator(task_id="pre1")
+        return [pre1]
 
-    @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
-    def set_workflow_status_to_completed(**context):
-        """
-        Set the status of the workflow to "completed".
-        """
-        workflow_management_hook.set_workflow_status(
-            status_name="completed", workflow_id=context["params"]["workflow_id"]
-        )
+    dummy_set_update_flag = EmptyOperator(task_id="dummy_set_update_flag")
+    dummy_get_fuzzy_matches = EmptyOperator(task_id="dummy_get_fuzzy_matches")
 
-    await_decision_exact_match_task = await_decision_exact_match()
-    direct_update_task = direct_update()
-    direct_create_task = direct_create()
+    check_for_blocking_workflows_task = check_for_blocking_workflows()
+
+    preprocessing_group = preprocessing()
+    set_workflow_status_to_completed_task = set_workflow_status_to_completed()
+
+    set_update_flag_task = set_update_flag()
+    get_fuzzy_matches_task = get_fuzzy_matches()
+
+    # Exact matching
     set_workflow_status_to_matching_task = set_workflow_status_to_matching()
+    await_decision_exact_match_task = await_decision_exact_match()
+    exact_matches = get_exact_matches()
     set_workflow_status_to_running_task = set_workflow_status_to_running()
-
-    (
-        get_workflow_data()
-        >> set_workflow_status_to_running()
-        >> check_for_blocking_workflows()
-        >> check_persistent_identifier_match()
-        >> [direct_update_task, await_decision_exact_match_task]
-    )
+    check_decision_exact_match_task = check_decision_exact_match()
+    check_for_exact_matches_task = check_for_exact_matches(exact_matches)
 
     await_decision_exact_match_task >> [
         set_workflow_status_to_running_task,
         set_workflow_status_to_matching_task,
     ]
 
+    set_workflow_status_to_running_task >> check_decision_exact_match_task
+
     (
-        set_workflow_status_to_running_task
-        >> check_is_update()
-        >> [direct_update_task, direct_create_task]
-        >> set_workflow_status_to_completed()
+        exact_matches
+        >> check_for_exact_matches_task
+        >> [
+            await_decision_exact_match_task,
+            dummy_set_update_flag,
+            dummy_get_fuzzy_matches,
+        ]
     )
+    dummy_set_update_flag >> Label("1 Exact Matches") >> set_update_flag_task
+    dummy_get_fuzzy_matches >> Label("No Exact Matches") >> get_fuzzy_matches_task
+
+    (
+        check_for_exact_matches_task
+        >> Label("Multiple Exact Matches")
+        >> await_decision_exact_match_task
+    )
+
+    # Fuzzy matching
+
+    (
+        get_workflow_data()
+        >> set_workflow_status_to_running()
+        >> check_for_blocking_workflows_task
+        >> exact_matches
+    )
+
+    set_update_flag_task >> preprocessing_group >> set_workflow_status_to_completed_task
+
+    check_decision_exact_match_task.set_downstream(
+        get_fuzzy_matches_task, edge_modifier=Label("No match picked")
+    )
+    check_decision_exact_match_task.set_downstream(
+        set_update_flag_task, edge_modifier=Label("Match chosen")
+    )
+    get_fuzzy_matches_task >> set_workflow_status_to_completed_task
 
 
 hep_create_dag()

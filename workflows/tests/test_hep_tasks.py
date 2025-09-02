@@ -74,13 +74,36 @@ class Test_HEPCreateDAG:
 
         assert result == "set_workflow_status_to_running"
 
-    def test_check_is_update(self):
+    def test_check_decision_exact_match(self):
         write_object(
             s3_hook,
             {"decisions": [{"action": "exact_match", "value": True}]},
             self.context["params"]["workflow_id"],
             overwrite=True,
         )
-        task = self.dag.get_task("check_is_update")
+        task = self.dag.get_task("check_decision_exact_match")
         result = task.python_callable(params=self.context["params"])
-        assert result == "direct_update"
+        assert result == "set_update_flag"
+
+    @pytest.mark.vcr
+    def test_get_exact_matches(self):
+        write_object(
+            s3_hook,
+            {"data": {"arxiv_eprints": [{"value": "1801.07224"}]}},
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+        task = self.dag.get_task("get_exact_matches")
+        result = task.python_callable(params=self.context["params"])
+        assert 1649231 in result
+
+    def test_check_for_exact_matches(self):
+        task = self.dag.get_task("check_for_exact_matches")
+        result = task.python_callable(params=self.context["params"], matches=[])
+        assert result == "dummy_get_fuzzy_matches"
+
+        result = task.python_callable(params=self.context["params"], matches=[1])
+        assert result == "dummy_set_update_flag"
+
+        result = task.python_callable(params=self.context["params"], matches=[1, 2])
+        assert result == "await_decision_exact_match"
