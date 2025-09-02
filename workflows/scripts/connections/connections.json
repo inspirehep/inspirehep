@@ -69,7 +69,7 @@
     "schema": "",
     "extra": ""
   },
-    "arxiv_oaipmh_connection": {
+  "arxiv_oaipmh_connection": {
     "conn_type": "http",
     "description": "Used for arxiv harvestin",
     "login": "",
@@ -79,7 +79,7 @@
     "schema": "",
     "extra": ""
   },
-    "s3_conn": {
+  "s3_conn": {
     "conn_type": "aws",
     "description": "Used for arxiv harvesting temporary storage",
     "login": "airflow",
@@ -88,5 +88,15 @@
     "port": 9000,
     "schema": "",
     "extra": {"endpoint_url":"http://s3:9000"}
+  },
+  "classifier_connection": {
+    "conn_type": "http",
+    "description": "",
+    "login": "",
+    "password": null,
+    "host": "http://classifier:5000",
+    "port": null,
+    "schema": "",
+    "extra": ""
   }
 }
