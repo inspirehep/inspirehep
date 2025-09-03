@@ -1,6 +1,7 @@
 import logging
 
 from airflow.decorators import task
+from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from hooks.backoffice.workflow_management_hook import (
     HEP,
@@ -12,14 +13,16 @@ from include.utils.workflows import get_decision
 
 logger = logging.getLogger(__name__)
 
+
 inspire_http_hook = InspireHttpHook()
 workflow_management_hook = WorkflowManagementHook(HEP)
 s3_hook = S3Hook(aws_conn_id="s3_conn")
+bucket_name = Variable.get("s3_bucket_name")
 
 
 @task
 def get_exact_matches(**context):
-    workflow_data = read_object(s3_hook, context["params"]["workflow_id"])
+    workflow_data = read_object(s3_hook, bucket_name, context["params"]["workflow_id"])
 
     response = inspire_http_hook.call_api(
         endpoint="api/matcher/exact-match",
@@ -52,6 +55,7 @@ def await_decision_exact_match(**context):
         write_object(
             s3_hook,
             workflow_data,
+            bucket_name,
             context["params"]["workflow_id"],
             overwrite=True,
         )
@@ -66,7 +70,7 @@ def check_decision_exact_match(**context):
     Check if the workflow is an update or create.
     """
 
-    workflow_data = read_object(s3_hook, context["params"]["workflow_id"])
+    workflow_data = read_object(s3_hook, bucket_name, context["params"]["workflow_id"])
     # update the update logic
     decision = get_decision(workflow_data.get("decisions"), "exact_match")
     if decision and decision.get("value"):
