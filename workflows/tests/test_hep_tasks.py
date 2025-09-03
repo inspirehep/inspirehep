@@ -1,11 +1,13 @@
 import pytest
 from airflow.models import DagBag
+from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from include.utils.s3 import write_object
 
 dagbag = DagBag()
 
 s3_hook = S3Hook(aws_conn_id="s3_conn")
+bucket_name = Variable.get("s3_bucket_name")
 
 
 class Test_HEPCreateDAG:
@@ -38,6 +40,7 @@ class Test_HEPCreateDAG:
                     ]
                 }
             },
+            bucket_name,
             self.context["params"]["workflow_id"],
             overwrite=True,
         )
@@ -60,6 +63,7 @@ class Test_HEPCreateDAG:
                     ]
                 }
             },
+            bucket_name,
             self.context["params"]["workflow_id"],
             overwrite=True,
         )
@@ -78,6 +82,7 @@ class Test_HEPCreateDAG:
         write_object(
             s3_hook,
             {"decisions": [{"action": "exact_match", "value": True}]},
+            bucket_name,
             self.context["params"]["workflow_id"],
             overwrite=True,
         )
@@ -90,6 +95,7 @@ class Test_HEPCreateDAG:
         write_object(
             s3_hook,
             {"data": {"arxiv_eprints": [{"value": "1801.07224"}]}},
+            bucket_name,
             self.context["params"]["workflow_id"],
             overwrite=True,
         )

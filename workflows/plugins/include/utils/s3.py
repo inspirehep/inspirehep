@@ -16,12 +16,12 @@ def get_s3_client(s3_creds=None):
     return s3_resource
 
 
-def read_object(s3_hook, key, bucket_name="data-store"):
+def read_object(s3_hook, bucket_name, key):
     """Read an object from S3.
     Args:
         s3_hook (S3Hook or boto3.client): The S3 hook or client to use.
+        bucket_name (str): The name of the bucket.
         key (str): The key of the object to read.
-        bucket_name (str): The name of the bucket. Defaults to "data-store".
     Returns:
         dict: The content of the object as a dictionary.
     """
@@ -34,13 +34,13 @@ def read_object(s3_hook, key, bucket_name="data-store"):
     return json.loads(content["Body"].read().decode("utf-8"))
 
 
-def write_object(s3_hook, data, key=None, bucket_name="data-store", overwrite=False):
+def write_object(s3_hook, data, bucket_name, key=None, overwrite=False):
     """Write an object to S3.
     Args:
         s3_hook (S3Hook or boto3.client): The S3 hook or client to use.
         data (dict): The data to write.
+        bucket_name (str): The name of the bucket.
         key (str, optional): The key for the object. Defaults to random UUID.
-        bucket_name (str): The name of the bucket. Defaults to "data-store".
     Returns:
         str: The key of the written object.
     """

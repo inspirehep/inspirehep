@@ -3,6 +3,7 @@ import logging
 
 from airflow.decorators import dag, task_group
 from airflow.models.param import Param
+from airflow.models.variable import Variable
 from airflow.operators.empty import EmptyOperator
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.sdk import task
@@ -28,8 +29,9 @@ from literature.set_workflow_status_tasks import (
 )
 
 logger = logging.getLogger(__name__)
-
 s3_hook = S3Hook(aws_conn_id="s3_conn")
+
+bucket_name = Variable.get("s3_bucket_name")
 
 
 @dag(
@@ -62,12 +64,18 @@ def hep_create_dag():
             context["params"]["workflow_id"]
         )
         return write_object(
-            s3_hook, workflow_data, context["params"]["workflow_id"], overwrite=True
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            context["params"]["workflow_id"],
+            overwrite=True,
         )
 
     @task.short_circuit(ignore_downstream_trigger_rules=False)
     def check_for_blocking_workflows(**context):
-        workflow_data = read_object(s3_hook, context["params"]["workflow_id"])
+        workflow_data = read_object(
+            s3_hook, bucket_name, context["params"]["workflow_id"]
+        )
         filter_params = {
             "status__in": {"__".join(RUNNING_STATUSES)},
             "data.arxiv_eprints.value": {
