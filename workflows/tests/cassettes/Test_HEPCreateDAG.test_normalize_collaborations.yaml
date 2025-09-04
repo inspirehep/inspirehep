@@ -1,0 +1,36 @@
+interactions:
+- request:
+    body: '{"collaborations": [{"value": "ETM"}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '38'
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8080/api/curation/literature/collaborations-normalization
+  response:
+    body:
+      string: '{"accelerator_experiments":[{"record":{"$ref":"http://localhost:8000/api/experiments/1513946"},"legacy_name":"LATTICE-ETM"}],"normalized_collaborations":[{"value":"ETM","record":{"$ref":"http://localhost:8000/api/experiments/1513946"}}]}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '238'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 04 Sep 2025 14:22:34 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+version: 1
