@@ -12,6 +12,7 @@ describe('Footer', () => {
   it('renders when not cataloger', () => {
     const { queryByRole } = render(<Footer isCatalogerLoggedIn={false} />);
     expect(queryByRole('link', { name: 'Holdingpen' })).not.toBeInTheDocument();
+    expect(queryByRole('link', { name: 'Backoffice' })).not.toBeInTheDocument();
     expect(
       queryByRole('link', { name: 'Author list' })
     ).not.toBeInTheDocument();

@@ -21,7 +21,7 @@ import {
   INSPIRE_BLUESKY_ACCOUNT,
 } from '../../constants';
 import LinkWithTargetBlank from '../../components/LinkWithTargetBlank';
-import { BIBLIOGRAPHY_GENERATOR } from '../../routes';
+import { BACKOFFICE, BIBLIOGRAPHY_GENERATOR } from '../../routes';
 
 interface Column {
   title: string;
@@ -91,13 +91,19 @@ const COLUMNS = [
         openExternal: true,
       },
       {
+        title: 'Backoffice',
+        onlyCatalogers: true,
+        url: BACKOFFICE,
+        openExternal: true,
+      },
+      {
         title: 'Author list',
         onlyCatalogers: true,
         url: AUTHORLIST_TOOL_URL,
         openExternal: true,
       },
       {
-        title: <span>Bibliography generator</span>,
+        title: 'Bibliography generator',
         url: BIBLIOGRAPHY_GENERATOR,
         openExternal: false,
       },
