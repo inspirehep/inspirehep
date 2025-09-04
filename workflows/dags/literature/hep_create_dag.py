@@ -15,9 +15,11 @@ from hooks.backoffice.workflow_management_hook import (
     WorkflowManagementHook,
 )
 from hooks.generic_http_hook import GenericHttpHook
+from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from include.inspire.guess_coreness import calculate_coreness
 from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.s3 import read_object, write_object
+from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
 from literature.exact_match_tasks import (
     await_decision_exact_match,
@@ -53,6 +55,7 @@ def hep_create_dag():
     """
 
     classifier_http_hook = GenericHttpHook(http_conn_id="classifier_connection")
+    inspire_http_hook = InspireHttpHook()
     workflow_management_hook = WorkflowManagementHook(HEP)
 
     @task
@@ -119,7 +122,41 @@ def hep_create_dag():
 
             return calculate_coreness(results)
 
-        guess_coreness()
+        @task
+        def normalize_collaborations(**context):
+            workflow_data = read_object(
+                s3_hook, bucket_name, context["params"]["workflow_id"]
+            )
+
+            collaborations = get_value(workflow_data, "collaborations", [])
+
+            if not collaborations:
+                return
+
+            response = inspire_http_hook.call_api(
+                endpoint="api/curation/literature/collaborations-normalization",
+                method="GET",
+                data={"collaborations": collaborations},
+            )
+            response.raise_for_status()
+            obj_accelerator_experiments = workflow_data.get(
+                "accelerator_experiments", []
+            )
+            json_response = response.json()
+
+            normalized_accelerator_experiments = json_response[
+                "accelerator_experiments"
+            ]
+
+            if normalized_accelerator_experiments or obj_accelerator_experiments:
+                accelerator_experiments = dedupe_list(
+                    obj_accelerator_experiments + normalized_accelerator_experiments
+                )
+                normalized_collaborations = json_response["normalized_collaborations"]
+
+                return accelerator_experiments, normalized_collaborations
+
+        guess_coreness() >> normalize_collaborations()
         # after implementing all the enhancements, write the result to the s3 only once
 
     dummy_set_update_flag = EmptyOperator(task_id="dummy_set_update_flag")

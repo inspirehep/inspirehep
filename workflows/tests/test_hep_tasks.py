@@ -113,3 +113,26 @@ class Test_HEPCreateDAG:
 
         result = task.python_callable(params=self.context["params"], matches=[1, 2])
         assert result == "await_decision_exact_match"
+
+    @pytest.mark.vcr
+    def test_normalize_collaborations(self):
+        task = self.dag.get_task("preprocessing.normalize_collaborations")
+        workflow_data = {
+            "collaborations": [{"value": "ETM"}],
+            "acquisition_source": {"submission_number": "123"},
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+
+        accelerator_experiments, collaborations = task.python_callable(
+            params=self.context["params"]
+        )
+
+        assert "record" in accelerator_experiments[0]
+        assert accelerator_experiments[0]["legacy_name"] == "LATTICE-ETM"
+        assert collaborations[0]["value"] == "ETM"
