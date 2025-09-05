@@ -508,6 +508,7 @@ def hep_curation_collection_aggregation(
             "should": [
                 {"match": {"primary_arxiv_category": "gr-qc"}},
                 {"match": {"primary_arxiv_category": "hep-lat"}},
+                {"match": {"languages": "zh"}},
             ],
             "must_not": [
                 {
