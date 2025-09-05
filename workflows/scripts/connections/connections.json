@@ -79,6 +79,16 @@
     "schema": "",
     "extra": ""
   },
+  "arxiv_connection": {
+    "conn_type": "http",
+    "description": "Used for arxiv harvestin",
+    "login": "",
+    "password": null,
+    "host": "https://arxiv.org",
+    "port": null,
+    "schema": "",
+    "extra": ""
+  },
   "s3_conn": {
     "conn_type": "aws",
     "description": "Used for arxiv harvesting temporary storage",
