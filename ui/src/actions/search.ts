@@ -186,6 +186,7 @@ export function searchQueryUpdate(
     assigned?: number;
     page?: string;
     sort?: boolean;
+    ordering?: string;
   },
   dueToNavigationToSearchPage = false
 ): (

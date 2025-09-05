@@ -6,7 +6,8 @@ import {
   AUTHOR_PUBLICATIONS_NS,
   AUTHOR_SEMINARS_NS,
   AUTHORS_NS,
-  BACKOFFICE_SEARCH_NS,
+  BACKOFFICE_AUTHORS_SEARCH_NS,
+  BACKOFFICE_LITERATURE_SEARCH_NS,
   CONFERENCE_CONTRIBUTIONS_NS,
   CONFERENCES_NS,
   CURATE_REFERENCE_NS,
@@ -229,7 +230,16 @@ const namespacesState = {
     baseQuery: initialLiteratureReferencesBaseQuery,
     query: initialLiteratureReferencesBaseQuery,
   },
-  [BACKOFFICE_SEARCH_NS]: {
+  [BACKOFFICE_AUTHORS_SEARCH_NS]: {
+    ...initialNamespaceState,
+    baseQuery: {
+      ...initialBackofficeSearchBaseQuery,
+    },
+    query: {
+      ...initialBackofficeSearchBaseQuery,
+    },
+  },
+  [BACKOFFICE_LITERATURE_SEARCH_NS]: {
     ...initialNamespaceState,
     baseQuery: {
       ...initialBackofficeSearchBaseQuery,

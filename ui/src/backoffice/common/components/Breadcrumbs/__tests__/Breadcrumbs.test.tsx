@@ -12,7 +12,7 @@ describe('Breadcrumbs', () => {
     const { asFragment } = render(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={[BACKOFFICE]}>
-          <Breadcrumbs title1="title" href1="href" />
+          <Breadcrumbs title1="title" href1="href" namespace="" />
         </MemoryRouter>
       </Provider>
     );
@@ -27,34 +27,34 @@ describe('Breadcrumbs', () => {
             title1="Search"
             href1="/search"
             title2="Detail"
-            href2="/1234"
+            namespace=""
           />
         </MemoryRouter>
       </Provider>
     );
     const breadcrumbItems = getAllByRole('link');
-    expect(breadcrumbItems).toHaveLength(4);
+    expect(breadcrumbItems).toHaveLength(3);
   });
 
-  it('includes the correct link for href2', () => {
+  it('includes the correct link for href1', () => {
     render(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={[BACKOFFICE]}>
           <Breadcrumbs
-            title1="Search"
-            href1="backoffice"
+            title1="Search authors"
+            href1="authors/search"
             title2="Author Detail"
-            href2="1234"
+            namespace=""
           />
         </MemoryRouter>
       </Provider>
     );
 
-    const link = screen.getByRole('link', { name: 'Author Detail' });
+    const link = screen.getByRole('link', { name: 'Search authors' });
     expect(link).toBeInTheDocument();
     expect(link).toHaveAttribute(
       'href',
-      expect.stringContaining('/backoffice/1234')
+      expect.stringContaining('/backoffice/authors/search')
     );
   });
 });

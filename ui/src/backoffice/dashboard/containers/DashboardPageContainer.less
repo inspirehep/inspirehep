@@ -28,7 +28,7 @@
     }
 
     .cards-container {
-      margin: 50px auto;
+      margin: 20px auto 50px auto;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
@@ -65,11 +65,13 @@
 .running {
   color: #7b898a;
 }
-.error {
+.error,
+.blocked {
   color: #e74c3c;
 }
 .halted,
-.approval {
+.approval,
+.matching {
   color: #cfa90e;
 }
 .completed {
@@ -196,9 +198,6 @@
   }
 
   .matching {
-    &:hover {
-      box-shadow: 0px 0px 10px 0px #5d35a7;
-    }
     .ant-card-head {
       color: #5d35a7;
     }
