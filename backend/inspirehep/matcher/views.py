@@ -6,6 +6,7 @@ from inspirehep.matcher.api import (
     fuzzy_match_literature_data,
     match_references,
 )
+from inspirehep.matcher.utils import create_journal_dict
 from inspirehep.serializers import jsonify
 from webargs import fields
 from webargs.flaskparser import FlaskParser
@@ -19,6 +20,13 @@ def get_linked_refs():
     data = request.json
     match_result = match_references(data["references"])
     return jsonify({"references": match_result.get("matched_references")})
+
+
+@blueprint.route("/journal-kb", methods=["GET"])
+@login_required_with_roles([Roles.cataloger.value])
+def get_journal_kb_data():
+    journal_kb_data = create_journal_dict()
+    return jsonify({"journal_kb_data": journal_kb_data})
 
 
 @blueprint.route("/exact-match", methods=["GET"])

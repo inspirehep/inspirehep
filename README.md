@@ -53,6 +53,14 @@ If you wish to test orcid on `backoffice`:
  
   **⚠️ Do not forget to remove them before committing ⚠️**
 
+### How to generate a token locally
+
+To generate a token locally, so as to call authenticated endpoints for testing, you can run the following command inside the hep-web container
+
+```bash
+inspirehep tokens create -n wow -u admin@inspirehep.net
+```
+
 ### Testing  (WORK IN PROGRESS)
 If you wish to run the tests for a given services here's the way to do it
 First exect into the container i.e.: `docker exec -it <container_name> /bin/bash` or via dockerdestkop

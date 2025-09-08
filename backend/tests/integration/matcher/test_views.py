@@ -92,6 +92,35 @@ def test_get_linked_refs_bad_request(inspire_app):
     assert response.status_code == 405
 
 
+def test_get_journal_kb_data(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+    data = {
+        "journal_title": {"title": "Journal of Physical Science and Application"},
+        "short_title": "J.Phys.Sci.Appl.",
+        "title_variants": ["PHYS SCI APPL"],
+    }
+    create_record("jou", data=data)
+    expected = {
+        "J PHYS SCI APPL": "J.Phys.Sci.Appl.",
+        "JOURNAL OF PHYSICAL SCIENCE AND APPLICATION": "J.Phys.Sci.Appl.",
+        "PHYS SCI APPL": "J.Phys.Sci.Appl.",
+    }
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get("api/matcher/journal-kb/")
+    assert response.status_code == 200
+    assert expected == response.json["journal_kb_data"]
+
+
+def test_get_journal_kb_data_returns_403_for_non_authenticated(inspire_app):
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get("api/matcher/journal-kb/")
+    assert response.status_code == 403
+
+
 def test_exact_match(inspire_app):
     user = create_user(role=Roles.cataloger.value)
     record_data = {
