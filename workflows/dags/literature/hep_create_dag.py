@@ -1,5 +1,7 @@
 import datetime
 import logging
+import os
+from tempfile import TemporaryDirectory
 
 from airflow.decorators import dag, task_group
 from airflow.models.param import Param
@@ -31,6 +33,11 @@ from literature.set_workflow_status_tasks import (
     set_workflow_status_to_completed,
     set_workflow_status_to_matching,
     set_workflow_status_to_running,
+)
+from plotextractor.api import process_tarball
+from plotextractor.errors import (
+    InvalidTarball,
+    NoTexFilesFound,
 )
 from werkzeug.utils import secure_filename
 
@@ -131,6 +138,57 @@ def hep_create_dag():
             return s3_tarball_key
 
         @task
+        def arxiv_plot_extract(tarball_key, **context):
+            """Extract plots from an arXiv archive.
+
+            :param obj: Workflow Object to process
+            :param eng: Workflow Engine processing the object
+            """
+
+            workflow = read_object(
+                s3_hook, bucket_name, context["params"]["workflow_id"]
+            )
+
+            # TODO: replace with LiteratureReader(obj.data).arxiv_id
+            arxiv_id = get_value(workflow["data"], "arxiv_eprints.value[0]", default="")
+
+            # TemporaryDirectory is deprecated use somehing else
+            with TemporaryDirectory(prefix="plot_extract") as scratch_space:
+                tarball_file = s3_hook.download_file(
+                    tarball_key, bucket_name, scratch_space
+                )
+
+                try:
+                    plots = process_tarball(
+                        tarball_file,
+                        output_directory=scratch_space,
+                    )
+                except (InvalidTarball, NoTexFilesFound, UnicodeDecodeError):
+                    logger.info(
+                        "Invalid tarball %s for arxiv_id %s",
+                        tarball_key,
+                        arxiv_id,
+                    )
+                    return
+
+                logger.info("Processing plots. Number of plots: %s", len(plots))
+                plot_keys = []
+                for plot in enumerate(plots):
+                    plot_name = os.path.basename(plot.get("url"))
+                    key = plot_name
+                    with open(plot.get("url")) as plot_file:
+                        plot_keys.append(
+                            write_object(
+                                s3_hook,
+                                plot_file,
+                                bucket_name,
+                                f"{context['params']['workflow_id']}/{key}",
+                                overwrite=True,
+                            )
+                        )
+                return plot_keys
+
+        @task
         def guess_coreness(**context):
             workflow_data = read_object(
                 s3_hook, bucket_name, context["params"]["workflow_id"]
@@ -184,7 +242,13 @@ def hep_create_dag():
 
                 return accelerator_experiments, normalized_collaborations
 
-        arxiv_package_download() >> guess_coreness() >> normalize_collaborations()
+        tarball_key = arxiv_package_download()
+        (
+            tarball_key
+            >> arxiv_plot_extract(tarball_key)
+            >> guess_coreness()
+            >> normalize_collaborations()
+        )
         # after implementing all the enhancements, write the result to the s3 only once
 
     dummy_set_update_flag = EmptyOperator(task_id="dummy_set_update_flag")
@@ -239,7 +303,7 @@ def hep_create_dag():
         >> check_for_blocking_workflows_task
         >> exact_matches
     )
-
+    get_workflow_data() >> preprocessing()
     set_update_flag_task >> preprocessing_group >> set_workflow_status_to_completed_task
 
     check_decision_exact_match_task.set_downstream(
