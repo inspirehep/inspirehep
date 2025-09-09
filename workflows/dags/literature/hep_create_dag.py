@@ -139,11 +139,7 @@ def hep_create_dag():
 
         @task
         def arxiv_plot_extract(tarball_key, **context):
-            """Extract plots from an arXiv archive.
-
-            :param obj: Workflow Object to process
-            :param eng: Workflow Engine processing the object
-            """
+            """Extract plots from an arXiv archive."""
 
             workflow = read_object(
                 s3_hook, bucket_name, context["params"]["workflow_id"]
@@ -152,7 +148,6 @@ def hep_create_dag():
             # TODO: replace with LiteratureReader(obj.data).arxiv_id
             arxiv_id = get_value(workflow["data"], "arxiv_eprints.value[0]", default="")
 
-            # TemporaryDirectory is deprecated use somehing else
             with TemporaryDirectory(prefix="plot_extract") as scratch_space:
                 tarball_file = s3_hook.download_file(
                     tarball_key, bucket_name, scratch_space
@@ -173,19 +168,11 @@ def hep_create_dag():
 
                 logger.info("Processing plots. Number of plots: %s", len(plots))
                 plot_keys = []
-                for plot in enumerate(plots):
+                for plot in plots:
                     plot_name = os.path.basename(plot.get("url"))
-                    key = plot_name
-                    with open(plot.get("url")) as plot_file:
-                        plot_keys.append(
-                            write_object(
-                                s3_hook,
-                                plot_file,
-                                bucket_name,
-                                f"{context['params']['workflow_id']}/{key}",
-                                overwrite=True,
-                            )
-                        )
+                    key = f"{context['params']['workflow_id']}-plots/{plot_name}"
+                    s3_hook.load_file(plot.get("url"), key, bucket_name, replace=True)
+                    plot_keys.append(key)
                 return plot_keys
 
         @task
