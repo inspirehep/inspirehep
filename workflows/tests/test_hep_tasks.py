@@ -136,3 +136,23 @@ class Test_HEPCreateDAG:
         assert "record" in accelerator_experiments[0]
         assert accelerator_experiments[0]["legacy_name"] == "LATTICE-ETM"
         assert collaborations[0]["value"] == "ETM"
+
+    def test_arxiv_package_download(self):
+        task = self.dag.get_task("preprocessing.arxiv_package_download")
+        write_object(
+            s3_hook,
+            {
+                "data": {
+                    "arxiv_eprints": [
+                        {
+                            "value": "2508.17630",
+                        }
+                    ]
+                }
+            },
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+        res = task.execute(context=self.context)
+        assert res == f"{self.context['params']['workflow_id']}-2508.17630.tar.gz"
