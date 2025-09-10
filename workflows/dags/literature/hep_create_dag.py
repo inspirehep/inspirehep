@@ -2,6 +2,7 @@ import datetime
 import logging
 
 from airflow.decorators import dag, task_group
+from airflow.hooks.base import BaseHook
 from airflow.models.param import Param
 from airflow.models.variable import Variable
 from airflow.operators.empty import EmptyOperator
@@ -35,7 +36,7 @@ from literature.set_workflow_status_tasks import (
 
 logger = logging.getLogger(__name__)
 s3_hook = S3Hook(aws_conn_id="s3_conn")
-
+s3_conn = BaseHook.get_connection("s3_conn")
 bucket_name = Variable.get("s3_bucket_name")
 
 
@@ -57,6 +58,7 @@ def hep_create_dag():
     classifier_http_hook = GenericHttpHook(http_conn_id="classifier_connection")
     inspire_http_hook = InspireHttpHook()
     workflow_management_hook = WorkflowManagementHook(HEP)
+    refextract_http_hook = GenericHttpHook(http_conn_id="refextract_connection")
 
     @task
     def get_workflow_data(**context):
@@ -102,6 +104,115 @@ def hep_create_dag():
 
     @task_group
     def preprocessing():
+        @task
+        def fetch_and_extract_journal_info(**context):
+            s3_workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
+            data = workflow_data.get("data", {})
+            publication_infos = get_value(data, "publication_info")
+            if not publication_infos:
+                return
+
+            response = inspire_http_hook.call_api(
+                endpoint="api/matcher/journal-kb",
+                method="GET",
+            )
+            response.raise_for_status()
+            kbs_journal_dict = get_value(response.json(), "journal_kb_data")
+
+            response = refextract_http_hook.call_api(
+                endpoint="/extract_journal_info",
+                method="POST",
+                headers={"Content-Type": "application/json"},
+                data={
+                    "publication_infos": publication_infos,
+                    "journal_kb_data": kbs_journal_dict,
+                },
+            )
+            response.raise_for_status()
+
+            extracted_publication_info_list = get_value(
+                response.json(), "extracted_publication_infos", []
+            )
+            workflow_data["refextract"] = extracted_publication_info_list
+            return write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                s3_workflow_id,
+                overwrite=True,
+            )
+
+        @task.virtualenv(
+            requirements=["inspire-schemas>=61.6.23", "inspire-utils~=3.0.66", "boto3"],
+            system_site_packages=False,
+            venv_cache_path="/opt/airflow/venvs",
+        )
+        def process_journal_info(s3_creds, bucket_name, s3_workflow_id, **context):
+            import sys
+
+            sys.path.append("/opt/airflow/plugins")
+
+            from include.utils.s3 import (
+                get_s3_client,
+                read_object,
+                write_object,
+            )
+            from inspire_schemas.utils import (
+                convert_old_publication_info_to_new,
+                split_page_artid,
+            )
+            from inspire_utils.helpers import maybe_int
+            from inspire_utils.record import get_value
+
+            s3_client = get_s3_client(s3_creds)
+
+            workflow_data = read_object(s3_client, bucket_name, s3_workflow_id)
+            data = workflow_data.get("data", {})
+
+            publication_infos = get_value(data, "publication_info")
+            extracted_publication_info_list = workflow_data.get("refextract", {})
+
+            for publication_info, extracted_publication_info in zip(
+                publication_infos, extracted_publication_info_list, strict=False
+            ):
+                if extracted_publication_info.get("title"):
+                    publication_info["journal_title"] = extracted_publication_info[
+                        "title"
+                    ]
+
+                if extracted_publication_info.get("volume"):
+                    publication_info["journal_volume"] = extracted_publication_info[
+                        "volume"
+                    ]
+
+                if extracted_publication_info.get("page"):
+                    page_start, page_end, artid = split_page_artid(
+                        extracted_publication_info["page"]
+                    )
+                    if page_start:
+                        publication_info["page_start"] = page_start
+                    if page_end:
+                        publication_info["page_end"] = page_end
+                    if artid:
+                        publication_info["artid"] = artid
+
+                if extracted_publication_info.get("year"):
+                    year = maybe_int(extracted_publication_info["year"])
+                    if year:
+                        publication_info["year"] = year
+
+            workflow_data["data"]["publication_info"] = (
+                convert_old_publication_info_to_new(publication_infos)
+            )
+            write_object(
+                s3_client,
+                workflow_data,
+                bucket_name,
+                key=s3_workflow_id,
+                overwrite=True,
+            )
+
         @task
         def guess_coreness(**context):
             workflow_data = read_object(
@@ -156,8 +267,20 @@ def hep_create_dag():
 
                 return accelerator_experiments, normalized_collaborations
 
-        guess_coreness() >> normalize_collaborations()
-        # after implementing all the enhancements, write the result to the s3 only once
+        s3_workflow_id = fetch_and_extract_journal_info()
+        (
+            process_journal_info(
+                s3_creds={
+                    "user": s3_conn.login,
+                    "secret": s3_conn.password,
+                    "host": s3_conn.extra_dejson.get("endpoint_url"),
+                },
+                bucket_name=bucket_name,
+                s3_workflow_id=s3_workflow_id,
+            )
+            >> guess_coreness()
+            >> normalize_collaborations()
+        )
 
     dummy_set_update_flag = EmptyOperator(task_id="dummy_set_update_flag")
     dummy_get_fuzzy_matches = EmptyOperator(task_id="dummy_get_fuzzy_matches")

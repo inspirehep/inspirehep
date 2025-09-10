@@ -1,0 +1,59 @@
+{
+  "self": {
+    "$ref": "https://inspirebeta.net/api/journals/1214516"
+  },
+  "$schema": "https://inspirebeta.net/schemas/records/journals.json",
+  "refereed": true,
+  "publisher": ["APS"],
+  "short_title": "Phys.Rev.",
+  "_collections": ["Journals"],
+  "journal_title": {
+    "title": "Physical Review"
+  },
+  "control_number": 1214516,
+  "legacy_version": "20210624090758.0",
+  "title_variants": [
+    "PHYS REV BCONDENS MATTER MATER PHYS",
+    "PHYS REV RAPIDCOMM",
+    "PHYS REV PHYS REV",
+    "PHYS REV RAP COMM",
+    "PHYS REV SER 2",
+    "PHYSICALREVIEW",
+    "PHYSICSREVIEW",
+    "PHYS REV BF",
+    "PHYS REVIEW",
+    "PHYSICALREV",
+    "PHYS RE V",
+    "PHYSC REV",
+    "PHYSREVBF",
+    "PAYS REV",
+    "PFYS REV",
+    "PHIS REV",
+    "PHSY REV",
+    "PHUS REV",
+    "PHYE REV",
+    "PHYS PEV",
+    "PHYS REC",
+    "PHYS REF",
+    "PHYS REV",
+    "PHYS REW",
+    "PHYS TEV",
+    "PYHS REV",
+    "RHYS REV",
+    "PHS REV",
+    "PHY REV",
+    "PHYS RV",
+    "PHYSREV",
+    "PHYSREW",
+    "PYS REV",
+    "PHRV",
+    "PHR"
+  ],
+  "_harvesting_info": {
+    "method": "feed",
+    "coverage": "partial",
+    "last_seen_item": "Phys.Rev.,X11,2",
+    "date_last_harvest": "2021-06-24"
+  },
+  "legacy_creation_date": "2013-01-18"
+}
