@@ -35,6 +35,7 @@ from literature.set_workflow_status_tasks import (
 
 logger = logging.getLogger(__name__)
 s3_hook = S3Hook(aws_conn_id="s3_conn")
+s3_conn = s3_hook.get_connection("s3_conn")
 
 bucket_name = Variable.get("s3_bucket_name")
 
@@ -102,7 +103,41 @@ def hep_create_dag():
 
     @task_group
     def preprocessing():
-        @task
+        @task.virtualenv(
+            requirements=["inspire-schemas>=61.6.23", "boto3"],
+            system_site_packages=False,
+            venv_cache_path="/opt/airflow/venvs",
+            trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
+        )
+        def is_arxiv_paper(s3_creds, bucket_name, **context):
+            """Check if a workflow contains a paper from arXiv."""
+            import sys
+
+            sys.path.append("/opt/airflow/plugins")
+            from include.utils.s3 import get_s3_client, read_object
+            from inspire_schemas.readers import LiteratureReader
+
+            s3_client = get_s3_client(s3_creds)
+            workflow_data = read_object(s3_client, bucket_name, context["run_id"])
+
+            reader = LiteratureReader(workflow_data["data"])
+            method = reader.method
+            source = reader.source
+
+            is_submission_with_arxiv = (
+                method == "submitter" and "arxiv_eprints" in workflow_data["data"]
+            )
+            is_harvested_from_arxiv = method == "hepcrawl" and source.lower() == "arxiv"
+
+            return is_submission_with_arxiv or is_harvested_from_arxiv
+
+        @task.branch
+        def check_for_arxiv_paper(is_arxiv):
+            if is_arxiv:
+                return "preprocessing.arxiv_preprocessing"
+            return "preprocessing.guess_coreness"
+
+        @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def guess_coreness(**context):
             workflow_data = read_object(
                 s3_hook, bucket_name, context["params"]["workflow_id"]
@@ -156,7 +191,34 @@ def hep_create_dag():
 
                 return accelerator_experiments, normalized_collaborations
 
-        guess_coreness() >> normalize_collaborations()
+        is_arxiv = is_arxiv_paper(
+            s3_creds={
+                "user": s3_conn.login,
+                "secret": s3_conn.password,
+                "host": s3_conn.extra_dejson.get("endpoint_url"),
+            },
+            bucket_name=bucket_name,
+        )
+
+        @task_group
+        def arxiv_preprocessing(**context):
+            @task
+            def dummy():
+                print("ArXiv preprocessing steps not implemented yet.")
+
+            dummy()
+
+        guess_coreness_task = guess_coreness()
+
+        arxiv_preprocessing_group = arxiv_preprocessing()
+
+        check_for_arxiv_paper(is_arxiv) >> [
+            arxiv_preprocessing_group,
+            guess_coreness_task,
+        ]
+
+        arxiv_preprocessing_group >> guess_coreness_task
+        guess_coreness_task >> normalize_collaborations()
         # after implementing all the enhancements, write the result to the s3 only once
 
     dummy_set_update_flag = EmptyOperator(task_id="dummy_set_update_flag")
@@ -220,7 +282,7 @@ def hep_create_dag():
     check_decision_exact_match_task.set_downstream(
         set_update_flag_task, edge_modifier=Label("Match chosen")
     )
-    get_fuzzy_matches_task >> set_workflow_status_to_completed_task
+    get_fuzzy_matches_task >> preprocessing_group
 
 
 hep_create_dag()
