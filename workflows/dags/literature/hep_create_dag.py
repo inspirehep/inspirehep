@@ -75,6 +75,10 @@ def hep_create_dag():
             overwrite=True,
         )
 
+    @task
+    def get_workflow_id(**context):
+        return context["params"]["workflow_id"]
+
     @task.short_circuit(ignore_downstream_trigger_rules=False)
     def check_for_blocking_workflows(**context):
         workflow_data = read_object(
@@ -132,7 +136,7 @@ def hep_create_dag():
 
             return s3_tarball_key
 
-        @task
+        @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def fetch_and_extract_journal_info(**context):
             s3_workflow_id = context["params"]["workflow_id"]
             workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
@@ -241,6 +245,40 @@ def hep_create_dag():
                 overwrite=True,
             )
 
+        @task.branch_virtualenv(
+            requirements=["inspire-schemas>=61.6.23", "boto3"],
+            system_site_packages=False,
+            venv_cache_path="/opt/airflow/venvs",
+            trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
+        )
+        def check_is_arxiv_paper(workflow_id, s3_creds, bucket_name, **context):
+            """Check if a workflow contains a paper from arXiv."""
+            import sys
+
+            sys.path.append("/opt/airflow/plugins")
+
+            from include.utils.s3 import get_s3_client, read_object
+            from inspire_schemas.readers import LiteratureReader
+
+            s3_client = get_s3_client(s3_creds)
+
+            workflow_data = read_object(s3_client, bucket_name, workflow_id)
+
+            reader = LiteratureReader(workflow_data["data"])
+            method = reader.method
+            source = reader.source
+
+            is_submission_with_arxiv = (
+                method == "submitter" and "arxiv_eprints" in workflow_data["data"]
+            )
+            is_harvested_from_arxiv = method == "hepcrawl" and source.lower() == "arxiv"
+
+            is_arxiv = is_submission_with_arxiv or is_harvested_from_arxiv
+
+            if is_arxiv:
+                return "preprocessing.arxiv_package_download"
+            return "preprocessing.fetch_and_extract_journal_info"
+
         @task
         def guess_coreness(**context):
             workflow_data = read_object(
@@ -295,10 +333,29 @@ def hep_create_dag():
 
                 return accelerator_experiments, normalized_collaborations
 
+        check_is_arxiv_paper_task = check_is_arxiv_paper(
+            workflow_id=workflow_id,
+            s3_creds={
+                "user": s3_conn.login,
+                "secret": s3_conn.password,
+                "host": s3_conn.extra_dejson.get("endpoint_url"),
+            },
+            bucket_name=bucket_name,
+        )
+
         s3_workflow_id = fetch_and_extract_journal_info()
+
+        guess_coreness_task = guess_coreness()
+
+        arxiv_package_download = arxiv_package_download()
+        check_is_arxiv_paper_task >> [
+            s3_workflow_id,
+            arxiv_package_download,
+        ]
+
+        arxiv_package_download >> s3_workflow_id
         (
-            arxiv_package_download()
-            >> process_journal_info(
+            process_journal_info(
                 s3_creds={
                     "user": s3_conn.login,
                     "secret": s3_conn.password,
@@ -307,7 +364,7 @@ def hep_create_dag():
                 bucket_name=bucket_name,
                 s3_workflow_id=s3_workflow_id,
             )
-            >> guess_coreness()
+            >> guess_coreness_task
             >> normalize_collaborations()
         )
 
@@ -315,6 +372,8 @@ def hep_create_dag():
     dummy_get_fuzzy_matches = EmptyOperator(task_id="dummy_get_fuzzy_matches")
 
     check_for_blocking_workflows_task = check_for_blocking_workflows()
+
+    workflow_id = get_workflow_id()
 
     preprocessing_group = preprocessing()
     set_workflow_status_to_completed_task = set_workflow_status_to_completed()
