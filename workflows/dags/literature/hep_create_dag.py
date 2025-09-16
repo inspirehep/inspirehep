@@ -33,6 +33,7 @@ from literature.set_workflow_status_tasks import (
     set_workflow_status_to_matching,
     set_workflow_status_to_running,
 )
+from werkzeug.utils import secure_filename
 
 logger = logging.getLogger(__name__)
 s3_hook = S3Hook(aws_conn_id="s3_conn")
@@ -59,6 +60,7 @@ def hep_create_dag():
     inspire_http_hook = InspireHttpHook()
     workflow_management_hook = WorkflowManagementHook(HEP)
     refextract_http_hook = GenericHttpHook(http_conn_id="refextract_connection")
+    arxiv_hook = GenericHttpHook(http_conn_id="arxiv_connection")
 
     @task
     def get_workflow_data(**context):
@@ -104,6 +106,32 @@ def hep_create_dag():
 
     @task_group
     def preprocessing():
+        @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+        def arxiv_package_download(**context):
+            """Perform the package download step for arXiv records."""
+
+            workflow_id = context["params"]["workflow_id"]
+            workflow = read_object(s3_hook, bucket_name, workflow_id)
+
+            # TODO: replace with LiteratureReader(obj.data).arxiv_id
+            arxiv_id = get_value(workflow["data"], "arxiv_eprints.value[0]", default="")
+            filename = secure_filename(f"{arxiv_id}.tar.gz")
+            url = f"/e-print/{arxiv_id}"
+
+            s3_tarball_key = f"{workflow_id}-{filename}"
+
+            response = arxiv_hook.call_api(
+                endpoint=url, method="GET", extra_options={"stream": True}
+            )
+
+            response.raise_for_status()
+
+            s3_hook.load_file_obj(
+                response.raw, s3_tarball_key, bucket_name, replace=True
+            )
+
+            return s3_tarball_key
+
         @task
         def fetch_and_extract_journal_info(**context):
             s3_workflow_id = context["params"]["workflow_id"]
@@ -233,7 +261,7 @@ def hep_create_dag():
 
             return calculate_coreness(results)
 
-        @task
+        @task(trigger_rule=TriggerRule.ONE_DONE)
         def normalize_collaborations(**context):
             workflow_data = read_object(
                 s3_hook, bucket_name, context["params"]["workflow_id"]
@@ -269,7 +297,8 @@ def hep_create_dag():
 
         s3_workflow_id = fetch_and_extract_journal_info()
         (
-            process_journal_info(
+            arxiv_package_download()
+            >> process_journal_info(
                 s3_creds={
                     "user": s3_conn.login,
                     "secret": s3_conn.password,
@@ -343,7 +372,7 @@ def hep_create_dag():
     check_decision_exact_match_task.set_downstream(
         set_update_flag_task, edge_modifier=Label("Match chosen")
     )
-    get_fuzzy_matches_task >> set_workflow_status_to_completed_task
+    get_fuzzy_matches_task >> preprocessing_group
 
 
 hep_create_dag()
