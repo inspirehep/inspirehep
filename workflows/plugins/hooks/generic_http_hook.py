@@ -44,7 +44,7 @@ class GenericHttpHook(HttpHook):
         extra_options = extra_options or {}
         method = method or self.method
         headers = headers or self.headers
-        session = self.get_conn(headers)
+        session = self.get_conn(headers, extra_options)
 
         if not self.base_url.endswith("/") and not endpoint.startswith("/"):
             url = self.base_url + "/" + endpoint
@@ -57,7 +57,7 @@ class GenericHttpHook(HttpHook):
 
         prepped_request = session.prepare_request(req)
         self.log.info("Sending '%s' to url: %s", method, url)
-        return self.run_and_check(session, prepped_request, extra_options)
+        return self.run_and_check(session, prepped_request, self.merged_extra)
 
     def call_api(
         self,
@@ -66,6 +66,7 @@ class GenericHttpHook(HttpHook):
         data: dict = None,
         params: dict = None,
         headers: dict = None,
+        extra_options: dict = None,
     ) -> Response:
         return self.run_with_advanced_retry(
             _retry_args=self.tenacity_retry_kwargs,
@@ -74,6 +75,7 @@ class GenericHttpHook(HttpHook):
             json=data,
             params=params,
             method=method,
+            extra_options=extra_options,
         )
 
     def get_url(self) -> str:
