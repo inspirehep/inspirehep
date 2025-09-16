@@ -5,6 +5,8 @@ from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.utils.context import Context
 from include.utils.s3 import read_object, write_object
 
+from tests.test_utils import task_test
+
 dagbag = DagBag()
 
 s3_hook = S3Hook(aws_conn_id="s3_conn")
@@ -24,6 +26,8 @@ class Test_HEPCreateDAG:
         "ti": {"xcom_push": lambda key, value: None},
         "params": {"workflow_id": "00000000-0000-0000-0000-000000001111"},
     }
+
+    workflow_id = context["params"]["workflow_id"]
 
     @pytest.mark.vcr
     def test_get_workflow_data(self):
@@ -255,3 +259,72 @@ class Test_HEPCreateDAG:
         )
         res = task.execute(context=self.context)
         assert res == f"{self.context['params']['workflow_id']}-2508.17630.tar.gz"
+
+    def test_check_is_arxiv_paper(self):
+        workflow_data = {
+            "data": {
+                "arxiv_eprints": [{"value": "2508.17630", "categories": ["cs.LG"]}],
+                "acquisition_source": {
+                    "method": "hepcrawl",
+                    "source": "arXiv",
+                    "datetime": "2025-08-29T04:01:43.201583",
+                    "submission_number": "10260051",
+                },
+            },
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        res = task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.check_is_arxiv_paper",
+            params={
+                "workflow_id": self.workflow_id,
+                "s3_creds": s3_creds,
+                "bucket_name": bucket_name,
+            },
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+
+        assert "preprocessing.arxiv_package_download" in res["followed"]
+
+    def test_check_is_not_arxiv_paper(self):
+        workflow_data = {
+            "data": {
+                "acquisition_source": {
+                    "method": "not_hepcrawl",
+                    "source": "not_arXiv",
+                    "datetime": "2025-08-29T04:01:43.201583",
+                    "submission_number": "10260051",
+                }
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        res = task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.check_is_arxiv_paper",
+            params={
+                "workflow_id": self.workflow_id,
+                "s3_creds": s3_creds,
+                "bucket_name": bucket_name,
+            },
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+
+        assert "preprocessing.fetch_and_extract_journal_info" in res["followed"]
