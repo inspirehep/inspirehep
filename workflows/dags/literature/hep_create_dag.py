@@ -2,6 +2,7 @@ import datetime
 import logging
 
 from airflow.decorators import dag, task_group
+from airflow.exceptions import AirflowException
 from airflow.hooks.base import BaseHook
 from airflow.models.param import Param
 from airflow.models.variable import Variable
@@ -17,10 +18,15 @@ from hooks.backoffice.workflow_management_hook import (
 )
 from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
+from hooks.inspirehep.inspire_http_record_management_hook import (
+    InspireHTTPRecordManagementHook,
+)
 from include.inspire.guess_coreness import calculate_coreness
 from include.utils.alerts import FailedDagNotifierSetError
+from include.utils.constants import JOURNALS_PID_TYPE
 from include.utils.s3 import read_object, write_object
 from inspire_utils.dedupers import dedupe_list
+from inspire_utils.helpers import maybe_int
 from inspire_utils.record import get_value
 from literature.exact_match_tasks import (
     await_decision_exact_match,
@@ -58,6 +64,7 @@ def hep_create_dag():
 
     classifier_http_hook = GenericHttpHook(http_conn_id="classifier_connection")
     inspire_http_hook = InspireHttpHook()
+    inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
     workflow_management_hook = WorkflowManagementHook(HEP)
     refextract_http_hook = GenericHttpHook(http_conn_id="refextract_connection")
     arxiv_hook = GenericHttpHook(http_conn_id="arxiv_connection")
@@ -245,6 +252,49 @@ def hep_create_dag():
                 overwrite=True,
             )
 
+        @task
+        def populate_journal_coverage(**context):
+            s3_workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
+            data = workflow_data.get("data", {})
+            journals = get_value(data, "publication_info.journal_record.$ref", [])
+            if not journals:
+                return
+            journal_ids = [maybe_int(journal.split("/")[-1]) for journal in journals]
+
+            db_journals = []
+            for journal_id in journal_ids:
+                try:
+                    record = inspire_http_record_management_hook.get_record(
+                        pid_type=JOURNALS_PID_TYPE,
+                        control_number=journal_id,
+                    )
+                    db_journals.append(record["metadata"])
+                except AirflowException:
+                    logger.info(
+                        f"Skipping journal {journal_id} (no record found in Inspire)",
+                    )
+            if not db_journals:
+                return
+
+            has_full = any(
+                get_value(journal, "_harvesting_info.coverage") == "full"
+                for journal in db_journals
+            )
+
+            workflow_data["extra_data"] = {
+                **workflow_data.get("extra_data", {}),
+                "journal_coverage": "full" if has_full else "partial",
+            }
+
+            write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                s3_workflow_id,
+                overwrite=True,
+            )
+
         @task.branch_virtualenv(
             requirements=["inspire-schemas>=61.6.23", "boto3"],
             system_site_packages=False,
@@ -294,7 +344,7 @@ def hep_create_dag():
                 method="POST",
                 data=payload,
             )
-
+            response.raise_for_status()
             results = response.json()
 
             return calculate_coreness(results)
@@ -364,6 +414,7 @@ def hep_create_dag():
                 bucket_name=bucket_name,
                 s3_workflow_id=s3_workflow_id,
             )
+            >> populate_journal_coverage()
             >> guess_coreness_task
             >> normalize_collaborations()
         )
