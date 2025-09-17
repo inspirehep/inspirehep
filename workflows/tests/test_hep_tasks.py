@@ -328,3 +328,64 @@ class Test_HEPCreateDAG:
         )
 
         assert "preprocessing.fetch_and_extract_journal_info" in res["followed"]
+
+    @pytest.mark.vcr
+    def test_populate_journal_coverage(self):
+        task = self.dag.get_task("preprocessing.populate_journal_coverage")
+        workflow_id = self.context["params"]["workflow_id"]
+        workflow_data = {
+            "data": {
+                "publication_info": [
+                    {
+                        "journal_record": {
+                            "$ref": "https://localhost:8080/api/journals/1214516"
+                        }
+                    }
+                ]
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            workflow_id,
+            overwrite=True,
+        )
+        task.python_callable(params=self.context["params"])
+
+        result = read_object(s3_hook, bucket_name, workflow_id)
+        assert "partial" in result["extra_data"]["journal_coverage"]
+
+    @pytest.mark.vcr
+    def test_populate_journal_coverage_picks_full_if_exists(self):
+        task = self.dag.get_task("preprocessing.populate_journal_coverage")
+        workflow_id = self.context["params"]["workflow_id"]
+        workflow_data = {
+            "data": {
+                "publication_info": [
+                    {
+                        "journal_record": {
+                            "$ref": "https://localhost:8080/api/journals/1214516"
+                        }
+                    },
+                    {
+                        "journal_record": {
+                            "$ref": "https://localhost:8080/api/journals/1213103"
+                        }
+                    },
+                ]
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            workflow_id,
+            overwrite=True,
+        )
+        task.python_callable(params=self.context["params"])
+
+        result = read_object(s3_hook, bucket_name, workflow_id)
+        assert "full" in result["extra_data"]["journal_coverage"]
