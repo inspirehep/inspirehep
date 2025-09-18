@@ -3,3 +3,4 @@ apache-airflow[sentry]==3.0.6
 inspire-utils~=3.0.66
 idutils
 Sickle==0.7.0
+plotextractor==1.0.21
