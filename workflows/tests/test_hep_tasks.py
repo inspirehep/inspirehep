@@ -405,3 +405,42 @@ class Test_HEPCreateDAG:
         )
         assert len(results) == 20
         assert all(plot.endswith(".png") for plot in results)
+
+    @pytest.mark.vcr
+    def test_count_reference_coreness(self):
+        task = self.dag.get_task("preprocessing.count_reference_coreness")
+        workflow_id = self.context["params"]["workflow_id"]
+        workflow_data = {
+            "data": {
+                "references": [
+                    {
+                        "record": {
+                            "$ref": "https://localhost:8080/api/literature/1331798"
+                        },
+                    },
+                    {
+                        "record": {
+                            "$ref": "https://localhost:8080/api/literature/1325985"
+                        },
+                    },
+                    {
+                        "record": {
+                            "$ref": "https://localhost:8080/api/literature/1674998"
+                        },
+                    },
+                ]
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            workflow_id,
+            overwrite=True,
+        )
+        task.python_callable(params=self.context["params"])
+
+        result = read_object(s3_hook, bucket_name, workflow_id)
+        assert result["reference_count"]["core"] == 2
+        assert result["reference_count"]["non_core"] == 1
