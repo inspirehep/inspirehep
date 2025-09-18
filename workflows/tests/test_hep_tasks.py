@@ -389,3 +389,19 @@ class Test_HEPCreateDAG:
 
         result = read_object(s3_hook, bucket_name, workflow_id)
         assert "full" in result["extra_data"]["journal_coverage"]
+
+    def test_arxiv_plot_extract(self, datadir):
+        tarball_key = f"{self.context['params']['workflow_id']}-test"
+        s3_hook.load_file(
+            (datadir / "arXiv-2509.06062v1.tar.gz"),
+            tarball_key,
+            bucket_name,
+            replace=True,
+        )
+        task = self.dag.get_task("preprocessing.arxiv_plot_extract")
+
+        results = task.python_callable(
+            params=self.context["params"], tarball_key=tarball_key
+        )
+        assert len(results) == 20
+        assert all(plot.endswith(".png") for plot in results)
