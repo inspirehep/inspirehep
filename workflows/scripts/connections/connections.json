@@ -118,5 +118,15 @@
     "port": null,
     "schema": "",
     "extra": ""
+  },
+  "ieee_ftp": {
+    "conn_type": "ftp",
+    "description": "ieee_harvest",
+    "login": "change_me",
+    "password": "change_me",
+    "host": "ftpnew.ieee.org",
+    "port": null,
+    "schema": null,
+    "extra": null
   }
 }

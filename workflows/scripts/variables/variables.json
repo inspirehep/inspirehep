@@ -3,5 +3,6 @@
   "inspire_token": "CHANGE_ME",
   "author_schema": "https://inspirehep.net/schemas/records/authors.json",
   "data_schema": "https://inspirehep.net/schemas/records/data.json",
-  "s3_bucket_name": "data-store"
+  "s3_bucket_name": "data-store",
+  "s3_ieee_bucket_name": "data-store"
 }
