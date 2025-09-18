@@ -42,6 +42,6 @@ class AuthorWorkflowTicketManagementHook(BackofficeHook):
         }
         return self.call_api(
             method="POST",
-            data=data,
+            json=data,
             endpoint=self.endpoint,
         )

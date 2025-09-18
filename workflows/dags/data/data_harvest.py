@@ -139,7 +139,7 @@ def data_harvest_dag():
             response = inspire_http_hook.call_api(
                 endpoint="api/curation/literature/collaborations-normalization",
                 method="GET",
-                data={"collaborations": collaborations},
+                json={"collaborations": collaborations},
             )
             response.raise_for_status()
             obj_accelerator_experiments = record.get("accelerator_experiments", [])

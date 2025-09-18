@@ -46,7 +46,7 @@ class InspireHttpHook(GenericHttpHook):
             "caller_email": email,
         }
 
-        return self.call_api(endpoint=endpoint, data=request_data, method="POST")
+        return self.call_api(endpoint=endpoint, json=request_data, method="POST")
 
     def reply_ticket(self, ticket_id, template, template_context, email):
         # TODO add docstring
@@ -60,7 +60,7 @@ class InspireHttpHook(GenericHttpHook):
         }
         logging.info(f"Replying to ticket {ticket_id}")
 
-        return self.call_api(endpoint=endpoint, data=request_data, method="POST")
+        return self.call_api(endpoint=endpoint, json=request_data, method="POST")
 
     def close_ticket(self, ticket_id, template=None, template_context=None):
         # TODO add docstring
@@ -77,4 +77,4 @@ class InspireHttpHook(GenericHttpHook):
 
         logging.info(f"Closing ticket {ticket_id}")
 
-        return self.call_api(endpoint=endpoint, data=request_data, method="POST")
+        return self.call_api(endpoint=endpoint, json=request_data, method="POST")

@@ -56,7 +56,7 @@ class WorkflowManagementHook(BackofficeHook):
         endpoint = f"{self.endpoint}/{workflow_id}/"
         return self.call_api(
             method="PUT",
-            data=workflow_data,
+            json=workflow_data,
             endpoint=endpoint,
         )
 
@@ -66,7 +66,7 @@ class WorkflowManagementHook(BackofficeHook):
         endpoint = f"{self.endpoint}/{workflow_id}/"
         return self.call_api(
             method="PATCH",
-            data=workflow_partial_update_data,
+            json=workflow_partial_update_data,
             endpoint=endpoint,
         )
 
@@ -74,7 +74,7 @@ class WorkflowManagementHook(BackofficeHook):
         endpoint = f"{self.endpoint}/"
         return self.call_api(
             method="POST",
-            data=workflow_data,
+            json=workflow_data,
             endpoint=endpoint,
         )
 

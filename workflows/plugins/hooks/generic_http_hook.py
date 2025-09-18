@@ -1,6 +1,5 @@
 import logging
 
-import requests
 from airflow.providers.http.hooks.http import HttpHook
 from hooks.tenacity_config import tenacity_retry_kwargs
 from requests import Response
@@ -17,6 +16,7 @@ class GenericHttpHook(HttpHook):
 
     def __init__(self, http_conn_id, method="GET", headers=None):
         self._headers = headers
+        self._method = method
         super().__init__(method=method, http_conn_id=http_conn_id)
 
     @property
@@ -37,33 +37,25 @@ class GenericHttpHook(HttpHook):
         method: str = None,
         json: dict = None,
         data: dict = None,
-        params: dict = None,
         headers: dict = None,
         extra_options: dict = None,
     ):
-        extra_options = extra_options or {}
-        method = method or self.method
+        self.method = method or self._method
         headers = headers or self.headers
-        session = self.get_conn(headers, extra_options)
 
-        if not self.base_url.endswith("/") and not endpoint.startswith("/"):
-            url = self.base_url + "/" + endpoint
-        else:
-            url = self.base_url + endpoint
-
-        req = requests.Request(
-            method, url, json=json, data=data, params=params, headers=headers
+        return super().run(
+            endpoint=endpoint,
+            data=data,
+            headers=headers,
+            extra_options=extra_options,
+            json=json,
         )
-
-        prepped_request = session.prepare_request(req)
-        self.log.info("Sending '%s' to url: %s", method, url)
-        return self.run_and_check(session, prepped_request, self.merged_extra)
 
     def call_api(
         self,
         endpoint: str,
         method: str = None,
-        data: dict = None,
+        json: dict = None,
         params: dict = None,
         headers: dict = None,
         extra_options: dict = None,
@@ -72,8 +64,8 @@ class GenericHttpHook(HttpHook):
             _retry_args=self.tenacity_retry_kwargs,
             endpoint=endpoint,
             headers=headers,
-            json=data,
-            params=params,
+            json=json,
+            data=params,
             method=method,
             extra_options=extra_options,
         )
