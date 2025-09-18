@@ -150,6 +150,55 @@ def hep_create_dag():
 
             return s3_tarball_key
 
+        @task
+        def count_reference_coreness(**context):
+            s3_workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
+            data = workflow_data.get("data")
+            if not data:
+                return
+
+            references = get_value(data, "references.record.$ref", [])
+            if not references:
+                return
+
+            pid_type_and_recids = [
+                (reference.split("/")[-2], reference.split("/")[-1])
+                for reference in references
+            ]
+
+            cited_records = []
+            for pid_type, recid in pid_type_and_recids:
+                try:
+                    record = inspire_http_record_management_hook.get_record(
+                        pid_type=pid_type,
+                        control_number=recid,
+                    )
+                    cited_records.append(record["metadata"])
+                except AirflowException:
+                    logger.info(
+                        f"Skipping {pid_type} {recid} (no record found in Inspire)",
+                    )
+
+            if not cited_records:
+                return
+
+            count_core = len([rec for rec in cited_records if rec.get("core") is True])
+            count_non_core = len(cited_records) - count_core
+
+            workflow_data["reference_count"] = {
+                "core": count_core,
+                "non_core": count_non_core,
+            }
+
+            write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                s3_workflow_id,
+                overwrite=True,
+            )
+
         @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def fetch_and_extract_journal_info(**context):
             s3_workflow_id = context["params"]["workflow_id"]
@@ -451,7 +500,8 @@ def hep_create_dag():
 
         arxiv_plot_extract_task >> s3_workflow_id
         (
-            process_journal_info(
+            count_reference_coreness()
+            >> process_journal_info(
                 s3_creds={
                     "user": s3_conn.login,
                     "secret": s3_conn.password,
