@@ -21,7 +21,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 02 Sep 2025 11:33:03 GMT
+      - Tue, 22 Jul 2025 11:44:46 GMT
       Link:
       - <self>; rel="http://localhost:8000/api/literature/?q=control_number%3A123456&size=10&page=1&fields=control_number",
         <bibtex>; rel="http://localhost:8000/api/literature/?q=control_number%3A123456&size=10&page=1&format=bibtex",
