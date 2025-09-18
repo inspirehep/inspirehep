@@ -53,6 +53,6 @@ class InspireHTTPRecordManagementHook(InspireHttpHook):
             method="GET",
             headers=search_headers,
             endpoint=f"/api/{pid_type}",
-            params=query_params,
+            data=query_params,
         )
         return response.json()

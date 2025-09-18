@@ -27,7 +27,7 @@ def get_exact_matches(**context):
     response = inspire_http_hook.call_api(
         endpoint="api/matcher/exact-match",
         method="GET",
-        data={"data": workflow_data["data"]},
+        json={"data": workflow_data["data"]},
     )
     response.raise_for_status()
     return response.json()["matched_ids"]

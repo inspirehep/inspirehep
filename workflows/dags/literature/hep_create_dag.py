@@ -163,7 +163,7 @@ def hep_create_dag():
                 endpoint="/extract_journal_info",
                 method="POST",
                 headers={"Content-Type": "application/json"},
-                data={
+                json={
                     "publication_infos": publication_infos,
                     "journal_kb_data": kbs_journal_dict,
                 },
@@ -342,7 +342,7 @@ def hep_create_dag():
             response = classifier_http_hook.call_api(
                 endpoint="/api/predict/coreness",
                 method="POST",
-                data=payload,
+                json=payload,
             )
             response.raise_for_status()
             results = response.json()
@@ -363,7 +363,7 @@ def hep_create_dag():
             response = inspire_http_hook.call_api(
                 endpoint="api/curation/literature/collaborations-normalization",
                 method="GET",
-                data={"collaborations": collaborations},
+                json={"collaborations": collaborations},
             )
             response.raise_for_status()
             obj_accelerator_experiments = workflow_data.get(
