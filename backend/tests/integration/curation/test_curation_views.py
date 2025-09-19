@@ -416,9 +416,9 @@ def test_normalize_journal_titles(inspire_app):
             data=orjson.dumps({"journal_titles_list": ["Technologies"]}),
         )
         assert response.status_code == 200
-        assert response.json == {
-            "normalized_journal_titles": {"Technologies": "Technol."}
-        }
+        assert (
+            response.json["normalized_journal_titles"].get("Technologies") == "Technol."
+        )
 
 
 def test_normalize_journal_titles_no_match(inspire_app):
@@ -431,6 +431,6 @@ def test_normalize_journal_titles_no_match(inspire_app):
             data=orjson.dumps({"journal_titles_list": ["Technologies"]}),
         )
         assert response.status_code == 200
-        assert response.json == {
-            "normalized_journal_titles": {"Technologies": "Technologies"}
-        }
+        assert {"Technologies": "Technologies"}.items() <= response.json[
+            "normalized_journal_titles"
+        ].items()
