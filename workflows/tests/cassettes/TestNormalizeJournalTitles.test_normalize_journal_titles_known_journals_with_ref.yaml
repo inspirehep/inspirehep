@@ -1,0 +1,38 @@
+interactions:
+- request:
+    body: '{"journal_titles_list": ["A Test Journal1", "Test.Jou.2"]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '58'
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8080/api/curation/literature/normalize-journal-titles
+  response:
+    body:
+      string: '{"normalized_journal_titles":{"A Test Journal1":"A Test Journal1","Test.Jou.2":"Test.Jou.2"},"normalized_journal_references":{"A
+        Test Journal1":null,"Test.Jou.2":null},"normalized_journal_categories":{"A
+        Test Journal1":[],"Test.Jou.2":[]}}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '240'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 25 Sep 2025 14:59:45 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+version: 1

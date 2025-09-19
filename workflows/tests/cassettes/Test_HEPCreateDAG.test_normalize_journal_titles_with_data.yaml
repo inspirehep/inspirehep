@@ -1,0 +1,39 @@
+interactions:
+- request:
+    body: '{"journal_titles_list": ["Phys. Rev. D", "Journal of High Energy Physics"]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '75'
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8080/api/curation/literature/normalize-journal-titles
+  response:
+    body:
+      string: '{"normalized_journal_titles":{"Phys. Rev. D":"Phys. Rev. D","Journal
+        of High Energy Physics":"JHEP"},"normalized_journal_references":{"Phys. Rev.
+        D":null,"Journal of High Energy Physics":{"$ref":"http://localhost:8000/api/journals/1213103"}},"normalized_journal_categories":{"Phys.
+        Rev. D":[],"Journal of High Energy Physics":null}}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '333'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 25 Sep 2025 15:03:39 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+version: 1

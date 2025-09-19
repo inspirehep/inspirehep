@@ -200,6 +200,94 @@ def hep_create_dag():
             )
 
         @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+        def normalize_journal_titles(**context):
+            """
+            Normalize the journal titles in workflow data.
+
+            This function:
+            - Collects all journal titles from `publication_info` and
+                reference `publication_info`.
+            - Calls the Inspire API to normalize them.
+            - Updates each entry with the normalized title, journal record, and
+                categories.
+
+            Args:
+                context: Airflow context containing `params.workflow_id`.
+
+            Returns:
+                None
+            """
+            s3_workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
+            data = workflow_data.get("data", {})
+
+            titles_to_normalize = get_value(
+                data, "publication_info.journal_title", []
+            ) + get_value(
+                data, "references.reference.publication_info.journal_title", []
+            )
+            if not titles_to_normalize:
+                return
+
+            response = inspire_http_hook.call_api(
+                endpoint="api/curation/literature/normalize-journal-titles",
+                method="GET",
+                json={"journal_titles_list": titles_to_normalize},
+            )
+            response.raise_for_status()
+            normalized_titles_map = get_value(
+                response.json(), "normalized_journal_titles", []
+            )
+            normalized_references_map = get_value(
+                response.json(), "normalized_journal_references", []
+            )
+            normalized_categories_map = get_value(
+                response.json(), "normalized_journal_categories", []
+            )
+
+            def process_entries(entries, title_getter):
+                """Normalize journal titles and enrich with DB info."""
+                for entry in entries:
+                    journal_title = title_getter(entry)
+                    if not journal_title:
+                        continue
+                    normalized_title = normalized_titles_map.get(journal_title)
+                    journal_ref = normalized_references_map.get(journal_title)
+                    journal_inspire_categories = normalized_categories_map.get(
+                        journal_title
+                    )
+                    entry["journal_title"] = normalized_title
+                    if journal_ref:
+                        entry["journal_record"] = journal_ref
+                    if journal_inspire_categories:
+                        data.setdefault("journal_inspire_categories", []).extend(
+                            journal_inspire_categories
+                        )
+
+            process_entries(
+                get_value(data, "publication_info", []),
+                lambda e: e.get("journal_title"),
+            )
+            process_entries(
+                get_value(data, "references", []),
+                lambda e: get_value(e, "reference.publication_info", {}).get(
+                    "journal_title"
+                ),
+            )
+
+            if get_value(data, "journal_inspire_categories"):
+                data["journal_inspire_categories"] = dedupe_list(
+                    data["journal_inspire_categories"]
+                )
+            write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                key=s3_workflow_id,
+                overwrite=True,
+            )
+
+        @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def fetch_and_extract_journal_info(**context):
             s3_workflow_id = context["params"]["workflow_id"]
             workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
@@ -498,6 +586,7 @@ def hep_create_dag():
         arxiv_plot_extract_task >> s3_workflow_id
         (
             count_reference_coreness()
+            >> normalize_journal_titles()
             >> process_journal_info(
                 s3_creds={
                     "user": s3_conn.login,

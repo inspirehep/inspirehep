@@ -138,10 +138,23 @@ def assign_institution(args):
 )
 def normalize_journal_titles(args):
     normalized_journal_titles_mapping = {}
+    normalized_journal_references_mapping = {}
+    normalized_journal_categories_mapping = {}
     for title in args["journal_titles_list"]:
-        normalized_title = JournalsSearch().normalize_title(title)
+        normalized_title_data = JournalsSearch().normalize_title(title)
         if not title:
             continue
-        normalized_journal_titles_mapping[title] = normalized_title
-
-    return jsonify({"normalized_journal_titles": normalized_journal_titles_mapping})
+        normalized_journal_titles_mapping[title] = normalized_title_data.get(
+            "normalized_title"
+        )
+        normalized_journal_references_mapping[title] = normalized_title_data.get("self")
+        normalized_journal_categories_mapping[title] = normalized_title_data.get(
+            "inspire_categories"
+        )
+    return jsonify(
+        {
+            "normalized_journal_titles": normalized_journal_titles_mapping,
+            "normalized_journal_references": normalized_journal_references_mapping,
+            "normalized_journal_categories": normalized_journal_categories_mapping,
+        }
+    )
