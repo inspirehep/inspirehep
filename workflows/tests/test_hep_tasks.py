@@ -355,7 +355,7 @@ class Test_HEPCreateDAG:
         task.python_callable(params=self.context["params"])
 
         result = read_object(s3_hook, bucket_name, workflow_id)
-        assert "partial" in result["extra_data"]["journal_coverage"]
+        assert "partial" in result["journal_coverage"]
 
     @pytest.mark.vcr
     def test_populate_journal_coverage_picks_full_if_exists(self):
@@ -388,7 +388,7 @@ class Test_HEPCreateDAG:
         task.python_callable(params=self.context["params"])
 
         result = read_object(s3_hook, bucket_name, workflow_id)
-        assert "full" in result["extra_data"]["journal_coverage"]
+        assert "full" in result["journal_coverage"]
 
     def test_arxiv_plot_extract(self, datadir):
         tarball_key = f"{self.context['params']['workflow_id']}-test"

@@ -289,10 +289,7 @@ def hep_create_dag():
                 for journal in db_journals
             )
 
-            workflow_data["extra_data"] = {
-                **workflow_data.get("extra_data", {}),
-                "journal_coverage": "full" if has_full else "partial",
-            }
+            workflow_data["journal_coverage"] = "full" if has_full else "partial"
 
             write_object(
                 s3_hook,

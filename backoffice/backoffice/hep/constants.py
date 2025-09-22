@@ -36,3 +36,8 @@ class HepResolutions(models.TextChoices):
 
 
 HEP_DECISION_CHOICES = HepResolutions.choices
+
+
+class HepJournalCoverage(models.TextChoices):
+    FULL = "full", "Full"
+    PARTIAL = "partial", "Partial"
