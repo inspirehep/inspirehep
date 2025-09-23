@@ -101,3 +101,8 @@ def is_cern_arxiv_set(record):
             or has_cern_report_number(record)
         )
     )
+
+
+def is_oaire_set(record):
+    """Check if the record should be part of `oaire` set."""
+    return "Literature" in record.get("_collections", [])

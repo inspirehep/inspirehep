@@ -49,6 +49,7 @@ def test_index_literature_record(inspire_app, datadir):
     result.pop("_latex_eu_display")
     result.pop("_bibtex_display")
     result.pop("_expanded_authors_display")
+    result.pop("_oai", None)
     result.pop("authors")
     result_facet_author_name = result.pop("facet_author_name")
     del result["_created"]
@@ -305,7 +306,10 @@ def test_indexer_oai_set_CDS(inspire_app):
 
     expected_id = f"oai:inspirehep.net:{record['control_number']}"
     expected_updated = record.updated.strftime(OAI_TIME_FORMAT)
-    expected_sets = [inspire_app.config["OAI_SET_CDS"]]
+    expected_sets = [
+        inspire_app.config["OAI_SET_CDS"],
+        inspire_app.config["OAI_SET_OAIRE"],
+    ]
 
     assert expected_id == result_record["_oai"]["id"]
     assert expected_updated == result_record["_oai"]["updated"]
@@ -325,7 +329,10 @@ def test_indexer_oai_set_CERN_arxiv(inspire_app):
 
     expected_id = f"oai:inspirehep.net:{record['control_number']}"
     expected_updated = record.updated.strftime(OAI_TIME_FORMAT)
-    expected_sets = [inspire_app.config["OAI_SET_CERN_ARXIV"]]
+    expected_sets = [
+        inspire_app.config["OAI_SET_CERN_ARXIV"],
+        inspire_app.config["OAI_SET_OAIRE"],
+    ]
 
     assert expected_id == result_record["_oai"]["id"]
     assert expected_updated == result_record["_oai"]["updated"]
@@ -349,6 +356,7 @@ def test_indexer_oai_set_CERN_arxiv_and_CDS(inspire_app):
     expected_sets = [
         inspire_app.config["OAI_SET_CDS"],
         inspire_app.config["OAI_SET_CERN_ARXIV"],
+        inspire_app.config["OAI_SET_OAIRE"],
     ]
 
     assert expected_id == result_record["_oai"]["id"]
@@ -356,6 +364,7 @@ def test_indexer_oai_set_CERN_arxiv_and_CDS(inspire_app):
     assert expected_sets == result_record["_oai"]["sets"]
 
 
+@pytest.mark.xfail(reason="OAI literature general set is added default")
 def test_indexer_does_not_have_oai_set(inspire_app):
     record_data = faker.record("lit")
     record = LiteratureRecord.create(record_data)

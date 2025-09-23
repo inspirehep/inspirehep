@@ -197,7 +197,11 @@ def test_literature_json_with_logged_in_cataloger(inspire_app):
     assert response_data["updated"] is not None
 
 
-def test_literature_search_json_without_login(inspire_app):
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_oai",
+    return_value=[],
+)
+def test_literature_search_json_without_login(mock_get_oai, inspire_app):
     headers = {"Accept": "application/json"}
 
     data = {
@@ -262,7 +266,11 @@ def test_literature_search_json_without_login(inspire_app):
     assert response_data_hits_updated is not None
 
 
-def test_literature_search_json_with_cataloger_login(inspire_app):
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_oai",
+    return_value=[],
+)
+def test_literature_search_json_with_cataloger_login(mock_get_oai, inspire_app):
     user = create_user(role=Roles.cataloger.value)
 
     headers = {"Accept": "application/json"}
