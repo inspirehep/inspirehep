@@ -6,6 +6,7 @@
 
 from urllib.parse import quote, urlencode
 
+import mock
 import orjson
 from helpers.providers.faker import faker
 from helpers.utils import (
@@ -22,7 +23,11 @@ from invenio_accounts.testutils import login_user_via_session
 from invenio_search import current_search
 
 
-def test_literature_search_application_json_get(inspire_app):
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_oai",
+    return_value=[],
+)
+def test_literature_search_application_json_get(mock_get_oai, inspire_app):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "document_type": ["article"],

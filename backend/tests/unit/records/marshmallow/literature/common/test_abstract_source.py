@@ -23,11 +23,16 @@ from inspirehep.records.marshmallow.literature.es import LiteratureElasticSearch
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
     return_value=[],
 )
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_oai",
+    return_value=[],
+)
 @mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
 def test_abstract_source_full(
     mockget_linked_records_from_dict_field,
     mock_referenced_authors,
     mock_cv_format,
+    mock_oai,
     current_app_mock,
 ):
     schema = LiteratureElasticSearchSchema
@@ -68,11 +73,16 @@ def test_abstract_source_full(
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
     return_value=[],
 )
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_oai",
+    return_value=[],
+)
 @mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
 def test_abstract_source_one_missing_source(
     mockget_linked_records_from_dict_field,
     mock_referenced_authors,
     mock_cv_format,
+    mock_oai,
     current_app_mock,
 ):
     schema = LiteratureElasticSearchSchema
@@ -111,11 +121,16 @@ def test_abstract_source_one_missing_source(
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
     return_value=[],
 )
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_oai",
+    return_value=[],
+)
 @mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
 def test_abstract_source_missing(
     mockget_linked_records_from_dict_field,
     mock_referenced_authors,
     mock_cv_format,
+    mock_oai,
     current_app_mock,
 ):
     schema = LiteratureElasticSearchSchema
@@ -136,11 +151,16 @@ def test_abstract_source_missing(
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
     return_value=[],
 )
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_oai",
+    return_value=[],
+)
 @mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
 def test_abstract_source_one_only(
     mockget_linked_records_from_dict_field,
     mock_referenced_authors,
     mock_cv_format,
+    mock_oai,
     current_app_mock,
 ):
     schema = LiteratureElasticSearchSchema
