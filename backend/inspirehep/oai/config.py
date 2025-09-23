@@ -14,8 +14,14 @@ OAISERVER_METADATA_FORMATS = {
         "serializer": "inspirehep.oai.serializers:record_json_to_marcxml",
         "schema": "http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd",
         "namespace": "http://www.loc.gov/MARC21/slim",
-    }
+    },
+    "oaire": {
+        "serializer": "inspirehep.oai.serializers:record_json_to_oairexml",
+        "schema": "https://www.openaire.eu/schema/repo-lit/4.0/openaire.xsd",
+        "namespace": "http://namespace.openaire.eu/schema/oaire/",
+    },
 }
 
 OAI_SET_CDS = "ForCDS"
 OAI_SET_CERN_ARXIV = "CERN:arXiv"
+OAI_SET_OAIRE = "Literature"

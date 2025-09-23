@@ -186,6 +186,8 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
             sets.append(current_app.config["OAI_SET_CDS"])
         if is_cern_arxiv_set(record):
             sets.append(current_app.config["OAI_SET_CERN_ARXIV"])
+        if "Literature" in record.get("_collections", []):
+            sets.append(current_app.config["OAI_SET_OAIRE"])
 
         if sets:
             return {
