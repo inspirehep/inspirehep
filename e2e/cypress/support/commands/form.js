@@ -190,7 +190,7 @@ Cypress.Commands.add('fillDateRangeField', (path, [startDate, endDate]) => {
 });
 
 Cypress.Commands.add('fillDateField', (path, value) => {
-  cy.getField(path).then(($dateSelect) => {
+  cy.getField(path).clear({ force: true }).then(($dateSelect) => {
     const dateFormat = $dateSelect.attr('data-test-format') || 'YYYY-MM-DD';
     const dateValue = moment(value).format(dateFormat);
     cy.wrap($dateSelect).type(`${dateValue}{enter}`, { force: true });

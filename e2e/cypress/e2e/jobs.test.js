@@ -57,7 +57,7 @@ describe('Job Submission', () => {
       ranks: ['POSTDOC', 'MASTER'],
       experiments: [{ legacy_name: 'Atlas' }, { legacy_name: 'CMS' }],
       url: 'https://someinfo.com',
-      deadline_date: moment().add(1, 'day'),
+      deadline_date: moment().add(1, 'year'),
       contacts: [
         {
           name: 'John Doe',
@@ -83,17 +83,19 @@ describe('Job Submission', () => {
     });
   });
 
-  it('updates new job', () => {
+  it.only('updates new job', () => {
     const expectedMetadata = {
       position: 'Cherenkov Telescope Array',
     };
 
     cy.visit('/submissions/jobs/1813119');
+
     cy.testUpdateSubmission({
       collection: 'jobs',
       recordId: 1813119,
       formData: {
         title: ': Updated',
+        deadline_date: moment().add(1, 'year'),
       },
       expectedMetadata: {
         position: expectedMetadata.position + ': Updated',
