@@ -181,7 +181,7 @@ class LiteratureSearch(InspireSearch):
                 reference, "reference.publication_info.journal_title"
             )
             reference["reference"]["publication_info"]["journal_title"] = (
-                JournalsSearch().normalize_title(journal_title)
+                JournalsSearch().normalize_title(journal_title)["normalized_title"]
             )
         except KeyError:
             pass
@@ -497,12 +497,21 @@ class JournalsSearch(InspireSearch):
         try:
             hits = self.query("match", lowercase_journal_titles=journal_title).execute()
             if hits:
-                return hits[0].short_title
+                hit = hits[0].to_dict()
+                return {
+                    "normalized_title": hit.get("short_title"),
+                    "self": hit.get("self"),
+                    "inspire_categories": hit.get("inspire_categories"),
+                }
         except RequestError as e:
             LOGGER.info(
                 "Error normalizing `journal_title`", journal_title=journal_title, exc=e
             )
-        return journal_title
+        return {
+            "normalized_title": journal_title,
+            "self": None,
+            "inspire_categories": [],
+        }
 
 
 class SeminarsSearch(InspireSearch):

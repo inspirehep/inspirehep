@@ -1080,7 +1080,9 @@ def test_journal_title_normalization(inspire_app):
     )
     journal_title = "Physical Review Accelerators and Beams"
     expected_journal_title = "Phys.Rev.Accel.Beams"
-    result_journal_title = JournalsSearch().normalize_title(journal_title)
+    result_journal_title = JournalsSearch().normalize_title(journal_title)[
+        "normalized_title"
+    ]
 
     assert expected_journal_title == result_journal_title
 
@@ -1092,7 +1094,9 @@ def test_journal_title_normalization_with_multiple_spaces(inspire_app):
     )
     journal_title = "Nucl.    Phys.    B"
     expected_journal_title = "Nucl.Phys.B"
-    result_journal_title = JournalsSearch().normalize_title(journal_title)
+    result_journal_title = JournalsSearch().normalize_title(journal_title)[
+        "normalized_title"
+    ]
 
     assert expected_journal_title == result_journal_title
 
@@ -1106,7 +1110,9 @@ def test_journal_title_normalization_without_match(inspire_app):
         },
     )
     journal_title = "Something else"
-    result_journal_title = JournalsSearch().normalize_title(journal_title)
+    result_journal_title = JournalsSearch().normalize_title(journal_title)[
+        "normalized_title"
+    ]
 
     assert journal_title == result_journal_title
 
@@ -1547,7 +1553,9 @@ def test_normalize_title_for_journals_trims_whitespace(inspire_app):
     }
     create_record("jou", data=data)
     title_to_normalize = "J. Cosmol. Astropart. Phys."
-    normalized_title = JournalsSearch().normalize_title(title_to_normalize)
+    normalized_title = JournalsSearch().normalize_title(title_to_normalize)[
+        "normalized_title"
+    ]
     assert normalized_title == "JCAP"
 
 
