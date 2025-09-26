@@ -3,6 +3,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import io
 import logging
 import random
 from functools import partial, wraps
@@ -250,3 +251,19 @@ def retry_test(stop=None, wait=None):
         return _retry_test
 
     return inner
+
+
+def canonicalize_xml_element(element):
+    """Return a string with a canonical representation of the element."""
+    element_tree = element.getroottree()
+    output_stream = io.BytesIO()
+    element_tree.write_c14n(output_stream, with_comments=False, exclusive=True)
+    return output_stream.getvalue()
+
+
+def xml_compare(expected, result):
+    """Assert two XML nodes equal."""
+    expected_xml_canonicalized = canonicalize_xml_element(expected)
+    result_xml_canonicalized = canonicalize_xml_element(result)
+    assert result_xml_canonicalized == expected_xml_canonicalized
+    return True
