@@ -417,10 +417,45 @@ def test_normalize_affiliations_doesnt_add_duplicated_affiliations(
         ],
     }
     data = normalize_affiliations(record["authors"])
-
     assert data["normalized_affiliations"][0][0] == {
         "record": {"$ref": "http://localhost:5000/api/institutions/903335"},
         "value": "Warsaw U.",
+    }
+
+
+@pytest.mark.usefixtures("_insert_literature_in_db")
+def test_normalize_affiliations_filters_duplicated_affiliations(
+    inspire_app,
+):
+    record = {
+        "_collections": ["Literature"],
+        "titles": ["A title"],
+        "document_type": ["report"],
+        "authors": [
+            {
+                "affiliations": [
+                    {
+                        "value": "HIAS, UCAS, Hangzhou",
+                        "record": {
+                            "$ref": "http://localhost:5000/api/institutions/1783783"
+                        },
+                    },
+                    {
+                        "value": "HIAS, UCAS, Hangzhou",
+                        "record": {
+                            "$ref": "http://localhost:5000/api/institutions/1783783"
+                        },
+                    },
+                ],
+                "full_name": "Zou, Xiaobo",
+            }
+        ],
+    }
+    data = normalize_affiliations(record["authors"])
+    assert len(data["normalized_affiliations"][0]) == 1
+    assert data["normalized_affiliations"][0][0] == {
+        "value": "HIAS, UCAS, Hangzhou",
+        "record": {"$ref": "http://localhost:5000/api/institutions/1783783"},
     }
 
 

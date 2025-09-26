@@ -83,7 +83,7 @@ def normalize_affiliations(authors, workflow_id=None, **kwargs):
     for author in authors:
         author_affiliations = author.get("affiliations", [])
         if author_affiliations:
-            normalized_affiliations.append(author_affiliations)
+            normalized_affiliations.append(dedupe_list(author_affiliations))
             continue
         raw_affs = get_value(author, "raw_affiliations.value", [])
         for raw_aff in raw_affs:
