@@ -8,5 +8,3 @@ COPY --chown=airflow:root requirements.txt ./requirements.txt
 COPY --chown=airflow:root requirements-test.txt ./requirements-test.txt
 
 RUN pip install --no-cache-dir -r requirements.txt -r requirements-test.txt
-
-RUN pip install sentry-sdk==1.19.1
