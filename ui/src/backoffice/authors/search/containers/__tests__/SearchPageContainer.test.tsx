@@ -1,0 +1,37 @@
+import React from 'react';
+import { fromJS } from 'immutable';
+
+import { getStore } from '../../../../../fixtures/store';
+import SearchPageContainer from '../SearchPageContainer';
+import { renderWithProviders } from '../../../../../fixtures/render';
+import { BACKOFFICE_AUTHORS_SEARCH } from '../../../../../common/routes';
+
+describe('SearchPageContainer', () => {
+  const store = getStore({
+    backoffice: fromJS({
+      loading: false,
+      loggedIn: true,
+      query: {},
+      totalResults: 15,
+    }),
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  const renderComponent = (store: any) =>
+    renderWithProviders(<SearchPageContainer />, {
+      route: BACKOFFICE_AUTHORS_SEARCH,
+      store,
+    });
+
+  it('renders the SearchPage component', () => {
+    const { getByTestId, asFragment } = renderComponent(store);
+
+    const searchPage = getByTestId('backoffice-search-page');
+
+    expect(searchPage).toBeInTheDocument();
+    expect(asFragment()).toMatchSnapshot();
+  });
+});

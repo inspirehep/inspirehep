@@ -20,6 +20,15 @@ import {
   BACKOFFICE_DELETE_SUCCESS,
   BACKOFFICE_DELETE_ERROR,
   BACKOFFICE_DELETE_REQUEST,
+  BACKOFFICE_AUTHORS_DASHBOARD_REQUEST,
+  BACKOFFICE_AUTHORS_DASHBOARD_SUCCESS,
+  BACKOFFICE_AUTHORS_DASHBOARD_ERROR,
+  BACKOFFICE_LITERATURE_DASHBOARD_REQUEST,
+  BACKOFFICE_LITERATURE_DASHBOARD_SUCCESS,
+  BACKOFFICE_LITERATURE_DASHBOARD_ERROR,
+  BACKOFFICE_LITERATURE_REQUEST,
+  BACKOFFICE_LITERATURE_SUCCESS,
+  BACKOFFICE_LITERATURE_ERROR,
 } from '../actions/actionTypes';
 
 export const initialState = fromJS({
@@ -29,8 +38,16 @@ export const initialState = fromJS({
   totalResults: 0,
   loading: false,
   author: [],
+  literature: [],
   facets: [],
   actionInProgress: false,
+  dashboard: {
+    loading: false,
+    facets: {
+      authors: {},
+      literature: {},
+    },
+  },
 });
 
 const BackofficeReducer = (state = initialState, action) => {
@@ -66,6 +83,16 @@ const BackofficeReducer = (state = initialState, action) => {
       return state
         .set('loading', false)
         .set('author', fromJS(action.payload.data));
+    case BACKOFFICE_LITERATURE_REQUEST:
+      return state.set('loading', true);
+    case BACKOFFICE_LITERATURE_ERROR:
+      return state
+        .set('loading', false)
+        .set('literature', initialState.get('literature'));
+    case BACKOFFICE_LITERATURE_SUCCESS:
+      return state
+        .set('loading', false)
+        .set('literature', fromJS(action.payload.data));
     case BACKOFFICE_SEARCH_QUERY_UPDATE:
       return state.set('query', fromJS(action.payload));
     case BACKOFFICE_SEARCH_QUERY_RESET:
@@ -84,6 +111,25 @@ const BackofficeReducer = (state = initialState, action) => {
         .set('loading', false);
     case BACKOFFICE_DELETE_ERROR:
       return state.set('loading', false);
+    case BACKOFFICE_AUTHORS_DASHBOARD_REQUEST:
+      return state.set('dashboard', { loading: true });
+    case BACKOFFICE_AUTHORS_DASHBOARD_SUCCESS: {
+      return state
+        .setIn(['dashboard', 'facets', 'authors'], fromJS(action.payload))
+        .setIn(['dashboard', 'loading'], false);
+    }
+    case BACKOFFICE_AUTHORS_DASHBOARD_ERROR:
+      return state.set('dashboard', initialState.get('dashboard'));
+    case BACKOFFICE_LITERATURE_DASHBOARD_REQUEST:
+      return state.set('dashboard', { loading: true });
+    case BACKOFFICE_LITERATURE_DASHBOARD_SUCCESS: {
+      return state
+        .setIn(['dashboard', 'facets', 'literature'], fromJS(action.payload))
+        .setIn(['dashboard', 'loading'], false);
+    }
+    case BACKOFFICE_LITERATURE_DASHBOARD_ERROR: {
+      return state.set('dashboard', initialState.get('dashboard'));
+    }
     default:
       return state;
   }

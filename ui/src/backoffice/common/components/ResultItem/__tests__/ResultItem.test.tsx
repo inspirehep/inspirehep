@@ -3,8 +3,8 @@ import { screen } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import ResultItem from '../ResultItem';
-import { BACKOFFICE_SEARCH } from '../../../../../common/routes';
 import { renderWithProviders } from '../../../../../fixtures/render';
+import { BACKOFFICE_AUTHORS_SEARCH } from '../../../../../common/routes';
 import { WorkflowTypes } from '../../../../constants';
 
 describe('ResultItem component', () => {
@@ -22,7 +22,7 @@ describe('ResultItem component', () => {
     });
 
     return renderWithProviders(<ResultItem item={item} />, {
-      route: BACKOFFICE_SEARCH,
+      route: BACKOFFICE_AUTHORS_SEARCH,
     });
   };
 
@@ -45,7 +45,7 @@ describe('ResultItem component', () => {
     renderComponent(WorkflowTypes.AUTHOR_UPDATE, data);
 
     const titleLink = screen.getByRole('link', { name: /Doe, John/i });
-    expect(titleLink).toHaveAttribute('href', '/backoffice/123');
+    expect(titleLink).toHaveAttribute('href', '/backoffice/authors/123');
 
     expect(screen.getByText('Author')).toBeInTheDocument();
     expect(screen.getByText('Update')).toBeInTheDocument();

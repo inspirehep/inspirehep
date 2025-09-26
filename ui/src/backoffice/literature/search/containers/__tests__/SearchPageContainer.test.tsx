@@ -1,10 +1,13 @@
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
-import { getStore } from '../../../../fixtures/store';
+import { getStore } from '../../../../../fixtures/store';
 import SearchPageContainer from '../SearchPageContainer';
-import { BACKOFFICE_SEARCH } from '../../../../common/routes';
-import { renderWithProviders } from '../../../../fixtures/render';
+import { BACKOFFICE_LITERATURE_SEARCH } from '../../../../../common/routes';
+import { renderWithProviders } from '../../../../../fixtures/render';
 
 describe('SearchPageContainer', () => {
   const store = getStore({
@@ -22,7 +25,7 @@ describe('SearchPageContainer', () => {
 
   const renderComponent = (store: any) =>
     renderWithProviders(<SearchPageContainer />, {
-      route: BACKOFFICE_SEARCH,
+      route: BACKOFFICE_LITERATURE_SEARCH,
       store,
     });
 

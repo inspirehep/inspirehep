@@ -25,14 +25,21 @@ import {
   BACKOFFICE_DELETE_SUCCESS,
   BACKOFFICE_DELETE_ERROR,
   BACKOFFICE_DELETE_REQUEST,
+  BACKOFFICE_AUTHORS_DASHBOARD_ERROR,
+  BACKOFFICE_AUTHORS_DASHBOARD_REQUEST,
+  BACKOFFICE_AUTHORS_DASHBOARD_SUCCESS,
+  BACKOFFICE_LITERATURE_DASHBOARD_ERROR,
+  BACKOFFICE_LITERATURE_DASHBOARD_REQUEST,
+  BACKOFFICE_LITERATURE_DASHBOARD_SUCCESS,
+  BACKOFFICE_LITERATURE_REQUEST,
+  BACKOFFICE_LITERATURE_SUCCESS,
+  BACKOFFICE_LITERATURE_ERROR,
 } from './actionTypes';
 import {
   BACKOFFICE_API,
   BACKOFFICE_LOGIN_API,
-  BACKOFFICE_SEARCH_API,
   BACKOFFICE,
   BACKOFFICE_LOGIN,
-  BACKOFFICE_SEARCH,
 } from '../common/routes';
 import { Credentials } from '../types';
 import storage from '../common/storage';
@@ -44,6 +51,7 @@ import {
   notifyDeleteError,
 } from '../backoffice/notifications';
 import { refreshToken } from '../backoffice/utils/utils';
+import { getConfigFor } from '../common/config';
 
 // withCredentials is needed for ORCID login with sessionId cookie
 const httpClient = axios.create({ withCredentials: true });
@@ -165,6 +173,47 @@ export function backofficeLogout(): (
   };
 }
 
+// DASHBOARD ACTIONS
+function fetchAuthorsDashboardInfo(): (
+  dispatch: ActionCreator<Action>,
+  getState: () => RootStateOrAny
+) => Promise<void> {
+  return async (dispatch) => {
+    dispatch({ type: BACKOFFICE_AUTHORS_DASHBOARD_REQUEST });
+    try {
+      const response = await httpClient.get(
+        `${BACKOFFICE_API}/workflows/authors/search`
+      );
+      dispatch({
+        type: BACKOFFICE_AUTHORS_DASHBOARD_SUCCESS,
+        payload: response.data.facets,
+      });
+    } catch (error) {
+      dispatch({ type: BACKOFFICE_AUTHORS_DASHBOARD_ERROR, payload: error });
+    }
+  };
+}
+
+function fetchLiteratureDashboardInfo(): (
+  dispatch: ActionCreator<Action>,
+  getState: () => RootStateOrAny
+) => Promise<void> {
+  return async (dispatch) => {
+    dispatch({ type: BACKOFFICE_LITERATURE_DASHBOARD_REQUEST });
+    try {
+      const response = await httpClient.get(
+        `${BACKOFFICE_API}/workflows/hep/search`
+      );
+      dispatch({
+        type: BACKOFFICE_LITERATURE_DASHBOARD_SUCCESS,
+        payload: response.data.facets,
+      });
+    } catch (error) {
+      dispatch({ type: BACKOFFICE_LITERATURE_DASHBOARD_ERROR, payload: error });
+    }
+  };
+}
+
 // SEARCH ACTIONS
 function searching() {
   return {
@@ -205,6 +254,7 @@ type QueryParams = {
   ordering?: string;
   [key: string]: any;
 };
+
 export function searchQueryUpdate(
   query: QueryParams
 ): (dispatch: ActionCreator<Action>) => Promise<void> {
@@ -221,7 +271,9 @@ export function searchQueryReset(): (
   };
 }
 
-export function fetchSearchResults(): (
+export function fetchSearchResults(
+  namespace: string
+): (
   dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny
 ) => Promise<void> {
@@ -229,7 +281,7 @@ export function fetchSearchResults(): (
     dispatch(searching());
 
     const currentQuery = getState()?.backoffice?.get('query')?.toJS() || {};
-    const resolveQuery = `${BACKOFFICE_SEARCH_API}/?${
+    const resolveQuery = `${`${BACKOFFICE_API}/workflows/${namespace}/search`}/?${
       Object.entries(currentQuery)
         .filter(([_, value]) => value != null && value !== '')
         .map(([key, value]: [string, any]) => `${key}=${value}`)
@@ -280,6 +332,44 @@ export function fetchAuthor(
     } catch (err) {
       const error = httpErrorToActionPayload(err);
       dispatch(fetchAuthorError(error));
+    }
+  };
+}
+
+// LITERATURE ACTIONS
+function fetchingLiteratureRecord() {
+  return {
+    type: BACKOFFICE_LITERATURE_REQUEST,
+  };
+}
+
+function fetchLiteratureRecordSuccess(data: any) {
+  return {
+    type: BACKOFFICE_LITERATURE_SUCCESS,
+    payload: { data },
+  };
+}
+
+function fetchLiteratureRecordError(errorPayload: { error: Error }) {
+  return {
+    type: BACKOFFICE_LITERATURE_ERROR,
+    payload: { ...errorPayload },
+  };
+}
+
+export function fetchLiteratureRecord(
+  id: string
+): (dispatch: ActionCreator<Action>) => Promise<void> {
+  return async (dispatch) => {
+    dispatch(fetchingLiteratureRecord());
+    const resolveQuery = `${BACKOFFICE_API}/workflows/hep/${id}`;
+
+    try {
+      const response = await httpClient.get(`${resolveQuery}`);
+      dispatch(fetchLiteratureRecordSuccess(response?.data));
+    } catch (err) {
+      const error = httpErrorToActionPayload(err);
+      dispatch(fetchLiteratureRecordError(error));
     }
   };
 }
@@ -364,7 +454,7 @@ export function deleteWorkflow(
 
       dispatch(deleteWorkflowSuccess());
       notifyDeleteSuccess();
-      dispatch(push(BACKOFFICE_SEARCH));
+      dispatch(push(`${BACKOFFICE}/authors/search`));
     } catch (err) {
       const { error } = httpErrorToActionPayload(err);
 
@@ -388,7 +478,10 @@ export function isUserLoggedInToBackoffice(): (
 
       if (response.status === 200) {
         dispatch(searchQueryReset());
-        dispatch(fetchSearchResults());
+        dispatch(fetchAuthorsDashboardInfo());
+        if (getConfigFor('BACKOFFICE_LITERATURE_FEATURE_FLAG')) {
+          dispatch(fetchLiteratureDashboardInfo());
+        }
         dispatch(backofficeLoginSuccess());
       }
     } catch (err) {
