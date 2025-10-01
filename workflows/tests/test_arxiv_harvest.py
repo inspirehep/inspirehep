@@ -82,6 +82,7 @@ class TestArxivHarvest:
         result = read_object(s3_hook, bucket_name, res)
 
         assert len(result["parsed_records"]) == 2
+        assert "acquisition_source" in result["parsed_records"][0]
         assert len(result["failed_records"]) == 0
 
     def test_build_records_bad(self, datadir):
