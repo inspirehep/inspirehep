@@ -9,6 +9,8 @@ from airflow.utils.context import Context
 from include.utils.s3 import read_object, write_object
 from sickle.oaiexceptions import NoRecordsMatch
 
+from tests.test_utils import task_test
+
 dagbag = DagBag()
 s3_hook = S3Hook(aws_conn_id="s3_conn")
 s3_conn = s3_hook.get_connection("s3_conn")
@@ -74,14 +76,27 @@ class TestArxivHarvest:
             records.append(xml_string)
         s3_key = write_object(s3_hook, {"records": records}, bucket_name)
 
-        task = self.dag.get_task("process_records.build_records")
-        task.op_args = (s3_key, s3_creds, bucket_name)
-
-        res = task.execute(context=Context())
+        res = task_test(
+            dag_id="arxiv_harvest_dag",
+            task_id="process_records.build_records",
+            params={
+                "s3_key": s3_key,
+                "s3_creds": s3_creds,
+                "bucket_name": bucket_name,
+            },
+            map_index=0,
+        )
 
         result = read_object(s3_hook, bucket_name, res)
 
         assert len(result["parsed_records"]) == 2
+        assert "acquisition_source" in result["parsed_records"][0]
+        for parsed_record in result["parsed_records"]:
+            assert parsed_record["acquisition_source"]["source"] == "arXiv"
+            assert parsed_record["acquisition_source"]["method"] == "arxiv_harvest_dag"
+            assert {"datetime", "submission_number"}.issubset(
+                parsed_record["acquisition_source"]
+            )
         assert len(result["failed_records"]) == 0
 
     def test_build_records_bad(self, datadir):
@@ -93,10 +108,16 @@ class TestArxivHarvest:
             records.append(xml_string)
         s3_key = write_object(s3_hook, {"records": records}, bucket_name)
 
-        task = self.dag.get_task("process_records.build_records")
-        task.op_args = (s3_key, s3_creds, bucket_name)
-
-        res = task.execute(context=Context())
+        res = task_test(
+            dag_id="arxiv_harvest_dag",
+            task_id="process_records.build_records",
+            params={
+                "s3_key": s3_key,
+                "s3_creds": s3_creds,
+                "bucket_name": bucket_name,
+            },
+            map_index=0,
+        )
         result = read_object(s3_hook, bucket_name, res)
         assert len(result["parsed_records"]) == 1
         assert len(result["failed_records"]) == 1

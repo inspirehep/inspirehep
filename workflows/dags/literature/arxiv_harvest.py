@@ -132,6 +132,7 @@ def arxiv_harvest_dag():
             Returns: list(dict): The list of parsed records.
             """
 
+            import datetime
             import sys
 
             sys.path.append("/opt/airflow/plugins")
@@ -150,7 +151,15 @@ def arxiv_harvest_dag():
             failed_records = []
             for record in records_data["records"]:
                 try:
-                    parsed_records.append(ArxivParser(record).parse())
+                    parsed_object = ArxivParser(record)
+                    parsed_object.parse()
+                    parsed_object.builder.add_acquisition_source(
+                        source="arXiv",
+                        method="arxiv_harvest_dag",
+                        date=datetime.datetime.now().isoformat(),
+                        submission_number=context["run_id"],
+                    )
+                    parsed_records.append(parsed_object.builder.record)
                 except Exception:
                     failed_records.append(record)
 
