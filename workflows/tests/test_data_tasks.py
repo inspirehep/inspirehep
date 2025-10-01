@@ -161,8 +161,7 @@ class TestDataHarvest:
             "acquisition_source": {"submission_number": "123"},
         }
         task = self.dag.get_task("process_record.normalize_collaborations")
-        task.op_args = (record,)
-        json_response = task.execute(context=Context())
+        json_response = task.python_callable(record=record)
 
         assert "record" in json_response["collaborations"][0]
         assert (

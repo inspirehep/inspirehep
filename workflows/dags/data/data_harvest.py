@@ -7,12 +7,11 @@ from airflow.macros import ds_add
 from airflow.models import Variable
 from airflow.models.param import Param
 from hooks.generic_http_hook import GenericHttpHook
-from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
+from include.utils import workflows
 from include.utils.alerts import FailedDagNotifier
-from inspire_utils.dedupers import dedupe_list
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +39,6 @@ def data_harvest_dag():
     """
     generic_http_hook = GenericHttpHook(http_conn_id="hepdata_connection")
     inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
-    inspire_http_hook = InspireHttpHook()
 
     data_schema = Variable.get("data_schema")
     url = inspire_http_record_management_hook.get_url()
@@ -130,29 +128,12 @@ def data_harvest_dag():
             Args: record (dict): The record to normalize.
             Returns: dict: The normalized record.
             """
+            normalizations = workflows.normalize_collaborations(record)
 
-            collaborations = record.get("collaborations", [])
-
-            if not collaborations:
-                return record
-
-            response = inspire_http_hook.call_api(
-                endpoint="api/curation/literature/collaborations-normalization",
-                method="GET",
-                json={"collaborations": collaborations},
-            )
-            response.raise_for_status()
-            obj_accelerator_experiments = record.get("accelerator_experiments", [])
-            normalized_accelerator_experiments = response.json()[
-                "accelerator_experiments"
-            ]
-
-            if normalized_accelerator_experiments or obj_accelerator_experiments:
-                record["accelerator_experiments"] = dedupe_list(
-                    obj_accelerator_experiments + normalized_accelerator_experiments
-                )
-                record["collaborations"] = response.json()["normalized_collaborations"]
-
+            if normalizations:
+                accelerator_experiments, normalized_collaborations = normalizations
+                record["accelerator_experiments"] = accelerator_experiments
+                record["collaborations"] = normalized_collaborations
             return record
 
         @task

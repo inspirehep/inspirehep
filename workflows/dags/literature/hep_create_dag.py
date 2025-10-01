@@ -27,6 +27,7 @@ from include.inspire.guess_coreness import calculate_coreness
 from include.inspire.journal_title_normalization import (
     process_entries,
 )
+from include.utils import workflows
 from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.constants import JOURNALS_PID_TYPE
 from include.utils.s3 import read_object, write_object
@@ -526,34 +527,7 @@ def hep_create_dag():
             workflow_data = read_object(
                 s3_hook, bucket_name, context["params"]["workflow_id"]
             )
-
-            collaborations = get_value(workflow_data, "collaborations", [])
-
-            if not collaborations:
-                return
-
-            response = inspire_http_hook.call_api(
-                endpoint="api/curation/literature/collaborations-normalization",
-                method="GET",
-                json={"collaborations": collaborations},
-            )
-            response.raise_for_status()
-            obj_accelerator_experiments = workflow_data.get(
-                "accelerator_experiments", []
-            )
-            json_response = response.json()
-
-            normalized_accelerator_experiments = json_response[
-                "accelerator_experiments"
-            ]
-
-            if normalized_accelerator_experiments or obj_accelerator_experiments:
-                accelerator_experiments = dedupe_list(
-                    obj_accelerator_experiments + normalized_accelerator_experiments
-                )
-                normalized_collaborations = json_response["normalized_collaborations"]
-
-                return accelerator_experiments, normalized_collaborations
+            return workflows.normalize_collaborations(workflow_data=workflow_data)
 
         check_is_arxiv_paper_task = check_is_arxiv_paper(
             workflow_id=workflow_id,
