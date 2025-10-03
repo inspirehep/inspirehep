@@ -6,6 +6,8 @@ from airflow.models import DagBag
 from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 
+from tests.test_utils import task_test
+
 dagbag = DagBag()
 s3_hook = S3Hook(aws_conn_id="s3_conn")
 ieee_bucket_name = Variable.get("s3_ieee_bucket_name")
@@ -28,8 +30,10 @@ class TestIEEEHarvest:
         mock_list_directory,
         mock_list_ftp_files,
     ):
-        task = self.dag.get_task("ftp_to_s3")
-        task.python_callable("")
+        task_test(
+            "ieee_harvest_dag", "ftp_to_s3", params={"sync_folder": ""}, map_index=0
+        )
+
         assert s3_hook.get_key("a/1.xml", ieee_bucket_name) is not None
 
     def test_check_new_directories(self):

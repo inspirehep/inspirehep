@@ -2,11 +2,9 @@ import datetime
 import logging
 from io import BytesIO
 
-from airflow.decorators import dag, task
 from airflow.exceptions import AirflowException
-from airflow.models.param import Param
-from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+from airflow.sdk import Param, Variable, dag, task
 from hooks.backoffice.workflow_management_hook import (
     HEP,
 )
@@ -16,7 +14,6 @@ from include.utils.ftp import list_ftp_files
 
 logger = logging.getLogger(__name__)
 s3_hook = S3Hook(aws_conn_id="s3_conn")
-ieee_bucket_name = Variable.get("s3_ieee_bucket_name")
 
 
 @dag(
@@ -58,6 +55,7 @@ def ieee_harvest_dag():
         """
         ftp_hook = CustomFTPSHook(ftp_conn_id="ieee_ftp")
         s3_hook = S3Hook(aws_conn_id="s3_conn")
+        ieee_bucket_name = Variable.get("s3_ieee_bucket_name")
 
         directories = ftp_hook.list_directory(sync_folder)
 
