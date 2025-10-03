@@ -15,7 +15,7 @@ OAISERVER_METADATA_FORMATS = {
         "schema": "http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd",
         "namespace": "http://www.loc.gov/MARC21/slim",
     },
-    "oaire": {
+    "oai_openaire": {
         "serializer": "inspirehep.oai.serializers:record_json_to_oairexml",
         "schema": "https://www.openaire.eu/schema/repo-lit/4.0/openaire.xsd",
         "namespace": "http://namespace.openaire.eu/schema/oaire/",
