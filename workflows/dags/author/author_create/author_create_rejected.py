@@ -2,7 +2,7 @@ import datetime
 import logging
 
 from airflow.decorators import dag, task
-from airflow.models.param import Param
+from airflow.sdk import Param
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from include.utils.alerts import FailedDagNotifierSetError

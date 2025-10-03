@@ -3,7 +3,7 @@ import logging
 
 from airflow.decorators import dag, task, task_group
 from airflow.macros import ds_add
-from airflow.models.param import Param
+from airflow.sdk import Param
 from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,

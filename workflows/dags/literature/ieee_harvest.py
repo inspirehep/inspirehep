@@ -4,9 +4,9 @@ from io import BytesIO
 
 from airflow.decorators import dag, task
 from airflow.exceptions import AirflowException
-from airflow.models.param import Param
 from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+from airflow.sdk import Param
 from hooks.backoffice.workflow_management_hook import (
     HEP,
 )

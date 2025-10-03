@@ -6,11 +6,10 @@ from tempfile import TemporaryDirectory
 from airflow.decorators import dag, task_group
 from airflow.exceptions import AirflowException
 from airflow.hooks.base import BaseHook
-from airflow.models.param import Param
 from airflow.models.variable import Variable
-from airflow.operators.empty import EmptyOperator
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-from airflow.sdk import task
+from airflow.providers.standard.operators.empty import EmptyOperator
+from airflow.sdk import Param, task
 from airflow.utils.edgemodifier import Label
 from airflow.utils.trigger_rule import TriggerRule
 from hooks.backoffice.workflow_management_hook import (

@@ -2,9 +2,8 @@ import datetime
 import logging
 from urllib.parse import parse_qs, urlparse
 
-from airflow.decorators import dag, task, task_group
-from airflow.models.param import Param
 from airflow.providers.http.operators.http import HttpOperator
+from airflow.sdk import Param, dag, task, task_group
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
