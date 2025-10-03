@@ -2,7 +2,7 @@ import datetime
 import logging
 
 from airflow.decorators import dag, task
-from airflow.models.param import Param
+from airflow.sdk import Param
 from airflow.utils.trigger_rule import TriggerRule
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.backoffice.workflow_ticket_management_hook import (
