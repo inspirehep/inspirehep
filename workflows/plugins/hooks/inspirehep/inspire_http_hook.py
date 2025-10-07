@@ -28,9 +28,9 @@ class InspireHttpHook(GenericHttpHook):
             "Accept": "application/vnd+inspire.record.raw+json",
         }
 
-    def get_backoffice_url(self, workflow_id: str) -> str:
+    def get_backoffice_url(self, workflow_type: str, workflow_id: str) -> str:
         self.get_conn()
-        return f"{self.base_url}/backoffice/{workflow_id}"
+        return f"{self.base_url}/backoffice/{workflow_type}/{workflow_id}"
 
     def create_ticket(
         self, functional_category, template_name, subject, email, template_context
