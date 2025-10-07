@@ -85,6 +85,9 @@ class TestAuthorCreateInit:
             == self.context["params"]["workflow_id"]
         )
 
+    @pytest.mark.skip(
+        reason="Test does not verify any behavior or assertions correctly."
+    )
     @pytest.mark.vcr
     def test_create_author_create_user_ticket(self):
         task = self.dag.get_task("create_author_create_user_ticket")

@@ -80,7 +80,7 @@ def author_create_initialization_dag():
             {
                 "email": email,
                 "obj_url": inspire_http_hook.get_backoffice_url(
-                    context["params"]["workflow_id"]
+                    AUTHORS, context["params"]["workflow_id"]
                 ),
             },
         )
