@@ -19,6 +19,35 @@ s3_creds = {
 bucket_name = Variable.get("s3_bucket_name")
 
 
+HIGGS_ONTOLOGY = """<?xml version="1.0" encoding="UTF-8" ?>
+
+<rdf:RDF xmlns="http://www.w3.org/2004/02/skos/core#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+
+    <Concept rdf:about="http://cern.ch/thesauri/HEPontology.rdf#Higgsparticle">
+        <prefLabel xml:lang="en">Higgs particle</prefLabel>
+        <altLabel xml:lang="en">Higgs boson</altLabel>
+        <hiddenLabel xml:lang="en">Higgses</hiddenLabel>
+        <note xml:lang="en">core</note>
+    </Concept>
+    <Concept rdf:about="http://cern.ch/thesauri/HEPontology.rdf#Corekeyword">
+        <prefLabel xml:lang="en">Core Keyword</prefLabel>
+        <note xml:lang="en">core</note>
+    </Concept>
+
+</rdf:RDF>
+"""
+
+
+@pytest.fixture
+def higgs_ontology(tmpdir):
+    ontology = tmpdir.join("HEPont.rdf")
+    ontology.write(HIGGS_ONTOLOGY)
+    return str(ontology)
+
+
 class Test_HEPCreateDAG:
     dag = dagbag.get_dag("hep_create_dag")
     context = {
@@ -510,6 +539,238 @@ class Test_HEPCreateDAG:
         assert "journal_title" in pub_info[1]
         assert "journal_record" in pub_info[1]
         assert "cnum" in pub_info[2]
+
+    def test_classify_paper_with_fulltext(self, tmpdir, higgs_ontology):
+        fulltext_name = "fulltext.txt"
+        fulltext = tmpdir.join(fulltext_name)
+        fulltext.write("Higgs boson")
+
+        s3_hook.load_file(
+            fulltext,
+            f"{self.context['params']['workflow_id']}-documents/{fulltext_name}",
+            bucket_name,
+            replace=True,
+        )
+
+        workflow_data = {
+            "data": {
+                "documents": [
+                    {"key": fulltext_name},
+                ],
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        expected_fulltext_keywords = [{"number": 1, "keyword": "Higgs particle"}]
+
+        result = task_test(
+            "hep_create_dag",
+            "preprocessing.classify_paper",
+            params={
+                "taxonomy": higgs_ontology,
+                "only_core_tags": False,
+                "spires": True,
+                "with_author_keywords": True,
+                "no_cache": True,
+            },
+            dag_params=self.context["params"],
+        )
+
+        assert (
+            result["classifier_results"]["complete_output"]["core_keywords"]
+            == expected_fulltext_keywords
+        )
+        assert result["classifier_results"]["fulltext_used"] is True
+        assert "extracted_keywords" not in result
+
+    def test_classify_paper_with_no_fulltext(self, higgs_ontology):
+        write_object(
+            s3_hook,
+            {
+                "data": {
+                    "titles": [
+                        {
+                            "title": "Some title",
+                        },
+                    ],
+                    "abstracts": [
+                        {"value": "Very interesting paper about the Higgs boson."},
+                    ],
+                }
+            },
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        expected_kewords = [{"number": 1, "keyword": "Higgs particle"}]
+
+        result = task_test(
+            "hep_create_dag",
+            "preprocessing.classify_paper",
+            params={
+                "taxonomy": higgs_ontology,
+                "only_core_tags": False,
+                "spires": True,
+                "with_author_keywords": True,
+                "no_cache": True,
+            },
+            dag_params=self.context["params"],
+        )
+
+        assert (
+            result["classifier_results"]["complete_output"]["core_keywords"]
+            == expected_kewords
+        )
+        assert result["classifier_results"]["fulltext_used"] is False
+
+    def test_classify_paper_uses_keywords(self, higgs_ontology):
+        write_object(
+            s3_hook,
+            {
+                "data": {
+                    "titles": [
+                        {
+                            "title": "Some title",
+                        },
+                    ],
+                    "keywords": [
+                        {
+                            "value": "Higgs boson",
+                        },
+                    ],
+                }
+            },
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        expected = [{"number": 1, "keyword": "Higgs particle"}]
+
+        result = task_test(
+            "hep_create_dag",
+            "preprocessing.classify_paper",
+            params={
+                "taxonomy": higgs_ontology,
+                "only_core_tags": False,
+                "spires": True,
+                "with_author_keywords": True,
+                "no_cache": True,
+            },
+            dag_params=self.context["params"],
+        )
+
+        assert (
+            result["classifier_results"]["complete_output"]["core_keywords"] == expected
+        )
+        assert result["classifier_results"]["fulltext_used"] is False
+
+    def test_classify_paper_does_not_raise_on_unprintable_keywords(
+        self, datadir, higgs_ontology
+    ):
+        paper_with_unprintable_keywords = "1802.08709.pdf"
+
+        workflow_data = {
+            "data": {
+                "documents": [
+                    {"key": paper_with_unprintable_keywords},
+                ],
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        s3_hook.load_file(
+            (datadir / paper_with_unprintable_keywords),
+            paper_with_unprintable_keywords,
+            bucket_name,
+            replace=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "preprocessing.classify_paper",
+            params={
+                "taxonomy": higgs_ontology,
+                "only_core_tags": False,
+                "spires": True,
+                "with_author_keywords": True,
+                "no_cache": True,
+            },
+            dag_params=self.context["params"],
+        )
+
+    def test_classify_paper_with_fulltext_and_data(self, tmpdir, higgs_ontology):
+        fulltext_name = "fulltext.txt"
+        fulltext = tmpdir.join(fulltext_name)
+        fulltext.write("Core Keyword")
+
+        workflow_data = {
+            "data": {
+                "titles": [
+                    {
+                        "title": "Some title",
+                    },
+                ],
+                "abstracts": [
+                    {"value": "Very interesting paper about the Higgs boson."},
+                ],
+                "documents": [
+                    {"key": fulltext_name},
+                ],
+            }
+        }
+
+        s3_hook.load_file(
+            fulltext,
+            f"{self.context['params']['workflow_id']}-documents/{fulltext_name}",
+            bucket_name,
+            replace=True,
+        )
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        expected_keywords = [{"number": 1, "keyword": "Core Keyword"}]
+
+        result = task_test(
+            "hep_create_dag",
+            "preprocessing.classify_paper",
+            params={
+                "taxonomy": higgs_ontology,
+                "only_core_tags": False,
+                "spires": True,
+                "with_author_keywords": True,
+                "no_cache": True,
+            },
+            dag_params=self.context["params"],
+        )
+
+        assert (
+            result["classifier_results"]["complete_output"]["core_keywords"]
+            == expected_keywords
+        )
+
+        assert result["classifier_results"]["fulltext_used"] is True
 
 
 class TestNormalizeJournalTitles:

@@ -33,6 +33,8 @@ from include.utils.s3 import read_object, write_object
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.helpers import maybe_int
 from inspire_utils.record import get_value
+from invenio_classifier import get_keywords_from_local_file, get_keywords_from_text
+from invenio_classifier.errors import ClassifierException
 from literature.exact_match_tasks import (
     await_decision_exact_match,
     check_decision_exact_match,
@@ -429,6 +431,70 @@ def hep_create_dag():
                 overwrite=True,
             )
 
+        @task
+        def classify_paper(
+            taxonomy=None,
+            rebuild_cache=False,
+            no_cache=False,
+            output_limit=20,
+            spires=False,
+            match_mode="full",
+            with_author_keywords=False,
+            extract_acronyms=False,
+            only_core_tags=False,
+            **context,
+        ):
+            workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, workflow_id)
+
+            params = dict(
+                taxonomy_name=taxonomy or Variable.get("HEP_ONTOLOGY_FILE"),
+                output_mode="dict",
+                output_limit=output_limit,
+                spires=spires,
+                match_mode=match_mode,
+                no_cache=no_cache,
+                with_author_keywords=with_author_keywords,
+                rebuild_cache=rebuild_cache,
+                only_core_tags=only_core_tags,
+                extract_acronyms=extract_acronyms,
+            )
+
+            fulltext_used = True
+            key = workflows.get_document_key_in_workflow(workflow_data)
+            try:
+                if key:
+                    with TemporaryDirectory(prefix="classify_paper") as tmp_dir:
+                        document_path = s3_hook.download_file(
+                            f"{context['params']['workflow_id']}-documents/{key}",
+                            bucket_name,
+                            tmp_dir,
+                        )
+                        result = get_keywords_from_local_file(document_path, **params)
+
+                else:
+                    data = get_value(workflow_data, "data.titles.title", [])
+                    data.extend(get_value(workflow_data, "data.titles.subtitle", []))
+                    data.extend(get_value(workflow_data, "data.abstracts.value", []))
+                    data.extend(get_value(workflow_data, "data.keywords.value", []))
+                    if not data:
+                        logger.error("No classification done due to missing data.")
+                        return
+                    result = get_keywords_from_text(data, **params)
+                    fulltext_used = False
+
+            except ClassifierException as e:
+                logger.exception(e)
+                return
+
+            result["complete_output"] = workflows.clean_instances_from_data(
+                result.get("complete_output", {})
+            )
+            result["fulltext_used"] = fulltext_used
+            # Check if it is not empty output before adding
+            if any(result.get("complete_output", {}).values()):
+                return {"classifier_results": result}
+
         @task.branch_virtualenv(
             requirements=["inspire-schemas>=61.6.23", "boto3"],
             system_site_packages=False,
@@ -563,6 +629,9 @@ def hep_create_dag():
                 s3_workflow_id=s3_workflow_id,
             )
             >> populate_journal_coverage()
+            >> classify_paper(
+                only_core_tags=False, spires=True, with_author_keywords=False
+            )
             >> guess_coreness_task
             >> normalize_collaborations()
         )
