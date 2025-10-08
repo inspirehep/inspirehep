@@ -93,7 +93,7 @@ class TestArxivHarvest:
         assert "acquisition_source" in result["parsed_records"][0]
         for parsed_record in result["parsed_records"]:
             assert parsed_record["acquisition_source"]["source"] == "arXiv"
-            assert parsed_record["acquisition_source"]["method"] == "arxiv_harvest_dag"
+            assert parsed_record["acquisition_source"]["method"] == "hepcrawl"
             assert {"datetime", "submission_number"}.issubset(
                 parsed_record["acquisition_source"]
             )
