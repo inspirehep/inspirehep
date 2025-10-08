@@ -19,6 +19,7 @@ def task_test(
 
     if dag_params:
         dag.params.update(dag_params)
+        params.update(dag_params)
         task.params.update(dag_params)
 
     task.op_args = tuple(params.values())
