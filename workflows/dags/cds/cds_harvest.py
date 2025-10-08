@@ -80,7 +80,7 @@ def cds_harvest_dag():
     @task_group
     def process_cds_response(cds_record):
         @task.virtualenv(
-            requirements=["inspire-schemas>=61.6.23"],
+            requirements=["inspire-schemas==61.6.23"],
             system_site_packages=False,
             venv_cache_path="/opt/airflow/venvs",
         )
