@@ -155,7 +155,7 @@ def arxiv_harvest_dag():
                     parsed_object.parse()
                     parsed_object.builder.add_acquisition_source(
                         source="arXiv",
-                        method="arxiv_harvest_dag",
+                        method="hepcrawl",
                         date=datetime.datetime.now().isoformat(),
                         submission_number=context["run_id"],
                     )
