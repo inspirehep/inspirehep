@@ -1,4 +1,4 @@
-# Inspirehep
+# INSPIRE HEP
 
 This is a monorepo that currently contains 3 main services (besides helper services)
 - Inspirehep - this is what the main inspire services, it serves the website inspirehep.net / inspirebeta.net and calls the required services
