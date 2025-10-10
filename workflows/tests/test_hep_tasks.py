@@ -356,7 +356,7 @@ class Test_HEPCreateDAG:
             xcom_key="skipmixin_key",
         )
 
-        assert "preprocessing.fetch_and_extract_journal_info" in res["followed"]
+        assert "preprocessing.normalize_journal_titles" in res["followed"]
 
     @pytest.mark.vcr
     def test_populate_journal_coverage(self):
