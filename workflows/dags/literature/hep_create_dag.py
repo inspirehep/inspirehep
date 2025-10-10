@@ -527,7 +527,7 @@ def hep_create_dag():
 
             if is_arxiv:
                 return "preprocessing.arxiv_package_download"
-            return "preprocessing.fetch_and_extract_journal_info"
+            return "preprocessing.normalize_journal_titles"
 
         @task
         def arxiv_plot_extract(tarball_key, **context):
@@ -609,16 +609,18 @@ def hep_create_dag():
         guess_coreness_task = guess_coreness()
 
         arxiv_package_download_task = arxiv_package_download()
-        arxiv_plot_extract_task = arxiv_plot_extract(arxiv_package_download_task)
+
+        normalize_journal_titles_task = normalize_journal_titles()
         check_is_arxiv_paper_task >> [
-            s3_workflow_id,
+            normalize_journal_titles_task,
             arxiv_package_download_task,
         ]
 
-        arxiv_plot_extract_task >> s3_workflow_id
         (
-            count_reference_coreness()
-            >> normalize_journal_titles()
+            arxiv_plot_extract(arxiv_package_download_task)
+            >> normalize_journal_titles_task
+            >> count_reference_coreness()
+            >> s3_workflow_id
             >> process_journal_info(
                 s3_creds={
                     "user": s3_conn.login,
