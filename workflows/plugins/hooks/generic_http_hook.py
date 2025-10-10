@@ -59,6 +59,7 @@ class GenericHttpHook(HttpHook):
         params: dict = None,
         headers: dict = None,
         extra_options: dict = None,
+        **kwargs,
     ) -> Response:
         return self.run_with_advanced_retry(
             _retry_args=self.tenacity_retry_kwargs,
@@ -68,6 +69,7 @@ class GenericHttpHook(HttpHook):
             data=params,
             method=method,
             extra_options=extra_options,
+            **kwargs,
         )
 
     def get_url(self) -> str:
