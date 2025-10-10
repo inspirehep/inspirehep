@@ -30,6 +30,9 @@ from include.utils import workflows
 from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.constants import JOURNALS_PID_TYPE
 from include.utils.s3 import read_object, write_object
+from incluude.utils.grobid_authors_parser import GrobidAuthors
+from inspire_json_merger.api import merge
+from inspire_json_merger.config import GrobidOnArxivAuthorsOperations
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.helpers import maybe_int
 from inspire_utils.record import get_value
@@ -203,6 +206,76 @@ def hep_create_dag():
                 s3_workflow_id,
                 overwrite=True,
             )
+
+        @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+        def is_suitable_for_pdf_authors_extraction(has_author_xml, **context):
+            s3_workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
+            """Check if article is arXiv/PoS and if authors.xml were attached"""
+            acquisition_source = get_value(
+                workflow_data, "data.acquisition_source.source", ""
+            ).lower()
+            return acquisition_source in ["arxiv", "pos"] and not has_author_xml
+
+        @task
+        def extract_authors_from_pdf(**context):
+            s3_workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
+
+            # If there are more than specified number of authors
+            # then don't run Grobid authors extraction
+            if len(get_value(workflow_data, "data.authors", [])) > Variable.get(
+                "WORKFLOWS_MAX_AUTHORS_COUNT_FOR_GROBID_EXTRACTION", 1000
+            ):
+                return
+            api_path = "api/processHeaderDocument"
+            kwargs_to_grobid = {"includeRawAffiliations": "1", "consolidateHeader": "1"}
+            grobid_response = workflows.post_pdf_to_grobid(
+                workflow_data, api_path, **kwargs_to_grobid
+            )
+            if not grobid_response:
+                return
+            authors_and_affiliations = GrobidAuthors(grobid_response.text)
+            data = authors_and_affiliations.parse_all()
+            grobid_authors = get_value(data, "author")
+            merged_authors, merge_conflicts = merge(
+                {},
+                {"authors": get_value(workflow_data, "data.authors", [])},
+                {"authors": grobid_authors},
+                configuration=GrobidOnArxivAuthorsOperations,
+            )
+            if (
+                not get_value(workflow_data, "data.authors", [])
+                and len(authors_and_affiliations) > 0
+            ):
+                logger.info(
+                    "Using %s GROBID authors",
+                    len(authors_and_affiliations),
+                )
+                workflow_data["data"]["authors"] = grobid_authors
+                workflow_data["extra_data"]["authors_with_affiliations"] = data
+            elif not merge_conflicts and len(merged_authors["authors"]) > 0:
+                logger.info(
+                    "Using %s merged GROBID authors",
+                    len(merged_authors),
+                )
+                workflow_data["data"]["authors"] = merged_authors["authors"]
+                workflow_data["extra_data"]["authors_with_affiliations"] = data
+            else:
+                metadata_authors_count = (
+                    len(workflow_data["data"]["authors"])
+                    if "authors" in workflow_data["data"]
+                    else 0
+                )
+                grobid_authors_count = (
+                    len(authors_and_affiliations) if authors_and_affiliations else 0
+                )
+                logger.warning(
+                    "Ignoring grobid authors. Expected authors count: %s."
+                    " Authors exctracted from grobid %s.",
+                    metadata_authors_count,
+                    grobid_authors_count,
+                )
 
         @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def normalize_journal_titles(**context):
@@ -568,6 +641,11 @@ def hep_create_dag():
                 return plot_keys
 
         @task
+        def arxiv_author_list(**context):
+            # TODO: Implement author extraction logic
+            return True
+
+        @task
         def guess_coreness(**context):
             workflow_data = read_object(
                 s3_hook, bucket_name, context["params"]["workflow_id"]
@@ -615,9 +693,18 @@ def hep_create_dag():
             arxiv_package_download_task,
         ]
 
-        arxiv_plot_extract_task >> s3_workflow_id
+        count_reference_coreness_task = count_reference_coreness()
+
+        arxiv_author_list_task = arxiv_author_list()
+        arxiv_plot_extract_task >> arxiv_author_list_task
+
+        is_suitable_for_pdf_authors_extraction(arxiv_author_list_task) >> [
+            count_reference_coreness_task,
+            extract_authors_from_pdf,
+        ]
         (
-            count_reference_coreness()
+            count_reference_coreness_task
+            >> s3_workflow_id
             >> normalize_journal_titles()
             >> process_journal_info(
                 s3_creds={
