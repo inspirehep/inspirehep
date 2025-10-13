@@ -102,7 +102,7 @@ def data_harvest_dag():
             return record
 
         @task.virtualenv(
-            requirements=["inspire-schemas==61.6.24"],
+            requirements=["inspire-schemas==61.6.23"],
             system_site_packages=False,
             venv_cache_path="/opt/airflow/venvs",
         )
