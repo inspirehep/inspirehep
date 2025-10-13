@@ -7477,10 +7477,10 @@ ini@^1.3.5:
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.8.tgz#a29da425b48806f34767a4efce397269af28432c"
   integrity sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==
 
-inspire-schemas@^61.6.16:
-  version "61.6.16"
-  resolved "https://registry.yarnpkg.com/inspire-schemas/-/inspire-schemas-61.6.16.tgz#82ee7fab278e5351f05c39dc424adcc2f8771c9d"
-  integrity sha512-cnK76QOsRBZ3gB3pPq0fLBzrC9JwBPfXLNXfyeO/VcRjGVRYny2qxeJZswKZS4YRrB9P+sx8bAaHTG6JE2BOBg==
+inspire-schemas@^61.6.26:
+  version "61.6.26"
+  resolved "https://registry.yarnpkg.com/inspire-schemas/-/inspire-schemas-61.6.26.tgz#3fb6e0f671ded62b3526c7617a23b687e18e782c"
+  integrity sha512-2Qfq0h8ciDQxMrKrt2+k9B1R3dQCAcYrFY6a8YjtELLLo3rVcc7i9/AzoZBtSUQWY2I9xF+TekbpvYxftco+FA==
   dependencies:
     buffer-shims "^1.0.0"
 

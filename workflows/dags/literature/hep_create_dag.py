@@ -322,7 +322,7 @@ def hep_create_dag():
             )
 
         @task.virtualenv(
-            requirements=["inspire-schemas==61.6.23", "inspire-utils~=3.0.66", "boto3"],
+            requirements=["inspire-schemas==61.6.26", "inspire-utils~=3.0.66", "boto3"],
             system_site_packages=False,
             venv_cache_path="/opt/airflow/venvs",
         )
@@ -496,7 +496,7 @@ def hep_create_dag():
                 return {"classifier_results": result}
 
         @task.branch_virtualenv(
-            requirements=["inspire-schemas==61.6.23", "boto3"],
+            requirements=["inspire-schemas==61.6.26", "boto3"],
             system_site_packages=False,
             venv_cache_path="/opt/airflow/venvs",
             trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
