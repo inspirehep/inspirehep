@@ -30,7 +30,8 @@ from include.utils import workflows
 from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.constants import JOURNALS_PID_TYPE
 from include.utils.s3 import read_object, write_object
-from incluude.utils.grobid_authors_parser import GrobidAuthors
+
+# from include.utils.grobid_authors_parser import GrobidAuthors
 from inspire_json_merger.api import merge
 from inspire_json_merger.config import GrobidOnArxivAuthorsOperations
 from inspire_utils.dedupers import dedupe_list
@@ -220,6 +221,9 @@ def hep_create_dag():
         @task
         def extract_authors_from_pdf(**context):
             s3_workflow_id = context["params"]["workflow_id"]
+            import pdb
+
+            pdb.set_trace()
             workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
 
             # If there are more than specified number of authors
@@ -235,7 +239,7 @@ def hep_create_dag():
             )
             if not grobid_response:
                 return
-            authors_and_affiliations = GrobidAuthors(grobid_response.text)
+            authors_and_affiliations = None  # GrobidAuthors(grobid_response.text)
             data = authors_and_affiliations.parse_all()
             grobid_authors = get_value(data, "author")
             merged_authors, merge_conflicts = merge(
@@ -694,6 +698,16 @@ def hep_create_dag():
             arxiv_package_download_task,
         ]
 
+        arxiv_plot_extract_task = arxiv_plot_extract(arxiv_package_download_task)
+        count_reference_coreness_task = count_reference_coreness()
+
+        arxiv_author_list_task = arxiv_author_list()
+        arxiv_plot_extract_task >> arxiv_author_list_task
+
+        is_suitable_for_pdf_authors_extraction(arxiv_author_list_task) >> [
+            count_reference_coreness_task,
+            extract_authors_from_pdf(),
+        ]
         (
             arxiv_plot_extract(arxiv_package_download_task)
             >> normalize_journal_titles_task
