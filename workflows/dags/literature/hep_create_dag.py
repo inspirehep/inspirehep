@@ -216,7 +216,10 @@ def hep_create_dag():
             acquisition_source = get_value(
                 workflow_data, "data.acquisition_source.source", ""
             ).lower()
-            return acquisition_source in ["arxiv", "pos"] and not has_author_xml
+            if acquisition_source in ["arxiv", "pos"] and not has_author_xml:
+                return "preprocessing.extract_authors_from_pdf"
+            else:
+                return "preprocessing.normalize_journal_titles"
 
         @task
         def extract_authors_from_pdf(**context):
@@ -604,7 +607,7 @@ def hep_create_dag():
 
             if is_arxiv:
                 return "preprocessing.arxiv_package_download"
-            return "preprocessing.normalize_journal_titles"
+            return "preprocessing.is_suitable_for_pdf_authors_extraction"
 
         @task
         def arxiv_plot_extract(tarball_key, **context):
@@ -693,23 +696,29 @@ def hep_create_dag():
         arxiv_package_download_task = arxiv_package_download()
 
         normalize_journal_titles_task = normalize_journal_titles()
+
+        extract_authors_from_pdf_task = extract_authors_from_pdf()
+        arxiv_author_list_task = arxiv_author_list()
+        is_suitable_for_pdf_authors_extraction_task = (
+            is_suitable_for_pdf_authors_extraction(arxiv_author_list_task)
+        )
+
         check_is_arxiv_paper_task >> [
-            normalize_journal_titles_task,
+            is_suitable_for_pdf_authors_extraction_task,
             arxiv_package_download_task,
         ]
 
-        arxiv_plot_extract_task = arxiv_plot_extract(arxiv_package_download_task)
-        count_reference_coreness_task = count_reference_coreness()
-
-        arxiv_author_list_task = arxiv_author_list()
-        arxiv_plot_extract_task >> arxiv_author_list_task
-
-        is_suitable_for_pdf_authors_extraction(arxiv_author_list_task) >> [
-            count_reference_coreness_task,
-            extract_authors_from_pdf(),
-        ]
         (
             arxiv_plot_extract(arxiv_package_download_task)
+            >> arxiv_author_list_task
+            >> is_suitable_for_pdf_authors_extraction_task
+            >> [
+                normalize_journal_titles_task,
+                extract_authors_from_pdf_task,
+            ]
+        )
+        (
+            extract_authors_from_pdf_task
             >> normalize_journal_titles_task
             >> count_reference_coreness()
             >> s3_workflow_id
