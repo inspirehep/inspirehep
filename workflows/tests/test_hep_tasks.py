@@ -772,6 +772,228 @@ class Test_HEPCreateDAG:
 
         assert result["classifier_results"]["fulltext_used"] is True
 
+    def test_extract_authors_from_pdf(self, datadir):
+        task_test(
+            "hep_create_dag",
+            "preprocessing.extract_authors_from_pdf",
+            params={},
+            dag_params=self.context["params"],
+        )
+
+    # @patch("inspirehep.modules.workflows.tasks.actions.get_document_in_workflow")
+    # def test_extract_authors_from_pdf(mocked_get_document, app):
+    #     grobid_response = pkg_resources.resource_string(
+    #         __name__,
+    #         os.path.join(
+    #             'fixtures',
+    #             'grobid_full_doc.xml'
+    #         )
+    #     )
+
+    #     obj = MagicMock()
+    #     obj.data = {
+    #         'authors': [
+    #             {"full_name": "author 1"},
+    #             {"full_name": "author 2"},
+    #             {"full_name": "author 3"}
+    #         ]
+    #     }
+    #     obj.extra_data = {}
+    #     eng = None
+
+    #     new_config = {"GROBID_URL": "http://grobid_url.local"}
+    #     with patch.dict(current_app.config, new_config):
+    #         with requests_mock.Mocker() as requests_mocker:
+    #             requests_mocker.register_uri(
+    #                 'POST',
+    #                 'http://grobid_url.local/api/processHeaderDocument',
+    #                 text=grobid_response,
+    #                 headers={'content-type': 'application/xml'},
+    #                 status_code=200,
+    #             )
+    #             with tempfile.NamedTemporaryFile() as tmp_file:
+    #                 mocked_get_document.return_value.__enter__.return_value =
+    #                 tmp_file.name
+    #                 extract_authors_from_pdf(obj, eng)
+    #     assert len(obj.data['authors']) == 3
+    #     assert len(obj.extra_data['authors_with_affiliations']) == 3
+
+
+# @patch("inspirehep.modules.workflows.tasks.actions.get_document_in_workflow")
+# def test_extract_authors_from_pdf_number_of_authors_is_same_after_merge_with_grobid
+#     (mocked_get_document, app):
+#     grobid_response = pkg_resources.resource_string(
+#         __name__,
+#         os.path.join(
+#             'fixtures',
+#             'grobid_full_doc.xml'
+#         )
+#     )
+
+#     obj = MagicMock()
+#     obj.data = {
+#         'authors': [
+#             {"full_name": "author 1"}
+#         ]
+#     }
+#     obj.extra_data = {}
+#     eng = None
+
+#     new_config = {"GROBID_URL": "http://grobid_url.local"}
+#     with patch.dict(current_app.config, new_config):
+#         with requests_mock.Mocker() as requests_mocker:
+#             requests_mocker.register_uri(
+#                 'POST', 'http://grobid_url.local/api/processHeaderDocument',
+#                 text=grobid_response,
+#                 headers={'content-type': 'application/xml'},
+#                 status_code=200,
+#             )
+#             with tempfile.NamedTemporaryFile() as tmp_file:
+#                 mocked_get_document.return_value.__enter__.return_value =
+#                 tmp_file.name
+#                 extract_authors_from_pdf(obj, eng)
+#     assert len(obj.data['authors']) == 1
+#     assert len(obj.extra_data.get('authors_with_affiliations')) == 3
+
+
+# @patch("inspirehep.modules.workflows.tasks.actions.get_document_in_workflow")
+# def test_extract_authors_from_pdf_when_no_authors_in_metadata(mocked_get_document,
+#                                                               app):
+#     grobid_response = pkg_resources.resource_string(
+#         __name__,
+#         os.path.join(
+#             'fixtures',
+#             'grobid_full_doc.xml'
+#         )
+#     )
+
+#     obj = MagicMock()
+#     obj.data = {}
+#     obj.extra_data = {}
+#     eng = None
+
+#     new_config = {"GROBID_URL": "http://grobid_url.local"}
+#     with patch.dict(current_app.config, new_config):
+#         with requests_mock.Mocker() as requests_mocker:
+#             requests_mocker.register_uri(
+#                 'POST', 'http://grobid_url.local/api/processHeaderDocument',
+#                 text=grobid_response,
+#                 headers={'content-type': 'application/xml'},
+#                 status_code=200,
+#             )
+#             with tempfile.NamedTemporaryFile() as tmp_file:
+#                 mocked_get_document.return_value.__enter__.return_value =
+#                 tmp_file.name
+#                 extract_authors_from_pdf(obj, eng)
+#     assert len(obj.data['authors']) == 3
+#     assert len(obj.extra_data['authors_with_affiliations']) == 3
+
+
+# @patch("inspirehep.modules.workflows.tasks.actions.get_document_in_workflow")
+# def test_extract_authors_from_pdf__no_authors_in_metadata_and_no_authors_from_grobid(
+#   mocked_get_document, app):
+#     grobid_response = pkg_resources.resource_string(
+#         __name__,
+#         os.path.join(
+#             'fixtures',
+#             'grobid_no_authors_doc.xml'
+#         )
+#     )
+
+#     obj = MagicMock()
+#     obj.data = {}
+#     obj.extra_data = {}
+#     eng = None
+
+#     new_config = {"GROBID_URL": "http://grobid_url.local"}
+#     with patch.dict(current_app.config, new_config):
+#         with requests_mock.Mocker() as requests_mocker:
+#             requests_mocker.register_uri(
+#                 'POST', 'http://grobid_url.local/api/processHeaderDocument',
+#                 text=grobid_response,
+#                 headers={'content-type': 'application/xml'},
+#                 status_code=200,
+#             )
+#             with tempfile.NamedTemporaryFile() as tmp_file:
+#                 mocked_get_document.return_value.__enter__.return_value =
+#                 tmp_file.name
+#                 extract_authors_from_pdf(obj, eng)
+#     assert 'authors' not in obj.data
+#     assert 'authors_with_affiliations' not in obj.extra_data
+
+
+# @patch("inspirehep.modules.workflows.tasks.actions.get_document_in_workflow")
+# def test_extract_authors_from_pdf_merges_grobid_affiliations(
+# mocked_get_document, app):
+#     grobid_response = pkg_resources.resource_string(
+#         __name__,
+#         os.path.join(
+#             'fixtures',
+#             'grobid_full_doc.xml'
+#         )
+#     )
+
+#     obj = MagicMock()
+#     obj.data = {
+#         "authors": [
+#             {
+#                 'raw_affiliations': [{'value': u'S. N. Bose National Centre, India'}],
+#                 'emails': [u'parthanandi@bose.res.in'],
+#                 'full_name': u'Nandi, Partha'},
+#             {
+#                 'raw_affiliations': [{'value': u'IIEST, Shibpur,'
+#                                              u' Howrah, West Bengal-711103, India.'}],
+#                 'full_name': u'Sahu, Sankarshan'},
+#             {
+#                 'raw_affiliations': [{'value':
+#                       u'S. N. Bose National Centre, India.'}],
+#                 'full_name': u'Pal, Sayan Kumar'
+#             }
+#         ]
+#     }
+#     obj.extra_data = {}
+#     eng = None
+
+# expected_authors = [
+#     {
+#         'raw_affiliations': [
+#             {'value': u'S. N. Bose National Centre for Basic Sciences, JD Block,'
+#                       u' Sector III, Salt Lake, Kolkata-700106, India.'}
+#         ],
+#         'emails': [u'parthanandi@bose.res.in'], 'full_name': u'Nandi, Partha'
+#     },
+#     {
+#         'raw_affiliations': [
+#             {'value': u'Indian Institute of Engineering Science and Technology,'
+#                       u' Shibpur, Howrah, West Bengal-711103, India.'}
+#         ], 'emails': [u'sankarshan.sahu2000@gmail.com'], 'full_name':
+#         u'Sahu, Sankarshan'
+#     },
+#     {
+#         'raw_affiliations': [
+#             {'value': u'S. N. Bose National Centre for Basic Sciences,'
+#                       u' JD Block, Sector III, Salt Lake, Kolkata-700106, India.'}
+#         ], 'emails': [u'sayankpal@bose.res.in'], 'full_name': u'Pal, Sayan Kumar'
+#     }
+# ]
+
+#     new_config = {"GROBID_URL": "http://grobid_url.local"}
+#     with patch.dict(current_app.config, new_config):
+#         with requests_mock.Mocker() as requests_mocker:
+#             requests_mocker.register_uri(
+#                 'POST', 'http://grobid_url.local/api/processHeaderDocument',
+#                 text=grobid_response,
+#                 headers={'content-type': 'application/xml'},
+#                 status_code=200,
+#             )
+#             with tempfile.NamedTemporaryFile() as tmp_file:
+#                 mocked_get_document.return_value.__enter__.return_value =
+#                 tmp_file.name
+#                 extract_authors_from_pdf(obj, eng)
+
+#     assert obj.data['authors'] == expected_authors
+#     assert len(obj.extra_data['authors_with_affiliations']) == 3
+
 
 class TestNormalizeJournalTitles:
     """Test class for normalize_journal_titles function logic using Airflow task."""

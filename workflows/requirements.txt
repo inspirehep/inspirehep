@@ -3,4 +3,11 @@ inspire-utils~=3.0.66
 idutils
 Sickle==0.7.0
 plotextractor==1.0.21
+<<<<<<< HEAD
 invenio-classifier==1.3.7
+inspire_json_merger==11.0.44
+=======
+invenio-classifier==1.3.6
+inspire-schemas==61.6.26
+inspire-json-merger==11.0.44
+>>>>>>> 30b36992d (grobing)

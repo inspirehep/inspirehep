@@ -1,5 +1,8 @@
 import logging
+from tempfile import TemporaryDirectory
 
+from airflow.sdk import Variable
+from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
@@ -75,3 +78,34 @@ def get_document_key_in_workflow(workflow):
     key = documents[0]["key"]
     logger.info('Using document with key "%s"', key)
     return key
+
+
+def post_pdf_to_grobid(workflow, grobid_api_path, s3_hook, bucket_name, **kwargs):
+    s3_key = get_document_key_in_workflow(workflow)
+    if not s3_key:
+        return
+
+    with TemporaryDirectory(prefix="grobid") as tmp_dir:
+        document_path = s3_hook.download_file(
+            f"{workflow['workflow_id']}-documents/{s3_key}",
+            bucket_name,
+            tmp_dir,
+        )
+
+        with open(document_path, "rb") as document_file:
+            document = document_file.read()
+        data = {"input": document}
+        data.update(kwargs)
+        grobid_url = Variable.get["GROBID_URL"]
+
+        classifier_http_hook = GenericHttpHook(
+            http_conn_id="grobid_connection",
+            method="POST",
+            headers={"Accept": "application/xml"},
+        )
+        response = classifier_http_hook.call_api(
+            grobid_url, params=grobid_api_path, files=data
+        )
+        response.raise_for_status()
+
+    return response
