@@ -356,7 +356,7 @@ class Test_HEPCreateDAG:
             xcom_key="skipmixin_key",
         )
 
-        assert "preprocessing.normalize_journal_titles" in res["followed"]
+        assert "preprocessing.download_documents" in res["followed"]
 
     @pytest.mark.vcr
     def test_populate_journal_coverage(self):
@@ -434,6 +434,97 @@ class Test_HEPCreateDAG:
         )
         assert len(results) == 20
         assert all(plot.endswith(".png") for plot in results)
+
+    @pytest.mark.vcr
+    def test_download_documents(self):
+        workflow_data = {
+            "data": {
+                "documents": [
+                    {
+                        "key": "1605.03844.pdf",
+                        "url": "https://arxiv.org/pdf/1605.03844",
+                    },
+                ],
+            }
+        }  # literature/1458302
+
+        # TODO uncomment once inspire-schemas is added
+        # schema = load_schema('hep')
+        # subschema = schema['properties']['documents']
+        # assert validate(data['documents'], subschema) is None
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "preprocessing.download_documents",
+            dag_params=self.context["params"],
+        )
+
+        result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert s3_hook.check_for_key(
+            f"{self.workflow_id}-documents/1605.03844.pdf", bucket_name
+        )
+        assert result["data"]["documents"][0]["url"] == (
+            f"s3://{bucket_name}/{self.workflow_id}-documents/1605.03844.pdf"
+        )
+
+    @pytest.mark.vcr
+    def test_download_documents_with_multiple_documents(self):
+        workflow_data = {
+            "data": {
+                "documents": [
+                    {
+                        "key": "1605.03845.pdf",
+                        "url": "https://arxiv.org/pdf/1605.03845",
+                    },
+                    {
+                        "key": "1605.03849.pdf",
+                        "url": "https://arxiv.org/pdf/1605.03849",
+                    },
+                ],
+            }
+        }  # literature/1458302
+
+        # TODO uncomment once inspire-schemas is added
+        # schema = load_schema('hep')
+        # subschema = schema['properties']['documents']
+        # assert validate(data['documents'], subschema) is None
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "preprocessing.download_documents",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        for document_in, document_out in zip(
+            workflow_data["data"]["documents"],
+            workflow_result["data"]["documents"],
+            strict=False,
+        ):
+            assert s3_hook.check_for_key(
+                f"{self.workflow_id}-documents/{document_in['key']}", bucket_name
+            )
+            assert document_out["url"] == (
+                f"s3://{bucket_name}/{self.workflow_id}-documents/{document_in['key']}"
+            )
 
     @pytest.mark.vcr
     def test_count_reference_coreness(self):

@@ -18,5 +18,5 @@ def vcr_config():
         "filter_headers": ("Authorization", "User-Agent"),
         "record_mode": "once",
         "match_on": ["method", "scheme", "host", "port", "path", "query", "body"],
-        "ignore_hosts": ("s3",),
+        "ignore_hosts": ("s3", "in-process.invalid."),
     }

@@ -5,7 +5,7 @@ from airflow.utils.cli import get_dag
 
 
 def task_test(
-    dag_id, task_id, params, dag_params=None, xcom_key="return_value", map_index=-1
+    dag_id, task_id, params=None, dag_params=None, xcom_key="return_value", map_index=-1
 ):
     """Mimics same test task behaviour as command airflow tasks test
 
@@ -17,13 +17,18 @@ def task_test(
     dag = get_dag(None, dag_id=dag_id)
     task = dag.get_task(task_id=task_id)
 
+    if not params:
+        params = {}
+
+    kwargs = params.copy()
+
     if dag_params:
         dag.params.update(dag_params)
-        params.update(dag_params)
         task.params.update(dag_params)
+        kwargs.update(dag_params)
 
-    task.op_args = tuple(params.values())
-    task.op_kwargs = {"params": params}
+    task.op_args = tuple(params.values()) if params else ()
+    task.op_kwargs = {"params": kwargs}
     ti, _ = task_command._get_ti(
         task=task, map_index=map_index, create_if_necessary="db"
     )
