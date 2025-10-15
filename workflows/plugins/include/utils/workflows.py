@@ -75,3 +75,9 @@ def get_document_key_in_workflow(workflow):
     key = documents[0]["key"]
     logger.info('Using document with key "%s"', key)
     return key
+
+
+def delete_empty_key(workflow_data, key):
+    if key in workflow_data["data"] and len(workflow_data["data"][key]) == 0:
+        logger.info("Deleting %s from workflow. Key is empty.", key)
+        del workflow_data["data"][key]

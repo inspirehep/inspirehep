@@ -51,6 +51,7 @@ from plotextractor.errors import (
     InvalidTarball,
     NoTexFilesFound,
 )
+from tenacity import RetryError
 from werkzeug.utils import secure_filename
 
 logger = logging.getLogger(__name__)
@@ -205,6 +206,62 @@ def hep_create_dag():
             )
 
         @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+        def download_documents(**context):
+            s3_workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
+
+            documents = get_value(workflow_data, "data.documents", [])
+
+            for document in documents:
+                url = document["url"]
+
+                if s3_hook.check_for_key(
+                    f"{s3_workflow_id}-documents/{document['key']}", bucket_name
+                ):
+                    logger.info("Document already downloaded from %s", url)
+                    continue
+
+                filename = document["key"]
+                logger.info(
+                    "Downloading document key:%s url:%s",
+                    document["key"],
+                    document["url"],
+                )
+
+                endpoint = f"/pdf/{document['key'].replace('.pdf', '')}"
+
+                try:
+                    response = arxiv_hook.call_api(
+                        endpoint=endpoint,
+                        extra_options={"stream": True, "allow_redirects": True},
+                    )
+                    s3_key = f"{s3_workflow_id}-documents/{filename}"
+                    s3_hook.load_file_obj(
+                        response.raw,
+                        s3_key,
+                        bucket_name,
+                        replace=True,
+                    )
+                    document["url"] = f"s3://{bucket_name}/{s3_key}"
+                    logger.info("Document downloaded from %s", url)
+                except RetryError:
+                    logger.error("Cannot download document from %s", url)
+
+            workflows.delete_empty_key(workflow_data, "documents")
+
+            write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                s3_workflow_id,
+                overwrite=True,
+            )
+            logger.info(
+                "Documents downloaded: %s",
+                len(get_value(workflow_data, "data.documents", [])),
+            )
+
+        @task
         def normalize_journal_titles(**context):
             """
             Normalize the journal titles in workflow data.
@@ -527,7 +584,7 @@ def hep_create_dag():
 
             if is_arxiv:
                 return "preprocessing.arxiv_package_download"
-            return "preprocessing.normalize_journal_titles"
+            return "preprocessing.download_documents"
 
         @task
         def arxiv_plot_extract(tarball_key, **context):
@@ -609,16 +666,17 @@ def hep_create_dag():
         guess_coreness_task = guess_coreness()
 
         arxiv_package_download_task = arxiv_package_download()
+        download_documents_task = download_documents()
 
-        normalize_journal_titles_task = normalize_journal_titles()
         check_is_arxiv_paper_task >> [
-            normalize_journal_titles_task,
+            download_documents_task,
             arxiv_package_download_task,
         ]
 
         (
             arxiv_plot_extract(arxiv_package_download_task)
-            >> normalize_journal_titles_task
+            >> download_documents_task
+            >> normalize_journal_titles()
             >> count_reference_coreness()
             >> s3_workflow_id
             >> process_journal_info(
