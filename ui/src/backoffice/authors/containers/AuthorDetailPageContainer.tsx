@@ -81,8 +81,7 @@ const AuthorDetailPageContainer = ({
 
   const privateNotes = data?.get('_private_notes');
 
-  const shouldDisplayDecisionsBox =
-    decision || status === 'approval' || (decision && status !== 'approval');
+  const shouldDisplayDecisionsBox = decision || status === 'approval';
 
   const DAGS_URL = getConfigFor('INSPIRE_WORKFLOWS_DAGS_URL');
 

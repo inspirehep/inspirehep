@@ -11,25 +11,23 @@ const AuthorResultItem = ({ item }: { item: any }) => {
     item?.get('workflow_type') === WorkflowTypes.AUTHOR_UPDATE;
 
   return (
-    <div className="flex">
-      <div style={{ marginTop: '-2px' }}>
-        <UnclickableTag>Author</UnclickableTag>
-        {isAuthorUpdate && (
-          <>
-            {' '}
-            <UnclickableTag color="processing">Update</UnclickableTag>
-          </>
-        )}
-        {decision && (
-          <UnclickableTag
-            className={`decision-pill ${
-              resolveDecision(decision?.get('action'))?.bg
-            }`}
-          >
-            {resolveDecision(decision?.get('action'))?.text}
-          </UnclickableTag>
-        )}
-      </div>
+    <div className="flex items-center">
+      <UnclickableTag>Author</UnclickableTag>
+      {isAuthorUpdate && (
+        <>
+          {' '}
+          <UnclickableTag color="processing">Update</UnclickableTag>
+        </>
+      )}
+      {decision && (
+        <UnclickableTag
+          className={`decision-pill ${
+            resolveDecision(decision?.get('action'))?.bg
+          }`}
+        >
+          {resolveDecision(decision?.get('action'))?.text}
+        </UnclickableTag>
+      )}
       <span className="dib ml2">{authorName}</span>
     </div>
   );

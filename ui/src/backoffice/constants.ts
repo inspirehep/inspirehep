@@ -6,6 +6,7 @@ export enum WorkflowTypes {
   AUTHOR_CREATE = 'AUTHOR_CREATE',
   AUTHOR_UPDATE = 'AUTHOR_UPDATE',
   HEP_CREATE = 'HEP_CREATE',
+  HEP_UPDATE = 'HEP_UPDATE',
 }
 
 export const WORKFLOW_TYPES = {
