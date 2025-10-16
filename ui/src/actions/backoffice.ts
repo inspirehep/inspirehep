@@ -52,6 +52,11 @@ import {
 } from '../backoffice/notifications';
 import { refreshToken } from '../backoffice/utils/utils';
 import { getConfigFor } from '../common/config';
+import {
+  AUTHORS_PID_TYPE,
+  HEP_PID_TYPE,
+  LITERATURE_PID_TYPE,
+} from '../common/constants';
 
 // withCredentials is needed for ORCID login with sessionId cookie
 const httpClient = axios.create({ withCredentials: true });
@@ -397,6 +402,7 @@ function resolveActionError(errorPayload: { error: Error }) {
 
 export function resolveAction(
   id: string,
+  namespace: string,
   action: string,
   payload: any
 ): (dispatch: ActionCreator<Action>) => Promise<void> {
@@ -404,13 +410,22 @@ export function resolveAction(
     dispatch(resolvingAction(action));
     try {
       const response = await httpClient.post(
-        `${BACKOFFICE_API}/workflows/authors/${id}/${action}/`,
+        `${BACKOFFICE_API}/workflows/${namespace}/${id}/${action}/`,
         payload
       );
 
       dispatch(resolveActionSuccess());
       notifyActionSuccess(action);
-      dispatch(fetchAuthorSuccess(response.data));
+      switch (namespace) {
+        case AUTHORS_PID_TYPE:
+          dispatch(fetchAuthorSuccess(response.data));
+          break;
+        case HEP_PID_TYPE:
+          dispatch(fetchLiteratureRecordSuccess(response.data));
+          break;
+        default:
+          break;
+      }
     } catch (err) {
       const { error } = httpErrorToActionPayload(err);
       notifyActionError(
@@ -445,16 +460,28 @@ export const deleteWorkflowError = (errorPayload: { error: Error }) => {
 };
 
 export function deleteWorkflow(
+  namespace: string,
   id: string
 ): (dispatch: ActionCreator<Action>) => Promise<void> {
   return async (dispatch) => {
     dispatch(deletingWorkflow());
     try {
-      await httpClient.delete(`${BACKOFFICE_API}/workflows/authors/${id}/`);
+      await httpClient.delete(
+        `${BACKOFFICE_API}/workflows/${namespace}/${id}/`
+      );
 
       dispatch(deleteWorkflowSuccess());
       notifyDeleteSuccess();
-      dispatch(push(`${BACKOFFICE}/authors/search`));
+      switch (namespace) {
+        case AUTHORS_PID_TYPE:
+          dispatch(push(`${BACKOFFICE}/${AUTHORS_PID_TYPE}/search`));
+          break;
+        case HEP_PID_TYPE:
+          dispatch(push(`${BACKOFFICE}/${LITERATURE_PID_TYPE}/search`));
+          break;
+        default:
+          break;
+      }
     } catch (err) {
       const { error } = httpErrorToActionPayload(err);
 

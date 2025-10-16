@@ -6,11 +6,10 @@ import './DeleteWorkflow.less';
 import { deleteWorkflow } from '../../../../actions/backoffice';
 
 type DeleteWorkflowProps = {
-  dispatch: ActionCreator<Action>;
-  id: string;
+  onConfirm: () => void;
 };
 
-const DeleteWorkflow = ({ dispatch, id }: DeleteWorkflowProps) => {
+const DeleteWorkflow = ({ onConfirm }: DeleteWorkflowProps) => {
   const [open, setOpen] = useState(false);
 
   const showModal = () => {
@@ -21,6 +20,11 @@ const DeleteWorkflow = ({ dispatch, id }: DeleteWorkflowProps) => {
     setOpen(false);
   };
 
+  const handleConfirm = () => {
+    onConfirm();
+    hideModal();
+  };
+
   return (
     <>
       <Button className="font-white bg-error" onClick={showModal}>
@@ -29,10 +33,7 @@ const DeleteWorkflow = ({ dispatch, id }: DeleteWorkflowProps) => {
       <Modal
         title="Modal"
         open={open}
-        onOk={() => {
-          dispatch(deleteWorkflow(id));
-          hideModal();
-        }}
+        onOk={handleConfirm}
         onCancel={hideModal}
         okText="Confirm"
         cancelText="Cancel"

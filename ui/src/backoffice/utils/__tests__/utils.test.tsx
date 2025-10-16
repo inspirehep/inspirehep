@@ -5,9 +5,11 @@ import {
   refreshToken,
   filterByProperty,
   formatDateTime,
+  getDag,
 } from '../utils';
 import storage from '../../../common/storage';
 import { BACKOFFICE_LOGIN_API } from '../../../common/routes';
+import { WorkflowTypes } from '../../constants';
 
 jest.mock('../../../common/storage');
 
@@ -124,5 +126,18 @@ describe('formatDateTime', () => {
     const result = formatDateTime(rawDateTime);
 
     expect(result).toBeUndefined();
+  });
+});
+
+describe('getDag', () => {
+  it.each([
+    [WorkflowTypes.AUTHOR_CREATE, 'author_create_initialization_dag'],
+    [WorkflowTypes.AUTHOR_UPDATE, 'author_update_dag'],
+    [WorkflowTypes.HEP_CREATE, 'hep_create_dag'],
+    ['AUTHOR_CREATE', 'author_create_initialization_dag'],
+    ['AUTHOR_UPDATE', 'author_update_dag'],
+    ['HEP_CREATE', 'hep_create_dag'],
+  ])('returns the expected DAG for %j', (input, expected) => {
+    expect(getDag(input)).toBe(expected);
   });
 });
