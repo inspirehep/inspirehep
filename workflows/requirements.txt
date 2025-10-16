@@ -4,3 +4,4 @@ idutils
 Sickle==0.7.0
 plotextractor==1.0.21
 invenio-classifier==1.3.7
+inspire-schemas==61.6.26

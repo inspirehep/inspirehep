@@ -30,6 +30,8 @@ from include.utils import workflows
 from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.constants import JOURNALS_PID_TYPE
 from include.utils.s3 import read_object, write_object
+from inspire_schemas.builders import LiteratureBuilder
+from inspire_schemas.readers import LiteratureReader
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.helpers import maybe_int
 from inspire_utils.record import get_value
@@ -583,8 +585,59 @@ def hep_create_dag():
             is_arxiv = is_submission_with_arxiv or is_harvested_from_arxiv
 
             if is_arxiv:
-                return "preprocessing.arxiv_package_download"
+                return "preprocessing.populate_arxiv_document"
             return "preprocessing.download_documents"
+
+        @task
+        def populate_arxiv_document(**context):
+            workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, workflow_id)
+
+            arxiv_id = LiteratureReader(workflow_data["data"]).arxiv_id
+            arxiv_hook = GenericHttpHook(http_conn_id="arxiv_connection")
+
+            endpoint = f"/pdf/{arxiv_id}"
+
+            try:
+                response = arxiv_hook.call_api(
+                    endpoint=endpoint,
+                    extra_options={"stream": True, "allow_redirects": True},
+                )
+            except RetryError as e:
+                if "404:Not Found" in str(e.last_attempt.exception()):
+                    logger.info("No PDF is available for %s", arxiv_id)
+                    return
+
+            if not workflows.is_pdf_link(response):
+                return
+
+            url = arxiv_hook.get_url() + endpoint
+            filename = secure_filename(f"{arxiv_id}.pdf")
+            workflow_data["data"]["documents"] = [
+                document
+                for document in get_value(workflow_data, "data.documents", ())
+                if document.get("key") != filename
+            ]
+
+            lb = LiteratureBuilder(source="arxiv", record=workflow_data["data"])
+            lb.add_document(
+                filename,
+                fulltext=True,
+                hidden=True,
+                material="preprint",
+                original_url=url,
+                url=url,
+            )
+
+            workflow_data["data"] = lb.record
+
+            write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                workflow_id,
+                overwrite=True,
+            )
 
         @task
         def arxiv_plot_extract(tarball_key, **context):
@@ -665,16 +718,19 @@ def hep_create_dag():
 
         guess_coreness_task = guess_coreness()
 
+        populate_arxiv_document_task = populate_arxiv_document()
         arxiv_package_download_task = arxiv_package_download()
         download_documents_task = download_documents()
 
         check_is_arxiv_paper_task >> [
             download_documents_task,
-            arxiv_package_download_task,
+            populate_arxiv_document_task,
         ]
 
         (
-            arxiv_plot_extract(arxiv_package_download_task)
+            populate_arxiv_document_task
+            >> arxiv_package_download_task
+            >> arxiv_plot_extract(arxiv_package_download_task)
             >> download_documents_task
             >> normalize_journal_titles()
             >> count_reference_coreness()
