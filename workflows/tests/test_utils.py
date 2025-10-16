@@ -2,6 +2,7 @@ from airflow.cli.commands import task_command
 from airflow.models.xcom import LazyXComSelectSequence
 from airflow.sdk.definitions.dag import _run_task
 from airflow.utils.cli import get_dag
+from airflow.utils.state import TaskInstanceState
 
 
 def task_test(
@@ -32,7 +33,10 @@ def task_test(
     ti, _ = task_command._get_ti(
         task=task, map_index=map_index, create_if_necessary="db"
     )
-    _run_task(ti=ti, run_triggerer=True)
+    task_result = _run_task(ti=ti, run_triggerer=True)
+
+    if task_result.state != TaskInstanceState.SUCCESS:
+        raise task_result.error
 
     xcoms = ti.xcom_pull(key=xcom_key)
 

@@ -81,3 +81,16 @@ def delete_empty_key(workflow_data, key):
     if key in workflow_data["data"] and len(workflow_data["data"][key]) == 0:
         logger.info("Deleting %s from workflow. Key is empty.", key)
         del workflow_data["data"][key]
+
+
+def is_pdf_link(response):
+    """Verify if the response points to a PDF.
+
+    Arg:
+        response (Response): the HTTP response object.
+    Returns:
+        bool: whether the response url points to a PDF.
+    """
+    found = next(response.iter_content(10000), b"").find(b"%PDF")
+
+    return found >= 0

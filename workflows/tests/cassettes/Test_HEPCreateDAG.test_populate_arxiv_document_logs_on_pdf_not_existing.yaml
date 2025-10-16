@@ -1,0 +1,847 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://arxiv.org/pdf/2412.13417
+  response:
+    body:
+      string: "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n<meta charset=\"utf-8\"/>\n<meta
+        name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\n<!--
+        new favicon config and versions by realfavicongenerator.net -->\n<link rel=\"apple-touch-icon\"
+        sizes=\"180x180\" href=\"/static/base/1.0.1/images/icons/apple-touch-icon.png\">\n<link
+        rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/base/1.0.1/images/icons/favicon-32x32.png\">\n<link
+        rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/base/1.0.1/images/icons/favicon-16x16.png\">\n<link
+        rel=\"manifest\" href=\"/static/base/1.0.1/images/icons/site.webmanifest\">\n<link
+        rel=\"mask-icon\" href=\"/static/base/1.0.1/images/icons/safari-pinned-tab.svg\"
+        color=\"#b31b1b\">\n<link rel=\"shortcut icon\" href=\"/static/base/1.0.1/images/icons/favicon.ico\">\n<meta
+        name=\"msapplication-TileColor\" content=\"#b31b1b\">\n<meta name=\"msapplication-config\"
+        content=\"images/icons/browserconfig.xml\">\n<meta name=\"theme-color\" content=\"#b31b1b\">\n<!--
+        end favicon config -->\n<title> | arXiv e-print repository</title>\n<script
+        defer src=\"/static/base/1.0.1/fontawesome-free-5.11.2-web/js/all.js\"></script>\n<link
+        rel=\"stylesheet\" href=\"/static/base/1.0.1/css/arxivstyle.css\" />\n<script
+        type=\"text/x-mathjax-config\">\n  MathJax.Hub.Config({\n    messageStyle:
+        \"none\",\n    extensions: [\"tex2jax.js\"],\n    jax: [\"input/TeX\", \"output/HTML-CSS\"],\n
+        \   tex2jax: {\n      inlineMath: [ ['$','$'], [\"\\\\(\",\"\\\\)\"] ],\n
+        \     displayMath: [ ['$$','$$'], [\"\\\\[\",\"\\\\]\"] ],\n      processEscapes:
+        true,\n      ignoreClass: '.*',\n      processClass: 'mathjax.*'\n    },\n
+        \   TeX: {\n        extensions: [\"AMSmath.js\", \"AMSsymbols.js\", \"noErrors.js\"],\n
+        \       noErrors: {\n          inlineDelimiters: [\"$\",\"$\"],\n          multiLine:
+        false,\n          style: {\n            \"font-size\": \"normal\",\n            \"border\":
+        \"\"\n          }\n        }\n    },\n    \"HTML-CSS\": { availableFonts:
+        [\"TeX\"] }\n  });\n</script>\n<script src='//static.arxiv.org/MathJax-2.7.3/MathJax.js'></script>\n<script
+        src=\"/static/base/1.0.1/js/notification.js\"></script>\n  </head>\n  <body>\n
+        \ <header><a href=\"#main-container\" class=\"is-sr-only\">Skip to main content</a>\n<!--
+        contains Cornell logo and sponsor statement -->\n<div class=\"attribution
+        level is-marginless\" role=\"banner\">\n  <div class=\"level-left\">\n    <a
+        class=\"level-item\" href=\"https://cornell.edu/\"><img src=\"/static/base/1.0.1/images/cornell-reduced-white-SMALL.svg\"
+        alt=\"Cornell University\" width=\"200\" aria-label=\"logo\" /></a>\n  </div>\n
+        \ <div class=\"level-right is-marginless\"><p class=\"sponsors level-item
+        is-marginless\"><span id=\"support-ack-url\">We gratefully acknowledge support
+        from<br /> the Simons Foundation, <a href=\"https://info.arxiv.org/about/ourmembers.html\">member
+        institutions</a>, and all contributors. <a href=\"https://info.arxiv.org/about/donate.html\">Donate</a></span></p></div>\n</div>\n<!--
+        contains arXiv identity and search bar -->\n<div class=\"identity level is-marginless\">\n
+        \ <div class=\"level-left\">\n    <div class=\"level-item\">\n      <a class=\"arxiv\"
+        href=\"https://arxiv.org/\" aria-label=\"arxiv-logo\">\n        <img src=\"/static/base/1.0.1/images/arxiv-logo-one-color-white.svg\"
+        aria-label=\"logo\" alt=\"arxiv logo\" width=\"85\" style=\"width:85px;\"/>\n
+        \     </a>\n    </div>\n  </div>\n    <div class=\"search-block level-right\">\n
+        \   <form class=\"level-item mini-search\" method=\"GET\" action=\"https://arxiv.org/search\">\n
+        \     <div class=\"field has-addons\">\n        <div class=\"control\">\n
+        \         <input class=\"input is-small\" type=\"text\" name=\"query\" placeholder=\"Search...\"
+        aria-label=\"Search term or terms\" />\n          <p class=\"help\"><a href=\"https://info.arxiv.org/help\">Help</a>
+        | <a href=\"https://arxiv.org/search/advanced\">Advanced Search</a></p>\n
+        \       </div>\n        <div class=\"control\">\n          <div class=\"select
+        is-small\">\n            <select name=\"searchtype\" aria-label=\"Field to
+        search\">\n              <option value=\"all\" selected=\"selected\">All fields</option>\n
+        \             <option value=\"title\">Title</option>\n              <option
+        value=\"author\">Author</option>\n              <option value=\"abstract\">Abstract</option>\n
+        \             <option value=\"comments\">Comments</option>\n              <option
+        value=\"journal_ref\">Journal reference</option>\n              <option value=\"acm_class\">ACM
+        classification</option>\n              <option value=\"msc_class\">MSC classification</option>\n
+        \             <option value=\"report_num\">Report number</option>\n              <option
+        value=\"paper_id\">arXiv identifier</option>\n              <option value=\"doi\">DOI</option>\n
+        \             <option value=\"orcid\">ORCID</option>\n              <option
+        value=\"author_id\">arXiv author ID</option>\n              <option value=\"help\">Help
+        pages</option>\n              <option value=\"full_text\">Full text</option>\n
+        \           </select>\n          </div>\n        </div>\n        <input type=\"hidden\"
+        name=\"source\" value=\"header\">\n        <button class=\"button is-small
+        is-cul-darker\">Search</button>\n      </div>\n    </form>\n  </div>\n</div>
+        <!-- closes identity -->\n\n<div class=\"container\">\n    <div class=\"user-tools
+        is-size-7 has-text-right has-text-weight-bold\" role=\"navigation\" aria-label=\"User
+        menu\">\n<a href=\"https://arxiv.org/login\">Login</a>    </div>\n</div>  </header>\n
+        \ <main class=\"container\" id=\"main-container\">\n<h1>This version of 2412.13417
+        has been withdrawn and is unavailable</h1>\n<p>See <a href=\"/abs/2412.13417\">abstract</a>
+        page for more details</p>  </main>\n  <footer>\n<div class=\"columns is-desktop\"
+        role=\"navigation\" aria-label=\"Secondary\">\n  <!-- MetaColumn 1 -->\n  <div
+        class=\"column\">\n    <div class=\"columns\">\n      <div class=\"column\">\n
+        \       <ul class=\"nav-spaced\">\n          <li><a href=\"https://info.arxiv.org/about\">About</a></li>\n
+        \         <li><a href=\"https://info.arxiv.org/help\">Help</a></li>\n        </ul>\n
+        \     </div>\n      <div class=\"column\">\n        <ul class=\"nav-spaced\">\n
+        \         <li>\n            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0
+        0 512 512\" class=\"icon filter-black\" role=\"presentation\"><title>contact
+        arXiv</title><desc>Click here to contact arXiv</desc><path d=\"M502.3 190.8c3.9-3.1
+        9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5
+        5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6
+        35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2
+        73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5
+        64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7
+        16.8 12.2 50.2 41.8 73.4 41.4z\"/></svg>\n            <a href=\"https://info.arxiv.org/help/contact.html\">
+        Contact</a>\n          </li>\n          <li>\n            <svg xmlns=\"http://www.w3.org/2000/svg\"
+        viewBox=\"0 0 512 512\" class=\"icon filter-black\" role=\"presentation\"><title>subscribe
+        to arXiv mailings</title><desc>Click here to subscribe</desc><path d=\"M476
+        3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9
+        13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2
+        6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z\"/></svg>\n            <a
+        href=\"https://info.arxiv.org/help/subscribe\"> Subscribe</a>\n          </li>\n
+        \       </ul>\n      </div>\n    </div>\n  </div> <!-- end MetaColumn 1 -->\n
+        \ <!-- MetaColumn 2 -->\n  <div class=\"column\">\n    <div class=\"columns\">\n
+        \     <div class=\"column\">\n        <ul class=\"nav-spaced\">\n          <li><a
+        href=\"https://info.arxiv.org/help/license/index.html\">Copyright</a></li>\n
+        \         <li><a href=\"https://info.arxiv.org/help/policies/privacy_policy.html\">Privacy
+        Policy</a></li>\n        </ul>\n      </div>\n      <div class=\"column sorry-app-links\">\n
+        \       <ul class=\"nav-spaced\">\n          <li><a href=\"https://info.arxiv.org/help/web_accessibility.html\">Web
+        Accessibility Assistance</a></li>\n          <li>\n            <p class=\"help\">\n
+        \             <a class=\"a11y-main-link\" href=\"https://status.arxiv.org\"
+        target=\"_blank\">arXiv Operational Status <svg xmlns=\"http://www.w3.org/2000/svg\"
+        viewBox=\"0 0 256 512\" class=\"icon filter-dark_grey\" role=\"presentation\"><path
+        d=\"M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6
+        0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4
+        33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z\"/></svg></a><br>\n              Get
+        status notifications via\n              <a class=\"is-link\" href=\"https://subscribe.sorryapp.com/24846f03/email/new\"
+        target=\"_blank\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0
+        512 512\" class=\"icon filter-black\" role=\"presentation\"><path d=\"M502.3
+        190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5
+        5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6
+        35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2
+        73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5
+        64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7
+        16.8 12.2 50.2 41.8 73.4 41.4z\"/></svg>email</a>\n              or <a class=\"is-link\"
+        href=\"https://subscribe.sorryapp.com/24846f03/slack/new\" target=\"_blank\"><svg
+        xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" class=\"icon
+        filter-black\" role=\"presentation\"><path d=\"M94.12 315.1c0 25.9-21.16 47.06-47.06
+        47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9
+        21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06
+        47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139
+        32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16
+        47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06
+        47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06
+        21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16
+        47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06
+        47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06
+        21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9
+        0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06
+        21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z\"/></svg>slack</a>\n
+        \           </p>\n          </li>\n        </ul>\n      </div>\n    </div>\n
+        \ </div> <!-- end MetaColumn 2 -->\n</div>  </footer>\n  <script src=\"/static/base/1.0.1/js/member_acknowledgement.js\"></script>\n
+        \ </body>\n</html>"
+    headers:
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '41905'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '10451'
+      Date:
+      - Wed, 15 Oct 2025 12:48:41 GMT
+      X-Cache:
+      - HIT, HIT
+      X-Served-By:
+      - cache-lga21977-LGA, cache-fra-eddf8230042-FRA
+      X-Timer:
+      - S1760532521.005895,VS0,VE2
+      content-type:
+      - text/html; charset=utf-8
+      server:
+      - Google Frontend
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
+      x-cloud-trace-context:
+      - cbd9755aeb7967069752305db6e1cd6e
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://arxiv.org/pdf/2412.13417
+  response:
+    body:
+      string: "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n<meta charset=\"utf-8\"/>\n<meta
+        name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\n<!--
+        new favicon config and versions by realfavicongenerator.net -->\n<link rel=\"apple-touch-icon\"
+        sizes=\"180x180\" href=\"/static/base/1.0.1/images/icons/apple-touch-icon.png\">\n<link
+        rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/base/1.0.1/images/icons/favicon-32x32.png\">\n<link
+        rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/base/1.0.1/images/icons/favicon-16x16.png\">\n<link
+        rel=\"manifest\" href=\"/static/base/1.0.1/images/icons/site.webmanifest\">\n<link
+        rel=\"mask-icon\" href=\"/static/base/1.0.1/images/icons/safari-pinned-tab.svg\"
+        color=\"#b31b1b\">\n<link rel=\"shortcut icon\" href=\"/static/base/1.0.1/images/icons/favicon.ico\">\n<meta
+        name=\"msapplication-TileColor\" content=\"#b31b1b\">\n<meta name=\"msapplication-config\"
+        content=\"images/icons/browserconfig.xml\">\n<meta name=\"theme-color\" content=\"#b31b1b\">\n<!--
+        end favicon config -->\n<title> | arXiv e-print repository</title>\n<script
+        defer src=\"/static/base/1.0.1/fontawesome-free-5.11.2-web/js/all.js\"></script>\n<link
+        rel=\"stylesheet\" href=\"/static/base/1.0.1/css/arxivstyle.css\" />\n<script
+        type=\"text/x-mathjax-config\">\n  MathJax.Hub.Config({\n    messageStyle:
+        \"none\",\n    extensions: [\"tex2jax.js\"],\n    jax: [\"input/TeX\", \"output/HTML-CSS\"],\n
+        \   tex2jax: {\n      inlineMath: [ ['$','$'], [\"\\\\(\",\"\\\\)\"] ],\n
+        \     displayMath: [ ['$$','$$'], [\"\\\\[\",\"\\\\]\"] ],\n      processEscapes:
+        true,\n      ignoreClass: '.*',\n      processClass: 'mathjax.*'\n    },\n
+        \   TeX: {\n        extensions: [\"AMSmath.js\", \"AMSsymbols.js\", \"noErrors.js\"],\n
+        \       noErrors: {\n          inlineDelimiters: [\"$\",\"$\"],\n          multiLine:
+        false,\n          style: {\n            \"font-size\": \"normal\",\n            \"border\":
+        \"\"\n          }\n        }\n    },\n    \"HTML-CSS\": { availableFonts:
+        [\"TeX\"] }\n  });\n</script>\n<script src='//static.arxiv.org/MathJax-2.7.3/MathJax.js'></script>\n<script
+        src=\"/static/base/1.0.1/js/notification.js\"></script>\n  </head>\n  <body>\n
+        \ <header><a href=\"#main-container\" class=\"is-sr-only\">Skip to main content</a>\n<!--
+        contains Cornell logo and sponsor statement -->\n<div class=\"attribution
+        level is-marginless\" role=\"banner\">\n  <div class=\"level-left\">\n    <a
+        class=\"level-item\" href=\"https://cornell.edu/\"><img src=\"/static/base/1.0.1/images/cornell-reduced-white-SMALL.svg\"
+        alt=\"Cornell University\" width=\"200\" aria-label=\"logo\" /></a>\n  </div>\n
+        \ <div class=\"level-right is-marginless\"><p class=\"sponsors level-item
+        is-marginless\"><span id=\"support-ack-url\">We gratefully acknowledge support
+        from<br /> the Simons Foundation, <a href=\"https://info.arxiv.org/about/ourmembers.html\">member
+        institutions</a>, and all contributors. <a href=\"https://info.arxiv.org/about/donate.html\">Donate</a></span></p></div>\n</div>\n<!--
+        contains arXiv identity and search bar -->\n<div class=\"identity level is-marginless\">\n
+        \ <div class=\"level-left\">\n    <div class=\"level-item\">\n      <a class=\"arxiv\"
+        href=\"https://arxiv.org/\" aria-label=\"arxiv-logo\">\n        <img src=\"/static/base/1.0.1/images/arxiv-logo-one-color-white.svg\"
+        aria-label=\"logo\" alt=\"arxiv logo\" width=\"85\" style=\"width:85px;\"/>\n
+        \     </a>\n    </div>\n  </div>\n    <div class=\"search-block level-right\">\n
+        \   <form class=\"level-item mini-search\" method=\"GET\" action=\"https://arxiv.org/search\">\n
+        \     <div class=\"field has-addons\">\n        <div class=\"control\">\n
+        \         <input class=\"input is-small\" type=\"text\" name=\"query\" placeholder=\"Search...\"
+        aria-label=\"Search term or terms\" />\n          <p class=\"help\"><a href=\"https://info.arxiv.org/help\">Help</a>
+        | <a href=\"https://arxiv.org/search/advanced\">Advanced Search</a></p>\n
+        \       </div>\n        <div class=\"control\">\n          <div class=\"select
+        is-small\">\n            <select name=\"searchtype\" aria-label=\"Field to
+        search\">\n              <option value=\"all\" selected=\"selected\">All fields</option>\n
+        \             <option value=\"title\">Title</option>\n              <option
+        value=\"author\">Author</option>\n              <option value=\"abstract\">Abstract</option>\n
+        \             <option value=\"comments\">Comments</option>\n              <option
+        value=\"journal_ref\">Journal reference</option>\n              <option value=\"acm_class\">ACM
+        classification</option>\n              <option value=\"msc_class\">MSC classification</option>\n
+        \             <option value=\"report_num\">Report number</option>\n              <option
+        value=\"paper_id\">arXiv identifier</option>\n              <option value=\"doi\">DOI</option>\n
+        \             <option value=\"orcid\">ORCID</option>\n              <option
+        value=\"author_id\">arXiv author ID</option>\n              <option value=\"help\">Help
+        pages</option>\n              <option value=\"full_text\">Full text</option>\n
+        \           </select>\n          </div>\n        </div>\n        <input type=\"hidden\"
+        name=\"source\" value=\"header\">\n        <button class=\"button is-small
+        is-cul-darker\">Search</button>\n      </div>\n    </form>\n  </div>\n</div>
+        <!-- closes identity -->\n\n<div class=\"container\">\n    <div class=\"user-tools
+        is-size-7 has-text-right has-text-weight-bold\" role=\"navigation\" aria-label=\"User
+        menu\">\n<a href=\"https://arxiv.org/login\">Login</a>    </div>\n</div>  </header>\n
+        \ <main class=\"container\" id=\"main-container\">\n<h1>This version of 2412.13417
+        has been withdrawn and is unavailable</h1>\n<p>See <a href=\"/abs/2412.13417\">abstract</a>
+        page for more details</p>  </main>\n  <footer>\n<div class=\"columns is-desktop\"
+        role=\"navigation\" aria-label=\"Secondary\">\n  <!-- MetaColumn 1 -->\n  <div
+        class=\"column\">\n    <div class=\"columns\">\n      <div class=\"column\">\n
+        \       <ul class=\"nav-spaced\">\n          <li><a href=\"https://info.arxiv.org/about\">About</a></li>\n
+        \         <li><a href=\"https://info.arxiv.org/help\">Help</a></li>\n        </ul>\n
+        \     </div>\n      <div class=\"column\">\n        <ul class=\"nav-spaced\">\n
+        \         <li>\n            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0
+        0 512 512\" class=\"icon filter-black\" role=\"presentation\"><title>contact
+        arXiv</title><desc>Click here to contact arXiv</desc><path d=\"M502.3 190.8c3.9-3.1
+        9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5
+        5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6
+        35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2
+        73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5
+        64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7
+        16.8 12.2 50.2 41.8 73.4 41.4z\"/></svg>\n            <a href=\"https://info.arxiv.org/help/contact.html\">
+        Contact</a>\n          </li>\n          <li>\n            <svg xmlns=\"http://www.w3.org/2000/svg\"
+        viewBox=\"0 0 512 512\" class=\"icon filter-black\" role=\"presentation\"><title>subscribe
+        to arXiv mailings</title><desc>Click here to subscribe</desc><path d=\"M476
+        3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9
+        13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2
+        6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z\"/></svg>\n            <a
+        href=\"https://info.arxiv.org/help/subscribe\"> Subscribe</a>\n          </li>\n
+        \       </ul>\n      </div>\n    </div>\n  </div> <!-- end MetaColumn 1 -->\n
+        \ <!-- MetaColumn 2 -->\n  <div class=\"column\">\n    <div class=\"columns\">\n
+        \     <div class=\"column\">\n        <ul class=\"nav-spaced\">\n          <li><a
+        href=\"https://info.arxiv.org/help/license/index.html\">Copyright</a></li>\n
+        \         <li><a href=\"https://info.arxiv.org/help/policies/privacy_policy.html\">Privacy
+        Policy</a></li>\n        </ul>\n      </div>\n      <div class=\"column sorry-app-links\">\n
+        \       <ul class=\"nav-spaced\">\n          <li><a href=\"https://info.arxiv.org/help/web_accessibility.html\">Web
+        Accessibility Assistance</a></li>\n          <li>\n            <p class=\"help\">\n
+        \             <a class=\"a11y-main-link\" href=\"https://status.arxiv.org\"
+        target=\"_blank\">arXiv Operational Status <svg xmlns=\"http://www.w3.org/2000/svg\"
+        viewBox=\"0 0 256 512\" class=\"icon filter-dark_grey\" role=\"presentation\"><path
+        d=\"M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6
+        0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4
+        33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z\"/></svg></a><br>\n              Get
+        status notifications via\n              <a class=\"is-link\" href=\"https://subscribe.sorryapp.com/24846f03/email/new\"
+        target=\"_blank\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0
+        512 512\" class=\"icon filter-black\" role=\"presentation\"><path d=\"M502.3
+        190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5
+        5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6
+        35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2
+        73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5
+        64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7
+        16.8 12.2 50.2 41.8 73.4 41.4z\"/></svg>email</a>\n              or <a class=\"is-link\"
+        href=\"https://subscribe.sorryapp.com/24846f03/slack/new\" target=\"_blank\"><svg
+        xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" class=\"icon
+        filter-black\" role=\"presentation\"><path d=\"M94.12 315.1c0 25.9-21.16 47.06-47.06
+        47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9
+        21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06
+        47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139
+        32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16
+        47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06
+        47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06
+        21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16
+        47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06
+        47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06
+        21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9
+        0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06
+        21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z\"/></svg>slack</a>\n
+        \           </p>\n          </li>\n        </ul>\n      </div>\n    </div>\n
+        \ </div> <!-- end MetaColumn 2 -->\n</div>  </footer>\n  <script src=\"/static/base/1.0.1/js/member_acknowledgement.js\"></script>\n
+        \ </body>\n</html>"
+    headers:
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '41906'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '10451'
+      Date:
+      - Wed, 15 Oct 2025 12:48:42 GMT
+      X-Cache:
+      - HIT, HIT
+      X-Served-By:
+      - cache-lga21977-LGA, cache-fra-eddf8230081-FRA
+      X-Timer:
+      - S1760532522.109578,VS0,VE1
+      content-type:
+      - text/html; charset=utf-8
+      server:
+      - Google Frontend
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
+      x-cloud-trace-context:
+      - cbd9755aeb7967069752305db6e1cd6e
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://arxiv.org/pdf/2412.13417
+  response:
+    body:
+      string: "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n<meta charset=\"utf-8\"/>\n<meta
+        name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\n<!--
+        new favicon config and versions by realfavicongenerator.net -->\n<link rel=\"apple-touch-icon\"
+        sizes=\"180x180\" href=\"/static/base/1.0.1/images/icons/apple-touch-icon.png\">\n<link
+        rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/base/1.0.1/images/icons/favicon-32x32.png\">\n<link
+        rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/base/1.0.1/images/icons/favicon-16x16.png\">\n<link
+        rel=\"manifest\" href=\"/static/base/1.0.1/images/icons/site.webmanifest\">\n<link
+        rel=\"mask-icon\" href=\"/static/base/1.0.1/images/icons/safari-pinned-tab.svg\"
+        color=\"#b31b1b\">\n<link rel=\"shortcut icon\" href=\"/static/base/1.0.1/images/icons/favicon.ico\">\n<meta
+        name=\"msapplication-TileColor\" content=\"#b31b1b\">\n<meta name=\"msapplication-config\"
+        content=\"images/icons/browserconfig.xml\">\n<meta name=\"theme-color\" content=\"#b31b1b\">\n<!--
+        end favicon config -->\n<title> | arXiv e-print repository</title>\n<script
+        defer src=\"/static/base/1.0.1/fontawesome-free-5.11.2-web/js/all.js\"></script>\n<link
+        rel=\"stylesheet\" href=\"/static/base/1.0.1/css/arxivstyle.css\" />\n<script
+        type=\"text/x-mathjax-config\">\n  MathJax.Hub.Config({\n    messageStyle:
+        \"none\",\n    extensions: [\"tex2jax.js\"],\n    jax: [\"input/TeX\", \"output/HTML-CSS\"],\n
+        \   tex2jax: {\n      inlineMath: [ ['$','$'], [\"\\\\(\",\"\\\\)\"] ],\n
+        \     displayMath: [ ['$$','$$'], [\"\\\\[\",\"\\\\]\"] ],\n      processEscapes:
+        true,\n      ignoreClass: '.*',\n      processClass: 'mathjax.*'\n    },\n
+        \   TeX: {\n        extensions: [\"AMSmath.js\", \"AMSsymbols.js\", \"noErrors.js\"],\n
+        \       noErrors: {\n          inlineDelimiters: [\"$\",\"$\"],\n          multiLine:
+        false,\n          style: {\n            \"font-size\": \"normal\",\n            \"border\":
+        \"\"\n          }\n        }\n    },\n    \"HTML-CSS\": { availableFonts:
+        [\"TeX\"] }\n  });\n</script>\n<script src='//static.arxiv.org/MathJax-2.7.3/MathJax.js'></script>\n<script
+        src=\"/static/base/1.0.1/js/notification.js\"></script>\n  </head>\n  <body>\n
+        \ <header><a href=\"#main-container\" class=\"is-sr-only\">Skip to main content</a>\n<!--
+        contains Cornell logo and sponsor statement -->\n<div class=\"attribution
+        level is-marginless\" role=\"banner\">\n  <div class=\"level-left\">\n    <a
+        class=\"level-item\" href=\"https://cornell.edu/\"><img src=\"/static/base/1.0.1/images/cornell-reduced-white-SMALL.svg\"
+        alt=\"Cornell University\" width=\"200\" aria-label=\"logo\" /></a>\n  </div>\n
+        \ <div class=\"level-right is-marginless\"><p class=\"sponsors level-item
+        is-marginless\"><span id=\"support-ack-url\">We gratefully acknowledge support
+        from<br /> the Simons Foundation, <a href=\"https://info.arxiv.org/about/ourmembers.html\">member
+        institutions</a>, and all contributors. <a href=\"https://info.arxiv.org/about/donate.html\">Donate</a></span></p></div>\n</div>\n<!--
+        contains arXiv identity and search bar -->\n<div class=\"identity level is-marginless\">\n
+        \ <div class=\"level-left\">\n    <div class=\"level-item\">\n      <a class=\"arxiv\"
+        href=\"https://arxiv.org/\" aria-label=\"arxiv-logo\">\n        <img src=\"/static/base/1.0.1/images/arxiv-logo-one-color-white.svg\"
+        aria-label=\"logo\" alt=\"arxiv logo\" width=\"85\" style=\"width:85px;\"/>\n
+        \     </a>\n    </div>\n  </div>\n    <div class=\"search-block level-right\">\n
+        \   <form class=\"level-item mini-search\" method=\"GET\" action=\"https://arxiv.org/search\">\n
+        \     <div class=\"field has-addons\">\n        <div class=\"control\">\n
+        \         <input class=\"input is-small\" type=\"text\" name=\"query\" placeholder=\"Search...\"
+        aria-label=\"Search term or terms\" />\n          <p class=\"help\"><a href=\"https://info.arxiv.org/help\">Help</a>
+        | <a href=\"https://arxiv.org/search/advanced\">Advanced Search</a></p>\n
+        \       </div>\n        <div class=\"control\">\n          <div class=\"select
+        is-small\">\n            <select name=\"searchtype\" aria-label=\"Field to
+        search\">\n              <option value=\"all\" selected=\"selected\">All fields</option>\n
+        \             <option value=\"title\">Title</option>\n              <option
+        value=\"author\">Author</option>\n              <option value=\"abstract\">Abstract</option>\n
+        \             <option value=\"comments\">Comments</option>\n              <option
+        value=\"journal_ref\">Journal reference</option>\n              <option value=\"acm_class\">ACM
+        classification</option>\n              <option value=\"msc_class\">MSC classification</option>\n
+        \             <option value=\"report_num\">Report number</option>\n              <option
+        value=\"paper_id\">arXiv identifier</option>\n              <option value=\"doi\">DOI</option>\n
+        \             <option value=\"orcid\">ORCID</option>\n              <option
+        value=\"author_id\">arXiv author ID</option>\n              <option value=\"help\">Help
+        pages</option>\n              <option value=\"full_text\">Full text</option>\n
+        \           </select>\n          </div>\n        </div>\n        <input type=\"hidden\"
+        name=\"source\" value=\"header\">\n        <button class=\"button is-small
+        is-cul-darker\">Search</button>\n      </div>\n    </form>\n  </div>\n</div>
+        <!-- closes identity -->\n\n<div class=\"container\">\n    <div class=\"user-tools
+        is-size-7 has-text-right has-text-weight-bold\" role=\"navigation\" aria-label=\"User
+        menu\">\n<a href=\"https://arxiv.org/login\">Login</a>    </div>\n</div>  </header>\n
+        \ <main class=\"container\" id=\"main-container\">\n<h1>This version of 2412.13417
+        has been withdrawn and is unavailable</h1>\n<p>See <a href=\"/abs/2412.13417\">abstract</a>
+        page for more details</p>  </main>\n  <footer>\n<div class=\"columns is-desktop\"
+        role=\"navigation\" aria-label=\"Secondary\">\n  <!-- MetaColumn 1 -->\n  <div
+        class=\"column\">\n    <div class=\"columns\">\n      <div class=\"column\">\n
+        \       <ul class=\"nav-spaced\">\n          <li><a href=\"https://info.arxiv.org/about\">About</a></li>\n
+        \         <li><a href=\"https://info.arxiv.org/help\">Help</a></li>\n        </ul>\n
+        \     </div>\n      <div class=\"column\">\n        <ul class=\"nav-spaced\">\n
+        \         <li>\n            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0
+        0 512 512\" class=\"icon filter-black\" role=\"presentation\"><title>contact
+        arXiv</title><desc>Click here to contact arXiv</desc><path d=\"M502.3 190.8c3.9-3.1
+        9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5
+        5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6
+        35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2
+        73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5
+        64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7
+        16.8 12.2 50.2 41.8 73.4 41.4z\"/></svg>\n            <a href=\"https://info.arxiv.org/help/contact.html\">
+        Contact</a>\n          </li>\n          <li>\n            <svg xmlns=\"http://www.w3.org/2000/svg\"
+        viewBox=\"0 0 512 512\" class=\"icon filter-black\" role=\"presentation\"><title>subscribe
+        to arXiv mailings</title><desc>Click here to subscribe</desc><path d=\"M476
+        3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9
+        13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2
+        6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z\"/></svg>\n            <a
+        href=\"https://info.arxiv.org/help/subscribe\"> Subscribe</a>\n          </li>\n
+        \       </ul>\n      </div>\n    </div>\n  </div> <!-- end MetaColumn 1 -->\n
+        \ <!-- MetaColumn 2 -->\n  <div class=\"column\">\n    <div class=\"columns\">\n
+        \     <div class=\"column\">\n        <ul class=\"nav-spaced\">\n          <li><a
+        href=\"https://info.arxiv.org/help/license/index.html\">Copyright</a></li>\n
+        \         <li><a href=\"https://info.arxiv.org/help/policies/privacy_policy.html\">Privacy
+        Policy</a></li>\n        </ul>\n      </div>\n      <div class=\"column sorry-app-links\">\n
+        \       <ul class=\"nav-spaced\">\n          <li><a href=\"https://info.arxiv.org/help/web_accessibility.html\">Web
+        Accessibility Assistance</a></li>\n          <li>\n            <p class=\"help\">\n
+        \             <a class=\"a11y-main-link\" href=\"https://status.arxiv.org\"
+        target=\"_blank\">arXiv Operational Status <svg xmlns=\"http://www.w3.org/2000/svg\"
+        viewBox=\"0 0 256 512\" class=\"icon filter-dark_grey\" role=\"presentation\"><path
+        d=\"M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6
+        0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4
+        33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z\"/></svg></a><br>\n              Get
+        status notifications via\n              <a class=\"is-link\" href=\"https://subscribe.sorryapp.com/24846f03/email/new\"
+        target=\"_blank\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0
+        512 512\" class=\"icon filter-black\" role=\"presentation\"><path d=\"M502.3
+        190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5
+        5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6
+        35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2
+        73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5
+        64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7
+        16.8 12.2 50.2 41.8 73.4 41.4z\"/></svg>email</a>\n              or <a class=\"is-link\"
+        href=\"https://subscribe.sorryapp.com/24846f03/slack/new\" target=\"_blank\"><svg
+        xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" class=\"icon
+        filter-black\" role=\"presentation\"><path d=\"M94.12 315.1c0 25.9-21.16 47.06-47.06
+        47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9
+        21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06
+        47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139
+        32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16
+        47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06
+        47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06
+        21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16
+        47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06
+        47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06
+        21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9
+        0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06
+        21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z\"/></svg>slack</a>\n
+        \           </p>\n          </li>\n        </ul>\n      </div>\n    </div>\n
+        \ </div> <!-- end MetaColumn 2 -->\n</div>  </footer>\n  <script src=\"/static/base/1.0.1/js/member_acknowledgement.js\"></script>\n
+        \ </body>\n</html>"
+    headers:
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '41908'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '10451'
+      Date:
+      - Wed, 15 Oct 2025 12:48:44 GMT
+      X-Cache:
+      - HIT, HIT
+      X-Served-By:
+      - cache-lga21977-LGA, cache-fra-eddf8230136-FRA
+      X-Timer:
+      - S1760532524.230075,VS0,VE1
+      content-type:
+      - text/html; charset=utf-8
+      server:
+      - Google Frontend
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
+      x-cloud-trace-context:
+      - cbd9755aeb7967069752305db6e1cd6e
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://arxiv.org/pdf/2412.13417
+  response:
+    body:
+      string: "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n<meta charset=\"utf-8\"/>\n<meta
+        name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\n<!--
+        new favicon config and versions by realfavicongenerator.net -->\n<link rel=\"apple-touch-icon\"
+        sizes=\"180x180\" href=\"/static/base/1.0.1/images/icons/apple-touch-icon.png\">\n<link
+        rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/base/1.0.1/images/icons/favicon-32x32.png\">\n<link
+        rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/base/1.0.1/images/icons/favicon-16x16.png\">\n<link
+        rel=\"manifest\" href=\"/static/base/1.0.1/images/icons/site.webmanifest\">\n<link
+        rel=\"mask-icon\" href=\"/static/base/1.0.1/images/icons/safari-pinned-tab.svg\"
+        color=\"#b31b1b\">\n<link rel=\"shortcut icon\" href=\"/static/base/1.0.1/images/icons/favicon.ico\">\n<meta
+        name=\"msapplication-TileColor\" content=\"#b31b1b\">\n<meta name=\"msapplication-config\"
+        content=\"images/icons/browserconfig.xml\">\n<meta name=\"theme-color\" content=\"#b31b1b\">\n<!--
+        end favicon config -->\n<title> | arXiv e-print repository</title>\n<script
+        defer src=\"/static/base/1.0.1/fontawesome-free-5.11.2-web/js/all.js\"></script>\n<link
+        rel=\"stylesheet\" href=\"/static/base/1.0.1/css/arxivstyle.css\" />\n<script
+        type=\"text/x-mathjax-config\">\n  MathJax.Hub.Config({\n    messageStyle:
+        \"none\",\n    extensions: [\"tex2jax.js\"],\n    jax: [\"input/TeX\", \"output/HTML-CSS\"],\n
+        \   tex2jax: {\n      inlineMath: [ ['$','$'], [\"\\\\(\",\"\\\\)\"] ],\n
+        \     displayMath: [ ['$$','$$'], [\"\\\\[\",\"\\\\]\"] ],\n      processEscapes:
+        true,\n      ignoreClass: '.*',\n      processClass: 'mathjax.*'\n    },\n
+        \   TeX: {\n        extensions: [\"AMSmath.js\", \"AMSsymbols.js\", \"noErrors.js\"],\n
+        \       noErrors: {\n          inlineDelimiters: [\"$\",\"$\"],\n          multiLine:
+        false,\n          style: {\n            \"font-size\": \"normal\",\n            \"border\":
+        \"\"\n          }\n        }\n    },\n    \"HTML-CSS\": { availableFonts:
+        [\"TeX\"] }\n  });\n</script>\n<script src='//static.arxiv.org/MathJax-2.7.3/MathJax.js'></script>\n<script
+        src=\"/static/base/1.0.1/js/notification.js\"></script>\n  </head>\n  <body>\n
+        \ <header><a href=\"#main-container\" class=\"is-sr-only\">Skip to main content</a>\n<!--
+        contains Cornell logo and sponsor statement -->\n<div class=\"attribution
+        level is-marginless\" role=\"banner\">\n  <div class=\"level-left\">\n    <a
+        class=\"level-item\" href=\"https://cornell.edu/\"><img src=\"/static/base/1.0.1/images/cornell-reduced-white-SMALL.svg\"
+        alt=\"Cornell University\" width=\"200\" aria-label=\"logo\" /></a>\n  </div>\n
+        \ <div class=\"level-right is-marginless\"><p class=\"sponsors level-item
+        is-marginless\"><span id=\"support-ack-url\">We gratefully acknowledge support
+        from<br /> the Simons Foundation, <a href=\"https://info.arxiv.org/about/ourmembers.html\">member
+        institutions</a>, and all contributors. <a href=\"https://info.arxiv.org/about/donate.html\">Donate</a></span></p></div>\n</div>\n<!--
+        contains arXiv identity and search bar -->\n<div class=\"identity level is-marginless\">\n
+        \ <div class=\"level-left\">\n    <div class=\"level-item\">\n      <a class=\"arxiv\"
+        href=\"https://arxiv.org/\" aria-label=\"arxiv-logo\">\n        <img src=\"/static/base/1.0.1/images/arxiv-logo-one-color-white.svg\"
+        aria-label=\"logo\" alt=\"arxiv logo\" width=\"85\" style=\"width:85px;\"/>\n
+        \     </a>\n    </div>\n  </div>\n    <div class=\"search-block level-right\">\n
+        \   <form class=\"level-item mini-search\" method=\"GET\" action=\"https://arxiv.org/search\">\n
+        \     <div class=\"field has-addons\">\n        <div class=\"control\">\n
+        \         <input class=\"input is-small\" type=\"text\" name=\"query\" placeholder=\"Search...\"
+        aria-label=\"Search term or terms\" />\n          <p class=\"help\"><a href=\"https://info.arxiv.org/help\">Help</a>
+        | <a href=\"https://arxiv.org/search/advanced\">Advanced Search</a></p>\n
+        \       </div>\n        <div class=\"control\">\n          <div class=\"select
+        is-small\">\n            <select name=\"searchtype\" aria-label=\"Field to
+        search\">\n              <option value=\"all\" selected=\"selected\">All fields</option>\n
+        \             <option value=\"title\">Title</option>\n              <option
+        value=\"author\">Author</option>\n              <option value=\"abstract\">Abstract</option>\n
+        \             <option value=\"comments\">Comments</option>\n              <option
+        value=\"journal_ref\">Journal reference</option>\n              <option value=\"acm_class\">ACM
+        classification</option>\n              <option value=\"msc_class\">MSC classification</option>\n
+        \             <option value=\"report_num\">Report number</option>\n              <option
+        value=\"paper_id\">arXiv identifier</option>\n              <option value=\"doi\">DOI</option>\n
+        \             <option value=\"orcid\">ORCID</option>\n              <option
+        value=\"author_id\">arXiv author ID</option>\n              <option value=\"help\">Help
+        pages</option>\n              <option value=\"full_text\">Full text</option>\n
+        \           </select>\n          </div>\n        </div>\n        <input type=\"hidden\"
+        name=\"source\" value=\"header\">\n        <button class=\"button is-small
+        is-cul-darker\">Search</button>\n      </div>\n    </form>\n  </div>\n</div>
+        <!-- closes identity -->\n\n<div class=\"container\">\n    <div class=\"user-tools
+        is-size-7 has-text-right has-text-weight-bold\" role=\"navigation\" aria-label=\"User
+        menu\">\n<a href=\"https://arxiv.org/login\">Login</a>    </div>\n</div>  </header>\n
+        \ <main class=\"container\" id=\"main-container\">\n<h1>This version of 2412.13417
+        has been withdrawn and is unavailable</h1>\n<p>See <a href=\"/abs/2412.13417\">abstract</a>
+        page for more details</p>  </main>\n  <footer>\n<div class=\"columns is-desktop\"
+        role=\"navigation\" aria-label=\"Secondary\">\n  <!-- MetaColumn 1 -->\n  <div
+        class=\"column\">\n    <div class=\"columns\">\n      <div class=\"column\">\n
+        \       <ul class=\"nav-spaced\">\n          <li><a href=\"https://info.arxiv.org/about\">About</a></li>\n
+        \         <li><a href=\"https://info.arxiv.org/help\">Help</a></li>\n        </ul>\n
+        \     </div>\n      <div class=\"column\">\n        <ul class=\"nav-spaced\">\n
+        \         <li>\n            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0
+        0 512 512\" class=\"icon filter-black\" role=\"presentation\"><title>contact
+        arXiv</title><desc>Click here to contact arXiv</desc><path d=\"M502.3 190.8c3.9-3.1
+        9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5
+        5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6
+        35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2
+        73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5
+        64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7
+        16.8 12.2 50.2 41.8 73.4 41.4z\"/></svg>\n            <a href=\"https://info.arxiv.org/help/contact.html\">
+        Contact</a>\n          </li>\n          <li>\n            <svg xmlns=\"http://www.w3.org/2000/svg\"
+        viewBox=\"0 0 512 512\" class=\"icon filter-black\" role=\"presentation\"><title>subscribe
+        to arXiv mailings</title><desc>Click here to subscribe</desc><path d=\"M476
+        3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9
+        13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2
+        6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z\"/></svg>\n            <a
+        href=\"https://info.arxiv.org/help/subscribe\"> Subscribe</a>\n          </li>\n
+        \       </ul>\n      </div>\n    </div>\n  </div> <!-- end MetaColumn 1 -->\n
+        \ <!-- MetaColumn 2 -->\n  <div class=\"column\">\n    <div class=\"columns\">\n
+        \     <div class=\"column\">\n        <ul class=\"nav-spaced\">\n          <li><a
+        href=\"https://info.arxiv.org/help/license/index.html\">Copyright</a></li>\n
+        \         <li><a href=\"https://info.arxiv.org/help/policies/privacy_policy.html\">Privacy
+        Policy</a></li>\n        </ul>\n      </div>\n      <div class=\"column sorry-app-links\">\n
+        \       <ul class=\"nav-spaced\">\n          <li><a href=\"https://info.arxiv.org/help/web_accessibility.html\">Web
+        Accessibility Assistance</a></li>\n          <li>\n            <p class=\"help\">\n
+        \             <a class=\"a11y-main-link\" href=\"https://status.arxiv.org\"
+        target=\"_blank\">arXiv Operational Status <svg xmlns=\"http://www.w3.org/2000/svg\"
+        viewBox=\"0 0 256 512\" class=\"icon filter-dark_grey\" role=\"presentation\"><path
+        d=\"M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6
+        0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4
+        33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z\"/></svg></a><br>\n              Get
+        status notifications via\n              <a class=\"is-link\" href=\"https://subscribe.sorryapp.com/24846f03/email/new\"
+        target=\"_blank\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0
+        512 512\" class=\"icon filter-black\" role=\"presentation\"><path d=\"M502.3
+        190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5
+        5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6
+        35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2
+        73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5
+        64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7
+        16.8 12.2 50.2 41.8 73.4 41.4z\"/></svg>email</a>\n              or <a class=\"is-link\"
+        href=\"https://subscribe.sorryapp.com/24846f03/slack/new\" target=\"_blank\"><svg
+        xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" class=\"icon
+        filter-black\" role=\"presentation\"><path d=\"M94.12 315.1c0 25.9-21.16 47.06-47.06
+        47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9
+        21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06
+        47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139
+        32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16
+        47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06
+        47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06
+        21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16
+        47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06
+        47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06
+        21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9
+        0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06
+        21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z\"/></svg>slack</a>\n
+        \           </p>\n          </li>\n        </ul>\n      </div>\n    </div>\n
+        \ </div> <!-- end MetaColumn 2 -->\n</div>  </footer>\n  <script src=\"/static/base/1.0.1/js/member_acknowledgement.js\"></script>\n
+        \ </body>\n</html>"
+    headers:
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '41913'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '10451'
+      Date:
+      - Wed, 15 Oct 2025 12:48:48 GMT
+      X-Cache:
+      - HIT, HIT
+      X-Served-By:
+      - cache-lga21977-LGA, cache-fra-eddf8230151-FRA
+      X-Timer:
+      - S1760532528.326928,VS0,VE0
+      content-type:
+      - text/html; charset=utf-8
+      server:
+      - Google Frontend
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
+      x-cloud-trace-context:
+      - cbd9755aeb7967069752305db6e1cd6e
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://arxiv.org/pdf/2412.13417
+  response:
+    body:
+      string: "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n<meta charset=\"utf-8\"/>\n<meta
+        name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\n<!--
+        new favicon config and versions by realfavicongenerator.net -->\n<link rel=\"apple-touch-icon\"
+        sizes=\"180x180\" href=\"/static/base/1.0.1/images/icons/apple-touch-icon.png\">\n<link
+        rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/base/1.0.1/images/icons/favicon-32x32.png\">\n<link
+        rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/base/1.0.1/images/icons/favicon-16x16.png\">\n<link
+        rel=\"manifest\" href=\"/static/base/1.0.1/images/icons/site.webmanifest\">\n<link
+        rel=\"mask-icon\" href=\"/static/base/1.0.1/images/icons/safari-pinned-tab.svg\"
+        color=\"#b31b1b\">\n<link rel=\"shortcut icon\" href=\"/static/base/1.0.1/images/icons/favicon.ico\">\n<meta
+        name=\"msapplication-TileColor\" content=\"#b31b1b\">\n<meta name=\"msapplication-config\"
+        content=\"images/icons/browserconfig.xml\">\n<meta name=\"theme-color\" content=\"#b31b1b\">\n<!--
+        end favicon config -->\n<title> | arXiv e-print repository</title>\n<script
+        defer src=\"/static/base/1.0.1/fontawesome-free-5.11.2-web/js/all.js\"></script>\n<link
+        rel=\"stylesheet\" href=\"/static/base/1.0.1/css/arxivstyle.css\" />\n<script
+        type=\"text/x-mathjax-config\">\n  MathJax.Hub.Config({\n    messageStyle:
+        \"none\",\n    extensions: [\"tex2jax.js\"],\n    jax: [\"input/TeX\", \"output/HTML-CSS\"],\n
+        \   tex2jax: {\n      inlineMath: [ ['$','$'], [\"\\\\(\",\"\\\\)\"] ],\n
+        \     displayMath: [ ['$$','$$'], [\"\\\\[\",\"\\\\]\"] ],\n      processEscapes:
+        true,\n      ignoreClass: '.*',\n      processClass: 'mathjax.*'\n    },\n
+        \   TeX: {\n        extensions: [\"AMSmath.js\", \"AMSsymbols.js\", \"noErrors.js\"],\n
+        \       noErrors: {\n          inlineDelimiters: [\"$\",\"$\"],\n          multiLine:
+        false,\n          style: {\n            \"font-size\": \"normal\",\n            \"border\":
+        \"\"\n          }\n        }\n    },\n    \"HTML-CSS\": { availableFonts:
+        [\"TeX\"] }\n  });\n</script>\n<script src='//static.arxiv.org/MathJax-2.7.3/MathJax.js'></script>\n<script
+        src=\"/static/base/1.0.1/js/notification.js\"></script>\n  </head>\n  <body>\n
+        \ <header><a href=\"#main-container\" class=\"is-sr-only\">Skip to main content</a>\n<!--
+        contains Cornell logo and sponsor statement -->\n<div class=\"attribution
+        level is-marginless\" role=\"banner\">\n  <div class=\"level-left\">\n    <a
+        class=\"level-item\" href=\"https://cornell.edu/\"><img src=\"/static/base/1.0.1/images/cornell-reduced-white-SMALL.svg\"
+        alt=\"Cornell University\" width=\"200\" aria-label=\"logo\" /></a>\n  </div>\n
+        \ <div class=\"level-right is-marginless\"><p class=\"sponsors level-item
+        is-marginless\"><span id=\"support-ack-url\">We gratefully acknowledge support
+        from<br /> the Simons Foundation, <a href=\"https://info.arxiv.org/about/ourmembers.html\">member
+        institutions</a>, and all contributors. <a href=\"https://info.arxiv.org/about/donate.html\">Donate</a></span></p></div>\n</div>\n<!--
+        contains arXiv identity and search bar -->\n<div class=\"identity level is-marginless\">\n
+        \ <div class=\"level-left\">\n    <div class=\"level-item\">\n      <a class=\"arxiv\"
+        href=\"https://arxiv.org/\" aria-label=\"arxiv-logo\">\n        <img src=\"/static/base/1.0.1/images/arxiv-logo-one-color-white.svg\"
+        aria-label=\"logo\" alt=\"arxiv logo\" width=\"85\" style=\"width:85px;\"/>\n
+        \     </a>\n    </div>\n  </div>\n    <div class=\"search-block level-right\">\n
+        \   <form class=\"level-item mini-search\" method=\"GET\" action=\"https://arxiv.org/search\">\n
+        \     <div class=\"field has-addons\">\n        <div class=\"control\">\n
+        \         <input class=\"input is-small\" type=\"text\" name=\"query\" placeholder=\"Search...\"
+        aria-label=\"Search term or terms\" />\n          <p class=\"help\"><a href=\"https://info.arxiv.org/help\">Help</a>
+        | <a href=\"https://arxiv.org/search/advanced\">Advanced Search</a></p>\n
+        \       </div>\n        <div class=\"control\">\n          <div class=\"select
+        is-small\">\n            <select name=\"searchtype\" aria-label=\"Field to
+        search\">\n              <option value=\"all\" selected=\"selected\">All fields</option>\n
+        \             <option value=\"title\">Title</option>\n              <option
+        value=\"author\">Author</option>\n              <option value=\"abstract\">Abstract</option>\n
+        \             <option value=\"comments\">Comments</option>\n              <option
+        value=\"journal_ref\">Journal reference</option>\n              <option value=\"acm_class\">ACM
+        classification</option>\n              <option value=\"msc_class\">MSC classification</option>\n
+        \             <option value=\"report_num\">Report number</option>\n              <option
+        value=\"paper_id\">arXiv identifier</option>\n              <option value=\"doi\">DOI</option>\n
+        \             <option value=\"orcid\">ORCID</option>\n              <option
+        value=\"author_id\">arXiv author ID</option>\n              <option value=\"help\">Help
+        pages</option>\n              <option value=\"full_text\">Full text</option>\n
+        \           </select>\n          </div>\n        </div>\n        <input type=\"hidden\"
+        name=\"source\" value=\"header\">\n        <button class=\"button is-small
+        is-cul-darker\">Search</button>\n      </div>\n    </form>\n  </div>\n</div>
+        <!-- closes identity -->\n\n<div class=\"container\">\n    <div class=\"user-tools
+        is-size-7 has-text-right has-text-weight-bold\" role=\"navigation\" aria-label=\"User
+        menu\">\n<a href=\"https://arxiv.org/login\">Login</a>    </div>\n</div>  </header>\n
+        \ <main class=\"container\" id=\"main-container\">\n<h1>This version of 2412.13417
+        has been withdrawn and is unavailable</h1>\n<p>See <a href=\"/abs/2412.13417\">abstract</a>
+        page for more details</p>  </main>\n  <footer>\n<div class=\"columns is-desktop\"
+        role=\"navigation\" aria-label=\"Secondary\">\n  <!-- MetaColumn 1 -->\n  <div
+        class=\"column\">\n    <div class=\"columns\">\n      <div class=\"column\">\n
+        \       <ul class=\"nav-spaced\">\n          <li><a href=\"https://info.arxiv.org/about\">About</a></li>\n
+        \         <li><a href=\"https://info.arxiv.org/help\">Help</a></li>\n        </ul>\n
+        \     </div>\n      <div class=\"column\">\n        <ul class=\"nav-spaced\">\n
+        \         <li>\n            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0
+        0 512 512\" class=\"icon filter-black\" role=\"presentation\"><title>contact
+        arXiv</title><desc>Click here to contact arXiv</desc><path d=\"M502.3 190.8c3.9-3.1
+        9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5
+        5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6
+        35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2
+        73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5
+        64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7
+        16.8 12.2 50.2 41.8 73.4 41.4z\"/></svg>\n            <a href=\"https://info.arxiv.org/help/contact.html\">
+        Contact</a>\n          </li>\n          <li>\n            <svg xmlns=\"http://www.w3.org/2000/svg\"
+        viewBox=\"0 0 512 512\" class=\"icon filter-black\" role=\"presentation\"><title>subscribe
+        to arXiv mailings</title><desc>Click here to subscribe</desc><path d=\"M476
+        3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9
+        13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2
+        6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z\"/></svg>\n            <a
+        href=\"https://info.arxiv.org/help/subscribe\"> Subscribe</a>\n          </li>\n
+        \       </ul>\n      </div>\n    </div>\n  </div> <!-- end MetaColumn 1 -->\n
+        \ <!-- MetaColumn 2 -->\n  <div class=\"column\">\n    <div class=\"columns\">\n
+        \     <div class=\"column\">\n        <ul class=\"nav-spaced\">\n          <li><a
+        href=\"https://info.arxiv.org/help/license/index.html\">Copyright</a></li>\n
+        \         <li><a href=\"https://info.arxiv.org/help/policies/privacy_policy.html\">Privacy
+        Policy</a></li>\n        </ul>\n      </div>\n      <div class=\"column sorry-app-links\">\n
+        \       <ul class=\"nav-spaced\">\n          <li><a href=\"https://info.arxiv.org/help/web_accessibility.html\">Web
+        Accessibility Assistance</a></li>\n          <li>\n            <p class=\"help\">\n
+        \             <a class=\"a11y-main-link\" href=\"https://status.arxiv.org\"
+        target=\"_blank\">arXiv Operational Status <svg xmlns=\"http://www.w3.org/2000/svg\"
+        viewBox=\"0 0 256 512\" class=\"icon filter-dark_grey\" role=\"presentation\"><path
+        d=\"M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6
+        0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4
+        33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z\"/></svg></a><br>\n              Get
+        status notifications via\n              <a class=\"is-link\" href=\"https://subscribe.sorryapp.com/24846f03/email/new\"
+        target=\"_blank\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0
+        512 512\" class=\"icon filter-black\" role=\"presentation\"><path d=\"M502.3
+        190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5
+        5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6
+        35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2
+        73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5
+        64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7
+        16.8 12.2 50.2 41.8 73.4 41.4z\"/></svg>email</a>\n              or <a class=\"is-link\"
+        href=\"https://subscribe.sorryapp.com/24846f03/slack/new\" target=\"_blank\"><svg
+        xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" class=\"icon
+        filter-black\" role=\"presentation\"><path d=\"M94.12 315.1c0 25.9-21.16 47.06-47.06
+        47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9
+        21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06
+        47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139
+        32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16
+        47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06
+        47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06
+        21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16
+        47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06
+        47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06
+        21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9
+        0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06
+        21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z\"/></svg>slack</a>\n
+        \           </p>\n          </li>\n        </ul>\n      </div>\n    </div>\n
+        \ </div> <!-- end MetaColumn 2 -->\n</div>  </footer>\n  <script src=\"/static/base/1.0.1/js/member_acknowledgement.js\"></script>\n
+        \ </body>\n</html>"
+    headers:
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '41921'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '10451'
+      Date:
+      - Wed, 15 Oct 2025 12:48:56 GMT
+      X-Cache:
+      - HIT, HIT
+      X-Served-By:
+      - cache-lga21977-LGA, cache-fra-eddf8230047-FRA
+      X-Timer:
+      - S1760532536.480288,VS0,VE1
+      content-type:
+      - text/html; charset=utf-8
+      server:
+      - Google Frontend
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
+      x-cloud-trace-context:
+      - cbd9755aeb7967069752305db6e1cd6e
+    status:
+      code: 404
+      message: Not Found
+version: 1

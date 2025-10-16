@@ -4,6 +4,7 @@ from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.utils.context import Context
 from include.utils.s3 import read_object, write_object
+from inspire_schemas.api import load_schema, validate
 
 from tests.test_utils import task_test
 
@@ -322,7 +323,7 @@ class Test_HEPCreateDAG:
             xcom_key="skipmixin_key",
         )
 
-        assert "preprocessing.arxiv_package_download" in res["followed"]
+        assert "preprocessing.populate_arxiv_document" in res["followed"]
 
     def test_check_is_not_arxiv_paper(self):
         workflow_data = {
@@ -591,6 +592,137 @@ class Test_HEPCreateDAG:
         assert updated_data["data"] == {}
 
     @pytest.mark.vcr
+    def test_populate_arxiv_document(self):
+        workflow_data = {
+            "data": {
+                "arxiv_eprints": [
+                    {
+                        "categories": [
+                            "hep-th",
+                            "hep-ph",
+                        ],
+                        "value": "1612.08928",
+                    },
+                ],
+            }
+        }
+
+        schema = load_schema("hep")
+        subschema = schema["properties"]["arxiv_eprints"]
+        assert validate(workflow_data["data"]["arxiv_eprints"], subschema) is None
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "preprocessing.populate_arxiv_document",
+            params=None,
+            dag_params=self.context["params"],
+        )
+
+        workflow_data = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        expected = [
+            {
+                "key": "1612.08928.pdf",
+                "fulltext": True,
+                "hidden": True,
+                "material": "preprint",
+                "original_url": "https://arxiv.org/pdf/1612.08928",
+                "url": "https://arxiv.org/pdf/1612.08928",
+                "source": "arxiv",
+            },
+        ]
+        assert workflow_data["data"]["documents"] == expected
+
+    @pytest.mark.vcr
+    def test_populate_arxiv_document_does_not_duplicate_files_if_called_multiple_times(
+        self,
+    ):
+        schema = load_schema("hep")
+        subschema = schema["properties"]["arxiv_eprints"]
+
+        workflow_data = {
+            "data": {
+                "arxiv_eprints": [
+                    {
+                        "categories": [
+                            "physics.ins-det",
+                        ],
+                        "value": "1605.03844",
+                    },
+                ]
+            }
+        }
+
+        assert validate(workflow_data["data"]["arxiv_eprints"], subschema) is None
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "preprocessing.populate_arxiv_document",
+            dag_params=self.context["params"],
+        )
+
+        task_test(
+            "hep_create_dag",
+            "preprocessing.populate_arxiv_document",
+            dag_params=self.context["params"],
+        )
+
+        workflow_data = read_object(s3_hook, bucket_name, self.workflow_id)
+        assert len(workflow_data["data"]["documents"]) == 1
+
+    @pytest.mark.vcr
+    def test_populate_arxiv_document_logs_on_pdf_not_existing(self):
+        schema = load_schema("hep")
+        subschema = schema["properties"]["arxiv_eprints"]
+
+        workflow_data = {
+            "data": {
+                "arxiv_eprints": [
+                    {
+                        "categories": [
+                            "cs.CV",
+                        ],
+                        "value": "2412.13417",
+                    },
+                ],
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        assert validate(workflow_data["data"]["arxiv_eprints"], subschema) is None
+
+        task_test(
+            "hep_create_dag",
+            "preprocessing.populate_arxiv_document",
+            dag_params=self.context["params"],
+        )
+
+        workflow_data = read_object(s3_hook, bucket_name, self.workflow_id)
+        assert "documents" not in workflow_data["data"]
+
+    @pytest.mark.vcr
     def test_normalize_journal_titles_with_data(self):
         """Test the normalize_journal_titles Airflow task with publication_info."""
         task = self.dag.get_task("preprocessing.normalize_journal_titles")
@@ -787,7 +919,7 @@ class Test_HEPCreateDAG:
 
         s3_hook.load_file(
             (datadir / paper_with_unprintable_keywords),
-            paper_with_unprintable_keywords,
+            f"{self.workflow_id}-documents/{paper_with_unprintable_keywords}",
             bucket_name,
             replace=True,
         )
