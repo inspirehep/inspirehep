@@ -10,6 +10,7 @@ import './LiteratureDetailPageContainer.less';
 import { Button, Col, Row, Table } from 'antd';
 import { EditOutlined, RedoOutlined, SyncOutlined } from '@ant-design/icons';
 import {
+  deleteWorkflow,
   fetchLiteratureRecord,
   resolveAction,
 } from '../../../actions/backoffice';
@@ -25,13 +26,17 @@ import { BACKOFFICE_LITERATURE_SEARCH_NS } from '../../../search/constants';
 import Breadcrumbs from '../../common/components/Breadcrumbs/Breadcrumbs';
 import DocumentHead from '../../../common/components/DocumentHead';
 import UnclickableTag from '../../../common/components/UnclickableTag';
-import { formatDateTime, resolveDecision } from '../../utils/utils';
+import { formatDateTime, getDag, resolveDecision } from '../../utils/utils';
 import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
 import { isSuperUser } from '../../../common/authorization';
 import Abstract from '../../../literature/components/Abstract';
 import { columnsSubject } from './columnData';
 import { StatusBanner } from '../../common/components/Detail/StatusBanner';
 import { TicketsList } from '../../common/components/Detail/TicketsList';
+import { HEP_PID_TYPE, LITERATURE_PID_TYPE } from '../../../common/constants';
+import CollapsableForm from '../../../submissions/common/components/CollapsableForm';
+import DeleteWorkflow from '../../common/components/DeleteWorkflow/DeleteWorkflow';
+import { getConfigFor } from '../../../common/config';
 
 type LiteratureDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
@@ -62,6 +67,7 @@ const LiteratureDetailPageContainer = ({
     literature?.get('tickets')?.size !== 0 && literature?.get('tickets');
   const decision = literature?.getIn(['decisions', 0]) as Map<string, any>;
   const status = literature?.get('status');
+  const workflow_type = literature?.get('workflow_type');
   const inspireCategories = data?.get('inspire_categories')?.toJS();
   const rawDateTime = data?.getIn(['acquisition_source', 'datetime']);
 
@@ -74,8 +80,15 @@ const LiteratureDetailPageContainer = ({
 
   const shouldDisplayDecisionsBox = decision || status === 'approval';
 
+  const DAGS_URL = getConfigFor('INSPIRE_WORKFLOWS_DAGS_URL');
+  const DAG_FULL_URL = `${DAGS_URL}${getDag(workflow_type)}/runs/${id}`;
+
   const handleResolveAction = (value: string) => {
-    dispatch(resolveAction(id, 'resolve', { value }));
+    dispatch(resolveAction(id, HEP_PID_TYPE, 'resolve', { value }));
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteWorkflow(HEP_PID_TYPE, id));
   };
 
   return (
@@ -127,6 +140,24 @@ const LiteratureDetailPageContainer = ({
                         rowKey={(record) => `${record?.term}+${Math.random()}`}
                       />
                     </ContentBox>
+                    <CollapsableForm>
+                      {status === 'error' && (
+                        <CollapsableForm.Section header="Errors" key="errors">
+                          <p>
+                            See error details here:{' '}
+                            <a href={DAG_FULL_URL} target="_blank">
+                              {DAG_FULL_URL}
+                            </a>
+                          </p>
+                        </CollapsableForm.Section>
+                      )}
+                      <CollapsableForm.Section
+                        header="Danger area"
+                        key="delete"
+                      >
+                        <DeleteWorkflow onConfirm={handleDelete} />
+                      </CollapsableForm.Section>
+                    </CollapsableForm>
                   </Col>
                   <Col xs={24} lg={8}>
                     {shouldDisplayDecisionsBox && (
@@ -204,22 +235,6 @@ const LiteratureDetailPageContainer = ({
                     >
                       <TicketsList tickets={tickets} />
                     </ContentBox>
-                    {isSuperUserLoggedIn && (
-                      <ContentBox
-                        className="mb3"
-                        fullHeight={false}
-                        subTitle="Running dags"
-                      >
-                        <div className="flex flex-column items-center">
-                          <Button className="w-75">
-                            See running dags
-                            {/* <a href={DAG_FULL_URL} target="_blank">
-                              See running dags
-                            </a> */}
-                          </Button>
-                        </div>
-                      </ContentBox>
-                    )}
                     <ContentBox
                       fullHeight={false}
                       subTitle="Actions"
@@ -229,7 +244,9 @@ const LiteratureDetailPageContainer = ({
                         <Button
                           className="mb2 w-75"
                           onClick={() =>
-                            dispatch(resolveAction(id, 'restart', {}))
+                            dispatch(
+                              resolveAction(id, HEP_PID_TYPE, 'restart', {})
+                            )
                           }
                           loading={actionInProgress === 'restart'}
                         >
@@ -240,7 +257,7 @@ const LiteratureDetailPageContainer = ({
                           className="mb2 w-75"
                           onClick={() =>
                             dispatch(
-                              resolveAction(id, 'restart', {
+                              resolveAction(id, HEP_PID_TYPE, 'restart', {
                                 restart_current_task: true,
                               })
                             )
@@ -251,7 +268,9 @@ const LiteratureDetailPageContainer = ({
                           Restart current step
                         </Button>
                         <Button className="mb2 w-75" type="primary">
-                          <a href={`/editor/backoffice/literature/${id}`}>
+                          <a
+                            href={`/editor/backoffice/${LITERATURE_PID_TYPE}/${id}`}
+                          >
                             <EditOutlined />
                             {'  '}
                             Open in Editor
@@ -273,7 +292,7 @@ const LiteratureDetailPageContainer = ({
 const stateToProps = (state: RootStateOrAny) => ({
   literature: state.backoffice.get('literature'),
   loading: state.backoffice.get('loading'),
-  actionInProgress: state.backoffice.get('actionInProgress'), // TODO: this one needs to be implemented for literature
+  actionInProgress: state.backoffice.get('actionInProgress'),
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 

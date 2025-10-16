@@ -12,7 +12,11 @@ import './AuthorDetailPageContainer.less';
 import ContentBox from '../../../common/components/ContentBox';
 import CollapsableForm from '../../../submissions/common/components/CollapsableForm';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
-import { fetchAuthor, resolveAction } from '../../../actions/backoffice';
+import {
+  deleteWorkflow,
+  fetchAuthor,
+  resolveAction,
+} from '../../../actions/backoffice';
 import Links from '../../common/components/Links/Links';
 import {
   columnsInstitutions,
@@ -26,6 +30,7 @@ import {
   resolveDecision,
   filterByProperty,
   formatDateTime,
+  getDag,
 } from '../../utils/utils';
 import DeleteWorkflow from '../../common/components/DeleteWorkflow/DeleteWorkflow';
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
@@ -38,6 +43,7 @@ import PrivateNotes from '../components/PrivateNotes';
 import AuthorMainInfo from '../components/AuthorMainInfo';
 import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
 import { BACKOFFICE_AUTHORS_SEARCH_NS } from '../../../search/constants';
+import { AUTHORS_PID_TYPE } from '../../../common/constants';
 
 type AuthorDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
@@ -84,6 +90,7 @@ const AuthorDetailPageContainer = ({
   const shouldDisplayDecisionsBox = decision || status === 'approval';
 
   const DAGS_URL = getConfigFor('INSPIRE_WORKFLOWS_DAGS_URL');
+  const DAG_FULL_URL = `${DAGS_URL}${getDag(workflow_type)}/runs/${id}`;
 
   const OPEN_SECTIONS = [
     data?.get('positions') && 'institutions',
@@ -95,15 +102,12 @@ const AuthorDetailPageContainer = ({
   ].filter(Boolean);
 
   const handleResolveAction = (value: string) => {
-    dispatch(resolveAction(id, 'resolve', { value }));
+    dispatch(resolveAction(id, AUTHORS_PID_TYPE, 'resolve', { value }));
   };
 
-  const getDag = (workflow_type: string): string =>
-    workflow_type === 'AUTHOR_CREATE'
-      ? 'author_create_initialization_dag'
-      : 'author_update_dag';
-
-  const DAG_FULL_URL = `${DAGS_URL}${getDag(workflow_type)}/runs/${id}`;
+  const handleDelete = () => {
+    dispatch(deleteWorkflow(AUTHORS_PID_TYPE, id));
+  };
 
   return (
     <div
@@ -227,7 +231,7 @@ const AuthorDetailPageContainer = ({
                       </CollapsableForm.Section>
                     )}
                     <CollapsableForm.Section header="Danger area" key="delete">
-                      <DeleteWorkflow id={id} dispatch={dispatch} />
+                      <DeleteWorkflow onConfirm={handleDelete} />
                     </CollapsableForm.Section>
                   </CollapsableForm>
                 </Col>
@@ -350,7 +354,9 @@ const AuthorDetailPageContainer = ({
                       <Button
                         className="mb2 w-75"
                         onClick={() =>
-                          dispatch(resolveAction(id, 'restart', {}))
+                          dispatch(
+                            resolveAction(id, AUTHORS_PID_TYPE, 'restart', {})
+                          )
                         }
                         loading={actionInProgress === 'restart'}
                       >
@@ -361,7 +367,7 @@ const AuthorDetailPageContainer = ({
                         className="mb2 w-75"
                         onClick={() =>
                           dispatch(
-                            resolveAction(id, 'restart', {
+                            resolveAction(id, AUTHORS_PID_TYPE, 'restart', {
                               restart_current_task: true,
                             })
                           )
@@ -372,7 +378,9 @@ const AuthorDetailPageContainer = ({
                         Restart current step
                       </Button>
                       <Button className="mb2 w-75" type="primary">
-                        <a href={`/editor/backoffice/authors/${id}`}>
+                        <a
+                          href={`/editor/backoffice/${AUTHORS_PID_TYPE}/${id}`}
+                        >
                           <EditOutlined />
                           {'  '}
                           Open in Editor

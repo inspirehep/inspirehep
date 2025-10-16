@@ -2,29 +2,30 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import DeleteWorkflow from '../DeleteWorkflow';
+import { AUTHORS_PID_TYPE } from '../../../../../common/constants';
+import { deleteWorkflow } from '../../../../../actions/backoffice';
 
 jest.mock('../../../../../actions/backoffice', () => ({
-  deleteWorkflow: jest.fn((id) => ({
+  deleteWorkflow: jest.fn((_type, id) => ({
     type: 'BACKOFFICE_DELETE_REQUEST',
-    payload: id,
   })),
 }));
 
 describe('DeleteWorkflow component', () => {
-  const mockDispatch = jest.fn();
+  const onConfirm = jest.fn();
   const mockId = 'test-id';
 
   beforeEach(() => {
-    mockDispatch.mockClear();
+    onConfirm.mockClear();
   });
 
   it('should render delete button', () => {
-    render(<DeleteWorkflow dispatch={mockDispatch} id={mockId} />);
+    render(<DeleteWorkflow onConfirm={onConfirm} />);
     expect(screen.getByText('Delete')).toBeInTheDocument();
   });
 
   it('should open the modal when the delete button is clicked', async () => {
-    render(<DeleteWorkflow dispatch={mockDispatch} id={mockId} />);
+    render(<DeleteWorkflow onConfirm={onConfirm} />);
 
     await waitFor(() => userEvent.click(screen.getByText('Delete')));
 
@@ -38,7 +39,11 @@ describe('DeleteWorkflow component', () => {
   });
 
   it('should call dispatch with deleteWorkflow and close the modal on confirm', async () => {
-    render(<DeleteWorkflow dispatch={mockDispatch} id={mockId} />);
+    const mockDispatch = jest.fn();
+    const onConfirm = () => {
+      mockDispatch(deleteWorkflow(AUTHORS_PID_TYPE, mockId));
+    };
+    render(<DeleteWorkflow onConfirm={onConfirm} />);
 
     await waitFor(() => userEvent.click(screen.getByText('Delete')));
 
@@ -47,7 +52,6 @@ describe('DeleteWorkflow component', () => {
     await waitFor(() =>
       expect(mockDispatch).toHaveBeenCalledWith({
         type: 'BACKOFFICE_DELETE_REQUEST',
-        payload: mockId,
       })
     );
   });

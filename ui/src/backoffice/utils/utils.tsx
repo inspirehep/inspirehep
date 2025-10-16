@@ -189,3 +189,16 @@ export const formatDateTime = (
     return undefined;
   }
 };
+
+export const getDag = (workflow_type: string): string | undefined => {
+  switch (workflow_type) {
+    case WorkflowTypes.AUTHOR_CREATE:
+      return 'author_create_initialization_dag';
+    case WorkflowTypes.AUTHOR_UPDATE:
+      return 'author_update_dag';
+    case WorkflowTypes.HEP_CREATE:
+      return 'hep_create_dag';
+    default:
+      return undefined;
+  }
+};
