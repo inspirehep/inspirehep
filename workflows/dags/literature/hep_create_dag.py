@@ -1,6 +1,7 @@
 import datetime
 import logging
 import os
+import re
 from tempfile import TemporaryDirectory
 
 from airflow.decorators import dag, task_group
@@ -30,6 +31,7 @@ from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.constants import JOURNALS_PID_TYPE
 from include.utils.s3 import read_object, write_object
 from inspire_schemas.builders import LiteratureBuilder
+from inspire_schemas.parsers.author_xml import AuthorXMLParser
 from inspire_schemas.readers import LiteratureReader
 from inspire_schemas.utils import (
     convert_old_publication_info_to_new,
@@ -52,10 +54,12 @@ from literature.set_workflow_status_tasks import (
     set_workflow_status_to_running,
 )
 from plotextractor.api import process_tarball
+from plotextractor.converter import untar
 from plotextractor.errors import (
     InvalidTarball,
     NoTexFilesFound,
 )
+from pylatexenc.latex2text import LatexNodes2Text
 from tenacity import RetryError
 from werkzeug.utils import secure_filename
 
@@ -626,6 +630,66 @@ def hep_create_dag():
                 return plot_keys
 
         @task
+        def arxiv_author_list(tarball_key, **context):
+            """Extract authors from any author XML found in the arXiv archive.
+
+            :param obj: Workflow Object to process
+            :param eng: Workflow Engine processing the object
+            """
+
+            REGEXP_AUTHLIST = re.compile(
+                "<collaborationauthorlist.*?>.*?</collaborationauthorlist>", re.DOTALL
+            )
+
+            workflow_data = read_object(
+                s3_hook, bucket_name, context["params"]["workflow_id"]
+            )
+
+            with TemporaryDirectory(prefix="plot_extract") as scratch_space:
+                try:
+                    tarball_file = s3_hook.download_file(
+                        tarball_key, bucket_name, scratch_space
+                    )
+                # botocore.exceptions.ClientError
+                except Exception:
+                    logger.info("Could not download tarball in key %s", tarball_key)
+                    return
+                try:
+                    file_list = untar(tarball_file, scratch_space)
+                except InvalidTarball:
+                    logger.info("Invalid tarball in key %s", tarball_key)
+                    return
+
+                logger.info(f"Extracted tarball to: {scratch_space}")
+                xml_files_list = [path for path in file_list if path.endswith(".xml")]
+
+                logger.info(f"Found xmlfiles: {xml_files_list}")
+
+                extracted_authors = []
+
+                for xml_file in xml_files_list:
+                    with open(xml_file) as xml_file_fd:
+                        xml_content = xml_file_fd.read()
+                    match = REGEXP_AUTHLIST.findall(xml_content)
+                    if match:
+                        logger.info("Found a match for author extraction")
+                        extracted_authors.extend(AuthorXMLParser(xml_content).parse())
+
+                for author in extracted_authors:
+                    author["full_name"] = LatexNodes2Text().latex_to_text(
+                        author["full_name"]
+                    )
+
+                workflow_data["data"]["authors"] = extracted_authors
+                write_object(
+                    s3_hook,
+                    workflow_data,
+                    bucket_name,
+                    context["params"]["workflow_id"],
+                    overwrite=True,
+                )
+
+        @task
         def guess_coreness(**context):
             workflow_data = read_object(
                 s3_hook, bucket_name, context["params"]["workflow_id"]
@@ -669,6 +733,7 @@ def hep_create_dag():
             populate_arxiv_document_task
             >> arxiv_package_download_task
             >> arxiv_plot_extract(arxiv_package_download_task)
+            >> arxiv_author_list(arxiv_package_download_task)
             >> download_documents_task
             >> normalize_journal_titles()
             >> count_reference_coreness()

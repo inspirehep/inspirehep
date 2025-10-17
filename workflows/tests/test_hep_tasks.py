@@ -237,6 +237,155 @@ class Test_HEPCreateDAG:
         res = task.execute(context=self.context)
         assert res == f"{self.context['params']['workflow_id']}-2508.17630.tar.gz"
 
+    def test_arxiv_author_list_with_missing_tarball(self):
+        schema = load_schema("hep")
+        eprints_subschema = schema["properties"]["arxiv_eprints"]
+        workflow_data = {
+            "data": {
+                "arxiv_eprints": [
+                    {
+                        "categories": [
+                            "hep-ex",
+                        ],
+                        "value": "1703.09986",
+                    },
+                ],
+            }
+        }  # record/1519995
+        write_object(
+            s3_hook,
+            {
+                "data": {
+                    "arxiv_eprints": [
+                        {
+                            "value": "2508.17630",
+                        }
+                    ]
+                }
+            },
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+        validate(workflow_data["data"]["arxiv_eprints"], eprints_subschema)
+
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.arxiv_author_list",
+            params={"tarball_key": f"{self.context['params']['workflow_id']}-notfound"},
+            dag_params=self.context["params"],
+        )
+
+    def test_arxiv_author_list_handles_multiple_author_xml_files(self, datadir):
+        schema = load_schema("hep")
+        eprints_subschema = schema["properties"]["arxiv_eprints"]
+
+        tarball_name = "1703.09986.multiple_author_lists.tar.gz"
+
+        tarball_key = f"{self.context['params']['workflow_id']}-{tarball_name}"
+
+        s3_hook.load_file(
+            (datadir / tarball_name),
+            tarball_key,
+            bucket_name,
+            replace=True,
+        )
+
+        data = {
+            "$schema": "http://localhost:5000/hep.json",
+            "arxiv_eprints": [
+                {
+                    "categories": [
+                        "hep-ex",
+                    ],
+                    "value": "1703.09986",
+                },
+            ],
+        }  # record/1519995
+        validate(data["arxiv_eprints"], eprints_subschema)
+
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.arxiv_author_list",
+            params={"tarball_key": tarball_key},
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(
+            s3_hook, bucket_name, self.context["params"]["workflow_id"]
+        )
+
+        authors_subschema = schema["properties"]["authors"]
+        expected_authors = [
+            {
+                "affiliations": [{"value": "Yerevan Phys. Inst."}],
+                "ids": [
+                    {"value": "INSPIRE-00312131", "schema": "INSPIRE ID"},
+                    {"value": "CERN-432142", "schema": "CERN"},
+                ],
+                "full_name": "Sirunyan, Albert M.",
+            },
+            {
+                "affiliations": [{"value": "Yerevan Phys. Inst."}],
+                "ids": [
+                    {"value": "INSPIRE-00312132", "schema": "INSPIRE ID"},
+                    {"value": "CERN-432143", "schema": "CERN"},
+                ],
+                "full_name": "Weary, Jake",
+            },
+        ]
+        validate(expected_authors, authors_subschema)
+
+        assert workflow_result["data"]["authors"] == expected_authors
+
+    def test_arxiv_author_list_does_not_produce_latex(self, datadir):
+        schema = load_schema("hep")
+
+        tarball_name = "1802.03388.tar.gz"
+
+        tarball_key = f"{self.context['params']['workflow_id']}-{tarball_name}"
+
+        s3_hook.load_file(
+            (datadir / tarball_name),
+            tarball_key,
+            bucket_name,
+            replace=True,
+        )
+
+        eprints_subschema = schema["properties"]["arxiv_eprints"]
+        data = {
+            "arxiv_eprints": [
+                {
+                    "categories": [
+                        "hep-ex",
+                    ],
+                    "value": "1802.03388",
+                },
+            ],
+        }
+        validate(data["arxiv_eprints"], eprints_subschema)
+
+        authors_subschema = schema["properties"]["authors"]
+        expected_authors = [
+            {
+                "affiliations": [{"value": "Lund U."}],
+                "ids": [{"value": "INSPIRE-00061248", "schema": "INSPIRE ID"}],
+                "full_name": "Åkesson, Torsten Paul Ake",
+            },
+        ]
+        validate(expected_authors, authors_subschema)
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.arxiv_author_list",
+            params={"tarball_key": tarball_key},
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(
+            s3_hook, bucket_name, self.context["params"]["workflow_id"]
+        )
+        assert workflow_result["data"]["authors"] == expected_authors
+
     def test_check_is_arxiv_paper(self):
         workflow_data = {
             "data": {
