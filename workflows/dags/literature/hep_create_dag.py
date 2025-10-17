@@ -1,6 +1,7 @@
 import datetime
 import logging
 import os
+import re
 from tempfile import TemporaryDirectory
 
 from airflow.decorators import dag, task_group
@@ -34,7 +35,9 @@ from inspire_schemas.builders import LiteratureBuilder
 from inspire_schemas.readers import LiteratureReader
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.helpers import maybe_int
+from inspire_utils.name import normalize_name
 from inspire_utils.record import get_value
+from inspirehep.utils.latex import decode_latex
 from invenio_classifier import get_keywords_from_local_file, get_keywords_from_text
 from invenio_classifier.errors import ClassifierException
 from literature.exact_match_tasks import (
@@ -48,7 +51,9 @@ from literature.set_workflow_status_tasks import (
     set_workflow_status_to_matching,
     set_workflow_status_to_running,
 )
+from parsel import Selector
 from plotextractor.api import process_tarball
+from plotextractor.converter import untar
 from plotextractor.errors import (
     InvalidTarball,
     NoTexFilesFound,
@@ -678,6 +683,182 @@ def hep_create_dag():
                 return plot_keys
 
         @task
+        def arxiv_author_list(tarball_key, **context):
+            """Extract authors from any author XML found in the arXiv archive.
+
+            :param obj: Workflow Object to process
+            :param eng: Workflow Engine processing the object
+            """
+
+            REGEXP_AUTHLIST = re.compile(
+                "<collaborationauthorlist.*?>.*?</collaborationauthorlist>", re.DOTALL
+            )
+
+            workflow = read_object(
+                s3_hook, bucket_name, context["params"]["workflow_id"]
+            )
+
+            # TODO: replace with LiteratureReader(obj.data).arxiv_id
+            arxiv_id = get_value(workflow["data"], "arxiv_eprints.value[0]", default="")
+
+            with TemporaryDirectory(prefix="plot_extract") as scratch_space:
+                tarball_file = s3_hook.download_file(
+                    tarball_key, bucket_name, scratch_space
+                )
+            try:
+                file_list = untar(tarball_file, scratch_space)
+            except InvalidTarball:
+                logger.info(
+                    "Invalid tarball in key %s for arxiv_id %s",
+                    tarball_key,
+                    arxiv_id,
+                )
+
+            logger.info(f"Extracted tarball to: {scratch_space}")
+            xml_files_list = [path for path in file_list if path.endswith(".xml")]
+            logger.info(f"Found xmlfiles: {xml_files_list}")
+
+            extracted_authors = []
+
+            for xml_file in xml_files_list:
+                with open(xml_file) as xml_file_fd:
+                    xml_content = xml_file_fd.read()
+                match = REGEXP_AUTHLIST.findall(xml_content)
+                if match:
+                    logger.info("Found a match for author extraction")
+                    extracted_authors.extend(extract_authors_from_xml(xml_content))
+
+            if extracted_authors:
+                for author in extracted_authors:
+                    author["full_name"] = decode_latex(author["full_name"])
+
+                return extracted_authors
+
+        def extract_authors_from_xml(xml_content):
+            builder = LiteratureBuilder()
+            AUTHOR_XML_ALLOWED_IDS = ["ORCID", "CCID", "INSPIRE"]
+            if isinstance(xml_content, str):
+                xml_content = xml_content.decode("utf-8")
+
+            # Probably the %auto-ignore comment exists, so we skip the
+            # first line. See: inspirehep/inspire-next/issues/2195
+            if "%auto-ignore" in xml_content:
+                xml_content = xml_content.split("\n", 1)[1]
+
+            content = Selector(text=xml_content, type="xml")
+            content.remove_namespaces()
+            undefined_or_none_value_regex = re.compile("undefined|none", re.IGNORECASE)
+            undefined_or_empty_inspireid_value_regex = re.compile(
+                "undefined|inspire-\s*$", re.IGNORECASE
+            )
+            undefined_value_regex = re.compile("undefined", re.IGNORECASE)
+            ror_path_value_regex = re.compile("https://ror.org/*")
+            remove_new_line_regex = re.compile("\s*\n\s*")
+
+            authors = []
+
+            # Goes through all the authors in the file
+            for author in content.xpath("//Person"):
+                ids = []
+                affiliations = []
+                affiliations_identifiers = []
+
+                # Gets all the author ids
+                for source, id in zip(
+                    author.xpath(
+                        './authorIDs/authorID[@source!="" and text()!=""]/@source | '
+                        './authorids/authorid[@source!="" and text()!=""]/@source'
+                    ).getall(),
+                    author.xpath(
+                        './authorIDs/authorID[@source!="" and text()!=""]/text() | '
+                        './authorids/authorid[@source!="" and text()!=""]/text()'
+                    ).getall(),
+                    strict=False,
+                ):
+                    source = re.sub(remove_new_line_regex, "", source)
+                    if source not in AUTHOR_XML_ALLOWED_IDS:
+                        continue
+                    id = re.sub(remove_new_line_regex, "", id)
+                    if not re.match(undefined_value_regex, source) and not re.match(
+                        undefined_or_empty_inspireid_value_regex, id
+                    ):
+                        if source == "CCID":
+                            ids.append(["CERN", id])
+                        elif source == "INSPIRE":
+                            ids.append([f"{source} ID", id])
+                        else:
+                            ids.append([source, id])
+
+                # Gets all the names for affiliated organizations
+                # using the organization ids from author
+                for affiliation in author.xpath(
+                    "./authorAffiliations/authorAffiliation/@organizationid"
+                ).getall():
+                    orgName = content.xpath(
+                        f'string(//organizations/Organization[@id="{affiliation}"]/'
+                        f'orgName[@source="spiresICN" or '
+                        f'@source="INSPIRE" and text()!="" ]/text())'
+                    ).get()
+
+                    cleaned_org_name = re.sub(remove_new_line_regex, "", orgName)
+                    if orgName and not re.match(
+                        undefined_or_none_value_regex, cleaned_org_name
+                    ):
+                        affiliations.append(cleaned_org_name)
+
+                    # Gets all the affiliations_identifiers for affiliated organizations
+                    # using the organization ids from author
+                    for value, source in zip(
+                        content.xpath(
+                            f'//organizations/Organization[@id="{affiliation}"]/'
+                            f'orgName[@source="ROR" or @source="GRID" and text()!=""]/'
+                            f"text()"
+                        ).getall(),
+                        content.xpath(
+                            f'//organizations/Organization[@id="{affiliation}"]/'
+                            f'orgName[@source="ROR" or @source="GRID" and text()!=""]/'
+                            f"@source"
+                        ).getall(),
+                        strict=False,
+                    ):
+                        source = re.sub(remove_new_line_regex, "", source)
+                        value = re.sub(remove_new_line_regex, "", value)
+                        if re.match(undefined_or_none_value_regex, source) or re.match(
+                            undefined_or_none_value_regex, value
+                        ):
+                            continue
+
+                        if source == "ROR" and not re.match(
+                            ror_path_value_regex, value
+                        ):
+                            value = f"https://ror.org/{value}"
+
+                        affiliations_identifiers.append([source, value])
+
+                name = "{}, {}".format(
+                    author.xpath(".//familyName/text()").get(),
+                    author.xpath(".//givenName/text()").get(),
+                )
+                name_suffix = author.xpath(".//authorSuffix/text()").get()
+                if name_suffix:
+                    name += f", {name_suffix}"
+                name = normalize_name(name)
+
+                # to be replaced by builder.add_author()
+                authors.append()
+                # builds the info to a correct format with litratureBuilder()
+                builder.add_author(
+                    builder.make_author(
+                        full_name=name,
+                        affiliations=affiliations,
+                        ids=ids,
+                        affiliations_identifiers=affiliations_identifiers,
+                    )
+                )
+
+            return authors
+
+        @task
         def guess_coreness(**context):
             workflow_data = read_object(
                 s3_hook, bucket_name, context["params"]["workflow_id"]
@@ -731,6 +912,7 @@ def hep_create_dag():
             populate_arxiv_document_task
             >> arxiv_package_download_task
             >> arxiv_plot_extract(arxiv_package_download_task)
+            >> arxiv_author_list()
             >> download_documents_task
             >> normalize_journal_titles()
             >> count_reference_coreness()
