@@ -154,7 +154,7 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
             style="padding-left: 17.5px; padding-right: 17.5px;"
           >
             <div
-              class="bg-approval  w-100"
+              class="bg-approval w-100"
             >
               <p
                 class="b f3 tc pv2"
@@ -606,6 +606,7 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                         >
                           <a
                             href="www.ticket1.com"
+                            rel="noreferrer noopener"
                             target="_blank"
                           >
                             #ticket1
@@ -616,6 +617,7 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                         >
                           <a
                             href="www.ticket2.com"
+                            rel="noreferrer noopener"
                             target="_blank"
                           >
                             #ticket2

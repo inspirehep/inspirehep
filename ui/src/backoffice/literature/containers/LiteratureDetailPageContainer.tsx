@@ -235,6 +235,21 @@ const LiteratureDetailPageContainer = ({
                     >
                       <TicketsList tickets={tickets} />
                     </ContentBox>
+                    {isSuperUserLoggedIn && (
+                      <ContentBox
+                        className="mb3"
+                        fullHeight={false}
+                        subTitle="Running dags"
+                      >
+                        <div className="flex flex-column items-center">
+                          <Button className="w-75">
+                            <a href={DAG_FULL_URL} target="_blank">
+                              See running dags
+                            </a>
+                          </Button>
+                        </div>
+                      </ContentBox>
+                    )}
                     <ContentBox
                       fullHeight={false}
                       subTitle="Actions"

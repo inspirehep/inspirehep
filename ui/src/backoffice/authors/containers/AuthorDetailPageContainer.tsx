@@ -26,7 +26,6 @@ import {
 } from './columnData';
 import { getConfigFor } from '../../../common/config';
 import {
-  getWorkflowStatusInfo,
   resolveDecision,
   filterByProperty,
   formatDateTime,
@@ -44,6 +43,8 @@ import AuthorMainInfo from '../components/AuthorMainInfo';
 import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
 import { BACKOFFICE_AUTHORS_SEARCH_NS } from '../../../search/constants';
 import { AUTHORS_PID_TYPE } from '../../../common/constants';
+import { StatusBanner } from '../../common/components/Detail/StatusBanner';
+import { TicketsList } from '../../common/components/Detail/TicketsList';
 
 type AuthorDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
@@ -72,9 +73,6 @@ const AuthorDetailPageContainer = ({
   const decision = author?.getIn(['decisions', 0]) as Map<string, any>;
   const status = author?.get('status');
   const workflow_type = author?.get('workflow_type');
-  const statusInfo = status
-    ? getWorkflowStatusInfo(status.toLowerCase())
-    : null;
   const urls = data?.get('urls');
   const filteredIds = filterByProperty(data, 'ids', 'schema', 'ORCID', false);
   const acquisitionSourceEmail = data?.getIn(['acquisition_source', 'email']);
@@ -136,21 +134,7 @@ const AuthorDetailPageContainer = ({
         >
           <Row justify="center">
             <Col xs={24} md={22} lg={21} xxl={18}>
-              {status && (
-                <Row className="mv3" justify="center" gutter={35}>
-                  <Col xs={24}>
-                    <div
-                      className={`bg-${status?.toLowerCase()} ${
-                        status === 'error' ? 'white' : ''
-                      } w-100`}
-                    >
-                      <p className="b f3 tc pv2">
-                        {statusInfo ? statusInfo.text : 'Unknown Status'}
-                      </p>
-                    </div>
-                  </Col>
-                </Row>
-              )}
+              <StatusBanner status={status} />
               <Row className="mv3" justify="center" gutter={35}>
                 <Col xs={24} lg={16}>
                   {data && <AuthorMainInfo data={data} />}
@@ -312,23 +296,7 @@ const AuthorDetailPageContainer = ({
                     fullHeight={false}
                     subTitle="SNow information"
                   >
-                    {tickets && (
-                      <>
-                        <p className="mb0">See related tickets</p>
-                        <ul className="mb0">
-                          {tickets.map((ticket: any) => (
-                            <li className="mb0" key={ticket.get('ticket_id')}>
-                              <a
-                                href={ticket.get('ticket_url')}
-                                target="_blank"
-                              >
-                                #{ticket.get('ticket_id')}
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </>
-                    )}
+                    <TicketsList tickets={tickets} />
                   </ContentBox>
                   {isSuperUserLoggedIn && (
                     <ContentBox
