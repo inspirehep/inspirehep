@@ -339,7 +339,7 @@ def hep_create_dag():
             )
 
         @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
-        def fetch_and_extract_journal_info(**context):
+        def extract_journal_info(**context):
             s3_workflow_id = context["params"]["workflow_id"]
             workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
             data = workflow_data.get("data", {})
@@ -369,21 +369,6 @@ def hep_create_dag():
                 response.json(), "extracted_publication_infos", []
             )
             workflow_data["refextract"] = extracted_publication_info_list
-            return write_object(
-                s3_hook,
-                workflow_data,
-                bucket_name,
-                s3_workflow_id,
-                overwrite=True,
-            )
-
-        @task
-        def process_journal_info(s3_workflow_id, **context):
-            workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
-            data = workflow_data.get("data", {})
-
-            publication_infos = get_value(data, "publication_info")
-            extracted_publication_info_list = workflow_data.get("refextract", {})
 
             for publication_info, extracted_publication_info in zip(
                 publication_infos, extracted_publication_info_list, strict=False
@@ -669,8 +654,6 @@ def hep_create_dag():
 
         check_is_arxiv_paper_task = check_is_arxiv_paper()
 
-        s3_workflow_id = fetch_and_extract_journal_info()
-
         guess_coreness_task = guess_coreness()
 
         populate_arxiv_document_task = populate_arxiv_document()
@@ -689,10 +672,7 @@ def hep_create_dag():
             >> download_documents_task
             >> normalize_journal_titles()
             >> count_reference_coreness()
-            >> s3_workflow_id
-            >> process_journal_info(
-                s3_workflow_id=s3_workflow_id,
-            )
+            >> extract_journal_info()
             >> populate_journal_coverage()
             >> classify_paper(
                 only_core_tags=False, spires=True, with_author_keywords=False
