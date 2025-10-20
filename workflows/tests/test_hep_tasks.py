@@ -11,12 +11,6 @@ from tests.test_utils import task_test
 dagbag = DagBag()
 
 s3_hook = S3Hook(aws_conn_id="s3_conn")
-s3_conn = s3_hook.get_connection("s3_conn")
-s3_creds = {
-    "user": s3_conn.login,
-    "secret": s3_conn.password,
-    "host": s3_conn.extra_dejson.get("endpoint_url"),
-}
 bucket_name = Variable.get("s3_bucket_name")
 
 
@@ -245,7 +239,7 @@ class Test_HEPCreateDAG:
         )
 
         task = self.dag.get_task("preprocessing.process_journal_info")
-        task.op_args = (s3_creds, bucket_name, s3_key)
+        task.op_args = (s3_key,)
         task.execute(context=Context())
 
         updated = read_object(s3_hook, bucket_name, s3_key)
@@ -314,16 +308,10 @@ class Test_HEPCreateDAG:
         res = task_test(
             dag_id="hep_create_dag",
             task_id="preprocessing.check_is_arxiv_paper",
-            params={
-                "workflow_id": self.workflow_id,
-                "s3_creds": s3_creds,
-                "bucket_name": bucket_name,
-            },
             dag_params=self.context["params"],
-            xcom_key="skipmixin_key",
         )
 
-        assert "preprocessing.populate_arxiv_document" in res["followed"]
+        assert "preprocessing.populate_arxiv_document" in res
 
     def test_check_is_not_arxiv_paper(self):
         workflow_data = {
@@ -348,16 +336,10 @@ class Test_HEPCreateDAG:
         res = task_test(
             dag_id="hep_create_dag",
             task_id="preprocessing.check_is_arxiv_paper",
-            params={
-                "workflow_id": self.workflow_id,
-                "s3_creds": s3_creds,
-                "bucket_name": bucket_name,
-            },
             dag_params=self.context["params"],
-            xcom_key="skipmixin_key",
         )
 
-        assert "preprocessing.download_documents" in res["followed"]
+        assert "preprocessing.download_documents" in res
 
     @pytest.mark.vcr
     def test_populate_journal_coverage(self):

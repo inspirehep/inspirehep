@@ -5,7 +5,6 @@ from tempfile import TemporaryDirectory
 
 from airflow.decorators import dag, task_group
 from airflow.exceptions import AirflowException
-from airflow.hooks.base import BaseHook
 from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.providers.standard.operators.empty import EmptyOperator
@@ -32,6 +31,10 @@ from include.utils.constants import JOURNALS_PID_TYPE
 from include.utils.s3 import read_object, write_object
 from inspire_schemas.builders import LiteratureBuilder
 from inspire_schemas.readers import LiteratureReader
+from inspire_schemas.utils import (
+    convert_old_publication_info_to_new,
+    split_page_artid,
+)
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.helpers import maybe_int
 from inspire_utils.record import get_value
@@ -58,7 +61,6 @@ from werkzeug.utils import secure_filename
 
 logger = logging.getLogger(__name__)
 s3_hook = S3Hook(aws_conn_id="s3_conn")
-s3_conn = BaseHook.get_connection("s3_conn")
 bucket_name = Variable.get("s3_bucket_name")
 
 
@@ -96,10 +98,6 @@ def hep_create_dag():
             context["params"]["workflow_id"],
             overwrite=True,
         )
-
-    @task
-    def get_workflow_id(**context):
-        return context["params"]["workflow_id"]
 
     @task.short_circuit(ignore_downstream_trigger_rules=False)
     def check_for_blocking_workflows(**context):
@@ -139,8 +137,7 @@ def hep_create_dag():
             workflow_id = context["params"]["workflow_id"]
             workflow = read_object(s3_hook, bucket_name, workflow_id)
 
-            # TODO: replace with LiteratureReader(obj.data).arxiv_id
-            arxiv_id = get_value(workflow["data"], "arxiv_eprints.value[0]", default="")
+            arxiv_id = LiteratureReader(workflow["data"]).arxiv_id
             filename = secure_filename(f"{arxiv_id}.tar.gz")
             url = f"/e-print/{arxiv_id}"
 
@@ -380,31 +377,9 @@ def hep_create_dag():
                 overwrite=True,
             )
 
-        @task.virtualenv(
-            requirements=["inspire-schemas==61.6.26", "inspire-utils~=3.0.66", "boto3"],
-            system_site_packages=False,
-            venv_cache_path="/opt/airflow/venvs",
-        )
-        def process_journal_info(s3_creds, bucket_name, s3_workflow_id, **context):
-            import sys
-
-            sys.path.append("/opt/airflow/plugins")
-
-            from include.utils.s3 import (
-                get_s3_client,
-                read_object,
-                write_object,
-            )
-            from inspire_schemas.utils import (
-                convert_old_publication_info_to_new,
-                split_page_artid,
-            )
-            from inspire_utils.helpers import maybe_int
-            from inspire_utils.record import get_value
-
-            s3_client = get_s3_client(s3_creds)
-
-            workflow_data = read_object(s3_client, bucket_name, s3_workflow_id)
+        @task
+        def process_journal_info(s3_workflow_id, **context):
+            workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
             data = workflow_data.get("data", {})
 
             publication_infos = get_value(data, "publication_info")
@@ -443,7 +418,7 @@ def hep_create_dag():
                 convert_old_publication_info_to_new(publication_infos)
             )
             write_object(
-                s3_client,
+                s3_hook,
                 workflow_data,
                 bucket_name,
                 key=s3_workflow_id,
@@ -554,24 +529,13 @@ def hep_create_dag():
             if any(result.get("complete_output", {}).values()):
                 return {"classifier_results": result}
 
-        @task.branch_virtualenv(
-            requirements=["inspire-schemas==61.6.26", "boto3"],
-            system_site_packages=False,
-            venv_cache_path="/opt/airflow/venvs",
-            trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
-        )
-        def check_is_arxiv_paper(workflow_id, s3_creds, bucket_name, **context):
+        @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+        def check_is_arxiv_paper(**context):
             """Check if a workflow contains a paper from arXiv."""
-            import sys
 
-            sys.path.append("/opt/airflow/plugins")
+            workflow_id = context["params"]["workflow_id"]
 
-            from include.utils.s3 import get_s3_client, read_object
-            from inspire_schemas.readers import LiteratureReader
-
-            s3_client = get_s3_client(s3_creds)
-
-            workflow_data = read_object(s3_client, bucket_name, workflow_id)
+            workflow_data = read_object(s3_hook, bucket_name, workflow_id)
 
             reader = LiteratureReader(workflow_data["data"])
             method = reader.method
@@ -647,8 +611,7 @@ def hep_create_dag():
                 s3_hook, bucket_name, context["params"]["workflow_id"]
             )
 
-            # TODO: replace with LiteratureReader(obj.data).arxiv_id
-            arxiv_id = get_value(workflow["data"], "arxiv_eprints.value[0]", default="")
+            arxiv_id = LiteratureReader(workflow["data"]).arxiv_id
 
             with TemporaryDirectory(prefix="plot_extract") as scratch_space:
                 tarball_file = s3_hook.download_file(
@@ -704,15 +667,7 @@ def hep_create_dag():
             )
             return workflows.normalize_collaborations(workflow_data=workflow_data)
 
-        check_is_arxiv_paper_task = check_is_arxiv_paper(
-            workflow_id=workflow_id,
-            s3_creds={
-                "user": s3_conn.login,
-                "secret": s3_conn.password,
-                "host": s3_conn.extra_dejson.get("endpoint_url"),
-            },
-            bucket_name=bucket_name,
-        )
+        check_is_arxiv_paper_task = check_is_arxiv_paper()
 
         s3_workflow_id = fetch_and_extract_journal_info()
 
@@ -736,12 +691,6 @@ def hep_create_dag():
             >> count_reference_coreness()
             >> s3_workflow_id
             >> process_journal_info(
-                s3_creds={
-                    "user": s3_conn.login,
-                    "secret": s3_conn.password,
-                    "host": s3_conn.extra_dejson.get("endpoint_url"),
-                },
-                bucket_name=bucket_name,
                 s3_workflow_id=s3_workflow_id,
             )
             >> populate_journal_coverage()
@@ -758,8 +707,6 @@ def hep_create_dag():
     dummy_get_fuzzy_matches = EmptyOperator(task_id="dummy_get_fuzzy_matches")
 
     check_for_blocking_workflows_task = check_for_blocking_workflows()
-
-    workflow_id = get_workflow_id()
 
     preprocessing_group = preprocessing()
     set_workflow_status_to_completed_task = set_workflow_status_to_completed()
