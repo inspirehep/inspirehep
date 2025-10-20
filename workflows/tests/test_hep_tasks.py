@@ -2,7 +2,6 @@ import pytest
 from airflow.models import DagBag
 from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-from airflow.utils.context import Context
 from include.utils.s3 import read_object, write_object
 from inspire_schemas.api import load_schema, validate
 
@@ -173,7 +172,7 @@ class Test_HEPCreateDAG:
         assert collaborations[0]["value"] == "ETM"
 
     @pytest.mark.vcr
-    def test_fetch_and_extract_journal_info(self):
+    def test_extract_journal_info(self):
         workflow_data = {
             "data": {
                 "publication_info": [
@@ -190,59 +189,13 @@ class Test_HEPCreateDAG:
             s3_key,
             overwrite=True,
         )
-        task = self.dag.get_task("preprocessing.fetch_and_extract_journal_info")
+        task = self.dag.get_task("preprocessing.extract_journal_info")
         task.python_callable(params=self.context["params"])
 
         updated = read_object(s3_hook, bucket_name, s3_key)
         assert "refextract" in updated
         assert len(updated["refextract"]) == 2
 
-    def test_process_journal_info(self):
-        s3_key = self.context["params"]["workflow_id"]
-        workflow_data = {
-            "data": {
-                "publication_info": [
-                    {"pubinfo_freetext": "Phys. Rev. 127 (1962) 965-970"},
-                    {"pubinfo_freetext": "Phys.Rev.Lett. 127 (1962) 965-970"},
-                ],
-            },
-            "refextract": [
-                {
-                    "extra_ibids": [],
-                    "is_ibid": False,
-                    "misc_txt": "",
-                    "page": "965-970",
-                    "title": "Phys.Rev.",
-                    "type": "JOURNAL",
-                    "volume": "127",
-                    "year": "1962",
-                },
-                {
-                    "extra_ibids": [],
-                    "is_ibid": False,
-                    "misc_txt": "",
-                    "page": "965-970",
-                    "title": "Phys.Rev.Lett.",
-                    "type": "JOURNAL",
-                    "volume": "127",
-                    "year": "1962",
-                },
-            ],
-        }
-
-        write_object(
-            s3_hook,
-            workflow_data,
-            bucket_name,
-            s3_key,
-            overwrite=True,
-        )
-
-        task = self.dag.get_task("preprocessing.process_journal_info")
-        task.op_args = (s3_key,)
-        task.execute(context=Context())
-
-        updated = read_object(s3_hook, bucket_name, s3_key)
         expected = [
             {
                 "pubinfo_freetext": "Phys. Rev. 127 (1962) 965-970",
