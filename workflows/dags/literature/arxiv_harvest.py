@@ -1,17 +1,15 @@
 import datetime
 import logging
 
-from airflow.decorators import dag, task, task_group
-from airflow.exceptions import AirflowException, AirflowSkipException
-from airflow.hooks.base import BaseHook
+from airflow.decorators import dag, task
+from airflow.exceptions import AirflowException
 from airflow.macros import ds_add
-from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-from airflow.sdk import Param
+from airflow.sdk import Param, Variable
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.alerts import FailedDagNotifier
+from include.utils.arxiv import build_records, fetch_records, load_records
 from include.utils.s3 import read_object, write_object
-from sickle import Sickle, oaiexceptions
 
 logger = logging.getLogger(__name__)
 
@@ -64,15 +62,7 @@ def arxiv_harvest_dag():
     4. check_failures: checks and reports any failed records
     """
 
-    workflow_management_hook = WorkflowManagementHook(HEP)
-
-    conn = BaseHook.get_connection("arxiv_oaipmh_connection")
-    sickle = Sickle(conn.host)
-    s3_hook = S3Hook(aws_conn_id="s3_conn")
-    s3_conn = BaseHook.get_connection("s3_conn")
-    bucket_name = Variable.get("s3_bucket_name")
-
-    @task(task_id="get_sets")
+    @task
     def get_sets(**context):
         """Collects the ids of the records that have been updated in the last two days.
 
@@ -80,164 +70,64 @@ def arxiv_harvest_dag():
         """
         return context["params"]["sets"]
 
-    @task_group
-    def process_records(set):
+    @task
+    def process_records(set, **context):
         """Process the record by downloading the versions,
         building the record and loading it to inspirehep.
+         Args: set (str): The arXiv set to fetch records from.
         """
 
-        @task
-        def fetch_records(set=None, **context):
-            """Fetch the xml records for a given set.
+        workflow_management_hook = WorkflowManagementHook(HEP)
 
-            Args: set (str): The arXiv set to fetch records from.
-            Returns: list: The list of raw xml records.
-            """
+        s3_hook = S3Hook(aws_conn_id="s3_conn")
+        bucket_name = Variable.get("s3_bucket_name")
 
-            from_date = context["params"]["from"] or ds_add(context["ds"], -1)
-            until_date = context["params"]["until"]
+        from_date = context["params"]["from"] or ds_add(context["ds"], -1)
+        until_date = context["params"]["until"]
 
-            oaiargs = {
-                "from": from_date,
-                "metadataPrefix": context["params"]["metadata_prefix"],
-            }
-
-            if until_date:
-                oaiargs["until"] = until_date
-
-            logger.info(
-                f"Collecting records from arXiv from {from_date} "
-                f"to {until_date} for set '{set}'"
-            )
-            try:
-                records = list(sickle.ListRecords(set=set, **oaiargs))
-            except oaiexceptions.NoRecordsMatch:
-                raise AirflowSkipException(f"No records for '{set}'") from None
-
-            return write_object(
-                s3_hook,
-                {"records": [record.raw for record in records]},
-                bucket_name,
-            )
-
-        @task.virtualenv(
-            requirements=["inspire-schemas==61.6.26", "boto3"],
-            system_site_packages=False,
-            venv_cache_path="/opt/airflow/venvs",
+        xml_records = fetch_records(
+            connection_id="arxiv_oaipmh_connection",
+            metadata_prefix=context["params"]["metadata_prefix"],
+            from_date=from_date,
+            until_date=until_date,
+            set=set,
         )
-        def build_records(records_key, s3_creds, bucket_name, **context):
-            """Build the records from the arXiv xml response.
 
-            Args: records list(str): The list of raw xml records from arXiv.
-            Returns: list(dict): The list of parsed records.
-            """
+        parsed_records, failed_build_records = build_records(
+            xml_records, context["run_id"]
+        )
 
-            import datetime
-            import sys
+        failed_load_records = load_records(parsed_records, workflow_management_hook)
 
-            sys.path.append("/opt/airflow/plugins")
-
-            from include.utils.s3 import (
-                get_s3_client,
-                read_object,
-                write_object,
-            )
-            from inspire_schemas.parsers.arxiv import ArxivParser
-
-            s3_client = get_s3_client(s3_creds)
-            records_data = read_object(s3_client, bucket_name, records_key)
-
-            parsed_records = []
-            failed_records = []
-            for record in records_data["records"]:
-                try:
-                    parsed_object = ArxivParser(record)
-                    parsed_object.parse()
-                    parsed_object.builder.add_acquisition_source(
-                        source="arXiv",
-                        method="hepcrawl",
-                        date=datetime.datetime.now().isoformat(),
-                        submission_number=context["run_id"],
-                    )
-                    parsed_records.append(parsed_object.builder.record)
-                except Exception:
-                    failed_records.append(record)
-
-            return write_object(
-                s3_client,
-                {"parsed_records": parsed_records, "failed_records": failed_records},
-                bucket_name,
-            )
-
-        @task
-        def load_records(records_key):
-            """Load the  to backoffice / trigger workflow DAG.
-
-            Args: new_records list(dict): The records to load.
-            """
-            data = read_object(s3_hook, bucket_name, records_key)
-
-            failed_records = []
-            for record in data["parsed_records"]:
-                logger.info(
-                    f"Loading record: "
-                    f"{record.get('arxiv_eprints',[{}])[0].get('value')}"
-                )
-
-                workflow_data = {
-                    "data": record,
-                    "workflow_type": "HEP_CREATE",
-                }
-                try:
-                    logger.info(f"Loading record: {record.get('control_number')}")
-                    workflow_management_hook.post_workflow(
-                        workflow_data=workflow_data,
-                    )
-                except Exception:
-                    logger.error(
-                        f"Failed to load record: {record.get('control_number')}"
-                    )
-                    failed_records.append(record)
-
-            return write_object(
-                s3_hook,
-                {"failed_records": failed_records},
-                bucket_name,
-            )
-
-        record_keys = fetch_records(set)
-        build_record_keys = build_records(
-            record_keys,
-            s3_creds={
-                "user": s3_conn.login,
-                "secret": s3_conn.password,
-                "host": s3_conn.extra_dejson.get("endpoint_url"),
+        return write_object(
+            s3_hook,
+            {
+                "failed_build_records": failed_build_records,
+                "failed_load_records": failed_load_records,
             },
-            bucket_name=bucket_name,
+            bucket_name,
         )
-        failed_load_record_keys = load_records(build_record_keys)
 
-        return build_record_keys, failed_load_record_keys
-
-    @task(task_id="check_failures")
-    def check_failures(build_record_keys, failed_load_record_keys):
+    @task
+    def check_failures(failed_record_keys):
         """Check if there are any failed records and raise an exception if there are.
 
         Args: failed_records (list): The list of failed records.
         Raises: AirflowException: If there are any failed records.
         """
 
-        def gather_failed_records(all_record_keys):
-            """Gather all failed records from the given keys."""
+        s3_hook = S3Hook(aws_conn_id="s3_conn")
+        bucket_name = Variable.get("s3_bucket_name")
+
+        def gather_failed_records(record_keys):
             failed_records = []
-            for key in all_record_keys:
-                failed_records += read_object(s3_hook, bucket_name, key)[
-                    "failed_records"
-                ]
+            for record_key in record_keys:
+                record_data = read_object(s3_hook, bucket_name, record_key)
+                failed_records.extend(record_data.get("failed_build_records", []))
+                failed_records.extend(record_data.get("failed_load_records", []))
             return failed_records
 
-        all_record_keys = build_record_keys + failed_load_record_keys
-        failed_records = gather_failed_records(all_record_keys)
+        failed_records = gather_failed_records(failed_record_keys)
 
         if len(failed_records) > 0:
             raise AirflowException(f"The following records failed: {failed_records}")
@@ -245,8 +135,8 @@ def arxiv_harvest_dag():
         logger.info("No failed records")
 
     sets = get_sets()
-    build_record_keys, failed_load_record_keys = process_records.expand(set=sets)
-    check_failures(build_record_keys, failed_load_record_keys)
+    failed_load_record_keys = process_records.expand(set=sets)
+    check_failures(failed_load_record_keys)
 
 
 arxiv_harvest_dag()
