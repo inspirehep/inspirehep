@@ -522,11 +522,12 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_download_documents(self):
+        filename = "1605.03844.pdf"
         workflow_data = {
             "data": {
                 "documents": [
                     {
-                        "key": "1605.03844.pdf",
+                        "key": filename,
                         "url": "https://arxiv.org/pdf/1605.03844",
                     },
                 ],
@@ -555,10 +556,11 @@ class Test_HEPCreateDAG:
         result = read_object(s3_hook, bucket_name, self.workflow_id)
 
         assert s3_hook.check_for_key(
-            f"{self.workflow_id}-documents/1605.03844.pdf", bucket_name
+            f"{self.workflow_id}-documents/{filename}", bucket_name
         )
+        s3_hook.delete_objects(bucket_name, f"{self.workflow_id}-documents/{filename}")
         assert result["data"]["documents"][0]["url"] == (
-            f"s3://{bucket_name}/{self.workflow_id}-documents/1605.03844.pdf"
+            f"s3://{bucket_name}/{self.workflow_id}-documents/{filename}"
         )
 
     @pytest.mark.vcr
@@ -606,6 +608,9 @@ class Test_HEPCreateDAG:
         ):
             assert s3_hook.check_for_key(
                 f"{self.workflow_id}-documents/{document_in['key']}", bucket_name
+            )
+            s3_hook.delete_objects(
+                bucket_name, f"{self.workflow_id}-documents/{document_in['key']}"
             )
             assert document_out["url"] == (
                 f"s3://{bucket_name}/{self.workflow_id}-documents/{document_in['key']}"
