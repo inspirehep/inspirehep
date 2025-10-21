@@ -6,7 +6,6 @@
 import re
 from os.path import splitext
 
-import orjson
 import requests
 import structlog
 from flask import Blueprint, current_app, make_response, request
@@ -14,6 +13,7 @@ from flask_login import current_user
 from inspire_schemas.api import load_schema
 from inspire_schemas.parsers.author_xml import AuthorXMLParser
 from inspire_utils.dedupers import dedupe_list
+from inspire_utils.record import get_value
 from inspirehep.accounts.api import (
     check_permissions_for_private_collection_read,
     check_permissions_for_private_collection_read_write,
@@ -40,6 +40,10 @@ from invenio_db import db
 from invenio_records.models import RecordMetadata
 from invenio_records_rest.utils import set_headers_for_record_caching_and_concurrency
 from pylatexenc.latex2text import LatexNodes2Text
+from refextract.extract import (
+    extract_references_from_file_url,
+    extract_references_from_text,
+)
 from sqlalchemy_continuum import transaction_class, version_class
 
 blueprint = Blueprint("inspirehep_editor", __name__, url_prefix="/editor")
@@ -229,16 +233,16 @@ def get_rt_queues():
 @login_required_with_roles([Roles.cataloger.value])
 def refextract_text():
     """Run refextract on a piece of text."""
-    headers = {"Content-Type": "application/json", "Accept": "application/json"}
-    data = {"journal_kb_data": create_journal_dict(), "text": request.json["text"]}
-    response = requests.post(
-        f"{current_app.config['REFEXTRACT_SERVICE_URL']}/extract_references_from_text",
-        headers=headers,
-        data=orjson.dumps(data),
-    )
-    if response.status_code != 200:
+    journal_kb_data = create_journal_dict()
+    text = request.json["text"]
+
+    extracted_references_from_text = extract_references_from_text(text, journal_kb_data)
+
+    if not extracted_references_from_text:
         return jsonify({"message": "Can not extract references"}, 500)
-    extracted_references = response.json()["extracted_references"]
+    extracted_references = get_value(
+        extracted_references_from_text, "extracted_references", []
+    )
     deduplicated_extracted_references = dedupe_list(extracted_references)
     references = map_refextract_to_schema(deduplicated_extracted_references)
     match_result = match_references(references)
@@ -249,16 +253,17 @@ def refextract_text():
 @login_required_with_roles([Roles.cataloger.value])
 def refextract_url():
     """Run refextract on a URL."""
-    headers = {"Content-Type": "application/json", "Accept": "application/json"}
-    data = {"journal_kb_data": create_journal_dict(), "url": request.json["url"]}
-    response = requests.post(
-        f"{current_app.config['REFEXTRACT_SERVICE_URL']}/extract_references_from_url",
-        headers=headers,
-        data=orjson.dumps(data),
+    journal_kb_data = create_journal_dict()
+    url = request.json["url"]
+    extracted_references_from_file_url = extract_references_from_file_url(
+        url, journal_kb_data
     )
-    if response.status_code != 200:
+
+    if not extracted_references_from_file_url:
         return jsonify({"message": "Can not extract references"}, 500)
-    extracted_references = response.json()["extracted_references"]
+    extracted_references = get_value(
+        extracted_references_from_file_url, "extracted_references", []
+    )
     deduplicated_extracted_references = dedupe_list(extracted_references)
     references = map_refextract_to_schema(deduplicated_extracted_references)
     match_result = match_references(references)
