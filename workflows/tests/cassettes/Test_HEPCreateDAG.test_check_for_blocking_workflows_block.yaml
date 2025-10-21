@@ -11,44 +11,38 @@ interactions:
       Content-Type:
       - application/json
     method: GET
-    uri: http://host.docker.internal:8001/api/workflows/hep/search/?status__in=running__approval__error__matching__fuzzy_matching__blocked&data.arxiv_eprints.value=2507.26819
+    uri: http://host.docker.internal:8001/api/workflows/literature/search/?status__in=running__approval__error__matching__fuzzy_matching__blocked&data.arxiv_eprints.value=2507.26819
   response:
     body:
-      string: '{"count":2,"next":null,"previous":null,"facets":{"_filter_workflow_type":{"doc_count":2,"workflow_type":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"HEP_CREATE","doc_count":2,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"blocked","doc_count":1},{"key":"matching","doc_count":1}]}}]}},"_filter_status":{"doc_count":2,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"blocked","doc_count":1},{"key":"matching","doc_count":1}]}}},"results":[{"status":"blocked","decisions":[],"_updated_at":"2025-07-31T12:11:14.506101+00:00","workflow_type":"HEP_CREATE","id":"16392a1d-6522-45e9-b93c-5fd434588cce","_created_at":"2025-07-31T12:05:02.076739+00:00","data":{"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
+      string: '{"count":3,"next":null,"previous":null,"facets":{"_filter_workflow_type":{"doc_count":3,"workflow_type":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"HEP_CREATE","doc_count":3,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"blocked","doc_count":1},{"key":"matching","doc_count":1},{"key":"running","doc_count":1}]}}]}},"_filter_status":{"doc_count":3,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"blocked","doc_count":1},{"key":"matching","doc_count":1},{"key":"running","doc_count":1}]}}},"results":[{"id":"00000000-0000-0000-0000-000000001111","workflow_type":"HEP_CREATE","_updated_at":"2024-11-25T13:49:54.756000+00:00","_created_at":"2024-11-25T13:49:53.009000+00:00","data":{"titles":[{"title":"A
+        New Discovery in High Energy Physics"}],"$schema":"https://inspirebeta.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2507.26819","categories":["cs.CV","cs.AI","cs.LG","cs.RO"]}],"document_type":["article"],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"decisions":[],"status":"running"},{"id":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","workflow_type":"HEP_CREATE","_updated_at":"2024-11-25T13:49:54.756000+00:00","_created_at":"2024-11-25T13:49:53.009000+00:00","data":{"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
         MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2507.26819","categories":["cs.CV","cs.AI","cs.LG","cs.RO"]}],"document_type":["article"],"_private_notes":[{"value":"Also
-        some comments"}],"acquisition_source":{"email":"joao.ramiro@cern.ch","orcid":"0000-0002-7638-5686","method":"submitter","source":"submitter","datetime":"2024-12-17T15:44:45.997487","internal_uid":50872}}},{"status":"matching","decisions":[],"_updated_at":"2025-07-31T12:03:55.978943+00:00","workflow_type":"HEP_CREATE","id":"78228367-a7e3-4cfa-8865-8ec57c35b77f","_created_at":"2025-07-31T12:00:26.025697+00:00","data":{"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
+        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"decisions":[],"status":"blocked"},{"id":"66961888-a628-46b7-b807-4deae3478adc","workflow_type":"HEP_CREATE","_updated_at":"2024-11-25T13:49:54.756000+00:00","_created_at":"2024-11-25T13:49:53.009000+00:00","data":{"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
         MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2507.26819","categories":["cs.CV","cs.AI","cs.LG","cs.RO"]}],"document_type":["article"],"_private_notes":[{"value":"Also
-        some comments"}],"acquisition_source":{"email":"joao.ramiro@cern.ch","orcid":"0000-0002-7638-5686","method":"submitter","source":"submitter","datetime":"2024-12-17T15:44:45.997487","internal_uid":50872}}}]}'
+        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"decisions":[],"status":"matching"}]}'
     headers:
       Allow:
       - GET, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '2251'
+      - '2965'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Thu, 31 Jul 2025 12:53:11 GMT
+      - Tue, 21 Oct 2025 12:56:39 GMT
       Referrer-Policy:
       - same-origin
       Server:
       - WSGIServer/0.2 CPython/3.11.6
-      Server-Timing:
-      - TimerPanel_utime;dur=58.837999999994395;desc="User CPU time", TimerPanel_stime;dur=0.0;desc="System
-        CPU time", TimerPanel_total;dur=58.837999999994395;desc="Total CPU time",
-        TimerPanel_total_time;dur=144.47345898952335;desc="Elapsed time", SQLPanel_sql_time;dur=5.035416106693447;desc="SQL
-        5 queries", CachePanel_total_time;dur=0;desc="Cache 0 Calls"
       Vary:
       - Accept, Accept-Language, Cookie, origin
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
       - DENY
-      djdt-store-id:
-      - 7d8cf7554e9e49298f54aa7657aae681
     status:
       code: 200
       message: OK
@@ -66,41 +60,34 @@ interactions:
       Content-Type:
       - application/json
     method: PATCH
-    uri: http://host.docker.internal:8001/api/workflows/hep/00000000-0000-0000-0000-000000001111/
+    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111/
   response:
     body:
       string: '{"id":"00000000-0000-0000-0000-000000001111","data":{"titles":[{"title":"A
-        New Discovery in High Energy Physics"}],"$schema":"https://inspirebeta.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[],"workflow_type":"HEP_CREATE","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-07-31T12:53:11.907281Z","status":"blocked"}'
+        New Discovery in High Energy Physics"}],"$schema":"https://inspirebeta.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2507.26819","categories":["cs.CV","cs.AI","cs.LG","cs.RO"]}],"document_type":["article"],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":1,"workflow":"00000000-0000-0000-0000-000000001111","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"exact_match","value":"paper1","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-10-21T12:56:39.774447Z","journal_coverage":null,"status":"blocked"}'
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '578'
+      - '901'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Thu, 31 Jul 2025 12:53:11 GMT
+      - Tue, 21 Oct 2025 12:56:39 GMT
       Referrer-Policy:
       - same-origin
       Server:
       - WSGIServer/0.2 CPython/3.11.6
-      Server-Timing:
-      - TimerPanel_utime;dur=95.8660000000009;desc="User CPU time", TimerPanel_stime;dur=0.4800000000031446;desc="System
-        CPU time", TimerPanel_total;dur=96.34600000000404;desc="Total CPU time", TimerPanel_total_time;dur=105.15787499025464;desc="Elapsed
-        time", SQLPanel_sql_time;dur=7.629373925738037;desc="SQL 9 queries", CachePanel_total_time;dur=0;desc="Cache
-        0 Calls"
       Vary:
       - Accept, Accept-Language, Cookie, origin
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
       - DENY
-      djdt-store-id:
-      - 84bffb8fd9c84c51886f920ae9796098
     status:
       code: 200
       message: OK

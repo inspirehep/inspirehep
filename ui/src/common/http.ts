@@ -16,12 +16,11 @@ function transformBackofficeUrl(url: string): string {
   }
 
   const type = match[1];
-  const workflowType = type === 'literature' ? 'hep' : type;
 
   const newUrl = url
     .replace('/facets', '')
     .replace('q=', 'search=')
-    .replace(`/backoffice/${type}/search`, `/workflows/${workflowType}/search`);
+    .replace(`/backoffice/${type}/search`, `/workflows/${type}/search`);
 
   return newUrl;
 }
@@ -101,7 +100,7 @@ export class HttpClientWrapper {
   private static handleResponseInterceptor(response: AxiosResponse) {
     if (
       response.config.url?.includes('/workflows/authors/search') ||
-      response.config.url?.includes('/workflows/hep/search')
+      response.config.url?.includes('/workflows/literature/search')
     ) {
       return {
         ...response,

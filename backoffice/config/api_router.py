@@ -26,10 +26,12 @@ router.register(
 router.register("workflows/authors", AuthorWorkflowViewSet, basename="authors")
 
 router.register(
-    "workflows/hep/tickets", HepWorkflowTicketViewSet, basename="hep-tickets"
+    "workflows/literature/tickets", HepWorkflowTicketViewSet, basename="hep-tickets"
 )
-router.register("workflows/hep/decisions", HepDecisionViewSet, basename="hep-decisions")
-router.register("workflows/hep", HepWorkflowViewSet, basename="hep")
+router.register(
+    "workflows/literature/decisions", HepDecisionViewSet, basename="hep-decisions"
+)
+router.register("workflows/literature", HepWorkflowViewSet, basename="hep")
 
 app_name = "api"
 urlpatterns = router.urls
