@@ -109,16 +109,6 @@
     "schema": "",
     "extra": ""
   },
-  "refextract_connection": {
-    "conn_type": "http",
-    "description": "",
-    "login": "",
-    "password": null,
-    "host": "http://host.docker.internal:5000",
-    "port": null,
-    "schema": "",
-    "extra": ""
-  },
   "ieee_ftp": {
     "conn_type": "ftp",
     "description": "ieee_harvest",

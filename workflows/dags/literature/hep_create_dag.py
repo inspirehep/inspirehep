@@ -60,6 +60,7 @@ from plotextractor.errors import (
     NoTexFilesFound,
 )
 from pylatexenc.latex2text import LatexNodes2Text
+from refextract.extract import extract_journal_info as refextract_journal_info
 from tenacity import RetryError
 from werkzeug.utils import secure_filename
 
@@ -87,7 +88,6 @@ def hep_create_dag():
     inspire_http_hook = InspireHttpHook()
     inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
     workflow_management_hook = WorkflowManagementHook(HEP)
-    refextract_http_hook = GenericHttpHook(http_conn_id="refextract_connection")
     arxiv_hook = GenericHttpHook(http_conn_id="arxiv_connection")
 
     @task
@@ -358,20 +358,14 @@ def hep_create_dag():
             response.raise_for_status()
             kbs_journal_dict = get_value(response.json(), "journal_kb_data")
 
-            response = refextract_http_hook.call_api(
-                endpoint="/extract_journal_info",
-                method="POST",
-                headers={"Content-Type": "application/json"},
-                json={
-                    "publication_infos": publication_infos,
-                    "journal_kb_data": kbs_journal_dict,
-                },
+            extracted_publications = refextract_journal_info(
+                publication_infos, kbs_journal_dict
             )
-            response.raise_for_status()
 
             extracted_publication_info_list = get_value(
-                response.json(), "extracted_publication_infos", []
+                extracted_publications, "extracted_publication_infos", []
             )
+
             workflow_data["refextract"] = extracted_publication_info_list
 
             for publication_info, extracted_publication_info in zip(
