@@ -320,151 +320,111 @@ def test_get_snow_functional_categories(inspire_app, override_config):
     assert "id" in response.json[1]
 
 
-def test_refextract_text_with_refextract_service(override_config, inspire_app):
-    with override_config(
-        REFEXTRACT_SERVICE_URL="http://10.100.138.17:5000",
-    ):
-        schema = load_schema("hep")
-        subschema = schema["properties"]["references"]
+def test_refextract_text_with_refextract(inspire_app):
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
 
-        user = create_user(role=Roles.cataloger.value)
+    user = create_user(role=Roles.cataloger.value)
 
-        data = {
-            "journal_title": {"title": "JHEP"},
-            "short_title": "JHEP",
-        }
-        create_record("jou", data=data)
-        with requests_mock.Mocker() as requests_mocker:
-            requests_mocker.register_uri(
-                "POST",
-                f"{current_app.config['REFEXTRACT_SERVICE_URL']}/extract_references_from_text",
-                json={
-                    "extracted_references": [
-                        {
-                            "author": ["K. Ito, H. Nakajima, T. Saka, and S. Sasaki"],
-                            "journal_page": ["028"],
-                            "journal_reference": ["JHEP,0910,028"],
-                            "journal_title": ["JHEP"],
-                            "journal_volume": ["0910"],
-                            "journal_year": ["2009"],
-                            "linemarker": ["27"],
-                            "raw_ref": [
-                                "[27] K. Ito, H. Nakajima, T. Saka, and S. Sasaki,"
-                                " “Instanton Calculus in Deformed N=4 Super Yang-Mills"
-                                " Theories,” JHEP 10 (2009) 028, arXiv:0908.4339"
-                                " [hep-th]."
-                            ],
-                            "reportnumber": ["arXiv:0908.4339 [hep-th]"],
-                            "title": [
-                                "Instanton Calculus in Deformed N=4 Super Yang-Mills"
-                                " Theories"
-                            ],
-                            "year": ["2009"],
-                        },
-                    ]
-                },
-            )
+    data = {
+        "journal_title": {"title": "JHEP"},
+        "short_title": "JHEP",
+    }
+    create_record("jou", data=data)
 
-            with inspire_app.test_client() as client:
-                login_user_via_session(client, email=user.email)
-                response = client.post(
-                    "api/editor/refextract/text",
-                    content_type="application/json",
-                    data=orjson.dumps(
-                        {
-                            "text": (
-                                "[27] K. Ito, H. Nakajima, T. Saka, and S. Sasaki,"
-                                " “Instanton Calculus in Deformed N=4 Super Yang-Mills"
-                                " Theories,” JHEP 10 (2009) 028, arXiv:0908.4339"
-                                " [hep-th]."
-                            )
-                        }
-                    ),
-                )
-            references = orjson.loads(response.data)
-            title_list = get_value(
-                {"references": references},
-                "references.reference.publication_info.journal_title",
-            )
-
-            assert response.status_code == 200
-            assert validate(references, subschema) is None
-            assert "JHEP" in title_list
-
-
-def test_refextract_url_with_refextract_service(override_config, inspire_app):
-    with override_config(
-        REFEXTRACT_SERVICE_URL="http://10.100.138.17:5000",
-    ):
-        schema = load_schema("hep")
-        subschema = schema["properties"]["references"]
-        user = create_user(role=Roles.cataloger.value)
-        es_response = {
-            "_shards": {"failed": 0, "skipped": 0, "successful": 5, "total": 5},
-            "hits": {"hits": [], "max_score": None, "total": 0},
-            "timed_out": False,
-            "took": 4,
-        }
-
-        with requests_mock.Mocker() as requests_mocker:
-            requests_mocker.register_uri(
-                "GET",
-                "https://arxiv.org/pdf/1612.06414.pdf",
-                content=pkg_resources.resource_string(
-                    __name__, os.path.join("fixtures", "1612.06414.pdf")
-                ),
-            )
-            requests_mocker.register_uri(
-                "GET",
-                "http://test-indexer:9200/records-hep/hep/_search?_source=control_number",
-                json=es_response,
-            )
-
-            requests_mocker.register_uri(
-                "POST",
-                f"{current_app.config['REFEXTRACT_SERVICE_URL']}/extract_references_from_url",
-                json={
-                    "extracted_references": [
-                        {
-                            "author": ["K. Ito, H. Nakajima, T. Saka, and S. Sasaki"],
-                            "journal_page": ["028"],
-                            "journal_reference": ["JHEP,0910,028"],
-                            "journal_title": ["JHEP"],
-                            "journal_volume": ["0910"],
-                            "journal_year": ["2009"],
-                            "linemarker": ["27"],
-                            "raw_ref": [
-                                "[27] K. Ito, H. Nakajima, T. Saka, and S. Sasaki,"
-                                " “Instanton Calculus in Deformed N=4 Super Yang-Mills"
-                                " Theories,” JHEP 10 (2009) 028, arXiv:0908.4339"
-                                " [hep-th]."
-                            ],
-                            "reportnumber": ["arXiv:0908.4339 [hep-th]"],
-                            "title": [
-                                "Instanton Calculus in Deformed N=4 Super Yang-Mills"
-                                " Theories"
-                            ],
-                            "year": ["2009"],
-                        },
-                    ]
-                },
-            )
-
-            with inspire_app.test_client() as client:
-                login_user_via_session(client, email=user.email)
-                response = client.post(
-                    "api/editor/refextract/url",
-                    content_type="application/json",
-                    data=orjson.dumps({"url": "https://arxiv.org/pdf/1612.06414.pdf"}),
-                )
-            references = orjson.loads(response.data)
-
-        assert response.status_code == 200
-        assert validate(references, subschema) is None
-        assert get_value(
-            {"references": references},
-            "references.reference.publication_info.journal_title",
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "api/editor/refextract/text",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "text": (
+                        "[27] K. Ito, H. Nakajima, T. Saka, and S. Sasaki,"
+                        " “Instanton Calculus in Deformed N=4 Super Yang-Mills"
+                        " Theories,” JHEP 10 (2009) 028, arXiv:0908.4339"
+                        " [hep-th]."
+                    )
+                }
+            ),
         )
+    references = orjson.loads(response.data)
+    title_list = get_value(
+        {"references": references},
+        "references.reference.publication_info.journal_title",
+    )
+
+    assert response.status_code == 200
+    assert validate(references, subschema) is None
+    assert "JHEP" in title_list
+
+
+@patch(
+    "inspirehep.editor.views.extract_references_from_file_url",
+    autospec=True,
+)
+def test_refextract_url_with_refextract(mock_extract, inspire_app):
+    mock_extract.return_value = {
+        "extracted_references": [
+            {
+                "author": ["K. Ito, H. Nakajima, T. Saka, and S. Sasaki"],
+                "journal_page": ["028"],
+                "journal_reference": ["JHEP,0910,028"],
+                "journal_title": ["JHEP"],
+                "journal_volume": ["0910"],
+                "journal_year": ["2009"],
+                "linemarker": ["27"],
+                "raw_ref": [
+                    "[27] K. Ito, H. Nakajima, T. Saka, and S. Sasaki,"
+                    " “Instanton Calculus in Deformed N=4 Super Yang-Mills"
+                    " Theories,” JHEP 10 (2009) 028, arXiv:0908.4339 [hep-th]."
+                ],
+                "reportnumber": ["arXiv:0908.4339 [hep-th]"],
+                "title": [
+                    "Instanton Calculus in Deformed N=4 Super Yang-Mills Theories"
+                ],
+                "year": ["2009"],
+            }
+        ]
+    }
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
+    user = create_user(role=Roles.cataloger.value)
+    es_response = {
+        "_shards": {"failed": 0, "skipped": 0, "successful": 5, "total": 5},
+        "hits": {"hits": [], "max_score": None, "total": 0},
+        "timed_out": False,
+        "took": 4,
+    }
+
+    with requests_mock.Mocker() as requests_mocker:
+        requests_mocker.register_uri(
+            "GET",
+            "https://arxiv.org/pdf/1612.06414.pdf",
+            content=pkg_resources.resource_string(
+                __name__, os.path.join("fixtures", "1612.06414.pdf")
+            ),
+        )
+        requests_mocker.register_uri(
+            "GET",
+            "http://test-indexer:9200/records-hep/hep/_search?_source=control_number",
+            json=es_response,
+        )
+
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=user.email)
+            response = client.post(
+                "api/editor/refextract/url",
+                content_type="application/json",
+                data=orjson.dumps({"url": "https://arxiv.org/pdf/1612.06414.pdf"}),
+            )
+        references = orjson.loads(response.data)
+    assert response.status_code == 200
+    assert validate(references, subschema) is None
+    assert get_value(
+        {"references": references},
+        "references.reference.publication_info.journal_title",
+    )
 
 
 def test_file_upload(inspire_app, s3, datadir, override_config):
@@ -1046,55 +1006,34 @@ def test_editor_locks_resolve(inspire_app):
     assert not redis.hget(expected_editor_lock_name, user.email)
 
 
-def test_refextract_text_dedupe_references(inspire_app, override_config):
-    with override_config(
-        REFEXTRACT_SERVICE_URL="http://10.100.138.17:5000",
-    ):
-        schema = load_schema("hep")
-        subschema = schema["properties"]["references"]
-        user = create_user(role=Roles.cataloger.value)
+def test_refextract_text_dedupe_references(inspire_app):
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
+    user = create_user(role=Roles.cataloger.value)
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
+    user = create_user(role=Roles.cataloger.value)
 
-        with requests_mock.Mocker() as requests_mocker:
-            requests_mocker.register_uri(
-                "POST",
-                f"{current_app.config['REFEXTRACT_SERVICE_URL']}/extract_references_from_text",
-                json={
-                    "extracted_references": [
-                        {
-                            "raw_ref": [
-                                "John Smith, Journal of Testing 42 (2020) 1234"
-                            ],
-                            "misc": ["John Smith, Journal of Testing 42  1234"],
-                            "year": ["2020"],
-                        }
-                    ]
-                },
-            )
-            schema = load_schema("hep")
-            subschema = schema["properties"]["references"]
+    data = {
+        "journal_title": {"title": "Journal of Testing"},
+        "short_title": "J.Testing",
+    }
+    create_record("jou", data=data)
 
-            user = create_user(role=Roles.cataloger.value)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "api/editor/refextract/text",
+            content_type="application/json",
+            data=orjson.dumps(
+                {"text": "John Smith, Journal of Testing 42 (2020) 1234"}
+            ),
+        )
 
-            data = {
-                "journal_title": {"title": "Journal of Testing"},
-                "short_title": "J.Testing",
-            }
-            create_record("jou", data=data)
-
-            with inspire_app.test_client() as client:
-                login_user_via_session(client, email=user.email)
-                response = client.post(
-                    "api/editor/refextract/text",
-                    content_type="application/json",
-                    data=orjson.dumps(
-                        {"text": "John Smith, Journal of Testing 42 (2020) 1234"}
-                    ),
-                )
-
-            references = orjson.loads(response.data)
-            assert response.status_code == 200
-            assert validate(references, subschema) is None
-            assert len(references) == 1
+    references = orjson.loads(response.data)
+    assert response.status_code == 200
+    assert validate(references, subschema) is None
+    assert len(references) == 1
 
 
 @pytest.mark.vcr

@@ -163,20 +163,6 @@ six = "*"
 visualize = ["Twisted (>=16.1.1)", "graphviz (>0.5.1)"]
 
 [[package]]
-name = "autosemver"
-version = "0.5.5"
-description = "Tools to handle automatic semantic versioning in python"
-optional = false
-python-versions = "*"
-groups = ["main"]
-files = [
-    {file = "autosemver-0.5.5.tar.gz", hash = "sha256:0af1e8a9c3604545c067311f1c26403e8f0d60b5d9561c0217e14eee21c98b02"},
-]
-
-[package.dependencies]
-dulwich = ">=0.19.6,<0.20"
-
-[[package]]
 name = "babel"
 version = "2.15.0"
 description = "Internationalization utilities"
@@ -1071,32 +1057,6 @@ all = ["Sphinx (>=3)", "jsonschema (>=2.5.1)", "jsonschema (>=3.0)", "mock (>=1.
 docs = ["Sphinx (>=3)"]
 jsonschema = ["jsonschema (>=2.5.1)"]
 tests = ["jsonschema (>=3.0)", "mock (>=1.3.0)", "pytest-invenio (>=1.4.0)"]
-
-[[package]]
-name = "dulwich"
-version = "0.19.16"
-description = "Python Git Library"
-optional = false
-python-versions = "*"
-groups = ["main"]
-files = [
-    {file = "dulwich-0.19.16-cp27-cp27m-win32.whl", hash = "sha256:267160904e9a1cb6c248c5efc53597a35d038ecc6f60bdc4546b3053bed11982"},
-    {file = "dulwich-0.19.16-cp27-cp27m-win_amd64.whl", hash = "sha256:4e3aba5e4844e7c700721c1fc696987ea820ee3528a03604dc4e74eff4196826"},
-    {file = "dulwich-0.19.16-cp35-cp35m-win_amd64.whl", hash = "sha256:60bb2c2c92f5025c1b53a556304008f0f624c98ae36f22d870e056b2d4236c11"},
-    {file = "dulwich-0.19.16-cp36-cp36m-win_amd64.whl", hash = "sha256:f00d132082b8fcc2eb0d722abc773d4aeb5558c1475d7edd1f0f571146c29db9"},
-    {file = "dulwich-0.19.16-py2-none-any.whl", hash = "sha256:10699277c6268d0c16febe141a5b1c1a6e9744f3144c2d2de1706f4b1adafe63"},
-    {file = "dulwich-0.19.16-py3-none-any.whl", hash = "sha256:dddae02d372fc3b5cfb0046d0f62246ef281fa0c088df7601ab5916607add94b"},
-    {file = "dulwich-0.19.16.tar.gz", hash = "sha256:f74561c448bfb6f04c07de731c1181ae4280017f759b0bb04fa5770aa84ca850"},
-]
-
-[package.dependencies]
-certifi = "*"
-urllib3 = ">=1.24.1"
-
-[package.extras]
-fastimport = ["fastimport"]
-https = ["urllib3[secure] (>=1.24.1)"]
-pgp = ["gpg"]
 
 [[package]]
 name = "editdistance"
@@ -4767,6 +4727,26 @@ files = [
 diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
+name = "pypdf"
+version = "5.9.0"
+description = "A pure-python PDF library capable of splitting, merging, cropping, and transforming PDF files"
+optional = false
+python-versions = ">=3.8"
+groups = ["main"]
+files = [
+    {file = "pypdf-5.9.0-py3-none-any.whl", hash = "sha256:be10a4c54202f46d9daceaa8788be07aa8cd5ea8c25c529c50dd509206382c35"},
+    {file = "pypdf-5.9.0.tar.gz", hash = "sha256:30f67a614d558e495e1fbb157ba58c1de91ffc1718f5e0dfeb82a029233890a1"},
+]
+
+[package.extras]
+crypto = ["cryptography"]
+cryptodome = ["PyCryptodome"]
+dev = ["black", "flit", "pip-tools", "pre-commit", "pytest-cov", "pytest-socket", "pytest-timeout", "pytest-xdist", "wheel"]
+docs = ["myst_parser", "sphinx", "sphinx_rtd_theme"]
+full = ["Pillow (>=8.0.0)", "cryptography"]
+image = ["Pillow (>=8.0.0)"]
+
+[[package]]
 name = "pypdf2"
 version = "1.28.6"
 description = "A pure-python PDF library capable of splitting, merging, cropping, and transforming PDF files"
@@ -5301,29 +5281,22 @@ typing-extensions = {version = ">=4.4.0", markers = "python_version < \"3.13\""}
 
 [[package]]
 name = "refextract"
-version = "1.1.4"
+version = "1.1.6"
 description = "Small library for extracting references used in scholarly communication."
 optional = false
-python-versions = "*"
+python-versions = "<4,>=3.11"
 groups = ["main"]
 files = [
-    {file = "refextract-1.1.4-py3-none-any.whl", hash = "sha256:f8d0dc69289230eec861a40b5956f88ec1661294e1d0f419730429cef40a0f14"},
-    {file = "refextract-1.1.4.tar.gz", hash = "sha256:b04b2223c8b80bec4d130e1f95eef5102c8483914f30c35372c19dbcef43480c"},
+    {file = "refextract-1.1.6-py3-none-any.whl", hash = "sha256:8fab1374a91e264dc23fac81f3b7ab31fcd4bd970756b9d4417974640fa03e77"},
+    {file = "refextract-1.1.6.tar.gz", hash = "sha256:d1cfd235286f1e77af9992c493a3fab83bd3c6d69e91962f0c8c97dae45dc226"},
 ]
 
 [package.dependencies]
-autosemver = ">=0.5.3,<1.0"
-inspire-utils = ">=3.0.0,<4.0"
-PyPDF2 = ">=1.26.0,<2.0"
-python-magic = ">=0.4.15,<1.0"
-requests = ">=2.18.4,<3.0"
-six = ">=1.10.0,<2.0"
+inspire-utils = ">=3.0.61,<4.0.0"
+pypdf = ">=5.4.0,<6.0.0"
+python-magic = ">=0.4.27,<0.5.0"
+requests = ">=2.32.3,<3.0.0"
 unidecode = ">=1.0.22,<2.0"
-
-[package.extras]
-all = ["Sphinx (>=1.7.1,<2.0)", "flake8 (>=3.5.0,<4.0)", "flake8-future-import (>=0.4.4,<1.0)", "pytest (>=4.6,<5.0)", "pytest-cov (>=2.10,<3.0)", "responses (>=0.8.1,<1.0)"]
-docs = ["Sphinx (>=1.7.1,<2.0)"]
-tests = ["flake8 (>=3.5.0,<4.0)", "flake8-future-import (>=0.4.4,<1.0)", "pytest (>=4.6,<5.0)", "pytest-cov (>=2.10,<3.0)", "responses (>=0.8.1,<1.0)", "unicode-string-literal (>=1.1,<2.0) ; python_version == \"2.7\""]
 
 [[package]]
 name = "regex"
@@ -7064,4 +7037,4 @@ typing-extensions = ">=4.5.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.12"
-content-hash = "4c33be9f796aee32bf45669b348b2b715ba8fc100100e6399b42c4b775abea5a"
+content-hash = "78d273c464e75ae440bc84e7fc9ae7e2b82b7bb3e2f9790b87189ddae938f25d"
