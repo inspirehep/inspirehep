@@ -33,7 +33,7 @@ import Abstract from '../../../literature/components/Abstract';
 import { columnsSubject } from './columnData';
 import { StatusBanner } from '../../common/components/Detail/StatusBanner';
 import { TicketsList } from '../../common/components/Detail/TicketsList';
-import { HEP_PID_TYPE, LITERATURE_PID_TYPE } from '../../../common/constants';
+import { LITERATURE_PID_TYPE } from '../../../common/constants';
 import CollapsableForm from '../../../submissions/common/components/CollapsableForm';
 import DeleteWorkflow from '../../common/components/DeleteWorkflow/DeleteWorkflow';
 import { getConfigFor } from '../../../common/config';
@@ -84,11 +84,11 @@ const LiteratureDetailPageContainer = ({
   const DAG_FULL_URL = `${DAGS_URL}${getDag(workflow_type)}/runs/${id}`;
 
   const handleResolveAction = (value: string) => {
-    dispatch(resolveAction(id, HEP_PID_TYPE, 'resolve', { value }));
+    dispatch(resolveAction(id, LITERATURE_PID_TYPE, 'resolve', { value }));
   };
 
   const handleDelete = () => {
-    dispatch(deleteWorkflow(HEP_PID_TYPE, id));
+    dispatch(deleteWorkflow(LITERATURE_PID_TYPE, id));
   };
 
   return (
@@ -260,7 +260,12 @@ const LiteratureDetailPageContainer = ({
                           className="mb2 w-75"
                           onClick={() =>
                             dispatch(
-                              resolveAction(id, HEP_PID_TYPE, 'restart', {})
+                              resolveAction(
+                                id,
+                                LITERATURE_PID_TYPE,
+                                'restart',
+                                {}
+                              )
                             )
                           }
                           loading={actionInProgress === 'restart'}
@@ -272,9 +277,14 @@ const LiteratureDetailPageContainer = ({
                           className="mb2 w-75"
                           onClick={() =>
                             dispatch(
-                              resolveAction(id, HEP_PID_TYPE, 'restart', {
-                                restart_current_task: true,
-                              })
+                              resolveAction(
+                                id,
+                                LITERATURE_PID_TYPE,
+                                'restart',
+                                {
+                                  restart_current_task: true,
+                                }
+                              )
                             )
                           }
                           loading={actionInProgress === 'restart'}

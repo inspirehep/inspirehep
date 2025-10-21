@@ -52,11 +52,7 @@ import {
 } from '../backoffice/notifications';
 import { refreshToken } from '../backoffice/utils/utils';
 import { getConfigFor } from '../common/config';
-import {
-  AUTHORS_PID_TYPE,
-  HEP_PID_TYPE,
-  LITERATURE_PID_TYPE,
-} from '../common/constants';
+import { AUTHORS_PID_TYPE, LITERATURE_PID_TYPE } from '../common/constants';
 
 // withCredentials is needed for ORCID login with sessionId cookie
 const httpClient = axios.create({ withCredentials: true });
@@ -207,7 +203,7 @@ function fetchLiteratureDashboardInfo(): (
     dispatch({ type: BACKOFFICE_LITERATURE_DASHBOARD_REQUEST });
     try {
       const response = await httpClient.get(
-        `${BACKOFFICE_API}/workflows/hep/search`
+        `${BACKOFFICE_API}/workflows/${LITERATURE_PID_TYPE}/search`
       );
       dispatch({
         type: BACKOFFICE_LITERATURE_DASHBOARD_SUCCESS,
@@ -367,7 +363,7 @@ export function fetchLiteratureRecord(
 ): (dispatch: ActionCreator<Action>) => Promise<void> {
   return async (dispatch) => {
     dispatch(fetchingLiteratureRecord());
-    const resolveQuery = `${BACKOFFICE_API}/workflows/hep/${id}`;
+    const resolveQuery = `${BACKOFFICE_API}/workflows/${LITERATURE_PID_TYPE}/${id}`;
 
     try {
       const response = await httpClient.get(`${resolveQuery}`);
@@ -420,7 +416,7 @@ export function resolveAction(
         case AUTHORS_PID_TYPE:
           dispatch(fetchAuthorSuccess(response.data));
           break;
-        case HEP_PID_TYPE:
+        case LITERATURE_PID_TYPE:
           dispatch(fetchLiteratureRecordSuccess(response.data));
           break;
         default:
@@ -476,7 +472,7 @@ export function deleteWorkflow(
         case AUTHORS_PID_TYPE:
           dispatch(push(`${BACKOFFICE}/${AUTHORS_PID_TYPE}/search`));
           break;
-        case HEP_PID_TYPE:
+        case LITERATURE_PID_TYPE:
           dispatch(push(`${BACKOFFICE}/${LITERATURE_PID_TYPE}/search`));
           break;
         default:

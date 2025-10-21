@@ -12,7 +12,7 @@ router.register(
 )
 
 router.register(
-    "workflows/hep/search",
+    "workflows/literature/search",
     HepWorkflowDocumentView,
     basename="hep",
 )
