@@ -2750,7 +2750,7 @@ invenio-records = ">=2.0.0,<3.0.0"
 invenio-rest = ">=1.2.4,<2.0.0"
 
 [package.extras]
-all = ["Flask-Login (>=0.3.2)", "SQLAlchemy-Continuum (==1.3.15)", "Sphinx (>=3)", "citeproc-py (==0.3.0)", "citeproc-py-styles (==0.1.0)", "datacite (==1.0.1)", "dcxml (>=0.1.0)", "invenio-config (>=1.0.2)", "invenio-db[mysql,postgresql] (>=1.0.9,<2.0.0)", "invenio-indexer (>=1.0.0)", "jsonref (==1.0.1)", "mock (>=4)", "pyld (>=0.7.1,<2)", "pytest-invenio (>=1.2.1)", "urllib3 (>=1.21.1,<1.27)"]
+all = ["Flask-Login (>=0.3.2)", "Flask-Login (>=0.3.2)", "SQLAlchemy-Continuum (==1.3.15)", "SQLAlchemy-Continuum (==1.3.15)", "Sphinx (>=3)", "Sphinx (>=3)", "citeproc-py (==0.3.0)", "citeproc-py (==0.3.0)", "citeproc-py-styles (==0.1.0)", "citeproc-py-styles (==0.1.0)", "datacite (==1.0.1)", "datacite (==1.0.1)", "dcxml (>=0.1.0)", "dcxml (>=0.1.0)", "invenio-config (>=1.0.2)", "invenio-config (>=1.0.2)", "invenio-db[mysql,postgresql] (>=1.0.9,<2.0.0)", "invenio-db[mysql,postgresql] (>=1.0.9,<2.0.0)", "invenio-indexer (>=1.0.0)", "invenio-indexer (>=1.0.0)", "jsonref (==1.0.1)", "jsonref (==1.0.1)", "mock (>=4)", "mock (>=4)", "pyld (>=0.7.1,<2)", "pyld (>=0.7.1,<2)", "pytest-invenio (>=1.2.1)", "pytest-invenio (>=1.2.1)", "urllib3 (>=1.21.1,<1.27)", "urllib3 (>=1.21.1,<1.27)"]
 citeproc = ["citeproc-py (==0.3.0)", "citeproc-py-styles (==0.1.0)"]
 datacite = ["datacite (==1.0.1)", "urllib3 (>=1.21.1,<1.27)"]
 docs = ["Sphinx (>=3)"]
@@ -2765,7 +2765,7 @@ tests = ["Flask-Login (>=0.3.2)", "SQLAlchemy-Continuum (==1.3.15)", "invenio-co
 type = "git"
 url = "https://github.com/inspirehep/invenio-records-rest.git"
 reference = "HEAD"
-resolved_reference = "239ad6532521846d9f19e57010e967d85b7ed152"
+resolved_reference = "2c403ba4d3f2688cd7004688f7e7d49cf51a7e13"
 
 [[package]]
 name = "invenio-rest"
