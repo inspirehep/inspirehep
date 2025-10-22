@@ -1,0 +1,594 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8080/api/matcher/journal-kb
+  response:
+    body:
+      string: '{"journal_kb_data":{"PHYS REV":"Phys.Rev.","PHYSICAL REVIEW":"Phys.Rev.","JHEP":"JHEP","THE
+        JOURNAL OF HIGH ENERGY PHYSICS JHEP":"JHEP","PHYS REV LETT":"Phys.Rev.Lett.","PHYSICAL
+        REVIEW LETTERS":"Phys.Rev.Lett.","CALC VAR PART DIFFER EQU":"Calc.Var.Part.Differ.Equ","CALCULUS
+        OF VARIATIONS AND PARTIAL DIFFERENTIAL EQUATIONS":"Calc.Var.Part.Differ.Equ","PHYS
+        REV BCONDENS MATTER MATER PHYS":"Phys.Rev.","PHYS REV RAPIDCOMM":"Phys.Rev.","PHYS
+        REV PHYS REV":"Phys.Rev.","PHYS REV RAP COMM":"Phys.Rev.","PHYS REV SER 2":"Phys.Rev.","PHYSICALREVIEW":"Phys.Rev.","PHYSICSREVIEW":"Phys.Rev.","PHYS
+        REV BF":"Phys.Rev.","PHYS REVIEW":"Phys.Rev.","PHYSICALREV":"Phys.Rev.","PHYS
+        RE V":"Phys.Rev.","PHYSC REV":"Phys.Rev.","PHYSREVBF":"Phys.Rev.","PAYS REV":"Phys.Rev.","PFYS
+        REV":"Phys.Rev.","PHIS REV":"Phys.Rev.","PHSY REV":"Phys.Rev.","PHUS REV":"Phys.Rev.","PHYE
+        REV":"Phys.Rev.","PHYS PEV":"Phys.Rev.","PHYS REC":"Phys.Rev.","PHYS REF":"Phys.Rev.","PHYS
+        REW":"Phys.Rev.","PHYS TEV":"Phys.Rev.","PYHS REV":"Phys.Rev.","RHYS REV":"Phys.Rev.","PHS
+        REV":"Phys.Rev.","PHY REV":"Phys.Rev.","PHYS RV":"Phys.Rev.","PHYSREV":"Phys.Rev.","PHYSREW":"Phys.Rev.","PYS
+        REV":"Phys.Rev.","PHRV":"Phys.Rev.","PHR":"Phys.Rev.","JOURNAL OF HIGH ENERGY
+        PHYSICS":"JHEP","JOURNL OF HIGH ENERGY PHYSICS":"JHEP","JOURNALOFHIGHENERGYPHYSICS":"JHEP","J
+        HIGH ENERGY PHYSICS":"JHEP","JOUR OFHIGHENERGYPHYS":"JHEP","J HIGHENERGYPHYSICS":"JHEP","J
+        HIGH ENERGY PHYS":"JHEP","J HIGH ENGERY PHYS":"JHEP","J HIGH ENERG PHYS":"JHEP","J
+        HIGH ENERGYPHYS":"JHEP","J HIGHENERGY PHYS":"JHEP","J HIGH ENER PHYS":"JHEP","J
+        HIGHENERGYPHYS":"JHEP","J HIGHENERGYPHY":"JHEP","J HIGH EN PHYS":"JHEP","J
+        HIGH ENERGY":"JHEP","J HIGHEN PHYS":"JHEP","J HIGH PHYS":"JHEP","J H E PHYS":"JHEP","J
+        HEP":"JHEP","JHEPA":"JHEP","PHYS REV LETT PHYS REV LETT":"Phys.Rev.Lett.","PHYSICALREVIEWLETTERSVOL":"Phys.Rev.Lett.","PHYSICALREVIEWLETTERS":"Phys.Rev.Lett.","PHYSICALREVIEWLETTER":"Phys.Rev.Lett.","PHYS
+        REVIEWLETTERS":"Phys.Rev.Lett.","PHYSICALREVIEWLETT":"Phys.Rev.Lett.","PHYS
+        REV LETT INC":"Phys.Rev.Lett.","PHYS REV LETTS CA":"Phys.Rev.Lett.","PHYS
+        REV LETTTERS":"Phys.Rev.Lett.","PHYS REV LEETERS":"Phys.Rev.Lett.","PHYS REV
+        LETT BF":"Phys.Rev.Lett.","PHYS REV LETTERS":"Phys.Rev.Lett.","PHYSICALREV
+        LETT":"Phys.Rev.Lett.","PHYS REV LETTER":"Phys.Rev.Lett.","PHYS REVIEWLETT":"Phys.Rev.Lett.","PHYS
+        REVLETTERS":"Phys.Rev.Lett.","PHYSREV LETTERS":"Phys.Rev.Lett.","PHYS REV
+        LETTS":"Phys.Rev.Lett.","PHYS REV LETTT":"Phys.Rev.Lett.","PHYSREVLETTERS":"Phys.Rev.Lett.","PHIS
+        REV LETT":"Phys.Rev.Lett.","PHYS LETT REV":"Phys.Rev.Lett.","PHYS LEV LETT":"Phys.Rev.Lett.","PHYS
+        PEV LETT":"Phys.Rev.Lett.","PHYS REC LETT":"Phys.Rev.Lett.","PHYS REF LETT":"Phys.Rev.Lett.","PHYS
+        REP LETT":"Phys.Rev.Lett.","PHYS REV IETT":"Phys.Rev.Lett.","PHYS REV LERR":"Phys.Rev.Lett.","PHYS
+        REV LETS":"Phys.Rev.Lett.","PHYS REVLETTS":"Phys.Rev.Lett.","PHYS REW LETT":"Phys.Rev.Lett.","PHYSREV
+        LETTR":"Phys.Rev.Lett.","PYHS REV LETT":"Phys.Rev.Lett.","RHYS REV LETT":"Phys.Rev.Lett.","PHS
+        REV LETT":"Phys.Rev.Lett.","PHY REV LETT":"Phys.Rev.Lett.","PHYS RE LETT":"Phys.Rev.Lett.","PHYS
+        REV LET":"Phys.Rev.Lett.","PHYS REVLETT":"Phys.Rev.Lett.","PHYS RV LETT":"Phys.Rev.Lett.","PHYSREV
+        LETT":"Phys.Rev.Lett.","PYS REV LETT":"Phys.Rev.Lett.","PHY REV LET":"Phys.Rev.Lett.","PHYSREV
+        LET":"Phys.Rev.Lett.","PHYSREVLETT":"Phys.Rev.Lett.","PHYSREVLET":"Phys.Rev.Lett.","PHYSREVL":"Phys.Rev.Lett.","REV
+        LETT":"Phys.Rev.Lett.","PHRVL":"Phys.Rev.Lett.","PRLTA":"Phys.Rev.Lett.","PRL":"Phys.Rev.Lett.","PHYS
+        REV JETT":"Phys.Rev.Lett.","PHYS REV L":"Phys.Rev.Lett.","PHYSICAL REVIEWL":"Phys.Rev.Lett.","PHYSICAL
+        REVIEW LETT":"Phys.Rev.Lett.","PHYSICAL REVIEW LETTER":"Phys.Rev.Lett.","PHYSICAL
+        REVIEWLETTERS":"Phys.Rev.Lett.","PHYSICS REVIEW LETTERS":"Phys.Rev.Lett.","CALC
+        VAR PARTIAL DIFFERENTIAL EQUATIONS":"Calc.Var.Part.Differ.Equ","CALC VAR PARTIAL
+        DIFFER EQU":"Calc.Var.Part.Differ.Equ","CALC VAR PART DIFF EQ":"Calc.Var.Part.Differ.Equ","CALC
+        VAR":"Calc.Var.Part.Differ.Equ"}}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '3995'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 22 Oct 2025 14:13:05 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"references": [{"reference": {"authors": [{"full_name": "Rubbia, C."}],
+      "label": "1", "misc": ["The Liquid Argon Time Projection Chamber: A New Concept",
+      "for Neutrino Detectors, CERN-EP-INT-77-08"], "publication_info": {"year": 1977}},
+      "raw_refs": [{"schema": "text", "value": "[1] C. Rubbia, The Liquid Argon Time
+      Projection Chamber: A New Concept for Neutrino Detectors, CERN-EP-INT-77-08
+      (1977)."}]}, {"reference": {"authors": [{"full_name": "Chen, H.H."}, {"full_name":
+      "Condon, P.E."}, {"full_name": "Barish, B.C."}, {"full_name": "Sciulli, F.J."}],
+      "label": "2", "misc": ["A Neutrino", "detector sensitive to rare processes.
+      I. A Study", "of neutrino electron reactions"], "report_numbers": ["FERMILAB-Proposal-0496"],
+      "publication_info": {"year": 1976}}, "raw_refs": [{"schema": "text", "value":
+      "[2] H. H. Chen, P. E. Condon, B. C. Barish and F. J. Sciulli, A Neutrino detector
+      sensitive to rare processes. I. A Study of neutrino electron reactions, FERMILAB-PROPOSAL-0496
+      (1976)."}]}, {"reference": {"authors": [{"full_name": "Willis, W.J."}, {"full_name":
+      "Radeka, V."}], "label": "3", "misc": ["Liquid Argon Ionization Chambers as
+      Total Absorption Detectors, Nucl. Instrum. Meth. 120  221"], "publication_info":
+      {"year": 1974}}, "raw_refs": [{"schema": "text", "value": "[3] W. J. Willis
+      and V. Radeka, Liquid Argon Ionization Chambers as Total Absorption Detectors,
+      Nucl. Instrum. Meth. 120 (1974) 221."}]}, {"reference": {"authors": [{"full_name":
+      "Nygren, D.R."}], "label": "4", "misc": ["The Time Projection Chamber: A New",
+      "4 pi Detector for Charged Particles, eConf C740805  58 [PEP-0144]"], "publication_info":
+      {"year": 1974}}, "raw_refs": [{"schema": "text", "value": "[4] D. R. Nygren,
+      The Time Projection Chamber: A New 4 pi Detector for Charged Particles, eConf
+      C740805 (1974) 58 [PEP-0144]."}]}, {"reference": {"authors": [{"full_name":
+      "Li, Y."}], "label": "5", "misc": ["Measurement of Longitudinal Electron Diffusion
+      in Liquid Argon, Nucl. Instrum. Meth. A", "816  160"], "arxiv_eprint": "1508.07059",
+      "publication_info": {"year": 2016}}, "raw_refs": [{"schema": "text", "value":
+      "[5] Y. Li et al., Measurement of Longitudinal Electron Diffusion in Liquid
+      Argon, Nucl. Instrum. Meth. A 816 (2016) 160, [arXiv:1508.07059]."}]}, {"reference":
+      {"authors": [{"full_name": "Antonello, M."}], "label": "6", "misc": ["LAr1-ND,
+      ICARUS-WA104, MicroBooNE collaboration", "A Proposal", "for a Three Detector
+      Short-Baseline Neutrino Oscillation Program in the Fermilab Booster Neutrino
+      Beam"], "arxiv_eprint": "1503.01520"}, "raw_refs": [{"schema": "text", "value":
+      "[6] LAr1-ND, ICARUS-WA104, MicroBooNE collaboration, M. Antonello et al., A
+      Proposal for a Three Detector Short-Baseline Neutrino Oscillation Program in
+      the Fermilab Booster Neutrino Beam, arXiv:1503.01520."}]}, {"reference": {"authors":
+      [{"full_name": "Acciarri, R."}], "label": "7", "misc": ["DUNE collaboration",
+      "Long-Baseline Neutrino Facility (LBNF) and Deep Underground Neutrino Experiment
+      (DUNE)"], "arxiv_eprint": "1512.06148"}, "raw_refs": [{"schema": "text", "value":
+      "[7] DUNE collaboration, R. Acciarri et al., Long-Baseline Neutrino Facility
+      (LBNF) and Deep Underground Neutrino Experiment (DUNE), arXiv:1512.06148."}]},
+      {"reference": {"authors": [{"full_name": "Acciari, R."}], "label": "8", "misc":
+      ["MicroBooNE collaboration", "The Pandora multi-algorithm approach to automated
+      pattern recognition of cosmic-ray muon and neutrino events in the MicroBooNE
+      detector, Eur. Phys. J. C 78  82"], "arxiv_eprint": "1708.03135", "publication_info":
+      {"year": 2018}}, "raw_refs": [{"schema": "text", "value": "[8] MicroBooNE collaboration,
+      R. Acciari et al., The Pandora multi-algorithm approach to automated pattern
+      recognition of cosmic-ray muon and neutrino events in the MicroBooNE detector,
+      Eur. Phys. J. C 78 (2018) 82, [arXiv:1708.03135]."}]}, {"reference": {"authors":
+      [{"full_name": "Acciarri, R."}], "label": "9", "misc": ["MicroBooNE collaboration",
+      "Convolutional neural networks applied to neutrino events in a liquid argon
+      time projection chamber, JINST 12  P03011", "- 56 -"], "arxiv_eprint": "1611.05531",
+      "publication_info": {"year": 2017}}, "raw_refs": [{"schema": "text", "value":
+      "[9] MicroBooNE collaboration, R. Acciarri et al., Convolutional neural networks
+      applied to neutrino events in a liquid argon time projection chamber, JINST
+      12 (2017) P03011, [arXiv:1611.05531]. \u2013 56 \u2013"}]}, {"reference": {"authors":
+      [{"full_name": "Abratenko, P."}], "label": "10", "misc": ["MicroBooNE collaboration",
+      "Determination of muon momentum in the MicroBooNE LArTPC using an improved model
+      of multiple Coulomb scattering, JINST 12  P10010"], "arxiv_eprint": "1703.06187",
+      "publication_info": {"year": 2017}}, "raw_refs": [{"schema": "text", "value":
+      "[10] MicroBooNE collaboration, P. Abratenko et al., Determination of muon momentum
+      in the MicroBooNE LArTPC using an improved model of multiple Coulomb scattering,
+      JINST 12 (2017) P10010, [arXiv:1703.06187]."}]}, {"reference": {"authors": [{"full_name":
+      "Qian, X."}, {"full_name": "Zhang, C."}, {"full_name": "Viren, B."}, {"full_name":
+      "Diwan, M."}], "dois": ["10.2172/1414824"], "label": "11", "misc": ["Three-dimensional
+      Imaging for Large LArTPCs,. U.S. Department", "of Energy Office of Scientific
+      and Technical Information"], "publication_info": {"year": 2017}}, "raw_refs":
+      [{"schema": "text", "value": "[11] X. Qian, C. Zhang, B. Viren and M. Diwan.
+      Three-dimensional Imaging for Large LArTPCs, . U.S. Department of Energy Office
+      of Scientific and Technical Information, DOI:10.2172/1414824, 2017."}]}, {"reference":
+      {"authors": [{"full_name": "Acciarri, R."}], "label": "12", "misc": ["MicroBooNE
+      collaboration", "Design and Construction of the MicroBooNE Detector, JINST 12  P07010"],
+      "arxiv_eprint": "1612.05824", "publication_info": {"year": 2017}}, "raw_refs":
+      [{"schema": "text", "value": "[12] MicroBooNE collaboration, R. Acciarri et
+      al., Design and Construction of the MicroBooNE Detector, JINST 12 (2017) P07010,
+      [arXiv:1612.05824]."}]}, {"reference": {"authors": [{"full_name": "Aguilar-Arevalo,
+      A."}], "publication_info": {"journal_title": "Phys.Rev.D", "journal_volume":
+      "79", "artid": "072002", "year": 2009}, "label": "13", "misc": ["MiniBooNE collaboration",
+      "The Neutrino Flux prediction at MiniBooNE"], "arxiv_eprint": "0806.1449"},
+      "raw_refs": [{"schema": "text", "value": "[13] MiniBooNE collaboration, A. Aguilar-Arevalo
+      et al., The Neutrino Flux prediction at MiniBooNE, Phys. Rev. D 79 (2009) 072002,
+      [arXiv:0806.1449]."}]}, {"reference": {"authors": [{"full_name": "Adamson, P."}],
+      "label": "14", "misc": ["The NuMI Neutrino Beam, Nucl. Instrum. Meth. A", "806  279"],
+      "arxiv_eprint": "1507.06690", "publication_info": {"year": 2016}}, "raw_refs":
+      [{"schema": "text", "value": "[14] P. Adamson et al., The NuMI Neutrino Beam,
+      Nucl. Instrum. Meth. A 806 (2016) 279, [arXiv:1507.06690]."}]}, {"reference":
+      {"authors": [{"full_name": "Acciarri, R."}], "label": "15", "misc": ["Construction
+      and Assembly of the Wire Planes for the MicroBooNE Time Projection Chamber,
+      JINST 12  T03003"], "arxiv_eprint": "1609.06169", "publication_info": {"year":
+      2017}}, "raw_refs": [{"schema": "text", "value": "[15] R. Acciarri et al., Construction
+      and Assembly of the Wire Planes for the MicroBooNE Time Projection Chamber,
+      JINST 12 (2017) T03003, [arXiv:1609.06169]."}]}, {"reference": {"authors": [{"full_name":
+      "Conrad, J."}], "label": "16", "misc": ["The Photomultiplier Tube Calibration
+      System of the MicroBooNE Experiment, JINST 10  T06001"], "arxiv_eprint": "1502.04159",
+      "publication_info": {"year": 2015}}, "raw_refs": [{"schema": "text", "value":
+      "[16] J. Conrad et al., The Photomultiplier Tube Calibration System of the MicroBooNE
+      Experiment, JINST 10 (2015) T06001, [arXiv:1502.04159]."}]}, {"reference": {"authors":
+      [{"full_name": "Bunemann, O."}, {"full_name": "Cranshaw, T."}, {"full_name":
+      "Harvey, J."}], "label": "17", "misc": ["Design of grid ionization chambers,
+      Can. J", "Research Vol: 27A"], "publication_info": {"year": 1949}}, "raw_refs":
+      [{"schema": "text", "value": "[17] O. Bunemann, T. Cranshaw and J. Harvey, Design
+      of grid ionization chambers, Can. J. Research Vol: 27A (1949) ."}]}, {"reference":
+      {"authors": [{"full_name": "Asaadi, J."}], "label": "18", "misc": ["First Demonstration
+      of a Pixelated Charge Readout for Single-Phase Liquid Argon Time Projection
+      Chambers"], "arxiv_eprint": "1801.08884"}, "raw_refs": [{"schema": "text", "value":
+      "[18] J. Asaadi et al., First Demonstration of a Pixelated Charge Readout for
+      Single-Phase Liquid Argon Time Projection Chambers, arXiv:1801.08884."}]}, {"reference":
+      {"authors": [{"full_name": "Adams, C."}], "label": "19", "misc": ["MicroBooNE
+      collaboration", "Ionization Signal Analysis and Processing in MicroBooNE. II.
+      Data/Simulation Comparison and Performance, In preparation"]}, "raw_refs": [{"schema":
+      "text", "value": "[19] MicroBooNE collaboration, C. Adams et al., Ionization
+      Signal Analysis and Processing in MicroBooNE. II. Data/Simulation Comparison
+      and Performance, In preparation."}]}, {"reference": {"authors": [{"full_name":
+      "Ramo, S."}], "label": "20", "misc": ["Currents Induced by Electron Motion,
+      Proceedings of the IRE 27  584"], "publication_info": {"year": 1939}}, "raw_refs":
+      [{"schema": "text", "value": "[20] S. Ramo, Currents Induced by Electron Motion,
+      Proceedings of the IRE 27 (1939) 584."}]}, {"reference": {"authors": [{"full_name":
+      "Cavalleri, C."}, {"full_name": "Gatti, E."}, {"full_name": "Fabri, G."}, {"full_name":
+      "Svelto, V."}], "label": "21", "misc": ["Extension of ramo\u2019s theorem as
+      applied to induced charge in semiconductor detectors, Nucl. Instrum. Meth. 92  137"],
+      "publication_info": {"year": 1971}}, "raw_refs": [{"schema": "text", "value":
+      "[21] C. Cavalleri, E. Gatti, G. Fabri and V. Svelto, Extension of ramo\u2019s
+      theorem as applied to induced charge in semiconductor detectors, Nucl. Instrum.
+      Meth. 92 (1971) 137."}]}, {"reference": {"authors": [{"full_name": "Hamel, L.A."},
+      {"full_name": "Julien, M."}], "label": "22", "misc": ["Generalized demonstration
+      of ramo\u2019s theorem with space charge and polarization effects, Nucl. Instrum.
+      Meth. A", "597  207"], "publication_info": {"year": 2008}}, "raw_refs": [{"schema":
+      "text", "value": "[22] L. A. Hamel and M. Julien, Generalized demonstration
+      of ramo\u2019s theorem with space charge and polarization effects, Nucl. Instrum.
+      Meth. A 597 (2008) 207."}]}, {"reference": {"authors": [{"full_name": "Veenhof,
+      R."}], "label": "23", "misc": ["GARFIELD, recent developments, Nucl. Instrum.
+      Meth. A", "419  726"], "publication_info": {"year": 1998}}, "raw_refs": [{"schema":
+      "text", "value": "[23] R. Veenhof, GARFIELD, recent developments, Nucl. Instrum.
+      Meth. A 419 (1998) 726."}]}, {"reference": {"label": "24", "misc": ["Liquid
+      Argon Properties (Tables and Calculators)", "(accessed January 1,)"], "urls":
+      [{"value": "http://lar.bnl.gov/properties"}], "publication_info": {"year": 2018}},
+      "raw_refs": [{"schema": "text", "value": "[24] Liquid Argon Properties (Tables
+      and Calculators), http://lar.bnl.gov/properties, (accessed January 1, 2018)."}]},
+      {"reference": {"authors": [{"full_name": "Radeka, V."}], "label": "25", "misc":
+      ["Cold Electronics for", "Liquid Argon Time Projection Chambers, J", "Phys.
+      Conf. Ser. 308  012021"], "title": {"title": "Giant"}, "publication_info": {"year":
+      2011}}, "raw_refs": [{"schema": "text", "value": "[25] V. Radeka et al., Cold
+      Electronics for \"Giant\" Liquid Argon Time Projection Chambers, J. Phys. Conf.
+      Ser. 308 (2011) 012021."}]}, {"reference": {"authors": [{"full_name": "Nyquist,
+      H."}], "publication_info": {"journal_title": "Phys.Rev.", "journal_volume":
+      "32", "page_start": "110", "artid": "110", "year": 1928}, "label": "26", "misc":
+      ["Thermal Agitation of Electric Charge in Conductors"]}, "raw_refs": [{"schema":
+      "text", "value": "[26] H. Nyquist, Thermal Agitation of Electric Charge in Conductors,
+      Phys. Rev. 32 (1928) 110."}]}, {"reference": {"authors": [{"full_name": "Acciarri,
+      R."}], "label": "27", "misc": ["MicroBooNE collaboration", "Noise Characterization
+      and Filtering in the MicroBooNE Liquid Argon TPC, JINST 12  P08003"], "arxiv_eprint":
+      "1705.07341", "publication_info": {"year": 2017}}, "raw_refs": [{"schema": "text",
+      "value": "[27] MicroBooNE collaboration, R. Acciarri et al., Noise Characterization
+      and Filtering in the MicroBooNE Liquid Argon TPC, JINST 12 (2017) P08003, [arXiv:1705.07341]."}]},
+      {"reference": {"authors": [{"full_name": "De Geronimo, G."}], "label": "28",
+      "misc": ["Front-end ASIC for a Liquid Argon TPC", "Transactions on Nuclear Science
+      58  1376"], "imprint": {"publisher": "IEEE"}, "publication_info": {"year": 2011}},
+      "raw_refs": [{"schema": "text", "value": "[28] G. De Geronimo et al., Front-end
+      ASIC for a Liquid Argon TPC, IEEE Transactions on Nuclear Science 58 (2011)
+      1376."}]}, {"reference": {"authors": [{"full_name": "Sulej, R."}], "label":
+      "29", "misc": ["on behalf of ICARUS collaboration, private communications"],
+      "publication_info": {"year": 2013}}, "raw_refs": [{"schema": "text", "value":
+      "[29] R. Sulej on behalf of ICARUS collaboration, private communications, 2013."}]},
+      {"reference": {"authors": [{"full_name": "Baller, B."}], "label": "30", "misc":
+      ["Liquid Argon TPC Signal Formation, Signal Processing and Hit Reconstruction,
+      JINST 12  P07010"], "arxiv_eprint": "1703.04024", "publication_info": {"year":
+      2017}}, "raw_refs": [{"schema": "text", "value": "[30] B. Baller, Liquid Argon
+      TPC Signal Formation, Signal Processing and Hit Reconstruction, JINST 12 (2017)
+      P07010, [arXiv:1703.04024]."}]}, {"reference": {"authors": [{"full_name": "Tang,
+      W."}], "label": "31", "misc": ["Data Unfolding with Wiener-SVD Method, JINST
+      12  P10002", "- 57 -"], "arxiv_eprint": "1705.03568", "publication_info": {"year":
+      2017}}, "raw_refs": [{"schema": "text", "value": "[31] W. Tang et al., Data
+      Unfolding with Wiener-SVD Method, JINST 12 (2017) P10002, [arXiv:1705.03568].
+      \u2013 57 \u2013"}]}, {"reference": {"authors": [{"full_name": "Wiener, N."}],
+      "label": "32", "misc": ["Extrapolation, Interpolation, and Smoothing of Stationary
+      Time Series. The MIT Press"], "publication_info": {"year": 1964}}, "raw_refs":
+      [{"schema": "text", "value": "[32] N. Wiener, Extrapolation, Interpolation,
+      and Smoothing of Stationary Time Series. The MIT Press, 1964."}]}, {"reference":
+      {"label": "33", "misc": ["Wire Cell signal processing including noise removal",
+      "(accessed January 1,, code version: 0.6.2)"], "urls": [{"value": "https://github.com/WireCell/wire-cell-sigproc"}],
+      "publication_info": {"year": 2018}}, "raw_refs": [{"schema": "text", "value":
+      "[33] Wire Cell signal processing including noise removal, https://github.com/WireCell/wire-cell-sigproc,
+      (accessed January 1, 2018, code version: 0.6.2)."}]}, {"reference": {"label":
+      "34", "misc": ["LArSoft", "(accessed January 1,)"], "urls": [{"value": "http://larsoft.org"}],
+      "publication_info": {"year": 2018}}, "raw_refs": [{"schema": "text", "value":
+      "[34] LArSoft, http://larsoft.org, (accessed January 1, 2018)."}]}, {"reference":
+      {"authors": [{"full_name": "Agostinelli, S."}], "collaborations": ["GEANT4 collaboration"],
+      "label": "35", "misc": ["GEANT4 - a simulation toolkit, Nucl. Instrum. Meth.
+      A", "506  250"], "publication_info": {"year": 2003}}, "raw_refs": [{"schema":
+      "text", "value": "[35] GEANT4 collaboration, S. Agostinelli et al., GEANT4 \u2013
+      a simulation toolkit, Nucl. Instrum. Meth. A 506 (2003) 250."}]}, {"reference":
+      {"authors": [{"full_name": "Doke, T."}], "label": "36", "misc": ["Estimation
+      of Fano factors in liquid argon, krypton, xenon and xenon-doped liquid argon,
+      Nucl. Instrum. Meth. 134  353"], "publication_info": {"year": 1976}}, "raw_refs":
+      [{"schema": "text", "value": "[36] T. Doke et al., Estimation of Fano factors
+      in liquid argon, krypton, xenon and xenon-doped liquid argon, Nucl. Instrum.
+      Meth. 134 (1976) 353."}]}, {"reference": {"authors": [{"full_name": "Jaskolski,
+      M."}, {"full_name": "Wojcik, M."}], "label": "37", "misc": ["Electron Recombination
+      in Ionized Liquid Argon: A Computational Approach", "Based on Realistic Models
+      of Electron Transport and Reactions, J. Phys. Chem. A", "115(17)  4317"], "publication_info":
+      {"year": 2011}}, "raw_refs": [{"schema": "text", "value": "[37] M. Jaskolski
+      and M. Wojcik, Electron Recombination in Ionized Liquid Argon: A Computational
+      Approach Based on Realistic Models of Electron Transport and Reactions, J. Phys.
+      Chem. A 115(17) (2011) 4317."}]}, {"reference": {"authors": [{"full_name": "Sowada,
+      J."}, {"full_name": "Warman, U."}, {"full_name": "Haas, M."}], "publication_info":
+      {"journal_title": "Phys.Rev.B", "journal_volume": "25", "page_start": "3434",
+      "artid": "3434", "year": 1982}, "label": "38", "misc": ["Hot-electron thermalization
+      in solid and liquid argon, krypton, and xenon", "(R)"]}, "raw_refs": [{"schema":
+      "text", "value": "[38] J. Sowada, U. Warman and M. Haas, Hot-electron thermalization
+      in solid and liquid argon, krypton, and xenon, Phys. Rev. B 25 (1982) 3434(R)."}]},
+      {"reference": {"authors": [{"full_name": "Acciarri, R."}], "label": "39", "misc":
+      ["ArgoNeuT collaboration", "A study of electron recombination using highly ionizing
+      particles in the ArgoNeuT Liquid Argon TPC, JINST 8  P08005"], "publication_info":
+      {"year": 2013}}, "raw_refs": [{"schema": "text", "value": "[39] ArgoNeuT collaboration,
+      R. Acciarri et al., A study of electron recombination using highly ionizing
+      particles in the ArgoNeuT Liquid Argon TPC, JINST 8 (2013) P08005."}]}, {"reference":
+      {"authors": [{"full_name": "Mooney, M."}], "label": "40", "misc": ["MicroBooNE
+      collaboration", "The MicroBooNE Experiment and the Impact of Space Charge Effects"],
+      "arxiv_eprint": "1511.01563"}, "raw_refs": [{"schema": "text", "value": "[40]
+      MicroBooNE collaboration, M. Mooney, The MicroBooNE Experiment and the Impact
+      of Space Charge Effects, arXiv:1511.01563."}]}, {"reference": {"authors": [{"full_name":
+      "Diwan, M."}], "label": "41", "misc": ["Basic mathematics of random noise part
+      1/2,. Yale University Wright Laboratory Nuclear Particle Astrophysics/Weak Interaction
+      Discussion Group joint seminar, September 19/22"], "publication_info": {"year":
+      2017}}, "raw_refs": [{"schema": "text", "value": "[41] M. Diwan. Basic mathematics
+      of random noise part 1/2, . Yale University Wright Laboratory Nuclear Particle
+      Astrophysics/Weak Interaction Discussion Group joint seminar, September 19/22,
+      2017."}]}, {"reference": {"authors": [{"full_name": "Jung, W."}], "isbn": "9780750678445",
+      "label": "42", "misc": ["Op amp application handbook, Newnes/"], "imprint":
+      {"publisher": "Elsevier"}, "publication_info": {"year": 2005}}, "raw_refs":
+      [{"schema": "text", "value": "[42] W. Jung, Op amp application handbook, Newnes/Elsevier,
+      ISBN-0-7506-7844-5 (2005) ."}]}, {"reference": {"authors": [{"full_name": "Pullia,
+      A."}, {"full_name": "Riboldi, S."}], "label": "43", "misc": ["Time-domain simulation
+      of electronic noises", "Transactions on Nuclear Science 51  1817-1823"], "imprint":
+      {"publisher": "IEEE"}, "publication_info": {"year": 2004}}, "raw_refs": [{"schema":
+      "text", "value": "[43] A. Pullia and S. Riboldi, Time-domain simulation of electronic
+      noises, IEEE Transactions on Nuclear Science 51 (2004) 1817\u20131823."}]},
+      {"reference": {"authors": [{"full_name": "Moghimi, R."}], "label": "44", "misc":
+      ["Noise Optimization in Sensor Signal Conditioning Circuits [Part 1]"], "urls":
+      [{"value": "http://www.analog.com/en/education/education-library/webcasts/noise-optim-sensor-sig-condi-p1.html"}],
+      "publication_info": {"year": 2017}}, "raw_refs": [{"schema": "text", "value":
+      "[44] R. Moghimi. Noise Optimization in Sensor Signal Conditioning Circuits
+      [Part 1], . http://www.analog.com/en/education/education-library/webcasts/ noise-optim-sensor-sig-condi-p1.html,
+      2017."}]}, {"reference": {"authors": [{"full_name": "Rayleigh, L."}], "label":
+      "45", "misc": ["The problem of the random walk, Nature 72  294"], "publication_info":
+      {"year": 1905}}, "raw_refs": [{"schema": "text", "value": "[45] L. Rayleigh,
+      The problem of the random walk, Nature 72 (1905) 294; 318\u2013342."}]}, {"reference":
+      {"authors": [{"full_name": "Rayleigh, L."}], "label": "45", "misc": ["318-342"]},
+      "raw_refs": [{"schema": "text", "value": "[45] L. Rayleigh, The problem of the
+      random walk, Nature 72 (1905) 294; 318\u2013342."}]}, {"reference": {"authors":
+      [{"full_name": "Acciari, R."}], "label": "46", "misc": ["MicroBooNE collaboration",
+      "Measurement of cosmic-ray reconstruction efficiencies in the MicroBooNE LArTPC
+      using a small external cosmic-ray counter, JINST 12  P12030"], "arxiv_eprint":
+      "1707.09903", "publication_info": {"year": 2017}}, "raw_refs": [{"schema": "text",
+      "value": "[46] MicroBooNE collaboration, R. Acciari et al., Measurement of cosmic-ray
+      reconstruction efficiencies in the MicroBooNE LArTPC using a small external
+      cosmic-ray counter, JINST 12 (2017) P12030, [arXiv:1707.09903]."}]}, {"reference":
+      {"authors": [{"full_name": "Brebbia, C."}], "label": "47", "misc": ["The birth
+      of the boundary element method from conception to application, Engineering Analysis
+      with Boundary Elements 77  iii-x"], "publication_info": {"year": 2017}}, "raw_refs":
+      [{"schema": "text", "value": "[47] C. Brebbia, The birth of the boundary element
+      method from conception to application, Engineering Analysis with Boundary Elements
+      77 (2017) iii\u2013x."}]}, {"reference": {"authors": [{"full_name": "\u015amigaj,
+      W."}], "label": "48", "misc": ["Solving Boundary Integral Problems with BEM++,
+      ACM Trans. Math. Software 41  6:1-6:40"], "publication_info": {"year": 2015}},
+      "raw_refs": [{"schema": "text", "value": "[48] W. \u015amigaj et al., Solving
+      Boundary Integral Problems with BEM++, ACM Trans. Math. Software 41 (2015) 6:1\u20136:40."}]},
+      {"reference": {"label": "49", "misc": ["Magnify Online", "#/, (accessed January
+      1,). - 58 -"], "urls": [{"value": "http://lar.bnl.gov/magnify/"}], "publication_info":
+      {"year": 2018}}, "raw_refs": [{"schema": "text", "value": "[49] Magnify Online,
+      http://lar.bnl.gov/magnify/#/, (accessed January 1, 2018). \u2013 58 \u2013"}]}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '22074'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8080/api/matcher/linked_references/
+  response:
+    body:
+      string: "{\"references\":[{\"reference\":{\"authors\":[{\"full_name\":\"Rubbia,
+        C.\"}],\"label\":\"1\",\"misc\":[\"The Liquid Argon Time Projection Chamber:
+        A New Concept\",\"for Neutrino Detectors, CERN-EP-INT-77-08\"],\"publication_info\":{\"year\":1977}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[1]
+        C. Rubbia, The Liquid Argon Time Projection Chamber: A New Concept for Neutrino
+        Detectors, CERN-EP-INT-77-08 (1977).\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Chen,
+        H.H.\"},{\"full_name\":\"Condon, P.E.\"},{\"full_name\":\"Barish, B.C.\"},{\"full_name\":\"Sciulli,
+        F.J.\"}],\"label\":\"2\",\"misc\":[\"A Neutrino\",\"detector sensitive to
+        rare processes. I. A Study\",\"of neutrino electron reactions\"],\"report_numbers\":[\"FERMILAB-Proposal-0496\"],\"publication_info\":{\"year\":1976}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[2]
+        H. H. Chen, P. E. Condon, B. C. Barish and F. J. Sciulli, A Neutrino detector
+        sensitive to rare processes. I. A Study of neutrino electron reactions, FERMILAB-PROPOSAL-0496
+        (1976).\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Willis, W.J.\"},{\"full_name\":\"Radeka,
+        V.\"}],\"label\":\"3\",\"misc\":[\"Liquid Argon Ionization Chambers as Total
+        Absorption Detectors, Nucl. Instrum. Meth. 120  221\"],\"publication_info\":{\"year\":1974}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[3]
+        W. J. Willis and V. Radeka, Liquid Argon Ionization Chambers as Total Absorption
+        Detectors, Nucl. Instrum. Meth. 120 (1974) 221.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Nygren,
+        D.R.\"}],\"label\":\"4\",\"misc\":[\"The Time Projection Chamber: A New\",\"4
+        pi Detector for Charged Particles, eConf C740805  58 [PEP-0144]\"],\"publication_info\":{\"year\":1974}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[4]
+        D. R. Nygren, The Time Projection Chamber: A New 4 pi Detector for Charged
+        Particles, eConf C740805 (1974) 58 [PEP-0144].\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Li,
+        Y.\"}],\"label\":\"5\",\"misc\":[\"Measurement of Longitudinal Electron Diffusion
+        in Liquid Argon, Nucl. Instrum. Meth. A\",\"816  160\"],\"arxiv_eprint\":\"1508.07059\",\"publication_info\":{\"year\":2016}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[5]
+        Y. Li et al., Measurement of Longitudinal Electron Diffusion in Liquid Argon,
+        Nucl. Instrum. Meth. A 816 (2016) 160, [arXiv:1508.07059].\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Antonello,
+        M.\"}],\"label\":\"6\",\"misc\":[\"LAr1-ND, ICARUS-WA104, MicroBooNE collaboration\",\"A
+        Proposal\",\"for a Three Detector Short-Baseline Neutrino Oscillation Program
+        in the Fermilab Booster Neutrino Beam\"],\"arxiv_eprint\":\"1503.01520\"},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[6]
+        LAr1-ND, ICARUS-WA104, MicroBooNE collaboration, M. Antonello et al., A Proposal
+        for a Three Detector Short-Baseline Neutrino Oscillation Program in the Fermilab
+        Booster Neutrino Beam, arXiv:1503.01520.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Acciarri,
+        R.\"}],\"label\":\"7\",\"misc\":[\"DUNE collaboration\",\"Long-Baseline Neutrino
+        Facility (LBNF) and Deep Underground Neutrino Experiment (DUNE)\"],\"arxiv_eprint\":\"1512.06148\"},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[7]
+        DUNE collaboration, R. Acciarri et al., Long-Baseline Neutrino Facility (LBNF)
+        and Deep Underground Neutrino Experiment (DUNE), arXiv:1512.06148.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Acciari,
+        R.\"}],\"label\":\"8\",\"misc\":[\"MicroBooNE collaboration\",\"The Pandora
+        multi-algorithm approach to automated pattern recognition of cosmic-ray muon
+        and neutrino events in the MicroBooNE detector, Eur. Phys. J. C 78  82\"],\"arxiv_eprint\":\"1708.03135\",\"publication_info\":{\"year\":2018}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[8]
+        MicroBooNE collaboration, R. Acciari et al., The Pandora multi-algorithm approach
+        to automated pattern recognition of cosmic-ray muon and neutrino events in
+        the MicroBooNE detector, Eur. Phys. J. C 78 (2018) 82, [arXiv:1708.03135].\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Acciarri,
+        R.\"}],\"label\":\"9\",\"misc\":[\"MicroBooNE collaboration\",\"Convolutional
+        neural networks applied to neutrino events in a liquid argon time projection
+        chamber, JINST 12  P03011\",\"- 56 -\"],\"arxiv_eprint\":\"1611.05531\",\"publication_info\":{\"year\":2017}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[9]
+        MicroBooNE collaboration, R. Acciarri et al., Convolutional neural networks
+        applied to neutrino events in a liquid argon time projection chamber, JINST
+        12 (2017) P03011, [arXiv:1611.05531]. \u2013 56 \u2013\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Abratenko,
+        P.\"}],\"label\":\"10\",\"misc\":[\"MicroBooNE collaboration\",\"Determination
+        of muon momentum in the MicroBooNE LArTPC using an improved model of multiple
+        Coulomb scattering, JINST 12  P10010\"],\"arxiv_eprint\":\"1703.06187\",\"publication_info\":{\"year\":2017}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[10]
+        MicroBooNE collaboration, P. Abratenko et al., Determination of muon momentum
+        in the MicroBooNE LArTPC using an improved model of multiple Coulomb scattering,
+        JINST 12 (2017) P10010, [arXiv:1703.06187].\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Qian,
+        X.\"},{\"full_name\":\"Zhang, C.\"},{\"full_name\":\"Viren, B.\"},{\"full_name\":\"Diwan,
+        M.\"}],\"dois\":[\"10.2172/1414824\"],\"label\":\"11\",\"misc\":[\"Three-dimensional
+        Imaging for Large LArTPCs,. U.S. Department\",\"of Energy Office of Scientific
+        and Technical Information\"],\"publication_info\":{\"year\":2017}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[11]
+        X. Qian, C. Zhang, B. Viren and M. Diwan. Three-dimensional Imaging for Large
+        LArTPCs, . U.S. Department of Energy Office of Scientific and Technical Information,
+        DOI:10.2172/1414824, 2017.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Acciarri,
+        R.\"}],\"label\":\"12\",\"misc\":[\"MicroBooNE collaboration\",\"Design and
+        Construction of the MicroBooNE Detector, JINST 12  P07010\"],\"arxiv_eprint\":\"1612.05824\",\"publication_info\":{\"year\":2017}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[12]
+        MicroBooNE collaboration, R. Acciarri et al., Design and Construction of the
+        MicroBooNE Detector, JINST 12 (2017) P07010, [arXiv:1612.05824].\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Aguilar-Arevalo,
+        A.\"}],\"publication_info\":{\"journal_title\":\"Phys.Rev.D\",\"journal_volume\":\"79\",\"artid\":\"072002\",\"year\":2009},\"label\":\"13\",\"misc\":[\"MiniBooNE
+        collaboration\",\"The Neutrino Flux prediction at MiniBooNE\"],\"arxiv_eprint\":\"0806.1449\"},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[13]
+        MiniBooNE collaboration, A. Aguilar-Arevalo et al., The Neutrino Flux prediction
+        at MiniBooNE, Phys. Rev. D 79 (2009) 072002, [arXiv:0806.1449].\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Adamson,
+        P.\"}],\"label\":\"14\",\"misc\":[\"The NuMI Neutrino Beam, Nucl. Instrum.
+        Meth. A\",\"806  279\"],\"arxiv_eprint\":\"1507.06690\",\"publication_info\":{\"year\":2016}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[14]
+        P. Adamson et al., The NuMI Neutrino Beam, Nucl. Instrum. Meth. A 806 (2016)
+        279, [arXiv:1507.06690].\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Acciarri,
+        R.\"}],\"label\":\"15\",\"misc\":[\"Construction and Assembly of the Wire
+        Planes for the MicroBooNE Time Projection Chamber, JINST 12  T03003\"],\"arxiv_eprint\":\"1609.06169\",\"publication_info\":{\"year\":2017}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[15]
+        R. Acciarri et al., Construction and Assembly of the Wire Planes for the MicroBooNE
+        Time Projection Chamber, JINST 12 (2017) T03003, [arXiv:1609.06169].\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Conrad,
+        J.\"}],\"label\":\"16\",\"misc\":[\"The Photomultiplier Tube Calibration System
+        of the MicroBooNE Experiment, JINST 10  T06001\"],\"arxiv_eprint\":\"1502.04159\",\"publication_info\":{\"year\":2015}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[16]
+        J. Conrad et al., The Photomultiplier Tube Calibration System of the MicroBooNE
+        Experiment, JINST 10 (2015) T06001, [arXiv:1502.04159].\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Bunemann,
+        O.\"},{\"full_name\":\"Cranshaw, T.\"},{\"full_name\":\"Harvey, J.\"}],\"label\":\"17\",\"misc\":[\"Design
+        of grid ionization chambers, Can. J\",\"Research Vol: 27A\"],\"publication_info\":{\"year\":1949}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[17]
+        O. Bunemann, T. Cranshaw and J. Harvey, Design of grid ionization chambers,
+        Can. J. Research Vol: 27A (1949) .\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Asaadi,
+        J.\"}],\"label\":\"18\",\"misc\":[\"First Demonstration of a Pixelated Charge
+        Readout for Single-Phase Liquid Argon Time Projection Chambers\"],\"arxiv_eprint\":\"1801.08884\"},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[18]
+        J. Asaadi et al., First Demonstration of a Pixelated Charge Readout for Single-Phase
+        Liquid Argon Time Projection Chambers, arXiv:1801.08884.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Adams,
+        C.\"}],\"label\":\"19\",\"misc\":[\"MicroBooNE collaboration\",\"Ionization
+        Signal Analysis and Processing in MicroBooNE. II. Data/Simulation Comparison
+        and Performance, In preparation\"]},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[19]
+        MicroBooNE collaboration, C. Adams et al., Ionization Signal Analysis and
+        Processing in MicroBooNE. II. Data/Simulation Comparison and Performance,
+        In preparation.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Ramo, S.\"}],\"label\":\"20\",\"misc\":[\"Currents
+        Induced by Electron Motion, Proceedings of the IRE 27  584\"],\"publication_info\":{\"year\":1939}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[20]
+        S. Ramo, Currents Induced by Electron Motion, Proceedings of the IRE 27 (1939)
+        584.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Cavalleri, C.\"},{\"full_name\":\"Gatti,
+        E.\"},{\"full_name\":\"Fabri, G.\"},{\"full_name\":\"Svelto, V.\"}],\"label\":\"21\",\"misc\":[\"Extension
+        of ramo\u2019s theorem as applied to induced charge in semiconductor detectors,
+        Nucl. Instrum. Meth. 92  137\"],\"publication_info\":{\"year\":1971}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[21]
+        C. Cavalleri, E. Gatti, G. Fabri and V. Svelto, Extension of ramo\u2019s theorem
+        as applied to induced charge in semiconductor detectors, Nucl. Instrum. Meth.
+        92 (1971) 137.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Hamel, L.A.\"},{\"full_name\":\"Julien,
+        M.\"}],\"label\":\"22\",\"misc\":[\"Generalized demonstration of ramo\u2019s
+        theorem with space charge and polarization effects, Nucl. Instrum. Meth. A\",\"597
+        \ 207\"],\"publication_info\":{\"year\":2008}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[22]
+        L. A. Hamel and M. Julien, Generalized demonstration of ramo\u2019s theorem
+        with space charge and polarization effects, Nucl. Instrum. Meth. A 597 (2008)
+        207.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Veenhof, R.\"}],\"label\":\"23\",\"misc\":[\"GARFIELD,
+        recent developments, Nucl. Instrum. Meth. A\",\"419  726\"],\"publication_info\":{\"year\":1998}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[23]
+        R. Veenhof, GARFIELD, recent developments, Nucl. Instrum. Meth. A 419 (1998)
+        726.\"}]},{\"reference\":{\"label\":\"24\",\"misc\":[\"Liquid Argon Properties
+        (Tables and Calculators)\",\"(accessed January 1,)\"],\"urls\":[{\"value\":\"http://lar.bnl.gov/properties\"}],\"publication_info\":{\"year\":2018}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[24]
+        Liquid Argon Properties (Tables and Calculators), http://lar.bnl.gov/properties,
+        (accessed January 1, 2018).\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Radeka,
+        V.\"}],\"label\":\"25\",\"misc\":[\"Cold Electronics for\",\"Liquid Argon
+        Time Projection Chambers, J\",\"Phys. Conf. Ser. 308  012021\"],\"title\":{\"title\":\"Giant\"},\"publication_info\":{\"year\":2011}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[25]
+        V. Radeka et al., Cold Electronics for \\\"Giant\\\" Liquid Argon Time Projection
+        Chambers, J. Phys. Conf. Ser. 308 (2011) 012021.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Nyquist,
+        H.\"}],\"publication_info\":{\"journal_title\":\"Phys.Rev.\",\"journal_volume\":\"32\",\"page_start\":\"110\",\"artid\":\"110\",\"year\":1928},\"label\":\"26\",\"misc\":[\"Thermal
+        Agitation of Electric Charge in Conductors\"]},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[26]
+        H. Nyquist, Thermal Agitation of Electric Charge in Conductors, Phys. Rev.
+        32 (1928) 110.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Acciarri,
+        R.\"}],\"label\":\"27\",\"misc\":[\"MicroBooNE collaboration\",\"Noise Characterization
+        and Filtering in the MicroBooNE Liquid Argon TPC, JINST 12  P08003\"],\"arxiv_eprint\":\"1705.07341\",\"publication_info\":{\"year\":2017}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[27]
+        MicroBooNE collaboration, R. Acciarri et al., Noise Characterization and Filtering
+        in the MicroBooNE Liquid Argon TPC, JINST 12 (2017) P08003, [arXiv:1705.07341].\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"De
+        Geronimo, G.\"}],\"label\":\"28\",\"misc\":[\"Front-end ASIC for a Liquid
+        Argon TPC\",\"Transactions on Nuclear Science 58  1376\"],\"imprint\":{\"publisher\":\"IEEE\"},\"publication_info\":{\"year\":2011}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[28]
+        G. De Geronimo et al., Front-end ASIC for a Liquid Argon TPC, IEEE Transactions
+        on Nuclear Science 58 (2011) 1376.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Sulej,
+        R.\"}],\"label\":\"29\",\"misc\":[\"on behalf of ICARUS collaboration, private
+        communications\"],\"publication_info\":{\"year\":2013}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[29]
+        R. Sulej on behalf of ICARUS collaboration, private communications, 2013.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Baller,
+        B.\"}],\"label\":\"30\",\"misc\":[\"Liquid Argon TPC Signal Formation, Signal
+        Processing and Hit Reconstruction, JINST 12  P07010\"],\"arxiv_eprint\":\"1703.04024\",\"publication_info\":{\"year\":2017}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[30]
+        B. Baller, Liquid Argon TPC Signal Formation, Signal Processing and Hit Reconstruction,
+        JINST 12 (2017) P07010, [arXiv:1703.04024].\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Tang,
+        W.\"}],\"label\":\"31\",\"misc\":[\"Data Unfolding with Wiener-SVD Method,
+        JINST 12  P10002\",\"- 57 -\"],\"arxiv_eprint\":\"1705.03568\",\"publication_info\":{\"year\":2017}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[31]
+        W. Tang et al., Data Unfolding with Wiener-SVD Method, JINST 12 (2017) P10002,
+        [arXiv:1705.03568]. \u2013 57 \u2013\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Wiener,
+        N.\"}],\"label\":\"32\",\"misc\":[\"Extrapolation, Interpolation, and Smoothing
+        of Stationary Time Series. The MIT Press\"],\"publication_info\":{\"year\":1964}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[32]
+        N. Wiener, Extrapolation, Interpolation, and Smoothing of Stationary Time
+        Series. The MIT Press, 1964.\"}]},{\"reference\":{\"label\":\"33\",\"misc\":[\"Wire
+        Cell signal processing including noise removal\",\"(accessed January 1,, code
+        version: 0.6.2)\"],\"urls\":[{\"value\":\"https://github.com/WireCell/wire-cell-sigproc\"}],\"publication_info\":{\"year\":2018}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[33]
+        Wire Cell signal processing including noise removal, https://github.com/WireCell/wire-cell-sigproc,
+        (accessed January 1, 2018, code version: 0.6.2).\"}]},{\"reference\":{\"label\":\"34\",\"misc\":[\"LArSoft\",\"(accessed
+        January 1,)\"],\"urls\":[{\"value\":\"http://larsoft.org\"}],\"publication_info\":{\"year\":2018}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[34]
+        LArSoft, http://larsoft.org, (accessed January 1, 2018).\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Agostinelli,
+        S.\"}],\"collaborations\":[\"GEANT4 collaboration\"],\"label\":\"35\",\"misc\":[\"GEANT4
+        - a simulation toolkit, Nucl. Instrum. Meth. A\",\"506  250\"],\"publication_info\":{\"year\":2003}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[35]
+        GEANT4 collaboration, S. Agostinelli et al., GEANT4 \u2013 a simulation toolkit,
+        Nucl. Instrum. Meth. A 506 (2003) 250.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Doke,
+        T.\"}],\"label\":\"36\",\"misc\":[\"Estimation of Fano factors in liquid argon,
+        krypton, xenon and xenon-doped liquid argon, Nucl. Instrum. Meth. 134  353\"],\"publication_info\":{\"year\":1976}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[36]
+        T. Doke et al., Estimation of Fano factors in liquid argon, krypton, xenon
+        and xenon-doped liquid argon, Nucl. Instrum. Meth. 134 (1976) 353.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Jaskolski,
+        M.\"},{\"full_name\":\"Wojcik, M.\"}],\"label\":\"37\",\"misc\":[\"Electron
+        Recombination in Ionized Liquid Argon: A Computational Approach\",\"Based
+        on Realistic Models of Electron Transport and Reactions, J. Phys. Chem. A\",\"115(17)
+        \ 4317\"],\"publication_info\":{\"year\":2011}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[37]
+        M. Jaskolski and M. Wojcik, Electron Recombination in Ionized Liquid Argon:
+        A Computational Approach Based on Realistic Models of Electron Transport and
+        Reactions, J. Phys. Chem. A 115(17) (2011) 4317.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Sowada,
+        J.\"},{\"full_name\":\"Warman, U.\"},{\"full_name\":\"Haas, M.\"}],\"publication_info\":{\"journal_title\":\"Phys.Rev.B\",\"journal_volume\":\"25\",\"page_start\":\"3434\",\"artid\":\"3434\",\"year\":1982},\"label\":\"38\",\"misc\":[\"Hot-electron
+        thermalization in solid and liquid argon, krypton, and xenon\",\"(R)\"]},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[38]
+        J. Sowada, U. Warman and M. Haas, Hot-electron thermalization in solid and
+        liquid argon, krypton, and xenon, Phys. Rev. B 25 (1982) 3434(R).\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Acciarri,
+        R.\"}],\"label\":\"39\",\"misc\":[\"ArgoNeuT collaboration\",\"A study of
+        electron recombination using highly ionizing particles in the ArgoNeuT Liquid
+        Argon TPC, JINST 8  P08005\"],\"publication_info\":{\"year\":2013}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[39]
+        ArgoNeuT collaboration, R. Acciarri et al., A study of electron recombination
+        using highly ionizing particles in the ArgoNeuT Liquid Argon TPC, JINST 8
+        (2013) P08005.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Mooney,
+        M.\"}],\"label\":\"40\",\"misc\":[\"MicroBooNE collaboration\",\"The MicroBooNE
+        Experiment and the Impact of Space Charge Effects\"],\"arxiv_eprint\":\"1511.01563\"},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[40]
+        MicroBooNE collaboration, M. Mooney, The MicroBooNE Experiment and the Impact
+        of Space Charge Effects, arXiv:1511.01563.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Diwan,
+        M.\"}],\"label\":\"41\",\"misc\":[\"Basic mathematics of random noise part
+        1/2,. Yale University Wright Laboratory Nuclear Particle Astrophysics/Weak
+        Interaction Discussion Group joint seminar, September 19/22\"],\"publication_info\":{\"year\":2017}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[41]
+        M. Diwan. Basic mathematics of random noise part 1/2, . Yale University Wright
+        Laboratory Nuclear Particle Astrophysics/Weak Interaction Discussion Group
+        joint seminar, September 19/22, 2017.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Jung,
+        W.\"}],\"isbn\":\"9780750678445\",\"label\":\"42\",\"misc\":[\"Op amp application
+        handbook, Newnes/\"],\"imprint\":{\"publisher\":\"Elsevier\"},\"publication_info\":{\"year\":2005}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[42]
+        W. Jung, Op amp application handbook, Newnes/Elsevier, ISBN-0-7506-7844-5
+        (2005) .\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Pullia, A.\"},{\"full_name\":\"Riboldi,
+        S.\"}],\"label\":\"43\",\"misc\":[\"Time-domain simulation of electronic noises\",\"Transactions
+        on Nuclear Science 51  1817-1823\"],\"imprint\":{\"publisher\":\"IEEE\"},\"publication_info\":{\"year\":2004}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[43]
+        A. Pullia and S. Riboldi, Time-domain simulation of electronic noises, IEEE
+        Transactions on Nuclear Science 51 (2004) 1817\u20131823.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Moghimi,
+        R.\"}],\"label\":\"44\",\"misc\":[\"Noise Optimization in Sensor Signal Conditioning
+        Circuits [Part 1]\"],\"urls\":[{\"value\":\"http://www.analog.com/en/education/education-library/webcasts/noise-optim-sensor-sig-condi-p1.html\"}],\"publication_info\":{\"year\":2017}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[44]
+        R. Moghimi. Noise Optimization in Sensor Signal Conditioning Circuits [Part
+        1], . http://www.analog.com/en/education/education-library/webcasts/ noise-optim-sensor-sig-condi-p1.html,
+        2017.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Rayleigh, L.\"}],\"label\":\"45\",\"misc\":[\"The
+        problem of the random walk, Nature 72  294\"],\"publication_info\":{\"year\":1905}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[45]
+        L. Rayleigh, The problem of the random walk, Nature 72 (1905) 294; 318\u2013342.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Rayleigh,
+        L.\"}],\"label\":\"45\",\"misc\":[\"318-342\"]},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[45]
+        L. Rayleigh, The problem of the random walk, Nature 72 (1905) 294; 318\u2013342.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Acciari,
+        R.\"}],\"label\":\"46\",\"misc\":[\"MicroBooNE collaboration\",\"Measurement
+        of cosmic-ray reconstruction efficiencies in the MicroBooNE LArTPC using a
+        small external cosmic-ray counter, JINST 12  P12030\"],\"arxiv_eprint\":\"1707.09903\",\"publication_info\":{\"year\":2017}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[46]
+        MicroBooNE collaboration, R. Acciari et al., Measurement of cosmic-ray reconstruction
+        efficiencies in the MicroBooNE LArTPC using a small external cosmic-ray counter,
+        JINST 12 (2017) P12030, [arXiv:1707.09903].\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"Brebbia,
+        C.\"}],\"label\":\"47\",\"misc\":[\"The birth of the boundary element method
+        from conception to application, Engineering Analysis with Boundary Elements
+        77  iii-x\"],\"publication_info\":{\"year\":2017}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[47]
+        C. Brebbia, The birth of the boundary element method from conception to application,
+        Engineering Analysis with Boundary Elements 77 (2017) iii\u2013x.\"}]},{\"reference\":{\"authors\":[{\"full_name\":\"\u015Amigaj,
+        W.\"}],\"label\":\"48\",\"misc\":[\"Solving Boundary Integral Problems with
+        BEM++, ACM Trans. Math. Software 41  6:1-6:40\"],\"publication_info\":{\"year\":2015}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[48]
+        W. \u015Amigaj et al., Solving Boundary Integral Problems with BEM++, ACM
+        Trans. Math. Software 41 (2015) 6:1\u20136:40.\"}]},{\"reference\":{\"label\":\"49\",\"misc\":[\"Magnify
+        Online\",\"#/, (accessed January 1,). - 58 -\"],\"urls\":[{\"value\":\"http://lar.bnl.gov/magnify/\"}],\"publication_info\":{\"year\":2018}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"[49]
+        Magnify Online, http://lar.bnl.gov/magnify/#/, (accessed January 1, 2018).
+        \u2013 58 \u2013\"}]}]}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '21087'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 22 Oct 2025 14:13:11 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+version: 1

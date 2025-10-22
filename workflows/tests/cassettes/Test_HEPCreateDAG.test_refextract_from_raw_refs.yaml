@@ -1,0 +1,127 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8080/api/matcher/journal-kb
+  response:
+    body:
+      string: '{"journal_kb_data":{"PHYS REV":"Phys.Rev.","PHYSICAL REVIEW":"Phys.Rev.","JHEP":"JHEP","THE
+        JOURNAL OF HIGH ENERGY PHYSICS JHEP":"JHEP","PHYS REV LETT":"Phys.Rev.Lett.","PHYSICAL
+        REVIEW LETTERS":"Phys.Rev.Lett.","CALC VAR PART DIFFER EQU":"Calc.Var.Part.Differ.Equ","CALCULUS
+        OF VARIATIONS AND PARTIAL DIFFERENTIAL EQUATIONS":"Calc.Var.Part.Differ.Equ","PHYS
+        REV BCONDENS MATTER MATER PHYS":"Phys.Rev.","PHYS REV RAPIDCOMM":"Phys.Rev.","PHYS
+        REV PHYS REV":"Phys.Rev.","PHYS REV RAP COMM":"Phys.Rev.","PHYS REV SER 2":"Phys.Rev.","PHYSICALREVIEW":"Phys.Rev.","PHYSICSREVIEW":"Phys.Rev.","PHYS
+        REV BF":"Phys.Rev.","PHYS REVIEW":"Phys.Rev.","PHYSICALREV":"Phys.Rev.","PHYS
+        RE V":"Phys.Rev.","PHYSC REV":"Phys.Rev.","PHYSREVBF":"Phys.Rev.","PAYS REV":"Phys.Rev.","PFYS
+        REV":"Phys.Rev.","PHIS REV":"Phys.Rev.","PHSY REV":"Phys.Rev.","PHUS REV":"Phys.Rev.","PHYE
+        REV":"Phys.Rev.","PHYS PEV":"Phys.Rev.","PHYS REC":"Phys.Rev.","PHYS REF":"Phys.Rev.","PHYS
+        REW":"Phys.Rev.","PHYS TEV":"Phys.Rev.","PYHS REV":"Phys.Rev.","RHYS REV":"Phys.Rev.","PHS
+        REV":"Phys.Rev.","PHY REV":"Phys.Rev.","PHYS RV":"Phys.Rev.","PHYSREV":"Phys.Rev.","PHYSREW":"Phys.Rev.","PYS
+        REV":"Phys.Rev.","PHRV":"Phys.Rev.","PHR":"Phys.Rev.","JOURNAL OF HIGH ENERGY
+        PHYSICS":"JHEP","JOURNL OF HIGH ENERGY PHYSICS":"JHEP","JOURNALOFHIGHENERGYPHYSICS":"JHEP","J
+        HIGH ENERGY PHYSICS":"JHEP","JOUR OFHIGHENERGYPHYS":"JHEP","J HIGHENERGYPHYSICS":"JHEP","J
+        HIGH ENERGY PHYS":"JHEP","J HIGH ENGERY PHYS":"JHEP","J HIGH ENERG PHYS":"JHEP","J
+        HIGH ENERGYPHYS":"JHEP","J HIGHENERGY PHYS":"JHEP","J HIGH ENER PHYS":"JHEP","J
+        HIGHENERGYPHYS":"JHEP","J HIGHENERGYPHY":"JHEP","J HIGH EN PHYS":"JHEP","J
+        HIGH ENERGY":"JHEP","J HIGHEN PHYS":"JHEP","J HIGH PHYS":"JHEP","J H E PHYS":"JHEP","J
+        HEP":"JHEP","JHEPA":"JHEP","PHYS REV LETT PHYS REV LETT":"Phys.Rev.Lett.","PHYSICALREVIEWLETTERSVOL":"Phys.Rev.Lett.","PHYSICALREVIEWLETTERS":"Phys.Rev.Lett.","PHYSICALREVIEWLETTER":"Phys.Rev.Lett.","PHYS
+        REVIEWLETTERS":"Phys.Rev.Lett.","PHYSICALREVIEWLETT":"Phys.Rev.Lett.","PHYS
+        REV LETT INC":"Phys.Rev.Lett.","PHYS REV LETTS CA":"Phys.Rev.Lett.","PHYS
+        REV LETTTERS":"Phys.Rev.Lett.","PHYS REV LEETERS":"Phys.Rev.Lett.","PHYS REV
+        LETT BF":"Phys.Rev.Lett.","PHYS REV LETTERS":"Phys.Rev.Lett.","PHYSICALREV
+        LETT":"Phys.Rev.Lett.","PHYS REV LETTER":"Phys.Rev.Lett.","PHYS REVIEWLETT":"Phys.Rev.Lett.","PHYS
+        REVLETTERS":"Phys.Rev.Lett.","PHYSREV LETTERS":"Phys.Rev.Lett.","PHYS REV
+        LETTS":"Phys.Rev.Lett.","PHYS REV LETTT":"Phys.Rev.Lett.","PHYSREVLETTERS":"Phys.Rev.Lett.","PHIS
+        REV LETT":"Phys.Rev.Lett.","PHYS LETT REV":"Phys.Rev.Lett.","PHYS LEV LETT":"Phys.Rev.Lett.","PHYS
+        PEV LETT":"Phys.Rev.Lett.","PHYS REC LETT":"Phys.Rev.Lett.","PHYS REF LETT":"Phys.Rev.Lett.","PHYS
+        REP LETT":"Phys.Rev.Lett.","PHYS REV IETT":"Phys.Rev.Lett.","PHYS REV LERR":"Phys.Rev.Lett.","PHYS
+        REV LETS":"Phys.Rev.Lett.","PHYS REVLETTS":"Phys.Rev.Lett.","PHYS REW LETT":"Phys.Rev.Lett.","PHYSREV
+        LETTR":"Phys.Rev.Lett.","PYHS REV LETT":"Phys.Rev.Lett.","RHYS REV LETT":"Phys.Rev.Lett.","PHS
+        REV LETT":"Phys.Rev.Lett.","PHY REV LETT":"Phys.Rev.Lett.","PHYS RE LETT":"Phys.Rev.Lett.","PHYS
+        REV LET":"Phys.Rev.Lett.","PHYS REVLETT":"Phys.Rev.Lett.","PHYS RV LETT":"Phys.Rev.Lett.","PHYSREV
+        LETT":"Phys.Rev.Lett.","PYS REV LETT":"Phys.Rev.Lett.","PHY REV LET":"Phys.Rev.Lett.","PHYSREV
+        LET":"Phys.Rev.Lett.","PHYSREVLETT":"Phys.Rev.Lett.","PHYSREVLET":"Phys.Rev.Lett.","PHYSREVL":"Phys.Rev.Lett.","REV
+        LETT":"Phys.Rev.Lett.","PHRVL":"Phys.Rev.Lett.","PRLTA":"Phys.Rev.Lett.","PRL":"Phys.Rev.Lett.","PHYS
+        REV JETT":"Phys.Rev.Lett.","PHYS REV L":"Phys.Rev.Lett.","PHYSICAL REVIEWL":"Phys.Rev.Lett.","PHYSICAL
+        REVIEW LETT":"Phys.Rev.Lett.","PHYSICAL REVIEW LETTER":"Phys.Rev.Lett.","PHYSICAL
+        REVIEWLETTERS":"Phys.Rev.Lett.","PHYSICS REVIEW LETTERS":"Phys.Rev.Lett.","CALC
+        VAR PARTIAL DIFFERENTIAL EQUATIONS":"Calc.Var.Part.Differ.Equ","CALC VAR PARTIAL
+        DIFFER EQU":"Calc.Var.Part.Differ.Equ","CALC VAR PART DIFF EQ":"Calc.Var.Part.Differ.Equ","CALC
+        VAR":"Calc.Var.Part.Differ.Equ"}}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '3995'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 13:06:56 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"references": [{"reference": {"authors": [{"full_name": "B, Pol."}], "misc":
+      ["Iskra \\u0141 W et alActa Phys", "48 581"], "publication_info": {"year": 2017}},
+      "raw_refs": [{"schema": "text", "value": "Iskra \\u0141 W et al 2017 Acta Phys.
+      Pol. B 48 581"}]}, {"reference": {"authors": [{"full_name": "B, Pol."}], "misc":
+      ["Iskra \\u0141 W et alActa Phys", "48 582"], "publication_info": {"year": 2017}},
+      "raw_refs": [{"schema": "text", "value": "Iskra \\u0141 W et al 2017 Acta Phys.
+      Pol. B 48 582"}]}, {"reference": {"authors": [{"full_name": "B, Pol."}], "misc":
+      ["Iskra \\u0141 W et alActa Phys", "48 583"], "publication_info": {"year": 2017}},
+      "raw_refs": [{"schema": "text", "value": "Iskra \\u0141 W et al 2017 Acta Phys.
+      Pol. B 48 583"}]}, {"reference": {"publication_info": {"journal_volume": "25",
+      "page_start": "107", "journal_title": "Egypt. J. Pet.", "artid": "107", "year":
+      2016}, "dois": ["10.1016/j.ejpe.2015.03.011"], "misc": ["2024112816553493200_bib1",
+      "publisher"], "authors": [{"full_name": "Abdel-Shafy"}]}}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1031'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8080/api/matcher/linked_references/
+  response:
+    body:
+      string: '{"references":[{"reference":{"authors":[{"full_name":"B, Pol."}],"misc":["Iskra
+        \\u0141 W et alActa Phys","48 581"],"publication_info":{"year":2017}},"raw_refs":[{"schema":"text","value":"Iskra
+        \\u0141 W et al 2017 Acta Phys. Pol. B 48 581"}]},{"reference":{"authors":[{"full_name":"B,
+        Pol."}],"misc":["Iskra \\u0141 W et alActa Phys","48 582"],"publication_info":{"year":2017}},"raw_refs":[{"schema":"text","value":"Iskra
+        \\u0141 W et al 2017 Acta Phys. Pol. B 48 582"}]},{"reference":{"authors":[{"full_name":"B,
+        Pol."}],"misc":["Iskra \\u0141 W et alActa Phys","48 583"],"publication_info":{"year":2017}},"raw_refs":[{"schema":"text","value":"Iskra
+        \\u0141 W et al 2017 Acta Phys. Pol. B 48 583"}]},{"reference":{"publication_info":{"journal_volume":"25","page_start":"107","journal_title":"Egypt.
+        J. Pet.","artid":"107","year":2016},"dois":["10.1016/j.ejpe.2015.03.011"],"misc":["2024112816553493200_bib1","publisher"],"authors":[{"full_name":"Abdel-Shafy"}]}}]}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '967'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 13:06:59 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+version: 1

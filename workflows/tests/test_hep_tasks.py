@@ -852,6 +852,120 @@ class Test_HEPCreateDAG:
         assert "journal_record" in pub_info[1]
         assert "cnum" in pub_info[2]
 
+    @pytest.mark.vcr
+    def test_refextract_from_raw_refs(self):
+        schema = load_schema("hep")
+        subschema = schema["properties"]["references"]
+        workflow_data = {
+            "data": {
+                "references": [
+                    {
+                        "raw_refs": [
+                            {
+                                "schema": "text",
+                                "value": "Iskra \\u0141 W et al 2017 Acta Phys."
+                                " Pol. B 48 581",
+                            }
+                        ]
+                    },
+                    {
+                        "raw_refs": [
+                            {
+                                "schema": "text",
+                                "value": "Iskra \\u0141 W et al 2017 Acta Phys."
+                                " Pol. B 48 582",
+                            }
+                        ]
+                    },
+                    {
+                        "raw_refs": [
+                            {
+                                "schema": "text",
+                                "value": "Iskra \\u0141 W et al 2017 Acta Phys."
+                                " Pol. B 48 583",
+                            }
+                        ]
+                    },
+                    {
+                        "reference": {
+                            "publication_info": {
+                                "journal_volume": "25",
+                                "page_start": "107",
+                                "journal_title": "Egypt. J. Pet.",
+                                "artid": "107",
+                                "year": 2016,
+                            },
+                            "dois": ["10.1016/j.ejpe.2015.03.011"],
+                            "misc": ["2024112816553493200_bib1", "publisher"],
+                            "authors": [{"full_name": "Abdel-Shafy"}],
+                        }
+                    },
+                ],
+            }
+        }
+
+        assert validate(workflow_data["data"]["references"], subschema) is None
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "preprocessing.refextract",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(
+            s3_hook, bucket_name, self.context["params"]["workflow_id"]
+        )
+
+        assert len(workflow_result["data"]["references"]) == 4
+        assert "reference" in workflow_result["data"]["references"][0]
+
+    @pytest.mark.vcr
+    def test_refextract_from_s3_pdf(self, datadir):
+        filename = "1802.08709.pdf"
+
+        s3_hook.load_file(
+            str(datadir / filename),
+            f"{self.workflow_id}-documents/{filename}",
+            bucket_name,
+            replace=True,
+        )
+
+        workflow_data = {
+            "data": {
+                "documents": [
+                    {"key": filename},
+                ],
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "preprocessing.refextract",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(
+            s3_hook, bucket_name, self.context["params"]["workflow_id"]
+        )
+
+        assert len(workflow_result["data"]["references"]) == 50
+
     def test_classify_paper_with_fulltext(self, tmpdir, higgs_ontology):
         fulltext_name = "fulltext.txt"
         fulltext = tmpdir.join(fulltext_name)
