@@ -2,8 +2,10 @@ import datetime
 import logging
 from urllib.parse import parse_qs, urlparse
 
-from airflow.providers.http.operators.http import HttpOperator
-from airflow.sdk import Param, dag, task, task_group
+from airflow.exceptions import AirflowException
+from airflow.macros import ds_add
+from airflow.sdk import Param, dag, task
+from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
@@ -14,13 +16,13 @@ from include.utils.cds import (
     retrieve_and_validate_record,
     update_record,
 )
+from inspire_schemas.builders import LiteratureBuilder
 from inspire_utils.record import get_value
 
 logger = logging.getLogger(__name__)
 
 
-def _pagination_fn(response):
-    next_url = response.json().get("links", {}).get("next")
+def _pagination_from_url(next_url):
     if not next_url:
         logger.info("No more pages; finished harvesting.")
         return None
@@ -29,49 +31,39 @@ def _pagination_fn(response):
     parsed = urlparse(next_url)
     next_params = {k: v[0] for k, v in parse_qs(parsed.query).items()}
     logger.info(f"Next params: {next_params}")
-    return {"data": next_params}
+    return next_params
 
 
-def _response_filter(responses, hook):
+def _response_filter(hits, hook):
     results = []
-    for response in responses:
-        logger.info(f"URL:{response.request.url}")
-        payload = response.json()
-        hits = get_value(payload, "hits.hits", [])
-        logger.info(f"Fetched {len(hits)} records from CDS")
-        for cds_record in hits:
-            cds_id = cds_record.get("id")
-            if not cds_id:
-                logger.info(
-                    f"Cannot extract CDS id from CDS RDM response: {cds_record}"
-                )
-                continue
-            identifiers = get_value(cds_record, "metadata.identifiers", [])
-            control_numbers = get_identifiers_for_scheme(identifiers, "inspire")
-            arxivs = get_identifiers_for_scheme(identifiers, "arxiv")
-            dois = get_dois(cds_record)
-            report_numbers = get_identifiers_for_scheme(identifiers, "cds_ref")
-            if not any([control_numbers, arxivs, dois, report_numbers]):
-                logger.info(
-                    f"CDS RDM record {cds_id} does not have any identifiers to harvest."
-                )
-                continue
-
-            record = retrieve_and_validate_record(
-                hook,
-                cds_id,
-                control_numbers,
-                arxivs,
-                dois,
-                report_numbers,
-                schema="CDSRDM",
+    for cds_record in hits:
+        cds_id = cds_record.get("id")
+        if not cds_id:
+            logger.info(f"Cannot extract CDS id from CDS RDM response: {cds_record}")
+            continue
+        identifiers = get_value(cds_record, "metadata.identifiers", [])
+        control_numbers = get_identifiers_for_scheme(identifiers, "inspire")
+        arxivs = get_identifiers_for_scheme(identifiers, "arxiv")
+        dois = get_dois(cds_record)
+        report_numbers = get_identifiers_for_scheme(identifiers, "cds_ref")
+        if not any([control_numbers, arxivs, dois, report_numbers]):
+            logger.info(
+                f"CDS RDM record {cds_id} does not have any identifiers to harvest."
             )
-            if record:
-                results.append(record)
-    logger.info(
-        f"Total pages: {len(responses)}. "
-        f"{len(results)} CDS records eligible for update."
-    )
+            continue
+
+        record = retrieve_and_validate_record(
+            hook,
+            cds_id,
+            control_numbers,
+            arxivs,
+            dois,
+            report_numbers,
+            schema="CDSRDM",
+        )
+        if record:
+            results.append(record)
+    logger.info(f"{len(results)} CDS records eligible for update.")
     return results
 
 
@@ -87,54 +79,68 @@ def _response_filter(responses, hook):
     on_failure_callback=FailedDagNotifier(),
 )
 def cds_rdm_harvest_dag():
-    inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
-
-    get_cds_rdm_data = HttpOperator(
-        task_id="get_cds_rdm_data",
-        http_conn_id="cds_rdm_connection",
-        method="GET",
-        endpoint="/api/records",
-        data={
-            "q": (
-                "updated:[{{ params.since or macros.ds_add(ds, -1) }} "
-                "TO {{ params.until or ds }}]"
-            ),
+    @task
+    def get_cds_rdm_data(**context):
+        inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
+        generic_http_hook = GenericHttpHook(http_conn_id="cds_rdm_connection")
+        since = context["params"].get("since") or ds_add(context["ds"], -1)
+        until = context["params"].get("until") or context["ds"]
+        params = {
+            "q": f"updated:[{since} TO {until}]",
             "page": 1,
             "size": 50,
             "sort": "newest",
-        },
-        response_filter=lambda responses,
-        hook=inspire_http_record_management_hook: _response_filter(responses, hook),
-        pagination_function=_pagination_fn,
-    )
+        }
 
-    @task_group
-    def process_cds_rdm_response(cds_record):
-        @task.virtualenv(
-            requirements=["inspire-schemas==61.6.26"],
-            system_site_packages=False,
-            venv_cache_path="/opt/airflow/venvs",
+        all_hits = []
+        while params:
+            resp = generic_http_hook.call_api(
+                endpoint="/api/records",
+                method="GET",
+                params=params,
+            )
+            resp.raise_for_status()
+            payload = resp.json()
+            page_hits = get_value(payload, "hits.hits", [])
+            all_hits.extend(page_hits)
+
+            next_link = payload.get("links", {}).get("next")
+            next_bundle = _pagination_from_url(next_link)
+            params = next_bundle if next_bundle else None
+
+        eligible_records = _response_filter(
+            all_hits, inspire_http_record_management_hook
         )
-        def build_record(payload):
-            from inspire_schemas.builders import LiteratureBuilder
+        logger.info(f"Total records collected for this range: {len(eligible_records)}")
 
-            original_record = payload["original_record"]
-            revision = original_record.get("revision_id", 0)
+        failed = []
+        for payload in eligible_records:
+            cds_id = payload["cds_id"]
+            try:
+                original_record = payload["original_record"]
+                builder = LiteratureBuilder(record=original_record["metadata"])
+                builder.add_external_system_identifier(cds_id, "CDSRDM")
+                payload_update = {
+                    "revision": original_record.get("revision_id", 0),
+                    "updated_record": dict(builder.record),
+                }
+                update_record(inspire_http_record_management_hook, payload_update)
+            except Exception as e:
+                logger.error(
+                    f"Failed to update record {original_record['control_number']} "
+                    f"for CDS ID {cds_id}: {e}"
+                )
+                failed.append(
+                    {
+                        "inspire_record": original_record["control_number"],
+                        "cds_id": cds_id,
+                    }
+                )
 
-            builder = LiteratureBuilder(record=original_record["metadata"])
-            builder.add_external_system_identifier(payload["cds_id"], "CDSRDM")
+        if failed:
+            raise AirflowException(f"The following records failed: {failed}")
 
-            return {"revision": revision, "updated_record": dict(builder.record)}
-
-        @task(task_id="update_inspire_record")
-        def update_inspire_record(payload):
-            return update_record(inspire_http_record_management_hook, payload)
-
-        built = build_record(cds_record)
-        update_inspire_record(built)
-
-    hits = get_cds_rdm_data.output
-    process_cds_rdm_response.expand(cds_record=hits)
+    get_cds_rdm_data()
 
 
 cds_rdm_harvest_dag()

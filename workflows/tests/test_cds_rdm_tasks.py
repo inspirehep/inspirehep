@@ -1,7 +1,7 @@
-import orjson
+import json
+
 import pytest
 from airflow.models import DagBag
-from airflow.utils.context import Context
 from freezegun import freeze_time
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
@@ -17,19 +17,25 @@ class TestCDSRDMHarvest:
     dag = dagbag.get_dag("cds_rdm_harvest_dag")
 
     @pytest.mark.vcr
-    def test_get_cds_rdm_data_vcr(self):
+    def test_get_cds_rdm_data_vcr(self, vcr_cassette):
         task = self.dag.get_task("get_cds_rdm_data")
         context = {
-            "ds": "2025-07-01T00:00:00",
+            "ds": "2025-10-21T00:00:00",
             "params": {
-                "since": "2025-06-01T00:00:00",
-                "until": "2025-07-01T00:00:00",
+                "since": "2025-10-21T00:00:00",
+                "until": "2025-10-22T00:00:00",
             },
             "task_instance": None,
         }
-        task.render_template_fields(context)
-        q = task.data["q"]
-        assert q == "updated:[2025-06-01T00:00:00 TO 2025-07-01T00:00:00]"
+        res = task.execute(context=context)
+        assert res is None
+        idx = next(
+            i for i, req in enumerate(vcr_cassette.requests) if req.method == "PUT"
+        )
+        hep_request = vcr_cassette.requests[idx]
+        result = json.loads(hep_request.body)
+        assert result["external_system_identifiers"][0]["schema"] == "CDSRDM"
+        assert result["external_system_identifiers"][0]["value"] == "da5gb-erf09"
 
     @pytest.mark.vcr
     def test_skip_when_cds_id_already_present(self):
@@ -79,37 +85,3 @@ class TestCDSRDMHarvest:
         external_ids = metadata.get("external_system_identifiers", [])
         existing_cds = get_values_for_schema(external_ids, "CDSRDM")
         assert "8888888" not in existing_cds
-
-    def test_build_record(self, datadir):
-        payload = {
-            "cds_id": "8888888",
-        }
-        payload["original_record"] = orjson.loads(
-            (datadir / "record_1675001.json").read_text()
-        )
-        task = self.dag.get_task("process_cds_rdm_response.build_record")
-        task.op_args = (payload,)
-        res = task.execute(context=Context())
-        assert res["revision"] == 0
-        assert (
-            res["updated_record"]["external_system_identifiers"][0]["schema"]
-            == "CDSRDM"
-        )
-        assert (
-            res["updated_record"]["external_system_identifiers"][0]["value"]
-            == "8888888"
-        )
-
-    @pytest.mark.vcr
-    def test_update_record(self, datadir):
-        payload = {
-            "revision": 0,
-        }
-        payload["updated_record"] = orjson.loads(
-            (datadir / "updated_record_1675001.json").read_text()
-        )
-        task = self.dag.get_task("process_cds_rdm_response.update_inspire_record")
-        task.op_args = (payload,)
-        res = task.execute(context=Context())
-        assert res["metadata"]["external_system_identifiers"][0]["schema"] == "CDSRDM"
-        assert res["metadata"]["external_system_identifiers"][0]["value"] == "8888888"
