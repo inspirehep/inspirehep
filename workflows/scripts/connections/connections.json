@@ -118,5 +118,14 @@
     "port": null,
     "schema": null,
     "extra": null
-  }
-}
+  },
+  "grobid_connection": {
+    "conn_type": "http",
+    "description": "Grobid Connection",
+    "login": "",
+    "password": null,
+    "host": "https://grobid.inspirebeta.net",
+    "port": null,
+    "schema": "",
+    "extra": ""
+  }}
