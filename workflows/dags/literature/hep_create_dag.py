@@ -29,6 +29,11 @@ from include.inspire.journal_title_normalization import (
 from include.utils import workflows
 from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.constants import JOURNALS_PID_TYPE
+from include.utils.refextract_utils import (
+    extract_references_from_pdf,
+    map_refextract_reference_to_schema,
+    raw_refs_to_list,
+)
 from include.utils.s3 import read_object, write_object
 from inspire_schemas.builders import LiteratureBuilder
 from inspire_schemas.parsers.author_xml import AuthorXMLParser
@@ -61,6 +66,7 @@ from plotextractor.errors import (
 )
 from pylatexenc.latex2text import LatexNodes2Text
 from refextract.extract import extract_journal_info as refextract_journal_info
+from refextract.extract import extract_references_from_list
 from tenacity import RetryError
 from werkzeug.utils import secure_filename
 
@@ -339,6 +345,125 @@ def hep_create_dag():
                 workflow_data,
                 bucket_name,
                 key=s3_workflow_id,
+                overwrite=True,
+            )
+
+        @task
+        def refextract(**context):
+            """Extract references from various sources and add them to the workflow.
+
+            Runs ``refextract`` on both the PDF attached to the workflow and the
+            references provided by the submitter, if any, then chooses the one
+            that generated the most and attaches them to the workflow object.
+
+            Returns:
+                None
+            """
+
+            workflow_id = context["params"]["workflow_id"]
+
+            workflow_data = read_object(s3_hook, bucket_name, workflow_id)
+
+            source = LiteratureReader(workflow_data["data"]).source
+
+            response = inspire_http_hook.call_api(
+                endpoint="api/matcher/journal-kb",
+                method="GET",
+            )
+            response.raise_for_status()
+            journal_kb_dict = get_value(response.json(), "journal_kb_data")
+
+            if "references" in workflow_data["data"]:
+                raw_refs_to_extract, references = raw_refs_to_list(
+                    workflow_data["data"]["references"]
+                )
+                extracted_references_dict = extract_references_from_list(
+                    raw_refs_to_extract["values"], journal_kb_data=journal_kb_dict
+                )
+
+                mapped_references = []
+                for i, reference in enumerate(
+                    extracted_references_dict["extracted_references"]
+                ):
+                    mapped_references.extend(
+                        map_refextract_reference_to_schema(
+                            reference, source=raw_refs_to_extract["sources"][i]
+                        )
+                    )
+
+                extracted_references = dedupe_list(mapped_references)
+
+                logger.info(
+                    "Extracted %d references from raw refs.", len(extracted_references)
+                )
+
+                response = inspire_http_hook.call_api(
+                    endpoint="api/matcher/linked_references/",
+                    method="POST",
+                    json={"references": extracted_references + references},
+                )
+                response.raise_for_status()
+
+                workflow_data["data"]["references"] = response.json().get(
+                    "references", []
+                )
+
+                write_object(
+                    s3_hook,
+                    workflow_data,
+                    bucket_name,
+                    key=workflow_id,
+                    overwrite=True,
+                )
+
+                return
+
+            matched_pdf_references = []
+
+            key = workflows.get_document_key_in_workflow(workflow_data)
+            if not key:
+                logger.info("No document found for reference extraction.")
+                return
+
+            with TemporaryDirectory(prefix="refextract") as tmp_dir:
+                document_path = s3_hook.download_file(
+                    f"{context['params']['workflow_id']}-documents/{key}",
+                    bucket_name,
+                    tmp_dir,
+                )
+                pdf_references = dedupe_list(
+                    extract_references_from_pdf(
+                        document_path, source, {"journals": journal_kb_dict}
+                    )
+                )
+
+                response = inspire_http_hook.call_api(
+                    endpoint="api/matcher/linked_references/",
+                    method="POST",
+                    json={"references": pdf_references},
+                )
+                response.raise_for_status()
+
+                matched_pdf_references = response.json().get("references", [])
+
+            # TODO:
+            # Add text reference extraction when we have submissions
+            # add a field similar to extra_data.formdata.references exists
+
+            if not matched_pdf_references:
+                logger.info("No references extracted.")
+                return
+
+            logger.info(
+                "Extracted %d references from PDF.", len(matched_pdf_references)
+            )
+            workflow_data["data"]["references"] = matched_pdf_references
+
+            write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                key=workflow_id,
                 overwrite=True,
             )
 
@@ -730,6 +855,7 @@ def hep_create_dag():
             >> arxiv_author_list(arxiv_package_download_task)
             >> download_documents_task
             >> normalize_journal_titles()
+            >> refextract()
             >> count_reference_coreness()
             >> extract_journal_info()
             >> populate_journal_coverage()
