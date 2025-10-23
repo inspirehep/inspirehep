@@ -1,0 +1,26 @@
+{
+    "_collections": [
+        "Literature"
+    ],
+    "control_number": 1675004,
+    "core": false,
+    "dois": [
+      {
+        "value": "10.1007/JHEP01(2016)006",
+        "source": "submitter"
+      }
+    ],
+    "self": {
+      "$ref": "https://inspirehep.net/api/literature/1675004"
+    },
+    "titles": [
+      {
+        "title": "The testing of cds tasks",
+        "source": "submitter"
+      }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/hep.json",
+    "document_type": [
+        "article"
+    ]
+  }

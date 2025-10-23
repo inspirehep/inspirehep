@@ -1,7 +1,8 @@
 import datetime
 import logging
 
-from airflow.decorators import dag, task, task_group
+from airflow.decorators import dag, task
+from airflow.exceptions import AirflowException
 from airflow.macros import ds_add
 from airflow.sdk import Param
 from hooks.generic_http_hook import GenericHttpHook
@@ -10,6 +11,7 @@ from hooks.inspirehep.inspire_http_record_management_hook import (
 )
 from include.utils.alerts import FailedDagNotifier
 from include.utils.cds import retrieve_and_validate_record, update_record
+from inspire_schemas.builders import LiteratureBuilder
 from inspire_utils.record import get_value
 
 logger = logging.getLogger(__name__)
@@ -27,8 +29,6 @@ logger = logging.getLogger(__name__)
 )
 def cds_harvest_dag():
     """Defines the DAG for the CDS harvest workflow."""
-    generic_http_hook = GenericHttpHook(http_conn_id="cds_connection")
-    inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
 
     @task(task_id="get_cds_data")
     def get_cds_data(**context):
@@ -36,13 +36,16 @@ def cds_harvest_dag():
 
         Returns: data from cds
         """
+        generic_http_hook = GenericHttpHook(http_conn_id="cds_connection")
+        inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
+
         since = context["params"]["since"] or ds_add(context["ds"], -1)
         logger.info(f"Harvesting CDS data since {since}")
         cds_response = generic_http_hook.call_api(
             endpoint="/api/inspire2cdsids", method="GET", params={"since": since}
         )
         cds_response.raise_for_status()
-        results = []
+        eligible_records = []
         hits = cds_response.json().get("hits", [])
         logger.info(f"CDS response: {len(hits)}")
         for cds_record in hits:
@@ -73,37 +76,38 @@ def cds_harvest_dag():
                 schema="CDS",
             )
             if record:
-                results.append(record)
-        logger.info(f"{len(results)} CDS records eligible for update.")
-        return results
+                eligible_records.append(record)
+        logger.info(f"Total records collected for this range: {len(eligible_records)}")
 
-    @task_group
-    def process_cds_response(cds_record):
-        @task.virtualenv(
-            requirements=["inspire-schemas==61.6.26"],
-            system_site_packages=False,
-            venv_cache_path="/opt/airflow/venvs",
-        )
-        def build_record(payload):
-            from inspire_schemas.builders import LiteratureBuilder
+        failed = []
+        for payload in eligible_records:
+            cds_identifier = payload["cds_id"]
+            try:
+                original_record = payload["original_record"]
+                builder = LiteratureBuilder(record=original_record["metadata"])
+                builder.add_external_system_identifier(cds_identifier, "CDS")
 
-            original_record = payload["original_record"]
-            revision = original_record.get("revision_id", 0)
+                payload_update = {
+                    "revision": original_record.get("revision_id", 0),
+                    "updated_record": dict(builder.record),
+                }
+                update_record(inspire_http_record_management_hook, payload_update)
+            except Exception as e:
+                logger.error(
+                    f"Failed to update record {original_record['control_number']} "
+                    f"for CDS ID {cds_identifier}: {e}"
+                )
+                failed.append(
+                    {
+                        "inspire_record": original_record["control_number"],
+                        "cds_id": cds_identifier,
+                    }
+                )
 
-            builder = LiteratureBuilder(record=original_record["metadata"])
-            builder.add_external_system_identifier(payload["cds_id"], "CDS")
+        if failed:
+            raise AirflowException(f"The following records failed: {failed}")
 
-            return {"revision": revision, "updated_record": dict(builder.record)}
-
-        @task(task_id="update_inspire_record")
-        def update_inspire_record(payload):
-            return update_record(inspire_http_record_management_hook, payload)
-
-        built = build_record(cds_record)
-        update_inspire_record(built)
-
-    hits = get_cds_data()
-    process_cds_response.expand(cds_record=hits)
+    get_cds_data()
 
 
 cds_harvest_dag()
