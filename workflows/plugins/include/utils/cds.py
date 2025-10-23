@@ -100,8 +100,7 @@ def update_record(inspire_http_record_management_hook, payload):
     control_number = updated_record["control_number"]
     revision_id = payload["revision"]
     logger.info(
-        f"Updating record with {payload['updated_record']} "
-        f"and with revision ID {revision_id}"
+        f"Updating record {control_number} " f"and with revision ID {revision_id}"
     )
     response = inspire_http_record_management_hook.update_record(
         data=updated_record,

@@ -85,6 +85,7 @@ def cds_rdm_harvest_dag():
         generic_http_hook = GenericHttpHook(http_conn_id="cds_rdm_connection")
         since = context["params"].get("since") or ds_add(context["ds"], -1)
         until = context["params"].get("until") or context["ds"]
+        logger.info(f"Harvesting CDS RDM records updated from {since} to {until}")
         params = {
             "q": f"updated:[{since} TO {until}]",
             "page": 1,
