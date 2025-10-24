@@ -12,6 +12,7 @@ from hooks.inspirehep.inspire_http_record_management_hook import (
 )
 from include.utils import workflows
 from include.utils.alerts import FailedDagNotifier
+from inspire_schemas.parsers.hepdata import HEPDataParser
 
 logger = logging.getLogger(__name__)
 
@@ -101,11 +102,7 @@ def data_harvest_dag():
 
             return record
 
-        @task.virtualenv(
-            requirements=["inspire-schemas==61.6.26"],
-            system_site_packages=False,
-            venv_cache_path="/opt/airflow/venvs",
-        )
+        @task
         def build_record(data_schema, inspire_url, payload, **context):
             """Build the record from the payload.
 
@@ -114,8 +111,6 @@ def data_harvest_dag():
 
             Returns: dict: The built record.
             """
-            from inspire_schemas.parsers.hepdata import HEPDataParser
-
             parser = HEPDataParser(payload, inspire_url)
             data = parser.parse()
             data["$schema"] = data_schema
