@@ -412,8 +412,9 @@ $ docker compose exec hep-web inspirehep importer demo-records
 ```
 
 #### Bumping airflow
-
-Bumping airflow is generally easy.
-- workflows/Dockerfile.local - update the airflow version (e.g. 3.0.3 -> 3.0.5)
-- workflows/Dockerfile - update the airflow version (e.g. 3.0.3 -> 3.0.5)
+Follow the instructions [linked here](https://confluence.cern.ch/display/RCSSIS/Update+Airflow+Base+Image+%28with+classifier+model%29+for+INSPIRE)
+to update the base image version of airflow (e.g. 3.0.3 -> 3.0.5).
+After changing the base image versions change the following files:
+- workflows/Dockerfile.local - update the airflow base version (e.g. 1.0.0 -> 1.0.1)
+- workflows/Dockerfile - update the airflow version (e.g. 1.0.0 -> 1.0.1)
 - requirements.txt - update the airflow version (e.g. 3.0.3 -> 3.0.5) and the constraints
