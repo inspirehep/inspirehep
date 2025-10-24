@@ -612,16 +612,60 @@ def hep_create_dag():
                         tarball_key,
                         arxiv_id,
                     )
+                    workflows.delete_empty_key(workflow, "figures")
+
+                    write_object(
+                        s3_hook,
+                        workflow,
+                        bucket_name,
+                        context["params"]["workflow_id"],
+                        overwrite=True,
+                    )
                     return
 
+                if "figures" in workflow["data"]:
+                    del workflow["data"]["figures"]
+
+                s3_host = s3_hook.conn.meta.endpoint_url
+
+                lb = LiteratureBuilder(source="arxiv", record=workflow["data"])
                 logger.info("Processing plots. Number of plots: %s", len(plots))
                 plot_keys = []
-                for plot in plots:
+                for index, plot in enumerate(plots):
                     plot_name = os.path.basename(plot.get("url"))
-                    key = f"{context['params']['workflow_id']}-plots/{plot_name}"
-                    s3_hook.load_file(plot.get("url"), key, bucket_name, replace=True)
+
+                    key = (
+                        f"{context['params']['workflow_id']}-plots/{index}_{plot_name}"
+                    )
+                    s3_hook.load_file(
+                        plot.get("url"),
+                        key,
+                        bucket_name,
+                        replace=True,
+                        acl_policy="public-read",
+                    )
                     plot_keys.append(key)
-                return plot_keys
+
+                    lb.add_figure(
+                        key=key,
+                        caption="".join(plot.get("captions", [])),
+                        label=plot.get("label"),
+                        material="preprint",
+                        url=f"{s3_host}/{bucket_name}/{key}".format(
+                            bucket=bucket_name,
+                            key=key,
+                        ),
+                    )
+
+            workflow["data"] = lb.record
+            workflows.delete_empty_key(workflow, "figures")
+            write_object(
+                s3_hook,
+                workflow,
+                bucket_name,
+                context["params"]["workflow_id"],
+                overwrite=True,
+            )
 
         @task
         def arxiv_author_list(tarball_key, **context):
