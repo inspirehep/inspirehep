@@ -1,7 +1,10 @@
+from urllib.parse import urlparse
+
 import pytest
 from airflow.models import DagBag
 from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+from botocore.exceptions import ClientError
 from include.utils.s3 import read_object, write_object
 from inspire_schemas.api import load_schema, validate
 
@@ -512,13 +515,274 @@ class Test_HEPCreateDAG:
             bucket_name,
             replace=True,
         )
-        task = self.dag.get_task("preprocessing.arxiv_plot_extract")
 
-        results = task.python_callable(
-            params=self.context["params"], tarball_key=tarball_key
+        workflow_data = {"data": {}}
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
         )
-        assert len(results) == 20
-        assert all(plot.endswith(".png") for plot in results)
+        task_test(
+            "hep_create_dag",
+            "preprocessing.arxiv_plot_extract",
+            params={"tarball_key": tarball_key},
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        plots = workflow_result["data"]["figures"]
+        assert len(plots) == 20
+        for plot in plots:
+            assert plot["key"].endswith(".png")
+
+    def test_arxiv_plot_extract_populates_files_with_plots(self, datadir):
+        schema = load_schema("hep")
+        subschema = schema["properties"]["arxiv_eprints"]
+
+        tarball_key = f"{self.context['params']['workflow_id']}-test"
+        s3_hook.load_file(
+            (datadir / "0804.1873.tar.gz"),
+            tarball_key,
+            bucket_name,
+            replace=True,
+        )
+
+        workflow_data = {
+            "data": {
+                "arxiv_eprints": [
+                    {
+                        "categories": [
+                            "nucl-ex",
+                        ],
+                        "value": "0804.1873",
+                    },
+                ],
+            }
+        }
+        assert validate(workflow_data["data"]["arxiv_eprints"], subschema) is None
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "preprocessing.arxiv_plot_extract",
+            params={"tarball_key": tarball_key},
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        expected = [
+            {
+                "url": "http://s3:9000/data-store/00000000-0000-0000-0000-000000001111-plots/0_figure1.png",
+                "source": "arxiv",
+                "material": "preprint",
+                "key": "00000000-0000-0000-0000-000000001111-plots/0_figure1.png",
+                "caption": "Difference (in MeV) between the theoretical and "
+                "experimental masses for the 2027 selected nuclei"
+                " as a function of the mass number.",
+            }
+        ]
+
+        assert (
+            urlparse(expected[0]["url"]).path
+            == urlparse(workflow_result["data"]["figures"][0]["url"]).path
+        )
+        for key in ["source", "material", "key", "caption"]:
+            assert expected[0][key] == workflow_result["data"]["figures"][0][key]
+
+    def test_arxiv_plot_extract_is_safe_to_rerun(self, datadir):
+        schema = load_schema("hep")
+        subschema = schema["properties"]["arxiv_eprints"]
+
+        tarball_key = f"{self.context['params']['workflow_id']}-test"
+        s3_hook.load_file(
+            (datadir / "0804.1873.tar.gz"),
+            tarball_key,
+            bucket_name,
+            replace=True,
+        )
+
+        workflow_data = {
+            "data": {
+                "arxiv_eprints": [
+                    {
+                        "categories": [
+                            "nucl-ex",
+                        ],
+                        "value": "0804.1873",
+                    },
+                ],
+            }
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+        assert validate(workflow_data["data"]["arxiv_eprints"], subschema) is None
+
+        for _ in range(2):
+            assert (
+                task_test(
+                    "hep_create_dag",
+                    "preprocessing.arxiv_plot_extract",
+                    params={"tarball_key": tarball_key},
+                    dag_params=self.context["params"],
+                )
+                is None
+            )
+
+            workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+            expected_figures = [
+                {
+                    "url": "http://s3:9000/data-store/00000000-0000-0000-0000-000000001111-plots/0_figure1.png",
+                    "source": "arxiv",
+                    "material": "preprint",
+                    "key": "00000000-0000-0000-0000-000000001111-plots/0_figure1.png",
+                    "caption": "Difference (in MeV) between the theoretical and"
+                    " experimental masses for the 2027 selected nuclei"
+                    " as a function of the mass number.",
+                }
+            ]
+
+            assert (
+                urlparse(expected_figures[0]["url"]).path
+                == urlparse(workflow_result["data"]["figures"][0]["url"]).path
+            )
+            for key in ["source", "material", "key", "caption"]:
+                assert (
+                    expected_figures[0][key]
+                    == workflow_result["data"]["figures"][0][key]
+                )
+
+    def test_arxiv_plot_extract_handles_duplicate_plot_names(self, datadir):
+        schema = load_schema("hep")
+        subschema = schema["properties"]["arxiv_eprints"]
+
+        tarball_key = f"{self.context['params']['workflow_id']}-test"
+        s3_hook.load_file(
+            (datadir / "1711.10662.tar.gz"),
+            tarball_key,
+            bucket_name,
+            replace=True,
+        )
+
+        workflow_data = {
+            "data": {
+                "arxiv_eprints": [
+                    {
+                        "categories": [
+                            "cs.CV",
+                        ],
+                        "value": "1711.10662",
+                    },
+                ]
+            }
+        }
+
+        assert validate(workflow_data["data"]["arxiv_eprints"], subschema) is None
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+        task_test(
+            "hep_create_dag",
+            "preprocessing.arxiv_plot_extract",
+            params={"tarball_key": tarball_key},
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+        assert len(workflow_result["data"]["figures"]) == 66
+
+    def test_arxiv_plot_extract_logs_when_tarball_is_invalid(self, datadir):
+        tarball_key = f"{self.context['params']['workflow_id']}-test"
+        s3_hook.load_file(
+            (datadir / "1612.00626"),
+            tarball_key,
+            bucket_name,
+            replace=True,
+        )
+
+        workflow_data = {
+            "data": {
+                "arxiv_eprints": [
+                    {
+                        "categories": [
+                            "physics.ins-det",
+                        ],
+                        "value": "no.file",
+                    },
+                ],
+                "figures": [],
+            }
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "preprocessing.arxiv_plot_extract",
+            params={"tarball_key": tarball_key},
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert "figures" not in workflow_result["data"]
+
+    def test_arxiv_plot_extract_no_file(self):
+        tarball_key = f"{self.context['params']['workflow_id']}-no-file"
+
+        workflow_data = {
+            "data": {
+                "arxiv_eprints": [
+                    {
+                        "categories": [
+                            "physics.ins-det",
+                        ],
+                        "value": "no.file",
+                    },
+                ],
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        with pytest.raises(ClientError, match="Not Found"):
+            task_test(
+                "hep_create_dag",
+                "preprocessing.arxiv_plot_extract",
+                params={"tarball_key": tarball_key},
+                dag_params=self.context["params"],
+            )
 
     @pytest.mark.vcr
     def test_download_documents(self):
