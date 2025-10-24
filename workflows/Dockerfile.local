@@ -1,4 +1,4 @@
-FROM registry.cern.ch/cern-sis/base-images/apache/airflow:3.0.6-python3.11
+FROM registry.cern.ch/cern-sis/inspire/airflow-base:v1.0.0
 
 USER root
 RUN apt-get update -y && apt-get install -y imagemagick ghostscript poppler-utils file
