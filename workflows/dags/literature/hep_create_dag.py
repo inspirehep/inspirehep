@@ -29,12 +29,15 @@ from include.inspire.journal_title_normalization import (
 from include.utils import workflows
 from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.constants import JOURNALS_PID_TYPE
+from include.utils.grobid_authors_parser import GrobidAuthors
 from include.utils.refextract_utils import (
     extract_references_from_pdf,
     map_refextract_reference_to_schema,
     raw_refs_to_list,
 )
 from include.utils.s3 import read_object, write_object
+from inspire_json_merger.api import merge
+from inspire_json_merger.config import GrobidOnArxivAuthorsOperations
 from inspire_schemas.builders import LiteratureBuilder
 from inspire_schemas.parsers.author_xml import AuthorXMLParser
 from inspire_schemas.readers import LiteratureReader
@@ -211,6 +214,85 @@ def hep_create_dag():
                 workflow_data,
                 bucket_name,
                 s3_workflow_id,
+                overwrite=True,
+            )
+
+        @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+        def is_suitable_for_pdf_authors_extraction(has_author_xml, **context):
+            s3_workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
+            """Check if article is arXiv/PoS and if authors.xml were attached"""
+            acquisition_source = get_value(
+                workflow_data, "data.acquisition_source.source", ""
+            ).lower()
+            if acquisition_source in ["arxiv", "pos"] and not has_author_xml:
+                return "preprocessing.extract_authors_from_pdf"
+            return "preprocessing.normalize_journal_titles"
+
+        @task
+        def extract_authors_from_pdf(**context):
+            workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, workflow_id)
+
+            # If there are more than specified number of authors
+            # then don't run Grobid authors extraction
+            if len(get_value(workflow_data, "data.authors", [])) > int(
+                Variable.get("WORKFLOWS_MAX_AUTHORS_COUNT_FOR_GROBID_EXTRACTION", 1000)
+            ):
+                return
+            grobid_response = workflows.post_pdf_to_grobid(
+                workflow_id, workflow_data, s3_hook, bucket_name
+            )
+            if not grobid_response:
+                return
+
+            authors_and_affiliations = GrobidAuthors(grobid_response.text)
+            data = authors_and_affiliations.parse_all()
+            grobid_authors = get_value(data, "author")
+            merged_authors, merge_conflicts = merge(
+                {},
+                {"authors": get_value(workflow_data, "data.authors", [])},
+                {"authors": grobid_authors},
+                configuration=GrobidOnArxivAuthorsOperations,
+            )
+            if (
+                not get_value(workflow_data, "data.authors", [])
+                and len(authors_and_affiliations) > 0
+            ):
+                logger.info(
+                    "Using %s GROBID authors",
+                    len(authors_and_affiliations),
+                )
+                workflow_data["data"]["authors"] = grobid_authors
+
+            elif not merge_conflicts and len(merged_authors["authors"]) > 0:
+                logger.info(
+                    "Using %s merged GROBID authors",
+                    len(merged_authors),
+                )
+                workflow_data["data"]["authors"] = merged_authors["authors"]
+
+            else:
+                metadata_authors_count = (
+                    len(workflow_data["data"]["authors"])
+                    if "authors" in workflow_data["data"]
+                    else 0
+                )
+                grobid_authors_count = (
+                    len(authors_and_affiliations) if authors_and_affiliations else 0
+                )
+                logger.warning(
+                    "Ignoring grobid authors. Expected authors count: %s."
+                    " Authors exctracted from grobid %s.",
+                    metadata_authors_count,
+                    grobid_authors_count,
+                )
+
+            write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                workflow_id,
                 overwrite=True,
             )
 
@@ -764,6 +846,8 @@ def hep_create_dag():
                 s3_hook, bucket_name, context["params"]["workflow_id"]
             )
 
+            has_author_xml = False
+
             with TemporaryDirectory(prefix="plot_extract") as scratch_space:
                 try:
                     tarball_file = s3_hook.download_file(
@@ -793,6 +877,7 @@ def hep_create_dag():
                     if match:
                         logger.info("Found a match for author extraction")
                         extracted_authors.extend(AuthorXMLParser(xml_content).parse())
+                        has_author_xml = True
 
                 for author in extracted_authors:
                     author["full_name"] = LatexNodes2Text().latex_to_text(
@@ -807,6 +892,7 @@ def hep_create_dag():
                     context["params"]["workflow_id"],
                     overwrite=True,
                 )
+            return has_author_xml
 
         @task
         def guess_coreness(**context):
@@ -841,7 +927,10 @@ def hep_create_dag():
 
         populate_arxiv_document_task = populate_arxiv_document()
         arxiv_package_download_task = arxiv_package_download()
+        arxiv_author_list_task = arxiv_author_list(arxiv_package_download_task)
         download_documents_task = download_documents()
+        normalize_journal_titles_task = normalize_journal_titles()
+        extract_authors_from_pdf_task = extract_authors_from_pdf()
 
         check_is_arxiv_paper_task >> [
             download_documents_task,
@@ -852,9 +941,19 @@ def hep_create_dag():
             populate_arxiv_document_task
             >> arxiv_package_download_task
             >> arxiv_plot_extract(arxiv_package_download_task)
-            >> arxiv_author_list(arxiv_package_download_task)
+            >> arxiv_author_list_task
             >> download_documents_task
-            >> normalize_journal_titles()
+            >> is_suitable_for_pdf_authors_extraction(
+                has_author_xml=arxiv_author_list_task
+            )
+            >> [
+                normalize_journal_titles_task,
+                extract_authors_from_pdf_task,
+            ]
+        )
+        (
+            extract_authors_from_pdf_task
+            >> normalize_journal_titles_task
             >> refextract()
             >> count_reference_coreness()
             >> extract_journal_info()

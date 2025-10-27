@@ -1198,6 +1198,192 @@ class Test_HEPCreateDAG:
 
         assert result["classifier_results"]["fulltext_used"] is True
 
+    @pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path", "query"])
+    def test_extract_authors_from_pdf_when_no_authors_in_metadata(self, datadir):
+        pdf_file = "1802.08709.pdf"
+
+        workflow_data = {
+            "data": {
+                "documents": [
+                    {"key": pdf_file},
+                ],
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        s3_hook.load_file(
+            (datadir / pdf_file),
+            f"{self.workflow_id}-documents/{pdf_file}",
+            bucket_name,
+            replace=True,
+        )
+
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.extract_authors_from_pdf",
+            dag_params={"workflow_id": self.workflow_id},
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert len(workflow_result["data"]["authors"]) == 169
+
+    @pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path", "query"])
+    def test_extract_authors_from_pdf_number_of_authors_is_same_after_merge_with_grobid(
+        self, datadir
+    ):
+        pdf_file = "1802.08709.pdf"
+
+        workflow_data = {
+            "data": {
+                "authors": [{"full_name": "author 1"}],
+                "documents": [
+                    {"key": pdf_file},
+                ],
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        s3_hook.load_file(
+            (datadir / pdf_file),
+            f"{self.workflow_id}-documents/{pdf_file}",
+            bucket_name,
+            replace=True,
+        )
+
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.extract_authors_from_pdf",
+            dag_params={"workflow_id": self.workflow_id},
+        )
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+        assert len(workflow_result["data"]["authors"]) == 1
+
+    @pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path", "query"])
+    def test_extract_authors_from_pdf_no_authors_in_metadata_and_no_authors_from_grobid(
+        self, datadir
+    ):
+        pdf_file = "no_authors.pdf"
+
+        workflow_data = {
+            "data": {
+                "documents": [
+                    {"key": pdf_file},
+                ],
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        s3_hook.load_file(
+            (datadir / pdf_file),
+            f"{self.workflow_id}-documents/{pdf_file}",
+            bucket_name,
+            replace=True,
+        )
+
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.extract_authors_from_pdf",
+            dag_params={"workflow_id": self.workflow_id},
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert "authors" not in workflow_result["data"]
+
+    @pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path", "query"])
+    def test_extract_authors_from_pdf_merges_grobid_affiliations(self, datadir):
+        pdf_file = "1612.06414v1.pdf"
+
+        workflow_data = {
+            "data": {
+                "authors": [
+                    {
+                        "raw_affiliations": [{"value": "I.N.F.N"}],
+                        "full_name": "Moskovic, Micha",
+                    },
+                    {
+                        "raw_affiliations": [{"value": "ICTP"}],
+                        "full_name": "Assi, Ahmed Zein",
+                        "emails": ["zeinassi@cern.ch"],
+                    },
+                ],
+                "documents": [
+                    {"key": pdf_file},
+                ],
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        s3_hook.load_file(
+            (datadir / pdf_file),
+            f"{self.workflow_id}-documents/{pdf_file}",
+            bucket_name,
+            replace=True,
+        )
+
+        expected_authors = [
+            {
+                "emails": ["moskovic@to.infn.it"],
+                "full_name": "Moskovic, Micha",
+                "raw_affiliations": [
+                    {
+                        "value": "Università di Torino, Dipartimento di Fisica and "
+                        "I.N.F.N. -sezione di Torino, Via P. Giuria 1,"
+                        " I-10125 Torino, Italy"
+                    }
+                ],
+            },
+            {
+                "emails": ["zeinassi@cern.ch"],
+                "full_name": "Assi, Ahmed Zein",
+                "raw_affiliations": [
+                    {
+                        "value": "High Energy Section -ICTP, Strada Costiera,"
+                        " 11-34014 Trieste, Italy"
+                    }
+                ],
+            },
+        ]
+
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.extract_authors_from_pdf",
+            dag_params={"workflow_id": self.workflow_id},
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert workflow_result["data"]["authors"] == expected_authors
+
 
 class TestNormalizeJournalTitles:
     """Test class for normalize_journal_titles function logic using Airflow task."""
