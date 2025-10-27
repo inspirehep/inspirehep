@@ -99,16 +99,6 @@
     "schema": "",
     "extra": {"endpoint_url":"http://s3:9000"}
   },
-  "classifier_connection": {
-    "conn_type": "http",
-    "description": "",
-    "login": "",
-    "password": null,
-    "host": "http://classifier:5000",
-    "port": null,
-    "schema": "",
-    "extra": ""
-  },
   "ieee_ftp": {
     "conn_type": "ftp",
     "description": "ieee_harvest",
