@@ -3,7 +3,7 @@ inspire-utils~=3.0.66
 idutils
 Sickle==0.7.0
 plotextractor==1.0.21
-invenio-classifier==1.3.7
+invenio-classifier==1.3.12
 inspire-schemas==61.6.26
 refextract==1.1.6
 inspire-json-merger==11.0.44
