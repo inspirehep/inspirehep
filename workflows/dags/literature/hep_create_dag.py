@@ -36,6 +36,7 @@ from include.utils.refextract_utils import (
     raw_refs_to_list,
 )
 from include.utils.s3 import read_object, write_object
+from inspire_classifier import Classifier
 from inspire_json_merger.api import merge
 from inspire_json_merger.config import GrobidOnArxivAuthorsOperations
 from inspire_schemas.builders import LiteratureBuilder
@@ -93,7 +94,6 @@ def hep_create_dag():
     Initialize a DAG for hep create workflow.
     """
 
-    classifier_http_hook = GenericHttpHook(http_conn_id="classifier_connection")
     inspire_http_hook = InspireHttpHook()
     inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
     workflow_management_hook = WorkflowManagementHook(HEP)
@@ -899,20 +899,15 @@ def hep_create_dag():
             workflow_data = read_object(
                 s3_hook, bucket_name, context["params"]["workflow_id"]
             )
-            payload = {
-                "title": get_value(workflow_data, "titles.title[0]", ""),
-                "abstract": get_value(workflow_data, "abstracts.value[0]", ""),
-            }
-
-            response = classifier_http_hook.call_api(
-                endpoint="/api/predict/coreness",
-                method="POST",
-                json=payload,
-            )
-            response.raise_for_status()
-            results = response.json()
-
-            return calculate_coreness(results)
+            title = get_value(workflow_data, "titles.title[0]", "")
+            abstract = get_value(workflow_data, "abstracts.value[0]", "")
+            try:
+                clf = Classifier(model_path="/opt/classifier_model.h5")
+                results = clf.predict_coreness(title, abstract)
+                return calculate_coreness(results)
+            except Exception as e:
+                logger.error(f"Error occurred while predicting coreness: {e}")
+                return {"error": str(e)}
 
         @task(trigger_rule=TriggerRule.ONE_DONE)
         def normalize_collaborations(**context):

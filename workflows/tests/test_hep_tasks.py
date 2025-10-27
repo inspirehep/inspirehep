@@ -1384,6 +1384,41 @@ class Test_HEPCreateDAG:
 
         assert workflow_result["data"]["authors"] == expected_authors
 
+    def test_guess_coreness(self):
+        workflow_data = {
+            "titles": [
+                {"title": "Study of Higgs boson production in particle physics"}
+            ],
+            "abstracts": [
+                {
+                    "value": (
+                        "We present a comprehensive study of Higgs boson"
+                        " production mechanisms in high-energy particle collisions."
+                    )
+                }
+            ],
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        result = task_test(
+            "hep_create_dag",
+            "preprocessing.guess_coreness",
+            dag_params=self.context["params"],
+        )
+        print(result)
+        assert isinstance(result, dict)
+        assert "scores" in result
+        assert "decision" in result
+        assert result["decision"] in ["CORE", "Non-CORE", "Rejected"]
+        assert "max_score" in result
+        assert "relevance_score" in result
+
 
 class TestNormalizeJournalTitles:
     """Test class for normalize_journal_titles function logic using Airflow task."""
