@@ -1,5 +1,7 @@
 import logging
+from tempfile import TemporaryDirectory
 
+from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
@@ -94,3 +96,30 @@ def is_pdf_link(response):
     found = next(response.iter_content(10000), b"").find(b"%PDF")
 
     return found >= 0
+
+
+def post_pdf_to_grobid(workflow_id, workflow, s3_hook, bucket_name):
+    s3_key = get_document_key_in_workflow(workflow)
+    if not s3_key:
+        return
+
+    with TemporaryDirectory(prefix="grobid") as tmp_dir:
+        document_path = s3_hook.download_file(
+            f"{workflow_id}-documents/{s3_key}",
+            bucket_name,
+            tmp_dir,
+        )
+
+        with open(document_path, "rb") as document_file:
+            document = document_file.read()
+        files = {"input": document}
+        files.update({"includeRawAffiliations": "1", "consolidateHeader": "1"})
+
+        grobid_http_hook = GenericHttpHook(
+            http_conn_id="grobid_connection",
+            method="POST",
+            headers={"Accept": "application/xml"},
+        )
+        response = grobid_http_hook.call_api("api/processHeaderDocument", files=files)
+
+    return response

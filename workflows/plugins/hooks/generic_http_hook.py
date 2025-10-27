@@ -35,10 +35,10 @@ class GenericHttpHook(HttpHook):
         self,
         endpoint: str,
         method: str = None,
-        json: dict = None,
         data: dict = None,
         headers: dict = None,
         extra_options: dict = None,
+        **request_kwargs,
     ):
         self.method = method or self._method
         headers = headers or self.headers
@@ -48,7 +48,7 @@ class GenericHttpHook(HttpHook):
             data=data,
             headers=headers,
             extra_options=extra_options,
-            json=json,
+            **request_kwargs,
         )
 
     def call_api(
@@ -59,6 +59,7 @@ class GenericHttpHook(HttpHook):
         params: dict = None,
         headers: dict = None,
         extra_options: dict = None,
+        **kwargs,
     ) -> Response:
         return self.run_with_advanced_retry(
             _retry_args=self.tenacity_retry_kwargs,
@@ -68,6 +69,7 @@ class GenericHttpHook(HttpHook):
             data=params,
             method=method,
             extra_options=extra_options,
+            **kwargs,
         )
 
     def get_url(self) -> str:
