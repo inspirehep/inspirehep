@@ -5,28 +5,162 @@
     "fields": {
       "workflow_type": "HEP_CREATE",
       "data": {
+        "urls": [
+          {
+            "description": "Fermilab Library Server",
+            "value": "https://lss.fnal.gov/archive/2025/pub/fermilab-pub-25-0393-ppd.pdf"
+          }
+        ],
+        "languages": ["en"],
+        "dois": [
+          {
+            "value": "10.1016/j.physletb.2025.139959",
+            "source": "Elsevier B.V.",
+            "material": "publication"
+          }
+        ],
         "titles": [
           {
-            "title": "A New Discovery in High Energy Physics"
+            "title": "Chebyshev Moment Regularization (CMR): Condition-Number Control with Moment Shaping",
+            "source": "arXiv"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "authors": [
+          {
+            "uuid": "1661c971-41e0-4361-8770-5ab2baae543e",
+            "record": {
+              "$ref": "https://inspirehep.net/api/authors/2742792"
+            },
+            "full_name": "Song, Hanlin",
+            "affiliations": [
+              {
+                "value": "Peking U.",
+                "record": {
+                  "$ref": "https://inspirehep.net/api/institutions/903603"
+                }
+              }
+            ],
+            "curated_relation": true,
+            "raw_affiliations": [
+              {
+                "value": "School of Physics, Peking University, Beijing, 100871, China",
+                "source": "Elsevier B.V."
+              }
+            ]
+          },
+          {
+            "uuid": "e1c43d40-0cec-4f7e-bf06-2156cb2a6a12",
+            "emails": ["mabq@pku.edu.cn"],
+            "record": {
+              "$ref": "https://inspirehep.net/api/authors/999448"
+            },
+            "full_name": "Ma, Bo-Qiang",
+            "affiliations": [
+              {
+                "value": "Peking U.",
+                "record": {
+                  "$ref": "https://inspirehep.net/api/institutions/903603"
+                }
+              },
+              {
+                "value": "Zhengzhou U.",
+                "record": {
+                  "$ref": "https://inspirehep.net/api/institutions/904424"
+                }
+              }
+            ],
+            "raw_affiliations": [
+              {
+                "value": "School of Physics, Zhengzhou University, Zhengzhou, 450001, China",
+                "source": "Elsevier B.V."
+              },
+              {
+                "value": "School of Physics, Peking University, Beijing, 100871, China",
+                "source": "Elsevier B.V."
+              }
+            ]
+          }
+        ],
+        "curated": false,
+        "license": [
+          {
+            "url": "http://creativecommons.org/licenses/by/4.0/",
+            "license": "CC BY 4.0",
+            "material": "preprint"
+          }
+        ],
+        "citeable": true,
+        "abstracts": [
+          {
+            "value": "We introduce \\textbf{Chebyshev Moment Regularization (CMR)}, a simple, architecture-agnostic loss that directly optimizes layer spectra. CMR jointly controls spectral edges via a log-condition proxy and shapes the interior via Chebyshev moments, with a decoupled, capped mixing rule that preserves task gradients. We prove strictly monotone descent for the condition proxy, bounded moment gradients, and orthogonal invariance. In an adversarial ``$κ$-stress'' setting (MNIST, 15-layer MLP), \\emph{compared to vanilla training}, CMR reduces mean layer condition numbers by $\\sim\\!10^3$ (from $\\approx3.9\\!\\times\\!10^3$ to $\\approx3.4$ in 5 epochs), increases average gradient magnitude, and restores test accuracy ( $\\approx10\\%\\!\\to\\!\\approx86\\%$ ). These results support \\textbf{optimization-driven spectral preconditioning}: directly steering models toward well-conditioned regimes for stable, accurate learning.",
+            "source": "arXiv"
           }
         ],
         "_collections": ["Literature"],
+        "public_notes": [
+          {
+            "value": "15 pages",
+            "source": "arXiv"
+          }
+        ],
         "arxiv_eprints": [
           {
-            "value": "2507.26819",
-            "categories": ["cs.CV", "cs.AI", "cs.LG", "cs.RO"]
+            "value": "2510.21772",
+            "categories": ["cs.LG", "cs.NA", "math.NA"]
           }
         ],
         "document_type": ["article"],
-        "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+        "preprint_date": "2025-10-17",
+        "collaborations": [
+          {
+            "value": "BLFQ"
+          }
+        ],
+        "report_numbers": [
+          {
+            "value": "ADP-25-11/T1273",
+            "source": "arXiv"
+          }
+        ],
+        "number_of_pages": 15,
+        "publication_info": [
+          {
+            "year": 2025,
+            "artid": "139959",
+            "material": "publication",
+            "journal_title": "Phys.Lett.B",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1613966"
+            },
+            "journal_volume": "870",
+            "pubinfo_freetext": "Phys. Lett. B 870 (2025) 139959"
+          }
+        ],
         "acquisition_source": {
-          "email": "user@cern.ch",
-          "orcid": "0000-0000-0000-0000",
-          "method": "submitter",
-          "source": "submitter",
-          "datetime": "2024-11-18T11:34:19.809575",
-          "internal_uid": 50872
-        }
+          "method": "hepcrawl",
+          "source": "arXiv",
+          "datetime": "2025-10-28T02:00:33.403192",
+          "submission_number": "scheduled__2025-10-28T02:00:00+00:00"
+        },
+        "inspire_categories": [
+          {
+            "term": "Computing",
+            "source": "arxiv"
+          },
+          {
+            "term": "Math and Math Physics",
+            "source": "arxiv"
+          }
+        ],
+        "accelerator_experiments": [
+          {
+            "record": {
+              "$ref": "https://inspirehep.net/api/experiments/1711193"
+            },
+            "legacy_name": "CERN-LHC-FASER"
+          }
+        ]
       },
       "status": "running",
       "_created_at": "2024-11-25T13:49:53.009Z",

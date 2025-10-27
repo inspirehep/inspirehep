@@ -43,6 +43,13 @@ describe('LiteratureDetailPageContainer', () => {
             document_type: ['article'],
             preprint_date: '2025-10-14',
             curated: false,
+            urls: [
+              {
+                description: 'Fermilab Library Server',
+                value:
+                  'https://lss.fnal.gov/archive/2025/pub/fermilab-pub-25-0393-ppd.pdf',
+              },
+            ],
           },
           status: 'approval',
           tickets: [
@@ -86,6 +93,14 @@ describe('LiteratureDetailPageContainer', () => {
     expect(screen.getByText('Accept')).toBeInTheDocument();
     expect(screen.getByText('Accept + Curation')).toBeInTheDocument();
     expect(screen.getByText('Reject')).toBeInTheDocument();
+  });
+
+  it('renders the identifiers and links', () => {
+    renderComponent();
+    const linkHeader = screen.getByRole('heading', {
+      name: 'Identifiers & Links',
+    });
+    expect(linkHeader).toBeInTheDocument();
   });
 
   it('renders the Subject areas table with categories', () => {

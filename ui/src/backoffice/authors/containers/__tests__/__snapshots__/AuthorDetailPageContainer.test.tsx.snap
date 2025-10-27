@@ -191,33 +191,33 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                       <p
                         class="mb0"
                       >
-                        <b>
+                        <strong>
                           Preferred name:
-                        </b>
+                        </strong>
                          Johnny
                       </p>
                       <p
                         class="mb0"
                       >
-                        <b>
+                        <strong>
                           Native names:
-                        </b>
+                        </strong>
                          Name1; Name2
                       </p>
                       <p
                         class="mb0"
                       >
-                        <b>
+                        <strong>
                           Name variants:
-                        </b>
+                        </strong>
                          Name3; Name4
                       </p>
                       <p
                         class="mb0"
                       >
-                        <b>
+                        <strong>
                           Status:
-                        </b>
+                        </strong>
                          active
                       </p>
                       <p

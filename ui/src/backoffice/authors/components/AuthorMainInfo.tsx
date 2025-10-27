@@ -29,22 +29,22 @@ const AuthorMainInfo = ({ data }: AuthorMainInfoProps) => {
         <h2>{name}</h2>
         {preferredName && (
           <p className="mb0">
-            <b>Preferred name:</b> {preferredName}
+            <strong>Preferred name:</strong> {preferredName}
           </p>
         )}
         {nativeNames && (
           <p className="mb0">
-            <b>Native names:</b> {nativeNames.join('; ')}
+            <strong>Native names:</strong> {nativeNames.join('; ')}
           </p>
         )}
         {nameVariants && (
           <p className="mb0">
-            <b>Name variants:</b> {nameVariants.join('; ')}
+            <strong>Name variants:</strong> {nameVariants.join('; ')}
           </p>
         )}
         {status && (
           <p className={classNames({ mb0: orcidIdExists })}>
-            <b>Status:</b> {status}
+            <strong>Status:</strong> {status}
           </p>
         )}
         {orcidIdExists && <Ids ids={orcidIds} noIcon />}

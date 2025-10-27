@@ -29,7 +29,6 @@ import UnclickableTag from '../../../common/components/UnclickableTag';
 import { formatDateTime, getDag, resolveDecision } from '../../utils/utils';
 import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
 import { isSuperUser } from '../../../common/authorization';
-import Abstract from '../../../literature/components/Abstract';
 import { columnsSubject } from './columnData';
 import { StatusBanner } from '../../common/components/Detail/StatusBanner';
 import { TicketsList } from '../../common/components/Detail/TicketsList';
@@ -37,6 +36,8 @@ import { LITERATURE_PID_TYPE } from '../../../common/constants';
 import CollapsableForm from '../../../submissions/common/components/CollapsableForm';
 import DeleteWorkflow from '../../common/components/DeleteWorkflow/DeleteWorkflow';
 import { getConfigFor } from '../../../common/config';
+import LiteratureMainInfo from '../components/LiteratureMainInfo';
+import Links from '../../common/components/Links/Links';
 
 type LiteratureDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
@@ -61,7 +62,6 @@ const LiteratureDetailPageContainer = ({
 
   const data = literature?.get('data');
   const title = data?.getIn(['titles', 0, 'title']);
-  const abstract = data?.getIn(['abstracts', 0]);
   const controlNumber = data?.get('control_number');
   const tickets =
     literature?.get('tickets')?.size !== 0 && literature?.get('tickets');
@@ -70,6 +70,8 @@ const LiteratureDetailPageContainer = ({
   const workflow_type = literature?.get('workflow_type');
   const inspireCategories = data?.get('inspire_categories')?.toJS();
   const rawDateTime = data?.getIn(['acquisition_source', 'datetime']);
+  const urls = data?.get('urls');
+  const ids = data?.get('ids');
 
   const formattedDateTime = formatDateTime(rawDateTime);
   const acquisitionSourceDateTime = formattedDateTime
@@ -82,6 +84,13 @@ const LiteratureDetailPageContainer = ({
 
   const DAGS_URL = getConfigFor('INSPIRE_WORKFLOWS_DAGS_URL');
   const DAG_FULL_URL = `${DAGS_URL}${getDag(workflow_type)}/runs/${id}`;
+
+  const OPEN_SECTIONS = [
+    (urls || ids) && 'links',
+    inspireCategories && 'subjectAreas',
+    status === 'error' && 'errors',
+    'delete',
+  ].filter(Boolean);
 
   const handleResolveAction = (value: string) => {
     dispatch(resolveAction(id, LITERATURE_PID_TYPE, 'resolve', { value }));
@@ -126,21 +135,30 @@ const LiteratureDetailPageContainer = ({
                 <StatusBanner status={status} />
                 <Row className="mv3" justify="center" gutter={35}>
                   <Col xs={24} lg={16}>
-                    <ContentBox fullHeight={false} className="md-pb3 mb3">
-                      <h2>{title}</h2>
-                      {abstract && <Abstract abstract={abstract} />}
-                    </ContentBox>
-                    <ContentBox fullHeight={false} className="md-pb3 mb3">
-                      <h3 className="mb3">Subject areas</h3>
-                      <Table
-                        columns={columnsSubject}
-                        dataSource={inspireCategories}
-                        pagination={false}
-                        size="small"
-                        rowKey={(record) => `${record?.term}+${Math.random()}`}
-                      />
-                    </ContentBox>
-                    <CollapsableForm>
+                    {data && <LiteratureMainInfo data={data} />}
+                    <CollapsableForm openSections={OPEN_SECTIONS}>
+                      {(urls || ids) && (
+                        <CollapsableForm.Section
+                          header="Identifiers & Links"
+                          key="links"
+                        >
+                          <Links urls={urls} ids={ids} />
+                        </CollapsableForm.Section>
+                      )}
+                      <CollapsableForm.Section
+                        header="Subject areas"
+                        key="subjectAreas"
+                      >
+                        <Table
+                          columns={columnsSubject}
+                          dataSource={inspireCategories}
+                          pagination={false}
+                          size="small"
+                          rowKey={(record) =>
+                            `${record?.term}+${Math.random()}`
+                          }
+                        />
+                      </CollapsableForm.Section>
                       {status === 'error' && (
                         <CollapsableForm.Section header="Errors" key="errors">
                           <p>
