@@ -84,6 +84,7 @@ def cds_harvest_dag():
             cds_identifier = payload["cds_id"]
             try:
                 original_record = payload["original_record"]
+                control_number = original_record["metadata"].get("control_number")
                 builder = LiteratureBuilder(record=original_record["metadata"])
                 builder.add_external_system_identifier(cds_identifier, "CDS")
 
@@ -94,12 +95,12 @@ def cds_harvest_dag():
                 update_record(inspire_http_record_management_hook, payload_update)
             except Exception as e:
                 logger.error(
-                    f"Failed to update record {original_record['control_number']} "
+                    f"Failed to update record {control_number} "
                     f"for CDS ID {cds_identifier}: {e}"
                 )
                 failed.append(
                     {
-                        "inspire_record": original_record["control_number"],
+                        "inspire_record": control_number,
                         "cds_id": cds_identifier,
                     }
                 )
