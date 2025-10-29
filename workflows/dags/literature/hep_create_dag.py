@@ -58,7 +58,6 @@ from literature.exact_match_tasks import (
     get_exact_matches,
 )
 from literature.set_workflow_status_tasks import (
-    set_workflow_status_to_completed,
     set_workflow_status_to_matching,
     set_workflow_status_to_running,
 )
@@ -333,7 +332,9 @@ def hep_create_dag():
                         bucket_name,
                         replace=True,
                     )
-                    document["url"] = f"s3://{bucket_name}/{s3_key}"
+                    document["url"] = (
+                        f"{s3_hook.conn.meta.endpoint_url}/{bucket_name}/{s3_key}"
+                    )
                     logger.info("Document downloaded from %s", url)
                 except RetryError:
                     logger.error("Cannot download document from %s", url)
@@ -352,7 +353,7 @@ def hep_create_dag():
                 len(get_value(workflow_data, "data.documents", [])),
             )
 
-        @task
+        @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def normalize_journal_titles(**context):
             """
             Normalize the journal titles in workflow data.
@@ -549,7 +550,7 @@ def hep_create_dag():
                 overwrite=True,
             )
 
-        @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+        @task
         def extract_journal_info(**context):
             s3_workflow_id = context["params"]["workflow_id"]
             workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
@@ -953,7 +954,7 @@ def hep_create_dag():
                 logger.error(f"Error occurred while predicting coreness: {e}")
                 return {"error": str(e)}
 
-        @task(trigger_rule=TriggerRule.ONE_DONE)
+        @task
         def normalize_collaborations(**context):
             workflow_data = read_object(
                 s3_hook, bucket_name, context["params"]["workflow_id"]
@@ -1004,7 +1005,13 @@ def hep_create_dag():
             >> normalize_collaborations()
         )
 
-        # after implementing all the enhancements, write the result to the s3 only once
+    @task
+    def save_and_complete_workflow(**context):
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = read_object(s3_hook, bucket_name, workflow_id)
+        workflow_data["status"] = "completed"
+
+        workflow_management_hook.update_workflow(workflow_id, workflow_data)
 
     dummy_set_update_flag = EmptyOperator(task_id="dummy_set_update_flag")
     dummy_get_fuzzy_matches = EmptyOperator(task_id="dummy_get_fuzzy_matches")
@@ -1012,7 +1019,6 @@ def hep_create_dag():
     check_for_blocking_workflows_task = check_for_blocking_workflows()
 
     preprocessing_group = preprocessing()
-    set_workflow_status_to_completed_task = set_workflow_status_to_completed()
 
     set_update_flag_task = set_update_flag()
     get_fuzzy_matches_task = get_fuzzy_matches()
@@ -1059,7 +1065,7 @@ def hep_create_dag():
         >> exact_matches
     )
 
-    set_update_flag_task >> preprocessing_group >> set_workflow_status_to_completed_task
+    set_update_flag_task >> preprocessing_group >> save_and_complete_workflow()
 
     check_decision_exact_match_task.set_downstream(
         get_fuzzy_matches_task, edge_modifier=Label("No match picked")

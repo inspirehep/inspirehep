@@ -5,6 +5,10 @@ from airflow.models import DagBag
 from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from botocore.exceptions import ClientError
+from hooks.backoffice.workflow_management_hook import (
+    HEP,
+    WorkflowManagementHook,
+)
 from include.utils.s3 import read_object, write_object
 from inspire_schemas.api import load_schema, validate
 
@@ -823,8 +827,10 @@ class Test_HEPCreateDAG:
             f"{self.workflow_id}-documents/{filename}", bucket_name
         )
         s3_hook.delete_objects(bucket_name, f"{self.workflow_id}-documents/{filename}")
-        assert result["data"]["documents"][0]["url"] == (
-            f"s3://{bucket_name}/{self.workflow_id}-documents/{filename}"
+
+        assert (
+            urlparse(result["data"]["documents"][0]["url"]).path
+            == f"/{bucket_name}/{self.workflow_id}-documents/{filename}"
         )
 
     @pytest.mark.vcr
@@ -876,8 +882,9 @@ class Test_HEPCreateDAG:
             s3_hook.delete_objects(
                 bucket_name, f"{self.workflow_id}-documents/{document_in['key']}"
             )
-            assert document_out["url"] == (
-                f"s3://{bucket_name}/{self.workflow_id}-documents/{document_in['key']}"
+            assert (
+                urlparse(document_out["url"]).path
+                == f"/{bucket_name}/{self.workflow_id}-documents/{document_in['key']}"
             )
 
     @pytest.mark.vcr
@@ -1682,6 +1689,46 @@ class Test_HEPCreateDAG:
         assert result["decision"] in ["CORE", "Non-CORE", "Rejected"]
         assert "max_score" in result
         assert "relevance_score" in result
+
+    @pytest.mark.vcr
+    def test_save_and_complete_workflow(self):
+        workflow_data = {
+            "data": {
+                "titles": [{"title": "test_1"}],
+                "abstracts": [
+                    {
+                        "value": (
+                            "We present a comprehensive study of Higgs boson"
+                            " production mechanisms in high-energy particle collisions."
+                        )
+                    }
+                ],
+                "document_type": [
+                    "article",
+                ],
+                "_collections": ["Literature"],
+            },
+            "workflow_type": "HEP_CREATE",
+            "status": "running",
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "save_and_complete_workflow",
+            dag_params=self.context["params"],
+        )
+
+        workflow_management_hook = WorkflowManagementHook(HEP)
+        workflow = workflow_management_hook.get_workflow(self.workflow_id)
+        assert workflow["status"] == "completed"
+        assert workflow_data["data"] == workflow["data"]
 
 
 class TestNormalizeJournalTitles:
