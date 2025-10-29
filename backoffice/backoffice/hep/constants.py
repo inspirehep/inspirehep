@@ -11,7 +11,6 @@ class HepStatusChoices(models.TextChoices):
     RUNNING = "running", "Running"
     APPROVAL = "approval", "Waiting for approval"
     BLOCKED = "blocked", "Blocked"
-    MATCHING = "matching", "Matching"
     FUZZY_MATCHING = "fuzzy_matching", "Fuzzy matching"
     PROCESSING = "processing", "Processing"
     COMPLETED = "completed", "Completed"

@@ -1,6 +1,7 @@
 from urllib.parse import urlparse
 
 import pytest
+from airflow.exceptions import AirflowException
 from airflow.models import DagBag
 from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
@@ -113,26 +114,26 @@ class Test_HEPCreateDAG:
         assert result
 
     @pytest.mark.vcr
-    def test_await_decision_exact_match(self):
-        task = self.dag.get_task("await_decision_exact_match")
-        result = task.python_callable(params=self.context["params"])
-
-        assert result == "set_workflow_status_to_running"
-
-    def test_check_decision_exact_match(self):
+    def test_check_for_exact_matches_no_match(self):
         write_object(
             s3_hook,
-            {"decisions": [{"action": "exact_match", "value": True}]},
+            {"data": {"arxiv_eprints": [{"value": "1801.00000"}]}},
             bucket_name,
             self.context["params"]["workflow_id"],
             overwrite=True,
         )
-        task = self.dag.get_task("check_decision_exact_match")
-        result = task.python_callable(params=self.context["params"])
-        assert result == "set_update_flag"
+
+        result = task_test(
+            "hep_create_dag",
+            "check_for_exact_matches",
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+
+        assert "get_fuzzy_matches" in result["followed"]
 
     @pytest.mark.vcr
-    def test_get_exact_matches(self):
+    def test_check_for_exact_matches_one_match(self):
         write_object(
             s3_hook,
             {"data": {"arxiv_eprints": [{"value": "1801.07224"}]}},
@@ -140,20 +141,42 @@ class Test_HEPCreateDAG:
             self.context["params"]["workflow_id"],
             overwrite=True,
         )
-        task = self.dag.get_task("get_exact_matches")
-        result = task.python_callable(params=self.context["params"])
-        assert 1649231 in result
 
-    def test_check_for_exact_matches(self):
-        task = self.dag.get_task("check_for_exact_matches")
-        result = task.python_callable(params=self.context["params"], matches=[])
-        assert result == "dummy_get_fuzzy_matches"
+        result = task_test(
+            "hep_create_dag",
+            "check_for_exact_matches",
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
 
-        result = task.python_callable(params=self.context["params"], matches=[1])
-        assert result == "dummy_set_update_flag"
+        assert "set_update_flag" in result["followed"]
 
-        result = task.python_callable(params=self.context["params"], matches=[1, 2])
-        assert result == "await_decision_exact_match"
+    @pytest.mark.vcr
+    def test_check_for_exact_matches_multi_match(self):
+        write_object(
+            s3_hook,
+            {
+                "data": {
+                    "dois": [
+                        {"value": "10.1103/PhysRevD.95.094515", "source": "APS"},
+                        {"value": "10.1103/PhysRevD.95.094515"},
+                    ],
+                    "arxiv_eprints": [
+                        {"value": "1601.03071", "categories": ["hep-lat", "hep-ph"]}
+                    ],
+                }
+            },
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+
+        with pytest.raises(AirflowException):
+            task_test(
+                "hep_create_dag",
+                "check_for_exact_matches",
+                dag_params=self.context["params"],
+            )
 
     @pytest.mark.vcr
     def test_normalize_collaborations(self):

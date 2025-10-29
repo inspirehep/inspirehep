@@ -11,7 +11,7 @@ interactions:
       Content-Type:
       - application/json
     method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/search/?status__in=running__approval__error__matching__fuzzy_matching__blocked&data.arxiv_eprints.value=xxx
+    uri: http://host.docker.internal:8001/api/workflows/literature/search/?status__in=running__approval__error__fuzzy_matching__blocked&data.arxiv_eprints.value=xxx
   response:
     body:
       string: '{"count":0,"next":null,"previous":null,"facets":{"_filter_workflow_type":{"doc_count":0,"workflow_type":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[]}},"_filter_status":{"doc_count":0,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[]}}},"results":[]}'
