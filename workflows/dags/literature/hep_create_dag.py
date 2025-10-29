@@ -28,7 +28,7 @@ from include.inspire.journal_title_normalization import (
 )
 from include.utils import workflows
 from include.utils.alerts import FailedDagNotifierSetError
-from include.utils.constants import JOURNALS_PID_TYPE
+from include.utils.constants import ANTIHEP_KEYWORDS, JOURNALS_PID_TYPE
 from include.utils.grobid_authors_parser import GrobidAuthors
 from include.utils.refextract_utils import (
     extract_references_from_pdf,
@@ -717,6 +717,15 @@ def hep_create_dag():
             result["fulltext_used"] = fulltext_used
             # Check if it is not empty output before adding
             if any(result.get("complete_output", {}).values()):
+                complete_output = get_value(result, "complete_output", {})
+                core_keywords = complete_output.get("core_keywords", [])
+                filtered_core_keywords = [
+                    keyword
+                    for keyword in core_keywords
+                    if keyword["keyword"] not in ANTIHEP_KEYWORDS
+                ]
+                complete_output["filtered_core_keywords"] = filtered_core_keywords
+                result["complete_output"] = complete_output
                 return {"classifier_results": result}
 
         @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)

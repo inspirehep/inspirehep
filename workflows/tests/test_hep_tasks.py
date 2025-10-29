@@ -34,6 +34,21 @@ HIGGS_ONTOLOGY = """<?xml version="1.0" encoding="UTF-8" ?>
         <note xml:lang="en">core</note>
     </Concept>
 
+
+    <Concept rdf:about="http://cern.ch/thesauri/HEPontology.rdf#supersymmetry">
+        <prefLabel xml:lang="en">supersymmetry</prefLabel>
+        <altLabel xml:lang="en">SUSY</altLabel>
+        <hiddenLabel xml:lang="en">/supersymmetr\w*/</hiddenLabel>
+        <hiddenLabel xml:lang="en">super-Yang-Mills</hiddenLabel>
+        <note xml:lang="en">core</note>
+        <broader rdf:resource="http://cern.ch/thesauri/HEPontology.rdf#symmetry"/>
+        <narrower rdf:resource="http://cern.ch/thesauri/HEPontology.rdf#F-term"/>
+        <narrower rdf:resource="http://cern.ch/thesauri/HEPontology.rdf#superspace"/>
+        <narrower rdf:resource="http://cern.ch/thesauri/HEPontology.rdf#superstring"/>
+        <related rdf:resource="http://cern.ch/thesauri/HEPontology.rdf#sparticle"/>
+        <related rdf:resource="http://cern.ch/thesauri/HEPontology.rdf#supergravity"/>
+    </Concept>
+
 </rdf:RDF>
 """
 
@@ -1361,7 +1376,56 @@ class Test_HEPCreateDAG:
         assert (
             result["classifier_results"]["complete_output"]["core_keywords"] == expected
         )
+        assert (
+            result["classifier_results"]["complete_output"]["filtered_core_keywords"]
+            == []
+        )
         assert result["classifier_results"]["fulltext_used"] is False
+
+    def test_classify_paper_has_filtered_core_keywords(self, higgs_ontology):
+        write_object(
+            s3_hook,
+            {
+                "data": {
+                    "titles": [
+                        {
+                            "title": "Some title",
+                        },
+                    ],
+                    "keywords": [
+                        {
+                            "value": "supersymmetry",
+                        },
+                    ],
+                }
+            },
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        expected = [{"number": 1, "keyword": "supersymmetry"}]
+
+        result = task_test(
+            "hep_create_dag",
+            "preprocessing.classify_paper",
+            params={
+                "taxonomy": higgs_ontology,
+                "only_core_tags": False,
+                "spires": True,
+                "with_author_keywords": True,
+                "no_cache": True,
+            },
+            dag_params=self.context["params"],
+        )
+
+        assert (
+            result["classifier_results"]["complete_output"]["core_keywords"] == expected
+        )
+        assert (
+            result["classifier_results"]["complete_output"]["filtered_core_keywords"]
+            == expected
+        )
 
     def test_classify_paper_does_not_raise_on_unprintable_keywords(
         self, datadir, higgs_ontology
