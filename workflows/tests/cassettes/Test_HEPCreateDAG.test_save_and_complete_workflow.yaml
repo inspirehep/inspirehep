@@ -1,0 +1,236 @@
+interactions:
+- request:
+    body: '{"data": {"titles": [{"title": "test_1"}], "abstracts": [{"value": "We
+      present a comprehensive study of Higgs boson production mechanisms in high-energy
+      particle collisions."}], "document_type": ["article"], "_collections": ["Literature"]},
+      "workflow_type": "HEP_CREATE", "status": "completed"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '294'
+      Content-Type:
+      - application/json
+    method: PUT
+    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111/
+  response:
+    body:
+      string: '{"id":"00000000-0000-0000-0000-000000001111","data":{"titles":[{"title":"test_1"}],"abstracts":[{"value":"We
+        present a comprehensive study of Higgs boson production mechanisms in high-energy
+        particle collisions."}],"document_type":["article"],"_collections":["Literature"]},"tickets":[],"decisions":[{"id":1,"workflow":"00000000-0000-0000-0000-000000001111","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"exact_match","value":"paper1","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-10-29T14:33:44.777129Z","journal_coverage":null,"status":"completed"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '675'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Wed, 29 Oct 2025 14:33:44 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=124.26800000000071;desc="User CPU time", TimerPanel_stime;dur=0.7209999999986394;desc="System
+        CPU time", TimerPanel_total;dur=124.98899999999935;desc="Total CPU time",
+        TimerPanel_total_time;dur=132.2431669996149;desc="Elapsed time", SQLPanel_sql_time;dur=8.759915002883645;desc="SQL
+        14 queries", CachePanel_total_time;dur=0;desc="Cache 0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 04de246c9012486180be2c7044f0196a
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Wed, 29 Oct 2025 14:33:44 GMT
+      Location:
+      - /api/workflows/literature/00000000-0000-0000-0000-000000001111/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111/
+  response:
+    body:
+      string: '{"id":"00000000-0000-0000-0000-000000001111","validation_errors":[],"data":{"titles":[{"title":"test_1"}],"abstracts":[{"value":"We
+        present a comprehensive study of Higgs boson production mechanisms in high-energy
+        particle collisions."}],"_collections":["Literature"],"document_type":["article"]},"tickets":[],"decisions":[{"id":1,"workflow":"00000000-0000-0000-0000-000000001111","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"exact_match","value":"paper1","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-10-29T14:33:44.777129Z","journal_coverage":null,"status":"completed"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '698'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Wed, 29 Oct 2025 14:33:45 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=64.02600000001257;desc="User CPU time", TimerPanel_stime;dur=1.3059999999995853;desc="System
+        CPU time", TimerPanel_total;dur=65.33200000001216;desc="Total CPU time", TimerPanel_total_time;dur=71.21745900076348;desc="Elapsed
+        time", SQLPanel_sql_time;dur=7.75670899747638;desc="SQL 13 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - b1450987b7fd44f08755056231f6a90b
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Wed, 29 Oct 2025 14:33:45 GMT
+      Location:
+      - /api/workflows/literature/00000000-0000-0000-0000-000000001111/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111/
+  response:
+    body:
+      string: '{"id":"00000000-0000-0000-0000-000000001111","validation_errors":[],"data":{"titles":[{"title":"test_1"}],"abstracts":[{"value":"We
+        present a comprehensive study of Higgs boson production mechanisms in high-energy
+        particle collisions."}],"_collections":["Literature"],"document_type":["article"]},"tickets":[],"decisions":[{"id":1,"workflow":"00000000-0000-0000-0000-000000001111","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"exact_match","value":"paper1","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-10-29T14:33:44.777129Z","journal_coverage":null,"status":"completed"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '698'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Wed, 29 Oct 2025 14:33:45 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=58.17300000001069;desc="User CPU time", TimerPanel_stime;dur=0.9650000000078762;desc="System
+        CPU time", TimerPanel_total;dur=59.138000000018565;desc="Total CPU time",
+        TimerPanel_total_time;dur=67.87970900040818;desc="Elapsed time", SQLPanel_sql_time;dur=6.001247002132004;desc="SQL
+        13 queries", CachePanel_total_time;dur=0;desc="Cache 0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 52f9811dec96465a89a78c53b545c043
+    status:
+      code: 200
+      message: OK
+version: 1
