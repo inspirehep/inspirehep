@@ -1,0 +1,38 @@
+interactions:
+- request:
+    body: '{"data": {"dois": [{"value": "10.1103/PhysRevD.95.094515", "source": "APS"},
+      {"value": "10.1103/PhysRevD.95.094515"}], "arxiv_eprints": [{"value": "1601.03071",
+      "categories": ["hep-lat", "hep-ph"]}]}}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '200'
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8080/api/matcher/exact-match
+  response:
+    body:
+      string: '{"matched_ids":[1415120,1383683]}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '34'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 29 Oct 2025 16:25:05 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+version: 1

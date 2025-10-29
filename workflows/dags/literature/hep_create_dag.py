@@ -8,7 +8,6 @@ from airflow.decorators import dag, task_group
 from airflow.exceptions import AirflowException
 from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-from airflow.providers.standard.operators.empty import EmptyOperator
 from airflow.sdk import Param, task
 from airflow.utils.edgemodifier import Label
 from airflow.utils.trigger_rule import TriggerRule
@@ -51,14 +50,7 @@ from inspire_utils.helpers import maybe_int
 from inspire_utils.record import get_value
 from invenio_classifier import get_keywords_from_local_file, get_keywords_from_text
 from invenio_classifier.errors import ClassifierException
-from literature.exact_match_tasks import (
-    await_decision_exact_match,
-    check_decision_exact_match,
-    check_for_exact_matches,
-    get_exact_matches,
-)
 from literature.set_workflow_status_tasks import (
-    set_workflow_status_to_matching,
     set_workflow_status_to_running,
 )
 from plotextractor.api import process_tarball
@@ -131,6 +123,29 @@ def hep_create_dag():
             status_name="blocked", workflow_id=context["params"]["workflow_id"]
         )
         return False
+
+    @task.branch
+    def check_for_exact_matches(**context):
+        workflow_data = read_object(
+            s3_hook, bucket_name, context["params"]["workflow_id"]
+        )
+
+        response = inspire_http_hook.call_api(
+            endpoint="api/matcher/exact-match",
+            method="GET",
+            json={"data": workflow_data["data"]},
+        )
+        response.raise_for_status()
+        matches = response.json()["matched_ids"]
+
+        if len(matches) >= 2:
+            raise AirflowException(
+                f"Multiple exact matches found. {matches} should be merged by a curator"
+                f" before proceeding."
+            )
+        if len(matches) == 1:
+            return "set_update_flag"
+        return "get_fuzzy_matches"
 
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def set_update_flag(**context):
@@ -1013,66 +1028,33 @@ def hep_create_dag():
 
         workflow_management_hook.update_workflow(workflow_id, workflow_data)
 
-    dummy_set_update_flag = EmptyOperator(task_id="dummy_set_update_flag")
-    dummy_get_fuzzy_matches = EmptyOperator(task_id="dummy_get_fuzzy_matches")
-
-    check_for_blocking_workflows_task = check_for_blocking_workflows()
-
     preprocessing_group = preprocessing()
 
     set_update_flag_task = set_update_flag()
     get_fuzzy_matches_task = get_fuzzy_matches()
 
-    # Exact matching
-    set_workflow_status_to_matching_task = set_workflow_status_to_matching()
-    await_decision_exact_match_task = await_decision_exact_match()
-    exact_matches = get_exact_matches()
-    set_workflow_status_to_running_task = set_workflow_status_to_running()
-    check_decision_exact_match_task = check_decision_exact_match()
-    check_for_exact_matches_task = check_for_exact_matches(exact_matches)
-
-    await_decision_exact_match_task >> [
-        set_workflow_status_to_running_task,
-        set_workflow_status_to_matching_task,
-    ]
-
-    set_workflow_status_to_running_task >> check_decision_exact_match_task
-
-    (
-        exact_matches
-        >> check_for_exact_matches_task
-        >> [
-            await_decision_exact_match_task,
-            dummy_set_update_flag,
-            dummy_get_fuzzy_matches,
-        ]
-    )
-    dummy_set_update_flag >> Label("1 Exact Matches") >> set_update_flag_task
-    dummy_get_fuzzy_matches >> Label("No Exact Matches") >> get_fuzzy_matches_task
+    check_for_exact_matches_task = check_for_exact_matches()
 
     (
         check_for_exact_matches_task
-        >> Label("Multiple Exact Matches")
-        >> await_decision_exact_match_task
+        >> [
+            set_update_flag_task,
+            get_fuzzy_matches_task,
+        ]
     )
+    check_for_exact_matches_task >> Label("1 Exact Match") >> set_update_flag_task
+    check_for_exact_matches_task >> Label("No Exact Matches") >> get_fuzzy_matches_task
 
     # Fuzzy matching
 
     (
         get_workflow_data()
         >> set_workflow_status_to_running()
-        >> check_for_blocking_workflows_task
-        >> exact_matches
+        >> check_for_blocking_workflows()
+        >> check_for_exact_matches_task
     )
 
     set_update_flag_task >> preprocessing_group >> save_and_complete_workflow()
-
-    check_decision_exact_match_task.set_downstream(
-        get_fuzzy_matches_task, edge_modifier=Label("No match picked")
-    )
-    check_decision_exact_match_task.set_downstream(
-        set_update_flag_task, edge_modifier=Label("Match chosen")
-    )
     get_fuzzy_matches_task >> preprocessing_group
 
 

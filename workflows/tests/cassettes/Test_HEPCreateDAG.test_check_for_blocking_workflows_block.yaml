@@ -11,7 +11,7 @@ interactions:
       Content-Type:
       - application/json
     method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/search/?status__in=running__approval__error__matching__fuzzy_matching__blocked&data.arxiv_eprints.value=2507.26819
+    uri: http://host.docker.internal:8001/api/workflows/literature/search/?status__in=running__approval__error__fuzzy_matching__blocked&data.arxiv_eprints.value=2507.26819
   response:
     body:
       string: '{"count":3,"next":null,"previous":null,"facets":{"_filter_workflow_type":{"doc_count":3,"workflow_type":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"HEP_CREATE","doc_count":3,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"blocked","doc_count":1},{"key":"matching","doc_count":1},{"key":"running","doc_count":1}]}}]}},"_filter_status":{"doc_count":3,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"blocked","doc_count":1},{"key":"matching","doc_count":1},{"key":"running","doc_count":1}]}}},"results":[{"id":"00000000-0000-0000-0000-000000001111","workflow_type":"HEP_CREATE","_updated_at":"2024-11-25T13:49:54.756000+00:00","_created_at":"2024-11-25T13:49:53.009000+00:00","data":{"titles":[{"title":"A

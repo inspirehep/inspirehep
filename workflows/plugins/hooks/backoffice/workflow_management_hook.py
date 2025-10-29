@@ -8,7 +8,6 @@ RUNNING_STATUSES = [
     "running",
     "approval",
     "error",
-    "matching",
     "fuzzy_matching",
     "blocked",
 ]
