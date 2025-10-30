@@ -1,0 +1,37 @@
+interactions:
+- request:
+    body: '{"data": {"titles": [{"title": "xyzabc random title with no match", "source":
+      "arXiv"}]}}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '89'
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8080/api/matcher/fuzzy-match
+  response:
+    body:
+      string: '{"matched_data":[]}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '20'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 31 Oct 2025 10:28:59 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+version: 1

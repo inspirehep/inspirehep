@@ -7,8 +7,20 @@
         "_created_at": "2025-08-26T14:45:14.237Z",
         "_updated_at": "2025-08-26T14:45:14.237Z",
         "workflow": "00000000-0000-0000-0000-000000001111",
-        "action": "exact_match",
+        "action": "fuzzy_match",
         "value": "paper1"
+    }
+},
+{
+    "model": "hep.hepdecision",
+    "pk": 2,
+    "fields": {
+        "user": "admin@admin.com",
+        "_created_at": "2025-08-26T14:45:14.237Z",
+        "_updated_at": "2025-08-26T14:45:14.237Z",
+        "workflow": "66961888-a628-46b7-b807-4deae3478adc",
+        "action": "fuzzy_match",
+        "value": ""
     }
 }
     ]

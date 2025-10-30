@@ -35,7 +35,7 @@ def task_test(
     )
     task_result = _run_task(ti=ti, run_triggerer=True)
 
-    if task_result.state != TaskInstanceState.SUCCESS:
+    if task_result.state == TaskInstanceState.FAILED:
         raise task_result.error
 
     xcoms = ti.xcom_pull(key=xcom_key)

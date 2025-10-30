@@ -130,7 +130,7 @@ class Test_HEPCreateDAG:
             xcom_key="skipmixin_key",
         )
 
-        assert "get_fuzzy_matches" in result["followed"]
+        assert "check_for_fuzzy_matches" in result["followed"]
 
     @pytest.mark.vcr
     def test_check_for_exact_matches_one_match(self):
@@ -149,7 +149,7 @@ class Test_HEPCreateDAG:
             xcom_key="skipmixin_key",
         )
 
-        assert "set_update_flag" in result["followed"]
+        assert "dummy_set_update_flag" in result["followed"]
 
     @pytest.mark.vcr
     def test_check_for_exact_matches_multi_match(self):
@@ -177,6 +177,84 @@ class Test_HEPCreateDAG:
                 "check_for_exact_matches",
                 dag_params=self.context["params"],
             )
+
+    @pytest.mark.vcr
+    def test_check_for_fuzzy_matches_matches(self):
+        workflow_data = {
+            "data": {
+                "titles": [
+                    {
+                        "title": "Hadronic contributions to the muon anomalous magnetic"
+                        " moment Workshop."
+                        " $(g-2)_{\\mu}$: Quo vadis? Workshop. Mini proceedings",
+                        "source": "arXiv",
+                    }
+                ]
+            }
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+
+        result = task_test(
+            dag_id="hep_create_dag",
+            task_id="check_for_fuzzy_matches",
+            dag_params=self.context["params"],
+        )
+
+        assert result == "await_decision_fuzzy_match"
+
+    @pytest.mark.vcr
+    def test_check_for_fuzzy_matches_no_matches(self):
+        workflow_data = {
+            "data": {
+                "titles": [
+                    {"title": "xyzabc random title with no match", "source": "arXiv"}
+                ]
+            }
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+
+        result = task_test(
+            dag_id="hep_create_dag",
+            task_id="check_for_fuzzy_matches",
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+
+        assert result == {"followed": ["preprocessing.check_is_arxiv_paper"]}
+
+    @pytest.mark.vcr
+    def test_await_decision_fuzzy_match_best_match(self):
+        result = task_test(
+            dag_id="hep_create_dag",
+            task_id="await_decision_fuzzy_match",
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+
+        assert "set_update_flag" in result["followed"]
+
+    @pytest.mark.vcr
+    def test_await_decision_fuzzy_match_none(self):
+        result = task_test(
+            dag_id="hep_create_dag",
+            task_id="await_decision_fuzzy_match",
+            dag_params={"workflow_id": "66961888-a628-46b7-b807-4deae3478adc"},
+            xcom_key="skipmixin_key",
+        )
+
+        assert "preprocessing.check_is_arxiv_paper" in result["followed"]
 
     @pytest.mark.vcr
     def test_normalize_collaborations(self):
