@@ -189,6 +189,11 @@
         ],
         "$schema": "https://inspirehep.net/schemas/records/hep.json",
         "_collections": ["Literature"],
+        "dois": [
+            {
+                "value": "10.1016/j.physletb.2025.139959"
+            }
+        ],
         "arxiv_eprints": [
           {
             "value": "2507.26819",
@@ -210,7 +215,7 @@
           "internal_uid": 50872
         }
       },
-      "status": "matching",
+      "status": "blocked",
       "_created_at": "2024-11-25T13:49:53.009Z",
       "_updated_at": "2024-11-25T13:49:54.756Z"
     }
@@ -259,6 +264,54 @@
         }
       },
       "status": "blocked",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "6e84fd0b-8d0b-4147-9aee-c28a4f787b0d",
+    "fields": {
+      "workflow_type": "HEP_CREATE",
+      "data": {
+        "urls": [
+          {
+            "value": "https://example.com"
+          },
+          {
+            "value": "https://other-page.com"
+          }
+        ],
+        "titles": [
+          {
+            "title": "The MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer",
+            "source": "submitter"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "dois": [
+        {
+          "source": "Springer",
+          "value": "10.1038/s41598-025-21235-8"
+        }
+      ],
+        "document_type": ["article"],
+        "_private_notes": [
+          {
+            "value": "Also some comments"
+          }
+        ],
+        "acquisition_source": {
+          "email": "user@cern.ch",
+          "orcid": "0000-0000-0000-0000",
+          "method": "submitter",
+          "source": "submitter",
+          "datetime": "2024-11-18T11:34:19.809575",
+          "internal_uid": 50872
+        }
+      },
+      "status": "error",
       "_created_at": "2024-11-25T13:49:53.009Z",
       "_updated_at": "2024-11-25T13:49:54.756Z"
     }
