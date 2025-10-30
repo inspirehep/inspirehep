@@ -1,0 +1,180 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/66961888-a628-46b7-b807-4deae3478adc
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Fri, 31 Oct 2025 11:24:42 GMT
+      Location:
+      - /api/workflows/literature/66961888-a628-46b7-b807-4deae3478adc/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/66961888-a628-46b7-b807-4deae3478adc/
+  response:
+    body:
+      string: '{"id":"66961888-a628-46b7-b807-4deae3478adc","validation_errors":[],"data":{"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
+        MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2507.26819","categories":["cs.CV","cs.AI","cs.LG","cs.RO"]}],"document_type":["article"],"_private_notes":[{"value":"Also
+        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":2,"workflow":"66961888-a628-46b7-b807-4deae3478adc","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-10-31T10:19:54.213875Z","action":"fuzzy_match","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2024-11-25T13:49:54.756000Z","journal_coverage":null,"relevance_prediction":null,"classifier_results":null,"reference_count":null,"status":"matching"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '1178'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Fri, 31 Oct 2025 11:24:42 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=62.07999999999814;desc="User CPU time", TimerPanel_stime;dur=2.7089999999994063;desc="System
+        CPU time", TimerPanel_total;dur=64.78899999999754;desc="Total CPU time", TimerPanel_total_time;dur=70.80800000403542;desc="Elapsed
+        time", SQLPanel_sql_time;dur=6.186706988955848;desc="SQL 13 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 8dd86cbacb854c2fb4188edda1a4f04d
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/66961888-a628-46b7-b807-4deae3478adc
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Fri, 31 Oct 2025 11:24:42 GMT
+      Location:
+      - /api/workflows/literature/66961888-a628-46b7-b807-4deae3478adc/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/66961888-a628-46b7-b807-4deae3478adc/
+  response:
+    body:
+      string: '{"id":"66961888-a628-46b7-b807-4deae3478adc","validation_errors":[],"data":{"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
+        MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2507.26819","categories":["cs.CV","cs.AI","cs.LG","cs.RO"]}],"document_type":["article"],"_private_notes":[{"value":"Also
+        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":2,"workflow":"66961888-a628-46b7-b807-4deae3478adc","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-10-31T10:19:54.213875Z","action":"fuzzy_match","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2024-11-25T13:49:54.756000Z","journal_coverage":null,"relevance_prediction":null,"classifier_results":null,"reference_count":null,"status":"matching"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '1178'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Fri, 31 Oct 2025 11:24:42 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=60.21600000000049;desc="User CPU time", TimerPanel_stime;dur=1.809999999998979;desc="System
+        CPU time", TimerPanel_total;dur=62.02599999999947;desc="Total CPU time", TimerPanel_total_time;dur=70.88074999046512;desc="Elapsed
+        time", SQLPanel_sql_time;dur=14.401709995581768;desc="SQL 13 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 59888b6535134303a303ad0eda11ce01
+    status:
+      code: 200
+      message: OK
+version: 1

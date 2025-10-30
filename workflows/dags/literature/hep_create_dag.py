@@ -5,9 +5,10 @@ import re
 from tempfile import TemporaryDirectory
 
 from airflow.decorators import dag, task_group
-from airflow.exceptions import AirflowException
+from airflow.exceptions import AirflowException, AirflowSkipException
 from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+from airflow.providers.standard.operators.empty import EmptyOperator
 from airflow.sdk import Param, task
 from airflow.utils.edgemodifier import Label
 from airflow.utils.trigger_rule import TriggerRule
@@ -35,6 +36,7 @@ from include.utils.refextract_utils import (
     raw_refs_to_list,
 )
 from include.utils.s3 import read_object, write_object
+from include.utils.workflows import get_decision
 from inspire_classifier import Classifier
 from inspire_json_merger.api import merge
 from inspire_json_merger.config import GrobidOnArxivAuthorsOperations
@@ -51,6 +53,7 @@ from inspire_utils.record import get_value
 from invenio_classifier import get_keywords_from_local_file, get_keywords_from_text
 from invenio_classifier.errors import ClassifierException
 from literature.set_workflow_status_tasks import (
+    set_workflow_status_to_fuzzy_matching,
     set_workflow_status_to_running,
 )
 from plotextractor.api import process_tarball
@@ -144,16 +147,71 @@ def hep_create_dag():
                 f" before proceeding."
             )
         if len(matches) == 1:
-            return "set_update_flag"
-        return "get_fuzzy_matches"
+            return "dummy_set_update_flag"
+        return "check_for_fuzzy_matches"
 
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def set_update_flag(**context):
         return True
 
-    @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
-    def get_fuzzy_matches(**context):
-        return True
+    @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+    def check_for_fuzzy_matches(**context):
+        workflow_data = read_object(
+            s3_hook, bucket_name, context["params"]["workflow_id"]
+        )
+
+        fuzzy_matching_data_keys = [
+            "abstracts",
+            "authors",
+            "titles",
+            "report_numbers",
+            "arxiv_eprints",
+        ]
+        fuzzy_match_data = {
+            key: val
+            for key, val in workflow_data["data"].items()
+            if key in fuzzy_matching_data_keys
+        }
+
+        response = inspire_http_hook.call_api(
+            endpoint="api/matcher/fuzzy-match",
+            method="GET",
+            json={"data": fuzzy_match_data},
+        )
+
+        matches = response.json()["matched_data"]
+
+        # to do store matches in workflow data after format has been decided
+
+        if not matches:
+            return "preprocessing"
+        return "await_decision_fuzzy_match"
+
+    @task.branch
+    def await_decision_fuzzy_match(**context):
+        workflow_data = workflow_management_hook.get_workflow(
+            context["params"]["workflow_id"]
+        )
+
+        decision = get_decision(workflow_data.get("decisions"), "fuzzy_match")
+
+        if not decision:
+            set_workflow_status_to_fuzzy_matching(
+                workflow_id=context["params"]["workflow_id"]
+            )
+            raise AirflowSkipException("Waiting for fuzzy match decision.")
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            context["params"]["workflow_id"],
+            overwrite=True,
+        )
+
+        if decision.get("value"):
+            return "set_update_flag"
+        return "preprocessing"
 
     @task_group
     def preprocessing():
@@ -1032,19 +1090,37 @@ def hep_create_dag():
     preprocessing_group = preprocessing()
 
     set_update_flag_task = set_update_flag()
-    get_fuzzy_matches_task = get_fuzzy_matches()
+
+    dummy_set_update_flag = EmptyOperator(task_id="dummy_set_update_flag")
+    check_for_fuzzy_matches_task = check_for_fuzzy_matches()
 
     check_for_exact_matches_task = check_for_exact_matches()
 
     (
         check_for_exact_matches_task
         >> [
-            set_update_flag_task,
-            get_fuzzy_matches_task,
+            dummy_set_update_flag,
+            check_for_fuzzy_matches_task,
         ]
     )
-    check_for_exact_matches_task >> Label("1 Exact Match") >> set_update_flag_task
-    check_for_exact_matches_task >> Label("No Exact Matches") >> get_fuzzy_matches_task
+
+    (
+        check_for_fuzzy_matches_task
+        >> await_decision_fuzzy_match()
+        >> [set_update_flag_task, preprocessing_group]
+    )
+
+    (
+        check_for_exact_matches_task
+        >> Label("1 Exact Match")
+        >> dummy_set_update_flag
+        >> set_update_flag_task
+    )
+    (
+        check_for_exact_matches_task
+        >> Label("No Exact Matches")
+        >> check_for_fuzzy_matches_task
+    )
 
     # Fuzzy matching
 
@@ -1056,7 +1132,7 @@ def hep_create_dag():
     )
 
     set_update_flag_task >> preprocessing_group >> save_and_complete_workflow()
-    get_fuzzy_matches_task >> preprocessing_group
+    check_for_fuzzy_matches_task >> preprocessing_group
 
 
 hep_create_dag()
