@@ -134,3 +134,25 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         )
         for item in response.json()["results"]:
             assert item["data"]["arxiv_eprints"][0]["value"] == arxiv_value
+
+    def test_search_arxiv_eprints_and_dois(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        arxiv_value = "2507.26819"
+        doi_value = "10.1016/j.physletb.2025.139959"
+
+        response = self.api_client.get(
+            self.endpoint,
+            data={
+                "search": [
+                    f"data.arxiv_eprints.value.keyword:{arxiv_value}",
+                    f"data.dois.value.keyword:{doi_value}",
+                ]
+            },
+            format="json",
+        )
+        for item in response.json()["results"]:
+            assert (
+                item["data"]["arxiv_eprints"][0]["value"] == arxiv_value
+                or item["data"]["dois"][0]["value"] == doi_value
+            )

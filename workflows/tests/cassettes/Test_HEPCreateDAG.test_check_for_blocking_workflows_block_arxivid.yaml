@@ -1,0 +1,134 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/search/?status__in=running__approval__error__fuzzy_matching__blocked&search=data.arxiv_eprints.value.keyword%3A2507.26819
+  response:
+    body:
+      string: '{"count":2,"next":null,"previous":null,"facets":{"_filter_workflow_type":{"doc_count":2,"workflow_type":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"HEP_CREATE","doc_count":2,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"error","doc_count":1},{"key":"running","doc_count":1}]}}]}},"_filter_status":{"doc_count":2,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"error","doc_count":1},{"key":"running","doc_count":1}]}}},"results":[{"decisions":[],"id":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","_updated_at":"2025-10-31T15:58:35.589231+00:00","data":{"dois":[{"value":"10.1038/s41598-025-21235-8","source":"Springer"}],"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
+        MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2507.26819","categories":["cs.CV","cs.AI","cs.LG","cs.RO"]}],"document_type":["article"],"_private_notes":[{"value":"Also
+        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"workflow_type":"HEP_CREATE","status":"error","_created_at":"2024-11-25T13:49:53.009000+00:00"},{"decisions":[],"id":"66961888-a628-46b7-b807-4deae3478adc","_updated_at":"2025-10-31T15:55:47.265275+00:00","data":{"dois":[{"value":"10.1016/j.physletb.2025.139959"}],"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
+        MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2507.26819","categories":["cs.CV","cs.AI","cs.LG","cs.RO"]}],"document_type":["article"],"_private_notes":[{"value":"Also
+        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"workflow_type":"HEP_CREATE","status":"running","_created_at":"2024-11-25T13:49:53.009000+00:00"}]}'
+    headers:
+      Allow:
+      - GET, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '2348'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Fri, 31 Oct 2025 16:01:20 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=149.7630000000001;desc="User CPU time", TimerPanel_stime;dur=6.278999999999257;desc="System
+        CPU time", TimerPanel_total;dur=156.04199999999935;desc="Total CPU time",
+        TimerPanel_total_time;dur=417.1757500007516;desc="Elapsed time", SQLPanel_sql_time;dur=4.400582998641767;desc="SQL
+        5 queries", CachePanel_total_time;dur=0;desc="Cache 0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 9f4f6b9756c5448f90fa655e2fe1fda6
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"status": "blocked"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '21'
+      Content-Type:
+      - application/json
+    method: PATCH
+    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111/
+  response:
+    body:
+      string: "{\"id\":\"00000000-0000-0000-0000-000000001111\",\"data\":{\"dois\":[{\"value\":\"10.1016/j.physletb.2025.139959\",\"source\":\"Elsevier
+        B.V.\",\"material\":\"publication\"}],\"urls\":[{\"value\":\"https://lss.fnal.gov/archive/2025/pub/fermilab-pub-25-0393-ppd.pdf\",\"description\":\"Fermilab
+        Library Server\"}],\"titles\":[{\"title\":\"Chebyshev Moment Regularization
+        (CMR): Condition-Number Control with Moment Shaping\",\"source\":\"arXiv\"}],\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"authors\":[{\"uuid\":\"1661c971-41e0-4361-8770-5ab2baae543e\",\"record\":{\"$ref\":\"https://inspirehep.net/api/authors/2742792\"},\"full_name\":\"Song,
+        Hanlin\",\"affiliations\":[{\"value\":\"Peking U.\",\"record\":{\"$ref\":\"https://inspirehep.net/api/institutions/903603\"}}],\"curated_relation\":true,\"raw_affiliations\":[{\"value\":\"School
+        of Physics, Peking University, Beijing, 100871, China\",\"source\":\"Elsevier
+        B.V.\"}]},{\"uuid\":\"e1c43d40-0cec-4f7e-bf06-2156cb2a6a12\",\"emails\":[\"mabq@pku.edu.cn\"],\"record\":{\"$ref\":\"https://inspirehep.net/api/authors/999448\"},\"full_name\":\"Ma,
+        Bo-Qiang\",\"affiliations\":[{\"value\":\"Peking U.\",\"record\":{\"$ref\":\"https://inspirehep.net/api/institutions/903603\"}},{\"value\":\"Zhengzhou
+        U.\",\"record\":{\"$ref\":\"https://inspirehep.net/api/institutions/904424\"}}],\"raw_affiliations\":[{\"value\":\"School
+        of Physics, Zhengzhou University, Zhengzhou, 450001, China\",\"source\":\"Elsevier
+        B.V.\"},{\"value\":\"School of Physics, Peking University, Beijing, 100871,
+        China\",\"source\":\"Elsevier B.V.\"}]}],\"curated\":false,\"license\":[{\"url\":\"http://creativecommons.org/licenses/by/4.0/\",\"license\":\"CC
+        BY 4.0\",\"material\":\"preprint\"}],\"citeable\":true,\"abstracts\":[{\"value\":\"We
+        introduce \\\\textbf{Chebyshev Moment Regularization (CMR)}, a simple, architecture-agnostic
+        loss that directly optimizes layer spectra. CMR jointly controls spectral
+        edges via a log-condition proxy and shapes the interior via Chebyshev moments,
+        with a decoupled, capped mixing rule that preserves task gradients. We prove
+        strictly monotone descent for the condition proxy, bounded moment gradients,
+        and orthogonal invariance. In an adversarial ``$\u03BA$-stress'' setting (MNIST,
+        15-layer MLP), \\\\emph{compared to vanilla training}, CMR reduces mean layer
+        condition numbers by $\\\\sim\\\\!10^3$ (from $\\\\approx3.9\\\\!\\\\times\\\\!10^3$
+        to $\\\\approx3.4$ in 5 epochs), increases average gradient magnitude, and
+        restores test accuracy ( $\\\\approx10\\\\%\\\\!\\\\to\\\\!\\\\approx86\\\\%$
+        ). These results support \\\\textbf{optimization-driven spectral preconditioning}:
+        directly steering models toward well-conditioned regimes for stable, accurate
+        learning.\",\"source\":\"arXiv\"}],\"languages\":[\"en\"],\"_collections\":[\"Literature\"],\"public_notes\":[{\"value\":\"15
+        pages\",\"source\":\"arXiv\"}],\"arxiv_eprints\":[{\"value\":\"2510.21772\",\"categories\":[\"cs.LG\",\"cs.NA\",\"math.NA\"]}],\"document_type\":[\"article\"],\"preprint_date\":\"2025-10-17\",\"collaborations\":[{\"value\":\"BLFQ\"}],\"report_numbers\":[{\"value\":\"ADP-25-11/T1273\",\"source\":\"arXiv\"}],\"number_of_pages\":15,\"publication_info\":[{\"year\":2025,\"artid\":\"139959\",\"material\":\"publication\",\"journal_title\":\"Phys.Lett.B\",\"journal_record\":{\"$ref\":\"https://inspirehep.net/api/journals/1613966\"},\"journal_volume\":\"870\",\"pubinfo_freetext\":\"Phys.
+        Lett. B 870 (2025) 139959\"}],\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"arXiv\",\"datetime\":\"2025-10-28T02:00:33.403192\",\"submission_number\":\"scheduled__2025-10-28T02:00:00+00:00\"},\"inspire_categories\":[{\"term\":\"Computing\",\"source\":\"arxiv\"},{\"term\":\"Math
+        and Math Physics\",\"source\":\"arxiv\"}],\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirehep.net/api/experiments/1711193\"},\"legacy_name\":\"CERN-LHC-FASER\"}]},\"tickets\":[],\"decisions\":[{\"id\":1,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-08-26T14:45:14.237000Z\",\"_updated_at\":\"2025-08-26T14:45:14.237000Z\",\"action\":\"exact_match\",\"value\":\"paper1\",\"user\":\"admin@admin.com\"}],\"workflow_type\":\"HEP_CREATE\",\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-10-31T16:01:36.182383Z\",\"journal_coverage\":null,\"relevance_prediction\":null,\"classifier_results\":null,\"reference_count\":null,\"status\":\"blocked\"}"
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '4064'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Fri, 31 Oct 2025 16:01:36 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=93.3099999999989;desc="User CPU time", TimerPanel_stime;dur=2.978999999999843;desc="System
+        CPU time", TimerPanel_total;dur=96.28899999999874;desc="Total CPU time", TimerPanel_total_time;dur=111.38062499230728;desc="Elapsed
+        time", SQLPanel_sql_time;dur=7.724959985353053;desc="SQL 10 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 6d2197267b844c739c5c59cef5ede883
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -199,6 +199,8 @@ class HepWorkflowDocumentView(BaseDocumentViewSet):
     ]
     search_fields = {
         "data.titles.title",
+        "data.arxiv_eprints.value.keyword",
+        "data.dois.value.keyword",
     }
 
     filter_fields = {
