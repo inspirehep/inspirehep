@@ -25,6 +25,9 @@ class HepWorkflow(BaseWorkflow):
         null=True,
         blank=True,
     )
+    relevance_prediction = models.JSONField(null=True, blank=True)
+    classifier_results = models.JSONField(null=True, blank=True)
+    reference_count = models.JSONField(null=True, blank=True)
     status = models.CharField(
         max_length=30,
         choices=HepStatusChoices.choices,
