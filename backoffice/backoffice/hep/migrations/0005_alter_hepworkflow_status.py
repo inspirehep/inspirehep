@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("hep", "0003_hepworkflow_journal_coverage_and_more"),
+        ("hep", "0004_hepworkflow_classifier_results_and_more"),
     ]
 
     operations = [
