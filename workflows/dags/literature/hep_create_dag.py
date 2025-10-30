@@ -110,19 +110,27 @@ def hep_create_dag():
         )
         filter_params = {
             "status__in": {"__".join(RUNNING_STATUSES)},
-            "data.arxiv_eprints.value": {
-                workflow_data["data"]["arxiv_eprints"][0]["value"]
-            },
         }
 
-        response = workflow_management_hook.filter_workflows(filter_params)
-        if response["count"] <= 1:
-            return True
+        for key in ["arxiv_eprints", "dois"]:
+            if key in workflow_data["data"]:
+                if "search" not in filter_params:
+                    filter_params["search"] = []
 
-        workflow_management_hook.set_workflow_status(
-            status_name="blocked", workflow_id=context["params"]["workflow_id"]
-        )
-        return False
+                for item in workflow_data["data"][key]:
+                    filter_params["search"].append(
+                        f"data.{key}.value.keyword:{item['value']}"
+                    )
+
+        if "search" in filter_params:
+            response = workflow_management_hook.filter_workflows(filter_params)
+
+            if response["count"] >= 2:
+                workflow_management_hook.set_workflow_status(
+                    status_name="blocked", workflow_id=context["params"]["workflow_id"]
+                )
+                return False
+        return True
 
     @task.branch
     def check_for_exact_matches(**context):
