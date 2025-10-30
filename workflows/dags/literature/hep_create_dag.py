@@ -949,7 +949,8 @@ def hep_create_dag():
             try:
                 clf = Classifier(model_path="/opt/classifier_model.h5")
                 results = clf.predict_coreness(title, abstract)
-                return calculate_coreness(results)
+                coreness = calculate_coreness(results)
+                return {"relevance_prediction": coreness}
             except Exception as e:
                 logger.error(f"Error occurred while predicting coreness: {e}")
                 return {"error": str(e)}

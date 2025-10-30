@@ -1677,12 +1677,14 @@ class Test_HEPCreateDAG:
             overwrite=True,
         )
 
-        result = task_test(
+        task_result = task_test(
             "hep_create_dag",
             "preprocessing.guess_coreness",
             dag_params=self.context["params"],
         )
-        print(result)
+
+        result = task_result["relevance_prediction"]
+
         assert isinstance(result, dict)
         assert "scores" in result
         assert "decision" in result
