@@ -96,3 +96,50 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(response.json()["data"], data["data"])
         self.assertEqual(response.json()["workflow_type"], data["workflow_type"])
         self.assertIn("id", response.json())
+
+    @pytest.mark.vcr
+    def test_get_hep_classifier_results_filtered(self):
+        self.api_client.force_authenticate(user=self.curator)
+
+        data = {
+            "workflow_type": HepWorkflowType.HEP_CREATE,
+            "status": "running",
+            "data": {
+                "_collections": ["Literature"],
+                "titles": [{"source": "submitter", "title": "Test record"}],
+                "document_type": ["article"],
+                "$schema": "https://inspirehep.net/schemas/records/hep.json",
+            },
+            "classifier_results": {
+                "categories": [{"keyword": "Higgs particle", "category": "HEP"}],
+                "fulltext_used": True,
+                "complete_output": {
+                    "acronyms": [],
+                    "field_codes": [],
+                    "core_keywords": [
+                        {"number": 1, "keyword": "Higgs particle"},
+                        {"number": 1, "keyword": "supersymmetry"},
+                    ],
+                    "author_keywords": [],
+                    "single_keywords": [],
+                    "composite_keywords": [],
+                },
+            },
+        }
+        create_url = reverse("api:hep-list")
+        response = self.api_client.post(create_url, format="json", data=data)
+        self.assertEqual(response.status_code, 201)
+        wf_id = response.json()["id"]
+
+        detail_url = reverse("api:hep-detail", kwargs={"pk": wf_id})
+        detail_response = self.api_client.get(detail_url)
+        self.assertEqual(detail_response.status_code, 200)
+
+        payload = detail_response.json()
+        self.assertEqual(payload["data"], data["data"])
+        self.assertIn("id", payload)
+
+        filtered = payload["classifier_results"]["complete_output"][
+            "filtered_core_keywords"
+        ]
+        self.assertEqual([k["keyword"] for k in filtered], ["supersymmetry"])

@@ -1,0 +1,37 @@
+interactions:
+- request:
+    body: '{"dag_run_id": "469815a5-acb2-4170-af60-beb48217ed9d", "logical_date":
+      null, "conf": {"workflow_id": "469815a5-acb2-4170-af60-beb48217ed9d"}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '141'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://airflow-api-server:8080/api/v2/dags/hep_create_dag/dagRuns
+  response:
+    body:
+      string: '{"dag_run_id":"469815a5-acb2-4170-af60-beb48217ed9d","dag_id":"hep_create_dag","logical_date":null,"queued_at":"2025-11-03T12:04:27.028979Z","start_date":null,"end_date":null,"data_interval_start":null,"data_interval_end":null,"run_after":"2025-11-03T12:04:26.965931Z","last_scheduling_decision":null,"run_type":"manual","state":"queued","triggered_by":"rest_api","conf":{"workflow_id":"469815a5-acb2-4170-af60-beb48217ed9d"},"note":null,"dag_versions":[{"id":"019a39fe-cc28-797b-9a9c-85d6f07e983b","version_number":1,"dag_id":"hep_create_dag","bundle_name":"dags-folder","bundle_version":null,"created_at":"2025-10-31T11:19:51.080471Z","bundle_url":null}],"bundle_version":null}'
+    headers:
+      content-length:
+      - '679'
+      content-type:
+      - application/json
+      date:
+      - Mon, 03 Nov 2025 12:04:26 GMT
+      server:
+      - uvicorn
+      transfer-encoding:
+      - chunked
+      vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+version: 1

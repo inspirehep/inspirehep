@@ -1,3 +1,4 @@
+from copy import deepcopy
 from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
 from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
 from rest_framework import serializers
@@ -12,6 +13,8 @@ from backoffice.hep.constants import (
 )
 from backoffice.hep.documents import HepWorkflowDocument
 from backoffice.hep.models import HepDecision, HepWorkflow, HepWorkflowTicket
+from inspire_utils.record import get_value
+from backoffice.hep.constants import ANTIHEP_KEYWORDS
 
 
 class HepWorkflowTicketSerializer(BaseWorkflowTicketSerializer):
@@ -61,8 +64,31 @@ class HepWorkflowSerializer(BaseWorkflowSerializer):
         required=True,
     )
 
+    classifier_results = serializers.JSONField(required=False, allow_null=True)
+
     class Meta(BaseWorkflowSerializer.Meta):
         model = HepWorkflow
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        classifier_result = data.get("classifier_results")
+        if not classifier_result:
+            return data
+
+        classifier_result_copy = deepcopy(classifier_result)
+        complete_output = get_value(classifier_result_copy, "complete_output", {})
+        core_keywords = complete_output.get("core_keywords", [])
+
+        filtered_core_keywords = [
+            kw for kw in core_keywords if kw.get("keyword") not in ANTIHEP_KEYWORDS
+        ]
+
+        complete_output["filtered_core_keywords"] = filtered_core_keywords
+        classifier_result_copy["complete_output"] = complete_output
+        data["classifier_results"] = classifier_result_copy
+
+        return data
 
 
 @extend_schema_serializer(
