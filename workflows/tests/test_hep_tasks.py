@@ -68,7 +68,7 @@ class Test_HEPCreateDAG:
         assert res == self.context["params"]["workflow_id"]
 
     @pytest.mark.vcr
-    def test_check_for_blocking_workflows_block(self):
+    def test_check_for_blocking_workflows_block_arxivid(self):
         task = self.dag.get_task("check_for_blocking_workflows")
 
         write_object(
@@ -78,6 +78,29 @@ class Test_HEPCreateDAG:
                     "arxiv_eprints": [
                         {
                             "value": "2507.26819",
+                        }
+                    ]
+                }
+            },
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+        result = task.python_callable(params=self.context["params"])
+
+        assert result is False
+
+    @pytest.mark.vcr
+    def test_check_for_blocking_workflows_block_doi(self):
+        task = self.dag.get_task("check_for_blocking_workflows")
+
+        write_object(
+            s3_hook,
+            {
+                "data": {
+                    "dois": [
+                        {
+                            "value": "10.1016/j.physletb.2025.139959",
                         }
                     ]
                 }
