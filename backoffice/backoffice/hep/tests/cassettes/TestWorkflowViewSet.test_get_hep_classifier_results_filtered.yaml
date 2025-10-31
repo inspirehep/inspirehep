@@ -1,0 +1,99 @@
+interactions:
+- request:
+    body: '{"index":{"_id":"00000000-0000-0000-0000-000000000002","_index":"backoffice-backend-test-hep-workflows"}}
+
+      {"id":"00000000-0000-0000-0000-000000000002","workflow_type":"HEP_CREATE","data":{},"decisions":[],"status":"approval","_created_at":"2025-10-31T11:55:23.180702+00:00","_updated_at":"2025-10-31T11:55:23.180709+00:00"}
+
+      '
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+      user-agent:
+      - opensearch-py/2.6.0 (Python 3.11.6)
+    method: POST
+    uri: http://es:9200/_bulk?refresh=true
+  response:
+    body:
+      string: '{"took":20,"errors":false,"items":[{"index":{"_index":"backoffice-backend-test-hep-workflows","_id":"00000000-0000-0000-0000-000000000002","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":10,"_primary_term":1,"status":200}}]}'
+    headers:
+      content-length:
+      - '288'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"dag_run_id": "7beacb1e-28b4-461c-bc7a-e86c5886b2cd", "logical_date":
+      null, "conf": {"workflow_id": "7beacb1e-28b4-461c-bc7a-e86c5886b2cd"}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '141'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.31.0
+    method: POST
+    uri: http://airflow-api-server:8080/api/v2/dags/hep_create_dag/dagRuns
+  response:
+    body:
+      string: !!binary |
+        H4sIAKujBGkA/5VRy27CMBD8F58xivO08x09UVWWH5s0qnGoY4MQ4t+7CdCCRCv15p3ZmZ1dn4hV
+        vQzJy8GSljQalNEMaM51ScuaGapNoyjw2lSc1zo3lqwWzdL/DjtpAqgIEjFk3NgPRjmsIpDWJ+dW
+        5DNBAitVREGe5RVlGS3YC2NtVbV5sa6yQoh6g+opqhAftODtQ41vJQcfIexxytL/nELhjZi3Ux3i
+        v8wvy5JX2TzfqSnKybyDTW7wvbRghmkY/b1TPO4wDdkqn5S7ZJ7jXbdEIIah7yHgxvqIeAD0VLsB
+        GTP6jrQnchjDR+fGwz9ufl4RP96foZd7CHO2ibSvJ7I4ZUyoQnRAjck5bUSjqVDCUF7ZussaELzQ
+        GOMqlD5t9XwU9teH6uStA+nVdl4SsYl2o7Oo++aufrdsF/nT/2airdg641nZsM2PQQruIj6/PTc9
+        fwGZQcVUpwIAAA==
+    headers:
+      content-encoding:
+      - gzip
+      content-type:
+      - application/json
+      date:
+      - Fri, 31 Oct 2025 11:55:22 GMT
+      server:
+      - uvicorn
+      transfer-encoding:
+      - chunked
+      vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"index":{"_id":"7beacb1e-28b4-461c-bc7a-e86c5886b2cd","_index":"backoffice-backend-test-hep-workflows"}}
+
+      {"id":"7beacb1e-28b4-461c-bc7a-e86c5886b2cd","workflow_type":"HEP_CREATE","data":{"titles":[{"title":"Test
+      record","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"]},"decisions":[],"status":"running","_created_at":"2025-10-31T11:55:23.214791+00:00","_updated_at":"2025-10-31T11:55:23.214804+00:00"}
+
+      '
+    headers:
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+      user-agent:
+      - opensearch-py/2.6.0 (Python 3.11.6)
+    method: POST
+    uri: http://es:9200/_bulk?refresh=true
+  response:
+    body:
+      string: '{"took":28,"errors":false,"items":[{"index":{"_index":"backoffice-backend-test-hep-workflows","_id":"7beacb1e-28b4-461c-bc7a-e86c5886b2cd","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":11,"_primary_term":1,"status":201}}]}'
+    headers:
+      content-length:
+      - '288'
+      content-type:
+      - application/json; charset=UTF-8
+    status:
+      code: 200
+      message: OK
+version: 1
