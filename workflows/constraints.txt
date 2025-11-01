@@ -543,7 +543,7 @@ opentelemetry-exporter-otlp==1.27.0
 opentelemetry-exporter-prometheus==0.48b0
 opentelemetry-proto==1.27.0
 opentelemetry-sdk==1.27.0
-opentelemetry-semantic-conventions==0.48b0
+opentelemetry-semantic-conventions==0.59b0
 opsgenie-sdk==2.1.5
 oracledb==3.3.0
 ordered-set==4.1.0
