@@ -125,7 +125,7 @@ apache-airflow-providers-cncf-kubernetes==10.7.0
 apache-airflow-providers-cohere==1.5.3
 apache-airflow-providers-common-compat==1.7.3
 apache-airflow-providers-common-io==1.6.2
-apache-airflow-providers-common-messaging==1.0.5
+apache-airflow-providers-common-messaging==2.0.0
 apache-airflow-providers-common-sql==1.27.5
 apache-airflow-providers-databricks==7.7.1
 apache-airflow-providers-datadog==3.9.2
