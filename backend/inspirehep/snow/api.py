@@ -351,6 +351,7 @@ class InspireSnow(SnowTicketAPI):
             third_party_ticket_id = found_third_party_ticket_id[0]["sys_id"]
         else:
             third_party_ticket_payload = {
+                "u_snow_id": ticket_id,
                 "u_third_party_ticket_id": recid,
             }
             third_party_ticket_id = self.create_ticket(
@@ -464,7 +465,6 @@ class InspireSnow(SnowTicketAPI):
         assignee_id = (
             self._get_user_by_name(assigned_to_name) if assigned_to_name else None
         )
-
         functional_category_id = next(
             (
                 category["id"]

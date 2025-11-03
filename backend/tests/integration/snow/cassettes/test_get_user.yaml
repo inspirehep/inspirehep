@@ -11,55 +11,69 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-requests/2.22.0
+      - python-requests/2.32.3
     method: GET
     uri: https://cerntraining.service-now.com/api/now/table/sys_user_grmember?sysparm_fields=user.name%2Cgroup.name%2Cuser.email%2Cuser.sys_id&sysparm_query=group.nameSTARTSWITHInspire+Information+system
   response:
     body:
-      string: '{"result":[{"group.name":"Inspire Information system 2nd Line Support","user.sys_id":"8a2d3dfadbeec810b80594dadb961904","user.email":"marcjanna.jedrych@cern.ch","user.name":"Marcjanna
-        Jedrych"},{"group.name":"Inspire Information system 2nd Line Support","user.sys_id":"ea4dfe1e0a0a8c0a016bddc2f2e5befc","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+      string: '{"result":[{"group.name":"Inspire Information system 2nd Line Support","user.sys_id":"42f093e0c3e08290718e59fdd40131fc","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system 2nd Line Support","user.sys_id":"ea4dfe1e0a0a8c0a016bddc2f2e5befc","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system 2nd Line Support","user.sys_id":"792bf7a98761e1101a94ac1a0cbb3565","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"f06113500a0a8c08006fdd448147d73b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"f51c269e1bead910de8f42e6bb4bcb9b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system 2nd Line Support","user.sys_id":"29da0ba91dceb9c0c7138e7019d56a01","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"41ee6c8d873ed510eb5284030cbb35cc","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system 2nd Line Support","user.sys_id":"1239e3824f7466004b4abc511310c70a","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"171c669e1bead910de8f42e6bb4bcbc6","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"25ea715e94b074406d2120312bb3b648","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system 2nd Line Support","user.sys_id":"997f5b55010fecc49878151822750d79","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"5cdb7c8f49d770006d21ba2605c60735","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"ce1dd215873b951069c063990cbb35a7","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
-        Information system 2nd Line Support","user.sys_id":"111c269e1bead910de8f42e6bb4bcb44","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"0e3913581b5f915026c5657bab4bcbf9","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
-        Information system 2nd Line Support","user.sys_id":"3cee6c8d873ed510eb5284030cbb35a6","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"ed3845590a0a8c0a009248e15dc29ef3","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
-        Information system 2nd Line Support","user.sys_id":"ea5351090a0a8c0a01c514a22b8d3d61","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system 2nd Line Support","user.sys_id":"7a66f42d8365a210a447bac6feaad3c9","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"083ecf274f469a0087a2f5601310c73b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system 2nd Line Support","user.sys_id":"3e160b79832f06d0c1ac5655eeaad335","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system 2nd Line Support","user.sys_id":"3c4a9b064f6d02004b4abc511310c776","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"dca8fbfc877ad5102d1442650cbb355c","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"e6dad0404f61c20093ecdf601310c797","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
-        Information system 2nd Line Support","user.sys_id":"1239e3824f7466004b4abc511310c70a","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system 2nd Line Support","user.sys_id":"72c082038381161070ceba65eeaad30e","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"477cfbdf870b1d102d1442650cbb357b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"da1c269e1bead910de8f42e6bb4bcbcd","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system 2nd Line Support","user.sys_id":"4a3e1af683788650c1ac5655eeaad389","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system 2nd Line Support","user.sys_id":"ffc2b84387797850eb3b33390cbb35dd","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"ed3a8f720a0a8c0a01fc90ad8487cc1b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"5cdb7c8f49d770006d21ba2605c60735","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
-        Information system Aggregated Group","user.sys_id":"8a2d3dfadbeec810b80594dadb961904","user.email":"marcjanna.jedrych@cern.ch","user.name":"Marcjanna
-        Jedrych"},{"group.name":"Inspire Information system Aggregated Group","user.sys_id":"f51c269e1bead910de8f42e6bb4bcb9b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system Aggregated Group","user.sys_id":"72c082038381161070ceba65eeaad30e","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system Aggregated Group","user.sys_id":"f51c269e1bead910de8f42e6bb4bcb9b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system Aggregated Group","user.sys_id":"3c4a9b064f6d02004b4abc511310c776","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"41ee6c8d873ed510eb5284030cbb35cc","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"171c669e1bead910de8f42e6bb4bcbc6","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system Aggregated Group","user.sys_id":"4a3e1af683788650c1ac5655eeaad389","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"e6dad0404f61c20093ecdf601310c797","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system Aggregated Group","user.sys_id":"ffc2b84387797850eb3b33390cbb35dd","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system Aggregated Group","user.sys_id":"7a66f42d8365a210a447bac6feaad3c9","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"1239e3824f7466004b4abc511310c70a","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
-        Information system Aggregated Group","user.sys_id":"111c269e1bead910de8f42e6bb4bcb44","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"477cfbdf870b1d102d1442650cbb357b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
-        Information system Aggregated Group","user.sys_id":"3cee6c8d873ed510eb5284030cbb35a6","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"0e3913581b5f915026c5657bab4bcbf9","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"ed3a8f720a0a8c0a01fc90ad8487cc1b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system Aggregated Group","user.sys_id":"42f093e0c3e08290718e59fdd40131fc","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"ea4dfe1e0a0a8c0a016bddc2f2e5befc","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"f06113500a0a8c08006fdd448147d73b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"dca8fbfc877ad5102d1442650cbb355c","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"25ea715e94b074406d2120312bb3b648","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"083ecf274f469a0087a2f5601310c73b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system Aggregated Group","user.sys_id":"3e160b79832f06d0c1ac5655eeaad335","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system Aggregated Group","user.sys_id":"792bf7a98761e1101a94ac1a0cbb3565","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"ce1dd215873b951069c063990cbb35a7","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"da1c269e1bead910de8f42e6bb4bcbcd","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system Aggregated Group","user.sys_id":"29da0ba91dceb9c0c7138e7019d56a01","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system Aggregated Group","user.sys_id":"997f5b55010fecc49878151822750d79","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"ed3845590a0a8c0a009248e15dc29ef3","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
-        Information system Aggregated Group","user.sys_id":"ea5351090a0a8c0a01c514a22b8d3d61","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Functional Manager","user.sys_id":"1239e3824f7466004b4abc511310c70a","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
-        Information system Functional Manager","user.sys_id":"e6dad0404f61c20093ecdf601310c797","user.email":"XXX","user.name":"XXX"}]}'
+        Information system Functional Manager","user.sys_id":"e6dad0404f61c20093ecdf601310c797","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system Functional Manager","user.sys_id":"ffc2b84387797850eb3b33390cbb35dd","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system Functional Manager","user.sys_id":"5cdb7c8f49d770006d21ba2605c60735","user.email":"XXX","user.name":"XXX"}]}'
     headers:
       Cache-Control:
       - no-cache,no-store,must-revalidate,max-age=-1
@@ -68,7 +82,7 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Mon, 23 Oct 2023 08:32:59 GMT
+      - Mon, 03 Nov 2025 14:24:05 GMT
       Expires:
       - '0'
       Pragma:
@@ -76,19 +90,21 @@ interactions:
       Server:
       - snow_adc
       Server-Timing:
-      - sem_wait;dur=0, sesh_wait;dur=0
+      - sem_wait;dur=1, sesh_wait;dur=0
       Strict-Transport-Security:
       - max-age=63072000; includeSubDomains
       Transfer-Encoding:
       - chunked
+      X-Content-Type-Options:
+      - nosniff
       X-Is-Logged-In:
       - 'true'
       X-Total-Count:
-      - '44'
+      - '58'
       X-Transaction-ID:
-      - 7cb2b4f98782
+      - 2abe832c87c1
       content-length:
-      - '7762'
+      - '10306'
     status:
       code: 200
       message: OK

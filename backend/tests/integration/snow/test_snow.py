@@ -8,12 +8,14 @@
 import mock
 import pytest
 import requests
+from flask import current_app
 from helpers.utils import (
     filter_out_authentication,
     filter_out_user_data_and_cookie_headers,
 )
 from inspirehep.snow.api import InspireSnow
 from inspirehep.snow.errors import CreateTicketException
+from mock import patch
 
 
 @pytest.mark.vcr(
@@ -23,19 +25,55 @@ from inspirehep.snow.errors import CreateTicketException
 )
 @pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
 def test_create_inspire_ticket(inspire_app):
+    SNOW_INSPIRE_USER_ID = current_app.config["SNOW_INSPIRE_USER_ID"]
     control_number = 232381
-    snow_instance = InspireSnow()
-    ticket_id = snow_instance.create_inspire_ticket(
-        subject="This is a test description by Jessica Jones.",
-        description="This is a test subject by Jessica Jones.",
-        user_email="marcjanna.jedrych@cern.ch",
-        recid=control_number,
-        assigned_to_name="Marcjanna Jedrych",
-    )
 
-    assert ticket_id
-    ticket = snow_instance.get_ticket(ticket_id)
-    assert ticket["assigned_to"]
+    with patch.object(
+        InspireSnow,
+        "_get_user_by_name",
+        return_value=SNOW_INSPIRE_USER_ID,
+    ):
+        snow_instance = InspireSnow()
+        ticket_id = snow_instance.create_inspire_ticket(
+            subject="This is a test description by Jessica Jones.",
+            description="This is a test subject by Jessica Jones.",
+            user_email="ioannis.tsanaktsidis@cern.ch",
+            recid=control_number,
+            assigned_to_name="Ioannis Tsanaktsidis",
+        )
+
+        assert ticket_id
+        ticket = snow_instance.get_ticket(ticket_id)
+        assert ticket["assigned_to"]
+
+
+@pytest.mark.vcr(
+    filter_headers=["authorization", "Set-Cookie"],
+    before_record_request=filter_out_authentication,
+    before_record_response=filter_out_user_data_and_cookie_headers(),
+)
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_create_inspire_ticket_with_third_party(inspire_app):
+    SNOW_INSPIRE_USER_ID = current_app.config["SNOW_INSPIRE_USER_ID"]
+    control_number = 2789936
+
+    with patch.object(
+        InspireSnow,
+        "_get_user_by_name",
+        return_value=SNOW_INSPIRE_USER_ID,
+    ):
+        snow_instance = InspireSnow()
+        ticket_id = snow_instance.create_inspire_ticket(
+            subject="This is a test description by Jessica Jones.",
+            description="This is a test subject by Jessica Jones.",
+            user_email="ioannis.tsanaktsidis@cern.ch",
+            recid=control_number,
+            assigned_to_name="Ioannis Tsanaktsidis",
+        )
+
+        assert ticket_id
+        ticket = snow_instance.get_ticket(ticket_id)
+        assert ticket["assigned_to"]
 
 
 @pytest.mark.vcr(
@@ -92,7 +130,7 @@ def test_get_ticket_by_recid(inspire_app):
         "subject",
         "description",
     ]
-    control_number = 3332203
+    control_number = 2789061
     ticket_id = InspireSnow().create_inspire_ticket(
         subject="This is a test description by Jessica Jones.",
         description="This is a test subject by Jessica Jones.",
@@ -192,7 +230,7 @@ def test_edit_inspire_ticket(inspire_app):
         subject="This is a test description by Jessica Jones.",
         description="This is a test subject by Jessica Jones.",
         recid=control_number,
-        assigned_to_name="Marcjanna Jedrych",
+        assigned_to_name="SIS TS ADMIN",
     )
 
     assert ticket_id
@@ -234,7 +272,7 @@ def test_comment_ticket(inspire_app):
     ticket_id = snow_instance.create_inspire_ticket(
         subject="This is a test description by Jessica Jones.",
         description="This is a test subject by Jessica Jones.",
-        user_email="marcjanna.jedrych@cern.ch",
+        user_email="ioannis.tsanaktsidis@cern.ch",
     )
 
     assert ticket_id
@@ -254,7 +292,7 @@ def test_comment_ticket_with_template(inspire_app):
     ticket_id = snow_instance.create_inspire_ticket(
         subject="This is a test description by Jessica Jones.",
         description="This is a test subject by Jessica Jones.",
-        user_email="marcjanna.jedrych@cern.ch",
+        user_email="ioannis.tsanaktsidis@cern.ch",
     )
 
     assert ticket_id

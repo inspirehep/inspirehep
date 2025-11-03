@@ -35,7 +35,7 @@ def test_create_ticket_with_template_view(inspire_app):
                     "subject": "test create ticket with template endpoint",
                     "recid": "123",
                     "template_context": dict(
-                        email="marcjanna.jedrych@cern.ch",
+                        email="ioannis.tsanaktsidis@cern.ch",
                         identifier="arxiv:1234",
                         user_comment="test",
                         references="",
@@ -69,7 +69,7 @@ def test_create_ticket_with_template_view_not_authenticated(inspire_app):
                     "functional_category": "Authors",
                     "subject": "test create ticket with template endpoint",
                     "template_context": dict(
-                        email="marcjanna.jedrych@cern.ch",
+                        email="ioannis.tsanaktsidis@cern.ch",
                         identifier="arxiv:1234",
                         user_comment="test",
                         references="",
