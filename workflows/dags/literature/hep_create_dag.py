@@ -1135,6 +1135,7 @@ def hep_create_dag():
         )
 
     @task_group
+<<<<<<< HEAD
     def halt_for_approval_if_new_or_reject_if_not_relevant(**context):
         @task.branch
         def check_is_update(match_approved_id, **context):
@@ -1206,6 +1207,58 @@ def hep_create_dag():
                     + "/callback/workflows/resolve_merge_conflicts",
                 }
 
+=======
+    def postprocessing(**context):
+        @task
+        def normalize_author_affiliations(**context):
+            workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, workflow_id)
+
+            if not workflow_data["data"].get("core"):
+                return
+            normalized_affiliation_response = inspire_http_hook.call_api(
+                endpoint="api/curation/literature/affiliations-normalization",
+                json={
+                    "authors": workflow_data["data"].get("authors", []),
+                    "workflow_id": 7,
+                },
+            )
+
+            normalized_affiliation_response_json = (
+                normalized_affiliation_response.json()
+            )
+            normalized_affiliations = normalized_affiliation_response_json[
+                "normalized_affiliations"
+            ]
+            ambiguous_affiliations = normalized_affiliation_response_json[
+                "ambiguous_affiliations"
+            ]
+
+            for author, normalized_affiliation in zip(
+                workflow_data["data"].get("authors", []),
+                normalized_affiliations,
+                strict=False,
+            ):
+                author_affiliations = author.get("affiliations", [])
+                if author_affiliations:
+                    continue
+                raw_affs = get_value(author, "raw_affiliations.value", [])
+                if normalized_affiliation:
+                    author["affiliations"] = normalized_affiliation
+                    logger.info(
+                        "Normalized affiliations for author %s. Raw affiliations: %s."
+                        " Assigned affiliations: %s",
+                        author["full_name"],
+                        ",".join(raw_affs),
+                        normalized_affiliation,
+                    )
+            for ambiguous_affiliation in ambiguous_affiliations:
+                logger.info(
+                    "Found ambiguous affiliations for raw affiliation %s,"
+                    " skipping affiliation linking.",
+                    ambiguous_affiliation,
+                )
+>>>>>>> 940ffcb28 (workflows: normalize_author_affilliations)
             write_object(
                 s3_hook,
                 workflow_data,
@@ -1214,6 +1267,7 @@ def hep_create_dag():
                 overwrite=True,
             )
 
+<<<<<<< HEAD
             return merge_summary_data
 
         @task
@@ -1306,6 +1360,9 @@ def hep_create_dag():
     @task_group
     def postprocessing():
         link_institutions_with_affiliations()
+=======
+        normalize_author_affiliations()
+>>>>>>> 940ffcb28 (workflows: normalize_author_affilliations)
 
     @task
     def save_and_complete_workflow(**context):
@@ -1352,13 +1409,19 @@ def hep_create_dag():
         >> check_for_exact_matches_task
     )
 
+<<<<<<< HEAD
     (
         preprocessing_group
         >> halt_for_approval_if_new_or_reject_if_not_relevant()
         >> postprocessing()
         >> save_and_complete_workflow()
     )
+=======
+    set_update_flag_task >> preprocessing_group
+>>>>>>> 940ffcb28 (workflows: normalize_author_affilliations)
     check_for_fuzzy_matches_task >> preprocessing_group
+
+    preprocessing_group >> postprocessing() >> save_and_complete_workflow()
 
 
 hep_create_dag()
