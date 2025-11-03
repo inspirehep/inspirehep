@@ -101,13 +101,13 @@ def collaborations_normalization(args):
 @parser.use_args(
     {
         "authors": fields.List(fields.Dict, required=True),
-        "workflow_id": fields.Int(required=True),
+        "workflow_id": fields.Int(required=False),
     },
     locations=("json",),
 )
 def affiliations_normalization(args):
     normalized_affiliations = normalize_affiliations(
-        args["authors"], workflow_id=args["workflow_id"]
+        args["authors"], workflow_id=args.get("workflow_id")
     )
     return jsonify(normalized_affiliations)
 
