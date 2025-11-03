@@ -67,6 +67,9 @@ from json_merger.errors import MaxThresholdExceededError
 from literature.link_institutions_with_affiliations_task import (
     link_institutions_with_affiliations,
 )
+from literature.normalize_author_affiliations_task import (
+    normalize_author_affiliations,
+)
 from literature.set_workflow_status_tasks import (
     set_workflow_status_to_fuzzy_matching,
     set_workflow_status_to_running,
@@ -1303,7 +1306,7 @@ def hep_create_dag():
 
     @task_group
     def postprocessing():
-        link_institutions_with_affiliations()
+        link_institutions_with_affiliations() >> normalize_author_affiliations()
 
     @task
     def save_and_complete_workflow(**context):

@@ -1999,6 +1999,192 @@ class Test_HEPCreateDAG:
         assert "conflicts" in workflow_result["merge_details"]
 
     @pytest.mark.vcr
+    def test_normalize_affiliations_happy_flow(self):
+        workflow_data = {
+            "data": {
+                "_collections": ["Literature"],
+                "titles": ["A title"],
+                "document_type": ["report"],
+                "authors": [
+                    {
+                        "full_name": "Kowal, Michal",
+                        "raw_affiliations": [
+                            {
+                                "value": "Faculty of Physics, University of Warsaw,"
+                                " Pasteura Warsaw"
+                            }
+                        ],
+                    },
+                    {
+                        "full_name": "Latacz, Barbara",
+                        "raw_affiliations": [{"value": "CERN, Genève, Switzerland"}],
+                    },
+                ],
+                "core": True,
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "postprocessing.normalize_author_affiliations",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert workflow_result["data"]["authors"][0]["affiliations"] == [
+            {
+                "record": {"$ref": "https://inspirebeta.net/api/institutions/903335"},
+                "value": "Warsaw U.",
+            }
+        ]
+        assert workflow_result["data"]["authors"][1]["affiliations"] == [
+            {
+                "record": {"$ref": "https://inspirebeta.net/api/institutions/902725"},
+                "value": "CERN",
+            }
+        ]
+
+    @pytest.mark.vcr
+    def test_normalize_affiliations_when_authors_has_two_happy_flow(self):
+        workflow_data = {
+            "data": {
+                "_collections": ["Literature"],
+                "titles": ["A title"],
+                "document_type": ["report"],
+                "authors": [
+                    {
+                        "full_name": "Kowal, Michal",
+                        "raw_affiliations": [
+                            {
+                                "value": "Faculty of Physics, University of Warsaw,"
+                                " Pasteura Warsaw"
+                            },
+                            {"value": "CERN, Genève, Switzerland"},
+                        ],
+                    }
+                ],
+                "core": True,
+            }
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "postprocessing.normalize_author_affiliations",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert workflow_result["data"]["authors"][0]["affiliations"] == [
+            {
+                "record": {"$ref": "https://inspirebeta.net/api/institutions/903335"},
+                "value": "Warsaw U.",
+            },
+            {
+                "record": {"$ref": "https://inspirebeta.net/api/institutions/902725"},
+                "value": "CERN",
+            },
+        ]
+
+    @pytest.mark.vcr
+    def test_normalize_affiliations_handle_not_found_affiliations(self):
+        workflow_data = {
+            "data": {
+                "_collections": ["Literature"],
+                "titles": ["A title"],
+                "document_type": ["report"],
+                "authors": [
+                    {
+                        "full_name": "Kowal, Michal",
+                        "raw_affiliations": [{"value": "Non existing aff"}],
+                    },
+                ],
+            },
+            "core": True,
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "postprocessing.normalize_author_affiliations",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert not workflow_result["data"]["authors"][0].get("affiliations")
+
+    @pytest.mark.vcr
+    def test_normalize_affiliations_when_lit_affiliation_missing_institution_ref(
+        self,
+    ):
+        workflow_data = {
+            "data": {
+                "_collections": ["Literature"],
+                "titles": ["A title"],
+                "document_type": ["report"],
+                "authors": [
+                    {
+                        "full_name": "Kozioł, Karol",
+                        "raw_affiliations": [
+                            {"value": "NCBJ Świerk"},
+                            {"value": "CERN, Genève, Switzerland"},
+                        ],
+                    }
+                ],
+                "core": True,
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "postprocessing.normalize_author_affiliations",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert workflow_result["data"]["authors"][0]["affiliations"] == [
+            {
+                "value": "NCBJ, Swierk",
+            },
+            {
+                "record": {"$ref": "https://inspirebeta.net/api/institutions/902725"},
+                "value": "CERN",
+            },
+        ]
+
+    @pytest.mark.vcr
     def test_save_and_complete_workflow(self):
         workflow_data = {
             "data": {
