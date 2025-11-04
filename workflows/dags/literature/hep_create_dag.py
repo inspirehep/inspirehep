@@ -5,7 +5,7 @@ import re
 from tempfile import TemporaryDirectory
 
 from airflow.decorators import dag, task_group
-from airflow.exceptions import AirflowException, AirflowSkipException
+from airflow.exceptions import AirflowException
 from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.providers.standard.operators.empty import EmptyOperator
@@ -147,12 +147,22 @@ def hep_create_dag():
                 f" before proceeding."
             )
         if len(matches) == 1:
-            return "dummy_set_update_flag"
+            context["ti"].xcom_push(key="match", value=matches[0])
+            return "preprocessing"
         return "check_for_fuzzy_matches"
 
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
-    def set_update_flag(**context):
-        return True
+    def get_approved_match(**context):
+        exact_match = context["ti"].xcom_pull(
+            task_ids="check_for_exact_matches", key="match"
+        )
+
+        if exact_match:
+            return exact_match
+
+        return context["ti"].xcom_pull(
+            task_ids="await_decision_fuzzy_match", key="match"
+        )
 
     @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def check_for_fuzzy_matches(**context):
@@ -187,7 +197,7 @@ def hep_create_dag():
             return "preprocessing"
         return "await_decision_fuzzy_match"
 
-    @task.branch
+    @task.short_circuit
     def await_decision_fuzzy_match(**context):
         workflow_data = workflow_management_hook.get_workflow(
             context["params"]["workflow_id"]
@@ -199,8 +209,7 @@ def hep_create_dag():
             set_workflow_status_to_fuzzy_matching(
                 workflow_id=context["params"]["workflow_id"]
             )
-            raise AirflowSkipException("Waiting for fuzzy match decision.")
-
+            return False
         write_object(
             s3_hook,
             workflow_data,
@@ -209,9 +218,10 @@ def hep_create_dag():
             overwrite=True,
         )
 
-        if decision.get("value"):
-            return "set_update_flag"
-        return "preprocessing"
+        approved_match_id = decision.get("value")
+        if approved_match_id:
+            context["ti"].xcom_push(key="match", value=approved_match_id)
+        return True
 
     @task_group
     def preprocessing():
@@ -1079,6 +1089,24 @@ def hep_create_dag():
             >> normalize_collaborations()
         )
 
+    @task.branch
+    def check_is_update(match_approved_id, **context):
+        if match_approved_id:
+            return "merge_articles"
+        return "update_inspire_categories"
+
+    @task
+    def merge_articles(match_approved_id, **context):
+        pass
+
+    @task_group
+    def postprocessing():
+        @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+        def todo():
+            pass
+
+        todo()
+
     @task
     def save_and_complete_workflow(**context):
         workflow_id = context["params"]["workflow_id"]
@@ -1089,33 +1117,30 @@ def hep_create_dag():
 
     preprocessing_group = preprocessing()
 
-    set_update_flag_task = set_update_flag()
+    get_approved_match_task = get_approved_match()
 
-    dummy_set_update_flag = EmptyOperator(task_id="dummy_set_update_flag")
+    update_inspire_categories = EmptyOperator(task_id="update_inspire_categories")
     check_for_fuzzy_matches_task = check_for_fuzzy_matches()
 
     check_for_exact_matches_task = check_for_exact_matches()
 
+    check_is_update_task = check_is_update(get_approved_match_task)
+
     (
         check_for_exact_matches_task
         >> [
-            dummy_set_update_flag,
             check_for_fuzzy_matches_task,
+            preprocessing_group,
         ]
     )
 
     (
         check_for_fuzzy_matches_task
         >> await_decision_fuzzy_match()
-        >> [set_update_flag_task, preprocessing_group]
+        >> preprocessing_group
     )
 
-    (
-        check_for_exact_matches_task
-        >> Label("1 Exact Match")
-        >> dummy_set_update_flag
-        >> set_update_flag_task
-    )
+    (check_for_exact_matches_task >> Label("1 Exact Match") >> preprocessing_group)
     (
         check_for_exact_matches_task
         >> Label("No Exact Matches")
@@ -1131,7 +1156,14 @@ def hep_create_dag():
         >> check_for_exact_matches_task
     )
 
-    set_update_flag_task >> preprocessing_group >> save_and_complete_workflow()
+    (
+        preprocessing_group
+        >> get_approved_match_task
+        >> check_is_update_task
+        >> [merge_articles(get_approved_match_task), update_inspire_categories]
+        >> postprocessing()
+        >> save_and_complete_workflow()
+    )
     check_for_fuzzy_matches_task >> preprocessing_group
 
 
