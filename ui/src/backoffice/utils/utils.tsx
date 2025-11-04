@@ -100,6 +100,23 @@ export const resolveDecision = (decision: string | number) => {
   return decisions[decision] || null;
 };
 
+export const resolveAutomaticDecision = (decision: string | number) => {
+  const decisions: {
+    [key: string]: { class: string; text: string };
+  } = {
+    CORE: { class: 'text-core', text: 'CORE' },
+    'Non-CORE': {
+      class: 'text-non-core',
+      text: 'Non-CORE',
+    },
+    rejected: {
+      class: 'text-rejected',
+      text: 'Rejected',
+    },
+  };
+  return decisions[decision] || null;
+};
+
 export const handleSearch = (
   dispatch: ActionCreator<Action>,
   searchValue: string,

@@ -110,6 +110,175 @@
             "categories": ["cs.LG", "cs.NA", "math.NA"]
           }
         ],
+        "references": [
+          {
+            "raw_refs": [
+              {
+                "schema": "text",
+                "source": "arXiv",
+                "value": "[1] ALICE Collaboration, (2024). Technical Design Report for the ALICE Inner Tracking System Upgrade, CERN-LHCC-2024-003, ALICE-TDR-021. https://cds.cern.ch/record/2890181?ln=en"
+              }
+            ],
+            "reference": {
+              "collaborations": ["ALICE Collaboration"],
+              "external_system_identifiers": [
+                {
+                  "schema": "CDS",
+                  "value": "2890181"
+                }
+              ],
+              "label": "1",
+              "misc": [
+                "Technical Design Report for the ALICE Inner Tracking System Upgrade",
+                "ALICE-TDR-021"
+              ],
+              "publication_info": {
+                "year": 2024
+              },
+              "report_numbers": ["CERN-LHCC-2024-003"],
+              "texkey": "placeholder_its3_tdr"
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "schema": "text",
+                "source": "arXiv",
+                "value": "[2] G. A. Rinella, (2017). The ALPIDE pixel sensor chip for the upgrade of the ALICE Inner Tracking System, Nuclear Instruments and Methods in Physics Research Section A 845 583-587. https://doi.org/10.1016/j.nima.2016.05.016"
+              }
+            ],
+            "record": {
+              "$ref": "https://inspirehep.net/api/literature/1513530"
+            },
+            "reference": {
+              "authors": [
+                {
+                  "full_name": "Rinella, G.A."
+                }
+              ],
+              "dois": ["10.1016/j.nima.2016.05.016"],
+              "label": "2",
+              "misc": [
+                "The ALPIDE pixel sensor chip for the upgrade of the ALICE Inner Tracking System"
+              ],
+              "publication_info": {
+                "journal_title": "Nucl.Instrum.Meth.A",
+                "journal_volume": "845",
+                "page_end": "587",
+                "page_start": "583",
+                "year": 2017
+              },
+              "texkey": "placeholder_alpide"
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "schema": "text",
+                "source": "arXiv",
+                "value": "[3] P. Moreira et al., (2025). lpGBT: Low-power radiation-hard multipurpose high-speed transceiver ASIC for high-energy physics experiments, IEEE Transactions on Nuclear Science, 72(1) 24-37. https://doi.org/10.1109/TNS.2024.3506753."
+              }
+            ],
+            "record": {
+              "$ref": "https://inspirehep.net/api/literature/2874609"
+            },
+            "reference": {
+              "authors": [
+                {
+                  "full_name": "Moreira, P."
+                }
+              ],
+              "dois": ["10.1109/TNS.2024.3506753"],
+              "label": "3",
+              "misc": [
+                "lpGBT: Low-power radiation-hard multipurpose high-speed transceiver ASIC for high-energy physics experiments"
+              ],
+              "publication_info": {
+                "journal_title": "IEEE Trans.Nucl.Sci.",
+                "journal_volume": "72",
+                "page_end": "37",
+                "page_start": "24",
+                "year": 2025
+              },
+              "texkey": "placeholder_lpgbt"
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "schema": "text",
+                "source": "arXiv",
+                "value": "[4] O. Groettvik on behalf of the ALICE collaboration, (2024). ALICE ITS3: a bent stitched MAPS-based vertex detector, JINST 19 C02048. https://doi.org/10.1088/1748-0221/19/02/C02048"
+              }
+            ],
+            "record": {
+              "$ref": "https://inspirehep.net/api/literature/2744986"
+            },
+            "reference": {
+              "authors": [
+                {
+                  "full_name": "Groettvik, O."
+                }
+              ],
+              "collaborations": ["ALICE collaboration"],
+              "dois": ["10.1088/1748-0221/19/02/C02048"],
+              "label": "4",
+              "misc": [
+                "on behalf of",
+                "ALICE ITS3: a bent stitched MAPS-based vertex detector"
+              ],
+              "publication_info": {
+                "artid": "C02048",
+                "journal_title": "JINST",
+                "journal_volume": "19",
+                "year": 2024
+              },
+              "texkey": "placeholder_its3_ogrottvi"
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "schema": "text",
+                "source": "arXiv",
+                "value": "[5] Enclustra, Mercury+ AA1 - Intel\u00ae Arria\u00ae 10 SoC Module. [Online]. https://www.enclustra.com/en/products/system-on-chip-modules/mercury-aa1/"
+              }
+            ],
+            "reference": {
+              "label": "5",
+              "misc": [
+                "Enclustra, Mercury+ AA1 - Intel\u00ae Arria\u00ae 10 SoC Module. [Online]"
+              ],
+              "texkey": "enclustra_som",
+              "urls": [
+                {
+                  "value": "https://www.enclustra.com/en/products/system-on-chip-modules/mercury-aa1/"
+                }
+              ]
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "schema": "text",
+                "source": "arXiv",
+                "value": "[6] Enclustra, Mercury+ ST1 - Base Board for Mercury/Mercury+ FPGA Modules. [Online]. https://www.enclustra.com/en/products/base-boards/mercury-st1/"
+              }
+            ],
+            "reference": {
+              "label": "6",
+              "misc": [
+                "Enclustra, Mercury+ ST1 - Base Board for Mercury/Mercury+ FPGA Modules. [Online]"
+              ],
+              "texkey": "enclustra_baseboard",
+              "urls": [
+                {
+                  "value": "https://www.enclustra.com/en/products/base-boards/mercury-st1/"
+                }
+              ]
+            }
+          }
+        ],
         "document_type": ["article"],
         "preprint_date": "2025-10-17",
         "collaborations": [
@@ -164,7 +333,21 @@
       },
       "status": "running",
       "_created_at": "2024-11-25T13:49:53.009Z",
-      "_updated_at": "2024-11-25T13:49:54.756Z"
+      "_updated_at": "2024-11-25T13:49:54.756Z",
+      "relevance_prediction": {
+        "scores": {
+          "CORE": 0.9637278318405151,
+          "Non-CORE": 0.01828720048069954,
+          "Rejected": 0.017984995618462563
+        },
+        "decision": "CORE",
+        "max_score": 0.9637278318405151,
+        "relevance_score": 1.9637278318405151
+      },
+      "reference_count": {
+        "core": 3,
+        "non_core": 0
+      }
     }
   },
   {
@@ -190,9 +373,9 @@
         "$schema": "https://inspirehep.net/schemas/records/hep.json",
         "_collections": ["Literature"],
         "dois": [
-            {
-                "value": "10.1016/j.physletb.2025.139959"
-            }
+          {
+            "value": "10.1016/j.physletb.2025.139959"
+          }
         ],
         "arxiv_eprints": [
           {
@@ -291,11 +474,11 @@
         "$schema": "https://inspirehep.net/schemas/records/hep.json",
         "_collections": ["Literature"],
         "dois": [
-        {
-          "source": "Springer",
-          "value": "10.1038/s41598-025-21235-8"
-        }
-      ],
+          {
+            "source": "Springer",
+            "value": "10.1038/s41598-025-21235-8"
+          }
+        ],
         "document_type": ["article"],
         "_private_notes": [
           {

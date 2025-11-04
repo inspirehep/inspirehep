@@ -17,17 +17,12 @@ import {
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
 import LinkLikeButton from '../../../common/components/LinkLikeButton/LinkLikeButton';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
-import {
-  BACKOFFICE_LITERATURE_SEARCH,
-  LITERATURE,
-} from '../../../common/routes';
+import { BACKOFFICE_LITERATURE_SEARCH } from '../../../common/routes';
 import ContentBox from '../../../common/components/ContentBox';
 import { BACKOFFICE_LITERATURE_SEARCH_NS } from '../../../search/constants';
 import Breadcrumbs from '../../common/components/Breadcrumbs/Breadcrumbs';
 import DocumentHead from '../../../common/components/DocumentHead';
-import UnclickableTag from '../../../common/components/UnclickableTag';
-import { formatDateTime, getDag, resolveDecision } from '../../utils/utils';
-import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
+import { formatDateTime, getDag } from '../../utils/utils';
 import { isSuperUser } from '../../../common/authorization';
 import { columnsSubject } from './columnData';
 import { StatusBanner } from '../../common/components/Detail/StatusBanner';
@@ -38,6 +33,7 @@ import DeleteWorkflow from '../../common/components/DeleteWorkflow/DeleteWorkflo
 import { getConfigFor } from '../../../common/config';
 import LiteratureMainInfo from '../components/LiteratureMainInfo';
 import Links from '../../common/components/Links/Links';
+import LiteratureDecisionBox from '../components/LiteratureDecisionBox';
 
 type LiteratureDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
@@ -61,6 +57,8 @@ const LiteratureDetailPageContainer = ({
   }, []);
 
   const data = literature?.get('data');
+  const relevancePrediction = literature?.get('relevance_prediction');
+  const referenceCount = literature?.get('reference_count');
   const title = data?.getIn(['titles', 0, 'title']);
   const controlNumber = data?.get('control_number');
   const tickets =
@@ -72,6 +70,8 @@ const LiteratureDetailPageContainer = ({
   const rawDateTime = data?.getIn(['acquisition_source', 'datetime']);
   const urls = data?.get('urls');
   const ids = data?.get('ids');
+  const references = data?.get('references');
+  const totalReferences = references ? references.size : 0;
 
   const formattedDateTime = formatDateTime(rawDateTime);
   const acquisitionSourceDateTime = formattedDateTime
@@ -185,27 +185,14 @@ const LiteratureDetailPageContainer = ({
                         subTitle="Decision"
                       >
                         {decision ? (
-                          <p className="mb0">
-                            This workflow is{' '}
-                            <UnclickableTag
-                              className={`decision-pill ${
-                                resolveDecision(decision?.get('action'))?.bg
-                              }`}
-                            >
-                              {resolveDecision(decision?.get('action'))
-                                ?.decision || 'completed'}
-                            </UnclickableTag>
-                            {controlNumber && (
-                              <span>
-                                as{' '}
-                                <LinkWithTargetBlank
-                                  href={`${LITERATURE}/${controlNumber}`}
-                                >
-                                  {controlNumber}
-                                </LinkWithTargetBlank>
-                              </span>
-                            )}
-                          </p>
+                          <LiteratureDecisionBox
+                            decision={decision}
+                            controlNumber={controlNumber}
+                            inspireCategories={inspireCategories}
+                            relevancePrediction={relevancePrediction}
+                            referenceCount={referenceCount}
+                            totalReferences={totalReferences}
+                          />
                         ) : (
                           <div className="w-100 flex flex-column items-center">
                             <Button
