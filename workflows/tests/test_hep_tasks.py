@@ -1,3 +1,4 @@
+from unittest.mock import patch
 from urllib.parse import urlparse
 
 import pytest
@@ -172,7 +173,26 @@ class Test_HEPCreateDAG:
             xcom_key="skipmixin_key",
         )
 
-        assert "dummy_set_update_flag" in result["followed"]
+        assert "preprocessing.check_is_arxiv_paper" in result["followed"]
+
+    @pytest.mark.vcr
+    def test_check_for_exact_matches_one_match_has_match(self):
+        write_object(
+            s3_hook,
+            {"data": {"arxiv_eprints": [{"value": "1801.07224"}]}},
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+
+        result = task_test(
+            "hep_create_dag",
+            "check_for_exact_matches",
+            dag_params=self.context["params"],
+            xcom_key="match",
+        )
+
+        assert result == 1649231
 
     @pytest.mark.vcr
     def test_check_for_exact_matches_multi_match(self):
@@ -259,25 +279,38 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_await_decision_fuzzy_match_best_match(self):
+        assert task_test(
+            dag_id="hep_create_dag",
+            task_id="await_decision_fuzzy_match",
+            dag_params=self.context["params"],
+        )
+
+    @pytest.mark.vcr
+    def test_await_decision_fuzzy_match_best_match_no_decision(self):
+        assert not task_test(
+            dag_id="hep_create_dag",
+            task_id="await_decision_fuzzy_match",
+            dag_params={"workflow_id": "6e84fd0b-8d0b-4147-9aee-c28a4f787b0d"},
+        )
+
+    @pytest.mark.vcr
+    def test_await_decision_fuzzy_match_best_match_has_xcom_match(self):
         result = task_test(
             dag_id="hep_create_dag",
             task_id="await_decision_fuzzy_match",
             dag_params=self.context["params"],
-            xcom_key="skipmixin_key",
+            xcom_key="match",
         )
 
-        assert "set_update_flag" in result["followed"]
+        assert result == "paper1"
 
     @pytest.mark.vcr
     def test_await_decision_fuzzy_match_none(self):
-        result = task_test(
+        assert task_test(
             dag_id="hep_create_dag",
             task_id="await_decision_fuzzy_match",
             dag_params={"workflow_id": "66961888-a628-46b7-b807-4deae3478adc"},
-            xcom_key="skipmixin_key",
         )
-
-        assert "preprocessing.check_is_arxiv_paper" in result["followed"]
 
     @pytest.mark.vcr
     def test_normalize_collaborations(self):
@@ -1853,6 +1886,45 @@ class Test_HEPCreateDAG:
         assert result["decision"] in ["CORE", "Non-CORE", "Rejected"]
         assert "max_score" in result
         assert "relevance_score" in result
+
+    def test_get_approved_match_none(self):
+        assert not task_test(
+            "hep_create_dag",
+            "get_approved_match",
+            dag_params=self.context["params"],
+        )
+
+    @patch("airflow.models.taskinstance.TaskInstance.xcom_pull")
+    def test_get_approved_match_exists(self, mock_xcom_pull):
+        mock_xcom_pull.return_value = "paper17"
+
+        result = task_test(
+            "hep_create_dag",
+            "get_approved_match",
+            dag_params=self.context["params"],
+        )
+
+        assert result == "paper17"
+
+    def test_check_is_update_merge(self):
+        result = task_test(
+            "hep_create_dag",
+            "check_is_update",
+            params={"match_approved_id": 7},
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+        assert "merge_articles" in result["followed"]
+
+    def test_check_is_update_none(self):
+        result = task_test(
+            "hep_create_dag",
+            "check_is_update",
+            params={"match_approved_id": None},
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+        assert "update_inspire_categories" in result["followed"]
 
     @pytest.mark.vcr
     def test_save_and_complete_workflow(self):

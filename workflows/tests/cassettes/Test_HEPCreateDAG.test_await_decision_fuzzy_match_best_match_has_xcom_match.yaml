@@ -1,0 +1,232 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Tue, 04 Nov 2025 15:44:16 GMT
+      Location:
+      - /api/workflows/literature/00000000-0000-0000-0000-000000001111/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111/
+  response:
+    body:
+      string: "{\"id\":\"00000000-0000-0000-0000-000000001111\",\"validation_errors\":[],\"data\":{\"dois\":[{\"value\":\"10.1016/j.physletb.2025.139959\",\"source\":\"Elsevier
+        B.V.\",\"material\":\"publication\"}],\"urls\":[{\"value\":\"https://lss.fnal.gov/archive/2025/pub/fermilab-pub-25-0393-ppd.pdf\",\"description\":\"Fermilab
+        Library Server\"}],\"titles\":[{\"title\":\"Chebyshev Moment Regularization
+        (CMR): Condition-Number Control with Moment Shaping\",\"source\":\"arXiv\"}],\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"authors\":[{\"uuid\":\"1661c971-41e0-4361-8770-5ab2baae543e\",\"record\":{\"$ref\":\"https://inspirehep.net/api/authors/2742792\"},\"full_name\":\"Song,
+        Hanlin\",\"affiliations\":[{\"value\":\"Peking U.\",\"record\":{\"$ref\":\"https://inspirehep.net/api/institutions/903603\"}}],\"curated_relation\":true,\"raw_affiliations\":[{\"value\":\"School
+        of Physics, Peking University, Beijing, 100871, China\",\"source\":\"Elsevier
+        B.V.\"}]},{\"uuid\":\"e1c43d40-0cec-4f7e-bf06-2156cb2a6a12\",\"emails\":[\"mabq@pku.edu.cn\"],\"record\":{\"$ref\":\"https://inspirehep.net/api/authors/999448\"},\"full_name\":\"Ma,
+        Bo-Qiang\",\"affiliations\":[{\"value\":\"Peking U.\",\"record\":{\"$ref\":\"https://inspirehep.net/api/institutions/903603\"}},{\"value\":\"Zhengzhou
+        U.\",\"record\":{\"$ref\":\"https://inspirehep.net/api/institutions/904424\"}}],\"raw_affiliations\":[{\"value\":\"School
+        of Physics, Zhengzhou University, Zhengzhou, 450001, China\",\"source\":\"Elsevier
+        B.V.\"},{\"value\":\"School of Physics, Peking University, Beijing, 100871,
+        China\",\"source\":\"Elsevier B.V.\"}]}],\"curated\":false,\"license\":[{\"url\":\"http://creativecommons.org/licenses/by/4.0/\",\"license\":\"CC
+        BY 4.0\",\"material\":\"preprint\"}],\"citeable\":true,\"abstracts\":[{\"value\":\"We
+        introduce \\\\textbf{Chebyshev Moment Regularization (CMR)}, a simple, architecture-agnostic
+        loss that directly optimizes layer spectra. CMR jointly controls spectral
+        edges via a log-condition proxy and shapes the interior via Chebyshev moments,
+        with a decoupled, capped mixing rule that preserves task gradients. We prove
+        strictly monotone descent for the condition proxy, bounded moment gradients,
+        and orthogonal invariance. In an adversarial ``$\u03BA$-stress'' setting (MNIST,
+        15-layer MLP), \\\\emph{compared to vanilla training}, CMR reduces mean layer
+        condition numbers by $\\\\sim\\\\!10^3$ (from $\\\\approx3.9\\\\!\\\\times\\\\!10^3$
+        to $\\\\approx3.4$ in 5 epochs), increases average gradient magnitude, and
+        restores test accuracy ( $\\\\approx10\\\\%\\\\!\\\\to\\\\!\\\\approx86\\\\%$
+        ). These results support \\\\textbf{optimization-driven spectral preconditioning}:
+        directly steering models toward well-conditioned regimes for stable, accurate
+        learning.\",\"source\":\"arXiv\"}],\"languages\":[\"en\"],\"_collections\":[\"Literature\"],\"public_notes\":[{\"value\":\"15
+        pages\",\"source\":\"arXiv\"}],\"arxiv_eprints\":[{\"value\":\"2510.21772\",\"categories\":[\"cs.LG\",\"cs.NA\",\"math.NA\"]}],\"document_type\":[\"article\"],\"preprint_date\":\"2025-10-17\",\"collaborations\":[{\"value\":\"BLFQ\"}],\"report_numbers\":[{\"value\":\"ADP-25-11/T1273\",\"source\":\"arXiv\"}],\"number_of_pages\":15,\"publication_info\":[{\"year\":2025,\"artid\":\"139959\",\"material\":\"publication\",\"journal_title\":\"Phys.Lett.B\",\"journal_record\":{\"$ref\":\"https://inspirehep.net/api/journals/1613966\"},\"journal_volume\":\"870\",\"pubinfo_freetext\":\"Phys.
+        Lett. B 870 (2025) 139959\"}],\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"arXiv\",\"datetime\":\"2025-10-28T02:00:33.403192\",\"submission_number\":\"scheduled__2025-10-28T02:00:00+00:00\"},\"inspire_categories\":[{\"term\":\"Computing\",\"source\":\"arxiv\"},{\"term\":\"Math
+        and Math Physics\",\"source\":\"arxiv\"}],\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirehep.net/api/experiments/1711193\"},\"legacy_name\":\"CERN-LHC-FASER\"}]},\"tickets\":[],\"decisions\":[{\"id\":1,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-08-26T14:45:14.237000Z\",\"_updated_at\":\"2025-08-26T14:45:14.237000Z\",\"action\":\"fuzzy_match\",\"value\":\"paper1\",\"user\":\"admin@admin.com\"}],\"workflow_type\":\"HEP_CREATE\",\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2024-11-25T13:49:54.756000Z\",\"journal_coverage\":null,\"relevance_prediction\":null,\"classifier_results\":null,\"reference_count\":null,\"status\":\"running\"}"
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '4087'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Tue, 04 Nov 2025 15:44:16 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=123.0059999999753;desc="User CPU time", TimerPanel_stime;dur=8.987999999988006;desc="System
+        CPU time", TimerPanel_total;dur=131.9939999999633;desc="Total CPU time", TimerPanel_total_time;dur=128.1232080073096;desc="Elapsed
+        time", SQLPanel_sql_time;dur=16.369000950362533;desc="SQL 13 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - bd2e8f2aade04ed7afc03caf3258792d
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Tue, 04 Nov 2025 15:44:16 GMT
+      Location:
+      - /api/workflows/literature/00000000-0000-0000-0000-000000001111/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111/
+  response:
+    body:
+      string: "{\"id\":\"00000000-0000-0000-0000-000000001111\",\"validation_errors\":[],\"data\":{\"dois\":[{\"value\":\"10.1016/j.physletb.2025.139959\",\"source\":\"Elsevier
+        B.V.\",\"material\":\"publication\"}],\"urls\":[{\"value\":\"https://lss.fnal.gov/archive/2025/pub/fermilab-pub-25-0393-ppd.pdf\",\"description\":\"Fermilab
+        Library Server\"}],\"titles\":[{\"title\":\"Chebyshev Moment Regularization
+        (CMR): Condition-Number Control with Moment Shaping\",\"source\":\"arXiv\"}],\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"authors\":[{\"uuid\":\"1661c971-41e0-4361-8770-5ab2baae543e\",\"record\":{\"$ref\":\"https://inspirehep.net/api/authors/2742792\"},\"full_name\":\"Song,
+        Hanlin\",\"affiliations\":[{\"value\":\"Peking U.\",\"record\":{\"$ref\":\"https://inspirehep.net/api/institutions/903603\"}}],\"curated_relation\":true,\"raw_affiliations\":[{\"value\":\"School
+        of Physics, Peking University, Beijing, 100871, China\",\"source\":\"Elsevier
+        B.V.\"}]},{\"uuid\":\"e1c43d40-0cec-4f7e-bf06-2156cb2a6a12\",\"emails\":[\"mabq@pku.edu.cn\"],\"record\":{\"$ref\":\"https://inspirehep.net/api/authors/999448\"},\"full_name\":\"Ma,
+        Bo-Qiang\",\"affiliations\":[{\"value\":\"Peking U.\",\"record\":{\"$ref\":\"https://inspirehep.net/api/institutions/903603\"}},{\"value\":\"Zhengzhou
+        U.\",\"record\":{\"$ref\":\"https://inspirehep.net/api/institutions/904424\"}}],\"raw_affiliations\":[{\"value\":\"School
+        of Physics, Zhengzhou University, Zhengzhou, 450001, China\",\"source\":\"Elsevier
+        B.V.\"},{\"value\":\"School of Physics, Peking University, Beijing, 100871,
+        China\",\"source\":\"Elsevier B.V.\"}]}],\"curated\":false,\"license\":[{\"url\":\"http://creativecommons.org/licenses/by/4.0/\",\"license\":\"CC
+        BY 4.0\",\"material\":\"preprint\"}],\"citeable\":true,\"abstracts\":[{\"value\":\"We
+        introduce \\\\textbf{Chebyshev Moment Regularization (CMR)}, a simple, architecture-agnostic
+        loss that directly optimizes layer spectra. CMR jointly controls spectral
+        edges via a log-condition proxy and shapes the interior via Chebyshev moments,
+        with a decoupled, capped mixing rule that preserves task gradients. We prove
+        strictly monotone descent for the condition proxy, bounded moment gradients,
+        and orthogonal invariance. In an adversarial ``$\u03BA$-stress'' setting (MNIST,
+        15-layer MLP), \\\\emph{compared to vanilla training}, CMR reduces mean layer
+        condition numbers by $\\\\sim\\\\!10^3$ (from $\\\\approx3.9\\\\!\\\\times\\\\!10^3$
+        to $\\\\approx3.4$ in 5 epochs), increases average gradient magnitude, and
+        restores test accuracy ( $\\\\approx10\\\\%\\\\!\\\\to\\\\!\\\\approx86\\\\%$
+        ). These results support \\\\textbf{optimization-driven spectral preconditioning}:
+        directly steering models toward well-conditioned regimes for stable, accurate
+        learning.\",\"source\":\"arXiv\"}],\"languages\":[\"en\"],\"_collections\":[\"Literature\"],\"public_notes\":[{\"value\":\"15
+        pages\",\"source\":\"arXiv\"}],\"arxiv_eprints\":[{\"value\":\"2510.21772\",\"categories\":[\"cs.LG\",\"cs.NA\",\"math.NA\"]}],\"document_type\":[\"article\"],\"preprint_date\":\"2025-10-17\",\"collaborations\":[{\"value\":\"BLFQ\"}],\"report_numbers\":[{\"value\":\"ADP-25-11/T1273\",\"source\":\"arXiv\"}],\"number_of_pages\":15,\"publication_info\":[{\"year\":2025,\"artid\":\"139959\",\"material\":\"publication\",\"journal_title\":\"Phys.Lett.B\",\"journal_record\":{\"$ref\":\"https://inspirehep.net/api/journals/1613966\"},\"journal_volume\":\"870\",\"pubinfo_freetext\":\"Phys.
+        Lett. B 870 (2025) 139959\"}],\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"arXiv\",\"datetime\":\"2025-10-28T02:00:33.403192\",\"submission_number\":\"scheduled__2025-10-28T02:00:00+00:00\"},\"inspire_categories\":[{\"term\":\"Computing\",\"source\":\"arxiv\"},{\"term\":\"Math
+        and Math Physics\",\"source\":\"arxiv\"}],\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirehep.net/api/experiments/1711193\"},\"legacy_name\":\"CERN-LHC-FASER\"}]},\"tickets\":[],\"decisions\":[{\"id\":1,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-08-26T14:45:14.237000Z\",\"_updated_at\":\"2025-08-26T14:45:14.237000Z\",\"action\":\"fuzzy_match\",\"value\":\"paper1\",\"user\":\"admin@admin.com\"}],\"workflow_type\":\"HEP_CREATE\",\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2024-11-25T13:49:54.756000Z\",\"journal_coverage\":null,\"relevance_prediction\":null,\"classifier_results\":null,\"reference_count\":null,\"status\":\"running\"}"
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '4087'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Tue, 04 Nov 2025 15:44:16 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=78.59899999999698;desc="User CPU time", TimerPanel_stime;dur=0.0;desc="System
+        CPU time", TimerPanel_total;dur=78.59899999999698;desc="Total CPU time", TimerPanel_total_time;dur=88.02075003040954;desc="Elapsed
+        time", SQLPanel_sql_time;dur=13.435167027637362;desc="SQL 13 queries", CachePanel_total_time;dur=0;desc="Cache
+        0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 12c6d691a8b347039483a993eb11701c
+    status:
+      code: 200
+      message: OK
+version: 1
