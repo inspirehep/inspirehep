@@ -384,6 +384,44 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
+    def test_arxiv_author_list_handles_no_author_list(self, datadir):
+        tarball_name = "2411.11095.tar.gz"
+        tarball_key = f"{self.context['params']['workflow_id']}-{tarball_name}"
+
+        s3_hook.load_file(
+            (datadir / tarball_name),
+            tarball_key,
+            bucket_name,
+            replace=True,
+        )
+
+        workflow_data = {
+            "data": {
+                "authors": [{"full_name": "Chen, Yin"}, {"full_name": "Zhang, Runxuan"}]
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.arxiv_author_list",
+            params={"tarball_key": tarball_key},
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(
+            s3_hook, bucket_name, self.context["params"]["workflow_id"]
+        )
+
+        assert workflow_result["data"]["authors"] == workflow_data["data"]["authors"]
+
     def test_arxiv_author_list_handles_multiple_author_xml_files(self, datadir):
         schema = load_schema("hep")
         eprints_subschema = schema["properties"]["arxiv_eprints"]

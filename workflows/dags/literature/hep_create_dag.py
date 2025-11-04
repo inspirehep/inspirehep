@@ -1001,15 +1001,15 @@ def hep_create_dag():
                     author["full_name"] = LatexNodes2Text().latex_to_text(
                         author["full_name"]
                     )
-
-                workflow_data["data"]["authors"] = extracted_authors
-                write_object(
-                    s3_hook,
-                    workflow_data,
-                    bucket_name,
-                    context["params"]["workflow_id"],
-                    overwrite=True,
-                )
+                if extracted_authors:
+                    workflow_data["data"]["authors"] = extracted_authors
+                    write_object(
+                        s3_hook,
+                        workflow_data,
+                        bucket_name,
+                        context["params"]["workflow_id"],
+                        overwrite=True,
+                    )
             return has_author_xml
 
         @task
