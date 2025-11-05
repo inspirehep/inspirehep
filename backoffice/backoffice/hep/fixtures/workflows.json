@@ -347,6 +347,478 @@
       "reference_count": {
         "core": 3,
         "non_core": 0
+      },
+      "classifier_results": {
+        "categories": [
+          {
+            "category": "HEP",
+            "keyword": "color"
+          },
+          {
+            "category": "HEP",
+            "keyword": "fluctuation"
+          },
+          {
+            "category": "HEP",
+            "keyword": "quantum information"
+          },
+          {
+            "category": "HEP",
+            "keyword": "quantum sensing"
+          },
+          {
+            "category": "HEP",
+            "keyword": "entanglement"
+          },
+          {
+            "category": "HEP",
+            "keyword": "engineering"
+          },
+          {
+            "category": "HEP",
+            "keyword": "quantum communication"
+          },
+          {
+            "category": "HEP",
+            "keyword": "mirror"
+          },
+          {
+            "category": "HEP",
+            "keyword": "mixing"
+          },
+          {
+            "category": "HEP",
+            "keyword": "scattering"
+          },
+          {
+            "category": "HEP",
+            "keyword": "cloud"
+          },
+          {
+            "category": "HEP",
+            "keyword": "monitoring"
+          },
+          {
+            "category": "HEP",
+            "keyword": "quantum state"
+          },
+          {
+            "category": "HEP",
+            "keyword": "absorption"
+          },
+          {
+            "category": "HEP",
+            "keyword": "quantum repeater"
+          },
+          {
+            "category": "HEP",
+            "keyword": "dark energy"
+          },
+          {
+            "category": "HEP",
+            "keyword": "quantum key distribution"
+          },
+          {
+            "category": "HEP",
+            "keyword": "mixed state"
+          },
+          {
+            "category": "HEP",
+            "keyword": "circle"
+          },
+          {
+            "category": "HEP",
+            "keyword": "peripheral"
+          },
+          {
+            "category": "HEP",
+            "keyword": "quantum device"
+          },
+          {
+            "category": "HEP",
+            "keyword": "satellite"
+          },
+          {
+            "category": "HEP",
+            "keyword": "noise"
+          },
+          {
+            "category": "HEP",
+            "keyword": "star"
+          },
+          {
+            "category": "HEP",
+            "keyword": "composite"
+          },
+          {
+            "category": "HEP",
+            "keyword": "ion trap"
+          },
+          {
+            "category": "HEP",
+            "keyword": "photon"
+          },
+          {
+            "category": "HEP",
+            "keyword": "teleportation"
+          },
+          {
+            "category": "HEP",
+            "keyword": "efficiency"
+          },
+          {
+            "category": "HEP",
+            "keyword": "nucleus"
+          },
+          {
+            "category": "HEP",
+            "keyword": "simplex"
+          },
+          {
+            "category": "HEP",
+            "keyword": "background"
+          },
+          {
+            "category": "HEP",
+            "keyword": "dissipation"
+          },
+          {
+            "category": "HEP",
+            "keyword": "CERN SPS"
+          },
+          {
+            "category": "HEP",
+            "keyword": "quantum channel"
+          },
+          {
+            "category": "HEP",
+            "keyword": "structure"
+          },
+          {
+            "category": "HEP",
+            "keyword": "topology"
+          },
+          {
+            "category": "HEP",
+            "keyword": "4/3"
+          },
+          {
+            "category": "HEP",
+            "keyword": "density matrix"
+          },
+          {
+            "category": "HEP",
+            "keyword": "quantum memory"
+          },
+          {
+            "category": "HEP",
+            "keyword": "transfer matrix"
+          },
+          {
+            "category": "HEP",
+            "keyword": "propagation"
+          },
+          {
+            "category": "HEP",
+            "keyword": "depolarization"
+          },
+          {
+            "category": "HEP",
+            "keyword": "estimator"
+          },
+          {
+            "category": "HEP",
+            "keyword": "qubit"
+          },
+          {
+            "category": "HEP",
+            "keyword": "parametric"
+          }
+        ],
+        "complete_output": {
+          "acronyms": [],
+          "author_keywords": [
+            {
+              "author_keyword": "Quantum network",
+              "matched_keywords": [
+                "network, quantum"
+              ]
+            },
+            {
+              "author_keyword": "SPAM errors",
+              "matched_keywords": [
+                "error"
+              ]
+            },
+            {
+              "author_keyword": "network tomography",
+              "matched_keywords": [
+                "network"
+              ]
+            }
+          ],
+          "composite_keywords": [
+            {
+              "details": [
+                137,
+                53
+              ],
+              "keyword": "network, quantum",
+              "number": 34
+            },
+            {
+              "details": [
+                22,
+                13
+              ],
+              "keyword": "gate, Hadamard",
+              "number": 10
+            },
+            {
+              "details": [
+                22,
+                7
+              ],
+              "keyword": "gate, C-NOT",
+              "number": 5
+            },
+            {
+              "details": [
+                1,
+                53
+              ],
+              "keyword": "computer, quantum",
+              "number": 2
+            },
+            {
+              "details": [
+                12,
+                3
+              ],
+              "keyword": "time, multiple",
+              "number": 2
+            },
+            {
+              "details": [
+                137,
+                22
+              ],
+              "keyword": "network, performance",
+              "number": 2
+            },
+            {
+              "details": [
+                22,
+                53
+              ],
+              "keyword": "gate, quantum",
+              "number": 2
+            },
+            {
+              "details": [
+                3,
+                83
+              ],
+              "keyword": "operator, Pauli",
+              "number": 1
+            },
+            {
+              "details": [
+                1,
+                53
+              ],
+              "keyword": "technology, quantum",
+              "number": 1
+            },
+            {
+              "details": [
+                1,
+                53
+              ],
+              "keyword": "Fisher information, quantum",
+              "number": 1
+            },
+            {
+              "details": [
+                22,
+                2
+              ],
+              "keyword": "gate, phase",
+              "number": 1
+            },
+            {
+              "details": [
+                12,
+                12
+              ],
+              "keyword": "decoherence, time",
+              "number": 1
+            },
+            {
+              "details": [
+                12,
+                3
+              ],
+              "keyword": "representation, unitarity",
+              "number": 1
+            },
+            {
+              "details": [
+                2,
+                3
+              ],
+              "keyword": "fibre, optical",
+              "number": 1
+            },
+            {
+              "details": [
+                1,
+                1
+              ],
+              "keyword": "resonance, magnetic",
+              "number": 1
+            }
+          ],
+          "core_keywords": [
+            {
+              "keyword": "qubit",
+              "number": 29
+            },
+            {
+              "keyword": "quantum device",
+              "number": 5
+            },
+            {
+              "keyword": "gate, C-NOT",
+              "number": 5
+            },
+            {
+              "keyword": "computer, quantum",
+              "number": 2
+            },
+            {
+              "keyword": "gate, quantum",
+              "number": 2
+            },
+            {
+              "keyword": "CERN SPS",
+              "number": 2
+            },
+            {
+              "keyword": "quantum information",
+              "number": 1
+            },
+            {
+              "keyword": "quantum sensing",
+              "number": 1
+            },
+            {
+              "keyword": "gate, phase",
+              "number": 1
+            },
+            {
+              "keyword": "dark energy",
+              "number": 1
+            },
+            {
+              "keyword": "quantum communication",
+              "number": 1
+            },
+            {
+              "keyword": "quantum key distribution",
+              "number": 1
+            }
+          ],
+          "field_codes": [
+            {
+              "fieldcode": "k",
+              "keywords": "quantum key distribution, quantum information"
+            }
+          ],
+          "single_keywords": [
+            {
+              "keyword": "peripheral",
+              "number": 44
+            },
+            {
+              "keyword": "star",
+              "number": 34
+            },
+            {
+              "keyword": "quantum channel",
+              "number": 23
+            },
+            {
+              "keyword": "noise",
+              "number": 5
+            },
+            {
+              "keyword": "quantum memory",
+              "number": 5
+            },
+            {
+              "keyword": "entanglement",
+              "number": 4
+            },
+            {
+              "keyword": "depolarization",
+              "number": 4
+            },
+            {
+              "keyword": "satellite",
+              "number": 2
+            },
+            {
+              "keyword": "cloud",
+              "number": 2
+            },
+            {
+              "keyword": "quantum information",
+              "number": 1
+            },
+            {
+              "keyword": "absorption",
+              "number": 1
+            },
+            {
+              "keyword": "color",
+              "number": 1
+            },
+            {
+              "keyword": "fluctuation",
+              "number": 1
+            },
+            {
+              "keyword": "ion trap",
+              "number": 1
+            },
+            {
+              "keyword": "dissipation",
+              "number": 1
+            },
+            {
+              "keyword": "engineering",
+              "number": 1
+            },
+            {
+              "keyword": "quantum key distribution",
+              "number": 1
+            },
+            {
+              "keyword": "mirror",
+              "number": 1
+            },
+            {
+              "keyword": "circle",
+              "number": 1
+            },
+            {
+              "keyword": "scattering",
+              "number": 1
+            }
+          ]
+        },
+        "fulltext_used": true
       }
     }
   },

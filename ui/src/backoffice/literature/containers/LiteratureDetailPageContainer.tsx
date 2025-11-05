@@ -59,6 +59,7 @@ const LiteratureDetailPageContainer = ({
   const data = literature?.get('data');
   const relevancePrediction = literature?.get('relevance_prediction');
   const referenceCount = literature?.get('reference_count');
+  const classifierResults = literature?.get('classifier_results');
   const title = data?.getIn(['titles', 0, 'title']);
   const controlNumber = data?.get('control_number');
   const tickets =
@@ -192,6 +193,7 @@ const LiteratureDetailPageContainer = ({
                             relevancePrediction={relevancePrediction}
                             referenceCount={referenceCount}
                             totalReferences={totalReferences}
+                            classifierResults={classifierResults}
                           />
                         ) : (
                           <div className="w-100 flex flex-column items-center">
