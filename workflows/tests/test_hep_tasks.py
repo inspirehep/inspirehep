@@ -61,6 +61,41 @@ class Test_HEPCreateDAG:
     workflow_id = context["params"]["workflow_id"]
 
     @pytest.mark.vcr
+    def test_set_schema(self):
+        workflow_data = {
+            "data": {
+                "titles": [{"title": "test_1"}],
+                "abstracts": [
+                    {
+                        "value": (
+                            "We present a comprehensive study of Higgs boson"
+                            " production mechanisms in high-energy particle collisions."
+                        )
+                    }
+                ],
+                "document_type": [
+                    "article",
+                ],
+                "_collections": ["Literature"],
+            },
+            "workflow_type": "HEP_CREATE",
+            "status": "running",
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test("hep_create_dag", "set_schema", dag_params=self.context["params"])
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert "$schema" in workflow_result["data"]
+
+    @pytest.mark.vcr
     def test_get_workflow_data(self):
         task = self.dag.get_task("get_workflow_data")
 
