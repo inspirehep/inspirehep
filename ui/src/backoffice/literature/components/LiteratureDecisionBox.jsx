@@ -5,6 +5,7 @@ import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank'
 import { LITERATURE } from '../../../common/routes';
 import AutomaticDecision from './AutomaticDecision';
 import LiteratureReferenceCount from './LiteratureReferenceCount';
+import LiteratureKeywords from './LiteratureKeywords';
 
 const LiteratureDecisionBox = ({
   decision,
@@ -13,6 +14,7 @@ const LiteratureDecisionBox = ({
   relevancePrediction,
   referenceCount,
   totalReferences,
+  classifierResults,
 }) => {
   const resolvedDecision = resolveDecision(decision.get('action'));
   const className = resolvedDecision
@@ -42,6 +44,7 @@ const LiteratureDecisionBox = ({
         referenceCount={referenceCount}
         totalReferences={totalReferences}
       />
+      <LiteratureKeywords classifierResults={classifierResults} />
     </div>
   );
 };
