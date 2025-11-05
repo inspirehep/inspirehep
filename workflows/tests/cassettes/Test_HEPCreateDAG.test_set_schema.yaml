@@ -1,0 +1,58 @@
+interactions:
+- request:
+    body: '{"data": {"titles": [{"title": "test_1"}], "abstracts": [{"value": "We
+      present a comprehensive study of Higgs boson production mechanisms in high-energy
+      particle collisions."}], "document_type": ["article"], "_collections": ["Literature"],
+      "$schema": "https://inspirehep.net/schemas/records/hep.json"}}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '302'
+      Content-Type:
+      - application/json
+    method: PATCH
+    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111/
+  response:
+    body:
+      string: '{"id":"00000000-0000-0000-0000-000000001111","data":{"titles":[{"title":"test_1"}],"abstracts":[{"value":"We
+        present a comprehensive study of Higgs boson production mechanisms in high-energy
+        particle collisions."}],"document_type":["article"],"_collections":["Literature"],"$schema":"https://inspirehep.net/schemas/records/hep.json"},"tickets":[],"decisions":[{"id":1,"workflow":"00000000-0000-0000-0000-000000001111","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"fuzzy_match","value":"paper1","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-11-05T12:06:25.308387Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"status":"running"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '810'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Wed, 05 Nov 2025 12:06:25 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Server-Timing:
+      - TimerPanel_utime;dur=213.62200000000087;desc="User CPU time", TimerPanel_stime;dur=4.5709999999985484;desc="System
+        CPU time", TimerPanel_total;dur=218.19299999999942;desc="Total CPU time",
+        TimerPanel_total_time;dur=221.97099996265024;desc="Elapsed time", SQLPanel_sql_time;dur=6.949583941604942;desc="SQL
+        10 queries", CachePanel_total_time;dur=0;desc="Cache 0 Calls"
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      djdt-store-id:
+      - 8c11886bff144277a52b9514a01fe192
+    status:
+      code: 200
+      message: OK
+version: 1

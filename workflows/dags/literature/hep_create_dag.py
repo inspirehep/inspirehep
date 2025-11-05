@@ -106,6 +106,28 @@ def hep_create_dag():
             overwrite=True,
         )
 
+    @task
+    def set_schema(**context):
+        workflow_data = read_object(
+            s3_hook, bucket_name, context["params"]["workflow_id"]
+        )
+
+        schema = Variable.get("hep_schema")
+        workflow_data = workflow_management_hook.partial_update_workflow(
+            workflow_id=context["params"]["workflow_id"],
+            workflow_partial_update_data={
+                "data": {**workflow_data["data"], "$schema": schema}
+            },
+        ).json()
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            context["params"]["workflow_id"],
+            overwrite=True,
+        )
+
     @task.short_circuit(ignore_downstream_trigger_rules=False)
     def check_for_blocking_workflows(**context):
         workflow_data = read_object(
@@ -1159,6 +1181,7 @@ def hep_create_dag():
 
     (
         get_workflow_data()
+        >> set_schema()
         >> set_workflow_status_to_running()
         >> check_for_blocking_workflows()
         >> check_for_exact_matches_task
