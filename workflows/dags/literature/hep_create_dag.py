@@ -52,6 +52,9 @@ from inspire_utils.helpers import maybe_int
 from inspire_utils.record import get_value
 from invenio_classifier import get_keywords_from_local_file, get_keywords_from_text
 from invenio_classifier.errors import ClassifierException
+from literature.link_institutions_with_affiliations_task import (
+    link_institutions_with_affiliations,
+)
 from literature.set_workflow_status_tasks import (
     set_workflow_status_to_fuzzy_matching,
     set_workflow_status_to_running,
@@ -1131,11 +1134,7 @@ def hep_create_dag():
 
     @task_group
     def postprocessing():
-        @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
-        def todo():
-            pass
-
-        todo()
+        link_institutions_with_affiliations()
 
     @task
     def save_and_complete_workflow(**context):

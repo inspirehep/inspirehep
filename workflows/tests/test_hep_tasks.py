@@ -2001,6 +2001,45 @@ class Test_HEPCreateDAG:
         assert workflow["status"] == "completed"
         assert workflow_data["data"] == workflow["data"]
 
+    @pytest.mark.vcr
+    def test_link_institutions_with_affiliations(self):
+        workflow_data = {
+            "data": {
+                "titles": [{"title": "test affiliation"}],
+                "authors": [
+                    {
+                        "full_name": "Test, Aff.",
+                        "affiliations": [{"value": "Warsaw U."}],
+                    }
+                ],
+                "document_type": [
+                    "article",
+                ],
+                "_collections": ["Literature"],
+            },
+            "workflow_type": "HEP_CREATE",
+            "status": "running",
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "postprocessing.link_institutions_with_affiliations",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert (
+            "$ref" in workflow_result["data"]["authors"][0]["affiliations"][0]["record"]
+        )
+
 
 class TestNormalizeJournalTitles:
     """Test class for normalize_journal_titles function logic using Airflow task."""

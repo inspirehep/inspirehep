@@ -1,0 +1,38 @@
+interactions:
+- request:
+    body: '{"authors": [{"full_name": "Test, Aff.", "affiliations": [{"value": "Warsaw
+      U."}]}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '84'
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8080/api/curation/literature/assign-institutions
+  response:
+    body:
+      string: '{"authors":[{"full_name":"Test, Aff.","affiliations":[{"value":"Warsaw
+        U.","record":{"$ref":"http://localhost:8000/api/institutions/902726"}}]}]}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '146'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 05 Nov 2025 13:44:14 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+version: 1
