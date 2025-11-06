@@ -34,6 +34,7 @@ import { getConfigFor } from '../../../common/config';
 import LiteratureMainInfo from '../components/LiteratureMainInfo';
 import Links from '../../common/components/Links/Links';
 import LiteratureDecisionBox from '../components/LiteratureDecisionBox';
+import LiteratureReferences from '../components/LiteratureReferences';
 
 type LiteratureDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
@@ -71,8 +72,9 @@ const LiteratureDetailPageContainer = ({
   const rawDateTime = data?.getIn(['acquisition_source', 'datetime']);
   const urls = data?.get('urls');
   const ids = data?.get('ids');
-  const references = data?.get('references');
-  const totalReferences = references ? references.size : 0;
+  const references = data?.get('references')?.toJS();
+  const totalReferences =
+    references && Array.isArray(references) ? references.length : 0;
 
   const formattedDateTime = formatDateTime(rawDateTime);
   const acquisitionSourceDateTime = formattedDateTime
@@ -89,6 +91,7 @@ const LiteratureDetailPageContainer = ({
   const OPEN_SECTIONS = [
     (urls || ids) && 'links',
     inspireCategories && 'subjectAreas',
+    references && 'references',
     status === 'error' && 'errors',
     'delete',
   ].filter(Boolean);
@@ -160,6 +163,14 @@ const LiteratureDetailPageContainer = ({
                           }
                         />
                       </CollapsableForm.Section>
+                      {totalReferences && (
+                        <CollapsableForm.Section
+                          header="References"
+                          key="references"
+                        >
+                          <LiteratureReferences references={references} />
+                        </CollapsableForm.Section>
+                      )}
                       {status === 'error' && (
                         <CollapsableForm.Section header="Errors" key="errors">
                           <p>
