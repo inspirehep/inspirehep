@@ -2040,6 +2040,219 @@ class Test_HEPCreateDAG:
             "$ref" in workflow_result["data"]["authors"][0]["affiliations"][0]["record"]
         )
 
+    def test_is_record_relevant_submission(self):
+        workflow_data = {
+            "data": {
+                "titles": [{"title": "test submission"}],
+                "acquisition_source": {
+                    "method": "submitter",
+                },
+            }
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        result = task_test(
+            "hep_create_dag",
+            "is_record_relevant",
+            dag_params=self.context["params"],
+        )
+
+        assert result is True
+
+    def test_is_record_relevant_full_journal_coverage(self):
+        workflow_data = {
+            "data": {
+                "titles": [{"title": "test full coverage"}],
+                "acquisition_source": {
+                    "method": "hepcrawl",
+                },
+            },
+            "journal_coverage": "full",
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        result = task_test(
+            "hep_create_dag",
+            "is_record_relevant",
+            dag_params=self.context["params"],
+        )
+
+        assert result is True
+
+    def test_is_record_relevant_auto_approved(self):
+        workflow_data = {
+            "data": {
+                "titles": [{"title": "test auto approved"}],
+                "acquisition_source": {
+                    "method": "hepcrawl",
+                },
+            },
+            "journal_coverage": "partial",
+            "auto_approve": True,
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        result = task_test(
+            "hep_create_dag",
+            "is_record_relevant",
+            dag_params=self.context["params"],
+        )
+
+        assert result is True
+
+    def test_is_record_relevant_auto_rejected(self):
+        workflow_data = {
+            "data": {
+                "titles": [{"title": "test auto rejected"}],
+                "acquisition_source": {
+                    "method": "hepcrawl",
+                },
+            },
+            "journal_coverage": "partial",
+            "auto_approve": False,
+            "relevance_prediction": {
+                "decision": "Rejected",
+            },
+            "classifier_results": {
+                "fulltext_used": True,
+                "complete_output": {
+                    "core_keywords": [],
+                },
+            },
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        result = task_test(
+            "hep_create_dag",
+            "is_record_relevant",
+            dag_params=self.context["params"],
+        )
+
+        assert result is False
+
+    def test_is_record_relevant_rejected_with_core_keywords(self):
+        workflow_data = {
+            "data": {
+                "titles": [{"title": "test rejected with keywords"}],
+                "acquisition_source": {
+                    "method": "hepcrawl",
+                },
+            },
+            "journal_coverage": "partial",
+            "auto_approve": False,
+            "relevance_prediction": {
+                "decision": "Rejected",
+            },
+            "classifier_results": {
+                "fulltext_used": True,
+                "complete_output": {
+                    "core_keywords": [{"keyword": "Higgs particle"}],
+                },
+            },
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        result = task_test(
+            "hep_create_dag",
+            "is_record_relevant",
+            dag_params=self.context["params"],
+        )
+
+        assert result is True
+
+    def test_is_record_relevant_missing_classification_results(self):
+        workflow_data = {
+            "data": {
+                "titles": [{"title": "test missing classification"}],
+                "acquisition_source": {
+                    "method": "hepcrawl",
+                },
+            },
+            "journal_coverage": "partial",
+            "auto_approve": False,
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        result = task_test(
+            "hep_create_dag",
+            "is_record_relevant",
+            dag_params=self.context["params"],
+        )
+
+        assert result is True
+
+    def test_is_record_relevant_non_rejected_decision(self):
+        workflow_data = {
+            "data": {
+                "titles": [{"title": "test non rejected"}],
+                "acquisition_source": {
+                    "method": "hepcrawl",
+                },
+            },
+            "journal_coverage": "partial",
+            "auto_approve": False,
+            "relevance_prediction": {
+                "decision": "CORE",
+            },
+            "classifier_results": {
+                "fulltext_used": True,
+                "complete_output": {
+                    "core_keywords": [],
+                },
+            },
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        result = task_test(
+            "hep_create_dag",
+            "is_record_relevant",
+            dag_params=self.context["params"],
+        )
+
+        assert result is True
+
 
 class TestNormalizeJournalTitles:
     """Test class for normalize_journal_titles function logic using Airflow task."""
