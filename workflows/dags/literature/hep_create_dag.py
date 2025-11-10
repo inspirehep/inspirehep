@@ -30,6 +30,10 @@ from include.utils import workflows
 from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.constants import JOURNALS_PID_TYPE
 from include.utils.grobid_authors_parser import GrobidAuthors
+from include.utils.hidden_collections import (
+    affiliations_for_hidden_collections,
+    reports_for_hidden_collections,
+)
 from include.utils.refextract_utils import (
     extract_references_from_pdf,
     map_refextract_reference_to_schema,
@@ -48,7 +52,7 @@ from inspire_schemas.utils import (
     split_page_artid,
 )
 from inspire_utils.dedupers import dedupe_list
-from inspire_utils.helpers import maybe_int
+from inspire_utils.helpers import flatten_list, maybe_int
 from inspire_utils.record import get_value
 from invenio_classifier import get_keywords_from_local_file, get_keywords_from_text
 from invenio_classifier.errors import ClassifierException
@@ -1173,6 +1177,29 @@ def hep_create_dag():
 
         return not _is_auto_rejected(workflow_data)
 
+    @task
+    def replace_collection_to_hidden(**context):
+        s3_workflow_id = context["params"]["workflow_id"]
+        workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
+
+        report_numbers = get_value(workflow_data, "data.report_numbers", [])
+        affiliations = flatten_list(
+            get_value(workflow_data, "data.authors.raw_affiliations.value", [])
+        )
+
+        hidden_collections = reports_for_hidden_collections(report_numbers)
+        hidden_collections.update(affiliations_for_hidden_collections(affiliations))
+
+        workflow_data["data"]["_collections"] = list(hidden_collections)
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            s3_workflow_id,
+            overwrite=True,
+        )
+
     @task_group
     def postprocessing():
         link_institutions_with_affiliations()
@@ -1233,6 +1260,7 @@ def hep_create_dag():
         >> check_is_update_task
         >> [merge_articles(get_approved_match_task), update_inspire_categories]
         >> is_record_relevant()  # TODO Task position to be decided
+        >> replace_collection_to_hidden()
         >> postprocessing()
         >> save_and_complete_workflow()
     )
