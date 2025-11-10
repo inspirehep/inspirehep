@@ -1990,14 +1990,14 @@ tests = ["check-manifest", "coverage", "deepdiff", "idutils (>=1.2.1,<2.0) ; pyt
 
 [[package]]
 name = "inspire-utils"
-version = "3.0.66"
+version = "3.0.67"
 description = "INSPIRE-specific utils."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "inspire_utils-3.0.66-py3-none-any.whl", hash = "sha256:6b6ecbfe12b69928e948c10aa9d54bc1e583ac7a8197809fb883aa1322b1235d"},
-    {file = "inspire_utils-3.0.66.tar.gz", hash = "sha256:6e470d3ca372006f4b371a24c5851117d235f85b2f3e712ada7a32e3581f347d"},
+    {file = "inspire_utils-3.0.67-py3-none-any.whl", hash = "sha256:7b3586203018db07f0ac934ab4563796c5d3a9dc778b51355de1028c8e4e3390"},
+    {file = "inspire_utils-3.0.67.tar.gz", hash = "sha256:c95b4677e55a866a1e67479f700aa34f37ffeb8ac4260b1e32aef6a2fd2979dc"},
 ]
 
 [package.dependencies]
@@ -5030,4 +5030,4 @@ testing = ["coverage[toml]", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.11"
-content-hash = "24d16958dd5628da450b8b123fa8c74b053b37cd6fa9a12ded74c20b6a398e7d"
+content-hash = "d818dd07b824f1ce1d700a543b0e68c135b38b2206e1d4321479456d476a1f5b"
