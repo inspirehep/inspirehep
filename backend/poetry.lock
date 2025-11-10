@@ -2146,14 +2146,14 @@ resolved_reference = "1a0e762e58bc9cac65f7665b9831993c017fd8bb"
 
 [[package]]
 name = "inspire-utils"
-version = "3.0.66"
+version = "3.0.67"
 description = "INSPIRE-specific utils."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "inspire_utils-3.0.66-py3-none-any.whl", hash = "sha256:6b6ecbfe12b69928e948c10aa9d54bc1e583ac7a8197809fb883aa1322b1235d"},
-    {file = "inspire_utils-3.0.66.tar.gz", hash = "sha256:6e470d3ca372006f4b371a24c5851117d235f85b2f3e712ada7a32e3581f347d"},
+    {file = "inspire_utils-3.0.67-py3-none-any.whl", hash = "sha256:7b3586203018db07f0ac934ab4563796c5d3a9dc778b51355de1028c8e4e3390"},
+    {file = "inspire_utils-3.0.67.tar.gz", hash = "sha256:c95b4677e55a866a1e67479f700aa34f37ffeb8ac4260b1e32aef6a2fd2979dc"},
 ]
 
 [package.dependencies]
@@ -7037,4 +7037,4 @@ typing-extensions = ">=4.5.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.12"
-content-hash = "78d273c464e75ae440bc84e7fc9ae7e2b82b7bb3e2f9790b87189ddae938f25d"
+content-hash = "71b350ac806c77c1696980f74ffc0a006e327156cae727bb5628e385b81524eb"

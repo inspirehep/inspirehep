@@ -221,14 +221,6 @@ def chunker(iterable, max_chunk_size, min_num_chunks=0):
         yield buf
 
 
-def flatten_list(input_list):
-    if isinstance(input_list, list | tuple):
-        return [
-            element for innerList in input_list for element in flatten_list(innerList)
-        ]
-    return [input_list]
-
-
 def hash_data(data):
     if data:
         return hashlib.md5(data).hexdigest()
