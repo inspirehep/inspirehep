@@ -10,12 +10,12 @@ logger = logging.getLogger(__name__)
 
 
 @dag(
-    schedule="0 * * * *",
+    schedule="0 */12 * * *",
     catchup=False,
     tags=["service", "log_cleanup"],
     params={
         "retention_hours": Param(
-            48, type="integer", description="Log retention period in hours"
+            72, type="integer", description="Log retention period in hours"
         ),
     },
     on_failure_callback=FailedDagNotifier(),
