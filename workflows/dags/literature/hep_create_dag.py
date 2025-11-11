@@ -34,6 +34,12 @@ from include.utils.hidden_collections import (
     affiliations_for_hidden_collections,
     reports_for_hidden_collections,
 )
+from include.utils.is_record_relevant import (
+    is_auto_approved,
+    is_auto_rejected,
+    is_journal_coverage_full,
+    is_submission,
+)
 from include.utils.refextract_utils import (
     extract_references_from_pdf,
     map_refextract_reference_to_schema,
@@ -1136,69 +1142,81 @@ def hep_create_dag():
     def merge_articles(match_approved_id, **context):
         pass
 
-    def is_submission(workflow_data):
-        source = get_value(workflow_data, "data.acquisition_source.method", "")
-        return source == "submitter"
+    @task_group
+    def halt_for_approval_if_new_or_reject_if_not_relevant(**context):
+        @task
+        def is_record_relevant(**context):
+            workflow_data = read_object(
+                s3_hook, bucket_name, context["params"]["workflow_id"]
+            )
+            if is_submission(workflow_data):
+                return True
 
-    def _is_journal_coverage_full(workflow_data):
-        coverage = get_value(workflow_data, "journal_coverage", "")
-        return coverage == "full"
+            if is_journal_coverage_full(workflow_data):
+                return True
 
-    def _is_auto_approved(workflow_data):
-        # TODO: adjust when auto_approve flow is ready
-        return False
+            if is_auto_approved(workflow_data):
+                return True
 
-    def _is_auto_rejected(workflow_data):
-        relevance_prediction = get_value(workflow_data, "relevance_prediction", {})
-        classification_results = get_value(workflow_data, "classifier_results", {})
-        fulltext_used = classification_results.get("fulltext_used")
-        if not relevance_prediction or not classification_results or not fulltext_used:
-            return False
+            return not is_auto_rejected(workflow_data)
 
-        decision = relevance_prediction.get("decision")
-        all_class_results = classification_results.get("complete_output")
-        core_keywords = all_class_results.get("core_keywords")
+        @task.branch
+        def should_replace_collection_to_hidden(**context):
+            s3_workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
 
-        return decision.lower() == "rejected" and len(core_keywords) == 0
+            report_numbers = get_value(workflow_data, "data.report_numbers", [])
+            affiliations = flatten_list(
+                get_value(workflow_data, "data.authors.raw_affiliations.value", [])
+            )
+            should_hide = bool(
+                affiliations_for_hidden_collections(affiliations)
+            ) or bool(reports_for_hidden_collections(report_numbers))
+            if should_hide:
+                return [
+                    "halt_for_approval_if_new_or_reject_if_not_relevant.replace_collection_to_hidden",
+                    "halt_for_approval_if_new_or_reject_if_not_relevant.mark_approved_true",
+                ]
+            return (
+                "halt_for_approval_if_new_or_reject_if_not_relevant.mark_approved_false"
+            )
 
-    @task
-    def is_record_relevant(**context):
-        workflow_data = read_object(
-            s3_hook, bucket_name, context["params"]["workflow_id"]
+        @task
+        def replace_collection_to_hidden(**context):
+            s3_workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
+
+            report_numbers = get_value(workflow_data, "data.report_numbers", [])
+            affiliations = flatten_list(
+                get_value(workflow_data, "data.authors.raw_affiliations.value", [])
+            )
+
+            hidden_collections = reports_for_hidden_collections(report_numbers)
+            hidden_collections.update(affiliations_for_hidden_collections(affiliations))
+
+            workflow_data["data"]["_collections"] = list(hidden_collections)
+
+            write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                s3_workflow_id,
+                overwrite=True,
+            )
+
+        replace_collection_task = replace_collection_to_hidden()
+
+        mark_approved_true = EmptyOperator(task_id="mark_approved_true")
+        mark_approved_false = EmptyOperator(task_id="mark_approved_false")
+
+        should_replace_collection_to_hidden_branch = (
+            should_replace_collection_to_hidden()
         )
-        if is_submission(workflow_data):
-            return True
+        should_replace_collection_to_hidden_branch >> replace_collection_task
+        should_replace_collection_to_hidden_branch >> mark_approved_true
+        should_replace_collection_to_hidden_branch >> mark_approved_false
 
-        if _is_journal_coverage_full(workflow_data):
-            return True
-
-        if _is_auto_approved(workflow_data):
-            return True
-
-        return not _is_auto_rejected(workflow_data)
-
-    @task
-    def replace_collection_to_hidden(**context):
-        s3_workflow_id = context["params"]["workflow_id"]
-        workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
-
-        report_numbers = get_value(workflow_data, "data.report_numbers", [])
-        affiliations = flatten_list(
-            get_value(workflow_data, "data.authors.raw_affiliations.value", [])
-        )
-
-        hidden_collections = reports_for_hidden_collections(report_numbers)
-        hidden_collections.update(affiliations_for_hidden_collections(affiliations))
-
-        workflow_data["data"]["_collections"] = list(hidden_collections)
-
-        write_object(
-            s3_hook,
-            workflow_data,
-            bucket_name,
-            s3_workflow_id,
-            overwrite=True,
-        )
+        is_record_relevant() >> should_replace_collection_to_hidden_branch
 
     @task_group
     def postprocessing():
@@ -1259,8 +1277,7 @@ def hep_create_dag():
         >> get_approved_match_task
         >> check_is_update_task
         >> [merge_articles(get_approved_match_task), update_inspire_categories]
-        >> is_record_relevant()  # TODO Task position to be decided
-        >> replace_collection_to_hidden()
+        >> halt_for_approval_if_new_or_reject_if_not_relevant()
         >> postprocessing()
         >> save_and_complete_workflow()
     )
