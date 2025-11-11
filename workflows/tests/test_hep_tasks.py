@@ -2059,7 +2059,7 @@ class Test_HEPCreateDAG:
 
         result = task_test(
             "hep_create_dag",
-            "is_record_relevant",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.is_record_relevant",
             dag_params=self.context["params"],
         )
 
@@ -2085,7 +2085,7 @@ class Test_HEPCreateDAG:
 
         result = task_test(
             "hep_create_dag",
-            "is_record_relevant",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.is_record_relevant",
             dag_params=self.context["params"],
         )
 
@@ -2112,7 +2112,7 @@ class Test_HEPCreateDAG:
 
         result = task_test(
             "hep_create_dag",
-            "is_record_relevant",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.is_record_relevant",
             dag_params=self.context["params"],
         )
 
@@ -2148,7 +2148,7 @@ class Test_HEPCreateDAG:
 
         result = task_test(
             "hep_create_dag",
-            "is_record_relevant",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.is_record_relevant",
             dag_params=self.context["params"],
         )
 
@@ -2184,7 +2184,7 @@ class Test_HEPCreateDAG:
 
         result = task_test(
             "hep_create_dag",
-            "is_record_relevant",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.is_record_relevant",
             dag_params=self.context["params"],
         )
 
@@ -2211,7 +2211,7 @@ class Test_HEPCreateDAG:
 
         result = task_test(
             "hep_create_dag",
-            "is_record_relevant",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.is_record_relevant",
             dag_params=self.context["params"],
         )
 
@@ -2247,7 +2247,7 @@ class Test_HEPCreateDAG:
 
         result = task_test(
             "hep_create_dag",
-            "is_record_relevant",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.is_record_relevant",
             dag_params=self.context["params"],
         )
 
@@ -2293,7 +2293,7 @@ class Test_HEPCreateDAG:
         expected_collections = ["CDS Hidden", "Fermilab"]
         task_test(
             "hep_create_dag",
-            "replace_collection_to_hidden",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.replace_collection_to_hidden",
             dag_params=self.context["params"],
         )
 
@@ -2322,7 +2322,7 @@ class Test_HEPCreateDAG:
 
         task_test(
             "hep_create_dag",
-            "replace_collection_to_hidden",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.replace_collection_to_hidden",
             dag_params=self.context["params"],
         )
 
@@ -2361,7 +2361,7 @@ class Test_HEPCreateDAG:
 
         task_test(
             "hep_create_dag",
-            "replace_collection_to_hidden",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.replace_collection_to_hidden",
             dag_params=self.context["params"],
         )
 
@@ -2401,7 +2401,7 @@ class Test_HEPCreateDAG:
 
         task_test(
             "hep_create_dag",
-            "replace_collection_to_hidden",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.replace_collection_to_hidden",
             dag_params=self.context["params"],
         )
 
@@ -2410,3 +2410,75 @@ class Test_HEPCreateDAG:
         workflow_data = read_object(s3_hook, bucket_name, self.workflow_id)
         collections = workflow_data["data"]["_collections"]
         assert collections == expected_collections
+
+    def test_should_replace_collection_true(
+        self,
+    ):
+        workflow_data = {
+            "data": {
+                "titles": [{"title": "test non rejected"}],
+                "authors": [
+                    {
+                        "raw_affiliations": [
+                            {
+                                "value": "Another one but this time with "
+                                "wrong keywords Fermilab"
+                            }
+                        ],
+                    },
+                    {"value": "Blah blah blah fermilab, blah blah"},
+                ],
+                "report_numbers": [{"value": "CERN-2019"}],
+            },
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        result = task_test(
+            "hep_create_dag",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.should_replace_collection_to_hidden",
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+
+        assert (
+            "halt_for_approval_if_new_or_reject_if_not_relevant.mark_approved_true"
+            in result["followed"]
+        )
+        assert (
+            "halt_for_approval_if_new_or_reject_if_not_relevant.replace_collection_to_hidden"
+            in result["followed"]
+        )
+
+    def test_should_replace_collection_false(
+        self,
+    ):
+        workflow_data = {
+            "data": {
+                "titles": [{"title": "test non rejected"}],
+            },
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        result = task_test(
+            "hep_create_dag",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.should_replace_collection_to_hidden",
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+
+        assert (
+            "halt_for_approval_if_new_or_reject_if_not_relevant.mark_approved_false"
+            in result["followed"]
+        )
