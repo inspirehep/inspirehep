@@ -1,5 +1,6 @@
 import uuid
 import pytest
+from copy import deepcopy
 from django.urls import reverse
 from backoffice.common.tests.base import BaseTransactionTestCase
 from backoffice.hep.api.serializers import (
@@ -15,6 +16,30 @@ from django.apps import apps
 
 HepWorkflow = apps.get_model(app_label="hep", model_name="HepWorkflow")
 HepDecision = apps.get_model(app_label="hep", model_name="HepDecision")
+
+BASE = {
+    "_collections": ["Literature"],
+    "titles": [
+        {
+            "source": "submitter",
+            "title": "The MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer",
+        }
+    ],
+    "document_type": ["article"],
+    "$schema": "https://inspirehep.net/schemas/records/hep.json",
+}
+
+
+def hep_data_valid():
+    data = deepcopy(BASE)
+    data["authors"] = [{"full_name": "Doe, John"}]
+    return data
+
+
+def hep_data_invalid():
+    data = deepcopy(BASE)
+    data["authors"] = [{"full_name": "Gooding, James, James Andrew, Jamie."}]
+    return data
 
 
 class TestWorkflowViewSet(BaseTransactionTestCase):
@@ -77,25 +102,16 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         data = {
             "workflow_type": HepWorkflowType.HEP_CREATE,
             "status": "running",
-            "data": {
-                "_collections": ["Literature"],
-                "titles": [
-                    {
-                        "source": "submitter",
-                        "title": "The MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer",
-                    }
-                ],
-                "document_type": ["article"],
-                "$schema": "https://inspirehep.net/schemas/records/hep.json",
-            },
+            "data": hep_data_valid(),
         }
 
         url = reverse("api:hep-list")
         response = self.api_client.post(url, format="json", data=data)
+        json_response = response.json()
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json()["data"], data["data"])
-        self.assertEqual(response.json()["workflow_type"], data["workflow_type"])
-        self.assertIn("id", response.json())
+        self.assertEqual(json_response["data"], data["data"])
+        self.assertEqual(json_response["workflow_type"], data["workflow_type"])
+        self.assertIn("id", json_response)
 
     @pytest.mark.vcr
     def test_get_hep_classifier_results_filtered(self):
@@ -104,12 +120,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         data = {
             "workflow_type": HepWorkflowType.HEP_CREATE,
             "status": "running",
-            "data": {
-                "_collections": ["Literature"],
-                "titles": [{"source": "submitter", "title": "Test record"}],
-                "document_type": ["article"],
-                "$schema": "https://inspirehep.net/schemas/records/hep.json",
-            },
+            "data": hep_data_valid(),
             "classifier_results": {
                 "categories": [{"keyword": "Higgs particle", "category": "HEP"}],
                 "fulltext_used": True,
@@ -135,11 +146,95 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         detail_response = self.api_client.get(detail_url)
         self.assertEqual(detail_response.status_code, 200)
 
-        payload = detail_response.json()
-        self.assertEqual(payload["data"], data["data"])
-        self.assertIn("id", payload)
+        json_response = detail_response.json()
+        self.assertEqual(json_response["data"], data["data"])
+        self.assertIn("id", json_response)
 
-        filtered = payload["classifier_results"]["complete_output"][
+        filtered = json_response["classifier_results"]["complete_output"][
             "filtered_core_keywords"
         ]
         self.assertEqual([k["keyword"] for k in filtered], ["supersymmetry"])
+
+    def test_get_non_existent_workflow(self):
+        self.api_client.force_authenticate(user=self.curator)
+        detail_url = reverse("api:hep-detail", kwargs={"pk": "THISISFORSURENOTANID"})
+        detail_response = self.api_client.get(detail_url)
+        self.assertEqual(detail_response.status_code, 404)
+        self.assertEqual(detail_response.json()["detail"], "Not found.")
+
+    def test_get_hep_with_errors(self):
+        self.api_client.force_authenticate(user=self.curator)
+        data_invalid = hep_data_invalid()
+        random_id = uuid.uuid4()
+        HepWorkflow.objects.create(
+            data=data_invalid,
+            status=HepStatusChoices.APPROVAL,
+            workflow_type=HepWorkflowType.HEP_CREATE,
+            id=random_id,
+        )
+
+        detail_url = reverse("api:hep-detail", kwargs={"pk": random_id})
+        response = self.api_client.get(detail_url)
+        json_response = response.json()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json_response["data"], data_invalid)
+        self.assertEqual(
+            json_response["validation_errors"],
+            [
+                {
+                    "message": "'Gooding, James, James Andrew, Jamie.' does not match '^[^,]+(,[^,]+)?(,?[^,]+)?$'",
+                    "path": ["authors", 0, "full_name"],
+                }
+            ],
+        )
+
+    def test_validate_valid_record(self):
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-validate",
+        )
+        response = self.api_client.post(url, format="json", data=hep_data_valid())
+        self.assertContains(response, "Record is valid.", status_code=200)
+
+    def test_validate_not_valid_record(self):
+        self.api_client.force_authenticate(user=self.curator)
+
+        url = reverse(
+            "api:hep-validate",
+        )
+        response = self.api_client.post(url, format="json", data=hep_data_invalid())
+        expected_response = [
+            {
+                "message": "'Gooding, James, James Andrew, Jamie.' does not match '^[^,]+(,[^,]+)?(,?[^,]+)?$'",
+                "path": ["authors", 0, "full_name"],
+            }
+        ]
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json(), expected_response)
+
+    def test_validate_no_schema_record(self):
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-validate",
+        )
+        response = self.api_client.post(url, format="json", data={})
+        self.assertContains(
+            response,
+            'Unable to find \\"$schema\\" key in',
+            status_code=400,
+        )
+
+    def test_validate_invalid_schema_record(self):
+        self.api_client.force_authenticate(user=self.curator)
+        data = {
+            "$schema": "https://inspirehep.net/schemas/records/notajsonschema.json",
+        }
+        url = reverse(
+            "api:hep-validate",
+        )
+        response = self.api_client.post(url, format="json", data=data)
+        self.assertContains(
+            response,
+            text='Unable to find schema \\"https://inspirehep.net/schemas/records/notajsonschema.json\\"',
+            status_code=400,
+        )
