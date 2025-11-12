@@ -2,6 +2,7 @@ import datetime
 import logging
 import os
 import re
+from copy import deepcopy
 from tempfile import TemporaryDirectory
 
 from airflow.decorators import dag, task_group
@@ -62,6 +63,7 @@ from inspire_utils.helpers import flatten_list, maybe_int
 from inspire_utils.record import get_value
 from invenio_classifier import get_keywords_from_local_file, get_keywords_from_text
 from invenio_classifier.errors import ClassifierException
+from json_merger.errors import MaxThresholdExceededError
 from literature.link_institutions_with_affiliations_task import (
     link_institutions_with_affiliations,
 )
@@ -1132,18 +1134,88 @@ def hep_create_dag():
             >> normalize_collaborations()
         )
 
-    @task.branch
-    def check_is_update(match_approved_id, **context):
-        if match_approved_id:
-            return "merge_articles"
-        return "update_inspire_categories"
-
-    @task
-    def merge_articles(match_approved_id, **context):
-        pass
-
     @task_group
     def halt_for_approval_if_new_or_reject_if_not_relevant(**context):
+        @task.branch
+        def check_is_update(match_approved_id, **context):
+            if match_approved_id:
+                return (
+                    "halt_for_approval_if_new_or_reject_if_not_relevant.merge_articles"
+                )
+            return (
+                "halt_for_approval_if_new_or_reject_if_not_relevant."
+                "update_inspire_categories"
+            )
+
+        @task
+        def merge_articles(matched_control_number, **context):
+            """Merge two articles.
+
+            The workflow payload is overwritten by the merged record, the conflicts are
+            stored in ``extra_data.conflicts``. Also, it adds a ``callback_url`` which
+            contains the endpoint which resolves the merge conflicts.
+            Note:
+
+            """
+
+            workflow_data = read_object(
+                s3_hook, bucket_name, context["params"]["workflow_id"]
+            )
+
+            update = workflow_data["data"]
+            update_source = LiteratureReader(update).source
+
+            record_data = inspire_http_record_management_hook.get_record(
+                pid_type="literature",
+                control_number=matched_control_number,
+            )
+
+            head_uuid = record_data["uuid"]
+            head_record = record_data["metadata"]
+            head_revision_id = record_data["revision_id"]
+            head_version_id = head_revision_id + 1
+
+            head_root = workflows.read_wf_record_source(
+                record_uuid=head_uuid, source=update_source.lower()
+            )
+
+            head_root = deepcopy(head_root["json"] if head_root else {})
+
+            try:
+                merged, conflicts = merge(
+                    head=head_record,
+                    root=head_root,
+                    update=update,
+                )
+            except MaxThresholdExceededError as e:
+                raise AirflowException(f"Conflict resolution failed. {e}") from None
+
+            workflow_data["data"] = merged
+
+            merge_summary_data = {
+                "head_uuid": str(head_uuid),
+                "head_version_id": head_version_id,
+                "merger_head_revision": head_revision_id,
+                "merger_original_root": head_root,
+            }
+
+            if conflicts:
+                merge_summary_data["conflicts"] = {
+                    "conflicts": conflicts,
+                    "callback_url": inspire_http_hook.get_url()
+                    + "/callback/workflows/resolve_merge_conflicts",
+                }
+
+            write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                context["params"]["workflow_id"],
+                overwrite=True,
+            )
+
+            return merge_summary_data
+
         @task
         def is_record_relevant(**context):
             workflow_data = read_object(
@@ -1205,6 +1277,7 @@ def hep_create_dag():
             )
 
         replace_collection_task = replace_collection_to_hidden()
+        update_inspire_categories = EmptyOperator(task_id="update_inspire_categories")
 
         mark_approved_true = EmptyOperator(task_id="mark_approved_true")
         mark_approved_false = EmptyOperator(task_id="mark_approved_false")
@@ -1212,11 +1285,23 @@ def hep_create_dag():
         should_replace_collection_to_hidden_branch = (
             should_replace_collection_to_hidden()
         )
+        get_approved_match_task = get_approved_match()
+        check_is_update_task = check_is_update(get_approved_match_task)
+
+        check_is_update_task >> [
+            merge_articles(get_approved_match_task),
+            update_inspire_categories,
+        ]
+
         should_replace_collection_to_hidden_branch >> replace_collection_task
         should_replace_collection_to_hidden_branch >> mark_approved_true
         should_replace_collection_to_hidden_branch >> mark_approved_false
 
-        is_record_relevant() >> should_replace_collection_to_hidden_branch
+        (
+            update_inspire_categories
+            >> is_record_relevant()
+            >> should_replace_collection_to_hidden_branch
+        )
 
     @task_group
     def postprocessing():
@@ -1232,14 +1317,9 @@ def hep_create_dag():
 
     preprocessing_group = preprocessing()
 
-    get_approved_match_task = get_approved_match()
-
-    update_inspire_categories = EmptyOperator(task_id="update_inspire_categories")
     check_for_fuzzy_matches_task = check_for_fuzzy_matches()
 
     check_for_exact_matches_task = check_for_exact_matches()
-
-    check_is_update_task = check_is_update(get_approved_match_task)
 
     (
         check_for_exact_matches_task
@@ -1274,9 +1354,6 @@ def hep_create_dag():
 
     (
         preprocessing_group
-        >> get_approved_match_task
-        >> check_is_update_task
-        >> [merge_articles(get_approved_match_task), update_inspire_categories]
         >> halt_for_approval_if_new_or_reject_if_not_relevant()
         >> postprocessing()
         >> save_and_complete_workflow()

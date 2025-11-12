@@ -1925,7 +1925,7 @@ class Test_HEPCreateDAG:
     def test_get_approved_match_none(self):
         assert not task_test(
             "hep_create_dag",
-            "get_approved_match",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.get_approved_match",
             dag_params=self.context["params"],
         )
 
@@ -1935,7 +1935,7 @@ class Test_HEPCreateDAG:
 
         result = task_test(
             "hep_create_dag",
-            "get_approved_match",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.get_approved_match",
             dag_params=self.context["params"],
         )
 
@@ -1944,22 +1944,58 @@ class Test_HEPCreateDAG:
     def test_check_is_update_merge(self):
         result = task_test(
             "hep_create_dag",
-            "check_is_update",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.check_is_update",
             params={"match_approved_id": 7},
             dag_params=self.context["params"],
             xcom_key="skipmixin_key",
         )
-        assert "merge_articles" in result["followed"]
+        assert (
+            "halt_for_approval_if_new_or_reject_if_not_relevant.merge_articles"
+            in result["followed"]
+        )
 
     def test_check_is_update_none(self):
         result = task_test(
             "hep_create_dag",
-            "check_is_update",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.check_is_update",
             params={"match_approved_id": None},
             dag_params=self.context["params"],
             xcom_key="skipmixin_key",
         )
-        assert "update_inspire_categories" in result["followed"]
+        assert (
+            "halt_for_approval_if_new_or_reject_if_not_relevant.update_inspire_categories"
+            in result["followed"]
+        )
+
+    @pytest.mark.vcr
+    def test_merge_articles(self):
+        write_object(
+            s3_hook,
+            {
+                "data": {
+                    "titles": [
+                        {"title": "New title"},
+                    ],
+                    "authors": [{"full_name": "Blumaaaaaaa, T."}],
+                    "arxiv_eprints": [{"value": "1801.07224"}],
+                },
+            },
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+        merge_articles_result = task_test(
+            "hep_create_dag",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.merge_articles",
+            params={"matched_control_number": 1649231},
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert len(workflow_result["data"]["titles"]) == 2
+        assert {"title": "New title"} in workflow_result["data"]["titles"]
+        assert "conflicts" in merge_articles_result
 
     @pytest.mark.vcr
     def test_save_and_complete_workflow(self):
