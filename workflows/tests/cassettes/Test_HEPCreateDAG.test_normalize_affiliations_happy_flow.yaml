@@ -2,8 +2,7 @@ interactions:
 - request:
     body: '{"authors": [{"full_name": "Kowal, Michal", "raw_affiliations": [{"value":
       "Faculty of Physics, University of Warsaw, Pasteura Warsaw"}]}, {"full_name":
-      "Latacz, Barbara", "raw_affiliations": [{"value": "CERN, Gen\u00e8ve, Switzerland"}]}],
-      "workflow_id": 7}'
+      "Latacz, Barbara", "raw_affiliations": [{"value": "CERN, Gen\u00e8ve, Switzerland"}]}]}'
     headers:
       Accept:
       - application/vnd+inspire.record.raw+json
@@ -12,7 +11,7 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '258'
+      - '240'
       Content-Type:
       - application/json
     method: GET
@@ -31,7 +30,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 03 Nov 2025 16:26:56 GMT
+      - Fri, 14 Nov 2025 13:13:23 GMT
       Server:
       - nginx/1.19.1
     status:

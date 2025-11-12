@@ -1,8 +1,7 @@
 interactions:
 - request:
     body: '{"authors": [{"full_name": "Kozio\u0142, Karol", "raw_affiliations": [{"value":
-      "NCBJ \u015awierk"}, {"value": "CERN, Gen\u00e8ve, Switzerland"}]}], "workflow_id":
-      7}'
+      "NCBJ \u015awierk"}, {"value": "CERN, Gen\u00e8ve, Switzerland"}]}]}'
     headers:
       Accept:
       - application/vnd+inspire.record.raw+json
@@ -11,24 +10,25 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '166'
+      - '148'
       Content-Type:
       - application/json
     method: GET
     uri: http://host.docker.internal:8080/api/curation/literature/affiliations-normalization
   response:
     body:
-      string: "{\"normalized_affiliations\":[[{\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/902725\"},\"value\":\"CERN\"}]],\"ambiguous_affiliations\":[\"NCBJ
-        \u015Awierk\"]}\n"
+      string: '{"normalized_affiliations":[[{"value":"NCBJ, Swierk"},{"record":{"$ref":"https://inspirebeta.net/api/institutions/902725"},"value":"CERN"}]],"ambiguous_affiliations":[]}
+
+        '
     headers:
       Connection:
       - keep-alive
       Content-Length:
-      - '159'
+      - '170'
       Content-Type:
       - application/json
       Date:
-      - Mon, 03 Nov 2025 16:26:58 GMT
+      - Fri, 14 Nov 2025 13:13:27 GMT
       Server:
       - nginx/1.19.1
     status:
