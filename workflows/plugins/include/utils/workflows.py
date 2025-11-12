@@ -6,6 +6,7 @@ from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
 from invenio_classifier.reader import KeywordToken
+from tenacity import RetryError
 
 logger = logging.getLogger(__name__)
 
@@ -123,3 +124,46 @@ def post_pdf_to_grobid(workflow_id, workflow, s3_hook, bucket_name):
         response = grobid_http_hook.call_api("api/processHeaderDocument", files=files)
 
     return response
+
+
+def get_source_for_root(source):
+    """Source for the root workflow object.
+    Args:
+        source(str): the record source.
+    Return:
+        (str): the source for the root workflow object.
+    Note:
+        For the time being any workflow with ``acquisition_source.source``
+        different than ``arxiv`` and ``submitter`` will be stored as
+        ``publisher``.
+    """
+    return source if source in ["arxiv", "submitter"] else "publisher"
+
+
+def read_wf_record_source(record_uuid, source):
+    """Retrieve a record from the ``WorkflowRecordSource`` table.
+    Args:
+        record_uuid(uuid): the uuid of the record
+        source(string): the acquisition source value of the record
+    Return:
+        (dict): the given record, if any or None
+    """
+    if not source:
+        return
+
+    source = get_source_for_root(source)
+    inspire_http_hook = InspireHttpHook()
+
+    try:
+        response = inspire_http_hook.call_api(
+            endpoint="api/literature/workflows_record_sources",
+            json={"record_uuid": str(record_uuid), "source": source.lower()},
+        )
+    except RetryError as e:
+        if "404:Not Found" in str(e.last_attempt.exception()):
+            return []
+
+    if response.status_code == 200:
+        return response.json()["workflow_sources"][0]
+
+    return []
