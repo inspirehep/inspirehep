@@ -65,6 +65,7 @@ class HepWorkflowSerializer(BaseWorkflowSerializer):
     )
 
     classifier_results = serializers.JSONField(required=False, allow_null=True)
+    merge_details = serializers.JSONField(required=False, allow_null=True)
 
     class Meta(BaseWorkflowSerializer.Meta):
         model = HepWorkflow

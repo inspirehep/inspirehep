@@ -1984,7 +1984,7 @@ class Test_HEPCreateDAG:
             self.context["params"]["workflow_id"],
             overwrite=True,
         )
-        merge_articles_result = task_test(
+        task_test(
             "hep_create_dag",
             "halt_for_approval_if_new_or_reject_if_not_relevant.merge_articles",
             params={"matched_control_number": 1649231},
@@ -1995,7 +1995,8 @@ class Test_HEPCreateDAG:
 
         assert len(workflow_result["data"]["titles"]) == 2
         assert {"title": "New title"} in workflow_result["data"]["titles"]
-        assert "conflicts" in merge_articles_result
+        assert "merge_details" in workflow_result
+        assert "conflicts" in workflow_result["merge_details"]
 
     @pytest.mark.vcr
     def test_save_and_complete_workflow(self):

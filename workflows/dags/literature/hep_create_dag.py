@@ -1192,7 +1192,7 @@ def hep_create_dag():
 
             workflow_data["data"] = merged
 
-            merge_summary_data = {
+            workflow_data["merge_details"] = {
                 "head_uuid": str(head_uuid),
                 "head_version_id": head_version_id,
                 "merger_head_revision": head_revision_id,
@@ -1200,7 +1200,7 @@ def hep_create_dag():
             }
 
             if conflicts:
-                merge_summary_data["conflicts"] = {
+                workflow_data["merge_details"]["conflicts"] = {
                     "conflicts": conflicts,
                     "callback_url": inspire_http_hook.get_url()
                     + "/callback/workflows/resolve_merge_conflicts",
@@ -1213,8 +1213,6 @@ def hep_create_dag():
                 context["params"]["workflow_id"],
                 overwrite=True,
             )
-
-            return merge_summary_data
 
         @task
         def is_record_relevant(**context):
