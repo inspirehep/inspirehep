@@ -1,4 +1,4 @@
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 
 import pytest
 from airflow.models import DagBag
@@ -85,20 +85,29 @@ class TestAuthorCreateInit:
             == self.context["params"]["workflow_id"]
         )
 
-    @patch(
-        "author.author_create.author_create_init.get_ticket_by_type",
-        return_value="mocked",
-    )
-    @patch("include.utils.tickets.get_ticket_by_type", return_value="mocked")
-    def test_create_author_create_user_ticket(
-        self, mock_get_ticket_by_type, mock_get_ticket_by_type_include
-    ):
-        import pdb
-
-        pdb.set_trace()
+    @pytest.mark.vcr
+    def test_create_author_create_user_ticket(self):
+        noticket_context = {
+            "params": {
+                "workflow_id": "00000000-0000-0000-0000-000000001521",
+                "workflow": {
+                    "data": {
+                        "$schema": "https://inspirehep.net/schemas/records/authors.json",
+                        "_collections": ["Authors"],
+                        "name": {"preferred_name": "Third B", "value": "B, Third"},
+                        "acquisition_source": {"email": "micha.moshe.moskovic@cern.ch"},
+                    },
+                    "decisions": [],
+                    "id": "66277811-fe66-4335-9aff-984583fb1228",
+                    "status": "running",
+                    "tickets": [],
+                    "workflow_type": "AUTHOR_CREATE",
+                },
+            }
+        }
 
         task = self.dag.get_task("create_author_create_user_ticket")
-        task.execute(context=self.context)
+        task.execute(context=noticket_context)
 
     def test_author_check_approval_branch(self):
         task = self.dag.get_task("author_check_approval_branch")
