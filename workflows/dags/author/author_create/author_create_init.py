@@ -65,13 +65,8 @@ def author_create_initialization_dag():
 
     @task
     def create_author_create_user_ticket(**context: dict) -> None:
-        import pdb
-
-        pdb.set_trace()
         workflow_data = context["params"]["workflow"]["data"]
         email = workflow_data["acquisition_source"]["email"]
-
-        # wow = get_ticket_by_type(context["params"]["workflow"], "author_create_user")
 
         if get_ticket_by_type(context["params"]["workflow"], "author_create_user"):
             return
