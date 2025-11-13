@@ -27,6 +27,7 @@ class HepWorkflow(BaseWorkflow):
     )
     relevance_prediction = models.JSONField(null=True, blank=True)
     classifier_results = models.JSONField(null=True, blank=True)
+    merge_details = models.JSONField(null=True, blank=True)
     reference_count = models.JSONField(null=True, blank=True)
     status = models.CharField(
         max_length=30,
