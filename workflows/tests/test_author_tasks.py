@@ -1,4 +1,4 @@
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 import pytest
 from airflow.models import DagBag
@@ -85,11 +85,18 @@ class TestAuthorCreateInit:
             == self.context["params"]["workflow_id"]
         )
 
-    @pytest.mark.skip(
-        reason="Test does not verify any behavior or assertions correctly."
+    @patch(
+        "author.author_create.author_create_init.get_ticket_by_type",
+        return_value="mocked",
     )
-    @pytest.mark.vcr
-    def test_create_author_create_user_ticket(self):
+    @patch("include.utils.tickets.get_ticket_by_type", return_value="mocked")
+    def test_create_author_create_user_ticket(
+        self, mock_get_ticket_by_type, mock_get_ticket_by_type_include
+    ):
+        import pdb
+
+        pdb.set_trace()
+
         task = self.dag.get_task("create_author_create_user_ticket")
         task.execute(context=self.context)
 
