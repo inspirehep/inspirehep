@@ -843,13 +843,21 @@ def hep_create_dag():
                 logger.exception(e)
                 return
 
-            result["complete_output"] = workflows.clean_instances_from_data(
-                result.get("complete_output", {})
-            )
-            result["fulltext_used"] = fulltext_used
+            workflow_data["classifier_results"] = {
+                "complete_output": workflows.clean_instances_from_data(
+                    result.get("complete_output", {})
+                ),
+                "fulltext_used": fulltext_used,
+            }
             # Check if it is not empty output before adding
             if any(result.get("complete_output", {}).values()):
-                return {"classifier_results": result}
+                write_object(
+                    s3_hook,
+                    workflow_data,
+                    bucket_name,
+                    context["params"]["workflow_id"],
+                    overwrite=True,
+                )
 
         @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def check_is_arxiv_paper(**context):
