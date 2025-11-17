@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ActionCreator, Action } from 'redux';
 import { connect, RootStateOrAny } from 'react-redux';
-import { Map } from 'immutable';
+import { List, Map } from 'immutable';
 import { push } from 'connected-react-router';
 
 import './LiteratureDetailPageContainer.less';
@@ -35,6 +35,7 @@ import LiteratureMainInfo from '../components/LiteratureMainInfo';
 import Links from '../../common/components/Links/Links';
 import LiteratureDecisionBox from '../components/LiteratureDecisionBox';
 import LiteratureReferences from '../components/LiteratureReferences';
+import LiteratureMatches from '../components/LiteratureMatches';
 
 type LiteratureDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
@@ -61,6 +62,9 @@ const LiteratureDetailPageContainer = ({
   const relevancePrediction = literature?.get('relevance_prediction');
   const referenceCount = literature?.get('reference_count');
   const classifierResults = literature?.get('classifier_results');
+  const matches = literature?.get('matches');
+  const fuzzyMatches = matches?.get('fuzzy');
+  const hasFuzzyMatches = !!fuzzyMatches?.size; // TODO: Enrich this check when full flow is tested
   const title = data?.getIn(['titles', 0, 'title']);
   const controlNumber = data?.get('control_number');
   const tickets =
@@ -179,6 +183,18 @@ const LiteratureDetailPageContainer = ({
                               {DAG_FULL_URL}
                             </a>
                           </p>
+                        </CollapsableForm.Section>
+                      )}
+                      {hasFuzzyMatches && (
+                        <CollapsableForm.Section
+                          header="Matches Found"
+                          key="matches"
+                        >
+                          <LiteratureMatches
+                            fuzzyMatches={fuzzyMatches}
+                            onBestMatchSelected={() => {}}
+                            onNoMatchSelected={() => {}}
+                          />
                         </CollapsableForm.Section>
                       )}
                       <CollapsableForm.Section
