@@ -7,5 +7,6 @@
   "s3_bucket_name": "data-store",
   "s3_ieee_bucket_name": "data-store",
   "HEP_ONTOLOGY_FILE": "plugins/include/taxonomies/HEPont.rdf",
-  "WORKFLOWS_MAX_AUTHORS_COUNT_FOR_GROBID_EXTRACTION": 1000
+  "WORKFLOWS_MAX_AUTHORS_COUNT_FOR_GROBID_EXTRACTION": 1000,
+  "ENVIRONMENT": "DEV"
 }
