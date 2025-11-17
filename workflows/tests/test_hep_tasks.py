@@ -1497,7 +1497,7 @@ class Test_HEPCreateDAG:
 
         expected_fulltext_keywords = [{"number": 1, "keyword": "Higgs particle"}]
 
-        result = task_test(
+        task_test(
             "hep_create_dag",
             "preprocessing.classify_paper",
             params={
@@ -1510,12 +1510,18 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
+        workflow_result = read_object(
+            s3_hook, bucket_name, self.context["params"]["workflow_id"]
+        )
+
+        classifier_results = workflow_result["classifier_results"]
+
         assert (
-            result["classifier_results"]["complete_output"]["core_keywords"]
+            classifier_results["complete_output"]["core_keywords"]
             == expected_fulltext_keywords
         )
-        assert result["classifier_results"]["fulltext_used"] is True
-        assert "extracted_keywords" not in result
+        assert classifier_results["fulltext_used"] is True
+        assert "extracted_keywords" not in classifier_results
 
     def test_classify_paper_with_no_fulltext(self, higgs_ontology):
         write_object(
@@ -1539,7 +1545,7 @@ class Test_HEPCreateDAG:
 
         expected_kewords = [{"number": 1, "keyword": "Higgs particle"}]
 
-        result = task_test(
+        task_test(
             "hep_create_dag",
             "preprocessing.classify_paper",
             params={
@@ -1552,11 +1558,15 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        assert (
-            result["classifier_results"]["complete_output"]["core_keywords"]
-            == expected_kewords
+        workflow_result = read_object(
+            s3_hook, bucket_name, self.context["params"]["workflow_id"]
         )
-        assert result["classifier_results"]["fulltext_used"] is False
+        classifier_results = workflow_result["classifier_results"]
+
+        assert (
+            classifier_results["complete_output"]["core_keywords"] == expected_kewords
+        )
+        assert classifier_results["fulltext_used"] is False
 
     def test_classify_paper_uses_keywords(self, higgs_ontology):
         write_object(
@@ -1582,7 +1592,7 @@ class Test_HEPCreateDAG:
 
         expected = [{"number": 1, "keyword": "Higgs particle"}]
 
-        result = task_test(
+        task_test(
             "hep_create_dag",
             "preprocessing.classify_paper",
             params={
@@ -1595,10 +1605,13 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        assert (
-            result["classifier_results"]["complete_output"]["core_keywords"] == expected
+        workflow_result = read_object(
+            s3_hook, bucket_name, self.context["params"]["workflow_id"]
         )
-        assert result["classifier_results"]["fulltext_used"] is False
+        classifier_results = workflow_result["classifier_results"]
+
+        assert classifier_results["complete_output"]["core_keywords"] == expected
+        assert classifier_results["fulltext_used"] is False
 
     def test_classify_paper_does_not_raise_on_unprintable_keywords(
         self, datadir, higgs_ontology
@@ -1679,7 +1692,7 @@ class Test_HEPCreateDAG:
 
         expected_keywords = [{"number": 1, "keyword": "Core Keyword"}]
 
-        result = task_test(
+        task_test(
             "hep_create_dag",
             "preprocessing.classify_paper",
             params={
@@ -1692,12 +1705,17 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        assert (
-            result["classifier_results"]["complete_output"]["core_keywords"]
-            == expected_keywords
+        workflow_result = read_object(
+            s3_hook, bucket_name, self.context["params"]["workflow_id"]
         )
 
-        assert result["classifier_results"]["fulltext_used"] is True
+        classifier_results = workflow_result["classifier_results"]
+
+        assert (
+            classifier_results["complete_output"]["core_keywords"] == expected_keywords
+        )
+
+        assert classifier_results["fulltext_used"] is True
 
     @pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path", "query"])
     def test_extract_authors_from_pdf_when_no_authors_in_metadata(self, datadir):
