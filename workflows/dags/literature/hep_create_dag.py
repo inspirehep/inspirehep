@@ -112,6 +112,12 @@ def hep_create_dag():
     arxiv_hook = GenericHttpHook(http_conn_id="arxiv_connection")
 
     @task
+    def check_env():
+        environment = Variable.get("ENVIRONMENT")
+        if environment.lower() != "dev":
+            raise AirflowException("This DAG will not run on prod")
+
+    @task
     def get_workflow_data(**context):
         workflow_data = workflow_management_hook.get_workflow(
             context["params"]["workflow_id"]
@@ -1354,7 +1360,8 @@ def hep_create_dag():
     # Fuzzy matching
 
     (
-        get_workflow_data()
+        check_env()
+        >> get_workflow_data()
         >> set_schema()
         >> set_workflow_status_to_running()
         >> check_for_blocking_workflows()
