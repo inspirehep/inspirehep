@@ -29,6 +29,7 @@ class HepWorkflow(BaseWorkflow):
     classifier_results = models.JSONField(null=True, blank=True)
     merge_details = models.JSONField(null=True, blank=True)
     reference_count = models.JSONField(null=True, blank=True)
+    matches = models.JSONField(null=True, blank=True)
     status = models.CharField(
         max_length=30,
         choices=HepStatusChoices.choices,
