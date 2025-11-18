@@ -540,141 +540,90 @@
           "author_keywords": [
             {
               "author_keyword": "Quantum network",
-              "matched_keywords": [
-                "network, quantum"
-              ]
+              "matched_keywords": ["network, quantum"]
             },
             {
               "author_keyword": "SPAM errors",
-              "matched_keywords": [
-                "error"
-              ]
+              "matched_keywords": ["error"]
             },
             {
               "author_keyword": "network tomography",
-              "matched_keywords": [
-                "network"
-              ]
+              "matched_keywords": ["network"]
             }
           ],
           "composite_keywords": [
             {
-              "details": [
-                137,
-                53
-              ],
+              "details": [137, 53],
               "keyword": "network, quantum",
               "number": 34
             },
             {
-              "details": [
-                22,
-                13
-              ],
+              "details": [22, 13],
               "keyword": "gate, Hadamard",
               "number": 10
             },
             {
-              "details": [
-                22,
-                7
-              ],
+              "details": [22, 7],
               "keyword": "gate, C-NOT",
               "number": 5
             },
             {
-              "details": [
-                1,
-                53
-              ],
+              "details": [1, 53],
               "keyword": "computer, quantum",
               "number": 2
             },
             {
-              "details": [
-                12,
-                3
-              ],
+              "details": [12, 3],
               "keyword": "time, multiple",
               "number": 2
             },
             {
-              "details": [
-                137,
-                22
-              ],
+              "details": [137, 22],
               "keyword": "network, performance",
               "number": 2
             },
             {
-              "details": [
-                22,
-                53
-              ],
+              "details": [22, 53],
               "keyword": "gate, quantum",
               "number": 2
             },
             {
-              "details": [
-                3,
-                83
-              ],
+              "details": [3, 83],
               "keyword": "operator, Pauli",
               "number": 1
             },
             {
-              "details": [
-                1,
-                53
-              ],
+              "details": [1, 53],
               "keyword": "technology, quantum",
               "number": 1
             },
             {
-              "details": [
-                1,
-                53
-              ],
+              "details": [1, 53],
               "keyword": "Fisher information, quantum",
               "number": 1
             },
             {
-              "details": [
-                22,
-                2
-              ],
+              "details": [22, 2],
               "keyword": "gate, phase",
               "number": 1
             },
             {
-              "details": [
-                12,
-                12
-              ],
+              "details": [12, 12],
               "keyword": "decoherence, time",
               "number": 1
             },
             {
-              "details": [
-                12,
-                3
-              ],
+              "details": [12, 3],
               "keyword": "representation, unitarity",
               "number": 1
             },
             {
-              "details": [
-                2,
-                3
-              ],
+              "details": [2, 3],
               "keyword": "fibre, optical",
               "number": 1
             },
             {
-              "details": [
-                1,
-                1
-              ],
+              "details": [1, 1],
               "keyword": "resonance, magnetic",
               "number": 1
             }
@@ -819,6 +768,77 @@
           ]
         },
         "fulltext_used": true
+      },
+      "matches": {
+        "exact": [],
+        "fuzzy": [
+          {
+            "abstract": "This paper proposes a class of causal formulations for dissipative relativistic fluid dynamics as a hyperbolic five-field system of second-order partial differential equations.",
+            "authors": [
+              {
+                "full_name": "Freistöhler, Heinrich"
+              },
+              {
+                "full_name": "Ioannis, Heinrich"
+              }
+            ],
+            "authors_count": 1,
+            "control_number": 1790396,
+            "earliest_date": "2020-03-17",
+            "publication_info": [
+              {
+                "artid": "033101",
+                "journal_issue": "3",
+                "journal_record": {
+                  "$ref": "https://inspirebeta.net/api/journals/1214658"
+                },
+                "journal_title": "J.Math.Phys.",
+                "journal_volume": "61",
+                "year": 2020
+              }
+            ],
+            "title": "A class of Hadamard well-posed five-field theories of dissipative relativistic fluid dynamics"
+          },
+          {
+            "abstract": "A search for narrow resonances decaying to the dijet final state at the CMS experiment.",
+            "authors": [
+              {
+                "full_name": "Sheffield, David Gruft"
+              }
+            ],
+            "authors_count": 1,
+            "control_number": 1752989,
+            "earliest_date": "2017",
+            "number_of_pages": 151,
+            "public_notes": [
+              {
+                "value": "Fermilab Library Only"
+              },
+              {
+                "value": "Submitted to SIAM J.Matrix Anal.Appl."
+              }
+            ],
+            "title": "Search for low-mass and high-mass narrow dijet resonances with the CMS detector at $\\sqrt{s}$ = 13 TeV"
+          },
+          {
+            "abstract": "The discovery of the Higgs boson in 2012 marked a great success of the Standard Model (SM) of particle physics.",
+            "authors": [
+              {
+                "full_name": "Zhou, Hao"
+              }
+            ],
+            "authors_count": 1,
+            "control_number": 1989726,
+            "earliest_date": "2021",
+            "number_of_pages": 163,
+            "publication_info": [
+              {
+                "year": 2021
+              }
+            ],
+            "title": "Search for Long-Lived Particles Produced in Proton-Proton Collisions at $\\sqrt{s}$ =13 TeV That Decay to Displaced Hadronic Jets Detected With the Muon Spectrometer in ATLAS"
+          }
+        ]
       }
     }
   },
