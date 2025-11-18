@@ -11,7 +11,11 @@ class HepStatusChoices(models.TextChoices):
     RUNNING = "running", "Running"
     APPROVAL = "approval", "Waiting for approval"
     BLOCKED = "blocked", "Blocked"
-    FUZZY_MATCHING = "fuzzy_matching", "Fuzzy matching"
+    FUZZY_MATCHING = (
+        "fuzzy_matching",
+        "Fuzzy matching",
+    )
+    CORE_SELECTION = "core_selection", "Core Selection"
     PROCESSING = "processing", "Processing"
     COMPLETED = "completed", "Completed"
     ERROR = "error", "Error"
@@ -32,6 +36,7 @@ class HepResolutions(models.TextChoices):
     exact_match = "exact_match", "await_decision_exact_match"
     fuzzy_match = "fuzzy_match", "fuzzy_match"
     approval = "approval", "approval"
+    core_selection = "core_selection", "core_selection"
 
 
 HEP_DECISION_CHOICES = HepResolutions.choices

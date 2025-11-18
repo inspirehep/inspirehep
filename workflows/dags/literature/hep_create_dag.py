@@ -1322,6 +1322,46 @@ def hep_create_dag():
     def postprocessing():
         link_institutions_with_affiliations() >> normalize_author_affiliations()
 
+    @task_group
+    def core_selection():
+        @task.short_circuit
+        def await_decision_core_selection_approval(**context):
+            workflow_id = context["params"]["workflow_id"]
+            workflow_data = workflow_management_hook.get_workflow(workflow_id)
+
+            decision = get_decision(workflow_data.get("decisions"), "core_selection")
+
+            if not decision:
+                workflow_management_hook.set_workflow_status(
+                    status_name="core_selection", workflow_id=workflow_id
+                )
+
+                return False
+
+            workflow_data["data"]["core"] = decision.get("value") == "accept_core"
+
+            write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                context["params"]["workflow_id"],
+                overwrite=True,
+            )
+
+            return True
+
+        @task
+        def load_record_from_hep():
+            pass
+
+        (await_decision_core_selection_approval() >> load_record_from_hep())
+
+    @task
+    def save_workflow(**context):
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = read_object(s3_hook, bucket_name, workflow_id)
+        workflow_management_hook.update_workflow(workflow_id, workflow_data)
+
     @task
     def save_and_complete_workflow(**context):
         workflow_id = context["params"]["workflow_id"]
@@ -1372,6 +1412,8 @@ def hep_create_dag():
         preprocessing_group
         >> halt_for_approval_if_new_or_reject_if_not_relevant()
         >> postprocessing()
+        >> save_workflow()
+        >> core_selection()
         >> save_and_complete_workflow()
     )
     check_for_fuzzy_matches_task >> preprocessing_group
