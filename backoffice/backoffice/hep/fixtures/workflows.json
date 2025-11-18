@@ -990,5 +990,26 @@
       "_created_at": "2024-11-25T13:49:53.009Z",
       "_updated_at": "2024-11-25T13:49:54.756Z"
     }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "07c5a66c-1e5b-4da6-823c-871caf43e073",
+    "fields": {
+      "workflow_type": "HEP_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "TEST TEST",
+            "source": "submitter"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"]
+      },
+      "status": "running",
+      "_created_at": "2025-11-01T00:00:00.000Z",
+      "_updated_at": "2025-11-01T00:00:00.000Z"
+    }
   }
 ]

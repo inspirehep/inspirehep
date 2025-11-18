@@ -2736,3 +2736,44 @@ class Test_HEPCreateDAG:
             "halt_for_approval_if_new_or_reject_if_not_relevant.mark_approved_false"
             in result["followed"]
         )
+
+    @pytest.mark.vcr
+    def test_await_decision_core_selection_approval_no_decision(self):
+        workflow_management_hook = WorkflowManagementHook(HEP)
+        workflow_management_hook.set_workflow_status(
+            status_name="running", workflow_id=self.workflow_id
+        )
+
+        assert not task_test(
+            dag_id="hep_create_dag",
+            task_id="core_selection.await_decision_core_selection_approval",
+            dag_params=self.context["params"],
+        )
+
+        workflow = workflow_management_hook.get_workflow(self.workflow_id)
+        assert workflow["status"] == "core_selection"
+
+    @pytest.mark.vcr
+    def test_await_decision_core_selection_approval_decision(self):
+        assert task_test(
+            dag_id="hep_create_dag",
+            task_id="core_selection.await_decision_core_selection_approval",
+            dag_params={"workflow_id": "07c5a66c-1e5b-4da6-823c-871caf43e073"},
+        )
+
+        workflow_result = read_object(
+            s3_hook, bucket_name, "07c5a66c-1e5b-4da6-823c-871caf43e073"
+        )
+
+        assert workflow_result["data"]["core"] is True
+
+        assert task_test(
+            dag_id="hep_create_dag",
+            task_id="core_selection.await_decision_core_selection_approval",
+            dag_params={"workflow_id": "66961888-a628-46b7-b807-4deae3478adc"},
+        )
+
+        workflow_result = read_object(
+            s3_hook, bucket_name, "66961888-a628-46b7-b807-4deae3478adc"
+        )
+        assert workflow_result["data"]["core"] is False
