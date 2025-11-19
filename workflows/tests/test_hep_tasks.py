@@ -14,6 +14,7 @@ from hooks.backoffice.workflow_management_hook import (
 )
 from include.utils.s3 import read_object, write_object
 from inspire_schemas.api import load_schema, validate
+from inspire_utils.query import ordered
 
 from tests.test_utils import task_test
 
@@ -2777,3 +2778,64 @@ class Test_HEPCreateDAG:
             s3_hook, bucket_name, "66961888-a628-46b7-b807-4deae3478adc"
         )
         assert workflow_result["data"]["core"] is False
+
+    def test_remove_inspire_categories_derived_from_core_arxiv_categories(
+        self,
+    ):
+        workflow_data = {
+            "data": {
+                "_collections": ["Literature"],
+                "titles": [{"title": "A title"}],
+                "document_type": ["report"],
+                "arxiv_eprints": [
+                    {
+                        "categories": [
+                            "hep-ph",
+                            "astro-ph.CO",
+                            "gr-qc",
+                            "hep-ex",
+                            "hep-th",
+                        ],
+                        "value": "2207.01633",
+                    }
+                ],
+                "inspire_categories": [
+                    {"source": "arxiv", "term": "Phenomenology-HEP"},
+                    {"source": "arxiv", "term": "Astrophysics"},
+                    {"source": "arxiv", "term": "Gravitation and Cosmology"},
+                    {"source": "arxiv", "term": "Experiment-HEP"},
+                    {"source": "arxiv", "term": "Theory-HEP"},
+                    {"source": "user", "term": "Other"},
+                    {"term": "Other"},
+                ],
+            },
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "core_selection.remove_inspire_categories_derived_from_core_arxiv_categories",
+            dag_params=self.context["params"],
+        )
+
+        schema = load_schema("hep")
+        subschema = schema["properties"]["inspire_categories"]
+
+        workflow_data = read_object(s3_hook, bucket_name, self.workflow_id)
+        expected_inspire_categories = [
+            {"source": "arxiv", "term": "Astrophysics"},
+            {"source": "arxiv", "term": "Gravitation and Cosmology"},
+            {"source": "user", "term": "Other"},
+            {"term": "Other"},
+        ]
+        workflow_inspire_categories = workflow_data["data"]["inspire_categories"]
+        assert ordered(workflow_inspire_categories) == ordered(
+            expected_inspire_categories
+        )
+        assert validate(workflow_inspire_categories, subschema) is None

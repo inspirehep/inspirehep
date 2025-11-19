@@ -1,18 +1,6 @@
 from itertools import chain
 
-ARXIV_CATEGORIES = {
-    "core": ["hep-ex", "hep-lat", "hep-ph", "hep-th"],
-    "non-core": [
-        "astro-ph.CO",
-        "astro-ph.HE",
-        "gr-qc",
-        "nucl-ex",
-        "nucl-th",
-        "physics.acc-ph",
-        "physics.ins-det",
-        "quant-ph",
-    ],
-}
+from include.utils.constants import ARXIV_CATEGORIES
 
 
 def auto_approve(data):

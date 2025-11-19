@@ -34,3 +34,17 @@ AFFILIATIONS_TO_HIDDEN_COLLECTIONS_MAPPING = {
     "CERN": "CDS Hidden",
     "FERMILAB": "Fermilab",
 }
+
+ARXIV_CATEGORIES = {
+    "core": ["hep-ex", "hep-lat", "hep-ph", "hep-th"],
+    "non-core": [
+        "astro-ph.CO",
+        "astro-ph.HE",
+        "gr-qc",
+        "nucl-ex",
+        "nucl-th",
+        "physics.acc-ph",
+        "physics.ins-det",
+        "quant-ph",
+    ],
+}
