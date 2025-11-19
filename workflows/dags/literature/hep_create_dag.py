@@ -77,6 +77,7 @@ from literature.set_workflow_status_tasks import (
     set_workflow_status_to_fuzzy_matching,
     set_workflow_status_to_running,
 )
+from literature.store_root_task import store_root
 from plotextractor.api import process_tarball
 from plotextractor.converter import untar
 from plotextractor.errors import (
@@ -1423,6 +1424,7 @@ def hep_create_dag():
         preprocessing_group
         >> halt_for_approval_if_new_or_reject_if_not_relevant()
         >> postprocessing()
+        >> store_root()
         >> save_workflow()
         >> core_selection()
         >> save_and_complete_workflow()

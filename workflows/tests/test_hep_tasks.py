@@ -12,6 +12,10 @@ from hooks.backoffice.workflow_management_hook import (
     HEP,
     WorkflowManagementHook,
 )
+from hooks.inspirehep.inspire_http_record_management_hook import (
+    InspireHTTPRecordManagementHook,
+)
+from include.utils import workflows
 from include.utils.s3 import read_object, write_object
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.query import ordered
@@ -22,7 +26,7 @@ dagbag = DagBag()
 
 s3_hook = S3Hook(aws_conn_id="s3_conn")
 bucket_name = Variable.get("s3_bucket_name")
-
+inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
 
 HIGGS_ONTOLOGY = """<?xml version="1.0" encoding="UTF-8" ?>
 
@@ -2839,3 +2843,95 @@ class Test_HEPCreateDAG:
             expected_inspire_categories
         )
         assert validate(workflow_inspire_categories, subschema) is None
+
+    @pytest.mark.vcr
+    def test_store_root_new_record(self):
+        record = inspire_http_record_management_hook.get_record(
+            pid_type="literature",
+            control_number=99999,
+        )
+
+        head_uuid = record["uuid"]
+
+        root = {"version": "original", "acquisition_source": {"source": "arXiv"}}
+
+        workflow_data = {"merge_details": {"head_uuid": head_uuid, "merger_root": root}}
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+        task_test(
+            "hep_create_dag",
+            "store_root",
+            dag_params=self.context["params"],
+        )
+
+        task_test(
+            "hep_create_dag",
+            "store_root",
+            dag_params=self.context["params"],
+        )
+
+        workflow_data = {"merge_details": {"head_uuid": head_uuid, "merger_root": root}}
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+    @pytest.mark.vcr
+    def test_store_root_update_record(self):
+        record = inspire_http_record_management_hook.get_record(
+            pid_type="literature",
+            control_number=44707,
+        )
+
+        head_uuid = record["uuid"]
+
+        root = {"version": "original", "acquisition_source": {"source": "arXiv"}}
+
+        workflow_data = {"merge_details": {"head_uuid": head_uuid, "merger_root": root}}
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+        task_test(
+            "hep_create_dag",
+            "store_root",
+            dag_params=self.context["params"],
+        )
+
+        root_entry = workflows.read_wf_record_source(head_uuid, "arxiv")
+
+        assert root_entry["json"] == root
+
+        root["version"] = "modified"
+        workflow_data = {"merge_details": {"head_uuid": head_uuid, "merger_root": root}}
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+        task_test(
+            "hep_create_dag",
+            "store_root",
+            dag_params=self.context["params"],
+        )
+
+        root_entry = workflows.read_wf_record_source(head_uuid, "arxiv")
+
+        assert root_entry["json"] == root
