@@ -1939,20 +1939,20 @@ class Test_HEPCreateDAG:
             overwrite=True,
         )
 
-        task_result = task_test(
+        task_test(
             "hep_create_dag",
             "preprocessing.guess_coreness",
             dag_params=self.context["params"],
         )
 
-        result = task_result["relevance_prediction"]
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+        relevance_prediction = workflow_result["relevance_prediction"]
 
-        assert isinstance(result, dict)
-        assert "scores" in result
-        assert "decision" in result
-        assert result["decision"] in ["CORE", "Non-CORE", "Rejected"]
-        assert "max_score" in result
-        assert "relevance_score" in result
+        assert "scores" in relevance_prediction
+        assert "decision" in relevance_prediction
+        assert relevance_prediction["decision"] in ["CORE", "Non-CORE", "Rejected"]
+        assert "max_score" in relevance_prediction
+        assert "relevance_score" in relevance_prediction
 
     def test_get_approved_match_none(self):
         assert not task_test(

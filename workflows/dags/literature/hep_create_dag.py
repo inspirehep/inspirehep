@@ -1097,11 +1097,17 @@ def hep_create_dag():
             try:
                 clf = Classifier(model_path="/opt/classifier_model.h5")
                 results = clf.predict_coreness(title, abstract)
-                coreness = calculate_coreness(results)
-                return {"relevance_prediction": coreness}
+                workflow_data["relevance_prediction"] = calculate_coreness(results)
+                write_object(
+                    s3_hook,
+                    workflow_data,
+                    bucket_name,
+                    context["params"]["workflow_id"],
+                    overwrite=True,
+                )
             except Exception as e:
                 logger.error(f"Error occurred while predicting coreness: {e}")
-                return {"error": str(e)}
+                return
 
         @task
         def normalize_collaborations(**context):
@@ -1111,8 +1117,6 @@ def hep_create_dag():
             return workflows.normalize_collaborations(workflow_data=workflow_data)
 
         check_is_arxiv_paper_task = check_is_arxiv_paper()
-
-        guess_coreness_task = guess_coreness()
 
         populate_arxiv_document_task = populate_arxiv_document()
         arxiv_package_download_task = arxiv_package_download()
@@ -1150,7 +1154,7 @@ def hep_create_dag():
             >> classify_paper(
                 only_core_tags=False, spires=True, with_author_keywords=False
             )
-            >> guess_coreness_task
+            >> guess_coreness()
             >> normalize_collaborations()
         )
 
