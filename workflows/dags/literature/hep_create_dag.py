@@ -64,6 +64,9 @@ from inspire_utils.record import get_value
 from invenio_classifier import get_keywords_from_local_file, get_keywords_from_text
 from invenio_classifier.errors import ClassifierException
 from json_merger.errors import MaxThresholdExceededError
+from literature.core_selection import (
+    remove_inspire_categories_derived_from_core_arxiv_categories,
+)
 from literature.link_institutions_with_affiliations_task import (
     link_institutions_with_affiliations,
 )
@@ -1354,7 +1357,11 @@ def hep_create_dag():
         def load_record_from_hep():
             pass
 
-        (await_decision_core_selection_approval() >> load_record_from_hep())
+        (
+            await_decision_core_selection_approval()
+            >> load_record_from_hep()
+            >> remove_inspire_categories_derived_from_core_arxiv_categories()
+        )
 
     @task
     def save_workflow(**context):
