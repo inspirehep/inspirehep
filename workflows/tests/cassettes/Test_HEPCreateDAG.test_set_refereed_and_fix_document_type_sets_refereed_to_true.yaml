@@ -1,0 +1,89 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8080/api/journals/1213100
+  response:
+    body:
+      string: '{"created":"2013-01-18T00:00:00+00:00","links":{"json":"http://localhost:8000/api/journals/1213100?format=json"},"uuid":"8d59b65c-0041-49d0-823b-4e3b66fe6d94","metadata":{"self":{"$ref":"http://localhost:8000/api/journals/1213100"},"$schema":"https://inspirebeta.net/schemas/records/journals.json","refereed":true,"proceedings":true,"short_title":"Calc.Var.Part.Differ.Equ","_collections":["Journals"],"journal_title":{"title":"Calculus
+        of Variations and Partial Differential Equations"},"control_number":1213100,"legacy_version":"20210607130823.0","title_variants":["CALC
+        VAR PARTIAL DIFFERENTIAL EQUATIONS","CALC VAR PARTIAL DIFFER EQU","CALC VAR
+        PART DIFFER EQU","CALC VAR PART DIFF EQ","CALC VAR"],"_harvesting_info":{"method":"feed","coverage":"partial","last_seen_item":"Calc.Var.Part.Differ.Equ,60,2","date_last_harvest":"2021-06-07"},"inspire_categories":[{"term":"Math
+        and Math Physics"}],"legacy_creation_date":"2013-01-18"},"id":"1213100","revision_id":0,"updated":"2025-11-20T15:28:25.574802+00:00"}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1011'
+      Content-Type:
+      - application/vnd+inspire.record.raw+json
+      Date:
+      - Thu, 20 Nov 2025 15:43:46 GMT
+      ETag:
+      - W/"0"
+      Last-Modified:
+      - Thu, 20 Nov 2025 15:28:25 GMT
+      Link:
+      - <json>; rel="http://localhost:8000/api/journals/1213100?format=json"
+      Server:
+      - nginx/1.19.1
+      Vary:
+      - Accept,Accept-Encoding,Accept-Language
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8080/api/journals/1214516
+  response:
+    body:
+      string: '{"created":"2013-01-18T00:00:00+00:00","links":{"json":"http://localhost:8000/api/journals/1214516?format=json"},"uuid":"76843e77-4200-448b-b1f9-d5975ea3cc33","metadata":{"self":{"$ref":"http://localhost:8000/api/journals/1214516"},"$schema":"https://inspirebeta.net/schemas/records/journals.json","refereed":true,"publisher":["APS"],"short_title":"Phys.Rev.","_collections":["Journals"],"journal_title":{"title":"Physical
+        Review"},"control_number":1214516,"legacy_version":"20210624090758.0","title_variants":["PHYS
+        REV BCONDENS MATTER MATER PHYS","PHYS REV RAPIDCOMM","PHYS REV PHYS REV","PHYS
+        REV RAP COMM","PHYS REV SER 2","PHYSICALREVIEW","PHYSICSREVIEW","PHYS REV
+        BF","PHYS REVIEW","PHYSICALREV","PHYS RE V","PHYSC REV","PHYSREVBF","PAYS
+        REV","PFYS REV","PHIS REV","PHSY REV","PHUS REV","PHYE REV","PHYS PEV","PHYS
+        REC","PHYS REF","PHYS REV","PHYS REW","PHYS TEV","PYHS REV","RHYS REV","PHS
+        REV","PHY REV","PHYS RV","PHYSREV","PHYSREW","PYS REV","PHRV","PHR"],"_harvesting_info":{"method":"feed","coverage":"partial","last_seen_item":"Phys.Rev.,X11,2","date_last_harvest":"2021-06-24"},"legacy_creation_date":"2013-01-18"},"id":"1214516","revision_id":0,"updated":"2025-11-20T15:28:25.451366+00:00"}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1205'
+      Content-Type:
+      - application/vnd+inspire.record.raw+json
+      Date:
+      - Thu, 20 Nov 2025 15:43:46 GMT
+      ETag:
+      - W/"0"
+      Last-Modified:
+      - Thu, 20 Nov 2025 15:28:25 GMT
+      Link:
+      - <json>; rel="http://localhost:8000/api/journals/1214516?format=json"
+      Server:
+      - nginx/1.19.1
+      Vary:
+      - Accept,Accept-Encoding,Accept-Language
+    status:
+      code: 200
+      message: OK
+version: 1

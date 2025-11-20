@@ -1,0 +1,88 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8080/api/journals/1213101
+  response:
+    body:
+      string: '{"created":"2013-01-18T00:00:00+00:00","links":{"json":"http://localhost:8000/api/journals/1213101?format=json"},"uuid":"d02212d2-bede-4c7a-8ef6-fe8ec9f54d76","metadata":{"self":{"$ref":"http://localhost:8000/api/journals/1213101"},"$schema":"https://inspirebeta.net/schemas/records/journals.json","refereed":false,"proceedings":true,"short_title":"Calc.Var.Part.Differ.Equ
+        1","_collections":["Journals"],"journal_title":{"title":"Calculus of Variations
+        and Partial Differential Equations 1"},"control_number":1213101,"legacy_version":"20210607130823.0","title_variants":["CALC
+        VAR PARTIAL DIFFERENTIAL EQUATIONS","CALC VAR PARTIAL DIFFER EQU","CALC VAR
+        PART DIFFER EQU","CALC VAR PART DIFF EQ","CALC VAR"],"_harvesting_info":{"method":"feed","coverage":"partial","last_seen_item":"Calc.Var.Part.Differ.Equ,60,2","date_last_harvest":"2021-06-07"},"inspire_categories":[{"term":"Math
+        and Math Physics"}],"legacy_creation_date":"2013-01-18"},"id":"1213101","revision_id":0,"updated":"2025-11-20T15:28:25.594057+00:00"}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1016'
+      Content-Type:
+      - application/vnd+inspire.record.raw+json
+      Date:
+      - Thu, 20 Nov 2025 15:43:46 GMT
+      ETag:
+      - W/"0"
+      Last-Modified:
+      - Thu, 20 Nov 2025 15:28:25 GMT
+      Link:
+      - <json>; rel="http://localhost:8000/api/journals/1213101?format=json"
+      Server:
+      - nginx/1.19.1
+      Vary:
+      - Accept,Accept-Encoding,Accept-Language
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8080/api/journals/1213102
+  response:
+    body:
+      string: '{"created":"2013-01-18T00:00:00+00:00","links":{"json":"http://localhost:8000/api/journals/1213102?format=json"},"uuid":"17d03fd9-aef2-429c-9678-b513dda4ad91","metadata":{"self":{"$ref":"http://localhost:8000/api/journals/1213102"},"$schema":"https://inspirebeta.net/schemas/records/journals.json","refereed":false,"proceedings":true,"short_title":"Calc.Var.Part.Differ.Equ
+        2","_collections":["Journals"],"journal_title":{"title":"Calculus of Variations
+        and Partial Differential Equations 2"},"control_number":1213102,"legacy_version":"20210607130823.0","title_variants":["CALC
+        VAR PARTIAL DIFFERENTIAL EQUATIONS","CALC VAR PARTIAL DIFFER EQU","CALC VAR
+        PART DIFFER EQU","CALC VAR PART DIFF EQ","CALC VAR"],"_harvesting_info":{"method":"feed","coverage":"partial","last_seen_item":"Calc.Var.Part.Differ.Equ,60,2","date_last_harvest":"2021-06-07"},"inspire_categories":[{"term":"Math
+        and Math Physics"}],"legacy_creation_date":"2013-01-18"},"id":"1213102","revision_id":0,"updated":"2025-11-20T15:28:25.416661+00:00"}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1016'
+      Content-Type:
+      - application/vnd+inspire.record.raw+json
+      Date:
+      - Thu, 20 Nov 2025 15:43:46 GMT
+      ETag:
+      - W/"0"
+      Last-Modified:
+      - Thu, 20 Nov 2025 15:28:25 GMT
+      Link:
+      - <json>; rel="http://localhost:8000/api/journals/1213102?format=json"
+      Server:
+      - nginx/1.19.1
+      Vary:
+      - Accept,Accept-Encoding,Accept-Language
+    status:
+      code: 200
+      message: OK
+version: 1
