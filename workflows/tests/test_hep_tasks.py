@@ -2935,3 +2935,27 @@ class Test_HEPCreateDAG:
         root_entry = workflows.read_wf_record_source(head_uuid, "arxiv")
 
         assert root_entry["json"] == root
+
+    @pytest.mark.vcr
+    def test_load_record_from_hep(self):
+        workflow_data = {
+            "data": {"control_number": 44707},
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "core_selection.load_record_from_hep",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert "titles" in workflow_result["data"]

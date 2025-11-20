@@ -1359,8 +1359,31 @@ def hep_create_dag():
             return True
 
         @task
-        def load_record_from_hep():
-            pass
+        def load_record_from_hep(**context):
+            workflow_data = read_object(
+                s3_hook, bucket_name, context["params"]["workflow_id"]
+            )
+
+            control_number = workflow_data["data"]["control_number"]
+
+            record = inspire_http_record_management_hook.get_record(
+                pid_type="literature",
+                control_number=control_number,
+            )
+
+            workflow_data["data"] = record["metadata"]
+            workflow_data["merge_details"] = {
+                "head_uuid": str(record["uuid"]),
+                "head_version_id": record["revision_id"] + 1,
+                "merger_head_revision": record["revision_id"],
+            }
+            write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                context["params"]["workflow_id"],
+                overwrite=True,
+            )
 
         (
             await_decision_core_selection_approval()
