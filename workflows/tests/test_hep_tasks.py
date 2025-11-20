@@ -2081,6 +2081,130 @@ class Test_HEPCreateDAG:
         assert "conflicts" in workflow_result["merge_details"]
 
     @pytest.mark.vcr
+    def test_set_refereed_and_fix_document_type_sets_refereed_to_true(self):
+        workflow_data = {
+            "data": {
+                "_collections": ["Literature"],
+                "titles": ["A title"],
+                "document_type": ["article"],
+                "publication_info": [
+                    {
+                        "journal_record": {
+                            "$ref": "https://localhost:8080/api/journals/1213100"
+                        }
+                    },
+                    {
+                        "journal_record": {
+                            "$ref": "https://localhost:8080/api/journals/1214516"
+                        }
+                    },
+                ],
+            }
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "postprocessing.set_refereed_and_fix_document_type",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert workflow_result["data"]["refereed"] is True
+        assert workflow_result["data"]["document_type"] == ["article"]
+
+    @pytest.mark.vcr
+    def test_set_refereed_and_fix_document_type_sets_refereed_updates_document_type(
+        self,
+    ):
+        workflow_data = {
+            "data": {
+                "_collections": ["Literature"],
+                "titles": ["A title"],
+                "document_type": ["article"],
+                "publication_info": [
+                    {
+                        "journal_record": {
+                            "$ref": "https://localhost:8080/api/journals/1213101"
+                        }
+                    },
+                    {
+                        "journal_record": {
+                            "$ref": "https://localhost:8080/api/journals/1213102"
+                        }
+                    },
+                ],
+            }
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "postprocessing.set_refereed_and_fix_document_type",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert not workflow_result["data"]["refereed"]
+        assert workflow_result["data"]["document_type"] == ["conference paper"]
+
+    @pytest.mark.vcr
+    def test_set_refereed_and_fix_document_type_sets_refereed_persists_document_type(
+        self,
+    ):
+        workflow_data = {
+            "data": {
+                "_collections": ["Literature"],
+                "titles": ["A title"],
+                "document_type": ["article"],
+                "publication_info": [
+                    {
+                        "journal_record": {
+                            "$ref": "https://localhost:8080/api/journals/1213104"
+                        }
+                    },
+                    {
+                        "journal_record": {
+                            "$ref": "https://localhost:8080/api/journals/1213105"
+                        }
+                    },
+                ],
+            }
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "postprocessing.set_refereed_and_fix_document_type",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert not workflow_result["data"]["refereed"]
+        assert workflow_result["data"]["document_type"] == ["article"]
+
+    @pytest.mark.vcr
     def test_normalize_affiliations_happy_flow(self):
         workflow_data = {
             "data": {

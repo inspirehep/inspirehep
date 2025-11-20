@@ -2,6 +2,7 @@ import datetime
 import logging
 import os
 import re
+from contextlib import suppress
 from copy import deepcopy
 from tempfile import TemporaryDirectory
 
@@ -27,9 +28,9 @@ from include.inspire.guess_coreness import calculate_coreness
 from include.inspire.journal_title_normalization import (
     process_entries,
 )
+from include.inspire.journals import get_db_journals
 from include.utils import workflows
 from include.utils.alerts import FailedDagNotifierSetError
-from include.utils.constants import JOURNALS_PID_TYPE
 from include.utils.grobid_authors_parser import GrobidAuthors
 from include.utils.hidden_collections import (
     affiliations_for_hidden_collections,
@@ -787,23 +788,7 @@ def hep_create_dag():
             s3_workflow_id = context["params"]["workflow_id"]
             workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
             data = workflow_data.get("data", {})
-            journals = get_value(data, "publication_info.journal_record.$ref", [])
-            if not journals:
-                return
-            journal_ids = [maybe_int(journal.split("/")[-1]) for journal in journals]
-
-            db_journals = []
-            for journal_id in journal_ids:
-                try:
-                    record = inspire_http_record_management_hook.get_record(
-                        pid_type=JOURNALS_PID_TYPE,
-                        control_number=journal_id,
-                    )
-                    db_journals.append(record["metadata"])
-                except AirflowException:
-                    logger.info(
-                        f"Skipping journal {journal_id} (no record found in Inspire)",
-                    )
+            db_journals = get_db_journals(data)
             if not db_journals:
                 return
 
@@ -1389,7 +1374,67 @@ def hep_create_dag():
 
     @task_group
     def postprocessing():
-        link_institutions_with_affiliations() >> normalize_author_affiliations()
+        @task
+        def set_refereed_and_fix_document_type(**context):
+            s3_workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
+            data = workflow_data.get("data", {})
+            db_journals = get_db_journals(data)
+            if not db_journals:
+                return
+
+            is_published_in_a_refereed_journal_that_does_not_publish_proceedings = any(
+                journal.get("refereed") and not journal.get("proceedings")
+                for journal in db_journals
+            )
+
+            is_published_in_a_refereed_journal_that_also_publishes_proceedings = any(
+                journal.get("refereed") and journal.get("proceedings")
+                for journal in db_journals
+            )
+
+            is_not_a_conference_paper = "conference paper" not in data["document_type"]
+
+            is_published_exclusively_in_non_refereed_journals = all(
+                not journal.get("refereed", True) for journal in db_journals
+            )
+
+            if is_published_in_a_refereed_journal_that_does_not_publish_proceedings or (
+                is_not_a_conference_paper
+                and is_published_in_a_refereed_journal_that_also_publishes_proceedings
+            ):
+                data["refereed"] = True
+            elif is_published_exclusively_in_non_refereed_journals:
+                data["refereed"] = False
+
+            is_published_only_in_proceedings = all(
+                journal.get("proceedings") for journal in db_journals
+            )
+            is_published_only_in_non_refereed_journals = all(
+                not journal.get("refereed") for journal in db_journals
+            )
+
+            if (
+                is_published_only_in_proceedings
+                and is_published_only_in_non_refereed_journals
+            ):
+                with suppress(ValueError):
+                    data["document_type"].remove("article")
+                data["document_type"].append("conference paper")
+
+            write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                s3_workflow_id,
+                overwrite=True,
+            )
+
+        (
+            set_refereed_and_fix_document_type()
+            >> link_institutions_with_affiliations()
+            >> normalize_author_affiliations()
+        )
 
     @task_group
     def core_selection():
