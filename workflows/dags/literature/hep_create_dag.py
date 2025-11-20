@@ -1403,10 +1403,43 @@ def hep_create_dag():
                 overwrite=True,
             )
 
+        @task.branch
+        def is_core(**context):
+            workflow_data = read_object(
+                s3_hook, bucket_name, context["params"]["workflow_id"]
+            )
+
+            if get_value(workflow_data, "data.core") is True:
+                return "core_selection.normalize_author_affiliations"
+            return (
+                "core_selection."
+                "remove_inspire_categories_derived_from_core_arxiv_categories"
+            )
+
+        normalize_author_affiliations_task = normalize_author_affiliations()
+        remove_inspire_categories_derived_from_core_arxiv_categories_task = (
+            remove_inspire_categories_derived_from_core_arxiv_categories()
+        )
+        store_record_task = store_record()
+
         (
             await_decision_core_selection_approval()
             >> load_record_from_hep()
-            >> remove_inspire_categories_derived_from_core_arxiv_categories()
+            >> is_core()
+            >> [
+                normalize_author_affiliations_task,
+                remove_inspire_categories_derived_from_core_arxiv_categories_task,
+            ]
+        )
+
+        (
+            normalize_author_affiliations_task
+            >> link_institutions_with_affiliations()
+            >> store_record_task
+        )
+        (
+            remove_inspire_categories_derived_from_core_arxiv_categories_task
+            >> store_record_task
         )
 
     @task
