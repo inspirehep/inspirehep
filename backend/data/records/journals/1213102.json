@@ -1,18 +1,18 @@
 {
     "self": {
-        "$ref": "https://inspirebeta.net/api/journals/1213100"
+        "$ref": "https://inspirebeta.net/api/journals/1213102"
     },
     "$schema": "https://inspirebeta.net/schemas/records/journals.json",
-    "short_title": "Calc.Var.Part.Differ.Equ",
+    "short_title": "Calc.Var.Part.Differ.Equ 2",
     "_collections": [
         "Journals"
     ],
     "journal_title": {
-        "title": "Calculus of Variations and Partial Differential Equations"
+        "title": "Calculus of Variations and Partial Differential Equations 2"
     },
-    "refereed": true,
+    "refereed": false,
     "proceedings": true,
-    "control_number": 1213100,
+    "control_number": 1213102,
     "legacy_version": "20210607130823.0",
     "title_variants": [
         "CALC VAR PARTIAL DIFFERENTIAL EQUATIONS",
