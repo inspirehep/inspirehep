@@ -1,0 +1,98 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8080/api/journals/1213104
+  response:
+    body:
+      string: '{"created":"2013-01-18T00:00:00+00:00","links":{"json":"http://localhost:8000/api/journals/1213104?format=json"},"uuid":"dcfb7ba4-0bf8-4a38-840e-2f6481032552","metadata":{"self":{"$ref":"http://localhost:8000/api/journals/1213104"},"urls":[{"value":"http://jhep.sissa.it/"}],"$schema":"https://inspirebeta.net/schemas/records/journals.json","refereed":false,"publisher":["Springer"],"short_title":"JHEP","_collections":["Journals"],"public_notes":[{"value":"Started
+        with 1997, v.9701"}],"journal_title":{"title":"The Journal of High Energy
+        Physics (JHEP) 111"},"_private_notes":[{"value":"Electronic journal available
+        at http://jhep.sissa.it"},{"value":"Changed short-title to JHEP from J. High
+        Energy Phys., 1/99"}],"control_number":1213104,"legacy_version":"20210614101959.0","title_variants":["JOURNAL
+        OF HIGH ENERGY PHYSICS","JOURNL OF HIGH ENERGY PHYSICS","JOURNALOFHIGHENERGYPHYSICS","J
+        HIGH ENERGY PHYSICS","JOUR OFHIGHENERGYPHYS","J HIGHENERGYPHYSICS","J HIGH
+        ENERGY PHYS","J HIGH ENGERY PHYS","J HIGH ENERG PHYS","J HIGH ENERGYPHYS","J
+        HIGHENERGY PHYS","J HIGH ENER PHYS","J HIGHENERGYPHYS","J HIGHENERGYPHY","J
+        HIGH EN PHYS","J HIGH ENERGY","J HIGHEN PHYS","J HIGH PHYS","J H E PHYS","J
+        HEP","JHEPA","JHEP"],"_harvesting_info":{"method":"feed","coverage":"full","last_seen_item":"JHEP,2105","date_last_harvest":"2021-06-14"},"legacy_creation_date":"2013-01-18"},"id":"1213104","revision_id":0,"updated":"2025-11-20T15:28:25.497120+00:00"}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1448'
+      Content-Type:
+      - application/vnd+inspire.record.raw+json
+      Date:
+      - Thu, 20 Nov 2025 15:43:47 GMT
+      ETag:
+      - W/"0"
+      Last-Modified:
+      - Thu, 20 Nov 2025 15:28:25 GMT
+      Link:
+      - <json>; rel="http://localhost:8000/api/journals/1213104?format=json"
+      Server:
+      - nginx/1.19.1
+      Vary:
+      - Accept,Accept-Encoding,Accept-Language
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8080/api/journals/1213105
+  response:
+    body:
+      string: '{"created":"2013-01-18T00:00:00+00:00","links":{"json":"http://localhost:8000/api/journals/1213105?format=json"},"uuid":"d2e40834-fd44-406e-af8f-8d1a4d2be310","metadata":{"self":{"$ref":"http://localhost:8000/api/journals/1213105"},"urls":[{"value":"http://jhep.sissa.it/"}],"$schema":"https://inspirebeta.net/schemas/records/journals.json","refereed":false,"publisher":["Springer"],"short_title":"JHEP","_collections":["Journals"],"public_notes":[{"value":"Started
+        with 1997, v.9701"}],"journal_title":{"title":"The Journal of High Energy
+        Physics (JHEP) 222222"},"_private_notes":[{"value":"Electronic journal available
+        at http://jhep.sissa.it"},{"value":"Changed short-title to JHEP from J. High
+        Energy Phys., 1/99"}],"control_number":1213105,"legacy_version":"20210614101959.0","title_variants":["JOURNAL
+        OF HIGH ENERGY PHYSICS","JOURNL OF HIGH ENERGY PHYSICS","JOURNALOFHIGHENERGYPHYSICS","J
+        HIGH ENERGY PHYSICS","JOUR OFHIGHENERGYPHYS","J HIGHENERGYPHYSICS","J HIGH
+        ENERGY PHYS","J HIGH ENGERY PHYS","J HIGH ENERG PHYS","J HIGH ENERGYPHYS","J
+        HIGHENERGY PHYS","J HIGH ENER PHYS","J HIGHENERGYPHYS","J HIGHENERGYPHY","J
+        HIGH EN PHYS","J HIGH ENERGY","J HIGHEN PHYS","J HIGH PHYS","J H E PHYS","J
+        HEP","JHEPA","JHEP"],"_harvesting_info":{"method":"feed","coverage":"full","last_seen_item":"JHEP,2105","date_last_harvest":"2021-06-14"},"legacy_creation_date":"2013-01-18"},"id":"1213105","revision_id":0,"updated":"2025-11-20T15:28:25.528848+00:00"}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1451'
+      Content-Type:
+      - application/vnd+inspire.record.raw+json
+      Date:
+      - Thu, 20 Nov 2025 15:43:48 GMT
+      ETag:
+      - W/"0"
+      Last-Modified:
+      - Thu, 20 Nov 2025 15:28:25 GMT
+      Link:
+      - <json>; rel="http://localhost:8000/api/journals/1213105?format=json"
+      Server:
+      - nginx/1.19.1
+      Vary:
+      - Accept,Accept-Encoding,Accept-Language
+    status:
+      code: 200
+      message: OK
+version: 1
