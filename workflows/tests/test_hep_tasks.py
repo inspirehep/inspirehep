@@ -2009,6 +2009,41 @@ class Test_HEPCreateDAG:
             in result["followed"]
         )
 
+    def test_is_core_true(self):
+        write_object(
+            s3_hook,
+            {"data": {"core": True}},
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+        result = task_test(
+            "hep_create_dag",
+            "core_selection.is_core",
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+        assert "core_selection.normalize_author_affiliations" in result["followed"]
+
+    def test_is_core_false(self):
+        write_object(
+            s3_hook,
+            {"data": {"core": False}},
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+        result = task_test(
+            "hep_create_dag",
+            "core_selection.is_core",
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+        assert (
+            "core_selection.remove_inspire_categories_derived_from_core_arxiv_categories"
+            in result["followed"]
+        )
+
     @pytest.mark.vcr
     def test_merge_articles(self):
         write_object(
