@@ -1,12 +1,15 @@
 import logging
 from tempfile import TemporaryDirectory
 
+from airflow.models.variable import Variable
+from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
 from include.utils.constants import LITERATURE_PID_TYPE
+from include.utils.s3 import write_object
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
 from invenio_classifier.reader import KeywordToken
@@ -212,7 +215,7 @@ def send_record_to_hep(workflow, control_number=None):
     return workflow
 
 
-def set_flag(flag, value, workflow_data):
+def set_flag(flag, value, workflow_data, save=True):
     """Sets a flag in the workflow data.
 
     Args:
@@ -221,6 +224,17 @@ def set_flag(flag, value, workflow_data):
         workflow_data (dict): The workflow data.
     """
     workflow_data.setdefault("flags", {})[flag] = value
+
+    if save:
+        s3_hook = S3Hook(aws_conn_id="s3_conn")
+        bucket_name = Variable.get("s3_bucket_name")
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            workflow_data["id"],
+            overwrite=True,
+        )
 
 
 def get_flag(flag, workflow_data):

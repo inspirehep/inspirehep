@@ -19,6 +19,7 @@ from hooks.inspirehep.inspire_http_record_management_hook import (
 from include.utils import workflows
 from include.utils.constants import LITERATURE_PID_TYPE
 from include.utils.s3 import read_object, write_object
+from include.utils.workflows import get_flag
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.query import ordered
 
@@ -215,7 +216,10 @@ class Test_HEPCreateDAG:
     def test_check_for_exact_matches_one_match(self):
         write_object(
             s3_hook,
-            {"data": {"arxiv_eprints": [{"value": "1801.07224"}]}},
+            {
+                "id": self.workflow_id,
+                "data": {"arxiv_eprints": [{"value": "1801.07224"}]},
+            },
             bucket_name,
             self.context["params"]["workflow_id"],
             overwrite=True,
@@ -234,7 +238,10 @@ class Test_HEPCreateDAG:
     def test_check_for_exact_matches_one_match_has_match(self):
         write_object(
             s3_hook,
-            {"data": {"arxiv_eprints": [{"value": "1801.07224"}]}},
+            {
+                "id": self.workflow_id,
+                "data": {"arxiv_eprints": [{"value": "1801.07224"}]},
+            },
             bucket_name,
             self.context["params"]["workflow_id"],
             overwrite=True,
@@ -2014,6 +2021,7 @@ class Test_HEPCreateDAG:
         write_object(
             s3_hook,
             {
+                "id": self.workflow_id,
                 "data": {
                     "titles": [
                         {"title": "New title"},
@@ -2695,6 +2703,7 @@ class Test_HEPCreateDAG:
                 ],
                 "report_numbers": [{"value": "CERN-2019"}],
             },
+            "id": self.workflow_id,
         }
         write_object(
             s3_hook,
@@ -2709,11 +2718,6 @@ class Test_HEPCreateDAG:
             "halt_for_approval_if_new_or_reject_if_not_relevant.should_replace_collection_to_hidden",
             dag_params=self.context["params"],
             xcom_key="skipmixin_key",
-        )
-
-        assert (
-            "halt_for_approval_if_new_or_reject_if_not_relevant.mark_approved_true"
-            in result["followed"]
         )
         assert (
             "halt_for_approval_if_new_or_reject_if_not_relevant.replace_collection_to_hidden"
@@ -2727,6 +2731,7 @@ class Test_HEPCreateDAG:
             "data": {
                 "titles": [{"title": "test non rejected"}],
             },
+            "id": self.workflow_id,
         }
         write_object(
             s3_hook,
@@ -2744,7 +2749,7 @@ class Test_HEPCreateDAG:
         )
 
         assert (
-            "halt_for_approval_if_new_or_reject_if_not_relevant.mark_approved_false"
+            "halt_for_approval_if_new_or_reject_if_not_relevant.halt_end"
             in result["followed"]
         )
 
@@ -3118,3 +3123,57 @@ class Test_HEPCreateDAG:
         workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
 
         assert "titles" in workflow_result["data"]
+
+    def test_check_is_auto_approved_true(self):
+        workflow_data = {
+            "flags": {
+                "auto-approved": True,
+            },
+            "id": self.workflow_id,
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        result = task_test(
+            dag_id="hep_create_dag",
+            task_id="halt_for_approval_if_new_or_reject_if_not_relevant.check_is_auto_approved",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert result == "halt_for_approval_if_new_or_reject_if_not_relevant.halt_end"
+        assert get_flag("approved", workflow_result) is True
+
+    def test_check_is_auto_approved_false(self):
+        workflow_data = {
+            "flags": {
+                "auto-approved": False,
+            }
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        result = task_test(
+            dag_id="hep_create_dag",
+            task_id="halt_for_approval_if_new_or_reject_if_not_relevant.check_is_auto_approved",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert (
+            result
+            == "halt_for_approval_if_new_or_reject_if_not_relevant.is_record_relevant"
+        )
+        assert get_flag("approved", workflow_result) is not True
