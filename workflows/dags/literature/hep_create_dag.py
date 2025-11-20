@@ -47,7 +47,7 @@ from include.utils.refextract_utils import (
     raw_refs_to_list,
 )
 from include.utils.s3 import read_object, write_object
-from include.utils.workflows import get_decision
+from include.utils.workflows import get_decision, get_flag, set_flag
 from inspire_classifier import Classifier
 from inspire_json_merger.api import merge
 from inspire_json_merger.config import GrobidOnArxivAuthorsOperations
@@ -206,6 +206,7 @@ def hep_create_dag():
             )
         if len(matches) == 1:
             context["ti"].xcom_push(key="match", value=matches[0])
+            set_flag("is-update", True, workflow_data)
             return "preprocessing"
         return "check_for_fuzzy_matches"
 
@@ -282,6 +283,9 @@ def hep_create_dag():
                 workflow_id=context["params"]["workflow_id"]
             )
             return False
+
+        set_flag("is-update", True, workflow_data)
+
         write_object(
             s3_hook,
             workflow_data,
@@ -1412,6 +1416,30 @@ def hep_create_dag():
         workflow_management_hook.update_workflow(workflow_id, workflow_data)
 
     @task
+    def is_stale_data(**context):
+        # TODO: implement stale data check
+        pass
+
+    @task
+    def store_record(**context):
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = read_object(s3_hook, bucket_name, workflow_id)
+        # Store the record in the database or any other storage
+        """Insert or replace a record."""
+
+        is_update = get_flag("is-update", workflow_data)
+
+        workflow_data = workflows.store_record_inspirehep_api(workflow_data, is_update)
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            workflow_id,
+            overwrite=True,
+        )
+
+    @task
     def save_and_complete_workflow(**context):
         workflow_id = context["params"]["workflow_id"]
         workflow_data = read_object(s3_hook, bucket_name, workflow_id)
@@ -1461,6 +1489,8 @@ def hep_create_dag():
         preprocessing_group
         >> halt_for_approval_if_new_or_reject_if_not_relevant()
         >> postprocessing()
+        >> is_stale_data()
+        >> store_record()
         >> store_root()
         >> save_workflow()
         >> core_selection()

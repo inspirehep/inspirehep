@@ -1,3 +1,4 @@
+import copy
 from unittest import mock
 from unittest.mock import patch
 from urllib.parse import urlparse
@@ -16,6 +17,7 @@ from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
 from include.utils import workflows
+from include.utils.constants import LITERATURE_PID_TYPE
 from include.utils.s3 import read_object, write_object
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.query import ordered
@@ -2939,6 +2941,159 @@ class Test_HEPCreateDAG:
         root_entry = workflows.read_wf_record_source(head_uuid, "arxiv")
 
         assert root_entry["json"] == root
+
+    @pytest.mark.vcr
+    def test_store_record_create(self):
+        workflow_data = {
+            "data": {
+                "$schema": "https://inspirehep.net/schemas/records/hep.json",
+                "_collections": ["Literature"],
+                "document_type": ["article"],
+                "titles": [{"title": "Test store record create"}],
+            },
+            "flags": {
+                "is-update": False,
+            },
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "store_record",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert "control_number" in workflow_result["data"]
+
+    @pytest.mark.vcr
+    def test_store_record_update(self):
+        initial_record_data = inspire_http_record_management_hook.get_record(
+            LITERATURE_PID_TYPE, 10000
+        )
+
+        workflow_data = {
+            "data": copy.deepcopy(initial_record_data["metadata"]),
+            "flags": {
+                "is-update": True,
+            },
+            "merge_details": {
+                "head_version_id": initial_record_data["revision_id"] + 1
+            },
+        }
+        workflow_data["data"]["titles"].append(
+            {"title": f"An additional title {initial_record_data['revision_id']}"}
+        )
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "store_record",
+            dag_params=self.context["params"],
+        )
+
+        record_data = inspire_http_record_management_hook.get_record(
+            LITERATURE_PID_TYPE, 10000
+        )
+
+        assert (
+            len(record_data["metadata"]["titles"])
+            == len(initial_record_data["metadata"]["titles"]) + 1
+        )
+        assert initial_record_data["revision_id"] + 1 == record_data["revision_id"]
+
+    @pytest.mark.vcr
+    def test_store_record_does_not_raise_in_the_orcid_receiver(self):
+        workflow_data = {
+            "data": {
+                "$schema": "http://localhost:5000/schemas/records/hep.json",
+                "_collections": [
+                    "Literature",
+                ],
+                "authors": [
+                    {
+                        "full_name": "Patra, Asim",
+                        "ids": [
+                            {
+                                "schema": "ORCID",
+                                "value": "0000-0003-1166-2790",
+                            },
+                        ],
+                    },
+                ],
+                "document_type": [
+                    "article",
+                ],
+                "titles": [
+                    {"title": "title"},
+                ],
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "store_record",
+            dag_params=self.context["params"],
+        )
+
+    @pytest.mark.vcr
+    def test_store_record_update_no_control_number(self):
+        inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
+
+        initial_record_data = inspire_http_record_management_hook.get_record(
+            LITERATURE_PID_TYPE, 10000
+        )
+
+        workflow_data = {
+            "data": {
+                "$schema": "https://inspirehep.net/schemas/records/hep.json",
+                "_collections": ["Literature"],
+                "document_type": ["article"],
+                "titles": [{"title": "Test store record create"}],
+            },
+            "merge_details": {
+                "head_version_id": initial_record_data["revision_id"] + 1
+            },
+            "flags": {
+                "is-update": True,
+            },
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        with pytest.raises(ValueError, match="Control number is missing"):
+            task_test(
+                "hep_create_dag", "store_record", dag_params=self.context["params"]
+            )
 
     @pytest.mark.vcr
     def test_load_record_from_hep(self):
