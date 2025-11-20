@@ -207,6 +207,13 @@ def hep_create_dag():
         if len(matches) == 1:
             context["ti"].xcom_push(key="match", value=matches[0])
             set_flag("is-update", True, workflow_data)
+            write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                context["params"]["workflow_id"],
+                overwrite=True,
+            )
             return "preprocessing"
         return "check_for_fuzzy_matches"
 
@@ -1257,6 +1264,37 @@ def hep_create_dag():
                 overwrite=True,
             )
 
+            set_flag("approved", True, workflow_data)
+
+            write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                context["params"]["workflow_id"],
+                overwrite=True,
+            )
+
+        @task
+        def check_is_auto_approved(**context):
+            workflow_data = read_object(
+                s3_hook, bucket_name, context["params"]["workflow_id"]
+            )
+
+            if get_flag("auto-approved", workflow_data):
+                set_flag("approved", True, workflow_data)
+
+                write_object(
+                    s3_hook,
+                    workflow_data,
+                    bucket_name,
+                    context["params"]["workflow_id"],
+                    overwrite=True,
+                )
+                return "halt_for_approval_if_new_or_reject_if_not_relevant.halt_end"
+            return (
+                "halt_for_approval_if_new_or_reject_if_not_relevant.is_record_relevant"
+            )
+
         @task
         def is_record_relevant(**context):
             workflow_data = read_object(
@@ -1285,14 +1323,21 @@ def hep_create_dag():
             should_hide = bool(
                 affiliations_for_hidden_collections(affiliations)
             ) or bool(reports_for_hidden_collections(report_numbers))
-            if should_hide:
-                return [
-                    "halt_for_approval_if_new_or_reject_if_not_relevant.replace_collection_to_hidden",
-                    "halt_for_approval_if_new_or_reject_if_not_relevant.mark_approved_true",
-                ]
-            return (
-                "halt_for_approval_if_new_or_reject_if_not_relevant.mark_approved_false"
-            )
+
+            if should_hide and not get_flag("approved", workflow_data):
+                set_flag("approved", True, workflow_data)
+                write_object(
+                    s3_hook,
+                    workflow_data,
+                    bucket_name,
+                    context["params"]["workflow_id"],
+                    overwrite=True,
+                )
+                return (
+                    "halt_for_approval_if_new_or_reject_if_not_relevant."
+                    "replace_collection_to_hidden"
+                )
+            return "halt_for_approval_if_new_or_reject_if_not_relevant.halt_end"
 
         @task
         def replace_collection_to_hidden(**context):
@@ -1320,12 +1365,6 @@ def hep_create_dag():
         replace_collection_task = replace_collection_to_hidden()
         update_inspire_categories = EmptyOperator(task_id="update_inspire_categories")
 
-        mark_approved_true = EmptyOperator(task_id="mark_approved_true")
-        mark_approved_false = EmptyOperator(task_id="mark_approved_false")
-
-        should_replace_collection_to_hidden_branch = (
-            should_replace_collection_to_hidden()
-        )
         get_approved_match_task = get_approved_match()
         check_is_update_task = check_is_update(get_approved_match_task)
 
@@ -1334,14 +1373,18 @@ def hep_create_dag():
             update_inspire_categories,
         ]
 
-        should_replace_collection_to_hidden_branch >> replace_collection_task
-        should_replace_collection_to_hidden_branch >> mark_approved_true
-        should_replace_collection_to_hidden_branch >> mark_approved_false
+        halt_end = EmptyOperator(task_id="halt_end")
+        is_record_relevant_task = is_record_relevant()
 
         (
             update_inspire_categories
-            >> is_record_relevant()
-            >> should_replace_collection_to_hidden_branch
+            >> check_is_auto_approved()
+            >> [halt_end, is_record_relevant_task]
+        )
+        (
+            is_record_relevant_task
+            >> should_replace_collection_to_hidden()
+            >> [replace_collection_task, halt_end]
         )
 
     @task_group
