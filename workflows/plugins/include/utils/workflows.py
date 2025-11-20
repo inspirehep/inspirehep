@@ -3,6 +3,10 @@ from tempfile import TemporaryDirectory
 
 from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
+from hooks.inspirehep.inspire_http_record_management_hook import (
+    InspireHTTPRecordManagementHook,
+)
+from include.utils.constants import LITERATURE_PID_TYPE
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
 from invenio_classifier.reader import KeywordToken
@@ -167,3 +171,63 @@ def read_wf_record_source(record_uuid, source):
         return response.json()["workflow_sources"][0]
 
     return []
+
+
+def store_record_inspirehep_api(workflow, is_update):
+    """Saves record through inspirehep api by posting/pushing record to proper endpoint
+    in inspirehep"""
+
+    if is_update and "control_number" not in workflow["data"]:
+        raise ValueError("Control number is missing")
+
+    control_number = workflow["data"].get("control_number")
+    return send_record_to_hep(workflow, control_number)
+
+
+def send_record_to_hep(workflow, control_number=None):
+    inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
+    if control_number:
+        head_version_id = workflow["merge_details"]["head_version_id"]
+
+        response = inspire_http_record_management_hook.update_record(
+            data=workflow["data"],
+            pid_type=LITERATURE_PID_TYPE,
+            control_number=control_number,
+            revision_id=head_version_id,
+        )
+
+    else:
+        response = inspire_http_record_management_hook.post_record(
+            data=workflow["data"],
+            pid_type=LITERATURE_PID_TYPE,
+        )
+
+    workflow["data"]["control_number"] = response.json()["metadata"]["control_number"]
+
+    if not control_number:
+        workflow["data"].setdefault("merge_details", {})["head_uuid"] = response.json()[
+            "uuid"
+        ]
+
+    return workflow
+
+
+def set_flag(flag, value, workflow_data):
+    """Sets a flag in the workflow data.
+
+    Args:
+        flag (str): The flag to set.
+        value: The value to set for the flag.
+        workflow_data (dict): The workflow data.
+    """
+    workflow_data.setdefault("flags", {})[flag] = value
+
+
+def get_flag(flag, workflow_data):
+    """Gets a flag from the workflow data.
+
+    Args:
+        flag (str): The flag to get.
+        workflow_data (dict): The workflow data.
+    """
+    return workflow_data.get("flags", {}).get(flag)

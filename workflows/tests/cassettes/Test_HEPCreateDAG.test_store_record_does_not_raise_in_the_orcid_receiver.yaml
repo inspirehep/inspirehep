@@ -1,0 +1,56 @@
+interactions:
+- request:
+    body: '{"$schema": "http://localhost:5000/schemas/records/hep.json", "_collections":
+      ["Literature"], "authors": [{"full_name": "Patra, Asim", "ids": [{"schema":
+      "ORCID", "value": "0000-0003-1166-2790"}]}], "document_type": ["article"], "titles":
+      [{"title": "title"}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '260'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8080/api/literature
+  response:
+    body:
+      string: '{"created":"2025-11-19T16:28:19.683526+00:00","metadata":{"$schema":"http://localhost:5000/schemas/records/hep.json","_collections":["Literature"],"authors":[{"full_name":"Patra,
+        Asim","ids":[{"schema":"ORCID","value":"0000-0003-1166-2790"}],"uuid":"2cd3c38a-e1f8-4fdd-bb85-dca31677b217"}],"document_type":["article"],"titles":[{"title":"title"}],"control_number":2891173,"self":{"$ref":"http://localhost:8000/api/literature/2891173"}},"updated":"2025-11-19T16:28:19.683537+00:00","revision_id":0,"id":"{2891173}","uuid":"a72ac71e-5230-42df-bebd-6624e0634eaa","links":{"bibtex":"http://localhost:8000/api/literature/%7B2891173%7D?format=bibtex","latex-eu":"http://localhost:8000/api/literature/%7B2891173%7D?format=latex-eu","latex-us":"http://localhost:8000/api/literature/%7B2891173%7D?format=latex-us","json":"http://localhost:8000/api/literature/%7B2891173%7D?format=json","json-expanded":"http://localhost:8000/api/literature/%7B2891173%7D?format=json-expanded","cv":"http://localhost:8000/api/literature/%7B2891173%7D?format=cv","citations":"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A%7B2891173%7D"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1123'
+      Content-Type:
+      - application/vnd+inspire.record.raw+json
+      Date:
+      - Wed, 19 Nov 2025 16:28:19 GMT
+      ETag:
+      - W/"0"
+      Last-Modified:
+      - Wed, 19 Nov 2025 16:28:19 GMT
+      Link:
+      - <bibtex>; rel="http://localhost:8000/api/literature/%7B2891173%7D?format=bibtex",
+        <latex-eu>; rel="http://localhost:8000/api/literature/%7B2891173%7D?format=latex-eu",
+        <latex-us>; rel="http://localhost:8000/api/literature/%7B2891173%7D?format=latex-us",
+        <json>; rel="http://localhost:8000/api/literature/%7B2891173%7D?format=json",
+        <json-expanded>; rel="http://localhost:8000/api/literature/%7B2891173%7D?format=json-expanded",
+        <cv>; rel="http://localhost:8000/api/literature/%7B2891173%7D?format=cv",
+        <citations>; rel="http://localhost:8000/api/literature/?q=refersto%3Arecid%3A%7B2891173%7D"
+      Server:
+      - nginx/1.19.1
+      Vary:
+      - Accept,Accept-Encoding,Accept-Language
+      location:
+      - http://localhost:8000/api/literature/%7B2891173%7D
+    status:
+      code: 201
+      message: CREATED
+version: 1

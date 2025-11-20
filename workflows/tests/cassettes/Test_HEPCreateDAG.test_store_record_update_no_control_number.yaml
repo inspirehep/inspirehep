@@ -1,0 +1,47 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8080/api/literature/10000
+  response:
+    body:
+      string: '{"created":"2025-11-19T15:36:34.936828+00:00","metadata":{"self":{"$ref":"http://localhost:8000/api/literature/10000"},"titles":[{"title":"Test
+        store record update"},{"title":"Another title"},{"title":"Another title 1"},{"title":"Another
+        title 2"},{"title":"Another title 3"},{"title":"Another title 5"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"control_number":10000},"updated":"2025-11-19T16:28:18.411899+00:00","revision_id":6,"id":"10000","uuid":"6daf32a7-4575-41a2-9158-7233cca8e515","links":{"bibtex":"http://localhost:8000/api/literature/10000?format=bibtex","latex-eu":"http://localhost:8000/api/literature/10000?format=latex-eu","latex-us":"http://localhost:8000/api/literature/10000?format=latex-us","json":"http://localhost:8000/api/literature/10000?format=json","json-expanded":"http://localhost:8000/api/literature/10000?format=json-expanded","cv":"http://localhost:8000/api/literature/10000?format=cv","citations":"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A10000"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1074'
+      Content-Type:
+      - application/vnd+inspire.record.raw+json
+      Date:
+      - Wed, 19 Nov 2025 16:28:19 GMT
+      ETag:
+      - W/"6"
+      Last-Modified:
+      - Wed, 19 Nov 2025 16:28:18 GMT
+      Link:
+      - <bibtex>; rel="http://localhost:8000/api/literature/10000?format=bibtex",
+        <latex-eu>; rel="http://localhost:8000/api/literature/10000?format=latex-eu",
+        <latex-us>; rel="http://localhost:8000/api/literature/10000?format=latex-us",
+        <json>; rel="http://localhost:8000/api/literature/10000?format=json", <json-expanded>;
+        rel="http://localhost:8000/api/literature/10000?format=json-expanded", <cv>;
+        rel="http://localhost:8000/api/literature/10000?format=cv", <citations>; rel="http://localhost:8000/api/literature/?q=refersto%3Arecid%3A10000"
+      Server:
+      - nginx/1.19.1
+      Vary:
+      - Accept,Accept-Encoding,Accept-Language
+    status:
+      code: 200
+      message: OK
+version: 1
