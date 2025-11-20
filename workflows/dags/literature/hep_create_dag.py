@@ -224,9 +224,8 @@ def hep_create_dag():
 
     @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def check_for_fuzzy_matches(**context):
-        workflow_data = read_object(
-            s3_hook, bucket_name, context["params"]["workflow_id"]
-        )
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = read_object(s3_hook, bucket_name, workflow_id)
 
         fuzzy_matching_data_keys = [
             "abstracts",
@@ -249,10 +248,25 @@ def hep_create_dag():
 
         matches = response.json()["matched_data"]
 
-        # to do store matches in workflow data after format has been decided
-
         if not matches:
             return "preprocessing"
+
+        workflow_data.setdefault("matches", {})["fuzzy"] = matches
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            workflow_id,
+            overwrite=True,
+        )
+        workflow_management_hook.partial_update_workflow(
+            workflow_id=workflow_id,
+            workflow_partial_update_data={
+                "matches": {
+                    "fuzzy": matches,
+                }
+            },
+        )
         return "await_decision_fuzzy_match"
 
     @task.short_circuit

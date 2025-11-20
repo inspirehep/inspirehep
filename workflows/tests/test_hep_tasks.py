@@ -276,6 +276,7 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_check_for_fuzzy_matches_matches(self):
+        workflow_id = self.context["params"]["workflow_id"]
         workflow_data = {
             "data": {
                 "titles": [
@@ -292,7 +293,7 @@ class Test_HEPCreateDAG:
             s3_hook,
             workflow_data,
             bucket_name,
-            self.context["params"]["workflow_id"],
+            workflow_id,
             overwrite=True,
         )
 
@@ -302,6 +303,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
+        workflow_result = read_object(s3_hook, bucket_name, workflow_id)
+
+        assert len(workflow_result["matches"]["fuzzy"])
         assert result == "await_decision_fuzzy_match"
 
     @pytest.mark.vcr
