@@ -2080,6 +2080,105 @@ class Test_HEPCreateDAG:
         assert "merge_details" in workflow_result
         assert "conflicts" in workflow_result["merge_details"]
 
+    def test_set_core_if_not_update_and_hep_accept_core(self):
+        workflow_data = {
+            "flags": {"is-update": False},
+            "data": {
+                "_collections": ["Literature"],
+                "titles": ["A title"],
+                "document_type": ["article"],
+            },
+            "decisions": [
+                {
+                    "id": 5,
+                    "workflow": "6ce1d776-4ec8-4c3a-a6e0-c5ba9006dd2f",
+                    "_created_at": "2025-08-26T14:45:14.237000Z",
+                    "_updated_at": "2025-08-26T14:45:14.237000Z",
+                    "action": "hep_accept_core",
+                    "value": "",
+                    "user": "admin@admin.com",
+                }
+            ],
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "postprocessing.set_core_if_not_update",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert workflow_result["data"]["core"]
+
+    def test_set_core_skips_if_update_flag_is_true(self):
+        workflow_data = {
+            "flags": {"is-update": True},
+            "data": {
+                "_collections": ["Literature"],
+                "titles": ["A title"],
+                "document_type": ["article"],
+            },
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+
+        assert not task_test(
+            "hep_create_dag",
+            "postprocessing.set_core_if_not_update",
+            dag_params=self.context["params"],
+        )
+
+    def test_set_core_if_not_update_and_hep_accept(self):
+        workflow_data = {
+            "flags": {"is-update": False},
+            "data": {
+                "_collections": ["Literature"],
+                "titles": ["A title"],
+                "document_type": ["article"],
+            },
+            "decisions": [
+                {
+                    "id": 5,
+                    "workflow": "6ce1d776-4ec8-4c3a-a6e0-c5ba9006dd2f",
+                    "_created_at": "2025-08-26T14:45:14.237000Z",
+                    "_updated_at": "2025-08-26T14:45:14.237000Z",
+                    "action": "hep_accept",
+                    "value": "",
+                    "user": "admin@admin.com",
+                }
+            ],
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "postprocessing.set_core_if_not_update",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert not workflow_result["data"]["core"]
+
     @pytest.mark.vcr
     def test_set_refereed_and_fix_document_type_sets_refereed_to_true(self):
         workflow_data = {

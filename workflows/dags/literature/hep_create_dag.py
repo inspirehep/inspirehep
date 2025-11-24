@@ -1375,6 +1375,31 @@ def hep_create_dag():
     @task_group
     def postprocessing():
         @task
+        def set_core_if_not_update(**context):
+            workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, workflow_id)
+
+            is_update = get_flag("is-update", workflow_data)
+
+            if is_update:
+                return
+
+            decision = get_decision(
+                workflow_data.get("decisions"),
+                "hep_accept_core",
+            )
+
+            workflow_data["data"]["core"] = bool(decision)
+
+            write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                workflow_id,
+                overwrite=True,
+            )
+
+        @task
         def set_refereed_and_fix_document_type(**context):
             s3_workflow_id = context["params"]["workflow_id"]
             workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
@@ -1430,11 +1455,23 @@ def hep_create_dag():
                 overwrite=True,
             )
 
-        (
-            set_refereed_and_fix_document_type()
-            >> link_institutions_with_affiliations()
-            >> normalize_author_affiliations()
-        )
+        @task.short_circuit
+        def is_core(**context):
+            workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, workflow_id)
+
+            data = workflow_data.get("data", {})
+            return bool(data.get("core"))
+
+        set_core_if_not_update_task = set_core_if_not_update()
+        set_refereed = set_refereed_and_fix_document_type()
+        should_normalize_authors = is_core()
+        normalize_author_affiliations_task = normalize_author_affiliations()
+        link_institutions_with_affiliations_task = link_institutions_with_affiliations()
+        set_core_if_not_update_task >> set_refereed
+        set_refereed >> should_normalize_authors >> normalize_author_affiliations_task
+        set_refereed >> link_institutions_with_affiliations_task
+        normalize_author_affiliations_task >> link_institutions_with_affiliations_task
 
     @task_group
     def core_selection():
