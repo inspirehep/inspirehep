@@ -1,10 +1,11 @@
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.sdk import Variable, task
+from airflow.utils.trigger_rule import TriggerRule
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from include.utils.s3 import read_object, write_object
 
 
-@task
+@task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
 def link_institutions_with_affiliations(**context):
     s3_hook = S3Hook(aws_conn_id="s3_conn")
     bucket_name = Variable.get("s3_bucket_name")
