@@ -1,4 +1,4 @@
-from include.utils.refextract_utils import (
+from include.inspire.refextract_utils import (
     extract_references_from_pdf,
     map_refextract_reference_to_schema,
     map_refextract_to_schema,
