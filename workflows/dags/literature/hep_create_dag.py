@@ -24,29 +24,29 @@ from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
+from include.inspire.grobid_authors_parser import GrobidAuthors
 from include.inspire.guess_coreness import calculate_coreness
-from include.inspire.journal_title_normalization import (
-    process_entries,
-)
-from include.inspire.journals import get_db_journals
-from include.utils import workflows
-from include.utils.alerts import FailedDagNotifierSetError
-from include.utils.grobid_authors_parser import GrobidAuthors
-from include.utils.hidden_collections import (
+from include.inspire.hidden_collections import (
     affiliations_for_hidden_collections,
     reports_for_hidden_collections,
 )
-from include.utils.is_record_relevant import (
+from include.inspire.is_record_relevant import (
     is_auto_approved,
     is_auto_rejected,
     is_journal_coverage_full,
     is_submission,
 )
-from include.utils.refextract_utils import (
+from include.inspire.journal_title_normalization import (
+    process_entries,
+)
+from include.inspire.journals import get_db_journals
+from include.inspire.refextract_utils import (
     extract_references_from_pdf,
     map_refextract_reference_to_schema,
     raw_refs_to_list,
 )
+from include.utils import workflows
+from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.s3 import read_object, write_object
 from include.utils.workflows import get_decision, get_flag, set_flag
 from inspire_classifier import Classifier
