@@ -2080,6 +2080,70 @@ class Test_HEPCreateDAG:
         assert "merge_details" in workflow_result
         assert "conflicts" in workflow_result["merge_details"]
 
+    def test_update_inspire_categories(self):
+        workflow_data = {
+            "data": {},
+            "journal_inspire_categories": [
+                {"term": "Astrophysics"},
+                {"term": "Accelerators"},
+            ],
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.update_inspire_categories",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert (
+            workflow_result["data"]["inspire_categories"]
+            == workflow_data["journal_inspire_categories"]
+        )
+
+    def test_dont_update_inspire_categories(self):
+        workflow_data = {
+            "data": {
+                "inspire_categories": [
+                    {"term": "Test"},
+                ]
+            },
+            "journal_inspire_categories": [
+                {"term": "Astrophysics"},
+                {"term": "Accelerators"},
+            ],
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.update_inspire_categories",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert (
+            workflow_result["data"]["inspire_categories"]
+            != workflow_result["journal_inspire_categories"]
+        )
+
     def test_is_record_accepted_true(self):
         write_object(
             s3_hook,
