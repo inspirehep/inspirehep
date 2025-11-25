@@ -2080,6 +2080,39 @@ class Test_HEPCreateDAG:
         assert "merge_details" in workflow_result
         assert "conflicts" in workflow_result["merge_details"]
 
+    def test_is_record_accepted_true(self):
+        write_object(
+            s3_hook,
+            {"data": {}, "flags": {"approved": True}},
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+        result = task_test(
+            "hep_create_dag",
+            "is_record_accepted",
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+        assert "postprocessing.set_core_if_not_update" in result["followed"]
+
+    def test_is_record_accepted_false(self):
+        write_object(
+            s3_hook,
+            {"data": {}, "flags": {"approved": False}},
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+        result = task_test(
+            "hep_create_dag",
+            "is_record_accepted",
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+
+        assert "save_and_complete_workflow" in result["followed"]
+
     def test_set_core_if_not_update_and_hep_accept_core(self):
         workflow_data = {
             "flags": {"is-update": False},

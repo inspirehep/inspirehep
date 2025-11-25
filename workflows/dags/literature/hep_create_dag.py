@@ -1419,6 +1419,18 @@ def hep_create_dag():
         )
         is_record_relevant_task >> should_replace_collection_to_hidden_task
 
+    @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+    def is_record_accepted(**context):
+        """Check if the record has been accepted"""
+
+        workflow_data = read_object(
+            s3_hook, bucket_name, context["params"]["workflow_id"]
+        )
+
+        if get_flag("approved", workflow_data):
+            return "postprocessing.set_core_if_not_update"
+        return "save_and_complete_workflow"
+
     @task_group
     def postprocessing():
         @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
@@ -1644,7 +1656,7 @@ def hep_create_dag():
             overwrite=True,
         )
 
-    @task
+    @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def save_and_complete_workflow(**context):
         workflow_id = context["params"]["workflow_id"]
         workflow_data = read_object(s3_hook, bucket_name, workflow_id)
@@ -1690,16 +1702,23 @@ def hep_create_dag():
         >> check_for_exact_matches_task
     )
 
+    postprocessing_group = postprocessing()
+    save_and_complete_workflow_task = save_and_complete_workflow()
+
     (
         preprocessing_group
         >> halt_for_approval_if_new_or_reject_if_not_relevant()
-        >> postprocessing()
+        >> is_record_accepted()
+        >> [postprocessing_group, save_and_complete_workflow_task]
+    )
+    (
+        postprocessing_group
         >> is_stale_data()
         >> store_record()
         >> store_root()
         >> save_workflow()
         >> core_selection()
-        >> save_and_complete_workflow()
+        >> save_and_complete_workflow_task
     )
     check_for_fuzzy_matches_task >> preprocessing_group
 
