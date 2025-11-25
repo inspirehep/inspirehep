@@ -2591,7 +2591,10 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        assert result is True
+        assert (
+            result == "halt_for_approval_if_new_or_reject_if_not_relevant."
+            "await_decision_approval"
+        )
 
     def test_is_record_relevant_full_journal_coverage(self):
         workflow_data = {
@@ -2617,7 +2620,10 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        assert result is True
+        assert (
+            result == "halt_for_approval_if_new_or_reject_if_not_relevant."
+            "await_decision_approval"
+        )
 
     def test_is_record_relevant_auto_approved(self):
         workflow_data = {
@@ -2644,7 +2650,10 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        assert result is True
+        assert (
+            result == "halt_for_approval_if_new_or_reject_if_not_relevant."
+            "await_decision_approval"
+        )
 
     def test_is_record_relevant_auto_rejected(self):
         workflow_data = {
@@ -2678,9 +2687,13 @@ class Test_HEPCreateDAG:
             "hep_create_dag",
             "halt_for_approval_if_new_or_reject_if_not_relevant.is_record_relevant",
             dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
         )
 
-        assert result is False
+        assert (
+            "halt_for_approval_if_new_or_reject_if_not_relevant.should_replace_collection_to_hidden"
+            in result["followed"]
+        )
 
     def test_is_record_relevant_rejected_with_core_keywords(self):
         workflow_data = {
@@ -2716,7 +2729,10 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        assert result is True
+        assert (
+            result == "halt_for_approval_if_new_or_reject_if_not_relevant."
+            "await_decision_approval"
+        )
 
     def test_is_record_relevant_missing_classification_results(self):
         workflow_data = {
@@ -2743,7 +2759,10 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        assert result is True
+        assert (
+            result == "halt_for_approval_if_new_or_reject_if_not_relevant."
+            "await_decision_approval"
+        )
 
     def test_is_record_relevant_non_rejected_decision(self):
         workflow_data = {
@@ -2779,7 +2798,65 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        assert result is True
+        assert (
+            result == "halt_for_approval_if_new_or_reject_if_not_relevant."
+            "await_decision_approval"
+        )
+
+    @pytest.mark.vcr
+    def test_await_decision_approval_no_decision(self):
+        workflow_management_hook = WorkflowManagementHook(HEP)
+        workflow_management_hook.set_workflow_status(
+            status_name="running", workflow_id=self.workflow_id
+        )
+
+        assert not task_test(
+            dag_id="hep_create_dag",
+            task_id="halt_for_approval_if_new_or_reject_if_not_relevant.await_decision_approval",
+            dag_params=self.context["params"],
+        )
+
+        workflow = workflow_management_hook.get_workflow(self.workflow_id)
+        assert workflow["status"] == "approval"
+
+    @pytest.mark.vcr
+    def test_await_decision_approval_accept(self):
+        workflow_id = "66961888-a628-46b7-b807-4deae3478adc"
+        assert task_test(
+            dag_id="hep_create_dag",
+            task_id="halt_for_approval_if_new_or_reject_if_not_relevant.await_decision_approval",
+            dag_params={"workflow_id": workflow_id},
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, workflow_id)
+
+        assert workflow_result["flags"]["approved"] is True
+
+    @pytest.mark.vcr
+    def test_await_decision_approval_core(self):
+        workflow_id = "6e84fd0b-8d0b-4147-9aee-c28a4f787b0d"
+        assert task_test(
+            dag_id="hep_create_dag",
+            task_id="halt_for_approval_if_new_or_reject_if_not_relevant.await_decision_approval",
+            dag_params={"workflow_id": workflow_id},
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, workflow_id)
+
+        assert workflow_result["flags"]["approved"] is True
+
+    @pytest.mark.vcr
+    def test_await_decision_approval_reject(self):
+        workflow_id = "07c5a66c-1e5b-4da6-823c-871caf43e073"
+        assert task_test(
+            dag_id="hep_create_dag",
+            task_id="halt_for_approval_if_new_or_reject_if_not_relevant.await_decision_approval",
+            dag_params={"workflow_id": workflow_id},
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, workflow_id)
+
+        assert workflow_result["flags"]["approved"] is False
 
     def test_replace_collection_to_hidden_sets_proper_hidden_collections_on_metadata(
         self,
