@@ -1387,16 +1387,37 @@ def hep_create_dag():
 
             return True
 
+        @task
+        def update_inspire_categories(**context):
+            s3_workflow_id = context["params"]["workflow_id"]
+            workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
+
+            if (
+                workflow_data.get("journal_inspire_categories")
+                and "inspire_categories" not in workflow_data["data"]
+            ):
+                workflow_data["data"]["inspire_categories"] = workflow_data[
+                    "journal_inspire_categories"
+                ]
+
+            write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                s3_workflow_id,
+                overwrite=True,
+            )
+
         replace_collection_task = replace_collection_to_hidden()
-        update_inspire_categories = EmptyOperator(task_id="update_inspire_categories")
 
         get_approved_match_task = get_approved_match()
         check_is_update_task = check_is_update(get_approved_match_task)
         merge_articles_task = merge_articles(get_approved_match_task)
+        update_inspire_categories_task = update_inspire_categories()
 
         check_is_update_task >> [
             merge_articles_task,
-            update_inspire_categories,
+            update_inspire_categories_task,
         ]
 
         halt_end = EmptyOperator(
@@ -1407,7 +1428,7 @@ def hep_create_dag():
 
         merge_articles_task >> halt_end
         (
-            update_inspire_categories
+            update_inspire_categories_task
             >> check_is_auto_approved()
             >> [halt_end, is_record_relevant_task]
         )
