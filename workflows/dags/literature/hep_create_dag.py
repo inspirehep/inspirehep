@@ -260,7 +260,8 @@ def hep_create_dag():
         if not matches:
             return "preprocessing"
 
-        workflow_data.setdefault("matches", {})["fuzzy"] = matches
+        workflow_data["matches"] = get_value(workflow_data, "matches", {})
+        workflow_data["matches"]["fuzzy"] = matches
         write_object(
             s3_hook,
             workflow_data,
@@ -1240,14 +1241,6 @@ def hep_create_dag():
                     "callback_url": inspire_http_hook.get_url()
                     + "/callback/workflows/resolve_merge_conflicts",
                 }
-
-            write_object(
-                s3_hook,
-                workflow_data,
-                bucket_name,
-                context["params"]["workflow_id"],
-                overwrite=True,
-            )
 
             set_flag("approved", True, workflow_data)
 
