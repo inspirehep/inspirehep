@@ -1280,21 +1280,32 @@ def hep_create_dag():
                 "halt_for_approval_if_new_or_reject_if_not_relevant.is_record_relevant"
             )
 
-        @task
+        @task.branch
         def is_record_relevant(**context):
             workflow_data = read_object(
                 s3_hook, bucket_name, context["params"]["workflow_id"]
             )
-            if is_submission(workflow_data):
-                return True
 
-            if is_journal_coverage_full(workflow_data):
-                return True
+            if (
+                is_submission(workflow_data)
+                or is_journal_coverage_full(workflow_data)
+                or is_auto_approved(workflow_data)
+            ):
+                return (
+                    "halt_for_approval_if_new_or_reject_if_not_relevant."
+                    "await_decision_approval"
+                )
 
-            if is_auto_approved(workflow_data):
-                return True
+            if is_auto_rejected(workflow_data):
+                return (
+                    "halt_for_approval_if_new_or_reject_if_not_relevant."
+                    "should_replace_collection_to_hidden"
+                )
 
-            return not is_auto_rejected(workflow_data)
+            return (
+                "halt_for_approval_if_new_or_reject_if_not_relevant."
+                "await_decision_approval"
+            )
 
         @task.branch
         def should_replace_collection_to_hidden(**context):
@@ -1347,6 +1358,42 @@ def hep_create_dag():
                 overwrite=True,
             )
 
+        @task.short_circuit
+        def await_decision_approval(**context):
+            workflow_id = context["params"]["workflow_id"]
+            workflow_data = workflow_management_hook.get_workflow(workflow_id)
+
+            action = None
+
+            for decision in workflow_data.get("decisions", []):
+                if decision.get("action") in [
+                    "hep_accept",
+                    "hep_accept_core",
+                    "hep_reject",
+                ]:
+                    action = decision.get("action")
+                    break
+
+            if not action:
+                workflow_management_hook.set_workflow_status(
+                    status_name="approval", workflow_id=workflow_id
+                )
+
+                return False
+
+            is_approved = action in ["hep_accept", "hep_accept_core"]
+            set_flag("approved", is_approved, workflow_data)
+
+            write_object(
+                s3_hook,
+                workflow_data,
+                bucket_name,
+                context["params"]["workflow_id"],
+                overwrite=True,
+            )
+
+            return True
+
         replace_collection_task = replace_collection_to_hidden()
         update_inspire_categories = EmptyOperator(task_id="update_inspire_categories")
 
@@ -1360,6 +1407,7 @@ def hep_create_dag():
 
         halt_end = EmptyOperator(task_id="halt_end")
         is_record_relevant_task = is_record_relevant()
+        should_replace_collection_to_hidden_task = should_replace_collection_to_hidden()
 
         (
             update_inspire_categories
@@ -1368,9 +1416,11 @@ def hep_create_dag():
         )
         (
             is_record_relevant_task
-            >> should_replace_collection_to_hidden()
+            >> await_decision_approval()
+            >> should_replace_collection_to_hidden_task
             >> [replace_collection_task, halt_end]
         )
+        is_record_relevant_task >> should_replace_collection_to_hidden_task
 
     @task_group
     def postprocessing():
