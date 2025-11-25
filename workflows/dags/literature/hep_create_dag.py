@@ -1399,16 +1399,20 @@ def hep_create_dag():
 
         get_approved_match_task = get_approved_match()
         check_is_update_task = check_is_update(get_approved_match_task)
+        merge_articles_task = merge_articles(get_approved_match_task)
 
         check_is_update_task >> [
-            merge_articles(get_approved_match_task),
+            merge_articles_task,
             update_inspire_categories,
         ]
 
-        halt_end = EmptyOperator(task_id="halt_end")
+        halt_end = EmptyOperator(
+            task_id="halt_end", trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
+        )
         is_record_relevant_task = is_record_relevant()
         should_replace_collection_to_hidden_task = should_replace_collection_to_hidden()
 
+        merge_articles_task >> halt_end
         (
             update_inspire_categories
             >> check_is_auto_approved()
@@ -1424,7 +1428,7 @@ def hep_create_dag():
 
     @task_group
     def postprocessing():
-        @task
+        @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def set_core_if_not_update(**context):
             workflow_id = context["params"]["workflow_id"]
             workflow_data = read_object(s3_hook, bucket_name, workflow_id)
