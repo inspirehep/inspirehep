@@ -1,14 +1,17 @@
 from itertools import chain
 
 from include.utils.constants import ARXIV_CATEGORIES
+from inspire_schemas.readers.literature import LiteratureReader
+
+
+def is_first_category_core(data):
+    record_core_category = LiteratureReader(data).arxiv_categories[0]
+    arxiv_core_categories = set(ARXIV_CATEGORIES.get("core", []))
+    return record_core_category in arxiv_core_categories
 
 
 def auto_approve(data):
     """Check if auto approve the current ingested article.
-
-    Arguments:
-        obj: a workflow object.
-        eng: a workflow engine.
 
     Return:
         bool: True when the record belongs to an arXiv category that is fully

@@ -24,6 +24,7 @@ from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
+from include.inspire.approval import auto_approve, is_first_category_core
 from include.inspire.grobid_authors_parser import GrobidAuthors
 from include.inspire.guess_coreness import calculate_coreness
 from include.inspire.hidden_collections import (
@@ -258,7 +259,7 @@ def hep_create_dag():
         matches = response.json()["matched_data"]
 
         if not matches:
-            return "preprocessing"
+            return "check_auto_approve"
 
         workflow_data["matches"] = get_value(workflow_data, "matches", {})
         workflow_data["matches"]["fuzzy"] = matches
@@ -307,6 +308,30 @@ def hep_create_dag():
         if approved_match_id:
             context["ti"].xcom_push(key="match", value=approved_match_id)
         return True
+
+    @task
+    def check_auto_approve(**context):
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = read_object(s3_hook, bucket_name, workflow_id)
+        data = workflow_data.get("data", {})
+
+        is_sub = is_submission(data)
+
+        is_auto_approve = False if is_sub else auto_approve(data)
+
+        set_flag("auto-approved", is_auto_approve, workflow_data)
+        is_update = get_flag("is-update", workflow_data)
+
+        if is_auto_approve and not is_update and is_first_category_core(data):
+            workflow_data["core"] = True
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            workflow_id,
+            overwrite=True,
+        )
 
     @task_group
     def preprocessing():
@@ -1464,6 +1489,18 @@ def hep_create_dag():
             if is_update:
                 return
 
+            if "core" in workflow_data:
+                workflow_data["data"]["core"] = workflow_data["core"]
+
+                write_object(
+                    s3_hook,
+                    workflow_data,
+                    bucket_name,
+                    workflow_id,
+                    overwrite=True,
+                )
+                return
+
             decision = get_decision(
                 workflow_data.get("decisions"),
                 "hep_accept_core",
@@ -1686,10 +1723,9 @@ def hep_create_dag():
         workflow_management_hook.update_workflow(workflow_id, workflow_data)
 
     preprocessing_group = preprocessing()
-
     check_for_fuzzy_matches_task = check_for_fuzzy_matches()
-
     check_for_exact_matches_task = check_for_exact_matches()
+    check_auto_approve_task = check_auto_approve()
 
     (
         check_for_exact_matches_task
@@ -1702,6 +1738,7 @@ def hep_create_dag():
     (
         check_for_fuzzy_matches_task
         >> await_decision_fuzzy_match()
+        >> check_auto_approve_task
         >> preprocessing_group
     )
 
@@ -1741,7 +1778,7 @@ def hep_create_dag():
         >> core_selection()
         >> save_and_complete_workflow_task
     )
-    check_for_fuzzy_matches_task >> preprocessing_group
+    check_for_fuzzy_matches_task >> check_auto_approve_task >> preprocessing_group
 
 
 hep_create_dag()
