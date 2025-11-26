@@ -212,6 +212,115 @@ class Test_HEPCreateDAG:
 
         assert "check_for_fuzzy_matches" in result["followed"]
 
+    def test_check_auto_approve_is_submission(self):
+        workflow_id = self.context["params"]["workflow_id"]
+        workflow_data = {
+            "data": {
+                "titles": [{"title": "A title"}],
+                "acquisition_source": {"method": "submitter"},
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "check_auto_approve",
+            dag_params=self.context["params"],
+        )
+
+        result = read_object(s3_hook, bucket_name, workflow_id)
+
+        assert result["flags"]["auto-approved"] is False
+
+    def test_check_auto_approve_is_auto_approved_and_core_is_true(self):
+        workflow_id = self.context["params"]["workflow_id"]
+        workflow_data = {
+            "flags": {
+                "is-update": False,
+            },
+            "data": {
+                "titles": [{"title": "A title"}],
+                "acquisition_source": {"method": "submitter"},
+                "arxiv_eprints": [
+                    {
+                        "categories": [
+                            "hep-ph",
+                            "astro-ph.CO",
+                            "gr-qc",
+                        ],
+                        "value": "1609.03939",
+                    },
+                ],
+            },
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "check_auto_approve",
+            dag_params=self.context["params"],
+        )
+
+        result = read_object(s3_hook, bucket_name, workflow_id)
+
+        assert result["core"] is True
+        assert result["flags"]["auto-approved"] is True
+
+    def test_check_auto_approve_is_auto_approved_and_no_core_set(self):
+        workflow_id = self.context["params"]["workflow_id"]
+        workflow_data = {
+            "flags": {
+                "is-update": True,
+            },
+            "data": {
+                "titles": [{"title": "A title"}],
+                "acquisition_source": {"method": "submitter"},
+                "arxiv_eprints": [
+                    {
+                        "categories": [
+                            "hep-ph",
+                            "astro-ph.CO",
+                            "gr-qc",
+                        ],
+                        "value": "1609.03939",
+                    },
+                ],
+            },
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            workflow_id,
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "check_auto_approve",
+            dag_params=self.context["params"],
+        )
+
+        result = read_object(s3_hook, bucket_name, workflow_id)
+
+        assert "core" not in result
+        assert result["flags"]["auto-approved"] is True
+
     @pytest.mark.vcr
     def test_check_for_exact_matches_one_match(self):
         write_object(
@@ -339,7 +448,7 @@ class Test_HEPCreateDAG:
             xcom_key="skipmixin_key",
         )
 
-        assert result == {"followed": ["preprocessing.check_is_arxiv_paper"]}
+        assert result == {"followed": ["check_auto_approve"]}
 
     @pytest.mark.vcr
     def test_await_decision_fuzzy_match_best_match(self):
@@ -2177,6 +2286,34 @@ class Test_HEPCreateDAG:
 
         assert "save_and_complete_workflow" in result["followed"]
 
+    def test_set_core_if_not_update_and_auto_approve(self):
+        workflow_data = {
+            "flags": {"is-update": False},
+            "data": {
+                "_collections": ["Literature"],
+                "titles": ["A title"],
+                "document_type": ["article"],
+            },
+            "core": True,
+        }
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "postprocessing.set_core_if_not_update",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
+
+        assert workflow_result["data"]["core"]
+
     def test_set_core_if_not_update_and_hep_accept_core(self):
         workflow_data = {
             "flags": {"is-update": False},
@@ -2731,7 +2868,9 @@ class Test_HEPCreateDAG:
                 },
             },
             "journal_coverage": "partial",
-            "auto_approve": True,
+            "flags": {
+                "auto-approved": True,
+            },
         }
         write_object(
             s3_hook,
@@ -2761,7 +2900,9 @@ class Test_HEPCreateDAG:
                 },
             },
             "journal_coverage": "partial",
-            "auto_approve": False,
+            "flags": {
+                "auto-approved": False,
+            },
             "relevance_prediction": {
                 "decision": "Rejected",
             },
@@ -2801,7 +2942,7 @@ class Test_HEPCreateDAG:
                 },
             },
             "journal_coverage": "partial",
-            "auto_approve": False,
+            "flags": {"auto-approved": False},
             "relevance_prediction": {
                 "decision": "Rejected",
             },
@@ -2840,7 +2981,7 @@ class Test_HEPCreateDAG:
                 },
             },
             "journal_coverage": "partial",
-            "auto_approve": False,
+            "flags": {"auto-approved": False},
         }
         write_object(
             s3_hook,
@@ -2870,7 +3011,7 @@ class Test_HEPCreateDAG:
                 },
             },
             "journal_coverage": "partial",
-            "auto_approve": False,
+            "flags": {"auto-approved": False},
             "relevance_prediction": {
                 "decision": "CORE",
             },

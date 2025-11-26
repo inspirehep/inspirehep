@@ -1,3 +1,4 @@
+from include.utils.workflows import get_flag
 from inspire_utils.record import get_value
 
 
@@ -12,8 +13,7 @@ def is_journal_coverage_full(workflow_data):
 
 
 def is_auto_approved(workflow_data):
-    # TODO: adjust when auto_approve flow is ready
-    return False
+    return bool(get_flag("auto-approved", workflow_data))
 
 
 def is_auto_rejected(workflow_data):
