@@ -3335,7 +3335,7 @@ class Test_HEPCreateDAG:
         )
 
         workflow = workflow_management_hook.get_workflow(self.workflow_id)
-        assert workflow["status"] == "core_selection"
+        assert workflow["status"] == "approval_core_selection"
 
     @pytest.mark.vcr
     def test_await_decision_core_selection_approval_decision(self):

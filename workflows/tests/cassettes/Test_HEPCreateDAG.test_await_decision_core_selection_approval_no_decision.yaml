@@ -106,20 +106,35 @@ interactions:
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
         sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
-        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-11-18T13:47:57.202297Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"status\":\"running\"}"
+        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-11-28T12:35:36.847945Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
+        class of Hadamard well-posed five-field theories of dissipative relativistic
+        fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
+        Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
+        for dissipative relativistic fluid dynamics as a hyperbolic five-field system
+        of second-order partial differential equations.\",\"authors_count\":1,\"earliest_date\":\"2020-03-17\",\"control_number\":1790396,\"publication_info\":[{\"year\":2020,\"artid\":\"033101\",\"journal_issue\":\"3\",\"journal_title\":\"J.Math.Phys.\",\"journal_record\":{\"$ref\":\"https://inspirebeta.net/api/journals/1214658\"},\"journal_volume\":\"61\"}]},{\"title\":\"Search
+        for low-mass and high-mass narrow dijet resonances with the CMS detector at
+        $\\\\sqrt{s}$ = 13 TeV\",\"authors\":[{\"full_name\":\"Sheffield, David Gruft\"}],\"abstract\":\"A
+        search for narrow resonances decaying to the dijet final state at the CMS
+        experiment.\",\"public_notes\":[{\"value\":\"Fermilab Library Only\"},{\"value\":\"Submitted
+        to SIAM J.Matrix Anal.Appl.\"}],\"authors_count\":1,\"earliest_date\":\"2017\",\"control_number\":1752989,\"number_of_pages\":151},{\"title\":\"Search
+        for Long-Lived Particles Produced in Proton-Proton Collisions at $\\\\sqrt{s}$
+        =13 TeV That Decay to Displaced Hadronic Jets Detected With the Muon Spectrometer
+        in ATLAS\",\"authors\":[{\"full_name\":\"Zhou, Hao\"}],\"abstract\":\"The
+        discovery of the Higgs boson in 2012 marked a great success of the Standard
+        Model (SM) of particle physics.\",\"authors_count\":1,\"earliest_date\":\"2021\",\"control_number\":1989726,\"number_of_pages\":163,\"publication_info\":[{\"year\":2021}]}]},\"status\":\"running\"}"
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '12859'
+      - '14473'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:47:57 GMT
+      - Fri, 28 Nov 2025 12:35:36 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -159,7 +174,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:47:58 GMT
+      - Fri, 28 Nov 2025 12:35:37 GMT
       Location:
       - /api/workflows/literature/00000000-0000-0000-0000-000000001111/
       Referrer-Policy:
@@ -276,20 +291,35 @@ interactions:
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
         sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
-        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-11-18T13:47:57.202297Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"status\":\"running\"}"
+        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-11-28T12:35:36.847945Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
+        class of Hadamard well-posed five-field theories of dissipative relativistic
+        fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
+        Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
+        for dissipative relativistic fluid dynamics as a hyperbolic five-field system
+        of second-order partial differential equations.\",\"authors_count\":1,\"earliest_date\":\"2020-03-17\",\"control_number\":1790396,\"publication_info\":[{\"year\":2020,\"artid\":\"033101\",\"journal_issue\":\"3\",\"journal_title\":\"J.Math.Phys.\",\"journal_record\":{\"$ref\":\"https://inspirebeta.net/api/journals/1214658\"},\"journal_volume\":\"61\"}]},{\"title\":\"Search
+        for low-mass and high-mass narrow dijet resonances with the CMS detector at
+        $\\\\sqrt{s}$ = 13 TeV\",\"authors\":[{\"full_name\":\"Sheffield, David Gruft\"}],\"abstract\":\"A
+        search for narrow resonances decaying to the dijet final state at the CMS
+        experiment.\",\"public_notes\":[{\"value\":\"Fermilab Library Only\"},{\"value\":\"Submitted
+        to SIAM J.Matrix Anal.Appl.\"}],\"authors_count\":1,\"earliest_date\":\"2017\",\"control_number\":1752989,\"number_of_pages\":151},{\"title\":\"Search
+        for Long-Lived Particles Produced in Proton-Proton Collisions at $\\\\sqrt{s}$
+        =13 TeV That Decay to Displaced Hadronic Jets Detected With the Muon Spectrometer
+        in ATLAS\",\"authors\":[{\"full_name\":\"Zhou, Hao\"}],\"abstract\":\"The
+        discovery of the Higgs boson in 2012 marked a great success of the Standard
+        Model (SM) of particle physics.\",\"authors_count\":1,\"earliest_date\":\"2021\",\"control_number\":1989726,\"number_of_pages\":163,\"publication_info\":[{\"year\":2021}]}]},\"status\":\"running\"}"
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '12882'
+      - '14496'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:47:58 GMT
+      - Fri, 28 Nov 2025 12:35:37 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -329,7 +359,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:47:58 GMT
+      - Fri, 28 Nov 2025 12:35:37 GMT
       Location:
       - /api/workflows/literature/00000000-0000-0000-0000-000000001111/
       Referrer-Policy:
@@ -446,20 +476,35 @@ interactions:
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
         sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
-        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-11-18T13:47:57.202297Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"status\":\"running\"}"
+        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-11-28T12:35:36.847945Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
+        class of Hadamard well-posed five-field theories of dissipative relativistic
+        fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
+        Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
+        for dissipative relativistic fluid dynamics as a hyperbolic five-field system
+        of second-order partial differential equations.\",\"authors_count\":1,\"earliest_date\":\"2020-03-17\",\"control_number\":1790396,\"publication_info\":[{\"year\":2020,\"artid\":\"033101\",\"journal_issue\":\"3\",\"journal_title\":\"J.Math.Phys.\",\"journal_record\":{\"$ref\":\"https://inspirebeta.net/api/journals/1214658\"},\"journal_volume\":\"61\"}]},{\"title\":\"Search
+        for low-mass and high-mass narrow dijet resonances with the CMS detector at
+        $\\\\sqrt{s}$ = 13 TeV\",\"authors\":[{\"full_name\":\"Sheffield, David Gruft\"}],\"abstract\":\"A
+        search for narrow resonances decaying to the dijet final state at the CMS
+        experiment.\",\"public_notes\":[{\"value\":\"Fermilab Library Only\"},{\"value\":\"Submitted
+        to SIAM J.Matrix Anal.Appl.\"}],\"authors_count\":1,\"earliest_date\":\"2017\",\"control_number\":1752989,\"number_of_pages\":151},{\"title\":\"Search
+        for Long-Lived Particles Produced in Proton-Proton Collisions at $\\\\sqrt{s}$
+        =13 TeV That Decay to Displaced Hadronic Jets Detected With the Muon Spectrometer
+        in ATLAS\",\"authors\":[{\"full_name\":\"Zhou, Hao\"}],\"abstract\":\"The
+        discovery of the Higgs boson in 2012 marked a great success of the Standard
+        Model (SM) of particle physics.\",\"authors_count\":1,\"earliest_date\":\"2021\",\"control_number\":1989726,\"number_of_pages\":163,\"publication_info\":[{\"year\":2021}]}]},\"status\":\"running\"}"
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '12882'
+      - '14496'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:47:58 GMT
+      - Fri, 28 Nov 2025 12:35:37 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -474,7 +519,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"status": "core_selection"}'
+    body: '{"status": "approval_core_selection"}'
     headers:
       Accept:
       - application/json
@@ -483,7 +528,7 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '28'
+      - '37'
       Content-Type:
       - application/json
     method: PATCH
@@ -580,20 +625,35 @@ interactions:
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
         sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
-        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-11-18T13:47:58.720319Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"status\":\"core_selection\"}"
+        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-11-28T12:35:37.605547Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
+        class of Hadamard well-posed five-field theories of dissipative relativistic
+        fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
+        Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
+        for dissipative relativistic fluid dynamics as a hyperbolic five-field system
+        of second-order partial differential equations.\",\"authors_count\":1,\"earliest_date\":\"2020-03-17\",\"control_number\":1790396,\"publication_info\":[{\"year\":2020,\"artid\":\"033101\",\"journal_issue\":\"3\",\"journal_title\":\"J.Math.Phys.\",\"journal_record\":{\"$ref\":\"https://inspirebeta.net/api/journals/1214658\"},\"journal_volume\":\"61\"}]},{\"title\":\"Search
+        for low-mass and high-mass narrow dijet resonances with the CMS detector at
+        $\\\\sqrt{s}$ = 13 TeV\",\"authors\":[{\"full_name\":\"Sheffield, David Gruft\"}],\"abstract\":\"A
+        search for narrow resonances decaying to the dijet final state at the CMS
+        experiment.\",\"public_notes\":[{\"value\":\"Fermilab Library Only\"},{\"value\":\"Submitted
+        to SIAM J.Matrix Anal.Appl.\"}],\"authors_count\":1,\"earliest_date\":\"2017\",\"control_number\":1752989,\"number_of_pages\":151},{\"title\":\"Search
+        for Long-Lived Particles Produced in Proton-Proton Collisions at $\\\\sqrt{s}$
+        =13 TeV That Decay to Displaced Hadronic Jets Detected With the Muon Spectrometer
+        in ATLAS\",\"authors\":[{\"full_name\":\"Zhou, Hao\"}],\"abstract\":\"The
+        discovery of the Higgs boson in 2012 marked a great success of the Standard
+        Model (SM) of particle physics.\",\"authors_count\":1,\"earliest_date\":\"2021\",\"control_number\":1989726,\"number_of_pages\":163,\"publication_info\":[{\"year\":2021}]}]},\"status\":\"approval_core_selection\"}"
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '12866'
+      - '14489'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:47:58 GMT
+      - Fri, 28 Nov 2025 12:35:37 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -633,7 +693,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:47:58 GMT
+      - Fri, 28 Nov 2025 12:35:37 GMT
       Location:
       - /api/workflows/literature/00000000-0000-0000-0000-000000001111/
       Referrer-Policy:
@@ -750,20 +810,35 @@ interactions:
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
         sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
-        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-11-18T13:47:58.720319Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"status\":\"core_selection\"}"
+        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-11-28T12:35:37.605547Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
+        class of Hadamard well-posed five-field theories of dissipative relativistic
+        fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
+        Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
+        for dissipative relativistic fluid dynamics as a hyperbolic five-field system
+        of second-order partial differential equations.\",\"authors_count\":1,\"earliest_date\":\"2020-03-17\",\"control_number\":1790396,\"publication_info\":[{\"year\":2020,\"artid\":\"033101\",\"journal_issue\":\"3\",\"journal_title\":\"J.Math.Phys.\",\"journal_record\":{\"$ref\":\"https://inspirebeta.net/api/journals/1214658\"},\"journal_volume\":\"61\"}]},{\"title\":\"Search
+        for low-mass and high-mass narrow dijet resonances with the CMS detector at
+        $\\\\sqrt{s}$ = 13 TeV\",\"authors\":[{\"full_name\":\"Sheffield, David Gruft\"}],\"abstract\":\"A
+        search for narrow resonances decaying to the dijet final state at the CMS
+        experiment.\",\"public_notes\":[{\"value\":\"Fermilab Library Only\"},{\"value\":\"Submitted
+        to SIAM J.Matrix Anal.Appl.\"}],\"authors_count\":1,\"earliest_date\":\"2017\",\"control_number\":1752989,\"number_of_pages\":151},{\"title\":\"Search
+        for Long-Lived Particles Produced in Proton-Proton Collisions at $\\\\sqrt{s}$
+        =13 TeV That Decay to Displaced Hadronic Jets Detected With the Muon Spectrometer
+        in ATLAS\",\"authors\":[{\"full_name\":\"Zhou, Hao\"}],\"abstract\":\"The
+        discovery of the Higgs boson in 2012 marked a great success of the Standard
+        Model (SM) of particle physics.\",\"authors_count\":1,\"earliest_date\":\"2021\",\"control_number\":1989726,\"number_of_pages\":163,\"publication_info\":[{\"year\":2021}]}]},\"status\":\"approval_core_selection\"}"
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '12889'
+      - '14512'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:47:58 GMT
+      - Fri, 28 Nov 2025 12:35:37 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -803,7 +878,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:47:58 GMT
+      - Fri, 28 Nov 2025 12:35:37 GMT
       Location:
       - /api/workflows/literature/00000000-0000-0000-0000-000000001111/
       Referrer-Policy:
@@ -920,20 +995,35 @@ interactions:
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
         sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
-        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-11-18T13:47:58.720319Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"status\":\"core_selection\"}"
+        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-11-28T12:35:37.605547Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
+        class of Hadamard well-posed five-field theories of dissipative relativistic
+        fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
+        Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
+        for dissipative relativistic fluid dynamics as a hyperbolic five-field system
+        of second-order partial differential equations.\",\"authors_count\":1,\"earliest_date\":\"2020-03-17\",\"control_number\":1790396,\"publication_info\":[{\"year\":2020,\"artid\":\"033101\",\"journal_issue\":\"3\",\"journal_title\":\"J.Math.Phys.\",\"journal_record\":{\"$ref\":\"https://inspirebeta.net/api/journals/1214658\"},\"journal_volume\":\"61\"}]},{\"title\":\"Search
+        for low-mass and high-mass narrow dijet resonances with the CMS detector at
+        $\\\\sqrt{s}$ = 13 TeV\",\"authors\":[{\"full_name\":\"Sheffield, David Gruft\"}],\"abstract\":\"A
+        search for narrow resonances decaying to the dijet final state at the CMS
+        experiment.\",\"public_notes\":[{\"value\":\"Fermilab Library Only\"},{\"value\":\"Submitted
+        to SIAM J.Matrix Anal.Appl.\"}],\"authors_count\":1,\"earliest_date\":\"2017\",\"control_number\":1752989,\"number_of_pages\":151},{\"title\":\"Search
+        for Long-Lived Particles Produced in Proton-Proton Collisions at $\\\\sqrt{s}$
+        =13 TeV That Decay to Displaced Hadronic Jets Detected With the Muon Spectrometer
+        in ATLAS\",\"authors\":[{\"full_name\":\"Zhou, Hao\"}],\"abstract\":\"The
+        discovery of the Higgs boson in 2012 marked a great success of the Standard
+        Model (SM) of particle physics.\",\"authors_count\":1,\"earliest_date\":\"2021\",\"control_number\":1989726,\"number_of_pages\":163,\"publication_info\":[{\"year\":2021}]}]},\"status\":\"approval_core_selection\"}"
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '12889'
+      - '14512'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:47:58 GMT
+      - Fri, 28 Nov 2025 12:35:37 GMT
       Referrer-Policy:
       - same-origin
       Server:

@@ -1601,7 +1601,7 @@ def hep_create_dag():
 
             if not decision:
                 workflow_management_hook.set_workflow_status(
-                    status_name="core_selection", workflow_id=workflow_id
+                    status_name="approval_core_selection", workflow_id=workflow_id
                 )
 
                 return False

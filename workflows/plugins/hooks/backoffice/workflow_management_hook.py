@@ -5,11 +5,15 @@ AUTHORS = "authors"
 HEP = "literature"
 
 RUNNING_STATUSES = [
-    "running",
+    "approval_core_selection",
+    "approval_fuzzy_matching",
+    "approval_merge",
     "approval",
-    "error",
-    "fuzzy_matching",
     "blocked",
+    "error_multiple_exact_matches",
+    "error_validation",
+    "error",
+    "running",
 ]
 
 

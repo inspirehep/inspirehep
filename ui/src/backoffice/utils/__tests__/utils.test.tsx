@@ -34,6 +34,44 @@ describe('getIcon', () => {
     expect(container.querySelector('.anticon-loading')).toBeInTheDocument();
   });
 
+  it('should return FieldTimeOutlined for processing status', () => {
+    const { container } = render(getIcon('processing') as React.ReactElement);
+    expect(container.querySelector('.anticon-field-time')).toBeInTheDocument();
+  });
+
+  it('should return StopOutlined for blocked status', () => {
+    const { container } = render(getIcon('blocked') as React.ReactElement);
+    expect(container.querySelector('.anticon-stop')).toBeInTheDocument();
+  });
+
+  it('should return HourglassOutlined for fuzzy matching status', () => {
+    const { container } = render(
+      getIcon('approval_fuzzy_matching') as React.ReactElement
+    );
+    expect(container.querySelector('.anticon-hourglass')).toBeInTheDocument();
+  });
+
+  it('should return WarningOutlined for multiple exact matches status', () => {
+    const { container } = render(
+      getIcon('error_multiple_exact_matches') as React.ReactElement
+    );
+    expect(container.querySelector('.anticon-warning')).toBeInTheDocument();
+  });
+
+  it('should return WarningOutlined for validation error status', () => {
+    const { container } = render(
+      getIcon('error_validation') as React.ReactElement
+    );
+    expect(container.querySelector('.anticon-warning')).toBeInTheDocument();
+  });
+
+  it('should return HourglassOutlined for core selection approval status', () => {
+    const { container } = render(
+      getIcon('approval_core_selection') as React.ReactElement
+    );
+    expect(container.querySelector('.anticon-hourglass')).toBeInTheDocument();
+  });
+
   it('should return null for unknown status', () => {
     const icon = getIcon('unknown');
     expect(icon).toBeNull();
