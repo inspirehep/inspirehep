@@ -1059,5 +1059,27 @@
       "_created_at": "2025-11-01T00:00:00.000Z",
       "_updated_at": "2025-11-01T00:00:00.000Z"
     }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "f98f33b2-39c6-47bc-b8a5-45dc91953caa",
+    "fields": {
+      "workflow_type": "HEP_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "Invalid data record",
+            "source": "submitter"
+          }
+        ],
+        "authors": [{"full_name": "Gooding, James, James Andrew, Jamie."}],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"]
+      },
+      "status": "running",
+      "_created_at": "2025-11-01T00:00:00.000Z",
+      "_updated_at": "2025-11-01T00:00:00.000Z"
+    }
   }
 ]

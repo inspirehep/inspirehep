@@ -79,6 +79,7 @@ from literature.set_workflow_status_tasks import (
     set_workflow_status_to_running,
 )
 from literature.store_root_task import store_root
+from literature.validate import validate_record
 from plotextractor.api import process_tarball
 from plotextractor.converter import untar
 from plotextractor.errors import (
@@ -1589,10 +1590,12 @@ def hep_create_dag():
         should_normalize_authors = is_core()
         normalize_author_affiliations_task = normalize_author_affiliations()
         link_institutions_with_affiliations_task = link_institutions_with_affiliations()
+
         set_core_if_not_update_task >> set_refereed
         set_refereed >> should_normalize_authors >> normalize_author_affiliations_task
         set_refereed >> link_institutions_with_affiliations_task
         normalize_author_affiliations_task >> link_institutions_with_affiliations_task
+        link_institutions_with_affiliations_task >> save_workflow() >> validate_record()
 
     @task_group
     def core_selection():
@@ -1759,6 +1762,7 @@ def hep_create_dag():
         check_env()
         >> get_workflow_data()
         >> set_schema()
+        >> validate_record()
         >> set_workflow_status_to_running()
         >> check_for_blocking_workflows()
         >> check_for_exact_matches_task
