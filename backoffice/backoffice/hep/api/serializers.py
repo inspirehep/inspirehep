@@ -70,6 +70,12 @@ class HepWorkflowSerializer(BaseWorkflowSerializer):
     class Meta(BaseWorkflowSerializer.Meta):
         model = HepWorkflow
 
+    def validate_data(self, value):
+        """
+        Disable BaseWorkflowSerializer schema validation for HepWorkflow.
+        """
+        return value
+
     def to_representation(self, instance):
         data = super().to_representation(instance)
 

@@ -114,6 +114,40 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertIn("id", json_response)
 
     @pytest.mark.vcr
+    def test_create_hep_with_invalid_data_still_creates_workflow(self):
+        self.api_client.force_authenticate(user=self.curator)
+
+        data = {
+            "workflow_type": HepWorkflowType.HEP_CREATE,
+            "status": "running",
+            "data": hep_data_invalid(),
+        }
+
+        url = reverse("api:hep-list")
+        response = self.api_client.post(url, format="json", data=data)
+        json_response = response.json()
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(json_response["data"], data["data"])
+        self.assertEqual(json_response["workflow_type"], data["workflow_type"])
+        self.assertIn("id", json_response)
+
+        validate_url = reverse("api:hep-validate")
+        validate_response = self.api_client.post(
+            validate_url, format="json", data=hep_data_invalid()
+        )
+
+        expected_response = [
+            {
+                "message": "'Gooding, James, James Andrew, Jamie.' does not match '^[^,]+(,[^,]+)?(,?[^,]+)?$'",
+                "path": ["authors", 0, "full_name"],
+            }
+        ]
+
+        self.assertEqual(validate_response.status_code, 400)
+        self.assertEqual(validate_response.json(), expected_response)
+
+    @pytest.mark.vcr
     def test_get_hep_classifier_results_filtered(self):
         self.api_client.force_authenticate(user=self.curator)
 

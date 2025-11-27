@@ -4,7 +4,7 @@ from unittest.mock import patch
 from urllib.parse import urlparse
 
 import pytest
-from airflow.exceptions import AirflowException
+from airflow.exceptions import AirflowException, AirflowFailException
 from airflow.models import DagBag
 from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
@@ -3753,3 +3753,24 @@ class Test_HEPCreateDAG:
             == "halt_for_approval_if_new_or_reject_if_not_relevant.is_record_relevant"
         )
         assert get_flag("approved", workflow_result) is not True
+
+    @pytest.mark.vcr
+    def test_validate_record_no_error(self):
+        task_test(
+            "hep_create_dag",
+            "postprocessing.validate_record",
+            dag_params=self.context["params"],
+        )
+
+    @pytest.mark.vcr
+    def test_validate_record_raises_and_stops(self):
+        workflow_id = "f98f33b2-39c6-47bc-b8a5-45dc91953caa"
+
+        with pytest.raises(AirflowFailException) as excinfo:
+            task_test(
+                "hep_create_dag",
+                "postprocessing.validate_record",
+                dag_params={"workflow_id": workflow_id},
+            )
+
+        assert "Validation failed" in str(excinfo.value)
