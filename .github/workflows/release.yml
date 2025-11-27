@@ -35,6 +35,37 @@ jobs:
             registry.cern.ch/cern-sis/inspire/backoffice
           tags: "type=sha"
 
+      - name: Login to Harbor
+        uses: docker/login-action@v2
+        with:
+          registry: "registry.cern.ch"
+          username: ${{ secrets.HARBOR_USERNAME }}
+          password: ${{ secrets.HARBOR_PASSWORD }}
+
+      - name: push semver tag
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+          TAGS: ${{ steps.meta.outputs.tags }} # all sha tags created by the metadata-action
+        run: |
+          echo "Promoting images:"
+          echo "$TAGS"
+
+          echo "$TAGS" | while read -r tag; do
+            if [[ -z "$tag" ]]; then continue; fi
+
+            IMAGE="${tag%:*}"
+            SHA_TAG="${tag##*:}"
+
+            if [[ "$IMAGE" != "registry.cern.ch/cern-sis/inspire/*" ]]; then
+              continue
+            fi
+
+            echo "Processing $IMAGE:$SHA_TAG --> $IMAGE:$RELEASE_TAG"
+            docker pull "$IMAGE:$SHA_TAG"
+            docker tag "$IMAGE:$SHA_TAG" "$IMAGE:$RELEASE_TAG"
+            docker push "$IMAGE:$RELEASE_TAG"
+          done
+
       - name: send event inspire
         uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v6.3.1
         with:
