@@ -11,10 +11,10 @@ interactions:
       Content-Type:
       - application/json
     method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/search/?status__in=running__approval__error__fuzzy_matching__blocked&search=data.dois.value.keyword%3A10.1016%2Fj.physletb.2025.139959
+    uri: http://host.docker.internal:8001/api/workflows/literature/search/?status__in=approval_core_selection__approval_fuzzy_matching__approval_merge__approval__blocked__error_multiple_exact_matches__error_validation__error__running&search=data.dois.value.keyword%3A10.1016%2Fj.physletb.2025.139959
   response:
     body:
-      string: "{\"count\":2,\"next\":null,\"previous\":null,\"facets\":{\"_filter_workflow_type\":{\"doc_count\":2,\"workflow_type\":{\"doc_count_error_upper_bound\":0,\"sum_other_doc_count\":0,\"buckets\":[{\"key\":\"HEP_CREATE\",\"doc_count\":2,\"status\":{\"doc_count_error_upper_bound\":0,\"sum_other_doc_count\":0,\"buckets\":[{\"key\":\"blocked\",\"doc_count\":1},{\"key\":\"running\",\"doc_count\":1}]}}]}},\"_filter_status\":{\"doc_count\":2,\"status\":{\"doc_count_error_upper_bound\":0,\"sum_other_doc_count\":0,\"buckets\":[{\"key\":\"blocked\",\"doc_count\":1},{\"key\":\"running\",\"doc_count\":1}]}}},\"results\":[{\"decisions\":[{\"action\":\"exact_match\",\"user\":{\"email\":\"admin@admin.com\"}}],\"id\":\"00000000-0000-0000-0000-000000001111\",\"_updated_at\":\"2025-10-31T16:00:37.475731+00:00\",\"data\":{\"dois\":[{\"value\":\"10.1016/j.physletb.2025.139959\",\"source\":\"Elsevier
+      string: "{\"count\":2,\"next\":null,\"previous\":null,\"facets\":{\"_filter_workflow_type\":{\"doc_count\":2,\"workflow_type\":{\"doc_count_error_upper_bound\":0,\"sum_other_doc_count\":0,\"buckets\":[{\"key\":\"HEP_CREATE\",\"doc_count\":2,\"status\":{\"doc_count_error_upper_bound\":0,\"sum_other_doc_count\":0,\"buckets\":[{\"key\":\"approval_core_selection\",\"doc_count\":1},{\"key\":\"blocked\",\"doc_count\":1}]}}]}},\"_filter_status\":{\"doc_count\":2,\"status\":{\"doc_count_error_upper_bound\":0,\"sum_other_doc_count\":0,\"buckets\":[{\"key\":\"approval_core_selection\",\"doc_count\":1},{\"key\":\"blocked\",\"doc_count\":1}]}}},\"results\":[{\"data\":{\"dois\":[{\"value\":\"10.1016/j.physletb.2025.139959\",\"source\":\"Elsevier
         B.V.\",\"material\":\"publication\"}],\"urls\":[{\"value\":\"https://lss.fnal.gov/archive/2025/pub/fermilab-pub-25-0393-ppd.pdf\",\"description\":\"Fermilab
         Library Server\"}],\"titles\":[{\"title\":\"Chebyshev Moment Regularization
         (CMR): Condition-Number Control with Moment Shaping\",\"source\":\"arXiv\"}],\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"authors\":[{\"uuid\":\"1661c971-41e0-4361-8770-5ab2baae543e\",\"record\":{\"$ref\":\"https://inspirehep.net/api/authors/2742792\"},\"full_name\":\"Song,
@@ -39,42 +39,60 @@ interactions:
         restores test accuracy ( $\\\\approx10\\\\%\\\\!\\\\to\\\\!\\\\approx86\\\\%$
         ). These results support \\\\textbf{optimization-driven spectral preconditioning}:
         directly steering models toward well-conditioned regimes for stable, accurate
-        learning.\",\"source\":\"arXiv\"}],\"languages\":[\"en\"],\"_collections\":[\"Literature\"],\"public_notes\":[{\"value\":\"15
+        learning.\",\"source\":\"arXiv\"}],\"languages\":[\"en\"],\"references\":[{\"raw_refs\":[{\"value\":\"[1]
+        ALICE Collaboration, (2024). Technical Design Report for the ALICE Inner Tracking
+        System Upgrade, CERN-LHCC-2024-003, ALICE-TDR-021. https://cds.cern.ch/record/2890181?ln=en\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Technical
+        Design Report for the ALICE Inner Tracking System Upgrade\",\"ALICE-TDR-021\"],\"label\":\"1\",\"texkey\":\"placeholder_its3_tdr\",\"collaborations\":[\"ALICE
+        Collaboration\"],\"report_numbers\":[\"CERN-LHCC-2024-003\"],\"publication_info\":{\"year\":2024},\"external_system_identifiers\":[{\"value\":\"2890181\",\"schema\":\"CDS\"}]}},{\"record\":{\"$ref\":\"https://inspirehep.net/api/literature/1513530\"},\"raw_refs\":[{\"value\":\"[2]
+        G. A. Rinella, (2017). The ALPIDE pixel sensor chip for the upgrade of the
+        ALICE Inner Tracking System, Nuclear Instruments and Methods in Physics Research
+        Section A 845 583-587. https://doi.org/10.1016/j.nima.2016.05.016\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1016/j.nima.2016.05.016\"],\"misc\":[\"The
+        ALPIDE pixel sensor chip for the upgrade of the ALICE Inner Tracking System\"],\"label\":\"2\",\"texkey\":\"placeholder_alpide\",\"authors\":[{\"full_name\":\"Rinella,
+        G.A.\"}],\"publication_info\":{\"year\":2017,\"page_end\":\"587\",\"page_start\":\"583\",\"journal_title\":\"Nucl.Instrum.Meth.A\",\"journal_volume\":\"845\"}}},{\"record\":{\"$ref\":\"https://inspirehep.net/api/literature/2874609\"},\"raw_refs\":[{\"value\":\"[3]
+        P. Moreira et al., (2025). lpGBT: Low-power radiation-hard multipurpose high-speed
+        transceiver ASIC for high-energy physics experiments, IEEE Transactions on
+        Nuclear Science, 72(1) 24-37. https://doi.org/10.1109/TNS.2024.3506753.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1109/TNS.2024.3506753\"],\"misc\":[\"lpGBT:
+        Low-power radiation-hard multipurpose high-speed transceiver ASIC for high-energy
+        physics experiments\"],\"label\":\"3\",\"texkey\":\"placeholder_lpgbt\",\"authors\":[{\"full_name\":\"Moreira,
+        P.\"}],\"publication_info\":{\"year\":2025,\"page_end\":\"37\",\"page_start\":\"24\",\"journal_title\":\"IEEE
+        Trans.Nucl.Sci.\",\"journal_volume\":\"72\"}}},{\"record\":{\"$ref\":\"https://inspirehep.net/api/literature/2744986\"},\"raw_refs\":[{\"value\":\"[4]
+        O. Groettvik on behalf of the ALICE collaboration, (2024). ALICE ITS3: a bent
+        stitched MAPS-based vertex detector, JINST 19 C02048. https://doi.org/10.1088/1748-0221/19/02/C02048\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1088/1748-0221/19/02/C02048\"],\"misc\":[\"on
+        behalf of\",\"ALICE ITS3: a bent stitched MAPS-based vertex detector\"],\"label\":\"4\",\"texkey\":\"placeholder_its3_ogrottvi\",\"authors\":[{\"full_name\":\"Groettvik,
+        O.\"}],\"collaborations\":[\"ALICE collaboration\"],\"publication_info\":{\"year\":2024,\"artid\":\"C02048\",\"journal_title\":\"JINST\",\"journal_volume\":\"19\"}}},{\"raw_refs\":[{\"value\":\"[5]
+        Enclustra, Mercury+ AA1 - Intel\xAE Arria\xAE 10 SoC Module. [Online]. https://www.enclustra.com/en/products/system-on-chip-modules/mercury-aa1/\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Enclustra,
+        Mercury+ AA1 - Intel\xAE Arria\xAE 10 SoC Module. [Online]\"],\"urls\":[{\"value\":\"https://www.enclustra.com/en/products/system-on-chip-modules/mercury-aa1/\"}],\"label\":\"5\",\"texkey\":\"enclustra_som\"}},{\"raw_refs\":[{\"value\":\"[6]
+        Enclustra, Mercury+ ST1 - Base Board for Mercury/Mercury+ FPGA Modules. [Online].
+        https://www.enclustra.com/en/products/base-boards/mercury-st1/\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Enclustra,
+        Mercury+ ST1 - Base Board for Mercury/Mercury+ FPGA Modules. [Online]\"],\"urls\":[{\"value\":\"https://www.enclustra.com/en/products/base-boards/mercury-st1/\"}],\"label\":\"6\",\"texkey\":\"enclustra_baseboard\"}}],\"_collections\":[\"Literature\"],\"public_notes\":[{\"value\":\"15
         pages\",\"source\":\"arXiv\"}],\"arxiv_eprints\":[{\"value\":\"2510.21772\",\"categories\":[\"cs.LG\",\"cs.NA\",\"math.NA\"]}],\"document_type\":[\"article\"],\"preprint_date\":\"2025-10-17\",\"collaborations\":[{\"value\":\"BLFQ\"}],\"report_numbers\":[{\"value\":\"ADP-25-11/T1273\",\"source\":\"arXiv\"}],\"number_of_pages\":15,\"publication_info\":[{\"year\":2025,\"artid\":\"139959\",\"material\":\"publication\",\"journal_title\":\"Phys.Lett.B\",\"journal_record\":{\"$ref\":\"https://inspirehep.net/api/journals/1613966\"},\"journal_volume\":\"870\",\"pubinfo_freetext\":\"Phys.
         Lett. B 870 (2025) 139959\"}],\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"arXiv\",\"datetime\":\"2025-10-28T02:00:33.403192\",\"submission_number\":\"scheduled__2025-10-28T02:00:00+00:00\"},\"inspire_categories\":[{\"term\":\"Computing\",\"source\":\"arxiv\"},{\"term\":\"Math
-        and Math Physics\",\"source\":\"arxiv\"}],\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirehep.net/api/experiments/1711193\"},\"legacy_name\":\"CERN-LHC-FASER\"}]},\"workflow_type\":\"HEP_CREATE\",\"status\":\"blocked\",\"_created_at\":\"2024-11-25T13:49:53.009000+00:00\"},{\"decisions\":[],\"id\":\"66961888-a628-46b7-b807-4deae3478adc\",\"_updated_at\":\"2025-10-31T15:55:47.265275+00:00\",\"data\":{\"dois\":[{\"value\":\"10.1016/j.physletb.2025.139959\"}],\"urls\":[{\"value\":\"https://example.com\"},{\"value\":\"https://other-page.com\"}],\"titles\":[{\"title\":\"The
+        and Math Physics\",\"source\":\"arxiv\"}],\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirehep.net/api/experiments/1711193\"},\"legacy_name\":\"CERN-LHC-FASER\"}]},\"id\":\"00000000-0000-0000-0000-000000001111\",\"_updated_at\":\"2025-11-28T12:35:37.605547+00:00\",\"decisions\":[{\"action\":\"fuzzy_match\",\"user\":{\"email\":\"admin@admin.com\"}}],\"status\":\"approval_core_selection\",\"workflow_type\":\"HEP_CREATE\",\"_created_at\":\"2024-11-25T13:49:53.009000+00:00\"},{\"data\":{\"dois\":[{\"value\":\"10.1016/j.physletb.2025.139959\"}],\"urls\":[{\"value\":\"https://example.com\"},{\"value\":\"https://other-page.com\"}],\"titles\":[{\"title\":\"The
         MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer\",\"source\":\"submitter\"}],\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"_collections\":[\"Literature\"],\"arxiv_eprints\":[{\"value\":\"2507.26819\",\"categories\":[\"cs.CV\",\"cs.AI\",\"cs.LG\",\"cs.RO\"]}],\"document_type\":[\"article\"],\"_private_notes\":[{\"value\":\"Also
-        some comments\"}],\"acquisition_source\":{\"email\":\"user@cern.ch\",\"orcid\":\"0000-0000-0000-0000\",\"method\":\"submitter\",\"source\":\"submitter\",\"datetime\":\"2024-11-18T11:34:19.809575\",\"internal_uid\":50872}},\"workflow_type\":\"HEP_CREATE\",\"status\":\"running\",\"_created_at\":\"2024-11-25T13:49:53.009000+00:00\"}]}"
+        some comments\"}],\"acquisition_source\":{\"email\":\"user@cern.ch\",\"orcid\":\"0000-0000-0000-0000\",\"method\":\"submitter\",\"source\":\"submitter\",\"datetime\":\"2024-11-18T11:34:19.809575\",\"internal_uid\":50872}},\"id\":\"66961888-a628-46b7-b807-4deae3478adc\",\"_updated_at\":\"2024-11-25T13:49:54.756000+00:00\",\"decisions\":[],\"status\":\"blocked\",\"workflow_type\":\"HEP_CREATE\",\"_created_at\":\"2024-11-25T13:49:53.009000+00:00\"}]}"
     headers:
       Allow:
       - GET, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '5249'
+      - '8876'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Fri, 31 Oct 2025 16:01:36 GMT
+      - Fri, 28 Nov 2025 12:36:27 GMT
       Referrer-Policy:
       - same-origin
       Server:
       - WSGIServer/0.2 CPython/3.11.6
-      Server-Timing:
-      - TimerPanel_utime;dur=36.94399999999831;desc="User CPU time", TimerPanel_stime;dur=1.7759999999995557;desc="System
-        CPU time", TimerPanel_total;dur=38.71999999999787;desc="Total CPU time", TimerPanel_total_time;dur=118.54608300200198;desc="Elapsed
-        time", SQLPanel_sql_time;dur=3.3543340250616893;desc="SQL 5 queries", CachePanel_total_time;dur=0;desc="Cache
-        0 Calls"
       Vary:
       - Accept, Accept-Language, Cookie, origin
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
       - DENY
-      djdt-store-id:
-      - 22fdaf42ffcc4b0ab5c97bffe25f8e8c
     status:
       code: 200
       message: OK
@@ -120,40 +138,110 @@ interactions:
         restores test accuracy ( $\\\\approx10\\\\%\\\\!\\\\to\\\\!\\\\approx86\\\\%$
         ). These results support \\\\textbf{optimization-driven spectral preconditioning}:
         directly steering models toward well-conditioned regimes for stable, accurate
-        learning.\",\"source\":\"arXiv\"}],\"languages\":[\"en\"],\"_collections\":[\"Literature\"],\"public_notes\":[{\"value\":\"15
+        learning.\",\"source\":\"arXiv\"}],\"languages\":[\"en\"],\"references\":[{\"raw_refs\":[{\"value\":\"[1]
+        ALICE Collaboration, (2024). Technical Design Report for the ALICE Inner Tracking
+        System Upgrade, CERN-LHCC-2024-003, ALICE-TDR-021. https://cds.cern.ch/record/2890181?ln=en\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Technical
+        Design Report for the ALICE Inner Tracking System Upgrade\",\"ALICE-TDR-021\"],\"label\":\"1\",\"texkey\":\"placeholder_its3_tdr\",\"collaborations\":[\"ALICE
+        Collaboration\"],\"report_numbers\":[\"CERN-LHCC-2024-003\"],\"publication_info\":{\"year\":2024},\"external_system_identifiers\":[{\"value\":\"2890181\",\"schema\":\"CDS\"}]}},{\"record\":{\"$ref\":\"https://inspirehep.net/api/literature/1513530\"},\"raw_refs\":[{\"value\":\"[2]
+        G. A. Rinella, (2017). The ALPIDE pixel sensor chip for the upgrade of the
+        ALICE Inner Tracking System, Nuclear Instruments and Methods in Physics Research
+        Section A 845 583-587. https://doi.org/10.1016/j.nima.2016.05.016\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1016/j.nima.2016.05.016\"],\"misc\":[\"The
+        ALPIDE pixel sensor chip for the upgrade of the ALICE Inner Tracking System\"],\"label\":\"2\",\"texkey\":\"placeholder_alpide\",\"authors\":[{\"full_name\":\"Rinella,
+        G.A.\"}],\"publication_info\":{\"year\":2017,\"page_end\":\"587\",\"page_start\":\"583\",\"journal_title\":\"Nucl.Instrum.Meth.A\",\"journal_volume\":\"845\"}}},{\"record\":{\"$ref\":\"https://inspirehep.net/api/literature/2874609\"},\"raw_refs\":[{\"value\":\"[3]
+        P. Moreira et al., (2025). lpGBT: Low-power radiation-hard multipurpose high-speed
+        transceiver ASIC for high-energy physics experiments, IEEE Transactions on
+        Nuclear Science, 72(1) 24-37. https://doi.org/10.1109/TNS.2024.3506753.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1109/TNS.2024.3506753\"],\"misc\":[\"lpGBT:
+        Low-power radiation-hard multipurpose high-speed transceiver ASIC for high-energy
+        physics experiments\"],\"label\":\"3\",\"texkey\":\"placeholder_lpgbt\",\"authors\":[{\"full_name\":\"Moreira,
+        P.\"}],\"publication_info\":{\"year\":2025,\"page_end\":\"37\",\"page_start\":\"24\",\"journal_title\":\"IEEE
+        Trans.Nucl.Sci.\",\"journal_volume\":\"72\"}}},{\"record\":{\"$ref\":\"https://inspirehep.net/api/literature/2744986\"},\"raw_refs\":[{\"value\":\"[4]
+        O. Groettvik on behalf of the ALICE collaboration, (2024). ALICE ITS3: a bent
+        stitched MAPS-based vertex detector, JINST 19 C02048. https://doi.org/10.1088/1748-0221/19/02/C02048\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1088/1748-0221/19/02/C02048\"],\"misc\":[\"on
+        behalf of\",\"ALICE ITS3: a bent stitched MAPS-based vertex detector\"],\"label\":\"4\",\"texkey\":\"placeholder_its3_ogrottvi\",\"authors\":[{\"full_name\":\"Groettvik,
+        O.\"}],\"collaborations\":[\"ALICE collaboration\"],\"publication_info\":{\"year\":2024,\"artid\":\"C02048\",\"journal_title\":\"JINST\",\"journal_volume\":\"19\"}}},{\"raw_refs\":[{\"value\":\"[5]
+        Enclustra, Mercury+ AA1 - Intel\xAE Arria\xAE 10 SoC Module. [Online]. https://www.enclustra.com/en/products/system-on-chip-modules/mercury-aa1/\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Enclustra,
+        Mercury+ AA1 - Intel\xAE Arria\xAE 10 SoC Module. [Online]\"],\"urls\":[{\"value\":\"https://www.enclustra.com/en/products/system-on-chip-modules/mercury-aa1/\"}],\"label\":\"5\",\"texkey\":\"enclustra_som\"}},{\"raw_refs\":[{\"value\":\"[6]
+        Enclustra, Mercury+ ST1 - Base Board for Mercury/Mercury+ FPGA Modules. [Online].
+        https://www.enclustra.com/en/products/base-boards/mercury-st1/\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Enclustra,
+        Mercury+ ST1 - Base Board for Mercury/Mercury+ FPGA Modules. [Online]\"],\"urls\":[{\"value\":\"https://www.enclustra.com/en/products/base-boards/mercury-st1/\"}],\"label\":\"6\",\"texkey\":\"enclustra_baseboard\"}}],\"_collections\":[\"Literature\"],\"public_notes\":[{\"value\":\"15
         pages\",\"source\":\"arXiv\"}],\"arxiv_eprints\":[{\"value\":\"2510.21772\",\"categories\":[\"cs.LG\",\"cs.NA\",\"math.NA\"]}],\"document_type\":[\"article\"],\"preprint_date\":\"2025-10-17\",\"collaborations\":[{\"value\":\"BLFQ\"}],\"report_numbers\":[{\"value\":\"ADP-25-11/T1273\",\"source\":\"arXiv\"}],\"number_of_pages\":15,\"publication_info\":[{\"year\":2025,\"artid\":\"139959\",\"material\":\"publication\",\"journal_title\":\"Phys.Lett.B\",\"journal_record\":{\"$ref\":\"https://inspirehep.net/api/journals/1613966\"},\"journal_volume\":\"870\",\"pubinfo_freetext\":\"Phys.
         Lett. B 870 (2025) 139959\"}],\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"arXiv\",\"datetime\":\"2025-10-28T02:00:33.403192\",\"submission_number\":\"scheduled__2025-10-28T02:00:00+00:00\"},\"inspire_categories\":[{\"term\":\"Computing\",\"source\":\"arxiv\"},{\"term\":\"Math
-        and Math Physics\",\"source\":\"arxiv\"}],\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirehep.net/api/experiments/1711193\"},\"legacy_name\":\"CERN-LHC-FASER\"}]},\"tickets\":[],\"decisions\":[{\"id\":1,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-08-26T14:45:14.237000Z\",\"_updated_at\":\"2025-08-26T14:45:14.237000Z\",\"action\":\"exact_match\",\"value\":\"paper1\",\"user\":\"admin@admin.com\"}],\"workflow_type\":\"HEP_CREATE\",\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-10-31T16:01:37.545794Z\",\"journal_coverage\":null,\"relevance_prediction\":null,\"classifier_results\":null,\"reference_count\":null,\"status\":\"blocked\"}"
+        and Math Physics\",\"source\":\"arxiv\"}],\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirehep.net/api/experiments/1711193\"},\"legacy_name\":\"CERN-LHC-FASER\"}]},\"tickets\":[],\"decisions\":[{\"id\":1,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-08-26T14:45:14.237000Z\",\"_updated_at\":\"2025-08-26T14:45:14.237000Z\",\"action\":\"fuzzy_match\",\"value\":\"paper1\",\"user\":\"admin@admin.com\"}],\"workflow_type\":\"HEP_CREATE\",\"classifier_results\":{\"categories\":[{\"keyword\":\"color\",\"category\":\"HEP\"},{\"keyword\":\"fluctuation\",\"category\":\"HEP\"},{\"keyword\":\"quantum
+        information\",\"category\":\"HEP\"},{\"keyword\":\"quantum sensing\",\"category\":\"HEP\"},{\"keyword\":\"entanglement\",\"category\":\"HEP\"},{\"keyword\":\"engineering\",\"category\":\"HEP\"},{\"keyword\":\"quantum
+        communication\",\"category\":\"HEP\"},{\"keyword\":\"mirror\",\"category\":\"HEP\"},{\"keyword\":\"mixing\",\"category\":\"HEP\"},{\"keyword\":\"scattering\",\"category\":\"HEP\"},{\"keyword\":\"cloud\",\"category\":\"HEP\"},{\"keyword\":\"monitoring\",\"category\":\"HEP\"},{\"keyword\":\"quantum
+        state\",\"category\":\"HEP\"},{\"keyword\":\"absorption\",\"category\":\"HEP\"},{\"keyword\":\"quantum
+        repeater\",\"category\":\"HEP\"},{\"keyword\":\"dark energy\",\"category\":\"HEP\"},{\"keyword\":\"quantum
+        key distribution\",\"category\":\"HEP\"},{\"keyword\":\"mixed state\",\"category\":\"HEP\"},{\"keyword\":\"circle\",\"category\":\"HEP\"},{\"keyword\":\"peripheral\",\"category\":\"HEP\"},{\"keyword\":\"quantum
+        device\",\"category\":\"HEP\"},{\"keyword\":\"satellite\",\"category\":\"HEP\"},{\"keyword\":\"noise\",\"category\":\"HEP\"},{\"keyword\":\"star\",\"category\":\"HEP\"},{\"keyword\":\"composite\",\"category\":\"HEP\"},{\"keyword\":\"ion
+        trap\",\"category\":\"HEP\"},{\"keyword\":\"photon\",\"category\":\"HEP\"},{\"keyword\":\"teleportation\",\"category\":\"HEP\"},{\"keyword\":\"efficiency\",\"category\":\"HEP\"},{\"keyword\":\"nucleus\",\"category\":\"HEP\"},{\"keyword\":\"simplex\",\"category\":\"HEP\"},{\"keyword\":\"background\",\"category\":\"HEP\"},{\"keyword\":\"dissipation\",\"category\":\"HEP\"},{\"keyword\":\"CERN
+        SPS\",\"category\":\"HEP\"},{\"keyword\":\"quantum channel\",\"category\":\"HEP\"},{\"keyword\":\"structure\",\"category\":\"HEP\"},{\"keyword\":\"topology\",\"category\":\"HEP\"},{\"keyword\":\"4/3\",\"category\":\"HEP\"},{\"keyword\":\"density
+        matrix\",\"category\":\"HEP\"},{\"keyword\":\"quantum memory\",\"category\":\"HEP\"},{\"keyword\":\"transfer
+        matrix\",\"category\":\"HEP\"},{\"keyword\":\"propagation\",\"category\":\"HEP\"},{\"keyword\":\"depolarization\",\"category\":\"HEP\"},{\"keyword\":\"estimator\",\"category\":\"HEP\"},{\"keyword\":\"qubit\",\"category\":\"HEP\"},{\"keyword\":\"parametric\",\"category\":\"HEP\"}],\"fulltext_used\":true,\"complete_output\":{\"acronyms\":[],\"field_codes\":[{\"keywords\":\"quantum
+        key distribution, quantum information\",\"fieldcode\":\"k\"}],\"core_keywords\":[{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
+        device\"},{\"number\":5,\"keyword\":\"gate, C-NOT\"},{\"number\":2,\"keyword\":\"computer,
+        quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
+        SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
+        sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"dark
+        energy\"},{\"number\":1,\"keyword\":\"quantum communication\"},{\"number\":1,\"keyword\":\"quantum
+        key distribution\"}],\"author_keywords\":[{\"author_keyword\":\"Quantum network\",\"matched_keywords\":[\"network,
+        quantum\"]},{\"author_keyword\":\"SPAM errors\",\"matched_keywords\":[\"error\"]},{\"author_keyword\":\"network
+        tomography\",\"matched_keywords\":[\"network\"]}],\"single_keywords\":[{\"number\":44,\"keyword\":\"peripheral\"},{\"number\":34,\"keyword\":\"star\"},{\"number\":23,\"keyword\":\"quantum
+        channel\"},{\"number\":5,\"keyword\":\"noise\"},{\"number\":5,\"keyword\":\"quantum
+        memory\"},{\"number\":4,\"keyword\":\"entanglement\"},{\"number\":4,\"keyword\":\"depolarization\"},{\"number\":2,\"keyword\":\"satellite\"},{\"number\":2,\"keyword\":\"cloud\"},{\"number\":1,\"keyword\":\"quantum
+        information\"},{\"number\":1,\"keyword\":\"absorption\"},{\"number\":1,\"keyword\":\"color\"},{\"number\":1,\"keyword\":\"fluctuation\"},{\"number\":1,\"keyword\":\"ion
+        trap\"},{\"number\":1,\"keyword\":\"dissipation\"},{\"number\":1,\"keyword\":\"engineering\"},{\"number\":1,\"keyword\":\"quantum
+        key distribution\"},{\"number\":1,\"keyword\":\"mirror\"},{\"number\":1,\"keyword\":\"circle\"},{\"number\":1,\"keyword\":\"scattering\"}],\"composite_keywords\":[{\"number\":34,\"details\":[137,53],\"keyword\":\"network,
+        quantum\"},{\"number\":10,\"details\":[22,13],\"keyword\":\"gate, Hadamard\"},{\"number\":5,\"details\":[22,7],\"keyword\":\"gate,
+        C-NOT\"},{\"number\":2,\"details\":[1,53],\"keyword\":\"computer, quantum\"},{\"number\":2,\"details\":[12,3],\"keyword\":\"time,
+        multiple\"},{\"number\":2,\"details\":[137,22],\"keyword\":\"network, performance\"},{\"number\":2,\"details\":[22,53],\"keyword\":\"gate,
+        quantum\"},{\"number\":1,\"details\":[3,83],\"keyword\":\"operator, Pauli\"},{\"number\":1,\"details\":[1,53],\"keyword\":\"technology,
+        quantum\"},{\"number\":1,\"details\":[1,53],\"keyword\":\"Fisher information,
+        quantum\"},{\"number\":1,\"details\":[22,2],\"keyword\":\"gate, phase\"},{\"number\":1,\"details\":[12,12],\"keyword\":\"decoherence,
+        time\"},{\"number\":1,\"details\":[12,3],\"keyword\":\"representation, unitarity\"},{\"number\":1,\"details\":[2,3],\"keyword\":\"fibre,
+        optical\"},{\"number\":1,\"details\":[1,1],\"keyword\":\"resonance, magnetic\"}],\"filtered_core_keywords\":[{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
+        device\"},{\"number\":5,\"keyword\":\"gate, C-NOT\"},{\"number\":2,\"keyword\":\"computer,
+        quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
+        SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
+        sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
+        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-11-28T12:36:27.776623Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
+        class of Hadamard well-posed five-field theories of dissipative relativistic
+        fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
+        Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
+        for dissipative relativistic fluid dynamics as a hyperbolic five-field system
+        of second-order partial differential equations.\",\"authors_count\":1,\"earliest_date\":\"2020-03-17\",\"control_number\":1790396,\"publication_info\":[{\"year\":2020,\"artid\":\"033101\",\"journal_issue\":\"3\",\"journal_title\":\"J.Math.Phys.\",\"journal_record\":{\"$ref\":\"https://inspirebeta.net/api/journals/1214658\"},\"journal_volume\":\"61\"}]},{\"title\":\"Search
+        for low-mass and high-mass narrow dijet resonances with the CMS detector at
+        $\\\\sqrt{s}$ = 13 TeV\",\"authors\":[{\"full_name\":\"Sheffield, David Gruft\"}],\"abstract\":\"A
+        search for narrow resonances decaying to the dijet final state at the CMS
+        experiment.\",\"public_notes\":[{\"value\":\"Fermilab Library Only\"},{\"value\":\"Submitted
+        to SIAM J.Matrix Anal.Appl.\"}],\"authors_count\":1,\"earliest_date\":\"2017\",\"control_number\":1752989,\"number_of_pages\":151},{\"title\":\"Search
+        for Long-Lived Particles Produced in Proton-Proton Collisions at $\\\\sqrt{s}$
+        =13 TeV That Decay to Displaced Hadronic Jets Detected With the Muon Spectrometer
+        in ATLAS\",\"authors\":[{\"full_name\":\"Zhou, Hao\"}],\"abstract\":\"The
+        discovery of the Higgs boson in 2012 marked a great success of the Standard
+        Model (SM) of particle physics.\",\"authors_count\":1,\"earliest_date\":\"2021\",\"control_number\":1989726,\"number_of_pages\":163,\"publication_info\":[{\"year\":2021}]}]},\"status\":\"blocked\"}"
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '4064'
+      - '14473'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Fri, 31 Oct 2025 16:01:37 GMT
+      - Fri, 28 Nov 2025 12:36:27 GMT
       Referrer-Policy:
       - same-origin
       Server:
       - WSGIServer/0.2 CPython/3.11.6
-      Server-Timing:
-      - TimerPanel_utime;dur=83.48400000000211;desc="User CPU time", TimerPanel_stime;dur=4.763999999999768;desc="System
-        CPU time", TimerPanel_total;dur=88.24800000000188;desc="Total CPU time", TimerPanel_total_time;dur=95.57454200694337;desc="Elapsed
-        time", SQLPanel_sql_time;dur=7.289957997272722;desc="SQL 10 queries", CachePanel_total_time;dur=0;desc="Cache
-        0 Calls"
       Vary:
       - Accept, Accept-Language, Cookie, origin
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
       - DENY
-      djdt-store-id:
-      - 8b3c332c015345e1bdd104e84a6e0a6a
     status:
       code: 200
       message: OK

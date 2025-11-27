@@ -52,8 +52,14 @@ export const getIcon = (status: string) => {
       return <FieldTimeOutlined className="mr2" />;
     case 'blocked':
       return <StopOutlined className="mr2" />;
-    case 'matching':
-      return <ControlOutlined className="mr2" />;
+    case 'approval_fuzzy_matching':
+      return <HourglassOutlined className="mr2" />;
+    case 'error_multiple_exact_matches':
+      return <WarningOutlined className="mr2" />;
+    case 'error_validation':
+      return <WarningOutlined className="mr2" />;
+    case 'approval_core_selection':
+      return <HourglassOutlined className="mr2" />;
     default:
       return null;
   }
@@ -144,15 +150,19 @@ export const getWorkflowStatusInfo = (status: string) => {
       description: 'This workflow has been completed.',
     },
     approval: {
-      icon: <StopOutlined className="mr2" />,
+      icon: <HourglassOutlined className="mr2" />,
       text: 'Waiting for approval',
       description: 'This workflow has been halted until decision is made.',
     },
-    error: {
-      icon: <WarningOutlined className="mr2" />,
-      text: 'Error',
-      description:
-        'This record is in error state. View record details for more information.',
+    approval_core_selection: {
+      icon: <StopOutlined className="mr2" />,
+      text: 'Waiting for CORE selection approval',
+      description: 'This workflow is waiting for CORE selection approval.',
+    },
+    approval_fuzzy_matching: {
+      icon: <ControlOutlined className="mr2" />,
+      text: 'Waiting for matching approval',
+      description: 'This workflow is currently matching.',
     },
     running: {
       icon: <LoadingOutlined className="mr2" />,
@@ -170,10 +180,23 @@ export const getWorkflowStatusInfo = (status: string) => {
       text: 'Blocked',
       description: 'This workflow is currently blocked.',
     },
-    matching: {
-      icon: <ControlOutlined className="mr2" />,
-      text: 'Matching',
-      description: 'This workflow is currently matching.',
+    error: {
+      icon: <WarningOutlined className="mr2" />,
+      text: 'Error',
+      description:
+        'This record is in error state. View record details for more information.',
+    },
+    error_multiple_exact_matches: {
+      icon: <WarningOutlined className="mr2" />,
+      text: 'Multiple exact matches',
+      description:
+        'This record has multiple exact matches. View record details for more information.',
+    },
+    error_validation: {
+      icon: <WarningOutlined className="mr2" />,
+      text: 'Validation Error',
+      description:
+        'This record has validation errors. View record details for more information.',
     },
   };
 

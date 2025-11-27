@@ -8,17 +8,26 @@ HEP_DEFAULT_TICKET_TYPE = "hep_create_curation"
 
 
 class HepStatusChoices(models.TextChoices):
-    RUNNING = "running", "Running"
     APPROVAL = "approval", "Waiting for approval"
-    BLOCKED = "blocked", "Blocked"
-    FUZZY_MATCHING = (
-        "fuzzy_matching",
-        "Fuzzy matching",
+    APPROVAL_CORE_SELECTION_ = (
+        "approval_core_selection",
+        "Waiting for CORE selection approval",
     )
-    CORE_SELECTION = "core_selection", "Core Selection"
+    APPROVAL_FUZZY_MATCHING = (
+        "approval_fuzzy_matching",
+        "Waiting for matching approval",
+    )
+    APPROVAL_MERGE = "approval_merge", "Waiting for merging conflicts"
+    ERROR = "error", "Error"
+    ERROR_MULTIPLE_EXACT_MATCHES = (
+        "error_multiple_exact_matches",
+        "Multiple exact matches",
+    )
+    ERROR_VALIDATION = "error_validation", "Validation error"
+    RUNNING = "running", "Running"
+    BLOCKED = "blocked", "Blocked"
     PROCESSING = "processing", "Processing"
     COMPLETED = "completed", "Completed"
-    ERROR = "error", "Error"
 
 
 HEP_DEFAULT_STATUS_CHOICE = HepStatusChoices.PROCESSING
@@ -33,7 +42,10 @@ HEP_DEFAULT_WORKFLOW_TYPE = HepWorkflowType.HEP_CREATE
 
 
 class HepResolutions(models.TextChoices):
-    exact_match = "exact_match", "await_decision_exact_match"
+    exact_match = (
+        "exact_match",
+        "await_decision_exact_match",
+    )  # TODO: Remove this, it will not be needed
     fuzzy_match = "fuzzy_match", "fuzzy_match"
     approval = "approval", "approval"  # TODO: Remove this, it will not be needed
     hep_accept = (

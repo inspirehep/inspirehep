@@ -11,7 +11,7 @@ interactions:
       Content-Type:
       - application/json
     method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/search/?status__in=running__approval__error__fuzzy_matching__blocked&search=data.arxiv_eprints.value.keyword%3Axxx
+    uri: http://host.docker.internal:8001/api/workflows/literature/search/?status__in=approval_core_selection__approval_fuzzy_matching__approval_merge__approval__blocked__error_multiple_exact_matches__error_validation__error__running&search=data.arxiv_eprints.value.keyword%3Axxx
   response:
     body:
       string: '{"count":0,"next":null,"previous":null,"facets":{"_filter_workflow_type":{"doc_count":0,"workflow_type":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[]}},"_filter_status":{"doc_count":0,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[]}}},"results":[]}'
@@ -27,24 +27,17 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Fri, 31 Oct 2025 16:01:37 GMT
+      - Fri, 28 Nov 2025 12:36:27 GMT
       Referrer-Policy:
       - same-origin
       Server:
       - WSGIServer/0.2 CPython/3.11.6
-      Server-Timing:
-      - TimerPanel_utime;dur=33.0459999999988;desc="User CPU time", TimerPanel_stime;dur=1.0619999999992302;desc="System
-        CPU time", TimerPanel_total;dur=34.10799999999803;desc="Total CPU time", TimerPanel_total_time;dur=52.07649999647401;desc="Elapsed
-        time", SQLPanel_sql_time;dur=3.194666962372139;desc="SQL 5 queries", CachePanel_total_time;dur=0;desc="Cache
-        0 Calls"
       Vary:
       - Accept, Accept-Language, Cookie, origin
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
       - DENY
-      djdt-store-id:
-      - 963c007fa2914e419d2e1b72c223ec99
     status:
       code: 200
       message: OK

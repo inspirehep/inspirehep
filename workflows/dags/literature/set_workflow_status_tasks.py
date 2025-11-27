@@ -30,7 +30,8 @@ def set_workflow_status_to_matching(**context):
 @task
 def set_workflow_status_to_fuzzy_matching(**context):
     workflow_management_hook.set_workflow_status(
-        status_name="fuzzy_matching", workflow_id=context["params"]["workflow_id"]
+        status_name="approval_fuzzy_matching",
+        workflow_id=context["params"]["workflow_id"],
     )
 
 
