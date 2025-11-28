@@ -76,7 +76,6 @@ from literature.normalize_author_affiliations_task import (
     normalize_author_affiliations,
 )
 from literature.set_workflow_status_tasks import (
-    set_workflow_status_to_fuzzy_matching,
     set_workflow_status_to_running,
 )
 from literature.store_root_task import store_root
@@ -261,7 +260,7 @@ def hep_create_dag():
         if not matches:
             return "check_auto_approve"
 
-        workflow_data["matches"] = get_value(workflow_data, "matches", {})
+        workflow_data["matches"] = get_value(workflow_data, "matches", {}) or {}
         workflow_data["matches"]["fuzzy"] = matches
         write_object(
             s3_hook,
@@ -289,8 +288,9 @@ def hep_create_dag():
         decision = get_decision(workflow_data.get("decisions"), "fuzzy_match")
 
         if not decision:
-            set_workflow_status_to_fuzzy_matching(
-                workflow_id=context["params"]["workflow_id"]
+            workflow_management_hook.set_workflow_status(
+                status_name="approval_fuzzy_matching",
+                workflow_id=context["params"]["workflow_id"],
             )
             return False
 
