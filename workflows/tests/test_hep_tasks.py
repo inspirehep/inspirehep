@@ -460,11 +460,20 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_await_decision_fuzzy_match_best_match_no_decision(self):
+        workflow_id = "6e84fd0b-8d0b-4147-9aee-c28a4f787b0d"
+        workflow_management_hook = WorkflowManagementHook(HEP)
+        workflow_management_hook.set_workflow_status(
+            status_name="running", workflow_id=workflow_id
+        )
+
         assert not task_test(
             dag_id="hep_create_dag",
             task_id="await_decision_fuzzy_match",
-            dag_params={"workflow_id": "6e84fd0b-8d0b-4147-9aee-c28a4f787b0d"},
+            dag_params={"workflow_id": workflow_id},
         )
+
+        workflow = workflow_management_hook.get_workflow(workflow_id)
+        assert workflow["status"] == "approval_fuzzy_matching"
 
     @pytest.mark.vcr
     def test_await_decision_fuzzy_match_best_match_has_xcom_match(self):
