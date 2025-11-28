@@ -458,13 +458,21 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-    @pytest.mark.vcr
     def test_await_decision_fuzzy_match_best_match_no_decision(self):
+        workflow_id = "6e84fd0b-8d0b-4147-9aee-c28a4f787b0d"
+        workflow_management_hook = WorkflowManagementHook(HEP)
+        workflow_management_hook.set_workflow_status(
+            status_name="running", workflow_id=workflow_id
+        )
+
         assert not task_test(
             dag_id="hep_create_dag",
             task_id="await_decision_fuzzy_match",
-            dag_params={"workflow_id": "6e84fd0b-8d0b-4147-9aee-c28a4f787b0d"},
+            dag_params={"workflow_id": workflow_id},
         )
+
+        workflow = workflow_management_hook.get_workflow(workflow_id)
+        assert workflow["status"] == "approval_fuzzy_matching"
 
     @pytest.mark.vcr
     def test_await_decision_fuzzy_match_best_match_has_xcom_match(self):
@@ -650,6 +658,96 @@ class Test_HEPCreateDAG:
         )
 
         assert workflow_result["data"]["authors"] == workflow_data["data"]["authors"]
+
+    def test_arxiv_ignores_random_xml_files(self, datadir):
+        tarball_name = "2411.11095.tar.gz"
+        tarball_key = f"{self.context['params']['workflow_id']}-{tarball_name}"
+
+        s3_hook.load_file(
+            (datadir / tarball_name),
+            tarball_key,
+            bucket_name,
+            replace=True,
+        )
+
+        workflow_data = {
+            "data": {
+                "authors": [{"full_name": "Chen, Yin"}, {"full_name": "Zhang, Runxuan"}]
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.arxiv_author_list",
+            params={"tarball_key": tarball_key},
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(
+            s3_hook, bucket_name, self.context["params"]["workflow_id"]
+        )
+
+        assert workflow_result["data"]["authors"] == workflow_data["data"]["authors"]
+
+    def test_arxiv_author_list_only_overrides_authors(self, datadir):
+        tarball_name = "1703.09986.tar.gz"
+        tarball_key = f"{self.context['params']['workflow_id']}-{tarball_name}"
+
+        s3_hook.load_file(
+            (datadir / tarball_name),
+            tarball_key,
+            bucket_name,
+            replace=True,
+        )
+
+        workflow_data = {
+            "data": {
+                "$schema": "http://localhost:5000/hep.json",
+                "arxiv_eprints": [
+                    {
+                        "categories": [
+                            "hep-ex",
+                        ],
+                        "value": "1703.09986",
+                    },
+                ],
+            }
+        }
+
+        write_object(
+            s3_hook,
+            workflow_data,
+            bucket_name,
+            self.context["params"]["workflow_id"],
+            overwrite=True,
+        )
+
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.arxiv_author_list",
+            params={"tarball_key": tarball_key},
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = read_object(
+            s3_hook, bucket_name, self.context["params"]["workflow_id"]
+        )
+
+        assert "arxiv_eprints" in workflow_result["data"]
+        assert (
+            workflow_result["data"]["arxiv_eprints"]
+            == workflow_data["data"]["arxiv_eprints"]
+        )
+        assert "$schema" in workflow_result["data"]
+        assert workflow_result["data"]["$schema"] == workflow_data["data"]["$schema"]
 
     def test_arxiv_author_list_handles_multiple_author_xml_files(self, datadir):
         schema = load_schema("hep")
@@ -3335,7 +3433,7 @@ class Test_HEPCreateDAG:
         )
 
         workflow = workflow_management_hook.get_workflow(self.workflow_id)
-        assert workflow["status"] == "approval_core_selection"
+        assert workflow["status"] == "core_selection"
 
     @pytest.mark.vcr
     def test_await_decision_core_selection_approval_decision(self):
