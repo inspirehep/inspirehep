@@ -6,7 +6,10 @@
 
 from inspirehep.records.marshmallow.base import RecordBaseSchema
 from inspirehep.records.marshmallow.fields.non_hidden import NonHiddenRaw
-from inspirehep.records.marshmallow.literature.utils import get_authors_without_emails
+from inspirehep.records.marshmallow.literature.utils import (
+    get_authors_without_emails,
+    get_documents_without_error_field,
+)
 from inspirehep.records.marshmallow.utils import get_acquisition_source_without_email
 from marshmallow import fields
 
@@ -52,15 +55,7 @@ class LiteraturePublicSchema(LiteratureRawSchema):
     documents = fields.Method("get_documents_without_error_field", dump_only=True)
 
     def get_documents_without_error_field(self, data):
-        documents = data.get("documents", [])
-        non_hidden_documents = []
-        for document in documents:
-            if "hidden" in document:
-                continue
-            if "_error" in document:
-                del document["_error"]
-            non_hidden_documents.append(document)
-        return non_hidden_documents
+        return get_documents_without_error_field(data)
 
 
 class LiteraturePublicListSchema(LiteraturePublicSchema):

@@ -2332,3 +2332,255 @@ def test_literature_list_expanded_adds_ids_and_affiliation_identifiers(inspire_a
         "value": "https://ror.org/01ggx4157",
         "schema": "ROR",
     } in response_data_hits_metadata["authors"][0]["affiliations_identifiers"]
+
+
+def test_literature_expanded_includes_arxiv_documents(inspire_app):
+    """Test that expanded format includes synthetic arXiv documents."""
+    headers = {"Accept": "application/vnd+inspire.record.expanded+json"}
+    lit_record = create_record(
+        "lit",
+        data={
+            "arxiv_eprints": [{"value": "2301.12345", "categories": ["hep-th"]}],
+        },
+    )
+    expected_status_code = 200
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{lit_record['control_number']}", headers=headers
+        )
+    response_status_code = response.status_code
+    response_data = orjson.loads(response.data)
+
+    response_data_metadata = response_data["metadata"]
+    documents = response_data_metadata.get("documents", [])
+
+    assert expected_status_code == response_status_code
+    assert len(documents) == 1
+    assert documents[0] == {
+        "filename": "2301.12345.pdf",
+        "fulltext": True,
+        "material": "preprint",
+        "source": "arxiv",
+        "url": "https://arxiv.org/pdf/2301.12345",
+    }
+
+
+def test_literature_expanded_arxiv_documents_with_existing_documents(inspire_app):
+    """Test that arXiv documents are added alongside existing documents."""
+    headers = {"Accept": "application/vnd+inspire.record.expanded+json"}
+    lit_record = create_record(
+        "lit",
+        data={
+            "arxiv_eprints": [{"value": "1234.5678"}],
+            "documents": [
+                {
+                    "key": "document.pdf",
+                    "url": "http://example.com/document.pdf",
+                    "source": "submitter",
+                }
+            ],
+        },
+    )
+    expected_status_code = 200
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{lit_record['control_number']}", headers=headers
+        )
+    response_status_code = response.status_code
+    response_data = orjson.loads(response.data)
+
+    response_data_metadata = response_data["metadata"]
+    documents = response_data_metadata.get("documents", [])
+
+    assert expected_status_code == response_status_code
+    assert len(documents) == 2
+    assert any(doc.get("key") == "document.pdf" for doc in documents)
+    assert any(
+        doc.get("filename") == "1234.5678.pdf" and doc.get("source") == "arxiv"
+        for doc in documents
+    )
+
+
+def test_literature_expanded_arxiv_documents_excludes_hidden(inspire_app):
+    """Test that hidden documents are excluded but arXiv documents are added."""
+    headers = {"Accept": "application/vnd+inspire.record.expanded+json"}
+    lit_record = create_record(
+        "lit",
+        data={
+            "arxiv_eprints": [{"value": "9999.8888"}],
+            "documents": [
+                {
+                    "key": "visible.pdf",
+                    "url": "http://example.com/visible.pdf",
+                },
+                {
+                    "key": "hidden.pdf",
+                    "url": "http://example.com/hidden.pdf",
+                    "hidden": True,
+                },
+            ],
+        },
+    )
+    expected_status_code = 200
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{lit_record['control_number']}", headers=headers
+        )
+    response_status_code = response.status_code
+    response_data = orjson.loads(response.data)
+
+    response_data_metadata = response_data["metadata"]
+    documents = response_data_metadata.get("documents", [])
+
+    assert expected_status_code == response_status_code
+    assert len(documents) == 2
+
+    assert any(doc.get("key") == "visible.pdf" for doc in documents)
+
+    assert not any(doc.get("key") == "hidden.pdf" for doc in documents)
+
+    assert any(doc.get("filename") == "9999.8888.pdf" for doc in documents)
+
+
+def test_literature_expanded_multiple_arxiv_eprints(inspire_app):
+    """Test that multiple arXiv eprints generate multiple synthetic documents."""
+    headers = {"Accept": "application/vnd+inspire.record.expanded+json"}
+    lit_record = create_record(
+        "lit",
+        data={
+            "arxiv_eprints": [
+                {"value": "1111.2222"},
+                {"value": "3333.4444"},
+            ],
+        },
+    )
+    expected_status_code = 200
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{lit_record['control_number']}", headers=headers
+        )
+    response_status_code = response.status_code
+    response_data = orjson.loads(response.data)
+
+    response_data_metadata = response_data["metadata"]
+    documents = response_data_metadata.get("documents", [])
+
+    assert expected_status_code == response_status_code
+    assert len(documents) == 2
+    assert any(doc.get("filename") == "1111.2222.pdf" for doc in documents)
+    assert any(doc.get("filename") == "3333.4444.pdf" for doc in documents)
+
+
+def test_literature_expanded_enhances_accelerator_experiments(inspire_app):
+    """Test that accelerator experiments are enhanced with linked record data."""
+    headers = {"Accept": "application/vnd+inspire.record.expanded+json"}
+    experiment_record = create_record(
+        "exp",
+        data={
+            "legacy_name": "CERN-LHC-ATLAS",
+            "institutions": [{"value": "CERN"}],
+            "accelerator": {"value": "LHC"},
+            "experiment": {"value": "ATLAS"},
+        },
+    )
+    lit_record = create_record(
+        "lit",
+        data={
+            "accelerator_experiments": [
+                {
+                    "legacy_name": "CERN-LHC-ATLAS",
+                    "record": experiment_record["self"],
+                }
+            ]
+        },
+    )
+    expected_status_code = 200
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{lit_record['control_number']}", headers=headers
+        )
+    response_status_code = response.status_code
+    response_data = orjson.loads(response.data)
+
+    response_data_metadata = response_data["metadata"]
+    experiments = response_data_metadata.get("accelerator_experiments", [])
+
+    assert expected_status_code == response_status_code
+    assert len(experiments) == 1
+
+    assert experiments[0]["institution"] == "CERN"
+    assert experiments[0]["accelerator"] == "LHC"
+    assert experiments[0]["experiment"] == "ATLAS"
+    assert "record" in experiments[0]
+
+
+def test_literature_list_expanded_includes_arxiv_documents(inspire_app):
+    """Test that list expanded format includes synthetic arXiv documents."""
+    headers = {"Accept": "application/vnd+inspire.record.expanded+json"}
+    create_record(
+        "lit",
+        data={
+            "arxiv_eprints": [{"value": "5555.6666"}],
+        },
+    )
+    expected_status_code = 200
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
+    response_status_code = response.status_code
+    response_data = orjson.loads(response.data)
+
+    response_data_hits = response_data["hits"]["hits"]
+    response_data_hits_len = len(response_data_hits)
+    response_data_hits_metadata = response_data_hits[0]["metadata"]
+    documents = response_data_hits_metadata.get("documents", [])
+
+    assert response_data_hits_len == 1
+    assert expected_status_code == response_status_code
+    assert len(documents) == 1
+    assert documents[0]["filename"] == "5555.6666.pdf"
+    assert documents[0]["source"] == "arxiv"
+    assert documents[0]["url"] == "https://arxiv.org/pdf/5555.6666"
+
+
+def test_literature_list_expanded_enhances_accelerator_experiments(inspire_app):
+    """Test that list expanded format enhances accelerator experiments."""
+    headers = {"Accept": "application/vnd+inspire.record.expanded+json"}
+    experiment_record = create_record(
+        "exp",
+        data={
+            "legacy_name": "FERMILAB-E-0823",
+            "institutions": [{"value": "Fermilab"}],
+            "accelerator": {"value": "Tevatron"},
+            "experiment": {"value": "E-0823"},
+        },
+    )
+    create_record(
+        "lit",
+        data={
+            "accelerator_experiments": [
+                {
+                    "legacy_name": "FERMILAB-E-0823",
+                    "record": experiment_record["self"],
+                }
+            ]
+        },
+    )
+    expected_status_code = 200
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
+    response_status_code = response.status_code
+    response_data = orjson.loads(response.data)
+
+    response_data_hits = response_data["hits"]["hits"]
+    response_data_hits_len = len(response_data_hits)
+    response_data_hits_metadata = response_data_hits[0]["metadata"]
+    experiments = response_data_hits_metadata.get("accelerator_experiments", [])
+
+    assert response_data_hits_len == 1
+    assert expected_status_code == response_status_code
+    assert len(experiments) == 1
+
+    assert experiments[0]["institution"] == "Fermilab"
+    assert experiments[0]["accelerator"] == "Tevatron"
+    assert experiments[0]["experiment"] == "E-0823"
+    assert "record" in experiments[0]
