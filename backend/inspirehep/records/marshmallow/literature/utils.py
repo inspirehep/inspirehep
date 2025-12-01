@@ -184,3 +184,15 @@ def get_expanded_authors(data):
         updated_authors.append(author)
 
     return updated_authors
+
+
+def get_documents_without_error_field(data):
+    documents = data.get("documents", [])
+    non_hidden_documents = []
+    for document in documents:
+        if "hidden" in document:
+            continue
+        if "_error" in document:
+            del document["_error"]
+        non_hidden_documents.append(document)
+    return non_hidden_documents

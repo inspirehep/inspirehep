@@ -13,6 +13,12 @@ from marshmallow import Schema, fields, pre_dump
 class AcceleratorExperimentSchemaV1(Schema):
     name = fields.Method("get_name")
     record = fields.Raw(attribute="self", dump_only=True)
+    institution = fields.Method("get_institution", dump_only=True)
+    accelerator = fields.Method("get_accelerator", dump_only=True)
+    experiment = fields.Method("get_experiment", dump_only=True)
+
+    class Meta:
+        exclude = ["institution", "accelerator", "experiment"]
 
     @pre_dump(pass_many=True)
     def resolve_experiment_records(self, data, many):
@@ -43,9 +49,23 @@ class AcceleratorExperimentSchemaV1(Schema):
         return experiment_record or experiment
 
     def get_name(self, item):
-        institution = get_value(item, "institutions[0].value")
-        accelerator = get_value(item, "accelerator.value")
-        experiment = get_value(item, "experiment.value")
+        institution = self.get_institution(item)
+        accelerator = self.get_accelerator(item)
+        experiment = self.get_experiment(item)
         if institution and accelerator and experiment:
             return f"{institution}-{accelerator}-{experiment}"
         return item.get("legacy_name")
+
+    def get_institution(self, item):
+        return get_value(item, "institutions[0].value")
+
+    def get_accelerator(self, item):
+        return get_value(item, "accelerator.value")
+
+    def get_experiment(self, item):
+        return get_value(item, "experiment.value")
+
+
+class AcceleratorExperimentExpandedSchemaV1(AcceleratorExperimentSchemaV1):
+    class Meta:
+        exclude = ["name"]
