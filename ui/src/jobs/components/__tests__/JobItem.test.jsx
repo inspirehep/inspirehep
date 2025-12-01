@@ -1,10 +1,12 @@
 import { fromJS } from 'immutable';
 
+import { advanceTo, clear } from 'jest-date-mock';
 import JobItem from '../JobItem';
 import { renderWithRouter } from '../../../fixtures/render';
 
 describe('JobItem', () => {
   it('renders full job search result item', () => {
+    advanceTo('2025-06-01');
     const created = '2019-05-31T12:23:15.104851+00:00';
     const metadata = fromJS({
       deadline_date: '2020-05-31',
@@ -31,5 +33,6 @@ describe('JobItem', () => {
     expect(getByText('Europe')).toBeInTheDocument();
     expect(getByText('Senior (permanent)')).toBeInTheDocument();
     expect(getByText('6 years ago')).toBeInTheDocument();
+    clear();
   });
 });
