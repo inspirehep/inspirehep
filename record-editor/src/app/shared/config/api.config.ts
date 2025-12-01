@@ -44,4 +44,5 @@ export const editorApiUrl = `${apiUrl}/editor`;
 export const matcherApiUrl = `${apiUrl}/matcher`;
 export const holdingpenApiUrl = `${apiUrl}/holdingpen`;
 export const backofficeApiUrl = getConfigFor('EDITOR_BACKOFFICE_API_URL');
-export const hepSchemaUrl = getConfigFor('EDITOR_SCHEMA_URL');
+export const hepSchemaUrl = getConfigFor('EDITOR_HEP_SCHEMA_URL');
+export const authorsSchemaUrl = getConfigFor('EDITOR_AUTHORS_SCHEMA_URL');

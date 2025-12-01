@@ -13,7 +13,7 @@ export interface WorkflowObject<T = object> {
   };
   metadata: {
     $schema: string;
-    _collections: ['Authors'];
+    _collections: string[];
     acquisition_source: T;
     name: {
       value: string;
