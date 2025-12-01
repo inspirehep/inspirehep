@@ -79,7 +79,7 @@ export class BackofficeEditorComponent extends SubscriberComponent implements On
         this.type,
         this.uuid
       ) as WorkflowObject;
-      this.schema = await this.apiService.fetchSchema();
+      this.schema = await this.apiService.fetchSchema(this.type);
       this.setWorkflowProblems();
       this.globalAppStateService.jsonBeingEdited$.next(this.workflowObject);
       this.globalAppStateService.isJsonUpdated$.next(false);

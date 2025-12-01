@@ -26,7 +26,7 @@ import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { CommonApiService } from './common-api.service';
-import { backofficeApiUrl, hepSchemaUrl } from '../../shared/config';
+import { backofficeApiUrl, hepSchemaUrl, authorsSchemaUrl } from '../../shared/config';
 import { ApiError } from '../../shared/classes';
 import { WorkflowObject } from '../../shared/interfaces';
 
@@ -42,7 +42,7 @@ export interface BackofficeWorkflow {
     };
     status?: string;
     $schema: string;
-    _collections: ['Authors'];
+    _collections: string[];
     control_number?: number;
     acquisition_source: {
       email: string | null;
@@ -73,8 +73,9 @@ export class BackofficeApiService extends CommonApiService {
     super(http);
   }
 
-  fetchSchema(): Promise<object> {
-    return this.fetchUrl(`${hepSchemaUrl}`);
+  fetchSchema(type?: string): Promise<object> {
+    const schemaUrl = type === 'authors' ? authorsSchemaUrl : hepSchemaUrl;
+    return this.fetchUrl(`${schemaUrl}`);
   }
 
   async fetchWorkflowObject(
@@ -86,8 +87,8 @@ export class BackofficeApiService extends CommonApiService {
       this.currentWorkflowObjectApiUrl = `${backofficeApiUrl}/workflows/${type}/${objectId}/`;
       const response = await this.fetchUrl<BackofficeWorkflow>(
         this.currentWorkflowObjectApiUrl, {
-          withCredentials: true
-        }
+        withCredentials: true
+      }
       );
 
       if (getFullObject) {
@@ -96,7 +97,7 @@ export class BackofficeApiService extends CommonApiService {
         return {
           id: response.id,
           metadata: {
-            $schema: this.fetchSchema(),
+            $schema: this.fetchSchema(type),
             ...response.data,
           },
           _extra_data: {},
@@ -107,10 +108,10 @@ export class BackofficeApiService extends CommonApiService {
 
   validateWorkflowObject(type: string, object: WorkflowObject): Observable<Object> {
     return this.http
-    .post(`${backofficeApiUrl}/workflows/${type}/validate/`, object.metadata,
-      { withCredentials: true, headers: new Headers({ 'Content-Type': 'application/json' }) })
-    .catch((error) => Observable.throw(new ApiError(error)))
-    .map((res) => res.json());
+      .post(`${backofficeApiUrl}/workflows/${type}/validate/`, object.metadata,
+        { withCredentials: true, headers: new Headers({ 'Content-Type': 'application/json' }) })
+      .catch((error) => Observable.throw(new ApiError(error)))
+      .map((res) => res.json());
   }
 
   saveWorkflowObject(object: WorkflowObject, request_data): Observable<void> {
