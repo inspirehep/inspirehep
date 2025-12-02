@@ -44,6 +44,31 @@ def fetch_records(connection_id, metadata_prefix, from_date, until_date=None, se
     return [record.raw for record in records]
 
 
+def fetch_record_by_id(connection_id, metadata_prefix, arxiv_id):
+    """Fetch a single xml record by its arXiv id.
+    Args:
+        arxiv_id (str): The arXiv id of the record to fetch.
+    Returns:
+        str: The xml record.
+    """
+
+    conn = BaseHook.get_connection(connection_id)
+    sickle = Sickle(conn.host)
+
+    oaiargs = {
+        "identifier": f"oai:arXiv.org:{arxiv_id}",
+        "metadataPrefix": metadata_prefix,
+    }
+
+    logger.info(f"Collecting record from arXiv with id '{arxiv_id}'")
+    try:
+        record = sickle.GetRecord(**oaiargs)
+    except oaiexceptions.IdDoesNotExist:
+        raise AirflowSkipException(f"No record for id '{arxiv_id}'") from None
+
+    return record.raw
+
+
 def build_records(xml_records, submission_number):
     """Build the records from the arXiv xml response.
     Args:
