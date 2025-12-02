@@ -201,7 +201,7 @@ asana==5.2.1
 asgiref==3.9.1
 asn1crypto==1.5.1
 astroid==3.3.11
-asttokens==3.0.0
+asttokens==3.0.1
 asyncpg==0.30.0
 asyncssh==2.21.0
 atlasclient==1.0.0
