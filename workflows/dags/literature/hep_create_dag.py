@@ -1386,16 +1386,16 @@ def hep_create_dag():
             workflow_id = context["params"]["workflow_id"]
             workflow_data = workflow_management_hook.get_workflow(workflow_id)
 
-            action = None
-
-            for decision in workflow_data.get("decisions", []):
-                if decision.get("action") in [
+            decision = get_decision(
+                workflow_data.get("decisions", []),
+                [
                     "hep_accept",
                     "hep_accept_core",
                     "hep_reject",
-                ]:
-                    action = decision.get("action")
-                    break
+                ],
+            )
+
+            action = decision.get("action") if decision else None
 
             if not action:
                 workflow_management_hook.set_workflow_status(
@@ -1604,16 +1604,22 @@ def hep_create_dag():
             workflow_id = context["params"]["workflow_id"]
             workflow_data = workflow_management_hook.get_workflow(workflow_id)
 
-            decision = get_decision(workflow_data.get("decisions"), "core_selection")
+            decision = get_decision(
+                workflow_data.get("decisions", []),
+                ["core_selection_accept", "core_selection_accept_core"],
+            )
 
-            if not decision:
+            action = decision.get("action") if decision else None
+
+            if not action:
                 workflow_management_hook.set_workflow_status(
                     status_name="approval_core_selection", workflow_id=workflow_id
                 )
 
                 return False
 
-            workflow_data["data"]["core"] = decision.get("value") == "accept_core"
+            is_core_selection_accepted = action == "core_selection_accept_core"
+            workflow_data["data"]["core"] = is_core_selection_accepted
 
             write_object(
                 s3_hook,

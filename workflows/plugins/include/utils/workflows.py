@@ -15,10 +15,16 @@ from tenacity import RetryError
 logger = logging.getLogger(__name__)
 
 
-def get_decision(decisions, action):
+def get_decision(decisions, actions):
+    if not decisions:
+        return None
+
+    actions = {actions} if isinstance(actions, str) else set(actions)
+
     for decision in decisions:
-        if decision["action"] == action:
+        if decision.get("action") in actions:
             return decision
+
     return None
 
 
