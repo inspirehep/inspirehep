@@ -2145,17 +2145,19 @@ class Test_HEPCreateDAG:
 
     def test_guess_coreness(self):
         workflow_data = {
-            "titles": [
-                {"title": "Study of Higgs boson production in particle physics"}
-            ],
-            "abstracts": [
-                {
-                    "value": (
-                        "We present a comprehensive study of Higgs boson"
-                        " production mechanisms in high-energy particle collisions."
-                    )
-                }
-            ],
+            "data": {
+                "titles": [
+                    {"title": "Study of Higgs boson production in particle physics"}
+                ],
+                "abstracts": [
+                    {
+                        "value": (
+                            "We present a comprehensive study of Higgs boson"
+                            " production mechanisms in high-energy particle collisions."
+                        )
+                    }
+                ],
+            }
         }
         write_object(
             s3_hook,
