@@ -1,0 +1,85 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://oaipmh.arxiv.org/oai?identifier=oai%3AarXiv.org%3A2511.23462&metadataPrefix=arXiv&verb=GetRecord
+  response:
+    body:
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\"
+        \n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/
+        http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\">\n    <responseDate>2025-12-02T12:58:15Z</responseDate>\n
+        \               <request verb=\"GetRecord\" identifier=\"oai:arXiv.org:2511.23462\"
+        metadataPrefix=\"arXiv\">http://oaipmh.arxiv.org/oai</request>\n\n\n    <GetRecord>\n
+        \               <record>\n                <header>\n        <identifier>oai:arXiv.org:2511.23462</identifier>\n
+        \       <datestamp>2025-12-01</datestamp>\n            <setSpec>physics:physics:atom-ph</setSpec>\n
+        \           <setSpec>physics:quant-ph</setSpec>\n    </header>\n\n            <metadata>\n
+        \                       <arXiv xmlns=\"http://arxiv.org/OAI/arXiv/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+        xsi:schemaLocation=\"http://arxiv.org/OAI/arXiv/ https://oaipmh.arxiv.org/OAI/arXiv.xsd\">\n
+        \       <id>2511.23462</id>\n        <created>2025-11-28</created>\n            <updated>2025-12-01</updated>\n
+        \       <authors>\n                <author>\n                    <keyname>Thomas</keyname>\n
+        \                       <forenames>Carl</forenames>\n                </author>\n
+        \               <author>\n                    <keyname>Munk</keyname>\n                        <forenames>Rebecca</forenames>\n
+        \               </author>\n                <author>\n                    <keyname>Blinov</keyname>\n
+        \                       <forenames>Boris</forenames>\n                </author>\n
+        \       </authors>\n        <title>Arbitrary control of the temporal waveform
+        of photons during spontaneous emission</title>\n            <categories>physics.atom-ph
+        quant-ph</categories>\n            <comments>13 pages, 11 pages</comments>\n
+        \           <license>http://arxiv.org/licenses/nonexclusive-distrib/1.0/</license>\n
+        \           <abstract>Control of the temporal waveform and Fock state statistics
+        of photons produced during spontaneous emission from single quantum emitters
+        provides a crucial tool in the establishment of hybrid quantum systems, optimal
+        state transfer and interferometric stability of network architectures based
+        on flying qubits. We describe a method to generate photons of any temporal
+        waveform from emitters of any lifetime. Our broadly applicable approach has
+        only two requirements for a candidate qudit: (1) control of the phase-parity
+        and (2) modulation of the amplitude of a field coupling a ground state to
+        an excited manifold which produces a photon during relaxation. We detail how
+        to find optimal excitation pulse shapes, both numerically and experimentally,
+        by employing variational algorithms to feedback on atomic populations. Additionally,
+        we develop Quantum Monte Carlo based tools to determine emission statistics
+        and establish techniques for optimal post-selection to ensure maximum fidelity
+        of photon generation protocols. We situate our work in the context of other
+        prior research on bespoke single photon sources and networking including post-emission
+        pulse shaping, temporal gating and cavity-based methods. In comparison, our
+        free-space process has greater flexibility in producing any waveform, requires
+        less infrastructure and can be readily applied across a wide domain of emitters
+        of any frequency or lifetime. We demonstrate temporal waveform shaping in
+        $^{174}$Yb$^+$ trapped ions. Using feedforward validation of photon waveforms,
+        we estimate an achievable process fidelity of at least $\\approx$0.996.</abstract>\n
+        \   </arXiv>\n\n            </metadata>\n        </record>\n\n    </GetRecord>\n</OAI-PMH>"
+    headers:
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '458'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '3611'
+      Date:
+      - Tue, 02 Dec 2025 13:05:53 GMT
+      X-Cache:
+      - MISS, MISS, HIT
+      X-Served-By:
+      - cache-lga21989-LGA, cache-lga21935-LGA, cache-fra-eddf8230106-FRA
+      X-Timer:
+      - S1764680754.802195,VS0,VE2
+      content-type:
+      - text/xml
+      server:
+      - Google Frontend
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish
+      x-cloud-trace-context:
+      - d716e3b078ec6b0438167733c9b61274;o=1
+    status:
+      code: 200
+      message: OK
+version: 1
