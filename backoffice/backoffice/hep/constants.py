@@ -44,7 +44,6 @@ HEP_DEFAULT_WORKFLOW_TYPE = HepWorkflowType.HEP_CREATE
 class HepResolutions(models.TextChoices):
     exact_match = "exact_match", "await_decision_exact_match"
     fuzzy_match = "fuzzy_match", "await_decision_fuzzy_match"
-    approval = "approval", "approval"  # TODO: Remove this, it will not be needed
     hep_accept = (
         "hep_accept",
         "halt_for_approval_if_new_or_reject_if_not_relevant.await_decision_approval",
@@ -57,7 +56,14 @@ class HepResolutions(models.TextChoices):
         "hep_reject",
         "halt_for_approval_if_new_or_reject_if_not_relevant.await_decision_approval",
     )
-    core_selection = "core_selection", "core_selection"
+    core_selection_accept = (
+        "core_selection_accept",
+        "core_selection.await_decision_core_selection_approval",
+    )
+    core_selection_accept_core = (
+        "core_selection_accept_core",
+        "core_selection.await_decision_core_selection_approval",
+    )
 
 
 HEP_DECISION_CHOICES = HepResolutions.choices

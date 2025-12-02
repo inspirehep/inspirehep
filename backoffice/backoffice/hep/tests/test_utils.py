@@ -29,7 +29,7 @@ class TestUtils(TransactionTestCase):
         decision_data = add_hep_decision(
             self.workflow.id,
             self.user,
-            HepResolutions.approval,
+            HepResolutions.hep_accept,
         )
         self.assertIsNotNone(decision_data)
 
@@ -45,5 +45,5 @@ class TestUtils(TransactionTestCase):
             add_hep_decision(
                 uuid.UUID(int=0),
                 self.user,
-                HepResolutions.approval,
+                HepResolutions.hep_accept,
             )

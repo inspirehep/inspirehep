@@ -19,7 +19,7 @@ class TestDecisionsViewSet(BaseTransactionTestCase):
         self.api_client.force_authenticate(user=self.curator)
         data = {
             "workflow_id": self.workflow.id,
-            "action": "approval",
+            "action": "hep_accept_core",
         }
 
         url = reverse("api:hep-decisions-list")

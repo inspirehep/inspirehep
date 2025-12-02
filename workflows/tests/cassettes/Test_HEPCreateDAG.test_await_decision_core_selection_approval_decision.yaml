@@ -25,7 +25,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:47:59 GMT
+      - Tue, 02 Dec 2025 09:59:02 GMT
       Location:
       - /api/workflows/literature/07c5a66c-1e5b-4da6-823c-871caf43e073/
       Referrer-Policy:
@@ -53,20 +53,20 @@ interactions:
   response:
     body:
       string: '{"id":"07c5a66c-1e5b-4da6-823c-871caf43e073","validation_errors":[],"data":{"titles":[{"title":"TEST
-        TEST","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"]},"tickets":[],"decisions":[{"id":4,"workflow":"07c5a66c-1e5b-4da6-823c-871caf43e073","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"core_selection","value":"accept_core","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2025-11-01T00:00:00Z","_updated_at":"2025-11-01T00:00:00Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"status":"running"}'
+        TEST","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"]},"tickets":[],"decisions":[{"id":4,"workflow":"07c5a66c-1e5b-4da6-823c-871caf43e073","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"core_selection_accept_core","value":"","user":"admin@admin.com"},{"id":7,"workflow":"07c5a66c-1e5b-4da6-823c-871caf43e073","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_reject","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2025-11-01T00:00:00Z","_updated_at":"2025-11-01T00:00:00Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"running"}'
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '740'
+      - '961'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:47:59 GMT
+      - Tue, 02 Dec 2025 09:59:02 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -106,7 +106,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:47:59 GMT
+      - Tue, 02 Dec 2025 09:59:02 GMT
       Location:
       - /api/workflows/literature/07c5a66c-1e5b-4da6-823c-871caf43e073/
       Referrer-Policy:
@@ -134,20 +134,20 @@ interactions:
   response:
     body:
       string: '{"id":"07c5a66c-1e5b-4da6-823c-871caf43e073","validation_errors":[],"data":{"titles":[{"title":"TEST
-        TEST","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"]},"tickets":[],"decisions":[{"id":4,"workflow":"07c5a66c-1e5b-4da6-823c-871caf43e073","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"core_selection","value":"accept_core","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2025-11-01T00:00:00Z","_updated_at":"2025-11-01T00:00:00Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"status":"running"}'
+        TEST","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"]},"tickets":[],"decisions":[{"id":4,"workflow":"07c5a66c-1e5b-4da6-823c-871caf43e073","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"core_selection_accept_core","value":"","user":"admin@admin.com"},{"id":7,"workflow":"07c5a66c-1e5b-4da6-823c-871caf43e073","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_reject","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2025-11-01T00:00:00Z","_updated_at":"2025-11-01T00:00:00Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"running"}'
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '740'
+      - '961'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:47:59 GMT
+      - Tue, 02 Dec 2025 09:59:02 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -187,7 +187,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:48:00 GMT
+      - Tue, 02 Dec 2025 09:59:02 GMT
       Location:
       - /api/workflows/literature/66961888-a628-46b7-b807-4deae3478adc/
       Referrer-Policy:
@@ -216,20 +216,20 @@ interactions:
     body:
       string: '{"id":"66961888-a628-46b7-b807-4deae3478adc","validation_errors":[],"data":{"dois":[{"value":"10.1016/j.physletb.2025.139959"}],"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
         MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2507.26819","categories":["cs.CV","cs.AI","cs.LG","cs.RO"]}],"document_type":["article"],"_private_notes":[{"value":"Also
-        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":2,"workflow":"66961888-a628-46b7-b807-4deae3478adc","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"fuzzy_match","value":"","user":"admin@admin.com"},{"id":3,"workflow":"66961888-a628-46b7-b807-4deae3478adc","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"core_selection","value":"accept","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2024-11-25T13:49:54.756000Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"status":"blocked"}'
+        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":2,"workflow":"66961888-a628-46b7-b807-4deae3478adc","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"fuzzy_match","value":"","user":"admin@admin.com"},{"id":3,"workflow":"66961888-a628-46b7-b807-4deae3478adc","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"core_selection_accept","value":"","user":"admin@admin.com"},{"id":5,"workflow":"66961888-a628-46b7-b807-4deae3478adc","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_accept","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2024-11-25T13:49:54.756000Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"blocked"}'
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '1465'
+      - '1686'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:48:00 GMT
+      - Tue, 02 Dec 2025 09:59:03 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -269,7 +269,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:48:00 GMT
+      - Tue, 02 Dec 2025 09:59:03 GMT
       Location:
       - /api/workflows/literature/66961888-a628-46b7-b807-4deae3478adc/
       Referrer-Policy:
@@ -298,20 +298,20 @@ interactions:
     body:
       string: '{"id":"66961888-a628-46b7-b807-4deae3478adc","validation_errors":[],"data":{"dois":[{"value":"10.1016/j.physletb.2025.139959"}],"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
         MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2507.26819","categories":["cs.CV","cs.AI","cs.LG","cs.RO"]}],"document_type":["article"],"_private_notes":[{"value":"Also
-        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":2,"workflow":"66961888-a628-46b7-b807-4deae3478adc","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"fuzzy_match","value":"","user":"admin@admin.com"},{"id":3,"workflow":"66961888-a628-46b7-b807-4deae3478adc","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"core_selection","value":"accept","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2024-11-25T13:49:54.756000Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"status":"blocked"}'
+        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":2,"workflow":"66961888-a628-46b7-b807-4deae3478adc","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"fuzzy_match","value":"","user":"admin@admin.com"},{"id":3,"workflow":"66961888-a628-46b7-b807-4deae3478adc","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"core_selection_accept","value":"","user":"admin@admin.com"},{"id":5,"workflow":"66961888-a628-46b7-b807-4deae3478adc","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_accept","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2024-11-25T13:49:54.756000Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"blocked"}'
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '1465'
+      - '1686'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 18 Nov 2025 13:48:00 GMT
+      - Tue, 02 Dec 2025 09:59:03 GMT
       Referrer-Policy:
       - same-origin
       Server:
