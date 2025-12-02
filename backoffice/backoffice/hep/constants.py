@@ -9,7 +9,7 @@ HEP_DEFAULT_TICKET_TYPE = "hep_create_curation"
 
 class HepStatusChoices(models.TextChoices):
     APPROVAL = "approval", "Waiting for approval"
-    APPROVAL_CORE_SELECTION_ = (
+    APPROVAL_CORE_SELECTION = (
         "approval_core_selection",
         "Waiting for CORE selection approval",
     )

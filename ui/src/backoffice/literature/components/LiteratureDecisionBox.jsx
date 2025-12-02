@@ -6,39 +6,74 @@ import { LITERATURE } from '../../../common/routes';
 import AutomaticDecision from './AutomaticDecision';
 import LiteratureReferenceCount from './LiteratureReferenceCount';
 import LiteratureKeywords from './LiteratureKeywords';
+import { LiteratureHepSelectionButtons } from './LiteratureHepSelectionButtons';
+import { LiteratureCoreSelectionButtons } from './LiteratureCoreSelectionButtons';
 
 const LiteratureDecisionBox = ({
-  decision,
-  controlNumber,
-  inspireCategories,
-  relevancePrediction,
-  referenceCount,
-  totalReferences,
+  actionInProgress,
   classifierResults,
+  controlNumber,
+  decision,
+  handleResolveAction,
+  inspireCategories,
+  referenceCount,
+  relevancePrediction,
+  status,
+  totalReferences,
 }) => {
-  const resolvedDecision = resolveDecision(decision.get('action'));
+  const resolvedDecision = decision
+    ? resolveDecision(decision.get('action'))
+    : undefined;
   const className = resolvedDecision
     ? `decision-pill ${resolvedDecision.bg}`
-    : 'decision-pill';
-  const decisionText = resolvedDecision
-    ? resolvedDecision.decision
-    : 'completed';
+    : undefined;
+  const decisionText = resolvedDecision ? resolvedDecision.decision : undefined;
+
+  const hasInspireCategories =
+    Array.isArray(inspireCategories) && inspireCategories.length > 0;
+
+  const renderActionButtons = () => {
+    switch (status) {
+      case 'approval_core_selection':
+        return (
+          <LiteratureCoreSelectionButtons
+            handleResolveAction={handleResolveAction}
+            actionInProgress={actionInProgress}
+          />
+        );
+      case 'approval':
+        return (
+          <LiteratureHepSelectionButtons
+            hasInspireCategories={hasInspireCategories}
+            handleResolveAction={handleResolveAction}
+            actionInProgress={actionInProgress}
+          />
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="mb0">
       <AutomaticDecision
-        inspireCategories={inspireCategories}
+        hasInspireCategories={hasInspireCategories}
         relevancePrediction={relevancePrediction}
       />
-      This workflow is{' '}
-      <UnclickableTag className={className}>{decisionText}</UnclickableTag>
-      {controlNumber && (
-        <span>
-          as{' '}
-          <LinkWithTargetBlank href={`${LITERATURE}/${controlNumber}`}>
-            {controlNumber}
-          </LinkWithTargetBlank>
-        </span>
+      {renderActionButtons()}
+      {decision && (
+        <>
+          This workflow is{' '}
+          <UnclickableTag className={className}>{decisionText}</UnclickableTag>
+          {controlNumber && (
+            <span>
+              as{' '}
+              <LinkWithTargetBlank href={`${LITERATURE}/${controlNumber}`}>
+                {controlNumber}
+              </LinkWithTargetBlank>
+            </span>
+          )}
+        </>
       )}
       <LiteratureReferenceCount
         referenceCount={referenceCount}

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ActionCreator, Action } from 'redux';
 import { connect, RootStateOrAny } from 'react-redux';
-import { List, Map } from 'immutable';
+import { Map } from 'immutable';
 import { push } from 'connected-react-router';
 
 import './LiteratureDetailPageContainer.less';
@@ -69,7 +69,7 @@ const LiteratureDetailPageContainer = ({
   const controlNumber = data?.get('control_number');
   const tickets =
     literature?.get('tickets')?.size !== 0 && literature?.get('tickets');
-  const decision = literature?.getIn(['decisions', 0]) as Map<string, any>;
+  const decision = literature?.getIn(['decisions', 0]) as Map<string, any>; // TODO: Fix this, we should not grab the first decision only
   const status = literature?.get('status');
   const workflow_type = literature?.get('workflow_type');
   const inspireCategories = data?.get('inspire_categories')?.toJS();
@@ -87,8 +87,6 @@ const LiteratureDetailPageContainer = ({
   const acquisitionSourceSource = data?.getIn(['acquisition_source', 'source']);
   const acquisitionSourceMethod = data?.getIn(['acquisition_source', 'method']);
 
-  const shouldDisplayDecisionsBox = decision || status === 'approval';
-
   const DAGS_URL = getConfigFor('INSPIRE_WORKFLOWS_DAGS_URL');
   const DAG_FULL_URL = `${DAGS_URL}${getDag(workflow_type)}/runs/${id}`;
 
@@ -100,8 +98,12 @@ const LiteratureDetailPageContainer = ({
     'delete',
   ].filter(Boolean);
 
-  const handleResolveAction = (value: string) => {
-    dispatch(resolveAction(id, LITERATURE_PID_TYPE, 'resolve', { value }));
+  const handleResolveAction = (action: string, value: string) => {
+    const payload = {
+      action,
+      value,
+    };
+    dispatch(resolveAction(id, LITERATURE_PID_TYPE, 'resolve', payload));
   };
 
   const handleDelete = () => {
@@ -206,51 +208,24 @@ const LiteratureDetailPageContainer = ({
                     </CollapsableForm>
                   </Col>
                   <Col xs={24} lg={8}>
-                    {shouldDisplayDecisionsBox && (
-                      <ContentBox
-                        className="mb3"
-                        fullHeight={false}
-                        subTitle="Decision"
-                      >
-                        {decision ? (
-                          <LiteratureDecisionBox
-                            decision={decision}
-                            controlNumber={controlNumber}
-                            inspireCategories={inspireCategories}
-                            relevancePrediction={relevancePrediction}
-                            referenceCount={referenceCount}
-                            totalReferences={totalReferences}
-                            classifierResults={classifierResults}
-                          />
-                        ) : (
-                          <div className="w-100 flex flex-column items-center">
-                            <Button
-                              className="font-white bg-completed w-75 mb2"
-                              onClick={() => handleResolveAction('accept')}
-                              loading={actionInProgress === 'resolve'}
-                            >
-                              Accept
-                            </Button>
-                            <Button
-                              className="font-white bg-halted w-75 mb2"
-                              onClick={() =>
-                                handleResolveAction('accept_curate')
-                              }
-                              loading={actionInProgress === 'resolve'}
-                            >
-                              Accept + Curation
-                            </Button>
-                            <Button
-                              className="font-white bg-error w-75"
-                              onClick={() => handleResolveAction('reject')}
-                              loading={actionInProgress === 'resolve'}
-                            >
-                              Reject
-                            </Button>
-                          </div>
-                        )}
-                      </ContentBox>
-                    )}
+                    <ContentBox
+                      className="mb3"
+                      fullHeight={false}
+                      subTitle="Decision"
+                    >
+                      <LiteratureDecisionBox
+                        actionInProgress={actionInProgress}
+                        handleResolveAction={handleResolveAction}
+                        status={status}
+                        decision={decision}
+                        controlNumber={controlNumber}
+                        inspireCategories={inspireCategories}
+                        relevancePrediction={relevancePrediction}
+                        referenceCount={referenceCount}
+                        totalReferences={totalReferences}
+                        classifierResults={classifierResults}
+                      />
+                    </ContentBox>
                     <ContentBox
                       className="mb3"
                       fullHeight={false}

@@ -1081,5 +1081,53 @@
       "_created_at": "2025-11-01T00:00:00.000Z",
       "_updated_at": "2025-11-01T00:00:00.000Z"
     }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "5d660635-2d1d-4cba-bb43-5fe361cb034f",
+    "fields": {
+      "workflow_type": "HEP_CREATE",
+      "data": {
+        "urls": [
+          {
+            "value": "https://example.com"
+          },
+          {
+            "value": "https://other-page.com"
+          }
+        ],
+        "titles": [
+          {
+            "title": "The approval test",
+            "source": "submitter"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "arxiv_eprints": [
+          {
+            "value": "2507.26900",
+            "categories": ["cs.CV", "cs.AI", "cs.LG", "cs.RO"]
+          }
+        ],
+        "document_type": ["article"],
+        "_private_notes": [
+          {
+            "value": "Also some comments"
+          }
+        ],
+        "acquisition_source": {
+          "email": "user@cern.ch",
+          "orcid": "0000-0000-0000-0000",
+          "method": "submitter",
+          "source": "submitter",
+          "datetime": "2024-11-18T11:34:19.809575",
+          "internal_uid": 50872
+        }
+      },
+      "status": "approval",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
   }
 ]

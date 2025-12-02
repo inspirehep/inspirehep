@@ -1,10 +1,7 @@
 import React from 'react';
 import { resolveAutomaticDecision } from '../../utils/utils';
 
-const AutomaticDecision = ({ inspireCategories, relevancePrediction }) => {
-  const hasInspireCategories =
-    Array.isArray(inspireCategories) && inspireCategories.length > 0;
-
+const AutomaticDecision = ({ hasInspireCategories, relevancePrediction }) => {
   if (!hasInspireCategories || !relevancePrediction) return null;
 
   const decision = relevancePrediction.get('decision');
