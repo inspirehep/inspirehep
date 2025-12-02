@@ -361,7 +361,7 @@ google-cloud-dataform==0.6.2
 google-cloud-dataplex==2.11.0
 google-cloud-dataproc-metastore==1.19.0
 google-cloud-dataproc==5.21.0
-google-cloud-dlp==3.31.0
+google-cloud-dlp==3.33.0
 google-cloud-kms==3.5.1
 google-cloud-language==2.17.2
 google-cloud-logging==3.12.1
