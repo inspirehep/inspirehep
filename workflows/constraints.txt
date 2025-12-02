@@ -290,7 +290,7 @@ db-dtypes==1.4.3
 debugpy==1.8.16
 decorator==5.2.1
 defusedxml==0.7.1
-deltalake==1.1.4
+deltalake==1.2.1
 deprecation==2.1.0
 diagrams==0.24.4
 dill==0.3.1.1
