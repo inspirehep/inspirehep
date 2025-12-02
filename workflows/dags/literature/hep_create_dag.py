@@ -1134,8 +1134,8 @@ def hep_create_dag():
             workflow_data = read_object(
                 s3_hook, bucket_name, context["params"]["workflow_id"]
             )
-            title = get_value(workflow_data, "titles.title[0]", "")
-            abstract = get_value(workflow_data, "abstracts.value[0]", "")
+            title = get_value(workflow_data, "data.titles.title[0]", "")
+            abstract = get_value(workflow_data, "data.abstracts.value[0]", "")
             try:
                 clf = Classifier(model_path="/opt/classifier_model.h5")
                 results = clf.predict_coreness(title, abstract)
