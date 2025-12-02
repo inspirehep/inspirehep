@@ -13,7 +13,7 @@ describe('<AutomaticDecision />', () => {
 
     const { container } = render(
       <AutomaticDecision
-        inspireCategories={[]}
+        hasInspireCategories={false}
         relevancePrediction={relevancePrediction}
       />
     );
@@ -22,10 +22,7 @@ describe('<AutomaticDecision />', () => {
 
   test('renders null when relevancePrediction is missing', () => {
     const { container } = render(
-      <AutomaticDecision
-        inspireCategories={['hep']}
-        relevancePrediction={null}
-      />
+      <AutomaticDecision hasInspireCategories relevancePrediction={null} />
     );
     expect(container.firstChild).toBeNull();
   });
@@ -38,7 +35,7 @@ describe('<AutomaticDecision />', () => {
 
     render(
       <AutomaticDecision
-        inspireCategories={['hep']}
+        hasInspireCategories
         relevancePrediction={relevancePrediction}
       />
     );
@@ -55,7 +52,7 @@ describe('<AutomaticDecision />', () => {
 
     render(
       <AutomaticDecision
-        inspireCategories={['hep']}
+        hasInspireCategories
         relevancePrediction={relevancePrediction}
       />
     );
@@ -73,7 +70,7 @@ describe('<AutomaticDecision />', () => {
 
     render(
       <AutomaticDecision
-        inspireCategories={['hep']}
+        hasInspireCategories
         relevancePrediction={relevancePrediction}
       />
     );

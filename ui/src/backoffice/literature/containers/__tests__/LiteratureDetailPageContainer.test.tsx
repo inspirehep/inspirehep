@@ -90,8 +90,8 @@ describe('LiteratureDetailPageContainer', () => {
     renderComponent();
     expect(screen.getByText('Waiting for approval')).toBeInTheDocument();
 
+    expect(screen.getByText('Core')).toBeInTheDocument();
     expect(screen.getByText('Accept')).toBeInTheDocument();
-    expect(screen.getByText('Accept + Curation')).toBeInTheDocument();
     expect(screen.getByText('Reject')).toBeInTheDocument();
   });
 
