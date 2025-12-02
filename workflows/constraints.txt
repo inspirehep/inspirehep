@@ -822,4 +822,4 @@ zenpy==2.0.56
 zipp==3.23.0
 zope.event==5.1.1
 zope.interface==7.2
-zstandard==0.24.0
+zstandard==0.25.0
