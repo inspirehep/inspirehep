@@ -3814,11 +3814,15 @@ class Test_HEPCreateDAG:
             dag_id="hep_create_dag",
             task_id="halt_for_approval_if_new_or_reject_if_not_relevant.check_is_auto_approved",
             dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
         )
 
         workflow_result = read_object(s3_hook, bucket_name, self.workflow_id)
 
-        assert result == "halt_for_approval_if_new_or_reject_if_not_relevant.halt_end"
+        assert (
+            "halt_for_approval_if_new_or_reject_if_not_relevant.halt_end"
+            in result["followed"]
+        )
         assert get_flag("approved", workflow_result) is True
 
     def test_check_is_auto_approved_false(self):

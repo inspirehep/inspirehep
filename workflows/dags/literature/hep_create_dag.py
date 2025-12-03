@@ -310,7 +310,7 @@ def hep_create_dag():
             context["ti"].xcom_push(key="match", value=approved_match_id)
         return True
 
-    @task
+    @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def check_auto_approve(**context):
         workflow_id = context["params"]["workflow_id"]
         workflow_data = read_object(s3_hook, bucket_name, workflow_id)
@@ -1282,7 +1282,7 @@ def hep_create_dag():
                 overwrite=True,
             )
 
-        @task
+        @task.branch
         def check_is_auto_approved(**context):
             workflow_data = read_object(
                 s3_hook, bucket_name, context["params"]["workflow_id"]
@@ -1330,7 +1330,7 @@ def hep_create_dag():
                 "await_decision_approval"
             )
 
-        @task.branch
+        @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def should_replace_collection_to_hidden(**context):
             s3_workflow_id = context["params"]["workflow_id"]
             workflow_data = read_object(s3_hook, bucket_name, s3_workflow_id)
