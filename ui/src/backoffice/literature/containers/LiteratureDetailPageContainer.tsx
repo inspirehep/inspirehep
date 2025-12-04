@@ -36,6 +36,7 @@ import Links from '../../common/components/Links/Links';
 import LiteratureDecisionBox from '../components/LiteratureDecisionBox';
 import LiteratureReferences from '../components/LiteratureReferences';
 import LiteratureMatches from '../components/LiteratureMatches';
+import { WorkflowStatuses } from '../../constants';
 
 type LiteratureDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
@@ -94,7 +95,7 @@ const LiteratureDetailPageContainer = ({
     (urls || ids) && 'links',
     inspireCategories && 'subjectAreas',
     references && 'references',
-    status === 'error' && 'errors',
+    status === WorkflowStatuses.ERROR && 'errors',
     'delete',
   ].filter(Boolean);
 
@@ -177,7 +178,7 @@ const LiteratureDetailPageContainer = ({
                           <LiteratureReferences references={references} />
                         </CollapsableForm.Section>
                       )}
-                      {status === 'error' && (
+                      {status === WorkflowStatuses.ERROR && (
                         <CollapsableForm.Section header="Errors" key="errors">
                           <p>
                             See error details here:{' '}

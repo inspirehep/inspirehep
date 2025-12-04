@@ -8,6 +8,7 @@ import LiteratureReferenceCount from './LiteratureReferenceCount';
 import LiteratureKeywords from './LiteratureKeywords';
 import { LiteratureHepSelectionButtons } from './LiteratureHepSelectionButtons';
 import { LiteratureCoreSelectionButtons } from './LiteratureCoreSelectionButtons';
+import { WorkflowStatuses } from '../../constants';
 
 const LiteratureDecisionBox = ({
   actionInProgress,
@@ -34,14 +35,14 @@ const LiteratureDecisionBox = ({
 
   const renderActionButtons = () => {
     switch (status) {
-      case 'approval_core_selection':
+      case WorkflowStatuses.APPROVAL_CORE_SELECTION:
         return (
           <LiteratureCoreSelectionButtons
             handleResolveAction={handleResolveAction}
             actionInProgress={actionInProgress}
           />
         );
-      case 'approval':
+      case WorkflowStatuses.APPROVAL:
         return (
           <LiteratureHepSelectionButtons
             hasInspireCategories={hasInspireCategories}

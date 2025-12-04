@@ -7,6 +7,7 @@ import AuthorDetailPageContainer from '../AuthorDetailPageContainer';
 import { getStore } from '../../../../fixtures/store';
 import { renderWithProviders } from '../../../../fixtures/render';
 import { BACKOFFICE_RESOLVE_ACTION_REQUEST } from '../../../../actions/actionTypes';
+import { WorkflowStatuses } from '../../../constants';
 
 describe('AuthorDetailPageContainer', (ids: any = []) => {
   const renderComponent = (ids: any = []) => {
@@ -31,7 +32,7 @@ describe('AuthorDetailPageContainer', (ids: any = []) => {
             },
             ids: [{ schema: 'ORCID', value: '0000-0002-6357-9297' }, ...ids],
           },
-          status: 'approval',
+          status: WorkflowStatuses.APPROVAL,
           tickets: [
             { ticket_id: 'ticket1', ticket_url: 'www.ticket1.com' },
             { ticket_id: 'ticket2', ticket_url: 'www.ticket2.com' },
@@ -181,7 +182,7 @@ describe('AuthorDetailPageContainer - Name Fields and control number', () => {
         loggedIn: true,
         author: fromJS({
           data: { ...authorData },
-          status: 'approval',
+          status: WorkflowStatuses.APPROVAL,
           ...(decisions && { decisions: fromJS(decisions) }),
         }),
       }),

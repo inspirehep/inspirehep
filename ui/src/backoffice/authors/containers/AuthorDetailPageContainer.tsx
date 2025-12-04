@@ -45,6 +45,7 @@ import { BACKOFFICE_AUTHORS_SEARCH_NS } from '../../../search/constants';
 import { AUTHORS_PID_TYPE } from '../../../common/constants';
 import { StatusBanner } from '../../common/components/Detail/StatusBanner';
 import { TicketsList } from '../../common/components/Detail/TicketsList';
+import { WorkflowStatuses } from '../../constants';
 
 type AuthorDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
@@ -85,7 +86,8 @@ const AuthorDetailPageContainer = ({
 
   const privateNotes = data?.get('_private_notes');
 
-  const shouldDisplayDecisionsBox = decision || status === 'approval';
+  const shouldDisplayDecisionsBox =
+    decision || status === WorkflowStatuses.APPROVAL;
 
   const DAGS_URL = getConfigFor('INSPIRE_WORKFLOWS_DAGS_URL');
   const DAG_FULL_URL = `${DAGS_URL}${getDag(workflow_type)}/runs/${id}`;
@@ -95,7 +97,7 @@ const AuthorDetailPageContainer = ({
     data?.get('project_membership') && 'projects',
     (urls || filteredIds?.size) && 'links',
     (data?.get('arxiv_categories') || data?.get('advisors')) && 'other',
-    status === 'error' && 'errors',
+    status === WorkflowStatuses.ERROR && 'errors',
     'delete',
   ].filter(Boolean);
 
@@ -204,7 +206,7 @@ const AuthorDetailPageContainer = ({
                         </Col>
                       </Row>
                     </CollapsableForm.Section>
-                    {status === 'error' && (
+                    {status === WorkflowStatuses.ERROR && (
                       <CollapsableForm.Section header="Errors" key="errors">
                         <p>
                           See error details here:{' '}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'antd';
 import { getWorkflowStatusInfo } from '../../../utils/utils';
+import { WorkflowStatuses } from '../../../constants';
 
 export const StatusBanner = ({ status }) => {
   if (!status) return null;
@@ -9,7 +10,7 @@ export const StatusBanner = ({ status }) => {
 
   const baseClasses = [
     `bg-${status}`,
-    status === 'error' ? 'white' : '',
+    status === WorkflowStatuses.ERROR ? 'white' : '',
     'w-100',
   ]
     .filter(Boolean)
