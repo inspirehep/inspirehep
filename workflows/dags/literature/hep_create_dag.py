@@ -1198,6 +1198,7 @@ def hep_create_dag():
             )
             >> guess_coreness()
             >> normalize_collaborations()
+            >> save_workflow()
         )
 
     @task_group
@@ -1577,25 +1578,19 @@ def hep_create_dag():
                 overwrite=True,
             )
 
-        @task.short_circuit
-        def is_core(**context):
-            workflow_id = context["params"]["workflow_id"]
-            workflow_data = read_object(s3_hook, bucket_name, workflow_id)
-
-            data = workflow_data.get("data", {})
-            return bool(data.get("core"))
-
         set_core_if_not_update_task = set_core_if_not_update()
         set_refereed = set_refereed_and_fix_document_type()
-        should_normalize_authors = is_core()
         normalize_author_affiliations_task = normalize_author_affiliations()
         link_institutions_with_affiliations_task = link_institutions_with_affiliations()
 
-        set_core_if_not_update_task >> set_refereed
-        set_refereed >> should_normalize_authors >> normalize_author_affiliations_task
-        set_refereed >> link_institutions_with_affiliations_task
-        normalize_author_affiliations_task >> link_institutions_with_affiliations_task
-        link_institutions_with_affiliations_task >> save_workflow() >> validate_record()
+        (
+            set_core_if_not_update_task
+            >> set_refereed
+            >> normalize_author_affiliations_task
+            >> link_institutions_with_affiliations_task
+            >> save_workflow()
+            >> validate_record()
+        )
 
     @task_group
     def core_selection():
