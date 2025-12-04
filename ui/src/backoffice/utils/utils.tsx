@@ -13,7 +13,7 @@ import { Action, ActionCreator } from 'redux';
 import storage from '../../common/storage';
 import { BACKOFFICE_LOGIN, BACKOFFICE_LOGIN_API } from '../../common/routes';
 import { searchQueryUpdate } from '../../actions/search';
-import { WorkflowTypes } from '../constants';
+import { WorkflowStatuses, WorkflowTypes } from '../constants';
 import {
   BACKOFFICE_AUTHORS_SEARCH_NS,
   BACKOFFICE_LITERATURE_SEARCH_NS,
@@ -40,25 +40,25 @@ export const COLLECTIONS = [
 
 export const getIcon = (status: string) => {
   switch (status?.toLowerCase()) {
-    case 'approval':
+    case WorkflowStatuses.APPROVAL:
       return <HourglassOutlined className="mr2" />;
-    case 'error':
+    case WorkflowStatuses.ERROR:
       return <WarningOutlined className="mr2" />;
-    case 'completed':
+    case WorkflowStatuses.COMPLETED:
       return <CheckOutlined className="mr2" />;
-    case 'running':
+    case WorkflowStatuses.RUNNING:
       return <LoadingOutlined className="mr2" />;
-    case 'processing':
+    case WorkflowStatuses.PROCESSING:
       return <FieldTimeOutlined className="mr2" />;
-    case 'blocked':
+    case WorkflowStatuses.BLOCKED:
       return <StopOutlined className="mr2" />;
-    case 'approval_fuzzy_matching':
+    case WorkflowStatuses.APPROVAL_FUZZY_MATCHING:
       return <HourglassOutlined className="mr2" />;
-    case 'error_multiple_exact_matches':
+    case WorkflowStatuses.ERROR_MULTIPLE_EXACT_MATCHES:
       return <WarningOutlined className="mr2" />;
-    case 'error_validation':
+    case WorkflowStatuses.ERROR_VALIDATION:
       return <WarningOutlined className="mr2" />;
-    case 'approval_core_selection':
+    case WorkflowStatuses.APPROVAL_CORE_SELECTION:
       return <HourglassOutlined className="mr2" />;
     default:
       return null;

@@ -13,7 +13,7 @@ import {
   BACKOFFICE,
 } from '../../common/routes';
 import DashboardPageContainer from '../dashboard/containers/DashboardPageContainer';
-import { WorkflowTypes } from '../constants';
+import { WorkflowStatuses, WorkflowTypes } from '../constants';
 
 describe('Backoffice', () => {
   const store = getStore({
@@ -32,7 +32,7 @@ describe('Backoffice', () => {
               {
                 key: WorkflowTypes.AUTHOR_CREATE,
                 doc_count: 1,
-                status: [{ key: 'error' }],
+                status: [{ key: WorkflowStatuses.ERROR }],
               },
               {
                 key: WorkflowTypes.AUTHOR_UPDATE,

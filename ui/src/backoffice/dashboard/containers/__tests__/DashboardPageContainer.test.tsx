@@ -6,7 +6,7 @@ import { getStore } from '../../../../fixtures/store';
 import DashboardPageContainer from '../DashboardPageContainer';
 import { BACKOFFICE } from '../../../../common/routes';
 import { BACKOFFICE_LOGIN_CHECK } from '../../../../actions/actionTypes';
-import { WorkflowTypes } from '../../../constants';
+import { WorkflowStatuses, WorkflowTypes } from '../../../constants';
 import { renderWithProviders } from '../../../../fixtures/render';
 
 describe('DashboardPageContainer', () => {
@@ -22,7 +22,7 @@ describe('DashboardPageContainer', () => {
               {
                 key: WorkflowTypes.AUTHOR_CREATE,
                 doc_count: 3,
-                status: [{ key: 'error' }],
+                status: [{ key: WorkflowStatuses.ERROR }],
               },
               {
                 key: WorkflowTypes.AUTHOR_UPDATE,
@@ -40,19 +40,19 @@ describe('DashboardPageContainer', () => {
           status: fromJS({
             buckets: fromJS([
               {
-                key: 'approval',
+                key: WorkflowStatuses.APPROVAL,
                 doc_count: 16,
               },
               {
-                key: 'completed',
+                key: WorkflowStatuses.COMPLETED,
                 doc_count: 9,
               },
               {
-                key: 'error',
+                key: WorkflowStatuses.ERROR,
                 doc_count: 16,
               },
               {
-                key: 'running',
+                key: WorkflowStatuses.RUNNING,
                 doc_count: 4,
               },
             ]),

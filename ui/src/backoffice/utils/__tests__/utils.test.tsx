@@ -9,65 +9,79 @@ import {
 } from '../utils';
 import storage from '../../../common/storage';
 import { BACKOFFICE_LOGIN_API } from '../../../common/routes';
-import { WorkflowTypes } from '../../constants';
+import { WorkflowStatuses, WorkflowTypes } from '../../constants';
 
 jest.mock('../../../common/storage');
 
 describe('getIcon', () => {
   it('should return HourglassOutlined for approval status', () => {
-    const { container } = render(getIcon('approval') as React.ReactElement);
+    const { container } = render(
+      getIcon(WorkflowStatuses.APPROVAL) as React.ReactElement
+    );
     expect(container.querySelector('.anticon-hourglass')).toBeInTheDocument();
   });
 
   it('should return WarningOutlined for error status', () => {
-    const { container } = render(getIcon('error') as React.ReactElement);
+    const { container } = render(
+      getIcon(WorkflowStatuses.ERROR) as React.ReactElement
+    );
     expect(container.querySelector('.anticon-warning')).toBeInTheDocument();
   });
 
   it('should return CheckOutlined for completed status', () => {
-    const { container } = render(getIcon('completed') as React.ReactElement);
+    const { container } = render(
+      getIcon(WorkflowStatuses.COMPLETED) as React.ReactElement
+    );
     expect(container.querySelector('.anticon-check')).toBeInTheDocument();
   });
 
   it('should return LoadingOutlined for running status', () => {
-    const { container } = render(getIcon('running') as React.ReactElement);
+    const { container } = render(
+      getIcon(WorkflowStatuses.RUNNING) as React.ReactElement
+    );
     expect(container.querySelector('.anticon-loading')).toBeInTheDocument();
   });
 
   it('should return FieldTimeOutlined for processing status', () => {
-    const { container } = render(getIcon('processing') as React.ReactElement);
+    const { container } = render(
+      getIcon(WorkflowStatuses.PROCESSING) as React.ReactElement
+    );
     expect(container.querySelector('.anticon-field-time')).toBeInTheDocument();
   });
 
   it('should return StopOutlined for blocked status', () => {
-    const { container } = render(getIcon('blocked') as React.ReactElement);
+    const { container } = render(
+      getIcon(WorkflowStatuses.BLOCKED) as React.ReactElement
+    );
     expect(container.querySelector('.anticon-stop')).toBeInTheDocument();
   });
 
   it('should return HourglassOutlined for fuzzy matching status', () => {
     const { container } = render(
-      getIcon('approval_fuzzy_matching') as React.ReactElement
+      getIcon(WorkflowStatuses.APPROVAL_FUZZY_MATCHING) as React.ReactElement
     );
     expect(container.querySelector('.anticon-hourglass')).toBeInTheDocument();
   });
 
   it('should return WarningOutlined for multiple exact matches status', () => {
     const { container } = render(
-      getIcon('error_multiple_exact_matches') as React.ReactElement
+      getIcon(
+        WorkflowStatuses.ERROR_MULTIPLE_EXACT_MATCHES
+      ) as React.ReactElement
     );
     expect(container.querySelector('.anticon-warning')).toBeInTheDocument();
   });
 
   it('should return WarningOutlined for validation error status', () => {
     const { container } = render(
-      getIcon('error_validation') as React.ReactElement
+      getIcon(WorkflowStatuses.ERROR_VALIDATION) as React.ReactElement
     );
     expect(container.querySelector('.anticon-warning')).toBeInTheDocument();
   });
 
   it('should return HourglassOutlined for core selection approval status', () => {
     const { container } = render(
-      getIcon('approval_core_selection') as React.ReactElement
+      getIcon(WorkflowStatuses.APPROVAL_CORE_SELECTION) as React.ReactElement
     );
     expect(container.querySelector('.anticon-hourglass')).toBeInTheDocument();
   });

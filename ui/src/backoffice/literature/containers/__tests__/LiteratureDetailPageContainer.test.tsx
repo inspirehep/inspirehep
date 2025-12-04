@@ -7,6 +7,7 @@ import LiteratureDetailPageContainer from '../LiteratureDetailPageContainer';
 import { getStore } from '../../../../fixtures/store';
 import { renderWithProviders } from '../../../../fixtures/render';
 import { BACKOFFICE } from '../../../../common/routes';
+import { WorkflowStatuses } from '../../../constants';
 
 describe('LiteratureDetailPageContainer', () => {
   const renderComponent = () => {
@@ -51,7 +52,7 @@ describe('LiteratureDetailPageContainer', () => {
               },
             ],
           },
-          status: 'approval',
+          status: WorkflowStatuses.APPROVAL,
           tickets: [
             { ticket_id: 'SNOW-123', ticket_url: 'https://snow/123' },
             { ticket_id: 'SNOW-456', ticket_url: 'https://snow/456' },

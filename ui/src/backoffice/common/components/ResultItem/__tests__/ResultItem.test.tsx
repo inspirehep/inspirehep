@@ -5,14 +5,14 @@ import { fromJS } from 'immutable';
 import ResultItem from '../ResultItem';
 import { renderWithProviders } from '../../../../../fixtures/render';
 import { BACKOFFICE_AUTHORS_SEARCH } from '../../../../../common/routes';
-import { WorkflowTypes } from '../../../../constants';
+import { WorkflowStatuses, WorkflowTypes } from '../../../../constants';
 
 describe('ResultItem component', () => {
   const renderComponent = (workflowType: string, data: any) => {
     const item = fromJS({
       id: '123',
       workflow_type: workflowType,
-      status: 'completed',
+      status: WorkflowStatuses.COMPLETED,
       decisions: fromJS([
         {
           action: 'accept',
