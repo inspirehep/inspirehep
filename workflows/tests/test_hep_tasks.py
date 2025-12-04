@@ -302,6 +302,57 @@ class Test_HEPCreateDAG:
         assert result["flags"]["auto-approved"] is True
 
     @pytest.mark.vcr
+    def test_check_if_previously_rejected_true(self):
+        workflow_data = {
+            "flags": {
+                "is-update": False,
+                "auto-approved": False,
+            },
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "A title"}],
+                "arxiv_eprints": [{"value": "2504.01123"}],
+                "acquisition_source": {
+                    "source": "arXiv",
+                },
+            },
+        }
+        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+
+        result = task_test(
+            "hep_create_dag",
+            "check_if_previously_rejected",
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+        assert "save_and_complete_workflow" in result["followed"]
+
+    @pytest.mark.vcr
+    def test_check_if_previously_rejected_false(self):
+        workflow_data = {
+            "flags": {
+                "is-update": False,
+                "auto-approved": False,
+            },
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "A title"}],
+                "arxiv_eprints": [{"value": "2504.01123"}],
+                "acquisition_source": {
+                    "source": "custom_source",
+                },
+            },
+        }
+        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+
+        result = task_test(
+            "hep_create_dag",
+            "check_if_previously_rejected",
+            dag_params=self.context["params"],
+        )
+        assert result == "preprocessing"
+
+    @pytest.mark.vcr
     def test_check_for_exact_matches_one_match(self):
         s3.write_workflow(
             s3_hook,

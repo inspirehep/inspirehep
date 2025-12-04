@@ -15,6 +15,7 @@ RUNNING_STATUSES = [
     "error",
     "running",
 ]
+COMPLETED_STATUSES = ["completed"]
 
 
 class WorkflowManagementHook(BackofficeHook):
@@ -85,3 +86,11 @@ class WorkflowManagementHook(BackofficeHook):
         endpoint = f"{self.endpoint}/search/"
         response = self.call_api(method="GET", endpoint=endpoint, params=params)
         return response.json()
+
+    def add_decision(self, workflow_id: str, decision_data: dict) -> Response:
+        endpoint = f"{self.endpoint}/{workflow_id}/resolve/"
+        return self.call_api(
+            method="POST",
+            json=decision_data,
+            endpoint=endpoint,
+        )
