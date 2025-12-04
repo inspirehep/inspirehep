@@ -115,7 +115,7 @@ export const resolveAutomaticDecision = (decision: string | number) => {
       class: 'text-non-core',
       text: 'Non-CORE',
     },
-    rejected: {
+    Rejected: {
       class: 'text-rejected',
       text: 'Rejected',
     },

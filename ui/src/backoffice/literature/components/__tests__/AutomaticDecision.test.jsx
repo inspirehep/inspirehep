@@ -64,7 +64,7 @@ describe('<AutomaticDecision />', () => {
 
   test('renders rejected (lowercase key) with correct class and score', () => {
     const relevancePrediction = Map({
-      decision: 'rejected',
+      decision: 'Rejected',
       max_score: 0.5,
     });
 
