@@ -1,8 +1,7 @@
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.sdk import Variable, task
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
-from include.utils import workflows
-from include.utils.s3 import read_object
+from include.utils import s3, workflows
 from inspire_schemas.readers import LiteratureReader
 
 
@@ -13,7 +12,9 @@ def store_root(**context):
     bucket_name = Variable.get("s3_bucket_name")
     inspire_http_hook = InspireHttpHook()
 
-    workflow_data = read_object(s3_hook, bucket_name, context["params"]["workflow_id"])
+    workflow_data = s3.read_workflow(
+        s3_hook, bucket_name, context["params"]["workflow_id"]
+    )
 
     root = workflow_data["merge_details"]["merger_root"]
     head_uuid = workflow_data["merge_details"]["head_uuid"]

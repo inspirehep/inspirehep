@@ -12,9 +12,9 @@ interactions:
     uri: http://host.docker.internal:8080/api/literature/44707
   response:
     body:
-      string: '{"created":"2006-06-19T00:00:00+00:00","metadata":{"data":[{"record":{"$ref":"https://inspirebeta.net/api/data/2727272"}},{"record":{"$ref":"https://inspirebeta.net/api/data/2727275"}}],"self":{"$ref":"http://localhost:8000/api/literature/44707"},"titles":[{"title":"Discovery
+      string: '{"uuid":"407395cf-a156-4f5e-aec8-71949605137f","id":"44707","updated":"2025-12-02T12:48:46.125155+00:00","links":{"bibtex":"http://localhost:8000/api/literature/44707?format=bibtex","latex-eu":"http://localhost:8000/api/literature/44707?format=latex-eu","latex-us":"http://localhost:8000/api/literature/44707?format=latex-us","json":"http://localhost:8000/api/literature/44707?format=json","json-expanded":"http://localhost:8000/api/literature/44707?format=json-expanded","cv":"http://localhost:8000/api/literature/44707?format=cv","citations":"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A44707"},"created":"2006-06-19T00:00:00+00:00","metadata":{"data":[{"record":{"$ref":"https://inspirebeta.net/api/data/2727272"}},{"record":{"$ref":"https://inspirebeta.net/api/data/2727275"}}],"self":{"$ref":"http://localhost:8000/api/literature/44707"},"titles":[{"title":"Discovery
         of a companion of Sirius"},{"title":"Discovery of a companion of Sirius","source":"arXiv"}],"$schema":"https://inspirebeta.net/schemas/records/hep.json","curated":true,"citeable":true,"refereed":true,"references":[{"record":{"$ref":"http://localhost:8000/api/literature/44706"},"reference":{"publication_info":{"artid":"131","page_start":"131","journal_title":"Astron.Nachr.","journal_volume":"57"}},"curated_relation":false}],"_collections":["Literature"],"document_type":["article"],"preprint_date":"1862-03","_private_notes":[{"value":"From
-        author to SLAC Library (Official use only)","source":"SPIRES-HIDDEN"}],"control_number":44707,"legacy_version":"20161011200004.0","number_of_pages":1,"publication_info":[{"year":1862,"artid":"170","page_start":"170","journal_title":"Mon.Not.Roy.Astron.Soc.","journal_record":{"$ref":"https://inspirebeta.net/api/journals/1214577"},"journal_volume":"22"}],"inspire_categories":[{"term":"Astrophysics"}],"legacy_creation_date":"2006-06-19","external_system_identifiers":[{"value":"1862MNRAS..22Q.170.","schema":"ADS"},{"value":"SPIRES-6750567","schema":"SPIRES"},{"value":"ins2872501","schema":"HEPDATA"}]},"updated":"2025-11-19T15:36:22.607381+00:00","revision_id":0,"id":"44707","uuid":"f1b0ba3a-5f92-4266-8c87-523c3b5b3d9b","links":{"bibtex":"http://localhost:8000/api/literature/44707?format=bibtex","latex-eu":"http://localhost:8000/api/literature/44707?format=latex-eu","latex-us":"http://localhost:8000/api/literature/44707?format=latex-us","json":"http://localhost:8000/api/literature/44707?format=json","json-expanded":"http://localhost:8000/api/literature/44707?format=json-expanded","cv":"http://localhost:8000/api/literature/44707?format=cv","citations":"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A44707"}}'
+        author to SLAC Library (Official use only)","source":"SPIRES-HIDDEN"}],"control_number":44707,"legacy_version":"20161011200004.0","number_of_pages":1,"publication_info":[{"year":1862,"artid":"170","page_start":"170","journal_title":"Mon.Not.Roy.Astron.Soc.","journal_record":{"$ref":"https://inspirebeta.net/api/journals/1214577"},"journal_volume":"22"}],"inspire_categories":[{"term":"Astrophysics"}],"legacy_creation_date":"2006-06-19","external_system_identifiers":[{"value":"1862MNRAS..22Q.170.","schema":"ADS"},{"value":"SPIRES-6750567","schema":"SPIRES"},{"value":"ins2872501","schema":"HEPDATA"}]},"revision_id":0}'
     headers:
       Cache-Control:
       - no-cache
@@ -25,11 +25,11 @@ interactions:
       Content-Type:
       - application/vnd+inspire.record.raw+json
       Date:
-      - Wed, 19 Nov 2025 17:17:45 GMT
+      - Wed, 03 Dec 2025 12:16:06 GMT
       ETag:
       - W/"0"
       Last-Modified:
-      - Wed, 19 Nov 2025 15:36:22 GMT
+      - Tue, 02 Dec 2025 12:48:46 GMT
       Link:
       - <bibtex>; rel="http://localhost:8000/api/literature/44707?format=bibtex",
         <latex-eu>; rel="http://localhost:8000/api/literature/44707?format=latex-eu",
@@ -45,7 +45,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"record_uuid": "f1b0ba3a-5f92-4266-8c87-523c3b5b3d9b", "source": "arxiv",
+    body: '{"record_uuid": "407395cf-a156-4f5e-aec8-71949605137f", "source": "arxiv",
       "json": {"version": "original", "acquisition_source": {"source": "arXiv"}}}'
     headers:
       Accept:
@@ -62,7 +62,7 @@ interactions:
     uri: http://host.docker.internal:8080/api/literature/workflows_record_sources
   response:
     body:
-      string: '{"message":"workflow source for record f1b0ba3a-5f92-4266-8c87-523c3b5b3d9b
+      string: '{"message":"workflow source for record 407395cf-a156-4f5e-aec8-71949605137f
         and source arxiv added"}
 
         '
@@ -74,14 +74,14 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 19 Nov 2025 17:17:46 GMT
+      - Wed, 03 Dec 2025 12:16:09 GMT
       Server:
       - nginx/1.19.1
     status:
       code: 200
       message: OK
 - request:
-    body: '{"record_uuid": "f1b0ba3a-5f92-4266-8c87-523c3b5b3d9b", "source": "arxiv"}'
+    body: '{"record_uuid": "407395cf-a156-4f5e-aec8-71949605137f", "source": "arxiv"}'
     headers:
       Accept:
       - application/vnd+inspire.record.raw+json
@@ -97,7 +97,7 @@ interactions:
     uri: http://host.docker.internal:8080/api/literature/workflows_record_sources
   response:
     body:
-      string: '{"workflow_sources":[{"created":"2025-11-19T16:53:34.352690","json":{"version":"original","acquisition_source":{"source":"arXiv"}},"record_uuid":"f1b0ba3a-5f92-4266-8c87-523c3b5b3d9b","source":"arxiv","updated":"2025-11-19T17:17:46.631846"}]}
+      string: '{"workflow_sources":[{"created":"2025-12-03T12:16:09.033258","json":{"version":"original","acquisition_source":{"source":"arXiv"}},"record_uuid":"407395cf-a156-4f5e-aec8-71949605137f","source":"arxiv","updated":"2025-12-03T12:16:09.033282"}]}
 
         '
     headers:
@@ -108,14 +108,14 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 19 Nov 2025 17:17:46 GMT
+      - Wed, 03 Dec 2025 12:16:09 GMT
       Server:
       - nginx/1.19.1
     status:
       code: 200
       message: OK
 - request:
-    body: '{"record_uuid": "f1b0ba3a-5f92-4266-8c87-523c3b5b3d9b", "source": "arxiv",
+    body: '{"record_uuid": "407395cf-a156-4f5e-aec8-71949605137f", "source": "arxiv",
       "json": {"version": "modified", "acquisition_source": {"source": "arXiv"}}}'
     headers:
       Accept:
@@ -132,7 +132,7 @@ interactions:
     uri: http://host.docker.internal:8080/api/literature/workflows_record_sources
   response:
     body:
-      string: '{"message":"workflow source for record f1b0ba3a-5f92-4266-8c87-523c3b5b3d9b
+      string: '{"message":"workflow source for record 407395cf-a156-4f5e-aec8-71949605137f
         and source arxiv added"}
 
         '
@@ -144,14 +144,14 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 19 Nov 2025 17:17:47 GMT
+      - Wed, 03 Dec 2025 12:16:10 GMT
       Server:
       - nginx/1.19.1
     status:
       code: 200
       message: OK
 - request:
-    body: '{"record_uuid": "f1b0ba3a-5f92-4266-8c87-523c3b5b3d9b", "source": "arxiv"}'
+    body: '{"record_uuid": "407395cf-a156-4f5e-aec8-71949605137f", "source": "arxiv"}'
     headers:
       Accept:
       - application/vnd+inspire.record.raw+json
@@ -167,7 +167,7 @@ interactions:
     uri: http://host.docker.internal:8080/api/literature/workflows_record_sources
   response:
     body:
-      string: '{"workflow_sources":[{"created":"2025-11-19T16:53:34.352690","json":{"version":"modified","acquisition_source":{"source":"arXiv"}},"record_uuid":"f1b0ba3a-5f92-4266-8c87-523c3b5b3d9b","source":"arxiv","updated":"2025-11-19T17:17:47.680933"}]}
+      string: '{"workflow_sources":[{"created":"2025-12-03T12:16:09.033258","json":{"version":"modified","acquisition_source":{"source":"arXiv"}},"record_uuid":"407395cf-a156-4f5e-aec8-71949605137f","source":"arxiv","updated":"2025-12-03T12:16:10.494354"}]}
 
         '
     headers:
@@ -178,7 +178,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 19 Nov 2025 17:17:47 GMT
+      - Wed, 03 Dec 2025 12:16:10 GMT
       Server:
       - nginx/1.19.1
     status:
