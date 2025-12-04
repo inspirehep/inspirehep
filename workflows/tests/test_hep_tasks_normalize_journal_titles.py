@@ -2,7 +2,7 @@ import pytest
 from airflow.models import DagBag
 from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-from include.utils.s3 import read_object, write_object
+from include.utils import s3
 
 dagbag = DagBag()
 
@@ -28,6 +28,7 @@ class TestNormalizeJournalTitles:
         task = self.dag.get_task("preprocessing.normalize_journal_titles")
 
         workflow_data = {
+            "id": self.workflow_id,
             "data": {
                 "publication_info": [
                     {
@@ -44,19 +45,17 @@ class TestNormalizeJournalTitles:
                         },
                     },
                 ],
-            }
+            },
         }
 
-        write_object(
+        s3.write_workflow(
             s3_hook,
             workflow_data,
             bucket_name,
-            self.workflow_id,
-            overwrite=True,
         )
 
         task.python_callable(params=self.context["params"])
-        updated_data = read_object(s3_hook, bucket_name, self.workflow_id)
+        updated_data = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
 
         assert "data" in updated_data
         assert "publication_info" in updated_data["data"]
@@ -76,25 +75,20 @@ class TestNormalizeJournalTitles:
         task = self.dag.get_task("preprocessing.normalize_journal_titles")
 
         workflow_data = {
+            "id": self.workflow_id,
             "data": {
                 "publication_info": [
                     {"journal_title": "A Test Journal1"},
                     {"cnum": "C01-01-01"},
                     {"journal_title": "Test.Jou.2"},
                 ],
-            }
+            },
         }
 
-        write_object(
-            s3_hook,
-            workflow_data,
-            bucket_name,
-            self.workflow_id,
-            overwrite=True,
-        )
+        s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
         task.python_callable(params=self.context["params"])
-        updated_data = read_object(s3_hook, bucket_name, self.workflow_id)
+        updated_data = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
 
         assert "data" in updated_data
         assert "publication_info" in updated_data["data"]
@@ -112,6 +106,7 @@ class TestNormalizeJournalTitles:
         task = self.dag.get_task("preprocessing.normalize_journal_titles")
 
         workflow_data = {
+            "id": self.workflow_id,
             "data": {
                 "publication_info": [
                     {
@@ -128,19 +123,13 @@ class TestNormalizeJournalTitles:
                         },
                     },
                 ],
-            }
+            },
         }
 
-        write_object(
-            s3_hook,
-            workflow_data,
-            bucket_name,
-            self.workflow_id,
-            overwrite=True,
-        )
+        s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
         task.python_callable(params=self.context["params"])
-        updated_data = read_object(s3_hook, bucket_name, self.workflow_id)
+        updated_data = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
 
         assert "data" in updated_data
         assert "publication_info" in updated_data["data"]
@@ -160,26 +149,25 @@ class TestNormalizeJournalTitles:
         task = self.dag.get_task("preprocessing.normalize_journal_titles")
 
         workflow_data = {
+            "id": self.workflow_id,
             "data": {
                 "publication_info": [
                     {"journal_title": "Unknown1"},
                     {"cnum": "C01-01-01"},
                     {"journal_title": "Unknown2"},
                 ],
-            }
+            },
         }
 
-        write_object(
+        s3.write_workflow(
             s3_hook,
             workflow_data,
             bucket_name,
-            self.workflow_id,
-            overwrite=True,
         )
 
         task.python_callable(params=self.context["params"])
 
-        updated_data = read_object(s3_hook, bucket_name, self.workflow_id)
+        updated_data = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
 
         assert "data" in updated_data
         assert "publication_info" in updated_data["data"]
@@ -196,6 +184,7 @@ class TestNormalizeJournalTitles:
         task = self.dag.get_task("preprocessing.normalize_journal_titles")
 
         workflow_data = {
+            "id": self.workflow_id,
             "data": {
                 "references": [
                     {
@@ -213,18 +202,12 @@ class TestNormalizeJournalTitles:
                         }
                     },
                 ],
-            }
+            },
         }
 
-        write_object(
-            s3_hook,
-            workflow_data,
-            bucket_name,
-            self.workflow_id,
-            overwrite=True,
-        )
+        s3.write_workflow(s3_hook, workflow_data, bucket_name)
         task.python_callable(params=self.context["params"])
-        updated_data = read_object(s3_hook, bucket_name, self.workflow_id)
+        updated_data = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
         assert "data" in updated_data
         assert "references" in updated_data["data"]
         assert len(updated_data["data"]["references"]) == 2

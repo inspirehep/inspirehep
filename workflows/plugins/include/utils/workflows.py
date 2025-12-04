@@ -28,10 +28,10 @@ def get_decision(decisions, actions):
     return None
 
 
-def normalize_collaborations(workflow_data):
+def normalize_collaborations(metadata):
     inspire_http_hook = InspireHttpHook()
 
-    collaborations = get_value(workflow_data, "collaborations", [])
+    collaborations = get_value(metadata, "collaborations", [])
 
     if not collaborations:
         return
@@ -42,7 +42,7 @@ def normalize_collaborations(workflow_data):
         json={"collaborations": collaborations},
     )
     response.raise_for_status()
-    obj_accelerator_experiments = workflow_data.get("accelerator_experiments", [])
+    obj_accelerator_experiments = metadata.get("accelerator_experiments", [])
     json_response = response.json()
 
     normalized_accelerator_experiments = json_response["accelerator_experiments"]
@@ -116,7 +116,7 @@ def post_pdf_to_grobid(workflow_id, workflow, s3_hook, bucket_name):
 
     with TemporaryDirectory(prefix="grobid") as tmp_dir:
         document_path = s3_hook.download_file(
-            f"{workflow_id}-documents/{s3_key}",
+            f"{workflow_id}/documents/{s3_key}",
             bucket_name,
             tmp_dir,
         )

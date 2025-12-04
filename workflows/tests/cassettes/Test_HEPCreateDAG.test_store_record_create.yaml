@@ -18,8 +18,8 @@ interactions:
     uri: http://host.docker.internal:8080/api/literature
   response:
     body:
-      string: '{"created":"2025-11-19T16:29:54.389791+00:00","metadata":{"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"titles":[{"title":"Test
-        store record create"}],"control_number":2891174,"self":{"$ref":"http://localhost:8000/api/literature/2891174"}},"updated":"2025-11-19T16:29:54.389808+00:00","revision_id":0,"id":"{2891174}","uuid":"4bb3ea2e-4c38-4343-9d45-095276532653","links":{"bibtex":"http://localhost:8000/api/literature/%7B2891174%7D?format=bibtex","latex-eu":"http://localhost:8000/api/literature/%7B2891174%7D?format=latex-eu","latex-us":"http://localhost:8000/api/literature/%7B2891174%7D?format=latex-us","json":"http://localhost:8000/api/literature/%7B2891174%7D?format=json","json-expanded":"http://localhost:8000/api/literature/%7B2891174%7D?format=json-expanded","cv":"http://localhost:8000/api/literature/%7B2891174%7D?format=cv","citations":"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A%7B2891174%7D"}}'
+      string: '{"uuid":"82e99c27-2552-4fa2-bbb7-01270a37330c","id":"{2891172}","updated":"2025-12-03T10:27:52.904063+00:00","links":{"bibtex":"http://localhost:8000/api/literature/%7B2891172%7D?format=bibtex","latex-eu":"http://localhost:8000/api/literature/%7B2891172%7D?format=latex-eu","latex-us":"http://localhost:8000/api/literature/%7B2891172%7D?format=latex-us","json":"http://localhost:8000/api/literature/%7B2891172%7D?format=json","json-expanded":"http://localhost:8000/api/literature/%7B2891172%7D?format=json-expanded","cv":"http://localhost:8000/api/literature/%7B2891172%7D?format=cv","citations":"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A%7B2891172%7D"},"created":"2025-12-03T10:27:52.904053+00:00","metadata":{"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"titles":[{"title":"Test
+        store record create"}],"control_number":2891172,"self":{"$ref":"http://localhost:8000/api/literature/2891172"}},"revision_id":0}'
     headers:
       Cache-Control:
       - no-cache
@@ -30,25 +30,25 @@ interactions:
       Content-Type:
       - application/vnd+inspire.record.raw+json
       Date:
-      - Wed, 19 Nov 2025 16:29:54 GMT
+      - Wed, 03 Dec 2025 10:27:53 GMT
       ETag:
       - W/"0"
       Last-Modified:
-      - Wed, 19 Nov 2025 16:29:54 GMT
+      - Wed, 03 Dec 2025 10:27:52 GMT
       Link:
-      - <bibtex>; rel="http://localhost:8000/api/literature/%7B2891174%7D?format=bibtex",
-        <latex-eu>; rel="http://localhost:8000/api/literature/%7B2891174%7D?format=latex-eu",
-        <latex-us>; rel="http://localhost:8000/api/literature/%7B2891174%7D?format=latex-us",
-        <json>; rel="http://localhost:8000/api/literature/%7B2891174%7D?format=json",
-        <json-expanded>; rel="http://localhost:8000/api/literature/%7B2891174%7D?format=json-expanded",
-        <cv>; rel="http://localhost:8000/api/literature/%7B2891174%7D?format=cv",
-        <citations>; rel="http://localhost:8000/api/literature/?q=refersto%3Arecid%3A%7B2891174%7D"
+      - <bibtex>; rel="http://localhost:8000/api/literature/%7B2891172%7D?format=bibtex",
+        <latex-eu>; rel="http://localhost:8000/api/literature/%7B2891172%7D?format=latex-eu",
+        <latex-us>; rel="http://localhost:8000/api/literature/%7B2891172%7D?format=latex-us",
+        <json>; rel="http://localhost:8000/api/literature/%7B2891172%7D?format=json",
+        <json-expanded>; rel="http://localhost:8000/api/literature/%7B2891172%7D?format=json-expanded",
+        <cv>; rel="http://localhost:8000/api/literature/%7B2891172%7D?format=cv",
+        <citations>; rel="http://localhost:8000/api/literature/?q=refersto%3Arecid%3A%7B2891172%7D"
       Server:
       - nginx/1.19.1
       Vary:
       - Accept,Accept-Encoding,Accept-Language
       location:
-      - http://localhost:8000/api/literature/%7B2891174%7D
+      - http://localhost:8000/api/literature/%7B2891172%7D
     status:
       code: 201
       message: CREATED

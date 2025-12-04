@@ -14,12 +14,12 @@ interactions:
     uri: http://host.docker.internal:8001/api/workflows/literature/search/?status__in=approval_core_selection__approval_fuzzy_matching__approval_merge__approval__blocked__error_multiple_exact_matches__error_validation__error__running&search=data.arxiv_eprints.value.keyword%3A2507.26819
   response:
     body:
-      string: '{"count":2,"next":null,"previous":null,"facets":{"_filter_workflow_type":{"doc_count":2,"workflow_type":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"HEP_CREATE","doc_count":2,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"blocked","doc_count":1},{"key":"running","doc_count":1}]}}]}},"_filter_status":{"doc_count":2,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"blocked","doc_count":1},{"key":"running","doc_count":1}]}}},"results":[{"data":{"dois":[{"value":"10.1016/j.physletb.2025.139959"}],"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
-        MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2507.26819","categories":["cs.CV","cs.AI","cs.LG","cs.RO"]}],"document_type":["article"],"_private_notes":[{"value":"Also
-        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"id":"66961888-a628-46b7-b807-4deae3478adc","_updated_at":"2024-11-25T13:49:54.756000+00:00","decisions":[],"status":"blocked","workflow_type":"HEP_CREATE","_created_at":"2024-11-25T13:49:53.009000+00:00"},{"data":{"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
+      string: '{"count":2,"next":null,"previous":null,"facets":{"_filter_workflow_type":{"doc_count":2,"workflow_type":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"HEP_CREATE","doc_count":2,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"blocked","doc_count":1},{"key":"running","doc_count":1}]}}]}},"_filter_status":{"doc_count":2,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"blocked","doc_count":1},{"key":"running","doc_count":1}]}}},"results":[{"status":"running","_created_at":"2024-11-25T13:49:53.009000+00:00","data":{"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
         MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer with
         same arxiv","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2507.26819","categories":["cs.CV","cs.AI","cs.LG","cs.RO"]}],"document_type":["article"],"_private_notes":[{"value":"Also
-        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"id":"e27a7765-1c57-4cbe-875a-c45880939855","_updated_at":"2024-11-25T13:49:54.756000+00:00","decisions":[],"status":"running","workflow_type":"HEP_CREATE","_created_at":"2024-11-25T13:49:53.009000+00:00"}]}'
+        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"workflow_type":"HEP_CREATE","id":"e27a7765-1c57-4cbe-875a-c45880939855","_updated_at":"2024-11-25T13:49:54.756000+00:00","decisions":[]},{"status":"blocked","_created_at":"2024-11-25T13:49:53.009000+00:00","data":{"dois":[{"value":"10.1016/j.physletb.2025.139959"}],"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
+        MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2507.26819","categories":["cs.CV","cs.AI","cs.LG","cs.RO"]}],"document_type":["article"],"_private_notes":[{"value":"Also
+        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"workflow_type":"HEP_CREATE","id":"66961888-a628-46b7-b807-4deae3478adc","_updated_at":"2024-11-25T13:49:54.756000+00:00","decisions":[]}]}'
     headers:
       Allow:
       - GET, HEAD, OPTIONS
@@ -32,7 +32,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Fri, 28 Nov 2025 12:36:27 GMT
+      - Wed, 03 Dec 2025 09:41:49 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -153,7 +153,7 @@ interactions:
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
         sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
-        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-11-28T12:36:27.695876Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
+        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-12-03T09:41:49.679570Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
         class of Hadamard well-posed five-field theories of dissipative relativistic
         fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
         Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
@@ -181,7 +181,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Fri, 28 Nov 2025 12:36:27 GMT
+      - Wed, 03 Dec 2025 09:41:49 GMT
       Referrer-Policy:
       - same-origin
       Server:

@@ -1,7 +1,13 @@
 from airflow.hooks.base import BaseHook
 from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-from include.utils.s3 import get_s3_client, read_object, write_object
+from include.utils.s3 import (
+    get_s3_client,
+    read_object,
+    read_workflow,
+    write_object,
+    write_workflow,
+)
 
 
 class TestS3Hook:
@@ -32,3 +38,29 @@ class TestS3Hook:
         result = read_object(s3_client, self.bucket_name, key="test_key")
 
         assert result == {"test": "data"}
+
+    def test_read_write_workflow(self):
+        workflow_data = {"id": "test_workflow_id"}
+
+        write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        workflow_result = read_workflow(
+            self.s3_hook, self.bucket_name, workflow_id="test_workflow_id"
+        )
+        assert workflow_result == workflow_data
+
+    def test_read_write_workflow_with_custom_filename(self):
+        workflow_data = {"id": "test_workflow_id"}
+
+        write_workflow(
+            self.s3_hook,
+            workflow_data,
+            self.bucket_name,
+            filename="custom_workflow.json",
+        )
+        workflow_result = read_workflow(
+            self.s3_hook,
+            self.bucket_name,
+            workflow_id="test_workflow_id",
+            filename="custom_workflow.json",
+        )
+        assert workflow_result == workflow_data
