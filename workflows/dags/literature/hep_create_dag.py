@@ -300,11 +300,7 @@ def hep_create_dag():
 
     @task_group
     def preprocessing():
-        @task(
-            retries=3,
-            retry_delay=datetime.timedelta(hours=24),
-            retry_exponential_backoff=False,
-        )
+        @task
         def arxiv_package_download(**context):
             """Perform the package download step for arXiv records."""
 
