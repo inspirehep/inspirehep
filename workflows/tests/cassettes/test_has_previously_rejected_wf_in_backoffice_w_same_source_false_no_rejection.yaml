@@ -1,0 +1,44 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/search/?status__in=completed&search=data.arxiv_eprints.value.keyword%3A2507.26819
+  response:
+    body:
+      string: '{"count":0,"next":null,"previous":null,"facets":{"_filter_workflow_type":{"doc_count":0,"workflow_type":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[]}},"_filter_status":{"doc_count":0,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[]}}},"results":[]}'
+    headers:
+      Allow:
+      - GET, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '303'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Fri, 05 Dec 2025 12:48:05 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1
