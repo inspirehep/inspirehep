@@ -102,6 +102,31 @@ export const resolveDecision = (decision: string | number) => {
       decision: 'accepted with curation',
     },
     reject: { bg: 'bg-error font-white', text: 'Reject', decision: 'rejected' },
+    hep_accept: {
+      bg: 'bg-completed ml1',
+      text: 'Accept',
+      decision: 'accepted as Non-CORE',
+    },
+    hep_accept_core: {
+      bg: 'bg-completed ml1',
+      text: 'Accept CORE',
+      decision: 'accepted as CORE',
+    },
+    hep_reject: {
+      bg: 'bg-error font-white',
+      text: 'Reject',
+      decision: 'rejected',
+    },
+    core_selection_accept: {
+      bg: 'bg-completed ml1',
+      text: 'Accept',
+      decision: 'accepted as Non-CORE',
+    },
+    core_selection_accept_core: {
+      bg: 'bg-completed ml1',
+      text: 'Accept CORE',
+      decision: 'accepted as CORE',
+    },
   };
   return decisions[decision] || null;
 };
@@ -155,12 +180,12 @@ export const getWorkflowStatusInfo = (status: string) => {
       description: 'This workflow has been halted until decision is made.',
     },
     approval_core_selection: {
-      icon: <StopOutlined className="mr2" />,
+      icon: <HourglassOutlined className="mr2" />,
       text: 'Waiting for CORE selection approval',
       description: 'This workflow is waiting for CORE selection approval.',
     },
     approval_fuzzy_matching: {
-      icon: <ControlOutlined className="mr2" />,
+      icon: <HourglassOutlined className="mr2" />,
       text: 'Waiting for matching approval',
       description: 'This workflow is currently matching.',
     },

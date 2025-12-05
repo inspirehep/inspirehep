@@ -47,6 +47,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ type, statuses }) => {
 
         if (!statusKey) return null;
 
+        const statusKeyText = statusKey.replace(/_/g, ' ');
+
         return (
           <Link
             key={statusKey}
@@ -56,7 +58,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ type, statuses }) => {
             <div className={`flex justify-between ${statusKey.toLowerCase()}`}>
               <p className="ttc">
                 {getIcon(statusKey)}
-                {statusKey}
+                {statusKeyText}
               </p>
               <span className="b">{statusCount}</span>
             </div>
