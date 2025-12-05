@@ -211,9 +211,9 @@ def send_record_to_hep(workflow, control_number=None):
     workflow["data"]["control_number"] = response.json()["metadata"]["control_number"]
 
     if not control_number:
-        workflow["data"].setdefault("merge_details", {})["head_uuid"] = response.json()[
-            "uuid"
-        ]
+        merge_details = workflow.get("merge_details", {})
+        merge_details["head_uuid"] = response.json()["uuid"]
+        workflow["merge_details"] = merge_details
 
     return workflow
 

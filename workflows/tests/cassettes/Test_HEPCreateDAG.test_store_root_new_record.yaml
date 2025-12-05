@@ -12,11 +12,11 @@ interactions:
     uri: http://host.docker.internal:8080/api/literature/99999
   response:
     body:
-      string: "{\"created\":\"2006-06-19T00:00:00+00:00\",\"metadata\":{\"self\":{\"$ref\":\"http://localhost:8000/api/literature/99999\"},\"titles\":[{\"title\":\"Test\"}],\"$schema\":\"https://inspirebeta.net/schemas/records/hep.json\",\"authors\":[{\"uuid\":\"5ad6513c-ff55-4fc3-ac6e-489b038e971b\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/99999\"},\"full_name\":\"Test,
+      string: "{\"links\":{\"bibtex\":\"http://localhost:8000/api/literature/99999?format=bibtex\",\"latex-eu\":\"http://localhost:8000/api/literature/99999?format=latex-eu\",\"latex-us\":\"http://localhost:8000/api/literature/99999?format=latex-us\",\"json\":\"http://localhost:8000/api/literature/99999?format=json\",\"json-expanded\":\"http://localhost:8000/api/literature/99999?format=json-expanded\",\"cv\":\"http://localhost:8000/api/literature/99999?format=cv\",\"citations\":\"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A99999\"},\"created\":\"2006-06-19T00:00:00+00:00\",\"updated\":\"2025-12-05T10:08:14.346548+00:00\",\"uuid\":\"24dcaef7-9b4c-4e61-b240-69130efc3e89\",\"id\":\"99999\",\"revision_id\":0,\"metadata\":{\"self\":{\"$ref\":\"http://localhost:8000/api/literature/99999\"},\"titles\":[{\"title\":\"Test\"}],\"$schema\":\"https://inspirebeta.net/schemas/records/hep.json\",\"authors\":[{\"uuid\":\"fdf56651-09e5-429d-8b2e-a83c9cf842a0\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/99999\"},\"full_name\":\"Test,
         Stanley\",\"affiliations\":[{\"value\":\"NCBJ, Swierk\"}],\"raw_affiliations\":[{\"value\":\"Narodowe
         Centrum Bada\u0144 J\u0105drowych (NCBJ), Andrzeja So\u0142tana 7, 05-400
         Otwock-\u015Awierk, Poland\"}]}],\"curated\":true,\"_collections\":[\"Literature\"],\"document_type\":[\"article\"],\"_private_notes\":[{\"value\":\"From
-        author to SLAC Library (Official use only)\",\"source\":\"SPIRES-HIDDEN\"}],\"control_number\":99999,\"legacy_version\":\"20161011200004.0\",\"number_of_pages\":1,\"legacy_creation_date\":\"2006-06-19\",\"external_system_identifiers\":[{\"value\":\"1862MNRAS..22Q.170.\",\"schema\":\"ADS\"},{\"value\":\"SPIRES-6750567\",\"schema\":\"SPIRES\"},{\"value\":\"ins2872501\",\"schema\":\"HEPDATA\"}]},\"updated\":\"2025-11-19T15:36:24.588068+00:00\",\"revision_id\":0,\"id\":\"99999\",\"uuid\":\"86ff9859-3cd4-4329-a6c1-4f4b5b9384e3\",\"links\":{\"bibtex\":\"http://localhost:8000/api/literature/99999?format=bibtex\",\"latex-eu\":\"http://localhost:8000/api/literature/99999?format=latex-eu\",\"latex-us\":\"http://localhost:8000/api/literature/99999?format=latex-us\",\"json\":\"http://localhost:8000/api/literature/99999?format=json\",\"json-expanded\":\"http://localhost:8000/api/literature/99999?format=json-expanded\",\"cv\":\"http://localhost:8000/api/literature/99999?format=cv\",\"citations\":\"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A99999\"}}"
+        author to SLAC Library (Official use only)\",\"source\":\"SPIRES-HIDDEN\"}],\"control_number\":99999,\"legacy_version\":\"20161011200004.0\",\"number_of_pages\":1,\"legacy_creation_date\":\"2006-06-19\",\"external_system_identifiers\":[{\"value\":\"1862MNRAS..22Q.170.\",\"schema\":\"ADS\"},{\"value\":\"SPIRES-6750567\",\"schema\":\"SPIRES\"},{\"value\":\"ins2872501\",\"schema\":\"HEPDATA\"}]}}"
     headers:
       Cache-Control:
       - no-cache
@@ -27,11 +27,11 @@ interactions:
       Content-Type:
       - application/vnd+inspire.record.raw+json
       Date:
-      - Wed, 19 Nov 2025 17:19:45 GMT
+      - Fri, 05 Dec 2025 12:31:35 GMT
       ETag:
       - W/"0"
       Last-Modified:
-      - Wed, 19 Nov 2025 15:36:24 GMT
+      - Fri, 05 Dec 2025 10:08:14 GMT
       Link:
       - <bibtex>; rel="http://localhost:8000/api/literature/99999?format=bibtex",
         <latex-eu>; rel="http://localhost:8000/api/literature/99999?format=latex-eu",
@@ -47,7 +47,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"record_uuid": "86ff9859-3cd4-4329-a6c1-4f4b5b9384e3", "source": "arxiv",
+    body: '{"record_uuid": "24dcaef7-9b4c-4e61-b240-69130efc3e89", "source": "arxiv",
       "json": {"version": "original", "acquisition_source": {"source": "arXiv"}}}'
     headers:
       Accept:
@@ -64,7 +64,7 @@ interactions:
     uri: http://host.docker.internal:8080/api/literature/workflows_record_sources
   response:
     body:
-      string: '{"message":"workflow source for record 86ff9859-3cd4-4329-a6c1-4f4b5b9384e3
+      string: '{"message":"workflow source for record 24dcaef7-9b4c-4e61-b240-69130efc3e89
         and source arxiv added"}
 
         '
@@ -76,43 +76,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 19 Nov 2025 17:19:47 GMT
-      Server:
-      - nginx/1.19.1
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"record_uuid": "86ff9859-3cd4-4329-a6c1-4f4b5b9384e3", "source": "arxiv",
-      "json": {"version": "original", "acquisition_source": {"source": "arXiv"}}}'
-    headers:
-      Accept:
-      - application/vnd+inspire.record.raw+json
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '150'
-      Content-Type:
-      - application/json
-    method: POST
-    uri: http://host.docker.internal:8080/api/literature/workflows_record_sources
-  response:
-    body:
-      string: '{"message":"workflow source for record 86ff9859-3cd4-4329-a6c1-4f4b5b9384e3
-        and source arxiv added"}
-
-        '
-    headers:
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '101'
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 19 Nov 2025 17:19:48 GMT
+      - Fri, 05 Dec 2025 12:31:36 GMT
       Server:
       - nginx/1.19.1
     status:

@@ -8,15 +8,21 @@ from inspire_schemas.readers import LiteratureReader
 @task
 def store_root(**context):
     """Insert or update the current record head's root into WorkflowsRecordSources"""
+    workflow_id = context["params"]["workflow_id"]
     s3_hook = S3Hook(aws_conn_id="s3_conn")
     bucket_name = Variable.get("s3_bucket_name")
     inspire_http_hook = InspireHttpHook()
 
-    workflow_data = s3.read_workflow(
-        s3_hook, bucket_name, context["params"]["workflow_id"]
+    workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+
+    preserved_root = s3.read_workflow(
+        s3_hook,
+        bucket_name,
+        workflow_id,
+        filename="root.json",
     )
 
-    root = workflow_data["merge_details"]["merger_root"]
+    root = preserved_root["data"]
     head_uuid = workflow_data["merge_details"]["head_uuid"]
 
     source = LiteratureReader(root).source.lower()
