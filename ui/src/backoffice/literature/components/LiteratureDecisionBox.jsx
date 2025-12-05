@@ -64,15 +64,19 @@ const LiteratureDecisionBox = ({
       {renderActionButtons()}
       {decision && (
         <>
-          This workflow is{' '}
-          <UnclickableTag className={className}>{decisionText}</UnclickableTag>
+          <p>
+            Action:{' '}
+            <UnclickableTag className={className}>
+              {decisionText}
+            </UnclickableTag>
+          </p>
           {controlNumber && (
-            <span>
-              as{' '}
+            <p>
+              Control number:{' '}
               <LinkWithTargetBlank href={`${LITERATURE}/${controlNumber}`}>
                 {controlNumber}
               </LinkWithTargetBlank>
-            </span>
+            </p>
           )}
         </>
       )}
