@@ -1433,6 +1433,20 @@ def hep_create_dag():
             >> validate_record()
         )
 
+    @task.branch
+    def should_proceed_to_core_selection(**context):
+        workflow_data = s3.read_workflow(
+            s3_hook, bucket_name, context["params"]["workflow_id"]
+        )
+
+        is_auto_approved = get_flag("auto-approved", workflow_data)
+        is_create = not get_flag("is-update", workflow_data)
+        is_core = workflow_data["data"]["core"]
+        if is_auto_approved and is_create and not is_core:
+            return "save_workflow"
+
+        return "save_and_complete_workflow"
+
     @task_group
     def core_selection():
         @task.short_circuit
@@ -1594,6 +1608,7 @@ def hep_create_dag():
 
     postprocessing_group = postprocessing()
     save_and_complete_workflow_task = save_and_complete_workflow()
+    should_proceed_to_core_selection_task = should_proceed_to_core_selection()
 
     (
         preprocessing_group
@@ -1606,10 +1621,12 @@ def hep_create_dag():
         >> is_stale_data()
         >> store_record()
         >> store_root()
+        >> should_proceed_to_core_selection_task
         >> save_workflow()
         >> core_selection()
         >> save_and_complete_workflow_task
     )
+    should_proceed_to_core_selection_task >> save_and_complete_workflow_task
     check_for_fuzzy_matches_task >> check_auto_approve_task >> preprocessing_group
 
 

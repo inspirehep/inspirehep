@@ -3061,6 +3061,105 @@ class Test_HEPCreateDAG:
             in result["followed"]
         )
 
+    def test_should_proceed_to_core_selection_true(self):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [
+                    {"title": "test non rejected"},
+                ],
+                "core": False,
+            },
+            "flags": {
+                "auto-approved": True,
+                "is-update": False,
+            },
+        }
+        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+
+        result = task_test(
+            "hep_create_dag",
+            "should_proceed_to_core_selection",
+            dag_params=self.context["params"],
+        )
+
+        assert result == "save_workflow"
+
+    def test_should_proceed_to_core_selection_false_if_core(self):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [
+                    {"title": "test non rejected"},
+                ],
+                "core": True,
+            },
+            "flags": {
+                "auto-approved": True,
+                "is-update": False,
+            },
+        }
+        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+
+        result = task_test(
+            "hep_create_dag",
+            "should_proceed_to_core_selection",
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+
+        assert "save_and_complete_workflow" in result["followed"]
+
+    def test_should_proceed_to_core_selection_false_if_update(self):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [
+                    {"title": "test non rejected"},
+                ],
+                "core": False,
+            },
+            "flags": {
+                "auto-approved": True,
+                "is-update": True,
+            },
+        }
+        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+
+        result = task_test(
+            "hep_create_dag",
+            "should_proceed_to_core_selection",
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+
+        assert "save_and_complete_workflow" in result["followed"]
+
+    def test_should_proceed_to_core_selection_false_if_not_auto_approved(self):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [
+                    {"title": "test non rejected"},
+                ],
+                "core": False,
+            },
+            "flags": {
+                "auto-approved": False,
+                "is-update": False,
+            },
+        }
+        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+
+        result = task_test(
+            "hep_create_dag",
+            "should_proceed_to_core_selection",
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+
+        assert "save_and_complete_workflow" in result["followed"]
+
     @pytest.mark.vcr
     def test_await_decision_core_selection_approval_no_decision(self):
         workflow_management_hook = WorkflowManagementHook(HEP)
