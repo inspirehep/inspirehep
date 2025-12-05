@@ -1083,6 +1083,24 @@ def hep_create_dag():
 
     @task_group
     def halt_for_approval_if_new_or_reject_if_not_relevant(**context):
+        @task
+        def preserve_root(**context):
+            workflow_data = s3.read_workflow(
+                s3_hook, bucket_name, context["params"]["workflow_id"]
+            )
+
+            preserved_root_payload = {
+                "id": workflow_data["id"],
+                "data": deepcopy(workflow_data["data"]),
+            }
+
+            s3.write_workflow(
+                s3_hook,
+                preserved_root_payload,
+                bucket_name,
+                filename="root.json",
+            )
+
         @task.branch
         def check_is_update(match_approved_id, **context):
             if match_approved_id:
@@ -1290,6 +1308,7 @@ def hep_create_dag():
         merge_articles_task = merge_articles(get_approved_match_task)
         update_inspire_categories_task = update_inspire_categories()
 
+        preserve_root() >> get_approved_match_task
         check_is_update_task >> [
             merge_articles_task,
             update_inspire_categories_task,

@@ -3171,28 +3171,24 @@ class Test_HEPCreateDAG:
 
         workflow_data = {
             "id": self.workflow_id,
-            "merge_details": {"head_uuid": head_uuid, "merger_root": root},
+            "merge_details": {"head_uuid": head_uuid},
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
-        task_test(
-            "hep_create_dag",
-            "store_root",
-            dag_params=self.context["params"],
-        )
-
-        task_test(
-            "hep_create_dag",
-            "store_root",
-            dag_params=self.context["params"],
-        )
-
-        workflow_data = {
+        preserverd_root_entry = {
             "id": self.workflow_id,
-            "merge_details": {"head_uuid": head_uuid, "merger_root": root},
+            "data": root,
         }
 
         s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(
+            s3_hook, preserverd_root_entry, bucket_name, filename="root.json"
+        )
+
+        task_test(
+            "hep_create_dag",
+            "store_root",
+            dag_params=self.context["params"],
+        )
 
     @pytest.mark.vcr
     def test_store_root_update_record(self):
@@ -3207,10 +3203,19 @@ class Test_HEPCreateDAG:
 
         workflow_data = {
             "id": self.workflow_id,
-            "merge_details": {"head_uuid": head_uuid, "merger_root": root},
+            "merge_details": {"head_uuid": head_uuid},
+        }
+
+        preserverd_root_entry = {
+            "id": self.workflow_id,
+            "data": root,
         }
 
         s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(
+            s3_hook, preserverd_root_entry, bucket_name, filename="root.json"
+        )
+
         task_test(
             "hep_create_dag",
             "store_root",
@@ -3222,12 +3227,14 @@ class Test_HEPCreateDAG:
         assert root_entry["json"] == root
 
         root["version"] = "modified"
-        workflow_data = {
+        preserverd_root_entry = {
             "id": self.workflow_id,
-            "merge_details": {"head_uuid": head_uuid, "merger_root": root},
+            "data": root,
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(
+            s3_hook, preserverd_root_entry, bucket_name, filename="root.json"
+        )
         task_test(
             "hep_create_dag",
             "store_root",
