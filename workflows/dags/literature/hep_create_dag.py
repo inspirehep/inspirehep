@@ -1441,7 +1441,7 @@ def hep_create_dag():
 
         is_auto_approved = get_flag("auto-approved", workflow_data)
         is_create = not get_flag("is-update", workflow_data)
-        is_core = workflow_data["data"]["core"]
+        is_core = get_value(workflow_data, "data.core")
         if is_auto_approved and is_create and not is_core:
             return "save_workflow"
 
