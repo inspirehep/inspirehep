@@ -3085,6 +3085,29 @@ class Test_HEPCreateDAG:
 
         assert result == "save_workflow"
 
+    def test_should_proceed_to_core_selection_true_not_set(self):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [
+                    {"title": "test core not set"},
+                ],
+            },
+            "flags": {
+                "auto-approved": True,
+                "is-update": False,
+            },
+        }
+        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+
+        result = task_test(
+            "hep_create_dag",
+            "should_proceed_to_core_selection",
+            dag_params=self.context["params"],
+        )
+
+        assert result == "save_workflow"
+
     def test_should_proceed_to_core_selection_false_if_core(self):
         workflow_data = {
             "id": self.workflow_id,
