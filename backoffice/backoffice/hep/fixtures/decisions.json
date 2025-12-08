@@ -81,5 +81,16 @@
         "workflow": "07c5a66c-1e5b-4da6-823c-871caf43e073",
         "action": "hep_reject"
     }
+},
+{
+    "model": "hep.hepdecision",
+    "pk": 8,
+    "fields": {
+        "user": "admin@admin.com",
+        "_created_at": "2025-08-26T14:45:14.237Z",
+        "_updated_at": "2025-08-26T14:45:14.237Z",
+        "workflow": "26f5c03b-6085-4d1c-a300-bfac9df4b1b3",
+        "action": "hep_reject"
+    }
 }
     ]
