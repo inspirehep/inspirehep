@@ -64,6 +64,14 @@ class HepResolutions(models.TextChoices):
         "core_selection_accept_core",
         "core_selection.await_decision_core_selection_approval",
     )
+    auto_accept_core = (
+        "auto_accept_core",
+        "",
+    )
+    auto_reject = (
+        "auto_reject",
+        "",
+    )
 
 
 HEP_DECISION_CHOICES = HepResolutions.choices

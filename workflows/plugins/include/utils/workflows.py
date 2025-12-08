@@ -2,7 +2,6 @@ import logging
 from tempfile import TemporaryDirectory
 
 from hooks.backoffice.workflow_management_hook import (
-    COMPLETED_STATUSES,
     HEP,
     WorkflowManagementHook,
 )
@@ -11,7 +10,12 @@ from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
-from include.utils.constants import LITERATURE_PID_TYPE
+from include.utils.constants import (
+    COMPLETED_STATUSES,
+    DECISION_AUTO_REJECT,
+    DECISION_HEP_REJECT,
+    LITERATURE_PID_TYPE,
+)
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
 from invenio_classifier.reader import KeywordToken
@@ -282,7 +286,8 @@ def has_previously_rejected_wf_in_backoffice_w_same_source(workflow_data):
     for workflow in response.get("results", []):
         workflow_with_decisions = workflow_management_hook.get_workflow(workflow["id"])
         if get_decision(
-            workflow_with_decisions.get("decisions"), "hep_reject"
+            workflow_with_decisions.get("decisions"),
+            [DECISION_HEP_REJECT, DECISION_AUTO_REJECT],
         ) and has_same_source(workflow_data, workflow_with_decisions):
             return True
 

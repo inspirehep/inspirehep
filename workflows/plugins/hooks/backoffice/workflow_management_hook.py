@@ -4,19 +4,6 @@ from requests import Response
 AUTHORS = "authors"
 HEP = "literature"
 
-RUNNING_STATUSES = [
-    "approval_core_selection",
-    "approval_fuzzy_matching",
-    "approval_merge",
-    "approval",
-    "blocked",
-    "error_multiple_exact_matches",
-    "error_validation",
-    "error",
-    "running",
-]
-COMPLETED_STATUSES = ["completed"]
-
 
 class WorkflowManagementHook(BackofficeHook):
     """
