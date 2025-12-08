@@ -1,6 +1,11 @@
 import logging
 from tempfile import TemporaryDirectory
 
+from hooks.backoffice.workflow_management_hook import (
+    COMPLETED_STATUSES,
+    HEP,
+    WorkflowManagementHook,
+)
 from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
@@ -237,3 +242,48 @@ def get_flag(flag, workflow_data):
         workflow_data (dict): The workflow data.
     """
     return workflow_data.get("flags", {}).get(flag)
+
+
+def build_matching_workflow_filter_params(workflow_data, statuses):
+    filter_params = {
+        "status__in": {"__".join(statuses)},
+    }
+
+    for key in ["arxiv_eprints", "dois"]:
+        if key in workflow_data["data"]:
+            if "search" not in filter_params:
+                filter_params["search"] = []
+
+            for item in workflow_data["data"][key]:
+                filter_params["search"].append(
+                    f"data.{key}.value.keyword:{item['value']}"
+                )
+    return filter_params
+
+
+def has_same_source(workflow_1, workflow_2):
+    return (
+        get_value(workflow_1, "data.acquisition_source.source").lower()
+        == get_value(workflow_2, "data.acquisition_source.source").lower()
+    )
+
+
+def has_previously_rejected_wf_in_backoffice_w_same_source(workflow_data):
+    workflow_management_hook = WorkflowManagementHook(HEP)
+    filter_params = build_matching_workflow_filter_params(
+        workflow_data, COMPLETED_STATUSES
+    )
+
+    if "search" not in filter_params:
+        return False
+
+    response = workflow_management_hook.filter_workflows(filter_params)
+
+    for workflow in response.get("results", []):
+        workflow_with_decisions = workflow_management_hook.get_workflow(workflow["id"])
+        if get_decision(
+            workflow_with_decisions.get("decisions"), "hep_reject"
+        ) and has_same_source(workflow_data, workflow_with_decisions):
+            return True
+
+    return False

@@ -151,19 +151,10 @@ def hep_create_dag():
         workflow_data = s3.read_workflow(
             s3_hook, bucket_name, context["params"]["workflow_id"]
         )
-        filter_params = {
-            "status__in": {"__".join(RUNNING_STATUSES)},
-        }
 
-        for key in ["arxiv_eprints", "dois"]:
-            if key in workflow_data["data"]:
-                if "search" not in filter_params:
-                    filter_params["search"] = []
-
-                for item in workflow_data["data"][key]:
-                    filter_params["search"].append(
-                        f"data.{key}.value.keyword:{item['value']}"
-                    )
+        filter_params = workflows.build_matching_workflow_filter_params(
+            workflow_data, RUNNING_STATUSES
+        )
 
         if "search" in filter_params:
             response = workflow_management_hook.filter_workflows(filter_params)
@@ -297,6 +288,29 @@ def hep_create_dag():
             workflow_data["core"] = True
 
         s3.write_workflow(s3_hook, workflow_data, bucket_name)
+
+    @task.branch
+    def check_if_previously_rejected(**context):
+        """Equivalent to first IF of PROCESS_HOLDINGPEN_MATCH_HARVEST"""
+
+        workflow_data = s3.read_workflow(
+            s3_hook, bucket_name, context["params"]["workflow_id"]
+        )
+
+        if (
+            not workflows.get_flag("is-update", workflow_data)
+            and not workflows.get_flag("auto-approved", workflow_data)
+            and workflows.has_previously_rejected_wf_in_backoffice_w_same_source(
+                workflow_data
+            )
+        ):
+            # workflow_management_hook.add_decision(
+            #     workflow_id=context["params"]["workflow_id"],
+            #     decision_data={"action": "hep_reject"},
+            # )
+            return "save_and_complete_workflow"
+
+        return "preprocessing"
 
     @task_group
     def preprocessing():
@@ -1576,6 +1590,7 @@ def hep_create_dag():
     check_for_fuzzy_matches_task = check_for_fuzzy_matches()
     check_for_exact_matches_task = check_for_exact_matches()
     check_auto_approve_task = check_auto_approve()
+    save_and_complete_workflow_task = save_and_complete_workflow()
 
     (
         check_for_exact_matches_task
@@ -1589,7 +1604,8 @@ def hep_create_dag():
         check_for_fuzzy_matches_task
         >> await_decision_fuzzy_match()
         >> check_auto_approve_task
-        >> preprocessing_group
+        >> check_if_previously_rejected()
+        >> [preprocessing_group, save_and_complete_workflow_task]
     )
 
     (check_for_exact_matches_task >> Label("1 Exact Match") >> preprocessing_group)
@@ -1612,7 +1628,6 @@ def hep_create_dag():
     )
 
     postprocessing_group = postprocessing()
-    save_and_complete_workflow_task = save_and_complete_workflow()
     should_proceed_to_core_selection_task = should_proceed_to_core_selection()
 
     (
@@ -1632,7 +1647,7 @@ def hep_create_dag():
         >> save_and_complete_workflow_task
     )
     should_proceed_to_core_selection_task >> save_and_complete_workflow_task
-    check_for_fuzzy_matches_task >> check_auto_approve_task >> preprocessing_group
+    check_for_fuzzy_matches_task >> check_auto_approve_task
 
 
 hep_create_dag()
