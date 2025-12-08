@@ -1468,9 +1468,6 @@ def hep_create_dag():
 
                 return False
 
-            is_core_selection_accepted = action == "core_selection_accept_core"
-            workflow_data["data"]["core"] = is_core_selection_accepted
-
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
             return True
@@ -1494,6 +1491,14 @@ def hep_create_dag():
                 "head_version_id": record["revision_id"] + 1,
                 "merger_head_revision": record["revision_id"],
             }
+
+            decision = get_decision(
+                workflow_data.get("decisions", []), "core_selection_accept_core"
+            )
+
+            is_core_selection_accepted = bool(decision)
+            workflow_data["data"]["core"] = is_core_selection_accepted
+
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
         @task.branch
