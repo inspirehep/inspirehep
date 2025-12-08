@@ -3188,7 +3188,7 @@ class Test_HEPCreateDAG:
             s3_hook, bucket_name, "07c5a66c-1e5b-4da6-823c-871caf43e073"
         )
 
-        assert workflow_result["data"]["core"] is True
+        assert len(workflow_result["decisions"]) > 1
 
         assert task_test(
             dag_id="hep_create_dag",
@@ -3199,7 +3199,7 @@ class Test_HEPCreateDAG:
         workflow_result = s3.read_workflow(
             s3_hook, bucket_name, "66961888-a628-46b7-b807-4deae3478adc"
         )
-        assert workflow_result["data"]["core"] is False
+        assert len(workflow_result["decisions"]) > 1
 
     def test_remove_inspire_categories_derived_from_core_arxiv_categories(
         self,
@@ -3477,11 +3477,19 @@ class Test_HEPCreateDAG:
                 "hep_create_dag", "store_record", dag_params=self.context["params"]
             )
 
+    @pytest.mark.parametrize(
+        ("decision", "is_core"),
+        [
+            ("core_selection_accept_core", True),
+            ("core_selection_accept", False),
+        ],
+    )
     @pytest.mark.vcr
-    def test_load_record_from_hep(self):
+    def test_load_record_from_hep(self, decision, is_core):
         workflow_data = {
             "id": self.workflow_id,
             "data": {"control_number": 44707},
+            "decisions": [{"action": decision}],
         }
 
         s3.write_workflow(s3_hook, workflow_data, bucket_name)
@@ -3495,6 +3503,7 @@ class Test_HEPCreateDAG:
         workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
 
         assert "titles" in workflow_result["data"]
+        assert workflow_result["data"]["core"] is is_core
 
     def test_check_is_auto_approved_true(self):
         workflow_data = {
