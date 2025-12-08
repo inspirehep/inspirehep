@@ -16,7 +16,6 @@ from airflow.utils.edgemodifier import Label
 from airflow.utils.trigger_rule import TriggerRule
 from hooks.backoffice.workflow_management_hook import (
     HEP,
-    RUNNING_STATUSES,
     WorkflowManagementHook,
 )
 from hooks.generic_http_hook import GenericHttpHook
@@ -48,6 +47,11 @@ from include.inspire.refextract_utils import (
 )
 from include.utils import s3, workflows
 from include.utils.alerts import FailedDagNotifierSetError
+from include.utils.constants import (
+    DECISION_AUTO_ACCEPT_CORE,
+    DECISION_AUTO_REJECT,
+    RUNNING_STATUSES,
+)
 from include.utils.workflows import get_decision, get_flag, set_flag
 from inspire_classifier import Classifier
 from inspire_json_merger.api import merge
@@ -286,6 +290,10 @@ def hep_create_dag():
 
         if is_auto_approve and not is_update and is_first_category_core(data):
             workflow_data["core"] = True
+            workflow_management_hook.add_decision(
+                workflow_id=context["params"]["workflow_id"],
+                decision_data={"action": DECISION_AUTO_ACCEPT_CORE},
+            )
 
         s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
@@ -304,10 +312,10 @@ def hep_create_dag():
                 workflow_data
             )
         ):
-            # workflow_management_hook.add_decision(
-            #     workflow_id=context["params"]["workflow_id"],
-            #     decision_data={"action": "hep_reject"},
-            # )
+            workflow_management_hook.add_decision(
+                workflow_id=context["params"]["workflow_id"],
+                decision_data={"action": DECISION_AUTO_REJECT},
+            )
             return "save_and_complete_workflow"
 
         return "preprocessing"
@@ -1247,6 +1255,11 @@ def hep_create_dag():
                     "halt_for_approval_if_new_or_reject_if_not_relevant."
                     "replace_collection_to_hidden"
                 )
+
+            workflow_management_hook.add_decision(
+                workflow_id=context["params"]["workflow_id"],
+                decision_data={"action": DECISION_AUTO_REJECT},
+            )
             return "halt_for_approval_if_new_or_reject_if_not_relevant.halt_end"
 
         @task

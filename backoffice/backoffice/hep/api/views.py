@@ -125,17 +125,20 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
             serializer.validated_data["value"],
         )
 
-        try:
-            airflow_utils.clear_airflow_dag_tasks(
-                WORKFLOW_DAGS[HepWorkflowType.HEP_CREATE],
-                pk,
-                tasks=[HepResolutions[serializer.validated_data["action"]].label],
-            )
-        except RequestException as e:
-            return handle_request_exception(
-                "Error clearing Airflow DAG",
-                e,
-            )
+        task_to_restart = HepResolutions[serializer.validated_data["action"]].label
+
+        if task_to_restart:
+            try:
+                airflow_utils.clear_airflow_dag_tasks(
+                    WORKFLOW_DAGS[HepWorkflowType.HEP_CREATE],
+                    pk,
+                    tasks=[task_to_restart],
+                )
+            except RequestException as e:
+                return handle_request_exception(
+                    "Error clearing Airflow DAG",
+                    e,
+                )
 
         workflow = get_object_or_404(HepWorkflow, pk=pk)
         workflow.status = HepStatusChoices.PROCESSING

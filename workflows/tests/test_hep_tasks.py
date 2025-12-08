@@ -17,7 +17,11 @@ from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
 from include.utils import s3, workflows
-from include.utils.constants import LITERATURE_PID_TYPE
+from include.utils.constants import (
+    DECISION_AUTO_ACCEPT_CORE,
+    DECISION_AUTO_REJECT,
+    LITERATURE_PID_TYPE,
+)
 from include.utils.workflows import get_flag
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.query import ordered
@@ -227,7 +231,9 @@ class Test_HEPCreateDAG:
 
         assert result["flags"]["auto-approved"] is False
 
+    @pytest.mark.vcr
     def test_check_auto_approve_is_auto_approved_and_core_is_true(self):
+        workflow_management_hook = WorkflowManagementHook(HEP)
         workflow_data = {
             "flags": {
                 "is-update": False,
@@ -261,6 +267,11 @@ class Test_HEPCreateDAG:
 
         assert result["core"] is True
         assert result["flags"]["auto-approved"] is True
+
+        workflow = workflow_management_hook.get_workflow(self.workflow_id)
+        assert workflows.get_decision(
+            workflow.get("decisions"), DECISION_AUTO_ACCEPT_CORE
+        )
 
     def test_check_auto_approve_is_auto_approved_and_no_core_set(self):
         workflow_data = {
@@ -303,6 +314,7 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_check_if_previously_rejected_true(self):
+        workflow_management_hook = WorkflowManagementHook(HEP)
         workflow_data = {
             "flags": {
                 "is-update": False,
@@ -325,7 +337,10 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
             xcom_key="skipmixin_key",
         )
+        workflow = workflow_management_hook.get_workflow(self.workflow_id)
+
         assert "save_and_complete_workflow" in result["followed"]
+        assert workflows.get_decision(workflow.get("decisions"), DECISION_AUTO_REJECT)
 
     @pytest.mark.vcr
     def test_check_if_previously_rejected_false(self):
@@ -3089,9 +3104,11 @@ class Test_HEPCreateDAG:
             in result["followed"]
         )
 
+    @pytest.mark.vcr
     def test_should_replace_collection_false(
         self,
     ):
+        workflow_management_hook = WorkflowManagementHook(HEP)
         workflow_data = {
             "id": self.workflow_id,
             "data": {
@@ -3111,6 +3128,9 @@ class Test_HEPCreateDAG:
             "halt_for_approval_if_new_or_reject_if_not_relevant.halt_end"
             in result["followed"]
         )
+
+        workflow = workflow_management_hook.get_workflow(self.workflow_id)
+        assert workflows.get_decision(workflow.get("decisions"), DECISION_AUTO_REJECT)
 
     def test_should_proceed_to_core_selection_true(self):
         workflow_data = {
