@@ -2658,6 +2658,31 @@ class Test_HEPCreateDAG:
             "$ref" in workflow_result["data"]["authors"][0]["affiliations"][0]["record"]
         )
 
+    def test_link_institutions_with_affiliations_no_authors(self):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "test affiliation"}],
+                "document_type": [
+                    "article",
+                ],
+                "_collections": ["Literature"],
+            },
+            "workflow_type": "HEP_CREATE",
+            "status": "running",
+        }
+        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+
+        task_test(
+            "hep_create_dag",
+            "postprocessing.link_institutions_with_affiliations",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+
+        assert "authors" not in workflow_result["data"]
+
     def test_is_record_relevant_submission(self):
         workflow_data = {
             "id": self.workflow_id,
