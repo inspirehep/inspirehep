@@ -1565,7 +1565,7 @@ def hep_create_dag():
         # TODO: implement stale data check
         pass
 
-    @task
+    @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def store_record(**context):
         workflow_id = context["params"]["workflow_id"]
         workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
