@@ -91,3 +91,18 @@ export const SEARCH_PAGE_COL_SIZE_NO_RESULTS = { xs: 24 };
 
 export const LOCAL_TIMEZONE =
   Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+
+export enum WorkflowDecisions {
+  ACCEPT = 'accept',
+  ACCEPT_CURATE = 'accept_curate',
+  AUTO_ACCEPT_CORE = 'auto_accept_core',
+  AUTO_REJECT = 'auto_reject',
+  CORE_SELECTION_ACCEPT = 'core_selection_accept',
+  CORE_SELECTION_ACCEPT_CORE = 'core_selection_accept_core',
+  EXACT_MATCH = 'exact_match',
+  FUZZY_MATCH = 'fuzzy_match',
+  HEP_ACCEPT = 'hep_accept',
+  HEP_ACCEPT_CORE = 'hep_accept_core',
+  HEP_REJECT = 'hep_reject',
+  REJECT = 'reject',
+}

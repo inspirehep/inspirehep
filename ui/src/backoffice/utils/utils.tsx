@@ -18,6 +18,7 @@ import {
   BACKOFFICE_AUTHORS_SEARCH_NS,
   BACKOFFICE_LITERATURE_SEARCH_NS,
 } from '../../search/constants';
+import { WorkflowDecisions } from '../../common/constants';
 
 export const COLLECTIONS = [
   {
@@ -95,37 +96,55 @@ export const resolveDecision = (decision: string | number) => {
   const decisions: {
     [key: string]: { bg: string; text: string; decision: string };
   } = {
-    accept: { bg: 'bg-completed ml1', text: 'Accept', decision: 'accepted' },
-    accept_curate: {
+    [WorkflowDecisions.ACCEPT]: {
+      bg: 'bg-completed ml1',
+      text: 'Accept',
+      decision: 'accepted',
+    },
+    [WorkflowDecisions.ACCEPT_CURATE]: {
       bg: 'bg-halted ml1',
       text: 'Accept Curate',
       decision: 'accepted with curation',
     },
-    reject: { bg: 'bg-error font-white', text: 'Reject', decision: 'rejected' },
-    hep_accept: {
-      bg: 'bg-completed ml1',
-      text: 'Accept',
-      decision: 'accepted as Non-CORE',
-    },
-    hep_accept_core: {
-      bg: 'bg-completed ml1',
-      text: 'Accept CORE',
-      decision: 'accepted as CORE',
-    },
-    hep_reject: {
+    [WorkflowDecisions.REJECT]: {
       bg: 'bg-error font-white',
       text: 'Reject',
       decision: 'rejected',
     },
-    core_selection_accept: {
+    [WorkflowDecisions.HEP_ACCEPT]: {
       bg: 'bg-completed ml1',
       text: 'Accept',
       decision: 'accepted as Non-CORE',
     },
-    core_selection_accept_core: {
+    [WorkflowDecisions.HEP_ACCEPT_CORE]: {
       bg: 'bg-completed ml1',
       text: 'Accept CORE',
       decision: 'accepted as CORE',
+    },
+    [WorkflowDecisions.HEP_REJECT]: {
+      bg: 'bg-error font-white',
+      text: 'Reject',
+      decision: 'rejected',
+    },
+    [WorkflowDecisions.CORE_SELECTION_ACCEPT]: {
+      bg: 'bg-completed ml1',
+      text: 'Accept',
+      decision: 'accepted as Non-CORE',
+    },
+    [WorkflowDecisions.CORE_SELECTION_ACCEPT_CORE]: {
+      bg: 'bg-completed ml1',
+      text: 'Accept CORE',
+      decision: 'accepted as CORE',
+    },
+    [WorkflowDecisions.AUTO_ACCEPT_CORE]: {
+      bg: 'bg-completed ml1',
+      text: 'Auto Accept CORE',
+      decision: 'accepted as CORE',
+    },
+    [WorkflowDecisions.AUTO_REJECT]: {
+      bg: 'bg-error font-white',
+      text: 'Auto Reject',
+      decision: 'auto rejected',
     },
   };
   return decisions[decision] || null;

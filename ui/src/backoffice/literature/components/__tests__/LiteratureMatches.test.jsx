@@ -3,6 +3,7 @@ import { screen, fireEvent } from '@testing-library/react';
 import { List, Map } from 'immutable';
 import { renderWithRouter } from '../../../../fixtures/render';
 import LiteratureMatches from '../LiteratureMatches';
+import { WorkflowDecisions } from '../../../../common/constants';
 
 const MATCHES = List([
   Map({
@@ -83,18 +84,16 @@ const MATCHES = List([
 
 describe('LiteratureMatches', () => {
   const setup = () => {
-    const onBestMatchSelected = jest.fn();
-    const onNoMatchSelected = jest.fn();
+    const handleResolveAction = jest.fn();
 
     const props = {
       fuzzyMatches: MATCHES,
-      onBestMatchSelected,
-      onNoMatchSelected,
+      handleResolveAction,
     };
 
     renderWithRouter(<LiteratureMatches {...props} />);
 
-    return { onBestMatchSelected, onNoMatchSelected };
+    return { handleResolveAction };
   };
 
   it('renders all matches and selects the first one by default', () => {
@@ -120,7 +119,7 @@ describe('LiteratureMatches', () => {
   });
 
   it('changes selection when another radio is clicked and passes that value to onBestMatchSelected', () => {
-    const { onBestMatchSelected } = setup();
+    const { handleResolveAction } = setup();
 
     const radios = screen.getAllByRole('radio');
     const secondControlNumber = MATCHES.getIn([1, 'control_number']);
@@ -131,17 +130,23 @@ describe('LiteratureMatches', () => {
     const bestMatchButton = screen.getByRole('button', { name: /Best Match/i });
     fireEvent.click(bestMatchButton);
 
-    expect(onBestMatchSelected).toHaveBeenCalledTimes(1);
-    expect(onBestMatchSelected).toHaveBeenCalledWith(secondControlNumber);
+    expect(handleResolveAction).toHaveBeenCalledTimes(1);
+    expect(handleResolveAction).toHaveBeenCalledWith(
+      WorkflowDecisions.FUZZY_MATCH,
+      secondControlNumber
+    );
   });
 
   it('calls onNoMatchSelected when "None of these" is clicked', () => {
-    const { onNoMatchSelected } = setup();
+    const { handleResolveAction } = setup();
 
     const noneButton = screen.getByRole('button', { name: /None of these/i });
     fireEvent.click(noneButton);
 
-    expect(onNoMatchSelected).toHaveBeenCalledTimes(1);
+    expect(handleResolveAction).toHaveBeenCalledTimes(1);
+    expect(handleResolveAction).toHaveBeenCalledWith(
+      WorkflowDecisions.FUZZY_MATCH
+    );
   });
 
   it('renders authors correctly and shows "(N authors)" when more than one', () => {
