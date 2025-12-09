@@ -56,7 +56,7 @@ jobs:
             IMAGE="${tag%:*}"
             SHA_TAG="${tag##*:}"
 
-            if [[ "$IMAGE" != "registry.cern.ch/cern-sis/inspire/*" ]]; then
+            if [[ ! "$IMAGE" =~ ^registry\.cern\.ch/cern-sis/inspire/ ]]; then
               continue
             fi
 
