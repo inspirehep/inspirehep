@@ -1,0 +1,2045 @@
+{
+  "core": true,
+  "self": {
+    "$ref": "https://inspirebeta.net/api/literature/1503501"
+  },
+  "urls": [
+    {
+      "value": "https://fais.uj.edu.plhttp://www.fais.uj.edu.pl/documents/41628/111671067/Antoni_Marcinek_PhD.pdf"
+    }
+  ],
+  "titles": [
+    {
+      "title": "$\\phi$ meson production in proton-proton collisions in the NA61/SHINE experiment at CERN SPS"
+    }
+  ],
+  "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+  "authors": [
+    {
+      "ids": [
+        {
+          "value": "CERN-673960",
+          "schema": "CERN"
+        }
+      ],
+      "uuid": "57b80212-6de8-4cc2-9314-37a992a5d416",
+      "emails": [
+        "antoni.marcinek@gmail.com"
+      ],
+      "record": {
+        "$ref": "https://inspirebeta.net/api/authors/2583499"
+      },
+      "full_name": "Marcinek, Antoni Jerzy",
+      "affiliations": [
+        {
+          "value": "Jagiellonian U.",
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902897"
+          }
+        }
+      ],
+      "signature_block": "MARCANACa",
+      "raw_affiliations": [
+        {
+          "value": "Jagiellonian U. (main)"
+        }
+      ]
+    },
+    {
+      "uuid": "85778de6-e96b-4506-8b72-93a97b238f4c",
+      "record": {
+        "$ref": "https://inspirebeta.net/api/authors/1078680"
+      },
+      "full_name": "Płaneta, Roman",
+      "affiliations": [
+        {
+          "value": "Jagiellonian U.",
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902897"
+          }
+        }
+      ],
+      "inspire_roles": [
+        "supervisor"
+      ],
+      "signature_block": "PLANATr"
+    }
+  ],
+  "curated": true,
+  "texkeys": [
+    "Marcinek:2016fyf"
+  ],
+  "imprints": [
+    {
+      "date": "2016"
+    }
+  ],
+  "keywords": [
+    {
+      "value": "thesis",
+      "schema": "INSPIRE"
+    },
+    {
+      "value": "Phi(1020): hadroproduction",
+      "schema": "INSPIRE"
+    },
+    {
+      "value": "Phi(1020): hadronic decay",
+      "schema": "INSPIRE"
+    },
+    {
+      "value": "K: pair production",
+      "schema": "INSPIRE"
+    },
+    {
+      "value": "beam: momentum",
+      "schema": "INSPIRE"
+    },
+    {
+      "value": "p p: scattering",
+      "schema": "INSPIRE"
+    },
+    {
+      "value": "CERN SPS",
+      "schema": "INSPIRE"
+    },
+    {
+      "value": "NA61",
+      "schema": "INSPIRE"
+    },
+    {
+      "value": "transverse momentum: momentum spectrum",
+      "schema": "INSPIRE"
+    },
+    {
+      "value": "transverse momentum dependence",
+      "schema": "INSPIRE"
+    },
+    {
+      "value": "mass spectrum",
+      "schema": "INSPIRE"
+    },
+    {
+      "value": "energy loss",
+      "schema": "INSPIRE"
+    },
+    {
+      "value": "rapidity dependence",
+      "schema": "INSPIRE"
+    },
+    {
+      "value": "experimental results",
+      "schema": "INSPIRE"
+    },
+    {
+      "value": "Phi(1020) --\u003E K+ K-",
+      "schema": "INSPIRE"
+    },
+    {
+      "value": "80 GeV/c",
+      "schema": "INSPIRE"
+    },
+    {
+      "value": "158 GeV/c",
+      "schema": "INSPIRE"
+    }
+  ],
+  "abstracts": [
+    {
+      "value": "This thesis presents results on $\\phi$ meson production in p+p collisions at CERN SPS energies. They are derived from data collected by the NA61/SHINE experiment, by means of invariant mass spectra fits in $\\phi \\to K^+K^−$ decay channel, using the so-called tag-and-probe method to remove bias due to inefficiency of kaon candidates selection with dE/dx. These results include double differential spectra (first for $\\phi$ mesons at CERN SPS energies) of rapidity y and transverse momentum $p_T$ for beam momenta of 158 GeV/c and 80 GeV/c, as well as singly differential spectra of y or $p_T$ for beam momentum of 40 GeV/c. Additionally, y spectra integrated over $p_T$ were obtained from double differential spectra. Also total $\\phi$ yields were determined by integration and extrapolation of y spectra and widths of these spectra along with yields at y = 0 were calculated from fits of the distributions with Gaussian functions. Results were compared with world data on $\\phi$ meson production in p+p collisions showing consistency and superior accuracy. They served also as reference for Pb+Pb data on $\\phi$ production, confirming and emphasizing earlier findings regarding phenomena in Pb+Pb. Finally, results were also compared with model predictions showing that none of considered models could describe properly all observables."
+    }
+  ],
+  "documents": [
+    {
+      "key": "16551b5112f986d54e1947de9f3fc6fb",
+      "url": "https://inspirebeta.net/files/16551b5112f986d54e1947de9f3fc6fb",
+      "filename": "CERN-THESIS-2016-176.pdf"
+    }
+  ],
+  "references": [
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/357192"
+      },
+      "reference": {
+        "misc": [
+          "Sterman et al Handbook of perturbative QCD"
+        ],
+        "label": "1",
+        "authors": [
+          {
+            "full_name": "Cteq, G."
+          }
+        ],
+        "publication_info": {
+          "year": 1995,
+          "artid": "157",
+          "page_start": "157",
+          "journal_title": "Rev.Mod.Phys.",
+          "journal_volume": "67"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/454590"
+      },
+      "reference": {
+        "misc": [
+          "Introduction to Lattice QCD,, arXiv:"
+        ],
+        "label": "2",
+        "authors": [
+          {
+            "full_name": "Gupta, R."
+          }
+        ],
+        "arxiv_eprint": "hep-lat/9807028",
+        "publication_info": {
+          "year": 1998
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/712925"
+      },
+      "reference": {
+        "misc": [
+          "PYTHIA 6.4 physics and manual"
+        ],
+        "label": "3",
+        "authors": [
+          {
+            "full_name": "Sjöstrand, T."
+          },
+          {
+            "full_name": "Mrenna, S."
+          },
+          {
+            "full_name": "Skands, P."
+          }
+        ],
+        "publication_info": {
+          "year": 2006,
+          "artid": "026",
+          "page_start": "026",
+          "journal_title": "JHEP",
+          "journal_volume": "05"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/855212"
+      },
+      "reference": {
+        "misc": [
+          "Tuning Monte Carlo generators: The Perugia tunes see for the newest tunes"
+        ],
+        "label": "4",
+        "authors": [
+          {
+            "full_name": "Skands, P."
+          }
+        ],
+        "arxiv_eprint": "1005.3457",
+        "publication_info": {
+          "year": 2010,
+          "artid": "074018",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "82"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/697228"
+      },
+      "reference": {
+        "misc": [
+          "Energy and system size dependence of chemical freeze-out in relativistic nuclear collisions"
+        ],
+        "label": "5",
+        "authors": [
+          {
+            "full_name": "Becattini, F."
+          },
+          {
+            "full_name": "Manninen, J."
+          },
+          {
+            "full_name": "Gaździcki, M."
+          }
+        ],
+        "publication_info": {
+          "year": 2006,
+          "artid": "044905",
+          "journal_title": "Phys.Rev.C",
+          "journal_volume": "73"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/1411474"
+      },
+      "reference": {
+        "misc": [
+          "Hadron multiplicities and chemical freeze-out conditions in proton-proton and nucleus-nucleus collisions"
+        ],
+        "label": "6",
+        "authors": [
+          {
+            "full_name": "Vovchenko, V."
+          },
+          {
+            "full_name": "Begun, V.V."
+          },
+          {
+            "full_name": "Gorenstein, M.I."
+          }
+        ],
+        "arxiv_eprint": "1512.08025",
+        "publication_info": {
+          "year": 2016
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/1315584"
+      },
+      "reference": {
+        "misc": [
+          "Particle Data Olive et al Review of Particle Physics"
+        ],
+        "label": "7",
+        "authors": [
+          {
+            "full_name": "Group, K."
+          }
+        ],
+        "publication_info": {
+          "year": 2014,
+          "artid": "090001",
+          "journal_title": "Chin.Phys.C",
+          "journal_volume": "38"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/787913"
+      },
+      "reference": {
+        "misc": [
+          "Alt et al Energy dependence of φ meson production in central Pb+Pb collisions at √ sNN = 6 to 17 GeV"
+        ],
+        "label": "8",
+        "authors": [
+          {
+            "full_name": "Na49, C."
+          }
+        ],
+        "publication_info": {
+          "year": 2008,
+          "artid": "044907",
+          "journal_title": "Phys.Rev.C",
+          "journal_volume": "78"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/155014"
+      },
+      "reference": {
+        "misc": [
+          "The importance of the reaction volume in hadronic collisions"
+        ],
+        "label": "9",
+        "authors": [
+          {
+            "full_name": "Rafelski, J."
+          },
+          {
+            "full_name": "Danos, M."
+          }
+        ],
+        "publication_info": {
+          "year": 1980,
+          "artid": "279",
+          "page_start": "279",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "97"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/203205"
+      },
+      "reference": {
+        "misc": [
+          "Statistical Thermodynamics in Relativistic Particle and Ion Physics: Canonical or Grand Canonical? 144"
+        ],
+        "label": "10",
+        "authors": [
+          {
+            "full_name": "Hagedorn, R."
+          },
+          {
+            "full_name": "Redlich, K."
+          }
+        ],
+        "publication_info": {
+          "year": 1985,
+          "artid": "541",
+          "page_start": "541",
+          "journal_title": "Z.Phys.C",
+          "journal_volume": "27"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/99837"
+      },
+      "reference": {
+        "misc": [
+          "Test of the Zweig selection rule in φ production by pp collisions"
+        ],
+        "label": "11",
+        "authors": [
+          {
+            "full_name": "Blobel, V."
+          }
+        ],
+        "publication_info": {
+          "year": 1975,
+          "artid": "88",
+          "page_start": "88",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "59"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/10281"
+      },
+      "reference": {
+        "misc": [
+          "Daum et al Inclusive φ-meson production in 93 and 63 GeV hadron interactions"
+        ],
+        "label": "12",
+        "authors": [
+          {
+            "full_name": "Accmor, C."
+          }
+        ],
+        "publication_info": {
+          "year": 1981,
+          "artid": "205",
+          "page_start": "205",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "186"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/164535"
+      },
+      "reference": {
+        "misc": [
+          "Production of Vector and Tensor Mesons in ProtonProton Collisions at √ s = 52.5 GeV"
+        ],
+        "label": "13",
+        "authors": [
+          {
+            "full_name": "Drijard, D."
+          }
+        ],
+        "publication_info": {
+          "year": 1981,
+          "artid": "293",
+          "page_start": "293",
+          "journal_title": "Z.Phys.C",
+          "journal_volume": "9"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/314091"
+      },
+      "reference": {
+        "misc": [
+          "Aguilar-Benitez et al Inclusive particle production in 400 GeV/c pp-interactions"
+        ],
+        "label": "14",
+        "authors": [
+          {
+            "full_name": "Lebc-Ehs, M."
+          }
+        ],
+        "publication_info": {
+          "year": 1991,
+          "artid": "405",
+          "page_start": "405",
+          "journal_title": "Z.Phys.C",
+          "journal_volume": "50"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/537897"
+      },
+      "reference": {
+        "misc": [
+          "Afanasiev et al Production of φ-mesons in p+p, p+Pb and central Pb+Pb collisions at Ebeam = 158A GeV"
+        ],
+        "label": "15",
+        "authors": [
+          {
+            "full_name": "Na49, S."
+          }
+        ],
+        "publication_info": {
+          "year": 2000,
+          "artid": "59",
+          "page_start": "59",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "491"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/763646"
+      },
+      "reference": {
+        "misc": [
+          "Kaon pair production in proton-proton collisions"
+        ],
+        "label": "16",
+        "authors": [
+          {
+            "full_name": "Maeda, Y."
+          }
+        ],
+        "publication_info": {
+          "year": 2008,
+          "artid": "015204",
+          "journal_title": "Phys.Rev.C",
+          "journal_volume": "77"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/797805"
+      },
+      "reference": {
+        "misc": [
+          "Abelev et al Measurements of φ meson production in relativistic heavy-ion collisions at the BNL Relativistic Heavy Ion Collider (RHIC)"
+        ],
+        "label": "17",
+        "authors": [
+          {
+            "full_name": "Star, B.i."
+          }
+        ],
+        "publication_info": {
+          "year": 2009,
+          "artid": "064903",
+          "journal_title": "Phys.Rev.C",
+          "journal_volume": "79"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "reference": {
+        "misc": [
+          "for the PHENIX collaboration, Anomalous φ Meson Suppression in Au+Au Collisions at √ sNN = 200 GeV Measured by the PHENIX Experiment at RHIC"
+        ],
+        "label": "18",
+        "authors": [
+          {
+            "full_name": "Phenix, M.n."
+          }
+        ],
+        "publication_info": {
+          "year": 2009,
+          "artid": "757c",
+          "page_start": "757c",
+          "journal_title": "Nucl.Phys.A",
+          "journal_volume": "830"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/881474"
+      },
+      "reference": {
+        "misc": [
+          "Aamodt et al Strange particle production in proton-proton collisions at √ s = 0.9 TeV with ALICE at the LHC"
+        ],
+        "label": "19",
+        "authors": [
+          {
+            "full_name": "Alice, K."
+          }
+        ],
+        "publication_info": {
+          "year": 2011,
+          "artid": "1594",
+          "page_start": "1594",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "71"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/1182213"
+      },
+      "reference": {
+        "misc": [
+          "Abelev et al Production of K∗ (892)0 and φ(1020) in pp collisions at √ s = 7 TeV"
+        ],
+        "label": "20",
+        "authors": [
+          {
+            "full_name": "Alice, B."
+          }
+        ],
+        "publication_info": {
+          "year": 2012,
+          "artid": "2183",
+          "page_start": "2183",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "72"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/1282441"
+      },
+      "reference": {
+        "misc": [
+          "Aad et al The differential production cross section of the φ(1020) meson in √ s = 7 TeV pp collisions measured with the ATLAS detector"
+        ],
+        "label": "21",
+        "authors": [
+          {
+            "full_name": "Atlas, G."
+          }
+        ],
+        "publication_info": {
+          "year": 2014,
+          "artid": "2895",
+          "page_start": "2895",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "74"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/919315"
+      },
+      "reference": {
+        "misc": [
+          "Aaij et al Measurement of the inclusive φ cross-section in pp collisions at √ s = 7 TeV"
+        ],
+        "label": "22",
+        "authors": [
+          {
+            "full_name": "LHCb, R."
+          }
+        ],
+        "publication_info": {
+          "year": 2011,
+          "artid": "267",
+          "page_start": "267",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "703"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "reference": {
+        "misc": [
+          "PDG tables on total and elastic cross sections as a function of energy 145"
+        ],
+        "urls": [
+          {
+            "value": "http://pdg.lbl.gov/2015/hadronic-xsections/hadron.html"
+          }
+        ],
+        "label": "23"
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/1278235"
+      },
+      "reference": {
+        "misc": [
+          "NA61/SHINE NA61/SHINE facility at the CERN SPS: beams and detector system"
+        ],
+        "label": "24",
+        "authors": [
+          {
+            "full_name": "Abgrall, N."
+          }
+        ],
+        "publication_info": {
+          "year": 2014,
+          "artid": "P06005",
+          "journal_title": "JINST",
+          "journal_volume": "9"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/494394"
+      },
+      "reference": {
+        "misc": [
+          "Afanasiev et al The NA49 large acceptance hadron detector"
+        ],
+        "label": "25",
+        "authors": [
+          {
+            "full_name": "Na49, S."
+          }
+        ],
+        "publication_info": {
+          "year": 1999,
+          "artid": "210",
+          "page_start": "210",
+          "journal_title": "Nucl.Instrum.Meth.A",
+          "journal_volume": "430"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/762554"
+      },
+      "reference": {
+        "misc": [
+          "Alt et al Pion and kaon production in central Pb+Pb collisions at 20A and 30A GeV: Evidence for the onset of deconfinement"
+        ],
+        "label": "26",
+        "authors": [
+          {
+            "full_name": "Na49, C."
+          }
+        ],
+        "publication_info": {
+          "year": 2008,
+          "artid": "024903",
+          "journal_title": "Phys.Rev.C",
+          "journal_volume": "77"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/857492"
+      },
+      "reference": {
+        "misc": [
+          "Onset of deconfinement in nucleus-nucleus collisions: review for pedestrians and experts"
+        ],
+        "label": "27",
+        "authors": [
+          {
+            "full_name": "Gazdzicki, M."
+          },
+          {
+            "full_name": "Gorenstein, M."
+          },
+          {
+            "full_name": "Seyboth, P."
+          }
+        ],
+        "publication_info": {
+          "year": 2011,
+          "artid": "307",
+          "page_start": "307",
+          "journal_title": "Acta Phys.Polon.B",
+          "journal_volume": "42"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "reference": {
+        "misc": [
+          "NA61/SHINE NA61/SHINE plans beyond the approved program"
+        ],
+        "label": "28",
+        "authors": [
+          {
+            "full_name": "Abgrall, N."
+          }
+        ],
+        "report_numbers": [
+          "CERN-SPSC-2012-022"
+        ]
+      }
+    },
+    {
+      "reference": {
+        "misc": [
+          "SPSC-P330-ADD-6"
+        ],
+        "label": "28",
+        "publication_info": {
+          "year": 2012
+        },
+        "external_system_identifiers": [
+          {
+            "value": "1463552",
+            "schema": "CDS"
+          }
+        ]
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/1263553"
+      },
+      "reference": {
+        "misc": [
+          "Feasibility Studies of Open Charm Measurements with the NA61/SHINE Experiment at CERN-SPS"
+        ],
+        "label": "29",
+        "authors": [
+          {
+            "full_name": "Ali, Y."
+          },
+          {
+            "full_name": "Staszel, P."
+          },
+          {
+            "full_name": "Marcinek, A."
+          },
+          {
+            "full_name": "Brzychczyk, J."
+          },
+          {
+            "full_name": "Płaneta, R."
+          }
+        ],
+        "publication_info": {
+          "year": 2013,
+          "artid": "2019",
+          "page_start": "2019",
+          "journal_title": "Acta Phys.Polon.B",
+          "journal_volume": "44"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/1257740"
+      },
+      "reference": {
+        "misc": [
+          "NA61/SHINE Measurement of negatively charged pion spectra in inelastic p+p interactions at plab = 20, 31, 40, 80 and 158 GeV/c"
+        ],
+        "label": "30",
+        "authors": [
+          {
+            "full_name": "Abgrall, N."
+          }
+        ],
+        "publication_info": {
+          "year": 2014,
+          "artid": "2794",
+          "page_start": "2794",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "74"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "reference": {
+        "misc": [
+          "Measurement of the Spectrum of Charged Hadrons in π- + C Interactions with the NA61 Experiment, Master’s thesis, Karlsruhe Institute of Technology 1231710/1/Martin_Ruprecht_Diploma_Thesis.pdf"
+        ],
+        "urls": [
+          {
+            "value": "https://edms.cern.ch/file/"
+          }
+        ],
+        "label": "31",
+        "authors": [
+          {
+            "full_name": "Ruprecht, M."
+          }
+        ],
+        "publication_info": {
+          "year": 2012
+        }
+      }
+    },
+    {
+      "reference": {
+        "misc": [
+          "Operation and performance of Time Projection Chambers of SHINE/NA61 experiment at CERN, Master’s thesis, University of Warsaw Aduszkiewicz_master_thesis.pdf"
+        ],
+        "urls": [
+          {
+            "value": "https://edms.cern.ch/file/936393/1/Antoni_"
+          }
+        ],
+        "label": "32",
+        "authors": [
+          {
+            "full_name": "Aduszkiewicz, A."
+          }
+        ],
+        "publication_info": {
+          "year": 2008
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/807304"
+      },
+      "reference": {
+        "misc": [
+          "2nd ed -Verlag, Berlin Heidelberg,)"
+        ],
+        "label": "33",
+        "title": {
+          "title": "Particle detection with drift chambers"
+        },
+        "authors": [
+          {
+            "full_name": "Blum, W."
+          },
+          {
+            "full_name": "Riegler, W."
+          },
+          {
+            "full_name": "Rolandi, L."
+          }
+        ],
+        "imprint": {
+          "publisher": "Springer"
+        },
+        "publication_info": {
+          "year": 2008
+        }
+      },
+      "legacy_curated": true,
+      "curated_relation": true
+    },
+    {
+      "reference": {
+        "misc": [
+          "Baryon Momentum Transfer in Hadronic and Nuclear Collisions at the CERN NA49 Experiment, PhD thesis, Eötvös Loránd University, Budapest gabor_veres_phd.ps. 146"
+        ],
+        "urls": [
+          {
+            "value": "https://edms.cern.ch/file/818513/1/"
+          }
+        ],
+        "label": "34",
+        "authors": [
+          {
+            "full_name": "Veres, G.I."
+          }
+        ],
+        "publication_info": {
+          "year": 2001
+        }
+      }
+    },
+    {
+      "reference": {
+        "misc": [
+          "Flavor Fluctuations in Central Pb+Pb Collisions at 158 GeV/Nucleon, PhD thesis, Johann Wolfgang Goethe-Universität, Frankfurt am Main rolandc.ps"
+        ],
+        "urls": [
+          {
+            "value": "https://edms.cern.ch/file/816020/1/"
+          }
+        ],
+        "label": "35",
+        "authors": [
+          {
+            "full_name": "Roland, C."
+          }
+        ],
+        "publication_info": {
+          "year": 1999
+        }
+      }
+    },
+    {
+      "reference": {
+        "misc": [
+          "New developments in understanding and correction of dE/dx pdf"
+        ],
+        "urls": [
+          {
+            "value": "https://edms.cern.ch/file/815871/1/note"
+          }
+        ],
+        "label": "36",
+        "authors": [
+          {
+            "full_name": "Veres, G.I."
+          },
+          {
+            "full_name": "Siklér, F."
+          }
+        ],
+        "publication_info": {
+          "year": 2000
+        }
+      }
+    },
+    {
+      "reference": {
+        "misc": [
+          "Charged hadron production in elementary and nuclear collisions at 158 GeV/c, PhD thesis, H. Niewodniczański Institute of Nuclear Physics, Kraków thesis_int_final.ps"
+        ],
+        "urls": [
+          {
+            "value": "https://edms.cern.ch/file/816032/1/"
+          }
+        ],
+        "label": "37",
+        "authors": [
+          {
+            "full_name": "Rybicki, A."
+          }
+        ],
+        "publication_info": {
+          "year": 2002
+        }
+      }
+    },
+    {
+      "reference": {
+        "misc": [
+          "How to use threshold loss correction tables?"
+        ],
+        "urls": [
+          {
+            "value": "http://na49info.web.cern.ch/na49info/na49/Physics/dEdx/notes/howto.ps.gz"
+          }
+        ],
+        "label": "38",
+        "authors": [
+          {
+            "full_name": "Veres, G.I."
+          }
+        ],
+        "publication_info": {
+          "year": 2000
+        }
+      }
+    },
+    {
+      "reference": {
+        "misc": [
+          "Kaon and open charm production in central lead-lead collisions at the CERN SPS, PhD thesis, NIKHEF, Amsterdam"
+        ],
+        "urls": [
+          {
+            "value": "https://edms.cern.ch/file/816033/1/thesis_mvl_library.pdf"
+          }
+        ],
+        "label": "39",
+        "authors": [
+          {
+            "full_name": "van Leeuwen, M."
+          }
+        ],
+        "publication_info": {
+          "year": 2003
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/685829"
+      },
+      "reference": {
+        "misc": [
+          "Parton ladder splitting and the rapidity dependence of transverse momentum spectra in deuteron-gold collisions at the BNL Relativistic Heavy Ion Collider"
+        ],
+        "label": "40",
+        "authors": [
+          {
+            "full_name": "Werner, K."
+          },
+          {
+            "full_name": "Liu, F."
+          },
+          {
+            "full_name": "Pierog, T."
+          }
+        ],
+        "publication_info": {
+          "year": 2006,
+          "artid": "044902",
+          "journal_title": "Phys.Rev.C",
+          "journal_volume": "74"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/819729"
+      },
+      "reference": {
+        "misc": [
+          "EPOS Model and Ultra High Energy Cosmic Rays"
+        ],
+        "label": "41",
+        "authors": [
+          {
+            "full_name": "Pierog, T."
+          },
+          {
+            "full_name": "Werner, K."
+          }
+        ],
+        "publication_info": {
+          "year": 2009,
+          "artid": "102",
+          "page_start": "102",
+          "journal_title": "Nucl.Phys.B Proc.Suppl.",
+          "journal_volume": "196"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "reference": {
+        "misc": [
+          "CRMC (Cosmic Ray Monte Carlo package)"
+        ],
+        "urls": [
+          {
+            "value": "https://web.ikp.kit.edu/rulrich/crmc.html"
+          }
+        ],
+        "label": "42",
+        "authors": [
+          {
+            "full_name": "Baus, C."
+          },
+          {
+            "full_name": "Pierog, T."
+          },
+          {
+            "full_name": "Ulrich, R."
+          }
+        ]
+      }
+    },
+    {
+      "reference": {
+        "misc": [
+          "GEANT Detector Description and Simulation Tool, CERN Program Library Long Writeup W5013"
+        ],
+        "label": "43",
+        "authors": [
+          {
+            "full_name": "Brun, R."
+          },
+          {
+            "full_name": "Carminati, F."
+          },
+          {
+            "full_name": "Giani, S."
+          }
+        ]
+      },
+      "curated_relation": false
+    },
+    {
+      "reference": {
+        "misc": [
+          "Comparison of hadron production in Monte-Carlo models and experimental data in p+p interactions at the SPS energies, Master’s thesis, University of Warsaw 1319366"
+        ],
+        "urls": [
+          {
+            "value": "https://edms.cern.ch/document/"
+          }
+        ],
+        "label": "44",
+        "authors": [
+          {
+            "full_name": "Ilnicka, A."
+          }
+        ],
+        "publication_info": {
+          "year": 2013
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/881047"
+      },
+      "reference": {
+        "misc": [
+          "for the NA61/SHINE Collaboration, Hadron Production at Fixed Target Energies and Extensive Air Showers 147"
+        ],
+        "label": "45",
+        "authors": [
+          {
+            "full_name": "Unger, M."
+          }
+        ],
+        "publication_info": {
+          "year": 2010,
+          "artid": "449",
+          "page_start": "449",
+          "journal_title": "PoS",
+          "journal_volume": "ICHEP2010"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/1235234"
+      },
+      "reference": {
+        "misc": [
+          "for the NA61/SHINE Collaboration, Results from NA61/ SHINE"
+        ],
+        "label": "46",
+        "authors": [
+          {
+            "full_name": "Unger, M."
+          }
+        ],
+        "publication_info": {
+          "year": 2013,
+          "artid": "01009",
+          "journal_title": "EPJ Web Conf.",
+          "journal_volume": "52"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/886780"
+      },
+      "reference": {
+        "misc": [
+          "NA61/SHINE Measurements of cross sections and charged pion spectra in proton-carbon interactions at 31 GeV/c"
+        ],
+        "label": "47",
+        "authors": [
+          {
+            "full_name": "Abgrall, N."
+          }
+        ],
+        "publication_info": {
+          "year": 2011,
+          "artid": "034604",
+          "journal_title": "Phys.Rev.C",
+          "journal_volume": "84"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "reference": {
+        "misc": [
+          "NA61/SHINE NA61/SHINE software upgrade proposal pdf"
+        ],
+        "urls": [
+          {
+            "value": "https://indico.cern.ch/event/126464/material/0/0"
+          }
+        ],
+        "label": "48",
+        "authors": [
+          {
+            "full_name": "Abgrall, N."
+          }
+        ],
+        "publication_info": {
+          "year": 2011
+        }
+      }
+    },
+    {
+      "reference": {
+        "misc": [
+          "NA61/SHINE Report from the NA61/SHINE experiment at the CERN SPS"
+        ],
+        "label": "49",
+        "authors": [
+          {
+            "full_name": "Abgrall, N."
+          }
+        ],
+        "report_numbers": [
+          "CERN-SPSC-2014-031"
+        ]
+      }
+    },
+    {
+      "reference": {
+        "misc": [
+          "SPSC-SR-145"
+        ],
+        "label": "49",
+        "publication_info": {
+          "year": 2014
+        },
+        "external_system_identifiers": [
+          {
+            "value": "1955138",
+            "schema": "CDS"
+          }
+        ]
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/593382"
+      },
+      "reference": {
+        "misc": [
+          "Geant4 — a simulation toolkit"
+        ],
+        "label": "50",
+        "authors": [
+          {
+            "full_name": "Agostinelli, S."
+          }
+        ],
+        "publication_info": {
+          "year": 2003,
+          "artid": "250",
+          "page_start": "250",
+          "journal_title": "Nucl.Instrum.Meth.A",
+          "journal_volume": "506"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "reference": {
+        "misc": [
+          "System-Size Dependence of Strangeness Production in Heavy-Ion Collisions at 158A GeV, PhD thesis, Philipps-Universität Marburg claudiahoehne.pdf"
+        ],
+        "urls": [
+          {
+            "value": "https://edms.cern.ch/file/816035/1/diss_ub_"
+          }
+        ],
+        "label": "51",
+        "authors": [
+          {
+            "full_name": "Höhne, C."
+          }
+        ],
+        "publication_info": {
+          "year": 2003
+        }
+      }
+    },
+    {
+      "reference": {
+        "misc": [
+          "Study of K∗ resonances production in nuclear collisions at the CERN SPS energies, PhD thesis, Warsaw University of Technology pdf"
+        ],
+        "urls": [
+          {
+            "value": "https://edms.cern.ch/file/999736/2/Slodkowski_PhD"
+          }
+        ],
+        "label": "52",
+        "authors": [
+          {
+            "full_name": "Słodkowski, M."
+          }
+        ],
+        "publication_info": {
+          "year": 2008
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/900130"
+      },
+      "reference": {
+        "misc": [
+          "Anticic et al K∗ (892)0 and K∗(892)0 production in central Pb+Pb, Si+Si, C+C, and inelastic p+p collisions at 158A GeV"
+        ],
+        "label": "53",
+        "authors": [
+          {
+            "full_name": "Na49, T."
+          }
+        ],
+        "publication_info": {
+          "year": 2011,
+          "artid": "064909",
+          "journal_title": "Phys.Rev.C",
+          "journal_volume": "84"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/666578"
+      },
+      "reference": {
+        "misc": [
+          "Adams et al K∗ (892) resonance production in Au+Au and p+p collisions at √ sNN = 200 GeV"
+        ],
+        "label": "54",
+        "authors": [
+          {
+            "full_name": "Star, J."
+          }
+        ],
+        "publication_info": {
+          "year": 2005,
+          "artid": "064902",
+          "journal_title": "Phys.Rev.C",
+          "journal_volume": "71"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "reference": {
+        "misc": [
+          "Cocktail Fit of invariant mass mπ+π- in pion-Carbon, talk at the NA61/NA49 Collaboration meeting, 11 April, Dubna 62/attachments/477303/660429/Herve_Dubna_Talk.pdf"
+        ],
+        "urls": [
+          {
+            "value": "https://indico.cern.ch/event/267227/session/7/contribution/"
+          }
+        ],
+        "label": "55",
+        "authors": [
+          {
+            "full_name": "Herve, A."
+          }
+        ],
+        "publication_info": {
+          "year": 2014
+        }
+      }
+    },
+    {
+      "reference": {
+        "misc": [
+          "Study of event mixing and its application to the extraction of resonance signals, Nucl. Instr. and Meth. in Phys. Res. 225, 367 . 148"
+        ],
+        "label": "56",
+        "authors": [
+          {
+            "full_name": "Drijard, D."
+          },
+          {
+            "full_name": "Fischer, H.G."
+          },
+          {
+            "full_name": "Nakada, T."
+          }
+        ],
+        "publication_info": {
+          "year": 1984
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/483505"
+      },
+      "reference": {
+        "misc": [
+          "(Oxford University Press, Oxford,)"
+        ],
+        "label": "57",
+        "title": {
+          "title": "Statistical data analysis"
+        },
+        "authors": [
+          {
+            "full_name": "Cowan, G."
+          }
+        ],
+        "publication_info": {
+          "year": 1998
+        }
+      },
+      "legacy_curated": true,
+      "curated_relation": true
+    },
+    {
+      "reference": {
+        "misc": [
+          "The RooFit Toolkit for Data Modeling"
+        ],
+        "urls": [
+          {
+            "value": "http://root.cern.ch/drupal/content/roofit"
+          }
+        ],
+        "label": "58",
+        "authors": [
+          {
+            "full_name": "Verkerke, W."
+          },
+          {
+            "full_name": "Kirkby, D."
+          }
+        ]
+      }
+    },
+    {
+      "reference": {
+        "misc": [
+          "ROOT: An Object-Oriented Data Analysis Framework"
+        ],
+        "urls": [
+          {
+            "value": "http://root.cern.ch"
+          }
+        ],
+        "label": "59",
+        "authors": [
+          {
+            "full_name": "Brun, R."
+          }
+        ]
+      }
+    },
+    {
+      "reference": {
+        "misc": [
+          "MINUIT 2 (C++ port of MINUIT library) home page"
+        ],
+        "urls": [
+          {
+            "value": "http://www.cern.ch/minuit"
+          }
+        ],
+        "label": "60"
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/101965"
+      },
+      "reference": {
+        "misc": [
+          "MINUIT: A System for Function Minimization and Analysis of the Parameter Errors and Correlations"
+        ],
+        "label": "61",
+        "authors": [
+          {
+            "full_name": "James, F."
+          },
+          {
+            "full_name": "Roos, M."
+          }
+        ],
+        "publication_info": {
+          "year": 1975,
+          "artid": "343",
+          "page_start": "343",
+          "journal_title": "Comput.Phys.Commun.",
+          "journal_volume": "10"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "reference": {
+        "misc": [
+          "Interpretation of errors in MINUIT"
+        ],
+        "urls": [
+          {
+            "value": "http://seal.web.cern.ch/seal/documents/minuit/mnerror.pdf"
+          }
+        ],
+        "label": "62",
+        "authors": [
+          {
+            "full_name": "James, F."
+          }
+        ]
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/1253404"
+      },
+      "reference": {
+        "misc": [
+          "NA61/SHINE Measurements of production properties of K0 S mesons and Λ hyperons in proton-carbon interactions at 31 GeV/c"
+        ],
+        "label": "63",
+        "authors": [
+          {
+            "full_name": "Abgrall, N."
+          }
+        ],
+        "publication_info": {
+          "year": 2014,
+          "artid": "025205",
+          "journal_title": "Phys.Rev.C",
+          "journal_volume": "89"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "reference": {
+        "misc": [
+          "Interval Estimation for a Binomial Proportion"
+        ],
+        "label": "64",
+        "authors": [
+          {
+            "full_name": "Brown, L.D."
+          },
+          {
+            "full_name": "Cai, T.T."
+          },
+          {
+            "full_name": "DasGupta, A."
+          }
+        ],
+        "publication_info": {
+          "year": 2001,
+          "artid": "101",
+          "page_start": "101",
+          "journal_title": "Statist.Sci.",
+          "journal_volume": "16"
+        }
+      }
+    },
+    {
+      "reference": {
+        "misc": [
+          "Treatment of Errors in Efficiency Calculations,, arXiv: [physics.data-an]"
+        ],
+        "label": "65",
+        "authors": [
+          {
+            "full_name": "Ullrich, T."
+          },
+          {
+            "full_name": "Xu, Z."
+          }
+        ],
+        "arxiv_eprint": "physics/0701199",
+        "publication_info": {
+          "year": 2007
+        }
+      }
+    },
+    {
+      "reference": {
+        "misc": [
+          "GNU Scientific Library — Reference Manual software/gsl/manual/html_node"
+        ],
+        "urls": [
+          {
+            "value": "https://www.gnu.org/"
+          }
+        ],
+        "label": "66"
+      }
+    },
+    {
+      "reference": {
+        "misc": [
+          "Bose-Einstein Correlations of Charged Kaons and Pions in Central Pb+Pb Collisions at 158A GeV, PhD thesis, PhilippsUniversität Marburg PHD.pdf"
+        ],
+        "urls": [
+          {
+            "value": "https://edms.cern.ch/file/816026/1/"
+          }
+        ],
+        "label": "67",
+        "authors": [
+          {
+            "full_name": "Yoo, I.-K."
+          }
+        ],
+        "publication_info": {
+          "year": 2001
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/8546"
+      },
+      "reference": {
+        "misc": [
+          "Remarks on the Phenomenological Analysis of Resonances"
+        ],
+        "label": "68",
+        "authors": [
+          {
+            "full_name": "Jackson, J.D."
+          }
+        ],
+        "publication_info": {
+          "year": 1964,
+          "artid": "1644",
+          "page_start": "1644",
+          "journal_title": "Nuovo Cim.",
+          "journal_volume": "34"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/666454"
+      },
+      "reference": {
+        "misc": [
+          "Relativistic resonances: Their masses, widths, lifetimes, superposition, and causal evolution 149"
+        ],
+        "label": "69",
+        "authors": [
+          {
+            "full_name": "Bohm, A.R."
+          },
+          {
+            "full_name": "Sato, Y."
+          }
+        ],
+        "publication_info": {
+          "year": 2005,
+          "artid": "085018",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "71"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "reference": {
+        "misc": [
+          "Identification and analysis of charged hadrons in p+p interactions from NA61/SHINE experiment at CERN SPS energies, PhD thesis, University of Silesia, Katowice file/1550661/1/main.pdf"
+        ],
+        "urls": [
+          {
+            "value": "https://edms.cern.ch/"
+          }
+        ],
+        "label": "70",
+        "authors": [
+          {
+            "full_name": "Puławski, S."
+          }
+        ],
+        "publication_info": {
+          "year": 2015
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/586383"
+      },
+      "reference": {
+        "misc": [
+          "Afanasiev et al Energy dependence of pion and kaon production in central Pb+Pb collisions"
+        ],
+        "label": "71",
+        "authors": [
+          {
+            "full_name": "Na49, S.v."
+          }
+        ],
+        "publication_info": {
+          "year": 2002,
+          "artid": "054902",
+          "journal_title": "Phys.Rev.C",
+          "journal_volume": "66"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/634197"
+      },
+      "reference": {
+        "misc": [
+          "Anticic et al Λ and Λ Production in Central Pb-Pb Collisions at 40, 80, and 158A GeV"
+        ],
+        "label": "72",
+        "authors": [
+          {
+            "full_name": "Na49, T."
+          }
+        ],
+        "publication_info": {
+          "year": 2004,
+          "artid": "022302",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "93"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/507987"
+      },
+      "reference": {
+        "misc": [
+          "Rescattering of vector meson daughters in high energy heavy ion collisions"
+        ],
+        "label": "73",
+        "authors": [
+          {
+            "full_name": "Johnson, S."
+          },
+          {
+            "full_name": "Jacak, B."
+          },
+          {
+            "full_name": "Drees, A."
+          }
+        ],
+        "publication_info": {
+          "year": 2001,
+          "artid": "645",
+          "page_start": "645",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "18"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/617486"
+      },
+      "reference": {
+        "misc": [
+          "Back et al Production of φ mesons in Au+Au collisions at 11.7A GeV/c"
+        ],
+        "label": "74",
+        "authors": [
+          {
+            "full_name": "E917, B.b."
+          }
+        ],
+        "publication_info": {
+          "year": 2004,
+          "artid": "054901",
+          "journal_title": "Phys.Rev.C",
+          "journal_volume": "69"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/468266"
+      },
+      "reference": {
+        "misc": [
+          "Microscopic models for ultrarelativistic heavy ion collisions"
+        ],
+        "label": "75",
+        "authors": [
+          {
+            "full_name": "Bass, S."
+          }
+        ],
+        "publication_info": {
+          "year": 1998,
+          "artid": "255",
+          "page_start": "255",
+          "journal_title": "Prog.Part.Nucl.Phys.",
+          "journal_volume": "41"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/507334"
+      },
+      "reference": {
+        "misc": [
+          "Relativistic hadron-hadron collisions in the ultrarelativistic quantum molecular dynamics model"
+        ],
+        "label": "76",
+        "authors": [
+          {
+            "full_name": "Bleicher, M."
+          }
+        ],
+        "publication_info": {
+          "year": 1999,
+          "artid": "1859",
+          "page_start": "1859",
+          "journal_title": "J.Phys.G",
+          "journal_volume": "25"
+        }
+      },
+      "curated_relation": false
+    },
+    {
+      "reference": {
+        "misc": [
+          "Monte Carlo phase space, CERN-68-15 , https: //cds.cern.ch/record/275743. 150"
+        ],
+        "label": "77",
+        "authors": [
+          {
+            "full_name": "James, F."
+          }
+        ],
+        "publication_info": {
+          "year": 1968
+        }
+      }
+    }
+  ],
+  "thesis_info": {
+    "date": "2016-07-01",
+    "degree_type": "phd",
+    "defense_date": "2016-11-18",
+    "institutions": [
+      {
+        "name": "Jagiellonian U.",
+        "record": {
+          "$ref": "https://inspirebeta.net/api/institutions/902897"
+        },
+        "curated_relation": true
+      }
+    ]
+  },
+  "_collections": [
+    "Literature"
+  ],
+  "document_type": [
+    "thesis"
+  ],
+  "energy_ranges": [
+    "10-30 GeV"
+  ],
+  "control_number": 1503501,
+  "legacy_version": "20210616120817.0",
+  "report_numbers": [
+    {
+      "value": "CERN-THESIS-2016-176"
+    }
+  ],
+  "number_of_pages": 150,
+  "_desy_bookkeeping": [
+    {
+      "identifier": "DA16-kp51br"
+    },
+    {
+      "date": "2016-12-23",
+      "expert": "G",
+      "status": "abs"
+    },
+    {
+      "date": "2016-12-25",
+      "expert": "G",
+      "status": "printed"
+    },
+    {
+      "date": "2016-12-29",
+      "expert": "G",
+      "status": "final"
+    }
+  ],
+  "inspire_categories": [
+    {
+      "term": "Experiment-HEP"
+    }
+  ],
+  "legacy_creation_date": "2016-12-15",
+  "accelerator_experiments": [
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/experiments/1108234"
+      },
+      "legacy_name": "CERN-NA-061"
+    },
+    {
+      "accelerator": "CERN SPS"
+    }
+  ],
+  "external_system_identifiers": [
+    {
+      "value": "2234262",
+      "schema": "CDS"
+    },
+    {
+      "value": "eapb1-6sc30",
+      "schema": "CDSRDM"
+    }
+  ]
+}

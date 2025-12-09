@@ -6,6 +6,7 @@ import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank'
 import { LITERATURE } from '../../../common/routes';
 import PublicationInfoList from '../../../common/components/PublicationInfoList';
 import Latex from '../../../common/components/Latex';
+import { WorkflowDecisions } from '../../../common/constants';
 
 const { Text, Paragraph } = Typography;
 
@@ -118,21 +119,17 @@ const LiteratureMatchItem = ({ match, selectedBestMatch, onSelect }) => {
   );
 };
 
-const LiteratureMatches = ({
-  fuzzyMatches,
-  onBestMatchSelected,
-  onNoMatchSelected,
-}) => {
+const LiteratureMatches = ({ fuzzyMatches, handleResolveAction }) => {
   const [selectedBestMatch, setSelectedBestMatch] = useState(
     fuzzyMatches.getIn([0, 'control_number'])
   );
 
   const handleBestMatchClick = () => {
-    onBestMatchSelected(selectedBestMatch);
+    handleResolveAction(WorkflowDecisions.FUZZY_MATCH, selectedBestMatch);
   };
 
   const handleNoMatchClick = () => {
-    onNoMatchSelected();
+    handleResolveAction(WorkflowDecisions.FUZZY_MATCH);
   };
 
   return (

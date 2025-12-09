@@ -27,7 +27,10 @@ import { isSuperUser } from '../../../common/authorization';
 import { columnsSubject } from './columnData';
 import { StatusBanner } from '../../common/components/Detail/StatusBanner';
 import { TicketsList } from '../../common/components/Detail/TicketsList';
-import { LITERATURE_PID_TYPE } from '../../../common/constants';
+import {
+  LITERATURE_PID_TYPE,
+  WorkflowDecisions,
+} from '../../../common/constants';
 import CollapsableForm from '../../../submissions/common/components/CollapsableForm';
 import DeleteWorkflow from '../../common/components/DeleteWorkflow/DeleteWorkflow';
 import { getConfigFor } from '../../../common/config';
@@ -65,13 +68,19 @@ const LiteratureDetailPageContainer = ({
   const classifierResults = literature?.get('classifier_results');
   const matches = literature?.get('matches');
   const fuzzyMatches = matches?.get('fuzzy');
-  const hasFuzzyMatches = !!fuzzyMatches?.size; // TODO: Enrich this check when full flow is tested
+  const status = literature?.get('status');
+  const hasFuzzyMatches =
+    !!fuzzyMatches?.size && status === WorkflowStatuses.APPROVAL_FUZZY_MATCHING;
   const title = data?.getIn(['titles', 0, 'title']);
   const controlNumber = data?.get('control_number');
   const tickets =
     literature?.get('tickets')?.size !== 0 && literature?.get('tickets');
-  const decision = literature?.getIn(['decisions', 0]) as Map<string, any>; // TODO: Fix this, we should not grab the first decision only
-  const status = literature?.get('status');
+  const decisions = literature?.get('decisions');
+  const filteredDecisions = decisions?.filter(
+    (decision: Map<string, any>) =>
+      decision.get('action') !== WorkflowDecisions.FUZZY_MATCH
+  );
+  const decision = filteredDecisions?.first();
   const workflow_type = literature?.get('workflow_type');
   const inspireCategories = data?.get('inspire_categories')?.toJS();
   const rawDateTime = data?.getIn(['acquisition_source', 'datetime']);
@@ -96,6 +105,7 @@ const LiteratureDetailPageContainer = ({
     inspireCategories && 'subjectAreas',
     references && 'references',
     status === WorkflowStatuses.ERROR && 'errors',
+    hasFuzzyMatches && 'matches',
     'delete',
   ].filter(Boolean);
 
@@ -195,8 +205,7 @@ const LiteratureDetailPageContainer = ({
                         >
                           <LiteratureMatches
                             fuzzyMatches={fuzzyMatches}
-                            onBestMatchSelected={() => {}}
-                            onNoMatchSelected={() => {}}
+                            handleResolveAction={handleResolveAction}
                           />
                         </CollapsableForm.Section>
                       )}

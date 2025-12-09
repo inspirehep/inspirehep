@@ -266,13 +266,14 @@ def hep_create_dag():
             )
             return False
 
-        set_flag("is-update", True, workflow_data)
-
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
-
         approved_match_id = decision.get("value")
-        if approved_match_id:
-            context["ti"].xcom_push(key="match", value=approved_match_id)
+
+        if not approved_match_id:
+            return True
+
+        set_flag("is-update", True, workflow_data)
+        context["ti"].xcom_push(key="match", value=approved_match_id)
+        s3.write_workflow(s3_hook, workflow_data, bucket_name)
         return True
 
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
