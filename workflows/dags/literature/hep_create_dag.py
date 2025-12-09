@@ -7,7 +7,7 @@ from copy import deepcopy
 from tempfile import TemporaryDirectory
 
 from airflow.decorators import dag, task_group
-from airflow.exceptions import AirflowException
+from airflow.exceptions import AirflowException, AirflowFailException
 from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.providers.standard.operators.empty import EmptyOperator
@@ -50,6 +50,7 @@ from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.constants import (
     DECISION_AUTO_ACCEPT_CORE,
     DECISION_AUTO_REJECT,
+    LITERATURE_PID_TYPE,
     RUNNING_STATUSES,
 )
 from include.utils.workflows import get_decision, get_flag, set_flag
@@ -1150,7 +1151,7 @@ def hep_create_dag():
             update_source = LiteratureReader(update).source
 
             record_data = inspire_http_record_management_hook.get_record(
-                pid_type="literature",
+                pid_type=LITERATURE_PID_TYPE,
                 control_number=matched_control_number,
             )
 
@@ -1509,7 +1510,7 @@ def hep_create_dag():
             control_number = workflow_data["data"]["control_number"]
 
             record = inspire_http_record_management_hook.get_record(
-                pid_type="literature",
+                pid_type=LITERATURE_PID_TYPE,
                 control_number=control_number,
             )
 
@@ -1575,9 +1576,32 @@ def hep_create_dag():
         workflow_management_hook.update_workflow(workflow_id, workflow_data)
 
     @task
-    def is_stale_data(**context):
-        # TODO: implement stale data check
-        pass
+    def is_fresh_data(**context):
+        """Check if the data being processed is fresh or stale.
+        Opposite of def is_stale_data() in next."""
+
+        workflow_data = s3.read_workflow(
+            s3_hook, bucket_name, context["params"]["workflow_id"]
+        )
+        is_update = get_flag("is-update", workflow_data)
+        head_version_id = workflow_data.get("merge_details", {}).get("head_version_id")
+
+        if not is_update or head_version_id is None:
+            return
+
+        control_number = workflow_data["data"]["control_number"]
+
+        latest_record_data = inspire_http_record_management_hook.get_record(
+            pid_type=LITERATURE_PID_TYPE,
+            control_number=control_number,
+        )
+        latest_version_id = latest_record_data["revision_id"] + 1
+
+        if latest_version_id != head_version_id:
+            raise AirflowFailException(
+                f"Working with stale data: Expecting version {head_version_id} "
+                f"but found {latest_version_id}"
+            )
 
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def store_record(**context):
@@ -1652,7 +1676,7 @@ def hep_create_dag():
     )
     (
         postprocessing_group
-        >> is_stale_data()
+        >> is_fresh_data()
         >> store_record()
         >> store_root()
         >> should_proceed_to_core_selection_task

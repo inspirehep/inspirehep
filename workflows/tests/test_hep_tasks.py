@@ -3377,6 +3377,84 @@ class Test_HEPCreateDAG:
         assert validate(workflow_inspire_categories, subschema) is None
 
     @pytest.mark.vcr
+    def test_is_fresh_data_true(self):
+        control_number = 44707
+
+        record = inspire_http_record_management_hook.get_record(
+            pid_type=LITERATURE_PID_TYPE,
+            control_number=control_number,
+        )
+        head_version_id = record["revision_id"]
+
+        workflow_data = {
+            "id": self.workflow_id,
+            "flags": {
+                "is-update": True,
+            },
+            "merge_details": {
+                "head_version_id": head_version_id + 1,
+            },
+            "data": {"control_number": control_number},
+        }
+        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+
+        assert (
+            task_test(
+                "hep_create_dag",
+                "is_fresh_data",
+                dag_params=self.context["params"],
+            )
+            is None
+        )
+
+    @pytest.mark.vcr
+    def test_is_fresh_data_false(self):
+        control_number = 44707
+
+        record = inspire_http_record_management_hook.get_record(
+            pid_type="literature",
+            control_number=control_number,
+        )
+        head_version_id = record["revision_id"]
+
+        workflow_data = {
+            "id": self.workflow_id,
+            "flags": {
+                "is-update": True,
+            },
+            "merge_details": {
+                "head_version_id": head_version_id,
+            },
+            "data": {"control_number": control_number},
+        }
+        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+
+        with pytest.raises(AirflowFailException, match="Working with stale data"):
+            task_test(
+                "hep_create_dag",
+                "is_fresh_data",
+                dag_params=self.context["params"],
+            )
+
+    @pytest.mark.vcr
+    def test_is_fresh_data_returns_true_if_is_update_is_falsy(self):
+        workflow_data = {
+            "id": self.workflow_id,
+            "flags": {
+                "is-update": False,
+            },
+        }
+        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        assert (
+            task_test(
+                "hep_create_dag",
+                "is_fresh_data",
+                dag_params=self.context["params"],
+            )
+            is None
+        )
+
+    @pytest.mark.vcr
     def test_store_root_new_record(self):
         record = inspire_http_record_management_hook.get_record(
             pid_type="literature",
