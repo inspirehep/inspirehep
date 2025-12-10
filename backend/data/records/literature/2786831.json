@@ -1,0 +1,152 @@
+{
+  "core": false,
+  "self": {
+    "$ref": "https://inspirebeta.net/api/literature/2786831"
+  },
+  "urls": [
+    {
+      "value": "https://eqworld.ipmnet.ru/ru/library/books/Tamm_t1_1975ru.djvu",
+      "description": "Eqworld"
+    },
+    {
+      "value": "http://web.archive.org/web/20071111201517/https://eqworld.ipmnet.ru/ru/library/books/Tamm_t1_1975ru.djvu",
+      "description": "Internet Archive"
+    }
+  ],
+  "titles": [
+    {
+      "title": "Собрание научных трудов в двух томах [Sobranie nauchnykh trudov v dvukh tomakh]. Собрание научных трудов [Sobranie nauchnykh trudov], I: Электродинамика. Квантовая механика и теория твердого тела. Теория ядерных сил и атомного ядра. Прикладные работы. [Èlektrodinamika. Kvantovaya mekhanika i teoriya tverdogo tela. Teoriya yadernykh sil i atomnogo yadra. Prikladnye raboty.]",
+      "source": "submitter"
+    }
+  ],
+  "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+  "references": [
+    {
+      "record": {
+        "$ref": "http://localhost:8080/api/literature/2786837"
+      }
+    }
+  ],
+  "authors": [
+    {
+      "ids": [
+        {
+          "value": "INSPIRE-00165155",
+          "schema": "INSPIRE ID"
+        },
+        {
+          "value": "HEPNAMES-900923",
+          "schema": "SPIRES"
+        }
+      ],
+      "uuid": "71d6c854-3e29-4bb5-85ef-ec660d9276d2",
+      "record": {
+        "$ref": "https://inspirebeta.net/api/authors/1062560"
+      },
+      "full_name": "Tamm, I.E.",
+      "curated_relation": true,
+      "alternative_names": ["Тамм, И.Е."]
+    },
+    {
+      "ids": [
+        {
+          "value": "INSPIRE-00159262",
+          "schema": "INSPIRE ID"
+        },
+        {
+          "value": "HEPNAMES-427152",
+          "schema": "SPIRES"
+        }
+      ],
+      "uuid": "8d9feced-c85c-4282-9871-3e690ba60bce",
+      "record": {
+        "$ref": "https://inspirebeta.net/api/authors/1019746"
+      },
+      "full_name": "Ginzburg, V.L.",
+      "inspire_roles": ["editor"],
+      "curated_relation": true,
+      "alternative_names": ["Гинзбург,  В.Л."]
+    },
+    {
+      "uuid": "faadc981-695c-42b4-87ce-1c0c69a03dc2",
+      "record": {
+        "$ref": "https://inspirebeta.net/api/authors/2398997"
+      },
+      "full_name": "Bolotovsky, B.M.",
+      "inspire_roles": ["editor"],
+      "curated_relation": true,
+      "alternative_names": [
+        "Bolotovskii, B.M.",
+        "Bolotovskiĭ, B.M.",
+        "Болотовский, Б.М."
+      ]
+    },
+    {
+      "ids": [
+        {
+          "value": "INSPIRE-00078165",
+          "schema": "INSPIRE ID"
+        },
+        {
+          "value": "HEPNAMES-332925",
+          "schema": "SPIRES"
+        },
+        {
+          "value": "0000-0001-7451-247X",
+          "schema": "ORCID"
+        }
+      ],
+      "uuid": "a70af73d-464c-430d-9f6f-28b6aae8c6fb",
+      "record": {
+        "$ref": "https://inspirebeta.net/api/authors/1011406"
+      },
+      "full_name": "Dremin, I.M.",
+      "inspire_roles": ["editor"],
+      "curated_relation": true,
+      "alternative_names": ["Дремин, И.М."]
+    }
+  ],
+  "curated": true,
+  "abstracts": [
+    {
+      "value": "(Translated from the Russian abstract): The Collected Works of Academician I. E. Tamm contains almost all of his scientific works published during the period from 1924 to 1972 in domestic and foreign publications, as well as some of the reviews, popular science articles, etc. written by him. Scientific interests of I. E. Tamm are very extensive and cover such chapters as electrodynamics, quantum mechanics and the theory of solids, the theory of nuclear forces and the atomic nucleus, the theory of elementary particles and interactions at high energies. I. E. Tamm made a great contribution to the development of fundamental problems of field theory. He also performed a lot of applied work. The scientific and journalistic activities of I. E. Tamm are widely known. Volume I includes articles on electrodynamics, quantum mechanics and the theory of solids, the theory of nuclear forces and the atomic nucleus, as well as some applied works. The publication is of significant interest to scientists in the field of physics, physics engineers, as well as teachers, students and graduate students of physics specialties at institutions of higher education. Russian abstract: Собрание трудов академика И. Е. Тамма содержит практически все его научные работы, опубликованные за период с 1924 по 1972 г. в отечественных и зарубежных изданиях, а также часть написанных им обзоров, научно-популярных статей и т. п. Научные интересы И. Е. Тамма весьма обширны и охватывают такие разделы, как электродинамика, квантовая механика и теория твердого тела, теория ядерных сил и атомного ядра, теория элементарных частиц и взаимодействий при высоких энергиях. Велик вклад И. Е. Тамма в разработку фундаментальных проблем теории поля. Им было выполнено также немало прикладных работ. Широко известна научно-публицистическая деятельность И. Е. Тамма. В I том вошли статьи по электродинамике, квантовой механике и теории твердого тела, теории ядерных сил и атомного ядра, а также некоторые прикладные работы. Издание представляет значительный интерес для научных работников в области физики, инженеров-физиков, а также преподавателей, студентов и аспирантов физических специальностей вузов.",
+      "source": "submitter"
+    }
+  ],
+  "languages": ["ru"],
+  "_collections": ["Literature"],
+  "public_notes": [
+    {
+      "value": "2 volume set. Наука [Nauka], Moscow, 1975. The volume is freely available online at the Eqworld site: https://eqworld.ipmnet.ru/ru/library/books/Tamm_t1_1975ru.djvu , archived at the Internet Archive: http://web.archive.org/web/20071111201517/https://eqworld.ipmnet.ru/ru/library/books/Tamm_t1_1975ru.djvu ."
+    }
+  ],
+  "document_type": ["book"],
+  "_private_notes": [
+    {
+      "value": "AUTHOR = Tamm, I.E.; Тамм, И.Е. INSPIRE BAI Igor.Tamm.1 INSPIRE ID INSPIRE-00165155 SPIRES HEPNAMES-900923\nAUTHOR = Ginzburg, V.L.; ed. (red.) Гинзбург, В.Л. INSPIRE BAI V.L.Ginzburg.1 INSPIRE ID INSPIRE-00159262 SPIRES HEPNAMES-427152\nAUTHOR = Bolotovskiĭ, B.M.; ed. (red.) Bolotovsky, B.M. Болотовский, Б.М. INSPIRE BAI B.M.Bolotovsky.1 INSPIRE ID SPIRES\nAUTHOR = Dremin, I.M.; ed. (red.) Дремин, И.М. Дрёмин, И.М. INSPIRE BAI I.M.Dremin.1 INSPIRE ID INSPIRE-00078165 SPIRES HEPNAMES-332925 ORCID 0000-0001-7451-247X\nP = 443;\n\n NOTE = English translation of the title: Collection of scientific works in two volumes. Collection of scientific works, I: Electrodynamics. Quantum mechanichs and solid state theory. Theory of nuclear forces and the atomic nucleus. Applied works.\n2 volume set. Наука [Nauka], Moscow, 1975. The volume is freely available online at the Eqworld site: https://eqworld.ipmnet.ru/ru/library/books/Tamm_t1_1975ru.djvu , archived at the Internet Archive: http://web.archive.org/web/20071111201517/https://eqworld.ipmnet.ru/ru/library/books/Tamm_t1_1975ru.djvu .;\nURL = Eqworld;\nURLDOC = https://eqworld.ipmnet.ru/ru/library/books/Tamm_t1_1975ru.djvu ;\nURL = Internet Archive;\nURLDOC = http://web.archive.org/web/20071111201517/https://eqworld.ipmnet.ru/ru/library/books/Tamm_t1_1975ru.djvu ;",
+      "source": "submitter"
+    }
+  ],
+  "control_number": 2786831,
+  "number_of_pages": 443,
+  "acquisition_source": {
+    "email": "k.scharnhorst@vu.nl",
+    "orcid": "0000-0003-3355-9663",
+    "method": "submitter",
+    "source": "submitter",
+    "datetime": "2024-05-14T13:24:55.679409",
+    "internal_uid": 50012,
+    "submission_number": "7417482"
+  },
+  "inspire_categories": [
+    {
+      "term": "General Physics"
+    }
+  ],
+  "title_translations": [
+    {
+      "title": "Collection of scientific works in two volumes. Collection of scientific works, I: Electrodynamics. Quantum mechanichs and solid state theory. Theory of nuclear forces and the atomic nucleus. Applied works.",
+      "language": "en"
+    }
+  ]
+}

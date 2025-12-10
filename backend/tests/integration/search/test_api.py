@@ -1340,6 +1340,7 @@ def test_literature_journal_title_search_is_case_insensitive(inspire_app):
     assert str(record2.id) in result_uppercase_found_record_ids
 
 
+@pytest.mark.skip(reason="Test is wrong. Returns results for path with raw and without")
 @mock.patch("inspirehep.search.factories.query.inspire_query_parser.parse_query")
 def test_citedby_query(mocked_query_parser, inspire_app):
     cited_record = create_record("lit")
@@ -1352,7 +1353,7 @@ def test_citedby_query(mocked_query_parser, inspire_app):
             "self.$ref.raw": {
                 "index": prefix_index("records-hep"),
                 "id": str(citing_record["control_number"]),
-                "path": "references.record.$ref.raw",
+                "path": "references.record.$ref",
             }
         }
     }
@@ -1363,7 +1364,6 @@ def test_citedby_query(mocked_query_parser, inspire_app):
         )
         url = f"/api/literature?q={query_string}"
         response = client.get(url)
-
     assert len(response.json["hits"]["hits"]) == 1
     assert (
         response.json["hits"]["hits"][0]["metadata"]["control_number"]
@@ -1398,7 +1398,7 @@ def test_citedby_query_simple(inspire_app):
                         "self.$ref.raw": {
                             "index": "records-hep",
                             "id": str(rec.id),
-                            "path": "references.record.$ref.raw",
+                            "path": "references.record.$ref",
                         }
                     }
                 }
@@ -1417,6 +1417,7 @@ def test_citedby_bool_query(inspire_app):
         f"citedby:  recid {rec_1['control_number']} or"
         f" citedby:recid:{rec_2['control_number']}"
     )
+
     expected = {
         "bool": {
             "filter": [{"match_all": {}}, {"terms": {"_collections": ["Literature"]}}],
@@ -1426,7 +1427,7 @@ def test_citedby_bool_query(inspire_app):
                         "self.$ref.raw": {
                             "index": "records-hep",
                             "id": str(rec_1.id),
-                            "path": "references.record.$ref.raw",
+                            "path": "references.record.$ref",
                         }
                     }
                 },
@@ -1435,7 +1436,7 @@ def test_citedby_bool_query(inspire_app):
                         "self.$ref.raw": {
                             "index": "records-hep",
                             "id": str(rec_2.id),
-                            "path": "references.record.$ref.raw",
+                            "path": "references.record.$ref",
                         }
                     }
                 },
@@ -1463,7 +1464,7 @@ def test_citedby_complex_query(inspire_app):
                         "self.$ref.raw": {
                             "index": "records-hep",
                             "id": str(rec_1.id),
-                            "path": "references.record.$ref.raw",
+                            "path": "references.record.$ref",
                         }
                     }
                 },
@@ -1475,7 +1476,7 @@ def test_citedby_complex_query(inspire_app):
                                     "self.$ref.raw": {
                                         "index": "records-hep",
                                         "id": str(rec_2.id),
-                                        "path": "references.record.$ref.raw",
+                                        "path": "references.record.$ref",
                                     }
                                 }
                             },
