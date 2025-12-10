@@ -2071,14 +2071,14 @@ tests = ["mock (>=3.0.0,<4.0)", "pytest (>=4.6.0,<5.0) ; python_version <= \"2.7
 
 [[package]]
 name = "inspire-query-parser"
-version = "6.0.61"
+version = "6.0.62"
 description = "A PEG-based query parser for INSPIRE."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "inspire_query_parser-6.0.61-py3-none-any.whl", hash = "sha256:28fe2b7e3952111cf5f5fc7542974f5fd86b463577ea89885fe4a4c2a61dcf54"},
-    {file = "inspire_query_parser-6.0.61.tar.gz", hash = "sha256:04a0b6c23c6d310444b620f957fddfb974f5faa54dad4d4b2a0ea5ad84e4b2b5"},
+    {file = "inspire_query_parser-6.0.62-py3-none-any.whl", hash = "sha256:920c4f644a19a2516ed6604029432b2d2d75abdac3cc5fd951c8a8356db2f900"},
+    {file = "inspire_query_parser-6.0.62.tar.gz", hash = "sha256:d76453098262c58ba26b3e166cd8cb8d3cebeeb7d37e7745e327348502586c76"},
 ]
 
 [package.dependencies]
@@ -7037,4 +7037,4 @@ typing-extensions = ">=4.5.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.12"
-content-hash = "71b350ac806c77c1696980f74ffc0a006e327156cae727bb5628e385b81524eb"
+content-hash = "44ec0e0a603d646f5a23f865e0e30eeb46a2e9e963f8c15d62709b8342344377"
