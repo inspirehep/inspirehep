@@ -1,6 +1,7 @@
 import React from 'react';
 import { WorkflowTypes } from '../../constants';
 import UnclickableTag from '../../../common/components/UnclickableTag';
+import Latex from '../../../common/components/Latex';
 
 const LiteratureResultItem = ({ item }: { item: any }) => {
   const data = item?.get('data');
@@ -16,7 +17,9 @@ const LiteratureResultItem = ({ item }: { item: any }) => {
           <UnclickableTag color="processing">Update</UnclickableTag>
         </>
       )}
-      <span className="dib ml2">{title}</span>
+      <span className="dib ml2">
+        <Latex>{title}</Latex>
+      </span>
     </div>
   );
 };
