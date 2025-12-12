@@ -1,0 +1,20 @@
+{
+    "_collections": [
+        "Literature"
+    ],
+    "control_number": 3087814,
+    "core": false,
+    "self": {
+      "$ref": "https://inspirehep.net/api/literature/3087814"
+    },
+    "titles": [
+      {
+        "title": "The fix of cds rdm",
+        "source": "submitter"
+      }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/hep.json",
+    "document_type": [
+        "article"
+    ]
+  }
