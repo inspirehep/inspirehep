@@ -6,16 +6,7 @@ from urllib.parse import urlparse
 import pytest
 from airflow.exceptions import AirflowException, AirflowFailException
 from airflow.models import DagBag
-from airflow.models.variable import Variable
-from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from botocore.exceptions import ClientError
-from hooks.backoffice.workflow_management_hook import (
-    HEP,
-    WorkflowManagementHook,
-)
-from hooks.inspirehep.inspire_http_record_management_hook import (
-    InspireHTTPRecordManagementHook,
-)
 from include.utils import s3, workflows
 from include.utils.constants import (
     DECISION_AUTO_ACCEPT_CORE,
@@ -26,7 +17,6 @@ from include.utils.constants import (
     LITERATURE_PID_TYPE,
     STATUS_APPROVAL,
     STATUS_APPROVAL_CORE_SELECTION,
-    STATUS_APPROVAL_FUZZY_MATCHING,
     STATUS_COMPLETED,
     STATUS_RUNNING,
 )
@@ -34,13 +24,15 @@ from include.utils.workflows import get_flag
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.query import ordered
 
-from tests.test_utils import task_test
+from tests.test_utils import (
+    function_test,
+    get_inspire_http_record,
+    get_lit_workflow_task,
+    set_lit_workflow_task,
+    task_test,
+)
 
 dagbag = DagBag()
-
-s3_hook = S3Hook(aws_conn_id="s3_conn")
-bucket_name = Variable.get("s3_bucket_name")
-inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
 
 HIGGS_ONTOLOGY = """<?xml version="1.0" encoding="UTF-8" ?>
 
@@ -71,6 +63,7 @@ def higgs_ontology(tmpdir):
     return str(ontology)
 
 
+@pytest.mark.usefixtures("_s3_hook", "_inspire_http_record_management_hook")
 class Test_HEPCreateDAG:
     dag = dagbag.get_dag("hep_create_dag")
     context = {
@@ -115,27 +108,25 @@ class Test_HEPCreateDAG:
             "workflow_type": "HEP_CREATE",
             "status": STATUS_RUNNING,
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
-
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
         task_test("hep_create_dag", "set_schema", dag_params=self.context["params"])
-
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, workflow_id=self.workflow_id
+        )
 
         assert "$schema" in workflow_result["data"]
 
     @pytest.mark.vcr
     def test_get_workflow_data(self):
-        task = self.dag.get_task("get_workflow_data")
-
-        res = task.execute(context=self.context)
+        res = task_test(
+            "hep_create_dag", "get_workflow_data", dag_params=self.context["params"]
+        )
         assert res == f"{self.workflow_id}/workflow.json"
 
     @pytest.mark.vcr
     def test_check_for_blocking_workflows_block_arxivid(self):
-        task = self.dag.get_task("check_for_blocking_workflows")
-
         s3.write_workflow(
-            s3_hook,
+            self.s3_hook,
             {
                 "id": self.workflow_id,
                 "data": {
@@ -146,18 +137,19 @@ class Test_HEPCreateDAG:
                     ],
                 },
             },
-            bucket_name,
+            self.bucket_name,
         )
-        result = task.python_callable(params=self.context["params"])
 
-        assert result is False
+        assert not task_test(
+            "hep_create_dag",
+            "check_for_blocking_workflows",
+            dag_params=self.context["params"],
+        )
 
     @pytest.mark.vcr
     def test_check_for_blocking_workflows_block_doi(self):
-        task = self.dag.get_task("check_for_blocking_workflows")
-
         s3.write_workflow(
-            s3_hook,
+            self.s3_hook,
             {
                 "id": self.workflow_id,
                 "data": {
@@ -168,18 +160,18 @@ class Test_HEPCreateDAG:
                     ],
                 },
             },
-            bucket_name,
+            self.bucket_name,
         )
-        result = task.python_callable(params=self.context["params"])
-
-        assert result is False
+        assert not task_test(
+            "hep_create_dag",
+            "check_for_blocking_workflows",
+            dag_params=self.context["params"],
+        )
 
     @pytest.mark.vcr
     def test_check_for_blocking_workflows_continue(self):
-        task = self.dag.get_task("check_for_blocking_workflows")
-
         s3.write_workflow(
-            s3_hook,
+            self.s3_hook,
             {
                 "id": self.workflow_id,
                 "data": {
@@ -190,23 +182,25 @@ class Test_HEPCreateDAG:
                     ],
                 },
             },
-            bucket_name,
+            self.bucket_name,
         )
-        result = task.python_callable(params=self.context["params"])
-
-        assert result
+        assert task_test(
+            "hep_create_dag",
+            "check_for_blocking_workflows",
+            dag_params=self.context["params"],
+        )
 
     @pytest.mark.vcr
     def test_check_for_exact_matches_no_match(self):
         s3.write_workflow(
-            s3_hook,
+            self.s3_hook,
             {
                 "id": self.workflow_id,
                 "data": {
                     "arxiv_eprints": [{"value": "1801.00000"}],
                 },
             },
-            bucket_name,
+            self.bucket_name,
         )
 
         result = task_test(
@@ -227,7 +221,11 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(
+            self.s3_hook,
+            workflow_data,
+            self.bucket_name,
+        )
 
         task_test(
             "hep_create_dag",
@@ -235,13 +233,16 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        result = s3.read_workflow(
+            self.s3_hook,
+            self.bucket_name,
+            self.workflow_id,
+        )
 
         assert result["flags"]["auto-approved"] is False
 
     @pytest.mark.vcr
     def test_check_auto_approve_is_auto_approved_and_core_is_true(self):
-        workflow_management_hook = WorkflowManagementHook(HEP)
         workflow_data = {
             "flags": {
                 "is-update": False,
@@ -262,21 +263,26 @@ class Test_HEPCreateDAG:
                 ],
             },
         }
-
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
-
+        s3.write_workflow(
+            self.s3_hook,
+            workflow_data,
+            self.bucket_name,
+        )
         task_test(
             "hep_create_dag",
             "check_auto_approve",
             dag_params=self.context["params"],
         )
-
-        result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        result = s3.read_workflow(
+            self.s3_hook,
+            self.bucket_name,
+            self.workflow_id,
+        )
 
         assert result["core"] is True
         assert result["flags"]["auto-approved"] is True
 
-        workflow = workflow_management_hook.get_workflow(self.workflow_id)
+        workflow = get_lit_workflow_task(self.workflow_id)
         assert workflows.get_decision(
             workflow.get("decisions"), DECISION_AUTO_ACCEPT_CORE
         )
@@ -303,7 +309,11 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(
+            self.s3_hook,
+            workflow_data,
+            self.bucket_name,
+        )
 
         task_test(
             "hep_create_dag",
@@ -312,8 +322,8 @@ class Test_HEPCreateDAG:
         )
 
         result = s3.read_workflow(
-            s3_hook,
-            bucket_name,
+            self.s3_hook,
+            self.bucket_name,
             self.workflow_id,
         )
 
@@ -322,7 +332,6 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_check_if_previously_rejected_true(self):
-        workflow_management_hook = WorkflowManagementHook(HEP)
         workflow_data = {
             "flags": {
                 "is-update": False,
@@ -337,7 +346,11 @@ class Test_HEPCreateDAG:
                 },
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(
+            self.s3_hook,
+            workflow_data,
+            self.bucket_name,
+        )
 
         result = task_test(
             "hep_create_dag",
@@ -345,7 +358,7 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
             xcom_key="skipmixin_key",
         )
-        workflow = workflow_management_hook.get_workflow(self.workflow_id)
+        workflow = get_lit_workflow_task(self.workflow_id)
 
         assert "save_and_complete_workflow" in result["followed"]
         assert workflows.get_decision(workflow.get("decisions"), DECISION_AUTO_REJECT)
@@ -366,7 +379,11 @@ class Test_HEPCreateDAG:
                 },
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(
+            self.s3_hook,
+            workflow_data,
+            self.bucket_name,
+        )
 
         result = task_test(
             "hep_create_dag",
@@ -378,14 +395,14 @@ class Test_HEPCreateDAG:
     @pytest.mark.vcr
     def test_check_for_exact_matches_one_match(self):
         s3.write_workflow(
-            s3_hook,
+            self.s3_hook,
             {
                 "id": self.workflow_id,
                 "data": {
                     "arxiv_eprints": [{"value": "1801.07224"}],
                 },
             },
-            bucket_name,
+            self.bucket_name,
         )
 
         result = task_test(
@@ -400,14 +417,14 @@ class Test_HEPCreateDAG:
     @pytest.mark.vcr
     def test_check_for_exact_matches_one_match_has_match(self):
         s3.write_workflow(
-            s3_hook,
+            self.s3_hook,
             {
                 "id": self.workflow_id,
                 "data": {
                     "arxiv_eprints": [{"value": "1801.07224"}],
                 },
             },
-            bucket_name,
+            self.bucket_name,
         )
 
         result = task_test(
@@ -422,7 +439,7 @@ class Test_HEPCreateDAG:
     @pytest.mark.vcr
     def test_check_for_exact_matches_multi_match(self):
         s3.write_workflow(
-            s3_hook,
+            self.s3_hook,
             {
                 "id": self.workflow_id,
                 "data": {
@@ -435,7 +452,7 @@ class Test_HEPCreateDAG:
                     ],
                 },
             },
-            bucket_name,
+            self.bucket_name,
         )
 
         with pytest.raises(AirflowException):
@@ -460,7 +477,11 @@ class Test_HEPCreateDAG:
                 ],
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(
+            self.s3_hook,
+            workflow_data,
+            self.bucket_name,
+        )
 
         result = task_test(
             dag_id="hep_create_dag",
@@ -469,9 +490,7 @@ class Test_HEPCreateDAG:
         )
 
         workflow_result = s3.read_workflow(
-            s3_hook,
-            bucket_name,
-            self.workflow_id,
+            self.s3_hook, self.bucket_name, workflow_id=self.workflow_id
         )
 
         assert len(workflow_result["matches"]["fuzzy"])
@@ -487,7 +506,11 @@ class Test_HEPCreateDAG:
                 ],
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(
+            self.s3_hook,
+            workflow_data,
+            self.bucket_name,
+        )
 
         result = task_test(
             dag_id="hep_create_dag",
@@ -509,10 +532,8 @@ class Test_HEPCreateDAG:
     @pytest.mark.vcr
     def test_await_decision_fuzzy_match_best_match_no_decision(self):
         workflow_id = "6e84fd0b-8d0b-4147-9aee-c28a4f787b0d"
-        workflow_management_hook = WorkflowManagementHook(HEP)
-        workflow_management_hook.set_workflow_status(
-            status_name=STATUS_RUNNING, workflow_id=workflow_id
-        )
+
+        set_lit_workflow_task(status_name=STATUS_RUNNING, workflow_id=workflow_id)
 
         assert not task_test(
             dag_id="hep_create_dag",
@@ -520,8 +541,8 @@ class Test_HEPCreateDAG:
             dag_params={"workflow_id": workflow_id},
         )
 
-        workflow = workflow_management_hook.get_workflow(workflow_id)
-        assert workflow["status"] == STATUS_APPROVAL_FUZZY_MATCHING
+        workflow = get_lit_workflow_task(workflow_id)
+        assert workflow["status"] == "approval_fuzzy_matching"
 
     @pytest.mark.vcr
     def test_await_decision_fuzzy_match_best_match_has_xcom_match(self):
@@ -544,7 +565,6 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_normalize_collaborations(self):
-        task = self.dag.get_task("preprocessing.normalize_collaborations")
         workflow_data = {
             "id": self.workflow_id,
             "data": {
@@ -552,15 +572,22 @@ class Test_HEPCreateDAG:
                 "acquisition_source": {"submission_number": "123"},
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
-        accelerator_experiments, collaborations = task.python_callable(
-            params=self.context["params"]
+        s3.write_workflow(
+            self.s3_hook,
+            workflow_data,
+            self.bucket_name,
         )
 
-        assert "record" in accelerator_experiments[0]
-        assert accelerator_experiments[0]["legacy_name"] == "LATTICE-ETM"
-        assert collaborations[0]["value"] == "ETM"
+        result = task_test(
+            "hep_create_dag",
+            "preprocessing.normalize_collaborations",
+            dag_params=self.context["params"],
+        )
+
+        assert "record" in result["accelerator_experiments"][0]
+        assert result["accelerator_experiments"][0]["legacy_name"] == "LATTICE-ETM"
+        assert result["collaborations"][0]["value"] == "ETM"
 
     @pytest.mark.vcr
     def test_extract_journal_info(self):
@@ -573,14 +600,16 @@ class Test_HEPCreateDAG:
                 ],
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
-        task = self.dag.get_task("preprocessing.extract_journal_info")
-        task.python_callable(params=self.context["params"])
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+
+        task_test(
+            "hep_create_dag",
+            "preprocessing.extract_journal_info",
+            dag_params=self.context["params"],
+        )
 
         updated = s3.read_workflow(
-            s3_hook,
-            bucket_name,
-            self.workflow_id,
+            self.s3_hook, self.bucket_name, workflow_id=self.workflow_id
         )
         assert "refextract" in updated
         assert len(updated["refextract"]) == 2
@@ -607,9 +636,8 @@ class Test_HEPCreateDAG:
         assert updated["data"]["publication_info"] == expected
 
     def test_arxiv_package_download(self):
-        task = self.dag.get_task("preprocessing.arxiv_package_download")
         s3.write_workflow(
-            s3_hook,
+            self.s3_hook,
             {
                 "id": self.workflow_id,
                 "data": {
@@ -620,9 +648,13 @@ class Test_HEPCreateDAG:
                     ],
                 },
             },
-            bucket_name,
+            self.bucket_name,
         )
-        res = task.execute(context=self.context)
+        res = task_test(
+            "hep_create_dag",
+            "preprocessing.arxiv_package_download",
+            dag_params=self.context["params"],
+        )
         assert res == f"{self.workflow_id}/2508.17630.tar.gz"
 
     def test_arxiv_author_list_with_missing_tarball(self):
@@ -641,7 +673,7 @@ class Test_HEPCreateDAG:
             }
         }  # record/1519995
         s3.write_workflow(
-            s3_hook,
+            self.s3_hook,
             {
                 "id": self.workflow_id,
                 "data": {
@@ -652,7 +684,7 @@ class Test_HEPCreateDAG:
                     ],
                 },
             },
-            bucket_name,
+            self.bucket_name,
         )
         validate(workflow_data["data"]["arxiv_eprints"], eprints_subschema)
 
@@ -667,10 +699,10 @@ class Test_HEPCreateDAG:
         tarball_name = "2411.11095.tar.gz"
         tarball_key = f"{self.workflow_id}/{tarball_name}"
 
-        s3_hook.load_file(
-            (datadir / tarball_name),
+        self.s3_hook.load_file(
+            datadir / tarball_name,
             tarball_key,
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
@@ -684,7 +716,11 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(
+            self.s3_hook,
+            workflow_data,
+            self.bucket_name,
+        )
 
         task_test(
             dag_id="hep_create_dag",
@@ -694,21 +730,18 @@ class Test_HEPCreateDAG:
         )
 
         workflow_result = s3.read_workflow(
-            s3_hook,
-            bucket_name,
-            self.workflow_id,
+            self.s3_hook, self.bucket_name, self.workflow_id
         )
-
         assert workflow_result["data"]["authors"] == workflow_data["data"]["authors"]
 
     def test_arxiv_ignores_random_xml_files(self, datadir):
         tarball_name = "2411.11095.tar.gz"
         tarball_key = f"{self.context['params']['workflow_id']}-{tarball_name}"
 
-        s3_hook.load_file(
-            (datadir / tarball_name),
+        self.s3_hook.load_file(
+            datadir / tarball_name,
             tarball_key,
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
@@ -719,7 +752,7 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             dag_id="hep_create_dag",
@@ -729,19 +762,18 @@ class Test_HEPCreateDAG:
         )
 
         workflow_result = s3.read_workflow(
-            s3_hook, bucket_name, self.context["params"]["workflow_id"]
+            self.s3_hook, self.bucket_name, self.workflow_id
         )
-
         assert workflow_result["data"]["authors"] == workflow_data["data"]["authors"]
 
     def test_arxiv_author_list_only_overrides_authors(self, datadir):
         tarball_name = "1703.09986.tar.gz"
         tarball_key = f"{self.context['params']['workflow_id']}-{tarball_name}"
 
-        s3_hook.load_file(
-            (datadir / tarball_name),
+        self.s3_hook.load_file(
+            datadir / tarball_name,
             tarball_key,
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
@@ -760,7 +792,7 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             dag_id="hep_create_dag",
@@ -769,7 +801,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert "arxiv_eprints" in workflow_result["data"]
         assert (
@@ -790,10 +824,10 @@ class Test_HEPCreateDAG:
 
         tarball_key = f"{self.workflow_id}/{tarball_name}"
 
-        s3_hook.load_file(
+        self.s3_hook.load_file(
             (datadir / tarball_name),
             tarball_key,
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
@@ -817,7 +851,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         authors_subschema = schema["properties"]["authors"]
         expected_authors = [
@@ -849,10 +885,10 @@ class Test_HEPCreateDAG:
 
         tarball_key = f"{self.workflow_id}/{tarball_name}"
 
-        s3_hook.load_file(
+        self.s3_hook.load_file(
             (datadir / tarball_name),
             tarball_key,
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
@@ -885,7 +921,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
         assert workflow_result["data"]["authors"] == expected_authors
 
     def test_check_is_arxiv_paper(self):
@@ -902,7 +940,7 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         res = task_test(
             dag_id="hep_create_dag",
@@ -925,7 +963,7 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         res = task_test(
             dag_id="hep_create_dag",
@@ -937,7 +975,6 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_populate_journal_coverage(self):
-        task = self.dag.get_task("preprocessing.populate_journal_coverage")
         workflow_data = {
             "id": self.workflow_id,
             "data": {
@@ -951,15 +988,18 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
-        task.python_callable(params=self.context["params"])
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        task_test(
+            "hep_create_dag",
+            "preprocessing.populate_journal_coverage",
+            dag_params=self.context["params"],
+        )
 
-        result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        result = s3.read_workflow(self.s3_hook, self.bucket_name, self.workflow_id)
         assert "partial" in result["journal_coverage"]
 
     @pytest.mark.vcr
     def test_populate_journal_coverage_picks_full_if_exists(self):
-        task = self.dag.get_task("preprocessing.populate_journal_coverage")
         workflow_data = {
             "id": self.workflow_id,
             "data": {
@@ -978,24 +1018,28 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
-        task.python_callable(params=self.context["params"])
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        task_test(
+            "hep_create_dag",
+            "preprocessing.populate_journal_coverage",
+            dag_params=self.context["params"],
+        )
 
-        result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        result = s3.read_workflow(self.s3_hook, self.bucket_name, self.workflow_id)
         assert "full" in result["journal_coverage"]
 
     def test_arxiv_plot_extract(self, datadir):
         tarball_key = f"{self.workflow_id}/test"
-        s3_hook.load_file(
+        self.s3_hook.load_file(
             (datadir / "arXiv-2509.06062v1.tar.gz"),
             tarball_key,
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
         workflow_data = {"id": self.workflow_id, "data": {}}
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
         task_test(
             "hep_create_dag",
             "preprocessing.arxiv_plot_extract",
@@ -1003,7 +1047,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         plots = workflow_result["data"]["figures"]
         assert len(plots) == 20
@@ -1015,10 +1061,10 @@ class Test_HEPCreateDAG:
         subschema = schema["properties"]["arxiv_eprints"]
 
         tarball_key = f"{self.workflow_id}/test"
-        s3_hook.load_file(
+        self.s3_hook.load_file(
             (datadir / "0804.1873.tar.gz"),
             tarball_key,
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
@@ -1037,7 +1083,7 @@ class Test_HEPCreateDAG:
         }
         assert validate(workflow_data["data"]["arxiv_eprints"], subschema) is None
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -1046,7 +1092,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         expected = [
             {
@@ -1072,10 +1120,10 @@ class Test_HEPCreateDAG:
         subschema = schema["properties"]["arxiv_eprints"]
 
         tarball_key = f"{self.workflow_id}/test"
-        s3_hook.load_file(
+        self.s3_hook.load_file(
             (datadir / "0804.1873.tar.gz"),
             tarball_key,
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
@@ -1092,7 +1140,7 @@ class Test_HEPCreateDAG:
                 ],
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
         assert validate(workflow_data["data"]["arxiv_eprints"], subschema) is None
 
         for _ in range(2):
@@ -1106,7 +1154,9 @@ class Test_HEPCreateDAG:
                 is None
             )
 
-            workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+            workflow_result = s3.read_workflow(
+                self.s3_hook, self.bucket_name, self.workflow_id
+            )
             expected_figures = [
                 {
                     "url": "http://s3:9000/data-store/00000000-0000-0000-0000-000000001111/plots/0_figure1.png",
@@ -1134,10 +1184,10 @@ class Test_HEPCreateDAG:
         subschema = schema["properties"]["arxiv_eprints"]
 
         tarball_key = f"{self.workflow_id}/test"
-        s3_hook.load_file(
+        self.s3_hook.load_file(
             (datadir / "1711.10662.tar.gz"),
             tarball_key,
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
@@ -1156,7 +1206,7 @@ class Test_HEPCreateDAG:
         }
 
         assert validate(workflow_data["data"]["arxiv_eprints"], subschema) is None
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
         task_test(
             "hep_create_dag",
             "preprocessing.arxiv_plot_extract",
@@ -1164,15 +1214,17 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
         assert len(workflow_result["data"]["figures"]) == 66
 
     def test_arxiv_plot_extract_logs_when_tarball_is_invalid(self, datadir):
         tarball_key = f"{self.workflow_id}/test"
-        s3_hook.load_file(
+        self.s3_hook.load_file(
             (datadir / "1612.00626"),
             tarball_key,
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
@@ -1190,7 +1242,7 @@ class Test_HEPCreateDAG:
                 "figures": [],
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -1199,7 +1251,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert "figures" not in workflow_result["data"]
 
@@ -1220,7 +1274,7 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         with pytest.raises(ClientError, match="Not Found"):
             task_test(
@@ -1250,7 +1304,7 @@ class Test_HEPCreateDAG:
         # subschema = schema['properties']['documents']
         # assert validate(data['documents'], subschema) is None
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -1258,16 +1312,18 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        result = s3.read_workflow(self.s3_hook, self.bucket_name, self.workflow_id)
 
-        assert s3_hook.check_for_key(
-            f"{self.workflow_id}/documents/{filename}", bucket_name
+        assert self.s3_hook.check_for_key(
+            f"{self.workflow_id}/documents/{filename}", self.bucket_name
         )
-        s3_hook.delete_objects(bucket_name, f"{self.workflow_id}/documents/{filename}")
+        self.s3_hook.delete_objects(
+            self.bucket_name, f"{self.workflow_id}/documents/{filename}"
+        )
 
         assert (
             urlparse(result["data"]["documents"][0]["url"]).path
-            == f"/{bucket_name}/{self.workflow_id}/documents/{filename}"
+            == f"/{self.bucket_name}/{self.workflow_id}/documents/{filename}"
         )
 
     @pytest.mark.vcr
@@ -1293,7 +1349,7 @@ class Test_HEPCreateDAG:
         # subschema = schema['properties']['documents']
         # assert validate(data['documents'], subschema) is None
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -1301,28 +1357,29 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         for document_in, document_out in zip(
             workflow_data["data"]["documents"],
             workflow_result["data"]["documents"],
             strict=False,
         ):
-            assert s3_hook.check_for_key(
-                f"{self.workflow_id}/documents/{document_in['key']}", bucket_name
+            assert self.s3_hook.check_for_key(
+                f"{self.workflow_id}/documents/{document_in['key']}", self.bucket_name
             )
-            s3_hook.delete_objects(
-                bucket_name, f"{self.workflow_id}/documents/{document_in['key']}"
+            self.s3_hook.delete_objects(
+                self.bucket_name, f"{self.workflow_id}/documents/{document_in['key']}"
             )
 
             assert (
-                urlparse(document_out["url"]).path
-                == f"/{bucket_name}/{self.workflow_id}/documents/{document_in['key']}"
+                urlparse(document_out["url"]).path == f"/{self.bucket_name}/"
+                f"{self.workflow_id}/documents/{document_in['key']}"
             )
 
     @pytest.mark.vcr
     def test_count_reference_coreness(self):
-        task = self.dag.get_task("preprocessing.count_reference_coreness")
         workflow_data = {
             "id": self.workflow_id,
             "data": {
@@ -1346,10 +1403,14 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
-        task.python_callable(params=self.context["params"])
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        task_test(
+            "hep_create_dag",
+            "preprocessing.count_reference_coreness",
+            dag_params=self.context["params"],
+        )
 
-        result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        result = s3.read_workflow(self.s3_hook, self.bucket_name, self.workflow_id)
         assert result["reference_count"]["core"] == 2
         assert result["reference_count"]["non_core"] == 1
 
@@ -1357,17 +1418,20 @@ class Test_HEPCreateDAG:
     def test_normalize_journal_titles_with_empty_data(self):
         """Test the normalize_journal_titles Airflow task with
         empty publication_info."""
-        task = self.dag.get_task("preprocessing.normalize_journal_titles")
 
         workflow_data = {"id": self.workflow_id, "data": {}}
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
-        result = task.python_callable(params=self.context["params"])
+        assert not task_test(
+            "hep_create_dag",
+            "preprocessing.normalize_journal_titles",
+            dag_params=self.context["params"],
+        )
 
-        assert result is None
-
-        updated_data = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        updated_data = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
         assert "data" in updated_data
         assert updated_data["data"] == {}
 
@@ -1392,7 +1456,7 @@ class Test_HEPCreateDAG:
         subschema = schema["properties"]["arxiv_eprints"]
         assert validate(workflow_data["data"]["arxiv_eprints"], subschema) is None
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -1401,7 +1465,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_data = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         expected = [
             {
@@ -1438,7 +1504,7 @@ class Test_HEPCreateDAG:
         }
 
         assert validate(workflow_data["data"]["arxiv_eprints"], subschema) is None
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -1452,7 +1518,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_data = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
         assert len(workflow_data["data"]["documents"]) == 1
 
     @pytest.mark.vcr
@@ -1474,7 +1542,7 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         assert validate(workflow_data["data"]["arxiv_eprints"], subschema) is None
 
@@ -1484,13 +1552,14 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_data = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
         assert "documents" not in workflow_data["data"]
 
     @pytest.mark.vcr
     def test_normalize_journal_titles_with_data(self):
         """Test the normalize_journal_titles Airflow task with publication_info."""
-        task = self.dag.get_task("preprocessing.normalize_journal_titles")
 
         workflow_data = {
             "id": self.workflow_id,
@@ -1503,13 +1572,17 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
-        result = task.python_callable(params=self.context["params"])
+        assert not task_test(
+            "hep_create_dag",
+            "preprocessing.normalize_journal_titles",
+            dag_params=self.context["params"],
+        )
 
-        assert result is None
-
-        updated_data = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        updated_data = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert "data" in updated_data
         assert "publication_info" in updated_data["data"]
@@ -1577,7 +1650,7 @@ class Test_HEPCreateDAG:
 
         assert validate(workflow_data["data"]["references"], subschema) is None
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -1585,7 +1658,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert len(workflow_result["data"]["references"]) == 4
         assert "reference" in workflow_result["data"]["references"][0]
@@ -1594,10 +1669,10 @@ class Test_HEPCreateDAG:
     def test_refextract_from_s3_pdf(self, datadir):
         filename = "1802.08709.pdf"
 
-        s3_hook.load_file(
-            str(datadir / filename),
+        self.s3_hook.load_file(
+            datadir / filename,
             f"{self.workflow_id}/documents/{filename}",
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
@@ -1610,7 +1685,7 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -1618,7 +1693,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert len(workflow_result["data"]["references"]) == 50
 
@@ -1627,10 +1704,10 @@ class Test_HEPCreateDAG:
         fulltext = tmpdir.join(fulltext_name)
         fulltext.write("Higgs boson")
 
-        s3_hook.load_file(
+        self.s3_hook.load_file(
             fulltext,
             f"{self.context['params']['workflow_id']}/documents/{fulltext_name}",
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
@@ -1643,7 +1720,7 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         expected_fulltext_keywords = [{"number": 1, "keyword": "Higgs particle"}]
 
@@ -1660,7 +1737,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         classifier_results = workflow_result["classifier_results"]
 
@@ -1673,7 +1752,7 @@ class Test_HEPCreateDAG:
 
     def test_classify_paper_with_no_fulltext(self, higgs_ontology):
         s3.write_workflow(
-            s3_hook,
+            self.s3_hook,
             {
                 "id": self.workflow_id,
                 "data": {
@@ -1687,7 +1766,7 @@ class Test_HEPCreateDAG:
                     ],
                 },
             },
-            bucket_name,
+            self.bucket_name,
         )
 
         expected_kewords = [{"number": 1, "keyword": "Higgs particle"}]
@@ -1705,7 +1784,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
         classifier_results = workflow_result["classifier_results"]
 
         assert (
@@ -1715,7 +1796,7 @@ class Test_HEPCreateDAG:
 
     def test_classify_paper_uses_keywords(self, higgs_ontology):
         s3.write_workflow(
-            s3_hook,
+            self.s3_hook,
             {
                 "id": self.workflow_id,
                 "data": {
@@ -1731,7 +1812,7 @@ class Test_HEPCreateDAG:
                     ],
                 },
             },
-            bucket_name,
+            self.bucket_name,
         )
 
         expected = [{"number": 1, "keyword": "Higgs particle"}]
@@ -1749,7 +1830,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
         classifier_results = workflow_result["classifier_results"]
 
         assert classifier_results["complete_output"]["core_keywords"] == expected
@@ -1769,12 +1852,12 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
-        s3_hook.load_file(
-            (datadir / paper_with_unprintable_keywords),
+        self.s3_hook.load_file(
+            datadir / paper_with_unprintable_keywords,
             f"{self.workflow_id}/documents/{paper_with_unprintable_keywords}",
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
@@ -1813,14 +1896,14 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3_hook.load_file(
+        self.s3_hook.load_file(
             fulltext,
             f"{self.context['params']['workflow_id']}/documents/{fulltext_name}",
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         expected_keywords = [{"number": 1, "keyword": "Core Keyword"}]
 
@@ -1837,7 +1920,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         classifier_results = workflow_result["classifier_results"]
 
@@ -1860,12 +1945,12 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
-        s3_hook.load_file(
+        self.s3_hook.load_file(
             (datadir / pdf_file),
             f"{self.workflow_id}/documents/{pdf_file}",
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
@@ -1875,7 +1960,9 @@ class Test_HEPCreateDAG:
             dag_params={"workflow_id": self.workflow_id},
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert len(workflow_result["data"]["authors"]) == 169
 
@@ -1895,12 +1982,12 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
-        s3_hook.load_file(
+        self.s3_hook.load_file(
             (datadir / pdf_file),
             f"{self.workflow_id}/documents/{pdf_file}",
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
@@ -1909,7 +1996,9 @@ class Test_HEPCreateDAG:
             task_id="preprocessing.extract_authors_from_pdf",
             dag_params={"workflow_id": self.workflow_id},
         )
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
         assert len(workflow_result["data"]["authors"]) == 1
 
     @pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path", "query"])
@@ -1927,12 +2016,12 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
-        s3_hook.load_file(
+        self.s3_hook.load_file(
             (datadir / pdf_file),
             f"{self.workflow_id}/documents/{pdf_file}",
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
@@ -1942,7 +2031,9 @@ class Test_HEPCreateDAG:
             dag_params={"workflow_id": self.workflow_id},
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert "authors" not in workflow_result["data"]
 
@@ -1970,12 +2061,12 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
-        s3_hook.load_file(
+        self.s3_hook.load_file(
             (datadir / pdf_file),
             f"{self.workflow_id}/documents/{pdf_file}",
-            bucket_name,
+            self.bucket_name,
             replace=True,
         )
 
@@ -2009,7 +2100,9 @@ class Test_HEPCreateDAG:
             dag_params={"workflow_id": self.workflow_id},
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert workflow_result["data"]["authors"] == expected_authors
 
@@ -2030,7 +2123,7 @@ class Test_HEPCreateDAG:
                 ],
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -2038,7 +2131,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
         relevance_prediction = workflow_result["relevance_prediction"]
 
         assert "scores" in relevance_prediction
@@ -2094,9 +2189,9 @@ class Test_HEPCreateDAG:
 
     def test_is_core_true(self):
         s3.write_workflow(
-            s3_hook,
+            self.s3_hook,
             {"id": self.workflow_id, "data": {"core": True}},
-            bucket_name,
+            self.bucket_name,
         )
         result = task_test(
             "hep_create_dag",
@@ -2108,7 +2203,9 @@ class Test_HEPCreateDAG:
 
     def test_is_core_false(self):
         s3.write_workflow(
-            s3_hook, {"id": self.workflow_id, "data": {"core": False}}, bucket_name
+            self.s3_hook,
+            {"id": self.workflow_id, "data": {"core": False}},
+            self.bucket_name,
         )
         result = task_test(
             "hep_create_dag",
@@ -2124,7 +2221,7 @@ class Test_HEPCreateDAG:
     @pytest.mark.vcr
     def test_merge_articles(self):
         s3.write_workflow(
-            s3_hook,
+            self.s3_hook,
             {
                 "id": self.workflow_id,
                 "data": {
@@ -2135,7 +2232,7 @@ class Test_HEPCreateDAG:
                     "arxiv_eprints": [{"value": "1801.07224"}],
                 },
             },
-            bucket_name,
+            self.bucket_name,
         )
         task_test(
             "hep_create_dag",
@@ -2144,7 +2241,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert len(workflow_result["data"]["titles"]) == 2
         assert {"title": "New title"} in workflow_result["data"]["titles"]
@@ -2161,7 +2260,7 @@ class Test_HEPCreateDAG:
             ],
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -2169,7 +2268,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert (
             workflow_result["data"]["inspire_categories"]
@@ -2190,7 +2291,7 @@ class Test_HEPCreateDAG:
             ],
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -2198,7 +2299,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert (
             workflow_result["data"]["inspire_categories"]
@@ -2207,7 +2310,9 @@ class Test_HEPCreateDAG:
 
     def test_is_record_accepted_true(self):
         s3.write_workflow(
-            s3_hook, {"id": self.workflow_id, "flags": {"approved": True}}, bucket_name
+            self.s3_hook,
+            {"id": self.workflow_id, "flags": {"approved": True}},
+            self.bucket_name,
         )
         result = task_test(
             "hep_create_dag",
@@ -2219,7 +2324,9 @@ class Test_HEPCreateDAG:
 
     def test_is_record_accepted_false(self):
         s3.write_workflow(
-            s3_hook, {"id": self.workflow_id, "flags": {"approved": False}}, bucket_name
+            self.s3_hook,
+            {"id": self.workflow_id, "flags": {"approved": False}},
+            self.bucket_name,
         )
         result = task_test(
             "hep_create_dag",
@@ -2241,7 +2348,7 @@ class Test_HEPCreateDAG:
             },
             "core": True,
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -2249,7 +2356,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert workflow_result["data"]["core"]
 
@@ -2274,7 +2383,7 @@ class Test_HEPCreateDAG:
                 }
             ],
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -2282,7 +2391,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert workflow_result["data"]["core"]
 
@@ -2296,7 +2407,7 @@ class Test_HEPCreateDAG:
                 "document_type": ["article"],
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         assert not task_test(
             "hep_create_dag",
@@ -2325,7 +2436,7 @@ class Test_HEPCreateDAG:
                 }
             ],
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -2333,7 +2444,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert not workflow_result["data"]["core"]
 
@@ -2359,7 +2472,7 @@ class Test_HEPCreateDAG:
                 ],
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -2367,7 +2480,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert workflow_result["data"]["refereed"] is True
         assert workflow_result["data"]["document_type"] == ["article"]
@@ -2396,7 +2511,7 @@ class Test_HEPCreateDAG:
                 ],
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -2404,7 +2519,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert not workflow_result["data"]["refereed"]
         assert workflow_result["data"]["document_type"] == ["conference paper"]
@@ -2433,7 +2550,7 @@ class Test_HEPCreateDAG:
                 ],
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -2441,7 +2558,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert not workflow_result["data"]["refereed"]
         assert workflow_result["data"]["document_type"] == ["article"]
@@ -2473,7 +2592,7 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -2481,7 +2600,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert workflow_result["data"]["authors"][0]["affiliations"] == [
             {
@@ -2519,7 +2640,7 @@ class Test_HEPCreateDAG:
                 "core": True,
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -2527,7 +2648,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert workflow_result["data"]["authors"][0]["affiliations"] == [
             {
@@ -2557,7 +2680,7 @@ class Test_HEPCreateDAG:
             },
             "core": True,
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -2565,7 +2688,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert not workflow_result["data"]["authors"][0].get("affiliations")
 
@@ -2592,7 +2717,7 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -2600,7 +2725,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert workflow_result["data"]["authors"][0]["affiliations"] == [
             {
@@ -2634,7 +2761,7 @@ class Test_HEPCreateDAG:
             "workflow_type": "HEP_CREATE",
             "status": STATUS_RUNNING,
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -2642,8 +2769,7 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_management_hook = WorkflowManagementHook(HEP)
-        workflow = workflow_management_hook.get_workflow(self.workflow_id)
+        workflow = get_lit_workflow_task(self.workflow_id)
         assert workflow["status"] == STATUS_COMPLETED
         assert workflow_data["data"] == workflow["data"]
 
@@ -2667,7 +2793,7 @@ class Test_HEPCreateDAG:
             "workflow_type": "HEP_CREATE",
             "status": STATUS_RUNNING,
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -2675,7 +2801,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert (
             "$ref" in workflow_result["data"]["authors"][0]["affiliations"][0]["record"]
@@ -2694,7 +2822,7 @@ class Test_HEPCreateDAG:
             "workflow_type": "HEP_CREATE",
             "status": STATUS_RUNNING,
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -2702,7 +2830,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert "authors" not in workflow_result["data"]
 
@@ -2716,7 +2846,7 @@ class Test_HEPCreateDAG:
                 },
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         result = task_test(
             "hep_create_dag",
@@ -2740,7 +2870,7 @@ class Test_HEPCreateDAG:
             },
             "journal_coverage": "full",
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         result = task_test(
             "hep_create_dag",
@@ -2767,7 +2897,7 @@ class Test_HEPCreateDAG:
                 "auto-approved": True,
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         result = task_test(
             "hep_create_dag",
@@ -2803,7 +2933,7 @@ class Test_HEPCreateDAG:
                 },
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         result = task_test(
             "hep_create_dag",
@@ -2838,7 +2968,7 @@ class Test_HEPCreateDAG:
                 },
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         result = task_test(
             "hep_create_dag",
@@ -2863,7 +2993,7 @@ class Test_HEPCreateDAG:
             "journal_coverage": "partial",
             "flags": {"auto-approved": False},
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         result = task_test(
             "hep_create_dag",
@@ -2897,7 +3027,7 @@ class Test_HEPCreateDAG:
                 },
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         result = task_test(
             "hep_create_dag",
@@ -2912,18 +3042,14 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_await_decision_approval_no_decision(self):
-        workflow_management_hook = WorkflowManagementHook(HEP)
-        workflow_management_hook.set_workflow_status(
-            status_name=STATUS_RUNNING, workflow_id=self.workflow_id
-        )
-
+        set_lit_workflow_task(status_name=STATUS_RUNNING, workflow_id=self.workflow_id)
         assert not task_test(
             dag_id="hep_create_dag",
             task_id="halt_for_approval_if_new_or_reject_if_not_relevant.await_decision_approval",
             dag_params=self.context["params"],
         )
 
-        workflow = workflow_management_hook.get_workflow(self.workflow_id)
+        workflow = get_lit_workflow_task(self.workflow_id)
         assert workflow["status"] == STATUS_APPROVAL
 
     @pytest.mark.vcr
@@ -2935,7 +3061,7 @@ class Test_HEPCreateDAG:
             dag_params={"workflow_id": workflow_id},
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+        workflow_result = s3.read_workflow(self.s3_hook, self.bucket_name, workflow_id)
 
         assert workflow_result["flags"]["approved"] is True
 
@@ -2948,7 +3074,7 @@ class Test_HEPCreateDAG:
             dag_params={"workflow_id": workflow_id},
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+        workflow_result = s3.read_workflow(self.s3_hook, self.bucket_name, workflow_id)
 
         assert workflow_result["flags"]["approved"] is True
 
@@ -2961,7 +3087,7 @@ class Test_HEPCreateDAG:
             dag_params={"workflow_id": workflow_id},
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+        workflow_result = s3.read_workflow(self.s3_hook, self.bucket_name, workflow_id)
 
         assert workflow_result["flags"]["approved"] is False
 
@@ -2995,7 +3121,7 @@ class Test_HEPCreateDAG:
                 ],
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         expected_collections = ["CDS Hidden", "Fermilab"]
         task_test(
@@ -3004,7 +3130,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_data = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
         collections = sorted(workflow_data["data"]["_collections"])
         assert collections == expected_collections
 
@@ -3018,7 +3146,7 @@ class Test_HEPCreateDAG:
                 "report_numbers": [{"value": "CERN-2019"}, {"value": "FERMILAB-1923"}],
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         expected_collections = ["CDS Hidden", "Fermilab"]
 
@@ -3028,7 +3156,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_data = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
         collections = sorted(workflow_data["data"]["_collections"])
         assert collections == expected_collections
 
@@ -3053,7 +3183,7 @@ class Test_HEPCreateDAG:
                 "report_numbers": [{"value": "CERN-2019"}],
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
         expected_collections = ["CDS Hidden", "Fermilab"]
 
         task_test(
@@ -3062,7 +3192,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_data = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
         collections = sorted(workflow_data["data"]["_collections"])
         assert collections == expected_collections
 
@@ -3089,7 +3221,7 @@ class Test_HEPCreateDAG:
                 ],
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -3099,7 +3231,9 @@ class Test_HEPCreateDAG:
 
         expected_collections = ["HAL Hidden"]
 
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_data = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
         collections = workflow_data["data"]["_collections"]
         assert collections == expected_collections
 
@@ -3124,7 +3258,7 @@ class Test_HEPCreateDAG:
                 "report_numbers": [{"value": "CERN-2019"}],
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         result = task_test(
             "hep_create_dag",
@@ -3141,14 +3275,13 @@ class Test_HEPCreateDAG:
     def test_should_replace_collection_false(
         self,
     ):
-        workflow_management_hook = WorkflowManagementHook(HEP)
         workflow_data = {
             "id": self.workflow_id,
             "data": {
                 "titles": [{"title": "test non rejected"}],
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         result = task_test(
             "hep_create_dag",
@@ -3162,7 +3295,7 @@ class Test_HEPCreateDAG:
             in result["followed"]
         )
 
-        workflow = workflow_management_hook.get_workflow(self.workflow_id)
+        workflow = get_lit_workflow_task(self.workflow_id)
         assert workflows.get_decision(workflow.get("decisions"), DECISION_AUTO_REJECT)
 
     def test_should_proceed_to_core_selection_true(self):
@@ -3179,7 +3312,7 @@ class Test_HEPCreateDAG:
                 "is-update": False,
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         result = task_test(
             "hep_create_dag",
@@ -3202,7 +3335,7 @@ class Test_HEPCreateDAG:
                 "is-update": False,
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         result = task_test(
             "hep_create_dag",
@@ -3226,7 +3359,7 @@ class Test_HEPCreateDAG:
                 "is-update": False,
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         result = task_test(
             "hep_create_dag",
@@ -3251,7 +3384,7 @@ class Test_HEPCreateDAG:
                 "is-update": True,
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         result = task_test(
             "hep_create_dag",
@@ -3276,7 +3409,7 @@ class Test_HEPCreateDAG:
                 "is-update": False,
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         result = task_test(
             "hep_create_dag",
@@ -3289,10 +3422,7 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_await_decision_core_selection_approval_no_decision(self):
-        workflow_management_hook = WorkflowManagementHook(HEP)
-        workflow_management_hook.set_workflow_status(
-            status_name=STATUS_RUNNING, workflow_id=self.workflow_id
-        )
+        set_lit_workflow_task(status_name=STATUS_RUNNING, workflow_id=self.workflow_id)
 
         assert not task_test(
             dag_id="hep_create_dag",
@@ -3300,7 +3430,7 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow = workflow_management_hook.get_workflow(self.workflow_id)
+        workflow = get_lit_workflow_task(self.workflow_id)
         assert workflow["status"] == STATUS_APPROVAL_CORE_SELECTION
 
     @pytest.mark.vcr
@@ -3312,7 +3442,7 @@ class Test_HEPCreateDAG:
         )
 
         workflow_result = s3.read_workflow(
-            s3_hook, bucket_name, "07c5a66c-1e5b-4da6-823c-871caf43e073"
+            self.s3_hook, self.bucket_name, "07c5a66c-1e5b-4da6-823c-871caf43e073"
         )
 
         assert len(workflow_result["decisions"]) > 1
@@ -3324,7 +3454,7 @@ class Test_HEPCreateDAG:
         )
 
         workflow_result = s3.read_workflow(
-            s3_hook, bucket_name, "66961888-a628-46b7-b807-4deae3478adc"
+            self.s3_hook, self.bucket_name, "66961888-a628-46b7-b807-4deae3478adc"
         )
         assert len(workflow_result["decisions"]) > 1
 
@@ -3360,7 +3490,7 @@ class Test_HEPCreateDAG:
                 ],
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -3371,7 +3501,9 @@ class Test_HEPCreateDAG:
         schema = load_schema("hep")
         subschema = schema["properties"]["inspire_categories"]
 
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_data = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
         expected_inspire_categories = [
             {"source": "arxiv", "term": "Astrophysics"},
             {"source": "arxiv", "term": "Gravitation and Cosmology"},
@@ -3388,10 +3520,7 @@ class Test_HEPCreateDAG:
     def test_is_fresh_data_true(self):
         control_number = 44707
 
-        record = inspire_http_record_management_hook.get_record(
-            pid_type=LITERATURE_PID_TYPE,
-            control_number=control_number,
-        )
+        record = get_inspire_http_record(LITERATURE_PID_TYPE, control_number)
         head_version_id = record["revision_id"]
 
         workflow_data = {
@@ -3404,7 +3533,7 @@ class Test_HEPCreateDAG:
             },
             "data": {"control_number": control_number},
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         assert (
             task_test(
@@ -3419,10 +3548,7 @@ class Test_HEPCreateDAG:
     def test_is_fresh_data_false(self):
         control_number = 44707
 
-        record = inspire_http_record_management_hook.get_record(
-            pid_type="literature",
-            control_number=control_number,
-        )
+        record = get_inspire_http_record(LITERATURE_PID_TYPE, control_number)
         head_version_id = record["revision_id"]
 
         workflow_data = {
@@ -3435,7 +3561,7 @@ class Test_HEPCreateDAG:
             },
             "data": {"control_number": control_number},
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         with pytest.raises(AirflowFailException, match="Working with stale data"):
             task_test(
@@ -3452,7 +3578,7 @@ class Test_HEPCreateDAG:
                 "is-update": False,
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
         assert (
             task_test(
                 "hep_create_dag",
@@ -3464,11 +3590,7 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_store_root_new_record(self):
-        record = inspire_http_record_management_hook.get_record(
-            pid_type="literature",
-            control_number=99999,
-        )
-
+        record = get_inspire_http_record(LITERATURE_PID_TYPE, 99999)
         head_uuid = record["uuid"]
 
         root = {"version": "original", "acquisition_source": {"source": "arXiv"}}
@@ -3483,9 +3605,9 @@ class Test_HEPCreateDAG:
             "data": root,
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
         s3.write_workflow(
-            s3_hook, preserverd_root_entry, bucket_name, filename="root.json"
+            self.s3_hook, preserverd_root_entry, self.bucket_name, filename="root.json"
         )
 
         task_test(
@@ -3496,11 +3618,7 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_store_root_update_record(self):
-        record = inspire_http_record_management_hook.get_record(
-            pid_type="literature",
-            control_number=44707,
-        )
-
+        record = get_inspire_http_record(LITERATURE_PID_TYPE, 44707)
         head_uuid = record["uuid"]
 
         root = {"version": "original", "acquisition_source": {"source": "arXiv"}}
@@ -3509,15 +3627,13 @@ class Test_HEPCreateDAG:
             "id": self.workflow_id,
             "merge_details": {"head_uuid": head_uuid},
         }
-
-        preserverd_root_entry = {
+        preserved_root_entry = {
             "id": self.workflow_id,
             "data": root,
         }
-
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
         s3.write_workflow(
-            s3_hook, preserverd_root_entry, bucket_name, filename="root.json"
+            self.s3_hook, preserved_root_entry, self.bucket_name, filename="root.json"
         )
 
         task_test(
@@ -3526,26 +3642,33 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        root_entry = workflows.read_wf_record_source(head_uuid, "arxiv")
+        root_entry = function_test(
+            workflows.read_wf_record_source,
+            params={"record_uuid": head_uuid, "source_name": "arxiv"},
+        )
 
         assert root_entry["json"] == root
 
         root["version"] = "modified"
-        preserverd_root_entry = {
+        preserved_root_entry = {
             "id": self.workflow_id,
             "data": root,
         }
 
         s3.write_workflow(
-            s3_hook, preserverd_root_entry, bucket_name, filename="root.json"
+            self.s3_hook, preserved_root_entry, self.bucket_name, filename="root.json"
         )
+
         task_test(
             "hep_create_dag",
             "store_root",
             dag_params=self.context["params"],
         )
 
-        root_entry = workflows.read_wf_record_source(head_uuid, "arxiv")
+        root_entry = function_test(
+            workflows.read_wf_record_source,
+            params={"record_uuid": head_uuid, "source_name": "arxiv"},
+        )
 
         assert root_entry["json"] == root
 
@@ -3564,7 +3687,7 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -3572,15 +3695,15 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert "control_number" in workflow_result["data"]
 
     @pytest.mark.vcr
     def test_store_record_update(self):
-        initial_record_data = inspire_http_record_management_hook.get_record(
-            LITERATURE_PID_TYPE, 10000
-        )
+        initial_record_data = get_inspire_http_record(LITERATURE_PID_TYPE, 10000)
 
         workflow_data = {
             "data": copy.deepcopy(initial_record_data["metadata"]),
@@ -3596,7 +3719,7 @@ class Test_HEPCreateDAG:
         )
         workflow_data["id"] = self.workflow_id
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -3604,9 +3727,7 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        record_data = inspire_http_record_management_hook.get_record(
-            LITERATURE_PID_TYPE, 10000
-        )
+        record_data = get_inspire_http_record(LITERATURE_PID_TYPE, 10000)
 
         assert (
             len(record_data["metadata"]["titles"])
@@ -3643,7 +3764,7 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -3653,11 +3774,7 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_store_record_update_no_control_number(self):
-        inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
-
-        initial_record_data = inspire_http_record_management_hook.get_record(
-            LITERATURE_PID_TYPE, 10000
-        )
+        initial_record_data = get_inspire_http_record(LITERATURE_PID_TYPE, 10000)
 
         workflow_data = {
             "id": self.workflow_id,
@@ -3675,7 +3792,7 @@ class Test_HEPCreateDAG:
             },
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         with pytest.raises(ValueError, match="Control number is missing"):
             task_test(
@@ -3697,7 +3814,7 @@ class Test_HEPCreateDAG:
             "decisions": [{"action": decision}],
         }
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
             "hep_create_dag",
@@ -3705,7 +3822,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert "titles" in workflow_result["data"]
         assert workflow_result["data"]["core"] is is_core
@@ -3717,7 +3836,7 @@ class Test_HEPCreateDAG:
                 "auto-approved": True,
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         result = task_test(
             dag_id="hep_create_dag",
@@ -3726,7 +3845,9 @@ class Test_HEPCreateDAG:
             xcom_key="skipmixin_key",
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert (
             "halt_for_approval_if_new_or_reject_if_not_relevant.halt_end"
@@ -3741,7 +3862,7 @@ class Test_HEPCreateDAG:
                 "auto-approved": False,
             },
         }
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         result = task_test(
             dag_id="hep_create_dag",
@@ -3749,7 +3870,9 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert (
             result

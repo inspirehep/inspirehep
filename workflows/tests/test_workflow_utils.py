@@ -1,6 +1,8 @@
 import pytest
 from include.utils import workflows
 
+from tests.test_utils import function_test
+
 
 @pytest.mark.parametrize(
     ("source", "expected_source"),
@@ -67,8 +69,9 @@ def test_has_previously_rejected_wf_in_backoffice_w_same_source_true():
         }
     }
 
-    result = workflows.has_previously_rejected_wf_in_backoffice_w_same_source(
-        workflow_data
+    result = function_test(
+        workflows.has_previously_rejected_wf_in_backoffice_w_same_source,
+        params={"workflow_data": workflow_data},
     )
     assert result is True
 
@@ -77,9 +80,11 @@ def test_has_previously_rejected_wf_in_backoffice_w_same_source_true():
 def test_has_previously_rejected_wf_in_backoffice_w_same_source_false_no_identifier():
     workflow_data = {"data": {"acquisition_source": {"source": "arXiv"}}}
 
-    result = workflows.has_previously_rejected_wf_in_backoffice_w_same_source(
-        workflow_data
+    result = function_test(
+        workflows.has_previously_rejected_wf_in_backoffice_w_same_source,
+        params={"workflow_data": workflow_data},
     )
+
     assert result is False
 
 
@@ -92,8 +97,9 @@ def test_has_previously_rejected_wf_in_backoffice_w_same_source_false_no_rejecti
         }
     }
 
-    result = workflows.has_previously_rejected_wf_in_backoffice_w_same_source(
-        workflow_data
+    result = function_test(
+        workflows.has_previously_rejected_wf_in_backoffice_w_same_source,
+        params={"workflow_data": workflow_data},
     )
     assert result is False
 
@@ -107,7 +113,8 @@ def test_has_previously_rejected_wf_in_backoffice_w_same_source_false_diff_sourc
         }
     }
 
-    result = workflows.has_previously_rejected_wf_in_backoffice_w_same_source(
-        workflow_data
+    result = function_test(
+        workflows.has_previously_rejected_wf_in_backoffice_w_same_source,
+        params={"workflow_data": workflow_data},
     )
     assert result is False

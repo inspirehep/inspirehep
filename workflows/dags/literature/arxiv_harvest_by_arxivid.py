@@ -1,8 +1,7 @@
 import logging
 
-from airflow.decorators import dag, task
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-from airflow.sdk import Param, Variable
+from airflow.sdk import Param, Variable, dag, task
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.alerts import FailedDagNotifier
 from include.utils.arxiv import build_records, fetch_record_by_id, load_records

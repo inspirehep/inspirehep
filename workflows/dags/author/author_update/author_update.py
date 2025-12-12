@@ -1,7 +1,6 @@
 import datetime
 
-from airflow.decorators import dag, task
-from airflow.sdk import Param
+from airflow.sdk import Param, dag, task
 from author.shared_tasks import set_submission_number
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.backoffice.workflow_ticket_management_hook import (

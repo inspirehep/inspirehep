@@ -14,6 +14,11 @@ By far easiest way to get the project running in your machine is through docker 
 ### Make
 Make will spin up the required services, depending on what you are working on.
 
+Make sure to have `jq` installed locally
+```bash
+brew install jq
+```
+
 - This will prepare the whole inspire development with demo records:
 ```bash
 make run

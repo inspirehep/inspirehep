@@ -5,9 +5,9 @@ export AIRFLOW_PROJ_DIR=$(AIRFLOW_HOME)
 sleep:
 	sleep 10
 
-run: services start-inspirehep start-backoffice sleep setup-inspirehep sleep setup-backoffice
+run: services start-inspirehep start-airflow sleep setup-inspirehep sleep start-backoffice setup-backoffice
 run-inspirehep: services start-inspirehep sleep setup-inspirehep
-run-backoffice: services start-backoffice sleep setup-backoffice
+run-backoffice: services start-airflow start-backoffice sleep setup-backoffice
 run-e2e-test: start-cypress
 
 start: services start-inspirehep start-backoffice
@@ -17,9 +17,15 @@ start-inspirehep:
 	docker compose up -d hep-worker hep-web record-editor hep-ui ui
 	echo -e "\033[0;32m HEP Started. \033[0m"
 
+start-airflow:
+	echo -e "\033[0;32m Starting Airflow. \033[0m"	
+	docker compose up -d airflow-init airflow-worker airflow-api-server airflow-dag-processor airflow-triggerer airflow-scheduler
+	echo -e "\033[0;32m Airflow Started. \033[0m"
+
 start-backoffice:
 	echo -e "\033[0;32m Starting Backoffice. \033[0m"	
-	docker compose up -d airflow-init airflow-worker airflow-api-server airflow-dag-processor airflow-triggerer airflow-scheduler backoffice-webserver backoffice-worker
+	echo "AIRFLOW_TOKEN=$$(curl -s http://localhost:8070/auth/token | jq -r .access_token)" >> backoffice/.envs/local/.django
+	docker compose up -d backoffice-webserver backoffice-worker
 	echo -e "\033[0;32m Backoffice Started. \033[0m"
 
 start-cypress:
@@ -32,7 +38,7 @@ start-cypress:
 	bash -c "docker compose run --rm cypress cypress run --browser firefox --headless --env inspirehep_url=http://host.docker.internal:8080 | tee >(sed 's/\x1b\[[0-9;]*m//g' > cypress.log)"
 	echo -e "\033[0;32m Cypress tests finished. \033[0m"
 
-setup-backoffice: django-setup airflow-setup
+setup-backoffice: airflow-setup django-setup
 
 django-setup:
 	docker compose exec backoffice-webserver python manage.py create_groups
@@ -43,6 +49,7 @@ django-setup:
 	docker compose exec backoffice-webserver python manage.py loaddata backoffice/hep/fixtures/decisions.json
 	echo "\033[1;32memail: admin@admin.com / password: admin \033[0m"
 	echo "Backoffice initialized"
+	sed -i '' '/^AIRFLOW_TOKEN=/d' backoffice/.envs/local/.django
 
 airflow-setup:
 	docker compose exec airflow-api-server /entrypoint airflow connections import ./scripts/connections/connections.json
