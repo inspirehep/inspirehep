@@ -50,8 +50,19 @@ from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.constants import (
     DECISION_AUTO_ACCEPT_CORE,
     DECISION_AUTO_REJECT,
+    DECISION_CORE_SELECTION_ACCEPT,
+    DECISION_CORE_SELECTION_ACCEPT_CORE,
+    DECISION_FUZZY_MATCH,
+    DECISION_HEP_ACCEPT,
+    DECISION_HEP_ACCEPT_CORE,
+    DECISION_HEP_REJECT,
     LITERATURE_PID_TYPE,
     RUNNING_STATUSES,
+    STATUS_APPROVAL,
+    STATUS_APPROVAL_CORE_SELECTION,
+    STATUS_APPROVAL_FUZZY_MATCHING,
+    STATUS_BLOCKED,
+    STATUS_COMPLETED,
 )
 from include.utils.workflows import get_decision, get_flag, set_flag
 from inspire_classifier import Classifier
@@ -166,7 +177,8 @@ def hep_create_dag():
 
             if response["count"] >= 2:
                 workflow_management_hook.set_workflow_status(
-                    status_name="blocked", workflow_id=context["params"]["workflow_id"]
+                    status_name=STATUS_BLOCKED,
+                    workflow_id=context["params"]["workflow_id"],
                 )
                 return False
         return True
@@ -258,11 +270,11 @@ def hep_create_dag():
             context["params"]["workflow_id"]
         )
 
-        decision = get_decision(workflow_data.get("decisions"), "fuzzy_match")
+        decision = get_decision(workflow_data.get("decisions"), DECISION_FUZZY_MATCH)
 
         if not decision:
             workflow_management_hook.set_workflow_status(
-                status_name="approval_fuzzy_matching",
+                status_name=STATUS_APPROVAL_FUZZY_MATCHING,
                 workflow_id=context["params"]["workflow_id"],
             )
             return False
@@ -1289,9 +1301,9 @@ def hep_create_dag():
             decision = get_decision(
                 workflow_data.get("decisions", []),
                 [
-                    "hep_accept",
-                    "hep_accept_core",
-                    "hep_reject",
+                    DECISION_HEP_ACCEPT,
+                    DECISION_HEP_ACCEPT_CORE,
+                    DECISION_HEP_REJECT,
                 ],
             )
 
@@ -1299,12 +1311,12 @@ def hep_create_dag():
 
             if not action:
                 workflow_management_hook.set_workflow_status(
-                    status_name="approval", workflow_id=workflow_id
+                    status_name=STATUS_APPROVAL, workflow_id=workflow_id
                 )
 
                 return False
 
-            is_approved = action in ["hep_accept", "hep_accept_core"]
+            is_approved = action in [DECISION_HEP_ACCEPT, DECISION_HEP_ACCEPT_CORE]
             set_flag("approved", is_approved, workflow_data)
 
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
@@ -1485,14 +1497,14 @@ def hep_create_dag():
 
             decision = get_decision(
                 workflow_data.get("decisions", []),
-                ["core_selection_accept", "core_selection_accept_core"],
+                [DECISION_CORE_SELECTION_ACCEPT, DECISION_CORE_SELECTION_ACCEPT_CORE],
             )
 
             action = decision.get("action") if decision else None
 
             if not action:
                 workflow_management_hook.set_workflow_status(
-                    status_name="approval_core_selection", workflow_id=workflow_id
+                    status_name=STATUS_APPROVAL_CORE_SELECTION, workflow_id=workflow_id
                 )
 
                 return False
@@ -1620,7 +1632,7 @@ def hep_create_dag():
     def save_and_complete_workflow(**context):
         workflow_id = context["params"]["workflow_id"]
         workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
-        workflow_data["status"] = "completed"
+        workflow_data["status"] = STATUS_COMPLETED
 
         workflow_management_hook.update_workflow(workflow_id, workflow_data)
 

@@ -2,7 +2,7 @@ LITERATURE_PID_TYPE = "literature"
 JOURNALS_PID_TYPE = "journals"
 
 DECISION_FUZZY_MATCH = "fuzzy_match"
-DECISION_HEP_ACCEPT = "hep_accept_core"
+DECISION_HEP_ACCEPT = "hep_accept"
 DECISION_HEP_ACCEPT_CORE = "hep_accept_core"
 DECISION_HEP_REJECT = "hep_reject"
 DECISION_CORE_SELECTION_ACCEPT = "core_selection_accept"
@@ -80,4 +80,11 @@ ARXIV_CATEGORIES = {
         "physics.ins-det",
         "quant-ph",
     ],
+}
+
+DECISIONS = {
+    "accept": "hep_accept",
+    "reject": "hep_reject",
+    "auto_accept_core": "auto_accept_core",
+    "auto_reject": "auto_reject",
 }

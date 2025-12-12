@@ -3,6 +3,7 @@ from hooks.backoffice.workflow_management_hook import (
     HEP,
     WorkflowManagementHook,
 )
+from include.utils.constants import STATUS_RUNNING
 
 workflow_management_hook = WorkflowManagementHook(HEP)
 
@@ -15,5 +16,5 @@ def set_workflow_status_to_running(
     Set the status of the workflow to the given status name.
     """
     workflow_management_hook.set_workflow_status(
-        status_name="running", workflow_id=context["params"]["workflow_id"]
+        status_name=STATUS_RUNNING, workflow_id=context["params"]["workflow_id"]
     )
