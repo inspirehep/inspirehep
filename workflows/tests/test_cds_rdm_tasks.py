@@ -20,10 +20,10 @@ class TestCDSRDMHarvest:
     def test_get_cds_rdm_data_vcr(self, vcr_cassette):
         task = self.dag.get_task("get_cds_rdm_data")
         context = {
-            "ds": "2025-10-21T00:00:00",
+            "ds": "2025-12-11T00:00:00",
             "params": {
-                "since": "2025-10-21T00:00:00",
-                "until": "2025-10-22T00:00:00",
+                "since": "2025-12-10T00:00:00",
+                "until": "2025-12-12T00:00:00",
             },
             "task_instance": None,
         }
@@ -35,7 +35,7 @@ class TestCDSRDMHarvest:
         hep_request = vcr_cassette.requests[idx]
         result = json.loads(hep_request.body)
         assert result["external_system_identifiers"][0]["schema"] == "CDSRDM"
-        assert result["external_system_identifiers"][0]["value"] == "da5gb-erf09"
+        assert result["external_system_identifiers"][0]["value"] == "1849g-prn51"
 
     @pytest.mark.vcr
     def test_skip_when_cds_id_already_present(self):
