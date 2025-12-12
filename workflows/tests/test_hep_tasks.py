@@ -20,7 +20,15 @@ from include.utils import s3, workflows
 from include.utils.constants import (
     DECISION_AUTO_ACCEPT_CORE,
     DECISION_AUTO_REJECT,
+    DECISION_CORE_SELECTION_ACCEPT,
+    DECISION_CORE_SELECTION_ACCEPT_CORE,
+    DECISION_HEP_ACCEPT_CORE,
     LITERATURE_PID_TYPE,
+    STATUS_APPROVAL,
+    STATUS_APPROVAL_CORE_SELECTION,
+    STATUS_APPROVAL_FUZZY_MATCHING,
+    STATUS_COMPLETED,
+    STATUS_RUNNING,
 )
 from include.utils.workflows import get_flag
 from inspire_schemas.api import load_schema, validate
@@ -105,7 +113,7 @@ class Test_HEPCreateDAG:
                 "_collections": ["Literature"],
             },
             "workflow_type": "HEP_CREATE",
-            "status": "running",
+            "status": STATUS_RUNNING,
         }
         s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
@@ -503,7 +511,7 @@ class Test_HEPCreateDAG:
         workflow_id = "6e84fd0b-8d0b-4147-9aee-c28a4f787b0d"
         workflow_management_hook = WorkflowManagementHook(HEP)
         workflow_management_hook.set_workflow_status(
-            status_name="running", workflow_id=workflow_id
+            status_name=STATUS_RUNNING, workflow_id=workflow_id
         )
 
         assert not task_test(
@@ -513,7 +521,7 @@ class Test_HEPCreateDAG:
         )
 
         workflow = workflow_management_hook.get_workflow(workflow_id)
-        assert workflow["status"] == "approval_fuzzy_matching"
+        assert workflow["status"] == STATUS_APPROVAL_FUZZY_MATCHING
 
     @pytest.mark.vcr
     def test_await_decision_fuzzy_match_best_match_has_xcom_match(self):
@@ -2260,7 +2268,7 @@ class Test_HEPCreateDAG:
                     "workflow": "6ce1d776-4ec8-4c3a-a6e0-c5ba9006dd2f",
                     "_created_at": "2025-08-26T14:45:14.237000Z",
                     "_updated_at": "2025-08-26T14:45:14.237000Z",
-                    "action": "hep_accept_core",
+                    "action": DECISION_HEP_ACCEPT_CORE,
                     "value": "",
                     "user": "admin@admin.com",
                 }
@@ -2624,7 +2632,7 @@ class Test_HEPCreateDAG:
                 "_collections": ["Literature"],
             },
             "workflow_type": "HEP_CREATE",
-            "status": "running",
+            "status": STATUS_RUNNING,
         }
         s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
@@ -2636,7 +2644,7 @@ class Test_HEPCreateDAG:
 
         workflow_management_hook = WorkflowManagementHook(HEP)
         workflow = workflow_management_hook.get_workflow(self.workflow_id)
-        assert workflow["status"] == "completed"
+        assert workflow["status"] == STATUS_COMPLETED
         assert workflow_data["data"] == workflow["data"]
 
     @pytest.mark.vcr
@@ -2657,7 +2665,7 @@ class Test_HEPCreateDAG:
                 "_collections": ["Literature"],
             },
             "workflow_type": "HEP_CREATE",
-            "status": "running",
+            "status": STATUS_RUNNING,
         }
         s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
@@ -2684,7 +2692,7 @@ class Test_HEPCreateDAG:
                 "_collections": ["Literature"],
             },
             "workflow_type": "HEP_CREATE",
-            "status": "running",
+            "status": STATUS_RUNNING,
         }
         s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
@@ -2906,7 +2914,7 @@ class Test_HEPCreateDAG:
     def test_await_decision_approval_no_decision(self):
         workflow_management_hook = WorkflowManagementHook(HEP)
         workflow_management_hook.set_workflow_status(
-            status_name="running", workflow_id=self.workflow_id
+            status_name=STATUS_RUNNING, workflow_id=self.workflow_id
         )
 
         assert not task_test(
@@ -2916,7 +2924,7 @@ class Test_HEPCreateDAG:
         )
 
         workflow = workflow_management_hook.get_workflow(self.workflow_id)
-        assert workflow["status"] == "approval"
+        assert workflow["status"] == STATUS_APPROVAL
 
     @pytest.mark.vcr
     def test_await_decision_approval_accept(self):
@@ -3283,7 +3291,7 @@ class Test_HEPCreateDAG:
     def test_await_decision_core_selection_approval_no_decision(self):
         workflow_management_hook = WorkflowManagementHook(HEP)
         workflow_management_hook.set_workflow_status(
-            status_name="running", workflow_id=self.workflow_id
+            status_name=STATUS_RUNNING, workflow_id=self.workflow_id
         )
 
         assert not task_test(
@@ -3293,7 +3301,7 @@ class Test_HEPCreateDAG:
         )
 
         workflow = workflow_management_hook.get_workflow(self.workflow_id)
-        assert workflow["status"] == "approval_core_selection"
+        assert workflow["status"] == STATUS_APPROVAL_CORE_SELECTION
 
     @pytest.mark.vcr
     def test_await_decision_core_selection_approval_decision(self):
@@ -3677,8 +3685,8 @@ class Test_HEPCreateDAG:
     @pytest.mark.parametrize(
         ("decision", "is_core"),
         [
-            ("core_selection_accept_core", True),
-            ("core_selection_accept", False),
+            (DECISION_CORE_SELECTION_ACCEPT_CORE, True),
+            (DECISION_CORE_SELECTION_ACCEPT, False),
         ],
     )
     @pytest.mark.vcr
