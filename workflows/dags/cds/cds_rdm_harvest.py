@@ -42,10 +42,13 @@ def _response_filter(hits, hook):
             logger.info(f"Cannot extract CDS id from CDS RDM response: {cds_record}")
             continue
         identifiers = get_value(cds_record, "metadata.identifiers", [])
-        control_numbers = get_identifiers_for_scheme(identifiers, "inspire")
-        arxivs = get_identifiers_for_scheme(identifiers, "arxiv")
+        report_numbers = get_identifiers_for_scheme(identifiers, "cdsrn")
+
+        related_identifiers = get_value(cds_record, "metadata.related_identifiers", [])
+        control_numbers = get_identifiers_for_scheme(related_identifiers, "inspire")
+        arxivs = get_identifiers_for_scheme(related_identifiers, "arxiv")
         dois = get_dois(cds_record)
-        report_numbers = get_identifiers_for_scheme(identifiers, "cds_ref")
+
         if not any([control_numbers, arxivs, dois, report_numbers]):
             logger.info(
                 f"CDS RDM record {cds_id} does not have any identifiers to harvest."
