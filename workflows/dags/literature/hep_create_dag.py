@@ -6,14 +6,13 @@ from contextlib import suppress
 from copy import deepcopy
 from tempfile import TemporaryDirectory
 
-from airflow.decorators import dag, task_group
 from airflow.exceptions import AirflowException, AirflowFailException
 from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.providers.standard.operators.empty import EmptyOperator
-from airflow.sdk import Param, task
+from airflow.sdk import Param, dag, task, task_group
+from airflow.task.trigger_rule import TriggerRule
 from airflow.utils.edgemodifier import Label
-from airflow.utils.trigger_rule import TriggerRule
 from hooks.backoffice.workflow_management_hook import (
     HEP,
     WorkflowManagementHook,

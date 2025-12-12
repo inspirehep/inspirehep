@@ -2,7 +2,7 @@ import datetime
 import logging
 
 from airflow.exceptions import AirflowSkipException
-from airflow.hooks.base import BaseHook
+from airflow.sdk.bases.hook import BaseHook
 from inspire_schemas.parsers.arxiv import ArxivParser
 from sickle import Sickle, oaiexceptions
 
