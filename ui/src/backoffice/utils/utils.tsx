@@ -1,4 +1,5 @@
 import React from 'react';
+import { List, Map } from 'immutable';
 import {
   WarningOutlined,
   CheckOutlined,
@@ -149,6 +150,12 @@ export const resolveDecision = (decision: string | number) => {
   };
   return decisions[decision] || null;
 };
+
+export const filterDecisions = (decisions?: List<Map<string, any>>) =>
+  decisions?.filter(
+    (decision: Map<string, any>) =>
+      decision.get('action') !== WorkflowDecisions.FUZZY_MATCH
+  ) ?? null;
 
 export const resolveAutomaticDecision = (decision: string | number) => {
   const decisions: {

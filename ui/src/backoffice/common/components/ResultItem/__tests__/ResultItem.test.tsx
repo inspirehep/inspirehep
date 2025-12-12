@@ -47,7 +47,6 @@ describe('ResultItem component', () => {
     const titleLink = screen.getByRole('link', { name: /Doe, John/i });
     expect(titleLink).toHaveAttribute('href', '/backoffice/authors/123');
 
-    expect(screen.getByText('Author')).toBeInTheDocument();
     expect(screen.getByText('Update')).toBeInTheDocument();
 
     const decisionPill = screen.getByText('Accept');

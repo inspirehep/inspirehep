@@ -9,23 +9,16 @@ const AuthorResultItem = ({ item }: { item: any }) => {
   const authorName = data?.getIn(['name', 'value']);
   const isAuthorUpdate =
     item?.get('workflow_type') === WorkflowTypes.AUTHOR_UPDATE;
+  const resolvedDecision = resolveDecision(decision?.get('action'));
 
   return (
     <div className="flex items-center">
-      <UnclickableTag>Author</UnclickableTag>
       {isAuthorUpdate && (
-        <>
-          {' '}
-          <UnclickableTag color="processing">Update</UnclickableTag>
-        </>
+        <UnclickableTag color="processing">Update</UnclickableTag>
       )}
-      {decision && (
-        <UnclickableTag
-          className={`decision-pill ${
-            resolveDecision(decision?.get('action'))?.bg
-          }`}
-        >
-          {resolveDecision(decision?.get('action'))?.text}
+      {resolvedDecision && (
+        <UnclickableTag className={`decision-pill ${resolvedDecision?.bg}`}>
+          {resolvedDecision?.text}
         </UnclickableTag>
       )}
       <span className="dib ml2">{authorName}</span>

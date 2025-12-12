@@ -24,7 +24,6 @@ describe('AuthorResultItem component', () => {
     render(<AuthorResultItem item={item} />);
 
     expect(screen.getByText('Doe, John')).toBeInTheDocument();
-    expect(screen.getByText('Author')).toBeInTheDocument();
     expect(screen.getByText('Update')).toBeInTheDocument();
 
     const decisionPill = screen.getByText('Accept');
