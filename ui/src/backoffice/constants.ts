@@ -26,6 +26,7 @@ export const WORKFLOW_TYPES = {
   [WorkflowTypes.AUTHOR_CREATE]: AUTHORS_PID_TYPE,
   [WorkflowTypes.AUTHOR_UPDATE]: AUTHORS_PID_TYPE,
   [WorkflowTypes.HEP_CREATE]: LITERATURE_PID_TYPE,
+  [WorkflowTypes.HEP_UPDATE]: LITERATURE_PID_TYPE,
 };
 
 export interface WorkflowStatus {

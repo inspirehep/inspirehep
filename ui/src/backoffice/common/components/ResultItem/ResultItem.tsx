@@ -17,7 +17,10 @@ import LiteratureResultItem from '../../../literature/components/LiteratureResul
 
 const renderWorkflowStatus = (status: string) => {
   const statusInfo = getWorkflowStatusInfo(status);
-  return statusInfo ? (
+  if (!statusInfo) {
+    return null;
+  }
+  return (
     <div>
       <p className={`b ${status.toLowerCase()} mt3`}>
         {statusInfo.icon} {statusInfo.text}
@@ -25,7 +28,7 @@ const renderWorkflowStatus = (status: string) => {
       <br />
       <small>{statusInfo.description}</small>
     </div>
-  ) : null;
+  );
 };
 
 const ResultItemComponent = ({ item, type }: { item: any; type: string }) => {
@@ -71,10 +74,10 @@ const WorkflowResultItem = ({ item }: { item: any }) => {
         <Col className="col-info">
           <Card>
             {acquisitionSourceDatetime && (
-              <>
-                <p className="waiting">{acquisitionSourceDatetime.date}</p>
-                <p className="waiting">{acquisitionSourceDatetime.time}</p>
-              </>
+              <p className="waiting">
+                {acquisitionSourceDatetime.date} at{' '}
+                {acquisitionSourceDatetime.time}
+              </p>
             )}
             {acquisitionSourceSource && (
               <p className="waiting">{acquisitionSourceSource}</p>

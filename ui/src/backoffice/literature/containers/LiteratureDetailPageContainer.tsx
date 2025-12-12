@@ -22,7 +22,7 @@ import ContentBox from '../../../common/components/ContentBox';
 import { BACKOFFICE_LITERATURE_SEARCH_NS } from '../../../search/constants';
 import Breadcrumbs from '../../common/components/Breadcrumbs/Breadcrumbs';
 import DocumentHead from '../../../common/components/DocumentHead';
-import { formatDateTime, getDag } from '../../utils/utils';
+import { filterDecisions, formatDateTime, getDag } from '../../utils/utils';
 import { isSuperUser } from '../../../common/authorization';
 import { columnsSubject } from './columnData';
 import { StatusBanner } from '../../common/components/Detail/StatusBanner';
@@ -76,10 +76,7 @@ const LiteratureDetailPageContainer = ({
   const tickets =
     literature?.get('tickets')?.size !== 0 && literature?.get('tickets');
   const decisions = literature?.get('decisions');
-  const filteredDecisions = decisions?.filter(
-    (decision: Map<string, any>) =>
-      decision.get('action') !== WorkflowDecisions.FUZZY_MATCH
-  );
+  const filteredDecisions = filterDecisions(decisions);
   const decision = filteredDecisions?.first();
   const workflow_type = literature?.get('workflow_type');
   const inspireCategories = data?.get('inspire_categories')?.toJS();
