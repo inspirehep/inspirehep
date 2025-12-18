@@ -42,7 +42,13 @@ const ResultItemComponent = ({ item, type }: { item: any; type: string }) => {
   }
 };
 
-const WorkflowResultItem = ({ item }: { item: any }) => {
+const WorkflowResultItem = ({
+  item,
+  compactBottom = false,
+}: {
+  item: any;
+  compactBottom?: boolean;
+}) => {
   const workflowId = item?.get('id');
   const data = item?.get('data');
   const dateTime = data?.getIn(['acquisition_source', 'datetime']);
@@ -55,7 +61,10 @@ const WorkflowResultItem = ({ item }: { item: any }) => {
   const workflowTypeToPidType = WORKFLOW_TYPES[workflowTypeKey];
 
   return (
-    <div className="result-item result-item-action mv2">
+    <div
+      className="result-item result-item-action mv2"
+      style={compactBottom ? { marginBottom: 0 } : undefined}
+    >
       <Row justify="start" wrap={false}>
         <Col className="col-details">
           <ResultItem>

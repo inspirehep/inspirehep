@@ -6,6 +6,8 @@ import { connect, RootStateOrAny } from 'react-redux';
 import { searchQueryUpdate } from '../../../../actions/search';
 import './Breadcrumbs.less';
 import { BACKOFFICE } from '../../../../common/routes';
+import { BACKOFFICE_LITERATURE_SEARCH_NS } from '../../../../search/constants';
+import Latex from '../../../../common/components/Latex';
 
 type BreadcrumbItemProps = {
   namespace: string;
@@ -34,6 +36,9 @@ const Breadcrumbs = ({
     setInputValue(query || '');
   }, [query]);
 
+  const shouldWrapTitle2WithLatex =
+    namespace === BACKOFFICE_LITERATURE_SEARCH_NS && !!title2;
+
   return (
     <div className="flex items-center justify-between mt3 mb2">
       <Breadcrumb separator=">">
@@ -50,7 +55,11 @@ const Breadcrumbs = ({
         </Breadcrumb.Item>
         {title2 && (
           <Breadcrumb.Item>
-            <p>{title2}</p>
+            {shouldWrapTitle2WithLatex ? (
+              <Latex>{title2}</Latex>
+            ) : (
+              <p>{title2}</p>
+            )}
           </Breadcrumb.Item>
         )}
       </Breadcrumb>

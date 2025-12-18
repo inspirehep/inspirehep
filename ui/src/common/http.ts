@@ -40,6 +40,7 @@ function transformBackofficeResponse(data: any) {
         decisions: item.decisions,
         workflow_type: item.workflow_type,
         status: item.status,
+        matches: item.matches,
       })),
       total: data.count,
     },
