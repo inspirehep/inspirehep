@@ -183,7 +183,7 @@ def test_hep_author_count_aggregation_and_filter(inspire_app, override_config):
             "meta": {"title": "Number of authors", "type": "checkbox", "order": 1},
             "buckets": [
                 {"key": "Single author", "from": 1.0, "to": 2.0, "doc_count": 1},
-                {"key": "10 authors or less", "from": 1.0, "to": 11.0, "doc_count": 2},
+                {"key": "10 authors or fewer", "from": 1.0, "to": 11.0, "doc_count": 2},
             ],
         }
         assert response["aggregations"]["author_count"] == expected_aggregation
