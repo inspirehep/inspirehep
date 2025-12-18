@@ -8,7 +8,10 @@ import ResultsContainer from '../../../../common/containers/ResultsContainer';
 import NumberOfResultsContainer from '../../../../common/containers/NumberOfResultsContainer';
 import LoadingOrChildren from '../../../../common/components/LoadingOrChildren';
 import DocumentHead from '../../../../common/components/DocumentHead';
-import { SEARCH_PAGE_GUTTER } from '../../../../common/constants';
+import {
+  LITERATURE_PID_TYPE,
+  SEARCH_PAGE_GUTTER,
+} from '../../../../common/constants';
 import { searchQueryUpdate } from '../../../../actions/search';
 import { BACKOFFICE_LITERATURE_SEARCH_NS } from '../../../../search/constants';
 import AggregationFiltersContainer from '../../../../common/containers/AggregationFiltersContainer';
@@ -18,6 +21,9 @@ import AggregationBox from '../../../../common/components/AggregationBox';
 import ResultItem from '../../../common/components/ResultItem/ResultItem';
 import Breadcrumbs from '../../../common/components/Breadcrumbs/Breadcrumbs';
 import EmptyOrChildren from '../../../../common/components/EmptyOrChildren';
+import { resolveAction } from '../../../../actions/backoffice';
+import { WorkflowStatuses } from '../../../constants';
+import LiteratureMatches from '../../components/LiteratureMatches';
 
 type BackofficeSearchPageProps = {
   loading: boolean;
@@ -25,13 +31,51 @@ type BackofficeSearchPageProps = {
   loadingAggregations: boolean;
   results: Map<string, any>;
   onSortByChange: (namespace: string, value: string) => void;
+  onHandleResolveAction: (
+    workflowId: string,
+    action: string,
+    value: string
+  ) => void;
 };
 
 const META_DESCRIPTION = 'Find literature workflows in backoffice';
 const TITLE = 'Search literature - Backoffice';
 
-function renderWorkflowItem(item: Map<string, any>) {
-  return <ResultItem item={item} key={item.get('id')} />;
+function renderWorkflowItem(
+  item: Map<string, any>,
+  onHandleResolveAction: (
+    workflowId: string,
+    action: string,
+    value: string
+  ) => void
+) {
+  const workflowId = item?.get('id');
+  const matches = item?.get('matches');
+  const fuzzyMatches = matches?.get('fuzzy');
+  const status = item?.get('status');
+  const hasFuzzyMatches =
+    !!fuzzyMatches?.size && status === WorkflowStatuses.APPROVAL_FUZZY_MATCHING;
+
+  const handleResolveAction = (action: string, value: string) =>
+    onHandleResolveAction(workflowId, action, value);
+
+  return (
+    <>
+      <ResultItem
+        item={item}
+        key={workflowId}
+        compactBottom={hasFuzzyMatches}
+      />
+      {hasFuzzyMatches && (
+        <Card>
+          <LiteratureMatches
+            fuzzyMatches={fuzzyMatches}
+            handleResolveAction={handleResolveAction}
+          />
+        </Card>
+      )}
+    </>
+  );
 }
 
 const LiteratureSearchPageContainer = ({
@@ -40,6 +84,7 @@ const LiteratureSearchPageContainer = ({
   loadingAggregations,
   results,
   onSortByChange,
+  onHandleResolveAction,
 }: BackofficeSearchPageProps) => {
   const renderAggregations = () => (
     <LoadingOrChildren loading={loadingAggregations}>
@@ -167,7 +212,9 @@ const LiteratureSearchPageContainer = ({
                     <Col span={24}>
                       <ResultsContainer
                         namespace={BACKOFFICE_LITERATURE_SEARCH_NS}
-                        renderItem={renderWorkflowItem}
+                        renderItem={(item: Map<string, any>) =>
+                          renderWorkflowItem(item, onHandleResolveAction)
+                        }
                       />
                       <PaginationContainer
                         namespace={BACKOFFICE_LITERATURE_SEARCH_NS}
@@ -210,6 +257,15 @@ const stateToProps = (state: RootStateOrAny) => ({
 export const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
   onSortByChange(namespace: string, value: string) {
     dispatch(searchQueryUpdate(namespace, { ordering: value }));
+  },
+  onHandleResolveAction(workflowId: string, action: string, value: string) {
+    const payload = {
+      action,
+      value,
+    };
+    dispatch(
+      resolveAction(workflowId, LITERATURE_PID_TYPE, 'resolve', payload)
+    );
   },
 });
 
