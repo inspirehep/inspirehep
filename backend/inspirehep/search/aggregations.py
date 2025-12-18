@@ -50,7 +50,7 @@ def hep_author_count_aggregation(order, title="Number of authors", agg_type="che
                 "field": "author_count",
                 "ranges": [
                     {"key": "Single author", "from": 1, "to": 2},
-                    {"key": "10 authors or less", "from": 1, "to": 11},
+                    {"key": "10 authors or fewer", "from": 1, "to": 11},
                 ],
             },
             "meta": {"title": title, "order": order, "type": agg_type},

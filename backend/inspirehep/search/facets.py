@@ -49,7 +49,7 @@ def range_author_count_filter(field):
 
     range_for_option = {
         "Single author": {"gte": 1, "lte": 1},
-        "10 authors or less": {"gte": 1, "lte": 10},
+        "10 authors or fewer": {"gte": 1, "lte": 10},
     }
 
     def inner(values):
