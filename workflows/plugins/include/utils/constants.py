@@ -10,6 +10,9 @@ DECISION_CORE_SELECTION_ACCEPT_CORE = "core_selection_accept_core"
 DECISION_AUTO_ACCEPT_CORE = "auto_accept_core"
 DECISION_AUTO_REJECT = "auto_reject"
 
+HEP_CREATE = "HEP_CREATE"
+HEP_UPDATE = "HEP_UPDATE"
+
 STATUS_APPROVAL_CORE_SELECTION = "approval_core_selection"
 STATUS_APPROVAL_FUZZY_MATCHING = "approval_fuzzy_matching"
 STATUS_APPROVAL_MERGE = "approval_merge"

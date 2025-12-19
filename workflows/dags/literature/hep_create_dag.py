@@ -56,6 +56,7 @@ from include.utils.constants import (
     DECISION_HEP_ACCEPT,
     DECISION_HEP_ACCEPT_CORE,
     DECISION_HEP_REJECT,
+    HEP_UPDATE,
     LITERATURE_PID_TYPE,
     RUNNING_STATUSES,
     STATUS_APPROVAL,
@@ -1143,6 +1144,11 @@ def hep_create_dag():
         @task.branch
         def check_is_update(match_approved_id, **context):
             if match_approved_id:
+                workflow = s3.read_workflow(
+                    s3_hook, bucket_name, context["params"]["workflow_id"]
+                )
+                workflow["workflow_type"] = HEP_UPDATE
+                s3.write_workflow(s3_hook, workflow, bucket_name)
                 return (
                     "halt_for_approval_if_new_or_reject_if_not_relevant.merge_articles"
                 )
