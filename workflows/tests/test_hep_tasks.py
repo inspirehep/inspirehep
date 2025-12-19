@@ -544,7 +544,6 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_normalize_collaborations(self):
-        task = self.dag.get_task("preprocessing.normalize_collaborations")
         workflow_data = {
             "id": self.workflow_id,
             "data": {
@@ -554,13 +553,22 @@ class Test_HEPCreateDAG:
         }
         s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
-        accelerator_experiments, collaborations = task.python_callable(
-            params=self.context["params"]
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.normalize_collaborations",
+            dag_params={"workflow_id": self.workflow_id},
         )
+
+        workflow_result = s3.read_workflow(
+            s3_hook,
+            bucket_name,
+            self.workflow_id,
+        )
+        accelerator_experiments = workflow_result["data"]["accelerator_experiments"]
 
         assert "record" in accelerator_experiments[0]
         assert accelerator_experiments[0]["legacy_name"] == "LATTICE-ETM"
-        assert collaborations[0]["value"] == "ETM"
+        assert workflow_data["data"]["collaborations"][0]["value"] == "ETM"
 
     @pytest.mark.vcr
     def test_extract_journal_info(self):
