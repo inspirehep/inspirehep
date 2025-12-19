@@ -1,11 +1,10 @@
 import datetime
 import logging
 
-from airflow.decorators import dag, task, task_group
 from airflow.exceptions import AirflowException
-from airflow.macros import ds_add
 from airflow.models import Variable
-from airflow.sdk import Param
+from airflow.sdk import Param, dag, task, task_group
+from airflow.sdk.execution_time.macros import ds_add
 from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
@@ -39,10 +38,8 @@ def data_harvest_dag():
     5. load_record: Creates or Updates the record on INSPIRE.
     """
     generic_http_hook = GenericHttpHook(http_conn_id="hepdata_connection")
-    inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
 
     data_schema = Variable.get("data_schema")
-    url = inspire_http_record_management_hook.get_url()
 
     @task(task_id="collect_ids")
     def collect_ids(**context):
@@ -103,7 +100,7 @@ def data_harvest_dag():
             return record
 
         @task
-        def build_record(data_schema, inspire_url, payload, **context):
+        def build_record(data_schema, payload, **context):
             """Build the record from the payload.
 
             Args: data_schema (str): The schema of the data.
@@ -111,6 +108,10 @@ def data_harvest_dag():
 
             Returns: dict: The built record.
             """
+
+            inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
+            inspire_url = inspire_http_record_management_hook.get_url()
+
             parser = HEPDataParser(payload, inspire_url)
             data = parser.parse()
             data["$schema"] = data_schema
@@ -137,6 +138,7 @@ def data_harvest_dag():
 
             Args: new_record (dict): The record to create or update in inspire
             """
+            inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
 
             try:
                 response = inspire_http_record_management_hook.get_record(
@@ -170,9 +172,7 @@ def data_harvest_dag():
             return response.json()
 
         hepdata_record_versions = download_record_versions(record_id)
-        record = build_record(
-            data_schema=data_schema, inspire_url=url, payload=hepdata_record_versions
-        )
+        record = build_record(data_schema=data_schema, payload=hepdata_record_versions)
         record = normalize_collaborations(record)
         load_record(record)
 

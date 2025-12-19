@@ -3,8 +3,8 @@ import logging
 from urllib.parse import parse_qs, urlparse
 
 from airflow.exceptions import AirflowException
-from airflow.macros import ds_add
 from airflow.sdk import Param, dag, task
+from airflow.sdk.execution_time.macros import ds_add
 from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,

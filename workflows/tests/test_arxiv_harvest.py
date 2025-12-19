@@ -2,35 +2,30 @@ from unittest.mock import patch
 
 import pytest
 from airflow.exceptions import AirflowException, AirflowSkipException
-from airflow.models import DagBag
-from airflow.models.variable import Variable
-from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.arxiv import build_records, fetch_records, load_records
 from include.utils.s3 import write_object
 from sickle.oaiexceptions import NoRecordsMatch
 
-from tests.test_utils import task_test
-
-dagbag = DagBag()
-s3_hook = S3Hook(aws_conn_id="s3_conn")
-bucket_name = Variable.get("s3_bucket_name")
+from tests.test_utils import function_test, task_test
 
 
+@pytest.mark.usefixtures("_s3_hook")
 class TestArxivHarvest:
-    dag = dagbag.get_dag("arxiv_harvest_dag")
     connection_id = "arxiv_oaipmh_connection"
     workflow_management_hook = WorkflowManagementHook(HEP)
 
     @pytest.mark.vcr
     def test_fetch_records_logical_date(self):
-        xml_records = fetch_records(
-            self.connection_id,
-            "arXiv",
-            from_date="2025-07-01",
-            until_date="",
-            set="physics:hep-th",
-        )
+        params = {
+            "connection_id": self.connection_id,
+            "metadata_prefix": "arXiv",
+            "from_date": "2025-07-01",
+            "until_date": "",
+            "set": "physics:hep-th",
+        }
+
+        xml_records = function_test(fetch_records, params=params)
 
         assert len(xml_records)
         assert "oai:arXiv.org:2101.11905" in xml_records[0]
@@ -38,28 +33,31 @@ class TestArxivHarvest:
 
     @pytest.mark.vcr
     def test_fetch_records_with_from_until(self):
-        xml_records = fetch_records(
-            self.connection_id,
-            "arXiv",
-            from_date="2025-07-01",
-            until_date="2025-07-01",
-            set="physics:hep-th",
-        )
+        params = {
+            "connection_id": self.connection_id,
+            "metadata_prefix": "arXiv",
+            "from_date": "2025-07-01",
+            "until_date": "2025-07-01",
+            "set": "physics:hep-th",
+        }
+
+        xml_records = function_test(fetch_records, params=params)
 
         assert len(xml_records)
         assert "oai:arXiv.org:2101.11905" in xml_records[0]
         assert "oai:arXiv.org:2207.10712" in xml_records[1]
 
-    @patch("sickle.Sickle.ListRecords", side_effect=NoRecordsMatch)
+    @patch("include.utils.arxiv.Sickle.ListRecords", side_effect=NoRecordsMatch)
     def test_fetch_no_records(self, mock_list_records):
+        params = {
+            "connection_id": self.connection_id,
+            "metadata_prefix": "arXiv",
+            "from_date": "2025-07-01",
+            "until_date": "",
+            "set": "physics:hep-th",
+        }
         with pytest.raises(AirflowSkipException):
-            fetch_records(
-                self.connection_id,
-                "arXiv",
-                from_date="2025-07-01",
-                until_date="",
-                set="physics:hep-th",
-            )
+            function_test(fetch_records, params=params)
 
     def test_build_records(self, datadir):
         xml_files = ["arxiv1608.06937.xml", "arxiv2007.03037.xml"]
@@ -107,9 +105,12 @@ class TestArxivHarvest:
             },
         ]
 
-        failed_load_records = load_records(
-            parsed_records, self.workflow_management_hook
-        )
+        params = {
+            "parsed_records": parsed_records,
+            "workflow_management_hook": self.workflow_management_hook,
+        }
+        failed_load_records = function_test(load_records, params=params)
+
         assert len(failed_load_records) == 1
 
     @pytest.mark.vcr
@@ -145,9 +146,9 @@ class TestArxivHarvest:
     def test_check_failures_success(self):
         s3_keys = [
             write_object(
-                s3_hook,
+                self.s3_hook,
                 {"failed_build_records": [], "failed_load_records": []},
-                bucket_name,
+                self.bucket_name,
             )
             for _ in range(2)
         ]
@@ -160,11 +161,13 @@ class TestArxivHarvest:
 
     def test_check_failures_fail(self):
         s3_keys = [
-            write_object(s3_hook, {"failed_build_records": []}, bucket_name)
+            write_object(self.s3_hook, {"failed_build_records": []}, self.bucket_name)
             for _ in range(2)
         ]
         s3_keys.append(
-            write_object(s3_hook, {"failed_build_records": ["record"]}, bucket_name)
+            write_object(
+                self.s3_hook, {"failed_build_records": ["record"]}, self.bucket_name
+            )
         )
 
         with pytest.raises(AirflowException) as exc_info:

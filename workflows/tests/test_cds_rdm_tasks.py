@@ -1,7 +1,6 @@
 import json
 
 import pytest
-from airflow.models import DagBag
 from freezegun import freeze_time
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
@@ -9,16 +8,13 @@ from hooks.inspirehep.inspire_http_record_management_hook import (
 from include.utils.cds import retrieve_and_validate_record
 from inspire_utils.record import get_values_for_schema
 
-dagbag = DagBag()
+from tests.test_utils import function_test, task_test
 
 
 @freeze_time("2024-12-11")
 class TestCDSRDMHarvest:
-    dag = dagbag.get_dag("cds_rdm_harvest_dag")
-
     @pytest.mark.vcr
     def test_get_cds_rdm_data_vcr(self, vcr_cassette):
-        task = self.dag.get_task("get_cds_rdm_data")
         context = {
             "ds": "2025-12-11T00:00:00",
             "params": {
@@ -27,7 +23,12 @@ class TestCDSRDMHarvest:
             },
             "task_instance": None,
         }
-        res = task.execute(context=context)
+        res = task_test(
+            "cds_rdm_harvest_dag",
+            "get_cds_rdm_data",
+            dag_params=context["params"],
+        )
+
         assert res is None
         idx = next(
             i for i, req in enumerate(vcr_cassette.requests) if req.method == "PUT"
@@ -40,43 +41,51 @@ class TestCDSRDMHarvest:
     @pytest.mark.vcr
     def test_skip_when_cds_id_already_present(self):
         hook = InspireHTTPRecordManagementHook()
-        result = retrieve_and_validate_record(
-            inspire_http_record_management_hook=hook,
-            cds_id="2635152",
-            control_numbers=["1675000"],
-            arxivs=[],
-            dois=[],
-            report_numbers=[],
-            schema="CDSRDM",
-        )
+        params = {
+            "inspire_http_record_management_hook": hook,
+            "cds_id": "2635152",
+            "control_numbers": ["1675000"],
+            "arxivs": [],
+            "dois": [],
+            "report_numbers": [],
+            "schema": "CDSRDM",
+        }
+
+        result = function_test(retrieve_and_validate_record, params=params)
         assert result is None
 
     @pytest.mark.vcr
     def test_skip_when_no_inspire_record_found(self):
         hook = InspireHTTPRecordManagementHook()
-        result = retrieve_and_validate_record(
-            inspire_http_record_management_hook=hook,
-            cds_id="2635152",
-            control_numbers=["123456"],
-            arxivs=[],
-            dois=[],
-            report_numbers=[],
-            schema="CDSRDM",
-        )
+
+        params = {
+            "inspire_http_record_management_hook": hook,
+            "cds_id": "2635152",
+            "control_numbers": ["123456"],
+            "arxivs": [],
+            "dois": [],
+            "report_numbers": [],
+            "schema": "CDSRDM",
+        }
+
+        result = function_test(retrieve_and_validate_record, params=params)
         assert result is None
 
     @pytest.mark.vcr
     def test_successful_retrieve_and_validate(self):
         hook = InspireHTTPRecordManagementHook()
-        result = retrieve_and_validate_record(
-            inspire_http_record_management_hook=hook,
-            cds_id="8888888",
-            control_numbers=["1675001"],
-            arxivs=[],
-            dois=["10.1093/mnras/stx1360"],
-            report_numbers=[],
-            schema="CDSRDM",
-        )
+
+        params = {
+            "inspire_http_record_management_hook": hook,
+            "cds_id": "8888888",
+            "control_numbers": ["1675001"],
+            "arxivs": [],
+            "dois": ["10.1093/mnras/stx1360"],
+            "report_numbers": [],
+            "schema": "CDSRDM",
+        }
+
+        result = function_test(retrieve_and_validate_record, params=params)
         assert isinstance(result, dict)
         assert result["cds_id"] == "8888888"
         assert "original_record" in result

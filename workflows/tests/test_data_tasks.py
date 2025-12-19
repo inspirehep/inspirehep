@@ -1,62 +1,62 @@
 import orjson
 import pytest
-from airflow.models import DagBag
-from airflow.utils.context import Context
-from freezegun import freeze_time
 
-dagbag = DagBag()
+from tests.test_utils import task_test
 
 
-@freeze_time("2024-12-15")
 class TestDataHarvest:
-    dag = dagbag.get_dag("data_harvest_dag")
-
     @pytest.mark.vcr
     def test_collect_ids_param(self):
-        task = self.dag.get_task("collect_ids")
-        res = task.execute(
-            context={
-                "params": {"last_updated_from": "2024-12-15", "last_updated_to": ""}
-            }
+        res = task_test(
+            "data_harvest_dag",
+            "collect_ids",
+            dag_params={"last_updated_from": "2024-12-15", "last_updated_to": ""},
         )
         assert res == [2693068, 2807749, 2809112]
 
     @pytest.mark.vcr
     def test_collect_ids_param_with_to_date(self):
-        task = self.dag.get_task("collect_ids")
-
-        task.op_kwargs = {
-            "params": {
+        res = task_test(
+            "data_harvest_dag",
+            "collect_ids",
+            dag_params={
                 "last_updated_from": "2025-01-25",
                 "last_updated_to": "2025-01-30",
-            }
-        }
-        res = task.execute(context={"ds": ""})
+            },
+        )
         assert res == [2872501, 2872775]
 
     @pytest.mark.vcr
     def test_collect_ids_logical_date(self):
-        task = self.dag.get_task("collect_ids")
-
-        task.op_kwargs = {
-            "params": {
-                "last_updated_from": "",
-                "last_updated_to": "",
-            }
+        params = {
+            "last_updated_from": "",
+            "last_updated_to": "",
         }
-        res = task.execute(context=Context({"ds": "2024-12-17"}))
+
+        res = task_test(
+            "data_harvest_dag",
+            "collect_ids",
+            dag_params=params,
+            ds="2024-12-17",
+        )
         assert res == [2693068, 2807749, 2809112]
 
+    @pytest.mark.xfail(reason="To be fixed in airflow 3.2 - See #1226")
     @pytest.mark.vcr
     def test_download_record_versions(self):
         id = "1906174"
-        task = self.dag.get_task("process_record.download_record_versions")
-        task.op_args = (id,)
-        res = task.execute(context=Context())
+
+        res = task_test(
+            "data_harvest_dag",
+            "process_record.download_record_versions",
+            params={"id": id},
+            map_index=0,
+        )
         assert res["base"]["record"]["inspire_id"] == id
         assert res["base"]["record"]["version"] == 3
         assert all(value in res for value in [1, 2])
 
+    @pytest.mark.xfail(reason="To be fixed in airflow 3.2 - See #1226")
     def test_build_record(self, datadir):
         payload = {
             "1": orjson.loads((datadir / "ins1906174_version1.json").read_text()),
@@ -64,9 +64,15 @@ class TestDataHarvest:
             "base": orjson.loads((datadir / "ins1906174_version3.json").read_text()),
         }
 
-        task = self.dag.get_task("process_record.build_record")
-        task.op_args = ("data_schema", "https://inspirehep.net", payload)
-        res = task.execute(context=Context())
+        res = task_test(
+            "data_harvest_dag",
+            "process_record.build_record",
+            params={
+                "data_schema": "data_schema",
+                "payload": payload,
+            },
+            map_index=0,
+        )
         assert res["$schema"] == "data_schema"
         assert res["_collections"] == ["Data"]
 
@@ -115,27 +121,43 @@ class TestDataHarvest:
         # from last_updated_field of first version
         assert res["creation_date"] == "2021-09-06"
 
+    @pytest.mark.xfail(reason="To be fixed in airflow 3.2 - See #1226")
     def test_creation_date_from_last_updated(self, datadir):
         payload = {
             "base": orjson.loads((datadir / "ins1906174_version3.json").read_text())
         }
-        task = self.dag.get_task("process_record.build_record")
-        task.op_args = ("data_schema", "https://inspirehep.net", payload)
-        res = task.execute(context=Context())
+        res = task_test(
+            "data_harvest_dag",
+            "process_record.build_record",
+            params={
+                "data_schema": "data_schema",
+                "payload": payload,
+            },
+            map_index=0,
+        )
         assert res["creation_date"] == "2023-11-13"  # from last_updated_field
 
+    @pytest.mark.xfail(reason="To be fixed in airflow 3.2 - See #1226")
     def test_creation_date_fallback(self, datadir):
         payload = {
             "base": orjson.loads((datadir / "ins1906174_version4.json").read_text())
         }
-        task = self.dag.get_task("process_record.build_record")
-        task.op_args = ("data_schema", "https://inspirehep.net", payload)
-        res = task.execute(context=Context())
+
+        res = task_test(
+            "data_harvest_dag",
+            "process_record.build_record",
+            params={
+                "data_schema": "data_schema",
+                "payload": payload,
+            },
+            map_index=0,
+        )
         assert (
             res["creation_date"] == payload["base"]["record"]["creation_date"]
         )  # from creation_date field
 
     @pytest.mark.vcr
+    @pytest.mark.xfail(reason="To be fixed in airflow 3.2 - See #1226")
     def test_load_record_put(self):
         record = {
             "_collections": ["Data"],
@@ -148,20 +170,27 @@ class TestDataHarvest:
                 "method": "inspirehep",
             },
         }
-        task = self.dag.get_task("process_record.load_record")
-        task.op_args = (record,)
-        json_response = task.execute(context=Context())
+        json_response = task_test(
+            "data_harvest_dag",
+            "process_record.load_record",
+            params={"new_record": record},
+            map_index=0,
+        )
         assert json_response
 
     @pytest.mark.vcr
+    @pytest.mark.xfail(reason="To be fixed in airflow 3.2 - See #1226")
     def test_normalize_collaborations(self):
         # test what is returned if collaborations are initally empty
         record = {
             "collaborations": [{"value": "ETM"}],
             "acquisition_source": {"submission_number": "123"},
         }
-        task = self.dag.get_task("process_record.normalize_collaborations")
-        json_response = task.python_callable(record=record)
+        json_response = task_test(
+            "data_harvest_dag",
+            "process_record.normalize_collaborations",
+            params={"record": record},
+        )
 
         assert "record" in json_response["collaborations"][0]
         assert (
@@ -169,6 +198,7 @@ class TestDataHarvest:
         )
 
     @pytest.mark.vcr
+    @pytest.mark.xfail(reason="To be fixed in airflow 3.2 - See #1226")
     def test_load_record_post(self):
         record = {
             "_collections": ["Data"],
@@ -181,7 +211,11 @@ class TestDataHarvest:
                 "method": "inspirehep",
             },
         }
-        task = self.dag.get_task("process_record.load_record")
-        task.op_args = (record,)
-        json_response = task.execute(context=Context())
+        json_response = task_test(
+            "data_harvest_dag",
+            "process_record.load_record",
+            params={"new_record": record},
+            map_index=1,
+        )
+
         assert json_response
