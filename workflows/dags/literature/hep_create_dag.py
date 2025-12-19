@@ -1068,7 +1068,14 @@ def hep_create_dag():
             workflow_data = s3.read_workflow(
                 s3_hook, bucket_name, context["params"]["workflow_id"]
             )
-            return workflows.normalize_collaborations(metadata=workflow_data["data"])
+            result = workflows.normalize_collaborations(metadata=workflow_data["data"])
+            if not result:
+                return
+            accelerator_experiments, normalized_collaborations = result
+            workflow_data["data"]["accelerator_experiments"] = accelerator_experiments
+            workflow_data["data"]["collaborations"] = normalized_collaborations
+
+            s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
         check_is_arxiv_paper_task = check_is_arxiv_paper()
 
