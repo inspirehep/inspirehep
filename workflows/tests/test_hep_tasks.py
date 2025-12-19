@@ -23,6 +23,8 @@ from include.utils.constants import (
     DECISION_CORE_SELECTION_ACCEPT,
     DECISION_CORE_SELECTION_ACCEPT_CORE,
     DECISION_HEP_ACCEPT_CORE,
+    HEP_CREATE,
+    HEP_UPDATE,
     LITERATURE_PID_TYPE,
     STATUS_APPROVAL,
     STATUS_APPROVAL_CORE_SELECTION,
@@ -2075,6 +2077,11 @@ class Test_HEPCreateDAG:
         assert result == "paper17"
 
     def test_check_is_update_merge(self):
+        s3.write_workflow(
+            s3_hook,
+            {"id": self.workflow_id, "workflow_type": HEP_CREATE},
+            bucket_name,
+        )
         result = task_test(
             "hep_create_dag",
             "halt_for_approval_if_new_or_reject_if_not_relevant.check_is_update",
@@ -2086,6 +2093,8 @@ class Test_HEPCreateDAG:
             "halt_for_approval_if_new_or_reject_if_not_relevant.merge_articles"
             in result["followed"]
         )
+        workflow_result = s3.read_workflow(s3_hook, bucket_name, self.workflow_id)
+        assert workflow_result["workflow_type"] == HEP_UPDATE
 
     def test_check_is_update_none(self):
         result = task_test(
