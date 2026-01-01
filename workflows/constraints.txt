@@ -113,7 +113,7 @@ apache-airflow-providers-apache-kafka==1.10.2
 apache-airflow-providers-apache-kylin==3.9.2
 apache-airflow-providers-apache-livy==4.4.2
 apache-airflow-providers-apache-pig==4.7.2
-apache-airflow-providers-apache-pinot==4.8.2
+apache-airflow-providers-apache-pinot==4.9.1
 apache-airflow-providers-apache-spark==5.3.2
 apache-airflow-providers-apprise==2.1.2
 apache-airflow-providers-arangodb==2.8.2
