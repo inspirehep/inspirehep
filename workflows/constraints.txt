@@ -447,7 +447,7 @@ jedi==0.19.2
 jeepney==0.9.0
 jiter==0.10.0
 jmespath==0.10.0
-joblib==1.5.1
+joblib==1.5.3
 joserfc==1.2.2
 jpype1==1.6.0
 jsonpatch==1.33
