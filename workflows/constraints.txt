@@ -231,7 +231,7 @@ azure-mgmt-storage==23.0.1
 azure-nspkg==3.0.2
 azure-servicebus==7.14.2
 azure-storage-blob==12.26.0
-azure-storage-file-datalake==12.21.0
+azure-storage-file-datalake==12.22.0
 azure-storage-file-share==12.22.0
 azure-synapse-artifacts==0.20.0
 azure-synapse-spark==0.7.0
