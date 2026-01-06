@@ -6,14 +6,13 @@ from contextlib import suppress
 from copy import deepcopy
 from tempfile import TemporaryDirectory
 
-from airflow.decorators import dag, task_group
 from airflow.exceptions import AirflowException, AirflowFailException
 from airflow.models.variable import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.providers.standard.operators.empty import EmptyOperator
-from airflow.sdk import Param, task
+from airflow.sdk import Param, dag, task, task_group
+from airflow.task.trigger_rule import TriggerRule
 from airflow.utils.edgemodifier import Label
-from airflow.utils.trigger_rule import TriggerRule
 from hooks.backoffice.workflow_management_hook import (
     HEP,
     WorkflowManagementHook,
@@ -152,8 +151,8 @@ def hep_create_dag():
         workflow_data = s3.read_workflow(
             s3_hook, bucket_name, context["params"]["workflow_id"]
         )
-
         schema = Variable.get("hep_schema")
+
         workflow_data = workflow_management_hook.partial_update_workflow(
             workflow_id=context["params"]["workflow_id"],
             workflow_partial_update_data={
@@ -1064,7 +1063,7 @@ def hep_create_dag():
                 logger.error(f"Error occurred while predicting coreness: {e}")
                 return
 
-        @task
+        @task(multiple_outputs=True)
         def normalize_collaborations(**context):
             workflow_data = s3.read_workflow(
                 s3_hook, bucket_name, context["params"]["workflow_id"]

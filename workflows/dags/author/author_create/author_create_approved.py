@@ -1,9 +1,8 @@
 import datetime
 import logging
 
-from airflow.decorators import dag, task
-from airflow.sdk import Param
-from airflow.utils.trigger_rule import TriggerRule
+from airflow.sdk import Param, dag, task
+from airflow.task.trigger_rule import TriggerRule
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.backoffice.workflow_ticket_management_hook import (
     AuthorWorkflowTicketManagementHook,

@@ -1,6 +1,6 @@
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.sdk import Variable, task
-from airflow.utils.trigger_rule import TriggerRule
+from airflow.task.trigger_rule import TriggerRule
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from include.utils import s3
 from inspire_utils.record import get_value
