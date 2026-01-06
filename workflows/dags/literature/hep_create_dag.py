@@ -55,14 +55,17 @@ from include.utils.constants import (
     DECISION_HEP_ACCEPT,
     DECISION_HEP_ACCEPT_CORE,
     DECISION_HEP_REJECT,
+    DECISION_MERGE_APPROVE,
     HEP_UPDATE,
     LITERATURE_PID_TYPE,
     RUNNING_STATUSES,
     STATUS_APPROVAL,
     STATUS_APPROVAL_CORE_SELECTION,
     STATUS_APPROVAL_FUZZY_MATCHING,
+    STATUS_APPROVAL_MERGE,
     STATUS_BLOCKED,
     STATUS_COMPLETED,
+    STATUS_RUNNING,
 )
 from include.utils.workflows import get_decision, get_flag, set_flag
 from inspire_classifier import Classifier
@@ -1215,9 +1218,31 @@ def hep_create_dag():
                     + "/callback/workflows/resolve_merge_conflicts",
                 }
 
-            set_flag("approved", True, workflow_data)
-
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
+
+        @task
+        def await_merge_conflicts_resolved(**context):
+            workflow_id = context["params"]["workflow_id"]
+            workflow_data = workflow_management_hook.get_workflow(workflow_id)
+            merge_details = workflow_data.get("merge_details") or {}
+            conflicts = get_value(merge_details, "conflicts")
+            is_conflicts_resolved = get_decision(
+                workflow_data.get("decisions"), DECISION_MERGE_APPROVE
+            )
+
+            if conflicts and not is_conflicts_resolved:
+                workflow_management_hook.set_workflow_status(
+                    status_name=STATUS_APPROVAL_MERGE, workflow_id=workflow_id
+                )
+
+                return False
+
+            workflow_management_hook.set_workflow_status(
+                status_name=STATUS_RUNNING, workflow_id=workflow_id
+            )
+            set_flag("approved", True, workflow_data)
+            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            return True
 
         @task.branch
         def check_is_auto_approved(**context):
@@ -1369,7 +1394,12 @@ def hep_create_dag():
         is_record_relevant_task = is_record_relevant()
         should_replace_collection_to_hidden_task = should_replace_collection_to_hidden()
 
-        merge_articles_task >> halt_end
+        (
+            merge_articles_task
+            >> save_workflow()
+            >> await_merge_conflicts_resolved()
+            >> halt_end
+        )
         (
             update_inspire_categories_task
             >> check_is_auto_approved()

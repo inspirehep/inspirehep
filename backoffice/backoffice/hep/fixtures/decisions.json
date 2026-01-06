@@ -92,5 +92,16 @@
         "workflow": "26f5c03b-6085-4d1c-a300-bfac9df4b1b3",
         "action": "hep_reject"
     }
+},
+{
+    "model": "hep.hepdecision",
+    "pk": 9,
+    "fields": {
+        "user": "admin@admin.com",
+        "_created_at": "2025-08-26T14:45:14.237Z",
+        "_updated_at": "2025-08-26T14:45:14.237Z",
+        "workflow": "f9fc9d83-fd28-450e-bfde-d1ed07dc87f5",
+        "action": "merge_approve"
+    }
 }
     ]

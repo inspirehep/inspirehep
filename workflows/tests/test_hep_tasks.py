@@ -2263,6 +2263,44 @@ class Test_HEPCreateDAG:
         assert "merge_details" in workflow_result
         assert "conflicts" in workflow_result["merge_details"]
 
+    @pytest.mark.vcr
+    def test_await_merge_conflicts_resolved_no_conflicts(self):
+        workflow_id = "7b617859-cb4f-4526-aa85-ec5291dc141b"
+
+        result = task_test(
+            "hep_create_dag",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.await_merge_conflicts_resolved",
+            dag_params={"workflow_id": workflow_id},
+        )
+        workflow_result = s3.read_workflow(self.s3_hook, self.bucket_name, workflow_id)
+
+        assert result
+        assert get_flag("approved", workflow_result)
+
+    @pytest.mark.vcr
+    def test_await_merge_conflicts_resolved_w_conflicts_no_decision(self):
+        result = task_test(
+            "hep_create_dag",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.await_merge_conflicts_resolved",
+            dag_params={"workflow_id": "7c6b56bd-6166-4fee-ad6f-5b99b7d37b7e"},
+        )
+
+        assert not result
+
+    @pytest.mark.vcr
+    def test_await_merge_conflicts_resolved_w_conflicts_and_decision(self):
+        workflow_id = "f9fc9d83-fd28-450e-bfde-d1ed07dc87f5"
+
+        result = task_test(
+            "hep_create_dag",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.await_merge_conflicts_resolved",
+            dag_params={"workflow_id": workflow_id},
+        )
+        workflow_result = s3.read_workflow(self.s3_hook, self.bucket_name, workflow_id)
+
+        assert result
+        assert get_flag("approved", workflow_result)
+
     def test_update_inspire_categories(self):
         workflow_data = {
             "id": self.workflow_id,

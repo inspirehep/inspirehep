@@ -4865,5 +4865,66 @@
       "_created_at": "2025-11-01T00:00:00.000Z",
       "_updated_at": "2025-11-01T00:00:00.000Z"
     }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "7c6b56bd-6166-4fee-ad6f-5b99b7d37b7e",
+    "fields": {
+      "workflow_type": "HEP_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "Article with conflicts",
+            "source": "submitter"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "acquisition_source": {
+          "email": "user@cern.ch",
+          "method": "submitter",
+          "source": "submitter",
+          "datetime": "2024-11-18T11:34:19.809575"
+        }
+      },
+      "status": "running",
+      "merge_details": {
+
+        "conflicts": {"conflicts":[{"path": "/authors/10", "op": "remove", "value": null, "$type": "REMOVE_FIELD"}]}
+      },
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "f9fc9d83-fd28-450e-bfde-d1ed07dc87f5",
+    "fields": {
+      "workflow_type": "HEP_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "Article with conflicts",
+            "source": "submitter"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "acquisition_source": {
+          "email": "user@cern.ch",
+          "method": "submitter",
+          "source": "submitter",
+          "datetime": "2024-11-18T11:34:19.809575"
+        }
+      },
+      "status": "running",
+      "merge_details": {
+        "conflicts": {"conflicts":[{"path": "/authors/10", "op": "remove", "value": null, "$type": "REMOVE_FIELD"}]}
+      },
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
   }
 ]
