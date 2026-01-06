@@ -9,6 +9,7 @@ DECISION_CORE_SELECTION_ACCEPT = "core_selection_accept"
 DECISION_CORE_SELECTION_ACCEPT_CORE = "core_selection_accept_core"
 DECISION_AUTO_ACCEPT_CORE = "auto_accept_core"
 DECISION_AUTO_REJECT = "auto_reject"
+DECISION_MERGE_APPROVE = "merge_approve"
 
 HEP_CREATE = "HEP_CREATE"
 HEP_UPDATE = "HEP_UPDATE"

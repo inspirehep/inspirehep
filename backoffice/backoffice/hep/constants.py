@@ -69,8 +69,14 @@ class HepResolutions(models.TextChoices):
         "",
     )
     auto_reject = (
-        "auto_reject",
-        "",
+        (
+            "auto_reject",
+            "",
+        ),
+    )
+    merge_approve = (
+        "merge_approve",
+        "halt_for_approval_if_new_or_reject_if_not_relevant.await_merge_conflicts_resolved",
     )
 
 

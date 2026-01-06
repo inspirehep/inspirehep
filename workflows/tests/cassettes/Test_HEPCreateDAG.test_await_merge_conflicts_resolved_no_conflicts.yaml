@@ -1,0 +1,398 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/7b617859-cb4f-4526-aa85-ec5291dc141b
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Tue, 06 Jan 2026 14:40:37 GMT
+      Location:
+      - /api/workflows/literature/7b617859-cb4f-4526-aa85-ec5291dc141b/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/7b617859-cb4f-4526-aa85-ec5291dc141b/
+  response:
+    body:
+      string: "{\"id\":\"7b617859-cb4f-4526-aa85-ec5291dc141b\",\"validation_errors\":[],\"data\":{\"dois\":[{\"value\":\"10.1103/6s8n-pvmy\",\"source\":\"arXiv\",\"material\":\"publication\"}],\"titles\":[{\"title\":\"Search
+        for $\u03B3$H production and constraints on the Yukawa couplings of light
+        quarks to the Higgs boson\",\"source\":\"arXiv\"}],\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"curated\":false,\"license\":[{\"url\":\"http://creativecommons.org/licenses/by/4.0/\",\"license\":\"CC
+        BY 4.0\",\"material\":\"preprint\"}],\"citeable\":true,\"abstracts\":[{\"value\":\"A
+        search for $\u03B3$H production is performed with data from the CMS experiment
+        at the LHC corresponding to an integrated luminosity of 138 fb$^{-1}$ at a
+        proton-proton center-of-mass collision energy of 13 TeV. The analysis focuses
+        on the topology of a boosted Higgs boson recoiling against a high-energy photon.
+        The final states of H $\\\\to$$\\\\mathrm{b\\\\bar{b}}$ and H $\\\\to$ 4$\\\\ell$
+        are analyzed. This study examines effective HZ$\u03B3$ and H$\u03B3\u03B3$
+        anomalous couplings within the context of an effective field theory. In this
+        approach, the production cross section is constrained to be $\u03C3_{\u03B3\\\\text{H}}$$\\\\lt$
+        16.4 fb at 95% confidence level (CL). Simultaneous constraints on four anomalous
+        couplings involving HZ$\u03B3$ and H$\u03B3\u03B3$ are provided. Additionally,
+        the production rate for H $\\\\to$ 4$\\\\ell$ is examined to assess potential
+        enhancements in the Yukawa couplings between light quarks and the Higgs boson.
+        Assuming the standard model values for the Yukawa couplings of the bottom
+        and top quarks, the following simultaneous constraints are obtained: $\u03BA_\\\\text{u}$
+        = (0.0 $\\\\pm$ 1.5) $\\\\times$ 10$^{3}$, $\u03BA_\\\\text{d}$ = (0.0 $^{+6.7}_{-6.8}$)
+        $\\\\times$ 10$^{2}$, $\u03BA_\\\\text{s}$ = 0 $^{+30}_{-32}$, and $\u03BA_\\\\text{c}$
+        = 0.0 $^{+2.3}_{-2.8}$. This rules out the hypothesis that up- or down-type
+        quarks in the first or second generation have the same Yukawa couplings as
+        those in the third generation, with a CL greater than 95%.\",\"source\":\"arXiv\"}],\"_collections\":[\"Literature\"],\"public_notes\":[{\"value\":\"Replaced
+        with the published version. Added the journal reference and the DOI. All the
+        figures and tables can be found at http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-23-011
+        (CMS Public Pages)\",\"source\":\"arXiv\"}],\"arxiv_eprints\":[{\"value\":\"2502.05665\",\"categories\":[\"hep-ex\"]}],\"document_type\":[\"article\"],\"preprint_date\":\"2025-12-02\",\"collaborations\":[{\"value\":\"CMS\"}],\"report_numbers\":[{\"value\":\"CMS-HIG-23-011\",\"source\":\"arXiv\"},{\"value\":\"CERN-EP-2025-007\",\"source\":\"arXiv\"}],\"publication_info\":[{\"material\":\"publication\",\"pubinfo_freetext\":\"Phys.
+        Rev. D 112 (2025) 112001\"}],\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"arXiv\",\"datetime\":\"2025-12-04T02:00:10.236535\",\"submission_number\":\"scheduled__2025-12-04T02:00:00+00:00\"},\"inspire_categories\":[{\"term\":\"Experiment-HEP\",\"source\":\"arxiv\"}]},\"tickets\":[],\"decisions\":[],\"workflow_type\":\"HEP_CREATE\",\"classifier_results\":null,\"merge_details\":null,\"_created_at\":\"2025-11-01T00:00:00Z\",\"_updated_at\":\"2025-11-01T00:00:00Z\",\"journal_coverage\":null,\"relevance_prediction\":null,\"reference_count\":null,\"matches\":{\"fuzzy\":[{\"title\":\"Aspects
+        of Rare Production and Decay Processes of the Higgs Boson\",\"authors\":[{\"full_name\":\"Rauch,
+        Daniel\"}],\"abstract\":\"The Higgs boson is the most recent fundamental particle
+        to be experimentally observed. Due to its large mass and its couplings to
+        massive bosons and fermions, it has a wide variety of decay channels. Among
+        them is the still unobserved rare decay $H$ \u2192 $Z$($\\\\ell$$^{+}$$\\\\ell$$^{\u2212}$)$\\\\gamma$.
+        In this thesis, a search for the $Z$$\\\\gamma$ decay mode of the Standard
+        Model Higgs boson as well as potential new higher-mass resonances decaying
+        to the same final state is presented. The analysis is based on a dataset of
+        36.1 fb$^{\u22121}$ of proton-proton collisions collected with the ATLAS detector
+        at the CERN Large Hadron Collider at a centre-of-mass energy of 13 TeV. No
+        significant excess of events over the background-only expectation was observed,
+        and consequently, an upper limit at the 95% CL on the cross section times
+        branching ratio of 6.6 times the Standard Model expectation was derived. The
+        expected upper limits were determined to be 5.2 (4.4) times the Standard Model
+        expectation when assuming the presence (absence) of this decay mode. An alternative
+        Higgs boson decay process that creates the same final state is $H$ \u2192
+        $\\\\gamma$$^{*}$($\\\\ell$$^{+}$$\\\\ell$$^{-}$)$\\\\gamma$. In this process,
+        the leptons are predominantly produced with much smaller invariant masses
+        than in the $H$ \u2192 $Z$($\\\\ell$$^{+}$$\\\\ell$$^{\u2212}$)$\\\\gamma$
+        decay. This results in reduced opening angles between the leptons, especially
+        in the final state with electrons. In this thesis, a preliminary, blinded
+        analysis targeting the $H$ \u2192 $\\\\gamma$$^{*}$($\\\\ell$$^{+}$$\\\\ell$$^{-}$)$\\\\gamma$
+        decay with the ATLAS detector is presented for the first time. To retain events
+        with close-by electron pairs, a dedicated identification algorithm was developed
+        for such configurations. For an integrated luminosity of 80 fb$^{\u22121}$
+        and an LHC centre-of-mass energy of 13 TeV, a significance of 0.9\u03C3 and
+        upper limits at the 95% CL on the cross section times branching ratio of 2.9
+        (2.1) times the Standard Model prediction are expected when assuming the absence
+        (presence) of this decay mode. At a proton-proton collider, the Higgs boson
+        can be produced via different production processes. About 1% of the Higgs
+        production cross section at the LHC stems from the production in association
+        with a pair of top quarks. This process is very interesting because it gives
+        tree-level access to the top quark Yukawa coupling. The $t\\\\bar{t}$ $H$($b\\\\bar{b})$
+        final state is complicated to analyse because of the presence of multiple
+        jets and $b$-tags. One of its major backgrounds is $t\\\\bar{t}c\\\\bar{c}$
+        production, which is theoretically challenging in its own right. A portion
+        of this thesis consists of studies on the Monte Carlo simulation of $t\\\\bar{t}c\\\\bar{c}$
+        production with massive charm quarks included in the matrix elements.\",\"authors_count\":1,\"earliest_date\":\"2020-09-28\",\"control_number\":1837351,\"number_of_pages\":236,\"publication_info\":[{\"year\":2020}]}]},\"status\":\"approval_fuzzy_matching\"}"
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '6254'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Tue, 06 Jan 2026 14:40:37 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/7b617859-cb4f-4526-aa85-ec5291dc141b
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Tue, 06 Jan 2026 14:40:37 GMT
+      Location:
+      - /api/workflows/literature/7b617859-cb4f-4526-aa85-ec5291dc141b/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/7b617859-cb4f-4526-aa85-ec5291dc141b/
+  response:
+    body:
+      string: "{\"id\":\"7b617859-cb4f-4526-aa85-ec5291dc141b\",\"validation_errors\":[],\"data\":{\"dois\":[{\"value\":\"10.1103/6s8n-pvmy\",\"source\":\"arXiv\",\"material\":\"publication\"}],\"titles\":[{\"title\":\"Search
+        for $\u03B3$H production and constraints on the Yukawa couplings of light
+        quarks to the Higgs boson\",\"source\":\"arXiv\"}],\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"curated\":false,\"license\":[{\"url\":\"http://creativecommons.org/licenses/by/4.0/\",\"license\":\"CC
+        BY 4.0\",\"material\":\"preprint\"}],\"citeable\":true,\"abstracts\":[{\"value\":\"A
+        search for $\u03B3$H production is performed with data from the CMS experiment
+        at the LHC corresponding to an integrated luminosity of 138 fb$^{-1}$ at a
+        proton-proton center-of-mass collision energy of 13 TeV. The analysis focuses
+        on the topology of a boosted Higgs boson recoiling against a high-energy photon.
+        The final states of H $\\\\to$$\\\\mathrm{b\\\\bar{b}}$ and H $\\\\to$ 4$\\\\ell$
+        are analyzed. This study examines effective HZ$\u03B3$ and H$\u03B3\u03B3$
+        anomalous couplings within the context of an effective field theory. In this
+        approach, the production cross section is constrained to be $\u03C3_{\u03B3\\\\text{H}}$$\\\\lt$
+        16.4 fb at 95% confidence level (CL). Simultaneous constraints on four anomalous
+        couplings involving HZ$\u03B3$ and H$\u03B3\u03B3$ are provided. Additionally,
+        the production rate for H $\\\\to$ 4$\\\\ell$ is examined to assess potential
+        enhancements in the Yukawa couplings between light quarks and the Higgs boson.
+        Assuming the standard model values for the Yukawa couplings of the bottom
+        and top quarks, the following simultaneous constraints are obtained: $\u03BA_\\\\text{u}$
+        = (0.0 $\\\\pm$ 1.5) $\\\\times$ 10$^{3}$, $\u03BA_\\\\text{d}$ = (0.0 $^{+6.7}_{-6.8}$)
+        $\\\\times$ 10$^{2}$, $\u03BA_\\\\text{s}$ = 0 $^{+30}_{-32}$, and $\u03BA_\\\\text{c}$
+        = 0.0 $^{+2.3}_{-2.8}$. This rules out the hypothesis that up- or down-type
+        quarks in the first or second generation have the same Yukawa couplings as
+        those in the third generation, with a CL greater than 95%.\",\"source\":\"arXiv\"}],\"_collections\":[\"Literature\"],\"public_notes\":[{\"value\":\"Replaced
+        with the published version. Added the journal reference and the DOI. All the
+        figures and tables can be found at http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-23-011
+        (CMS Public Pages)\",\"source\":\"arXiv\"}],\"arxiv_eprints\":[{\"value\":\"2502.05665\",\"categories\":[\"hep-ex\"]}],\"document_type\":[\"article\"],\"preprint_date\":\"2025-12-02\",\"collaborations\":[{\"value\":\"CMS\"}],\"report_numbers\":[{\"value\":\"CMS-HIG-23-011\",\"source\":\"arXiv\"},{\"value\":\"CERN-EP-2025-007\",\"source\":\"arXiv\"}],\"publication_info\":[{\"material\":\"publication\",\"pubinfo_freetext\":\"Phys.
+        Rev. D 112 (2025) 112001\"}],\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"arXiv\",\"datetime\":\"2025-12-04T02:00:10.236535\",\"submission_number\":\"scheduled__2025-12-04T02:00:00+00:00\"},\"inspire_categories\":[{\"term\":\"Experiment-HEP\",\"source\":\"arxiv\"}]},\"tickets\":[],\"decisions\":[],\"workflow_type\":\"HEP_CREATE\",\"classifier_results\":null,\"merge_details\":null,\"_created_at\":\"2025-11-01T00:00:00Z\",\"_updated_at\":\"2025-11-01T00:00:00Z\",\"journal_coverage\":null,\"relevance_prediction\":null,\"reference_count\":null,\"matches\":{\"fuzzy\":[{\"title\":\"Aspects
+        of Rare Production and Decay Processes of the Higgs Boson\",\"authors\":[{\"full_name\":\"Rauch,
+        Daniel\"}],\"abstract\":\"The Higgs boson is the most recent fundamental particle
+        to be experimentally observed. Due to its large mass and its couplings to
+        massive bosons and fermions, it has a wide variety of decay channels. Among
+        them is the still unobserved rare decay $H$ \u2192 $Z$($\\\\ell$$^{+}$$\\\\ell$$^{\u2212}$)$\\\\gamma$.
+        In this thesis, a search for the $Z$$\\\\gamma$ decay mode of the Standard
+        Model Higgs boson as well as potential new higher-mass resonances decaying
+        to the same final state is presented. The analysis is based on a dataset of
+        36.1 fb$^{\u22121}$ of proton-proton collisions collected with the ATLAS detector
+        at the CERN Large Hadron Collider at a centre-of-mass energy of 13 TeV. No
+        significant excess of events over the background-only expectation was observed,
+        and consequently, an upper limit at the 95% CL on the cross section times
+        branching ratio of 6.6 times the Standard Model expectation was derived. The
+        expected upper limits were determined to be 5.2 (4.4) times the Standard Model
+        expectation when assuming the presence (absence) of this decay mode. An alternative
+        Higgs boson decay process that creates the same final state is $H$ \u2192
+        $\\\\gamma$$^{*}$($\\\\ell$$^{+}$$\\\\ell$$^{-}$)$\\\\gamma$. In this process,
+        the leptons are predominantly produced with much smaller invariant masses
+        than in the $H$ \u2192 $Z$($\\\\ell$$^{+}$$\\\\ell$$^{\u2212}$)$\\\\gamma$
+        decay. This results in reduced opening angles between the leptons, especially
+        in the final state with electrons. In this thesis, a preliminary, blinded
+        analysis targeting the $H$ \u2192 $\\\\gamma$$^{*}$($\\\\ell$$^{+}$$\\\\ell$$^{-}$)$\\\\gamma$
+        decay with the ATLAS detector is presented for the first time. To retain events
+        with close-by electron pairs, a dedicated identification algorithm was developed
+        for such configurations. For an integrated luminosity of 80 fb$^{\u22121}$
+        and an LHC centre-of-mass energy of 13 TeV, a significance of 0.9\u03C3 and
+        upper limits at the 95% CL on the cross section times branching ratio of 2.9
+        (2.1) times the Standard Model prediction are expected when assuming the absence
+        (presence) of this decay mode. At a proton-proton collider, the Higgs boson
+        can be produced via different production processes. About 1% of the Higgs
+        production cross section at the LHC stems from the production in association
+        with a pair of top quarks. This process is very interesting because it gives
+        tree-level access to the top quark Yukawa coupling. The $t\\\\bar{t}$ $H$($b\\\\bar{b})$
+        final state is complicated to analyse because of the presence of multiple
+        jets and $b$-tags. One of its major backgrounds is $t\\\\bar{t}c\\\\bar{c}$
+        production, which is theoretically challenging in its own right. A portion
+        of this thesis consists of studies on the Monte Carlo simulation of $t\\\\bar{t}c\\\\bar{c}$
+        production with massive charm quarks included in the matrix elements.\",\"authors_count\":1,\"earliest_date\":\"2020-09-28\",\"control_number\":1837351,\"number_of_pages\":236,\"publication_info\":[{\"year\":2020}]}]},\"status\":\"approval_fuzzy_matching\"}"
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '6254'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Tue, 06 Jan 2026 14:40:37 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"status": "running"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '21'
+      Content-Type:
+      - application/json
+    method: PATCH
+    uri: http://host.docker.internal:8001/api/workflows/literature/7b617859-cb4f-4526-aa85-ec5291dc141b/
+  response:
+    body:
+      string: "{\"id\":\"7b617859-cb4f-4526-aa85-ec5291dc141b\",\"data\":{\"dois\":[{\"value\":\"10.1103/6s8n-pvmy\",\"source\":\"arXiv\",\"material\":\"publication\"}],\"titles\":[{\"title\":\"Search
+        for $\u03B3$H production and constraints on the Yukawa couplings of light
+        quarks to the Higgs boson\",\"source\":\"arXiv\"}],\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"curated\":false,\"license\":[{\"url\":\"http://creativecommons.org/licenses/by/4.0/\",\"license\":\"CC
+        BY 4.0\",\"material\":\"preprint\"}],\"citeable\":true,\"abstracts\":[{\"value\":\"A
+        search for $\u03B3$H production is performed with data from the CMS experiment
+        at the LHC corresponding to an integrated luminosity of 138 fb$^{-1}$ at a
+        proton-proton center-of-mass collision energy of 13 TeV. The analysis focuses
+        on the topology of a boosted Higgs boson recoiling against a high-energy photon.
+        The final states of H $\\\\to$$\\\\mathrm{b\\\\bar{b}}$ and H $\\\\to$ 4$\\\\ell$
+        are analyzed. This study examines effective HZ$\u03B3$ and H$\u03B3\u03B3$
+        anomalous couplings within the context of an effective field theory. In this
+        approach, the production cross section is constrained to be $\u03C3_{\u03B3\\\\text{H}}$$\\\\lt$
+        16.4 fb at 95% confidence level (CL). Simultaneous constraints on four anomalous
+        couplings involving HZ$\u03B3$ and H$\u03B3\u03B3$ are provided. Additionally,
+        the production rate for H $\\\\to$ 4$\\\\ell$ is examined to assess potential
+        enhancements in the Yukawa couplings between light quarks and the Higgs boson.
+        Assuming the standard model values for the Yukawa couplings of the bottom
+        and top quarks, the following simultaneous constraints are obtained: $\u03BA_\\\\text{u}$
+        = (0.0 $\\\\pm$ 1.5) $\\\\times$ 10$^{3}$, $\u03BA_\\\\text{d}$ = (0.0 $^{+6.7}_{-6.8}$)
+        $\\\\times$ 10$^{2}$, $\u03BA_\\\\text{s}$ = 0 $^{+30}_{-32}$, and $\u03BA_\\\\text{c}$
+        = 0.0 $^{+2.3}_{-2.8}$. This rules out the hypothesis that up- or down-type
+        quarks in the first or second generation have the same Yukawa couplings as
+        those in the third generation, with a CL greater than 95%.\",\"source\":\"arXiv\"}],\"_collections\":[\"Literature\"],\"public_notes\":[{\"value\":\"Replaced
+        with the published version. Added the journal reference and the DOI. All the
+        figures and tables can be found at http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-23-011
+        (CMS Public Pages)\",\"source\":\"arXiv\"}],\"arxiv_eprints\":[{\"value\":\"2502.05665\",\"categories\":[\"hep-ex\"]}],\"document_type\":[\"article\"],\"preprint_date\":\"2025-12-02\",\"collaborations\":[{\"value\":\"CMS\"}],\"report_numbers\":[{\"value\":\"CMS-HIG-23-011\",\"source\":\"arXiv\"},{\"value\":\"CERN-EP-2025-007\",\"source\":\"arXiv\"}],\"publication_info\":[{\"material\":\"publication\",\"pubinfo_freetext\":\"Phys.
+        Rev. D 112 (2025) 112001\"}],\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"arXiv\",\"datetime\":\"2025-12-04T02:00:10.236535\",\"submission_number\":\"scheduled__2025-12-04T02:00:00+00:00\"},\"inspire_categories\":[{\"term\":\"Experiment-HEP\",\"source\":\"arxiv\"}]},\"tickets\":[],\"decisions\":[],\"workflow_type\":\"HEP_CREATE\",\"classifier_results\":null,\"merge_details\":null,\"_created_at\":\"2025-11-01T00:00:00Z\",\"_updated_at\":\"2026-01-06T14:40:37.643928Z\",\"journal_coverage\":null,\"relevance_prediction\":null,\"reference_count\":null,\"matches\":{\"fuzzy\":[{\"title\":\"Aspects
+        of Rare Production and Decay Processes of the Higgs Boson\",\"authors\":[{\"full_name\":\"Rauch,
+        Daniel\"}],\"abstract\":\"The Higgs boson is the most recent fundamental particle
+        to be experimentally observed. Due to its large mass and its couplings to
+        massive bosons and fermions, it has a wide variety of decay channels. Among
+        them is the still unobserved rare decay $H$ \u2192 $Z$($\\\\ell$$^{+}$$\\\\ell$$^{\u2212}$)$\\\\gamma$.
+        In this thesis, a search for the $Z$$\\\\gamma$ decay mode of the Standard
+        Model Higgs boson as well as potential new higher-mass resonances decaying
+        to the same final state is presented. The analysis is based on a dataset of
+        36.1 fb$^{\u22121}$ of proton-proton collisions collected with the ATLAS detector
+        at the CERN Large Hadron Collider at a centre-of-mass energy of 13 TeV. No
+        significant excess of events over the background-only expectation was observed,
+        and consequently, an upper limit at the 95% CL on the cross section times
+        branching ratio of 6.6 times the Standard Model expectation was derived. The
+        expected upper limits were determined to be 5.2 (4.4) times the Standard Model
+        expectation when assuming the presence (absence) of this decay mode. An alternative
+        Higgs boson decay process that creates the same final state is $H$ \u2192
+        $\\\\gamma$$^{*}$($\\\\ell$$^{+}$$\\\\ell$$^{-}$)$\\\\gamma$. In this process,
+        the leptons are predominantly produced with much smaller invariant masses
+        than in the $H$ \u2192 $Z$($\\\\ell$$^{+}$$\\\\ell$$^{\u2212}$)$\\\\gamma$
+        decay. This results in reduced opening angles between the leptons, especially
+        in the final state with electrons. In this thesis, a preliminary, blinded
+        analysis targeting the $H$ \u2192 $\\\\gamma$$^{*}$($\\\\ell$$^{+}$$\\\\ell$$^{-}$)$\\\\gamma$
+        decay with the ATLAS detector is presented for the first time. To retain events
+        with close-by electron pairs, a dedicated identification algorithm was developed
+        for such configurations. For an integrated luminosity of 80 fb$^{\u22121}$
+        and an LHC centre-of-mass energy of 13 TeV, a significance of 0.9\u03C3 and
+        upper limits at the 95% CL on the cross section times branching ratio of 2.9
+        (2.1) times the Standard Model prediction are expected when assuming the absence
+        (presence) of this decay mode. At a proton-proton collider, the Higgs boson
+        can be produced via different production processes. About 1% of the Higgs
+        production cross section at the LHC stems from the production in association
+        with a pair of top quarks. This process is very interesting because it gives
+        tree-level access to the top quark Yukawa coupling. The $t\\\\bar{t}$ $H$($b\\\\bar{b})$
+        final state is complicated to analyse because of the presence of multiple
+        jets and $b$-tags. One of its major backgrounds is $t\\\\bar{t}c\\\\bar{c}$
+        production, which is theoretically challenging in its own right. A portion
+        of this thesis consists of studies on the Monte Carlo simulation of $t\\\\bar{t}c\\\\bar{c}$
+        production with massive charm quarks included in the matrix elements.\",\"authors_count\":1,\"earliest_date\":\"2020-09-28\",\"control_number\":1837351,\"number_of_pages\":236,\"publication_info\":[{\"year\":2020}]}]},\"status\":\"running\"}"
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '6222'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Tue, 06 Jan 2026 14:40:37 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1
