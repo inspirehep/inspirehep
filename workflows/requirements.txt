@@ -1,6 +1,6 @@
 -c constraints.txt
 --extra-index-url https://download.pytorch.org/whl/cpu
-inspire-utils~=3.0.67
+inspire-utils~=3.0.68
 idutils
 Sickle==0.7.0
 plotextractor==1.0.21

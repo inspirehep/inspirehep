@@ -1,4 +1,4 @@
-from airflow.decorators import task
+from airflow.sdk import task
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 
 

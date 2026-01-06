@@ -1,7 +1,9 @@
-from unittest.mock import Mock
+from unittest.mock import patch
 
 import pytest
 from airflow.models import DagBag
+
+from tests.test_utils import task_test
 
 dagbag = DagBag()
 
@@ -61,15 +63,20 @@ class TestAuthorCreateInit:
 
     @pytest.mark.vcr
     def test_set_schema(self):
-        task = self.dag.get_task("set_schema")
-        result = task.execute(context=self.context)
+        result = task_test(
+            "author_create_initialization_dag",
+            "set_schema",
+            dag_params=self.context["params"],
+        )
         assert result["data"]["$schema"]
 
     @pytest.mark.vcr
     def test_set_submission_number_no_data(self):
-        task = self.dag.get_task("set_submission_number")
-        task.op_args = (None,)
-        result = task.execute(context=self.context)
+        result = task_test(
+            "author_create_initialization_dag",
+            "set_submission_number",
+            dag_params=self.context["params"],
+        )
         assert (
             result["data"]["acquisition_source"]["submission_number"]
             == self.context["params"]["workflow_id"]
@@ -77,9 +84,12 @@ class TestAuthorCreateInit:
 
     @pytest.mark.vcr
     def test_set_submission_number_with_data(self):
-        task = self.dag.get_task("set_submission_number")
-        task.op_args = (base_context["params"]["workflow"],)
-        result = task.execute(context=self.context)
+        result = task_test(
+            "author_create_initialization_dag",
+            "set_submission_number",
+            params={"workflow": base_context["params"]["workflow"]},
+            dag_params=self.context["params"],
+        )
         assert (
             result["data"]["acquisition_source"]["submission_number"]
             == self.context["params"]["workflow_id"]
@@ -105,9 +115,11 @@ class TestAuthorCreateInit:
                 },
             }
         }
-
-        task = self.dag.get_task("create_author_create_user_ticket")
-        task.execute(context=noticket_context)
+        task_test(
+            "author_create_initialization_dag",
+            "create_author_create_user_ticket",
+            dag_params=noticket_context["params"],
+        )
 
     def test_author_check_approval_branch(self):
         task = self.dag.get_task("author_check_approval_branch")
@@ -134,20 +146,31 @@ class TestAuthorCreateInit:
 
 
 class TestAuthorCreateApproved:
-    dag = dagbag.get_dag("author_create_approved_dag")
     context = base_context
-    context["ti"] = Mock()
-    context["ti"].xcom_pull.return_value = 123456
 
     @pytest.mark.vcr
-    def test_close_author_create_user_ticket(self):
-        task = self.dag.get_task("close_author_create_user_ticket")
-        task.execute(context=self.context)
+    @patch(
+        "airflow.sdk.execution_time.task_runner.RuntimeTaskInstance.xcom_pull",
+        return_value=123456,
+    )
+    def test_close_author_create_user_ticket(self, mock_xcom_pull):
+        task_test(
+            "author_create_approved_dag",
+            "close_author_create_user_ticket",
+            dag_params=self.context["params"],
+        )
 
     @pytest.mark.vcr
-    def test_create_author_create_curation_ticket(self):
-        task = self.dag.get_task("create_author_create_curation_ticket")
-        task.execute(context=self.context)
+    @patch(
+        "airflow.sdk.execution_time.task_runner.RuntimeTaskInstance.xcom_pull",
+        return_value=123456,
+    )
+    def test_create_author_create_curation_ticket(self, mock_xcom_pull):
+        task_test(
+            "author_create_approved_dag",
+            "create_author_create_curation_ticket",
+            dag_params=self.context["params"],
+        )
 
 
 class TestAuthorUpdate:
@@ -157,5 +180,8 @@ class TestAuthorUpdate:
 
     @pytest.mark.vcr
     def test_create_ticket_on_author_update(self):
-        task = self.dag.get_task("create_ticket_on_author_update")
-        task.execute(context=self.context)
+        task_test(
+            "author_update_dag",
+            "create_ticket_on_author_update",
+            dag_params=self.context["params"],
+        )
