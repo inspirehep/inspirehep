@@ -70,10 +70,8 @@ class HepResolutions(models.TextChoices):
         "",
     )
     auto_reject = (
-        (
-            "auto_reject",
-            "",
-        ),
+        "auto_reject",
+        "",
     )
     merge_approve = (
         "merge_approve",
