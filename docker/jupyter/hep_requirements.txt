@@ -230,7 +230,7 @@ wand==0.6.10; python_version >= "3.7"
 wcwidth==0.2.6; python_version >= "3.7" and python_version < "4"
 webargs==5.5.2
 webencodings==0.5.1; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
-werkzeug==3.0.3; python_version >= "3.7"
+werkzeug==3.1.5; python_version >= "3.7"
 wtforms-alchemy==0.16.9
 wtforms-components==0.10.4
 wtforms==2.2.1; python_version >= "3.7"
