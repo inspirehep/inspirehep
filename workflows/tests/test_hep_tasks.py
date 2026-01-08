@@ -21,7 +21,9 @@ from include.utils.constants import (
     STATUS_APPROVAL_CORE_SELECTION,
     STATUS_COMPLETED,
     STATUS_RUNNING,
+    TICKET_HEP_CURATION_CORE,
 )
+from include.utils.tickets import get_ticket_by_type
 from include.utils.workflows import get_flag
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.query import ordered
@@ -3638,6 +3640,31 @@ class Test_HEPCreateDAG:
             )
             is None
         )
+
+    @pytest.mark.vcr
+    def test_create_curation_core_ticket(self):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "test create curation core ticket"}],
+                "acquisition_source": {"method": "hepcrawl", "source": "arXiv"},
+                "_collections": ["Literature"],
+            },
+            "flags": {
+                "needs-curation-core": True,
+            },
+        }
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+
+        task_test(
+            "hep_create_dag",
+            "core_selection.create_curation_core_ticket",
+            dag_params=self.context["params"],
+        )
+
+        workflow = get_lit_workflow_task(self.workflow_id)
+
+        assert get_ticket_by_type(workflow, TICKET_HEP_CURATION_CORE)
 
     @pytest.mark.vcr
     def test_store_root_new_record(self):

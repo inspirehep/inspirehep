@@ -1,8 +1,9 @@
 from hooks.backoffice.base import BackofficeHook
+from hooks.backoffice.workflow_management_hook import AUTHORS, HEP
 from requests import Response
 
 
-class AuthorWorkflowTicketManagementHook(BackofficeHook):
+class BaseWorkflowTicketManagementHook(BackofficeHook):
     """
     A hook to update the status of a workflow in the backoffice system.
 
@@ -15,12 +16,13 @@ class AuthorWorkflowTicketManagementHook(BackofficeHook):
 
     def __init__(
         self,
+        collection: str = None,
         method: str = "GET",
         http_conn_id: str = "backoffice_conn",
         headers: dict = None,
     ) -> None:
         super().__init__(method, http_conn_id, headers)
-        self.endpoint = "api/workflows/authors/tickets/"
+        self.endpoint = f"api/workflows/{collection}/tickets/"
 
     def get_ticket(self, workflow_id: str, ticket_type: str) -> dict:
         endpoint = f"{self.endpoint}{workflow_id}/"
@@ -45,3 +47,13 @@ class AuthorWorkflowTicketManagementHook(BackofficeHook):
             json=data,
             endpoint=self.endpoint,
         )
+
+
+class AuthorWorkflowTicketManagementHook(BaseWorkflowTicketManagementHook):
+    def __init__(self):
+        super().__init__(AUTHORS)
+
+
+class LiteratureWorkflowTicketManagementHook(BaseWorkflowTicketManagementHook):
+    def __init__(self):
+        super().__init__(HEP)
