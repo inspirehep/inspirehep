@@ -23,6 +23,7 @@ from hooks.backoffice.workflow_ticket_management_hook import (
 from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_hook import (
     LITERATURE_ARXIV_CURATION_FUNCTIONAL_CATEGORY,
+    LITERATURE_SUBMISSIONS_FUNCTIONAL_CATEGORY,
     InspireHttpHook,
 )
 from hooks.inspirehep.inspire_http_record_management_hook import (
@@ -74,6 +75,7 @@ from include.utils.constants import (
     STATUS_COMPLETED,
     STATUS_RUNNING,
     TICKET_HEP_CURATION_CORE,
+    TICKET_HEP_SUBMISSION,
 )
 from include.utils.tickets import get_ticket_by_type
 from include.utils.workflows import get_decision, get_flag, set_flag
@@ -1132,6 +1134,55 @@ def hep_create_dag():
             >> save_workflow()
         )
 
+    @task
+    def notify_if_submission(**context):
+        """Send notification if the workflow is a submission."""
+        workflow_data = s3.read_workflow(
+            s3_hook, bucket_name, context["params"]["workflow_id"]
+        )
+
+        if not is_submission(workflow_data) or get_ticket_by_type(
+            workflow_data, TICKET_HEP_SUBMISSION
+        ):
+            return
+
+        data = workflow_data["data"]
+        email = data["acquisition_source"].get("email", "")
+        title = LiteratureReader(data).title
+        subject = f"Your suggestion to INSPIRE: {title}"
+
+        response = inspire_http_hook.create_ticket(
+            LITERATURE_SUBMISSIONS_FUNCTIONAL_CATEGORY,
+            "curator_submitted",
+            subject,
+            email,
+            {
+                "email": email,
+                "obj_url": inspire_http_hook.get_backoffice_url(
+                    HEP, context["params"]["workflow_id"]
+                ),
+            },
+        )
+
+        ticket_id = response.json()["ticket_id"]
+
+        # TODO: To decide user_name https://github.com/cern-sis/issues-inspire/issues/1255
+        response = inspire_http_hook.reply_ticket(
+            ticket_id,
+            "user_submitted",
+            {
+                "user_name": email,
+                "title": title,
+            },
+            email,
+        )
+
+        LiteratureWorkflowTicketManagementHook().create_ticket_entry(
+            workflow_id=context["params"]["workflow_id"],
+            ticket_type=TICKET_HEP_SUBMISSION,
+            ticket_id=ticket_id,
+        )
+
     @task_group
     def halt_for_approval_if_new_or_reject_if_not_relevant(**context):
         @task
@@ -1782,6 +1833,7 @@ def hep_create_dag():
 
     (
         preprocessing_group
+        >> notify_if_submission()
         >> halt_for_approval_if_new_or_reject_if_not_relevant()
         >> is_record_accepted()
         >> [postprocessing_group, save_and_complete_workflow_task]

@@ -26,6 +26,7 @@ STATUS_RUNNING = "running"
 STATUS_COMPLETED = "completed"
 
 TICKET_HEP_CURATION_CORE = "hep_create_curation_core"
+TICKET_HEP_SUBMISSION = "hep_submission"
 
 RUNNING_STATUSES = [
     STATUS_APPROVAL_CORE_SELECTION,
