@@ -17,11 +17,18 @@ from hooks.backoffice.workflow_management_hook import (
     HEP,
     WorkflowManagementHook,
 )
+from hooks.backoffice.workflow_ticket_management_hook import (
+    LiteratureWorkflowTicketManagementHook,
+)
 from hooks.generic_http_hook import GenericHttpHook
-from hooks.inspirehep.inspire_http_hook import InspireHttpHook
+from hooks.inspirehep.inspire_http_hook import (
+    LITERATURE_ARXIV_CURATION_FUNCTIONAL_CATEGORY,
+    InspireHttpHook,
+)
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
+from idutils import is_arxiv_post_2007
 from include.inspire.approval import auto_approve, is_first_category_core
 from include.inspire.grobid_authors_parser import GrobidAuthors
 from include.inspire.guess_coreness import calculate_coreness
@@ -66,7 +73,9 @@ from include.utils.constants import (
     STATUS_BLOCKED,
     STATUS_COMPLETED,
     STATUS_RUNNING,
+    TICKET_HEP_CURATION_CORE,
 )
+from include.utils.tickets import get_ticket_by_type
 from include.utils.workflows import get_decision, get_flag, set_flag
 from inspire_classifier import Classifier
 from inspire_json_merger.api import merge
@@ -1616,6 +1625,7 @@ def hep_create_dag():
         (
             normalize_author_affiliations_task
             >> link_institutions_with_affiliations()
+            >> create_curation_core_ticket()
             >> store_record_task
         )
         (
@@ -1656,6 +1666,54 @@ def hep_create_dag():
                 f"Working with stale data: Expecting version {head_version_id} "
                 f"but found {latest_version_id}"
             )
+
+    @task
+    def create_curation_core_ticket(**context):
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+
+        if get_ticket_by_type(workflow_data, TICKET_HEP_CURATION_CORE):
+            return
+
+        data = workflow_data["data"]
+
+        email = data["acquisition_source"].get("email", "")
+        base_url = inspire_http_hook.get_url()
+        recid = data.get("control_number")
+        record_url = os.path.join(base_url, "record", str(recid))
+        arxiv_ids = get_value(data, "arxiv_eprints.value", [])
+        arxiv_ids = [
+            f"arXiv:{arxiv_id}"
+            for arxiv_id in arxiv_ids
+            if arxiv_id and is_arxiv_post_2007(arxiv_id)
+        ]
+
+        report_numbers = get_value(data, "report_numbers.value", [])
+        dois = [f"doi:{doi}" for doi in get_value(data, "dois.value", [])]
+
+        subject_parts = arxiv_ids + dois + report_numbers + [f"(#{recid})"]
+        subject = " ".join(p for p in subject_parts if p is not None)
+
+        response = inspire_http_hook.create_ticket(
+            LITERATURE_ARXIV_CURATION_FUNCTIONAL_CATEGORY,
+            "curation_core",
+            subject,
+            email,
+            {
+                "email": email,
+                "recid": recid,
+                "record_url": record_url,
+                "server_name": base_url,
+            },
+        )
+
+        ticket_id = response.json()["ticket_id"]
+
+        LiteratureWorkflowTicketManagementHook().create_ticket_entry(
+            workflow_id=context["params"]["workflow_id"],
+            ticket_type=TICKET_HEP_CURATION_CORE,
+            ticket_id=ticket_id,
+        )
 
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def store_record(**context):
