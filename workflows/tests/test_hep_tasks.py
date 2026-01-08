@@ -22,6 +22,7 @@ from include.utils.constants import (
     STATUS_COMPLETED,
     STATUS_RUNNING,
     TICKET_HEP_CURATION_CORE,
+    TICKET_HEP_SUBMISSION,
 )
 from include.utils.tickets import get_ticket_by_type
 from include.utils.workflows import get_flag
@@ -2147,6 +2148,78 @@ class Test_HEPCreateDAG:
         assert relevance_prediction["decision"] in ["CORE", "Non-CORE", "Rejected"]
         assert "max_score" in relevance_prediction
         assert "relevance_score" in relevance_prediction
+
+    @pytest.mark.vcr
+    def test_notify_if_submission(self):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "test literature_submission ticket"}],
+                "acquisition_source": {
+                    "method": "submitter",
+                    "source": "submitter",
+                    "email": "",
+                },
+                "_collections": ["Literature"],
+            },
+        }
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+
+        task_test(
+            "hep_create_dag",
+            "notify_if_submission",
+            dag_params=self.context["params"],
+        )
+
+        workflow = get_lit_workflow_task(self.workflow_id)
+
+        assert get_ticket_by_type(workflow, TICKET_HEP_SUBMISSION)
+
+    @pytest.mark.vcr
+    def test_notify_if_submission_not_submission(self):
+        workflow_id = "26f5c03b-6085-4d1c-a300-bfac9df4b1b3"
+        workflow_data = {
+            "id": workflow_id,
+            "data": {
+                "titles": [{"title": "test arxiv doenst open ticket"}],
+                "acquisition_source": {"method": "arxiv", "source": "arxiv"},
+                "_collections": ["Literature"],
+            },
+        }
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+
+        task_test(
+            "hep_create_dag",
+            "notify_if_submission",
+            dag_params=self.context["params"],
+        )
+
+        workflow = get_lit_workflow_task(workflow_id)
+
+        assert not get_ticket_by_type(workflow, TICKET_HEP_SUBMISSION)
+
+    @pytest.mark.vcr
+    def test_notify_if_submission_ticket_already_exists(self):
+        workflow_id = "7b617859-cb4f-4526-aa85-ec5291dc141b"
+        workflow_data = {
+            "id": workflow_id,
+            "data": {
+                "titles": [{"title": "test ticket already exists"}],
+                "acquisition_source": {"method": "submitter", "source": "submitter"},
+                "_collections": ["Literature"],
+            },
+        }
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+
+        task_test(
+            "hep_create_dag",
+            "notify_if_submission",
+            dag_params={"workflow_id": workflow_id},
+        )
+
+        workflow = get_lit_workflow_task(workflow_id)
+
+        assert get_ticket_by_type(workflow, TICKET_HEP_SUBMISSION)
 
     def test_get_approved_match_none(self):
         assert not task_test(

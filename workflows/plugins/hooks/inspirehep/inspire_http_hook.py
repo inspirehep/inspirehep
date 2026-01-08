@@ -6,6 +6,7 @@ from hooks.generic_http_hook import GenericHttpHook
 logger = logging.getLogger()
 
 LITERATURE_ARXIV_CURATION_FUNCTIONAL_CATEGORY = "arXiv curation"
+LITERATURE_SUBMISSIONS_FUNCTIONAL_CATEGORY = "Literature submissions"
 AUTHOR_SUBMIT_FUNCTIONAL_CATEGORY = "Author submissions"
 AUTHOR_CURATION_FUNCTIONAL_CATEGORY = "Author curation"
 AUTHOR_UPDATE_FUNCTIONAL_CATEGORY = "Author updates"
