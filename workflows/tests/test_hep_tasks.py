@@ -3449,6 +3449,31 @@ class Test_HEPCreateDAG:
         workflow = get_lit_workflow_task(self.workflow_id)
         assert workflows.get_decision(workflow.get("decisions"), DECISION_AUTO_REJECT)
 
+    @pytest.mark.vcr
+    def test_notify_and_close_accepted(self):
+        workflow_id = "f9fc9d83-fd28-450e-bfde-d1ed07dc87f5"
+
+        workflow_data = get_lit_workflow_task(workflow_id)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+
+        task_test(
+            "hep_create_dag",
+            "notify_if_submission",
+            dag_params={"workflow_id": workflow_id},
+        )
+
+        s3.write_workflow(
+            self.s3_hook,
+            get_lit_workflow_task(workflow_id),
+            self.bucket_name,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "notify_and_close_accepted",
+            dag_params={"workflow_id": workflow_id},
+        )
+
     def test_should_proceed_to_core_selection_true(self):
         workflow_data = {
             "id": self.workflow_id,
