@@ -6,9 +6,7 @@ import { LITERATURE } from '../../../common/routes';
 import AutomaticDecision from './AutomaticDecision';
 import LiteratureReferenceCount from './LiteratureReferenceCount';
 import LiteratureKeywords from './LiteratureKeywords';
-import { LiteratureHepSelectionButtons } from './LiteratureHepSelectionButtons';
-import { LiteratureCoreSelectionButtons } from './LiteratureCoreSelectionButtons';
-import { WorkflowStatuses } from '../../constants';
+import LiteratureActionButtons from './LiteratureActionButtons';
 
 const LiteratureDecisionBox = ({
   actionInProgress,
@@ -33,35 +31,18 @@ const LiteratureDecisionBox = ({
   const hasInspireCategories =
     Array.isArray(inspireCategories) && inspireCategories.length > 0;
 
-  const renderActionButtons = () => {
-    switch (status) {
-      case WorkflowStatuses.APPROVAL_CORE_SELECTION:
-        return (
-          <LiteratureCoreSelectionButtons
-            handleResolveAction={handleResolveAction}
-            actionInProgress={actionInProgress}
-          />
-        );
-      case WorkflowStatuses.APPROVAL:
-        return (
-          <LiteratureHepSelectionButtons
-            hasInspireCategories={hasInspireCategories}
-            handleResolveAction={handleResolveAction}
-            actionInProgress={actionInProgress}
-          />
-        );
-      default:
-        return null;
-    }
-  };
-
   return (
     <div className="mb0">
       <AutomaticDecision
         hasInspireCategories={hasInspireCategories}
         relevancePrediction={relevancePrediction}
       />
-      {renderActionButtons()}
+      <LiteratureActionButtons
+        status={status}
+        hasInspireCategories={hasInspireCategories}
+        handleResolveAction={handleResolveAction}
+        actionInProgress={actionInProgress}
+      />
       {decision && (
         <>
           <p>
