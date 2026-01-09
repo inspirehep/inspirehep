@@ -2461,7 +2461,32 @@ class Test_HEPCreateDAG:
             xcom_key="skipmixin_key",
         )
 
-        assert "save_and_complete_workflow" in result["followed"]
+        assert "notify_and_close_not_accepted" in result["followed"]
+
+    @pytest.mark.vcr
+    def test_notify_and_close_not_accepted(self):
+        workflow_id = "7c6b56bd-6166-4fee-ad6f-5b99b7d37b7e"
+
+        workflow_data = get_lit_workflow_task(workflow_id)
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+
+        task_test(
+            "hep_create_dag",
+            "notify_if_submission",
+            dag_params={"workflow_id": workflow_id},
+        )
+
+        s3.write_workflow(
+            self.s3_hook,
+            get_lit_workflow_task(workflow_id),
+            self.bucket_name,
+        )
+
+        task_test(
+            "hep_create_dag",
+            "notify_and_close_not_accepted",
+            dag_params={"workflow_id": workflow_id},
+        )
 
     def test_set_core_if_not_update_and_auto_approve(self):
         workflow_data = {
