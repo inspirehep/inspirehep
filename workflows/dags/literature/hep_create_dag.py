@@ -1483,7 +1483,23 @@ def hep_create_dag():
 
         if get_flag("approved", workflow_data):
             return "postprocessing.set_core_if_not_update"
-        return "save_and_complete_workflow"
+        return "notify_and_close_not_accepted"
+
+    @task
+    def notify_and_close_not_accepted(**context):
+        """Send notification if the workflow is a submission."""
+        workflow_data = s3.read_workflow(
+            s3_hook, bucket_name, context["params"]["workflow_id"]
+        )
+
+        if not is_submission(workflow_data):
+            return
+
+        ticket_id = get_ticket_by_type(workflow_data, TICKET_HEP_SUBMISSION)[
+            "ticket_id"
+        ]
+
+        inspire_http_hook.close_ticket(ticket_id)
 
     @task_group
     def postprocessing():
@@ -1830,13 +1846,14 @@ def hep_create_dag():
 
     postprocessing_group = postprocessing()
     should_proceed_to_core_selection_task = should_proceed_to_core_selection()
+    notify_and_close_not_accepted_task = notify_and_close_not_accepted()
 
     (
         preprocessing_group
         >> notify_if_submission()
         >> halt_for_approval_if_new_or_reject_if_not_relevant()
         >> is_record_accepted()
-        >> [postprocessing_group, save_and_complete_workflow_task]
+        >> [postprocessing_group, notify_and_close_not_accepted_task]
     )
     (
         postprocessing_group
@@ -1848,6 +1865,7 @@ def hep_create_dag():
         >> core_selection()
         >> save_and_complete_workflow_task
     )
+    notify_and_close_not_accepted_task >> save_and_complete_workflow_task
     should_proceed_to_core_selection_task >> save_and_complete_workflow_task
     check_for_fuzzy_matches_task >> check_auto_approve_task
 
