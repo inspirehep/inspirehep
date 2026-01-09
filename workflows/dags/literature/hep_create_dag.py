@@ -1592,6 +1592,30 @@ def hep_create_dag():
             >> validate_record()
         )
 
+    @task
+    def notify_and_close_accepted(**context):
+        workflow_data = s3.read_workflow(
+            s3_hook, bucket_name, context["params"]["workflow_id"]
+        )
+
+        if not is_submission(workflow_data):
+            return
+
+        ticket_id = get_ticket_by_type(workflow_data, TICKET_HEP_SUBMISSION)[
+            "ticket_id"
+        ]
+        data = workflow_data["data"]
+        email = data["acquisition_source"].get("email", "")
+        title = LiteratureReader(data).title
+
+        template_context = {
+            "user_name": email,
+            "title": title,
+            "record_url": workflows.get_record_url(data, inspire_http_hook),
+        }
+
+        inspire_http_hook.close_ticket(ticket_id, "user_accepted", template_context)
+
     @task.branch
     def should_proceed_to_core_selection(**context):
         workflow_data = s3.read_workflow(
@@ -1747,7 +1771,7 @@ def hep_create_dag():
         email = data["acquisition_source"].get("email", "")
         base_url = inspire_http_hook.get_url()
         recid = data.get("control_number")
-        record_url = os.path.join(base_url, "record", str(recid))
+        record_url = workflows.get_record_url(data, inspire_http_hook)
         arxiv_ids = get_value(data, "arxiv_eprints.value", [])
         arxiv_ids = [
             f"arXiv:{arxiv_id}"
@@ -1860,6 +1884,7 @@ def hep_create_dag():
         >> is_fresh_data()
         >> store_record()
         >> store_root()
+        >> notify_and_close_accepted()
         >> should_proceed_to_core_selection_task
         >> save_workflow()
         >> core_selection()
