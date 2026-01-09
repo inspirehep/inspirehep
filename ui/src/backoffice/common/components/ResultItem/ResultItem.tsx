@@ -3,44 +3,14 @@ import { Row, Col, Card } from 'antd';
 
 import './ResultItem.less';
 import { Link } from 'react-router-dom';
-import UnclickableTag from '../../../../common/components/UnclickableTag';
-import { getWorkflowStatusInfo, formatDateTime } from '../../../utils/utils';
+import { formatDateTime } from '../../../utils/utils';
 import { WORKFLOW_TYPES } from '../../../constants';
-import {
-  AUTHORS_PID_TYPE,
-  LITERATURE_PID_TYPE,
-} from '../../../../common/constants';
+import { AUTHORS_PID_TYPE } from '../../../../common/constants';
 import ResultItem from '../../../../common/components/ResultItem';
 import { BACKOFFICE } from '../../../../common/routes';
-import AuthorResultItem from '../../../authors/components/AuthorResultItem';
-import LiteratureResultItem from '../../../literature/components/LiteratureResultItem';
-
-const renderWorkflowStatus = (status: string) => {
-  const statusInfo = getWorkflowStatusInfo(status);
-  if (!statusInfo) {
-    return null;
-  }
-  return (
-    <div>
-      <p className={`b ${status.toLowerCase()} mt3`}>
-        {statusInfo.icon} {statusInfo.text}
-      </p>
-      <br />
-      <small>{statusInfo.description}</small>
-    </div>
-  );
-};
-
-const ResultItemComponent = ({ item, type }: { item: any; type: string }) => {
-  switch (type) {
-    case AUTHORS_PID_TYPE:
-      return <AuthorResultItem item={item} />;
-    case LITERATURE_PID_TYPE:
-      return <LiteratureResultItem item={item} />;
-    default:
-      return null;
-  }
-};
+import ResultItemByType from './ResultItemByType';
+import SubjectAreasByType from './SubjectAreasByType';
+import WorkflowStatusByType from './WorkflowStatusByType';
 
 const WorkflowResultItem = ({
   item,
@@ -59,6 +29,10 @@ const WorkflowResultItem = ({
     'workflow_type'
   ) as keyof typeof WORKFLOW_TYPES;
   const workflowTypeToPidType = WORKFLOW_TYPES[workflowTypeKey];
+  const subjectAreas =
+    workflowTypeToPidType === AUTHORS_PID_TYPE
+      ? data?.get('arxiv_categories')
+      : data?.get('inspire_categories');
 
   return (
     <div
@@ -73,12 +47,17 @@ const WorkflowResultItem = ({
               to={`${BACKOFFICE}/${workflowTypeToPidType}/${workflowId}`}
               target="_blank"
             >
-              <ResultItemComponent item={item} type={workflowTypeToPidType} />
+              <ResultItemByType item={item} type={workflowTypeToPidType} />
             </Link>
           </ResultItem>
         </Col>
         <Col className="col-actions">
-          <Card>{renderWorkflowStatus(item?.get('status'))}</Card>
+          <Card>
+            <WorkflowStatusByType
+              status={item?.get('status')}
+              type={workflowTypeToPidType}
+            />
+          </Card>
         </Col>
         <Col className="col-info">
           <Card>
@@ -98,20 +77,10 @@ const WorkflowResultItem = ({
         </Col>
         <Col className="col-subject">
           <Card>
-            {data?.get('arxiv_categories')?.map((category: string) => (
-              <div className="mb2" key={category}>
-                <UnclickableTag color="blue">{category}</UnclickableTag>
-              </div>
-            ))}
-            {data
-              ?.get('inspire_categories')
-              ?.map((category: Map<string, any>) => (
-                <div className="mb2" key={category.get('term')}>
-                  <UnclickableTag color="blue">
-                    {category.get('term')}
-                  </UnclickableTag>
-                </div>
-              ))}
+            <SubjectAreasByType
+              categories={subjectAreas}
+              type={workflowTypeToPidType}
+            />
           </Card>
         </Col>
       </Row>
