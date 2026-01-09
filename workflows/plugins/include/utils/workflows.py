@@ -1,4 +1,5 @@
 import logging
+import os
 from tempfile import TemporaryDirectory
 
 from hooks.backoffice.workflow_management_hook import (
@@ -292,3 +293,9 @@ def has_previously_rejected_wf_in_backoffice_w_same_source(workflow_data):
             return True
 
     return False
+
+
+def get_record_url(metadata, inspire_http_hook):
+    base_url = inspire_http_hook.get_url()
+    recid = metadata.get("control_number")
+    return os.path.join(base_url, "record", str(recid))
