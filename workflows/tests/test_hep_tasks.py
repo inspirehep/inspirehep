@@ -3739,6 +3739,24 @@ class Test_HEPCreateDAG:
             is None
         )
 
+    def test_is_fresh_data_returns_true_if_head_version_id_is_none(self):
+        workflow_data = {
+            "id": self.workflow_id,
+            "flags": {
+                "is-update": True,
+            },
+            "merge_details": None,
+        }
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        assert (
+            task_test(
+                "hep_create_dag",
+                "is_fresh_data",
+                dag_params=self.context["params"],
+            )
+            is None
+        )
+
     @pytest.mark.vcr
     def test_create_curation_core_ticket(self):
         workflow_data = {
