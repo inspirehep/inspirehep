@@ -1,10 +1,13 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
 import ResultItem from '../ResultItem';
 import { renderWithProviders } from '../../../../../fixtures/render';
-import { BACKOFFICE_AUTHORS_SEARCH } from '../../../../../common/routes';
+import {
+  BACKOFFICE_AUTHORS_SEARCH,
+  BACKOFFICE_LITERATURE_SEARCH,
+} from '../../../../../common/routes';
 import { WorkflowStatuses, WorkflowTypes } from '../../../../constants';
 
 describe('ResultItem component', () => {
@@ -24,6 +27,34 @@ describe('ResultItem component', () => {
     return renderWithProviders(<ResultItem item={item} />, {
       route: BACKOFFICE_AUTHORS_SEARCH,
     });
+  };
+
+  const renderLiteratureComponent = (
+    data: any,
+    handleResolveAction: jest.Mock
+  ) => {
+    const item = fromJS({
+      id: '456',
+      workflow_type: WorkflowTypes.HEP_CREATE,
+      status: WorkflowStatuses.APPROVAL,
+      decisions: fromJS([
+        {
+          action: 'hep_accept_core',
+        },
+      ]),
+      data,
+    });
+
+    return renderWithProviders(
+      <ResultItem
+        item={item}
+        handleResolveAction={handleResolveAction}
+        actionInProgress="hep_accept_core"
+      />,
+      {
+        route: BACKOFFICE_LITERATURE_SEARCH,
+      }
+    );
   };
 
   it('renders the ResultItem component for Authors', () => {
@@ -63,5 +94,31 @@ describe('ResultItem component', () => {
 
     expect(screen.getByText('cs.AI')).toBeInTheDocument();
     expect(screen.getByText('cs.CL')).toBeInTheDocument();
+
+    expect(screen.queryByRole('button', { name: 'Core' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Accept' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Reject' })).toBeNull();
+  });
+
+  it('calls resolve action from literature buttons', () => {
+    const handleResolveAction = jest.fn();
+    const data = fromJS({
+      title: fromJS({
+        title: 'Example title',
+      }),
+      inspire_categories: fromJS([{ term: 'hep-th' }]),
+      acquisition_source: fromJS({
+        datetime: '2025-01-07T16:29:31.315971',
+        email: 'john.doe@cern.ch',
+        method: 'submitter1',
+        source: 'submitter2',
+      }),
+    });
+
+    renderLiteratureComponent(data, handleResolveAction);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Core' }));
+
+    expect(handleResolveAction).toHaveBeenCalledWith('hep_accept_core');
   });
 });

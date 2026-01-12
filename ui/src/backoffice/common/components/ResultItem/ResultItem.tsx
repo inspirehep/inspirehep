@@ -5,7 +5,10 @@ import './ResultItem.less';
 import { Link } from 'react-router-dom';
 import { formatDateTime } from '../../../utils/utils';
 import { WORKFLOW_TYPES } from '../../../constants';
-import { AUTHORS_PID_TYPE } from '../../../../common/constants';
+import {
+  AUTHORS_PID_TYPE,
+  LITERATURE_PID_TYPE,
+} from '../../../../common/constants';
 import ResultItem from '../../../../common/components/ResultItem';
 import { BACKOFFICE } from '../../../../common/routes';
 import ResultItemByType from './ResultItemByType';
@@ -15,9 +18,13 @@ import WorkflowStatusByType from './WorkflowStatusByType';
 const WorkflowResultItem = ({
   item,
   compactBottom = false,
+  handleResolveAction,
+  actionInProgress,
 }: {
   item: any;
   compactBottom?: boolean;
+  handleResolveAction?: (action: string, value: string) => void;
+  actionInProgress?: string;
 }) => {
   const workflowId = item?.get('id');
   const data = item?.get('data');
@@ -33,6 +40,13 @@ const WorkflowResultItem = ({
     workflowTypeToPidType === AUTHORS_PID_TYPE
       ? data?.get('arxiv_categories')
       : data?.get('inspire_categories');
+
+  const inspireCategories =
+    workflowTypeToPidType === LITERATURE_PID_TYPE &&
+    data?.get('inspire_categories')?.toJS();
+
+  const hasInspireCategories =
+    Array.isArray(inspireCategories) && inspireCategories.length > 0;
 
   return (
     <div
@@ -56,6 +70,9 @@ const WorkflowResultItem = ({
             <WorkflowStatusByType
               status={item?.get('status')}
               type={workflowTypeToPidType}
+              hasInspireCategories={hasInspireCategories}
+              handleResolveAction={handleResolveAction}
+              actionInProgress={actionInProgress}
             />
           </Card>
         </Col>
