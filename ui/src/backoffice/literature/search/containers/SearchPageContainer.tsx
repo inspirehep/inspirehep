@@ -30,6 +30,7 @@ type BackofficeSearchPageProps = {
   query: any;
   loadingAggregations: boolean;
   results: Map<string, any>;
+  actionInProgress?: string;
   onSortByChange: (namespace: string, value: string) => void;
   onHandleResolveAction: (
     workflowId: string,
@@ -47,7 +48,8 @@ function renderWorkflowItem(
     workflowId: string,
     action: string,
     value: string
-  ) => void
+  ) => void,
+  actionInProgress?: string
 ) {
   const workflowId = item?.get('id');
   const matches = item?.get('matches');
@@ -63,8 +65,9 @@ function renderWorkflowItem(
     <>
       <ResultItem
         item={item}
-        key={workflowId}
         compactBottom={hasFuzzyMatches}
+        handleResolveAction={handleResolveAction}
+        actionInProgress={actionInProgress}
       />
       {hasFuzzyMatches && (
         <Card>
@@ -83,6 +86,7 @@ const LiteratureSearchPageContainer = ({
   query,
   loadingAggregations,
   results,
+  actionInProgress,
   onSortByChange,
   onHandleResolveAction,
 }: BackofficeSearchPageProps) => {
@@ -213,7 +217,11 @@ const LiteratureSearchPageContainer = ({
                       <ResultsContainer
                         namespace={BACKOFFICE_LITERATURE_SEARCH_NS}
                         renderItem={(item: Map<string, any>) =>
-                          renderWorkflowItem(item, onHandleResolveAction)
+                          renderWorkflowItem(
+                            item,
+                            onHandleResolveAction,
+                            actionInProgress
+                          )
                         }
                       />
                       <PaginationContainer
@@ -252,6 +260,7 @@ const stateToProps = (state: RootStateOrAny) => ({
     BACKOFFICE_LITERATURE_SEARCH_NS,
     'results',
   ]),
+  actionInProgress: state.backoffice.get('actionInProgress'),
 });
 
 export const dispatchToProps = (dispatch: ActionCreator<Action>) => ({

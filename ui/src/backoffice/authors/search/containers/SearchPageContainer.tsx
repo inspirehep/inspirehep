@@ -31,7 +31,7 @@ const META_DESCRIPTION = 'Find author workflows in backoffice';
 const TITLE = 'Search authors - Backoffice';
 
 function renderWorkflowItem(item: Map<string, any>) {
-  return <ResultItem item={item} key={item.get('id')} />;
+  return <ResultItem item={item} />;
 }
 
 const AuthorsSearchPageContainer = ({
