@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
+import { WorkflowDecisions } from '../../../common/constants';
 
 export const LiteratureHepSelectionButtons = ({
   hasInspireCategories,
@@ -14,14 +15,16 @@ export const LiteratureHepSelectionButtons = ({
         <>
           <Button
             className="font-white bg-completed w-75 mb2"
-            onClick={() => handleResolveAction('hep_accept_core')}
+            onClick={() =>
+              handleResolveAction(WorkflowDecisions.HEP_ACCEPT_CORE)
+            }
             loading={isResolving}
           >
             Core
           </Button>
           <Button
             className="font-white bg-halted w-75 mb2"
-            onClick={() => handleResolveAction('hep_accept')}
+            onClick={() => handleResolveAction(WorkflowDecisions.HEP_ACCEPT)}
             loading={isResolving}
           >
             Accept
@@ -32,7 +35,7 @@ export const LiteratureHepSelectionButtons = ({
       )}
       <Button
         className="font-white bg-error w-75"
-        onClick={() => handleResolveAction('hep_reject')}
+        onClick={() => handleResolveAction(WorkflowDecisions.HEP_REJECT)}
         loading={isResolving}
       >
         Reject
