@@ -1715,7 +1715,8 @@ def hep_create_dag():
             s3_hook, bucket_name, context["params"]["workflow_id"]
         )
         is_update = get_flag("is-update", workflow_data)
-        head_version_id = workflow_data.get("merge_details", {}).get("head_version_id")
+        merge_details = workflow_data.get("merge_details", {}) or {}
+        head_version_id = merge_details.get("head_version_id")
 
         if not is_update or head_version_id is None:
             return
