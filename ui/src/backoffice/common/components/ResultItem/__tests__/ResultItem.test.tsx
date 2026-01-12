@@ -9,6 +9,7 @@ import {
   BACKOFFICE_LITERATURE_SEARCH,
 } from '../../../../../common/routes';
 import { WorkflowStatuses, WorkflowTypes } from '../../../../constants';
+import { WorkflowDecisions } from '../../../../../common/constants';
 
 describe('ResultItem component', () => {
   const renderComponent = (workflowType: string, data: any) => {
@@ -18,7 +19,7 @@ describe('ResultItem component', () => {
       status: WorkflowStatuses.COMPLETED,
       decisions: fromJS([
         {
-          action: 'accept',
+          action: WorkflowDecisions.ACCEPT,
         },
       ]),
       data,
@@ -39,7 +40,7 @@ describe('ResultItem component', () => {
       status: WorkflowStatuses.APPROVAL,
       decisions: fromJS([
         {
-          action: 'hep_accept_core',
+          action: WorkflowDecisions.HEP_ACCEPT_CORE,
         },
       ]),
       data,
@@ -49,7 +50,7 @@ describe('ResultItem component', () => {
       <ResultItem
         item={item}
         handleResolveAction={handleResolveAction}
-        actionInProgress="hep_accept_core"
+        actionInProgress={WorkflowDecisions.HEP_ACCEPT_CORE}
       />,
       {
         route: BACKOFFICE_LITERATURE_SEARCH,
@@ -119,6 +120,8 @@ describe('ResultItem component', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Core' }));
 
-    expect(handleResolveAction).toHaveBeenCalledWith('hep_accept_core');
+    expect(handleResolveAction).toHaveBeenCalledWith(
+      WorkflowDecisions.HEP_ACCEPT_CORE
+    );
   });
 });

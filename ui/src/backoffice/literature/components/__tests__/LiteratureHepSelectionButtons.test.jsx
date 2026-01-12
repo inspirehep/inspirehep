@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import { LiteratureHepSelectionButtons } from '../LiteratureHepSelectionButtons';
+import { WorkflowDecisions } from '../../../../common/constants';
 
 describe('<LiteratureHepSelectionButtons />', () => {
   test('shows core, accept, and reject buttons for approval when categories exist', async () => {
@@ -27,9 +28,18 @@ describe('<LiteratureHepSelectionButtons />', () => {
     await user.click(acceptButton);
     await user.click(rejectButton);
 
-    expect(handleResolveAction).toHaveBeenNthCalledWith(1, 'hep_accept_core');
-    expect(handleResolveAction).toHaveBeenNthCalledWith(2, 'hep_accept');
-    expect(handleResolveAction).toHaveBeenNthCalledWith(3, 'hep_reject');
+    expect(handleResolveAction).toHaveBeenNthCalledWith(
+      1,
+      WorkflowDecisions.HEP_ACCEPT_CORE
+    );
+    expect(handleResolveAction).toHaveBeenNthCalledWith(
+      2,
+      WorkflowDecisions.HEP_ACCEPT
+    );
+    expect(handleResolveAction).toHaveBeenNthCalledWith(
+      3,
+      WorkflowDecisions.HEP_REJECT
+    );
   });
 
   test('shows warning and only reject button when categories are missing', () => {

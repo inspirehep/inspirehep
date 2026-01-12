@@ -6,10 +6,11 @@ import { renderWithRouter } from '../../../../fixtures/render';
 import { resolveDecision } from '../../../utils/utils';
 import LiteratureDecisionBox from '../LiteratureDecisionBox';
 import { LITERATURE } from '../../../../common/routes';
+import { WorkflowDecisions } from '../../../../common/constants';
 
 describe('<LiteratureDecisionBox />', () => {
   test('uses resolveDecision to derive tag text and class when a known action is provided', () => {
-    const action = 'accept';
+    const action = WorkflowDecisions.ACCEPT;
     const resolved = resolveDecision(action);
 
     const decision = Map({ action });
@@ -34,7 +35,7 @@ describe('<LiteratureDecisionBox />', () => {
   });
 
   test('renders controlNumber link with correct URL and label', () => {
-    const decision = Map({ action: 'accept' });
+    const decision = Map({ action: WorkflowDecisions.ACCEPT });
     const inspireCategories = List(['hep']);
     const relevancePrediction = Map({ decision: 'CORE', max_score: 0.77 });
     const controlNumber = '12345';

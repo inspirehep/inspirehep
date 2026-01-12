@@ -8,6 +8,7 @@ import { getStore } from '../../../../fixtures/store';
 import { renderWithProviders } from '../../../../fixtures/render';
 import { BACKOFFICE_RESOLVE_ACTION_REQUEST } from '../../../../actions/actionTypes';
 import { WorkflowStatuses } from '../../../constants';
+import { WorkflowDecisions } from '../../../../common/constants';
 
 describe('AuthorDetailPageContainer', (ids: any = []) => {
   const renderComponent = (ids: any = []) => {
@@ -278,7 +279,7 @@ describe('AuthorDetailPageContainer - Name Fields and control number', () => {
       {
         id: 32,
         workflow: '2381efdb-2720-435a-bb8f-d0d768b01ecc',
-        action: 'accept',
+        action: WorkflowDecisions.ACCEPT,
         _created_at: '2025-01-13T08:53:43.383108Z',
         _updated_at: '2025-01-16T10:58:44.083627Z',
         user: 'john.doe@cern.ch',

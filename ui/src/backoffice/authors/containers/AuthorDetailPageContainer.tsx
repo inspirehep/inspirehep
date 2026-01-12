@@ -42,7 +42,7 @@ import PrivateNotes from '../components/PrivateNotes';
 import AuthorMainInfo from '../components/AuthorMainInfo';
 import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
 import { BACKOFFICE_AUTHORS_SEARCH_NS } from '../../../search/constants';
-import { AUTHORS_PID_TYPE } from '../../../common/constants';
+import { AUTHORS_PID_TYPE, WorkflowDecisions } from '../../../common/constants';
 import { StatusBanner } from '../../common/components/Detail/StatusBanner';
 import { TicketsList } from '../../common/components/Detail/TicketsList';
 import { WorkflowStatuses } from '../../constants';
@@ -254,21 +254,29 @@ const AuthorDetailPageContainer = ({
                         <div className="w-100 flex flex-column items-center">
                           <Button
                             className="font-white bg-completed w-75 mb2"
-                            onClick={() => handleResolveAction('accept')}
+                            onClick={() =>
+                              handleResolveAction(WorkflowDecisions.ACCEPT)
+                            }
                             loading={actionInProgress === 'resolve'}
                           >
                             Accept
                           </Button>
                           <Button
                             className="font-white bg-halted w-75 mb2"
-                            onClick={() => handleResolveAction('accept_curate')}
+                            onClick={() =>
+                              handleResolveAction(
+                                WorkflowDecisions.ACCEPT_CURATE
+                              )
+                            }
                             loading={actionInProgress === 'resolve'}
                           >
                             Accept + Curation
                           </Button>
                           <Button
                             className="font-white bg-error w-75"
-                            onClick={() => handleResolveAction('reject')}
+                            onClick={() =>
+                              handleResolveAction(WorkflowDecisions.REJECT)
+                            }
                             loading={actionInProgress === 'resolve'}
                           >
                             Reject

@@ -4,13 +4,14 @@ import { fromJS } from 'immutable';
 
 import AuthorResultItem from '../AuthorResultItem';
 import { WorkflowTypes } from '../../../constants';
+import { WorkflowDecisions } from '../../../../common/constants';
 
 describe('AuthorResultItem component', () => {
   const item = fromJS({
     workflow_type: WorkflowTypes.AUTHOR_UPDATE,
     decisions: fromJS([
       {
-        action: 'accept',
+        action: WorkflowDecisions.ACCEPT,
       },
     ]),
     data: fromJS({
