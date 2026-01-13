@@ -46,6 +46,7 @@ import { AUTHORS_PID_TYPE, WorkflowDecisions } from '../../../common/constants';
 import { StatusBanner } from '../../common/components/Detail/StatusBanner';
 import { TicketsList } from '../../common/components/Detail/TicketsList';
 import { WorkflowStatuses } from '../../constants';
+import { AuthorActionButtons } from '../components/AuthorActionButtons';
 
 type AuthorDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
@@ -111,7 +112,7 @@ const AuthorDetailPageContainer = ({
 
   return (
     <div
-      className="__DetailPageContainer__"
+      className="__AuthorDetailPageContainer__"
       data-testid="backoffice-detail-page"
     >
       <Breadcrumbs
@@ -251,37 +252,10 @@ const AuthorDetailPageContainer = ({
                           )}
                         </p>
                       ) : (
-                        <div className="w-100 flex flex-column items-center">
-                          <Button
-                            className="font-white bg-completed w-75 mb2"
-                            onClick={() =>
-                              handleResolveAction(WorkflowDecisions.ACCEPT)
-                            }
-                            loading={actionInProgress === 'resolve'}
-                          >
-                            Accept
-                          </Button>
-                          <Button
-                            className="font-white bg-halted w-75 mb2"
-                            onClick={() =>
-                              handleResolveAction(
-                                WorkflowDecisions.ACCEPT_CURATE
-                              )
-                            }
-                            loading={actionInProgress === 'resolve'}
-                          >
-                            Accept + Curation
-                          </Button>
-                          <Button
-                            className="font-white bg-error w-75"
-                            onClick={() =>
-                              handleResolveAction(WorkflowDecisions.REJECT)
-                            }
-                            loading={actionInProgress === 'resolve'}
-                          >
-                            Reject
-                          </Button>
-                        </div>
+                        <AuthorActionButtons
+                          actionInProgress={actionInProgress}
+                          handleResolveAction={handleResolveAction}
+                        />
                       )}
                     </ContentBox>
                   )}

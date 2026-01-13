@@ -125,7 +125,7 @@ const LiteratureDetailPageContainer = ({
         description="Explore detailed information about the record."
       />
       <div
-        className="__DetailPageContainer__"
+        className="__LiteratureDetailPageContainer__"
         data-testid="backoffice-detail-page"
       >
         <Breadcrumbs

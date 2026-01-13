@@ -23,10 +23,6 @@ import { WorkflowDecisions } from '../../common/constants';
 
 export const COLLECTIONS = [
   {
-    key: 'all collections',
-    value: undefined,
-  },
-  {
     key: 'new authors',
     value: WorkflowTypes.AUTHOR_CREATE,
   },
@@ -61,6 +57,8 @@ export const getIcon = (status: string) => {
     case WorkflowStatuses.ERROR_VALIDATION:
       return <WarningOutlined className="mr2" />;
     case WorkflowStatuses.APPROVAL_CORE_SELECTION:
+      return <HourglassOutlined className="mr2" />;
+    case WorkflowStatuses.APPROVAL_MERGE:
       return <HourglassOutlined className="mr2" />;
     default:
       return null;
@@ -214,6 +212,11 @@ export const getWorkflowStatusInfo = (status: string) => {
       icon: <HourglassOutlined className="mr2" />,
       text: 'Waiting for matching approval',
       description: 'This workflow is currently matching.',
+    },
+    approval_merge: {
+      icon: <HourglassOutlined className="mr2" />,
+      text: 'Waiting for merge approval',
+      description: 'This workflow is currently waiting for merging.',
     },
     running: {
       icon: <LoadingOutlined className="mr2" />,

@@ -3,7 +3,7 @@
 exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1`] = `
 <DocumentFragment>
   <div
-    class="__DetailPageContainer__"
+    class="__AuthorDetailPageContainer__"
     data-testid="backoffice-detail-page"
   >
     <div
