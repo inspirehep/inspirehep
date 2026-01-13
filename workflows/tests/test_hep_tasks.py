@@ -14,6 +14,7 @@ from include.utils.constants import (
     DECISION_CORE_SELECTION_ACCEPT,
     DECISION_CORE_SELECTION_ACCEPT_CORE,
     DECISION_HEP_ACCEPT_CORE,
+    DECISION_HEP_REJECT,
     HEP_CREATE,
     HEP_UPDATE,
     LITERATURE_PID_TYPE,
@@ -3448,6 +3449,43 @@ class Test_HEPCreateDAG:
 
         workflow = get_lit_workflow_task(self.workflow_id)
         assert workflows.get_decision(workflow.get("decisions"), DECISION_AUTO_REJECT)
+
+    @pytest.mark.vcr
+    def test_should_replace_collection_false_does_not_replace_decision(
+        self,
+    ):
+        workflow_id = "12d8d847-d16e-4f93-a386-df50a7aceadd"
+        workflow_data = {
+            "id": workflow_id,
+            "data": {
+                "titles": [{"title": "test non rejected"}],
+            },
+            "decisions": [
+                {
+                    "user": "admin@admin.com",
+                    "_created_at": "2025-08-26T14:45:14.237Z",
+                    "_updated_at": "2025-08-26T14:45:14.237Z",
+                    "workflow": workflow_id,
+                    "action": DECISION_HEP_REJECT,
+                }
+            ],
+        }
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+
+        result = task_test(
+            "hep_create_dag",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.should_replace_collection_to_hidden",
+            dag_params={"workflow_id": workflow_id},
+            xcom_key="skipmixin_key",
+        )
+
+        assert (
+            "halt_for_approval_if_new_or_reject_if_not_relevant.halt_end"
+            in result["followed"]
+        )
+
+        workflow = get_lit_workflow_task(workflow_id)
+        assert workflows.get_decision(workflow.get("decisions"), DECISION_HEP_REJECT)
 
     @pytest.mark.vcr
     def test_notify_and_close_accepted(self):
