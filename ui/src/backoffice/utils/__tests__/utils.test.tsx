@@ -63,6 +63,13 @@ describe('getIcon', () => {
     expect(container.querySelector('.anticon-hourglass')).toBeInTheDocument();
   });
 
+  it('should return HourglassOutlined for fuzzy merging status', () => {
+    const { container } = render(
+      getIcon(WorkflowStatuses.APPROVAL_MERGE) as React.ReactElement
+    );
+    expect(container.querySelector('.anticon-hourglass')).toBeInTheDocument();
+  });
+
   it('should return WarningOutlined for multiple exact matches status', () => {
     const { container } = render(
       getIcon(

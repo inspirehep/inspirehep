@@ -13,6 +13,7 @@ export enum WorkflowStatuses {
   APPROVAL = 'approval',
   APPROVAL_CORE_SELECTION = 'approval_core_selection',
   APPROVAL_FUZZY_MATCHING = 'approval_fuzzy_matching',
+  APPROVAL_MERGE = 'approval_merge',
   BLOCKED = 'blocked',
   COMPLETED = 'completed',
   ERROR = 'error',

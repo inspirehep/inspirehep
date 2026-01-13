@@ -53,6 +53,33 @@
       }
     }
   }
+
+  .new-authors {
+    &:hover {
+      box-shadow: 0px 0px 10px 0px #3398db;
+    }
+    .ant-card-head {
+      color: #3398db;
+    }
+  }
+
+  .author-updates {
+    &:hover {
+      box-shadow: 0px 0px 10px 0px #2980b9;
+    }
+    .ant-card-head {
+      color: #2980b9;
+    }
+  }
+
+  .new-literature-submissions {
+    &:hover {
+      box-shadow: 0px 0px 10px 0px #e67e22;
+    }
+    .ant-card-head {
+      color: #e67e22;
+    }
+  }
 }
 
 .ant-select-selection-item::first-letter,
@@ -61,7 +88,6 @@
 }
 
 // Color palette
-.waiting,
 .running {
   color: #7b898a;
 }
@@ -74,7 +100,8 @@
 .halted,
 .approval,
 .approval_core_selection,
-.approval_fuzzy_matching {
+.approval_fuzzy_matching,
+.approval_merge {
   color: #cfa90e;
 }
 .completed {
@@ -99,12 +126,10 @@
 .bg-completed {
   background-color: #16a085;
 }
-.bg-running {
-  background-color: #b8b8b8;
-}
 .bg-halted,
 .bg-approval_core_selection,
 .bg-approval_fuzzy_matching,
+.bg-approval_merge,
 .bg-approval {
   background-color: #f39c12;
 }
@@ -123,112 +148,6 @@
   color: white !important;
 }
 
-.__DashboardPageContainer__ {
-  .new-authors {
-    &:hover {
-      box-shadow: 0px 0px 10px 0px #3398db;
-    }
-    .ant-card-head {
-      color: #3398db;
-    }
-  }
-
-  .new-publisher-harvests {
-    &:hover {
-      box-shadow: 0px 0px 10px 0px #1abc9c;
-    }
-    .ant-card-head {
-      color: #1abc9c;
-    }
-  }
-
-  .publisher-updates {
-    &:hover {
-      box-shadow: 0px 0px 10px 0px #16a085;
-    }
-    .ant-card-head {
-      color: #16a085;
-    }
-  }
-
-  .author-updates {
-    &:hover {
-      box-shadow: 0px 0px 10px 0px #2980b9;
-    }
-    .ant-card-head {
-      color: #2980b9;
-    }
-  }
-
-  .new-arxiv-harvests {
-    &:hover {
-      box-shadow: 0px 0px 10px 0px #9c27b0;
-    }
-    .ant-card-head {
-      color: #9c27b0;
-    }
-  }
-
-  .new-literature-submissions {
-    &:hover {
-      box-shadow: 0px 0px 10px 0px #e67e22;
-    }
-    .ant-card-head {
-      color: #e67e22;
-    }
-  }
-
-  .arxiv-updates {
-    &:hover {
-      box-shadow: 0px 0px 10px 0px #8e44ad;
-    }
-    .ant-card-head {
-      color: #8e44ad;
-    }
-  }
-
-  .all-harvests {
-    &:hover {
-      box-shadow: 0px 0px 10px 0px #829091;
-    }
-    .ant-card-head {
-      color: #829091;
-    }
-  }
-
-  .merging {
-    &:hover {
-      box-shadow: 0px 0px 10px 0px #42b1b9;
-    }
-    .ant-card-head {
-      color: #42b1b9;
-    }
-  }
-
-  .matching {
-    .ant-card-head {
-      color: #5d35a7;
-    }
-  }
-
-  .core-selection {
-    &:hover {
-      box-shadow: 0px 0px 10px 0px #ed9b16;
-    }
-    .ant-card-head {
-      color: #ed9b16;
-    }
-  }
-
-  .core-selection-approval {
-    &:hover {
-      box-shadow: 0px 0px 10px 0px #d3358c;
-    }
-    .ant-card-head {
-      color: #d3358c;
-    }
-  }
-}
 
 .ant-tabs {
   max-width: 1300px;
