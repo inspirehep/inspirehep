@@ -1,0 +1,164 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/12d8d847-d16e-4f93-a386-df50a7aceadd
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Tue, 13 Jan 2026 15:18:41 GMT
+      Location:
+      - /api/workflows/literature/12d8d847-d16e-4f93-a386-df50a7aceadd/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/12d8d847-d16e-4f93-a386-df50a7aceadd/
+  response:
+    body:
+      string: '{"id":"12d8d847-d16e-4f93-a386-df50a7aceadd","validation_errors":[],"data":{"titles":[{"title":"Article
+        decision test","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"acquisition_source":{"email":"user@cern.ch","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575"}},"tickets":[],"decisions":[{"id":11,"workflow":"12d8d847-d16e-4f93-a386-df50a7aceadd","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_reject","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2024-11-25T13:49:54.756000Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"running"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '895'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Tue, 13 Jan 2026 15:18:41 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/12d8d847-d16e-4f93-a386-df50a7aceadd
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Tue, 13 Jan 2026 15:18:41 GMT
+      Location:
+      - /api/workflows/literature/12d8d847-d16e-4f93-a386-df50a7aceadd/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/12d8d847-d16e-4f93-a386-df50a7aceadd/
+  response:
+    body:
+      string: '{"id":"12d8d847-d16e-4f93-a386-df50a7aceadd","validation_errors":[],"data":{"titles":[{"title":"Article
+        decision test","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"acquisition_source":{"email":"user@cern.ch","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575"}},"tickets":[],"decisions":[{"id":11,"workflow":"12d8d847-d16e-4f93-a386-df50a7aceadd","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_reject","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2024-11-25T13:49:54.756000Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"running"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '895'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Tue, 13 Jan 2026 15:18:41 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1

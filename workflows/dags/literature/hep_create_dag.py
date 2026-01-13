@@ -1367,10 +1367,15 @@ def hep_create_dag():
                     "replace_collection_to_hidden"
                 )
 
-            workflow_management_hook.add_decision(
-                workflow_id=context["params"]["workflow_id"],
-                decision_data={"action": DECISION_AUTO_REJECT},
+            decision = get_decision(
+                workflow_data.get("decisions", []), DECISION_HEP_REJECT
             )
+
+            if not decision:
+                workflow_management_hook.add_decision(
+                    workflow_id=context["params"]["workflow_id"],
+                    decision_data={"action": DECISION_AUTO_REJECT},
+                )
             return "halt_for_approval_if_new_or_reject_if_not_relevant.halt_end"
 
         @task
