@@ -1,5 +1,7 @@
 import logging
 import os
+import re
+from itertools import chain
 from tempfile import TemporaryDirectory
 
 from hooks.backoffice.workflow_management_hook import (
@@ -11,15 +13,18 @@ from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
+from idutils import is_arxiv_post_2007
 from include.utils.constants import (
     COMPLETED_STATUSES,
     DECISION_AUTO_REJECT,
     DECISION_HEP_REJECT,
     LITERATURE_PID_TYPE,
 )
+from inspire_schemas.readers import LiteratureReader
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
 from invenio_classifier.reader import KeywordToken
+from parsel import Selector
 from tenacity import RetryError
 
 logger = logging.getLogger(__name__)
@@ -119,10 +124,23 @@ def is_pdf_link(response):
     return found >= 0
 
 
-def post_pdf_to_grobid(workflow_id, workflow, s3_hook, bucket_name):
+def post_pdf_to_grobid(workflow, s3_hook, bucket_name, process_fulltext=False):
+    """Posts the PDF document attached to the workflow to GROBID for processing.
+    Args:
+        workflow_id (str): the workflow id.
+        workflow (dict): the workflow data.
+        s3_hook (S3Hook): the S3 hook to download the document.
+        bucket_name (str): the S3 bucket name.
+        process_fulltext (bool): whether to process the fulltext or only the header.
+    Returns:
+        Response: the GROBID response.
+    """
+
     s3_key = get_document_key_in_workflow(workflow)
     if not s3_key:
         return
+
+    workflow_id = workflow["id"]
 
     with TemporaryDirectory(prefix="grobid") as tmp_dir:
         document_path = s3_hook.download_file(
@@ -134,14 +152,21 @@ def post_pdf_to_grobid(workflow_id, workflow, s3_hook, bucket_name):
         with open(document_path, "rb") as document_file:
             document = document_file.read()
         files = {"input": document}
-        files.update({"includeRawAffiliations": "1", "consolidateHeader": "1"})
+        if not process_fulltext:
+            files.update({"includeRawAffiliations": "1", "consolidateHeader": "1"})
 
         grobid_http_hook = GenericHttpHook(
             http_conn_id="grobid_connection",
             method="POST",
             headers={"Accept": "application/xml"},
         )
-        response = grobid_http_hook.call_api("api/processHeaderDocument", files=files)
+
+        api = (
+            "api/processFulltextDocument"
+            if process_fulltext
+            else "api/processHeaderDocument"
+        )
+        response = grobid_http_hook.call_api(api, files=files)
 
     return response
 
@@ -299,3 +324,112 @@ def get_record_url(metadata, inspire_http_hook):
     base_url = inspire_http_hook.get_url()
     recid = metadata.get("control_number")
     return os.path.join(base_url, "record", str(recid))
+
+
+def is_arxiv_paper(metadata):
+    reader = LiteratureReader(metadata)
+    method = reader.method
+    source = reader.source
+
+    is_submission_with_arxiv = method == "submitter" and "arxiv_eprints" in metadata
+    is_harvested_from_arxiv = method == "hepcrawl" and source.lower() == "arxiv"
+
+    return is_submission_with_arxiv or is_harvested_from_arxiv
+
+
+def get_fulltext(workflow, s3_hook, bucket_name):
+    grobid_response = post_pdf_to_grobid(
+        workflow, s3_hook, bucket_name, process_fulltext=True
+    )
+    if not grobid_response:
+        return
+    xml_data = grobid_response.text
+    xml = Selector(text=xml_data, type="xml")
+    xml.remove_namespaces()
+    text = xml.getall()
+    fulltext = " ".join(text)
+    return fulltext
+
+
+def check_if_france_in_fulltext(fulltext):
+    if not fulltext:
+        return
+    regex = re.compile(r"\bfrance\b|in2p3", re.UNICODE | re.IGNORECASE)
+    return regex.search(fulltext)
+
+
+def get_curation_ticket_context(data, inspire_http_hook):
+    email = data["acquisition_source"].get("email", "")
+    recid = data.get("control_number")
+    base_url = inspire_http_hook.get_url()
+    record_url = os.path.join(base_url, "record", str(recid))
+    context = {
+        "email": email,
+        "recid": recid,
+        "record_url": record_url,
+        "server_name": base_url,
+    }
+    return context
+
+
+def check_if_france_in_raw_affiliations(workflow):
+    raw_affs = get_value(workflow, "data.authors.raw_affiliations.value", [])
+    for aff in chain.from_iterable(raw_affs):
+        if "france" in aff.lower() or "in2p3" in aff.lower():
+            return True
+
+
+def check_if_germany_in_fulltext(fulltext):
+    if not fulltext:
+        return
+    regex = re.compile(r"\b(Germany|Deutschland)\b", re.UNICODE | re.IGNORECASE)
+    return regex.search(fulltext)
+
+
+def check_if_germany_in_raw_affiliations(workflow):
+    raw_affs = get_value(workflow, "data.authors.raw_affiliations.value", [])
+    for aff in chain.from_iterable(raw_affs):
+        if "germany" in aff.lower() or "deutschland" in aff.lower():
+            return True
+
+
+def check_if_uk_in_fulltext(fulltext):
+    if not fulltext:
+        return
+    regex = re.compile(
+        r"\b(UK|United\s+Kingdom|England|Scotland|Northern\s+Ireland)\b",
+        re.UNICODE | re.IGNORECASE,
+    )
+    return regex.search(fulltext)
+
+
+def check_if_uk_in_raw_affiliations(workflow):
+    raw_affs = get_value(workflow, "data.authors.raw_affiliations.value", [])
+    regex = re.compile(
+        r"\b(UK|United\s+Kingdom|England|Scotland|Northern\s+Ireland)\b",
+        re.UNICODE | re.IGNORECASE,
+    )
+    for aff in chain.from_iterable(raw_affs):
+        if regex.search(aff):
+            return True
+
+
+def check_if_cern_candidate():
+    # TODO implement check if cern candidate
+    # see https://github.com/cern-sis/issues-inspire/issues/1266
+    pass
+
+
+def get_curation_ticket_subject(data):
+    report_numbers = get_value(data, "report_numbers.value", [])
+    dois = [f"doi:{doi}" for doi in get_value(data, "dois.value", [])]
+    recid = data.get("control_number")
+    arxiv_ids = get_value(data, "arxiv_eprints.value", [])
+    arxiv_ids = [
+        f"arXiv:{arxiv_id}"
+        for arxiv_id in arxiv_ids
+        if arxiv_id and is_arxiv_post_2007(arxiv_id)
+    ]
+
+    subject_parts = arxiv_ids + dois + report_numbers + [f"(#{recid})"]
+    return " ".join(p for p in subject_parts if p is not None)
