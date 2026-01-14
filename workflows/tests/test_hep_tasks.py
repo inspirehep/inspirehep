@@ -3510,6 +3510,7 @@ class Test_HEPCreateDAG:
             dag_params={"workflow_id": workflow_id},
         )
 
+    @pytest.mark.vcr
     def test_notify_curator_if_needed_no_curation(self):
         workflow_data = {
             "id": self.workflow_id,
