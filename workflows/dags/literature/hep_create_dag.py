@@ -1615,6 +1615,7 @@ def hep_create_dag():
 
         inspire_http_hook.close_ticket(ticket_id, "user_accepted", template_context)
 
+    @task
     def notify_curator_if_needed(**context):
         workflow_id = context["params"]["workflow_id"]
         workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
