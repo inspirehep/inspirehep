@@ -3,6 +3,7 @@ from django.db import models
 HEP_TICKET_TYPES = (
     ("hep_create_curation", "HEP create curation"),
     ("hep_create_curation_core", "HEP create curation core"),
+    ("hep_create_publisher_curation_core", "HEP create publisher curation"),
     ("hep_update_curation", "HEP update curation"),
     ("hep_submission", "HEP submission"),
 )

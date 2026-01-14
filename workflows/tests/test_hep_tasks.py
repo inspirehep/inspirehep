@@ -3510,8 +3510,8 @@ class Test_HEPCreateDAG:
             dag_params={"workflow_id": workflow_id},
         )
 
-    @pytest.mark.vcr
-    def test_notify_curator_if_needed_no_curation(self):
+    @patch("hooks.inspirehep.inspire_http_hook.InspireHttpHook.create_ticket")
+    def test_notify_curator_if_needed_no_curation(self, mock_create_ticket):
         workflow_data = {
             "id": self.workflow_id,
             "data": {
@@ -3528,16 +3528,16 @@ class Test_HEPCreateDAG:
             "notify_curator_if_needed",
             dag_params=self.context["params"],
         )
+        assert mock_create_ticket.call_count == 0
 
-        workflow_result = get_lit_workflow_task(self.workflow_id)
-        decision = workflows.get_decision(
-            workflow_result.get("decisions"), TICKET_HEP_CURATION_CORE
-        )
-        assert decision is None
-
-    @pytest.mark.vcr
     @patch("include.utils.workflows.get_fulltext", return_value="france")
-    def test_notify_curator_if_needed_needed_france_fulltext(self, mock_get_fulltext):
+    @patch("hooks.inspirehep.inspire_http_hook.InspireHttpHook.create_ticket")
+    @patch(
+        "hooks.backoffice.workflow_ticket_management_hook.LiteratureWorkflowTicketManagementHook.create_ticket_entry"
+    )
+    def test_notify_curator_if_needed_needed_france_fulltext(
+        self, mock_create_ticket_entry, mock_create_ticket, mock_get_fulltext
+    ):
         workflow_data = {
             "id": self.workflow_id,
             "data": {
@@ -3552,21 +3552,23 @@ class Test_HEPCreateDAG:
             },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
-        previous_tickets_number = len(
-            get_lit_workflow_task(self.workflow_id)["tickets"]
-        )
 
         task_test(
             "hep_create_dag",
             "notify_curator_if_needed",
             dag_params=self.context["params"],
         )
-        workflow_result = get_lit_workflow_task(self.workflow_id)
-        assert len(workflow_result.get("tickets")) == previous_tickets_number + 1
+        mock_create_ticket.assert_called_once()
+        mock_create_ticket_entry.assert_called_once()
 
-    @pytest.mark.vcr
     @patch("include.utils.workflows.get_fulltext", return_value="germany")
-    def test_notify_curator_if_needed_germany_fulltext(self, mock_get_fulltext):
+    @patch("hooks.inspirehep.inspire_http_hook.InspireHttpHook.create_ticket")
+    @patch(
+        "hooks.backoffice.workflow_ticket_management_hook.LiteratureWorkflowTicketManagementHook.create_ticket_entry"
+    )
+    def test_notify_curator_if_needed_germany_fulltext(
+        self, mock_create_ticket_entry, mock_create_ticket, mock_get_fulltext
+    ):
         workflow_data = {
             "id": self.workflow_id,
             "data": {
@@ -3582,20 +3584,23 @@ class Test_HEPCreateDAG:
             },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
-        previous_tickets_number = len(
-            get_lit_workflow_task(self.workflow_id)["tickets"]
-        )
 
         task_test(
             "hep_create_dag",
             "notify_curator_if_needed",
             dag_params=self.context["params"],
         )
-        workflow_result = get_lit_workflow_task(self.workflow_id)
-        assert len(workflow_result.get("tickets")) == previous_tickets_number + 2
 
-    @pytest.mark.vcr
-    def test_notify_curator_if_needed_raw_affiliations_france(self):
+        assert mock_create_ticket.call_count == 2
+        assert mock_create_ticket_entry.call_count == 2
+
+    @patch("hooks.inspirehep.inspire_http_hook.InspireHttpHook.create_ticket")
+    @patch(
+        "hooks.backoffice.workflow_ticket_management_hook.LiteratureWorkflowTicketManagementHook.create_ticket_entry"
+    )
+    def test_notify_curator_if_needed_raw_affiliations_france(
+        self, mock_create_ticket_entry, mock_create_ticket
+    ):
         workflow_data = {
             "id": self.workflow_id,
             "data": {
@@ -3615,20 +3620,22 @@ class Test_HEPCreateDAG:
             },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
-        previous_tickets_number = len(
-            get_lit_workflow_task(self.workflow_id)["tickets"]
-        )
 
         task_test(
             "hep_create_dag",
             "notify_curator_if_needed",
             dag_params=self.context["params"],
         )
-        workflow_result = get_lit_workflow_task(self.workflow_id)
-        assert len(workflow_result.get("tickets")) == previous_tickets_number + 1
+        mock_create_ticket.assert_called_once()
+        mock_create_ticket_entry.assert_called_once()
 
-    @pytest.mark.vcr
-    def test_notify_curator_if_needed_raw_affiliations_uk(self):
+    @patch("hooks.inspirehep.inspire_http_hook.InspireHttpHook.create_ticket")
+    @patch(
+        "hooks.backoffice.workflow_ticket_management_hook.LiteratureWorkflowTicketManagementHook.create_ticket_entry"
+    )
+    def test_notify_curator_if_needed_raw_affiliations_uk(
+        self, mock_create_ticket_entry, mock_create_ticket
+    ):
         workflow_data = {
             "id": self.workflow_id,
             "data": {
@@ -3649,20 +3656,23 @@ class Test_HEPCreateDAG:
             },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
-        previous_tickets_number = len(
-            get_lit_workflow_task(self.workflow_id)["tickets"]
-        )
 
         task_test(
             "hep_create_dag",
             "notify_curator_if_needed",
             dag_params=self.context["params"],
         )
-        workflow_result = get_lit_workflow_task(self.workflow_id)
-        assert len(workflow_result.get("tickets")) == previous_tickets_number + 2
+        assert mock_create_ticket.call_count == 2
+        assert mock_create_ticket_entry.call_count == 2
 
     @pytest.mark.vcr
-    def test_notify_curator_if_needed_submitter_or_arxiv(self):
+    @patch("hooks.inspirehep.inspire_http_hook.InspireHttpHook.create_ticket")
+    @patch(
+        "hooks.backoffice.workflow_ticket_management_hook.LiteratureWorkflowTicketManagementHook.create_ticket_entry"
+    )
+    def test_notify_curator_if_needed_submitter_or_arxiv(
+        self, mock_create_ticket_entry, mock_create_ticket
+    ):
         workflow_data = {
             "id": self.workflow_id,
             "data": {
@@ -3677,17 +3687,14 @@ class Test_HEPCreateDAG:
             },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
-        previous_tickets_number = len(
-            get_lit_workflow_task(self.workflow_id)["tickets"]
-        )
 
         task_test(
             "hep_create_dag",
             "notify_curator_if_needed",
             dag_params=self.context["params"],
         )
-        workflow_result = get_lit_workflow_task(self.workflow_id)
-        assert len(workflow_result.get("tickets")) == previous_tickets_number + 1
+        mock_create_ticket.assert_called_once()
+        mock_create_ticket_entry.assert_called_once()
 
     def test_should_proceed_to_core_selection_true(self):
         workflow_data = {

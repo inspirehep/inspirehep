@@ -23,12 +23,7 @@ from hooks.backoffice.workflow_ticket_management_hook import (
 from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_hook import (
     LITERATURE_ARXIV_CURATION_FUNCTIONAL_CATEGORY,
-    LITERATURE_CDS_CURATION_FUNCTIONAL_CATEGORY,
-    LITERATURE_GERMAN_CURATION_FUNCTIONAL_CATEGORY,
-    LITERATURE_HAL_CURATION_FUNCTIONAL_CATEGORY,
-    LITERATURE_PUBLISHER_CURATION_FUNCTIONAL_CATEGORY,
     LITERATURE_SUBMISSIONS_FUNCTIONAL_CATEGORY,
-    LITERATURE_UK_CURATION_FUNCTIONAL_CATEGORY,
     InspireHttpHook,
 )
 from hooks.inspirehep.inspire_http_record_management_hook import (
@@ -56,7 +51,7 @@ from include.inspire.refextract_utils import (
     map_refextract_reference_to_schema,
     raw_refs_to_list,
 )
-from include.utils import s3, workflows
+from include.utils import s3, tickets, workflows
 from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.constants import (
     DECISION_AUTO_ACCEPT_CORE,
@@ -79,7 +74,6 @@ from include.utils.constants import (
     STATUS_COMPLETED,
     STATUS_RUNNING,
     TICKET_HEP_CURATION_CORE,
-    TICKET_HEP_PUBLISHER_CURATION_CORE,
     TICKET_HEP_SUBMISSION,
 )
 from include.utils.tickets import get_ticket_by_type
@@ -1621,12 +1615,10 @@ def hep_create_dag():
         workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
 
         is_update = get_flag("is-update", workflow_data)
-        is_core = get_value(workflow_data, "data.core")
 
         if is_update:
             return
 
-        functional_category = None
         data = workflow_data["data"]
         subject = workflows.get_curation_ticket_subject(data)
         email = data["acquisition_source"].get("email", "")
@@ -1634,30 +1626,11 @@ def hep_create_dag():
             data, inspire_http_hook
         )
 
-        if workflows.is_arxiv_paper(workflow_data["data"]):
-            fulltext = workflows.get_fulltext(
-                workflow_id, workflow_data, s3_hook, bucket_name
+        functional_category = (
+            tickets.get_functional_category_from_fulltext_or_raw_affiliations(
+                workflow_data, s3_hook, bucket_name
             )
-
-            if workflows.check_if_france_in_fulltext(fulltext):
-                functional_category = LITERATURE_HAL_CURATION_FUNCTIONAL_CATEGORY
-            elif is_core:
-                if workflows.check_if_germany_in_fulltext(fulltext):
-                    functional_category = LITERATURE_GERMAN_CURATION_FUNCTIONAL_CATEGORY
-                elif workflows.check_if_uk_in_fulltext(fulltext):
-                    functional_category = LITERATURE_UK_CURATION_FUNCTIONAL_CATEGORY
-                if workflows.check_if_cern_candidate():
-                    functional_category = LITERATURE_CDS_CURATION_FUNCTIONAL_CATEGORY
-        else:
-            if workflows.check_if_france_in_raw_affiliations(workflow_data):
-                functional_category = LITERATURE_HAL_CURATION_FUNCTIONAL_CATEGORY
-            elif is_core:
-                if workflows.check_if_germany_in_raw_affiliations(workflow_data):
-                    functional_category = LITERATURE_GERMAN_CURATION_FUNCTIONAL_CATEGORY
-                if workflows.check_if_uk_in_raw_affiliations(workflow_data):
-                    functional_category = LITERATURE_UK_CURATION_FUNCTIONAL_CATEGORY
-                if workflows.check_if_cern_candidate():
-                    functional_category = LITERATURE_CDS_CURATION_FUNCTIONAL_CATEGORY
+        )
 
         if functional_category:
             response = inspire_http_hook.create_ticket(
@@ -1668,24 +1641,18 @@ def hep_create_dag():
                 curation_context,
             )
             ticket_id = response.json()["ticket_id"]
+
             LiteratureWorkflowTicketManagementHook().create_ticket_entry(
                 workflow_id=context["params"]["workflow_id"],
                 ticket_type=TICKET_HEP_CURATION_CORE,
                 ticket_id=ticket_id,
             )
 
-        functional_category = None
-        is_publisher_paper = get_value(
-            data, "acquisition_source.source"
-        ).lower() not in {"arxiv", "submitter"}
-
-        if is_core:
-            if is_publisher_paper:
-                functional_category = LITERATURE_PUBLISHER_CURATION_FUNCTIONAL_CATEGORY
-                ticket_type = TICKET_HEP_PUBLISHER_CURATION_CORE
-            else:
-                functional_category = LITERATURE_ARXIV_CURATION_FUNCTIONAL_CATEGORY
-                ticket_type = TICKET_HEP_CURATION_CORE
+        functional_category, ticket_type = (
+            tickets.get_functional_category_and_ticket_type_from_publisher(
+                workflow_data
+            )
+        )
 
         if functional_category:
             response = inspire_http_hook.create_ticket(

@@ -42,7 +42,7 @@ class HepWorkflowTicket(BaseWorkflowTicket):
         HepWorkflow, related_name="tickets", on_delete=models.CASCADE
     )
     ticket_type = models.CharField(
-        max_length=30, choices=HEP_TICKET_TYPES, default=HEP_DEFAULT_TICKET_TYPE
+        max_length=50, choices=HEP_TICKET_TYPES, default=HEP_DEFAULT_TICKET_TYPE
     )
 
 

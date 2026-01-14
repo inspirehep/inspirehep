@@ -1,0 +1,115 @@
+from unittest.mock import patch
+
+from include.utils import tickets
+
+
+def test_get_functional_category_from_fulltext_or_raw_affiliations(datadir):
+    workflow = {
+        "data": {
+            "core": True,
+        }
+    }
+
+    s3_hook = None
+    bucket_name = None
+
+    functional_category = (
+        tickets.get_functional_category_from_fulltext_or_raw_affiliations(
+            workflow, s3_hook, bucket_name
+        )
+    )
+
+    assert functional_category is None
+
+
+@patch(
+    "include.utils.workflows.get_fulltext",
+    return_value="This is a fulltext mentioning France.",
+)
+def test_get_functional_category_from_fulltext_or_raw_affiliations_french_fulltext(
+    mock_get_fulltext,
+):
+    workflow = {
+        "data": {
+            "acquisition_source": {
+                "method": "hepcrawl",
+                "source": "arXiv",
+            }
+        }
+    }
+
+    functional_category = (
+        tickets.get_functional_category_from_fulltext_or_raw_affiliations(
+            workflow, None, None
+        )
+    )
+
+    assert functional_category == tickets.LITERATURE_HAL_CURATION_FUNCTIONAL_CATEGORY
+
+
+@patch(
+    "include.utils.workflows.get_fulltext",
+    return_value="This is a fulltext mentioning UK.",
+)
+def test_get_functional_category_from_fulltext_or_raw_affiliations_uk_fulltext(
+    mock_get_fulltext,
+):
+    workflow = {
+        "data": {
+            "core": True,
+            "acquisition_source": {
+                "method": "hepcrawl",
+                "source": "arXiv",
+            },
+        }
+    }
+
+    functional_category = (
+        tickets.get_functional_category_from_fulltext_or_raw_affiliations(
+            workflow, None, None
+        )
+    )
+
+    assert functional_category == tickets.LITERATURE_UK_CURATION_FUNCTIONAL_CATEGORY
+
+
+def test_get_functional_category_from_fulltext_or_raw_affiliations_uk_raw_affs():
+    workflow = {
+        "data": {
+            "core": True,
+            "authors": [
+                {
+                    "raw_affiliations": [{"value": "London, UK"}],
+                    "full_name": "Moskovic, Micha",
+                }
+            ],
+            "acquisition_source": {
+                "method": "submitter",
+                "source": "submitter",
+            },
+        }
+    }
+
+    functional_category = (
+        tickets.get_functional_category_from_fulltext_or_raw_affiliations(
+            workflow, None, None
+        )
+    )
+
+    assert functional_category == tickets.LITERATURE_UK_CURATION_FUNCTIONAL_CATEGORY
+
+
+def test_get_functional_category_and_ticket_type_from_publisher():
+    workflow = {
+        "data": {
+            "core": True,
+            "acquisition_source": {"source": "arXiv"},
+        }
+    }
+
+    functional_category, ticket_type = (
+        tickets.get_functional_category_and_ticket_type_from_publisher(workflow)
+    )
+
+    assert functional_category == tickets.LITERATURE_ARXIV_CURATION_FUNCTIONAL_CATEGORY
+    assert ticket_type == tickets.TICKET_HEP_CURATION_CORE
