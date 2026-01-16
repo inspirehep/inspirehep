@@ -609,7 +609,7 @@ def test_update_author_creates_new_workflow(inspire_app, override_config):
 @freeze_time("2019-06-17")
 def test_new_literature_submit_no_merge(inspire_app, requests_mock):
     requests_mock.post(
-        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
         json={"workflow_object_id": 30},
     )
     user = create_user()
@@ -645,7 +645,8 @@ def test_new_literature_submit_no_merge(inspire_app, requests_mock):
         == history.headers["Authorization"]
     )
     assert (
-        history.url == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+        history.url
+        == f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/"
     )
     expected_data = {
         "data": {
@@ -678,7 +679,7 @@ def test_new_literature_submit_no_merge(inspire_app, requests_mock):
 @freeze_time("2019-06-17")
 def test_new_literature_submit_arxiv_urls(inspire_app, requests_mock):
     requests_mock.post(
-        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
         json={"workflow_object_id": 30},
     )
     user = create_user()
@@ -714,7 +715,8 @@ def test_new_literature_submit_arxiv_urls(inspire_app, requests_mock):
         == history.headers["Authorization"]
     )
     assert (
-        history.url == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+        history.url
+        == f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/"
     )
     expected_data = {
         "data": {
@@ -745,7 +747,7 @@ def test_new_literature_submit_arxiv_urls(inspire_app, requests_mock):
 
 def test_new_literature_submit_works_with_session_login(inspire_app, requests_mock):
     requests_mock.post(
-        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
         json={"workflow_object_id": 30},
     )
     user = create_user()
@@ -789,7 +791,7 @@ def test_new_literature_submit_requires_authentication(inspire_app):
 
 def test_new_literature_submit_with_workflows_api_error(inspire_app, requests_mock):
     requests_mock.post(
-        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
         status_code=500,
     )
 
@@ -816,7 +818,7 @@ def test_new_literature_submit_with_workflows_api_error(inspire_app, requests_mo
 
 def test_new_literature_submit_with_private_notes(inspire_app, requests_mock):
     requests_mock.post(
-        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
         json={"workflow_object_id": 30},
     )
     user = create_user()
@@ -871,7 +873,7 @@ def test_new_literature_submit_with_private_notes_and_conference_record(
     inspire_app, requests_mock
 ):
     requests_mock.post(
-        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
         json={"workflow_object_id": 30},
     )
     user = create_user()
@@ -924,7 +926,7 @@ def test_new_literature_submit_with_private_notes_and_conference_record(
 
 def test_new_literature_submit_with_conference_cnum(inspire_app, requests_mock):
     requests_mock.post(
-        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
         json={"workflow_object_id": 30},
     )
     user = create_user()
@@ -969,7 +971,7 @@ def test_new_literature_submit_with_conference_cnum(inspire_app, requests_mock):
 
 def test_new_literature_submit_with_wrong_conference(inspire_app, requests_mock):
     requests_mock.post(
-        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
         json={"workflow_object_id": 30},
     )
     user = create_user()
@@ -1015,7 +1017,7 @@ def test_new_literature_submit_with_wrong_conference(inspire_app, requests_mock)
 
 def test_new_literature_submit_with_conference_without_cnum(inspire_app, requests_mock):
     requests_mock.post(
-        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
         json={"workflow_object_id": 30},
     )
     user = create_user()
