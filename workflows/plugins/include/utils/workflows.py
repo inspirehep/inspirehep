@@ -414,10 +414,109 @@ def check_if_uk_in_raw_affiliations(workflow):
             return True
 
 
-def check_if_cern_candidate():
-    # TODO implement check if cern candidate
-    # see https://github.com/cern-sis/issues-inspire/issues/1266
-    pass
+def check_if_cern_candidate(workflow):
+    cern_experiments = [
+        "AMS",
+        "CALICE",
+        "CHIC",
+        "CLEAR",
+        "CLIC",
+        "CLICdp",
+        "CLOUD",
+        "CROWS",
+        "EEE",
+        "EXPLORER",
+        "FASER",
+        "IAXO",
+        "LAGUNA-LBNO",
+        "LARP",
+        "MATHUSLA",
+        "MERIT",
+        "OPAL",
+        "ProtoDUNE-DP",
+        "ProtoDUNE-SP",
+        "SND@LHC",
+        "XSEN",
+    ]
+    cern_collaborations = [
+        "ALICE",
+        "AMS",
+        "ATLAS",
+        "CLEAR",
+        "CLIC",
+        "CLICdp",
+        "CLOUD",
+        "CMS",
+        "COMPASS",
+        "FASER",
+        "FCC",
+        "ISOLDE",
+        "LAGUNA-LBNO",
+        "LHCb",
+        "LHCf",
+        "MATHUSLA",
+        "MEDICIS",
+        "MERIT",
+        "SHINE",
+        "SHiP",
+        "SND@LHC",
+        "TOTEM",
+        "n_TOF",
+    ]
+
+    non_cern_collaborations = ["CDF", "D0", "NANCY", "nanograv", "PLANCK"]
+
+    external_schemas = get_value(
+        workflow, "data.external_system_identifiers.schema", []
+    )
+    private_notes = get_value(workflow, "data._private_notes.value", [])
+    collections = get_value(workflow, "data._collections", [])
+    authors_affils = get_value(workflow, "data.authors.affiliations.value", [])
+
+    corporate_authors = get_value(workflow, "data.corporate_author", [])
+    supervisors_affils = get_value(workflow, "data.supervisors.affiliations.value", [])
+
+    collabs = get_value(workflow, "data.collaborations.value", [])
+    experiments = get_value(workflow, "data.accelerator_experiments.legacy_name", [])
+
+    report_nums = get_value(workflow, "data.report_numbers.value", [])
+
+    if any(schema.lower() in ("cds", "cdsrdm") for schema in external_schemas):
+        return False
+
+    if any("Not CERN" in private_note for private_note in private_notes):
+        return False
+
+    if "CDS Hidden" in collections:
+        return False
+
+    if any(
+        "uct-cern res. ctr." in a.lower() for a in chain.from_iterable(authors_affils)
+    ):
+        return False
+
+    if any(coll in non_cern_collaborations for coll in collabs):
+        return False
+
+    if any("CERN" in corp_author for corp_author in corporate_authors):
+        return True
+
+    if any("cern" in a.lower() for a in chain.from_iterable(authors_affils)):
+        return True
+
+    if any("cern" in a.lower() for a in chain.from_iterable(supervisors_affils)):
+        return True
+
+    if any(str(r).lower().startswith("cern-") for r in report_nums):
+        return True
+
+    if any(c.startswith(("NA", "RD", "CERN")) for c in collabs):
+        return True
+
+    if any(exp in cern_experiments for exp in experiments):
+        return True
+    if any(coll in cern_collaborations for coll in collabs):
+        return True
 
 
 def get_curation_ticket_subject(data):

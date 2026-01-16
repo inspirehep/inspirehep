@@ -571,3 +571,78 @@ def test_get_reply_curation_context():
         workflows.get_reply_curation_context(metadata, InspireHttpHook())
 
     function_test(_test_get_reply_curation_context)
+
+
+def test_check_if_cern_candidate():
+    workflow = {
+        "data": {
+            "external_system_identifiers": [
+                {"schema": "CDS", "value": "some-id"},
+            ]
+        }
+    }
+    assert not workflows.check_if_cern_candidate(workflow)
+
+    workflow = {"data": {"_private_notes": [{"value": "Not CERN, but in fermilab"}]}}
+    assert not workflows.check_if_cern_candidate(workflow)
+
+    workflow = {"data": {"_collections": ["CDS Hidden"]}}
+    assert not workflows.check_if_cern_candidate(workflow)
+
+    workflow = {
+        "data": {
+            "authors": [
+                {
+                    "full_name": "author 1",
+                    "affiliations": [{"value": "Cape Town UCT-CERN Res. Ctr."}],
+                }
+            ]
+        }
+    }
+    assert not workflows.check_if_cern_candidate(workflow)
+
+    workflow = {
+        "data": {
+            "collaborations": [
+                {"value": "D0"},
+            ]
+        }
+    }
+    assert not workflows.check_if_cern_candidate(workflow)
+
+    workflow = {"data": {"corporate_author": ["CERN ATLAS Collaboration"]}}
+    assert workflows.check_if_cern_candidate(workflow)
+    workflow = {
+        "data": {
+            "authors": [
+                {
+                    "full_name": "author 1",
+                    "affiliations": [{"value": "CERN, Geneva, Switzerland"}],
+                }
+            ]
+        }
+    }
+    assert workflows.check_if_cern_candidate(workflow)
+
+    workflow = {
+        "data": {
+            "supervisors": [
+                {
+                    "affiliations": [{"value": "CERN, Geneva, Switzerland"}],
+                }
+            ]
+        }
+    }
+    assert workflows.check_if_cern_candidate(workflow)
+
+    workflow = {"data": {"report_numbers": [{"value": "CERN-TH-2024-001"}]}}
+    assert workflows.check_if_cern_candidate(workflow)
+
+    workflow = {"data": {"collaborations": [{"value": "NA62"}]}}
+    assert workflows.check_if_cern_candidate(workflow)
+
+    workflow = {"data": {"accelerator_experiments": [{"legacy_name": "CLIC"}]}}
+    assert workflows.check_if_cern_candidate(workflow)
+
+    workflow = {"data": {"collaborations": [{"value": "ALICE"}]}}
+    assert workflows.check_if_cern_candidate(workflow)

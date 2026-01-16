@@ -48,7 +48,7 @@ def get_functional_category_from_fulltext_or_raw_affiliations(
                 return LITERATURE_GERMAN_CURATION_FUNCTIONAL_CATEGORY
             if workflows.check_if_uk_in_raw_affiliations(workflow):
                 return LITERATURE_UK_CURATION_FUNCTIONAL_CATEGORY
-            if workflows.check_if_cern_candidate():
+            if workflows.check_if_cern_candidate(workflow):
                 return LITERATURE_CDS_CURATION_FUNCTIONAL_CATEGORY
 
 
