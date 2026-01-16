@@ -219,7 +219,7 @@ def hep_create_dag():
             context["ti"].xcom_push(key="match", value=matches[0])
             set_flag("is-update", True, workflow_data)
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
-            return "preprocessing"
+            return "stop_if_existing_submission_notify_and_close"
         return "check_for_fuzzy_matches"
 
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
@@ -262,7 +262,7 @@ def hep_create_dag():
         matches = response.json()["matched_data"]
 
         if not matches:
-            return "check_auto_approve"
+            return "stop_if_existing_submission_notify_and_close"
 
         workflow_data["matches"] = get_value(workflow_data, "matches", {}) or {}
         workflow_data["matches"]["fuzzy"] = matches
@@ -301,6 +301,35 @@ def hep_create_dag():
         context["ti"].xcom_push(key="match", value=approved_match_id)
         s3.write_workflow(s3_hook, workflow_data, bucket_name)
         return True
+
+    @task.branch
+    def stop_if_existing_submission_notify_and_close(**context):
+        """Send notification if the workflow is a submission."""
+        workflow_data = s3.read_workflow(
+            s3_hook, bucket_name, context["params"]["workflow_id"]
+        )
+
+        if not is_submission(workflow_data) or not get_flag("is-update", workflow_data):
+            return "check_auto_approve"
+
+        workflow_management_hook.add_decision(
+            workflow_id=context["params"]["workflow_id"],
+            decision_data={"action": DECISION_AUTO_REJECT},
+        )
+
+        ticket_id = get_ticket_by_type(workflow_data, TICKET_HEP_SUBMISSION)[
+            "ticket_id"
+        ]
+
+        reply_template_context = workflows.get_reply_curation_context(
+            workflow_data["data"], inspire_http_hook
+        )
+
+        inspire_http_hook.close_ticket(
+            ticket_id, "user_rejected_exists", reply_template_context
+        )
+
+        return "save_and_complete_workflow"
 
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def check_auto_approve(**context):
@@ -1597,17 +1626,14 @@ def hep_create_dag():
         ticket_id = get_ticket_by_type(workflow_data, TICKET_HEP_SUBMISSION)[
             "ticket_id"
         ]
-        data = workflow_data["data"]
-        email = data["acquisition_source"].get("email", "")
-        title = LiteratureReader(data).title
 
-        template_context = {
-            "user_name": email,
-            "title": title,
-            "record_url": workflows.get_record_url(data, inspire_http_hook),
-        }
+        reply_template_context = workflows.get_reply_curation_context(
+            workflow_data["data"], inspire_http_hook
+        )
 
-        inspire_http_hook.close_ticket(ticket_id, "user_accepted", template_context)
+        inspire_http_hook.close_ticket(
+            ticket_id, "user_accepted", reply_template_context
+        )
 
     @task
     def notify_curator_if_needed(**context):
@@ -1865,24 +1891,35 @@ def hep_create_dag():
     check_for_exact_matches_task = check_for_exact_matches()
     check_auto_approve_task = check_auto_approve()
     save_and_complete_workflow_task = save_and_complete_workflow()
+    stop_if_existing_submission_notify_and_close_task = (
+        stop_if_existing_submission_notify_and_close()
+    )
 
     (
         check_for_exact_matches_task
         >> [
             check_for_fuzzy_matches_task,
-            preprocessing_group,
+            stop_if_existing_submission_notify_and_close_task,
         ]
     )
 
     (
         check_for_fuzzy_matches_task
         >> await_decision_fuzzy_match()
-        >> check_auto_approve_task
+        >> stop_if_existing_submission_notify_and_close_task
+        >> [check_auto_approve_task, save_and_complete_workflow_task]
+    )
+    (
+        check_auto_approve_task
         >> check_if_previously_rejected()
         >> [preprocessing_group, save_and_complete_workflow_task]
     )
 
-    (check_for_exact_matches_task >> Label("1 Exact Match") >> preprocessing_group)
+    (
+        check_for_exact_matches_task
+        >> Label("1 Exact Match")
+        >> stop_if_existing_submission_notify_and_close_task
+    )
     (
         check_for_exact_matches_task
         >> Label("No Exact Matches")
@@ -1926,7 +1963,7 @@ def hep_create_dag():
     )
     notify_and_close_not_accepted_task >> save_and_complete_workflow_task
     should_proceed_to_core_selection_task >> save_and_complete_workflow_task
-    check_for_fuzzy_matches_task >> check_auto_approve_task
+    check_for_fuzzy_matches_task >> stop_if_existing_submission_notify_and_close_task
 
 
 hep_create_dag()

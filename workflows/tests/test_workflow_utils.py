@@ -558,3 +558,16 @@ def test_get_curation_ticket_subject():
         subject == "arXiv:2504.01123 arXiv:2504.06789 doi:10.1234/abcd.efgh "
         "doi:10.5678/wxyz.ijkl CERN-TH-2024-001 DESY-24-045 (#1234)"
     )
+
+
+def test_get_reply_curation_context():
+    metadata = {
+        "acquisition_source": {"email": "user.test@cern.ch"},
+        "control_number": 123456,
+        "titles": [{"title": "This article has a reply", "source": "submitter"}],
+    }
+
+    def _test_get_reply_curation_context():
+        workflows.get_reply_curation_context(metadata, InspireHttpHook())
+
+    function_test(_test_get_reply_curation_context)

@@ -418,7 +418,7 @@ class Test_HEPCreateDAG:
             xcom_key="skipmixin_key",
         )
 
-        assert "preprocessing.check_is_arxiv_paper" in result["followed"]
+        assert "stop_if_existing_submission_notify_and_close" in result["followed"]
 
     @pytest.mark.vcr
     def test_check_for_exact_matches_one_match_has_match(self):
@@ -525,7 +525,7 @@ class Test_HEPCreateDAG:
             xcom_key="skipmixin_key",
         )
 
-        assert result == {"followed": ["check_auto_approve"]}
+        assert result == {"followed": ["stop_if_existing_submission_notify_and_close"]}
 
     @pytest.mark.vcr
     def test_await_decision_fuzzy_match_best_match(self):
@@ -568,6 +568,59 @@ class Test_HEPCreateDAG:
             task_id="await_decision_fuzzy_match",
             dag_params={"workflow_id": "66961888-a628-46b7-b807-4deae3478adc"},
         )
+
+    def test_stop_if_existing_submission_notify_and_close_continue(self):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "A title"}],
+            },
+            "flags": {"is-update": False},
+        }
+
+        s3.write_workflow(
+            self.s3_hook,
+            workflow_data,
+            self.bucket_name,
+        )
+
+        result = task_test(
+            "hep_create_dag",
+            "stop_if_existing_submission_notify_and_close",
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+
+        assert "check_auto_approve" in result["followed"]
+
+    @pytest.mark.vcr
+    def test_stop_if_existing_submission_notify_and_close_stop(self):
+        workflow_id = "4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2"
+
+        workflow_data = get_lit_workflow_task(workflow_id)
+        workflow_data["flags"] = {"is-update": True}
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+
+        task_test(
+            "hep_create_dag",
+            "notify_if_submission",
+            dag_params={"workflow_id": workflow_id},
+        )
+
+        s3.write_workflow(
+            self.s3_hook,
+            get_lit_workflow_task(workflow_id),
+            self.bucket_name,
+        )
+
+        result = task_test(
+            "hep_create_dag",
+            "stop_if_existing_submission_notify_and_close",
+            dag_params={"workflow_id": workflow_id},
+            xcom_key="skipmixin_key",
+        )
+
+        assert "save_and_complete_workflow" in result["followed"]
 
     @pytest.mark.vcr
     def test_normalize_collaborations(self):
