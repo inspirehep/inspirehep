@@ -435,13 +435,30 @@ class LiteratureSubmissionResource(BaseSubmissionsResource):
         }
         submission_data["acquisition_source"] = self.get_acquisition_source()
         payload = {"data": submission_data, "form_data": form_data}
+        backoffice_payload = {
+            "data": submission_data,
+            "form_data": form_data,
+            "workflow_type": "HEP_CREATE",
+        }
 
-        return self.send_post_request_to_workflows(
-            current_app.config["INSPIRE_NEXT_URL"],
-            "/workflows/literature",
-            payload,
-            current_app.config["AUTHENTICATION_TOKEN"],
-        )
+        if current_app.config.get("FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE"):
+            LOGGER.info(
+                "Sending literature submission to backoffice", data=backoffice_payload
+            )
+            return self.send_post_request_to_workflows(
+                current_app.config["INSPIRE_BACKOFFICE_URL"],
+                "/api/workflows/literature/",
+                backoffice_payload,
+                current_app.config["AUTHENTICATION_TOKEN_BACKOFFICE"],
+                bearer_keyword="Token",
+            )
+        else:
+            return self.send_post_request_to_workflows(
+                current_app.config["INSPIRE_NEXT_URL"],
+                "/workflows/literature",
+                payload,
+                current_app.config["AUTHENTICATION_TOKEN"],
+            )
 
 
 class JobSubmissionsResource(BaseSubmissionsResource):
