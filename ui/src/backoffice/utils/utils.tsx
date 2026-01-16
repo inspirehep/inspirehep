@@ -292,6 +292,8 @@ export const getDag = (workflow_type: string): string | undefined => {
       return 'author_update_dag';
     case WorkflowTypes.HEP_CREATE:
       return 'hep_create_dag';
+    case WorkflowTypes.HEP_UPDATE:
+      return 'hep_create_dag';
     default:
       return undefined;
   }
