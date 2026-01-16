@@ -56,10 +56,12 @@ const LiteratureMainInfo = ({ data }) => {
         {license && (
           <div className="mb2">
             License: {license.get('url')}
-            <>
-              {' '}
-              imposed by <strong>{license.get('imposing')}</strong>
-            </>
+            {license.get('imposing') && (
+              <>
+                {' '}
+                imposed by <strong>{license.get('imposing')}</strong>
+              </>
+            )}
           </div>
         )}
         {arxivEprints && (

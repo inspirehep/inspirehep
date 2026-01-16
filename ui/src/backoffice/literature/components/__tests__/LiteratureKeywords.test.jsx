@@ -102,4 +102,29 @@ describe('LiteratureKeywords', () => {
     );
     expect(rows.length).toBe(0);
   });
+
+  test('shows badge count for 0 and for counts over 99', () => {
+    const classifierResultsWithCounts = Map({
+      fulltext_used: true,
+      complete_output: Map({
+        core_keywords: List([]),
+        filtered_core_keywords: List([
+          Map({ number: 0, keyword: 'zero keyword' }),
+          Map({ number: 100, keyword: 'large keyword' }),
+        ]),
+      }),
+    });
+
+    const { container } = render(
+      <LiteratureKeywords classifierResults={classifierResultsWithCounts} />
+    );
+
+    const zeroBadge = container.querySelector('.ant-badge-count[title="0"]');
+    const hundredBadge = container.querySelector(
+      '.ant-badge-count[title="100"]'
+    );
+
+    expect(zeroBadge).toBeInTheDocument();
+    expect(hundredBadge).toBeInTheDocument();
+  });
 });

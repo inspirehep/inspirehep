@@ -37,7 +37,12 @@ const LiteratureKeywords = ({ classifierResults }) => {
             >
               <div style={{ paddingRight: 12 }}>{label}</div>
               <div style={{ minWidth: 36, textAlign: 'right' }}>
-                <Badge count={count} color="green" />
+                <Badge
+                  count={count}
+                  color="green"
+                  showZero
+                  overflowCount={999999} // unfortunately the only way to configure is setting it infinity-like
+                />
               </div>
             </div>
           );
