@@ -630,6 +630,14 @@
           ],
           "core_keywords": [
             {
+              "keyword": "big number",
+              "number": 150
+            },
+            {
+              "keyword": "zero",
+              "number": 0
+            },
+            {
               "keyword": "qubit",
               "number": 29
             },
