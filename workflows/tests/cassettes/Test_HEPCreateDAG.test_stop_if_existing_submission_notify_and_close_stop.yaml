@@ -1,0 +1,326 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 15 Jan 2026 11:53:24 GMT
+      Location:
+      - /api/workflows/literature/4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2/
+  response:
+    body:
+      string: '{"id":"4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2","validation_errors":[],"data":{"titles":[{"title":"Submission
+        of something that exists","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"acquisition_source":{"email":"user@cern.ch","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575"}},"tickets":[{"id":1,"ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=8276e204876abe14225886640cbb35cc","workflow":"4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2","ticket_id":"8276e204876abe14225886640cbb35cc","_created_at":"2026-01-15T11:45:28.294749Z","_updated_at":"2026-01-15T11:45:28.294782Z","ticket_type":"hep_submission"}],"decisions":[],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2024-11-25T13:49:54.756000Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"running"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '1060'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 15 Jan 2026 11:53:24 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 15 Jan 2026 11:53:24 GMT
+      Location:
+      - /api/workflows/literature/4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2/
+  response:
+    body:
+      string: '{"id":"4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2","validation_errors":[],"data":{"titles":[{"title":"Submission
+        of something that exists","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"acquisition_source":{"email":"user@cern.ch","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575"}},"tickets":[{"id":1,"ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=8276e204876abe14225886640cbb35cc","workflow":"4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2","ticket_id":"8276e204876abe14225886640cbb35cc","_created_at":"2026-01-15T11:45:28.294749Z","_updated_at":"2026-01-15T11:45:28.294782Z","ticket_type":"hep_submission"}],"decisions":[],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2024-11-25T13:49:54.756000Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"running"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '1060'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 15 Jan 2026 11:53:24 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 15 Jan 2026 11:53:28 GMT
+      Location:
+      - /api/workflows/literature/4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2/
+  response:
+    body:
+      string: '{"id":"4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2","validation_errors":[],"data":{"titles":[{"title":"Submission
+        of something that exists","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"acquisition_source":{"email":"user@cern.ch","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575"}},"tickets":[{"id":1,"ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=8276e204876abe14225886640cbb35cc","workflow":"4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2","ticket_id":"8276e204876abe14225886640cbb35cc","_created_at":"2026-01-15T11:45:28.294749Z","_updated_at":"2026-01-15T11:45:28.294782Z","ticket_type":"hep_submission"}],"decisions":[],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2024-11-25T13:49:54.756000Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"running"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '1060'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 15 Jan 2026 11:53:28 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 15 Jan 2026 11:53:28 GMT
+      Location:
+      - /api/workflows/literature/4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2/
+  response:
+    body:
+      string: '{"id":"4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2","validation_errors":[],"data":{"titles":[{"title":"Submission
+        of something that exists","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"acquisition_source":{"email":"user@cern.ch","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575"}},"tickets":[{"id":1,"ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=8276e204876abe14225886640cbb35cc","workflow":"4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2","ticket_id":"8276e204876abe14225886640cbb35cc","_created_at":"2026-01-15T11:45:28.294749Z","_updated_at":"2026-01-15T11:45:28.294782Z","ticket_type":"hep_submission"}],"decisions":[],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2024-11-25T13:49:54.756000Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"running"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '1060'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 15 Jan 2026 11:53:28 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -433,3 +433,15 @@ def get_curation_ticket_subject(data):
 
     subject_parts = arxiv_ids + dois + report_numbers + [f"(#{recid})"]
     return " ".join(p for p in subject_parts if p is not None)
+
+
+def get_reply_curation_context(
+    metadata,
+    inspire_http_hook,
+):
+    email = metadata["acquisition_source"].get("email", "")
+    return {
+        "user_name": email,
+        "title": LiteratureReader(metadata).title,
+        "record_url": get_record_url(metadata, inspire_http_hook),
+    }
