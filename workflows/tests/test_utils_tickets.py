@@ -99,6 +99,32 @@ def test_get_functional_category_from_fulltext_or_raw_affiliations_uk_raw_affs()
     assert functional_category == tickets.LITERATURE_UK_CURATION_FUNCTIONAL_CATEGORY
 
 
+def test_get_functional_category_from_fulltext_or_raw_affiliations_cern():
+    workflow = {
+        "data": {
+            "core": True,
+            "authors": [
+                {
+                    "affiliations": [{"value": "CERN"}],
+                    "full_name": "Moskovic, Micha",
+                }
+            ],
+            "acquisition_source": {
+                "method": "submitter",
+                "source": "submitter",
+            },
+        }
+    }
+
+    functional_category = (
+        tickets.get_functional_category_from_fulltext_or_raw_affiliations(
+            workflow, None, None
+        )
+    )
+
+    assert functional_category == tickets.LITERATURE_CDS_CURATION_FUNCTIONAL_CATEGORY
+
+
 def test_get_functional_category_and_ticket_type_from_publisher():
     workflow = {
         "data": {
