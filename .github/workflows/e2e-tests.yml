@@ -80,6 +80,7 @@ jobs:
           INVENIO_CELERY_RESULT_BACKEND=redis://localhost:6379/1
           INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://postgres:postgres@localhost:5432/inspirehep
           INVENIO_INSPIRE_NEXT_URL=http://localhost:5000
+          INVENIO_FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE=True
           APP_DEBUG=True
           APP_MAIL_DEBUG=1
           APP_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://postgres:postgres@localhost:5432/inspirehep
