@@ -1032,7 +1032,7 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        assert "preprocessing.download_documents" in res
+        assert "preprocessing.populate_submission_document" in res
 
     @pytest.mark.vcr
     def test_populate_journal_coverage(self):
@@ -1344,6 +1344,179 @@ class Test_HEPCreateDAG:
                 params={"tarball_key": tarball_key},
                 dag_params=self.context["params"],
             )
+
+    @pytest.mark.vcr
+    def test_populate_submission_document(self):
+        workflow = {
+            "id": self.workflow_id,
+            "data": {
+                "acquisition_source": {
+                    "datetime": "2017-11-30T16:38:43.352370",
+                    "email": "david.caro@cern.ch",
+                    "internal_uid": 54252,
+                    "method": "submitter",
+                    "orcid": "0000-0002-2174-4493",
+                    "source": "submitter",
+                    "submission_number": "1",
+                }
+            },
+            "form_data": {"url": "https://arxiv.org/pdf/1605.03844"},
+        }
+
+        s3.write_workflow(self.s3_hook, workflow, self.bucket_name)
+
+        schema = load_schema("hep")
+        subschema = schema["properties"]["acquisition_source"]
+
+        assert validate(workflow["data"]["acquisition_source"], subschema) is None
+
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.populate_submission_document",
+            dag_params=self.context["params"],
+        )
+
+        expected = [
+            {
+                "fulltext": True,
+                "key": "fulltext.pdf",
+                "original_url": "https://arxiv.org/pdf/1605.03844",
+                "source": "submitter",
+                "url": "https://arxiv.org/pdf/1605.03844",
+            },
+        ]
+
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
+
+        assert expected == workflow_result["data"]["documents"]
+
+    @pytest.mark.vcr
+    def test_populate_submission_document_does_not_duplicate_documents(self):
+        workflow = {
+            "id": self.workflow_id,
+            "data": {
+                "acquisition_source": {
+                    "datetime": "2017-11-30T16:38:43.352370",
+                    "email": "david.caro@cern.ch",
+                    "internal_uid": 54252,
+                    "method": "submitter",
+                    "orcid": "0000-0002-2174-4493",
+                    "source": "submitter",
+                    "submission_number": "1",
+                }
+            },
+            "form_data": {"url": "https://arxiv.org/pdf/1605.03844"},
+        }
+
+        schema = load_schema("hep")
+        subschema = schema["properties"]["acquisition_source"]
+
+        assert validate(workflow["data"]["acquisition_source"], subschema) is None
+
+        s3.write_workflow(self.s3_hook, workflow, self.bucket_name)
+
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.populate_submission_document",
+            dag_params=self.context["params"],
+        )
+
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.populate_submission_document",
+            dag_params=self.context["params"],
+        )
+
+        expected = [
+            {
+                "fulltext": True,
+                "key": "fulltext.pdf",
+                "original_url": "https://arxiv.org/pdf/1605.03844",
+                "source": "submitter",
+                "url": "https://arxiv.org/pdf/1605.03844",
+            },
+        ]
+
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
+
+        assert expected == workflow_result["data"]["documents"]
+
+    def test_populate_submission_document_without_pdf(self):
+        workflow = {
+            "id": self.workflow_id,
+            "data": {
+                "acquisition_source": {
+                    "datetime": "2017-11-30T16:38:43.352370",
+                    "email": "david.caro@cern.ch",
+                    "internal_uid": 54252,
+                    "method": "submitter",
+                    "orcid": "0000-0002-2174-4493",
+                    "source": "submitter",
+                    "submission_number": "1",
+                },
+                "form_data": {"url": "https://inspirehep.net"},
+            },
+        }
+
+        schema = load_schema("hep")
+        subschema = schema["properties"]["acquisition_source"]
+
+        assert validate(workflow["data"]["acquisition_source"], subschema) is None
+
+        s3.write_workflow(self.s3_hook, workflow, self.bucket_name)
+
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.populate_submission_document",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
+
+        assert not workflow_result["data"].get("documents")
+
+    def test_populate_submission_document_without_documents(self):
+        schema = load_schema("hep")
+        subschema = schema["properties"]["acquisition_source"]
+        workflow = {
+            "id": self.workflow_id,
+            "data": {
+                "acquisition_source": {
+                    "datetime": "2017-11-30T16:38:43.352370",
+                    "email": "david.caro@cern.ch",
+                    "internal_uid": 54252,
+                    "method": "submitter",
+                    "orcid": "0000-0002-2174-4493",
+                    "source": "submitter",
+                    "submission_number": "1",
+                },
+                "documents": [],
+            },
+        }
+        assert validate(workflow["data"]["acquisition_source"], subschema) is None
+
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.populate_submission_document",
+            dag_params=self.context["params"],
+        )
+
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.populate_submission_document",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
+        assert "documents" not in workflow_result["data"]
 
     @pytest.mark.vcr
     def test_download_documents(self):

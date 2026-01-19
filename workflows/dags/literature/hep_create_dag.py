@@ -519,6 +519,49 @@ def hep_create_dag():
 
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
+        @task
+        def populate_submission_document(**context):
+            s3_workflow_id = context["params"]["workflow_id"]
+            workflow = s3.read_workflow(s3_hook, bucket_name, s3_workflow_id)
+
+            if not is_submission(workflow):
+                return
+
+            form_data = workflow.get("form_data", {}) or {}
+            submission_pdf = form_data.get("url")
+
+            if submission_pdf and workflows.is_pdf_link(submission_pdf):
+                filename = secure_filename("fulltext.pdf")
+                workflow["data"]["documents"] = [
+                    document
+                    for document in workflow["data"].get("documents", ())
+                    if document.get("key") != filename
+                ]
+                lb = LiteratureBuilder(
+                    source=get_value(workflow, "data.acquisition_source.source"),
+                    record=workflow["data"],
+                )
+                lb.add_document(
+                    filename,
+                    fulltext=True,
+                    url=submission_pdf,
+                    original_url=submission_pdf,
+                )
+
+                workflow["data"] = lb.record
+                logger.info(
+                    f"Workflow data updated with "
+                    f"{len(get_value(workflow, 'data.documents', []))} new documents"
+                )
+            else:
+                logger.info(
+                    f"Submission document not found or in"
+                    f" an incorrect format ({submission_pdf})"
+                )
+
+            workflows.delete_empty_key(workflow, "documents")
+            s3.write_workflow(s3_hook, workflow, bucket_name)
+
         @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def download_documents(**context):
             s3_workflow_id = context["params"]["workflow_id"]
@@ -904,7 +947,7 @@ def hep_create_dag():
 
             if workflows.is_arxiv_paper(workflow_data["data"]):
                 return "preprocessing.populate_arxiv_document"
-            return "preprocessing.download_documents"
+            return "preprocessing.populate_submission_document"
 
         @task
         def populate_arxiv_document(**context):
@@ -1112,13 +1155,13 @@ def hep_create_dag():
 
         populate_arxiv_document_task = populate_arxiv_document()
         arxiv_package_download_task = arxiv_package_download()
+        populate_submission_document_task = populate_submission_document()
         arxiv_author_list_task = arxiv_author_list(arxiv_package_download_task)
-        download_documents_task = download_documents()
         normalize_journal_titles_task = normalize_journal_titles()
         extract_authors_from_pdf_task = extract_authors_from_pdf()
 
         check_is_arxiv_paper_task >> [
-            download_documents_task,
+            populate_submission_document_task,
             populate_arxiv_document_task,
         ]
 
@@ -1127,7 +1170,8 @@ def hep_create_dag():
             >> arxiv_package_download_task
             >> arxiv_plot_extract(arxiv_package_download_task)
             >> arxiv_author_list_task
-            >> download_documents_task
+            >> populate_submission_document_task
+            >> download_documents()
             >> is_suitable_for_pdf_authors_extraction(
                 has_author_xml=arxiv_author_list_task
             )

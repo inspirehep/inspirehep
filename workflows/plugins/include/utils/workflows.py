@@ -4,6 +4,7 @@ import re
 from itertools import chain
 from tempfile import TemporaryDirectory
 
+import requests
 from hooks.backoffice.workflow_management_hook import (
     HEP,
     WorkflowManagementHook,
@@ -119,6 +120,10 @@ def is_pdf_link(response):
     Returns:
         bool: whether the response url points to a PDF.
     """
+
+    if isinstance(response, str):
+        response = requests.get(response, allow_redirects=True, stream=True)
+
     found = next(response.iter_content(10000), b"").find(b"%PDF")
 
     return found >= 0
