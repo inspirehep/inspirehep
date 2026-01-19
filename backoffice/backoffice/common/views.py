@@ -7,6 +7,11 @@ from inspire_schemas.errors import SchemaKeyNotFound, SchemaNotFound
 from inspire_schemas.utils import get_validation_errors
 from rest_framework.decorators import action
 
+from requests.exceptions import RequestException
+from backoffice.common import airflow_utils
+from backoffice.common.utils import (
+    handle_request_exception,
+)
 from backoffice.common.utils import (
     render_validation_error_response,
 )
@@ -116,3 +121,57 @@ class BaseWorkflowViewSet(viewsets.ModelViewSet):
             {"message": "Record is valid."},
             status=status.HTTP_200_OK,
         )
+
+    @action(detail=True, methods=["post"])
+    def restart(self, request, pk=None):
+        model = self.get_queryset().model
+        workflow = get_object_or_404(model, pk=pk)
+
+        restart_current_task = request.data.get("restart_current_task")
+
+        try:
+            if restart_current_task:
+                response = airflow_utils.restart_failed_tasks(
+                    workflow.id, workflow.workflow_type
+                )
+                error_msg = "No failed tasks found to restart. Skipping restart."
+            else:
+                executed_dags = airflow_utils.find_executed_dags(
+                    workflow.id, workflow.workflow_type
+                )
+                has_failed_dag = airflow_utils.find_failed_dag_for_workflow(
+                    executed_dags
+                )
+                has_no_executions = not executed_dags
+
+                if has_failed_dag or has_no_executions:
+                    response = airflow_utils.restart_workflow_dags(
+                        workflow.id,
+                        workflow.workflow_type,
+                        request.data.get("params"),
+                        workflow=self.get_serializer(workflow).data,
+                    )
+                    error_msg = "No run configuration found. Skipping restart."
+                else:
+                    response = None
+                    error_msg = (
+                        "Workflow has already run successfully. Skipping restart."
+                    )
+
+            if response is None:
+                return Response(
+                    {"error": error_msg}, status=status.HTTP_400_BAD_REQUEST
+                )
+
+        except RequestException as e:
+            return handle_request_exception(
+                "Error restarting Airflow DAGs for workflow %s",
+                e,
+                workflow.id,
+                response_text="Error restarting Airflow DAGs for workflow %s",
+            )
+
+        workflow.status = self.status_choices.PROCESSING
+        workflow.save()
+
+        return Response(self.get_serializer(workflow).data)

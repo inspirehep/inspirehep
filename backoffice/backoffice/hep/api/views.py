@@ -87,6 +87,7 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
     queryset = HepWorkflow.objects.all()
     serializer_class = HepWorkflowSerializer
     resolution_serializer = HepResolutionSerializer
+    status_choices = HepStatusChoices
     schema_name = "hep"
 
     def create(self, request):
@@ -98,7 +99,7 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         workflow = serializer.save()
         try:
             airflow_utils.trigger_airflow_dag(
-                WORKFLOW_DAGS[workflow.workflow_type], str(workflow.id)
+                WORKFLOW_DAGS[workflow.workflow_type].initialize, str(workflow.id)
             )
         except RequestException as e:
             return handle_request_exception(
@@ -130,7 +131,7 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         if task_to_restart:
             try:
                 airflow_utils.clear_airflow_dag_tasks(
-                    WORKFLOW_DAGS[HepWorkflowType.HEP_CREATE],
+                    WORKFLOW_DAGS[HepWorkflowType.HEP_CREATE].initialize,
                     pk,
                     tasks=[task_to_restart],
                 )

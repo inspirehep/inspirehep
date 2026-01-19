@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col, Button, Table } from 'antd';
-import { EditOutlined, RedoOutlined, SyncOutlined } from '@ant-design/icons';
 import { ActionCreator, Action } from 'redux';
 import { connect, RootStateOrAny } from 'react-redux';
 import { Map } from 'immutable';
@@ -42,9 +41,10 @@ import PrivateNotes from '../components/PrivateNotes';
 import AuthorMainInfo from '../components/AuthorMainInfo';
 import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
 import { BACKOFFICE_AUTHORS_SEARCH_NS } from '../../../search/constants';
-import { AUTHORS_PID_TYPE, WorkflowDecisions } from '../../../common/constants';
+import { AUTHORS_PID_TYPE } from '../../../common/constants';
 import { StatusBanner } from '../../common/components/Detail/StatusBanner';
 import { TicketsList } from '../../common/components/Detail/TicketsList';
+import { RestartActionButtons } from '../../common/components/Detail/RestartActionButtons';
 import { WorkflowStatuses } from '../../constants';
 import { AuthorActionButtons } from '../components/AuthorActionButtons';
 
@@ -104,6 +104,18 @@ const AuthorDetailPageContainer = ({
 
   const handleResolveAction = (value: string) => {
     dispatch(resolveAction(id, AUTHORS_PID_TYPE, 'resolve', { value }));
+  };
+
+  const handleRestart = () => {
+    dispatch(resolveAction(id, AUTHORS_PID_TYPE, 'restart', {}));
+  };
+
+  const handleRestartCurrent = () => {
+    dispatch(
+      resolveAction(id, AUTHORS_PID_TYPE, 'restart', {
+        restart_current_task: true,
+      })
+    );
   };
 
   const handleDelete = () => {
@@ -302,43 +314,13 @@ const AuthorDetailPageContainer = ({
                     subTitle="Actions"
                     className="mb3"
                   >
-                    <div className="flex flex-column items-center">
-                      <Button
-                        className="mb2 w-75"
-                        onClick={() =>
-                          dispatch(
-                            resolveAction(id, AUTHORS_PID_TYPE, 'restart', {})
-                          )
-                        }
-                        loading={actionInProgress === 'restart'}
-                      >
-                        <SyncOutlined />
-                        Restart workflow
-                      </Button>
-                      <Button
-                        className="mb2 w-75"
-                        onClick={() =>
-                          dispatch(
-                            resolveAction(id, AUTHORS_PID_TYPE, 'restart', {
-                              restart_current_task: true,
-                            })
-                          )
-                        }
-                        loading={actionInProgress === 'restart'}
-                      >
-                        <RedoOutlined />
-                        Restart current step
-                      </Button>
-                      <Button className="mb2 w-75" type="primary">
-                        <a
-                          href={`/editor/backoffice/${AUTHORS_PID_TYPE}/${id}`}
-                        >
-                          <EditOutlined />
-                          {'  '}
-                          Open in Editor
-                        </a>
-                      </Button>
-                    </div>
+                    <RestartActionButtons
+                      handleRestart={handleRestart}
+                      handleRestartCurrent={handleRestartCurrent}
+                      id={id}
+                      pidType={AUTHORS_PID_TYPE}
+                      actionInProgress={actionInProgress}
+                    />
                   </ContentBox>
                 </Col>
               </Row>

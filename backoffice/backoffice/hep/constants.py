@@ -89,6 +89,10 @@ class HepJournalCoverage(models.TextChoices):
     PARTIAL = "partial", "Partial"
 
 
+class HepCreateDags(models.TextChoices):
+    initialize = "hep_create_dag", "initialize"
+
+
 ANTIHEP_KEYWORDS = {
     "kaium",
     "hydrogen",
