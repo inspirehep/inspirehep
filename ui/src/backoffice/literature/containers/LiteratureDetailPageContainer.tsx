@@ -8,7 +8,7 @@ import { push } from 'connected-react-router';
 import './LiteratureDetailPageContainer.less';
 
 import { Button, Col, Row, Table } from 'antd';
-import { EditOutlined, RedoOutlined, SyncOutlined } from '@ant-design/icons';
+import { RestartActionButtons } from '../../common/components/Detail/RestartActionButtons';
 import {
   deleteWorkflow,
   fetchLiteratureRecord,
@@ -112,6 +112,18 @@ const LiteratureDetailPageContainer = ({
       value,
     };
     dispatch(resolveAction(id, LITERATURE_PID_TYPE, 'resolve', payload));
+  };
+
+  const handleRestart = () => {
+    dispatch(resolveAction(id, LITERATURE_PID_TYPE, 'restart', {}));
+  };
+
+  const handleRestartCurrent = () => {
+    dispatch(
+      resolveAction(id, LITERATURE_PID_TYPE, 'restart', {
+        restart_current_task: true,
+      })
+    );
   };
 
   const handleDelete = () => {
@@ -271,53 +283,13 @@ const LiteratureDetailPageContainer = ({
                       subTitle="Actions"
                       className="mb3"
                     >
-                      <div className="flex flex-column items-center">
-                        <Button
-                          className="mb2 w-75"
-                          onClick={() =>
-                            dispatch(
-                              resolveAction(
-                                id,
-                                LITERATURE_PID_TYPE,
-                                'restart',
-                                {}
-                              )
-                            )
-                          }
-                          loading={actionInProgress === 'restart'}
-                        >
-                          <SyncOutlined />
-                          Restart workflow
-                        </Button>
-                        <Button
-                          className="mb2 w-75"
-                          onClick={() =>
-                            dispatch(
-                              resolveAction(
-                                id,
-                                LITERATURE_PID_TYPE,
-                                'restart',
-                                {
-                                  restart_current_task: true,
-                                }
-                              )
-                            )
-                          }
-                          loading={actionInProgress === 'restart'}
-                        >
-                          <RedoOutlined />
-                          Restart current step
-                        </Button>
-                        <Button className="mb2 w-75" type="primary">
-                          <a
-                            href={`/editor/backoffice/${LITERATURE_PID_TYPE}/${id}`}
-                          >
-                            <EditOutlined />
-                            {'  '}
-                            Open in Editor
-                          </a>
-                        </Button>
-                      </div>
+                      <RestartActionButtons
+                        handleRestart={handleRestart}
+                        handleRestartCurrent={handleRestartCurrent}
+                        id={id}
+                        pidType={LITERATURE_PID_TYPE}
+                        actionInProgress={actionInProgress}
+                      />
                     </ContentBox>
                   </Col>
                 </Row>

@@ -101,7 +101,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
 
         data = {
             "workflow_type": HepWorkflowType.HEP_CREATE,
-            "status": "running",
+            "status": HepStatusChoices.RUNNING,
             "data": hep_data_valid(),
         }
 
@@ -119,7 +119,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
 
         data = {
             "workflow_type": HepWorkflowType.HEP_CREATE,
-            "status": "running",
+            "status": HepStatusChoices.RUNNING,
             "data": hep_data_invalid(),
         }
 
@@ -153,7 +153,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
 
         data = {
             "workflow_type": HepWorkflowType.HEP_CREATE,
-            "status": "running",
+            "status": HepStatusChoices.RUNNING,
             "data": hep_data_valid(),
             "classifier_results": {
                 "categories": [{"keyword": "Higgs particle", "category": "HEP"}],
