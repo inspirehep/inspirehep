@@ -1,4 +1,5 @@
 import pytest
+from hooks.backoffice.workflow_management_hook import HEP
 from hooks.inspirehep.inspire_http_hook import (
     InspireHttpHook,
 )
@@ -646,3 +647,32 @@ def test_check_if_cern_candidate():
 
     workflow = {"data": {"collaborations": [{"value": "ALICE"}]}}
     assert workflows.check_if_cern_candidate(workflow)
+
+
+@pytest.mark.vcr
+def test_save_workflow():
+    workflow_data = {
+        "id": "00000000-0000-0000-0000-000000001111",
+        "data": {
+            "titles": [{"title": "test_1"}],
+            "abstracts": [
+                {
+                    "value": (
+                        "We present a comprehensive study of Higgs boson"
+                        " production mechanisms in high-energy particle collisions."
+                    )
+                }
+            ],
+            "document_type": [
+                "article",
+            ],
+            "_collections": ["Literature"],
+        },
+        "workflow_type": "HEP_CREATE",
+    }
+
+    result = function_test(
+        workflows.save_workflow, params={"workflow": workflow_data, "collection": HEP}
+    )
+
+    assert result["data"] == workflow_data["data"]
