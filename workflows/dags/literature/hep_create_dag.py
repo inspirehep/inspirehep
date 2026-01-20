@@ -302,7 +302,7 @@ def hep_create_dag():
         s3.write_workflow(s3_hook, workflow_data, bucket_name)
         return True
 
-    @task.branch
+    @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def stop_if_existing_submission_notify_and_close(**context):
         """Send notification if the workflow is a submission."""
         workflow_data = s3.read_workflow(
