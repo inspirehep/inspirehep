@@ -1696,13 +1696,13 @@ def hep_create_dag():
             data, inspire_http_hook
         )
 
-        functional_category = (
-            tickets.get_functional_category_from_fulltext_or_raw_affiliations(
+        functional_categories = (
+            tickets.get_functional_categories_from_fulltext_or_raw_affiliations(
                 workflow_data, s3_hook, bucket_name
             )
         )
 
-        if functional_category:
+        for functional_category in functional_categories:
             response = inspire_http_hook.create_ticket(
                 functional_category,
                 "curation_core",

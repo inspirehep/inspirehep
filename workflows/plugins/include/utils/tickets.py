@@ -24,32 +24,43 @@ def get_ticket_by_type(workflow, ticket_type):
             return ticket
 
 
-def get_functional_category_from_fulltext_or_raw_affiliations(
+def get_functional_categories_from_fulltext_or_raw_affiliations(
     workflow, s3_hook, bucket_name, is_core=True
 ):
+    functional_categories = []
     is_core = get_value(workflow, "data.core")
     if workflows.is_arxiv_paper(workflow["data"]):
         fulltext = workflows.get_fulltext(workflow, s3_hook, bucket_name)
 
         if workflows.check_if_france_in_fulltext(fulltext):
-            return LITERATURE_HAL_CURATION_FUNCTIONAL_CATEGORY
-        elif is_core:
+            functional_categories.append(LITERATURE_HAL_CURATION_FUNCTIONAL_CATEGORY)
+        if is_core:
             if workflows.check_if_germany_in_fulltext(fulltext):
-                return LITERATURE_GERMAN_CURATION_FUNCTIONAL_CATEGORY
-            elif workflows.check_if_uk_in_fulltext(fulltext):
-                return LITERATURE_UK_CURATION_FUNCTIONAL_CATEGORY
-            if workflows.check_if_cern_candidate():
-                return LITERATURE_CDS_CURATION_FUNCTIONAL_CATEGORY
+                functional_categories.append(
+                    LITERATURE_GERMAN_CURATION_FUNCTIONAL_CATEGORY
+                )
+            if workflows.check_if_uk_in_fulltext(fulltext):
+                functional_categories.append(LITERATURE_UK_CURATION_FUNCTIONAL_CATEGORY)
+            if workflows.check_if_cern_candidate(workflow):
+                functional_categories.append(
+                    LITERATURE_CDS_CURATION_FUNCTIONAL_CATEGORY
+                )
     else:
         if workflows.check_if_france_in_raw_affiliations(workflow):
-            return LITERATURE_HAL_CURATION_FUNCTIONAL_CATEGORY
-        elif is_core:
+            functional_categories.append(LITERATURE_HAL_CURATION_FUNCTIONAL_CATEGORY)
+        if is_core:
             if workflows.check_if_germany_in_raw_affiliations(workflow):
-                return LITERATURE_GERMAN_CURATION_FUNCTIONAL_CATEGORY
+                functional_categories.append(
+                    LITERATURE_GERMAN_CURATION_FUNCTIONAL_CATEGORY
+                )
             if workflows.check_if_uk_in_raw_affiliations(workflow):
-                return LITERATURE_UK_CURATION_FUNCTIONAL_CATEGORY
+                functional_categories.append(LITERATURE_UK_CURATION_FUNCTIONAL_CATEGORY)
             if workflows.check_if_cern_candidate(workflow):
-                return LITERATURE_CDS_CURATION_FUNCTIONAL_CATEGORY
+                functional_categories.append(
+                    LITERATURE_CDS_CURATION_FUNCTIONAL_CATEGORY
+                )
+
+    return functional_categories
 
 
 def get_functional_category_and_ticket_type_from_publisher(workflow):
