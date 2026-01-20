@@ -48,7 +48,9 @@ from include.inspire.journal_title_normalization import (
 from include.inspire.journals import get_db_journals
 from include.inspire.refextract_utils import (
     extract_references_from_pdf,
+    extract_references_from_text,
     map_refextract_reference_to_schema,
+    match_references_hep,
     raw_refs_to_list,
 )
 from include.utils import s3, tickets, workflows
@@ -735,61 +737,59 @@ def hep_create_dag():
                     "Extracted %d references from raw refs.", len(extracted_references)
                 )
 
-                response = inspire_http_hook.call_api(
-                    endpoint="api/matcher/linked_references/",
-                    method="POST",
-                    json={"references": extracted_references + references},
-                )
-                response.raise_for_status()
-
-                workflow_data["data"]["references"] = response.json().get(
-                    "references", []
+                workflow_data["data"]["references"] = match_references_hep(
+                    extracted_references + references, inspire_http_hook
                 )
 
                 s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
                 return
 
-            matched_pdf_references = []
+            matched_pdf_references, matched_text_references = [], []
 
             key = workflows.get_document_key_in_workflow(workflow_data)
-            if not key:
-                logger.info("No document found for reference extraction.")
-                return
+            if key:
+                with TemporaryDirectory(prefix="refextract") as tmp_dir:
+                    document_path = s3_hook.download_file(
+                        f"{context['params']['workflow_id']}/documents/{key}",
+                        bucket_name,
+                        tmp_dir,
+                    )
+                    pdf_references = dedupe_list(
+                        extract_references_from_pdf(
+                            document_path, source, {"journals": journal_kb_dict}
+                        )
+                    )
 
-            with TemporaryDirectory(prefix="refextract") as tmp_dir:
-                document_path = s3_hook.download_file(
-                    f"{context['params']['workflow_id']}/documents/{key}",
-                    bucket_name,
-                    tmp_dir,
-                )
-                pdf_references = dedupe_list(
-                    extract_references_from_pdf(
-                        document_path, source, {"journals": journal_kb_dict}
+                    matched_pdf_references = match_references_hep(
+                        pdf_references, inspire_http_hook
+                    )
+
+            text = get_value(workflow_data, "form_data.references") or ""
+            if text:
+                text_references = dedupe_list(
+                    extract_references_from_text(
+                        text, source, {"journals": journal_kb_dict}
                     )
                 )
-
-                response = inspire_http_hook.call_api(
-                    endpoint="api/matcher/linked_references/",
-                    method="POST",
-                    json={"references": pdf_references},
+                matched_text_references = match_references_hep(
+                    text_references, inspire_http_hook
                 )
-                response.raise_for_status()
 
-                matched_pdf_references = response.json().get("references", [])
-
-            # TODO:
-            # Add text reference extraction when we have submissions
-            # add a field similar to extra_data.formdata.references exists
-
-            if not matched_pdf_references:
+            if not matched_pdf_references and not matched_text_references:
                 logger.info("No references extracted.")
                 return
 
-            logger.info(
-                "Extracted %d references from PDF.", len(matched_pdf_references)
-            )
-            workflow_data["data"]["references"] = matched_pdf_references
+            if len(matched_pdf_references) > len(matched_text_references):
+                logger.info(
+                    f"Extracted {len(matched_pdf_references)} references from PDF.",
+                )
+                workflow_data["data"]["references"] = matched_pdf_references
+            else:
+                logger.info(
+                    f"Extracted {len(matched_text_references)} references from text.",
+                )
+                workflow_data["data"]["references"] = matched_text_references
 
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
 

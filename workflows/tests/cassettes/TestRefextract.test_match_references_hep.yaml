@@ -1,0 +1,46 @@
+interactions:
+- request:
+    body: '{"references": [{"reference": {"authors": [{"full_name": "Banerji, S."},
+      {"full_name": "Meem, M."}, {"full_name": "Majumder, A."}], "label": "2", "misc":
+      ["OSA Continuum 2, 2968-2974"], "title": {"title": "Single flat lens enabling
+      imaging in the short-wave infra-red (swir) band"}, "publication_info": {"year":
+      2019}}, "raw_refs": [{"schema": "text", "value": "2 S. Banerji, M. Meem, A.
+      Majumder, C. Dvonch, B. Sensale-Rodriguez, and R. Menon, \u201cSingle flat lens
+      enabling imaging in the short-wave infra-red (swir) band", "source": "arXiv"}]}]}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '549'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8080/api/matcher/linked_references/
+  response:
+    body:
+      string: "{\"references\":[{\"reference\":{\"authors\":[{\"full_name\":\"Banerji,
+        S.\"},{\"full_name\":\"Meem, M.\"},{\"full_name\":\"Majumder, A.\"}],\"label\":\"2\",\"misc\":[\"OSA
+        Continuum 2, 2968-2974\"],\"title\":{\"title\":\"Single flat lens enabling
+        imaging in the short-wave infra-red (swir) band\"},\"publication_info\":{\"year\":2019}},\"raw_refs\":[{\"schema\":\"text\",\"value\":\"2
+        S. Banerji, M. Meem, A. Majumder, C. Dvonch, B. Sensale-Rodriguez, and R.
+        Menon, \u201CSingle flat lens enabling imaging in the short-wave infra-red
+        (swir) band\",\"source\":\"arXiv\"}]}]}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '522'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 20 Jan 2026 14:33:13 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+version: 1
