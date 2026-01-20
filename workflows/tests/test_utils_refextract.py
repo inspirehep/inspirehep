@@ -1,10 +1,18 @@
+import pytest
+from hooks.inspirehep.inspire_http_hook import (
+    InspireHttpHook,
+)
 from include.inspire.refextract_utils import (
     extract_references_from_pdf,
+    extract_references_from_text,
     map_refextract_reference_to_schema,
     map_refextract_to_schema,
+    match_references_hep,
     raw_refs_to_list,
 )
 from inspire_schemas.api import load_schema, validate
+
+from tests.test_utils import function_test
 
 
 class TestRefextract:
@@ -205,3 +213,67 @@ class TestRefextract:
         assert validate(references, subschema) is None
         assert len(references) == 1
         assert references[0] == reference
+
+    def test_extract_references_from_text_handles_unicode(self):
+        schema = load_schema("hep")
+        subschema = schema["properties"]["references"]
+        text = "Iskra Ł W et al 2017 Acta Phys. Pol. B 48 581"
+
+        result = extract_references_from_text(text)
+
+        assert validate(result, subschema) is None
+        assert len(result) > 0
+
+    def test_extract_references_from_text_removes_duplicate_urls(self):
+        schema = load_schema("hep")
+        subschema = schema["properties"]["references"]
+
+        text = "[4] CALICE Collaboration webpage. http://twiki.cern.ch/CALICE hello http://twiki.cern.ch/CALICE"
+        result = extract_references_from_text(text)
+
+        assert validate(result, subschema) is None
+        assert len(result[0]["reference"]["urls"]) == 1
+
+    def test_extract_references_from_text_populates_raw_refs_source(self):
+        text = "Iskra Ł W et al 2017 Acta Phys. Pol. B 48 581"
+
+        result = extract_references_from_text(text, source="submitter")
+
+        assert result[0]["raw_refs"][0]["source"] == "submitter"
+
+    @pytest.mark.vcr
+    def test_match_references_hep(self):
+        def _test_match_references_hep():
+            references = [
+                {
+                    "reference": {
+                        "authors": [
+                            {"full_name": "Banerji, S."},
+                            {"full_name": "Meem, M."},
+                            {"full_name": "Majumder, A."},
+                        ],
+                        "label": "2",
+                        "misc": ["OSA Continuum 2, 2968-2974"],
+                        "title": {
+                            "title": "Single flat lens enabling imaging "
+                            "in the short-wave infra-red (swir) band"
+                        },
+                        "publication_info": {"year": 2019},
+                    },
+                    "raw_refs": [
+                        {
+                            "schema": "text",
+                            "value": "2 S. Banerji, M. Meem, A. Majumder, C. Dvonch,"
+                            " B. Sensale-Rodriguez, and R. Menon, “Single flat lens "
+                            "enabling imaging in the short-wave infra-red (swir) band",
+                            "source": "arXiv",
+                        }
+                    ],
+                }
+            ]
+
+            matched_references = match_references_hep(references, InspireHttpHook())
+
+            assert matched_references == references
+
+        function_test(_test_match_references_hep)

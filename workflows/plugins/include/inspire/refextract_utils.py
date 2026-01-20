@@ -4,7 +4,7 @@ from inspire_schemas.api import ReferenceBuilder
 from inspire_utils.dedupers import dedupe_list_of_dicts
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
-from refextract.references.api import extract_references_from_file
+from refextract import extract_references_from_file, extract_references_from_string
 from refextract.references.errors import UnknownDocumentTypeError
 
 logger = logging.getLogger(__name__)
@@ -118,3 +118,25 @@ def extract_references_from_pdf(filepath, source=None, custom_kbs_file=None):
         raise
 
     return map_refextract_to_schema(extracted_references, source=source)
+
+
+def extract_references_from_text(text, source=None, custom_kbs_file=None):
+    """Extract references from text and return in INSPIRE format."""
+    extracted_references = extract_references_from_string(
+        text,
+        override_kbs_files=custom_kbs_file,
+        reference_format="{title},{volume},{page}",
+    )
+
+    return map_refextract_to_schema(extracted_references, source=source)
+
+
+def match_references_hep(references, inspire_http_hook):
+    response = inspire_http_hook.call_api(
+        endpoint="api/matcher/linked_references/",
+        method="POST",
+        json={"references": references},
+    )
+    response.raise_for_status()
+
+    return response.json().get("references", [])
