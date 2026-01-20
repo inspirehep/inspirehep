@@ -52,7 +52,7 @@ jobs:
           - 5672:5672
 
       elasticsearch:
-        image: registry.cern.ch/cern-sis/inspirehep/opensearch
+        image: registry.cern.ch/cern-sis/inspirehep/opensearch:3.2.0
         env:
           DISABLE_SECURITY_PLUGIN: true
           bootstrap.memory_lock: true

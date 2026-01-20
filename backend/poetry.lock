@@ -2753,15 +2753,13 @@ tests = ["Sphinx (==4.2.0)", "pytest-invenio (>=1.4.0)", "xmltodict (>=0.11.0)"]
 
 [[package]]
 name = "invenio-search"
-version = "2.3.1"
+version = "2.4.1"
 description = "\"Invenio module for information retrieval.\""
 optional = false
 python-versions = ">=3.7"
 groups = ["main"]
-files = [
-    {file = "invenio-search-2.3.1.tar.gz", hash = "sha256:ecbb420d4804b3a4fca8bcc9f8b5941067b06204b5a3c62ec997270f3c0e6ba6"},
-    {file = "invenio_search-2.3.1-py2.py3-none-any.whl", hash = "sha256:1f9789993bcb5339688e88ec60993802e33c6e94954cb0702d0a43c7c6f94e6b"},
-]
+files = []
+develop = false
 
 [package.dependencies]
 dictdiffer = ">=0.9.0"
@@ -2774,6 +2772,12 @@ elasticsearch7 = ["elasticsearch (>=7.0.0,<7.14)", "elasticsearch-dsl (>=7.0.0,<
 opensearch1 = ["opensearch-dsl (>=1.0.0,<2.0.0)", "opensearch-py (>=1.1.0,<2.0.0)"]
 opensearch2 = ["opensearch-dsl (>=2.0.0,<3.0.0)", "opensearch-py (>=2.0.0,<3.0.0)"]
 tests = ["Sphinx (>=3)", "invenio-accounts (>=2.0.0,<3.0.0)", "invenio-db[versioning] (>=1.0.0,<2.0.0)", "mock (>=1.3.0)", "pytest-black (>=0.3.0)", "pytest-invenio (>=2.0.0,<3.0.0)"]
+
+[package.source]
+type = "git"
+url = "https://github.com/inspirehep/invenio-search.git"
+reference = "HEAD"
+resolved_reference = "196f7cc0b47b11e24508e98ff2b895cefd67c17f"
 
 [[package]]
 name = "ipdb"
@@ -7037,4 +7041,4 @@ typing-extensions = ">=4.5.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.12"
-content-hash = "44ec0e0a603d646f5a23f865e0e30eeb46a2e9e963f8c15d62709b8342344377"
+content-hash = "875577fa41f8b5c0bd41ce4f593e505d9528467f003bd4eca4516104a4095d95"
