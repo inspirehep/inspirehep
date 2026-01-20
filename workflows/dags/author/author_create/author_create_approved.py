@@ -15,6 +15,7 @@ from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
 from include.utils.alerts import FailedDagNotifierSetError
+from include.utils.constants import TICKET_AUTHOR_CURATION
 from include.utils.set_workflow_status import (
     get_wf_status_from_inspire_response,
 )
@@ -100,7 +101,7 @@ def author_create_approved_dag():
         workflow_ticket_management_hook.create_ticket_entry(
             workflow_id=context["params"]["workflow_id"],
             ticket_id=response.json()["ticket_id"],
-            ticket_type="author_create_curation",
+            ticket_type=TICKET_AUTHOR_CURATION,
         )
 
     @task(do_xcom_push=True)
@@ -157,7 +158,7 @@ def author_create_approved_dag():
         inspire_http_hook.get_conn()
 
         request_data = {
-            "user_name": workflow_data["acquisition_source"].get("given_names", email),
+            "user_name": email,
             "author_name": workflow_data.get("name").get("preferred_name"),
             "record_url": f"{inspire_http_hook.base_url}/authors/{control_number}",
         }

@@ -14,6 +14,7 @@ from hooks.inspirehep.inspire_http_hook import (
     InspireHttpHook,
 )
 from include.utils.alerts import FailedDagNotifierSetError
+from include.utils.constants import TICKET_AUTHOR_CREATE
 from include.utils.tickets import get_ticket_by_type
 
 logger = logging.getLogger(__name__)
@@ -75,7 +76,7 @@ def author_create_initialization_dag():
             "curator_new_author",
             f"Your suggestion to INSPIRE: author "
             f"{workflow_data.get('name').get('preferred_name')}",
-            workflow_data["acquisition_source"]["email"],
+            email,
             {
                 "email": email,
                 "obj_url": inspire_http_hook.get_backoffice_url(
@@ -100,7 +101,7 @@ def author_create_initialization_dag():
 
         workflow_ticket_management_hook.create_ticket_entry(
             workflow_id=context["params"]["workflow_id"],
-            ticket_type="author_create_user",
+            ticket_type=TICKET_AUTHOR_CREATE,
             ticket_id=ticket_id,
         )
 
