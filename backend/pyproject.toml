@@ -41,7 +41,7 @@ invenio-oauthclient= {git = "https://github.com/inspirehep/invenio-oauthclient.g
 invenio-pidstore= "^1.2.1"
 invenio-records = {git = "https://github.com/inspirehep/invenio-records"}
 invenio-rest= "^1.2.4"
-invenio-search = {version = "2.3.1", extras = ["opensearch2"]}
+invenio-search = {git = "https://github.com/inspirehep/invenio-search.git", extras = ["opensearch2"]}
 marshmallow = "<3.0.0"
 flask-shell-ipython = "~=0.3,>=0.3.0"
 flask-sqlalchemy = {git = "https://github.com/inspirehep/flask-sqlalchemy.git", rev = "7a998a522642a9fb89445ee6b790f05986bde481"}
