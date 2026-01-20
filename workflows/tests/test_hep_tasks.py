@@ -2545,7 +2545,12 @@ class Test_HEPCreateDAG:
                     ],
                     "authors": [{"full_name": "Blumaaaaaaa, T."}],
                     "arxiv_eprints": [{"value": "1801.07224"}],
+                    "document_type": [
+                        "article",
+                    ],
+                    "_collections": ["Literature"],
                 },
+                "workflow_type": "HEP_CREATE",
             },
             self.bucket_name,
         )
@@ -2564,6 +2569,11 @@ class Test_HEPCreateDAG:
         assert {"title": "New title"} in workflow_result["data"]["titles"]
         assert "merge_details" in workflow_result
         assert "conflicts" in workflow_result["merge_details"]
+
+        backoffice_workflow = get_lit_workflow_task(self.workflow_id)
+
+        assert workflow_result["data"] == backoffice_workflow["data"]
+        assert workflow_result["merge_details"] == backoffice_workflow["merge_details"]
 
     @pytest.mark.vcr
     def test_await_merge_conflicts_resolved_no_conflicts(self):

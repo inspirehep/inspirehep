@@ -549,3 +549,10 @@ def get_reply_curation_context(
         "title": LiteratureReader(metadata).title,
         "record_url": get_record_url(metadata, inspire_http_hook),
     }
+
+
+def save_workflow(workflow, collection=HEP):
+    response = WorkflowManagementHook(collection).update_workflow(
+        workflow["id"], workflow
+    )
+    return response.json()

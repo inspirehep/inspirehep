@@ -1,0 +1,105 @@
+interactions:
+- request:
+    body: '{"id": "00000000-0000-0000-0000-000000001111", "data": {"titles": [{"title":
+      "test_1"}], "abstracts": [{"value": "We present a comprehensive study of Higgs
+      boson production mechanisms in high-energy particle collisions."}], "document_type":
+      ["article"], "_collections": ["Literature"]}, "workflow_type": "HEP_CREATE"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '317'
+      Content-Type:
+      - application/json
+    method: PUT
+    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111/
+  response:
+    body:
+      string: "{\"id\":\"00000000-0000-0000-0000-000000001111\",\"data\":{\"titles\":[{\"title\":\"test_1\"}],\"abstracts\":[{\"value\":\"We
+        present a comprehensive study of Higgs boson production mechanisms in high-energy
+        particle collisions.\"}],\"document_type\":[\"article\"],\"_collections\":[\"Literature\"]},\"tickets\":[],\"decisions\":[{\"id\":1,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-08-26T14:45:14.237000Z\",\"_updated_at\":\"2025-08-26T14:45:14.237000Z\",\"action\":\"fuzzy_match\",\"value\":\"paper1\",\"user\":\"admin@admin.com\"}],\"workflow_type\":\"HEP_CREATE\",\"classifier_results\":{\"categories\":[{\"keyword\":\"color\",\"category\":\"HEP\"},{\"keyword\":\"fluctuation\",\"category\":\"HEP\"},{\"keyword\":\"quantum
+        information\",\"category\":\"HEP\"},{\"keyword\":\"quantum sensing\",\"category\":\"HEP\"},{\"keyword\":\"entanglement\",\"category\":\"HEP\"},{\"keyword\":\"engineering\",\"category\":\"HEP\"},{\"keyword\":\"quantum
+        communication\",\"category\":\"HEP\"},{\"keyword\":\"mirror\",\"category\":\"HEP\"},{\"keyword\":\"mixing\",\"category\":\"HEP\"},{\"keyword\":\"scattering\",\"category\":\"HEP\"},{\"keyword\":\"cloud\",\"category\":\"HEP\"},{\"keyword\":\"monitoring\",\"category\":\"HEP\"},{\"keyword\":\"quantum
+        state\",\"category\":\"HEP\"},{\"keyword\":\"absorption\",\"category\":\"HEP\"},{\"keyword\":\"quantum
+        repeater\",\"category\":\"HEP\"},{\"keyword\":\"dark energy\",\"category\":\"HEP\"},{\"keyword\":\"quantum
+        key distribution\",\"category\":\"HEP\"},{\"keyword\":\"mixed state\",\"category\":\"HEP\"},{\"keyword\":\"circle\",\"category\":\"HEP\"},{\"keyword\":\"peripheral\",\"category\":\"HEP\"},{\"keyword\":\"quantum
+        device\",\"category\":\"HEP\"},{\"keyword\":\"satellite\",\"category\":\"HEP\"},{\"keyword\":\"noise\",\"category\":\"HEP\"},{\"keyword\":\"star\",\"category\":\"HEP\"},{\"keyword\":\"composite\",\"category\":\"HEP\"},{\"keyword\":\"ion
+        trap\",\"category\":\"HEP\"},{\"keyword\":\"photon\",\"category\":\"HEP\"},{\"keyword\":\"teleportation\",\"category\":\"HEP\"},{\"keyword\":\"efficiency\",\"category\":\"HEP\"},{\"keyword\":\"nucleus\",\"category\":\"HEP\"},{\"keyword\":\"simplex\",\"category\":\"HEP\"},{\"keyword\":\"background\",\"category\":\"HEP\"},{\"keyword\":\"dissipation\",\"category\":\"HEP\"},{\"keyword\":\"CERN
+        SPS\",\"category\":\"HEP\"},{\"keyword\":\"quantum channel\",\"category\":\"HEP\"},{\"keyword\":\"structure\",\"category\":\"HEP\"},{\"keyword\":\"topology\",\"category\":\"HEP\"},{\"keyword\":\"4/3\",\"category\":\"HEP\"},{\"keyword\":\"density
+        matrix\",\"category\":\"HEP\"},{\"keyword\":\"quantum memory\",\"category\":\"HEP\"},{\"keyword\":\"transfer
+        matrix\",\"category\":\"HEP\"},{\"keyword\":\"propagation\",\"category\":\"HEP\"},{\"keyword\":\"depolarization\",\"category\":\"HEP\"},{\"keyword\":\"estimator\",\"category\":\"HEP\"},{\"keyword\":\"qubit\",\"category\":\"HEP\"},{\"keyword\":\"parametric\",\"category\":\"HEP\"}],\"fulltext_used\":true,\"complete_output\":{\"acronyms\":[],\"field_codes\":[{\"keywords\":\"quantum
+        key distribution, quantum information\",\"fieldcode\":\"k\"}],\"core_keywords\":[{\"number\":150,\"keyword\":\"big
+        number\"},{\"number\":0,\"keyword\":\"zero\"},{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
+        device\"},{\"number\":5,\"keyword\":\"gate, C-NOT\"},{\"number\":2,\"keyword\":\"computer,
+        quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
+        SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
+        sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"dark
+        energy\"},{\"number\":1,\"keyword\":\"quantum communication\"},{\"number\":1,\"keyword\":\"quantum
+        key distribution\"}],\"author_keywords\":[{\"author_keyword\":\"Quantum network\",\"matched_keywords\":[\"network,
+        quantum\"]},{\"author_keyword\":\"SPAM errors\",\"matched_keywords\":[\"error\"]},{\"author_keyword\":\"network
+        tomography\",\"matched_keywords\":[\"network\"]}],\"single_keywords\":[{\"number\":44,\"keyword\":\"peripheral\"},{\"number\":34,\"keyword\":\"star\"},{\"number\":23,\"keyword\":\"quantum
+        channel\"},{\"number\":5,\"keyword\":\"noise\"},{\"number\":5,\"keyword\":\"quantum
+        memory\"},{\"number\":4,\"keyword\":\"entanglement\"},{\"number\":4,\"keyword\":\"depolarization\"},{\"number\":2,\"keyword\":\"satellite\"},{\"number\":2,\"keyword\":\"cloud\"},{\"number\":1,\"keyword\":\"quantum
+        information\"},{\"number\":1,\"keyword\":\"absorption\"},{\"number\":1,\"keyword\":\"color\"},{\"number\":1,\"keyword\":\"fluctuation\"},{\"number\":1,\"keyword\":\"ion
+        trap\"},{\"number\":1,\"keyword\":\"dissipation\"},{\"number\":1,\"keyword\":\"engineering\"},{\"number\":1,\"keyword\":\"quantum
+        key distribution\"},{\"number\":1,\"keyword\":\"mirror\"},{\"number\":1,\"keyword\":\"circle\"},{\"number\":1,\"keyword\":\"scattering\"}],\"composite_keywords\":[{\"number\":34,\"details\":[137,53],\"keyword\":\"network,
+        quantum\"},{\"number\":10,\"details\":[22,13],\"keyword\":\"gate, Hadamard\"},{\"number\":5,\"details\":[22,7],\"keyword\":\"gate,
+        C-NOT\"},{\"number\":2,\"details\":[1,53],\"keyword\":\"computer, quantum\"},{\"number\":2,\"details\":[12,3],\"keyword\":\"time,
+        multiple\"},{\"number\":2,\"details\":[137,22],\"keyword\":\"network, performance\"},{\"number\":2,\"details\":[22,53],\"keyword\":\"gate,
+        quantum\"},{\"number\":1,\"details\":[3,83],\"keyword\":\"operator, Pauli\"},{\"number\":1,\"details\":[1,53],\"keyword\":\"technology,
+        quantum\"},{\"number\":1,\"details\":[1,53],\"keyword\":\"Fisher information,
+        quantum\"},{\"number\":1,\"details\":[22,2],\"keyword\":\"gate, phase\"},{\"number\":1,\"details\":[12,12],\"keyword\":\"decoherence,
+        time\"},{\"number\":1,\"details\":[12,3],\"keyword\":\"representation, unitarity\"},{\"number\":1,\"details\":[2,3],\"keyword\":\"fibre,
+        optical\"},{\"number\":1,\"details\":[1,1],\"keyword\":\"resonance, magnetic\"}],\"filtered_core_keywords\":[{\"number\":150,\"keyword\":\"big
+        number\"},{\"number\":0,\"keyword\":\"zero\"},{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
+        device\"},{\"number\":5,\"keyword\":\"gate, C-NOT\"},{\"number\":2,\"keyword\":\"computer,
+        quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
+        SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
+        sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
+        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":{\"conflicts\":{\"conflicts\":[{\"op\":\"remove\",\"path\":\"/authors/10\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/9\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/8\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/7\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/6\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/5\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/4\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/3\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/2\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/1\",\"$type\":\"REMOVE_FIELD\",\"value\":null}],\"callback_url\":\"http://host.docker.internal:8080/callback/workflows/resolve_merge_conflicts\"},\"head_uuid\":\"d000cb00-d583-4cd5-ac27-f947216f036c\",\"head_version_id\":1,\"merger_head_revision\":0,\"merger_original_root\":{}},\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2026-01-20T14:59:41.006123Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
+        class of Hadamard well-posed five-field theories of dissipative relativistic
+        fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
+        Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
+        for dissipative relativistic fluid dynamics as a hyperbolic five-field system
+        of second-order partial differential equations.\",\"authors_count\":1,\"earliest_date\":\"2020-03-17\",\"control_number\":1790396,\"publication_info\":[{\"year\":2020,\"artid\":\"033101\",\"journal_issue\":\"3\",\"journal_title\":\"J.Math.Phys.\",\"journal_record\":{\"$ref\":\"https://inspirebeta.net/api/journals/1214658\"},\"journal_volume\":\"61\"}]},{\"title\":\"Search
+        for low-mass and high-mass narrow dijet resonances with the CMS detector at
+        $\\\\sqrt{s}$ = 13 TeV\",\"authors\":[{\"full_name\":\"Sheffield, David Gruft\"}],\"abstract\":\"A
+        search for narrow resonances decaying to the dijet final state at the CMS
+        experiment.\",\"public_notes\":[{\"value\":\"Fermilab Library Only\"},{\"value\":\"Submitted
+        to SIAM J.Matrix Anal.Appl.\"}],\"authors_count\":1,\"earliest_date\":\"2017\",\"control_number\":1752989,\"number_of_pages\":151},{\"title\":\"Search
+        for Long-Lived Particles Produced in Proton-Proton Collisions at $\\\\sqrt{s}$
+        =13 TeV That Decay to Displaced Hadronic Jets Detected With the Muon Spectrometer
+        in ATLAS\",\"authors\":[{\"full_name\":\"Zhou, Hao\"}],\"abstract\":\"The
+        discovery of the Higgs boson in 2012 marked a great success of the Standard
+        Model (SM) of particle physics.\",\"authors_count\":1,\"earliest_date\":\"2021\",\"control_number\":1989726,\"number_of_pages\":163,\"publication_info\":[{\"year\":2021}]}]},\"form_data\":null,\"status\":\"running\"}"
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '8694'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Tue, 20 Jan 2026 14:59:41 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1

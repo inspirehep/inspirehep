@@ -1341,6 +1341,8 @@ def hep_create_dag():
 
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
+            workflows.save_workflow(workflow_data)
+
         @task
         def await_merge_conflicts_resolved(**context):
             workflow_id = context["params"]["workflow_id"]
@@ -1847,7 +1849,7 @@ def hep_create_dag():
     def save_workflow(**context):
         workflow_id = context["params"]["workflow_id"]
         workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
-        workflow_management_hook.update_workflow(workflow_id, workflow_data)
+        workflows.save_workflow(workflow_data)
 
     @task
     def is_fresh_data(**context):
