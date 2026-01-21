@@ -191,10 +191,15 @@ def hep_create_dag():
             response = workflow_management_hook.filter_workflows(filter_params)
 
             if response["count"] >= 2:
-                workflow_management_hook.set_workflow_status(
-                    status_name=STATUS_BLOCKED,
-                    workflow_id=context["params"]["workflow_id"],
-                )
+                workflow_data["status"] = STATUS_BLOCKED
+                for result in response["results"]:
+                    if (
+                        result["id"] != context["params"]["workflow_id"]
+                        and result["id"] not in workflow_data["blocked_by"]
+                    ):
+                        workflow_data["blocked_by"].append(result["id"])
+                workflows.save_workflow(workflow_data)
+
                 return False
         return True
 

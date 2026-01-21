@@ -20,6 +20,7 @@ from include.utils.constants import (
     LITERATURE_PID_TYPE,
     STATUS_APPROVAL,
     STATUS_APPROVAL_CORE_SELECTION,
+    STATUS_BLOCKED,
     STATUS_COMPLETED,
     STATUS_RUNNING,
     TICKET_HEP_CURATION_CORE,
@@ -136,12 +137,17 @@ class Test_HEPCreateDAG:
             {
                 "id": self.workflow_id,
                 "data": {
+                    "document_type": ["article"],
+                    "_collections": ["Literature"],
+                    "titles": [{"title": "A title"}],
                     "arxiv_eprints": [
                         {
                             "value": "2507.26819",
                         }
                     ],
                 },
+                "blocked_by": [],
+                "workflow_type": HEP_CREATE,
             },
             self.bucket_name,
         )
@@ -151,6 +157,10 @@ class Test_HEPCreateDAG:
             "check_for_blocking_workflows",
             dag_params=self.context["params"],
         )
+
+        workflow_result = get_lit_workflow_task(self.workflow_id)
+        assert workflow_result["status"] == STATUS_BLOCKED
+        assert len(workflow_result["blocked_by"]) > 0
 
     @pytest.mark.vcr
     def test_check_for_blocking_workflows_block_doi(self):
@@ -159,12 +169,17 @@ class Test_HEPCreateDAG:
             {
                 "id": self.workflow_id,
                 "data": {
+                    "document_type": ["article"],
+                    "_collections": ["Literature"],
+                    "titles": [{"title": "A title"}],
                     "dois": [
                         {
                             "value": "10.1016/j.physletb.2025.139959",
                         }
                     ],
                 },
+                "workflow_type": HEP_CREATE,
+                "blocked_by": [],
             },
             self.bucket_name,
         )
@@ -173,6 +188,10 @@ class Test_HEPCreateDAG:
             "check_for_blocking_workflows",
             dag_params=self.context["params"],
         )
+
+        workflow_result = get_lit_workflow_task(self.workflow_id)
+        assert workflow_result["status"] == STATUS_BLOCKED
+        assert len(workflow_result["blocked_by"]) > 0
 
     @pytest.mark.vcr
     def test_check_for_blocking_workflows_continue(self):

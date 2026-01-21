@@ -36,6 +36,9 @@ class HepWorkflow(BaseWorkflow):
         choices=HepStatusChoices.choices,
         default=HEP_DEFAULT_STATUS_CHOICE,
     )
+    blocked_by = models.ManyToManyField(
+        "self", symmetrical=False, related_name="blocks", blank=True
+    )
 
 
 class HepWorkflowTicket(BaseWorkflowTicket):
