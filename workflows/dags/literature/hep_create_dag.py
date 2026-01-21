@@ -183,24 +183,20 @@ def hep_create_dag():
             s3_hook, bucket_name, context["params"]["workflow_id"]
         )
 
-        filter_params = workflows.build_matching_workflow_filter_params(
-            workflow_data, RUNNING_STATUSES
+        matches = workflows.find_matches_wfs_in_backoffice(
+            workflow_data, workflow_management_hook, RUNNING_STATUSES
         )
 
-        if "search" in filter_params:
-            response = workflow_management_hook.filter_workflows(filter_params)
-
-            if response["count"] >= 2:
-                workflow_data["status"] = STATUS_BLOCKED
-                for result in response["results"]:
-                    if (
-                        result["id"] != context["params"]["workflow_id"]
-                        and result["id"] not in workflow_data["blocked_by"]
-                    ):
-                        workflow_data["blocked_by"].append(result["id"])
-                workflows.save_workflow(workflow_data)
-
-                return False
+        if len(matches) > 0:
+            workflow_data["status"] = STATUS_BLOCKED
+            for match in matches:
+                if (
+                    match["id"] != context["params"]["workflow_id"]
+                    and match["id"] not in workflow_data["blocked_by"]
+                ):
+                    workflow_data["blocked_by"].append(match["id"])
+            workflows.save_workflow(workflow_data)
+            return False
         return True
 
     @task.branch
@@ -1937,6 +1933,20 @@ def hep_create_dag():
 
         workflow_management_hook.update_workflow(workflow_id, workflow_data)
 
+    @task
+    def run_next_if_necessary(**context):
+        """Remove current wf id from matched workflows and run next one"""
+        workflow = s3.read_workflow(
+            s3_hook, bucket_name, context["params"]["workflow_id"]
+        )
+
+        next_wf = None
+        for wf_id in workflow["blocks"]:
+            wf = workflow_management_hook.get_workflow(wf_id)
+            if not wf.get("blocked_by", []):
+                workflow_management_hook.restart_workflow(next_wf["id"])
+                return
+
     preprocessing_group = preprocessing()
     check_for_fuzzy_matches_task = check_for_fuzzy_matches()
     check_for_exact_matches_task = check_for_exact_matches()
@@ -2011,6 +2021,7 @@ def hep_create_dag():
         >> save_workflow()
         >> core_selection()
         >> save_and_complete_workflow_task
+        >> run_next_if_necessary()
     )
     notify_and_close_not_accepted_task >> save_and_complete_workflow_task
     should_proceed_to_core_selection_task >> save_and_complete_workflow_task

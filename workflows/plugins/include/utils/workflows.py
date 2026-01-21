@@ -556,3 +556,15 @@ def save_workflow(workflow, collection=HEP):
         workflow["id"], workflow
     )
     return response.json()
+
+
+def find_matches_wfs_in_backoffice(workflow, workflow_management_hook, statuses=None):
+    filter_params = build_matching_workflow_filter_params(workflow, statuses)
+
+    if "search" in filter_params:
+        matches = workflow_management_hook.filter_workflows(filter_params)
+
+        results = matches["results"]
+        matches["results"] = [wf for wf in results if wf["id"] != workflow["id"]]
+
+        return matches["results"]

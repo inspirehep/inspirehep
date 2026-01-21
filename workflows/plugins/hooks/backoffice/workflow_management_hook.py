@@ -81,3 +81,10 @@ class WorkflowManagementHook(BackofficeHook):
             json=decision_data,
             endpoint=endpoint,
         )
+
+    def restart_workflow(self, workflow_id: str) -> Response:
+        endpoint = f"{self.endpoint}/{workflow_id}/restart/"
+        return self.call_api(
+            method="POST",
+            endpoint=endpoint,
+        )
