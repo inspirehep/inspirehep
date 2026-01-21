@@ -196,10 +196,13 @@ def test_conferences_facets(inspire_app):
         response = client.get("/conferences/facets")
     response_data = response.json
     response_status_code = response.status_code
-    response_data_facet_keys = list(response_data.get("aggregations").keys())
+    response_data_facet_keys = sorted(response_data.get("aggregations").keys())
 
     expected_status_code = 200
-    expected_facet_keys = ["subject", "series"]
+    expected_facet_keys = [
+        "series",
+        "subject",
+    ]
     assert expected_status_code == response_status_code
     assert expected_facet_keys == response_data_facet_keys
     assert len(response_data["hits"]["hits"]) == 0
