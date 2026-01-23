@@ -3,6 +3,7 @@ import logging
 
 from airflow.exceptions import AirflowSkipException
 from airflow.sdk.bases.hook import BaseHook
+from include.utils.constants import HEP_CREATE
 from inspire_schemas.parsers.arxiv import ArxivParser
 from sickle import Sickle, oaiexceptions
 
@@ -112,7 +113,7 @@ def load_records(parsed_records, workflow_management_hook):
 
         workflow_data = {
             "data": record,
-            "workflow_type": "HEP_CREATE",
+            "workflow_type": HEP_CREATE,
         }
         try:
             logger.info(f"Loading record: {record.get('control_number')}")

@@ -4,6 +4,7 @@ from hooks.inspirehep.inspire_http_hook import (
     InspireHttpHook,
 )
 from include.utils import s3, workflows
+from include.utils.constants import HEP_CREATE
 from inspire_schemas.api import load_schema, validate
 
 from tests.test_utils import function_test, task_test
@@ -668,7 +669,7 @@ def test_save_workflow():
             ],
             "_collections": ["Literature"],
         },
-        "workflow_type": "HEP_CREATE",
+        "workflow_type": HEP_CREATE,
     }
 
     result = function_test(

@@ -111,7 +111,7 @@ class Test_HEPCreateDAG:
                 ],
                 "_collections": ["Literature"],
             },
-            "workflow_type": "HEP_CREATE",
+            "workflow_type": HEP_CREATE,
             "status": STATUS_RUNNING,
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
@@ -2591,7 +2591,7 @@ class Test_HEPCreateDAG:
                     ],
                     "_collections": ["Literature"],
                 },
-                "workflow_type": "HEP_CREATE",
+                "workflow_type": HEP_CREATE,
             },
             self.bucket_name,
         )
@@ -3187,7 +3187,7 @@ class Test_HEPCreateDAG:
                 ],
                 "_collections": ["Literature"],
             },
-            "workflow_type": "HEP_CREATE",
+            "workflow_type": HEP_CREATE,
             "status": STATUS_RUNNING,
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
@@ -3219,7 +3219,7 @@ class Test_HEPCreateDAG:
                 ],
                 "_collections": ["Literature"],
             },
-            "workflow_type": "HEP_CREATE",
+            "workflow_type": HEP_CREATE,
             "status": STATUS_RUNNING,
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
@@ -3248,7 +3248,7 @@ class Test_HEPCreateDAG:
                 ],
                 "_collections": ["Literature"],
             },
-            "workflow_type": "HEP_CREATE",
+            "workflow_type": HEP_CREATE,
             "status": STATUS_RUNNING,
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)

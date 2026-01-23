@@ -694,7 +694,7 @@ def test_new_literature_submit_no_merge(inspire_app, requests_mock, override_con
             history.url
             == f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/"
         )
-        expected_data["workflow_type"] = "HEP_CREATE"
+        expected_data["workflow_type"] = "HEP_SUBMISSION"
         assert post_data == expected_data
 
 
@@ -782,7 +782,7 @@ def test_new_literature_submit_arxiv_urls(inspire_app, requests_mock, override_c
             history.url
             == f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/"
         )
-        expected_data["workflow_type"] = "HEP_CREATE"
+        expected_data["workflow_type"] = "HEP_SUBMISSION"
         assert post_data == expected_data
 
 

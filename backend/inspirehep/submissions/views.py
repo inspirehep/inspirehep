@@ -438,7 +438,7 @@ class LiteratureSubmissionResource(BaseSubmissionsResource):
         backoffice_payload = {
             "data": submission_data,
             "form_data": form_data,
-            "workflow_type": "HEP_CREATE",
+            "workflow_type": "HEP_SUBMISSION",
         }
 
         if current_app.config.get("FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE"):
