@@ -18,20 +18,20 @@ interactions:
     body:
       string: '{"id":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","data":{"dois":[{"value":"10.1038/s41598-025-21235-8","source":"Springer"}],"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
         MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"_private_notes":[{"value":"Also
-        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":6,"workflow":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_accept_core","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-12-01T08:42:08.109747Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"running"}'
+        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":6,"workflow":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_accept_core","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"callback_url":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2026-01-23T14:07:39.699859Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"form_data":null,"status":"running"}'
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '1174'
+      - '1211'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Mon, 01 Dec 2025 08:42:08 GMT
+      - Fri, 23 Jan 2026 14:07:39 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -71,7 +71,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Mon, 01 Dec 2025 08:42:09 GMT
+      - Fri, 23 Jan 2026 14:07:41 GMT
       Location:
       - /api/workflows/literature/6e84fd0b-8d0b-4147-9aee-c28a4f787b0d/
       Referrer-Policy:
@@ -100,20 +100,20 @@ interactions:
     body:
       string: '{"id":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","validation_errors":[],"data":{"dois":[{"value":"10.1038/s41598-025-21235-8","source":"Springer"}],"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
         MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"_private_notes":[{"value":"Also
-        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":6,"workflow":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_accept_core","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-12-01T08:42:08.109747Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"running"}'
+        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":6,"workflow":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_accept_core","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"callback_url":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2026-01-23T14:07:39.699859Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"form_data":null,"status":"running"}'
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '1197'
+      - '1234'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Mon, 01 Dec 2025 08:42:09 GMT
+      - Fri, 23 Jan 2026 14:07:41 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -153,7 +153,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Mon, 01 Dec 2025 08:42:09 GMT
+      - Fri, 23 Jan 2026 14:07:41 GMT
       Location:
       - /api/workflows/literature/6e84fd0b-8d0b-4147-9aee-c28a4f787b0d/
       Referrer-Policy:
@@ -182,20 +182,20 @@ interactions:
     body:
       string: '{"id":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","validation_errors":[],"data":{"dois":[{"value":"10.1038/s41598-025-21235-8","source":"Springer"}],"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
         MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"_private_notes":[{"value":"Also
-        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":6,"workflow":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_accept_core","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-12-01T08:42:08.109747Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"running"}'
+        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":6,"workflow":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_accept_core","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"callback_url":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2026-01-23T14:07:39.699859Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"form_data":null,"status":"running"}'
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '1197'
+      - '1234'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Mon, 01 Dec 2025 08:42:09 GMT
+      - Fri, 23 Jan 2026 14:07:41 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -228,20 +228,20 @@ interactions:
     body:
       string: '{"id":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","data":{"dois":[{"value":"10.1038/s41598-025-21235-8","source":"Springer"}],"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
         MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"_private_notes":[{"value":"Also
-        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":6,"workflow":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_accept_core","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-12-01T08:42:09.738598Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"approval_fuzzy_matching"}'
+        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":6,"workflow":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_accept_core","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"callback_url":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2026-01-23T14:07:41.341599Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"form_data":null,"status":"approval_fuzzy_matching"}'
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '1190'
+      - '1227'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Mon, 01 Dec 2025 08:42:09 GMT
+      - Fri, 23 Jan 2026 14:07:41 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -281,7 +281,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Mon, 01 Dec 2025 08:42:09 GMT
+      - Fri, 23 Jan 2026 14:07:42 GMT
       Location:
       - /api/workflows/literature/6e84fd0b-8d0b-4147-9aee-c28a4f787b0d/
       Referrer-Policy:
@@ -310,20 +310,20 @@ interactions:
     body:
       string: '{"id":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","validation_errors":[],"data":{"dois":[{"value":"10.1038/s41598-025-21235-8","source":"Springer"}],"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
         MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"_private_notes":[{"value":"Also
-        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":6,"workflow":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_accept_core","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-12-01T08:42:09.738598Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"approval_fuzzy_matching"}'
+        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":6,"workflow":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_accept_core","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"callback_url":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2026-01-23T14:07:41.341599Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"form_data":null,"status":"approval_fuzzy_matching"}'
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '1213'
+      - '1250'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Mon, 01 Dec 2025 08:42:09 GMT
+      - Fri, 23 Jan 2026 14:07:42 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -363,7 +363,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Mon, 01 Dec 2025 08:42:09 GMT
+      - Fri, 23 Jan 2026 14:07:42 GMT
       Location:
       - /api/workflows/literature/6e84fd0b-8d0b-4147-9aee-c28a4f787b0d/
       Referrer-Policy:
@@ -392,20 +392,20 @@ interactions:
     body:
       string: '{"id":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","validation_errors":[],"data":{"dois":[{"value":"10.1038/s41598-025-21235-8","source":"Springer"}],"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
         MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"_private_notes":[{"value":"Also
-        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":6,"workflow":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_accept_core","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2025-12-01T08:42:09.738598Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"approval_fuzzy_matching"}'
+        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":6,"workflow":"6e84fd0b-8d0b-4147-9aee-c28a4f787b0d","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_accept_core","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"callback_url":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2026-01-23T14:07:41.341599Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"form_data":null,"status":"approval_fuzzy_matching"}'
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '1213'
+      - '1250'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Mon, 01 Dec 2025 08:42:09 GMT
+      - Fri, 23 Jan 2026 14:07:42 GMT
       Referrer-Policy:
       - same-origin
       Server:

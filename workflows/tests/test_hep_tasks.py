@@ -20,6 +20,7 @@ from include.utils.constants import (
     LITERATURE_PID_TYPE,
     STATUS_APPROVAL,
     STATUS_APPROVAL_CORE_SELECTION,
+    STATUS_APPROVAL_FUZZY_MATCHING,
     STATUS_COMPLETED,
     STATUS_RUNNING,
     TICKET_HEP_CURATION_CORE,
@@ -195,6 +196,7 @@ class Test_HEPCreateDAG:
             "check_for_blocking_workflows",
             dag_params=self.context["params"],
         )
+        assert get_lit_workflow_task(self.workflow_id)["status"] == STATUS_RUNNING
 
     @pytest.mark.vcr
     def test_check_for_exact_matches_no_match(self):
@@ -534,6 +536,7 @@ class Test_HEPCreateDAG:
             task_id="await_decision_fuzzy_match",
             dag_params=self.context["params"],
         )
+        assert get_lit_workflow_task(self.workflow_id)["status"] == STATUS_RUNNING
 
     @pytest.mark.vcr
     def test_await_decision_fuzzy_match_best_match_no_decision(self):
@@ -546,9 +549,10 @@ class Test_HEPCreateDAG:
             task_id="await_decision_fuzzy_match",
             dag_params={"workflow_id": workflow_id},
         )
-
-        workflow = get_lit_workflow_task(workflow_id)
-        assert workflow["status"] == "approval_fuzzy_matching"
+        assert (
+            get_lit_workflow_task(workflow_id)["status"]
+            == STATUS_APPROVAL_FUZZY_MATCHING
+        )
 
     @pytest.mark.vcr
     def test_await_decision_fuzzy_match_best_match_has_xcom_match(self):
@@ -3493,6 +3497,7 @@ class Test_HEPCreateDAG:
         workflow_result = s3.read_workflow(self.s3_hook, self.bucket_name, workflow_id)
 
         assert workflow_result["flags"]["approved"] is True
+        assert get_lit_workflow_task(workflow_id)["status"] == STATUS_RUNNING
 
     @pytest.mark.vcr
     def test_await_decision_approval_core(self):
@@ -3506,6 +3511,7 @@ class Test_HEPCreateDAG:
         workflow_result = s3.read_workflow(self.s3_hook, self.bucket_name, workflow_id)
 
         assert workflow_result["flags"]["approved"] is True
+        assert get_lit_workflow_task(workflow_id)["status"] == STATUS_RUNNING
 
     @pytest.mark.vcr
     def test_await_decision_approval_reject(self):
@@ -3519,6 +3525,7 @@ class Test_HEPCreateDAG:
         workflow_result = s3.read_workflow(self.s3_hook, self.bucket_name, workflow_id)
 
         assert workflow_result["flags"]["approved"] is False
+        assert get_lit_workflow_task(workflow_id)["status"] == STATUS_RUNNING
 
     def test_replace_collection_to_hidden_sets_proper_hidden_collections_on_metadata(
         self,
@@ -4110,28 +4117,28 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_await_decision_core_selection_approval_decision(self):
+        workflow_id = "07c5a66c-1e5b-4da6-823c-871caf43e073"
         assert task_test(
             dag_id="hep_create_dag",
             task_id="core_selection.await_decision_core_selection_approval",
-            dag_params={"workflow_id": "07c5a66c-1e5b-4da6-823c-871caf43e073"},
+            dag_params={"workflow_id": workflow_id},
         )
 
-        workflow_result = s3.read_workflow(
-            self.s3_hook, self.bucket_name, "07c5a66c-1e5b-4da6-823c-871caf43e073"
-        )
+        workflow_result = s3.read_workflow(self.s3_hook, self.bucket_name, workflow_id)
 
         assert len(workflow_result["decisions"]) > 1
+        assert get_lit_workflow_task(workflow_id)["status"] == STATUS_RUNNING
 
+        workflow_id = "66961888-a628-46b7-b807-4deae3478adc"
         assert task_test(
             dag_id="hep_create_dag",
             task_id="core_selection.await_decision_core_selection_approval",
-            dag_params={"workflow_id": "66961888-a628-46b7-b807-4deae3478adc"},
+            dag_params={"workflow_id": workflow_id},
         )
 
-        workflow_result = s3.read_workflow(
-            self.s3_hook, self.bucket_name, "66961888-a628-46b7-b807-4deae3478adc"
-        )
+        workflow_result = s3.read_workflow(self.s3_hook, self.bucket_name, workflow_id)
         assert len(workflow_result["decisions"]) > 1
+        assert get_lit_workflow_task(workflow_id)["status"] == STATUS_RUNNING
 
     def test_remove_inspire_categories_derived_from_core_arxiv_categories(
         self,

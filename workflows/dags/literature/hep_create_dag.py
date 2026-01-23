@@ -179,9 +179,8 @@ def hep_create_dag():
 
     @task.short_circuit(ignore_downstream_trigger_rules=False)
     def check_for_blocking_workflows(**context):
-        workflow_data = s3.read_workflow(
-            s3_hook, bucket_name, context["params"]["workflow_id"]
-        )
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
 
         filter_params = workflows.build_matching_workflow_filter_params(
             workflow_data, RUNNING_STATUSES
@@ -193,9 +192,14 @@ def hep_create_dag():
             if response["count"] >= 2:
                 workflow_management_hook.set_workflow_status(
                     status_name=STATUS_BLOCKED,
-                    workflow_id=context["params"]["workflow_id"],
+                    workflow_id=workflow_id,
                 )
                 return False
+
+        workflow_management_hook.set_workflow_status(
+            status_name=STATUS_RUNNING,
+            workflow_id=workflow_id,
+        )
         return True
 
     @task.branch
@@ -281,20 +285,24 @@ def hep_create_dag():
 
     @task.short_circuit
     def await_decision_fuzzy_match(**context):
-        workflow_data = workflow_management_hook.get_workflow(
-            context["params"]["workflow_id"]
-        )
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = workflow_management_hook.get_workflow(workflow_id)
 
         decision = get_decision(workflow_data.get("decisions"), DECISION_FUZZY_MATCH)
 
         if not decision:
             workflow_management_hook.set_workflow_status(
                 status_name=STATUS_APPROVAL_FUZZY_MATCHING,
-                workflow_id=context["params"]["workflow_id"],
+                workflow_id=workflow_id,
             )
             return False
 
         approved_match_id = decision.get("value")
+
+        workflow_management_hook.set_workflow_status(
+            status_name=STATUS_RUNNING,
+            workflow_id=workflow_id,
+        )
 
         if not approved_match_id:
             return True
@@ -1482,6 +1490,9 @@ def hep_create_dag():
 
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
+            workflow_management_hook.set_workflow_status(
+                status_name=STATUS_RUNNING, workflow_id=workflow_id
+            )
             return True
 
         @task
@@ -1769,6 +1780,10 @@ def hep_create_dag():
                 return False
 
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
+
+            workflow_management_hook.set_workflow_status(
+                status_name=STATUS_RUNNING, workflow_id=workflow_id
+            )
 
             return True
 
