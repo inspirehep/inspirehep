@@ -126,6 +126,10 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
             serializer.validated_data["value"],
         )
 
+        workflow = get_object_or_404(HepWorkflow, pk=pk)
+        workflow.status = HepStatusChoices.PROCESSING
+        workflow.save()
+
         task_to_restart = HepResolutions[serializer.validated_data["action"]].label
 
         if task_to_restart:
@@ -141,9 +145,6 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
                     e,
                 )
 
-        workflow = get_object_or_404(HepWorkflow, pk=pk)
-        workflow.status = HepStatusChoices.PROCESSING
-        workflow.save()
         workflow_serializer = self.serializer_class(workflow)
         return Response(workflow_serializer.data)
 

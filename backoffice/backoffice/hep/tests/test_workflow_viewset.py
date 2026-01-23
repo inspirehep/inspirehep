@@ -222,6 +222,38 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
             ],
         )
 
+    def test_get_hep_with_callback_url(self):
+        self.api_client.force_authenticate(user=self.curator)
+
+        cases = [
+            (HepStatusChoices.APPROVAL_MERGE, True),
+            (HepStatusChoices.ERROR_VALIDATION, True),
+            (HepStatusChoices.APPROVAL, False),
+        ]
+        for status, expected in cases:
+            random_id = uuid.uuid4()
+            HepWorkflow.objects.create(
+                data=BASE,
+                status=status,
+                workflow_type=HepWorkflowType.HEP_CREATE,
+                id=random_id,
+            )
+
+            detail_url = reverse("api:hep-detail", kwargs={"pk": random_id})
+            response = self.api_client.get(detail_url)
+            json_response = response.json()
+            self.assertEqual(response.status_code, 200)
+
+            self.assertIn("callback_url", json_response)
+
+            if expected:
+                self.assertIn(
+                    reverse("api:hep-resolve", kwargs={"pk": random_id}),
+                    json_response["callback_url"],
+                )
+            else:
+                self.assertIsNone(json_response.get("callback_url"))
+
     def test_validate_valid_record(self):
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(

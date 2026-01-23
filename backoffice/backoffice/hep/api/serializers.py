@@ -15,6 +15,9 @@ from backoffice.hep.documents import HepWorkflowDocument
 from backoffice.hep.models import HepDecision, HepWorkflow, HepWorkflowTicket
 from inspire_utils.record import get_value
 from backoffice.hep.constants import ANTIHEP_KEYWORDS
+from django.contrib.sites.models import Site
+
+from django.urls import reverse
 
 
 class HepWorkflowTicketSerializer(BaseWorkflowTicketSerializer):
@@ -66,6 +69,7 @@ class HepWorkflowSerializer(BaseWorkflowSerializer):
 
     classifier_results = serializers.JSONField(required=False, allow_null=True)
     merge_details = serializers.JSONField(required=False, allow_null=True)
+    callback_url = serializers.SerializerMethodField()
 
     class Meta(BaseWorkflowSerializer.Meta):
         model = HepWorkflow
@@ -96,6 +100,20 @@ class HepWorkflowSerializer(BaseWorkflowSerializer):
         data["classifier_results"] = classifier_result_copy
 
         return data
+
+    def get_callback_url(self, instance):
+        if instance.status not in (
+            HepStatusChoices.APPROVAL_MERGE,
+            HepStatusChoices.ERROR_VALIDATION,
+        ):
+            return None
+
+        domain = Site.objects.get_current().domain
+        path = reverse(
+            "api:hep-resolve",
+            kwargs={"pk": instance.id},
+        )
+        return f"https://{domain}{path}"
 
 
 @extend_schema_serializer(

@@ -12,7 +12,7 @@ interactions:
     uri: http://host.docker.internal:8080/api/literature/1649231
   response:
     body:
-      string: "{\"metadata\":{\"core\":true,\"dois\":[{\"value\":\"10.1103/PhysRevLett.121.022003\"},{\"value\":\"10.1103/PhysRevLett.121.022003\",\"source\":\"arXiv\",\"material\":\"publication\"}],\"self\":{\"$ref\":\"http://localhost:8000/api/literature/1649231\"},\"urls\":[{\"value\":\"https://www.bnl.gov/newsroom/news.php?a=112744\",\"description\":\"Press
+      string: "{\"created\":\"2018-01-23T00:00:00+00:00\",\"uuid\":\"9de9ff7a-15f2-4820-86b6-4b7ab0f96fee\",\"metadata\":{\"core\":true,\"dois\":[{\"value\":\"10.1103/PhysRevLett.121.022003\"},{\"value\":\"10.1103/PhysRevLett.121.022003\",\"source\":\"arXiv\",\"material\":\"publication\"}],\"self\":{\"$ref\":\"http://localhost:8000/api/literature/1649231\"},\"urls\":[{\"value\":\"https://www.bnl.gov/newsroom/news.php?a=112744\",\"description\":\"Press
         Release\"}],\"titles\":[{\"title\":\"Calculation of the hadronic vacuum polarization
         contribution to the muon anomalous magnetic moment\",\"source\":\"arXiv\"}],\"$schema\":\"https://inspirebeta.net/schemas/records/hep.json\",\"authors\":[{\"uuid\":\"c6a93168-9850-48f2-9f25-7c55d9c12a3d\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1016091\"},\"full_name\":\"Blum,
         T.\",\"affiliations\":[{\"value\":\"Connecticut U.\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/902753\"}}],\"signature_block\":\"BLANt\",\"curated_relation\":true,\"raw_affiliations\":[{\"value\":\"Physics
@@ -244,7 +244,7 @@ interactions:
         M.\"},{\"full_name\":\"Hoecker, A.\"},{\"full_name\":\"Malaescu, B.\"},{\"full_name\":\"Zhang,
         Z.\"}],\"publication_info\":{\"year\":2012,\"artid\":\"1874\",\"page_start\":\"1874\",\"journal_title\":\"Eur.Phys.J.C\",\"journal_volume\":\"72\"}},\"curated_relation\":false},{\"reference\":{\"urls\":[{\"value\":\"http://www.dirac.ac.uk\"}],\"label\":\"50\"}}],\"_collections\":[\"Literature\"],\"public_notes\":[{\"value\":\"12
         pages, 11 figures\",\"source\":\"arXiv\"}],\"arxiv_eprints\":[{\"value\":\"1801.07224\",\"categories\":[\"hep-lat\",\"hep-ph\"]}],\"document_type\":[\"article\"],\"preprint_date\":\"2018-01-22\",\"collaborations\":[{\"value\":\"RBC\"},{\"value\":\"UKQCD\"}],\"control_number\":1649231,\"legacy_version\":\"20201222220319.0\",\"number_of_pages\":6,\"publication_info\":[{\"year\":2018,\"artid\":\"022003\",\"material\":\"publication\",\"journal_issue\":\"2\",\"journal_title\":\"Phys.Rev.Lett.\",\"journal_record\":{\"$ref\":\"https://inspirebeta.net/api/journals/1214495\"},\"journal_volume\":\"121\",\"pubinfo_freetext\":\"Phys.
-        Rev. Lett. 121, 022003 (2018)\"}],\"_desy_bookkeeping\":[{\"identifier\":\"DA18-kp06l\"},{\"date\":\"2018-01-31\",\"expert\":\"M\",\"status\":\"abs\"},{\"date\":\"2018-02-06\",\"expert\":\"M\",\"status\":\"printed\"},{\"date\":\"2018-02-08\",\"expert\":\"M\",\"status\":\"final\"}],\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"arXiv\",\"datetime\":\"2018-07-19T03:35:46.070245\",\"submission_number\":\"1133437\"},\"inspire_categories\":[{\"term\":\"Lattice\",\"source\":\"arxiv\"},{\"term\":\"Phenomenology-HEP\",\"source\":\"arxiv\"},{\"term\":\"Lattice\"},{\"term\":\"Phenomenology-HEP\"}],\"legacy_creation_date\":\"2018-01-23\",\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirebeta.net/api/experiments/1228417\"},\"legacy_name\":\"LATTICE-UKQCD\"}],\"external_system_identifiers\":[{\"value\":\"2018PhRvL.121b2003B\",\"schema\":\"ADS\"}]},\"updated\":\"2026-01-20T13:25:41.668930+00:00\",\"created\":\"2018-01-23T00:00:00+00:00\",\"revision_id\":0,\"links\":{\"bibtex\":\"http://localhost:8000/api/literature/1649231?format=bibtex\",\"latex-eu\":\"http://localhost:8000/api/literature/1649231?format=latex-eu\",\"latex-us\":\"http://localhost:8000/api/literature/1649231?format=latex-us\",\"json\":\"http://localhost:8000/api/literature/1649231?format=json\",\"json-expanded\":\"http://localhost:8000/api/literature/1649231?format=json-expanded\",\"cv\":\"http://localhost:8000/api/literature/1649231?format=cv\",\"citations\":\"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A1649231\"},\"uuid\":\"d000cb00-d583-4cd5-ac27-f947216f036c\",\"id\":\"1649231\"}"
+        Rev. Lett. 121, 022003 (2018)\"}],\"_desy_bookkeeping\":[{\"identifier\":\"DA18-kp06l\"},{\"date\":\"2018-01-31\",\"expert\":\"M\",\"status\":\"abs\"},{\"date\":\"2018-02-06\",\"expert\":\"M\",\"status\":\"printed\"},{\"date\":\"2018-02-08\",\"expert\":\"M\",\"status\":\"final\"}],\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"arXiv\",\"datetime\":\"2018-07-19T03:35:46.070245\",\"submission_number\":\"1133437\"},\"inspire_categories\":[{\"term\":\"Lattice\",\"source\":\"arxiv\"},{\"term\":\"Phenomenology-HEP\",\"source\":\"arxiv\"},{\"term\":\"Lattice\"},{\"term\":\"Phenomenology-HEP\"}],\"legacy_creation_date\":\"2018-01-23\",\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirebeta.net/api/experiments/1228417\"},\"legacy_name\":\"LATTICE-UKQCD\"}],\"external_system_identifiers\":[{\"value\":\"2018PhRvL.121b2003B\",\"schema\":\"ADS\"}]},\"revision_id\":0,\"updated\":\"2026-01-23T09:41:26.089984+00:00\",\"id\":\"1649231\",\"links\":{\"bibtex\":\"http://localhost:8000/api/literature/1649231?format=bibtex\",\"latex-eu\":\"http://localhost:8000/api/literature/1649231?format=latex-eu\",\"latex-us\":\"http://localhost:8000/api/literature/1649231?format=latex-us\",\"json\":\"http://localhost:8000/api/literature/1649231?format=json\",\"json-expanded\":\"http://localhost:8000/api/literature/1649231?format=json-expanded\",\"cv\":\"http://localhost:8000/api/literature/1649231?format=cv\",\"citations\":\"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A1649231\"}}"
     headers:
       Cache-Control:
       - no-cache
@@ -255,11 +255,11 @@ interactions:
       Content-Type:
       - application/vnd+inspire.record.raw+json
       Date:
-      - Tue, 20 Jan 2026 14:30:52 GMT
+      - Fri, 23 Jan 2026 10:56:11 GMT
       ETag:
       - W/"0"
       Last-Modified:
-      - Tue, 20 Jan 2026 13:25:41 GMT
+      - Fri, 23 Jan 2026 09:41:26 GMT
       Link:
       - <bibtex>; rel="http://localhost:8000/api/literature/1649231?format=bibtex",
         <latex-eu>; rel="http://localhost:8000/api/literature/1649231?format=latex-eu",
@@ -669,76 +669,75 @@ interactions:
       {"label": "50", "urls": [{"value": "http://www.dirac.ac.uk"}]}}], "self": {"$ref":
       "http://localhost:8000/api/literature/1649231"}, "texkeys": ["RBC:2018dos",
       "Blum:2018mom"], "urls": [{"description": "Press Release", "value": "https://www.bnl.gov/newsroom/news.php?a=112744"}],
-      "arxiv_eprints": [{"categories": ["hep-lat", "hep-ph"], "value": "1801.07224"}],
-      "_collections": ["Literature"], "titles": [{"title": "New title"}, {"title":
-      "Calculation of the hadronic vacuum polarization contribution to the muon anomalous
-      magnetic moment", "source": "arXiv"}], "document_type": ["article"], "authors":
-      [{"full_name": "Blumaaaaaaa, T."}, {"full_name": "Blum, T.", "signature_block":
-      "BLANt", "curated_relation": true, "record": {"$ref": "https://inspirebeta.net/api/authors/1016091"},
-      "uuid": "c6a93168-9850-48f2-9f25-7c55d9c12a3d", "raw_affiliations": [{"value":
+      "_collections": ["Literature"], "arxiv_eprints": [{"categories": ["hep-lat",
+      "hep-ph"], "value": "1801.07224"}], "authors": [{"full_name": "Blumaaaaaaa,
+      T."}, {"uuid": "c6a93168-9850-48f2-9f25-7c55d9c12a3d", "signature_block": "BLANt",
+      "curated_relation": true, "full_name": "Blum, T.", "raw_affiliations": [{"value":
       "Physics Department, University of Connecticut, 06269-3046 Storrs, USA"}], "affiliations":
-      [{"value": "Connecticut U.", "record": {"$ref": "https://inspirebeta.net/api/institutions/902753"}}]},
-      {"full_name": "Boyle, P.A.", "signature_block": "BYLp", "curated_relation":
-      true, "record": {"$ref": "https://inspirebeta.net/api/authors/1015525"}, "uuid":
-      "b5c114a1-7d76-4caf-a416-4c1489b1d08f", "raw_affiliations": [{"value": "School
-      of Physics and Astronomy, The University of Edinburgh, EH9 3FD Edinburgh, UK"}],
-      "affiliations": [{"value": "Edinburgh U.", "record": {"$ref": "https://inspirebeta.net/api/institutions/902787"}}]},
-      {"full_name": "G\u00fclpers, V.", "signature_block": "GALPARv", "curated_relation":
-      true, "record": {"$ref": "https://inspirebeta.net/api/authors/1333617"}, "uuid":
-      "595da362-ab28-4da5-a23e-461750315ef2", "raw_affiliations": [{"value": "School
+      [{"value": "Connecticut U.", "record": {"$ref": "https://inspirebeta.net/api/institutions/902753"}}],
+      "record": {"$ref": "https://inspirebeta.net/api/authors/1016091"}}, {"uuid":
+      "b5c114a1-7d76-4caf-a416-4c1489b1d08f", "signature_block": "BYLp", "curated_relation":
+      true, "full_name": "Boyle, P.A.", "raw_affiliations": [{"value": "School of
+      Physics and Astronomy, The University of Edinburgh, EH9 3FD Edinburgh, UK"}],
+      "affiliations": [{"value": "Edinburgh U.", "record": {"$ref": "https://inspirebeta.net/api/institutions/902787"}}],
+      "record": {"$ref": "https://inspirebeta.net/api/authors/1015525"}}, {"uuid":
+      "595da362-ab28-4da5-a23e-461750315ef2", "signature_block": "GALPARv", "curated_relation":
+      true, "full_name": "G\u00fclpers, V.", "raw_affiliations": [{"value": "School
       of Physics and Astronomy, University of Southampton, SO17 1BJ Southampton, UK"}],
-      "affiliations": [{"value": "Southampton U.", "record": {"$ref": "https://inspirebeta.net/api/institutions/903212"}}]},
-      {"uuid": "2461b866-ffcb-4385-bfc8-720b0798f347", "full_name": "Izubuchi, T.",
-      "raw_affiliations": [{"value": "Physics Department, Brookhaven National Laboratory,
-      Upton, USA"}, {"value": "RIKEN-BNL Research Center, Brookhaven National Laboratory,
-      11973 Upton, USA"}], "affiliations": [{"value": "Brookhaven", "record": {"$ref":
-      "https://inspirebeta.net/api/institutions/902689"}}, {"value": "RIKEN BNL",
-      "record": {"$ref": "https://inspirebeta.net/api/institutions/907483"}}], "signature_block":
-      "ISABACt", "record": {"$ref": "https://inspirebeta.net/api/authors/1004674"}},
-      {"full_name": "Jin, L.", "signature_block": "JANl", "curated_relation": true,
-      "record": {"$ref": "https://inspirebeta.net/api/authors/1505534"}, "uuid": "16e3b717-cbff-434c-b444-14d087de4a8f",
-      "raw_affiliations": [{"value": "Physics Department, University of Connecticut,
-      06269-3046 Storrs, USA"}, {"value": "RIKEN-BNL Research Center, Brookhaven National
-      Laboratory, 11973 Upton, USA"}], "affiliations": [{"value": "Connecticut U.",
-      "record": {"$ref": "https://inspirebeta.net/api/institutions/902753"}}, {"value":
-      "RIKEN BNL", "record": {"$ref": "https://inspirebeta.net/api/institutions/907483"}}]},
-      {"uuid": "8402dfa7-b72a-4afd-9186-58b3fd4fbc3a", "full_name": "Jung, C.", "raw_affiliations":
-      [{"value": "Physics Department, Brookhaven National Laboratory, Upton, USA"}],
+      "affiliations": [{"value": "Southampton U.", "record": {"$ref": "https://inspirebeta.net/api/institutions/903212"}}],
+      "record": {"$ref": "https://inspirebeta.net/api/authors/1333617"}}, {"full_name":
+      "Izubuchi, T.", "raw_affiliations": [{"value": "Physics Department, Brookhaven
+      National Laboratory, Upton, USA"}, {"value": "RIKEN-BNL Research Center, Brookhaven
+      National Laboratory, 11973 Upton, USA"}], "record": {"$ref": "https://inspirebeta.net/api/authors/1004674"},
+      "affiliations": [{"value": "Brookhaven", "record": {"$ref": "https://inspirebeta.net/api/institutions/902689"}},
+      {"value": "RIKEN BNL", "record": {"$ref": "https://inspirebeta.net/api/institutions/907483"}}],
+      "signature_block": "ISABACt", "uuid": "2461b866-ffcb-4385-bfc8-720b0798f347"},
+      {"uuid": "16e3b717-cbff-434c-b444-14d087de4a8f", "signature_block": "JANl",
+      "curated_relation": true, "full_name": "Jin, L.", "raw_affiliations": [{"value":
+      "Physics Department, University of Connecticut, 06269-3046 Storrs, USA"}, {"value":
+      "RIKEN-BNL Research Center, Brookhaven National Laboratory, 11973 Upton, USA"}],
+      "affiliations": [{"value": "Connecticut U.", "record": {"$ref": "https://inspirebeta.net/api/institutions/902753"}},
+      {"value": "RIKEN BNL", "record": {"$ref": "https://inspirebeta.net/api/institutions/907483"}}],
+      "record": {"$ref": "https://inspirebeta.net/api/authors/1505534"}}, {"full_name":
+      "Jung, C.", "raw_affiliations": [{"value": "Physics Department, Brookhaven National
+      Laboratory, Upton, USA"}], "record": {"$ref": "https://inspirebeta.net/api/authors/1274259"},
       "affiliations": [{"value": "Brookhaven", "record": {"$ref": "https://inspirebeta.net/api/institutions/902689"}}],
-      "signature_block": "JANGc", "record": {"$ref": "https://inspirebeta.net/api/authors/1274259"}},
-      {"uuid": "c2e46b60-d11a-4143-8ac7-d71b0bfd62da", "full_name": "J\u00fcttner,
-      A.", "raw_affiliations": [{"value": "School of Physics and Astronomy, University
-      of Southampton, SO17 1BJ Southampton, UK"}], "affiliations": [{"value": "Southampton
-      U.", "record": {"$ref": "https://inspirebeta.net/api/institutions/903212"}}],
-      "signature_block": "JATNARa", "record": {"$ref": "https://inspirebeta.net/api/authors/1023616"}},
-      {"raw_affiliations": [{"value": "Physics Department, Brookhaven National Laboratory,
-      Upton, USA"}], "uuid": "689e3b4c-1bd9-47ce-b6fa-b5f46d0f226d", "affiliations":
-      [{"value": "Brookhaven", "record": {"$ref": "https://inspirebeta.net/api/institutions/902689"}}],
-      "full_name": "Lehner, C.", "signature_block": "LANARc", "curated_relation":
-      true, "record": {"$ref": "https://inspirebeta.net/api/authors/1063281"}, "emails":
-      ["clehner@quark.phy.bnl.gov"]}, {"uuid": "b60c7600-6d93-4480-b0ff-32eb4f23bd73",
-      "full_name": "Portelli, A.", "raw_affiliations": [{"value": "School of Physics
-      and Astronomy, The University of Edinburgh, EH9 3FD Edinburgh, UK"}], "affiliations":
-      [{"value": "Edinburgh U.", "record": {"$ref": "https://inspirebeta.net/api/institutions/902787"}}],
-      "signature_block": "PARTALa", "record": {"$ref": "https://inspirebeta.net/api/authors/1242536"}},
-      {"full_name": "Tsang, J.T.", "signature_block": "TSANGj", "curated_relation":
-      true, "record": {"$ref": "https://inspirebeta.net/api/authors/1518889"}, "uuid":
-      "00c1e5b7-8792-4ac1-bed0-76b13a2be708", "raw_affiliations": [{"value": "School
-      of Physics and Astronomy, The University of Edinburgh, EH9 3FD Edinburgh, UK"}],
-      "affiliations": [{"value": "Edinburgh U.", "record": {"$ref": "https://inspirebeta.net/api/institutions/902787"}}]}]},
-      "workflow_type": "HEP_CREATE", "merge_details": {"head_uuid": "d000cb00-d583-4cd5-ac27-f947216f036c",
-      "head_version_id": 1, "merger_head_revision": 0, "merger_original_root": {},
-      "conflicts": {"conflicts": [{"path": "/authors/10", "op": "remove", "value":
-      null, "$type": "REMOVE_FIELD"}, {"path": "/authors/9", "op": "remove", "value":
-      null, "$type": "REMOVE_FIELD"}, {"path": "/authors/8", "op": "remove", "value":
-      null, "$type": "REMOVE_FIELD"}, {"path": "/authors/7", "op": "remove", "value":
-      null, "$type": "REMOVE_FIELD"}, {"path": "/authors/6", "op": "remove", "value":
-      null, "$type": "REMOVE_FIELD"}, {"path": "/authors/5", "op": "remove", "value":
-      null, "$type": "REMOVE_FIELD"}, {"path": "/authors/4", "op": "remove", "value":
-      null, "$type": "REMOVE_FIELD"}, {"path": "/authors/3", "op": "remove", "value":
-      null, "$type": "REMOVE_FIELD"}, {"path": "/authors/2", "op": "remove", "value":
-      null, "$type": "REMOVE_FIELD"}, {"path": "/authors/1", "op": "remove", "value":
-      null, "$type": "REMOVE_FIELD"}], "callback_url": "http://host.docker.internal:8080/callback/workflows/resolve_merge_conflicts"}}}'
+      "signature_block": "JANGc", "uuid": "8402dfa7-b72a-4afd-9186-58b3fd4fbc3a"},
+      {"full_name": "J\u00fcttner, A.", "raw_affiliations": [{"value": "School of
+      Physics and Astronomy, University of Southampton, SO17 1BJ Southampton, UK"}],
+      "record": {"$ref": "https://inspirebeta.net/api/authors/1023616"}, "affiliations":
+      [{"value": "Southampton U.", "record": {"$ref": "https://inspirebeta.net/api/institutions/903212"}}],
+      "signature_block": "JATNARa", "uuid": "c2e46b60-d11a-4143-8ac7-d71b0bfd62da"},
+      {"full_name": "Lehner, C.", "affiliations": [{"value": "Brookhaven", "record":
+      {"$ref": "https://inspirebeta.net/api/institutions/902689"}}], "uuid": "689e3b4c-1bd9-47ce-b6fa-b5f46d0f226d",
+      "signature_block": "LANARc", "emails": ["clehner@quark.phy.bnl.gov"], "raw_affiliations":
+      [{"value": "Physics Department, Brookhaven National Laboratory, Upton, USA"}],
+      "curated_relation": true, "record": {"$ref": "https://inspirebeta.net/api/authors/1063281"}},
+      {"full_name": "Portelli, A.", "raw_affiliations": [{"value": "School of Physics
+      and Astronomy, The University of Edinburgh, EH9 3FD Edinburgh, UK"}], "record":
+      {"$ref": "https://inspirebeta.net/api/authors/1242536"}, "affiliations": [{"value":
+      "Edinburgh U.", "record": {"$ref": "https://inspirebeta.net/api/institutions/902787"}}],
+      "signature_block": "PARTALa", "uuid": "b60c7600-6d93-4480-b0ff-32eb4f23bd73"},
+      {"uuid": "00c1e5b7-8792-4ac1-bed0-76b13a2be708", "signature_block": "TSANGj",
+      "curated_relation": true, "full_name": "Tsang, J.T.", "raw_affiliations": [{"value":
+      "School of Physics and Astronomy, The University of Edinburgh, EH9 3FD Edinburgh,
+      UK"}], "affiliations": [{"value": "Edinburgh U.", "record": {"$ref": "https://inspirebeta.net/api/institutions/902787"}}],
+      "record": {"$ref": "https://inspirebeta.net/api/authors/1518889"}}], "document_type":
+      ["article"], "titles": [{"title": "New title"}, {"title": "Calculation of the
+      hadronic vacuum polarization contribution to the muon anomalous magnetic moment",
+      "source": "arXiv"}]}, "workflow_type": "HEP_CREATE", "merge_details": {"head_uuid":
+      "9de9ff7a-15f2-4820-86b6-4b7ab0f96fee", "head_version_id": 1, "merger_head_revision":
+      0, "merger_original_root": {}, "conflicts": [{"path": "/authors/10", "op": "remove",
+      "value": null, "$type": "REMOVE_FIELD"}, {"path": "/authors/9", "op": "remove",
+      "value": null, "$type": "REMOVE_FIELD"}, {"path": "/authors/8", "op": "remove",
+      "value": null, "$type": "REMOVE_FIELD"}, {"path": "/authors/7", "op": "remove",
+      "value": null, "$type": "REMOVE_FIELD"}, {"path": "/authors/6", "op": "remove",
+      "value": null, "$type": "REMOVE_FIELD"}, {"path": "/authors/5", "op": "remove",
+      "value": null, "$type": "REMOVE_FIELD"}, {"path": "/authors/4", "op": "remove",
+      "value": null, "$type": "REMOVE_FIELD"}, {"path": "/authors/3", "op": "remove",
+      "value": null, "$type": "REMOVE_FIELD"}, {"path": "/authors/2", "op": "remove",
+      "value": null, "$type": "REMOVE_FIELD"}, {"path": "/authors/1", "op": "remove",
+      "value": null, "$type": "REMOVE_FIELD"}]}}'
     headers:
       Accept:
       - application/json
@@ -747,7 +746,7 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '39868'
+      - '39758'
       Content-Type:
       - application/json
     method: PUT
@@ -955,40 +954,41 @@ interactions:
         Z.\"}],\"dois\":[\"10.1140/epjc/s10052-010-1515-z\"],\"label\":\"49\",\"publication_info\":{\"artid\":\"1515\",\"journal_title\":\"Eur.Phys.J.C\",\"journal_volume\":\"71\",\"page_start\":\"1515\",\"year\":2011}}},{\"curated_relation\":false,\"record\":{\"$ref\":\"http://localhost:8000/api/literature/873506\"},\"reference\":{\"authors\":[{\"full_name\":\"Davier,
         M.\"},{\"full_name\":\"Hoecker, A.\"},{\"full_name\":\"Malaescu, B.\"},{\"full_name\":\"Zhang,
         Z.\"}],\"dois\":[\"10.1140/epjc/s10052-012-1874-8\"],\"label\":\"49\",\"publication_info\":{\"artid\":\"1874\",\"journal_title\":\"Eur.Phys.J.C\",\"journal_volume\":\"72\",\"page_start\":\"1874\",\"year\":2012}}},{\"reference\":{\"label\":\"50\",\"urls\":[{\"value\":\"http://www.dirac.ac.uk\"}]}}],\"self\":{\"$ref\":\"http://localhost:8000/api/literature/1649231\"},\"texkeys\":[\"RBC:2018dos\",\"Blum:2018mom\"],\"urls\":[{\"description\":\"Press
-        Release\",\"value\":\"https://www.bnl.gov/newsroom/news.php?a=112744\"}],\"arxiv_eprints\":[{\"categories\":[\"hep-lat\",\"hep-ph\"],\"value\":\"1801.07224\"}],\"_collections\":[\"Literature\"],\"titles\":[{\"title\":\"New
-        title\"},{\"title\":\"Calculation of the hadronic vacuum polarization contribution
-        to the muon anomalous magnetic moment\",\"source\":\"arXiv\"}],\"document_type\":[\"article\"],\"authors\":[{\"full_name\":\"Blumaaaaaaa,
-        T.\"},{\"full_name\":\"Blum, T.\",\"signature_block\":\"BLANt\",\"curated_relation\":true,\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1016091\"},\"uuid\":\"c6a93168-9850-48f2-9f25-7c55d9c12a3d\",\"raw_affiliations\":[{\"value\":\"Physics
-        Department, University of Connecticut, 06269-3046 Storrs, USA\"}],\"affiliations\":[{\"value\":\"Connecticut
-        U.\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/902753\"}}]},{\"full_name\":\"Boyle,
-        P.A.\",\"signature_block\":\"BYLp\",\"curated_relation\":true,\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1015525\"},\"uuid\":\"b5c114a1-7d76-4caf-a416-4c1489b1d08f\",\"raw_affiliations\":[{\"value\":\"School
-        of Physics and Astronomy, The University of Edinburgh, EH9 3FD Edinburgh,
-        UK\"}],\"affiliations\":[{\"value\":\"Edinburgh U.\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/902787\"}}]},{\"full_name\":\"G\xFClpers,
-        V.\",\"signature_block\":\"GALPARv\",\"curated_relation\":true,\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1333617\"},\"uuid\":\"595da362-ab28-4da5-a23e-461750315ef2\",\"raw_affiliations\":[{\"value\":\"School
-        of Physics and Astronomy, University of Southampton, SO17 1BJ Southampton,
-        UK\"}],\"affiliations\":[{\"value\":\"Southampton U.\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/903212\"}}]},{\"uuid\":\"2461b866-ffcb-4385-bfc8-720b0798f347\",\"full_name\":\"Izubuchi,
+        Release\",\"value\":\"https://www.bnl.gov/newsroom/news.php?a=112744\"}],\"_collections\":[\"Literature\"],\"arxiv_eprints\":[{\"categories\":[\"hep-lat\",\"hep-ph\"],\"value\":\"1801.07224\"}],\"authors\":[{\"full_name\":\"Blumaaaaaaa,
+        T.\"},{\"uuid\":\"c6a93168-9850-48f2-9f25-7c55d9c12a3d\",\"signature_block\":\"BLANt\",\"curated_relation\":true,\"full_name\":\"Blum,
+        T.\",\"raw_affiliations\":[{\"value\":\"Physics Department, University of
+        Connecticut, 06269-3046 Storrs, USA\"}],\"affiliations\":[{\"value\":\"Connecticut
+        U.\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/902753\"}}],\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1016091\"}},{\"uuid\":\"b5c114a1-7d76-4caf-a416-4c1489b1d08f\",\"signature_block\":\"BYLp\",\"curated_relation\":true,\"full_name\":\"Boyle,
+        P.A.\",\"raw_affiliations\":[{\"value\":\"School of Physics and Astronomy,
+        The University of Edinburgh, EH9 3FD Edinburgh, UK\"}],\"affiliations\":[{\"value\":\"Edinburgh
+        U.\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/902787\"}}],\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1015525\"}},{\"uuid\":\"595da362-ab28-4da5-a23e-461750315ef2\",\"signature_block\":\"GALPARv\",\"curated_relation\":true,\"full_name\":\"G\xFClpers,
+        V.\",\"raw_affiliations\":[{\"value\":\"School of Physics and Astronomy, University
+        of Southampton, SO17 1BJ Southampton, UK\"}],\"affiliations\":[{\"value\":\"Southampton
+        U.\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/903212\"}}],\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1333617\"}},{\"full_name\":\"Izubuchi,
         T.\",\"raw_affiliations\":[{\"value\":\"Physics Department, Brookhaven National
         Laboratory, Upton, USA\"},{\"value\":\"RIKEN-BNL Research Center, Brookhaven
-        National Laboratory, 11973 Upton, USA\"}],\"affiliations\":[{\"value\":\"Brookhaven\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/902689\"}},{\"value\":\"RIKEN
-        BNL\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/907483\"}}],\"signature_block\":\"ISABACt\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1004674\"}},{\"full_name\":\"Jin,
-        L.\",\"signature_block\":\"JANl\",\"curated_relation\":true,\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1505534\"},\"uuid\":\"16e3b717-cbff-434c-b444-14d087de4a8f\",\"raw_affiliations\":[{\"value\":\"Physics
-        Department, University of Connecticut, 06269-3046 Storrs, USA\"},{\"value\":\"RIKEN-BNL
-        Research Center, Brookhaven National Laboratory, 11973 Upton, USA\"}],\"affiliations\":[{\"value\":\"Connecticut
+        National Laboratory, 11973 Upton, USA\"}],\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1004674\"},\"affiliations\":[{\"value\":\"Brookhaven\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/902689\"}},{\"value\":\"RIKEN
+        BNL\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/907483\"}}],\"signature_block\":\"ISABACt\",\"uuid\":\"2461b866-ffcb-4385-bfc8-720b0798f347\"},{\"uuid\":\"16e3b717-cbff-434c-b444-14d087de4a8f\",\"signature_block\":\"JANl\",\"curated_relation\":true,\"full_name\":\"Jin,
+        L.\",\"raw_affiliations\":[{\"value\":\"Physics Department, University of
+        Connecticut, 06269-3046 Storrs, USA\"},{\"value\":\"RIKEN-BNL Research Center,
+        Brookhaven National Laboratory, 11973 Upton, USA\"}],\"affiliations\":[{\"value\":\"Connecticut
         U.\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/902753\"}},{\"value\":\"RIKEN
-        BNL\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/907483\"}}]},{\"uuid\":\"8402dfa7-b72a-4afd-9186-58b3fd4fbc3a\",\"full_name\":\"Jung,
+        BNL\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/907483\"}}],\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1505534\"}},{\"full_name\":\"Jung,
         C.\",\"raw_affiliations\":[{\"value\":\"Physics Department, Brookhaven National
-        Laboratory, Upton, USA\"}],\"affiliations\":[{\"value\":\"Brookhaven\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/902689\"}}],\"signature_block\":\"JANGc\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1274259\"}},{\"uuid\":\"c2e46b60-d11a-4143-8ac7-d71b0bfd62da\",\"full_name\":\"J\xFCttner,
+        Laboratory, Upton, USA\"}],\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1274259\"},\"affiliations\":[{\"value\":\"Brookhaven\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/902689\"}}],\"signature_block\":\"JANGc\",\"uuid\":\"8402dfa7-b72a-4afd-9186-58b3fd4fbc3a\"},{\"full_name\":\"J\xFCttner,
         A.\",\"raw_affiliations\":[{\"value\":\"School of Physics and Astronomy, University
-        of Southampton, SO17 1BJ Southampton, UK\"}],\"affiliations\":[{\"value\":\"Southampton
-        U.\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/903212\"}}],\"signature_block\":\"JATNARa\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1023616\"}},{\"raw_affiliations\":[{\"value\":\"Physics
-        Department, Brookhaven National Laboratory, Upton, USA\"}],\"uuid\":\"689e3b4c-1bd9-47ce-b6fa-b5f46d0f226d\",\"affiliations\":[{\"value\":\"Brookhaven\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/902689\"}}],\"full_name\":\"Lehner,
-        C.\",\"signature_block\":\"LANARc\",\"curated_relation\":true,\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1063281\"},\"emails\":[\"clehner@quark.phy.bnl.gov\"]},{\"uuid\":\"b60c7600-6d93-4480-b0ff-32eb4f23bd73\",\"full_name\":\"Portelli,
+        of Southampton, SO17 1BJ Southampton, UK\"}],\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1023616\"},\"affiliations\":[{\"value\":\"Southampton
+        U.\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/903212\"}}],\"signature_block\":\"JATNARa\",\"uuid\":\"c2e46b60-d11a-4143-8ac7-d71b0bfd62da\"},{\"full_name\":\"Lehner,
+        C.\",\"affiliations\":[{\"value\":\"Brookhaven\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/902689\"}}],\"uuid\":\"689e3b4c-1bd9-47ce-b6fa-b5f46d0f226d\",\"signature_block\":\"LANARc\",\"emails\":[\"clehner@quark.phy.bnl.gov\"],\"raw_affiliations\":[{\"value\":\"Physics
+        Department, Brookhaven National Laboratory, Upton, USA\"}],\"curated_relation\":true,\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1063281\"}},{\"full_name\":\"Portelli,
         A.\",\"raw_affiliations\":[{\"value\":\"School of Physics and Astronomy, The
-        University of Edinburgh, EH9 3FD Edinburgh, UK\"}],\"affiliations\":[{\"value\":\"Edinburgh
-        U.\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/902787\"}}],\"signature_block\":\"PARTALa\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1242536\"}},{\"full_name\":\"Tsang,
-        J.T.\",\"signature_block\":\"TSANGj\",\"curated_relation\":true,\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1518889\"},\"uuid\":\"00c1e5b7-8792-4ac1-bed0-76b13a2be708\",\"raw_affiliations\":[{\"value\":\"School
-        of Physics and Astronomy, The University of Edinburgh, EH9 3FD Edinburgh,
-        UK\"}],\"affiliations\":[{\"value\":\"Edinburgh U.\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/902787\"}}]}]},\"tickets\":[],\"decisions\":[{\"id\":1,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-08-26T14:45:14.237000Z\",\"_updated_at\":\"2025-08-26T14:45:14.237000Z\",\"action\":\"fuzzy_match\",\"value\":\"paper1\",\"user\":\"admin@admin.com\"}],\"workflow_type\":\"HEP_CREATE\",\"classifier_results\":{\"categories\":[{\"keyword\":\"color\",\"category\":\"HEP\"},{\"keyword\":\"fluctuation\",\"category\":\"HEP\"},{\"keyword\":\"quantum
+        University of Edinburgh, EH9 3FD Edinburgh, UK\"}],\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1242536\"},\"affiliations\":[{\"value\":\"Edinburgh
+        U.\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/902787\"}}],\"signature_block\":\"PARTALa\",\"uuid\":\"b60c7600-6d93-4480-b0ff-32eb4f23bd73\"},{\"uuid\":\"00c1e5b7-8792-4ac1-bed0-76b13a2be708\",\"signature_block\":\"TSANGj\",\"curated_relation\":true,\"full_name\":\"Tsang,
+        J.T.\",\"raw_affiliations\":[{\"value\":\"School of Physics and Astronomy,
+        The University of Edinburgh, EH9 3FD Edinburgh, UK\"}],\"affiliations\":[{\"value\":\"Edinburgh
+        U.\",\"record\":{\"$ref\":\"https://inspirebeta.net/api/institutions/902787\"}}],\"record\":{\"$ref\":\"https://inspirebeta.net/api/authors/1518889\"}}],\"document_type\":[\"article\"],\"titles\":[{\"title\":\"New
+        title\"},{\"title\":\"Calculation of the hadronic vacuum polarization contribution
+        to the muon anomalous magnetic moment\",\"source\":\"arXiv\"}]},\"tickets\":[],\"decisions\":[{\"id\":1,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-08-26T14:45:14.237000Z\",\"_updated_at\":\"2025-08-26T14:45:14.237000Z\",\"action\":\"fuzzy_match\",\"value\":\"paper1\",\"user\":\"admin@admin.com\"}],\"workflow_type\":\"HEP_CREATE\",\"classifier_results\":{\"categories\":[{\"keyword\":\"color\",\"category\":\"HEP\"},{\"keyword\":\"fluctuation\",\"category\":\"HEP\"},{\"keyword\":\"quantum
         information\",\"category\":\"HEP\"},{\"keyword\":\"quantum sensing\",\"category\":\"HEP\"},{\"keyword\":\"entanglement\",\"category\":\"HEP\"},{\"keyword\":\"engineering\",\"category\":\"HEP\"},{\"keyword\":\"quantum
         communication\",\"category\":\"HEP\"},{\"keyword\":\"mirror\",\"category\":\"HEP\"},{\"keyword\":\"mixing\",\"category\":\"HEP\"},{\"keyword\":\"scattering\",\"category\":\"HEP\"},{\"keyword\":\"cloud\",\"category\":\"HEP\"},{\"keyword\":\"monitoring\",\"category\":\"HEP\"},{\"keyword\":\"quantum
         state\",\"category\":\"HEP\"},{\"keyword\":\"absorption\",\"category\":\"HEP\"},{\"keyword\":\"quantum
@@ -1027,7 +1027,7 @@ interactions:
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
         sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
-        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":{\"head_uuid\":\"d000cb00-d583-4cd5-ac27-f947216f036c\",\"head_version_id\":1,\"merger_head_revision\":0,\"merger_original_root\":{},\"conflicts\":{\"conflicts\":[{\"path\":\"/authors/10\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/9\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/8\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/7\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/6\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/5\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/4\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/3\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/2\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/1\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"}],\"callback_url\":\"http://host.docker.internal:8080/callback/workflows/resolve_merge_conflicts\"}},\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2026-01-20T14:30:52.681897Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
+        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":{\"head_uuid\":\"9de9ff7a-15f2-4820-86b6-4b7ab0f96fee\",\"head_version_id\":1,\"merger_head_revision\":0,\"merger_original_root\":{},\"conflicts\":[{\"path\":\"/authors/10\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/9\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/8\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/7\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/6\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/5\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/4\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/3\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/2\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"},{\"path\":\"/authors/1\",\"op\":\"remove\",\"value\":null,\"$type\":\"REMOVE_FIELD\"}]},\"callback_url\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2026-01-23T10:56:11.698853Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
         class of Hadamard well-posed five-field theories of dissipative relativistic
         fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
         Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
@@ -1049,13 +1049,13 @@ interactions:
       Content-Language:
       - en
       Content-Length:
-      - '45115'
+      - '45028'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 20 Jan 2026 14:30:52 GMT
+      - Fri, 23 Jan 2026 10:56:11 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -1095,7 +1095,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 20 Jan 2026 14:30:54 GMT
+      - Fri, 23 Jan 2026 10:56:13 GMT
       Location:
       - /api/workflows/literature/00000000-0000-0000-0000-000000001111/
       Referrer-Policy:
@@ -1395,7 +1395,7 @@ interactions:
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
         sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
-        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":{\"conflicts\":{\"conflicts\":[{\"op\":\"remove\",\"path\":\"/authors/10\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/9\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/8\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/7\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/6\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/5\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/4\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/3\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/2\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/1\",\"$type\":\"REMOVE_FIELD\",\"value\":null}],\"callback_url\":\"http://host.docker.internal:8080/callback/workflows/resolve_merge_conflicts\"},\"head_uuid\":\"d000cb00-d583-4cd5-ac27-f947216f036c\",\"head_version_id\":1,\"merger_head_revision\":0,\"merger_original_root\":{}},\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2026-01-20T14:30:52.681897Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
+        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":{\"conflicts\":[{\"op\":\"remove\",\"path\":\"/authors/10\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/9\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/8\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/7\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/6\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/5\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/4\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/3\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/2\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/1\",\"$type\":\"REMOVE_FIELD\",\"value\":null}],\"head_uuid\":\"9de9ff7a-15f2-4820-86b6-4b7ab0f96fee\",\"head_version_id\":1,\"merger_head_revision\":0,\"merger_original_root\":{}},\"callback_url\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2026-01-23T10:56:11.698853Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
         class of Hadamard well-posed five-field theories of dissipative relativistic
         fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
         Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
@@ -1417,13 +1417,13 @@ interactions:
       Content-Language:
       - en
       Content-Length:
-      - '45138'
+      - '45051'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 20 Jan 2026 14:30:54 GMT
+      - Fri, 23 Jan 2026 10:56:13 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -1463,7 +1463,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 20 Jan 2026 14:30:54 GMT
+      - Fri, 23 Jan 2026 10:56:13 GMT
       Location:
       - /api/workflows/literature/00000000-0000-0000-0000-000000001111/
       Referrer-Policy:
@@ -1763,7 +1763,7 @@ interactions:
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
         sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
-        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":{\"conflicts\":{\"conflicts\":[{\"op\":\"remove\",\"path\":\"/authors/10\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/9\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/8\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/7\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/6\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/5\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/4\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/3\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/2\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/1\",\"$type\":\"REMOVE_FIELD\",\"value\":null}],\"callback_url\":\"http://host.docker.internal:8080/callback/workflows/resolve_merge_conflicts\"},\"head_uuid\":\"d000cb00-d583-4cd5-ac27-f947216f036c\",\"head_version_id\":1,\"merger_head_revision\":0,\"merger_original_root\":{}},\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2026-01-20T14:30:52.681897Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
+        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":{\"conflicts\":[{\"op\":\"remove\",\"path\":\"/authors/10\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/9\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/8\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/7\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/6\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/5\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/4\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/3\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/2\",\"$type\":\"REMOVE_FIELD\",\"value\":null},{\"op\":\"remove\",\"path\":\"/authors/1\",\"$type\":\"REMOVE_FIELD\",\"value\":null}],\"head_uuid\":\"9de9ff7a-15f2-4820-86b6-4b7ab0f96fee\",\"head_version_id\":1,\"merger_head_revision\":0,\"merger_original_root\":{}},\"callback_url\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2026-01-23T10:56:11.698853Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
         class of Hadamard well-posed five-field theories of dissipative relativistic
         fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
         Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
@@ -1785,13 +1785,13 @@ interactions:
       Content-Language:
       - en
       Content-Length:
-      - '45138'
+      - '45051'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 20 Jan 2026 14:30:54 GMT
+      - Fri, 23 Jan 2026 10:56:13 GMT
       Referrer-Policy:
       - same-origin
       Server:
