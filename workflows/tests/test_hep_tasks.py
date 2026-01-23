@@ -1957,6 +1957,23 @@ class Test_HEPCreateDAG:
 
         assert len(workflow_result["data"]["references"]) == 1
 
+    @pytest.mark.vcr
+    def test_refextract_no_references(self):
+        workflow_data = {"id": self.workflow_id, "data": {}, "form_data": None}
+
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+
+        task_test(
+            "hep_create_dag",
+            "preprocessing.refextract",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
+        assert "references" not in workflow_result["data"]
+
     def test_classify_paper_with_fulltext(self, tmpdir, higgs_ontology):
         fulltext_name = "fulltext.txt"
         fulltext = tmpdir.join(fulltext_name)

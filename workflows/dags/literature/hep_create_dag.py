@@ -765,7 +765,8 @@ def hep_create_dag():
                         pdf_references, inspire_http_hook
                     )
 
-            text = get_value(workflow_data, "form_data.references") or ""
+            form_data = workflow_data.get("form_data", {}) or {}
+            text = get_value(form_data, "references")
             if text:
                 text_references = dedupe_list(
                     extract_references_from_text(
