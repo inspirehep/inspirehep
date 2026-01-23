@@ -6,6 +6,7 @@ from hooks.backoffice.workflow_management_hook import (
     HEP,
     WorkflowManagementHook,
 )
+from include.utils.constants import HEP_CREATE
 from tenacity import RetryError
 
 from tests.test_utils import function_test, get_aut_workflow_task
@@ -87,7 +88,7 @@ class TestWorkflowManagementHook:
         def _test_post_workflow():
             workflow_management_hook = WorkflowManagementHook(HEP)
             workflow_data = {
-                "workflow_type": "HEP_CREATE",
+                "workflow_type": HEP_CREATE,
                 "data": {
                     "document_type": ["article"],
                     "_collections": ["Literature"],

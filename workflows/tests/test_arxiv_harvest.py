@@ -4,6 +4,7 @@ import pytest
 from airflow.exceptions import AirflowException, AirflowSkipException
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.arxiv import build_records, fetch_records, load_records
+from include.utils.constants import HEP_CREATE
 from include.utils.s3 import write_object
 from sickle.oaiexceptions import NoRecordsMatch
 
@@ -120,7 +121,7 @@ class TestArxivHarvest:
     def test_load_records_multiple(self, mock_post_workflow):
         parsed_records = [
             {
-                "workflow_type": "HEP_CREATE",
+                "workflow_type": HEP_CREATE,
                 "data": {
                     "document_type": ["article"],
                     "_collections": ["Literature"],
@@ -128,7 +129,7 @@ class TestArxivHarvest:
                 },
             },
             {
-                "workflow_type": "HEP_CREATE",
+                "workflow_type": HEP_CREATE,
                 "data": {
                     "document_type": ["article"],
                     "_collections": ["Literature"],

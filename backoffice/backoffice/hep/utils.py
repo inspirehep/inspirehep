@@ -5,7 +5,7 @@ import logging
 from requests.exceptions import RequestException
 from backoffice.hep.models import HepWorkflow
 
-from backoffice.hep.constants import HepResolutions, HepStatusChoices, HepWorkflowType
+from backoffice.hep.constants import HepResolutions, HepStatusChoices
 from backoffice.common.constants import WORKFLOW_DAGS
 from backoffice.common import airflow_utils
 from backoffice.common.utils import (
@@ -33,6 +33,7 @@ def resolve_workflow(id, data, user):
         id,
         data["action"],
     )
+    workflow = get_object_or_404(HepWorkflow, pk=id)
     add_hep_decision(
         id,
         user,
@@ -44,7 +45,7 @@ def resolve_workflow(id, data, user):
     if task_to_restart:
         try:
             airflow_utils.clear_airflow_dag_tasks(
-                WORKFLOW_DAGS[HepWorkflowType.HEP_CREATE].initialize,
+                WORKFLOW_DAGS[workflow.workflow_type].initialize,
                 id,
                 tasks=[task_to_restart],
             )
@@ -54,7 +55,6 @@ def resolve_workflow(id, data, user):
                 e,
             )
 
-    workflow = get_object_or_404(HepWorkflow, pk=id)
     workflow.status = HepStatusChoices.PROCESSING
     workflow.save()
     return workflow

@@ -7,7 +7,6 @@ import {
   LoadingOutlined,
   FieldTimeOutlined,
   StopOutlined,
-  ControlOutlined,
 } from '@ant-design/icons';
 import { Action, ActionCreator } from 'redux';
 
@@ -31,8 +30,16 @@ export const COLLECTIONS = [
     value: WorkflowTypes.AUTHOR_UPDATE,
   },
   {
-    key: 'new literature submissions',
+    key: 'new arxiv harvests',
     value: WorkflowTypes.HEP_CREATE,
+  },
+  {
+    key: 'arxiv updates',
+    value: WorkflowTypes.HEP_UPDATE,
+  },
+  {
+    key: 'new literature submissions',
+    value: WorkflowTypes.HEP_SUBMISSION,
   },
 ];
 
@@ -291,6 +298,8 @@ export const getDag = (workflow_type: string): string | undefined => {
     case WorkflowTypes.AUTHOR_UPDATE:
       return 'author_update_dag';
     case WorkflowTypes.HEP_CREATE:
+      return 'hep_create_dag';
+    case WorkflowTypes.HEP_SUBMISSION:
       return 'hep_create_dag';
     case WorkflowTypes.HEP_UPDATE:
       return 'hep_create_dag';
