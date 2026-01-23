@@ -536,10 +536,7 @@ class Test_HEPCreateDAG:
             task_id="await_decision_fuzzy_match",
             dag_params=self.context["params"],
         )
-        assert (
-            get_lit_workflow_task(self.workflow_id)["status"]
-            == STATUS_APPROVAL_FUZZY_MATCHING
-        )
+        assert get_lit_workflow_task(self.workflow_id)["status"] == STATUS_RUNNING
 
     @pytest.mark.vcr
     def test_await_decision_fuzzy_match_best_match_no_decision(self):
@@ -552,7 +549,10 @@ class Test_HEPCreateDAG:
             task_id="await_decision_fuzzy_match",
             dag_params={"workflow_id": workflow_id},
         )
-        assert get_lit_workflow_task(self.workflow_id)["status"] == STATUS_RUNNING
+        assert (
+            get_lit_workflow_task(workflow_id)["status"]
+            == STATUS_APPROVAL_FUZZY_MATCHING
+        )
 
     @pytest.mark.vcr
     def test_await_decision_fuzzy_match_best_match_has_xcom_match(self):
