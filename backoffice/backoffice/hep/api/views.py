@@ -3,15 +3,14 @@ import logging
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 
-from django.shortcuts import get_object_or_404
-
-from backoffice.hep.utils import add_hep_decision
+from backoffice.hep.utils import add_hep_decision, resolve_workflow
 from backoffice.hep.api.serializers import (
     HepWorkflowSerializer,
     HepWorkflowDocumentSerializer,
     HepWorkflowTicketSerializer,
     HepDecisionSerializer,
     HepResolutionSerializer,
+    HepBatchResolutionSerializer,
 )
 from rest_framework.decorators import action
 from backoffice.common.views import BaseWorkflowTicketViewSet, BaseWorkflowViewSet
@@ -39,7 +38,7 @@ from django_elasticsearch_dsl_drf.filter_backends import (
     FilteringFilterBackend,
     OrderingFilterBackend,
 )
-from backoffice.hep.constants import HepResolutions, HepStatusChoices, HepWorkflowType
+from backoffice.hep.constants import HepStatusChoices, HepWorkflowType
 from backoffice.common.constants import WORKFLOW_DAGS
 
 logger = logging.getLogger(__name__)
@@ -110,43 +109,32 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
 
     @action(detail=True, methods=["post"])
     def resolve(self, request, pk=None):
-        logger.info("Resolving data: %s", request.data)
         serializer = self.resolution_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        logger.info(
-            "Restarting HEP DAG Run %s after choice: %s",
-            pk,
-            serializer.validated_data["value"],
-        )
-        add_hep_decision(
-            pk,
-            request.user,
-            serializer.validated_data["action"],
-            serializer.validated_data["value"],
-        )
-
-        workflow = get_object_or_404(HepWorkflow, pk=pk)
-        workflow.status = HepStatusChoices.PROCESSING
-        workflow.save()
-
-        task_to_restart = HepResolutions[serializer.validated_data["action"]].label
-
-        if task_to_restart:
-            try:
-                airflow_utils.clear_airflow_dag_tasks(
-                    WORKFLOW_DAGS[HepWorkflowType.HEP_CREATE].initialize,
-                    pk,
-                    tasks=[task_to_restart],
-                )
-            except RequestException as e:
-                return handle_request_exception(
-                    "Error clearing Airflow DAG",
-                    e,
-                )
-
+        workflow = resolve_workflow(pk, serializer.validated_data, request.user)
         workflow_serializer = self.serializer_class(workflow)
         return Response(workflow_serializer.data)
+
+    @action(
+        detail=False,
+        methods=["post"],
+        url_path="resolve",
+    )
+    def batch_resolve(self, request):
+        serializer = HepBatchResolutionSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        results = []
+        for id in serializer.validated_data["ids"]:
+            try:
+                resolve_workflow(id, serializer.validated_data, request.user)
+                results.append({"id": id, "success": True})
+
+            except Exception as e:
+                results.append({"id": id, "success": False, "error": str(e)})
+
+        return Response({"results": results}, status=status.HTTP_200_OK)
 
 
 @extend_schema_view(
