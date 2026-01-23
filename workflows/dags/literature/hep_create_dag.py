@@ -1285,8 +1285,7 @@ def hep_create_dag():
             """Merge two articles.
 
             The workflow payload is overwritten by the merged record, the conflicts are
-            stored in ``extra_data.conflicts``. Also, it adds a ``callback_url`` which
-            contains the endpoint which resolves the merge conflicts.
+            stored in ``extra_data.conflicts``.
             Note:
 
             """
@@ -1333,11 +1332,7 @@ def hep_create_dag():
             }
 
             if conflicts:
-                workflow_data["merge_details"]["conflicts"] = {
-                    "conflicts": conflicts,
-                    "callback_url": inspire_http_hook.get_url()
-                    + "/callback/workflows/resolve_merge_conflicts",
-                }
+                workflow_data["merge_details"]["conflicts"] = conflicts
 
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
