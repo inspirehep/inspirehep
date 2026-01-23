@@ -4,6 +4,7 @@ from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.test import TransactionTestCase
 from rest_framework.exceptions import ValidationError
+from backoffice.hep.utils import resolve_workflow
 
 from backoffice.hep.constants import HepStatusChoices, HepResolutions
 from backoffice.hep.utils import add_hep_decision
@@ -47,3 +48,11 @@ class TestUtils(TransactionTestCase):
                 self.user,
                 HepResolutions.hep_accept,
             )
+
+    def test_resolve_workflow(self):
+        decision_data = {
+            "action": HepResolutions.auto_reject,
+            "value": "",
+        }
+        workflow = resolve_workflow(self.workflow.id, decision_data, self.user)
+        self.assertEqual(workflow.decisions.first().action, HepResolutions.auto_reject)

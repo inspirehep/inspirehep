@@ -157,3 +157,8 @@ class HepWorkflowDocumentSerializer(DocumentSerializer):
 class HepResolutionSerializer(serializers.Serializer):
     action = serializers.ChoiceField(choices=HEP_DECISION_CHOICES)
     value = serializers.CharField(max_length=30, default="")
+
+
+class HepBatchResolutionSerializer(serializers.Serializer):
+    action = serializers.ChoiceField(choices=HEP_DECISION_CHOICES)
+    ids = serializers.ListField(child=serializers.UUIDField())

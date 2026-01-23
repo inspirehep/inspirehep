@@ -304,3 +304,47 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
             text='Unable to find schema \\"https://inspirehep.net/schemas/records/notajsonschema.json\\"',
             status_code=400,
         )
+
+    def test_resolve(self):
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-resolve",
+            kwargs={"pk": self.workflow.id},
+        )
+        data = {
+            "action": HepResolutions.auto_reject,
+        }
+        response = self.api_client.post(url, format="json", data=data)
+        self.assertEqual(response.status_code, 200)
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, HepStatusChoices.PROCESSING)
+        self.assertEqual(
+            self.workflow.decisions.first().action, HepResolutions.auto_reject
+        )
+
+    def test_batch_resolve(self):
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-batch-resolve",
+        )
+
+        wfs_ids = []
+        for _ in range(3):
+            wf_id = HepWorkflow.objects.create(
+                data={},
+                status=HepStatusChoices.APPROVAL,
+                workflow_type=HepWorkflowType.HEP_CREATE,
+            )
+            wfs_ids.append(wf_id.id)
+
+        data = {
+            "ids": wfs_ids,
+            "action": HepResolutions.auto_reject,
+        }
+        response = self.api_client.post(url, format="json", data=data)
+        self.assertEqual(response.status_code, 200)
+        for id in wfs_ids:
+            workflow = HepWorkflow.objects.get(id=id)
+            self.assertEqual(
+                workflow.decisions.first().action, HepResolutions.auto_reject
+            )
