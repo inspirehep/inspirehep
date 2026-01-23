@@ -1,12 +1,10 @@
 import React from 'react';
-import UnclickableTag from '../../../common/components/UnclickableTag';
-import { resolveDecision } from '../../utils/utils';
-import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
-import { LITERATURE } from '../../../common/routes';
 import AutomaticDecision from './AutomaticDecision';
 import LiteratureReferenceCount from './LiteratureReferenceCount';
 import LiteratureKeywords from './LiteratureKeywords';
 import LiteratureActionButtons from './LiteratureActionButtons';
+import LiteratureDecisionDetails from './LiteratureDecisionDetails';
+import { LITERATURE } from '../../../common/routes';
 
 const LiteratureDecisionBox = ({
   actionInProgress,
@@ -20,19 +18,11 @@ const LiteratureDecisionBox = ({
   status,
   totalReferences,
 }) => {
-  const resolvedDecision = decision
-    ? resolveDecision(decision.get('action'))
-    : undefined;
-  const className = resolvedDecision
-    ? `decision-pill ${resolvedDecision.bg}`
-    : undefined;
-  const decisionText = resolvedDecision ? resolvedDecision.decision : undefined;
-
   const hasInspireCategories =
     Array.isArray(inspireCategories) && inspireCategories.length > 0;
 
   return (
-    <div className="mb0">
+    <div className="literature-decision-box">
       <AutomaticDecision
         hasInspireCategories={hasInspireCategories}
         relevancePrediction={relevancePrediction}
@@ -43,24 +33,11 @@ const LiteratureDecisionBox = ({
         handleResolveAction={handleResolveAction}
         actionInProgress={actionInProgress}
       />
-      {decision && (
-        <>
-          <p>
-            Action:{' '}
-            <UnclickableTag className={className}>
-              {decisionText}
-            </UnclickableTag>
-          </p>
-          {controlNumber && (
-            <p>
-              Control number:{' '}
-              <LinkWithTargetBlank href={`${LITERATURE}/${controlNumber}`}>
-                {controlNumber}
-              </LinkWithTargetBlank>
-            </p>
-          )}
-        </>
-      )}
+      <LiteratureDecisionDetails
+        decision={decision}
+        controlNumber={controlNumber}
+        pidType={LITERATURE}
+      />
       <LiteratureReferenceCount
         referenceCount={referenceCount}
         totalReferences={totalReferences}
