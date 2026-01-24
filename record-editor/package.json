@@ -42,7 +42,7 @@
     "font-awesome": "^4.7.0",
     "immutable": "^3.8.1",
     "inspire-schemas": "^61.6.26",
-    "lodash": "4.17.2",
+    "lodash": "4.17.23",
     "ng2-json-editor": "https://github.com/inveniosoftware-contrib/ng2-json-editor.git#6e0c92d3c8f9df81654dd6a78a69f50a7bbc1679",
     "ngx-bootstrap": "2.0.0-beta.7",
     "ngx-toastr": "^6.1.4",
