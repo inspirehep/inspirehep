@@ -39,7 +39,7 @@ import Links from '../../common/components/Links/Links';
 import LiteratureDecisionBox from '../components/LiteratureDecisionBox';
 import LiteratureReferences from '../components/LiteratureReferences';
 import LiteratureMatches from '../components/LiteratureMatches';
-import { WorkflowStatuses } from '../../constants';
+import { WorkflowStatuses, WorkflowTypes } from '../../constants';
 
 type LiteratureDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
@@ -62,6 +62,8 @@ const LiteratureDetailPageContainer = ({
     dispatch(fetchLiteratureRecord(id));
   }, []);
 
+  const isLiteratureUpdate =
+    literature?.get('workflow_type') === WorkflowTypes.HEP_UPDATE;
   const data = literature?.get('data');
   const relevancePrediction = literature?.get('relevance_prediction');
   const referenceCount = literature?.get('reference_count');
@@ -165,7 +167,12 @@ const LiteratureDetailPageContainer = ({
                 <StatusBanner status={status} />
                 <Row className="mv3" justify="center" gutter={35}>
                   <Col xs={24} lg={16}>
-                    {data && <LiteratureMainInfo data={data} />}
+                    {data && (
+                      <LiteratureMainInfo
+                        data={data}
+                        isLiteratureUpdate={isLiteratureUpdate}
+                      />
+                    )}
                     <CollapsableForm openSections={OPEN_SECTIONS}>
                       {(urls || ids) && (
                         <CollapsableForm.Section

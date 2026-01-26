@@ -8,8 +8,9 @@ import PublicationInfoList from '../../../common/components/PublicationInfoList'
 import ReportNumberList from '../../../literature/components/ReportNumberList';
 import CollaborationList from '../../../common/components/CollaborationList';
 import LiteratureTitle from '../../../common/components/LiteratureTitle';
+import UnclickableTag from '../../../common/components/UnclickableTag';
 
-const LiteratureMainInfo = ({ data }) => {
+const LiteratureMainInfo = ({ data, isLiteratureUpdate }) => {
   const authors = data?.get('authors');
   const title = data?.getIn(['titles', 0]);
   const abstract = data?.getIn(['abstracts', 0]);
@@ -30,6 +31,9 @@ const LiteratureMainInfo = ({ data }) => {
   return (
     <>
       <ContentBox fullHeight={false} className="md-pb3 mb3">
+        {isLiteratureUpdate && (
+          <UnclickableTag color="processing">Update</UnclickableTag>
+        )}
         <h2>
           <LiteratureTitle title={title} />
         </h2>

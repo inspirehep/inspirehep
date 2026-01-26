@@ -118,4 +118,10 @@ describe('LiteratureMainInfo', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('Experiment: CERN-LHC')).toBeInTheDocument();
   });
+
+  it('renders the update tag when isLiteratureUpdate is true', () => {
+    renderWithRouter(<LiteratureMainInfo data={mockData} isLiteratureUpdate />);
+
+    expect(screen.getByText('Update')).toBeInTheDocument();
+  });
 });
