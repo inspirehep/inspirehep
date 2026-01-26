@@ -50,7 +50,7 @@ describe('ResultItem component', () => {
       <ResultItem
         item={item}
         handleResolveAction={handleResolveAction}
-        actionInProgress={WorkflowDecisions.HEP_ACCEPT_CORE}
+        actionInProgress={null}
       />,
       {
         route: BACKOFFICE_LITERATURE_SEARCH,

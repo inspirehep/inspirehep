@@ -12,7 +12,9 @@ import { RestartActionButtons } from '../../common/components/Detail/RestartActi
 import {
   deleteWorkflow,
   fetchLiteratureRecord,
-  resolveAction,
+  resolveLiteratureAction,
+  restartWorkflowAction,
+  restartCurrentWorkflowAction,
 } from '../../../actions/backoffice';
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
 import LinkLikeButton from '../../../common/components/LinkLikeButton/LinkLikeButton';
@@ -45,7 +47,8 @@ type LiteratureDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
   literature: Map<string, any>;
   loading: boolean;
-  actionInProgress: string | false;
+  actionInProgress: Map<string, any> | null;
+  restartActionInProgress: Map<string, any> | null;
   isSuperUserLoggedIn: boolean;
 };
 
@@ -54,6 +57,7 @@ const LiteratureDetailPageContainer = ({
   literature,
   loading,
   actionInProgress,
+  restartActionInProgress,
   isSuperUserLoggedIn,
 }: LiteratureDetailPageContainerProps) => {
   const { id } = useParams<{ id: string }>();
@@ -113,19 +117,15 @@ const LiteratureDetailPageContainer = ({
       action,
       value,
     };
-    dispatch(resolveAction(id, LITERATURE_PID_TYPE, 'resolve', payload));
+    dispatch(resolveLiteratureAction(id, payload));
   };
 
   const handleRestart = () => {
-    dispatch(resolveAction(id, LITERATURE_PID_TYPE, 'restart', {}));
+    dispatch(restartWorkflowAction(id, LITERATURE_PID_TYPE));
   };
 
   const handleRestartCurrent = () => {
-    dispatch(
-      resolveAction(id, LITERATURE_PID_TYPE, 'restart', {
-        restart_current_task: true,
-      })
-    );
+    dispatch(restartCurrentWorkflowAction(id, LITERATURE_PID_TYPE));
   };
 
   const handleDelete = () => {
@@ -250,6 +250,7 @@ const LiteratureDetailPageContainer = ({
                         referenceCount={referenceCount}
                         totalReferences={totalReferences}
                         classifierResults={classifierResults}
+                        workflowId={id}
                       />
                     </ContentBox>
                     <ContentBox
@@ -295,7 +296,7 @@ const LiteratureDetailPageContainer = ({
                         handleRestartCurrent={handleRestartCurrent}
                         id={id}
                         pidType={LITERATURE_PID_TYPE}
-                        actionInProgress={actionInProgress}
+                        restartActionInProgress={restartActionInProgress}
                       />
                     </ContentBox>
                   </Col>
@@ -313,6 +314,7 @@ const stateToProps = (state: RootStateOrAny) => ({
   literature: state.backoffice.get('literature'),
   loading: state.backoffice.get('loading'),
   actionInProgress: state.backoffice.get('actionInProgress'),
+  restartActionInProgress: state.backoffice.get('restartActionInProgress'),
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 

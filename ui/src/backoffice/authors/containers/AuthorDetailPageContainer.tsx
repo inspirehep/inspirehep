@@ -14,7 +14,9 @@ import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
 import {
   deleteWorkflow,
   fetchAuthor,
-  resolveAction,
+  resolveAuthorAction,
+  restartWorkflowAction,
+  restartCurrentWorkflowAction,
 } from '../../../actions/backoffice';
 import Links from '../../common/components/Links/Links';
 import {
@@ -52,7 +54,8 @@ type AuthorDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
   author: Map<string, any>;
   loading: boolean;
-  actionInProgress: string | false;
+  actionInProgress: Map<string, any> | null;
+  restartActionInProgress: Map<string, any> | null;
   isSuperUserLoggedIn: boolean;
 };
 
@@ -61,6 +64,7 @@ const AuthorDetailPageContainer = ({
   author,
   loading,
   actionInProgress,
+  restartActionInProgress,
   isSuperUserLoggedIn,
 }: AuthorDetailPageContainerProps) => {
   const { id } = useParams<{ id: string }>();
@@ -103,19 +107,15 @@ const AuthorDetailPageContainer = ({
   ].filter(Boolean);
 
   const handleResolveAction = (value: string) => {
-    dispatch(resolveAction(id, AUTHORS_PID_TYPE, 'resolve', { value }));
+    dispatch(resolveAuthorAction(id, { value }));
   };
 
   const handleRestart = () => {
-    dispatch(resolveAction(id, AUTHORS_PID_TYPE, 'restart', {}));
+    dispatch(restartWorkflowAction(id, AUTHORS_PID_TYPE));
   };
 
   const handleRestartCurrent = () => {
-    dispatch(
-      resolveAction(id, AUTHORS_PID_TYPE, 'restart', {
-        restart_current_task: true,
-      })
-    );
+    dispatch(restartCurrentWorkflowAction(id, AUTHORS_PID_TYPE));
   };
 
   const handleDelete = () => {
@@ -267,6 +267,7 @@ const AuthorDetailPageContainer = ({
                         <AuthorActionButtons
                           actionInProgress={actionInProgress}
                           handleResolveAction={handleResolveAction}
+                          workflowId={id}
                         />
                       )}
                     </ContentBox>
@@ -319,7 +320,7 @@ const AuthorDetailPageContainer = ({
                       handleRestartCurrent={handleRestartCurrent}
                       id={id}
                       pidType={AUTHORS_PID_TYPE}
-                      actionInProgress={actionInProgress}
+                      restartActionInProgress={restartActionInProgress}
                     />
                   </ContentBox>
                 </Col>
@@ -336,6 +337,7 @@ const stateToProps = (state: RootStateOrAny) => ({
   author: state.backoffice.get('author'),
   loading: state.backoffice.get('loading'),
   actionInProgress: state.backoffice.get('actionInProgress'),
+  restartActionInProgress: state.backoffice.get('restartActionInProgress'),
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 

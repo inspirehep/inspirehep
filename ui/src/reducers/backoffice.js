@@ -15,6 +15,9 @@ import {
   BACKOFFICE_RESOLVE_ACTION_REQUEST,
   BACKOFFICE_RESOLVE_ACTION_SUCCESS,
   BACKOFFICE_RESOLVE_ACTION_ERROR,
+  BACKOFFICE_RESTART_ACTION_REQUEST,
+  BACKOFFICE_RESTART_ACTION_SUCCESS,
+  BACKOFFICE_RESTART_ACTION_ERROR,
   BACKOFFICE_LOGIN_CHECK,
   BACKOFFICE_LOGIN_REQUEST,
   BACKOFFICE_DELETE_SUCCESS,
@@ -40,7 +43,8 @@ export const initialState = fromJS({
   author: [],
   literature: [],
   facets: [],
-  actionInProgress: false,
+  actionInProgress: null,
+  restartActionInProgress: null,
   dashboard: {
     loading: false,
     facets: {
@@ -98,11 +102,17 @@ const BackofficeReducer = (state = initialState, action) => {
     case BACKOFFICE_SEARCH_QUERY_RESET:
       return state.set('query', fromJS({ page: 1, size: 10 }));
     case BACKOFFICE_RESOLVE_ACTION_REQUEST:
-      return state.set('actionInProgress', fromJS(action.payload.type));
+      return state.set('actionInProgress', fromJS(action.payload));
     case BACKOFFICE_RESOLVE_ACTION_SUCCESS:
-      return state.set('actionInProgress', false);
+      return state.set('actionInProgress', null);
     case BACKOFFICE_RESOLVE_ACTION_ERROR:
-      return state.set('actionInProgress', false);
+      return state.set('actionInProgress', null);
+    case BACKOFFICE_RESTART_ACTION_REQUEST:
+      return state.set('restartActionInProgress', fromJS(action.payload));
+    case BACKOFFICE_RESTART_ACTION_SUCCESS:
+      return state.set('restartActionInProgress', null);
+    case BACKOFFICE_RESTART_ACTION_ERROR:
+      return state.set('restartActionInProgress', null);
     case BACKOFFICE_DELETE_REQUEST:
       return state.set('loading', true);
     case BACKOFFICE_DELETE_SUCCESS:

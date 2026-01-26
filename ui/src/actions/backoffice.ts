@@ -20,6 +20,9 @@ import {
   BACKOFFICE_RESOLVE_ACTION_REQUEST,
   BACKOFFICE_RESOLVE_ACTION_SUCCESS,
   BACKOFFICE_RESOLVE_ACTION_ERROR,
+  BACKOFFICE_RESTART_ACTION_REQUEST,
+  BACKOFFICE_RESTART_ACTION_SUCCESS,
+  BACKOFFICE_RESTART_ACTION_ERROR,
   BACKOFFICE_LOGIN_CHECK,
   BACKOFFICE_LOGIN_REQUEST,
   BACKOFFICE_DELETE_SUCCESS,
@@ -53,6 +56,7 @@ import {
 import { refreshToken } from '../backoffice/utils/utils';
 import { getConfigFor } from '../common/config';
 import { AUTHORS_PID_TYPE, LITERATURE_PID_TYPE } from '../common/constants';
+import { WorkflowActions } from '../backoffice/constants';
 
 // withCredentials is needed for ORCID login with sessionId cookie
 const httpClient = axios.create({ withCredentials: true });
@@ -376,10 +380,10 @@ export function fetchLiteratureRecord(
 }
 
 // DECISSION ACTIONS
-function resolvingAction(type: string) {
+function resolvingAction(type: string, id: string, decision: string) {
   return {
     type: BACKOFFICE_RESOLVE_ACTION_REQUEST,
-    payload: { type },
+    payload: { type, id, decision },
   };
 }
 
@@ -396,22 +400,98 @@ function resolveActionError(errorPayload: { error: Error }) {
   };
 }
 
-export function resolveAction(
+export function resolveLiteratureAction(
   id: string,
-  namespace: string,
-  action: string,
   payload: any
 ): (dispatch: ActionCreator<Action>) => Promise<void> {
   return async (dispatch) => {
-    dispatch(resolvingAction(action));
+    const decision = payload?.action;
+    dispatch(resolvingAction(WorkflowActions.RESOLVE, id, decision));
     try {
       const response = await httpClient.post(
-        `${BACKOFFICE_API}/workflows/${namespace}/${id}/${action}/`,
+        `${BACKOFFICE_API}/workflows/${LITERATURE_PID_TYPE}/${id}/resolve/`,
         payload
       );
 
       dispatch(resolveActionSuccess());
-      notifyActionSuccess(action);
+      notifyActionSuccess(WorkflowActions.RESOLVE);
+      dispatch(fetchLiteratureRecordSuccess(response.data));
+    } catch (err) {
+      const { error } = httpErrorToActionPayload(err);
+      notifyActionError(
+        (typeof error?.error === 'string'
+          ? error?.error
+          : error?.error?.detail) || 'An error occurred'
+      );
+      dispatch(resolveActionError(error));
+    }
+  };
+}
+
+export function resolveAuthorAction(
+  id: string,
+  payload: any
+): (dispatch: ActionCreator<Action>) => Promise<void> {
+  return async (dispatch) => {
+    const decision = payload?.value;
+    dispatch(resolvingAction(WorkflowActions.RESOLVE, id, decision));
+    try {
+      const response = await httpClient.post(
+        `${BACKOFFICE_API}/workflows/${AUTHORS_PID_TYPE}/${id}/resolve/`,
+        payload
+      );
+
+      dispatch(resolveActionSuccess());
+      notifyActionSuccess(WorkflowActions.RESOLVE);
+      dispatch(fetchAuthorSuccess(response.data));
+    } catch (err) {
+      const { error } = httpErrorToActionPayload(err);
+      notifyActionError(
+        (typeof error?.error === 'string'
+          ? error?.error
+          : error?.error?.detail) || 'An error occurred'
+      );
+      dispatch(resolveActionError(error));
+    }
+  };
+}
+
+function restartingAction(type: string, id: string, decision: string) {
+  return {
+    type: BACKOFFICE_RESTART_ACTION_REQUEST,
+    payload: { type, id, decision },
+  };
+}
+
+function restartActionSuccess() {
+  return {
+    type: BACKOFFICE_RESTART_ACTION_SUCCESS,
+  };
+}
+
+function restartActionError(errorPayload: { error: Error }) {
+  return {
+    type: BACKOFFICE_RESTART_ACTION_ERROR,
+    payload: { ...errorPayload },
+  };
+}
+
+export function restartWorkflowAction(
+  id: string,
+  namespace: string
+): (dispatch: ActionCreator<Action>) => Promise<void> {
+  return async (dispatch) => {
+    dispatch(
+      restartingAction(WorkflowActions.RESTART, id, WorkflowActions.RESTART)
+    );
+    try {
+      const response = await httpClient.post(
+        `${BACKOFFICE_API}/workflows/${namespace}/${id}/restart/`,
+        {}
+      );
+
+      dispatch(restartActionSuccess());
+      notifyActionSuccess(WorkflowActions.RESTART);
       switch (namespace) {
         case AUTHORS_PID_TYPE:
           dispatch(fetchAuthorSuccess(response.data));
@@ -429,7 +509,49 @@ export function resolveAction(
           ? error?.error
           : error?.error?.detail) || 'An error occurred'
       );
-      dispatch(resolveActionError(error));
+      dispatch(restartActionError(error));
+    }
+  };
+}
+
+export function restartCurrentWorkflowAction(
+  id: string,
+  namespace: string
+): (dispatch: ActionCreator<Action>) => Promise<void> {
+  return async (dispatch) => {
+    dispatch(
+      restartingAction(
+        WorkflowActions.RESTART,
+        id,
+        WorkflowActions.RESTART_CURRENT
+      )
+    );
+    try {
+      const response = await httpClient.post(
+        `${BACKOFFICE_API}/workflows/${namespace}/${id}/restart/`,
+        { restart_current_task: true }
+      );
+
+      dispatch(restartActionSuccess());
+      notifyActionSuccess(WorkflowActions.RESTART);
+      switch (namespace) {
+        case AUTHORS_PID_TYPE:
+          dispatch(fetchAuthorSuccess(response.data));
+          break;
+        case LITERATURE_PID_TYPE:
+          dispatch(fetchLiteratureRecordSuccess(response.data));
+          break;
+        default:
+          break;
+      }
+    } catch (err) {
+      const { error } = httpErrorToActionPayload(err);
+      notifyActionError(
+        (typeof error?.error === 'string'
+          ? error?.error
+          : error?.error?.detail) || 'An error occurred'
+      );
+      dispatch(restartActionError(error));
     }
   };
 }

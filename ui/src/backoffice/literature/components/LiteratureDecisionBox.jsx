@@ -17,6 +17,7 @@ const LiteratureDecisionBox = ({
   relevancePrediction,
   status,
   totalReferences,
+  workflowId,
 }) => {
   const hasInspireCategories =
     Array.isArray(inspireCategories) && inspireCategories.length > 0;
@@ -32,6 +33,7 @@ const LiteratureDecisionBox = ({
         hasInspireCategories={hasInspireCategories}
         handleResolveAction={handleResolveAction}
         actionInProgress={actionInProgress}
+        workflowId={workflowId}
       />
       <LiteratureDecisionDetails
         decision={decision}

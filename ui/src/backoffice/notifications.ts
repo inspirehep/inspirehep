@@ -1,6 +1,7 @@
 import React from 'react';
 import { notification } from 'antd';
 import _ from 'lodash';
+import { WorkflowActions } from './constants';
 
 export function notifyLoginError(error: string) {
   notification.error({
@@ -11,7 +12,8 @@ export function notifyLoginError(error: string) {
 }
 
 export function notifyActionSuccess(action: string) {
-  const displayAction = action === 'resolve' ? 'decision' : action;
+  const displayAction =
+    action === WorkflowActions.RESOLVE ? 'decision' : action;
 
   notification.success({
     message: 'Success',
