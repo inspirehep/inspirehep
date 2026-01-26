@@ -1,4 +1,5 @@
 import React from 'react';
+import { Map } from 'immutable';
 import { Row, Col, Card } from 'antd';
 
 import './ResultItem.less';
@@ -24,7 +25,7 @@ const WorkflowResultItem = ({
   item: any;
   compactBottom?: boolean;
   handleResolveAction?: (action: string, value: string) => void;
-  actionInProgress?: string;
+  actionInProgress?: Map<string, any> | null;
 }) => {
   const workflowId = item?.get('id');
   const data = item?.get('data');
@@ -73,6 +74,7 @@ const WorkflowResultItem = ({
               hasInspireCategories={hasInspireCategories}
               handleResolveAction={handleResolveAction}
               actionInProgress={actionInProgress}
+              workflowId={workflowId}
             />
           </Card>
         </Col>

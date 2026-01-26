@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col, Select, Card } from 'antd';
 import { connect, RootStateOrAny } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { Map } from 'immutable';
 
 import PaginationContainer from '../../../../common/containers/PaginationContainer';
 import ResultsContainer from '../../../../common/containers/ResultsContainer';
@@ -21,7 +22,7 @@ import AggregationBox from '../../../../common/components/AggregationBox';
 import ResultItem from '../../../common/components/ResultItem/ResultItem';
 import Breadcrumbs from '../../../common/components/Breadcrumbs/Breadcrumbs';
 import EmptyOrChildren from '../../../../common/components/EmptyOrChildren';
-import { resolveAction } from '../../../../actions/backoffice';
+import { resolveLiteratureAction } from '../../../../actions/backoffice';
 import { WorkflowStatuses } from '../../../constants';
 import LiteratureMatches from '../../components/LiteratureMatches';
 
@@ -30,7 +31,7 @@ type BackofficeSearchPageProps = {
   query: any;
   loadingAggregations: boolean;
   results: Map<string, any>;
-  actionInProgress?: string;
+  actionInProgress?: Map<string, any> | null;
   onSortByChange: (namespace: string, value: string) => void;
   onHandleResolveAction: (
     workflowId: string,
@@ -49,7 +50,7 @@ function renderWorkflowItem(
     action: string,
     value: string
   ) => void,
-  actionInProgress?: string
+  actionInProgress?: Map<string, any> | null
 ) {
   const workflowId = item?.get('id');
   const matches = item?.get('matches');
@@ -272,9 +273,7 @@ export const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
       action,
       value,
     };
-    dispatch(
-      resolveAction(workflowId, LITERATURE_PID_TYPE, 'resolve', payload)
-    );
+    dispatch(resolveLiteratureAction(workflowId, payload));
   },
 });
 

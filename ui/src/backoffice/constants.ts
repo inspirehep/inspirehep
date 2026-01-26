@@ -24,6 +24,12 @@ export enum WorkflowStatuses {
   RUNNING = 'running',
 }
 
+export enum WorkflowActions {
+  RESOLVE = 'resolve',
+  RESTART = 'restart',
+  RESTART_CURRENT = 'restart_current',
+}
+
 export const WORKFLOW_TYPES = {
   [WorkflowTypes.AUTHOR_CREATE]: AUTHORS_PID_TYPE,
   [WorkflowTypes.AUTHOR_UPDATE]: AUTHORS_PID_TYPE,

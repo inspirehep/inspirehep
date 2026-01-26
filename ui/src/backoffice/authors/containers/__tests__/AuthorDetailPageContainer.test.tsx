@@ -2,12 +2,13 @@ import React from 'react';
 import { fromJS } from 'immutable';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
+import { Route } from 'react-router-dom';
 import { BACKOFFICE } from '../../../../common/routes';
 import AuthorDetailPageContainer from '../AuthorDetailPageContainer';
 import { getStore } from '../../../../fixtures/store';
 import { renderWithProviders } from '../../../../fixtures/render';
-import { BACKOFFICE_RESOLVE_ACTION_REQUEST } from '../../../../actions/actionTypes';
-import { WorkflowStatuses } from '../../../constants';
+import { BACKOFFICE_RESTART_ACTION_REQUEST } from '../../../../actions/actionTypes';
+import { WorkflowActions, WorkflowStatuses } from '../../../constants';
 import { WorkflowDecisions } from '../../../../common/constants';
 
 describe('AuthorDetailPageContainer', (ids: any = []) => {
@@ -33,6 +34,7 @@ describe('AuthorDetailPageContainer', (ids: any = []) => {
             },
             ids: [{ schema: 'ORCID', value: '0000-0002-6357-9297' }, ...ids],
           },
+          id: 'e9eb1f50-a2d9-4002-90ba-d6f679b59efb',
           status: WorkflowStatuses.APPROVAL,
           tickets: [
             { ticket_id: 'ticket1', ticket_url: 'www.ticket1.com' },
@@ -43,10 +45,13 @@ describe('AuthorDetailPageContainer', (ids: any = []) => {
     });
 
     const renderedComponent = renderWithProviders(
-      <AuthorDetailPageContainer />,
+      <Route
+        path={`${BACKOFFICE}/:id`}
+        component={AuthorDetailPageContainer}
+      />,
       {
         store,
-        route: `${BACKOFFICE}/1`,
+        route: `${BACKOFFICE}/e9eb1f50-a2d9-4002-90ba-d6f679b59efb`,
       }
     );
 
@@ -137,7 +142,14 @@ describe('AuthorDetailPageContainer', (ids: any = []) => {
 
     const actions = store.getActions();
     expect(actions).toEqual([
-      { type: BACKOFFICE_RESOLVE_ACTION_REQUEST, payload: { type: 'restart' } },
+      {
+        type: BACKOFFICE_RESTART_ACTION_REQUEST,
+        payload: {
+          type: WorkflowActions.RESTART,
+          id: 'e9eb1f50-a2d9-4002-90ba-d6f679b59efb',
+          decision: WorkflowActions.RESTART,
+        },
+      },
     ]);
   });
 

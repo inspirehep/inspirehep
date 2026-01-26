@@ -8,6 +8,7 @@ const LiteratureActionButtons = ({
   hasInspireCategories,
   handleResolveAction,
   actionInProgress,
+  workflowId,
 }) => {
   switch (status) {
     case WorkflowStatuses.APPROVAL_CORE_SELECTION:
@@ -15,6 +16,7 @@ const LiteratureActionButtons = ({
         <LiteratureCoreSelectionButtons
           handleResolveAction={handleResolveAction}
           actionInProgress={actionInProgress}
+          workflowId={workflowId}
         />
       );
 
@@ -24,6 +26,7 @@ const LiteratureActionButtons = ({
           hasInspireCategories={hasInspireCategories}
           handleResolveAction={handleResolveAction}
           actionInProgress={actionInProgress}
+          workflowId={workflowId}
         />
       );
 

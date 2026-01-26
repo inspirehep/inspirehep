@@ -719,7 +719,7 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                           type="button"
                         >
                           <a
-                            href="/editor/backoffice/authors/undefined"
+                            href="/editor/backoffice/authors/e9eb1f50-a2d9-4002-90ba-d6f679b59efb"
                           >
                             <span
                               aria-label="edit"

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Map } from 'immutable';
 import { getWorkflowStatusInfo } from '../../../utils/utils';
 import LiteratureActionButtons from '../../../literature/components/LiteratureActionButtons';
 import { LITERATURE_PID_TYPE } from '../../../../common/constants';
@@ -9,12 +10,14 @@ const WorkflowStatusByType = ({
   hasInspireCategories,
   handleResolveAction,
   actionInProgress,
+  workflowId,
 }: {
   status: string;
   type: string;
   hasInspireCategories?: boolean;
   handleResolveAction?: (action: string, value: string) => void;
-  actionInProgress?: string | false;
+  actionInProgress?: Map<string, any> | null;
+  workflowId?: string;
 }) => {
   const statusInfo = getWorkflowStatusInfo(status);
   if (!statusInfo) {
@@ -32,6 +35,7 @@ const WorkflowStatusByType = ({
           hasInspireCategories={hasInspireCategories}
           handleResolveAction={handleResolveAction}
           actionInProgress={actionInProgress}
+          workflowId={workflowId}
         />
       )}
       <br />
