@@ -5,7 +5,6 @@ import axios, {
   CancelTokenSource,
   InternalAxiosRequestConfig,
 } from 'axios';
-import { startCase } from 'lodash';
 import { BACKOFFICE_API } from './routes';
 
 function transformBackofficeUrl(url: string): string {
@@ -23,49 +22,6 @@ function transformBackofficeUrl(url: string): string {
     .replace(`/backoffice/${type}/search`, `/workflows/${type}/search`);
 
   return newUrl;
-}
-
-function transformBackofficeResponse(data: any) {
-  return {
-    hits: {
-      hits: data.results.map((item: any) => ({
-        id: item.id,
-        created: item.legacy_creation_date,
-        updated: item._created_at,
-        data: {
-          ...item.data,
-          _created_at: item._created_at,
-          _updated_at: item._updated_at,
-        },
-        decisions: item.decisions,
-        workflow_type: item.workflow_type,
-        status: item.status,
-        matches: item.matches,
-      })),
-      total: data.count,
-    },
-
-    links: {
-      self: data.previous || '',
-      next: data.next || '',
-    },
-    aggregations: Object.entries(data.facets || {}).reduce(
-      (acc: Record<string, any>, [key, value]: [string, any]) => {
-        const cleanKey = key.replace('_filter_', '');
-        const buckets = value[cleanKey]?.buckets || value.status?.buckets || [];
-        acc[cleanKey] = {
-          ...value,
-          buckets,
-          meta: {
-            title: startCase(cleanKey.replace(/_/g, ' ')),
-            type: 'checkbox',
-          },
-        };
-        return acc;
-      },
-      {}
-    ),
-  };
 }
 
 // `Proxy` could be used instead of wrapper class, depending on the browser support
@@ -89,7 +45,7 @@ export class HttpClientWrapper {
       config.baseURL = BACKOFFICE_API;
       config.withCredentials = true;
       config.url = transformBackofficeUrl(url);
-      config.headers.Accept = 'application/json';
+      config.headers.Accept = 'application/vnd.inspirehep.backoffice-ui+json';
     } else if (url.startsWith('/ai')) {
       config.baseURL = '/';
     } else {
@@ -98,25 +54,9 @@ export class HttpClientWrapper {
     return config;
   }
 
-  private static handleResponseInterceptor(response: AxiosResponse) {
-    if (
-      response.config.url?.includes('/workflows/authors/search') ||
-      response.config.url?.includes('/workflows/literature/search')
-    ) {
-      return {
-        ...response,
-        data: transformBackofficeResponse(response.data),
-      };
-    }
-    return response;
-  }
-
   private setupInterceptors() {
     this.httpClient.interceptors.request.use(
       HttpClientWrapper.handleRequestUrlInterceptor
-    );
-    this.httpClient.interceptors.response.use(
-      HttpClientWrapper.handleResponseInterceptor
     );
   }
 
