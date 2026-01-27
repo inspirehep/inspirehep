@@ -946,7 +946,7 @@ def hep_create_dag():
             if any(result.get("complete_output", {}).values()):
                 s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
-        @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+        @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def check_is_arxiv_paper(**context):
             """Check if a workflow contains a paper from arXiv."""
 
