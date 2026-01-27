@@ -162,7 +162,7 @@ class Test_HEPCreateDAG:
                 "data": {
                     "dois": [
                         {
-                            "value": "10.1016/j.physletb.2025.139959",
+                            "value": "10.1103/fc8j-tb8k",
                         }
                     ],
                 },
