@@ -526,7 +526,7 @@ def hep_create_dag():
 
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
-        @task
+        @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def populate_submission_document(**context):
             s3_workflow_id = context["params"]["workflow_id"]
             workflow = s3.read_workflow(s3_hook, bucket_name, s3_workflow_id)
