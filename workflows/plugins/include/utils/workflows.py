@@ -296,6 +296,18 @@ def build_matching_workflow_filter_params(workflow_data, statuses):
     return filter_params
 
 
+def find_matching_workflows(workflow, statuses=None):
+    filter_params = build_matching_workflow_filter_params(workflow, statuses)
+
+    if "search" in filter_params:
+        matches = WorkflowManagementHook(HEP).filter_workflows(filter_params)
+        matches["results"] = [
+            match for match in matches["results"] if match["id"] != workflow["id"]
+        ]
+        return matches["results"]
+    return []
+
+
 def has_same_source(workflow_1, workflow_2):
     return (
         get_value(workflow_1, "data.acquisition_source.source").lower()

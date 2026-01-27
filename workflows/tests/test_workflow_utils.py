@@ -4,7 +4,11 @@ from hooks.inspirehep.inspire_http_hook import (
     InspireHttpHook,
 )
 from include.utils import s3, workflows
-from include.utils.constants import HEP_CREATE
+from include.utils.constants import (
+    HEP_CREATE,
+    STATUS_APPROVAL_FUZZY_MATCHING,
+    STATUS_COMPLETED,
+)
 from inspire_schemas.api import load_schema, validate
 
 from tests.test_utils import function_test, task_test
@@ -55,6 +59,25 @@ def test_build_matching_workflow_filter_params():
     assert "data.arxiv_eprints.value.keyword:1234.5678" in filter_params["search"]
     assert "data.arxiv_eprints.value.keyword:2345.6789" in filter_params["search"]
     assert "data.dois.value.keyword:10.1000/xyz123" in filter_params["search"]
+
+
+@pytest.mark.vcr
+def test_find_matching_workflows():
+    workflow_data = {
+        "id": "7b617859-cb4f-4526-aa85-ec5291dc141b",
+        "data": {
+            "arxiv_eprints": [{"value": "2502.05665"}, {"value": "2504.01123"}],
+            "dois": [{"value": "10.1103/fc8j-tb8k"}],
+        },
+    }
+    statuses = [STATUS_APPROVAL_FUZZY_MATCHING, STATUS_COMPLETED]
+
+    matches = function_test(
+        workflows.find_matching_workflows,
+        params={"workflow": workflow_data, "statuses": statuses},
+    )
+
+    assert len(matches) == 2
 
 
 def test_has_same_source():

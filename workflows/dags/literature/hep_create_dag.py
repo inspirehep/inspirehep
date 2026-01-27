@@ -182,19 +182,16 @@ def hep_create_dag():
         workflow_id = context["params"]["workflow_id"]
         workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
 
-        filter_params = workflows.build_matching_workflow_filter_params(
-            workflow_data, RUNNING_STATUSES
-        )
+        matches = workflows.find_matching_workflows(workflow_data, RUNNING_STATUSES)
 
-        if "search" in filter_params:
-            response = workflow_management_hook.filter_workflows(filter_params)
-
-            if response["count"] >= 2:
-                workflow_management_hook.set_workflow_status(
-                    status_name=STATUS_BLOCKED,
-                    workflow_id=workflow_id,
-                )
-                return False
+        if len(matches) > 0:
+            matched_ids = [match["id"] for match in matches]
+            logger.info("Blocking workflows found: %s", matched_ids)
+            workflow_management_hook.set_workflow_status(
+                status_name=STATUS_BLOCKED,
+                workflow_id=workflow_id,
+            )
+            return False
 
         workflow_management_hook.set_workflow_status(
             status_name=STATUS_RUNNING,
