@@ -12,3 +12,6 @@ WORKFLOW_DAGS = {
     AuthorWorkflowType.AUTHOR_CREATE: AuthorCreateDags,
     AuthorWorkflowType.AUTHOR_UPDATE: AuthorUpdateDags,
 }
+
+
+APPLICATION_VND_INSPIREHEP_JSON = "application/vnd.inspirehep.backoffice-ui+json"

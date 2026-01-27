@@ -28,3 +28,54 @@ class BaseWorkflowSerializer(serializers.ModelSerializer):
 
     class Meta:
         fields = "__all__"
+
+
+class BackofficeSearchUISerializer(serializers.Serializer):
+    def to_representation(self, instance):
+        facets = instance.get("facets", {}) or {}
+        aggregations = {}
+        for key, value in facets.items():
+            clean_key = key.replace("_filter_", "")
+            buckets_container = value.get(clean_key) or value.get("status") or {}
+            buckets = buckets_container.get("buckets", [])
+            aggregations[clean_key] = {
+                **value,
+                "buckets": buckets,
+                "meta": {
+                    "title": " ".join(
+                        word.capitalize() for word in clean_key.split("_")
+                    ),
+                    "type": "checkbox",
+                },
+            }
+
+        results = instance.get("results", []) or []
+        hits = [
+            {
+                "id": item.get("id"),
+                "created": item.get("legacy_creation_date"),
+                "updated": item.get("_created_at"),
+                "data": {
+                    **(item.get("data") or {}),
+                    "_created_at": item.get("_created_at"),
+                    "_updated_at": item.get("_updated_at"),
+                },
+                "decisions": item.get("decisions"),
+                "workflow_type": item.get("workflow_type"),
+                "status": item.get("status"),
+                "matches": item.get("matches"),
+            }
+            for item in results
+        ]
+
+        return {
+            "hits": {
+                "hits": hits,
+                "total": instance.get("count", 0),
+            },
+            "links": {
+                "self": instance.get("previous", ""),
+                "next": instance.get("next", ""),
+            },
+            "aggregations": aggregations,
+        }

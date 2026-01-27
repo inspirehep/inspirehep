@@ -13,6 +13,7 @@ from parameterized import parameterized
 from django.conf import settings
 from backoffice.common.utils import get_index_for_document
 from backoffice.common.tests.base import BaseTransactionTestCase
+from backoffice.common.constants import APPLICATION_VND_INSPIREHEP_JSON
 
 from django.apps import apps
 
@@ -58,6 +59,29 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
 
         assert "_filter_status" in response.json()["facets"]
         assert "_filter_workflow_type" in response.json()["facets"]
+
+    def test_ui_format_response_shape(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        response = self.api_client.get(
+            self.endpoint,
+            HTTP_ACCEPT=APPLICATION_VND_INSPIREHEP_JSON,
+        )
+
+        data = response.json()
+        assert "hits" in data
+        assert "aggregations" in data
+        assert "links" in data
+        assert "_filter_status" not in data
+
+    def test_default_response_still_has_facets(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        response = self.api_client.get(self.endpoint)
+
+        data = response.json()
+        assert "facets" in data
+        assert "aggregations" not in data
 
     def test_search_data_title(self):
         self.api_client.force_authenticate(user=self.admin)

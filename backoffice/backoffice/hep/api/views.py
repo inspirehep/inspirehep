@@ -31,6 +31,11 @@ from backoffice.common import airflow_utils
 from backoffice.common.utils import (
     handle_request_exception,
 )
+from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
+from backoffice.common.renderers import (
+    BackofficeUIBrowsableRenderer,
+    BackofficeUIRenderer,
+)
 from django_elasticsearch_dsl_drf.filter_backends import (
     CompoundSearchFilterBackend,
     DefaultOrderingFilterBackend,
@@ -176,6 +181,13 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
     ),
 )
 class HepWorkflowDocumentView(BaseDocumentViewSet):
+    renderer_classes = (
+        JSONRenderer,
+        BackofficeUIRenderer,
+        BrowsableAPIRenderer,
+        BackofficeUIBrowsableRenderer,
+    )
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.search = self.search.extra(track_total_hits=True)
