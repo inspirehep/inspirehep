@@ -81,3 +81,11 @@ class WorkflowManagementHook(BackofficeHook):
             json=decision_data,
             endpoint=endpoint,
         )
+
+    def discard_workflow(self, workflow_id: str, note: str) -> Response:
+        endpoint = f"{self.endpoint}/{workflow_id}/discard/"
+        return self.call_api(
+            method="POST",
+            json={"note": note},
+            endpoint=endpoint,
+        )

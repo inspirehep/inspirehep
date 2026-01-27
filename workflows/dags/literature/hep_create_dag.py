@@ -60,6 +60,7 @@ from include.utils.constants import (
     DECISION_AUTO_REJECT,
     DECISION_CORE_SELECTION_ACCEPT,
     DECISION_CORE_SELECTION_ACCEPT_CORE,
+    DECISION_DISCARD,
     DECISION_FUZZY_MATCH,
     DECISION_HEP_ACCEPT,
     DECISION_HEP_ACCEPT_CORE,
@@ -176,6 +177,47 @@ def hep_create_dag():
         ).json()
 
         s3.write_workflow(s3_hook, workflow_data, bucket_name)
+
+    @task.short_circuit
+    def discard_older_wfs_w_same_source(**context):
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+
+        matches = workflows.find_matching_workflows(
+            workflow_data,
+            statuses=RUNNING_STATUSES + [STATUS_BLOCKED],
+        )
+
+        has_older_match_w_same_source = False
+        has_found_match_with_same_source = False
+
+        for match in matches:
+            if workflows.has_same_source(workflow_data, match):
+                has_found_match_with_same_source = True
+                if workflow_data["_created_at"] >= match["_created_at"]:
+                    has_older_match_w_same_source = True
+                    logger.info(
+                        "Discarding older workflow with same source: %s",
+                        match["id"],
+                    )
+                    workflow_management_hook.discard_workflow(
+                        workflow_id=match["id"],
+                        note=f"Discarded due to newer workflow"
+                        f' "{workflow_id}" with same source',
+                    )
+
+        if has_found_match_with_same_source and not has_older_match_w_same_source:
+            workflow_management_hook.set_workflow_status(
+                status_name=STATUS_COMPLETED,
+                workflow_id=workflow_id,
+            )
+            workflow_management_hook.add_decision(
+                workflow_id=workflow_id,
+                decision_data={"action": DECISION_DISCARD},
+            )
+            return False
+
+        return True
 
     @task.short_circuit(ignore_downstream_trigger_rules=False)
     def check_for_blocking_workflows(**context):
@@ -526,7 +568,7 @@ def hep_create_dag():
 
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
-        @task
+        @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def populate_submission_document(**context):
             s3_workflow_id = context["params"]["workflow_id"]
             workflow = s3.read_workflow(s3_hook, bucket_name, s3_workflow_id)
@@ -1988,6 +2030,7 @@ def hep_create_dag():
         >> set_schema()
         >> validate_record()
         >> set_workflow_status_to_running()
+        >> discard_older_wfs_w_same_source()
         >> check_for_blocking_workflows()
         >> check_for_exact_matches_task
     )
