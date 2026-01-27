@@ -1011,9 +1011,10 @@ class Test_HEPCreateDAG:
             dag_id="hep_create_dag",
             task_id="preprocessing.check_is_arxiv_paper",
             dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
         )
 
-        assert "preprocessing.populate_arxiv_document" in res
+        assert "preprocessing.populate_arxiv_document" in res["followed"]
 
     def test_check_is_not_arxiv_paper(self):
         workflow_data = {
@@ -1034,9 +1035,10 @@ class Test_HEPCreateDAG:
             dag_id="hep_create_dag",
             task_id="preprocessing.check_is_arxiv_paper",
             dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
         )
 
-        assert "preprocessing.populate_submission_document" in res
+        assert "preprocessing.populate_submission_document" in res["followed"]
 
     @pytest.mark.vcr
     def test_populate_journal_coverage(self):
