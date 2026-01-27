@@ -177,6 +177,31 @@ def hep_create_dag():
 
         s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
+    @task
+    def discard_older_matches_w_same_source(**context):
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+
+        matches = workflows.find_matching_workflows(
+            workflow_data, RUNNING_STATUSES + STATUS_BLOCKED
+        )
+
+        for match in matches:
+            if workflows.has_same_source(workflow_data, match):
+                pass
+
+        #     if match["id"] == workflow_id:
+        #         continue
+
+        #     logger.info(
+        #         "Found older matching workflow with same source: %s", match["id"]
+        #     )
+        # workflows.discard_older_matches_w_same_source(
+        #     workflow_data, inspire_http_hook, workflow_management_hook
+        # )
+
+        # s3.write_workflow(s3_hook, workflow_data, bucket_name)
+
     @task.short_circuit(ignore_downstream_trigger_rules=False)
     def check_for_blocking_workflows(**context):
         workflow_id = context["params"]["workflow_id"]
