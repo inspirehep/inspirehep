@@ -90,6 +90,35 @@ def clear_airflow_dag_tasks(dag_id, workflow_id, tasks=None):
     return response.content, response.status_code
 
 
+def discard_airflow_dag_run(workflow, note=""):
+    """Discards an airflow dag run.
+
+    :param workflow: workflow object
+    :returns: request response content
+    """
+
+    data = {
+        "state": "success",
+        "note": note,
+    }
+
+    dag_id = WORKFLOW_DAGS[workflow.workflow_type].initialize
+
+    url = f"{AIRFLOW_BASE_URL}/api/v2/dags/{dag_id}/dagRuns/{str(workflow.id)}"
+    logger.info(
+        "Discarding DAG %s with run id: %s",
+        dag_id,
+        str(workflow.id),
+    )
+    response = requests.patch(
+        url,
+        json=data,
+        headers=AIRFLOW_HEADERS,
+    )
+    response.raise_for_status()
+    return response.content, response.status_code
+
+
 def restart_failed_tasks(workflow_id, workflow_type):
     """Restarts failed tasks of an airflow dag.
 

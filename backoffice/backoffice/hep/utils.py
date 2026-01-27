@@ -5,7 +5,7 @@ import logging
 from requests.exceptions import RequestException
 from backoffice.hep.models import HepWorkflow
 
-from backoffice.hep.constants import HepResolutions, HepStatusChoices
+from backoffice.hep.constants import HepResolutions
 from backoffice.common.constants import WORKFLOW_DAGS
 from backoffice.common import airflow_utils
 from backoffice.common.utils import (
@@ -55,6 +55,4 @@ def resolve_workflow(id, data, user):
                 e,
             )
 
-    workflow.status = HepStatusChoices.PROCESSING
-    workflow.save()
     return workflow

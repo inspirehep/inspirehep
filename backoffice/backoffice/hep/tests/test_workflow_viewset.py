@@ -2,6 +2,8 @@ import uuid
 import pytest
 from copy import deepcopy
 from django.urls import reverse
+from backoffice.common.constants import WORKFLOW_DAGS
+from backoffice.common import airflow_utils
 from backoffice.common.tests.base import BaseTransactionTestCase
 from backoffice.hep.api.serializers import (
     HepWorkflowSerializer,
@@ -317,7 +319,6 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         response = self.api_client.post(url, format="json", data=data)
         self.assertEqual(response.status_code, 200)
         self.workflow.refresh_from_db()
-        self.assertEqual(self.workflow.status, HepStatusChoices.PROCESSING)
         self.assertEqual(
             self.workflow.decisions.first().action, HepResolutions.auto_reject
         )
@@ -348,3 +349,27 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
             self.assertEqual(
                 workflow.decisions.first().action, HepResolutions.auto_reject
             )
+
+    @pytest.mark.vcr
+    def test_discard(self):
+        dag_id = WORKFLOW_DAGS[self.workflow.workflow_type].initialize
+
+        self.content, self.status_code = airflow_utils.trigger_airflow_dag(
+            dag_id, str(self.workflow.id)
+        )
+
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-discard",
+            kwargs={"pk": self.workflow.id},
+        )
+        data = {
+            "note": "Discarding this workflow for testing purposes.",
+        }
+        response = self.api_client.post(url, format="json", data=data)
+        self.assertEqual(response.status_code, 200)
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, HepStatusChoices.COMPLETED)
+        self.assertEqual(self.workflow.decisions.first().action, HepResolutions.discard)
+
+        airflow_utils.delete_workflow_dag(dag_id, self.workflow.id)

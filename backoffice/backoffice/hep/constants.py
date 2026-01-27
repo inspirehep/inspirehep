@@ -80,6 +80,10 @@ class HepResolutions(models.TextChoices):
         "merge_approve",
         "halt_for_approval_if_new_or_reject_if_not_relevant.await_merge_conflicts_resolved",
     )
+    discard = (
+        "discard",
+        "",
+    )
 
 
 HEP_DECISION_CHOICES = HepResolutions.choices

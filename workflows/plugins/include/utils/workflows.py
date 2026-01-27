@@ -16,10 +16,10 @@ from hooks.inspirehep.inspire_http_record_management_hook import (
 )
 from idutils import is_arxiv_post_2007
 from include.utils.constants import (
-    COMPLETED_STATUSES,
     DECISION_AUTO_REJECT,
     DECISION_HEP_REJECT,
     LITERATURE_PID_TYPE,
+    STATUS_COMPLETED,
 )
 from inspire_schemas.readers import LiteratureReader
 from inspire_utils.dedupers import dedupe_list
@@ -317,16 +317,10 @@ def has_same_source(workflow_1, workflow_2):
 
 def has_previously_rejected_wf_in_backoffice_w_same_source(workflow_data):
     workflow_management_hook = WorkflowManagementHook(HEP)
-    filter_params = build_matching_workflow_filter_params(
-        workflow_data, COMPLETED_STATUSES
-    )
 
-    if "search" not in filter_params:
-        return False
+    matches = find_matching_workflows(workflow_data, [STATUS_COMPLETED])
 
-    response = workflow_management_hook.filter_workflows(filter_params)
-
-    for workflow in response.get("results", []):
+    for workflow in matches:
         workflow_with_decisions = workflow_management_hook.get_workflow(workflow["id"])
         if get_decision(
             workflow_with_decisions.get("decisions"),
