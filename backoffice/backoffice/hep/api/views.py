@@ -2,7 +2,7 @@ import logging
 
 from rest_framework import status, viewsets
 from rest_framework.response import Response
-
+from django.shortcuts import get_object_or_404
 from backoffice.hep.utils import add_hep_decision, resolve_workflow
 from backoffice.hep.api.serializers import (
     HepWorkflowSerializer,
@@ -11,6 +11,7 @@ from backoffice.hep.api.serializers import (
     HepDecisionSerializer,
     HepResolutionSerializer,
     HepBatchResolutionSerializer,
+    HepDiscardSerializer,
 )
 from rest_framework.decorators import action
 from backoffice.common.views import BaseWorkflowTicketViewSet, BaseWorkflowViewSet
@@ -43,7 +44,7 @@ from django_elasticsearch_dsl_drf.filter_backends import (
     FilteringFilterBackend,
     OrderingFilterBackend,
 )
-from backoffice.hep.constants import HepStatusChoices, HepWorkflowType
+from backoffice.hep.constants import HepStatusChoices, HepWorkflowType, HepResolutions
 from backoffice.common.constants import WORKFLOW_DAGS
 
 logger = logging.getLogger(__name__)
@@ -120,6 +121,21 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         workflow = resolve_workflow(pk, serializer.validated_data, request.user)
         workflow_serializer = self.serializer_class(workflow)
         return Response(workflow_serializer.data)
+
+    @action(detail=True, methods=["post"])
+    def discard(self, request, pk=None):
+        serializer = HepDiscardSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        note = serializer.validated_data.get("note", "")
+
+        workflow = get_object_or_404(HepWorkflow, pk=pk)
+        airflow_utils.discard_airflow_dag_run(workflow, note=note)
+
+        workflow.status = HepStatusChoices.COMPLETED
+        add_hep_decision(pk, request.user, HepResolutions.discard)
+        workflow.save()
+        return Response(status=status.HTTP_200_OK)
 
     @action(
         detail=False,

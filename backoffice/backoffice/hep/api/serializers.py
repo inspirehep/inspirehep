@@ -163,3 +163,7 @@ class HepResolutionSerializer(serializers.Serializer):
 class HepBatchResolutionSerializer(serializers.Serializer):
     action = serializers.ChoiceField(choices=HEP_DECISION_CHOICES)
     ids = serializers.ListField(child=serializers.UUIDField())
+
+
+class HepDiscardSerializer(serializers.Serializer):
+    note = serializers.CharField(max_length=255, default="")
