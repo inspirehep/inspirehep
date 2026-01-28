@@ -1940,6 +1940,44 @@ def hep_create_dag():
 
         workflow_management_hook.update_workflow(workflow_id, workflow_data)
 
+    @task
+    def run_next_if_necessary(**context):
+        workflow_id = context["params"]["workflow_id"]
+        workflow = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+
+        matches = workflows.find_matching_workflows(
+            workflow, RUNNING_STATUSES + [STATUS_BLOCKED]
+        )
+
+        older_workflow = None
+
+        for match in matches:
+            # find the one with the oldes _created_at
+            if match["id"] == workflow_id:
+                continue
+            if match["status"] in RUNNING_STATUSES:
+                # there is already a running workflow, do not start a new one
+                return
+
+            if (
+                not older_workflow
+                or match["_created_at"] < older_workflow["_created_at"]
+            ):
+                older_workflow = match
+
+        if older_workflow:
+            workflow_management_hook.restart_workflow(older_workflow["id"])
+
+        for match in matches:
+            if match["id"] == older_workflow["id"]:
+                # mark as blocked and stop from executing
+                workflow_management_hook.set_workflow_status(
+                    status_name=STATUS_BLOCKED, workflow_id=workflow_id
+                )
+                workflow_management_hook.block_workflow(
+                    match["id"],
+                )
+
     preprocessing_group = preprocessing()
     check_for_fuzzy_matches_task = check_for_fuzzy_matches()
     check_for_exact_matches_task = check_for_exact_matches()
@@ -2014,6 +2052,7 @@ def hep_create_dag():
         >> save_workflow()
         >> core_selection()
         >> save_and_complete_workflow_task
+        >> run_next_if_necessary()
     )
     notify_and_close_not_accepted_task >> save_and_complete_workflow_task
     should_proceed_to_core_selection_task >> save_and_complete_workflow_task
