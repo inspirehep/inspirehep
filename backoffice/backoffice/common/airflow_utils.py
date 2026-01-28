@@ -90,6 +90,36 @@ def clear_airflow_dag_tasks(dag_id, workflow_id, tasks=None):
     return response.content, response.status_code
 
 
+def clear_airflow_dag_run(dag_id, workflow_id, only_failed=False):
+    """Triggers an airflow dag.
+
+    :param dag_id: name of the dag to run
+    :param workflow_id: id of the workflow being triggered
+    :returns: request response content
+    """
+
+    data = {
+        "dry_run": False,
+        "only_failed": only_failed,
+        "run_on_latest_version": True,
+    }
+
+    url = f"{AIRFLOW_BASE_URL}/api/v2/dags/{dag_id}/dagRuns/{workflow_id}/clear"
+
+    logger.info(
+        "Clearing DAG %s with run id: %s",
+        dag_id,
+        str(workflow_id),
+    )
+    response = requests.post(
+        url,
+        data=json.dumps(data, cls=DjangoJSONEncoder),
+        headers=AIRFLOW_HEADERS,
+    )
+    response.raise_for_status()
+    return response.content, response.status_code
+
+
 def restart_failed_tasks(workflow_id, workflow_type):
     """Restarts failed tasks of an airflow dag.
 
