@@ -13,6 +13,7 @@ from include.utils.constants import (
     DECISION_AUTO_REJECT,
     DECISION_CORE_SELECTION_ACCEPT,
     DECISION_CORE_SELECTION_ACCEPT_CORE,
+    DECISION_DISCARD,
     DECISION_HEP_ACCEPT_CORE,
     DECISION_HEP_REJECT,
     HEP_CREATE,
@@ -129,6 +130,116 @@ class Test_HEPCreateDAG:
             "hep_create_dag", "get_workflow_data", dag_params=self.context["params"]
         )
         assert res == f"{self.workflow_id}/workflow.json"
+
+    @patch(
+        "include.utils.workflows.find_matching_workflows",
+        return_value=[
+            {
+                "id": "to_discard",
+                "data": {
+                    "acquisition_source": {
+                        "method": "hepcrawl",
+                        "source": "arXiv",
+                    },
+                    "arxiv_eprints": [
+                        {
+                            "value": "2601.19892",
+                        }
+                    ],
+                },
+                "_created_at": "2025-11-01T00:00:00.000Z",
+            }
+        ],
+    )
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.discard_workflow"
+    )
+    def test_discard_older_wfs_w_same_source_discard_other(
+        self, mock_discard_workflow, mock_find_matching_workflows
+    ):
+        s3.write_workflow(
+            self.s3_hook,
+            {
+                "id": self.workflow_id,
+                "data": {
+                    "acquisition_source": {
+                        "method": "hepcrawl",
+                        "source": "arXiv",
+                        "datetime": "2025-10-28T02:00:33.403192",
+                        "submission_number": "scheduled__2025-10-28T02:00:00+00:00",
+                    },
+                    "arxiv_eprints": [
+                        {
+                            "value": "2601.19892",
+                        }
+                    ],
+                },
+                "_created_at": "2025-11-02T00:00:00.000Z",
+            },
+            self.bucket_name,
+        )
+
+        assert task_test(
+            "hep_create_dag",
+            "discard_older_wfs_w_same_source",
+            dag_params=self.context["params"],
+        )
+
+    @patch(
+        "include.utils.workflows.find_matching_workflows",
+        return_value=[
+            {
+                "id": "to_discard",
+                "data": {
+                    "acquisition_source": {
+                        "method": "hepcrawl",
+                        "source": "arXiv",
+                    },
+                    "arxiv_eprints": [
+                        {
+                            "value": "2601.19892",
+                        }
+                    ],
+                },
+                "_created_at": "2025-11-03T00:00:00.000Z",
+            }
+        ],
+    )
+    @pytest.mark.vcr
+    def test_discard_older_wfs_w_same_source_discard_self(
+        self, mock_find_matching_workflows
+    ):
+        s3.write_workflow(
+            self.s3_hook,
+            {
+                "id": self.workflow_id,
+                "data": {
+                    "acquisition_source": {
+                        "method": "hepcrawl",
+                        "source": "arXiv",
+                        "datetime": "2025-10-28T02:00:33.403192",
+                        "submission_number": "scheduled__2025-10-28T02:00:00+00:00",
+                    },
+                    "arxiv_eprints": [
+                        {
+                            "value": "2601.19892",
+                        }
+                    ],
+                },
+                "_created_at": "2025-11-02T00:00:00.000Z",
+            },
+            self.bucket_name,
+        )
+
+        assert not task_test(
+            "hep_create_dag",
+            "discard_older_wfs_w_same_source",
+            dag_params=self.context["params"],
+        )
+        workflow_result = get_lit_workflow_task(self.workflow_id)
+
+        assert workflow_result["status"] == STATUS_COMPLETED
+        assert workflows.get_decision(workflow_result["decisions"], DECISION_DISCARD)
 
     @pytest.mark.vcr
     def test_check_for_blocking_workflows_block_arxivid(self):

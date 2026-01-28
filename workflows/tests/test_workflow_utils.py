@@ -92,10 +92,11 @@ def test_has_same_source():
 @pytest.mark.vcr
 def test_has_previously_rejected_wf_in_backoffice_w_same_source_true():
     workflow_data = {
+        "id": "some-id",
         "data": {
             "acquisition_source": {"source": "arXiv"},
             "arxiv_eprints": [{"value": "2504.01123"}],
-        }
+        },
     }
 
     result = function_test(
@@ -107,7 +108,10 @@ def test_has_previously_rejected_wf_in_backoffice_w_same_source_true():
 
 @pytest.mark.vcr
 def test_has_previously_rejected_wf_in_backoffice_w_same_source_false_no_identifier():
-    workflow_data = {"data": {"acquisition_source": {"source": "arXiv"}}}
+    workflow_data = {
+        "id": "some-id",
+        "data": {"acquisition_source": {"source": "arXiv"}},
+    }
 
     result = function_test(
         workflows.has_previously_rejected_wf_in_backoffice_w_same_source,
@@ -136,10 +140,11 @@ def test_has_previously_rejected_wf_in_backoffice_w_same_source_false_no_rejecti
 @pytest.mark.vcr
 def test_has_previously_rejected_wf_in_backoffice_w_same_source_false_diff_source():
     workflow_data = {
+        "id": "some-id",
         "data": {
             "acquisition_source": {"source": "bad_source"},
             "arxiv_eprints": [{"value": "2504.01123"}],
-        }
+        },
     }
 
     result = function_test(

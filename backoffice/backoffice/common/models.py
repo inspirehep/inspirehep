@@ -31,7 +31,9 @@ class BaseDecision(models.Model):
         User,
         to_field="email",
         db_column="email",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
     )
     action = models.CharField(max_length=30)
 
