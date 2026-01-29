@@ -4886,16 +4886,14 @@
       },
       "status": "running",
       "merge_details": {
-        "conflicts": {
-          "conflicts": [
-            {
-              "path": "/authors/10",
-              "op": "remove",
-              "value": null,
-              "$type": "REMOVE_FIELD"
-            }
-          ]
-        }
+        "conflicts": [
+          {
+            "path": "/authors/10",
+            "op": "remove",
+            "value": null,
+            "$type": "REMOVE_FIELD"
+          }
+        ]
       },
       "_created_at": "2024-11-25T13:49:53.009Z",
       "_updated_at": "2024-11-25T13:49:54.756Z"
@@ -4925,16 +4923,14 @@
       },
       "status": "running",
       "merge_details": {
-        "conflicts": {
-          "conflicts": [
-            {
-              "path": "/authors/10",
-              "op": "remove",
-              "value": null,
-              "$type": "REMOVE_FIELD"
-            }
-          ]
-        }
+        "conflicts": [
+          {
+            "path": "/authors/10",
+            "op": "remove",
+            "value": null,
+            "$type": "REMOVE_FIELD"
+          }
+        ]
       },
       "_created_at": "2024-11-25T13:49:53.009Z",
       "_updated_at": "2024-11-25T13:49:54.756Z"
@@ -4992,6 +4988,49 @@
       "status": "running",
       "_created_at": "2024-11-25T13:49:53.009Z",
       "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "0a64932f-fd36-4984-a13c-a9029743e8b1",
+    "fields": {
+      "workflow_type": "HEP_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "The one with conflicts",
+            "source": "submitter"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "acquisition_source": {
+          "email": "user@cern.ch",
+          "method": "submitter",
+          "source": "submitter",
+          "datetime": "2024-11-18T11:34:19.809575"
+        }
+      },
+      "status": "running",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z",
+      "merge_details": {
+        "conflicts": [
+          {
+            "$type": "REMOVE_FIELD",
+            "op": "remove",
+            "path": "/collaborations/1",
+            "value": null
+          },
+          {
+            "$type": "REMOVE_FIELD",
+            "op": "remove",
+            "path": "/collaborations/2",
+            "value": null
+          }
+        ]
+      }
     }
   },
   {

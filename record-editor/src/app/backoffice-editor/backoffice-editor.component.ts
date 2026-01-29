@@ -119,10 +119,18 @@ export class BackofficeEditorComponent extends SubscriberComponent implements On
     this.workflowObject._extra_data.validation_errors = this.workflowObject.validation_errors;
   }
 
+  private injectConflictsIntoExtraData() {
+    this.workflowObject._extra_data.conflicts =
+      this.workflowObject.merge_details.conflicts;
+  }
+
   get workflowExtraData() {
     this.workflowObject._extra_data = this.workflowObject._extra_data || {};
     if (this.workflowObject.validation_errors) {
       this.injectValidationErrorsIntoExtraData();
+    }
+    if (this.workflowObject.merge_details && this.workflowObject.merge_details.conflicts) {
+      this.injectConflictsIntoExtraData();
     }
     return this.workflowObject._extra_data;
   }
