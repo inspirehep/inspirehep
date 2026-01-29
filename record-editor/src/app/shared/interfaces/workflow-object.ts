@@ -11,6 +11,9 @@ export interface WorkflowObject<T = object> {
     ticket_id?: string;
     ticket_url?: string;
   };
+  merge_details?: {
+    conflicts?: Array<JsonPatch>;
+  };
   metadata: {
     $schema: string;
     _collections: string[];

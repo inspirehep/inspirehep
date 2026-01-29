@@ -34,26 +34,7 @@ export interface BackofficeWorkflow {
   id: number;
   workflow_type: string;
   status: string;
-  core: boolean;
-  data: {
-    name: {
-      value: string;
-      preferred_name?: string;
-    };
-    status?: string;
-    $schema: string;
-    _collections: string[];
-    control_number?: number;
-    acquisition_source: {
-      email: string | null;
-      orcid: string | null;
-      method: string | null;
-      source: string | null;
-      datetime: string | null;
-      internal_uid: string | number;
-    };
-  };
-  is_update: boolean;
+  data: any;
   _created_at: string;
   _updated_at: string;
   tickets: {
@@ -101,6 +82,7 @@ export class BackofficeApiService extends CommonApiService {
             ...response.data,
           },
           validation_errors: response.validation_errors,
+          merge_details: response.merge_details,
           _extra_data: {},
         };
       }
