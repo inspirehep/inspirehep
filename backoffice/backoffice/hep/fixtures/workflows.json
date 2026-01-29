@@ -1080,7 +1080,7 @@
             "source": "submitter"
           }
         ],
-        "authors": [{"full_name": "Gooding, James, James Andrew, Jamie."}],
+        "authors": [{ "full_name": "Gooding, James, James Andrew, Jamie." }],
         "$schema": "https://inspirehep.net/schemas/records/hep.json",
         "_collections": ["Literature"],
         "document_type": ["article"]
@@ -1154,9 +1154,9 @@
         "_collections": ["Literature"],
         "document_type": ["article"],
         "arxiv_eprints": [
-        {
-          "value": "2504.01123"
-        }
+          {
+            "value": "2504.01123"
+          }
         ],
         "acquisition_source": {
           "method": "hepcrawl",
@@ -4678,9 +4678,7 @@
             "source": "arXiv"
           }
         ],
-        "_collections": [
-          "Literature"
-        ],
+        "_collections": ["Literature"],
         "public_notes": [
           {
             "value": "All figures and tables, along with any supplementary material and additional information, are available at https://lbfence.cern.ch/alcm/public/analysis/full-details/5250 (LHCb public pages)",
@@ -4690,14 +4688,10 @@
         "arxiv_eprints": [
           {
             "value": "2507.02149",
-            "categories": [
-              "hep-ex"
-            ]
+            "categories": ["hep-ex"]
           }
         ],
-        "document_type": [
-          "article"
-        ],
+        "document_type": ["article"],
         "preprint_date": "2025-12-04",
         "collaborations": [
           {
@@ -4792,9 +4786,7 @@
             "source": "arXiv"
           }
         ],
-        "_collections": [
-          "Literature"
-        ],
+        "_collections": ["Literature"],
         "public_notes": [
           {
             "value": "Replaced with the published version. Added the journal reference and the DOI. All the figures and tables can be found at http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-23-011 (CMS Public Pages)",
@@ -4804,14 +4796,10 @@
         "arxiv_eprints": [
           {
             "value": "2502.05665",
-            "categories": [
-              "hep-ex"
-            ]
+            "categories": ["hep-ex"]
           }
         ],
-        "document_type": [
-          "article"
-        ],
+        "document_type": ["article"],
         "preprint_date": "2025-12-02",
         "collaborations": [
           {
@@ -4898,8 +4886,16 @@
       },
       "status": "running",
       "merge_details": {
-
-        "conflicts": {"conflicts":[{"path": "/authors/10", "op": "remove", "value": null, "$type": "REMOVE_FIELD"}]}
+        "conflicts": {
+          "conflicts": [
+            {
+              "path": "/authors/10",
+              "op": "remove",
+              "value": null,
+              "$type": "REMOVE_FIELD"
+            }
+          ]
+        }
       },
       "_created_at": "2024-11-25T13:49:53.009Z",
       "_updated_at": "2024-11-25T13:49:54.756Z"
@@ -4929,7 +4925,16 @@
       },
       "status": "running",
       "merge_details": {
-        "conflicts": {"conflicts":[{"path": "/authors/10", "op": "remove", "value": null, "$type": "REMOVE_FIELD"}]}
+        "conflicts": {
+          "conflicts": [
+            {
+              "path": "/authors/10",
+              "op": "remove",
+              "value": null,
+              "$type": "REMOVE_FIELD"
+            }
+          ]
+        }
       },
       "_created_at": "2024-11-25T13:49:53.009Z",
       "_updated_at": "2024-11-25T13:49:54.756Z"
@@ -4988,5 +4993,33 @@
       "_created_at": "2024-11-25T13:49:53.009Z",
       "_updated_at": "2024-11-25T13:49:54.756Z"
     }
-}
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "6bac46b8-6da7-4369-abb0-36d270d2078a",
+    "fields": {
+      "workflow_type": "HEP_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "The validation error one",
+            "source": "submitter"
+          }
+        ],
+        "authors": [{ "full_name": "Gooding, James, James Andrew, Jamie." }],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "acquisition_source": {
+          "email": "user@cern.ch",
+          "method": "submitter",
+          "source": "submitter",
+          "datetime": "2024-11-18T11:34:19.809575"
+        }
+      },
+      "status": "error_validation",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
+  }
 ]

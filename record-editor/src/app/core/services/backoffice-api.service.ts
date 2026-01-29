@@ -100,6 +100,7 @@ export class BackofficeApiService extends CommonApiService {
             $schema: this.fetchSchema(type),
             ...response.data,
           },
+          validation_errors: response.validation_errors,
           _extra_data: {},
         };
       }

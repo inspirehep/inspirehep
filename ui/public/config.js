@@ -8,7 +8,9 @@
     DISPLAY_GUIDE_ON_START: false,
     INSPIRE_WORKFLOWS_DAGS_URL: 'http://localhost:8070/dags/',
     BACKOFFICE_URL: 'http://localhost:8001',
-    EDITOR_SCHEMA_URL: 'https://inspirebeta.net/schemas/records/authors.json',
+    EDITOR_AUTHORS_SCHEMA_URL:
+      'https://inspirebeta.net/schemas/records/authors.json',
+    EDITOR_HEP_SCHEMA_URL: 'https://inspirebeta.net/schemas/records/hep.json',
     EDITOR_BACKOFFICE_API_URL: 'http://localhost:8001/api',
     SEARCH_FEEDBACK_CARD_FEATURE_FLAG: false,
     BACKOFFICE_LITERATURE_FEATURE_FLAG: false,
