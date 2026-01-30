@@ -165,5 +165,5 @@ class HepBatchResolutionSerializer(serializers.Serializer):
     ids = serializers.ListField(child=serializers.UUIDField())
 
 
-class HepDiscardSerializer(serializers.Serializer):
+class HepChangeStatusSerializer(serializers.Serializer):
     note = serializers.CharField(max_length=255, default="")

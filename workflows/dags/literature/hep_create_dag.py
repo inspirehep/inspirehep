@@ -178,7 +178,7 @@ def hep_create_dag():
 
         s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
-    @task.short_circuit
+    @task.branch
     def discard_older_wfs_w_same_source(**context):
         workflow_id = context["params"]["workflow_id"]
         workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
@@ -215,9 +215,9 @@ def hep_create_dag():
                 workflow_id=workflow_id,
                 decision_data={"action": DECISION_DISCARD},
             )
-            return False
+            return "run_next_if_necessary"
 
-        return True
+        return "check_for_blocking_workflows"
 
     @task.short_circuit(ignore_downstream_trigger_rules=False)
     def check_for_blocking_workflows(**context):
@@ -1982,6 +1982,35 @@ def hep_create_dag():
 
         workflow_management_hook.update_workflow(workflow_id, workflow_data)
 
+    @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+    def run_next_if_necessary(**context):
+        workflow_id = context["params"]["workflow_id"]
+        workflow = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+
+        matches = workflows.find_matching_workflows(
+            workflow, RUNNING_STATUSES + [STATUS_BLOCKED]
+        )
+
+        older_workflow = None
+
+        for match in matches:
+            if (
+                not older_workflow
+                or match["_created_at"] < older_workflow["_created_at"]
+            ):
+                older_workflow = match
+
+        if older_workflow:
+            logger.info(f"Restarting workflow '{older_workflow['id']}'")
+            workflow_management_hook.restart_workflow(older_workflow["id"])
+
+        for match in matches:
+            if match["id"] == older_workflow["id"]:
+                continue
+            workflow_management_hook.block_workflow(
+                match["id"], f"Blocked by workflow {older_workflow['id']}"
+            )
+
     preprocessing_group = preprocessing()
     check_for_fuzzy_matches_task = check_for_fuzzy_matches()
     check_for_exact_matches_task = check_for_exact_matches()
@@ -2024,6 +2053,9 @@ def hep_create_dag():
 
     # Fuzzy matching
 
+    run_next_if_necessary_task = run_next_if_necessary()
+    check_for_blocking_workflows_task = check_for_blocking_workflows()
+
     (
         check_env()
         >> get_workflow_data()
@@ -2031,9 +2063,10 @@ def hep_create_dag():
         >> validate_record()
         >> set_workflow_status_to_running()
         >> discard_older_wfs_w_same_source()
-        >> check_for_blocking_workflows()
-        >> check_for_exact_matches_task
+        >> [check_for_blocking_workflows_task, run_next_if_necessary_task]
     )
+
+    check_for_blocking_workflows_task >> check_for_exact_matches_task
 
     postprocessing_group = postprocessing()
     should_proceed_to_core_selection_task = should_proceed_to_core_selection()
@@ -2057,6 +2090,7 @@ def hep_create_dag():
         >> save_workflow()
         >> core_selection()
         >> save_and_complete_workflow_task
+        >> run_next_if_necessary_task
     )
     notify_and_close_not_accepted_task >> save_and_complete_workflow_task
     should_proceed_to_core_selection_task >> save_and_complete_workflow_task

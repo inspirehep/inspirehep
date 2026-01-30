@@ -1,4 +1,7 @@
-from backoffice.hep.api.serializers import HepDecisionSerializer
+from backoffice.hep.api.serializers import (
+    HepChangeStatusSerializer,
+    HepDecisionSerializer,
+)
 from django.shortcuts import get_object_or_404
 import logging
 
@@ -55,4 +58,15 @@ def resolve_workflow(id, data, user):
                 e,
             )
 
+    return workflow
+
+
+def complete_workflow(id, data):
+    serializer = HepChangeStatusSerializer(data=data)
+    serializer.is_valid(raise_exception=True)
+
+    note = serializer.validated_data.get("note", "")
+
+    workflow = get_object_or_404(HepWorkflow, pk=id)
+    airflow_utils.mark_airflow_dag_run_as_success(workflow, note=note)
     return workflow

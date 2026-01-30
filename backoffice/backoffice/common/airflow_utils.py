@@ -90,8 +90,8 @@ def clear_airflow_dag_tasks(dag_id, workflow_id, tasks=None):
     return response.content, response.status_code
 
 
-def discard_airflow_dag_run(workflow, note=""):
-    """Discards an airflow dag run.
+def mark_airflow_dag_run_as_success(workflow, note=""):
+    """Marks an airflow dag run as success.
 
     :param workflow: workflow object
     :returns: request response content
