@@ -135,6 +135,10 @@ describe('LiteratureMatches', () => {
       WorkflowDecisions.FUZZY_MATCH,
       secondControlNumber
     );
+    expect(screen.getByText('Decision submitted.')).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: /Best Match/i })
+    ).not.toBeInTheDocument();
   });
 
   it('calls onNoMatchSelected when "None of these" is clicked', () => {
@@ -147,6 +151,10 @@ describe('LiteratureMatches', () => {
     expect(handleResolveAction).toHaveBeenCalledWith(
       WorkflowDecisions.FUZZY_MATCH
     );
+    expect(screen.getByText('Decision submitted.')).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: /None of these/i })
+    ).not.toBeInTheDocument();
   });
 
   it('renders authors correctly and shows "(N authors)" when more than one', () => {

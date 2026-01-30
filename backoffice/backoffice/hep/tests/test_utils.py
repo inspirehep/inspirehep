@@ -56,6 +56,7 @@ class TestUtils(TransactionTestCase):
             "value": "",
         }
         workflow = resolve_workflow(self.workflow.id, decision_data, self.user)
+        self.assertEqual(workflow.status, HepStatusChoices.RUNNING)
         self.assertEqual(workflow.decisions.first().action, HepResolutions.auto_reject)
 
     @patch("requests.patch")
