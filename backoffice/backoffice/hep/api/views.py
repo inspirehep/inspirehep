@@ -157,6 +157,37 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
 
         return Response({"results": results}, status=status.HTTP_200_OK)
 
+    @action(detail=True, methods=["post"])
+    def restart(self, request, pk=None):
+        workflow = get_object_or_404(HepWorkflow, pk=pk)
+
+        if workflow.status == HepStatusChoices.COMPLETED:
+            return Response(
+                {"message": "Cannot restart a completed workflow."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        only_failed = request.data.get("restart_current_task", False)
+
+        dag_id = WORKFLOW_DAGS[workflow.workflow_type].initialize
+
+        try:
+            airflow_utils.clear_airflow_dag_run(
+                dag_id, str(workflow.id), only_failed=only_failed
+            )
+            if not only_failed:
+                workflow.status = self.status_choices.PROCESSING
+                workflow.save()
+        except RequestException as e:
+            return handle_request_exception(
+                "Error restarting Airflow DAGs for workflow %s",
+                e,
+                workflow.id,
+                response_text="Error restarting Airflow DAGs for workflow %s",
+            )
+
+        return Response(self.get_serializer(workflow).data)
+
 
 @extend_schema_view(
     list=extend_schema(
