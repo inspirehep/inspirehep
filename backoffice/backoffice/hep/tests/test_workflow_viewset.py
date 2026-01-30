@@ -373,3 +373,45 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(self.workflow.decisions.first().action, HepResolutions.discard)
 
         airflow_utils.delete_workflow_dag(dag_id, self.workflow.id)
+
+    @pytest.mark.vcr
+    def test_restart(self):
+        dag_id = WORKFLOW_DAGS[self.workflow.workflow_type].initialize
+
+        self.content, self.status_code = airflow_utils.trigger_airflow_dag(
+            dag_id, str(self.workflow.id)
+        )
+
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-restart",
+            kwargs={"pk": self.workflow.id},
+        )
+        data = {
+            "restart_current_task": True,
+        }
+        response = self.api_client.post(url, format="json", data=data)
+        self.assertEqual(response.status_code, 200)
+
+        airflow_utils.delete_workflow_dag(dag_id, self.workflow.id)
+
+    def test_restart_completed_workflow(self):
+        completed_workflow = HepWorkflow.objects.create(
+            data={},
+            status=HepStatusChoices.COMPLETED,
+            workflow_type=HepWorkflowType.HEP_CREATE,
+            id=uuid.UUID(int=3),
+        )
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-restart",
+            kwargs={"pk": completed_workflow.id},
+        )
+        data = {
+            "restart_current_task": True,
+        }
+        response = self.api_client.post(url, format="json", data=data)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json()["message"], "Cannot restart a completed workflow."
+        )
