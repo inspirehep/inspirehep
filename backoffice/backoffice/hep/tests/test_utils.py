@@ -1,10 +1,11 @@
+from unittest.mock import Mock, patch
 import pytest
 import uuid
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.test import TransactionTestCase
 from rest_framework.exceptions import ValidationError
-from backoffice.hep.utils import resolve_workflow
+from backoffice.hep.utils import resolve_workflow, complete_workflow
 
 from backoffice.hep.constants import HepStatusChoices, HepResolutions
 from backoffice.hep.utils import add_hep_decision
@@ -56,3 +57,15 @@ class TestUtils(TransactionTestCase):
         }
         workflow = resolve_workflow(self.workflow.id, decision_data, self.user)
         self.assertEqual(workflow.decisions.first().action, HepResolutions.auto_reject)
+
+    @patch("requests.patch")
+    def test_complete_workflow(self, mock_patch):
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_patch.return_value = mock_response
+
+        request_data = {
+            "note": "completing workflow",
+        }
+
+        complete_workflow(self.workflow.id, request_data)

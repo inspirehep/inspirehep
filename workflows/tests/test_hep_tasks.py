@@ -179,11 +179,14 @@ class Test_HEPCreateDAG:
             self.bucket_name,
         )
 
-        assert task_test(
+        result = task_test(
             "hep_create_dag",
             "discard_older_wfs_w_same_source",
             dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
         )
+
+        assert "check_for_blocking_workflows" in result["followed"]
 
     @patch(
         "include.utils.workflows.find_matching_workflows",
@@ -231,11 +234,13 @@ class Test_HEPCreateDAG:
             self.bucket_name,
         )
 
-        assert not task_test(
+        result = task_test(
             "hep_create_dag",
             "discard_older_wfs_w_same_source",
             dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
         )
+        assert "run_next_if_necessary" in result["followed"]
         workflow_result = get_lit_workflow_task(self.workflow_id)
 
         assert workflow_result["status"] == STATUS_COMPLETED
@@ -4738,3 +4743,67 @@ class Test_HEPCreateDAG:
             )
 
         assert "Validation failed" in str(excinfo.value)
+
+    @patch(
+        "include.utils.workflows.find_matching_workflows",
+        return_value=[
+            {
+                "id": "to_block",
+                "data": {
+                    "acquisition_source": {
+                        "method": "hepcrawl",
+                        "source": "arXiv",
+                    },
+                    "arxiv_eprints": [
+                        {
+                            "value": "1111.11111",
+                        }
+                    ],
+                },
+                "_created_at": "2025-11-02T00:00:00.000Z",
+            },
+            {
+                "id": "to_restart",
+                "data": {
+                    "acquisition_source": {
+                        "method": "hepcrawl",
+                        "source": "arXiv",
+                    },
+                    "arxiv_eprints": [
+                        {
+                            "value": "1111.11111",
+                        }
+                    ],
+                },
+                "_created_at": "2025-11-01T00:00:00.000Z",
+            },
+        ],
+    )
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.restart_workflow"
+    )
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.block_workflow"
+    )
+    def test_run_next_if_necessary(
+        self, block_workflow_mock, restart_workflow_mock, find_matching_workflows_mock
+    ):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "test no next"}],
+                "arxiv_eprints": [{"value": "1111.11111"}],
+            },
+        }
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+
+        task_test(
+            "hep_create_dag",
+            "run_next_if_necessary",
+            dag_params=self.context["params"],
+        )
+
+        block_workflow_mock.assert_called_once_with(
+            "to_block", "Blocked by workflow to_restart"
+        )
+        restart_workflow_mock.assert_called_once_with("to_restart")

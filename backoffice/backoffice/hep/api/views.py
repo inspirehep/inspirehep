@@ -3,7 +3,7 @@ import logging
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from backoffice.hep.utils import add_hep_decision, resolve_workflow
+from backoffice.hep.utils import add_hep_decision, resolve_workflow, complete_workflow
 from backoffice.hep.api.serializers import (
     HepWorkflowSerializer,
     HepWorkflowDocumentSerializer,
@@ -11,7 +11,6 @@ from backoffice.hep.api.serializers import (
     HepDecisionSerializer,
     HepResolutionSerializer,
     HepBatchResolutionSerializer,
-    HepDiscardSerializer,
 )
 from rest_framework.decorators import action
 from backoffice.common.views import BaseWorkflowTicketViewSet, BaseWorkflowViewSet
@@ -124,16 +123,18 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
 
     @action(detail=True, methods=["post"])
     def discard(self, request, pk=None):
-        serializer = HepDiscardSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        note = serializer.validated_data.get("note", "")
-
-        workflow = get_object_or_404(HepWorkflow, pk=pk)
-        airflow_utils.discard_airflow_dag_run(workflow, note=note)
+        workflow = complete_workflow(pk, request.data)
 
         workflow.status = HepStatusChoices.COMPLETED
         add_hep_decision(pk, request.user, HepResolutions.discard)
+        workflow.save()
+        return Response(status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=["post"])
+    def block(self, request, pk=None):
+        workflow = complete_workflow(pk, request.data)
+
+        workflow.status = HepStatusChoices.BLOCKED
         workflow.save()
         return Response(status=status.HTTP_200_OK)
 

@@ -375,6 +375,29 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         airflow_utils.delete_workflow_dag(dag_id, self.workflow.id)
 
     @pytest.mark.vcr
+    def test_block(self):
+        dag_id = WORKFLOW_DAGS[self.workflow.workflow_type].initialize
+
+        self.content, self.status_code = airflow_utils.trigger_airflow_dag(
+            dag_id, str(self.workflow.id)
+        )
+
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-block",
+            kwargs={"pk": self.workflow.id},
+        )
+        data = {
+            "note": "Blocking this workflow for testing purposes.",
+        }
+        response = self.api_client.post(url, format="json", data=data)
+        self.assertEqual(response.status_code, 200)
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, HepStatusChoices.BLOCKED)
+
+        airflow_utils.delete_workflow_dag(dag_id, self.workflow.id)
+
+    @pytest.mark.vcr
     def test_restart(self):
         dag_id = WORKFLOW_DAGS[self.workflow.workflow_type].initialize
 
