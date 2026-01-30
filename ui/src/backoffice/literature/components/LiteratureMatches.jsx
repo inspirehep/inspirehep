@@ -123,14 +123,21 @@ const LiteratureMatches = ({ fuzzyMatches, handleResolveAction }) => {
   const [selectedBestMatch, setSelectedBestMatch] = useState(
     fuzzyMatches.getIn([0, 'control_number'])
   );
+  const [hasSubmittedDecision, setHasSubmittedDecision] = useState(false);
 
   const handleBestMatchClick = () => {
+    setHasSubmittedDecision(true);
     handleResolveAction(WorkflowDecisions.FUZZY_MATCH, selectedBestMatch);
   };
 
   const handleNoMatchClick = () => {
+    setHasSubmittedDecision(true);
     handleResolveAction(WorkflowDecisions.FUZZY_MATCH);
   };
+
+  if (hasSubmittedDecision) {
+    return <p className="mb0 mt2 tc">Decision submitted.</p>;
+  }
 
   return (
     <>

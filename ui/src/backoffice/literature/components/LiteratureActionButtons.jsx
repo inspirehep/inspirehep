@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LiteratureHepSelectionButtons } from './LiteratureHepSelectionButtons';
 import { LiteratureCoreSelectionButtons } from './LiteratureCoreSelectionButtons';
 import { WorkflowStatuses } from '../../constants';
@@ -10,11 +10,22 @@ const LiteratureActionButtons = ({
   actionInProgress,
   workflowId,
 }) => {
+  const [hasSubmittedDecision, setHasSubmittedDecision] = useState(false);
+
+  const handleResolveAndHide = (action) => {
+    setHasSubmittedDecision(true);
+    handleResolveAction(action);
+  };
+
+  if (hasSubmittedDecision) {
+    return <p className="mb0 mt2 tc">Decision submitted.</p>;
+  }
+
   switch (status) {
     case WorkflowStatuses.APPROVAL_CORE_SELECTION:
       return (
         <LiteratureCoreSelectionButtons
-          handleResolveAction={handleResolveAction}
+          handleResolveAction={handleResolveAndHide}
           actionInProgress={actionInProgress}
           workflowId={workflowId}
         />
@@ -24,7 +35,7 @@ const LiteratureActionButtons = ({
       return (
         <LiteratureHepSelectionButtons
           hasInspireCategories={hasInspireCategories}
-          handleResolveAction={handleResolveAction}
+          handleResolveAction={handleResolveAndHide}
           actionInProgress={actionInProgress}
           workflowId={workflowId}
         />
