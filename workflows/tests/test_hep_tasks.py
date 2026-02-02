@@ -246,6 +246,57 @@ class Test_HEPCreateDAG:
         assert workflow_result["status"] == STATUS_COMPLETED
         assert workflows.get_decision(workflow_result["decisions"], DECISION_DISCARD)
 
+    @patch(
+        "include.utils.workflows.find_matching_workflows",
+        return_value=[
+            {
+                "id": "to_discard",
+                "data": {
+                    "acquisition_source": {
+                        "method": "submitter",
+                        "source": "submitter",
+                    },
+                    "arxiv_eprints": [
+                        {
+                            "value": "2601.19892",
+                        }
+                    ],
+                },
+                "_created_at": "2025-11-03T00:00:00.000Z",
+            }
+        ],
+    )
+    def test_discard_older_wfs_w_same_source_discard_double_submission(
+        self, mock_find_matching_workflows
+    ):
+        s3.write_workflow(
+            self.s3_hook,
+            {
+                "id": self.workflow_id,
+                "data": {
+                    "acquisition_source": {
+                        "method": "submitter",
+                        "source": "submitter",
+                        "datetime": "2025-10-28T02:00:33.403192",
+                    },
+                    "arxiv_eprints": [
+                        {
+                            "value": "2601.19892",
+                        }
+                    ],
+                },
+                "_created_at": "2025-11-02T00:00:00.000Z",
+            },
+            self.bucket_name,
+        )
+
+        with pytest.raises(AirflowFailException):
+            task_test(
+                "hep_create_dag",
+                "discard_older_wfs_w_same_source",
+                dag_params=self.context["params"],
+            )
+
     @pytest.mark.vcr
     def test_check_for_blocking_workflows_block_arxivid(self):
         s3.write_workflow(

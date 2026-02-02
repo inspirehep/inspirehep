@@ -188,6 +188,9 @@ def hep_create_dag():
             statuses=RUNNING_STATUSES + [STATUS_BLOCKED],
         )
 
+        if is_submission(workflow_data) and len(matches) > 0:
+            raise AirflowFailException("Only one submission is allowed at a time")
+
         has_older_match_w_same_source = False
         has_found_match_with_same_source = False
 
