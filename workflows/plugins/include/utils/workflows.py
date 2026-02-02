@@ -116,7 +116,7 @@ def is_pdf_link(response):
     """Verify if the response points to a PDF.
 
     Arg:
-        response (Response): the HTTP response object.
+        response (str or Response): the response object or url string.
     Returns:
         bool: whether the response url points to a PDF.
     """

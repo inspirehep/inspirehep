@@ -1,5 +1,6 @@
 import pytest
 from hooks.backoffice.workflow_management_hook import HEP
+from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_hook import (
     InspireHttpHook,
 )
@@ -705,3 +706,30 @@ def test_save_workflow():
     )
 
     assert result["data"] == workflow_data["data"]
+
+
+@pytest.mark.vcr
+def test_is_pdf_link_handles_pdfs_starting_with_blank_lines():
+    assert workflows.is_pdf_link("https://arxiv.org/pdf/1803.01183.pdf")
+
+
+@pytest.mark.vcr
+def test_is_pdf_link_handles_different_pdfs_correctly():
+    assert workflows.is_pdf_link("http://arxiv.org/pdf/physics/0404071")
+
+
+@pytest.mark.vcr
+def test_is_pdf_link_from_response():
+    def _test_is_pdf_link_from_response():
+        arxiv_hook = GenericHttpHook(http_conn_id="arxiv_connection")
+
+        endpoint = "/pdf/physics/0404071"
+
+        response = arxiv_hook.call_api(
+            endpoint=endpoint,
+            extra_options={"stream": True, "allow_redirects": True},
+        )
+
+        assert workflows.is_pdf_link(response)
+
+    function_test(_test_is_pdf_link_from_response, params={})
