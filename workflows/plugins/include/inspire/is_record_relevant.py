@@ -18,7 +18,7 @@ def is_auto_approved(workflow_data):
 
 def is_auto_rejected(workflow_data):
     relevance_prediction = get_value(workflow_data, "relevance_prediction", {})
-    classification_results = get_value(workflow_data, "classifier_results", {})
+    classification_results = get_value(workflow_data, "classifier_results") or {}
     fulltext_used = classification_results.get("fulltext_used")
     if not relevance_prediction or not classification_results or not fulltext_used:
         return False
