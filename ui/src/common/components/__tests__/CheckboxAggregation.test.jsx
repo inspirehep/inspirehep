@@ -96,6 +96,35 @@ describe('CheckboxAggregation', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
+  it('render initial state with splitDisplayName set to 2', () => {
+    const buckets = fromJS([
+      {
+        key: `bucket1`,
+        doc_count: 1,
+      },
+      {
+        key: `prefix${BUCKET_NAME_SPLITTER}bucket2`,
+        doc_count: 2,
+      },
+      {
+        key: `PREFIX${BUCKET_NAME_SPLITTER}BUCKET3`,
+        doc_count: 2,
+      },
+    ]);
+    const { getByText } = render(
+      <CheckboxAggregation
+        onChange={jest.fn()}
+        buckets={buckets}
+        name="Test"
+        selections="bucket1"
+        splitDisplayName={2}
+      />
+    );
+    expect(getByText('Bucket1')).toBeInTheDocument();
+    expect(getByText('Prefix Bucket2')).toBeInTheDocument();
+    expect(getByText('PREFIX BUCKET3')).toBeInTheDocument();
+  });
+
   it('renders with show more button if buckets are more than 10', () => {
     const buckets = fromJS([
       {

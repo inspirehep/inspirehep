@@ -349,3 +349,11 @@ export function columnSize(numberOfResults: number, hasFacets?: boolean) {
   }
   return SEARCH_PAGE_COL_SIZE_NO_RESULTS;
 }
+
+export function toTitleCaseFromSnake(str: string, split_by: string) {
+  return str
+    .split(split_by)
+    .filter(Boolean)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
