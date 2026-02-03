@@ -15,7 +15,6 @@ from backoffice.hep.documents import HepWorkflowDocument
 from backoffice.hep.models import HepDecision, HepWorkflow, HepWorkflowTicket
 from inspire_utils.record import get_value
 from backoffice.hep.constants import ANTIHEP_KEYWORDS
-from django.contrib.sites.models import Site
 
 from django.urls import reverse
 
@@ -103,18 +102,20 @@ class HepWorkflowSerializer(BaseWorkflowSerializer):
         return data
 
     def get_callback_url(self, instance):
-        if instance.status not in (
-            HepStatusChoices.APPROVAL_MERGE,
-            HepStatusChoices.ERROR_VALIDATION,
-        ):
+        routes = {
+            HepStatusChoices.ERROR_VALIDATION: "api:hep-restart",
+            HepStatusChoices.APPROVAL_MERGE: "api:hep-resolve",
+        }
+
+        route = routes.get(instance.status)
+        if not route:
             return None
 
-        domain = Site.objects.get_current().domain
-        path = reverse(
-            "api:hep-resolve",
-            kwargs={"pk": instance.id},
-        )
-        return f"https://{domain}{path}"
+        path = reverse(route, kwargs={"pk": instance.id})
+        request = self.context.get("request")
+        if not request:
+            raise RuntimeError("Request required to build callback URL")
+        return request.build_absolute_uri(path)
 
 
 @extend_schema_serializer(

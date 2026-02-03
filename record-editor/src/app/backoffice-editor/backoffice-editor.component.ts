@@ -124,6 +124,11 @@ export class BackofficeEditorComponent extends SubscriberComponent implements On
       this.workflowObject.merge_details.conflicts;
   }
 
+  private injectCallbackUrlIntoExtraData() {
+    this.workflowObject._extra_data.callback_url =
+      this.workflowObject.callback_url;
+  }
+
   get workflowExtraData() {
     this.workflowObject._extra_data = this.workflowObject._extra_data || {};
     if (this.workflowObject.validation_errors) {
@@ -131,6 +136,9 @@ export class BackofficeEditorComponent extends SubscriberComponent implements On
     }
     if (this.workflowObject.merge_details && this.workflowObject.merge_details.conflicts) {
       this.injectConflictsIntoExtraData();
+    }
+    if (this.workflowObject.callback_url) {
+      this.injectCallbackUrlIntoExtraData();
     }
     return this.workflowObject._extra_data;
   }

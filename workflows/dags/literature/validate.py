@@ -6,7 +6,7 @@ from hooks.backoffice.workflow_management_hook import (
 )
 
 
-@task
+@task(on_failure_callback=None)
 def validate_record(**context):
     workflow_id = context["params"]["workflow_id"]
     workflow_management_hook = WorkflowManagementHook(HEP)

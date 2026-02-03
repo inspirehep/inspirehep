@@ -36,7 +36,7 @@ import {
   BackofficeApiService,
 } from '../../core/services';
 import { SubscriberComponent, ApiError } from '../../shared/classes';
-import { WorkflowObject } from '../../shared/interfaces';
+import { WorkflowObject, WorkflowSaveErrorBody } from '../../shared/interfaces';
 import { BackofficeWorkflow } from '../../core/services/backoffice-api.service';
 import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
 
@@ -110,7 +110,23 @@ export class BackofficeSaveButtonComponent
       HOVER_TO_DISMISS_INDEFINITE_TOAST
     );
 
-    this.cleanupAndSave();
+    if (this.type === 'literature') {
+      const references = this.workflowObject.metadata['references'];
+      this.apiService
+        .getLinkedReferences(references)
+        .then((linkedReferences) => {
+          const metadata = Object.assign({}, this.workflowObject.metadata);
+          metadata['references'] = linkedReferences;
+          this.workflowObject.metadata = metadata;
+          this.jsonBeingEdited$.next(this.workflowObject);
+          this.cleanupAndSave();
+        })
+        .catch(() => {
+          this.cleanupAndSave();
+        });
+    } else {
+      this.cleanupAndSave();
+    }
   }
 
   private cleanupAndSave() {
@@ -131,6 +147,58 @@ export class BackofficeSaveButtonComponent
     );
   }
 
+  private get callbackUrl(): string | undefined {
+    return this.workflowObject._extra_data
+      ? this.workflowObject._extra_data.callback_url
+      : undefined;
+  }
+
+  private getCallbackPayload(): { [key: string]: string | boolean } | undefined {
+    if (this.workflowObject.status === 'error_validation') {
+      return { restart_current_task: true };
+    }
+    if (this.workflowObject.status === 'approval_merge') {
+      return { action: 'merge_approve' };
+    }
+    return undefined;
+  }
+
+  private resolveFromCallbackUrl() {
+    const payload = this.getCallbackPayload();
+    if (!payload) {
+      return;
+    }
+    this.apiService
+      .resolveWorkflowObjectFromCallbackUrl(this.callbackUrl, payload)
+      .do(() => this.domUtilsService.unregisterBeforeUnloadPrompt())
+      .subscribe(
+        (body) => {
+          if (this.hasConflicts()) {
+            this.toastrService.clear(this.savingInfoToast.toastId);
+            this.toastrService.success(body.message, 'Success');
+          } else {
+            const origin = window.location.origin;
+            const redirectUrl = `${origin}/backoffice/literature/${this.workflowObject.id}`;
+            window.location.href = redirectUrl;
+          }
+        },
+        (error: ApiError<WorkflowSaveErrorBody>) => {
+          if (
+            error.status === 400 &&
+            error.body.error_code === 'VALIDATION_ERROR'
+          ) {
+            this.jsonBeingEdited$.next(error.body.workflow);
+          }
+          this.displayErrorToast();
+        }
+      );
+  }
+
+  private hasConflicts(): boolean {
+    const extraData = this.workflowObject._extra_data;
+    return extraData && extraData.conflicts && extraData.conflicts.length > 0;
+  }
+
   private save() {
     this.apiService
       .saveWorkflowObject(this.workflowObject, this.fullWorkflowObject)
@@ -139,6 +207,9 @@ export class BackofficeSaveButtonComponent
         () => {
           this.toastrService.clear(this.savingInfoToast.toastId);
           this.toastrService.success(`Workflow object is saved`, 'Success');
+          if (this.callbackUrl) {
+            this.resolveFromCallbackUrl();
+          }
         },
         (error) => {
           this.displayErrorToast();
