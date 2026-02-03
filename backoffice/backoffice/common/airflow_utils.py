@@ -83,7 +83,7 @@ def clear_airflow_dag_tasks(dag_id, workflow_id, tasks=None):
     )
     response = requests.post(
         url,
-        data=json.dumps(data, cls=DjangoJSONEncoder),
+        json=data,
         headers=AIRFLOW_HEADERS,
     )
     response.raise_for_status()
