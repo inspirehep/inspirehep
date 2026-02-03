@@ -228,11 +228,21 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.api_client.force_authenticate(user=self.curator)
 
         cases = [
-            (HepStatusChoices.APPROVAL_MERGE, True),
-            (HepStatusChoices.ERROR_VALIDATION, True),
-            (HepStatusChoices.APPROVAL, False),
+            (
+                HepStatusChoices.APPROVAL_MERGE,
+                "api:hep-resolve",
+            ),
+            (
+                HepStatusChoices.ERROR_VALIDATION,
+                "api:hep-restart",
+            ),
+            (
+                HepStatusChoices.APPROVAL,
+                None,
+            ),
         ]
-        for status, expected in cases:
+
+        for status, expected_route in cases:
             random_id = uuid.uuid4()
             HepWorkflow.objects.create(
                 data=BASE,
@@ -244,17 +254,15 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
             detail_url = reverse("api:hep-detail", kwargs={"pk": random_id})
             response = self.api_client.get(detail_url)
             json_response = response.json()
-            self.assertEqual(response.status_code, 200)
 
+            self.assertEqual(response.status_code, 200)
             self.assertIn("callback_url", json_response)
 
-            if expected:
-                self.assertIn(
-                    reverse("api:hep-resolve", kwargs={"pk": random_id}),
-                    json_response["callback_url"],
-                )
+            if expected_route is None:
+                self.assertIsNone(json_response["callback_url"])
             else:
-                self.assertIsNone(json_response.get("callback_url"))
+                expected_path = reverse(expected_route, kwargs={"pk": random_id})
+                self.assertIn(expected_path, json_response["callback_url"])
 
     def test_validate_valid_record(self):
         self.api_client.force_authenticate(user=self.curator)

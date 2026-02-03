@@ -83,6 +83,8 @@ export class BackofficeApiService extends CommonApiService {
           },
           validation_errors: response.validation_errors,
           merge_details: response.merge_details,
+          callback_url: response.callback_url,
+          status: response.status,
           _extra_data: {},
         };
       }
@@ -106,6 +108,16 @@ export class BackofficeApiService extends CommonApiService {
       )
       .catch((error) => Observable.throw(new ApiError(error)))
       .map((res) => res.json());
+  }
+
+  resolveWorkflowObjectFromCallbackUrl(
+    callbackUrl: string,
+    payload: { [key: string]: string | boolean }
+  ): Observable<{ message: string}> {
+    return this.http
+      .post(callbackUrl, payload, { withCredentials: true })
+      .catch(error => Observable.throw(new ApiError(error)))
+      .map(res => res.json());
   }
 
   private handleRequest<T>(requestFn: () => Promise<T>): Promise<T> {

@@ -14,6 +14,8 @@ export interface WorkflowObject<T = object> {
   merge_details?: {
     conflicts?: Array<JsonPatch>;
   };
+  callback_url?: string;
+  status?: string;
   metadata: {
     $schema: string;
     _collections: string[];

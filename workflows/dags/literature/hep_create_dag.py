@@ -131,10 +131,12 @@ bucket_name = Variable.get("s3_bucket_name")
     params={
         "workflow_id": Param(type="string"),
     },
+    default_args={
+        "on_failure_callback": FailedDagNotifierSetError(collection=HEP),
+    },
     start_date=datetime.datetime(2024, 5, 5),
     schedule=None,
     catchup=False,
-    on_failure_callback=FailedDagNotifierSetError(collection=HEP),
     tags=[HEP],
 )
 def hep_create_dag():
@@ -158,7 +160,6 @@ def hep_create_dag():
         workflow_data = workflow_management_hook.get_workflow(
             context["params"]["workflow_id"]
         )
-
         return s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
     @task
