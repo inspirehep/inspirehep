@@ -2590,6 +2590,21 @@ class Test_HEPCreateDAG:
         assert "max_score" in relevance_prediction
         assert "relevance_score" in relevance_prediction
 
+    @patch(
+        "inspire_classifier.Classifier.predict_coreness",
+        side_effect=Exception("Classifier failure"),
+    )
+    def test_guess_coreness_fail(self, mock_predict_coreness):
+        workflow_data = {"id": self.workflow_id, "data": {}}
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+
+        with pytest.raises(Exception, match="Classifier failure"):
+            task_test(
+                "hep_create_dag",
+                "preprocessing.guess_coreness",
+                dag_params=self.context["params"],
+            )
+
     @pytest.mark.vcr
     def test_notify_if_submission(self):
         workflow_data = {

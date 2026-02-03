@@ -1179,14 +1179,11 @@ def hep_create_dag():
             )
             title = get_value(workflow_data, "data.titles.title[0]", "")
             abstract = get_value(workflow_data, "data.abstracts.value[0]", "")
-            try:
-                clf = Classifier(model_path="/opt/classifier_model.h5")
-                results = clf.predict_coreness(title, abstract)
-                workflow_data["relevance_prediction"] = calculate_coreness(results)
-                s3.write_workflow(s3_hook, workflow_data, bucket_name)
-            except Exception as e:
-                logger.error(f"Error occurred while predicting coreness: {e}")
-                return
+
+            clf = Classifier(model_path="/opt/classifier_model.h5")
+            results = clf.predict_coreness(title, abstract)
+            workflow_data["relevance_prediction"] = calculate_coreness(results)
+            s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
         @task(multiple_outputs=True)
         def normalize_collaborations(**context):
