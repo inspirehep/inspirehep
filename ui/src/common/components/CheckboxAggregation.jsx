@@ -6,7 +6,7 @@ import { Col, Row, Checkbox } from 'antd';
 import UnclickableTag from './UnclickableTag';
 import AggregationBox from './AggregationBox';
 import SecondaryButton from './SecondaryButton';
-import { forceArray } from '../utils';
+import { forceArray, toTitleCaseFromSnake } from '../utils';
 import HelpIconTooltip from './HelpIconTooltip';
 import LinkWithTargetBlank from './LinkWithTargetBlank';
 import FormattedNumber from './FormattedNumber';
@@ -115,14 +115,26 @@ class CheckboxAggregation extends Component {
     );
   }
 
+  renderDisplayName(bucketKey) {
+    const { splitDisplayName } = this.props;
+
+    if (splitDisplayName === 2) {
+      return toTitleCaseFromSnake(bucketKey, BUCKET_NAME_SPLITTER);
+    }
+
+    if (splitDisplayName) {
+      const [, display] = bucketKey.split(BUCKET_NAME_SPLITTER);
+      return display ?? bucketKey;
+    }
+
+    return bucketKey;
+  }
+
   renderBucket(bucket) {
     const { selectionMap } = this.state;
-    const { splitDisplayName, bucketHelp } = this.props;
+    const { bucketHelp } = this.props;
     const bucketKey = bucket.get('key');
-    const bucketDisplay = splitDisplayName
-      ? bucketKey.split(BUCKET_NAME_SPLITTER)[1]
-      : bucketKey;
-
+    const bucketDisplay = this.renderDisplayName(bucketKey);
     return (
       <Row className="mb2" type="flex" justify="space-between" key={bucketKey}>
         <Col>

@@ -46,6 +46,7 @@ class BackofficeSearchUISerializer(serializers.Serializer):
                         word.capitalize() for word in clean_key.split("_")
                     ),
                     "type": "checkbox",
+                    "split": 2,
                 },
             }
 
