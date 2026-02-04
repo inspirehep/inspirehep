@@ -70,7 +70,7 @@ def arxiv_harvest_dag():
         return context["params"]["sets"]
 
     @task
-    def process_records(set, **context):
+    def process_records(sets, **context):
         """Process the record by downloading the versions,
         building the record and loading it to inspirehep.
          Args: set (str): The arXiv set to fetch records from.
@@ -89,7 +89,7 @@ def arxiv_harvest_dag():
             metadata_prefix=context["params"]["metadata_prefix"],
             from_date=from_date,
             until_date=until_date,
-            set=set,
+            sets=sets,
         )
 
         parsed_records, failed_build_records = build_records(
@@ -108,8 +108,8 @@ def arxiv_harvest_dag():
         )
 
     sets = get_sets()
-    failed_load_record_keys = process_records.expand(set=sets)
-    check_failures(failed_load_record_keys)
+    failed_load_record_key = process_records(sets)
+    check_failures(failed_load_record_key)
 
 
 arxiv_harvest_dag()
