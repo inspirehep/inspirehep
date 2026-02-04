@@ -79,8 +79,8 @@ def arxiv_harvest_by_arxivid_dag():
         )
 
     arxiv_ids = get_arxiv_ids()
-    failed_load_record_keys = process_records(arxiv_ids)
-    check_failures([failed_load_record_keys])
+    failed_load_record_key = process_records(arxiv_ids)
+    check_failures(failed_load_record_key)
 
 
 arxiv_harvest_by_arxivid_dag()
