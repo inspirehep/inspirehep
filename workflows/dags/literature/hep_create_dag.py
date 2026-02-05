@@ -43,7 +43,7 @@ from include.inspire.is_record_relevant import (
     is_submission,
 )
 from include.inspire.journal_title_normalization import (
-    process_entries,
+    get_normalized_publication_info,
 )
 from include.inspire.journals import get_db_journals
 from include.inspire.refextract_utils import (
@@ -702,35 +702,33 @@ def hep_create_dag():
                 json={"journal_titles_list": titles_to_normalize},
             )
             response.raise_for_status()
-            response_json = response.json()
-            normalized_titles_map = get_value(
-                response_json, "normalized_journal_titles", []
-            )
-            normalized_references_map = get_value(
-                response_json, "normalized_journal_references", []
-            )
-            normalized_categories_map = get_value(
-                response_json, "normalized_journal_categories", []
-            )
+            normalized_maps = response.json()
 
-            process_entries(
-                get_value(data, "publication_info", []),
-                lambda e: e.get("journal_title"),
-                normalized_titles_map,
-                normalized_references_map,
-                normalized_categories_map,
-                workflow_data,
-            )
-            process_entries(
-                get_value(data, "references", []),
-                lambda e: get_value(e, "reference.publication_info", {}).get(
-                    "journal_title"
-                ),
-                normalized_titles_map,
-                normalized_references_map,
-                normalized_categories_map,
-                workflow_data,
-            )
+            normalized_publications = []
+            for publication in get_value(data, "publication_info", []):
+                normalized_publications.append(
+                    get_normalized_publication_info(publication, normalized_maps)
+                )
+
+                journal_title = publication.get("journal_title")
+                normalized_journal_inspire_categories = get_value(
+                    normalized_maps, "normalized_journal_categories", []
+                ).get(journal_title)
+
+                if normalized_journal_inspire_categories:
+                    workflow_data.setdefault("journal_inspire_categories", []).extend(
+                        normalized_journal_inspire_categories
+                    )
+            data["publication_info"] = normalized_publications
+
+            for reference in get_value(data, "references", []):
+                publication_info = get_value(reference, "reference.publication_info")
+                if publication_info:
+                    reference["reference"]["publication_info"] = (
+                        get_normalized_publication_info(
+                            publication_info, normalized_maps
+                        )
+                    )
 
             if get_value(workflow_data, "journal_inspire_categories"):
                 workflow_data["journal_inspire_categories"] = dedupe_list(
