@@ -326,6 +326,10 @@ def has_previously_rejected_wf_in_backoffice_w_same_source(workflow_data):
             workflow_with_decisions.get("decisions"),
             [DECISION_HEP_REJECT, DECISION_AUTO_REJECT],
         ) and has_same_source(workflow_data, workflow_with_decisions):
+            logger.info(
+                f"Found previously rejected workflow with id "
+                f"'{workflow_with_decisions['id']}' from same source."
+            )
             return True
 
     return False
