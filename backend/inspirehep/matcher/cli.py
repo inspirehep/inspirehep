@@ -6,7 +6,6 @@
 
 import click
 import structlog
-from celery import group
 from flask.cli import with_appcontext
 from inspirehep.matcher.tasks import match_references_by_uuids
 from inspirehep.utils import chunker
@@ -42,13 +41,7 @@ def references(batch_size, db_batch_size):
         PersistentIdentifier.status == PIDStatus.REGISTERED,
     ).with_entities(PersistentIdentifier.object_uuid)
 
-    matcher_tasks = []
     result_chunks = chunker(literature_uuids_query.yield_per(db_batch_size), batch_size)
     for chunk in result_chunks:
         serialized_uuids = [str(uuid) for (uuid,) in chunk]
-        matcher_task = match_references_by_uuids.s(serialized_uuids)
-        matcher_tasks.append(matcher_task)
-
-    matcher_task_group = group(matcher_tasks)
-    group_result = matcher_task_group()
-    group_result.join()  # waits for all tasks to be finished
+        match_references_by_uuids.apply_async(args=[serialized_uuids])

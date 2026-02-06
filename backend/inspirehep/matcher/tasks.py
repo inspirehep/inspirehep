@@ -22,7 +22,7 @@ MAX_RETRY_COUNT = 3
 
 
 @shared_task(
-    ignore_result=False,
+    ignore_result=True,
     queue="matcher",
     acks_late=True,
     retry_backoff=RETRY_BACKOFF,
@@ -30,6 +30,10 @@ MAX_RETRY_COUNT = 3
     autoretry_for=(*DB_TASK_EXCEPTIONS, *ES_TASK_EXCEPTIONS),
 )
 def match_references_by_uuids(literature_uuids):
+    LOGGER.info(
+        "Starting reference matching task",
+        batch_size=len(literature_uuids),
+    )
     record_json = type_coerce(RecordMetadata.json, JSONB)
     has_references = record_json.has_key("references")  # noqa W601
     selected_uuids = RecordMetadata.id.in_(literature_uuids)
@@ -52,6 +56,11 @@ def match_references_by_uuids(literature_uuids):
         literature["references"] = dedupe_list(match_result["matched_references"])
         literature.update(dict(literature))
 
+        LOGGER.info(
+            "Committing matched references",
+            uuid=record_metadata.id,
+            recid=record_metadata.json["control_number"],
+        )
         db.session.commit()
         added_recids = match_result["added_recids"]
         removed_recids = match_result["removed_recids"]
@@ -64,3 +73,4 @@ def match_references_by_uuids(literature_uuids):
             removed_recids=removed_recids,
             removed_recid_count=len(removed_recids),
         )
+    LOGGER.info("Finished reference matching task")

@@ -31,5 +31,30 @@
         "value":"2635152",
         "schema":"CDSRDM"
       }
-    ]
+    ],
+    "references": [
+      {
+          "reference": {
+              "label": "1",
+              "authors": [
+                  {
+                      "full_name": "Jegerlehner, F."
+                  },
+                  {
+                      "full_name": "Nyffeler, A."
+                  }
+              ],
+              "dois": [
+                    "10.7566/JPSCP.30.011007"
+              ],
+              "publication_info": {
+                  "year": 2009,
+                  "artid": "1",
+                  "page_start": "1",
+                  "journal_title": "Phys.Rept.",
+                  "journal_volume": "477"
+              }
+          },
+          "curated_relation": false
+      }]
   }
