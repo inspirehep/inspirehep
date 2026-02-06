@@ -51,9 +51,13 @@ def test_match_references(inspire_app, cli, clean_celery_session):
 
     assert result.exit_code == 0
 
-    for citer_id in citer_ids:
-        updated_citer_record = LiteratureRecord.get_record(citer_id)
-        assert (
-            get_value(updated_citer_record, "references[0].record")
-            == cited_record["self"]
-        )
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
+    def assert_all_records_are_matched():
+        for citer_id in citer_ids:
+            updated_citer_record = LiteratureRecord.get_record(citer_id)
+            assert (
+                get_value(updated_citer_record, "references[0].record")
+                == cited_record["self"]
+            )
+
+    assert_all_records_are_matched()
