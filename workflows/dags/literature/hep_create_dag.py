@@ -1320,6 +1320,9 @@ def hep_create_dag():
                 )
                 workflow["workflow_type"] = HEP_UPDATE
                 s3.write_workflow(s3_hook, workflow, bucket_name)
+                workflow_management_hook.partial_update_workflow(
+                    workflow["id"], {"workflow_type": HEP_UPDATE}
+                )
                 return (
                     "halt_for_approval_if_new_or_reject_if_not_relevant.merge_articles"
                 )
