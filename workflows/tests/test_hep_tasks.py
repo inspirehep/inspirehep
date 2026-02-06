@@ -2696,6 +2696,7 @@ class Test_HEPCreateDAG:
 
         assert result == "paper17"
 
+    @pytest.mark.vcr
     def test_check_is_update_merge(self):
         s3.write_workflow(
             self.s3_hook,
@@ -2717,6 +2718,9 @@ class Test_HEPCreateDAG:
             self.s3_hook, self.bucket_name, self.workflow_id
         )
         assert workflow_result["workflow_type"] == HEP_UPDATE
+
+        workflow_backoffice = get_lit_workflow_task(self.workflow_id)
+        assert workflow_backoffice["workflow_type"] == HEP_UPDATE
 
     def test_check_is_update_none(self):
         result = task_test(
