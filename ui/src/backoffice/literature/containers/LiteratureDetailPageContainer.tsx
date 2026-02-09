@@ -29,10 +29,7 @@ import { isSuperUser } from '../../../common/authorization';
 import { columnsSubject } from './columnData';
 import { StatusBanner } from '../../common/components/Detail/StatusBanner';
 import { TicketsList } from '../../common/components/Detail/TicketsList';
-import {
-  LITERATURE_PID_TYPE,
-  WorkflowDecisions,
-} from '../../../common/constants';
+import { LITERATURE_PID_TYPE } from '../../../common/constants';
 import CollapsableForm from '../../../submissions/common/components/CollapsableForm';
 import DeleteWorkflow from '../../common/components/DeleteWorkflow/DeleteWorkflow';
 import { getConfigFor } from '../../../common/config';
@@ -291,13 +288,19 @@ const LiteratureDetailPageContainer = ({
                       subTitle="Actions"
                       className="mb3"
                     >
-                      <RestartActionButtons
-                        handleRestart={handleRestart}
-                        handleRestartCurrent={handleRestartCurrent}
-                        id={id}
-                        pidType={LITERATURE_PID_TYPE}
-                        restartActionInProgress={restartActionInProgress}
-                      />
+                      {status === WorkflowStatuses.COMPLETED ? (
+                        <div>
+                          Workflow completed, no further actions available
+                        </div>
+                      ) : (
+                        <RestartActionButtons
+                          handleRestart={handleRestart}
+                          handleRestartCurrent={handleRestartCurrent}
+                          id={id}
+                          pidType={LITERATURE_PID_TYPE}
+                          restartActionInProgress={restartActionInProgress}
+                        />
+                      )}
                     </ContentBox>
                   </Col>
                 </Row>
