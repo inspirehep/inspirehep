@@ -81,7 +81,6 @@ from include.utils.constants import (
 )
 from include.utils.tickets import get_ticket_by_type
 from include.utils.workflows import get_decision, get_flag, set_flag
-from inspire_classifier import Classifier
 from inspire_json_merger.api import merge
 from inspire_json_merger.config import GrobidOnArxivAuthorsOperations
 from inspire_schemas.builders import LiteratureBuilder
@@ -1173,6 +1172,8 @@ def hep_create_dag():
 
         @task
         def guess_coreness(**context):
+            from inspire_classifier import Classifier
+
             workflow_data = s3.read_workflow(
                 s3_hook, bucket_name, context["params"]["workflow_id"]
             )
