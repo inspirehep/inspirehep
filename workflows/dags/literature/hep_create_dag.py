@@ -341,11 +341,6 @@ def hep_create_dag():
 
         approved_match_id = decision.get("value")
 
-        workflow_management_hook.set_workflow_status(
-            status_name=STATUS_RUNNING,
-            workflow_id=workflow_id,
-        )
-
         if not approved_match_id:
             return True
 
@@ -1405,9 +1400,6 @@ def hep_create_dag():
 
                 return False
 
-            workflow_management_hook.set_workflow_status(
-                status_name=STATUS_RUNNING, workflow_id=workflow_id
-            )
             set_flag("approved", True, workflow_data)
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
             return True
@@ -1531,9 +1523,6 @@ def hep_create_dag():
 
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
-            workflow_management_hook.set_workflow_status(
-                status_name=STATUS_RUNNING, workflow_id=workflow_id
-            )
             return True
 
         @task
@@ -1821,10 +1810,6 @@ def hep_create_dag():
                 return False
 
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
-
-            workflow_management_hook.set_workflow_status(
-                status_name=STATUS_RUNNING, workflow_id=workflow_id
-            )
 
             return True
 
