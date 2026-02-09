@@ -704,22 +704,23 @@ def hep_create_dag():
             response.raise_for_status()
             normalized_maps = response.json()
 
-            normalized_publications = []
-            for publication in get_value(data, "publication_info", []):
-                normalized_publications.append(
-                    get_normalized_publication_info(publication, normalized_maps)
-                )
-
-                journal_title = publication.get("journal_title")
-                normalized_journal_inspire_categories = get_value(
-                    normalized_maps, "normalized_journal_categories", []
-                ).get(journal_title)
-
-                if normalized_journal_inspire_categories:
-                    workflow_data.setdefault("journal_inspire_categories", []).extend(
-                        normalized_journal_inspire_categories
+            if "publication_info" in data:
+                normalized_publications = []
+                for publication in get_value(data, "publication_info", []):
+                    normalized_publications.append(
+                        get_normalized_publication_info(publication, normalized_maps)
                     )
-            data["publication_info"] = normalized_publications
+
+                    journal_title = publication.get("journal_title")
+                    normalized_journal_inspire_categories = get_value(
+                        normalized_maps, "normalized_journal_categories", []
+                    ).get(journal_title)
+
+                    if normalized_journal_inspire_categories:
+                        workflow_data.setdefault(
+                            "journal_inspire_categories", []
+                        ).extend(normalized_journal_inspire_categories)
+                data["publication_info"] = normalized_publications
 
             for reference in get_value(data, "references", []):
                 publication_info = get_value(reference, "reference.publication_info")

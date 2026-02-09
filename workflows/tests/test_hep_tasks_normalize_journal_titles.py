@@ -184,7 +184,7 @@ class TestNormalizeJournalTitles:
         assert "journal_title" in pub_info[2]
 
     @pytest.mark.vcr
-    def test_normalize_journal_titles_in_references(self):
+    def test_normalize_journal_titles_only_in_references(self):
         """Test normalizing journal titles in references."""
 
         workflow_data = {
@@ -229,3 +229,5 @@ class TestNormalizeJournalTitles:
 
         assert "journal_title" in ref0_pub_info
         assert "journal_title" in ref1_pub_info
+
+        assert "publication_info" not in updated_data["data"]
