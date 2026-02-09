@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import { fromJS } from 'immutable';
 
 import { RestartActionButtons } from '../RestartActionButtons';
-import { WorkflowActions } from '../../../../constants';
+import { WorkflowActions, WorkflowStatuses } from '../../../../constants';
 
 describe('<RestartActionButtons />', () => {
   it('disables the other restart button when one is in progress', () => {
@@ -19,6 +19,7 @@ describe('<RestartActionButtons />', () => {
           type: WorkflowActions.RESTART,
           decision: WorkflowActions.RESTART_CURRENT,
         })}
+        status={WorkflowStatuses.RUNNING}
       />
     );
 
@@ -28,5 +29,42 @@ describe('<RestartActionButtons />', () => {
     expect(
       screen.getByRole('button', { name: /Restart current step/i })
     ).toBeInTheDocument();
+  });
+
+  it('hides actions when workflow is completed', () => {
+    render(
+      <RestartActionButtons
+        handleRestart={jest.fn()}
+        handleRestartCurrent={jest.fn()}
+        id="workflow-1"
+        pidType="literature"
+        restartActionInProgress={fromJS({})}
+        status={WorkflowStatuses.COMPLETED}
+      />
+    );
+
+    expect(
+      screen.getByText('Workflow completed, no further actions available')
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: /Restart workflow/i })
+    ).not.toBeInTheDocument();
+  });
+
+  it('disables restart current when status is blocked', () => {
+    render(
+      <RestartActionButtons
+        handleRestart={jest.fn()}
+        handleRestartCurrent={jest.fn()}
+        id="workflow-1"
+        pidType="literature"
+        restartActionInProgress={fromJS({})}
+        status={WorkflowStatuses.BLOCKED}
+      />
+    );
+
+    expect(
+      screen.getByRole('button', { name: /Restart current step/i })
+    ).toBeDisabled();
   });
 });

@@ -10,7 +10,7 @@ import { BACKOFFICE } from '../../../../common/routes';
 import { WorkflowStatuses } from '../../../constants';
 
 describe('LiteratureDetailPageContainer', () => {
-  const renderComponent = () => {
+  const renderComponent = (status = WorkflowStatuses.APPROVAL) => {
     const store = getStore({
       backoffice: fromJS({
         loading: false,
@@ -52,7 +52,7 @@ describe('LiteratureDetailPageContainer', () => {
               },
             ],
           },
-          status: WorkflowStatuses.APPROVAL,
+          status,
           tickets: [
             { ticket_id: 'SNOW-123', ticket_url: 'https://snow/123' },
             { ticket_id: 'SNOW-456', ticket_url: 'https://snow/456' },
@@ -155,5 +155,13 @@ describe('LiteratureDetailPageContainer', () => {
     });
 
     expect(screen.getByText('Loading ...')).toBeInTheDocument();
+  });
+
+  it('hides action buttons and shows message when completed', () => {
+    renderComponent(WorkflowStatuses.COMPLETED);
+
+    expect(
+      screen.getByText('Workflow completed, no further actions available')
+    ).toBeInTheDocument();
   });
 });

@@ -321,6 +321,7 @@ const AuthorDetailPageContainer = ({
                       id={id}
                       pidType={AUTHORS_PID_TYPE}
                       restartActionInProgress={restartActionInProgress}
+                      status={status}
                     />
                   </ContentBox>
                 </Col>
