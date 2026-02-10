@@ -1,4 +1,5 @@
 import logging
+import unicodedata
 
 from inspire_schemas.api import ReferenceBuilder
 from inspire_utils.dedupers import dedupe_list_of_dicts
@@ -118,6 +119,23 @@ def extract_references_from_pdf(filepath, source=None, custom_kbs_file=None):
         raise
 
     return map_refextract_to_schema(extracted_references, source=source)
+
+
+def sanitize_references(references):
+    """Remove references containing invalid raw_refs."""
+    sanitized_references = []
+
+    for reference in references:
+        for raw_ref in reference.get("raw_refs", []):
+            has_invalid = any(
+                unicodedata.category(c).startswith("C")
+                for c in raw_ref.get("value", "")
+            )
+
+        if not has_invalid:
+            sanitized_references.append(reference)
+
+    return sanitized_references
 
 
 def extract_references_from_text(text, source=None, custom_kbs_file=None):

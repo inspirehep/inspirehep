@@ -2147,6 +2147,72 @@ class Test_HEPCreateDAG:
         )
         assert "references" not in workflow_result["data"]
 
+    @patch(
+        "include.inspire.refextract_utils.match_references_hep",
+        return_value=[
+            {
+                "reference": {"misc": ["is given by (17), i.e., R\u0302PP"]},
+                "raw_refs": [
+                    {
+                        "schema": "text",
+                        "value": "is given by (17), i.e., R\u0302PP",
+                        "source": "arXiv",
+                    }
+                ],
+            },
+            {
+                "raw_refs": [
+                    {
+                        "schema": "text",
+                        "value": "\u0000\u0013 \u0000\u001a\u0000\u0018\u0000\u0013",
+                        "source": "arXiv",
+                    }
+                ]
+            },
+            {
+                "reference": {"misc": ["7LPH6WHSt"]},
+                "raw_refs": [
+                    {
+                        "schema": "text",
+                        "value": "\u00007\u0000S\u0000\u0003t",
+                        "source": "arXiv",
+                    }
+                ],
+            },
+        ],
+    )
+    @pytest.mark.vcr
+    def test_refextract_invalid_characters(self, mock_match_references_hep, datadir):
+        filename = "1802.08709.pdf"
+        self.s3_hook.load_file(
+            datadir / filename,
+            f"{self.workflow_id}/documents/{filename}",
+            self.bucket_name,
+            replace=True,
+        )
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "documents": [
+                    {"key": filename},
+                ],
+            },
+        }
+
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+
+        task_test(
+            "hep_create_dag",
+            "preprocessing.refextract",
+            dag_params=self.context["params"],
+        )
+
+        workflow_result = s3.read_workflow(
+            self.s3_hook, self.bucket_name, self.workflow_id
+        )
+
+        assert len(workflow_result["data"]["references"]) == 1
+
     def test_classify_paper_with_fulltext(self, tmpdir, higgs_ontology):
         fulltext_name = "fulltext.txt"
         fulltext = tmpdir.join(fulltext_name)

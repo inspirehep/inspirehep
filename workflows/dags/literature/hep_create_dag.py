@@ -52,6 +52,7 @@ from include.inspire.refextract_utils import (
     map_refextract_reference_to_schema,
     match_references_hep,
     raw_refs_to_list,
+    sanitize_references,
 )
 from include.utils import s3, tickets, workflows
 from include.utils.alerts import FailedDagNotifierSetError
@@ -807,6 +808,8 @@ def hep_create_dag():
                     matched_pdf_references = match_references_hep(
                         pdf_references, inspire_http_hook
                     )
+
+                    matched_pdf_references = sanitize_references(matched_pdf_references)
 
             form_data = workflow_data.get("form_data", {}) or {}
             text = get_value(form_data, "references")
