@@ -50,7 +50,7 @@ wtforms = "==2.3.3"
 
 node-semver = "<0.2.0,>=0.1.1"
 pybtex = "*"
-cryptography = "^36.0.2"
+cryptography = "^46.0.5"
 flask-kvsession = {git = "https://github.com/inspirehep/flask-kvsession.git"}
 python-redis-lock = "^3.3"
 redis="^6.2.0"
