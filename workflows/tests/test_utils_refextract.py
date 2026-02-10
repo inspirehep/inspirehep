@@ -9,6 +9,7 @@ from include.inspire.refextract_utils import (
     map_refextract_to_schema,
     match_references_hep,
     raw_refs_to_list,
+    sanitize_references,
 )
 from inspire_schemas.api import load_schema, validate
 
@@ -277,3 +278,42 @@ class TestRefextract:
             assert matched_references == references
 
         function_test(_test_match_references_hep)
+
+    def test_sanitize_references(self):
+        references = [
+            {
+                "reference": {
+                    "misc": ["The prediction-powered  (17), i.e., R\u0302PP"]
+                },
+                "raw_refs": [
+                    {
+                        "schema": "text",
+                        "value": "The prediction-powered  (17), i.e., R\u0302PP",
+                        "source": "arXiv",
+                    }
+                ],
+            },
+            {
+                "raw_refs": [
+                    {
+                        "schema": "text",
+                        "value": "\u0000\u0013 \u0000\u0015\u0013",
+                        "source": "arXiv",
+                    }
+                ]
+            },
+            {
+                "reference": {"misc": ["7LPH6WHSt"]},
+                "raw_refs": [
+                    {
+                        "schema": "text",
+                        "value": "\u00007\u0000L\u0000P\u0000S\u0000\u0003t",
+                        "source": "arXiv",
+                    }
+                ],
+            },
+        ]
+
+        sanitized_references = sanitize_references(references)
+        assert len(sanitized_references) == 1
+        assert sanitized_references[0] == references[0]
