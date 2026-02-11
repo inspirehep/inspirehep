@@ -178,7 +178,7 @@ CheckboxAggregation.propTypes = {
   onChange: PropTypes.func.isRequired,
   buckets: PropTypes.instanceOf(Immutable.List).isRequired,
   name: PropTypes.string.isRequired,
-  splitDisplayName: PropTypes.bool,
+  splitDisplayName: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   bucketHelp: PropTypes.object,
   selections: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.string),

@@ -1,18 +1,15 @@
-import React from 'react';
-import { Row, Col, Select, Card } from 'antd';
+import React, { useState } from 'react';
+import { Row, Col, Select, Card, Checkbox } from 'antd';
 import { connect, RootStateOrAny } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
-import { Map } from 'immutable';
+import { List, Map } from 'immutable';
 
 import PaginationContainer from '../../../../common/containers/PaginationContainer';
 import ResultsContainer from '../../../../common/containers/ResultsContainer';
 import NumberOfResultsContainer from '../../../../common/containers/NumberOfResultsContainer';
 import LoadingOrChildren from '../../../../common/components/LoadingOrChildren';
 import DocumentHead from '../../../../common/components/DocumentHead';
-import {
-  LITERATURE_PID_TYPE,
-  SEARCH_PAGE_GUTTER,
-} from '../../../../common/constants';
+import { SEARCH_PAGE_GUTTER } from '../../../../common/constants';
 import { searchQueryUpdate } from '../../../../actions/search';
 import { BACKOFFICE_LITERATURE_SEARCH_NS } from '../../../../search/constants';
 import AggregationFiltersContainer from '../../../../common/containers/AggregationFiltersContainer';
@@ -25,12 +22,13 @@ import EmptyOrChildren from '../../../../common/components/EmptyOrChildren';
 import { resolveLiteratureAction } from '../../../../actions/backoffice';
 import { WorkflowStatuses } from '../../../constants';
 import LiteratureMatches from '../../components/LiteratureMatches';
+import { forceArray } from '../../../../common/utils';
 
 type BackofficeSearchPageProps = {
   loading: boolean;
   query: any;
   loadingAggregations: boolean;
-  results: Map<string, any>;
+  results: List<Map<string, any>>;
   actionInProgress?: Map<string, any> | null;
   onSortByChange: (namespace: string, value: string) => void;
   onHandleResolveAction: (
@@ -42,6 +40,10 @@ type BackofficeSearchPageProps = {
 
 const META_DESCRIPTION = 'Find literature workflows in backoffice';
 const TITLE = 'Search literature - Backoffice';
+const SELECTABLE_STATUSES = new Set([
+  WorkflowStatuses.APPROVAL,
+  WorkflowStatuses.APPROVAL_CORE_SELECTION,
+]);
 
 function renderWorkflowItem(
   item: Map<string, any>,
@@ -50,12 +52,19 @@ function renderWorkflowItem(
     action: string,
     value: string
   ) => void,
-  actionInProgress?: Map<string, any> | null
+  actionInProgress?: Map<string, any> | null,
+  selectedStatusesFromFacet?: Set<string>,
+  selectedWorkflowIds?: Set<string>,
+  onWorkflowSelectChange?: (workflowId: string, checked: boolean) => void
 ) {
   const workflowId = item?.get('id');
   const matches = item?.get('matches');
   const fuzzyMatches = matches?.get('fuzzy');
   const status = item?.get('status');
+  const shouldShowSelectionCheckbox =
+    !!status &&
+    SELECTABLE_STATUSES.has(status) &&
+    !!selectedStatusesFromFacet?.has(status);
   const hasFuzzyMatches =
     !!fuzzyMatches?.size && status === WorkflowStatuses.APPROVAL_FUZZY_MATCHING;
 
@@ -69,6 +78,9 @@ function renderWorkflowItem(
         compactBottom={hasFuzzyMatches}
         handleResolveAction={handleResolveAction}
         actionInProgress={actionInProgress}
+        shouldShowSelectionCheckbox={shouldShowSelectionCheckbox}
+        isSelected={selectedWorkflowIds?.has(workflowId)}
+        onSelectionChange={onWorkflowSelectChange}
       />
       {hasFuzzyMatches && (
         <Card>
@@ -91,6 +103,58 @@ const LiteratureSearchPageContainer = ({
   onSortByChange,
   onHandleResolveAction,
 }: BackofficeSearchPageProps) => {
+  const statusSelections = (forceArray(query?.get('status')) || []) as string[];
+  const selectedStatusesFromFacet = new Set<string>(statusSelections);
+  const hasSelectableStatusFacet = statusSelections.some((status) =>
+    SELECTABLE_STATUSES.has(status as WorkflowStatuses)
+  );
+  const [selectedWorkflowIds, setSelectedWorkflowIds] = useState<Set<string>>(
+    new Set()
+  );
+
+  const currentPageWorkflowIds: string[] =
+    results?.map((item: Map<string, any>) => item?.get('id'))?.toArray() || [];
+
+  const selectedSelectableCount = currentPageWorkflowIds.filter((workflowId) =>
+    selectedWorkflowIds.has(workflowId)
+  ).length;
+  const shouldShowSelectAllCheckbox =
+    hasSelectableStatusFacet && currentPageWorkflowIds.length > 0;
+  const isSelectAllChecked =
+    shouldShowSelectAllCheckbox &&
+    selectedSelectableCount === currentPageWorkflowIds.length;
+  const isSelectAllIndeterminate =
+    selectedSelectableCount > 0 &&
+    selectedSelectableCount < currentPageWorkflowIds.length;
+
+  const handleWorkflowSelectChange = (workflowId: string, checked: boolean) =>
+    setSelectedWorkflowIds((previousSelectedWorkflowIds) => {
+      const nextSelectedWorkflowIds = new Set(previousSelectedWorkflowIds);
+
+      if (checked) {
+        nextSelectedWorkflowIds.add(workflowId);
+      } else {
+        nextSelectedWorkflowIds.delete(workflowId);
+      }
+
+      return nextSelectedWorkflowIds;
+    });
+
+  const handleSelectAllChange = (checked: boolean) =>
+    setSelectedWorkflowIds((previousSelectedWorkflowIds) => {
+      const nextSelectedWorkflowIds = new Set(previousSelectedWorkflowIds);
+
+      currentPageWorkflowIds.forEach((workflowId) => {
+        if (checked) {
+          nextSelectedWorkflowIds.add(workflowId);
+        } else {
+          nextSelectedWorkflowIds.delete(workflowId);
+        }
+      });
+
+      return nextSelectedWorkflowIds;
+    });
+
   const renderAggregations = () => (
     <LoadingOrChildren loading={loadingAggregations}>
       <AggregationFiltersContainer
@@ -98,6 +162,7 @@ const LiteratureSearchPageContainer = ({
       />
     </LoadingOrChildren>
   );
+
   return (
     <div
       className="__SearchPageContainer__"
@@ -139,9 +204,28 @@ const LiteratureSearchPageContainer = ({
                 <Row justify="space-between" wrap={false}>
                   <span className="mr2" />
                   <Col style={{ width: '55%' }}>
-                    <NumberOfResultsContainer
-                      namespace={BACKOFFICE_LITERATURE_SEARCH_NS}
-                    />
+                    {!shouldShowSelectAllCheckbox ? (
+                      <NumberOfResultsContainer
+                        namespace={BACKOFFICE_LITERATURE_SEARCH_NS}
+                      />
+                    ) : (
+                      <div
+                        className="flex items-center"
+                        style={{ gap: '14px' }}
+                      >
+                        <Checkbox
+                          checked={isSelectAllChecked}
+                          indeterminate={isSelectAllIndeterminate}
+                          aria-label="Select all workflows"
+                          onChange={(event) =>
+                            handleSelectAllChange(event.target.checked)
+                          }
+                        />
+                        <NumberOfResultsContainer
+                          namespace={BACKOFFICE_LITERATURE_SEARCH_NS}
+                        />
+                      </div>
+                    )}
                   </Col>
                   <Col
                     style={{
@@ -221,7 +305,10 @@ const LiteratureSearchPageContainer = ({
                           renderWorkflowItem(
                             item,
                             onHandleResolveAction,
-                            actionInProgress
+                            actionInProgress,
+                            selectedStatusesFromFacet,
+                            selectedWorkflowIds,
+                            handleWorkflowSelectChange
                           )
                         }
                       />

@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Row, Col, Select, Card } from 'antd';
 import { connect, RootStateOrAny } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { Map } from 'immutable';
 
 import PaginationContainer from '../../../../common/containers/PaginationContainer';
 import ResultsContainer from '../../../../common/containers/ResultsContainer';
