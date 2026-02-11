@@ -9,6 +9,7 @@ const LiteratureActionButtons = ({
   handleResolveAction,
   actionInProgress,
   workflowId,
+  isBatch = false,
 }) => {
   const [hasSubmittedDecision, setHasSubmittedDecision] = useState(false);
 
@@ -28,6 +29,7 @@ const LiteratureActionButtons = ({
           handleResolveAction={handleResolveAndHide}
           actionInProgress={actionInProgress}
           workflowId={workflowId}
+          isBatch={isBatch}
         />
       );
 
@@ -38,6 +40,7 @@ const LiteratureActionButtons = ({
           handleResolveAction={handleResolveAndHide}
           actionInProgress={actionInProgress}
           workflowId={workflowId}
+          isBatch={isBatch}
         />
       );
 

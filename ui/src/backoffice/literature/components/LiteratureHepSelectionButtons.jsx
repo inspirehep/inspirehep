@@ -9,6 +9,7 @@ export const LiteratureHepSelectionButtons = ({
   handleResolveAction,
   actionInProgress,
   workflowId,
+  isBatch = false,
 }) => {
   const actionId = actionInProgress?.get?.('id');
   const actionType = actionInProgress?.get?.('type');
@@ -21,13 +22,25 @@ export const LiteratureHepSelectionButtons = ({
     isResolving && actionDecision === WorkflowDecisions.HEP_ACCEPT;
   const isRejectLoading =
     isResolving && actionDecision === WorkflowDecisions.HEP_REJECT;
+  const containerClass = isBatch
+    ? 'flex items-center flex-wrap'
+    : 'flex flex-column items-center';
+  const coreClass = isBatch
+    ? 'font-white bg-completed mr2'
+    : 'font-white bg-completed w-75 mb2';
+  const acceptClass = isBatch
+    ? 'font-white bg-halted mr2'
+    : 'font-white bg-halted w-75 mb2';
+  const rejectClass = isBatch
+    ? 'font-white bg-error'
+    : 'font-white bg-error w-75';
 
   return (
-    <div className="flex flex-column items-center">
+    <div className={containerClass}>
       {hasInspireCategories ? (
         <>
           <Button
-            className="font-white bg-completed w-75 mb2"
+            className={coreClass}
             onClick={() =>
               handleResolveAction(WorkflowDecisions.HEP_ACCEPT_CORE)
             }
@@ -37,7 +50,7 @@ export const LiteratureHepSelectionButtons = ({
             Core
           </Button>
           <Button
-            className="font-white bg-halted w-75 mb2"
+            className={acceptClass}
             onClick={() => handleResolveAction(WorkflowDecisions.HEP_ACCEPT)}
             loading={isAcceptLoading}
             disabled={isResolving && !isAcceptLoading}
@@ -49,7 +62,7 @@ export const LiteratureHepSelectionButtons = ({
         <p>Subject field is required</p>
       )}
       <Button
-        className="font-white bg-error w-75"
+        className={rejectClass}
         onClick={() => handleResolveAction(WorkflowDecisions.HEP_REJECT)}
         loading={isRejectLoading}
         disabled={isResolving && !isRejectLoading}

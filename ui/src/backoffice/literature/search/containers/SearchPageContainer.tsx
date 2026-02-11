@@ -23,6 +23,7 @@ import { resolveLiteratureAction } from '../../../../actions/backoffice';
 import { WorkflowStatuses } from '../../../constants';
 import LiteratureMatches from '../../components/LiteratureMatches';
 import { forceArray } from '../../../../common/utils';
+import LiteratureBatchOperationsCard from '../../components/LiteratureBatchOperationsCard';
 
 type BackofficeSearchPageProps = {
   loading: boolean;
@@ -105,9 +106,15 @@ const LiteratureSearchPageContainer = ({
 }: BackofficeSearchPageProps) => {
   const statusSelections = (forceArray(query?.get('status')) || []) as string[];
   const selectedStatusesFromFacet = new Set<string>(statusSelections);
-  const hasSelectableStatusFacet = statusSelections.some((status) =>
-    SELECTABLE_STATUSES.has(status as WorkflowStatuses)
-  );
+  const selectedStatus = statusSelections[0] as WorkflowStatuses | undefined;
+  const batchStatus = SELECTABLE_STATUSES.has(
+    selectedStatus as WorkflowStatuses
+  )
+    ? (selectedStatus as
+        | WorkflowStatuses.APPROVAL
+        | WorkflowStatuses.APPROVAL_CORE_SELECTION)
+    : undefined;
+  const hasSelectableStatusFacet = !!batchStatus;
   const [selectedWorkflowIds, setSelectedWorkflowIds] = useState<Set<string>>(
     new Set()
   );
@@ -155,6 +162,8 @@ const LiteratureSearchPageContainer = ({
       return nextSelectedWorkflowIds;
     });
 
+  const handleBatchResolveAction = (action: string) => {};
+
   const renderAggregations = () => (
     <LoadingOrChildren loading={loadingAggregations}>
       <AggregationFiltersContainer
@@ -201,6 +210,14 @@ const LiteratureSearchPageContainer = ({
                 </Card>
               </Col>
               <Col xs={24} lg={18}>
+                {batchStatus && selectedWorkflowIds.size > 0 && (
+                  <LiteratureBatchOperationsCard
+                    selectedCount={selectedWorkflowIds.size}
+                    status={batchStatus}
+                    onResolveAction={handleBatchResolveAction}
+                    actionInProgress={actionInProgress}
+                  />
+                )}
                 <Row justify="space-between" wrap={false}>
                   <span className="mr2" />
                   <Col style={{ width: '55%' }}>
