@@ -5,6 +5,7 @@ from itertools import chain
 from tempfile import TemporaryDirectory
 
 import requests
+from airflow.exceptions import AirflowFailException
 from hooks.backoffice.workflow_management_hook import (
     HEP,
     WorkflowManagementHook,
@@ -171,7 +172,15 @@ def post_pdf_to_grobid(workflow, s3_hook, bucket_name, process_fulltext=False):
             if process_fulltext
             else "api/processHeaderDocument"
         )
-        response = grobid_http_hook.call_api(api, files=files)
+        try:
+            response = grobid_http_hook.call_api(api, files=files)
+        except RetryError as e:
+            if "500:Internal Server Error" in str(e.last_attempt.exception()):
+                logger.warning("Grobid service failed: %s", str(e))
+                return
+            raise AirflowFailException(
+                f"Grobid service is unavailable: {str(e)}"
+            ) from e
 
     return response
 
