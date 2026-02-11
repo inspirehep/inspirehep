@@ -19,7 +19,7 @@ import AggregationFiltersContainer from '../../../../common/containers/Aggregati
 import ResponsiveView from '../../../../common/components/ResponsiveView';
 import DrawerHandle from '../../../../common/components/DrawerHandle';
 import AggregationBox from '../../../../common/components/AggregationBox';
-import ResultItem from '../../../common/components/ResultItem/ResultItem';
+import WorkflowResultItem from '../../components/WorkflowResultItem';
 import Breadcrumbs from '../../../common/components/Breadcrumbs/Breadcrumbs';
 import EmptyOrChildren from '../../../../common/components/EmptyOrChildren';
 import { resolveLiteratureAction } from '../../../../actions/backoffice';
@@ -64,7 +64,7 @@ function renderWorkflowItem(
 
   return (
     <>
-      <ResultItem
+      <WorkflowResultItem
         item={item}
         compactBottom={hasFuzzyMatches}
         handleResolveAction={handleResolveAction}

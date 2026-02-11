@@ -15,7 +15,7 @@ import AggregationFiltersContainer from '../../../../common/containers/Aggregati
 import ResponsiveView from '../../../../common/components/ResponsiveView';
 import DrawerHandle from '../../../../common/components/DrawerHandle';
 import AggregationBox from '../../../../common/components/AggregationBox';
-import ResultItem from '../../../common/components/ResultItem/ResultItem';
+import WorkflowResultItem from '../../components/WorkflowResultItem';
 import Breadcrumbs from '../../../common/components/Breadcrumbs/Breadcrumbs';
 import EmptyOrChildren from '../../../../common/components/EmptyOrChildren';
 
@@ -31,7 +31,7 @@ const META_DESCRIPTION = 'Find author workflows in backoffice';
 const TITLE = 'Search authors - Backoffice';
 
 function renderWorkflowItem(item: Map<string, any>) {
-  return <ResultItem item={item} />;
+  return <WorkflowResultItem item={item} />;
 }
 
 const AuthorsSearchPageContainer = ({
