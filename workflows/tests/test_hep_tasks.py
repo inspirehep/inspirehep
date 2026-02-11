@@ -2786,8 +2786,35 @@ class Test_HEPCreateDAG:
 
     @patch("airflow.models.taskinstance.TaskInstance.xcom_pull")
     def test_get_approved_match_exists(self, mock_xcom_pull):
-        mock_xcom_pull.return_value = "paper17"
+        def _xcom_pull(*args, **kwargs):
+            if (
+                kwargs.get("task_ids") == "check_for_exact_matches"
+                and kwargs.get("key") == "match"
+            ):
+                return "paper17"
+            if kwargs.get("key") == "return_value":
+                return "paper17"
+            return None
 
+        mock_xcom_pull.side_effect = _xcom_pull
+        result = task_test(
+            "hep_create_dag",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.get_approved_match",
+            dag_params=self.context["params"],
+        )
+
+        assert result == "paper17"
+
+    @patch("airflow.models.taskinstance.TaskInstance.xcom_pull")
+    def test_get_approved_match_fuzzy_exists(self, mock_xcom_pull):
+        def _xcom_pull(**kwargs):
+            return (
+                None
+                if kwargs.get("task_ids") == "check_for_exact_matches"
+                else "paper17"
+            )
+
+        mock_xcom_pull.side_effect = _xcom_pull
         result = task_test(
             "hep_create_dag",
             "halt_for_approval_if_new_or_reject_if_not_relevant.get_approved_match",
