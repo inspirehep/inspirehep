@@ -31,6 +31,7 @@ from include.utils.tickets import get_ticket_by_type
 from include.utils.workflows import get_flag
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.query import ordered
+from tenacity import Future, RetryError
 
 from tests.test_utils import (
     function_test,
@@ -2621,6 +2622,37 @@ class Test_HEPCreateDAG:
         )
 
         assert workflow_result["data"]["authors"] == expected_authors
+
+    @patch("hooks.generic_http_hook.GenericHttpHook.call_api")
+    def test_extract_authors_from_pdf_error_from_grobid(self, mock_call_api, datadir):
+        fut = Future(attempt_number=1)
+        fut.set_exception(AirflowException("500:Internal Server Error"))
+
+        mock_call_api.side_effect = RetryError(last_attempt=fut)
+
+        pdf_file = "1802.08709.pdf"
+
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "documents": [
+                    {"key": pdf_file},
+                ],
+            },
+        }
+        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        self.s3_hook.load_file(
+            (datadir / pdf_file),
+            f"{self.workflow_id}/documents/{pdf_file}",
+            self.bucket_name,
+            replace=True,
+        )
+
+        task_test(
+            dag_id="hep_create_dag",
+            task_id="preprocessing.extract_authors_from_pdf",
+            dag_params={"workflow_id": self.workflow_id},
+        )
 
     def test_guess_coreness(self):
         workflow_data = {
