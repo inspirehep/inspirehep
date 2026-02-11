@@ -11,6 +11,7 @@ import { WorkflowDecisions } from '../../../../common/constants';
 describe('WorkflowResultItem component for Literature', () => {
   it('calls resolve action from literature buttons', () => {
     const handleResolveAction = jest.fn();
+    const handleSelectionChange = jest.fn();
     const item = fromJS({
       id: '456',
       workflow_type: WorkflowTypes.HEP_CREATE,
@@ -41,6 +42,8 @@ describe('WorkflowResultItem component for Literature', () => {
         item={item}
         handleResolveAction={handleResolveAction}
         actionInProgress={null}
+        shouldShowSelectionCheckbox
+        onSelectionChange={handleSelectionChange}
       />,
       {
         route: BACKOFFICE_LITERATURE_SEARCH,
@@ -52,5 +55,10 @@ describe('WorkflowResultItem component for Literature', () => {
     expect(handleResolveAction).toHaveBeenCalledWith(
       WorkflowDecisions.HEP_ACCEPT_CORE
     );
+
+    fireEvent.click(
+      screen.getByRole('checkbox', { name: 'Select workflow 456' })
+    );
+    expect(handleSelectionChange).toHaveBeenCalledWith('456', true);
   });
 });

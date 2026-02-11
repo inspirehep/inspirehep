@@ -1,6 +1,6 @@
 import React from 'react';
 import { Map } from 'immutable';
-import { Row, Col, Card } from 'antd';
+import { Row, Col, Card, Checkbox } from 'antd';
 
 import '../../common/components/ResultItem/ResultItem.less';
 import { Link } from 'react-router-dom';
@@ -18,11 +18,17 @@ const WorkflowResultItem = ({
   compactBottom = false,
   handleResolveAction,
   actionInProgress,
+  shouldShowSelectionCheckbox = false,
+  isSelected = false,
+  onSelectionChange,
 }: {
   item: any;
   compactBottom?: boolean;
   handleResolveAction?: (action: string, value: string) => void;
   actionInProgress?: Map<string, any> | null;
+  shouldShowSelectionCheckbox?: boolean;
+  isSelected?: boolean;
+  onSelectionChange?: (workflowId: string, checked: boolean) => void;
 }) => {
   const workflowId = item?.get('id');
   const data = item?.get('data');
@@ -44,6 +50,17 @@ const WorkflowResultItem = ({
       style={compactBottom ? { marginBottom: 0 } : undefined}
     >
       <Row justify="start" wrap={false}>
+        {shouldShowSelectionCheckbox && (
+          <Col className="col-checkbox">
+            <Checkbox
+              checked={isSelected}
+              onChange={(event) =>
+                onSelectionChange?.(workflowId, event.target.checked)
+              }
+              aria-label={`Select workflow ${workflowId}`}
+            />
+          </Col>
+        )}
         <Col className="col-details">
           <ResultItem>
             <Link
