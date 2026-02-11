@@ -50,26 +50,27 @@ const WorkflowResultItem = ({
       style={compactBottom ? { marginBottom: 0 } : undefined}
     >
       <Row justify="start" wrap={false}>
-        {shouldShowSelectionCheckbox && (
-          <Col className="col-checkbox">
-            <Checkbox
-              checked={isSelected}
-              onChange={(event) =>
-                onSelectionChange?.(workflowId, event.target.checked)
-              }
-              aria-label={`Select workflow ${workflowId}`}
-            />
-          </Col>
-        )}
         <Col className="col-details">
           <ResultItem>
-            <Link
-              className="result-item-title"
-              to={`${BACKOFFICE}/${LITERATURE_PID_TYPE}/${workflowId}`}
-              target="_blank"
-            >
-              <LiteratureResultItem item={item} />
-            </Link>
+            <div className="workflow-title-with-checkbox">
+              {shouldShowSelectionCheckbox && (
+                <Checkbox
+                  className="workflow-selection-checkbox"
+                  checked={isSelected}
+                  onChange={(event) =>
+                    onSelectionChange?.(workflowId, event.target.checked)
+                  }
+                  aria-label={`Select workflow ${workflowId}`}
+                />
+              )}
+              <Link
+                className="result-item-title"
+                to={`${BACKOFFICE}/${LITERATURE_PID_TYPE}/${workflowId}`}
+                target="_blank"
+              >
+                <LiteratureResultItem item={item} />
+              </Link>
+            </div>
           </ResultItem>
         </Col>
         <Col className="col-actions">

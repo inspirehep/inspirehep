@@ -8,6 +8,7 @@ export const LiteratureCoreSelectionButtons = ({
   handleResolveAction,
   actionInProgress,
   workflowId,
+  isBatch = false,
 }) => {
   const actionId = actionInProgress?.get?.('id');
   const actionType = actionInProgress?.get?.('type');
@@ -19,10 +20,20 @@ export const LiteratureCoreSelectionButtons = ({
     actionDecision === WorkflowDecisions.CORE_SELECTION_ACCEPT_CORE;
   const isAcceptLoading =
     isResolving && actionDecision === WorkflowDecisions.CORE_SELECTION_ACCEPT;
+  const containerClass = isBatch
+    ? 'flex items-center'
+    : 'flex flex-column items-center';
+  const coreClass = isBatch
+    ? 'font-white bg-completed mr2'
+    : 'font-white bg-completed w-75 mb2';
+  const acceptClass = isBatch
+    ? 'font-white bg-halted'
+    : 'font-white bg-halted w-75 mb2';
+
   return (
-    <div className="flex flex-column items-center">
+    <div className={containerClass}>
       <Button
-        className="font-white bg-completed w-75 mb2"
+        className={coreClass}
         onClick={() =>
           handleResolveAction(WorkflowDecisions.CORE_SELECTION_ACCEPT_CORE)
         }
@@ -32,7 +43,7 @@ export const LiteratureCoreSelectionButtons = ({
         Core
       </Button>
       <Button
-        className="font-white bg-halted w-75 mb2"
+        className={acceptClass}
         onClick={() =>
           handleResolveAction(WorkflowDecisions.CORE_SELECTION_ACCEPT)
         }
