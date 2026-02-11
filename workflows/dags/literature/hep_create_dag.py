@@ -616,6 +616,7 @@ def hep_create_dag():
             workflow_data = s3.read_workflow(s3_hook, bucket_name, s3_workflow_id)
 
             documents = get_value(workflow_data, "data.documents", [])
+            arxiv_base_url = arxiv_hook.get_url()
 
             for document in documents:
                 url = document["url"]
@@ -633,7 +634,7 @@ def hep_create_dag():
                     document["url"],
                 )
 
-                endpoint = f"/pdf/{document['key'].replace('.pdf', '')}"
+                endpoint = f"{url.replace(arxiv_base_url, '')}"
 
                 try:
                     response = arxiv_hook.call_api(

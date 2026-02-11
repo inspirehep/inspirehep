@@ -1706,10 +1706,9 @@ class Test_HEPCreateDAG:
             },
         }  # literature/1458302
 
-        # TODO uncomment once inspire-schemas is added
-        # schema = load_schema('hep')
-        # subschema = schema['properties']['documents']
-        # assert validate(data['documents'], subschema) is None
+        schema = load_schema("hep")
+        subschema = schema["properties"]["documents"]
+        assert validate(workflow_data["data"]["documents"], subschema) is None
 
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
@@ -1747,14 +1746,17 @@ class Test_HEPCreateDAG:
                         "key": "1605.03849.pdf",
                         "url": "https://arxiv.org/pdf/1605.03849",
                     },
+                    {
+                        "key": "math_0608330.pdf",
+                        "url": "https://arxiv.org/pdf/math/0608330",
+                    },
                 ],
             },
         }  # literature/1458302
 
-        # TODO uncomment once inspire-schemas is added
-        # schema = load_schema('hep')
-        # subschema = schema['properties']['documents']
-        # assert validate(data['documents'], subschema) is None
+        schema = load_schema("hep")
+        subschema = schema["properties"]["documents"]
+        assert validate(workflow_data["data"]["documents"], subschema) is None
 
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
