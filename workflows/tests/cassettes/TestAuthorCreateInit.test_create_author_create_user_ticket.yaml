@@ -2,7 +2,7 @@ interactions:
 - request:
     body: '{"functional_category": "Author submissions", "template": "curator_new_author",
       "subject": "Your suggestion to INSPIRE: author Third B", "template_context":
-      {"email": "micha.moshe.moskovic@cern.ch", "obj_url": "http://host.docker.internal:8080/backoffice/authors/00000000-0000-0000-0000-000000001521"},
+      {"email": "micha.moshe.moskovic@cern.ch", "url": "http://host.docker.internal:8080/backoffice/authors/00000000-0000-0000-0000-000000001521"},
       "caller_email": "micha.moshe.moskovic@cern.ch"}'
     headers:
       Accept:

@@ -2,7 +2,7 @@ interactions:
 - request:
     body: '{"functional_category": "Literature submissions", "template": "curator_submitted",
       "subject": "Your suggestion to INSPIRE: test ticket already exists", "template_context":
-      {"email": "", "obj_url": "http://host.docker.internal:8080/backoffice/literature/7b617859-cb4f-4526-aa85-ec5291dc141b"},
+      {"email": "", "url": "http://host.docker.internal:8080/backoffice/literature/7b617859-cb4f-4526-aa85-ec5291dc141b"},
       "caller_email": ""}'
     headers:
       Accept:
