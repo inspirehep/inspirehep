@@ -103,7 +103,6 @@ jobs:
           --env GITHUB_ACTIONS=true
           --env PYTEST_RUN_PATH=backend
           --volume $GITHUB_WORKSPACE/test_durations:/opt/inspire/test_durations
-          --volume $GITHUB_WORKSPACE/test_async_durations:/opt/inspire/test_async_durations
           ${{ inputs.image }}
           run py.test tests/${{ inputs.suite }}
           --splits ${{ inputs.splits }}
