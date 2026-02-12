@@ -1,8 +1,10 @@
 import contextlib
 import opensearchpy
+from unittest.mock import patch
 
 from backoffice.hep.constants import (
     HepStatusChoices,
+    HepWorkflowType,
 )
 from django.urls import reverse
 from django.conf import settings
@@ -55,3 +57,48 @@ class TestHepWorkflowSearchViewSet(BaseTransactionTestCase):
 
         response = self.api_client.get(self.endpoint)
         self.assertIn("decisions", response.json()["results"][0])
+
+    @patch("backoffice.common.airflow_utils.trigger_airflow_dag")
+    def test_post_hep_workflow_adds_document_to_index(self, mock_trigger_airflow_dag):
+        self.api_client.force_authenticate(user=self.curator)
+        mock_trigger_airflow_dag.return_value = ({}, 200)
+
+        arxiv_eprint = "2507.26819"
+
+        payload = {
+            "data": {
+                "titles": [
+                    {
+                        "title": "test_post_hep_workflow_adds_document_to_index title",
+                        "source": "arXiv",
+                    }
+                ],
+                "arxiv_eprints": [{"value": arxiv_eprint}],
+                "_collections": ["Literature"],
+                "fuzzy": [
+                    {
+                        "title": "Measurement of $t$-channel production of single ",
+                        "abstract": "The production of single top quarks.",
+                        "public_notes": [{"value": "Preliminary results"}],
+                    }
+                ],
+            },
+            "workflow_type": HepWorkflowType.HEP_CREATE,
+            "status": HepStatusChoices.RUNNING,
+        }
+
+        create_response = self.api_client.post(
+            reverse("api:hep-list"),
+            format="json",
+            data=payload,
+        )
+        workflow_id = create_response.json()["id"]
+
+        response = self.api_client.get(
+            self.endpoint,
+            data={"search": [f"data.arxiv_eprints.value:{arxiv_eprint}"]},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(
+            any(result["id"] == workflow_id for result in response.json()["results"])
+        )
