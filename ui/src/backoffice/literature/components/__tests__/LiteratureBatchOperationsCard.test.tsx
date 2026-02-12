@@ -14,7 +14,6 @@ describe('LiteratureBatchOperationsCard', () => {
         selectedCount={2}
         status={WorkflowStatuses.APPROVAL}
         onResolveAction={onResolveAction}
-        actionInProgress={null}
       />
     );
 

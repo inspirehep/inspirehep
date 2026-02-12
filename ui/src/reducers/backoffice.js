@@ -16,8 +16,6 @@ import {
   BACKOFFICE_RESOLVE_ACTION_SUCCESS,
   BACKOFFICE_RESOLVE_ACTION_ERROR,
   BACKOFFICE_BATCH_RESOLVE_ACTION_REQUEST,
-  BACKOFFICE_BATCH_RESOLVE_ACTION_SUCCESS,
-  BACKOFFICE_BATCH_RESOLVE_ACTION_ERROR,
   BACKOFFICE_BATCH_SUBMITTED_IDS_CLEAR,
   BACKOFFICE_RESTART_ACTION_REQUEST,
   BACKOFFICE_RESTART_ACTION_SUCCESS,
@@ -48,7 +46,6 @@ export const initialState = fromJS({
   literature: [],
   facets: [],
   actionInProgress: null,
-  batchActionInProgress: null,
   batchSubmittedIds: [],
   restartActionInProgress: null,
   dashboard: {
@@ -114,13 +111,7 @@ const BackofficeReducer = (state = initialState, action) => {
     case BACKOFFICE_RESOLVE_ACTION_ERROR:
       return state.set('actionInProgress', null);
     case BACKOFFICE_BATCH_RESOLVE_ACTION_REQUEST:
-      return state
-        .set('batchActionInProgress', fromJS(action.payload))
-        .set('batchSubmittedIds', fromJS(action.payload.ids || []));
-    case BACKOFFICE_BATCH_RESOLVE_ACTION_SUCCESS:
-      return state.set('batchActionInProgress', null);
-    case BACKOFFICE_BATCH_RESOLVE_ACTION_ERROR:
-      return state.set('batchActionInProgress', null);
+      return state.set('batchSubmittedIds', fromJS(action.payload.ids || []));
     case BACKOFFICE_BATCH_SUBMITTED_IDS_CLEAR:
       return state.set(
         'batchSubmittedIds',

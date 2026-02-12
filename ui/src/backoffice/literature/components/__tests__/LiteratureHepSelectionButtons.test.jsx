@@ -2,10 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import { fromJS } from 'immutable';
 import { LiteratureHepSelectionButtons } from '../LiteratureHepSelectionButtons';
 import { WorkflowDecisions } from '../../../../common/constants';
-import { WorkflowActions } from '../../../constants';
 
 describe('<LiteratureHepSelectionButtons />', () => {
   test('shows core, accept, and reject buttons for approval when categories exist', async () => {
@@ -15,8 +13,6 @@ describe('<LiteratureHepSelectionButtons />', () => {
       <LiteratureHepSelectionButtons
         hasInspireCategories
         handleResolveAction={handleResolveAction}
-        actionInProgress={null}
-        workflowId="workflow-1"
       />
     );
 
@@ -51,8 +47,6 @@ describe('<LiteratureHepSelectionButtons />', () => {
       <LiteratureHepSelectionButtons
         hasInspireCategories={false}
         handleResolveAction={handleResolveAction}
-        actionInProgress={null}
-        workflowId="workflow-1"
       />
     );
 
@@ -64,24 +58,5 @@ describe('<LiteratureHepSelectionButtons />', () => {
       screen.queryByRole('button', { name: 'Accept' })
     ).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Reject' })).toBeInTheDocument();
-  });
-
-  test('disables other buttons when one decision is loading', () => {
-    render(
-      <LiteratureHepSelectionButtons
-        hasInspireCategories
-        handleResolveAction={jest.fn()}
-        actionInProgress={fromJS({
-          id: 'workflow-1',
-          type: WorkflowActions.RESOLVE,
-          decision: WorkflowDecisions.HEP_ACCEPT,
-        })}
-        workflowId="workflow-1"
-      />
-    );
-
-    expect(screen.getByRole('button', { name: /Accept/ })).toBeEnabled();
-    expect(screen.getByRole('button', { name: 'Core' })).toBeDisabled();
-    expect(screen.getByRole('button', { name: 'Reject' })).toBeDisabled();
   });
 });

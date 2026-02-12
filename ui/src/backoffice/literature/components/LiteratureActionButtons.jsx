@@ -7,8 +7,6 @@ const LiteratureActionButtons = ({
   status,
   hasInspireCategories,
   handleResolveAction,
-  actionInProgress,
-  workflowId,
   isBatch = false,
   isSubmitted = false,
 }) => {
@@ -28,8 +26,6 @@ const LiteratureActionButtons = ({
       return (
         <LiteratureCoreSelectionButtons
           handleResolveAction={handleResolveAndHide}
-          actionInProgress={actionInProgress}
-          workflowId={workflowId}
           isBatch={isBatch}
         />
       );
@@ -39,8 +35,6 @@ const LiteratureActionButtons = ({
         <LiteratureHepSelectionButtons
           hasInspireCategories={hasInspireCategories}
           handleResolveAction={handleResolveAndHide}
-          actionInProgress={actionInProgress}
-          workflowId={workflowId}
           isBatch={isBatch}
         />
       );

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Map } from 'immutable';
 import { Row, Col, Card, Checkbox } from 'antd';
 
 import '../../common/components/ResultItem/ResultItem.less';
@@ -17,7 +16,6 @@ const WorkflowResultItem = ({
   item,
   compactBottom = false,
   handleResolveAction,
-  actionInProgress,
   shouldShowSelectionCheckbox = false,
   isSelected = false,
   onSelectionChange,
@@ -26,7 +24,6 @@ const WorkflowResultItem = ({
   item: any;
   compactBottom?: boolean;
   handleResolveAction?: (action: string, value: string) => void;
-  actionInProgress?: Map<string, any> | null;
   shouldShowSelectionCheckbox?: boolean;
   isSelected?: boolean;
   onSelectionChange?: (workflowId: string, checked: boolean) => void;
@@ -86,8 +83,6 @@ const WorkflowResultItem = ({
                   status={status}
                   hasInspireCategories={hasInspireCategories}
                   handleResolveAction={handleResolveAction}
-                  actionInProgress={actionInProgress}
-                  workflowId={workflowId}
                   isSubmitted={isSubmitted}
                 />
                 <br />

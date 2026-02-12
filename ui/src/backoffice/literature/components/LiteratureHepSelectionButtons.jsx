@@ -1,27 +1,13 @@
 import React from 'react';
 import { Button } from 'antd';
 import { WorkflowDecisions } from '../../../common/constants';
-import { WorkflowActions } from '../../constants';
 import '../../common/components/ActionButtons.less';
 
 export const LiteratureHepSelectionButtons = ({
   hasInspireCategories,
   handleResolveAction,
-  actionInProgress,
-  workflowId,
   isBatch = false,
 }) => {
-  const actionId = actionInProgress?.get?.('id');
-  const actionType = actionInProgress?.get?.('type');
-  const actionDecision = actionInProgress?.get?.('decision');
-  const isResolving =
-    actionType === WorkflowActions.RESOLVE && actionId === workflowId;
-  const isCoreLoading =
-    isResolving && actionDecision === WorkflowDecisions.HEP_ACCEPT_CORE;
-  const isAcceptLoading =
-    isResolving && actionDecision === WorkflowDecisions.HEP_ACCEPT;
-  const isRejectLoading =
-    isResolving && actionDecision === WorkflowDecisions.HEP_REJECT;
   const containerClass = isBatch
     ? 'flex items-center flex-wrap'
     : 'flex flex-column items-center';
@@ -44,16 +30,12 @@ export const LiteratureHepSelectionButtons = ({
             onClick={() =>
               handleResolveAction(WorkflowDecisions.HEP_ACCEPT_CORE)
             }
-            loading={isCoreLoading}
-            disabled={isResolving && !isCoreLoading}
           >
             Core
           </Button>
           <Button
             className={acceptClass}
             onClick={() => handleResolveAction(WorkflowDecisions.HEP_ACCEPT)}
-            loading={isAcceptLoading}
-            disabled={isResolving && !isAcceptLoading}
           >
             Accept
           </Button>
@@ -64,8 +46,6 @@ export const LiteratureHepSelectionButtons = ({
       <Button
         className={rejectClass}
         onClick={() => handleResolveAction(WorkflowDecisions.HEP_REJECT)}
-        loading={isRejectLoading}
-        disabled={isResolving && !isRejectLoading}
       >
         Reject
       </Button>

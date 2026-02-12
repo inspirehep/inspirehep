@@ -17,6 +17,7 @@ import {
   resolveLiteratureBatchAction,
   clearBackofficeBatchSubmittedIds,
 } from '../../../../../actions/backoffice';
+import { WorkflowDecisions } from '../../../../../common/constants';
 
 jest.mock('../../../../../actions/backoffice', () => {
   const actual = jest.requireActual('../../../../../actions/backoffice');
@@ -230,7 +231,7 @@ describe('SearchPageContainer', () => {
     await user.click(within(batchCard).getByRole('button', { name: 'Accept' }));
 
     expect(resolveLiteratureBatchAction).toHaveBeenCalledWith({
-      action: 'hep_accept',
+      action: WorkflowDecisions.HEP_ACCEPT,
       ids: ['x', 'y'],
     });
   });
@@ -272,7 +273,7 @@ describe('SearchPageContainer', () => {
     await user.click(screen.getByRole('button', { name: 'Accept' }));
 
     expect(resolveLiteratureAction).toHaveBeenCalledWith('single', {
-      action: 'hep_accept',
+      action: WorkflowDecisions.HEP_ACCEPT,
       value: undefined,
     });
   });

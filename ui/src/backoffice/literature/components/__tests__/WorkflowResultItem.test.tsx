@@ -41,7 +41,6 @@ describe('WorkflowResultItem component for Literature', () => {
       <WorkflowResultItem
         item={item}
         handleResolveAction={handleResolveAction}
-        actionInProgress={null}
         shouldShowSelectionCheckbox
         onSelectionChange={handleSelectionChange}
       />,
