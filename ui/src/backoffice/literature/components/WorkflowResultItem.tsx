@@ -21,6 +21,7 @@ const WorkflowResultItem = ({
   shouldShowSelectionCheckbox = false,
   isSelected = false,
   onSelectionChange,
+  isSubmitted = false,
 }: {
   item: any;
   compactBottom?: boolean;
@@ -29,6 +30,7 @@ const WorkflowResultItem = ({
   shouldShowSelectionCheckbox?: boolean;
   isSelected?: boolean;
   onSelectionChange?: (workflowId: string, checked: boolean) => void;
+  isSubmitted?: boolean;
 }) => {
   const workflowId = item?.get('id');
   const data = item?.get('data');
@@ -86,6 +88,7 @@ const WorkflowResultItem = ({
                   handleResolveAction={handleResolveAction}
                   actionInProgress={actionInProgress}
                   workflowId={workflowId}
+                  isSubmitted={isSubmitted}
                 />
                 <br />
                 <small>{statusInfo.description}</small>

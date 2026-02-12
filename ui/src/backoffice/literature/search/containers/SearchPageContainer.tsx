@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Select, Card, Checkbox } from 'antd';
 import { connect, RootStateOrAny } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
@@ -19,7 +19,11 @@ import AggregationBox from '../../../../common/components/AggregationBox';
 import WorkflowResultItem from '../../components/WorkflowResultItem';
 import Breadcrumbs from '../../../common/components/Breadcrumbs/Breadcrumbs';
 import EmptyOrChildren from '../../../../common/components/EmptyOrChildren';
-import { resolveLiteratureAction } from '../../../../actions/backoffice';
+import {
+  clearBackofficeBatchSubmittedIds,
+  resolveLiteratureAction,
+  resolveLiteratureBatchAction,
+} from '../../../../actions/backoffice';
 import { WorkflowStatuses } from '../../../constants';
 import LiteratureMatches from '../../components/LiteratureMatches';
 import { forceArray } from '../../../../common/utils';
@@ -31,12 +35,16 @@ type BackofficeSearchPageProps = {
   loadingAggregations: boolean;
   results: List<Map<string, any>>;
   actionInProgress?: Map<string, any> | null;
+  batchActionInProgress?: Map<string, any> | null;
+  batchSubmittedIds?: List<string>;
   onSortByChange: (namespace: string, value: string) => void;
   onHandleResolveAction: (
     workflowId: string,
     action: string,
     value: string
   ) => void;
+  onHandleBatchResolveAction: (workflowIds: string[], action: string) => void;
+  onClearBatchSubmittedIds: () => void;
 };
 
 const META_DESCRIPTION = 'Find literature workflows in backoffice';
@@ -56,7 +64,8 @@ function renderWorkflowItem(
   actionInProgress?: Map<string, any> | null,
   selectedStatusesFromFacet?: Set<string>,
   selectedWorkflowIds?: Set<string>,
-  onWorkflowSelectChange?: (workflowId: string, checked: boolean) => void
+  onWorkflowSelectChange?: (workflowId: string, checked: boolean) => void,
+  batchSubmittedIds?: Set<string>
 ) {
   const workflowId = item?.get('id');
   const matches = item?.get('matches');
@@ -71,6 +80,7 @@ function renderWorkflowItem(
 
   const handleResolveAction = (action: string, value: string) =>
     onHandleResolveAction(workflowId, action, value);
+  const isSubmitted = !!workflowId && !!batchSubmittedIds?.has(workflowId);
 
   return (
     <>
@@ -82,6 +92,7 @@ function renderWorkflowItem(
         shouldShowSelectionCheckbox={shouldShowSelectionCheckbox}
         isSelected={selectedWorkflowIds?.has(workflowId)}
         onSelectionChange={onWorkflowSelectChange}
+        isSubmitted={isSubmitted}
       />
       {hasFuzzyMatches && (
         <Card>
@@ -101,8 +112,12 @@ const LiteratureSearchPageContainer = ({
   loadingAggregations,
   results,
   actionInProgress,
+  batchActionInProgress,
+  batchSubmittedIds,
   onSortByChange,
   onHandleResolveAction,
+  onHandleBatchResolveAction,
+  onClearBatchSubmittedIds,
 }: BackofficeSearchPageProps) => {
   const statusSelections = (forceArray(query?.get('status')) || []) as string[];
   const selectedStatusesFromFacet = new Set<string>(statusSelections);
@@ -162,7 +177,14 @@ const LiteratureSearchPageContainer = ({
       return nextSelectedWorkflowIds;
     });
 
-  const handleBatchResolveAction = (action: string) => {};
+  const handleBatchResolveAction = (action: string) => {
+    onHandleBatchResolveAction(Array.from(selectedWorkflowIds), action);
+  };
+  const batchSubmittedIdsSet = new Set(batchSubmittedIds?.toArray() || []);
+
+  useEffect(() => {
+    onClearBatchSubmittedIds();
+  }, [onClearBatchSubmittedIds]);
 
   const renderAggregations = () => (
     <LoadingOrChildren loading={loadingAggregations}>
@@ -215,7 +237,7 @@ const LiteratureSearchPageContainer = ({
                     selectedCount={selectedWorkflowIds.size}
                     status={batchStatus}
                     onResolveAction={handleBatchResolveAction}
-                    actionInProgress={actionInProgress}
+                    actionInProgress={batchActionInProgress}
                   />
                 )}
                 <Row justify="space-between" wrap={false}>
@@ -325,7 +347,8 @@ const LiteratureSearchPageContainer = ({
                             actionInProgress,
                             selectedStatusesFromFacet,
                             selectedWorkflowIds,
-                            handleWorkflowSelectChange
+                            handleWorkflowSelectChange,
+                            batchSubmittedIdsSet
                           )
                         }
                       />
@@ -366,6 +389,8 @@ const stateToProps = (state: RootStateOrAny) => ({
     'results',
   ]),
   actionInProgress: state.backoffice.get('actionInProgress'),
+  batchActionInProgress: state.backoffice.get('batchActionInProgress'),
+  batchSubmittedIds: state.backoffice.get('batchSubmittedIds'),
 });
 
 export const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
@@ -378,6 +403,16 @@ export const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
       value,
     };
     dispatch(resolveLiteratureAction(workflowId, payload));
+  },
+  onHandleBatchResolveAction(workflowIds: string[], action: string) {
+    const payload = {
+      action,
+      ids: workflowIds,
+    };
+    dispatch(resolveLiteratureBatchAction(payload));
+  },
+  onClearBatchSubmittedIds() {
+    dispatch(clearBackofficeBatchSubmittedIds());
   },
 });
 
