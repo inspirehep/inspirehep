@@ -34,8 +34,6 @@ type BackofficeSearchPageProps = {
   query: any;
   loadingAggregations: boolean;
   results: List<Map<string, any>>;
-  actionInProgress?: Map<string, any> | null;
-  batchActionInProgress?: Map<string, any> | null;
   batchSubmittedIds?: List<string>;
   onSortByChange: (namespace: string, value: string) => void;
   onHandleResolveAction: (
@@ -61,7 +59,6 @@ function renderWorkflowItem(
     action: string,
     value: string
   ) => void,
-  actionInProgress?: Map<string, any> | null,
   selectedStatusesFromFacet?: Set<string>,
   selectedWorkflowIds?: Set<string>,
   onWorkflowSelectChange?: (workflowId: string, checked: boolean) => void,
@@ -88,7 +85,6 @@ function renderWorkflowItem(
         item={item}
         compactBottom={hasFuzzyMatches}
         handleResolveAction={handleResolveAction}
-        actionInProgress={actionInProgress}
         shouldShowSelectionCheckbox={shouldShowSelectionCheckbox}
         isSelected={selectedWorkflowIds?.has(workflowId)}
         onSelectionChange={onWorkflowSelectChange}
@@ -111,8 +107,6 @@ const LiteratureSearchPageContainer = ({
   query,
   loadingAggregations,
   results,
-  actionInProgress,
-  batchActionInProgress,
   batchSubmittedIds,
   onSortByChange,
   onHandleResolveAction,
@@ -237,7 +231,6 @@ const LiteratureSearchPageContainer = ({
                     selectedCount={selectedWorkflowIds.size}
                     status={batchStatus}
                     onResolveAction={handleBatchResolveAction}
-                    actionInProgress={batchActionInProgress}
                   />
                 )}
                 <Row justify="space-between" wrap={false}>
@@ -344,7 +337,6 @@ const LiteratureSearchPageContainer = ({
                           renderWorkflowItem(
                             item,
                             onHandleResolveAction,
-                            actionInProgress,
                             selectedStatusesFromFacet,
                             selectedWorkflowIds,
                             handleWorkflowSelectChange,
@@ -388,8 +380,6 @@ const stateToProps = (state: RootStateOrAny) => ({
     BACKOFFICE_LITERATURE_SEARCH_NS,
     'results',
   ]),
-  actionInProgress: state.backoffice.get('actionInProgress'),
-  batchActionInProgress: state.backoffice.get('batchActionInProgress'),
   batchSubmittedIds: state.backoffice.get('batchSubmittedIds'),
 });
 
