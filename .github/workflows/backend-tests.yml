@@ -94,6 +94,19 @@ jobs:
             ${{ env.CACHE_PREFIX }}-combined-${{ inputs.ref }}
             ${{ env.CACHE_PREFIX }}-combined
 
+      - name: Inspect duration dirs
+        run: |
+          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
+          for d in "$GITHUB_WORKSPACE/test_durations" "$GITHUB_WORKSPACE/test_async_durations"; do
+            echo "== $d =="
+            if [ -d "$d" ]; then
+              ls -lah "$d"
+              find "$d" -maxdepth 2 -type f -print0 | xargs -0 stat
+            else
+              echo "Directory not found"
+            fi
+          done
+
       - name: Test
         run: >
           docker run
