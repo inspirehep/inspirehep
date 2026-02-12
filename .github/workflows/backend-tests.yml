@@ -103,7 +103,6 @@ jobs:
           --env GITHUB_ACTIONS=true
           --env PYTEST_RUN_PATH=backend
           --volume $GITHUB_WORKSPACE/test_durations:/opt/inspire/test_durations
-          --volume $GITHUB_WORKSPACE/test_async_durations:/opt/inspire/test_async_durations
           ${{ inputs.image }}
           run py.test tests/${{ inputs.suite }}
           --splits ${{ inputs.splits }}
@@ -115,7 +114,7 @@ jobs:
       - name: Upload partial durations
         uses: actions/upload-artifact@v4
         with:
-          name: split-${{ matrix.group }}
+          name: ${{ inputs.suite }}-split-${{ matrix.group }}
           path: test_durations
           overwrite: true
 
@@ -142,4 +141,4 @@ jobs:
         uses: ./.github/actions/combine-durations
         with:
           durations-path: test_durations/durations.json
-          split-prefix: split-
+          split-prefix: ${{ inputs.suite }}-split-
