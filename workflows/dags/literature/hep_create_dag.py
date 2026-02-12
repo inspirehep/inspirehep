@@ -1267,7 +1267,7 @@ def hep_create_dag():
             email,
             {
                 "email": email,
-                "obj_url": inspire_http_hook.get_backoffice_url(
+                "url": inspire_http_hook.get_backoffice_url(
                     HEP, context["params"]["workflow_id"]
                 ),
             },
@@ -1275,7 +1275,6 @@ def hep_create_dag():
 
         ticket_id = response.json()["ticket_id"]
 
-        # TODO: To decide user_name https://github.com/cern-sis/issues-inspire/issues/1255
         response = inspire_http_hook.reply_ticket(
             ticket_id,
             "user_submitted",

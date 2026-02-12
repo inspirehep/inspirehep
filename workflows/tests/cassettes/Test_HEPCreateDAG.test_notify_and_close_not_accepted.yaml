@@ -164,7 +164,7 @@ interactions:
 - request:
     body: '{"functional_category": "Literature submissions", "template": "curator_submitted",
       "subject": "Your suggestion to INSPIRE: Article with conflicts", "template_context":
-      {"email": "user@cern.ch", "obj_url": "http://host.docker.internal:8080/backoffice/literature/7c6b56bd-6166-4fee-ad6f-5b99b7d37b7e"},
+      {"email": "user@cern.ch", "url": "http://host.docker.internal:8080/backoffice/literature/7c6b56bd-6166-4fee-ad6f-5b99b7d37b7e"},
       "caller_email": "user@cern.ch"}'
     headers:
       Accept:

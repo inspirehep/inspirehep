@@ -2,7 +2,7 @@ interactions:
 - request:
     body: '{"functional_category": "Literature submissions", "template": "curator_submitted",
       "subject": "Your suggestion to INSPIRE: test literature_submission ticket",
-      "template_context": {"email": "", "obj_url": "http://host.docker.internal:8080/backoffice/literature/00000000-0000-0000-0000-000000001111"},
+      "template_context": {"email": "", "url": "http://host.docker.internal:8080/backoffice/literature/00000000-0000-0000-0000-000000001111"},
       "caller_email": ""}'
     headers:
       Accept:
