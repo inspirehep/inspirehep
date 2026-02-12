@@ -20,6 +20,10 @@ import {
   BACKOFFICE_RESOLVE_ACTION_REQUEST,
   BACKOFFICE_RESOLVE_ACTION_SUCCESS,
   BACKOFFICE_RESOLVE_ACTION_ERROR,
+  BACKOFFICE_BATCH_RESOLVE_ACTION_REQUEST,
+  BACKOFFICE_BATCH_RESOLVE_ACTION_SUCCESS,
+  BACKOFFICE_BATCH_RESOLVE_ACTION_ERROR,
+  BACKOFFICE_BATCH_SUBMITTED_IDS_CLEAR,
   BACKOFFICE_RESTART_ACTION_REQUEST,
   BACKOFFICE_RESTART_ACTION_SUCCESS,
   BACKOFFICE_RESTART_ACTION_ERROR,
@@ -400,6 +404,32 @@ function resolveActionError(errorPayload: { error: Error }) {
   };
 }
 
+function resolvingBatchAction(type: string, ids: string[], decision: string) {
+  return {
+    type: BACKOFFICE_BATCH_RESOLVE_ACTION_REQUEST,
+    payload: { type, ids, decision },
+  };
+}
+
+function resolveBatchActionSuccess() {
+  return {
+    type: BACKOFFICE_BATCH_RESOLVE_ACTION_SUCCESS,
+  };
+}
+
+function resolveBatchActionError(errorPayload: { error: Error }) {
+  return {
+    type: BACKOFFICE_BATCH_RESOLVE_ACTION_ERROR,
+    payload: { ...errorPayload },
+  };
+}
+
+export function clearBackofficeBatchSubmittedIds() {
+  return {
+    type: BACKOFFICE_BATCH_SUBMITTED_IDS_CLEAR,
+  };
+}
+
 export function resolveLiteratureAction(
   id: string,
   payload: any
@@ -424,6 +454,34 @@ export function resolveLiteratureAction(
           : error?.error?.detail) || 'An error occurred'
       );
       dispatch(resolveActionError(error));
+    }
+  };
+}
+
+export function resolveLiteratureBatchAction(
+  payload: any
+): (dispatch: ActionCreator<Action>) => Promise<void> {
+  return async (dispatch) => {
+    const decision = payload?.action;
+    const ids = payload?.ids || [];
+    dispatch(resolvingBatchAction(WorkflowActions.RESOLVE, ids, decision));
+    try {
+      await httpClient.post(
+        `${BACKOFFICE_API}/workflows/${LITERATURE_PID_TYPE}/resolve/`,
+        payload
+      );
+
+      dispatch(resolveBatchActionSuccess());
+      notifyActionSuccess(WorkflowActions.RESOLVE);
+    } catch (err) {
+      const { error } = httpErrorToActionPayload(err);
+      notifyActionError(
+        (typeof error?.error === 'string'
+          ? error?.error
+          : error?.error?.detail) || 'An error occurred'
+      );
+      dispatch(resolveBatchActionError(error));
+      dispatch(clearBackofficeBatchSubmittedIds());
     }
   };
 }

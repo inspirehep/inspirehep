@@ -10,6 +10,7 @@ const LiteratureActionButtons = ({
   actionInProgress,
   workflowId,
   isBatch = false,
+  isSubmitted = false,
 }) => {
   const [hasSubmittedDecision, setHasSubmittedDecision] = useState(false);
 
@@ -18,7 +19,7 @@ const LiteratureActionButtons = ({
     handleResolveAction(action);
   };
 
-  if (hasSubmittedDecision) {
+  if (isSubmitted || hasSubmittedDecision) {
     return <p className="mb0 mt2 tc">Decision submitted.</p>;
   }
 
