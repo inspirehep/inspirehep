@@ -2,7 +2,7 @@ import datetime
 import logging
 
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-from airflow.sdk import Param, Variable, dag, task
+from airflow.sdk import Param, dag, task
 from airflow.sdk.execution_time.macros import ds_add
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.alerts import FailedDagNotifier
@@ -79,7 +79,6 @@ def arxiv_harvest_dag():
         workflow_management_hook = WorkflowManagementHook(HEP)
 
         s3_hook = S3Hook(aws_conn_id="s3_conn")
-        bucket_name = Variable.get("s3_bucket_name")
 
         from_date = context["params"]["from"] or ds_add(context["ds"], -1)
         until_date = context["params"]["until"]
@@ -104,7 +103,6 @@ def arxiv_harvest_dag():
                 "failed_build_records": failed_build_records,
                 "failed_load_records": failed_load_records,
             },
-            bucket_name,
         )
 
     sets = get_sets()

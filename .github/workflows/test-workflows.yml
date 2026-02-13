@@ -68,4 +68,4 @@ jobs:
           -e AIRFLOW__CORE__LOAD_EXAMPLES="false"
           -e AIRFLOW__API__AUTH_BACKENDS="airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
           registry.cern.ch/cern-sis/inspire/workflows@${{ needs.build.outputs.image-id }}
-          bash -c "pip install -r requirements-test.txt && airflow db migrate && airflow connections import /opt/airflow/scripts/connections/connections.json && airflow variables import /opt/airflow/scripts/variables/variables.json && pytest /opt/airflow/tests"
+          bash -c "pip install -r requirements-test.txt && airflow db migrate && airflow connections import /opt/airflow/scripts/connections/connections.json && airflow variables import /opt/airflow/scripts/variables/variables.json && airflow connections list && pytest /opt/airflow/tests"

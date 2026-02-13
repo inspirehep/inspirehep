@@ -13,20 +13,17 @@ class TestS3Hook:
         write_object(
             self.s3_hook,
             {"test": "data"},
-            self.bucket_name,
             key="test_key",
             overwrite=True,
         )
-        result = read_object(self.s3_hook, self.bucket_name, key="test_key")
+        result = read_object(self.s3_hook, key="test_key")
         assert result == {"test": "data"}
 
     def test_read_write_workflow(self):
         workflow_data = {"id": "test_workflow_id"}
 
-        write_workflow(self.s3_hook, workflow_data, self.bucket_name)
-        workflow_result = read_workflow(
-            self.s3_hook, self.bucket_name, workflow_id="test_workflow_id"
-        )
+        write_workflow(self.s3_hook, workflow_data)
+        workflow_result = read_workflow(self.s3_hook, workflow_id="test_workflow_id")
         assert workflow_result == workflow_data
 
     def test_read_write_workflow_with_custom_filename(self):
@@ -35,12 +32,10 @@ class TestS3Hook:
         write_workflow(
             self.s3_hook,
             workflow_data,
-            self.bucket_name,
             filename="custom_workflow.json",
         )
         workflow_result = read_workflow(
             self.s3_hook,
-            self.bucket_name,
             workflow_id="test_workflow_id",
             filename="custom_workflow.json",
         )

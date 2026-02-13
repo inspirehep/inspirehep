@@ -1,7 +1,7 @@
 import logging
 
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-from airflow.sdk import Variable, task
+from airflow.sdk import task
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from include.utils import s3
 from inspire_utils.record import get_value
@@ -12,11 +12,10 @@ logger = logging.getLogger(__name__)
 @task
 def normalize_author_affiliations(**context):
     s3_hook = S3Hook(aws_conn_id="s3_conn")
-    bucket_name = Variable.get("s3_bucket_name")
     inspire_http_hook = InspireHttpHook()
 
     workflow_id = context["params"]["workflow_id"]
-    workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+    workflow_data = s3.read_workflow(s3_hook, workflow_id)
 
     is_core = get_value(workflow_data, "data.core", False)
 
@@ -49,4 +48,4 @@ def normalize_author_affiliations(**context):
                 ",".join(raw_affs),
                 normalized_affiliation,
             )
-    s3.write_workflow(s3_hook, workflow_data, bucket_name)
+    s3.write_workflow(s3_hook, workflow_data)
