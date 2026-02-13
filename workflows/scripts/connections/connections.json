@@ -97,7 +97,7 @@
     "host": "s3",
     "port": 9000,
     "schema": "",
-    "extra": {"endpoint_url":"http://s3:9000"}
+    "extra": {"endpoint_url":"http://s3:9000","service_config":{"s3": {"bucket_name": "data-store"}}}
   },
   "ieee_ftp": {
     "conn_type": "ftp",

@@ -297,14 +297,14 @@ class GrobidTests:
     @pytest.mark.vcr
     def test_post_pdf_to_grobid_process_header(self):
         def _test_post_pdf_to_grobid_process_header():
-            s3.write_workflow(self.s3_hook, self.workflow, self.bucket_name)
+            s3.write_workflow(self.s3_hook, self.workflow)
             task_test(
                 "hep_create_dag",
                 "preprocessing.download_documents",
                 dag_params={"workflow_id": self.workflow_id},
             )
             grobid_response = workflows.post_pdf_to_grobid(
-                self.workflow, self.s3_hook, self.bucket_name, process_fulltext=False
+                self.workflow, self.s3_hook, process_fulltext=False
             )
             assert '<forename type="first">Yuliang</forename>' in grobid_response.text
 
@@ -313,14 +313,14 @@ class GrobidTests:
     @pytest.mark.vcr
     def test_post_pdf_to_grobid_process_fulltext(self):
         def _test_post_pdf_to_grobid_process_fulltext():
-            s3.write_workflow(self.s3_hook, self.workflow, self.bucket_name)
+            s3.write_workflow(self.s3_hook, self.workflow)
             task_test(
                 "hep_create_dag",
                 "preprocessing.download_documents",
                 dag_params={"workflow_id": self.workflow_id},
             )
             grobid_response = workflows.post_pdf_to_grobid(
-                self.workflow, self.s3_hook, self.bucket_name, process_fulltext=True
+                self.workflow, self.s3_hook, process_fulltext=True
             )
             assert (
                 "Autonomous driving increasingly relies on Visual Question Answering"
@@ -332,15 +332,13 @@ class GrobidTests:
     @pytest.mark.vcr
     def test_get_fulltext(self):
         def _test_get_fulltext():
-            s3.write_workflow(self.s3_hook, self.workflow, self.bucket_name)
+            s3.write_workflow(self.s3_hook, self.workflow)
             task_test(
                 "hep_create_dag",
                 "preprocessing.download_documents",
                 dag_params={"workflow_id": self.workflow_id},
             )
-            fulltext = workflows.get_fulltext(
-                self.workflow, self.s3_hook, self.bucket_name
-            )
+            fulltext = workflows.get_fulltext(self.workflow, self.s3_hook)
             assert (
                 "Autonomous driving increasingly relies on Visual Question Answering"
                 in fulltext

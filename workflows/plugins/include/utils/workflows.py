@@ -130,13 +130,12 @@ def is_pdf_link(response):
     return found >= 0
 
 
-def post_pdf_to_grobid(workflow, s3_hook, bucket_name, process_fulltext=False):
+def post_pdf_to_grobid(workflow, s3_hook, process_fulltext=False):
     """Posts the PDF document attached to the workflow to GROBID for processing.
     Args:
         workflow_id (str): the workflow id.
         workflow (dict): the workflow data.
         s3_hook (S3Hook): the S3 hook to download the document.
-        bucket_name (str): the S3 bucket name.
         process_fulltext (bool): whether to process the fulltext or only the header.
     Returns:
         Response: the GROBID response.
@@ -151,8 +150,7 @@ def post_pdf_to_grobid(workflow, s3_hook, bucket_name, process_fulltext=False):
     with TemporaryDirectory(prefix="grobid") as tmp_dir:
         document_path = s3_hook.download_file(
             f"{workflow_id}/documents/{s3_key}",
-            bucket_name,
-            tmp_dir,
+            local_path=tmp_dir,
         )
 
         with open(document_path, "rb") as document_file:
@@ -361,10 +359,8 @@ def is_arxiv_paper(metadata):
     return is_submission_with_arxiv or is_harvested_from_arxiv
 
 
-def get_fulltext(workflow, s3_hook, bucket_name):
-    grobid_response = post_pdf_to_grobid(
-        workflow, s3_hook, bucket_name, process_fulltext=True
-    )
+def get_fulltext(workflow, s3_hook):
+    grobid_response = post_pdf_to_grobid(workflow, s3_hook, process_fulltext=True)
     if not grobid_response:
         return
     xml_data = grobid_response.text

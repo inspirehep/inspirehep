@@ -42,7 +42,7 @@ class TestNormalizeJournalTitles:
             },
         }
 
-        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data)
 
         task_test(
             "hep_create_dag",
@@ -50,9 +50,7 @@ class TestNormalizeJournalTitles:
             dag_params=self.context["params"],
         )
 
-        updated_data = s3.read_workflow(
-            self.s3_hook, self.bucket_name, workflow_id=self.workflow_id
-        )
+        updated_data = s3.read_workflow(self.s3_hook, workflow_id=self.workflow_id)
 
         assert "data" in updated_data
         assert "publication_info" in updated_data["data"]
@@ -80,7 +78,7 @@ class TestNormalizeJournalTitles:
             },
         }
 
-        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data)
 
         task_test(
             "hep_create_dag",
@@ -88,9 +86,7 @@ class TestNormalizeJournalTitles:
             dag_params=self.context["params"],
         )
 
-        updated_data = s3.read_workflow(
-            self.s3_hook, self.bucket_name, workflow_id=self.workflow_id
-        )
+        updated_data = s3.read_workflow(self.s3_hook, workflow_id=self.workflow_id)
 
         assert "data" in updated_data
         assert "publication_info" in updated_data["data"]
@@ -126,7 +122,7 @@ class TestNormalizeJournalTitles:
             },
         }
 
-        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data)
 
         task_test(
             "hep_create_dag",
@@ -134,9 +130,7 @@ class TestNormalizeJournalTitles:
             dag_params=self.context["params"],
         )
 
-        updated_data = s3.read_workflow(
-            self.s3_hook, self.bucket_name, workflow_id=self.workflow_id
-        )
+        updated_data = s3.read_workflow(self.s3_hook, workflow_id=self.workflow_id)
 
         assert "data" in updated_data
         assert "publication_info" in updated_data["data"]
@@ -163,7 +157,7 @@ class TestNormalizeJournalTitles:
                 ],
             },
         }
-        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data)
 
         task_test(
             "hep_create_dag",
@@ -171,9 +165,7 @@ class TestNormalizeJournalTitles:
             dag_params=self.context["params"],
         )
 
-        updated_data = s3.read_workflow(
-            self.s3_hook, self.bucket_name, workflow_id=self.workflow_id
-        )
+        updated_data = s3.read_workflow(self.s3_hook, workflow_id=self.workflow_id)
 
         assert "data" in updated_data
         assert "publication_info" in updated_data["data"]
@@ -209,16 +201,14 @@ class TestNormalizeJournalTitles:
             },
         }
 
-        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.write_workflow(self.s3_hook, workflow_data)
         task_test(
             "hep_create_dag",
             "preprocessing.normalize_journal_titles",
             dag_params=self.context["params"],
         )
 
-        updated_data = s3.read_workflow(
-            self.s3_hook, self.bucket_name, workflow_id=self.workflow_id
-        )
+        updated_data = s3.read_workflow(self.s3_hook, workflow_id=self.workflow_id)
         assert "data" in updated_data
         assert "references" in updated_data["data"]
         assert len(updated_data["data"]["references"]) == 2

@@ -1,5 +1,5 @@
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-from airflow.sdk import Variable, task
+from airflow.sdk import task
 from airflow.task.trigger_rule import TriggerRule
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from include.utils import s3
@@ -9,11 +9,10 @@ from inspire_utils.record import get_value
 @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
 def link_institutions_with_affiliations(**context):
     s3_hook = S3Hook(aws_conn_id="s3_conn")
-    bucket_name = Variable.get("s3_bucket_name")
     inspire_http_hook = InspireHttpHook()
 
     workflow_id = context["params"]["workflow_id"]
-    workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+    workflow_data = s3.read_workflow(s3_hook, workflow_id)
     authors = get_value(workflow_data, "data.authors", [])
     if not authors:
         return
@@ -30,4 +29,4 @@ def link_institutions_with_affiliations(**context):
 
     workflow_data["data"]["authors"] = updated_authors
 
-    s3.write_workflow(s3_hook, workflow_data, bucket_name)
+    s3.write_workflow(s3_hook, workflow_data)
