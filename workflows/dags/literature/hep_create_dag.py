@@ -76,6 +76,7 @@ from include.utils.constants import (
     STATUS_APPROVAL_MERGE,
     STATUS_BLOCKED,
     STATUS_COMPLETED,
+    STATUS_MISSING_SUBJECT_FIELDS,
     STATUS_RUNNING,
     TICKET_HEP_CURATION_CORE,
     TICKET_HEP_SUBMISSION,
@@ -1517,10 +1518,15 @@ def hep_create_dag():
             action = decision.get("action") if decision else None
 
             if not action:
-                workflow_management_hook.set_workflow_status(
-                    status_name=STATUS_APPROVAL, workflow_id=workflow_id
+                categories = get_value(workflow_data, "data.inspire_categories")
+                status = (
+                    STATUS_MISSING_SUBJECT_FIELDS if not categories else STATUS_APPROVAL
                 )
 
+                workflow_management_hook.set_workflow_status(
+                    status_name=status,
+                    workflow_id=workflow_id,
+                )
                 return False
 
             is_approved = action in [DECISION_HEP_ACCEPT, DECISION_HEP_ACCEPT_CORE]

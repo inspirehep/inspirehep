@@ -23,6 +23,7 @@ from include.utils.constants import (
     STATUS_APPROVAL_CORE_SELECTION,
     STATUS_APPROVAL_FUZZY_MATCHING,
     STATUS_COMPLETED,
+    STATUS_MISSING_SUBJECT_FIELDS,
     STATUS_RUNNING,
     TICKET_HEP_CURATION_CORE,
     TICKET_HEP_SUBMISSION,
@@ -3788,17 +3789,55 @@ class Test_HEPCreateDAG:
             "await_decision_approval"
         )
 
-    @pytest.mark.vcr
-    def test_await_decision_approval_no_decision(self):
-        set_lit_workflow_task(status_name=STATUS_RUNNING, workflow_id=self.workflow_id)
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.set_workflow_status"
+    )
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.get_workflow",
+        return_value={
+            "id": "some-workflow-id",
+            "data": {"inspire_categories": [{"term": "Theory-HEP"}]},
+            "decisions": [],
+        },
+    )
+    def test_await_decision_approval_no_decision(
+        self, mock_get_workflow, mock_set_workflow_status
+    ):
         assert not task_test(
             dag_id="hep_create_dag",
             task_id="halt_for_approval_if_new_or_reject_if_not_relevant.await_decision_approval",
             dag_params=self.context["params"],
         )
 
-        workflow = get_lit_workflow_task(self.workflow_id)
-        assert workflow["status"] == STATUS_APPROVAL
+        mock_get_workflow.assert_called_once_with(self.workflow_id)
+        mock_set_workflow_status.assert_called_once_with(
+            status_name=STATUS_APPROVAL, workflow_id=self.workflow_id
+        )
+
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.set_workflow_status"
+    )
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.get_workflow",
+        return_value={
+            "id": "some-workflow-id",
+            "data": {},
+            "decisions": [],
+        },
+    )
+    def test_await_decision_approval_no_decision_missing_subject_fields(
+        self, mock_get_workflow, mock_set_workflow_status
+    ):
+        assert not task_test(
+            dag_id="hep_create_dag",
+            task_id="halt_for_approval_if_new_or_reject_if_not_relevant.await_decision_approval",
+            dag_params=self.context["params"],
+        )
+
+        mock_get_workflow.assert_called_once_with(self.workflow_id)
+        mock_set_workflow_status.assert_called_once_with(
+            status_name=STATUS_MISSING_SUBJECT_FIELDS, workflow_id=self.workflow_id
+        )
 
     @pytest.mark.vcr
     def test_await_decision_approval_accept(self):

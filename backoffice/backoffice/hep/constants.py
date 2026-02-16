@@ -31,6 +31,7 @@ class HepStatusChoices(models.TextChoices):
     BLOCKED = "blocked", "Blocked"
     PROCESSING = "processing", "Processing"
     COMPLETED = "completed", "Completed"
+    MISSING_SUBJECT_FIELDS = "missing_subject_fields", "Missing subject fields"
 
 
 HEP_DEFAULT_STATUS_CHOICE = HepStatusChoices.PROCESSING
