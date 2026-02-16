@@ -25,6 +25,7 @@ STATUS_ERROR_VALIDATION = "error_validation"
 STATUS_ERROR = "error"
 STATUS_RUNNING = "running"
 STATUS_COMPLETED = "completed"
+STATUS_MISSING_SUBJECT_FIELDS = "missing_subject_fields"
 
 TICKET_HEP_CURATION_CORE = "hep_create_curation_core"
 TICKET_HEP_PUBLISHER_CURATION_CORE = "hep_create_publisher_curation_core"
