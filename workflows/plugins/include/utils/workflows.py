@@ -267,27 +267,6 @@ def send_record_to_hep(workflow, control_number=None):
     return workflow
 
 
-def set_flag(flag, value, workflow_data):
-    """Sets a flag in the workflow data.
-
-    Args:
-        flag (str): The flag to set.
-        value: The value to set for the flag.
-        workflow_data (dict): The workflow data.
-    """
-    workflow_data.setdefault("flags", {})[flag] = value
-
-
-def get_flag(flag, workflow_data):
-    """Gets a flag from the workflow data.
-
-    Args:
-        flag (str): The flag to get.
-        workflow_data (dict): The workflow data.
-    """
-    return workflow_data.get("flags", {}).get(flag)
-
-
 def build_matching_workflow_filter_params(workflow_data, statuses):
     filter_params = {
         "status__in": {"__".join(statuses)},

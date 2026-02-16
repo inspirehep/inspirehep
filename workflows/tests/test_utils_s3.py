@@ -1,7 +1,9 @@
 import pytest
 from include.utils.s3 import (
+    get_flag,
     read_object,
     read_workflow,
+    set_flag,
     write_object,
     write_workflow,
 )
@@ -45,3 +47,16 @@ class TestS3Hook:
             filename="custom_workflow.json",
         )
         assert workflow_result == workflow_data
+
+    def test_set_flag_and_get_flag_with_s3(self):
+        workflow_id = "test-workflow-id"
+        bucket_name = self.bucket_name
+        flag_name = "test-flag"
+        flag_value = True
+
+        set_flag(flag_name, flag_value, self.s3_hook, bucket_name, workflow_id)
+        retrieved_flag_value = get_flag(
+            flag_name, self.s3_hook, bucket_name, workflow_id
+        )
+
+        assert retrieved_flag_value == flag_value

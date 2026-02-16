@@ -27,8 +27,8 @@ from include.utils.constants import (
     TICKET_HEP_CURATION_CORE,
     TICKET_HEP_SUBMISSION,
 )
+from include.utils.s3 import get_flag
 from include.utils.tickets import get_ticket_by_type
-from include.utils.workflows import get_flag
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.query import ordered
 from tenacity import Future, RetryError
@@ -409,20 +409,18 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        result = s3.read_workflow(
+        result = s3.get_flag(
+            "auto-approved",
             self.s3_hook,
             self.bucket_name,
             self.workflow_id,
         )
 
-        assert result["flags"]["auto-approved"] is False
+        assert result is False
 
     @pytest.mark.vcr
     def test_check_auto_approve_is_auto_approved_and_core_is_true(self):
         workflow_data = {
-            "flags": {
-                "is-update": False,
-            },
             "id": self.workflow_id,
             "data": {
                 "titles": [{"title": "A title"}],
@@ -439,6 +437,9 @@ class Test_HEPCreateDAG:
                 ],
             },
         }
+        s3.set_flags(
+            {"is-update": False}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
         s3.write_workflow(
             self.s3_hook,
             workflow_data,
@@ -456,7 +457,12 @@ class Test_HEPCreateDAG:
         )
 
         assert result["core"] is True
-        assert result["flags"]["auto-approved"] is True
+        assert (
+            s3.get_flag(
+                "auto-approved", self.s3_hook, self.bucket_name, self.workflow_id
+            )
+            is True
+        )
 
         workflow = get_lit_workflow_task(self.workflow_id)
         assert workflows.get_decision(
@@ -465,9 +471,6 @@ class Test_HEPCreateDAG:
 
     def test_check_auto_approve_is_auto_approved_and_no_core_set(self):
         workflow_data = {
-            "flags": {
-                "is-update": True,
-            },
             "id": self.workflow_id,
             "data": {
                 "titles": [{"title": "A title"}],
@@ -484,6 +487,10 @@ class Test_HEPCreateDAG:
                 ],
             },
         }
+
+        s3.set_flags(
+            {"is-update": True}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         s3.write_workflow(
             self.s3_hook,
@@ -504,15 +511,16 @@ class Test_HEPCreateDAG:
         )
 
         assert "core" not in result
-        assert result["flags"]["auto-approved"] is True
+        assert (
+            s3.get_flag(
+                "auto-approved", self.s3_hook, self.bucket_name, self.workflow_id
+            )
+            is True
+        )
 
     @pytest.mark.vcr
     def test_check_if_previously_rejected_true(self):
         workflow_data = {
-            "flags": {
-                "is-update": False,
-                "auto-approved": False,
-            },
             "id": self.workflow_id,
             "data": {
                 "titles": [{"title": "A title"}],
@@ -526,6 +534,12 @@ class Test_HEPCreateDAG:
             self.s3_hook,
             workflow_data,
             self.bucket_name,
+        )
+        s3.set_flags(
+            {"is-update": False, "auto-approved": False},
+            self.s3_hook,
+            self.bucket_name,
+            self.workflow_id,
         )
 
         result = task_test(
@@ -542,10 +556,6 @@ class Test_HEPCreateDAG:
     @pytest.mark.vcr
     def test_check_if_previously_rejected_false(self):
         workflow_data = {
-            "flags": {
-                "is-update": False,
-                "auto-approved": False,
-            },
             "id": self.workflow_id,
             "data": {
                 "titles": [{"title": "A title"}],
@@ -559,6 +569,12 @@ class Test_HEPCreateDAG:
             self.s3_hook,
             workflow_data,
             self.bucket_name,
+        )
+        s3.set_flags(
+            {"is-update": False, "auto-approved": False},
+            self.s3_hook,
+            self.bucket_name,
+            self.workflow_id,
         )
 
         result = task_test(
@@ -747,13 +763,15 @@ class Test_HEPCreateDAG:
             "data": {
                 "titles": [{"title": "A title"}],
             },
-            "flags": {"is-update": False},
         }
 
         s3.write_workflow(
             self.s3_hook,
             workflow_data,
             self.bucket_name,
+        )
+        s3.set_flags(
+            {"is-update": False}, self.s3_hook, self.bucket_name, self.workflow_id
         )
 
         result = task_test(
@@ -768,9 +786,8 @@ class Test_HEPCreateDAG:
     @pytest.mark.vcr
     def test_stop_if_existing_submission_notify_and_close_stop(self):
         workflow_id = "4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2"
-
         workflow_data = get_lit_workflow_task(workflow_id)
-        workflow_data["flags"] = {"is-update": True}
+        s3.set_flags({"is-update": True}, self.s3_hook, self.bucket_name, workflow_id)
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
@@ -2944,10 +2961,9 @@ class Test_HEPCreateDAG:
             "halt_for_approval_if_new_or_reject_if_not_relevant.await_merge_conflicts_resolved",
             dag_params={"workflow_id": workflow_id},
         )
-        workflow_result = s3.read_workflow(self.s3_hook, self.bucket_name, workflow_id)
 
         assert result
-        assert get_flag("approved", workflow_result)
+        assert get_flag("approved", self.s3_hook, self.bucket_name, workflow_id)
 
     @pytest.mark.vcr
     def test_await_merge_conflicts_resolved_w_conflicts_no_decision(self):
@@ -2968,10 +2984,9 @@ class Test_HEPCreateDAG:
             "halt_for_approval_if_new_or_reject_if_not_relevant.await_merge_conflicts_resolved",
             dag_params={"workflow_id": workflow_id},
         )
-        workflow_result = s3.read_workflow(self.s3_hook, self.bucket_name, workflow_id)
 
         assert result
-        assert get_flag("approved", workflow_result)
+        assert get_flag("approved", self.s3_hook, self.bucket_name, workflow_id)
 
     def test_update_inspire_categories(self):
         workflow_data = {
@@ -3034,8 +3049,11 @@ class Test_HEPCreateDAG:
     def test_is_record_accepted_true(self):
         s3.write_workflow(
             self.s3_hook,
-            {"id": self.workflow_id, "flags": {"approved": True}},
+            {"id": self.workflow_id},
             self.bucket_name,
+        )
+        s3.set_flags(
+            {"approved": True}, self.s3_hook, self.bucket_name, self.workflow_id
         )
         result = task_test(
             "hep_create_dag",
@@ -3048,8 +3066,11 @@ class Test_HEPCreateDAG:
     def test_is_record_accepted_false(self):
         s3.write_workflow(
             self.s3_hook,
-            {"id": self.workflow_id, "flags": {"approved": False}},
+            {"id": self.workflow_id},
             self.bucket_name,
+        )
+        s3.set_flags(
+            {"approved": False}, self.s3_hook, self.bucket_name, self.workflow_id
         )
         result = task_test(
             "hep_create_dag",
@@ -3087,7 +3108,6 @@ class Test_HEPCreateDAG:
 
     def test_set_core_if_not_update_and_auto_approve(self):
         workflow_data = {
-            "flags": {"is-update": False},
             "id": self.workflow_id,
             "data": {
                 "_collections": ["Literature"],
@@ -3097,7 +3117,9 @@ class Test_HEPCreateDAG:
             "core": True,
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
-
+        s3.set_flags(
+            {"is-update": False}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
         task_test(
             "hep_create_dag",
             "postprocessing.set_core_if_not_update",
@@ -3112,7 +3134,6 @@ class Test_HEPCreateDAG:
 
     def test_set_core_if_not_update_and_hep_accept_core(self):
         workflow_data = {
-            "flags": {"is-update": False},
             "id": self.workflow_id,
             "data": {
                 "_collections": ["Literature"],
@@ -3132,6 +3153,9 @@ class Test_HEPCreateDAG:
             ],
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"is-update": False}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         task_test(
             "hep_create_dag",
@@ -3147,7 +3171,6 @@ class Test_HEPCreateDAG:
 
     def test_set_core_skips_if_update_flag_is_true(self):
         workflow_data = {
-            "flags": {"is-update": True},
             "id": self.workflow_id,
             "data": {
                 "_collections": ["Literature"],
@@ -3156,6 +3179,9 @@ class Test_HEPCreateDAG:
             },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"is-update": True}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         assert not task_test(
             "hep_create_dag",
@@ -3165,7 +3191,6 @@ class Test_HEPCreateDAG:
 
     def test_set_core_if_not_update_and_hep_accept(self):
         workflow_data = {
-            "flags": {"is-update": False},
             "id": self.workflow_id,
             "data": {
                 "_collections": ["Literature"],
@@ -3185,6 +3210,9 @@ class Test_HEPCreateDAG:
             ],
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"is-update": False}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         task_test(
             "hep_create_dag",
@@ -3641,11 +3669,11 @@ class Test_HEPCreateDAG:
                 },
             },
             "journal_coverage": "partial",
-            "flags": {
-                "auto-approved": True,
-            },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"auto-approved": True}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         result = task_test(
             "hep_create_dag",
@@ -3668,9 +3696,6 @@ class Test_HEPCreateDAG:
                 },
             },
             "journal_coverage": "partial",
-            "flags": {
-                "auto-approved": False,
-            },
             "relevance_prediction": {
                 "decision": "Rejected",
             },
@@ -3682,6 +3707,9 @@ class Test_HEPCreateDAG:
             },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"auto-approved": False}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         result = task_test(
             "hep_create_dag",
@@ -3705,7 +3733,6 @@ class Test_HEPCreateDAG:
                 },
             },
             "journal_coverage": "partial",
-            "flags": {"auto-approved": False},
             "relevance_prediction": {
                 "decision": "Rejected",
             },
@@ -3717,6 +3744,9 @@ class Test_HEPCreateDAG:
             },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"auto-approved": False}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         result = task_test(
             "hep_create_dag",
@@ -3739,9 +3769,11 @@ class Test_HEPCreateDAG:
                 },
             },
             "journal_coverage": "partial",
-            "flags": {"auto-approved": False},
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"auto-approved": False}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         result = task_test(
             "hep_create_dag",
@@ -3764,7 +3796,6 @@ class Test_HEPCreateDAG:
                 },
             },
             "journal_coverage": "partial",
-            "flags": {"auto-approved": False},
             "relevance_prediction": {
                 "decision": "CORE",
             },
@@ -3776,6 +3807,9 @@ class Test_HEPCreateDAG:
             },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"auto-approved": False}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         result = task_test(
             "hep_create_dag",
@@ -3809,9 +3843,9 @@ class Test_HEPCreateDAG:
             dag_params={"workflow_id": workflow_id},
         )
 
-        workflow_result = s3.read_workflow(self.s3_hook, self.bucket_name, workflow_id)
-
-        assert workflow_result["flags"]["approved"] is True
+        assert (
+            s3.get_flag("approved", self.s3_hook, self.bucket_name, workflow_id) is True
+        )
         assert get_lit_workflow_task(workflow_id)["status"] == STATUS_RUNNING
 
     @pytest.mark.vcr
@@ -3823,9 +3857,9 @@ class Test_HEPCreateDAG:
             dag_params={"workflow_id": workflow_id},
         )
 
-        workflow_result = s3.read_workflow(self.s3_hook, self.bucket_name, workflow_id)
-
-        assert workflow_result["flags"]["approved"] is True
+        assert (
+            s3.get_flag("approved", self.s3_hook, self.bucket_name, workflow_id) is True
+        )
         assert get_lit_workflow_task(workflow_id)["status"] == STATUS_RUNNING
 
     @pytest.mark.vcr
@@ -3837,9 +3871,10 @@ class Test_HEPCreateDAG:
             dag_params={"workflow_id": workflow_id},
         )
 
-        workflow_result = s3.read_workflow(self.s3_hook, self.bucket_name, workflow_id)
-
-        assert workflow_result["flags"]["approved"] is False
+        assert (
+            s3.get_flag("approved", self.s3_hook, self.bucket_name, workflow_id)
+            is False
+        )
         assert get_lit_workflow_task(workflow_id)["status"] == STATUS_RUNNING
 
     def test_replace_collection_to_hidden_sets_proper_hidden_collections_on_metadata(
@@ -4116,11 +4151,11 @@ class Test_HEPCreateDAG:
             "data": {
                 "titles": [{"title": "test non rejected"}],
             },
-            "flags": {
-                "is-update": True,
-            },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"is-update": True}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         task_test(
             "hep_create_dag",
@@ -4146,11 +4181,11 @@ class Test_HEPCreateDAG:
                 },
                 "arxiv_eprints": [],
             },
-            "flags": {
-                "is-update": False,
-            },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"is-update": False}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         task_test(
             "hep_create_dag",
@@ -4178,11 +4213,11 @@ class Test_HEPCreateDAG:
                 },
                 "arxiv_eprints": [],
             },
-            "flags": {
-                "is-update": False,
-            },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"is-update": False}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         task_test(
             "hep_create_dag",
@@ -4214,11 +4249,11 @@ class Test_HEPCreateDAG:
                     }
                 ],
             },
-            "flags": {
-                "is-update": False,
-            },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"is-update": False}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         task_test(
             "hep_create_dag",
@@ -4250,11 +4285,11 @@ class Test_HEPCreateDAG:
                     }
                 ],
             },
-            "flags": {
-                "is-update": False,
-            },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"is-update": False}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         task_test(
             "hep_create_dag",
@@ -4281,11 +4316,11 @@ class Test_HEPCreateDAG:
                     "source": "submitter",
                 },
             },
-            "flags": {
-                "is-update": False,
-            },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"is-update": False}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         task_test(
             "hep_create_dag",
@@ -4304,12 +4339,14 @@ class Test_HEPCreateDAG:
                 ],
                 "core": False,
             },
-            "flags": {
-                "auto-approved": True,
-                "is-update": False,
-            },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"auto-approved": True, "is-update": False},
+            self.s3_hook,
+            self.bucket_name,
+            self.workflow_id,
+        )
 
         result = task_test(
             "hep_create_dag",
@@ -4327,13 +4364,14 @@ class Test_HEPCreateDAG:
                     {"title": "test core not set"},
                 ],
             },
-            "flags": {
-                "auto-approved": True,
-                "is-update": False,
-            },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
-
+        s3.set_flags(
+            {"auto-approved": True, "is-update": False},
+            self.s3_hook,
+            self.bucket_name,
+            self.workflow_id,
+        )
         result = task_test(
             "hep_create_dag",
             "should_proceed_to_core_selection",
@@ -4351,12 +4389,14 @@ class Test_HEPCreateDAG:
                 ],
                 "core": True,
             },
-            "flags": {
-                "auto-approved": True,
-                "is-update": False,
-            },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"auto-approved": True, "is-update": False},
+            self.s3_hook,
+            self.bucket_name,
+            self.workflow_id,
+        )
 
         result = task_test(
             "hep_create_dag",
@@ -4376,12 +4416,14 @@ class Test_HEPCreateDAG:
                 ],
                 "core": False,
             },
-            "flags": {
-                "auto-approved": True,
-                "is-update": True,
-            },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"auto-approved": True, "is-update": True},
+            self.s3_hook,
+            self.bucket_name,
+            self.workflow_id,
+        )
 
         result = task_test(
             "hep_create_dag",
@@ -4401,12 +4443,14 @@ class Test_HEPCreateDAG:
                 ],
                 "core": False,
             },
-            "flags": {
-                "auto-approved": False,
-                "is-update": False,
-            },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"auto-approved": False, "is-update": False},
+            self.s3_hook,
+            self.bucket_name,
+            self.workflow_id,
+        )
 
         result = task_test(
             "hep_create_dag",
@@ -4522,15 +4566,18 @@ class Test_HEPCreateDAG:
 
         workflow_data = {
             "id": self.workflow_id,
-            "flags": {
-                "is-update": True,
-            },
             "merge_details": {
                 "head_version_id": head_version_id + 1,
             },
             "data": {"control_number": control_number},
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"is-update": True},
+            self.s3_hook,
+            self.bucket_name,
+            self.workflow_id,
+        )
 
         assert (
             task_test(
@@ -4550,15 +4597,18 @@ class Test_HEPCreateDAG:
 
         workflow_data = {
             "id": self.workflow_id,
-            "flags": {
-                "is-update": True,
-            },
             "merge_details": {
                 "head_version_id": head_version_id,
             },
             "data": {"control_number": control_number},
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"is-update": True},
+            self.s3_hook,
+            self.bucket_name,
+            self.workflow_id,
+        )
 
         with pytest.raises(AirflowFailException, match="Working with stale data"):
             task_test(
@@ -4569,13 +4619,14 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_is_fresh_data_returns_true_if_is_update_is_falsy(self):
-        workflow_data = {
-            "id": self.workflow_id,
-            "flags": {
-                "is-update": False,
-            },
-        }
+        workflow_data = {"id": self.workflow_id}
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"is-update": False},
+            self.s3_hook,
+            self.bucket_name,
+            self.workflow_id,
+        )
         assert (
             task_test(
                 "hep_create_dag",
@@ -4588,12 +4639,15 @@ class Test_HEPCreateDAG:
     def test_is_fresh_data_returns_true_if_head_version_id_is_none(self):
         workflow_data = {
             "id": self.workflow_id,
-            "flags": {
-                "is-update": True,
-            },
             "merge_details": None,
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"is-update": True},
+            self.s3_hook,
+            self.bucket_name,
+            self.workflow_id,
+        )
         assert (
             task_test(
                 "hep_create_dag",
@@ -4611,9 +4665,6 @@ class Test_HEPCreateDAG:
                 "titles": [{"title": "test create curation core ticket"}],
                 "acquisition_source": {"method": "hepcrawl", "source": "arXiv"},
                 "_collections": ["Literature"],
-            },
-            "flags": {
-                "needs-curation-core": True,
             },
         }
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
@@ -4722,12 +4773,12 @@ class Test_HEPCreateDAG:
                 "document_type": ["article"],
                 "titles": [{"title": "Test store record create"}],
             },
-            "flags": {
-                "is-update": False,
-            },
         }
 
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"is-update": False}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         task_test(
             "hep_create_dag",
@@ -4747,9 +4798,6 @@ class Test_HEPCreateDAG:
 
         workflow_data = {
             "data": copy.deepcopy(initial_record_data["metadata"]),
-            "flags": {
-                "is-update": True,
-            },
             "merge_details": {
                 "head_version_id": initial_record_data["revision_id"] + 1
             },
@@ -4760,6 +4808,9 @@ class Test_HEPCreateDAG:
         workflow_data["id"] = self.workflow_id
 
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"is-update": True}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         task_test(
             "hep_create_dag",
@@ -4803,7 +4854,7 @@ class Test_HEPCreateDAG:
                 ],
             },
         }
-
+        s3.set_flags({}, self.s3_hook, self.bucket_name, self.workflow_id)
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
 
         task_test(
@@ -4827,12 +4878,12 @@ class Test_HEPCreateDAG:
             "merge_details": {
                 "head_version_id": initial_record_data["revision_id"] + 1
             },
-            "flags": {
-                "is-update": True,
-            },
         }
 
         s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"is-update": True}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         with pytest.raises(ValueError, match="Control number is missing"):
             task_test(
@@ -4870,13 +4921,9 @@ class Test_HEPCreateDAG:
         assert workflow_result["data"]["core"] is is_core
 
     def test_check_is_auto_approved_true(self):
-        workflow_data = {
-            "id": self.workflow_id,
-            "flags": {
-                "auto-approved": True,
-            },
-        }
-        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"auto-approved": True}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         result = task_test(
             dag_id="hep_create_dag",
@@ -4885,24 +4932,19 @@ class Test_HEPCreateDAG:
             xcom_key="skipmixin_key",
         )
 
-        workflow_result = s3.read_workflow(
-            self.s3_hook, self.bucket_name, self.workflow_id
-        )
-
         assert (
             "halt_for_approval_if_new_or_reject_if_not_relevant.halt_end"
             in result["followed"]
         )
-        assert get_flag("approved", workflow_result) is True
+        assert (
+            s3.get_flag("approved", self.s3_hook, self.bucket_name, self.workflow_id)
+            is True
+        )
 
     def test_check_is_auto_approved_false(self):
-        workflow_data = {
-            "id": self.workflow_id,
-            "flags": {
-                "auto-approved": False,
-            },
-        }
-        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        s3.set_flags(
+            {"auto-approved": False}, self.s3_hook, self.bucket_name, self.workflow_id
+        )
 
         result = task_test(
             dag_id="hep_create_dag",
@@ -4910,15 +4952,14 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
 
-        workflow_result = s3.read_workflow(
-            self.s3_hook, self.bucket_name, self.workflow_id
-        )
-
         assert (
             result
             == "halt_for_approval_if_new_or_reject_if_not_relevant.is_record_relevant"
         )
-        assert get_flag("approved", workflow_result) is not True
+        assert (
+            s3.get_flag("approved", self.s3_hook, self.bucket_name, self.workflow_id)
+            is not True
+        )
 
     @pytest.mark.vcr
     def test_validate_record_no_error(self):
