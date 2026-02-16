@@ -81,7 +81,7 @@ from include.utils.constants import (
     TICKET_HEP_SUBMISSION,
 )
 from include.utils.tickets import get_ticket_by_type
-from include.utils.workflows import get_decision, get_flag, set_flag
+from include.utils.workflows import get_decision
 from inspire_json_merger.api import merge
 from inspire_json_merger.config import GrobidOnArxivAuthorsOperations
 from inspire_schemas.builders import LiteratureBuilder
@@ -247,9 +247,8 @@ def hep_create_dag():
 
     @task.branch
     def check_for_exact_matches(**context):
-        workflow_data = s3.read_workflow(
-            s3_hook, bucket_name, context["params"]["workflow_id"]
-        )
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
 
         response = inspire_http_hook.call_api(
             endpoint="api/matcher/exact-match",
@@ -266,7 +265,7 @@ def hep_create_dag():
             )
         if len(matches) == 1:
             context["ti"].xcom_push(key="match", value=matches[0])
-            set_flag("is-update", True, workflow_data)
+            s3.set_flag("is-update", True, s3_hook, bucket_name, workflow_id)
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
             return "stop_if_existing_submission_notify_and_close"
         return "check_for_fuzzy_matches"
@@ -345,7 +344,7 @@ def hep_create_dag():
         if not approved_match_id:
             return True
 
-        set_flag("is-update", True, workflow_data)
+        s3.set_flag("is-update", True, s3_hook, bucket_name, workflow_id)
         context["ti"].xcom_push(key="match", value=approved_match_id)
         s3.write_workflow(s3_hook, workflow_data, bucket_name)
         return True
@@ -353,15 +352,16 @@ def hep_create_dag():
     @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def stop_if_existing_submission_notify_and_close(**context):
         """Send notification if the workflow is a submission."""
-        workflow_data = s3.read_workflow(
-            s3_hook, bucket_name, context["params"]["workflow_id"]
-        )
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
 
-        if not is_submission(workflow_data) or not get_flag("is-update", workflow_data):
+        if not is_submission(workflow_data) or not s3.get_flag(
+            "is-update", s3_hook, bucket_name, workflow_id
+        ):
             return "check_auto_approve"
 
         workflow_management_hook.add_decision(
-            workflow_id=context["params"]["workflow_id"],
+            workflow_id=workflow_id,
             decision_data={"action": DECISION_AUTO_REJECT},
         )
 
@@ -389,13 +389,13 @@ def hep_create_dag():
 
         is_auto_approve = False if is_sub else auto_approve(data)
 
-        set_flag("auto-approved", is_auto_approve, workflow_data)
-        is_update = get_flag("is-update", workflow_data)
+        s3.set_flag("auto-approved", is_auto_approve, s3_hook, bucket_name, workflow_id)
+        is_update = s3.get_flag("is-update", s3_hook, bucket_name, workflow_id)
 
         if is_auto_approve and not is_update and is_first_category_core(data):
             workflow_data["core"] = True
             workflow_management_hook.add_decision(
-                workflow_id=context["params"]["workflow_id"],
+                workflow_id=workflow_id,
                 decision_data={"action": DECISION_AUTO_ACCEPT_CORE},
             )
 
@@ -405,19 +405,18 @@ def hep_create_dag():
     def check_if_previously_rejected(**context):
         """Equivalent to first IF of PROCESS_HOLDINGPEN_MATCH_HARVEST"""
 
-        workflow_data = s3.read_workflow(
-            s3_hook, bucket_name, context["params"]["workflow_id"]
-        )
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
 
         if (
-            not workflows.get_flag("is-update", workflow_data)
-            and not workflows.get_flag("auto-approved", workflow_data)
+            not s3.get_flag("is-update", s3_hook, bucket_name, workflow_id)
+            and not s3.get_flag("auto-approved", s3_hook, bucket_name, workflow_id)
             and workflows.has_previously_rejected_wf_in_backoffice_w_same_source(
                 workflow_data
             )
         ):
             workflow_management_hook.add_decision(
-                workflow_id=context["params"]["workflow_id"],
+                workflow_id=workflow_id,
                 decision_data={"action": DECISION_AUTO_REJECT},
             )
             return "save_and_complete_workflow"
@@ -1339,10 +1338,8 @@ def hep_create_dag():
             Note:
 
             """
-
-            workflow_data = s3.read_workflow(
-                s3_hook, bucket_name, context["params"]["workflow_id"]
-            )
+            workflow_id = context["params"]["workflow_id"]
+            workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
 
             update = workflow_data["data"]
             update_source = LiteratureReader(update).source
@@ -1405,20 +1402,16 @@ def hep_create_dag():
 
                 return False
 
-            set_flag("approved", True, workflow_data)
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3.set_flag("approved", True, s3_hook, bucket_name, workflow_id)
             return True
 
         @task.branch
         def check_is_auto_approved(**context):
-            workflow_data = s3.read_workflow(
-                s3_hook, bucket_name, context["params"]["workflow_id"]
-            )
+            workflow_id = context["params"]["workflow_id"]
 
-            if get_flag("auto-approved", workflow_data):
-                set_flag("approved", True, workflow_data)
+            if s3.get_flag("auto-approved", s3_hook, bucket_name, workflow_id):
+                s3.set_flag("approved", True, s3_hook, bucket_name, workflow_id)
 
-                s3.write_workflow(s3_hook, workflow_data, bucket_name)
                 return "halt_for_approval_if_new_or_reject_if_not_relevant.halt_end"
             return (
                 "halt_for_approval_if_new_or_reject_if_not_relevant.is_record_relevant"
@@ -1426,14 +1419,13 @@ def hep_create_dag():
 
         @task.branch
         def is_record_relevant(**context):
-            workflow_data = s3.read_workflow(
-                s3_hook, bucket_name, context["params"]["workflow_id"]
-            )
+            workflow_id = context["params"]["workflow_id"]
+            workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
 
             if (
                 is_submission(workflow_data)
                 or is_journal_coverage_full(workflow_data)
-                or is_auto_approved(workflow_data)
+                or is_auto_approved(workflow_id, s3_hook, bucket_name)
             ):
                 return (
                     "halt_for_approval_if_new_or_reject_if_not_relevant."
@@ -1464,8 +1456,10 @@ def hep_create_dag():
                 affiliations_for_hidden_collections(affiliations)
             ) or bool(reports_for_hidden_collections(report_numbers))
 
-            if should_hide and not get_flag("approved", workflow_data):
-                set_flag("approved", True, workflow_data)
+            if should_hide and not s3.get_flag(
+                "approved", s3_hook, bucket_name, s3_workflow_id
+            ):
+                s3.set_flag("approved", True, s3_hook, bucket_name, s3_workflow_id)
                 s3.write_workflow(s3_hook, workflow_data, bucket_name)
                 return (
                     "halt_for_approval_if_new_or_reject_if_not_relevant."
@@ -1524,7 +1518,7 @@ def hep_create_dag():
                 return False
 
             is_approved = action in [DECISION_HEP_ACCEPT, DECISION_HEP_ACCEPT_CORE]
-            set_flag("approved", is_approved, workflow_data)
+            s3.set_flag("approved", is_approved, s3_hook, bucket_name, workflow_id)
 
             s3.write_workflow(s3_hook, workflow_data, bucket_name)
 
@@ -1587,11 +1581,9 @@ def hep_create_dag():
     def is_record_accepted(**context):
         """Check if the record has been accepted"""
 
-        workflow_data = s3.read_workflow(
-            s3_hook, bucket_name, context["params"]["workflow_id"]
-        )
+        workflow_id = context["params"]["workflow_id"]
 
-        if get_flag("approved", workflow_data):
+        if s3.get_flag("approved", s3_hook, bucket_name, workflow_id):
             return "postprocessing.set_core_if_not_update"
         return "notify_and_close_not_accepted"
 
@@ -1618,7 +1610,7 @@ def hep_create_dag():
             workflow_id = context["params"]["workflow_id"]
             workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
 
-            is_update = get_flag("is-update", workflow_data)
+            is_update = s3.get_flag("is-update", s3_hook, bucket_name, workflow_id)
 
             if is_update:
                 return
@@ -1728,7 +1720,7 @@ def hep_create_dag():
         workflow_id = context["params"]["workflow_id"]
         workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
 
-        is_update = get_flag("is-update", workflow_data)
+        is_update = s3.get_flag("is-update", s3_hook, bucket_name, workflow_id)
 
         if is_update:
             return
@@ -1785,8 +1777,12 @@ def hep_create_dag():
             s3_hook, bucket_name, context["params"]["workflow_id"]
         )
 
-        is_auto_approved = get_flag("auto-approved", workflow_data)
-        is_create = not get_flag("is-update", workflow_data)
+        is_auto_approved = s3.get_flag(
+            "auto-approved", s3_hook, bucket_name, context["params"]["workflow_id"]
+        )
+        is_create = not s3.get_flag(
+            "is-update", s3_hook, bucket_name, context["params"]["workflow_id"]
+        )
         is_core = get_value(workflow_data, "data.core")
         if is_auto_approved and is_create and not is_core:
             return "save_workflow"
@@ -1898,10 +1894,9 @@ def hep_create_dag():
         """Check if the data being processed is fresh or stale.
         Opposite of def is_stale_data() in next."""
 
-        workflow_data = s3.read_workflow(
-            s3_hook, bucket_name, context["params"]["workflow_id"]
-        )
-        is_update = get_flag("is-update", workflow_data)
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+        is_update = s3.get_flag("is-update", s3_hook, bucket_name, workflow_id)
         merge_details = workflow_data.get("merge_details", {}) or {}
         head_version_id = merge_details.get("head_version_id")
 
@@ -1960,7 +1955,7 @@ def hep_create_dag():
         # Store the record in the database or any other storage
         """Insert or replace a record."""
 
-        is_update = get_flag("is-update", workflow_data)
+        is_update = s3.get_flag("is-update", s3_hook, bucket_name, workflow_id)
 
         workflow_data = workflows.store_record_inspirehep_api(workflow_data, is_update)
 
