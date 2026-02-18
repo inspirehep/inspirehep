@@ -7,7 +7,7 @@ import { push } from 'connected-react-router';
 
 import './LiteratureDetailPageContainer.less';
 
-import { Button, Col, Row, Table } from 'antd';
+import { Col, Row, Table } from 'antd';
 import { RestartActionButtons } from '../../common/components/Detail/RestartActionButtons';
 import {
   deleteWorkflow,
@@ -19,6 +19,7 @@ import {
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
 import LinkLikeButton from '../../../common/components/LinkLikeButton/LinkLikeButton';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
+import RunningDagsBox from '../../../common/components/RunningDagsBox';
 import { BACKOFFICE_LITERATURE_SEARCH } from '../../../common/routes';
 import ContentBox from '../../../common/components/ContentBox';
 import { BACKOFFICE_LITERATURE_SEARCH_NS } from '../../../search/constants';
@@ -269,19 +270,7 @@ const LiteratureDetailPageContainer = ({
                       <TicketsList tickets={tickets} />
                     </ContentBox>
                     {isSuperUserLoggedIn && (
-                      <ContentBox
-                        className="mb3"
-                        fullHeight={false}
-                        subTitle="Running dags"
-                      >
-                        <div className="flex flex-column items-center">
-                          <Button className="w-75">
-                            <a href={DAG_FULL_URL} target="_blank">
-                              See running dags
-                            </a>
-                          </Button>
-                        </div>
-                      </ContentBox>
+                      <RunningDagsBox dagFullUrl={DAG_FULL_URL} />
                     )}
                     <ContentBox
                       fullHeight={false}
