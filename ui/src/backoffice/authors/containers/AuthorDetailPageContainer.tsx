@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Row, Col, Button, Table } from 'antd';
+import { Row, Col, Table } from 'antd';
 import { ActionCreator, Action } from 'redux';
 import { connect, RootStateOrAny } from 'react-redux';
 import { Map } from 'immutable';
@@ -9,6 +9,7 @@ import { push } from 'connected-react-router';
 import './AuthorDetailPageContainer.less';
 
 import ContentBox from '../../../common/components/ContentBox';
+import RunningDagsBox from '../../../common/components/RunningDagsBox';
 import CollapsableForm from '../../../submissions/common/components/CollapsableForm';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
 import {
@@ -296,19 +297,7 @@ const AuthorDetailPageContainer = ({
                     <TicketsList tickets={tickets} />
                   </ContentBox>
                   {isSuperUserLoggedIn && (
-                    <ContentBox
-                      className="mb3"
-                      fullHeight={false}
-                      subTitle="Running dags"
-                    >
-                      <div className="flex flex-column items-center">
-                        <Button className="w-75">
-                          <a href={DAG_FULL_URL} target="_blank">
-                            See running dags
-                          </a>
-                        </Button>
-                      </div>
-                    </ContentBox>
+                    <RunningDagsBox dagFullUrl={DAG_FULL_URL} />
                   )}
                   <ContentBox
                     fullHeight={false}
