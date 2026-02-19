@@ -1156,6 +1156,17 @@ dnspython = ">=2.0.0"
 idna = ">=2.0.0"
 
 [[package]]
+name = "events"
+version = "0.5"
+description = "Bringing the elegance of C# EventHandler to Python"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "Events-0.5-py3-none-any.whl", hash = "sha256:a7286af378ba3e46640ac9825156c93bdba7502174dd696090fdfcd4d80a1abd"},
+]
+
+[[package]]
 name = "executing"
 version = "2.0.1"
 description = "Get the currently executing AST node of a frame, and other information"
@@ -1772,6 +1783,83 @@ docs = ["Sphinx", "furo"]
 test = ["objgraph", "psutil"]
 
 [[package]]
+name = "grpcio"
+version = "1.78.0"
+description = "HTTP/2-based RPC framework"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "grpcio-1.78.0-cp310-cp310-linux_armv7l.whl", hash = "sha256:7cc47943d524ee0096f973e1081cb8f4f17a4615f2116882a5f1416e4cfe92b5"},
+    {file = "grpcio-1.78.0-cp310-cp310-macosx_11_0_universal2.whl", hash = "sha256:c3f293fdc675ccba4db5a561048cca627b5e7bd1c8a6973ffedabe7d116e22e2"},
+    {file = "grpcio-1.78.0-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:10a9a644b5dd5aec3b82b5b0b90d41c0fa94c85ef42cb42cf78a23291ddb5e7d"},
+    {file = "grpcio-1.78.0-cp310-cp310-manylinux2014_i686.manylinux_2_17_i686.whl", hash = "sha256:4c5533d03a6cbd7f56acfc9cfb44ea64f63d29091e40e44010d34178d392d7eb"},
+    {file = "grpcio-1.78.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:ff870aebe9a93a85283837801d35cd5f8814fe2ad01e606861a7fb47c762a2b7"},
+    {file = "grpcio-1.78.0-cp310-cp310-musllinux_1_2_aarch64.whl", hash = "sha256:391e93548644e6b2726f1bb84ed60048d4bcc424ce5e4af0843d28ca0b754fec"},
+    {file = "grpcio-1.78.0-cp310-cp310-musllinux_1_2_i686.whl", hash = "sha256:df2c8f3141f7cbd112a6ebbd760290b5849cda01884554f7c67acc14e7b1758a"},
+    {file = "grpcio-1.78.0-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:bd8cb8026e5f5b50498a3c4f196f57f9db344dad829ffae16b82e4fdbaea2813"},
+    {file = "grpcio-1.78.0-cp310-cp310-win32.whl", hash = "sha256:f8dff3d9777e5d2703a962ee5c286c239bf0ba173877cc68dc02c17d042e29de"},
+    {file = "grpcio-1.78.0-cp310-cp310-win_amd64.whl", hash = "sha256:94f95cf5d532d0e717eed4fc1810e8e6eded04621342ec54c89a7c2f14b581bf"},
+    {file = "grpcio-1.78.0-cp311-cp311-linux_armv7l.whl", hash = "sha256:2777b783f6c13b92bd7b716667452c329eefd646bfb3f2e9dabea2e05dbd34f6"},
+    {file = "grpcio-1.78.0-cp311-cp311-macosx_11_0_universal2.whl", hash = "sha256:9dca934f24c732750389ce49d638069c3892ad065df86cb465b3fa3012b70c9e"},
+    {file = "grpcio-1.78.0-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:459ab414b35f4496138d0ecd735fed26f1318af5e52cb1efbc82a09f0d5aa911"},
+    {file = "grpcio-1.78.0-cp311-cp311-manylinux2014_i686.manylinux_2_17_i686.whl", hash = "sha256:082653eecbdf290e6e3e2c276ab2c54b9e7c299e07f4221872380312d8cf395e"},
+    {file = "grpcio-1.78.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:85f93781028ec63f383f6bc90db785a016319c561cc11151fbb7b34e0d012303"},
+    {file = "grpcio-1.78.0-cp311-cp311-musllinux_1_2_aarch64.whl", hash = "sha256:f12857d24d98441af6a1d5c87442d624411db486f7ba12550b07788f74b67b04"},
+    {file = "grpcio-1.78.0-cp311-cp311-musllinux_1_2_i686.whl", hash = "sha256:5397fff416b79e4b284959642a4e95ac4b0f1ece82c9993658e0e477d40551ec"},
+    {file = "grpcio-1.78.0-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:fbe6e89c7ffb48518384068321621b2a69cab509f58e40e4399fdd378fa6d074"},
+    {file = "grpcio-1.78.0-cp311-cp311-win32.whl", hash = "sha256:6092beabe1966a3229f599d7088b38dfc8ffa1608b5b5cdda31e591e6500f856"},
+    {file = "grpcio-1.78.0-cp311-cp311-win_amd64.whl", hash = "sha256:1afa62af6e23f88629f2b29ec9e52ec7c65a7176c1e0a83292b93c76ca882558"},
+    {file = "grpcio-1.78.0-cp312-cp312-linux_armv7l.whl", hash = "sha256:f9ab915a267fc47c7e88c387a3a28325b58c898e23d4995f765728f4e3dedb97"},
+    {file = "grpcio-1.78.0-cp312-cp312-macosx_11_0_universal2.whl", hash = "sha256:3f8904a8165ab21e07e58bf3e30a73f4dffc7a1e0dbc32d51c61b5360d26f43e"},
+    {file = "grpcio-1.78.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:859b13906ce098c0b493af92142ad051bf64c7870fa58a123911c88606714996"},
+    {file = "grpcio-1.78.0-cp312-cp312-manylinux2014_i686.manylinux_2_17_i686.whl", hash = "sha256:b2342d87af32790f934a79c3112641e7b27d63c261b8b4395350dad43eff1dc7"},
+    {file = "grpcio-1.78.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:12a771591ae40bc65ba67048fa52ef4f0e6db8279e595fd349f9dfddeef571f9"},
+    {file = "grpcio-1.78.0-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:185dea0d5260cbb2d224c507bf2a5444d5abbb1fa3594c1ed7e4c709d5eb8383"},
+    {file = "grpcio-1.78.0-cp312-cp312-musllinux_1_2_i686.whl", hash = "sha256:51b13f9aed9d59ee389ad666b8c2214cc87b5de258fa712f9ab05f922e3896c6"},
+    {file = "grpcio-1.78.0-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:fd5f135b1bd58ab088930b3c613455796dfa0393626a6972663ccdda5b4ac6ce"},
+    {file = "grpcio-1.78.0-cp312-cp312-win32.whl", hash = "sha256:94309f498bcc07e5a7d16089ab984d42ad96af1d94b5a4eb966a266d9fcabf68"},
+    {file = "grpcio-1.78.0-cp312-cp312-win_amd64.whl", hash = "sha256:9566fe4ababbb2610c39190791e5b829869351d14369603702e890ef3ad2d06e"},
+    {file = "grpcio-1.78.0-cp313-cp313-linux_armv7l.whl", hash = "sha256:ce3a90455492bf8bfa38e56fbbe1dbd4f872a3d8eeaf7337dc3b1c8aa28c271b"},
+    {file = "grpcio-1.78.0-cp313-cp313-macosx_11_0_universal2.whl", hash = "sha256:2bf5e2e163b356978b23652c4818ce4759d40f4712ee9ec5a83c4be6f8c23a3a"},
+    {file = "grpcio-1.78.0-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:8f2ac84905d12918e4e55a16da17939eb63e433dc11b677267c35568aa63fc84"},
+    {file = "grpcio-1.78.0-cp313-cp313-manylinux2014_i686.manylinux_2_17_i686.whl", hash = "sha256:b58f37edab4a3881bc6c9bca52670610e0c9ca14e2ea3cf9debf185b870457fb"},
+    {file = "grpcio-1.78.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:735e38e176a88ce41840c21bb49098ab66177c64c82426e24e0082500cc68af5"},
+    {file = "grpcio-1.78.0-cp313-cp313-musllinux_1_2_aarch64.whl", hash = "sha256:2045397e63a7a0ee7957c25f7dbb36ddc110e0cfb418403d110c0a7a68a844e9"},
+    {file = "grpcio-1.78.0-cp313-cp313-musllinux_1_2_i686.whl", hash = "sha256:a9f136fbafe7ccf4ac7e8e0c28b31066e810be52d6e344ef954a3a70234e1702"},
+    {file = "grpcio-1.78.0-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:748b6138585379c737adc08aeffd21222abbda1a86a0dca2a39682feb9196c20"},
+    {file = "grpcio-1.78.0-cp313-cp313-win32.whl", hash = "sha256:271c73e6e5676afe4fc52907686670c7cea22ab2310b76a59b678403ed40d670"},
+    {file = "grpcio-1.78.0-cp313-cp313-win_amd64.whl", hash = "sha256:f2d4e43ee362adfc05994ed479334d5a451ab7bc3f3fee1b796b8ca66895acb4"},
+    {file = "grpcio-1.78.0-cp314-cp314-linux_armv7l.whl", hash = "sha256:e87cbc002b6f440482b3519e36e1313eb5443e9e9e73d6a52d43bd2004fcfd8e"},
+    {file = "grpcio-1.78.0-cp314-cp314-macosx_11_0_universal2.whl", hash = "sha256:c41bc64626db62e72afec66b0c8a0da76491510015417c127bfc53b2fe6d7f7f"},
+    {file = "grpcio-1.78.0-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:8dfffba826efcf366b1e3ccc37e67afe676f290e13a3b48d31a46739f80a8724"},
+    {file = "grpcio-1.78.0-cp314-cp314-manylinux2014_i686.manylinux_2_17_i686.whl", hash = "sha256:74be1268d1439eaaf552c698cdb11cd594f0c49295ae6bb72c34ee31abbe611b"},
+    {file = "grpcio-1.78.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:be63c88b32e6c0f1429f1398ca5c09bc64b0d80950c8bb7807d7d7fb36fb84c7"},
+    {file = "grpcio-1.78.0-cp314-cp314-musllinux_1_2_aarch64.whl", hash = "sha256:3c586ac70e855c721bda8f548d38c3ca66ac791dc49b66a8281a1f99db85e452"},
+    {file = "grpcio-1.78.0-cp314-cp314-musllinux_1_2_i686.whl", hash = "sha256:35eb275bf1751d2ffbd8f57cdbc46058e857cf3971041521b78b7db94bdaf127"},
+    {file = "grpcio-1.78.0-cp314-cp314-musllinux_1_2_x86_64.whl", hash = "sha256:207db540302c884b8848036b80db352a832b99dfdf41db1eb554c2c2c7800f65"},
+    {file = "grpcio-1.78.0-cp314-cp314-win32.whl", hash = "sha256:57bab6deef2f4f1ca76cc04565df38dc5713ae6c17de690721bdf30cb1e0545c"},
+    {file = "grpcio-1.78.0-cp314-cp314-win_amd64.whl", hash = "sha256:dce09d6116df20a96acfdbf85e4866258c3758180e8c49845d6ba8248b6d0bbb"},
+    {file = "grpcio-1.78.0-cp39-cp39-linux_armv7l.whl", hash = "sha256:86f85dd7c947baa707078a236288a289044836d4b640962018ceb9cd1f899af5"},
+    {file = "grpcio-1.78.0-cp39-cp39-macosx_11_0_universal2.whl", hash = "sha256:de8cb00d1483a412a06394b8303feec5dcb3b55f81d83aa216dbb6a0b86a94f5"},
+    {file = "grpcio-1.78.0-cp39-cp39-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:e888474dee2f59ff68130f8a397792d8cb8e17e6b3434339657ba4ee90845a8c"},
+    {file = "grpcio-1.78.0-cp39-cp39-manylinux2014_i686.manylinux_2_17_i686.whl", hash = "sha256:86ce2371bfd7f212cf60d8517e5e854475c2c43ce14aa910e136ace72c6db6c1"},
+    {file = "grpcio-1.78.0-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:b0c689c02947d636bc7fab3e30cc3a3445cca99c834dfb77cd4a6cabfc1c5597"},
+    {file = "grpcio-1.78.0-cp39-cp39-musllinux_1_2_aarch64.whl", hash = "sha256:ce7599575eeb25c0f4dc1be59cada6219f3b56176f799627f44088b21381a28a"},
+    {file = "grpcio-1.78.0-cp39-cp39-musllinux_1_2_i686.whl", hash = "sha256:684083fd383e9dc04c794adb838d4faea08b291ce81f64ecd08e4577c7398adf"},
+    {file = "grpcio-1.78.0-cp39-cp39-musllinux_1_2_x86_64.whl", hash = "sha256:ab399ef5e3cd2a721b1038a0f3021001f19c5ab279f145e1146bb0b9f1b2b12c"},
+    {file = "grpcio-1.78.0-cp39-cp39-win32.whl", hash = "sha256:f3d6379493e18ad4d39537a82371c5281e153e963cecb13f953ebac155756525"},
+    {file = "grpcio-1.78.0-cp39-cp39-win_amd64.whl", hash = "sha256:5361a0630a7fdb58a6a97638ab70e1dae2893c4d08d7aba64ded28bb9e7a29df"},
+    {file = "grpcio-1.78.0.tar.gz", hash = "sha256:7382b95189546f375c174f53a5fa873cef91c4b8005faa05cc5b3beea9c4f1c5"},
+]
+
+[package.dependencies]
+typing-extensions = ">=4.12,<5.0"
+
+[package.extras]
+protobuf = ["grpcio-tools (>=1.78.0)"]
+
+[[package]]
 name = "gunicorn"
 version = "19.10.0"
 description = "WSGI HTTP Server for UNIX"
@@ -1994,17 +2082,17 @@ tests = ["coverage (>=4.0)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest (
 
 [[package]]
 name = "inspire-dojson"
-version = "63.2.31"
+version = "63.2.33"
 description = "INSPIRE-specific rules to transform from MARCXML to JSON and back."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "inspire_dojson-63.2.31-py2.py3-none-any.whl", hash = "sha256:39f34ab5fae5c48a0bf586e2b51243344f98347b348930969d31dc326012b3cf"},
+    {file = "inspire_dojson-63.2.33-py2.py3-none-any.whl", hash = "sha256:9dc727fe2ca92cd1943503d8b4dc89f536f4b21fb7013e222361a2937a39facd"},
 ]
 
 [package.dependencies]
-dojson = ">=1.3.1,<2.0"
+dojson = {version = ">=1.3.1,<2.0", markers = "python_version >= \"3\""}
 Flask = ">=0.12.3"
 IDUtils = ">=1.0.1,<2.0"
 inspire-schemas = "*"
@@ -2012,12 +2100,12 @@ inspire-utils = ">=3.0.65,<4.0"
 langdetect = ">=1.0.7,<2.0"
 MarkupSafe = ">=1.1.1"
 pycountry = ">=17.5.4,<18.0"
-urllib3 = ">=1.25.0,<1.26.0"
+urllib3 = ">=1.26.0,<1.27.0"
 
 [package.extras]
-all = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pre-commit (==3.5.0)", "pytest (>=4.6,<5.0)", "pytest-cov (>=2.6.1,<3.0)"]
+all = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pre-commit (==3.5.0)", "pytest (>=4.6,<5.0) ; python_version == \"2.7\"", "pytest (>=6.2.5,<7.0) ; python_version >= \"3\"", "pytest-cov (>=2.6.1,<3.0)"]
 dev = ["pre-commit (==3.5.0)"]
-tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=4.6,<5.0)", "pytest-cov (>=2.6.1,<3.0)"]
+tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=4.6,<5.0) ; python_version == \"2.7\"", "pytest (>=6.2.5,<7.0) ; python_version >= \"3\"", "pytest-cov (>=2.6.1,<3.0)"]
 
 [[package]]
 name = "inspire-json-merger"
@@ -2044,14 +2132,14 @@ tests = ["decorator (>=4.1.2,<5.0)", "inspire-schemas (==61.5.31)", "mock (>=2.0
 
 [[package]]
 name = "inspire-matcher"
-version = "9.0.46"
+version = "9.0.47"
 description = "Find the records in INSPIRE most similar to a given record or reference."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "inspire_matcher-9.0.46-py3-none-any.whl", hash = "sha256:87a3986a6012103ccb97b129e970ada89edb76f602599ffda52a6b982fce9e2f"},
-    {file = "inspire_matcher-9.0.46.tar.gz", hash = "sha256:1c1a3c85420bbaaeec36d5021172d980193c60a5ea3c8e6b93ad587fabecc487"},
+    {file = "inspire_matcher-9.0.47-py3-none-any.whl", hash = "sha256:efaa127e24963dc5bd9020b58456fce1e59405433421c7f449d2e3fd257865ff"},
+    {file = "inspire_matcher-9.0.47.tar.gz", hash = "sha256:620aab1f24c2203fccd7b202edb13bdec1316df96849584895dd5742a4e1c00a"},
 ]
 
 [package.dependencies]
@@ -2067,6 +2155,7 @@ all = ["mock (>=3.0.0,<4.0)", "mock (>=3.0.0,<4.0)", "pre-commit (>=4.2.0) ; pyt
 dev = ["pre-commit (>=4.2.0) ; python_version >= \"3.6\""]
 elasticsearch7 = ["elasticsearch (>=7.0,<8.0)", "elasticsearch-dsl (>=7.0,<8.0)"]
 opensearch2 = ["opensearch-dsl (>=2.0.0,<3.0.0)", "opensearch-py (>=2.0.0,<3.0.0)"]
+opensearch3 = ["opensearch-dsl (>=2.0.0,<3.0.0)", "opensearch-py (>=3.0.0,<4.0.0)"]
 tests = ["mock (>=3.0.0,<4.0)", "pytest (>=4.6.0,<5.0) ; python_version <= \"2.7\"", "pytest (>=8.3.5) ; python_version >= \"3.6\"", "pytest-cov (>=2.5.1,<3.0)", "pytest-pep8", "unicode-string-literal (>=1.1,<2.0) ; python_version == \"2.7\""]
 
 [[package]]
@@ -2525,35 +2614,36 @@ files = []
 develop = false
 
 [package.dependencies]
-arrow = ">=0.13.0"
-dojson = ">=1.3.0"
-Flask = ">=0.11.1"
+arrow = "1.3.0"
+dojson = "1.5.0"
+Flask = "2.1.3"
 Flask-BabelEx = ">=0.9.3"
 flask-cors = ">=3.0.8"
-invenio-pidstore = ">=1.0.0"
+invenio-pidstore = "1.3.1"
 invenio-records = ">=1.0.0"
-invenio-rest = ">=1.1.1"
-lxml = ">=3.5.0"
+invenio-rest = "1.2.8"
+lxml = "5.2.2"
+marshmallow = "2.21.0"
 Werkzeug = ">=0.14.1"
 
 [package.extras]
-admin = ["Flask-Admin (>=1.3.0)"]
-all = ["Flask-Admin (>=1.3.0)", "SQLAlchemy-Continuum (>=1.2.1)", "Sphinx (>=1.6.7)", "check-manifest (>=0.25)", "coverage (>=4.0)", "invenio-celery (>=1.1.1)", "invenio-indexer (>=1.1.0)", "invenio-jsonschemas (>=1.0.0)", "invenio-marc21 (>=1.0.0a9)", "invenio-search[opensearch1] (>=2.1.0,<3.0.0)", "invenio-search[opensearch2] (>=2.1.0,<3.0.0)", "isort (>=4.2.2)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest (>=4.0.0,<5.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)"]
-celery = ["invenio-celery (>=1.1.1)"]
-docs = ["Sphinx (>=1.6.7)"]
+admin = ["Flask-Admin (==1.6.1)"]
+all = ["Flask-Admin (==1.6.1)", "Flask-Admin (==1.6.1)", "SQLAlchemy-Continuum (>=1.2.1)", "SQLAlchemy-Continuum (>=1.2.1)", "coverage (>=4.0)", "coverage (>=4.0)", "invenio-celery (==1.3.1)", "invenio-celery (==1.3.1)", "invenio-indexer (==2.3.0)", "invenio-indexer (==2.3.0)", "invenio-jsonschemas (==1.0.1)", "invenio-jsonschemas (==1.0.1)", "invenio-marc21 (>=1.0.0a9)", "invenio-marc21 (>=1.0.0a9)", "mock (>=1.3.0)", "mock (>=1.3.0)", "pytest-invenio (>=1.2.1)", "pytest-invenio (>=1.2.1)"]
+celery = ["invenio-celery (==1.3.1)"]
 elasticsearch7 = ["invenio-search[elasticsearch7] (>=1.2.0)"]
-mysql = ["invenio-db[mysql] (>=1.0.0)"]
+mysql = ["invenio-db[mysql] (==1.1.5)"]
 opensearch1 = ["invenio-search[opensearch1] (>=2.1.0,<3.0.0)"]
 opensearch2 = ["invenio-search[opensearch2] (>=2.1.0,<3.0.0)"]
-postgresql = ["invenio-db[postgresql] (>=1.0.0)"]
-sqlite = ["invenio-db (>=1.0.0)"]
-tests = ["SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "invenio-indexer (>=1.1.0)", "invenio-jsonschemas (>=1.0.0)", "invenio-marc21 (>=1.0.0a9)", "isort (>=4.2.2)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest (>=4.0.0,<5.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)"]
+opensearch3 = ["invenio-search[opensearch3] (>=2.1.0,<3.0.0)"]
+postgresql = ["invenio-db[postgresql] (==1.1.5)"]
+sqlite = ["invenio-db (==1.1.5)"]
+tests = ["SQLAlchemy-Continuum (>=1.2.1)", "coverage (>=4.0)", "invenio-indexer (==2.3.0)", "invenio-jsonschemas (==1.0.1)", "invenio-marc21 (>=1.0.0a9)", "mock (>=1.3.0)", "pytest-invenio (>=1.2.1)"]
 
 [package.source]
 type = "git"
 url = "https://github.com/inspirehep/invenio-oaiserver.git"
-reference = "33691ef9ba3f1a241a1c0adc9c3ca21319559bd2"
-resolved_reference = "33691ef9ba3f1a241a1c0adc9c3ca21319559bd2"
+reference = "HEAD"
+resolved_reference = "e44270ef849586a698b458b5134488a930fc898f"
 
 [[package]]
 name = "invenio-oauth2server"
@@ -2710,22 +2800,22 @@ invenio-records = ">=2.0.0,<3.0.0"
 invenio-rest = ">=1.2.4,<2.0.0"
 
 [package.extras]
-all = ["Flask-Login (>=0.3.2)", "Flask-Login (>=0.3.2)", "SQLAlchemy-Continuum (==1.3.15)", "SQLAlchemy-Continuum (==1.3.15)", "Sphinx (>=3)", "Sphinx (>=3)", "citeproc-py (==0.3.0)", "citeproc-py (==0.3.0)", "citeproc-py-styles (==0.1.0)", "citeproc-py-styles (==0.1.0)", "datacite (==1.0.1)", "datacite (==1.0.1)", "dcxml (>=0.1.0)", "dcxml (>=0.1.0)", "invenio-config (>=1.0.2)", "invenio-config (>=1.0.2)", "invenio-db[mysql,postgresql] (>=1.0.9,<2.0.0)", "invenio-db[mysql,postgresql] (>=1.0.9,<2.0.0)", "invenio-indexer (>=1.0.0)", "invenio-indexer (>=1.0.0)", "jsonref (==1.0.1)", "jsonref (==1.0.1)", "mock (>=4)", "mock (>=4)", "pyld (>=0.7.1,<2)", "pyld (>=0.7.1,<2)", "pytest-invenio (>=1.2.1)", "pytest-invenio (>=1.2.1)", "urllib3 (>=1.21.1,<1.27)", "urllib3 (>=1.21.1,<1.27)"]
+all = ["Flask-Login (>=0.3.2)", "Flask-Login (>=0.3.2)", "SQLAlchemy-Continuum (==1.3.15)", "SQLAlchemy-Continuum (==1.3.15)", "citeproc-py (==0.3.0)", "citeproc-py (==0.3.0)", "citeproc-py-styles (==0.1.0)", "citeproc-py-styles (==0.1.0)", "datacite (==1.0.1)", "datacite (==1.0.1)", "dcxml (>=0.1.0)", "dcxml (>=0.1.0)", "invenio-config (>=1.0.2)", "invenio-config (>=1.0.2)", "invenio-db[mysql,postgresql] (>=1.0.9,<2.0.0)", "invenio-db[mysql,postgresql] (>=1.0.9,<2.0.0)", "invenio-indexer (>=1.0.0)", "invenio-indexer (>=1.0.0)", "jsonref (==1.0.1)", "jsonref (==1.0.1)", "mock (>=4)", "mock (>=4)", "pyld (>=0.7.1,<2)", "pyld (>=0.7.1,<2)", "pytest-invenio (>=1.2.1)", "pytest-invenio (>=1.2.1)", "urllib3 (>=1.21.1,<1.27)", "urllib3 (>=1.21.1,<1.27)"]
 citeproc = ["citeproc-py (==0.3.0)", "citeproc-py-styles (==0.1.0)"]
 datacite = ["datacite (==1.0.1)", "urllib3 (>=1.21.1,<1.27)"]
-docs = ["Sphinx (>=3)"]
 dublincore = ["dcxml (>=0.1.0)"]
 elasticsearch7 = ["invenio-search[elasticsearch7] (>=2.1.0,<3.0.0)"]
 jsonld = ["pyld (>=0.7.1,<2)"]
 opensearch1 = ["invenio-search[opensearch1] (>=2.1.0,<3.0.0)"]
 opensearch2 = ["invenio-search[opensearch2] (>=2.1.0,<3.0.0)"]
+opensearch3 = ["invenio-search[opensearch3] (>=2.1.0,<3.0.0)"]
 tests = ["Flask-Login (>=0.3.2)", "SQLAlchemy-Continuum (==1.3.15)", "invenio-config (>=1.0.2)", "invenio-db[mysql,postgresql] (>=1.0.9,<2.0.0)", "invenio-indexer (>=1.0.0)", "jsonref (==1.0.1)", "mock (>=4)", "pytest-invenio (>=1.2.1)"]
 
 [package.source]
 type = "git"
 url = "https://github.com/inspirehep/invenio-records-rest.git"
 reference = "HEAD"
-resolved_reference = "2c403ba4d3f2688cd7004688f7e7d49cf51a7e13"
+resolved_reference = "7cef7e665e834e06f3f3b56fab5f821fddc5be37"
 
 [[package]]
 name = "invenio-rest"
@@ -2764,20 +2854,21 @@ develop = false
 [package.dependencies]
 dictdiffer = ">=0.9.0"
 invenio-base = ">=1.2.3,<2.0.0"
-opensearch-dsl = {version = ">=2.0.0,<3.0.0", optional = true, markers = "extra == \"opensearch2\""}
-opensearch-py = {version = ">=2.0.0,<3.0.0", optional = true, markers = "extra == \"opensearch2\""}
+opensearch-dsl = {version = ">=2.0.0,<3.0.0", optional = true, markers = "extra == \"opensearch3\""}
+opensearch-py = {version = ">=3.0.0,<4.0.0", optional = true, markers = "extra == \"opensearch3\""}
 
 [package.extras]
 elasticsearch7 = ["elasticsearch (>=7.0.0,<7.14)", "elasticsearch-dsl (>=7.0.0,<8.0.0)"]
 opensearch1 = ["opensearch-dsl (>=1.0.0,<2.0.0)", "opensearch-py (>=1.1.0,<2.0.0)"]
 opensearch2 = ["opensearch-dsl (>=2.0.0,<3.0.0)", "opensearch-py (>=2.0.0,<3.0.0)"]
-tests = ["Sphinx (>=3)", "invenio-accounts (>=2.0.0,<3.0.0)", "invenio-db[versioning] (>=1.0.0,<2.0.0)", "mock (>=1.3.0)", "pytest-black (>=0.3.0)", "pytest-invenio (>=2.0.0,<3.0.0)"]
+opensearch3 = ["opensearch-dsl (>=2.0.0,<3.0.0)", "opensearch-py (>=3.0.0,<4.0.0)"]
+tests = ["Sphinx (>=3)", "invenio-accounts (>=2.0.0,<3.0.0)", "invenio-db[versioning] (>=1.0.0,<2.0.0)", "mock (>=1.3.0)", "pytest-invenio (>=2.0.0,<3.0.0)"]
 
 [package.source]
 type = "git"
 url = "https://github.com/inspirehep/invenio-search.git"
 reference = "HEAD"
-resolved_reference = "196f7cc0b47b11e24508e98ff2b895cefd67c17f"
+resolved_reference = "01d8c4c3cd9e1cd54238238d6249a59902fefa14"
 
 [[package]]
 name = "ipdb"
@@ -3916,29 +4007,45 @@ six = "*"
 develop = ["coverage (<7.0.0)", "mock", "pytest (>=3.0.0)", "pytest-cov", "pytest-mock (<4.0.0)", "pytz", "sphinx", "sphinx-rtd-theme"]
 
 [[package]]
-name = "opensearch-py"
-version = "2.2.0"
-description = "Python client for OpenSearch"
+name = "opensearch-protobufs"
+version = "0.19.0"
+description = ""
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <4"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "opensearch-py-2.2.0.tar.gz", hash = "sha256:109fe8d2e1e8f419a22358eb901025f51e6ad2f50014c8962e23796b2a23cb67"},
-    {file = "opensearch_py-2.2.0-py2.py3-none-any.whl", hash = "sha256:595dcebe42e21cdf945add0b5dbaecccace1a8a5ba65d60314813767b564263c"},
+    {file = "opensearch_protobufs-0.19.0-py3-none-any.whl", hash = "sha256:5137c9c2323cc7debb694754b820ca4cfb5fc8eb180c41ff125698c3ee11bfc2"},
 ]
 
 [package.dependencies]
-certifi = ">=2022.12.07"
+grpcio = ">=1.68.1"
+protobuf = ">=3.20.3"
+
+[[package]]
+name = "opensearch-py"
+version = "3.1.0"
+description = "Python client for OpenSearch"
+optional = false
+python-versions = "<4,>=3.10"
+groups = ["main"]
+files = [
+    {file = "opensearch_py-3.1.0-py3-none-any.whl", hash = "sha256:e5af83d0454323e6ea9ddee8c0dcc185c0181054592d23cb701da46271a3b65b"},
+    {file = "opensearch_py-3.1.0.tar.gz", hash = "sha256:883573af13175ff102b61c80b77934a9e937bdcc40cda2b92051ad53336bc055"},
+]
+
+[package.dependencies]
+certifi = ">=2024.07.04"
+Events = "*"
+opensearch-protobufs = "0.19.0"
 python-dateutil = "*"
-requests = ">=2.4.0,<3.0.0"
-six = "*"
-urllib3 = ">=1.21.1,<2"
+requests = ">=2.32.0,<3.0.0"
+urllib3 = {version = ">=1.26.19,<2.2.0 || >2.2.0,<2.2.1 || >2.2.1,<3", markers = "python_version >= \"3.10\""}
 
 [package.extras]
-async = ["aiohttp (>=3,<4)"]
-develop = ["black", "botocore ; python_version >= \"3.6\"", "coverage (<7.0.0)", "jinja2", "mock", "myst-parser", "pytest (>=3.0.0)", "pytest-cov", "pytest-mock (<4.0.0)", "pytz", "pyyaml", "requests (>=2.0.0,<3.0.0)", "sphinx", "sphinx-copybutton", "sphinx-rtd-theme"]
-docs = ["myst-parser", "sphinx", "sphinx-copybutton", "sphinx-rtd-theme"]
-kerberos = ["requests-kerberos"]
+async = ["aiohttp (>=3.12.14,<4)"]
+develop = ["black (>=24.3.0)", "botocore", "coverage (<8.0.0)", "jinja2", "myst_parser", "pytest (>=3.0.0)", "pytest-cov", "pytest-mock (<4.0.0)", "pytz", "pyyaml", "requests (>=2.0.0,<3.0.0)", "sphinx", "sphinx_copybutton", "sphinx_rtd_theme"]
+docs = ["aiohttp (>=3.12.14,<4)", "myst_parser", "sphinx", "sphinx_copybutton", "sphinx_rtd_theme"]
+kerberos = ["requests_kerberos"]
 
 [[package]]
 name = "orcid"
@@ -4375,6 +4482,26 @@ groups = ["main"]
 files = [
     {file = "Protego-0.3.1-py2.py3-none-any.whl", hash = "sha256:2fbe8e9b7a7dbc5016a932b14c98d236aad4c29290bbe457b8d2779666ef7a41"},
     {file = "Protego-0.3.1.tar.gz", hash = "sha256:e94430d0d25cbbf239bc849d86c5e544fbde531fcccfa059953c7da344a1712c"},
+]
+
+[[package]]
+name = "protobuf"
+version = "6.33.5"
+description = ""
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "protobuf-6.33.5-cp310-abi3-win32.whl", hash = "sha256:d71b040839446bac0f4d162e758bea99c8251161dae9d0983a3b88dee345153b"},
+    {file = "protobuf-6.33.5-cp310-abi3-win_amd64.whl", hash = "sha256:3093804752167bcab3998bec9f1048baae6e29505adaf1afd14a37bddede533c"},
+    {file = "protobuf-6.33.5-cp39-abi3-macosx_10_9_universal2.whl", hash = "sha256:a5cb85982d95d906df1e2210e58f8e4f1e3cdc088e52c921a041f9c9a0386de5"},
+    {file = "protobuf-6.33.5-cp39-abi3-manylinux2014_aarch64.whl", hash = "sha256:9b71e0281f36f179d00cbcb119cb19dec4d14a81393e5ea220f64b286173e190"},
+    {file = "protobuf-6.33.5-cp39-abi3-manylinux2014_s390x.whl", hash = "sha256:8afa18e1d6d20af15b417e728e9f60f3aa108ee76f23c3b2c07a2c3b546d3afd"},
+    {file = "protobuf-6.33.5-cp39-abi3-manylinux2014_x86_64.whl", hash = "sha256:cbf16ba3350fb7b889fca858fb215967792dc125b35c7976ca4818bee3521cf0"},
+    {file = "protobuf-6.33.5-cp39-cp39-win32.whl", hash = "sha256:a3157e62729aafb8df6da2c03aa5c0937c7266c626ce11a278b6eb7963c4e37c"},
+    {file = "protobuf-6.33.5-cp39-cp39-win_amd64.whl", hash = "sha256:8f04fa32763dcdb4973d537d6b54e615cc61108c7cb38fe59310c3192d29510a"},
+    {file = "protobuf-6.33.5-py3-none-any.whl", hash = "sha256:69915a973dd0f60f31a08b8318b73eab2bd6a392c79184b3612226b0a3f8ec02"},
+    {file = "protobuf-6.33.5.tar.gz", hash = "sha256:6ddcac2a081f8b7b9642c09406bc6a4290128fce5f471cddd165960bb9119e5c"},
 ]
 
 [[package]]
@@ -6456,19 +6583,19 @@ files = [
 
 [[package]]
 name = "urllib3"
-version = "1.25.11"
+version = "1.26.20"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,>=2.7"
 groups = ["main", "dev"]
 files = [
-    {file = "urllib3-1.25.11-py2.py3-none-any.whl", hash = "sha256:f5321fbe4bf3fefa0efd0bfe7fb14e90909eb62a48ccda331726b4319897dd5e"},
-    {file = "urllib3-1.25.11.tar.gz", hash = "sha256:8d7eaa5a82a1cac232164990f04874c594c9453ec55eef02eab885aa02fc17a2"},
+    {file = "urllib3-1.26.20-py2.py3-none-any.whl", hash = "sha256:0ed14ccfbf1c30a9072c7ca157e4319b70d65f623e91e7b32fadb2853431016e"},
+    {file = "urllib3-1.26.20.tar.gz", hash = "sha256:40c2dc0c681e47eb8f90e7e27bf6ff7df2e677421fd46756da1161c39ca70d32"},
 ]
 
 [package.extras]
-brotli = ["brotlipy (>=0.6.0)"]
-secure = ["certifi", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "ipaddress ; python_version == \"2.7\"", "pyOpenSSL (>=0.14)"]
+brotli = ["brotli (==1.0.9) ; os_name != \"nt\" and python_version < \"3\" and platform_python_implementation == \"CPython\"", "brotli (>=1.0.9) ; python_version >= \"3\" and platform_python_implementation == \"CPython\"", "brotlicffi (>=0.8.0) ; (os_name != \"nt\" or python_version >= \"3\") and platform_python_implementation != \"CPython\"", "brotlipy (>=0.6.0) ; os_name == \"nt\" and python_version < \"3\""]
+secure = ["certifi", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "ipaddress ; python_version == \"2.7\"", "pyOpenSSL (>=0.14)", "urllib3-secure-extra"]
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
@@ -7041,4 +7168,4 @@ typing-extensions = ">=4.5.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.12"
-content-hash = "875577fa41f8b5c0bd41ce4f593e505d9528467f003bd4eca4516104a4095d95"
+content-hash = "2f451cbe62a10cd55583104ae29c3a93295cd4950c086fe939a1020c541867a1"

@@ -97,13 +97,13 @@ def test_reindex_all_is_reindexing_with_fulltext(
 
 
 def test_remap_one_index(inspire_app, cli):
-    indexes_before = set(current_search.client.indices.get("*").keys())
+    indexes_before = set(current_search.client.indices.get(index="*").keys())
     # Generate new suffix to distinguish new indexes easier
     current_search._current_suffix = f"-{random.getrandbits(64)}"
     result = cli.invoke(["index", "remap", "--index", "records-hep", "--yes-i-know"])
     current_search.flush_and_refresh("*")
     assert result.exit_code == 0
-    indexes_after = set(current_search.client.indices.get("*").keys())
+    indexes_after = set(current_search.client.indices.get(index="*").keys())
     difference = indexes_after - indexes_before
     assert len(difference) == 1
     assert "records-hep" in difference.pop()
@@ -111,7 +111,7 @@ def test_remap_one_index(inspire_app, cli):
 
 
 def test_remap_two_indexex(inspire_app, cli):
-    indexes_before = set(current_search.client.indices.get("*").keys())
+    indexes_before = set(current_search.client.indices.get(index="*").keys())
     current_search._current_suffix = f"-{random.getrandbits(64)}"
     result = cli.invoke(
         [
@@ -127,7 +127,7 @@ def test_remap_two_indexex(inspire_app, cli):
     current_search.flush_and_refresh("*")
 
     assert result.exit_code == 0
-    indexes_after = set(current_search.client.indices.get("*").keys())
+    indexes_after = set(current_search.client.indices.get(index="*").keys())
     difference = sorted(list(indexes_after - indexes_before))
 
     assert len(difference) == 2
@@ -140,12 +140,12 @@ def test_remap_two_indexex(inspire_app, cli):
 def test_remap_index_with_wrong_name(inspire_app, cli):
     current_search._current_suffix = f"-{random.getrandbits(64)}"
 
-    indexes_before = set(current_search.client.indices.get("*").keys())
+    indexes_before = set(current_search.client.indices.get(index="*").keys())
     result = cli.invoke(["index", "remap", "--index", "records-author", "--yes-i-know"])
     current_search.flush_and_refresh("*")
 
     assert result.exit_code == 1
-    indexes_after = set(current_search.client.indices.get("*").keys())
+    indexes_after = set(current_search.client.indices.get(index="*").keys())
     difference = sorted(indexes_after - indexes_before)
     assert len(difference) == 0
 
@@ -155,14 +155,14 @@ def test_remap_index_with_wrong_name(inspire_app, cli):
 def test_remap_index_which_is_missing_in_es(inspire_app, cli, override_config):
     config = {"SEARCH_INDEX_PREFIX": f"{random.getrandbits(64)}-"}
     with override_config(**config):
-        indexes_before = set(current_search.client.indices.get("*").keys())
+        indexes_before = set(current_search.client.indices.get(index="*").keys())
         result = cli.invoke(
             ["index", "remap", "--index", "records-authors", "--yes-i-know"]
         )
     current_search.flush_and_refresh("*")
 
     assert result.exit_code == 1
-    indexes_after = set(current_search.client.indices.get("*").keys())
+    indexes_after = set(current_search.client.indices.get(index="*").keys())
     difference = sorted(indexes_after - indexes_before)
     assert len(difference) == 0
 
@@ -175,7 +175,7 @@ def test_remap_index_which_is_missing_in_es_but_ignore_checks(
 ):
     config = {"SEARCH_INDEX_PREFIX": f"{random.getrandbits(64)}-"}
     with override_config(**config):
-        indexes_before = set(current_search.client.indices.get("*").keys())
+        indexes_before = set(current_search.client.indices.get(index="*").keys())
         result = cli.invoke(
             [
                 "index",
@@ -189,7 +189,7 @@ def test_remap_index_which_is_missing_in_es_but_ignore_checks(
     current_search.flush_and_refresh("*")
 
     assert result.exit_code == 0
-    indexes_after = set(current_search.client.indices.get("*").keys())
+    indexes_after = set(current_search.client.indices.get(index="*").keys())
     difference = sorted(indexes_after - indexes_before)
     assert len(difference) == 1
     with override_config(**config):
@@ -205,12 +205,12 @@ def test_remap_index_when_there_are_more_than_one_indexes_with_same_name_but_dif
     current_search._current_suffix = f"-{random.getrandbits(64)}"
     list(current_search.create(ignore_existing=True, index_list="records-data"))
     current_search._current_suffix = f"-{random.getrandbits(64)}"
-    indexes_before = set(current_search.client.indices.get("*").keys())
+    indexes_before = set(current_search.client.indices.get(index="*").keys())
     result = cli.invoke(["index", "remap", "--index", "records-data", "--yes-i-know"])
     current_search.flush_and_refresh("*")
 
     assert result.exit_code == 1
-    indexes_after = set(current_search.client.indices.get("*").keys())
+    indexes_after = set(current_search.client.indices.get(index="*").keys())
     difference = sorted(indexes_after - indexes_before)
     assert len(difference) == 0
 
@@ -224,14 +224,14 @@ def test_remap_index_when_there_are_more_than_one_indexes_with_same_name_but_dif
     current_search._current_suffix = f"-{random.getrandbits(64)}"
     list(current_search.create(ignore_existing=True, index_list="records-data"))
     current_search._current_suffix = f"-{random.getrandbits(64)}"
-    indexes_before = set(current_search.client.indices.get("*").keys())
+    indexes_before = set(current_search.client.indices.get(index="*").keys())
     result = cli.invoke(
         ["index", "remap", "--index", "records-data", "--yes-i-know", "--ignore-checks"]
     )
     current_search.flush_and_refresh("*")
 
     assert result.exit_code == 0
-    indexes_after = set(current_search.client.indices.get("*").keys())
+    indexes_after = set(current_search.client.indices.get(index="*").keys())
     difference = sorted(indexes_after - indexes_before)
 
     assert len(difference) == 1
@@ -310,7 +310,7 @@ def test_cli_create_aliases(inspire_app, cli, override_config):
     )
 
     current_search.flush_and_refresh("*")
-    current_search.client.indices.delete_alias(f"{prefix}*", "*")
+    current_search.client.indices.delete_alias(index=f"{prefix}*", name="*")
 
 
 def test_cli_create_aliases_stops_if_prefix_not_set(inspire_app, cli, override_config):
@@ -391,7 +391,7 @@ def test_cli_create_prefixed_aliases(inspire_app, cli, override_config):
     )
 
     current_search.flush_and_refresh("*")
-    current_search.client.indices.delete_alias(f"{prefix}*", "*")
+    current_search.client.indices.delete_alias(index=f"{prefix}*", name="*")
 
 
 def test_cli_delete_indexes_prefixed_aliases(inspire_app, cli, override_config):
@@ -478,7 +478,9 @@ def test_cli_put_files_pipeline(inspire_app, cli):
     cli.invoke(["index", "put_files_pipeline"])
     IngestClient(current_search.client)
     assert (
-        IngestClient(current_search.client).get_pipeline("file_content")["file_content"]
+        IngestClient(current_search.client).get_pipeline(id="file_content")[
+            "file_content"
+        ]
         == FULLTEXT_PIPELINE_SETUP
     )
 
@@ -487,7 +489,7 @@ def test_cli_removes_files_pipeline(inspire_app, cli):
     cli.invoke(["index", "delete-files-pipeline"])
     ingest_client = IngestClient(current_search.client)
     with pytest.raises(NotFoundError):
-        ingest_client.get_pipeline(inspire_app.config["ES_FULLTEXT_PIPELINE_NAME"])
+        ingest_client.get_pipeline(id=inspire_app.config["ES_FULLTEXT_PIPELINE_NAME"])
 
 
 @mock.patch("inspirehep.indexer.cli.batch_index")
