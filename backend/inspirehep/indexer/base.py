@@ -187,7 +187,6 @@ class InspireRecordIndexer(RecordIndexer):
         if fulltext:
             arguments = {
                 "pipeline": current_app.config["ES_FULLTEXT_PIPELINE_NAME"],
-                # TODO: when opensearch 2.2.1 is released, update package & change arg name to `timeout`
                 "request_timeout": int(
                     current_app.config["FULLLTEXT_INDEXER_REQUEST_TIMEOUT"]
                 ),

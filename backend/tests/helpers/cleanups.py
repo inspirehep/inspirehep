@@ -30,7 +30,7 @@ def es_cleanup(es):
     ingestion_pipeline_client = IngestClient(current_search.client)
     current_search.flush_and_refresh("*")
     existing_mappings_nested = (
-        x["aliases"].keys() for x in es.indices.get_alias("*").values()
+        x["aliases"].keys() for x in es.indices.get_alias(index="*").values()
     )
     existing_mappings = set(chain.from_iterable(existing_mappings_nested))
     required_mappings = {get_index_alias(index) for index in current_search.mappings}
@@ -40,18 +40,18 @@ def es_cleanup(es):
             _search_create_indexes(current_search, es)
         for index in required_mappings:
             try:
-                es.delete_by_query(index, '{"query" : {"match_all" : {} }}')
+                es.delete_by_query(index=index, body='{"query" : {"match_all" : {} }}')
             except ConflictError:
                 # Retry as there might be some delay on ES side
                 current_search.flush_and_refresh("*")
-                es.delete_by_query(index, '{"query" : {"match_all" : {} }}')
+                es.delete_by_query(index=index, body='{"query" : {"match_all" : {} }}')
     except (RequestError, NotFoundError, IndexAlreadyExistsError):
         es.indices.delete(index="*", allow_no_indices=True, expand_wildcards="all")
         current_search.flush_and_refresh("*")
         _search_create_indexes(current_search, es)
     try:
         ingestion_pipeline_client.get_pipeline(
-            current_app.config["ES_FULLTEXT_PIPELINE_NAME"]
+            id=current_app.config["ES_FULLTEXT_PIPELINE_NAME"]
         )
     except (RequestError, NotFoundError):
         _put_files_pipeline()

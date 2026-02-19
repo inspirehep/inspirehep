@@ -375,7 +375,7 @@ def create_aliases(ctx, yes_i_know, prefix_alias):
             continue
         alias_name = prefix_alias + re.sub(rf"(^{prefix}|-\d{{10,}}$)", "", index_name)
 
-        if current_search.client.indices.exists_alias(alias_name):
+        if current_search.client.indices.exists_alias(name=alias_name):
             if not yes_i_know and not click.confirm(
                 f"This operation will remove current '{alias_name}' alias. Are you sure"
                 " you want to continue?"
@@ -384,7 +384,7 @@ def create_aliases(ctx, yes_i_know, prefix_alias):
                 continue
             click.echo(f"Removing old alias ({alias_name})")
             current_search.client.indices.delete_alias(
-                "inspire*", alias_name, ignore=[400, 404]
+                index="inspire*", name=alias_name, ignore=[400, 404]
             )
         click.echo(f"Creating alias '{alias_name}' -> '{index_name}'")
         current_search.client.indices.put_alias(index=index_name, name=alias_name)
@@ -423,7 +423,7 @@ def delete_indexes(ctx, yes_i_know, prefix):
             current_search.client.indices.delete_alias(index=index_to_delete, name="*")
         except NotFoundError:
             click.echo(f"Alias for index {index_to_delete} not found.")
-        current_search.client.indices.delete(index_to_delete)
+        current_search.client.indices.delete(index=index_to_delete)
         click.echo(f"Deleted '{index_to_delete}' index and all linked aliases.")
 
 
@@ -453,5 +453,5 @@ def put_files_pipeline(ctx):
 def delete_files_pipeline(ctx):
     ingestion_pipeline_client = IngestClient(current_search.client)
     ingestion_pipeline_client.delete_pipeline(
-        current_app.config["ES_FULLTEXT_PIPELINE_NAME"]
+        id=current_app.config["ES_FULLTEXT_PIPELINE_NAME"]
     )

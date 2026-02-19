@@ -30,7 +30,6 @@ services:
   cache:
     image: redis:8-alpine
     restart: 'always'
-    read_only: true
     ports:
       - '6379:6379'
     healthcheck:

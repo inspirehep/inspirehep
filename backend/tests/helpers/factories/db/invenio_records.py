@@ -100,7 +100,7 @@ class TestRecordMetadata(TestBaseModel):
             instance.es_index_result = es.index(
                 index=index_name, body=instance.record_metadata.json, params={}
             )
-            instance.es_refresh_result = es.indices.refresh(index_name)
+            instance.es_refresh_result = es.indices.refresh(index=index_name)
         if not disable_persistent_identifier:
             instance.persistent_identifier = (
                 TestPersistentIdentifier.create_from_kwargs(
