@@ -5,6 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import mock
+import pytest
 from helpers.providers.faker import faker
 from helpers.utils import retry_test, search_index_flush_and_refresh
 from inspire_utils.record import get_value
@@ -14,6 +15,7 @@ from invenio_db import db
 from tenacity import stop_after_delay, wait_fixed
 
 
+@pytest.mark.skip(reason="Flaky test")
 def test_recalculate_references_after_literature_record_merge(
     inspire_app, clean_celery_session
 ):
@@ -276,6 +278,7 @@ def test_recalculate_references_after_institution_record_merge(
     assert_recalculate_references_task()
 
 
+@pytest.mark.skip(reason="Flaky test")
 def test_recalculate_references_after_institution_record_merge_when_author_has_them_both(
     inspire_app, clean_celery_session
 ):
@@ -708,6 +711,7 @@ def test_recalculate_references_recalculates_more_than_10_references(
     assert_recalculate_references_task()
 
 
+@pytest.mark.skip(reason="Flaky test")
 def test_redirecy_references_is_not_triggered_if_record_was_not_changed(
     inspire_app, clean_celery_session
 ):

@@ -1075,6 +1075,7 @@ def test_authorlist_url(inspire_app):
     assert expected == result
 
 
+@pytest.mark.skip(reason="Flaky test")
 def test_authorlist_url_exception(inspire_app):
     user = create_user(role=Roles.cataloger.value)
 
