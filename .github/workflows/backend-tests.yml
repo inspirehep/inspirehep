@@ -107,6 +107,7 @@ jobs:
           run py.test tests/${{ inputs.suite }}
           --splits ${{ inputs.splits }}
           --group ${{ matrix.group }}
+          --splitting-algorithm least_duration
           --durations-path test_durations/durations.json
           --store-durations
           --random-order-seed ${{ needs.setup.outputs.seed }}
