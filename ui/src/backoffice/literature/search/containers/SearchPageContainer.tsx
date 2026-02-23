@@ -50,6 +50,7 @@ const TITLE = 'Search literature - Backoffice';
 const SELECTABLE_STATUSES = new Set([
   WorkflowStatuses.APPROVAL,
   WorkflowStatuses.APPROVAL_CORE_SELECTION,
+  WorkflowStatuses.MISSING_SUBJECT_FIELDS,
 ]);
 
 function renderWorkflowItem(
@@ -121,7 +122,8 @@ const LiteratureSearchPageContainer = ({
   )
     ? (selectedStatus as
         | WorkflowStatuses.APPROVAL
-        | WorkflowStatuses.APPROVAL_CORE_SELECTION)
+        | WorkflowStatuses.APPROVAL_CORE_SELECTION
+        | WorkflowStatuses.MISSING_SUBJECT_FIELDS)
     : undefined;
   const hasSelectableStatusFacet = !!batchStatus;
   const [selectedWorkflowIds, setSelectedWorkflowIds] = useState<Set<string>>(
@@ -180,6 +182,10 @@ const LiteratureSearchPageContainer = ({
     onClearBatchSubmittedIds();
   }, [onClearBatchSubmittedIds]);
 
+  useEffect(() => {
+    setSelectedWorkflowIds(new Set());
+  }, [selectedStatus]);
+
   const renderAggregations = () => (
     <LoadingOrChildren loading={loadingAggregations}>
       <AggregationFiltersContainer
@@ -187,7 +193,6 @@ const LiteratureSearchPageContainer = ({
       />
     </LoadingOrChildren>
   );
-
   return (
     <div
       className="__SearchPageContainer__"

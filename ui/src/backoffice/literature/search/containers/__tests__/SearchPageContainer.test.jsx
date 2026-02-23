@@ -170,6 +170,24 @@ describe('SearchPageContainer', () => {
     ).not.toBeInTheDocument();
   });
 
+  it('shows select all for missing subject fields status', () => {
+    const selectableStore = getStore({
+      search: buildSearchState({
+        status: WorkflowStatuses.MISSING_SUBJECT_FIELDS,
+        results: [
+          buildLiteratureResult(
+            'msf-1',
+            WorkflowStatuses.MISSING_SUBJECT_FIELDS
+          ),
+        ],
+      }),
+    });
+    renderComponent(selectableStore);
+    expect(
+      screen.getByRole('checkbox', { name: 'Select all workflows' })
+    ).toBeInTheDocument();
+  });
+
   it('select all toggles current page row checkboxes', async () => {
     const user = userEvent.setup();
     const interactiveStore = getStore({
@@ -233,6 +251,44 @@ describe('SearchPageContainer', () => {
     expect(resolveLiteratureBatchAction).toHaveBeenCalledWith({
       action: WorkflowDecisions.HEP_ACCEPT,
       ids: ['x', 'y'],
+    });
+  });
+
+  it('dispatches batch reject for missing subject fields', async () => {
+    const user = userEvent.setup();
+    const interactiveStore = getStore({
+      search: buildSearchState({
+        status: WorkflowStatuses.MISSING_SUBJECT_FIELDS,
+        results: [
+          buildLiteratureResult(
+            'msf-x',
+            WorkflowStatuses.MISSING_SUBJECT_FIELDS
+          ),
+          buildLiteratureResult(
+            'msf-y',
+            WorkflowStatuses.MISSING_SUBJECT_FIELDS
+          ),
+        ],
+      }),
+    });
+
+    renderComponent(interactiveStore);
+
+    await user.click(
+      screen.getByRole('checkbox', { name: 'Select all workflows' })
+    );
+
+    const batchCardTitle = screen.getByText(
+      'Batch operations on 2 selected records.'
+    );
+    const batchCard = batchCardTitle.closest('.ant-card');
+    expect(batchCard).toBeInTheDocument();
+
+    await user.click(within(batchCard).getByRole('button', { name: 'Reject' }));
+
+    expect(resolveLiteratureBatchAction).toHaveBeenCalledWith({
+      action: WorkflowDecisions.HEP_REJECT,
+      ids: ['msf-x', 'msf-y'],
     });
   });
 
