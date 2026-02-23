@@ -139,7 +139,7 @@ django-opensearch-dsl = "^0.6.2"
 elasticsearch = "6.8.2"
 django-elasticsearch-dsl-drf = {git = "https://github.com/cern-sis/django-elasticsearch-dsl-drf.git", rev = "opensearch"}
 opensearch-dsl = "^2.1.0"
-opensearch-py = "2.6.0"
+opensearch-py = "3.1.0"
 djangorestframework-simplejwt = "^5.3.1"
 django-json-widget = "^2.0.1"
 sentry-sdk = "1.19.1"
