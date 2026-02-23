@@ -124,7 +124,7 @@ django-redis = "^6.0.0"
 djangorestframework = "3.14.0"
 django-cors-headers = "4.2.0"
 drf-spectacular = "0.26.5"
-Werkzeug = {version = "3.0.0", extras = ["watchdog"]}
+Werkzeug = {version = "3.1.6", extras = ["watchdog"]}
 ipdb = "0.13.13"
 psycopg = {version = "3.1.12", extras = ["c"]}
 watchfiles = "0.20.0"
