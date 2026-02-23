@@ -31,4 +31,22 @@ describe('<LiteratureActionButtons />', () => {
       screen.queryByRole('button', { name: 'Accept' })
     ).not.toBeInTheDocument();
   });
+
+  test('shows missing subject fields actions when categories are missing', () => {
+    const handleResolveAction = jest.fn();
+    render(
+      <LiteratureActionButtons
+        status={WorkflowStatuses.MISSING_SUBJECT_FIELDS}
+        handleResolveAction={handleResolveAction}
+      />
+    );
+
+    expect(
+      screen.queryByRole('button', { name: 'Accept' })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Core' })
+    ).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Reject' })).toBeInTheDocument();
+  });
 });

@@ -36,10 +36,7 @@ const WorkflowResultItem = ({
   const acquisitionSourceSource = data?.getIn(['acquisition_source', 'source']);
   const acquisitionSourceEmail = data?.getIn(['acquisition_source', 'email']);
   const subjectAreas = data?.get('inspire_categories');
-  const inspireCategories = subjectAreas?.toJS();
 
-  const hasInspireCategories =
-    Array.isArray(inspireCategories) && inspireCategories.length > 0;
   const status = item?.get('status');
   const statusInfo = getWorkflowStatusInfo(status);
 
@@ -81,7 +78,6 @@ const WorkflowResultItem = ({
                 </p>
                 <LiteratureActionButtons
                   status={status}
-                  hasInspireCategories={hasInspireCategories}
                   handleResolveAction={handleResolveAction}
                   isSubmitted={isSubmitted}
                 />

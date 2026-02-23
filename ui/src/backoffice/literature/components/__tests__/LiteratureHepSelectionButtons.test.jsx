@@ -6,12 +6,11 @@ import { LiteratureHepSelectionButtons } from '../LiteratureHepSelectionButtons'
 import { WorkflowDecisions } from '../../../../common/constants';
 
 describe('<LiteratureHepSelectionButtons />', () => {
-  test('shows core, accept, and reject buttons for approval when categories exist', async () => {
+  test('shows core, accept, and reject buttons for approval', async () => {
     const handleResolveAction = jest.fn();
     const user = userEvent.setup();
     render(
       <LiteratureHepSelectionButtons
-        hasInspireCategories
         handleResolveAction={handleResolveAction}
       />
     );
@@ -39,24 +38,5 @@ describe('<LiteratureHepSelectionButtons />', () => {
       3,
       WorkflowDecisions.HEP_REJECT
     );
-  });
-
-  test('shows warning and only reject button when categories are missing', () => {
-    const handleResolveAction = jest.fn();
-    render(
-      <LiteratureHepSelectionButtons
-        hasInspireCategories={false}
-        handleResolveAction={handleResolveAction}
-      />
-    );
-
-    expect(screen.getByText('Subject field is required')).toBeInTheDocument();
-    expect(
-      screen.queryByRole('button', { name: 'Core' })
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole('button', { name: 'Accept' })
-    ).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Reject' })).toBeInTheDocument();
   });
 });

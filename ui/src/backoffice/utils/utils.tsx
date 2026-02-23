@@ -67,6 +67,8 @@ export const getIcon = (status: string) => {
       return <HourglassOutlined className="mr2" />;
     case WorkflowStatuses.APPROVAL_MERGE:
       return <HourglassOutlined className="mr2" />;
+    case WorkflowStatuses.MISSING_SUBJECT_FIELDS:
+      return <HourglassOutlined className="mr2" />;
     default:
       return null;
   }
@@ -258,6 +260,12 @@ export const getWorkflowStatusInfo = (status: string) => {
       text: 'Validation Error',
       description:
         'This record has validation errors. View record details for more information.',
+    },
+    missing_subject_fields: {
+      icon: <WarningOutlined className="mr2" />,
+      text: 'Missing subject fields',
+      description:
+        'This record is missing subject fields. View record details for more information.',
     },
   };
 

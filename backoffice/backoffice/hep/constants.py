@@ -85,6 +85,10 @@ class HepResolutions(models.TextChoices):
         "discard",
         "",
     )
+    missing_subject_fields = (
+        "missing_subject_fields",
+        "halt_for_approval_if_new_or_reject_if_not_relevant.await_decision_approval",
+    )
 
 
 HEP_DECISION_CHOICES = HepResolutions.choices

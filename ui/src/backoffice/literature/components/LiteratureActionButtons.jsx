@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { LiteratureHepSelectionButtons } from './LiteratureHepSelectionButtons';
 import { LiteratureCoreSelectionButtons } from './LiteratureCoreSelectionButtons';
+import { LiteratureMissingSubjectFieldsSelectionButtons } from './LiteratureMissingSubjectFieldsSelectionButtons';
 import { WorkflowStatuses } from '../../constants';
 
 const LiteratureActionButtons = ({
   status,
-  hasInspireCategories,
   handleResolveAction,
   isBatch = false,
   isSubmitted = false,
@@ -33,7 +33,14 @@ const LiteratureActionButtons = ({
     case WorkflowStatuses.APPROVAL:
       return (
         <LiteratureHepSelectionButtons
-          hasInspireCategories={hasInspireCategories}
+          handleResolveAction={handleResolveAndHide}
+          isBatch={isBatch}
+        />
+      );
+
+    case WorkflowStatuses.MISSING_SUBJECT_FIELDS:
+      return (
+        <LiteratureMissingSubjectFieldsSelectionButtons
           handleResolveAction={handleResolveAndHide}
           isBatch={isBatch}
         />
