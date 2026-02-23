@@ -52,8 +52,9 @@ django-setup:
 	sed -i '' '/^AIRFLOW_TOKEN=/d' backoffice/.envs/local/.django
 
 airflow-setup:
-	docker compose exec airflow-api-server /entrypoint airflow connections import ./scripts/connections/connections.json
-	docker compose exec airflow-api-server /entrypoint airflow variables import ./scripts/variables/variables.json
+	docker compose exec airflow-api-server /entrypoint airflow connections import ./scripts/configs/connections.json
+	docker compose exec airflow-api-server /entrypoint airflow variables import ./scripts/configs/variables.json
+	docker compose exec airflow-api-server /entrypoint airflow pools import ./scripts/configs/pools.json
 	echo "\033[31mCHANGE inspire_token in Admin->Variables\033[0m"
 	echo "Workflows initialized"
 

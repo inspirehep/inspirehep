@@ -1,0 +1,7 @@
+{
+    "highmem": {
+        "description": null,
+        "include_deferred": false,
+        "slots": 16
+    }
+}
