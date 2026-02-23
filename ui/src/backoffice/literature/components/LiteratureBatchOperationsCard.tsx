@@ -10,7 +10,10 @@ const LiteratureBatchOperationsCard = ({
   onResolveAction,
 }: {
   selectedCount: number;
-  status: WorkflowStatuses.APPROVAL | WorkflowStatuses.APPROVAL_CORE_SELECTION;
+  status:
+    | WorkflowStatuses.APPROVAL
+    | WorkflowStatuses.APPROVAL_CORE_SELECTION
+    | WorkflowStatuses.MISSING_SUBJECT_FIELDS;
   onResolveAction: (action: string) => void;
 }) => (
   <Card className="mb3" style={{ marginBottom: '10px' }}>
@@ -19,7 +22,6 @@ const LiteratureBatchOperationsCard = ({
     </h4>
     <LiteratureActionButtons
       status={status}
-      hasInspireCategories // Assuming all selected records have categories for batch operations
       handleResolveAction={onResolveAction}
       isBatch
     />

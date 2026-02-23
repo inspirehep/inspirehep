@@ -265,7 +265,7 @@ export const getWorkflowStatusInfo = (status: string) => {
       icon: <WarningOutlined className="mr2" />,
       text: 'Missing subject fields',
       description:
-        'This record is missing subject fields. View record details for more information.',
+        'This record is missing subject fields. Add subject fields or reject it.',
     },
   };
 

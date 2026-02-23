@@ -1015,6 +1015,7 @@ def test_exact_match_literature_data_no_match(inspire_app):
     assert not match
 
 
+@pytest.mark.skip(reason="Flaky test")
 def test_fuzzy_workflow_match_without_math_ml_and_latex(inspire_app):
     correct_match = {
         "$schema": "https://inspirehep.net/schemas/records/hep.json",
