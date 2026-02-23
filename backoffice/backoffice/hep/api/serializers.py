@@ -105,6 +105,7 @@ class HepWorkflowSerializer(BaseWorkflowSerializer):
         routes = {
             HepStatusChoices.ERROR_VALIDATION: "api:hep-restart",
             HepStatusChoices.APPROVAL_MERGE: "api:hep-resolve",
+            HepStatusChoices.MISSING_SUBJECT_FIELDS: "api:hep-resolve",
         }
 
         route = routes.get(instance.status)

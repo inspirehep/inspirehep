@@ -5060,5 +5060,32 @@
       "_created_at": "2024-11-25T13:49:53.009Z",
       "_updated_at": "2024-11-25T13:49:54.756Z"
     }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "d2955c9c-ac8c-4e2d-9d60-9e1a47f00684",
+    "fields": {
+      "workflow_type": "HEP_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "The missing subject fields one",
+            "source": "submitter"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "acquisition_source": {
+          "email": "user@cern.ch",
+          "method": "submitter",
+          "source": "submitter",
+          "datetime": "2024-11-18T11:34:19.809575"
+        }
+      },
+      "status": "missing_subject_fields",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
   }
 ]

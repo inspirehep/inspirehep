@@ -22,6 +22,7 @@ export enum WorkflowStatuses {
   ERROR_VALIDATION = 'error_validation',
   PROCESSING = 'processing',
   RUNNING = 'running',
+  MISSING_SUBJECT_FIELDS = 'missing_subject_fields',
 }
 
 export enum WorkflowActions {
