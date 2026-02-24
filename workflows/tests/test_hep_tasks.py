@@ -134,7 +134,7 @@ class Test_HEPCreateDAG:
         assert res == f"{self.workflow_id}/workflow.json"
 
     @patch(
-        "include.utils.workflows.find_matching_workflows",
+        "include.utils.opensearch.find_matching_workflows",
         return_value=[
             {
                 "id": "to_discard",
@@ -191,7 +191,7 @@ class Test_HEPCreateDAG:
         assert "check_for_blocking_workflows" in result["followed"]
 
     @patch(
-        "include.utils.workflows.find_matching_workflows",
+        "include.utils.opensearch.find_matching_workflows",
         return_value=[
             {
                 "id": "to_discard",
@@ -249,7 +249,7 @@ class Test_HEPCreateDAG:
         assert workflows.get_decision(workflow_result["decisions"], DECISION_DISCARD)
 
     @patch(
-        "include.utils.workflows.find_matching_workflows",
+        "include.utils.opensearch.find_matching_workflows",
         return_value=[
             {
                 "id": "to_discard",
@@ -5022,7 +5022,7 @@ class Test_HEPCreateDAG:
         assert "Validation failed" in str(excinfo.value)
 
     @patch(
-        "include.utils.workflows.find_matching_workflows",
+        "include.utils.opensearch.find_matching_workflows",
         return_value=[
             {
                 "id": "to_block",

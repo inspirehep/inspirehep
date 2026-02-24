@@ -16,6 +16,7 @@ from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
 from idutils import is_arxiv_post_2007
+from include.utils import opensearch
 from include.utils.constants import (
     DECISION_AUTO_REJECT,
     DECISION_HEP_REJECT,
@@ -267,35 +268,6 @@ def send_record_to_hep(workflow, control_number=None):
     return workflow
 
 
-def build_matching_workflow_filter_params(workflow_data, statuses):
-    filter_params = {
-        "status__in": {"__".join(statuses)},
-    }
-
-    for key in ["arxiv_eprints", "dois"]:
-        if key in workflow_data["data"]:
-            if "search" not in filter_params:
-                filter_params["search"] = []
-
-            for item in workflow_data["data"][key]:
-                filter_params["search"].append(
-                    f"data.{key}.value.keyword:{item['value']}"
-                )
-    return filter_params
-
-
-def find_matching_workflows(workflow, statuses=None):
-    filter_params = build_matching_workflow_filter_params(workflow, statuses)
-
-    if "search" in filter_params:
-        matches = WorkflowManagementHook(HEP).filter_workflows(filter_params)
-        matches["results"] = [
-            match for match in matches["results"] if match["id"] != workflow["id"]
-        ]
-        return matches["results"]
-    return []
-
-
 def has_same_source(workflow_1, workflow_2):
     return (
         get_value(workflow_1, "data.acquisition_source.source").lower()
@@ -306,7 +278,7 @@ def has_same_source(workflow_1, workflow_2):
 def has_previously_rejected_wf_in_backoffice_w_same_source(workflow_data):
     workflow_management_hook = WorkflowManagementHook(HEP)
 
-    matches = find_matching_workflows(workflow_data, [STATUS_COMPLETED])
+    matches = opensearch.find_matching_workflows(workflow_data, [STATUS_COMPLETED])
 
     for workflow in matches:
         workflow_with_decisions = workflow_management_hook.get_workflow(workflow["id"])

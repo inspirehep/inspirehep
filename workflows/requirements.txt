@@ -9,3 +9,4 @@ inspire-schemas==61.6.26
 refextract==1.1.6
 inspire-json-merger==11.0.44
 inspire-classifier==2.0.5
+apache-airflow-providers-opensearch
