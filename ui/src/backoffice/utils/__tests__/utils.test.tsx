@@ -93,6 +93,13 @@ describe('getIcon', () => {
     expect(container.querySelector('.anticon-hourglass')).toBeInTheDocument();
   });
 
+  it('should return HourglassOutlined for missing subject fields status', () => {
+    const { container } = render(
+      getIcon(WorkflowStatuses.MISSING_SUBJECT_FIELDS) as React.ReactElement
+    );
+    expect(container.querySelector('.anticon-hourglass')).toBeInTheDocument();
+  });
+
   it('should return null for unknown status', () => {
     const icon = getIcon('unknown');
     expect(icon).toBeNull();

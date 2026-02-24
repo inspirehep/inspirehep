@@ -154,6 +154,9 @@ export class BackofficeSaveButtonComponent
   }
 
   private getCallbackPayload(): { [key: string]: string | boolean } | undefined {
+    if (this.workflowObject.status === 'missing_subject_fields') {
+      return { action: 'missing_subject_fields' };
+    }
     if (this.workflowObject.status === 'error_validation') {
       return { restart_current_task: true };
     }
