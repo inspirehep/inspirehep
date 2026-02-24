@@ -1,45 +1,24 @@
 interactions:
 - request:
-    body: null
+    body: '{"query":{"bool":{"filter":[{"terms":{"status":["completed"]}}],"should":[{"terms":{"data.arxiv_eprints.value":["2504.01123"]}}],"minimum_should_match":1}}}'
     headers:
-      Accept:
+      Content-Length:
+      - '156'
+      content-type:
       - application/json
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-    method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/search/?status__in=completed&search=data.arxiv_eprints.value.keyword%3A2504.01123
+    method: POST
+    uri: http://es:9200/backoffice-backend-local-hep-workflows/_search
   response:
     body:
-      string: '{"count":2,"next":null,"previous":null,"facets":{"_filter_workflow_type":{"doc_count":2,"workflow_type":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"HEP_CREATE","doc_count":2,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"completed","doc_count":2}]}}]}},"_filter_status":{"doc_count":2,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"completed","doc_count":2}]}}},"results":[{"workflow_type":"HEP_CREATE","data":{"titles":[{"title":"Nucleation
-        line in three-component Bose-Einstein condensates in Gross-Pitaevskii theory","source":"arXiv"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2504.01123","categories":["cs.LG","cs.NA","math.NA"]}],"document_type":["article"],"acquisition_source":{"source":"arXiv"}},"status":"completed","_updated_at":"2025-12-05T14:21:50.924556+00:00","_created_at":"2025-12-05T14:20:19.178692+00:00","id":"14fa28b8-2610-444b-913e-2c5ed00124d8","decisions":[]},{"workflow_type":"HEP_CREATE","data":{"titles":[{"title":"TEST
-        TEST","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2504.01123"}],"document_type":["article"],"acquisition_source":{"method":"hepcrawl","source":"arXiv","datetime":"2025-10-28T02:00:33.403192","submission_number":"scheduled__2025-10-28T02:00:00+00:00"}},"status":"completed","_updated_at":"2025-11-01T00:00:00+00:00","_created_at":"2025-11-01T00:00:00+00:00","id":"26f5c03b-6085-4d1c-a300-bfac9df4b1b3","decisions":[{"action":"hep_reject","user":{"email":"admin@admin.com"}}]}]}'
+      string: '{"took":51,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":{"value":1,"relation":"eq"},"max_score":1.0,"hits":[{"_index":"backoffice-backend-local-hep-workflows","_id":"26f5c03b-6085-4d1c-a300-bfac9df4b1b3","_score":1.0,"_source":{"data":{"acquisition_source":{"datetime":"2025-10-28T02:00:33.403192","method":"hepcrawl","source":"arXiv"},"arxiv_eprints":[{"categories":null,"value":"2504.01123"}],"abstracts":{},"control_number":null,"core":null,"dois":{},"accelerator_experiments":{},"corporate_author":null,"authors":{},"public_notes":{},"collaborations":{},"external_system_identifiers":{},"_private_notes":{},"publication_info":{},"report_numbers":{},"supervisors":{},"titles":[{"full_title":null,"source":"submitter","subtitle":null,"title":"TEST
+        TEST"}],"inspire_categories":{}},"relevance_prediction":{},"matches":{},"id":"26f5c03b-6085-4d1c-a300-bfac9df4b1b3","workflow_type":"HEP_CREATE","decisions":[],"status":"completed","_created_at":"2025-11-01T00:00:00+00:00","_updated_at":"2025-11-01T00:00:00+00:00"}}]}}'
     headers:
-      Allow:
-      - GET, HEAD, OPTIONS
-      Content-Language:
-      - en
-      Content-Length:
-      - '1702'
-      Content-Type:
-      - application/json
-      Cross-Origin-Opener-Policy:
-      - same-origin
-      Date:
-      - Tue, 09 Dec 2025 09:31:50 GMT
-      Referrer-Policy:
-      - same-origin
-      Server:
-      - WSGIServer/0.2 CPython/3.11.6
-      Vary:
-      - Accept, Accept-Language, Cookie, origin
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
+      X-OpenSearch-Version:
+      - OpenSearch/3.2.0 (opensearch)
+      content-length:
+      - '1068'
+      content-type:
+      - application/json; charset=UTF-8
     status:
       code: 200
       message: OK
@@ -55,7 +34,7 @@ interactions:
       Content-Type:
       - application/json
     method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/14fa28b8-2610-444b-913e-2c5ed00124d8
+    uri: http://host.docker.internal:8001/api/workflows/literature/26f5c03b-6085-4d1c-a300-bfac9df4b1b3
   response:
     body:
       string: ''
@@ -69,9 +48,9 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 09 Dec 2025 09:31:50 GMT
+      - Tue, 24 Feb 2026 15:45:36 GMT
       Location:
-      - /api/workflows/literature/14fa28b8-2610-444b-913e-2c5ed00124d8/
+      - /api/workflows/literature/26f5c03b-6085-4d1c-a300-bfac9df4b1b3/
       Referrer-Policy:
       - same-origin
       Server:
@@ -93,105 +72,24 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/14fa28b8-2610-444b-913e-2c5ed00124d8/
+    uri: http://host.docker.internal:8001/api/workflows/literature/26f5c03b-6085-4d1c-a300-bfac9df4b1b3/
   response:
     body:
-      string: '{"id":"14fa28b8-2610-444b-913e-2c5ed00124d8","validation_errors":[],"data":{"titles":[{"title":"Nucleation
-        line in three-component Bose-Einstein condensates in Gross-Pitaevskii theory","source":"arXiv"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2504.01123","categories":["cs.LG","cs.NA","math.NA"]}],"document_type":["article"],"acquisition_source":{"source":"arXiv"}},"tickets":[],"decisions":[],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2025-12-05T14:20:19.178692Z","_updated_at":"2025-12-05T14:21:50.924556Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"completed"}'
+      string: '{"id":"26f5c03b-6085-4d1c-a300-bfac9df4b1b3","validation_errors":[],"data":{"titles":[{"title":"TEST
+        TEST","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2504.01123"}],"document_type":["article"],"acquisition_source":{"method":"hepcrawl","source":"arXiv","datetime":"2025-10-28T02:00:33.403192","submission_number":"scheduled__2025-10-28T02:00:00+00:00"}},"tickets":[],"decisions":[{"id":8,"workflow":"26f5c03b-6085-4d1c-a300-bfac9df4b1b3","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_reject","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"callback_url":null,"_created_at":"2025-11-01T00:00:00Z","_updated_at":"2025-11-01T00:00:00Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"form_data":null,"status":"completed"}'
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '748'
+      - '979'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 09 Dec 2025 09:31:50 GMT
-      Referrer-Policy:
-      - same-origin
-      Server:
-      - WSGIServer/0.2 CPython/3.11.6
-      Vary:
-      - Accept, Accept-Language, Cookie, origin
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/json
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-    method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/14fa28b8-2610-444b-913e-2c5ed00124d8
-  response:
-    body:
-      string: ''
-    headers:
-      Connection:
-      - close
-      Content-Language:
-      - en
-      Content-Type:
-      - text/html; charset=utf-8
-      Cross-Origin-Opener-Policy:
-      - same-origin
-      Date:
-      - Tue, 09 Dec 2025 09:31:50 GMT
-      Location:
-      - /api/workflows/literature/14fa28b8-2610-444b-913e-2c5ed00124d8/
-      Referrer-Policy:
-      - same-origin
-      Server:
-      - WSGIServer/0.2 CPython/3.11.6
-      Vary:
-      - Accept-Language, origin
-      X-Content-Type-Options:
-      - nosniff
-    status:
-      code: 301
-      message: Moved Permanently
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/json
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-    method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/14fa28b8-2610-444b-913e-2c5ed00124d8/
-  response:
-    body:
-      string: '{"id":"14fa28b8-2610-444b-913e-2c5ed00124d8","validation_errors":[],"data":{"titles":[{"title":"Nucleation
-        line in three-component Bose-Einstein condensates in Gross-Pitaevskii theory","source":"arXiv"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2504.01123","categories":["cs.LG","cs.NA","math.NA"]}],"document_type":["article"],"acquisition_source":{"source":"arXiv"}},"tickets":[],"decisions":[],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2025-12-05T14:20:19.178692Z","_updated_at":"2025-12-05T14:21:50.924556Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"completed"}'
-    headers:
-      Allow:
-      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
-      Content-Language:
-      - en
-      Content-Length:
-      - '748'
-      Content-Type:
-      - application/json
-      Cross-Origin-Opener-Policy:
-      - same-origin
-      Date:
-      - Tue, 09 Dec 2025 09:31:50 GMT
+      - Tue, 24 Feb 2026 15:45:36 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -231,7 +129,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 09 Dec 2025 09:31:50 GMT
+      - Tue, 24 Feb 2026 15:45:36 GMT
       Location:
       - /api/workflows/literature/26f5c03b-6085-4d1c-a300-bfac9df4b1b3/
       Referrer-Policy:
@@ -259,101 +157,20 @@ interactions:
   response:
     body:
       string: '{"id":"26f5c03b-6085-4d1c-a300-bfac9df4b1b3","validation_errors":[],"data":{"titles":[{"title":"TEST
-        TEST","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2504.01123"}],"document_type":["article"],"acquisition_source":{"method":"hepcrawl","source":"arXiv","datetime":"2025-10-28T02:00:33.403192","submission_number":"scheduled__2025-10-28T02:00:00+00:00"}},"tickets":[],"decisions":[{"id":8,"workflow":"26f5c03b-6085-4d1c-a300-bfac9df4b1b3","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_reject","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2025-11-01T00:00:00Z","_updated_at":"2025-11-01T00:00:00Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"completed"}'
+        TEST","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2504.01123"}],"document_type":["article"],"acquisition_source":{"method":"hepcrawl","source":"arXiv","datetime":"2025-10-28T02:00:33.403192","submission_number":"scheduled__2025-10-28T02:00:00+00:00"}},"tickets":[],"decisions":[{"id":8,"workflow":"26f5c03b-6085-4d1c-a300-bfac9df4b1b3","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_reject","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"callback_url":null,"_created_at":"2025-11-01T00:00:00Z","_updated_at":"2025-11-01T00:00:00Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"form_data":null,"status":"completed"}'
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '942'
+      - '979'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 09 Dec 2025 09:31:50 GMT
-      Referrer-Policy:
-      - same-origin
-      Server:
-      - WSGIServer/0.2 CPython/3.11.6
-      Vary:
-      - Accept, Accept-Language, Cookie, origin
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/json
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-    method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/26f5c03b-6085-4d1c-a300-bfac9df4b1b3
-  response:
-    body:
-      string: ''
-    headers:
-      Connection:
-      - close
-      Content-Language:
-      - en
-      Content-Type:
-      - text/html; charset=utf-8
-      Cross-Origin-Opener-Policy:
-      - same-origin
-      Date:
-      - Tue, 09 Dec 2025 09:31:50 GMT
-      Location:
-      - /api/workflows/literature/26f5c03b-6085-4d1c-a300-bfac9df4b1b3/
-      Referrer-Policy:
-      - same-origin
-      Server:
-      - WSGIServer/0.2 CPython/3.11.6
-      Vary:
-      - Accept-Language, origin
-      X-Content-Type-Options:
-      - nosniff
-    status:
-      code: 301
-      message: Moved Permanently
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/json
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-    method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/26f5c03b-6085-4d1c-a300-bfac9df4b1b3/
-  response:
-    body:
-      string: '{"id":"26f5c03b-6085-4d1c-a300-bfac9df4b1b3","validation_errors":[],"data":{"titles":[{"title":"TEST
-        TEST","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2504.01123"}],"document_type":["article"],"acquisition_source":{"method":"hepcrawl","source":"arXiv","datetime":"2025-10-28T02:00:33.403192","submission_number":"scheduled__2025-10-28T02:00:00+00:00"}},"tickets":[],"decisions":[{"id":8,"workflow":"26f5c03b-6085-4d1c-a300-bfac9df4b1b3","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_reject","value":"","user":"admin@admin.com"}],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2025-11-01T00:00:00Z","_updated_at":"2025-11-01T00:00:00Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"completed"}'
-    headers:
-      Allow:
-      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
-      Content-Language:
-      - en
-      Content-Length:
-      - '942'
-      Content-Type:
-      - application/json
-      Cross-Origin-Opener-Policy:
-      - same-origin
-      Date:
-      - Tue, 09 Dec 2025 09:31:50 GMT
+      - Tue, 24 Feb 2026 15:45:36 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -437,7 +254,7 @@ interactions:
         Mercury+ ST1 - Base Board for Mercury/Mercury+ FPGA Modules. [Online]\"],\"urls\":[{\"value\":\"https://www.enclustra.com/en/products/base-boards/mercury-st1/\"}],\"label\":\"6\",\"texkey\":\"enclustra_baseboard\"}}],\"_collections\":[\"Literature\"],\"public_notes\":[{\"value\":\"15
         pages\",\"source\":\"arXiv\"}],\"arxiv_eprints\":[{\"value\":\"2510.21772\",\"categories\":[\"cs.LG\",\"cs.NA\",\"math.NA\"]}],\"document_type\":[\"article\"],\"preprint_date\":\"2025-10-17\",\"collaborations\":[{\"value\":\"BLFQ\"}],\"report_numbers\":[{\"value\":\"ADP-25-11/T1273\",\"source\":\"arXiv\"}],\"number_of_pages\":15,\"publication_info\":[{\"year\":2025,\"artid\":\"139959\",\"material\":\"publication\",\"journal_title\":\"Phys.Lett.B\",\"journal_record\":{\"$ref\":\"https://inspirehep.net/api/journals/1613966\"},\"journal_volume\":\"870\",\"pubinfo_freetext\":\"Phys.
         Lett. B 870 (2025) 139959\"}],\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"arXiv\",\"datetime\":\"2025-10-28T02:00:33.403192\",\"submission_number\":\"scheduled__2025-10-28T02:00:00+00:00\"},\"inspire_categories\":[{\"term\":\"Computing\",\"source\":\"arxiv\"},{\"term\":\"Math
-        and Math Physics\",\"source\":\"arxiv\"}],\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirehep.net/api/experiments/1711193\"},\"legacy_name\":\"CERN-LHC-FASER\"}]},\"tickets\":[],\"decisions\":[{\"id\":1,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-08-26T14:45:14.237000Z\",\"_updated_at\":\"2025-08-26T14:45:14.237000Z\",\"action\":\"fuzzy_match\",\"value\":\"paper1\",\"user\":\"admin@admin.com\"},{\"id\":9,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:05.028388Z\",\"_updated_at\":\"2025-12-05T12:23:05.028418Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":10,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:06.149905Z\",\"_updated_at\":\"2025-12-05T12:23:06.149915Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":11,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:08.183892Z\",\"_updated_at\":\"2025-12-05T12:23:08.183903Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":12,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:12.328457Z\",\"_updated_at\":\"2025-12-05T12:23:12.328471Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":13,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:20.419792Z\",\"_updated_at\":\"2025-12-05T12:23:20.419805Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":14,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:40.998284Z\",\"_updated_at\":\"2025-12-05T12:23:40.998295Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":15,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:42.066672Z\",\"_updated_at\":\"2025-12-05T12:23:42.066687Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":16,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:44.148260Z\",\"_updated_at\":\"2025-12-05T12:23:44.148274Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":17,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:48.191148Z\",\"_updated_at\":\"2025-12-05T12:23:48.191162Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":18,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:56.242853Z\",\"_updated_at\":\"2025-12-05T12:23:56.242872Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":19,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:27:07.019126Z\",\"_updated_at\":\"2025-12-05T12:27:07.019153Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":20,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:27:08.092739Z\",\"_updated_at\":\"2025-12-05T12:27:08.092756Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":21,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:27:10.166664Z\",\"_updated_at\":\"2025-12-05T12:27:10.166684Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":22,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:27:14.238986Z\",\"_updated_at\":\"2025-12-05T12:27:14.239024Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":23,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:27:22.324690Z\",\"_updated_at\":\"2025-12-05T12:27:22.324702Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":24,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:03:53.926144Z\",\"_updated_at\":\"2025-12-09T09:03:53.926187Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":25,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:10:01.419599Z\",\"_updated_at\":\"2025-12-09T09:10:01.420030Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":26,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:24:19.555994Z\",\"_updated_at\":\"2025-12-09T09:24:19.556070Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":27,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:27:02.586224Z\",\"_updated_at\":\"2025-12-09T09:27:02.586334Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":28,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:27:28.601966Z\",\"_updated_at\":\"2025-12-09T09:27:28.602143Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":29,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:27:48.665549Z\",\"_updated_at\":\"2025-12-09T09:27:48.665609Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":30,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:28:26.626872Z\",\"_updated_at\":\"2025-12-09T09:28:26.626930Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":31,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:31:00.388685Z\",\"_updated_at\":\"2025-12-09T09:31:00.388758Z\",\"action\":\"auto_accept_core\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":32,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:31:25.748841Z\",\"_updated_at\":\"2025-12-09T09:31:25.748903Z\",\"action\":\"auto_accept_core\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":33,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:31:50.655215Z\",\"_updated_at\":\"2025-12-09T09:31:50.655484Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"}],\"workflow_type\":\"HEP_CREATE\",\"classifier_results\":{\"categories\":[{\"keyword\":\"color\",\"category\":\"HEP\"},{\"keyword\":\"fluctuation\",\"category\":\"HEP\"},{\"keyword\":\"quantum
+        and Math Physics\",\"source\":\"arxiv\"}],\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirehep.net/api/experiments/1711193\"},\"legacy_name\":\"CERN-LHC-FASER\"}]},\"tickets\":[],\"decisions\":[{\"id\":1,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-08-26T14:45:14.237000Z\",\"_updated_at\":\"2025-08-26T14:45:14.237000Z\",\"action\":\"fuzzy_match\",\"value\":\"paper1\",\"user\":\"admin@admin.com\"},{\"id\":12,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2026-02-24T15:15:19.480190Z\",\"_updated_at\":\"2026-02-24T15:15:19.480207Z\",\"action\":\"discard\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":13,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2026-02-24T15:27:25.464148Z\",\"_updated_at\":\"2026-02-24T15:27:25.464166Z\",\"action\":\"discard\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":14,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2026-02-24T15:29:18.604484Z\",\"_updated_at\":\"2026-02-24T15:29:18.604536Z\",\"action\":\"discard\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":15,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2026-02-24T15:30:23.528565Z\",\"_updated_at\":\"2026-02-24T15:30:23.528649Z\",\"action\":\"discard\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":16,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2026-02-24T15:45:36.279302Z\",\"_updated_at\":\"2026-02-24T15:45:36.279342Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"}],\"workflow_type\":\"HEP_CREATE\",\"classifier_results\":{\"categories\":[{\"keyword\":\"color\",\"category\":\"HEP\"},{\"keyword\":\"fluctuation\",\"category\":\"HEP\"},{\"keyword\":\"quantum
         information\",\"category\":\"HEP\"},{\"keyword\":\"quantum sensing\",\"category\":\"HEP\"},{\"keyword\":\"entanglement\",\"category\":\"HEP\"},{\"keyword\":\"engineering\",\"category\":\"HEP\"},{\"keyword\":\"quantum
         communication\",\"category\":\"HEP\"},{\"keyword\":\"mirror\",\"category\":\"HEP\"},{\"keyword\":\"mixing\",\"category\":\"HEP\"},{\"keyword\":\"scattering\",\"category\":\"HEP\"},{\"keyword\":\"cloud\",\"category\":\"HEP\"},{\"keyword\":\"monitoring\",\"category\":\"HEP\"},{\"keyword\":\"quantum
         state\",\"category\":\"HEP\"},{\"keyword\":\"absorption\",\"category\":\"HEP\"},{\"keyword\":\"quantum
@@ -448,7 +265,8 @@ interactions:
         SPS\",\"category\":\"HEP\"},{\"keyword\":\"quantum channel\",\"category\":\"HEP\"},{\"keyword\":\"structure\",\"category\":\"HEP\"},{\"keyword\":\"topology\",\"category\":\"HEP\"},{\"keyword\":\"4/3\",\"category\":\"HEP\"},{\"keyword\":\"density
         matrix\",\"category\":\"HEP\"},{\"keyword\":\"quantum memory\",\"category\":\"HEP\"},{\"keyword\":\"transfer
         matrix\",\"category\":\"HEP\"},{\"keyword\":\"propagation\",\"category\":\"HEP\"},{\"keyword\":\"depolarization\",\"category\":\"HEP\"},{\"keyword\":\"estimator\",\"category\":\"HEP\"},{\"keyword\":\"qubit\",\"category\":\"HEP\"},{\"keyword\":\"parametric\",\"category\":\"HEP\"}],\"fulltext_used\":true,\"complete_output\":{\"acronyms\":[],\"field_codes\":[{\"keywords\":\"quantum
-        key distribution, quantum information\",\"fieldcode\":\"k\"}],\"core_keywords\":[{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
+        key distribution, quantum information\",\"fieldcode\":\"k\"}],\"core_keywords\":[{\"number\":150,\"keyword\":\"big
+        number\"},{\"number\":0,\"keyword\":\"zero\"},{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
         device\"},{\"number\":5,\"keyword\":\"gate, C-NOT\"},{\"number\":2,\"keyword\":\"computer,
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
@@ -469,12 +287,13 @@ interactions:
         quantum\"},{\"number\":1,\"details\":[1,53],\"keyword\":\"Fisher information,
         quantum\"},{\"number\":1,\"details\":[22,2],\"keyword\":\"gate, phase\"},{\"number\":1,\"details\":[12,12],\"keyword\":\"decoherence,
         time\"},{\"number\":1,\"details\":[12,3],\"keyword\":\"representation, unitarity\"},{\"number\":1,\"details\":[2,3],\"keyword\":\"fibre,
-        optical\"},{\"number\":1,\"details\":[1,1],\"keyword\":\"resonance, magnetic\"}],\"filtered_core_keywords\":[{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
+        optical\"},{\"number\":1,\"details\":[1,1],\"keyword\":\"resonance, magnetic\"}],\"filtered_core_keywords\":[{\"number\":150,\"keyword\":\"big
+        number\"},{\"number\":0,\"keyword\":\"zero\"},{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
         device\"},{\"number\":5,\"keyword\":\"gate, C-NOT\"},{\"number\":2,\"keyword\":\"computer,
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
         sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
-        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-12-09T09:31:50.661246Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
+        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"callback_url\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2026-02-24T15:45:36.280264Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
         class of Hadamard well-posed five-field theories of dissipative relativistic
         fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
         Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
@@ -489,20 +308,20 @@ interactions:
         =13 TeV That Decay to Displaced Hadronic Jets Detected With the Muon Spectrometer
         in ATLAS\",\"authors\":[{\"full_name\":\"Zhou, Hao\"}],\"abstract\":\"The
         discovery of the Higgs boson in 2012 marked a great success of the Standard
-        Model (SM) of particle physics.\",\"authors_count\":1,\"earliest_date\":\"2021\",\"control_number\":1989726,\"number_of_pages\":163,\"publication_info\":[{\"year\":2021}]}]},\"status\":\"processing\"}"
+        Model (SM) of particle physics.\",\"authors_count\":1,\"earliest_date\":\"2021\",\"control_number\":1989726,\"number_of_pages\":163,\"publication_info\":[{\"year\":2021}]}]},\"form_data\":null,\"status\":\"running\"}"
     headers:
       Allow:
       - POST, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '19645'
+      - '15665'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 09 Dec 2025 09:31:50 GMT
+      - Tue, 24 Feb 2026 15:45:36 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -542,7 +361,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 09 Dec 2025 09:31:50 GMT
+      - Tue, 24 Feb 2026 15:45:37 GMT
       Location:
       - /api/workflows/literature/00000000-0000-0000-0000-000000001111/
       Referrer-Policy:
@@ -622,7 +441,7 @@ interactions:
         Mercury+ ST1 - Base Board for Mercury/Mercury+ FPGA Modules. [Online]\"],\"urls\":[{\"value\":\"https://www.enclustra.com/en/products/base-boards/mercury-st1/\"}],\"label\":\"6\",\"texkey\":\"enclustra_baseboard\"}}],\"_collections\":[\"Literature\"],\"public_notes\":[{\"value\":\"15
         pages\",\"source\":\"arXiv\"}],\"arxiv_eprints\":[{\"value\":\"2510.21772\",\"categories\":[\"cs.LG\",\"cs.NA\",\"math.NA\"]}],\"document_type\":[\"article\"],\"preprint_date\":\"2025-10-17\",\"collaborations\":[{\"value\":\"BLFQ\"}],\"report_numbers\":[{\"value\":\"ADP-25-11/T1273\",\"source\":\"arXiv\"}],\"number_of_pages\":15,\"publication_info\":[{\"year\":2025,\"artid\":\"139959\",\"material\":\"publication\",\"journal_title\":\"Phys.Lett.B\",\"journal_record\":{\"$ref\":\"https://inspirehep.net/api/journals/1613966\"},\"journal_volume\":\"870\",\"pubinfo_freetext\":\"Phys.
         Lett. B 870 (2025) 139959\"}],\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"arXiv\",\"datetime\":\"2025-10-28T02:00:33.403192\",\"submission_number\":\"scheduled__2025-10-28T02:00:00+00:00\"},\"inspire_categories\":[{\"term\":\"Computing\",\"source\":\"arxiv\"},{\"term\":\"Math
-        and Math Physics\",\"source\":\"arxiv\"}],\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirehep.net/api/experiments/1711193\"},\"legacy_name\":\"CERN-LHC-FASER\"}]},\"tickets\":[],\"decisions\":[{\"id\":1,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-08-26T14:45:14.237000Z\",\"_updated_at\":\"2025-08-26T14:45:14.237000Z\",\"action\":\"fuzzy_match\",\"value\":\"paper1\",\"user\":\"admin@admin.com\"},{\"id\":9,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:05.028388Z\",\"_updated_at\":\"2025-12-05T12:23:05.028418Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":10,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:06.149905Z\",\"_updated_at\":\"2025-12-05T12:23:06.149915Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":11,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:08.183892Z\",\"_updated_at\":\"2025-12-05T12:23:08.183903Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":12,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:12.328457Z\",\"_updated_at\":\"2025-12-05T12:23:12.328471Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":13,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:20.419792Z\",\"_updated_at\":\"2025-12-05T12:23:20.419805Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":14,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:40.998284Z\",\"_updated_at\":\"2025-12-05T12:23:40.998295Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":15,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:42.066672Z\",\"_updated_at\":\"2025-12-05T12:23:42.066687Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":16,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:44.148260Z\",\"_updated_at\":\"2025-12-05T12:23:44.148274Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":17,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:48.191148Z\",\"_updated_at\":\"2025-12-05T12:23:48.191162Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":18,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:56.242853Z\",\"_updated_at\":\"2025-12-05T12:23:56.242872Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":19,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:27:07.019126Z\",\"_updated_at\":\"2025-12-05T12:27:07.019153Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":20,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:27:08.092739Z\",\"_updated_at\":\"2025-12-05T12:27:08.092756Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":21,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:27:10.166664Z\",\"_updated_at\":\"2025-12-05T12:27:10.166684Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":22,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:27:14.238986Z\",\"_updated_at\":\"2025-12-05T12:27:14.239024Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":23,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:27:22.324690Z\",\"_updated_at\":\"2025-12-05T12:27:22.324702Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":24,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:03:53.926144Z\",\"_updated_at\":\"2025-12-09T09:03:53.926187Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":25,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:10:01.419599Z\",\"_updated_at\":\"2025-12-09T09:10:01.420030Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":26,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:24:19.555994Z\",\"_updated_at\":\"2025-12-09T09:24:19.556070Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":27,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:27:02.586224Z\",\"_updated_at\":\"2025-12-09T09:27:02.586334Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":28,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:27:28.601966Z\",\"_updated_at\":\"2025-12-09T09:27:28.602143Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":29,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:27:48.665549Z\",\"_updated_at\":\"2025-12-09T09:27:48.665609Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":30,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:28:26.626872Z\",\"_updated_at\":\"2025-12-09T09:28:26.626930Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":31,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:31:00.388685Z\",\"_updated_at\":\"2025-12-09T09:31:00.388758Z\",\"action\":\"auto_accept_core\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":32,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:31:25.748841Z\",\"_updated_at\":\"2025-12-09T09:31:25.748903Z\",\"action\":\"auto_accept_core\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":33,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:31:50.655215Z\",\"_updated_at\":\"2025-12-09T09:31:50.655484Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"}],\"workflow_type\":\"HEP_CREATE\",\"classifier_results\":{\"categories\":[{\"keyword\":\"color\",\"category\":\"HEP\"},{\"keyword\":\"fluctuation\",\"category\":\"HEP\"},{\"keyword\":\"quantum
+        and Math Physics\",\"source\":\"arxiv\"}],\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirehep.net/api/experiments/1711193\"},\"legacy_name\":\"CERN-LHC-FASER\"}]},\"tickets\":[],\"decisions\":[{\"id\":1,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-08-26T14:45:14.237000Z\",\"_updated_at\":\"2025-08-26T14:45:14.237000Z\",\"action\":\"fuzzy_match\",\"value\":\"paper1\",\"user\":\"admin@admin.com\"},{\"id\":12,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2026-02-24T15:15:19.480190Z\",\"_updated_at\":\"2026-02-24T15:15:19.480207Z\",\"action\":\"discard\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":13,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2026-02-24T15:27:25.464148Z\",\"_updated_at\":\"2026-02-24T15:27:25.464166Z\",\"action\":\"discard\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":14,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2026-02-24T15:29:18.604484Z\",\"_updated_at\":\"2026-02-24T15:29:18.604536Z\",\"action\":\"discard\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":15,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2026-02-24T15:30:23.528565Z\",\"_updated_at\":\"2026-02-24T15:30:23.528649Z\",\"action\":\"discard\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":16,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2026-02-24T15:45:36.279302Z\",\"_updated_at\":\"2026-02-24T15:45:36.279342Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"}],\"workflow_type\":\"HEP_CREATE\",\"classifier_results\":{\"categories\":[{\"keyword\":\"color\",\"category\":\"HEP\"},{\"keyword\":\"fluctuation\",\"category\":\"HEP\"},{\"keyword\":\"quantum
         information\",\"category\":\"HEP\"},{\"keyword\":\"quantum sensing\",\"category\":\"HEP\"},{\"keyword\":\"entanglement\",\"category\":\"HEP\"},{\"keyword\":\"engineering\",\"category\":\"HEP\"},{\"keyword\":\"quantum
         communication\",\"category\":\"HEP\"},{\"keyword\":\"mirror\",\"category\":\"HEP\"},{\"keyword\":\"mixing\",\"category\":\"HEP\"},{\"keyword\":\"scattering\",\"category\":\"HEP\"},{\"keyword\":\"cloud\",\"category\":\"HEP\"},{\"keyword\":\"monitoring\",\"category\":\"HEP\"},{\"keyword\":\"quantum
         state\",\"category\":\"HEP\"},{\"keyword\":\"absorption\",\"category\":\"HEP\"},{\"keyword\":\"quantum
@@ -633,7 +452,8 @@ interactions:
         SPS\",\"category\":\"HEP\"},{\"keyword\":\"quantum channel\",\"category\":\"HEP\"},{\"keyword\":\"structure\",\"category\":\"HEP\"},{\"keyword\":\"topology\",\"category\":\"HEP\"},{\"keyword\":\"4/3\",\"category\":\"HEP\"},{\"keyword\":\"density
         matrix\",\"category\":\"HEP\"},{\"keyword\":\"quantum memory\",\"category\":\"HEP\"},{\"keyword\":\"transfer
         matrix\",\"category\":\"HEP\"},{\"keyword\":\"propagation\",\"category\":\"HEP\"},{\"keyword\":\"depolarization\",\"category\":\"HEP\"},{\"keyword\":\"estimator\",\"category\":\"HEP\"},{\"keyword\":\"qubit\",\"category\":\"HEP\"},{\"keyword\":\"parametric\",\"category\":\"HEP\"}],\"fulltext_used\":true,\"complete_output\":{\"acronyms\":[],\"field_codes\":[{\"keywords\":\"quantum
-        key distribution, quantum information\",\"fieldcode\":\"k\"}],\"core_keywords\":[{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
+        key distribution, quantum information\",\"fieldcode\":\"k\"}],\"core_keywords\":[{\"number\":150,\"keyword\":\"big
+        number\"},{\"number\":0,\"keyword\":\"zero\"},{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
         device\"},{\"number\":5,\"keyword\":\"gate, C-NOT\"},{\"number\":2,\"keyword\":\"computer,
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
@@ -654,12 +474,13 @@ interactions:
         quantum\"},{\"number\":1,\"details\":[1,53],\"keyword\":\"Fisher information,
         quantum\"},{\"number\":1,\"details\":[22,2],\"keyword\":\"gate, phase\"},{\"number\":1,\"details\":[12,12],\"keyword\":\"decoherence,
         time\"},{\"number\":1,\"details\":[12,3],\"keyword\":\"representation, unitarity\"},{\"number\":1,\"details\":[2,3],\"keyword\":\"fibre,
-        optical\"},{\"number\":1,\"details\":[1,1],\"keyword\":\"resonance, magnetic\"}],\"filtered_core_keywords\":[{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
+        optical\"},{\"number\":1,\"details\":[1,1],\"keyword\":\"resonance, magnetic\"}],\"filtered_core_keywords\":[{\"number\":150,\"keyword\":\"big
+        number\"},{\"number\":0,\"keyword\":\"zero\"},{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
         device\"},{\"number\":5,\"keyword\":\"gate, C-NOT\"},{\"number\":2,\"keyword\":\"computer,
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
         sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
-        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-12-09T09:31:50.661246Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
+        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"callback_url\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2026-02-24T15:45:36.280264Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
         class of Hadamard well-posed five-field theories of dissipative relativistic
         fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
         Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
@@ -674,20 +495,20 @@ interactions:
         =13 TeV That Decay to Displaced Hadronic Jets Detected With the Muon Spectrometer
         in ATLAS\",\"authors\":[{\"full_name\":\"Zhou, Hao\"}],\"abstract\":\"The
         discovery of the Higgs boson in 2012 marked a great success of the Standard
-        Model (SM) of particle physics.\",\"authors_count\":1,\"earliest_date\":\"2021\",\"control_number\":1989726,\"number_of_pages\":163,\"publication_info\":[{\"year\":2021}]}]},\"status\":\"processing\"}"
+        Model (SM) of particle physics.\",\"authors_count\":1,\"earliest_date\":\"2021\",\"control_number\":1989726,\"number_of_pages\":163,\"publication_info\":[{\"year\":2021}]}]},\"form_data\":null,\"status\":\"running\"}"
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '19668'
+      - '15688'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 09 Dec 2025 09:31:50 GMT
+      - Tue, 24 Feb 2026 15:45:37 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -727,7 +548,7 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 09 Dec 2025 09:31:50 GMT
+      - Tue, 24 Feb 2026 15:45:37 GMT
       Location:
       - /api/workflows/literature/00000000-0000-0000-0000-000000001111/
       Referrer-Policy:
@@ -807,7 +628,7 @@ interactions:
         Mercury+ ST1 - Base Board for Mercury/Mercury+ FPGA Modules. [Online]\"],\"urls\":[{\"value\":\"https://www.enclustra.com/en/products/base-boards/mercury-st1/\"}],\"label\":\"6\",\"texkey\":\"enclustra_baseboard\"}}],\"_collections\":[\"Literature\"],\"public_notes\":[{\"value\":\"15
         pages\",\"source\":\"arXiv\"}],\"arxiv_eprints\":[{\"value\":\"2510.21772\",\"categories\":[\"cs.LG\",\"cs.NA\",\"math.NA\"]}],\"document_type\":[\"article\"],\"preprint_date\":\"2025-10-17\",\"collaborations\":[{\"value\":\"BLFQ\"}],\"report_numbers\":[{\"value\":\"ADP-25-11/T1273\",\"source\":\"arXiv\"}],\"number_of_pages\":15,\"publication_info\":[{\"year\":2025,\"artid\":\"139959\",\"material\":\"publication\",\"journal_title\":\"Phys.Lett.B\",\"journal_record\":{\"$ref\":\"https://inspirehep.net/api/journals/1613966\"},\"journal_volume\":\"870\",\"pubinfo_freetext\":\"Phys.
         Lett. B 870 (2025) 139959\"}],\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"arXiv\",\"datetime\":\"2025-10-28T02:00:33.403192\",\"submission_number\":\"scheduled__2025-10-28T02:00:00+00:00\"},\"inspire_categories\":[{\"term\":\"Computing\",\"source\":\"arxiv\"},{\"term\":\"Math
-        and Math Physics\",\"source\":\"arxiv\"}],\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirehep.net/api/experiments/1711193\"},\"legacy_name\":\"CERN-LHC-FASER\"}]},\"tickets\":[],\"decisions\":[{\"id\":1,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-08-26T14:45:14.237000Z\",\"_updated_at\":\"2025-08-26T14:45:14.237000Z\",\"action\":\"fuzzy_match\",\"value\":\"paper1\",\"user\":\"admin@admin.com\"},{\"id\":9,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:05.028388Z\",\"_updated_at\":\"2025-12-05T12:23:05.028418Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":10,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:06.149905Z\",\"_updated_at\":\"2025-12-05T12:23:06.149915Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":11,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:08.183892Z\",\"_updated_at\":\"2025-12-05T12:23:08.183903Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":12,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:12.328457Z\",\"_updated_at\":\"2025-12-05T12:23:12.328471Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":13,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:20.419792Z\",\"_updated_at\":\"2025-12-05T12:23:20.419805Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":14,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:40.998284Z\",\"_updated_at\":\"2025-12-05T12:23:40.998295Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":15,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:42.066672Z\",\"_updated_at\":\"2025-12-05T12:23:42.066687Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":16,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:44.148260Z\",\"_updated_at\":\"2025-12-05T12:23:44.148274Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":17,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:48.191148Z\",\"_updated_at\":\"2025-12-05T12:23:48.191162Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":18,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:23:56.242853Z\",\"_updated_at\":\"2025-12-05T12:23:56.242872Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":19,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:27:07.019126Z\",\"_updated_at\":\"2025-12-05T12:27:07.019153Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":20,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:27:08.092739Z\",\"_updated_at\":\"2025-12-05T12:27:08.092756Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":21,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:27:10.166664Z\",\"_updated_at\":\"2025-12-05T12:27:10.166684Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":22,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:27:14.238986Z\",\"_updated_at\":\"2025-12-05T12:27:14.239024Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":23,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-05T12:27:22.324690Z\",\"_updated_at\":\"2025-12-05T12:27:22.324702Z\",\"action\":\"hep_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":24,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:03:53.926144Z\",\"_updated_at\":\"2025-12-09T09:03:53.926187Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":25,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:10:01.419599Z\",\"_updated_at\":\"2025-12-09T09:10:01.420030Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":26,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:24:19.555994Z\",\"_updated_at\":\"2025-12-09T09:24:19.556070Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":27,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:27:02.586224Z\",\"_updated_at\":\"2025-12-09T09:27:02.586334Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":28,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:27:28.601966Z\",\"_updated_at\":\"2025-12-09T09:27:28.602143Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":29,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:27:48.665549Z\",\"_updated_at\":\"2025-12-09T09:27:48.665609Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":30,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:28:26.626872Z\",\"_updated_at\":\"2025-12-09T09:28:26.626930Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":31,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:31:00.388685Z\",\"_updated_at\":\"2025-12-09T09:31:00.388758Z\",\"action\":\"auto_accept_core\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":32,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:31:25.748841Z\",\"_updated_at\":\"2025-12-09T09:31:25.748903Z\",\"action\":\"auto_accept_core\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":33,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-12-09T09:31:50.655215Z\",\"_updated_at\":\"2025-12-09T09:31:50.655484Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"}],\"workflow_type\":\"HEP_CREATE\",\"classifier_results\":{\"categories\":[{\"keyword\":\"color\",\"category\":\"HEP\"},{\"keyword\":\"fluctuation\",\"category\":\"HEP\"},{\"keyword\":\"quantum
+        and Math Physics\",\"source\":\"arxiv\"}],\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirehep.net/api/experiments/1711193\"},\"legacy_name\":\"CERN-LHC-FASER\"}]},\"tickets\":[],\"decisions\":[{\"id\":1,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-08-26T14:45:14.237000Z\",\"_updated_at\":\"2025-08-26T14:45:14.237000Z\",\"action\":\"fuzzy_match\",\"value\":\"paper1\",\"user\":\"admin@admin.com\"},{\"id\":12,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2026-02-24T15:15:19.480190Z\",\"_updated_at\":\"2026-02-24T15:15:19.480207Z\",\"action\":\"discard\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":13,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2026-02-24T15:27:25.464148Z\",\"_updated_at\":\"2026-02-24T15:27:25.464166Z\",\"action\":\"discard\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":14,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2026-02-24T15:29:18.604484Z\",\"_updated_at\":\"2026-02-24T15:29:18.604536Z\",\"action\":\"discard\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":15,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2026-02-24T15:30:23.528565Z\",\"_updated_at\":\"2026-02-24T15:30:23.528649Z\",\"action\":\"discard\",\"value\":\"\",\"user\":\"admin@admin.com\"},{\"id\":16,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2026-02-24T15:45:36.279302Z\",\"_updated_at\":\"2026-02-24T15:45:36.279342Z\",\"action\":\"auto_reject\",\"value\":\"\",\"user\":\"admin@admin.com\"}],\"workflow_type\":\"HEP_CREATE\",\"classifier_results\":{\"categories\":[{\"keyword\":\"color\",\"category\":\"HEP\"},{\"keyword\":\"fluctuation\",\"category\":\"HEP\"},{\"keyword\":\"quantum
         information\",\"category\":\"HEP\"},{\"keyword\":\"quantum sensing\",\"category\":\"HEP\"},{\"keyword\":\"entanglement\",\"category\":\"HEP\"},{\"keyword\":\"engineering\",\"category\":\"HEP\"},{\"keyword\":\"quantum
         communication\",\"category\":\"HEP\"},{\"keyword\":\"mirror\",\"category\":\"HEP\"},{\"keyword\":\"mixing\",\"category\":\"HEP\"},{\"keyword\":\"scattering\",\"category\":\"HEP\"},{\"keyword\":\"cloud\",\"category\":\"HEP\"},{\"keyword\":\"monitoring\",\"category\":\"HEP\"},{\"keyword\":\"quantum
         state\",\"category\":\"HEP\"},{\"keyword\":\"absorption\",\"category\":\"HEP\"},{\"keyword\":\"quantum
@@ -818,7 +639,8 @@ interactions:
         SPS\",\"category\":\"HEP\"},{\"keyword\":\"quantum channel\",\"category\":\"HEP\"},{\"keyword\":\"structure\",\"category\":\"HEP\"},{\"keyword\":\"topology\",\"category\":\"HEP\"},{\"keyword\":\"4/3\",\"category\":\"HEP\"},{\"keyword\":\"density
         matrix\",\"category\":\"HEP\"},{\"keyword\":\"quantum memory\",\"category\":\"HEP\"},{\"keyword\":\"transfer
         matrix\",\"category\":\"HEP\"},{\"keyword\":\"propagation\",\"category\":\"HEP\"},{\"keyword\":\"depolarization\",\"category\":\"HEP\"},{\"keyword\":\"estimator\",\"category\":\"HEP\"},{\"keyword\":\"qubit\",\"category\":\"HEP\"},{\"keyword\":\"parametric\",\"category\":\"HEP\"}],\"fulltext_used\":true,\"complete_output\":{\"acronyms\":[],\"field_codes\":[{\"keywords\":\"quantum
-        key distribution, quantum information\",\"fieldcode\":\"k\"}],\"core_keywords\":[{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
+        key distribution, quantum information\",\"fieldcode\":\"k\"}],\"core_keywords\":[{\"number\":150,\"keyword\":\"big
+        number\"},{\"number\":0,\"keyword\":\"zero\"},{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
         device\"},{\"number\":5,\"keyword\":\"gate, C-NOT\"},{\"number\":2,\"keyword\":\"computer,
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
@@ -839,12 +661,13 @@ interactions:
         quantum\"},{\"number\":1,\"details\":[1,53],\"keyword\":\"Fisher information,
         quantum\"},{\"number\":1,\"details\":[22,2],\"keyword\":\"gate, phase\"},{\"number\":1,\"details\":[12,12],\"keyword\":\"decoherence,
         time\"},{\"number\":1,\"details\":[12,3],\"keyword\":\"representation, unitarity\"},{\"number\":1,\"details\":[2,3],\"keyword\":\"fibre,
-        optical\"},{\"number\":1,\"details\":[1,1],\"keyword\":\"resonance, magnetic\"}],\"filtered_core_keywords\":[{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
+        optical\"},{\"number\":1,\"details\":[1,1],\"keyword\":\"resonance, magnetic\"}],\"filtered_core_keywords\":[{\"number\":150,\"keyword\":\"big
+        number\"},{\"number\":0,\"keyword\":\"zero\"},{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
         device\"},{\"number\":5,\"keyword\":\"gate, C-NOT\"},{\"number\":2,\"keyword\":\"computer,
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
         sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
-        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2025-12-09T09:31:50.661246Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
+        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"callback_url\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2026-02-24T15:45:36.280264Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
         class of Hadamard well-posed five-field theories of dissipative relativistic
         fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
         Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
@@ -859,20 +682,20 @@ interactions:
         =13 TeV That Decay to Displaced Hadronic Jets Detected With the Muon Spectrometer
         in ATLAS\",\"authors\":[{\"full_name\":\"Zhou, Hao\"}],\"abstract\":\"The
         discovery of the Higgs boson in 2012 marked a great success of the Standard
-        Model (SM) of particle physics.\",\"authors_count\":1,\"earliest_date\":\"2021\",\"control_number\":1989726,\"number_of_pages\":163,\"publication_info\":[{\"year\":2021}]}]},\"status\":\"processing\"}"
+        Model (SM) of particle physics.\",\"authors_count\":1,\"earliest_date\":\"2021\",\"control_number\":1989726,\"number_of_pages\":163,\"publication_info\":[{\"year\":2021}]}]},\"form_data\":null,\"status\":\"running\"}"
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '19668'
+      - '15688'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 09 Dec 2025 09:31:50 GMT
+      - Tue, 24 Feb 2026 15:45:37 GMT
       Referrer-Policy:
       - same-origin
       Server:

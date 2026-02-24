@@ -1,46 +1,28 @@
 interactions:
 - request:
-    body: null
+    body: '{"query":{"bool":{"filter":[{"terms":{"status":["approval_core_selection","approval_fuzzy_matching","approval_merge","approval","error_multiple_exact_matches","error_validation","error","running"]}}],"should":[{"terms":{"data.arxiv_eprints.value":["2507.26819"]}}],"minimum_should_match":1}}}'
     headers:
-      Accept:
+      Content-Length:
+      - '292'
+      content-type:
       - application/json
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-    method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/search/?status__in=approval_core_selection__approval_fuzzy_matching__approval_merge__approval__error_multiple_exact_matches__error_validation__error__running&search=data.arxiv_eprints.value.keyword%3A2507.26819
+    method: POST
+    uri: http://es:9200/backoffice-backend-local-hep-workflows/_search
   response:
     body:
-      string: '{"count":1,"next":null,"previous":null,"facets":{"_filter_workflow_type":{"doc_count":1,"workflow_type":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"HEP_CREATE","doc_count":1,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"running","doc_count":1}]}}]}},"_filter_status":{"doc_count":1,"status":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":"running","doc_count":1}]}}},"results":[{"decisions":[],"status":"running","data":{"urls":[{"value":"https://example.com"},{"value":"https://other-page.com"}],"titles":[{"title":"The
+      string: '{"took":49,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":{"value":2,"relation":"eq"},"max_score":1.0,"hits":[{"_index":"backoffice-backend-local-hep-workflows","_id":"66961888-a628-46b7-b807-4deae3478adc","_score":1.0,"_source":{"data":{"acquisition_source":{"datetime":"2024-11-18T11:34:19.809575","method":"submitter","source":"submitter"},"arxiv_eprints":[{"categories":["cs.CV","cs.AI","cs.LG","cs.RO"],"value":"2507.26819"}],"abstracts":{},"control_number":null,"core":null,"dois":[{"material":null,"source":null,"value":"10.1016/j.physletb.2025.139959"}],"accelerator_experiments":{},"corporate_author":null,"authors":{},"public_notes":{},"collaborations":{},"external_system_identifiers":{},"_private_notes":[{"source":null,"value":"Also
+        some comments"}],"publication_info":{},"report_numbers":{},"supervisors":{},"titles":[{"full_title":null,"source":"submitter","subtitle":null,"title":"The
+        MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer"}],"inspire_categories":{}},"relevance_prediction":{},"matches":{},"id":"66961888-a628-46b7-b807-4deae3478adc","workflow_type":"HEP_CREATE","decisions":[],"status":"running","_created_at":"2024-11-25T13:49:53.009000+00:00","_updated_at":"2024-11-25T13:49:54.756000+00:00"}},{"_index":"backoffice-backend-local-hep-workflows","_id":"e27a7765-1c57-4cbe-875a-c45880939855","_score":1.0,"_source":{"data":{"acquisition_source":{"datetime":"2024-11-18T11:34:19.809575","method":"submitter","source":"submitter"},"arxiv_eprints":[{"categories":["cs.CV","cs.AI","cs.LG","cs.RO"],"value":"2507.26819"}],"abstracts":{},"control_number":null,"core":null,"dois":{},"accelerator_experiments":{},"corporate_author":null,"authors":{},"public_notes":{},"collaborations":{},"external_system_identifiers":{},"_private_notes":[{"source":null,"value":"Also
+        some comments"}],"publication_info":{},"report_numbers":{},"supervisors":{},"titles":[{"full_title":null,"source":"submitter","subtitle":null,"title":"The
         MAGIS-100 Experiment and a Future, Kilometer-scale Atom Interferometer with
-        same arxiv","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"arxiv_eprints":[{"value":"2507.26819","categories":["cs.CV","cs.AI","cs.LG","cs.RO"]}],"document_type":["article"],"_private_notes":[{"value":"Also
-        some comments"}],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"matches":{},"id":"e27a7765-1c57-4cbe-875a-c45880939855","_created_at":"2024-11-25T13:49:53.009000+00:00","workflow_type":"HEP_CREATE","_updated_at":"2024-11-25T13:49:54.756000+00:00"}]}'
+        same arxiv"}],"inspire_categories":{}},"relevance_prediction":{},"matches":{},"id":"e27a7765-1c57-4cbe-875a-c45880939855","workflow_type":"HEP_CREATE","decisions":[],"status":"running","_created_at":"2024-11-25T13:49:53.009000+00:00","_updated_at":"2024-11-25T13:49:54.756000+00:00"}}]}}'
     headers:
-      Allow:
-      - GET, HEAD, OPTIONS
-      Content-Language:
-      - en
-      Content-Length:
-      - '1353'
-      Content-Type:
-      - application/json
-      Cross-Origin-Opener-Policy:
-      - same-origin
-      Date:
-      - Tue, 27 Jan 2026 13:16:01 GMT
-      Referrer-Policy:
-      - same-origin
-      Server:
-      - WSGIServer/0.2 CPython/3.11.6
-      Vary:
-      - Accept, Accept-Language, Cookie, origin
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
+      X-OpenSearch-Version:
+      - OpenSearch/3.2.0 (opensearch)
+      content-length:
+      - '2375'
+      content-type:
+      - application/json; charset=UTF-8
     status:
       code: 200
       message: OK
@@ -114,7 +96,7 @@ interactions:
         Mercury+ ST1 - Base Board for Mercury/Mercury+ FPGA Modules. [Online]\"],\"urls\":[{\"value\":\"https://www.enclustra.com/en/products/base-boards/mercury-st1/\"}],\"label\":\"6\",\"texkey\":\"enclustra_baseboard\"}}],\"_collections\":[\"Literature\"],\"public_notes\":[{\"value\":\"15
         pages\",\"source\":\"arXiv\"}],\"arxiv_eprints\":[{\"value\":\"2510.21772\",\"categories\":[\"cs.LG\",\"cs.NA\",\"math.NA\"]}],\"document_type\":[\"article\"],\"preprint_date\":\"2025-10-17\",\"collaborations\":[{\"value\":\"BLFQ\"}],\"report_numbers\":[{\"value\":\"ADP-25-11/T1273\",\"source\":\"arXiv\"}],\"number_of_pages\":15,\"publication_info\":[{\"year\":2025,\"artid\":\"139959\",\"material\":\"publication\",\"journal_title\":\"Phys.Lett.B\",\"journal_record\":{\"$ref\":\"https://inspirehep.net/api/journals/1613966\"},\"journal_volume\":\"870\",\"pubinfo_freetext\":\"Phys.
         Lett. B 870 (2025) 139959\"}],\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"arXiv\",\"datetime\":\"2025-10-28T02:00:33.403192\",\"submission_number\":\"scheduled__2025-10-28T02:00:00+00:00\"},\"inspire_categories\":[{\"term\":\"Computing\",\"source\":\"arxiv\"},{\"term\":\"Math
-        and Math Physics\",\"source\":\"arxiv\"}],\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirehep.net/api/experiments/1711193\"},\"legacy_name\":\"CERN-LHC-FASER\"}]},\"tickets\":[],\"decisions\":[{\"id\":1,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-08-26T14:45:14.237000Z\",\"_updated_at\":\"2025-08-26T14:45:14.237000Z\",\"action\":\"fuzzy_match\",\"value\":\"paper1\",\"user\":\"admin@admin.com\"}],\"workflow_type\":\"HEP_CREATE\",\"classifier_results\":{\"categories\":[{\"keyword\":\"color\",\"category\":\"HEP\"},{\"keyword\":\"fluctuation\",\"category\":\"HEP\"},{\"keyword\":\"quantum
+        and Math Physics\",\"source\":\"arxiv\"}],\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirehep.net/api/experiments/1711193\"},\"legacy_name\":\"CERN-LHC-FASER\"}]},\"tickets\":[],\"decisions\":[{\"id\":1,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-08-26T14:45:14.237000Z\",\"_updated_at\":\"2025-08-26T14:45:14.237000Z\",\"action\":\"fuzzy_match\",\"value\":\"paper1\",\"user\":\"admin@admin.com\"},{\"id\":12,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2026-02-24T15:15:19.480190Z\",\"_updated_at\":\"2026-02-24T15:15:19.480207Z\",\"action\":\"discard\",\"value\":\"\",\"user\":\"admin@admin.com\"}],\"workflow_type\":\"HEP_CREATE\",\"classifier_results\":{\"categories\":[{\"keyword\":\"color\",\"category\":\"HEP\"},{\"keyword\":\"fluctuation\",\"category\":\"HEP\"},{\"keyword\":\"quantum
         information\",\"category\":\"HEP\"},{\"keyword\":\"quantum sensing\",\"category\":\"HEP\"},{\"keyword\":\"entanglement\",\"category\":\"HEP\"},{\"keyword\":\"engineering\",\"category\":\"HEP\"},{\"keyword\":\"quantum
         communication\",\"category\":\"HEP\"},{\"keyword\":\"mirror\",\"category\":\"HEP\"},{\"keyword\":\"mixing\",\"category\":\"HEP\"},{\"keyword\":\"scattering\",\"category\":\"HEP\"},{\"keyword\":\"cloud\",\"category\":\"HEP\"},{\"keyword\":\"monitoring\",\"category\":\"HEP\"},{\"keyword\":\"quantum
         state\",\"category\":\"HEP\"},{\"keyword\":\"absorption\",\"category\":\"HEP\"},{\"keyword\":\"quantum
@@ -153,7 +135,7 @@ interactions:
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
         sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
-        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"callback_url\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2026-01-27T13:16:01.160941Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
+        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"callback_url\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2026-02-24T15:24:46.313061Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
         class of Hadamard well-posed five-field theories of dissipative relativistic
         fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
         Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
@@ -175,13 +157,13 @@ interactions:
       Content-Language:
       - en
       Content-Length:
-      - '14646'
+      - '14849'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Tue, 27 Jan 2026 13:16:01 GMT
+      - Tue, 24 Feb 2026 15:24:46 GMT
       Referrer-Policy:
       - same-origin
       Server:

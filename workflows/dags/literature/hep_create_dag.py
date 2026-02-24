@@ -54,7 +54,7 @@ from include.inspire.refextract_utils import (
     raw_refs_to_list,
     sanitize_references,
 )
-from include.utils import s3, tickets, workflows
+from include.utils import opensearch, s3, tickets, workflows
 from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.constants import (
     DECISION_AUTO_ACCEPT_CORE,
@@ -185,7 +185,7 @@ def hep_create_dag():
         workflow_id = context["params"]["workflow_id"]
         workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
 
-        matches = workflows.find_matching_workflows(
+        matches = opensearch.find_matching_workflows(
             workflow_data,
             statuses=RUNNING_STATUSES + [STATUS_BLOCKED],
         )
@@ -212,13 +212,13 @@ def hep_create_dag():
                     )
 
         if has_found_match_with_same_source and not has_older_match_w_same_source:
-            workflow_management_hook.set_workflow_status(
-                status_name=STATUS_COMPLETED,
-                workflow_id=workflow_id,
-            )
             workflow_management_hook.add_decision(
                 workflow_id=workflow_id,
                 decision_data={"action": DECISION_DISCARD},
+            )
+            workflow_management_hook.set_workflow_status(
+                status_name=STATUS_COMPLETED,
+                workflow_id=workflow_id,
             )
             return "run_next_if_necessary"
 
@@ -229,7 +229,7 @@ def hep_create_dag():
         workflow_id = context["params"]["workflow_id"]
         workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
 
-        matches = workflows.find_matching_workflows(workflow_data, RUNNING_STATUSES)
+        matches = opensearch.find_matching_workflows(workflow_data, RUNNING_STATUSES)
 
         if len(matches) > 0:
             matched_ids = [match["id"] for match in matches]
@@ -1980,7 +1980,7 @@ def hep_create_dag():
         workflow_id = context["params"]["workflow_id"]
         workflow = s3.read_workflow(s3_hook, bucket_name, workflow_id)
 
-        matches = workflows.find_matching_workflows(
+        matches = opensearch.find_matching_workflows(
             workflow, RUNNING_STATUSES + [STATUS_BLOCKED]
         )
 

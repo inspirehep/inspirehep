@@ -79,6 +79,12 @@
     "schema": "",
     "extra": ""
   },
+    "opensearch_connection": {
+    "conn_type": "opensearch",
+    "description": "Find workflows on os directly",
+    "host": "es",
+    "port": 9200
+  },
   "arxiv_connection": {
     "conn_type": "http",
     "description": "Used for arxiv harvestin",
