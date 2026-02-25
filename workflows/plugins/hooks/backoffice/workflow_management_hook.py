@@ -37,10 +37,10 @@ class WorkflowManagementHook(BackofficeHook):
             workflow_partial_update_data=request_data, workflow_id=workflow_id
         )
 
-    def get_workflow(self, workflow_id: str) -> dict:
+    def get_workflow(self, workflow_id: str, validate: bool = False) -> dict:
         endpoint = f"{self.endpoint}/{workflow_id}"
-        response = self.call_api(method="GET", endpoint=endpoint)
-        response = self.run(endpoint=endpoint, headers=self.headers)
+        params = {"validate": "true"} if validate else None
+        response = self.call_api(method="GET", endpoint=endpoint, params=params)
         return response.json()
 
     def update_workflow(self, workflow_id: str, workflow_data: dict) -> Response:

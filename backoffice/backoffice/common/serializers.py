@@ -80,3 +80,7 @@ class BackofficeSearchUISerializer(serializers.Serializer):
             },
             "aggregations": aggregations,
         }
+
+
+class QueryParamsSerializer(serializers.Serializer):
+    validate = serializers.BooleanField(default=False)

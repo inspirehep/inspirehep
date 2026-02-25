@@ -46,7 +46,9 @@ from requests.exceptions import RequestException
 from backoffice.common import airflow_utils
 from backoffice.common.utils import (
     handle_request_exception,
+    render_validation_error_response,
 )
+from inspire_schemas.utils import get_validation_errors
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from backoffice.common.renderers import (
     BackofficeUIBrowsableRenderer,
@@ -186,6 +188,15 @@ class AuthorWorkflowViewSet(BaseWorkflowViewSet):
     serializer_class = AuthorWorkflowSerializer
     resolution_serializer = AuthorResolutionSerializer
     schema_name = "authors"
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        validation_errors = list(
+            get_validation_errors(instance.data, schema=self.schema_name)
+        )
+        instance.validation_errors = render_validation_error_response(validation_errors)
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
 
     def perform_destroy(self, instance):
         try:

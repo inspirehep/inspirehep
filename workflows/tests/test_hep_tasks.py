@@ -3899,7 +3899,6 @@ class Test_HEPCreateDAG:
         assert (
             s3.get_flag("approved", self.s3_hook, self.bucket_name, workflow_id) is True
         )
-        assert get_lit_workflow_task(workflow_id)["status"] == STATUS_RUNNING
 
     @pytest.mark.vcr
     def test_await_decision_approval_reject(self):

@@ -62,20 +62,6 @@ class BaseWorkflowViewSet(viewsets.ModelViewSet):
     """
 
     schema_name = None
-    include_validation_errors_by_default = True
-
-    def should_include_validation_errors(self, request):
-        query_param_value = request.query_params.get("include_validation_errors")
-        if query_param_value is None:
-            return self.include_validation_errors_by_default
-
-        value = query_param_value.strip().lower()
-        if value == "true":
-            return True
-        if value == "false":
-            return False
-
-        return self.include_validation_errors_by_default
 
     def get_queryset(self):
         qp = self.request.query_params
@@ -83,18 +69,6 @@ class BaseWorkflowViewSet(viewsets.ModelViewSet):
         if status_val:
             return self.queryset.filter(status__status=status_val)
         return self.queryset
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        if self.should_include_validation_errors(request):
-            validation_errors = list(
-                get_validation_errors(instance.data, schema=self.schema_name)
-            )
-            instance.validation_errors = render_validation_error_response(
-                validation_errors
-            )
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
 
     def partial_update(self, request, pk=None):
         logger.info("Updating workflow %s with data: %s", pk, request.data)

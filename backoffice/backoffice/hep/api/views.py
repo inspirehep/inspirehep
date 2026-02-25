@@ -30,7 +30,10 @@ from requests.exceptions import RequestException
 from backoffice.common import airflow_utils
 from backoffice.common.utils import (
     handle_request_exception,
+    render_validation_error_response,
 )
+from inspire_schemas.utils import get_validation_errors
+from backoffice.common.serializers import QueryParamsSerializer
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from backoffice.common.renderers import (
     BackofficeUIBrowsableRenderer,
@@ -76,7 +79,7 @@ class HepDecisionViewSet(viewsets.ModelViewSet):
         summary="Retrieve a Hep Workflow",
         parameters=[
             OpenApiParameter(
-                name="include_validation_errors",
+                name="validate",
                 description="Include schema validation errors in the response.",
                 required=False,
                 type=OpenApiTypes.BOOL,
@@ -105,7 +108,24 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
     resolution_serializer = HepResolutionSerializer
     status_choices = HepStatusChoices
     schema_name = "hep"
-    include_validation_errors_by_default = False
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        params_serializer = QueryParamsSerializer(data=request.query_params)
+        params_serializer.is_valid(raise_exception=True)
+
+        if params_serializer.validated_data["validate"]:
+            validation_errors = list(
+                get_validation_errors(instance.data, schema=self.schema_name)
+            )
+            instance.validation_errors = render_validation_error_response(
+                validation_errors
+            )
+        else:
+            instance.validation_errors = []
+
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
 
     def create(self, request):
         logger.info("Creating workflow with data: %s", request.data)

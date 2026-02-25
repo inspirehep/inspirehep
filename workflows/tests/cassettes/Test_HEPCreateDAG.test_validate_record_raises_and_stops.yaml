@@ -11,7 +11,7 @@ interactions:
       Content-Type:
       - application/json
     method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/f98f33b2-39c6-47bc-b8a5-45dc91953caa
+    uri: http://host.docker.internal:8001/api/workflows/literature/f98f33b2-39c6-47bc-b8a5-45dc91953caa?validate=true
   response:
     body:
       string: ''
@@ -25,9 +25,9 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Mon, 01 Dec 2025 15:10:36 GMT
+      - Thu, 26 Feb 2026 09:58:45 GMT
       Location:
-      - /api/workflows/literature/f98f33b2-39c6-47bc-b8a5-45dc91953caa/
+      - /api/workflows/literature/f98f33b2-39c6-47bc-b8a5-45dc91953caa/?validate=true
       Referrer-Policy:
       - same-origin
       Server:
@@ -49,109 +49,26 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/f98f33b2-39c6-47bc-b8a5-45dc91953caa/
+    uri: http://host.docker.internal:8001/api/workflows/literature/f98f33b2-39c6-47bc-b8a5-45dc91953caa/?validate=true
   response:
     body:
       string: '{"id":"f98f33b2-39c6-47bc-b8a5-45dc91953caa","validation_errors":[{"message":"''Gooding,
         James, James Andrew, Jamie.'' does not match ''^[^,]+(,[^,]+)?(,?[^,]+)?$''","path":["authors",0,"full_name"]}],"data":{"titles":[{"title":"Invalid
         data record","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","authors":[{"full_name":"Gooding,
-        James, James Andrew, Jamie."}],"_collections":["Literature"],"document_type":["article"]},"tickets":[],"decisions":[],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2025-11-01T00:00:00Z","_updated_at":"2025-12-01T14:48:15.857253Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"error_validation"}'
+        James, James Andrew, Jamie."}],"_collections":["Literature"],"document_type":["article"]},"tickets":[],"decisions":[],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"callback_url":null,"_created_at":"2025-11-01T00:00:00Z","_updated_at":"2025-11-01T00:00:00Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"form_data":null,"status":"running"}'
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '756'
+      - '777'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Mon, 01 Dec 2025 15:10:36 GMT
-      Referrer-Policy:
-      - same-origin
-      Server:
-      - WSGIServer/0.2 CPython/3.11.6
-      Vary:
-      - Accept, Accept-Language, Cookie, origin
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/json
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-    method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/f98f33b2-39c6-47bc-b8a5-45dc91953caa
-  response:
-    body:
-      string: ''
-    headers:
-      Connection:
-      - close
-      Content-Language:
-      - en
-      Content-Type:
-      - text/html; charset=utf-8
-      Cross-Origin-Opener-Policy:
-      - same-origin
-      Date:
-      - Mon, 01 Dec 2025 15:10:36 GMT
-      Location:
-      - /api/workflows/literature/f98f33b2-39c6-47bc-b8a5-45dc91953caa/
-      Referrer-Policy:
-      - same-origin
-      Server:
-      - WSGIServer/0.2 CPython/3.11.6
-      Vary:
-      - Accept-Language, origin
-      X-Content-Type-Options:
-      - nosniff
-    status:
-      code: 301
-      message: Moved Permanently
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/json
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-    method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/f98f33b2-39c6-47bc-b8a5-45dc91953caa/
-  response:
-    body:
-      string: '{"id":"f98f33b2-39c6-47bc-b8a5-45dc91953caa","validation_errors":[{"message":"''Gooding,
-        James, James Andrew, Jamie.'' does not match ''^[^,]+(,[^,]+)?(,?[^,]+)?$''","path":["authors",0,"full_name"]}],"data":{"titles":[{"title":"Invalid
-        data record","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","authors":[{"full_name":"Gooding,
-        James, James Andrew, Jamie."}],"_collections":["Literature"],"document_type":["article"]},"tickets":[],"decisions":[],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2025-11-01T00:00:00Z","_updated_at":"2025-12-01T14:48:15.857253Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"error_validation"}'
-    headers:
-      Allow:
-      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
-      Content-Language:
-      - en
-      Content-Length:
-      - '756'
-      Content-Type:
-      - application/json
-      Cross-Origin-Opener-Policy:
-      - same-origin
-      Date:
-      - Mon, 01 Dec 2025 15:10:36 GMT
+      - Thu, 26 Feb 2026 09:58:46 GMT
       Referrer-Policy:
       - same-origin
       Server:
@@ -184,20 +101,20 @@ interactions:
     body:
       string: '{"id":"f98f33b2-39c6-47bc-b8a5-45dc91953caa","data":{"titles":[{"title":"Invalid
         data record","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","authors":[{"full_name":"Gooding,
-        James, James Andrew, Jamie."}],"_collections":["Literature"],"document_type":["article"]},"tickets":[],"decisions":[],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"_created_at":"2025-11-01T00:00:00Z","_updated_at":"2025-12-01T15:10:36.314359Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"status":"error_validation"}'
+        James, James Andrew, Jamie."}],"_collections":["Literature"],"document_type":["article"]},"tickets":[],"decisions":[],"workflow_type":"HEP_CREATE","classifier_results":null,"merge_details":null,"callback_url":"http://host.docker.internal:8001/api/workflows/literature/f98f33b2-39c6-47bc-b8a5-45dc91953caa/restart/","_created_at":"2025-11-01T00:00:00Z","_updated_at":"2026-02-26T09:58:46.027488Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"form_data":null,"status":"error_validation"}'
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '604'
+      - '742'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Mon, 01 Dec 2025 15:10:36 GMT
+      - Thu, 26 Feb 2026 09:58:46 GMT
       Referrer-Policy:
       - same-origin
       Server:

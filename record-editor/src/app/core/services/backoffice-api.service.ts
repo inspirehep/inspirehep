@@ -65,7 +65,9 @@ export class BackofficeApiService extends CommonApiService {
     getFullObject?: boolean
   ): Promise<WorkflowObject | BackofficeWorkflow> {
     return this.handleRequest(async () => {
-      this.currentWorkflowObjectApiUrl = `${backofficeApiUrl}/workflows/${type}/${objectId}/`;
+      const query = type === 'literature' ? '?validate=true' : '';
+      this.currentWorkflowObjectApiUrl =
+        `${backofficeApiUrl}/workflows/${type}/${objectId}/${query}`;
       const response = await this.fetchUrl<BackofficeWorkflow>(
         this.currentWorkflowObjectApiUrl, {
         withCredentials: true
