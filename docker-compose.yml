@@ -186,6 +186,7 @@ services:
     ports:
       - '9200:9200'
   ui:
+    platform: linux/amd64
     image: inspirehep/nginx:1.19-with-vts
     ports:
       - '8080:8080'
