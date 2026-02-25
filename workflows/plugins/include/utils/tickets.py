@@ -25,12 +25,12 @@ def get_ticket_by_type(workflow, ticket_type):
 
 
 def get_functional_categories_from_fulltext_or_raw_affiliations(
-    workflow, s3_hook, bucket_name, is_core=True
+    workflow, s3_hook, is_core=True
 ):
     functional_categories = []
     is_core = get_value(workflow, "data.core")
     if workflows.is_arxiv_paper(workflow["data"]):
-        fulltext = workflows.get_fulltext(workflow, s3_hook, bucket_name)
+        fulltext = workflows.get_fulltext(workflow, s3_hook)
 
         if workflows.check_if_france_in_fulltext(fulltext):
             functional_categories.append(LITERATURE_HAL_CURATION_FUNCTIONAL_CATEGORY)

@@ -10,7 +10,7 @@ ieee_bucket_name = Variable.get("s3_ieee_bucket_name")
 
 
 class TestIEEEHarvest:
-    @pytest.mark.usefixtures("_s3_hook")
+    @pytest.mark.usefixtures("_s3_store")
     @patch("include.utils.ftp.list_ftp_files", return_value=["a/1.xml"])
     @patch("hooks.custom_fttps_hook.CustomFTPSHook.list_directory", return_value=["a"])
     @patch(
@@ -43,7 +43,7 @@ class TestIEEEHarvest:
             xcom_key="skipmixin_key",
         )
 
-        assert self.s3_hook.get_key("a/1.xml", ieee_bucket_name) is not None
+        assert self.s3_store.hook.get_key("a/1.xml", ieee_bucket_name) is not None
 
     def test_check_new_directories(self):
         with pytest.raises(AirflowException):

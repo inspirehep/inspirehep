@@ -8,7 +8,6 @@ from tempfile import TemporaryDirectory
 
 from airflow.exceptions import AirflowException, AirflowFailException
 from airflow.models.variable import Variable
-from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.providers.standard.operators.empty import EmptyOperator
 from airflow.sdk import Param, dag, task, task_group
 from airflow.task.trigger_rule import TriggerRule
@@ -125,8 +124,6 @@ from tenacity import RetryError
 from werkzeug.utils import secure_filename
 
 logger = logging.getLogger(__name__)
-s3_hook = S3Hook(aws_conn_id="s3_conn")
-bucket_name = Variable.get("s3_bucket_name")
 
 
 @dag(
@@ -150,6 +147,7 @@ def hep_create_dag():
     inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
     workflow_management_hook = WorkflowManagementHook(HEP)
     arxiv_hook = GenericHttpHook(http_conn_id="arxiv_connection")
+    s3_store = s3.S3JsonStore(aws_conn_id="s3_conn")
 
     @task
     def check_env():
@@ -162,13 +160,11 @@ def hep_create_dag():
         workflow_data = workflow_management_hook.get_workflow(
             context["params"]["workflow_id"]
         )
-        return s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        return s3_store.write_workflow(workflow_data)
 
     @task
     def set_schema(**context):
-        workflow_data = s3.read_workflow(
-            s3_hook, bucket_name, context["params"]["workflow_id"]
-        )
+        workflow_data = s3_store.read_workflow(context["params"]["workflow_id"])
         schema = Variable.get("hep_schema")
 
         workflow_data = workflow_management_hook.partial_update_workflow(
@@ -178,12 +174,12 @@ def hep_create_dag():
             },
         ).json()
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3_store.write_workflow(workflow_data)
 
     @task.branch
     def discard_older_wfs_w_same_source(**context):
         workflow_id = context["params"]["workflow_id"]
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+        workflow_data = s3_store.read_workflow(workflow_id)
 
         matches = opensearch.find_matching_workflows(
             workflow_data,
@@ -227,7 +223,7 @@ def hep_create_dag():
     @task.short_circuit(ignore_downstream_trigger_rules=False)
     def check_for_blocking_workflows(**context):
         workflow_id = context["params"]["workflow_id"]
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+        workflow_data = s3_store.read_workflow(workflow_id)
 
         matches = opensearch.find_matching_workflows(workflow_data, RUNNING_STATUSES)
 
@@ -249,7 +245,7 @@ def hep_create_dag():
     @task.branch
     def check_for_exact_matches(**context):
         workflow_id = context["params"]["workflow_id"]
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+        workflow_data = s3_store.read_workflow(workflow_id)
 
         response = inspire_http_hook.call_api(
             endpoint="api/matcher/exact-match",
@@ -266,8 +262,8 @@ def hep_create_dag():
             )
         if len(matches) == 1:
             context["ti"].xcom_push(key="match", value=matches[0])
-            s3.set_flag("is-update", True, s3_hook, bucket_name, workflow_id)
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.set_flag("is-update", True, workflow_id)
+            s3_store.write_workflow(workflow_data)
             return "stop_if_existing_submission_notify_and_close"
         return "check_for_fuzzy_matches"
 
@@ -287,7 +283,7 @@ def hep_create_dag():
     @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def check_for_fuzzy_matches(**context):
         workflow_id = context["params"]["workflow_id"]
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+        workflow_data = s3_store.read_workflow(workflow_id)
 
         fuzzy_matching_data_keys = [
             "abstracts",
@@ -315,7 +311,7 @@ def hep_create_dag():
 
         workflow_data["matches"] = get_value(workflow_data, "matches", {}) or {}
         workflow_data["matches"]["fuzzy"] = matches
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3_store.write_workflow(workflow_data)
         workflow_management_hook.partial_update_workflow(
             workflow_id=workflow_id,
             workflow_partial_update_data={
@@ -345,19 +341,19 @@ def hep_create_dag():
         if not approved_match_id:
             return True
 
-        s3.set_flag("is-update", True, s3_hook, bucket_name, workflow_id)
+        s3_store.set_flag("is-update", True, workflow_id)
         context["ti"].xcom_push(key="match", value=approved_match_id)
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3_store.write_workflow(workflow_data)
         return True
 
     @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def stop_if_existing_submission_notify_and_close(**context):
         """Send notification if the workflow is a submission."""
         workflow_id = context["params"]["workflow_id"]
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+        workflow_data = s3_store.read_workflow(workflow_id)
 
-        if not is_submission(workflow_data) or not s3.get_flag(
-            "is-update", s3_hook, bucket_name, workflow_id
+        if not is_submission(workflow_data) or not s3_store.get_flag(
+            "is-update", workflow_id
         ):
             return "check_auto_approve"
 
@@ -383,15 +379,15 @@ def hep_create_dag():
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def check_auto_approve(**context):
         workflow_id = context["params"]["workflow_id"]
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+        workflow_data = s3_store.read_workflow(workflow_id)
         data = workflow_data.get("data", {})
 
         is_sub = is_submission(data)
 
         is_auto_approve = False if is_sub else auto_approve(data)
 
-        s3.set_flag("auto-approved", is_auto_approve, s3_hook, bucket_name, workflow_id)
-        is_update = s3.get_flag("is-update", s3_hook, bucket_name, workflow_id)
+        s3_store.set_flag("auto-approved", is_auto_approve, workflow_id)
+        is_update = s3_store.get_flag("is-update", workflow_id)
 
         if is_auto_approve and not is_update and is_first_category_core(data):
             workflow_data["core"] = True
@@ -400,18 +396,18 @@ def hep_create_dag():
                 decision_data={"action": DECISION_AUTO_ACCEPT_CORE},
             )
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3_store.write_workflow(workflow_data)
 
     @task.branch
     def check_if_previously_rejected(**context):
         """Equivalent to first IF of PROCESS_HOLDINGPEN_MATCH_HARVEST"""
 
         workflow_id = context["params"]["workflow_id"]
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+        workflow_data = s3_store.read_workflow(workflow_id)
 
         if (
-            not s3.get_flag("is-update", s3_hook, bucket_name, workflow_id)
-            and not s3.get_flag("auto-approved", s3_hook, bucket_name, workflow_id)
+            not s3_store.get_flag("is-update", workflow_id)
+            and not s3_store.get_flag("auto-approved", workflow_id)
             and workflows.has_previously_rejected_wf_in_backoffice_w_same_source(
                 workflow_data
             )
@@ -431,7 +427,7 @@ def hep_create_dag():
             """Perform the package download step for arXiv records."""
 
             workflow_id = context["params"]["workflow_id"]
-            workflow = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+            workflow = s3_store.read_workflow(workflow_id)
 
             arxiv_id = LiteratureReader(workflow["data"]).arxiv_id
             filename = secure_filename(f"{arxiv_id}.tar.gz")
@@ -445,16 +441,14 @@ def hep_create_dag():
 
             response.raise_for_status()
 
-            s3_hook.load_file_obj(
-                response.raw, s3_tarball_key, bucket_name, replace=True
-            )
+            s3_store.hook.load_file_obj(response.raw, s3_tarball_key, replace=True)
 
             return s3_tarball_key
 
         @task
         def count_reference_coreness(**context):
             s3_workflow_id = context["params"]["workflow_id"]
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, s3_workflow_id)
+            workflow_data = s3_store.read_workflow(s3_workflow_id)
             data = workflow_data.get("data")
             if not data:
                 return
@@ -492,12 +486,12 @@ def hep_create_dag():
                 "non_core": count_non_core,
             }
 
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
 
         @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def is_suitable_for_pdf_authors_extraction(has_author_xml, **context):
             s3_workflow_id = context["params"]["workflow_id"]
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, s3_workflow_id)
+            workflow_data = s3_store.read_workflow(s3_workflow_id)
             """Check if article is arXiv/PoS and if authors.xml were attached"""
             acquisition_source = get_value(
                 workflow_data, "data.acquisition_source.source", ""
@@ -509,7 +503,7 @@ def hep_create_dag():
         @task
         def extract_authors_from_pdf(**context):
             workflow_id = context["params"]["workflow_id"]
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+            workflow_data = s3_store.read_workflow(workflow_id)
 
             # If there are more than specified number of authors
             # then don't run Grobid authors extraction
@@ -518,7 +512,7 @@ def hep_create_dag():
             ):
                 return
             grobid_response = workflows.post_pdf_to_grobid(
-                workflow_data, s3_hook, bucket_name, process_fulltext=False
+                workflow_data, s3_store.hook, process_fulltext=False
             )
             if not grobid_response:
                 return
@@ -565,12 +559,12 @@ def hep_create_dag():
                     grobid_authors_count,
                 )
 
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
 
         @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def populate_submission_document(**context):
             s3_workflow_id = context["params"]["workflow_id"]
-            workflow = s3.read_workflow(s3_hook, bucket_name, s3_workflow_id)
+            workflow = s3_store.read_workflow(s3_workflow_id)
 
             if not is_submission(workflow):
                 return
@@ -608,12 +602,13 @@ def hep_create_dag():
                 )
 
             workflows.delete_empty_key(workflow, "documents")
-            s3.write_workflow(s3_hook, workflow, bucket_name)
+            s3_store.write_workflow(workflow)
 
         @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def download_documents(**context):
             s3_workflow_id = context["params"]["workflow_id"]
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, s3_workflow_id)
+            workflow_data = s3_store.read_workflow(s3_workflow_id)
+            bucket_name = s3.get_default_bucket_name(s3_store.hook)
 
             documents = get_value(workflow_data, "data.documents", [])
             arxiv_base_url = arxiv_hook.get_url()
@@ -621,8 +616,8 @@ def hep_create_dag():
             for document in documents:
                 url = document["url"]
 
-                if s3_hook.check_for_key(
-                    f"{s3_workflow_id}/documents/{document['key']}", bucket_name
+                if s3_store.hook.check_for_key(
+                    f"{s3_workflow_id}/documents/{document['key']}"
                 ):
                     logger.info("Document already downloaded from %s", url)
                     continue
@@ -642,14 +637,13 @@ def hep_create_dag():
                         extra_options={"stream": True, "allow_redirects": True},
                     )
                     s3_key = f"{s3_workflow_id}/documents/{filename}"
-                    s3_hook.load_file_obj(
+                    s3_store.hook.load_file_obj(
                         response.raw,
                         s3_key,
-                        bucket_name,
                         replace=True,
                     )
                     document["url"] = (
-                        f"{s3_hook.conn.meta.endpoint_url}/{bucket_name}/{s3_key}"
+                        f"{s3_store.hook.conn.meta.endpoint_url}/{bucket_name}/{s3_key}"
                     )
                     logger.info("Document downloaded from %s", url)
                 except RetryError:
@@ -657,7 +651,7 @@ def hep_create_dag():
 
             workflows.delete_empty_key(workflow_data, "documents")
 
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
             logger.info(
                 "Documents downloaded: %s",
                 len(get_value(workflow_data, "data.documents", [])),
@@ -682,7 +676,7 @@ def hep_create_dag():
                 None
             """
             s3_workflow_id = context["params"]["workflow_id"]
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, s3_workflow_id)
+            workflow_data = s3_store.read_workflow(s3_workflow_id)
             data = workflow_data.get("data", {})
 
             titles_to_normalize = get_value(
@@ -732,7 +726,7 @@ def hep_create_dag():
                 workflow_data["journal_inspire_categories"] = dedupe_list(
                     workflow_data["journal_inspire_categories"]
                 )
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
 
         @task
         def refextract(**context):
@@ -748,7 +742,7 @@ def hep_create_dag():
 
             workflow_id = context["params"]["workflow_id"]
 
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+            workflow_data = s3_store.read_workflow(workflow_id)
 
             source = LiteratureReader(workflow_data["data"]).source
 
@@ -787,7 +781,7 @@ def hep_create_dag():
                     extracted_references + references, inspire_http_hook
                 )
 
-                s3.write_workflow(s3_hook, workflow_data, bucket_name)
+                s3_store.write_workflow(workflow_data)
 
                 return
 
@@ -796,10 +790,9 @@ def hep_create_dag():
             key = workflows.get_document_key_in_workflow(workflow_data)
             if key:
                 with TemporaryDirectory(prefix="refextract") as tmp_dir:
-                    document_path = s3_hook.download_file(
+                    document_path = s3_store.hook.download_file(
                         f"{context['params']['workflow_id']}/documents/{key}",
-                        bucket_name,
-                        tmp_dir,
+                        local_path=tmp_dir,
                     )
                     pdf_references = dedupe_list(
                         extract_references_from_pdf(
@@ -840,12 +833,12 @@ def hep_create_dag():
                 )
                 workflow_data["data"]["references"] = matched_text_references
 
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
 
         @task
         def extract_journal_info(**context):
             s3_workflow_id = context["params"]["workflow_id"]
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, s3_workflow_id)
+            workflow_data = s3_store.read_workflow(s3_workflow_id)
             data = workflow_data.get("data", {})
             publication_infos = get_value(data, "publication_info")
             if not publication_infos:
@@ -900,12 +893,12 @@ def hep_create_dag():
             workflow_data["data"]["publication_info"] = (
                 convert_old_publication_info_to_new(publication_infos)
             )
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
 
         @task
         def populate_journal_coverage(**context):
             s3_workflow_id = context["params"]["workflow_id"]
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, s3_workflow_id)
+            workflow_data = s3_store.read_workflow(s3_workflow_id)
             data = workflow_data.get("data", {})
             db_journals = get_db_journals(data)
             if not db_journals:
@@ -918,7 +911,7 @@ def hep_create_dag():
 
             workflow_data["journal_coverage"] = "full" if has_full else "partial"
 
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
 
         @task
         def classify_paper(
@@ -934,7 +927,7 @@ def hep_create_dag():
             **context,
         ):
             workflow_id = context["params"]["workflow_id"]
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+            workflow_data = s3_store.read_workflow(workflow_id)
 
             params = dict(
                 taxonomy_name=taxonomy or Variable.get("HEP_ONTOLOGY_FILE"),
@@ -954,10 +947,9 @@ def hep_create_dag():
             try:
                 if key:
                     with TemporaryDirectory(prefix="classify_paper") as tmp_dir:
-                        document_path = s3_hook.download_file(
+                        document_path = s3_store.hook.download_file(
                             f"{context['params']['workflow_id']}/documents/{key}",
-                            bucket_name,
-                            tmp_dir,
+                            local_path=tmp_dir,
                         )
                         result = get_keywords_from_local_file(document_path, **params)
 
@@ -984,7 +976,7 @@ def hep_create_dag():
             }
             # Check if it is not empty output before adding
             if any(result.get("complete_output", {}).values()):
-                s3.write_workflow(s3_hook, workflow_data, bucket_name)
+                s3_store.write_workflow(workflow_data)
 
         @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def check_is_arxiv_paper(**context):
@@ -992,7 +984,7 @@ def hep_create_dag():
 
             workflow_id = context["params"]["workflow_id"]
 
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+            workflow_data = s3_store.read_workflow(workflow_id)
 
             if workflows.is_arxiv_paper(workflow_data["data"]):
                 return "preprocessing.populate_arxiv_document"
@@ -1001,7 +993,7 @@ def hep_create_dag():
         @task
         def populate_arxiv_document(**context):
             workflow_id = context["params"]["workflow_id"]
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+            workflow_data = s3_store.read_workflow(workflow_id)
 
             arxiv_id = LiteratureReader(workflow_data["data"]).arxiv_id
             arxiv_hook = GenericHttpHook(http_conn_id="arxiv_connection")
@@ -1041,21 +1033,19 @@ def hep_create_dag():
 
             workflow_data["data"] = lb.record
 
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
 
         @task
         def arxiv_plot_extract(tarball_key, **context):
             """Extract plots from an arXiv archive."""
 
-            workflow = s3.read_workflow(
-                s3_hook, bucket_name, context["params"]["workflow_id"]
-            )
+            workflow = s3_store.read_workflow(context["params"]["workflow_id"])
 
             arxiv_id = LiteratureReader(workflow["data"]).arxiv_id
 
             with TemporaryDirectory(prefix="plot_extract") as scratch_space:
-                tarball_file = s3_hook.download_file(
-                    tarball_key, bucket_name, scratch_space
+                tarball_file = s3_store.hook.download_file(
+                    tarball_key, local_path=scratch_space
                 )
 
                 try:
@@ -1071,13 +1061,14 @@ def hep_create_dag():
                     )
                     workflows.delete_empty_key(workflow, "figures")
 
-                    s3.write_workflow(s3_hook, workflow, bucket_name)
+                    s3_store.write_workflow(workflow)
                     return
 
                 if "figures" in workflow["data"]:
                     del workflow["data"]["figures"]
 
-                s3_host = s3_hook.conn.meta.endpoint_url
+                s3_host = s3_store.hook.conn.meta.endpoint_url
+                bucket_name = s3.get_default_bucket_name(s3_store.hook)
 
                 lb = LiteratureBuilder(source="arxiv", record=workflow["data"])
                 logger.info("Processing plots. Number of plots: %s", len(plots))
@@ -1088,12 +1079,10 @@ def hep_create_dag():
                     key = (
                         f"{context['params']['workflow_id']}/plots/{index}_{plot_name}"
                     )
-                    s3_hook.load_file(
+                    s3_store.hook.load_file(
                         plot.get("url"),
                         key,
-                        bucket_name,
                         replace=True,
-                        acl_policy="public-read",
                     )
                     plot_keys.append(key)
 
@@ -1110,7 +1099,7 @@ def hep_create_dag():
 
             workflow["data"] = lb.record
             workflows.delete_empty_key(workflow, "figures")
-            s3.write_workflow(s3_hook, workflow, bucket_name)
+            s3_store.write_workflow(workflow)
 
         @task
         def arxiv_author_list(tarball_key, **context):
@@ -1124,16 +1113,14 @@ def hep_create_dag():
                 "<collaborationauthorlist.*?>.*?</collaborationauthorlist>", re.DOTALL
             )
 
-            workflow_data = s3.read_workflow(
-                s3_hook, bucket_name, context["params"]["workflow_id"]
-            )
+            workflow_data = s3_store.read_workflow(context["params"]["workflow_id"])
 
             has_author_xml = False
 
             with TemporaryDirectory(prefix="arxiv_author_list") as scratch_space:
                 try:
-                    tarball_file = s3_hook.download_file(
-                        tarball_key, bucket_name, scratch_space
+                    tarball_file = s3_store.hook.download_file(
+                        tarball_key, local_path=scratch_space
                     )
                 # botocore.exceptions.ClientError
                 except Exception:
@@ -1167,29 +1154,25 @@ def hep_create_dag():
                     )
                 if extracted_authors:
                     workflow_data["data"]["authors"] = extracted_authors
-                    s3.write_workflow(s3_hook, workflow_data, bucket_name)
+                    s3_store.write_workflow(workflow_data)
             return has_author_xml
 
         @task(pool="highmem", queue="highmem")
         def guess_coreness(**context):
             from inspire_classifier import Classifier
 
-            workflow_data = s3.read_workflow(
-                s3_hook, bucket_name, context["params"]["workflow_id"]
-            )
+            workflow_data = s3_store.read_workflow(context["params"]["workflow_id"])
             title = get_value(workflow_data, "data.titles.title[0]", "")
             abstract = get_value(workflow_data, "data.abstracts.value[0]", "")
 
             clf = Classifier(model_path="/opt/classifier_model.h5")
             results = clf.predict_coreness(title, abstract)
             workflow_data["relevance_prediction"] = calculate_coreness(results)
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
 
         @task(multiple_outputs=True)
         def normalize_collaborations(**context):
-            workflow_data = s3.read_workflow(
-                s3_hook, bucket_name, context["params"]["workflow_id"]
-            )
+            workflow_data = s3_store.read_workflow(context["params"]["workflow_id"])
             result = workflows.normalize_collaborations(metadata=workflow_data["data"])
             if not result:
                 return
@@ -1197,7 +1180,7 @@ def hep_create_dag():
             workflow_data["data"]["accelerator_experiments"] = accelerator_experiments
             workflow_data["data"]["collaborations"] = normalized_collaborations
 
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
 
         check_is_arxiv_paper_task = check_is_arxiv_paper()
 
@@ -1246,9 +1229,7 @@ def hep_create_dag():
     @task
     def notify_if_submission(**context):
         """Send notification if the workflow is a submission."""
-        workflow_data = s3.read_workflow(
-            s3_hook, bucket_name, context["params"]["workflow_id"]
-        )
+        workflow_data = s3_store.read_workflow(context["params"]["workflow_id"])
 
         if not is_submission(workflow_data) or get_ticket_by_type(
             workflow_data, TICKET_HEP_SUBMISSION
@@ -1295,30 +1276,24 @@ def hep_create_dag():
     def halt_for_approval_if_new_or_reject_if_not_relevant(**context):
         @task
         def preserve_root(**context):
-            workflow_data = s3.read_workflow(
-                s3_hook, bucket_name, context["params"]["workflow_id"]
-            )
+            workflow_data = s3_store.read_workflow(context["params"]["workflow_id"])
 
             preserved_root_payload = {
                 "id": workflow_data["id"],
                 "data": deepcopy(workflow_data["data"]),
             }
 
-            s3.write_workflow(
-                s3_hook,
+            s3_store.write_workflow(
                 preserved_root_payload,
-                bucket_name,
                 filename="root.json",
             )
 
         @task.branch
         def check_is_update(match_approved_id, **context):
             if match_approved_id:
-                workflow = s3.read_workflow(
-                    s3_hook, bucket_name, context["params"]["workflow_id"]
-                )
+                workflow = s3_store.read_workflow(context["params"]["workflow_id"])
                 workflow["workflow_type"] = HEP_UPDATE
-                s3.write_workflow(s3_hook, workflow, bucket_name)
+                s3_store.write_workflow(workflow)
                 workflow_management_hook.partial_update_workflow(
                     workflow["id"], {"workflow_type": HEP_UPDATE}
                 )
@@ -1340,7 +1315,7 @@ def hep_create_dag():
 
             """
             workflow_id = context["params"]["workflow_id"]
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+            workflow_data = s3_store.read_workflow(workflow_id)
 
             update = workflow_data["data"]
             update_source = LiteratureReader(update).source
@@ -1382,7 +1357,7 @@ def hep_create_dag():
             if conflicts:
                 workflow_data["merge_details"]["conflicts"] = conflicts
 
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
 
             workflows.save_workflow(workflow_data)
 
@@ -1403,16 +1378,15 @@ def hep_create_dag():
 
                 return False
 
-            s3.set_flag("approved", True, s3_hook, bucket_name, workflow_id)
+            s3_store.set_flag("approved", True, workflow_id)
             return True
 
         @task.branch
         def check_is_auto_approved(**context):
             workflow_id = context["params"]["workflow_id"]
 
-            if s3.get_flag("auto-approved", s3_hook, bucket_name, workflow_id):
-                s3.set_flag("approved", True, s3_hook, bucket_name, workflow_id)
-
+            if s3_store.get_flag("auto-approved", workflow_id):
+                s3_store.set_flag("approved", True, workflow_id)
                 return "halt_for_approval_if_new_or_reject_if_not_relevant.halt_end"
             return (
                 "halt_for_approval_if_new_or_reject_if_not_relevant.is_record_relevant"
@@ -1421,12 +1395,12 @@ def hep_create_dag():
         @task.branch
         def is_record_relevant(**context):
             workflow_id = context["params"]["workflow_id"]
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+            workflow_data = s3_store.read_workflow(workflow_id)
 
             if (
                 is_submission(workflow_data)
                 or is_journal_coverage_full(workflow_data)
-                or is_auto_approved(workflow_id, s3_hook, bucket_name)
+                or is_auto_approved(workflow_id, s3_store.hook)
             ):
                 return (
                     "halt_for_approval_if_new_or_reject_if_not_relevant."
@@ -1447,7 +1421,7 @@ def hep_create_dag():
         @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def should_replace_collection_to_hidden(**context):
             s3_workflow_id = context["params"]["workflow_id"]
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, s3_workflow_id)
+            workflow_data = s3_store.read_workflow(s3_workflow_id)
 
             report_numbers = get_value(workflow_data, "data.report_numbers", [])
             affiliations = flatten_list(
@@ -1457,11 +1431,9 @@ def hep_create_dag():
                 affiliations_for_hidden_collections(affiliations)
             ) or bool(reports_for_hidden_collections(report_numbers))
 
-            if should_hide and not s3.get_flag(
-                "approved", s3_hook, bucket_name, s3_workflow_id
-            ):
-                s3.set_flag("approved", True, s3_hook, bucket_name, s3_workflow_id)
-                s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            if should_hide and not s3_store.get_flag("approved", s3_workflow_id):
+                s3_store.set_flag("approved", True, s3_workflow_id)
+                s3_store.write_workflow(workflow_data)
                 return (
                     "halt_for_approval_if_new_or_reject_if_not_relevant."
                     "replace_collection_to_hidden"
@@ -1481,7 +1453,7 @@ def hep_create_dag():
         @task
         def replace_collection_to_hidden(**context):
             s3_workflow_id = context["params"]["workflow_id"]
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, s3_workflow_id)
+            workflow_data = s3_store.read_workflow(s3_workflow_id)
 
             report_numbers = get_value(workflow_data, "data.report_numbers", [])
             affiliations = flatten_list(
@@ -1493,7 +1465,7 @@ def hep_create_dag():
 
             workflow_data["data"]["_collections"] = list(hidden_collections)
 
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
 
         @task.short_circuit
         def await_decision_approval(**context):
@@ -1524,16 +1496,16 @@ def hep_create_dag():
                 return False
 
             is_approved = action in [DECISION_HEP_ACCEPT, DECISION_HEP_ACCEPT_CORE]
-            s3.set_flag("approved", is_approved, s3_hook, bucket_name, workflow_id)
+            s3_store.set_flag("approved", is_approved, workflow_id)
 
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
 
             return True
 
         @task
         def update_inspire_categories(**context):
             s3_workflow_id = context["params"]["workflow_id"]
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, s3_workflow_id)
+            workflow_data = s3_store.read_workflow(s3_workflow_id)
 
             if (
                 workflow_data.get("journal_inspire_categories")
@@ -1543,7 +1515,7 @@ def hep_create_dag():
                     "journal_inspire_categories"
                 ]
 
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
 
         replace_collection_task = replace_collection_to_hidden()
 
@@ -1589,16 +1561,14 @@ def hep_create_dag():
 
         workflow_id = context["params"]["workflow_id"]
 
-        if s3.get_flag("approved", s3_hook, bucket_name, workflow_id):
+        if s3_store.get_flag("approved", workflow_id):
             return "postprocessing.set_core_if_not_update"
         return "notify_and_close_not_accepted"
 
     @task
     def notify_and_close_not_accepted(**context):
         """Send notification if the workflow is a submission."""
-        workflow_data = s3.read_workflow(
-            s3_hook, bucket_name, context["params"]["workflow_id"]
-        )
+        workflow_data = s3_store.read_workflow(context["params"]["workflow_id"])
 
         if not is_submission(workflow_data):
             return
@@ -1614,9 +1584,9 @@ def hep_create_dag():
         @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def set_core_if_not_update(**context):
             workflow_id = context["params"]["workflow_id"]
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+            workflow_data = s3_store.read_workflow(workflow_id)
 
-            is_update = s3.get_flag("is-update", s3_hook, bucket_name, workflow_id)
+            is_update = s3_store.get_flag("is-update", workflow_id)
 
             if is_update:
                 return
@@ -1624,7 +1594,7 @@ def hep_create_dag():
             if "core" in workflow_data:
                 workflow_data["data"]["core"] = workflow_data["core"]
 
-                s3.write_workflow(s3_hook, workflow_data, bucket_name)
+                s3_store.write_workflow(workflow_data)
                 return
 
             decision = get_decision(
@@ -1634,12 +1604,12 @@ def hep_create_dag():
 
             workflow_data["data"]["core"] = bool(decision)
 
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
 
         @task
         def set_refereed_and_fix_document_type(**context):
             s3_workflow_id = context["params"]["workflow_id"]
-            workflow_data = s3.read_workflow(s3_hook, bucket_name, s3_workflow_id)
+            workflow_data = s3_store.read_workflow(s3_workflow_id)
             data = workflow_data.get("data", {})
             db_journals = get_db_journals(data)
             if not db_journals:
@@ -1684,7 +1654,7 @@ def hep_create_dag():
                     data["document_type"].remove("article")
                 data["document_type"].append("conference paper")
 
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
 
         set_core_if_not_update_task = set_core_if_not_update()
         set_refereed = set_refereed_and_fix_document_type()
@@ -1702,9 +1672,7 @@ def hep_create_dag():
 
     @task
     def notify_and_close_accepted(**context):
-        workflow_data = s3.read_workflow(
-            s3_hook, bucket_name, context["params"]["workflow_id"]
-        )
+        workflow_data = s3_store.read_workflow(context["params"]["workflow_id"])
 
         if not is_submission(workflow_data):
             return
@@ -1724,9 +1692,9 @@ def hep_create_dag():
     @task
     def notify_curator_if_needed(**context):
         workflow_id = context["params"]["workflow_id"]
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+        workflow_data = s3_store.read_workflow(workflow_id)
 
-        is_update = s3.get_flag("is-update", s3_hook, bucket_name, workflow_id)
+        is_update = s3_store.get_flag("is-update", workflow_id)
 
         if is_update:
             return
@@ -1740,7 +1708,7 @@ def hep_create_dag():
 
         functional_categories = (
             tickets.get_functional_categories_from_fulltext_or_raw_affiliations(
-                workflow_data, s3_hook, bucket_name
+                workflow_data, s3_store.hook
             )
         )
 
@@ -1779,16 +1747,12 @@ def hep_create_dag():
 
     @task.branch
     def should_proceed_to_core_selection(**context):
-        workflow_data = s3.read_workflow(
-            s3_hook, bucket_name, context["params"]["workflow_id"]
-        )
+        workflow_data = s3_store.read_workflow(context["params"]["workflow_id"])
 
-        is_auto_approved = s3.get_flag(
-            "auto-approved", s3_hook, bucket_name, context["params"]["workflow_id"]
+        is_auto_approved = s3_store.get_flag(
+            "auto-approved", context["params"]["workflow_id"]
         )
-        is_create = not s3.get_flag(
-            "is-update", s3_hook, bucket_name, context["params"]["workflow_id"]
-        )
+        is_create = not s3_store.get_flag("is-update", context["params"]["workflow_id"])
         is_core = get_value(workflow_data, "data.core")
         if is_auto_approved and is_create and not is_core:
             return "save_workflow"
@@ -1816,15 +1780,13 @@ def hep_create_dag():
 
                 return False
 
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
 
             return True
 
         @task
         def load_record_from_hep(**context):
-            workflow_data = s3.read_workflow(
-                s3_hook, bucket_name, context["params"]["workflow_id"]
-            )
+            workflow_data = s3_store.read_workflow(context["params"]["workflow_id"])
 
             control_number = workflow_data["data"]["control_number"]
 
@@ -1847,13 +1809,11 @@ def hep_create_dag():
             is_core_selection_accepted = bool(decision)
             workflow_data["data"]["core"] = is_core_selection_accepted
 
-            s3.write_workflow(s3_hook, workflow_data, bucket_name)
+            s3_store.write_workflow(workflow_data)
 
         @task.branch
         def is_core(**context):
-            workflow_data = s3.read_workflow(
-                s3_hook, bucket_name, context["params"]["workflow_id"]
-            )
+            workflow_data = s3_store.read_workflow(context["params"]["workflow_id"])
 
             if get_value(workflow_data, "data.core") is True:
                 return "core_selection.normalize_author_affiliations"
@@ -1892,7 +1852,7 @@ def hep_create_dag():
     @task
     def save_workflow(**context):
         workflow_id = context["params"]["workflow_id"]
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+        workflow_data = s3_store.read_workflow(workflow_id)
         workflows.save_workflow(workflow_data)
 
     @task
@@ -1901,8 +1861,8 @@ def hep_create_dag():
         Opposite of def is_stale_data() in next."""
 
         workflow_id = context["params"]["workflow_id"]
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
-        is_update = s3.get_flag("is-update", s3_hook, bucket_name, workflow_id)
+        workflow_data = s3_store.read_workflow(workflow_id)
+        is_update = s3_store.get_flag("is-update", workflow_id)
         merge_details = workflow_data.get("merge_details", {}) or {}
         head_version_id = merge_details.get("head_version_id")
 
@@ -1926,7 +1886,7 @@ def hep_create_dag():
     @task
     def create_curation_core_ticket(**context):
         workflow_id = context["params"]["workflow_id"]
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+        workflow_data = s3_store.read_workflow(workflow_id)
 
         if get_ticket_by_type(workflow_data, TICKET_HEP_CURATION_CORE):
             return
@@ -1957,20 +1917,20 @@ def hep_create_dag():
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def store_record(**context):
         workflow_id = context["params"]["workflow_id"]
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+        workflow_data = s3_store.read_workflow(workflow_id)
         # Store the record in the database or any other storage
         """Insert or replace a record."""
 
-        is_update = s3.get_flag("is-update", s3_hook, bucket_name, workflow_id)
+        is_update = s3_store.get_flag("is-update", workflow_id)
 
         workflow_data = workflows.store_record_inspirehep_api(workflow_data, is_update)
 
-        s3.write_workflow(s3_hook, workflow_data, bucket_name)
+        s3_store.write_workflow(workflow_data)
 
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def save_and_complete_workflow(**context):
         workflow_id = context["params"]["workflow_id"]
-        workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+        workflow_data = s3_store.read_workflow(workflow_id)
         workflow_data["status"] = STATUS_COMPLETED
 
         workflow_management_hook.update_workflow(workflow_id, workflow_data)
@@ -1978,7 +1938,7 @@ def hep_create_dag():
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def run_next_if_necessary(**context):
         workflow_id = context["params"]["workflow_id"]
-        workflow = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+        workflow = s3_store.read_workflow(workflow_id)
 
         matches = opensearch.find_matching_workflows(
             workflow, RUNNING_STATUSES + [STATUS_BLOCKED]
