@@ -1,7 +1,7 @@
 import logging
 
-from airflow.providers.opensearch.hooks.opensearch import OpenSearchHook
 from airflow.sdk import Variable
+from hooks.custom_opensearch_hook import CustomOpenSearchHook
 from inspire_utils.record import get_value
 
 logger = logging.getLogger(__name__)
@@ -46,7 +46,7 @@ def find_matching_workflows(workflow, statuses):
     }
     index_name = Variable.get("hepworkflow_open_search_index")
 
-    opensearch_hook = OpenSearchHook(
+    opensearch_hook = CustomOpenSearchHook(
         open_search_conn_id="opensearch_connection", log_query=True
     )
     response = opensearch_hook.search(query=query, index_name=index_name)
