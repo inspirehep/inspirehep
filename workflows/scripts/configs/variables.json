@@ -4,7 +4,6 @@
   "author_schema": "https://inspirehep.net/schemas/records/authors.json",
   "hep_schema": "https://inspirehep.net/schemas/records/hep.json",
   "data_schema": "https://inspirehep.net/schemas/records/data.json",
-  "s3_bucket_name": "data-store",
   "s3_ieee_bucket_name": "data-store",
   "HEP_ONTOLOGY_FILE": "plugins/include/taxonomies/HEPont.rdf",
   "WORKFLOWS_MAX_AUTHORS_COUNT_FOR_GROBID_EXTRACTION": 1000,

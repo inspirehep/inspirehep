@@ -4,7 +4,7 @@ from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_hook import (
     InspireHttpHook,
 )
-from include.utils import s3, workflows
+from include.utils import workflows
 from include.utils.constants import (
     HEP_CREATE,
 )
@@ -229,7 +229,7 @@ def test_is_arxiv_paper_returns_false_if_source_is_not_present_for_hepcrawl():
     assert not workflows.is_arxiv_paper(data)
 
 
-@pytest.mark.usefixtures("_s3_hook")
+@pytest.mark.usefixtures("_s3_store")
 class GrobidTests:
     workflow_id = "bf92a2c3-610c-4d9e-bb8f-5a20d519accc"
 
@@ -245,14 +245,14 @@ class GrobidTests:
     @pytest.mark.vcr
     def test_post_pdf_to_grobid_process_header(self):
         def _test_post_pdf_to_grobid_process_header():
-            s3.write_workflow(self.s3_hook, self.workflow, self.bucket_name)
+            self.s3_store.write_workflow(self.workflow)
             task_test(
                 "hep_create_dag",
                 "preprocessing.download_documents",
                 dag_params={"workflow_id": self.workflow_id},
             )
             grobid_response = workflows.post_pdf_to_grobid(
-                self.workflow, self.s3_hook, self.bucket_name, process_fulltext=False
+                self.workflow, self.s3_store.hook, process_fulltext=False
             )
             assert '<forename type="first">Yuliang</forename>' in grobid_response.text
 
@@ -261,14 +261,14 @@ class GrobidTests:
     @pytest.mark.vcr
     def test_post_pdf_to_grobid_process_fulltext(self):
         def _test_post_pdf_to_grobid_process_fulltext():
-            s3.write_workflow(self.s3_hook, self.workflow, self.bucket_name)
+            self.s3_store.write_workflow(self.workflow)
             task_test(
                 "hep_create_dag",
                 "preprocessing.download_documents",
                 dag_params={"workflow_id": self.workflow_id},
             )
             grobid_response = workflows.post_pdf_to_grobid(
-                self.workflow, self.s3_hook, self.bucket_name, process_fulltext=True
+                self.workflow, self.s3_store.hook, process_fulltext=True
             )
             assert (
                 "Autonomous driving increasingly relies on Visual Question Answering"
@@ -280,15 +280,13 @@ class GrobidTests:
     @pytest.mark.vcr
     def test_get_fulltext(self):
         def _test_get_fulltext():
-            s3.write_workflow(self.s3_hook, self.workflow, self.bucket_name)
+            self.s3_store.write_workflow(self.workflow)
             task_test(
                 "hep_create_dag",
                 "preprocessing.download_documents",
                 dag_params={"workflow_id": self.workflow_id},
             )
-            fulltext = workflows.get_fulltext(
-                self.workflow, self.s3_hook, self.bucket_name
-            )
+            fulltext = workflows.get_fulltext(self.workflow, self.s3_store.hook)
             assert (
                 "Autonomous driving increasingly relies on Visual Question Answering"
                 in fulltext
