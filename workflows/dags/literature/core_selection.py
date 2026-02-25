@@ -1,18 +1,16 @@
-from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-from airflow.sdk import Variable, task
-from include.utils import s3
+from airflow.sdk import task
 from include.utils.constants import ARXIV_CATEGORIES
+from include.utils.s3 import S3JsonStore
 from inspire_schemas.utils import classify_field
 from inspire_utils.record import get_value
 
 
 @task
 def remove_inspire_categories_derived_from_core_arxiv_categories(**context):
-    s3_hook = S3Hook(aws_conn_id="s3_conn")
-    bucket_name = Variable.get("s3_bucket_name")
+    s3_store = S3JsonStore(aws_conn_id="s3_conn")
 
     workflow_id = context["params"]["workflow_id"]
-    workflow_data = s3.read_workflow(s3_hook, bucket_name, workflow_id)
+    workflow_data = s3_store.read_workflow(workflow_id)
     data = workflow_data.get("data", {})
 
     if not data.get("arxiv_eprints"):
@@ -37,4 +35,4 @@ def remove_inspire_categories_derived_from_core_arxiv_categories(**context):
         inspire_categories_for_non_core_arxiv_categories
     )
     data["inspire_categories"] = inspire_categories_without_arxiv_sourced
-    s3.write_workflow(s3_hook, workflow_data, bucket_name)
+    s3_store.write_workflow(workflow_data)

@@ -2,11 +2,6 @@ import sys
 from pathlib import Path
 
 import pytest
-from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-from airflow.sdk import Variable
-from hooks.inspirehep.inspire_http_record_management_hook import (
-    InspireHTTPRecordManagementHook,
-)
 
 from tests.test_utils import function_test
 
@@ -15,6 +10,11 @@ sys.path.insert(0, str(dags_path))
 
 plugins_path = Path(__file__).resolve().parents[1] / "plugins"
 sys.path.insert(0, str(plugins_path))
+
+from hooks.inspirehep.inspire_http_record_management_hook import (  # noqa: E402
+    InspireHTTPRecordManagementHook,
+)
+from include.utils.s3 import S3JsonStore  # noqa: E402
 
 
 @pytest.fixture(scope="session")
@@ -30,11 +30,10 @@ def vcr_config():
 
 
 @pytest.fixture(scope="class")
-def _s3_hook(request):
+def _s3_store(request):
     def _setup():
-        request.cls.s3_hook = S3Hook(aws_conn_id="s3_conn")
-        request.cls.bucket_name = Variable.get("s3_bucket_name")
-        request.cls.s3_hook.get_bucket(request.cls.bucket_name)
+        request.cls.s3_store = S3JsonStore(aws_conn_id="s3_conn")
+        request.cls.s3_store.initialize()
 
     function_test(_setup)
 

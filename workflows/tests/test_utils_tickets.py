@@ -11,11 +11,10 @@ def test_get_functional_categories_from_fulltext_or_raw_affiliations(datadir):
     }
 
     s3_hook = None
-    bucket_name = None
 
     functional_categories = (
         tickets.get_functional_categories_from_fulltext_or_raw_affiliations(
-            workflow, s3_hook, bucket_name
+            workflow, s3_hook
         )
     )
 

@@ -1,9 +1,8 @@
 import logging
 
 from airflow.exceptions import AirflowException
-from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-from airflow.sdk import Variable, task
-from include.utils.s3 import read_object
+from airflow.sdk import task
+from include.utils.s3 import S3JsonStore
 
 logger = logging.getLogger(__name__)
 
@@ -15,11 +14,9 @@ def check_failures(failed_record_key):
     Args: failed_records (list): The list of failed records.
     Raises: AirflowException: If there are any failed records.
     """
+    s3_store = S3JsonStore(aws_conn_id="s3_conn")
 
-    s3_hook = S3Hook(aws_conn_id="s3_conn")
-    bucket_name = Variable.get("s3_bucket_name")
-
-    record_data = read_object(s3_hook, bucket_name, failed_record_key)
+    record_data = s3_store.read_object(failed_record_key)
     failed_records = record_data.get("failed_build_records", []) + record_data.get(
         "failed_load_records", []
     )
