@@ -1,115 +1,91 @@
 import json
+import logging
 import uuid
 
+from airflow.models import Variable
+from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 
-def read_object(s3_hook, bucket_name, key):
-    """Read an object from S3.
-    Args:
-        s3_hook (S3Hook or boto3.client): The S3 hook or client to use.
-        bucket_name (str): The name of the bucket.
-        key (str): The key of the object to read.
-    Returns:
-        dict: The content of the object as a dictionary.
-    """
-
-    content = s3_hook.get_key(key, bucket_name=bucket_name).get()
-
-    return json.loads(content["Body"].read().decode("utf-8"))
+logger = logging.getLogger(__name__)
 
 
-def write_object(s3_hook, data, bucket_name, key=None, overwrite=False):
-    """Write an object to S3.
-    Args:
-        s3_hook (S3Hook or boto3.client): The S3 hook or client to use.
-        data (dict): The data to write.
-        bucket_name (str): The name of the bucket.
-        key (str, optional): The key for the object. Defaults to random UUID.
-    Returns:
-        str: The key of the written object.
-    """
-    if key is None:
-        key = str(uuid.uuid4())
+class S3JsonStore:
+    def __init__(
+        self,
+        aws_conn_id="s3_conn",
+        bucket_name=None,
+        bucket_variable="s3_bucket_name",
+        hook=None,
+    ):
+        self.aws_conn_id = aws_conn_id
+        self._bucket_name = bucket_name
+        self.bucket_variable = bucket_variable
+        self._hook = hook
 
-    s3_hook.load_string(
-        json.dumps(data),
-        key=key,
-        bucket_name=bucket_name,
-        replace=overwrite,
-    )
-    return key
+    @property
+    def hook(self):
+        if self._hook is None:
+            self._hook = S3Hook(aws_conn_id=self.aws_conn_id)
+        return self._hook
 
+    @property
+    def bucket_name(self):
+        if self._bucket_name:
+            return self._bucket_name
+        return Variable.get(self.bucket_variable)
 
-def write_workflow(s3_hook, workflow_data, bucket_name, filename="workflow.json"):
-    """Write workflow data to S3.
-    Args:
-        s3_hook (S3Hook or boto3.client): The S3 hook or client to use.
-        workflow_data (dict): The workflow data to write.
-        bucket_name (str): The name of the bucket.
-    Returns:
-        str: The key of the written workflow object.
-    """
-    key = f"{workflow_data['id']}/{filename}"
+    def read_object(self, key, bucket_name=None):
+        bucket = bucket_name or self.bucket_name
+        content = self.hook.get_key(key, bucket_name=bucket).get()
+        return json.loads(content["Body"].read().decode("utf-8"))
 
-    write_object(s3_hook, workflow_data, bucket_name, key=key, overwrite=True)
+    def write_object(self, data, key=None, bucket_name=None, overwrite=False):
+        bucket = bucket_name or self.bucket_name
+        object_key = key or str(uuid.uuid4())
+        self.hook.load_string(
+            json.dumps(data),
+            key=object_key,
+            bucket_name=bucket,
+            replace=overwrite,
+        )
+        return object_key
 
-    return key
+    def write_workflow(self, workflow_data, bucket_name=None, filename="workflow.json"):
+        key = f"{workflow_data['id']}/{filename}"
+        self.write_object(
+            workflow_data,
+            bucket_name=bucket_name,
+            key=key,
+            overwrite=True,
+        )
+        return key
 
+    def read_workflow(self, workflow_id, bucket_name=None, filename="workflow.json"):
+        key = f"{workflow_id}/{filename}"
+        return self.read_object(key=key, bucket_name=bucket_name)
 
-def read_workflow(s3_hook, bucket_name, workflow_id, filename="workflow.json"):
-    """Read workflow data from S3.
-    Args:
-        s3_hook (S3Hook or boto3.client): The S3 hook or client to use.
-        bucket_name (str): The name of the bucket.
-        workflow_id (str): The identifier for the workflow.
-    Returns:
-        dict: The content of the workflow object as a dictionary.
-    """
-    key = f"{workflow_id}/{filename}"
-    return read_object(s3_hook, bucket_name, key)
+    def set_flag(self, flag, value, workflow_id, bucket_name=None):
+        key = f"{workflow_id}/flags.json"
+        try:
+            flags = self.read_object(key=key, bucket_name=bucket_name)
+        except Exception:
+            flags = {}
+        flags[flag] = value
+        self.write_object(flags, key=key, bucket_name=bucket_name, overwrite=True)
 
+    def get_flag(self, flag, workflow_id, bucket_name=None):
+        key = f"{workflow_id}/flags.json"
+        flags = self.read_object(key=key, bucket_name=bucket_name)
+        return flags.get(flag)
 
-def set_flag(flag, value, s3_hook, bucket_name, workflow_id):
-    """Set a flag for a workflow
-
-    Args:
-        flag (str): Name of the flag to set.
-        value: Value to assign to the flag.
-        s3_hook: S3 hook used to read and write the flags object.
-        bucket_name (str): S3 bucket containing workflow flags.
-        workflow_id (str): Identifier of the workflow.
-    """
-    key = f"{workflow_id}/flags.json"
-    try:
-        flags = read_object(s3_hook, bucket_name, key)
-    except Exception:
-        flags = {}
-    flags[flag] = value
-    write_object(s3_hook, flags, bucket_name, key, overwrite=True)
-
-
-def get_flag(flag, s3_hook, bucket_name, workflow_id):
-    """Get a flag for a workflow
-
-    Args:
-        flag (str): Name of the flag to retrieve.
-        s3_hook: S3 hook used to read the flags object.
-        bucket_name (str): S3 bucket containing workflow flags.
-        workflow_id (str): Identifier of the workflow.
-    """
-    key = f"{workflow_id}/flags.json"
-    flags = read_object(s3_hook, bucket_name, key)
-    return flags.get(flag)
+    def set_flags(self, flags_dict, workflow_id, bucket_name=None):
+        key = f"{workflow_id}/flags.json"
+        self.write_object(
+            flags_dict,
+            bucket_name=bucket_name,
+            key=key,
+            overwrite=True,
+        )
 
 
-def set_flags(flags_dict, s3_hook, bucket_name, workflow_id):
-    """Set multiple flags for a workflow
-
-    Args:
-        flags_dict (dict): Dictionary of flag names and values to set.
-        s3_hook: S3 hook used to read and write the flags object.
-        bucket_name (str): S3 bucket containing workflow flags.
-        workflow_id (str): Identifier of the workflow.
-    """
-    key = f"{workflow_id}/flags.json"
-
-    write_object(s3_hook, flags_dict, bucket_name, key, overwrite=True)
+def get_default_bucket_name(s3_hook):
+    return s3_hook.get_bucket().name
