@@ -5,13 +5,12 @@ from airflow.exceptions import AirflowException, AirflowSkipException
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.arxiv import build_records, fetch_records, load_records
 from include.utils.constants import HEP_CREATE
-from include.utils.s3 import write_object
 from sickle.oaiexceptions import NoRecordsMatch
 
 from tests.test_utils import function_test, task_test
 
 
-@pytest.mark.usefixtures("_s3_hook")
+@pytest.mark.usefixtures("_s3_store")
 class TestArxivHarvest:
     connection_id = "arxiv_oaipmh_connection"
     workflow_management_hook = WorkflowManagementHook(HEP)
@@ -163,10 +162,8 @@ class TestArxivHarvest:
         assert len(failed_load_records) == 0
 
     def test_check_failures_success(self):
-        s3_key = write_object(
-            self.s3_hook,
-            {"failed_build_records": [], "failed_load_records": []},
-            self.bucket_name,
+        s3_key = self.s3_store.write_object(
+            {"failed_build_records": [], "failed_load_records": []}
         )
 
         task_test(
@@ -176,9 +173,7 @@ class TestArxivHarvest:
         )
 
     def test_check_failures_fail(self):
-        s3_key = write_object(
-            self.s3_hook, {"failed_build_records": ["record"]}, self.bucket_name
-        )
+        s3_key = self.s3_store.write_object({"failed_build_records": ["record"]})
 
         with pytest.raises(AirflowException) as exc_info:
             task_test(

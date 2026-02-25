@@ -1,4 +1,3 @@
-from include.utils.s3 import get_flag
 from inspire_utils.record import get_value
 
 
@@ -12,8 +11,8 @@ def is_journal_coverage_full(workflow_data):
     return coverage == "full"
 
 
-def is_auto_approved(workflow_id, s3_hook, bucket_name):
-    return bool(get_flag("auto-approved", s3_hook, bucket_name, workflow_id))
+def is_auto_approved(workflow_id, s3_store):
+    return bool(s3_store.get_flag("auto-approved", workflow_id))
 
 
 def is_auto_rejected(workflow_data):

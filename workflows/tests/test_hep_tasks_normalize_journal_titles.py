@@ -1,12 +1,11 @@
 import pytest
-from include.utils import s3
 
 from tests.test_utils import (
     task_test,
 )
 
 
-@pytest.mark.usefixtures("_s3_hook")
+@pytest.mark.usefixtures("_s3_store")
 class TestNormalizeJournalTitles:
     """Test class for normalize_journal_titles function logic using Airflow task."""
 
@@ -42,7 +41,7 @@ class TestNormalizeJournalTitles:
             },
         }
 
-        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        self.s3_store.write_workflow(workflow_data)
 
         task_test(
             "hep_create_dag",
@@ -50,9 +49,7 @@ class TestNormalizeJournalTitles:
             dag_params=self.context["params"],
         )
 
-        updated_data = s3.read_workflow(
-            self.s3_hook, self.bucket_name, workflow_id=self.workflow_id
-        )
+        updated_data = self.s3_store.read_workflow(self.workflow_id)
 
         assert "data" in updated_data
         assert "publication_info" in updated_data["data"]
@@ -80,7 +77,7 @@ class TestNormalizeJournalTitles:
             },
         }
 
-        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        self.s3_store.write_workflow(workflow_data)
 
         task_test(
             "hep_create_dag",
@@ -88,9 +85,7 @@ class TestNormalizeJournalTitles:
             dag_params=self.context["params"],
         )
 
-        updated_data = s3.read_workflow(
-            self.s3_hook, self.bucket_name, workflow_id=self.workflow_id
-        )
+        updated_data = self.s3_store.read_workflow(self.workflow_id)
 
         assert "data" in updated_data
         assert "publication_info" in updated_data["data"]
@@ -126,7 +121,7 @@ class TestNormalizeJournalTitles:
             },
         }
 
-        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        self.s3_store.write_workflow(workflow_data)
 
         task_test(
             "hep_create_dag",
@@ -134,9 +129,7 @@ class TestNormalizeJournalTitles:
             dag_params=self.context["params"],
         )
 
-        updated_data = s3.read_workflow(
-            self.s3_hook, self.bucket_name, workflow_id=self.workflow_id
-        )
+        updated_data = self.s3_store.read_workflow(self.workflow_id)
 
         assert "data" in updated_data
         assert "publication_info" in updated_data["data"]
@@ -163,7 +156,7 @@ class TestNormalizeJournalTitles:
                 ],
             },
         }
-        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        self.s3_store.write_workflow(workflow_data)
 
         task_test(
             "hep_create_dag",
@@ -171,9 +164,7 @@ class TestNormalizeJournalTitles:
             dag_params=self.context["params"],
         )
 
-        updated_data = s3.read_workflow(
-            self.s3_hook, self.bucket_name, workflow_id=self.workflow_id
-        )
+        updated_data = self.s3_store.read_workflow(self.workflow_id)
 
         assert "data" in updated_data
         assert "publication_info" in updated_data["data"]
@@ -209,16 +200,14 @@ class TestNormalizeJournalTitles:
             },
         }
 
-        s3.write_workflow(self.s3_hook, workflow_data, self.bucket_name)
+        self.s3_store.write_workflow(workflow_data)
         task_test(
             "hep_create_dag",
             "preprocessing.normalize_journal_titles",
             dag_params=self.context["params"],
         )
 
-        updated_data = s3.read_workflow(
-            self.s3_hook, self.bucket_name, workflow_id=self.workflow_id
-        )
+        updated_data = self.s3_store.read_workflow(self.workflow_id)
         assert "data" in updated_data
         assert "references" in updated_data["data"]
         assert len(updated_data["data"]["references"]) == 2

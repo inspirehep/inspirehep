@@ -61,7 +61,7 @@ jobs:
           -e AIRFLOW__CORE__EXECUTOR=CeleryExecutor
           -e AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@127.0.0.1:5432/airflow
           -e AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@127.0.0.1:5432/airflow
-          -e AIRFLOW_CONN_S3_CONN="aws://airflow:airflow-inspire@localhost:9000/?endpoint_url=http%3A%2F%2Flocalhost%3A9000"
+          -e AIRFLOW_CONN_S3_CONN="aws://airflow:airflow-inspire@localhost:9000/?__extra__=%7B%22endpoint_url%22%3A+%22http%3A%2F%2Flocalhost%3A9000%22%2C+%22service_config%22%3A+%7B%22s3%22%3A+%7B%22bucket_name%22%3A+%22data-store%22%7D%7D%7D"
           -e AIRFLOW__CELERY__BROKER_URL=redis://:@127.0.0.1:6379/0
           -e AIRFLOW__CORE__FERNET_KEY=""
           -e AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION="true"
