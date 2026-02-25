@@ -72,6 +72,18 @@ class HepDecisionViewSet(viewsets.ModelViewSet):
         description="Creates/Updates a Hep Workflow.",
         request=HepWorkflowSerializer,
     ),
+    retrieve=extend_schema(
+        summary="Retrieve a Hep Workflow",
+        parameters=[
+            OpenApiParameter(
+                name="include_validation_errors",
+                description="Include schema validation errors in the response.",
+                required=False,
+                type=OpenApiTypes.BOOL,
+                location=OpenApiParameter.QUERY,
+            ),
+        ],
+    ),
     partial_update=extend_schema(
         summary="Partially Updates Hep Workflow",
         description="Updates specific fields of the hep workflow.",
@@ -93,6 +105,7 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
     resolution_serializer = HepResolutionSerializer
     status_choices = HepStatusChoices
     schema_name = "hep"
+    include_validation_errors_by_default = False
 
     def create(self, request):
         logger.info("Creating workflow with data: %s", request.data)

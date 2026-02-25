@@ -214,6 +214,13 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         json_response = response.json()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json_response["data"], data_invalid)
+        self.assertNotIn("validation_errors", json_response)
+
+        response = self.api_client.get(
+            detail_url, {"include_validation_errors": "true"}
+        )
+        json_response = response.json()
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(
             json_response["validation_errors"],
             [
