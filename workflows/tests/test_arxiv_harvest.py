@@ -164,9 +164,7 @@ class TestArxivHarvest:
 
     def test_check_failures_success(self):
         s3_key = write_object(
-            self.s3_hook,
-            {"failed_build_records": [], "failed_load_records": []},
-            self.bucket_name,
+            self.s3_hook, {"failed_build_records": [], "failed_load_records": []}
         )
 
         task_test(
@@ -176,9 +174,7 @@ class TestArxivHarvest:
         )
 
     def test_check_failures_fail(self):
-        s3_key = write_object(
-            self.s3_hook, {"failed_build_records": ["record"]}, self.bucket_name
-        )
+        s3_key = write_object(self.s3_hook, {"failed_build_records": ["record"]})
 
         with pytest.raises(AirflowException) as exc_info:
             task_test(

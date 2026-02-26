@@ -3,7 +3,6 @@ from pathlib import Path
 
 import pytest
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-from airflow.sdk import Variable
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
@@ -33,8 +32,7 @@ def vcr_config():
 def _s3_hook(request):
     def _setup():
         request.cls.s3_hook = S3Hook(aws_conn_id="s3_conn")
-        request.cls.bucket_name = Variable.get("s3_bucket_name")
-        request.cls.s3_hook.get_bucket(request.cls.bucket_name)
+        request.cls.bucket_name = request.cls.s3_hook.service_config.get("bucket_name")
 
     function_test(_setup)
 
