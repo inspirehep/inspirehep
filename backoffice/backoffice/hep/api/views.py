@@ -209,9 +209,10 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
             airflow_utils.clear_airflow_dag_run(
                 dag_id, str(workflow.id), only_failed=only_failed
             )
-            if not only_failed:
-                workflow.status = self.status_choices.PROCESSING
-                workflow.save()
+            workflow.status = (
+                HepStatusChoices.RUNNING if only_failed else HepStatusChoices.PROCESSING
+            )
+            workflow.save()
         except RequestException as e:
             return handle_request_exception(
                 "Error restarting Airflow DAGs for workflow %s",
