@@ -428,6 +428,8 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         }
         response = self.api_client.post(url, format="json", data=data)
         self.assertEqual(response.status_code, 200)
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, HepStatusChoices.RUNNING)
 
         airflow_utils.delete_workflow_dag(dag_id, self.workflow.id)
 
@@ -448,6 +450,8 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         }
         response = self.api_client.post(url, format="json", data=data)
         self.assertEqual(response.status_code, 400)
+        completed_workflow.refresh_from_db()
+        self.assertEqual(completed_workflow.status, HepStatusChoices.COMPLETED)
         self.assertEqual(
             response.json()["message"], "Cannot restart a completed workflow."
         )
