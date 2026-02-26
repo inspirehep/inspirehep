@@ -11,7 +11,7 @@ interactions:
       Content-Type:
       - application/json
     method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111
+    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111?validate=true
   response:
     body:
       string: ''
@@ -25,9 +25,9 @@ interactions:
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Mon, 01 Dec 2025 15:07:54 GMT
+      - Thu, 26 Feb 2026 09:58:44 GMT
       Location:
-      - /api/workflows/literature/00000000-0000-0000-0000-000000001111/
+      - /api/workflows/literature/00000000-0000-0000-0000-000000001111/?validate=true
       Referrer-Policy:
       - same-origin
       Server:
@@ -49,7 +49,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111/
+    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111/?validate=true
   response:
     body:
       string: "{\"id\":\"00000000-0000-0000-0000-000000001111\",\"validation_errors\":[],\"data\":{\"dois\":[{\"value\":\"10.1016/j.physletb.2025.139959\",\"source\":\"Elsevier
@@ -116,7 +116,8 @@ interactions:
         SPS\",\"category\":\"HEP\"},{\"keyword\":\"quantum channel\",\"category\":\"HEP\"},{\"keyword\":\"structure\",\"category\":\"HEP\"},{\"keyword\":\"topology\",\"category\":\"HEP\"},{\"keyword\":\"4/3\",\"category\":\"HEP\"},{\"keyword\":\"density
         matrix\",\"category\":\"HEP\"},{\"keyword\":\"quantum memory\",\"category\":\"HEP\"},{\"keyword\":\"transfer
         matrix\",\"category\":\"HEP\"},{\"keyword\":\"propagation\",\"category\":\"HEP\"},{\"keyword\":\"depolarization\",\"category\":\"HEP\"},{\"keyword\":\"estimator\",\"category\":\"HEP\"},{\"keyword\":\"qubit\",\"category\":\"HEP\"},{\"keyword\":\"parametric\",\"category\":\"HEP\"}],\"fulltext_used\":true,\"complete_output\":{\"acronyms\":[],\"field_codes\":[{\"keywords\":\"quantum
-        key distribution, quantum information\",\"fieldcode\":\"k\"}],\"core_keywords\":[{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
+        key distribution, quantum information\",\"fieldcode\":\"k\"}],\"core_keywords\":[{\"number\":150,\"keyword\":\"big
+        number\"},{\"number\":0,\"keyword\":\"zero\"},{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
         device\"},{\"number\":5,\"keyword\":\"gate, C-NOT\"},{\"number\":2,\"keyword\":\"computer,
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
@@ -137,12 +138,13 @@ interactions:
         quantum\"},{\"number\":1,\"details\":[1,53],\"keyword\":\"Fisher information,
         quantum\"},{\"number\":1,\"details\":[22,2],\"keyword\":\"gate, phase\"},{\"number\":1,\"details\":[12,12],\"keyword\":\"decoherence,
         time\"},{\"number\":1,\"details\":[12,3],\"keyword\":\"representation, unitarity\"},{\"number\":1,\"details\":[2,3],\"keyword\":\"fibre,
-        optical\"},{\"number\":1,\"details\":[1,1],\"keyword\":\"resonance, magnetic\"}],\"filtered_core_keywords\":[{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
+        optical\"},{\"number\":1,\"details\":[1,1],\"keyword\":\"resonance, magnetic\"}],\"filtered_core_keywords\":[{\"number\":150,\"keyword\":\"big
+        number\"},{\"number\":0,\"keyword\":\"zero\"},{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
         device\"},{\"number\":5,\"keyword\":\"gate, C-NOT\"},{\"number\":2,\"keyword\":\"computer,
         quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
         SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
         sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
-        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2024-11-25T13:49:54.756000Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
+        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"callback_url\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2024-11-25T13:49:54.756000Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
         class of Hadamard well-posed five-field theories of dissipative relativistic
         fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
         Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
@@ -157,205 +159,20 @@ interactions:
         =13 TeV That Decay to Displaced Hadronic Jets Detected With the Muon Spectrometer
         in ATLAS\",\"authors\":[{\"full_name\":\"Zhou, Hao\"}],\"abstract\":\"The
         discovery of the Higgs boson in 2012 marked a great success of the Standard
-        Model (SM) of particle physics.\",\"authors_count\":1,\"earliest_date\":\"2021\",\"control_number\":1989726,\"number_of_pages\":163,\"publication_info\":[{\"year\":2021}]}]},\"status\":\"running\"}"
+        Model (SM) of particle physics.\",\"authors_count\":1,\"earliest_date\":\"2021\",\"control_number\":1989726,\"number_of_pages\":163,\"publication_info\":[{\"year\":2021}]}]},\"form_data\":null,\"status\":\"running\"}"
     headers:
       Allow:
       - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
       Content-Language:
       - en
       Content-Length:
-      - '14496'
+      - '14669'
       Content-Type:
       - application/json
       Cross-Origin-Opener-Policy:
       - same-origin
       Date:
-      - Mon, 01 Dec 2025 15:07:54 GMT
-      Referrer-Policy:
-      - same-origin
-      Server:
-      - WSGIServer/0.2 CPython/3.11.6
-      Vary:
-      - Accept, Accept-Language, Cookie, origin
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/json
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-    method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111
-  response:
-    body:
-      string: ''
-    headers:
-      Connection:
-      - close
-      Content-Language:
-      - en
-      Content-Type:
-      - text/html; charset=utf-8
-      Cross-Origin-Opener-Policy:
-      - same-origin
-      Date:
-      - Mon, 01 Dec 2025 15:07:54 GMT
-      Location:
-      - /api/workflows/literature/00000000-0000-0000-0000-000000001111/
-      Referrer-Policy:
-      - same-origin
-      Server:
-      - WSGIServer/0.2 CPython/3.11.6
-      Vary:
-      - Accept-Language, origin
-      X-Content-Type-Options:
-      - nosniff
-    status:
-      code: 301
-      message: Moved Permanently
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/json
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-    method: GET
-    uri: http://host.docker.internal:8001/api/workflows/literature/00000000-0000-0000-0000-000000001111/
-  response:
-    body:
-      string: "{\"id\":\"00000000-0000-0000-0000-000000001111\",\"validation_errors\":[],\"data\":{\"dois\":[{\"value\":\"10.1016/j.physletb.2025.139959\",\"source\":\"Elsevier
-        B.V.\",\"material\":\"publication\"}],\"urls\":[{\"value\":\"https://lss.fnal.gov/archive/2025/pub/fermilab-pub-25-0393-ppd.pdf\",\"description\":\"Fermilab
-        Library Server\"}],\"titles\":[{\"title\":\"Chebyshev Moment Regularization
-        (CMR): Condition-Number Control with Moment Shaping\",\"source\":\"arXiv\"}],\"$schema\":\"https://inspirehep.net/schemas/records/hep.json\",\"authors\":[{\"uuid\":\"1661c971-41e0-4361-8770-5ab2baae543e\",\"record\":{\"$ref\":\"https://inspirehep.net/api/authors/2742792\"},\"full_name\":\"Song,
-        Hanlin\",\"affiliations\":[{\"value\":\"Peking U.\",\"record\":{\"$ref\":\"https://inspirehep.net/api/institutions/903603\"}}],\"curated_relation\":true,\"raw_affiliations\":[{\"value\":\"School
-        of Physics, Peking University, Beijing, 100871, China\",\"source\":\"Elsevier
-        B.V.\"}]},{\"uuid\":\"e1c43d40-0cec-4f7e-bf06-2156cb2a6a12\",\"emails\":[\"mabq@pku.edu.cn\"],\"record\":{\"$ref\":\"https://inspirehep.net/api/authors/999448\"},\"full_name\":\"Ma,
-        Bo-Qiang\",\"affiliations\":[{\"value\":\"Peking U.\",\"record\":{\"$ref\":\"https://inspirehep.net/api/institutions/903603\"}},{\"value\":\"Zhengzhou
-        U.\",\"record\":{\"$ref\":\"https://inspirehep.net/api/institutions/904424\"}}],\"raw_affiliations\":[{\"value\":\"School
-        of Physics, Zhengzhou University, Zhengzhou, 450001, China\",\"source\":\"Elsevier
-        B.V.\"},{\"value\":\"School of Physics, Peking University, Beijing, 100871,
-        China\",\"source\":\"Elsevier B.V.\"}]}],\"curated\":false,\"license\":[{\"url\":\"http://creativecommons.org/licenses/by/4.0/\",\"license\":\"CC
-        BY 4.0\",\"material\":\"preprint\"}],\"citeable\":true,\"abstracts\":[{\"value\":\"We
-        introduce \\\\textbf{Chebyshev Moment Regularization (CMR)}, a simple, architecture-agnostic
-        loss that directly optimizes layer spectra. CMR jointly controls spectral
-        edges via a log-condition proxy and shapes the interior via Chebyshev moments,
-        with a decoupled, capped mixing rule that preserves task gradients. We prove
-        strictly monotone descent for the condition proxy, bounded moment gradients,
-        and orthogonal invariance. In an adversarial ``$\u03BA$-stress'' setting (MNIST,
-        15-layer MLP), \\\\emph{compared to vanilla training}, CMR reduces mean layer
-        condition numbers by $\\\\sim\\\\!10^3$ (from $\\\\approx3.9\\\\!\\\\times\\\\!10^3$
-        to $\\\\approx3.4$ in 5 epochs), increases average gradient magnitude, and
-        restores test accuracy ( $\\\\approx10\\\\%\\\\!\\\\to\\\\!\\\\approx86\\\\%$
-        ). These results support \\\\textbf{optimization-driven spectral preconditioning}:
-        directly steering models toward well-conditioned regimes for stable, accurate
-        learning.\",\"source\":\"arXiv\"}],\"languages\":[\"en\"],\"references\":[{\"raw_refs\":[{\"value\":\"[1]
-        ALICE Collaboration, (2024). Technical Design Report for the ALICE Inner Tracking
-        System Upgrade, CERN-LHCC-2024-003, ALICE-TDR-021. https://cds.cern.ch/record/2890181?ln=en\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Technical
-        Design Report for the ALICE Inner Tracking System Upgrade\",\"ALICE-TDR-021\"],\"label\":\"1\",\"texkey\":\"placeholder_its3_tdr\",\"collaborations\":[\"ALICE
-        Collaboration\"],\"report_numbers\":[\"CERN-LHCC-2024-003\"],\"publication_info\":{\"year\":2024},\"external_system_identifiers\":[{\"value\":\"2890181\",\"schema\":\"CDS\"}]}},{\"record\":{\"$ref\":\"https://inspirehep.net/api/literature/1513530\"},\"raw_refs\":[{\"value\":\"[2]
-        G. A. Rinella, (2017). The ALPIDE pixel sensor chip for the upgrade of the
-        ALICE Inner Tracking System, Nuclear Instruments and Methods in Physics Research
-        Section A 845 583-587. https://doi.org/10.1016/j.nima.2016.05.016\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1016/j.nima.2016.05.016\"],\"misc\":[\"The
-        ALPIDE pixel sensor chip for the upgrade of the ALICE Inner Tracking System\"],\"label\":\"2\",\"texkey\":\"placeholder_alpide\",\"authors\":[{\"full_name\":\"Rinella,
-        G.A.\"}],\"publication_info\":{\"year\":2017,\"page_end\":\"587\",\"page_start\":\"583\",\"journal_title\":\"Nucl.Instrum.Meth.A\",\"journal_volume\":\"845\"}}},{\"record\":{\"$ref\":\"https://inspirehep.net/api/literature/2874609\"},\"raw_refs\":[{\"value\":\"[3]
-        P. Moreira et al., (2025). lpGBT: Low-power radiation-hard multipurpose high-speed
-        transceiver ASIC for high-energy physics experiments, IEEE Transactions on
-        Nuclear Science, 72(1) 24-37. https://doi.org/10.1109/TNS.2024.3506753.\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1109/TNS.2024.3506753\"],\"misc\":[\"lpGBT:
-        Low-power radiation-hard multipurpose high-speed transceiver ASIC for high-energy
-        physics experiments\"],\"label\":\"3\",\"texkey\":\"placeholder_lpgbt\",\"authors\":[{\"full_name\":\"Moreira,
-        P.\"}],\"publication_info\":{\"year\":2025,\"page_end\":\"37\",\"page_start\":\"24\",\"journal_title\":\"IEEE
-        Trans.Nucl.Sci.\",\"journal_volume\":\"72\"}}},{\"record\":{\"$ref\":\"https://inspirehep.net/api/literature/2744986\"},\"raw_refs\":[{\"value\":\"[4]
-        O. Groettvik on behalf of the ALICE collaboration, (2024). ALICE ITS3: a bent
-        stitched MAPS-based vertex detector, JINST 19 C02048. https://doi.org/10.1088/1748-0221/19/02/C02048\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"dois\":[\"10.1088/1748-0221/19/02/C02048\"],\"misc\":[\"on
-        behalf of\",\"ALICE ITS3: a bent stitched MAPS-based vertex detector\"],\"label\":\"4\",\"texkey\":\"placeholder_its3_ogrottvi\",\"authors\":[{\"full_name\":\"Groettvik,
-        O.\"}],\"collaborations\":[\"ALICE collaboration\"],\"publication_info\":{\"year\":2024,\"artid\":\"C02048\",\"journal_title\":\"JINST\",\"journal_volume\":\"19\"}}},{\"raw_refs\":[{\"value\":\"[5]
-        Enclustra, Mercury+ AA1 - Intel\xAE Arria\xAE 10 SoC Module. [Online]. https://www.enclustra.com/en/products/system-on-chip-modules/mercury-aa1/\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Enclustra,
-        Mercury+ AA1 - Intel\xAE Arria\xAE 10 SoC Module. [Online]\"],\"urls\":[{\"value\":\"https://www.enclustra.com/en/products/system-on-chip-modules/mercury-aa1/\"}],\"label\":\"5\",\"texkey\":\"enclustra_som\"}},{\"raw_refs\":[{\"value\":\"[6]
-        Enclustra, Mercury+ ST1 - Base Board for Mercury/Mercury+ FPGA Modules. [Online].
-        https://www.enclustra.com/en/products/base-boards/mercury-st1/\",\"schema\":\"text\",\"source\":\"arXiv\"}],\"reference\":{\"misc\":[\"Enclustra,
-        Mercury+ ST1 - Base Board for Mercury/Mercury+ FPGA Modules. [Online]\"],\"urls\":[{\"value\":\"https://www.enclustra.com/en/products/base-boards/mercury-st1/\"}],\"label\":\"6\",\"texkey\":\"enclustra_baseboard\"}}],\"_collections\":[\"Literature\"],\"public_notes\":[{\"value\":\"15
-        pages\",\"source\":\"arXiv\"}],\"arxiv_eprints\":[{\"value\":\"2510.21772\",\"categories\":[\"cs.LG\",\"cs.NA\",\"math.NA\"]}],\"document_type\":[\"article\"],\"preprint_date\":\"2025-10-17\",\"collaborations\":[{\"value\":\"BLFQ\"}],\"report_numbers\":[{\"value\":\"ADP-25-11/T1273\",\"source\":\"arXiv\"}],\"number_of_pages\":15,\"publication_info\":[{\"year\":2025,\"artid\":\"139959\",\"material\":\"publication\",\"journal_title\":\"Phys.Lett.B\",\"journal_record\":{\"$ref\":\"https://inspirehep.net/api/journals/1613966\"},\"journal_volume\":\"870\",\"pubinfo_freetext\":\"Phys.
-        Lett. B 870 (2025) 139959\"}],\"acquisition_source\":{\"method\":\"hepcrawl\",\"source\":\"arXiv\",\"datetime\":\"2025-10-28T02:00:33.403192\",\"submission_number\":\"scheduled__2025-10-28T02:00:00+00:00\"},\"inspire_categories\":[{\"term\":\"Computing\",\"source\":\"arxiv\"},{\"term\":\"Math
-        and Math Physics\",\"source\":\"arxiv\"}],\"accelerator_experiments\":[{\"record\":{\"$ref\":\"https://inspirehep.net/api/experiments/1711193\"},\"legacy_name\":\"CERN-LHC-FASER\"}]},\"tickets\":[],\"decisions\":[{\"id\":1,\"workflow\":\"00000000-0000-0000-0000-000000001111\",\"_created_at\":\"2025-08-26T14:45:14.237000Z\",\"_updated_at\":\"2025-08-26T14:45:14.237000Z\",\"action\":\"fuzzy_match\",\"value\":\"paper1\",\"user\":\"admin@admin.com\"}],\"workflow_type\":\"HEP_CREATE\",\"classifier_results\":{\"categories\":[{\"keyword\":\"color\",\"category\":\"HEP\"},{\"keyword\":\"fluctuation\",\"category\":\"HEP\"},{\"keyword\":\"quantum
-        information\",\"category\":\"HEP\"},{\"keyword\":\"quantum sensing\",\"category\":\"HEP\"},{\"keyword\":\"entanglement\",\"category\":\"HEP\"},{\"keyword\":\"engineering\",\"category\":\"HEP\"},{\"keyword\":\"quantum
-        communication\",\"category\":\"HEP\"},{\"keyword\":\"mirror\",\"category\":\"HEP\"},{\"keyword\":\"mixing\",\"category\":\"HEP\"},{\"keyword\":\"scattering\",\"category\":\"HEP\"},{\"keyword\":\"cloud\",\"category\":\"HEP\"},{\"keyword\":\"monitoring\",\"category\":\"HEP\"},{\"keyword\":\"quantum
-        state\",\"category\":\"HEP\"},{\"keyword\":\"absorption\",\"category\":\"HEP\"},{\"keyword\":\"quantum
-        repeater\",\"category\":\"HEP\"},{\"keyword\":\"dark energy\",\"category\":\"HEP\"},{\"keyword\":\"quantum
-        key distribution\",\"category\":\"HEP\"},{\"keyword\":\"mixed state\",\"category\":\"HEP\"},{\"keyword\":\"circle\",\"category\":\"HEP\"},{\"keyword\":\"peripheral\",\"category\":\"HEP\"},{\"keyword\":\"quantum
-        device\",\"category\":\"HEP\"},{\"keyword\":\"satellite\",\"category\":\"HEP\"},{\"keyword\":\"noise\",\"category\":\"HEP\"},{\"keyword\":\"star\",\"category\":\"HEP\"},{\"keyword\":\"composite\",\"category\":\"HEP\"},{\"keyword\":\"ion
-        trap\",\"category\":\"HEP\"},{\"keyword\":\"photon\",\"category\":\"HEP\"},{\"keyword\":\"teleportation\",\"category\":\"HEP\"},{\"keyword\":\"efficiency\",\"category\":\"HEP\"},{\"keyword\":\"nucleus\",\"category\":\"HEP\"},{\"keyword\":\"simplex\",\"category\":\"HEP\"},{\"keyword\":\"background\",\"category\":\"HEP\"},{\"keyword\":\"dissipation\",\"category\":\"HEP\"},{\"keyword\":\"CERN
-        SPS\",\"category\":\"HEP\"},{\"keyword\":\"quantum channel\",\"category\":\"HEP\"},{\"keyword\":\"structure\",\"category\":\"HEP\"},{\"keyword\":\"topology\",\"category\":\"HEP\"},{\"keyword\":\"4/3\",\"category\":\"HEP\"},{\"keyword\":\"density
-        matrix\",\"category\":\"HEP\"},{\"keyword\":\"quantum memory\",\"category\":\"HEP\"},{\"keyword\":\"transfer
-        matrix\",\"category\":\"HEP\"},{\"keyword\":\"propagation\",\"category\":\"HEP\"},{\"keyword\":\"depolarization\",\"category\":\"HEP\"},{\"keyword\":\"estimator\",\"category\":\"HEP\"},{\"keyword\":\"qubit\",\"category\":\"HEP\"},{\"keyword\":\"parametric\",\"category\":\"HEP\"}],\"fulltext_used\":true,\"complete_output\":{\"acronyms\":[],\"field_codes\":[{\"keywords\":\"quantum
-        key distribution, quantum information\",\"fieldcode\":\"k\"}],\"core_keywords\":[{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
-        device\"},{\"number\":5,\"keyword\":\"gate, C-NOT\"},{\"number\":2,\"keyword\":\"computer,
-        quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
-        SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
-        sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"dark
-        energy\"},{\"number\":1,\"keyword\":\"quantum communication\"},{\"number\":1,\"keyword\":\"quantum
-        key distribution\"}],\"author_keywords\":[{\"author_keyword\":\"Quantum network\",\"matched_keywords\":[\"network,
-        quantum\"]},{\"author_keyword\":\"SPAM errors\",\"matched_keywords\":[\"error\"]},{\"author_keyword\":\"network
-        tomography\",\"matched_keywords\":[\"network\"]}],\"single_keywords\":[{\"number\":44,\"keyword\":\"peripheral\"},{\"number\":34,\"keyword\":\"star\"},{\"number\":23,\"keyword\":\"quantum
-        channel\"},{\"number\":5,\"keyword\":\"noise\"},{\"number\":5,\"keyword\":\"quantum
-        memory\"},{\"number\":4,\"keyword\":\"entanglement\"},{\"number\":4,\"keyword\":\"depolarization\"},{\"number\":2,\"keyword\":\"satellite\"},{\"number\":2,\"keyword\":\"cloud\"},{\"number\":1,\"keyword\":\"quantum
-        information\"},{\"number\":1,\"keyword\":\"absorption\"},{\"number\":1,\"keyword\":\"color\"},{\"number\":1,\"keyword\":\"fluctuation\"},{\"number\":1,\"keyword\":\"ion
-        trap\"},{\"number\":1,\"keyword\":\"dissipation\"},{\"number\":1,\"keyword\":\"engineering\"},{\"number\":1,\"keyword\":\"quantum
-        key distribution\"},{\"number\":1,\"keyword\":\"mirror\"},{\"number\":1,\"keyword\":\"circle\"},{\"number\":1,\"keyword\":\"scattering\"}],\"composite_keywords\":[{\"number\":34,\"details\":[137,53],\"keyword\":\"network,
-        quantum\"},{\"number\":10,\"details\":[22,13],\"keyword\":\"gate, Hadamard\"},{\"number\":5,\"details\":[22,7],\"keyword\":\"gate,
-        C-NOT\"},{\"number\":2,\"details\":[1,53],\"keyword\":\"computer, quantum\"},{\"number\":2,\"details\":[12,3],\"keyword\":\"time,
-        multiple\"},{\"number\":2,\"details\":[137,22],\"keyword\":\"network, performance\"},{\"number\":2,\"details\":[22,53],\"keyword\":\"gate,
-        quantum\"},{\"number\":1,\"details\":[3,83],\"keyword\":\"operator, Pauli\"},{\"number\":1,\"details\":[1,53],\"keyword\":\"technology,
-        quantum\"},{\"number\":1,\"details\":[1,53],\"keyword\":\"Fisher information,
-        quantum\"},{\"number\":1,\"details\":[22,2],\"keyword\":\"gate, phase\"},{\"number\":1,\"details\":[12,12],\"keyword\":\"decoherence,
-        time\"},{\"number\":1,\"details\":[12,3],\"keyword\":\"representation, unitarity\"},{\"number\":1,\"details\":[2,3],\"keyword\":\"fibre,
-        optical\"},{\"number\":1,\"details\":[1,1],\"keyword\":\"resonance, magnetic\"}],\"filtered_core_keywords\":[{\"number\":29,\"keyword\":\"qubit\"},{\"number\":5,\"keyword\":\"quantum
-        device\"},{\"number\":5,\"keyword\":\"gate, C-NOT\"},{\"number\":2,\"keyword\":\"computer,
-        quantum\"},{\"number\":2,\"keyword\":\"gate, quantum\"},{\"number\":2,\"keyword\":\"CERN
-        SPS\"},{\"number\":1,\"keyword\":\"quantum information\"},{\"number\":1,\"keyword\":\"quantum
-        sensing\"},{\"number\":1,\"keyword\":\"gate, phase\"},{\"number\":1,\"keyword\":\"quantum
-        communication\"},{\"number\":1,\"keyword\":\"quantum key distribution\"}]}},\"merge_details\":null,\"_created_at\":\"2024-11-25T13:49:53.009000Z\",\"_updated_at\":\"2024-11-25T13:49:54.756000Z\",\"journal_coverage\":null,\"relevance_prediction\":{\"scores\":{\"CORE\":0.9637278318405151,\"Non-CORE\":0.01828720048069954,\"Rejected\":0.017984995618462563},\"decision\":\"CORE\",\"max_score\":0.9637278318405151,\"relevance_score\":1.9637278318405151},\"reference_count\":{\"core\":3,\"non_core\":0},\"matches\":{\"exact\":[],\"fuzzy\":[{\"title\":\"A
-        class of Hadamard well-posed five-field theories of dissipative relativistic
-        fluid dynamics\",\"authors\":[{\"full_name\":\"Freist\xF6hler, Heinrich\"},{\"full_name\":\"Ioannis,
-        Heinrich\"}],\"abstract\":\"This paper proposes a class of causal formulations
-        for dissipative relativistic fluid dynamics as a hyperbolic five-field system
-        of second-order partial differential equations.\",\"authors_count\":1,\"earliest_date\":\"2020-03-17\",\"control_number\":1790396,\"publication_info\":[{\"year\":2020,\"artid\":\"033101\",\"journal_issue\":\"3\",\"journal_title\":\"J.Math.Phys.\",\"journal_record\":{\"$ref\":\"https://inspirebeta.net/api/journals/1214658\"},\"journal_volume\":\"61\"}]},{\"title\":\"Search
-        for low-mass and high-mass narrow dijet resonances with the CMS detector at
-        $\\\\sqrt{s}$ = 13 TeV\",\"authors\":[{\"full_name\":\"Sheffield, David Gruft\"}],\"abstract\":\"A
-        search for narrow resonances decaying to the dijet final state at the CMS
-        experiment.\",\"public_notes\":[{\"value\":\"Fermilab Library Only\"},{\"value\":\"Submitted
-        to SIAM J.Matrix Anal.Appl.\"}],\"authors_count\":1,\"earliest_date\":\"2017\",\"control_number\":1752989,\"number_of_pages\":151},{\"title\":\"Search
-        for Long-Lived Particles Produced in Proton-Proton Collisions at $\\\\sqrt{s}$
-        =13 TeV That Decay to Displaced Hadronic Jets Detected With the Muon Spectrometer
-        in ATLAS\",\"authors\":[{\"full_name\":\"Zhou, Hao\"}],\"abstract\":\"The
-        discovery of the Higgs boson in 2012 marked a great success of the Standard
-        Model (SM) of particle physics.\",\"authors_count\":1,\"earliest_date\":\"2021\",\"control_number\":1989726,\"number_of_pages\":163,\"publication_info\":[{\"year\":2021}]}]},\"status\":\"running\"}"
-    headers:
-      Allow:
-      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
-      Content-Language:
-      - en
-      Content-Length:
-      - '14496'
-      Content-Type:
-      - application/json
-      Cross-Origin-Opener-Policy:
-      - same-origin
-      Date:
-      - Mon, 01 Dec 2025 15:07:54 GMT
+      - Thu, 26 Feb 2026 09:58:44 GMT
       Referrer-Policy:
       - same-origin
       Server:

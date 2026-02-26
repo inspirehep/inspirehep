@@ -70,15 +70,6 @@ class BaseWorkflowViewSet(viewsets.ModelViewSet):
             return self.queryset.filter(status__status=status_val)
         return self.queryset
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        validation_errors = list(
-            get_validation_errors(instance.data, schema=self.schema_name)
-        )
-        instance.validation_errors = render_validation_error_response(validation_errors)
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
-
     def partial_update(self, request, pk=None):
         logger.info("Updating workflow %s with data: %s", pk, request.data)
         workflow_instance = get_object_or_404(self.queryset, pk=pk)
