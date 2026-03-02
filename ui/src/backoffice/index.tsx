@@ -12,7 +12,7 @@ import {
 import SafeSwitch from '../common/components/SafeSwitch';
 import DocumentHead from '../common/components/DocumentHead';
 import PrivateRoute from '../common/PrivateRoute';
-import { SUPERUSER_OR_CATALOGER, SUPERUSER } from '../common/authorization';
+import { SUPERUSER_OR_CATALOGER } from '../common/authorization';
 import AuthorsSearchPageContainer from './authors/search/containers/SearchPageContainer';
 import LiteratureSearchPageContainer from './literature/search/containers/SearchPageContainer';
 import DashboardPageContainer from './dashboard/containers/DashboardPageContainer';
@@ -64,7 +64,7 @@ const Backoffice = ({ loggedIn }: { loggedIn: boolean }) => {
             exact
             path={BACKOFFICE_LITERATURE_SEARCH}
             component={LiteratureSearchPageContainer}
-            authorizedRoles={SUPERUSER}
+            authorizedRoles={SUPERUSER_OR_CATALOGER}
             backoffice
           />
           <PrivateRoute
@@ -78,7 +78,7 @@ const Backoffice = ({ loggedIn }: { loggedIn: boolean }) => {
             exact
             path={`${BACKOFFICE}/literature/:id`}
             component={LiteratureDetailPageContainer}
-            authorizedRoles={SUPERUSER}
+            authorizedRoles={SUPERUSER_OR_CATALOGER}
             backoffice
           />
         </SafeSwitch>

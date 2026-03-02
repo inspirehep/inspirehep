@@ -89,4 +89,25 @@ describe('Backoffice', () => {
 
     expect(getByTestId('backoffice-search-page')).toBeInTheDocument();
   });
+
+  it('does not show literature search when user is not cataloger or superuser', () => {
+    const unauthorizedStore = getStore({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['user'],
+        },
+      }),
+      backoffice: fromJS({
+        loggedIn: true,
+      }),
+    });
+
+    const { queryByTestId } = renderWithProviders(<Backoffice />, {
+      store: unauthorizedStore,
+      route: BACKOFFICE_LITERATURE_SEARCH,
+    });
+
+    expect(queryByTestId('backoffice-search-page')).not.toBeInTheDocument();
+  });
 });
