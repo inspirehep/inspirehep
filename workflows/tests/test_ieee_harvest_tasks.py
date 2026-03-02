@@ -2,19 +2,15 @@ from unittest.mock import patch
 
 import pytest
 from airflow.exceptions import AirflowException
-from airflow.models import DagBag
 from airflow.models.variable import Variable
-from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 
-dagbag = DagBag()
-s3_hook = S3Hook(aws_conn_id="s3_conn")
+from tests.test_utils import task_test
+
 ieee_bucket_name = Variable.get("s3_ieee_bucket_name")
 
 
 class TestIEEEHarvest:
-    dag = dagbag.get_dag("ieee_harvest_dag")
-
-    @pytest.mark.skip(reason="Reason fails locally but not in CI, needs investigation")
+    @pytest.mark.usefixtures("_s3_hook")
     @patch("include.utils.ftp.list_ftp_files", return_value=["a/1.xml"])
     @patch("hooks.custom_fttps_hook.CustomFTPSHook.list_directory", return_value=["a"])
     @patch(
@@ -29,11 +25,30 @@ class TestIEEEHarvest:
         mock_list_directory,
         mock_list_ftp_files,
     ):
-        task = self.dag.get_task("ftp_to_s3")
-        task.python_callable("")
-        assert s3_hook.get_key("a/1.xml", ieee_bucket_name) is not None
+        ds = "2025-01-01"
+        dag_params = {"sync_folders": ["IEEEUpdates_Cern"]}
+
+        task_test(
+            dag_id="ieee_harvest_dag",
+            task_id="get_sync_folders",
+            dag_params=dag_params,
+            ds=ds,
+        )
+        task_test(
+            dag_id="ieee_harvest_dag",
+            task_id="ftp_to_s3",
+            dag_params=dag_params,
+            map_index=0,
+            ds=ds,
+            xcom_key="unused_key",
+        )
+
+        assert self.s3_hook.get_key("a/1.xml", ieee_bucket_name) is not None
 
     def test_check_new_directories(self):
-        task = self.dag.get_task("check_new_directories")
         with pytest.raises(AirflowException):
-            task.python_callable([False, False, False])
+            task_test(
+                dag_id="ieee_harvest_dag",
+                task_id="check_new_directories",
+                params={"has_new_directories": [False, False, False]},
+            )
