@@ -1,4 +1,4 @@
-FROM registry.cern.ch/cern-sis/inspire/airflow-base:3.1.5
+FROM registry.cern.ch/cern-sis/inspire/airflow-base:3.1.7
 
 USER root
 RUN apt-get update -y && apt-get install -y imagemagick ghostscript poppler-utils file
@@ -11,6 +11,5 @@ WORKDIR /opt/airflow
 COPY --chown=airflow:root dags ./dags/
 COPY --chown=airflow:root plugins ./plugins/
 COPY --chown=airflow:root requirements.txt ./requirements.txt
-COPY --chown=airflow:root constraints.txt ./constraints.txt
 
 RUN pip install --no-cache-dir -r requirements.txt
