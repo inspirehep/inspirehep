@@ -40,7 +40,7 @@ class TestIEEEHarvest:
             dag_params=dag_params,
             map_index=0,
             ds=ds,
-            xcom_key="unused_key",
+            xcom_key="skipmixin_key",
         )
 
         assert self.s3_hook.get_key("a/1.xml", ieee_bucket_name) is not None
@@ -52,3 +52,10 @@ class TestIEEEHarvest:
                 task_id="check_new_directories",
                 params={"has_new_directories": [False, False, False]},
             )
+
+    def test_check_new_directories_with_new_directory(self):
+        task_test(
+            dag_id="ieee_harvest_dag",
+            task_id="check_new_directories",
+            params={"has_new_directories": [False, True, False]},
+        )
