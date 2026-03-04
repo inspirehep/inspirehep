@@ -1,40 +1,33 @@
 import React, { useState } from 'react';
 import { Card, Radio, Button, Typography, Descriptions, Space } from 'antd';
 import { ExportOutlined } from '@ant-design/icons';
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
 import { LITERATURE } from '../../../common/routes';
 import PublicationInfoList from '../../../common/components/PublicationInfoList';
 import Latex from '../../../common/components/Latex';
 import { WorkflowDecisions } from '../../../common/constants';
+import { hasPublicationInfo } from '../../utils/utils';
+import ToggleableAbstract from './ToggleableAbstract';
 
 const { Text, Paragraph } = Typography;
 
 const LiteratureMatchItem = ({ match, selectedBestMatch, onSelect }) => {
-  const [showAbstract, setShowAbstract] = useState(false);
   const controlNumber = match.get('control_number');
-
-  const handleToggleAbstract = (e) => {
-    e.preventDefault();
-    setShowAbstract((prev) => !prev);
-  };
 
   const handleRadioChange = () => {
     onSelect(controlNumber);
   };
 
-  const abstract = match.get('abstract');
+  const abstractValue = match.get('abstract');
+  const abstract = abstractValue ? Map({ value: abstractValue }) : null;
   const arxivEprint = match.get('arxiv_eprint');
   const authors = match.get('authors', List());
   const earliestDate = match.get('earliest_date');
   const numberOfPages = match.get('number_of_pages');
   const publicNotes = match.get('public_notes', List());
   const publicationInfo = match.get('publication_info', List());
-  const firstPub = publicationInfo.first();
-
-  const hasPublicationInfo =
-    !!firstPub &&
-    (firstPub.get('journal_title') || firstPub.get('pubinfo_freetext'));
+  const hasPublicationInfoValue = hasPublicationInfo(publicationInfo);
 
   return (
     <Card
@@ -69,7 +62,7 @@ const LiteratureMatchItem = ({ match, selectedBestMatch, onSelect }) => {
       )}
 
       <Descriptions column={1} size="small" labelStyle={{ width: 140 }}>
-        {hasPublicationInfo && (
+        {hasPublicationInfoValue && (
           <Descriptions.Item label="Published In">
             <PublicationInfoList
               publicationInfo={publicationInfo}
@@ -101,20 +94,7 @@ const LiteratureMatchItem = ({ match, selectedBestMatch, onSelect }) => {
         )}
       </Descriptions>
 
-      {abstract && (
-        <>
-          <Button
-            type="link"
-            onClick={handleToggleAbstract}
-            style={{ padding: 0 }}
-          >
-            {showAbstract ? 'Hide abstract' : 'Show abstract'}
-          </Button>
-          {showAbstract && (
-            <Paragraph style={{ marginTop: 4 }}>{abstract}</Paragraph>
-          )}
-        </>
-      )}
+      <ToggleableAbstract abstract={abstract} />
     </Card>
   );
 };

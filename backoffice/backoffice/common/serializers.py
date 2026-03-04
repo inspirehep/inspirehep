@@ -64,7 +64,10 @@ class BackofficeSearchUISerializer(serializers.Serializer):
                 "decisions": item.get("decisions"),
                 "workflow_type": item.get("workflow_type"),
                 "status": item.get("status"),
+                "classifier_results": item.get("classifier_results"),
                 "matches": item.get("matches"),
+                "relevance_prediction": item.get("relevance_prediction"),
+                "reference_count": item.get("reference_count"),
             }
             for item in results
         ]

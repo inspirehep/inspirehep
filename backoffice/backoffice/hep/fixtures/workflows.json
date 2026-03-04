@@ -5039,5 +5039,2217 @@
       "_created_at": "2024-11-25T13:49:53.009Z",
       "_updated_at": "2024-11-25T13:49:54.756Z"
     }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "61b789b6-fb78-4bb3-942f-673d731fea14",
+    "fields": {
+      "workflow_type": "HEP_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "Molecular absorption of Cherenkov light at CTAO",
+            "source": "arXiv"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "authors": [
+          {
+            "emails": [
+              "georgios.voutsinas@unige.ch"
+            ],
+            "full_name": "Voutsinas, G.",
+            "raw_affiliations": [
+              {
+                "value": "Département de Physique Nucléaire et Corpusculaire , Faculté de Sciences , Université de Genève , 1205 Geneva , Switzerland"
+              }
+            ]
+          },
+          {
+            "full_name": "Dalchenko, M.",
+            "raw_affiliations": [
+              {
+                "value": "Département de Physique Nucléaire et Corpusculaire , Faculté de Sciences , Université de Genève , 1205 Geneva , Switzerland"
+              }
+            ]
+          },
+          {
+            "full_name": "Gaug, M.",
+            "raw_affiliations": [
+              {
+                "value": "Unitat de Física de les Radiacions , Departament de Física , and CERES-IEEC , Universitat Autònoma de Barcelona , E-08193 Bellaterra , Spain"
+              }
+            ]
+          },
+          {
+            "full_name": "Gueta, O.",
+            "raw_affiliations": [
+              {
+                "value": "CTAO , Science Data Management Centre (SDMC) , Platanenallee 6 , 15738 Zeuthen , Ger- many d CTAO , Via Piero Gobetti 93/3 , 40129 Bologna , Italy"
+              }
+            ]
+          },
+          {
+            "full_name": "Montaruli, T.",
+            "raw_affiliations": [
+              {
+                "value": "Département de Physique Nucléaire et Corpusculaire , Faculté de Sciences , Université de Genève , 1205 Geneva , Switzerland"
+              }
+            ]
+          },
+          {
+            "full_name": "Zanin, R."
+          }
+        ],
+        "curated": false,
+        "figures": [
+          {
+            "key": "556d9f1a-794b-4002-8cd6-5f52292805ae/plots/0_RS_vs_density_north.png",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/plots/0_RS_vs_density_north.png",
+            "label": "fig:RS",
+            "source": "arxiv",
+            "caption": "Comparison of the Rayleigh scattering integrated optical depth at 400~nm as a function of altitude between the two preliminary summer and winter reference profiles of the CTAO-North array site. The red line corresponds to the array site altitude, i.e. 2158~m. The middle panel shows the optical depth ratio between summer and winter. The bottom panel shows the number density ratio.",
+            "material": "preprint"
+          },
+          {
+            "key": "556d9f1a-794b-4002-8cd6-5f52292805ae/plots/1_RS_vs_density_south.png",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/plots/1_RS_vs_density_south.png",
+            "label": "fig:RS_paranal",
+            "source": "arxiv",
+            "caption": "Comparison of the Rayleigh scattering integrated optical depth at 400~nm as a function of altitude between the two indicative summer and winter reference profiles for CTAO-S. The red line corresponds to the ground level (alt. 2147~m). The middle panel shows the optical depth ratio between summer and winter. The bottom panel shows the number density ratio.",
+            "material": "preprint"
+          },
+          {
+            "key": "556d9f1a-794b-4002-8cd6-5f52292805ae/plots/2_ozone_mixing_ratio_700hPa.png",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/plots/2_ozone_mixing_ratio_700hPa.png",
+            "label": "fig:ozone_seasonal",
+            "source": "arxiv",
+            "caption": "Nighttime ozone mass mixing ratio over the Southern and Northern CTAO sites, in the time period 2020-2024, at a pressure level of 700~hPa.",
+            "material": "preprint"
+          },
+          {
+            "key": "556d9f1a-794b-4002-8cd6-5f52292805ae/plots/3_STT.png",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/plots/3_STT.png",
+            "label": "fig:stt",
+            "source": "arxiv",
+            "caption": "Time - altitude evolution of a STT ozone mass transport event that took place at CTAO-South array site in June 2020.",
+            "material": "preprint"
+          },
+          {
+            "key": "556d9f1a-794b-4002-8cd6-5f52292805ae/plots/4_north_shallow_stt.png",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/plots/4_north_shallow_stt.png",
+            "label": "fig:stt_shallow_north",
+            "source": "arxiv",
+            "caption": "Ozone mass mixing ratio over the CTAO-North site during the years 2021-2024.",
+            "material": "preprint"
+          },
+          {
+            "key": "556d9f1a-794b-4002-8cd6-5f52292805ae/plots/5_STT_North_Feb_2021_upd.png",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/plots/5_STT_North_Feb_2021_upd.png",
+            "label": "fig:stt_north_feb_2021",
+            "source": "arxiv",
+            "caption": "Time–altitude evolution of two stratosphere-to-troposphere transport (STT) events observed above the CTAO-North site. (a) A strong shallow ozone mass transport event in February 2021, identified as one of the most intense STT events during 2020–2024, but coinciding with a snowstorm, which prevented telescope operation. (b) An STT event in June 2024 under favorable weather conditions, during which the telescopes would be operational.",
+            "material": "preprint"
+          },
+          {
+            "key": "556d9f1a-794b-4002-8cd6-5f52292805ae/plots/6_STT_North_June_2024_good_weather_upd.png",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/plots/6_STT_North_June_2024_good_weather_upd.png",
+            "label": "fig:stt_north_feb_2021",
+            "source": "arxiv",
+            "caption": "Time–altitude evolution of two stratosphere-to-troposphere transport (STT) events observed above the CTAO-North site. (a) A strong shallow ozone mass transport event in February 2021, identified as one of the most intense STT events during 2020–2024, but coinciding with a snowstorm, which prevented telescope operation. (b) An STT event in June 2024 under favorable weather conditions, during which the telescopes would be operational.",
+            "material": "preprint"
+          },
+          {
+            "key": "556d9f1a-794b-4002-8cd6-5f52292805ae/plots/7_south_shallow_stt.png",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/plots/7_south_shallow_stt.png",
+            "label": "fig:stt_shallow_south",
+            "source": "arxiv",
+            "caption": "Ozone mass mixing ratio over the CTAO-South during the years 2021-2024.",
+            "material": "preprint"
+          },
+          {
+            "key": "556d9f1a-794b-4002-8cd6-5f52292805ae/plots/8_NO2_MR_CTAO.png",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/plots/8_NO2_MR_CTAO.png",
+            "label": "fig:no2",
+            "source": "arxiv",
+            "caption": "Nitrogen dioxide mixing ratio at different altitudes over the two CTAO sites (left: CTAO-North, right: CTAO-South). Error bars represent the interquartile range.",
+            "material": "preprint"
+          },
+          {
+            "key": "556d9f1a-794b-4002-8cd6-5f52292805ae/plots/9_NOx_total_column.png",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/plots/9_NOx_total_column.png",
+            "label": "fig:no",
+            "source": "arxiv",
+            "caption": "Total column of NOx during the first week of December 2023 at CTAO-North array site.",
+            "material": "preprint"
+          },
+          {
+            "key": "556d9f1a-794b-4002-8cd6-5f52292805ae/plots/10_OD_vertical.png",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/plots/10_OD_vertical.png",
+            "label": "fig:od_comp",
+            "source": "arxiv",
+            "caption": "Comparison of the cumulative optical depth as a function of altitude for Rayleigh scattering and ozone absorption for three different wavelengths: top for 292~nm, within the Hartley bands where the ozone absorption is most pronounced; middle for 330~nm, within the Huggins bands; and bottom for 575~nm, which corresponds to a local maximum of the Chappuis bands. The vertical red line at an altitude of 2160~m corresponds to the ground level at the CTAO-South site.",
+            "material": "preprint"
+          },
+          {
+            "key": "556d9f1a-794b-4002-8cd6-5f52292805ae/plots/11_tel_eff_cherenkov_spectrum_x_sections_log_scale.png",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/plots/11_tel_eff_cherenkov_spectrum_x_sections_log_scale.png",
+            "label": "fig:testeff",
+            "source": "arxiv",
+            "caption": "Cherenkov light spectrum (blue), LST telescope efficiency, and atmospheric absorption cross sections (red: ozone, black dotted: NO$_2$) as a function of wavelength.",
+            "material": "preprint"
+          },
+          {
+            "key": "556d9f1a-794b-4002-8cd6-5f52292805ae/plots/12_image_size_south_per_telescope.png",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/plots/12_image_size_south_per_telescope.png",
+            "label": "fig:II_south",
+            "source": "arxiv",
+            "caption": "Distributions of the logarithm of the image intensity for triggered stereo events from CTAO-South array simulations, shown separately for LSTs, MSTs, and SSTs. For each telescope type, the main panels compare simulations produced with the average molecular extinction profile and with the STT molecular profile, while the lower panels show the bin-by-bin ratio between the two distributions. Error bars represent statistical uncertainties.",
+            "material": "preprint"
+          },
+          {
+            "key": "556d9f1a-794b-4002-8cd6-5f52292805ae/plots/13_North_II_LST_MST.png",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/plots/13_North_II_LST_MST.png",
+            "label": "fig:II_north",
+            "source": "arxiv",
+            "caption": "Distribution of the logarithm of image intensities for triggered stereo events from simulations of the CTAO-North array under two different molecular extinction profiles.  The error bars represent statistical uncertainties. The left panel shows the results for LST, while the right for MST. The bottom panel shows the ratio between the two profiles.",
+            "material": "preprint"
+          },
+          {
+            "key": "556d9f1a-794b-4002-8cd6-5f52292805ae/plots/14_eff_area_binomial_errors.png",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/plots/14_eff_area_binomial_errors.png",
+            "label": "fig:ea",
+            "source": "arxiv",
+            "caption": "Top panel: stereo trigger effective areas for the CTAO-South array under two different molecular extinction profiles: after incorporating an STT event or the average austral summer ozone profile. Bottom panel: ratio of the two trigger effective areas. Note that the uncertainties at energies above 1 TeV are affected by the intrinsic uncertainties of the effective areas themselves, as a consequence of limited simulation statistics.",
+            "material": "preprint"
+          },
+          {
+            "key": "556d9f1a-794b-4002-8cd6-5f52292805ae/plots/15_eff_area_north_stt_feb_21_avg.png",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/plots/15_eff_area_north_stt_feb_21_avg.png",
+            "label": "fig:ea_north",
+            "source": "arxiv",
+            "caption": "Top panel: stereo trigger effective areas for the CTAO-North array under two different molecular extinction profiles: after incorporating the STT event of Feb. 2021, or the average ozone profile. Bottom panel: ratio of the two trigger effective areas.",
+            "material": "preprint"
+          },
+          {
+            "key": "556d9f1a-794b-4002-8cd6-5f52292805ae/plots/16_od_temp_dependence_2.png",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/plots/16_od_temp_dependence_2.png",
+            "label": "fig:temp",
+            "source": "arxiv",
+            "caption": "Comparison of two ozone extinction optical depth profiles, calculated using absorption cross section at 293~K and 193~K. The top pannel shows the difference at a wavelength of 292 nm (Hartley band), while the bottom at a wavelength of 310 nm (Huggins band).",
+            "material": "preprint"
+          }
+        ],
+        "license": [
+          {
+            "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+            "license": "arXiv nonexclusive-distrib 1.0",
+            "material": "preprint"
+          }
+        ],
+        "citeable": true,
+        "abstracts": [
+          {
+            "value": "The Cherenkov Telescope Array Observatory (CTAO) is the next-generation observatory for high energy γ-ray astronomy with unprecedented sensitivity and accuracy. Accurate estimation and mitigation of systematic uncertainties are crucial for its scientific performance. Atmospheric properties significantly influence both the generation and extinction of Cherenkov light generated by gamma and cosmic rays interacting in the atmosphere. This study provides a detailed analysis of molecular extinction processes, including Rayleigh scattering and molecular absorption, and their impact on the transmission of Cherenkov light. We examine typical summer and winter behaviour of Rayleigh scattering and seasonal and event-driven variations of the main absorbing molecules, such as ozone and nitrogen oxides, at the two CTAO array sites. Using simulations, we assess the effects of these variations on image intensity and trigger effective area, particularly during dynamic atmospheric events like stratosphere-to-troposphere transport. Based on our findings, we propose an atmospheric monitoring and calibration strategy to ensure that the CTAO meets its systematic uncertainty requirements, particularly for low-energy gamma-ray observations.",
+            "source": "arXiv"
+          }
+        ],
+        "documents": [
+          {
+            "key": "2603.02833.pdf",
+            "url": "http://s3.cern.ch/inspire-qa-airflow/556d9f1a-794b-4002-8cd6-5f52292805ae/documents/2603.02833.pdf",
+            "hidden": true,
+            "source": "arxiv",
+            "fulltext": true,
+            "material": "preprint",
+            "original_url": "https://arxiv.org/pdf/2603.02833"
+          }
+        ],
+        "references": [
+          {
+            "raw_refs": [
+              {
+                "value": "[1] CTAO, “Cherenkov Telescope Array Observatory, https://www.ctao.org.”",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "CTAO, \"Cherenkov Telescope Array Observatory"
+              ],
+              "urls": [
+                {
+                  "value": "https://www.ctao.org"
+                }
+              ],
+              "label": "1"
+            }
+          },
+          {
+            "record": {
+              "$ref": "https://inspirebeta.net/api/literature/387727"
+            },
+            "raw_refs": [
+              {
+                "value": "[2] A.M. Hillas, Cherenkov light images of EAS produced by primary gamma rays and by nuclei, Space Science Reviews 75 (1996) 17.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Cherenkov light images of EAS produced by primary gamma rays and by nuclei"
+              ],
+              "label": "2",
+              "authors": [
+                {
+                  "full_name": "Hillas, A.M."
+                }
+              ],
+              "publication_info": {
+                "year": 1996,
+                "artid": "17",
+                "page_start": "17",
+                "journal_title": "Space Sci.Rev.",
+                "journal_volume": "75"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[3] J.A. Hinton and W. Hofmann, Teraelectronvolt Astronomy, Annual Review of Astronomy & Astrophysics 47 (2009) 523.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Teraelectronvolt Astronomy, Annual Review of"
+              ],
+              "label": "3",
+              "authors": [
+                {
+                  "full_name": "Hinton, J.A."
+                },
+                {
+                  "full_name": "Hofmann, W."
+                }
+              ],
+              "publication_info": {
+                "year": 2009,
+                "artid": "523",
+                "page_start": "523",
+                "journal_title": "Astron.Astrophys.",
+                "journal_volume": "47"
+              }
+            }
+          },
+          {
+            "record": {
+              "$ref": "https://inspirebeta.net/api/literature/1513577"
+            },
+            "raw_refs": [
+              {
+                "value": "[4] R. Mirzoyan, D. Müller, J. Hose, U. Menzel, D. Nakajima, M. Takahashi et al., Evaluation of novel PMTs of worldwide best parameters for the CTA project, Nuclear Instruments and Methods in Physics Research A 845 (2017) 603.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "D. Müller, J. Hose, U. Menzel, D. Nakajima, M. Takahashi et al",
+                "Evaluation of novel PMTs of worldwide best parameters for the CTA project"
+              ],
+              "label": "4",
+              "authors": [
+                {
+                  "full_name": "Mirzoyan, R."
+                }
+              ],
+              "publication_info": {
+                "year": 2017,
+                "artid": "603",
+                "page_start": "603",
+                "journal_title": "Nucl.Instrum.Meth.A",
+                "journal_volume": "845"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[5] R. Penndorf, Tables of the Refractive Index for Standard Air and the Rayleigh Scattering Coefficient for the Spectral Region between 0.2 and 20.0 µ and Their Application to Atmospheric Optics, J. Opt. Soc. Am. 47 (1957) 176.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Tables of the Refractive Index for Standard Air and the Rayleigh Scattering Coefficient for the Spectral Region between 0.2 and 20.0 µ and Their Application to Atmospheric Optics"
+              ],
+              "label": "5",
+              "authors": [
+                {
+                  "full_name": "Penndorf, R."
+                }
+              ],
+              "publication_info": {
+                "year": 1957,
+                "artid": "176",
+                "page_start": "176",
+                "journal_title": "J.Opt.Soc.Am.",
+                "journal_volume": "47"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[6] A. Bucholtz, Rayleigh-scattering calculations for the terrestrial atmosphere, Applied Optics 34 (1995) 2765.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Rayleigh-scattering calculations for the terrestrial atmosphere"
+              ],
+              "label": "6",
+              "authors": [
+                {
+                  "full_name": "Bucholtz, A."
+                }
+              ],
+              "publication_info": {
+                "year": 1995,
+                "artid": "2765",
+                "page_start": "2765",
+                "journal_title": "Appl.Opt.",
+                "journal_volume": "34"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[7] L.V. King, On the complex anisotropic molecule in relation to the dispersion and scattering of light, Proc. R. Soc. London Ser. A 104 (1923) 333.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "On the complex anisotropic molecule in relation to the dispersion and scattering of light"
+              ],
+              "label": "7",
+              "authors": [
+                {
+                  "full_name": "King, L.V."
+                }
+              ],
+              "publication_info": {
+                "year": 1923,
+                "artid": "333",
+                "page_start": "333",
+                "journal_title": "Proc.Roy.Soc.Lond.A A",
+                "journal_volume": "104"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[8] P. Munar-Adrover and M. Gaug, Studying molecular profiles above the Cherenkov Telescope Array sites, in European Physical Journal Web of Conferences, vol. 197 of European Physical Journal Web of Conferences, p. 01002, Sept., 2019, DOI.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Studying molecular profiles above the Cherenkov Telescope Array sites, in European Physical Journal Web of Conferences, vol. 197 of European Physical Journal Web of Conferences, p. 01002, Sept.,, DOI"
+              ],
+              "label": "8",
+              "authors": [
+                {
+                  "full_name": "Munar-Adrover, P."
+                },
+                {
+                  "full_name": "Gaug, M."
+                }
+              ],
+              "publication_info": {
+                "year": 2019
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[9] C. Tomasi, V. Vitale, B. Petkov, A. Lupi and A. Cacciari, Improved algorithm for calculations of Rayleigh-scattering optical depth in standard atmospheres, Applied Optics 44 (2005) 3320.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Improved algorithm for calculations of Rayleigh-scattering optical depth in standard atmospheres"
+              ],
+              "label": "9",
+              "authors": [
+                {
+                  "full_name": "Tomasi, C."
+                },
+                {
+                  "full_name": "Vitale, V."
+                },
+                {
+                  "full_name": "Petkov, B."
+                },
+                {
+                  "full_name": "Lupi, A."
+                },
+                {
+                  "full_name": "Cacciari, A."
+                }
+              ],
+              "publication_info": {
+                "year": 2005,
+                "artid": "3320",
+                "page_start": "3320",
+                "journal_title": "Appl.Opt.",
+                "journal_volume": "44"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[10] H. Hersbach, B. Bell, P. Berrisford, G. Biavati, A. Horányi, J. Muñoz Sabater et al., ERA5 hourly data on pressure levels from 1940 to present, in Climate Data Store (CDS), Copernicus Climate Change Service (C3S) (2023), DOI.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "A. Horányi, J. Muñoz Sabater et al",
+                "ERA5 hourly data on pressure levels fromto present, in Climate Data Store (CDS), Copernicus Climate Change Service (C3S) (2023), DOI"
+              ],
+              "label": "10",
+              "authors": [
+                {
+                  "full_name": "Hersbach, H."
+                },
+                {
+                  "full_name": "Bell, B."
+                },
+                {
+                  "full_name": "Berrisford, P."
+                },
+                {
+                  "full_name": "Biavati, G."
+                }
+              ],
+              "publication_info": {
+                "year": 1940
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[11] C.D. Keeling, S.C. Piper, R.B. Bacastow, M. Wahlen, T.P. Whorf, M. Heimann et al., Exchanges of atmospheric CO2 and 13CO2 with the terrestrial biosphere and oceans from 1978 to 2000. I. Global aspects, UC San Diego: Scripps Institution of Oceanography, SIO Reference Series (2001) .",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "S.C",
+                "R.B. Bacastow, M. Wahlen, T.P. Whorf, M. Heimann et al",
+                "Exchanges of atmospheric CO2 and 13CO2 with the terrestrial biosphere and oceans from 1978 to 2000. I. Global",
+                "aspects, UC San Diego: Scripps Institution of Oceanography, SIO Reference Series"
+              ],
+              "label": "11",
+              "authors": [
+                {
+                  "full_name": "Keeling, C.D."
+                }
+              ],
+              "imprint": {
+                "publisher": "Piper"
+              },
+              "publication_info": {
+                "year": 2001
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[12] C.D. Keeling, Ralph F; Keeling, Atmospheric monthly in situ co2 data - mauna loa observatory, hawaii, in UC San Diego Library Digital Collections., (Archive 2022-02-04), Scripps CO2 Program Data (2017), DOI.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "label": "12",
+              "authors": [
+                {
+                  "full_name": "Keeling, C.D."
+                },
+                {
+                  "full_name": "F, Ralph"
+                }
+              ]
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[12] C.D. Keeling, Ralph F; Keeling, Atmospheric monthly in situ co2 data - mauna loa observatory, hawaii, in UC San Diego Library Digital Collections., (Archive 2022-02-04), Scripps CO2 Program Data (2017), DOI.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "; Keeling, Atmospheric monthly in situ co2 data - mauna loa observatory, hawaii, in UC San Diego Library Digital Collections., (Archive-02-04), Scripps CO2 Program Data (2017), DOI"
+              ],
+              "label": "12",
+              "authors": [
+                {
+                  "full_name": "Keeling, C.D."
+                },
+                {
+                  "full_name": "F, Ralph"
+                }
+              ],
+              "publication_info": {
+                "year": 2022
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[13] R.J. List, Geopotential and aerological tables, in Smithsonian Meteorological Tables, vol. 114 of Smithsonian Miscellaneous Collections, pp. 217–223, Smithsonian Institution (1951).",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Geopotential and aerological tables, in Smithsonian Meteorological Tables, vol. 114 of Smithsonian Miscellaneous Collections, pp. 217-223, Smithsonian Institution"
+              ],
+              "label": "13",
+              "authors": [
+                {
+                  "full_name": "List, R.J."
+                }
+              ],
+              "publication_info": {
+                "year": 1951
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[14] Department of Defense, World Geodetic System 1984 – Its Definition and Relationships with Local Geodetic Systems, no. TR8350.2, National Imagery and Mapping Agency, 3200 South Second Street, St. Louis, MO 63118-3399, 3rd ed. (jan, 2000).",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Department of Defense, World Geodetic System- Its Definition and Relationships with Local Geodetic Systems, no. TR8350.2, National Imagery and Mapping Agency, 3200 South Second Street, St. Louis, MO 63118-3399, 3rd ed. (jan, 2000)"
+              ],
+              "label": "14",
+              "publication_info": {
+                "year": 1984
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[15] K. Bogumil et al., Measurements of molecular absorption spectra of O3, NO2, O2, and other trace gases in the UV–vis region, Journal of Photochemistry and Photobiology A: Chemistry 157 (2003) 167.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Measurements of molecular absorption spectra of O3, NO2, O2, and other trace gases in the UV-vis region, Journal of Photochemistry and Photobiology A: Chemistry 157  167"
+              ],
+              "label": "15",
+              "authors": [
+                {
+                  "full_name": "Bogumil, K."
+                }
+              ],
+              "publication_info": {
+                "year": 2003
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[16] P.S. Monks, A.T. Archibald, A. Colette, O. Cooper, M. Coyle, R. Derwent et al., Tropospheric ozone and its precursors from the urban to the global scale from air quality to short-lived climate forcer, Atmospheric Chemistry and Physics 15 (2015) 8889.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Tropospheric ozone and its precursors from the urban to the global scale from air quality to short-lived climate forcer"
+              ],
+              "label": "16",
+              "authors": [
+                {
+                  "full_name": "Monks, P.S."
+                },
+                {
+                  "full_name": "Archibald, A.T."
+                },
+                {
+                  "full_name": "Colette, A."
+                },
+                {
+                  "full_name": "Cooper, O."
+                },
+                {
+                  "full_name": "Coyle, M."
+                },
+                {
+                  "full_name": "Derwent, R."
+                }
+              ],
+              "publication_info": {
+                "year": 2015,
+                "artid": "8889",
+                "page_start": "8889",
+                "journal_title": "Atmos.Chem.Phys.",
+                "journal_volume": "15"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[17] V.H. Regener, Neue Messungen der vertikalen Verteilung des Ozons in der Atmosphäre, Zeitschrift für Physik 109 (1938) 642.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Neue Messungen der vertikalen Verteilung des Ozons in der Atmosphäre, Zeitschrift für Physik 109  642"
+              ],
+              "label": "17",
+              "authors": [
+                {
+                  "full_name": "Regener, V.H."
+                }
+              ],
+              "publication_info": {
+                "year": 1938
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[18] M.A. Olsen, M.R. Schoeberl and A.R. Douglass, Stratosphere-troposphere exchange of mass and ozone, Journal of Geophysical Research: Atmospheres 109 (2004) [https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2004JD005186].",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "dois": [
+                "10.1029/2004JD005186"
+              ],
+              "misc": [
+                "Stratosphere-troposphere exchange of mass and ozone, Journal of Geophysical Research: Atmospheres 109"
+              ],
+              "urls": [
+                {
+                  "value": "https://agupubs.onlinelibrary.wiley.com/doi/pdf/"
+                }
+              ],
+              "label": "18",
+              "authors": [
+                {
+                  "full_name": "Olsen, M.A."
+                },
+                {
+                  "full_name": "Schoeberl, M.R."
+                },
+                {
+                  "full_name": "Douglass, A.R."
+                }
+              ],
+              "publication_info": {
+                "year": 2004
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[19] I. Bourgeois, J. Peischl, J.A. Neuman, S.S. Brown, C.R. Thompson, K.C. Aikin et al., Large contribution of biomass burning emissions to ozone throughout the global remote troposphere, Proceedings of the National Academy of Sciences 118 (2021) e2109628118.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Large contribution of biomass burning emissions to ozone throughout the global remote troposphere"
+              ],
+              "label": "19",
+              "authors": [
+                {
+                  "full_name": "Bourgeois, I."
+                },
+                {
+                  "full_name": "Peischl, J."
+                },
+                {
+                  "full_name": "Neuman, J.A."
+                },
+                {
+                  "full_name": "Brown, S.S."
+                },
+                {
+                  "full_name": "Thompson, C.R."
+                },
+                {
+                  "full_name": "Aikin, K.C."
+                }
+              ],
+              "publication_info": {
+                "year": 2021,
+                "artid": "e2109628118",
+                "journal_title": "Proc.Nat.Acad.Sci.",
+                "journal_volume": "118"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[20] A. Voulgarakis, N.H. Savage, O. Wild, P. Braesicke, P.J. Young, G.D. Carver et al., Interannual variability of tropospheric composition: the influence of changes in emissions, meteorology and clouds, Atmospheric Chemistry and Physics 10 (2010) 2491.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Interannual variability of tropospheric composition: the influence of changes in emissions, meteorology and clouds"
+              ],
+              "label": "20",
+              "authors": [
+                {
+                  "full_name": "Voulgarakis, A."
+                },
+                {
+                  "full_name": "Savage, N.H."
+                },
+                {
+                  "full_name": "Wild, O."
+                },
+                {
+                  "full_name": "Braesicke, P."
+                },
+                {
+                  "full_name": "Young, P.J."
+                },
+                {
+                  "full_name": "Carver, G.D."
+                }
+              ],
+              "publication_info": {
+                "year": 2010,
+                "artid": "2491",
+                "page_start": "2491",
+                "journal_title": "Atmos.Chem.Phys.",
+                "journal_volume": "10"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[21] J.G. Anet, M. Steinbacher, L. Gallardo, P.A. Velásquez Álvarez, L. Emmenegger and B. Buchmann, Surface ozone in the Southern Hemisphere: 20 years of data from a site with a unique setting in El Tololo, Chile, Atmospheric Chemistry and Physics 17 (2017) 6477.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "P.A. Velásquez Álvarez, L. Emmenegger and B. Buchmann",
+                "Surface ozone in the Southern Hemisphere: 20 years of data from a site with a unique setting in El Tololo, Chile"
+              ],
+              "label": "21",
+              "authors": [
+                {
+                  "full_name": "Anet, J.G."
+                },
+                {
+                  "full_name": "Steinbacher, M."
+                },
+                {
+                  "full_name": "Gallardo, L."
+                }
+              ],
+              "publication_info": {
+                "year": 2017,
+                "artid": "6477",
+                "page_start": "6477",
+                "journal_title": "Atmos.Chem.Phys.",
+                "journal_volume": "17"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[22] G. Ayers, S. Penkett, R. Gillett, B. Bandy, I. Galbally, C. Meyer et al., Evidence for photochemical control of ozone concentrations in unpolluted marine air, Nature 360 (1992) 446.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Evidence for photochemical control of ozone concentrations in unpolluted marine air"
+              ],
+              "label": "22",
+              "authors": [
+                {
+                  "full_name": "Ayers, G."
+                },
+                {
+                  "full_name": "Penkett, S."
+                },
+                {
+                  "full_name": "Gillett, R."
+                },
+                {
+                  "full_name": "Bandy, B."
+                },
+                {
+                  "full_name": "Galbally, I."
+                },
+                {
+                  "full_name": "Meyer, C."
+                }
+              ],
+              "publication_info": {
+                "year": 1992,
+                "artid": "446",
+                "page_start": "446",
+                "journal_title": "Nature",
+                "journal_volume": "360"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[23] A.T. Archibald, J.L. Neu, Y.F. Elshorbany, O.R. Cooper, P.J. Young, H. Akiyoshi et al., Tropospheric ozone assessment report: A critical review of changes in the tropospheric ozone burden and budget from 1850 to 2100, Elementa: Science of the Anthropocene 8 (2020) 034 [https://online.ucpress.edu/elementa/article-pdf/8/1/034/477926/elementa.2020.034.pdf].",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Tropospheric ozone assessment report: A critical review of changes in the tropospheric ozone burden and budget from 1850 to 2100, Elementa: Science of the Anthropocene 8  034"
+              ],
+              "urls": [
+                {
+                  "value": "https://online.ucpress.edu/elementa/article-pdf/8/1/034/477926/elementa.2020.034.pdf"
+                }
+              ],
+              "label": "23",
+              "authors": [
+                {
+                  "full_name": "Archibald, A.T."
+                },
+                {
+                  "full_name": "Neu, J.L."
+                },
+                {
+                  "full_name": "Elshorbany, Y.F."
+                },
+                {
+                  "full_name": "Cooper, O.R."
+                },
+                {
+                  "full_name": "Young, P.J."
+                },
+                {
+                  "full_name": "Akiyoshi, H."
+                }
+              ],
+              "publication_info": {
+                "year": 2020
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[24] E. Cuevas, Y. González, S. Rodrı́guez, J.C. Guerra, A.J. Gómez-Peláez, S. Alonso-Pérez et al., Assessment of atmospheric processes driving ozone variations in the subtropical North Atlantic free troposphere, Atmospheric Chemistry and Physics 13 (2013) 1973.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Y. González, S. Rodrı́guez, J.C. Guerra",
+                "A.J. Gómez-Peláez, S. Alonso-Pérez et al",
+                "Assessment of atmospheric processes driving ozone variations in the subtropical North Atlantic free troposphere"
+              ],
+              "label": "24",
+              "authors": [
+                {
+                  "full_name": "Cuevas, E."
+                }
+              ],
+              "publication_info": {
+                "year": 2013,
+                "artid": "1973",
+                "page_start": "1973",
+                "journal_title": "Atmos.Chem.Phys.",
+                "journal_volume": "13"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[25] A. Gaudel, O. Cooper, G. Ancellet, B. Barret, A. Boynard, J. Burrows et al., Tropospheric Ozone Assessment Report: Present-day distribution and trends of tropospheric ozone relevant to climate and global atmospheric chemistry model evaluation, Elem Sci Anth 6 (2018) 39.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Tropospheric Ozone Assessment Report: Present-day distribution and trends of tropospheric ozone relevant to climate and global atmospheric chemistry model evaluation, Elem Sci Anth 6  39"
+              ],
+              "label": "25",
+              "authors": [
+                {
+                  "full_name": "Gaudel, A."
+                },
+                {
+                  "full_name": "Cooper, O."
+                },
+                {
+                  "full_name": "Ancellet, G."
+                },
+                {
+                  "full_name": "Barret, B."
+                },
+                {
+                  "full_name": "Boynard, A."
+                },
+                {
+                  "full_name": "Burrows, J."
+                }
+              ],
+              "publication_info": {
+                "year": 2018
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[26] R. Van Malderen, A.M. Thompson, D.E. Kollonige, R.M. Stauffer, H.G.J. Smit, E. Maillard Barras et al., Global ground-based tropospheric ozone measurements: reference data and individual site trends (2000–2022) from the TOAR-II/HEGIFTOM project, Atmospheric Chemistry and Physics 25 (2025) 7187.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Global ground-based tropospheric ozone measurements: reference data and individual site trends (2000-2022) from the TOAR-II/HEGIFTOM project"
+              ],
+              "label": "26",
+              "authors": [
+                {
+                  "full_name": "Van Malderen, R."
+                },
+                {
+                  "full_name": "Thompson, A.M."
+                },
+                {
+                  "full_name": "Kollonige, D.E."
+                },
+                {
+                  "full_name": "Stauffer, R.M."
+                },
+                {
+                  "full_name": "Smit, H.G.J."
+                },
+                {
+                  "full_name": "Barras, E. Maillard"
+                }
+              ],
+              "publication_info": {
+                "year": 2025,
+                "artid": "7187",
+                "page_start": "7187",
+                "journal_title": "Atmos.Chem.Phys.",
+                "journal_volume": "25"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[27] T. Le, S.-H. Kim, J.-Y. Heo and D.-H. Bae, The influences of El Niño–Southern Oscillation on tropospheric ozone in CMIP6 models, Atmospheric Chemistry and Physics 24 (2024) 6555.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "The influences of El Niño-Southern Oscillation on tropospheric ozone in CMIP6 models"
+              ],
+              "label": "27",
+              "authors": [
+                {
+                  "full_name": "Le, T."
+                },
+                {
+                  "full_name": "Kim, S.-H."
+                },
+                {
+                  "full_name": "Heo, J.-Y."
+                },
+                {
+                  "full_name": "Bae, D.-H."
+                }
+              ],
+              "publication_info": {
+                "year": 2024,
+                "artid": "6555",
+                "page_start": "6555",
+                "journal_title": "Atmos.Chem.Phys.",
+                "journal_volume": "24"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[28] B. S̆kerlak, M. Sprenger and H. Wernli, A global climatology of stratosphere–troposphere exchange using the ERA-Interim data set from 1979 to 2011, Atmospheric Chemistry and Physics 14 (2014) 913.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "B. S̆kerlak",
+                "A global climatology of stratosphere-troposphere exchange using the ERA-Interim data set from 1979 to 2011"
+              ],
+              "label": "28",
+              "authors": [
+                {
+                  "full_name": "Sprenger, M."
+                },
+                {
+                  "full_name": "Wernli, H."
+                }
+              ],
+              "publication_info": {
+                "year": 2014,
+                "artid": "913",
+                "page_start": "913",
+                "journal_title": "Atmos.Chem.Phys.",
+                "journal_volume": "14"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[29] H. Wang, X. Lu, D.J. Jacob, O.R. Cooper, K.-L. Chang, K. Li et al., Global tropospheric ozone trends, attributions, and radiative impacts in 1995–2017: an integrated analysis using aircraft (IAGOS) observations, ozonesonde, and multi-decadal chemical model simulations, Atmospheric Chemistry and Physics 22 (2022) 13753.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Global tropospheric ozone trends, attributions, and radiative impacts in 1995-2017: an integrated analysis using aircraft (IAGOS) observations, ozonesonde, and multi-decadal chemical model simulations"
+              ],
+              "label": "29",
+              "authors": [
+                {
+                  "full_name": "Wang, H."
+                },
+                {
+                  "full_name": "Lu, X."
+                },
+                {
+                  "full_name": "Jacob, D.J."
+                },
+                {
+                  "full_name": "Cooper, O.R."
+                },
+                {
+                  "full_name": "Chang, K.-L."
+                },
+                {
+                  "full_name": "Li, K."
+                }
+              ],
+              "publication_info": {
+                "year": 2022,
+                "artid": "13753",
+                "journal_title": "Atmos.Chem.Phys.",
+                "journal_volume": "22"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[30] U. Schumann and H. Huntrieser, The global lightning-induced nitrogen oxides source, Atmospheric Chemistry and Physics 7 (2007) 3823.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "The global lightning-induced nitrogen oxides source"
+              ],
+              "label": "30",
+              "authors": [
+                {
+                  "full_name": "Schumann, U."
+                },
+                {
+                  "full_name": "Huntrieser, H."
+                }
+              ],
+              "publication_info": {
+                "year": 2007,
+                "artid": "3823",
+                "page_start": "3823",
+                "journal_title": "Atmos.Chem.Phys.",
+                "journal_volume": "7"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[31] A. Inness, M. Ades, A. Agustı́-Panareda, J. Barré, A. Benedictow, A.-M. Blechschmidt et al., The CAMS reanalysis of atmospheric composition, Atmospheric Chemistry and Physics 19 (2019) 3515.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "A. Agustı́-Panareda, J. Barré, A. Benedictow, A.-M. Blechschmidt et al",
+                "The CAMS reanalysis of atmospheric composition"
+              ],
+              "label": "31",
+              "authors": [
+                {
+                  "full_name": "Inness, A."
+                },
+                {
+                  "full_name": "Ades, M."
+                }
+              ],
+              "publication_info": {
+                "year": 2019,
+                "artid": "3515",
+                "page_start": "3515",
+                "journal_title": "Atmos.Chem.Phys.",
+                "journal_volume": "19"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[32] National Centers for Environmental Prediction, National Weather Service, NOAA, U.S. Department of Commerce, NCEP FNL Operational Model Global Tropospheric Analyses, continuing from July 1999, 2000.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "National Centers for Environmental Prediction, National Weather Service",
+                "Department of Commerce, NCEP FNL Operational Model Global Tropospheric Analyses, continuing from July, 2000"
+              ],
+              "label": "32",
+              "authors": [
+                {
+                  "full_name": "Noaa, U.s."
+                }
+              ],
+              "publication_info": {
+                "year": 1999
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[33] M. Gaug, A. Longo, S. Bianchi, L. Font, S. Almirante, H. Kornmayer et al., Detailed analysis of local climate at the CTAO-North site on La Palma from 20 yr of MAGIC weather station data, Monthly Notices of the Royal Astronomical Society 534 (2024) 2344 [https://academic.oup.com/mnras/article-pdf/534/3/2344/59703549/stae2214.pdf].",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Detailed analysis of local climate at the CTAO-North site on La Palma from 20 yr of MAGIC weather station data"
+              ],
+              "urls": [
+                {
+                  "value": "https://academic.oup.com/mnras/article-pdf/534/3/2344/59703549/stae2214.pdf"
+                }
+              ],
+              "label": "33",
+              "authors": [
+                {
+                  "full_name": "Gaug, M."
+                },
+                {
+                  "full_name": "Longo, A."
+                },
+                {
+                  "full_name": "Bianchi, S."
+                },
+                {
+                  "full_name": "Font, L."
+                },
+                {
+                  "full_name": "Almirante, S."
+                },
+                {
+                  "full_name": "Kornmayer, H."
+                }
+              ],
+              "publication_info": {
+                "year": 2024,
+                "artid": "2344",
+                "page_start": "2344",
+                "journal_title": "Mon.Not.Roy.Astron.Soc.",
+                "journal_volume": "534"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[34] B.J. Finlayson-Pitts and J.N. Pitts, Chemistry of the Upper and Lower Atmosphere, Academic Press, San Diego (2000), 10.1016/B978-0-12-257060-5.50026-5.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "dois": [
+                "10.1016/B978-0-12-257060-5.50026-5"
+              ],
+              "misc": [
+                "Chemistry of the Upper and Lower Atmosphere",
+                "Press, San Diego"
+              ],
+              "label": "34",
+              "authors": [
+                {
+                  "full_name": "Finlayson-Pitts, B.J."
+                },
+                {
+                  "full_name": "Pitts, J.N."
+                }
+              ],
+              "imprint": {
+                "publisher": "Academic"
+              },
+              "publication_info": {
+                "year": 2000
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[35] V. Shah, D.J. Jacob, R. Dang, L.N. Lamsal, S.A. Strode, S.D. Steenrod et al., Nitrogen oxides in the free troposphere: implications for tropospheric oxidants and the interpretation of satellite NO2 measurements, Atmospheric Chemistry and Physics 23 (2023) 1227.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Nitrogen oxides in the free troposphere: implications for tropospheric oxidants and the interpretation of satellite NO2 measurements"
+              ],
+              "label": "35",
+              "authors": [
+                {
+                  "full_name": "Shah, V."
+                },
+                {
+                  "full_name": "Jacob, D.J."
+                },
+                {
+                  "full_name": "Dang, R."
+                },
+                {
+                  "full_name": "Lamsal, L.N."
+                },
+                {
+                  "full_name": "Strode, S.A."
+                },
+                {
+                  "full_name": "Steenrod, S.D."
+                }
+              ],
+              "publication_info": {
+                "year": 2023,
+                "artid": "1227",
+                "page_start": "1227",
+                "journal_title": "Atmos.Chem.Phys.",
+                "journal_volume": "23"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[36] O.E. Garcı́a, M. Schneider, E. Sepúlveda, F. Hase, T. Blumenstock, E. Cuevas et al., Twenty years of ground-based NDACC FTIR spectrometry at Izaña Observatory – overview and long-term comparison to other techniques, Atmospheric Chemistry and Physics 21 (2021) 15519.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "O.E. Garcı́a",
+                "E. Sepúlveda, F. Hase, T. Blumenstock, E. Cuevas et al",
+                "Twenty years of ground-based NDACC FTIR spectrometry at Izaña Observatory - overview and long-term comparison to other techniques"
+              ],
+              "label": "36",
+              "authors": [
+                {
+                  "full_name": "Schneider, M."
+                }
+              ],
+              "publication_info": {
+                "year": 2021,
+                "artid": "15519",
+                "journal_title": "Atmos.Chem.Phys.",
+                "journal_volume": "21"
+              }
+            }
+          },
+          {
+            "record": {
+              "$ref": "https://inspirebeta.net/api/literature/1638156"
+            },
+            "raw_refs": [
+              {
+                "value": "[37] L. Arrabito, K. Bernloehr, J. Bregeon, P. Cumani, T. Hassan, A. Haupt et al., The Cherenkov Telescope Array production system for Monte Carlo simulations and analysis, Journal of Physics: Conference Series 898 (2017) 052013.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "The Cherenkov Telescope Array production system for Monte Carlo simulations and analysis"
+              ],
+              "label": "37",
+              "authors": [
+                {
+                  "full_name": "Arrabito, L."
+                },
+                {
+                  "full_name": "Bernloehr, K."
+                },
+                {
+                  "full_name": "Bregeon, J."
+                },
+                {
+                  "full_name": "Cumani, P."
+                },
+                {
+                  "full_name": "Hassan, T."
+                },
+                {
+                  "full_name": "Haupt, A."
+                }
+              ],
+              "publication_info": {
+                "year": 2017,
+                "artid": "052013",
+                "journal_title": "J.Phys.Conf.Ser.",
+                "journal_volume": "898"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[38] I.E. Gordon et al., The HITRAN2020 molecular spectroscopic database, J. Quant. Spectrosc. Radiat. Transfer 277 (2022) 107949.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "The HITRAN2020 molecular spectroscopic database"
+              ],
+              "label": "38",
+              "authors": [
+                {
+                  "full_name": "Gordon, I.E."
+                }
+              ],
+              "publication_info": {
+                "year": 2022,
+                "artid": "107949",
+                "journal_title": "J.Quant.Spectrosc.Radiat.Trans.",
+                "journal_volume": "277"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[39] V. Gorshelev et al., High spectral resolution ozone absorption cross-sections - Part 1: Measurements, data analysis and comparison with previous measurements around 293 K, Atmospheric Measurement Techniques 7 (2014) 609.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "High spectral resolution ozone absorption cross-sections - Part 1: Measurements, data analysis and comparison with previous measurements around 293 K"
+              ],
+              "label": "39",
+              "authors": [
+                {
+                  "full_name": "Gorshelev, V."
+                }
+              ],
+              "publication_info": {
+                "year": 2014,
+                "artid": "609",
+                "page_start": "609",
+                "journal_title": "Atmos.Meas.Tech.",
+                "journal_volume": "7"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[40] P. Munar-Adrover et al., molecularprofiles, version 1.2.1, https: // pypi. org/ project/ molecularprofiles/ , 2024.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "molecularprofiles, version 1.2.1, https: // pypi. org/ project/ molecularprofiles/"
+              ],
+              "label": "40",
+              "authors": [
+                {
+                  "full_name": "Munar-Adrover, P."
+                }
+              ],
+              "publication_info": {
+                "year": 2024
+              }
+            }
+          },
+          {
+            "record": {
+              "$ref": "https://inspirebeta.net/api/literature/793246"
+            },
+            "raw_refs": [
+              {
+                "value": "[41] K. Bernlöhr, Simulation of imaging atmospheric cherenkov telescopes with corsika and sim telarray, Astroparticle Physics 30 (2008) 149–158.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Simulation of imaging atmospheric cherenkov telescopes with corsika and sim telarray"
+              ],
+              "label": "41",
+              "authors": [
+                {
+                  "full_name": "Bernlohr, K."
+                }
+              ],
+              "publication_info": {
+                "year": 2008,
+                "page_end": "158",
+                "page_start": "149",
+                "journal_title": "Astropart.Phys.",
+                "journal_volume": "30"
+              }
+            }
+          },
+          {
+            "record": {
+              "$ref": "https://inspirebeta.net/api/literature/2056152"
+            },
+            "raw_refs": [
+              {
+                "value": "[42] R. Zanin et al., CTA – the World’s largest ground-based gamma-ray observatory, PoS ICRC2021 (2021) 005.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "CTA - the World’s largest ground-based gamma-ray observatory"
+              ],
+              "label": "42",
+              "authors": [
+                {
+                  "full_name": "Zanin, R."
+                }
+              ],
+              "publication_info": {
+                "year": 2021,
+                "artid": "005",
+                "page_start": "005",
+                "journal_title": "PoS",
+                "journal_volume": "ICRC2021"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[43] D. Heck, T. Peirog and J. Knapp, CORSIKA: An Air Shower Simulation Program, 2012.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "CORSIKA: An Air Shower Simulation Program"
+              ],
+              "label": "43",
+              "authors": [
+                {
+                  "full_name": "Heck, D."
+                },
+                {
+                  "full_name": "Peirog, T."
+                },
+                {
+                  "full_name": "Knapp, J."
+                }
+              ],
+              "publication_info": {
+                "year": 2012
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[44] C. Observatory, CTAO Simulation Telescope Models for CORSIKA and sim telarray - Prod6 , Nov., 2024. 10.5281/zenodo.14198379.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "dois": [
+                "10.5281/zenodo.14198379"
+              ],
+              "misc": [
+                "CTAO Simulation Telescope Models for CORSIKA and sim telarray - Prod6, Nov"
+              ],
+              "label": "44",
+              "authors": [
+                {
+                  "full_name": "Observatory, C."
+                }
+              ],
+              "publication_info": {
+                "year": 2024
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[45] C. Arosio, V. Sofieva, A. Orfanoz-Cheuquelaf, A. Rozanov, K.-P. Heue, D. Loyola et al., Intercomparison of tropospheric ozone column datasets from combined nadir and limb satellite observations, Atmospheric Measurement Techniques 18 (2025) 3247.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Intercomparison of tropospheric ozone column datasets from combined nadir and limb satellite observations"
+              ],
+              "label": "45",
+              "authors": [
+                {
+                  "full_name": "Arosio, C."
+                },
+                {
+                  "full_name": "Sofieva, V."
+                },
+                {
+                  "full_name": "Orfanoz-Cheuquelaf, A."
+                },
+                {
+                  "full_name": "Rozanov, A."
+                },
+                {
+                  "full_name": "Heue, K.-P."
+                },
+                {
+                  "full_name": "Loyola, D."
+                }
+              ],
+              "publication_info": {
+                "year": 2025,
+                "artid": "3247",
+                "page_start": "3247",
+                "journal_title": "Atmos.Meas.Tech.",
+                "journal_volume": "18"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[46] M. Gaug, D. Berge, M. Daniel, M. Doro, A. Förster, W. Fogmann et al., Calibration strategies for the Cherenkov Telescope Array, vol. 9149 of SPIE Astronomical Telescopes + Instrumentation, p. 914945, 2014, DOI.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "A. Förster, W. Fogmann et al",
+                "Calibration strategies for the Cherenkov Telescope Array, vol. 9149 of SPIE Astronomical Telescopes + Instrumentation, p. 914945,, DOI"
+              ],
+              "label": "46",
+              "authors": [
+                {
+                  "full_name": "Gaug, M."
+                },
+                {
+                  "full_name": "Berge, D."
+                },
+                {
+                  "full_name": "Daniel, M."
+                },
+                {
+                  "full_name": "Doro, M."
+                }
+              ],
+              "publication_info": {
+                "year": 2014
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[47] M. Gaug, CTA Atmospheric Calibration, in European Physical Journal Web of Conferences, vol. 144 of European Physical Journal Web of Conferences, p. 01003, 2017, DOI.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "CTA Atmospheric Calibration, in European Physical Journal Web of Conferences, vol. 144 of European Physical Journal Web of Conferences, p. 01003,, DOI"
+              ],
+              "label": "47",
+              "authors": [
+                {
+                  "full_name": "Gaug, M."
+                }
+              ],
+              "publication_info": {
+                "year": 2017
+              }
+            }
+          },
+          {
+            "record": {
+              "$ref": "https://inspirebeta.net/api/literature/1399395"
+            },
+            "raw_refs": [
+              {
+                "value": "[48] A.M.W. Mitchell, R.D. Parsons, W. Hofmann and K. Bernlöhr, Cross calibration of telescope optical throughput efficiencies using reconstructed shower energies for the Cherenkov Telescope Array, Astroparticle Physics 75 (2016) 1 [1510.06526].",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "and K. Bernlöhr, Cross calibration of telescope optical throughput efficiencies using reconstructed shower energies for the Cherenkov Telescope Array"
+              ],
+              "label": "48",
+              "authors": [
+                {
+                  "full_name": "Mitchell, A.M.W."
+                },
+                {
+                  "full_name": "Parsons, R.D."
+                },
+                {
+                  "full_name": "Hofmann, W."
+                }
+              ],
+              "arxiv_eprint": "1510.06526",
+              "publication_info": {
+                "year": 2016,
+                "artid": "1",
+                "page_start": "1",
+                "journal_title": "Astropart.Phys.",
+                "journal_volume": "75"
+              }
+            }
+          },
+          {
+            "record": {
+              "$ref": "https://inspirebeta.net/api/literature/1721857"
+            },
+            "raw_refs": [
+              {
+                "value": "[49] S. Stefanik, D. Nosek, R. de los Reyes, M. Gaug and P. Travnicek, Atmospheric monitoring and inter-calibration of the telescope optical throughput efficiencies using the trigger rates of the Cherenkov Telescope Array, Astroparticle Physics 109 (2019) 12 .",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "R. de los Reyes, M",
+                "Gaug and P. Travnicek, Atmospheric monitoring and inter-calibration of the telescope optical throughput efficiencies using the trigger rates of the Cherenkov Telescope Array"
+              ],
+              "label": "49",
+              "authors": [
+                {
+                  "full_name": "Stefanik, S."
+                },
+                {
+                  "full_name": "Nosek, D."
+                }
+              ],
+              "publication_info": {
+                "year": 2019,
+                "artid": "12",
+                "page_start": "12",
+                "journal_title": "Astropart.Phys.",
+                "journal_volume": "109"
+              }
+            }
+          },
+          {
+            "record": {
+              "$ref": "https://inspirebeta.net/api/literature/1743231"
+            },
+            "raw_refs": [
+              {
+                "value": "[50] M. Gaug, S. Fegan, A.M.W. Mitchell, M.C. Maccarone, T. Mineo and A. Okumura, Using Muon Rings for the Calibration of the Cherenkov Telescope Array: A Systematic Review of the Method and Its Potential Accuracy, The Astrophysical Journal Supplement Series 243 (2019) 11.",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "Using Muon Rings for the Calibration of the Cherenkov Telescope Array: A Systematic Review",
+                "of the Method and Its Potential Accuracy"
+              ],
+              "label": "50",
+              "authors": [
+                {
+                  "full_name": "Gaug, M."
+                },
+                {
+                  "full_name": "Fegan, S."
+                },
+                {
+                  "full_name": "Mitchell, A.M.W."
+                },
+                {
+                  "full_name": "Maccarone, M.C."
+                },
+                {
+                  "full_name": "Mineo, T."
+                },
+                {
+                  "full_name": "Okumura, A."
+                }
+              ],
+              "publication_info": {
+                "year": 2019,
+                "artid": "11",
+                "page_start": "11",
+                "journal_title": "Astrophys.J.Suppl.",
+                "journal_volume": "243"
+              }
+            }
+          },
+          {
+            "raw_refs": [
+              {
+                "value": "[51] CTAO, “Data Processing and Preservation System, https://www.ctao.org/emission-to-discovery/data-and-computing/.”",
+                "schema": "text",
+                "source": "arXiv"
+              }
+            ],
+            "reference": {
+              "misc": [
+                "CTAO, \"Data Processing and Preservation System"
+              ],
+              "urls": [
+                {
+                  "value": "https://www.ctao.org/emission-to-discovery/data-and-computing/"
+                }
+              ],
+              "label": "51"
+            }
+          }
+        ],
+        "_collections": [
+          "Literature"
+        ],
+        "arxiv_eprints": [
+          {
+            "value": "2603.02833",
+            "categories": [
+              "astro-ph.IM"
+            ]
+          }
+        ],
+        "document_type": [
+          "article"
+        ],
+        "preprint_date": "2026-03-03",
+        "acquisition_source": {
+          "method": "hepcrawl",
+          "source": "arXiv",
+          "datetime": "2026-03-04T02:02:24.478660",
+          "submission_number": "scheduled__2026-03-04T02:00:00+00:00"
+        },
+        "inspire_categories": [
+          {
+            "term": "Instrumentation",
+            "source": "arxiv"
+          }
+        ]
+      },
+      "relevance_prediction":{
+        "scores": {
+          "CORE": 0.8641530275344849,
+          "Non-CORE": 0.09599084407091141,
+          "Rejected": 0.03985609486699104
+        },
+        "decision": "CORE",
+        "max_score": 0.8641530275344849,
+        "relevance_score": 1.8641530275344849
+      },
+      "classifier_results":{
+        "fulltext_used": true,
+        "complete_output": {
+          "acronyms": [],
+          "field_codes": [
+            {
+              "keywords": "calibration",
+              "fieldcode": "i"
+            }
+          ],
+          "core_keywords": [
+            {
+              "number": 7,
+              "keyword": "GeV"
+            },
+            {
+              "number": 5,
+              "keyword": "TeV"
+            },
+            {
+              "number": 3,
+              "keyword": "showers, atmosphere"
+            },
+            {
+              "number": 2,
+              "keyword": "CORSIKA"
+            },
+            {
+              "number": 1,
+              "keyword": "Cherenkov counter"
+            },
+            {
+              "number": 1,
+              "keyword": "VHE"
+            }
+          ],
+          "author_keywords": [],
+          "single_keywords": [
+            {
+              "number": 30,
+              "keyword": "mixing"
+            },
+            {
+              "number": 28,
+              "keyword": "scattering"
+            },
+            {
+              "number": 22,
+              "keyword": "site"
+            },
+            {
+              "number": 14,
+              "keyword": "trigger"
+            },
+            {
+              "number": 13,
+              "keyword": "nitrogen"
+            },
+            {
+              "number": 11,
+              "keyword": "calibration"
+            },
+            {
+              "number": 11,
+              "keyword": "performance"
+            },
+            {
+              "number": 9,
+              "keyword": "air"
+            },
+            {
+              "number": 7,
+              "keyword": "GeV"
+            },
+            {
+              "number": 6,
+              "keyword": "variability"
+            },
+            {
+              "number": 6,
+              "keyword": "water"
+            },
+            {
+              "number": 5,
+              "keyword": "observatory"
+            },
+            {
+              "number": 5,
+              "keyword": "TeV"
+            },
+            {
+              "number": 4,
+              "keyword": "photoelectron"
+            },
+            {
+              "number": 4,
+              "keyword": "programming"
+            },
+            {
+              "number": 4,
+              "keyword": "oxygen"
+            },
+            {
+              "number": 3,
+              "keyword": "energy dependence"
+            },
+            {
+              "number": 3,
+              "keyword": "refractive index"
+            },
+            {
+              "number": 3,
+              "keyword": "statistical"
+            },
+            {
+              "number": 3,
+              "keyword": "resolution"
+            }
+          ],
+          "composite_keywords": [
+            {
+              "number": 25,
+              "details": [
+                2,
+                28
+              ],
+              "keyword": "radiation, Cherenkov"
+            },
+            {
+              "number": 10,
+              "details": [
+                14,
+                38
+              ],
+              "keyword": "cross section, absorption"
+            },
+            {
+              "number": 3,
+              "details": [
+                52,
+                16
+              ],
+              "keyword": "atmosphere, density"
+            },
+            {
+              "number": 3,
+              "details": [
+                11,
+                52
+              ],
+              "keyword": "showers, atmosphere"
+            },
+            {
+              "number": 3,
+              "details": [
+                31,
+                11
+              ],
+              "keyword": "detector, efficiency"
+            },
+            {
+              "number": 2,
+              "details": [
+                16,
+                41
+              ],
+              "keyword": "density, ratio"
+            },
+            {
+              "number": 2,
+              "details": [
+                52,
+                4
+              ],
+              "keyword": "atmosphere, model"
+            },
+            {
+              "number": 2,
+              "details": [
+                11,
+                23
+              ],
+              "keyword": "showers, energy"
+            },
+            {
+              "number": 2,
+              "details": [
+                23,
+                10
+              ],
+              "keyword": "energy, high"
+            },
+            {
+              "number": 2,
+              "details": [
+                23,
+                3
+              ],
+              "keyword": "energy, low"
+            },
+            {
+              "number": 2,
+              "details": [
+                7,
+                6
+              ],
+              "keyword": "emission, spectrum"
+            },
+            {
+              "number": 1,
+              "details": [
+                52,
+                19
+              ],
+              "keyword": "atmosphere, effect"
+            },
+            {
+              "number": 1,
+              "details": [
+                52,
+                13
+              ],
+              "keyword": "atmosphere, pressure"
+            },
+            {
+              "number": 1,
+              "details": [
+                31,
+                31
+              ],
+              "keyword": "detector, optical"
+            },
+            {
+              "number": 1,
+              "details": [
+                52,
+                8
+              ],
+              "keyword": "atmosphere, gas"
+            },
+            {
+              "number": 1,
+              "details": [
+                52,
+                7
+              ],
+              "keyword": "atmosphere, temperature"
+            },
+            {
+              "number": 1,
+              "details": [
+                52,
+                2
+              ],
+              "keyword": "atmosphere, monitoring"
+            },
+            {
+              "number": 1,
+              "details": [
+                52,
+                1
+              ],
+              "keyword": "atmosphere, transparency"
+            },
+            {
+              "number": 1,
+              "details": [
+                31,
+                3
+              ],
+              "keyword": "detector, sensitivity"
+            },
+            {
+              "number": 1,
+              "details": [
+                11,
+                23
+              ],
+              "keyword": "gamma ray, energy"
+            }
+          ]
+        }
+      },
+      "reference_count": {
+        "core": 7,
+        "non_core": 1
+      },
+      "status": "running",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
   }
 ]

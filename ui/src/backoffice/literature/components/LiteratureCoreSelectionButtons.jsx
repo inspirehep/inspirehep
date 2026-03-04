@@ -9,7 +9,7 @@ export const LiteratureCoreSelectionButtons = ({
 }) => {
   const containerClass = isBatch
     ? 'flex items-center'
-    : 'flex flex-column items-center';
+    : 'flex flex-column items-center mb2';
   const coreClass = isBatch
     ? 'font-white bg-completed mr2'
     : 'font-white bg-completed w-75 mb2';

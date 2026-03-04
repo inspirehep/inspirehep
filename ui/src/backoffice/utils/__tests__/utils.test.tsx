@@ -1,11 +1,13 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import { List, Map as ImmutableMap } from 'immutable';
 import {
   getIcon,
   refreshToken,
   filterByProperty,
   formatDateTime,
   getDag,
+  hasPublicationInfo,
 } from '../utils';
 import storage from '../../../common/storage';
 import { BACKOFFICE_LOGIN_API } from '../../../common/routes';
@@ -209,5 +211,37 @@ describe('getDag', () => {
     ['HEP_UPDATE', 'hep_create_dag'],
   ])('returns the expected DAG for %j', (input, expected) => {
     expect(getDag(input)).toBe(expected);
+  });
+});
+
+describe('hasPublicationInfo', () => {
+  it('returns true when first publication has journal_title', () => {
+    const publicationInfo = List([
+      ImmutableMap({
+        journal_title: 'J.Math.Phys.',
+      }),
+    ]);
+
+    expect(hasPublicationInfo(publicationInfo)).toBe(true);
+  });
+
+  it('returns true when first publication has pubinfo_freetext', () => {
+    const publicationInfo = List([
+      ImmutableMap({
+        pubinfo_freetext: 'Phys. Lett. B 870 (2025) 139959',
+      }),
+    ]);
+
+    expect(hasPublicationInfo(publicationInfo)).toBe(true);
+  });
+
+  it('returns false when first publication has neither journal_title nor pubinfo_freetext', () => {
+    const publicationInfo = List([
+      ImmutableMap({
+        year: 2025,
+      }),
+    ]);
+
+    expect(hasPublicationInfo(publicationInfo)).toBe(false);
   });
 });

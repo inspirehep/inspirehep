@@ -153,7 +153,9 @@ class HepWorkflowDocument(BaseWorkflowDocument):
             ),
         },
     )
+    classifier_results = fields.ObjectField(enabled=False)
     relevance_prediction = fields.ObjectField(enabled=False)
+    reference_count = fields.ObjectField(enabled=False)
     matches = fields.ObjectField(enabled=False)
 
     class Index(BaseWorkflowDocument.Index):
