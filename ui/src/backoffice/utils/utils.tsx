@@ -198,6 +198,18 @@ export const handleSearch = (
   }
 };
 
+export const hasPublicationInfo = (
+  publicationInfo?: List<Map<string, any>> | null
+) => {
+  const firstPub: Map<string, any> | undefined = List.isList(publicationInfo)
+    ? (publicationInfo as List<Map<string, any>>).first()
+    : undefined;
+  return Boolean(
+    !!firstPub &&
+      (firstPub.get('journal_title') || firstPub.get('pubinfo_freetext'))
+  );
+};
+
 export const getWorkflowStatusInfo = (status: string) => {
   const statuses: {
     [key: string]: { icon: JSX.Element; text: string; description: string };

@@ -48,11 +48,9 @@ describe('WorkflowResultItem component for Authors', () => {
     expect(decisionPill).toBeInTheDocument();
     expect(decisionPill).toHaveClass('decision-pill bg-completed ml1');
 
-    expect(screen.getByText('Completed')).toBeInTheDocument();
+    const statusText = screen.getByText('Completed');
+    expect(statusText).toBeInTheDocument();
     expect(screen.getByText('submitter2')).toBeInTheDocument();
-    expect(
-      screen.getByText('This workflow has been completed.')
-    ).toBeInTheDocument();
     expect(screen.getByText('john.doe@cern.ch')).toBeInTheDocument();
     expect(screen.getByText('cs.AI')).toBeInTheDocument();
     expect(screen.getByText('cs.CL')).toBeInTheDocument();

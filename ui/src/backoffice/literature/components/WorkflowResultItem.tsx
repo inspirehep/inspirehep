@@ -1,9 +1,10 @@
 import React from 'react';
-import { Row, Col, Card, Checkbox } from 'antd';
+import { Row, Col, Card, Checkbox, Descriptions, Typography } from 'antd';
+import { List } from 'immutable';
 
 import '../../common/components/ResultItem/ResultItem.less';
 import { Link } from 'react-router-dom';
-import { formatDateTime, getWorkflowStatusInfo } from '../../utils/utils';
+import { formatDateTime, hasPublicationInfo } from '../../utils/utils';
 import { LITERATURE_PID_TYPE } from '../../../common/constants';
 import ResultItem from '../../../common/components/ResultItem';
 import { BACKOFFICE } from '../../../common/routes';
@@ -11,6 +12,16 @@ import AcquisitionSourceInfo from '../../common/components/AcquisitionSourceInfo
 import LiteratureActionButtons from './LiteratureActionButtons';
 import LiteratureSubjectAreas from './LiteratureSubjectAreas';
 import LiteratureResultItem from './LiteratureResultItem';
+import AuthorList from '../../../common/components/AuthorList';
+import PublicationInfoList from '../../../common/components/PublicationInfoList';
+import ArxivEprintList from '../../../literature/components/ArxivEprintList';
+import ToggleableAbstract from './ToggleableAbstract';
+import AutomaticDecision from './AutomaticDecision';
+import LiteratureReferenceCount from './LiteratureReferenceCount';
+import LiteratureSearchKeywords from './LiteratureSearchKeywords';
+import StatusInfoWithTooltip from '../../common/components/StatusInfoWithTooltip';
+
+const { Paragraph } = Typography;
 
 const WorkflowResultItem = ({
   item,
@@ -30,7 +41,10 @@ const WorkflowResultItem = ({
   isSubmitted?: boolean;
 }) => {
   const workflowId = item?.get('id');
+  const relevancePrediction = item?.get('relevance_prediction');
+  const classifierResults = item?.get('classifier_results');
   const data = item?.get('data');
+  const abstract = data?.getIn(['abstracts', 0]);
   const dateTime = data?.getIn(['acquisition_source', 'datetime']);
   const acquisitionSourceDatetime = formatDateTime(dateTime);
   const acquisitionSourceSource = data?.getIn(['acquisition_source', 'source']);
@@ -38,7 +52,27 @@ const WorkflowResultItem = ({
   const subjectAreas = data?.get('inspire_categories');
 
   const status = item?.get('status');
-  const statusInfo = getWorkflowStatusInfo(status);
+  const referenceCount = item?.get('reference_count');
+  const references = data?.get('references')?.toJS();
+  const totalReferences =
+    references && Array.isArray(references) ? references.length : 0;
+
+  const authors = data?.get('authors');
+  const hasAuthors = List.isList(authors) && authors.size > 0;
+
+  const publicationInfo = data?.get('publication_info');
+  const hasPublicationInfoValue = hasPublicationInfo(publicationInfo);
+
+  const arxivEprints = data?.get('arxiv_eprints');
+  const hasArxivEprints = List.isList(arxivEprints) && arxivEprints.size > 0;
+
+  const numberOfPages = data?.get('number_of_pages');
+  const publicNotes = data?.get('public_notes');
+  const hasPublicNotes = List.isList(publicNotes) && publicNotes.size > 0;
+
+  const inspireCategories = data?.get('inspire_categories')?.toJS();
+  const hasInspireCategories =
+    Array.isArray(inspireCategories) && inspireCategories.length > 0;
 
   return (
     <div
@@ -67,25 +101,75 @@ const WorkflowResultItem = ({
                 <LiteratureResultItem item={item} />
               </Link>
             </div>
+            {hasAuthors && (
+              <div className="mb2">
+                <AuthorList
+                  wrapperClassName="author-list-wrapper"
+                  limit={10}
+                  authors={authors}
+                  page="literature results backofice"
+                  unlinked
+                />
+              </div>
+            )}
+            <Descriptions
+              className={hasAuthors ? '' : 'mt2'}
+              column={1}
+              size="small"
+              labelStyle={{ width: 140 }}
+            >
+              {hasPublicationInfoValue && (
+                <Descriptions.Item label="Published In">
+                  <PublicationInfoList
+                    publicationInfo={publicationInfo}
+                    labeled={false}
+                  />
+                </Descriptions.Item>
+              )}
+
+              {hasArxivEprints && (
+                <Descriptions.Item label="e-Print">
+                  <ArxivEprintList eprints={arxivEprints} showLabel={false} />
+                </Descriptions.Item>
+              )}
+
+              {numberOfPages != null && (
+                <Descriptions.Item label="Number of Pages">
+                  {numberOfPages}
+                </Descriptions.Item>
+              )}
+
+              {hasPublicNotes && (
+                <Descriptions.Item label="Public notes">
+                  <Paragraph style={{ margin: 0, whiteSpace: 'pre-line' }}>
+                    {publicNotes.map((pn: any) => pn.get('value')).join('\n')}
+                  </Paragraph>
+                </Descriptions.Item>
+              )}
+            </Descriptions>
+
+            <ToggleableAbstract abstract={abstract} />
           </ResultItem>
         </Col>
         <Col className="col-actions">
           <Card>
-            {statusInfo && (
-              <div>
-                <p className={`b ${status.toLowerCase()} mt3`}>
-                  {statusInfo.icon} {statusInfo.text}
-                </p>
-                <LiteratureActionButtons
-                  status={status}
-                  handleResolveAction={handleResolveAction}
-                  workflowId={workflowId}
-                  isSubmitted={isSubmitted}
-                />
-                <br />
-                <small>{statusInfo.description}</small>
-              </div>
-            )}
+            <>
+              <StatusInfoWithTooltip status={status} />
+              <AutomaticDecision
+                hasInspireCategories={hasInspireCategories}
+                relevancePrediction={relevancePrediction}
+              />
+              <LiteratureActionButtons
+                status={status}
+                handleResolveAction={handleResolveAction}
+                isSubmitted={isSubmitted}
+              />
+              <LiteratureReferenceCount
+                referenceCount={referenceCount}
+                totalReferences={totalReferences}
+              />
+              <LiteratureSearchKeywords classifierResults={classifierResults} />
+            </>
           </Card>
         </Col>
         <Col className="col-info">

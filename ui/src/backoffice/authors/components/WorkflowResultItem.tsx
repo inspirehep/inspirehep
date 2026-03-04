@@ -4,8 +4,7 @@ import { Row, Col, Card } from 'antd';
 
 import '../../common/components/ResultItem/ResultItem.less';
 import { Link } from 'react-router-dom';
-import { formatDateTime, getWorkflowStatusInfo } from '../../utils/utils';
-import { WORKFLOW_TYPES } from '../../constants';
+import { formatDateTime } from '../../utils/utils';
 import {
   AUTHORS_PID_TYPE,
   LITERATURE_PID_TYPE,
@@ -15,6 +14,7 @@ import { BACKOFFICE } from '../../../common/routes';
 import AcquisitionSourceInfo from '../../common/components/AcquisitionSourceInfo/AcquisitionSourceInfo';
 import AuthorSubjectAreas from './AuthorSubjectAreas';
 import AuthorResultItem from './AuthorResultItem';
+import StatusInfoWithTooltip from '../../common/components/StatusInfoWithTooltip';
 
 const WorkflowResultItem = ({ item }: { item: any }) => {
   const workflowId = item?.get('id');
@@ -26,7 +26,6 @@ const WorkflowResultItem = ({ item }: { item: any }) => {
   const subjectAreas = data?.get('arxiv_categories');
 
   const status = item?.get('status');
-  const statusInfo = getWorkflowStatusInfo(status);
 
   return (
     <div className="result-item result-item-action mv2">
@@ -44,15 +43,7 @@ const WorkflowResultItem = ({ item }: { item: any }) => {
         </Col>
         <Col className="col-actions">
           <Card>
-            {statusInfo && (
-              <div>
-                <p className={`b ${status.toLowerCase()} mt3`}>
-                  {statusInfo.icon} {statusInfo.text}
-                </p>
-                <br />
-                <small>{statusInfo.description}</small>
-              </div>
-            )}
+            <StatusInfoWithTooltip status={status} />
           </Card>
         </Col>
         <Col className="col-info">

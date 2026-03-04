@@ -7,10 +7,11 @@ import InlineDataList from '../../common/components/InlineList';
 
 class ArxivEprintList extends Component {
   render() {
-    const { eprints } = this.props;
+    const { eprints, showLabel } = this.props;
+    const label = showLabel ? 'e-Print' : null;
     return (
       <InlineDataList
-        label="e-Print"
+        label={label}
         items={eprints}
         extractKey={(eprint) => eprint.get('value')}
         renderItem={(eprint) => <ArxivEprint eprint={eprint} />}
@@ -21,10 +22,12 @@ class ArxivEprintList extends Component {
 
 ArxivEprintList.propTypes = {
   eprints: PropTypes.instanceOf(List),
+  showLabel: PropTypes.bool,
 };
 
 ArxivEprintList.defaultProps = {
   eprints: null,
+  showLabel: true,
 };
 
 export default ArxivEprintList;

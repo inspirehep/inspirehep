@@ -9,7 +9,7 @@ export const LiteratureMissingSubjectFieldsSelectionButtons = ({
 }) => {
   const containerClass = isBatch
     ? 'flex items-center flex-wrap'
-    : 'flex flex-column items-center';
+    : 'flex flex-column items-center mb2';
   const rejectClass = isBatch
     ? 'font-white bg-error'
     : 'font-white bg-error w-75';
