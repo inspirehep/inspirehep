@@ -40,7 +40,7 @@
     "@types/mousetrap": "1.6.3",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
-    "immutable": "^3.8.1",
+    "immutable": "^4.3.8",
     "inspire-schemas": "^61.6.26",
     "lodash": "4.17.2",
     "ng2-json-editor": "https://github.com/inveniosoftware-contrib/ng2-json-editor.git#6e0c92d3c8f9df81654dd6a78a69f50a7bbc1679",
