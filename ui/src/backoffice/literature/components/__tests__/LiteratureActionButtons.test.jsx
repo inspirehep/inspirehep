@@ -13,10 +13,7 @@ describe('<LiteratureActionButtons />', () => {
     render(
       <LiteratureActionButtons
         status={WorkflowStatuses.APPROVAL}
-        hasInspireCategories
         handleResolveAction={handleResolveAction}
-        actionInProgress={null}
-        workflowId="workflow-1"
       />
     );
 
@@ -48,5 +45,24 @@ describe('<LiteratureActionButtons />', () => {
       screen.queryByRole('button', { name: 'Core' })
     ).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Reject' })).toBeInTheDocument();
+  });
+
+  test('shows resolve conflicts editor button for approval merge status', () => {
+    render(
+      <LiteratureActionButtons
+        status={WorkflowStatuses.APPROVAL_MERGE}
+        workflowId="workflow-1"
+      />
+    );
+
+    const resolveConflictsButton = screen.getByRole('link', {
+      name: /Resolve conflicts/i,
+    });
+
+    expect(resolveConflictsButton).toHaveAttribute(
+      'href',
+      '/editor/backoffice/literature/workflow-1'
+    );
+    expect(resolveConflictsButton).toHaveClass('bg-resolve-conflict');
   });
 });

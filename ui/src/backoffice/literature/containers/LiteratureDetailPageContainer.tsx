@@ -45,7 +45,6 @@ type LiteratureDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
   literature: Map<string, any>;
   loading: boolean;
-  actionInProgress: Map<string, any> | null;
   restartActionInProgress: Map<string, any> | null;
   isSuperUserLoggedIn: boolean;
 };
@@ -54,7 +53,6 @@ const LiteratureDetailPageContainer = ({
   dispatch,
   literature,
   loading,
-  actionInProgress,
   restartActionInProgress,
   isSuperUserLoggedIn,
 }: LiteratureDetailPageContainerProps) => {
@@ -238,7 +236,6 @@ const LiteratureDetailPageContainer = ({
                       subTitle="Decision"
                     >
                       <LiteratureDecisionBox
-                        actionInProgress={actionInProgress}
                         handleResolveAction={handleResolveAction}
                         status={status}
                         decision={decision}
@@ -300,7 +297,6 @@ const LiteratureDetailPageContainer = ({
 const stateToProps = (state: RootStateOrAny) => ({
   literature: state.backoffice.get('literature'),
   loading: state.backoffice.get('loading'),
-  actionInProgress: state.backoffice.get('actionInProgress'),
   restartActionInProgress: state.backoffice.get('restartActionInProgress'),
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });

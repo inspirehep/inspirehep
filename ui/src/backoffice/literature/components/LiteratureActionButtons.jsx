@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { LiteratureHepSelectionButtons } from './LiteratureHepSelectionButtons';
 import { LiteratureCoreSelectionButtons } from './LiteratureCoreSelectionButtons';
 import { LiteratureMissingSubjectFieldsSelectionButtons } from './LiteratureMissingSubjectFieldsSelectionButtons';
+import { LiteratureMergeSelectionButtons } from './LiteratureMergeSelectionButtons';
 import { WorkflowStatuses } from '../../constants';
 
 const LiteratureActionButtons = ({
   status,
   handleResolveAction,
+  workflowId = null,
   isBatch = false,
   isSubmitted = false,
 }) => {
@@ -45,6 +47,8 @@ const LiteratureActionButtons = ({
           isBatch={isBatch}
         />
       );
+    case WorkflowStatuses.APPROVAL_MERGE:
+      return <LiteratureMergeSelectionButtons workflowId={workflowId} />;
 
     default:
       return null;
