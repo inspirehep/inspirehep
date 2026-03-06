@@ -79,6 +79,7 @@ const WorkflowResultItem = ({
                 <LiteratureActionButtons
                   status={status}
                   handleResolveAction={handleResolveAction}
+                  workflowId={workflowId}
                   isSubmitted={isSubmitted}
                 />
                 <br />

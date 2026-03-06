@@ -7,7 +7,6 @@ import LiteratureDecisionDetails from './LiteratureDecisionDetails';
 import { LITERATURE } from '../../../common/routes';
 
 const LiteratureDecisionBox = ({
-  actionInProgress,
   classifierResults,
   controlNumber,
   decision,
@@ -30,9 +29,7 @@ const LiteratureDecisionBox = ({
       />
       <LiteratureActionButtons
         status={status}
-        hasInspireCategories={hasInspireCategories}
         handleResolveAction={handleResolveAction}
-        actionInProgress={actionInProgress}
         workflowId={workflowId}
       />
       <LiteratureDecisionDetails
