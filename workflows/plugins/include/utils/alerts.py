@@ -1,6 +1,7 @@
 import logging
 import os
 
+from airflow.configuration import conf
 from airflow.sdk import BaseNotifier
 from airflow.utils.email import send_email
 from include.utils.set_workflow_status import (
@@ -20,7 +21,7 @@ def task_failure_alert(context):
     dag_id = context.get("dag").dag_id if context.get("dag") else "unknown"
     workflow_id = context.get("run_id", "unknown")
     log_url = (
-        f"{os.environ.get('AIRFLOW__WEBSERVER__BASE_URL')}"
+        f"{conf.get('api', 'base_url')}"
         f"/dags/{dag_id}/runs/{workflow_id}/?state=failed"
     )
     log_url_display = f'<a href="{log_url}">Log URL</a>' if log_url else "N/A"
