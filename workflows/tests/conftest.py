@@ -32,7 +32,9 @@ def vcr_config():
 @pytest.fixture(scope="class")
 def _s3_store(request):
     def _setup():
-        request.cls.s3_store = S3JsonStore(aws_conn_id="s3_conn")
+        request.cls.s3_store = S3JsonStore(
+            aws_conn_id=getattr(request, "param", "s3_conn")
+        )
         request.cls.s3_store.initialize()
 
     function_test(_setup)
