@@ -123,7 +123,9 @@ class TestAuthorWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         response = self.api_client.get(
             self.endpoint, data={"status": AuthorStatusChoices.RUNNING}
         )
-        for item in response.json()["results"]:
+        results = response.json()["results"]
+        assert len(results) == 1
+        for item in results:
             assert item["status"] == AuthorStatusChoices.RUNNING
 
     def test_filter_workflow_type(self):
@@ -134,7 +136,9 @@ class TestAuthorWorkflowSearchFilterViewSet(BaseTransactionTestCase):
             data={"workflow_type": AuthorWorkflowType.AUTHOR_CREATE},
             format="json",
         )
-        for item in response.json()["results"]:
+        results = response.json()["results"]
+        assert len(results) == 2
+        for item in results:
             assert item["workflow_type"] == AuthorWorkflowType.AUTHOR_CREATE
 
     @parameterized.expand([None, "-_updated_at"])

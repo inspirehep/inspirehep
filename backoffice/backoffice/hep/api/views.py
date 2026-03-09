@@ -284,21 +284,23 @@ class HepWorkflowDocumentView(BaseDocumentViewSet):
         FilteringFilterBackend,
         OrderingFilterBackend,
     ]
-    search_fields = {
-        "data.titles.title",
-        "data.arxiv_eprints.value.keyword",
-        "data.dois.value.keyword",
-    }
+    search_fields = (
+        "data.titles.full_title.search",
+        "data.titles.full_title.keyword",
+        "data.arxiv_eprints.value.raw",
+        "data.dois.value.raw",
+    )
 
     filter_fields = {
         "status": "status",
         "workflow_type": "workflow_type",
         "data.arxiv_eprints.value": "data.arxiv_eprints.value",
+        "data.dois.value": "data.dois.value",
     }
 
     ordering_fields = {"_updated_at": "_updated_at", "_score": "_score"}
 
-    ordering = ("-_updated_at", "-_score")
+    ordering = ("-_score", "-_updated_at")
 
     faceted_search_fields = {
         "status": {
