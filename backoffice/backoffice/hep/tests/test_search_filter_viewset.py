@@ -51,6 +51,45 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
             status=HepStatusChoices.RUNNING,
             workflow_type=HepWorkflowType.HEP_CREATE,
         )
+        HepWorkflow.objects.update_or_create(
+            data={
+                "titles": [{"title": "search arxiv eprints test"}],
+                "arxiv_eprints": [{"value": "2507.26819"}],
+                "_collections": ["Literature"],
+                "documnent_type": ["article"],
+            },
+            status=HepStatusChoices.RUNNING,
+            workflow_type=HepWorkflowType.HEP_CREATE,
+        )
+        HepWorkflow.objects.update_or_create(
+            data={
+                "titles": [{"title": "search doi test"}],
+                "dois": [{"value": "10.1016/j.physletb.2025.139959"}],
+                "_collections": ["Literature"],
+                "documnent_type": ["article"],
+            },
+            status=HepStatusChoices.RUNNING,
+            workflow_type=HepWorkflowType.HEP_CREATE,
+        )
+        HepWorkflow.objects.update_or_create(
+            data={
+                "titles": [{"title": "Article with conflicts"}],
+                "_collections": ["Literature"],
+                "documnent_type": ["article"],
+            },
+            status=HepStatusChoices.RUNNING,
+            workflow_type=HepWorkflowType.HEP_CREATE,
+        )
+        HepWorkflow.objects.update_or_create(
+            data={
+                "titles": [{"title": "Article with conflicts and extra context"}],
+                "_collections": ["Literature"],
+                "documnent_type": ["article"],
+            },
+            status=HepStatusChoices.RUNNING,
+            workflow_type=HepWorkflowType.HEP_CREATE,
+        )
+        index.refresh()
 
     def test_facets(self):
         self.api_client.force_authenticate(user=self.admin)
@@ -91,7 +130,7 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         assert len(results) == 1
         assert results[0]["data"]["titles"][0]["title"] == "hello foo"
 
-    @parameterized.expand(["", "data.titles.title:"])
+    @parameterized.expand(["", "data.titles.full_title.search:"])
     def test_search_data_email(self, prefix):
         self.api_client.force_authenticate(user=self.admin)
 
@@ -105,6 +144,19 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         results = response.json()["results"]
         assert len(results) == 1
         assert results[0]["data"]["titles"][0]["title"] == title
+
+    def test_search_full_title_prioritizes_exact_match(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        full_title = "article with conflicts"
+        response = self.api_client.get(
+            self.endpoint,
+            data={"search": full_title},
+            format="json",
+        )
+        results = response.json()["results"]
+        assert len(results) == 2
+        assert results[0]["data"]["titles"][0]["title"] == "Article with conflicts"
 
     def test_filter_status(self):
         self.api_client.force_authenticate(user=self.admin)
@@ -156,27 +208,48 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
             data={"data.arxiv_eprints.value": arxiv_value},
             format="json",
         )
-        for item in response.json()["results"]:
-            assert item["data"]["arxiv_eprints"][0]["value"] == arxiv_value
+        results = response.json()["results"]
+        assert len(results) == 1
+        assert results[0]["data"]["arxiv_eprints"][0]["value"] == arxiv_value
 
-    def test_search_arxiv_eprints_and_dois(self):
+    def test_search_arxiv_eprints(self):
         self.api_client.force_authenticate(user=self.admin)
 
         arxiv_value = "2507.26819"
+
+        response = self.api_client.get(
+            self.endpoint,
+            data={"search": [f"data.arxiv_eprints.value.raw:{arxiv_value}"]},
+            format="json",
+        )
+        results = response.json()["results"]
+        assert len(results) == 1
+        assert results[0]["data"]["arxiv_eprints"][0]["value"] == arxiv_value
+
+    def test_search_dois(self):
+        self.api_client.force_authenticate(user=self.admin)
+
         doi_value = "10.1016/j.physletb.2025.139959"
 
         response = self.api_client.get(
             self.endpoint,
-            data={
-                "search": [
-                    f"data.arxiv_eprints.value.keyword:{arxiv_value}",
-                    f"data.dois.value.keyword:{doi_value}",
-                ]
-            },
+            data={"search": [f"data.dois.value.raw:{doi_value}"]},
             format="json",
         )
-        for item in response.json()["results"]:
-            assert (
-                item["data"]["arxiv_eprints"][0]["value"] == arxiv_value
-                or item["data"]["dois"][0]["value"] == doi_value
-            )
+        results = response.json()["results"]
+        assert len(results) == 1
+        assert results[0]["data"]["dois"][0]["value"] == doi_value
+
+    def test_filter_dois(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        doi_value = "10.1016/j.physletb.2025.139959"
+
+        response = self.api_client.get(
+            self.endpoint,
+            data={"data.dois.value": doi_value},
+            format="json",
+        )
+        results = response.json()["results"]
+        assert len(results) == 1
+        assert results[0]["data"]["dois"][0]["value"] == doi_value
