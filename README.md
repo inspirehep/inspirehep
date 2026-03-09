@@ -25,15 +25,11 @@ Okay, so now the question is: **how do we develop on it?**
     - [Backend](#backend)
     - [UI](#ui)
     - [Editor](#editor)
-  - [⚠️ For MacOS users](#️-for-macos-users)
-    - [AirPlay Port](#airplay-port)
-    - [M1 users](#m1-users)
   - [Setup](#setup)
     - [Run](#run)
     - [General](#general)
   - [Usage](#usage)
     - [Ports](#ports)
-    - [Docker \& Docker Compose](#docker--docker-compose)
   - [How to Log in](#how-to-log-in)
   - [How to generate a token locally](#how-to-generate-a-token-locally)
   - [How to test](#how-to-test)
@@ -66,7 +62,7 @@ brew install jq
 >
 > 1. Open **Docker Desktop Settings** (the gear icon ⚙️).
 > 2. Go to **Resources**.
-> 3. Set **Memory** to at least **12GB** (18GB recommended).
+> 3. Set **Memory** to at least **18GB**.
 > 4. Click **Apply & Restart**.
 
 <details>
@@ -209,33 +205,7 @@ $ cd record-editor
 $ yarn install
 ```
 
-
 ---
-## ⚠️ For MacOS users
-
-### AirPlay Port
-
-Turn of the `AirPlay Receiver` under System Preference -> Sharing -> AirPlay Receiver.
-Otherwise, you will run into problems with port 5000 being already in use.
-See [this](https://developer.apple.com/forums/thread/682332) for more information.
-
-### M1 users
-
-Install `Homebrew-file` https://homebrew-file.readthedocs.io/en/latest/installation.html
-
-```bash
-$ brew install rcmdnk/file/brew-file
-```
-
-And run
-
-```bash
-$ brew file install
-```
----
-
-
-
 ## Setup
 
 First you need to start all the services (postgreSQL, Redis, ElasticSearch, RabbitMQ)
@@ -289,10 +259,11 @@ $ yarn start
 
 In case you wanna use docker and just run the record-editor locally, use the following steps:
 
-1. Add the following volume mount to the record-editor service in the [docker-compose.yml](docker-compose.yml):
+1. Run `nvm use node 10`
+2. Add the following volume mount to the record-editor service in the [docker-compose.yml](docker-compose.yml):
    - `- ./record-editor/dist/:/usr/share/nginx/html`
-2. Navigate into the record-editor folder and first run `yarn` and then `yarn start`
-3. Open a second terminal and run `make run`
+3. Navigate into the record-editor folder and first run `yarn` and then `yarn start`
+4. Open a second terminal and run `make run`
 
 The record editor should now be availabe and automatically update when changes are made to the codebase.
 
@@ -321,14 +292,6 @@ Upon spinning it up services should be available in the following routes:
 | Airflow / Workflows | http://localhost:8070 |
 | Opensearch          | http://localhost:9200 |
 | Postgres db         | http://localhost:5432 |
-
-### Docker & Docker Compose
-
-**The topology of docker-compose**
-
-![Alt text](./docker/topology.png)
-
-Follow the guide https://docs.docker.com/compose/install/
 
 ---
 ## How to Log in
@@ -384,7 +347,7 @@ If you wish to run the tests for a given services here's the way to do it.
 First exect into the container i.e.: `docker exec -it <container_name> /bin/bash` or via Docker Destkop
 Then depending on the service you are testing:
 - backoffice-webserver : `pytest .`
-- airflow-webserver || airlow-api-server: `pytest .`
+- airlow-api-server: `pytest .`
 - inspire-hep: ?
 - backend: ?
 
