@@ -4,6 +4,7 @@ from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
 from rest_framework import serializers
 from backoffice.common.serializers import (
     BaseWorkflowTicketSerializer,
+    BaseBackofficeSearchUISerializer,
     BaseWorkflowSerializer,
 )
 from backoffice.hep.constants import (
@@ -141,6 +142,20 @@ class HepWorkflowDocumentSerializer(DocumentSerializer):
     class Meta:
         document = HepWorkflowDocument
         fields = "__all__"
+
+
+class HepBackofficeSearchUISerializer(BaseBackofficeSearchUISerializer):
+    def get_hit_representation(self, item):
+        hit = super().get_hit_representation(item)
+        hit.update(
+            {
+                "classifier_results": item.get("classifier_results"),
+                "matches": item.get("matches"),
+                "relevance_prediction": item.get("relevance_prediction"),
+                "reference_count": item.get("reference_count"),
+            }
+        )
+        return hit
 
 
 @extend_schema_serializer(

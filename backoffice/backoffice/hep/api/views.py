@@ -35,9 +35,9 @@ from backoffice.common.utils import (
 from inspire_schemas.utils import get_validation_errors
 from backoffice.common.serializers import QueryParamsSerializer
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
-from backoffice.common.renderers import (
-    BackofficeUIBrowsableRenderer,
-    BackofficeUIRenderer,
+from backoffice.hep.api.renderers import (
+    HepBackofficeUIBrowsableRenderer,
+    HepBackofficeUIRenderer,
 )
 from django_elasticsearch_dsl_drf.filter_backends import (
     CompoundSearchFilterBackend,
@@ -265,9 +265,9 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
 class HepWorkflowDocumentView(BaseDocumentViewSet):
     renderer_classes = (
         JSONRenderer,
-        BackofficeUIRenderer,
+        HepBackofficeUIRenderer,
         BrowsableAPIRenderer,
-        BackofficeUIBrowsableRenderer,
+        HepBackofficeUIBrowsableRenderer,
     )
 
     def __init__(self, *args, **kwargs):
