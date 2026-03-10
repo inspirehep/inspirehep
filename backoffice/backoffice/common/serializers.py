@@ -30,7 +30,22 @@ class BaseWorkflowSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class BackofficeSearchUISerializer(serializers.Serializer):
+class BaseBackofficeSearchUISerializer(serializers.Serializer):
+    def get_hit_representation(self, item):
+        return {
+            "id": item.get("id"),
+            "created": item.get("legacy_creation_date"),
+            "updated": item.get("_created_at"),
+            "data": {
+                **(item.get("data") or {}),
+                "_created_at": item.get("_created_at"),
+                "_updated_at": item.get("_updated_at"),
+            },
+            "decisions": item.get("decisions"),
+            "workflow_type": item.get("workflow_type"),
+            "status": item.get("status"),
+        }
+
     def to_representation(self, instance):
         facets = instance.get("facets", {}) or {}
         aggregations = {}
@@ -51,26 +66,7 @@ class BackofficeSearchUISerializer(serializers.Serializer):
             }
 
         results = instance.get("results", []) or []
-        hits = [
-            {
-                "id": item.get("id"),
-                "created": item.get("legacy_creation_date"),
-                "updated": item.get("_created_at"),
-                "data": {
-                    **(item.get("data") or {}),
-                    "_created_at": item.get("_created_at"),
-                    "_updated_at": item.get("_updated_at"),
-                },
-                "decisions": item.get("decisions"),
-                "workflow_type": item.get("workflow_type"),
-                "status": item.get("status"),
-                "classifier_results": item.get("classifier_results"),
-                "matches": item.get("matches"),
-                "relevance_prediction": item.get("relevance_prediction"),
-                "reference_count": item.get("reference_count"),
-            }
-            for item in results
-        ]
+        hits = [self.get_hit_representation(item) for item in results]
 
         return {
             "hits": {
