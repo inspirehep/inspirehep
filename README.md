@@ -54,7 +54,7 @@ brew install jq
 
 > [!CAUTION]
 >
-> #### ⚠️ Resource Warning: ~12GB RAM Required
+> #### ⚠️ Resource Warning: ~18GB RAM Required
 >
 > INSPIRE is a massive monorepo. If Docker Desktop is using the default **2GB** limit, the stack **will probably** crash during the build or indexing process.
 >
@@ -297,7 +297,7 @@ Upon spinning it up services should be available in the following routes:
 ## How to Log in
 
 - If you simply wish to login to [inspirehep](http://localhost:8080/user/login/local), use `admin@inspirehep.net:123456`
-- If you wish to login into [inspirehep/backoffice](http://localhost:8080/backoffice/login/local) or the [actual backoffice](http://localhost:8001/accounts/login/) use `admin@admin.com:admin`
+- If you wish to login into [inspirehep/backoffice](http://localhost:8080/backoffice/login/local) or the [actual backoffice](http://localhost:8001/admin) use `admin@admin.com:admin`
   But if you want to test with orcid you will need to set the `ORCID_CLIENT_ID` and `ORCID_CLIENT_SECRET` extra steps must be done:
   If you wish to test orcid on `inspirehep`:
   - Go to `backend/inspirehep/orcid/config.py` - They will correspond to `consumer_key` and `consumer_secret`
