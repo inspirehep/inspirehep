@@ -291,7 +291,7 @@ services:
 
   airflow-worker:
     <<: *airflow-common
-    command: celery worker
+    command: celery worker -q default,highmem
     healthcheck:
       # yamllint disable rule:line-length
       test:
@@ -435,6 +435,5 @@ services:
       - s3
     entrypoint: >
       /bin/sh -c " sleep 10; /usr/bin/mc alias set airflow http://s3:9000 airflow airflow-inspire; /usr/bin/mc mb airflow/data-store; exit 0; "
-
 
 
