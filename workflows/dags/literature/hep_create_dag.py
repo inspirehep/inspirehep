@@ -56,6 +56,7 @@ from include.inspire.refextract_utils import (
 from include.utils import opensearch, s3, tickets, workflows
 from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.constants import (
+    ANTIHEP_KEYWORDS,
     DECISION_AUTO_ACCEPT_CORE,
     DECISION_AUTO_REJECT,
     DECISION_CORE_SELECTION_ACCEPT,
@@ -968,15 +969,29 @@ def hep_create_dag():
                 logger.exception(e)
                 return
 
+            if not result.get("complete_output"):
+                return
+
+            complete_output = workflows.clean_instances_from_data(
+                result.get("complete_output", {})
+            )
+
+            core_keywords = complete_output.get("core_keywords")
+            if core_keywords:
+                complete_output["filtered_core_keywords"] = [
+                    kw
+                    for kw in core_keywords
+                    if kw.get("keyword") not in ANTIHEP_KEYWORDS
+                ]
+
+            if not any(complete_output.values()):
+                return
+
             workflow_data["classifier_results"] = {
-                "complete_output": workflows.clean_instances_from_data(
-                    result.get("complete_output", {})
-                ),
+                "complete_output": complete_output,
                 "fulltext_used": fulltext_used,
             }
-            # Check if it is not empty output before adding
-            if any(result.get("complete_output", {}).values()):
-                s3_store.write_workflow(workflow_data)
+            s3_store.write_workflow(workflow_data)
 
         @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def check_is_arxiv_paper(**context):

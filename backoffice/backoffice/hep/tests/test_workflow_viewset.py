@@ -149,48 +149,6 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(validate_response.status_code, 400)
         self.assertEqual(validate_response.json(), expected_response)
 
-    @pytest.mark.vcr
-    def test_get_hep_classifier_results_filtered(self):
-        self.api_client.force_authenticate(user=self.curator)
-
-        data = {
-            "workflow_type": HepWorkflowType.HEP_CREATE,
-            "status": HepStatusChoices.RUNNING,
-            "data": hep_data_valid(),
-            "classifier_results": {
-                "categories": [{"keyword": "Higgs particle", "category": "HEP"}],
-                "fulltext_used": True,
-                "complete_output": {
-                    "acronyms": [],
-                    "field_codes": [],
-                    "core_keywords": [
-                        {"number": 1, "keyword": "Higgs particle"},
-                        {"number": 1, "keyword": "supersymmetry"},
-                    ],
-                    "author_keywords": [],
-                    "single_keywords": [],
-                    "composite_keywords": [],
-                },
-            },
-        }
-        create_url = reverse("api:hep-list")
-        response = self.api_client.post(create_url, format="json", data=data)
-        self.assertEqual(response.status_code, 201)
-        wf_id = response.json()["id"]
-
-        detail_url = reverse("api:hep-detail", kwargs={"pk": wf_id})
-        detail_response = self.api_client.get(detail_url)
-        self.assertEqual(detail_response.status_code, 200)
-
-        json_response = detail_response.json()
-        self.assertEqual(json_response["data"], data["data"])
-        self.assertIn("id", json_response)
-
-        filtered = json_response["classifier_results"]["complete_output"][
-            "filtered_core_keywords"
-        ]
-        self.assertEqual([k["keyword"] for k in filtered], ["supersymmetry"])
-
     def test_get_non_existent_workflow(self):
         self.api_client.force_authenticate(user=self.curator)
         detail_url = reverse("api:hep-detail", kwargs={"pk": "THISISFORSURENOTANID"})
