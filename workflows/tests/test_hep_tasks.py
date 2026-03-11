@@ -60,6 +60,20 @@ HIGGS_ONTOLOGY = """<?xml version="1.0" encoding="UTF-8" ?>
         <prefLabel xml:lang="en">Core Keyword</prefLabel>
         <note xml:lang="en">core</note>
     </Concept>
+    <Concept rdf:about="http://cern.ch/thesauri/HEPontology.rdf#supersymmetry">
+        <prefLabel xml:lang="en">supersymmetry</prefLabel>
+        <altLabel xml:lang="en">SUSY</altLabel>
+        <hiddenLabel xml:lang="en">/supersymmetr\w*/</hiddenLabel>
+        <hiddenLabel xml:lang="en">super-Yang-Mills</hiddenLabel>
+        <note xml:lang="en">core</note>
+        <broader rdf:resource="http://cern.ch/thesauri/HEPontology.rdf#symmetry"/>
+        <narrower rdf:resource="http://cern.ch/thesauri/HEPontology.rdf#F-term"/>
+        <narrower rdf:resource="http://cern.ch/thesauri/HEPontology.rdf#superspace"/>
+        <narrower rdf:resource="http://cern.ch/thesauri/HEPontology.rdf#superstring"/>
+        <related rdf:resource="http://cern.ch/thesauri/HEPontology.rdf#sparticle"/>
+        <related rdf:resource="http://cern.ch/thesauri/HEPontology.rdf#supergravity"/>
+    </Concept>
+
 
 </rdf:RDF>
 """
@@ -2122,7 +2136,7 @@ class Test_HEPCreateDAG:
                 "data": {
                     "titles": [
                         {
-                            "title": "Some title",
+                            "title": "Some title supersymmetry",
                         },
                     ],
                     "abstracts": [
@@ -2132,7 +2146,21 @@ class Test_HEPCreateDAG:
             },
         )
 
-        expected_kewords = [{"number": 1, "keyword": "Higgs particle"}]
+        expected_classifier_results = {
+            "complete_output": {
+                "core_keywords": [
+                    {"keyword": "Higgs particle", "number": 1},
+                    {"keyword": "supersymmetry", "number": 1},
+                ],
+                "author_keywords": [],
+                "composite_keywords": [],
+                "single_keywords": [{"keyword": "Higgs particle", "number": 1}],
+                "field_codes": [],
+                "acronyms": [],
+                "filtered_core_keywords": [{"keyword": "supersymmetry", "number": 1}],
+            },
+            "fulltext_used": False,
+        }
 
         task_test(
             "hep_create_dag",
@@ -2150,10 +2178,10 @@ class Test_HEPCreateDAG:
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
         classifier_results = workflow_result["classifier_results"]
 
-        assert (
-            classifier_results["complete_output"]["core_keywords"] == expected_kewords
-        )
-        assert classifier_results["fulltext_used"] is False
+        assert classifier_results == expected_classifier_results
+        assert classifier_results["complete_output"]["filtered_core_keywords"] == [
+            {"keyword": "supersymmetry", "number": 1}
+        ]
 
     def test_classify_paper_uses_keywords(self, higgs_ontology):
         self.s3_store.write_workflow(
