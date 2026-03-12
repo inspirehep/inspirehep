@@ -20,6 +20,7 @@ import AutomaticDecision from './AutomaticDecision';
 import LiteratureReferenceCount from './LiteratureReferenceCount';
 import LiteratureSearchKeywords from './LiteratureSearchKeywords';
 import StatusInfoWithTooltip from '../../common/components/StatusInfoWithTooltip';
+import { WorkflowTypes } from '../../constants';
 
 const { Paragraph } = Typography;
 
@@ -41,6 +42,10 @@ const WorkflowResultItem = ({
   isSubmitted?: boolean;
 }) => {
   const workflowId = item?.get('id');
+  const workflowType = item?.get('workflow_type');
+  const journalCoverage = item?.get('journal_coverage');
+  const isFullCoverage =
+    workflowType === WorkflowTypes.HEP_CREATE && journalCoverage === 'full';
   const relevancePrediction = item?.get('relevance_prediction');
   const classifierResults = item?.get('classifier_results');
   const data = item?.get('data');
@@ -162,6 +167,7 @@ const WorkflowResultItem = ({
               <LiteratureActionButtons
                 status={status}
                 handleResolveAction={handleResolveAction}
+                isFullCoverage={isFullCoverage}
                 isSubmitted={isSubmitted}
               />
               <LiteratureReferenceCount

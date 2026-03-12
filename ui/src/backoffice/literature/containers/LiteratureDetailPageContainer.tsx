@@ -62,8 +62,8 @@ const LiteratureDetailPageContainer = ({
     dispatch(fetchLiteratureRecord(id));
   }, []);
 
-  const isLiteratureUpdate =
-    literature?.get('workflow_type') === WorkflowTypes.HEP_UPDATE;
+  const workflowType = literature?.get('workflow_type');
+  const isLiteratureUpdate = workflowType === WorkflowTypes.HEP_UPDATE;
   const data = literature?.get('data');
   const relevancePrediction = literature?.get('relevance_prediction');
   const referenceCount = literature?.get('reference_count');
@@ -80,7 +80,9 @@ const LiteratureDetailPageContainer = ({
   const decisions = literature?.get('decisions');
   const filteredDecisions = filterDecisions(decisions);
   const decision = filteredDecisions?.first();
-  const workflow_type = literature?.get('workflow_type');
+  const journalCoverage = literature?.get('journal_coverage');
+  const isFullCoverage =
+    workflowType === WorkflowTypes.HEP_CREATE && journalCoverage === 'full';
   const inspireCategories = data?.get('inspire_categories')?.toJS();
   const rawDateTime = data?.getIn(['acquisition_source', 'datetime']);
   const urls = data?.get('urls');
@@ -97,7 +99,7 @@ const LiteratureDetailPageContainer = ({
   const acquisitionSourceMethod = data?.getIn(['acquisition_source', 'method']);
 
   const DAGS_URL = getConfigFor('INSPIRE_WORKFLOWS_DAGS_URL');
-  const DAG_FULL_URL = `${DAGS_URL}${getDag(workflow_type)}/runs/${id}`;
+  const DAG_FULL_URL = `${DAGS_URL}${getDag(workflowType)}/runs/${id}`;
 
   const OPEN_SECTIONS = [
     (urls || ids) && 'links',
@@ -246,6 +248,7 @@ const LiteratureDetailPageContainer = ({
                         totalReferences={totalReferences}
                         classifierResults={classifierResults}
                         workflowId={id}
+                        isFullCoverage={isFullCoverage}
                       />
                     </ContentBox>
                     <ContentBox
