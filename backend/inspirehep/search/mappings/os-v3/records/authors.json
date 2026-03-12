@@ -3,6 +3,9 @@
     "date_detection": false,
     "numeric_detection": false,
     "properties": {
+      "_bucket": {
+        "type": "keyword"
+      },
       "$schema": {
         "type": "keyword"
       },
@@ -19,6 +22,9 @@
             "type": "boolean"
           },
           "current": {
+            "type": "boolean"
+          },
+          "hidden": {
             "type": "boolean"
           },
           "end_date": {
@@ -45,9 +51,11 @@
         }
       },
       "_created": {
+        "format": "date_optional_time||yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
       },
       "_updated": {
+        "format": "date_optional_time||yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
       },
       "_collections": {
@@ -98,6 +106,9 @@
           },
           "degree_type": {
             "type": "keyword"
+          },
+          "hidden": {
+            "type": "boolean"
           },
           "ids": {
             "properties": {
@@ -151,6 +162,29 @@
       "arxiv_categories": {
         "copy_to": "facet_arxiv_categories",
         "type": "keyword"
+      },
+      "awards": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "text"
+          },
+          "url": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "text"
+              },
+              "value": {
+                "type": "keyword",
+                "index": false
+              }
+            }
+          },
+          "year": {
+            "type": "integer"
+          }
+        }
       },
       "authorautocomplete": {
         "type": "text"
@@ -274,6 +308,9 @@
         "format": "yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
       },
+      "legacy_version": {
+        "type": "keyword"
+      },
       "names_analyzed_initials": {
         "type": "text",
         "analyzer": "names_initials_analyzer"
@@ -284,6 +321,23 @@
       },
       "name": {
         "properties": {
+          "name_variants": {
+            "type": "text",
+            "copy_to": [
+              "authorautocomplete",
+              "names_analyzed_initials",
+              "names_analyzed"
+            ]
+          },
+          "native_names": {
+            "type": "text",
+            "copy_to": [
+              "authorautocomplete",
+              "names_analyzed_initials",
+              "names_analyzed",
+              "_all"
+            ]
+          },
           "numeration": {
             "type": "keyword"
           },
@@ -294,6 +348,9 @@
               "names_analyzed_initials",
               "names_analyzed"
             ]
+          },
+          "previous_names": {
+            "type": "text"
           },
           "title": {
             "type": "keyword"
@@ -353,6 +410,9 @@
           "_rank": {
             "type": "keyword"
           },
+          "curated_relation": {
+            "type": "boolean"
+          },
           "current": {
             "type": "boolean"
           },
@@ -363,6 +423,9 @@
             "format": "yyyy-MM-dd||yyyy-MM||yyyy",
             "type": "date"
           },
+          "hidden": {
+            "type": "boolean"
+          },
           "institution": {
             "type": "keyword"
           },
@@ -371,6 +434,15 @@
           },
           "rank": {
             "type": "keyword"
+          },
+          "record": {
+            "type": "object",
+            "properties": {
+              "$ref": {
+                "type": "text",
+                "analyzer": "recid_analyzer"
+              }
+            }
           },
           "start_date": {
             "format": "yyyy-MM-dd||yyyy-MM||yyyy",
@@ -446,13 +518,8 @@
           "tokenizer": "recid_tokenizer"
         },
         "names_analyzer": {
-          "filter": [
-            "ascii_normalizer",
-            "lowercase_normalizer"
-          ],
-          "char_filter": [
-            "dot_to_whitespace_normalizer"
-          ],
+          "filter": ["ascii_normalizer", "lowercase_normalizer"],
+          "char_filter": ["dot_to_whitespace_normalizer"],
           "tokenizer": "standard",
           "type": "custom"
         },
@@ -462,9 +529,7 @@
             "initial_normalizer",
             "lowercase_normalizer"
           ],
-          "char_filter": [
-            "dot_to_whitespace_normalizer"
-          ],
+          "char_filter": ["dot_to_whitespace_normalizer"],
           "tokenizer": "standard",
           "type": "custom"
         }
@@ -473,9 +538,7 @@
         "lowercase_normalizer": {
           "type": "custom",
           "char_filter": [],
-          "filter": [
-            "lowercase"
-          ]
+          "filter": ["lowercase"]
         }
       },
       "tokenizer": {

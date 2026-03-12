@@ -649,6 +649,28 @@ def test_authors_query_for_query_with_colon(inspire_app):
     assert expected_query == query_to_dict
 
 
+def test_regression_authors_search_finds_record_by_partial_name_variant(inspire_app):
+    create_record(
+        "aut",
+        data={
+            "name": {
+                "value": "Ibrahim, Michelle",
+                "name_variants": ["Ibrahim, Aisha A."],
+            }
+        },
+    )
+    with inspire_app.test_client() as client:
+        response_partial = client.get(
+            "api/authors", query_string={"q": "Ibrahim, Aisha"}
+        )
+        response_exact = client.get(
+            "api/authors", query_string={"q": "Ibrahim, Aisha A."}
+        )
+
+    assert len(response_partial.json["hits"]["hits"]) == 1
+    assert len(response_exact.json["hits"]["hits"]) == 1
+
+
 def test_jobs_query_from_iq_regression(inspire_app):
     query_to_dict = JobsSearch().query_from_iq("kek-bf-belle-ii").to_dict()
 
