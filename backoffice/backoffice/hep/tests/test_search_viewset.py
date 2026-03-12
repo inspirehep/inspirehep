@@ -58,6 +58,32 @@ class TestHepWorkflowSearchViewSet(BaseTransactionTestCase):
         response = self.api_client.get(self.endpoint)
         self.assertIn("decisions", response.json()["results"][0])
 
+    def test_search_returns_empty_list_for_authors_with_no_affiliations(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        self.workflow.data = {"authors": [{"full_name": "Smith, John"}]}
+        self.workflow.save()
+
+        response = self.api_client.get(self.endpoint, format="json")
+        self.assertEqual(response.status_code, 200)
+
+        author = response.json()["results"][0]["data"]["authors"][0]
+        self.assertEqual(author["affiliations"], [])
+
+    def test_search_returns_list_not_dict_for_empty_author_affiliations(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        self.workflow.data = {
+            "authors": [{"full_name": "Smith, John", "affiliations": []}]
+        }
+        self.workflow.save()
+
+        response = self.api_client.get(self.endpoint, format="json")
+        self.assertEqual(response.status_code, 200)
+
+        author = response.json()["results"][0]["data"]["authors"][0]
+        self.assertEqual(author["affiliations"], [])
+
     @patch("backoffice.common.airflow_utils.trigger_airflow_dag")
     def test_post_hep_workflow_adds_document_to_index(self, mock_trigger_airflow_dag):
         self.api_client.force_authenticate(user=self.curator)

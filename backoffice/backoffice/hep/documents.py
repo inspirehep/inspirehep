@@ -56,7 +56,7 @@ class HepWorkflowDocument(BaseWorkflowDocument):
             "authors": fields.ObjectField(
                 properties={
                     "full_name": fields.TextField(),
-                    "affiliations": fields.ObjectField(
+                    "affiliations": fields.NestedField(
                         properties={
                             "value": fields.KeywordField(
                                 normalizer="lowercase",
@@ -114,7 +114,7 @@ class HepWorkflowDocument(BaseWorkflowDocument):
             ),
             "supervisors": fields.NestedField(
                 properties={
-                    "affiliations": fields.ObjectField(
+                    "affiliations": fields.NestedField(
                         properties={
                             "value": fields.KeywordField(
                                 normalizer="lowercase",
@@ -149,6 +149,28 @@ class HepWorkflowDocument(BaseWorkflowDocument):
             "inspire_categories": fields.ObjectField(
                 properties={
                     "term": fields.KeywordField(),
+                }
+            ),
+            "references": fields.NestedField(
+                properties={
+                    "reference": fields.ObjectField(
+                        properties={
+                            "authors": fields.ObjectField(
+                                properties={
+                                    "full_name": fields.TextField(),
+                                }
+                            ),
+                            "label": fields.KeywordField(),
+                            "misc": fields.TextField(),
+                            "publication_info": fields.ObjectField(
+                                properties={
+                                    "artid": fields.KeywordField(),
+                                    "year": fields.IntegerField(),
+                                }
+                            ),
+                            "texkey": fields.KeywordField(),
+                        }
+                    ),
                 }
             ),
         },
@@ -213,6 +235,16 @@ class HepWorkflowDocument(BaseWorkflowDocument):
                 },
             },
         }
+
+    def prepare_data(self, instance):
+        data = instance.data or {}
+        for author in data.get("authors", []):
+            author.setdefault("affiliations", [])
+        for supervisor in data.get("supervisors", []):
+            supervisor.setdefault("affiliations", [])
+        data.setdefault("public_notes", [])
+        data.setdefault("arxiv_eprints", [])
+        return data
 
     class Django(BaseWorkflowDocument.Django):
         model = HepWorkflow
