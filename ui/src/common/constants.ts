@@ -99,6 +99,7 @@ export enum WorkflowDecisions {
   AUTO_REJECT = 'auto_reject',
   CORE_SELECTION_ACCEPT = 'core_selection_accept',
   CORE_SELECTION_ACCEPT_CORE = 'core_selection_accept_core',
+  DISCARD = 'discard',
   EXACT_MATCH = 'exact_match',
   FUZZY_MATCH = 'fuzzy_match',
   HEP_ACCEPT = 'hep_accept',
