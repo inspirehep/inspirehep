@@ -72,7 +72,8 @@ def arxiv_harvest_dag():
     def process_records(sets, **context):
         """Process the record by downloading the versions,
         building the record and loading it to inspirehep.
-         Args: set (str): The arXiv set to fetch records from.
+
+        Args: sets (str): The arXiv set to fetch records from.
         """
 
         workflow_management_hook = WorkflowManagementHook(HEP)
