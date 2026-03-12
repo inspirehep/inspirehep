@@ -58,7 +58,7 @@ def test_all_schema_types_except_kekscan():
             },
             {
                 "url_link": "https://www.osti.gov/scitech/biblio/osti-id",
-                "url_name": "OSTI Information Bridge Server",
+                "url_name": "OSTI.GOV",
             },
             {
                 "url_link": "https://zbmath.org/?q=an%3Azblatt-id",  # noqa
