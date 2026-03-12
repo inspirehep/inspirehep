@@ -21,7 +21,7 @@ class ExternalSystemIdentifierSchemaV1(Schema):
         "kekscan": "KEK scanned document",
         "msnet": "AMS MathSciNet",
         "nsr": "Nuclear Science References",
-        "osti": "OSTI Information Bridge Server",
+        "osti": "OSTI.GOV",
         "zblatt": "zbMATH",
     }
 
