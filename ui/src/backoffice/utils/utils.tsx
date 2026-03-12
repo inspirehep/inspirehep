@@ -154,6 +154,11 @@ export const resolveDecision = (decision: string | number) => {
       text: 'Auto Reject',
       decision: 'auto rejected',
     },
+    [WorkflowDecisions.DISCARD]: {
+      bg: 'bg-error font-white',
+      text: 'Discard',
+      decision: 'discarded',
+    },
   };
   return decisions[decision] || null;
 };
