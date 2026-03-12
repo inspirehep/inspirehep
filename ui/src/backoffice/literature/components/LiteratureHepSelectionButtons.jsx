@@ -2,9 +2,13 @@ import React from 'react';
 import { Button } from 'antd';
 import { WorkflowDecisions } from '../../../common/constants';
 import '../../common/components/ActionButtons.less';
+import LiteratureRejectButton from './LiteratureRejectButton';
+
+const FULL_COVERAGE_TOOLTIP = 'The article belongs to a fully taken journal';
 
 export const LiteratureHepSelectionButtons = ({
   handleResolveAction,
+  isFullCoverage = false,
   isBatch = false,
 }) => {
   const containerClass = isBatch
@@ -16,9 +20,6 @@ export const LiteratureHepSelectionButtons = ({
   const acceptClass = isBatch
     ? 'font-white bg-halted mr2'
     : 'font-white bg-halted w-75 mb2';
-  const rejectClass = isBatch
-    ? 'font-white bg-error'
-    : 'font-white bg-error w-75';
 
   return (
     <div className={containerClass}>
@@ -34,12 +35,12 @@ export const LiteratureHepSelectionButtons = ({
       >
         Accept
       </Button>
-      <Button
-        className={rejectClass}
-        onClick={() => handleResolveAction(WorkflowDecisions.HEP_REJECT)}
-      >
-        Reject
-      </Button>
+      <LiteratureRejectButton
+        handleResolveAction={handleResolveAction}
+        isWeak={isFullCoverage}
+        tooltipText={isFullCoverage ? FULL_COVERAGE_TOOLTIP : undefined}
+        isBatch={isBatch}
+      />
     </div>
   );
 };

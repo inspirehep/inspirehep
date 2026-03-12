@@ -9,6 +9,7 @@ const LiteratureActionButtons = ({
   status,
   handleResolveAction,
   workflowId = null,
+  isFullCoverage = false,
   isBatch = false,
   isSubmitted = false,
 }) => {
@@ -36,6 +37,7 @@ const LiteratureActionButtons = ({
       return (
         <LiteratureHepSelectionButtons
           handleResolveAction={handleResolveAndHide}
+          isFullCoverage={isFullCoverage}
           isBatch={isBatch}
         />
       );

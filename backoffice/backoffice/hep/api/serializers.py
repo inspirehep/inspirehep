@@ -126,6 +126,7 @@ class HepBackofficeSearchUISerializer(BaseBackofficeSearchUISerializer):
         hit.update(
             {
                 "classifier_results": item.get("classifier_results"),
+                "journal_coverage": item.get("journal_coverage"),
                 "matches": item.get("matches"),
                 "relevance_prediction": item.get("relevance_prediction"),
                 "reference_count": item.get("reference_count"),
