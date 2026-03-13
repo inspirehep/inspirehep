@@ -149,8 +149,13 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
     def resolve(self, request, pk=None):
         serializer = self.resolution_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-
-        workflow = resolve_workflow(pk, serializer.validated_data, request.user)
+        try:
+            workflow = resolve_workflow(pk, serializer.validated_data, request.user)
+        except RequestException as e:
+            return handle_request_exception(
+                "Error clearing Airflow DAG",
+                e,
+            )
         workflow_serializer = self.serializer_class(workflow)
         return Response(workflow_serializer.data)
 
@@ -187,6 +192,7 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
                 results.append({"id": id, "success": True})
 
             except Exception as e:
+                logger.exception("Error resolving workflow %s", id)
                 results.append({"id": id, "success": False, "error": str(e)})
 
         return Response({"results": results}, status=status.HTTP_200_OK)

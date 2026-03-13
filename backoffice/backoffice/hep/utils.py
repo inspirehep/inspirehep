@@ -2,18 +2,16 @@ from backoffice.hep.api.serializers import (
     HepChangeStatusSerializer,
     HepDecisionSerializer,
 )
+from django.db import transaction
 from django.shortcuts import get_object_or_404
 import logging
 
-from requests.exceptions import RequestException
 from backoffice.hep.models import HepWorkflow
 
 from backoffice.hep.constants import HepResolutions, HepStatusChoices
 from backoffice.common.constants import WORKFLOW_DAGS
 from backoffice.common import airflow_utils
-from backoffice.common.utils import (
-    handle_request_exception,
-)
+
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +28,7 @@ def add_hep_decision(workflow_id, user, action, value=None):
     return serializer.data
 
 
+@transaction.atomic
 def resolve_workflow(id, data, user):
     logger.info(
         "Restarting HEP DAG Run %s after choice: %s",
@@ -46,18 +45,11 @@ def resolve_workflow(id, data, user):
 
     task_to_restart = HepResolutions[data["action"]].label
     if task_to_restart:
-        try:
-            airflow_utils.clear_airflow_dag_tasks(
-                WORKFLOW_DAGS[workflow.workflow_type].initialize,
-                id,
-                tasks=[task_to_restart],
-            )
-        except RequestException as e:
-            return handle_request_exception(
-                "Error clearing Airflow DAG",
-                e,
-            )
-
+        airflow_utils.clear_airflow_dag_tasks(
+            WORKFLOW_DAGS[workflow.workflow_type].initialize,
+            id,
+            tasks=[task_to_restart],
+        )
     workflow.status = HepStatusChoices.RUNNING
     workflow.save()
     return workflow

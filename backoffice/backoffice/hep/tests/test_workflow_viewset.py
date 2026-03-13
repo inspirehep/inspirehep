@@ -1,6 +1,8 @@
 import uuid
 import pytest
 from copy import deepcopy
+from unittest.mock import Mock, patch
+from requests.exceptions import RequestException
 from django.urls import reverse
 from backoffice.common.constants import WORKFLOW_DAGS
 from backoffice.common import airflow_utils
@@ -278,23 +280,49 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
             status_code=400,
         )
 
-    def test_resolve(self):
+    @patch("backoffice.common.airflow_utils.requests.post")
+    def test_resolve(self, mock_post):
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
             "api:hep-resolve",
             kwargs={"pk": self.workflow.id},
         )
         data = {
-            "action": HepResolutions.auto_reject,
+            "action": HepResolutions.hep_accept,
         }
         response = self.api_client.post(url, format="json", data=data)
         self.assertEqual(response.status_code, 200)
         self.workflow.refresh_from_db()
         self.assertEqual(
-            self.workflow.decisions.first().action, HepResolutions.auto_reject
+            self.workflow.decisions.first().action, HepResolutions.hep_accept
         )
+        self.assertEqual(self.workflow.status, HepStatusChoices.RUNNING)
 
-    def test_batch_resolve(self):
+    @patch(
+        "backoffice.common.airflow_utils.requests.post",
+        side_effect=RequestException("Airflow clear failed"),
+    )
+    def test_resolve_exception(self, mock_post):
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-resolve",
+            kwargs={"pk": self.workflow.id},
+        )
+        data = {
+            "action": HepResolutions.hep_accept,
+        }
+        response = self.api_client.post(url, format="json", data=data)
+        self.assertEqual(response.status_code, 502)
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.decisions.exists(), False)
+
+    @patch("backoffice.common.airflow_utils.requests.post")
+    def test_batch_resolve(self, mock_post):
+        mock_post.return_value = Mock(
+            status_code=200,
+            content=b"",
+            raise_for_status=Mock(),
+        )
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
             "api:hep-batch-resolve",
@@ -311,15 +339,64 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
 
         data = {
             "ids": wfs_ids,
-            "action": HepResolutions.auto_reject,
+            "action": HepResolutions.hep_accept,
         }
         response = self.api_client.post(url, format="json", data=data)
         self.assertEqual(response.status_code, 200)
         for id in wfs_ids:
             workflow = HepWorkflow.objects.get(id=id)
             self.assertEqual(
-                workflow.decisions.first().action, HepResolutions.auto_reject
+                workflow.decisions.first().action, HepResolutions.hep_accept
             )
+
+            self.assertEqual(workflow.status, HepStatusChoices.RUNNING)
+        self.assertEqual(mock_post.call_count, len(wfs_ids))
+
+    @patch("backoffice.common.airflow_utils.requests.post")
+    def test_batch_resolve_exception_partial_rollback(self, mock_post):
+        response_ok = Mock(
+            status_code=200,
+            content=b"",
+            raise_for_status=Mock(),
+        )
+        mock_post.side_effect = [
+            response_ok,
+            RequestException("Airflow clear failed"),
+            response_ok,
+        ]
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-batch-resolve",
+        )
+
+        wf_resolve_success = [True, False, True]
+
+        wfs_ids = []
+        for _ in range(len(wf_resolve_success)):
+            wf_id = HepWorkflow.objects.create(
+                data={},
+                status=HepStatusChoices.APPROVAL,
+                workflow_type=HepWorkflowType.HEP_CREATE,
+            )
+            wfs_ids.append(wf_id.id)
+
+        data = {
+            "ids": wfs_ids,
+            "action": HepResolutions.hep_accept,
+        }
+        self.api_client.post(url, format="json", data=data)
+
+        for wf_id, success in zip(wfs_ids, wf_resolve_success):
+            workflow = HepWorkflow.objects.get(id=wf_id)
+            if success:
+                self.assertEqual(
+                    workflow.decisions.first().action, HepResolutions.hep_accept
+                )
+                self.assertEqual(workflow.status, HepStatusChoices.RUNNING)
+
+            else:
+                self.assertFalse(workflow.decisions.exists())
+                self.assertEqual(workflow.status, HepStatusChoices.APPROVAL)
 
     @pytest.mark.vcr
     def test_discard(self):
