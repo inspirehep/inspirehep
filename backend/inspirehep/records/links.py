@@ -3,6 +3,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from urllib.parse import parse_qsl, quote, urlencode, urlsplit
+
 from flask import current_app, request, url_for
 from inspirehep.pidstore.api.base import PidStoreBase
 from invenio_records_rest import current_records_rest
@@ -33,12 +35,36 @@ def inspire_detail_links_factory(pid, record=None, record_hit=None, *args, **kwa
     return links
 
 
+def _fix_url_query_encoding(url):
+    """Re-encode query parameter values consistently.
+
+    Werkzeug leaves $ unencoded (RFC 3986 sub-delimiter) but encodes :,
+    producing partially-encoded URLs like q=foo.$ref%3A1245. This function
+    decodes then re-encodes all query values for consistency,
+    resulting in q=foo.%24ref%3A1245.
+    """
+    if not url:
+        return url
+    parts = urlsplit(url)
+    params = parse_qsl(parts.query, keep_blank_values=True)
+    new_query = urlencode(params, quote_via=quote)
+    return parts._replace(query=new_query).geturl()
+
+
 def inspire_search_links(links):
     self_url = None
     if links:
         self_url = links.get("self")
     if not self_url:
         return {}
+    self_url = _fix_url_query_encoding(self_url)
+    links["self"] = self_url
+    next_url = links.get("next")
+    if next_url:
+        links["next"] = _fix_url_query_encoding(next_url)
+    prev_url = links.get("prev")
+    if prev_url:
+        links["prev"] = _fix_url_query_encoding(prev_url)
     endpoint = request.path[1:]
     formats = (
         current_app.config[endpoint.strip("/").upper()]

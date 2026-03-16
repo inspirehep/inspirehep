@@ -145,6 +145,66 @@ def test_detail_links_factory_generates_proper_additional_links(
     assert links == expected_links
 
 
+def test_generate_inspire_search_links_fixes_partial_encoding(
+    inspire_app, override_config
+):
+    config = {
+        "TEST": {
+            "search_serializers_aliases": {
+                "bibtex": "application/x-bibtex",
+            }
+        }
+    }
+    invenio_self_url = "http://localhost:5000/api/test/?q=foo.$ref%3A1245&size=1&page=1"
+    expected_self = "http://localhost:5000/api/test/?q=foo.%24ref%3A1245&size=1&page=1"
+    with override_config(**config):
+        links_test = {
+            "self": invenio_self_url,
+            "next": "http://localhost:5000/api/test/?q=foo.$ref%3A1245&size=1&page=2",
+        }
+        with mock.patch("inspirehep.records.links.request") as mock_request:
+            mock_request.path = "/test"
+            mock_request.values = MultiDict()
+            links_test = inspire_search_links(links_test)
+    assert links_test["self"] == expected_self
+    assert links_test["next"] == (
+        "http://localhost:5000/api/test/?q=foo.%24ref%3A1245&size=1&page=2"
+    )
+    assert links_test["bibtex"] == (
+        "http://localhost:5000/api/test/?q=foo.%24ref%3A1245&size=1&page=1&format=bibtex"
+    )
+
+
+def test_generate_inspire_search_links_encodes_unencoded_special_chars(
+    inspire_app, override_config
+):
+    config = {
+        "TEST": {
+            "search_serializers_aliases": {
+                "json": "application/json",
+            }
+        }
+    }
+    with override_config(**config):
+        links_test = {
+            "self": "http://localhost:5000/api/test/?q=record.$ref:666&size=1&page=1",
+            "next": "http://localhost:5000/api/test/?q=record.$ref:666&size=1&page=2",
+        }
+        with mock.patch("inspirehep.records.links.request") as mock_request:
+            mock_request.path = "/test"
+            mock_request.values = MultiDict()
+            links_test = inspire_search_links(links_test)
+    assert links_test["self"] == (
+        "http://localhost:5000/api/test/?q=record.%24ref%3A666&size=1&page=1"
+    )
+    assert links_test["next"] == (
+        "http://localhost:5000/api/test/?q=record.%24ref%3A666&size=1&page=2"
+    )
+    assert links_test["json"] == (
+        "http://localhost:5000/api/test/?q=record.%24ref%3A666&size=1&page=1&format=json"
+    )
+
+
 def test_search_links_with_fields_filtering(inspire_app, override_config):
     expected_links_test = {
         "self": "http://localhost:5000/api/test/?q=&size=10&page=1&fields=ids,authors",
