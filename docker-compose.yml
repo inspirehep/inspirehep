@@ -115,7 +115,7 @@ services:
     depends_on:
       cache:
         condition: service_started
-      db:
+      db-backoffice:
         condition: service_started
       es:
         condition: service_healthy
@@ -153,17 +153,26 @@ services:
       - '5432:5432'
     command: postgres -c 'max_connections=200'
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
   db-airflow:
     extends:
       file: docker-compose.services.yml
       service: db
     image: postgres:16
-    
     environment:
       - 'POSTGRES_DB=workflows'
     ports:
       - '5433:5432'
+    command: postgres -c 'max_connections=200'
+  db-backoffice:
+    extends:
+      file: docker-compose.services.yml
+      service: db
+    image: postgres:15.15
+    environment:
+      - 'POSTGRES_DB=backoffice'
+    ports:
+      - '5434:5432'
     command: postgres -c 'max_connections=200'
   mq:
     extends:
@@ -435,5 +444,3 @@ services:
       - s3
     entrypoint: >
       /bin/sh -c " sleep 10; /usr/bin/mc alias set airflow http://s3:9000 airflow airflow-inspire; /usr/bin/mc mb airflow/data-store; /usr/bin/mc mb airflow/elsevier-store; exit 0; "
-
-
