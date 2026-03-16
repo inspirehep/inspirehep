@@ -43,8 +43,8 @@ jobs:
         image: redis:8-alpine
         ports:
           - 6379:6379
-      db:
-        image: postgres:14.1
+      db-backoffice:
+        image: postgres:15.15
         env:
           POSTGRES_DB: backoffice
           POSTGRES_USER: postgres
