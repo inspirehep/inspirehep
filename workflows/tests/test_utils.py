@@ -152,3 +152,7 @@ def get_inspire_http_record(pid_type, control_number):
             InspireHTTPRecordManagementHook().get_record,
             params={"pid_type": pid_type, "control_number": control_number},
         )
+
+
+def initialize_s3_store(s3_store):
+    function_test(s3_store.initialize)

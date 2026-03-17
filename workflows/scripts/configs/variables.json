@@ -10,5 +10,6 @@
   "ENVIRONMENT": "DEV",
   "hepworkflow_open_search_index": "backoffice-backend-local-hep-workflows",
   "ELSEVIER_BATCH_FEED_KEY": "CHANGE_ME",
-  "ELSEVIER_USER_ID": "CHANGE_ME"
+  "ELSEVIER_USER_ID": "CHANGE_ME",
+  "DOWNLOAD_FILE_TO_WORKFLOW_TIMEOUT": 300
 }

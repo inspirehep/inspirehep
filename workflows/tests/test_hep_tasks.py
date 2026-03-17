@@ -1,13 +1,14 @@
 import copy
+from io import BytesIO
 from unittest import mock
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 from urllib.parse import urlparse
 
 import pytest
 from airflow.exceptions import AirflowException, AirflowFailException
 from airflow.models import DagBag
 from botocore.exceptions import ClientError
-from include.utils import workflows
+from include.utils import s3, workflows
 from include.utils.constants import (
     DECISION_AUTO_ACCEPT_CORE,
     DECISION_AUTO_REJECT,
@@ -37,6 +38,7 @@ from tests.test_utils import (
     function_test,
     get_inspire_http_record,
     get_lit_workflow_task,
+    initialize_s3_store,
     set_lit_workflow_task,
     task_test,
 )
@@ -1581,7 +1583,7 @@ class Test_HEPCreateDAG:
         assert "documents" not in workflow_result["data"]
 
     @pytest.mark.vcr
-    def test_download_documents(self):
+    def test_download_documents_from_arxiv(self):
         filename = "1605.03844.pdf"
         workflow_data = {
             "id": self.workflow_id,
@@ -1620,6 +1622,34 @@ class Test_HEPCreateDAG:
             urlparse(result["data"]["documents"][0]["url"]).path
             == f"/{self.s3_store.bucket_name}/{self.workflow_id}/documents/{filename}"
         )
+
+    @patch("hooks.generic_http_hook.GenericHttpHook.call_api")
+    def test_download_documents_from_arxiv_fails(self, mock_call_api):
+        fut = Future(attempt_number=1)
+        fut.set_exception(AirflowException("404:Not Found"))
+
+        mock_call_api.side_effect = RetryError(last_attempt=fut)
+
+        filename = "1605.03844.pdf"
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "documents": [
+                    {
+                        "key": filename,
+                        "url": "https://arxiv.org/pdf/1605.03844",
+                    },
+                ],
+            },
+        }
+        self.s3_store.write_workflow(workflow_data)
+
+        with pytest.raises(RetryError):
+            task_test(
+                "hep_create_dag",
+                "preprocessing.download_documents",
+                dag_params=self.context["params"],
+            )
 
     @pytest.mark.vcr
     def test_download_documents_with_multiple_documents(self):
@@ -1674,6 +1704,92 @@ class Test_HEPCreateDAG:
                 urlparse(document_out["url"]).path == f"/{self.s3_store.bucket_name}/"
                 f"{self.workflow_id}/documents/{document_in['key']}"
             )
+
+    def test_download_documents_from_publisher(self):
+        s3_publisher_store = s3.S3JsonStore("s3_elsevier_conn")
+        doi_file = "10.1016/j.vacuum.2026.115222.xml"
+
+        initialize_s3_store(s3_publisher_store)
+        s3_publisher_store.hook.load_string(
+            "<xml>test</xml>",
+            f"packages/{doi_file}",
+            replace=True,
+        )
+
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "documents": [
+                    {
+                        "key": doi_file,
+                        "url": f"{s3_publisher_store.hook.conn.meta.endpoint_url}"
+                        f"/elsevier-store/packages/{doi_file}",
+                    }
+                ],
+            },
+        }
+        self.s3_store.write_workflow(workflow_data)
+
+        task_test(
+            "hep_create_dag",
+            "preprocessing.download_documents",
+            dag_params=self.context["params"],
+        )
+
+        assert self.s3_store.hook.check_for_key(
+            f"{self.workflow_id}/documents/{doi_file}"
+        )
+
+        self.s3_store.hook.delete_objects(
+            self.s3_store.bucket_name,
+            f"{self.workflow_id}/documents/{doi_file}",
+        )
+        result = self.s3_store.read_workflow(self.workflow_id)
+        assert (
+            urlparse(result["data"]["documents"][0]["url"]).path
+            == f"/{self.s3_store.bucket_name}/{self.workflow_id}/documents/{doi_file}"
+        )
+
+    @patch("include.utils.download_documents.requests.get")
+    def test_download_documents_from_external_source(self, mock_call_api):
+        download_response = Mock()
+        download_response.raw = BytesIO(b"external document")
+        mock_call_api.return_value = download_response
+        filename = "external_file.txt"
+
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "documents": [
+                    {
+                        "key": filename,
+                        "url": "https://www.external-source.com",
+                    }
+                ],
+            },
+        }
+        self.s3_store.write_workflow(workflow_data)
+
+        task_test(
+            "hep_create_dag",
+            "preprocessing.download_documents",
+            dag_params=self.context["params"],
+        )
+        assert self.s3_store.hook.check_for_key(
+            f"{self.workflow_id}/documents/{filename}"
+        )
+
+        result = self.s3_store.read_workflow(self.workflow_id)
+
+        self.s3_store.hook.delete_objects(
+            self.s3_store.bucket_name,
+            f"{self.workflow_id}/documents/{filename}",
+        )
+
+        assert (
+            urlparse(result["data"]["documents"][0]["url"]).path
+            == f"/{self.s3_store.bucket_name}/{self.workflow_id}/documents/{filename}"
+        )
 
     @pytest.mark.vcr
     def test_count_reference_coreness(self):
