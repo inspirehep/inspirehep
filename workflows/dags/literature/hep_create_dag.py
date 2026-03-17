@@ -81,6 +81,7 @@ from include.utils.constants import (
     TICKET_HEP_CURATION_CORE,
     TICKET_HEP_SUBMISSION,
 )
+from include.utils.download_documents import load_document_to_s3
 from include.utils.tickets import get_ticket_by_type
 from include.utils.workflows import get_decision
 from inspire_json_merger.api import merge
@@ -609,49 +610,14 @@ def hep_create_dag():
         def download_documents(**context):
             s3_workflow_id = context["params"]["workflow_id"]
             workflow_data = s3_store.read_workflow(s3_workflow_id)
-            bucket_name = s3_store.get_default_bucket_name()
 
             documents = get_value(workflow_data, "data.documents", [])
-            arxiv_base_url = arxiv_hook.get_url()
-
             for document in documents:
-                url = document["url"]
-
-                if s3_store.hook.check_for_key(
-                    f"{s3_workflow_id}/documents/{document['key']}"
-                ):
-                    logger.info("Document already downloaded from %s", url)
-                    continue
-
-                filename = document["key"]
-                logger.info(
-                    "Downloading document key:%s url:%s",
-                    document["key"],
-                    document["url"],
-                )
-
-                endpoint = f"{url.replace(arxiv_base_url, '')}"
-
-                try:
-                    response = arxiv_hook.call_api(
-                        endpoint=endpoint,
-                        extra_options={"stream": True, "allow_redirects": True},
-                    )
-                    s3_key = f"{s3_workflow_id}/documents/{filename}"
-                    s3_store.hook.load_file_obj(
-                        response.raw,
-                        s3_key,
-                        replace=True,
-                    )
-                    document["url"] = (
-                        f"{s3_store.hook.conn.meta.endpoint_url}/{bucket_name}/{s3_key}"
-                    )
-                    logger.info("Document downloaded from %s", url)
-                except RetryError:
-                    logger.error("Cannot download document from %s", url)
+                s3_file_url = load_document_to_s3(s3_workflow_id, document, s3_store)
+                if s3_file_url:
+                    document["url"] = s3_file_url
 
             workflows.delete_empty_key(workflow_data, "documents")
-
             s3_store.write_workflow(workflow_data)
             logger.info(
                 "Documents downloaded: %s",
