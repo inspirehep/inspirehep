@@ -155,7 +155,13 @@ class HepWorkflowDocument(BaseWorkflowDocument):
     )
     classifier_results = fields.ObjectField(enabled=False)
     journal_coverage = fields.KeywordField(index=False)
-    relevance_prediction = fields.ObjectField(enabled=False)
+    relevance_prediction = fields.ObjectField(
+        properties={
+            "decision": fields.KeywordField(),
+            "relevance_score": fields.FloatField(),
+            "max_score": fields.FloatField(),
+        }
+    )
     reference_count = fields.ObjectField(enabled=False)
     matches = fields.ObjectField(enabled=False)
 

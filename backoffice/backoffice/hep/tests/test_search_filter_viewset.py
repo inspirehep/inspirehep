@@ -38,58 +38,76 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         HepWorkflow.objects.update_or_create(
             data={
                 "titles": [{"title": "hello foo"}],
+                "inspire_categories": [{"term": "Theory-HEP"}],
+                "publication_info": [{"journal_title": "Phys. Rev. D"}],
                 "_collections": ["Literature"],
                 "documnent_type": ["article"],
             },
             status=HepStatusChoices.APPROVAL,
             workflow_type=HepWorkflowType.HEP_CREATE,
+            relevance_prediction={"decision": "CORE", "relevance_score": 1.5},
         )
         HepWorkflow.objects.update_or_create(
             data={
                 "titles": [{"title": "bye bar"}],
+                "inspire_categories": [{"term": "Phenomenology-HEP"}],
+                "publication_info": [{"journal_title": "JHEP"}],
                 "_collections": ["Literature"],
                 "documnent_type": ["article"],
             },
             status=HepStatusChoices.RUNNING,
             workflow_type=HepWorkflowType.HEP_CREATE,
+            relevance_prediction={"decision": "REJECTED", "relevance_score": 0.2},
         )
         HepWorkflow.objects.update_or_create(
             data={
                 "titles": [{"title": "search arxiv eprints test"}],
                 "arxiv_eprints": [{"value": "2507.26819"}],
+                "inspire_categories": [{"term": "Theory-HEP"}],
+                "publication_info": [{"journal_title": "Phys. Rev. D"}],
                 "_collections": ["Literature"],
                 "documnent_type": ["article"],
             },
             status=HepStatusChoices.RUNNING,
             workflow_type=HepWorkflowType.HEP_CREATE,
+            relevance_prediction={"decision": "CORE", "relevance_score": 1.7},
         )
         HepWorkflow.objects.update_or_create(
             data={
                 "titles": [{"title": "search doi test"}],
                 "dois": [{"value": "10.1016/j.physletb.2025.139959"}],
+                "inspire_categories": [{"term": "Experiment-HEP"}],
+                "publication_info": [{"journal_title": "Phys. Lett. B"}],
                 "_collections": ["Literature"],
                 "documnent_type": ["article"],
             },
             status=HepStatusChoices.RUNNING,
             workflow_type=HepWorkflowType.HEP_CREATE,
+            relevance_prediction={"decision": "CORE", "relevance_score": 1.9},
         )
         HepWorkflow.objects.update_or_create(
             data={
                 "titles": [{"title": "Article with conflicts"}],
+                "inspire_categories": [{"term": "Theory-HEP"}],
+                "publication_info": [{"journal_title": "JHEP"}],
                 "_collections": ["Literature"],
                 "documnent_type": ["article"],
             },
             status=HepStatusChoices.RUNNING,
             workflow_type=HepWorkflowType.HEP_CREATE,
+            relevance_prediction={"decision": "REJECTED", "relevance_score": 0.1},
         )
         HepWorkflow.objects.update_or_create(
             data={
                 "titles": [{"title": "Article with conflicts and extra context"}],
+                "inspire_categories": [{"term": "Astrophysics"}],
+                "publication_info": [{"journal_title": "Phys. Rev. D"}],
                 "_collections": ["Literature"],
                 "documnent_type": ["article"],
             },
             status=HepStatusChoices.RUNNING,
             workflow_type=HepWorkflowType.HEP_CREATE,
+            relevance_prediction={"decision": "CORE", "relevance_score": 1.8},
         )
         index.refresh()
 
@@ -99,6 +117,9 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         response = self.api_client.get(self.endpoint)
 
         assert "_filter_status" in response.json()["facets"]
+        assert "_filter_subject" in response.json()["facets"]
+        assert "_filter_journal" in response.json()["facets"]
+        assert "_filter_decision" in response.json()["facets"]
         assert "_filter_workflow_type" in response.json()["facets"]
 
     def test_ui_format_response_shape(self):
@@ -179,6 +200,51 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         for item in response.json()["results"]:
             assert item["workflow_type"] == HepWorkflowType.HEP_CREATE
 
+    def test_filter_subject(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        subject = "Theory-HEP"
+        response = self.api_client.get(
+            self.endpoint,
+            data={"subject": subject},
+            format="json",
+        )
+        results = response.json()["results"]
+        assert len(results) == 3
+        for item in results:
+            assert {"term": subject} in item["data"]["inspire_categories"]
+
+    def test_filter_journal(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        journal = "Phys. Rev. D"
+        response = self.api_client.get(
+            self.endpoint,
+            data={"journal": journal},
+            format="json",
+        )
+        results = response.json()["results"]
+        assert len(results) == 3
+        for item in results:
+            assert any(
+                publication_info["journal_title"] == journal
+                for publication_info in item["data"]["publication_info"]
+            )
+
+    def test_filter_decision(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        decision = "REJECTED"
+        response = self.api_client.get(
+            self.endpoint,
+            data={"decision": decision},
+            format="json",
+        )
+        results = response.json()["results"]
+        assert len(results) == 2
+        for item in results:
+            assert item["relevance_prediction"]["decision"] == decision
+
     @parameterized.expand([None, "-_updated_at"])
     def test_ordering_updated_at(self, ordering):
         self.api_client.force_authenticate(user=self.admin)
@@ -213,6 +279,30 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
 
         assert payload["count"] == 5
         assert len(payload["results"]) == 3
+
+    def test_ordering_relevance_prediction_desc(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        response = self.api_client.get(
+            self.endpoint,
+            data={"ordering": "-relevance_prediction"},
+        )
+        results = response.json()["results"]
+
+        scores = [item["relevance_prediction"]["relevance_score"] for item in results]
+        assert scores == sorted(scores, reverse=True)
+
+    def test_ordering_relevance_prediction_asc(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        response = self.api_client.get(
+            self.endpoint,
+            data={"ordering": "relevance_prediction"},
+        )
+        results = response.json()["results"]
+
+        scores = [item["relevance_prediction"]["relevance_score"] for item in results]
+        assert scores == sorted(scores)
 
     def test_filter_arxiv_eprints(self):
         self.api_client.force_authenticate(user=self.admin)
