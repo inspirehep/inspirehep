@@ -220,6 +220,14 @@ const LiteratureSearchPageContainer = ({
                         options={[
                           { value: '-_updated_at', label: 'Most recent' },
                           { value: '_updated_at', label: 'Least recent' },
+                          {
+                            value: '-relevance_prediction',
+                            label: 'Relevance Prediction (Desc)',
+                          },
+                          {
+                            value: 'relevance_prediction',
+                            label: 'Relevance Prediction (Asc)',
+                          },
                         ]}
                         onChange={(value: string) =>
                           onSortByChange(BACKOFFICE_LITERATURE_SEARCH_NS, value)
@@ -317,6 +325,14 @@ const LiteratureSearchPageContainer = ({
                                     {
                                       value: '_updated_at',
                                       label: 'Least recent',
+                                    },
+                                    {
+                                      value: '-relevance_prediction',
+                                      label: 'Relevance Prediction (Desc)',
+                                    },
+                                    {
+                                      value: 'relevance_prediction',
+                                      label: 'Relevance Prediction (Asc)',
                                     },
                                   ]}
                                   onChange={(value: string) =>

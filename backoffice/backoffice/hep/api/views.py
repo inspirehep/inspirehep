@@ -237,21 +237,27 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         parameters=[
             OpenApiParameter(
                 name="search",
-                description="Search for status and workflow_type",
+                description="Search in title, arXiv ID, and DOI fields.",
                 required=False,
                 type=OpenApiTypes.STR,
                 location=OpenApiParameter.QUERY,
             ),
             OpenApiParameter(
                 name="ordering",
-                description="order by _updated_at",
+                description="Order results by update timestamp or relevance prediction score.",
                 required=False,
                 type=OpenApiTypes.STR,
+                enum=[
+                    "-_updated_at",
+                    "_updated_at",
+                    "-relevance_prediction",
+                    "relevance_prediction",
+                ],
                 location=OpenApiParameter.QUERY,
             ),
             OpenApiParameter(
                 name="status",
-                description="status",
+                description="Filter by workflow status.",
                 required=False,
                 type=OpenApiTypes.STR,
                 enum=HepStatusChoices.values,
@@ -259,10 +265,31 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
             ),
             OpenApiParameter(
                 name="workflow_type",
-                description="workflow_type",
+                description="Filter by workflow type.",
                 required=False,
                 type=OpenApiTypes.STR,
                 enum=HepWorkflowType.values,
+                location=OpenApiParameter.QUERY,
+            ),
+            OpenApiParameter(
+                name="subject",
+                description="Filter by INSPIRE subject category term.",
+                required=False,
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+            ),
+            OpenApiParameter(
+                name="journal",
+                description="Filter by publication journal title.",
+                required=False,
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+            ),
+            OpenApiParameter(
+                name="decision",
+                description="Filter by coreness prediction decision.",
+                required=False,
+                type=OpenApiTypes.STR,
                 location=OpenApiParameter.QUERY,
             ),
         ],
@@ -300,11 +327,18 @@ class HepWorkflowDocumentView(BaseDocumentViewSet):
     filter_fields = {
         "status": "status",
         "workflow_type": "workflow_type",
+        "subject": "data.inspire_categories.term",
+        "journal": "data.publication_info.journal_title.raw",
+        "decision": "relevance_prediction.decision",
         "data.arxiv_eprints.value": "data.arxiv_eprints.value",
         "data.dois.value": "data.dois.value",
     }
 
-    ordering_fields = {"_updated_at": "_updated_at", "_score": "_score"}
+    ordering_fields = {
+        "_updated_at": "_updated_at",
+        "_score": "_score",
+        "relevance_prediction": "relevance_prediction.relevance_score",
+    }
 
     ordering = ("-_score", "-_updated_at")
 
@@ -313,7 +347,40 @@ class HepWorkflowDocumentView(BaseDocumentViewSet):
             "field": "status",
             "facet": TermsFacet,
             "options": {
-                "size": 10,
+                "size": 20,
+                "order": {
+                    "_key": "asc",
+                },
+            },
+            "enabled": True,
+        },
+        "subject": {
+            "field": "data.inspire_categories.term",
+            "facet": TermsFacet,
+            "options": {
+                "size": 20,
+                "order": {
+                    "_key": "asc",
+                },
+            },
+            "enabled": True,
+        },
+        "journal": {
+            "field": "data.publication_info.journal_title.raw",
+            "facet": TermsFacet,
+            "options": {
+                "size": 20,
+                "order": {
+                    "_key": "asc",
+                },
+            },
+            "enabled": True,
+        },
+        "decision": {
+            "field": "relevance_prediction.decision",
+            "facet": TermsFacet,
+            "options": {
+                "size": 20,
                 "order": {
                     "_key": "asc",
                 },
@@ -324,7 +391,7 @@ class HepWorkflowDocumentView(BaseDocumentViewSet):
             "field": "workflow_type",
             "facet": TermsFacet,
             "options": {
-                "size": 10,
+                "size": 20,
                 "order": {
                     "_key": "asc",
                 },
