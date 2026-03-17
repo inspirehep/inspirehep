@@ -164,7 +164,7 @@ prompt-toolkit==3.0.2; python_version >= "3.6"
 psycopg2-binary==2.9.6; python_version >= "3.6"
 ptyprocess==0.6.0; sys_platform != "win32" and python_version >= "3.6"
 pyasn1-modules==0.2.8; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
-pyasn1==0.4.8; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
+pyasn1==0.6.3; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 pybtex==0.22.2; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.3.0")
 pycountry==17.9.23
 pycparser==2.19; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.6"
