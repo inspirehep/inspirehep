@@ -1,4 +1,5 @@
 import contextlib
+from unittest.mock import patch
 
 import dateutil
 import dateutil.parser
@@ -14,6 +15,7 @@ from django.conf import settings
 from backoffice.common.utils import get_index_for_document
 from backoffice.common.tests.base import BaseTransactionTestCase
 from backoffice.common.constants import APPLICATION_VND_INSPIREHEP_JSON
+from backoffice.utils.pagination import OSStandardResultsSetPagination
 
 from django.apps import apps
 
@@ -197,6 +199,20 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
             if previous_date is not None:
                 assert cur_date < previous_date
             previous_date = cur_date
+
+    def test_size_query_param_is_capped_by_max_page_size(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        with patch.object(OSStandardResultsSetPagination, "max_page_size", 3):
+            response = self.api_client.get(
+                self.endpoint,
+                data={"size": 100, "status": HepStatusChoices.RUNNING},
+                format="json",
+            )
+            payload = response.json()
+
+        assert payload["count"] == 5
+        assert len(payload["results"]) == 3
 
     def test_filter_arxiv_eprints(self):
         self.api_client.force_authenticate(user=self.admin)
