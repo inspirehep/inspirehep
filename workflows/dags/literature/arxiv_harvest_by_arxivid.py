@@ -3,7 +3,8 @@ import logging
 from airflow.sdk import Param, dag, task
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.alerts import FailedDagNotifier
-from include.utils.arxiv import build_records, fetch_record_by_id, load_records
+from include.utils.arxiv import build_records, fetch_record_by_id
+from include.utils.harvests import load_records
 from include.utils.s3 import S3JsonStore
 from literature.check_failures_task import check_failures
 

@@ -63,8 +63,7 @@ def process_article(
         file_key = f"articles/{doi}.xml"
         s3_store.hook.load_string(xml_text, file_key, replace=True)
 
-        s3_host = s3_store.hook.conn.meta.endpoint_url
-        document_url = f"{s3_host}/{s3_store.bucket_name}/{file_key}"
+        document_url = s3_store.key_to_s3_url(file_key)
 
         parser.attach_fulltext_document(file_key, document_url)
         record = parser.parse()

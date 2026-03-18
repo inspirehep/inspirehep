@@ -89,3 +89,18 @@ class S3JsonStore:
 
     def get_default_bucket_name(self):
         return self.hook.get_bucket().name
+
+    def move_all_files_for_subdirectory(self, prefix, src_bucket, dest_bucket):
+        prefix_keys = self.hook.list_keys(src_bucket, prefix)
+        for file_key in prefix_keys:
+            self.hook.copy_object(
+                source_bucket_key=file_key,
+                dest_bucket_key=file_key,
+                source_bucket_name=src_bucket,
+                dest_bucket_name=dest_bucket,
+            )
+        self.hook.delete_objects(keys=prefix_keys, bucket=src_bucket)
+
+    def key_to_s3_url(self, key, bucket_name=None):
+        s3_host = self.hook.conn.meta.endpoint_url
+        return f"{s3_host}/{bucket_name or self.bucket_name}/{key}"
