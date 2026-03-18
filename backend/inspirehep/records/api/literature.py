@@ -66,7 +66,7 @@ LOGGER = structlog.getLogger()
 PLACEHOLDER = "<ID>"
 
 ARXIV_URL = (
-    "http://export.arxiv.org/oai2?"
+    "https://oaipmh.arxiv.org/oai?"
     "verb=GetRecord&"
     "identifier=oai:arXiv.org:<ID>&"
     "metadataPrefix=arXiv"
@@ -689,7 +689,7 @@ def import_arxiv(arxiv_id):
     response = requests.get(url)
     response.raise_for_status()
 
-    if "Malformed identifier" in str(response.text):
+    if "idDoesNotExist" in str(response.text):
         # arXiv will reply 200 for a non existing arXiv ID with a message error
         return {}
 

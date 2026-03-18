@@ -8,36 +8,41 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      User-Agent:
-      - python-requests/2.22.0
     method: GET
-    uri: http://export.arxiv.org/oai2?verb=GetRecord&identifier=oai:arXiv.org:0000.0000&metadataPrefix=arXiv
+    uri: https://oaipmh.arxiv.org/oai?identifier=oai%3AarXiv.org%3A0000.0000&metadataPrefix=arXiv&verb=GetRecord
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA42RW2vCMBTH3/0U4bzsqU3aXdDSVAbuBjplcyB7WtYcNWCTLslsP/7S6mA+DMxD
-        HsLvfzkn+bitdmSP1imjOSQxA4K6NFLpDYe35X00hHExyOe3T9Fi9kgCrR2Hrfd1RmnTNLGpUQtb
-        btUeXWzshgaUpjGjcICz1qkTQXPZYyljCV3Npq/lFisRKe280CUGlVOZ6x+nphS+73VOHjkHOs4R
-        t05CGMuiq412OBEei5Qlo4gNo+R6mVxl6ShjN+85PUE6xdc3Ot+t7JPDA/oXLI2VQJRE7dVaoeVg
-        hMqEXal9l52xcOLuAlKhF1J4sbC4Vi2HHoLi2Bzb2lgfC9selDT4pF2DPjKEo7XGkvA7yEHJiUH3
-        bPxdq5yHYiZ2a2MrlH+akI9/mlzktPcKnr8rKQY/elKyIwwCAAA=
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\"
+        \n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/
+        http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\">\n    <responseDate>2026-03-17T14:38:08Z</responseDate>\n
+        \               <request>http://oaipmh.arxiv.org/oai</request>\n\n\n    <error
+        code='idDoesNotExist'>The value of the identifier argument is unknown or illegal
+        in this repository. Reason: Invalid arXiv_id structure</error>\n</OAI-PMH>"
     headers:
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '613'
       Connection:
-      - Keep-Alive
-      Content-Encoding:
-      - gzip
+      - keep-alive
       Content-Length:
-      - '323'
-      Content-Type:
-      - text/xml
+      - '557'
       Date:
-      - Thu, 15 Aug 2019 14:29:04 GMT
-      Keep-Alive:
-      - timeout=5, max=100
-      Server:
-      - Apache
-      Vary:
-      - Accept-Encoding,User-Agent
+      - Tue, 17 Mar 2026 14:48:21 GMT
+      X-Cache:
+      - MISS, MISS, HIT
+      X-Served-By:
+      - cache-lga21974-LGA, cache-lga21945-LGA, cache-sof1510033-SOF
+      X-Timer:
+      - S1773758901.215720,VS0,VE1
+      content-type:
+      - text/xml
+      server:
+      - Google Frontend
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish
+      x-cloud-trace-context:
+      - 5ad149b1f567977fbd6516a133a42f6c
     status:
       code: 200
       message: OK
