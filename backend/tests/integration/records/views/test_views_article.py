@@ -99,19 +99,11 @@ def test_import_article_view_404_website_not_reachable(inspire_app):
     arxiv_id = faker.arxiv()
     with requests_mock.Mocker() as mocker, inspire_app.test_client() as client:
         mocker.get(
-            f"http://export.arxiv.org/oai2?verb=GetRecord&identifier=oai:arXiv.org:{arxiv_id}&metadataPrefix=arXiv",
+            f"https://oaipmh.arxiv.org/oai?verb=GetRecord&identifier=oai:arXiv.org:{arxiv_id}&metadataPrefix=arXiv",
             status_code=500,
         )
         resp = client.get(f"/literature/import/arXiv:{arxiv_id}")
         assert resp.status_code == 502
-
-
-@pytest.mark.vcr
-def test_import_article_view_500_arxiv_broken_record(inspire_app):
-    arxiv_id = "0804.1111"
-    with inspire_app.test_client() as client:
-        resp = client.get(f"/literature/import/arXiv:{arxiv_id}")
-    assert resp.status_code == 500
 
 
 @pytest.mark.vcr
@@ -174,3 +166,17 @@ def test_import_doi_request_error(mock_response, inspire_app):
         "Please try again later or fill the form manually."
     )
     assert resp.status_code == 502
+
+
+@mock.patch("inspirehep.records.api.literature.requests.get")
+def test_import_article_view_500_arxiv_broken_record(mock_requests_get, inspire_app):
+    arxiv_id = "0804.1111"
+    mock_response = mock.Mock()
+    mock_response.text = "<broken xml"
+    mock_response.raise_for_status.return_value = None
+    mock_requests_get.return_value = mock_response
+
+    with inspire_app.test_client() as client:
+        resp = client.get(f"/literature/import/arXiv:{arxiv_id}")
+
+    assert resp.status_code == 500

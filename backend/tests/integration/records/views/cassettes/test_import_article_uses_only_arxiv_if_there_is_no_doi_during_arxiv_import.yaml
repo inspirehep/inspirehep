@@ -8,48 +8,130 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      User-Agent:
-      - python-requests/2.22.0
     method: GET
-    uri: http://export.arxiv.org/oai2?verb=GetRecord&identifier=oai:arXiv.org:1908.05196&metadataPrefix=arXiv
+    uri: https://oaipmh.arxiv.org/oai?identifier=oai%3AarXiv.org%3A1908.05196&metadataPrefix=arXiv&verb=GetRecord
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA7VWTW/jNhC961cQuuylFuWk7iYGrUWwizYt7Dbt7qLbXAqaGlvsSqTKofzRX98h
-        ZcVO6gC+9JCAoWbevHkznIl4t2tqtgGH2ppZOs7ylIFRttRmPUs/f/p+dJO+KxLxy92Po4fFPSNr
-        g7O08r6dcr7dbjPbgpFOVXoDmFm35mTKr7Kcp73xdIf6mcP2Oppd5fmYf1nMP6oKGjnSBr00CsgL
-        9RTj5dwq6SOvS+KxS4wOeWQ7LFNKywG21iB8kB6Kq3x8O8pvRuPJp/H1dDKZTsaPgj8zCR5/d4A+
-        SLacpT+A/w2UdWXKdAnG65UGN0ut1FPpvuhNiD0d3+Y3WT4Z336Xsga8LKWXDw5WejdLo1VaHKjD
-        rrXOZ9LteldOQFeBQoxJ0Z/iRSaHQwWyBFckTBw5FK9REPzEiFyIDEHLpj1JX/DjLZkg+I8tqKKt
-        9qgVTitoR7ATfLh/xaStTkwEH1iKQYLgFxm+aKpj9qFo0eL/6KVzYdjr3w4dEzQunqtZCOWA9CqP
-        Cn4r+HAnZOcr63A4FOIr7I1soJgDCD78IVbWQThh8VNnKiv48ULwwfUlxPtKGmvOovysla0lXoYz
-        h40+D3NnSgfbC1H0+XxolFwI0J0FWMDFAOcZ/KrlpQgLac9C/CH/6sx5CP5UYa99DcUD6e70P7Hb
-        2MpJFQ8NSOwcNPT2mDbs8ZEhNaQHR+qwDsPvEqBlNUhnomI9miArWFunKWb/qtjw/k6+CGWbAI3F
-        W9bKNVDdn25ErRXQACv+09yHD8ipiWCnaqKxgVGp0Tu95LQLuBhsSKklXVMyBWOLmEugXFuz1r6j
-        bSHres/aPnUoaTwqbx1bWqTcTzKl1H0FIX1FvWugTjQyyVpnGx1F2Mo985bsaHJ7vaYUWWe0J1i/
-        ZzSLCbVXdqt9FbHu9XqNSQMBUGPDpCkDAkJYAIwqRrQQ9bIGZmDLDiMqY7/DaZSSHGimyzqWITHQ
-        hbMBv7XuK6PUO+WpfhjhSdtWOvKh+NoxudR1oBd4N5TKBiKxk5IndhWvTvU69sbjn/Pwk7HPUYKV
-        pP2CuunqF5l+gLqtABNybCDw+oakU6Fjhrh9eyFl3RHNvq2CuvS+bYdUodOMkzeUhNcEMFpKhPJN
-        34EvUicCEYHwFSCZsTC8abBHJWTb1nuKkrRUXqVbEjmIQ/1kgoGsSWwMwgT+tvNt5zG7o+zWhlaQ
-        ClOakTbSRcLj7G0SRncpHYUh0lEAZGTHlsAkLXQqUnlURBt6Ai6Wr+4abSyGOhDgdZ7nbLUcjRNf
-        SU8OdR0Q+p1J1nR36J1qND96zu/fZ7Srnnpd9MM/7K/j2goL+bB6+elCHv65KJJ/AY8CiEhWCQAA
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\"
+        \n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/
+        http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\">\n    <responseDate>2026-03-17T14:39:03Z</responseDate>\n
+        \               <request verb=\"GetRecord\" identifier=\"oai:arXiv.org:1908.05196\"
+        metadataPrefix=\"arXiv\">http://oaipmh.arxiv.org/oai</request>\n\n\n    <GetRecord>\n
+        \               <record>\n                <header>\n        <identifier>oai:arXiv.org:1908.05196</identifier>\n
+        \       <datestamp>2019-12-18</datestamp>\n            <setSpec>physics:hep-ph</setSpec>\n
+        \           <setSpec>physics:hep-ex</setSpec>\n    </header>\n\n            <metadata>\n
+        \                       <arXiv xmlns=\"http://arxiv.org/OAI/arXiv/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+        xsi:schemaLocation=\"http://arxiv.org/OAI/arXiv/ https://oaipmh.arxiv.org/OAI/arXiv.xsd\">\n
+        \       <id>1908.05196</id>\n        <created>2019-10-14</created>\n            <updated>2019-12-18</updated>\n
+        \       <authors>\n                <author>\n                    <keyname>Lee</keyname>\n
+        \                       <forenames>Junho</forenames>\n                </author>\n
+        \               <author>\n                    <keyname>Chanon</keyname>\n
+        \                       <forenames>Nicolas</forenames>\n                </author>\n
+        \               <author>\n                    <keyname>Levin</keyname>\n                        <forenames>Andrew</forenames>\n
+        \               </author>\n                <author>\n                    <keyname>Li</keyname>\n
+        \                       <forenames>Jing</forenames>\n                </author>\n
+        \               <author>\n                    <keyname>Lu</keyname>\n                        <forenames>Meng</forenames>\n
+        \               </author>\n                <author>\n                    <keyname>Li</keyname>\n
+        \                       <forenames>Qiang</forenames>\n                </author>\n
+        \               <author>\n                    <keyname>Mao</keyname>\n                        <forenames>Yajun</forenames>\n
+        \               </author>\n        </authors>\n        <title>Polarization
+        fraction measurement in ZZ scattering using deep learning</title>\n            <categories>hep-ph
+        hep-ex</categories>\n            <comments>7 pages</comments>\n            <journal-ref>Phys.
+        Rev. D 100, 116010 (2019)</journal-ref>\n            <doi>10.1103/PhysRevD.100.116010</doi>\n
+        \           <license>http://arxiv.org/licenses/nonexclusive-distrib/1.0/</license>\n
+        \           <abstract>Measuring longitudinally polarized vector boson scattering
+        in the ZZ channel is a promising way to investigate unitarity restoration
+        with the Higgs mechanism and to search for possible new physics. We investigated
+        several deep neural network structures and compared their ability to improve
+        the measurement of the longitudinal fraction Z_L Z_L. Using fast simulation
+        with the Delphes framework, a clear improvement is found using a previously
+        investigated &#39;particle-based&#39; deep neural network on a preprocessed
+        dataset and applying principle component analysis to the outputs.A significance
+        of around 1.7 standard deviations can be achieved with the integrated luminosity
+        of 3000 fb-1 that will be recorded at the High-Luminosity LHC.</abstract>\n
+        \   </arXiv>\n\n            </metadata>\n        </record>\n\n    </GetRecord>\n</OAI-PMH>"
+    headers:
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '0'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '3404'
+      Date:
+      - Tue, 17 Mar 2026 14:39:03 GMT
+      X-Cache:
+      - MISS, MISS, MISS
+      X-Served-By:
+      - cache-lga21988-LGA, cache-lga21921-LGA, cache-sof1510047-SOF
+      X-Timer:
+      - S1773758343.315977,VS0,VE204
+      content-type:
+      - text/xml
+      server:
+      - Google Frontend
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish
+      x-cloud-trace-context:
+      - 7b7cb1f865c46a4bc5100c3a0b460933
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://api.crossref.org/works/10.1103%2FPhysRevD.100.116010
+  response:
+    body:
+      string: '{"status":"ok","message-type":"work","message-version":"1.0.0","message":{"indexed":{"date-parts":[[2025,11,21]],"date-time":"2025-11-21T23:13:24Z","timestamp":1763766804909,"version":"3.37.3"},"reference-count":19,"publisher":"American
+        Physical Society (APS)","issue":"11","license":[{"start":{"date-parts":[[2019,12,13]],"date-time":"2019-12-13T00:00:00Z","timestamp":1576195200000},"content-version":"vor","delay-in-days":0,"URL":"https:\/\/creativecommons.org\/licenses\/by\/4.0\/"}],"funder":[{"DOI":"10.13039\/501100002855","name":"Ministry
+        of Science and Technology of the People\u2019s Republic of China","doi-asserted-by":"publisher","award":["2018YFA0403900"],"award-info":[{"award-number":["2018YFA0403900"]}],"id":[{"id":"10.13039\/501100002855","id-type":"DOI","asserted-by":"publisher"}]},{"DOI":"10.13039\/501100001809","name":"National
+        Natural Science Foundation of China","doi-asserted-by":"publisher","award":["11575005"],"award-info":[{"award-number":["11575005"]}],"id":[{"id":"10.13039\/501100001809","id-type":"DOI","asserted-by":"publisher"}]},{"DOI":"10.13039\/501100000921","name":"European
+        Cooperation in Science and Technology","doi-asserted-by":"publisher","award":["CA16108"],"award-info":[{"award-number":["CA16108"]}],"id":[{"id":"10.13039\/501100000921","id-type":"DOI","asserted-by":"publisher"}]},{"DOI":"10.13039\/501100004794","name":"Centre
+        National de la Recherche Scientifique","doi-asserted-by":"publisher","id":[{"id":"10.13039\/501100004794","id-type":"DOI","asserted-by":"publisher"}]},{"name":"France
+        China Particle Physics Laboratory"}],"content-domain":{"domain":["journals.aps.org"],"crossmark-restriction":true},"short-container-title":["Phys.
+        Rev. D"],"DOI":"10.1103\/physrevd.100.116010","type":"journal-article","created":{"date-parts":[[2019,12,13]],"date-time":"2019-12-13T12:39:17Z","timestamp":1576240757000},"update-policy":"https:\/\/doi.org\/10.1103\/crossmark-policy","source":"Crossref","is-referenced-by-count":15,"title":["Polarization
+        fraction measurement in ZZ scattering using deep learning"],"prefix":"10.1103","volume":"100","author":[{"ORCID":"https:\/\/orcid.org\/0000-0001-9186-9737","authenticated-orcid":true,"given":"Junho","family":"Lee","sequence":"first","affiliation":[]},{"ORCID":"https:\/\/orcid.org\/0000-0002-2939-5646","authenticated-orcid":true,"given":"Nicolas","family":"Chanon","sequence":"additional","affiliation":[]},{"given":"Andrew","family":"Levin","sequence":"additional","affiliation":[]},{"given":"Jing","family":"Li","sequence":"additional","affiliation":[]},{"given":"Meng","family":"Lu","sequence":"additional","affiliation":[]},{"given":"Qiang","family":"Li","sequence":"additional","affiliation":[]},{"given":"Yajun","family":"Mao","sequence":"additional","affiliation":[]}],"member":"16","published-online":{"date-parts":[[2019,12,13]]},"reference":[{"key":"PhysRevD.100.116010Cc1R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevLett.120.081801"},{"key":"PhysRevD.100.116010Cc2R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevLett.123.161801"},{"key":"PhysRevD.100.116010Cc3R1","doi-asserted-by":"publisher","DOI":"10.1016\/j.physletb.2019.05.042"},{"key":"PhysRevD.100.116010Cc5R1","doi-asserted-by":"publisher","DOI":"10.1016\/j.physletb.2017.04.071"},{"key":"PhysRevD.100.116010Cc8R1","doi-asserted-by":"publisher","DOI":"10.1016\/j.physletb.2017.10.020"},{"key":"PhysRevD.100.116010Cc9R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.87.093005"},{"key":"PhysRevD.100.116010Cc10R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.100.011702"},{"key":"PhysRevD.100.116010Cc11R1","doi-asserted-by":"publisher","DOI":"10.1142\/S1793626819300020"},{"key":"PhysRevD.100.116010Cc14R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.99.033004"},{"key":"PhysRevD.100.116010Cc16R1","doi-asserted-by":"publisher","DOI":"10.1016\/j.nima.2004.12.018"},{"key":"PhysRevD.100.116010Cc17R1","first-page":"040","volume":"2007","author":"A.
+        Hocker","journal-title":"Proc. Sci.","ISSN":"https:\/\/id.crossref.org\/issn\/1824-8039","issn-type":"print"},{"key":"PhysRevD.100.116010Cc20R1","doi-asserted-by":"publisher","DOI":"10.1093\/biomet\/87.4.954"},{"key":"PhysRevD.100.116010Cc21R1","doi-asserted-by":"publisher","DOI":"10.1007\/JHEP07(2014)079"},{"key":"PhysRevD.100.116010Cc23R1","doi-asserted-by":"publisher","DOI":"10.1007\/JHEP02(2014)057"},{"key":"PhysRevD.100.116010Cc24R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.93.094033"},{"key":"PhysRevD.100.116010Cc27R1","doi-asserted-by":"publisher","DOI":"10.1111\/j.2517-6161.1964.tb00553.x"},{"key":"PhysRevD.100.116010Cc28R1","doi-asserted-by":"publisher","DOI":"10.1140\/epjc\/s10052-011-1554-0"},{"key":"PhysRevD.100.116010Cc30R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevD.98.052004"},{"key":"PhysRevD.100.116010Cc31R1","doi-asserted-by":"publisher","DOI":"10.1103\/PhysRevLett.121.111801"}],"container-title":["Physical
+        Review D"],"original-title":[],"language":"en","link":[{"URL":"https:\/\/link.aps.org\/article\/10.1103\/PhysRevD.100.116010","content-type":"unspecified","content-version":"vor","intended-application":"syndication"},{"URL":"http:\/\/harvest.aps.org\/v2\/journals\/articles\/10.1103\/PhysRevD.100.116010\/fulltext","content-type":"unspecified","content-version":"vor","intended-application":"similarity-checking"}],"deposited":{"date-parts":[[2019,12,13]],"date-time":"2019-12-13T12:39:20Z","timestamp":1576240760000},"score":1,"resource":{"primary":{"URL":"https:\/\/link.aps.org\/doi\/10.1103\/PhysRevD.100.116010"}},"subtitle":[],"short-title":[],"issued":{"date-parts":[[2019,12,13]]},"references-count":19,"journal-issue":{"issue":"11","published-print":{"date-parts":[[2019,12]]}},"URL":"https:\/\/doi.org\/10.1103\/physrevd.100.116010","relation":{},"ISSN":["2470-0010","2470-0029"],"issn-type":[{"type":"print","value":"2470-0010"},{"type":"electronic","value":"2470-0029"}],"subject":[],"published":{"date-parts":[[2019,12,13]]},"article-number":"116010"}}'
     headers:
       Connection:
-      - Keep-Alive
-      Content-Encoding:
-      - gzip
-      Content-Length:
-      - '1026'
+      - keep-alive
       Content-Type:
-      - text/xml
+      - application/json
       Date:
-      - Thu, 15 Aug 2019 13:55:50 GMT
-      Keep-Alive:
-      - timeout=5, max=100
-      Server:
-      - Apache
-      Vary:
-      - Accept-Encoding,User-Agent
+      - Tue, 17 Mar 2026 14:39:04 GMT
+      access-control-allow-headers:
+      - X-Requested-With, Accept, Accept-Encoding, Accept-Charset, Accept-Language,
+        Accept-Ranges, Cache-Control
+      access-control-allow-origin:
+      - '*'
+      access-control-expose-headers:
+      - Link
+      content-length:
+      - '5998'
+      permissions-policy:
+      - interest-cohort=()
+      server:
+      - Jetty(9.4.40.v20210413)
+      vary:
+      - Accept-Encoding
+      x-api-pool:
+      - public
+      x-concurrency-limit:
+      - '1'
+      x-rate-limit-interval:
+      - 1s
+      x-rate-limit-limit:
+      - '5'
     status:
       code: 200
       message: OK
