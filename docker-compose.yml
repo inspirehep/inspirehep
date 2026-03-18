@@ -443,4 +443,4 @@ services:
     depends_on:
       - s3
     entrypoint: >
-      /bin/sh -c " sleep 10; /usr/bin/mc alias set airflow http://s3:9000 airflow airflow-inspire; /usr/bin/mc mb airflow/data-store; /usr/bin/mc mb airflow/elsevier-store; exit 0; "
+      /bin/sh -c " sleep 10; /usr/bin/mc alias set airflow http://s3:9000 airflow airflow-inspire; /usr/bin/mc mb airflow/data-store; /usr/bin/mc mb airflow/elsevier-store; /usr/bin/mc mb airflow/desy-store-incoming; /usr/bin/mc mb airflow/desy-store-processed; exit 0; "

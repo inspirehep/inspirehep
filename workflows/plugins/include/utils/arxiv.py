@@ -3,7 +3,6 @@ import logging
 
 from airflow.exceptions import AirflowSkipException
 from airflow.sdk.bases.hook import BaseHook
-from include.utils.constants import HEP_CREATE
 from inspire_schemas.parsers.arxiv import ArxivParser
 from sickle import Sickle, oaiexceptions
 
@@ -102,33 +101,3 @@ def build_records(xml_records, submission_number):
             failed_build_records.append(record)
 
     return parsed_records, failed_build_records
-
-
-def load_records(parsed_records, workflow_management_hook):
-    """Load the built records to the backoffice.
-    Args:
-        parsed_records (list): The list of built records.
-        workflow_management_hook: The workflow management hook to use.
-    Returns:
-        list: The list of failed to load records.
-    """
-    failed_load_records = []
-    for record in parsed_records:
-        logger.info(
-            f"Loading record: " f"{record.get('arxiv_eprints',[{}])[0].get('value')}"
-        )
-
-        workflow_data = {
-            "data": record,
-            "workflow_type": HEP_CREATE,
-        }
-        try:
-            logger.info(f"Loading record: {record.get('control_number')}")
-            workflow_management_hook.post_workflow(
-                workflow_data=workflow_data,
-            )
-        except Exception:
-            logger.error(f"Failed to load record: {record.get('control_number')}")
-            failed_load_records.append(record)
-
-    return failed_load_records

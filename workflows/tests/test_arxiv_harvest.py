@@ -3,8 +3,7 @@ from unittest.mock import Mock, patch
 import pytest
 from airflow.exceptions import AirflowException, AirflowSkipException
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
-from include.utils.arxiv import build_records, fetch_records, load_records
-from include.utils.constants import HEP_CREATE
+from include.utils.arxiv import build_records, fetch_records
 from sickle.oaiexceptions import NoRecordsMatch
 
 from tests.test_utils import function_test, task_test
@@ -108,58 +107,6 @@ class TestArxivHarvest:
         parsed_records, failed_build_records = build_records(xml_records, "12345")
         assert len(parsed_records) == 1
         assert len(failed_build_records) == 1
-
-    @pytest.mark.vcr
-    def test_load_records_failed(self):
-        parsed_records = [
-            {
-                "document_type": ["article"],
-                "_collections": ["Literature"],
-                "titles": [{"title": "Test Workflow Management Hook"}],
-            },
-            {
-                "document_type": ["article"],
-                "_collections": ["Literature"],
-            },
-        ]
-
-        params = {
-            "parsed_records": parsed_records,
-            "workflow_management_hook": self.workflow_management_hook,
-        }
-        failed_load_records = function_test(load_records, params=params)
-
-        assert len(failed_load_records) == 1
-
-    @pytest.mark.vcr
-    @patch(
-        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.post_workflow"
-    )
-    def test_load_records_multiple(self, mock_post_workflow):
-        parsed_records = [
-            {
-                "workflow_type": HEP_CREATE,
-                "data": {
-                    "document_type": ["article"],
-                    "_collections": ["Literature"],
-                    "titles": [{"title": "Test Workflow Management Hook"}],
-                },
-            },
-            {
-                "workflow_type": HEP_CREATE,
-                "data": {
-                    "document_type": ["article"],
-                    "_collections": ["Literature"],
-                    "titles": [{"title": "Test Workflow Management Hook"}],
-                },
-            },
-        ]
-
-        failed_load_records = load_records(
-            parsed_records, self.workflow_management_hook
-        )
-        assert mock_post_workflow.call_count == 2
-        assert len(failed_load_records) == 0
 
     def test_check_failures_success(self):
         s3_key = self.s3_store.write_object(
