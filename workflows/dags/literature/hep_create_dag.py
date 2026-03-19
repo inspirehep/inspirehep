@@ -1138,7 +1138,7 @@ def hep_create_dag():
                     s3_store.write_workflow(workflow_data)
             return has_author_xml
 
-        @task(pool="high_memory", queue="high_memory")
+        @task(pool="high-memory", queue="high-memory")
         def guess_coreness(**context):
             from inspire_classifier import Classifier
 

@@ -1,5 +1,5 @@
 {
-    "high_memory": {
+    "high-memory": {
         "description": null,
         "include_deferred": false,
         "slots": 16
