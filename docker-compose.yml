@@ -300,7 +300,7 @@ services:
 
   airflow-worker:
     <<: *airflow-common
-    command: celery worker -q default,high_memory
+    command: celery worker -q default,high-memory
     healthcheck:
       # yamllint disable rule:line-length
       test:
