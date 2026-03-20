@@ -57,6 +57,7 @@ const buildLiteratureResult = (id, status = WorkflowStatuses.APPROVAL) => ({
   id,
   workflow_type: WorkflowTypes.HEP_CREATE,
   status,
+  journal_coverage: null,
   data: {
     titles: [{ title: `Example title ${id}` }],
     inspire_categories: [{ term: 'hep-th' }],
@@ -312,6 +313,32 @@ describe('SearchPageContainer', () => {
     );
     expect(
       screen.getByText('Batch operations on 1 selected records.')
+    ).toBeInTheDocument();
+  });
+
+  it('shows a batch warning when selected workflows include full coverage items', async () => {
+    const user = userEvent.setup();
+    const interactiveStore = getStore({
+      search: buildSearchState({
+        status: WorkflowStatuses.APPROVAL,
+        results: [
+          {
+            ...buildLiteratureResult('full-coverage'),
+            journal_coverage: 'full',
+          },
+          buildLiteratureResult('regular'),
+        ],
+      }),
+    });
+
+    renderComponent(interactiveStore);
+
+    await user.click(
+      screen.getByRole('checkbox', { name: 'Select workflow full-coverage' })
+    );
+
+    expect(
+      screen.getByText('Some selected articles belong to fully taken journals.')
     ).toBeInTheDocument();
   });
 

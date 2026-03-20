@@ -26,4 +26,19 @@ describe('LiteratureBatchOperationsCard', () => {
       WorkflowDecisions.HEP_ACCEPT_CORE
     );
   });
+
+  it('renders a warning for full coverage selections', () => {
+    render(
+      <LiteratureBatchOperationsCard
+        selectedCount={2}
+        status={WorkflowStatuses.APPROVAL}
+        onResolveAction={jest.fn()}
+        hasFullCoverageSelection
+      />
+    );
+
+    expect(
+      screen.getByText('Some selected articles belong to fully taken journals.')
+    ).toBeInTheDocument();
+  });
 });

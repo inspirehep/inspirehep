@@ -4,7 +4,11 @@ import { List } from 'immutable';
 
 import '../../common/components/ResultItem/ResultItem.less';
 import { Link } from 'react-router-dom';
-import { formatDateTime, hasPublicationInfo } from '../../utils/utils';
+import {
+  formatDateTime,
+  hasPublicationInfo,
+  isFullCoverageWorkflow,
+} from '../../utils/utils';
 import { LITERATURE_PID_TYPE } from '../../../common/constants';
 import ResultItem from '../../../common/components/ResultItem';
 import { BACKOFFICE } from '../../../common/routes';
@@ -20,7 +24,6 @@ import AutomaticDecision from './AutomaticDecision';
 import LiteratureReferenceCount from './LiteratureReferenceCount';
 import LiteratureSearchKeywords from './LiteratureSearchKeywords';
 import StatusInfoWithTooltip from '../../common/components/StatusInfoWithTooltip';
-import { WorkflowTypes } from '../../constants';
 
 const { Paragraph } = Typography;
 
@@ -44,8 +47,7 @@ const WorkflowResultItem = ({
   const workflowId = item?.get('id');
   const workflowType = item?.get('workflow_type');
   const journalCoverage = item?.get('journal_coverage');
-  const isFullCoverage =
-    workflowType === WorkflowTypes.HEP_CREATE && journalCoverage === 'full';
+  const isFullCoverage = isFullCoverageWorkflow(workflowType, journalCoverage);
   const relevancePrediction = item?.get('relevance_prediction');
   const classifierResults = item?.get('classifier_results');
   const data = item?.get('data');
