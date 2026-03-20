@@ -317,3 +317,21 @@ class TestRefextract:
         sanitized_references = sanitize_references(references)
         assert len(sanitized_references) == 1
         assert sanitized_references[0] == references[0]
+
+    def test_sanitize_references_keeps_references_without_raw_refs(self):
+        references = [
+            {"reference": {"misc": ["Already structured reference"]}},
+            {
+                "raw_refs": [
+                    {
+                        "schema": "text",
+                        "value": "\u0000\u0013 \u0000\u0015\u0013",
+                        "source": "arXiv",
+                    }
+                ]
+            },
+        ]
+
+        sanitized_references = sanitize_references(references)
+
+        assert sanitized_references == [references[0]]

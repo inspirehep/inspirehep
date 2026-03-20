@@ -126,11 +126,14 @@ def sanitize_references(references):
     sanitized_references = []
 
     for reference in references:
+        has_invalid = False
         for raw_ref in reference.get("raw_refs", []):
             has_invalid = any(
                 unicodedata.category(c).startswith("C")
                 for c in raw_ref.get("value", "")
             )
+            if has_invalid:
+                break
 
         if not has_invalid:
             sanitized_references.append(reference)
