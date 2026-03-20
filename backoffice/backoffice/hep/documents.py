@@ -151,32 +151,12 @@ class HepWorkflowDocument(BaseWorkflowDocument):
                     "term": fields.KeywordField(),
                 }
             ),
-            "references": fields.NestedField(
-                properties={
-                    "reference": fields.ObjectField(
-                        properties={
-                            "authors": fields.ObjectField(
-                                properties={
-                                    "full_name": fields.TextField(),
-                                }
-                            ),
-                            "label": fields.KeywordField(),
-                            "misc": fields.TextField(),
-                            "publication_info": fields.ObjectField(
-                                properties={
-                                    "artid": fields.KeywordField(),
-                                    "year": fields.IntegerField(),
-                                }
-                            ),
-                            "texkey": fields.KeywordField(),
-                        }
-                    ),
-                }
-            ),
+            "references": fields.ObjectField(enabled=False),
         },
     )
-    classifier_results = fields.ObjectField(enabled=False)
     journal_coverage = fields.KeywordField(index=False)
+
+    classifier_results = fields.ObjectField(enabled=False)
     relevance_prediction = fields.ObjectField(
         properties={
             "decision": fields.KeywordField(),
@@ -244,13 +224,25 @@ class HepWorkflowDocument(BaseWorkflowDocument):
 
     def prepare_data(self, instance):
         data = instance.data or {}
-        for author in data.get("authors", []):
-            author.setdefault("affiliations", [])
-        for supervisor in data.get("supervisors", []):
-            supervisor.setdefault("affiliations", [])
         data.setdefault("public_notes", [])
         data.setdefault("arxiv_eprints", [])
         return data
+
+    @staticmethod
+    def _prepare_optional_json_object(value):
+        return None if value in (None, {}) else value
+
+    def prepare_classifier_results(self, instance):
+        return self._prepare_optional_json_object(instance.classifier_results)
+
+    def prepare_relevance_prediction(self, instance):
+        return self._prepare_optional_json_object(instance.relevance_prediction)
+
+    def prepare_reference_count(self, instance):
+        return self._prepare_optional_json_object(instance.reference_count)
+
+    def prepare_matches(self, instance):
+        return self._prepare_optional_json_object(instance.matches)
 
     class Django(BaseWorkflowDocument.Django):
         model = HepWorkflow
