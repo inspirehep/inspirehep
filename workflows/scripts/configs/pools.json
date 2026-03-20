@@ -1,5 +1,5 @@
 {
-    "highmem": {
+    "high_memory": {
         "description": null,
         "include_deferred": false,
         "slots": 16
