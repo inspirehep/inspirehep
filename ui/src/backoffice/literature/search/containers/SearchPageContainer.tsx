@@ -27,6 +27,7 @@ import {
 import { WorkflowStatuses } from '../../../constants';
 import LiteratureMatches from '../../components/LiteratureMatches';
 import { forceArray } from '../../../../common/utils';
+import { isFullCoverageWorkflow } from '../../../utils/utils';
 import LiteratureBatchOperationsCard from '../../components/LiteratureBatchOperationsCard';
 
 type BackofficeSearchPageProps = {
@@ -132,6 +133,18 @@ const LiteratureSearchPageContainer = ({
 
   const currentPageWorkflowIds: string[] =
     results?.map((item: Map<string, any>) => item?.get('id'))?.toArray() || [];
+  const hasSelectedFullCoverageWorkflow = results?.some(
+    (item: Map<string, any>) => {
+      if (!selectedWorkflowIds.has(item?.get('id'))) {
+        return false;
+      }
+
+      return isFullCoverageWorkflow(
+        item?.get('workflow_type'),
+        item?.get('journal_coverage')
+      );
+    }
+  );
 
   const selectedSelectableCount = currentPageWorkflowIds.filter((workflowId) =>
     selectedWorkflowIds.has(workflowId)
@@ -244,6 +257,7 @@ const LiteratureSearchPageContainer = ({
                     selectedCount={selectedWorkflowIds.size}
                     status={batchStatus}
                     onResolveAction={handleBatchResolveAction}
+                    hasFullCoverageSelection={!!hasSelectedFullCoverageWorkflow}
                   />
                 )}
                 <Row justify="space-between" wrap={false}>

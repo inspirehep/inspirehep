@@ -25,7 +25,12 @@ import ContentBox from '../../../common/components/ContentBox';
 import { BACKOFFICE_LITERATURE_SEARCH_NS } from '../../../search/constants';
 import Breadcrumbs from '../../common/components/Breadcrumbs/Breadcrumbs';
 import DocumentHead from '../../../common/components/DocumentHead';
-import { filterDecisions, formatDateTime, getDag } from '../../utils/utils';
+import {
+  filterDecisions,
+  formatDateTime,
+  getDag,
+  isFullCoverageWorkflow,
+} from '../../utils/utils';
 import { isSuperUser } from '../../../common/authorization';
 import { columnsSubject } from './columnData';
 import { StatusBanner } from '../../common/components/Detail/StatusBanner';
@@ -81,8 +86,7 @@ const LiteratureDetailPageContainer = ({
   const filteredDecisions = filterDecisions(decisions);
   const decision = filteredDecisions?.first();
   const journalCoverage = literature?.get('journal_coverage');
-  const isFullCoverage =
-    workflowType === WorkflowTypes.HEP_CREATE && journalCoverage === 'full';
+  const isFullCoverage = isFullCoverageWorkflow(workflowType, journalCoverage);
   const inspireCategories = data?.get('inspire_categories')?.toJS();
   const rawDateTime = data?.getIn(['acquisition_source', 'datetime']);
   const urls = data?.get('urls');

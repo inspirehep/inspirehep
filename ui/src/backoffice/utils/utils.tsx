@@ -215,6 +215,11 @@ export const hasPublicationInfo = (
   );
 };
 
+export const isFullCoverageWorkflow = (
+  workflowType?: string | null,
+  journalCoverage?: string | null
+) => workflowType === WorkflowTypes.HEP_CREATE && journalCoverage === 'full';
+
 export const getWorkflowStatusInfo = (status: string) => {
   const statuses: {
     [key: string]: { icon: JSX.Element; text: string; description: string };
