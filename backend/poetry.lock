@@ -2185,14 +2185,14 @@ tests = ["flake8 (>=3.5.0)", "mock (>=2.0.0)", "pytest (>=6.2.5)", "pytest-cov (
 
 [[package]]
 name = "inspire-schemas"
-version = "61.6.26"
+version = "61.6.32"
 description = "Inspire JSON schemas and utilities to use them."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "inspire_schemas-61.6.26-py2.py3-none-any.whl", hash = "sha256:1909ad53d099d09246266cde48cae48d4c6bbd0ef5fd08416578c9f7f037da27"},
-    {file = "inspire_schemas-61.6.26.tar.gz", hash = "sha256:89fbe918b69f0a733cebee821e4d83f72bab15aa516a5f021737366eb38d3609"},
+    {file = "inspire_schemas-61.6.32-py2.py3-none-any.whl", hash = "sha256:3e3ed66577e8309cf1b51bbe8761b4348e21aa233f0de0ca56eec6f9138bce28"},
+    {file = "inspire_schemas-61.6.32.tar.gz", hash = "sha256:ae468be2ca01e719111e68142a3db40587c2173fcf23de6998ce672582b3a38f"},
 ]
 
 [package.dependencies]
@@ -7168,4 +7168,4 @@ typing-extensions = ">=4.5.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.12"
-content-hash = "2f451cbe62a10cd55583104ae29c3a93295cd4950c086fe939a1020c541867a1"
+content-hash = "9aa1ddc29134127a10f57c877059941991e8ca02134fc88c6bf21bbff282837e"
