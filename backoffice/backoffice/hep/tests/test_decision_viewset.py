@@ -25,3 +25,16 @@ class TestDecisionsViewSet(BaseTransactionTestCase):
         url = reverse("api:hep-decisions-list")
         response = self.api_client.post(url, format="json", data=data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_create_decision_rejects_value_longer_than_1500_chars(self):
+        self.api_client.force_authenticate(user=self.curator)
+        data = {
+            "action": "hep_reject",
+            "value": "a" * 1501,
+        }
+
+        url = reverse("api:hep-resolve", kwargs={"pk": self.workflow.id})
+        response = self.api_client.post(url, format="json", data=data)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("value", response.data)
