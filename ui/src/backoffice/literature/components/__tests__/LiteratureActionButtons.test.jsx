@@ -47,6 +47,49 @@ describe('<LiteratureActionButtons />', () => {
     expect(screen.getByRole('button', { name: 'Reject' })).toBeInTheDocument();
   });
 
+  test('shows submission rejection modal only for submission workflows', async () => {
+    const handleResolveAction = jest.fn();
+    const user = userEvent.setup();
+    render(
+      <LiteratureActionButtons
+        status={WorkflowStatuses.APPROVAL}
+        handleResolveAction={handleResolveAction}
+        shouldShowSubmissionModal
+        submissionContext={{
+          email: 'submitter@example.org',
+          title: 'Suggested title',
+        }}
+      />
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Reject' }));
+
+    expect(screen.getByText('Reason for rejection')).toBeInTheDocument();
+    expect(handleResolveAction).not.toHaveBeenCalled();
+  });
+
+  test('does not show submission rejection modal for missing subject fields', async () => {
+    const handleResolveAction = jest.fn();
+    const user = userEvent.setup();
+    render(
+      <LiteratureActionButtons
+        status={WorkflowStatuses.MISSING_SUBJECT_FIELDS}
+        handleResolveAction={handleResolveAction}
+        submissionContext={{
+          email: 'submitter@example.org',
+          title: 'Suggested title',
+        }}
+      />
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Reject' }));
+
+    expect(handleResolveAction).toHaveBeenCalledWith(
+      WorkflowDecisions.HEP_REJECT
+    );
+    expect(screen.queryByText('Reason for rejection')).not.toBeInTheDocument();
+  });
+
   test('shows resolve conflicts editor button for approval merge status', () => {
     render(
       <LiteratureActionButtons

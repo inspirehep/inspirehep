@@ -10,6 +10,8 @@ export const LiteratureHepSelectionButtons = ({
   handleResolveAction,
   isFullCoverage = false,
   isBatch = false,
+  shouldShowSubmissionModal = false,
+  submissionContext = undefined,
 }) => {
   const containerClass = isBatch
     ? 'flex items-center flex-wrap'
@@ -40,6 +42,8 @@ export const LiteratureHepSelectionButtons = ({
         isWeak={isFullCoverage}
         tooltipText={isFullCoverage ? FULL_COVERAGE_TOOLTIP : undefined}
         isBatch={isBatch}
+        shouldShowSubmissionModal={shouldShowSubmissionModal}
+        submissionContext={submissionContext}
       />
     </div>
   );

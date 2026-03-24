@@ -5,10 +5,7 @@ import { Row, Col, Card } from 'antd';
 import '../../common/components/ResultItem/ResultItem.less';
 import { Link } from 'react-router-dom';
 import { formatDateTime } from '../../utils/utils';
-import {
-  AUTHORS_PID_TYPE,
-  LITERATURE_PID_TYPE,
-} from '../../../common/constants';
+import { AUTHORS_PID_TYPE } from '../../../common/constants';
 import ResultItem from '../../../common/components/ResultItem';
 import { BACKOFFICE } from '../../../common/routes';
 import AcquisitionSourceInfo from '../../common/components/AcquisitionSourceInfo/AcquisitionSourceInfo';

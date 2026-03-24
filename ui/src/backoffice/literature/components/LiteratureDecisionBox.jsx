@@ -18,6 +18,8 @@ const LiteratureDecisionBox = ({
   totalReferences,
   workflowId,
   isFullCoverage,
+  shouldShowSubmissionModal = false,
+  submissionContext = undefined,
 }) => {
   const hasInspireCategories =
     Array.isArray(inspireCategories) && inspireCategories.length > 0;
@@ -33,6 +35,8 @@ const LiteratureDecisionBox = ({
         handleResolveAction={handleResolveAction}
         workflowId={workflowId}
         isFullCoverage={isFullCoverage}
+        shouldShowSubmissionModal={shouldShowSubmissionModal}
+        submissionContext={submissionContext}
       />
       <LiteratureDecisionDetails
         decision={decision}

@@ -12,12 +12,19 @@ const LiteratureActionButtons = ({
   isFullCoverage = false,
   isBatch = false,
   isSubmitted = false,
+  shouldShowSubmissionModal = false,
+  submissionContext = undefined,
 }) => {
   const [hasSubmittedDecision, setHasSubmittedDecision] = useState(false);
 
-  const handleResolveAndHide = (action) => {
+  const handleResolveAndHide = (action, value) => {
     setHasSubmittedDecision(true);
-    handleResolveAction(action);
+    if (value === undefined) {
+      handleResolveAction(action);
+      return;
+    }
+
+    handleResolveAction(action, value);
   };
 
   if (isSubmitted || hasSubmittedDecision) {
@@ -39,6 +46,8 @@ const LiteratureActionButtons = ({
           handleResolveAction={handleResolveAndHide}
           isFullCoverage={isFullCoverage}
           isBatch={isBatch}
+          shouldShowSubmissionModal={shouldShowSubmissionModal}
+          submissionContext={submissionContext}
         />
       );
 

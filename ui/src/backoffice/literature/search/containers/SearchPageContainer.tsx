@@ -24,7 +24,7 @@ import {
   resolveLiteratureAction,
   resolveLiteratureBatchAction,
 } from '../../../../actions/backoffice';
-import { WorkflowStatuses } from '../../../constants';
+import { WorkflowStatuses, WorkflowTypes } from '../../../constants';
 import LiteratureMatches from '../../components/LiteratureMatches';
 import { forceArray } from '../../../../common/utils';
 import { isFullCoverageWorkflow } from '../../../utils/utils';
@@ -74,8 +74,19 @@ function renderWorkflowItem(
     !!status &&
     SELECTABLE_STATUSES.has(status) &&
     !!selectedStatusesFromFacet?.has(status);
+  const workflowType = item?.get('workflow_type');
+  const data = item?.get('data');
   const hasFuzzyMatches =
     !!fuzzyMatches?.size && status === WorkflowStatuses.APPROVAL_FUZZY_MATCHING;
+  const shouldShowSubmissionModal =
+    workflowType === WorkflowTypes.HEP_SUBMISSION &&
+    status === WorkflowStatuses.APPROVAL;
+  const submissionContext = shouldShowSubmissionModal
+    ? {
+        email: data?.getIn(['acquisition_source', 'email']),
+        title: data?.getIn(['titles', 0, 'title']),
+      }
+    : undefined;
 
   const handleResolveAction = (action: string, value: string) =>
     onHandleResolveAction(workflowId, action, value);
@@ -91,6 +102,8 @@ function renderWorkflowItem(
         isSelected={selectedWorkflowIds?.has(workflowId)}
         onSelectionChange={onWorkflowSelectChange}
         isSubmitted={isSubmitted}
+        shouldShowSubmissionModal={shouldShowSubmissionModal}
+        submissionContext={submissionContext}
       />
       {hasFuzzyMatches && (
         <Card>

@@ -35,6 +35,8 @@ const WorkflowResultItem = ({
   isSelected = false,
   onSelectionChange,
   isSubmitted = false,
+  shouldShowSubmissionModal = false,
+  submissionContext = undefined,
 }: {
   item: any;
   compactBottom?: boolean;
@@ -43,6 +45,8 @@ const WorkflowResultItem = ({
   isSelected?: boolean;
   onSelectionChange?: (workflowId: string, checked: boolean) => void;
   isSubmitted?: boolean;
+  shouldShowSubmissionModal?: boolean;
+  submissionContext: any;
 }) => {
   const workflowId = item?.get('id');
   const workflowType = item?.get('workflow_type');
@@ -172,6 +176,8 @@ const WorkflowResultItem = ({
                 isFullCoverage={isFullCoverage}
                 isSubmitted={isSubmitted}
                 workflowId={workflowId}
+                shouldShowSubmissionModal={shouldShowSubmissionModal}
+                submissionContext={submissionContext}
               />
               <LiteratureReferenceCount
                 referenceCount={referenceCount}

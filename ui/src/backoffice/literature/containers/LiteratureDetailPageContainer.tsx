@@ -79,6 +79,7 @@ const LiteratureDetailPageContainer = ({
   const hasFuzzyMatches =
     !!fuzzyMatches?.size && status === WorkflowStatuses.APPROVAL_FUZZY_MATCHING;
   const title = data?.getIn(['titles', 0, 'title']);
+  const acquisitionSourceEmail = data?.getIn(['acquisition_source', 'email']);
   const controlNumber = data?.get('control_number');
   const tickets =
     literature?.get('tickets')?.size !== 0 && literature?.get('tickets');
@@ -87,6 +88,12 @@ const LiteratureDetailPageContainer = ({
   const decision = filteredDecisions?.first();
   const journalCoverage = literature?.get('journal_coverage');
   const isFullCoverage = isFullCoverageWorkflow(workflowType, journalCoverage);
+  const shouldShowSubmissionModal =
+    workflowType === WorkflowTypes.HEP_SUBMISSION &&
+    status === WorkflowStatuses.APPROVAL;
+  const submissionContext: any = shouldShowSubmissionModal
+    ? { email: acquisitionSourceEmail, title }
+    : undefined;
   const inspireCategories = data?.get('inspire_categories')?.toJS();
   const rawDateTime = data?.getIn(['acquisition_source', 'datetime']);
   const urls = data?.get('urls');
@@ -253,6 +260,8 @@ const LiteratureDetailPageContainer = ({
                         classifierResults={classifierResults}
                         workflowId={id}
                         isFullCoverage={isFullCoverage}
+                        shouldShowSubmissionModal={shouldShowSubmissionModal}
+                        submissionContext={submissionContext}
                       />
                     </ContentBox>
                     <ContentBox

@@ -16,6 +16,8 @@ from backoffice.hep.models import HepDecision, HepWorkflow, HepWorkflowTicket
 
 from django.urls import reverse
 
+HEP_DECISION_VALUE_MAX_LENGTH = 1500
+
 
 class HepWorkflowTicketSerializer(BaseWorkflowTicketSerializer):
     workflow = serializers.PrimaryKeyRelatedField(queryset=HepWorkflow.objects.all())
@@ -151,7 +153,11 @@ class HepBackofficeSearchUISerializer(BaseBackofficeSearchUISerializer):
 )
 class HepResolutionSerializer(serializers.Serializer):
     action = serializers.ChoiceField(choices=HEP_DECISION_CHOICES)
-    value = serializers.CharField(max_length=30, default="")
+    value = serializers.CharField(
+        default="",
+        allow_blank=True,
+        max_length=HEP_DECISION_VALUE_MAX_LENGTH,
+    )
 
 
 class HepBatchResolutionSerializer(serializers.Serializer):
