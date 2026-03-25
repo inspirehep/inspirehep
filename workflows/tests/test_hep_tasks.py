@@ -1,4 +1,5 @@
 import copy
+import json
 from io import BytesIO
 from unittest import mock
 from unittest.mock import Mock, patch
@@ -3030,6 +3031,38 @@ class Test_HEPCreateDAG:
             "notify_and_close_not_accepted",
             dag_params={"workflow_id": workflow_id},
         )
+
+    @pytest.mark.vcr
+    def test_notify_and_close_not_accepted_with_rejection_message(self, vcr_cassette):
+        workflow_id = "a2fccc44-4c2f-41c9-b0bb-82c5d977a39c"
+
+        workflow_data = get_lit_workflow_task(workflow_id)
+        self.s3_store.write_workflow(workflow_data)
+
+        task_test(
+            "hep_create_dag",
+            "notify_if_submission",
+            dag_params={"workflow_id": workflow_id},
+        )
+
+        self.s3_store.write_workflow(
+            get_lit_workflow_task(workflow_id),
+        )
+
+        task_test(
+            "hep_create_dag",
+            "notify_and_close_not_accepted",
+            dag_params={"workflow_id": workflow_id},
+        )
+
+        resolve_request = next(
+            req
+            for req in vcr_cassette.requests
+            if req.uri.endswith("/api/tickets/resolve")
+        )
+        request_body = json.loads(resolve_request.body)
+
+        assert request_body["message"] == "testing rejection with reason"
 
     def test_set_core_if_not_update_and_auto_approve(self):
         workflow_data = {

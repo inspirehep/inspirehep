@@ -125,5 +125,17 @@
       "workflow": "12d8d847-d16e-4f93-a386-df50a7aceadd",
       "action": "hep_reject"
     }
+  },
+  {
+    "model": "hep.hepdecision",
+    "pk": 12,
+    "fields": {
+      "user": "admin@admin.com",
+      "_created_at": "2025-08-26T14:45:14.237Z",
+      "_updated_at": "2025-08-26T14:45:14.237Z",
+      "workflow": "a2fccc44-4c2f-41c9-b0bb-82c5d977a39c",
+      "action": "hep_reject",
+      "value": "testing rejection with reason"
+    }
   }
 ]

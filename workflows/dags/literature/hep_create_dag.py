@@ -1560,7 +1560,10 @@ def hep_create_dag():
             "ticket_id"
         ]
 
-        inspire_http_hook.close_ticket(ticket_id)
+        decision = get_decision(workflow_data.get("decisions", []), DECISION_HEP_REJECT)
+        message = decision.get("value") if decision else None
+
+        inspire_http_hook.close_ticket(ticket_id, message=message)
 
     @task_group
     def postprocessing():
@@ -1582,7 +1585,7 @@ def hep_create_dag():
 
             decision = get_decision(
                 workflow_data.get("decisions"),
-                "hep_accept_core",
+                DECISION_HEP_ACCEPT_CORE,
             )
 
             workflow_data["data"]["core"] = bool(decision)
@@ -1786,7 +1789,7 @@ def hep_create_dag():
             }
 
             decision = get_decision(
-                workflow_data.get("decisions", []), "core_selection_accept_core"
+                workflow_data.get("decisions", []), DECISION_CORE_SELECTION_ACCEPT_CORE
             )
 
             is_core_selection_accepted = bool(decision)

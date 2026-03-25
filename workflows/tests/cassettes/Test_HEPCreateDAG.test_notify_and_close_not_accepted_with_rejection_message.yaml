@@ -1,0 +1,319 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/a2fccc44-4c2f-41c9-b0bb-82c5d977a39c
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 02 Apr 2026 14:07:06 GMT
+      Location:
+      - /api/workflows/literature/a2fccc44-4c2f-41c9-b0bb-82c5d977a39c/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/a2fccc44-4c2f-41c9-b0bb-82c5d977a39c/
+  response:
+    body:
+      string: '{"id":"a2fccc44-4c2f-41c9-b0bb-82c5d977a39c","validation_errors":[],"data":{"titles":[{"title":"The
+        submission rejection with reason test","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[{"id":12,"workflow":"a2fccc44-4c2f-41c9-b0bb-82c5d977a39c","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_reject","value":"testing
+        rejection with reason","user":"admin@admin.com"}],"workflow_type":"HEP_SUBMISSION","classifier_results":null,"merge_details":null,"callback_url":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2024-11-25T13:49:54.756000Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"form_data":null,"status":"running"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '1036'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 02 Apr 2026 14:07:06 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"functional_category": "Literature submissions", "template": "curator_submitted",
+      "subject": "Your suggestion to INSPIRE: The submission rejection with reason
+      test", "template_context": {"email": "user@cern.ch", "url": "http://host.docker.internal:8080/backoffice/literature/a2fccc44-4c2f-41c9-b0bb-82c5d977a39c"},
+      "caller_email": "user@cern.ch"}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '347'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8080/api/tickets/create
+  response:
+    body:
+      string: '{"ticket_id":"7059a77087c0839095f833340cbb35b8","ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=7059a77087c0839095f833340cbb35b8"}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '181'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 02 Apr 2026 14:07:10 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"ticket_id": "7059a77087c0839095f833340cbb35b8", "template": "user_submitted",
+      "template_context": {"user_name": "user@cern.ch", "title": "The submission rejection
+      with reason test"}, "user_email": "user@cern.ch"}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '214'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8080/api/tickets/reply
+  response:
+    body:
+      string: '{"message":"Ticket was updated with the reply"}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '48'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 02 Apr 2026 14:07:11 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"ticket_type": "hep_submission", "ticket_id": "7059a77087c0839095f833340cbb35b8",
+      "workflow": "a2fccc44-4c2f-41c9-b0bb-82c5d977a39c"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8001/api/workflows/literature/tickets/
+  response:
+    body:
+      string: '{"id":1,"ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=7059a77087c0839095f833340cbb35b8","workflow":"a2fccc44-4c2f-41c9-b0bb-82c5d977a39c","ticket_id":"7059a77087c0839095f833340cbb35b8","_created_at":"2026-04-02T14:07:11.686151Z","_updated_at":"2026-04-02T14:07:11.686175Z","ticket_type":"hep_submission"}'
+    headers:
+      Allow:
+      - GET, POST, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '356'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 02 Apr 2026 14:07:11 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 201
+      message: Created
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/a2fccc44-4c2f-41c9-b0bb-82c5d977a39c
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 02 Apr 2026 14:07:13 GMT
+      Location:
+      - /api/workflows/literature/a2fccc44-4c2f-41c9-b0bb-82c5d977a39c/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/literature/a2fccc44-4c2f-41c9-b0bb-82c5d977a39c/
+  response:
+    body:
+      string: '{"id":"a2fccc44-4c2f-41c9-b0bb-82c5d977a39c","validation_errors":[],"data":{"titles":[{"title":"The
+        submission rejection with reason test","source":"submitter"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[{"id":1,"ticket_url":"https://cerntraining.service-now.com/nav_to.do?uri=/u_request_fulfillment.do?sys_id=7059a77087c0839095f833340cbb35b8","workflow":"a2fccc44-4c2f-41c9-b0bb-82c5d977a39c","ticket_id":"7059a77087c0839095f833340cbb35b8","_created_at":"2026-04-02T14:07:11.686151Z","_updated_at":"2026-04-02T14:07:11.686175Z","ticket_type":"hep_submission"}],"decisions":[{"id":12,"workflow":"a2fccc44-4c2f-41c9-b0bb-82c5d977a39c","_created_at":"2025-08-26T14:45:14.237000Z","_updated_at":"2025-08-26T14:45:14.237000Z","action":"hep_reject","value":"testing
+        rejection with reason","user":"admin@admin.com"}],"workflow_type":"HEP_SUBMISSION","classifier_results":null,"merge_details":null,"callback_url":null,"_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2024-11-25T13:49:54.756000Z","journal_coverage":null,"relevance_prediction":null,"reference_count":null,"matches":null,"form_data":null,"status":"running"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '1392'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 02 Apr 2026 14:07:13 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"ticket_id": "7059a77087c0839095f833340cbb35b8", "message": "testing rejection
+      with reason"}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '93'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8080/api/tickets/resolve
+  response:
+    body:
+      string: '{"message":"Ticket resolved"}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '30'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 02 Apr 2026 14:07:17 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 200
+      message: OK
+version: 1

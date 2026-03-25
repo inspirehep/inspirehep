@@ -46,7 +46,7 @@ const WorkflowResultItem = ({
   onSelectionChange?: (workflowId: string, checked: boolean) => void;
   isSubmitted?: boolean;
   shouldShowSubmissionModal?: boolean;
-  submissionContext: any;
+  submissionContext?: any;
 }) => {
   const workflowId = item?.get('id');
   const workflowType = item?.get('workflow_type');
