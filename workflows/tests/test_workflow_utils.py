@@ -7,10 +7,47 @@ from hooks.inspirehep.inspire_http_hook import (
 from include.utils import workflows
 from include.utils.constants import (
     HEP_CREATE,
+    LITERATURE_PID_TYPE,
 )
 from inspire_schemas.api import load_schema, validate
 
-from tests.test_utils import function_test, task_test
+from tests.test_utils import function_test, get_inspire_http_record, task_test
+
+
+@pytest.mark.usefixtures("_s3_store")
+class TestWorkflowUtils:
+    workflow_id = "bf92a2c3-610c-4d9e-bb8f-5a20d519accc"
+
+    @pytest.mark.vcr
+    def test_read_wf_record_source_not_found(self):
+        record = get_inspire_http_record(LITERATURE_PID_TYPE, 44707)
+        head_uuid = record["uuid"]
+
+        root = {"version": "original", "acquisition_source": {"source": "arXiv"}}
+
+        workflow_data = {
+            "id": self.workflow_id,
+            "merge_details": {"head_uuid": head_uuid},
+        }
+        preserved_root_entry = {
+            "id": self.workflow_id,
+            "data": root,
+        }
+        self.s3_store.write_workflow(workflow_data)
+        self.s3_store.write_workflow(preserved_root_entry, filename="root.json")
+
+        task_test(
+            "hep_create_dag",
+            "store_root",
+            dag_params={"workflow_id": self.workflow_id},
+        )
+
+        root_entry = function_test(
+            workflows.read_wf_record_source,
+            params={"record_uuid": head_uuid, "source_name": "publisher"},
+        )
+
+        assert root_entry == []
 
 
 @pytest.mark.parametrize(
