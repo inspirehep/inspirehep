@@ -112,7 +112,7 @@ class Test_HEPCreateDAG:
             task.execute(context={})
 
     @pytest.mark.vcr
-    def test_set_schema(self):
+    def test_set_schema_and_flags(self):
         workflow_data = {
             "id": self.workflow_id,
             "data": {
@@ -135,10 +135,13 @@ class Test_HEPCreateDAG:
         }
 
         self.s3_store.write_workflow(workflow_data)
-        task_test("hep_create_dag", "set_schema", dag_params=self.context["params"])
+        task_test(
+            "hep_create_dag", "set_schema_and_flags", dag_params=self.context["params"]
+        )
         workflow_result = self.s3_store.read_workflow(workflow_id=self.workflow_id)
 
         assert "$schema" in workflow_result["data"]
+        assert self.s3_store.read_object(f"{self.workflow_id}/flags.json") == {}
 
     @pytest.mark.vcr
     def test_get_workflow_data(self):

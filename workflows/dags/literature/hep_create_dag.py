@@ -165,8 +165,9 @@ def hep_create_dag():
         return s3_store.write_workflow(workflow_data)
 
     @task
-    def set_schema(**context):
-        workflow_data = s3_store.read_workflow(context["params"]["workflow_id"])
+    def set_schema_and_flags(**context):
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = s3_store.read_workflow(workflow_id)
         schema = Variable.get("hep_schema")
 
         workflow_data = workflow_management_hook.partial_update_workflow(
@@ -177,6 +178,8 @@ def hep_create_dag():
         ).json()
 
         s3_store.write_workflow(workflow_data)
+
+        s3_store.set_flags({}, workflow_id)
 
     @task.branch
     def discard_older_wfs_w_same_source(**context):
@@ -1993,7 +1996,7 @@ def hep_create_dag():
     (
         check_env()
         >> get_workflow_data()
-        >> set_schema()
+        >> set_schema_and_flags()
         >> validate_record()
         >> set_workflow_status_to_running()
         >> discard_older_wfs_w_same_source()
