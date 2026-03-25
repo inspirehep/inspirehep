@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Input, Modal, Select, Typography } from 'antd';
 
+import { CONTENT_POLICY_URL } from '../../../common/constants';
+
 const { TextArea } = Input;
 const REJECTION_REASON_MAX_LENGTH = 1500;
 
@@ -15,7 +17,7 @@ const buildSubmissionReasons = (submissionContext) => {
 Thanks for suggesting "${title}".
 
 We regret to inform you that we cannot include it in our database as it is outside the focus of INSPIRE.
-For details please check our collection policy at: https://help.inspirehep.net/knowledge-base/content-policy/.
+For details please check our collection policy at: ${CONTENT_POLICY_URL}.
 Thanks again for collaborating with INSPIRE! We are looking forward to further suggestions you might have.`,
     },
     {
@@ -23,7 +25,7 @@ Thanks again for collaborating with INSPIRE! We are looking forward to further s
       content: `Dear ${email},
 
 Thanks for suggesting "${title}".
-We already have it in our database, you can find it here: http://inspirehep.net/record/INSERT_RECID.
+We already have it in our database, you can find it here: https://inspirehep.net/literature/INSERT_RECID.
 
 Thanks again for collaborating with INSPIRE! We are looking forward to further suggestions you might have.`,
     },
