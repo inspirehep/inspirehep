@@ -5,7 +5,7 @@ from itertools import chain
 from tempfile import TemporaryDirectory
 
 import requests
-from airflow.exceptions import AirflowFailException
+from airflow.exceptions import AirflowException, AirflowFailException
 from hooks.backoffice.workflow_management_hook import (
     HEP,
     WorkflowManagementHook,
@@ -217,9 +217,10 @@ def read_wf_record_source(record_uuid, source):
             endpoint="api/literature/workflows_record_sources",
             json={"record_uuid": str(record_uuid), "source": source.lower()},
         )
-    except RetryError as e:
-        if "404:Not Found" in str(e.last_attempt.exception()):
+    except AirflowException as e:
+        if "404:NOT FOUND" in str(e):
             return []
+        raise
 
     if response.status_code == 200:
         return response.json()["workflow_sources"][0]
