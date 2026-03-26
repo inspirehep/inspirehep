@@ -1019,7 +1019,7 @@ def hep_create_dag():
 
             s3_store.write_workflow(workflow_data)
 
-        @task
+        @task(execution_timeout=datetime.timedelta(minutes=5))
         def arxiv_plot_extract(tarball_key, **context):
             """Extract plots from an arXiv archive."""
 
@@ -1085,7 +1085,7 @@ def hep_create_dag():
             workflows.delete_empty_key(workflow, "figures")
             s3_store.write_workflow(workflow)
 
-        @task
+        @task(trigger_rule=TriggerRule.ALL_DONE)
         def arxiv_author_list(tarball_key, **context):
             """Extract authors from any author XML found in the arXiv archive.
 
