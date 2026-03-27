@@ -2,8 +2,8 @@ import json
 import uuid
 from urllib.parse import urlparse
 
-from airflow.models import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+from airflow.sdk import Variable
 
 
 class S3JsonStore:

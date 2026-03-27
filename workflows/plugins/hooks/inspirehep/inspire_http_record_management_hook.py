@@ -9,7 +9,7 @@ class InspireHTTPRecordManagementHook(InspireHttpHook):
     def update_record(
         self, data: dict, pid_type: str, control_number: int, revision_id: str
     ) -> Response:
-        update_headers = {**self.headers, "If-Match": f'"{revision_id - 1}"'}
+        update_headers = {"If-Match": f'"{revision_id - 1}"'}
         return self.run_with_advanced_retry(
             _retry_args=self.tenacity_retry_kwargs,
             method="PUT",
@@ -47,7 +47,7 @@ class InspireHTTPRecordManagementHook(InspireHttpHook):
         )
 
     def search_records(self, pid_type: str, query_params: dict) -> Response:
-        search_headers = {**self.headers, "Accept": "application/json"}
+        search_headers = {"Accept": "application/json"}
         response = self.run_with_advanced_retry(
             _retry_args=self.tenacity_retry_kwargs,
             method="GET",

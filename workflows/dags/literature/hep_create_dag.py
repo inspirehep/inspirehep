@@ -7,9 +7,8 @@ from copy import deepcopy
 from tempfile import TemporaryDirectory
 
 from airflow.exceptions import AirflowException, AirflowFailException
-from airflow.models.variable import Variable
 from airflow.providers.standard.operators.empty import EmptyOperator
-from airflow.sdk import Param, dag, task, task_group
+from airflow.sdk import Param, Variable, dag, task, task_group
 from airflow.task.trigger_rule import TriggerRule
 from airflow.utils.edgemodifier import Label
 from hooks.backoffice.workflow_management_hook import (

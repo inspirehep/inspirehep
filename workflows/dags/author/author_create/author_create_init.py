@@ -1,9 +1,8 @@
 import datetime
 import logging
 
-from airflow.models import Variable
 from airflow.providers.standard.operators.trigger_dagrun import TriggerDagRunOperator
-from airflow.sdk import Param, dag, task
+from airflow.sdk import Param, Variable, dag, task
 from author.shared_tasks import set_submission_number
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.backoffice.workflow_ticket_management_hook import (

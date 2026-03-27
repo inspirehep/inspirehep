@@ -1,6 +1,5 @@
 import logging
 
-from airflow.models import Variable
 from hooks.generic_http_hook import GenericHttpHook
 
 logger = logging.getLogger()
@@ -26,13 +25,6 @@ class InspireHttpHook(GenericHttpHook):
 
     def __init__(self, method="GET", http_conn_id="inspire_connection"):
         super().__init__(method=method, http_conn_id=http_conn_id)
-
-    @property
-    def headers(self) -> dict:
-        return {
-            "Authorization": f'Bearer {Variable.get("inspire_token")}',
-            "Accept": "application/vnd+inspire.record.raw+json",
-        }
 
     def get_backoffice_url(self, workflow_type: str, workflow_id: str) -> str:
         self.get_conn()
