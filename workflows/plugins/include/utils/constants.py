@@ -1,3 +1,5 @@
+APS_ARTICLES_ENDPOINT = "/v2/journals/articles"
+
 LITERATURE_PID_TYPE = "literature"
 JOURNALS_PID_TYPE = "journals"
 

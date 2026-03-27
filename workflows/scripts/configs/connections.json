@@ -18,9 +18,9 @@
     "port": null,
     "schema": "",
     "extra": {
-            "Authorization": "Bearer CHANGE_ME",
-            "Accept": "application/vnd+inspire.record.raw+json"
-        }
+      "Authorization": "Bearer CHANGE_ME",
+      "Accept": "application/vnd+inspire.record.raw+json"
+    }
   },
   "hepdata_connection": {
     "conn_type": "http",
@@ -51,10 +51,10 @@
     "port": null,
     "schema": "",
     "extra": {
-            "Authorization": "Token 2e04111a61e8f5ba6ecec52af21bbb9e81732085",
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        }
+      "Authorization": "Token 2e04111a61e8f5ba6ecec52af21bbb9e81732085",
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
   },
   "cds_connection": {
     "conn_type": "http",
@@ -122,6 +122,16 @@
     "schema": "",
     "extra": {"endpoint_url":"http://s3:9000","service_config":{"s3": {"bucket_name": "elsevier-store"}}}
   },
+  "s3_aps_conn": {
+    "conn_type": "aws",
+    "description": "Used for APS harvesting storage",
+    "login": "airflow",
+    "password": "airflow-inspire",
+    "host": "s3",
+    "port": 9000,
+    "schema": "",
+    "extra": {"endpoint_url":"http://s3:9000","service_config":{"s3": {"bucket_name": "aps-store"}}}
+  },
   "ieee_ftp": {
     "conn_type": "ftp",
     "description": "ieee_harvest",
@@ -151,5 +161,17 @@
     "port": null,
     "schema": "",
     "extra": {"x-els-api-key": "CHANGE_ME"}
+  },
+  "aps_conn": {
+    "conn_type": "http",
+    "description": "APS harvest connection",
+    "login": "",
+    "password": null,
+    "host": "http://harvest.aps.org",
+    "port": null,
+    "schema": "",
+    "extra": {
+      "Authorization": "Bearer CHANGE_ME"
+    }
   }
 }

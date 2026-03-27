@@ -63,6 +63,7 @@ jobs:
           -e AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@127.0.0.1:5432/airflow
           -e AIRFLOW_CONN_S3_CONN="aws://airflow:airflow-inspire@localhost:9000/?__extra__=%7B%22endpoint_url%22%3A+%22http%3A%2F%2Flocalhost%3A9000%22%2C+%22service_config%22%3A+%7B%22s3%22%3A+%7B%22bucket_name%22%3A+%22data-store%22%7D%7D%7D"
           -e AIRFLOW_CONN_S3_ELSEVIER_CONN="aws://airflow:airflow-inspire@localhost:9000/?__extra__=%7B%22endpoint_url%22%3A+%22http%3A%2F%2Flocalhost%3A9000%22%2C+%22service_config%22%3A+%7B%22s3%22%3A+%7B%22bucket_name%22%3A+%22elsevier-store%22%7D%7D%7D"
+          -e AIRFLOW_CONN_S3_APS_CONN="aws://airflow:airflow-inspire@localhost:9000/?__extra__=%7B%22endpoint_url%22%3A+%22http%3A%2F%2Flocalhost%3A9000%22%2C+%22service_config%22%3A+%7B%22s3%22%3A+%7B%22bucket_name%22%3A+%22aps-store%22%7D%7D%7D"
           -e AIRFLOW__CELERY__BROKER_URL=redis://:@127.0.0.1:6379/0
           -e AIRFLOW__CORE__FERNET_KEY=""
           -e AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION="true"
