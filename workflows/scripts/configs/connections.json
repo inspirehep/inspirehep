@@ -17,7 +17,10 @@
     "host": "http://host.docker.internal:8080",
     "port": null,
     "schema": "",
-    "extra": ""
+    "extra": {
+            "Authorization": "Bearer CHANGE_ME",
+            "Accept": "application/vnd+inspire.record.raw+json"
+        }
   },
   "hepdata_connection": {
     "conn_type": "http",
@@ -47,7 +50,11 @@
     "host": "http://host.docker.internal:8001",
     "port": null,
     "schema": "",
-    "extra": ""
+    "extra": {
+            "Authorization": "Token 2e04111a61e8f5ba6ecec52af21bbb9e81732085",
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
   },
   "cds_connection": {
     "conn_type": "http",

@@ -3,6 +3,7 @@ import contextlib
 from airflow.cli.commands import task_command
 from airflow.exceptions import AirflowSkipException
 from airflow.models.xcom import LazyXComSelectSequence
+from airflow.sdk import Variable
 from airflow.sdk.definitions.dag import _run_task
 from airflow.utils.cli import get_bagged_dag, get_db_dag
 from airflow.utils.state import TaskInstanceState
@@ -156,3 +157,10 @@ def get_inspire_http_record(pid_type, control_number):
 
 def initialize_s3_store(s3_store):
     function_test(s3_store.initialize)
+
+
+def get_variable(variable_key):
+    return function_test(
+        Variable.get,
+        params={"key": variable_key},
+    )

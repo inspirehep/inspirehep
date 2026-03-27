@@ -2,8 +2,7 @@ import datetime
 import logging
 
 from airflow.exceptions import AirflowException
-from airflow.models import Variable
-from airflow.sdk import Param, dag, task, task_group
+from airflow.sdk import Param, Variable, dag, task, task_group
 from airflow.sdk.execution_time.macros import ds_add
 from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_record_management_hook import (
@@ -39,7 +38,9 @@ def data_harvest_dag():
     """
     generic_http_hook = GenericHttpHook(http_conn_id="hepdata_connection")
 
-    data_schema = Variable.get("data_schema")
+    @task
+    def get_data_schema(**context):
+        return Variable.get("data_schema")
 
     @task(task_id="collect_ids")
     def collect_ids(**context):
@@ -171,6 +172,7 @@ def data_harvest_dag():
             )
             return response.json()
 
+        data_schema = get_data_schema()
         hepdata_record_versions = download_record_versions(record_id)
         record = build_record(data_schema=data_schema, payload=hepdata_record_versions)
         record = normalize_collaborations(record)

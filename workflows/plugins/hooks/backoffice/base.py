@@ -1,4 +1,3 @@
-from airflow.models import Variable
 from hooks.generic_http_hook import GenericHttpHook
 
 
@@ -20,8 +19,4 @@ class BackofficeHook(GenericHttpHook):
         headers: dict = None,
     ) -> None:
         super().__init__(method=method, http_conn_id=http_conn_id)
-        self.headers = headers or {
-            "Authorization": f'Token {Variable.get("backoffice_token")}',
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-        }
+        self.headers = headers or {}
