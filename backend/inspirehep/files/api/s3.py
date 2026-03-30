@@ -60,7 +60,10 @@ class S3:
         :param url: the given url.
         :return: boolean
         """
-        return S3.is_s3_url(url) and current_app.config.get("S3_BUCKET_PREFIX") in url
+        return S3.is_s3_url(url) and (
+            current_app.config.get("S3_BUCKET_PREFIX") in url
+            or current_app.config.get("S3_AIRFLOW_BUCKET_PREFIX") in url
+        )
 
     def is_public_url(self, url):
         """Checks if the url is an file public url
