@@ -1345,7 +1345,7 @@ def hep_create_dag():
 
             workflows.save_workflow(workflow_data)
 
-        @task
+        @task.short_circuit
         def await_merge_conflicts_resolved(**context):
             workflow_id = context["params"]["workflow_id"]
             workflow_data = workflow_management_hook.get_workflow(workflow_id)
