@@ -169,7 +169,7 @@ pybtex==0.22.2; (python_version >= "2.7" and python_full_version < "3.0.0") or (
 pycountry==17.9.23
 pycparser==2.19; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.6"
 pydispatcher==2.0.5; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
-pygments==2.5.2; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"
+pygments==2.20.0; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"
 pyhamcrest==2.0.0; python_version >= "3.5" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.5"
 pyjwt==1.7.1
 pylatexenc==2.10
