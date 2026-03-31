@@ -115,4 +115,30 @@ describe('WorkflowResultItem component for Literature', () => {
     expect(screen.queryByText(/Number of Pages/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Public notes/i)).not.toBeInTheDocument();
   });
+
+  it('shows the resolve conflicts button for approval merge workflows', () => {
+    const item = fromJS({
+      id: 'workflow-1',
+      workflow_type: WorkflowTypes.HEP_CREATE,
+      status: WorkflowStatuses.APPROVAL_MERGE,
+      data: fromJS({
+        titles: fromJS([{ title: 'Merge candidate title' }]),
+        inspire_categories: fromJS([{ term: 'hep-ph' }]),
+      }),
+    });
+
+    renderWithProviders(<WorkflowResultItem item={item} />, {
+      route: BACKOFFICE_LITERATURE_SEARCH,
+    });
+
+    const resolveConflictsButton = screen.getByRole('link', {
+      name: /Resolve conflicts/i,
+    });
+
+    expect(resolveConflictsButton).toBeInTheDocument();
+    expect(resolveConflictsButton).toHaveAttribute(
+      'href',
+      '/editor/backoffice/literature/workflow-1'
+    );
+  });
 });

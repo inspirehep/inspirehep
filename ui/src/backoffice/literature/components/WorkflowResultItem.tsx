@@ -171,6 +171,7 @@ const WorkflowResultItem = ({
                 handleResolveAction={handleResolveAction}
                 isFullCoverage={isFullCoverage}
                 isSubmitted={isSubmitted}
+                workflowId={workflowId}
               />
               <LiteratureReferenceCount
                 referenceCount={referenceCount}
