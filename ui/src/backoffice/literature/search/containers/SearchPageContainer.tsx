@@ -197,7 +197,7 @@ const LiteratureSearchPageContainer = ({
 
   useEffect(() => {
     setSelectedWorkflowIds(new Set());
-  }, [selectedStatus]);
+  }, [query]);
 
   const renderAggregations = () => (
     <LoadingOrChildren loading={loadingAggregations}>
