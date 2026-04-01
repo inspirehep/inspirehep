@@ -48,7 +48,12 @@ def process_package(package_key, s3_store, submission_number, workflow_managemen
 
 
 def process_article(
-    file_name, xml_text, submission_number, s3_store, workflow_management_hook
+    file_name,
+    xml_text,
+    submission_number,
+    s3_store,
+    workflow_management_hook,
+    push_to_s3=True,
 ):
     parser = ElsevierParser(xml_text)
     try:
@@ -61,20 +66,21 @@ def process_article(
             return
 
         file_key = f"articles/{doi}.xml"
-        s3_store.hook.load_string(xml_text, file_key, replace=True)
+        if push_to_s3:
+            s3_store.hook.load_string(xml_text, file_key, replace=True)
 
         document_url = s3_store.key_to_s3_url(file_key)
 
         parser.attach_fulltext_document(file_key, document_url)
-        record = parser.parse()
-        record["acquisition_source"] = {
-            "source": "Elsevier",
-            "method": "hepcrawl",
-            "datetime": datetime.datetime.now().isoformat(),
-            "submission_number": submission_number,
-        }
+        parser.parse()
+        parser.builder.add_acquisition_source(
+            source="Elsevier",
+            method="hepcrawl",
+            datetime=datetime.datetime.now().isoformat(),
+            submission_number=submission_number,
+        )
         workflow_management_hook.post_workflow(
-            workflow_data={"data": record, "workflow_type": HEP_CREATE}
+            workflow_data={"data": parser.builder.record, "workflow_type": HEP_CREATE}
         )
     except Exception as e:
         return {"doi": doi, "file": file_name, "error": str(e)}

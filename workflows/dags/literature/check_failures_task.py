@@ -18,6 +18,10 @@ def check_failures(failed_record_key, s3_conn="s3_conn"):
     """
     s3_store = S3JsonStore(aws_conn_id=s3_conn)
 
+    if failed_record_key is None:
+        logger.info("No failed record key provided, no records to check.")
+        return
+
     failed_records = []
 
     record_data = s3_store.read_object(failed_record_key)
