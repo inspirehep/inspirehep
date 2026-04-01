@@ -1084,7 +1084,7 @@ def hep_create_dag():
             workflows.delete_empty_key(workflow, "figures")
             s3_store.write_workflow(workflow)
 
-        @task(trigger_rule=TriggerRule.ALL_DONE)
+        @task(trigger_rule=TriggerRule.ALL_DONE_MIN_ONE_SUCCESS)
         def arxiv_author_list(tarball_key, **context):
             """Extract authors from any author XML found in the arXiv archive.
 
