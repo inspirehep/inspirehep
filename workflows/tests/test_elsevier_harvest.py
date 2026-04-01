@@ -1,9 +1,11 @@
 import uuid
+import zipfile
 from io import BytesIO
 from unittest.mock import Mock, patch
 from urllib.parse import urlparse
 
 import pytest
+from include.utils.elsevier import process_article
 
 from tests.test_utils import task_test
 
@@ -11,6 +13,38 @@ from tests.test_utils import task_test
 @pytest.mark.usefixtures("_s3_store")
 @pytest.mark.parametrize("_s3_store", ["s3_elsevier_conn"], indirect=True)
 class TestElsevierHarvest:
+    def test_process_article(self, datadir):
+        zip_file = "117653164249626153-00001-FULL-XML-VACUUM (0042-207X) 1.7.14.ZIP"
+
+        with zipfile.ZipFile(datadir / zip_file) as zip_package:
+            file_name = (
+                "0042-207X/S0042207X26X20012/S0042207X26001600/" "S0042207X26001600.xml"
+            )
+            xml_text = zip_package.read(file_name).decode("utf-8", errors="ignore")
+
+        workflow_management_hook = Mock()
+
+        failed_record = process_article(
+            file_name=file_name,
+            xml_text=xml_text,
+            submission_number="42",
+            s3_store=self.s3_store,
+            workflow_management_hook=workflow_management_hook,
+        )
+
+        assert failed_record is None
+        article_file = "10.1016/j.vacuum.2026.115222.xml"
+        assert self.s3_store.hook.read_key(f"articles/{article_file}") == xml_text
+        assert workflow_management_hook.post_workflow.call_count == 1
+        assert (
+            urlparse(
+                workflow_management_hook.post_workflow.call_args.kwargs[
+                    "workflow_data"
+                ]["data"]["documents"][0]["url"]
+            ).path
+            == f"/{self.s3_store.bucket_name}/articles/{article_file}"
+        )
+
     @patch("hooks.generic_http_hook.GenericHttpHook.call_api")
     def test_fetch_package_feed(self, mock_call_api):
         mock_response = Mock()

@@ -79,3 +79,12 @@ class TestUtilsHarvests:
                 params={"failed_record_keys": s3_key},
             )
         assert "The following records failed: ['record']" in str(exc_info.value)
+
+    def test_check_failures_no_key(self):
+        s3_key = None
+
+        task_test(
+            dag_id="arxiv_harvest_dag",
+            task_id="check_failures",
+            params={"failed_record_keys": s3_key},
+        )
