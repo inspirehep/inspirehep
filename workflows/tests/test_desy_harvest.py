@@ -1,53 +1,12 @@
-import os
 from unittest.mock import patch
 
 import pytest
 from airflow.exceptions import AirflowException, AirflowSkipException
-from airflow.sdk import Variable
 from airflow.utils.cli import get_bagged_dag
-from include.utils.s3 import S3JsonStore
 from tenacity import Future, RetryError
 
 
-@pytest.fixture(scope="class")
-def _desy_env():
-    test_dict = {
-        "AIRFLOW_CONN_S3_ELSEVIER_CONN": "aws://airflow:airflow-inspire@/?endpoint_url=http%3A%2F%2Fs3%3A9000",
-        "AIRFLOW_VAR_S3_DESY_INPUT_BUCKET_NAME": "test-desy-incoming",
-        "AIRFLOW_VAR_S3_DESY_OUTPUT_BUCKET_NAME": "test-desy-processed",
-    }
-
-    override_dict = {
-        key: os.environ.get(key, value)
-        for key, value in test_dict.items()
-        if key not in os.environ
-    }
-
-    with patch.dict(
-        os.environ,
-        override_dict,
-    ):
-        yield
-
-
-@pytest.fixture(scope="class")
-def s3_create_desy_test_buckets(request):
-    desy_input_bucket = Variable.get("s3_desy_input_bucket_name")
-    request.cls.input_bucket = desy_input_bucket
-    request.cls.output_bucket = Variable.get("s3_desy_output_bucket_name")
-    request.cls.s3_store = S3JsonStore(
-        "s3_elsevier_conn", bucket_name=desy_input_bucket
-    )
-    request.cls.s3_store.hook.create_bucket("test-desy-incoming")
-    request.cls.s3_store.hook.create_bucket("test-desy-processed")
-
-    yield request.cls.s3_store
-
-    request.cls.s3_store.hook.delete_bucket("test-desy-incoming", force_delete=True)
-    request.cls.s3_store.hook.delete_bucket("test-desy-processed", force_delete=True)
-
-
-@pytest.mark.usefixtures("_desy_env", "s3_create_desy_test_buckets")
+@pytest.mark.usefixtures("s3_desy_env")
 @patch("hooks.backoffice.workflow_management_hook.WorkflowManagementHook.post_workflow")
 class TestDesyHarvestDag:
     dag = get_bagged_dag(None, dag_id="desy_harvest_dag")

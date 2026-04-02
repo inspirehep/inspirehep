@@ -4,10 +4,8 @@ import pytest
 from airflow.sdk import Variable
 from include.utils.s3 import S3JsonStore
 
-from tests.test_utils import function_test
 
-
-@pytest.mark.usefixtures("_s3_store")
+@pytest.mark.usefixtures("s3_desy_env")
 class TestS3Hook:
     def test_read_write_s3(self):
         self.s3_store.write_object({"test": "data"}, key="test_key")
@@ -49,35 +47,32 @@ class TestS3Hook:
         assert self.s3_store.key_to_s3_url(key) == expected_url
 
     def test_move_all_files_for_subdirectory(self):
-        def _test_move_all_files_for_subdirectory():
-            src_bucket = Variable.get("s3_desy_input_bucket_name")
-            dest_bucket = Variable.get("s3_desy_output_bucket_name")
+        src_bucket = Variable.get("s3_desy_input_bucket_name")
+        dest_bucket = Variable.get("s3_desy_output_bucket_name")
 
-            s3_publisher_store = S3JsonStore("s3_elsevier_conn", src_bucket)
+        s3_publisher_store = S3JsonStore("s3_elsevier_conn", src_bucket)
 
-            subdir = f"test-subdir-{str(uuid.uuid4())}/"
+        subdir = f"test-subdir-{str(uuid.uuid4())}/"
 
-            nb_files = 3
+        nb_files = 3
 
-            for i in range(nb_files):
-                s3_publisher_store.write_object(
-                    {"test": f"data{i}"},
-                    key=f"{subdir}file{i}.json",
-                    bucket_name=src_bucket,
-                )
-
-            s3_publisher_store.move_all_files_for_subdirectory(
-                subdir, src_bucket, dest_bucket
+        for i in range(nb_files):
+            s3_publisher_store.write_object(
+                {"test": f"data{i}"},
+                key=f"{subdir}file{i}.json",
+                bucket_name=src_bucket,
             )
 
-            dest_objects = s3_publisher_store.hook.list_keys(
-                prefix=subdir, bucket_name=dest_bucket
-            )
-            assert len(dest_objects) == nb_files
+        s3_publisher_store.move_all_files_for_subdirectory(
+            subdir, src_bucket, dest_bucket
+        )
 
-            src_objects = s3_publisher_store.hook.list_keys(
-                prefix=subdir, bucket_name=src_bucket
-            )
-            assert src_objects == []
+        dest_objects = s3_publisher_store.hook.list_keys(
+            prefix=subdir, bucket_name=dest_bucket
+        )
+        assert len(dest_objects) == nb_files
 
-        function_test(_test_move_all_files_for_subdirectory)
+        src_objects = s3_publisher_store.hook.list_keys(
+            prefix=subdir, bucket_name=src_bucket
+        )
+        assert src_objects == []

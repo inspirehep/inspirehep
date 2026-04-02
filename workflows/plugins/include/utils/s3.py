@@ -88,7 +88,7 @@ class S3JsonStore:
         )
 
     def get_default_bucket_name(self):
-        return self.hook.get_bucket().name
+        return self.bucket_name or self.hook.get_bucket().name
 
     def move_all_files_for_subdirectory(self, prefix, src_bucket, dest_bucket):
         prefix_keys = self.hook.list_keys(src_bucket, prefix)
