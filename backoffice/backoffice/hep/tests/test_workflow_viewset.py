@@ -352,7 +352,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         response = self.api_client.post(url, format="json", data=data)
         self.assertEqual(response.status_code, 502)
         self.workflow.refresh_from_db()
-        self.assertEqual(self.workflow.decisions.exists(), False)
+        self.assertTrue(self.workflow.decisions.exists())
 
     @patch("backoffice.common.airflow_utils.requests.post")
     def test_batch_resolve(self, mock_post):
@@ -391,7 +391,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(mock_post.call_count, len(wfs_ids))
 
     @patch("backoffice.common.airflow_utils.requests.post")
-    def test_batch_resolve_exception_partial_rollback(self, mock_post):
+    def test_batch_resolve_exception_partial_success(self, mock_post):
         response_ok = Mock(
             status_code=200,
             content=b"",
@@ -426,14 +426,12 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
 
         for wf_id, success in zip(wfs_ids, wf_resolve_success):
             workflow = HepWorkflow.objects.get(id=wf_id)
+            self.assertEqual(
+                workflow.decisions.first().action, HepResolutions.hep_accept
+            )
             if success:
-                self.assertEqual(
-                    workflow.decisions.first().action, HepResolutions.hep_accept
-                )
                 self.assertEqual(workflow.status, HepStatusChoices.RUNNING)
-
             else:
-                self.assertFalse(workflow.decisions.exists())
                 self.assertEqual(workflow.status, HepStatusChoices.APPROVAL)
 
     @pytest.mark.vcr
