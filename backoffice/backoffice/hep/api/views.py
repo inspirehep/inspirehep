@@ -215,6 +215,14 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
             airflow_utils.clear_airflow_dag_run(
                 dag_id, str(workflow.id), only_failed=only_failed
             )
+            workflow.decisions.all().delete()
+            if workflow.workflow_type in (
+                HepWorkflowType.HEP_CREATE,
+                HepWorkflowType.HEP_UPDATE,
+            ):
+                workflow.workflow_type = HepWorkflowType.HEP_CREATE
+            else:
+                workflow.workflow_type = HepWorkflowType.HEP_PUBLISHER_CREATE
             workflow.status = (
                 HepStatusChoices.RUNNING if only_failed else HepStatusChoices.PROCESSING
             )

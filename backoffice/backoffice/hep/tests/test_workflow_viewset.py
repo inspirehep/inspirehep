@@ -490,6 +490,11 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.content, self.status_code = airflow_utils.trigger_airflow_dag(
             dag_id, str(self.workflow.id)
         )
+        HepDecision.objects.create(
+            workflow=self.workflow, user=self.user, action=HepResolutions.hep_accept
+        )
+        self.workflow.workflow_type = HepWorkflowType.HEP_UPDATE
+        self.workflow.save(update_fields=["workflow_type"])
 
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
@@ -503,6 +508,41 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(response.status_code, 200)
         self.workflow.refresh_from_db()
         self.assertEqual(self.workflow.status, HepStatusChoices.RUNNING)
+        self.assertEqual(self.workflow.workflow_type, HepWorkflowType.HEP_CREATE)
+        self.assertFalse(self.workflow.decisions.exists())
+
+        airflow_utils.delete_workflow_dag(dag_id, self.workflow.id)
+
+    @pytest.mark.vcr
+    def test_restart_publisher_update_resets_to_publisher_create(self):
+        self.workflow.workflow_type = HepWorkflowType.HEP_PUBLISHER_UPDATE
+        self.workflow.save(update_fields=["workflow_type"])
+
+        dag_id = WORKFLOW_DAGS[self.workflow.workflow_type].initialize
+
+        self.content, self.status_code = airflow_utils.trigger_airflow_dag(
+            dag_id, str(self.workflow.id)
+        )
+        HepDecision.objects.create(
+            workflow=self.workflow, user=self.user, action=HepResolutions.hep_accept
+        )
+
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-restart",
+            kwargs={"pk": self.workflow.id},
+        )
+        data = {
+            "restart_current_task": True,
+        }
+        response = self.api_client.post(url, format="json", data=data)
+        self.assertEqual(response.status_code, 200)
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, HepStatusChoices.RUNNING)
+        self.assertEqual(
+            self.workflow.workflow_type, HepWorkflowType.HEP_PUBLISHER_CREATE
+        )
+        self.assertFalse(self.workflow.decisions.exists())
 
         airflow_utils.delete_workflow_dag(dag_id, self.workflow.id)
 

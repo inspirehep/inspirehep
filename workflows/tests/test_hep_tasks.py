@@ -29,6 +29,7 @@ from include.utils.constants import (
     STATUS_COMPLETED,
     STATUS_MISSING_SUBJECT_FIELDS,
     STATUS_RUNNING,
+    TICKET_HEP_CURATION,
     TICKET_HEP_CURATION_CORE,
     TICKET_HEP_SUBMISSION,
 )
@@ -4143,6 +4144,46 @@ class Test_HEPCreateDAG:
             dag_params=self.context["params"],
         )
         assert mock_create_ticket.call_count == 0
+
+    @patch("hooks.inspirehep.inspire_http_hook.InspireHttpHook.create_ticket")
+    @patch(
+        "hooks.backoffice.workflow_ticket_management_hook.LiteratureWorkflowTicketManagementHook.create_ticket_entry"
+    )
+    def test_notify_curator_if_needed_ticket_exists(
+        self, mock_create_ticket_entry, mock_create_ticket
+    ):
+        workflow_data = {
+            "id": self.workflow_id,
+            "tickets": [
+                {
+                    "ticket_type": TICKET_HEP_CURATION,
+                    "ticket_id": "existing-ticket-id",
+                }
+            ],
+            "data": {
+                "acquisition_source": {
+                    "method": "submitter",
+                    "source": "submitter",
+                },
+                "authors": [
+                    {
+                        "full_name": "author 1",
+                        "raw_affiliations": [{"value": "France"}],
+                    }
+                ],
+            },
+        }
+        self.s3_store.write_workflow(workflow_data)
+        self.s3_store.set_flags({"is-update": False}, self.workflow_id)
+
+        task_test(
+            "hep_create_dag",
+            "notify_curator_if_needed",
+            dag_params=self.context["params"],
+        )
+
+        mock_create_ticket.assert_not_called()
+        mock_create_ticket_entry.assert_not_called()
 
     @patch("include.utils.workflows.get_fulltext", return_value="france")
     @patch("hooks.inspirehep.inspire_http_hook.InspireHttpHook.create_ticket")

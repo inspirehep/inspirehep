@@ -79,6 +79,7 @@ from include.utils.constants import (
     STATUS_COMPLETED,
     STATUS_MISSING_SUBJECT_FIELDS,
     STATUS_RUNNING,
+    TICKET_HEP_CURATION,
     TICKET_HEP_CURATION_CORE,
     TICKET_HEP_SUBMISSION,
 )
@@ -1691,7 +1692,7 @@ def hep_create_dag():
 
         is_update = s3_store.get_flag("is-update", workflow_id)
 
-        if is_update:
+        if is_update or get_ticket_by_type(workflow_data, TICKET_HEP_CURATION):
             return
 
         data = workflow_data["data"]
@@ -1719,7 +1720,7 @@ def hep_create_dag():
 
             LiteratureWorkflowTicketManagementHook().create_ticket_entry(
                 workflow_id=context["params"]["workflow_id"],
-                ticket_type=TICKET_HEP_CURATION_CORE,
+                ticket_type=TICKET_HEP_CURATION,
                 ticket_id=ticket_id,
             )
 
