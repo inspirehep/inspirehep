@@ -6,8 +6,8 @@ from unittest.mock import Mock, patch
 from urllib.parse import urlparse
 
 import pytest
-from airflow.exceptions import AirflowException, AirflowFailException
 from airflow.models import DagBag
+from airflow.sdk.exceptions import AirflowException, AirflowFailException
 from botocore.exceptions import ClientError
 from include.utils import s3, workflows
 from include.utils.constants import (

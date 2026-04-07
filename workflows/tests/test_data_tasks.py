@@ -1,3 +1,5 @@
+from urllib.parse import urlparse
+
 import orjson
 import pytest
 
@@ -41,7 +43,6 @@ class TestDataHarvest:
         )
         assert res == [2693068, 2807749, 2809112]
 
-    @pytest.mark.xfail(reason="To be fixed in airflow 3.2 - See #1226")
     @pytest.mark.vcr
     def test_download_record_versions(self):
         id = "1906174"
@@ -54,9 +55,8 @@ class TestDataHarvest:
         )
         assert res["base"]["record"]["inspire_id"] == id
         assert res["base"]["record"]["version"] == 3
-        assert all(value in res for value in [1, 2])
+        assert all(value in res for value in ["1", "2"])
 
-    @pytest.mark.xfail(reason="To be fixed in airflow 3.2 - See #1226")
     def test_build_record(self, datadir):
         payload = {
             "1": orjson.loads((datadir / "ins1906174_version1.json").read_text()),
@@ -79,13 +79,12 @@ class TestDataHarvest:
         assert res["keywords"][0]["value"] == "cmenergies: 13000.0-13000.0"
         assert res["keywords"][1]["value"] == "observables: m_MMC"
         assert res["keywords"][2]["value"] == "observables: e=mc2"
-
         assert (
             res["urls"][0]["value"] == payload["base"]["record"]["resources"][0]["url"]
         )
         assert (
-            res["literature"][0]["record"]["$ref"]
-            == "https://inspirehep.net/api/literature/1906174"
+            urlparse(res["literature"][0]["record"]["$ref"]).path
+            == "/api/literature/1906174"
         )
 
         result = sorted(res["literature"], key=lambda x: x["doi"]["value"])
@@ -121,7 +120,6 @@ class TestDataHarvest:
         # from last_updated_field of first version
         assert res["creation_date"] == "2021-09-06"
 
-    @pytest.mark.xfail(reason="To be fixed in airflow 3.2 - See #1226")
     def test_creation_date_from_last_updated(self, datadir):
         payload = {
             "base": orjson.loads((datadir / "ins1906174_version3.json").read_text())
@@ -137,7 +135,6 @@ class TestDataHarvest:
         )
         assert res["creation_date"] == "2023-11-13"  # from last_updated_field
 
-    @pytest.mark.xfail(reason="To be fixed in airflow 3.2 - See #1226")
     def test_creation_date_fallback(self, datadir):
         payload = {
             "base": orjson.loads((datadir / "ins1906174_version4.json").read_text())
@@ -157,7 +154,6 @@ class TestDataHarvest:
         )  # from creation_date field
 
     @pytest.mark.vcr
-    @pytest.mark.xfail(reason="To be fixed in airflow 3.2 - See #1226")
     def test_load_record_put(self):
         record = {
             "_collections": ["Data"],
@@ -179,7 +175,6 @@ class TestDataHarvest:
         assert json_response
 
     @pytest.mark.vcr
-    @pytest.mark.xfail(reason="To be fixed in airflow 3.2 - See #1226")
     def test_normalize_collaborations(self):
         # test what is returned if collaborations are initally empty
         record = {
@@ -190,6 +185,7 @@ class TestDataHarvest:
             "data_harvest_dag",
             "process_record.normalize_collaborations",
             params={"record": record},
+            map_index=0,
         )
 
         assert "record" in json_response["collaborations"][0]
@@ -198,7 +194,6 @@ class TestDataHarvest:
         )
 
     @pytest.mark.vcr
-    @pytest.mark.xfail(reason="To be fixed in airflow 3.2 - See #1226")
     def test_load_record_post(self):
         record = {
             "_collections": ["Data"],

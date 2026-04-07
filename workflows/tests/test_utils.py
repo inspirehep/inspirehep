@@ -1,10 +1,10 @@
 import contextlib
 
 from airflow.cli.commands import task_command
-from airflow.exceptions import AirflowSkipException
 from airflow.models.xcom import LazyXComSelectSequence
 from airflow.sdk import Variable
 from airflow.sdk.definitions.dag import _run_task
+from airflow.sdk.exceptions import AirflowSkipException
 from airflow.utils.cli import get_bagged_dag, get_db_dag
 from airflow.utils.state import TaskInstanceState
 from hooks.backoffice.workflow_management_hook import (
@@ -44,7 +44,7 @@ def task_test(
 
     if dag_params:
         sdk_dag.params.update(dag_params)
-        scheduler_dag.params.update(dag_params)
+        scheduler_dag.params = scheduler_dag.params.deep_merge(dag_params)
         sdk_task.params.update(dag_params)
         kwargs.update(dag_params)
 

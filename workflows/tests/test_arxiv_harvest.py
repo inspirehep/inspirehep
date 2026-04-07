@@ -1,7 +1,7 @@
 from unittest.mock import Mock, patch
 
 import pytest
-from airflow.exceptions import AirflowException, AirflowSkipException
+from airflow.sdk.exceptions import AirflowException, AirflowSkipException
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.arxiv import build_records, fetch_records
 from sickle.oaiexceptions import NoRecordsMatch

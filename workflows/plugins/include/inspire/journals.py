@@ -1,4 +1,4 @@
-from airflow.exceptions import AirflowException
+from airflow.sdk.exceptions import AirflowException
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )

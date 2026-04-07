@@ -5,7 +5,7 @@ from itertools import chain
 from tempfile import TemporaryDirectory
 
 import requests
-from airflow.exceptions import AirflowException, AirflowFailException
+from airflow.sdk.exceptions import AirflowException, AirflowFailException
 from hooks.backoffice.workflow_management_hook import (
     HEP,
     WorkflowManagementHook,

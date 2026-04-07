@@ -1,8 +1,8 @@
 import datetime
 import logging
 
-from airflow.exceptions import AirflowSkipException
 from airflow.sdk.bases.hook import BaseHook
+from airflow.sdk.exceptions import AirflowSkipException
 from inspire_schemas.parsers.arxiv import ArxivParser
 from sickle import Sickle, oaiexceptions
 

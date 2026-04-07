@@ -1,8 +1,8 @@
 from unittest.mock import patch
 
 import pytest
-from airflow.exceptions import AirflowException
 from airflow.models.variable import Variable
+from airflow.sdk.exceptions import AirflowException
 
 from tests.test_utils import task_test
 
