@@ -1,6 +1,6 @@
 import logging
 
-from airflow.exceptions import AirflowException
+from airflow.sdk.exceptions import AirflowException
 from idutils import is_arxiv
 from include.utils.constants import LITERATURE_PID_TYPE
 from inspire_utils.helpers import force_list

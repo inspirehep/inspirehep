@@ -2,9 +2,9 @@ import datetime
 import logging
 from io import BytesIO
 
-from airflow.exceptions import AirflowException
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.sdk import Param, Variable, dag, task
+from airflow.sdk.exceptions import AirflowException
 from hooks.backoffice.workflow_management_hook import (
     HEP,
 )

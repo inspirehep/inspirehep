@@ -1,7 +1,7 @@
 from unittest.mock import patch
 
 import pytest
-from airflow.exceptions import AirflowException
+from airflow.sdk.exceptions import AirflowException
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.harvests import load_records
 

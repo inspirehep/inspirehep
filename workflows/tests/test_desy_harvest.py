@@ -1,7 +1,7 @@
 from unittest.mock import patch
 
 import pytest
-from airflow.exceptions import AirflowException, AirflowSkipException
+from airflow.sdk.exceptions import AirflowException, AirflowSkipException
 from airflow.utils.cli import get_bagged_dag
 from tenacity import Future, RetryError
 

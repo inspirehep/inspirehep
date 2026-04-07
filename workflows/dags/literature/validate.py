@@ -1,5 +1,5 @@
-from airflow.exceptions import AirflowFailException
 from airflow.sdk import task
+from airflow.sdk.exceptions import AirflowFailException
 from hooks.backoffice.workflow_management_hook import (
     HEP,
     WorkflowManagementHook,

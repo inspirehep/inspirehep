@@ -1,8 +1,8 @@
 import datetime
 import logging
 
-from airflow.exceptions import AirflowSkipException
 from airflow.sdk import Variable, dag, task
+from airflow.sdk.exceptions import AirflowSkipException
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.alerts import FailedDagNotifier
 from include.utils.desy import process_subdirectory

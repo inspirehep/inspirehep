@@ -1,7 +1,7 @@
 import logging
 
-from airflow.exceptions import AirflowException
 from airflow.sdk import task
+from airflow.sdk.exceptions import AirflowException
 from include.utils.s3 import S3JsonStore
 
 logger = logging.getLogger(__name__)
