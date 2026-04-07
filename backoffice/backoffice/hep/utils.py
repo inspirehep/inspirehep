@@ -28,21 +28,20 @@ def add_hep_decision(workflow_id, user, action, value=None):
     return serializer.data
 
 
-@transaction.atomic
 def resolve_workflow(id, data, user):
     logger.info(
         "Restarting HEP DAG Run %s after choice: %s",
         id,
         data["action"],
     )
+    with transaction.atomic():
+        add_hep_decision(
+            id,
+            user,
+            data["action"],
+            data.get("value"),
+        )
     workflow = get_object_or_404(HepWorkflow, pk=id)
-    add_hep_decision(
-        id,
-        user,
-        data["action"],
-        data.get("value"),
-    )
-
     task_to_restart = HepResolutions[data["action"]].label
     if task_to_restart:
         airflow_utils.clear_airflow_dag_tasks(
