@@ -61,6 +61,8 @@ class HepWorkflowSerializer(BaseWorkflowSerializer):
     workflow_type = serializers.ChoiceField(
         choices=[
             HepWorkflowType.HEP_CREATE,
+            HepWorkflowType.HEP_PUBLISHER_CREATE,
+            HepWorkflowType.HEP_PUBLISHER_UPDATE,
             HepWorkflowType.HEP_SUBMISSION,
             HepWorkflowType.HEP_UPDATE,
         ],

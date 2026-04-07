@@ -1,14 +1,18 @@
 import React from 'react';
-import { WorkflowTypes } from '../../constants';
 import UnclickableTag from '../../../common/components/UnclickableTag';
 import Latex from '../../../common/components/Latex';
-import { resolveDecision, filterDecisions } from '../../utils/utils';
+import {
+  resolveDecision,
+  filterDecisions,
+  isLiteratureUpdateWorkflow,
+} from '../../utils/utils';
 
 const LiteratureResultItem = ({ item }: { item: any }) => {
   const data = item?.get('data');
   const title = data?.getIn(['titles', 0, 'title']);
-  const isLiteratureUpdate =
-    item?.get('workflow_type') === WorkflowTypes.HEP_UPDATE;
+  const isLiteratureUpdate = isLiteratureUpdateWorkflow(
+    item?.get('workflow_type')
+  );
   const decisions = item?.get('decisions');
   const filteredDecisions = filterDecisions(decisions);
   const decision = filteredDecisions?.first();

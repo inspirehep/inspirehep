@@ -34,6 +34,14 @@ export const COLLECTIONS = [
     value: WorkflowTypes.HEP_CREATE,
   },
   {
+    key: 'new publisher harvests',
+    value: WorkflowTypes.HEP_PUBLISHER_CREATE,
+  },
+  {
+    key: 'publisher updates',
+    value: WorkflowTypes.HEP_PUBLISHER_UPDATE,
+  },
+  {
     key: 'arxiv updates',
     value: WorkflowTypes.HEP_UPDATE,
   },
@@ -220,6 +228,10 @@ export const isFullCoverageWorkflow = (
   journalCoverage?: string | null
 ) => workflowType === WorkflowTypes.HEP_CREATE && journalCoverage === 'full';
 
+export const isLiteratureUpdateWorkflow = (workflowType?: string | null) =>
+  workflowType === WorkflowTypes.HEP_UPDATE ||
+  workflowType === WorkflowTypes.HEP_PUBLISHER_UPDATE;
+
 export const getWorkflowStatusInfo = (status: string) => {
   const statuses: {
     [key: string]: { icon: JSX.Element; text: string; description: string };
@@ -328,6 +340,10 @@ export const getDag = (workflow_type: string): string | undefined => {
     case WorkflowTypes.AUTHOR_UPDATE:
       return 'author_update_dag';
     case WorkflowTypes.HEP_CREATE:
+      return 'hep_create_dag';
+    case WorkflowTypes.HEP_PUBLISHER_CREATE:
+      return 'hep_create_dag';
+    case WorkflowTypes.HEP_PUBLISHER_UPDATE:
       return 'hep_create_dag';
     case WorkflowTypes.HEP_SUBMISSION:
       return 'hep_create_dag';

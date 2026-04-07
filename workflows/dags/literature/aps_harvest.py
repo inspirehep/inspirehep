@@ -12,7 +12,7 @@ from include.utils.aps import (
     extract_next_params,
     store_record_documents,
 )
-from include.utils.constants import APS_ARTICLES_ENDPOINT, HEP_CREATE
+from include.utils.constants import APS_ARTICLES_ENDPOINT, HEP_PUBLISHER_CREATE
 from include.utils.s3 import S3JsonStore
 from inspire_utils.record import get_value
 from literature.check_failures_task import check_failures
@@ -129,7 +129,10 @@ def aps_harvest_dag():
                     headers=headers,
                 )
                 workflow_management_hook.post_workflow(
-                    workflow_data={"data": record, "workflow_type": HEP_CREATE}
+                    workflow_data={
+                        "data": record,
+                        "workflow_type": HEP_PUBLISHER_CREATE,
+                    }
                 )
             except Exception as exc:
                 logger.warning("Failed to process APS article %s: %s", doi, exc)

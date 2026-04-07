@@ -7,6 +7,8 @@ from backoffice.hep.constants import HepWorkflowType, HepCreateDags
 
 WORKFLOW_DAGS = {
     HepWorkflowType.HEP_CREATE: HepCreateDags,
+    HepWorkflowType.HEP_PUBLISHER_CREATE: HepCreateDags,
+    HepWorkflowType.HEP_PUBLISHER_UPDATE: HepCreateDags,
     HepWorkflowType.HEP_SUBMISSION: HepCreateDags,
     HepWorkflowType.HEP_UPDATE: HepCreateDags,
     AuthorWorkflowType.AUTHOR_CREATE: AuthorCreateDags,

@@ -19,6 +19,8 @@ from include.utils.constants import (
     DECISION_HEP_ACCEPT_CORE,
     DECISION_HEP_REJECT,
     HEP_CREATE,
+    HEP_PUBLISHER_CREATE,
+    HEP_PUBLISHER_UPDATE,
     HEP_UPDATE,
     LITERATURE_PID_TYPE,
     STATUS_APPROVAL,
@@ -2813,6 +2815,50 @@ class Test_HEPCreateDAG:
 
         workflow_backoffice = get_lit_workflow_task(self.workflow_id)
         assert workflow_backoffice["workflow_type"] == HEP_UPDATE
+
+    @pytest.mark.vcr
+    def test_check_is_update_merge_for_publisher_workflow(self):
+        self.s3_store.write_workflow(
+            {"id": self.workflow_id, "workflow_type": HEP_PUBLISHER_CREATE},
+        )
+        result = task_test(
+            "hep_create_dag",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.check_is_update",
+            params={"match_approved_id": 7},
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+        assert (
+            "halt_for_approval_if_new_or_reject_if_not_relevant.merge_articles"
+            in result["followed"]
+        )
+        workflow_result = self.s3_store.read_workflow(self.workflow_id)
+        assert workflow_result["workflow_type"] == HEP_PUBLISHER_UPDATE
+
+        workflow_backoffice = get_lit_workflow_task(self.workflow_id)
+        assert workflow_backoffice["workflow_type"] == HEP_PUBLISHER_UPDATE
+
+    @pytest.mark.vcr
+    def test_check_is_update_merge_for_restarted_publisher_workflow(self):
+        self.s3_store.write_workflow(
+            {"id": self.workflow_id, "workflow_type": HEP_PUBLISHER_UPDATE},
+        )
+        result = task_test(
+            "hep_create_dag",
+            "halt_for_approval_if_new_or_reject_if_not_relevant.check_is_update",
+            params={"match_approved_id": 7},
+            dag_params=self.context["params"],
+            xcom_key="skipmixin_key",
+        )
+        assert (
+            "halt_for_approval_if_new_or_reject_if_not_relevant.merge_articles"
+            in result["followed"]
+        )
+        workflow_result = self.s3_store.read_workflow(self.workflow_id)
+        assert workflow_result["workflow_type"] == HEP_PUBLISHER_UPDATE
+
+        workflow_backoffice = get_lit_workflow_task(self.workflow_id)
+        assert workflow_backoffice["workflow_type"] == HEP_PUBLISHER_UPDATE
 
     def test_check_is_update_none(self):
         result = task_test(

@@ -39,6 +39,8 @@ HEP_DEFAULT_STATUS_CHOICE = HepStatusChoices.PROCESSING
 
 class HepWorkflowType(models.TextChoices):
     HEP_CREATE = "HEP_CREATE", "HEP create"
+    HEP_PUBLISHER_CREATE = "HEP_PUBLISHER_CREATE", "HEP publisher create"
+    HEP_PUBLISHER_UPDATE = "HEP_PUBLISHER_UPDATE", "HEP publisher update"
     HEP_SUBMISSION = "HEP_SUBMISSION", "HEP submission"
     HEP_UPDATE = "HEP_UPDATE", "HEP update"
 

@@ -54,4 +54,44 @@ describe('<WorkflowCard />', () => {
       `${BACKOFFICE_AUTHORS_SEARCH}?workflow_type=${WorkflowTypes.AUTHOR_CREATE}`
     );
   });
+
+  it('renders publisher workflow card with literature route', () => {
+    const type = Map({
+      key: WorkflowTypes.HEP_PUBLISHER_CREATE,
+      doc_count: 4,
+    });
+    const statuses = List([
+      Map({ key: WorkflowStatuses.APPROVAL, doc_count: 1 }),
+    ]);
+
+    renderWithRouter(<WorkflowCard type={type} statuses={statuses} />);
+
+    expect(screen.getByText('new publisher harvests')).toBeInTheDocument();
+
+    const viewAll = screen.getByRole('link', { name: /view all/i });
+    expect(viewAll).toHaveAttribute(
+      'href',
+      `${BACKOFFICE_LITERATURE_SEARCH}?workflow_type=${WorkflowTypes.HEP_PUBLISHER_CREATE}`
+    );
+  });
+
+  it('renders publisher update workflow card with literature route', () => {
+    const type = Map({
+      key: WorkflowTypes.HEP_PUBLISHER_UPDATE,
+      doc_count: 2,
+    });
+    const statuses = List([
+      Map({ key: WorkflowStatuses.RUNNING, doc_count: 1 }),
+    ]);
+
+    renderWithRouter(<WorkflowCard type={type} statuses={statuses} />);
+
+    expect(screen.getByText('publisher updates')).toBeInTheDocument();
+
+    const viewAll = screen.getByRole('link', { name: /view all/i });
+    expect(viewAll).toHaveAttribute(
+      'href',
+      `${BACKOFFICE_LITERATURE_SEARCH}?workflow_type=${WorkflowTypes.HEP_PUBLISHER_UPDATE}`
+    );
+  });
 });

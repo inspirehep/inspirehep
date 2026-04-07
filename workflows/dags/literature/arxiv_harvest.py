@@ -6,6 +6,7 @@ from airflow.sdk.execution_time.macros import ds_add
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.alerts import FailedDagNotifier
 from include.utils.arxiv import build_records, fetch_records
+from include.utils.constants import HEP_CREATE
 from include.utils.harvests import load_records
 from include.utils.s3 import S3JsonStore
 from literature.check_failures_task import check_failures
@@ -96,7 +97,11 @@ def arxiv_harvest_dag():
             xml_records, context["run_id"]
         )
 
-        failed_load_records = load_records(parsed_records, workflow_management_hook)
+        failed_load_records = load_records(
+            parsed_records,
+            workflow_management_hook,
+            workflow_type=HEP_CREATE,
+        )
 
         return s3_json_store.write_object(
             {

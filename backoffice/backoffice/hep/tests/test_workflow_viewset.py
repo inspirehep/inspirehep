@@ -117,6 +117,44 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(json_response["workflow_type"], data["workflow_type"])
         self.assertIn("id", json_response)
 
+    @patch("backoffice.common.airflow_utils.trigger_airflow_dag")
+    def test_create_hep_publisher_workflow(self, mock_trigger_airflow_dag):
+        self.api_client.force_authenticate(user=self.curator)
+        mock_trigger_airflow_dag.return_value = ({}, 200)
+
+        data = {
+            "workflow_type": HepWorkflowType.HEP_PUBLISHER_CREATE,
+            "status": HepStatusChoices.RUNNING,
+            "data": hep_data_valid(),
+        }
+
+        url = reverse("api:hep-list")
+        response = self.api_client.post(url, format="json", data=data)
+        json_response = response.json()
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(json_response["data"], data["data"])
+        self.assertEqual(json_response["workflow_type"], data["workflow_type"])
+        self.assertIn("id", json_response)
+
+    @patch("backoffice.common.airflow_utils.trigger_airflow_dag")
+    def test_create_hep_publisher_update_workflow(self, mock_trigger_airflow_dag):
+        self.api_client.force_authenticate(user=self.curator)
+        mock_trigger_airflow_dag.return_value = ({}, 200)
+
+        data = {
+            "workflow_type": HepWorkflowType.HEP_PUBLISHER_UPDATE,
+            "status": HepStatusChoices.RUNNING,
+            "data": hep_data_valid(),
+        }
+
+        url = reverse("api:hep-list")
+        response = self.api_client.post(url, format="json", data=data)
+        json_response = response.json()
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(json_response["data"], data["data"])
+        self.assertEqual(json_response["workflow_type"], data["workflow_type"])
+        self.assertIn("id", json_response)
+
     @pytest.mark.vcr
     def test_create_hep_with_invalid_data_still_creates_workflow(self):
         self.api_client.force_authenticate(user=self.curator)

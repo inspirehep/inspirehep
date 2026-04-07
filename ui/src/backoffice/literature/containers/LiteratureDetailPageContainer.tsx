@@ -30,6 +30,7 @@ import {
   formatDateTime,
   getDag,
   isFullCoverageWorkflow,
+  isLiteratureUpdateWorkflow,
 } from '../../utils/utils';
 import { isSuperUser } from '../../../common/authorization';
 import { columnsSubject } from './columnData';
@@ -68,7 +69,7 @@ const LiteratureDetailPageContainer = ({
   }, []);
 
   const workflowType = literature?.get('workflow_type');
-  const isLiteratureUpdate = workflowType === WorkflowTypes.HEP_UPDATE;
+  const isLiteratureUpdate = isLiteratureUpdateWorkflow(workflowType);
   const data = literature?.get('data');
   const relevancePrediction = literature?.get('relevance_prediction');
   const referenceCount = literature?.get('reference_count');
