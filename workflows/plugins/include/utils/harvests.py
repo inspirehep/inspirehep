@@ -1,23 +1,28 @@
 import logging
 
-from include.utils.constants import HEP_CREATE
-
 logger = logging.getLogger(__name__)
 
 
-def load_records(parsed_records, workflow_management_hook):
-    """Load the built records to the backoffice.
+def load_records(
+    parsed_records,
+    workflow_management_hook,
+    workflow_type,
+):
+    """Load built records into backoffice workflows.
+
     Args:
-        parsed_records (list): The list of built records.
-        workflow_management_hook: The workflow management hook to use.
+        parsed_records (list): Built records to load.
+        workflow_management_hook: Hook used to create workflows in backoffice.
+        workflow_type (str): Workflow type assigned to each created workflow.
+
     Returns:
-        list: The list of failed to load records.
+        list: Records that failed to load.
     """
     failed_load_records = []
     for record in parsed_records:
         workflow_data = {
             "data": record,
-            "workflow_type": HEP_CREATE,
+            "workflow_type": workflow_type,
         }
         try:
             workflow_management_hook.post_workflow(

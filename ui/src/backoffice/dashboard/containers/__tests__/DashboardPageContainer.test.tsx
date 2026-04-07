@@ -29,8 +29,16 @@ describe('DashboardPageContainer', () => {
                 doc_count: 7,
               },
               {
-                key: 'HEP_CREATE',
+                key: WorkflowTypes.HEP_CREATE,
                 doc_count: 5,
+              },
+              {
+                key: WorkflowTypes.HEP_PUBLISHER_CREATE,
+                doc_count: 2,
+              },
+              {
+                key: WorkflowTypes.HEP_PUBLISHER_UPDATE,
+                doc_count: 1,
               },
             ]),
           }),

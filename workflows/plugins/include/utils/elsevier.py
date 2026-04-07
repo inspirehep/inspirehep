@@ -4,7 +4,7 @@ import zipfile
 from io import BytesIO
 from xml.etree import ElementTree
 
-from include.utils.constants import HEP_CREATE
+from include.utils.constants import HEP_PUBLISHER_CREATE
 from inspire_schemas.parsers.elsevier import ElsevierParser
 
 logger = logging.getLogger(__name__)
@@ -80,7 +80,10 @@ def process_article(
             submission_number=submission_number,
         )
         workflow_management_hook.post_workflow(
-            workflow_data={"data": parser.builder.record, "workflow_type": HEP_CREATE}
+            workflow_data={
+                "data": parser.builder.record,
+                "workflow_type": HEP_PUBLISHER_CREATE,
+            }
         )
     except Exception as e:
         return {"doi": doi, "file": file_name, "error": str(e)}

@@ -3,6 +3,7 @@ import json
 import logging
 from urllib.parse import urlparse
 
+from include.utils.constants import HEP_PUBLISHER_CREATE
 from include.utils.harvests import load_records
 
 logger = logging.getLogger(__name__)
@@ -77,7 +78,11 @@ def process_subdirectory(
         subdirectory_name, input_bucket, output_bucket
     )
 
-    failed_load_records = load_records(json_records, workflow_management_hook)
+    failed_load_records = load_records(
+        json_records,
+        workflow_management_hook,
+        workflow_type=HEP_PUBLISHER_CREATE,
+    )
 
     return {
         "failed_parse_records": failed_parse_records,

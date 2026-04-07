@@ -66,6 +66,8 @@ from include.utils.constants import (
     DECISION_HEP_ACCEPT_CORE,
     DECISION_HEP_REJECT,
     DECISION_MERGE_APPROVE,
+    HEP_PUBLISHER_CREATE,
+    HEP_PUBLISHER_UPDATE,
     HEP_UPDATE,
     LITERATURE_PID_TYPE,
     RUNNING_STATUSES,
@@ -1275,10 +1277,17 @@ def hep_create_dag():
         def check_is_update(match_approved_id, **context):
             if match_approved_id:
                 workflow = s3_store.read_workflow(context["params"]["workflow_id"])
-                workflow["workflow_type"] = HEP_UPDATE
+                is_publisher_workflow = workflow.get("workflow_type") in {
+                    HEP_PUBLISHER_CREATE,
+                    HEP_PUBLISHER_UPDATE,
+                }
+                next_workflow_type = (
+                    HEP_PUBLISHER_UPDATE if is_publisher_workflow else HEP_UPDATE
+                )
+                workflow["workflow_type"] = next_workflow_type
                 s3_store.write_workflow(workflow)
                 workflow_management_hook.partial_update_workflow(
-                    workflow["id"], {"workflow_type": HEP_UPDATE}
+                    workflow["id"], {"workflow_type": next_workflow_type}
                 )
                 return (
                     "halt_for_approval_if_new_or_reject_if_not_relevant.merge_articles"
