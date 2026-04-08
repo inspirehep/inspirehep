@@ -8,12 +8,33 @@ import logging
 
 from backoffice.hep.models import HepWorkflow
 
-from backoffice.hep.constants import HepResolutions, HepStatusChoices
+from backoffice.hep.constants import (
+    HepResolutions,
+    HepStatusChoices,
+    HepWorkflowType,
+)
 from backoffice.common.constants import WORKFLOW_DAGS
 from backoffice.common import airflow_utils
+from inspire_utils.record import get_value
 
 
 logger = logging.getLogger(__name__)
+
+
+def get_restored_hep_workflow_type(workflow):
+    """Return the workflow type to restore based on current type and source data."""
+    method = get_value(workflow.source_data, "acquisition_source.method", "")
+
+    if method == "submitter":
+        return HepWorkflowType.HEP_SUBMISSION
+
+    if workflow.workflow_type in (
+        HepWorkflowType.HEP_PUBLISHER_CREATE,
+        HepWorkflowType.HEP_PUBLISHER_UPDATE,
+    ):
+        return HepWorkflowType.HEP_PUBLISHER_CREATE
+
+    return HepWorkflowType.HEP_CREATE
 
 
 def add_hep_decision(workflow_id, user, action, value=None):

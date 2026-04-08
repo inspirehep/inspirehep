@@ -1,6 +1,13 @@
-from django.test import SimpleTestCase
+from django.test import SimpleTestCase, TestCase
 
-from backoffice.hep.api.serializers import HepBackofficeSearchUISerializer
+from backoffice.hep.api.serializers import (
+    HepBackofficeSearchUISerializer,
+    HepWorkflowSerializer,
+)
+from backoffice.hep.constants import HepStatusChoices, HepWorkflowType
+from django.apps import apps
+
+HepWorkflow = apps.get_model(app_label="hep", model_name="HepWorkflow")
 
 
 class TestHepBackofficeSearchUISerializer(SimpleTestCase):
@@ -32,3 +39,24 @@ class TestHepBackofficeSearchUISerializer(SimpleTestCase):
         self.assertEqual(hit["matches"], [{"control_number": 123}])
         self.assertEqual(hit["relevance_prediction"], "high")
         self.assertEqual(hit["reference_count"], 42)
+
+
+class TestHepWorkflowSerializer(TestCase):
+    def test_create_sets_source_data_from_data(self):
+        payload = {
+            "workflow_type": HepWorkflowType.HEP_CREATE,
+            "status": HepStatusChoices.RUNNING,
+            "data": {
+                "_collections": ["Literature"],
+                "document_type": ["article"],
+                "titles": [{"title": "Original title"}],
+            },
+        }
+
+        serializer = HepWorkflowSerializer(data=payload)
+        serializer.is_valid(raise_exception=True)
+        workflow = serializer.save()
+        workflow.refresh_from_db()
+
+        self.assertEqual(workflow.data, payload["data"])
+        self.assertEqual(workflow.source_data, payload["data"])

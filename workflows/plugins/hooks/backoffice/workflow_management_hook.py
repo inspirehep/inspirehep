@@ -93,6 +93,14 @@ class WorkflowManagementHook(BackofficeHook):
             endpoint=endpoint,
         )
 
+    def restore_workflow(self, workflow_id: str) -> dict:
+        endpoint = f"{self.endpoint}/{workflow_id}/restore/"
+        response = self.call_api(
+            method="POST",
+            endpoint=endpoint,
+        )
+        return response.json()
+
     def block_workflow(self, workflow_id: str, note: str | None) -> Response:
         endpoint = f"{self.endpoint}/{workflow_id}/block/"
         return self.call_api(
