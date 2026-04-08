@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
 from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
 from rest_framework import serializers
@@ -73,14 +75,19 @@ class HepWorkflowSerializer(BaseWorkflowSerializer):
     merge_details = serializers.JSONField(required=False, allow_null=True)
     callback_url = serializers.SerializerMethodField()
 
-    class Meta(BaseWorkflowSerializer.Meta):
+    class Meta:
         model = HepWorkflow
+        exclude = ["source_data"]
 
     def validate_data(self, value):
         """
         Disable BaseWorkflowSerializer schema validation for HepWorkflow.
         """
         return value
+
+    def create(self, validated_data):
+        validated_data["source_data"] = deepcopy(validated_data["data"])
+        return super().create(validated_data)
 
     def get_callback_url(self, instance):
         routes = {

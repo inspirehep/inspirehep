@@ -3,7 +3,12 @@ import logging
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from backoffice.hep.utils import add_hep_decision, resolve_workflow, complete_workflow
+from backoffice.hep.utils import (
+    add_hep_decision,
+    resolve_workflow,
+    complete_workflow,
+    get_restored_hep_workflow_type,
+)
 from backoffice.hep.api.serializers import (
     HepWorkflowSerializer,
     HepWorkflowDocumentSerializer,
@@ -226,6 +231,23 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
                 workflow.id,
                 response_text="Error restarting Airflow DAGs for workflow %s",
             )
+
+        return Response(self.get_serializer(workflow).data)
+
+    @action(detail=True, methods=["post"])
+    def restore(self, request, pk=None):
+        workflow = get_object_or_404(HepWorkflow, pk=pk)
+
+        if workflow.status == HepStatusChoices.COMPLETED:
+            return Response(
+                {"message": "Cannot restore a completed workflow."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        workflow.decisions.all().delete()
+        workflow.data = workflow.source_data
+        workflow.workflow_type = get_restored_hep_workflow_type(workflow)
+
+        workflow.save()
 
         return Response(self.get_serializer(workflow).data)
 

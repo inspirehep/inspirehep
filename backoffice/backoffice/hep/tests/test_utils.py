@@ -1,13 +1,18 @@
 from unittest.mock import Mock, patch
+from types import SimpleNamespace
 import pytest
 import uuid
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.test import TransactionTestCase
 from rest_framework.exceptions import ValidationError
-from backoffice.hep.utils import resolve_workflow, complete_workflow
+from backoffice.hep.utils import (
+    resolve_workflow,
+    complete_workflow,
+    get_restored_hep_workflow_type,
+)
 
-from backoffice.hep.constants import HepStatusChoices, HepResolutions
+from backoffice.hep.constants import HepStatusChoices, HepResolutions, HepWorkflowType
 from backoffice.hep.utils import add_hep_decision
 
 User = get_user_model()
@@ -70,3 +75,33 @@ class TestUtils(TransactionTestCase):
         }
 
         complete_workflow(self.workflow.id, request_data)
+
+    def test_get_restored_hep_workflow_type_for_publisher(self):
+        workflow = SimpleNamespace(
+            workflow_type=HepWorkflowType.HEP_PUBLISHER_UPDATE,
+            source_data={},
+        )
+
+        restored_type = get_restored_hep_workflow_type(workflow)
+
+        self.assertEqual(restored_type, HepWorkflowType.HEP_PUBLISHER_CREATE)
+
+    def test_get_restored_hep_workflow_type_for_submission(self):
+        workflow = SimpleNamespace(
+            workflow_type=HepWorkflowType.HEP_UPDATE,
+            source_data={"acquisition_source": {"method": "submitter"}},
+        )
+
+        restored_type = get_restored_hep_workflow_type(workflow)
+
+        self.assertEqual(restored_type, HepWorkflowType.HEP_SUBMISSION)
+
+    def test_get_restored_hep_workflow_type_for_arxiv(self):
+        workflow = SimpleNamespace(
+            workflow_type=HepWorkflowType.HEP_UPDATE,
+            source_data={},
+        )
+
+        restored_type = get_restored_hep_workflow_type(workflow)
+
+        self.assertEqual(restored_type, HepWorkflowType.HEP_CREATE)

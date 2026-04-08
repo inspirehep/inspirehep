@@ -146,12 +146,31 @@ class Test_HEPCreateDAG:
         assert "$schema" in workflow_result["data"]
         assert self.s3_store.read_object(f"{self.workflow_id}/flags.json") == {}
 
-    @pytest.mark.vcr
-    def test_get_workflow_data(self):
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.restore_workflow"
+    )
+    def test_restore_and_get_workflow_data(self, mock_restore_workflow):
+        restored_workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "Restored title"}],
+                "_collections": ["Literature"],
+                "document_type": ["article"],
+            },
+            "workflow_type": HEP_CREATE,
+            "status": STATUS_RUNNING,
+        }
+        mock_restore_workflow.return_value = restored_workflow_data
+
         res = task_test(
-            "hep_create_dag", "get_workflow_data", dag_params=self.context["params"]
+            "hep_create_dag",
+            "restore_and_get_workflow_data",
+            dag_params=self.context["params"],
         )
+
         assert res == f"{self.workflow_id}/workflow.json"
+        mock_restore_workflow.assert_called_once_with(self.workflow_id)
+        assert self.s3_store.read_workflow(self.workflow_id) == restored_workflow_data
 
     @patch(
         "include.utils.opensearch.find_matching_workflows",

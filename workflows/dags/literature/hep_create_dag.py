@@ -159,8 +159,8 @@ def hep_create_dag():
             raise AirflowException("This DAG will not run on prod")
 
     @task
-    def get_workflow_data(**context):
-        workflow_data = workflow_management_hook.get_workflow(
+    def restore_and_get_workflow_data(**context):
+        workflow_data = workflow_management_hook.restore_workflow(
             context["params"]["workflow_id"]
         )
         return s3_store.write_workflow(workflow_data)
@@ -2006,7 +2006,7 @@ def hep_create_dag():
 
     (
         check_env()
-        >> get_workflow_data()
+        >> restore_and_get_workflow_data()
         >> set_schema_and_flags()
         >> validate_record()
         >> set_workflow_status_to_running()

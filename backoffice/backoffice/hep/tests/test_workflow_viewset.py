@@ -526,3 +526,59 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(
             response.json()["message"], "Cannot restart a completed workflow."
         )
+
+    def test_restore_publisher_workflow(self):
+        source_data = hep_data_valid()
+        updated_data = deepcopy(source_data)
+        updated_data["titles"][0]["title"] = "Changed title"
+        self.workflow.data = updated_data
+        self.workflow.source_data = source_data
+        self.workflow.workflow_type = HepWorkflowType.HEP_PUBLISHER_UPDATE
+        self.workflow.save()
+        HepDecision.objects.create(
+            workflow=self.workflow, user=self.user, action=HepResolutions.hep_accept
+        )
+
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-restore",
+            kwargs={"pk": self.workflow.id},
+        )
+        response = self.api_client.post(url, format="json")
+
+        self.workflow.refresh_from_db()
+        self.assertFalse(self.workflow.decisions.exists())
+        self.assertEqual(response.json()["data"], source_data)
+        self.assertEqual(
+            response.json()["workflow_type"], HepWorkflowType.HEP_PUBLISHER_CREATE
+        )
+
+    def test_restore_submission_workflow(self):
+        source_data = hep_data_valid()
+        source_data["acquisition_source"] = {
+            "source": "submitter",
+            "method": "submitter",
+        }
+        updated_data = deepcopy(source_data)
+        updated_data["titles"][0]["title"] = "Changed title"
+        self.workflow.data = updated_data
+        self.workflow.source_data = source_data
+        self.workflow.workflow_type = HepWorkflowType.HEP_UPDATE
+        self.workflow.save()
+        HepDecision.objects.create(
+            workflow=self.workflow, user=self.user, action=HepResolutions.hep_accept
+        )
+
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-restore",
+            kwargs={"pk": self.workflow.id},
+        )
+        response = self.api_client.post(url, format="json")
+
+        self.workflow.refresh_from_db()
+        self.assertFalse(self.workflow.decisions.exists())
+        self.assertEqual(response.json()["data"], source_data)
+        self.assertEqual(
+            response.json()["workflow_type"], HepWorkflowType.HEP_SUBMISSION
+        )
