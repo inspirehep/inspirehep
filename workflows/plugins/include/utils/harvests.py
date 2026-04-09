@@ -1,5 +1,8 @@
 import logging
 
+from airflow.sdk.bases.hook import BaseHook
+from sickle import Sickle, oaiexceptions
+
 logger = logging.getLogger(__name__)
 
 
@@ -33,3 +36,49 @@ def load_records(
             failed_load_records.append(record)
 
     return failed_load_records
+
+
+def fetch_records_oaipmh(
+    connection_id, metadata_prefix, sets, from_date, until_date=None
+):
+    """Fetch the xml records for the given sets and date range from an OAI-PMH endpoint.
+    Args:
+        connection_id (str): The connection id for the OAI-PMH server.
+        metadata_prefix (str): The metadata prefix to use.
+        sets (list): The sets to fetch records from.
+        from_date (str): The date from which to fetch records (YYYY-MM-DD).
+        until_date (str, optional): The date until which to fetch records (YYYY-MM-DD).
+    Returns:
+        list: A list of xml records.
+    """
+
+    conn = BaseHook.get_connection(connection_id)
+    sickle = Sickle(conn.host, max_retries=5)
+    oaiargs = {
+        "from": from_date,
+        "metadataPrefix": metadata_prefix,
+    }
+
+    if until_date:
+        oaiargs["until"] = until_date
+
+    harvested_records = {}
+
+    for set_name in sets:
+        try:
+            logger.info(
+                f"Collecting records using connection '{connection_id}' "
+                f"({conn.host}) from {from_date} to {until_date} for set '{set_name}'"
+            )
+
+            records = list(sickle.ListRecords(set=set_name, **oaiargs))
+
+        except oaiexceptions.NoRecordsMatch:
+            logger.info(f"No records for '{set_name}'")
+            continue
+
+        logger.info(f"Collected {len(records)} records for set '{set_name}'")
+        for record in records:
+            harvested_records[record.header.identifier] = record
+
+    return [record.raw for record in harvested_records.values()]

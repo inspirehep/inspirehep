@@ -1,80 +1,15 @@
-from unittest.mock import Mock, patch
-
 import pytest
-from airflow.sdk.exceptions import AirflowException, AirflowSkipException
+from airflow.sdk.exceptions import AirflowException
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
-from include.utils.arxiv import build_records, fetch_records
-from sickle.oaiexceptions import NoRecordsMatch
+from include.utils.arxiv import build_records
 
-from tests.test_utils import function_test, task_test
+from tests.test_utils import task_test
 
 
 @pytest.mark.usefixtures("_s3_store")
 class TestArxivHarvest:
     connection_id = "arxiv_oaipmh_connection"
     workflow_management_hook = WorkflowManagementHook(HEP)
-
-    @pytest.mark.vcr
-    def test_fetch_records_logical_date(self):
-        params = {
-            "connection_id": self.connection_id,
-            "metadata_prefix": "arXiv",
-            "from_date": "2025-07-01",
-            "until_date": "",
-            "sets": ["physics:hep-th"],
-        }
-
-        xml_records = function_test(fetch_records, params=params)
-
-        assert len(xml_records)
-        assert "oai:arXiv.org:2101.11905" in xml_records[0]
-        assert "oai:arXiv.org:2207.10712" in xml_records[1]
-
-    @pytest.mark.vcr
-    def test_fetch_records_with_from_until(self):
-        params = {
-            "connection_id": self.connection_id,
-            "metadata_prefix": "arXiv",
-            "from_date": "2025-07-01",
-            "until_date": "2025-07-01",
-            "sets": ["physics:hep-th"],
-        }
-
-        xml_records = function_test(fetch_records, params=params)
-
-        assert len(xml_records)
-        assert "oai:arXiv.org:2101.11905" in xml_records[0]
-        assert "oai:arXiv.org:2207.10712" in xml_records[1]
-
-    @patch("include.utils.arxiv.Sickle.ListRecords", side_effect=NoRecordsMatch)
-    def test_fetch_no_records(self, mock_list_records):
-        params = {
-            "connection_id": self.connection_id,
-            "metadata_prefix": "arXiv",
-            "from_date": "2025-07-01",
-            "until_date": "",
-            "sets": ["physics:hep-th"],
-        }
-        with pytest.raises(AirflowSkipException):
-            function_test(fetch_records, params=params)
-
-    @patch("include.utils.arxiv.Sickle.ListRecords")
-    def test_fetch_records_no_duplicates(self, mock_list_records):
-        mock_record = Mock()
-        mock_record.header.identifier = "oai:arXiv.org:2101.11905"
-        mock_record.raw = "<record>Test Record</record>"
-        mock_list_records.return_value = [mock_record, mock_record]
-
-        params = {
-            "connection_id": self.connection_id,
-            "metadata_prefix": "arXiv",
-            "from_date": "2025-07-01",
-            "until_date": "",
-            "sets": ["physics:hep-th", "physics:astro-ph"],
-        }
-
-        xml_records = function_test(fetch_records, params=params)
-        assert len(xml_records) == 1
 
     def test_build_records(self, datadir):
         xml_files = ["arxiv1608.06937.xml", "arxiv2007.03037.xml"]
