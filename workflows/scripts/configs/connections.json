@@ -1,14 +1,4 @@
 {
-  "inspire_connection_qa": {
-    "conn_type": "http",
-    "description": "",
-    "login": "",
-    "password": null,
-    "host": "https://inspirebeta.net",
-    "port": null,
-    "schema": "",
-    "extra": ""
-  },
   "inspire_connection": {
     "conn_type": "http",
     "description": "",
@@ -29,18 +19,7 @@
     "password": null,
     "host": "https://www.hepdata.net",
     "port": null,
-    "schema": "",
-    "extra": ""
-  },
-  "inspire_db_connection": {
-    "conn_type": "postgres",
-    "description": "",
-    "login": "inspire",
-    "password": "inspire",
-    "host": "localhost",
-    "port": 5433,
-    "schema": "inspire",
-    "extra": "{}"
+    "schema": ""
   },
   "backoffice_conn": {
     "conn_type": "http",
@@ -63,8 +42,7 @@
     "password": null,
     "host": "https://cds.cern.ch",
     "port": null,
-    "schema": "",
-    "extra": ""
+    "schema": ""
   },
   "cds_rdm_connection": {
     "conn_type": "http",
@@ -73,8 +51,7 @@
     "password": null,
     "host": "https://repository.cern",
     "port": null,
-    "schema": "",
-    "extra": ""
+    "schema": ""
   },
   "arxiv_oaipmh_connection": {
     "conn_type": "http",
@@ -83,8 +60,7 @@
     "password": null,
     "host": "https://oaipmh.arxiv.org/oai",
     "port": null,
-    "schema": "",
-    "extra": ""
+    "schema": ""
   },
     "opensearch_connection": {
     "conn_type": "opensearch",
@@ -99,8 +75,7 @@
     "password": null,
     "host": "https://arxiv.org",
     "port": null,
-    "schema": "",
-    "extra": ""
+    "schema": ""
   },
   "s3_conn": {
     "conn_type": "aws",
@@ -139,8 +114,7 @@
     "password": "change_me",
     "host": "ftpnew.ieee.org",
     "port": null,
-    "schema": null,
-    "extra": null
+    "schema": null
   },
   "grobid_connection": {
     "conn_type": "http",
@@ -149,8 +123,7 @@
     "password": null,
     "host": "https://grobid.inspirebeta.net",
     "port": null,
-    "schema": "",
-    "extra": ""
+    "schema": ""
   },
   "elsevier_consyn_conn": {
     "conn_type": "http",
