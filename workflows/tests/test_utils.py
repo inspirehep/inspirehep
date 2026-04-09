@@ -1,4 +1,6 @@
 import contextlib
+import copy
+import warnings
 
 from airflow.cli.commands import task_command
 from airflow.models.xcom import LazyXComSelectSequence
@@ -9,7 +11,6 @@ from airflow.utils.cli import get_bagged_dag, get_db_dag
 from airflow.utils.state import TaskInstanceState
 from hooks.backoffice.workflow_management_hook import (
     AUTHORS,
-    HEP,
     WorkflowManagementHook,
 )
 from hooks.inspirehep.inspire_http_record_management_hook import (
@@ -33,6 +34,12 @@ def task_test(
     :param dict params: dictionary with params used by the taks
     :return: task return value
     """
+    warnings.warn(
+        "task_test() is deprecated; use task_test2() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+
     sdk_dag = get_bagged_dag(None, dag_id=dag_id)
     sdk_task = sdk_dag.get_task(task_id=task_id)
     scheduler_dag = get_db_dag(None, dag_id=dag_id)
@@ -69,6 +76,27 @@ def task_test(
     if isinstance(xcoms, LazyXComSelectSequence):
         return xcoms[-1]
     return xcoms
+
+
+def task_test2(dag_bag, task_id, context, params=None, context_params=None):
+    """Call a DAG task's python callable directly in tests.
+
+    :param dag_bag: DAG object containing the task.
+    :param str task_id: task id found in the DAG.
+    :param dict context: execution context passed to the callable.
+    :param dict params: extra keyword arguments passed to the callable.
+    :return: task return value
+    """
+
+    if not params:
+        params = {}
+
+    if context_params:
+        new_context = copy.deepcopy(context)
+        new_context["params"].update(context_params)
+        context = new_context
+
+    return dag_bag.get_task(task_id=task_id).python_callable(**context, **params)
 
 
 def function_test(function, params=None):
@@ -127,22 +155,6 @@ def set_aut_workflow_task(status_name, workflow_id):
     with contextlib.suppress(TypeError):
         return function_test(
             WorkflowManagementHook(AUTHORS).set_workflow_status,
-            params={"status_name": status_name, "workflow_id": workflow_id},
-        )
-
-
-def get_lit_workflow_task(workflow_id):
-    with contextlib.suppress(TypeError):
-        return function_test(
-            WorkflowManagementHook(HEP).get_workflow,
-            params={"workflow_id": workflow_id},
-        )
-
-
-def set_lit_workflow_task(status_name, workflow_id):
-    with contextlib.suppress(TypeError):
-        return function_test(
-            WorkflowManagementHook(HEP).set_workflow_status,
             params={"status_name": status_name, "workflow_id": workflow_id},
         )
 

@@ -11,12 +11,6 @@ from tests.test_utils import function_test
 dags_path = Path(__file__).resolve().parents[1] / "dags"
 sys.path.insert(0, str(dags_path))
 
-plugins_path = Path(__file__).resolve().parents[1] / "plugins"
-sys.path.insert(0, str(plugins_path))
-
-from hooks.inspirehep.inspire_http_record_management_hook import (  # noqa: E402
-    InspireHTTPRecordManagementHook,
-)
 from include.utils.s3 import S3JsonStore  # noqa: E402
 
 
@@ -46,7 +40,7 @@ def _s3_store(request):
 @pytest.fixture(scope="class")
 def s3_desy_env(request):
     test_dict = {
-        "AIRFLOW_CONN_S3_ELSEVIER_CONN": "aws://airflow:airflow-inspire@/?endpoint_url=http%3A%2F%2Fs3%3A9000",
+        "AIRFLOW_CONN_S3_ELSEVIER_CONN": "aws://airflow:airflow-inspire@/?endpoint_url=http://s3%3A9000",
         "AIRFLOW_VAR_S3_DESY_INPUT_BUCKET_NAME": "test-desy-incoming",
         "AIRFLOW_VAR_S3_DESY_OUTPUT_BUCKET_NAME": "test-desy-processed",
     }
@@ -79,12 +73,47 @@ def s3_desy_env(request):
 
 
 @pytest.fixture(scope="class")
-def _inspire_http_record_management_hook(
-    request,
-):
-    def _setup():
-        request.cls.inspire_http_record_management_hook = (
-            InspireHTTPRecordManagementHook()
-        )
+def hep_env(request):
+    test_dict = {
+        "AIRFLOW_CONN_S3_CONN": "aws://airflow:airflow-inspire@s3:9000/"
+        "?__extra__=%7B%22endpoint_url%22%3A+%22"
+        "http%3A%2F%2Fs3%3A9000%22%2C+%22"
+        "service_config%22%3A+%7B%22s3%22%3A+%7B%22"
+        "bucket_name%22%3A+%22data-store%22%7D%7D%7D",
+        "AIRFLOW_VAR_HEP_ONTOLOGY_FILE": "plugins/include/taxonomies/HEPont.rdf",
+        "AIRFLOW_VAR_HEP_SCHEMA": "https://inspirehep.net/schemas/records/hep.json",
+        "AIRFLOW_VAR_HEPWORKFLOW_OPEN_SEARCH_INDEX": (
+            "backoffice-backend-local-hep-workflows"
+        ),
+        "AIRFLOW_CONN_BACKOFFICE_CONN": "http://host.docker.internal:8001?Authorization="
+        "Token+2e04111a61e8f5ba6ecec52af21bbb9e81732085&"
+        "Accept=application%2Fjson&"
+        "Content-Type=application%2Fjson",
+        "AIRFLOW_CONN_INSPIRE_CONNECTION": "http://host.docker.internal:8080"
+        "?Authorization=Bearer+CHANGE_ME&"
+        "Accept=application%2Fvnd%2B"
+        "inspire.record.raw%2Bjson",
+        "AIRFLOW_CONN_ARXIV_CONNECTION": "http://arxiv.org/https",
+        "AIRFLOW_CONN_GROBID_CONNECTION": "http://grobid.inspirebeta.net/https",
+        "AIRFLOW_CONN_OPENSEARCH_CONNECTION": "opensearch://es:9200",
+        "AIRFLOW_CONN_S3_ELSEVIER_CONN": "aws://airflow:airflow-inspire@s3:9000/"
+        "?__extra__=%7B%22endpoint_url%22%3A+%22"
+        "http%3A%2F%2Fs3%3A9000%22%2C+%22"
+        "service_config%22%3A+%7B%22s3%22%3A+%7B%22"
+        "bucket_name%22%3A+%22elsevier-store"
+        "%22%7D%7D%7D",
+    }
 
-    function_test(_setup)
+    override_dict = {
+        key: os.environ.get(key, value)
+        for key, value in test_dict.items()
+        if key not in os.environ
+    }
+
+    with patch.dict(
+        os.environ,
+        override_dict,
+    ):
+        request.cls.s3_store = S3JsonStore("s3_conn", bucket_name="data-store")
+
+        yield request.cls.s3_store
