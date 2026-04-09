@@ -5,11 +5,12 @@ from airflow.sdk import Param, dag, task
 from airflow.sdk.execution_time.macros import ds_add
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.alerts import FailedDagNotifier
-from include.utils.arxiv import build_records, fetch_records
+from include.utils.arxiv import build_records
 from include.utils.constants import HEP_CREATE
-from include.utils.harvests import load_records
+from include.utils.harvests import fetch_records_oaipmh, load_records
 from include.utils.s3 import S3JsonStore
 from literature.check_failures_task import check_failures
+from literature.oai_harvest_tasks import get_sets
 
 logger = logging.getLogger(__name__)
 
@@ -63,14 +64,6 @@ def arxiv_harvest_dag():
     """
 
     @task
-    def get_sets(**context):
-        """Collects the ids of the records that have been updated in the last two days.
-
-        Returns: list of sets
-        """
-        return context["params"]["sets"]
-
-    @task
     def process_records(sets, **context):
         """Process the record by downloading the versions,
         building the record and loading it to inspirehep.
@@ -85,12 +78,12 @@ def arxiv_harvest_dag():
         from_date = context["params"]["from"] or ds_add(context["ds"], -1)
         until_date = context["params"]["until"]
 
-        xml_records = fetch_records(
+        xml_records = fetch_records_oaipmh(
             connection_id="arxiv_oaipmh_connection",
             metadata_prefix=context["params"]["metadata_prefix"],
+            sets=sets,
             from_date=from_date,
             until_date=until_date,
-            sets=sets,
         )
 
         parsed_records, failed_build_records = build_records(

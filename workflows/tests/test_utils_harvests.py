@@ -1,17 +1,19 @@
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import pytest
 from airflow.sdk.exceptions import AirflowException
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.constants import HEP_CREATE, HEP_PUBLISHER_CREATE
-from include.utils.harvests import load_records
+from include.utils.harvests import fetch_records_oaipmh, load_records
+from sickle.oaiexceptions import NoRecordsMatch
 
 from tests.test_utils import function_test, task_test
 
 
 @pytest.mark.usefixtures("_s3_store")
 class TestUtilsHarvests:
-    connection_id = "arxiv_oaipmh_connection"
+    cds_connection_id = "cds_oaipmh_connection"
+    arxiv_connection_id = "arxiv_oaipmh_connection"
     workflow_management_hook = WorkflowManagementHook(HEP)
 
     @pytest.mark.vcr
@@ -118,3 +120,80 @@ class TestUtilsHarvests:
             task_id="check_failures",
             params={"failed_record_keys": s3_key},
         )
+
+    @pytest.mark.vcr
+    def test_fetch_records_oaipmh(self):
+        params = {
+            "connection_id": self.cds_connection_id,
+            "metadata_prefix": "marcxml",
+            "sets": ["cerncds:atlas-pub"],
+            "from_date": "2026-02-24",
+            "until_date": "2026-04-14",
+        }
+
+        xml_records = function_test(fetch_records_oaipmh, params=params)
+
+        assert len(xml_records)
+        assert "oai:cds.cern.ch:2956726" in xml_records[0]
+        assert "oai:cds.cern.ch:2957067" in xml_records[1]
+
+    @pytest.mark.vcr
+    def test_fetch_records_logical_date(self):
+        params = {
+            "connection_id": self.arxiv_connection_id,
+            "metadata_prefix": "arXiv",
+            "sets": ["physics:hep-th"],
+            "from_date": "2025-07-01",
+            "until_date": "",
+        }
+
+        xml_records = function_test(fetch_records_oaipmh, params=params)
+
+        assert len(xml_records)
+        assert "oai:arXiv.org:2101.11905" in xml_records[0]
+        assert "oai:arXiv.org:2207.10712" in xml_records[1]
+
+    @pytest.mark.vcr
+    def test_fetch_records_with_from_until(self):
+        params = {
+            "connection_id": self.arxiv_connection_id,
+            "metadata_prefix": "arXiv",
+            "sets": ["physics:hep-th"],
+            "from_date": "2025-07-01",
+            "until_date": "2025-07-01",
+        }
+
+        xml_records = function_test(fetch_records_oaipmh, params=params)
+
+        assert len(xml_records)
+        assert "oai:arXiv.org:2101.11905" in xml_records[0]
+        assert "oai:arXiv.org:2207.10712" in xml_records[1]
+
+    @patch("include.utils.harvests.Sickle.ListRecords", side_effect=NoRecordsMatch)
+    def test_fetch_no_records(self, mock_list_records):
+        params = {
+            "connection_id": self.arxiv_connection_id,
+            "metadata_prefix": "arXiv",
+            "sets": ["physics:hep-th"],
+            "from_date": "2025-07-01",
+            "until_date": "",
+        }
+        function_test(fetch_records_oaipmh, params=params)
+
+    @patch("include.utils.harvests.Sickle.ListRecords")
+    def test_fetch_records_no_duplicates(self, mock_list_records):
+        mock_record = Mock()
+        mock_record.header.identifier = "oai:arXiv.org:2101.11905"
+        mock_record.raw = "<record>Test Record</record>"
+        mock_list_records.return_value = [mock_record, mock_record]
+
+        params = {
+            "connection_id": self.arxiv_connection_id,
+            "metadata_prefix": "arXiv",
+            "sets": ["physics:hep-th", "physics:astro-ph"],
+            "from_date": "2025-07-01",
+            "until_date": "",
+        }
+
+        xml_records = function_test(fetch_records_oaipmh, params=params)
+        assert len(xml_records) == 1

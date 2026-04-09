@@ -9,48 +9,6 @@ from sickle import Sickle, oaiexceptions
 logger = logging.getLogger(__name__)
 
 
-def fetch_records(
-    connection_id, metadata_prefix, from_date, until_date=None, sets=None
-):
-    """Fetch the xml records a given set of sets.
-    Args:
-        connection_id (str): The connection id for the OAI-PMH server.
-        metadata_prefix (str): The metadata prefix to use.
-        from_date (str): The date from which to fetch records (YYYY-MM-DD).
-        until_date (str, optional): The date until which to fetch records (YYYY-MM-DD).
-        sets (str): The set to fetch records from. Defaults to 'arXiv'.
-    Returns:
-        list: A list of xml records.
-    """
-
-    conn = BaseHook.get_connection(connection_id)
-    sickle = Sickle(conn.host)
-
-    oaiargs = {
-        "from": from_date,
-        "metadataPrefix": metadata_prefix,
-    }
-
-    if until_date:
-        oaiargs["until"] = until_date
-
-    harvested_records = {}
-
-    for set in sets:
-        try:
-            logger.info(
-                f"Collecting records from arXiv from {from_date} "
-                f"to {until_date} for set '{set}'"
-            )
-            for record in list(sickle.ListRecords(set=set, **oaiargs)):
-                harvested_records[record.header.identifier] = record
-
-        except oaiexceptions.NoRecordsMatch:
-            raise AirflowSkipException(f"No records for '{set}'") from None
-
-    return [record.raw for record in harvested_records.values()]
-
-
 def fetch_record_by_id(connection_id, metadata_prefix, arxiv_id):
     """Fetch a single xml record by its arXiv id.
     Args:

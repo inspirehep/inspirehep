@@ -55,10 +55,19 @@
   },
   "arxiv_oaipmh_connection": {
     "conn_type": "http",
-    "description": "Used for arxiv harvestin",
+    "description": "Used for arxiv harvesting",
     "login": "",
     "password": null,
     "host": "https://oaipmh.arxiv.org/oai",
+    "port": null,
+    "schema": ""
+  },
+  "cds_oaipmh_connection": {
+    "conn_type": "http",
+    "description": "Used for cds harvesting",
+    "login": "",
+    "password": null,
+    "host": "https://cds.cern.ch/oai2d",
     "port": null,
     "schema": ""
   },

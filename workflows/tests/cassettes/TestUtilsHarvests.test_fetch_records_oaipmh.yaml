@@ -1,0 +1,206 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://cds.cern.ch/oai2d?set=cerncds%3Aatlas-pub&from=2026-02-24&metadataPrefix=marcxml&until=2026-04-14&verb=ListRecords
+  response:
+    body:
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?xml-stylesheet type=\"text/xsl\"
+        href=\"http://cds.cern.ch/css/oai2.xsl.v1.0\" ?>\n<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\"
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/
+        http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\">\n<responseDate>2026-04-14T08:21:48Z</responseDate><request
+        from=\"2026-02-24\" verb=\"ListRecords\" set=\"cerncds:atlas-pub\" metadataPrefix=\"marcxml\"
+        until=\"2026-04-14\">http://cds.cern.ch/oai2d</request><ListRecords>\n<record><header><identifier>oai:cds.cern.ch:2956726</identifier><datestamp>2026-03-13T23:07:06Z</datestamp><setSpec>cerncds:FULLTEXT</setSpec><setSpec>cerncds:atlas-pub</setSpec></header><metadata><marc:record
+        xmlns:marc=\"http://www.loc.gov/MARC21/slim\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+        xsi:schemaLocation=\"http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd\"
+        type=\"Bibliographic\">\n     <marc:leader>00000coc  2200000uu 4500</marc:leader>\n
+        \ <marc:controlfield tag=\"001\">2956726</marc:controlfield>\n  <marc:controlfield
+        tag=\"005\">20260314000706.0</marc:controlfield>\n  <marc:datafield tag=\"024\"
+        ind1=\"8\" ind2=\" \">\n    <marc:subfield code=\"a\">oai:cds.cern.ch:2956726</marc:subfield>\n
+        \   <marc:subfield code=\"p\">cerncds:FULLTEXT</marc:subfield>\n    <marc:subfield
+        code=\"p\">cerncds:atlas-pub</marc:subfield>\n  </marc:datafield>\n  <marc:datafield
+        tag=\"037\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"a\">ATL-PHYS-PUB-2026-002</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"041\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"a\">eng</marc:subfield>\n  </marc:datafield>\n  <marc:datafield
+        tag=\"088\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"9\">ATL-COM-PHYS-2025-853</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"110\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"a\">The ATLAS collaboration</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"245\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"a\">Expected
+        Transformer-Network-based jet flavour tagging performance with the ATLAS Inner
+        Tracker Detector at the High-Luminosity LHC</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"260\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"c\">2026</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"269\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"b\">CERN</marc:subfield>\n    <marc:subfield code=\"a\">Geneva</marc:subfield>\n
+        \   <marc:subfield code=\"c\">13 Mar 2026</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"270\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"m\">aurelio.juste.rozas@cern.ch</marc:subfield>\n
+        \   <marc:subfield code=\"p\">Juste Rozas, Aurelio</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"300\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"a\">mult.
+        p</marc:subfield>\n  </marc:datafield>\n  <marc:datafield tag=\"500\" ind1=\"
+        \" ind2=\" \">\n    <marc:subfield code=\"a\">All figures including auxiliary
+        figures are available at https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2026-002</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"520\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"a\">As the ATLAS experiment prepares for the High-Luminosity
+        LHC era, the latest advancements in flavour-tagging algorithms are essential
+        for optimising the performance of the upgraded Run 4 detector. This note presents
+        the first GN2 performance results, specifically optimised for the upcoming
+        ATLAS Inner Tracker (ITk). The GN2 algorithm, a novel transformer-based approach,
+        delivers significant improvements in jet flavour identification. Using simulated
+        datasets of $t\\bar{t}$ and $Z^\\prime$ events, we demonstrate GN2\u2019s
+        significant rejection power for both light- and charm-jet backgrounds. The
+        GN2 performance obtained with Run 4 detector simulation is compared with the
+        performance of the GN2 algorithm tuning for the Run 3 detector. Similar performance
+        is achieved in the $t\\bar{t}$ $p_{\\text{T}}$ regime, while the light-jet
+        rejection can be improved by up to a factor 40 in the high-$p_{\\text{T}}$
+        regime. The new ITk detector extends in addition the $b$-tagging acceptance
+        in the region $2.5&lt;|\\eta|&lt;4.0$. This work establishes GN2 as a critical
+        component for Run 4, setting a new standard for robustness and accuracy in
+        flavour-tagging at the HL-LHC.</marc:subfield>\n  </marc:datafield>\n  <marc:datafield
+        tag=\"594\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"a\">PUB</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"595\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"a\">CERN CDS-Invenio WebSubmit</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"650\" ind1=\"1\" ind2=\"7\">\n
+        \   <marc:subfield code=\"a\">Particle Physics - Experiment</marc:subfield>\n
+        \   <marc:subfield code=\"2\">SzGeCERN</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"650\" ind1=\"2\" ind2=\"7\">\n    <marc:subfield code=\"a\">Physics</marc:subfield>\n
+        \   <marc:subfield code=\"2\">SzGeCERN</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"653\" ind1=\"1\" ind2=\" \">\n    <marc:subfield code=\"9\">CERN</marc:subfield>\n
+        \   <marc:subfield code=\"a\">BTAGGING</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"653\" ind1=\"1\" ind2=\" \">\n    <marc:subfield code=\"9\">CERN</marc:subfield>\n
+        \   <marc:subfield code=\"a\">FUTURE</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"653\" ind1=\"1\" ind2=\" \">\n    <marc:subfield code=\"9\">CERN</marc:subfield>\n
+        \   <marc:subfield code=\"a\">BTAGGING</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"690\" ind1=\"C\" ind2=\" \">\n    <marc:subfield code=\"a\">CERN</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"690\" ind1=\"C\" ind2=\" \">\n
+        \   <marc:subfield code=\"a\">INTNOTE</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"690\" ind1=\"C\" ind2=\" \">\n    <marc:subfield code=\"a\">PRIVATLAS</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"690\" ind1=\"C\" ind2=\" \">\n
+        \   <marc:subfield code=\"a\">INTNOTEATLASPUBL</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"693\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"a\">CERN
+        LHC</marc:subfield>\n    <marc:subfield code=\"e\">ATLAS</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"710\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"5\">PH-EP</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"710\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"g\">ATLAS
+        Collaboration</marc:subfield>\n  </marc:datafield>\n  <marc:datafield tag=\"856\"
+        ind1=\"4\" ind2=\" \">\n    <marc:subfield code=\"u\">http://cds.cern.ch/record/2945308</marc:subfield>\n
+        \   <marc:subfield code=\"y\">Original Communication (restricted to ATLAS)</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"856\" ind1=\"4\" ind2=\" \">\n
+        \   <marc:subfield code=\"8\">2827699</marc:subfield>\n    <marc:subfield
+        code=\"s\">1818576</marc:subfield>\n    <marc:subfield code=\"u\">http://cds.cern.ch/record/2956726/files/ATL-PHYS-PUB-2026-002.pdf</marc:subfield>\n
+        \   <marc:subfield code=\"z\">Stamped by WebSubmit: 13/03/2026</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"859\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"f\">thomas.strebler@cern.ch</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"916\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"s\">n</marc:subfield>\n
+        \   <marc:subfield code=\"w\">202670</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"960\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"a\">91</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"963\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"a\">PUBLIC</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"970\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"a\">000789406CER</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"980\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"a\">INTNOTEATLASPUBL</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"980\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"a\">Note</marc:subfield>\n
+        \ </marc:datafield>\n</marc:record>\n</metadata></record><record><header><identifier>oai:cds.cern.ch:2957067</identifier><datestamp>2026-03-18T22:49:55Z</datestamp><setSpec>cerncds:FULLTEXT</setSpec><setSpec>cerncds:atlas-pub</setSpec></header><metadata><marc:record
+        xmlns:marc=\"http://www.loc.gov/MARC21/slim\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+        xsi:schemaLocation=\"http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd\"
+        type=\"Bibliographic\">\n     <marc:leader>00000coc  2200000uu 4500</marc:leader>\n
+        \ <marc:controlfield tag=\"001\">2957067</marc:controlfield>\n  <marc:controlfield
+        tag=\"005\">20260318234954.0</marc:controlfield>\n  <marc:datafield tag=\"024\"
+        ind1=\"8\" ind2=\" \">\n    <marc:subfield code=\"a\">oai:cds.cern.ch:2957067</marc:subfield>\n
+        \   <marc:subfield code=\"p\">cerncds:FULLTEXT</marc:subfield>\n    <marc:subfield
+        code=\"p\">cerncds:atlas-pub</marc:subfield>\n  </marc:datafield>\n  <marc:datafield
+        tag=\"037\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"a\">ATL-PHYS-PUB-2026-003</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"041\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"a\">eng</marc:subfield>\n  </marc:datafield>\n  <marc:datafield
+        tag=\"088\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"9\">ATL-COM-PHYS-2026-082</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"110\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"a\">The ATLAS collaboration</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"245\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"a\">SUSY
+        March 2026 Summary Plot Update</marc:subfield>\n  </marc:datafield>\n  <marc:datafield
+        tag=\"260\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"c\">2026</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"269\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"b\">CERN</marc:subfield>\n    <marc:subfield code=\"a\">Geneva</marc:subfield>\n
+        \   <marc:subfield code=\"c\">18 Mar 2026</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"270\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"m\">aurelio.juste.rozas@cern.ch</marc:subfield>\n
+        \   <marc:subfield code=\"p\">Juste Rozas, Aurelio</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"300\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"a\">mult.
+        p</marc:subfield>\n  </marc:datafield>\n  <marc:datafield tag=\"500\" ind1=\"
+        \" ind2=\" \">\n    <marc:subfield code=\"a\">All figures including auxiliary
+        figures are available at https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2026-003</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"520\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"a\">These are summary plots of SUSY search results,
+        updated in March 2026.</marc:subfield>\n  </marc:datafield>\n  <marc:datafield
+        tag=\"594\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"a\">PUB</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"595\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"a\">CERN CDS-Invenio WebSubmit</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"650\" ind1=\"1\" ind2=\"7\">\n
+        \   <marc:subfield code=\"a\">Particle Physics - Experiment</marc:subfield>\n
+        \   <marc:subfield code=\"2\">SzGeCERN</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"650\" ind1=\"2\" ind2=\"7\">\n    <marc:subfield code=\"a\">Physics</marc:subfield>\n
+        \   <marc:subfield code=\"2\">SzGeCERN</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"653\" ind1=\"1\" ind2=\" \">\n    <marc:subfield code=\"9\">CERN</marc:subfield>\n
+        \   <marc:subfield code=\"a\">SUSY</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"690\" ind1=\"C\" ind2=\" \">\n    <marc:subfield code=\"a\">CERN</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"690\" ind1=\"C\" ind2=\" \">\n
+        \   <marc:subfield code=\"a\">INTNOTE</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"690\" ind1=\"C\" ind2=\" \">\n    <marc:subfield code=\"a\">PRIVATLAS</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"690\" ind1=\"C\" ind2=\" \">\n
+        \   <marc:subfield code=\"a\">INTNOTEATLASPUBL</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"693\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"a\">CERN
+        LHC</marc:subfield>\n    <marc:subfield code=\"e\">ATLAS</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"710\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"5\">PH-EP</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"710\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"g\">ATLAS
+        Collaboration</marc:subfield>\n  </marc:datafield>\n  <marc:datafield tag=\"856\"
+        ind1=\"4\" ind2=\" \">\n    <marc:subfield code=\"u\">http://cds.cern.ch/record/2955120</marc:subfield>\n
+        \   <marc:subfield code=\"y\">Original Communication (restricted to ATLAS)</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"856\" ind1=\"4\" ind2=\" \">\n
+        \   <marc:subfield code=\"8\">2828610</marc:subfield>\n    <marc:subfield
+        code=\"s\">1232664</marc:subfield>\n    <marc:subfield code=\"u\">http://cds.cern.ch/record/2957067/files/ATL-PHYS-PUB-2026-003.pdf</marc:subfield>\n
+        \   <marc:subfield code=\"z\">Stamped by WebSubmit: 18/03/2026</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"859\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"f\">tinapotter@gmail.com</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"859\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"f\">reina.camacho@cern.ch</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"916\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"s\">n</marc:subfield>\n    <marc:subfield code=\"w\">202670</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"960\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"a\">91</marc:subfield>\n  </marc:datafield>\n  <marc:datafield
+        tag=\"963\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"a\">PUBLIC</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"970\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"a\">000789426CER</marc:subfield>\n  </marc:datafield>\n
+        \ <marc:datafield tag=\"980\" ind1=\" \" ind2=\" \">\n    <marc:subfield code=\"a\">INTNOTEATLASPUBL</marc:subfield>\n
+        \ </marc:datafield>\n  <marc:datafield tag=\"980\" ind1=\" \" ind2=\" \">\n
+        \   <marc:subfield code=\"a\">Note</marc:subfield>\n  </marc:datafield>\n</marc:record>\n</metadata></record></ListRecords>\n</OAI-PMH>\n\n"
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - public, max-age=3600, no-cache="set-cookie"
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/xml
+      Date:
+      - Tue, 14 Apr 2026 08:21:47 GMT
+      Keep-Alive:
+      - timeout=15, max=100
+      Server:
+      - Apache
+      Set-Cookie:
+      - INVENIOSESSIONstub=NO; path=/; HttpOnly
+      - INVENIOSESSION=d7433b80133ce84f0da587ee30d9ce23; path=/; HttpOnly
+      Vary:
+      - ETag,Cache-Control,Accept-Encoding
+      Via:
+      - 1.1 cds.cern.ch
+      content-length:
+      - '13929'
+    status:
+      code: 200
+      message: OK
+version: 1
