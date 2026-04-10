@@ -2082,18 +2082,17 @@ tests = ["coverage (>=4.0)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest (
 
 [[package]]
 name = "inspire-dojson"
-version = "63.2.35"
+version = "63.2.36"
 description = "INSPIRE-specific rules to transform from MARCXML to JSON and back."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "inspire_dojson-63.2.35-py2.py3-none-any.whl", hash = "sha256:9f4297f80ee26886c7812104f4851516aab992cab2e617eb12035e0ca1806776"},
+    {file = "inspire_dojson-63.2.36-py2.py3-none-any.whl", hash = "sha256:58887a6c00a057df2ab5837071f87902ebf9ae73bf21f03f72998ca05341ca05"},
 ]
 
 [package.dependencies]
 dojson = {version = ">=1.3.1,<2.0", markers = "python_version >= \"3\""}
-Flask = ">=0.12.3"
 IDUtils = ">=1.0.1,<2.0"
 inspire-schemas = "*"
 inspire-utils = ">=3.0.65,<4.0"
