@@ -100,6 +100,7 @@ const LiteratureDetailPageContainer = ({
   const urls = data?.get('urls');
   const ids = data?.get('ids');
   const references = data?.get('references')?.toJS();
+  const rawReferences = literature?.getIn(['form_data', 'references']);
   const totalReferences =
     references && Array.isArray(references) ? references.length : 0;
 
@@ -211,7 +212,10 @@ const LiteratureDetailPageContainer = ({
                           header="References"
                           key="references"
                         >
-                          <LiteratureReferences references={references} />
+                          <LiteratureReferences
+                            references={references}
+                            rawReferences={rawReferences}
+                          />
                         </CollapsableForm.Section>
                       )}
                       {status === WorkflowStatuses.ERROR && (

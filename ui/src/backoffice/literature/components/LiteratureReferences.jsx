@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'antd';
+import { Divider, Table } from 'antd';
 
 const columns = [
   {
@@ -45,7 +45,7 @@ const referencesToDataSource = (references) =>
     };
   });
 
-const LiteratureReferences = ({ references }) => {
+const LiteratureReferences = ({ references, rawReferences }) => {
   if (!references || (Array.isArray(references) && references.length === 0))
     return null;
 
@@ -59,6 +59,12 @@ const LiteratureReferences = ({ references }) => {
         pagination={false}
         scroll={{ y: 480 }}
       />
+      {rawReferences && (
+        <>
+          <Divider />
+          <pre className="literature-references-raw">{rawReferences}</pre>
+        </>
+      )}
     </div>
   );
 };

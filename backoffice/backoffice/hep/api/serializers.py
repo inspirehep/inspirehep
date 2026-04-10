@@ -1,3 +1,4 @@
+import codecs
 from copy import deepcopy
 
 from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
@@ -19,6 +20,13 @@ from backoffice.hep.models import HepDecision, HepWorkflow, HepWorkflowTicket
 from django.urls import reverse
 
 HEP_DECISION_VALUE_MAX_LENGTH = 1500
+
+
+def deserialize_references(value):
+    try:
+        return codecs.decode(value, "unicode_escape")
+    except Exception:
+        return value
 
 
 class HepWorkflowTicketSerializer(BaseWorkflowTicketSerializer):
@@ -88,6 +96,24 @@ class HepWorkflowSerializer(BaseWorkflowSerializer):
     def create(self, validated_data):
         validated_data["source_data"] = deepcopy(validated_data["data"])
         return super().create(validated_data)
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        form_data = data.get("form_data")
+
+        if form_data is None:
+            return data
+
+        references = form_data.get("references")
+
+        if not isinstance(references, str):
+            return data
+
+        data["form_data"] = {
+            **form_data,
+            "references": deserialize_references(references),
+        }
+        return data
 
     def get_callback_url(self, instance):
         routes = {
