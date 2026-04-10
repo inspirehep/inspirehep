@@ -51,6 +51,18 @@ describe('LiteratureDetailPageContainer', () => {
                   'https://lss.fnal.gov/archive/2025/pub/fermilab-pub-25-0393-ppd.pdf',
               },
             ],
+            references: [
+              {
+                reference: {
+                  authors: [{ full_name: 'Doe, J.' }],
+                  misc: ['Extra info'],
+                  publication_info: { year: 2001, artid: 'X42' },
+                },
+              },
+            ],
+          },
+          form_data: {
+            references: '[1] Raw reference text\n[2] Another raw reference',
           },
           status,
           tickets: [
@@ -112,6 +124,17 @@ describe('LiteratureDetailPageContainer', () => {
     ).toBeInTheDocument();
 
     expect(screen.getByText('Computing')).toBeInTheDocument();
+  });
+
+  it('renders raw references from form_data in the References section', () => {
+    renderComponent();
+
+    expect(
+      screen.getByRole('heading', { name: 'References' })
+    ).toBeInTheDocument();
+    expect(
+      document.querySelector('.literature-references-raw')?.textContent
+    ).toBe('[1] Raw reference text\n[2] Another raw reference');
   });
 
   it('renders the Submission box with acquisition source details', () => {

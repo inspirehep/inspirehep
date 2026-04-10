@@ -1,4 +1,5 @@
 from django.test import SimpleTestCase, TestCase
+from unittest.mock import patch
 
 from backoffice.hep.api.serializers import (
     HepBackofficeSearchUISerializer,
@@ -60,3 +61,92 @@ class TestHepWorkflowSerializer(TestCase):
 
         self.assertEqual(workflow.data, payload["data"])
         self.assertEqual(workflow.source_data, payload["data"])
+
+    def test_create_persists_form_data(self):
+        payload = {
+            "workflow_type": HepWorkflowType.HEP_CREATE,
+            "status": HepStatusChoices.RUNNING,
+            "data": {
+                "_collections": ["Literature"],
+                "document_type": ["article"],
+                "titles": [{"title": "Original title"}],
+            },
+            "form_data": {
+                "references": "[1] First line\\n[2] Second line",
+                "url": "https://example.org",
+            },
+        }
+
+        serializer = HepWorkflowSerializer(data=payload)
+        serializer.is_valid(raise_exception=True)
+        workflow = serializer.save()
+        workflow.refresh_from_db()
+
+        self.assertEqual(workflow.form_data, payload["form_data"])
+
+    def test_serializer_deserializes_references_in_form_data(self):
+        workflow = HepWorkflow.objects.create(
+            workflow_type=HepWorkflowType.HEP_CREATE,
+            status=HepStatusChoices.RUNNING,
+            data={},
+            form_data={
+                "references": "[1] First line\\n[2] Second line\\n\\u03b1",
+                "url": "https://example.org",
+            },
+        )
+
+        serialized = HepWorkflowSerializer(workflow).data
+
+        self.assertEqual(
+            serialized["form_data"]["references"],
+            "[1] First line\n[2] Second line\nα",
+        )
+        self.assertEqual(serialized["form_data"]["url"], "https://example.org")
+
+    def test_serializer_returns_null_form_data_when_missing(self):
+        workflow = HepWorkflow.objects.create(
+            workflow_type=HepWorkflowType.HEP_CREATE,
+            status=HepStatusChoices.RUNNING,
+            data={},
+            form_data=None,
+        )
+
+        serialized = HepWorkflowSerializer(workflow).data
+
+        self.assertIsNone(serialized["form_data"])
+
+    def test_serializer_leaves_form_data_unchanged_without_references(self):
+        workflow = HepWorkflow.objects.create(
+            workflow_type=HepWorkflowType.HEP_CREATE,
+            status=HepStatusChoices.RUNNING,
+            data={},
+            form_data={"url": "https://example.org"},
+        )
+
+        serialized = HepWorkflowSerializer(workflow).data
+
+        self.assertEqual(serialized["form_data"], {"url": "https://example.org"})
+
+    @patch("backoffice.hep.api.serializers.codecs.decode", side_effect=Exception)
+    def test_serializer_falls_back_to_original_references_on_decode_error(
+        self, mock_decode
+    ):
+        workflow = HepWorkflow.objects.create(
+            workflow_type=HepWorkflowType.HEP_CREATE,
+            status=HepStatusChoices.RUNNING,
+            data={},
+            form_data={
+                "references": "[1] First line\\n[2] Second line",
+                "url": "https://example.org",
+            },
+        )
+
+        serialized = HepWorkflowSerializer(workflow).data
+
+        self.assertEqual(
+            serialized["form_data"]["references"],
+            "[1] First line\\n[2] Second line",
+        )
+        mock_decode.assert_called_once_with(
+            "[1] First line\\n[2] Second line", "unicode_escape"
+        )
