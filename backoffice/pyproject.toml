@@ -151,7 +151,7 @@ inspire-utils = "^3.0.67"
 factory-boy = "3.3.0"
 mypy = "1.5.1"
 django-stubs = {version = "4.2.4", extras = ["compatible-mypy"]}
-pytest = "7.4.2"
+pytest = "9.0.3"
 pytest-sugar = "0.9.7"
 djangorestframework-stubs = {version = "3.14.3", extras = ["compatible-mypy"]}
 flake8 = "6.1.0"
