@@ -17,6 +17,7 @@ import {
 } from '../../../search/constants';
 import { getConfigFor } from '../../../common/config';
 import WorkflowCard from '../components/WorkflowCard';
+import { WORKFLOW_TYPE_ORDER, WorkflowTypes } from '../../constants';
 
 interface DashboardPageContainerProps {
   dispatch: ActionCreator<Action>;
@@ -47,24 +48,33 @@ const DashboardPageContainer = ({
   }, [dispatch]);
 
   const workflowTypes: List<Map<string, any>> = useMemo(() => {
-    const workflowTypePath = [
-      '_filter_workflow_type',
-      'workflow_type',
-      'buckets',
-    ];
+    const getWorkflowTypePosition = (workflowType: string) => {
+      const position = WORKFLOW_TYPE_ORDER.indexOf(
+        workflowType as WorkflowTypes
+      );
+      return position === -1 ? Number.MAX_SAFE_INTEGER : position;
+    };
 
     const getWorkflowTypeBuckets = (
       data: Map<string, any> | undefined
     ): List<Map<string, any>> => {
       return (
-        (data?.getIn(workflowTypePath) as List<Map<string, any>>) || List()
+        (data?.getIn([
+          '_filter_workflow_type',
+          'workflow_type',
+          'buckets',
+        ]) as List<Map<string, any>>) || List()
       );
     };
 
     const authorsWorkflowTypes = getWorkflowTypeBuckets(authors);
     const literatureWorkflowTypes = getWorkflowTypeBuckets(literature);
 
-    return authorsWorkflowTypes.concat(literatureWorkflowTypes);
+    return authorsWorkflowTypes
+      .concat(literatureWorkflowTypes)
+      .sortBy((type: Map<string, any>) =>
+        getWorkflowTypePosition(type?.get('key'))
+      ) as List<Map<string, any>>;
   }, [authors, literature]);
 
   const renderWorkflowCards = useMemo(
@@ -74,7 +84,8 @@ const DashboardPageContainer = ({
           key={type?.get('key')}
           type={type}
           statuses={
-            type?.getIn(['status', 'buckets']) as List<Map<string, any>>
+            (type?.getIn(['status', 'buckets']) as List<Map<string, any>>) ||
+            List()
           }
         />
       )),
