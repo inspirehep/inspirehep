@@ -22,9 +22,9 @@ export enum WorkflowStatuses {
   ERROR = 'error',
   ERROR_MULTIPLE_EXACT_MATCHES = 'error_multiple_exact_matches',
   ERROR_VALIDATION = 'error_validation',
+  MISSING_SUBJECT_FIELDS = 'missing_subject_fields',
   PROCESSING = 'processing',
   RUNNING = 'running',
-  MISSING_SUBJECT_FIELDS = 'missing_subject_fields',
 }
 
 export enum WorkflowActions {
@@ -42,6 +42,31 @@ export const WORKFLOW_TYPES = {
   [WorkflowTypes.HEP_SUBMISSION]: LITERATURE_PID_TYPE,
   [WorkflowTypes.HEP_UPDATE]: LITERATURE_PID_TYPE,
 };
+
+export const WORKFLOW_TYPE_ORDER = [
+  WorkflowTypes.AUTHOR_CREATE,
+  WorkflowTypes.AUTHOR_UPDATE,
+  WorkflowTypes.HEP_CREATE,
+  WorkflowTypes.HEP_UPDATE,
+  WorkflowTypes.HEP_PUBLISHER_CREATE,
+  WorkflowTypes.HEP_PUBLISHER_UPDATE,
+  WorkflowTypes.HEP_SUBMISSION,
+];
+
+export const WORKFLOW_STATUS_ORDER = [
+  WorkflowStatuses.APPROVAL,
+  WorkflowStatuses.APPROVAL_CORE_SELECTION,
+  WorkflowStatuses.APPROVAL_FUZZY_MATCHING,
+  WorkflowStatuses.APPROVAL_MERGE,
+  WorkflowStatuses.BLOCKED,
+  WorkflowStatuses.COMPLETED,
+  WorkflowStatuses.ERROR,
+  WorkflowStatuses.ERROR_MULTIPLE_EXACT_MATCHES,
+  WorkflowStatuses.ERROR_VALIDATION,
+  WorkflowStatuses.MISSING_SUBJECT_FIELDS,
+  WorkflowStatuses.PROCESSING,
+  WorkflowStatuses.RUNNING,
+];
 
 export interface WorkflowStatus {
   key: string;

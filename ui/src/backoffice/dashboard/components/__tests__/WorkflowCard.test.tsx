@@ -94,4 +94,31 @@ describe('<WorkflowCard />', () => {
       `${BACKOFFICE_LITERATURE_SEARCH}?workflow_type=${WorkflowTypes.HEP_PUBLISHER_UPDATE}`
     );
   });
+
+  it('renders statuses in the preferred order', () => {
+    const type = Map({
+      key: WorkflowTypes.HEP_CREATE,
+      doc_count: 5,
+    });
+    const statuses = List([
+      Map({ key: WorkflowStatuses.RUNNING, doc_count: 1 }),
+      Map({ key: WorkflowStatuses.APPROVAL_MERGE, doc_count: 1 }),
+      Map({ key: WorkflowStatuses.ERROR, doc_count: 1 }),
+      Map({ key: WorkflowStatuses.APPROVAL, doc_count: 1 }),
+    ]);
+
+    renderWithRouter(<WorkflowCard type={type} statuses={statuses} />);
+
+    expect(
+      screen
+        .getAllByRole('link')
+        .slice(1)
+        .map((link) => (link as HTMLAnchorElement).href)
+    ).toEqual([
+      expect.stringContaining(`status=${WorkflowStatuses.APPROVAL}`),
+      expect.stringContaining(`status=${WorkflowStatuses.APPROVAL_MERGE}`),
+      expect.stringContaining(`status=${WorkflowStatuses.ERROR}`),
+      expect.stringContaining(`status=${WorkflowStatuses.RUNNING}`),
+    ]);
+  });
 });

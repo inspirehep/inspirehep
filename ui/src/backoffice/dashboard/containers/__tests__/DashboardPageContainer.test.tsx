@@ -95,6 +95,61 @@ describe('DashboardPageContainer', () => {
     expect(screen.getByText('Overview')).toBeInTheDocument();
   });
 
+  it('renders workflow cards in the preferred type order', () => {
+    store = getStore({
+      backoffice: fromJS({
+        dashboard: {
+          loading: false,
+          facets: {
+            authors: {
+              _filter_workflow_type: {
+                workflow_type: {
+                  buckets: [
+                    { key: WorkflowTypes.AUTHOR_UPDATE, doc_count: 1 },
+                    { key: WorkflowTypes.AUTHOR_CREATE, doc_count: 1 },
+                  ],
+                },
+              },
+            },
+            literature: {
+              _filter_workflow_type: {
+                workflow_type: {
+                  buckets: [
+                    { key: WorkflowTypes.HEP_SUBMISSION, doc_count: 1 },
+                    { key: WorkflowTypes.HEP_PUBLISHER_UPDATE, doc_count: 1 },
+                    { key: WorkflowTypes.HEP_CREATE, doc_count: 1 },
+                    { key: WorkflowTypes.HEP_UPDATE, doc_count: 1 },
+                    { key: WorkflowTypes.HEP_PUBLISHER_CREATE, doc_count: 1 },
+                  ],
+                },
+              },
+            },
+          },
+        },
+      }),
+    });
+
+    renderComponent();
+
+    expect(
+      screen
+        .getAllByRole('link', { name: /view all/i })
+        .map((link) => (link as HTMLAnchorElement).href)
+    ).toEqual([
+      expect.stringContaining(`workflow_type=${WorkflowTypes.AUTHOR_CREATE}`),
+      expect.stringContaining(`workflow_type=${WorkflowTypes.AUTHOR_UPDATE}`),
+      expect.stringContaining(`workflow_type=${WorkflowTypes.HEP_CREATE}`),
+      expect.stringContaining(`workflow_type=${WorkflowTypes.HEP_UPDATE}`),
+      expect.stringContaining(
+        `workflow_type=${WorkflowTypes.HEP_PUBLISHER_CREATE}`
+      ),
+      expect.stringContaining(
+        `workflow_type=${WorkflowTypes.HEP_PUBLISHER_UPDATE}`
+      ),
+      expect.stringContaining(`workflow_type=${WorkflowTypes.HEP_SUBMISSION}`),
+    ]);
+  });
+
   it('dispatches isUserLoggedInToBackoffice on mount', () => {
     renderComponent();
 

@@ -7,12 +7,23 @@ import {
   BACKOFFICE_AUTHORS_SEARCH,
   BACKOFFICE_LITERATURE_SEARCH,
 } from '../../../common/routes';
-import { WorkflowCardProps } from '../../constants';
+import {
+  WorkflowCardProps,
+  WorkflowStatuses,
+  WORKFLOW_STATUS_ORDER,
+} from '../../constants';
 
-const WorkflowCard: React.FC<WorkflowCardProps> = ({ type, statuses }) => {
+const WorkflowCard = ({ type, statuses }: WorkflowCardProps) => {
   const workflowTypeKey = type?.get('key');
   const docCount = type?.get('doc_count') || 0;
   const collection = COLLECTIONS.find((col) => col?.value === workflowTypeKey);
+  const getStatusPosition = (status: string) => {
+    const position = WORKFLOW_STATUS_ORDER.indexOf(status as WorkflowStatuses);
+    return position === -1 ? Number.MAX_SAFE_INTEGER : position;
+  };
+  const sortedStatuses = statuses.sortBy((status) =>
+    getStatusPosition(status?.get('key'))
+  );
 
   const getSearchRoute = () => {
     return workflowTypeKey?.includes('AUTHOR')
@@ -41,7 +52,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ type, statuses }) => {
       className={collection.key.toLowerCase().replace(/ /g, '-')}
       key={workflowTypeKey}
     >
-      {statuses?.map((status) => {
+      {sortedStatuses.map((status) => {
         const statusKey = status?.get('key');
         const statusCount = status?.get('doc_count') || 0;
 
