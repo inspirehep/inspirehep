@@ -3,6 +3,7 @@ from io import BytesIO
 from urllib.parse import urlparse
 
 import requests
+from airflow.providers.amazon.aws.utils.connection_wrapper import AwsConnectionWrapper
 from airflow.sdk import Variable
 from airflow.sdk.bases.hook import BaseHook
 from hooks.generic_http_hook import GenericHttpHook
@@ -23,7 +24,12 @@ def is_connection_url(url, connection_id):
         connection_id (str): The ID of the connection to use for the check.
     """
     conn = BaseHook.get_connection(connection_id)
-    return (urlparse(conn.host).hostname or conn.host) == urlparse(url).hostname
+    url_hostname = urlparse(url).hostname
+    if conn.conn_type == "aws":
+        conn_wrapper = AwsConnectionWrapper(conn)
+        aws_url = conn_wrapper.endpoint_url
+        return urlparse(aws_url).hostname == url_hostname
+    return (urlparse(conn.host).hostname or conn.host) == url_hostname
 
 
 def _get_upload_object(url):

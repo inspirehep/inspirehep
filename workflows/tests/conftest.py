@@ -75,7 +75,7 @@ def s3_desy_env(request):
 @pytest.fixture(scope="class")
 def hep_env(request):
     test_dict = {
-        "AIRFLOW_CONN_S3_CONN": "aws://airflow:airflow-inspire@s3:9000/"
+        "AIRFLOW_CONN_S3_CONN": "aws://airflow:airflow-inspire@/"
         "?__extra__=%7B%22endpoint_url%22%3A+%22"
         "http%3A%2F%2Fs3%3A9000%22%2C+%22"
         "service_config%22%3A+%7B%22s3%22%3A+%7B%22"
@@ -96,7 +96,7 @@ def hep_env(request):
         "AIRFLOW_CONN_ARXIV_CONNECTION": "http://arxiv.org/https",
         "AIRFLOW_CONN_GROBID_CONNECTION": "http://grobid.inspirebeta.net/https",
         "AIRFLOW_CONN_OPENSEARCH_CONNECTION": "opensearch://es:9200",
-        "AIRFLOW_CONN_S3_ELSEVIER_CONN": "aws://airflow:airflow-inspire@s3:9000/"
+        "AIRFLOW_CONN_S3_ELSEVIER_CONN": "aws://airflow:airflow-inspire@/"
         "?__extra__=%7B%22endpoint_url%22%3A+%22"
         "http%3A%2F%2Fs3%3A9000%22%2C+%22"
         "service_config%22%3A+%7B%22s3%22%3A+%7B%22"

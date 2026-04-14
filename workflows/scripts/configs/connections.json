@@ -91,9 +91,9 @@
     "description": "Used for arxiv harvesting temporary storage",
     "login": "airflow",
     "password": "airflow-inspire",
-    "host": "s3",
-    "port": 9000,
-    "schema": "",
+    "host": null,
+    "port": null,
+    "schema": null,
     "extra": {"endpoint_url":"http://s3:9000","service_config":{"s3": {"bucket_name": "data-store"}}}
   },
   "s3_elsevier_conn": {
@@ -101,9 +101,9 @@
     "description": "Used for elsevier harvesting storage",
     "login": "airflow",
     "password": "airflow-inspire",
-    "host": "s3",
-    "port": 9000,
-    "schema": "",
+    "host": null,
+    "port": null,
+    "schema": null,
     "extra": {"endpoint_url":"http://s3:9000","service_config":{"s3": {"bucket_name": "elsevier-store"}}}
   },
   "s3_aps_conn": {
@@ -111,9 +111,9 @@
     "description": "Used for APS harvesting storage",
     "login": "airflow",
     "password": "airflow-inspire",
-    "host": "s3",
-    "port": 9000,
-    "schema": "",
+    "host": null,
+    "port": null,
+    "schema": null,
     "extra": {"endpoint_url":"http://s3:9000","service_config":{"s3": {"bucket_name": "aps-store"}}}
   },
   "ieee_ftp": {
