@@ -7365,5 +7365,83 @@
       "_created_at": "2024-11-25T13:49:53.009Z",
       "_updated_at": "2024-11-25T13:49:54.756Z"
     }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "22222222-2222-2222-2222-222222222222",
+    "fields": {
+      "workflow_type": "HEP_PUBLISHER_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "Fixture with cds source",
+            "source": "cds"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "acquisition_source": {
+          "method": "hepcrawl",
+          "source": "cds",
+          "datetime": "2024-11-18T11:34:19.809575"
+        }
+      },
+      "status": "running",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "33333333-3333-3333-3333-333333333333",
+    "fields": {
+      "workflow_type": "HEP_PUBLISHER_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "Fixture with desy source",
+            "source": "desy"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "acquisition_source": {
+          "method": "hepcrawl",
+          "source": "desy",
+          "datetime": "2024-11-18T11:34:19.809575"
+        }
+      },
+      "status": "running",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "44444444-4444-4444-4444-444444444444",
+    "fields": {
+      "workflow_type": "HEP_PUBLISHER_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "Fixture with aps source",
+            "source": "aps"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "acquisition_source": {
+          "method": "hepcrawl",
+          "source": "aps",
+          "datetime": "2024-11-18T11:34:19.809575"
+        }
+      },
+      "status": "running",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
   }
 ]

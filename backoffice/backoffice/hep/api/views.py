@@ -314,6 +314,13 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
                 type=OpenApiTypes.STR,
                 location=OpenApiParameter.QUERY,
             ),
+            OpenApiParameter(
+                name="source",
+                description="Filter by acquisition source.",
+                required=False,
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+            ),
         ],
     ),
 )
@@ -352,6 +359,7 @@ class HepWorkflowDocumentView(BaseDocumentViewSet):
         "subject": "data.inspire_categories.term",
         "journal": "data.publication_info.journal_title.raw",
         "decision": "relevance_prediction.decision",
+        "source": "data.acquisition_source.source",
         "data.arxiv_eprints.value": "data.arxiv_eprints.value",
         "data.dois.value": "data.dois.value",
     }
@@ -400,6 +408,17 @@ class HepWorkflowDocumentView(BaseDocumentViewSet):
         },
         "decision": {
             "field": "relevance_prediction.decision",
+            "facet": TermsFacet,
+            "options": {
+                "size": 20,
+                "order": {
+                    "_key": "asc",
+                },
+            },
+            "enabled": True,
+        },
+        "source": {
+            "field": "data.acquisition_source.source",
             "facet": TermsFacet,
             "options": {
                 "size": 20,

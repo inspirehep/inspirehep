@@ -40,6 +40,7 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
                 "titles": [{"title": "hello foo"}],
                 "inspire_categories": [{"term": "Theory-HEP"}],
                 "publication_info": [{"journal_title": "Phys. Rev. D"}],
+                "acquisition_source": {"source": "arxiv"},
                 "_collections": ["Literature"],
                 "documnent_type": ["article"],
             },
@@ -52,6 +53,7 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
                 "titles": [{"title": "bye bar"}],
                 "inspire_categories": [{"term": "Phenomenology-HEP"}],
                 "publication_info": [{"journal_title": "JHEP"}],
+                "acquisition_source": {"source": "cds"},
                 "_collections": ["Literature"],
                 "documnent_type": ["article"],
             },
@@ -65,6 +67,7 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
                 "arxiv_eprints": [{"value": "2507.26819"}],
                 "inspire_categories": [{"term": "Theory-HEP"}],
                 "publication_info": [{"journal_title": "Phys. Rev. D"}],
+                "acquisition_source": {"source": "arxiv"},
                 "_collections": ["Literature"],
                 "documnent_type": ["article"],
             },
@@ -78,6 +81,7 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
                 "dois": [{"value": "10.1016/j.physletb.2025.139959"}],
                 "inspire_categories": [{"term": "Experiment-HEP"}],
                 "publication_info": [{"journal_title": "Phys. Lett. B"}],
+                "acquisition_source": {"source": "aps"},
                 "_collections": ["Literature"],
                 "documnent_type": ["article"],
             },
@@ -90,6 +94,7 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
                 "titles": [{"title": "Article with conflicts"}],
                 "inspire_categories": [{"term": "Theory-HEP"}],
                 "publication_info": [{"journal_title": "JHEP"}],
+                "acquisition_source": {"source": "desy"},
                 "_collections": ["Literature"],
                 "documnent_type": ["article"],
             },
@@ -102,6 +107,7 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
                 "titles": [{"title": "Article with conflicts and extra context"}],
                 "inspire_categories": [{"term": "Astrophysics"}],
                 "publication_info": [{"journal_title": "Phys. Rev. D"}],
+                "acquisition_source": {"source": "aps"},
                 "_collections": ["Literature"],
                 "documnent_type": ["article"],
             },
@@ -120,6 +126,7 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         assert "_filter_subject" in response.json()["facets"]
         assert "_filter_journal" in response.json()["facets"]
         assert "_filter_decision" in response.json()["facets"]
+        assert "_filter_source" in response.json()["facets"]
         assert "_filter_workflow_type" in response.json()["facets"]
 
     def test_ui_format_response_shape(self):
@@ -244,6 +251,20 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         assert len(results) == 2
         for item in results:
             assert item["relevance_prediction"]["decision"] == decision
+
+    def test_filter_source(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        source = "arxiv"
+        response = self.api_client.get(
+            self.endpoint,
+            data={"source": source},
+            format="json",
+        )
+        results = response.json()["results"]
+        assert len(results) == 2
+        for item in results:
+            assert item["data"]["acquisition_source"]["source"] == source
 
     @parameterized.expand([None, "-_updated_at"])
     def test_ordering_updated_at(self, ordering):
