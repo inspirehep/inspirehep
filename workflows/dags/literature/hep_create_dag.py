@@ -1312,6 +1312,7 @@ def hep_create_dag():
             workflow_data = s3_store.read_workflow(workflow_id)
 
             update = workflow_data["data"]
+            update["control_number"] = matched_control_number
             update_source = LiteratureReader(update).source
 
             record_data = inspire_http_record_management_hook.get_record(

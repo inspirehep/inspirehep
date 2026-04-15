@@ -2714,6 +2714,55 @@ class Test_HEPCreateDAG:
         assert workflow_result["merge_details"] == backoffice_workflow["merge_details"]
 
     @pytest.mark.vcr
+    @patch(
+        "hooks.inspirehep.inspire_http_record_management_hook.InspireHTTPRecordManagementHook.get_record"
+    )
+    @patch("include.utils.workflows.read_wf_record_source")
+    def test_merge_articles_control_number_fix(
+        self, mock_read_wf_record_source, mock_get_record
+    ):
+        matched_control_number = 1649231
+        record_data = {
+            "titles": [
+                {"title": "New title"},
+            ],
+            "authors": [{"full_name": "Blumaaaaaaa, T."}],
+            "arxiv_eprints": [{"value": "1801.07224"}],
+            "document_type": [
+                "article",
+            ],
+            "_collections": ["Literature"],
+        }
+
+        self.s3_store.write_workflow(
+            {
+                "id": self.workflow_id,
+                "data": record_data,
+                "workflow_type": HEP_CREATE,
+            }
+        )
+
+        record_data["control_number"] = matched_control_number
+
+        mock_get_record.return_value = {
+            "metadata": record_data,
+            "uuid": "1234",
+            "revision_id": 1,
+        }
+        mock_read_wf_record_source.return_value = {"json": record_data}
+
+        task_test2(
+            self.dag,
+            "halt_for_approval_if_new_or_reject_if_not_relevant.merge_articles",
+            self.context,
+            params={"matched_control_number": matched_control_number},
+        )
+
+        workflow_result = self.s3_store.read_workflow(self.workflow_id)
+
+        assert workflow_result["data"]["control_number"] == matched_control_number
+
+    @pytest.mark.vcr
     def test_await_merge_conflicts_resolved_no_conflicts(self):
         workflow_id = "7b617859-cb4f-4526-aa85-ec5291dc141b"
 
