@@ -7443,5 +7443,35 @@
       "_created_at": "2024-11-25T13:49:53.009Z",
       "_updated_at": "2024-11-25T13:49:54.756Z"
     }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "95ab3fe0-8a7b-4ef0-ad0c-b0593ae72710",
+    "fields": {
+      "workflow_type": "HEP_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "The multiple exact matches fixture test",
+            "source": "Elsevier"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "acquisition_source": {
+          "method": "hepcrawl",
+          "source": "Elsevier",
+          "datetime": "2024-11-18T11:34:19.809575",
+          "submission_number": "scheduled__2024-11-18T11:34:19.809575"
+        }
+      },
+      "matches": {
+        "exact": [1415120, 1383683]
+      },
+      "status": "error_multiple_exact_matches",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
   }
 ]
