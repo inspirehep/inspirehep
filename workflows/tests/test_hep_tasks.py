@@ -7,7 +7,10 @@ from urllib.parse import urlparse
 
 import pytest
 from airflow.models import DagBag
-from airflow.sdk.exceptions import AirflowException, AirflowFailException
+from airflow.sdk.exceptions import (
+    AirflowException,
+    AirflowFailException,
+)
 from botocore.exceptions import ClientError
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils import s3, workflows
@@ -28,6 +31,7 @@ from include.utils.constants import (
     STATUS_APPROVAL_CORE_SELECTION,
     STATUS_APPROVAL_FUZZY_MATCHING,
     STATUS_COMPLETED,
+    STATUS_ERROR_MULTIPLE_EXACT_MATCHES,
     STATUS_MISSING_SUBJECT_FIELDS,
     STATUS_RUNNING,
     TICKET_HEP_CURATION_CORE,
@@ -518,8 +522,12 @@ class Test_HEPCreateDAG:
 
         self.context["ti"].xcom_push.reset_mock()
         result = task_test2(self.dag, "check_for_exact_matches", self.context)
+        workflow = self.s3_store.read_workflow(self.workflow_id)
+        backoffice_workflow = self.wf_hook.get_workflow(self.workflow_id)
 
         assert result == "stop_if_existing_submission_notify_and_close"
+        assert workflow["matches"]["exact"] == [1649231]
+        assert backoffice_workflow["matches"]["exact"] == [1649231]
         self.context["ti"].xcom_push.assert_called_once_with(key="match", value=1649231)
 
     @pytest.mark.vcr
@@ -541,6 +549,10 @@ class Test_HEPCreateDAG:
 
         with pytest.raises(AirflowException):
             task_test2(self.dag, "check_for_exact_matches", self.context)
+
+        workflow = self.s3_store.read_workflow(self.workflow_id)
+        assert workflow["status"] == STATUS_ERROR_MULTIPLE_EXACT_MATCHES
+        assert workflow["matches"]["exact"] == [1415120, 1383683]
 
     @pytest.mark.vcr
     def test_check_for_fuzzy_matches_matches(self):

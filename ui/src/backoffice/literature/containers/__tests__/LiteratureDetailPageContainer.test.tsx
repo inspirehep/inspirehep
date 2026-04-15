@@ -1,6 +1,6 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { screen } from '@testing-library/react';
+import { screen, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import LiteratureDetailPageContainer from '../LiteratureDetailPageContainer';
@@ -63,6 +63,9 @@ describe('LiteratureDetailPageContainer', () => {
           },
           form_data: {
             references: '[1] Raw reference text\n[2] Another raw reference',
+          },
+          matches: {
+            exact: [3076804, 3143839],
           },
           status,
           tickets: [
@@ -185,6 +188,19 @@ describe('LiteratureDetailPageContainer', () => {
 
     expect(
       screen.getByText('Workflow completed, no further actions available')
+    ).toBeInTheDocument();
+  });
+
+  it('renders exact match callout for multiple exact matches status', () => {
+    renderComponent(WorkflowStatuses.ERROR_MULTIPLE_EXACT_MATCHES);
+
+    expect(screen.getByText('Multiple exact matches')).toBeInTheDocument();
+    const duplicateIdsText = screen.getByText('3076804 or 3143839');
+    expect(duplicateIdsText).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'When you resolve this error, restart the workflow to continue'
+      )
     ).toBeInTheDocument();
   });
 });

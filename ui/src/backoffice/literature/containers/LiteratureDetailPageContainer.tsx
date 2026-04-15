@@ -45,6 +45,7 @@ import Links from '../../common/components/Links/Links';
 import LiteratureDecisionBox from '../components/LiteratureDecisionBox';
 import LiteratureReferences from '../components/LiteratureReferences';
 import LiteratureMatches from '../components/LiteratureMatches';
+import ExactMatchesCallout from '../components/ExactMatchesCallout';
 import { WorkflowStatuses, WorkflowTypes } from '../../constants';
 
 type LiteratureDetailPageContainerProps = {
@@ -75,8 +76,12 @@ const LiteratureDetailPageContainer = ({
   const referenceCount = literature?.get('reference_count');
   const classifierResults = literature?.get('classifier_results');
   const matches = literature?.get('matches');
+  const exactMatches = matches?.get('exact');
   const fuzzyMatches = matches?.get('fuzzy');
   const status = literature?.get('status');
+  const hasExactMatches =
+    !!exactMatches?.size &&
+    status === WorkflowStatuses.ERROR_MULTIPLE_EXACT_MATCHES;
   const hasFuzzyMatches =
     !!fuzzyMatches?.size && status === WorkflowStatuses.APPROVAL_FUZZY_MATCHING;
   const title = data?.getIn(['titles', 0, 'title']);
@@ -176,6 +181,9 @@ const LiteratureDetailPageContainer = ({
             <Row justify="center">
               <Col xs={24} md={22} lg={21} xxl={18}>
                 <StatusBanner status={status} />
+                {hasExactMatches && (
+                  <ExactMatchesCallout exactMatches={exactMatches} />
+                )}
                 <Row className="mv3" justify="center" gutter={35}>
                   <Col xs={24} lg={16}>
                     {data && (

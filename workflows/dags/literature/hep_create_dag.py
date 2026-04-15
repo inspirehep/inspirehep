@@ -77,6 +77,7 @@ from include.utils.constants import (
     STATUS_APPROVAL_MERGE,
     STATUS_BLOCKED,
     STATUS_COMPLETED,
+    STATUS_ERROR_MULTIPLE_EXACT_MATCHES,
     STATUS_MISSING_SUBJECT_FIELDS,
     STATUS_RUNNING,
     TICKET_HEP_CURATION_CORE,
@@ -248,7 +249,7 @@ def hep_create_dag():
         )
         return True
 
-    @task.branch
+    @task.branch(on_failure_callback=None)
     def check_for_exact_matches(**context):
         workflow_id = context["params"]["workflow_id"]
         workflow_data = s3_store.read_workflow(workflow_id)
@@ -262,14 +263,33 @@ def hep_create_dag():
         matches = response.json()["matched_ids"]
 
         if len(matches) >= 2:
+            workflow_data["status"] = STATUS_ERROR_MULTIPLE_EXACT_MATCHES
+            workflow_data["matches"] = get_value(workflow_data, "matches", {}) or {}
+            workflow_data["matches"]["exact"] = matches
+            s3_store.write_workflow(workflow_data)
+            workflow_management_hook.partial_update_workflow(
+                workflow_id=workflow_id,
+                workflow_partial_update_data={
+                    "status": STATUS_ERROR_MULTIPLE_EXACT_MATCHES,
+                    "matches": workflow_data["matches"],
+                },
+            )
             raise AirflowException(
                 f"Multiple exact matches found. {matches} should be merged by a curator"
                 f" before proceeding."
             )
         if len(matches) == 1:
+            workflow_data["matches"] = get_value(workflow_data, "matches", {}) or {}
+            workflow_data["matches"]["exact"] = matches
             context["ti"].xcom_push(key="match", value=matches[0])
             s3_store.set_flag("is-update", True, workflow_id)
             s3_store.write_workflow(workflow_data)
+            workflow_management_hook.partial_update_workflow(
+                workflow_id=workflow_id,
+                workflow_partial_update_data={
+                    "matches": workflow_data["matches"],
+                },
+            )
             return "stop_if_existing_submission_notify_and_close"
         return "check_for_fuzzy_matches"
 

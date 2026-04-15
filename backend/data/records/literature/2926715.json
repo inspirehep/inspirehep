@@ -1,0 +1,2798 @@
+{
+    "core": true,
+    "dois": [
+      {
+        "value": "10.1088/2058-9565/add8b6",
+        "source": "IOP"
+      }
+    ],
+    "self": {
+      "$ref": "https://inspirehep.net/api/literature/2926715"
+    },
+    "titles": [
+      {
+        "title": "Benchmarking digital–analog quantum computation for the inhomogeneous two-body Ising model",
+        "source": "IOP"
+      }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/hep.json",
+    "authors": [
+      {
+        "ids": [
+          {
+            "value": "0000-0002-8595-9581",
+            "schema": "ORCID"
+          }
+        ],
+        "uuid": "87b4ad81-c6e6-4198-b7c7-f8a6cb58946a",
+        "record": {
+          "$ref": "https://inspirehep.net/api/authors/2031478"
+        },
+        "full_name": "Pina Canelles, Vicente",
+        "affiliations": [
+          {
+            "value": "Unlisted, DE",
+            "record": {
+              "$ref": "https://inspirehep.net/api/institutions/912239"
+            }
+          },
+          {
+            "value": "Munich U., ASC",
+            "record": {
+              "$ref": "https://inspirehep.net/api/institutions/910704"
+            }
+          }
+        ],
+        "raw_affiliations": [
+          {
+            "value": "IQM Germany GmbH, Georg-Brauchle-Ring 23-25, 80992 Munich, Germany"
+          },
+          {
+            "value": "Department of Physics and Arnold Sommerfeld Center for Theoretical Physics, Ludwig-Maximilians-Universität München, Theresienstrasse 37, 80333 Munich, Germany"
+          }
+        ]
+      },
+      {
+        "uuid": "49b620b3-e045-41b9-b73d-3fd8af31a092",
+        "record": {
+          "$ref": "https://inspirehep.net/api/authors/2031476"
+        },
+        "full_name": "Algaba, Manuel G.",
+        "affiliations": [
+          {
+            "value": "Unlisted, DE",
+            "record": {
+              "$ref": "https://inspirehep.net/api/institutions/912239"
+            }
+          }
+        ],
+        "raw_affiliations": [
+          {
+            "value": "IQM Germany GmbH, Georg-Brauchle-Ring 23-25, 80992 Munich, Germany"
+          }
+        ]
+      },
+      {
+        "uuid": "7ee2c9bf-d55d-4e2f-af0c-f2854263df4f",
+        "record": {
+          "$ref": "https://inspirehep.net/api/authors/1939307"
+        },
+        "full_name": "Heimonen, Hermanni",
+        "affiliations": [
+          {
+            "value": "Unlisted, FI",
+            "record": {
+              "$ref": "https://inspirehep.net/api/institutions/912226"
+            }
+          }
+        ],
+        "raw_affiliations": [
+          {
+            "value": "IQM Finland Oy, Keilaranta 19, 02150 Espoo, Finland"
+          }
+        ]
+      },
+      {
+        "uuid": "69c68462-3666-4b52-9ed2-b7ea0efda2d4",
+        "record": {
+          "$ref": "https://inspirehep.net/api/authors/2108299"
+        },
+        "full_name": "Papič, Miha",
+        "affiliations": [
+          {
+            "value": "Unlisted, DE",
+            "record": {
+              "$ref": "https://inspirehep.net/api/institutions/912239"
+            }
+          },
+          {
+            "value": "Munich U., ASC",
+            "record": {
+              "$ref": "https://inspirehep.net/api/institutions/910704"
+            }
+          }
+        ],
+        "raw_affiliations": [
+          {
+            "value": "IQM Germany GmbH, Georg-Brauchle-Ring 23-25, 80992 Munich, Germany"
+          },
+          {
+            "value": "Department of Physics and Arnold Sommerfeld Center for Theoretical Physics, Ludwig-Maximilians-Universität München, Theresienstrasse 37, 80333 Munich, Germany"
+          }
+        ]
+      },
+      {
+        "ids": [
+          {
+            "value": "0000-0003-3541-5196",
+            "schema": "ORCID"
+          }
+        ],
+        "uuid": "558744ba-602d-47ca-a965-7442895b7a00",
+        "record": {
+          "$ref": "https://inspirehep.net/api/authors/2031477"
+        },
+        "full_name": "Ponce, Mario",
+        "affiliations": [
+          {
+            "value": "Unlisted, DE",
+            "record": {
+              "$ref": "https://inspirehep.net/api/institutions/912239"
+            }
+          },
+          {
+            "value": "Munich U., ASC",
+            "record": {
+              "$ref": "https://inspirehep.net/api/institutions/910704"
+            }
+          }
+        ],
+        "raw_affiliations": [
+          {
+            "value": "IQM Germany GmbH, Georg-Brauchle-Ring 23-25, 80992 Munich, Germany"
+          },
+          {
+            "value": "Department of Physics and Arnold Sommerfeld Center for Theoretical Physics, Ludwig-Maximilians-Universität München, Theresienstrasse 37, 80333 Munich, Germany"
+          }
+        ]
+      },
+      {
+        "uuid": "0f4bb794-a267-499d-bc0d-86dc829fd4da",
+        "record": {
+          "$ref": "https://inspirehep.net/api/authors/2609945"
+        },
+        "full_name": "Rönkkö, Jami",
+        "affiliations": [
+          {
+            "value": "Unlisted, FI",
+            "record": {
+              "$ref": "https://inspirehep.net/api/institutions/912226"
+            }
+          }
+        ],
+        "raw_affiliations": [
+          {
+            "value": "IQM Finland Oy, Keilaranta 19, 02150 Espoo, Finland"
+          }
+        ]
+      },
+      {
+        "uuid": "6698335a-0462-490d-bcb6-184b6f4da2df",
+        "record": {
+          "$ref": "https://inspirehep.net/api/authors/2139618"
+        },
+        "full_name": "Thapa, Manish J.",
+        "affiliations": [
+          {
+            "value": "Unlisted, DE",
+            "record": {
+              "$ref": "https://inspirehep.net/api/institutions/912239"
+            }
+          }
+        ],
+        "raw_affiliations": [
+          {
+            "value": "IQM Germany GmbH, Georg-Brauchle-Ring 23-25, 80992 Munich, Germany"
+          }
+        ]
+      },
+      {
+        "uuid": "1b38fd65-8d89-4f47-8abc-88d67bcfc70d",
+        "record": {
+          "$ref": "https://inspirehep.net/api/authors/2108807"
+        },
+        "full_name": "de Vega, Inés",
+        "affiliations": [
+          {
+            "value": "Unlisted, DE",
+            "record": {
+              "$ref": "https://inspirehep.net/api/institutions/912239"
+            }
+          },
+          {
+            "value": "Munich U., ASC",
+            "record": {
+              "$ref": "https://inspirehep.net/api/institutions/910704"
+            }
+          }
+        ],
+        "raw_affiliations": [
+          {
+            "value": "IQM Germany GmbH, Georg-Brauchle-Ring 23-25, 80992 Munich, Germany"
+          },
+          {
+            "value": "Department of Physics and Arnold Sommerfeld Center for Theoretical Physics, Ludwig-Maximilians-Universität München, Theresienstrasse 37, 80333 Munich, Germany"
+          }
+        ]
+      },
+      {
+        "uuid": "0c4eb674-fb1d-4feb-81e6-7b9fd5222563",
+        "record": {
+          "$ref": "https://inspirehep.net/api/authors/2139609"
+        },
+        "full_name": "Auer, Adrian",
+        "affiliations": [
+          {
+            "value": "Unlisted, DE",
+            "record": {
+              "$ref": "https://inspirehep.net/api/institutions/912239"
+            }
+          }
+        ],
+        "raw_affiliations": [
+          {
+            "value": "IQM Germany GmbH, Georg-Brauchle-Ring 23-25, 80992 Munich, Germany"
+          }
+        ]
+      }
+    ],
+    "curated": true,
+    "license": [
+      {
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "license": "CC-BY-4.0",
+        "imposing": "IOP"
+      }
+    ],
+    "texkeys": [
+      "PinaCanelles:2025idw"
+    ],
+    "citeable": true,
+    "imprints": [
+      {
+        "date": "2025-05-27"
+      }
+    ],
+    "keywords": [
+      {
+        "value": "quantum computing",
+        "source": "author"
+      },
+      {
+        "value": "quantum information",
+        "source": "author"
+      },
+      {
+        "value": "digital–analog quantum computation",
+        "source": "author"
+      }
+    ],
+    "refereed": true,
+    "abstracts": [
+      {
+        "value": "Digital–analog quantum computation (DAQC) has recently been proposed as an alternative to the standard paradigm of digital quantum computation (DQC). DAQC generates entanglement through a continuous or analog evolution of the whole device, rather than by applying two-qubit gates. This manuscript describes an in-depth analysis of errors in DAQC implementing Ising Hamiltonians used for arbitrary computations, which was missing from the previous literature, revealing that, overall, DAQC errors scale less favorably compared to those in DQC. As demonstrated, for an all-to-all connectivity, the leading error source for DAQC scales like $\\Theta(N^4)$, while for the digital case, it scales like $\\mathcal{O}(N^2)$ for implementing an arbitrary Hamiltonian evolution. We further illustrate this result with our own simulations of the Quantum Fourier Transform, which in the previous literature were based on unrealistic parameter choices, biasing the result in favor of DAQC, and were limited to system sizes of up to only seven qubits. On the other hand, we develop a specific DAQC protocol for a star connectivity, which shows an advantage for the particular case of a GHZ state generation protocol.",
+        "source": "IOP"
+      }
+    ],
+    "documents": [
+      {
+        "key": "746ca9501b362e916e4489ac6a6c610a",
+        "url": "https://inspirehep.net/files/746ca9501b362e916e4489ac6a6c610a",
+        "source": "IOP",
+        "filename": "document",
+        "fulltext": true
+      }
+    ],
+    "references": [
+      {
+        "raw_refs": [
+          {
+            "value": "[35] Qiskit: an open-source framework for quantum computing, 2023, 2023 Zenodo (https://10.5281/zenodo.2573505 ),",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.5281/zenodo.2573505"
+          ],
+          "misc": [
+            "Qiskit: an open-source framework for quantum",
+            "Zenodo (https://"
+          ],
+          "label": "35",
+          "publication_info": {
+            "artid": "2023",
+            "page_start": "2023",
+            "journal_title": "Computing",
+            "journal_volume": "2023"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2731578"
+        },
+        "raw_refs": [
+          {
+            "value": "[1] A. Parra-Rodriguez, P. Lougovski, L. Lamata, E. Solano, Phys.Rev.A,101,022305, DOI: 10.1103/PhysRevA.101.022305",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevA.101.022305"
+          ],
+          "label": "1",
+          "authors": [
+            {
+              "full_name": "Parra-Rodriguez, A."
+            },
+            {
+              "full_name": "Lougovski, P."
+            },
+            {
+              "full_name": "Lamata, L."
+            },
+            {
+              "full_name": "Solano, E."
+            },
+            {
+              "full_name": "Sanz, M."
+            }
+          ],
+          "publication_info": {
+            "year": 2020,
+            "artid": "022305",
+            "journal_title": "Phys.Rev.A",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1613967"
+            },
+            "journal_volume": "101"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2674019"
+        },
+        "raw_refs": [
+          {
+            "value": "[2] M. Garcia-de Andoin, A. Saiz, P. Pérez-Fernández, L. Lamata, Phys.Rev.Res.,6,013280, DOI: 10.1103/PhysRevResearch.6.013280",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevResearch.6.013280"
+          ],
+          "label": "2",
+          "authors": [
+            {
+              "full_name": "Andoin, M. Garcia-de"
+            },
+            {
+              "full_name": "Saiz, A."
+            },
+            {
+              "full_name": "Pérez-Fernández, P."
+            },
+            {
+              "full_name": "Lamata, L."
+            },
+            {
+              "full_name": "Oregi, I."
+            },
+            {
+              "full_name": "Sanz, M."
+            }
+          ],
+          "publication_info": {
+            "year": 2024,
+            "artid": "013280",
+            "journal_title": "Phys.Rev.Res.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1778162"
+            },
+            "journal_volume": "6"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/3054621"
+        },
+        "raw_refs": [
+          {
+            "value": "[3] A. Galicia, B. Ramon, E. Solano, M. Sanz, Phys.Rev.Res.,2,033103, DOI: 10.1103/PhysRevResearch.2.033103",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevResearch.2.033103"
+          ],
+          "label": "3",
+          "authors": [
+            {
+              "full_name": "Galicia, A."
+            },
+            {
+              "full_name": "Ramon, B."
+            },
+            {
+              "full_name": "Solano, E."
+            },
+            {
+              "full_name": "Sanz, M."
+            }
+          ],
+          "publication_info": {
+            "year": 2020,
+            "artid": "033103",
+            "journal_title": "Phys.Rev.Res.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1778162"
+            },
+            "journal_volume": "2"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/1774931"
+        },
+        "raw_refs": [
+          {
+            "value": "[4] A. Martin, L. Lamata, E. Solano, M. Sanz, Phys.Rev.Res.,2,013012, DOI: 10.1103/PhysRevResearch.2.013012",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevResearch.2.013012"
+          ],
+          "label": "4",
+          "authors": [
+            {
+              "full_name": "Martin, A."
+            },
+            {
+              "full_name": "Lamata, L."
+            },
+            {
+              "full_name": "Solano, E."
+            },
+            {
+              "full_name": "Sanz, M."
+            }
+          ],
+          "publication_info": {
+            "year": 2020,
+            "artid": "013012",
+            "journal_title": "Phys.Rev.Res.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1778162"
+            },
+            "journal_volume": "2"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2616907"
+        },
+        "raw_refs": [
+          {
+            "value": "[5] P. García-Molina, A. Martin, M. Garcia de Andoin, M. Sanz, Commun.Phys.,7,321, DOI: 10.1038/s42005-024-01812-5",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1038/s42005-024-01812-5"
+          ],
+          "label": "5",
+          "authors": [
+            {
+              "full_name": "García-Molina, P."
+            },
+            {
+              "full_name": "Martin, A."
+            },
+            {
+              "full_name": "de Andoin, M. Garcia"
+            },
+            {
+              "full_name": "Sanz, M."
+            }
+          ],
+          "publication_info": {
+            "year": 2024,
+            "artid": "321",
+            "page_start": "321",
+            "journal_title": "Commun.Phys.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1820531"
+            },
+            "journal_volume": "7"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2126797"
+        },
+        "raw_refs": [
+          {
+            "value": "[6] A. Martin, R. Ibarrondo, M. Sanz, Phys. Rev. Appl.,19,064056, DOI: 10.1103/PhysRevApplied.19.064056",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevApplied.19.064056"
+          ],
+          "label": "6",
+          "authors": [
+            {
+              "full_name": "Martin, A."
+            },
+            {
+              "full_name": "Ibarrondo, R."
+            },
+            {
+              "full_name": "Sanz, M."
+            }
+          ],
+          "publication_info": {
+            "year": 2023,
+            "artid": "064056",
+            "journal_title": "Phys.Rev.Applied",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1389949"
+            },
+            "journal_volume": "19"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2172786"
+        },
+        "raw_refs": [
+          {
+            "value": "[7] D. Headley, T. Müller, A. Martin, E. Solano, Phys.Rev.A,106,042446, DOI: 10.1103/PhysRevA.106.042446",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevA.106.042446"
+          ],
+          "label": "7",
+          "authors": [
+            {
+              "full_name": "Headley, D."
+            },
+            {
+              "full_name": "Müller, T."
+            },
+            {
+              "full_name": "Martin, A."
+            },
+            {
+              "full_name": "Solano, E."
+            },
+            {
+              "full_name": "Sanz, M."
+            },
+            {
+              "full_name": "Wilhelm, F.K."
+            }
+          ],
+          "publication_info": {
+            "year": 2022,
+            "artid": "042446",
+            "journal_title": "Phys.Rev.A",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1613967"
+            },
+            "journal_volume": "106"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2799511"
+        },
+        "raw_refs": [
+          {
+            "value": "[8] L. Lamata, A. Parra-Rodriguez, M. Sanz, E S and, Adv.Phys.X,3,1457981, DOI: 10.1080/23746149.2018.1457981",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1080/23746149.2018.1457981"
+          ],
+          "label": "8",
+          "authors": [
+            {
+              "full_name": "Lamata, L."
+            },
+            {
+              "full_name": "Parra-Rodriguez, A."
+            },
+            {
+              "full_name": "Sanz, M."
+            },
+            {
+              "full_name": "S and, E."
+            }
+          ],
+          "publication_info": {
+            "year": 2018,
+            "artid": "1457981",
+            "journal_title": "Adv.Phys.X",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1593834"
+            },
+            "journal_volume": "3"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2660378"
+        },
+        "raw_refs": [
+          {
+            "value": "[9] O. Ezratty: Where are we heading with nisq?, 2023, 2023 (arXiv:, arXiv: 2305.09518)",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "arxiv_eprint": "2305.09518"
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2095984"
+        },
+        "raw_refs": [
+          {
+            "value": "[10] P. Baßler, M. Zipper, C. Cedzich, M. Heinrich, Quantum,7,984, DOI: 10.22331/q-2023-04-20-984",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.22331/q-2023-04-20-984"
+          ],
+          "label": "10",
+          "authors": [
+            {
+              "full_name": "Baßler, P."
+            },
+            {
+              "full_name": "Zipper, M."
+            },
+            {
+              "full_name": "Cedzich, C."
+            },
+            {
+              "full_name": "Heinrich, M."
+            },
+            {
+              "full_name": "Huber, P.H."
+            },
+            {
+              "full_name": "Johanning, M."
+            },
+            {
+              "full_name": "Kliesch, M."
+            }
+          ],
+          "publication_info": {
+            "year": 2023,
+            "artid": "984",
+            "page_start": "984",
+            "journal_title": "Quantum",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1831498"
+            },
+            "journal_volume": "7"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2698350"
+        },
+        "raw_refs": [
+          {
+            "value": "[11] M. Werninghaus, D J Egger, F. Roy, S. Machnes, npj Quantum Inf.,7,14, DOI: 10.1038/s41534-020-00346-2",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1038/s41534-020-00346-2"
+          ],
+          "label": "11",
+          "authors": [
+            {
+              "full_name": "Werninghaus, M."
+            },
+            {
+              "full_name": "Egger, D.J."
+            },
+            {
+              "full_name": "Roy, F."
+            },
+            {
+              "full_name": "Machnes, S."
+            },
+            {
+              "full_name": "Wilhelm, F.K."
+            },
+            {
+              "full_name": "Filipp, S."
+            }
+          ],
+          "publication_info": {
+            "year": 2021,
+            "artid": "14",
+            "page_start": "14",
+            "journal_title": "npj Quantum Inf.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1832964"
+            },
+            "journal_volume": "7"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2728615"
+        },
+        "raw_refs": [
+          {
+            "value": "[12] Y. Sung, Phys.Rev.X,11,021058, DOI: 10.1103/PhysRevX.11.021058",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevX.11.021058"
+          ],
+          "label": "12",
+          "authors": [
+            {
+              "full_name": "Sung, Y."
+            }
+          ],
+          "publication_info": {
+            "year": 2021,
+            "artid": "021058",
+            "journal_title": "Phys.Rev.X",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1613972"
+            },
+            "journal_volume": "11"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/1966338"
+        },
+        "raw_refs": [
+          {
+            "value": "[13] J. Chu, F. Yan, Phys. Rev. Appl.,16,054020, DOI: 10.1103/PhysRevApplied.16.054020",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevApplied.16.054020"
+          ],
+          "label": "13",
+          "authors": [
+            {
+              "full_name": "Chu, J."
+            },
+            {
+              "full_name": "Yan, F."
+            }
+          ],
+          "publication_info": {
+            "year": 2021,
+            "artid": "054020",
+            "journal_title": "Phys.Rev.Applied",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1389949"
+            },
+            "journal_volume": "16"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2728591"
+        },
+        "raw_refs": [
+          {
+            "value": "[14] D. Hangleiter, I. Roth, J. Fuksa, J. Eisert, Nature Commun.,15,9595, DOI: 10.1038/s41467-024-52629-3",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1038/s41467-024-52629-3"
+          ],
+          "label": "14",
+          "authors": [
+            {
+              "full_name": "Hangleiter, D."
+            },
+            {
+              "full_name": "Roth, I."
+            },
+            {
+              "full_name": "Fuksa, J."
+            },
+            {
+              "full_name": "Eisert, J."
+            },
+            {
+              "full_name": "Roushan, P."
+            }
+          ],
+          "publication_info": {
+            "year": 2024,
+            "artid": "9595",
+            "page_start": "9595",
+            "journal_title": "Nature Commun.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1211687"
+            },
+            "journal_volume": "15"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2731733"
+        },
+        "raw_refs": [
+          {
+            "value": "[15] G. Wendin, Rept.Prog.Phys.,80,106001, DOI: 10.1088/1361-6633/aa7e1a",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1088/1361-6633/aa7e1a"
+          ],
+          "label": "15",
+          "authors": [
+            {
+              "full_name": "Wendin, G."
+            }
+          ],
+          "publication_info": {
+            "year": 2017,
+            "artid": "106001",
+            "journal_title": "Rept.Prog.Phys.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1214416"
+            },
+            "journal_volume": "80"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2082480"
+        },
+        "raw_refs": [
+          {
+            "value": "[16] J. Yu, J C Retamal, M. Sanz, E. Solano, Technol.,9,9, DOI: 10.1140/epjqt/s40507-022-00129-y",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1140/epjqt/s40507-022-00129-y"
+          ],
+          "label": "16",
+          "authors": [
+            {
+              "full_name": "Yu, J."
+            },
+            {
+              "full_name": "Retamal, J.C."
+            },
+            {
+              "full_name": "Sanz, M."
+            },
+            {
+              "full_name": "Solano, E."
+            },
+            {
+              "full_name": "Albarrán-Arriagada, F."
+            }
+          ],
+          "publication_info": {
+            "year": 2022,
+            "artid": "9",
+            "page_start": "9",
+            "journal_title": "Technol.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1600905"
+            },
+            "journal_volume": "9"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/1999816"
+        },
+        "raw_refs": [
+          {
+            "value": "[17] W. Yu, J. Sun, Z. Han, X. Yuan, Quantum,7,1045, DOI: 10.22331/q-2023-06-29-1045",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.22331/q-2023-06-29-1045"
+          ],
+          "label": "17",
+          "authors": [
+            {
+              "full_name": "Yu, W."
+            },
+            {
+              "full_name": "Sun, J."
+            },
+            {
+              "full_name": "Han, Z."
+            },
+            {
+              "full_name": "Yuan, X."
+            }
+          ],
+          "publication_info": {
+            "year": 2023,
+            "artid": "1045",
+            "page_start": "1045",
+            "journal_title": "Quantum",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1831498"
+            },
+            "journal_volume": "7"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2158445"
+        },
+        "raw_refs": [
+          {
+            "value": "[18] F. Wilde, A. Kshetrimayum, I. Roth, D. Hangleiter, R. Sweke, J. Eisert: Scalably learning quantum many-body hamiltonians from dynamical data, 2022, 2022 (arXiv:, arXiv: 2209.14328 [quant-ph])",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "arxiv_eprint": "2209.14328"
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2734381"
+        },
+        "raw_refs": [
+          {
+            "value": "[19] C E Granade, C. Ferrie, N. Wiebe, D G Cory, New J.Phys.,14,103013, DOI: 10.1088/1367-2630/14/10/103013",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1088/1367-2630/14/10/103013"
+          ],
+          "label": "19",
+          "authors": [
+            {
+              "full_name": "Granade, C.E."
+            },
+            {
+              "full_name": "Ferrie, C."
+            },
+            {
+              "full_name": "Wiebe, N."
+            },
+            {
+              "full_name": "Cory, D.G."
+            }
+          ],
+          "publication_info": {
+            "year": 2012,
+            "artid": "103013",
+            "journal_title": "New J.Phys.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1212465"
+            },
+            "journal_volume": "14"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/1760347"
+        },
+        "raw_refs": [
+          {
+            "value": "[20] F. Arute, Nature,574,505, DOI: 10.1038/s41586-019-1666-5",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1038/s41586-019-1666-5"
+          ],
+          "label": "20",
+          "authors": [
+            {
+              "full_name": "Arute, F."
+            }
+          ],
+          "publication_info": {
+            "year": 2019,
+            "artid": "505",
+            "page_start": "505",
+            "journal_title": "Nature",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1214565"
+            },
+            "journal_volume": "574"
+          }
+        }
+      },
+      {
+        "raw_refs": [
+          {
+            "value": "[21] M H Fischer, M. Maksymenko, E. Altman, Phys.Rev.Lett.,116,160401, DOI: 10.1103/PhysRevLett.116.160401",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevLett.116.160401"
+          ],
+          "label": "21",
+          "authors": [
+            {
+              "full_name": "Fischer, M.H."
+            },
+            {
+              "full_name": "Maksymenko, M."
+            },
+            {
+              "full_name": "Altman, E."
+            }
+          ],
+          "publication_info": {
+            "year": 2016,
+            "artid": "160401",
+            "journal_title": "Phys.Rev.Lett.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1214495"
+            },
+            "journal_volume": "116"
+          }
+        }
+      },
+      {
+        "raw_refs": [
+          {
+            "value": "[22] S. Johri, R. Nandkishore, R N Bhatt, Phys.Rev.Lett.,114,117401, DOI: 10.1103/PhysRevLett.114.117401",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevLett.114.117401"
+          ],
+          "label": "22",
+          "authors": [
+            {
+              "full_name": "Johri, S."
+            },
+            {
+              "full_name": "Nandkishore, R."
+            },
+            {
+              "full_name": "Bhatt, R.N."
+            }
+          ],
+          "publication_info": {
+            "year": 2015,
+            "artid": "117401",
+            "journal_title": "Phys.Rev.Lett.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1214495"
+            },
+            "journal_volume": "114"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/1994529"
+        },
+        "raw_refs": [
+          {
+            "value": "[23] A. Glicenstein, G. Ferioli, A. Browaeys, I. Ferrier-Barbut, Opt.Lett.,47,1541, DOI: 10.1364/OL.451903",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1364/OL.451903"
+          ],
+          "label": "23",
+          "authors": [
+            {
+              "full_name": "Glicenstein, A."
+            },
+            {
+              "full_name": "Ferioli, G."
+            },
+            {
+              "full_name": "Browaeys, A."
+            },
+            {
+              "full_name": "Ferrier-Barbut, I."
+            }
+          ],
+          "publication_info": {
+            "year": 2022,
+            "artid": "1541",
+            "page_start": "1541",
+            "journal_title": "Opt.Lett.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1214229"
+            },
+            "journal_volume": "47"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2734034"
+        },
+        "raw_refs": [
+          {
+            "value": "[24] M. Žnidarič, Phys.Rev.E,92,042143, DOI: 10.1103/PhysRevE.92.042143",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevE.92.042143"
+          ],
+          "label": "24",
+          "authors": [
+            {
+              "full_name": "Žnidarič, M."
+            }
+          ],
+          "publication_info": {
+            "year": 2015,
+            "artid": "042143",
+            "journal_title": "Phys.Rev.E",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1613971"
+            },
+            "journal_volume": "92"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2079363"
+        },
+        "raw_refs": [
+          {
+            "value": "[25] S J Masson, A. Asenjo-Garcia, Nature Commun.,13,2285, DOI: 10.1038/s41467-022-29805-4",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1038/s41467-022-29805-4"
+          ],
+          "label": "25",
+          "authors": [
+            {
+              "full_name": "Masson, S.J."
+            },
+            {
+              "full_name": "Asenjo-Garcia, A."
+            }
+          ],
+          "publication_info": {
+            "year": 2022,
+            "artid": "2285",
+            "page_start": "2285",
+            "journal_title": "Nature Commun.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1211687"
+            },
+            "journal_volume": "13"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/3056444"
+        },
+        "raw_refs": [
+          {
+            "value": "[26] C D Parmee, J. Ruostekoski, Commun.Phys.,3,205, DOI: 10.1038/s42005-020-00476-1",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1038/s42005-020-00476-1"
+          ],
+          "label": "26",
+          "authors": [
+            {
+              "full_name": "Parmee, C.D."
+            },
+            {
+              "full_name": "Ruostekoski, J."
+            }
+          ],
+          "publication_info": {
+            "year": 2020,
+            "artid": "205",
+            "page_start": "205",
+            "journal_title": "Commun.Phys.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1820531"
+            },
+            "journal_volume": "3"
+          }
+        }
+      },
+      {
+        "raw_refs": [
+          {
+            "value": "[27] M. Scheibner, T. Schmidt, L. Worschech, A. Forchel, Nature Phys.,3,106, DOI: 10.1038/nphys494",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1038/nphys494"
+          ],
+          "label": "27",
+          "authors": [
+            {
+              "full_name": "Scheibner, M."
+            },
+            {
+              "full_name": "Schmidt, T."
+            },
+            {
+              "full_name": "Worschech, L."
+            },
+            {
+              "full_name": "Forchel, A."
+            },
+            {
+              "full_name": "Bacher, G."
+            },
+            {
+              "full_name": "Passow, T."
+            },
+            {
+              "full_name": "Hommel, D."
+            }
+          ],
+          "publication_info": {
+            "year": 2007,
+            "artid": "106",
+            "page_start": "106",
+            "journal_title": "Nature Phys.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1211879"
+            },
+            "journal_volume": "3"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/3034296"
+        },
+        "raw_refs": [
+          {
+            "value": "[28] N. Lambert, Y. Matsuzaki, K. Kakuyanagi, N. Ishida, Phys.Rev.B,94,224510, DOI: 10.1103/PhysRevB.94.224510",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevB.94.224510"
+          ],
+          "label": "28",
+          "authors": [
+            {
+              "full_name": "Lambert, N."
+            },
+            {
+              "full_name": "Matsuzaki, Y."
+            },
+            {
+              "full_name": "Kakuyanagi, K."
+            },
+            {
+              "full_name": "Ishida, N."
+            },
+            {
+              "full_name": "Saito, S."
+            },
+            {
+              "full_name": "Nori, F."
+            }
+          ],
+          "publication_info": {
+            "year": 2016,
+            "artid": "224510",
+            "journal_title": "Phys.Rev.B",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1613968"
+            },
+            "journal_volume": "94"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/3011627"
+        },
+        "raw_refs": [
+          {
+            "value": "[29] Y. Zhang, L. Yu, J Q Liang, G. Chen, Sci.Rep.,4,4083, DOI: 10.1038/srep04083",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1038/srep04083"
+          ],
+          "label": "29",
+          "authors": [
+            {
+              "full_name": "Zhang, Y."
+            },
+            {
+              "full_name": "Yu, L."
+            },
+            {
+              "full_name": "Liang, J.Q."
+            },
+            {
+              "full_name": "Chen, G."
+            },
+            {
+              "full_name": "Jia, S."
+            },
+            {
+              "full_name": "Nori, F."
+            }
+          ],
+          "publication_info": {
+            "year": 2014,
+            "artid": "4083",
+            "page_start": "4083",
+            "journal_title": "Sci.Rep.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1211634"
+            },
+            "journal_volume": "4"
+          }
+        }
+      },
+      {
+        "raw_refs": [
+          {
+            "value": "[30] M A Nielsen, I L Chuang: Quantum Computation and Quantum Information, Cambridge University Press, 2010, 2010",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "label": "30",
+          "title": {
+            "title": "Quantum Computation and Quantum Information"
+          },
+          "authors": [
+            {
+              "full_name": "Nielsen, M.A."
+            },
+            {
+              "full_name": "Chuang, I.L."
+            }
+          ],
+          "imprint": {
+            "publisher": "Cambridge University Press"
+          },
+          "publication_info": {
+            "year": 2010
+          }
+        }
+      },
+      {
+        "raw_refs": [
+          {
+            "value": "[31] D M Greenberger, D. Greenberger, K. Hentschel, F. Weinert: Ghz (greenberger-horne-zeilinger) theorem and ghz states, pages pp 258-63 in: D. Greenberger, K. Hentschel, F. Weinert: Compendium of Quantum Physics, Springer Berlin Heidelberg, 2009, 2009 pp 258-63",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "label": "31",
+          "title": {
+            "title": "Ghz (greenberger-horne-zeilinger) theorem and ghz states"
+          },
+          "authors": [
+            {
+              "full_name": "Greenberger, D.",
+              "inspire_role": "editor"
+            },
+            {
+              "full_name": "Hentschel, K.",
+              "inspire_role": "editor"
+            },
+            {
+              "full_name": "Weinert, F.",
+              "inspire_role": "editor"
+            },
+            {
+              "full_name": "Greenberger, D.M."
+            },
+            {
+              "full_name": "Greenberger, D."
+            },
+            {
+              "full_name": "Hentschel, K."
+            },
+            {
+              "full_name": "Weinert, F."
+            }
+          ],
+          "imprint": {
+            "publisher": "Springer Berlin Heidelberg"
+          },
+          "publication_info": {
+            "year": 2009,
+            "parent_title": "Compendium of Quantum Physics"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/3001845"
+        },
+        "raw_refs": [
+          {
+            "value": "[32] J. Ghosh: A note on the measures of process fidelity for non-unitary quantum operations, 2011, 2011 (arXiv:, arXiv: 1111.2478 [math-ph])",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "arxiv_eprint": "1111.2478"
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2727104"
+        },
+        "raw_refs": [
+          {
+            "value": "[33] P. Krantz, M. Kjaergaard, F. Yan, T P Orlando, Appl. Phys. Rev.,6,021318, DOI: 10.1063/1.5089550",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1063/1.5089550"
+          ],
+          "label": "33",
+          "authors": [
+            {
+              "full_name": "Krantz, P."
+            },
+            {
+              "full_name": "Kjaergaard, M."
+            },
+            {
+              "full_name": "Yan, F."
+            },
+            {
+              "full_name": "Orlando, T.P."
+            },
+            {
+              "full_name": "Gustavsson, S."
+            },
+            {
+              "full_name": "Oliver, W.D."
+            }
+          ],
+          "publication_info": {
+            "year": 2019,
+            "artid": "021318",
+            "journal_title": "Appl.Phys.Rev.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/2697619"
+            },
+            "journal_volume": "6"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2730431"
+        },
+        "raw_refs": [
+          {
+            "value": "[34] D C McKay, C J Wood, S. Sheldon, J M Chow, Phys.Rev.A,96,022330, DOI: 10.1103/PhysRevA.96.022330",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevA.96.022330"
+          ],
+          "label": "34",
+          "authors": [
+            {
+              "full_name": "McKay, D.C."
+            },
+            {
+              "full_name": "Wood, C.J."
+            },
+            {
+              "full_name": "Sheldon, S."
+            },
+            {
+              "full_name": "Chow, J.M."
+            },
+            {
+              "full_name": "Gambetta, J.M."
+            }
+          ],
+          "publication_info": {
+            "year": 2017,
+            "artid": "022330",
+            "journal_title": "Phys.Rev.A",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1613967"
+            },
+            "journal_volume": "96"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2800943"
+        },
+        "raw_refs": [
+          {
+            "value": "[36] A. Carignan-Dugas, J J Wallman, J. Emerson, New J.Phys.,21,053016, DOI: 10.1088/1367-2630/ab1800",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1088/1367-2630/ab1800"
+          ],
+          "label": "36",
+          "authors": [
+            {
+              "full_name": "Carignan-Dugas, A."
+            },
+            {
+              "full_name": "Wallman, J.J."
+            },
+            {
+              "full_name": "Emerson, J."
+            }
+          ],
+          "publication_info": {
+            "year": 2019,
+            "artid": "053016",
+            "journal_title": "New J.Phys.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1212465"
+            },
+            "journal_volume": "21"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2133691"
+        },
+        "raw_refs": [
+          {
+            "value": "[37] A. Daley, I. Bloch, C. Kokail, S. Flannigan, Nature,607,667, DOI: 10.1038/s41586-022-04940-6",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1038/s41586-022-04940-6"
+          ],
+          "label": "37",
+          "authors": [
+            {
+              "full_name": "Daley, A."
+            },
+            {
+              "full_name": "Bloch, I."
+            },
+            {
+              "full_name": "Kokail, C."
+            },
+            {
+              "full_name": "Flannigan, S."
+            },
+            {
+              "full_name": "Pearson, N."
+            },
+            {
+              "full_name": "Troyer, M."
+            },
+            {
+              "full_name": "Zoller, P."
+            }
+          ],
+          "publication_info": {
+            "year": 2022,
+            "artid": "667",
+            "page_start": "667",
+            "journal_title": "Nature",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1214565"
+            },
+            "journal_volume": "607"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2930452"
+        },
+        "raw_refs": [
+          {
+            "value": "[38] I n Arrazola, J S Pedernales, L. Lamata, E. Solano, Sci.Rep.,6,30534, DOI: 10.1038/srep30534",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1038/srep30534"
+          ],
+          "label": "38",
+          "authors": [
+            {
+              "full_name": "Arrazola, I.n."
+            },
+            {
+              "full_name": "Pedernales, J.S."
+            },
+            {
+              "full_name": "Lamata, L."
+            },
+            {
+              "full_name": "Solano, E."
+            }
+          ],
+          "publication_info": {
+            "year": 2016,
+            "artid": "30534",
+            "journal_title": "Sci.Rep.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1211634"
+            },
+            "journal_volume": "6"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/3053539"
+        },
+        "raw_refs": [
+          {
+            "value": "[39] D V Babukhin, A A Zhukov, W V Pogosov, Phys.Rev.A,101,052337, DOI: 10.1103/PhysRevA.101.052337",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevA.101.052337"
+          ],
+          "label": "39",
+          "authors": [
+            {
+              "full_name": "Babukhin, D.V."
+            },
+            {
+              "full_name": "Zhukov, A.A."
+            },
+            {
+              "full_name": "Pogosov, W.V."
+            }
+          ],
+          "publication_info": {
+            "year": 2020,
+            "artid": "052337",
+            "journal_title": "Phys.Rev.A",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1613967"
+            },
+            "journal_volume": "101"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/1854563"
+        },
+        "raw_refs": [
+          {
+            "value": "[40] L C Céleri, D. Huerga, F. Albarrán-Arriagada, E. Solano, Phys. Rev. Appl.,19,064086, DOI: 10.1103/PhysRevApplied.19.064086",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevApplied.19.064086"
+          ],
+          "label": "40",
+          "authors": [
+            {
+              "full_name": "Céleri, L.C."
+            },
+            {
+              "full_name": "Huerga, D."
+            },
+            {
+              "full_name": "Albarrán-Arriagada, F."
+            },
+            {
+              "full_name": "Solano, E."
+            },
+            {
+              "full_name": "de Andoin, M. Garcia"
+            },
+            {
+              "full_name": "Sanz, M."
+            }
+          ],
+          "publication_info": {
+            "year": 2023,
+            "artid": "064086",
+            "journal_title": "Phys.Rev.Applied",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1389949"
+            },
+            "journal_volume": "19"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2698136"
+        },
+        "raw_refs": [
+          {
+            "value": "[41] Z. Tao, npj Quantum Inf.,7,73, DOI: 10.1038/s41534-021-00406-1",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1038/s41534-021-00406-1"
+          ],
+          "label": "41",
+          "authors": [
+            {
+              "full_name": "Tao, Z."
+            }
+          ],
+          "publication_info": {
+            "year": 2021,
+            "artid": "73",
+            "page_start": "73",
+            "journal_title": "npj Quantum Inf.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1832964"
+            },
+            "journal_volume": "7"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2708308"
+        },
+        "raw_refs": [
+          {
+            "value": "[42] T. Gonzalez-Raya, R. Asensio-Perea, A. Martin, L C Céleri, PRX Quantum,2,020328, DOI: 10.1103/PRXQuantum.2.020328",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PRXQuantum.2.020328"
+          ],
+          "label": "42",
+          "authors": [
+            {
+              "full_name": "Gonzalez-Raya, T."
+            },
+            {
+              "full_name": "Asensio-Perea, R."
+            },
+            {
+              "full_name": "Martin, A."
+            },
+            {
+              "full_name": "Céleri, L.C."
+            },
+            {
+              "full_name": "Sanz, M."
+            },
+            {
+              "full_name": "Lougovski, P."
+            },
+            {
+              "full_name": "Dumitrescu, E.F."
+            }
+          ],
+          "publication_info": {
+            "year": 2021,
+            "artid": "020328",
+            "journal_title": "PRX Quantum",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1869676"
+            },
+            "journal_volume": "2"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/1999088"
+        },
+        "raw_refs": [
+          {
+            "value": "[43] N M Guseynov, W V Pogosov, J.Phys.Condens.Matter,34,285901, DOI: 10.1088/1361-648X/ac6927",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1088/1361-648X/ac6927"
+          ],
+          "label": "43",
+          "authors": [
+            {
+              "full_name": "Guseynov, N.M."
+            },
+            {
+              "full_name": "Pogosov, W.V."
+            }
+          ],
+          "publication_info": {
+            "year": 2022,
+            "artid": "285901",
+            "journal_title": "J.Phys.Condens.Matter",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1214062"
+            },
+            "journal_volume": "34"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/1996853"
+        },
+        "raw_refs": [
+          {
+            "value": "[44] K. Huang, npj Quantum Inf.,7,165, DOI: 10.1038/s41534-021-00503-1",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1038/s41534-021-00503-1"
+          ],
+          "label": "44",
+          "authors": [
+            {
+              "full_name": "Huang, K."
+            }
+          ],
+          "publication_info": {
+            "year": 2021,
+            "artid": "165",
+            "page_start": "165",
+            "journal_title": "npj Quantum Inf.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1832964"
+            },
+            "journal_volume": "7"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2624057"
+        },
+        "raw_refs": [
+          {
+            "value": "[45] A. Michel, S. Grijalva, L. Henriet, C. Domain, Phys.Rev.A,107,042602, DOI: 10.1103/PhysRevA.107.042602",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevA.107.042602"
+          ],
+          "label": "45",
+          "authors": [
+            {
+              "full_name": "Michel, A."
+            },
+            {
+              "full_name": "Grijalva, S."
+            },
+            {
+              "full_name": "Henriet, L."
+            },
+            {
+              "full_name": "Domain, C."
+            },
+            {
+              "full_name": "Browaeys, A."
+            }
+          ],
+          "publication_info": {
+            "year": 2023,
+            "artid": "042602",
+            "journal_title": "Phys.Rev.A",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1613967"
+            },
+            "journal_volume": "107"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2012098"
+        },
+        "raw_refs": [
+          {
+            "value": "[46] M. Gong, Sci.Bull.,68,906, DOI: 10.1016/j.scib.2023.04.003",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1016/j.scib.2023.04.003"
+          ],
+          "label": "46",
+          "authors": [
+            {
+              "full_name": "Gong, M."
+            }
+          ],
+          "publication_info": {
+            "year": 2023,
+            "artid": "906",
+            "page_start": "906",
+            "journal_title": "Sci.Bull.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1768145"
+            },
+            "journal_volume": "68"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2950024"
+        },
+        "raw_refs": [
+          {
+            "value": "[47] J L Dodd, M A Nielsen, M J Bremner, R T Thew, Phys.Rev.A,65,040301, DOI: 10.1103/PhysRevA.65.040301",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevA.65.040301"
+          ],
+          "label": "47",
+          "authors": [
+            {
+              "full_name": "Dodd, J.L."
+            },
+            {
+              "full_name": "Nielsen, M.A."
+            },
+            {
+              "full_name": "Bremner, M.J."
+            },
+            {
+              "full_name": "Thew, R.T."
+            }
+          ],
+          "publication_info": {
+            "year": 2002,
+            "artid": "040301",
+            "journal_title": "Phys.Rev.A",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1613967"
+            },
+            "journal_volume": "65"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/115485"
+        },
+        "raw_refs": [
+          {
+            "value": "[48] M. Suzuki, Commun.Math.Phys.,51,183, DOI: 10.1007/bf01609348",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1007/bf01609348"
+          ],
+          "label": "48",
+          "authors": [
+            {
+              "full_name": "Suzuki, M."
+            }
+          ],
+          "publication_info": {
+            "year": 1976,
+            "artid": "183",
+            "page_start": "183",
+            "journal_title": "Commun.Math.Phys.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1214791"
+            },
+            "journal_volume": "51"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2732971"
+        },
+        "raw_refs": [
+          {
+            "value": "[49] S. Lloyd, Science,273,1073, DOI: 10.1126/science.273.5278.1073",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1126/science.273.5278.1073"
+          ],
+          "label": "49",
+          "authors": [
+            {
+              "full_name": "Lloyd, S."
+            }
+          ],
+          "publication_info": {
+            "year": 1996,
+            "artid": "1073",
+            "page_start": "1073",
+            "journal_title": "Science",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1214406"
+            },
+            "journal_volume": "273"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/1486"
+        },
+        "raw_refs": [
+          {
+            "value": "[50] P. Jordan, E. Wigner, Z.Phys.,47,631, DOI: 10.1007/bf01331938",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1007/bf01331938"
+          ],
+          "label": "50",
+          "authors": [
+            {
+              "full_name": "Jordan, P."
+            },
+            {
+              "full_name": "Wigner, E."
+            }
+          ],
+          "publication_info": {
+            "year": 1928,
+            "artid": "631",
+            "page_start": "631",
+            "journal_title": "Z.Phys.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1214340"
+            },
+            "journal_volume": "47"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2629543"
+        },
+        "raw_refs": [
+          {
+            "value": "[51] M G Algaba, P V Sriluckshmy, M. Leib, F. Simkovic: Low-depth simulations of fermionic systems on square-grid quantum hardware, 2023, 2023 (arXiv:, arXiv: 2302.01862)",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "arxiv_eprint": "2302.01862"
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/1762586"
+        },
+        "raw_refs": [
+          {
+            "value": "[52] M C Ba nuls, Eur.Phys.J.D,74,165, DOI: 10.1140/epjd/e2020-100571-8",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1140/epjd/e2020-100571-8"
+          ],
+          "label": "52",
+          "authors": [
+            {
+              "full_name": "nuls, M.C. Ba"
+            }
+          ],
+          "publication_info": {
+            "year": 2020,
+            "artid": "165",
+            "page_start": "165",
+            "journal_title": "Eur.Phys.J.D",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1613947"
+            },
+            "journal_volume": "74"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2735175"
+        },
+        "raw_refs": [
+          {
+            "value": "[53] W. Lechner, P. Hauke, P. Zoller, Sci.Adv.,1,e1500838, DOI: 10.1126/sciadv.1500838",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1126/sciadv.1500838"
+          ],
+          "label": "53",
+          "authors": [
+            {
+              "full_name": "Lechner, W."
+            },
+            {
+              "full_name": "Hauke, P."
+            },
+            {
+              "full_name": "Zoller, P."
+            }
+          ],
+          "publication_info": {
+            "year": 2015,
+            "artid": "e1500838",
+            "journal_title": "Sci.Adv.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1709062"
+            },
+            "journal_volume": "1"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2110383"
+        },
+        "raw_refs": [
+          {
+            "value": "[54] W. Lechner, IEEE Trans.Quantum Eng.,1,1, DOI: 10.1109/TQE.2020.3034798",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1109/TQE.2020.3034798"
+          ],
+          "label": "54",
+          "authors": [
+            {
+              "full_name": "Lechner, W."
+            }
+          ],
+          "publication_info": {
+            "year": 2020,
+            "artid": "1",
+            "page_start": "1",
+            "journal_title": "IEEE Trans.Quantum Eng.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/2010043"
+            },
+            "journal_volume": "1"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2639441"
+        },
+        "raw_refs": [
+          {
+            "value": "[55] P V Sriluckshmy, V. Pina-Canelles, M. Ponce, M G Algaba, Quantum Sci.Technol.,8,045029, DOI: 10.1088/2058-9565/acfa20",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1088/2058-9565/acfa20"
+          ],
+          "label": "55",
+          "authors": [
+            {
+              "full_name": "Sriluckshmy, P.V."
+            },
+            {
+              "full_name": "Pina-Canelles, V."
+            },
+            {
+              "full_name": "Ponce, M."
+            },
+            {
+              "full_name": "Algaba, M.G."
+            },
+            {
+              "full_name": "Šimkovic, F. IV"
+            },
+            {
+              "full_name": "Leib, M."
+            }
+          ],
+          "publication_info": {
+            "year": 2023,
+            "artid": "045029",
+            "journal_title": "Quantum Sci.Technol.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1831236"
+            },
+            "journal_volume": "8"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2821840"
+        },
+        "raw_refs": [
+          {
+            "value": "[56] R. Acharya, Nature,638,920-6, DOI: 10.1038/s41586-024-08449-y",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1038/s41586-024-08449-y"
+          ],
+          "label": "56",
+          "authors": [
+            {
+              "full_name": "Acharya, R."
+            }
+          ],
+          "publication_info": {
+            "year": 2024,
+            "page_end": "6",
+            "page_start": "920",
+            "journal_title": "Nature",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1214565"
+            },
+            "journal_volume": "638"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2669302"
+        },
+        "raw_refs": [
+          {
+            "value": "[57] Y. Kim, Nature,618,500, DOI: 10.1038/s41586-023-06096-3",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1038/s41586-023-06096-3"
+          ],
+          "label": "57",
+          "authors": [
+            {
+              "full_name": "Kim, Y."
+            }
+          ],
+          "publication_info": {
+            "year": 2023,
+            "artid": "500",
+            "page_start": "500",
+            "journal_title": "Nature",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1214565"
+            },
+            "journal_volume": "618"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2730931"
+        },
+        "raw_refs": [
+          {
+            "value": "[58] F. Yan, P. Krantz, Y. Sung, M. Kjaergaard, Phys. Rev. Appl.,10,054062, DOI: 10.1103/PhysRevApplied.10.054062",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevApplied.10.054062"
+          ],
+          "label": "58",
+          "authors": [
+            {
+              "full_name": "Yan, F."
+            },
+            {
+              "full_name": "Krantz, P."
+            },
+            {
+              "full_name": "Sung, Y."
+            },
+            {
+              "full_name": "Kjaergaard, M."
+            },
+            {
+              "full_name": "Campbell, D.L."
+            },
+            {
+              "full_name": "Orlando, T.P."
+            },
+            {
+              "full_name": "Gustavsson, S."
+            },
+            {
+              "full_name": "Oliver, W.D."
+            }
+          ],
+          "publication_info": {
+            "year": 2018,
+            "artid": "054062",
+            "journal_title": "Phys.Rev.Applied",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1389949"
+            },
+            "journal_volume": "10"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2721119"
+        },
+        "raw_refs": [
+          {
+            "value": "[59] D C McKay, I. Hincks, E J Pritchett, M. Carroll, L C G Govia, S T Merkel: Benchmarking quantum processor performance at scale, 2023, 2023 (arXiv:, arXiv: 2311.05933 [quant-ph])",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "arxiv_eprint": "2311.05933"
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2820793"
+        },
+        "raw_refs": [
+          {
+            "value": "[60] L. Abdurakhimov: Technology and performance benchmarks of iqm's 20-qubit quantum computer, 2024, 2024 (arXiv:, arXiv: 2408.12433 [quant-ph])",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "arxiv_eprint": "2408.12433"
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2697090"
+        },
+        "raw_refs": [
+          {
+            "value": "[61] M C Collodo, J. Herrmann, N. Lacroix, C K Andersen, Phys.Rev.Lett.,125,240502, DOI: 10.1103/PhysRevLett.125.240502",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevLett.125.240502"
+          ],
+          "label": "61",
+          "authors": [
+            {
+              "full_name": "Collodo, M.C."
+            },
+            {
+              "full_name": "Herrmann, J."
+            },
+            {
+              "full_name": "Lacroix, N."
+            },
+            {
+              "full_name": "Andersen, C.K."
+            },
+            {
+              "full_name": "Remm, A."
+            },
+            {
+              "full_name": "Lazar, S."
+            },
+            {
+              "full_name": "Besse, J-C"
+            },
+            {
+              "full_name": "Walter, T."
+            },
+            {
+              "full_name": "Wallraff, A."
+            },
+            {
+              "full_name": "Eichler, C."
+            }
+          ],
+          "publication_info": {
+            "year": 2020,
+            "artid": "240502",
+            "journal_title": "Phys.Rev.Lett.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1214495"
+            },
+            "journal_volume": "125"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/1993851"
+        },
+        "raw_refs": [
+          {
+            "value": "[62] C. Berke, E. Varvelis, S. Trebst, A. Altland, Nature Commun.,13,2495, DOI: 10.1038/s41467-022-29940-y",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1038/s41467-022-29940-y"
+          ],
+          "label": "62",
+          "authors": [
+            {
+              "full_name": "Berke, C."
+            },
+            {
+              "full_name": "Varvelis, E."
+            },
+            {
+              "full_name": "Trebst, S."
+            },
+            {
+              "full_name": "Altland, A."
+            },
+            {
+              "full_name": "DiVincenzo, D.P."
+            }
+          ],
+          "publication_info": {
+            "year": 2022,
+            "artid": "2495",
+            "page_start": "2495",
+            "journal_title": "Nature Commun.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1211687"
+            },
+            "journal_volume": "13"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2139606"
+        },
+        "raw_refs": [
+          {
+            "value": "[63] F. Marxer, PRX Quantum,4,010314, DOI: 10.1103/PRXQuantum.4.010314",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PRXQuantum.4.010314"
+          ],
+          "label": "63",
+          "authors": [
+            {
+              "full_name": "Marxer, F."
+            }
+          ],
+          "publication_info": {
+            "year": 2023,
+            "artid": "010314",
+            "journal_title": "PRX Quantum",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1869676"
+            },
+            "journal_volume": "4"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2721442"
+        },
+        "raw_refs": [
+          {
+            "value": "[64] A G Fowler, S J Devitt, L C L Hollenberg, Quant.Inf.Comput.,4,237-51, DOI: 10.26421/QIC4.4-1",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.26421/QIC4.4-1"
+          ],
+          "label": "64",
+          "authors": [
+            {
+              "full_name": "Fowler, A.G."
+            },
+            {
+              "full_name": "Devitt, S.J."
+            },
+            {
+              "full_name": "Hollenberg, L.C.L."
+            }
+          ],
+          "publication_info": {
+            "year": 2004,
+            "page_end": "51",
+            "page_start": "237",
+            "journal_title": "Quant.Inf.Comput.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1212499"
+            },
+            "journal_volume": "4"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2949729"
+        },
+        "raw_refs": [
+          {
+            "value": "[65] D. Maslov, Phys.Rev.A,76,052310, DOI: 10.1103/PhysRevA.76.052310",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevA.76.052310"
+          ],
+          "label": "65",
+          "authors": [
+            {
+              "full_name": "Maslov, D."
+            }
+          ],
+          "publication_info": {
+            "year": 2007,
+            "artid": "052310",
+            "journal_title": "Phys.Rev.A",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1613967"
+            },
+            "journal_volume": "76"
+          }
+        }
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2031475"
+        },
+        "raw_refs": [
+          {
+            "value": "[66] M G Algaba, M. Ponce-Martinez, C. Munuera-Javaloy, V. Pina-Canelles, Phys.Rev.Res.,4,043089, DOI: 10.1103/PhysRevResearch.4.043089",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "dois": [
+            "10.1103/PhysRevResearch.4.043089"
+          ],
+          "label": "66",
+          "authors": [
+            {
+              "full_name": "Algaba, M.G."
+            },
+            {
+              "full_name": "Ponce-Martinez, M."
+            },
+            {
+              "full_name": "Munuera-Javaloy, C."
+            },
+            {
+              "full_name": "Pina-Canelles, V."
+            },
+            {
+              "full_name": "Thapa, M.J."
+            },
+            {
+              "full_name": "Taketani, B.G."
+            },
+            {
+              "full_name": "Leib, M."
+            },
+            {
+              "full_name": "de Vega, I."
+            },
+            {
+              "full_name": "Casanova, J."
+            },
+            {
+              "full_name": "Heimonen, H."
+            }
+          ],
+          "publication_info": {
+            "year": 2022,
+            "artid": "043089",
+            "journal_title": "Phys.Rev.Res.",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1778162"
+            },
+            "journal_volume": "4"
+          }
+        }
+      }
+    ],
+    "_collections": [
+      "Literature"
+    ],
+    "document_type": [
+      "article"
+    ],
+    "_private_notes": [
+      {
+        "value": "TIMESTAMP_OF_UPLOAD-2025-05-29-17-07"
+      },
+      {
+        "value": "Paper"
+      },
+      {
+        "value": "DOKIFILE:iop-2025-05-29-01-24-QuantumSci.Technol.10_3"
+      },
+      {
+        "value": "8 QIS keywords found"
+      },
+      {
+        "value": "[QIS] 5 quantum computing"
+      },
+      {
+        "value": "[QIS] 1 quantum information"
+      },
+      {
+        "value": "[QIS] 1 GHZ state"
+      },
+      {
+        "value": "[QIS] 1 qubit"
+      }
+    ],
+    "control_number": 2926715,
+    "number_of_pages": 29,
+    "publication_info": [
+      {
+        "year": 2025,
+        "artid": "035029",
+        "journal_issue": "3",
+        "journal_title": "Quantum Sci.Technol.",
+        "journal_record": {
+          "$ref": "https://inspirehep.net/api/journals/1831236"
+        },
+        "journal_volume": "10"
+      }
+    ],
+    "acquisition_source": {
+      "method": "hepcrawl",
+      "source": "desy",
+      "datetime": "2025-05-29T17:18:04.038227",
+      "submission_number": "9711215"
+    },
+    "inspire_categories": [
+      {
+        "term": "Quantum Physics"
+      }
+    ]
+  }

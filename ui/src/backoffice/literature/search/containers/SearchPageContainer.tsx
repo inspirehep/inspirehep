@@ -26,6 +26,7 @@ import {
 } from '../../../../actions/backoffice';
 import { WorkflowStatuses, WorkflowTypes } from '../../../constants';
 import LiteratureMatches from '../../components/LiteratureMatches';
+import ExactMatchesCallout from '../../components/ExactMatchesCallout';
 import { forceArray } from '../../../../common/utils';
 import { isFullCoverageWorkflow } from '../../../utils/utils';
 import LiteratureBatchOperationsCard from '../../components/LiteratureBatchOperationsCard';
@@ -68,6 +69,7 @@ function renderWorkflowItem(
 ) {
   const workflowId = item?.get('id');
   const matches = item?.get('matches');
+  const exactMatches = matches?.get('exact');
   const fuzzyMatches = matches?.get('fuzzy');
   const status = item?.get('status');
   const shouldShowSelectionCheckbox =
@@ -76,6 +78,9 @@ function renderWorkflowItem(
     !!selectedStatusesFromFacet?.has(status);
   const workflowType = item?.get('workflow_type');
   const data = item?.get('data');
+  const hasExactMatches =
+    !!exactMatches?.size &&
+    status === WorkflowStatuses.ERROR_MULTIPLE_EXACT_MATCHES;
   const hasFuzzyMatches =
     !!fuzzyMatches?.size && status === WorkflowStatuses.APPROVAL_FUZZY_MATCHING;
   const shouldShowSubmissionModal =
@@ -96,7 +101,7 @@ function renderWorkflowItem(
     <>
       <WorkflowResultItem
         item={item}
-        compactBottom={hasFuzzyMatches}
+        compactBottom={hasFuzzyMatches || hasExactMatches}
         handleResolveAction={handleResolveAction}
         shouldShowSelectionCheckbox={shouldShowSelectionCheckbox}
         isSelected={selectedWorkflowIds?.has(workflowId)}
@@ -105,6 +110,11 @@ function renderWorkflowItem(
         shouldShowSubmissionModal={shouldShowSubmissionModal}
         submissionContext={submissionContext}
       />
+      {hasExactMatches && (
+        <Card>
+          <ExactMatchesCallout exactMatches={exactMatches} />
+        </Card>
+      )}
       {hasFuzzyMatches && (
         <Card>
           <LiteratureMatches
