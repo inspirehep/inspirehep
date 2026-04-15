@@ -30,6 +30,7 @@ from include.utils.constants import (
     STATUS_COMPLETED,
     STATUS_MISSING_SUBJECT_FIELDS,
     STATUS_RUNNING,
+    TICKET_HEP_CURATION,
     TICKET_HEP_CURATION_CORE,
     TICKET_HEP_SUBMISSION,
 )
@@ -3892,6 +3893,28 @@ class Test_HEPCreateDAG:
         task_test2(self.dag, "notify_curator_if_needed", self.context)
         assert mock_create_ticket.call_count == 0
 
+    @patch("hooks.inspirehep.inspire_http_hook.InspireHttpHook.create_ticket")
+    def test_notify_curator_if_needed_ticket_exists(self, mock_create_ticket):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "test"}],
+                "acquisition_source": {
+                    "method": "hepcrawl",
+                    "source": "arXiv",
+                },
+            },
+            "ticket": {
+                "ticket_id": "123",
+                "ticket_type": TICKET_HEP_CURATION,
+            },
+        }
+        self.s3_store.write_workflow(workflow_data)
+        self.s3_store.set_flags({"is-update": False}, self.workflow_id)
+
+        task_test2(self.dag, "notify_curator_if_needed", self.context)
+        assert mock_create_ticket.call_count == 0
+
     @patch("include.utils.workflows.get_fulltext", return_value="france")
     @patch("hooks.inspirehep.inspire_http_hook.InspireHttpHook.create_ticket")
     @patch(
@@ -3954,6 +3977,8 @@ class Test_HEPCreateDAG:
     def test_notify_curator_if_needed_raw_affiliations_france(
         self, mock_create_ticket_entry, mock_create_ticket
     ):
+        mock_create_ticket.return_value.json.return_value = {"ticket_id": "123"}
+
         workflow_data = {
             "id": self.workflow_id,
             "data": {
@@ -3974,7 +3999,11 @@ class Test_HEPCreateDAG:
 
         task_test2(self.dag, "notify_curator_if_needed", self.context)
         mock_create_ticket.assert_called_once()
-        mock_create_ticket_entry.assert_called_once()
+        mock_create_ticket_entry.assert_called_once_with(
+            workflow_id=self.workflow_id,
+            ticket_type=TICKET_HEP_CURATION,
+            ticket_id=mock_create_ticket.return_value.json.return_value["ticket_id"],
+        )
 
     @patch("hooks.inspirehep.inspire_http_hook.InspireHttpHook.create_ticket")
     @patch(
@@ -4016,6 +4045,8 @@ class Test_HEPCreateDAG:
     def test_notify_curator_if_needed_submitter_or_arxiv(
         self, mock_create_ticket_entry, mock_create_ticket
     ):
+        mock_create_ticket.return_value.json.return_value = {"ticket_id": "123"}
+
         workflow_data = {
             "id": self.workflow_id,
             "data": {
@@ -4031,7 +4062,11 @@ class Test_HEPCreateDAG:
 
         task_test2(self.dag, "notify_curator_if_needed", self.context)
         mock_create_ticket.assert_called_once()
-        mock_create_ticket_entry.assert_called_once()
+        mock_create_ticket_entry.assert_called_once_with(
+            workflow_id=self.workflow_id,
+            ticket_type=TICKET_HEP_CURATION_CORE,
+            ticket_id=mock_create_ticket.return_value.json.return_value["ticket_id"],
+        )
 
     def test_should_proceed_to_core_selection_true(self):
         workflow_data = {

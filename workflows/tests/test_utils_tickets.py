@@ -1,6 +1,58 @@
 from unittest.mock import patch
 
 from include.utils import tickets
+from include.utils.constants import (
+    TICKET_HEP_CURATION,
+    TICKET_HEP_CURATION_CORE,
+    TICKET_HEP_SUBMISSION,
+)
+
+
+def test_get_ticket_by_type_str():
+    workflow = {
+        "tickets": [
+            {"ticket_id": 1, "ticket_type": TICKET_HEP_CURATION},
+            {"ticket_id": 2, "ticket_type": TICKET_HEP_SUBMISSION},
+        ]
+    }
+
+    assert (
+        tickets.get_ticket_by_type(workflow, TICKET_HEP_SUBMISSION)
+        == (workflow["tickets"][1])
+    )
+
+
+def test_get_ticket_by_type_list():
+    workflow = {
+        "tickets": [
+            {"ticket_id": 1, "ticket_type": TICKET_HEP_CURATION},
+            {"ticket_id": 2, "ticket_type": TICKET_HEP_CURATION_CORE},
+        ]
+    }
+
+    assert (
+        tickets.get_ticket_by_type(
+            workflow,
+            [TICKET_HEP_SUBMISSION, TICKET_HEP_CURATION_CORE],
+        )
+        == workflow["tickets"][1]
+    )
+
+
+def test_get_ticket_by_type_returns_no_match():
+    workflow = {
+        "tickets": [
+            {"ticket_id": 1, "ticket_type": TICKET_HEP_CURATION},
+        ]
+    }
+
+    assert (
+        tickets.get_ticket_by_type(
+            workflow,
+            [TICKET_HEP_SUBMISSION, TICKET_HEP_CURATION_CORE],
+        )
+        is None
+    )
 
 
 def test_get_functional_categories_from_fulltext_or_raw_affiliations(datadir):
@@ -145,4 +197,4 @@ def test_get_functional_category_and_ticket_type_from_publisher():
     )
 
     assert functional_category == tickets.LITERATURE_ARXIV_CURATION_FUNCTIONAL_CATEGORY
-    assert ticket_type == tickets.TICKET_HEP_CURATION_CORE
+    assert ticket_type == TICKET_HEP_CURATION_CORE
