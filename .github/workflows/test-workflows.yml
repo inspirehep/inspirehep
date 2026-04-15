@@ -25,21 +25,9 @@ jobs:
       dockerfile: ./workflows/Dockerfile
     secrets: inherit
   test:
-    needs: build
     runs-on: ubuntu-24.04
-    services:
-      redis:
-        image: redis:8-alpine
-        ports:
-          - 6379:6379
-      postgres:
-        image: postgres:16.11
-        env:
-          POSTGRES_USER: airflow
-          POSTGRES_PASSWORD: airflow
-          POSTGRES_DB: airflow
-        ports:
-          - 5432:5432
+    env:
+      AIRFLOW_PROJ_DIR: ./workflows
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -47,27 +35,13 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - name: Spin up Docker containers
-        run: docker compose up -d s3 create_buckets
+        run: |
+          docker compose up -d cache db-airflow s3 airflow-init
+          docker compose run --rm create_buckets
 
       - name: Test
         working-directory: ./workflows
         run: >
-          docker run
-          --network=host
-          -v "$(pwd)"/tests:/opt/airflow/tests
-          -v "$(pwd)"/requirements-test.txt:/opt/airflow/requirements-test.txt
-          -v "$(pwd)"/data:/opt/airflow/data
-          -v "$(pwd)"/scripts:/opt/airflow/scripts
-          -e AIRFLOW__CORE__EXECUTOR=CeleryExecutor
-          -e AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@127.0.0.1:5432/airflow
-          -e AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@127.0.0.1:5432/airflow
-          -e AIRFLOW_CONN_S3_CONN="aws://airflow:airflow-inspire@localhost:9000/?__extra__=%7B%22endpoint_url%22%3A+%22http%3A%2F%2Flocalhost%3A9000%22%2C+%22service_config%22%3A+%7B%22s3%22%3A+%7B%22bucket_name%22%3A+%22data-store%22%7D%7D%7D"
-          -e AIRFLOW_CONN_S3_ELSEVIER_CONN="aws://airflow:airflow-inspire@localhost:9000/?__extra__=%7B%22endpoint_url%22%3A+%22http%3A%2F%2Flocalhost%3A9000%22%2C+%22service_config%22%3A+%7B%22s3%22%3A+%7B%22bucket_name%22%3A+%22elsevier-store%22%7D%7D%7D"
-          -e AIRFLOW_CONN_S3_APS_CONN="aws://airflow:airflow-inspire@localhost:9000/?__extra__=%7B%22endpoint_url%22%3A+%22http%3A%2F%2Flocalhost%3A9000%22%2C+%22service_config%22%3A+%7B%22s3%22%3A+%7B%22bucket_name%22%3A+%22aps-store%22%7D%7D%7D"
-          -e AIRFLOW__CELERY__BROKER_URL=redis://:@127.0.0.1:6379/0
-          -e AIRFLOW__CORE__FERNET_KEY=""
-          -e AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION="true"
-          -e AIRFLOW__CORE__LOAD_EXAMPLES="false"
-          -e AIRFLOW__API__AUTH_BACKENDS="airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
-          registry.cern.ch/cern-sis/inspire/workflows@${{ needs.build.outputs.image-id }}
-          bash -c "pip install -r requirements-test.txt && airflow db migrate && airflow connections import /opt/airflow/scripts/configs/connections.json && airflow variables import /opt/airflow/scripts/configs/variables.json && airflow pools import /opt/airflow/scripts/configs/pools.json && pytest /opt/airflow/tests"
+          docker compose run --rm
+          airflow-cli
+          bash -c "airflow db migrate && airflow connections import /opt/airflow/scripts/configs/connections.json && airflow variables import /opt/airflow/scripts/configs/variables.json && airflow pools import /opt/airflow/scripts/configs/pools.json && pytest /opt/airflow/tests"

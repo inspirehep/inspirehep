@@ -68,7 +68,8 @@ x-airflow-common: &airflow-common
   # and uncomment the "build" line below, Then run `docker compose build` to build the images.
   build:
     context: workflows
-    dockerfile: Dockerfile.local
+    dockerfile: Dockerfile
+    target: test
   environment: &airflow-common-env
     AIRFLOW__API__BASE_URL: "http://airflow-api-server:8080"
     AIRFLOW__CORE__EXECUTION_API_SERVER_URL: "http://airflow-api-server:8080/execution"
@@ -104,7 +105,7 @@ x-airflow-common: &airflow-common
   depends_on: &airflow-common-depends-on
     cache:
       condition: service_healthy
-    db:
+    db-airflow:
       condition: service_healthy
 
 services:
@@ -437,10 +438,17 @@ services:
     environment:
       - MINIO_ROOT_USER=airflow
       - MINIO_ROOT_PASSWORD=airflow-inspire
+    healthcheck:
+      test: ['CMD', 'curl', '--fail', 'http://localhost:9000/minio/health/live']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
 
   create_buckets:
     image: minio/mc
     depends_on:
-      - s3
+      s3:
+        condition: service_healthy
     entrypoint: >
-      /bin/sh -c " sleep 10; /usr/bin/mc alias set airflow http://s3:9000 airflow airflow-inspire; /usr/bin/mc mb airflow/data-store; /usr/bin/mc mb airflow/elsevier-store; /usr/bin/mc mb airflow/desy-store-incoming; /usr/bin/mc mb airflow/desy-store-processed; /usr/bin/mc mb airflow/aps-store; exit 0; "
+      /bin/sh -c "/usr/bin/mc alias set airflow http://s3:9000 airflow airflow-inspire; /usr/bin/mc mb airflow/data-store; /usr/bin/mc mb airflow/elsevier-store; /usr/bin/mc mb airflow/desy-store-incoming; /usr/bin/mc mb airflow/desy-store-processed; /usr/bin/mc mb airflow/aps-store"
