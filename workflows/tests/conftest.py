@@ -40,20 +40,19 @@ def _s3_store(request):
 @pytest.fixture(scope="class")
 def s3_desy_env(request):
     test_dict = {
-        "AIRFLOW_CONN_S3_ELSEVIER_CONN": "aws://airflow:airflow-inspire@/?endpoint_url=http://s3%3A9000",
+        "AIRFLOW_CONN_S3_ELSEVIER_CONN": "aws://airflow:airflow-inspire@/"
+        "?__extra__=%7B%22endpoint_url%22%3A+%22"
+        "http%3A%2F%2Fs3%3A9000%22%2C+%22"
+        "service_config%22%3A+%7B%22s3%22%3A+%7B%22"
+        "bucket_name%22%3A+%22elsevier-store"
+        "%22%7D%7D%7D",
         "AIRFLOW_VAR_S3_DESY_INPUT_BUCKET_NAME": "test-desy-incoming",
         "AIRFLOW_VAR_S3_DESY_OUTPUT_BUCKET_NAME": "test-desy-processed",
     }
 
-    override_dict = {
-        key: os.environ.get(key, value)
-        for key, value in test_dict.items()
-        if key not in os.environ
-    }
-
     with patch.dict(
         os.environ,
-        override_dict,
+        test_dict,
     ):
         desy_input_bucket = Variable.get("s3_desy_input_bucket_name")
         request.cls.input_bucket = desy_input_bucket
@@ -104,15 +103,9 @@ def hep_env(request):
         "%22%7D%7D%7D",
     }
 
-    override_dict = {
-        key: os.environ.get(key, value)
-        for key, value in test_dict.items()
-        if key not in os.environ
-    }
-
     with patch.dict(
         os.environ,
-        override_dict,
+        test_dict,
     ):
         request.cls.s3_store = S3JsonStore("s3_conn", bucket_name="data-store")
 
