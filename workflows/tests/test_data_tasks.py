@@ -2,28 +2,38 @@ from urllib.parse import urlparse
 
 import orjson
 import pytest
+from airflow.models import DagBag
 
-from tests.test_utils import task_test
+from tests.test_utils import task_test2
+
+dagbag = DagBag()
 
 
+@pytest.mark.usefixtures("hep_env")
 class TestDataHarvest:
+    dag = dagbag.get_dag("data_harvest_dag")
+
     @pytest.mark.vcr
     def test_collect_ids_param(self):
-        res = task_test(
-            "data_harvest_dag",
+        res = task_test2(
+            self.dag,
             "collect_ids",
-            dag_params={"last_updated_from": "2024-12-15", "last_updated_to": ""},
+            context={
+                "params": {"last_updated_from": "2024-12-15", "last_updated_to": ""}
+            },
         )
         assert res == [2693068, 2807749, 2809112]
 
     @pytest.mark.vcr
     def test_collect_ids_param_with_to_date(self):
-        res = task_test(
-            "data_harvest_dag",
+        res = task_test2(
+            self.dag,
             "collect_ids",
-            dag_params={
-                "last_updated_from": "2025-01-25",
-                "last_updated_to": "2025-01-30",
+            context={
+                "params": {
+                    "last_updated_from": "2025-01-25",
+                    "last_updated_to": "2025-01-30",
+                }
             },
         )
         assert res == [2872501, 2872775]
@@ -35,11 +45,10 @@ class TestDataHarvest:
             "last_updated_to": "",
         }
 
-        res = task_test(
-            "data_harvest_dag",
+        res = task_test2(
+            self.dag,
             "collect_ids",
-            dag_params=params,
-            ds="2024-12-17",
+            context={"params": params, "ds": "2024-12-17"},
         )
         assert res == [2693068, 2807749, 2809112]
 
@@ -47,15 +56,15 @@ class TestDataHarvest:
     def test_download_record_versions(self):
         id = "1906174"
 
-        res = task_test(
-            "data_harvest_dag",
+        res = task_test2(
+            self.dag,
             "process_record.download_record_versions",
             params={"id": id},
-            map_index=0,
         )
+
         assert res["base"]["record"]["inspire_id"] == id
         assert res["base"]["record"]["version"] == 3
-        assert all(value in res for value in ["1", "2"])
+        assert all(value in res for value in [1, 2])
 
     def test_build_record(self, datadir):
         payload = {
@@ -64,14 +73,13 @@ class TestDataHarvest:
             "base": orjson.loads((datadir / "ins1906174_version3.json").read_text()),
         }
 
-        res = task_test(
-            "data_harvest_dag",
+        res = task_test2(
+            self.dag,
             "process_record.build_record",
             params={
                 "data_schema": "data_schema",
                 "payload": payload,
             },
-            map_index=0,
         )
         assert res["$schema"] == "data_schema"
         assert res["_collections"] == ["Data"]
@@ -124,14 +132,13 @@ class TestDataHarvest:
         payload = {
             "base": orjson.loads((datadir / "ins1906174_version3.json").read_text())
         }
-        res = task_test(
-            "data_harvest_dag",
+        res = task_test2(
+            self.dag,
             "process_record.build_record",
             params={
                 "data_schema": "data_schema",
                 "payload": payload,
             },
-            map_index=0,
         )
         assert res["creation_date"] == "2023-11-13"  # from last_updated_field
 
@@ -140,14 +147,13 @@ class TestDataHarvest:
             "base": orjson.loads((datadir / "ins1906174_version4.json").read_text())
         }
 
-        res = task_test(
-            "data_harvest_dag",
+        res = task_test2(
+            self.dag,
             "process_record.build_record",
             params={
                 "data_schema": "data_schema",
                 "payload": payload,
             },
-            map_index=0,
         )
         assert (
             res["creation_date"] == payload["base"]["record"]["creation_date"]
@@ -166,11 +172,8 @@ class TestDataHarvest:
                 "method": "inspirehep",
             },
         }
-        json_response = task_test(
-            "data_harvest_dag",
-            "process_record.load_record",
-            params={"new_record": record},
-            map_index=0,
+        json_response = task_test2(
+            self.dag, "process_record.load_record", params={"new_record": record}
         )
         assert json_response
 
@@ -181,11 +184,10 @@ class TestDataHarvest:
             "collaborations": [{"value": "ETM"}],
             "acquisition_source": {"submission_number": "123"},
         }
-        json_response = task_test(
-            "data_harvest_dag",
+        json_response = task_test2(
+            self.dag,
             "process_record.normalize_collaborations",
             params={"record": record},
-            map_index=0,
         )
 
         assert "record" in json_response["collaborations"][0]
@@ -206,11 +208,8 @@ class TestDataHarvest:
                 "method": "inspirehep",
             },
         }
-        json_response = task_test(
-            "data_harvest_dag",
-            "process_record.load_record",
-            params={"new_record": record},
-            map_index=1,
+        json_response = task_test2(
+            self.dag, "process_record.load_record", params={"new_record": record}
         )
 
         assert json_response

@@ -13,9 +13,8 @@ from include.inspire.refextract_utils import (
 )
 from inspire_schemas.api import load_schema, validate
 
-from tests.test_utils import function_test
 
-
+@pytest.mark.usefixtures("hep_env")
 class TestRefextract:
     def test_extract_references_from_pdf_handles_unicode(self, datadir):
         schema = load_schema("hep")
@@ -244,40 +243,37 @@ class TestRefextract:
 
     @pytest.mark.vcr
     def test_match_references_hep(self):
-        def _test_match_references_hep():
-            references = [
-                {
-                    "reference": {
-                        "authors": [
-                            {"full_name": "Banerji, S."},
-                            {"full_name": "Meem, M."},
-                            {"full_name": "Majumder, A."},
-                        ],
-                        "label": "2",
-                        "misc": ["OSA Continuum 2, 2968-2974"],
-                        "title": {
-                            "title": "Single flat lens enabling imaging "
-                            "in the short-wave infra-red (swir) band"
-                        },
-                        "publication_info": {"year": 2019},
-                    },
-                    "raw_refs": [
-                        {
-                            "schema": "text",
-                            "value": "2 S. Banerji, M. Meem, A. Majumder, C. Dvonch,"
-                            " B. Sensale-Rodriguez, and R. Menon, “Single flat lens "
-                            "enabling imaging in the short-wave infra-red (swir) band",
-                            "source": "arXiv",
-                        }
+        references = [
+            {
+                "reference": {
+                    "authors": [
+                        {"full_name": "Banerji, S."},
+                        {"full_name": "Meem, M."},
+                        {"full_name": "Majumder, A."},
                     ],
-                }
-            ]
+                    "label": "2",
+                    "misc": ["OSA Continuum 2, 2968-2974"],
+                    "title": {
+                        "title": "Single flat lens enabling imaging "
+                        "in the short-wave infra-red (swir) band"
+                    },
+                    "publication_info": {"year": 2019},
+                },
+                "raw_refs": [
+                    {
+                        "schema": "text",
+                        "value": "2 S. Banerji, M. Meem, A. Majumder, C. Dvonch,"
+                        " B. Sensale-Rodriguez, and R. Menon, “Single flat lens "
+                        "enabling imaging in the short-wave infra-red (swir) band",
+                        "source": "arXiv",
+                    }
+                ],
+            }
+        ]
 
-            matched_references = match_references_hep(references, InspireHttpHook())
+        matched_references = match_references_hep(references, InspireHttpHook())
 
-            assert matched_references == references
-
-        function_test(_test_match_references_hep)
+        assert matched_references == references
 
     def test_sanitize_references(self):
         references = [

@@ -6,6 +6,8 @@ from unittest.mock import patch
 import pytest
 from airflow.models import DagBag
 
+from tests.test_utils import task_test2
+
 dagbag = DagBag()
 
 
@@ -49,9 +51,11 @@ class TestCleanupLogs:
         assert os.path.exists(old_log)
         assert os.path.exists(new_log)
 
-        task = self.dag.get_task("find_and_cleanup_logs")
-        context = {"params": {"retention_hours": 48}}
-        task.python_callable(**context)
+        task_test2(
+            self.dag,
+            "find_and_cleanup_logs",
+            context_params={"retention_hours": 48},
+        )
 
         assert not os.path.exists(old_log), "Old log should be deleted"
         assert os.path.exists(new_log), "New log should be preserved"
@@ -74,9 +78,11 @@ class TestCleanupLogs:
         assert os.path.exists(log_48h)
         assert os.path.exists(log_72h)
 
-        task = self.dag.get_task("find_and_cleanup_logs")
-        context = {"params": {"retention_hours": 30}}
-        task.python_callable(**context)
+        task_test2(
+            self.dag,
+            "find_and_cleanup_logs",
+            context_params={"retention_hours": 30},
+        )
 
         assert os.path.exists(log_24h), "24h log should be preserved"
         assert not os.path.exists(log_48h), "48h log should be deleted"
@@ -90,9 +96,12 @@ class TestCleanupLogs:
         mock_getenv.side_effect = lambda key, default: (
             temp_logs_dir if key == "AIRFLOW_HOME" else default
         )
-        task = self.dag.get_task("find_and_cleanup_logs")
-        context = {"params": {"retention_hours": 48}}
-        task.python_callable(**context)
+
+        task_test2(
+            self.dag,
+            "find_and_cleanup_logs",
+            context_params={"retention_hours": 48},
+        )
 
     @patch("os.getenv")
     def test_cleanup_logs_multiple_dags(self, mock_getenv, temp_logs_dir):
@@ -109,9 +118,11 @@ class TestCleanupLogs:
         old_dag2 = self.create_mock_log_dir(logs_dir, "dag2", "run1", hours_old=60)
         new_dag2 = self.create_mock_log_dir(logs_dir, "dag2", "run2", hours_old=36)
 
-        task = self.dag.get_task("find_and_cleanup_logs")
-        context = {"params": {"retention_hours": 48}}
-        task.python_callable(**context)
+        task_test2(
+            self.dag,
+            "find_and_cleanup_logs",
+            context_params={"retention_hours": 48},
+        )
 
         assert not os.path.exists(old_dag1), "dag1 72h log should be deleted"
         assert os.path.exists(new_dag1), "dag1 12h log should be preserved"
