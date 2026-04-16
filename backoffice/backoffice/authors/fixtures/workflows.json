@@ -100,5 +100,33 @@
       "_created_at": "2024-12-25T13:49:53.009Z",
       "_updated_at": "2024-12-25T13:49:54.756Z"
     }
+  },
+  {
+    "model": "authors.authorworkflow",
+    "pk": "00000000-0000-0000-0000-000000001522",
+    "fields": {
+      "workflow_type": "AUTHOR_UPDATE",
+      "data": {
+        "name": {
+          "value": "B, Third",
+          "preferred_name": "Third B"
+        },
+        "status": "active",
+        "_collections": ["Authors"],
+        "$schema": "https://inspirebeta.net/schemas/records/authors.json",
+        "acquisition_source": {
+          "email": "user@cern.ch",
+          "orcid": "0000-0000-0000-0000",
+          "method": "submitter",
+          "source": "submitter",
+          "datetime": "2024-11-18T11:34:19.809575",
+          "internal_uid": 50872
+        },
+        "arxiv_categories": ["cond-mat", "astro-ph"]
+      },
+      "status": "running",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
   }
 ]
