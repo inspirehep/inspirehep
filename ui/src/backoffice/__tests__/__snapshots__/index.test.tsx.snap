@@ -88,18 +88,13 @@ exports[`Backoffice renders initial state 1`] = `
         </nav>
       </div>
       <div
-        class="inner-container mt4"
+        class="inner-container mt2"
       >
-        <h2
-          class="f2 center"
-        >
-          Search Backoffice
-        </h2>
         <div
-          class="search-container"
+          class="content-grid"
         >
           <span
-            class="ant-input-group-wrapper ant-input-search ant-input-search-with-button"
+            class="ant-input-group-wrapper ant-input-search ant-input-search-with-button search-container"
           >
             <span
               class="ant-input-wrapper ant-input-group"
@@ -203,103 +198,13 @@ exports[`Backoffice renders initial state 1`] = `
             </span>
           </span>
         </div>
-        <h2
-          class="f2 center mb4"
-        >
-          Overview
-        </h2>
         <div
-          class="ant-tabs ant-tabs-top ant-tabs-centered"
+          class="content-grid"
         >
           <div
-            class="ant-tabs-nav"
-            role="tablist"
-          >
-            <div
-              class="ant-tabs-nav-wrap"
-            >
-              <div
-                class="ant-tabs-nav-list"
-                style="transform: translate(0px, 0px);"
-              >
-                <div
-                  class="ant-tabs-tab ant-tabs-tab-active"
-                  data-node-key="1"
-                >
-                  <div
-                    aria-controls="rc-tabs-test-panel-1"
-                    aria-selected="true"
-                    class="ant-tabs-tab-btn"
-                    id="rc-tabs-test-tab-1"
-                    role="tab"
-                    tabindex="0"
-                  >
-                    <h3>
-                      Collections
-                    </h3>
-                  </div>
-                </div>
-                <div
-                  class="ant-tabs-ink-bar ant-tabs-ink-bar-animated"
-                />
-              </div>
-            </div>
-            <div
-              class="ant-tabs-nav-operations ant-tabs-nav-operations-hidden"
-            >
-              <button
-                aria-controls="rc-tabs-test-more-popup"
-                aria-expanded="false"
-                aria-haspopup="listbox"
-                aria-hidden="true"
-                class="ant-tabs-nav-more"
-                id="rc-tabs-test-more"
-                style="visibility: hidden; order: 1;"
-                tabindex="-1"
-                type="button"
-              >
-                <span
-                  aria-label="ellipsis"
-                  class="anticon anticon-ellipsis"
-                  role="img"
-                >
-                  <svg
-                    aria-hidden="true"
-                    data-icon="ellipsis"
-                    fill="currentColor"
-                    focusable="false"
-                    height="1em"
-                    viewBox="64 64 896 896"
-                    width="1em"
-                  >
-                    <path
-                      d="M176 511a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0z"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-          <div
-            class="ant-tabs-content-holder"
-          >
-            <div
-              class="ant-tabs-content ant-tabs-content-top"
-            >
-              <div
-                aria-hidden="false"
-                aria-labelledby="rc-tabs-test-tab-1"
-                class="ant-tabs-tabpane ant-tabs-tabpane-active"
-                id="rc-tabs-test-panel-1"
-                role="tabpanel"
-                tabindex="0"
-              >
-                <div
-                  class="cards-container mt4"
-                />
-              </div>
-            </div>
-          </div>
+            class="ant-row ant-row-center cards-container mt2"
+            style="margin: -10px -10px -10px -10px;"
+          />
         </div>
       </div>
     </div>

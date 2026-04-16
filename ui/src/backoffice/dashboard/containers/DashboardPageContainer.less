@@ -6,13 +6,13 @@
     flex-direction: column;
     justify-content: center;
 
-    .search-container {
-      margin: 50px auto;
-      padding: 15px;
-      max-width: 1300px;
+    .content-grid {
       width: 100%;
-      display: flex;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
 
+    .search-container {
       .ant-input {
         height: 3rem;
         border-top-right-radius: 0;
@@ -28,15 +28,14 @@
     }
 
     .cards-container {
-      margin: 20px auto 50px auto;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      max-width: 1300px;
+      margin: 20px 0 50px;
+
+      .workflow-card-col {
+        display: flex;
+      }
 
       .ant-card {
-        margin: 20px 10px;
-        width: 300px;
+        width: 100%;
         border-width: 1px;
         transition: ease 0.25s;
 

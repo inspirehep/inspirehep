@@ -89,10 +89,7 @@ describe('DashboardPageContainer', () => {
 
   it('renders the correct UI elements', () => {
     renderComponent();
-
     expect(screen.getByText('Dashboard')).toBeInTheDocument();
-    expect(screen.getByText('Search Backoffice')).toBeInTheDocument();
-    expect(screen.getByText('Overview')).toBeInTheDocument();
   });
 
   it('renders workflow cards in the preferred type order', () => {

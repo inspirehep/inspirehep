@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Input, Tabs, Select } from 'antd';
+import { Input, Select, Row, Col } from 'antd';
 import { Action, ActionCreator } from 'redux';
 import { connect, RootStateOrAny } from 'react-redux';
 import { List, Map } from 'immutable';
@@ -77,31 +77,6 @@ const DashboardPageContainer = ({
       ) as List<Map<string, any>>;
   }, [authors, literature]);
 
-  const renderWorkflowCards = useMemo(
-    () =>
-      workflowTypes?.map((type: Map<string, any>) => (
-        <WorkflowCard
-          key={type?.get('key')}
-          type={type}
-          statuses={
-            (type?.getIn(['status', 'buckets']) as List<Map<string, any>>) ||
-            List()
-          }
-        />
-      )),
-    [workflowTypes]
-  );
-
-  const tabItems = [
-    {
-      label: <h3>Collections</h3>,
-      key: '1',
-      children: (
-        <div className="cards-container mt4">{renderWorkflowCards}</div>
-      ),
-    },
-  ];
-
   return (
     <div
       className="__DashboardPageContainer__"
@@ -109,10 +84,10 @@ const DashboardPageContainer = ({
     >
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
       <Breadcrumbs namespace="" title1="Dashboard" href1="" dashboardPage />
-      <div className="inner-container mt4">
-        <h2 className="f2 center">Search Backoffice</h2>
-        <div className="search-container">
+      <div className="inner-container mt2">
+        <div className="content-grid">
           <Search
+            className="search-container"
             enterButton
             addonBefore={
               <Select value={searchNamespace} onChange={setSearchNamespace}>
@@ -128,10 +103,34 @@ const DashboardPageContainer = ({
             onSearch={(value) => handleSearch(dispatch, value, searchNamespace)}
           />
         </div>
-        <h2 className="f2 center mb4">Overview</h2>
         <LoadingOrChildren loading={loading}>
           <EmptyOrChildren data={authors || literature} title="0 Results">
-            <Tabs centered items={tabItems} />
+            <div className="content-grid">
+              <Row
+                gutter={[20, 20]}
+                justify="center"
+                className="cards-container mt2"
+              >
+                {workflowTypes?.map((type: Map<string, any>) => (
+                  <Col
+                    key={type?.get('key')}
+                    xs={24}
+                    sm={12}
+                    xl={6}
+                    className="workflow-card-col"
+                  >
+                    <WorkflowCard
+                      type={type}
+                      statuses={
+                        (type?.getIn(['status', 'buckets']) as List<
+                          Map<string, any>
+                        >) || List()
+                      }
+                    />
+                  </Col>
+                ))}
+              </Row>
+            </div>
           </EmptyOrChildren>
         </LoadingOrChildren>
       </div>
