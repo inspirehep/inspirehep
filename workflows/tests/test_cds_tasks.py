@@ -1,6 +1,7 @@
 import json
 
 import pytest
+from airflow.models import DagBag
 from freezegun import freeze_time
 from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
@@ -8,11 +9,16 @@ from hooks.inspirehep.inspire_http_record_management_hook import (
 from include.utils.cds import retrieve_and_validate_record
 from inspire_utils.record import get_values_for_schema
 
-from tests.test_utils import function_test, task_test
+from tests.test_utils import task_test2
+
+dagbag = DagBag()
 
 
+@pytest.mark.usefixtures("hep_env")
 @freeze_time("2024-12-11")
 class TestCDSHarvest:
+    dag = dagbag.get_dag("cds_harvest_dag")
+
     @pytest.mark.vcr
     def test_get_cds_data_vcr(self, vcr_cassette):
         context = {
@@ -22,11 +28,10 @@ class TestCDSHarvest:
             },
             "task_instance": None,
         }
-
-        res = task_test(
-            "cds_harvest_dag",
+        res = task_test2(
+            self.dag,
             "get_cds_data",
-            dag_params=context["params"],
+            context=context,
         )
         assert res is None
         idx = next(
@@ -50,7 +55,7 @@ class TestCDSHarvest:
             "report_numbers": ["arXiv:1706.01046"],
             "schema": "CDS",
         }
-        result = function_test(retrieve_and_validate_record, params=params)
+        result = retrieve_and_validate_record(**params)
         assert result is None
 
     @pytest.mark.vcr
@@ -66,7 +71,7 @@ class TestCDSHarvest:
             "schema": "CDS",
         }
 
-        result = function_test(retrieve_and_validate_record, params=params)
+        result = retrieve_and_validate_record(**params)
         assert result is None
 
     @pytest.mark.vcr
@@ -81,7 +86,7 @@ class TestCDSHarvest:
             "report_numbers": ["arXiv:1706.01046"],
             "schema": "CDS",
         }
-        result = function_test(retrieve_and_validate_record, params=params)
+        result = retrieve_and_validate_record(**params)
         assert isinstance(result, dict)
         assert result["cds_id"] == "8888888"
         assert "original_record" in result

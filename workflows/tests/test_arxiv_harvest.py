@@ -1,13 +1,17 @@
 import pytest
+from airflow.models import DagBag
 from airflow.sdk.exceptions import AirflowException
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.arxiv import build_records
 
-from tests.test_utils import task_test
+from tests.test_utils import task_test2
+
+dagbag = DagBag()
 
 
-@pytest.mark.usefixtures("_s3_store")
+@pytest.mark.usefixtures("hep_env")
 class TestArxivHarvest:
+    dag = dagbag.get_dag("arxiv_harvest_dag")
     connection_id = "arxiv_oaipmh_connection"
     workflow_management_hook = WorkflowManagementHook(HEP)
 
@@ -48,19 +52,15 @@ class TestArxivHarvest:
             {"failed_build_records": [], "failed_load_records": []}
         )
 
-        task_test(
-            dag_id="arxiv_harvest_dag",
-            task_id="check_failures",
-            params={"failed_record_keys": s3_key},
-        )
+        task_test2(self.dag, "check_failures", params={"failed_record_key": s3_key})
 
     def test_check_failures_fail(self):
         s3_key = self.s3_store.write_object({"failed_build_records": ["record"]})
 
         with pytest.raises(AirflowException) as exc_info:
-            task_test(
-                dag_id="arxiv_harvest_dag",
-                task_id="check_failures",
-                params={"failed_record_keys": s3_key},
+            task_test2(
+                self.dag,
+                "check_failures",
+                params={"failed_record_key": s3_key},
             )
         assert "The following records failed: ['record']" in str(exc_info.value)

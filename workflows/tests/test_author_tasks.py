@@ -1,9 +1,10 @@
-from unittest.mock import patch
+import copy
+from unittest.mock import Mock
 
 import pytest
 from airflow.models import DagBag
 
-from tests.test_utils import task_test
+from tests.test_utils import task_test2
 
 dagbag = DagBag()
 
@@ -53,29 +54,31 @@ base_context = {
             ],
             "workflow_type": "AUTHOR_CREATE",
         },
-    }
+    },
+    "ti": Mock(xcom_push=Mock(), xcom_pull=Mock()),
 }
 
 
+@pytest.mark.usefixtures("hep_env")
 class TestAuthorCreateInit:
     dag = dagbag.get_dag("author_create_initialization_dag")
     context = base_context
 
     @pytest.mark.vcr
     def test_set_schema(self):
-        result = task_test(
-            "author_create_initialization_dag",
+        result = task_test2(
+            self.dag,
             "set_schema",
-            dag_params=self.context["params"],
+            self.context,
         )
         assert result["data"]["$schema"]
 
     @pytest.mark.vcr
     def test_set_submission_number_no_data(self):
-        result = task_test(
-            "author_create_initialization_dag",
+        result = task_test2(
+            self.dag,
             "set_submission_number",
-            dag_params=self.context["params"],
+            self.context,
         )
         assert (
             result["data"]["acquisition_source"]["submission_number"]
@@ -84,11 +87,10 @@ class TestAuthorCreateInit:
 
     @pytest.mark.vcr
     def test_set_submission_number_with_data(self):
-        result = task_test(
-            "author_create_initialization_dag",
+        result = task_test2(
+            self.dag,
             "set_submission_number",
-            params={"workflow": base_context["params"]["workflow"]},
-            dag_params=self.context["params"],
+            self.context,
         )
         assert (
             result["data"]["acquisition_source"]["submission_number"]
@@ -115,10 +117,10 @@ class TestAuthorCreateInit:
                 },
             }
         }
-        task_test(
-            "author_create_initialization_dag",
+        task_test2(
+            self.dag,
             "create_author_create_user_ticket",
-            dag_params=noticket_context["params"],
+            noticket_context,
         )
 
     def test_author_check_approval_branch(self):
@@ -145,43 +147,40 @@ class TestAuthorCreateInit:
         assert result == "trigger_reject"
 
 
+@pytest.mark.usefixtures("hep_env")
 class TestAuthorCreateApproved:
-    context = base_context
+    context = copy.deepcopy(base_context)
+    dag = dagbag.get_dag("author_create_approved_dag")
 
     @pytest.mark.vcr
-    @patch(
-        "airflow.sdk.execution_time.task_runner.RuntimeTaskInstance.xcom_pull",
-        return_value=123456,
-    )
-    def test_close_author_create_user_ticket(self, mock_xcom_pull):
-        task_test(
-            "author_create_approved_dag",
+    def test_close_author_create_user_ticket(self):
+        self.context["ti"].xcom_pull.return_value = 123456
+        task_test2(
+            self.dag,
             "close_author_create_user_ticket",
-            dag_params=self.context["params"],
+            self.context,
         )
 
     @pytest.mark.vcr
-    @patch(
-        "airflow.sdk.execution_time.task_runner.RuntimeTaskInstance.xcom_pull",
-        return_value=123456,
-    )
-    def test_create_author_create_curation_ticket(self, mock_xcom_pull):
-        task_test(
-            "author_create_approved_dag",
+    def test_create_author_create_curation_ticket(self):
+        self.context["ti"].xcom_pull.return_value = 123456
+        task_test2(
+            self.dag,
             "create_author_create_curation_ticket",
-            dag_params=self.context["params"],
+            self.context,
         )
 
 
+@pytest.mark.usefixtures("hep_env")
 class TestAuthorUpdate:
     dag = dagbag.get_dag("author_update_dag")
-    context = base_context
+    context = copy.deepcopy(base_context)
     context["params"]["workflow"]["data"]["control_number"] = 123457
 
     @pytest.mark.vcr
     def test_create_ticket_on_author_update(self):
-        task_test(
-            "author_update_dag",
+        task_test2(
+            self.dag,
             "create_ticket_on_author_update",
-            dag_params=self.context["params"],
+            self.context,
         )

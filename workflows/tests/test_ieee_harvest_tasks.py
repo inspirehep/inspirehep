@@ -1,16 +1,19 @@
 from unittest.mock import patch
 
 import pytest
-from airflow.models.variable import Variable
+from airflow.models import DagBag
+from airflow.sdk import Variable
 from airflow.sdk.exceptions import AirflowException
 
-from tests.test_utils import task_test
+from tests.test_utils import task_test2
 
-ieee_bucket_name = Variable.get("s3_ieee_bucket_name")
+dagbag = DagBag()
 
 
+@pytest.mark.usefixtures("hep_env")
 class TestIEEEHarvest:
-    @pytest.mark.usefixtures("_s3_store")
+    dag = dagbag.get_dag("ieee_harvest_dag")
+
     @patch("include.utils.ftp.list_ftp_files", return_value=["a/1.xml"])
     @patch("hooks.custom_fttps_hook.CustomFTPSHook.list_directory", return_value=["a"])
     @patch(
@@ -28,34 +31,33 @@ class TestIEEEHarvest:
         ds = "2025-01-01"
         dag_params = {"sync_folders": ["IEEEUpdates_Cern"]}
 
-        task_test(
-            dag_id="ieee_harvest_dag",
+        task_test2(
+            self.dag,
             task_id="get_sync_folders",
-            dag_params=dag_params,
-            ds=ds,
+            context={"ds": ds, "params": dag_params},
         )
-        task_test(
-            dag_id="ieee_harvest_dag",
+        task_test2(
+            self.dag,
             task_id="ftp_to_s3",
-            dag_params=dag_params,
-            map_index=0,
-            ds=ds,
-            xcom_key="skipmixin_key",
+            context={"ds": ds, "params": dag_params},
+            params={"sync_folder": "IEEEUpdates_Cern"},
         )
+
+        ieee_bucket_name = Variable.get("s3_ieee_bucket_name")
 
         assert self.s3_store.hook.get_key("a/1.xml", ieee_bucket_name) is not None
 
     def test_check_new_directories(self):
         with pytest.raises(AirflowException):
-            task_test(
-                dag_id="ieee_harvest_dag",
-                task_id="check_new_directories",
+            task_test2(
+                self.dag,
+                "check_new_directories",
                 params={"has_new_directories": [False, False, False]},
             )
 
     def test_check_new_directories_with_new_directory(self):
-        task_test(
-            dag_id="ieee_harvest_dag",
-            task_id="check_new_directories",
+        task_test2(
+            self.dag,
+            "check_new_directories",
             params={"has_new_directories": [False, True, False]},
         )
