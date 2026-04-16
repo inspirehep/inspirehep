@@ -3,9 +3,9 @@ import logging
 from airflow.sdk import Param, dag, task
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.alerts import FailedDagNotifier
-from include.utils.arxiv import build_records, fetch_record_by_id
+from include.utils.arxiv import build_records
 from include.utils.constants import HEP_CREATE
-from include.utils.harvests import load_records
+from include.utils.harvests import fetch_record_oaipmh_by_identifier, load_records
 from include.utils.s3 import S3JsonStore
 from literature.check_failures_task import check_failures
 
@@ -56,10 +56,10 @@ def arxiv_harvest_by_arxivid_dag():
         xml_records = []
         for arxiv_id in arxiv_ids:
             xml_records.append(
-                fetch_record_by_id(
+                fetch_record_oaipmh_by_identifier(
                     connection_id="arxiv_oaipmh_connection",
                     metadata_prefix=context["params"]["metadata_prefix"],
-                    arxiv_id=arxiv_id,
+                    identifier=f"oai:arXiv.org:{arxiv_id}",
                 )
             )
 

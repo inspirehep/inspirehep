@@ -1,6 +1,7 @@
 import logging
 
 from airflow.sdk.bases.hook import BaseHook
+from airflow.sdk.exceptions import AirflowSkipException
 from sickle import Sickle, oaiexceptions
 
 logger = logging.getLogger(__name__)
@@ -82,3 +83,26 @@ def fetch_records_oaipmh(
             harvested_records[record.header.identifier] = record
 
     return [record.raw for record in harvested_records.values()]
+
+
+def fetch_record_oaipmh_by_identifier(connection_id, metadata_prefix, identifier):
+    """Fetch a single xml record by its OAI-PMH identifier."""
+
+    conn = BaseHook.get_connection(connection_id)
+    sickle = Sickle(conn.host, max_retries=5)
+
+    oaiargs = {
+        "identifier": identifier,
+        "metadataPrefix": metadata_prefix,
+    }
+
+    logger.info(
+        f"Collecting record using connection '{connection_id}' "
+        f"({conn.host}) for identifier '{identifier}'"
+    )
+    try:
+        record = sickle.GetRecord(**oaiargs)
+    except oaiexceptions.IdDoesNotExist:
+        raise AirflowSkipException(f"No record for identifier '{identifier}'") from None
+
+    return record.raw
