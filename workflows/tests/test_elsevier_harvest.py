@@ -5,14 +5,21 @@ from unittest.mock import Mock, patch
 from urllib.parse import urlparse
 
 import pytest
+from airflow.models import DagBag
 from include.utils.elsevier import process_article
+from include.utils.s3 import S3JsonStore
 
-from tests.test_utils import task_test
+from tests.test_utils import task_test2
+
+dagbag = DagBag()
 
 
-@pytest.mark.usefixtures("_s3_store")
-@pytest.mark.parametrize("_s3_store", ["s3_elsevier_conn"], indirect=True)
+@pytest.mark.usefixtures("hep_env")
 class TestElsevierHarvest:
+    dag = dagbag.get_dag("elsevier_harvest_dag")
+
+    s3_publisher_store = S3JsonStore("s3_elsevier_conn")
+
     def test_process_article(self, datadir):
         zip_file = "117653164249626153-00001-FULL-XML-VACUUM (0042-207X) 1.7.14.ZIP"
 
@@ -28,13 +35,16 @@ class TestElsevierHarvest:
             file_name=file_name,
             xml_text=xml_text,
             submission_number="42",
-            s3_store=self.s3_store,
+            s3_store=self.s3_publisher_store,
             workflow_management_hook=workflow_management_hook,
         )
 
         assert failed_record is None
         article_file = "10.1016/j.vacuum.2026.115222.xml"
-        assert self.s3_store.hook.read_key(f"articles/{article_file}") == xml_text
+        assert (
+            self.s3_publisher_store.hook.read_key(f"articles/{article_file}")
+            == xml_text
+        )
         assert workflow_management_hook.post_workflow.call_count == 1
         assert (
             urlparse(
@@ -42,7 +52,7 @@ class TestElsevierHarvest:
                     "workflow_data"
                 ]["data"]["documents"][0]["url"]
             ).path
-            == f"/{self.s3_store.bucket_name}/articles/{article_file}"
+            == f"/{self.s3_publisher_store.bucket_name}/articles/{article_file}"
         )
 
     @patch("hooks.generic_http_hook.GenericHttpHook.call_api")
@@ -62,11 +72,11 @@ class TestElsevierHarvest:
         """
         mock_call_api.return_value = mock_response
 
-        s3_key = task_test(
-            dag_id="elsevier_harvest_dag",
-            task_id="fetch_package_feed",
+        s3_key = task_test2(
+            self.dag, "fetch_package_feed", context={"run_id": "test_run_id"}
         )
-        payload = self.s3_store.read_object(s3_key)
+
+        payload = self.s3_publisher_store.read_object(s3_key)
         assert payload == {
             "feed": [
                 {"name": "pkg-a.zip", "url": "https://example.org/pkg-a.zip"},
@@ -78,7 +88,7 @@ class TestElsevierHarvest:
     def test_download_new_packages(self, mock_call_api):
         file_name = f"{str(uuid.uuid4())}_bundle.zip"
 
-        packages_key = self.s3_store.write_object(
+        packages_key = self.s3_publisher_store.write_object(
             {
                 "feed": [
                     {"name": "notes.txt", "url": "https://api.example.org/notes.txt"},
@@ -94,21 +104,25 @@ class TestElsevierHarvest:
         download_response.raw = BytesIO(b"dummy zip bytes")
         mock_call_api.return_value = download_response
 
-        harvest_key = task_test(
-            dag_id="elsevier_harvest_dag",
-            task_id="download_new_packages",
-            params={"s3_packages_key": packages_key},
+        harvest_key = task_test2(
+            self.dag,
+            "download_new_packages",
+            params={"s3_harvest_key": packages_key},
+            context={"run_id": "test_run_id"},
         )
-        assert self.s3_store.read_object(harvest_key)["downloaded"] == [
+        assert self.s3_publisher_store.read_object(harvest_key)["downloaded"] == [
             f"packages/{file_name}"
         ]
-        assert self.s3_store.hook.get_key(f"packages/{file_name}") is not None
+        assert self.s3_publisher_store.hook.get_key(f"packages/{file_name}") is not None
 
     @patch("hooks.generic_http_hook.GenericHttpHook.call_api")
     def test_download_new_packages_skip(self, mock_call_api):
         file_name = f"{str(uuid.uuid4())}_bundle.zip"
-        self.s3_store.write_object("dummy content", key=f"packages/{file_name}")
-        packages_key = self.s3_store.write_object(
+
+        self.s3_publisher_store.write_object(
+            "dummy content", key=f"packages/{file_name}"
+        )
+        packages_key = self.s3_publisher_store.write_object(
             {
                 "feed": [
                     {"name": "notes.txt", "url": "https://api.example.org/notes.txt"},
@@ -124,12 +138,13 @@ class TestElsevierHarvest:
         download_response.raw = BytesIO(b"dummy zip bytes")
         mock_call_api.return_value = download_response
 
-        harvest_key = task_test(
-            dag_id="elsevier_harvest_dag",
-            task_id="download_new_packages",
-            params={"s3_packages_key": packages_key},
+        harvest_key = task_test2(
+            self.dag,
+            "download_new_packages",
+            params={"s3_harvest_key": packages_key},
+            context={"run_id": "test_run_id"},
         )
-        assert len(self.s3_store.read_object(harvest_key)["downloaded"]) == 0
+        assert len(self.s3_publisher_store.read_object(harvest_key)["downloaded"]) == 0
 
     @patch(
         "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.post_workflow"
@@ -144,33 +159,37 @@ class TestElsevierHarvest:
         ]
 
         package_key = f"packages/{zip_file}"
-        self.s3_store.hook.load_file(
+        self.s3_publisher_store.hook.load_file(
             datadir / zip_file,
             package_key,
             replace=True,
         )
-        harvest_key = self.s3_store.write_object(
+        harvest_key = self.s3_publisher_store.write_object(
             {"downloaded": [package_key]},
             key=f"harvests/{str(uuid.uuid4())}.json",
         )
 
-        failed_records_key = task_test(
-            dag_id="elsevier_harvest_dag",
-            task_id="process_packages",
-            params={"harvest_key": harvest_key},
+        failed_records_key = task_test2(
+            self.dag,
+            "process_packages",
+            params={"s3_harvest_key": harvest_key},
+            context={"run_id": "test_run_id"},
         )
 
-        failures = self.s3_store.read_object(failed_records_key)
+        failures = self.s3_publisher_store.read_object(failed_records_key)
 
         assert len(failures["failed_records"]) == 0
         assert mock_post_workflow.call_count == 3
         for call_idx, article_file in enumerate(processed_article_files):
-            assert self.s3_store.hook.get_key(f"articles/{article_file}") is not None
+            assert (
+                self.s3_publisher_store.hook.get_key(f"articles/{article_file}")
+                is not None
+            )
             assert (
                 urlparse(
                     mock_post_workflow.call_args_list[call_idx].kwargs["workflow_data"][
                         "data"
                     ]["documents"][0]["url"]
                 ).path
-                == f"/{self.s3_store.bucket_name}/articles/{article_file}"
+                == f"/{self.s3_publisher_store.bucket_name}/articles/{article_file}"
             )

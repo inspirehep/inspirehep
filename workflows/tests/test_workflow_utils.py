@@ -5,6 +5,9 @@ from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_hook import (
     InspireHttpHook,
 )
+from hooks.inspirehep.inspire_http_record_management_hook import (
+    InspireHTTPRecordManagementHook,
+)
 from include.utils import workflows
 from include.utils.constants import (
     HEP_CREATE,
@@ -12,7 +15,7 @@ from include.utils.constants import (
 )
 from inspire_schemas.api import load_schema, validate
 
-from tests.test_utils import get_inspire_http_record, task_test2
+from tests.test_utils import task_test2
 
 dagbag = DagBag()
 
@@ -24,7 +27,10 @@ class TestWorkflowUtils:
 
     @pytest.mark.vcr
     def test_read_wf_record_source_not_found(self):
-        record = get_inspire_http_record(LITERATURE_PID_TYPE, 44707)
+        record = InspireHTTPRecordManagementHook().get_record(
+            LITERATURE_PID_TYPE, 44707
+        )
+
         head_uuid = record["uuid"]
 
         root = {"version": "original", "acquisition_source": {"source": "arXiv"}}
