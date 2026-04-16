@@ -7,8 +7,6 @@ import pytest
 from airflow.sdk import Variable
 from airflow.secrets.local_filesystem import load_connections_dict, load_variables
 
-from tests.test_utils import function_test
-
 dags_path = Path(__file__).resolve().parents[1] / "dags"
 sys.path.insert(0, str(dags_path))
 
@@ -52,17 +50,6 @@ def vcr_config():
         "match_on": ["method", "scheme", "host", "port", "path", "query", "body"],
         "ignore_hosts": ("s3", "in-process.invalid."),
     }
-
-
-@pytest.fixture(scope="class")
-def _s3_store(request):
-    def _setup():
-        request.cls.s3_store = S3JsonStore(
-            aws_conn_id=getattr(request, "param", "s3_conn")
-        )
-        request.cls.s3_store.initialize()
-
-    function_test(_setup)
 
 
 @pytest.fixture(scope="class")

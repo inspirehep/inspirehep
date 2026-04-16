@@ -9,8 +9,6 @@ from hooks.backoffice.workflow_management_hook import (
 from include.utils.constants import HEP_CREATE, STATUS_ERROR, STATUS_RUNNING
 from tenacity import RetryError
 
-from tests.test_utils import get_aut_workflow_task
-
 
 @pytest.mark.usefixtures("hep_env")
 class TestWorkflowManagementHook:
@@ -34,18 +32,26 @@ class TestWorkflowManagementHook:
                 self.test_workflow_id,
             )
 
-        assert get_aut_workflow_task(self.test_workflow_id)["status"] == STATUS_ERROR
+        assert (
+            self.workflow_management_hook.get_workflow(self.test_workflow_id)["status"]
+            == STATUS_ERROR
+        )
 
         with contextlib.suppress(TypeError):
             self.workflow_management_hook.set_workflow_status(
                 STATUS_RUNNING, self.test_workflow_id
             )
 
-        assert get_aut_workflow_task(self.test_workflow_id)["status"] == STATUS_RUNNING
+        assert (
+            self.workflow_management_hook.get_workflow(self.test_workflow_id)["status"]
+            == STATUS_RUNNING
+        )
 
     @pytest.mark.vcr
     def test_update_workflow(self):
-        workflow_data = get_aut_workflow_task(self.test_workflow_id)
+        workflow_data = self.workflow_management_hook.get_workflow(
+            self.test_workflow_id
+        )
 
         workflow_data["data"]["status"] = "deceased"
         with contextlib.suppress(TypeError):
@@ -54,7 +60,10 @@ class TestWorkflowManagementHook:
             )
 
         assert (
-            get_aut_workflow_task(self.test_workflow_id)["data"]["status"] == "deceased"
+            self.workflow_management_hook.get_workflow(self.test_workflow_id)["data"][
+                "status"
+            ]
+            == "deceased"
         )
 
         workflow_data["data"]["status"] = "departed"
@@ -63,7 +72,10 @@ class TestWorkflowManagementHook:
                 self.test_workflow_id, workflow_data
             )
         assert (
-            get_aut_workflow_task(self.test_workflow_id)["data"]["status"] == "departed"
+            self.workflow_management_hook.get_workflow(self.test_workflow_id)["data"][
+                "status"
+            ]
+            == "departed"
         )
 
     @pytest.mark.vcr

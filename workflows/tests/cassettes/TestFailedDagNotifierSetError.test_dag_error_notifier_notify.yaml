@@ -1,0 +1,128 @@
+interactions:
+- request:
+    body: '{"status": "error"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '19'
+      Content-Type:
+      - application/json
+    method: PATCH
+    uri: http://host.docker.internal:8001/api/workflows/authors/00000000-0000-0000-0000-000000001521/
+  response:
+    body:
+      string: '{"id":"00000000-0000-0000-0000-000000001521","data":{"name":{"value":"B,
+        Third","preferred_name":"Third B"},"status":"active","$schema":"https://inspirebeta.net/schemas/records/authors.json","_collections":["Authors"],"arxiv_categories":["cond-mat","astro-ph"],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[],"workflow_type":"AUTHOR_CREATE","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2026-04-16T17:12:49.270265Z","status":"error"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '606'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 16 Apr 2026 17:12:49 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/authors/00000000-0000-0000-0000-000000001521
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - close
+      Content-Language:
+      - en
+      Content-Type:
+      - text/html; charset=utf-8
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 16 Apr 2026 17:12:49 GMT
+      Location:
+      - /api/workflows/authors/00000000-0000-0000-0000-000000001521/
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept-Language, origin
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8001/api/workflows/authors/00000000-0000-0000-0000-000000001521/
+  response:
+    body:
+      string: '{"id":"00000000-0000-0000-0000-000000001521","validation_errors":[],"data":{"name":{"value":"B,
+        Third","preferred_name":"Third B"},"status":"active","$schema":"https://inspirebeta.net/schemas/records/authors.json","_collections":["Authors"],"arxiv_categories":["cond-mat","astro-ph"],"acquisition_source":{"email":"user@cern.ch","orcid":"0000-0000-0000-0000","method":"submitter","source":"submitter","datetime":"2024-11-18T11:34:19.809575","internal_uid":50872}},"tickets":[],"decisions":[],"workflow_type":"AUTHOR_CREATE","_created_at":"2024-11-25T13:49:53.009000Z","_updated_at":"2026-04-16T17:12:49.270265Z","status":"error"}'
+    headers:
+      Allow:
+      - GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+      Content-Language:
+      - en
+      Content-Length:
+      - '629'
+      Content-Type:
+      - application/json
+      Cross-Origin-Opener-Policy:
+      - same-origin
+      Date:
+      - Thu, 16 Apr 2026 17:12:49 GMT
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - WSGIServer/0.2 CPython/3.11.6
+      Vary:
+      - Accept, Accept-Language, Cookie, origin
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1

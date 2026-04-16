@@ -13,6 +13,9 @@ from airflow.sdk.exceptions import (
 )
 from botocore.exceptions import ClientError
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
+from hooks.inspirehep.inspire_http_record_management_hook import (
+    InspireHTTPRecordManagementHook,
+)
 from include.utils import s3, workflows
 from include.utils.constants import (
     DECISION_AUTO_ACCEPT_CORE,
@@ -44,10 +47,6 @@ from inspire_utils.query import ordered
 from tenacity import Future, RetryError
 
 from tests.test_utils import (
-    function_test,
-    get_inspire_http_record,
-    initialize_s3_store,
-    task_test,
     task_test2,
 )
 
@@ -106,6 +105,8 @@ class Test_HEPCreateDAG:
     }
 
     wf_hook = WorkflowManagementHook(HEP)
+
+    inspire_hook = InspireHTTPRecordManagementHook()
 
     workflow_id = context["params"]["workflow_id"]
 
@@ -1583,7 +1584,6 @@ class Test_HEPCreateDAG:
         s3_publisher_store = s3.S3JsonStore("s3_elsevier_conn")
         doi_file = "10.1016/j.vacuum.2026.115222.xml"
 
-        initialize_s3_store(s3_publisher_store)
         s3_publisher_store.hook.load_string(
             "<xml>test</xml>",
             f"packages/{doi_file}",
@@ -1959,42 +1959,8 @@ class Test_HEPCreateDAG:
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
         assert "references" not in workflow_result["data"]
 
-    @patch(
-        "include.inspire.refextract_utils.match_references_hep",
-        return_value=[
-            {
-                "reference": {"misc": ["is given by (17), i.e., R\u0302PP"]},
-                "raw_refs": [
-                    {
-                        "schema": "text",
-                        "value": "is given by (17), i.e., R\u0302PP",
-                        "source": "arXiv",
-                    }
-                ],
-            },
-            {
-                "raw_refs": [
-                    {
-                        "schema": "text",
-                        "value": "\u0000\u0013 \u0000\u001a\u0000\u0018\u0000\u0013",
-                        "source": "arXiv",
-                    }
-                ]
-            },
-            {
-                "reference": {"misc": ["7LPH6WHSt"]},
-                "raw_refs": [
-                    {
-                        "schema": "text",
-                        "value": "\u00007\u0000S\u0000\u0003t",
-                        "source": "arXiv",
-                    }
-                ],
-            },
-        ],
-    )
     @pytest.mark.vcr
-    def test_refextract_invalid_characters(self, mock_match_references_hep, datadir):
+    def test_refextract_invalid_characters(self, datadir):
         filename = "1802.08709.pdf"
         self.s3_store.hook.load_file(
             datadir / filename,
@@ -2012,11 +1978,50 @@ class Test_HEPCreateDAG:
 
         self.s3_store.write_workflow(workflow_data)
 
-        task_test(
-            "hep_create_dag",
-            "preprocessing.refextract",
-            dag_params=self.context["params"],
+        mock_match_references_hep = Mock(
+            return_value=[
+                {
+                    "reference": {"misc": ["is given by (17), i.e., R\u0302PP"]},
+                    "raw_refs": [
+                        {
+                            "schema": "text",
+                            "value": "is given by (17), i.e., R\u0302PP",
+                            "source": "arXiv",
+                        }
+                    ],
+                },
+                {
+                    "raw_refs": [
+                        {
+                            "schema": "text",
+                            "value": "\u0000\u0013 \u0000\u001a\u0000"
+                            "\u0018\u0000\u0013",
+                            "source": "arXiv",
+                        }
+                    ]
+                },
+                {
+                    "reference": {"misc": ["7LPH6WHSt"]},
+                    "raw_refs": [
+                        {
+                            "schema": "text",
+                            "value": "\u00007\u0000S\u0000\u0003t",
+                            "source": "arXiv",
+                        }
+                    ],
+                },
+            ]
         )
+        refextract_task = self.dag.get_task("preprocessing.refextract")
+        with patch.dict(
+            refextract_task.python_callable.__globals__,
+            {"match_references_hep": mock_match_references_hep},
+        ):
+            task_test2(
+                self.dag,
+                "preprocessing.refextract",
+                self.context,
+            )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
 
@@ -4328,7 +4333,7 @@ class Test_HEPCreateDAG:
     def test_is_fresh_data_true(self):
         control_number = 44707
 
-        record = get_inspire_http_record(LITERATURE_PID_TYPE, control_number)
+        record = self.inspire_hook.get_record(LITERATURE_PID_TYPE, control_number)
         head_version_id = record["revision_id"]
 
         workflow_data = {
@@ -4350,7 +4355,7 @@ class Test_HEPCreateDAG:
     def test_is_fresh_data_false(self):
         control_number = 44707
 
-        record = get_inspire_http_record(LITERATURE_PID_TYPE, control_number)
+        record = self.inspire_hook.get_record(LITERATURE_PID_TYPE, control_number)
         head_version_id = record["revision_id"]
 
         workflow_data = {
@@ -4408,7 +4413,7 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_store_root_new_record(self):
-        record = get_inspire_http_record(LITERATURE_PID_TYPE, 99999)
+        record = self.inspire_hook.get_record(LITERATURE_PID_TYPE, 99999)
         head_uuid = record["uuid"]
 
         root = {"version": "original", "acquisition_source": {"source": "arXiv"}}
@@ -4430,7 +4435,7 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_store_root_update_record(self):
-        record = get_inspire_http_record(LITERATURE_PID_TYPE, 44707)
+        record = self.inspire_hook.get_record(LITERATURE_PID_TYPE, 44707)
         head_uuid = record["uuid"]
 
         root = {"version": "original", "acquisition_source": {"source": "arXiv"}}
@@ -4448,10 +4453,7 @@ class Test_HEPCreateDAG:
 
         task_test2(self.dag, "store_root", self.context)
 
-        root_entry = function_test(
-            workflows.read_wf_record_source,
-            params={"record_uuid": head_uuid, "source_name": "arxiv"},
-        )
+        root_entry = workflows.read_wf_record_source(head_uuid, "arxiv")
 
         assert root_entry["json"] == root
 
@@ -4465,10 +4467,7 @@ class Test_HEPCreateDAG:
 
         task_test2(self.dag, "store_root", self.context)
 
-        root_entry = function_test(
-            workflows.read_wf_record_source,
-            params={"record_uuid": head_uuid, "source_name": "arxiv"},
-        )
+        root_entry = workflows.read_wf_record_source(head_uuid, "arxiv")
 
         assert root_entry["json"] == root
 
@@ -4495,7 +4494,7 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_store_record_update(self):
-        initial_record_data = get_inspire_http_record(LITERATURE_PID_TYPE, 10000)
+        initial_record_data = self.inspire_hook.get_record(LITERATURE_PID_TYPE, 10000)
 
         workflow_data = {
             "data": copy.deepcopy(initial_record_data["metadata"]),
@@ -4513,7 +4512,7 @@ class Test_HEPCreateDAG:
 
         task_test2(self.dag, "store_record", self.context)
 
-        record_data = get_inspire_http_record(LITERATURE_PID_TYPE, 10000)
+        record_data = self.inspire_hook.get_record(LITERATURE_PID_TYPE, 10000)
 
         assert (
             len(record_data["metadata"]["titles"])
@@ -4556,7 +4555,7 @@ class Test_HEPCreateDAG:
 
     @pytest.mark.vcr
     def test_store_record_update_no_control_number(self):
-        initial_record_data = get_inspire_http_record(LITERATURE_PID_TYPE, 10000)
+        initial_record_data = self.inspire_hook.get_record(LITERATURE_PID_TYPE, 10000)
 
         workflow_data = {
             "id": self.workflow_id,
