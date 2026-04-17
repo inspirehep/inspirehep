@@ -66,6 +66,7 @@ from include.utils.constants import (
     DECISION_HEP_ACCEPT_CORE,
     DECISION_HEP_REJECT,
     DECISION_MERGE_APPROVE,
+    DECISION_WITHDRAWN,
     HEP_PUBLISHER_CREATE,
     HEP_PUBLISHER_UPDATE,
     HEP_UPDATE,
@@ -154,6 +155,16 @@ def hep_create_dag():
     workflow_management_hook = WorkflowManagementHook(HEP)
     arxiv_hook = GenericHttpHook(http_conn_id="arxiv_connection")
     s3_store = s3.S3JsonStore(aws_conn_id="s3_conn")
+
+    @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+    def save_and_complete_workflow(**context):
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = s3_store.read_workflow(workflow_id)
+        workflow_data["status"] = STATUS_COMPLETED
+
+        workflow_management_hook.update_workflow(workflow_id, workflow_data)
+
+    save_and_complete_workflow_task = save_and_complete_workflow()
 
     @task
     def check_env():
@@ -995,9 +1006,9 @@ def hep_create_dag():
 
             if workflows.is_arxiv_paper(workflow_data["data"]):
                 return "preprocessing.populate_arxiv_document"
-            return "preprocessing.populate_submission_document"
+            return "preprocessing.buffer_task"
 
-        @task
+        @task.branch
         def populate_arxiv_document(**context):
             workflow_id = context["params"]["workflow_id"]
             workflow_data = s3_store.read_workflow(workflow_id)
@@ -1015,10 +1026,16 @@ def hep_create_dag():
             except RetryError as e:
                 if "404:Not Found" in str(e.last_attempt.exception()):
                     logger.info("No PDF is available for %s", arxiv_id)
-                    return
+
+                    workflow_management_hook.add_decision(
+                        workflow_id=workflow_id,
+                        decision_data={"action": DECISION_WITHDRAWN},
+                    )
+
+                    return "save_and_complete_workflow"
 
             if not workflows.is_pdf_link(response):
-                return
+                return "preprocessing.arxiv_package_download"
 
             url = arxiv_hook.get_url() + endpoint
             filename = secure_filename(f"{arxiv_id}.pdf")
@@ -1041,6 +1058,8 @@ def hep_create_dag():
             workflow_data["data"] = lb.record
 
             s3_store.write_workflow(workflow_data)
+
+            return "preprocessing.arxiv_package_download"
 
         @task(execution_timeout=datetime.timedelta(minutes=5))
         def arxiv_plot_extract(tarball_key, **context):
@@ -1191,6 +1210,8 @@ def hep_create_dag():
 
         check_is_arxiv_paper_task = check_is_arxiv_paper()
 
+        buffer_task = EmptyOperator(task_id="buffer_task")
+
         populate_arxiv_document_task = populate_arxiv_document()
         arxiv_package_download_task = arxiv_package_download()
         populate_submission_document_task = populate_submission_document()
@@ -1199,13 +1220,18 @@ def hep_create_dag():
         extract_authors_from_pdf_task = extract_authors_from_pdf()
 
         check_is_arxiv_paper_task >> [
-            populate_submission_document_task,
+            buffer_task,
             populate_arxiv_document_task,
+        ]
+        buffer_task >> populate_submission_document_task
+
+        populate_arxiv_document_task >> [
+            arxiv_package_download_task,
+            save_and_complete_workflow_task,
         ]
 
         (
-            populate_arxiv_document_task
-            >> arxiv_package_download_task
+            arxiv_package_download_task
             >> arxiv_plot_extract(arxiv_package_download_task)
             >> arxiv_author_list_task
             >> populate_submission_document_task
@@ -1953,14 +1979,6 @@ def hep_create_dag():
         s3_store.write_workflow(workflow_data)
 
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
-    def save_and_complete_workflow(**context):
-        workflow_id = context["params"]["workflow_id"]
-        workflow_data = s3_store.read_workflow(workflow_id)
-        workflow_data["status"] = STATUS_COMPLETED
-
-        workflow_management_hook.update_workflow(workflow_id, workflow_data)
-
-    @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def run_next_if_necessary(**context):
         workflow_id = context["params"]["workflow_id"]
         workflow = s3_store.read_workflow(workflow_id)
@@ -1993,7 +2011,7 @@ def hep_create_dag():
     check_for_fuzzy_matches_task = check_for_fuzzy_matches()
     check_for_exact_matches_task = check_for_exact_matches()
     check_auto_approve_task = check_auto_approve()
-    save_and_complete_workflow_task = save_and_complete_workflow()
+
     stop_if_existing_submission_notify_and_close_task = (
         stop_if_existing_submission_notify_and_close()
     )
@@ -2049,10 +2067,11 @@ def hep_create_dag():
     postprocessing_group = postprocessing()
     should_proceed_to_core_selection_task = should_proceed_to_core_selection()
     notify_and_close_not_accepted_task = notify_and_close_not_accepted()
+    notify_if_submission_task = notify_if_submission()
 
     (
         preprocessing_group
-        >> notify_if_submission()
+        >> notify_if_submission_task
         >> halt_for_approval_if_new_or_reject_if_not_relevant()
         >> is_record_accepted()
         >> [postprocessing_group, notify_and_close_not_accepted_task]

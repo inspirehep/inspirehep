@@ -1040,7 +1040,7 @@ class Test_HEPCreateDAG:
 
         res = task_test(self.dag, "preprocessing.check_is_arxiv_paper", self.context)
 
-        assert res == "preprocessing.populate_submission_document"
+        assert res == "preprocessing.buffer_task"
 
     @pytest.mark.vcr
     def test_populate_journal_coverage(self):
@@ -1729,7 +1729,9 @@ class Test_HEPCreateDAG:
 
         self.s3_store.write_workflow(workflow_data)
 
-        task_test(self.dag, "preprocessing.populate_arxiv_document", self.context)
+        result = task_test(
+            self.dag, "preprocessing.populate_arxiv_document", self.context
+        )
 
         workflow_data = self.s3_store.read_workflow(self.workflow_id)
 
@@ -1745,6 +1747,7 @@ class Test_HEPCreateDAG:
             },
         ]
         assert workflow_data["data"]["documents"] == expected
+        assert result == "preprocessing.arxiv_package_download"
 
     @pytest.mark.vcr
     def test_populate_arxiv_document_does_not_duplicate_files_if_called_multiple_times(
@@ -1800,10 +1803,13 @@ class Test_HEPCreateDAG:
 
         assert validate(workflow_data["data"]["arxiv_eprints"], subschema) is None
 
-        task_test(self.dag, "preprocessing.populate_arxiv_document", self.context)
-
+        result = task_test(
+            self.dag, "preprocessing.populate_arxiv_document", self.context
+        )
         workflow_data = self.s3_store.read_workflow(self.workflow_id)
         assert "documents" not in workflow_data["data"]
+
+        assert result == "save_and_complete_workflow"
 
     @pytest.mark.vcr
     def test_normalize_journal_titles_with_data(self):
