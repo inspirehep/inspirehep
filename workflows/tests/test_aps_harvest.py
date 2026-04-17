@@ -6,7 +6,7 @@ import pytest
 from airflow.models import DagBag
 from include.utils.s3 import S3JsonStore
 
-from tests.test_utils import task_test2
+from tests.test_utils import task_test
 
 dagbag = DagBag()
 
@@ -64,7 +64,7 @@ class TestAPSHarvest:
 
     @pytest.mark.vcr
     def test_fetch_articles(self):
-        s3_key = task_test2(
+        s3_key = task_test(
             self.dag,
             "fetch_articles",
             context={
@@ -101,7 +101,7 @@ class TestAPSHarvest:
         download_response.raw = BytesIO(APS_JATS_XML.encode("utf-8"))
         mock_call_api.side_effect = [response, download_response]
 
-        failed_records_key = task_test2(
+        failed_records_key = task_test(
             self.dag,
             "process_articles",
             params={"s3_harvest_key": harvest_key},

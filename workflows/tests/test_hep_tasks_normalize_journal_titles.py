@@ -2,7 +2,7 @@ import pytest
 from airflow.models import DagBag
 
 from tests.test_utils import (
-    task_test2,
+    task_test,
 )
 
 dagbag = DagBag()
@@ -47,7 +47,7 @@ class TestNormalizeJournalTitles:
 
         self.s3_store.write_workflow(workflow_data)
 
-        task_test2(
+        task_test(
             self.dag,
             "preprocessing.normalize_journal_titles",
             context=self.context,
@@ -83,7 +83,7 @@ class TestNormalizeJournalTitles:
 
         self.s3_store.write_workflow(workflow_data)
 
-        task_test2(
+        task_test(
             self.dag,
             "preprocessing.normalize_journal_titles",
             context=self.context,
@@ -127,7 +127,7 @@ class TestNormalizeJournalTitles:
 
         self.s3_store.write_workflow(workflow_data)
 
-        task_test2(
+        task_test(
             self.dag,
             "preprocessing.normalize_journal_titles",
             context=self.context,
@@ -162,7 +162,7 @@ class TestNormalizeJournalTitles:
         }
         self.s3_store.write_workflow(workflow_data)
 
-        task_test2(
+        task_test(
             self.dag,
             "preprocessing.normalize_journal_titles",
             context=self.context,
@@ -205,7 +205,7 @@ class TestNormalizeJournalTitles:
         }
 
         self.s3_store.write_workflow(workflow_data)
-        task_test2(
+        task_test(
             self.dag,
             "preprocessing.normalize_journal_titles",
             context=self.context,

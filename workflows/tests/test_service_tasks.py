@@ -6,7 +6,7 @@ from unittest.mock import patch
 import pytest
 from airflow.models import DagBag
 
-from tests.test_utils import task_test2
+from tests.test_utils import task_test
 
 dagbag = DagBag()
 
@@ -51,7 +51,7 @@ class TestCleanupLogs:
         assert os.path.exists(old_log)
         assert os.path.exists(new_log)
 
-        task_test2(
+        task_test(
             self.dag,
             "find_and_cleanup_logs",
             context_params={"retention_hours": 48},
@@ -78,7 +78,7 @@ class TestCleanupLogs:
         assert os.path.exists(log_48h)
         assert os.path.exists(log_72h)
 
-        task_test2(
+        task_test(
             self.dag,
             "find_and_cleanup_logs",
             context_params={"retention_hours": 30},
@@ -97,7 +97,7 @@ class TestCleanupLogs:
             temp_logs_dir if key == "AIRFLOW_HOME" else default
         )
 
-        task_test2(
+        task_test(
             self.dag,
             "find_and_cleanup_logs",
             context_params={"retention_hours": 48},
@@ -118,7 +118,7 @@ class TestCleanupLogs:
         old_dag2 = self.create_mock_log_dir(logs_dir, "dag2", "run1", hours_old=60)
         new_dag2 = self.create_mock_log_dir(logs_dir, "dag2", "run2", hours_old=36)
 
-        task_test2(
+        task_test(
             self.dag,
             "find_and_cleanup_logs",
             context_params={"retention_hours": 48},

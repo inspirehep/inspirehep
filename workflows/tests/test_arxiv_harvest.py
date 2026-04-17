@@ -4,7 +4,7 @@ from airflow.sdk.exceptions import AirflowException
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from include.utils.arxiv import build_records
 
-from tests.test_utils import task_test2
+from tests.test_utils import task_test
 
 dagbag = DagBag()
 
@@ -52,13 +52,13 @@ class TestArxivHarvest:
             {"failed_build_records": [], "failed_load_records": []}
         )
 
-        task_test2(self.dag, "check_failures", params={"failed_record_key": s3_key})
+        task_test(self.dag, "check_failures", params={"failed_record_key": s3_key})
 
     def test_check_failures_fail(self):
         s3_key = self.s3_store.write_object({"failed_build_records": ["record"]})
 
         with pytest.raises(AirflowException) as exc_info:
-            task_test2(
+            task_test(
                 self.dag,
                 "check_failures",
                 params={"failed_record_key": s3_key},

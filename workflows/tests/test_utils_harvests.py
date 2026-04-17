@@ -8,7 +8,7 @@ from include.utils.constants import HEP_CREATE, HEP_PUBLISHER_CREATE
 from include.utils.harvests import fetch_records_oaipmh, load_records
 from sickle.oaiexceptions import NoRecordsMatch
 
-from tests.test_utils import task_test2
+from tests.test_utils import task_test
 
 dagbag = DagBag()
 
@@ -96,7 +96,7 @@ class TestUtilsHarvests:
             {"failed_build_records": [], "failed_load_records": []}
         )
 
-        task_test2(
+        task_test(
             self.dag,
             "check_failures",
             params={"failed_record_key": s3_key},
@@ -106,7 +106,7 @@ class TestUtilsHarvests:
         s3_key = self.s3_store.write_object({"failed_build_records": ["record"]})
 
         with pytest.raises(AirflowException) as exc_info:
-            task_test2(
+            task_test(
                 self.dag,
                 "check_failures",
                 params={"failed_record_key": s3_key},
@@ -116,7 +116,7 @@ class TestUtilsHarvests:
     def test_check_failures_no_key(self):
         s3_key = None
 
-        task_test2(
+        task_test(
             self.dag,
             "check_failures",
             params={"failed_record_key": s3_key},

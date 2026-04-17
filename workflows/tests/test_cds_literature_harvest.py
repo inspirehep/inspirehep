@@ -3,7 +3,7 @@ from unittest.mock import patch
 import pytest
 from airflow.models import DagBag
 
-from tests.test_utils import task_test2
+from tests.test_utils import task_test
 
 dagbag = DagBag()
 
@@ -17,7 +17,7 @@ class TestCDSLiteratureHarvest:
     )
     @pytest.mark.vcr
     def test_process_records(self, mock_post_workflow):
-        result = task_test2(
+        result = task_test(
             self.dag,
             "process_records",
             context={

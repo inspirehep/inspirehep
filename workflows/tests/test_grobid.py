@@ -2,7 +2,7 @@ import pytest
 from airflow.models import DagBag
 from include.utils import workflows
 
-from tests.test_utils import task_test2
+from tests.test_utils import task_test
 
 dagbag = DagBag()
 
@@ -24,7 +24,7 @@ class TestsGrobid:
     @pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path", "query"])
     def test_post_pdf_to_grobid_process_header(self):
         self.s3_store.write_workflow(self.workflow)
-        task_test2(
+        task_test(
             self.dag,
             "preprocessing.download_documents",
             context_params={"workflow_id": self.workflow_id},
@@ -37,7 +37,7 @@ class TestsGrobid:
     @pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path", "query"])
     def test_post_pdf_to_grobid_process_fulltext(self):
         self.s3_store.write_workflow(self.workflow)
-        task_test2(
+        task_test(
             self.dag,
             "preprocessing.download_documents",
             context_params={"workflow_id": self.workflow_id},
@@ -53,7 +53,7 @@ class TestsGrobid:
     @pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path", "query"])
     def test_get_fulltext(self):
         self.s3_store.write_workflow(self.workflow)
-        task_test2(
+        task_test(
             self.dag,
             "preprocessing.download_documents",
             context_params={"workflow_id": self.workflow_id},
