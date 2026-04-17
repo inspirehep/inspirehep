@@ -37,7 +37,8 @@ logger = logging.getLogger(__name__)
 def aps_harvest_dag():
     """Harvest APS articles through the APS API and create HEP workflows."""
 
-    s3_store = S3JsonStore("s3_aps_conn")
+    bucket_name = "aps-store"
+    s3_store = S3JsonStore("s3_publisher_conn", bucket_name)
     aps_hook = GenericHttpHook("aps_conn")
 
     @task
@@ -142,7 +143,9 @@ def aps_harvest_dag():
 
     articles_key = fetch_articles()
     failed_records_key = process_articles(articles_key)
-    check_failures(failed_records_key, s3_conn="s3_aps_conn")
+    check_failures(
+        failed_records_key, s3_conn="s3_publisher_conn", bucket_name=bucket_name
+    )
 
 
 aps_harvest_dag()

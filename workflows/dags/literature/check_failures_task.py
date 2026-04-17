@@ -8,15 +8,16 @@ logger = logging.getLogger(__name__)
 
 
 @task
-def check_failures(failed_record_key, s3_conn="s3_conn"):
+def check_failures(failed_record_key, s3_conn="s3_conn", bucket_name=None):
     """Check if there are any failed records and raise an exception if there are.
 
     Args:
         failed_record_key: The S3 object key for the JSON containing failed records.
         s3_conn: The Airflow connection ID used to connect to S3.
+        bucket_name: The name of the S3 bucket where the failed records are stored.
     Raises: AirflowException: If there are any failed records.
     """
-    s3_store = S3JsonStore(aws_conn_id=s3_conn)
+    s3_store = S3JsonStore(aws_conn_id=s3_conn, bucket_name=bucket_name)
 
     if failed_record_key is None:
         logger.info("No failed record key provided, no records to check.")

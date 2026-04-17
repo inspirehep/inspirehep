@@ -60,7 +60,7 @@ def s3_desy_env(request):
     }
     env_dict.update(
         connections_dict_to_env_dict(
-            CONNECTIONS_FILE, connections_to_import=["s3_elsevier_conn"]
+            CONNECTIONS_FILE, connections_to_import=["s3_publisher_conn"]
         )
     )
 
@@ -72,7 +72,7 @@ def s3_desy_env(request):
         request.cls.input_bucket = desy_input_bucket
         request.cls.output_bucket = Variable.get("s3_desy_output_bucket_name")
         request.cls.s3_store = S3JsonStore(
-            "s3_elsevier_conn", bucket_name=desy_input_bucket
+            "s3_publisher_conn", bucket_name=desy_input_bucket
         )
         request.cls.s3_store.hook.create_bucket("test-desy-incoming")
         request.cls.s3_store.hook.create_bucket("test-desy-processed")

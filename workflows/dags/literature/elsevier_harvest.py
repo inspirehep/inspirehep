@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 def elsevier_harvest_dag():
     """DAG for harvesting Elsevier metadata packages and creating HEP workflows."""
 
-    s3_store = S3JsonStore("s3_elsevier_conn")
+    s3_store = S3JsonStore("s3_publisher_conn")
     elsevier_hook = GenericHttpHook("elsevier_consyn_conn")
 
     @task
@@ -101,7 +101,7 @@ def elsevier_harvest_dag():
     packages = fetch_package_feed()
     new_package_keys = download_new_packages(packages)
     failed_record_key = process_packages(new_package_keys)
-    check_failures(failed_record_key, s3_conn="s3_elsevier_conn")
+    check_failures(failed_record_key, s3_conn="s3_publisher_conn")
 
 
 elsevier_harvest_dag()

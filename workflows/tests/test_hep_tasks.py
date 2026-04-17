@@ -1581,7 +1581,7 @@ class Test_HEPCreateDAG:
             )
 
     def test_download_documents_from_publisher(self):
-        s3_publisher_store = s3.S3JsonStore("s3_elsevier_conn")
+        s3_publisher_store = s3.S3JsonStore("s3_publisher_conn")
         doi_file = "10.1016/j.vacuum.2026.115222.xml"
 
         s3_publisher_store.hook.load_string(

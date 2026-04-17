@@ -52,7 +52,7 @@ def elsevier_harvest_by_doi_dag():
 
         workflow_management_hook = WorkflowManagementHook(HEP)
 
-        s3_store = S3JsonStore(aws_conn_id="s3_elsevier_conn")
+        s3_store = S3JsonStore(aws_conn_id="s3_publisher_conn")
         failed_records = []
 
         for doi in dois:
@@ -78,7 +78,7 @@ def elsevier_harvest_by_doi_dag():
 
     dois = get_dois()
     failed_load_record_key = process_records(dois)
-    check_failures(failed_load_record_key, s3_conn="s3_elsevier_conn")
+    check_failures(failed_load_record_key, s3_conn="s3_publisher_conn")
 
 
 elsevier_harvest_by_doi_dag()

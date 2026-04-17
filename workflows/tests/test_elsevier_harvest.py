@@ -18,7 +18,7 @@ dagbag = DagBag()
 class TestElsevierHarvest:
     dag = dagbag.get_dag("elsevier_harvest_dag")
 
-    s3_publisher_store = S3JsonStore("s3_elsevier_conn")
+    s3_publisher_store = S3JsonStore("s3_publisher_conn")
 
     def test_process_article(self, datadir):
         zip_file = "117653164249626153-00001-FULL-XML-VACUUM (0042-207X) 1.7.14.ZIP"
