@@ -25,6 +25,7 @@ from include.utils.constants import (
     DECISION_DISCARD,
     DECISION_HEP_ACCEPT_CORE,
     DECISION_HEP_REJECT,
+    DECISION_WITHDRAWN,
     HEP_CREATE,
     HEP_PUBLISHER_CREATE,
     HEP_PUBLISHER_UPDATE,
@@ -754,8 +755,51 @@ class Test_HEPCreateDAG:
                 },
             },
         )
-        res = task_test(self.dag, "preprocessing.arxiv_package_download", self.context)
-        assert res == f"{self.workflow_id}/2508.17630.tar.gz"
+        context = {
+            **self.context,
+            "ti": Mock(xcom_push=Mock(), xcom_pull=None),
+        }
+        res = task_test(self.dag, "preprocessing.arxiv_package_download", context)
+        assert res == "preprocessing.arxiv_plot_extract"
+        context["ti"].xcom_push.assert_called_once_with(
+            key="s3_tarball_key",
+            value=f"{self.workflow_id}/2508.17630.tar.gz",
+        )
+
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.add_decision"
+    )
+    @patch("hooks.generic_http_hook.GenericHttpHook.call_api")
+    def test_arxiv_package_download_not_found(self, mock_call_api, mock_add_decision):
+        fut = Future(attempt_number=1)
+        fut.set_exception(AirflowException("404:Not Found"))
+        mock_call_api.side_effect = RetryError(last_attempt=fut)
+
+        self.s3_store.write_workflow(
+            {
+                "id": self.workflow_id,
+                "data": {
+                    "arxiv_eprints": [
+                        {
+                            "value": "2508.17630",
+                        }
+                    ],
+                },
+            },
+        )
+        context = {
+            **self.context,
+            "ti": Mock(xcom_push=Mock(), xcom_pull=None),
+        }
+
+        res = task_test(self.dag, "preprocessing.arxiv_package_download", context)
+
+        assert res == "save_and_complete_workflow"
+        context["ti"].xcom_push.assert_not_called()
+        mock_add_decision.assert_called_once_with(
+            workflow_id=self.workflow_id,
+            decision_data={"action": DECISION_WITHDRAWN},
+        )
 
     def test_arxiv_author_list_with_missing_tarball(self):
         schema = load_schema("hep")
@@ -785,12 +829,18 @@ class Test_HEPCreateDAG:
             },
         )
         validate(workflow_data["data"]["arxiv_eprints"], eprints_subschema)
+        context = {
+            **self.context,
+            "ti": Mock(
+                xcom_push=Mock(),
+                xcom_pull=Mock(return_value=f"{self.workflow_id}/notfound"),
+            ),
+        }
 
         task_test(
             self.dag,
             "preprocessing.arxiv_author_list",
-            self.context,
-            params={"tarball_key": f"{self.workflow_id}/notfound"},
+            context,
         )
 
     def test_arxiv_author_list_handles_no_author_list(self, datadir):
@@ -814,12 +864,15 @@ class Test_HEPCreateDAG:
         }
 
         self.s3_store.write_workflow(workflow_data)
+        context = {
+            **self.context,
+            "ti": Mock(xcom_push=Mock(), xcom_pull=Mock(return_value=tarball_key)),
+        }
 
         task_test(
             self.dag,
             "preprocessing.arxiv_author_list",
-            self.context,
-            params={"tarball_key": tarball_key},
+            context,
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
@@ -843,12 +896,15 @@ class Test_HEPCreateDAG:
         }
 
         self.s3_store.write_workflow(workflow_data)
+        context = {
+            **self.context,
+            "ti": Mock(xcom_push=Mock(), xcom_pull=Mock(return_value=tarball_key)),
+        }
 
         task_test(
             self.dag,
             "preprocessing.arxiv_author_list",
-            self.context,
-            params={"tarball_key": tarball_key},
+            context,
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
@@ -880,12 +936,15 @@ class Test_HEPCreateDAG:
         }
 
         self.s3_store.write_workflow(workflow_data)
+        context = {
+            **self.context,
+            "ti": Mock(xcom_push=Mock(), xcom_pull=Mock(return_value=tarball_key)),
+        }
 
         task_test(
             self.dag,
             "preprocessing.arxiv_author_list",
-            self.context,
-            params={"tarball_key": tarball_key},
+            context,
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
@@ -925,12 +984,15 @@ class Test_HEPCreateDAG:
             ],
         }  # record/1519995
         validate(data["arxiv_eprints"], eprints_subschema)
+        context = {
+            **self.context,
+            "ti": Mock(xcom_push=Mock(), xcom_pull=Mock(return_value=tarball_key)),
+        }
 
         task_test(
             self.dag,
             "preprocessing.arxiv_author_list",
-            self.context,
-            params={"tarball_key": tarball_key},
+            context,
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
@@ -993,11 +1055,14 @@ class Test_HEPCreateDAG:
             },
         ]
         validate(expected_authors, authors_subschema)
+        context = {
+            **self.context,
+            "ti": Mock(xcom_push=Mock(), xcom_pull=Mock(return_value=tarball_key)),
+        }
         task_test(
             self.dag,
             "preprocessing.arxiv_author_list",
-            self.context,
-            params={"tarball_key": tarball_key},
+            context,
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
@@ -1100,12 +1165,15 @@ class Test_HEPCreateDAG:
         workflow_data = {"id": self.workflow_id, "data": {}}
 
         self.s3_store.write_workflow(workflow_data)
+        context = {
+            **self.context,
+            "ti": Mock(xcom_push=Mock(), xcom_pull=Mock(return_value=tarball_key)),
+        }
 
         task_test(
             self.dag,
             "preprocessing.arxiv_plot_extract",
-            self.context,
-            params={"tarball_key": tarball_key},
+            context,
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
@@ -1142,12 +1210,15 @@ class Test_HEPCreateDAG:
         assert validate(workflow_data["data"]["arxiv_eprints"], subschema) is None
 
         self.s3_store.write_workflow(workflow_data)
+        context = {
+            **self.context,
+            "ti": Mock(xcom_push=Mock(), xcom_pull=Mock(return_value=tarball_key)),
+        }
 
         task_test(
             self.dag,
             "preprocessing.arxiv_plot_extract",
-            self.context,
-            params={"tarball_key": tarball_key},
+            context,
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
@@ -1199,12 +1270,15 @@ class Test_HEPCreateDAG:
         assert validate(workflow_data["data"]["arxiv_eprints"], subschema) is None
 
         for _ in range(2):
+            context = {
+                **self.context,
+                "ti": Mock(xcom_push=Mock(), xcom_pull=Mock(return_value=tarball_key)),
+            }
             assert (
                 task_test(
                     self.dag,
                     "preprocessing.arxiv_plot_extract",
-                    self.context,
-                    params={"tarball_key": tarball_key},
+                    context,
                 )
                 is None
             )
@@ -1259,11 +1333,14 @@ class Test_HEPCreateDAG:
 
         assert validate(workflow_data["data"]["arxiv_eprints"], subschema) is None
         self.s3_store.write_workflow(workflow_data)
+        context = {
+            **self.context,
+            "ti": Mock(xcom_push=Mock(), xcom_pull=Mock(return_value=tarball_key)),
+        }
         task_test(
             self.dag,
             "preprocessing.arxiv_plot_extract",
-            self.context,
-            params={"tarball_key": tarball_key},
+            context,
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
@@ -1292,12 +1369,15 @@ class Test_HEPCreateDAG:
             },
         }
         self.s3_store.write_workflow(workflow_data)
+        context = {
+            **self.context,
+            "ti": Mock(xcom_push=Mock(), xcom_pull=Mock(return_value=tarball_key)),
+        }
 
         task_test(
             self.dag,
             "preprocessing.arxiv_plot_extract",
-            self.context,
-            params={"tarball_key": tarball_key},
+            context,
         )
 
         workflow_result = self.s3_store.read_workflow(self.workflow_id)
@@ -1322,13 +1402,16 @@ class Test_HEPCreateDAG:
         }
 
         self.s3_store.write_workflow(workflow_data)
+        context = {
+            **self.context,
+            "ti": Mock(xcom_push=Mock(), xcom_pull=Mock(return_value=tarball_key)),
+        }
 
         with pytest.raises(ClientError, match="Not Found"):
             task_test(
                 self.dag,
                 "preprocessing.arxiv_plot_extract",
-                self.context,
-                params={"tarball_key": tarball_key},
+                context,
             )
 
     @pytest.mark.vcr
@@ -1729,9 +1812,7 @@ class Test_HEPCreateDAG:
 
         self.s3_store.write_workflow(workflow_data)
 
-        result = task_test(
-            self.dag, "preprocessing.populate_arxiv_document", self.context
-        )
+        task_test(self.dag, "preprocessing.populate_arxiv_document", self.context)
 
         workflow_data = self.s3_store.read_workflow(self.workflow_id)
 
@@ -1747,7 +1828,6 @@ class Test_HEPCreateDAG:
             },
         ]
         assert workflow_data["data"]["documents"] == expected
-        assert result == "preprocessing.arxiv_package_download"
 
     @pytest.mark.vcr
     def test_populate_arxiv_document_does_not_duplicate_files_if_called_multiple_times(
@@ -1803,13 +1883,9 @@ class Test_HEPCreateDAG:
 
         assert validate(workflow_data["data"]["arxiv_eprints"], subschema) is None
 
-        result = task_test(
-            self.dag, "preprocessing.populate_arxiv_document", self.context
-        )
+        task_test(self.dag, "preprocessing.populate_arxiv_document", self.context)
         workflow_data = self.s3_store.read_workflow(self.workflow_id)
         assert "documents" not in workflow_data["data"]
-
-        assert result == "save_and_complete_workflow"
 
     @pytest.mark.vcr
     def test_normalize_journal_titles_with_data(self):
