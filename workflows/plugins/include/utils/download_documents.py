@@ -10,7 +10,7 @@ from hooks.generic_http_hook import GenericHttpHook
 from include.utils.s3 import S3JsonStore
 
 ARXIV_CONNECTION_ID = "arxiv_connection"
-S3_PUBLISHER_CONNECTION_ID = "s3_elsevier_conn"
+S3_PUBLISHER_CONNECTION_ID = "s3_publisher_conn"
 
 
 logger = logging.getLogger(__name__)

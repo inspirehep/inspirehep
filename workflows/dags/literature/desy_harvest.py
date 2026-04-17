@@ -27,7 +27,7 @@ def desy_harvest_dag():
         workflow_management_hook = WorkflowManagementHook(HEP)
         input_bucket = Variable.get("s3_desy_input_bucket_name")
         output_bucket = Variable.get("s3_desy_output_bucket_name")
-        s3_publisher_store = S3JsonStore("s3_elsevier_conn")
+        s3_publisher_store = S3JsonStore("s3_publisher_conn")
 
         run_id = context["run_id"]
         subdirectories = s3_publisher_store.hook.list_prefixes(

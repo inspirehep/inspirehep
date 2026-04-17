@@ -92,6 +92,8 @@ def store_record_documents(record, storage_prefix, s3_store, aps_hook, headers):
         s3_key = f"{storage_prefix}/{document['key']}"
         logger.info("Storing APS document %s in S3", document["key"])
         upload_object = _download_document_stream(original_url, aps_hook, headers)
-        s3_store.hook.load_file_obj(upload_object, s3_key, replace=True)
+        s3_store.hook.load_file_obj(
+            upload_object, s3_key, replace=True, bucket_name=s3_store.bucket_name
+        )
         document["original_url"] = original_url
         document["url"] = s3_store.key_to_s3_url(s3_key)

@@ -96,25 +96,15 @@
     "schema": null,
     "extra": {"endpoint_url":"http://s3:9000","service_config":{"s3": {"bucket_name": "data-store"}}}
   },
-  "s3_elsevier_conn": {
+  "s3_publisher_conn": {
     "conn_type": "aws",
-    "description": "Used for elsevier harvesting storage",
+    "description": "Used for publishers harvesting storage",
     "login": "airflow",
     "password": "airflow-inspire",
     "host": null,
     "port": null,
     "schema": null,
     "extra": {"endpoint_url":"http://s3:9000","service_config":{"s3": {"bucket_name": "elsevier-store"}}}
-  },
-  "s3_aps_conn": {
-    "conn_type": "aws",
-    "description": "Used for APS harvesting storage",
-    "login": "airflow",
-    "password": "airflow-inspire",
-    "host": null,
-    "port": null,
-    "schema": null,
-    "extra": {"endpoint_url":"http://s3:9000","service_config":{"s3": {"bucket_name": "aps-store"}}}
   },
   "ieee_ftp": {
     "conn_type": "ftp",

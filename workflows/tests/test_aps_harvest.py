@@ -60,7 +60,7 @@ APS_JATS_XML = """
 class TestAPSHarvest:
     dag = dagbag.get_dag("aps_harvest_dag")
 
-    s3_aps_store = S3JsonStore("s3_aps_conn")
+    s3_aps_store = S3JsonStore("s3_publisher_conn", bucket_name="aps-store")
 
     @pytest.mark.vcr
     def test_fetch_articles(self):

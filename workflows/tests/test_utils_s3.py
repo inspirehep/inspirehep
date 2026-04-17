@@ -50,7 +50,7 @@ class TestS3Hook:
         src_bucket = Variable.get("s3_desy_input_bucket_name")
         dest_bucket = Variable.get("s3_desy_output_bucket_name")
 
-        s3_publisher_store = S3JsonStore("s3_elsevier_conn", src_bucket)
+        s3_publisher_store = S3JsonStore("s3_publisher_conn", src_bucket)
 
         subdir = f"test-subdir-{str(uuid.uuid4())}/"
 
