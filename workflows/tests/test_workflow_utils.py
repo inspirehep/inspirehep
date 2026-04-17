@@ -15,7 +15,7 @@ from include.utils.constants import (
 )
 from inspire_schemas.api import load_schema, validate
 
-from tests.test_utils import task_test2
+from tests.test_utils import task_test
 
 dagbag = DagBag()
 
@@ -46,7 +46,7 @@ class TestWorkflowUtils:
         self.s3_store.write_workflow(workflow_data)
         self.s3_store.write_workflow(preserved_root_entry, filename="root.json")
 
-        task_test2(
+        task_test(
             self.dag,
             "store_root",
             context_params={"workflow_id": self.workflow_id},

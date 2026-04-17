@@ -4,7 +4,7 @@ import orjson
 import pytest
 from airflow.models import DagBag
 
-from tests.test_utils import task_test2
+from tests.test_utils import task_test
 
 dagbag = DagBag()
 
@@ -15,7 +15,7 @@ class TestDataHarvest:
 
     @pytest.mark.vcr
     def test_collect_ids_param(self):
-        res = task_test2(
+        res = task_test(
             self.dag,
             "collect_ids",
             context={
@@ -26,7 +26,7 @@ class TestDataHarvest:
 
     @pytest.mark.vcr
     def test_collect_ids_param_with_to_date(self):
-        res = task_test2(
+        res = task_test(
             self.dag,
             "collect_ids",
             context={
@@ -45,7 +45,7 @@ class TestDataHarvest:
             "last_updated_to": "",
         }
 
-        res = task_test2(
+        res = task_test(
             self.dag,
             "collect_ids",
             context={"params": params, "ds": "2024-12-17"},
@@ -56,7 +56,7 @@ class TestDataHarvest:
     def test_download_record_versions(self):
         id = "1906174"
 
-        res = task_test2(
+        res = task_test(
             self.dag,
             "process_record.download_record_versions",
             params={"id": id},
@@ -73,7 +73,7 @@ class TestDataHarvest:
             "base": orjson.loads((datadir / "ins1906174_version3.json").read_text()),
         }
 
-        res = task_test2(
+        res = task_test(
             self.dag,
             "process_record.build_record",
             params={
@@ -132,7 +132,7 @@ class TestDataHarvest:
         payload = {
             "base": orjson.loads((datadir / "ins1906174_version3.json").read_text())
         }
-        res = task_test2(
+        res = task_test(
             self.dag,
             "process_record.build_record",
             params={
@@ -147,7 +147,7 @@ class TestDataHarvest:
             "base": orjson.loads((datadir / "ins1906174_version4.json").read_text())
         }
 
-        res = task_test2(
+        res = task_test(
             self.dag,
             "process_record.build_record",
             params={
@@ -172,7 +172,7 @@ class TestDataHarvest:
                 "method": "inspirehep",
             },
         }
-        json_response = task_test2(
+        json_response = task_test(
             self.dag, "process_record.load_record", params={"new_record": record}
         )
         assert json_response
@@ -184,7 +184,7 @@ class TestDataHarvest:
             "collaborations": [{"value": "ETM"}],
             "acquisition_source": {"submission_number": "123"},
         }
-        json_response = task_test2(
+        json_response = task_test(
             self.dag,
             "process_record.normalize_collaborations",
             params={"record": record},
@@ -208,7 +208,7 @@ class TestDataHarvest:
                 "method": "inspirehep",
             },
         }
-        json_response = task_test2(
+        json_response = task_test(
             self.dag, "process_record.load_record", params={"new_record": record}
         )
 

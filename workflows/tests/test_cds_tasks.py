@@ -9,7 +9,7 @@ from hooks.inspirehep.inspire_http_record_management_hook import (
 from include.utils.cds import retrieve_and_validate_record
 from inspire_utils.record import get_values_for_schema
 
-from tests.test_utils import task_test2
+from tests.test_utils import task_test
 
 dagbag = DagBag()
 
@@ -28,7 +28,7 @@ class TestCDSHarvest:
             },
             "task_instance": None,
         }
-        res = task_test2(
+        res = task_test(
             self.dag,
             "get_cds_data",
             context=context,

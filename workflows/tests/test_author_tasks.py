@@ -4,7 +4,7 @@ from unittest.mock import Mock
 import pytest
 from airflow.models import DagBag
 
-from tests.test_utils import task_test2
+from tests.test_utils import task_test
 
 dagbag = DagBag()
 
@@ -66,7 +66,7 @@ class TestAuthorCreateInit:
 
     @pytest.mark.vcr
     def test_set_schema(self):
-        result = task_test2(
+        result = task_test(
             self.dag,
             "set_schema",
             self.context,
@@ -75,7 +75,7 @@ class TestAuthorCreateInit:
 
     @pytest.mark.vcr
     def test_set_submission_number_no_data(self):
-        result = task_test2(
+        result = task_test(
             self.dag,
             "set_submission_number",
             self.context,
@@ -87,7 +87,7 @@ class TestAuthorCreateInit:
 
     @pytest.mark.vcr
     def test_set_submission_number_with_data(self):
-        result = task_test2(
+        result = task_test(
             self.dag,
             "set_submission_number",
             self.context,
@@ -117,7 +117,7 @@ class TestAuthorCreateInit:
                 },
             }
         }
-        task_test2(
+        task_test(
             self.dag,
             "create_author_create_user_ticket",
             noticket_context,
@@ -155,7 +155,7 @@ class TestAuthorCreateApproved:
     @pytest.mark.vcr
     def test_close_author_create_user_ticket(self):
         self.context["ti"].xcom_pull.return_value = 123456
-        task_test2(
+        task_test(
             self.dag,
             "close_author_create_user_ticket",
             self.context,
@@ -164,7 +164,7 @@ class TestAuthorCreateApproved:
     @pytest.mark.vcr
     def test_create_author_create_curation_ticket(self):
         self.context["ti"].xcom_pull.return_value = 123456
-        task_test2(
+        task_test(
             self.dag,
             "create_author_create_curation_ticket",
             self.context,
@@ -179,7 +179,7 @@ class TestAuthorUpdate:
 
     @pytest.mark.vcr
     def test_create_ticket_on_author_update(self):
-        task_test2(
+        task_test(
             self.dag,
             "create_ticket_on_author_update",
             self.context,

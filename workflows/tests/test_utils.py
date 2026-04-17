@@ -1,7 +1,7 @@
 import copy
 
 
-def task_test2(dag_bag, task_id, context=None, params=None, context_params=None):
+def task_test(dag_bag, task_id, context=None, params=None, context_params=None):
     """Call a DAG task's python callable directly in tests.
 
     :param dag_bag: DAG object containing the task.

@@ -9,7 +9,7 @@ from airflow.models import DagBag
 from include.utils.elsevier import process_article
 from include.utils.s3 import S3JsonStore
 
-from tests.test_utils import task_test2
+from tests.test_utils import task_test
 
 dagbag = DagBag()
 
@@ -72,7 +72,7 @@ class TestElsevierHarvest:
         """
         mock_call_api.return_value = mock_response
 
-        s3_key = task_test2(
+        s3_key = task_test(
             self.dag, "fetch_package_feed", context={"run_id": "test_run_id"}
         )
 
@@ -104,7 +104,7 @@ class TestElsevierHarvest:
         download_response.raw = BytesIO(b"dummy zip bytes")
         mock_call_api.return_value = download_response
 
-        harvest_key = task_test2(
+        harvest_key = task_test(
             self.dag,
             "download_new_packages",
             params={"s3_harvest_key": packages_key},
@@ -138,7 +138,7 @@ class TestElsevierHarvest:
         download_response.raw = BytesIO(b"dummy zip bytes")
         mock_call_api.return_value = download_response
 
-        harvest_key = task_test2(
+        harvest_key = task_test(
             self.dag,
             "download_new_packages",
             params={"s3_harvest_key": packages_key},
@@ -169,7 +169,7 @@ class TestElsevierHarvest:
             key=f"harvests/{str(uuid.uuid4())}.json",
         )
 
-        failed_records_key = task_test2(
+        failed_records_key = task_test(
             self.dag,
             "process_packages",
             params={"s3_harvest_key": harvest_key},

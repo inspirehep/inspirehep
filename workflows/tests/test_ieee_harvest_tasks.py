@@ -5,7 +5,7 @@ from airflow.models import DagBag
 from airflow.sdk import Variable
 from airflow.sdk.exceptions import AirflowException
 
-from tests.test_utils import task_test2
+from tests.test_utils import task_test
 
 dagbag = DagBag()
 
@@ -31,12 +31,12 @@ class TestIEEEHarvest:
         ds = "2025-01-01"
         dag_params = {"sync_folders": ["IEEEUpdates_Cern"]}
 
-        task_test2(
+        task_test(
             self.dag,
             task_id="get_sync_folders",
             context={"ds": ds, "params": dag_params},
         )
-        task_test2(
+        task_test(
             self.dag,
             task_id="ftp_to_s3",
             context={"ds": ds, "params": dag_params},
@@ -49,14 +49,14 @@ class TestIEEEHarvest:
 
     def test_check_new_directories(self):
         with pytest.raises(AirflowException):
-            task_test2(
+            task_test(
                 self.dag,
                 "check_new_directories",
                 params={"has_new_directories": [False, False, False]},
             )
 
     def test_check_new_directories_with_new_directory(self):
-        task_test2(
+        task_test(
             self.dag,
             "check_new_directories",
             params={"has_new_directories": [False, True, False]},
