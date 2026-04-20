@@ -47,6 +47,7 @@ django-setup:
 	docker compose exec backoffice-webserver python manage.py loaddata backoffice/authors/fixtures/workflows.json
 	docker compose exec backoffice-webserver python manage.py loaddata backoffice/hep/fixtures/workflows.json
 	docker compose exec backoffice-webserver python manage.py loaddata backoffice/hep/fixtures/decisions.json
+	docker compose exec backoffice-webserver python manage.py opensearch document index --force
 	echo "\033[1;32memail: admin@admin.com / password: admin \033[0m"
 	echo "Backoffice initialized"
 	sed -i '' '/^AIRFLOW_TOKEN=/d' backoffice/.envs/local/.django

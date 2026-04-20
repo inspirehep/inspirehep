@@ -7473,5 +7473,32 @@
       "_created_at": "2024-11-25T13:49:53.009Z",
       "_updated_at": "2024-11-25T13:49:54.756Z"
     }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "a0a228e6-b73c-4e17-9fb8-066652e0913b",
+    "fields": {
+      "workflow_type": "HEP_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "The withdrawn fixture test",
+            "source": "Elsevier"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "acquisition_source": {
+          "method": "hepcrawl",
+          "source": "Elsevier",
+          "datetime": "2024-11-18T11:34:19.809575",
+          "submission_number": "scheduled__2024-11-18T11:34:19.809575"
+        }
+      },
+      "status": "completed",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
   }
 ]

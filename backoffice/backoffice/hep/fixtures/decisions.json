@@ -137,5 +137,16 @@
       "action": "hep_reject",
       "value": "testing rejection with reason"
     }
+  },
+  {
+    "model": "hep.hepdecision",
+    "pk": 13,
+    "fields": {
+      "user": "admin@admin.com",
+      "_created_at": "2025-08-26T14:45:14.237Z",
+      "_updated_at": "2025-08-26T14:45:14.237Z",
+      "workflow": "a0a228e6-b73c-4e17-9fb8-066652e0913b",
+      "action": "withdrawn"
+    }
   }
 ]

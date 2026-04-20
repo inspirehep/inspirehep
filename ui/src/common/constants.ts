@@ -106,4 +106,5 @@ export enum WorkflowDecisions {
   HEP_ACCEPT_CORE = 'hep_accept_core',
   HEP_REJECT = 'hep_reject',
   REJECT = 'reject',
+  WITHDRAWN = 'withdrawn',
 }
