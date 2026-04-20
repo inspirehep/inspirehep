@@ -7473,5 +7473,33 @@
       "_created_at": "2024-11-25T13:49:53.009Z",
       "_updated_at": "2024-11-25T13:49:54.756Z"
     }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "4be436bb-ed30-4b64-8fb8-b30c891eba03",
+    "fields": {
+      "workflow_type": "HEP_UPDATE",
+      "data": {
+        "titles": [
+          {
+            "title": "The arxiv update fixture test",
+            "source": "arXiv"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "control_number": 1234568,
+        "acquisition_source": {
+          "method": "hepcrawl",
+          "source": "arXiv",
+          "datetime": "2024-11-18T11:34:19.809575",
+          "submission_number": "scheduled__2024-11-18T11:34:19.809575"
+        }
+      },
+      "status": "running",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
   }
 ]
