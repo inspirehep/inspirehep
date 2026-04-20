@@ -99,3 +99,4 @@ venv.bak/
 
 # Agent
 ./codex/AGENTS.md
+CLAUDE.md

@@ -167,6 +167,11 @@ export const resolveDecision = (decision: string | number) => {
       text: 'Discard',
       decision: 'discarded',
     },
+    [WorkflowDecisions.WITHDRAWN]: {
+      bg: 'bg-error font-white',
+      text: 'Withdrawn',
+      decision: 'withdrawn',
+    },
   };
   return decisions[decision] || null;
 };
