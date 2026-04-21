@@ -1,7 +1,7 @@
 import datetime
 import logging
 
-from airflow.sdk import Param, dag, task
+from airflow.sdk import Param, Variable, dag, task
 from airflow.sdk.execution_time.macros import ds_add
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
 from hooks.generic_http_hook import GenericHttpHook
@@ -18,6 +18,10 @@ from inspire_utils.record import get_value
 from literature.check_failures_task import check_failures
 
 logger = logging.getLogger(__name__)
+
+APS_BUCKET_NAME_VAR = "s3_aps_bucket_name"
+S3_PUBLISHER_CONN = "s3_publisher_conn"
+APS_CONN = "aps_conn"
 
 
 @dag(
@@ -37,13 +41,12 @@ logger = logging.getLogger(__name__)
 def aps_harvest_dag():
     """Harvest APS articles through the APS API and create HEP workflows."""
 
-    bucket_name = "aps-store"
-    s3_store = S3JsonStore("s3_publisher_conn", bucket_name)
-    aps_hook = GenericHttpHook("aps_conn")
-
     @task
     def fetch_articles(**context):
         """Fetch APS article entries across all paginated feed pages."""
+        bucket_name = Variable.get(APS_BUCKET_NAME_VAR)
+        s3_store = S3JsonStore(S3_PUBLISHER_CONN, bucket_name)
+        aps_hook = GenericHttpHook(APS_CONN)
         params = context["params"]
         from_date = params["from"] or ds_add(context["ds"], -1)
         until_date = params["until"]
@@ -93,6 +96,9 @@ def aps_harvest_dag():
     @task
     def process_articles(s3_harvest_key, **context):
         """Download APS JATS XML for each DOI and create HEP workflows."""
+        bucket_name = Variable.get(APS_BUCKET_NAME_VAR)
+        s3_store = S3JsonStore(S3_PUBLISHER_CONN, bucket_name)
+        aps_hook = GenericHttpHook(APS_CONN)
         articles = s3_store.read_object(s3_harvest_key).get("articles", [])
         workflow_management_hook = WorkflowManagementHook(HEP)
         submission_number = context["run_id"]
@@ -144,7 +150,9 @@ def aps_harvest_dag():
     articles_key = fetch_articles()
     failed_records_key = process_articles(articles_key)
     check_failures(
-        failed_records_key, s3_conn="s3_publisher_conn", bucket_name=bucket_name
+        failed_records_key,
+        s3_conn=S3_PUBLISHER_CONN,
+        bucket_name_variable=APS_BUCKET_NAME_VAR,
     )
 
 
