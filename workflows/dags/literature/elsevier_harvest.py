@@ -92,11 +92,13 @@ def elsevier_harvest_dag():
                 )
             )
 
-        return s3_store.write_object(
-            {
-                "failed_records": failed_records,
-            }
-        )
+        if len(failed_records) > 0:
+            return s3_store.write_object(
+                {
+                    "failed_records": failed_records,
+                },
+                key=f"failed/{context['run_id']}.json",
+            )
 
     packages = fetch_package_feed()
     new_package_keys = download_new_packages(packages)

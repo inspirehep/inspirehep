@@ -176,9 +176,8 @@ class TestElsevierHarvest:
             context={"run_id": "test_run_id"},
         )
 
-        failures = self.s3_publisher_store.read_object(failed_records_key)
+        assert failed_records_key is None
 
-        assert len(failures["failed_records"]) == 0
         assert mock_post_workflow.call_count == 3
         for call_idx, article_file in enumerate(processed_article_files):
             assert (
