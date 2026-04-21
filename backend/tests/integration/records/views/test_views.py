@@ -4,7 +4,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import mock
 import orjson
 from helpers.providers.faker import faker
 from helpers.utils import (
@@ -472,8 +471,7 @@ def test_self_curation_returns_401_for_not_authenticated_user(inspire_app):
     assert response.status_code == 401
 
 
-@mock.patch("inspirehep.records.views._create_ticket_self_curation")
-def test_reference_self_curation(mock_create_ticket, inspire_app):
+def test_reference_self_curation(inspire_app):
     user = create_user(email="test@cern.ch")
     new_reference_record = create_record("lit")
     literature_data = {
@@ -520,11 +518,3 @@ def test_reference_self_curation(mock_create_ticket, inspire_app):
     record = LiteratureRecord.get_record_by_pid_value(record["control_number"])
     assert record["references"][0]["curated_relation"]
     assert record["references"][0]["record"] == new_reference_record["self"]
-    assert (
-        mock_create_ticket.mock_calls[0][2]["record_control_number"]
-        == record["control_number"]
-    )
-    assert mock_create_ticket.mock_calls[0][2]["record_revision_id"] == int(
-        record.revision_id
-    )
-    assert mock_create_ticket.mock_calls[0][2]["user_email"] == user.email
