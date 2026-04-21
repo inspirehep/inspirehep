@@ -6,7 +6,6 @@
 import structlog
 from flask import Blueprint, abort, current_app, request
 from flask.views import MethodView
-from flask_login import current_user
 from inspirehep.accounts.decorators import login_required, login_required_with_roles
 from inspirehep.accounts.roles import Roles
 from inspirehep.pidstore.api.base import PidStoreBase
@@ -30,7 +29,6 @@ from inspirehep.records.marshmallow.literature.references import (
 )
 from inspirehep.records.models import WorkflowsRecordSources
 from inspirehep.records.utils import (
-    _create_ticket_self_curation,
     get_changed_reference,
     get_ref_from_pid,
 )
@@ -267,10 +265,10 @@ def reference_self_curation(args):
     record.update(dict(record))
     db.session.commit()
 
-    _create_ticket_self_curation(
-        record_control_number=record["control_number"],
-        record_revision_id=record.revision_id,
-        user_email=current_user.email,
+    LOGGER.info(
+        "Reference self-curation completed.",
+        recid=record["control_number"],
+        revision_id=record.revision_id,
     )
 
     return jsonify({"message": "Success"}), 200

@@ -17,7 +17,6 @@ from inspire_utils.helpers import force_list, maybe_int
 from inspire_utils.record import get_value, get_values_for_schema
 from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.errors import DownloadFileError, FileSizeExceededError
-from inspirehep.submissions.tasks import async_create_ticket_with_template
 from inspirehep.utils import get_inspirehep_url
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
@@ -164,24 +163,6 @@ def is_document_scanned(file_data):
             if page_text:
                 return False
     return True
-
-
-def _create_ticket_self_curation(record_control_number, record_revision_id, user_email):
-    INSPIREHEP_URL = get_inspirehep_url()
-    template_payload = {
-        "diff_url": (
-            f"{INSPIREHEP_URL}/literature/{record_control_number}/diff/{record_revision_id -1}..{record_revision_id}"
-        ),
-        "user_email": user_email,
-    }
-    async_create_ticket_with_template.delay(
-        queue="References",
-        template_path="snow/self_curation.html",
-        template_context=template_payload,
-        title=f"reference self-curation for record {record_control_number}",
-        requestor=None,
-        recid=record_control_number,
-    )
 
 
 def get_changed_reference(old_record_version, new_record_version):
