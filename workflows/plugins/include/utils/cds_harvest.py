@@ -23,6 +23,8 @@ def build_records(xml_records, submission_number):
                 "submission_number": submission_number,
             }
             parsed_records.append(parsed_record)
+            for document in parsed_record.get("documents", []):
+                document["original_url"] = document["url"]
         except Exception:
             logger.exception("Failed to parse CDS record")
             failed_build_records.append(record)

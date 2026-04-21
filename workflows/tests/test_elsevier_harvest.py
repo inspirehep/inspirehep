@@ -54,6 +54,14 @@ class TestElsevierHarvest:
             ).path
             == f"/{self.s3_publisher_store.bucket_name}/articles/{article_file}"
         )
+        assert (
+            workflow_management_hook.post_workflow.call_args.kwargs["workflow_data"][
+                "data"
+            ]["documents"][0]["original_url"]
+            == workflow_management_hook.post_workflow.call_args.kwargs["workflow_data"][
+                "data"
+            ]["documents"][0]["url"]
+        )
 
     @patch("hooks.generic_http_hook.GenericHttpHook.call_api")
     def test_fetch_package_feed(self, mock_call_api):
@@ -192,4 +200,12 @@ class TestElsevierHarvest:
                     ]["documents"][0]["url"]
                 ).path
                 == f"/{self.s3_publisher_store.bucket_name}/articles/{article_file}"
+            )
+            assert (
+                mock_post_workflow.call_args_list[call_idx].kwargs["workflow_data"][
+                    "data"
+                ]["documents"][0]["original_url"]
+                == mock_post_workflow.call_args_list[call_idx].kwargs["workflow_data"][
+                    "data"
+                ]["documents"][0]["url"]
             )

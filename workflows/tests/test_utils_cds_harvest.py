@@ -51,6 +51,8 @@ class TestCDSHarvestUtils:
         assert parsed_records[0]["external_system_identifiers"] == [
             {"schema": "CDS", "value": "123"}
         ]
+        for document in parsed_records[0].get("documents", []):
+            assert document["original_url"] == document["url"]
 
     def test_build_records_bad(self):
         xml_records = [

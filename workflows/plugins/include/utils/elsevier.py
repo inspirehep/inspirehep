@@ -79,6 +79,8 @@ def process_article(
             datetime=datetime.datetime.now().isoformat(),
             submission_number=submission_number,
         )
+        for document in parser.builder.record.get("documents", []):
+            document["original_url"] = document["url"]
         workflow_management_hook.post_workflow(
             workflow_data={
                 "data": parser.builder.record,
