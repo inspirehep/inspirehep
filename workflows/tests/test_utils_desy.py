@@ -48,7 +48,12 @@ def test_parse_record_updates_local_documents_and_sets_acquisition_source():
         )
 
     assert parsed_record["documents"][0]["url"] == "s3://processed/subdir/document.pdf"
+    assert parsed_record["documents"][0]["original_url"] == "document.pdf"
     assert parsed_record["documents"][1]["url"] == "https://example.org/external.pdf"
+    assert (
+        parsed_record["documents"][1]["original_url"]
+        == "https://example.org/external.pdf"
+    )
     assert parsed_record["acquisition_source"] == {
         "source": "DESY",
         "method": "hepcrawl",
@@ -99,7 +104,12 @@ not valid json
     assert loaded_records == [
         {
             "titles": [{"title": "First"}],
-            "documents": [{"url": "s3://processed/subdir/local.pdf"}],
+            "documents": [
+                {
+                    "url": "s3://processed/subdir/local.pdf",
+                    "original_url": "local.pdf",
+                }
+            ],
             "acquisition_source": {
                 "source": "DESY",
                 "method": "hepcrawl",
@@ -109,7 +119,12 @@ not valid json
         },
         {
             "titles": [{"title": "Second"}],
-            "documents": [{"url": "https://example.org/remote.pdf"}],
+            "documents": [
+                {
+                    "url": "https://example.org/remote.pdf",
+                    "original_url": "https://example.org/remote.pdf",
+                }
+            ],
             "acquisition_source": {
                 "source": "DESY",
                 "method": "hepcrawl",

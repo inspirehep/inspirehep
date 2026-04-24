@@ -433,9 +433,18 @@ class LiteratureRecord(
         """
         with app_context.app.app_context():
             result = {}
-            is_s3_or_public_url = current_s3_instance.is_s3_url_with_bucket_prefix(
-                url
-            ) or current_s3_instance.is_public_url(url)
+
+            is_http = url.startswith("http")
+            is_airflow_url = current_s3_instance.is_s3_url_from_airflow_bucket(url)
+            is_s3_url = current_s3_instance.is_s3_url(url)
+            is_s3_url_with_bucket_prefix = (
+                current_s3_instance.is_s3_url_with_bucket_prefix(url)
+            )
+            is_public_url = current_s3_instance.is_public_url(url)
+            is_s3_or_public_url = (
+                is_s3_url_with_bucket_prefix or is_public_url
+            ) and not is_airflow_url
+
             if is_s3_or_public_url and not current_app.config.get(
                 "UPDATE_S3_FILES_METADATA", False
             ):
@@ -455,7 +464,12 @@ class LiteratureRecord(
                 )
                 return result
 
-            data = download_file_from_url(url, check_file_size=True)
+            if is_airflow_url:
+                data = current_s3_instance.download_file_from_s3_url(
+                    url, check_file_size=True
+                )
+            else:
+                data = download_file_from_url(url, check_file_size=True)
             new_key = hash_data(data)
             mimetype = magic.from_buffer(data, mime=True)
             file_data = BytesIO(data)
@@ -506,12 +520,9 @@ class LiteratureRecord(
                         "File supposed to be PDF but PDF reader can't read it!",
                         filename=filename,
                     )
-            if (
-                url.startswith("http")
-                and not current_s3_instance.is_s3_url(url)
-                and not current_s3_instance.is_public_url(url)
-                and not original_url
-            ):
+
+            # TODO: remove once inspire-next is deprecated
+            if is_http and not is_s3_url and not is_public_url and not original_url:
                 result["original_url"] = url
 
             return result

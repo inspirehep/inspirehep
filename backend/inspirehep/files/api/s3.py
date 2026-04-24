@@ -9,6 +9,7 @@ import structlog
 from boto3.s3.transfer import TransferConfig
 from botocore.exceptions import ClientError
 from flask import current_app
+from inspirehep.records.errors import DownloadFileError, FileSizeExceededError
 from inspirehep.utils import get_inspirehep_url
 from werkzeug.utils import secure_filename
 
@@ -52,6 +53,15 @@ class S3:
         :return: boolean
         """
         return url.startswith(current_app.config.get("S3_HOSTNAME"))
+
+    @staticmethod
+    def is_s3_url_from_airflow_bucket(url):
+        """Checks if the url is an S3 url and if contains `S3_AIRFLOW_BUCKET`.
+
+        :param url: the given url.
+        :return: boolean
+        """
+        return S3.is_s3_url(url) and current_app.config.get("S3_AIRFLOW_BUCKET") in url
 
     @staticmethod
     def is_s3_url_with_bucket_prefix(url):
@@ -231,6 +241,15 @@ class S3:
             LOGGER.exception("S3 incorrect url.", url=url)
             raise
 
+    @staticmethod
+    def get_bucket_and_key_from_url(url):
+        try:
+            path_parts = urlsplit(url).path.split("/")
+            return path_parts[1], "/".join(path_parts[2:])
+        except AttributeError:
+            LOGGER.exception("S3 incorrect url.", url=url)
+            raise
+
     def convert_to_s3_url(self, url):
         """Converts public url to s3 url.
 
@@ -252,3 +271,39 @@ class S3:
             key = self.get_key_from_url(url)
             return self.get_public_url(key)
         return None
+
+    def download_file_from_s3_url(self, url, check_file_size=True):
+        """Downloads file from s3 url.
+
+        :param url: Full s3 url
+        :return: File content
+        """
+        if not self.is_s3_url(url):
+            LOGGER.warning("URL is not a valid S3 URL.", url=url)
+            raise ValueError("URL is not a valid S3 URL.")
+
+        bucket, key = self.get_bucket_and_key_from_url(url)
+        file_size_limit = current_app.config.get("FILES_SIZE_LIMIT")
+
+        try:
+            metadata = self.client.head_object(Bucket=bucket, Key=key)
+            content_length = metadata.get("ContentLength")
+
+            if (
+                check_file_size
+                and file_size_limit
+                and content_length
+                and content_length > file_size_limit
+            ):
+                raise FileSizeExceededError(
+                    f"Can't download file from s3 url {url}. File size"
+                    f" {content_length} is larger than the limit {file_size_limit}."
+                )
+
+            response = self.client.get_object(Bucket=bucket, Key=key)
+        except ClientError as exc:
+            raise DownloadFileError(
+                f"Cannot download file from s3 url {url}. Reason: {exc}"
+            ) from exc
+
+        return response["Body"].read()

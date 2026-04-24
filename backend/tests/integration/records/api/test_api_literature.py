@@ -1612,6 +1612,77 @@ def test_files_metadata_is_replaced_when_replacing_metadata_is_enabled(
             assert mocked_s3_replace_metadata.call_count == files_count
 
 
+def test_add_file_with_airflow_s3_url_downloads_from_airflow_bucket(
+    inspire_app, s3, override_config
+):
+    filename = "file.pdf"
+    s3_hostname = "https://s3.cern.ch"
+    s3_bucket_name = "airflow-bucket"
+    airflow_s3_url = f"{s3_hostname}/{s3_bucket_name}/documents/{filename}"
+    airflow_object_key = f"documents/{filename}"
+    airflow_file_data = b"%PDF-1.4 airflow file"
+    expected_key = "copied-airflow-file-key"
+    mocked_body = mock.Mock()
+    mocked_body.read.return_value = airflow_file_data
+
+    with (
+        override_config(S3_AIRFLOW_BUCKET=s3_bucket_name, S3_HOSTNAME=s3_hostname),
+        mock.patch(
+            "inspirehep.records.api.literature.download_file_from_url"
+        ) as mocked_download,
+        mock.patch(
+            "inspirehep.records.api.literature.hash_data",
+            return_value=expected_key,
+        ),
+        mock.patch(
+            "inspirehep.records.api.literature.magic.from_buffer",
+            return_value="application/pdf",
+        ),
+        mock.patch.object(current_s3_instance, "file_exists", return_value=False),
+        mock.patch.object(current_s3_instance, "upload_file") as mocked_upload_file,
+        mock.patch.object(
+            current_s3_instance.client,
+            "head_object",
+            return_value={"ContentLength": len(airflow_file_data)},
+        ) as mocked_head_object,
+        mock.patch.object(
+            current_s3_instance.client,
+            "get_object",
+            return_value={"Body": mocked_body},
+        ) as mocked_get_object,
+    ):
+        result = LiteratureRecord.add_file(
+            inspire_app.app_context(),
+            url=airflow_s3_url,
+            filename=filename,
+        )
+
+    mocked_download.assert_not_called()
+    mocked_head_object.assert_called_once_with(
+        Bucket=s3_bucket_name,
+        Key=airflow_object_key,
+    )
+    mocked_get_object.assert_called_once_with(
+        Bucket=s3_bucket_name,
+        Key=airflow_object_key,
+    )
+    mocked_body.read.assert_called_once()
+    mocked_upload_file.assert_called_once()
+
+    upload_args = mocked_upload_file.call_args.args
+    assert upload_args[1:] == (
+        expected_key,
+        filename,
+        "application/pdf",
+        inspire_app.config["S3_FILE_ACL"],
+    )
+    assert result == {
+        "key": expected_key,
+        "filename": filename,
+        "url": current_s3_instance.get_public_url(expected_key),
+    }
+
+
 def test_adding_files_with_public_file_url_but_wrong_key(inspire_app, s3):
     expected_figure_key = "cb071d80d1a54f21c8867a038f6a6c66"
     expected_document_key = "fdc3bdefb79cec8eb8211d2499e04704"
