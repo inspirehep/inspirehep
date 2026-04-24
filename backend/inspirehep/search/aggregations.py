@@ -461,6 +461,20 @@ def hep_curation_collection_aggregation(
                         },
                     }
                 },
+                {
+                    "query_string": {
+                        "query": "FERMILAB\\-POSTER\\-*",
+                        "fields": ["report_numbers.value.fuzzy"],
+                        "analyze_wildcard": True,
+                    }
+                },
+                {
+                    "query_string": {
+                        "query": "FERMILAB\\-SLIDES\\-*",
+                        "fields": ["report_numbers.value.fuzzy"],
+                        "analyze_wildcard": True,
+                    }
+                },
                 *non_cern_collaboration_matches,
             ],
             "minimum_should_match": 1,
