@@ -1445,7 +1445,7 @@ def hep_create_dag():
             ):
                 return (
                     "halt_for_approval_if_new_or_reject_if_not_relevant."
-                    "await_decision_approval"
+                    "save_workflow__1"
                 )
 
             if is_auto_rejected(workflow_data):
@@ -1454,10 +1454,7 @@ def hep_create_dag():
                     "should_replace_collection_to_hidden"
                 )
 
-            return (
-                "halt_for_approval_if_new_or_reject_if_not_relevant."
-                "await_decision_approval"
-            )
+            return "halt_for_approval_if_new_or_reject_if_not_relevant." "save_workflow"
 
         @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
         def should_replace_collection_to_hidden(**context):
@@ -1590,10 +1587,12 @@ def hep_create_dag():
         )
         (
             is_record_relevant_task
+            >> save_workflow()
             >> await_decision_approval()
             >> should_replace_collection_to_hidden_task
             >> [replace_collection_task, halt_end]
         )
+
         is_record_relevant_task >> should_replace_collection_to_hidden_task
 
     @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
