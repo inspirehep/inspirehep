@@ -1368,8 +1368,6 @@ def hep_create_dag():
 
             s3_store.write_workflow(workflow_data)
 
-            workflows.save_workflow(workflow_data)
-
         @task.short_circuit
         def await_merge_conflicts_resolved(**context):
             workflow_id = context["params"]["workflow_id"]
