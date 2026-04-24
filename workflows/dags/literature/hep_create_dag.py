@@ -66,7 +66,6 @@ from include.utils.constants import (
     DECISION_HEP_ACCEPT_CORE,
     DECISION_HEP_REJECT,
     DECISION_MERGE_APPROVE,
-    DECISION_WITHDRAWN,
     HEP_PUBLISHER_CREATE,
     HEP_PUBLISHER_UPDATE,
     HEP_UPDATE,
@@ -127,7 +126,6 @@ from plotextractor.errors import (
 from pylatexenc.latex2text import LatexNodes2Text
 from refextract.extract import extract_journal_info as refextract_journal_info
 from refextract.extract import extract_references_from_list
-from tenacity import RetryError
 from werkzeug.utils import secure_filename
 
 logger = logging.getLogger(__name__)
@@ -155,16 +153,6 @@ def hep_create_dag():
     workflow_management_hook = WorkflowManagementHook(HEP)
     arxiv_hook = GenericHttpHook(http_conn_id="arxiv_connection")
     s3_store = s3.S3JsonStore(aws_conn_id="s3_conn")
-
-    @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
-    def save_and_complete_workflow(**context):
-        workflow_id = context["params"]["workflow_id"]
-        workflow_data = s3_store.read_workflow(workflow_id)
-        workflow_data["status"] = STATUS_COMPLETED
-
-        workflow_management_hook.update_workflow(workflow_id, workflow_data)
-
-    save_and_complete_workflow_task = save_and_complete_workflow()
 
     @task
     def check_env():
@@ -1006,9 +994,9 @@ def hep_create_dag():
 
             if workflows.is_arxiv_paper(workflow_data["data"]):
                 return "preprocessing.populate_arxiv_document"
-            return "preprocessing.buffer_task"
+            return "preprocessing.populate_submission_document"
 
-        @task.branch
+        @task
         def populate_arxiv_document(**context):
             workflow_id = context["params"]["workflow_id"]
             workflow_data = s3_store.read_workflow(workflow_id)
@@ -1018,24 +1006,13 @@ def hep_create_dag():
 
             endpoint = f"/pdf/{arxiv_id}"
 
-            try:
-                response = arxiv_hook.call_api(
-                    endpoint=endpoint,
-                    extra_options={"stream": True, "allow_redirects": True},
-                )
-            except RetryError as e:
-                if "404:Not Found" in str(e.last_attempt.exception()):
-                    logger.info("No PDF is available for %s", arxiv_id)
-
-                    workflow_management_hook.add_decision(
-                        workflow_id=workflow_id,
-                        decision_data={"action": DECISION_WITHDRAWN},
-                    )
-
-                    return "save_and_complete_workflow"
+            response = arxiv_hook.call_api(
+                endpoint=endpoint,
+                extra_options={"stream": True, "allow_redirects": True},
+            )
 
             if not workflows.is_pdf_link(response):
-                return "preprocessing.arxiv_package_download"
+                return
 
             url = arxiv_hook.get_url() + endpoint
             filename = secure_filename(f"{arxiv_id}.pdf")
@@ -1058,8 +1035,6 @@ def hep_create_dag():
             workflow_data["data"] = lb.record
 
             s3_store.write_workflow(workflow_data)
-
-            return "preprocessing.arxiv_package_download"
 
         @task(execution_timeout=datetime.timedelta(minutes=5))
         def arxiv_plot_extract(tarball_key, **context):
@@ -1210,8 +1185,6 @@ def hep_create_dag():
 
         check_is_arxiv_paper_task = check_is_arxiv_paper()
 
-        buffer_task = EmptyOperator(task_id="buffer_task")
-
         populate_arxiv_document_task = populate_arxiv_document()
         arxiv_package_download_task = arxiv_package_download()
         populate_submission_document_task = populate_submission_document()
@@ -1220,18 +1193,13 @@ def hep_create_dag():
         extract_authors_from_pdf_task = extract_authors_from_pdf()
 
         check_is_arxiv_paper_task >> [
-            buffer_task,
+            populate_submission_document_task,
             populate_arxiv_document_task,
-        ]
-        buffer_task >> populate_submission_document_task
-
-        populate_arxiv_document_task >> [
-            arxiv_package_download_task,
-            save_and_complete_workflow_task,
         ]
 
         (
-            arxiv_package_download_task
+            populate_arxiv_document_task
+            >> arxiv_package_download_task
             >> arxiv_plot_extract(arxiv_package_download_task)
             >> arxiv_author_list_task
             >> populate_submission_document_task
@@ -1979,6 +1947,14 @@ def hep_create_dag():
         s3_store.write_workflow(workflow_data)
 
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+    def save_and_complete_workflow(**context):
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = s3_store.read_workflow(workflow_id)
+        workflow_data["status"] = STATUS_COMPLETED
+
+        workflow_management_hook.update_workflow(workflow_id, workflow_data)
+
+    @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def run_next_if_necessary(**context):
         workflow_id = context["params"]["workflow_id"]
         workflow = s3_store.read_workflow(workflow_id)
@@ -2011,7 +1987,7 @@ def hep_create_dag():
     check_for_fuzzy_matches_task = check_for_fuzzy_matches()
     check_for_exact_matches_task = check_for_exact_matches()
     check_auto_approve_task = check_auto_approve()
-
+    save_and_complete_workflow_task = save_and_complete_workflow()
     stop_if_existing_submission_notify_and_close_task = (
         stop_if_existing_submission_notify_and_close()
     )
@@ -2067,11 +2043,10 @@ def hep_create_dag():
     postprocessing_group = postprocessing()
     should_proceed_to_core_selection_task = should_proceed_to_core_selection()
     notify_and_close_not_accepted_task = notify_and_close_not_accepted()
-    notify_if_submission_task = notify_if_submission()
 
     (
         preprocessing_group
-        >> notify_if_submission_task
+        >> notify_if_submission()
         >> halt_for_approval_if_new_or_reject_if_not_relevant()
         >> is_record_accepted()
         >> [postprocessing_group, notify_and_close_not_accepted_task]
