@@ -52,7 +52,7 @@ services:
       retries: 5
       start_period: 5s
   mq:
-    image: rabbitmq:4-management-alpine
+    image: rabbitmq:4.2-management-alpine # Maximum supported with current setup
     restart: 'always'
   es:
     platform: linux/amd64
