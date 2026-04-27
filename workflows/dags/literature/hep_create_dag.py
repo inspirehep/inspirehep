@@ -1415,9 +1415,12 @@ def hep_create_dag():
                 )
 
             if is_auto_rejected(workflow_data):
+                workflow_management_hook.add_decision(
+                    workflow_id=workflow_id,
+                    decision_data={"action": DECISION_AUTO_REJECT},
+                )
                 return (
-                    "halt_for_approval_if_new_or_reject_if_not_relevant."
-                    "should_replace_collection_to_hidden"
+                    "halt_for_approval_if_new_or_reject_if_not_relevant.auto_reject_end"
                 )
 
             return (
@@ -1446,15 +1449,6 @@ def hep_create_dag():
                     "replace_collection_to_hidden"
                 )
 
-            decision = get_decision(
-                workflow_data.get("decisions", []), DECISION_HEP_REJECT
-            )
-
-            if not decision:
-                workflow_management_hook.add_decision(
-                    workflow_id=context["params"]["workflow_id"],
-                    decision_data={"action": DECISION_AUTO_REJECT},
-                )
             return "halt_for_approval_if_new_or_reject_if_not_relevant.halt_end"
 
         @task
@@ -1540,6 +1534,7 @@ def hep_create_dag():
         halt_end = EmptyOperator(
             task_id="halt_end", trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
         )
+        auto_reject_end = EmptyOperator(task_id="auto_reject_end")
         is_record_relevant_task = is_record_relevant()
         should_replace_collection_to_hidden_task = should_replace_collection_to_hidden()
 
@@ -1560,7 +1555,7 @@ def hep_create_dag():
             >> should_replace_collection_to_hidden_task
             >> [replace_collection_task, halt_end]
         )
-        is_record_relevant_task >> should_replace_collection_to_hidden_task
+        is_record_relevant_task >> auto_reject_end >> halt_end
 
     @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def is_record_accepted(**context):

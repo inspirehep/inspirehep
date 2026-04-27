@@ -3458,6 +3458,7 @@ class Test_HEPCreateDAG:
             "await_decision_approval"
         )
 
+    @pytest.mark.vcr
     def test_is_record_relevant_auto_rejected(self):
         workflow_data = {
             "id": self.workflow_id,
@@ -3488,9 +3489,12 @@ class Test_HEPCreateDAG:
         )
 
         assert (
-            result == "halt_for_approval_if_new_or_reject_if_not_relevant."
-            "should_replace_collection_to_hidden"
+            result
+            == "halt_for_approval_if_new_or_reject_if_not_relevant.auto_reject_end"
         )
+
+        workflow = self.wf_hook.get_workflow(self.workflow_id)
+        assert workflows.get_decision(workflow.get("decisions"), DECISION_AUTO_REJECT)
 
     def test_is_record_relevant_rejected_with_core_keywords(self):
         workflow_data = {
@@ -3856,7 +3860,6 @@ class Test_HEPCreateDAG:
             "replace_collection_to_hidden"
         )
 
-    @pytest.mark.vcr
     def test_should_replace_collection_false(
         self,
     ):
@@ -3876,9 +3879,6 @@ class Test_HEPCreateDAG:
         )
 
         assert result == "halt_for_approval_if_new_or_reject_if_not_relevant.halt_end"
-
-        workflow = self.wf_hook.get_workflow(self.workflow_id)
-        assert workflows.get_decision(workflow.get("decisions"), DECISION_AUTO_REJECT)
 
     @pytest.mark.vcr
     def test_should_replace_collection_false_does_not_replace_decision(
