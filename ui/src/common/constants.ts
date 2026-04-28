@@ -105,6 +105,15 @@ export enum WorkflowDecisions {
   HEP_ACCEPT = 'hep_accept',
   HEP_ACCEPT_CORE = 'hep_accept_core',
   HEP_REJECT = 'hep_reject',
+  MERGE_APPROVE = 'merge_approve',
+  MISSING_SUBJECT_FIELDS = 'missing_subject_fields',
   REJECT = 'reject',
   WITHDRAWN = 'withdrawn',
 }
+
+export const HIDDEN_DECISION_ACTIONS = new Set([
+  WorkflowDecisions.FUZZY_MATCH,
+  WorkflowDecisions.EXACT_MATCH,
+  WorkflowDecisions.MERGE_APPROVE,
+  WorkflowDecisions.MISSING_SUBJECT_FIELDS,
+]);

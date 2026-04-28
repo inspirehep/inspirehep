@@ -18,7 +18,10 @@ import {
   BACKOFFICE_AUTHORS_SEARCH_NS,
   BACKOFFICE_LITERATURE_SEARCH_NS,
 } from '../../search/constants';
-import { WorkflowDecisions } from '../../common/constants';
+import {
+  WorkflowDecisions,
+  HIDDEN_DECISION_ACTIONS,
+} from '../../common/constants';
 
 export const COLLECTIONS = [
   {
@@ -179,7 +182,7 @@ export const resolveDecision = (decision: string | number) => {
 export const filterDecisions = (decisions?: List<Map<string, any>>) =>
   decisions?.filter(
     (decision: Map<string, any>) =>
-      decision.get('action') !== WorkflowDecisions.FUZZY_MATCH
+      !HIDDEN_DECISION_ACTIONS.has(decision.get('action'))
   ) ?? null;
 
 export const resolveAutomaticDecision = (decision: string | number) => {

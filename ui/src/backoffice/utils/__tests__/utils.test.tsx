@@ -7,12 +7,14 @@ import {
   filterByProperty,
   formatDateTime,
   getDag,
+  filterDecisions,
   hasPublicationInfo,
   isLiteratureUpdateWorkflow,
 } from '../utils';
 import storage from '../../../common/storage';
 import { BACKOFFICE_LOGIN_API } from '../../../common/routes';
 import { WorkflowStatuses, WorkflowTypes } from '../../constants';
+import { WorkflowDecisions } from '../../../common/constants';
 
 jest.mock('../../../common/storage');
 
@@ -232,6 +234,55 @@ describe('isLiteratureUpdateWorkflow', () => {
 
   it('returns false for non-update workflows', () => {
     expect(isLiteratureUpdateWorkflow(WorkflowTypes.HEP_CREATE)).toBe(false);
+  });
+});
+
+describe('filterDecisions', () => {
+  const makeDecisions = (actions: string[]) =>
+    List(actions.map((action) => ImmutableMap({ action })));
+
+  it('returns null when decisions are undefined', () => {
+    expect(filterDecisions(undefined)).toBeNull();
+  });
+
+  it.each([
+    WorkflowDecisions.FUZZY_MATCH,
+    WorkflowDecisions.EXACT_MATCH,
+    WorkflowDecisions.MERGE_APPROVE,
+    WorkflowDecisions.MISSING_SUBJECT_FIELDS,
+  ])('filters out %s decisions', (action) => {
+    const result = filterDecisions(makeDecisions([action]));
+    expect(result?.size).toBe(0);
+  });
+
+  it('keeps decisions that are not in the hidden list', () => {
+    const result = filterDecisions(
+      makeDecisions([
+        WorkflowDecisions.HEP_ACCEPT,
+        WorkflowDecisions.HEP_REJECT,
+      ])
+    );
+    expect(result?.size).toBe(2);
+  });
+
+  it('removes only hidden decisions from a mixed list', () => {
+    const result = filterDecisions(
+      makeDecisions([
+        WorkflowDecisions.HEP_ACCEPT,
+        WorkflowDecisions.FUZZY_MATCH,
+        WorkflowDecisions.EXACT_MATCH,
+        WorkflowDecisions.MERGE_APPROVE,
+        WorkflowDecisions.MISSING_SUBJECT_FIELDS,
+        WorkflowDecisions.HEP_REJECT,
+      ])
+    );
+    expect(result?.size).toBe(2);
+    expect(
+      result
+        ?.map((d: ImmutableMap<string, any>) => d.get('action'))
+        .toList()
+        .toJS()
+    ).toEqual([WorkflowDecisions.HEP_ACCEPT, WorkflowDecisions.HEP_REJECT]);
   });
 });
 
