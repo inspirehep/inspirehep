@@ -2,7 +2,6 @@ from backoffice.hep.api.serializers import (
     HepChangeStatusSerializer,
     HepDecisionSerializer,
 )
-from django.db import transaction
 from django.shortcuts import get_object_or_404
 import logging
 
@@ -55,14 +54,14 @@ def resolve_workflow(id, data, user):
         id,
         data["action"],
     )
-    with transaction.atomic():
-        add_hep_decision(
-            id,
-            user,
-            data["action"],
-            data.get("value"),
-        )
-        logger.info("Decision has been added to the workflow %s", id)
+
+    add_hep_decision(
+        id,
+        user,
+        data["action"],
+        data.get("value"),
+    )
+    logger.info("Decision has been added to the workflow %s", id)
     workflow = get_object_or_404(HepWorkflow, pk=id)
     task_to_restart = HepResolutions[data["action"]].label
     if task_to_restart:

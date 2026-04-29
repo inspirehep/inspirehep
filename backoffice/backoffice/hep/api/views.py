@@ -3,6 +3,8 @@ import logging
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
+from django.db import transaction
 from backoffice.hep.utils import (
     add_hep_decision,
     resolve_workflow,
@@ -181,27 +183,6 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         workflow.save()
         return Response(status=status.HTTP_200_OK)
 
-    @action(
-        detail=False,
-        methods=["post"],
-        url_path="resolve",
-    )
-    def batch_resolve(self, request):
-        serializer = HepBatchResolutionSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        results = []
-        for id in serializer.validated_data["ids"]:
-            try:
-                resolve_workflow(id, serializer.validated_data, request.user)
-                results.append({"id": id, "success": True})
-
-            except Exception as e:
-                logger.exception("Error resolving workflow %s", id)
-                results.append({"id": id, "success": False, "error": str(e)})
-
-        return Response({"results": results}, status=status.HTTP_200_OK)
-
     @action(detail=True, methods=["post"])
     def restart(self, request, pk=None):
         workflow = get_object_or_404(HepWorkflow, pk=pk)
@@ -250,6 +231,32 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         workflow.save()
 
         return Response(self.get_serializer(workflow).data)
+
+
+@method_decorator(transaction.non_atomic_requests, name="dispatch")
+class HepWorkflowBatchResolveViewSet(viewsets.ViewSet):
+    def create(self, request):
+        serializer = HepBatchResolutionSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        results = []
+        for wf_id in serializer.validated_data["ids"]:
+            try:
+                with transaction.atomic():
+                    resolve_workflow(wf_id, serializer.validated_data, request.user)
+                results.append({"id": wf_id, "success": True})
+            except Exception as e:
+                logger.exception("Error resolving workflow %s", wf_id)
+                results.append({"id": wf_id, "success": False, "error": str(e)})
+
+        has_failures = any(not result["success"] for result in results)
+        response_status = (
+            status.HTTP_500_INTERNAL_SERVER_ERROR
+            if has_failures
+            else status.HTTP_200_OK
+        )
+
+        return Response({"results": results}, status=response_status)
 
 
 @extend_schema_view(
