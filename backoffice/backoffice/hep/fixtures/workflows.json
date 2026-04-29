@@ -793,6 +793,7 @@
             "authors_count": 1,
             "control_number": 1790396,
             "earliest_date": "2020-03-17",
+            "document_type": ["article"],
             "publication_info": [
               {
                 "artid": "033101",
@@ -818,6 +819,7 @@
             "control_number": 1752989,
             "earliest_date": "2017",
             "number_of_pages": 151,
+            "document_type": ["conference paper"],
             "public_notes": [
               {
                 "value": "Fermilab Library Only"
@@ -839,6 +841,7 @@
             "control_number": 1989726,
             "earliest_date": "2021",
             "number_of_pages": 163,
+            "document_type": ["article"],
             "publication_info": [
               {
                 "year": 2021
@@ -4694,6 +4697,7 @@
             ],
             "earliest_date": "2011-10-14",
             "control_number": 1258254,
+            "document_type": ["article"],
             "number_of_pages": 12
           }
         ]
@@ -4800,6 +4804,7 @@
             "authors_count": 1,
             "earliest_date": "2020-09-28",
             "control_number": 1837351,
+            "document_type": ["thesis"],
             "number_of_pages": 236,
             "publication_info": [
               {

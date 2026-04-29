@@ -43,7 +43,6 @@ describe('Notification Functions', () => {
     expect(successSpy).toHaveBeenCalledWith({
       message: 'Success',
       description: 'Delete performed successfully',
-      duration: 10,
     });
   });
 
@@ -56,7 +55,6 @@ describe('Notification Functions', () => {
     expect(errorSpy).toHaveBeenCalledWith({
       message: 'Unable to perform action',
       description: errorMessage,
-      duration: 10,
     });
   });
 });

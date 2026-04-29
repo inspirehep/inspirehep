@@ -3,15 +3,12 @@ import { Row, Col, Card, Checkbox, Descriptions, Typography } from 'antd';
 import { List } from 'immutable';
 
 import '../../common/components/ResultItem/ResultItem.less';
-import { Link } from 'react-router-dom';
 import {
   formatDateTime,
   hasPublicationInfo,
   isFullCoverageWorkflow,
 } from '../../utils/utils';
-import { LITERATURE_PID_TYPE } from '../../../common/constants';
 import ResultItem from '../../../common/components/ResultItem';
-import { BACKOFFICE } from '../../../common/routes';
 import AcquisitionSourceInfo from '../../common/components/AcquisitionSourceInfo/AcquisitionSourceInfo';
 import LiteratureActionButtons from './LiteratureActionButtons';
 import LiteratureSubjectAreas from './LiteratureSubjectAreas';
@@ -104,13 +101,7 @@ const WorkflowResultItem = ({
                   aria-label={`Select workflow ${workflowId}`}
                 />
               )}
-              <Link
-                className="result-item-title"
-                to={`${BACKOFFICE}/${LITERATURE_PID_TYPE}/${workflowId}`}
-                target="_blank"
-              >
-                <LiteratureResultItem item={item} />
-              </Link>
+              <LiteratureResultItem item={item} />
             </div>
             {hasAuthors && (
               <div className="mb2">
@@ -118,8 +109,9 @@ const WorkflowResultItem = ({
                   wrapperClassName="author-list-wrapper"
                   limit={10}
                   authors={authors}
-                  page="literature results backofice"
+                  page="literature results backoffice"
                   unlinked
+                  enableShowAll
                 />
               </div>
             )}

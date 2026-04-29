@@ -17,7 +17,7 @@ const MATCHES = List([
         full_name: 'Ioannis, Heinrich',
       }),
     ]),
-    authors_count: 1,
+    authors_count: 2,
     control_number: 1790396,
     earliest_date: '2020-03-17',
     publication_info: List([
@@ -233,5 +233,49 @@ describe('LiteratureMatches', () => {
       'href',
       expect.stringContaining(`/literature/${firstControlNumber}`)
     );
+  });
+
+  it('does not render document type tags when document_type is absent', () => {
+    setup();
+
+    expect(screen.queryByText('Article')).not.toBeInTheDocument();
+  });
+
+  it('renders document type tags with capitalized first letter', () => {
+    const handleResolveAction = jest.fn();
+    const matchesWithDocType = List([
+      MATCHES.get(0).set('document_type', List(['article'])),
+      ...MATCHES.slice(1).toArray(),
+    ]);
+
+    renderWithRouter(
+      <LiteratureMatches
+        fuzzyMatches={matchesWithDocType}
+        handleResolveAction={handleResolveAction}
+      />
+    );
+
+    expect(screen.getByText('Article')).toBeInTheDocument();
+  });
+
+  it('renders multiple document type tags for a match', () => {
+    const handleResolveAction = jest.fn();
+    const matchesWithDocTypes = List([
+      MATCHES.get(0).set(
+        'document_type',
+        List(['article', 'conference paper'])
+      ),
+      ...MATCHES.slice(1).toArray(),
+    ]);
+
+    renderWithRouter(
+      <LiteratureMatches
+        fuzzyMatches={matchesWithDocTypes}
+        handleResolveAction={handleResolveAction}
+      />
+    );
+
+    expect(screen.getByText('Article')).toBeInTheDocument();
+    expect(screen.getByText('Conference paper')).toBeInTheDocument();
   });
 });

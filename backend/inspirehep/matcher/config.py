@@ -389,6 +389,7 @@ FUZZY_LITERATURE_MATCH_CONFIG = {
         "abstracts",
         "authors",
         "arxiv_eprints",
+        "document_type",
         "public_notes",
         "number_of_pages",
         "publication_info",
