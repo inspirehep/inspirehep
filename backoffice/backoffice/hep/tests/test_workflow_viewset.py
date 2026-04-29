@@ -384,7 +384,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         )
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
-            "api:hep-batch-resolve",
+            "api:hep-batch-resolve-list",
         )
 
         wfs_ids = []
@@ -425,7 +425,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         ]
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
-            "api:hep-batch-resolve",
+            "api:hep-batch-resolve-list",
         )
 
         wf_resolve_success = [True, False, True]
@@ -447,13 +447,14 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
 
         for wf_id, success in zip(wfs_ids, wf_resolve_success):
             workflow = HepWorkflow.objects.get(id=wf_id)
-            self.assertEqual(
-                workflow.decisions.first().action, HepResolutions.hep_accept
-            )
             if success:
                 self.assertEqual(workflow.status, HepStatusChoices.RUNNING)
+                self.assertEqual(
+                    workflow.decisions.first().action, HepResolutions.hep_accept
+                )
             else:
                 self.assertEqual(workflow.status, HepStatusChoices.APPROVAL)
+                self.assertFalse(workflow.decisions.exists())
 
     @pytest.mark.vcr
     def test_discard(self):

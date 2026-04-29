@@ -8,6 +8,7 @@ from backoffice.hep.api.views import (
     HepWorkflowViewSet,
     HepDecisionViewSet,
     HepWorkflowTicketViewSet,
+    HepWorkflowBatchResolveViewSet,
 )
 from django.conf import settings
 from rest_framework.routers import DefaultRouter, SimpleRouter
@@ -30,6 +31,11 @@ router.register(
 )
 router.register(
     "workflows/literature/decisions", HepDecisionViewSet, basename="hep-decisions"
+)
+router.register(
+    "workflows/literature/resolve",
+    HepWorkflowBatchResolveViewSet,
+    basename="hep-batch-resolve",
 )
 router.register("workflows/literature", HepWorkflowViewSet, basename="hep")
 
