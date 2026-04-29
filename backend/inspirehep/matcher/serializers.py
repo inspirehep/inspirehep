@@ -20,6 +20,7 @@ class LiteratureSummary(Schema):
     earliest_date = fields.Raw(dump_only=True)
     public_notes = fields.Method("get_public_notes", dump_only=True)
     publication_info = fields.Raw(dump_only=True, default=missing)
+    document_type = fields.Raw(dump_only=True, default=missing)
 
     @staticmethod
     def get_abstract(data):

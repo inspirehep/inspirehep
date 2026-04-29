@@ -9,6 +9,7 @@ import Latex from '../../../common/components/Latex';
 import { WorkflowDecisions } from '../../../common/constants';
 import { hasPublicationInfo } from '../../utils/utils';
 import ToggleableAbstract from './ToggleableAbstract';
+import LiteratureDocumentTypes from './LiteratureDocumentTypes';
 
 const { Text, Paragraph } = Typography;
 
@@ -23,6 +24,8 @@ const LiteratureMatchItem = ({ match, selectedBestMatch, onSelect }) => {
   const abstract = abstractValue ? Map({ value: abstractValue }) : null;
   const arxivEprint = match.get('arxiv_eprint');
   const authors = match.get('authors', List());
+  const authorsCount = match.get('authors_count');
+  const documentTypes = match.get('document_type', List());
   const earliestDate = match.get('earliest_date');
   const numberOfPages = match.get('number_of_pages');
   const publicNotes = match.get('public_notes', List());
@@ -35,19 +38,26 @@ const LiteratureMatchItem = ({ match, selectedBestMatch, onSelect }) => {
       style={{ marginBottom: 12 }}
       bodyStyle={{ paddingTop: 8 }}
       title={
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-          <Radio
-            value={controlNumber}
-            checked={selectedBestMatch === controlNumber}
-            onChange={handleRadioChange}
-          />
-          <div
-            style={{ flex: 1, whiteSpace: 'normal', wordBreak: 'break-word' }}
-          >
-            <LinkWithTargetBlank href={`${LITERATURE}/${controlNumber}`}>
-              <Latex>{match.get('title')}</Latex>
-              <ExportOutlined style={{ marginLeft: '4px' }} />
-            </LinkWithTargetBlank>
+        <div>
+          {documentTypes.size > 0 && (
+            <div style={{ marginBottom: 4 }}>
+              <LiteratureDocumentTypes documentTypes={documentTypes} />
+            </div>
+          )}
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+            <Radio
+              value={controlNumber}
+              checked={selectedBestMatch === controlNumber}
+              onChange={handleRadioChange}
+            />
+            <div
+              style={{ flex: 1, whiteSpace: 'normal', wordBreak: 'break-word' }}
+            >
+              <LinkWithTargetBlank href={`${LITERATURE}/${controlNumber}`}>
+                <Latex>{match.get('title')}</Latex>
+                <ExportOutlined style={{ marginLeft: '4px' }} />
+              </LinkWithTargetBlank>
+            </div>
           </div>
         </div>
       }
@@ -56,7 +66,7 @@ const LiteratureMatchItem = ({ match, selectedBestMatch, onSelect }) => {
         <div style={{ marginBottom: 8 }}>
           <Text>
             {authors.map((a) => a.get('full_name')).join('; ')}
-            {authors.size > 1 && <> ({authors.size} authors)</>}
+            {authorsCount > 1 && <> ({authorsCount} authors)</>}
           </Text>
         </div>
       )}
