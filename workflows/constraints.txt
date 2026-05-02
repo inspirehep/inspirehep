@@ -499,7 +499,7 @@ opentelemetry-exporter-otlp==1.41.0
 opentelemetry-exporter-prometheus==0.62b0
 opentelemetry-proto==1.41.0
 opentelemetry-resourcedetector-gcp==1.11.0a0
-opentelemetry-sdk==1.41.0
+opentelemetry-sdk==1.41.1
 opentelemetry-semantic-conventions==0.62b0
 opsgenie-sdk==2.1.5
 oracledb==3.4.2
