@@ -1,6 +1,8 @@
 import datetime
+import re
 
 from inspire_schemas.parsers.arxiv import ArxivParser
+from inspire_schemas.utils import RE_ARXIV_POST_2007, RE_ARXIV_PRE_2007
 
 
 def build_records(xml_records, submission_number):
@@ -28,3 +30,16 @@ def build_records(xml_records, submission_number):
             failed_build_records.append(record)
 
     return parsed_records, failed_build_records
+
+
+def eprint_to_datetime(eprint_value):
+    """Convert the arXiv eprint value to a datetime object.
+    Returns:
+        datetime: The datetime object representing year and month of the eprint value.
+    """
+    if re.match(RE_ARXIV_POST_2007, eprint_value, flags=re.I):
+        return datetime.datetime.strptime(eprint_value.split(".")[0], "%y%m")
+    elif re.match(RE_ARXIV_PRE_2007, eprint_value, flags=re.I):
+        return datetime.datetime.strptime(eprint_value.split("/")[1][0:4], "%y%m")
+    else:
+        raise ValueError(f"Invalid arXiv eprint value: {eprint_value}")
