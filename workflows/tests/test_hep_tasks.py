@@ -477,6 +477,39 @@ class Test_HEPCreateDAG:
                     "source": "arXiv",
                 },
             },
+            "_created_at": "2025-04-02T00:00:00.000Z",
+        }
+        self.s3_store.write_workflow(workflow_data)
+        self.s3_store.set_flags(
+            {"is-update": False, "auto-approved": False},
+            self.workflow_id,
+        )
+
+        result = task_test(self.dag, "check_if_previously_rejected", self.context)
+        workflow = self.wf_hook.get_workflow(self.workflow_id)
+
+        assert result == "save_and_complete_workflow"
+        assert workflows.get_decision(workflow.get("decisions"), DECISION_AUTO_REJECT)
+
+    @pytest.mark.vcr
+    @patch(
+        "include.utils.workflows.has_previously_rejected_wf_in_backoffice_w_same_source",
+        return_value=False,
+    )
+    def test_check_if_previously_rejected_true_arxiv_hack(
+        self, mock_has_previously_rejected
+    ):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "A title"}],
+                "arxiv_eprints": [{"value": "2504.01123"}],
+                "acquisition_source": {
+                    "source": "arXiv",
+                    "method": "hepcrawl",
+                },
+            },
+            "_created_at": "2026-06-02T00:00:00.000Z",
         }
         self.s3_store.write_workflow(workflow_data)
         self.s3_store.set_flags(
@@ -501,6 +534,7 @@ class Test_HEPCreateDAG:
                     "source": "custom_source",
                 },
             },
+            "_created_at": "2026-05-04T00:00:00.000Z",
         }
         self.s3_store.write_workflow(workflow_data)
         self.s3_store.set_flags(

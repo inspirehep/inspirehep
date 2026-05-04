@@ -54,6 +54,7 @@ from include.inspire.refextract_utils import (
 )
 from include.utils import opensearch, s3, tickets, workflows
 from include.utils.alerts import FailedDagNotifierSetError
+from include.utils.arxiv import eprint_to_datetime
 from include.utils.constants import (
     ANTIHEP_KEYWORDS,
     DECISION_AUTO_ACCEPT_CORE,
@@ -432,13 +433,39 @@ def hep_create_dag():
         workflow_id = context["params"]["workflow_id"]
         workflow_data = s3_store.read_workflow(workflow_id)
 
-        if (
-            not s3_store.get_flag("is-update", workflow_id)
-            and not s3_store.get_flag("auto-approved", workflow_id)
-            and workflows.has_previously_rejected_wf_in_backoffice_w_same_source(
+        eprints = get_value(workflow_data, "data.arxiv_eprints.value", [])
+        eprint_value = eprints[0] if eprints else None
+        created_at = workflow_data.get("_created_at")
+
+        is_arxiv = workflows.is_arxiv_paper(workflow_data["data"])
+        datetime_created = datetime.datetime.fromisoformat(created_at).replace(
+            tzinfo=None
+        )
+        is_old_arxiv = False
+        if is_arxiv and eprint_value:
+            try:
+                is_old_arxiv = eprint_to_datetime(
+                    eprint_value
+                ) < datetime_created - datetime.timedelta(days=60)
+            except ValueError:
+                is_old_arxiv = False
+
+        is_update = s3_store.get_flag("is-update", workflow_id)
+        is_auto_approved = s3_store.get_flag("auto-approved", workflow_id)
+        has_rejected_duplicate = (
+            workflows.has_previously_rejected_wf_in_backoffice_w_same_source(
                 workflow_data
             )
-        ):
+        )
+
+        is_likely_duplicate_of_rejection = (
+            not is_auto_approved and has_rejected_duplicate
+        )
+        should_auto_reject = not is_update and (
+            is_likely_duplicate_of_rejection or is_old_arxiv
+        )
+
+        if should_auto_reject:
             workflow_management_hook.add_decision(
                 workflow_id=workflow_id,
                 decision_data={"action": DECISION_AUTO_REJECT},
