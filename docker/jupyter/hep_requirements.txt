@@ -217,7 +217,7 @@ structlog==19.2.0
 sword2 @ git+https://github.com/inspirehep/python-client-sword2.git@python3
 tenacity==8.2.2; python_version >= "3.6"
 traitlets==4.3.3; python_version >= "3.6"
-twisted==18.9.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
+twisted==26.4.0rc2; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 typing-extensions==4.7.1; python_version >= "3.7"
 ua-parser==0.8.0
 unidecode==1.1.1; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
