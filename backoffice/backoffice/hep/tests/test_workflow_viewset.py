@@ -336,6 +336,27 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         )
         self.assertEqual(self.workflow.status, HepStatusChoices.RUNNING)
 
+    @patch("backoffice.common.airflow_utils.requests.post")
+    def test_resolve_is_idempotent(self, mock_post):
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-resolve",
+            kwargs={"pk": self.workflow.id},
+        )
+        data = {
+            "action": HepResolutions.hep_accept,
+        }
+        response1 = self.api_client.post(url, format="json", data=data)
+        self.assertEqual(response1.status_code, 200)
+
+        response2 = self.api_client.post(url, format="json", data=data)
+        self.assertEqual(response2.status_code, 200)
+
+        self.assertEqual(
+            self.workflow.decisions.filter(action=HepResolutions.hep_accept).count(),
+            1,
+        )
+
     @patch(
         "backoffice.common.airflow_utils.requests.post",
         side_effect=RequestException("Airflow clear failed"),
