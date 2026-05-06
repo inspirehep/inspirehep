@@ -6,7 +6,7 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404
 import logging
 
-from backoffice.hep.models import HepWorkflow
+from backoffice.hep.models import HepDecision, HepWorkflow
 
 from backoffice.hep.constants import (
     HepResolutions,
@@ -38,6 +38,17 @@ def get_restored_hep_workflow_type(workflow):
 
 
 def add_hep_decision(workflow_id, user, action, value=None):
+    existing = HepDecision.objects.filter(
+        workflow_id=workflow_id, action=action
+    ).first()
+    if existing:
+        logger.info(
+            "Decision already exists for workflow %s with action %s, skipping",
+            workflow_id,
+            action,
+        )
+        return HepDecisionSerializer(existing).data
+
     data = {"workflow": workflow_id, "user": user, "action": action}
 
     if value is not None:
