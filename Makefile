@@ -29,6 +29,7 @@ start-backoffice:
 	echo -e "\033[0;32m Backoffice Started. \033[0m"
 
 start-cypress:
+	docker compose run --rm --entrypoint yarn cypress install
 	docker compose up -d --force-recreate cache db mq s3 es
 	docker compose up -d --force-recreate hep-worker hep-web record-editor hep-ui ui
 	sleep 5
