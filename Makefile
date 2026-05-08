@@ -32,11 +32,19 @@ start-cypress:
 	docker compose run --rm --entrypoint yarn cypress install
 	docker compose up -d --force-recreate cache db mq s3 es
 	docker compose up -d --force-recreate hep-worker hep-web record-editor hep-ui ui
+	docker compose up -d --force-recreate backoffice-webserver backoffice-worker
 	sleep 5
 	docker compose exec hep-web ./scripts/setup
 	docker compose exec hep-web inspirehep importer demo-records
+	docker compose exec backoffice-webserver python manage.py create_groups
+	docker compose exec backoffice-webserver python manage.py loaddata backoffice/users/fixtures/users.json
+	docker compose exec backoffice-webserver python manage.py loaddata backoffice/users/fixtures/tokens.json
+	docker compose exec backoffice-webserver python manage.py loaddata backoffice/authors/fixtures/workflows.json
+	docker compose exec backoffice-webserver python manage.py loaddata backoffice/hep/fixtures/workflows.json
+	docker compose exec backoffice-webserver python manage.py loaddata backoffice/hep/fixtures/decisions.json
+	docker compose exec backoffice-webserver python manage.py opensearch document index --force
 	sleep 5
-	bash -c "docker compose run --rm cypress cypress run --browser firefox --headless --env inspirehep_url=http://host.docker.internal:8080 | tee >(sed 's/\x1b\[[0-9;]*m//g' > cypress.log)"
+	bash -c "docker compose run --rm cypress cypress run --browser firefox --headless --env inspirehep_url=http://host.docker.internal:8080,backoffice_url=http://host.docker.internal:8001 | tee >(sed 's/\x1b\[[0-9;]*m//g' > cypress.log)"
 	echo -e "\033[0;32m Cypress tests finished. \033[0m"
 
 setup-backoffice: airflow-setup django-setup

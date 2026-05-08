@@ -6,7 +6,8 @@ module.exports = defineConfig({
   screenshotsFolder: 'cypress/__screenshots__',
   defaultCommandTimeout: 10000,
   env: {
-    inspirehep_url: 'localhost:8080',
+    inspirehep_url: 'http://localhost:8080',
+    backoffice_url: 'http://localhost:8001',
     mobile_viewport_width: 375,
     mobile_viewport_height: 667,
   },

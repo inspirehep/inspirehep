@@ -21,7 +21,11 @@ const SearchResults = ({
   const renderResults = (result: any, index: number) => {
     if (!isBackoffice) {
       return (
-        <div className="mv2" key={result.get('id')}>
+        <div
+          className="mv2"
+          key={result.get('id')}
+          data-testid="result-from-search"
+        >
           {renderItem(
             result,
             isCatalogerLoggedIn,

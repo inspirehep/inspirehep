@@ -103,6 +103,80 @@
   },
   {
     "model": "authors.authorworkflow",
+    "pk": "ff762952-08c0-485d-9b7d-df41743ac341",
+    "fields": {
+      "workflow_type": "AUTHOR_CREATE",
+      "data": {
+        "name": {
+          "value": "Blabla, Test",
+          "preferred_name": "Blabla test"
+        },
+        "urls": [
+          {
+            "value": "https://example.com"
+          },
+          {
+            "value": "https://other-page.com"
+          }
+        ],
+        "status": "active",
+        "$schema": "https://inspirehep.net/schemas/records/authors.json",
+        "positions": [
+          {
+            "rank": "VISITOR",
+            "hidden": false,
+            "record": {
+              "$ref": "https://inspirebeta.net/api/institutions/902725"
+            },
+            "current": true,
+            "start_date": "2024",
+            "institution": "CERN",
+            "curated_relation": false
+          },
+          {
+            "rank": "JUNIOR",
+            "hidden": false,
+            "record": {
+              "$ref": "https://inspirebeta.net/api/institutions/902796"
+            },
+            "current": false,
+            "end_date": "2024",
+            "start_date": "2023",
+            "institution": "Fermilab",
+            "curated_relation": false
+          }
+        ],
+        "_collections": ["Authors"],
+        "_private_notes": [
+          {
+            "value": "Also some comments"
+          }
+        ],
+        "email_addresses": [
+          {
+            "value": "blabla.test@example.com",
+            "current": true
+          },
+          {
+            "value": "blabla.test.old@example.com"
+          }
+        ],
+        "acquisition_source": {
+          "email": "joao.ramiro@cern.ch",
+          "orcid": "0000-0002-7638-5686",
+          "method": "submitter",
+          "source": "submitter",
+          "datetime": "2024-12-17T15:44:45.997487",
+          "internal_uid": 50872
+        }
+      },
+      "status": "approval",
+      "_created_at": "2024-12-25T13:49:53.009Z",
+      "_updated_at": "2024-12-25T13:49:54.756Z"
+    }
+  },
+  {
+    "model": "authors.authorworkflow",
     "pk": "00000000-0000-0000-0000-000000001522",
     "fields": {
       "workflow_type": "AUTHOR_UPDATE",
@@ -125,6 +199,34 @@
         "arxiv_categories": ["cond-mat", "astro-ph"]
       },
       "status": "running",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
+  },
+{
+    "model": "authors.authorworkflow",
+    "pk": "00000000-0000-0000-0000-000000001523",
+    "fields": {
+      "workflow_type": "AUTHOR_UPDATE",
+      "data": {
+        "name": {
+          "value": "Blabla, Test",
+          "preferred_name": "Blabla test"
+        },
+        "status": "active",
+        "_collections": ["Authors"],
+        "$schema": "https://inspirebeta.net/schemas/records/authors.json",
+        "acquisition_source": {
+          "email": "user@cern.ch",
+          "orcid": "0000-0000-0000-0000",
+          "method": "submitter",
+          "source": "submitter",
+          "datetime": "2024-11-18T11:34:19.809575",
+          "internal_uid": 50872
+        },
+        "arxiv_categories": ["cond-mat", "astro-ph"]
+      },
+      "status": "approval",
       "_created_at": "2024-11-25T13:49:53.009Z",
       "_updated_at": "2024-11-25T13:49:54.756Z"
     }
