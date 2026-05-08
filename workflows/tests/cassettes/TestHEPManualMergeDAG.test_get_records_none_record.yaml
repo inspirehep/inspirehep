@@ -1,0 +1,75 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8080/api/literature/10000
+  response:
+    body:
+      string: '{"created":"2026-05-18T15:33:10.439357+00:00","revision_id":0,"id":"10000","metadata":{"self":{"$ref":"http://localhost:8000/api/literature/10000"},"titles":[{"title":"Test
+        store record update"}],"$schema":"https://inspirehep.net/schemas/records/hep.json","_collections":["Literature"],"document_type":["article"],"control_number":10000},"uuid":"8f76f2d7-5977-41c3-8c1d-ae477410a1fa","updated":"2026-05-18T15:33:10.439371+00:00","links":{"bibtex":"http://localhost:8000/api/literature/10000?format=bibtex","latex-eu":"http://localhost:8000/api/literature/10000?format=latex-eu","latex-us":"http://localhost:8000/api/literature/10000?format=latex-us","json":"http://localhost:8000/api/literature/10000?format=json","json-expanded":"http://localhost:8000/api/literature/10000?format=json-expanded","cv":"http://localhost:8000/api/literature/10000?format=cv","citations":"http://localhost:8000/api/literature/?q=refersto%3Arecid%3A10000"}}'
+    headers:
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '936'
+      Content-Type:
+      - application/vnd+inspire.record.raw+json
+      Date:
+      - Tue, 19 May 2026 09:17:22 GMT
+      ETag:
+      - W/"0"
+      Last-Modified:
+      - Mon, 18 May 2026 15:33:10 GMT
+      Link:
+      - <bibtex>; rel="http://localhost:8000/api/literature/10000?format=bibtex",
+        <latex-eu>; rel="http://localhost:8000/api/literature/10000?format=latex-eu",
+        <latex-us>; rel="http://localhost:8000/api/literature/10000?format=latex-us",
+        <json>; rel="http://localhost:8000/api/literature/10000?format=json", <json-expanded>;
+        rel="http://localhost:8000/api/literature/10000?format=json-expanded", <cv>;
+        rel="http://localhost:8000/api/literature/10000?format=cv", <citations>; rel="http://localhost:8000/api/literature/?q=refersto%3Arecid%3A10000"
+      Server:
+      - nginx/1.19.1
+      Vary:
+      - Accept,Accept-Encoding,Accept-Language
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: http://host.docker.internal:8080/api/literature/-1
+  response:
+    body:
+      string: "{\n  \"message\": \"PIDDoesNotExistRESTError: PID does not exist.\",
+        \n  \"status\": 404\n}\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '83'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 19 May 2026 09:17:23 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 404
+      message: NOT FOUND
+version: 1

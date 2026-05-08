@@ -52,9 +52,55 @@ class TestWorkflowUtils:
             context_params={"workflow_id": self.workflow_id},
         )
 
-        root_entry = workflows.read_wf_record_source(head_uuid, "publisher")
+        assert workflows.read_wf_record_source(head_uuid, "publisher") is None
 
-        assert root_entry == []
+    @pytest.mark.vcr
+    def test_read_delete_get_wf_record_source(self):
+        record = InspireHTTPRecordManagementHook().get_record(
+            LITERATURE_PID_TYPE, 44707
+        )
+
+        record_uuid = record["uuid"]
+
+        record_json = {
+            "version": "test",
+            "acquisition_source": {"source": "publisher"},
+        }
+
+        workflows.add_wf_record_source(
+            record_uuid=record_uuid,
+            source="publisher",
+            json=record_json,
+        )
+        assert (
+            workflows.read_wf_record_source(record_uuid, "publisher")["json"]
+            == record_json
+        )
+
+        workflows.delete_wf_record_source(record_uuid=record_uuid, source="publisher")
+
+        assert workflows.read_wf_record_source(record_uuid, "publisher") is None
+
+    @pytest.mark.vcr
+    def test_get_all_wf_record_sources(self):
+        record = InspireHTTPRecordManagementHook().get_record(
+            LITERATURE_PID_TYPE, 44707
+        )
+        record_uuid = record["uuid"]
+
+        for i in ["publisher", "arxiv"]:
+            workflows.add_wf_record_source(
+                record_uuid=record_uuid,
+                source=i,
+                json={"version": "original", "acquisition_source": {"source": "arXiv"}},
+            )
+
+        assert len(workflows.get_all_wf_record_sources(record_uuid)) == 2
+
+        for i in ["publisher", "arxiv"]:
+            workflows.delete_wf_record_source(record_uuid=record_uuid, source=i)
+
+        assert workflows.get_all_wf_record_sources(record_uuid) == []
 
     @pytest.mark.parametrize(
         ("source", "expected_source"),

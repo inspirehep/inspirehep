@@ -12,6 +12,7 @@ DECISION_CORE_SELECTION_ACCEPT_CORE = "core_selection_accept_core"
 DECISION_AUTO_ACCEPT_CORE = "auto_accept_core"
 DECISION_AUTO_REJECT = "auto_reject"
 DECISION_MERGE_APPROVE = "merge_approve"
+DECISION_MANUAL_MERGE_APPROVE = "manual_merge_approve"
 DECISION_DISCARD = "discard"
 
 HEP_CREATE = "HEP_CREATE"

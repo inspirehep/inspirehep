@@ -209,13 +209,28 @@ def read_wf_record_source(record_uuid, source):
     if not source:
         return
 
-    source = get_source_for_root(source)
+    workflow_sources = get_all_wf_record_sources(record_uuid, source)
+
+    return workflow_sources[0] if workflow_sources else None
+
+
+def get_all_wf_record_sources(record_uuid, source=None):
+    """Retrieve all records from the ``WorkflowRecordSource`` table with the given uuid.
+    Args:
+        record_uuid(uuid): the uuid of the record
+    Return:
+        (list): list of records with the given uuid
+    """
     inspire_http_hook = InspireHttpHook()
+
+    payload = {"record_uuid": str(record_uuid)}
+    if source:
+        payload["source"] = get_source_for_root(source.lower())
 
     try:
         response = inspire_http_hook.call_api(
             endpoint="api/literature/workflows_record_sources",
-            json={"record_uuid": str(record_uuid), "source": source.lower()},
+            json=payload,
         )
     except AirflowException as e:
         if "404:NOT FOUND" in str(e):
@@ -223,9 +238,55 @@ def read_wf_record_source(record_uuid, source):
         raise
 
     if response.status_code == 200:
-        return response.json()["workflow_sources"][0]
+        return response.json().get("workflow_sources", [])
 
     return []
+
+
+def delete_wf_record_source(record_uuid, source):
+    """Delete a record from the ``WorkflowRecordSource`` table.
+    Args:
+        record_uuid(uuid): the uuid of the record
+        source(string): the acquisition source value of the record
+    Return:
+        None
+    """
+    inspire_http_hook = InspireHttpHook()
+
+    try:
+        inspire_http_hook.call_api(
+            endpoint="api/literature/workflows_record_sources",
+            method="DELETE",
+            json={
+                "record_uuid": str(record_uuid),
+                "source": get_source_for_root(source.lower()),
+            },
+        )
+    except AirflowException as e:
+        if "404:NOT FOUND" in str(e):
+            logger.warning(
+                f"Record source with uuid {record_uuid} and source {source} not found"
+                f" for deletion."
+            )
+            return
+        raise
+
+
+def add_wf_record_source(record_uuid, source, json):
+    """Add a record to the ``WorkflowRecordSource`` table.
+    Args:
+        record_uuid(uuid): the uuid of the record
+        source(string): the acquisition source value of the record
+        json(dict): the record metadata to be stored in the table
+    Return:
+        None
+    """
+    inspire_http_hook = InspireHttpHook()
+    inspire_http_hook.call_api(
+        endpoint="api/literature/workflows_record_sources",
+        method="POST",
+        json={"record_uuid": str(record_uuid), "source": source, "json": json},
+    )
 
 
 def store_record_inspirehep_api(workflow, is_update):

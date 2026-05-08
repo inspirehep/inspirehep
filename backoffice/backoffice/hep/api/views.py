@@ -18,6 +18,7 @@ from backoffice.hep.api.serializers import (
     HepDecisionSerializer,
     HepResolutionSerializer,
     HepBatchResolutionSerializer,
+    ManualMergeWorkflowSerializer,
 )
 from rest_framework.decorators import action
 from backoffice.common.views import BaseWorkflowTicketViewSet, BaseWorkflowViewSet
@@ -230,6 +231,38 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         workflow.save()
 
         return Response(self.get_serializer(workflow).data)
+
+    @action(detail=False, methods=["post"])
+    def manual_merge(self, request):
+        logger.info("Resolving data: %s", request.data)
+        serializer = ManualMergeWorkflowSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        logger.info("Data passed schema validation, creating workflow.")
+
+        wf_serializer = self.serializer_class(
+            data={"data": {}, "workflow_type": HepWorkflowType.HEP_MANUAL_MERGE}
+        )
+
+        wf_serializer.is_valid(raise_exception=True)
+        workflow = wf_serializer.save()
+        try:
+            logger.info(
+                "Triggering DAG %s with id  %s",
+                WORKFLOW_DAGS[workflow.workflow_type].initialize,
+                str(workflow.id),
+            )
+            airflow_utils.trigger_airflow_dag(
+                WORKFLOW_DAGS[workflow.workflow_type].initialize,
+                str(workflow.id),
+                **serializer.data,
+            )
+        except RequestException as e:
+            return handle_request_exception(
+                "Error triggering Airflow DAG",
+                e,
+            )
+
+        return Response(wf_serializer.data)
 
 
 @method_decorator(transaction.non_atomic_requests, name="dispatch")

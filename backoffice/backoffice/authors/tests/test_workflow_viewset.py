@@ -46,7 +46,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         airflow_utils.trigger_airflow_dag(
             WORKFLOW_DAGS[self.workflow.workflow_type].initialize,
             self.workflow.id,
-            self.workflow.data,
+            data=self.workflow.data,
         )
 
     def tearDown(self):

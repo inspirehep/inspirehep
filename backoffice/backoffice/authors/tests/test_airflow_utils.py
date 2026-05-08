@@ -19,7 +19,7 @@ class TestAirflowUtils(TransactionTestCase):
         self.content, self.status_code = airflow_utils.trigger_airflow_dag(
             self.dag_id,
             str(self.workflow_id),
-            extra_data=self.extra_data,
+            data=self.extra_data,
             workflow=self.workflow_serialized,
         )
 
