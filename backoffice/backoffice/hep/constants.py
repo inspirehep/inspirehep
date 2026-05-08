@@ -43,6 +43,7 @@ class HepWorkflowType(models.TextChoices):
     HEP_PUBLISHER_UPDATE = "HEP_PUBLISHER_UPDATE", "HEP publisher update"
     HEP_SUBMISSION = "HEP_SUBMISSION", "HEP submission"
     HEP_UPDATE = "HEP_UPDATE", "HEP update"
+    HEP_MANUAL_MERGE = "HEP_MANUAL_MERGE", "HEP manual merge"
 
 
 HEP_DEFAULT_WORKFLOW_TYPE = HepWorkflowType.HEP_CREATE
@@ -95,6 +96,10 @@ class HepResolutions(models.TextChoices):
         "withdrawn",
         "",
     )
+    manual_merge_approve = (
+        "manual_merge_approve",
+        "await_merge_conflicts_resolved",
+    )
 
 
 HEP_DECISION_CHOICES = HepResolutions.choices
@@ -107,3 +112,7 @@ class HepJournalCoverage(models.TextChoices):
 
 class HepCreateDags(models.TextChoices):
     initialize = "hep_create_dag", "initialize"
+
+
+class HepManualMergeDags(models.TextChoices):
+    initialize = "hep_manual_merge_dag", "initialize"

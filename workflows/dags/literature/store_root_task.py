@@ -1,5 +1,4 @@
 from airflow.sdk import task
-from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from include.utils import workflows
 from include.utils.s3 import S3JsonStore
 from inspire_schemas.readers import LiteratureReader
@@ -10,7 +9,6 @@ def store_root(**context):
     """Insert or update the current record head's root into WorkflowsRecordSources"""
     workflow_id = context["params"]["workflow_id"]
     s3_store = S3JsonStore(aws_conn_id="s3_conn")
-    inspire_http_hook = InspireHttpHook()
 
     workflow_data = s3_store.read_workflow(workflow_id)
 
@@ -29,8 +27,8 @@ def store_root(**context):
 
     source = workflows.get_source_for_root(source)
 
-    inspire_http_hook.call_api(
-        endpoint="api/literature/workflows_record_sources",
-        method="POST",
-        json={"record_uuid": str(head_uuid), "source": source, "json": root},
+    workflows.add_wf_record_source(
+        record_uuid=head_uuid,
+        source=source,
+        json=root,
     )

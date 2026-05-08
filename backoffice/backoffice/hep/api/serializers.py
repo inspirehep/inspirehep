@@ -15,7 +15,11 @@ from backoffice.hep.constants import (
     HEP_DECISION_CHOICES,
 )
 from backoffice.hep.documents import HepWorkflowDocument
-from backoffice.hep.models import HepDecision, HepWorkflow, HepWorkflowTicket
+from backoffice.hep.models import (
+    HepDecision,
+    HepWorkflow,
+    HepWorkflowTicket,
+)
 
 from django.urls import reverse
 
@@ -75,6 +79,7 @@ class HepWorkflowSerializer(BaseWorkflowSerializer):
             HepWorkflowType.HEP_PUBLISHER_UPDATE,
             HepWorkflowType.HEP_SUBMISSION,
             HepWorkflowType.HEP_UPDATE,
+            HepWorkflowType.HEP_MANUAL_MERGE,
         ],
         required=True,
     )
@@ -202,3 +207,8 @@ class HepBatchResolutionSerializer(serializers.Serializer):
 
 class HepChangeStatusSerializer(serializers.Serializer):
     note = serializers.CharField(max_length=255, default="")
+
+
+class ManualMergeWorkflowSerializer(serializers.Serializer):
+    head_control_number = serializers.IntegerField(required=True)
+    update_control_number = serializers.IntegerField(required=True)

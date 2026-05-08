@@ -3,13 +3,14 @@ from backoffice.authors.constants import (
     AuthorUpdateDags,
 )
 from backoffice.authors.constants import AuthorWorkflowType
-from backoffice.hep.constants import HepWorkflowType, HepCreateDags
+from backoffice.hep.constants import HepWorkflowType, HepCreateDags, HepManualMergeDags
 
 WORKFLOW_DAGS = {
     HepWorkflowType.HEP_CREATE: HepCreateDags,
     HepWorkflowType.HEP_PUBLISHER_CREATE: HepCreateDags,
     HepWorkflowType.HEP_PUBLISHER_UPDATE: HepCreateDags,
     HepWorkflowType.HEP_SUBMISSION: HepCreateDags,
+    HepWorkflowType.HEP_MANUAL_MERGE: HepManualMergeDags,
     HepWorkflowType.HEP_UPDATE: HepCreateDags,
     AuthorWorkflowType.AUTHOR_CREATE: AuthorCreateDags,
     AuthorWorkflowType.AUTHOR_UPDATE: AuthorUpdateDags,

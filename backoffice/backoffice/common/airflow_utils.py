@@ -19,7 +19,7 @@ AIRFLOW_HEADERS = (
 logger = logging.getLogger(__name__)
 
 
-def trigger_airflow_dag(dag_id, workflow_id, extra_data=None, workflow=None):
+def trigger_airflow_dag(dag_id, workflow_id, **kwargs):
     """Triggers an airflow dag.
 
     :param dag_id: name of the dag to run
@@ -33,10 +33,8 @@ def trigger_airflow_dag(dag_id, workflow_id, extra_data=None, workflow=None):
         "conf": {"workflow_id": str(workflow_id)},
     }
 
-    if extra_data:
-        data["conf"]["data"] = extra_data
-    if workflow:
-        data["conf"]["workflow"] = workflow
+    for key, value in kwargs.items():
+        data["conf"][key] = value
 
     url = f"{AIRFLOW_BASE_URL}/api/v2/dags/{dag_id}/dagRuns"
 
@@ -262,7 +260,7 @@ def restart_workflow_dags(workflow_id, workflow_type, params=None, workflow=None
         WORKFLOW_DAGS[workflow_type].initialize,
         str(workflow_id),
         workflow=conf.get("workflow"),
-        extra_data=conf.get("data"),
+        data=conf.get("data"),
     )
 
 

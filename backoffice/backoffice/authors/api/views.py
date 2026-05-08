@@ -262,7 +262,7 @@ class AuthorWorkflowViewSet(BaseWorkflowViewSet):
                 airflow_utils.trigger_airflow_dag(
                     AuthorResolutionDags[serializer.validated_data["value"]].label,
                     pk,
-                    serializer.data,
+                    data=serializer.data,
                     workflow=workflow,
                 )
             except RequestException as e:
