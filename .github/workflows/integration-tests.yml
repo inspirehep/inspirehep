@@ -17,6 +17,9 @@ on:
       editor-image-id:
         description: The ID of image that has been buit
         value: ${{ jobs.build-editor.outputs.image-id }}
+      backoffice-image-id:
+        description: The ID of image that has been buit
+        value: ${{ jobs.build-backoffice.outputs.image-id }}
 
 jobs:
   build-backend:
@@ -104,12 +107,22 @@ jobs:
       context: record-editor/
     secrets: inherit
 
+  build-backoffice:
+    uses: ./.github/workflows/build-backoffice-workflow.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: cern-sis/inspire/backoffice
+      context: ./backoffice
+      dockerfile: ./backoffice/Dockerfile
+    secrets: inherit
+
   test-e2e:
-    needs: [ build-backend, build-ui, build-editor ]
+    needs: [ build-backend, build-ui, build-editor, build-backoffice ]
     uses: ./.github/workflows/e2e-tests.yml
     with:
       ref: ${{ inputs.ref }}
       backend-image: "inspirehep/hep@${{ needs.build-backend.outputs.image-id }}"
       ui-image: "inspirehep/ui@${{ needs.build-ui.outputs.image-id }}"
       editor-image: "inspirehep/editor@${{ needs.build-editor.outputs.image-id }}"
+      backoffice-image: "registry.cern.ch/cern-sis/inspire/backoffice@${{ needs.build-backoffice.outputs.image-id }}"
     secrets: inherit
