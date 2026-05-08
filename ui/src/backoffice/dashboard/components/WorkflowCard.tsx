@@ -43,7 +43,11 @@ const WorkflowCard = ({ type, statuses }: WorkflowCardProps) => {
         <div>
           <p>{collection.key}</p>
           <p className="f2 mb0 black">{docCount}</p>
-          <Link to={baseUrl} className="normal f6">
+          <Link
+            to={baseUrl}
+            className="normal f6"
+            data-testid={`view-all-${collection.key}`}
+          >
             View all
           </Link>
         </div>
@@ -51,6 +55,7 @@ const WorkflowCard = ({ type, statuses }: WorkflowCardProps) => {
       headStyle={{ textAlign: 'center' }}
       className={collection.key.toLowerCase().replace(/ /g, '-')}
       key={workflowTypeKey}
+      data-testid={collection.key}
     >
       {sortedStatuses.map((status) => {
         const statusKey = status?.get('key');
@@ -65,6 +70,7 @@ const WorkflowCard = ({ type, statuses }: WorkflowCardProps) => {
             key={statusKey}
             to={`${baseUrl}&status=${statusKey}`}
             className="db no-underline"
+            data-testid={`view-${statusKey}-${collection.key}`}
           >
             <div className={`flex justify-between ${statusKey.toLowerCase()}`}>
               <p className="ttc">
