@@ -10,14 +10,7 @@ Cypress.Commands.add("loginAsAdmin", () => {
     },
   });
   cy.intercept("GET", "**/accounts/me*").as("accountsMe");
-  cy.visit("/", {
-    onBeforeLoad(win) {
-      win.CONFIG = {
-        ...win.CONFIG,
-        BACKOFFICE_URL: Cypress.env("backoffice_url"),
-      };
-    },
-  });
+  cy.visit("/");
   cy.wait("@accountsMe").its("response.statusCode").should("eq", 200);
 });
 
