@@ -34,7 +34,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        browser: [ chrome, firefox ]
+        browser: [chrome, firefox]
     services:
       redis:
         image: redis:8-alpine
@@ -175,7 +175,7 @@ jobs:
           --add-host=record-editor:127.0.0.1
           --mount type=bind,source=${{ github.workspace }}/ui/docker/nginx/config/local.conf,destination=/etc/nginx/conf.d/default.conf
           ${{ inputs.ui-image }}
-      
+
       - name: run backoffice-webserver
         run: >
           docker run
@@ -225,36 +225,6 @@ jobs:
           docker run --rm --network host --env-file ./backoffice-env.list --entrypoint poetry ${{ inputs.backoffice-image }} run python manage.py loaddata backoffice/hep/fixtures/workflows.json
           docker run --rm --network host --env-file ./backoffice-env.list --entrypoint poetry ${{ inputs.backoffice-image }} run python manage.py loaddata backoffice/hep/fixtures/decisions.json
           docker run --rm --network host --env-file ./backoffice-env.list --entrypoint poetry ${{ inputs.backoffice-image }} run python manage.py opensearch document index --force
-
-      - name: run backoffice-webserver
-        run: >
-          docker run
-          --detach
-          --network host
-          --env-file ./backoffice-env.list
-          --name backoffice-webserver
-          --entrypoint poetry
-          ${{ inputs.backoffice-image }}
-          run
-          python
-          manage.py
-          runserver
-          0.0.0.0:8001
-
-      - name: run backoffice-worker
-        run: >
-          docker run
-          --detach
-          --network host
-          --env-file ./backoffice-env.list
-          --name backoffice-worker
-          --entrypoint celery
-          ${{ inputs.backoffice-image }}
-          -A
-          config.celery_app
-          worker
-          -l
-          INFO
 
       - name: cypress
         uses: cypress-io/github-action@v6
