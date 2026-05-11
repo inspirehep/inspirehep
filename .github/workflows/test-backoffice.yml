@@ -52,24 +52,59 @@ jobs:
         ports:
           - 5432:5432
     steps:
-        - name: Checkout
-          uses: actions/checkout@v4
-          with:
-            ref: ${{ inputs.ref }}
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
 
-        - name: Test
-          working-directory: ./backoffice
-          run: >
-            docker run
-            --pull always
-            --network=host
-            --entrypoint poetry
-            --env DJANGO_SETTINGS_MODULE=config.settings.test
-            --env DISABLE_SECURITY_PLUGIN=true
-            --env POSTGRES_DB=backoffice
-            --env POSTGRES_USER=postgres
-            --env POSTGRES_PASSWORD=postgres
-            --env POSTGRES_HOST=127.0.0.1
-            --env OPENSEARCH_HOST=127.0.0.1:9200
-            registry.cern.ch/cern-sis/inspire/backoffice@${{ needs.build.outputs.image-id }}
-            run pytest
+      - name: Test
+        working-directory: ./backoffice
+        run: >
+          docker run
+          --pull always
+          --network=host
+          --entrypoint poetry
+          --env DJANGO_SETTINGS_MODULE=config.settings.test
+          --env DISABLE_SECURITY_PLUGIN=true
+          --env POSTGRES_DB=backoffice
+          --env POSTGRES_USER=postgres
+          --env POSTGRES_PASSWORD=postgres
+          --env POSTGRES_HOST=127.0.0.1
+          --env OPENSEARCH_HOST=127.0.0.1:9200
+          registry.cern.ch/cern-sis/inspire/backoffice@${{ needs.build.outputs.image-id }}
+          run pytest
+
+  build-backend:
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: inspirehep/hep
+      context: backend/
+    secrets: inherit
+
+  build-ui:
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: inspirehep/ui
+      context: ui/
+    secrets: inherit
+
+  build-editor:
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: inspirehep/editor
+      context: record-editor/
+    secrets: inherit
+
+  test-e2e:
+    needs: [build, build-backend, build-ui, build-editor]
+    uses: ./.github/workflows/e2e-tests.yml
+    with:
+      ref: ${{ inputs.ref }}
+      backend-image: "inspirehep/hep@${{ needs.build-backend.outputs.image-id }}"
+      ui-image: "inspirehep/ui@${{ needs.build-ui.outputs.image-id }}"
+      editor-image: "inspirehep/editor@${{ needs.build-editor.outputs.image-id }}"
+      backoffice-image: "registry.cern.ch/cern-sis/inspire/backoffice@${{ needs.build.outputs.image-id }}"
+    secrets: inherit

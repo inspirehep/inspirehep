@@ -19,6 +19,10 @@ on:
         description: The UI image
         type: string
         required: true
+      backoffice-image:
+        description: The backoffice image
+        type: string
+        required: true
 
 defaults:
   run:
@@ -45,6 +49,15 @@ jobs:
           POSTGRES_DB: inspirehep
         ports:
           - 5432:5432
+
+      backoffice-postgresql:
+        image: postgres:15.15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: backoffice
+        ports:
+          - 5433:5432
 
       rabbitmq:
         image: rabbitmq:4.2-management-alpine
@@ -91,6 +104,26 @@ jobs:
           APP_ES_BULK_TIMEOUT=240
           APP_DANGEROUSLY_ENABLE_LOCAL_LOGIN=True
           APP_ENABLE_SECURE_HEADERS=False
+          EOF
+
+      - name: create backoffice environment file
+        run: |
+          cat <<EOF >backoffice-env.list
+          USE_DOCKER=yes
+          DJANGO_READ_DOT_ENV_FILE=False
+          REDIS_URL=redis://localhost:6379/4
+          CELERY_BROKER_URL=amqp://guest:guest@localhost:5672/
+          CELERY_RESULT_BACKEND=redis://localhost:6379/5
+          CELERY_TASK_ALWAYS_EAGER=True
+          POSTGRES_HOST=localhost
+          POSTGRES_PORT=5433
+          POSTGRES_DB=backoffice
+          POSTGRES_USER=postgres
+          POSTGRES_PASSWORD=postgres
+          OPENSEARCH_HOST=localhost:9200
+          OPENSEARCH_INDEX_PREFIX=backoffice-backend-local
+          FRONTEND_LOGIN_SUCCESS=http://localhost:8080/backoffice
+          SERVICENOW_URL=https://cerntraining.service-now.com
           EOF
 
       - name: Run hep-worker
@@ -142,6 +175,36 @@ jobs:
           --add-host=record-editor:127.0.0.1
           --mount type=bind,source=${{ github.workspace }}/ui/docker/nginx/config/local.conf,destination=/etc/nginx/conf.d/default.conf
           ${{ inputs.ui-image }}
+      
+      - name: run backoffice-webserver
+        run: >
+          docker run
+          --detach
+          --network host
+          --env-file ./backoffice-env.list
+          --name backoffice-webserver
+          --entrypoint poetry
+          ${{ inputs.backoffice-image }}
+          run
+          python
+          manage.py
+          runserver
+          0.0.0.0:8001
+
+      - name: run backoffice-worker
+        run: >
+          docker run
+          --detach
+          --network host
+          --env-file ./backoffice-env.list
+          --name backoffice-worker
+          --entrypoint celery
+          ${{ inputs.backoffice-image }}
+          -A
+          config.celery_app
+          worker
+          -l
+          INFO
 
       - name: setup
         run: |
@@ -150,6 +213,48 @@ jobs:
       - name: import dataset
         run: >
           docker exec hep-web inspirehep importer demo-records
+
+      - name: setup backoffice
+        run: |
+          docker run --rm --network host --env-file ./backoffice-env.list --entrypoint poetry ${{ inputs.backoffice-image }} run python manage.py migrate
+          docker run --rm --network host --env-file ./backoffice-env.list --entrypoint poetry ${{ inputs.backoffice-image }} run python manage.py opensearch index rebuild --force
+          docker run --rm --network host --env-file ./backoffice-env.list --entrypoint poetry ${{ inputs.backoffice-image }} run python manage.py create_groups
+          docker run --rm --network host --env-file ./backoffice-env.list --entrypoint poetry ${{ inputs.backoffice-image }} run python manage.py loaddata backoffice/users/fixtures/users.json
+          docker run --rm --network host --env-file ./backoffice-env.list --entrypoint poetry ${{ inputs.backoffice-image }} run python manage.py loaddata backoffice/users/fixtures/tokens.json
+          docker run --rm --network host --env-file ./backoffice-env.list --entrypoint poetry ${{ inputs.backoffice-image }} run python manage.py loaddata backoffice/authors/fixtures/workflows.json
+          docker run --rm --network host --env-file ./backoffice-env.list --entrypoint poetry ${{ inputs.backoffice-image }} run python manage.py loaddata backoffice/hep/fixtures/workflows.json
+          docker run --rm --network host --env-file ./backoffice-env.list --entrypoint poetry ${{ inputs.backoffice-image }} run python manage.py loaddata backoffice/hep/fixtures/decisions.json
+          docker run --rm --network host --env-file ./backoffice-env.list --entrypoint poetry ${{ inputs.backoffice-image }} run python manage.py opensearch document index --force
+
+      - name: run backoffice-webserver
+        run: >
+          docker run
+          --detach
+          --network host
+          --env-file ./backoffice-env.list
+          --name backoffice-webserver
+          --entrypoint poetry
+          ${{ inputs.backoffice-image }}
+          run
+          python
+          manage.py
+          runserver
+          0.0.0.0:8001
+
+      - name: run backoffice-worker
+        run: >
+          docker run
+          --detach
+          --network host
+          --env-file ./backoffice-env.list
+          --name backoffice-worker
+          --entrypoint celery
+          ${{ inputs.backoffice-image }}
+          -A
+          config.celery_app
+          worker
+          -l
+          INFO
 
       - name: cypress
         uses: cypress-io/github-action@v6
@@ -161,7 +266,7 @@ jobs:
           parallel: false
           browser: ${{ matrix.browser }}
           tag: Chrome
-          env: inspirehep_url=http://localhost:8080
+          env: inspirehep_url=http://localhost:8080,backoffice_url=http://localhost:8001
 
       - name: application logs
         if: ${{ always() }}
@@ -177,4 +282,10 @@ jobs:
           echo "::endgroup::"
           echo "::group::ui"
           docker logs ui
+          echo "::endgroup::"
+          echo "::group::backoffice-webserver"
+          docker logs backoffice-webserver || true
+          echo "::endgroup::"
+          echo "::group::backoffice-worker"
+          docker logs backoffice-worker || true
           echo "::endgroup::"
