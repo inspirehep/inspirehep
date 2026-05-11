@@ -31,7 +31,7 @@ describe("Update authors", () => {
     cy.assertSearchPageIsLoadedWithResults(2);
   });
 
-  it("should display update authors and enable access to the approval authors list", () => {
+  it("should display update authors and enable access to the running authors list", () => {
     cy.loginAsAdmin();
     cy.loginToBackoffice();
 
