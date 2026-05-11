@@ -3,6 +3,7 @@ import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { List, Map } from 'immutable';
 
+import userEvent from '@testing-library/user-event';
 import { renderWithRouter } from '../../../../fixtures/render';
 import { WorkflowStatuses, WorkflowTypes } from '../../../constants';
 import {
@@ -11,13 +12,19 @@ import {
 } from '../../../../common/routes';
 import WorkflowCard from '../WorkflowCard';
 
+beforeEach(() => {
+  window.localStorage.clear();
+  window.sessionStorage.clear();
+});
+
 describe('<WorkflowCard />', () => {
-  it('renders literature workflow card with links', () => {
+  it('renders literature workflow card with links', async () => {
     const type = Map({
       key: WorkflowTypes.HEP_CREATE,
       doc_count: 5,
     });
     const statuses = List([Map({ key: WorkflowStatuses.ERROR, doc_count: 2 })]);
+    const user = userEvent.setup();
 
     renderWithRouter(<WorkflowCard type={type} statuses={statuses} />);
 
@@ -29,6 +36,8 @@ describe('<WorkflowCard />', () => {
       'href',
       `${BACKOFFICE_LITERATURE_SEARCH}?workflow_type=${WorkflowTypes.HEP_CREATE}`
     );
+
+    await user.click(screen.getByText('Failed'));
 
     const statusLink = screen.getByText('error').closest('a');
     expect(statusLink).toHaveAttribute(
@@ -95,7 +104,7 @@ describe('<WorkflowCard />', () => {
     );
   });
 
-  it('renders statuses in the preferred order', () => {
+  it('renders statuses in the preferred order', async () => {
     const type = Map({
       key: WorkflowTypes.HEP_CREATE,
       doc_count: 5,
@@ -106,8 +115,13 @@ describe('<WorkflowCard />', () => {
       Map({ key: WorkflowStatuses.ERROR, doc_count: 1 }),
       Map({ key: WorkflowStatuses.APPROVAL, doc_count: 1 }),
     ]);
+    const user = userEvent.setup();
 
     renderWithRouter(<WorkflowCard type={type} statuses={statuses} />);
+
+    await user.click(screen.getByRole('button', { name: /Needs review/ }));
+    await user.click(screen.getByRole('button', { name: /Failed/ }));
+    await user.click(screen.getByRole('button', { name: /In progress/ }));
 
     expect(
       screen

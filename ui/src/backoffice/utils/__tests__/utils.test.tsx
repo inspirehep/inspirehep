@@ -1,8 +1,5 @@
-import React from 'react';
-import { render } from '@testing-library/react';
 import { List, Map as ImmutableMap } from 'immutable';
 import {
-  getIcon,
   refreshToken,
   filterByProperty,
   formatDateTime,
@@ -17,99 +14,6 @@ import { WorkflowStatuses, WorkflowTypes } from '../../constants';
 import { WorkflowDecisions } from '../../../common/constants';
 
 jest.mock('../../../common/storage');
-
-describe('getIcon', () => {
-  it('should return HourglassOutlined for approval status', () => {
-    const { container } = render(
-      getIcon(WorkflowStatuses.APPROVAL) as React.ReactElement
-    );
-    expect(container.querySelector('.anticon-hourglass')).toBeInTheDocument();
-  });
-
-  it('should return WarningOutlined for error status', () => {
-    const { container } = render(
-      getIcon(WorkflowStatuses.ERROR) as React.ReactElement
-    );
-    expect(container.querySelector('.anticon-warning')).toBeInTheDocument();
-  });
-
-  it('should return CheckOutlined for completed status', () => {
-    const { container } = render(
-      getIcon(WorkflowStatuses.COMPLETED) as React.ReactElement
-    );
-    expect(container.querySelector('.anticon-check')).toBeInTheDocument();
-  });
-
-  it('should return LoadingOutlined for running status', () => {
-    const { container } = render(
-      getIcon(WorkflowStatuses.RUNNING) as React.ReactElement
-    );
-    expect(container.querySelector('.anticon-loading')).toBeInTheDocument();
-  });
-
-  it('should return FieldTimeOutlined for processing status', () => {
-    const { container } = render(
-      getIcon(WorkflowStatuses.PROCESSING) as React.ReactElement
-    );
-    expect(container.querySelector('.anticon-field-time')).toBeInTheDocument();
-  });
-
-  it('should return StopOutlined for blocked status', () => {
-    const { container } = render(
-      getIcon(WorkflowStatuses.BLOCKED) as React.ReactElement
-    );
-    expect(container.querySelector('.anticon-stop')).toBeInTheDocument();
-  });
-
-  it('should return HourglassOutlined for fuzzy matching status', () => {
-    const { container } = render(
-      getIcon(WorkflowStatuses.APPROVAL_FUZZY_MATCHING) as React.ReactElement
-    );
-    expect(container.querySelector('.anticon-hourglass')).toBeInTheDocument();
-  });
-
-  it('should return HourglassOutlined for fuzzy merging status', () => {
-    const { container } = render(
-      getIcon(WorkflowStatuses.APPROVAL_MERGE) as React.ReactElement
-    );
-    expect(container.querySelector('.anticon-hourglass')).toBeInTheDocument();
-  });
-
-  it('should return WarningOutlined for multiple exact matches status', () => {
-    const { container } = render(
-      getIcon(
-        WorkflowStatuses.ERROR_MULTIPLE_EXACT_MATCHES
-      ) as React.ReactElement
-    );
-    expect(container.querySelector('.anticon-warning')).toBeInTheDocument();
-  });
-
-  it('should return WarningOutlined for validation error status', () => {
-    const { container } = render(
-      getIcon(WorkflowStatuses.ERROR_VALIDATION) as React.ReactElement
-    );
-    expect(container.querySelector('.anticon-warning')).toBeInTheDocument();
-  });
-
-  it('should return HourglassOutlined for core selection approval status', () => {
-    const { container } = render(
-      getIcon(WorkflowStatuses.APPROVAL_CORE_SELECTION) as React.ReactElement
-    );
-    expect(container.querySelector('.anticon-hourglass')).toBeInTheDocument();
-  });
-
-  it('should return HourglassOutlined for missing subject fields status', () => {
-    const { container } = render(
-      getIcon(WorkflowStatuses.MISSING_SUBJECT_FIELDS) as React.ReactElement
-    );
-    expect(container.querySelector('.anticon-hourglass')).toBeInTheDocument();
-  });
-
-  it('should return null for unknown status', () => {
-    const icon = getIcon('unknown');
-    expect(icon).toBeNull();
-  });
-});
 
 describe('refreshToken', () => {
   beforeEach(() => {
