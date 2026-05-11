@@ -33,6 +33,14 @@ export enum WorkflowActions {
   RESTART_CURRENT = 'restart_current',
 }
 
+export enum WorkflowStatusGroups {
+  NEEDS_REVIEW = 'needs_review',
+  BLOCKED = 'blocked',
+  COMPLETED = 'completed',
+  FAILED = 'failed',
+  IN_PROGRESS = 'in_progress',
+}
+
 export const WORKFLOW_TYPES = {
   [WorkflowTypes.AUTHOR_CREATE]: AUTHORS_PID_TYPE,
   [WorkflowTypes.AUTHOR_UPDATE]: AUTHORS_PID_TYPE,
@@ -67,6 +75,44 @@ export const WORKFLOW_STATUS_ORDER = [
   WorkflowStatuses.PROCESSING,
   WorkflowStatuses.RUNNING,
 ];
+
+export const WORKFLOW_STATUS_TO_STATUS_GROUP: Record<
+  WorkflowStatuses,
+  WorkflowStatusGroups
+> = {
+  [WorkflowStatuses.APPROVAL]: WorkflowStatusGroups.NEEDS_REVIEW,
+  [WorkflowStatuses.APPROVAL_CORE_SELECTION]: WorkflowStatusGroups.NEEDS_REVIEW,
+  [WorkflowStatuses.APPROVAL_FUZZY_MATCHING]: WorkflowStatusGroups.NEEDS_REVIEW,
+  [WorkflowStatuses.APPROVAL_MERGE]: WorkflowStatusGroups.NEEDS_REVIEW,
+  [WorkflowStatuses.BLOCKED]: WorkflowStatusGroups.BLOCKED,
+  [WorkflowStatuses.COMPLETED]: WorkflowStatusGroups.COMPLETED,
+  [WorkflowStatuses.ERROR]: WorkflowStatusGroups.FAILED,
+  [WorkflowStatuses.ERROR_MULTIPLE_EXACT_MATCHES]: WorkflowStatusGroups.FAILED,
+  [WorkflowStatuses.ERROR_VALIDATION]: WorkflowStatusGroups.FAILED,
+  [WorkflowStatuses.MISSING_SUBJECT_FIELDS]: WorkflowStatusGroups.NEEDS_REVIEW,
+  [WorkflowStatuses.PROCESSING]: WorkflowStatusGroups.IN_PROGRESS,
+  [WorkflowStatuses.RUNNING]: WorkflowStatusGroups.IN_PROGRESS,
+};
+
+export const STATUS_GROUPS_CONFIG: Record<
+  WorkflowStatusGroups,
+  { label: string; isCollapsable: boolean }
+> = {
+  [WorkflowStatusGroups.NEEDS_REVIEW]: {
+    label: 'Needs review',
+    isCollapsable: true,
+  },
+  [WorkflowStatusGroups.FAILED]: { label: 'Failed', isCollapsable: true },
+  [WorkflowStatusGroups.IN_PROGRESS]: {
+    label: 'In progress',
+    isCollapsable: true,
+  },
+  [WorkflowStatusGroups.BLOCKED]: { label: 'Blocked', isCollapsable: false },
+  [WorkflowStatusGroups.COMPLETED]: {
+    label: 'Completed',
+    isCollapsable: false,
+  },
+};
 
 export interface WorkflowStatus {
   key: string;

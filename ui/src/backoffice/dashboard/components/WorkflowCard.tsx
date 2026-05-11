@@ -1,8 +1,7 @@
-import React from 'react';
 import { Card } from 'antd';
 import { Link } from 'react-router-dom';
 
-import { COLLECTIONS, getIcon } from '../../utils/utils';
+import { COLLECTIONS } from '../../utils/utils';
 import {
   BACKOFFICE_AUTHORS_SEARCH,
   BACKOFFICE_LITERATURE_SEARCH,
@@ -11,7 +10,10 @@ import {
   WorkflowCardProps,
   WorkflowStatuses,
   WORKFLOW_STATUS_ORDER,
+  WORKFLOW_STATUS_TO_STATUS_GROUP,
+  STATUS_GROUPS_CONFIG,
 } from '../../constants';
+import StatusGroup from './StatusGroup';
 
 const WorkflowCard = ({ type, statuses }: WorkflowCardProps) => {
   const workflowTypeKey = type?.get('key');
@@ -23,6 +25,27 @@ const WorkflowCard = ({ type, statuses }: WorkflowCardProps) => {
   };
   const sortedStatuses = statuses.sortBy((status) =>
     getStatusPosition(status?.get('key'))
+  );
+
+  const statusesByGroup = sortedStatuses.reduce(
+    (acc, status) => {
+      const workflowStatus = status.get('key') as WorkflowStatuses;
+
+      const group = WORKFLOW_STATUS_TO_STATUS_GROUP[workflowStatus];
+
+      if (!group) {
+        return acc;
+      }
+
+      if (!acc[group]) {
+        acc[group] = [];
+      }
+
+      acc[group]!.push(status);
+
+      return acc;
+    },
+    {} as Record<string, any>
   );
 
   const getSearchRoute = () => {
@@ -57,30 +80,22 @@ const WorkflowCard = ({ type, statuses }: WorkflowCardProps) => {
       key={workflowTypeKey}
       data-testid={collection.key}
     >
-      {sortedStatuses.map((status) => {
-        const statusKey = status?.get('key');
-        const statusCount = status?.get('doc_count') || 0;
-
-        if (!statusKey) return null;
-
-        const statusKeyText = statusKey.replace(/_/g, ' ');
-
-        return (
-          <Link
-            key={statusKey}
-            to={`${baseUrl}&status=${statusKey}`}
-            className="db no-underline"
-            data-testid={`view-${statusKey}-${collection.key}`}
-          >
-            <div className={`flex justify-between ${statusKey.toLowerCase()}`}>
-              <p className="ttc">
-                {getIcon(statusKey)}
-                {statusKeyText}
-              </p>
-              <span className="b">{statusCount}</span>
-            </div>
-          </Link>
-        );
+      {Object.entries(STATUS_GROUPS_CONFIG).map(([statusGroup, config]) => {
+        const statusesFromGroup = statusesByGroup[statusGroup];
+        if (statusesFromGroup !== undefined && statusesFromGroup.length > 0) {
+          return (
+            <StatusGroup
+              key={`${collection.key}-${statusGroup}`}
+              label={config.label}
+              groupKey={`${collection.key}-${statusGroup}`}
+              groupStatusKey={statusGroup}
+              statuses={statusesFromGroup}
+              baseUrl={baseUrl}
+              isCollapsable={config.isCollapsable}
+            />
+          );
+        }
+        return null;
       })}
     </Card>
   );

@@ -13,7 +13,7 @@ import { Action, ActionCreator } from 'redux';
 import storage from '../../common/storage';
 import { BACKOFFICE_LOGIN, BACKOFFICE_LOGIN_API } from '../../common/routes';
 import { searchQueryUpdate } from '../../actions/search';
-import { WorkflowStatuses, WorkflowTypes } from '../constants';
+import { WorkflowTypes } from '../constants';
 import {
   BACKOFFICE_AUTHORS_SEARCH_NS,
   BACKOFFICE_LITERATURE_SEARCH_NS,
@@ -53,37 +53,6 @@ export const COLLECTIONS = [
     value: WorkflowTypes.HEP_SUBMISSION,
   },
 ];
-
-export const getIcon = (status: string) => {
-  switch (status?.toLowerCase()) {
-    case WorkflowStatuses.APPROVAL:
-      return <HourglassOutlined className="mr2" />;
-    case WorkflowStatuses.ERROR:
-      return <WarningOutlined className="mr2" />;
-    case WorkflowStatuses.COMPLETED:
-      return <CheckOutlined className="mr2" />;
-    case WorkflowStatuses.RUNNING:
-      return <LoadingOutlined className="mr2" />;
-    case WorkflowStatuses.PROCESSING:
-      return <FieldTimeOutlined className="mr2" />;
-    case WorkflowStatuses.BLOCKED:
-      return <StopOutlined className="mr2" />;
-    case WorkflowStatuses.APPROVAL_FUZZY_MATCHING:
-      return <HourglassOutlined className="mr2" />;
-    case WorkflowStatuses.ERROR_MULTIPLE_EXACT_MATCHES:
-      return <WarningOutlined className="mr2" />;
-    case WorkflowStatuses.ERROR_VALIDATION:
-      return <WarningOutlined className="mr2" />;
-    case WorkflowStatuses.APPROVAL_CORE_SELECTION:
-      return <HourglassOutlined className="mr2" />;
-    case WorkflowStatuses.APPROVAL_MERGE:
-      return <HourglassOutlined className="mr2" />;
-    case WorkflowStatuses.MISSING_SUBJECT_FIELDS:
-      return <HourglassOutlined className="mr2" />;
-    default:
-      return null;
-  }
-};
 
 export const refreshToken = async () => {
   try {

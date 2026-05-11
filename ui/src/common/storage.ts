@@ -39,7 +39,7 @@ const storage = {
     return this.getSync(key);
   },
 
-  async set(key: string, value: string | string[] | number) {
+  async set(key: string, value: string | string[] | number | boolean) {
     if (this.isAvailable) {
       localStorage.setItem(key, JSON.stringify(value));
     }
