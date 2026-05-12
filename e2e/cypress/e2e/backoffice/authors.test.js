@@ -1,8 +1,10 @@
+beforeEach(() => {
+  cy.loginAsAdmin();
+  cy.loginToBackoffice();
+});
+
 describe("New authors", () => {
   it("should display new authors and enable access to the all authors list", () => {
-    cy.loginAsAdmin();
-    cy.loginToBackoffice();
-
     cy.assertCollectionIsVisible("new authors");
 
     cy.get('[data-testid="view-all-new authors"]').click();
@@ -10,9 +12,6 @@ describe("New authors", () => {
   });
 
   it("should display new authors and enable access to the running authors list", () => {
-    cy.loginAsAdmin();
-    cy.loginToBackoffice();
-
     cy.assertCollectionIsVisible("new authors");
 
     cy.get('[data-testid="view-running-new authors"]').click();
@@ -22,9 +21,6 @@ describe("New authors", () => {
 
 describe("Update authors", () => {
   it("should display update authors and enable access to the all authors list", () => {
-    cy.loginAsAdmin();
-    cy.loginToBackoffice();
-
     cy.assertCollectionIsVisible("author updates");
 
     cy.get('[data-testid="view-all-author updates"]').click();
@@ -32,9 +28,6 @@ describe("Update authors", () => {
   });
 
   it("should display update authors and enable access to the running authors list", () => {
-    cy.loginAsAdmin();
-    cy.loginToBackoffice();
-
     cy.assertCollectionIsVisible("author updates");
 
     cy.get('[data-testid="view-running-author updates"]').click();
