@@ -21,6 +21,7 @@ import AutomaticDecision from './AutomaticDecision';
 import LiteratureReferenceCount from './LiteratureReferenceCount';
 import LiteratureSearchKeywords from './LiteratureSearchKeywords';
 import StatusInfoWithTooltip from '../../common/components/StatusInfoWithTooltip';
+import ContentBox from '../../../common/components/ContentBox';
 
 const { Paragraph } = Typography;
 
@@ -150,8 +151,6 @@ const WorkflowResultItem = ({
                 </Descriptions.Item>
               )}
             </Descriptions>
-
-            <ToggleableAbstract abstract={abstract} />
           </ResultItem>
         </Col>
         <Col className="col-actions">
@@ -193,6 +192,13 @@ const WorkflowResultItem = ({
             <LiteratureSubjectAreas categories={subjectAreas} />
           </Card>
         </Col>
+      </Row>
+      <Row>
+        <ContentBox className="show-abstract">
+          <div className="ph3">
+            <ToggleableAbstract abstract={abstract} />
+          </div>
+        </ContentBox>
       </Row>
     </div>
   );
