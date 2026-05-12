@@ -1,6 +1,17 @@
 Cypress.Commands.add("loginAsAdmin", () => {
   const email = "admin@inspirehep.net";
   const password = "123456";
+  const backofficeUrl = Cypress.env("backoffice_url");
+
+  cy.intercept("GET", "/config.js", (req) => {
+    req.reply((res) => {
+      res.body = res.body.replace(
+        /BACKOFFICE_URL:\s*'[^']*'/,
+        `BACKOFFICE_URL: '${backofficeUrl}'`,
+      );
+    });
+  });
+
   cy.request({
     url: `${Cypress.env("inspirehep_url")}/api/accounts/login`,
     method: "POST",
@@ -17,18 +28,19 @@ Cypress.Commands.add("loginAsAdmin", () => {
 Cypress.Commands.add("loginToBackoffice", () => {
   const email = "admin@admin.com";
   const password = "admin";
-  cy.request("POST", `${Cypress.env("backoffice_url")}/api/token/`, {
+  const backofficeUrl = Cypress.env("backoffice_url");
+
+  cy.request("POST", `${backofficeUrl}/api/token/`, {
     email,
     password,
   }).then(({ body }) => {
     expect(body.access).to.be.a("string").and.not.be.empty;
     const token = body.access;
 
-    // Test-only auth injection for backoffice API calls triggered by search flow
     cy.intercept(
       {
         method: "GET",
-        url: `${Cypress.env("backoffice_url")}/api/workflows/**`,
+        url: `${backofficeUrl}/api/workflows/**`,
         middleware: true,
       },
       (req) => {
@@ -39,9 +51,6 @@ Cypress.Commands.add("loginToBackoffice", () => {
 
     cy.visit("/backoffice", {
       onBeforeLoad(win) {
-        win.__RUNTIME_CONFIG__ = {
-          BACKOFFICE_URL: Cypress.env("backoffice_url"),
-        };
         win.localStorage.setItem(
           "backoffice.token",
           JSON.stringify(body.access),
