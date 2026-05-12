@@ -194,7 +194,7 @@ const WorkflowResultItem = ({
         </Col>
       </Row>
       <Row>
-        <ContentBox className="show-abstract">
+        <ContentBox className="w-100">
           <div className="ph3">
             <ToggleableAbstract abstract={abstract} />
           </div>
