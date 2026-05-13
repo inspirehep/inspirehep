@@ -195,7 +195,7 @@ const WorkflowResultItem = ({
       </Row>
       <Row>
         <ContentBox className="w-100">
-          <div className="ph3">
+          <div style={{ paddingLeft: '29px', paddingRight: '29px' }}>
             <ToggleableAbstract abstract={abstract} />
           </div>
         </ContentBox>
