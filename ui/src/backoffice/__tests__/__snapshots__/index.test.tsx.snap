@@ -199,6 +199,18 @@ exports[`Backoffice renders initial state 1`] = `
           </span>
         </div>
         <div
+          class="flex w-100 justify-end pt3 content-grid"
+        >
+          <button
+            class="ant-btn ant-btn-default"
+            type="button"
+          >
+            <span>
+              Expand all
+            </span>
+          </button>
+        </div>
+        <div
           class="content-grid"
         >
           <div

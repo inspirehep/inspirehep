@@ -1,47 +1,51 @@
 import { Map } from 'immutable';
-import { useEffect, useState } from 'react';
 import { CaretDownOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
-import storage from '../../../common/storage';
 import './StatusGroup.less';
+import { STATUS_GROUPS_CONFIG, WorkflowStatusGroups } from '../../constants';
 
 interface StatusGroupProps {
-  label: string;
   groupKey: string;
-  groupStatusKey: string;
+  groupStatusKey: WorkflowStatusGroups;
   statuses: Map<string, any>[];
   baseUrl: string;
-  isCollapsable: boolean;
+  isOpen: boolean;
+  onGroupCollapseStateChange: (key: string, isOpen: boolean) => void;
 }
 
 const StatusGroup = ({
-  label,
   groupKey,
   groupStatusKey,
   statuses,
   baseUrl,
-  isCollapsable,
+  isOpen,
+  onGroupCollapseStateChange,
 }: StatusGroupProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(
-    storage.getSync(groupKey) ?? false
-  );
+  const { label, isCollapsable } = STATUS_GROUPS_CONFIG[groupStatusKey];
   const sumOfStatuses = statuses.reduce((accumulator, currentValue) => {
     return accumulator + (currentValue.get('doc_count') || 0);
   }, 0);
 
-  useEffect(() => {
-    storage.set(groupKey, isOpen);
-  }, [groupKey, isOpen]);
+  const handleClick = () => {
+    const newValue = !isOpen;
+    onGroupCollapseStateChange(groupKey, newValue);
+  };
 
   const headerContent = (
     <div className="flex items-center justify-between w-100">
-      <div className="flex items-center fw6" style={{ gap: 10 }}>
+      <div className="flex items-center fw6" style={{ gap: '10px' }}>
         <div className={`br-100 bg-${groupStatusKey}`} />
-        {label}{' '}
-        {isCollapsable && <CaretDownOutlined rotate={isOpen ? 0 : -90} />}
+        {label}
       </div>
-      <div className="b">{sumOfStatuses}</div>
+      <div className="b flex items-center" style={{ gap: '8px' }}>
+        {sumOfStatuses}{' '}
+        {isCollapsable ? (
+          <CaretDownOutlined rotate={isOpen ? 0 : -90} />
+        ) : (
+          <span aria-hidden="true" style={{ width: '14px' }} />
+        )}
+      </div>
     </div>
   );
 
@@ -50,7 +54,7 @@ const StatusGroup = ({
       {isCollapsable ? (
         <Button
           type="text"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={handleClick}
           block
           data-testid={`collapse-button-${groupKey}`}
         >
@@ -81,10 +85,7 @@ const StatusGroup = ({
               className="no-underline"
               data-testid={`view-${groupKey}-${statusKey}`}
             >
-              <div
-                className="flex justify-between status-link"
-                style={{ paddingLeft: 34 }}
-              >
+              <div className="flex justify-between status-link ">
                 <p className="ttc" style={{ marginBottom: 0 }}>
                   {statusKeyText}
                 </p>

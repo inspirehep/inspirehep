@@ -2,6 +2,7 @@ import { push, goBack } from 'connected-react-router';
 import { Action, ActionCreator } from 'redux';
 import { RootStateOrAny } from 'react-redux';
 
+import { Map } from 'immutable';
 import { HttpClientWrapper } from '../common/http';
 import {
   USER_LOGIN_ERROR,
@@ -157,7 +158,10 @@ export function userInactive(): (
   };
 }
 
-export function setPreference(name: string, value: string) {
+export function setPreference(
+  name: string,
+  value: string | Map<string, boolean>
+) {
   return {
     type: USER_SET_PREFERENCE,
     payload: { name, value },

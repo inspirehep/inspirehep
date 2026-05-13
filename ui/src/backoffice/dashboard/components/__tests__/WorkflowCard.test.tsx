@@ -3,7 +3,6 @@ import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { List, Map } from 'immutable';
 
-import userEvent from '@testing-library/user-event';
 import { renderWithRouter } from '../../../../fixtures/render';
 import { WorkflowStatuses, WorkflowTypes } from '../../../constants';
 import {
@@ -12,10 +11,20 @@ import {
 } from '../../../../common/routes';
 import WorkflowCard from '../WorkflowCard';
 
-beforeEach(() => {
-  window.localStorage.clear();
-  window.sessionStorage.clear();
-});
+const renderWorkflowCard = (
+  type: Map<string, any>,
+  statuses: List<Map<string, any>>,
+  collapseMap: Map<string, boolean> = Map()
+) => {
+  renderWithRouter(
+    <WorkflowCard
+      type={type}
+      statuses={statuses}
+      collapseMap={collapseMap}
+      onGroupCollapseStateChange={() => {}}
+    />
+  );
+};
 
 describe('<WorkflowCard />', () => {
   it('renders literature workflow card with links', async () => {
@@ -24,9 +33,12 @@ describe('<WorkflowCard />', () => {
       doc_count: 5,
     });
     const statuses = List([Map({ key: WorkflowStatuses.ERROR, doc_count: 2 })]);
-    const user = userEvent.setup();
 
-    renderWithRouter(<WorkflowCard type={type} statuses={statuses} />);
+    renderWorkflowCard(
+      type,
+      statuses,
+      Map({ 'new arxiv harvests-failed': true })
+    );
 
     expect(screen.getByText('new arxiv harvests')).toBeInTheDocument();
     expect(screen.getByText('5')).toBeInTheDocument();
@@ -36,8 +48,6 @@ describe('<WorkflowCard />', () => {
       'href',
       `${BACKOFFICE_LITERATURE_SEARCH}?workflow_type=${WorkflowTypes.HEP_CREATE}`
     );
-
-    await user.click(screen.getByText('Failed'));
 
     const statusLink = screen.getByText('error').closest('a');
     expect(statusLink).toHaveAttribute(
@@ -55,7 +65,7 @@ describe('<WorkflowCard />', () => {
       Map({ key: WorkflowStatuses.APPROVAL, doc_count: 1 }),
     ]);
 
-    renderWithRouter(<WorkflowCard type={type} statuses={statuses} />);
+    renderWorkflowCard(type, statuses);
 
     const viewAll = screen.getByRole('link', { name: /view all/i });
     expect(viewAll).toHaveAttribute(
@@ -73,7 +83,7 @@ describe('<WorkflowCard />', () => {
       Map({ key: WorkflowStatuses.APPROVAL, doc_count: 1 }),
     ]);
 
-    renderWithRouter(<WorkflowCard type={type} statuses={statuses} />);
+    renderWorkflowCard(type, statuses);
 
     expect(screen.getByText('new publisher harvests')).toBeInTheDocument();
 
@@ -93,7 +103,7 @@ describe('<WorkflowCard />', () => {
       Map({ key: WorkflowStatuses.RUNNING, doc_count: 1 }),
     ]);
 
-    renderWithRouter(<WorkflowCard type={type} statuses={statuses} />);
+    renderWorkflowCard(type, statuses);
 
     expect(screen.getByText('publisher updates')).toBeInTheDocument();
 
@@ -115,13 +125,16 @@ describe('<WorkflowCard />', () => {
       Map({ key: WorkflowStatuses.ERROR, doc_count: 1 }),
       Map({ key: WorkflowStatuses.APPROVAL, doc_count: 1 }),
     ]);
-    const user = userEvent.setup();
 
-    renderWithRouter(<WorkflowCard type={type} statuses={statuses} />);
-
-    await user.click(screen.getByRole('button', { name: /Needs review/ }));
-    await user.click(screen.getByRole('button', { name: /Failed/ }));
-    await user.click(screen.getByRole('button', { name: /In progress/ }));
+    renderWorkflowCard(
+      type,
+      statuses,
+      Map({
+        'new arxiv harvests-needs_review': true,
+        'new arxiv harvests-failed': true,
+        'new arxiv harvests-in_progress': true,
+      })
+    );
 
     expect(
       screen
