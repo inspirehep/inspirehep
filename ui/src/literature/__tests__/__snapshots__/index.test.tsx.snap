@@ -146,7 +146,9 @@ exports[`Literature navigates to SearchPageContainer when /literature 1`] = `
                 class="ant-col ant-col-xs-24 ant-col-lg-12"
               >
                 <span>
-                  <span>
+                  <span
+                    data-testid="number-of-results"
+                  >
                     0 results
                   </span>
                 </span>

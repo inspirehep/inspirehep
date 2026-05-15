@@ -7533,5 +7533,117 @@
       "_created_at": "2024-11-25T13:49:53.009Z",
       "_updated_at": "2024-11-25T13:49:54.756Z"
     }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "aaaa0001-0000-0000-0000-000000000000",
+    "fields": {
+      "workflow_type": "HEP_PUBLISHER_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "The publisher harvest approval fixture test",
+            "source": "Elsevier"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "acquisition_source": {
+          "method": "hepcrawl",
+          "source": "Elsevier",
+          "datetime": "2024-11-18T11:34:19.809575",
+          "submission_number": "scheduled__2024-11-18T11:34:19.809575"
+        }
+      },
+      "status": "approval",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "aaaa0002-0000-0000-0000-000000000000",
+    "fields": {
+      "workflow_type": "HEP_PUBLISHER_UPDATE",
+      "data": {
+        "titles": [
+          {
+            "title": "The publisher update approval fixture test",
+            "source": "Elsevier"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "control_number": 1234569,
+        "acquisition_source": {
+          "method": "hepcrawl",
+          "source": "Elsevier",
+          "datetime": "2024-11-18T11:34:19.809575",
+          "submission_number": "scheduled__2024-11-18T11:34:19.809575"
+        }
+      },
+      "status": "approval",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "aaaa0003-0000-0000-0000-000000000000",
+    "fields": {
+      "workflow_type": "HEP_UPDATE",
+      "data": {
+        "titles": [
+          {
+            "title": "The arxiv update approval fixture test",
+            "source": "arXiv"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "control_number": 1234570,
+        "acquisition_source": {
+          "method": "hepcrawl",
+          "source": "arXiv",
+          "datetime": "2024-11-18T11:34:19.809575",
+          "submission_number": "scheduled__2024-11-18T11:34:19.809575"
+        }
+      },
+      "status": "approval",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "aaaa0004-0000-0000-0000-000000000000",
+    "fields": {
+      "workflow_type": "HEP_SUBMISSION",
+      "data": {
+        "titles": [
+          {
+            "title": "The literature submission approval fixture test",
+            "source": "submitter"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "acquisition_source": {
+          "email": "user@cern.ch",
+          "orcid": "0000-0000-0000-0000",
+          "method": "submitter",
+          "source": "submitter",
+          "datetime": "2024-11-18T11:34:19.809575",
+          "internal_uid": 50872
+        }
+      },
+      "status": "approval",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
   }
 ]
