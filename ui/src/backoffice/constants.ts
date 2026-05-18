@@ -1,5 +1,3 @@
-import { List, Map } from 'immutable';
-
 import { AUTHORS_PID_TYPE, LITERATURE_PID_TYPE } from '../common/constants';
 
 export enum WorkflowTypes {
@@ -124,7 +122,8 @@ export interface WorkflowType {
   doc_count: number;
 }
 
-export interface WorkflowCardProps {
-  type: Map<string, any>;
-  statuses: List<Map<string, any>>;
+export enum CollapseState {
+  ALL_COLLAPSED = 'allCollapsed',
+  ALL_EXPANDED = 'allExpanded',
+  MIXED = 'mixed',
 }

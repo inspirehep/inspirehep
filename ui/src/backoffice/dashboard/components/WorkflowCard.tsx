@@ -1,21 +1,34 @@
 import { Card } from 'antd';
 import { Link } from 'react-router-dom';
 
+import { List, Map } from 'immutable';
 import { COLLECTIONS } from '../../utils/utils';
 import {
   BACKOFFICE_AUTHORS_SEARCH,
   BACKOFFICE_LITERATURE_SEARCH,
 } from '../../../common/routes';
 import {
-  WorkflowCardProps,
   WorkflowStatuses,
+  WorkflowStatusGroups,
   WORKFLOW_STATUS_ORDER,
   WORKFLOW_STATUS_TO_STATUS_GROUP,
   STATUS_GROUPS_CONFIG,
 } from '../../constants';
 import StatusGroup from './StatusGroup';
 
-const WorkflowCard = ({ type, statuses }: WorkflowCardProps) => {
+interface WorkflowCardProps {
+  type: Map<string, any>;
+  statuses: List<Map<string, any>>;
+  collapseMap: Map<string, boolean>;
+  onGroupCollapseStateChange: (key: string, isOpen: boolean) => void;
+}
+
+const WorkflowCard = ({
+  type,
+  statuses,
+  collapseMap,
+  onGroupCollapseStateChange,
+}: WorkflowCardProps) => {
   const workflowTypeKey = type?.get('key');
   const docCount = type?.get('doc_count') || 0;
   const collection = COLLECTIONS.find((col) => col?.value === workflowTypeKey);
@@ -79,19 +92,21 @@ const WorkflowCard = ({ type, statuses }: WorkflowCardProps) => {
       className={collection.key.toLowerCase().replace(/ /g, '-')}
       key={workflowTypeKey}
       data-testid={collection.key}
+      bodyStyle={{ paddingRight: '10px', paddingLeft: '10px' }}
     >
-      {Object.entries(STATUS_GROUPS_CONFIG).map(([statusGroup, config]) => {
+      {Object.keys(STATUS_GROUPS_CONFIG).map((statusGroup) => {
         const statusesFromGroup = statusesByGroup[statusGroup];
         if (statusesFromGroup !== undefined && statusesFromGroup.length > 0) {
+          const groupKey = `${collection.key}-${statusGroup}`;
           return (
             <StatusGroup
-              key={`${collection.key}-${statusGroup}`}
-              label={config.label}
-              groupKey={`${collection.key}-${statusGroup}`}
-              groupStatusKey={statusGroup}
+              key={groupKey}
+              groupKey={groupKey}
+              groupStatusKey={statusGroup as WorkflowStatusGroups}
               statuses={statusesFromGroup}
               baseUrl={baseUrl}
-              isCollapsable={config.isCollapsable}
+              isOpen={collapseMap.get(groupKey) ?? false}
+              onGroupCollapseStateChange={onGroupCollapseStateChange}
             />
           );
         }

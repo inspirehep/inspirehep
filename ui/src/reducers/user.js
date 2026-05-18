@@ -18,6 +18,8 @@ export const CITE_FORMAT_PREFERENCE = 'preferredCiteFormat@V2';
 export const CITATION_SUMMARY_ENABLING_PREFERENCE =
   'preferredCitationSummaryEnabling';
 export const EXCLUDE_SELF_CITATIONS_PREFERENCE = 'excludeSelfCitations';
+export const BACKOFFICE_STATUS_GROUPS_COLLAPSE_PREFERENCE =
+  'backofficeStatusGroupsCollapse';
 
 export const initialState = fromJS({
   loggedIn: false,
@@ -29,6 +31,7 @@ export const initialState = fromJS({
     [CITE_FORMAT_PREFERENCE]: CITE_FORMAT_VALUES[0],
     [CITATION_SUMMARY_ENABLING_PREFERENCE]: false,
     [EXCLUDE_SELF_CITATIONS_PREFERENCE]: false,
+    [BACKOFFICE_STATUS_GROUPS_COLLAPSE_PREFERENCE]: {},
   },
   data: {
     roles: [],

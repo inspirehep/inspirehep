@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Input, Select, Row, Col } from 'antd';
 import { Action, ActionCreator } from 'redux';
 import { connect, RootStateOrAny } from 'react-redux';
@@ -8,7 +8,7 @@ import './DashboardPageContainer.less';
 import { isUserLoggedInToBackoffice } from '../../../actions/backoffice';
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
-import { handleSearch } from '../../utils/utils';
+import { handleSearch, COLLECTIONS } from '../../utils/utils';
 import Breadcrumbs from '../../common/components/Breadcrumbs/Breadcrumbs';
 import DocumentHead from '../../../common/components/DocumentHead';
 import {
@@ -17,13 +17,26 @@ import {
 } from '../../../search/constants';
 import { getConfigFor } from '../../../common/config';
 import WorkflowCard from '../components/WorkflowCard';
-import { WORKFLOW_TYPE_ORDER, WorkflowTypes } from '../../constants';
+import {
+  CollapseState,
+  STATUS_GROUPS_CONFIG,
+  WORKFLOW_STATUS_TO_STATUS_GROUP,
+  WORKFLOW_TYPE_ORDER,
+  WorkflowStatuses,
+  WorkflowTypes,
+} from '../../constants';
+import CollapseAllButton from '../components/CollapseAllButton';
+import { setPreference } from '../../../actions/user';
+import { BACKOFFICE_STATUS_GROUPS_COLLAPSE_PREFERENCE } from '../../../reducers/user';
+
+const EMPTY_MAP = Map();
 
 interface DashboardPageContainerProps {
   dispatch: ActionCreator<Action>;
   authors: Map<string, any>;
   literature: Map<string, any>;
   loading: boolean;
+  collapsePreferences: Map<string, boolean>;
 }
 
 const META_DESCRIPTION =
@@ -38,6 +51,7 @@ const DashboardPageContainer = ({
   authors,
   literature,
   loading,
+  collapsePreferences,
 }: DashboardPageContainerProps) => {
   const [searchNamespace, setSearchNamespace] = useState<
     typeof BACKOFFICE_AUTHORS_SEARCH_NS | typeof BACKOFFICE_LITERATURE_SEARCH_NS
@@ -77,6 +91,76 @@ const DashboardPageContainer = ({
       ) as List<Map<string, any>>;
   }, [authors, literature]);
 
+  const activeCollapsableGroupKeys = useMemo(
+    () =>
+      workflowTypes.toArray().flatMap((type: Map<string, any>) => {
+        const collection = COLLECTIONS.find(
+          (col) => col.value === type.get('key')
+        );
+        if (!collection) return [];
+
+        const statuses =
+          (type.getIn(['status', 'buckets']) as List<Map<string, any>>) ||
+          List();
+
+        const collapsableGroups = [
+          ...new Set(
+            statuses
+              .toArray()
+              .map(
+                (status) =>
+                  WORKFLOW_STATUS_TO_STATUS_GROUP[
+                    status.get('key') as WorkflowStatuses
+                  ]
+              )
+              .filter(
+                (group) => group && STATUS_GROUPS_CONFIG[group]?.isCollapsable
+              )
+          ),
+        ];
+
+        return collapsableGroups.map((group) => `${collection.key}-${group}`);
+      }),
+    [workflowTypes]
+  );
+
+  const statusGroupsState = useMemo(() => {
+    const hasAnyOpen = activeCollapsableGroupKeys.some(
+      (key) => collapsePreferences.get(key) === true
+    );
+    const hasAnyClosed = activeCollapsableGroupKeys.some(
+      (key) => collapsePreferences.get(key) !== true
+    );
+    if (!hasAnyOpen) return CollapseState.ALL_COLLAPSED;
+    if (!hasAnyClosed) return CollapseState.ALL_EXPANDED;
+    return CollapseState.MIXED;
+  }, [activeCollapsableGroupKeys, collapsePreferences]);
+
+  const setGroupCollapseState = (key: string, isOpen: boolean) => {
+    dispatch(
+      setPreference(
+        BACKOFFICE_STATUS_GROUPS_COLLAPSE_PREFERENCE,
+        collapsePreferences.set(key, isOpen)
+      )
+    );
+  };
+
+  const handleCollapseAll = useCallback(
+    (isExpanding: boolean) => {
+      const updatedPrefs = activeCollapsableGroupKeys.reduce(
+        (map, key) => map.set(key, isExpanding),
+        collapsePreferences
+      );
+      dispatch(
+        setPreference(
+          BACKOFFICE_STATUS_GROUPS_COLLAPSE_PREFERENCE,
+          updatedPrefs
+        )
+      );
+    },
+    [dispatch, collapsePreferences, activeCollapsableGroupKeys]
+  );
+
   return (
     <div
       className="__DashboardPageContainer__"
@@ -103,6 +187,12 @@ const DashboardPageContainer = ({
             onSearch={(value) => handleSearch(dispatch, value, searchNamespace)}
           />
         </div>
+        <div className="flex w-100 justify-end pt3 content-grid">
+          <CollapseAllButton
+            collapseState={statusGroupsState}
+            onCollapseAll={handleCollapseAll}
+          />
+        </div>
         <LoadingOrChildren loading={loading}>
           <EmptyOrChildren data={authors || literature} title="0 Results">
             <div className="content-grid">
@@ -126,6 +216,8 @@ const DashboardPageContainer = ({
                           Map<string, any>
                         >) || List()
                       }
+                      collapseMap={collapsePreferences}
+                      onGroupCollapseStateChange={setGroupCollapseState}
                     />
                   </Col>
                 ))}
@@ -142,6 +234,10 @@ const mapStateToProps = (state: RootStateOrAny) => ({
   authors: state.backoffice.getIn(['dashboard', 'facets', 'authors']),
   literature: state.backoffice.getIn(['dashboard', 'facets', 'literature']),
   loading: state.backoffice.getIn(['dashboard', 'loading']),
+  collapsePreferences: state.user.getIn(
+    ['preferences', BACKOFFICE_STATUS_GROUPS_COLLAPSE_PREFERENCE],
+    EMPTY_MAP
+  ),
 });
 
 export default connect(mapStateToProps)(DashboardPageContainer);

@@ -1,11 +1,19 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import { fromJS } from 'immutable';
+import userEvent from '@testing-library/user-event';
+import { fromJS, Map } from 'immutable';
 
 import { getStore } from '../../../../fixtures/store';
+import {
+  initialState as userInitialState,
+  BACKOFFICE_STATUS_GROUPS_COLLAPSE_PREFERENCE,
+} from '../../../../reducers/user';
 import DashboardPageContainer from '../DashboardPageContainer';
 import { BACKOFFICE } from '../../../../common/routes';
-import { BACKOFFICE_LOGIN_CHECK } from '../../../../actions/actionTypes';
+import {
+  BACKOFFICE_LOGIN_CHECK,
+  USER_SET_PREFERENCE,
+} from '../../../../actions/actionTypes';
 import { WorkflowStatuses, WorkflowTypes } from '../../../constants';
 import { renderWithProviders } from '../../../../fixtures/render';
 
@@ -170,5 +178,108 @@ describe('DashboardPageContainer', () => {
     renderComponent();
 
     expect(screen.getByText('Loading ...')).toBeInTheDocument();
+  });
+
+  describe('CollapseButton', () => {
+    const GROUP_KEY = 'new authors-failed';
+
+    const getCollapseBackofficeState = () =>
+      fromJS({
+        dashboard: {
+          loading: false,
+          facets: {
+            authors: {
+              _filter_workflow_type: {
+                workflow_type: {
+                  buckets: [
+                    {
+                      key: WorkflowTypes.AUTHOR_CREATE,
+                      doc_count: 3,
+                      status: {
+                        buckets: [
+                          { key: WorkflowStatuses.ERROR, doc_count: 3 },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        },
+      });
+
+    const getCollapseStore = (
+      initialCollapseMap: Record<string, boolean> = {}
+    ) =>
+      getStore({
+        backoffice: getCollapseBackofficeState(),
+        user: (userInitialState as Map<string, any>).setIn(
+          ['preferences', BACKOFFICE_STATUS_GROUPS_COLLAPSE_PREFERENCE],
+          fromJS(initialCollapseMap)
+        ),
+      });
+
+    const renderCollapseComponent = (
+      initialCollapseMap: Record<string, boolean> = {}
+    ) =>
+      renderWithProviders(<DashboardPageContainer />, {
+        store: getCollapseStore(initialCollapseMap),
+        route: BACKOFFICE,
+      });
+
+    it('should dispatch setPreference to collapse all groups on Collapse All click', async () => {
+      const user = userEvent.setup();
+
+      const { store: collapseStore } = renderCollapseComponent({
+        [GROUP_KEY]: true,
+      });
+
+      await user.click(
+        await screen.findByRole('button', { name: 'Collapse all' })
+      );
+
+      const prefAction = collapseStore
+        .getActions()
+        .find((a: any) => a.type === USER_SET_PREFERENCE);
+      expect(prefAction?.payload.name).toBe(
+        BACKOFFICE_STATUS_GROUPS_COLLAPSE_PREFERENCE
+      );
+      expect(prefAction?.payload.value.toJS()).toEqual({ [GROUP_KEY]: false });
+    });
+
+    it('should dispatch setPreference to expand all groups on Expand All click', async () => {
+      const user = userEvent.setup();
+
+      const { store: collapseStore } = renderCollapseComponent();
+
+      await user.click(
+        await screen.findByRole('button', { name: 'Expand all' })
+      );
+
+      const prefAction = collapseStore
+        .getActions()
+        .find((a: any) => a.type === USER_SET_PREFERENCE);
+      expect(prefAction?.payload.name).toBe(
+        BACKOFFICE_STATUS_GROUPS_COLLAPSE_PREFERENCE
+      );
+      expect(prefAction?.payload.value.toJS()).toEqual({ [GROUP_KEY]: true });
+    });
+
+    it('should dispatch setPreference when individual group collapse button is clicked', async () => {
+      const user = userEvent.setup();
+
+      const { store: collapseStore } = renderCollapseComponent();
+
+      await user.click(screen.getByTestId(`collapse-button-${GROUP_KEY}`));
+
+      const prefAction = collapseStore
+        .getActions()
+        .find((a: any) => a.type === USER_SET_PREFERENCE);
+      expect(prefAction?.payload.name).toBe(
+        BACKOFFICE_STATUS_GROUPS_COLLAPSE_PREFERENCE
+      );
+      expect(prefAction?.payload.value.toJS()).toEqual({ [GROUP_KEY]: true });
+    });
   });
 });
