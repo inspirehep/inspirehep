@@ -127,11 +127,11 @@ $ brew install postgresql@14 libmagic openssl@3 openblas python
 
 Please follow the instructions https://github.com/nvm-sh/nvm#installing-and-updating
 
-We're using `v20.0.0` (first version we install is the default)
+We're using `v24.15.0` (first version we install is the default)
 
 ```
-$ nvm install 20.0.0
-$ nvm use global 20.0.0
+$ nvm install 24.15.0
+$ nvm use global 24.15.0
 ```
 
 **Yarn**
