@@ -10,6 +10,7 @@ import { WorkflowDecisions } from '../../../common/constants';
 import { hasPublicationInfo } from '../../utils/utils';
 import ToggleableAbstract from './ToggleableAbstract';
 import LiteratureDocumentTypes from './LiteratureDocumentTypes';
+import './LiteratureMatches.less';
 
 const { Text, Paragraph } = Typography;
 
@@ -37,6 +38,7 @@ const LiteratureMatchItem = ({ match, selectedBestMatch, onSelect }) => {
       size="small"
       style={{ marginBottom: 12 }}
       bodyStyle={{ paddingTop: 8 }}
+      className="literature-match-item"
       title={
         <div>
           {documentTypes.size > 0 && (
