@@ -257,7 +257,9 @@ exports[`SearchPageContainer renders the SearchPage component 1`] = `
                 class="ant-col"
                 style="width: 55%;"
               >
-                <span>
+                <span
+                  data-testid="number-of-results"
+                >
                   0 results
                 </span>
               </div>

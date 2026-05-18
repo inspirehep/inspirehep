@@ -3,7 +3,9 @@
 exports[`NumberOfResultsWithSelectedItemsNumber renders correctly with default props 1`] = `
 <DocumentFragment>
   <span>
-    <span>
+    <span
+      data-testid="number-of-results"
+    >
        results
     </span>
   </span>
@@ -14,7 +16,9 @@ exports[`NumberOfResultsWithSelectedItemsNumber renders correctly with numberOfS
 <DocumentFragment>
   <span>
     5 of 
-    <span>
+    <span
+      data-testid="number-of-results"
+    >
        results
     </span>
   </span>
@@ -24,7 +28,9 @@ exports[`NumberOfResultsWithSelectedItemsNumber renders correctly with numberOfS
 exports[`NumberOfResultsWithSelectedItemsNumber renders correctly with numberOfSelected as 0 1`] = `
 <DocumentFragment>
   <span>
-    <span>
+    <span
+      data-testid="number-of-results"
+    >
        results
     </span>
   </span>

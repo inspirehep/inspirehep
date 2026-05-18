@@ -5,10 +5,15 @@ Cypress.Commands.add("loginAsAdmin", () => {
 
   cy.intercept("GET", "/config.js", (req) => {
     req.reply((res) => {
-      res.body = res.body.replace(
-        /BACKOFFICE_URL:\s*'[^']*'/,
-        `BACKOFFICE_URL: '${backofficeUrl}'`,
-      );
+      res.body = res.body
+        .replace(
+          /BACKOFFICE_URL:\s*'[^']*'/,
+          `BACKOFFICE_URL: '${backofficeUrl}'`,
+        )
+        .replace(
+          /BACKOFFICE_LITERATURE_FEATURE_FLAG:\s*\w+/,
+          "BACKOFFICE_LITERATURE_FEATURE_FLAG: true",
+        );
     });
   });
 
@@ -69,8 +74,8 @@ Cypress.Commands.add(
   (numberOfResults) => {
     cy.waitForLoading();
     cy.get('[data-testid="backoffice-search-page"]').should("be.visible");
-    cy.get('[data-testid="result-from-search"]').should(
-      "have.length",
+    cy.get('[data-testid="number-of-results"]').should(
+      "have.text",
       numberOfResults,
     );
   },

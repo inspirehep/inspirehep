@@ -113,7 +113,9 @@ exports[`AssignDrawer renders assign authors search 1`] = `
                   </span>
                 </span>
               </span>
-              <span>
+              <span
+                data-testid="number-of-results"
+              >
                 0
                  
                 results

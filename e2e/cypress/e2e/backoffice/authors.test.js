@@ -8,7 +8,7 @@ describe("New authors", () => {
     cy.assertCollectionIsVisible("new authors");
 
     cy.get('[data-testid="view-all-new authors"]').click();
-    cy.assertSearchPageIsLoadedWithResults(3);
+    cy.assertSearchPageIsLoadedWithResults("3 results");
   });
 
   it("should display new authors and enable access to the running authors list", () => {
@@ -16,7 +16,7 @@ describe("New authors", () => {
 
     cy.get('[data-testid="collapse-button-new authors-in_progress"]').click();
     cy.get('[data-testid="view-new authors-in_progress-running"]').click();
-    cy.assertSearchPageIsLoadedWithResults(2);
+    cy.assertSearchPageIsLoadedWithResults("2 results");
   });
 });
 
@@ -25,7 +25,7 @@ describe("Update authors", () => {
     cy.assertCollectionIsVisible("author updates");
 
     cy.get('[data-testid="view-all-author updates"]').click();
-    cy.assertSearchPageIsLoadedWithResults(2);
+    cy.assertSearchPageIsLoadedWithResults("2 results");
   });
 
   it("should display update authors and enable access to the running authors list", () => {
@@ -35,6 +35,6 @@ describe("Update authors", () => {
       '[data-testid="collapse-button-author updates-in_progress"]',
     ).click();
     cy.get('[data-testid="view-author updates-in_progress-running"]').click();
-    cy.assertSearchPageIsLoadedWithResults(1);
+    cy.assertSearchPageIsLoadedWithResults("1 result");
   });
 });
