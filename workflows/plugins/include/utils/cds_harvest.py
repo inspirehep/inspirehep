@@ -19,7 +19,7 @@ def build_records(xml_records, submission_number):
             parsed_record["acquisition_source"] = {
                 "source": "CDS",
                 "method": "hepcrawl",
-                "datetime": datetime.datetime.now().isoformat(),
+                "datetime": datetime.datetime.now(datetime.UTC).isoformat(),
                 "submission_number": submission_number,
             }
             parsed_records.append(parsed_record)

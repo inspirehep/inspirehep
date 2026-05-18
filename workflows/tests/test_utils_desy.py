@@ -6,7 +6,7 @@ from include.utils import desy
 
 class FixedDatetime:
     @classmethod
-    def now(cls):
+    def now(cls, _tz=None):
         return cls()
 
     def isoformat(self):

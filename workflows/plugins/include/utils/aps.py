@@ -62,7 +62,7 @@ def build_record(doi, xml_text, xml_url, submission_number):
     record["acquisition_source"] = {
         "source": "APS",
         "method": "hepcrawl",
-        "datetime": datetime.datetime.now().isoformat(),
+        "datetime": datetime.datetime.now(datetime.UTC).isoformat(),
         "submission_number": submission_number,
     }
     return record
