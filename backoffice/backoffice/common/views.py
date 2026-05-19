@@ -71,7 +71,9 @@ class BaseWorkflowViewSet(viewsets.ModelViewSet):
         return self.queryset
 
     def partial_update(self, request, pk=None):
-        logger.info("Updating workflow %s with data: %s", pk, request.data)
+        logger.info(
+            "Updating workflow %s with data fields: %s", pk, request.data.keys()
+        )
         workflow_instance = get_object_or_404(self.queryset, pk=pk)
         serializer = self.get_serializer(
             workflow_instance, data=request.data, partial=True

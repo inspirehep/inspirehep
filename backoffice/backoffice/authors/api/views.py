@@ -212,8 +212,6 @@ class AuthorWorkflowViewSet(BaseWorkflowViewSet):
         super().perform_destroy(instance)
 
     def create(self, request):
-        logger.info("Creating workflow with data: %s", request.data)
-
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         logger.info("Data passed schema validation, creating workflow.")

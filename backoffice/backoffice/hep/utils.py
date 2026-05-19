@@ -72,7 +72,6 @@ def resolve_workflow(id, data, user):
         data["action"],
         data.get("value"),
     )
-    logger.info("Decision has been added to the workflow %s", id)
     workflow = get_object_or_404(HepWorkflow, pk=id)
     task_to_restart = HepResolutions[data["action"]].label
     if task_to_restart:
@@ -81,14 +80,8 @@ def resolve_workflow(id, data, user):
             id,
             tasks=[task_to_restart],
         )
-        logger.info(
-            "Airflow response status code when clearing tasks of workflow %s: %s",
-            id,
-            status,
-        )
     workflow.status = HepStatusChoices.RUNNING
     workflow.save()
-    logger.info("Workflow %s has been set to running status", id)
     return workflow
 
 
