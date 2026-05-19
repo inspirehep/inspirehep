@@ -19,6 +19,8 @@ const LiteratureDecisionBox = ({
   isFullCoverage,
   shouldShowSubmissionModal = false,
   submissionContext = undefined,
+  hasInspireCategories = true,
+  disableActions = false,
 }) => (
   <div className="literature-decision-box">
     <AutomaticDecision relevancePrediction={relevancePrediction} />
@@ -30,6 +32,8 @@ const LiteratureDecisionBox = ({
         isFullCoverage={isFullCoverage}
         shouldShowSubmissionModal={shouldShowSubmissionModal}
         submissionContext={submissionContext}
+        hasInspireCategories={hasInspireCategories}
+        disableActions={disableActions}
       />
     </div>
     <LiteratureDecisionDetails

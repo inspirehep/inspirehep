@@ -34,6 +34,9 @@ import {
   BACKOFFICE_LITERATURE_REQUEST,
   BACKOFFICE_LITERATURE_SUCCESS,
   BACKOFFICE_LITERATURE_ERROR,
+  BACKOFFICE_UPDATE_LITERATURE_REQUEST,
+  BACKOFFICE_UPDATE_LITERATURE_SUCCESS,
+  BACKOFFICE_UPDATE_LITERATURE_ERROR,
 } from '../actions/actionTypes';
 
 export const initialState = fromJS({
@@ -104,6 +107,12 @@ const BackofficeReducer = (state = initialState, action) => {
       return state.set('query', fromJS(action.payload));
     case BACKOFFICE_SEARCH_QUERY_RESET:
       return state.set('query', fromJS({ page: 1, size: 10 }));
+    case BACKOFFICE_UPDATE_LITERATURE_REQUEST:
+      return state.set('actionInProgress', fromJS(action.payload));
+    case BACKOFFICE_UPDATE_LITERATURE_SUCCESS:
+      return state.set('actionInProgress', null);
+    case BACKOFFICE_UPDATE_LITERATURE_ERROR:
+      return state.set('actionInProgress', null);
     case BACKOFFICE_RESOLVE_ACTION_REQUEST:
       return state.set('actionInProgress', fromJS(action.payload));
     case BACKOFFICE_RESOLVE_ACTION_SUCCESS:

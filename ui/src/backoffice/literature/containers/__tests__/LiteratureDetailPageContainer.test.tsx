@@ -1,6 +1,6 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { screen, within } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import LiteratureDetailPageContainer from '../LiteratureDetailPageContainer';
@@ -8,6 +8,11 @@ import { getStore } from '../../../../fixtures/store';
 import { renderWithProviders } from '../../../../fixtures/render';
 import { BACKOFFICE } from '../../../../common/routes';
 import { WorkflowStatuses } from '../../../constants';
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: () => ({ id: 'test-workflow-id' }),
+}));
 
 describe('LiteratureDetailPageContainer', () => {
   const renderComponent = (status = WorkflowStatuses.APPROVAL) => {

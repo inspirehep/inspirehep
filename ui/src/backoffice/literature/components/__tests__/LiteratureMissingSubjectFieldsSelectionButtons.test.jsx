@@ -12,6 +12,8 @@ describe('<LiteratureMissingSubjectFieldsSelectionButtons />', () => {
     render(
       <LiteratureMissingSubjectFieldsSelectionButtons
         handleResolveAction={handleResolveAction}
+        disableActions={false}
+        hasInspireCategories={false}
       />
     );
 
@@ -27,4 +29,29 @@ describe('<LiteratureMissingSubjectFieldsSelectionButtons />', () => {
       WorkflowDecisions.HEP_REJECT
     );
   });
+
+  it.each([
+    ['Core', WorkflowDecisions.HEP_ACCEPT_CORE],
+    ['Accept', WorkflowDecisions.HEP_ACCEPT],
+  ])(
+    'shows %s when inspire categories has been filled',
+    async (buttonName, decision) => {
+      const handleResolveAction = jest.fn();
+      const user = userEvent.setup();
+      render(
+        <LiteratureMissingSubjectFieldsSelectionButtons
+          handleResolveAction={handleResolveAction}
+          disableActions={false}
+          hasInspireCategories
+        />
+      );
+
+      expect(
+        screen.getByRole('button', { name: 'Reject' })
+      ).toBeInTheDocument();
+
+      await user.click(screen.getByRole('button', { name: buttonName }));
+      expect(handleResolveAction).toHaveBeenCalledWith(decision);
+    }
+  );
 });

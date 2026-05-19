@@ -13,6 +13,8 @@ const LiteratureActionButtons = ({
   isSubmitted = false,
   shouldShowSubmissionModal = false,
   submissionContext = undefined,
+  hasInspireCategories = true,
+  disableActions = false,
 }) => {
   const [hasSubmittedDecision, setHasSubmittedDecision] = useState(false);
 
@@ -35,6 +37,7 @@ const LiteratureActionButtons = ({
       return (
         <LiteratureCoreSelectionButtons
           handleResolveAction={handleResolveAndHide}
+          disableActions={disableActions}
         />
       );
 
@@ -45,6 +48,7 @@ const LiteratureActionButtons = ({
           isFullCoverage={isFullCoverage}
           shouldShowSubmissionModal={shouldShowSubmissionModal}
           submissionContext={submissionContext}
+          disableActions={disableActions}
         />
       );
 
@@ -52,10 +56,17 @@ const LiteratureActionButtons = ({
       return (
         <LiteratureMissingSubjectFieldsSelectionButtons
           handleResolveAction={handleResolveAndHide}
+          hasInspireCategories={hasInspireCategories}
+          disableActions={disableActions}
         />
       );
     case WorkflowStatuses.APPROVAL_MERGE:
-      return <LiteratureMergeSelectionButtons workflowId={workflowId} />;
+      return (
+        <LiteratureMergeSelectionButtons
+          workflowId={workflowId}
+          disableActions={disableActions}
+        />
+      );
 
     default:
       return null;
