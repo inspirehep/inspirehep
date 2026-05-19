@@ -3846,10 +3846,10 @@ ini@^1.3.4:
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
   integrity sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
 
-inspire-schemas@^61.6.32:
-  version "61.6.32"
-  resolved "https://registry.yarnpkg.com/inspire-schemas/-/inspire-schemas-61.6.32.tgz#050ad74b0c87bc98685e9ada81b4d36b1d4ee490"
-  integrity sha512-41wi0sY7alXtZn1HUvOtw9f64c5XJVpIB9O4j0H/olmS+n1grqXHhqg9j/LrsddB0eFtO5MDKXP9BmCcmt/MVw==
+inspire-schemas@^61.6.33:
+  version "61.6.33"
+  resolved "https://registry.yarnpkg.com/inspire-schemas/-/inspire-schemas-61.6.33.tgz#15f84726e5caecd15f5fd8241705858cd3166d47"
+  integrity sha512-GVlgPk2Kj+UnBnzjqoRl/IIxsu36nxCL0pL+q2FwU4Em6M8Lqw7ITOZV5ZiB/u5PSKweeA+15kR+lHRADEKIrQ==
   dependencies:
     buffer-shims "^1.0.0"
 
