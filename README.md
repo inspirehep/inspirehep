@@ -316,10 +316,19 @@ To generate a token locally, so as to call authenticated endpoints for testing, 
 inspirehep tokens create -n wow -u admin@inspirehep.net
 ```
 ---
-## How to test
 
-### Testing Requirements
+## Testing in docker
 
+If you wish to run the tests for a given services here's the way to do it.
+- backoffice: `docker compose exec -it backoffice-worker pytest .`
+- airflow: `docker compose exec -it airflow-worker pytest tests` 
+- backend: `docker compose exec -it hep-worker bash run-tests.sh`
+Alternatively you can exec into the the container and run specific tests on it with `docker exec -it <container_name> /bin/bash` or via Docker Destkop
+
+
+## Testing Locally
+
+### Requirements
 **Yarn**
 
 **Debian / Ubuntu**
@@ -341,15 +350,6 @@ $ curl -sSL https://install.python-poetry.org | python3 -
 ```
 
 
-### Testing (WORK IN PROGRESS)
-
-If you wish to run the tests for a given services here's the way to do it.
-First exect into the container i.e.: `docker exec -it <container_name> /bin/bash` or via Docker Destkop
-Then depending on the service you are testing:
-- backoffice-webserver : `pytest .`
-- airlow-api-server: `pytest .`
-- inspire-hep: ?
-- backend: ?
 
 ### Backend
 
