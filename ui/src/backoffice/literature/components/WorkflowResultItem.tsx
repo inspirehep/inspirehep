@@ -161,15 +161,17 @@ const WorkflowResultItem = ({
                 hasInspireCategories={hasInspireCategories}
                 relevancePrediction={relevancePrediction}
               />
-              <LiteratureActionButtons
-                status={status}
-                handleResolveAction={handleResolveAction}
-                isFullCoverage={isFullCoverage}
-                isSubmitted={isSubmitted}
-                workflowId={workflowId}
-                shouldShowSubmissionModal={shouldShowSubmissionModal}
-                submissionContext={submissionContext}
-              />
+              <div className="mb2">
+                <LiteratureActionButtons
+                  status={status}
+                  handleResolveAction={handleResolveAction}
+                  isFullCoverage={isFullCoverage}
+                  isSubmitted={isSubmitted}
+                  workflowId={workflowId}
+                  shouldShowSubmissionModal={shouldShowSubmissionModal}
+                  submissionContext={submissionContext}
+                />
+              </div>
               <LiteratureReferenceCount
                 referenceCount={referenceCount}
                 totalReferences={totalReferences}

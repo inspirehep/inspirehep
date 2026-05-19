@@ -495,10 +495,11 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                     </h3>
                     <div>
                       <div
-                        class="w-100 flex flex-column items-center"
+                        class="w-100 flex items-center flex-wrap"
+                        style="gap: 4px;"
                       >
                         <button
-                          class="ant-btn ant-btn-default font-white bg-completed w-75 mb2"
+                          class="ant-btn ant-btn-default font-white bg-completed"
                           type="button"
                         >
                           <span>
@@ -506,7 +507,7 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                           </span>
                         </button>
                         <button
-                          class="ant-btn ant-btn-default font-white bg-halted w-75 mb2"
+                          class="ant-btn ant-btn-default font-white bg-halted"
                           type="button"
                         >
                           <span>
@@ -514,7 +515,7 @@ exports[`AuthorDetailPageContainer should render the AuthorDetailPageContainer 1
                           </span>
                         </button>
                         <button
-                          class="ant-btn ant-btn-default font-white bg-error w-75"
+                          class="ant-btn ant-btn-default font-white bg-error"
                           type="button"
                         >
                           <span>

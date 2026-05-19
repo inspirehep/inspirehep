@@ -7,15 +7,11 @@ const LiteratureRejectButton = ({
   handleResolveAction,
   isWeak = false,
   tooltipText,
-  isBatch = false,
   shouldShowSubmissionModal = false,
   submissionContext = undefined,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const rejectClass = [
-    isWeak ? 'bg-error-weak' : 'font-white bg-error',
-    isBatch ? null : 'w-75',
-  ]
+  const rejectClass = [isWeak ? 'bg-error-weak' : 'font-white bg-error']
     .filter(Boolean)
     .join(' ');
 

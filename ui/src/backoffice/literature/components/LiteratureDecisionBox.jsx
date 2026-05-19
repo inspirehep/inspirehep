@@ -30,14 +30,16 @@ const LiteratureDecisionBox = ({
         hasInspireCategories={hasInspireCategories}
         relevancePrediction={relevancePrediction}
       />
-      <LiteratureActionButtons
-        status={status}
-        handleResolveAction={handleResolveAction}
-        workflowId={workflowId}
-        isFullCoverage={isFullCoverage}
-        shouldShowSubmissionModal={shouldShowSubmissionModal}
-        submissionContext={submissionContext}
-      />
+      <div className="mb2">
+        <LiteratureActionButtons
+          status={status}
+          handleResolveAction={handleResolveAction}
+          workflowId={workflowId}
+          isFullCoverage={isFullCoverage}
+          shouldShowSubmissionModal={shouldShowSubmissionModal}
+          submissionContext={submissionContext}
+        />
+      </div>
       <LiteratureDecisionDetails
         decision={decision}
         controlNumber={controlNumber}

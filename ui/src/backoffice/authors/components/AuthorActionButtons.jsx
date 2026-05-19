@@ -21,9 +21,9 @@ export const AuthorActionButtons = ({
   const isRejectLoading =
     isResolving && actionDecision === WorkflowDecisions.REJECT;
   return (
-    <div className="w-100 flex flex-column items-center">
+    <div className="w-100 flex items-center flex-wrap" style={{ gap: '4px' }}>
       <Button
-        className="font-white bg-completed w-75 mb2"
+        className="font-white bg-completed"
         onClick={() => handleResolveAction(WorkflowDecisions.ACCEPT)}
         loading={isAcceptLoading}
         disabled={isResolving && !isAcceptLoading}
@@ -31,7 +31,7 @@ export const AuthorActionButtons = ({
         Accept
       </Button>
       <Button
-        className="font-white bg-halted w-75 mb2"
+        className="font-white bg-halted"
         onClick={() => handleResolveAction(WorkflowDecisions.ACCEPT_CURATE)}
         loading={isAcceptCurateLoading}
         disabled={isResolving && !isAcceptCurateLoading}
@@ -39,7 +39,7 @@ export const AuthorActionButtons = ({
         Accept + Curation
       </Button>
       <Button
-        className="font-white bg-error w-75"
+        className="font-white bg-error"
         onClick={() => handleResolveAction(WorkflowDecisions.REJECT)}
         loading={isRejectLoading}
         disabled={isResolving && !isRejectLoading}

@@ -10,7 +10,6 @@ const LiteratureActionButtons = ({
   handleResolveAction,
   workflowId = null,
   isFullCoverage = false,
-  isBatch = false,
   isSubmitted = false,
   shouldShowSubmissionModal = false,
   submissionContext = undefined,
@@ -36,7 +35,6 @@ const LiteratureActionButtons = ({
       return (
         <LiteratureCoreSelectionButtons
           handleResolveAction={handleResolveAndHide}
-          isBatch={isBatch}
         />
       );
 
@@ -45,7 +43,6 @@ const LiteratureActionButtons = ({
         <LiteratureHepSelectionButtons
           handleResolveAction={handleResolveAndHide}
           isFullCoverage={isFullCoverage}
-          isBatch={isBatch}
           shouldShowSubmissionModal={shouldShowSubmissionModal}
           submissionContext={submissionContext}
         />
@@ -55,7 +52,6 @@ const LiteratureActionButtons = ({
       return (
         <LiteratureMissingSubjectFieldsSelectionButtons
           handleResolveAction={handleResolveAndHide}
-          isBatch={isBatch}
         />
       );
     case WorkflowStatuses.APPROVAL_MERGE:
