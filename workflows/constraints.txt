@@ -157,7 +157,7 @@ apache-airflow-providers-odbc==4.12.2
 apache-airflow-providers-openai==1.7.4
 apache-airflow-providers-openfaas==3.9.4
 apache-airflow-providers-openlineage==2.14.0
-apache-airflow-providers-opensearch==1.9.0
+apache-airflow-providers-opensearch==1.9.1
 apache-airflow-providers-opsgenie==5.10.3
 apache-airflow-providers-oracle==4.5.3
 apache-airflow-providers-pagerduty==5.2.5
