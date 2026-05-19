@@ -40,12 +40,7 @@ def trigger_airflow_dag(dag_id, workflow_id, extra_data=None, workflow=None):
 
     url = f"{AIRFLOW_BASE_URL}/api/v2/dags/{dag_id}/dagRuns"
 
-    logger.info(
-        "Triggering DAG %s with data: %s and %s",
-        dag_id,
-        data,
-        url,
-    )
+    logger.info("Triggering DAG %s with id %s", dag_id, str(workflow_id))
     response = requests.post(
         url,
         data=json.dumps(data, cls=DjangoJSONEncoder),
@@ -170,12 +165,7 @@ def restart_failed_tasks(workflow_id, workflow_type):
 
     url = f"{AIRFLOW_BASE_URL}/api/v2/dags/{dag_id}/clearTaskInstances"
 
-    logger.info(
-        "Clearing Failed Tasks of DAG %s with data: %s and %s",
-        dag_id,
-        data,
-        url,
-    )
+    logger.info("Clearing Failed Tasks of DAG %s with id %s", dag_id, str(workflow_id))
     response = requests.post(
         url,
         json=data,
@@ -240,11 +230,7 @@ def delete_workflow_dag(dag_id, workflow_id):
     """
 
     url = f"{AIRFLOW_BASE_URL}/api/v2/dags/{dag_id}/dagRuns/{str(workflow_id)}"
-    logger.info(
-        "Deleting dag Failed Tasks of DAG %s with no data and %s",
-        dag_id,
-        url,
-    )
+    logger.info("Deleting DAG %s with id %s", dag_id, str(workflow_id))
     response = requests.delete(url, headers=AIRFLOW_HEADERS)
     response.raise_for_status()
     return response.content, response.status_code
