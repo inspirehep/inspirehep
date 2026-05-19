@@ -1,4 +1,4 @@
-FROM registry.cern.ch/cern-sis/base-images/node:20.0.0 as build-stage
+FROM registry.cern.ch/cern-sis/base-images/node:24.15.0 as build-stage
 
 WORKDIR /usr/src/app
 
