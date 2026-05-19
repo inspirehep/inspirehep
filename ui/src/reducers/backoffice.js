@@ -34,6 +34,10 @@ import {
   BACKOFFICE_LITERATURE_REQUEST,
   BACKOFFICE_LITERATURE_SUCCESS,
   BACKOFFICE_LITERATURE_ERROR,
+  BACKOFFICE_UPDATE_LITERATURE_REQUEST,
+  BACKOFFICE_UPDATE_LITERATURE_SUCCESS,
+  BACKOFFICE_UPDATE_LITERATURE_ERROR,
+  BACKOFFICE_SET_SUBJECTS,
 } from '../actions/actionTypes';
 
 export const initialState = fromJS({
@@ -48,6 +52,7 @@ export const initialState = fromJS({
   actionInProgress: null,
   batchSubmittedIds: [],
   restartActionInProgress: null,
+  subjectsDraft: null,
   dashboard: {
     loading: false,
     facets: {
@@ -99,11 +104,23 @@ const BackofficeReducer = (state = initialState, action) => {
     case BACKOFFICE_LITERATURE_SUCCESS:
       return state
         .set('loading', false)
-        .set('literature', fromJS(action.payload.data));
+        .set('literature', fromJS(action.payload.data))
+        .set('subjectsDraft', null);
     case BACKOFFICE_SEARCH_QUERY_UPDATE:
       return state.set('query', fromJS(action.payload));
     case BACKOFFICE_SEARCH_QUERY_RESET:
       return state.set('query', fromJS({ page: 1, size: 10 }));
+    case BACKOFFICE_SET_SUBJECTS:
+      return state.set(
+        'subjectsDraft',
+        action.payload ? fromJS(action.payload) : null
+      );
+    case BACKOFFICE_UPDATE_LITERATURE_REQUEST:
+      return state.set('actionInProgress', fromJS(action.payload));
+    case BACKOFFICE_UPDATE_LITERATURE_SUCCESS:
+      return state.set('actionInProgress', null);
+    case BACKOFFICE_UPDATE_LITERATURE_ERROR:
+      return state.set('actionInProgress', null);
     case BACKOFFICE_RESOLVE_ACTION_REQUEST:
       return state.set('actionInProgress', fromJS(action.payload));
     case BACKOFFICE_RESOLVE_ACTION_SUCCESS:

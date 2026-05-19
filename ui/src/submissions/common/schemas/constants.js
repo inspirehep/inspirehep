@@ -200,6 +200,30 @@ export const inspireCategoryOptions = [
 ];
 export const inspireCategoryValues = inspireCategoryOptions.map(getValue);
 
+export const inspireCategoryShortcutsMapping = {
+  b: 'Accelerators',
+  a: 'Astrophysics',
+  c: 'Computing',
+  f: 'Condensed Matter',
+  s: 'Data Analysis and Statistics',
+  e: 'Experiment-HEP',
+  x: 'Experiment-Nucl',
+  q: 'General Physics',
+  g: 'Gravitation and Cosmology',
+  i: 'Instrumentation',
+  l: 'Lattice',
+  m: 'Math and Math Physics',
+  o: 'Other',
+  p: 'Phenomenology-HEP',
+  k: 'Quantum Physics',
+  t: 'Theory-HEP',
+  n: 'Theory-Nucl',
+};
+
+export const inspireCategoryShortcuts = Object.keys(
+  inspireCategoryShortcutsMapping
+);
+
 export const rankOptions = Object.keys(RANK_VALUE_TO_DISPLAY).map((key) => ({
   value: key,
   display: RANK_VALUE_TO_DISPLAY[key],

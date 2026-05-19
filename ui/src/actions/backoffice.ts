@@ -41,6 +41,10 @@ import {
   BACKOFFICE_LITERATURE_REQUEST,
   BACKOFFICE_LITERATURE_SUCCESS,
   BACKOFFICE_LITERATURE_ERROR,
+  BACKOFFICE_UPDATE_LITERATURE_REQUEST,
+  BACKOFFICE_UPDATE_LITERATURE_SUCCESS,
+  BACKOFFICE_UPDATE_LITERATURE_ERROR,
+  BACKOFFICE_SET_SUBJECTS,
 } from './actionTypes';
 import {
   BACKOFFICE_API,
@@ -60,7 +64,11 @@ import {
 import { refreshToken } from '../backoffice/utils/utils';
 import { getConfigFor } from '../common/config';
 import { AUTHORS_PID_TYPE, LITERATURE_PID_TYPE } from '../common/constants';
-import { WorkflowActions } from '../backoffice/constants';
+import {
+  Subject,
+  WorkflowActions,
+  WorkflowStatuses,
+} from '../backoffice/constants';
 
 // withCredentials is needed for ORCID login with sessionId cookie
 const httpClient = axios.create({ withCredentials: true });
@@ -383,7 +391,66 @@ export function fetchLiteratureRecord(
   };
 }
 
-// DECISSION ACTIONS
+function updatingLiteratureAction(type: string, id: string) {
+  return {
+    type: BACKOFFICE_UPDATE_LITERATURE_REQUEST,
+    payload: { type, id },
+  };
+}
+
+function updateLiteratureActionSuccess() {
+  return {
+    type: BACKOFFICE_UPDATE_LITERATURE_SUCCESS,
+  };
+}
+
+function updateLiteratureActionError(errorPayload: { error: Error }) {
+  return {
+    type: BACKOFFICE_UPDATE_LITERATURE_ERROR,
+    payload: { ...errorPayload },
+  };
+}
+
+export function updateLiteratureAction(
+  id: string,
+  payload: {
+    data: { inspire_categories: Subject[] };
+    status: WorkflowStatuses;
+  }
+): (dispatch: ActionCreator<Action>) => Promise<void> {
+  return async (dispatch) => {
+    dispatch(updatingLiteratureAction(WorkflowActions.UPDATE, id));
+    try {
+      const response = await httpClient.patch(
+        `${BACKOFFICE_API}/workflows/${LITERATURE_PID_TYPE}/${id}/`,
+        payload
+      );
+
+      dispatch(updateLiteratureActionSuccess());
+      notifyActionSuccess(WorkflowActions.UPDATE);
+      dispatch(fetchLiteratureRecordSuccess(response.data));
+    } catch (err) {
+      const { error } = httpErrorToActionPayload(err);
+      notifyActionError(
+        (typeof error?.error === 'string'
+          ? error?.error
+          : error?.error?.detail) || 'An error occurred'
+      );
+      dispatch(updateLiteratureActionError(error));
+      throw err;
+    }
+  };
+}
+
+// SUBJECTS DRAFT ACTIONS
+export function setSubjectsDraft(subjects: Subject[] | null) {
+  return {
+    type: BACKOFFICE_SET_SUBJECTS,
+    payload: subjects,
+  };
+}
+
+// DECISION ACTIONS
 function resolvingAction(type: string, id: string, decision: string) {
   return {
     type: BACKOFFICE_RESOLVE_ACTION_REQUEST,

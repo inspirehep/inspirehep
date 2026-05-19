@@ -8,3 +8,14 @@ export const columnsSubject = [
     dataIndex: 'source',
   },
 ];
+
+export const columnsShortcut = [
+  {
+    title: 'Subject',
+    dataIndex: 'subject',
+  },
+  {
+    title: 'Shortcut',
+    dataIndex: 'shortcut',
+  },
+];

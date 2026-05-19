@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { ActionCreator, Action } from 'redux';
 import { connect, RootStateOrAny } from 'react-redux';
-import { Map } from 'immutable';
+import { List, Map } from 'immutable';
 import { push } from 'connected-react-router';
 
 import './LiteratureDetailPageContainer.less';
 
-import { Col, Row, Table } from 'antd';
+import { Col, Row } from 'antd';
 import { RestartActionButtons } from '../../common/components/Detail/RestartActionButtons';
 import {
   deleteWorkflow,
@@ -15,6 +15,7 @@ import {
   resolveLiteratureAction,
   restartWorkflowAction,
   restartCurrentWorkflowAction,
+  updateLiteratureAction,
 } from '../../../actions/backoffice';
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
 import LinkLikeButton from '../../../common/components/LinkLikeButton/LinkLikeButton';
@@ -33,7 +34,6 @@ import {
   isLiteratureUpdateWorkflow,
 } from '../../utils/utils';
 import { isSuperUser } from '../../../common/authorization';
-import { columnsSubject } from './columnData';
 import { StatusBanner } from '../../common/components/Detail/StatusBanner';
 import { TicketsList } from '../../common/components/Detail/TicketsList';
 import { LITERATURE_PID_TYPE } from '../../../common/constants';
@@ -46,7 +46,9 @@ import LiteratureDecisionBox from '../components/LiteratureDecisionBox';
 import LiteratureReferences from '../components/LiteratureReferences';
 import LiteratureMatches from '../components/LiteratureMatches';
 import ExactMatchesCallout from '../components/ExactMatchesCallout';
-import { WorkflowStatuses, WorkflowTypes } from '../../constants';
+import { Subject, WorkflowStatuses, WorkflowTypes } from '../../constants';
+import SubjectArea from '../components/SubjectArea';
+import { notifyActionError } from '../../notifications';
 
 type LiteratureDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
@@ -54,6 +56,7 @@ type LiteratureDetailPageContainerProps = {
   loading: boolean;
   restartActionInProgress: Map<string, any> | null;
   isSuperUserLoggedIn: boolean;
+  subjectsDraft: List<any> | null;
 };
 
 const LiteratureDetailPageContainer = ({
@@ -61,6 +64,7 @@ const LiteratureDetailPageContainer = ({
   literature,
   loading,
   restartActionInProgress,
+  subjectsDraft,
   isSuperUserLoggedIn,
 }: LiteratureDetailPageContainerProps) => {
   const { id } = useParams<{ id: string }>();
@@ -100,7 +104,12 @@ const LiteratureDetailPageContainer = ({
   const submissionContext: any = shouldShowSubmissionModal
     ? { email: acquisitionSourceEmail, title }
     : undefined;
-  const inspireCategories = data?.get('inspire_categories')?.toJS();
+  const inspireCategoriesImmutable = data?.get('inspire_categories');
+
+  const inspireCategories = useMemo(
+    () => inspireCategoriesImmutable?.toJS() ?? [],
+    [inspireCategoriesImmutable]
+  );
   const rawDateTime = data?.getIn(['acquisition_source', 'datetime']);
   const urls = data?.get('urls');
   const ids = data?.get('ids');
@@ -116,6 +125,12 @@ const LiteratureDetailPageContainer = ({
   const acquisitionSourceSource = data?.getIn(['acquisition_source', 'source']);
   const acquisitionSourceMethod = data?.getIn(['acquisition_source', 'method']);
 
+  const hasBeenUpdated = subjectsDraft !== null;
+  const currentSubjects = useMemo(
+    () => subjectsDraft?.toJS() ?? inspireCategories,
+    [subjectsDraft, inspireCategories]
+  );
+
   const DAGS_URL = getConfigFor('INSPIRE_WORKFLOWS_DAGS_URL');
   const DAG_FULL_URL = `${DAGS_URL}${getDag(workflowType)}/runs/${id}`;
 
@@ -128,12 +143,30 @@ const LiteratureDetailPageContainer = ({
     'delete',
   ].filter(Boolean);
 
-  const handleResolveAction = (action: string, value: string) => {
-    const payload = {
-      action,
-      value,
-    };
-    dispatch(resolveLiteratureAction(id, payload));
+  const handleResolveAction = async (action: string, value: string) => {
+    if (hasBeenUpdated) {
+      if (currentSubjects.length === 0) {
+        notifyActionError('Missing subjects field');
+        return;
+      }
+      try {
+        await dispatch(
+          updateLiteratureAction(id, {
+            data: {
+              ...(data?.toJS() ?? {}),
+              inspire_categories: currentSubjects,
+            },
+            status:
+              status === WorkflowStatuses.MISSING_SUBJECT_FIELDS
+                ? WorkflowStatuses.APPROVAL
+                : status,
+          })
+        );
+      } catch {
+        return;
+      }
+    }
+    dispatch(resolveLiteratureAction(id, { action, value }));
   };
 
   const handleRestart = () => {
@@ -205,14 +238,10 @@ const LiteratureDetailPageContainer = ({
                         header="Subject areas"
                         key="subjectAreas"
                       >
-                        <Table
-                          columns={columnsSubject}
-                          dataSource={inspireCategories}
-                          pagination={false}
-                          size="small"
-                          rowKey={(record) =>
-                            `${record?.term}+${Math.random()}`
-                          }
+                        <SubjectArea
+                          workflowId={id}
+                          status={status}
+                          inspireCategories={inspireCategories}
                         />
                       </CollapsableForm.Section>
                       {totalReferences && (
@@ -328,6 +357,7 @@ const stateToProps = (state: RootStateOrAny) => ({
   loading: state.backoffice.get('loading'),
   restartActionInProgress: state.backoffice.get('restartActionInProgress'),
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
+  subjectsDraft: state.backoffice.get('subjectsDraft') ?? null,
 });
 
 export default connect(stateToProps)(LiteratureDetailPageContainer);

@@ -1,20 +1,59 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { screen, within } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import userEvent from '@testing-library/user-event';
 
 import LiteratureDetailPageContainer from '../LiteratureDetailPageContainer';
 import { getStore } from '../../../../fixtures/store';
 import { renderWithProviders } from '../../../../fixtures/render';
 import { BACKOFFICE } from '../../../../common/routes';
-import { WorkflowStatuses } from '../../../constants';
+import { Subject, WorkflowStatuses } from '../../../constants';
+import {
+  updateLiteratureAction,
+  resolveLiteratureAction,
+} from '../../../../actions/backoffice';
+import { notifyActionError } from '../../../notifications';
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: () => ({ id: 'test-workflow-id' }),
+}));
+
+jest.mock('../../../../actions/backoffice', () => {
+  const actual = jest.requireActual('../../../../actions/backoffice');
+  return {
+    ...actual,
+    updateLiteratureAction: jest.fn(),
+    resolveLiteratureAction: jest.fn(),
+  };
+});
+
+jest.mock('../../../notifications', () => ({
+  notifyActionError: jest.fn(),
+  notifyActionSuccess: jest.fn(),
+  notifyDeleteSuccess: jest.fn(),
+  notifyDeleteError: jest.fn(),
+  notifyLoginError: jest.fn(),
+}));
 
 describe('LiteratureDetailPageContainer', () => {
-  const renderComponent = (status = WorkflowStatuses.APPROVAL) => {
+  const defaultInspireCategories = [
+    { term: 'Computing', source: 'arxiv' },
+    { term: 'Math and Math Physics', source: 'arxiv' },
+    { term: 'Data Analysis and Statistics', source: 'arxiv' },
+  ];
+
+  const renderComponent = (
+    status = WorkflowStatuses.APPROVAL,
+    inspireCategories = defaultInspireCategories,
+    subjectsDraft: { term: string; source: string }[] | null = null
+  ) => {
     const store = getStore({
       backoffice: fromJS({
         loading: false,
         loggedIn: true,
+        subjectsDraft,
         literature: fromJS({
           data: {
             titles: [
@@ -31,11 +70,7 @@ describe('LiteratureDetailPageContainer', () => {
                 source: 'arXiv',
               },
             ],
-            inspire_categories: [
-              { term: 'Computing', source: 'arxiv' },
-              { term: 'Math and Math Physics', source: 'arxiv' },
-              { term: 'Data Analysis and Statistics', source: 'arxiv' },
-            ],
+            inspire_categories: inspireCategories,
             acquisition_source: {
               method: 'hepcrawl',
               source: 'arXiv',
@@ -202,5 +237,66 @@ describe('LiteratureDetailPageContainer', () => {
         'When you resolve this error, restart the workflow to continue'
       )
     ).toBeInTheDocument();
+  });
+
+  describe('Subject area', () => {
+    beforeEach(() => {
+      (updateLiteratureAction as jest.Mock).mockImplementation((...args) => ({
+        type: 'updateLiteratureAction',
+        payload: args,
+      }));
+      (resolveLiteratureAction as jest.Mock).mockImplementation((...args) => ({
+        type: 'resolveLiteratureAction',
+        payload: args,
+      }));
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should save subjects on resolve if subjects have been updated but not saved', async () => {
+      const user = userEvent.setup();
+      const updatedSubjects = [
+        { term: 'Math and Math Physics', source: 'arxiv' },
+        { term: 'Data Analysis and Statistics', source: 'arxiv' },
+      ];
+      renderComponent(
+        WorkflowStatuses.APPROVAL,
+        defaultInspireCategories,
+        updatedSubjects
+      );
+
+      await user.click(screen.getByRole('button', { name: /^accept$/i }));
+
+      expect(updateLiteratureAction).toHaveBeenCalledWith(
+        'test-workflow-id',
+        expect.objectContaining({
+          data: expect.objectContaining({
+            inspire_categories: updatedSubjects,
+          }),
+        })
+      );
+      expect(resolveLiteratureAction).toHaveBeenCalledWith(
+        'test-workflow-id',
+        expect.objectContaining({ action: expect.anything() })
+      );
+    });
+
+    it("shouldn't resolve workflow if subjects is empty", async () => {
+      const user = userEvent.setup();
+      const updatedSubjects: Subject[] = [];
+
+      renderComponent(
+        WorkflowStatuses.APPROVAL,
+        defaultInspireCategories,
+        updatedSubjects
+      );
+
+      await user.click(screen.getByRole('button', { name: /accept/i }));
+
+      expect(notifyActionError).toHaveBeenCalledWith('Missing subjects field');
+      expect(resolveLiteratureAction).not.toHaveBeenCalled();
+    });
   });
 });

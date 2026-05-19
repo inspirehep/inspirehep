@@ -30,6 +30,7 @@ export enum WorkflowActions {
   RESOLVE = 'resolve',
   RESTART = 'restart',
   RESTART_CURRENT = 'restart_current',
+  UPDATE = 'update',
 }
 
 export enum WorkflowStatusGroups {
@@ -129,4 +130,9 @@ export enum CollapseState {
   ALL_COLLAPSED = 'allCollapsed',
   ALL_EXPANDED = 'allExpanded',
   MIXED = 'mixed',
+}
+
+export interface Subject {
+  term: string;
+  source: string;
 }

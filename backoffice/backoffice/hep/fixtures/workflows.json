@@ -1094,7 +1094,13 @@
           "source": "submitter",
           "datetime": "2024-11-18T11:34:19.809575",
           "internal_uid": 50872
-        }
+        },
+        "inspire_categories": [
+            {
+                "term": "Data Analysis and Statistics",
+                "source": "arxiv"
+            }
+        ]
       },
       "status": "approval",
       "_created_at": "2024-11-25T13:49:53.009Z",
