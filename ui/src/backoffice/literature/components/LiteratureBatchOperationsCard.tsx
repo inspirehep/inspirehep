@@ -33,7 +33,6 @@ const LiteratureBatchOperationsCard = ({
     <LiteratureActionButtons
       status={status}
       handleResolveAction={onResolveAction}
-      isBatch
     />
   </Card>
 );
