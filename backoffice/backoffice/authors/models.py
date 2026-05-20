@@ -15,12 +15,12 @@ from backoffice.common.models import BaseDecision, BaseWorkflow, BaseWorkflowTic
 class AuthorWorkflow(BaseWorkflow):
     workflow_type = models.CharField(
         max_length=30,
-        choices=AuthorWorkflowType.choices,
+        choices=AuthorWorkflowType,
         default=AUTHOR_DEFAULT_WORKFLOW_TYPE,
     )
     status = models.CharField(
         max_length=30,
-        choices=AuthorStatusChoices.choices,
+        choices=AuthorStatusChoices,
         default=AUTHOR_DEFAULT_STATUS_CHOICE,
     )
 

@@ -16,12 +16,12 @@ from backoffice.common.models import BaseDecision, BaseWorkflow, BaseWorkflowTic
 class HepWorkflow(BaseWorkflow):
     workflow_type = models.CharField(
         max_length=30,
-        choices=HepWorkflowType.choices,
+        choices=HepWorkflowType,
         default=HEP_DEFAULT_WORKFLOW_TYPE,
     )
     journal_coverage = models.CharField(
         max_length=20,
-        choices=HepJournalCoverage.choices,
+        choices=HepJournalCoverage,
         null=True,
         blank=True,
     )
@@ -34,7 +34,7 @@ class HepWorkflow(BaseWorkflow):
     source_data = models.JSONField(null=True, blank=True)
     status = models.CharField(
         max_length=30,
-        choices=HepStatusChoices.choices,
+        choices=HepStatusChoices,
         default=HEP_DEFAULT_STATUS_CHOICE,
     )
 
