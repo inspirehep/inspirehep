@@ -445,19 +445,13 @@ class LiteratureSubmissionResource(BaseSubmissionsResource):
             LOGGER.info(
                 "Sending literature submission to backoffice", data=backoffice_payload
             )
-            try:
-                self.send_post_request_to_workflows(
-                    current_app.config["INSPIRE_BACKOFFICE_URL"],
-                    "/api/workflows/literature/",
-                    backoffice_payload,
-                    current_app.config["AUTHENTICATION_TOKEN_BACKOFFICE"],
-                    bearer_keyword="Token",
-                )
-            except WorkflowStartError as e:
-                LOGGER.error(
-                    "Failed to start literature workflow in backoffice",
-                    error=str(e),
-                )
+            return self.send_post_request_to_workflows(
+                current_app.config["INSPIRE_BACKOFFICE_URL"],
+                "/api/workflows/literature/",
+                backoffice_payload,
+                current_app.config["AUTHENTICATION_TOKEN_BACKOFFICE"],
+                bearer_keyword="Token",
+            )
         return self.send_post_request_to_workflows(
             current_app.config["INSPIRE_NEXT_URL"],
             "/workflows/literature",
