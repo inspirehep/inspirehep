@@ -607,12 +607,79 @@ def test_update_author_creates_new_workflow(inspire_app, override_config):
 
 
 @freeze_time("2019-06-17")
-def test_new_literature_submit_no_merge(inspire_app, requests_mock, override_config):
-    with override_config(FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE=True):
-        requests_mock.post(
-            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
-            json={"workflow_object_id": 30},
+def test_new_literature_submit_no_merge_next(inspire_app, requests_mock):
+    requests_mock.post(
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "data": {
+                        "arxiv_id": "1701.00006",
+                        "arxiv_categories": ["hep-th"],
+                        "preprint_date": "2019-10-15",
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                        "pdf_link": "https://cern.ch/coolstuff.pdf",
+                        "references": "[1] Dude",
+                        "additional_link": "https://cern.ch/other_stuff.pdf",
+                    }
+                }
+            ),
         )
+    assert response.status_code == 200
+    assert requests_mock.call_count == 1
+    history = requests_mock.request_history[0]
+    post_data = history.json()
+    assert "Authorization" in history.headers
+    assert (
+        f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
+        == history.headers["Authorization"]
+    )
+    assert (
+        history.url == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+    )
+    expected_data = {
+        "data": {
+            "_collections": ["Literature"],
+            "acquisition_source": {
+                "email": user.email,
+                "internal_uid": user.id,
+                "method": "submitter",
+                "source": "submitter",
+                "datetime": "2019-06-17T00:00:00",
+            },
+            "preprint_date": "2019-10-15",
+            "arxiv_eprints": [{"categories": ["hep-th"], "value": "1701.00006"}],
+            "authors": [{"full_name": "Urhan, Harun"}],
+            "citeable": True,
+            "curated": False,
+            "document_type": ["article"],
+            "inspire_categories": [{"term": "Other"}],
+            "titles": [{"source": "submitter", "title": "Discovery of cool stuff"}],
+            "urls": [
+                {"value": "https://cern.ch/coolstuff.pdf"},
+                {"value": "https://cern.ch/other_stuff.pdf"},
+            ],
+        },
+        "form_data": {"references": "[1] Dude", "url": "https://cern.ch/coolstuff.pdf"},
+    }
+    assert post_data == expected_data
+
+
+@freeze_time("2019-06-17")
+def test_new_literature_submit_no_merge_backoffice(
+    inspire_app, requests_mock, override_config
+):
+    with override_config(FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE=True):
         requests_mock.post(
             f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
             json={"workflow_object_id": 30},
@@ -641,17 +708,17 @@ def test_new_literature_submit_no_merge(inspire_app, requests_mock, override_con
                 ),
             )
         assert response.status_code == 200
-        assert requests_mock.call_count == 2
-        history = requests_mock.request_history[1]
+        assert requests_mock.call_count == 1
+        history = requests_mock.request_history[0]
         post_data = history.json()
         assert "Authorization" in history.headers
         assert (
-            f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
+            f"Token {current_app.config['AUTHENTICATION_TOKEN_BACKOFFICE']}"
             == history.headers["Authorization"]
         )
         assert (
             history.url
-            == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+            == f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/"
         )
         expected_data = {
             "data": {
@@ -680,31 +747,84 @@ def test_new_literature_submit_no_merge(inspire_app, requests_mock, override_con
                 "references": "[1] Dude",
                 "url": "https://cern.ch/coolstuff.pdf",
             },
+            "workflow_type": "HEP_SUBMISSION",
         }
-        assert post_data == expected_data
-
-        history = requests_mock.request_history[0]
-        post_data = history.json()
-        assert "Authorization" in history.headers
-        assert (
-            f"Token {current_app.config['AUTHENTICATION_TOKEN_BACKOFFICE']}"
-            == history.headers["Authorization"]
-        )
-        assert (
-            history.url
-            == f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/"
-        )
-        expected_data["workflow_type"] = "HEP_SUBMISSION"
         assert post_data == expected_data
 
 
 @freeze_time("2019-06-17")
-def test_new_literature_submit_arxiv_urls(inspire_app, requests_mock, override_config):
-    with override_config(FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE=True):
-        requests_mock.post(
-            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
-            json={"workflow_object_id": 30},
+def test_new_literature_submit_arxiv_urls_next(inspire_app, requests_mock):
+    requests_mock.post(
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "data": {
+                        "arxiv_id": "1701.00006",
+                        "arxiv_categories": ["hep-th"],
+                        "preprint_date": "2019-10-15",
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                        "pdf_link": "https://arxiv.org/coolstuff.pdf",
+                        "references": "[1] Dude",
+                        "additional_link": "https://arxiv.org/other_stuff.pdf",
+                    }
+                }
+            ),
         )
+    assert response.status_code == 200
+    assert requests_mock.call_count == 1
+    history = requests_mock.request_history[0]
+    post_data = history.json()
+    assert "Authorization" in history.headers
+    assert (
+        f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
+        == history.headers["Authorization"]
+    )
+    assert (
+        history.url == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+    )
+    expected_data = {
+        "data": {
+            "_collections": ["Literature"],
+            "acquisition_source": {
+                "email": user.email,
+                "internal_uid": user.id,
+                "method": "submitter",
+                "source": "submitter",
+                "datetime": "2019-06-17T00:00:00",
+            },
+            "preprint_date": "2019-10-15",
+            "arxiv_eprints": [{"categories": ["hep-th"], "value": "1701.00006"}],
+            "authors": [{"full_name": "Urhan, Harun"}],
+            "citeable": True,
+            "curated": False,
+            "document_type": ["article"],
+            "inspire_categories": [{"term": "Other"}],
+            "titles": [{"source": "submitter", "title": "Discovery of cool stuff"}],
+        },
+        "form_data": {
+            "references": "[1] Dude",
+            "url": "https://arxiv.org/coolstuff.pdf",
+        },
+    }
+    assert post_data == expected_data
+
+
+@freeze_time("2019-06-17")
+def test_new_literature_submit_arxiv_urls_backoffice(
+    inspire_app, requests_mock, override_config
+):
+    with override_config(FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE=True):
         requests_mock.post(
             f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
             json={"workflow_object_id": 30},
@@ -733,18 +853,8 @@ def test_new_literature_submit_arxiv_urls(inspire_app, requests_mock, override_c
                 ),
             )
         assert response.status_code == 200
-        assert requests_mock.call_count == 2
-        history = requests_mock.request_history[1]
-        post_data = history.json()
-        assert "Authorization" in history.headers
-        assert (
-            f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
-            == history.headers["Authorization"]
-        )
-        assert (
-            history.url
-            == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature"
-        )
+        assert requests_mock.call_count == 1
+
         expected_data = {
             "data": {
                 "_collections": ["Literature"],
@@ -769,7 +879,6 @@ def test_new_literature_submit_arxiv_urls(inspire_app, requests_mock, override_c
                 "url": "https://arxiv.org/coolstuff.pdf",
             },
         }
-        assert post_data == expected_data
 
         history = requests_mock.request_history[0]
         post_data = history.json()
@@ -782,18 +891,42 @@ def test_new_literature_submit_arxiv_urls(inspire_app, requests_mock, override_c
             history.url
             == f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/"
         )
+
         expected_data["workflow_type"] = "HEP_SUBMISSION"
         assert post_data == expected_data
 
 
-def test_new_literature_submit_works_with_session_login(
+def test_new_literature_submit_works_with_session_login_next(
+    inspire_app, requests_mock
+):
+    requests_mock.post(
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "data": {
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                    }
+                }
+            ),
+        )
+    assert response.status_code == 200
+
+
+def test_new_literature_submit_works_with_session_login_backoffice(
     inspire_app, requests_mock, override_config
 ):
     with override_config(FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE=True):
-        requests_mock.post(
-            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
-            json={"workflow_object_id": 30},
-        )
         requests_mock.post(
             f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
             json={"workflow_object_id": 30},
@@ -837,17 +970,42 @@ def test_new_literature_submit_requires_authentication(inspire_app):
     assert response.status_code == 401
 
 
-def test_new_literature_submit_with_workflows_api_error(
+def test_new_literature_submit_with_workflows_api_error_next(
+    inspire_app, requests_mock
+):
+    requests_mock.post(
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        status_code=500,
+    )
+
+    token = create_user_and_token()
+    headers = {"Authorization": "BEARER " + token.access_token}
+    with inspire_app.test_client() as client:
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "data": {
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                    }
+                }
+            ),
+            headers=headers,
+        )
+    assert response.status_code == 503
+
+
+def test_new_literature_submit_with_workflows_api_error_backoffice(
     inspire_app, requests_mock, override_config
 ):
     with override_config(FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE=True):
         requests_mock.post(
-            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
-            status_code=500,
-        )
-        requests_mock.post(
             f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
-            json={"workflow_object_id": 30},
+            status_code=500,
         )
         token = create_user_and_token()
         headers = {"Authorization": "BEARER " + token.access_token}
@@ -870,47 +1028,64 @@ def test_new_literature_submit_with_workflows_api_error(
         assert response.status_code == 503
 
 
-def test_new_literature_submit_with_workflows_api_error_backoffice(
-    inspire_app, requests_mock, override_config
-):
-    with override_config(FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE=True):
-        requests_mock.post(
-            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
-            json={"workflow_object_id": 30},
-        )
-        requests_mock.post(
-            f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
-            status_code=500,
-        )
-        token = create_user_and_token()
-        headers = {"Authorization": "BEARER " + token.access_token}
-        with inspire_app.test_client() as client:
-            response = client.post(
-                "/submissions/literature",
-                content_type="application/json",
-                data=orjson.dumps(
-                    {
-                        "data": {
-                            "document_type": "article",
-                            "authors": [{"full_name": "Urhan, Harun"}],
-                            "title": "Discovery of cool stuff",
-                            "subjects": ["Other"],
-                        }
+def test_new_literature_submit_with_private_notes_next(inspire_app, requests_mock):
+    requests_mock.post(
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "data": {
+                        "arxiv_id": "1701.00006",
+                        "arxiv_categories": ["hep-th"],
+                        "preprint_date": "2019-10-15",
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                        "pdf_link": "https://arxiv.org/coolstuff.pdf",
+                        "references": "[1] Dude",
+                        "additional_link": "https://arxiv.org/other_stuff.pdf",
+                        "comments": "comment will be here",
+                        "proceedings_info": "Proceeding info will be here",
+                        "conference_info": "conference info in very important topic",
                     }
-                ),
-                headers=headers,
-            )
-        assert response.status_code == 200
+                }
+            ),
+        )
+    assert response.status_code == 200
+
+    assert requests_mock.call_count == 1
+    history = requests_mock.request_history[0]
+    post_data = history.json()
+    assert "Authorization" in history.headers
+    assert (
+        f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
+        == history.headers["Authorization"]
+    )
+    assert (
+        history.url == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+    )
+
+    expected_data = [
+        {"value": "comment will be here", "source": "submitter"},
+        {"value": "Proceeding info will be here", "source": "submitter"},
+        {"value": "conference info in very important topic", "source": "submitter"},
+    ]
+
+    assert post_data["data"]["_private_notes"] == expected_data
 
 
-def test_new_literature_submit_with_private_notes(
+def test_new_literature_submit_with_private_notes_backoffice(
     inspire_app, requests_mock, override_config
 ):
     with override_config(FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE=True):
-        requests_mock.post(
-            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
-            json={"workflow_object_id": 30},
-        )
         requests_mock.post(
             f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
             json={"workflow_object_id": 30},
@@ -943,16 +1118,16 @@ def test_new_literature_submit_with_private_notes(
             )
         assert response.status_code == 200
 
-        history = requests_mock.request_history[1]
+        history = requests_mock.request_history[0]
         post_data = history.json()
         assert "Authorization" in history.headers
         assert (
-            f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
+            f"Token {current_app.config['AUTHENTICATION_TOKEN_BACKOFFICE']}"
             == history.headers["Authorization"]
         )
         assert (
             history.url
-            == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+            == f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/"
         )
 
         expected_data = [
@@ -964,14 +1139,65 @@ def test_new_literature_submit_with_private_notes(
         assert post_data["data"]["_private_notes"] == expected_data
 
 
-def test_new_literature_submit_with_private_notes_and_conference_record(
+def test_new_literature_submit_with_private_notes_and_conference_record_next(
+    inspire_app, requests_mock
+):
+    requests_mock.post(
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "data": {
+                        "arxiv_id": "1701.00006",
+                        "arxiv_categories": ["hep-th"],
+                        "preprint_date": "2019-10-15",
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                        "pdf_link": "https://arxiv.org/coolstuff.pdf",
+                        "references": "[1] Dude",
+                        "additional_link": "https://arxiv.org/other_stuff.pdf",
+                        "conference_record": "a conference record",
+                        "comments": "comment will be here",
+                        "proceedings_info": "Proceeding info will be here",
+                        "conference_info": "conference info in very important topic",
+                    }
+                }
+            ),
+        )
+    assert response.status_code == 200
+
+    history = requests_mock.request_history[0]
+    post_data = history.json()
+    assert "Authorization" in history.headers
+    assert (
+        f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
+        == history.headers["Authorization"]
+    )
+    assert (
+        history.url == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+    )
+
+    expected_data = [
+        {"value": "comment will be here", "source": "submitter"},
+        {"value": "Proceeding info will be here", "source": "submitter"},
+    ]
+
+    assert post_data["data"]["_private_notes"] == expected_data
+
+
+def test_new_literature_submit_with_private_notes_and_conference_record_backoffice(
     inspire_app, requests_mock, override_config
 ):
     with override_config(FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE=True):
-        requests_mock.post(
-            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
-            json={"workflow_object_id": 30},
-        )
         requests_mock.post(
             f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
             json={"workflow_object_id": 30},
@@ -1003,18 +1229,19 @@ def test_new_literature_submit_with_private_notes_and_conference_record(
                     }
                 ),
             )
+
         assert response.status_code == 200
 
-        history = requests_mock.request_history[1]
+        history = requests_mock.request_history[0]
         post_data = history.json()
         assert "Authorization" in history.headers
         assert (
-            f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
+            f"Token {current_app.config['AUTHENTICATION_TOKEN_BACKOFFICE']}"
             == history.headers["Authorization"]
         )
         assert (
             history.url
-            == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+            == f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/"
         )
 
         expected_data = [
@@ -1025,7 +1252,52 @@ def test_new_literature_submit_with_private_notes_and_conference_record(
         assert post_data["data"]["_private_notes"] == expected_data
 
 
-def test_new_literature_submit_with_conference_cnum(
+def test_new_literature_submit_with_conference_cnum_next(inspire_app, requests_mock):
+    requests_mock.post(
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
+    user = create_user()
+    conference = create_record("con", data={"cnum": "C21-03-18.1"})
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "data": {
+                        "arxiv_id": "1701.00006",
+                        "arxiv_categories": ["hep-th"],
+                        "preprint_date": "2019-10-15",
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                        "pdf_link": "https://arxiv.org/coolstuff.pdf",
+                        "references": "[1] Dude",
+                        "additional_link": "https://arxiv.org/other_stuff.pdf",
+                        "comments": "comment will be here",
+                        "proceedings_info": "Proceeding info will be here",
+                        "conference_info": "conference info in very important topic",
+                        "conference_record": conference["self"],
+                    }
+                }
+            ),
+        )
+    assert response.status_code == 200
+
+    history = requests_mock.request_history[0]
+    post_data = history.json()
+
+    expected_publication_info = [
+        {"cnum": conference["cnum"], "conference_record": conference["self"]}
+    ]
+
+    assert post_data["data"]["publication_info"] == expected_publication_info
+
+
+def test_new_literature_submit_with_conference_cnum_backoffice(
     inspire_app, requests_mock, override_config
 ):
     with override_config(FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE=True):
@@ -1077,14 +1349,56 @@ def test_new_literature_submit_with_conference_cnum(
         assert post_data["data"]["publication_info"] == expected_publication_info
 
 
-def test_new_literature_submit_with_wrong_conference(
+def test_new_literature_submit_with_wrong_conference_next(inspire_app, requests_mock):
+    requests_mock.post(
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "data": {
+                        "arxiv_id": "1701.00006",
+                        "arxiv_categories": ["hep-th"],
+                        "preprint_date": "2019-10-15",
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                        "pdf_link": "https://arxiv.org/coolstuff.pdf",
+                        "references": "[1] Dude",
+                        "additional_link": "https://arxiv.org/other_stuff.pdf",
+                        "comments": "comment will be here",
+                        "proceedings_info": "Proceeding info will be here",
+                        "conference_info": "conference info in very important topic",
+                        "conference_record": {
+                            "$ref": "http://localhost:5000/api/conferences/12345"
+                        },
+                    }
+                }
+            ),
+        )
+    assert response.status_code == 200
+
+    history = requests_mock.request_history[0]
+    post_data = history.json()
+
+    expected_publication_info = [
+        {"conference_record": {"$ref": "http://localhost:5000/api/conferences/12345"}}
+    ]
+
+    assert post_data["data"]["publication_info"] == expected_publication_info
+
+
+def test_new_literature_submit_with_wrong_conference_backoffice(
     inspire_app, requests_mock, override_config
 ):
     with override_config(FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE=True):
-        requests_mock.post(
-            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
-            json={"workflow_object_id": 30},
-        )
         requests_mock.post(
             f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
             json={"workflow_object_id": 30},
@@ -1134,14 +1448,55 @@ def test_new_literature_submit_with_wrong_conference(
         assert post_data["data"]["publication_info"] == expected_publication_info
 
 
-def test_new_literature_submit_with_conference_without_cnum(
+def test_new_literature_submit_with_conference_without_cnum_next(
+    inspire_app, requests_mock
+):
+    requests_mock.post(
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
+    user = create_user()
+    conference = create_record("con")
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "data": {
+                        "arxiv_id": "1701.00006",
+                        "arxiv_categories": ["hep-th"],
+                        "preprint_date": "2019-10-15",
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                        "pdf_link": "https://arxiv.org/coolstuff.pdf",
+                        "references": "[1] Dude",
+                        "additional_link": "https://arxiv.org/other_stuff.pdf",
+                        "comments": "comment will be here",
+                        "proceedings_info": "Proceeding info will be here",
+                        "conference_info": "conference info in very important topic",
+                        "conference_record": conference["self"],
+                    }
+                }
+            ),
+        )
+    assert response.status_code == 200
+
+    history = requests_mock.request_history[0]
+    post_data = history.json()
+
+    expected_publication_info = [{"conference_record": conference["self"]}]
+
+    assert post_data["data"]["publication_info"] == expected_publication_info
+
+
+def test_new_literature_submit_with_conference_without_cnum_backoffice(
     inspire_app, requests_mock, override_config
 ):
     with override_config(FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE=True):
-        requests_mock.post(
-            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
-            json={"workflow_object_id": 30},
-        )
         requests_mock.post(
             f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/literature/",
             json={"workflow_object_id": 30},
