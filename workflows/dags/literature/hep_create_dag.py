@@ -1372,6 +1372,15 @@ def hep_create_dag():
 
             head_root = deepcopy(head_root["json"] if head_root else {})
 
+            logger.info(
+                "Head record %s to be merged",
+                head_record,
+            )
+            logger.info(
+                "Update record %s to be merged",
+                update,
+            )
+
             try:
                 merged, conflicts = merge(
                     head=head_record,
@@ -1381,6 +1390,11 @@ def hep_create_dag():
             except MaxThresholdExceededError as e:
                 raise AirflowException(f"Conflict resolution failed. {e}") from None
 
+            logger.info(
+                "Merged record %s. Conflicts: %s",
+                merged,
+                conflicts,
+            )
             workflow_data["data"] = merged
 
             workflow_data["merge_details"] = {
@@ -1393,6 +1407,10 @@ def hep_create_dag():
             if conflicts:
                 workflow_data["merge_details"]["conflicts"] = conflicts
 
+            logger.info(
+                "Workflow data after merge: %s",
+                workflow_data,
+            )
             s3_store.write_workflow(workflow_data)
 
         @task.short_circuit
