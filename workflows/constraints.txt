@@ -398,7 +398,7 @@ hvac==2.4.0
 hyperframe==6.1.0
 ibm-cloud-sdk-core==3.24.4
 ibmcloudant==0.11.5
-idna==3.11
+idna==3.15
 ijson==3.4.0.post0
 immutabledict==4.3.1
 importlib_metadata==8.7.1
