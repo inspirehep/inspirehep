@@ -6,6 +6,12 @@ import { renderWithRouter } from '../../../../fixtures/render';
 import { WorkflowTypes } from '../../../constants';
 import LiteratureResultItem from '../LiteratureResultItem';
 
+function renderLiteratureResultItem(item: any) {
+  renderWithRouter(
+    <LiteratureResultItem item={item} isSelectable={false} isSelected={false} />
+  );
+}
+
 describe('LiteratureResultItem component', () => {
   const item = fromJS({
     id: 'wf-123',
@@ -16,14 +22,14 @@ describe('LiteratureResultItem component', () => {
   });
 
   it('renders the LiteratureResultItem component', () => {
-    renderWithRouter(<LiteratureResultItem item={item} />);
+    renderLiteratureResultItem(item);
 
     expect(screen.getByText('Test title')).toBeInTheDocument();
     expect(screen.queryByText('Update')).not.toBeInTheDocument();
   });
 
   it('renders the title as a link to the workflow detail page', () => {
-    renderWithRouter(<LiteratureResultItem item={item} />);
+    renderLiteratureResultItem(item);
 
     const link = screen.getByRole('link', { name: 'Test title' });
     expect(link).toBeInTheDocument();
@@ -31,7 +37,7 @@ describe('LiteratureResultItem component', () => {
   });
 
   it('does not render document type tags when document_type is absent', () => {
-    renderWithRouter(<LiteratureResultItem item={item} />);
+    renderLiteratureResultItem(item);
 
     expect(screen.queryByText('Article')).not.toBeInTheDocument();
   });
@@ -46,7 +52,7 @@ describe('LiteratureResultItem component', () => {
       },
     });
 
-    renderWithRouter(<LiteratureResultItem item={itemWithDocType} />);
+    renderLiteratureResultItem(itemWithDocType);
 
     expect(screen.getByText('Article')).toBeInTheDocument();
   });
@@ -61,7 +67,7 @@ describe('LiteratureResultItem component', () => {
       },
     });
 
-    renderWithRouter(<LiteratureResultItem item={itemWithDocTypes} />);
+    renderLiteratureResultItem(itemWithDocTypes);
 
     expect(screen.getByText('Article')).toBeInTheDocument();
     expect(screen.getByText('Conference paper')).toBeInTheDocument();

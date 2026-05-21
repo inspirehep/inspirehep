@@ -1065,12 +1065,20 @@
             "source": "submitter"
           }
         ],
+        "authors": [{ "full_name": "Gooding, James, James Andrew, Jamie." }],
         "$schema": "https://inspirehep.net/schemas/records/hep.json",
         "_collections": ["Literature"],
         "arxiv_eprints": [
           {
             "value": "2507.26900",
             "categories": ["cs.CV", "cs.AI", "cs.LG", "cs.RO"]
+          }
+        ],
+        "number_of_pages": 15,
+        "public_notes": [
+          {
+            "value": "15 pages",
+            "source": "arXiv"
           }
         ],
         "document_type": ["article"],

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Checkbox } from 'antd';
 import UnclickableTag from '../../../common/components/UnclickableTag';
 import Latex from '../../../common/components/Latex';
 import LiteratureDocumentTypes from './LiteratureDocumentTypes';
@@ -11,7 +12,19 @@ import {
   isLiteratureUpdateWorkflow,
 } from '../../utils/utils';
 
-const LiteratureResultItem = ({ item }: { item: any }) => {
+interface LiteratureResultItemProps {
+  item: any;
+  isSelectable: boolean;
+  isSelected: boolean;
+  onSelectionChange?: (workflowId: string, checked: boolean) => void;
+}
+
+const LiteratureResultItem = ({
+  item,
+  isSelectable,
+  isSelected,
+  onSelectionChange,
+}: LiteratureResultItemProps) => {
   const workflowId = item?.get('id');
   const data = item?.get('data');
   const title = data?.getIn(['titles', 0, 'title']);
@@ -26,19 +39,30 @@ const LiteratureResultItem = ({ item }: { item: any }) => {
 
   return (
     <div>
-      <div style={{ marginBottom: 4 }}>
-        {isLiteratureUpdate && (
-          <UnclickableTag color="processing">Update</UnclickableTag>
+      <div style={{ marginBottom: 4 }} className="workflow-title-with-checkbox">
+        {isSelectable && (
+          <Checkbox
+            checked={isSelected}
+            onChange={(event) =>
+              onSelectionChange?.(workflowId, event.target.checked)
+            }
+            aria-label={`Select workflow ${workflowId}`}
+          />
         )}
-        <LiteratureDocumentTypes documentTypes={documentTypes} />
-        {resolvedDecision && (
-          <UnclickableTag
-            className={`decision-pill ${resolvedDecision?.bg}`}
-            style={{ marginLeft: isLiteratureUpdate ? 8 : 0 }}
-          >
-            {resolvedDecision?.text}
-          </UnclickableTag>
-        )}
+        <div>
+          {isLiteratureUpdate && (
+            <UnclickableTag color="processing">Update</UnclickableTag>
+          )}
+          <LiteratureDocumentTypes documentTypes={documentTypes} />
+          {resolvedDecision && (
+            <UnclickableTag
+              className={`decision-pill ${resolvedDecision?.bg}`}
+              style={{ marginLeft: isLiteratureUpdate ? 8 : 0 }}
+            >
+              {resolvedDecision?.text}
+            </UnclickableTag>
+          )}
+        </div>
       </div>
       <div>
         <Link

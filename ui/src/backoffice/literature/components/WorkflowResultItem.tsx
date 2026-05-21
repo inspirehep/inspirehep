@@ -91,19 +91,12 @@ const WorkflowResultItem = ({
       <Row justify="start" wrap={false}>
         <Col className="col-details">
           <ResultItem>
-            <div className="workflow-title-with-checkbox">
-              {shouldShowSelectionCheckbox && (
-                <Checkbox
-                  className="workflow-selection-checkbox"
-                  checked={isSelected}
-                  onChange={(event) =>
-                    onSelectionChange?.(workflowId, event.target.checked)
-                  }
-                  aria-label={`Select workflow ${workflowId}`}
-                />
-              )}
-              <LiteratureResultItem item={item} />
-            </div>
+            <LiteratureResultItem
+              item={item}
+              isSelectable={shouldShowSelectionCheckbox}
+              isSelected={isSelected}
+              onSelectionChange={onSelectionChange}
+            />
             {hasAuthors && (
               <div className="mb2">
                 <AuthorList
@@ -195,13 +188,15 @@ const WorkflowResultItem = ({
           </Card>
         </Col>
       </Row>
-      <Row>
-        <ContentBox className="w-100">
-          <div style={{ paddingLeft: '29px', paddingRight: '29px' }}>
-            <ToggleableAbstract abstract={abstract} />
-          </div>
-        </ContentBox>
-      </Row>
+      {abstract && (
+        <Row>
+          <ContentBox className="w-100">
+            <div style={{ paddingLeft: '29px', paddingRight: '29px' }}>
+              <ToggleableAbstract abstract={abstract} />
+            </div>
+          </ContentBox>
+        </Row>
+      )}
     </div>
   );
 };
