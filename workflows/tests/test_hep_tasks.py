@@ -2759,6 +2759,78 @@ class Test_HEPCreateDAG:
         assert workflow_result["data"] == backoffice_workflow["data"]
         assert workflow_result["merge_details"] == backoffice_workflow["merge_details"]
 
+    @patch(
+        "hooks.inspirehep.inspire_http_record_management_hook.InspireHTTPRecordManagementHook.get_record"
+    )
+    @patch("include.utils.workflows.read_wf_record_source")
+    def test_merge_articles_casts_string_matched_control_number_before_merge(
+        self, mock_read_wf_record_source, mock_get_record
+    ):
+        matched_control_number = 3085103
+        head_record = {
+            "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+            "control_number": matched_control_number,
+            "titles": [{"title": "Arxiv title", "source": "arXiv"}],
+            "authors": [{"full_name": "Bajnok, Zoltan"}],
+            "arxiv_eprints": [{"value": "2511.16338"}],
+            "document_type": ["article"],
+            "_collections": ["Literature"],
+            "acquisition_source": {
+                "method": "hepcrawl",
+                "source": "arXiv",
+                "datetime": "2025-11-22T04:01:06.529589",
+                "submission_number": "11046094",
+            },
+        }
+        update_record = {
+            "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+            "titles": [{"title": "Publisher title", "source": "Elsevier B.V."}],
+            "authors": [{"full_name": "Bajnok, Zoltan"}],
+            "dois": [
+                {
+                    "value": "10.1016/j.nuclphysb.2026.117481",
+                    "source": "Elsevier B.V.",
+                    "material": "publication",
+                }
+            ],
+            "document_type": ["article"],
+            "_collections": ["Literature"],
+            "acquisition_source": {
+                "method": "hepcrawl",
+                "source": "Elsevier",
+                "datetime": "2026-05-20T15:22:32.367696",
+                "submission_number": "manual__2026-05-20T15:22:20.788590+00:00",
+            },
+        }
+
+        self.s3_store.write_workflow(
+            {
+                "id": self.workflow_id,
+                "data": update_record,
+                "workflow_type": HEP_PUBLISHER_CREATE,
+            },
+        )
+
+        mock_get_record.return_value = {
+            "metadata": head_record,
+            "uuid": "1234",
+            "revision_id": 1,
+        }
+        mock_read_wf_record_source.return_value = {}
+
+        task_test(
+            self.dag,
+            "halt_for_approval_if_new_or_reject_if_not_relevant.merge_articles",
+            self.context,
+            params={"matched_control_number": str(matched_control_number)},
+        )
+
+        workflow_result = self.s3_store.read_workflow(self.workflow_id)
+
+        assert workflow_result["data"]["control_number"] == matched_control_number
+        assert workflow_result["data"]["acquisition_source"]["source"] == "Elsevier"
+        assert workflow_result["merge_details"]["merger_original_root"] == {}
+
     @pytest.mark.vcr
     @patch(
         "hooks.inspirehep.inspire_http_record_management_hook.InspireHTTPRecordManagementHook.get_record"
