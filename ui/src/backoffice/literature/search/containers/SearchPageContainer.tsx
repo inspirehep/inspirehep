@@ -109,6 +109,7 @@ function renderWorkflowItem(
         isSubmitted={isSubmitted}
         shouldShowSubmissionModal={shouldShowSubmissionModal}
         submissionContext={submissionContext}
+        page="Backoffice literature search"
       />
       {hasExactMatches && (
         <Card>
@@ -226,6 +227,7 @@ const LiteratureSearchPageContainer = ({
     <LoadingOrChildren loading={loadingAggregations}>
       <AggregationFiltersContainer
         namespace={BACKOFFICE_LITERATURE_SEARCH_NS}
+        narrow
       />
     </LoadingOrChildren>
   );
@@ -244,37 +246,35 @@ const LiteratureSearchPageContainer = ({
         <EmptyOrChildren data={results} title="0 Results">
           <Col xs={24} lg={24} xl={24} xxl={24}>
             <Row className="mt3" gutter={SEARCH_PAGE_GUTTER} justify="start">
-              <Col xs={0} lg={6}>
-                <Card size="small">
-                  <div style={{ padding: '0.5rem' }}>
-                    <AggregationBox name="Sort by">
-                      <Select
-                        defaultValue="-_updated_at"
-                        value={query?.get('ordering')}
-                        style={{ width: '100%' }}
-                        data-testid="select-sort-by"
-                        options={[
-                          { value: '-_updated_at', label: 'Most recent' },
-                          { value: '_updated_at', label: 'Least recent' },
-                          {
-                            value: '-relevance_prediction',
-                            label: 'Relevance Prediction (Desc)',
-                          },
-                          {
-                            value: 'relevance_prediction',
-                            label: 'Relevance Prediction (Asc)',
-                          },
-                        ]}
-                        onChange={(value: string) =>
-                          onSortByChange(BACKOFFICE_LITERATURE_SEARCH_NS, value)
-                        }
-                      />
-                    </AggregationBox>
-                  </div>
+              <Col xs={0} lg={5}>
+                <Card size="small" bodyStyle={{ padding: 0 }}>
+                  <AggregationBox name="Sort by" className="pa2">
+                    <Select
+                      defaultValue="-_updated_at"
+                      value={query?.get('ordering')}
+                      style={{ width: '100%' }}
+                      data-testid="select-sort-by"
+                      options={[
+                        { value: '-_updated_at', label: 'Most recent' },
+                        { value: '_updated_at', label: 'Least recent' },
+                        {
+                          value: '-relevance_prediction',
+                          label: 'Relevance Prediction (Desc)',
+                        },
+                        {
+                          value: 'relevance_prediction',
+                          label: 'Relevance Prediction (Asc)',
+                        },
+                      ]}
+                      onChange={(value: string) =>
+                        onSortByChange(BACKOFFICE_LITERATURE_SEARCH_NS, value)
+                      }
+                    />
+                  </AggregationBox>
                   {renderAggregations()}
                 </Card>
               </Col>
-              <Col xs={24} lg={18}>
+              <Col xs={24} lg={19}>
                 {batchStatus && selectedWorkflowIds.size > 0 && (
                   <LiteratureBatchOperationsCard
                     selectedCount={selectedWorkflowIds.size}
@@ -309,15 +309,7 @@ const LiteratureSearchPageContainer = ({
                       </div>
                     )}
                   </Col>
-                  <Col
-                    style={{
-                      width: '29%',
-                      paddingLeft: '5px',
-                      fontWeight: 600,
-                    }}
-                  >
-                    Action & Status
-                  </Col>
+
                   <Col
                     style={{
                       width: '20%',
@@ -335,6 +327,15 @@ const LiteratureSearchPageContainer = ({
                     }}
                   >
                     Subject Areas
+                  </Col>
+                  <Col
+                    style={{
+                      width: '29%',
+                      paddingLeft: '5px',
+                      fontWeight: 600,
+                    }}
+                  >
+                    Action & Status
                   </Col>
                 </Row>
                 <LoadingOrChildren loading={loading}>

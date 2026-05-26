@@ -11,7 +11,6 @@ const LiteratureDecisionBox = ({
   controlNumber,
   decision,
   handleResolveAction,
-  inspireCategories,
   referenceCount,
   relevancePrediction,
   status,
@@ -20,38 +19,30 @@ const LiteratureDecisionBox = ({
   isFullCoverage,
   shouldShowSubmissionModal = false,
   submissionContext = undefined,
-}) => {
-  const hasInspireCategories =
-    Array.isArray(inspireCategories) && inspireCategories.length > 0;
-
-  return (
-    <div className="literature-decision-box">
-      <AutomaticDecision
-        hasInspireCategories={hasInspireCategories}
-        relevancePrediction={relevancePrediction}
+}) => (
+  <div className="literature-decision-box">
+    <AutomaticDecision relevancePrediction={relevancePrediction} />
+    <div className="mb2">
+      <LiteratureActionButtons
+        status={status}
+        handleResolveAction={handleResolveAction}
+        workflowId={workflowId}
+        isFullCoverage={isFullCoverage}
+        shouldShowSubmissionModal={shouldShowSubmissionModal}
+        submissionContext={submissionContext}
       />
-      <div className="mb2">
-        <LiteratureActionButtons
-          status={status}
-          handleResolveAction={handleResolveAction}
-          workflowId={workflowId}
-          isFullCoverage={isFullCoverage}
-          shouldShowSubmissionModal={shouldShowSubmissionModal}
-          submissionContext={submissionContext}
-        />
-      </div>
-      <LiteratureDecisionDetails
-        decision={decision}
-        controlNumber={controlNumber}
-        pidType={LITERATURE}
-      />
-      <LiteratureReferenceCount
-        referenceCount={referenceCount}
-        totalReferences={totalReferences}
-      />
-      <LiteratureKeywords classifierResults={classifierResults} />
     </div>
-  );
-};
+    <LiteratureDecisionDetails
+      decision={decision}
+      controlNumber={controlNumber}
+      pidType={LITERATURE}
+    />
+    <LiteratureReferenceCount
+      referenceCount={referenceCount}
+      totalReferences={totalReferences}
+    />
+    <LiteratureKeywords classifierResults={classifierResults} />
+  </div>
+);
 
 export default LiteratureDecisionBox;
