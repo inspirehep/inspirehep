@@ -335,3 +335,10 @@ export const getDag = (workflow_type: string): string | undefined => {
       return undefined;
   }
 };
+
+export const createPdfLinksFromArxivEprints = (
+  eprints: List<Map<string, any>>
+): List<Map<string, any>> =>
+  eprints.map((eprint) =>
+    Map({ value: `//arxiv.org/pdf/${eprint.get('value')}` })
+  );

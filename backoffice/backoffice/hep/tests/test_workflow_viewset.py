@@ -113,7 +113,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         response = self.api_client.post(url, format="json", data=data)
         json_response = response.json()
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(json_response["data"], data["data"])
+        self.assertEqual(json_response["data"], {**data["data"]})
         self.assertEqual(json_response["workflow_type"], data["workflow_type"])
         self.assertIn("id", json_response)
 
@@ -132,7 +132,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         response = self.api_client.post(url, format="json", data=data)
         json_response = response.json()
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(json_response["data"], data["data"])
+        self.assertEqual(json_response["data"], {**data["data"]})
         self.assertEqual(json_response["workflow_type"], data["workflow_type"])
         self.assertIn("id", json_response)
 
@@ -151,7 +151,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         response = self.api_client.post(url, format="json", data=data)
         json_response = response.json()
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(json_response["data"], data["data"])
+        self.assertEqual(json_response["data"], {**data["data"]})
         self.assertEqual(json_response["workflow_type"], data["workflow_type"])
         self.assertIn("id", json_response)
 
@@ -170,7 +170,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         json_response = response.json()
 
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(json_response["data"], data["data"])
+        self.assertEqual(json_response["data"], {**data["data"]})
         self.assertEqual(json_response["workflow_type"], data["workflow_type"])
         self.assertIn("id", json_response)
 
@@ -211,7 +211,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         response = self.api_client.get(detail_url)
         json_response = response.json()
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(json_response["data"], data_invalid)
+        self.assertEqual(json_response["data"], {**data_invalid})
         self.assertEqual(json_response["validation_errors"], [])
 
         response = self.api_client.get(detail_url, {"validate": "true"})
@@ -570,7 +570,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
 
         self.workflow.refresh_from_db()
         self.assertFalse(self.workflow.decisions.exists())
-        self.assertEqual(response.json()["data"], source_data)
+        self.assertEqual(response.json()["data"], {**source_data})
         self.assertEqual(
             response.json()["workflow_type"], HepWorkflowType.HEP_PUBLISHER_CREATE
         )
@@ -600,7 +600,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
 
         self.workflow.refresh_from_db()
         self.assertFalse(self.workflow.decisions.exists())
-        self.assertEqual(response.json()["data"], source_data)
+        self.assertEqual(response.json()["data"], {**source_data})
         self.assertEqual(
             response.json()["workflow_type"], HepWorkflowType.HEP_SUBMISSION
         )

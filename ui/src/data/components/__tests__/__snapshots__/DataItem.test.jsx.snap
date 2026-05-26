@@ -90,6 +90,9 @@ exports[`DataItem renders with \`0\` citation count 1`] = `
                         </div>
                       </li>
                     </ul>
+                    <span>
+                       (1 author)
+                    </span>
                   </div>
                 </div>
               </div>
@@ -329,6 +332,9 @@ exports[`DataItem renders with all props set 1`] = `
                         </div>
                       </li>
                     </ul>
+                    <span>
+                       (1 author)
+                    </span>
                   </div>
                 </div>
               </div>

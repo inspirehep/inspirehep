@@ -19,6 +19,7 @@ class LiteratureSummary(Schema):
     number_of_pages = fields.Raw(dump_only=True)
     earliest_date = fields.Raw(dump_only=True)
     public_notes = fields.Method("get_public_notes", dump_only=True)
+    report_numbers = fields.Method("get_report_numbers", dump_only=True)
     publication_info = fields.Raw(dump_only=True, default=missing)
     document_type = fields.Raw(dump_only=True, default=missing)
 
@@ -60,3 +61,13 @@ class LiteratureSummary(Schema):
         for public_note in public_notes:
             public_notes_value.append({"value": public_note["value"]})
         return public_notes_value
+
+    @staticmethod
+    def get_report_numbers(data):
+        report_numbers = data.get("report_numbers")
+        if not report_numbers:
+            return missing
+        report_numbers_value = []
+        for report_number in report_numbers:
+            report_numbers_value.append({"value": report_number["value"]})
+        return report_numbers_value

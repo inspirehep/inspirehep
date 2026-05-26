@@ -6,7 +6,8 @@ import { Modal } from 'antd';
 import InlineDataList from './InlineList';
 import Author from './Author';
 import SecondaryButton from './SecondaryButton';
-import { getAuthorName } from '../utils';
+import { getAuthorName, pluralizeUnlessSingle } from '../utils';
+import { SEPARATOR_SEMICOLON } from './InlineList/constants';
 
 class AuthorList extends Component {
   constructor(props) {
@@ -41,6 +42,16 @@ class AuthorList extends Component {
     return <span> et al.</span>;
   }
 
+  renderNumberOfAuthors() {
+    const number = this.props.authors.size;
+    return (
+      <span>
+        {' '}
+        ({number} {pluralizeUnlessSingle('author', number)})
+      </span>
+    );
+  }
+
   renderAuthorList(authorsToDisplay, displayShowAll = true) {
     const { authors, limit, wrapperClassName, page, unlinked } = this.props;
     return (
@@ -50,12 +61,13 @@ class AuthorList extends Component {
         suffix={
           authors.size > limit && displayShowAll
             ? this.renderShowAllOrEtAl()
-            : null
+            : this.renderNumberOfAuthors()
         }
         extractKey={getAuthorName}
         renderItem={(author) => (
           <Author author={author} page={page} unlinked={unlinked} />
         )}
+        separator={SEPARATOR_SEMICOLON}
       />
     );
   }
