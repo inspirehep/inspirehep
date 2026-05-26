@@ -22,7 +22,7 @@ def build_records(xml_records, submission_number):
             parsed_object.builder.add_acquisition_source(
                 source="arXiv",
                 method="hepcrawl",
-                date=datetime.datetime.now().isoformat(),
+                datetime=datetime.datetime.now(datetime.UTC).isoformat(),
                 submission_number=submission_number,
             )
             parsed_records.append(parsed_object.builder.record)

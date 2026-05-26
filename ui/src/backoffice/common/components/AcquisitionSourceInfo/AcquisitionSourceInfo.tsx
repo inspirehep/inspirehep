@@ -14,7 +14,7 @@ const AcquisitionSourceInfo = ({
   <>
     {datetime && (
       <p className="waiting">
-        {datetime.date} at {datetime.time}
+        {datetime.date}, {datetime.time}
       </p>
     )}
     {source && <p className="waiting">{source}</p>}

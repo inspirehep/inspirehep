@@ -10,6 +10,8 @@ import {
 } from '@ant-design/icons';
 import { Action, ActionCreator } from 'redux';
 
+import moment from 'moment-timezone';
+
 import storage from '../../common/storage';
 import { BACKOFFICE_LOGIN, BACKOFFICE_LOGIN_API } from '../../common/routes';
 import { searchQueryUpdate } from '../../actions/search';
@@ -21,6 +23,7 @@ import {
 import {
   WorkflowDecisions,
   HIDDEN_DECISION_ACTIONS,
+  LOCAL_TIMEZONE,
 } from '../../common/constants';
 
 export const COLLECTIONS = [
@@ -298,16 +301,17 @@ export const filterByProperty = (
 };
 
 export const formatDateTime = (
-  rawDateTime: string
+  rawDateTime: string | undefined
 ): { date: string; time: string } | undefined => {
-  try {
-    const isoString = new Date(rawDateTime).toISOString();
-    const [datePart, timePart] = isoString.split('T');
-    const formattedTimePart = timePart.slice(0, 5);
-    return { date: datePart, time: formattedTimePart };
-  } catch (error) {
+  if (!rawDateTime) {
     return undefined;
   }
+  const momentToLocalTimezone = moment.utc(rawDateTime).tz(LOCAL_TIMEZONE);
+  if (!momentToLocalTimezone.isValid()) return undefined;
+  return {
+    date: momentToLocalTimezone.format('YYYY-MM-DD'),
+    time: momentToLocalTimezone.format('hh:mm A'),
+  };
 };
 
 export const getDag = (workflow_type: string): string | undefined => {

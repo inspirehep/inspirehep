@@ -320,7 +320,7 @@ const LiteratureSearchPageContainer = ({
                   </Col>
                   <Col
                     style={{
-                      width: '18%',
+                      width: '20%',
                       paddingLeft: '5px',
                       fontWeight: 600,
                     }}
@@ -329,7 +329,7 @@ const LiteratureSearchPageContainer = ({
                   </Col>
                   <Col
                     style={{
-                      width: '18%',
+                      width: '16%',
                       paddingLeft: '5px',
                       fontWeight: 600,
                     }}

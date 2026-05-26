@@ -76,7 +76,7 @@ def process_article(
         parser.builder.add_acquisition_source(
             source="Elsevier",
             method="hepcrawl",
-            datetime=datetime.datetime.now().isoformat(),
+            datetime=datetime.datetime.now(datetime.UTC).isoformat(),
             submission_number=submission_number,
         )
         for document in parser.builder.record.get("documents", []):
