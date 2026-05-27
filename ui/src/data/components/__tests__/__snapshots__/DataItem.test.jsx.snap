@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`DataItem renders with \`0\` citation count 1`] = `
+exports[`DataItem > renders with \`0\` citation count 1`] = `
 <DocumentFragment>
   <div
     data-test-id="data-result-item"
@@ -239,7 +239,7 @@ exports[`DataItem renders with \`0\` citation count 1`] = `
 </DocumentFragment>
 `;
 
-exports[`DataItem renders with all props set 1`] = `
+exports[`DataItem > renders with all props set 1`] = `
 <DocumentFragment>
   <div
     data-test-id="data-result-item"
@@ -519,7 +519,7 @@ exports[`DataItem renders with all props set 1`] = `
 </DocumentFragment>
 `;
 
-exports[`DataItem renders with only needed props 1`] = `
+exports[`DataItem > renders with only needed props 1`] = `
 <DocumentFragment>
   <div
     data-test-id="data-result-item"

@@ -14,21 +14,25 @@ global.AnimationEvent =
     // Empty constructor for test mocking
   };
 
-jest.mock('../../../common/components/EventStartDateFilter', () => (props) => {
-  global.eventStartDateFilterOnChange = props.onChange;
-  return (
-    <div data-testid="event-start-date-filter">
-      <div role="switch" aria-checked={props.selection === 'upcoming'} />
-    </div>
-  );
-});
+vi.mock('../../../common/components/EventStartDateFilter', () => ({
+  default: (props) => {
+    global.eventStartDateFilterOnChange = props.onChange;
+    return (
+      <div data-testid="event-start-date-filter">
+        <div role="switch" aria-checked={props.selection === 'upcoming'} />
+      </div>
+    );
+  },
+}));
 
-jest.mock('../../../common/components/DateRangeFilter', () => (props) => {
-  global.dateRangeFilterOnChange = props.onChange;
-  return <div data-testid="mock-date-range-filter" />;
-});
+vi.mock('../../../common/components/DateRangeFilter', () => ({
+  default: (props) => {
+    global.dateRangeFilterOnChange = props.onChange;
+    return <div data-testid="mock-date-range-filter" />;
+  },
+}));
 
-jest.mock('../../../actions/search');
+vi.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
 
 describe('ConferenceStartDateFilterContainer', () => {

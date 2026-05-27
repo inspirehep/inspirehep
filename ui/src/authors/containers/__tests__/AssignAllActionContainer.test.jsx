@@ -13,20 +13,20 @@ import {
 import AssignAction from '../../components/AssignAction';
 import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('react-router-dom', () => {
-  const actual = jest.requireActual('react-router-dom');
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
   return { ...actual, useParams: jest.fn().mockReturnValue({ id: 123 }) };
 });
 
-jest.mock('../../components/AssignAction', () => {
-  const actual = jest.requireActual('../../components/AssignAction');
+vi.mock('../../components/AssignAction', async () => {
+  const actual = await vi.importActual('../../components/AssignAction');
   return {
     __esModule: true,
     default: jest.fn((props) => <actual.default {...props} />),
   };
 });
 
-jest.mock('../../../actions/authors');
+vi.mock('../../../actions/authors');
 mockActionCreator(setAssignDrawerVisibility);
 mockActionCreator(assignPapers);
 mockActionCreator(unassignPapers);

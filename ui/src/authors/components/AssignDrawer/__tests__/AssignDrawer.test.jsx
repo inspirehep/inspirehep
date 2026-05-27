@@ -4,8 +4,8 @@ import { Set } from 'immutable';
 import { renderWithProviders } from '../../../../fixtures/render';
 import AssignDrawer from '../AssignDrawer';
 
-jest.mock('react-router-dom', () => {
-  const actual = jest.requireActual('react-router-dom');
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
   return {
     ...actual,
     useParams: jest.fn().mockReturnValue({ id: 123 }),

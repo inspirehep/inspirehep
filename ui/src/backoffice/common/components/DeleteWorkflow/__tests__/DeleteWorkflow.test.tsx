@@ -5,7 +5,7 @@ import DeleteWorkflow from '../DeleteWorkflow';
 import { AUTHORS_PID_TYPE } from '../../../../../common/constants';
 import { deleteWorkflow } from '../../../../../actions/backoffice';
 
-jest.mock('../../../../../actions/backoffice', () => ({
+vi.mock('../../../../../actions/backoffice', () => ({
   deleteWorkflow: jest.fn(() => ({
     type: 'BACKOFFICE_DELETE_REQUEST',
   })),

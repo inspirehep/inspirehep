@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`DataImporter renders with error with a message 1`] = `
+exports[`DataImporter > renders with error with a message 1`] = `
 <DocumentFragment>
   <div>
     <div
@@ -171,7 +171,7 @@ exports[`DataImporter renders with error with a message 1`] = `
 </DocumentFragment>
 `;
 
-exports[`DataImporter renders with error with message and recid 1`] = `
+exports[`DataImporter > renders with error with message and recid 1`] = `
 <DocumentFragment>
   <div>
     <div
@@ -348,7 +348,7 @@ exports[`DataImporter renders with error with message and recid 1`] = `
 </DocumentFragment>
 `;
 
-exports[`DataImporter renders with error without a message 1`] = `
+exports[`DataImporter > renders with error without a message 1`] = `
 <DocumentFragment>
   <div>
     <div
@@ -519,7 +519,7 @@ exports[`DataImporter renders with error without a message 1`] = `
 </DocumentFragment>
 `;
 
-exports[`DataImporter renders without error while importing 1`] = `
+exports[`DataImporter > renders without error while importing 1`] = `
 <DocumentFragment>
   <div>
     <div

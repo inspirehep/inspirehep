@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`withFormItem passes all props correctly to Form.Item and wrapped Input component (with error) 1`] = `
+exports[`withFormItem > passes all props correctly to Form.Item and wrapped Input component (with error) 1`] = `
 <DocumentFragment>
   <div
     class="ant-form-item ant-form-item-with-help ant-form-item-has-feedback ant-form-item-has-error"
@@ -61,7 +61,7 @@ exports[`withFormItem passes all props correctly to Form.Item and wrapped Input 
 </DocumentFragment>
 `;
 
-exports[`withFormItem passes all props correctly to Form.Item and wrapped Input component (without error) 1`] = `
+exports[`withFormItem > passes all props correctly to Form.Item and wrapped Input component (without error) 1`] = `
 <DocumentFragment>
   <div
     class="ant-form-item"
@@ -104,7 +104,7 @@ exports[`withFormItem passes all props correctly to Form.Item and wrapped Input 
 </DocumentFragment>
 `;
 
-exports[`withFormItem passes props correctly to Form.Item and wrapped Input component (without error and custom layout) 1`] = `
+exports[`withFormItem > passes props correctly to Form.Item and wrapped Input component (without error and custom layout) 1`] = `
 <DocumentFragment>
   <div
     class="ant-form-item"
@@ -142,7 +142,7 @@ exports[`withFormItem passes props correctly to Form.Item and wrapped Input comp
 </DocumentFragment>
 `;
 
-exports[`withFormItem passes props correctly to Form.Item and wrapped Input component (without error and only child) 1`] = `
+exports[`withFormItem > passes props correctly to Form.Item and wrapped Input component (without error and only child) 1`] = `
 <DocumentFragment>
   <div
     class="ant-form-item mb2-important"

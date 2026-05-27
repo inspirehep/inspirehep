@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ArxivEprint renders with arXiv id 1`] = `
+exports[`ArxivEprint > renders with arXiv id 1`] = `
 <DocumentFragment>
   <span>
     <a

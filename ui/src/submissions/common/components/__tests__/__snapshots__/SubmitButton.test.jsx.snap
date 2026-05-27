@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SubmitButton renders with all props set 1`] = `
+exports[`SubmitButton > renders with all props set 1`] = `
 <DocumentFragment>
   <button
     class="ant-btn ant-btn-primary"
@@ -14,7 +14,7 @@ exports[`SubmitButton renders with all props set 1`] = `
 </DocumentFragment>
 `;
 
-exports[`SubmitButton renders with loading 1`] = `
+exports[`SubmitButton > renders with loading 1`] = `
 <DocumentFragment>
   <button
     class="ant-btn ant-btn-primary ant-btn-loading"

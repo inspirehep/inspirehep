@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`DOIMaterial does not render without material 1`] = `<DocumentFragment />`;
+exports[`DOIMaterial > does not render without material 1`] = `<DocumentFragment />`;
 
-exports[`DOIMaterial renders with material 1`] = `
+exports[`DOIMaterial > renders with material 1`] = `
 <DocumentFragment>
   <span>
      (myMaterial)

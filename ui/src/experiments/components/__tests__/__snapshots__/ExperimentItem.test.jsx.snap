@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ExperimentItem renders with all props set 1`] = `
+exports[`ExperimentItem > renders with all props set 1`] = `
 <DocumentFragment>
   <div
     class="__ContentBox__ h-100"
@@ -184,7 +184,7 @@ exports[`ExperimentItem renders with all props set 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ExperimentItem renders with only needed props 1`] = `
+exports[`ExperimentItem > renders with only needed props 1`] = `
 <DocumentFragment>
   <div
     class="__ContentBox__ h-100"

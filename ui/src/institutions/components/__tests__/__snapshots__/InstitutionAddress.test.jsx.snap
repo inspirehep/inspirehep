@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`InstitutionAddress renders all 1`] = `
+exports[`InstitutionAddress > renders all 1`] = `
 <DocumentFragment>
   <span>
     <div
@@ -40,7 +40,7 @@ exports[`InstitutionAddress renders all 1`] = `
 </DocumentFragment>
 `;
 
-exports[`InstitutionAddress renders empty 1`] = `
+exports[`InstitutionAddress > renders empty 1`] = `
 <DocumentFragment>
   <span>
     <div
@@ -52,7 +52,7 @@ exports[`InstitutionAddress renders empty 1`] = `
 </DocumentFragment>
 `;
 
-exports[`InstitutionAddress renders with city already in postal address 1`] = `
+exports[`InstitutionAddress > renders with city already in postal address 1`] = `
 <DocumentFragment>
   <span>
     <div
@@ -80,7 +80,7 @@ exports[`InstitutionAddress renders with city already in postal address 1`] = `
 </DocumentFragment>
 `;
 
-exports[`InstitutionAddress renders with country already in postal address 1`] = `
+exports[`InstitutionAddress > renders with country already in postal address 1`] = `
 <DocumentFragment>
   <span>
     <div
@@ -108,7 +108,7 @@ exports[`InstitutionAddress renders with country already in postal address 1`] =
 </DocumentFragment>
 `;
 
-exports[`InstitutionAddress renders with only country 1`] = `
+exports[`InstitutionAddress > renders with only country 1`] = `
 <DocumentFragment>
   <span>
     <div
@@ -126,7 +126,7 @@ exports[`InstitutionAddress renders with only country 1`] = `
 </DocumentFragment>
 `;
 
-exports[`InstitutionAddress renders with only postal address 1`] = `
+exports[`InstitutionAddress > renders with only postal address 1`] = `
 <DocumentFragment>
   <span>
     <div

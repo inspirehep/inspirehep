@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ExperimentDates renders with all props set 1`] = `
+exports[`ExperimentDates > renders with all props set 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__ di"
@@ -40,7 +40,7 @@ exports[`ExperimentDates renders with all props set 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ExperimentDates renders with partial dates 1`] = `
+exports[`ExperimentDates > renders with partial dates 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
@@ -74,7 +74,7 @@ exports[`ExperimentDates renders with partial dates 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ExperimentDates renders without dateCancelled or dateCompleted 1`] = `
+exports[`ExperimentDates > renders without dateCancelled or dateCompleted 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"

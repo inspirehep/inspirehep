@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`MultiSelectAggregation renders 1`] = `
+exports[`MultiSelectAggregation > renders 1`] = `
 <DocumentFragment>
   <div
     class="__MultiSelectAggregation__"
@@ -107,7 +107,7 @@ exports[`MultiSelectAggregation renders 1`] = `
 </DocumentFragment>
 `;
 
-exports[`MultiSelectAggregation renders with custom display values if configured 1`] = `
+exports[`MultiSelectAggregation > renders with custom display values if configured 1`] = `
 <DocumentFragment>
   <div
     class="__MultiSelectAggregation__"

@@ -9,7 +9,7 @@ import { setLiteratureSelection } from '../../../actions/literature';
 import { LITERATURE_NS } from '../../../search/constants';
 import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('../../../actions/literature');
+vi.mock('../../../actions/literature');
 mockActionCreator(setLiteratureSelection);
 
 describe('LiteratureSelectAllContainer', () => {

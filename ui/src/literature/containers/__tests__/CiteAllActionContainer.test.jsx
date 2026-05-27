@@ -6,17 +6,19 @@ import CiteAllActionContainer from '../CiteAllActionContainer';
 import { LITERATURE_NS } from '../../../search/constants';
 import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('../../components/CiteAllAction', () => (props) => (
-  <div
-    data-testid="cite-all-action"
-    data-props={JSON.stringify({
-      query: props.query,
-      numberOfResults: props.numberOfResults,
-    })}
-  >
-    CiteAllAction Mock
-  </div>
-));
+vi.mock('../../components/CiteAllAction', () => ({
+  default: (props) => (
+    <div
+      data-testid="cite-all-action"
+      data-props={JSON.stringify({
+        query: props.query,
+        numberOfResults: props.numberOfResults,
+      })}
+    >
+      CiteAllAction Mock
+    </div>
+  ),
+}));
 
 describe('CiteAllActionContainer', () => {
   it('passes literature namespace query and number of results', () => {

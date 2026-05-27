@@ -7,7 +7,7 @@ import { ASSIGN_AUTHOR_NS } from '../../../search/constants';
 import { searchQueryUpdate } from '../../../actions/search';
 import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('../../../actions/search');
+vi.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
 
 describe('EmbeddedSearchBoxContainer', () => {

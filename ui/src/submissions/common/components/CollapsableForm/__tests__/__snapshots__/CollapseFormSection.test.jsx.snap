@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`CollapseFormSection renders when header is not present 1`] = `
+exports[`CollapseFormSection > renders when header is not present 1`] = `
 <DocumentFragment>
   <div
     class="ant-collapse-item bg-white mb3 overflow-hidden"
@@ -27,7 +27,7 @@ exports[`CollapseFormSection renders when header is not present 1`] = `
 </DocumentFragment>
 `;
 
-exports[`CollapseFormSection renders with all props 1`] = `
+exports[`CollapseFormSection > renders with all props 1`] = `
 <DocumentFragment>
   <div
     class="ant-collapse-item bg-white mb3 overflow-hidden"

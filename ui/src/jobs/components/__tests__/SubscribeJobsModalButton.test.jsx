@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import SubscribeJobsModalButton from '../SubscribeJobsModalButton';
 import subscribeJobMailingList from '../../subscribeJobMailingList';
 
-jest.mock('../../subscribeJobMailingList');
+vi.mock('../../subscribeJobMailingList');
 
 describe('SubscribeJobsModalButton', () => {
   beforeEach(() => {

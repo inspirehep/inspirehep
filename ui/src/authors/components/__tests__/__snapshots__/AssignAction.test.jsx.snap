@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AssignAction renders 1`] = `
+exports[`AssignAction > renders 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"
@@ -48,7 +48,7 @@ exports[`AssignAction renders 1`] = `
 </DocumentFragment>
 `;
 
-exports[`AssignAction renders disabled 1`] = `
+exports[`AssignAction > renders disabled 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"
@@ -96,7 +96,7 @@ exports[`AssignAction renders disabled 1`] = `
 </DocumentFragment>
 `;
 
-exports[`AssignAction renders plural form if numberOfSelected is more than 1 1`] = `
+exports[`AssignAction > renders plural form if numberOfSelected is more than 1 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"
@@ -144,7 +144,7 @@ exports[`AssignAction renders plural form if numberOfSelected is more than 1 1`]
 </DocumentFragment>
 `;
 
-exports[`AssignAction renders singular form if numberOfSelected is 1 1`] = `
+exports[`AssignAction > renders singular form if numberOfSelected is 1 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"

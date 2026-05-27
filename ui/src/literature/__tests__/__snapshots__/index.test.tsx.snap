@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Literature does not navigate to ReferenceDiffInterfaceContainer when user is not authorised 1`] = `
+exports[`Literature > does not navigate to ReferenceDiffInterfaceContainer when user is not authorised 1`] = `
 <DocumentFragment>
   <div
     class="__Literature__"
@@ -9,7 +9,7 @@ exports[`Literature does not navigate to ReferenceDiffInterfaceContainer when us
 </DocumentFragment>
 `;
 
-exports[`Literature navigates to DetailPageContainer when /literature/:id 1`] = `
+exports[`Literature > navigates to DetailPageContainer when /literature/:id 1`] = `
 <DocumentFragment>
   <div
     class="__Literature__"
@@ -61,7 +61,7 @@ exports[`Literature navigates to DetailPageContainer when /literature/:id 1`] = 
 </DocumentFragment>
 `;
 
-exports[`Literature navigates to ReferenceDiffInterfaceContainer when /literature/:id/diff/:old..:new 1`] = `
+exports[`Literature > navigates to ReferenceDiffInterfaceContainer when /literature/:id/diff/:old..:new 1`] = `
 <DocumentFragment>
   <div
     class="__Literature__"
@@ -113,7 +113,7 @@ exports[`Literature navigates to ReferenceDiffInterfaceContainer when /literatur
 </DocumentFragment>
 `;
 
-exports[`Literature navigates to SearchPageContainer when /literature 1`] = `
+exports[`Literature > navigates to SearchPageContainer when /literature 1`] = `
 <DocumentFragment>
   <div
     class="__Literature__"
@@ -127,16 +127,16 @@ exports[`Literature navigates to SearchPageContainer when /literature 1`] = `
       >
         <div
           class="ant-row ant-row-center mt3"
-          style="margin-left: -16px; margin-right: -16px;"
+          style=""
           type="flex"
         >
           <div
             class="ant-col ant-col-xs-0 ant-col-lg-7"
-            style="padding-left: 16px; padding-right: 16px;"
+            style=""
           />
           <div
             class="ant-col ant-col-xs-24 ant-col-lg-17"
-            style="padding-left: 16px; padding-right: 16px;"
+            style=""
           >
             <div
               class="ant-row ant-row-end ant-row-middle"

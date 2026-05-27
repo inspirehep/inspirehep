@@ -48,8 +48,8 @@ import {
 import { LITERATURE_REFERENCES_NS } from '../../search/constants';
 
 const mockHttp = new MockAdapter(http.httpClient);
-jest.mock('../../literature/assignNotification');
-jest.mock('../../authors/assignNotification');
+vi.mock('../../literature/assignNotification');
+vi.mock('../../authors/assignNotification');
 
 describe('literature - async action creators', () => {
   afterEach(() => {

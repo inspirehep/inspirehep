@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`LiteratureClaimButton renders disabled when user is logged in and has profile but there is no authors 1`] = `
+exports[`LiteratureClaimButton > renders disabled when user is logged in and has profile but there is no authors 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"
@@ -54,7 +54,7 @@ exports[`LiteratureClaimButton renders disabled when user is logged in and has p
 </DocumentFragment>
 `;
 
-exports[`LiteratureClaimButton renders disabled when user is logged in but doesnt have profile 1`] = `
+exports[`LiteratureClaimButton > renders disabled when user is logged in but doesnt have profile 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"
@@ -108,7 +108,7 @@ exports[`LiteratureClaimButton renders disabled when user is logged in but doesn
 </DocumentFragment>
 `;
 
-exports[`LiteratureClaimButton renders disabled when user is not logged in 1`] = `
+exports[`LiteratureClaimButton > renders disabled when user is not logged in 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"
@@ -162,7 +162,7 @@ exports[`LiteratureClaimButton renders disabled when user is not logged in 1`] =
 </DocumentFragment>
 `;
 
-exports[`LiteratureClaimButton renders enabled 1`] = `
+exports[`LiteratureClaimButton > renders enabled 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"

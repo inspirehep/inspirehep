@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import Figure from '../Figure';
 
-jest.mock('react-image', () => ({
+vi.mock('react-image', () => ({
   Img: ({ src, alt, onClick, className }) => (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
     <img src={src} alt={alt} onClick={onClick} className={className} />

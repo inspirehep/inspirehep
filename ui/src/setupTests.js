@@ -1,21 +1,21 @@
+import { vi } from 'vitest';
 import { configure as configureTestingLibrary } from '@testing-library/react';
 import 'jest-localstorage-mock';
 import '@testing-library/jest-dom';
 
 configureTestingLibrary({ asyncUtilTimeout: 3000 }); // Set timeout for waitFor to 3000ms (3 seconds)
 
-jest.mock('rc-notification/lib/Notification');
+vi.mock('rc-notification/lib/Notification');
 
-// fix react-media
 window.matchMedia = (query) => ({
-  matches: false,
+  matches: query.includes('min-width: 1200px') || query === 'all',
   media: query,
   onchange: null,
-  addListener: jest.fn(), // deprecated
-  removeListener: jest.fn(), // deprecated
-  addEventListener: jest.fn(),
-  removeEventListener: jest.fn(),
-  dispatchEvent: jest.fn(),
+  addListener: vi.fn(), // deprecated
+  removeListener: vi.fn(), // deprecated
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
+  dispatchEvent: vi.fn(),
 });
 
 global.window.location = {

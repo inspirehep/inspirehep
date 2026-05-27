@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import SubmitButton from '../SubmitButton';
 
-jest.mock('formik');
+vi.mock('formik');
 
 describe('SubmitButton', () => {
   it('renders with all props set', () => {

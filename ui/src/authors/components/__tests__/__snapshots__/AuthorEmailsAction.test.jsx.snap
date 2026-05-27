@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = `
+exports[`AuthorEmailsAction > renders multiple current emails in a dropdown 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"
@@ -33,7 +33,7 @@ exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = 
 </DocumentFragment>
 `;
 
-exports[`AuthorEmailsAction renders single email 1`] = `
+exports[`AuthorEmailsAction > renders single email 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"

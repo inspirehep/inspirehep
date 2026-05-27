@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`PartialAbstract does not render if abstract is not passed 1`] = `<DocumentFragment />`;
+exports[`PartialAbstract > does not render if abstract is not passed 1`] = `<DocumentFragment />`;
 
-exports[`PartialAbstract should not append ellipsis when abstract length is less than the limit 1`] = `
+exports[`PartialAbstract > should not append ellipsis when abstract length is less than the limit 1`] = `
 <DocumentFragment>
   <div
     class="__PartialAbstract__"
@@ -16,7 +16,7 @@ exports[`PartialAbstract should not append ellipsis when abstract length is less
 </DocumentFragment>
 `;
 
-exports[`PartialAbstract should render partial abstract 1`] = `
+exports[`PartialAbstract > should render partial abstract 1`] = `
 <DocumentFragment>
   <div
     class="__PartialAbstract__"

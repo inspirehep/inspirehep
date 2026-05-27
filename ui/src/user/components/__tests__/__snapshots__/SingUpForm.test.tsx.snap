@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SingUpForm disable email input and display loading on the button while loading 1`] = `
+exports[`SingUpForm > disable email input and display loading on the button while loading 1`] = `
 <DocumentFragment>
   <form
     action="#"
@@ -81,7 +81,7 @@ exports[`SingUpForm disable email input and display loading on the button while 
 </DocumentFragment>
 `;
 
-exports[`SingUpForm renders the form 1`] = `
+exports[`SingUpForm > renders the form 1`] = `
 <DocumentFragment>
   <form
     action="#"

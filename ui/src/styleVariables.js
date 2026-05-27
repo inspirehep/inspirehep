@@ -1,6 +1,6 @@
 // Variables to override https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
 
-module.exports = {
+export default {
   '@primary-color': '#1890ff',
   '@primary-with-opacity': '#1890FF99',
   '@link-color': '#0050b3',

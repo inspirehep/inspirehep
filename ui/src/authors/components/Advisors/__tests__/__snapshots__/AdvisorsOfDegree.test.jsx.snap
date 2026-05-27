@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AdvisorsOfDegree renders other advisors 1`] = `
+exports[`AdvisorsOfDegree > renders other advisors 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
@@ -32,7 +32,7 @@ exports[`AdvisorsOfDegree renders other advisors 1`] = `
 </DocumentFragment>
 `;
 
-exports[`AdvisorsOfDegree renders phd advisors 1`] = `
+exports[`AdvisorsOfDegree > renders phd advisors 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
@@ -64,7 +64,7 @@ exports[`AdvisorsOfDegree renders phd advisors 1`] = `
 </DocumentFragment>
 `;
 
-exports[`AdvisorsOfDegree renders the master advisor 1`] = `
+exports[`AdvisorsOfDegree > renders the master advisor 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"

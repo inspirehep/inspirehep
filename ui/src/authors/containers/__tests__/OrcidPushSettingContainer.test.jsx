@@ -8,8 +8,8 @@ import { USER_SET_ORCID_PUSH_SETTING_REQUEST } from '../../../actions/actionType
 import OrcidPushSetting from '../../components/OrcidPushSetting';
 import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('../../components/OrcidPushSetting', () => {
-  const actual = jest.requireActual('../../components/OrcidPushSetting');
+vi.mock('../../components/OrcidPushSetting', async () => {
+  const actual = await vi.importActual('../../components/OrcidPushSetting');
   return {
     __esModule: true,
     default: jest.fn((props) => <actual.default {...props} />),

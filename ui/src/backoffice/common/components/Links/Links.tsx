@@ -8,9 +8,9 @@ import Icon, {
   UserOutlined,
 } from '@ant-design/icons';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { ReactComponent as mastodonLogo } from '../../../../common/assets/mastodon.svg';
-import { ReactComponent as blueskyLogo } from '../../../../common/assets/bluesky.svg';
-import { ReactComponent as orcidLogo } from '../../../../common/assets/orcid.svg';
+import mastodonLogo from '../../../../common/assets/mastodon.svg?react';
+import blueskyLogo from '../../../../common/assets/bluesky.svg?react';
+import orcidLogo from '../../../../common/assets/orcid.svg?react';
 
 type LinksProps = {
   urls: Map<string, any>;

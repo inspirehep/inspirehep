@@ -7,7 +7,7 @@ COPY package.json yarn.lock /usr/src/app/
 RUN yarn install
 COPY . /usr/src/app
 ARG VERSION
-ENV REACT_APP_VERSION="${VERSION}"
+ENV VITE_APP_VERSION="${VERSION}"
 RUN yarn run build
 
 FROM registry.cern.ch/cern-sis/base-images/inspirehep/nginx:1.19-with-vts

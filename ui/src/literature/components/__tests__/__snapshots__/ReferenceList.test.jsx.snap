@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ReferenceList does not render the list if total 0 1`] = `
+exports[`ReferenceList > does not render the list if total 0 1`] = `
 <DocumentFragment>
   <div
     class="__ContentBox__ h-100 __ReferenceList__"
@@ -32,7 +32,7 @@ exports[`ReferenceList does not render the list if total 0 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ReferenceList renders items with (page * index) key if title is absent 1`] = `
+exports[`ReferenceList > renders items with (page * index) key if title is absent 1`] = `
 <DocumentFragment>
   <div
     class="__ContentBox__ h-100 __ReferenceList__"
@@ -306,7 +306,7 @@ exports[`ReferenceList renders items with (page * index) key if title is absent 
 </DocumentFragment>
 `;
 
-exports[`ReferenceList renders with error 1`] = `
+exports[`ReferenceList > renders with error 1`] = `
 <DocumentFragment>
   <div
     class="__ContentBox__ h-100 __ReferenceList__"
@@ -393,7 +393,7 @@ exports[`ReferenceList renders with error 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ReferenceList renders with references 1`] = `
+exports[`ReferenceList > renders with references 1`] = `
 <DocumentFragment>
   <div
     class="__ContentBox__ h-100 __ReferenceList__"

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Suggester renders empty if request fails 1`] = `
+exports[`Suggester > renders empty if request fails 1`] = `
 <body>
   <div>
     <div
@@ -33,7 +33,7 @@ exports[`Suggester renders empty if request fails 1`] = `
 </body>
 `;
 
-exports[`Suggester renders results with custom result template 1`] = `
+exports[`Suggester > renders results with custom result template 1`] = `
 <body>
   <div>
     <div
@@ -87,7 +87,7 @@ exports[`Suggester renders results with custom result template 1`] = `
           </div>
           <div
             class=""
-            style="max-height: 256px; overflow-y: auto;"
+            style="max-height: 256px; overflow-y: auto; overflow-anchor: none;"
           >
             <div>
               <div

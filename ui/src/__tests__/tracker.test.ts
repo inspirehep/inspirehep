@@ -1,9 +1,9 @@
 import Piwik from 'react-piwik';
 import { List } from 'immutable';
-
+import { vi } from 'vitest';
 import { setUserCategoryFromRoles } from '../tracker';
 
-jest.mock('react-piwik');
+vi.mock('react-piwik');
 const mockedPiwik = Piwik as jest.Mocked<typeof Piwik>;
 
 describe('tracker', () => {

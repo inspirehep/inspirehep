@@ -8,7 +8,7 @@ import LiteratureSelectContainer from '../LiteratureSelectContainer';
 import { setLiteratureSelection } from '../../../actions/literature';
 import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('../../../actions/literature');
+vi.mock('../../../actions/literature');
 mockActionCreator(setLiteratureSelection);
 
 describe('LiteratureSelectContainer', () => {

@@ -215,6 +215,8 @@ services:
       - "./ui/package.json:/usr/src/app/package.json"
       - "./ui/yarn.lock:/usr/src/app/yarn.lock"
       - "./ui/public:/usr/src/app/public"
+      - "./ui/index.html:/usr/src/app/index.html"
+      - "./ui/vite.config.mts:/usr/src/app/vite.config.mts"
   record-editor:
     build:
       context: record-editor

@@ -9,8 +9,8 @@ import {
 import * as reducersModule from '../../reducers';
 import storage from '../../common/storage';
 
-jest.mock('../../reducers');
-jest.mock('../../common/storage');
+vi.mock('../../reducers');
+vi.mock('../../common/storage');
 
 describe('statePersister', () => {
   afterEach(() => {

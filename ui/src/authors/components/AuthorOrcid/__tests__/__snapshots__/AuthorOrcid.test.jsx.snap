@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AuthorOrcid renders with orcid 1`] = `
+exports[`AuthorOrcid > renders with orcid 1`] = `
 <DocumentFragment>
   <a
     class="__AuthorOrcid__"
@@ -9,7 +9,7 @@ exports[`AuthorOrcid renders with orcid 1`] = `
   >
     <img
       alt="ORCID"
-      src="orcid.svg"
+      src="/src/common/assets/orcid.svg"
     />
   </a>
 </DocumentFragment>

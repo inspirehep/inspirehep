@@ -7,25 +7,27 @@ import { setPreference } from '../../../actions/user';
 import { CITE_FORMAT_PREFERENCE } from '../../../reducers/user';
 import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('../../../actions/user');
+vi.mock('../../../actions/user');
 
-jest.mock('../../components/CiteModalAction', () => (props) => (
-  <div
-    data-testid="cite-modal-action"
-    data-props={JSON.stringify({
-      initialCiteFormat: props.initialCiteFormat,
-      recordId: props.recordId,
-    })}
-  >
-    <button
-      type="button"
-      data-testid="cite-format-change-button"
-      onClick={() => props.onCiteFormatChange('application/x-bibtex')}
+vi.mock('../../components/CiteModalAction', () => ({
+  default: (props) => (
+    <div
+      data-testid="cite-modal-action"
+      data-props={JSON.stringify({
+        initialCiteFormat: props.initialCiteFormat,
+        recordId: props.recordId,
+      })}
     >
-      Change Cite Format
-    </button>
-  </div>
-));
+      <button
+        type="button"
+        data-testid="cite-format-change-button"
+        onClick={() => props.onCiteFormatChange('application/x-bibtex')}
+      >
+        Change Cite Format
+      </button>
+    </div>
+  ),
+}));
 
 describe('CiteModalActionContainer', () => {
   beforeAll(() => {

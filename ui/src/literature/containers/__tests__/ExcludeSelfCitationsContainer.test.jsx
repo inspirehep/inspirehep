@@ -20,46 +20,48 @@ import {
 } from '../../../common/constants';
 import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('../../../actions/citations');
+vi.mock('../../../actions/citations');
 mockActionCreator(fetchCitationSummary);
 
-jest.mock('../../../actions/router');
+vi.mock('../../../actions/router');
 mockActionCreator(appendQueryToLocationSearch);
 
-jest.mock('../../../actions/search');
+vi.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
 
-jest.mock('../../components/ExcludeSelfCitations', () => (props) => (
-  <div
-    data-testid="exclude-self-citations"
-    data-props={JSON.stringify({
-      excluded: props.excluded,
-      preference: props.preference,
-    })}
-  >
-    <button
-      type="button"
-      data-testid="on-change-button"
-      onClick={() => props.onChange(true)}
+vi.mock('../../components/ExcludeSelfCitations', () => ({
+  default: (props) => (
+    <div
+      data-testid="exclude-self-citations"
+      data-props={JSON.stringify({
+        excluded: props.excluded,
+        preference: props.preference,
+      })}
     >
-      Change True
-    </button>
-    <button
-      type="button"
-      data-testid="on-change-false-button"
-      onClick={() => props.onChange(false)}
-    >
-      Change False
-    </button>
-    <button
-      type="button"
-      data-testid="on-preference-change-button"
-      onClick={() => props.onPreferenceChange(true)}
-    >
-      Preference Change
-    </button>
-  </div>
-));
+      <button
+        type="button"
+        data-testid="on-change-button"
+        onClick={() => props.onChange(true)}
+      >
+        Change True
+      </button>
+      <button
+        type="button"
+        data-testid="on-change-false-button"
+        onClick={() => props.onChange(false)}
+      >
+        Change False
+      </button>
+      <button
+        type="button"
+        data-testid="on-preference-change-button"
+        onClick={() => props.onPreferenceChange(true)}
+      >
+        Preference Change
+      </button>
+    </div>
+  ),
+}));
 
 describe('ExcludeSelfCitationsContainer', () => {
   it('dispatches setPreference and fetchCitationSummary when excluded', () => {

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AuthorName renders with formatted value if preffered_name is not present and value is comma separated 1`] = `
+exports[`AuthorName > renders with formatted value if preffered_name is not present and value is comma separated 1`] = `
 <DocumentFragment>
   <span>
     Harun Urhan
@@ -8,7 +8,7 @@ exports[`AuthorName renders with formatted value if preffered_name is not presen
 </DocumentFragment>
 `;
 
-exports[`AuthorName renders with native_name 1`] = `
+exports[`AuthorName > renders with native_name 1`] = `
 <DocumentFragment>
   <span>
     Harun Urhan
@@ -19,7 +19,7 @@ exports[`AuthorName renders with native_name 1`] = `
 </DocumentFragment>
 `;
 
-exports[`AuthorName renders with preferred_name 1`] = `
+exports[`AuthorName > renders with preferred_name 1`] = `
 <DocumentFragment>
   <span>
     Harun Urhan
@@ -27,7 +27,7 @@ exports[`AuthorName renders with preferred_name 1`] = `
 </DocumentFragment>
 `;
 
-exports[`AuthorName renders with value if preffered_name is not present and value is not comma separated 1`] = `
+exports[`AuthorName > renders with value if preffered_name is not present and value is not comma separated 1`] = `
 <DocumentFragment>
   <span>
     Urhan Harun

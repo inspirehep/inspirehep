@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Experiments renders initial state 1`] = `
+exports[`Experiments > renders initial state 1`] = `
 <DocumentFragment>
   <div
     class="w-100"

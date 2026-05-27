@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`IconText renders with all props set 1`] = `
+exports[`IconText > renders with all props set 1`] = `
 <DocumentFragment>
   <span
     class="__IconText__ test"

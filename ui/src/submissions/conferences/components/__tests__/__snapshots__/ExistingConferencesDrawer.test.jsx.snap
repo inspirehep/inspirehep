@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ExistingConferencesDrawer renders drawer with number of conferences 1`] = `
+exports[`ExistingConferencesDrawer > renders drawer with number of conferences 1`] = `
 <body>
   <div />
   <div>

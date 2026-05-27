@@ -5,25 +5,27 @@ import { getStore } from '../../../fixtures/store';
 import AssignLiteratureItemDrawerContainer from '../AssignLiteratureItemDrawerContainer';
 import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+vi.mock('react-router-dom', async () => ({
+  ...(await vi.importActual('react-router-dom')),
   useParams: jest.fn().mockImplementation(() => ({
     id: 123,
   })),
 }));
 
-jest.mock('../../components/AssignLiteratureItemDrawer', () => (props) => (
-  <div
-    data-testid="assign-literature-item-drawer"
-    data-props={JSON.stringify({
-      authors: props.authors ? props.authors.toJS() : props.authors,
-      literatureId: props.literatureId,
-      currentUserRecordId: props.currentUserRecordId,
-    })}
-  >
-    AssignLiteratureItemDrawer Mock
-  </div>
-));
+vi.mock('../../components/AssignLiteratureItemDrawer', async () => ({
+  default: (props) => (
+    <div
+      data-testid="assign-literature-item-drawer"
+      data-props={JSON.stringify({
+        authors: props.authors ? props.authors.toJS() : props.authors,
+        literatureId: props.literatureId,
+        currentUserRecordId: props.currentUserRecordId,
+      })}
+    >
+      AssignLiteratureItemDrawer Mock
+    </div>
+  ),
+}));
 
 describe('AssignLiteratureItemDrawerContainer', () => {
   it('passes state to props', async () => {

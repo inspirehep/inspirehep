@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SupervisorList renders with multiple supervisors 1`] = `
+exports[`SupervisorList > renders with multiple supervisors 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
@@ -36,7 +36,7 @@ exports[`SupervisorList renders with multiple supervisors 1`] = `
 </DocumentFragment>
 `;
 
-exports[`SupervisorList renders with one supervisor 1`] = `
+exports[`SupervisorList > renders with one supervisor 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"

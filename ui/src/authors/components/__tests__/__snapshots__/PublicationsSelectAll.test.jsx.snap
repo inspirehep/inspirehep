@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`PublicationsSelectAll render unchecked if all publications are not part of the selection 1`] = `
+exports[`PublicationsSelectAll > render unchecked if all publications are not part of the selection 1`] = `
 <DocumentFragment>
   <label
     class="ant-checkbox-wrapper"
@@ -23,7 +23,7 @@ exports[`PublicationsSelectAll render unchecked if all publications are not part
 </DocumentFragment>
 `;
 
-exports[`PublicationsSelectAll renders checked if all publications are part of the selection 1`] = `
+exports[`PublicationsSelectAll > renders checked if all publications are part of the selection 1`] = `
 <DocumentFragment>
   <label
     class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
@@ -47,7 +47,7 @@ exports[`PublicationsSelectAll renders checked if all publications are part of t
 </DocumentFragment>
 `;
 
-exports[`PublicationsSelectAll renders disabled 1`] = `
+exports[`PublicationsSelectAll > renders disabled 1`] = `
 <DocumentFragment>
   <label
     class="ant-checkbox-wrapper ant-checkbox-wrapper-disabled"

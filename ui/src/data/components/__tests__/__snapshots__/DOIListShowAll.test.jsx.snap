@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`DOIListShowAll renders correctly with data and other dois 1`] = `
+exports[`DOIListShowAll > renders correctly with data and other dois 1`] = `
 <DocumentFragment>
   <div
     class="ant-row"
@@ -62,7 +62,7 @@ exports[`DOIListShowAll renders correctly with data and other dois 1`] = `
 </DocumentFragment>
 `;
 
-exports[`DOIListShowAll renders correctly with dataDois only 1`] = `
+exports[`DOIListShowAll > renders correctly with dataDois only 1`] = `
 <DocumentFragment>
   <div
     class="ant-row"
@@ -114,6 +114,6 @@ exports[`DOIListShowAll renders correctly with dataDois only 1`] = `
 </DocumentFragment>
 `;
 
-exports[`DOIListShowAll renders correctly with default props 1`] = `<DocumentFragment />`;
+exports[`DOIListShowAll > renders correctly with default props 1`] = `<DocumentFragment />`;
 
-exports[`DOIListShowAll renders correctly with no dataDois 1`] = `<DocumentFragment />`;
+exports[`DOIListShowAll > renders correctly with no dataDois 1`] = `<DocumentFragment />`;

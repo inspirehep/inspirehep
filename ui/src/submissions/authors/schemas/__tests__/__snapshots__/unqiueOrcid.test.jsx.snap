@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`uniqueOrcid invalidates if orcid exists with message that includes link to update form 1`] = `
+exports[`uniqueOrcid > invalidates if orcid exists with message that includes link to update form 1`] = `
 <span>
   Author with this ORCID already exist, please submit an
    

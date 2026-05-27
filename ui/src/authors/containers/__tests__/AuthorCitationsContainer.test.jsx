@@ -7,9 +7,11 @@ import AuthorCitationsContainer from '../AuthorCitationsContainer';
 import LiteratureSearchContainer from '../../../literature/containers/LiteratureSearchContainer';
 import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('../../../literature/containers/LiteratureSearchContainer', () =>
-  jest.fn(() => <div data-testid="literature-citations-search-container" />)
-);
+vi.mock('../../../literature/containers/LiteratureSearchContainer', () => ({
+  default: jest.fn(() => (
+    <div data-testid="literature-citations-search-container" />
+  )),
+}));
 
 describe('AuthorCitationsContainer', () => {
   it('passes all props to LiteratureSearchContainer', () => {

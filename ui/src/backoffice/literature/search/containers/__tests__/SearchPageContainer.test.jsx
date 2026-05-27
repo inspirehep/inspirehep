@@ -19,8 +19,8 @@ import {
 } from '../../../../../actions/backoffice';
 import { WorkflowDecisions } from '../../../../../common/constants';
 
-jest.mock('../../../../../actions/backoffice', () => {
-  const actual = jest.requireActual('../../../../../actions/backoffice');
+vi.mock('../../../../../actions/backoffice', async () => {
+  const actual = await vi.importActual('../../../../../actions/backoffice');
   return {
     ...actual,
     resolveLiteratureAction: jest.fn(),

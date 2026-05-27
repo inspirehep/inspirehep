@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ics matches ics file content with all fields 1`] = `
+exports[`ics > matches ics file content with all fields 1`] = `
 "BEGIN:VCALENDAR
 VERSION:2.0
 CALSCALE:GREGORIAN
@@ -10,7 +10,7 @@ DTSTART:20200515T113400Z
 DTEND:20200515T173400Z
 UID:inspirehep-seminar-12345
 SUMMARY:Harun Urhan  et al.  — Seminar Title
-URL:http://localhost/seminars/12345
+URL:http://localhost:3000/seminars/12345
 DESCRIPTION:This is a test seminar
 CATEGORIES:Accelerators,Experiment-HEP
 LOCATION:CERN
@@ -18,7 +18,7 @@ END:VEVENT
 END:VCALENDAR"
 `;
 
-exports[`ics matches ics file content with only required fields 1`] = `
+exports[`ics > matches ics file content with only required fields 1`] = `
 "BEGIN:VCALENDAR
 VERSION:2.0
 CALSCALE:GREGORIAN
@@ -28,7 +28,7 @@ DTSTART:20200515T114500Z
 DTEND:20200517T004500Z
 UID:inspirehep-seminar-12345
 SUMMARY:Harun Urhan  — Seminar Title
-URL:http://localhost/seminars/12345
+URL:http://localhost:3000/seminars/12345
 END:VEVENT
 END:VCALENDAR"
 `;

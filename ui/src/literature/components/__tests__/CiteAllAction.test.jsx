@@ -7,7 +7,7 @@ import { MAX_CITEABLE_RECORDS } from '../../constants';
 import http from '../../../common/http';
 import { downloadTextAsFile } from '../../../common/utils';
 
-jest.mock('../../../common/utils');
+vi.mock('../../../common/utils');
 
 const mockHttp = new MockAdapter(http.httpClient);
 

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`DOILink renders with doi 1`] = `
+exports[`DOILink > renders with doi 1`] = `
 <DocumentFragment>
   <a
     href="//doi.org/12.1234/1234567890123_1234"

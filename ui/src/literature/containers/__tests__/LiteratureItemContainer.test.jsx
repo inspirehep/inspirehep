@@ -6,11 +6,13 @@ import { renderWithProviders } from '../../../fixtures/render';
 import LiteratureItemContainer from '../LiteratureItemContainer';
 import { CITE_FORMAT_PREFERENCE } from '../../../reducers/user';
 
-jest.mock('../../components/LiteratureItem', () => (props) => (
-  <div data-testid="literature-item" data-props={JSON.stringify(props)}>
-    LiteratureItem Mock
-  </div>
-));
+vi.mock('../../components/LiteratureItem', () => ({
+  default: (props) => (
+    <div data-testid="literature-item" data-props={JSON.stringify(props)}>
+      LiteratureItem Mock
+    </div>
+  ),
+}));
 
 describe('LiteratureItemContainer', () => {
   it('renders with props', () => {

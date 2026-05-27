@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`CitationsByYearGraph renders citations for less than 3 years with dummy data for previous 1-2 years 1`] = `
+exports[`CitationsByYearGraph > renders citations for less than 3 years with dummy data for previous 1-2 years 1`] = `
 <DocumentFragment>
   <div
     data-test-id="citations-by-year-graph"
@@ -191,7 +191,7 @@ exports[`CitationsByYearGraph renders citations for less than 3 years with dummy
 </DocumentFragment>
 `;
 
-exports[`CitationsByYearGraph renders citations for less than 5 different citation counts with tickValues for the YAxis 1`] = `
+exports[`CitationsByYearGraph > renders citations for less than 5 different citation counts with tickValues for the YAxis 1`] = `
 <DocumentFragment>
   <div
     data-test-id="citations-by-year-graph"
@@ -408,7 +408,7 @@ exports[`CitationsByYearGraph renders citations for less than 5 different citati
 </DocumentFragment>
 `;
 
-exports[`CitationsByYearGraph renders citations for more than 3 less than 8 years with tickValues for the XAxis and without dummy data 1`] = `
+exports[`CitationsByYearGraph > renders citations for more than 3 less than 8 years with tickValues for the XAxis and without dummy data 1`] = `
 <DocumentFragment>
   <div
     data-test-id="citations-by-year-graph"
@@ -665,7 +665,7 @@ exports[`CitationsByYearGraph renders citations for more than 3 less than 8 year
 </DocumentFragment>
 `;
 
-exports[`CitationsByYearGraph renders filling missing years with 0 1`] = `
+exports[`CitationsByYearGraph > renders filling missing years with 0 1`] = `
 <DocumentFragment>
   <div
     data-test-id="citations-by-year-graph"
@@ -1014,9 +1014,9 @@ exports[`CitationsByYearGraph renders filling missing years with 0 1`] = `
 </DocumentFragment>
 `;
 
-exports[`CitationsByYearGraph renders more than 5 different citation counts without explicit tickValues for the YAxis 1`] = `[Function]`;
+exports[`CitationsByYearGraph > renders more than 5 different citation counts without explicit tickValues for the YAxis 1`] = `[Function]`;
 
-exports[`CitationsByYearGraph renders more than 8 years without explicit tickValues for the xAxis 1`] = `
+exports[`CitationsByYearGraph > renders more than 8 years without explicit tickValues for the xAxis 1`] = `
 <DocumentFragment>
   <div
     data-test-id="citations-by-year-graph"
@@ -1431,7 +1431,7 @@ exports[`CitationsByYearGraph renders more than 8 years without explicit tickVal
 </DocumentFragment>
 `;
 
-exports[`CitationsByYearGraph renders two citations graphs when current year citations are included 1`] = `
+exports[`CitationsByYearGraph > renders two citations graphs when current year citations are included 1`] = `
 <DocumentFragment>
   <div
     data-test-id="citations-by-year-graph"
@@ -1714,7 +1714,7 @@ exports[`CitationsByYearGraph renders two citations graphs when current year cit
 </DocumentFragment>
 `;
 
-exports[`CitationsByYearGraph renders without citations 1`] = `
+exports[`CitationsByYearGraph > renders without citations 1`] = `
 <DocumentFragment>
   <div
     class="ant-row ant-row-center ant-row-middle w-100"

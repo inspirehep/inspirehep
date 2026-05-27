@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SettingsPage renders page 1`] = `
+exports[`SettingsPage > renders page 1`] = `
 <DocumentFragment>
   <div
     class="ant-row ant-row-center ant-row-middle mv3"
@@ -149,7 +149,7 @@ exports[`SettingsPage renders page 1`] = `
 </DocumentFragment>
 `;
 
-exports[`SettingsPage renders page with authors profile section when user has author profile 1`] = `
+exports[`SettingsPage > renders page with authors profile section when user has author profile 1`] = `
 <DocumentFragment>
   <div
     class="ant-row ant-row-center ant-row-middle mv3"
@@ -365,7 +365,7 @@ exports[`SettingsPage renders page with authors profile section when user has au
 </DocumentFragment>
 `;
 
-exports[`SettingsPage renders page with error 1`] = `
+exports[`SettingsPage > renders page with error 1`] = `
 <DocumentFragment>
   <div
     class="ant-row ant-row-center ant-row-middle mv3"
@@ -581,7 +581,7 @@ exports[`SettingsPage renders page with error 1`] = `
 </DocumentFragment>
 `;
 
-exports[`SettingsPage renders page with orcid section when user has orcid profile 1`] = `
+exports[`SettingsPage > renders page with orcid section when user has orcid profile 1`] = `
 <DocumentFragment>
   <div
     class="ant-row ant-row-center ant-row-middle mv3"

@@ -17,34 +17,30 @@ import { WorkflowActions, WorkflowStatuses } from '../../backoffice/constants';
 import { BACKOFFICE_API } from '../../common/routes';
 import { LITERATURE_PID_TYPE } from '../../common/constants';
 
-jest.mock('axios', () => {
-  const instance = {
-    patch: jest.fn(),
-    post: jest.fn(),
-    interceptors: {
-      request: { use: jest.fn() },
-      response: { use: jest.fn() },
-    },
-  };
-  return {
-    create: jest.fn(() => instance),
-    isAxiosError: jest.fn(),
-    instance,
-  };
-});
+const mockAxiosInstance = vi.hoisted(() => ({
+  patch: vi.fn(),
+  post: vi.fn(),
+  interceptors: {
+    request: { use: vi.fn() },
+    response: { use: vi.fn() },
+  },
+}));
 
-const mockAxiosInstance = (
-  jest.requireMock('axios') as {
-    instance: { patch: jest.Mock; post: jest.Mock };
-  }
-).instance;
+vi.mock('axios', () => ({
+  default: {
+    create: vi.fn(() => mockAxiosInstance),
+    isAxiosError: vi.fn(),
+  },
+  create: vi.fn(() => mockAxiosInstance),
+  isAxiosError: vi.fn(),
+}));
 
-jest.mock('../../backoffice/notifications', () => ({
-  notifyActionError: jest.fn(),
-  notifyActionSuccess: jest.fn(),
-  notifyDeleteSuccess: jest.fn(),
-  notifyDeleteError: jest.fn(),
-  notifyLoginError: jest.fn(),
+vi.mock('../../backoffice/notifications', () => ({
+  notifyActionError: vi.fn(),
+  notifyActionSuccess: vi.fn(),
+  notifyDeleteSuccess: vi.fn(),
+  notifyDeleteError: vi.fn(),
+  notifyLoginError: vi.fn(),
 }));
 
 function makeAxiosError(status: number, data: object) {

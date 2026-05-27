@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ExternalSystemIdentifierList renders with external system identifiers 1`] = `
+exports[`ExternalSystemIdentifierList > renders with external system identifiers 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"

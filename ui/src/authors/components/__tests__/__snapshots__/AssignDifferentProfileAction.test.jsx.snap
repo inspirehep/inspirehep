@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AssignDifferentProfileAction renders 1`] = `
+exports[`AssignDifferentProfileAction > renders 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"
@@ -48,7 +48,7 @@ exports[`AssignDifferentProfileAction renders 1`] = `
 </DocumentFragment>
 `;
 
-exports[`AssignDifferentProfileAction renders disabled 1`] = `
+exports[`AssignDifferentProfileAction > renders disabled 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"
@@ -96,7 +96,7 @@ exports[`AssignDifferentProfileAction renders disabled 1`] = `
 </DocumentFragment>
 `;
 
-exports[`AssignDifferentProfileAction renders with claimingUnclaimedPapersDisabled 1`] = `
+exports[`AssignDifferentProfileAction > renders with claimingUnclaimedPapersDisabled 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"

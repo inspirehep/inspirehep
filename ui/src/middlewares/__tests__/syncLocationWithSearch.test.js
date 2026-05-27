@@ -12,7 +12,7 @@ import {
   fetchAggregationsAndSearchQueryReset,
 } from '../../actions/search';
 
-jest.mock('../../actions/search');
+vi.mock('../../actions/search');
 mockActionCreator(searchQueryUpdate);
 mockActionCreator(newSearch);
 mockActionCreator(searchQueryReset);

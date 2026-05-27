@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
-import SanitizedHTML from 'react-sanitized-html';
 import classNames from 'classnames';
 import { Alert, Button } from 'antd';
 import { Map } from 'immutable';
+import SanitizedHTML from '../../components/SanitizedHTML';
 
 const ALLOWED_ATTRIBUTES_BY_TAG = { a: ['href', 'target', 'rel'] };
 const ALLOWED_HTML_TAGS = ['a', 'p', 'em', 'strong'];

@@ -5,7 +5,7 @@ import { fireEvent } from '@testing-library/react';
 import GoBackLinkContainer from '../GoBackLinkContainer';
 import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('connected-react-router');
+vi.mock('connected-react-router');
 
 goBack.mockReturnValue(async () => {});
 

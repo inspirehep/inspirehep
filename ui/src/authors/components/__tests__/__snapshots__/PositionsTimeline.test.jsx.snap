@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`PositionsTimeline renders only first 3 by default 1`] = `
+exports[`PositionsTimeline > renders only first 3 by default 1`] = `
 <DocumentFragment>
   <ul
     class="ant-timeline"
@@ -75,7 +75,7 @@ exports[`PositionsTimeline renders only first 3 by default 1`] = `
 </DocumentFragment>
 `;
 
-exports[`PositionsTimeline renders with positions 1`] = `
+exports[`PositionsTimeline > renders with positions 1`] = `
 <DocumentFragment>
   <ul
     class="ant-timeline"
@@ -159,7 +159,7 @@ exports[`PositionsTimeline renders with positions 1`] = `
 </DocumentFragment>
 `;
 
-exports[`PositionsTimeline renders with single position 1`] = `
+exports[`PositionsTimeline > renders with single position 1`] = `
 <DocumentFragment>
   <ul
     class="ant-timeline"

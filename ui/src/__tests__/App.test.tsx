@@ -2,7 +2,7 @@ import React from 'react';
 import { within } from '@testing-library/react';
 import { fromJS, List } from 'immutable';
 import Loadable from 'react-loadable';
-
+import { vi } from 'vitest';
 import { getStore, mockActionCreator } from '../fixtures/store';
 import { renderWithProviders } from '../fixtures/render';
 import App from '../App';
@@ -10,8 +10,8 @@ import { setUserCategoryFromRoles } from '../tracker';
 import { userSignUp, fetchLoggedInUser } from '../actions/user';
 import { BACKOFFICE } from '../common/routes';
 
-jest.mock('../tracker');
-jest.mock('../actions/user');
+vi.mock('../tracker');
+vi.mock('../actions/user');
 mockActionCreator(userSignUp);
 mockActionCreator(fetchLoggedInUser);
 

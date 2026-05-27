@@ -11,7 +11,7 @@ import {
 } from '../../../actions/authors';
 import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('../../../actions/authors');
+vi.mock('../../../actions/authors');
 mockActionCreator(setPublicationSelection);
 mockActionCreator(setPublicationsClaimedSelection);
 mockActionCreator(setPublicationsUnclaimedSelection);

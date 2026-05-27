@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ConferenceSuggestion renders with full conference 1`] = `
+exports[`ConferenceSuggestion > renders with full conference 1`] = `
 <DocumentFragment>
   <div>
     <strong>
@@ -35,7 +35,7 @@ exports[`ConferenceSuggestion renders with full conference 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ConferenceSuggestion renders with only title 1`] = `
+exports[`ConferenceSuggestion > renders with only title 1`] = `
 <DocumentFragment>
   <div>
     <strong>
@@ -61,7 +61,7 @@ exports[`ConferenceSuggestion renders with only title 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ConferenceSuggestion renders with title and address but without city 1`] = `
+exports[`ConferenceSuggestion > renders with title and address but without city 1`] = `
 <DocumentFragment>
   <div>
     <strong>

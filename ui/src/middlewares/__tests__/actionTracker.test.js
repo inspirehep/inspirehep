@@ -4,7 +4,7 @@ import middleware from '../actionTracker';
 import { USER_LOGIN_SUCCESS } from '../../actions/actionTypes';
 import { setUserCategoryFromRoles } from '../../tracker';
 
-jest.mock('../../tracker');
+vi.mock('../../tracker');
 
 describe('actionTracker middleware', () => {
   beforeEach(() => {

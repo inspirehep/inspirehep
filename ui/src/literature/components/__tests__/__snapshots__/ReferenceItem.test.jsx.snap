@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ReferenceItem does not render misc if title present 1`] = `
+exports[`ReferenceItem > does not render misc if title present 1`] = `
 <DocumentFragment>
   <div
     data-test-id="reference-item"
@@ -116,7 +116,7 @@ exports[`ReferenceItem does not render misc if title present 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ReferenceItem renders misc if present 1`] = `
+exports[`ReferenceItem > renders misc if present 1`] = `
 <DocumentFragment>
   <div
     data-test-id="reference-item"
@@ -217,7 +217,7 @@ exports[`ReferenceItem renders misc if present 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
+exports[`ReferenceItem > renders unlinked reference (no control_number) 1`] = `
 <DocumentFragment>
   <div
     data-test-id="reference-item"
@@ -459,7 +459,7 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ReferenceItem renders with full reference 1`] = `
+exports[`ReferenceItem > renders with full reference 1`] = `
 <DocumentFragment>
   <div
     data-test-id="reference-item"
@@ -691,7 +691,7 @@ exports[`ReferenceItem renders with full reference 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ReferenceItem renders without edit button if disableEdit 1`] = `
+exports[`ReferenceItem > renders without edit button if disableEdit 1`] = `
 <DocumentFragment>
   <div
     data-test-id="reference-item"

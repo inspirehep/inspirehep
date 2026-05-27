@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`IsbnList renders isbns with medium and without medium 1`] = `
+exports[`IsbnList > renders isbns with medium and without medium 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"

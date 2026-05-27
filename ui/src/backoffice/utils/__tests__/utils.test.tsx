@@ -1,4 +1,5 @@
 import { List, Map as ImmutableMap } from 'immutable';
+import { vi } from 'vitest';
 import {
   refreshToken,
   filterByProperty,
@@ -14,9 +15,9 @@ import { BACKOFFICE_LOGIN_API } from '../../../common/routes';
 import { WorkflowTypes } from '../../constants';
 import { WorkflowDecisions } from '../../../common/constants';
 
-jest.mock('../../../common/storage');
-jest.mock('../../../common/constants', () => ({
-  ...jest.requireActual('../../../common/constants'),
+vi.mock('../../../common/storage');
+vi.mock('../../../common/constants', async () => ({
+  ...(await vi.importActual('../../../common/constants')),
   LOCAL_TIMEZONE: 'UTC',
 }));
 

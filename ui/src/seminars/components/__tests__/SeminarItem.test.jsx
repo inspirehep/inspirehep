@@ -2,12 +2,14 @@ import React from 'react';
 import { fromJS } from 'immutable';
 
 import SeminarItem from '../SeminarItem';
-import * as constants from '../../../common/constants';
 import { renderWithProviders } from '../../../fixtures/render';
 
-describe('SeminarItem', () => {
-  constants.LOCAL_TIMEZONE = 'Europe/Zurich';
+vi.mock('../../../common/constants', async () => ({
+  ...(await vi.importActual('../../../common/constants')),
+  LOCAL_TIMEZONE: 'Europe/Zurich',
+}));
 
+describe('SeminarItem', () => {
   it('renders with all props set', () => {
     const metadata = fromJS({
       title: { title: 'test' },

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AuthorResultItem renders full author result 1`] = `
+exports[`AuthorResultItem > renders full author result 1`] = `
 <DocumentFragment>
   <div
     class="__ContentBox__ h-100"
@@ -140,7 +140,7 @@ exports[`AuthorResultItem renders full author result 1`] = `
 </DocumentFragment>
 `;
 
-exports[`AuthorResultItem renders with only name 1`] = `
+exports[`AuthorResultItem > renders with only name 1`] = `
 <DocumentFragment>
   <div
     class="__ContentBox__ h-100"

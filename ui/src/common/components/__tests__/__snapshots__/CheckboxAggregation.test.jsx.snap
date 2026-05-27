@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`CheckboxAggregation render initial state with all props set 1`] = `
+exports[`CheckboxAggregation > render initial state with all props set 1`] = `
 <DocumentFragment>
   <div
     class="w-100 br1"
@@ -11,7 +11,7 @@ exports[`CheckboxAggregation render initial state with all props set 1`] = `
     >
       <div
         class="ant-col"
-        style="flex-basis: auto;"
+        style="flex: 1 1 auto;"
       >
         <h3
           class="pb1 fw4"
@@ -28,7 +28,7 @@ exports[`CheckboxAggregation render initial state with all props set 1`] = `
     >
       <div
         class="ant-col"
-        style="flex-basis: auto;"
+        style="flex: 1 1 auto;"
       >
         <div
           class="ant-row ant-row-space-between mb2"
@@ -118,7 +118,7 @@ exports[`CheckboxAggregation render initial state with all props set 1`] = `
 </DocumentFragment>
 `;
 
-exports[`CheckboxAggregation render initial state with bucketHelp 1`] = `
+exports[`CheckboxAggregation > render initial state with bucketHelp 1`] = `
 <DocumentFragment>
   <div
     class="w-100 br1"
@@ -129,7 +129,7 @@ exports[`CheckboxAggregation render initial state with bucketHelp 1`] = `
     >
       <div
         class="ant-col"
-        style="flex-basis: auto;"
+        style="flex: 1 1 auto;"
       >
         <h3
           class="pb1 fw4"
@@ -146,7 +146,7 @@ exports[`CheckboxAggregation render initial state with bucketHelp 1`] = `
     >
       <div
         class="ant-col"
-        style="flex-basis: auto;"
+        style="flex: 1 1 auto;"
       >
         <div
           class="ant-row ant-row-space-between mb2"
@@ -343,7 +343,7 @@ exports[`CheckboxAggregation render initial state with bucketHelp 1`] = `
 </DocumentFragment>
 `;
 
-exports[`CheckboxAggregation render initial state without splitDisplayName 1`] = `
+exports[`CheckboxAggregation > render initial state without splitDisplayName 1`] = `
 <DocumentFragment>
   <div
     class="w-100 br1"
@@ -354,7 +354,7 @@ exports[`CheckboxAggregation render initial state without splitDisplayName 1`] =
     >
       <div
         class="ant-col"
-        style="flex-basis: auto;"
+        style="flex: 1 1 auto;"
       >
         <h3
           class="pb1 fw4"
@@ -371,7 +371,7 @@ exports[`CheckboxAggregation render initial state without splitDisplayName 1`] =
     >
       <div
         class="ant-col"
-        style="flex-basis: auto;"
+        style="flex: 1 1 auto;"
       >
         <div
           class="ant-row ant-row-space-between mb2"
@@ -462,7 +462,7 @@ exports[`CheckboxAggregation render initial state without splitDisplayName 1`] =
 </DocumentFragment>
 `;
 
-exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
+exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] = `
 <DocumentFragment>
   <div
     class="w-100 br1"
@@ -473,7 +473,7 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
     >
       <div
         class="ant-col"
-        style="flex-basis: auto;"
+        style="flex: 1 1 auto;"
       >
         <h3
           class="pb1 fw4"
@@ -490,7 +490,7 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
     >
       <div
         class="ant-col"
-        style="flex-basis: auto;"
+        style="flex: 1 1 auto;"
       >
         <div
           class="ant-row ant-row-space-between mb2"
@@ -915,7 +915,7 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
 </DocumentFragment>
 `;
 
-exports[`CheckboxAggregation renders with show more button if buckets are more than 10 1`] = `
+exports[`CheckboxAggregation > renders with show more button if buckets are more than 10 1`] = `
 <DocumentFragment>
   <div
     class="w-100 br1"
@@ -926,7 +926,7 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
     >
       <div
         class="ant-col"
-        style="flex-basis: auto;"
+        style="flex: 1 1 auto;"
       >
         <h3
           class="pb1 fw4"
@@ -943,7 +943,7 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
     >
       <div
         class="ant-col"
-        style="flex-basis: auto;"
+        style="flex: 1 1 auto;"
       >
         <div
           class="ant-row ant-row-space-between mb2"

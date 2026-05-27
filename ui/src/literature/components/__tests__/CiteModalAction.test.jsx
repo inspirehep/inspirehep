@@ -5,7 +5,7 @@ import CiteModalAction from '../CiteModalAction';
 import citeArticle from '../../citeArticle';
 import { CITE_FORMAT_VALUES } from '../../constants';
 
-jest.mock('../../citeArticle');
+vi.mock('../../citeArticle');
 
 describe('CiteModalAction', () => {
   beforeAll(() => {

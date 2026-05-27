@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ImprintInfo renders date with month and day 1`] = `
+exports[`ImprintInfo > renders date with month and day 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
@@ -19,7 +19,7 @@ exports[`ImprintInfo renders date with month and day 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ImprintInfo renders imprints with date 1`] = `
+exports[`ImprintInfo > renders imprints with date 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
@@ -38,7 +38,7 @@ exports[`ImprintInfo renders imprints with date 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ImprintInfo renders imprints with date and place 1`] = `
+exports[`ImprintInfo > renders imprints with date and place 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
@@ -57,7 +57,7 @@ exports[`ImprintInfo renders imprints with date and place 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ImprintInfo renders imprints with date and publisher 1`] = `
+exports[`ImprintInfo > renders imprints with date and publisher 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
@@ -76,7 +76,7 @@ exports[`ImprintInfo renders imprints with date and publisher 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ImprintInfo renders imprints with date, publisher, and place 1`] = `
+exports[`ImprintInfo > renders imprints with date, publisher, and place 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
@@ -95,7 +95,7 @@ exports[`ImprintInfo renders imprints with date, publisher, and place 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ImprintInfo renders imprints with place 1`] = `
+exports[`ImprintInfo > renders imprints with place 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
@@ -114,7 +114,7 @@ exports[`ImprintInfo renders imprints with place 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ImprintInfo renders imprints with publisher 1`] = `
+exports[`ImprintInfo > renders imprints with publisher 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
@@ -133,7 +133,7 @@ exports[`ImprintInfo renders imprints with publisher 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ImprintInfo renders imprints with publisher and place 1`] = `
+exports[`ImprintInfo > renders imprints with publisher and place 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
@@ -152,7 +152,7 @@ exports[`ImprintInfo renders imprints with publisher and place 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ImprintInfo renders multiple imprints 1`] = `
+exports[`ImprintInfo > renders multiple imprints 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"

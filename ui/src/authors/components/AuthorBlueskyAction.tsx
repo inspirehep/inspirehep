@@ -5,7 +5,7 @@ import Icon from '@ant-design/icons';
 import UserAction from '../../common/components/UserAction';
 import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 import EventTracker from '../../common/components/EventTracker';
-import { ReactComponent as blueskyLogo } from '../../common/assets/bluesky.svg';
+import blueskyLogo from '../../common/assets/bluesky.svg?react';
 
 const AuthorBlueskyAction = ({ bluesky }: { bluesky: string }) => {
   const href = `//bsky.app/profile/${bluesky}`;

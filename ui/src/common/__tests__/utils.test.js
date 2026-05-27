@@ -452,14 +452,14 @@ describe('utils', () => {
 
   describe('removeProtocolAndWwwFromUrl', () => {
     // regexp does not work on tests as it does on real browser
-    xit('removes protocol and www from url', () => {
+    it.skip('removes protocol and www from url', () => {
       const url = 'https://wwww.home.cern/about';
       const expected = 'home.cern/about';
       const result = removeProtocolAndWwwFromUrl(url);
       expect(result).toEqual(expected);
     });
 
-    xit('removes www from url', () => {
+    it.skip('removes www from url', () => {
       const url = 'wwww.home.cern/about';
       const expected = 'home.cern/about';
       const result = removeProtocolAndWwwFromUrl(url);

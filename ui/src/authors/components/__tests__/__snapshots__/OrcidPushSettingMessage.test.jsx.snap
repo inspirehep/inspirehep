@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`OrcidPushSettingMessage renders when disabled 1`] = `
+exports[`OrcidPushSettingMessage > renders when disabled 1`] = `
 <DocumentFragment>
   <div
     data-testid="orcid-push-setting-message"
@@ -12,7 +12,7 @@ exports[`OrcidPushSettingMessage renders when disabled 1`] = `
 </DocumentFragment>
 `;
 
-exports[`OrcidPushSettingMessage renders when enabled 1`] = `
+exports[`OrcidPushSettingMessage > renders when enabled 1`] = `
 <DocumentFragment>
   <div
     data-testid="orcid-push-setting-message"

@@ -6,63 +6,67 @@ import { fromJS } from 'immutable';
 import { renderWithRouter } from '../../../fixtures/render';
 import ConferenceItem from '../ConferenceItem';
 
-jest.mock('../ConferenceDates', () => ({ openingDate, closingDate }) => (
-  <span data-testid="conference-dates">
-    {openingDate} - {closingDate}
-  </span>
-));
+vi.mock('../ConferenceDates', () => ({
+  default: ({ openingDate, closingDate }) => (
+    <span data-testid="conference-dates">
+      {openingDate} - {closingDate}
+    </span>
+  ),
+}));
 
-jest.mock('../../../common/components/AddressList', () => ({ addresses }) => (
-  <span data-testid="address-list">
-    {addresses?.getIn([0, 'cities', 0]) || 'No address'}
-  </span>
-));
+vi.mock('../../../common/components/AddressList', () => ({
+  default: ({ addresses }) => (
+    <span data-testid="address-list">
+      {addresses?.getIn([0, 'cities', 0]) || 'No address'}
+    </span>
+  ),
+}));
 
-jest.mock('../InspireCategoryList', () => ({ categories }) => (
-  <span data-testid="inspire-categories">
-    {categories?.getIn([0, 'term']) || 'No categories'}
-  </span>
-));
+vi.mock('../InspireCategoryList', () => ({
+  default: ({ categories }) => (
+    <span data-testid="inspire-categories">
+      {categories?.getIn([0, 'term']) || 'No categories'}
+    </span>
+  ),
+}));
 
-jest.mock('../ProceedingsAction', () => () => (
-  <span data-testid="proceedings-action">Proceedings</span>
-));
+vi.mock('../ProceedingsAction', () => ({
+  default: () => <span data-testid="proceedings-action">Proceedings</span>,
+}));
 
-jest.mock('../../../literature/components/UrlsAction', () => () => (
-  <span data-testid="urls-action">URLs</span>
-));
+vi.mock('../../../literature/components/UrlsAction', () => ({
+  default: () => <span data-testid="urls-action">URLs</span>,
+}));
 
-jest.mock('../ConferenceContributionLink', () => ({ contributionsCount }) => (
-  <span data-testid="contribution-link">
-    {contributionsCount} contributions
-  </span>
-));
+vi.mock('../ConferenceContributionLink', () => ({
+  default: ({ contributionsCount }) => (
+    <span data-testid="contribution-link">
+      {contributionsCount} contributions
+    </span>
+  ),
+}));
 
-jest.mock('../../../common/components/EditRecordAction', () => () => (
-  <span data-testid="edit-action">Edit</span>
-));
+vi.mock('../../../common/components/EditRecordAction', () => ({
+  default: () => <span data-testid="edit-action">Edit</span>,
+}));
 
-jest.mock(
-  '../../../common/components/EventTitle',
-  () =>
-    ({ title, acronym }) => (
-      <span data-testid="event-title">
-        {title?.get('title')} {acronym && `(${acronym})`}
-      </span>
-    )
-);
+vi.mock('../../../common/components/EventTitle', () => ({
+  default: ({ title, acronym }) => (
+    <span data-testid="event-title">
+      {title?.get('title')} {acronym && `(${acronym})`}
+    </span>
+  ),
+}));
 
-jest.mock(
-  '../../../common/components/ResultItem',
-  () =>
-    ({ children, leftActions, rightActions }) => (
-      <div data-testid="result-item">
-        <div data-testid="left-actions">{leftActions}</div>
-        <div data-testid="content">{children}</div>
-        <div data-testid="right-actions">{rightActions}</div>
-      </div>
-    )
-);
+vi.mock('../../../common/components/ResultItem', () => ({
+  default: ({ children, leftActions, rightActions }) => (
+    <div data-testid="result-item">
+      <div data-testid="left-actions">{leftActions}</div>
+      <div data-testid="content">{children}</div>
+      <div data-testid="right-actions">{rightActions}</div>
+    </div>
+  ),
+}));
 
 describe('ConferenceItem', () => {
   it('renders with all props set', () => {
