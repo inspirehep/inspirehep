@@ -1,7 +1,5 @@
-import { onlyOn } from '@cypress/skip-test';
-
 describe('Literature Search', () => {
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/literature?ui-citation-summary=true');
@@ -19,7 +17,7 @@ describe('Literature Search', () => {
       cy.matchSnapshots('LiteratureSearchCataloger');
       cy.logout();
     });
-  });
+  }
 
   it('displays correct searchRank', () => {
     cy.registerRoute();
@@ -33,14 +31,14 @@ describe('Literature Search', () => {
 });
 
 describe('Literature Detail', () => {
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/literature/1235543');
       cy.waitForRoute();
       cy.matchSnapshots('LiteratureDetail');
     });
-  });
+  }
 });
 
 describe('Literature Submission', () => {
@@ -48,7 +46,7 @@ describe('Literature Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot for article form', () => {
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('article');
@@ -168,7 +166,7 @@ describe('Literature Submission', () => {
         submissionType: 'workflow',
       });
     });
-  });
+  }
 
   afterEach(() => {
     cy.logout();

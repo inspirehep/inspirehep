@@ -1,8 +1,6 @@
-import { onlyOn } from '@cypress/skip-test';
-
 describe('References', () => {
   describe('Reference Search', () => {
-    onlyOn('headless', () => {
+    if (Cypress.browser.isHeadless) {
       it.skip('matches image snapshot for reference search', () => {
         cy.registerRoute();
         cy.visit(
@@ -12,7 +10,7 @@ describe('References', () => {
         cy.waitForLoading();
         cy.matchSnapshots('LiteratureReferenceSearch');
       });
-    });
+    }
 
     it('displays references search results if item has references in inspire', () => {
       cy.on('uncaught:exception', () => {
@@ -49,7 +47,7 @@ describe('References', () => {
 });
 
 describe('Reference container', () => {
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it('number of references per page', () => {
       cy.on('uncaught:exception', (err, runnable) => {
         return false;
@@ -88,7 +86,7 @@ describe('Reference container', () => {
       cy.waitForRoute();
       cy.get('@referenceListItems').should('have.length', 50);
     });
-  });
+  }
 
   describe('Self curation', () => {
     it('edit button is disabled when user is not logged in', () => {
@@ -116,7 +114,7 @@ describe('Reference container', () => {
       cy.get('@referenceItem')
         .find('[data-test-id="edit-reference"]')
         .as('editButton');
-        
+
       cy.wait(3000);
       cy.get('@editButton', { timeout: 10000 })
         .should('not.be.disabled')

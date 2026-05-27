@@ -1,5 +1,3 @@
-import { onlyOn } from '@cypress/skip-test';
-
 describe('settings', () => {
   const email = `johnrellis@inspirehep.net`;
 
@@ -13,11 +11,11 @@ describe('settings', () => {
     cy.waitForRoute();
   });
 
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.matchSnapshots('Settings');
     });
-  });
+  }
 
   it('enables submit button when email is correct', () => {
 

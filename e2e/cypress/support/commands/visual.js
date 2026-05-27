@@ -1,24 +1,26 @@
-import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
+import { addMatchImageSnapshotCommand } from "@simonsmith/cypress-image-snapshot/command";
 
 addMatchImageSnapshotCommand({
   failureThreshold: 0.005,
-  failureThresholdType: 'percent',
-  capture: 'fullPage',
+  failureThresholdType: "percent",
+  capture: "fullPage",
   customSnapshotsDir: `cypress/__snapshots__/${Cypress.browser.name}`,
 });
 
-Cypress.Commands.add('matchSnapshots', (name, { skipMobile } = {}) => {
+Cypress.Commands.add("matchSnapshots", (name, { skipMobile } = {}) => {
   // fixes unreliable scrolling when capturing full screen ss
-  cy.get('html').invoke('css', 'height', 'initial');
-  cy.get('body').invoke('css', 'height', 'initial');
+  cy.get("html").invoke("css", "height", "initial");
+  cy.get("body").invoke("css", "height", "initial");
 
   // fullScreen capturing works by taking ss as it scrolls and stiching them together
   // and sticky elements appears in the final ss, multiple times.
   // therefore we need to disable them
-  cy.get('[data-test-id="sticky"]').invoke('css', 'position', 'absolute');
+  cy.get('[data-test-id="sticky"]').invoke("css", "position", "absolute");
   // a guard to prevent flaky tests
   cy.get('.__Header__ [data-test-id="sticky"]').should(($el) =>
-    expect($el.width()).to.be.above(Cypress.env('mobile_viewport_width'))
+    cy.env(["mobile_viewport_width"]).then(({ mobile_viewport_width }) => {
+      expect($el.width()).to.be.above(mobile_viewport_width);
+    }),
   );
   cy.matchImageSnapshot(`${name}Desktop`);
 
@@ -29,13 +31,15 @@ Cypress.Commands.add('matchSnapshots', (name, { skipMobile } = {}) => {
   cy.useMobile();
   // header is not sticky on mobile therefore we need to restore its style
   cy.get('.__Header__ [data-test-id="sticky"]').invoke(
-    'css',
-    'position',
-    'static'
+    "css",
+    "position",
+    "static",
   );
   // a guard to prevent flaky tests
   cy.get('.__Header__ [data-test-id="sticky"]').should(($el) =>
-    expect($el.width()).to.be.at.most(Cypress.env('mobile_viewport_width'))
+    cy.env(["mobile_viewport_width"]).then(({ mobile_viewport_width }) => {
+      expect($el.width()).to.be.at.most(mobile_viewport_width);
+    }),
   );
   cy.matchImageSnapshot(`${name}Mobile`);
 });

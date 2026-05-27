@@ -1,4 +1,3 @@
-import { onlyOn } from '@cypress/skip-test';
 import moment from 'moment';
 
 describe('Conference Search', () => {
@@ -22,7 +21,7 @@ describe('Conference Search', () => {
       .should('have.length', 1);
   });
 
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/conferences?start_date=all');
@@ -40,11 +39,11 @@ describe('Conference Search', () => {
       cy.matchSnapshots('ConferenceSearchByCataloger');
       cy.logout();
     });
-  });
+  }
 });
 
 describe('Conference Detail', () => {
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/conferences/1217045?ui-citation-summary=true');
@@ -52,7 +51,7 @@ describe('Conference Detail', () => {
       cy.waitForSearchResults();
       cy.matchSnapshots('ConferenceDetail');
     });
-  });
+  }
 });
 
 describe('Conference Editor', () => {
@@ -97,13 +96,13 @@ describe('Conference Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.visit('/submissions/conferences');
       cy.get('form').should('be.visible');
       cy.matchSnapshots('ConferenceSubmission', { skipMobile: true });
     });
-  });
+  }
 
   it('submits a new conference', () => {
     const startDateMoment = moment([2050, 1, 28]).add(1, 'day');

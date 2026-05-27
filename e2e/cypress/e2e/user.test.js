@@ -1,5 +1,3 @@
-import { onlyOn } from '@cypress/skip-test';
-
 describe('user', () => {
   it('logs in via local login form and then logs out', () => {
     const username = `cataloger@inspirehep.net`;
@@ -33,7 +31,7 @@ describe('user', () => {
   });
 });
 
-onlyOn('headless', () => {
+if (Cypress.browser.isHeadless) {
   it('user session timeout', () => {
     const username = `cataloger@inspirehep.net`;
     const password = '123456';
@@ -69,4 +67,4 @@ onlyOn('headless', () => {
       .its('status')
       .should('equal', 401);
   });
-});
+}

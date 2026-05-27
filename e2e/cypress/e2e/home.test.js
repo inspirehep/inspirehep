@@ -1,7 +1,5 @@
-import { onlyOn } from '@cypress/skip-test';
-
 describe('Home Page', () => {
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/');
@@ -9,7 +7,7 @@ describe('Home Page', () => {
       cy.waitForLoading(80000);
       cy.matchSnapshots('Homepage');
     });
-  });
+  }
 
   it('scrolls to How to Search section on button click', () => {
     cy.on('uncaught:exception', () => {
@@ -25,7 +23,7 @@ describe('Home Page', () => {
 });
 
 describe('News and Updates', () => {
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it('renders 3 latest blog posts', () => {
       cy.on('uncaught:exception', () => {
         return false;
@@ -38,5 +36,5 @@ describe('News and Updates', () => {
       cy.get('[data-test-id="news-post"]').as('newsAndUpdates');
       cy.get('@newsAndUpdates').should('have.length', 3);
     });
-  });
+  }
 });

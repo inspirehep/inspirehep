@@ -1,4 +1,3 @@
-import { onlyOn } from '@cypress/skip-test';
 import _ from 'lodash';
 
 describe('Literature and Authors', () => {
@@ -58,7 +57,7 @@ describe('Literature and Conferences', () => {
 });
 
 describe('Assign Conference', () => {
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.login('admin');
       cy.registerRoute();
@@ -121,7 +120,7 @@ describe('Assign Conference', () => {
       });
       cy.logout();
     });
-  });
+  }
 });
 
 describe('Export to CDS', () => {

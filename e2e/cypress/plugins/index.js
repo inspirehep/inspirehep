@@ -14,11 +14,11 @@
 
 const {
   addMatchImageSnapshotPlugin,
-} = require('cypress-image-snapshot/plugin');
+} = require("@simonsmith/cypress-image-snapshot/plugin");
 
 module.exports = (on, config) => {
-  on('before:browser:launch', (browser = {}, launchOptions) => {
-    return launchOptions
+  (on("before:browser:launch", (browser = {}, launchOptions) => {
+    return launchOptions;
   }),
-  addMatchImageSnapshotPlugin(on, config);
+    addMatchImageSnapshotPlugin(on, config));
 };

@@ -1,7 +1,5 @@
-import { onlyOn } from '@cypress/skip-test';
-
 describe('Experiment Search', () => {
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/experiments');
@@ -9,11 +7,11 @@ describe('Experiment Search', () => {
       cy.waitForSearchResults();
       cy.matchSnapshots('ExperimentSearch');
     });
-  });
+  }
 });
 
 describe('Experiment Detail', () => {
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/experiments/1513946?ui-citation-summary=true');
@@ -21,7 +19,7 @@ describe('Experiment Detail', () => {
       cy.waitForSearchResults();
       cy.matchSnapshots('ExperimentDetail');
     });
-  });
+  }
 });
 
 describe('Experiment Submission', () => {
@@ -29,13 +27,13 @@ describe('Experiment Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.visit('/submissions/experiments');
       cy.get('form').should('be.visible');
       cy.matchSnapshots('ExperimentSubmission', { skipMobile: true });
     });
-  });
+  }
 
   it('submits a new experiments', () => {
     const formData = {

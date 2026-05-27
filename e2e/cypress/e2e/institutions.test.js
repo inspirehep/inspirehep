@@ -1,7 +1,5 @@
-import { onlyOn } from '@cypress/skip-test';
-
 describe('Institution Search', () => {
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/institutions');
@@ -9,11 +7,11 @@ describe('Institution Search', () => {
       cy.waitForSearchResults();
       cy.matchSnapshots('InstitutionSearch');
     });
-  });
+  }
 });
 
 describe('Institution Detail', () => {
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/institutions/902858?ui-citation-summary=true');
@@ -21,7 +19,7 @@ describe('Institution Detail', () => {
       cy.waitForSearchResults();
       cy.matchSnapshots('InstitutionDetail');
     });
-  });
+  }
 });
 
 describe('Institution Submission', () => {
@@ -29,13 +27,13 @@ describe('Institution Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.visit('/submissions/institutions');
       cy.get('form').should('be.visible');
       cy.matchSnapshots('InstitutionSubmission', { skipMobile: true });
     });
-  });
+  }
 
   it('submits a new institution', () => {
     const formData = {

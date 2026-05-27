@@ -1,29 +1,32 @@
 Cypress.Commands.add("loginAsAdmin", () => {
   const email = "admin@inspirehep.net";
   const password = "123456";
-  const backofficeUrl = Cypress.env("backoffice_url");
 
-  cy.intercept("GET", "/config.js", (req) => {
-    req.reply((res) => {
-      res.body = res.body
-        .replace(
-          /BACKOFFICE_URL:\s*'[^']*'/,
-          `BACKOFFICE_URL: '${backofficeUrl}'`,
-        )
-        .replace(
-          /BACKOFFICE_LITERATURE_FEATURE_FLAG:\s*\w+/,
-          "BACKOFFICE_LITERATURE_FEATURE_FLAG: true",
-        );
+  cy.env(["backoffice_url"]).then(({ backoffice_url }) => {
+    cy.intercept("GET", "/config.js", (req) => {
+      req.reply((res) => {
+        res.body = res.body
+          .replace(
+            /BACKOFFICE_URL:\s*'[^']*'/,
+            `BACKOFFICE_URL: '${backoffice_url}'`,
+          )
+          .replace(
+            /BACKOFFICE_LITERATURE_FEATURE_FLAG:\s*\w+/,
+            "BACKOFFICE_LITERATURE_FEATURE_FLAG: true",
+          );
+      });
     });
   });
 
-  cy.request({
-    url: `${Cypress.env("inspirehep_url")}/api/accounts/login`,
-    method: "POST",
-    body: {
-      email,
-      password,
-    },
+  cy.env(["inspirehep_url"]).then(({ inspirehep_url }) => {
+    cy.request({
+      url: `${inspirehep_url}/api/accounts/login`,
+      method: "POST",
+      body: {
+        email,
+        password,
+      },
+    });
   });
   cy.intercept("GET", "**/accounts/me*").as("accountsMe");
   cy.visit("/");
@@ -33,38 +36,39 @@ Cypress.Commands.add("loginAsAdmin", () => {
 Cypress.Commands.add("loginToBackoffice", () => {
   const email = "admin@admin.com";
   const password = "admin";
-  const backofficeUrl = Cypress.env("backoffice_url");
 
-  cy.request("POST", `${backofficeUrl}/api/token/`, {
-    email,
-    password,
-  }).then(({ body }) => {
-    expect(body.access).to.be.a("string").and.not.be.empty;
-    const token = body.access;
+  cy.env(["backoffice_url"]).then(({ backoffice_url }) => {
+    cy.request("POST", `${backoffice_url}/api/token/`, {
+      email,
+      password,
+    }).then(({ body }) => {
+      expect(body.access).to.be.a("string").and.not.be.empty;
+      const token = body.access;
 
-    cy.intercept(
-      {
-        method: "GET",
-        url: `${backofficeUrl}/api/workflows/**`,
-        middleware: true,
-      },
-      (req) => {
-        req.headers.authorization = `Bearer ${token}`;
-        req.continue();
-      },
-    ).as("backofficeWorkflowsAuth");
+      cy.intercept(
+        {
+          method: "GET",
+          url: `${backoffice_url}/api/workflows/**`,
+          middleware: true,
+        },
+        (req) => {
+          req.headers.authorization = `Bearer ${token}`;
+          req.continue();
+        },
+      ).as("backofficeWorkflowsAuth");
 
-    cy.visit("/backoffice", {
-      onBeforeLoad(win) {
-        win.localStorage.setItem(
-          "backoffice.token",
-          JSON.stringify(body.access),
-        );
-        win.localStorage.setItem(
-          "backoffice.refreshToken",
-          JSON.stringify(body.refresh),
-        );
-      },
+      cy.visit("/backoffice", {
+        onBeforeLoad(win) {
+          win.localStorage.setItem(
+            "backoffice.token",
+            JSON.stringify(body.access),
+          );
+          win.localStorage.setItem(
+            "backoffice.refreshToken",
+            JSON.stringify(body.refresh),
+          );
+        },
+      });
     });
   });
 });

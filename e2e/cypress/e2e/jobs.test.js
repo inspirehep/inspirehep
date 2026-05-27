@@ -1,8 +1,7 @@
-import { onlyOn } from '@cypress/skip-test';
 import moment from 'moment';
 
 describe('Job Search', () => {
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.clock(1688594400000);
       cy.registerRoute();
@@ -11,11 +10,11 @@ describe('Job Search', () => {
       cy.waitForSearchResults();
       cy.matchSnapshots('JobSearch');
     });
-  });
+  }
 });
 
 describe('Job Detail', () => {
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.clock(1688594400000);
       cy.registerRoute();
@@ -23,7 +22,7 @@ describe('Job Detail', () => {
       cy.waitForRoute();
       cy.matchSnapshots('JobDetail');
     });
-  });
+  }
 });
 
 describe('Job Submission', () => {
@@ -31,7 +30,7 @@ describe('Job Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.visit('/submissions/jobs');
       cy.get('form').should('be.visible');
@@ -45,7 +44,7 @@ describe('Job Submission', () => {
       cy.get('form').should('be.visible');
       cy.matchSnapshots('JobUpdateSubmission', { skipMobile: true });
     });
-  });
+  }
 
   it('submits and new job', () => {
     const formData = {
