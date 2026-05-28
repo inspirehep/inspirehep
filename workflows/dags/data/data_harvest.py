@@ -1,16 +1,15 @@
 import datetime
 import logging
+import time
 
-from airflow.sdk import Param, Variable, dag, task, task_group
-from airflow.sdk.exceptions import AirflowException
+from airflow.sdk import Param, Variable, dag, task
 from airflow.sdk.execution_time.macros import ds_add
 from hooks.generic_http_hook import GenericHttpHook
-from hooks.inspirehep.inspire_http_record_management_hook import (
-    InspireHTTPRecordManagementHook,
-)
 from include.utils import workflows
 from include.utils.alerts import FailedDagNotifier
-from inspire_schemas.parsers.hepdata import HEPDataParser
+from include.utils.data import build_record, download_record_versions, load_record
+from include.utils.s3 import S3JsonStore
+from literature.check_failures_task import check_failures
 
 logger = logging.getLogger(__name__)
 
@@ -36,11 +35,6 @@ def data_harvest_dag():
     4. normalize_collaborations: Normalize the collaborations in the record.
     5. load_record: Creates or Updates the record on INSPIRE.
     """
-    generic_http_hook = GenericHttpHook(http_conn_id="hepdata_connection")
-
-    @task
-    def get_data_schema(**context):
-        return Variable.get("data_schema")
 
     @task(task_id="collect_ids")
     def collect_ids(**context):
@@ -56,6 +50,7 @@ def data_harvest_dag():
         to_date = context["params"]["last_updated_to"]
 
         payload = {"inspire_ids": True, "last_updated": from_date, "sort_by": "latest"}
+        generic_http_hook = GenericHttpHook(http_conn_id="hepdata_connection")
         hepdata_response = generic_http_hook.call_api(
             endpoint="/search/ids", method="GET", params=payload
         )
@@ -72,113 +67,85 @@ def data_harvest_dag():
 
         return hepdata_response.json()
 
-    @task_group
-    def process_record(record_id):
+    @task
+    def process_records(record_ids, **context):
         """Process the record by downloading the versions,
         building the record and loading it to inspirehep.
         """
 
-        @task(max_active_tis_per_dag=5)
-        def download_record_versions(id):
-            """Download the versions of the record.
+        failed_records = {
+            "download_failed": [],
+            "build_failed": [],
+            "load_failed": [],
+            "normalize_failed": [],
+        }
 
-            Args: id (int): The id of the record.
-            Returns: dict: The record versions.
-            """
-            hepdata_response = generic_http_hook.call_api(
-                endpoint=f"/record/ins{id}?format=json"
-            )
-            payload = hepdata_response.json()
+        s3_json_store = S3JsonStore(aws_conn_id="s3_conn")
 
-            record = {"base": payload}
-            for version in range(1, payload["record"]["version"]):
-                response = generic_http_hook.call_api(
-                    endpoint=f"/record/ins{id}?format=json&version={version}"
+        data_schema = Variable.get("data_schema")
+        hepdata_records = []
+
+        logger.info(f"Processing {len(record_ids)} records.")
+        for record_id in record_ids:
+            try:
+                hepdata_records.append(download_record_versions(record_id))
+                time.sleep(1)  # TODO: Remove sleep after bulk import harvest
+            except Exception as e:
+                logger.error(
+                    f"Error occurred while downloading "
+                    f"versions for record {record_id}: {e}"
                 )
-                response.raise_for_status()
-                record[version] = response.json()
+                failed_records["download_failed"].append(record_id)
 
-            return record
+        logger.info(f"Retrieved HEPData records for {len(hepdata_records)} records.")
 
-        @task
-        def build_record(data_schema, payload, **context):
-            """Build the record from the payload.
-
-            Args: data_schema (str): The schema of the data.
-                    payload (dict): The payload of the record.
-
-            Returns: dict: The built record.
-            """
-
-            inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
-            inspire_url = inspire_http_record_management_hook.get_url()
-
-            parser = HEPDataParser(payload, inspire_url)
-            data = parser.parse()
-            data["$schema"] = data_schema
-            return data
-
-        @task
-        def normalize_collaborations(record):
-            """Normalize the collaborations in the record.
-
-            Args: record (dict): The record to normalize.
-            Returns: dict: The normalized record.
-            """
-            normalizations = workflows.normalize_collaborations(record)
-
-            if normalizations:
-                accelerator_experiments, normalized_collaborations = normalizations
-                record["accelerator_experiments"] = accelerator_experiments
-                record["collaborations"] = normalized_collaborations
-            return record
-
-        @task
-        def load_record(new_record):
-            """Load the record to inspirehep.
-
-            Args: new_record (dict): The record to create or update in inspire
-            """
-            inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
+        data_records = []
+        for hepdata_record in hepdata_records:
+            hepdata_record_id = hepdata_record["base"]["record"]["id"]
+            try:
+                data_record = build_record(data_schema, hepdata_record)
+            except Exception as e:
+                logger.error(
+                    f"Error occurred while building " f"record {hepdata_record_id}: {e}"
+                )
+                failed_records["build_failed"].append(hepdata_record_id)
+                continue
 
             try:
-                response = inspire_http_record_management_hook.get_record(
-                    pid_type="doi", control_number=new_record["dois"][0]["value"]
-                )
-            except AirflowException:
-                logger.info("Creating Record")
-                post_response = inspire_http_record_management_hook.post_record(
-                    data=new_record, pid_type="data"
-                )
-                logger.info(
-                    f"Data Record Created: "
-                    f"{post_response.json()['metadata']['self']['$ref']}"
-                )
-                return post_response.json()
+                normalizations = workflows.normalize_collaborations(data_record)
+                if normalizations:
+                    accelerator_experiments, normalized_collaborations = normalizations
+                    data_record["accelerator_experiments"] = accelerator_experiments
+                    data_record["collaborations"] = normalized_collaborations
 
-            old_record = response["metadata"]
-            revision_id = response.get("revision_id", 0)
-            old_record.update(new_record)
-            logger.info(f"Updating Record: {old_record['control_number']}")
-            response = inspire_http_record_management_hook.update_record(
-                data=old_record,
-                pid_type="data",
-                control_number=old_record["control_number"],
-                revision_id=revision_id + 1,
-            )
-            logger.info(
-                f"Data Record Updated: "
-                f"{response.json()['metadata']['self']['$ref']}"
-            )
-            return response.json()
+                logger.info(f"Normalized collaborations for record {data_record}.")
+            except Exception as e:
+                logger.error(
+                    f"Error occurred while normalizing collaborations "
+                    f"for record {data_record}: {e}"
+                )
+                failed_records["normalize_failed"].append(hepdata_record_id)
+                continue
 
-        data_schema = get_data_schema()
-        hepdata_record_versions = download_record_versions(record_id)
-        record = build_record(data_schema=data_schema, payload=hepdata_record_versions)
-        record = normalize_collaborations(record)
-        load_record(record)
+            data_records.append(data_record)
 
-    process_record.expand(record_id=collect_ids())
+        for data_record in data_records:
+            try:
+                load_record(data_record)
+            except Exception as e:
+                logger.error(f"Error occurred while loading record {data_record}: {e}")
+                failed_records["load_failed"].append(data_record)
+
+        return s3_json_store.write_object(
+            failed_records, f"harvests/data/{context['run_id']}.json"
+        )
+
+    collected_ids_key = collect_ids()
+    failed_records_key = process_records(collected_ids_key)
+
+    check_failures(
+        failed_records_key,
+    )
 
 
 data_harvest_dag()
