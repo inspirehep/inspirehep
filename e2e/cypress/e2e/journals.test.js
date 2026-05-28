@@ -1,7 +1,5 @@
-import { onlyOn } from '@cypress/skip-test';
-
 describe('Journal Detail', () => {
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/journals/1213103');
@@ -10,11 +8,11 @@ describe('Journal Detail', () => {
       cy.waitForLoading();
       cy.matchSnapshots('JournalDetail');
     });
-  });
+  }
 });
 
 describe('Journal Search', () => {
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/journals');
@@ -23,7 +21,7 @@ describe('Journal Search', () => {
       cy.waitForLoading();
       cy.matchSnapshots('JournalsSearch');
     });
-  });
+  }
 });
 
 describe('Journal Submission', () => {
@@ -31,13 +29,13 @@ describe('Journal Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.visit('/submissions/journals');
       cy.get('form').should('be.visible');
       cy.matchSnapshots('JournalSubmission', { skipMobile: true });
     });
-  });
+  }
 
   it('submits a new journal', () => {
     const formData = {

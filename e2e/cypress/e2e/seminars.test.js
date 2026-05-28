@@ -1,8 +1,7 @@
-import { onlyOn } from '@cypress/skip-test';
 import moment from 'moment';
 
 describe('Seminar Search', () => {
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/seminars?start_date=all');
@@ -10,18 +9,18 @@ describe('Seminar Search', () => {
       cy.waitForSearchResults();
       cy.matchSnapshots('SeminarSearch');
     });
-  });
+  }
 });
 
 describe('Seminar Detail', () => {
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/seminars/1799778');
       cy.waitForRoute();
       cy.matchSnapshots('SeminarDetail');
     });
-  });
+  }
 });
 
 describe('Seminar Submission', () => {
@@ -29,7 +28,7 @@ describe('Seminar Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless', () => {
+  if (Cypress.browser.isHeadless) {
     it.skip('matches image snapshot', () => {
       cy.visit('/submissions/seminars');
       cy.get('form').should('be.visible');
@@ -43,7 +42,7 @@ describe('Seminar Submission', () => {
       cy.get('form').should('be.visible');
       cy.matchSnapshots('SeminarUpdateSubmission', { skipMobile: true });
     });
-  });
+  }
 
   it('submits a new seminar', () => {
     const startDateMoment = moment('2020-05-06 08:30');

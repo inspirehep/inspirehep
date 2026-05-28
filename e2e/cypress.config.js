@@ -1,16 +1,17 @@
-const { defineConfig } = require('cypress')
+const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
-  projectId: '439or1',
-  videosFolder: 'cypress/__videos__',
-  screenshotsFolder: 'cypress/__screenshots__',
+  projectId: "439or1",
+  videosFolder: "cypress/__videos__",
+  screenshotsFolder: "cypress/__screenshots__",
   defaultCommandTimeout: 10000,
   env: {
-    inspirehep_url: 'http://localhost:8080',
-    backoffice_url: 'http://localhost:8001',
+    inspirehep_url: "http://localhost:8080",
+    backoffice_url: "http://localhost:8001",
     mobile_viewport_width: 375,
     mobile_viewport_height: 667,
   },
+  allowCypressEnv: true, //cypress-image-snapshot is still using Cypress.env and do not plan to move before cypress 16 (https://github.com/simonsmith/cypress-image-snapshot/issues/86)
   retries: {
     runMode: 0,
     openMode: 0,
@@ -18,9 +19,9 @@ module.exports = defineConfig({
   video: false,
   e2e: {
     setupNodeEvents(on, config) {
-      return require('./cypress/plugins/index.js')(on, config)
+      return require("./cypress/plugins/index.js")(on, config);
     },
-    specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
+    specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx}",
     experimentalRunAllSpecs: true,
   },
-})
+});
