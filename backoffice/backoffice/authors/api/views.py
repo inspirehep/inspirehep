@@ -240,8 +240,9 @@ class AuthorWorkflowViewSet(BaseWorkflowViewSet):
             )
         except RequestException as e:
             return handle_request_exception(
-                "Error triggering Airflow DAG",
+                "Error triggering Airflow DAG run with id %s",
                 e,
+                workflow.id,
             )
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -267,8 +268,7 @@ class AuthorWorkflowViewSet(BaseWorkflowViewSet):
                 )
             except RequestException as e:
                 return handle_request_exception(
-                    "Error triggering Airflow DAG",
-                    e,
+                    "Error triggering Airflow DAG run with id %s", e, workflow.id
                 )
 
             workflow = get_object_or_404(AuthorWorkflow, pk=pk)

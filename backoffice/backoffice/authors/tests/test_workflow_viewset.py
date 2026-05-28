@@ -100,7 +100,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         response = self.api_client.post(url, format="json", data=data)
 
         assert response.status_code == 503
-        assert response.json() == {"error": "Error triggering Airflow DAG"}
+        assert "Error triggering Airflow DAG run with id" in response.json()["error"]
 
     @pytest.mark.vcr
     def test_create_returns_409_if_orcid_exists(self):

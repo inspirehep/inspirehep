@@ -667,3 +667,17 @@ class TestWorkflowUtils:
         )
 
         assert workflows.is_pdf_link(response)
+
+    @pytest.mark.vcr
+    def test_normalize_collaborations(self):
+        record = {
+            "collaborations": [{"value": "ETM"}],
+            "acquisition_source": {"submission_number": "123"},
+        }
+
+        accelerator_experiments, normalized_collaborations = (
+            workflows.normalize_collaborations(record)
+        )
+
+        assert "record" in normalized_collaborations[0]
+        assert accelerator_experiments[0]["legacy_name"] == "LATTICE-ETM"

@@ -3,6 +3,7 @@ from urllib.parse import urlparse
 import orjson
 import pytest
 from airflow.models import DagBag
+from include.utils.data import build_record, download_record_versions, load_record
 
 from tests.test_utils import task_test
 
@@ -56,11 +57,7 @@ class TestDataHarvest:
     def test_download_record_versions(self):
         id = "1906174"
 
-        res = task_test(
-            self.dag,
-            "process_record.download_record_versions",
-            params={"id": id},
-        )
+        res = download_record_versions(id)
 
         assert res["base"]["record"]["inspire_id"] == id
         assert res["base"]["record"]["version"] == 3
@@ -73,14 +70,7 @@ class TestDataHarvest:
             "base": orjson.loads((datadir / "ins1906174_version3.json").read_text()),
         }
 
-        res = task_test(
-            self.dag,
-            "process_record.build_record",
-            params={
-                "data_schema": "data_schema",
-                "payload": payload,
-            },
-        )
+        res = build_record("data_schema", payload)
         assert res["$schema"] == "data_schema"
         assert res["_collections"] == ["Data"]
 
@@ -132,14 +122,7 @@ class TestDataHarvest:
         payload = {
             "base": orjson.loads((datadir / "ins1906174_version3.json").read_text())
         }
-        res = task_test(
-            self.dag,
-            "process_record.build_record",
-            params={
-                "data_schema": "data_schema",
-                "payload": payload,
-            },
-        )
+        res = build_record("data_schema", payload)
         assert res["creation_date"] == "2023-11-13"  # from last_updated_field
 
     def test_creation_date_fallback(self, datadir):
@@ -147,14 +130,8 @@ class TestDataHarvest:
             "base": orjson.loads((datadir / "ins1906174_version4.json").read_text())
         }
 
-        res = task_test(
-            self.dag,
-            "process_record.build_record",
-            params={
-                "data_schema": "data_schema",
-                "payload": payload,
-            },
-        )
+        res = build_record("data_schema", payload)
+
         assert (
             res["creation_date"] == payload["base"]["record"]["creation_date"]
         )  # from creation_date field
@@ -172,28 +149,10 @@ class TestDataHarvest:
                 "method": "inspirehep",
             },
         }
-        json_response = task_test(
-            self.dag, "process_record.load_record", params={"new_record": record}
-        )
+
+        json_response = load_record(record)
+
         assert json_response
-
-    @pytest.mark.vcr
-    def test_normalize_collaborations(self):
-        # test what is returned if collaborations are initally empty
-        record = {
-            "collaborations": [{"value": "ETM"}],
-            "acquisition_source": {"submission_number": "123"},
-        }
-        json_response = task_test(
-            self.dag,
-            "process_record.normalize_collaborations",
-            params={"record": record},
-        )
-
-        assert "record" in json_response["collaborations"][0]
-        assert (
-            json_response["accelerator_experiments"][0]["legacy_name"] == "LATTICE-ETM"
-        )
 
     @pytest.mark.vcr
     def test_load_record_post(self):
@@ -208,8 +167,6 @@ class TestDataHarvest:
                 "method": "inspirehep",
             },
         }
-        json_response = task_test(
-            self.dag, "process_record.load_record", params={"new_record": record}
-        )
+        response = load_record(record)
 
-        assert json_response
+        assert response
