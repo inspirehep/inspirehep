@@ -51,6 +51,7 @@ logger = logging.getLogger(__name__)
             ],
         ),
     },
+    default_args={"queue": "harvests"},
     on_failure_callback=FailedDagNotifier(),
 )
 def arxiv_harvest_dag():

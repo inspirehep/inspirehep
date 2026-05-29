@@ -18,6 +18,7 @@ logger = logging.getLogger(__name__)
     schedule="0 * * * *",
     catchup=False,
     tags=["literature", "elsevier", "harvest"],
+    default_args={"queue": "harvests"},
     on_failure_callback=FailedDagNotifier(),
 )
 def elsevier_harvest_dag():

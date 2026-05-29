@@ -18,6 +18,7 @@ logger = logging.getLogger(__name__)
     catchup=False,
     tags=["literature", "desy", "harvest"],
     on_failure_callback=FailedDagNotifier(),
+    default_args={"queue": "harvests"},
 )
 def desy_harvest_dag():
     """Harvest DESY JSONL batches from S3 and create literature workflows."""
