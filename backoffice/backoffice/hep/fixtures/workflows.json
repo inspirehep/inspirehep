@@ -5068,9 +5068,7 @@
         "$schema": "https://inspirehep.net/schemas/records/hep.json",
         "authors": [
           {
-            "emails": [
-              "georgios.voutsinas@unige.ch"
-            ],
+            "emails": ["georgios.voutsinas@unige.ch"],
             "full_name": "Voutsinas, G.",
             "raw_affiliations": [
               {
@@ -5288,9 +5286,7 @@
               }
             ],
             "reference": {
-              "misc": [
-                "CTAO, \"Cherenkov Telescope Array Observatory"
-              ],
+              "misc": ["CTAO, \"Cherenkov Telescope Array Observatory"],
               "urls": [
                 {
                   "value": "https://www.ctao.org"
@@ -5338,9 +5334,7 @@
               }
             ],
             "reference": {
-              "misc": [
-                "Teraelectronvolt Astronomy, Annual Review of"
-              ],
+              "misc": ["Teraelectronvolt Astronomy, Annual Review of"],
               "label": "3",
               "authors": [
                 {
@@ -5782,9 +5776,7 @@
               }
             ],
             "reference": {
-              "dois": [
-                "10.1029/2004JD005186"
-              ],
+              "dois": ["10.1029/2004JD005186"],
               "misc": [
                 "Stratosphere-troposphere exchange of mass and ozone, Journal of Geophysical Research: Atmospheres 109"
               ],
@@ -6238,9 +6230,7 @@
               }
             ],
             "reference": {
-              "misc": [
-                "The global lightning-induced nitrogen oxides source"
-              ],
+              "misc": ["The global lightning-induced nitrogen oxides source"],
               "label": "30",
               "authors": [
                 {
@@ -6370,9 +6360,7 @@
               }
             ],
             "reference": {
-              "dois": [
-                "10.1016/B978-0-12-257060-5.50026-5"
-              ],
+              "dois": ["10.1016/B978-0-12-257060-5.50026-5"],
               "misc": [
                 "Chemistry of the Upper and Lower Atmosphere",
                 "Press, San Diego"
@@ -6517,9 +6505,7 @@
               }
             ],
             "reference": {
-              "misc": [
-                "The HITRAN2020 molecular spectroscopic database"
-              ],
+              "misc": ["The HITRAN2020 molecular spectroscopic database"],
               "label": "38",
               "authors": [
                 {
@@ -6653,9 +6639,7 @@
               }
             ],
             "reference": {
-              "misc": [
-                "CORSIKA: An Air Shower Simulation Program"
-              ],
+              "misc": ["CORSIKA: An Air Shower Simulation Program"],
               "label": "43",
               "authors": [
                 {
@@ -6682,9 +6666,7 @@
               }
             ],
             "reference": {
-              "dois": [
-                "10.5281/zenodo.14198379"
-              ],
+              "dois": ["10.5281/zenodo.14198379"],
               "misc": [
                 "CTAO Simulation Telescope Models for CORSIKA and sim telarray - Prod6, Nov"
               ],
@@ -6923,9 +6905,7 @@
               }
             ],
             "reference": {
-              "misc": [
-                "CTAO, \"Data Processing and Preservation System"
-              ],
+              "misc": ["CTAO, \"Data Processing and Preservation System"],
               "urls": [
                 {
                   "value": "https://www.ctao.org/emission-to-discovery/data-and-computing/"
@@ -6935,20 +6915,14 @@
             }
           }
         ],
-        "_collections": [
-          "Literature"
-        ],
+        "_collections": ["Literature"],
         "arxiv_eprints": [
           {
             "value": "2603.02833",
-            "categories": [
-              "astro-ph.IM"
-            ]
+            "categories": ["astro-ph.IM"]
           }
         ],
-        "document_type": [
-          "article"
-        ],
+        "document_type": ["article"],
         "preprint_date": "2026-03-03",
         "acquisition_source": {
           "method": "hepcrawl",
@@ -6963,7 +6937,7 @@
           }
         ]
       },
-      "relevance_prediction":{
+      "relevance_prediction": {
         "scores": {
           "CORE": 0.8641530275344849,
           "Non-CORE": 0.09599084407091141,
@@ -6973,7 +6947,7 @@
         "max_score": 0.8641530275344849,
         "relevance_score": 1.8641530275344849
       },
-      "classifier_results":{
+      "classifier_results": {
         "fulltext_used": true,
         "complete_output": {
           "acronyms": [],
@@ -7095,162 +7069,102 @@
           "composite_keywords": [
             {
               "number": 25,
-              "details": [
-                2,
-                28
-              ],
+              "details": [2, 28],
               "keyword": "radiation, Cherenkov"
             },
             {
               "number": 10,
-              "details": [
-                14,
-                38
-              ],
+              "details": [14, 38],
               "keyword": "cross section, absorption"
             },
             {
               "number": 3,
-              "details": [
-                52,
-                16
-              ],
+              "details": [52, 16],
               "keyword": "atmosphere, density"
             },
             {
               "number": 3,
-              "details": [
-                11,
-                52
-              ],
+              "details": [11, 52],
               "keyword": "showers, atmosphere"
             },
             {
               "number": 3,
-              "details": [
-                31,
-                11
-              ],
+              "details": [31, 11],
               "keyword": "detector, efficiency"
             },
             {
               "number": 2,
-              "details": [
-                16,
-                41
-              ],
+              "details": [16, 41],
               "keyword": "density, ratio"
             },
             {
               "number": 2,
-              "details": [
-                52,
-                4
-              ],
+              "details": [52, 4],
               "keyword": "atmosphere, model"
             },
             {
               "number": 2,
-              "details": [
-                11,
-                23
-              ],
+              "details": [11, 23],
               "keyword": "showers, energy"
             },
             {
               "number": 2,
-              "details": [
-                23,
-                10
-              ],
+              "details": [23, 10],
               "keyword": "energy, high"
             },
             {
               "number": 2,
-              "details": [
-                23,
-                3
-              ],
+              "details": [23, 3],
               "keyword": "energy, low"
             },
             {
               "number": 2,
-              "details": [
-                7,
-                6
-              ],
+              "details": [7, 6],
               "keyword": "emission, spectrum"
             },
             {
               "number": 1,
-              "details": [
-                52,
-                19
-              ],
+              "details": [52, 19],
               "keyword": "atmosphere, effect"
             },
             {
               "number": 1,
-              "details": [
-                52,
-                13
-              ],
+              "details": [52, 13],
               "keyword": "atmosphere, pressure"
             },
             {
               "number": 1,
-              "details": [
-                31,
-                31
-              ],
+              "details": [31, 31],
               "keyword": "detector, optical"
             },
             {
               "number": 1,
-              "details": [
-                52,
-                8
-              ],
+              "details": [52, 8],
               "keyword": "atmosphere, gas"
             },
             {
               "number": 1,
-              "details": [
-                52,
-                7
-              ],
+              "details": [52, 7],
               "keyword": "atmosphere, temperature"
             },
             {
               "number": 1,
-              "details": [
-                52,
-                2
-              ],
+              "details": [52, 2],
               "keyword": "atmosphere, monitoring"
             },
             {
               "number": 1,
-              "details": [
-                52,
-                1
-              ],
+              "details": [52, 1],
               "keyword": "atmosphere, transparency"
             },
             {
               "number": 1,
-              "details": [
-                31,
-                3
-              ],
+              "details": [31, 3],
               "keyword": "detector, sensitivity"
             },
             {
               "number": 1,
-              "details": [
-                11,
-                23
-              ],
+              "details": [11, 23],
               "keyword": "gamma ray, energy"
             }
           ]
@@ -7630,6 +7544,35 @@
     "pk": "aaaa0004-0000-0000-0000-000000000000",
     "fields": {
       "workflow_type": "HEP_SUBMISSION",
+      "data": {
+        "titles": [
+          {
+            "title": "The literature submission approval fixture test",
+            "source": "submitter"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "acquisition_source": {
+          "email": "user@cern.ch",
+          "orcid": "0000-0000-0000-0000",
+          "method": "submitter",
+          "source": "submitter",
+          "datetime": "2024-11-18T11:34:19.809575",
+          "internal_uid": 50872
+        }
+      },
+      "status": "approval",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "aaaa0005-0000-0000-0000-000000000000",
+    "fields": {
+      "workflow_type": "HEP_MANUAL_MERGE",
       "data": {
         "titles": [
           {

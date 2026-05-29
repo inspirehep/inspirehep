@@ -55,6 +55,7 @@ export const COLLECTIONS = [
     key: 'new literature submissions',
     value: WorkflowTypes.HEP_SUBMISSION,
   },
+  { key: 'manual merge', value: WorkflowTypes.HEP_MANUAL_MERGE },
 ];
 
 export const refreshToken = async () => {

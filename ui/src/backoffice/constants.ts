@@ -8,6 +8,7 @@ export enum WorkflowTypes {
   HEP_PUBLISHER_UPDATE = 'HEP_PUBLISHER_UPDATE',
   HEP_SUBMISSION = 'HEP_SUBMISSION',
   HEP_UPDATE = 'HEP_UPDATE',
+  HEP_MANUAL_MERGE = 'HEP_MANUAL_MERGE',
 }
 
 export enum WorkflowStatuses {
@@ -47,6 +48,7 @@ export const WORKFLOW_TYPES = {
   [WorkflowTypes.HEP_PUBLISHER_UPDATE]: LITERATURE_PID_TYPE,
   [WorkflowTypes.HEP_SUBMISSION]: LITERATURE_PID_TYPE,
   [WorkflowTypes.HEP_UPDATE]: LITERATURE_PID_TYPE,
+  [WorkflowTypes.HEP_MANUAL_MERGE]: LITERATURE_PID_TYPE,
 };
 
 export const WORKFLOW_TYPE_ORDER = [
@@ -57,6 +59,7 @@ export const WORKFLOW_TYPE_ORDER = [
   WorkflowTypes.HEP_PUBLISHER_CREATE,
   WorkflowTypes.HEP_PUBLISHER_UPDATE,
   WorkflowTypes.HEP_SUBMISSION,
+  WorkflowTypes.HEP_MANUAL_MERGE,
 ];
 
 export const WORKFLOW_STATUS_ORDER = [
