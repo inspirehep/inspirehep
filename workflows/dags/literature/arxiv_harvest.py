@@ -85,6 +85,7 @@ def arxiv_harvest_dag():
             from_date=from_date,
             until_date=until_date,
         )
+        logger.info(f"Fetched {len(xml_records)} records")
 
         parsed_records, failed_build_records = build_records(
             xml_records, context["run_id"]
