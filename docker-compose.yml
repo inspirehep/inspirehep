@@ -73,7 +73,7 @@ x-airflow-common: &airflow-common
   environment: &airflow-common-env
     AIRFLOW__API__BASE_URL: "http://airflow-api-server:8080"
     AIRFLOW__CORE__EXECUTION_API_SERVER_URL: "http://airflow-api-server:8080/execution"
-    AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+    AIRFLOW__CORE__EXECUTOR: CeleryExecutor,harvest_exec:LocalExecutor
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:postgres@db-airflow/workflows
     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://postgres:postgres@db-airflow/workflows
     AIRFLOW__CELERY__BROKER_URL: redis://cache:6379/3
