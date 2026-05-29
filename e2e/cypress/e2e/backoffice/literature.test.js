@@ -103,3 +103,20 @@ describe("New literature submissions", () => {
     cy.assertSearchPageIsLoadedWithResults("1 result");
   });
 });
+
+describe("Manual merge", () => {
+  it("should display manual merge and enable access to the all list", () => {
+    cy.assertCollectionIsVisible("manual merge");
+
+    cy.get('[data-testid="view-all-manual merge"]').click();
+    cy.assertSearchPageIsLoadedWithResults("1 result");
+  });
+
+  it("should display manual merge and enable access to the approval list", () => {
+    cy.assertCollectionIsVisible("manual merge");
+
+    cy.get('[data-testid="collapse-button-manual merge-needs_review"]').click();
+    cy.get('[data-testid="view-manual merge-needs_review-approval"]').click();
+    cy.assertSearchPageIsLoadedWithResults("1 result");
+  });
+});
