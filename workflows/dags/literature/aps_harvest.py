@@ -36,6 +36,7 @@ APS_CONN = "aps_conn"
         "per_page": Param(type="integer", default=100),
         "date": Param(type="string", default="published"),
     },
+    default_args={"queue": "harvests"},
     on_failure_callback=FailedDagNotifier(),
 )
 def aps_harvest_dag():

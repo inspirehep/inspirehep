@@ -31,6 +31,7 @@ logger = logging.getLogger(__name__)
     start_date=datetime.datetime(2024, 5, 5),
     schedule="0 0 * * 1",
     catchup=False,
+    default_args={"queue": "harvests"},
     on_failure_callback=FailedDagNotifierSetError(),
     tags=[HEP],
 )

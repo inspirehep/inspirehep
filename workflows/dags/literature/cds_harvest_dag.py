@@ -37,6 +37,7 @@ logger = logging.getLogger(__name__)
             ],
         ),
     },
+    default_args={"queue": "harvests"},
     on_failure_callback=FailedDagNotifier(),
 )
 def cds_literature_harvest_dag():
