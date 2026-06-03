@@ -286,7 +286,7 @@ docker==7.1.0
 docopt==0.6.2
 docstring_parser==0.18.0
 durationpy==0.10
-elastic-transport==9.4.0
+elastic-transport==9.4.1
 elasticsearch==9.4.0
 email-validator==2.3.0
 entrypoints==0.4
