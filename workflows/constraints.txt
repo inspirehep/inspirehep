@@ -323,7 +323,7 @@ google-auth-oauthlib==1.4.0
 google-auth==2.53.0
 google-cloud-aiplatform==1.148.1
 google-cloud-alloydb==0.9.0
-google-cloud-appengine-logging==1.9.0
+google-cloud-appengine-logging==1.10.0
 google-cloud-audit-log==0.5.0
 google-cloud-automl==2.19.0
 google-cloud-batch==0.21.0
