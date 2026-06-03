@@ -606,7 +606,7 @@ retryhttp==1.4.0
 rich-argparse==1.8.0
 rich-toolkit==0.19.10
 rich==13.9.4
-rpds-py==0.30.0
+rpds-py==2026.5.1
 rsa==4.9.1
 ruamel.yaml==0.19.1
 s3fs==2026.4.0
