@@ -117,10 +117,11 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(json_response["workflow_type"], data["workflow_type"])
         self.assertIn("id", json_response)
 
-    @patch("backoffice.common.airflow_utils.trigger_airflow_dag")
-    def test_create_hep_publisher_workflow(self, mock_trigger_airflow_dag):
+    @patch("backoffice.hep.api.views.trigger_hep_workflow_initialization.delay")
+    def test_create_hep_publisher_workflow(
+        self, mock_trigger_hep_workflow_initialization
+    ):
         self.api_client.force_authenticate(user=self.curator)
-        mock_trigger_airflow_dag.return_value = ({}, 200)
 
         data = {
             "workflow_type": HepWorkflowType.HEP_PUBLISHER_CREATE,
@@ -135,11 +136,15 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(json_response["data"], {**data["data"]})
         self.assertEqual(json_response["workflow_type"], data["workflow_type"])
         self.assertIn("id", json_response)
+        mock_trigger_hep_workflow_initialization.assert_called_once_with(
+            json_response["id"], data["workflow_type"]
+        )
 
-    @patch("backoffice.common.airflow_utils.trigger_airflow_dag")
-    def test_create_hep_publisher_update_workflow(self, mock_trigger_airflow_dag):
+    @patch("backoffice.hep.api.views.trigger_hep_workflow_initialization.delay")
+    def test_create_hep_publisher_update_workflow(
+        self, mock_trigger_hep_workflow_initialization
+    ):
         self.api_client.force_authenticate(user=self.curator)
-        mock_trigger_airflow_dag.return_value = ({}, 200)
 
         data = {
             "workflow_type": HepWorkflowType.HEP_PUBLISHER_UPDATE,
@@ -154,6 +159,9 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(json_response["data"], {**data["data"]})
         self.assertEqual(json_response["workflow_type"], data["workflow_type"])
         self.assertIn("id", json_response)
+        mock_trigger_hep_workflow_initialization.assert_called_once_with(
+            json_response["id"], data["workflow_type"]
+        )
 
     @pytest.mark.vcr
     def test_create_hep_with_invalid_data_still_creates_workflow(self):
