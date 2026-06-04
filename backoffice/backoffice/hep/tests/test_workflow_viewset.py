@@ -318,6 +318,47 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
             status_code=400,
         )
 
+    @patch("backoffice.common.airflow_utils.update_dag_run")
+    def test_partial_update_marks_airflow_dag_run_as_failed_for_selected_statuses(
+        self, mock_update_dag_run
+    ):
+        self.api_client.force_authenticate(user=self.curator)
+        mock_update_dag_run.return_value = ({}, 200)
+
+        url = reverse("api:hep-detail", kwargs={"pk": self.workflow.id})
+        response = self.api_client.patch(
+            url,
+            format="json",
+            data={"status": HepStatusChoices.APPROVAL_CORE_SELECTION},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, HepStatusChoices.APPROVAL_CORE_SELECTION)
+        mock_update_dag_run.assert_called_once_with(
+            WORKFLOW_DAGS[self.workflow.workflow_type].initialize,
+            str(self.workflow.id),
+            {"state": "failed"},
+        )
+
+    @patch("backoffice.common.airflow_utils.update_dag_run")
+    def test_partial_update_does_not_mark_airflow_dag_run_as_failed_for_other_statuses(
+        self, mock_update_dag_run
+    ):
+        self.api_client.force_authenticate(user=self.curator)
+
+        url = reverse("api:hep-detail", kwargs={"pk": self.workflow.id})
+        response = self.api_client.patch(
+            url,
+            format="json",
+            data={"status": HepStatusChoices.RUNNING},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, HepStatusChoices.RUNNING)
+        mock_update_dag_run.assert_not_called()
+
     @patch("backoffice.common.airflow_utils.requests.post")
     def test_resolve(self, mock_post):
         self.api_client.force_authenticate(user=self.curator)

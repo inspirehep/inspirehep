@@ -97,12 +97,24 @@ def mark_airflow_dag_run_as_success(workflow, note=""):
 
     dag_id = WORKFLOW_DAGS[workflow.workflow_type].initialize
 
-    url = f"{AIRFLOW_BASE_URL}/api/v2/dags/{dag_id}/dagRuns/{str(workflow.id)}"
     logger.info(
         "Discarding DAG %s with run id: %s",
         dag_id,
         str(workflow.id),
     )
+    return update_dag_run(dag_id, str(workflow.id), data)
+
+
+def update_dag_run(dag_id, workflow_id, data):
+    """Updates an airflow dag run.
+
+    :param dag_id: name of the dag to update
+    :param workflow_id: id of the workflow to update
+    :param data: data to update the dag run with
+    :type data: dict
+    """
+    url = f"{AIRFLOW_BASE_URL}/api/v2/dags/{dag_id}/dagRuns/{str(workflow_id)}"
+
     response = requests.patch(
         url,
         json=data,

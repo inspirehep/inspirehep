@@ -111,11 +111,37 @@ class HepDecisionViewSet(viewsets.ModelViewSet):
     ),
 )
 class HepWorkflowViewSet(BaseWorkflowViewSet):
+    airflow_stopped_statuses = {
+        HepStatusChoices.APPROVAL_CORE_SELECTION,
+        HepStatusChoices.APPROVAL_FUZZY_MATCHING,
+        HepStatusChoices.APPROVAL_MERGE,
+        HepStatusChoices.APPROVAL,
+        HepStatusChoices.BLOCKED,
+        HepStatusChoices.MISSING_SUBJECT_FIELDS,
+    }
     queryset = HepWorkflow.objects.all()
     serializer_class = HepWorkflowSerializer
     resolution_serializer = HepResolutionSerializer
     status_choices = HepStatusChoices
     schema_name = "hep"
+
+    def partial_update(self, request, *args, **kwargs):
+        response = super().partial_update(request, *args, **kwargs)
+
+        if request.data.get("status") in self.airflow_stopped_statuses:
+            workflow = self.get_object()
+            dag_id = WORKFLOW_DAGS[workflow.workflow_type].initialize
+            try:
+                airflow_utils.update_dag_run(
+                    dag_id, str(workflow.id), {"state": "failed"}
+                )
+            except RequestException as e:
+                return handle_request_exception(
+                    "Error updating Airflow DAG run",
+                    e,
+                )
+
+        return response
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
