@@ -47,6 +47,7 @@ from backoffice.hep.api.renderers import (
     HepBackofficeUIBrowsableRenderer,
     HepBackofficeUIRenderer,
 )
+from backoffice.hep.tasks import trigger_hep_workflow_initialization
 from django_elasticsearch_dsl_drf.filter_backends import (
     CompoundSearchFilterBackend,
     DefaultOrderingFilterBackend,
@@ -141,15 +142,9 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         logger.info("Data passed schema validation, creating workflow.")
         workflow = serializer.save()
         logger.info("Creating workflow with id: %s", str(workflow.id))
-        try:
-            airflow_utils.trigger_airflow_dag(
-                WORKFLOW_DAGS[workflow.workflow_type].initialize, str(workflow.id)
-            )
-        except RequestException as e:
-            return handle_request_exception(
-                "Error triggering Airflow DAG",
-                e,
-            )
+        trigger_hep_workflow_initialization.delay(
+            str(workflow.id), workflow.workflow_type
+        )
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @action(detail=True, methods=["post"])
