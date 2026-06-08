@@ -220,6 +220,9 @@ exports[`ReferenceList renders items with (page * index) key if title is absent 
                                         </div>
                                       </li>
                                     </ul>
+                                    <span>
+                                       (1 author)
+                                    </span>
                                   </div>
                                   <div
                                     class="__InlineList__ secondary-container"
