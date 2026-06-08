@@ -11,7 +11,6 @@ import { hasPublicationInfo } from '../../utils/utils';
 import ToggleableAbstract from './ToggleableAbstract';
 import LiteratureDocumentTypes from './LiteratureDocumentTypes';
 import './LiteratureMatches.less';
-import ReportNumberList from '../../../literature/components/ReportNumberList';
 
 const { Text, Paragraph } = Typography;
 
@@ -31,7 +30,6 @@ const LiteratureMatchItem = ({ match, selectedBestMatch, onSelect }) => {
   const earliestDate = match.get('earliest_date');
   const numberOfPages = match.get('number_of_pages');
   const publicNotes = match.get('public_notes', List());
-  const reportNumbers = match.get('report_numbers', List());
   const publicationInfo = match.get('publication_info', List());
   const hasPublicationInfoValue = hasPublicationInfo(publicationInfo);
 
@@ -104,11 +102,6 @@ const LiteratureMatchItem = ({ match, selectedBestMatch, onSelect }) => {
             <Paragraph style={{ margin: 0, whiteSpace: 'pre-line' }}>
               {publicNotes.map((pn) => pn.get('value')).join('\n')}
             </Paragraph>
-          </Descriptions.Item>
-        )}
-        {reportNumbers.size > 0 && (
-          <Descriptions.Item label="Report numbers">
-            <ReportNumberList reportNumbers={reportNumbers} hideLabel />
           </Descriptions.Item>
         )}
       </Descriptions>

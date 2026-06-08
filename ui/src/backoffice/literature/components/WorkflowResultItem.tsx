@@ -1,11 +1,9 @@
 import React from 'react';
-import { Row, Col, Card, Descriptions, Typography } from 'antd';
-import { List, Map } from 'immutable';
+import { Row, Col, Card, Checkbox, Descriptions, Typography } from 'antd';
+import { List } from 'immutable';
 
 import '../../common/components/ResultItem/ResultItem.less';
-import { FilePdfOutlined } from '@ant-design/icons';
 import {
-  createPdfLinksFromArxivEprints,
   formatDateTime,
   hasPublicationInfo,
   isFullCoverageWorkflow,
@@ -24,9 +22,6 @@ import LiteratureReferenceCount from './LiteratureReferenceCount';
 import LiteratureSearchKeywords from './LiteratureSearchKeywords';
 import StatusInfoWithTooltip from '../../common/components/StatusInfoWithTooltip';
 import ContentBox from '../../../common/components/ContentBox';
-import { WorkflowStatuses } from '../../constants';
-import ReportNumberList from '../../../literature/components/ReportNumberList';
-import UrlsAction from '../../../literature/components/UrlsAction';
 
 const { Paragraph } = Typography;
 
@@ -40,7 +35,6 @@ const WorkflowResultItem = ({
   isSubmitted = false,
   shouldShowSubmissionModal = false,
   submissionContext = undefined,
-  page,
 }: {
   item: any;
   compactBottom?: boolean;
@@ -51,7 +45,6 @@ const WorkflowResultItem = ({
   isSubmitted?: boolean;
   shouldShowSubmissionModal?: boolean;
   submissionContext?: any;
-  page: string;
 }) => {
   const workflowId = item?.get('id');
   const workflowType = item?.get('workflow_type');
@@ -79,21 +72,16 @@ const WorkflowResultItem = ({
   const publicationInfo = data?.get('publication_info');
   const hasPublicationInfoValue = hasPublicationInfo(publicationInfo);
 
-  const arxivEprints = data?.get('arxiv_eprints') as List<Map<string, any>>;
+  const arxivEprints = data?.get('arxiv_eprints');
   const hasArxivEprints = List.isList(arxivEprints) && arxivEprints.size > 0;
-
-  const pdfLinks = hasArxivEprints
-    ? createPdfLinksFromArxivEprints(arxivEprints)
-    : List([]);
 
   const numberOfPages = data?.get('number_of_pages');
   const publicNotes = data?.get('public_notes');
   const hasPublicNotes = List.isList(publicNotes) && publicNotes.size > 0;
-  const reportNumbers = data?.get('report_numbers');
-  const displayReportNumbers =
-    status === WorkflowStatuses.APPROVAL_FUZZY_MATCHING &&
-    List.isList(reportNumbers) &&
-    reportNumbers.size > 0;
+
+  const inspireCategories = data?.get('inspire_categories')?.toJS();
+  const hasInspireCategories =
+    Array.isArray(inspireCategories) && inspireCategories.length > 0;
 
   return (
     <div
@@ -102,20 +90,7 @@ const WorkflowResultItem = ({
     >
       <Row justify="start" wrap={false}>
         <Col className="col-details">
-          <ResultItem
-            leftActions={
-              pdfLinks.size > 0 && (
-                <UrlsAction
-                  urls={pdfLinks as List<any>}
-                  icon={<FilePdfOutlined />}
-                  text="pdf"
-                  trackerEventId="Backoffice search pdf download"
-                  eventAction="Download"
-                  page={page}
-                />
-              )
-            }
-          >
+          <ResultItem>
             <LiteratureResultItem
               item={item}
               isSelectable={shouldShowSelectionCheckbox}
@@ -168,35 +143,17 @@ const WorkflowResultItem = ({
                   </Paragraph>
                 </Descriptions.Item>
               )}
-
-              {displayReportNumbers && (
-                <Descriptions.Item label="Report numbers">
-                  <ReportNumberList reportNumbers={reportNumbers} hideLabel />
-                </Descriptions.Item>
-              )}
             </Descriptions>
           </ResultItem>
-        </Col>
-
-        <Col className="col-info">
-          <Card>
-            <AcquisitionSourceInfo
-              datetime={acquisitionSourceDatetime}
-              source={acquisitionSourceSource}
-              email={acquisitionSourceEmail}
-            />
-          </Card>
-        </Col>
-        <Col className="col-subject">
-          <Card>
-            <LiteratureSubjectAreas categories={subjectAreas} />
-          </Card>
         </Col>
         <Col className="col-actions">
           <Card>
             <>
               <StatusInfoWithTooltip status={status} />
-              <AutomaticDecision relevancePrediction={relevancePrediction} />
+              <AutomaticDecision
+                hasInspireCategories={hasInspireCategories}
+                relevancePrediction={relevancePrediction}
+              />
               <div className="mb2">
                 <LiteratureActionButtons
                   status={status}
@@ -214,6 +171,20 @@ const WorkflowResultItem = ({
               />
               <LiteratureSearchKeywords classifierResults={classifierResults} />
             </>
+          </Card>
+        </Col>
+        <Col className="col-info">
+          <Card>
+            <AcquisitionSourceInfo
+              datetime={acquisitionSourceDatetime}
+              source={acquisitionSourceSource}
+              email={acquisitionSourceEmail}
+            />
+          </Card>
+        </Col>
+        <Col className="col-subject">
+          <Card>
+            <LiteratureSubjectAreas categories={subjectAreas} />
           </Card>
         </Col>
       </Row>

@@ -324,9 +324,6 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
                       </div>
                     </li>
                   </ul>
-                  <span>
-                     (1 author)
-                  </span>
                 </div>
                 <span>
                    for the collaboration
@@ -577,9 +574,6 @@ exports[`ReferenceItem renders with full reference 1`] = `
                       </div>
                     </li>
                   </ul>
-                  <span>
-                     (1 author)
-                  </span>
                 </div>
                 <span>
                    for the collaboration

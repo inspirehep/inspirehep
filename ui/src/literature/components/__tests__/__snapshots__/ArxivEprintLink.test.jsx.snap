@@ -4,7 +4,6 @@ exports[`ArxivEprintLink renders with arXiv id 1`] = `
 <DocumentFragment>
   <a
     href="//arxiv.org/abs/123.123456"
-    rel="noopener noreferrer"
     target="_blank"
   >
     123.123456

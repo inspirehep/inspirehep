@@ -9,7 +9,7 @@ exports[`ReportNumberList renders with report numbers 1`] = `
     <span
       class=""
     >
-      Report numbers: 
+      Report number: 
     </span>
     <ul>
       <li>
