@@ -38,7 +38,11 @@ const WorkflowResultItem = ({ item }: { item: any }) => {
             </Link>
           </ResultItem>
         </Col>
-
+        <Col className="col-actions">
+          <Card>
+            <StatusInfoWithTooltip status={status} />
+          </Card>
+        </Col>
         <Col className="col-info">
           <Card>
             <AcquisitionSourceInfo
@@ -51,11 +55,6 @@ const WorkflowResultItem = ({ item }: { item: any }) => {
         <Col className="col-subject">
           <Card>
             <AuthorSubjectAreas categories={subjectAreas} />
-          </Card>
-        </Col>
-        <Col className="col-actions">
-          <Card>
-            <StatusInfoWithTooltip status={status} />
           </Card>
         </Col>
       </Row>

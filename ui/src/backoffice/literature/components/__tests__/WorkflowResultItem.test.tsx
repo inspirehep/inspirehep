@@ -44,7 +44,6 @@ describe('WorkflowResultItem component for Literature', () => {
         handleResolveAction={handleResolveAction}
         shouldShowSelectionCheckbox
         onSelectionChange={handleSelectionChange}
-        page="test"
       />,
       {
         route: BACKOFFICE_LITERATURE_SEARCH,
@@ -98,7 +97,7 @@ describe('WorkflowResultItem component for Literature', () => {
     });
 
     const { rerender } = renderWithProviders(
-      <WorkflowResultItem item={itemWithDetails} page="test" />,
+      <WorkflowResultItem item={itemWithDetails} />,
       {
         route: BACKOFFICE_LITERATURE_SEARCH,
       }
@@ -111,9 +110,7 @@ describe('WorkflowResultItem component for Literature', () => {
     expect(screen.getByText(/First note/i)).toBeInTheDocument();
     expect(screen.getByText(/Second note/i)).toBeInTheDocument();
 
-    rerender(
-      <WorkflowResultItem item={itemWithoutPublicationDisplay} page="test" />
-    );
+    rerender(<WorkflowResultItem item={itemWithoutPublicationDisplay} />);
 
     expect(screen.queryByText('JHEP')).not.toBeInTheDocument();
     expect(screen.queryByText(/Number of Pages/i)).not.toBeInTheDocument();
@@ -131,7 +128,7 @@ describe('WorkflowResultItem component for Literature', () => {
       }),
     });
 
-    renderWithProviders(<WorkflowResultItem item={item} page="test" />, {
+    renderWithProviders(<WorkflowResultItem item={item} />, {
       route: BACKOFFICE_LITERATURE_SEARCH,
     });
 
@@ -172,7 +169,6 @@ describe('WorkflowResultItem component for Literature', () => {
           email: 'submitter@example.org',
           title: 'Submission title',
         }}
-        page="test"
       />,
       {
         route: BACKOFFICE_LITERATURE_SEARCH,

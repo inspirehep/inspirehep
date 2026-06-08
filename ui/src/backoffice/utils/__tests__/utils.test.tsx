@@ -7,7 +7,6 @@ import {
   filterDecisions,
   hasPublicationInfo,
   isLiteratureUpdateWorkflow,
-  createPdfLinksFromArxivEprints,
 } from '../utils';
 import storage from '../../../common/storage';
 import { BACKOFFICE_LOGIN_API } from '../../../common/routes';
@@ -231,34 +230,5 @@ describe('hasPublicationInfo', () => {
     ]);
 
     expect(hasPublicationInfo(publicationInfo)).toBe(false);
-  });
-});
-
-describe('createPdfLinksFromArxivEprints', () => {
-  it('returns an empty list when given an empty list', () => {
-    const result = createPdfLinksFromArxivEprints(List());
-    expect(result).toEqual(List());
-  });
-
-  it('converts a single eprint value to a pdf link', () => {
-    const eprints = List([ImmutableMap({ value: '2501.00001' })]);
-    const result = createPdfLinksFromArxivEprints(eprints);
-    expect(result).toEqual(
-      List([ImmutableMap({ value: '//arxiv.org/pdf/2501.00001' })])
-    );
-  });
-
-  it('converts multiple eprint values to pdf links', () => {
-    const eprints = List([
-      ImmutableMap({ value: '2501.00001' }),
-      ImmutableMap({ value: '2312.99999' }),
-    ]);
-    const result = createPdfLinksFromArxivEprints(eprints);
-    expect(result).toEqual(
-      List([
-        ImmutableMap({ value: '//arxiv.org/pdf/2501.00001' }),
-        ImmutableMap({ value: '//arxiv.org/pdf/2312.99999' }),
-      ])
-    );
   });
 });

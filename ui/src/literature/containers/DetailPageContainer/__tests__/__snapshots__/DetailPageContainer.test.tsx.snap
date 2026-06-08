@@ -68,7 +68,7 @@ exports[`DetailPageContainer renders initial state 1`] = `
                                 Test, Guy 1
                               </span>
                             </div>
-                            ; 
+                            , 
                           </li>
                           <li>
                             <div
@@ -78,7 +78,7 @@ exports[`DetailPageContainer renders initial state 1`] = `
                                 Test, Guy 2
                               </span>
                             </div>
-                            ; 
+                            , 
                           </li>
                           <li>
                             <div
@@ -88,7 +88,7 @@ exports[`DetailPageContainer renders initial state 1`] = `
                                 Test, Guy 3
                               </span>
                             </div>
-                            ; 
+                            , 
                           </li>
                           <li>
                             <div
@@ -98,7 +98,7 @@ exports[`DetailPageContainer renders initial state 1`] = `
                                 Test, Guy 4
                               </span>
                             </div>
-                            ; 
+                            , 
                           </li>
                           <li>
                             <div

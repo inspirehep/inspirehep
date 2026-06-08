@@ -5,9 +5,24 @@ import { Map } from 'immutable';
 import AutomaticDecision from '../AutomaticDecision';
 
 describe('<AutomaticDecision />', () => {
+  test('renders null when inspireCategories is empty', () => {
+    const relevancePrediction = Map({
+      decision: 'CORE',
+      max_score: 0.9,
+    });
+
+    const { container } = render(
+      <AutomaticDecision
+        hasInspireCategories={false}
+        relevancePrediction={relevancePrediction}
+      />
+    );
+    expect(container.firstChild).toBeNull();
+  });
+
   test('renders null when relevancePrediction is missing', () => {
     const { container } = render(
-      <AutomaticDecision relevancePrediction={null} />
+      <AutomaticDecision hasInspireCategories relevancePrediction={null} />
     );
     expect(container.firstChild).toBeNull();
   });
@@ -18,7 +33,12 @@ describe('<AutomaticDecision />', () => {
       max_score: 0.875,
     });
 
-    render(<AutomaticDecision relevancePrediction={relevancePrediction} />);
+    render(
+      <AutomaticDecision
+        hasInspireCategories
+        relevancePrediction={relevancePrediction}
+      />
+    );
 
     expect(screen.getByText(/Automatic Decision:/i)).toBeInTheDocument();
 
@@ -30,7 +50,12 @@ describe('<AutomaticDecision />', () => {
   test('renders Non-CORE with class and formatted score', () => {
     const relevancePrediction = Map({ decision: 'Non-CORE', max_score: 0.95 });
 
-    render(<AutomaticDecision relevancePrediction={relevancePrediction} />);
+    render(
+      <AutomaticDecision
+        hasInspireCategories
+        relevancePrediction={relevancePrediction}
+      />
+    );
 
     const decisionEl = screen.getByText('Non-CORE 0.95');
     expect(decisionEl).toBeInTheDocument();
@@ -43,7 +68,12 @@ describe('<AutomaticDecision />', () => {
       max_score: 0.5,
     });
 
-    render(<AutomaticDecision relevancePrediction={relevancePrediction} />);
+    render(
+      <AutomaticDecision
+        hasInspireCategories
+        relevancePrediction={relevancePrediction}
+      />
+    );
 
     const decisionEl = screen.getByText('Rejected 0.50');
     expect(decisionEl).toBeInTheDocument();

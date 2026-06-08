@@ -16,7 +16,6 @@ exports[`ArxivEprintList renders with arXiv id 1`] = `
         <span>
           <a
             href="//arxiv.org/abs/123.12345"
-            rel="noopener noreferrer"
             target="_blank"
           >
             123.12345

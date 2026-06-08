@@ -190,7 +190,6 @@ const LiteratureDetailPageContainer = ({
                       <LiteratureMainInfo
                         data={data}
                         isLiteratureUpdate={isLiteratureUpdate}
-                        page="Backoffice literature detail page"
                       />
                     )}
                     <CollapsableForm openSections={OPEN_SECTIONS}>
@@ -267,6 +266,7 @@ const LiteratureDetailPageContainer = ({
                         status={status}
                         decision={decision}
                         controlNumber={controlNumber}
+                        inspireCategories={inspireCategories}
                         relevancePrediction={relevancePrediction}
                         referenceCount={referenceCount}
                         totalReferences={totalReferences}
