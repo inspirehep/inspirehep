@@ -4703,6 +4703,16 @@
                 "value": "Preliminary results"
               }
             ],
+            "report_numbers": [
+              {
+                "value": "LHCb-PAPER-2025-014",
+                "source": "arXiv"
+              },
+              {
+                "value": "CERN-EP-2025-123",
+                "source": "arXiv"
+              }
+            ],
             "earliest_date": "2011-10-14",
             "control_number": 1258254,
             "document_type": ["article"],
@@ -5050,7 +5060,17 @@
       },
       "status": "missing_subject_fields",
       "_created_at": "2024-11-25T13:49:53.009Z",
-      "_updated_at": "2024-11-25T13:49:54.756Z"
+      "_updated_at": "2024-11-25T13:49:54.756Z",
+      "relevance_prediction": {
+        "scores": {
+          "CORE": 0.9637278318405151,
+          "Non-CORE": 0.01828720048069954,
+          "Rejected": 0.017984995618462563
+        },
+        "decision": "CORE",
+        "max_score": 0.9637278318405151,
+        "relevance_score": 1.9637278318405151
+      }
     }
   },
   {

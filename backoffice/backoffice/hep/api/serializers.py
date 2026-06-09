@@ -118,6 +118,7 @@ class HepWorkflowSerializer(BaseWorkflowSerializer):
             **form_data,
             "references": deserialize_references(references),
         }
+
         return data
 
     def get_callback_url(self, instance):

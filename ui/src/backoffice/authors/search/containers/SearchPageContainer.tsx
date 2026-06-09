@@ -44,7 +44,10 @@ const AuthorsSearchPageContainer = ({
 }: BackofficeSearchPageProps) => {
   const renderAggregations = () => (
     <LoadingOrChildren loading={loadingAggregations}>
-      <AggregationFiltersContainer namespace={BACKOFFICE_AUTHORS_SEARCH_NS} />
+      <AggregationFiltersContainer
+        namespace={BACKOFFICE_AUTHORS_SEARCH_NS}
+        narrow
+      />
     </LoadingOrChildren>
   );
   return (
@@ -62,29 +65,27 @@ const AuthorsSearchPageContainer = ({
         <EmptyOrChildren data={results} title="0 Results">
           <Col xs={24} lg={24} xl={24} xxl={24}>
             <Row className="mt3" gutter={SEARCH_PAGE_GUTTER} justify="start">
-              <Col xs={0} lg={6}>
-                <Card size="small">
-                  <div style={{ padding: '0.5rem' }}>
-                    <AggregationBox name="Sort by">
-                      <Select
-                        defaultValue="-_updated_at"
-                        value={query?.get('ordering')}
-                        style={{ width: '100%' }}
-                        data-testid="select-sort-by"
-                        options={[
-                          { value: '-_updated_at', label: 'Most recent' },
-                          { value: '_updated_at', label: 'Least recent' },
-                        ]}
-                        onChange={(value: string) =>
-                          onSortByChange(BACKOFFICE_AUTHORS_SEARCH_NS, value)
-                        }
-                      />
-                    </AggregationBox>
-                  </div>
+              <Col xs={0} lg={5}>
+                <Card size="small" bodyStyle={{ padding: 0 }}>
+                  <AggregationBox name="Sort by" className="pa2">
+                    <Select
+                      defaultValue="-_updated_at"
+                      value={query?.get('ordering')}
+                      style={{ width: '100%' }}
+                      data-testid="select-sort-by"
+                      options={[
+                        { value: '-_updated_at', label: 'Most recent' },
+                        { value: '_updated_at', label: 'Least recent' },
+                      ]}
+                      onChange={(value: string) =>
+                        onSortByChange(BACKOFFICE_AUTHORS_SEARCH_NS, value)
+                      }
+                    />
+                  </AggregationBox>
                   {renderAggregations()}
                 </Card>
               </Col>
-              <Col xs={24} lg={18}>
+              <Col xs={24} lg={19}>
                 <Row justify="space-between" wrap={false}>
                   <span className="mr2" />
                   <Col style={{ width: '55%' }}>
@@ -92,15 +93,7 @@ const AuthorsSearchPageContainer = ({
                       namespace={BACKOFFICE_AUTHORS_SEARCH_NS}
                     />
                   </Col>
-                  <Col
-                    style={{
-                      width: '29%',
-                      paddingLeft: '5px',
-                      fontWeight: 600,
-                    }}
-                  >
-                    Action & Status
-                  </Col>
+
                   <Col
                     style={{
                       width: '20%',
@@ -118,6 +111,15 @@ const AuthorsSearchPageContainer = ({
                     }}
                   >
                     Subject Areas
+                  </Col>
+                  <Col
+                    style={{
+                      width: '29%',
+                      paddingLeft: '5px',
+                      fontWeight: 600,
+                    }}
+                  >
+                    Action & Status
                   </Col>
                 </Row>
                 <LoadingOrChildren loading={loading}>

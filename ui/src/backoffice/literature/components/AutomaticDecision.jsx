@@ -1,8 +1,8 @@
 import React from 'react';
 import { resolveAutomaticDecision } from '../../utils/utils';
 
-const AutomaticDecision = ({ hasInspireCategories, relevancePrediction }) => {
-  if (!hasInspireCategories || !relevancePrediction) return null;
+const AutomaticDecision = ({ relevancePrediction }) => {
+  if (!relevancePrediction) return null;
 
   const decision = relevancePrediction.get('decision');
   const maxScore = relevancePrediction.get('max_score');

@@ -25,6 +25,7 @@ const AggregationFilters = ({
   embedded,
   page,
   namespace,
+  narrow,
 }: {
   aggregations: Map<string, any>;
   numberOfResults: number;
@@ -36,6 +37,7 @@ const AggregationFilters = ({
   embedded: boolean;
   page: number;
   namespace: string;
+  narrow: boolean;
 }) => {
   function compareAggregationEntries(
     [, aggregation1]: Map<string, any>[],
@@ -46,7 +48,8 @@ const AggregationFilters = ({
     return (order1 as number) - (order2 as number);
   }
   const rowClassName = className('bg-white', {
-    ph3: !inline,
+    ph2: !inline && narrow,
+    ph3: !inline && !narrow,
     pt3: !inline && !embedded,
     pv3: inline,
   });
@@ -104,6 +107,7 @@ AggregationFilters.defaultProps = {
   inline: false,
   displayWhenNoResults: false,
   embedded: false,
+  narrow: false,
 };
 
 export default AggregationFilters;

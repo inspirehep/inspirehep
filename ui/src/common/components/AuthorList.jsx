@@ -6,7 +6,8 @@ import { Modal } from 'antd';
 import InlineDataList from './InlineList';
 import Author from './Author';
 import SecondaryButton from './SecondaryButton';
-import { getAuthorName } from '../utils';
+import { getAuthorName, pluralizeUnlessSingle } from '../utils';
+import { DEFAULT_SEPARATOR_TYPE } from './InlineList/constants';
 
 class AuthorList extends Component {
   constructor(props) {
@@ -41,21 +42,39 @@ class AuthorList extends Component {
     return <span> et al.</span>;
   }
 
+  renderNumberOfAuthors() {
+    const number = this.props.authors.size;
+    return (
+      <span>
+        {' '}
+        ({number} {pluralizeUnlessSingle('author', number)})
+      </span>
+    );
+  }
+
+  renderSuffix(displayShowAll) {
+    const { authors, limit, alwaysShowNumberOfAuthors } = this.props;
+    if (authors.size > limit && displayShowAll) {
+      return this.renderShowAllOrEtAl();
+    }
+    if (alwaysShowNumberOfAuthors) {
+      return this.renderNumberOfAuthors();
+    }
+    return null;
+  }
+
   renderAuthorList(authorsToDisplay, displayShowAll = true) {
-    const { authors, limit, wrapperClassName, page, unlinked } = this.props;
+    const { wrapperClassName, page, unlinked, separator } = this.props;
     return (
       <InlineDataList
         wrapperClassName={wrapperClassName}
         items={authorsToDisplay}
-        suffix={
-          authors.size > limit && displayShowAll
-            ? this.renderShowAllOrEtAl()
-            : null
-        }
+        suffix={this.renderSuffix(displayShowAll)}
         extractKey={getAuthorName}
         renderItem={(author) => (
           <Author author={author} page={page} unlinked={unlinked} />
         )}
+        separator={separator}
       />
     );
   }
@@ -87,6 +106,8 @@ AuthorList.propTypes = {
   enableShowAll: PropTypes.bool,
   total: PropTypes.number,
   wrapperClassName: PropTypes.string,
+  alwaysShowNumberOfAuthors: PropTypes.bool,
+  separator: PropTypes.string,
 };
 
 AuthorList.defaultProps = {
@@ -95,6 +116,8 @@ AuthorList.defaultProps = {
   enableShowAll: false,
   total: -1,
   wrapperClassName: null,
+  alwaysShowNumberOfAuthors: false,
+  separator: DEFAULT_SEPARATOR_TYPE,
 };
 
 export default AuthorList;

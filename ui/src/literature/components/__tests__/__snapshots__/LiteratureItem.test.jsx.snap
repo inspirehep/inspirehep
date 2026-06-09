@@ -837,6 +837,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
                               <span>
                                 <a
                                   href="//arxiv.org/abs/1234567890"
+                                  rel="noopener noreferrer"
                                   target="_blank"
                                 >
                                   1234567890
