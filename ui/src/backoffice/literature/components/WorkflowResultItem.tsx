@@ -27,6 +27,7 @@ import ContentBox from '../../../common/components/ContentBox';
 import { WorkflowStatuses } from '../../constants';
 import ReportNumberList from '../../../literature/components/ReportNumberList';
 import UrlsAction from '../../../literature/components/UrlsAction';
+import { SEPARATOR_SEMICOLON } from '../../../common/components/InlineList';
 
 const { Paragraph } = Typography;
 
@@ -131,6 +132,8 @@ const WorkflowResultItem = ({
                   page="literature results backoffice"
                   unlinked
                   enableShowAll
+                  alwaysShowNumberOfAuthors
+                  separator={SEPARATOR_SEMICOLON}
                 />
               </div>
             )}

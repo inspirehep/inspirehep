@@ -13,6 +13,7 @@ import CollaborationList from '../../../common/components/CollaborationList';
 import LiteratureTitle from '../../../common/components/LiteratureTitle';
 import UnclickableTag from '../../../common/components/UnclickableTag';
 import { createPdfLinksFromArxivEprints } from '../../utils/utils';
+import { SEPARATOR_SEMICOLON } from '../../../common/components/InlineList';
 
 const LiteratureMainInfo = ({ data, isLiteratureUpdate, page }) => {
   const authors = data?.get('authors');
@@ -52,6 +53,8 @@ const LiteratureMainInfo = ({ data, isLiteratureUpdate, page }) => {
               page="literature backoffice"
               unlinked
               enableShowAll
+              alwaysShowNumberOfAuthors
+              separator={SEPARATOR_SEMICOLON}
             />
           </div>
         )}

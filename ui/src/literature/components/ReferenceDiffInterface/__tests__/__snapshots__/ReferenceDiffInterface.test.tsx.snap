@@ -372,9 +372,6 @@ exports[`ReferenceDiffInterface should render 1`] = `
                                             </div>
                                           </li>
                                         </ul>
-                                        <span>
-                                           (1 author)
-                                        </span>
                                       </div>
                                       <div
                                         class="__InlineList__ secondary-container"
@@ -540,9 +537,6 @@ exports[`ReferenceDiffInterface should render 1`] = `
                                             </div>
                                           </li>
                                         </ul>
-                                        <span>
-                                           (1 author)
-                                        </span>
                                       </div>
                                       <div
                                         class="__InlineList__ secondary-container"
@@ -1364,9 +1358,6 @@ exports[`ReferenceDiffInterface should render without previous reference if it i
                                             </div>
                                           </li>
                                         </ul>
-                                        <span>
-                                           (1 author)
-                                        </span>
                                       </div>
                                       <div
                                         class="__InlineList__ secondary-container"
@@ -1532,9 +1523,6 @@ exports[`ReferenceDiffInterface should render without previous reference if it i
                                             </div>
                                           </li>
                                         </ul>
-                                        <span>
-                                           (1 author)
-                                        </span>
                                       </div>
                                       <div
                                         class="__InlineList__ secondary-container"

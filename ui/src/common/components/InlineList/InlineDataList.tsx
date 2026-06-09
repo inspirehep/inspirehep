@@ -19,7 +19,7 @@ const InlineDataList = ({
 }: {
   items: List<any>;
   renderItem: Function;
-  label: string;
+  label?: string;
   suffix: any;
   extractKey: Function;
   separateItems: boolean;
