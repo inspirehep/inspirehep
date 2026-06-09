@@ -1,5 +1,7 @@
 import logging
+import os
 
+import requests
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -239,8 +241,26 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         serializer.is_valid(raise_exception=True)
         logger.info("Data passed schema validation, creating workflow.")
 
+        head_control_number = serializer.validated_data["head_control_number"]
+        inspirehep_base_url = os.environ.get("INSPIREHEP_BASE_URL", "")
+        try:
+            response = requests.get(
+                f"{inspirehep_base_url}/api/literature/{head_control_number}",
+                headers={"Accept": "application/json"},
+            )
+            response.raise_for_status()
+            head_record_data = response.json().get("metadata", {})
+        except requests.RequestException as e:
+            return handle_request_exception(
+                f"Could not fetch head record {head_control_number} from inspirehep",
+                e,
+            )
+
         wf_serializer = self.serializer_class(
-            data={"data": {}, "workflow_type": HepWorkflowType.HEP_MANUAL_MERGE}
+            data={
+                "data": head_record_data,
+                "workflow_type": HepWorkflowType.HEP_MANUAL_MERGE,
+            }
         )
 
         wf_serializer.is_valid(raise_exception=True)

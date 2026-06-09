@@ -148,6 +148,11 @@ export const resolveDecision = (decision: string | number) => {
       text: 'Withdrawn',
       decision: 'withdrawn',
     },
+    [WorkflowDecisions.MANUAL_MERGE_APPROVE]: {
+      bg: 'bg-completed ml1',
+      text: 'Merge Approved',
+      decision: 'merge approved',
+    },
   };
   return decisions[decision] || null;
 };

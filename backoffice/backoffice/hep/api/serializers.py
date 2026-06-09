@@ -213,3 +213,10 @@ class HepChangeStatusSerializer(serializers.Serializer):
 class ManualMergeWorkflowSerializer(serializers.Serializer):
     head_control_number = serializers.IntegerField(required=True)
     update_control_number = serializers.IntegerField(required=True)
+
+    def validate(self, data):
+        if data["head_control_number"] == data["update_control_number"]:
+            raise serializers.ValidationError(
+                "head_control_number and update_control_number must be different."
+            )
+        return data

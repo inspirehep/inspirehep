@@ -122,6 +122,20 @@ export class BackofficeApiService extends CommonApiService {
       .map(res => res.json());
   }
 
+  triggerManualMerge(
+    headControlNumber: number,
+    updateControlNumber: number
+  ): Observable<BackofficeWorkflow> {
+    return this.http
+      .post(
+        `${backofficeApiUrl}/workflows/literature/manual_merge/`,
+        { head_control_number: headControlNumber, update_control_number: updateControlNumber },
+        { withCredentials: true }
+      )
+      .catch(error => Observable.throw(new ApiError(error)))
+      .map(res => res.json());
+  }
+
   private handleRequest<T>(requestFn: () => Promise<T>): Promise<T> {
     return requestFn().catch((error) => {
       return Promise.reject(error);

@@ -27,8 +27,6 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 
@@ -36,10 +34,12 @@ import {
   RecordApiService,
   DomUtilsService,
   GlobalAppStateService,
+  BackofficeApiService,
 } from '../../core/services';
 import { RecordRevision } from '../../shared/interfaces';
 import { SubscriberComponent } from '../../shared/classes';
 import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
+import { backofficeLiteratureFeatureFlag } from '../../shared/config';
 
 @Component({
   selector: 're-manual-merge-modal',
@@ -62,7 +62,8 @@ export class ManualMergeModalComponent extends SubscriberComponent
     private toastrService: ToastrService,
     private recordApiService: RecordApiService,
     private domUtilsService: DomUtilsService,
-    private globalAppStateService: GlobalAppStateService
+    private globalAppStateService: GlobalAppStateService,
+    private backofficeApiService: BackofficeApiService
   ) {
     super();
   }
@@ -83,27 +84,48 @@ export class ManualMergeModalComponent extends SubscriberComponent
   }
 
   onMergeClick() {
-    let infoToast = this.toastrService.info(
+    const infoToast = this.toastrService.info(
       'Merging records...',
       'Loading',
       HOVER_TO_DISMISS_INDEFINITE_TOAST
     );
 
-    this.recordApiService
-      .saveRecord(this.record)
-      .switchMap(() => {
-        return this.recordApiService.manualMerge(this.updateRecordId);
-      })
-      .subscribe(
-        mergeWorkflowObjectId => {
-          this.toastrService.clear(infoToast.toastId);
-          this.router.navigate([`holdingpen/${mergeWorkflowObjectId}`]);
-        },
-        () => {
-          this.toastrService.clear(infoToast.toastId);
-          this.toastrService.error('Could not merge!', 'Error');
-        }
-      );
+    if (backofficeLiteratureFeatureFlag) {
+      this.recordApiService
+        .saveRecord(this.record)
+        .switchMap(() =>
+          this.backofficeApiService.triggerManualMerge(
+            this.record['control_number'],
+            parseInt(this.updateRecordId, 10)
+          )
+        )
+        .subscribe(
+          workflow => {
+            this.toastrService.clear(infoToast.toastId);
+            window.location.href = `${window.location.origin}/backoffice/literature/${workflow.id}`;
+          },
+          () => {
+            this.toastrService.clear(infoToast.toastId);
+            this.toastrService.error('Could not merge!', 'Error');
+          }
+        );
+    } else {
+      this.recordApiService
+        .saveRecord(this.record)
+        .switchMap(() => {
+          return this.recordApiService.manualMerge(this.updateRecordId);
+        })
+        .subscribe(
+          mergeWorkflowObjectId => {
+            this.toastrService.clear(infoToast.toastId);
+            this.router.navigate([`holdingpen/${mergeWorkflowObjectId}`]);
+          },
+          () => {
+            this.toastrService.clear(infoToast.toastId);
+            this.toastrService.error('Could not merge!', 'Error');
+          }
+        );
+    }
   }
 
   openUpdateRecordInNewTab() {
