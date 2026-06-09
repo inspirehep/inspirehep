@@ -105,6 +105,7 @@ export enum WorkflowDecisions {
   HEP_ACCEPT = 'hep_accept',
   HEP_ACCEPT_CORE = 'hep_accept_core',
   HEP_REJECT = 'hep_reject',
+  MANUAL_MERGE_APPROVE = 'manual_merge_approve',
   MERGE_APPROVE = 'merge_approve',
   MISSING_SUBJECT_FIELDS = 'missing_subject_fields',
   REJECT = 'reject',

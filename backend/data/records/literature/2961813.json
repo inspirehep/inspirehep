@@ -1,0 +1,3411 @@
+{
+  "core": true,
+  "self": {
+    "$ref": "https://inspirebeta.net/api/literature/2961813"
+  },
+  "titles": [
+    {
+      "title": "Inducing macroscopic cat states of nonequilibrium electrons via cat-state light irradiation and projective measurements",
+      "source": "arXiv"
+    }
+  ],
+  "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+  "authors": [
+    {
+      "uuid": "4a2700cf-cd32-47a2-b737-b5da779abc82",
+      "record": {
+        "$ref": "https://inspirebeta.net/api/authors/1125510"
+      },
+      "full_name": "Imai, Shohei",
+      "affiliations": [
+        {
+          "value": "Tokyo U.",
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/903273"
+          }
+        }
+      ],
+      "raw_affiliations": [
+        {
+          "value": "Department of Physics, University of Tokyo, Hongo, Tokyo 113-0033, Japan"
+        }
+      ]
+    }
+  ],
+  "curated": false,
+  "figures": [
+    {
+      "key": "6bd22a6e0a4834c969e03d99ccbbcf4a",
+      "url": "https://inspirebeta.net/files/6bd22a6e0a4834c969e03d99ccbbcf4a",
+      "label": "fig:cat_irradiation",
+      "source": "arxiv",
+      "caption": "Schematic of measurement-assisted generation of macroscopic cat states of electrons driven by cat-state light. A double helix represents a quantum superposition of two out-of-phase laser fields (black-cat and white-cat states). This light irradiates an ensemble of $N$ independent two-level electrons (gray bubbles). Projective measurement of the light (green region) yields a macroscopic cat state in the electronic system, while no measurement produces a classical mixture.",
+      "filename": "cat_irradiation.png",
+      "material": "preprint"
+    },
+    {
+      "key": "6618931f1494b0f74d4862090dfa0ed8",
+      "url": "https://inspirebeta.net/files/6618931f1494b0f74d4862090dfa0ed8",
+      "label": "fig:trace_out",
+      "source": "arxiv",
+      "caption": "Many-body electronic dynamics driven by the even cat-state light without postselection. (a)--(f) Time evolution of the QFI density $\\mathcal{F}_{\\mathrm{Q}}/N$ (blue curves) calculated from $\\hat{\\rho}_{\\mathrm{e}}(t)$ [Eq.~\\eqref{eq:trace out:electron density matrix}]. Red curves show the mean photon number $\\langle \\hat{n} \\rangle$. (a)--(c):$N = 8$; (d)--(f): $N = 32$. (a),(d): $\\alpha_0 = 1$. (b),(e): $N/2 = \\langle \\hat{n} \\rangle$ ($\\alpha_0 = 2$ and $\\alpha_0 = 4$, respectively). (c): $\\alpha_0 = 10$; (f): $\\alpha_0 = 30$. (g)--(i) Spin Wigner functions $W(\\theta,\\phi)$ for $N = 32$, evaluated at the times marked by arrowheads in the corresponding panels.",
+      "filename": "trace_outs.png",
+      "material": "preprint"
+    },
+    {
+      "key": "ee11d52ce1f83395e65d699e89c4206f",
+      "url": "https://inspirebeta.net/files/ee11d52ce1f83395e65d699e89c4206f",
+      "label": "fig:fwhm",
+      "source": "arxiv",
+      "caption": "FWHM $\\Delta t$ of the QFI-density peak as a function of the electron number $N$. Dash line is a guide to the eye. Even cat-state amplitude is $\\alpha_0 = \\sqrt{N/2}$. Inset: $N$-dependence of the QFI peak time $t_{\\mathrm{peak}}$.",
+      "filename": "fwhm.png",
+      "material": "preprint"
+    },
+    {
+      "key": "95cff93db623a19902ef5785c76ad26e",
+      "url": "https://inspirebeta.net/files/95cff93db623a19902ef5785c76ad26e",
+      "label": "fig:parity",
+      "source": "arxiv",
+      "caption": "Time evolution of the QFI density $\\mathcal{F}_{\\mathrm{Q}}/N$ for postselected electronic states $\\hat{\\rho}_{\\mathrm{e}}^{(\\mathrm{P},\\pm)}(t)$ conditioned on photon-number-parity measurement, under irradiation by even cat-state light. Blue: even parity; red: odd parity; dash-dotted: trace-out baseline (same as in Fig.~\\ref{fig:trace_out}). (a)--(c): $N = 8$; (d)--(f): $N = 32$. (a),(d): $\\alpha_0 = 1$. (b),(e): $N/2 = \\langle \\hat{n} \\rangle$ ($\\alpha_0 = 2$ and $\\alpha_0 = 4$, respectively). (c): $\\alpha_0 = 10$; (f): $\\alpha_0 = 30$.",
+      "filename": "parity.png",
+      "material": "preprint"
+    },
+    {
+      "key": "089da533a32defa515fc1b0b50912d12",
+      "url": "https://inspirebeta.net/files/089da533a32defa515fc1b0b50912d12",
+      "label": "fig:superposition of Rabi oscillations",
+      "source": "arxiv",
+      "caption": "Comparison of QFI dynamics for the XFA's ROC state. The blue and red curves indicate the QFI density $\\mathcal{F}_{\\mathrm{Q}}/N$ calculated from the Tavis--Cummings model [same data as Fig.~\\ref{fig:parity}(f)] and from the ROC state [Eq.~\\eqref{eq:derive:superposition of Rabi oscillations}], respectively. The photon-number parity is even. Parameters are set to $N = 32$, $\\gamma = 0.01$, and $\\alpha_0 = 30$.",
+      "filename": "analytical_solution.png",
+      "material": "preprint"
+    },
+    {
+      "key": "5794df00ca4c292d3cfffa696c8bcb1d",
+      "url": "https://inspirebeta.net/files/5794df00ca4c292d3cfffa696c8bcb1d",
+      "label": "fig:spin Wigner function",
+      "source": "arxiv",
+      "caption": "Spin Wigner functions $W(\\theta,\\phi)$ after irradiation by even cat-state light and postselection on photon-number parity. (a) Even parity; (b) Odd parity. Time is $t = \\pi/2\\gamma \\alpha_0$. Parameters are $N = 32$, $\\gamma = 0.01$, and $\\alpha_0 = 30$.",
+      "filename": "spin_Wigner.png",
+      "material": "preprint"
+    },
+    {
+      "key": "5dd23c574e6cd5831ff3b62e68315ff8",
+      "url": "https://inspirebeta.net/files/5dd23c574e6cd5831ff3b62e68315ff8",
+      "label": "fig:probability",
+      "source": "arxiv",
+      "caption": "Probabilities of photon-number parity outcomes. Blue (red) solid curve indicates even (odd) parity case. Dashed curves represent the corresponding QFI $\\mathcal{F}_{\\mathrm{Q}}/N^2$ for reference. Parameters are the same as in Fig.~\\ref{fig:parity}(f).",
+      "filename": "probability.png",
+      "material": "preprint"
+    },
+    {
+      "key": "694fba610251b1c49731844b61c086d9",
+      "url": "https://inspirebeta.net/files/694fba610251b1c49731844b61c086d9",
+      "label": "fig:overcompleteness",
+      "source": "arxiv",
+      "caption": "Effect of coherent-state overcompleteness on the XFA framework in the QFI dynamics. Yellow dashed curves show exact results obtained by solving the Tavis--Cummings model~\\eqref{eq:Tavis--Cummings model Hamiltonian}. Thick red curve shows the XFA result for the ROC state~\\eqref{eq:derive:superposition of Rabi oscillations}. Solid blue curves show the XFA results for the alternative expansion $|\\tilde{\\Psi}_{\\mathrm{XFA}}\\rangle_{\\mathrm{ep}}$ [Eq.~\\eqref{eq:derive:superposition total state:overcomplete}] obtained by inserting the identity. Field strength is fixed as $|E_{\\alpha_0}| = \\gamma \\alpha_0 = 0.1$, and different values of $\\gamma = 0.01$, $0.05$, and $0.1$ are shown. Electron number is $N = 8$.",
+      "filename": "overcompleteness.png",
+      "material": "preprint"
+    },
+    {
+      "key": "d555f01b9b19519ca873a764d128fb72",
+      "url": "https://inspirebeta.net/files/d555f01b9b19519ca873a764d128fb72",
+      "label": "fig:quadrature_ideal",
+      "source": "arxiv",
+      "caption": "Many-body electronic dynamics driven by the kitten-state light with quadrature postselection. (a),(b) Time evolution of the QFI density $\\mathcal{F}_{\\mathrm{Q}}/N$. Blue: postselected states $\\hat{\\rho}_{\\mathrm{e}}^{(\\mathrm{Q};\\varphi(t),0)}$. Dash-dotted: trace-out baseline. Red: photon number $\\langle \\hat{n} \\rangle$. Green: XFA-based ROK state~\\eqref{eq:derive:superposition of Rabi oscillations:kitten}. The kitten-state amplitude is (a)~$\\alpha_0=4$ and (b)~$\\alpha_0 = 30$. (c),(d) Spin Wigner functions $W(\\theta,\\phi)$ [Eq.~\\eqref{eq:Wigner function}] at the times marked as arrowheads in (a) and (b). Electron number is $N = 32$.",
+      "filename": "quadrature_ideal.png",
+      "material": "preprint"
+    },
+    {
+      "key": "485f0b9a31ec0cefda43da36708594c7",
+      "url": "https://inspirebeta.net/files/485f0b9a31ec0cefda43da36708594c7",
+      "label": "fig:quadrature window",
+      "source": "arxiv",
+      "caption": "Dependence of the maximum QFI density $\\mathcal{F}_{\\mathrm{Q}}/N$ on quadrature measurement resolution $\\Delta x$. Blue (red) curve corresponds to a kitten-state amplitude $\\alpha_0 = 15$ ($\\alpha_0 = 20$). Electron number is $N = 32$, and the simulation setting is identical to that in Fig.~\\ref{fig:quadrature_ideal}.",
+      "filename": "quadrature_window.png",
+      "material": "preprint"
+    },
+    {
+      "key": "5afc9541f573dc3d6d07e91c040f6df6",
+      "url": "https://inspirebeta.net/files/5afc9541f573dc3d6d07e91c040f6df6",
+      "label": "fig:without RWA",
+      "source": "arxiv",
+      "caption": "Effect of the RWA on the QFI dynamics under even cat-state light irradiation and photon-number parity measurement. Blue: simulation using the full electron--photon Hamiltonian $\\hat{\\mathcal{H}}_{\\mathrm{RD}}$ [Eq.~\\eqref{eq:Rabi and Dicke hamiltonian}] without the RWA. Dash-dotted: RWA result [same as Fig.~\\ref{fig:parity}(f)]. Red: XFA result obtained from the ROC state~\\eqref{eq:derive:superposition of Rabi oscillations}. Parameters: $N = 32$, $\\alpha_0 = 30$.",
+      "filename": "without_RWA.png",
+      "material": "preprint"
+    }
+  ],
+  "license": [
+    {
+      "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+      "license": "arXiv nonexclusive-distrib 1.0",
+      "material": "preprint"
+    }
+  ],
+  "texkeys": ["Imai:2025wks"],
+  "citeable": true,
+  "abstracts": [
+    {
+      "value": "We show that projective measurements on quantum light can induce macroscopic cat states in many-electron systems driven by large-amplitude cat-state light. Here we investigate the quantum dynamics of N independent two-level electrons interacting with Schrödinger cat or kitten states of light. Without measurement, a macroscopic cat state of electrons appears only in an ultrashort time window. In contrast, we demonstrate that photon-number parity or quadrature projective measurements can restore a macroscopic cat state in nonequilibrium electrons, even in the thermodynamic limit. These dynamics are captured by an external-field approximation, in which the electronic system evolves into a Rabi-oscillation cat state. Our results highlight the need for precise quantum measurement techniques for light to control macroscopic quantum states of matter driven by quantum light.",
+      "source": "arXiv"
+    }
+  ],
+  "documents": [
+    {
+      "key": "2fec1f7b5cf0b5e44472089b1ac46361",
+      "url": "https://inspirebeta.net/files/2fec1f7b5cf0b5e44472089b1ac46361",
+      "hidden": true,
+      "source": "arxiv",
+      "filename": "2508.11769.pdf",
+      "fulltext": true,
+      "material": "preprint",
+      "original_url": "https://arxiv.org/pdf/2508.11769"
+    }
+  ],
+  "references": [
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2950615"
+      },
+      "raw_refs": [
+        {
+          "value": "[1] T. Oka and H. Aoki, Photovoltaic Hall effect in graphene, Phys. Rev. B 79, 081406 (2009).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Photovoltaic Hall effect in graphene"],
+        "label": "1",
+        "authors": [
+          {
+            "full_name": "Oka, T."
+          },
+          {
+            "full_name": "Aoki, H."
+          }
+        ],
+        "publication_info": {
+          "year": 2009,
+          "artid": "081406",
+          "journal_title": "Phys.Rev.B",
+          "journal_volume": "79"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2799001"
+      },
+      "raw_refs": [
+        {
+          "value": "[2] J. W. McIver, B. Schulte, F.-U. Stein, T. Matsuyama, G. Jotzu, G. Meier, and A. Cavalleri, Light-induced anomalous Hall effect in graphene, Nat. Phys. 16, 38 (2020).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Light-induced anomalous Hall effect in graphene"],
+        "label": "2",
+        "authors": [
+          {
+            "full_name": "McIver, J.W."
+          },
+          {
+            "full_name": "Schulte, B."
+          },
+          {
+            "full_name": "Stein, F.-U."
+          },
+          {
+            "full_name": "Matsuyama, T."
+          },
+          {
+            "full_name": "Jotzu, G."
+          },
+          {
+            "full_name": "Meier, G."
+          },
+          {
+            "full_name": "Cavalleri, A."
+          }
+        ],
+        "publication_info": {
+          "year": 2020,
+          "artid": "38",
+          "page_start": "38",
+          "journal_title": "Nature Phys.",
+          "journal_volume": "16"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[3] M. Lewenstein, M. F. Ciappina, E. Pisanty, J. Rivera-Dean, P. Stammer, T. Lamprou, and P. Tzallas, Generation of optical Schrödinger cat states in intense laser–matter interactions, Nat. Phys. 17, 1104 (2021).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Generation of optical Schrödinger cat states in intense laser-matter interactions"
+        ],
+        "label": "3",
+        "authors": [
+          {
+            "full_name": "Lewenstein, M."
+          },
+          {
+            "full_name": "Ciappina, M.F."
+          },
+          {
+            "full_name": "Pisanty, E."
+          },
+          {
+            "full_name": "Rivera-Dean, J."
+          },
+          {
+            "full_name": "Stammer, P."
+          },
+          {
+            "full_name": "Lamprou, T."
+          },
+          {
+            "full_name": "Tzallas, P."
+          }
+        ],
+        "publication_info": {
+          "year": 2021,
+          "artid": "1104",
+          "page_start": "1104",
+          "journal_title": "Nature Phys.",
+          "journal_volume": "17"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/1948090"
+      },
+      "raw_refs": [
+        {
+          "value": "[4] J. Rivera-Dean, T. Lamprou, E. Pisanty, P. Stammer, A. F. Ordóñez, A. S. Maxwell, M. F. Ciappina, M. Lewenstein, and P. Tzallas, Strong laser fields and their power to generate controllable high-photon-number coherent-state superpositions, Phys. Rev. A 105, 033714 (2022).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "A. F. Ordóñez, A. S. Maxwell, M. F. Ciappina, M. Lewenstein, and P. Tzallas",
+          "Strong laser fields and their power to generate controllable high-photon-number coherent-state superpositions"
+        ],
+        "label": "4",
+        "authors": [
+          {
+            "full_name": "Rivera-Dean, J."
+          },
+          {
+            "full_name": "Lamprou, T."
+          },
+          {
+            "full_name": "Pisanty, E."
+          },
+          {
+            "full_name": "Stammer, P."
+          }
+        ],
+        "publication_info": {
+          "year": 2022,
+          "artid": "033714",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "105"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2865116"
+      },
+      "raw_refs": [
+        {
+          "value": "[5] T. Lamprou, J. Rivera-Dean, P. Stammer, M. Lewenstein, and P. Tzallas, Nonlinear Optics Using Intense Optical Coherent State Superpositions, Phys. Rev. Lett. 134, 013601 (2025).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Nonlinear Optics Using Intense Optical Coherent State Superpositions"
+        ],
+        "label": "5",
+        "authors": [
+          {
+            "full_name": "Lamprou, T."
+          },
+          {
+            "full_name": "Rivera-Dean, J."
+          },
+          {
+            "full_name": "Stammer, P."
+          },
+          {
+            "full_name": "Lewenstein, M."
+          },
+          {
+            "full_name": "Tzallas, P."
+          }
+        ],
+        "publication_info": {
+          "year": 2025,
+          "artid": "013601",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "134"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2049068"
+      },
+      "raw_refs": [
+        {
+          "value": "[6] P. Stammer, Theory of entanglement and measurement in highorder harmonic generation, Phys. Rev. A 106, L050402 (2022).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Theory of entanglement and measurement in highorder harmonic generation"
+        ],
+        "label": "6",
+        "authors": [
+          {
+            "full_name": "Stammer, P."
+          }
+        ],
+        "publication_info": {
+          "year": 2022,
+          "artid": "L050402",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "106"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2047165"
+      },
+      "raw_refs": [
+        {
+          "value": "[7] P. Stammer, J. Rivera-Dean, T. Lamprou, E. Pisanty, M. F. Ciappina, P. Tzallas, and M. Lewenstein, High Photon Number Entangled States and Coherent State Superposition from the Extreme Ultraviolet to the Far Infrared, Phys. Rev. Lett. 128, 123603 (2022).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "High Photon Number Entangled States and Coherent State Superposition from the Extreme Ultraviolet to the Far Infrared"
+        ],
+        "label": "7",
+        "authors": [
+          {
+            "full_name": "Stammer, P."
+          },
+          {
+            "full_name": "Rivera-Dean, J."
+          },
+          {
+            "full_name": "Lamprou, T."
+          },
+          {
+            "full_name": "Pisanty, E."
+          },
+          {
+            "full_name": "Ciappina, M.F."
+          },
+          {
+            "full_name": "Tzallas, P."
+          },
+          {
+            "full_name": "Lewenstein, M."
+          }
+        ],
+        "publication_info": {
+          "year": 2022,
+          "artid": "123603",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "128"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[8] J. Rivera-Dean, T. Lamprou, E. Pisanty, M. F. Ciappina, P. Tzallas, M. Lewenstein, and P. Stammer, Quantum state engineering of light using intensity measurements and post-selection, Phys. Rev. A 013110, 1 (2024).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Quantum state engineering of light using intensity measurements and post-selection"
+        ],
+        "label": "8",
+        "authors": [
+          {
+            "full_name": "Rivera-Dean, J."
+          },
+          {
+            "full_name": "Lamprou, T."
+          },
+          {
+            "full_name": "Pisanty, E."
+          },
+          {
+            "full_name": "Ciappina, M.F."
+          },
+          {
+            "full_name": "Tzallas, P."
+          },
+          {
+            "full_name": "Lewenstein, M."
+          },
+          {
+            "full_name": "Stammer, P."
+          }
+        ],
+        "publication_info": {
+          "year": 2024,
+          "artid": "1",
+          "page_start": "1",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "013110"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2093932"
+      },
+      "raw_refs": [
+        {
+          "value": "[9] P. Stammer, J. Rivera-Dean, A. Maxwell, T. Lamprou, A. Ordóñez, M. F. Ciappina, P. Tzallas, and M. Lewenstein, Quantum Electrodynamics of Intense Laser-Matter Interactions: A Tool for Quantum State Engineering, PRX Quantum 4, 010201 (2023).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "A. Ordóñez, M. F. Ciappina, P. Tzallas, and M. Lewenstein",
+          "Quantum Electrodynamics of Intense Laser-Matter Interactions: A Tool for Quantum",
+          "State Engineering"
+        ],
+        "label": "9",
+        "authors": [
+          {
+            "full_name": "Stammer, P."
+          },
+          {
+            "full_name": "Rivera-Dean, J."
+          },
+          {
+            "full_name": "Maxwell, A."
+          },
+          {
+            "full_name": "Lamprou, T."
+          }
+        ],
+        "publication_info": {
+          "year": 2023,
+          "artid": "010201",
+          "journal_title": "PRX Quantum",
+          "journal_volume": "4"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2630916"
+      },
+      "raw_refs": [
+        {
+          "value": "[10] U. Bhattacharya, T. Lamprou, A. S. Maxwell, A. Ordóñez, E. Pisanty, J. Rivera-Dean, P. Stammer, M. F. Ciappina, M. Lewenstein, and P. Tzallas, Strong–laser–field physics, non–classical light states and quantum information science, Reports Prog. Phys. 86, 094401 (2023).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "A. Ordóñez, E. Pisanty, J. Rivera-Dean, P. Stammer, M. F. Ciappina, M. Lewenstein, and P. Tzallas",
+          "Strong-laser-field physics, non-classical light states and quantum information science"
+        ],
+        "label": "10",
+        "authors": [
+          {
+            "full_name": "Bhattacharya, U."
+          },
+          {
+            "full_name": "Lamprou, T."
+          },
+          {
+            "full_name": "Maxwell, A.S."
+          }
+        ],
+        "publication_info": {
+          "year": 2023,
+          "artid": "094401",
+          "journal_title": "Rept.Prog.Phys.",
+          "journal_volume": "86"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[11] M. Lewenstein, N. Baldelli, U. Bhattacharya, J. Biegert, M. F. Ciappina, T. Grass, P. T. Grochowski, A. S. Johnson, T. Lamprou, A. S. Maxwell, A. Ordóñez, E. Pisanty, J. Rivera-Dean, P. Stammer, and P. Tzallas, Attosecond Physics and Quantum Information Science, in Springer Proc. Phys. (2024) pp. 27–44.",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "A. Ordóñez, E. Pisanty, J. Rivera-Dean, P. Stammer, and P. Tzallas",
+          "Attosecond Physics and Quantum Information Science, in Springer Proc. Phys.  pp. 27-44"
+        ],
+        "label": "11",
+        "authors": [
+          {
+            "full_name": "Lewenstein, M."
+          },
+          {
+            "full_name": "Baldelli, N."
+          },
+          {
+            "full_name": "Bhattacharya, U."
+          },
+          {
+            "full_name": "Biegert, J."
+          },
+          {
+            "full_name": "Ciappina, M.F."
+          },
+          {
+            "full_name": "Grass, T."
+          },
+          {
+            "full_name": "Grochowski, P.T."
+          },
+          {
+            "full_name": "Johnson, A.S."
+          },
+          {
+            "full_name": "Lamprou, T."
+          },
+          {
+            "full_name": "Maxwell, A.S."
+          }
+        ],
+        "publication_info": {
+          "year": 2024
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2766959"
+      },
+      "raw_refs": [
+        {
+          "value": "[12] L. Cruz-Rodriguez, D. Dey, A. Freibert, and P. Stammer, Quantum phenomena in attosecond science, Nat. Rev. Phys. 6, 691 (2024).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Quantum phenomena in attosecond science"],
+        "label": "12",
+        "authors": [
+          {
+            "full_name": "Cruz-Rodriguez, L."
+          },
+          {
+            "full_name": "Dey, D."
+          },
+          {
+            "full_name": "Freibert, A."
+          },
+          {
+            "full_name": "Stammer, P."
+          }
+        ],
+        "publication_info": {
+          "year": 2024,
+          "artid": "691",
+          "page_start": "691",
+          "journal_title": "Nature Rev.Phys.",
+          "journal_volume": "6"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[13] A. Vidiella-Barranco, H. Moya-Cessa, and V. Bužek, Interaction of Superpositions of Coherent States of Light with Two-level Atoms, J. Mod. Opt. 39, 1441 (1992).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "and V. Bužek, Interaction of Superpositions of Coherent States of Light with Two-level Atoms"
+        ],
+        "label": "13",
+        "authors": [
+          {
+            "full_name": "Vidiella-Barranco, A."
+          },
+          {
+            "full_name": "Moya-Cessa, H."
+          }
+        ],
+        "publication_info": {
+          "year": 1992,
+          "artid": "1441",
+          "page_start": "1441",
+          "journal_title": "J.Mod.Opt.",
+          "journal_volume": "39"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[14] C. C. Gerry and E. E. Hach, Interaction of a two-level atom with an even coherent state, Phys. Lett. A 179, 1 (1993).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Interaction of a two-level atom with an even coherent state"],
+        "label": "14",
+        "authors": [
+          {
+            "full_name": "Gerry, C.C."
+          },
+          {
+            "full_name": "Hach, E.E."
+          }
+        ],
+        "publication_info": {
+          "year": 1993,
+          "artid": "1",
+          "page_start": "1",
+          "journal_title": "Phys.Lett.A",
+          "journal_volume": "179"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[15] H. Moya-Cessa and A. Vidiella-Barranco, On the Interaction of Two-level Atoms with Superpositions of Coherent States of Light, J. Mod. Opt. 42, 1547 (1995).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "On the Interaction of Two-level Atoms with Superpositions of Coherent States of Light"
+        ],
+        "label": "15",
+        "authors": [
+          {
+            "full_name": "Moya-Cessa, H."
+          },
+          {
+            "full_name": "Vidiella-Barranco, A."
+          }
+        ],
+        "publication_info": {
+          "year": 1995,
+          "artid": "1547",
+          "page_start": "1547",
+          "journal_title": "J.Mod.Opt.",
+          "journal_volume": "42"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[16] A. Joshi and M. Singh, Effects of Even and Odd Coherent States on the Evolution of the Two-photon Jaynes-Cummings model, J. Mod. Opt. 42, 775 (1995).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Effects of Even and Odd Coherent States on the Evolution of the Two-photon Jaynes-Cummings model"
+        ],
+        "label": "16",
+        "authors": [
+          {
+            "full_name": "Joshi, A."
+          },
+          {
+            "full_name": "Singh, M."
+          }
+        ],
+        "publication_info": {
+          "year": 1995,
+          "artid": "775",
+          "page_start": "775",
+          "journal_title": "J.Mod.Opt.",
+          "journal_volume": "42"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2779230"
+      },
+      "raw_refs": [
+        {
+          "value": "[17] I. A. Bocanegra-Garay, M. Castillo-Celeita, J. Negro, L. M. Nieto, and F. J. Gómez-Ruiz, Exploring supersymmetry: Interchangeability between Jaynes-Cummings and anti-JaynesCummings models, Phys. Rev. Res. 6, 043218 (2024).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "and F. J. Gómez-Ruiz, Exploring supersymmetry: Interchangeability between Jaynes-Cummings and anti-JaynesCummings models"
+        ],
+        "label": "17",
+        "authors": [
+          {
+            "full_name": "Bocanegra-Garay, I.A."
+          },
+          {
+            "full_name": "Castillo-Celeita, M."
+          },
+          {
+            "full_name": "Negro, J."
+          },
+          {
+            "full_name": "Nieto, L.M."
+          }
+        ],
+        "publication_info": {
+          "year": 2024,
+          "artid": "043218",
+          "journal_title": "Phys.Rev.Res.",
+          "journal_volume": "6"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[18] L. Tang-Kun, Entropy evolvement properties in a system of Schrödinger cat state light field interacting with two entangled atoms, Chinese Phys. 15, 542 (2006).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Entropy evolvement properties in a system of Schrödinger cat state light field interacting with two entangled atoms"
+        ],
+        "label": "18",
+        "authors": [
+          {
+            "full_name": "Tang-Kun, L."
+          }
+        ],
+        "publication_info": {
+          "year": 2006,
+          "artid": "542",
+          "page_start": "542",
+          "journal_title": "Chin.Phys.",
+          "journal_volume": "15"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[19] A. B. A. Mohamed, H. Eleuch, and C. H. R. Ooi, Non-locality Correlation in Two Driven Qubits Inside an Open Coherent Cavity: Trace Norm Distance and Maximum Bell Function, Sci. Rep. 9, 19632 (2019).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Non-locality Correlation in Two Driven Qubits Inside an Open Coherent Cavity: Trace Norm Distance and Maximum Bell Function"
+        ],
+        "label": "19",
+        "authors": [
+          {
+            "full_name": "Mohamed, A.B.A."
+          },
+          {
+            "full_name": "Eleuch, H."
+          },
+          {
+            "full_name": "Ooi, C.H.R."
+          }
+        ],
+        "publication_info": {
+          "year": 2019,
+          "artid": "19632",
+          "journal_title": "Sci.Rep.",
+          "journal_volume": "9"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[20] A.-B. A. Mohamed, E. M. Khalil, M. M. Selim, and H. Eleuch, Quantum Fisher Information and Bures Distance Correlations of Coupled Two Charge-Qubits Inside a Coherent Cavity with the Intrinsic Decoherence, Symmetry (Basel). 13, 352 (2021).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Quantum Fisher Information and Bures Distance Correlations of Coupled Two Charge-Qubits Inside a Coherent Cavity with the Intrinsic Decoherence, Symmetry (Basel). 13, 352"
+        ],
+        "label": "20",
+        "authors": [
+          {
+            "full_name": "Mohamed, A.-B.A."
+          },
+          {
+            "full_name": "Khalil, E.M."
+          },
+          {
+            "full_name": "Selim, M.M."
+          },
+          {
+            "full_name": "Eleuch, H."
+          }
+        ],
+        "publication_info": {
+          "year": 2021
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[21] S. Abdel-Khalek, K. Berrada, E. M. Khalil, H. Eleuch, A.S. F. Obada, and E. Reda, Tavis–Cummings Model with Moving Atoms, Entropy 23, 452 (2021).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Tavis-Cummings Model with Moving Atoms"],
+        "label": "21",
+        "authors": [
+          {
+            "full_name": "Abdel-Khalek, S."
+          },
+          {
+            "full_name": "Berrada, K."
+          },
+          {
+            "full_name": "Khalil, E.M."
+          },
+          {
+            "full_name": "Eleuch, H."
+          },
+          {
+            "full_name": "Obada, A.S.F."
+          },
+          {
+            "full_name": "Reda, E."
+          }
+        ],
+        "publication_info": {
+          "year": 2021,
+          "artid": "452",
+          "page_start": "452",
+          "journal_title": "Entropy",
+          "journal_volume": "23"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[22] R. Movahedi, D. Afshar, and M. Jafarpour, Improvement of the entanglement generation in atomic states using a single-mode field in the Tavis–Cummings model, Eur. Phys. J. D 77, 59 (2023).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Improvement of the entanglement generation in atomic states using a single-mode field in the Tavis-Cummings model"
+        ],
+        "label": "22",
+        "authors": [
+          {
+            "full_name": "Movahedi, R."
+          },
+          {
+            "full_name": "Afshar, D."
+          },
+          {
+            "full_name": "Jafarpour, M."
+          }
+        ],
+        "publication_info": {
+          "year": 2023,
+          "artid": "59",
+          "page_start": "59",
+          "journal_title": "Eur.Phys.J.D",
+          "journal_volume": "77"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2873445"
+      },
+      "raw_refs": [
+        {
+          "value": "[23] S. Imai, A. Ono, and N. Tsuji, Electron dynamics induced by quantum cat-state light, arXiv:2501.16801.",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Electron dynamics induced by quantum cat-state light"],
+        "label": "23",
+        "authors": [
+          {
+            "full_name": "Imai, S."
+          },
+          {
+            "full_name": "Ono, A."
+          },
+          {
+            "full_name": "Tsuji, N."
+          }
+        ],
+        "arxiv_eprint": "2501.16801"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[24] K. Leman, W. Yiwen, and G. Molin, Supercurrent and Its Quantum Statistical Properties in Mesoscopic Josephson Junction in the Presence of Nonclassical Light Fields, Commun. Theor. Phys. 28, 391 (1997).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Supercurrent and Its Quantum Statistical Properties in Mesoscopic Josephson Junction in the Presence of Nonclassical Light Fields"
+        ],
+        "label": "24",
+        "authors": [
+          {
+            "full_name": "Leman, K."
+          },
+          {
+            "full_name": "Yiwen, W."
+          },
+          {
+            "full_name": "Molin, G."
+          }
+        ],
+        "publication_info": {
+          "year": 1997,
+          "artid": "391",
+          "page_start": "391",
+          "journal_title": "Commun.Theor.Phys.",
+          "journal_volume": "28"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[25] D. B. Horoshko and S. Ya Kilin, Resonance fluorescence excited by macroscopic superposition in a feedback loop, J. Exp. Theor. Phys. 90, 733 (2000).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Resonance fluorescence excited by macroscopic superposition in a feedback loop"
+        ],
+        "label": "25",
+        "authors": [
+          {
+            "full_name": "Horoshko, D.B."
+          },
+          {
+            "full_name": "Kilin, S. Ya"
+          }
+        ],
+        "publication_info": {
+          "year": 2000,
+          "artid": "733",
+          "page_start": "733",
+          "journal_title": "J.Exp.Theor.Phys.",
+          "journal_volume": "90"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[26] V. Tomilin and L. Il’ichov, The stationary resonance fluorescence of a two-level atom in a cat-state field, Opt. Commun. 375, 38 (2016).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "The stationary resonance fluorescence of a two-level atom in a cat-state field"
+        ],
+        "label": "26",
+        "authors": [
+          {
+            "full_name": "Tomilin, V."
+          },
+          {
+            "full_name": "Il'ichov, L."
+          }
+        ],
+        "publication_info": {
+          "year": 2016,
+          "artid": "38",
+          "page_start": "38",
+          "journal_title": "Opt.Commun.",
+          "journal_volume": "375"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[27] V. A. Tomilin and L. V. Il’ichov, Correlations of photoemissions in a multiatomic ensemble driven by a cat-state field, Phys. Rev. A 96, 063805 (2017).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Correlations of photoemissions in a multiatomic ensemble driven by a cat-state field"
+        ],
+        "label": "27",
+        "authors": [
+          {
+            "full_name": "Tomilin, V.A."
+          },
+          {
+            "full_name": "Il'ichov, L.V."
+          }
+        ],
+        "publication_info": {
+          "year": 2017,
+          "artid": "063805",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "96"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[28] V. A. Tomilin and L. V. Il’ichov, Lambda-scheme spectroscopy in the cat-state field, J. Exp. Theor. Phys. 124, 707 (2017).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Lambda-scheme spectroscopy in the cat-state field"],
+        "label": "28",
+        "authors": [
+          {
+            "full_name": "Tomilin, V.A."
+          },
+          {
+            "full_name": "Il'ichov, L.V."
+          }
+        ],
+        "publication_info": {
+          "year": 2017,
+          "artid": "707",
+          "page_start": "707",
+          "journal_title": "J.Exp.Theor.Phys.",
+          "journal_volume": "124"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2799363"
+      },
+      "raw_refs": [
+        {
+          "value": "[29] J. L. T. Bertassoli and A. Vidiella-Barranco, Note on the emission spectrum and trapping states in the Jaynes–Cummings model, J. Opt. Soc. Am. B 41, C199 (2024).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Note on the emission spectrum and trapping states in the Jaynes-Cummings model"
+        ],
+        "label": "29",
+        "authors": [
+          {
+            "full_name": "Bertassoli, J.L.T."
+          },
+          {
+            "full_name": "Vidiella-Barranco, A."
+          }
+        ],
+        "publication_info": {
+          "year": 2024,
+          "artid": "C199",
+          "page_start": "C199",
+          "journal_title": "J.Opt.Soc.Am.B",
+          "journal_volume": "41"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[30] T. Ling and G.-C. Guo, Superposition of the atomic Bloch state: preparation method, J. Opt. Soc. Am. B 14, 1537 (1997).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Superposition of the atomic Bloch state: preparation method"],
+        "label": "30",
+        "authors": [
+          {
+            "full_name": "Ling, T."
+          },
+          {
+            "full_name": "Guo, G.-C."
+          }
+        ],
+        "publication_info": {
+          "year": 1997,
+          "artid": "1537",
+          "page_start": "1537",
+          "journal_title": "J.Opt.Soc.Am.B",
+          "journal_volume": "14"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[31] R. P. Rundle and M. J. Everitt, An informationally complete Wigner function for the Tavis–Cummings model, J. Comput. Electron. 20, 2180 (2021).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "An informationally complete Wigner function for the Tavis-Cummings model"
+        ],
+        "label": "31",
+        "authors": [
+          {
+            "full_name": "Rundle, R.P."
+          },
+          {
+            "full_name": "Everitt, M.J."
+          }
+        ],
+        "publication_info": {
+          "year": 2021,
+          "artid": "2180",
+          "page_start": "2180",
+          "journal_title": "J.Comput.Electron.",
+          "journal_volume": "20"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/640846"
+      },
+      "raw_refs": [
+        {
+          "value": "[32] W. H. Zurek, Decoherence, einselection, and the quantum origins of the classical, Rev. Mod. Phys. 75, 715 (2003).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Decoherence, einselection, and the quantum origins of the classical"
+        ],
+        "label": "32",
+        "authors": [
+          {
+            "full_name": "Zurek, W.H."
+          }
+        ],
+        "publication_info": {
+          "year": 2003,
+          "artid": "715",
+          "page_start": "715",
+          "journal_title": "Rev.Mod.Phys.",
+          "journal_volume": "75"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[33] A. Kuzmich, K. Mølmer, and E. S. Polzik, Spin Squeezing in an Ensemble of Atoms Illuminated with Squeezed Light, Phys. Rev. Lett. 79, 4782 (1997).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Spin Squeezing in an Ensemble of Atoms Illuminated with Squeezed Light"
+        ],
+        "label": "33",
+        "authors": [
+          {
+            "full_name": "Kuzmich, A."
+          },
+          {
+            "full_name": "Mølmer, K."
+          },
+          {
+            "full_name": "Polzik, E.S."
+          }
+        ],
+        "publication_info": {
+          "year": 1997,
+          "artid": "4782",
+          "page_start": "4782",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "79"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2951757"
+      },
+      "raw_refs": [
+        {
+          "value": "[34] J. Hald, J. L. Sørensen, C. Schori, and E. S. Polzik, Spin Squeezed Atoms: A Macroscopic Entangled Ensemble Created by Light, Phys. Rev. Lett. 83, 1319 (1999).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Spin Squeezed Atoms: A Macroscopic Entangled",
+          "Ensemble Created by Light"
+        ],
+        "label": "34",
+        "authors": [
+          {
+            "full_name": "Hald, J."
+          },
+          {
+            "full_name": "Sørensen, J.L."
+          },
+          {
+            "full_name": "Schori, C."
+          },
+          {
+            "full_name": "Polzik, E.S."
+          }
+        ],
+        "publication_info": {
+          "year": 1999,
+          "artid": "1319",
+          "page_start": "1319",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "83"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[35] J. Hald and E. S. Polzik, Mapping a quantum state of light onto atoms, J. Opt. B Quantum Semiclassical Opt. 3, S83 (2001).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Mapping a quantum state of light onto atoms, J. Opt",
+          "B Quantum Semiclassical",
+          "Opt. 3, S83"
+        ],
+        "label": "35",
+        "authors": [
+          {
+            "full_name": "Hald, J."
+          },
+          {
+            "full_name": "Polzik, E.S."
+          }
+        ],
+        "publication_info": {
+          "year": 2001
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2725156"
+      },
+      "raw_refs": [
+        {
+          "value": "[36] J. Ma, X. Wang, C. P. Sun, and F. Nori, Quantum spin squeezing, Phys. Rep. 509, 89 (2011).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Quantum spin squeezing"],
+        "label": "36",
+        "authors": [
+          {
+            "full_name": "Ma, J."
+          },
+          {
+            "full_name": "Wang, X."
+          },
+          {
+            "full_name": "Sun, C.P."
+          },
+          {
+            "full_name": "Nori, F."
+          }
+        ],
+        "publication_info": {
+          "year": 2011,
+          "artid": "89",
+          "page_start": "89",
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "509"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2903127"
+      },
+      "raw_refs": [
+        {
+          "value": "[37] F. Fröwis, P. Sekatski, W. Dür, N. Gisin, and N. Sangouard, Macroscopic quantum states: Measures, fragility, and implementations, Rev. Mod. Phys. 90, 025004 (2018).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "F. Fröwis",
+          "W. Dür, N. Gisin, and N. Sangouard",
+          "Macroscopic quantum states: Measures, fragility, and implementations"
+        ],
+        "label": "37",
+        "authors": [
+          {
+            "full_name": "Sekatski, P."
+          }
+        ],
+        "publication_info": {
+          "year": 2018,
+          "artid": "025004",
+          "journal_title": "Rev.Mod.Phys.",
+          "journal_volume": "90"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/584456"
+      },
+      "raw_refs": [
+        {
+          "value": "[38] A. Shimizu and T. Miyadera, Stability of Quantum States of Finite Macroscopic Systems against Classical Noises, Perturbations from Environments, and Local Measurements, Phys. Rev. Lett. 89, 270403 (2002).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Stability of Quantum States of Finite Macroscopic Systems against Classical Noises, Perturbations from Environments, and Local Measurements"
+        ],
+        "label": "38",
+        "authors": [
+          {
+            "full_name": "Shimizu, A."
+          },
+          {
+            "full_name": "Miyadera, T."
+          }
+        ],
+        "publication_info": {
+          "year": 2002,
+          "artid": "270403",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "89"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/3004852"
+      },
+      "raw_refs": [
+        {
+          "value": "[39] F. Fröwis and W. Dür, Measures of macroscopicity for quantum spin systems, New J. Phys. 14, 093039 (2012).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Measures of macroscopicity for quantum spin systems"],
+        "label": "39",
+        "authors": [
+          {
+            "full_name": "Frowis, F."
+          },
+          {
+            "full_name": "Dur, W."
+          }
+        ],
+        "publication_info": {
+          "year": 2012,
+          "artid": "093039",
+          "journal_title": "New J.Phys.",
+          "journal_volume": "14"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2730976"
+      },
+      "raw_refs": [
+        {
+          "value": "[40] G. Tóth, Multipartite entanglement and high-precision metrology, Phys. Rev. A 85, 022322 (2012).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Multipartite entanglement and high-precision metrology"],
+        "label": "40",
+        "authors": [
+          {
+            "full_name": "Toth, G."
+          }
+        ],
+        "publication_info": {
+          "year": 2012,
+          "artid": "022322",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "85"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2730955"
+      },
+      "raw_refs": [
+        {
+          "value": "[41] P. Hyllus, W. Laskowski, R. Krischek, C. Schwemmer, W. Wieczorek, H. Weinfurter, L. Pezzé, and A. Smerzi, Fisher information and multiparticle entanglement, Phys. Rev. A 85, 022321 (2012).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "L. Pezzé, and A. Smerzi, Fisher information and multiparticle entanglement"
+        ],
+        "label": "41",
+        "authors": [
+          {
+            "full_name": "Hyllus, P."
+          },
+          {
+            "full_name": "Laskowski, W."
+          },
+          {
+            "full_name": "Krischek, R."
+          },
+          {
+            "full_name": "Schwemmer, C."
+          },
+          {
+            "full_name": "Wieczorek, W."
+          },
+          {
+            "full_name": "Weinfurter, H."
+          }
+        ],
+        "publication_info": {
+          "year": 2012,
+          "artid": "022321",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "85"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2707061"
+      },
+      "raw_refs": [
+        {
+          "value": "[42] G. Agarwal, R. Puri, and R. Singh, Atomic Schrödinger cat states, Phys. Rev. A 56, 2249 (1997).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Atomic Schrödinger cat states"],
+        "label": "42",
+        "authors": [
+          {
+            "full_name": "Agarwal, G."
+          },
+          {
+            "full_name": "Puri, R."
+          },
+          {
+            "full_name": "Singh, R."
+          }
+        ],
+        "publication_info": {
+          "year": 1997,
+          "artid": "2249",
+          "page_start": "2249",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "56"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[43] C. C. Gerry and R. Grobe, Generation and properties of collective atomic Schrödinger-cat states, Phys. Rev. A 56, 2390 (1997).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Generation and properties of collective atomic Schrödinger-cat states"
+        ],
+        "label": "43",
+        "authors": [
+          {
+            "full_name": "Gerry, C.C."
+          },
+          {
+            "full_name": "Grobe, R."
+          }
+        ],
+        "publication_info": {
+          "year": 1997,
+          "artid": "2390",
+          "page_start": "2390",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "56"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[44] S. Massar and E. S. Polzik, Generating a Superposition of Spin States in an Atomic Ensemble, Phys. Rev. Lett. 91, 060401 (2003).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Generating a Superposition of Spin States in an Atomic Ensemble"
+        ],
+        "label": "44",
+        "authors": [
+          {
+            "full_name": "Massar, S."
+          },
+          {
+            "full_name": "Polzik, E.S."
+          }
+        ],
+        "publication_info": {
+          "year": 2003,
+          "artid": "060401",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "91"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2993426"
+      },
+      "raw_refs": [
+        {
+          "value": "[45] C. Genes and P. R. Berman, Generating conditional atomic entanglement by measuring photon number in a single output channel, Phys. Rev. A 73, 013801 (2006).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Generating conditional atomic entanglement by measuring photon number in a single output channel"
+        ],
+        "label": "45",
+        "authors": [
+          {
+            "full_name": "Genes, C."
+          },
+          {
+            "full_name": "Berman, P.R."
+          }
+        ],
+        "publication_info": {
+          "year": 2006,
+          "artid": "013801",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "73"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[46] R. Filip, Excess-noise-free recording and uploading of nonclassical states to continuous-variable quantum memory, Phys. Rev. A 78, 012329 (2008).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Excess-noise-free recording and uploading of nonclassical states to continuous-variable quantum memory"
+        ],
+        "label": "46",
+        "authors": [
+          {
+            "full_name": "Filip, R."
+          }
+        ],
+        "publication_info": {
+          "year": 2008,
+          "artid": "012329",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "78"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/3007997"
+      },
+      "raw_refs": [
+        {
+          "value": "[47] K. Lemr and J. Fiurášek, Conditional preparation of arbitrary superpositions of atomic Dicke states, Phys. Rev. A 79, 043808 (2009).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "and J. Fiurášek, Conditional preparation of arbitrary superpositions of atomic Dicke states"
+        ],
+        "label": "47",
+        "authors": [
+          {
+            "full_name": "Lemr, K."
+          }
+        ],
+        "publication_info": {
+          "year": 2009,
+          "artid": "043808",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "79"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2985961"
+      },
+      "raw_refs": [
+        {
+          "value": "[48] A. E. B. Nielsen, U. V. Poulsen, A. Negretti, and K. Mølmer, Atomic quantum superposition state generation via optical probing, Phys. Rev. A 79, 023841 (2009).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Atomic quantum superposition state generation via optical probing"
+        ],
+        "label": "48",
+        "authors": [
+          {
+            "full_name": "Nielsen, A.E.B."
+          },
+          {
+            "full_name": "Poulsen, U.V."
+          },
+          {
+            "full_name": "Negretti, A."
+          },
+          {
+            "full_name": "Mølmer, K."
+          }
+        ],
+        "publication_info": {
+          "year": 2009,
+          "artid": "023841",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "79"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/3006484"
+      },
+      "raw_refs": [
+        {
+          "value": "[49] S. L. Christensen, J. B. Béguin, H. L. Sørensen, E. Bookjans, D. Oblak, J. H. Müller, J. Appel, and E. S. Polzik, Toward quantum state tomography of a single polariton state of an atomic ensemble, New J. Phys. 15, 015002 (2013).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "J. B. Béguin, H. L. Sørensen, E. Bookjans, D. Oblak",
+          "J. H. Müller, J. Appel, and E. S. Polzik",
+          "Toward quantum state tomography of a single polariton state of an atomic ensemble"
+        ],
+        "label": "49",
+        "authors": [
+          {
+            "full_name": "Christensen, S.L."
+          }
+        ],
+        "publication_info": {
+          "year": 2013,
+          "artid": "015002",
+          "journal_title": "New J.Phys.",
+          "journal_volume": "15"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[50] R. McConnell, H. Zhang, S. Ćuk, J. Hu, M. H. Schleier-Smith, and V. Vuletić, Generating entangled spin states for quantum metrology by single-photon detection, Phys. Rev. A 88, 063802 (2013).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "S. Ćuk, J. Hu, M. H. Schleier-Smith",
+          "and V. Vuletić, Generating entangled spin states for quantum metrology by single-photon detection"
+        ],
+        "label": "50",
+        "authors": [
+          {
+            "full_name": "McConnell, R."
+          },
+          {
+            "full_name": "Zhang, H."
+          }
+        ],
+        "publication_info": {
+          "year": 2013,
+          "artid": "063802",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "88"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2793228"
+      },
+      "raw_refs": [
+        {
+          "value": "[51] R. McConnell, H. Zhang, J. Hu, S. Ćuk, and V. Vuletić, Entanglement with negative Wigner function of almost 3,000 atoms heralded by one photon, Nature 519, 439 (2015).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "S. Ćuk, and V. Vuletić, Entanglement with negative Wigner function of almost 3,000 atoms heralded by one photon"
+        ],
+        "label": "51",
+        "authors": [
+          {
+            "full_name": "McConnell, R."
+          },
+          {
+            "full_name": "Zhang, H."
+          },
+          {
+            "full_name": "Hu, J."
+          }
+        ],
+        "publication_info": {
+          "year": 2015,
+          "artid": "439",
+          "page_start": "439",
+          "journal_title": "Nature",
+          "journal_volume": "519"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/3026055"
+      },
+      "raw_refs": [
+        {
+          "value": "[52] S. Huang and G. S. Agarwal, Weak value amplification of atomic cat states, New J. Phys. 17, 093032 (2015).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Weak value amplification of atomic cat states"],
+        "label": "52",
+        "authors": [
+          {
+            "full_name": "Huang, S."
+          },
+          {
+            "full_name": "Agarwal, G.S."
+          }
+        ],
+        "publication_info": {
+          "year": 2015,
+          "artid": "093032",
+          "journal_title": "New J.Phys.",
+          "journal_volume": "17"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/1476846"
+      },
+      "raw_refs": [
+        {
+          "value": "[53] I. I. Rabi, Space Quantization in a Gyrating Magnetic Field, Phys. Rev. 51, 652 (1937).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Space Quantization in a Gyrating Magnetic Field"],
+        "label": "53",
+        "authors": [
+          {
+            "full_name": "Rabi, I.I."
+          }
+        ],
+        "publication_info": {
+          "year": 1937,
+          "artid": "652",
+          "page_start": "652",
+          "journal_title": "Phys.Rev.",
+          "journal_volume": "51"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/45409"
+      },
+      "raw_refs": [
+        {
+          "value": "[54] R. H. Dicke, Coherence in Spontaneous Radiation Processes, Phys. Rev. 93, 99 (1954).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Coherence in Spontaneous Radiation Processes"],
+        "label": "54",
+        "authors": [
+          {
+            "full_name": "Dicke, R.H."
+          }
+        ],
+        "publication_info": {
+          "year": 1954,
+          "artid": "99",
+          "page_start": "99",
+          "journal_title": "Phys.Rev.",
+          "journal_volume": "93"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/54236"
+      },
+      "raw_refs": [
+        {
+          "value": "[55] M. Tavis and F. W. Cummings, Exact Solution for an 𝑁Molecule—Radiation-Field Hamiltonian, Phys. Rev. 170, 379 (1968).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Exact Solution for an 𝑁Molecule—Radiation-Field Hamiltonian"],
+        "label": "55",
+        "authors": [
+          {
+            "full_name": "Tavis, M."
+          },
+          {
+            "full_name": "Cummings, F.W."
+          }
+        ],
+        "publication_info": {
+          "year": 1968,
+          "artid": "379",
+          "page_start": "379",
+          "journal_title": "Phys.Rev.",
+          "journal_volume": "170"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[56] C. W. Helstrom, Quantum detection and estimation theory (Academic Press, New York, 1976).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Quantum detection and estimation theory",
+          "Press, New York,)"
+        ],
+        "label": "56",
+        "authors": [
+          {
+            "full_name": "Helstrom, C.W."
+          }
+        ],
+        "imprint": {
+          "publisher": "Academic"
+        },
+        "publication_info": {
+          "year": 1976
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[57] A. S. Holevo, Probabilistic and Statistical Aspects of Quantum Theory (North-Holland, Amsterdam, 1982).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Probabilistic and Statistical Aspects of Quantum Theory",
+          "Amsterdam,)"
+        ],
+        "label": "57",
+        "authors": [
+          {
+            "full_name": "Holevo, A.S."
+          }
+        ],
+        "imprint": {
+          "publisher": "North-Holland"
+        },
+        "publication_info": {
+          "year": 1982
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/391791"
+      },
+      "raw_refs": [
+        {
+          "value": "[58] S. L. Braunstein and C. M. Caves, Statistical distance and the geometry of quantum states, Phys. Rev. Lett. 72, 3439 (1994).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Statistical distance and the geometry of quantum states"],
+        "label": "58",
+        "authors": [
+          {
+            "full_name": "Braunstein, S.L."
+          },
+          {
+            "full_name": "Caves, C.M."
+          }
+        ],
+        "publication_info": {
+          "year": 1994,
+          "artid": "3439",
+          "page_start": "3439",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "72"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[59] D. M. Greenberger, M. A. Horne, and A. Zeilinger, Going beyond bell’s theorem, in Bell’s Theorem, Quantum Theory and Conceptions of the Universe (Springer Netherlands, Dordrecht, 1989) pp. 69–72.",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Going beyond bell’s theorem, in Bell’s Theorem, Quantum Theory and Conceptions of the Universe",
+          "Netherlands, Dordrecht,) pp. 69-72"
+        ],
+        "label": "59",
+        "authors": [
+          {
+            "full_name": "Greenberger, D.M."
+          },
+          {
+            "full_name": "Horne, M.A."
+          },
+          {
+            "full_name": "Zeilinger, A."
+          }
+        ],
+        "imprint": {
+          "publisher": "Springer"
+        },
+        "publication_info": {
+          "year": 1989
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2177526"
+      },
+      "raw_refs": [
+        {
+          "value": "[60] A. Gorlach, M. E. Tzur, M. Birk, M. Krüger, N. Rivera, O. Cohen, and I. Kaminer, High-harmonic generation driven by quantum light, Nat. Phys. 19, 1689 (2023).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "M. Krüger, N. Rivera, O. Cohen, and I. Kaminer",
+          "High-harmonic generation driven by quantum light"
+        ],
+        "label": "60",
+        "authors": [
+          {
+            "full_name": "Gorlach, A."
+          },
+          {
+            "full_name": "Tzur, M.E."
+          },
+          {
+            "full_name": "Birk, M."
+          }
+        ],
+        "publication_info": {
+          "year": 2023,
+          "artid": "1689",
+          "page_start": "1689",
+          "journal_title": "Nature Phys.",
+          "journal_volume": "19"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/864354"
+      },
+      "raw_refs": [
+        {
+          "value": "[61] A. I. Lvovsky and M. G. Raymer, Continuous-variable optical quantum-state tomography, Rev. Mod. Phys. 81, 299 (2009).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Continuous-variable optical quantum-state tomography"],
+        "label": "61",
+        "authors": [
+          {
+            "full_name": "Lvovsky, A.I."
+          },
+          {
+            "full_name": "Raymer, M.G."
+          }
+        ],
+        "publication_info": {
+          "year": 2009,
+          "artid": "299",
+          "page_start": "299",
+          "journal_title": "Rev.Mod.Phys.",
+          "journal_volume": "81"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2725236"
+      },
+      "raw_refs": [
+        {
+          "value": "[62] G. Mauro D’Ariano, M. G. Paris, and M. F. Sacchi, Quantum Tomography, in Adv. Imaging Electron Phys., Vol. 128 (2003) pp. 205–308.",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Quantum Tomography, in"],
+        "label": "62",
+        "authors": [
+          {
+            "full_name": "D'Ariano, G. Mauro"
+          },
+          {
+            "full_name": "Paris, M.G."
+          },
+          {
+            "full_name": "Sacchi, M.F."
+          }
+        ],
+        "publication_info": {
+          "year": 2003,
+          "page_end": "308",
+          "page_start": "205",
+          "journal_title": "Adv.Imaging Electron Phys.",
+          "journal_volume": "128"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2978494"
+      },
+      "raw_refs": [
+        {
+          "value": "[63] T. Tyc and B. C. Sanders, Operational formulation of homodyne detection, J. Phys. A. Math. Gen. 37, 7341 (2004).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Operational formulation of homodyne detection"],
+        "label": "63",
+        "authors": [
+          {
+            "full_name": "Tyc, T."
+          },
+          {
+            "full_name": "Sanders, B.C."
+          }
+        ],
+        "publication_info": {
+          "year": 2004,
+          "artid": "7341",
+          "page_start": "7341",
+          "journal_title": "J.Phys.A",
+          "journal_volume": "37"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/1693463"
+      },
+      "raw_refs": [
+        {
+          "value": "[64] L. Pezzè, A. Smerzi, M. K. Oberthaler, R. Schmied, and P. Treutlein, Quantum metrology with nonclassical states of atomic ensembles, Rev. Mod. Phys. 90, 035005 (2018).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "L. Pezzè",
+          "Quantum metrology with nonclassical states of atomic ensembles"
+        ],
+        "label": "64",
+        "authors": [
+          {
+            "full_name": "Smerzi, A."
+          },
+          {
+            "full_name": "Oberthaler, M.K."
+          },
+          {
+            "full_name": "Schmied, R."
+          },
+          {
+            "full_name": "Treutlein, P."
+          }
+        ],
+        "publication_info": {
+          "year": 2018,
+          "artid": "035005",
+          "journal_title": "Rev.Mod.Phys.",
+          "journal_volume": "90"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2798336"
+      },
+      "raw_refs": [
+        {
+          "value": "[65] M. Gessner, A. Smerzi, and L. Pezzè, Metrological Nonlinear Squeezing Parameter, Phys. Rev. Lett. 122, 090503 (2019).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["and L. Pezzè, Metrological Nonlinear Squeezing Parameter"],
+        "label": "65",
+        "authors": [
+          {
+            "full_name": "Gessner, M."
+          },
+          {
+            "full_name": "Smerzi, A."
+          }
+        ],
+        "publication_info": {
+          "year": 2019,
+          "artid": "090503",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "122"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2792432"
+      },
+      "raw_refs": [
+        {
+          "value": "[66] Z. Ren, W. Li, A. Smerzi, and M. Gessner, Metrological Detection of Multipartite Entanglement from Young Diagrams, Phys. Rev. Lett. 126, 80502 (2021).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Metrological Detection of Multipartite Entanglement from Young Diagrams"
+        ],
+        "label": "66",
+        "authors": [
+          {
+            "full_name": "Ren, Z."
+          },
+          {
+            "full_name": "Li, W."
+          },
+          {
+            "full_name": "Smerzi, A."
+          },
+          {
+            "full_name": "Gessner, M."
+          }
+        ],
+        "publication_info": {
+          "year": 2021,
+          "artid": "80502",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "126"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[67] R. L. Stratonovich, On Distributions in Representation Space, Zh. Eksp. Teor. Fiz. 31, 1012 (1956), [Sov. Phys. JETP 4, 891 (1957)].",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["On Distributions in Representation Space"],
+        "label": "67",
+        "authors": [
+          {
+            "full_name": "Stratonovich, R.L."
+          }
+        ],
+        "publication_info": {
+          "year": 1956,
+          "artid": "1012",
+          "page_start": "1012",
+          "journal_title": "Zh.Eksp.Teor.Fiz.",
+          "journal_volume": "31"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[67] R. L. Stratonovich, On Distributions in Representation Space, Zh. Eksp. Teor. Fiz. 31, 1012 (1956), [Sov. Phys. JETP 4, 891 (1957)].",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "label": "67",
+        "authors": [
+          {
+            "full_name": "Stratonovich, R.L."
+          }
+        ],
+        "publication_info": {
+          "year": 1957,
+          "artid": "891",
+          "page_start": "891",
+          "journal_title": "Sov.Phys.JETP",
+          "journal_volume": "4"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/476502"
+      },
+      "raw_refs": [
+        {
+          "value": "[68] C. Brif and A. Mann, Phase-space formulation of quantum mechanics and quantum-state reconstruction for physical systems with Lie-group symmetries, Phys. Rev. A 59, 971 (1999).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Phase-space formulation of quantum mechanics and quantum-state reconstruction for physical systems with Lie-group symmetries"
+        ],
+        "label": "68",
+        "authors": [
+          {
+            "full_name": "Brif, C."
+          },
+          {
+            "full_name": "Mann, A."
+          }
+        ],
+        "publication_info": {
+          "year": 1999,
+          "artid": "971",
+          "page_start": "971",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "59"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/3037545"
+      },
+      "raw_refs": [
+        {
+          "value": "[69] R. P. Rundle, P. W. Mills, T. Tilma, J. H. Samson, and M. J. Everitt, Simple procedure for phase-space measurement and entanglement validation, Phys. Rev. A 96, 022117 (2017).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Simple procedure for phase-space measurement and entanglement validation"
+        ],
+        "label": "69",
+        "authors": [
+          {
+            "full_name": "Rundle, R.P."
+          },
+          {
+            "full_name": "Mills, P.W."
+          },
+          {
+            "full_name": "Tilma, T."
+          },
+          {
+            "full_name": "Samson, J.H."
+          },
+          {
+            "full_name": "Everitt, M.J."
+          }
+        ],
+        "publication_info": {
+          "year": 2017,
+          "artid": "022117",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "96"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/3061524"
+      },
+      "raw_refs": [
+        {
+          "value": "[70] J. Davis, M. Kumari, R. B. Mann, and S. Ghose, Wigner negativity in spin-𝑗 systems, Phys. Rev. Res. 3, 033134 (2021).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Wigner negativity in spin-𝑗 systems"],
+        "label": "70",
+        "authors": [
+          {
+            "full_name": "Davis, J."
+          },
+          {
+            "full_name": "Kumari, M."
+          },
+          {
+            "full_name": "Mann, R.B."
+          },
+          {
+            "full_name": "Ghose, S."
+          }
+        ],
+        "publication_info": {
+          "year": 2021,
+          "artid": "033134",
+          "journal_title": "Phys.Rev.Res.",
+          "journal_volume": "3"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2731967"
+      },
+      "raw_refs": [
+        {
+          "value": "[71] T. Yu and J. H. Eberly, Finite-Time Disentanglement Via Spontaneous Emission, Phys. Rev. Lett. 93, 140404 (2004).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Finite-Time Disentanglement Via Spontaneous Emission"],
+        "label": "71",
+        "authors": [
+          {
+            "full_name": "Yu, T."
+          },
+          {
+            "full_name": "Eberly, J.H."
+          }
+        ],
+        "publication_info": {
+          "year": 2004,
+          "artid": "140404",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "93"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[72] Z. Ficek and R. Tanaś, Delayed sudden birth of entanglement, Phys. Rev. A 77, 054301 (2008).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["and R. Tanaś, Delayed sudden birth of entanglement"],
+        "label": "72",
+        "authors": [
+          {
+            "full_name": "Ficek, Z."
+          }
+        ],
+        "publication_info": {
+          "year": 2008,
+          "artid": "054301",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "77"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[73] T. Yu and J. H. Eberly, Sudden Death of Entanglement, Science (80-. ). 323, 598 (2009).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Sudden Death of Entanglement, Science (80-. ). 323, 598"],
+        "label": "73",
+        "authors": [
+          {
+            "full_name": "Yu, T."
+          },
+          {
+            "full_name": "Eberly, J.H."
+          }
+        ],
+        "publication_info": {
+          "year": 2009
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/163900"
+      },
+      "raw_refs": [
+        {
+          "value": "[74] J. H. Eberly, N. B. Narozhny, and J. J. Sanchez-Mondragon, Periodic Spontaneous Collapse and Revival in a Simple Quantum Model, Phys. Rev. Lett. 44, 1323 (1980).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Periodic Spontaneous Collapse and Revival in a Simple Quantum Model"
+        ],
+        "label": "74",
+        "authors": [
+          {
+            "full_name": "Eberly, J.H."
+          },
+          {
+            "full_name": "Narozhny, N.B."
+          },
+          {
+            "full_name": "Sanchez-Mondragon, J.J."
+          }
+        ],
+        "publication_info": {
+          "year": 1980,
+          "artid": "1323",
+          "page_start": "1323",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "44"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2731723"
+      },
+      "raw_refs": [
+        {
+          "value": "[75] P. Hauke, M. Heyl, L. Tagliacozzo, and P. Zoller, Measuring multipartite entanglement through dynamic susceptibilities, Nat. Phys. 12, 778 (2016).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Measuring multipartite entanglement through dynamic susceptibilities"
+        ],
+        "label": "75",
+        "authors": [
+          {
+            "full_name": "Hauke, P."
+          },
+          {
+            "full_name": "Heyl, M."
+          },
+          {
+            "full_name": "Tagliacozzo, L."
+          },
+          {
+            "full_name": "Zoller, P."
+          }
+        ],
+        "publication_info": {
+          "year": 2016,
+          "artid": "778",
+          "page_start": "778",
+          "journal_title": "Nature Phys.",
+          "journal_volume": "12"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2147387"
+      },
+      "raw_refs": [
+        {
+          "value": "[76] J. Hales, U. Bajpai, T. Liu, D. R. Baykusheva, M. Li, M. Mitrano, and Y. Wang, Witnessing light-driven entanglement using timeresolved resonant inelastic X-ray scattering, Nat. Commun. 14, 3512 (2023).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Witnessing light-driven entanglement using timeresolved resonant inelastic X-ray scattering"
+        ],
+        "label": "76",
+        "authors": [
+          {
+            "full_name": "Hales, J."
+          },
+          {
+            "full_name": "Bajpai, U."
+          },
+          {
+            "full_name": "Liu, T."
+          },
+          {
+            "full_name": "Baykusheva, D.R."
+          },
+          {
+            "full_name": "Li, M."
+          },
+          {
+            "full_name": "Mitrano, M."
+          },
+          {
+            "full_name": "Wang, Y."
+          }
+        ],
+        "publication_info": {
+          "year": 2023,
+          "artid": "3512",
+          "page_start": "3512",
+          "journal_title": "Nature Commun.",
+          "journal_volume": "14"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2163356"
+      },
+      "raw_refs": [
+        {
+          "value": "[77] A. Pizzi, A. Gorlach, N. Rivera, A. Nunnenkamp, and I. Kaminer, Light emission from strongly driven many-body systems, Nat. Phys. 19, 551 (2023).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Light emission from strongly driven many-body systems"],
+        "label": "77",
+        "authors": [
+          {
+            "full_name": "Pizzi, A."
+          },
+          {
+            "full_name": "Gorlach, A."
+          },
+          {
+            "full_name": "Rivera, N."
+          },
+          {
+            "full_name": "Nunnenkamp, A."
+          },
+          {
+            "full_name": "Kaminer, I."
+          }
+        ],
+        "publication_info": {
+          "year": 2023,
+          "artid": "551",
+          "page_start": "551",
+          "journal_title": "Nature Phys.",
+          "journal_volume": "19"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2177619"
+      },
+      "raw_refs": [
+        {
+          "value": "[78] M. Even Tzur, M. Birk, A. Gorlach, M. Krüger, I. Kaminer, and O. Cohen, Photon-statistics force in ultrafast electron dynamics, Nat. Photonics 17, 501 (2023).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "M. Krüger, I. Kaminer, and O. Cohen",
+          "Photon-statistics force in ultrafast electron dynamics"
+        ],
+        "label": "78",
+        "authors": [
+          {
+            "full_name": "Tzur, M. Even"
+          },
+          {
+            "full_name": "Birk, M."
+          },
+          {
+            "full_name": "Gorlach, A."
+          }
+        ],
+        "publication_info": {
+          "year": 2023,
+          "artid": "501",
+          "page_start": "501",
+          "journal_title": "Nature Photon.",
+          "journal_volume": "17"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2724402"
+      },
+      "raw_refs": [
+        {
+          "value": "[79] M. E. Tzur, M. Birk, A. Gorlach, I. Kaminer, M. Krüger, and O. Cohen, Generation of squeezed high-order harmonics, Phys. Rev. Res. 6, 033079 (2024).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "M. Krüger, and O. Cohen, Generation of squeezed high-order harmonics"
+        ],
+        "label": "79",
+        "authors": [
+          {
+            "full_name": "Tzur, M.E."
+          },
+          {
+            "full_name": "Birk, M."
+          },
+          {
+            "full_name": "Gorlach, A."
+          },
+          {
+            "full_name": "Kaminer, I."
+          }
+        ],
+        "publication_info": {
+          "year": 2024,
+          "artid": "033079",
+          "journal_title": "Phys.Rev.Res.",
+          "journal_volume": "6"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2771242"
+      },
+      "raw_refs": [
+        {
+          "value": "[80] A. Rasputnyi, Z. Chen, M. Birk, O. Cohen, I. Kaminer, M. Krüger, D. Seletskiy, M. Chekhova, and F. Tani, Highharmonic generation by a bright squeezed vacuum, Nat. Phys. 20, 1960 (2024).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "M. Krüger, D. Seletskiy, M. Chekhova, and F. Tani",
+          "Highharmonic generation by a bright squeezed vacuum"
+        ],
+        "label": "80",
+        "authors": [
+          {
+            "full_name": "Rasputnyi, A."
+          },
+          {
+            "full_name": "Chen, Z."
+          },
+          {
+            "full_name": "Birk, M."
+          },
+          {
+            "full_name": "Cohen, O."
+          },
+          {
+            "full_name": "Kaminer, I."
+          }
+        ],
+        "publication_info": {
+          "year": 2024,
+          "artid": "1960",
+          "page_start": "1960",
+          "journal_title": "Nature Phys.",
+          "journal_volume": "20"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[81] M. Even Tzur and O. Cohen, Motion of charged particles in bright squeezed vacuum, Light Sci. Appl. 13, 41 (2024).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Motion of charged particles in bright squeezed vacuum"],
+        "label": "81",
+        "authors": [
+          {
+            "full_name": "Tzur, M. Even"
+          },
+          {
+            "full_name": "Cohen, O."
+          }
+        ],
+        "publication_info": {
+          "year": 2024,
+          "artid": "41",
+          "page_start": "41",
+          "journal_title": "Light Sci. Appl.",
+          "journal_volume": "13"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[82] S. Wang, S. Yu, X. Lai, and X. Liu, High harmonic generation from an atom in a squeezed-vacuum environment, Phys. Rev. Res. 6, 033010 (2024).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "High harmonic generation from an atom in a squeezed-vacuum environment"
+        ],
+        "label": "82",
+        "authors": [
+          {
+            "full_name": "Wang, S."
+          },
+          {
+            "full_name": "Yu, S."
+          },
+          {
+            "full_name": "Lai, X."
+          },
+          {
+            "full_name": "Liu, X."
+          }
+        ],
+        "publication_info": {
+          "year": 2024,
+          "artid": "033010",
+          "journal_title": "Phys.Rev.Res.",
+          "journal_volume": "6"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2775230"
+      },
+      "raw_refs": [
+        {
+          "value": "[83] S. Lemieux, S. A. Jalil, D. N. Purschke, N. Boroumand, T. J. Hammond, D. Villeneuve, A. Naumov, T. Brabec, and G. Vampa, Photon bunching in high-harmonic emission controlled by quantum light, Nat. Photonics 19, 767 (2025).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Photon bunching in high-harmonic emission controlled by quantum light"
+        ],
+        "label": "83",
+        "authors": [
+          {
+            "full_name": "Lemieux, S."
+          },
+          {
+            "full_name": "Jalil, S.A."
+          },
+          {
+            "full_name": "Purschke, D.N."
+          },
+          {
+            "full_name": "Boroumand, N."
+          },
+          {
+            "full_name": "Hammond, T.J."
+          },
+          {
+            "full_name": "Villeneuve, D."
+          },
+          {
+            "full_name": "Naumov, A."
+          },
+          {
+            "full_name": "Brabec, T."
+          },
+          {
+            "full_name": "Vampa, G."
+          }
+        ],
+        "publication_info": {
+          "year": 2025,
+          "artid": "767",
+          "page_start": "767",
+          "journal_title": "Nature Photon.",
+          "journal_volume": "19"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2891114"
+      },
+      "raw_refs": [
+        {
+          "value": "[84] R. V. Gothelf, C. S. Lange, and L. B. Madsen, High-order harmonic generation in a crystal driven by quantum light, Phys. Rev. A 111, 063105 (2025).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "High-order harmonic generation in a crystal driven by quantum light"
+        ],
+        "label": "84",
+        "authors": [
+          {
+            "full_name": "Gothelf, R.V."
+          },
+          {
+            "full_name": "Lange, C.S."
+          },
+          {
+            "full_name": "Madsen, L.B."
+          }
+        ],
+        "publication_info": {
+          "year": 2025,
+          "artid": "063105",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "111"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/860542"
+      },
+      "raw_refs": [
+        {
+          "value": "[85] C. C. Gerry and J. Mimih, The parity operator in quantum optical metrology, Contemp. Phys. 51, 497 (2010).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["The parity operator in quantum optical metrology"],
+        "label": "85",
+        "authors": [
+          {
+            "full_name": "Gerry, C.C."
+          },
+          {
+            "full_name": "Mimih, J."
+          }
+        ],
+        "publication_info": {
+          "year": 2010,
+          "artid": "497",
+          "page_start": "497",
+          "journal_title": "Contemp.Phys.",
+          "journal_volume": "51"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2800219"
+      },
+      "raw_refs": [
+        {
+          "value": "[86] R. J. Birrittella, P. M. Alsing, and C. C. Gerry, The parity operator: Applications in quantum metrology, AVS Quantum Sci. 3, 014701 (2021).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["The parity operator: Applications in quantum metrology"],
+        "label": "86",
+        "authors": [
+          {
+            "full_name": "Birrittella, R.J."
+          },
+          {
+            "full_name": "Alsing, P.M."
+          },
+          {
+            "full_name": "Gerry, C.C."
+          }
+        ],
+        "publication_info": {
+          "year": 2021,
+          "artid": "014701",
+          "journal_title": "AVS Quantum Sci.",
+          "journal_volume": "3"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[87] X. Xu, X. Sun, J. Chen, M. Rajteri, H. Garrone, C. Pepe, W. Li, J. Li, M. Zhang, T. Bu, Y. Gao, T. Sun, and X. Wang, Development of Ti/Au Transition-Edge Sensors for Single-Photon Detection, IEEE Trans. Appl. Supercond. 34, 1 (2024).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Development of Ti/Au Transition-Edge Sensors for Single-Photon Detection"
+        ],
+        "label": "87",
+        "authors": [
+          {
+            "full_name": "Xu, X."
+          },
+          {
+            "full_name": "Sun, X."
+          },
+          {
+            "full_name": "Chen, J."
+          },
+          {
+            "full_name": "Rajteri, M."
+          },
+          {
+            "full_name": "Garrone, H."
+          },
+          {
+            "full_name": "Pepe, C."
+          },
+          {
+            "full_name": "Li, W."
+          },
+          {
+            "full_name": "Li, J."
+          },
+          {
+            "full_name": "Zhang, M."
+          },
+          {
+            "full_name": "Bu, T."
+          },
+          {
+            "full_name": "Gao, Y."
+          },
+          {
+            "full_name": "Sun, T."
+          },
+          {
+            "full_name": "Wang, X."
+          }
+        ],
+        "publication_info": {
+          "year": 2024,
+          "artid": "1",
+          "page_start": "1",
+          "journal_title": "IEEE Trans.Appl.Supercond.",
+          "journal_volume": "34"
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "value": "[88] C. C. Gerry, A. Benmoussa, and R. A. Campos, Quantum nondemolition measurement of parity and generation of parity eigenstates in optical fields, Phys. Rev. A 72, 053818 (2005).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Quantum nondemolition measurement of parity and generation of parity eigenstates in optical fields"
+        ],
+        "label": "88",
+        "authors": [
+          {
+            "full_name": "Gerry, C.C."
+          },
+          {
+            "full_name": "Benmoussa, A."
+          },
+          {
+            "full_name": "Campos, R.A."
+          }
+        ],
+        "publication_info": {
+          "year": 2005,
+          "artid": "053818",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "72"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2993024"
+      },
+      "raw_refs": [
+        {
+          "value": "[89] W. J. Munro, K. Nemoto, and T. P. Spiller, Weak nonlinearities: a new route to optical quantum computation, New J. Phys. 7, 137 (2005).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Weak nonlinearities: a new route to optical quantum computation"
+        ],
+        "label": "89",
+        "authors": [
+          {
+            "full_name": "Munro, W.J."
+          },
+          {
+            "full_name": "Nemoto, K."
+          },
+          {
+            "full_name": "Spiller, T.P."
+          }
+        ],
+        "publication_info": {
+          "year": 2005,
+          "artid": "137",
+          "page_start": "137",
+          "journal_title": "New J.Phys.",
+          "journal_volume": "7"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/3052111"
+      },
+      "raw_refs": [
+        {
+          "value": "[90] G. S. Thekkadath, B. A. Bell, I. A. Walmsley, and A. I. Lvovsky, Engineering Schrödinger cat states with a photonic even-parity detector, Quantum 4, 239 (2020).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Engineering Schrödinger cat states with a photonic even-parity detector"
+        ],
+        "label": "90",
+        "authors": [
+          {
+            "full_name": "Thekkadath, G.S."
+          },
+          {
+            "full_name": "Bell, B.A."
+          },
+          {
+            "full_name": "Walmsley, I.A."
+          },
+          {
+            "full_name": "Lvovsky, A.I."
+          }
+        ],
+        "publication_info": {
+          "year": 2020,
+          "artid": "239",
+          "page_start": "239",
+          "journal_title": "Quantum",
+          "journal_volume": "4"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2709313"
+      },
+      "raw_refs": [
+        {
+          "value": "[91] N. Lordi, E. J. Tsao, A. J. Lind, S. A. Diddams, and J. Combes, Quantum theory of temporally mismatched homodyne measurements with applications to optical-frequency-comb metrology, Phys. Rev. A 109, 033722 (2024).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Quantum theory of temporally mismatched homodyne measurements with applications to optical-frequency-comb metrology"
+        ],
+        "label": "91",
+        "authors": [
+          {
+            "full_name": "Lordi, N."
+          },
+          {
+            "full_name": "Tsao, E.J."
+          },
+          {
+            "full_name": "Lind, A.J."
+          },
+          {
+            "full_name": "Diddams, S.A."
+          },
+          {
+            "full_name": "Combes, J."
+          }
+        ],
+        "publication_info": {
+          "year": 2024,
+          "artid": "033722",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "109"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2680461"
+      },
+      "raw_refs": [
+        {
+          "value": "[92] E. Hubenschmid, T. L. Guedes, and G. Burkard, Optical TimeDomain Quantum State Tomography on a Subcycle Scale, Phys. Rev. X 14, 041032 (2024).",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": [
+          "Optical TimeDomain Quantum State Tomography on a Subcycle Scale"
+        ],
+        "label": "92",
+        "authors": [
+          {
+            "full_name": "Hubenschmid, E."
+          },
+          {
+            "full_name": "Guedes, T.L."
+          },
+          {
+            "full_name": "Burkard, G."
+          }
+        ],
+        "publication_info": {
+          "year": 2024,
+          "artid": "041032",
+          "journal_title": "Phys.Rev.X",
+          "journal_volume": "14"
+        }
+      }
+    },
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/literature/2679973"
+      },
+      "raw_refs": [
+        {
+          "value": "[93] G. Yang, M. Kizmann, A. Leitenstorfer, and A. S. Moskalenko, Subcycle tomography of quantum light, arXiv:2307.12812.",
+          "schema": "text",
+          "source": "arXiv"
+        }
+      ],
+      "reference": {
+        "misc": ["Subcycle tomography of quantum light"],
+        "label": "93",
+        "authors": [
+          {
+            "full_name": "Yang, G."
+          },
+          {
+            "full_name": "Kizmann, M."
+          },
+          {
+            "full_name": "Leitenstorfer, A."
+          },
+          {
+            "full_name": "Moskalenko, A.S."
+          }
+        ],
+        "arxiv_eprint": "2307.12812"
+      }
+    }
+  ],
+  "_collections": ["Literature"],
+  "public_notes": [
+    {
+      "value": "16 pages, 11 figures",
+      "source": "arXiv"
+    }
+  ],
+  "arxiv_eprints": [
+    {
+      "value": "2508.11769",
+      "categories": ["quant-ph", "cond-mat.mes-hall", "physics.optics"]
+    }
+  ],
+  "document_type": ["article"],
+  "preprint_date": "2025-08-15",
+  "control_number": 2961813,
+  "number_of_pages": 16,
+  "acquisition_source": {
+    "method": "hepcrawl",
+    "source": "arXiv",
+    "datetime": "2025-10-05T09:24:36.304677",
+    "submission_number": "10732020"
+  },
+  "inspire_categories": [
+    {
+      "term": "Quantum Physics",
+      "source": "arxiv"
+    },
+    {
+      "term": "Condensed Matter",
+      "source": "arxiv"
+    },
+    {
+      "term": "General Physics",
+      "source": "arxiv"
+    }
+  ]
+}

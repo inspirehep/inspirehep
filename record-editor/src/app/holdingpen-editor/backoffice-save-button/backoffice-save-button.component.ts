@@ -161,6 +161,9 @@ export class BackofficeSaveButtonComponent
       return { restart_current_task: true };
     }
     if (this.workflowObject.status === 'approval_merge') {
+      if (this.fullWorkflowObject && this.fullWorkflowObject.workflow_type === 'HEP_MANUAL_MERGE') {
+        return { action: 'manual_merge_approve' };
+      }
       return { action: 'merge_approve' };
     }
     return undefined;
