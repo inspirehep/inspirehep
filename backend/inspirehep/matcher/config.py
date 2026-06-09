@@ -393,6 +393,7 @@ FUZZY_LITERATURE_MATCH_CONFIG = {
         "public_notes",
         "number_of_pages",
         "publication_info",
+        "report_numbers",
         "earliest_date",
     ],
 }
