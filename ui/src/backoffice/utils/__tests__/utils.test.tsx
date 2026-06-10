@@ -125,6 +125,7 @@ describe('getDag', () => {
     [WorkflowTypes.HEP_PUBLISHER_UPDATE, 'hep_create_dag'],
     [WorkflowTypes.HEP_SUBMISSION, 'hep_create_dag'],
     [WorkflowTypes.HEP_UPDATE, 'hep_create_dag'],
+    [WorkflowTypes.HEP_MANUAL_MERGE, 'hep_manual_merge_dag'],
     ['AUTHOR_CREATE', 'author_create_initialization_dag'],
     ['AUTHOR_UPDATE', 'author_update_dag'],
     ['HEP_CREATE', 'hep_create_dag'],
@@ -132,6 +133,7 @@ describe('getDag', () => {
     ['HEP_PUBLISHER_UPDATE', 'hep_create_dag'],
     ['HEP_SUBMISSION', 'hep_create_dag'],
     ['HEP_UPDATE', 'hep_create_dag'],
+    ['HEP_MANUAL_MERGE', 'hep_manual_merge_dag'],
   ])('returns the expected DAG for %j', (input, expected) => {
     expect(getDag(input)).toBe(expected);
   });
