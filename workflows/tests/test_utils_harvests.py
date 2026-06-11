@@ -1,6 +1,7 @@
 from unittest.mock import Mock, patch
 
 import pytest
+import requests
 from airflow.models import DagBag
 from airflow.sdk.exceptions import AirflowException
 from hooks.backoffice.workflow_management_hook import HEP, WorkflowManagementHook
@@ -111,7 +112,9 @@ class TestUtilsHarvests:
                 "check_failures",
                 params={"failed_record_key": s3_key},
             )
-        assert "The following records failed: ['record']" in str(exc_info.value)
+        assert "Failures detected: {'failed_build_records': ['record']}" in str(
+            exc_info.value
+        )
 
     def test_check_failures_no_key(self):
         s3_key = None
@@ -124,7 +127,7 @@ class TestUtilsHarvests:
 
     @pytest.mark.vcr
     def test_fetch_records_oaipmh(self):
-        xml_records = fetch_records_oaipmh(
+        xml_records, failed_sets = fetch_records_oaipmh(
             self.cds_connection_id,
             "marcxml",
             ["cerncds:atlas-pub"],
@@ -135,20 +138,22 @@ class TestUtilsHarvests:
         assert len(xml_records)
         assert "oai:cds.cern.ch:2956726" in xml_records[0]
         assert "oai:cds.cern.ch:2957067" in xml_records[1]
+        assert failed_sets == []
 
     @pytest.mark.vcr
     def test_fetch_records_logical_date(self):
-        xml_records = fetch_records_oaipmh(
+        xml_records, failed_sets = fetch_records_oaipmh(
             self.arxiv_connection_id, "arXiv", ["physics:hep-th"], "2025-07-01"
         )
 
         assert len(xml_records)
         assert "oai:arXiv.org:2101.11905" in xml_records[0]
         assert "oai:arXiv.org:2207.10712" in xml_records[1]
+        assert failed_sets == []
 
     @pytest.mark.vcr
     def test_fetch_records_with_from_until(self):
-        xml_records = fetch_records_oaipmh(
+        xml_records, failed_sets = fetch_records_oaipmh(
             self.arxiv_connection_id,
             "arXiv",
             ["physics:hep-th"],
@@ -159,12 +164,16 @@ class TestUtilsHarvests:
         assert len(xml_records)
         assert "oai:arXiv.org:2101.11905" in xml_records[0]
         assert "oai:arXiv.org:2207.10712" in xml_records[1]
+        assert failed_sets == []
 
     @patch("include.utils.harvests.Sickle.ListRecords", side_effect=NoRecordsMatch)
     def test_fetch_no_records(self, mock_list_records):
-        fetch_records_oaipmh(
+        xml_records, failed_sets = fetch_records_oaipmh(
             self.arxiv_connection_id, "arXiv", ["physics:hep-th"], "2025-07-01"
         )
+
+        assert xml_records == []
+        assert failed_sets == []
 
     @patch("include.utils.harvests.Sickle.ListRecords")
     def test_fetch_records_no_duplicates(self, mock_list_records):
@@ -173,10 +182,31 @@ class TestUtilsHarvests:
         mock_record.raw = "<record>Test Record</record>"
         mock_list_records.return_value = [mock_record, mock_record]
 
-        xml_records = fetch_records_oaipmh(
+        xml_records, failed_sets = fetch_records_oaipmh(
             self.arxiv_connection_id,
             "arXiv",
             ["physics:hep-th", "physics:astro-ph"],
             "2025-07-01",
         )
         assert len(xml_records) == 1
+        assert failed_sets == []
+
+    @patch("include.utils.harvests.Sickle.ListRecords")
+    def test_fetch_records_failed_set(self, mock_list_records):
+        mock_record = Mock()
+        mock_record.header.identifier = "oai:arXiv.org:2101.11905"
+        mock_record.raw = "<record>Test Record</record>"
+        mock_list_records.side_effect = [
+            requests.exceptions.ConnectionError("arXiv is down"),
+            [mock_record],
+        ]
+
+        xml_records, failed_sets = fetch_records_oaipmh(
+            self.arxiv_connection_id,
+            "arXiv",
+            ["physics:hep-th", "physics:astro-ph"],
+            "2025-07-01",
+        )
+
+        assert xml_records == ["<record>Test Record</record>"]
+        assert failed_sets == ["physics:hep-th"]

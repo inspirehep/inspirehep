@@ -50,7 +50,7 @@ def fetch_records_oaipmh(
         from_date (str): The date from which to fetch records (YYYY-MM-DD).
         until_date (str, optional): The date until which to fetch records (YYYY-MM-DD).
     Returns:
-        list: A list of xml records.
+        tuple: A list of xml records and a list of sets that failed to be harvested.
     """
 
     conn = BaseHook.get_connection(connection_id)
@@ -64,6 +64,7 @@ def fetch_records_oaipmh(
         oaiargs["until"] = until_date
 
     harvested_records = {}
+    failed_sets = []
 
     for set_name in sets:
         try:
@@ -77,12 +78,16 @@ def fetch_records_oaipmh(
         except oaiexceptions.NoRecordsMatch:
             logger.info(f"No records for '{set_name}'")
             continue
+        except Exception:
+            logger.exception(f"Failed to harvest set '{set_name}'")
+            failed_sets.append(set_name)
+            continue
 
         logger.info(f"Collected {len(records)} records for set '{set_name}'")
         for record in records:
             harvested_records[record.header.identifier] = record
 
-    return [record.raw for record in harvested_records.values()]
+    return [record.raw for record in harvested_records.values()], failed_sets
 
 
 def fetch_record_oaipmh_by_identifier(connection_id, metadata_prefix, identifier):

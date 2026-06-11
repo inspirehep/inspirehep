@@ -63,4 +63,25 @@ class TestArxivHarvest:
                 "check_failures",
                 params={"failed_record_key": s3_key},
             )
-        assert "The following records failed: ['record']" in str(exc_info.value)
+        assert "Failures detected: {'failed_build_records': ['record']}" in str(
+            exc_info.value
+        )
+
+    def test_check_failures_failed_sets(self):
+        s3_key = self.s3_store.write_object(
+            {
+                "failed_sets": ["physics:hep-th"],
+                "failed_build_records": [],
+                "failed_load_records": [],
+            }
+        )
+
+        with pytest.raises(AirflowException) as exc_info:
+            task_test(
+                self.dag,
+                "check_failures",
+                params={"failed_record_key": s3_key},
+            )
+        assert "Failures detected: {'failed_sets': ['physics:hep-th']}" in str(
+            exc_info.value
+        )
