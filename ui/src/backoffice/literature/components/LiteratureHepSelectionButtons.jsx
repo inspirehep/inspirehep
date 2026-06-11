@@ -11,17 +11,20 @@ export const LiteratureHepSelectionButtons = ({
   isFullCoverage = false,
   shouldShowSubmissionModal = false,
   submissionContext = undefined,
+  disableActions,
 }) => (
   <div className="flex items-center flex-wrap" style={{ gap: '4px' }}>
     <Button
       className="font-white bg-completed"
       onClick={() => handleResolveAction(WorkflowDecisions.HEP_ACCEPT_CORE)}
+      disabled={disableActions}
     >
       Core
     </Button>
     <Button
       className="font-white bg-halted"
       onClick={() => handleResolveAction(WorkflowDecisions.HEP_ACCEPT)}
+      disabled={disableActions}
     >
       Accept
     </Button>
@@ -31,6 +34,7 @@ export const LiteratureHepSelectionButtons = ({
       tooltipText={isFullCoverage ? FULL_COVERAGE_TOOLTIP : undefined}
       shouldShowSubmissionModal={shouldShowSubmissionModal}
       submissionContext={submissionContext}
+      disabled={disableActions}
     />
   </div>
 );

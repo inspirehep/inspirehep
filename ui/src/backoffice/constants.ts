@@ -30,6 +30,7 @@ export enum WorkflowActions {
   RESOLVE = 'resolve',
   RESTART = 'restart',
   RESTART_CURRENT = 'restart_current',
+  UPDATE = 'update',
 }
 
 export enum WorkflowStatusGroups {
@@ -115,6 +116,13 @@ export const STATUS_GROUPS_CONFIG: Record<
   },
 };
 
+export const statusesWithUpdatableSubjects = [
+  WorkflowStatuses.APPROVAL,
+  WorkflowStatuses.APPROVAL_CORE_SELECTION,
+  WorkflowStatuses.APPROVAL_MERGE,
+  WorkflowStatuses.MISSING_SUBJECT_FIELDS,
+];
+
 export interface WorkflowStatus {
   key: string;
   doc_count: number;
@@ -129,4 +137,9 @@ export enum CollapseState {
   ALL_COLLAPSED = 'allCollapsed',
   ALL_EXPANDED = 'allExpanded',
   MIXED = 'mixed',
+}
+
+export interface Subject {
+  term: string;
+  source: string;
 }

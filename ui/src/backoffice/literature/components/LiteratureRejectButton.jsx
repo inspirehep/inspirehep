@@ -9,6 +9,7 @@ const LiteratureRejectButton = ({
   tooltipText,
   shouldShowSubmissionModal = false,
   submissionContext = undefined,
+  disableActions,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const rejectClass = [isWeak ? 'bg-error-weak' : 'font-white bg-error']
@@ -25,7 +26,11 @@ const LiteratureRejectButton = ({
   };
 
   const button = (
-    <Button className={rejectClass} onClick={handleRejectClick}>
+    <Button
+      className={rejectClass}
+      onClick={handleRejectClick}
+      disabled={disableActions}
+    >
       Reject
     </Button>
   );

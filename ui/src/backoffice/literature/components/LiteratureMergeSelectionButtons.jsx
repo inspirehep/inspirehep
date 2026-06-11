@@ -4,7 +4,10 @@ import { EditOutlined } from '@ant-design/icons';
 import { LITERATURE_PID_TYPE } from '../../../common/constants';
 import '../../common/components/ActionButtons.less';
 
-export const LiteratureMergeSelectionButtons = ({ workflowId }) => {
+export const LiteratureMergeSelectionButtons = ({
+  workflowId,
+  disableActions,
+}) => {
   if (!workflowId) {
     return null;
   }
@@ -15,6 +18,7 @@ export const LiteratureMergeSelectionButtons = ({ workflowId }) => {
         className="font-white bg-resolve-conflict w-75 mb2"
         href={`/editor/backoffice/${LITERATURE_PID_TYPE}/${workflowId}`}
         icon={<EditOutlined />}
+        disabled={disableActions}
       >
         Resolve conflicts
       </Button>

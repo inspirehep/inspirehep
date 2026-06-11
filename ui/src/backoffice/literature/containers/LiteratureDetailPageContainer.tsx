@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { ActionCreator, Action } from 'redux';
 import { connect, RootStateOrAny } from 'react-redux';
@@ -7,7 +7,7 @@ import { push } from 'connected-react-router';
 
 import './LiteratureDetailPageContainer.less';
 
-import { Col, Row, Table } from 'antd';
+import { Col, Row } from 'antd';
 import { RestartActionButtons } from '../../common/components/Detail/RestartActionButtons';
 import {
   deleteWorkflow,
@@ -33,7 +33,6 @@ import {
   isLiteratureUpdateWorkflow,
 } from '../../utils/utils';
 import { isSuperUser } from '../../../common/authorization';
-import { columnsSubject } from './columnData';
 import { StatusBanner } from '../../common/components/Detail/StatusBanner';
 import { TicketsList } from '../../common/components/Detail/TicketsList';
 import { LITERATURE_PID_TYPE } from '../../../common/constants';
@@ -46,7 +45,12 @@ import LiteratureDecisionBox from '../components/LiteratureDecisionBox';
 import LiteratureReferences from '../components/LiteratureReferences';
 import LiteratureMatches from '../components/LiteratureMatches';
 import ExactMatchesCallout from '../components/ExactMatchesCallout';
-import { WorkflowStatuses, WorkflowTypes } from '../../constants';
+import {
+  WorkflowActions,
+  WorkflowStatuses,
+  WorkflowTypes,
+} from '../../constants';
+import SubjectArea from '../components/SubjectArea';
 
 type LiteratureDetailPageContainerProps = {
   dispatch: ActionCreator<Action>;
@@ -54,6 +58,7 @@ type LiteratureDetailPageContainerProps = {
   loading: boolean;
   restartActionInProgress: Map<string, any> | null;
   isSuperUserLoggedIn: boolean;
+  actionInProgress: Map<string, any> | null;
 };
 
 const LiteratureDetailPageContainer = ({
@@ -62,6 +67,7 @@ const LiteratureDetailPageContainer = ({
   loading,
   restartActionInProgress,
   isSuperUserLoggedIn,
+  actionInProgress,
 }: LiteratureDetailPageContainerProps) => {
   const { id } = useParams<{ id: string }>();
 
@@ -100,7 +106,13 @@ const LiteratureDetailPageContainer = ({
   const submissionContext: any = shouldShowSubmissionModal
     ? { email: acquisitionSourceEmail, title }
     : undefined;
-  const inspireCategories = data?.get('inspire_categories')?.toJS();
+  const inspireCategoriesImmutable = data?.get('inspire_categories');
+
+  const inspireCategories = useMemo(
+    () => inspireCategoriesImmutable?.toJS() ?? [],
+    [inspireCategoriesImmutable]
+  );
+  const hasInspireCategories = !!inspireCategories?.length;
   const rawDateTime = data?.getIn(['acquisition_source', 'datetime']);
   const urls = data?.get('urls');
   const ids = data?.get('ids');
@@ -128,12 +140,11 @@ const LiteratureDetailPageContainer = ({
     'delete',
   ].filter(Boolean);
 
-  const handleResolveAction = (action: string, value: string) => {
-    const payload = {
-      action,
-      value,
-    };
-    dispatch(resolveLiteratureAction(id, payload));
+  const isUpdatingSubjects =
+    actionInProgress?.get('type') === WorkflowActions.UPDATE;
+
+  const handleResolveAction = async (action: string, value: string) => {
+    dispatch(resolveLiteratureAction(id, { action, value }));
   };
 
   const handleRestart = () => {
@@ -206,14 +217,11 @@ const LiteratureDetailPageContainer = ({
                         header="Subject areas"
                         key="subjectAreas"
                       >
-                        <Table
-                          columns={columnsSubject}
-                          dataSource={inspireCategories}
-                          pagination={false}
-                          size="small"
-                          rowKey={(record) =>
-                            `${record?.term}+${Math.random()}`
-                          }
+                        <SubjectArea
+                          workflowId={id}
+                          status={status}
+                          inspireCategories={inspireCategories}
+                          disableActions={isUpdatingSubjects}
                         />
                       </CollapsableForm.Section>
                       {totalReferences && (
@@ -275,6 +283,8 @@ const LiteratureDetailPageContainer = ({
                         isFullCoverage={isFullCoverage}
                         shouldShowSubmissionModal={shouldShowSubmissionModal}
                         submissionContext={submissionContext}
+                        hasInspireCategories={hasInspireCategories}
+                        disableActions={isUpdatingSubjects}
                       />
                     </ContentBox>
                     <ContentBox
@@ -328,6 +338,7 @@ const stateToProps = (state: RootStateOrAny) => ({
   loading: state.backoffice.get('loading'),
   restartActionInProgress: state.backoffice.get('restartActionInProgress'),
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
+  actionInProgress: state.backoffice.get('actionInProgress'),
 });
 
 export default connect(stateToProps)(LiteratureDetailPageContainer);

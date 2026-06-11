@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 import LiteratureActionButtons from '../LiteratureActionButtons';
 import { WorkflowStatuses } from '../../../constants';
 import { WorkflowDecisions } from '../../../../common/constants';
+import { renderWithProviders } from '../../../../fixtures/render';
 
 describe('<LiteratureActionButtons />', () => {
   test('hides buttons and shows message after action', async () => {
@@ -14,6 +15,7 @@ describe('<LiteratureActionButtons />', () => {
       <LiteratureActionButtons
         status={WorkflowStatuses.APPROVAL}
         handleResolveAction={handleResolveAction}
+        disableActions={false}
       />
     );
 
@@ -31,10 +33,12 @@ describe('<LiteratureActionButtons />', () => {
 
   test('shows missing subject fields actions when categories are missing', () => {
     const handleResolveAction = jest.fn();
-    render(
+    renderWithProviders(
       <LiteratureActionButtons
         status={WorkflowStatuses.MISSING_SUBJECT_FIELDS}
         handleResolveAction={handleResolveAction}
+        disableActions={false}
+        hasInspireCategories={false}
       />
     );
 
@@ -44,6 +48,22 @@ describe('<LiteratureActionButtons />', () => {
     expect(
       screen.queryByRole('button', { name: 'Core' })
     ).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Reject' })).toBeInTheDocument();
+  });
+
+  test('shows missing subject fields actions when categories are filled', () => {
+    const handleResolveAction = jest.fn();
+    render(
+      <LiteratureActionButtons
+        status={WorkflowStatuses.MISSING_SUBJECT_FIELDS}
+        handleResolveAction={handleResolveAction}
+        disableActions={false}
+        hasInspireCategories
+      />
+    );
+
+    expect(screen.getByRole('button', { name: 'Accept' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Core' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Reject' })).toBeInTheDocument();
   });
 
@@ -71,7 +91,7 @@ describe('<LiteratureActionButtons />', () => {
   test('does not show submission rejection modal for missing subject fields', async () => {
     const handleResolveAction = jest.fn();
     const user = userEvent.setup();
-    render(
+    renderWithProviders(
       <LiteratureActionButtons
         status={WorkflowStatuses.MISSING_SUBJECT_FIELDS}
         handleResolveAction={handleResolveAction}
