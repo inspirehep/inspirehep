@@ -53,7 +53,7 @@ def cds_literature_harvest_dag():
 
         logger.info(f"Fetching records with sets={sets}")
 
-        xml_records = fetch_records_oaipmh(
+        xml_records, failed_sets = fetch_records_oaipmh(
             connection_id="cds_oaipmh_connection",
             metadata_prefix=context["params"]["metadata_prefix"],
             sets=sets,
@@ -73,6 +73,7 @@ def cds_literature_harvest_dag():
 
         return s3_store.write_object(
             {
+                "failed_sets": failed_sets,
                 "failed_build_records": failed_build_records,
                 "failed_load_records": failed_load_records,
             }

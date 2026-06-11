@@ -36,13 +36,10 @@ def check_failures(
         logger.info("No failed record key provided, no records to check.")
         return
 
-    failed_records = []
-
     record_data = s3_store.read_object(failed_record_key)
-    for _, item in record_data.items():
-        failed_records.extend(item)
+    failures = {key: items for key, items in record_data.items() if items}
 
-    if len(failed_records) > 0:
-        raise AirflowException(f"The following records failed: {failed_records}")
+    if failures:
+        raise AirflowException(f"Failures detected: {failures}")
 
     logger.info("No failed records")
