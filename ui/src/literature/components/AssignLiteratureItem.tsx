@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { FileDoneOutlined } from '@ant-design/icons';
-import { Button, Menu } from 'antd';
+import { Button } from 'antd';
 
 import DropdownMenu from '../../common/components/DropdownMenu';
 import IconText from '../../common/components/IconText';

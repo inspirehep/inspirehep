@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect, RootStateOrAny } from 'react-redux';
 
 import {

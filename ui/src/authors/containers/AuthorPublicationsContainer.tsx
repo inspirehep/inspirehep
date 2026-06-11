@@ -1,4 +1,3 @@
-import React, { useMemo } from 'react';
 import { connect, RootStateOrAny } from 'react-redux';
 
 import { isCataloger, isSuperUser } from '../../common/authorization';

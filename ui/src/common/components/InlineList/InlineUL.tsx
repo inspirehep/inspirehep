@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 
 import './InlineList.less';
-import { SEPARATOR_TYPES, DEFAULT_SEPARATOR_TYPE } from './constants';
+import { DEFAULT_SEPARATOR_TYPE } from './constants';
 
 const InlineUL = ({
   children,

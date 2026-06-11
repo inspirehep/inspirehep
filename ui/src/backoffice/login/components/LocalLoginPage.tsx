@@ -10,11 +10,11 @@ type LocalLoginPageProps = {
 
 const LocalLoginPage = ({ onLoginFormSubmit }: LocalLoginPageProps) => {
   function renderFormInput({
-    form,
+    _form,
     field,
     ...rest
   }: {
-    form: any;
+    _form: any;
     field: JSX.Element;
     rest: any;
   }) {

@@ -1,7 +1,6 @@
 /* eslint no-underscore-dangle: ["error", { "allow": ["_created_at", "_updated_at"] }] */
 import axios, {
   AxiosRequestConfig,
-  AxiosResponse,
   CancelTokenSource,
   InternalAxiosRequestConfig,
 } from 'axios';

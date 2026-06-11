@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-  CloseOutlined,
-} from '@ant-design/icons';
+import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 
 export const columnsInstitutions = [
   {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { notification } from 'antd';
 import _ from 'lodash';
 import { WorkflowActions } from './constants';

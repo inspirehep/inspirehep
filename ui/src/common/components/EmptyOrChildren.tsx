@@ -1,5 +1,4 @@
 import React from 'react';
-import { List, Map } from 'immutable';
 import { Empty } from 'antd';
 
 function isEmptyCollection(data: any) {
