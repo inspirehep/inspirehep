@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: '{"query":{"bool":{"filter":[{"terms":{"status":["approval_core_selection","approval_fuzzy_matching","approval_merge","approval","error_multiple_exact_matches","error_validation","error","running"]}}],"should":[{"terms":{"data.arxiv_eprints.value":["2507.26819"]}}],"minimum_should_match":1}}}'
+    body: '{"query":{"bool":{"filter":[{"terms":{"status":["approval_core_selection","approval_fuzzy_matching","approval_merge","approval","missing_subject_fields","error_multiple_exact_matches","error_validation","error","running"]}}],"should":[{"terms":{"data.arxiv_eprints.value":["2507.26819"]}}],"minimum_should_match":1}}}'
     headers:
       Content-Length:
       - '292'

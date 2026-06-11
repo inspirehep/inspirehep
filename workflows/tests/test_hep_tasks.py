@@ -321,6 +321,22 @@ class Test_HEPCreateDAG:
             task_test(self.dag, "discard_older_wfs_w_same_source", self.context)
 
     @pytest.mark.vcr
+    def test_discard_older_wfs_w_same_source_missing_subject_fields(self):
+        self.s3_store.write_workflow(
+            {
+                "id": self.workflow_id,
+                "data": {
+                    "dois": [
+                        {
+                            "value": "10.1103/fc8j-tb8k",
+                        }
+                    ],
+                },
+            },
+        )
+        assert not task_test(self.dag, "check_for_blocking_workflows", self.context)
+
+    @pytest.mark.vcr
     def test_check_for_blocking_workflows_block_arxivid(self):
         self.s3_store.write_workflow(
             {
