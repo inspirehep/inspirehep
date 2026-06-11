@@ -33,6 +33,7 @@ const LiteratureBatchOperationsCard = ({
     <LiteratureActionButtons
       status={status}
       handleResolveAction={onResolveAction}
+      hasInspireCategories={status !== WorkflowStatuses.MISSING_SUBJECT_FIELDS}
     />
   </Card>
 );

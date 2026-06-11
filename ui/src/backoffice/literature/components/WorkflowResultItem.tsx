@@ -209,6 +209,7 @@ const WorkflowResultItem = ({
                   workflowId={workflowId}
                   shouldShowSubmissionModal={shouldShowSubmissionModal}
                   submissionContext={submissionContext}
+                  hasInspireCategories={!!subjectAreas && subjectAreas.size > 0}
                 />
               </div>
               <LiteratureReferenceCount
