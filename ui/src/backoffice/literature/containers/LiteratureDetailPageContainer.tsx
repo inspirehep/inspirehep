@@ -7,7 +7,7 @@ import { push } from 'connected-react-router';
 
 import './LiteratureDetailPageContainer.less';
 
-import { Col, Row } from 'antd';
+import { Alert, Col, Row } from 'antd';
 import { RestartActionButtons } from '../../common/components/Detail/RestartActionButtons';
 import {
   deleteWorkflow,
@@ -127,6 +127,7 @@ const LiteratureDetailPageContainer = ({
     : undefined;
   const acquisitionSourceSource = data?.getIn(['acquisition_source', 'source']);
   const acquisitionSourceMethod = data?.getIn(['acquisition_source', 'method']);
+  const privateNotes = data?.get('_private_notes');
 
   const DAGS_URL = getConfigFor('INSPIRE_WORKFLOWS_DAGS_URL');
   const DAG_FULL_URL = `${DAGS_URL}${getDag(workflowType)}/runs/${id}`;
@@ -298,6 +299,26 @@ const LiteratureDetailPageContainer = ({
                         <b> {acquisitionSourceMethod}</b>
                       </>
                     </ContentBox>
+                    {privateNotes?.size > 0 && (
+                      <ContentBox
+                        className="mb3"
+                        fullHeight={false}
+                        subTitle="Notes"
+                      >
+                        {privateNotes.map((note: Map<string, any>) =>
+                          note.get('value') === '*Temporary entry*' ? (
+                            <Alert
+                              key={note.get('value')}
+                              type="warning"
+                              message={note.get('value')}
+                              showIcon
+                            />
+                          ) : (
+                            <p key={note.get('value')}>{note.get('value')}</p>
+                          )
+                        )}
+                      </ContentBox>
+                    )}
                     <ContentBox
                       className="mb3"
                       fullHeight={false}
