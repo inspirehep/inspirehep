@@ -5,6 +5,7 @@ import LiteratureKeywords from './LiteratureKeywords';
 import LiteratureActionButtons from './LiteratureActionButtons';
 import LiteratureDecisionDetails from './LiteratureDecisionDetails';
 import { LITERATURE } from '../../../common/routes';
+import LiteratureControlNumber from './LiteratureControlNumber';
 
 const LiteratureDecisionBox = ({
   classifierResults,
@@ -36,8 +37,8 @@ const LiteratureDecisionBox = ({
         disableActions={disableActions}
       />
     </div>
-    <LiteratureDecisionDetails
-      decision={decision}
+    <LiteratureDecisionDetails decision={decision} />
+    <LiteratureControlNumber
       controlNumber={controlNumber}
       pidType={LITERATURE}
     />
