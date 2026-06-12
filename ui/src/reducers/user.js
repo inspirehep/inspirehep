@@ -13,6 +13,7 @@ import {
   USER_SET_PREFERENCE,
 } from '../actions/actionTypes';
 import { CITE_FORMAT_VALUES } from '../literature/constants';
+import { BACKOFFICE_AUTHORS_SEARCH_NS } from '../search/constants';
 
 export const CITE_FORMAT_PREFERENCE = 'preferredCiteFormat@V2';
 export const CITATION_SUMMARY_ENABLING_PREFERENCE =
@@ -20,6 +21,7 @@ export const CITATION_SUMMARY_ENABLING_PREFERENCE =
 export const EXCLUDE_SELF_CITATIONS_PREFERENCE = 'excludeSelfCitations';
 export const BACKOFFICE_STATUS_GROUPS_COLLAPSE_PREFERENCE =
   'backofficeStatusGroupsCollapse';
+export const BACKOFFICE_SEARCH_OPTION_PREFERENCE = 'backofficeSearchOption';
 
 export const initialState = fromJS({
   loggedIn: false,
@@ -32,6 +34,7 @@ export const initialState = fromJS({
     [CITATION_SUMMARY_ENABLING_PREFERENCE]: false,
     [EXCLUDE_SELF_CITATIONS_PREFERENCE]: false,
     [BACKOFFICE_STATUS_GROUPS_COLLAPSE_PREFERENCE]: {},
+    [BACKOFFICE_SEARCH_OPTION_PREFERENCE]: BACKOFFICE_AUTHORS_SEARCH_NS,
   },
   data: {
     roles: [],
