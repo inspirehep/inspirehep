@@ -18,10 +18,18 @@
 
     .header {
       padding: @header-padding;
+    }
 
+    .header-backoffice {
+      height: fit-content;
+      padding: @header-padding-backoffice;
+    }
+
+    .header,
+    .header-backoffice {
       @media (max-width: @screen-xs-max) {
         line-height: 56px;
-        height: auto; // unset height for mobile
+        height: auto;
       }
     }
 
@@ -37,21 +45,6 @@
     // because .sticky is not stick anymore
     @media (max-width: @screen-xs-max) {
       margin-top: 0 !important;
-    }
-  }
-
-  &.backoffice .fake-collections-menu {
-    width: 100%;
-    height: 10px;
-    background-color: @layout-header-background;
-    position: fixed;
-    top: @layout-header-height;
-    left: 0;
-    z-index: @zindex-header;
-
-    @media (max-width: @screen-xs-max) {
-      position: initial;
-      z-index: initial;
     }
   }
 }

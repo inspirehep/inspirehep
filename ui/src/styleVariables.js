@@ -15,6 +15,7 @@ module.exports = {
   '@screen-lg-max': '1159px',
   '@screen-md-max': '991px',
   '@header-padding': '0 12px',
+  '@header-padding-backoffice': '0 12px 5px',
   '@drawer-body-padding': '24px',
   '@btn-default-bg': '#fff',
   '@btn-height-base': '32px',
