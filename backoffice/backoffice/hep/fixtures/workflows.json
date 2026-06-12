@@ -890,6 +890,9 @@
         "_private_notes": [
           {
             "value": "Also some comments"
+          },
+          {
+            "value": "*Temporary entry*"
           }
         ],
         "acquisition_source": {
