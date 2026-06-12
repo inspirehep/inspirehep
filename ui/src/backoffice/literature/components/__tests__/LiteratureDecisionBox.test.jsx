@@ -35,7 +35,7 @@ describe('<LiteratureDecisionBox />', () => {
   test('renders controlNumber link with correct URL and label', () => {
     const decision = Map({ action: WorkflowDecisions.ACCEPT });
     const relevancePrediction = Map({ decision: 'CORE', max_score: 0.77 });
-    const controlNumber = '12345';
+    const controlNumber = 12345;
 
     renderWithRouter(
       <LiteratureDecisionBox
