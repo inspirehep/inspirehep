@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { Input, Select, Row, Col } from 'antd';
 import { Action, ActionCreator } from 'redux';
 import { connect, RootStateOrAny } from 'react-redux';
@@ -27,7 +27,10 @@ import {
 } from '../../constants';
 import CollapseAllButton from '../components/CollapseAllButton';
 import { setPreference } from '../../../actions/user';
-import { BACKOFFICE_STATUS_GROUPS_COLLAPSE_PREFERENCE } from '../../../reducers/user';
+import {
+  BACKOFFICE_SEARCH_OPTION_PREFERENCE,
+  BACKOFFICE_STATUS_GROUPS_COLLAPSE_PREFERENCE,
+} from '../../../reducers/user';
 
 const EMPTY_MAP = Map();
 
@@ -37,6 +40,9 @@ interface DashboardPageContainerProps {
   literature: Map<string, any>;
   loading: boolean;
   collapsePreferences: Map<string, boolean>;
+  searchPreference:
+    | typeof BACKOFFICE_AUTHORS_SEARCH_NS
+    | typeof BACKOFFICE_LITERATURE_SEARCH_NS;
 }
 
 const META_DESCRIPTION =
@@ -52,11 +58,8 @@ const DashboardPageContainer = ({
   literature,
   loading,
   collapsePreferences,
+  searchPreference,
 }: DashboardPageContainerProps) => {
-  const [searchNamespace, setSearchNamespace] = useState<
-    typeof BACKOFFICE_AUTHORS_SEARCH_NS | typeof BACKOFFICE_LITERATURE_SEARCH_NS
-  >(BACKOFFICE_AUTHORS_SEARCH_NS);
-
   useEffect(() => {
     dispatch(isUserLoggedInToBackoffice());
   }, [dispatch]);
@@ -174,7 +177,18 @@ const DashboardPageContainer = ({
             className="search-container"
             enterButton
             addonBefore={
-              <Select value={searchNamespace} onChange={setSearchNamespace}>
+              <Select
+                value={searchPreference}
+                onChange={(
+                  value:
+                    | typeof BACKOFFICE_AUTHORS_SEARCH_NS
+                    | typeof BACKOFFICE_LITERATURE_SEARCH_NS
+                ) =>
+                  dispatch(
+                    setPreference(BACKOFFICE_SEARCH_OPTION_PREFERENCE, value)
+                  )
+                }
+              >
                 {getConfigFor('BACKOFFICE_LITERATURE_FEATURE_FLAG') && (
                   <Option value={BACKOFFICE_LITERATURE_SEARCH_NS}>
                     Literature
@@ -184,7 +198,9 @@ const DashboardPageContainer = ({
               </Select>
             }
             placeholder="Search Backoffice"
-            onSearch={(value) => handleSearch(dispatch, value, searchNamespace)}
+            onSearch={(value) =>
+              handleSearch(dispatch, value, searchPreference)
+            }
           />
         </div>
         <div className="flex w-100 justify-end pt3 content-grid">
@@ -237,6 +253,10 @@ const mapStateToProps = (state: RootStateOrAny) => ({
   collapsePreferences: state.user.getIn(
     ['preferences', BACKOFFICE_STATUS_GROUPS_COLLAPSE_PREFERENCE],
     EMPTY_MAP
+  ),
+  searchPreference: state.user.getIn(
+    ['preferences', BACKOFFICE_SEARCH_OPTION_PREFERENCE],
+    BACKOFFICE_AUTHORS_SEARCH_NS
   ),
 });
 
