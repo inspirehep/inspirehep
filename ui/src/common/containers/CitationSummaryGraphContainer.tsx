@@ -13,7 +13,7 @@ import {
 import CitationSummaryGraph from '../components/CitationSummaryGraph';
 import { searchQueryUpdate } from '../../actions/search';
 import { shouldExcludeSelfCitations } from '../../literature/containers/ExcludeSelfCitationsContainer';
-import { Bar } from '../components/CitationSummaryGraph/CitationSummaryGraph';
+import { BarType } from '../components/CitationSummaryGraph/CitationSummaryGraph';
 
 const CLEAR_QUERY = {
   citeable: undefined,
@@ -22,7 +22,7 @@ const CLEAR_QUERY = {
   [CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM]: undefined,
 };
 
-function barToQuery(bar: Bar, excludeSelfCitations: boolean) {
+function barToQuery(bar: BarType, excludeSelfCitations: boolean) {
   if (bar == null) {
     return CLEAR_QUERY;
   }
@@ -90,7 +90,7 @@ const dispatchToProps = (
   { namespace }: { namespace: string }
 ) => ({
   // TODO: rename to onSelectedBarChange
-  onSelectBarChange(bar: Bar, excludeSelfCitations: boolean) {
+  onSelectBarChange(bar: BarType, excludeSelfCitations: boolean) {
     const query = barToQuery(bar, excludeSelfCitations);
     dispatch(searchQueryUpdate(namespace, { page: '1', ...query }));
   },

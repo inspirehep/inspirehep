@@ -1,32 +1,25 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import {
   XAxis,
   YAxis,
-  VerticalBarSeries,
-  LabelSeries,
-  FlexibleWidthXYPlot,
-  DiscreteColorLegend,
-  ChartLabel,
-  RVValueEventHandler,
-  VerticalBarSeriesPoint,
-} from 'react-vis';
+  Bar,
+  LabelList,
+  ComposedChart,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts';
 import { Row, Col, Tooltip } from 'antd';
-import { Map } from 'immutable';
+import { Map as ImmutableMap } from 'immutable';
 
 import './CitationSummaryGraph.less';
-import 'react-vis/dist/style.css';
-import maxBy from 'lodash/maxBy';
 import LoadingOrChildren from '../LoadingOrChildren';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 import { CITEABLE_BAR_TYPE, PUBLISHED_BAR_TYPE } from '../../constants';
 import styleVariables from '../../../styleVariables';
 import { shallowEqual, abbreviateNumber } from '../../utils';
-import { browser } from '../../browser';
 
-const BAR_WIDTH = 0.75;
-const GRAPH_MARGIN = { left: 42, right: 10, top: 30, bottom: 40 };
-const GRAPH_HEIGHT = 250;
-const LABEL_ANCHOR_AT_Y = browser.isSafari() ? 'text-top' : 'text-after-edge';
+const GRAPH_MARGIN = { left: 0, right: 30, top: 40, bottom: 40 };
+const GRAPH_HEIGHT = 300;
 
 export const ORANGE = styleVariables['@orange-6'];
 export const HOVERED_ORANGE = styleVariables['@orange-7'];
@@ -34,10 +27,11 @@ export const BLUE = styleVariables['@primary-color'];
 export const HOVERED_BLUE = styleVariables['@blue-7'];
 export const GRAY = styleVariables['@gray-6'];
 
-const LEGENDS = [
-  { title: 'Citeable', color: BLUE },
-  { title: 'Published', color: ORANGE },
-];
+const getCountLabel = (docCount: number) => {
+  if (docCount === 0) return null;
+  if (docCount < 10000) return docCount.toString();
+  return abbreviateNumber(docCount).toString();
+};
 
 const xValueToLabel = {
   '0--0': '0',
@@ -54,19 +48,40 @@ const typeToColors = {
   [PUBLISHED_BAR_TYPE]: { color: ORANGE, hoveredColor: HOVERED_ORANGE },
 };
 
-export const LABEL_OFFSET_RATIO_TO_GRAPH_WIDTH = 0.025;
-
-export interface Bar {
-  xValue: number;
+export interface BarType {
+  xValue: string | number;
   type: 'citeable' | 'published';
 }
 
+interface BucketData {
+  key: string;
+  doc_count: number;
+}
+
+interface MergedBarData {
+  x: string;
+  citeableY: number;
+  publishedY: number;
+}
+
+interface BarShapeProps {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  payload?: MergedBarData;
+}
+
+interface BarEventData {
+  payload?: MergedBarData;
+}
+
 interface CitationSummaryGraphProps {
-  citeableData: any[];
-  publishedData: any[];
+  citeableData: BucketData[];
+  publishedData: BucketData[];
   loading: boolean;
-  error: Map<string, string> | undefined;
-  selectedBar: Bar;
+  error: ImmutableMap<string, string> | undefined;
+  selectedBar: BarType;
   onSelectBarChange: Function;
   excludeSelfCitations: boolean;
 }
@@ -80,24 +95,62 @@ const CitationSummaryGraph = ({
   onSelectBarChange,
   excludeSelfCitations,
 }: CitationSummaryGraphProps) => {
-  const [hoveredBar, setHoveredBar] = useState<Bar | null>(null);
-  const [graphWidth, setGraphWidth] = useState<number>(0);
+  const [hoveredBar, setHoveredBar] = useState<BarType | null>(null);
 
-  const graphRef = useRef<HTMLDivElement>(null);
+  const getBarColor = useCallback(
+    (bar: BarType) => {
+      if (shallowEqual(bar, hoveredBar as BarType)) {
+        return typeToColors[bar.type].hoveredColor;
+      }
+      if (!selectedBar || shallowEqual(bar, selectedBar)) {
+        return typeToColors[bar.type].color;
+      }
+      return GRAY;
+    },
+    [hoveredBar, selectedBar]
+  );
 
-  const isHoveredBar = (bar: Bar) => shallowEqual(bar, hoveredBar as Bar);
+  const citeableBarShape = useCallback(
+    (props: BarShapeProps) => (
+      <rect
+        x={props.x}
+        y={props.y}
+        width={props.width}
+        height={props.height}
+        fill={
+          props.payload !== undefined
+            ? getBarColor({ xValue: props.payload.x, type: CITEABLE_BAR_TYPE })
+            : undefined
+        }
+      />
+    ),
+    [getBarColor]
+  );
 
-  const isSelectedBar = (bar: Bar) => shallowEqual(bar, selectedBar);
+  const publishedBarShape = useCallback(
+    (props: BarShapeProps) => (
+      <rect
+        x={props.x}
+        y={props.y}
+        width={props.width}
+        height={props.height}
+        fill={
+          props.payload !== undefined
+            ? getBarColor({ xValue: props.payload.x, type: PUBLISHED_BAR_TYPE })
+            : undefined
+        }
+      />
+    ),
+    [getBarColor]
+  );
 
-  const onBarMouseHover = (hoveredBar: Bar) => {
-    setHoveredBar(hoveredBar);
-  };
+  const isSelectedBar = (bar: BarType) => shallowEqual(bar, selectedBar);
 
   const onBarMouseOut = () => {
     setHoveredBar(null);
   };
 
-  const onBarClick = (clickedBar: Bar) => {
+  const onBarClick = (clickedBar: BarType) => {
     if (isSelectedBar(clickedBar)) {
       onSelectBarChange(null);
     } else {
@@ -105,99 +158,49 @@ const CitationSummaryGraph = ({
     }
   };
 
-  const onCiteableBarClick = (datapoint: { x: number; y: number }) => {
-    onBarClick({
-      xValue: datapoint.x,
-      type: CITEABLE_BAR_TYPE,
-    });
+  const onCiteableBarClick = (datapoint: BarEventData) => {
+    if (datapoint.payload === undefined) return;
+    onBarClick({ xValue: datapoint.payload.x, type: CITEABLE_BAR_TYPE });
   };
 
-  const onPublishedBarClick = (datapoint: { x: number; y: number }) => {
-    onBarClick({
-      xValue: datapoint.x,
-      type: PUBLISHED_BAR_TYPE,
-    });
+  const onPublishedBarClick = (datapoint: BarEventData) => {
+    if (datapoint.payload === undefined) return;
+    onBarClick({ xValue: datapoint.payload.x, type: PUBLISHED_BAR_TYPE });
   };
 
-  const onCiteableBarHover = (datapoint: { x: number; y: number }) => {
-    const bar: Bar = {
-      xValue: datapoint.x,
-      type: CITEABLE_BAR_TYPE,
-    };
-    onBarMouseHover(bar);
+  const onCiteableBarHover = (datapoint: BarEventData) => {
+    if (datapoint.payload === undefined) return;
+    setHoveredBar({ xValue: datapoint.payload.x, type: CITEABLE_BAR_TYPE });
   };
 
-  const onPublishedBarHover = (datapoint: { x: number; y: number }) => {
-    const bar: Bar = {
-      xValue: datapoint.x,
-      type: PUBLISHED_BAR_TYPE,
-    };
-    onBarMouseHover(bar);
+  const onPublishedBarHover = (datapoint: BarEventData) => {
+    if (datapoint.payload === undefined) return;
+    setHoveredBar({ xValue: datapoint.payload.x, type: PUBLISHED_BAR_TYPE });
   };
 
-  const getBarColor = (bar: Bar) => {
-    if (isHoveredBar(bar)) {
-      return typeToColors[bar.type].hoveredColor;
-    }
-    if (!selectedBar || isSelectedBar(bar)) {
-      return typeToColors[bar.type].color;
-    }
-    return GRAY;
-  };
+  const mergedData = useMemo<MergedBarData[]>(() => {
+    const citeableMap = new Map(
+      citeableData.map((b) => [b.key, b.doc_count as number])
+    );
+    const publishedMap = new Map(
+      publishedData.map((b) => [b.key, b.doc_count as number])
+    );
+    const allKeys = [
+      ...new Set([
+        ...citeableData.map((b) => b.key),
+        ...publishedData.map((b) => b.key),
+      ]),
+    ];
 
-  const getCountLabel = (docCount: number) => {
-    if (docCount === 0) return null;
-    if (docCount < 10000) return docCount.toString();
-    return abbreviateNumber(docCount).toString();
-  };
-
-  const updateGraphWidth = () => {
-    const currentWidth = graphRef?.current?.getBoundingClientRect().width;
-    if (currentWidth !== graphWidth) {
-      setGraphWidth(currentWidth || 0);
-    }
-  };
-
-  useEffect(() => {
-    updateGraphWidth();
-    window.addEventListener('resize', updateGraphWidth);
-    return () => window.removeEventListener('resize', updateGraphWidth);
-    // eslint-disable-next-line
-  }, [graphWidth]);
-
-  const toSeriesData = (
-    bucket: { doc_count: number; key: number },
-    type: 'published' | 'citeable'
-  ) => {
-    const docCount = bucket.doc_count;
-    const xOffset =
-      type === CITEABLE_BAR_TYPE
-        ? -LABEL_OFFSET_RATIO_TO_GRAPH_WIDTH * graphWidth
-        : LABEL_OFFSET_RATIO_TO_GRAPH_WIDTH * graphWidth;
-    return {
-      x: bucket.key,
-      y: docCount,
-      label: getCountLabel(docCount),
-      color: getBarColor({ xValue: bucket.key, type }),
-      xOffset,
-    };
-  };
-
-  const publishedSeriesData = publishedData.map((b) =>
-    toSeriesData(b, PUBLISHED_BAR_TYPE)
-  );
-  const citeableSeriesData = citeableData.map((b) =>
-    toSeriesData(b, CITEABLE_BAR_TYPE)
-  );
-
-  const yDomainMax = Math.max(
-    (publishedSeriesData.length !== 0 && maxBy(publishedSeriesData, 'y')?.y) ||
-      0,
-    (citeableSeriesData.length !== 0 && maxBy(citeableSeriesData, 'y')?.y) || 0
-  );
+    return allKeys.map((x) => ({
+      x,
+      citeableY: citeableMap.get(x) ?? 0,
+      publishedY: publishedMap.get(x) ?? 0,
+    }));
+  }, [citeableData, publishedData]);
 
   return (
-    <div className="__CitationSummaryGraph__" ref={graphRef}>
+    <div className="__CitationSummaryGraph__">
       <LoadingOrChildren loading={loading}>
         <ErrorAlertOrChildren error={error}>
           <Row align="middle">
@@ -206,69 +209,69 @@ const CitationSummaryGraph = ({
                 title="Click a bar to select papers. Click the bar again to reset your selection."
                 placement="bottom"
               >
-                <FlexibleWidthXYPlot
-                  height={GRAPH_HEIGHT}
-                  margin={GRAPH_MARGIN}
-                  xType="ordinal"
-                  yDomain={[0, yDomainMax * 1.15]}
-                >
-                  <XAxis
-                    className="x-axis"
-                    tickFormat={(v) =>
-                      xValueToLabel[v as keyof typeof xValueToLabel]
-                    }
-                  />
-                  <ChartLabel
-                    text="Citations"
-                    xPercent={0.91}
-                    yPercent={0.82}
-                  />
-                  <YAxis className="y-axis" tickFormat={abbreviateNumber} />
-                  <ChartLabel text="Papers" yPercent={-0.08} xPercent={0} />
-                  <VerticalBarSeries
-                    colorType="literal"
-                    data={citeableSeriesData}
-                    barWidth={BAR_WIDTH}
-                    onValueMouseOver={
-                      onCiteableBarHover as RVValueEventHandler<VerticalBarSeriesPoint>
-                    }
-                    onValueClick={
-                      onCiteableBarClick as RVValueEventHandler<VerticalBarSeriesPoint>
-                    }
-                    onValueMouseOut={onBarMouseOut}
-                    data-test-id="citeable-bar-series"
-                    className="pointer"
-                  />
-                  <LabelSeries
-                    data={citeableSeriesData}
-                    labelAnchorY={LABEL_ANCHOR_AT_Y}
-                    labelAnchorX="middle"
-                  />
-                  <VerticalBarSeries
-                    colorType="literal"
-                    data={publishedSeriesData}
-                    barWidth={BAR_WIDTH}
-                    onValueMouseOver={
-                      onPublishedBarHover as RVValueEventHandler<VerticalBarSeriesPoint>
-                    }
-                    onValueClick={
-                      onPublishedBarClick as RVValueEventHandler<VerticalBarSeriesPoint>
-                    }
-                    onValueMouseOut={onBarMouseOut}
-                    data-test-id="published-bar-series"
-                    className="pointer"
-                  />
-                  <LabelSeries
-                    data={publishedSeriesData}
-                    labelAnchorY={LABEL_ANCHOR_AT_Y}
-                    labelAnchorX="middle"
-                  />
-                  <DiscreteColorLegend
-                    className="legend"
-                    items={LEGENDS}
-                    orientation="horizontal"
-                  />
-                </FlexibleWidthXYPlot>
+                <div>
+                  <ResponsiveContainer height={GRAPH_HEIGHT} width="100%">
+                    <ComposedChart data={mergedData} margin={GRAPH_MARGIN}>
+                      <Legend />
+                      <XAxis
+                        dataKey="x"
+                        className="x-axis"
+                        tickFormatter={(v) =>
+                          xValueToLabel[v as keyof typeof xValueToLabel]
+                        }
+                        label={{
+                          value: 'Citations',
+                          position: 'insideBottomRight',
+                          offset: -15,
+                        }}
+                      />
+                      <YAxis
+                        className="y-axis"
+                        tickFormatter={abbreviateNumber}
+                        label={{
+                          value: 'Papers',
+                          angle: 0,
+                          position: 'top',
+                          offset: 20,
+                        }}
+                      />
+                      <Bar
+                        shape={citeableBarShape}
+                        dataKey="citeableY"
+                        name="Citeable"
+                        fill={BLUE}
+                        isAnimationActive={false}
+                        onMouseEnter={onCiteableBarHover}
+                        onClick={onCiteableBarClick}
+                        onMouseLeave={onBarMouseOut}
+                        className="pointer"
+                      >
+                        <LabelList
+                          dataKey="citeableY"
+                          position="top"
+                          formatter={(v) => getCountLabel(v as number)}
+                        />
+                      </Bar>
+                      <Bar
+                        shape={publishedBarShape}
+                        dataKey="publishedY"
+                        name="Published"
+                        fill={ORANGE}
+                        isAnimationActive={false}
+                        onMouseEnter={onPublishedBarHover}
+                        onClick={onPublishedBarClick}
+                        onMouseLeave={onBarMouseOut}
+                        className="pointer"
+                      >
+                        <LabelList
+                          dataKey="publishedY"
+                          position="top"
+                          formatter={(v) => getCountLabel(v as number)}
+                        />
+                      </Bar>
+                    </ComposedChart>
+                  </ResponsiveContainer>
+                </div>
               </Tooltip>
             </Col>
           </Row>

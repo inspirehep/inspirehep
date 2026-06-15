@@ -1,9 +1,9 @@
-import { screen, fireEvent, waitFor, render } from '@testing-library/react';
+import { screen, waitFor, render, fireEvent } from '@testing-library/react';
 
 import { renderWithProviders } from '../../../../fixtures/render';
 import { getStore } from '../../../../fixtures/store';
 import CitationSummaryGraph, {
-  Bar,
+  BarType,
   HOVERED_BLUE,
 } from '../CitationSummaryGraph';
 import { CITEABLE_BAR_TYPE } from '../../../constants';
@@ -15,30 +15,42 @@ describe('CitationSummaryGraph', () => {
     publishedData: [
       {
         key: '0--0',
-        from: 1,
-        to: 1,
+        from: 0,
+        to: 0,
         doc_count: 1,
       },
       {
-        key: '1--50',
+        key: '1--9',
         from: 1,
-        to: 50,
+        to: 9,
         doc_count: 2,
       },
       {
-        key: '50--250',
-        from: 50,
-        to: 250,
+        key: '10--49',
+        from: 10,
+        to: 49,
         doc_count: 3,
       },
       {
-        key: '250--500',
-        from: 250,
-        to: 500,
+        key: '50--99',
+        from: 50,
+        to: 99,
         doc_count: 4,
       },
       {
-        key: '--500',
+        key: '100--249',
+        from: 100,
+        to: 249,
+        doc_count: 4,
+      },
+      {
+        key: '250--499',
+        from: 250,
+        to: 499,
+        doc_count: 4,
+      },
+      {
+        key: '500--',
         from: 500,
         doc_count: 1,
       },
@@ -47,25 +59,37 @@ describe('CitationSummaryGraph', () => {
       {
         key: '0--0',
         from: 0,
-        to: 1,
+        to: 0,
         doc_count: 1,
       },
       {
-        key: '1--50',
+        key: '1--9',
         from: 1,
-        to: 50,
+        to: 9,
         doc_count: 2,
       },
       {
-        key: '50--250',
-        from: 50,
-        to: 250,
+        key: '10--49',
+        from: 10,
+        to: 49,
         doc_count: 3,
       },
       {
-        key: '250--500',
+        key: '50--99',
+        from: 50,
+        to: 99,
+        doc_count: 4,
+      },
+      {
+        key: '100--249',
+        from: 100,
+        to: 249,
+        doc_count: 4,
+      },
+      {
+        key: '250--499',
         from: 250,
-        to: 500,
+        to: 499,
         doc_count: 4,
       },
       {
@@ -94,25 +118,33 @@ describe('CitationSummaryGraph', () => {
       <CitationSummaryGraph {...testData} />,
       { store }
     );
-    const xAxis = container.getElementsByClassName('x-axis');
-    const yAxis = container.getElementsByClassName('y-axis');
-    waitFor(() => expect(xAxis).toBeInTheDocument());
-    waitFor(() => expect(yAxis).toBeInTheDocument());
+    const xAxis = container.getElementsByClassName('x-axis')[0];
+    const yAxis = container.getElementsByClassName('y-axis')[0];
+    expect(xAxis).toBeInTheDocument();
+    expect(yAxis).toBeInTheDocument();
   });
 
-  it('should highlight the hovered bar', () => {
+  it('should highlight the hovered bar', async () => {
     const { container } = renderWithProviders(
       <CitationSummaryGraph {...testData} />,
       { store }
     );
     const citeableBars = container.getElementsByClassName(
-      'rv-xy-plot__series rv-xy-plot__series--bar'
+      'recharts-layer recharts-bar-rectangle'
     );
     const firstCiteableBar = citeableBars[0];
+
     fireEvent.mouseEnter(firstCiteableBar);
-    waitFor(() =>
-      expect(firstCiteableBar).toHaveStyle(`fill: ${HOVERED_BLUE}`)
-    );
+
+    await waitFor(() => {
+      const bars = container.getElementsByClassName(
+        'recharts-layer recharts-bar-rectangle'
+      );
+      expect(bars[0].children[0].children[0]).toHaveAttribute(
+        'fill',
+        HOVERED_BLUE
+      );
+    });
   });
 
   it('should select a bar when it is clicked and call the onSelectBarChange function', () => {
@@ -126,15 +158,13 @@ describe('CitationSummaryGraph', () => {
       { store }
     );
     const citeableBars = container.getElementsByClassName(
-      'rv-xy-plot__series rv-xy-plot__series--bar'
+      'recharts-layer recharts-bar-rectangle'
     );
     const firstCiteableBar = citeableBars[0];
     fireEvent.click(firstCiteableBar);
-    waitFor(() =>
-      expect(onSelectBarChange).toHaveBeenCalledWith(
-        { xValue: '0--0', type: CITEABLE_BAR_TYPE },
-        testData.excludeSelfCitations
-      )
+    expect(onSelectBarChange).toHaveBeenCalledWith(
+      { xValue: '0--0', type: CITEABLE_BAR_TYPE },
+      testData.excludeSelfCitations
     );
   });
 
@@ -142,7 +172,7 @@ describe('CitationSummaryGraph', () => {
     const onSelectBarChange = jest.fn();
     const testDataWithSelection = {
       ...testData,
-      selectedBar: { xValue: 1, type: 'citeable' } as Bar,
+      selectedBar: { xValue: '0--0', type: 'citeable' } as BarType,
       onSelectBarChange,
     };
     const { container } = renderWithProviders(
@@ -150,17 +180,11 @@ describe('CitationSummaryGraph', () => {
       { store }
     );
     const citeableBars = container.getElementsByClassName(
-      'rv-xy-plot__series rv-xy-plot__series--bar'
+      'recharts-layer recharts-bar-rectangle'
     );
     const firstCiteableBar = citeableBars[0];
     fireEvent.click(firstCiteableBar);
-
-    waitFor(() =>
-      expect(onSelectBarChange).toHaveBeenCalledWith(
-        { xValue: 1, type: CITEABLE_BAR_TYPE },
-        testData.excludeSelfCitations
-      )
-    );
+    expect(onSelectBarChange).toHaveBeenCalledWith(null);
   });
 
   it('abbreviates the numbers when they are bigger than 9999', () => {
@@ -172,9 +196,9 @@ describe('CitationSummaryGraph', () => {
         doc_count: 9999,
       },
       {
-        key: '0--0',
-        from: 0,
-        to: 1,
+        key: '1--9',
+        from: 1,
+        to: 9,
         doc_count: 12769,
       },
     ];
@@ -187,8 +211,8 @@ describe('CitationSummaryGraph', () => {
       />
     );
 
-    const expectedLowerLabel = screen.getByText('9999');
-    const expectedHigherLabel = screen.getByText('13K');
+    const expectedLowerLabel = screen.getByText('9999', { selector: 'tspan' });
+    const expectedHigherLabel = screen.getByText('13K', { selector: 'tspan' });
     expect(expectedLowerLabel).toBeInTheDocument();
     expect(expectedHigherLabel).toBeInTheDocument();
   });
