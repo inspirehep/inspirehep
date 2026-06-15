@@ -167,10 +167,6 @@ describe('SubjectArea', () => {
     });
 
     it('should dispatch updateLiteratureAction with resolved shortcut term on add', async () => {
-      const subjects = [
-        { term: 'Astrophysics', source: 'curator' },
-        { term: 'Nuclear Physics', source: 'curator' },
-      ];
       renderWithProviders(
         <SubjectArea {...defaultProps} status={WorkflowStatuses.APPROVAL} />,
         { initialState: getInitialState() }

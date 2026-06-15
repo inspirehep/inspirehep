@@ -11,7 +11,7 @@ import { BACKOFFICE_RESTART_ACTION_REQUEST } from '../../../../actions/actionTyp
 import { WorkflowActions, WorkflowStatuses } from '../../../constants';
 import { WorkflowDecisions } from '../../../../common/constants';
 
-describe('AuthorDetailPageContainer', (ids: any = []) => {
+describe('AuthorDetailPageContainer', () => {
   const renderComponent = (ids: any = []) => {
     const store = getStore({
       backoffice: fromJS({

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
-import { Action, ActionCreator } from 'redux';
 
 import './DeleteWorkflow.less';
-import { deleteWorkflow } from '../../../../actions/backoffice';
 
 type DeleteWorkflowProps = {
   onConfirm: () => void;

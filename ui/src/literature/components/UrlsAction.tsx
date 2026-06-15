@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { List, Map } from 'immutable';
-import { Menu } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 
 import { Link } from 'react-router-dom';

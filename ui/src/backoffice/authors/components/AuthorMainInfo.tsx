@@ -1,5 +1,4 @@
 import React from 'react';
-import { Map } from 'immutable';
 import classNames from 'classnames';
 import ContentBox from '../../../common/components/ContentBox';
 import { Ids } from '../../common/components/Links/Links';

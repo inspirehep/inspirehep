@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './DetailPage.less';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Row, Col, PageHeader, Button } from 'antd';
+import { Row, Col, Button } from 'antd';
 import { List } from 'immutable';
 
 import fetchJournal from '../../actions/journals';

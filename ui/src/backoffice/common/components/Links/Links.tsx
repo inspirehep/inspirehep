@@ -89,15 +89,7 @@ function getLinkData(schema: string, value: string) {
   }
 }
 
-const Id = ({
-  schema,
-  value,
-  href,
-}: {
-  schema: string;
-  value: string;
-  href: string | undefined;
-}) => {
+const Id = ({ value, href }: { value: string; href: string | undefined }) => {
   if (!href) {
     return <span>{value}</span>;
   }
@@ -125,7 +117,7 @@ export const Ids = ({ ids, noIcon = false }: IdsProps) => (
           {schema && (
             <b className="dib ttc">{socialPlatformMap[schema] || schema}:</b>
           )}{' '}
-          <Id schema={schema} value={value} href={href} />
+          <Id value={value} href={href} />
           {showCopyBtn && (
             <CopyToClipboard text={value}>
               <span className="ml1 pointer">

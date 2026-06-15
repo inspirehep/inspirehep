@@ -1,5 +1,4 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import { fromJS, Map } from 'immutable';
 import { renderWithProviders } from '../../../fixtures/render';
 import { getStore } from '../../../fixtures/store';

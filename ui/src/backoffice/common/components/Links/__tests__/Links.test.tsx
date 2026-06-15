@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { fromJS, Map } from 'immutable';
 
-import orcidLogo from '../../../../../common/assets/orcid.svg';
 import Links, { Ids, Urls } from '../Links';
 
 describe('Links Component', () => {
@@ -31,7 +30,7 @@ describe('Links Component', () => {
       },
     ]);
 
-    const { container, asFragment } = render(
+    const { container } = render(
       <Links urls={urls as Map<string, any>} ids={ids as Map<string, any>} />
     );
 

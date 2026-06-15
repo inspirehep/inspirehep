@@ -1,5 +1,4 @@
 import React from 'react';
-import { Map } from 'immutable';
 import { Row, Col, Card } from 'antd';
 
 import '../../common/components/ResultItem/ResultItem.less';
