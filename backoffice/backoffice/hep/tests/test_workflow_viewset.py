@@ -409,7 +409,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
             "action": HepResolutions.hep_accept,
         }
         response = self.api_client.post(url, format="json", data=data)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 202)
         for id in wfs_ids:
             workflow = HepWorkflow.objects.get(id=id)
             self.assertEqual(
@@ -451,7 +451,8 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
             "ids": wfs_ids,
             "action": HepResolutions.hep_accept,
         }
-        self.api_client.post(url, format="json", data=data)
+        response = self.api_client.post(url, format="json", data=data)
+        self.assertEqual(response.status_code, 202)
 
         for wf_id, success in zip(wfs_ids, wf_resolve_success):
             workflow = HepWorkflow.objects.get(id=wf_id)
@@ -461,8 +462,10 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
                     workflow.decisions.first().action, HepResolutions.hep_accept
                 )
             else:
-                self.assertEqual(workflow.status, HepStatusChoices.APPROVAL)
-                self.assertFalse(workflow.decisions.exists())
+                self.assertEqual(workflow.status, HepStatusChoices.ERROR)
+                self.assertEqual(
+                    workflow.decisions.first().action, HepResolutions.hep_accept
+                )
 
     @pytest.mark.vcr
     def test_discard(self):
