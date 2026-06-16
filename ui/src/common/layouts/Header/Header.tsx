@@ -29,7 +29,9 @@ function Header({
       <div ref={stickyContainerRef} className="sticky" data-test-id="sticky">
         <Banners />
         {isBetaPage && <BetaRibbon />}
-        <Layout.Header className="header">
+        <Layout.Header
+          className={isBackofficePage ? 'header-backoffice' : 'header'}
+        >
           <Row align="middle" gutter={{ xs: 8, sm: 16 }}>
             <Col xs={{ span: 13, order: 1 }} sm={{ span: 6, order: 1 }} lg={5}>
               {isBackofficePage ? <LogoBackoffice /> : <Logo />}
@@ -58,11 +60,7 @@ function Header({
         </Layout.Header>
       </div>
       <div className="non-sticky" style={{ marginTop: stickyContainerHeight }}>
-        {isBackofficePage ? (
-          <div className="fake-collections-menu" />
-        ) : (
-          <CollectionsMenu />
-        )}
+        {!isBackofficePage && <CollectionsMenu />}
       </div>
     </div>
   );
