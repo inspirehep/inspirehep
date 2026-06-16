@@ -10,7 +10,6 @@ REDIS_URL=redis://cache:6379/4
 # Celery
 CELERY_BROKER_URL=amqp://guest:guest@backoffice-mq:5672/
 CELERY_RESULT_BACKEND=redis://cache:6379/5
-CELERY_TASK_ALWAYS_EAGER=True
 # Flower
 CELERY_FLOWER_USER=debug
 CELERY_FLOWER_PASSWORD=debug

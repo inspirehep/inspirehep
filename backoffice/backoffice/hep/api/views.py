@@ -4,9 +4,9 @@ import os
 import requests
 from rest_framework import status, viewsets
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
-from django.utils.decorators import method_decorator
 from django.db import transaction
+from django.shortcuts import get_object_or_404
+from backoffice.hep.tasks import batch_resolve_workflows
 from backoffice.hep.utils import (
     add_hep_decision,
     resolve_workflow,
@@ -280,30 +280,20 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         return Response(wf_serializer.data)
 
 
-@method_decorator(transaction.non_atomic_requests, name="dispatch")
 class HepWorkflowBatchResolveViewSet(viewsets.ViewSet):
     def create(self, request):
         serializer = HepBatchResolutionSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        results = []
-        for wf_id in serializer.validated_data["ids"]:
-            try:
-                with transaction.atomic():
-                    resolve_workflow(wf_id, serializer.validated_data, request.user)
-                results.append({"id": wf_id, "success": True})
-            except Exception as e:
-                logger.exception("Error resolving workflow %s", wf_id)
-                results.append({"id": wf_id, "success": False, "error": str(e)})
+        data = serializer.validated_data
+        data["ids"] = [str(wf_id) for wf_id in data["ids"]]
+        user_id = request.user.id
+        transaction.on_commit(lambda: batch_resolve_workflows.delay(data, user_id))
 
-        has_failures = any(not result["success"] for result in results)
-        response_status = (
-            status.HTTP_500_INTERNAL_SERVER_ERROR
-            if has_failures
-            else status.HTTP_200_OK
+        return Response(
+            {"message": "Batch resolution started.", "ids": data["ids"]},
+            status=status.HTTP_202_ACCEPTED,
         )
-
-        return Response({"results": results}, status=response_status)
 
 
 @extend_schema_view(
