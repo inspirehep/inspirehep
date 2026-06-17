@@ -229,7 +229,7 @@ def hep_create_dag():
 
         return "check_for_blocking_workflows"
 
-    @task.short_circuit(ignore_downstream_trigger_rules=False)
+    @task.short_circuit
     def check_for_blocking_workflows(**context):
         workflow_id = context["params"]["workflow_id"]
         workflow_data = s3_store.read_workflow(workflow_id)
