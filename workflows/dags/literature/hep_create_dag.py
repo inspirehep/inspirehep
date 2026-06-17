@@ -221,11 +221,9 @@ def hep_create_dag():
                 workflow_id=workflow_id,
                 decision_data={"action": DECISION_DISCARD},
             )
-            workflow_management_hook.set_workflow_status(
-                status_name=STATUS_COMPLETED,
-                workflow_id=workflow_id,
-            )
-            return "run_next_if_necessary"
+            workflow_data["status"] = STATUS_COMPLETED
+            workflow_management_hook.update_workflow(workflow_id, workflow_data)
+            return "early_run_next_if_necessary"
 
         return "check_for_blocking_workflows"
 
@@ -426,7 +424,7 @@ def hep_create_dag():
 
         s3_store.write_workflow(workflow_data)
 
-    @task.branch
+    @task
     def check_if_previously_rejected(**context):
         """Equivalent to first IF of PROCESS_HOLDINGPEN_MATCH_HARVEST"""
 
@@ -470,9 +468,34 @@ def hep_create_dag():
                 workflow_id=workflow_id,
                 decision_data={"action": DECISION_AUTO_REJECT},
             )
-            return "save_and_complete_workflow"
 
-        return "preprocessing"
+    @task.short_circuit
+    def skip_if_auto_rejected(**context):
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = workflow_management_hook.get_workflow(workflow_id)
+
+        if get_decision(
+            workflow_data.get("decisions"), [DECISION_AUTO_REJECT, DECISION_DISCARD]
+        ):
+            logger.info(
+                "Workflow is auto-rejected or discarded. Skipping further processing."
+            )
+            return False
+        return True
+
+    @task.short_circuit
+    def continue_if_auto_rejected(**context):
+        workflow_id = context["params"]["workflow_id"]
+        workflow_data = workflow_management_hook.get_workflow(workflow_id)
+
+        if get_decision(
+            workflow_data.get("decisions"), [DECISION_AUTO_REJECT, DECISION_DISCARD]
+        ):
+            logger.info(
+                "Workflow is auto-rejected or discarded. Completing workflow early."
+            )
+            return True
+        return False
 
     @task_group
     def preprocessing():
@@ -1817,7 +1840,7 @@ def hep_create_dag():
         if is_auto_approved and is_create and not is_core:
             return "save_workflow"
 
-        return "save_and_complete_workflow"
+        return "save_and_complete_workflow_early"
 
     @task_group
     def core_selection():
@@ -2024,11 +2047,12 @@ def hep_create_dag():
                 match["id"], f"Blocked by workflow {older_workflow['id']}"
             )
 
-    preprocessing_group = preprocessing()
     check_for_fuzzy_matches_task = check_for_fuzzy_matches()
     check_for_exact_matches_task = check_for_exact_matches()
     check_auto_approve_task = check_auto_approve()
     save_and_complete_workflow_task = save_and_complete_workflow()
+    check_if_previously_rejected_task = check_if_previously_rejected()
+    skip_if_auto_rejected_task = skip_if_auto_rejected()
     stop_if_existing_submission_notify_and_close_task = (
         stop_if_existing_submission_notify_and_close()
     )
@@ -2040,17 +2064,31 @@ def hep_create_dag():
             stop_if_existing_submission_notify_and_close_task,
         ]
     )
+    continue_if_auto_rejected_task = continue_if_auto_rejected()
+    early_save_workflow_task = save_and_complete_workflow.override(
+        task_id="save_and_complete_workflow_early"
+    )()
+    early_run_next_if_necessary_task = run_next_if_necessary.override(
+        task_id="run_next_if_necessary_early"
+    )()
 
     (
         check_for_fuzzy_matches_task
         >> await_decision_fuzzy_match()
         >> stop_if_existing_submission_notify_and_close_task
-        >> [check_auto_approve_task, save_and_complete_workflow_task]
+        >> [check_auto_approve_task, early_save_workflow_task]
     )
+
     (
         check_auto_approve_task
-        >> check_if_previously_rejected()
-        >> [preprocessing_group, save_and_complete_workflow_task]
+        >> check_if_previously_rejected_task
+        >> [skip_if_auto_rejected_task, continue_if_auto_rejected_task]
+    )
+
+    (
+        continue_if_auto_rejected_task
+        >> early_save_workflow_task
+        >> early_run_next_if_necessary_task
     )
 
     (
@@ -2076,7 +2114,7 @@ def hep_create_dag():
         >> validate_record()
         >> set_workflow_status_to_running()
         >> discard_older_wfs_w_same_source()
-        >> [check_for_blocking_workflows_task, run_next_if_necessary_task]
+        >> [check_for_blocking_workflows_task, early_save_workflow_task]
     )
 
     check_for_blocking_workflows_task >> check_for_exact_matches_task
@@ -2086,7 +2124,8 @@ def hep_create_dag():
     notify_and_close_not_accepted_task = notify_and_close_not_accepted()
 
     (
-        preprocessing_group
+        skip_if_auto_rejected_task
+        >> preprocessing()
         >> notify_if_submission()
         >> halt_for_approval_if_new_or_reject_if_not_relevant()
         >> is_record_accepted()
