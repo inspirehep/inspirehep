@@ -658,7 +658,7 @@ tiktoken==0.13.0
 tinycss2==1.4.0
 tokenizers==0.23.1
 tomlkit==0.15.0
-tornado==6.5.5
+tornado==6.5.7
 tqdm==4.67.3
 traitlets==5.15.0
 trino==0.337.0
