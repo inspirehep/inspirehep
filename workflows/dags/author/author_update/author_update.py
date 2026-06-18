@@ -3,9 +3,6 @@ import datetime
 from airflow.sdk import Param, dag, task
 from author.shared_tasks import set_submission_number
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
-from hooks.backoffice.workflow_ticket_management_hook import (
-    AuthorWorkflowTicketManagementHook,
-)
 from hooks.inspirehep.inspire_http_hook import (
     AUTHOR_UPDATE_FUNCTIONAL_CATEGORY,
     InspireHttpHook,
@@ -14,9 +11,11 @@ from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
 from include.utils.alerts import FailedDagNotifierSetError
+from include.utils.constants import TICKET_AUTHOR_UPDATE_CURATION
 from include.utils.set_workflow_status import (
     get_wf_status_from_inspire_response,
 )
+from include.utils.tickets import create_ticket
 
 
 @dag(
@@ -44,7 +43,6 @@ def author_update_dag():
     inspire_http_hook = InspireHttpHook()
     inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
     workflow_management_hook = WorkflowManagementHook(AUTHORS)
-    workflow_ticket_management_hook = AuthorWorkflowTicketManagementHook()
 
     @task
     def set_author_update_workflow_status_to_running(**context):
@@ -70,23 +68,17 @@ def author_update_dag():
             "url_author_form": f"{url}/submissions/authors/{recid}",
         }
 
-        response = inspire_http_hook.create_ticket(
+        create_ticket(
+            inspire_http_hook,
             AUTHOR_UPDATE_FUNCTIONAL_CATEGORY,
             "curator_update_author",
             subject,
             email,
             template_context,
+            TICKET_AUTHOR_UPDATE_CURATION,
+            context["params"]["workflow_id"],
+            AUTHORS,
         )
-
-        ticket_id = response.json()["ticket_id"]
-
-        workflow_ticket_management_hook.create_ticket_entry(
-            workflow_id=context["params"]["workflow_id"],
-            ticket_type="author_update_curation",
-            ticket_id=ticket_id,
-        )
-
-        return response.json()
 
     @task
     def update_author_on_inspire(**context):

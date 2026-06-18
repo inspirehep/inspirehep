@@ -4,9 +4,6 @@ import logging
 from airflow.sdk import Param, dag, task
 from airflow.task.trigger_rule import TriggerRule
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
-from hooks.backoffice.workflow_ticket_management_hook import (
-    AuthorWorkflowTicketManagementHook,
-)
 from hooks.inspirehep.inspire_http_hook import (
     AUTHOR_CURATION_FUNCTIONAL_CATEGORY,
     InspireHttpHook,
@@ -19,7 +16,7 @@ from include.utils.constants import TICKET_AUTHOR_CURATION
 from include.utils.set_workflow_status import (
     get_wf_status_from_inspire_response,
 )
-from include.utils.tickets import get_ticket_by_type
+from include.utils.tickets import close_ticket, create_ticket, get_ticket_by_type
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +50,6 @@ def author_create_approved_dag():
     inspire_http_hook = InspireHttpHook()
     inspire_http_record_management_hook = InspireHTTPRecordManagementHook()
     workflow_management_hook = WorkflowManagementHook(AUTHORS)
-    workflow_ticket_management_hook = AuthorWorkflowTicketManagementHook()
 
     @task
     def set_workflow_status_to_running(**context):
@@ -76,6 +72,7 @@ def author_create_approved_dag():
     @task
     def create_author_create_curation_ticket(**context: dict) -> None:
         workflow_data = context["params"]["workflow"]["data"]
+        workflow_id = context["params"]["workflow_id"]
         email = workflow_data["acquisition_source"]["email"]
 
         bai = f"[{workflow_data.get('bai')}]" if workflow_data.get("bai") else ""
@@ -86,7 +83,8 @@ def author_create_approved_dag():
 
         inspire_http_hook.get_conn()
 
-        response = inspire_http_hook.create_ticket(
+        create_ticket(
+            inspire_http_hook,
             AUTHOR_CURATION_FUNCTIONAL_CATEGORY,
             "curation_needed_author",
             f"Curation needed for author "
@@ -96,12 +94,9 @@ def author_create_approved_dag():
                 "email": email,
                 "record_url": f"{inspire_http_hook.base_url}/authors/{control_number}",
             },
-        )
-
-        workflow_ticket_management_hook.create_ticket_entry(
-            workflow_id=context["params"]["workflow_id"],
-            ticket_id=response.json()["ticket_id"],
-            ticket_type=TICKET_AUTHOR_CURATION,
+            TICKET_AUTHOR_CURATION,
+            workflow_id,
+            collection=AUTHORS,
         )
 
     @task(do_xcom_push=True)
@@ -162,7 +157,7 @@ def author_create_approved_dag():
             "author_name": workflow_data.get("name").get("preferred_name"),
             "record_url": f"{inspire_http_hook.base_url}/authors/{control_number}",
         }
-        inspire_http_hook.close_ticket(ticket_id, "user_accepted_author", request_data)
+        close_ticket(inspire_http_hook, ticket_id, "user_accepted_author", request_data)
 
     @task
     def set_author_create_workflow_status_to_error(**context: dict) -> None:

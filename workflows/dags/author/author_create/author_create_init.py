@@ -5,16 +5,13 @@ from airflow.providers.standard.operators.trigger_dagrun import TriggerDagRunOpe
 from airflow.sdk import Param, Variable, dag, task
 from author.shared_tasks import set_submission_number
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
-from hooks.backoffice.workflow_ticket_management_hook import (
-    AuthorWorkflowTicketManagementHook,
-)
 from hooks.inspirehep.inspire_http_hook import (
     AUTHOR_SUBMIT_FUNCTIONAL_CATEGORY,
     InspireHttpHook,
 )
 from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.constants import TICKET_AUTHOR_CREATE
-from include.utils.tickets import get_ticket_by_type
+from include.utils.tickets import create_ticket, get_ticket_by_type, reply_ticket
 
 logger = logging.getLogger(__name__)
 
@@ -43,7 +40,6 @@ def author_create_initialization_dag():
     """
     inspire_http_hook = InspireHttpHook()
     workflow_management_hook = WorkflowManagementHook(AUTHORS)
-    workflow_ticket_management_hook = AuthorWorkflowTicketManagementHook()
 
     @task
     def set_workflow_status_to_running(**context):
@@ -70,7 +66,8 @@ def author_create_initialization_dag():
         if get_ticket_by_type(context["params"]["workflow"], "author_create_user"):
             return
 
-        response = inspire_http_hook.create_ticket(
+        ticket_id = create_ticket(
+            inspire_http_hook,
             AUTHOR_SUBMIT_FUNCTIONAL_CATEGORY,
             "curator_new_author",
             f"Your suggestion to INSPIRE: author "
@@ -82,11 +79,13 @@ def author_create_initialization_dag():
                     AUTHORS, context["params"]["workflow_id"]
                 ),
             },
+            TICKET_AUTHOR_CREATE,
+            context["params"]["workflow_id"],
+            AUTHORS,
         )
 
-        ticket_id = response.json()["ticket_id"]
-
-        response = inspire_http_hook.reply_ticket(
+        reply_ticket(
+            inspire_http_hook,
             ticket_id,
             "user_new_author",
             {
@@ -96,12 +95,6 @@ def author_create_initialization_dag():
                 "author_name": workflow_data.get("name").get("preferred_name"),
             },
             email,
-        )
-
-        workflow_ticket_management_hook.create_ticket_entry(
-            workflow_id=context["params"]["workflow_id"],
-            ticket_type=TICKET_AUTHOR_CREATE,
-            ticket_id=ticket_id,
         )
 
     @task.branch

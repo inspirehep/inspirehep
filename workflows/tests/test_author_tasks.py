@@ -1,5 +1,5 @@
 import copy
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 import pytest
 from airflow.models import DagBag
@@ -98,6 +98,7 @@ class TestAuthorCreateInit:
         )
 
     @pytest.mark.vcr
+    @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
     def test_create_author_create_user_ticket(self):
         noticket_context = {
             "params": {
@@ -162,6 +163,7 @@ class TestAuthorCreateApproved:
         )
 
     @pytest.mark.vcr
+    @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
     def test_create_author_create_curation_ticket(self):
         self.context["ti"].xcom_pull.return_value = 123456
         task_test(
@@ -178,6 +180,7 @@ class TestAuthorUpdate:
     context["params"]["workflow"]["data"]["control_number"] = 123457
 
     @pytest.mark.vcr
+    @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
     def test_create_ticket_on_author_update(self):
         task_test(
             self.dag,

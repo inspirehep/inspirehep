@@ -8,7 +8,7 @@
   "s3_desy_output_bucket_name": "desy-store-processed",
   "HEP_ONTOLOGY_FILE": "plugins/include/taxonomies/HEPont.rdf",
   "WORKFLOWS_MAX_AUTHORS_COUNT_FOR_GROBID_EXTRACTION": 1000,
-  "ENVIRONMENT": "DEV",
+  "ENVIRONMENT": "LOCAL",
   "hepworkflow_open_search_index": "backoffice-backend-local-hep-workflows",
   "ELSEVIER_BATCH_FEED_KEY": "CHANGE_ME",
   "ELSEVIER_USER_ID": "CHANGE_ME",
