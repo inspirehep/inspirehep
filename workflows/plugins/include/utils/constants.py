@@ -38,6 +38,7 @@ TICKET_HEP_SUBMISSION = "hep_submission"
 TICKET_HEP_CURATION = "hep_create_curation"
 TICKET_AUTHOR_CREATE = "author_create_user"
 TICKET_AUTHOR_CURATION = "author_create_curation"
+TICKET_AUTHOR_UPDATE_CURATION = "author_update_curation"
 
 RUNNING_STATUSES = [
     STATUS_APPROVAL_CORE_SELECTION,

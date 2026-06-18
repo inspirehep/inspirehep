@@ -15,9 +15,6 @@ from hooks.backoffice.workflow_management_hook import (
     HEP,
     WorkflowManagementHook,
 )
-from hooks.backoffice.workflow_ticket_management_hook import (
-    LiteratureWorkflowTicketManagementHook,
-)
 from hooks.generic_http_hook import GenericHttpHook
 from hooks.inspirehep.inspire_http_hook import (
     LITERATURE_ARXIV_CURATION_FUNCTIONAL_CATEGORY,
@@ -158,7 +155,7 @@ def hep_create_dag():
     @task
     def check_env():
         environment = Variable.get("ENVIRONMENT")
-        if environment.lower() != "dev":
+        if environment.lower() not in ["dev", "local"]:
             raise AirflowException("This DAG will not run on prod")
 
     @task
@@ -398,8 +395,8 @@ def hep_create_dag():
             workflow_data["data"], inspire_http_hook
         )
 
-        inspire_http_hook.close_ticket(
-            ticket_id, "user_rejected_exists", reply_template_context
+        tickets.close_ticket(
+            inspire_http_hook, ticket_id, "user_rejected_exists", reply_template_context
         )
 
         return "save_and_complete_workflow"
@@ -1258,6 +1255,7 @@ def hep_create_dag():
     def notify_if_submission(**context):
         """Send notification if the workflow is a submission."""
         workflow_data = s3_store.read_workflow(context["params"]["workflow_id"])
+        workflow_id = context["params"]["workflow_id"]
 
         if not is_submission(workflow_data) or get_ticket_by_type(
             workflow_data, TICKET_HEP_SUBMISSION
@@ -1268,23 +1266,24 @@ def hep_create_dag():
         email = data["acquisition_source"].get("email", "")
         title = LiteratureReader(data).title
         subject = f"Your suggestion to INSPIRE: {title}"
+        curation_context = {
+            "email": email,
+            "url": inspire_http_hook.get_backoffice_url(HEP, workflow_id),
+        }
 
-        response = inspire_http_hook.create_ticket(
+        ticket_id = tickets.create_ticket(
+            inspire_http_hook,
             LITERATURE_SUBMISSIONS_FUNCTIONAL_CATEGORY,
             "curator_submitted",
             subject,
             email,
-            {
-                "email": email,
-                "url": inspire_http_hook.get_backoffice_url(
-                    HEP, context["params"]["workflow_id"]
-                ),
-            },
+            curation_context,
+            TICKET_HEP_SUBMISSION,
+            workflow_id,
         )
 
-        ticket_id = response.json()["ticket_id"]
-
-        response = inspire_http_hook.reply_ticket(
+        tickets.reply_ticket(
+            inspire_http_hook,
             ticket_id,
             "user_submitted",
             {
@@ -1292,12 +1291,6 @@ def hep_create_dag():
                 "title": title,
             },
             email,
-        )
-
-        LiteratureWorkflowTicketManagementHook().create_ticket_entry(
-            workflow_id=context["params"]["workflow_id"],
-            ticket_type=TICKET_HEP_SUBMISSION,
-            ticket_id=ticket_id,
         )
 
     @task_group
@@ -1630,7 +1623,7 @@ def hep_create_dag():
         decision = get_decision(workflow_data.get("decisions", []), DECISION_HEP_REJECT)
         message = decision.get("value") if decision else None
 
-        inspire_http_hook.close_ticket(ticket_id, message=message)
+        tickets.close_ticket(inspire_http_hook, ticket_id, message=message)
 
     @task_group
     def postprocessing():
@@ -1738,8 +1731,8 @@ def hep_create_dag():
             workflow_data["data"], inspire_http_hook
         )
 
-        inspire_http_hook.close_ticket(
-            ticket_id, "user_accepted", reply_template_context
+        tickets.close_ticket(
+            inspire_http_hook, ticket_id, "user_accepted", reply_template_context
         )
 
     @task
@@ -1773,19 +1766,15 @@ def hep_create_dag():
         )
 
         for functional_category in functional_categories:
-            response = inspire_http_hook.create_ticket(
+            tickets.create_ticket(
+                inspire_http_hook,
                 functional_category,
                 "curation_core",
                 subject,
                 email,
                 curation_context,
-            )
-            ticket_id = response.json()["ticket_id"]
-
-            LiteratureWorkflowTicketManagementHook().create_ticket_entry(
-                workflow_id=context["params"]["workflow_id"],
-                ticket_type=TICKET_HEP_CURATION,
-                ticket_id=ticket_id,
+                TICKET_HEP_CURATION,
+                workflow_id,
             )
 
         functional_category, ticket_type = (
@@ -1795,14 +1784,15 @@ def hep_create_dag():
         )
 
         if functional_category:
-            response = inspire_http_hook.create_ticket(
-                functional_category, "curation_core", subject, email, curation_context
-            )
-            ticket_id = response.json()["ticket_id"]
-            LiteratureWorkflowTicketManagementHook().create_ticket_entry(
-                workflow_id=context["params"]["workflow_id"],
-                ticket_type=ticket_type,
-                ticket_id=ticket_id,
+            tickets.create_ticket(
+                inspire_http_hook,
+                functional_category,
+                "curation_core",
+                subject,
+                email,
+                curation_context,
+                ticket_type,
+                workflow_id,
             )
 
     @task.branch
@@ -1958,20 +1948,15 @@ def hep_create_dag():
         subject = workflows.get_curation_ticket_subject(data)
         email = data["acquisition_source"].get("email", "")
 
-        response = inspire_http_hook.create_ticket(
+        tickets.create_ticket(
+            inspire_http_hook,
             LITERATURE_ARXIV_CURATION_FUNCTIONAL_CATEGORY,
             "curation_core",
             subject,
             email,
             curation_ticket_context,
-        )
-
-        ticket_id = response.json()["ticket_id"]
-
-        LiteratureWorkflowTicketManagementHook().create_ticket_entry(
-            workflow_id=context["params"]["workflow_id"],
-            ticket_type=TICKET_HEP_CURATION_CORE,
-            ticket_id=ticket_id,
+            TICKET_HEP_CURATION_CORE,
+            workflow_id,
         )
 
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)

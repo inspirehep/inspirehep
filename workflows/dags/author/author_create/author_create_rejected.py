@@ -5,7 +5,7 @@ from airflow.sdk import Param, dag, task
 from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.inspirehep.inspire_http_hook import InspireHttpHook
 from include.utils.alerts import FailedDagNotifierSetError
-from include.utils.tickets import get_ticket_by_type
+from include.utils.tickets import close_ticket, get_ticket_by_type
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +47,7 @@ def author_create_rejected_dag() -> None:
         ticket_id = get_ticket_by_type(
             context["params"]["workflow"], "author_create_user"
         )["ticket_id"]
-        inspire_http_hook.close_ticket(ticket_id)
+        close_ticket(inspire_http_hook, ticket_id)
 
     @task
     def set_author_create_workflow_status_to_completed(**context: dict) -> None:
