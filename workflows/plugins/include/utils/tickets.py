@@ -1,5 +1,9 @@
 import logging
 
+from airflow.sdk import Variable
+from hooks.backoffice.workflow_ticket_management_hook import (
+    LiteratureWorkflowTicketManagementHook,
+)
 from hooks.inspirehep.inspire_http_hook import (
     LITERATURE_ARXIV_CURATION_FUNCTIONAL_CATEGORY,
     LITERATURE_CDS_CURATION_FUNCTIONAL_CATEGORY,
@@ -84,3 +88,48 @@ def get_functional_category_and_ticket_type_from_publisher(workflow):
                 TICKET_HEP_CURATION_CORE,
             )
     return None, None
+
+
+def create_ticket(
+    inspire_http_hook,
+    functional_category,
+    template_name,
+    subject,
+    email,
+    curation_context,
+    ticket_type,
+    workflow_id,
+):
+    environment = Variable.get("ENVIRONMENT")
+    if environment.lower() != "local":
+        response = inspire_http_hook.create_ticket(
+            functional_category,
+            template_name,
+            subject,
+            email,
+            curation_context,
+        )
+        ticket_id = response.json()["ticket_id"]
+    else:
+        ticket_id = f"local-{ticket_type}"
+
+    LiteratureWorkflowTicketManagementHook().create_ticket_entry(
+        workflow_id=workflow_id,
+        ticket_type=ticket_type,
+        ticket_id=ticket_id,
+    )
+    return ticket_id
+
+
+def reply_ticket(inspire_http_hook, ticket_id, template, template_context, email):
+    environment = Variable.get("ENVIRONMENT")
+    if environment.lower() != "local":
+        inspire_http_hook.reply_ticket(ticket_id, template, template_context, email)
+
+
+def close_ticket(
+    inspire_http_hook, ticket_id, template=None, template_context=None, message=None
+):
+    environment = Variable.get("ENVIRONMENT")
+    if environment.lower() != "local":
+        inspire_http_hook.close_ticket(ticket_id, template, template_context, message)
