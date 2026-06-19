@@ -18,7 +18,7 @@ classifiers=[
 [tool.poetry.dependencies]
 celery = "^5.3.6"
 Flask = ">=1.0.2"
-msgpack = "==0.6.2"
+msgpack = "==1.2.1"
 
 python = ">=3.11,<3.12"
 inspire-utils = ">=3.0.67"
