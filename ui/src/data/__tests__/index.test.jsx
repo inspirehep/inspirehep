@@ -1,6 +1,5 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import Loadable from 'react-loadable';
 import { fromJS } from 'immutable';
 import { renderWithProviders, renderWithRouter } from '../../fixtures/render';
 import Data from '..';
@@ -11,7 +10,7 @@ describe('Data', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('navigates to DetailPageContainer when /data/:id', async () => {
+  it('navigates to DetailPageContainer when /data/:id', () => {
     const initialState = {
       data: fromJS({
         data: {
@@ -30,17 +29,15 @@ describe('Data', () => {
       initialState,
       route: '/data/123',
     });
-    await Loadable.preloadAll();
     expect(
       screen.getByTestId('data-detail-page-container')
     ).toBeInTheDocument();
   });
 
-  it('navigates to SearchPage when /data', async () => {
+  it('navigates to SearchPage when /data', () => {
     renderWithProviders(<Data />, {
       route: '/data',
     });
-    await Loadable.preloadAll();
     expect(
       screen.getByTestId('data-search-page-container')
     ).toBeInTheDocument();

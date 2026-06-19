@@ -1,7 +1,6 @@
 import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Loadable from 'react-loadable';
 
 import { renderWithProviders } from '../../fixtures/render';
 import Conferences from '..';
@@ -15,10 +14,6 @@ vi.mock('../containers/SearchPageContainer', () => ({
 }));
 
 describe('Conferences', () => {
-  beforeEach(async () => {
-    await Loadable.preloadAll();
-  });
-
   it('renders initial state', () => {
     renderWithProviders(<Conferences />);
     expect(screen.getByTestId('conferences')).toBeInTheDocument();

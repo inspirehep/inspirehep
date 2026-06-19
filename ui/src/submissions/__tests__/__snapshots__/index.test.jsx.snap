@@ -627,6 +627,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                         class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow"
                                         data-test-id="status"
                                         data-test-type="single-select"
+                                        data-testid="select-box"
                                         form="[object Object]"
                                         name="status"
                                         placement="bottomLeft"
@@ -1317,6 +1318,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                         class="ant-select ant-select-in-form-item ant-select-multiple ant-select-show-arrow ant-select-show-search"
                                         data-test-id="arxiv_categories"
                                         data-test-type="multiple-select"
+                                        data-testid="select-box"
                                         form="[object Object]"
                                         name="arxiv_categories"
                                         placement="bottomLeft"
@@ -1576,7 +1578,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                     class="ant-form-item-control-input-content"
                                                                   >
                                                                     <div
-                                                                      class="ant-picker w-100"
+                                                                      class="ant-picker"
                                                                     >
                                                                       <div
                                                                         class="ant-picker-input"
@@ -1641,7 +1643,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                     class="ant-form-item-control-input-content"
                                                                   >
                                                                     <div
-                                                                      class="ant-picker w-100"
+                                                                      class="ant-picker"
                                                                     >
                                                                       <div
                                                                         class="ant-picker-input"
@@ -1709,6 +1711,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                       class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow"
                                                                       data-test-id="positions.0.rank"
                                                                       data-test-type="single-select"
+                                                                      data-testid="select-box"
                                                                       form="[object Object]"
                                                                       name="positions.0.rank"
                                                                       placement="bottomLeft"
@@ -2029,7 +2032,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                     class="ant-form-item-control-input-content"
                                                                   >
                                                                     <div
-                                                                      class="ant-picker w-100"
+                                                                      class="ant-picker"
                                                                     >
                                                                       <div
                                                                         class="ant-picker-input"
@@ -2094,7 +2097,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                     class="ant-form-item-control-input-content"
                                                                   >
                                                                     <div
-                                                                      class="ant-picker w-100"
+                                                                      class="ant-picker"
                                                                     >
                                                                       <div
                                                                         class="ant-picker-input"
@@ -2341,6 +2344,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                       class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow"
                                                                       data-test-id="advisors.0.degree_type"
                                                                       data-test-type="single-select"
+                                                                      data-testid="select-box"
                                                                       form="[object Object]"
                                                                       name="advisors.0.degree_type"
                                                                       placement="bottomLeft"
@@ -3214,6 +3218,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                         class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow"
                                         data-test-id="status"
                                         data-test-type="single-select"
+                                        data-testid="select-box"
                                         form="[object Object]"
                                         name="status"
                                         placement="bottomLeft"
@@ -3904,6 +3909,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                         class="ant-select ant-select-in-form-item ant-select-multiple ant-select-show-arrow ant-select-show-search"
                                         data-test-id="arxiv_categories"
                                         data-test-type="multiple-select"
+                                        data-testid="select-box"
                                         form="[object Object]"
                                         name="arxiv_categories"
                                         placement="bottomLeft"
@@ -4237,7 +4243,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                     class="ant-form-item-control-input-content"
                                                                   >
                                                                     <div
-                                                                      class="ant-picker w-100"
+                                                                      class="ant-picker"
                                                                     >
                                                                       <div
                                                                         class="ant-picker-input"
@@ -4302,7 +4308,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                     class="ant-form-item-control-input-content"
                                                                   >
                                                                     <div
-                                                                      class="ant-picker w-100"
+                                                                      class="ant-picker"
                                                                     >
                                                                       <div
                                                                         class="ant-picker-input"
@@ -4370,6 +4376,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                       class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow"
                                                                       data-test-id="positions.0.rank"
                                                                       data-test-type="single-select"
+                                                                      data-testid="select-box"
                                                                       form="[object Object]"
                                                                       name="positions.0.rank"
                                                                       placement="bottomLeft"
@@ -4764,7 +4771,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                     class="ant-form-item-control-input-content"
                                                                   >
                                                                     <div
-                                                                      class="ant-picker w-100"
+                                                                      class="ant-picker"
                                                                     >
                                                                       <div
                                                                         class="ant-picker-input"
@@ -4829,7 +4836,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                     class="ant-form-item-control-input-content"
                                                                   >
                                                                     <div
-                                                                      class="ant-picker w-100"
+                                                                      class="ant-picker"
                                                                     >
                                                                       <div
                                                                         class="ant-picker-input"
@@ -5076,6 +5083,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                       class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow"
                                                                       data-test-id="advisors.0.degree_type"
                                                                       data-test-type="single-select"
+                                                                      data-testid="select-box"
                                                                       form="[object Object]"
                                                                       name="advisors.0.degree_type"
                                                                       placement="bottomLeft"
@@ -5882,6 +5890,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                 class="ant-picker ant-picker-range w-100"
                                 data-test-id="dates"
                                 data-test-type="date-range-picker"
+                                data-testid="date-range-picker"
                                 name="dates"
                               >
                                 <div
@@ -6078,6 +6087,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                                               class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow ant-select-show-search"
                                                               data-test-id="addresses.0.country"
                                                               data-test-type="single-select"
+                                                              data-testid="select-box"
                                                               form="[object Object]"
                                                               name="addresses.0.country"
                                                               placement="bottomLeft"
@@ -6304,6 +6314,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                 class="ant-select ant-select-in-form-item ant-select-multiple ant-select-show-arrow ant-select-show-search"
                                 data-test-id="field_of_interest"
                                 data-test-type="multiple-select"
+                                data-testid="select-box"
                                 form="[object Object]"
                                 name="field_of_interest"
                                 placement="bottomLeft"
@@ -6775,17 +6786,14 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <path
                                           class="ql-stroke"
                                           d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z"
                                         />
-                                         
                                         <path
                                           class="ql-stroke"
                                           d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z"
                                         />
-                                         
                                       </svg>
                                     </button>
                                     <button
@@ -6796,7 +6804,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -6804,7 +6811,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="5"
@@ -6812,7 +6818,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="8"
@@ -6820,7 +6825,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="14"
                                           y2="4"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -6836,7 +6840,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -6844,7 +6847,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -6852,7 +6854,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="9"
                                           y2="9"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -6860,7 +6861,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                         <line
                                           class="ql-stroke ql-thin"
                                           x1="2.5"
@@ -6868,22 +6868,18 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="5.5"
                                           y2="5.5"
                                         />
-                                         
                                         <path
                                           class="ql-fill"
                                           d="M3.5,6A0.5,0.5,0,0,1,3,5.5V3.085l-0.276.138A0.5,0.5,0,0,1,2.053,3c-0.124-.247-0.023-0.324.224-0.447l1-.5A0.5,0.5,0,0,1,4,2.5v3A0.5,0.5,0,0,1,3.5,6Z"
                                         />
-                                         
                                         <path
                                           class="ql-stroke ql-thin"
                                           d="M4.5,10.5h-2c0-.234,1.85-1.076,1.85-2.234A0.959,0.959,0,0,0,2.5,8.156"
                                         />
-                                         
                                         <path
                                           class="ql-stroke ql-thin"
                                           d="M2.5,14.846a0.959,0.959,0,0,0,1.85-.109A0.7,0.7,0,0,0,3.75,14a0.688,0.688,0,0,0,.6-0.736,0.959,0.959,0,0,0-1.85-.109"
                                         />
-                                         
                                       </svg>
                                     </button>
                                     <button
@@ -6895,7 +6891,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -6903,7 +6898,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -6911,7 +6905,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="9"
                                           y2="9"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -6919,7 +6912,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="3"
@@ -6927,7 +6919,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="3"
@@ -6935,7 +6926,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="9"
                                           y2="9"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="3"
@@ -6943,7 +6933,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -6958,7 +6947,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -6966,17 +6954,14 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="7"
                                           y2="11"
                                         />
-                                         
                                         <path
                                           class="ql-even ql-stroke"
                                           d="M8.9,4.577a3.476,3.476,0,0,1,.36,4.679A3.476,3.476,0,0,1,4.577,8.9C3.185,7.5,2.035,6.4,4.217,4.217S7.5,3.185,8.9,4.577Z"
                                         />
-                                         
                                         <path
                                           class="ql-even ql-stroke"
                                           d="M13.423,9.1a3.476,3.476,0,0,0-4.679-.36,3.476,3.476,0,0,0,.36,4.679c1.392,1.392,2.5,2.542,4.679.36S14.815,10.5,13.423,9.1Z"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -6992,7 +6977,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                         class=""
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="5"
@@ -7000,7 +6984,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="3"
                                           y2="3"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -7008,7 +6991,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="12"
                                           y2="3"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="11"
@@ -7016,7 +6998,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="11"
                                           y2="15"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="15"
@@ -7024,7 +7005,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           y1="11"
                                           y2="15"
                                         />
-                                         
                                         <rect
                                           class="ql-fill"
                                           height="1"
@@ -7034,7 +7014,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                           x="2"
                                           y="14"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -7046,17 +7025,13 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                     class="ql-container ql-snow"
                                   >
                                     <div
-                                      class="ql-editor"
+                                      class="ql-editor ql-blank"
                                       contenteditable="true"
-                                      data-gramm="false"
                                     >
-                                      <div />
+                                      <div>
+                                        <br />
+                                      </div>
                                     </div>
-                                    <div
-                                      class="ql-clipboard"
-                                      contenteditable="true"
-                                      tabindex="-1"
-                                    />
                                     <div
                                       class="ql-tooltip ql-hidden"
                                     >
@@ -7448,6 +7423,7 @@ exports[`Submissions > navigates to ExperimentSubmissionPageContainer when /subm
                                     class="ant-select ant-select-in-form-item ant-select-multiple ant-select-show-arrow ant-select-show-search"
                                     data-test-id="project_type"
                                     data-test-type="multiple-select"
+                                    data-testid="select-box"
                                     form="[object Object]"
                                     name="project_type"
                                     placement="bottomLeft"
@@ -7855,6 +7831,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                 class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow"
                                 data-test-id="status"
                                 data-test-type="single-select"
+                                data-testid="select-box"
                                 form="[object Object]"
                                 name="status"
                                 placement="bottomLeft"
@@ -8201,6 +8178,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                 class="ant-select ant-select-in-form-item ant-select-multiple ant-select-show-arrow ant-select-show-search"
                                 data-test-id="regions"
                                 data-test-type="multiple-select"
+                                data-testid="select-box"
                                 form="[object Object]"
                                 name="regions"
                                 placement="bottomLeft"
@@ -8300,6 +8278,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                 class="ant-select ant-select-in-form-item ant-select-multiple ant-select-show-arrow ant-select-show-search"
                                 data-test-id="field_of_interest"
                                 data-test-type="multiple-select"
+                                data-testid="select-box"
                                 form="[object Object]"
                                 name="field_of_interest"
                                 placement="bottomLeft"
@@ -8399,6 +8378,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                 class="ant-select ant-select-in-form-item ant-select-multiple ant-select-show-arrow ant-select-show-search"
                                 data-test-id="ranks"
                                 data-test-type="multiple-select"
+                                data-testid="select-box"
                                 form="[object Object]"
                                 name="ranks"
                                 placement="bottomLeft"
@@ -8707,7 +8687,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                               class="ant-form-item-control-input-content"
                             >
                               <div
-                                class="ant-picker w-100"
+                                class="ant-picker"
                               >
                                 <div
                                   class="ant-picker-input"
@@ -9156,17 +9136,14 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <path
                                           class="ql-stroke"
                                           d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z"
                                         />
-                                         
                                         <path
                                           class="ql-stroke"
                                           d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z"
                                         />
-                                         
                                       </svg>
                                     </button>
                                     <button
@@ -9177,7 +9154,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -9185,7 +9161,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="5"
@@ -9193,7 +9168,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="8"
@@ -9201,7 +9175,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="14"
                                           y2="4"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -9217,7 +9190,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -9225,7 +9197,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -9233,7 +9204,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="9"
                                           y2="9"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -9241,7 +9211,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                         <line
                                           class="ql-stroke ql-thin"
                                           x1="2.5"
@@ -9249,22 +9218,18 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="5.5"
                                           y2="5.5"
                                         />
-                                         
                                         <path
                                           class="ql-fill"
                                           d="M3.5,6A0.5,0.5,0,0,1,3,5.5V3.085l-0.276.138A0.5,0.5,0,0,1,2.053,3c-0.124-.247-0.023-0.324.224-0.447l1-.5A0.5,0.5,0,0,1,4,2.5v3A0.5,0.5,0,0,1,3.5,6Z"
                                         />
-                                         
                                         <path
                                           class="ql-stroke ql-thin"
                                           d="M4.5,10.5h-2c0-.234,1.85-1.076,1.85-2.234A0.959,0.959,0,0,0,2.5,8.156"
                                         />
-                                         
                                         <path
                                           class="ql-stroke ql-thin"
                                           d="M2.5,14.846a0.959,0.959,0,0,0,1.85-.109A0.7,0.7,0,0,0,3.75,14a0.688,0.688,0,0,0,.6-0.736,0.959,0.959,0,0,0-1.85-.109"
                                         />
-                                         
                                       </svg>
                                     </button>
                                     <button
@@ -9276,7 +9241,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -9284,7 +9248,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -9292,7 +9255,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="9"
                                           y2="9"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -9300,7 +9262,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="3"
@@ -9308,7 +9269,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="3"
@@ -9316,7 +9276,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="9"
                                           y2="9"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="3"
@@ -9324,7 +9283,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -9339,7 +9297,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -9347,17 +9304,14 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="7"
                                           y2="11"
                                         />
-                                         
                                         <path
                                           class="ql-even ql-stroke"
                                           d="M8.9,4.577a3.476,3.476,0,0,1,.36,4.679A3.476,3.476,0,0,1,4.577,8.9C3.185,7.5,2.035,6.4,4.217,4.217S7.5,3.185,8.9,4.577Z"
                                         />
-                                         
                                         <path
                                           class="ql-even ql-stroke"
                                           d="M13.423,9.1a3.476,3.476,0,0,0-4.679-.36,3.476,3.476,0,0,0,.36,4.679c1.392,1.392,2.5,2.542,4.679.36S14.815,10.5,13.423,9.1Z"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -9373,7 +9327,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                         class=""
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="5"
@@ -9381,7 +9334,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="3"
                                           y2="3"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -9389,7 +9341,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="12"
                                           y2="3"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="11"
@@ -9397,7 +9348,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="11"
                                           y2="15"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="15"
@@ -9405,7 +9355,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           y1="11"
                                           y2="15"
                                         />
-                                         
                                         <rect
                                           class="ql-fill"
                                           height="1"
@@ -9415,7 +9364,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                           x="2"
                                           y="14"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -9427,17 +9375,13 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                     class="ql-container ql-snow"
                                   >
                                     <div
-                                      class="ql-editor"
+                                      class="ql-editor ql-blank"
                                       contenteditable="true"
-                                      data-gramm="false"
                                     >
-                                      <div />
+                                      <div>
+                                        <br />
+                                      </div>
                                     </div>
-                                    <div
-                                      class="ql-clipboard"
-                                      contenteditable="true"
-                                      tabindex="-1"
-                                    />
                                     <div
                                       class="ql-tooltip ql-hidden"
                                     >
@@ -9568,6 +9512,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                 class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow"
                                 data-test-id="status"
                                 data-test-type="single-select"
+                                data-testid="select-box"
                                 form="[object Object]"
                                 name="status"
                                 placement="bottomLeft"
@@ -9914,6 +9859,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                 class="ant-select ant-select-in-form-item ant-select-multiple ant-select-show-arrow ant-select-show-search"
                                 data-test-id="regions"
                                 data-test-type="multiple-select"
+                                data-testid="select-box"
                                 form="[object Object]"
                                 name="regions"
                                 placement="bottomLeft"
@@ -10013,6 +9959,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                 class="ant-select ant-select-in-form-item ant-select-multiple ant-select-show-arrow ant-select-show-search"
                                 data-test-id="field_of_interest"
                                 data-test-type="multiple-select"
+                                data-testid="select-box"
                                 form="[object Object]"
                                 name="field_of_interest"
                                 placement="bottomLeft"
@@ -10112,6 +10059,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                 class="ant-select ant-select-in-form-item ant-select-multiple ant-select-show-arrow ant-select-show-search"
                                 data-test-id="ranks"
                                 data-test-type="multiple-select"
+                                data-testid="select-box"
                                 form="[object Object]"
                                 name="ranks"
                                 placement="bottomLeft"
@@ -10420,7 +10368,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                               class="ant-form-item-control-input-content"
                             >
                               <div
-                                class="ant-picker w-100"
+                                class="ant-picker"
                               >
                                 <div
                                   class="ant-picker-input"
@@ -10869,17 +10817,14 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <path
                                           class="ql-stroke"
                                           d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z"
                                         />
-                                         
                                         <path
                                           class="ql-stroke"
                                           d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z"
                                         />
-                                         
                                       </svg>
                                     </button>
                                     <button
@@ -10890,7 +10835,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -10898,7 +10842,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="5"
@@ -10906,7 +10849,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="8"
@@ -10914,7 +10856,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="14"
                                           y2="4"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -10930,7 +10871,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -10938,7 +10878,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -10946,7 +10885,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="9"
                                           y2="9"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -10954,7 +10892,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                         <line
                                           class="ql-stroke ql-thin"
                                           x1="2.5"
@@ -10962,22 +10899,18 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="5.5"
                                           y2="5.5"
                                         />
-                                         
                                         <path
                                           class="ql-fill"
                                           d="M3.5,6A0.5,0.5,0,0,1,3,5.5V3.085l-0.276.138A0.5,0.5,0,0,1,2.053,3c-0.124-.247-0.023-0.324.224-0.447l1-.5A0.5,0.5,0,0,1,4,2.5v3A0.5,0.5,0,0,1,3.5,6Z"
                                         />
-                                         
                                         <path
                                           class="ql-stroke ql-thin"
                                           d="M4.5,10.5h-2c0-.234,1.85-1.076,1.85-2.234A0.959,0.959,0,0,0,2.5,8.156"
                                         />
-                                         
                                         <path
                                           class="ql-stroke ql-thin"
                                           d="M2.5,14.846a0.959,0.959,0,0,0,1.85-.109A0.7,0.7,0,0,0,3.75,14a0.688,0.688,0,0,0,.6-0.736,0.959,0.959,0,0,0-1.85-.109"
                                         />
-                                         
                                       </svg>
                                     </button>
                                     <button
@@ -10989,7 +10922,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -10997,7 +10929,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -11005,7 +10936,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="9"
                                           y2="9"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -11013,7 +10943,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="3"
@@ -11021,7 +10950,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="3"
@@ -11029,7 +10957,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="9"
                                           y2="9"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="3"
@@ -11037,7 +10964,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -11052,7 +10978,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -11060,17 +10985,14 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="7"
                                           y2="11"
                                         />
-                                         
                                         <path
                                           class="ql-even ql-stroke"
                                           d="M8.9,4.577a3.476,3.476,0,0,1,.36,4.679A3.476,3.476,0,0,1,4.577,8.9C3.185,7.5,2.035,6.4,4.217,4.217S7.5,3.185,8.9,4.577Z"
                                         />
-                                         
                                         <path
                                           class="ql-even ql-stroke"
                                           d="M13.423,9.1a3.476,3.476,0,0,0-4.679-.36,3.476,3.476,0,0,0,.36,4.679c1.392,1.392,2.5,2.542,4.679.36S14.815,10.5,13.423,9.1Z"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -11086,7 +11008,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                         class=""
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="5"
@@ -11094,7 +11015,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="3"
                                           y2="3"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -11102,7 +11022,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="12"
                                           y2="3"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="11"
@@ -11110,7 +11029,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="11"
                                           y2="15"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="15"
@@ -11118,7 +11036,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           y1="11"
                                           y2="15"
                                         />
-                                         
                                         <rect
                                           class="ql-fill"
                                           height="1"
@@ -11128,7 +11045,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                           x="2"
                                           y="14"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -11140,17 +11056,13 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                     class="ql-container ql-snow"
                                   >
                                     <div
-                                      class="ql-editor"
+                                      class="ql-editor ql-blank"
                                       contenteditable="true"
-                                      data-gramm="false"
                                     >
-                                      <div />
+                                      <div>
+                                        <br />
+                                      </div>
                                     </div>
-                                    <div
-                                      class="ql-clipboard"
-                                      contenteditable="true"
-                                      tabindex="-1"
-                                    />
                                     <div
                                       class="ql-tooltip ql-hidden"
                                     >
@@ -11535,6 +11447,7 @@ exports[`Submissions > navigates to LiteratureSubmissionPageContainer when /subm
                             <input
                               class="ant-input"
                               data-test-id="import-input"
+                              data-testid="import-input"
                               placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
                               type="text"
                               value=""
@@ -11568,6 +11481,7 @@ exports[`Submissions > navigates to LiteratureSubmissionPageContainer when /subm
                       <button
                         class="ant-btn ant-btn-primary"
                         data-test-id="import-button"
+                        data-testid="import-button"
                         type="button"
                       >
                         <span>
@@ -11710,6 +11624,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                 data-test-format="YYYY-MM-DD hh:mm A"
                                 data-test-id="dates"
                                 data-test-type="date-range-picker"
+                                data-testid="date-range-picker"
                                 name="dates"
                               >
                                 <div
@@ -11826,6 +11741,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                 class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow ant-select-show-search"
                                 data-test-id="timezone"
                                 data-test-type="single-select"
+                                data-testid="select-box"
                                 form="[object Object]"
                                 name="timezone"
                                 placement="bottomLeft"
@@ -11855,9 +11771,9 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                     class="ant-select-selection-item"
                                   >
                                     <span
-                                      data-test-id="timezone-option-Europe/Warsaw"
+                                      data-test-id="timezone-option-UTC"
                                     >
-                                      Europe/Warsaw
+                                      UTC
                                     </span>
                                   </span>
                                 </div>
@@ -12958,6 +12874,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                               class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow ant-select-show-search"
                                               data-test-id="address.country"
                                               data-test-type="single-select"
+                                              data-testid="select-box"
                                               form="[object Object]"
                                               name="address.country"
                                               placement="bottomLeft"
@@ -13125,6 +13042,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                 class="ant-select ant-select-in-form-item ant-select-multiple ant-select-show-arrow ant-select-show-search"
                                 data-test-id="field_of_interest"
                                 data-test-type="multiple-select"
+                                data-testid="select-box"
                                 form="[object Object]"
                                 name="field_of_interest"
                                 placement="bottomLeft"
@@ -13633,17 +13551,14 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <path
                                           class="ql-stroke"
                                           d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z"
                                         />
-                                         
                                         <path
                                           class="ql-stroke"
                                           d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z"
                                         />
-                                         
                                       </svg>
                                     </button>
                                     <button
@@ -13654,7 +13569,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -13662,7 +13576,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="5"
@@ -13670,7 +13583,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="8"
@@ -13678,7 +13590,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="14"
                                           y2="4"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -13694,7 +13605,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -13702,7 +13612,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -13710,7 +13619,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="9"
                                           y2="9"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -13718,7 +13626,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                         <line
                                           class="ql-stroke ql-thin"
                                           x1="2.5"
@@ -13726,22 +13633,18 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="5.5"
                                           y2="5.5"
                                         />
-                                         
                                         <path
                                           class="ql-fill"
                                           d="M3.5,6A0.5,0.5,0,0,1,3,5.5V3.085l-0.276.138A0.5,0.5,0,0,1,2.053,3c-0.124-.247-0.023-0.324.224-0.447l1-.5A0.5,0.5,0,0,1,4,2.5v3A0.5,0.5,0,0,1,3.5,6Z"
                                         />
-                                         
                                         <path
                                           class="ql-stroke ql-thin"
                                           d="M4.5,10.5h-2c0-.234,1.85-1.076,1.85-2.234A0.959,0.959,0,0,0,2.5,8.156"
                                         />
-                                         
                                         <path
                                           class="ql-stroke ql-thin"
                                           d="M2.5,14.846a0.959,0.959,0,0,0,1.85-.109A0.7,0.7,0,0,0,3.75,14a0.688,0.688,0,0,0,.6-0.736,0.959,0.959,0,0,0-1.85-.109"
                                         />
-                                         
                                       </svg>
                                     </button>
                                     <button
@@ -13753,7 +13656,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -13761,7 +13663,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -13769,7 +13670,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="9"
                                           y2="9"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -13777,7 +13677,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="3"
@@ -13785,7 +13684,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="3"
@@ -13793,7 +13691,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="9"
                                           y2="9"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="3"
@@ -13801,7 +13698,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -13816,7 +13712,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -13824,17 +13719,14 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="7"
                                           y2="11"
                                         />
-                                         
                                         <path
                                           class="ql-even ql-stroke"
                                           d="M8.9,4.577a3.476,3.476,0,0,1,.36,4.679A3.476,3.476,0,0,1,4.577,8.9C3.185,7.5,2.035,6.4,4.217,4.217S7.5,3.185,8.9,4.577Z"
                                         />
-                                         
                                         <path
                                           class="ql-even ql-stroke"
                                           d="M13.423,9.1a3.476,3.476,0,0,0-4.679-.36,3.476,3.476,0,0,0,.36,4.679c1.392,1.392,2.5,2.542,4.679.36S14.815,10.5,13.423,9.1Z"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -13850,7 +13742,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                         class=""
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="5"
@@ -13858,7 +13749,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="3"
                                           y2="3"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -13866,7 +13756,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="12"
                                           y2="3"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="11"
@@ -13874,7 +13763,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="11"
                                           y2="15"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="15"
@@ -13882,7 +13770,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           y1="11"
                                           y2="15"
                                         />
-                                         
                                         <rect
                                           class="ql-fill"
                                           height="1"
@@ -13892,7 +13779,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                           x="2"
                                           y="14"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -13904,17 +13790,13 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                     class="ql-container ql-snow"
                                   >
                                     <div
-                                      class="ql-editor"
+                                      class="ql-editor ql-blank"
                                       contenteditable="true"
-                                      data-gramm="false"
                                     >
-                                      <div />
+                                      <div>
+                                        <br />
+                                      </div>
                                     </div>
-                                    <div
-                                      class="ql-clipboard"
-                                      contenteditable="true"
-                                      tabindex="-1"
-                                    />
                                     <div
                                       class="ql-tooltip ql-hidden"
                                     >
@@ -14396,6 +14278,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                 data-test-format="YYYY-MM-DD hh:mm A"
                                 data-test-id="dates"
                                 data-test-type="date-range-picker"
+                                data-testid="date-range-picker"
                                 name="dates"
                               >
                                 <div
@@ -14512,6 +14395,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                 class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow ant-select-show-search"
                                 data-test-id="timezone"
                                 data-test-type="single-select"
+                                data-testid="select-box"
                                 form="[object Object]"
                                 name="timezone"
                                 placement="bottomLeft"
@@ -14541,9 +14425,9 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                     class="ant-select-selection-item"
                                   >
                                     <span
-                                      data-test-id="timezone-option-Europe/Warsaw"
+                                      data-test-id="timezone-option-UTC"
                                     >
-                                      Europe/Warsaw
+                                      UTC
                                     </span>
                                   </span>
                                 </div>
@@ -15644,6 +15528,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                               class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow ant-select-show-search"
                                               data-test-id="address.country"
                                               data-test-type="single-select"
+                                              data-testid="select-box"
                                               form="[object Object]"
                                               name="address.country"
                                               placement="bottomLeft"
@@ -15811,6 +15696,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                 class="ant-select ant-select-in-form-item ant-select-multiple ant-select-show-arrow ant-select-show-search"
                                 data-test-id="field_of_interest"
                                 data-test-type="multiple-select"
+                                data-testid="select-box"
                                 form="[object Object]"
                                 name="field_of_interest"
                                 placement="bottomLeft"
@@ -16319,17 +16205,14 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <path
                                           class="ql-stroke"
                                           d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z"
                                         />
-                                         
                                         <path
                                           class="ql-stroke"
                                           d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z"
                                         />
-                                         
                                       </svg>
                                     </button>
                                     <button
@@ -16340,7 +16223,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -16348,7 +16230,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="5"
@@ -16356,7 +16237,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="8"
@@ -16364,7 +16244,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="14"
                                           y2="4"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -16380,7 +16259,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -16388,7 +16266,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -16396,7 +16273,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="9"
                                           y2="9"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -16404,7 +16280,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                         <line
                                           class="ql-stroke ql-thin"
                                           x1="2.5"
@@ -16412,22 +16287,18 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="5.5"
                                           y2="5.5"
                                         />
-                                         
                                         <path
                                           class="ql-fill"
                                           d="M3.5,6A0.5,0.5,0,0,1,3,5.5V3.085l-0.276.138A0.5,0.5,0,0,1,2.053,3c-0.124-.247-0.023-0.324.224-0.447l1-.5A0.5,0.5,0,0,1,4,2.5v3A0.5,0.5,0,0,1,3.5,6Z"
                                         />
-                                         
                                         <path
                                           class="ql-stroke ql-thin"
                                           d="M4.5,10.5h-2c0-.234,1.85-1.076,1.85-2.234A0.959,0.959,0,0,0,2.5,8.156"
                                         />
-                                         
                                         <path
                                           class="ql-stroke ql-thin"
                                           d="M2.5,14.846a0.959,0.959,0,0,0,1.85-.109A0.7,0.7,0,0,0,3.75,14a0.688,0.688,0,0,0,.6-0.736,0.959,0.959,0,0,0-1.85-.109"
                                         />
-                                         
                                       </svg>
                                     </button>
                                     <button
@@ -16439,7 +16310,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -16447,7 +16317,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -16455,7 +16324,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="9"
                                           y2="9"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -16463,7 +16331,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="3"
@@ -16471,7 +16338,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="4"
                                           y2="4"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="3"
@@ -16479,7 +16345,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="9"
                                           y2="9"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="3"
@@ -16487,7 +16352,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="14"
                                           y2="14"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -16502,7 +16366,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                       <svg
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="7"
@@ -16510,17 +16373,14 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="7"
                                           y2="11"
                                         />
-                                         
                                         <path
                                           class="ql-even ql-stroke"
                                           d="M8.9,4.577a3.476,3.476,0,0,1,.36,4.679A3.476,3.476,0,0,1,4.577,8.9C3.185,7.5,2.035,6.4,4.217,4.217S7.5,3.185,8.9,4.577Z"
                                         />
-                                         
                                         <path
                                           class="ql-even ql-stroke"
                                           d="M13.423,9.1a3.476,3.476,0,0,0-4.679-.36,3.476,3.476,0,0,0,.36,4.679c1.392,1.392,2.5,2.542,4.679.36S14.815,10.5,13.423,9.1Z"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -16536,7 +16396,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                         class=""
                                         viewBox="0 0 18 18"
                                       >
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="5"
@@ -16544,7 +16403,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="3"
                                           y2="3"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="6"
@@ -16552,7 +16410,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="12"
                                           y2="3"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="11"
@@ -16560,7 +16417,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="11"
                                           y2="15"
                                         />
-                                         
                                         <line
                                           class="ql-stroke"
                                           x1="15"
@@ -16568,7 +16424,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           y1="11"
                                           y2="15"
                                         />
-                                         
                                         <rect
                                           class="ql-fill"
                                           height="1"
@@ -16578,7 +16433,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                           x="2"
                                           y="14"
                                         />
-                                         
                                       </svg>
                                     </button>
                                   </span>
@@ -16590,17 +16444,13 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                     class="ql-container ql-snow"
                                   >
                                     <div
-                                      class="ql-editor"
+                                      class="ql-editor ql-blank"
                                       contenteditable="true"
-                                      data-gramm="false"
                                     >
-                                      <div />
+                                      <div>
+                                        <br />
+                                      </div>
                                     </div>
-                                    <div
-                                      class="ql-clipboard"
-                                      contenteditable="true"
-                                      tabindex="-1"
-                                    />
                                     <div
                                       class="ql-tooltip ql-hidden"
                                     >
@@ -16965,6 +16815,7 @@ exports[`Submissions > navigates to SubmissionSuccessPage when /submissions/lite
   >
     <div
       class="ant-row ant-row-center"
+      data-testid="submission-success-page"
       type="flex"
     >
       <div
@@ -17018,6 +16869,7 @@ exports[`Submissions > navigates to SubmissionSuccessPage when /submissions/succ
   >
     <div
       class="ant-row ant-row-center"
+      data-testid="submission-success-page"
       type="flex"
     >
       <div

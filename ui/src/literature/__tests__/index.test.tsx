@@ -1,16 +1,11 @@
 import React from 'react';
 import { waitFor } from '@testing-library/react';
-import Loadable from 'react-loadable';
 import { fromJS } from 'immutable';
 
 import { renderWithProviders } from '../../fixtures/render';
 import Literature from '..';
 
 describe('Literature', () => {
-  beforeEach(async () => {
-    await Loadable.preloadAll();
-  });
-
   it('navigates to SearchPageContainer when /literature', async () => {
     const { asFragment } = renderWithProviders(<Literature />, {
       route: '/literature',

@@ -1,7 +1,6 @@
 import React from 'react';
 import { fromJS } from 'immutable';
 import { screen } from '@testing-library/react';
-import Loadable from 'react-loadable';
 import { renderWithProviders, renderWithRouter } from '../../fixtures/render';
 import { getStore } from '../../fixtures/store';
 import Seminars from '..';
@@ -12,18 +11,17 @@ describe('Seminars', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('navigates to SearchPage when /seminars', async () => {
+  it('navigates to SearchPage when /seminars', () => {
     renderWithProviders(<Seminars />, {
       route: '/seminars',
     });
-    await Loadable.preloadAll();
 
     expect(
       screen.getByTestId('seminars-search-page-container')
     ).toBeInTheDocument();
   });
 
-  it('navigates to DetailPageContainer when /seminars/:id', async () => {
+  it('navigates to DetailPageContainer when /seminars/:id', () => {
     const store = getStore({
       seminars: fromJS({
         data: {
@@ -43,7 +41,6 @@ describe('Seminars', () => {
       route: '/seminars/123',
       store,
     });
-    await Loadable.preloadAll();
 
     expect(
       screen.getByTestId('seminars-detail-page-container')

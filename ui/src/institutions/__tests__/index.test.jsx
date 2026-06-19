@@ -1,6 +1,5 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import Loadable from 'react-loadable';
 import { fromJS } from 'immutable';
 import { renderWithProviders, renderWithRouter } from '../../fixtures/render';
 import Institutions from '..';
@@ -11,17 +10,16 @@ describe('Institutions', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('navigates to SearchPage when /institutions', async () => {
+  it('navigates to SearchPage when /institutions', () => {
     renderWithProviders(<Institutions />, {
       route: '/institutions',
     });
-    await Loadable.preloadAll();
     expect(
       screen.getByTestId('institutions-search-page-container')
     ).toBeInTheDocument();
   });
 
-  it('navigates to DetailPageContainer when /institutions/:id', async () => {
+  it('navigates to DetailPageContainer when /institutions/:id', () => {
     const initialState = {
       institutions: fromJS({
         data: {
@@ -41,7 +39,6 @@ describe('Institutions', () => {
       route: '/institutions/1',
       initialState,
     });
-    await Loadable.preloadAll();
 
     expect(
       screen.getByTestId('institutions-detail-page-container')
