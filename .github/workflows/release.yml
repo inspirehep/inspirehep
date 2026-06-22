@@ -18,10 +18,16 @@ jobs:
           fetch-depth: 0
 
       - name: Push
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: |
+          if [[ -z "$RELEASE_TAG" ]]; then
+            echo "::error::release.tag_name is empty — refusing to push"
+            exit 1
+          fi
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git push --force --follow-tags origin ${{ github.ref_name }}:prod
+          git push --force --follow-tags origin "$RELEASE_TAG:prod"
 
       - name: Generate metadata
         id: meta
@@ -47,7 +53,7 @@ jobs:
 
       - name: push semver tag
         env:
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
           TAGS: ${{ steps.meta.outputs.tags }} # all sha tags created by the metadata-action
         run: |
           echo "Promoting images:"
