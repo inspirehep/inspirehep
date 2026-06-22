@@ -4,7 +4,7 @@ import useAxios from 'axios-hooks';
 import { renderWithRouter } from '../../../fixtures/render';
 import NewsAndUpdates from '../NewsAndUpdates';
 
-jest.mock('axios-hooks');
+vi.mock('axios-hooks');
 
 const mockData = [
   {

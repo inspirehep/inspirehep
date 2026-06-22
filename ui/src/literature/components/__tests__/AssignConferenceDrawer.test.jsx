@@ -6,8 +6,8 @@ import AssignConferencesDrawer from '../AssignConferencesDrawer';
 import { getStore } from '../../../fixtures/store';
 import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('react-router-dom', () => {
-  const actual = jest.requireActual('react-router-dom');
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
   return { ...actual, useParams: jest.fn().mockReturnValue({ id: 123 }) };
 });
 

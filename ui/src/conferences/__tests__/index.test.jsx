@@ -6,13 +6,13 @@ import Loadable from 'react-loadable';
 import { renderWithProviders } from '../../fixtures/render';
 import Conferences from '..';
 
-jest.mock('../containers/DetailPageContainer', () => () => (
-  <div data-testid="detail-page-container">Detail Page</div>
-));
+vi.mock('../containers/DetailPageContainer', () => ({
+  default: () => <div data-testid="detail-page-container">Detail Page</div>,
+}));
 
-jest.mock('../containers/SearchPageContainer', () => () => (
-  <div data-testid="search-page-container">Search Page</div>
-));
+vi.mock('../containers/SearchPageContainer', () => ({
+  default: () => <div data-testid="search-page-container">Search Page</div>,
+}));
 
 describe('Conferences', () => {
   beforeEach(async () => {

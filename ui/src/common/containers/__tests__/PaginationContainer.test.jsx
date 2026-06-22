@@ -7,7 +7,7 @@ import PaginationContainer from '../PaginationContainer';
 import { LITERATURE_NS } from '../../../search/constants';
 import { searchQueryUpdate } from '../../../actions/search';
 
-jest.mock('../../../actions/search');
+vi.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
 
 describe('PaginationContainer', () => {

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`TabNameWithCount renders with required props 1`] = `
+exports[`TabNameWithCount > renders with required props 1`] = `
 <DocumentFragment>
   <span>
     <span>

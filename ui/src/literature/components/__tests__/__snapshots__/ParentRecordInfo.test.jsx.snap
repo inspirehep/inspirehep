@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ParentRecordInfo renders with parent record 1`] = `
+exports[`ParentRecordInfo > renders with parent record 1`] = `
 <DocumentFragment>
   <div>
     <span>
@@ -15,7 +15,7 @@ exports[`ParentRecordInfo renders with parent record 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ParentRecordInfo renders with subtitle and pages in parent record 1`] = `
+exports[`ParentRecordInfo > renders with subtitle and pages in parent record 1`] = `
 <DocumentFragment>
   <div>
     <span>

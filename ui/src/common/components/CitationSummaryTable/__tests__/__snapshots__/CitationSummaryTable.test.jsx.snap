@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`CitationSummaryTable renders table with null numbers 1`] = `
+exports[`CitationSummaryTable > renders table with null numbers 1`] = `
 <DocumentFragment>
   <div
     class="__CitationTable__"
@@ -136,7 +136,7 @@ exports[`CitationSummaryTable renders table with null numbers 1`] = `
 </DocumentFragment>
 `;
 
-exports[`CitationSummaryTable renders table with only required props 1`] = `
+exports[`CitationSummaryTable > renders table with only required props 1`] = `
 <DocumentFragment>
   <div
     class="__CitationTable__"
@@ -280,7 +280,7 @@ exports[`CitationSummaryTable renders table with only required props 1`] = `
 </DocumentFragment>
 `;
 
-exports[`CitationSummaryTable renders table without render props 1`] = `
+exports[`CitationSummaryTable > renders table without render props 1`] = `
 <DocumentFragment>
   <div
     class="__CitationTable__"

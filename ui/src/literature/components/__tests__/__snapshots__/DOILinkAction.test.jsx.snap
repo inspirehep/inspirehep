@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`DOILinkAction renders with a doi id 1`] = `
+exports[`DOILinkAction > renders with a doi id 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"
@@ -46,7 +46,7 @@ exports[`DOILinkAction renders with a doi id 1`] = `
 </DocumentFragment>
 `;
 
-exports[`DOILinkAction renders with multiple doi ids 1`] = `
+exports[`DOILinkAction > renders with multiple doi ids 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"
@@ -92,7 +92,7 @@ exports[`DOILinkAction renders with multiple doi ids 1`] = `
 </DocumentFragment>
 `;
 
-exports[`DOILinkAction renders with multiple doi ids and material 1`] = `
+exports[`DOILinkAction > renders with multiple doi ids and material 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"

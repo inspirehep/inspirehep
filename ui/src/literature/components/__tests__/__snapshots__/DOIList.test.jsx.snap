@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`DOIList renders with dois 1`] = `
+exports[`DOIList > renders with dois 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
@@ -41,7 +41,7 @@ exports[`DOIList renders with dois 1`] = `
 </DocumentFragment>
 `;
 
-exports[`DOIList renders with dois and showLabel as false 1`] = `
+exports[`DOIList > renders with dois and showLabel as false 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
@@ -77,7 +77,7 @@ exports[`DOIList renders with dois and showLabel as false 1`] = `
 </DocumentFragment>
 `;
 
-exports[`DOIList renders with dois and showLabel as true 1`] = `
+exports[`DOIList > renders with dois and showLabel as true 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"

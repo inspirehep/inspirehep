@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ConferenceInfoList renders conference link 1`] = `
+exports[`ConferenceInfoList > renders conference link 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
@@ -38,7 +38,7 @@ exports[`ConferenceInfoList renders conference link 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ConferenceInfoList renders contribution label if document type is other than proceedings 1`] = `
+exports[`ConferenceInfoList > renders contribution label if document type is other than proceedings 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"
@@ -76,7 +76,7 @@ exports[`ConferenceInfoList renders contribution label if document type is other
 </DocumentFragment>
 `;
 
-exports[`ConferenceInfoList renders proceedings label if document type is proceedings 1`] = `
+exports[`ConferenceInfoList > renders proceedings label if document type is proceedings 1`] = `
 <DocumentFragment>
   <div
     class="__InlineList__"

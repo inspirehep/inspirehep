@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`LiteratureSelectAll render unchecked if all publications are not part of the selection 1`] = `
+exports[`LiteratureSelectAll > render unchecked if all publications are not part of the selection 1`] = `
 <DocumentFragment>
   <label
     class="ant-checkbox-wrapper"
@@ -21,7 +21,7 @@ exports[`LiteratureSelectAll render unchecked if all publications are not part o
 </DocumentFragment>
 `;
 
-exports[`LiteratureSelectAll renders checked if all publications are part of the selection 1`] = `
+exports[`LiteratureSelectAll > renders checked if all publications are part of the selection 1`] = `
 <DocumentFragment>
   <label
     class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"

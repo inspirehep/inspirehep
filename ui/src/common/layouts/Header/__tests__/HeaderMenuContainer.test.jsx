@@ -5,9 +5,9 @@ import HeaderMenuContainer from '../HeaderMenuContainer';
 import HeaderMenu from '../HeaderMenu';
 import { renderWithProviders } from '../../../../fixtures/render';
 
-jest.mock('../HeaderMenu', () =>
-  jest.fn(() => <div data-testid="header-menu" />)
-);
+vi.mock('../HeaderMenu', () => ({
+  default: jest.fn(() => <div data-testid="header-menu" />),
+}));
 
 describe('HeaderMenuContainer', () => {
   it('passes props from state', () => {

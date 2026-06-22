@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SeminarDateTimes renders with dates different days 1`] = `
+exports[`SeminarDateTimes > renders with dates different days 1`] = `
 <DocumentFragment>
   <span>
     15 May 2020, 11:45 AM - 17 May 2021, 12:45 AM
@@ -8,7 +8,7 @@ exports[`SeminarDateTimes renders with dates different days 1`] = `
 </DocumentFragment>
 `;
 
-exports[`SeminarDateTimes renders with dates same day 1`] = `
+exports[`SeminarDateTimes > renders with dates same day 1`] = `
 <DocumentFragment>
   <span>
     15 May 2020, 01:45 PM - 02:45 AM
@@ -16,7 +16,7 @@ exports[`SeminarDateTimes renders with dates same day 1`] = `
 </DocumentFragment>
 `;
 
-exports[`SeminarDateTimes renders with timezone abbreviation 1`] = `
+exports[`SeminarDateTimes > renders with timezone abbreviation 1`] = `
 <DocumentFragment>
   <span>
     15 May 2020, 01:45 PM - 17 May 2021, 02:45 AM CEST

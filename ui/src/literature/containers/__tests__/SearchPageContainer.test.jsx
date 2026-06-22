@@ -6,36 +6,28 @@ import { renderWithProviders } from '../../../fixtures/render';
 import SearchPageContainer from '../SearchPageContainer';
 import { LITERATURE_NS } from '../../../search/constants';
 
-jest.mock(
-  '../LiteratureSearchContainer',
-  () =>
-    function MockLiteratureSearchContainer(props) {
-      return (
-        <div data-testid="literature-search-container">
-          <div data-testid="assign-view-context">
-            {String(props.assignView)}
-          </div>
-          <div data-testid="number-of-selected">{props.numberOfSelected}</div>
-        </div>
-      );
-    }
-);
+vi.mock('../LiteratureSearchContainer', () => ({
+  default: function MockLiteratureSearchContainer(props) {
+    return (
+      <div data-testid="literature-search-container">
+        <div data-testid="assign-view-context">{String(props.assignView)}</div>
+        <div data-testid="number-of-selected">{props.numberOfSelected}</div>
+      </div>
+    );
+  },
+}));
 
-jest.mock(
-  '../AssignConferencesDrawerContainer',
-  () =>
-    function MockAssignConferencesDrawerContainer() {
-      return <div data-testid="assign-conferences-drawer" />;
-    }
-);
+vi.mock('../AssignConferencesDrawerContainer', () => ({
+  default: function MockAssignConferencesDrawerContainer() {
+    return <div data-testid="assign-conferences-drawer" />;
+  },
+}));
 
-jest.mock(
-  '../ToolActionContainer',
-  () =>
-    function MockToolActionContainer() {
-      return <div data-testid="tool-action-container" />;
-    }
-);
+vi.mock('../ToolActionContainer', () => ({
+  default: function MockToolActionContainer() {
+    return <div data-testid="tool-action-container" />;
+  },
+}));
 
 describe('SearchPageContainer Container', () => {
   it('renders with assignView true when cataloger is logged in', () => {

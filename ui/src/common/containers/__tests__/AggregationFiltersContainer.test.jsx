@@ -9,11 +9,11 @@ import { LITERATURE_NS } from '../../../search/constants';
 import { searchQueryUpdate } from '../../../actions/search';
 import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('../../../actions/search');
+vi.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
 
-jest.mock('../../components/AggregationFilters', () => {
-  const actual = jest.requireActual('../../components/AggregationFilters');
+vi.mock('../../components/AggregationFilters', async () => {
+  const actual = await vi.importActual('../../components/AggregationFilters');
   return {
     __esModule: true,
     default: jest.fn(actual.default),

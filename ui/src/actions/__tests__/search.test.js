@@ -15,7 +15,7 @@ import { LITERATURE_NS, AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
 import { LITERATURE } from '../../common/routes';
 import searchConfig from '../../search/config';
 
-jest.mock('../../search/config');
+vi.mock('../../search/config');
 
 const mockHttp = new MockAdapter(http.httpClient);
 

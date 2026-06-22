@@ -4,17 +4,19 @@ import { fireEvent, render } from '@testing-library/react';
 import UserSettingsAction from '../UserSettingsAction';
 import UserSettingsModal from '../UserSettingsModal';
 
-jest.mock('../UserSettingsModal', () => {
-  const actual = jest.requireActual('../UserSettingsModal');
+vi.mock('../UserSettingsModal', async () => {
+  const actual = await vi.importActual('../UserSettingsModal');
   return {
     __esModule: true,
     default: jest.fn((props) => <actual.default {...props} />),
   };
 });
 
-jest.mock('../../containers/OrcidPushSettingContainer', () => () => (
-  <div data-testid="orcid-push-setting">ORCID Push Settings</div>
-));
+vi.mock('../../containers/OrcidPushSettingContainer', async () => ({
+  default: () => (
+    <div data-testid="orcid-push-setting">ORCID Push Settings</div>
+  ),
+}));
 
 function wait(milisec = 2500) {
   return new Promise((resolve) => {

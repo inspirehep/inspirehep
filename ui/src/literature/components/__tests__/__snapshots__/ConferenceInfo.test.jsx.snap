@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ConferenceInfo renders with acronyms 1`] = `
+exports[`ConferenceInfo > renders with acronyms 1`] = `
 <DocumentFragment>
   <span>
     <a
@@ -30,7 +30,7 @@ exports[`ConferenceInfo renders with acronyms 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ConferenceInfo renders with acronyms and start and end page 1`] = `
+exports[`ConferenceInfo > renders with acronyms and start and end page 1`] = `
 <DocumentFragment>
   <span>
     <a
@@ -57,7 +57,7 @@ exports[`ConferenceInfo renders with acronyms and start and end page 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ConferenceInfo renders with only page end 1`] = `
+exports[`ConferenceInfo > renders with only page end 1`] = `
 <DocumentFragment>
   <span>
     <a
@@ -81,7 +81,7 @@ exports[`ConferenceInfo renders with only page end 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ConferenceInfo renders with only page start 1`] = `
+exports[`ConferenceInfo > renders with only page start 1`] = `
 <DocumentFragment>
   <span>
     <a
@@ -108,7 +108,7 @@ exports[`ConferenceInfo renders with only page start 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ConferenceInfo renders without acronyms present 1`] = `
+exports[`ConferenceInfo > renders without acronyms present 1`] = `
 <DocumentFragment>
   <span>
     <a

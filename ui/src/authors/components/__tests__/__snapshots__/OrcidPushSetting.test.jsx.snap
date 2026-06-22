@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`OrcidPushSetting renders when disabled 1`] = `
+exports[`OrcidPushSetting > renders when disabled 1`] = `
 <DocumentFragment>
   <div
     class="mb3"
@@ -38,7 +38,7 @@ exports[`OrcidPushSetting renders when disabled 1`] = `
 </DocumentFragment>
 `;
 
-exports[`OrcidPushSetting renders when enabled 1`] = `
+exports[`OrcidPushSetting > renders when enabled 1`] = `
 <DocumentFragment>
   <div
     class="mb3"

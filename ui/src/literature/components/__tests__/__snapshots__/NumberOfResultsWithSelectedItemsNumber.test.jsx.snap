@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`NumberOfResultsWithSelectedItemsNumber renders correctly with default props 1`] = `
+exports[`NumberOfResultsWithSelectedItemsNumber > renders correctly with default props 1`] = `
 <DocumentFragment>
   <span>
     <span
@@ -12,7 +12,7 @@ exports[`NumberOfResultsWithSelectedItemsNumber renders correctly with default p
 </DocumentFragment>
 `;
 
-exports[`NumberOfResultsWithSelectedItemsNumber renders correctly with numberOfSelected 1`] = `
+exports[`NumberOfResultsWithSelectedItemsNumber > renders correctly with numberOfSelected 1`] = `
 <DocumentFragment>
   <span>
     5 of 
@@ -25,7 +25,7 @@ exports[`NumberOfResultsWithSelectedItemsNumber renders correctly with numberOfS
 </DocumentFragment>
 `;
 
-exports[`NumberOfResultsWithSelectedItemsNumber renders correctly with numberOfSelected as 0 1`] = `
+exports[`NumberOfResultsWithSelectedItemsNumber > renders correctly with numberOfSelected as 0 1`] = `
 <DocumentFragment>
   <span>
     <span

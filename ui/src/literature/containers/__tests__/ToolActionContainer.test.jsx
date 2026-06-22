@@ -11,10 +11,13 @@ import {
 import * as constants from '../../constants';
 import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('../../../actions/literature');
-jest.mock('../../components/ToolAction', () =>
-  jest.fn(() => <div data-testid="tool-action">Mock ToolAction</div>)
-);
+vi.mock('../../../actions/literature');
+vi.mock('../../constants', async () => ({
+  ...(await vi.importActual('../../constants')),
+}));
+vi.mock('../../components/ToolAction', () => ({
+  default: jest.fn(() => <div data-testid="tool-action">Mock ToolAction</div>),
+}));
 
 mockActionCreator(setAssignDrawerVisibility);
 mockActionCreator(exportToCds);

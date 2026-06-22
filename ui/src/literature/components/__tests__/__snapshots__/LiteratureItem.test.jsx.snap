@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`LiteratureItem does not arxiv pdf download action if there is no eprint value 1`] = `
+exports[`LiteratureItem > does not arxiv pdf download action if there is no eprint value 1`] = `
 <DocumentFragment>
   <div
     data-test-id="literature-result-item"
@@ -204,7 +204,7 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
 </DocumentFragment>
 `;
 
-exports[`LiteratureItem renders 0 citations if it does not exist 1`] = `
+exports[`LiteratureItem > renders 0 citations if it does not exist 1`] = `
 <DocumentFragment>
   <div
     data-test-id="literature-result-item"
@@ -408,7 +408,7 @@ exports[`LiteratureItem renders 0 citations if it does not exist 1`] = `
 </DocumentFragment>
 `;
 
-exports[`LiteratureItem renders publication info when book exists but publication title not 1`] = `
+exports[`LiteratureItem > renders publication info when book exists but publication title not 1`] = `
 <DocumentFragment>
   <div
     data-test-id="literature-result-item"
@@ -632,7 +632,7 @@ exports[`LiteratureItem renders publication info when book exists but publicatio
 </DocumentFragment>
 `;
 
-exports[`LiteratureItem renders with all props set, including sub props 1`] = `
+exports[`LiteratureItem > renders with all props set, including sub props 1`] = `
 <DocumentFragment>
   <div
     data-test-id="literature-result-item"
@@ -1096,7 +1096,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
 </DocumentFragment>
 `;
 
-exports[`LiteratureItem renders with literature item claiming button on literature search page 1`] = `
+exports[`LiteratureItem > renders with literature item claiming button on literature search page 1`] = `
 <DocumentFragment>
   <div
     data-test-id="literature-result-item"

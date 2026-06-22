@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`PublicationSelectContainer renders checkbox checked when select all is checked 1`] = `
+exports[`PublicationSelectContainer > renders checkbox checked when select all is checked 1`] = `
 <DocumentFragment>
   <label
     class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"

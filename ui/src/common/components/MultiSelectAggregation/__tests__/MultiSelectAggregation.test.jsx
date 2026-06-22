@@ -6,7 +6,9 @@ import MultiSelectAggregation from '../MultiSelectAggregation';
 
 import * as constants from '../constants';
 
-jest.mock('../constants');
+vi.mock('../constants', async () => ({
+  ...(await vi.importActual('../constants')),
+}));
 
 describe('MultiSelectAggregation', () => {
   it('renders', () => {

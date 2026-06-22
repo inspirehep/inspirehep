@@ -1,11 +1,9 @@
-import 'core-js/es/object/entries';
-import 'core-js/es/array/includes';
-
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
+import 'antd/dist/antd.less';
 import 'tachyons';
 import * as Sentry from '@sentry/browser';
 import { Idle } from 'idlejs';
@@ -21,7 +19,7 @@ import { userInactive } from './actions/user';
 
 Sentry.init({
   dsn: getConfigFor('REACT_APP_SENTRY_DSN'),
-  release: process.env.REACT_APP_VERSION,
+  release: import.meta.env.VITE_APP_VERSION,
   environment: getConfigFor('REACT_APP_SENTRY_ENVIRONMENT'),
   ignoreErrors: [
     'ResizeObserver loop limit exceeded',
@@ -66,8 +64,6 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// TODO: change to CRA 2.0 service worker script and register instead of unregistering.
-// registerServiceWorker();
 unregisterServiceWorker();
 
 new Idle()

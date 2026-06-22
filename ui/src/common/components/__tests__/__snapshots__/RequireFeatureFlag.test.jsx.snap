@@ -1,12 +1,12 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`RequireFeatureFlag renders children if flag is set 1`] = `
+exports[`RequireFeatureFlag > renders children if flag is set 1`] = `
 <div>
   a WIP Feature
 </div>
 `;
 
-exports[`RequireFeatureFlag renders whenDisabled if flag is not set and whenDisabled is 1`] = `
+exports[`RequireFeatureFlag > renders whenDisabled if flag is not set and whenDisabled is 1`] = `
 <div>
   Almost there, this feature is WIP
 </div>

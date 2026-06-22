@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ErrorAlert renders with all props 1`] = `
+exports[`ErrorAlert > renders with all props 1`] = `
 <DocumentFragment>
   <span
     class="ant-input-group-wrapper ant-input-search ant-input-search-with-button"
@@ -47,7 +47,7 @@ exports[`ErrorAlert renders with all props 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ErrorAlert renders with default message 1`] = `
+exports[`ErrorAlert > renders with default message 1`] = `
 <DocumentFragment>
   <span
     class="ant-input-group-wrapper ant-input-search ant-input-search-with-button"

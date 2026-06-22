@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`CollectionLink renders active 1`] = `
+exports[`CollectionLink > renders active 1`] = `
 <DocumentFragment>
   <span
     class="__CollectionLink__ mh4 m-mh2"
@@ -13,7 +13,7 @@ exports[`CollectionLink renders active 1`] = `
 </DocumentFragment>
 `;
 
-exports[`CollectionLink renders active and new 1`] = `
+exports[`CollectionLink > renders active and new 1`] = `
 <DocumentFragment>
   <span
     class="__CollectionLink__ mh4 m-mh2"
@@ -32,7 +32,7 @@ exports[`CollectionLink renders active and new 1`] = `
 </DocumentFragment>
 `;
 
-exports[`CollectionLink renders default 1`] = `
+exports[`CollectionLink > renders default 1`] = `
 <DocumentFragment>
   <span
     class="__CollectionLink__ mh4 m-mh2"
@@ -45,7 +45,7 @@ exports[`CollectionLink renders default 1`] = `
 </DocumentFragment>
 `;
 
-exports[`CollectionLink renders new 1`] = `
+exports[`CollectionLink > renders new 1`] = `
 <DocumentFragment>
   <span
     class="__CollectionLink__ mh4 m-mh2"

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ArxivEprintLink renders with arXiv id 1`] = `
+exports[`ArxivEprintLink > renders with arXiv id 1`] = `
 <DocumentFragment>
   <a
     href="//arxiv.org/abs/123.123456"

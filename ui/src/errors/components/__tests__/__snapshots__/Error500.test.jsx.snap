@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Error500 renders Error500 1`] = `
+exports[`Error500 > renders Error500 1`] = `
 <DocumentFragment>
   <div
     align="middle"
@@ -53,7 +53,7 @@ exports[`Error500 renders Error500 1`] = `
       >
         <img
           alt="ERROR"
-          src="500.svg"
+          src="/src/errors/images/500.svg"
         />
       </div>
     </div>

@@ -16,7 +16,7 @@ COPY . .
 RUN apk del .build-deps && yarn build
 
 ARG VERSION
-ENV REACT_APP_VERSION="${VERSION}"
+ENV VITE_APP_VERSION="${VERSION}"
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 EXPOSE 3000

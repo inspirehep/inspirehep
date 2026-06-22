@@ -3,7 +3,7 @@ import { render, fireEvent, waitFor } from '@testing-library/react';
 
 import { ChangeEmailForm } from '../ChangeEmailForm';
 
-jest.mock('../../../../actions/settings');
+vi.mock('../../../../actions/settings');
 
 describe('ChangeEmailForm', () => {
   it('renders page', () => {

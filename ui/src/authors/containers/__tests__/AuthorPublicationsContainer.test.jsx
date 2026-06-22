@@ -7,9 +7,9 @@ import AuthorPublicationsContainer from '../AuthorPublicationsContainer';
 import AuthorPublications from '../../components/AuthorPublications';
 import { initialState } from '../../../reducers/authors';
 
-jest.mock('../../components/AuthorPublications', () =>
-  jest.fn(() => <div data-testid="author-publications" />)
-);
+vi.mock('../../components/AuthorPublications', () => ({
+  default: jest.fn(() => <div data-testid="author-publications" />),
+}));
 
 describe('AuthorPublicationsContainer with AuthorPublications mocked', () => {
   it('set assignView true if cataloger is logged in and flag is enabled', () => {

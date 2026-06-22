@@ -1,11 +1,15 @@
 {
   "root": true,
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "plugins": ["react-hooks", "prettier"],
   "extends": ["airbnb", "prettier"],
   "env": {
     "browser": true,
-    "jest": true,
+    "es2020": true,
+    "jest": true
+  },
+  "globals": {
+    "vi": "readonly"
   },
   "rules": {
     "prettier/prettier": "error",
@@ -31,6 +35,7 @@
         "aspects": ["noHref", "invalidHref", "preferButton"],
       },
     ],
+    "import/no-unresolved": ["error", { "ignore": ["\\?react$"] }],
     "import/no-extraneous-dependencies": [
       "off",
       {

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`JournalSuggestion renders with full journal 1`] = `
+exports[`JournalSuggestion > renders with full journal 1`] = `
 <DocumentFragment>
   <div>
     <strong>
@@ -17,7 +17,7 @@ exports[`JournalSuggestion renders with full journal 1`] = `
 </DocumentFragment>
 `;
 
-exports[`JournalSuggestion renders with only short_title 1`] = `
+exports[`JournalSuggestion > renders with only short_title 1`] = `
 <DocumentFragment>
   <div>
     <strong>

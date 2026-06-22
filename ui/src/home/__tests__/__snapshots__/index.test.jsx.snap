@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Home renders home page 1`] = `
+exports[`Home > renders home page 1`] = `
 <DocumentFragment>
   <div
     class="ant-row ant-row-center ant-row-middle __Home__"
@@ -206,7 +206,7 @@ exports[`Home renders home page 1`] = `
                   <img
                     alt="CERN"
                     height="40"
-                    src="collab-logo-CERN.png"
+                    src="/src/home/components/CollaborationLogos/logos/collab-logo-CERN.png"
                   />
                 </a>
               </div>
@@ -220,7 +220,7 @@ exports[`Home renders home page 1`] = `
                   <img
                     alt="DESY"
                     height="40"
-                    src="collab-logo-DESY.png"
+                    src="/src/home/components/CollaborationLogos/logos/collab-logo-DESY.png"
                   />
                 </a>
               </div>
@@ -234,7 +234,7 @@ exports[`Home renders home page 1`] = `
                   <img
                     alt="Fermilab"
                     height="40"
-                    src="collab-logo-Fermilab.png"
+                    src="/src/home/components/CollaborationLogos/logos/collab-logo-Fermilab.png"
                   />
                 </a>
               </div>
@@ -248,7 +248,7 @@ exports[`Home renders home page 1`] = `
                   <img
                     alt="IHEP"
                     height="40"
-                    src="collab-logo-IHEP.png"
+                    src="/src/home/components/CollaborationLogos/logos/collab-logo-IHEP.png"
                   />
                 </a>
               </div>
@@ -262,7 +262,7 @@ exports[`Home renders home page 1`] = `
                   <img
                     alt="IN2P3"
                     height="40"
-                    src="collab-logo-IN2P3.png"
+                    src="/src/home/components/CollaborationLogos/logos/collab-logo-IN2P3.png"
                   />
                 </a>
               </div>
@@ -276,7 +276,7 @@ exports[`Home renders home page 1`] = `
                   <img
                     alt="SLAC"
                     height="40"
-                    src="collab-logo-SLAC.png"
+                    src="/src/home/components/CollaborationLogos/logos/collab-logo-SLAC.png"
                   />
                 </a>
               </div>
@@ -290,7 +290,7 @@ exports[`Home renders home page 1`] = `
                   <img
                     alt="TIB"
                     height="40"
-                    src="collab-logo-TIB.png"
+                    src="/src/home/components/CollaborationLogos/logos/collab-logo-TIB.png"
                   />
                 </a>
               </div>
@@ -441,9 +441,7 @@ exports[`Home renders home page 1`] = `
                           focusable="false"
                           height="1em"
                           width="1em"
-                        >
-                          bluesky-filled.svg
-                        </svg>
+                        />
                       </span>
                     </a>
                   </div>

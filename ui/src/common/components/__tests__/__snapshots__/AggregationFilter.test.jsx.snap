@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AggregationFilter renders CheckboxAggregation if aggregation type is checkbox 1`] = `
+exports[`AggregationFilter > renders CheckboxAggregation if aggregation type is checkbox 1`] = `
 <DocumentFragment>
   <div
     class="w-100 br1"
@@ -11,7 +11,7 @@ exports[`AggregationFilter renders CheckboxAggregation if aggregation type is ch
     >
       <div
         class="ant-col"
-        style="flex-basis: auto;"
+        style="flex: 1 1 auto;"
       >
         <h3
           class="pb1 fw4"
@@ -28,7 +28,7 @@ exports[`AggregationFilter renders CheckboxAggregation if aggregation type is ch
     >
       <div
         class="ant-col"
-        style="flex-basis: auto;"
+        style="flex: 1 1 auto;"
       >
         <div
           class="ant-row ant-row-space-between mb2"
@@ -119,7 +119,7 @@ exports[`AggregationFilter renders CheckboxAggregation if aggregation type is ch
 </DocumentFragment>
 `;
 
-exports[`AggregationFilter renders MultiSelectAggregation if aggregation type is multiselect 1`] = `
+exports[`AggregationFilter > renders MultiSelectAggregation if aggregation type is multiselect 1`] = `
 <DocumentFragment>
   <div
     class="__MultiSelectAggregation__"
@@ -226,7 +226,7 @@ exports[`AggregationFilter renders MultiSelectAggregation if aggregation type is
 </DocumentFragment>
 `;
 
-exports[`AggregationFilter renders RangeAggregation if aggregation type is range 1`] = `
+exports[`AggregationFilter > renders RangeAggregation if aggregation type is range 1`] = `
 <DocumentFragment>
   <div
     class="w-100 br1"
@@ -237,7 +237,7 @@ exports[`AggregationFilter renders RangeAggregation if aggregation type is range
     >
       <div
         class="ant-col"
-        style="flex-basis: auto;"
+        style="flex: 1 1 auto;"
       >
         <h3
           class="pb1 fw4"
@@ -254,7 +254,7 @@ exports[`AggregationFilter renders RangeAggregation if aggregation type is range
     >
       <div
         class="ant-col"
-        style="flex-basis: auto;"
+        style="flex: 1 1 auto;"
       >
         <div
           class="__RangeAggregation__"
@@ -367,7 +367,7 @@ exports[`AggregationFilter renders RangeAggregation if aggregation type is range
 </DocumentFragment>
 `;
 
-exports[`AggregationFilter renders TreeAggregation if aggregation type is tree 1`] = `
+exports[`AggregationFilter > renders TreeAggregation if aggregation type is tree 1`] = `
 <DocumentFragment>
   <div
     class="w-100 br1"
@@ -378,7 +378,7 @@ exports[`AggregationFilter renders TreeAggregation if aggregation type is tree 1
     >
       <div
         class="ant-col"
-        style="flex-basis: auto;"
+        style="flex: 1 1 auto;"
       >
         <h3
           class="pb1 fw4"
@@ -395,7 +395,7 @@ exports[`AggregationFilter renders TreeAggregation if aggregation type is tree 1
     >
       <div
         class="ant-col"
-        style="flex-basis: auto;"
+        style="flex: 1 1 auto;"
       >
         <div
           class="ant-tree ant-tree-icon-hide ant-tree-block-node ant-tree-unselectable"

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Logo renders 1`] = `
+exports[`Logo > renders 1`] = `
 <DocumentFragment>
   <a
     class="__Logo__"
@@ -8,9 +8,7 @@ exports[`Logo renders 1`] = `
   >
     <svg
       class="logo"
-    >
-      logo.svg
-    </svg>
+    />
   </a>
 </DocumentFragment>
 `;

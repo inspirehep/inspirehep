@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`StatusField renders if can modify and cataloger logged in 1`] = `
+exports[`StatusField > renders if can modify and cataloger logged in 1`] = `
 <DocumentFragment>
   <div
     class="ant-form-item"
@@ -86,7 +86,7 @@ exports[`StatusField renders if can modify and cataloger logged in 1`] = `
 </DocumentFragment>
 `;
 
-exports[`StatusField renders if can modify but not cataloger logged in 1`] = `
+exports[`StatusField > renders if can modify but not cataloger logged in 1`] = `
 <DocumentFragment>
   <div
     class="ant-form-item"
@@ -172,7 +172,7 @@ exports[`StatusField renders if can modify but not cataloger logged in 1`] = `
 </DocumentFragment>
 `;
 
-exports[`StatusField renders if can not modify and not cataloger logged in 1`] = `
+exports[`StatusField > renders if can not modify and not cataloger logged in 1`] = `
 <DocumentFragment>
   <div
     class="ant-form-item"

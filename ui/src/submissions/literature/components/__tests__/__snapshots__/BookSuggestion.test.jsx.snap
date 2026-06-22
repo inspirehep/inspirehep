@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`BookSuggestion renders with full book 1`] = `
+exports[`BookSuggestion > renders with full book 1`] = `
 <DocumentFragment>
   <div>
     <strong>
@@ -15,7 +15,7 @@ exports[`BookSuggestion renders with full book 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BookSuggestion renders with only title 1`] = `
+exports[`BookSuggestion > renders with only title 1`] = `
 <DocumentFragment>
   <div>
     <strong>

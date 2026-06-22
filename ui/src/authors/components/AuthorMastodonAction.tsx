@@ -5,7 +5,7 @@ import Icon from '@ant-design/icons';
 import UserAction from '../../common/components/UserAction';
 import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 import EventTracker from '../../common/components/EventTracker';
-import { ReactComponent as mastodonLogo } from '../../common/assets/mastodon.svg';
+import mastodonLogo from '../../common/assets/mastodon.svg?react';
 
 const AuthorMastodonAction = ({ mastodon }: { mastodon: string }) => {
   const [user, host] = mastodon ? mastodon.split('@') : [];

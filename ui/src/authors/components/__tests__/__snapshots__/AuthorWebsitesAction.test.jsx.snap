@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AuthorWebsitesAction renders only a url 1`] = `
+exports[`AuthorWebsitesAction > renders only a url 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"
@@ -33,7 +33,7 @@ exports[`AuthorWebsitesAction renders only a url 1`] = `
 </DocumentFragment>
 `;
 
-exports[`AuthorWebsitesAction renders only blog 1`] = `
+exports[`AuthorWebsitesAction > renders only blog 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"
@@ -66,7 +66,7 @@ exports[`AuthorWebsitesAction renders only blog 1`] = `
 </DocumentFragment>
 `;
 
-exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
+exports[`AuthorWebsitesAction > renders with a blog and urls in a dropdown 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"

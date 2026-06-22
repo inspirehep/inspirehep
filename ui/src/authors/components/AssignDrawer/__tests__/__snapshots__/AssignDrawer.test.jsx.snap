@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AssignDrawer renders assign authors search 1`] = `
+exports[`AssignDrawer > renders assign authors search 1`] = `
 <body>
   <div />
   <div>

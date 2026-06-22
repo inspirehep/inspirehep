@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Figures renders with figures 1`] = `
+exports[`Figures > renders with figures 1`] = `
 <DocumentFragment>
   <div
     class="ant-list ant-list-split ant-list-grid ant-list-something-after-last-item"
@@ -16,7 +16,9 @@ exports[`Figures renders with figures 1`] = `
           class="ant-row"
           style="margin-left: -8px; margin-right: -8px;"
         >
-          <div>
+          <div
+            style="width: 25%; max-width: 25%;"
+          >
             <div
               class="ant-col"
               style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;"

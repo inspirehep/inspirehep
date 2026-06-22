@@ -52,15 +52,15 @@ import BibliographyGeneratorPageContainer from './bibliographyGenerator/Bibliogr
 import { SUPERUSER_OR_CATALOGER } from './common/authorization';
 
 const Holdingpen$ = Loadable({
-  loader: () => import('./holdingpen'),
+  loader: () => import('./holdingpen').then((module) => module.default),
   loading: Loading,
 });
 const Backoffice$ = Loadable({
-  loader: () => import('./backoffice'),
+  loader: () => import('./backoffice').then((module) => module.default),
   loading: Loading,
 });
 const Submissions$ = Loadable({
-  loader: () => import('./submissions'),
+  loader: () => import('./submissions').then((module) => module.default),
   loading: Loading,
 });
 

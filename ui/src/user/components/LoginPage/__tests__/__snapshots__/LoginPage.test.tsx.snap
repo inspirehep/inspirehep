@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`LoginPage renders page 1`] = `
+exports[`LoginPage > renders page 1`] = `
 <DocumentFragment>
   <div
     class="ant-row ant-row-center ant-row-middle __LoginPage__ h-100"
@@ -38,7 +38,7 @@ exports[`LoginPage renders page 1`] = `
           <img
             alt="ORCID"
             class="logo mr2"
-            src="orcid.svg"
+            src="/src/common/assets/orcid.svg"
           />
           <strong>
             Login with ORCID

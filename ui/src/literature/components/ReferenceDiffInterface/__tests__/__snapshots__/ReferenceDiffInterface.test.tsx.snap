@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ReferenceDiffInterface should render 1`] = `
+exports[`ReferenceDiffInterface > should render 1`] = `
 <DocumentFragment>
   <div
     class="ant-row ant-row-center __ReferenceDiffInterface__"
@@ -631,7 +631,7 @@ exports[`ReferenceDiffInterface should render 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ReferenceDiffInterface should render with error 1`] = `
+exports[`ReferenceDiffInterface > should render with error 1`] = `
 <DocumentFragment>
   <div
     class="ant-row ant-row-center __ReferenceDiffInterface__"
@@ -986,7 +986,7 @@ exports[`ReferenceDiffInterface should render with error 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ReferenceDiffInterface should render without previous reference if it is unlinked 1`] = `
+exports[`ReferenceDiffInterface > should render without previous reference if it is unlinked 1`] = `
 <DocumentFragment>
   <div
     class="ant-row ant-row-center __ReferenceDiffInterface__"

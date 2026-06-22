@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AssignLiteratureItemDrawer renders authors list 1`] = `
+exports[`AssignLiteratureItemDrawer > renders authors list 1`] = `
 <body>
   <div
     id="root"

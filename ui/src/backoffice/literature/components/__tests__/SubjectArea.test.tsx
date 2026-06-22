@@ -12,13 +12,16 @@ import { initialState as backofficeInitialState } from '../../../../reducers/bac
 import { updateLiteratureAction } from '../../../../actions/backoffice';
 import { notifyActionError } from '../../../notifications';
 
-jest.mock('../../../../actions/backoffice', () => ({
-  ...jest.requireActual('../../../../actions/backoffice'),
-  updateLiteratureAction: jest.fn(),
-}));
+vi.mock('../../../../actions/backoffice', async () => {
+  const actual = await vi.importActual('../../../../actions/backoffice');
+  return {
+    ...(actual as object),
+    updateLiteratureAction: vi.fn(),
+  };
+});
 
-jest.mock('../../../notifications', () => ({
-  notifyActionError: jest.fn(),
+vi.mock('../../../notifications', () => ({
+  notifyActionError: vi.fn(),
 }));
 
 const defaultProps = {

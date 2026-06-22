@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ErrorPage renders with all props 1`] = `
+exports[`ErrorPage > renders with all props 1`] = `
 <DocumentFragment>
   <div
     align="middle"
@@ -51,7 +51,7 @@ exports[`ErrorPage renders with all props 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ErrorPage renders with default detail 1`] = `
+exports[`ErrorPage > renders with default detail 1`] = `
 <DocumentFragment>
   <div
     align="middle"

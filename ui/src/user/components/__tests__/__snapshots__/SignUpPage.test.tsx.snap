@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SignUpPage renders page 1`] = `
+exports[`SignUpPage > renders page 1`] = `
 <DocumentFragment>
   <div
     class="ant-row ant-row-center ant-row-middle h-100"
@@ -77,7 +77,7 @@ exports[`SignUpPage renders page 1`] = `
 </DocumentFragment>
 `;
 
-exports[`SignUpPage renders page with errors 1`] = `
+exports[`SignUpPage > renders page with errors 1`] = `
 <DocumentFragment>
   <div
     class="ant-row ant-row-center ant-row-middle h-100"
@@ -222,7 +222,7 @@ exports[`SignUpPage renders page with errors 1`] = `
 </DocumentFragment>
 `;
 
-exports[`SignUpPage renders page with loading 1`] = `
+exports[`SignUpPage > renders page with loading 1`] = `
 <DocumentFragment>
   <div
     class="ant-row ant-row-center ant-row-middle h-100"

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SecondaryButton renders button 1`] = `
+exports[`SecondaryButton > renders button 1`] = `
 <DocumentFragment>
   <button
     class="__SecondaryButton__"

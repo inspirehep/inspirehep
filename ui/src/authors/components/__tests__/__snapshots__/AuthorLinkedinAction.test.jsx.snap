@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AuthorLinkedinAction renders with linkedin 1`] = `
+exports[`AuthorLinkedinAction > renders with linkedin 1`] = `
 <DocumentFragment>
   <span
     class="__UserAction__"

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`DropdownMenu renders correctly with default props 1`] = `
+exports[`DropdownMenu > renders correctly with default props 1`] = `
 <DocumentFragment>
   <button
     class="ant-btn ant-btn-default ant-dropdown-trigger"
@@ -13,7 +13,7 @@ exports[`DropdownMenu renders correctly with default props 1`] = `
 </DocumentFragment>
 `;
 
-exports[`DropdownMenu renders correctly with disabled prop 1`] = `
+exports[`DropdownMenu > renders correctly with disabled prop 1`] = `
 <DocumentFragment>
   <button
     class="ant-btn ant-btn-default ant-dropdown-trigger"
@@ -27,7 +27,7 @@ exports[`DropdownMenu renders correctly with disabled prop 1`] = `
 </DocumentFragment>
 `;
 
-exports[`DropdownMenu renders correctly with items and onClick handlers 1`] = `
+exports[`DropdownMenu > renders correctly with items and onClick handlers 1`] = `
 <DocumentFragment>
   <button
     class="ant-btn ant-btn-default ant-dropdown-trigger"
@@ -40,7 +40,7 @@ exports[`DropdownMenu renders correctly with items and onClick handlers 1`] = `
 </DocumentFragment>
 `;
 
-exports[`DropdownMenu renders correctly with overlayClassName 1`] = `
+exports[`DropdownMenu > renders correctly with overlayClassName 1`] = `
 <DocumentFragment>
   <button
     class="ant-btn ant-btn-default ant-dropdown-trigger"

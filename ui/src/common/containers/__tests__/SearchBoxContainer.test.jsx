@@ -11,11 +11,11 @@ import { UI_EXCLUDE_SELF_CITATIONS_PARAM } from '../../../literature/containers/
 import { UI_CITATION_SUMMARY_PARAM } from '../../../literature/containers/CitationSummarySwitchContainer';
 import { clearLiteratureSelection } from '../../../actions/literature';
 
-jest.mock('../../../actions/search');
+vi.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
-jest.mock('../../../actions/literature');
+vi.mock('../../../actions/literature');
 mockActionCreator(clearLiteratureSelection);
-jest.mock('../../../actions/router');
+vi.mock('../../../actions/router');
 mockActionCreator(appendQueryToLocationSearch);
 
 describe('SearchBoxContainer', () => {

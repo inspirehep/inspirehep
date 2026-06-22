@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Submissions navigates to AuthorSubmissionPageContainer when /submissions/authors and renders correctly 1`] = `
+exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissions/authors and renders correctly 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -2593,7 +2593,7 @@ exports[`Submissions navigates to AuthorSubmissionPageContainer when /submission
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to AuthorUpdateSubmissionPageContainer when /submissions/authors/:id and renders correctly 1`] = `
+exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /submissions/authors/:id and renders correctly 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -5401,7 +5401,7 @@ exports[`Submissions navigates to AuthorUpdateSubmissionPageContainer when /subm
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to ConferenceSubmissionPageContainer when /submissions/conferences 1`] = `
+exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /submissions/conferences 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -7297,7 +7297,7 @@ exports[`Submissions navigates to ConferenceSubmissionPageContainer when /submis
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to ConferenceSubmissionSuccessPageContainer when /submissions/conferences/new/success 1`] = `
+exports[`Submissions > navigates to ConferenceSubmissionSuccessPageContainer when /submissions/conferences/new/success 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -7360,7 +7360,7 @@ exports[`Submissions navigates to ConferenceSubmissionSuccessPageContainer when 
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to ExperimentSubmissionPageContainer when /submissions/experiments 1`] = `
+exports[`Submissions > navigates to ExperimentSubmissionPageContainer when /submissions/experiments 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -7621,7 +7621,7 @@ exports[`Submissions navigates to ExperimentSubmissionPageContainer when /submis
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to InstitutuinsSubmissionPageContainer when /submissions/institutions 1`] = `
+exports[`Submissions > navigates to InstitutuinsSubmissionPageContainer when /submissions/institutions 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -7773,7 +7773,7 @@ exports[`Submissions navigates to InstitutuinsSubmissionPageContainer when /subm
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to JobSubmissionPageContainer when /submissions/jobs 1`] = `
+exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions/jobs 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -9494,7 +9494,7 @@ exports[`Submissions navigates to JobSubmissionPageContainer when /submissions/j
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to JobUpdateSubmissionPageContainer when /submissions/jobs/:id 1`] = `
+exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submissions/jobs/:id 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -11207,7 +11207,7 @@ exports[`Submissions navigates to JobUpdateSubmissionPageContainer when /submiss
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to JobUpdateSubmissionSuccessPage when /submissions/jobs/1/success 1`] = `
+exports[`Submissions > navigates to JobUpdateSubmissionSuccessPage when /submissions/jobs/1/success 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -11270,7 +11270,7 @@ exports[`Submissions navigates to JobUpdateSubmissionSuccessPage when /submissio
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to JournalSubmissionPageContainer when /submissions/journals 1`] = `
+exports[`Submissions > navigates to JournalSubmissionPageContainer when /submissions/journals 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -11434,7 +11434,7 @@ exports[`Submissions navigates to JournalSubmissionPageContainer when /submissio
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to LiteratureSubmissionPageContainer when /submissions/literature if whatever user and renders correctly 1`] = `
+exports[`Submissions > navigates to LiteratureSubmissionPageContainer when /submissions/literature if whatever user and renders correctly 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -11587,7 +11587,7 @@ exports[`Submissions navigates to LiteratureSubmissionPageContainer when /submis
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to SeminarSubmissionPageContainer when /submissions/seminars 1`] = `
+exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submissions/seminars 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -14155,7 +14155,7 @@ exports[`Submissions navigates to SeminarSubmissionPageContainer when /submissio
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to SeminarSubmissionSuccessPageContainer when /submissions/seminars/1/success 1`] = `
+exports[`Submissions > navigates to SeminarSubmissionSuccessPageContainer when /submissions/seminars/1/success 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -14218,7 +14218,7 @@ exports[`Submissions navigates to SeminarSubmissionSuccessPageContainer when /su
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to SeminarSubmissionSuccessPageContainer when /submissions/seminars/new/success 1`] = `
+exports[`Submissions > navigates to SeminarSubmissionSuccessPageContainer when /submissions/seminars/new/success 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -14281,7 +14281,7 @@ exports[`Submissions navigates to SeminarSubmissionSuccessPageContainer when /su
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to SeminarUpdateSubmissionPageContainer when /submissions/seminars/:id 1`] = `
+exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /submissions/seminars/:id 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -16841,7 +16841,7 @@ exports[`Submissions navigates to SeminarUpdateSubmissionPageContainer when /sub
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to SubmissionSuccessPage when /submissions/authors/1/success 1`] = `
+exports[`Submissions > navigates to SubmissionSuccessPage when /submissions/authors/1/success 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -16903,7 +16903,7 @@ exports[`Submissions navigates to SubmissionSuccessPage when /submissions/author
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to SubmissionSuccessPage when /submissions/authors/new/success 1`] = `
+exports[`Submissions > navigates to SubmissionSuccessPage when /submissions/authors/new/success 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -16957,7 +16957,7 @@ exports[`Submissions navigates to SubmissionSuccessPage when /submissions/author
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to SubmissionSuccessPage when /submissions/literature/new/success 1`] = `
+exports[`Submissions > navigates to SubmissionSuccessPage when /submissions/literature/new/success 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
@@ -17010,7 +17010,7 @@ exports[`Submissions navigates to SubmissionSuccessPage when /submissions/litera
 </DocumentFragment>
 `;
 
-exports[`Submissions navigates to SubmissionSuccessPage when /submissions/success 1`] = `
+exports[`Submissions > navigates to SubmissionSuccessPage when /submissions/success 1`] = `
 <DocumentFragment>
   <div
     class="w-100"

@@ -2,7 +2,7 @@ import isValidOrcid from 'is-valid-orcid';
 
 import orcid from '../orcid';
 
-jest.mock('is-valid-orcid');
+vi.mock('is-valid-orcid');
 
 describe('orcid', () => {
   const orcidSchema = orcid();

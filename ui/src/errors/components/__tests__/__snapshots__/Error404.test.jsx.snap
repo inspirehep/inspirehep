@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Error404 renders Error404 with correct props 1`] = `
+exports[`Error404 > renders Error404 with correct props 1`] = `
 <DocumentFragment>
   <div
     align="middle"
@@ -28,7 +28,7 @@ exports[`Error404 renders Error404 with correct props 1`] = `
       >
         <img
           alt="ERROR"
-          src="404.svg"
+          src="/src/errors/images/404.svg"
         />
       </div>
     </div>

@@ -1,19 +1,19 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ConferenceContributions renders 1`] = `
+exports[`ConferenceContributions > renders 1`] = `
 <div>
   <div
     class="ant-row ant-row-center mt3"
-    style="margin-left: -16px; margin-right: -16px;"
+    style=""
     type="flex"
   >
     <div
       class="ant-col ant-col-xs-0 ant-col-lg-7"
-      style="padding-left: 16px; padding-right: 16px;"
+      style=""
     />
     <div
       class="ant-col ant-col-xs-24 ant-col-lg-17"
-      style="padding-left: 16px; padding-right: 16px;"
+      style=""
     >
       <div
         class="ant-row ant-row-end ant-row-middle"

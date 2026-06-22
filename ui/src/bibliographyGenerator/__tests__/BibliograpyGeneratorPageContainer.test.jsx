@@ -7,9 +7,9 @@ import { getStore } from '../../fixtures/store';
 import { BIBLIOGRAPHY_GENERATOR_REQUEST } from '../../actions/actionTypes';
 import { renderWithProviders } from '../../fixtures/render';
 
-jest.mock('../BibliographyGenerator', () => {
+vi.mock('../BibliographyGenerator', () => {
   const MockBibliographyGenerator = jest.fn(() => null);
-  return MockBibliographyGenerator;
+  return { default: MockBibliographyGenerator };
 });
 
 describe('BibliographyGeneratorPageContainer', () => {

@@ -15,44 +15,46 @@ import { setPreference } from '../../../actions/user';
 import { fetchCitationSummary } from '../../../actions/citations';
 import { renderWithProviders } from '../../../fixtures/render';
 
-jest.mock('../../../actions/router');
+vi.mock('../../../actions/router');
 mockActionCreator(appendQueryToLocationSearch);
 
-jest.mock('../../../actions/citations');
+vi.mock('../../../actions/citations');
 mockActionCreator(fetchCitationSummary);
 
-jest.mock('../../components/CitationSummarySwitch', () => (props) => (
-  <div
-    data-testid="citation-summary-switch"
-    data-props={JSON.stringify({
-      checked: props.checked,
-      citationSummaryEnablingPreference:
-        props.citationSummaryEnablingPreference,
-    })}
-  >
-    <button
-      type="button"
-      data-testid="on-change-true-button"
-      onClick={() => props.onChange(true)}
+vi.mock('../../components/CitationSummarySwitch', () => ({
+  default: (props) => (
+    <div
+      data-testid="citation-summary-switch"
+      data-props={JSON.stringify({
+        checked: props.checked,
+        citationSummaryEnablingPreference:
+          props.citationSummaryEnablingPreference,
+      })}
     >
-      Change True
-    </button>
-    <button
-      type="button"
-      data-testid="on-change-false-button"
-      onClick={() => props.onChange(false)}
-    >
-      Change False
-    </button>
-    <button
-      type="button"
-      data-testid="on-preference-change-button"
-      onClick={() => props.onCitationSummaryUserPreferenceChange(true)}
-    >
-      Preference Change
-    </button>
-  </div>
-));
+      <button
+        type="button"
+        data-testid="on-change-true-button"
+        onClick={() => props.onChange(true)}
+      >
+        Change True
+      </button>
+      <button
+        type="button"
+        data-testid="on-change-false-button"
+        onClick={() => props.onChange(false)}
+      >
+        Change False
+      </button>
+      <button
+        type="button"
+        data-testid="on-preference-change-button"
+        onClick={() => props.onCitationSummaryUserPreferenceChange(true)}
+      >
+        Preference Change
+      </button>
+    </div>
+  ),
+}));
 
 describe('CitationSummarySwitchContainer', () => {
   it('dispatches setPreference and fetchCitationSummary when switch is toggled to true', () => {

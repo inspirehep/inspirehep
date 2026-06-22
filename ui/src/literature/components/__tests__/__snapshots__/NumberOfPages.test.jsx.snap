@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`NumberOfPages display \`page\` if number_of_pages is 1 1`] = `
+exports[`NumberOfPages > display \`page\` if number_of_pages is 1 1`] = `
 <DocumentFragment>
   <div>
     1 page
@@ -8,9 +8,9 @@ exports[`NumberOfPages display \`page\` if number_of_pages is 1 1`] = `
 </DocumentFragment>
 `;
 
-exports[`NumberOfPages renders empty if null 1`] = `<DocumentFragment />`;
+exports[`NumberOfPages > renders empty if null 1`] = `<DocumentFragment />`;
 
-exports[`NumberOfPages renders with number of pages 1`] = `
+exports[`NumberOfPages > renders with number of pages 1`] = `
 <DocumentFragment>
   <div>
     100 pages

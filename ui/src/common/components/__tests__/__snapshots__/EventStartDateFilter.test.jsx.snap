@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`EventStartDateFilter renders with selection: a date range 1`] = `
+exports[`EventStartDateFilter > renders with selection: a date range 1`] = `
 <DocumentFragment>
   <div
     class="ant-row pa3 bg-white mb3"
@@ -15,7 +15,7 @@ exports[`EventStartDateFilter renders with selection: a date range 1`] = `
       >
         <div
           class="ant-col"
-          style="flex-basis: auto;"
+          style="flex: 1 1 auto;"
         >
           <h3
             class="pb1 fw4"
@@ -32,7 +32,7 @@ exports[`EventStartDateFilter renders with selection: a date range 1`] = `
       >
         <div
           class="ant-col"
-          style="flex-basis: auto;"
+          style="flex: 1 1 auto;"
         >
           <div
             class="ant-row ant-row-middle mb3"
@@ -221,7 +221,7 @@ exports[`EventStartDateFilter renders with selection: a date range 1`] = `
 </DocumentFragment>
 `;
 
-exports[`EventStartDateFilter renders with selection: all 1`] = `
+exports[`EventStartDateFilter > renders with selection: all 1`] = `
 <DocumentFragment>
   <div
     class="ant-row pa3 bg-white mb3"
@@ -236,7 +236,7 @@ exports[`EventStartDateFilter renders with selection: all 1`] = `
       >
         <div
           class="ant-col"
-          style="flex-basis: auto;"
+          style="flex: 1 1 auto;"
         >
           <h3
             class="pb1 fw4"
@@ -253,7 +253,7 @@ exports[`EventStartDateFilter renders with selection: all 1`] = `
       >
         <div
           class="ant-col"
-          style="flex-basis: auto;"
+          style="flex: 1 1 auto;"
         >
           <div
             class="ant-row ant-row-middle mb3"
@@ -394,7 +394,7 @@ exports[`EventStartDateFilter renders with selection: all 1`] = `
 </DocumentFragment>
 `;
 
-exports[`EventStartDateFilter renders with selection: upcoming 1`] = `
+exports[`EventStartDateFilter > renders with selection: upcoming 1`] = `
 <DocumentFragment>
   <div
     class="ant-row pa3 bg-white mb3"
@@ -409,7 +409,7 @@ exports[`EventStartDateFilter renders with selection: upcoming 1`] = `
       >
         <div
           class="ant-col"
-          style="flex-basis: auto;"
+          style="flex: 1 1 auto;"
         >
           <h3
             class="pb1 fw4"
@@ -426,7 +426,7 @@ exports[`EventStartDateFilter renders with selection: upcoming 1`] = `
       >
         <div
           class="ant-col"
-          style="flex-basis: auto;"
+          style="flex: 1 1 auto;"
         >
           <div
             class="ant-row ant-row-middle mb3"
@@ -567,7 +567,7 @@ exports[`EventStartDateFilter renders with selection: upcoming 1`] = `
 </DocumentFragment>
 `;
 
-exports[`EventStartDateFilter renders without selection 1`] = `
+exports[`EventStartDateFilter > renders without selection 1`] = `
 <DocumentFragment>
   <div
     class="ant-row pa3 bg-white mb3"
@@ -582,7 +582,7 @@ exports[`EventStartDateFilter renders without selection 1`] = `
       >
         <div
           class="ant-col"
-          style="flex-basis: auto;"
+          style="flex: 1 1 auto;"
         >
           <h3
             class="pb1 fw4"
@@ -599,7 +599,7 @@ exports[`EventStartDateFilter renders without selection 1`] = `
       >
         <div
           class="ant-col"
-          style="flex-basis: auto;"
+          style="flex: 1 1 auto;"
         >
           <div
             class="ant-row ant-row-middle mb3"

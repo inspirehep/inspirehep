@@ -1,7 +1,7 @@
 import middleware from '../logoutUserOn401';
 import { userLogout } from '../../actions/user';
 
-jest.mock('../../actions/user');
+vi.mock('../../actions/user');
 
 describe('LogoutUser middleware', () => {
   let mirrorNext;

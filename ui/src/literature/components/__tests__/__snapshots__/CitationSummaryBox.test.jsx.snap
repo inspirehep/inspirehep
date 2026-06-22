@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`CitationSummaryBox renders 1`] = `
+exports[`CitationSummaryBox > renders 1`] = `
 <DocumentFragment>
   <div
     class="__ContentBox__ h-100"
@@ -67,11 +67,11 @@ exports[`CitationSummaryBox renders 1`] = `
             </label>
             <div
               class="ant-row"
-              style="margin-left: -16px; margin-right: -16px;"
+              style=""
             >
               <div
                 class="ant-col ant-col-24"
-                style="padding-left: 16px; padding-right: 16px;"
+                style=""
               >
                 <div
                   class="__CitationTable__"
@@ -215,7 +215,7 @@ exports[`CitationSummaryBox renders 1`] = `
               </div>
               <div
                 class="ant-col ant-col-24"
-                style="padding-left: 16px; padding-right: 16px;"
+                style=""
               >
                 <div
                   class="__CitationSummaryGraph__"

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SearchPageContainer renders the SearchPage component 1`] = `
+exports[`SearchPageContainer > renders the SearchPage component 1`] = `
 <DocumentFragment>
   <div
     class="__SearchPageContainer__"
@@ -133,11 +133,11 @@ exports[`SearchPageContainer renders the SearchPage component 1`] = `
       >
         <div
           class="ant-row ant-row-start mt3"
-          style="margin-left: -16px; margin-right: -16px;"
+          style=""
         >
           <div
             class="ant-col ant-col-xs-0 ant-col-lg-5"
-            style="padding-left: 16px; padding-right: 16px;"
+            style=""
           >
             <div
               class="ant-card ant-card-bordered ant-card-small"
@@ -155,7 +155,7 @@ exports[`SearchPageContainer renders the SearchPage component 1`] = `
                   >
                     <div
                       class="ant-col"
-                      style="flex-basis: auto;"
+                      style="flex: 1 1 auto;"
                     >
                       <h3
                         class="pb1 fw4"
@@ -172,7 +172,7 @@ exports[`SearchPageContainer renders the SearchPage component 1`] = `
                   >
                     <div
                       class="ant-col"
-                      style="flex-basis: auto;"
+                      style="flex: 1 1 auto;"
                     >
                       <div
                         class="ant-select ant-select-single ant-select-show-arrow"
@@ -242,7 +242,7 @@ exports[`SearchPageContainer renders the SearchPage component 1`] = `
           </div>
           <div
             class="ant-col ant-col-xs-24 ant-col-lg-19"
-            style="padding-left: 16px; padding-right: 16px;"
+            style=""
           >
             <div
               class="ant-row ant-row-no-wrap ant-row-space-between"

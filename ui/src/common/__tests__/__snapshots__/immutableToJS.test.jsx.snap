@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`immutableToJS convertAllImmutablePropsToJS converts all immutable props to built in js 1`] = `
+exports[`immutableToJS > convertAllImmutablePropsToJS > converts all immutable props to built in js 1`] = `
 <DocumentFragment>
   <span
     immutableprop="[object Object]"
@@ -10,11 +10,11 @@ exports[`immutableToJS convertAllImmutablePropsToJS converts all immutable props
 </DocumentFragment>
 `;
 
-exports[`immutableToJS convertSomeImmutablePropsToJS converts some immutable props to built in js 1`] = `
+exports[`immutableToJS > convertSomeImmutablePropsToJS > converts some immutable props to built in js 1`] = `
 <DocumentFragment>
   <span
     immutableprop1="[object Object]"
-    immutableprop2="Map { \\"foo\\": \\"bar\\" }"
+    immutableprop2="Map { "foo": "bar" }"
     mutableprop="[object Object]"
     primitiveprop="string"
   />

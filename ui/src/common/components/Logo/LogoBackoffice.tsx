@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './Logo.less';
 import { BACKOFFICE } from '../../routes';
-import { ReactComponent as LogoSvg } from './logo-backoffice.svg';
+import LogoSvg from './logo-backoffice.svg?react';
 
 const LogoBackoffice = () => (
   <Link className="__Logo__" to={BACKOFFICE}>

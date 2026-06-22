@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ExperimentSubmissionSuccessPageContainer ExperimentSubmissionSucessPage renders 1`] = `
+exports[`ExperimentSubmissionSuccessPageContainer > ExperimentSubmissionSucessPage > renders 1`] = `
 <DocumentFragment>
   <div
     class="ant-row ant-row-center"

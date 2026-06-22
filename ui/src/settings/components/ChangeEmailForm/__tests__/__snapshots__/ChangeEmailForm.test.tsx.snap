@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ChangeEmailForm disable email input and display loading on the button while loading 1`] = `
+exports[`ChangeEmailForm > disable email input and display loading on the button while loading 1`] = `
 <DocumentFragment>
   <form
     action="#"
@@ -80,7 +80,7 @@ exports[`ChangeEmailForm disable email input and display loading on the button w
 </DocumentFragment>
 `;
 
-exports[`ChangeEmailForm renders page 1`] = `
+exports[`ChangeEmailForm > renders page 1`] = `
 <DocumentFragment>
   <form
     action="#"

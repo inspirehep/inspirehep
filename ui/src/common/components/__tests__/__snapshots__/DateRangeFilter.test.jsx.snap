@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`DateRangeFilter renders DateRangeFilter with all props set 1`] = `
+exports[`DateRangeFilter > renders DateRangeFilter with all props set 1`] = `
 <DocumentFragment>
   <div>
     <div
@@ -155,7 +155,7 @@ exports[`DateRangeFilter renders DateRangeFilter with all props set 1`] = `
 </DocumentFragment>
 `;
 
-exports[`DateRangeFilter renders DateRangeFilter without range 1`] = `
+exports[`DateRangeFilter > renders DateRangeFilter without range 1`] = `
 <DocumentFragment>
   <div>
     <div

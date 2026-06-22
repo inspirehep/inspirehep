@@ -39,8 +39,8 @@ import {
 
 import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
 
-jest.mock('../../authors/assignNotification');
-jest.mock('../search');
+vi.mock('../../authors/assignNotification');
+vi.mock('../search');
 mockActionCreator(searchQueryUpdate);
 
 const mockHttp = new MockAdapter(http.httpClient);

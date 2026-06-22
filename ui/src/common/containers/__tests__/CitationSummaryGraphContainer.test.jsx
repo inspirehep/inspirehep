@@ -15,14 +15,14 @@ import { AUTHOR_PUBLICATIONS_NS } from '../../../search/constants';
 import { searchQueryUpdate } from '../../../actions/search';
 import { EXCLUDE_SELF_CITATIONS_PREFERENCE } from '../../../reducers/user';
 
-jest.mock('../../../actions/citations');
+vi.mock('../../../actions/citations');
 
-jest.mock('../../../actions/search');
+vi.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
 
-jest.mock('../../components/CitationSummaryGraph/CitationSummaryGraph', () => {
+vi.mock('../../components/CitationSummaryGraph/CitationSummaryGraph', () => {
   const MockCitationSummaryGraph = jest.fn(() => null);
-  return MockCitationSummaryGraph;
+  return { default: MockCitationSummaryGraph };
 });
 
 const mockCiteableData = [

@@ -8,7 +8,7 @@ import SortByContainer from '../SortByContainer';
 import { LITERATURE_NS } from '../../../search/constants';
 import { searchQueryUpdate } from '../../../actions/search';
 
-jest.mock('../../../actions/search');
+vi.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
 
 describe('SortByContainer', () => {
