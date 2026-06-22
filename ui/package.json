@@ -111,7 +111,7 @@
     "terser": "^5.48.0",
     "vite": "~5.4.0",
     "vite-plugin-svgr": "^4.3.0",
-    "vitest": "^2.1.0"
+    "vitest": "^3.2.6"
   },
   "resolutions": {
     "antd/rc-select": "10.1.0",
