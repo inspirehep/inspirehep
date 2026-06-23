@@ -120,7 +120,7 @@ export function assignPapers({
       );
       dispatch(clearPublicationSelection());
       dispatch(setAssignDrawerVisibility(false));
-    } catch (error) {
+    } catch {
       assignError();
     }
   };
@@ -152,7 +152,7 @@ export function unassignPapers({
       );
       dispatch(clearPublicationSelection());
       dispatch(setAssignDrawerVisibility(false));
-    } catch (error) {
+    } catch {
       assignError();
     }
   };
@@ -202,7 +202,7 @@ export function assignOwnPapers({
       dispatch(clearPublicationSelection());
       dispatch(clearPublicationsClaimedSelection());
       dispatch(clearPublicationsUnclaimedSelection());
-    } catch (error) {
+    } catch {
       assignError();
     }
   };
@@ -236,7 +236,7 @@ export function unassignOwnPapers({
       dispatch(clearPublicationSelection());
       dispatch(clearPublicationsClaimedSelection());
       dispatch(clearPublicationsUnclaimedSelection());
-    } catch (error) {
+    } catch {
       assignError();
     }
   };
@@ -279,7 +279,7 @@ export function assignDifferentProfile({
         searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: Date.now() })
       );
       dispatch(clearPublicationSelection());
-    } catch (error) {
+    } catch {
       assignError();
     }
   };
