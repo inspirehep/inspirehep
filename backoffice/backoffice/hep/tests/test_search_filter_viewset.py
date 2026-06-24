@@ -91,7 +91,7 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         )
         HepWorkflow.objects.update_or_create(
             data={
-                "titles": [{"title": "Article with conflicts"}],
+                "titles": [{"title": "Article with conflicts", "source": "desy"}],
                 "inspire_categories": [{"term": "Theory-HEP"}],
                 "publication_info": [{"journal_title": "JHEP"}],
                 "acquisition_source": {"source": "desy"},
@@ -264,7 +264,7 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         results = response.json()["results"]
         assert len(results) == 2
         for item in results:
-            assert item["data"]["acquisition_source"]["source"] == source
+            assert item["data"]["source"] == source
 
     @parameterized.expand([None, "-_updated_at"])
     def test_ordering_updated_at(self, ordering):

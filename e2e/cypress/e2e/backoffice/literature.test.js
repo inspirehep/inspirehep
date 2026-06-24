@@ -29,7 +29,7 @@ describe("New publisher harvests", () => {
     cy.assertCollectionIsVisible("new publisher harvests");
 
     cy.get('[data-testid="view-all-new publisher harvests"]').click();
-    cy.assertSearchPageIsLoadedWithResults("5 results");
+    cy.assertSearchPageIsLoadedWithResults("8 results");
   });
 
   it("should display new publisher harvests and enable access to the running list", () => {
@@ -41,7 +41,7 @@ describe("New publisher harvests", () => {
     cy.get(
       '[data-testid="view-new publisher harvests-in_progress-running"]',
     ).click();
-    cy.assertSearchPageIsLoadedWithResults("4 results");
+    cy.assertSearchPageIsLoadedWithResults("7 results");
   });
 });
 
