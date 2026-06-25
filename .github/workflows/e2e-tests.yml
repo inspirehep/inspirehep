@@ -76,7 +76,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6.0.2
         with:
           ref: ${{ inputs.ref }}
 
@@ -227,7 +227,7 @@ jobs:
           docker run --rm --network host --env-file ./backoffice-env.list --entrypoint poetry ${{ inputs.backoffice-image }} run python manage.py opensearch document index --force
 
       - name: cypress
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7.4.0
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
