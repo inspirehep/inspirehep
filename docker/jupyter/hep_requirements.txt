@@ -53,7 +53,7 @@ flask-mail==0.9.1
 flask-menu==0.7.1
 flask-oauthlib==0.9.6
 flask-principal==0.4.0
-flask-security==3.0.0
+flask-security==5.8.1
 flask-shell-ipython==0.4.1
 flask-sqlalchemy @ git+https://github.com/inspirehep/flask-sqlalchemy.git@7a998a522642a9fb89445ee6b790f05986bde481 ; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")
 flask-talisman==0.5.0
