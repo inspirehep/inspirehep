@@ -24,7 +24,7 @@ describe('CitationsByYearGraphContainer', () => {
 
     expect(getByText(1999)).toBeInTheDocument();
     expect(getByText(2002)).toBeInTheDocument();
-    expect(getByText(134)).toBeInTheDocument();
+    expect(getByText(134, { selector: 'tspan' })).toBeInTheDocument();
     expect(getByText(125)).toBeInTheDocument();
   });
 });

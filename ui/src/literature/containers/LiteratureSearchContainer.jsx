@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useContext,
-  lazy,
-  Suspense,
-} from 'react';
+import React, { useCallback, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
 import { connect } from 'react-redux';
@@ -48,10 +42,7 @@ import { APIButton } from '../../common/components/APIButton';
 import SearchFeedback from '../../common/components/SearchFeedback/SearchFeedback';
 import EventTracker from '../../common/components/EventTracker';
 import { getConfigFor } from '../../common/config';
-
-const CitationSummaryBox = lazy(
-  () => import('../components/CitationSummaryBox')
-);
+import CitationSummaryBox from '../components/CitationSummaryBox';
 
 function LiteratureSearch({
   loading,
@@ -193,9 +184,7 @@ function LiteratureSearch({
             {enableCitationSummary && isCitationSummaryVisible && (
               <Row className="mt2">
                 <Col span={24}>
-                  <Suspense fallback={null}>
-                    <CitationSummaryBox namespace={namespace} />
-                  </Suspense>
+                  <CitationSummaryBox namespace={namespace} />
                 </Col>
               </Row>
             )}
