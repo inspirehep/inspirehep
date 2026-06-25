@@ -1,8 +1,8 @@
 import React from 'react';
-import { within } from '@testing-library/react';
+import { within, screen } from '@testing-library/react';
 import { fromJS, List } from 'immutable';
-import Loadable from 'react-loadable';
 import { vi } from 'vitest';
+
 import { getStore, mockActionCreator } from '../fixtures/store';
 import { renderWithProviders } from '../fixtures/render';
 import App from '../App';
@@ -58,14 +58,13 @@ describe('App', () => {
         },
       }),
     });
-    const { getByTestId } = renderWithProviders(<App />, {
+    renderWithProviders(<App />, {
       store,
       route: '/holdingpen',
     });
-    await Loadable.preloadAll();
 
-    const app = getByTestId('app');
-    const holdingpen = within(app).getByTestId('holdingpen');
+    const app = await screen.findByTestId('app');
+    const holdingpen = await within(app).findByTestId('holdingpen');
 
     expect(holdingpen).toBeInTheDocument();
   });
@@ -79,12 +78,11 @@ describe('App', () => {
         },
       }),
     });
-    const { getByTestId } = renderWithProviders(<App />, {
+    renderWithProviders(<App />, {
       store,
       route: '/holdingpen',
     });
-    await Loadable.preloadAll();
-    const app = getByTestId('app');
+    const app = await screen.findByTestId('app');
     const holdingpen = within(app).queryByTestId('holdingpen');
 
     expect(holdingpen).not.toBeInTheDocument();
@@ -99,14 +97,12 @@ describe('App', () => {
         },
       }),
     });
-    const { getByTestId } = renderWithProviders(<App />, {
+    renderWithProviders(<App />, {
       store,
       route: BACKOFFICE,
     });
-    await Loadable.preloadAll();
-
-    const app = getByTestId('app');
-    const backoffice = within(app).getByTestId('backoffice');
+    const app = await screen.findByTestId('app');
+    const backoffice = await within(app).findByTestId('backoffice');
 
     expect(backoffice).toBeInTheDocument();
   });
@@ -120,12 +116,11 @@ describe('App', () => {
         },
       }),
     });
-    const { getByTestId } = renderWithProviders(<App />, {
+    renderWithProviders(<App />, {
       store,
       route: BACKOFFICE,
     });
-    await Loadable.preloadAll();
-    const app = getByTestId('app');
+    const app = await screen.findByTestId('app');
     const backoffice = within(app).queryByTestId('backoffice');
 
     expect(backoffice).not.toBeInTheDocument();
@@ -176,13 +171,12 @@ describe('App', () => {
         },
       }),
     });
-    const { getByTestId } = renderWithProviders(<App />, {
+    renderWithProviders(<App />, {
       store,
       route: '/submissions',
     });
-    await Loadable.preloadAll();
-    const app = getByTestId('app');
-    const submissions = within(app).getByTestId('submissions');
+    const app = await screen.findByTestId('app');
+    const submissions = await within(app).findByTestId('submissions');
 
     expect(submissions).toBeInTheDocument();
   });
@@ -196,13 +190,11 @@ describe('App', () => {
         },
       }),
     });
-    const { getByTestId } = renderWithProviders(<App />, {
+    renderWithProviders(<App />, {
       store,
       route: '/submissions',
     });
-    await Loadable.preloadAll();
-
-    const app = getByTestId('app');
+    const app = await screen.findByTestId('app');
     const submissions = within(app).queryByTestId('submissions');
 
     expect(submissions).not.toBeInTheDocument();

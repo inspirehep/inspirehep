@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
-import Loadable from 'react-loadable';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
@@ -51,18 +50,9 @@ import Journals from './journals';
 import BibliographyGeneratorPageContainer from './bibliographyGenerator/BibliographyGeneratorPageContainer';
 import { SUPERUSER_OR_CATALOGER } from './common/authorization';
 
-const Holdingpen$ = Loadable({
-  loader: () => import('./holdingpen').then((module) => module.default),
-  loading: Loading,
-});
-const Backoffice$ = Loadable({
-  loader: () => import('./backoffice').then((module) => module.default),
-  loading: Loading,
-});
-const Submissions$ = Loadable({
-  loader: () => import('./submissions').then((module) => module.default),
-  loading: Loading,
-});
+const Holdingpen$ = React.lazy(() => import('./holdingpen'));
+const Backoffice$ = React.lazy(() => import('./backoffice'));
+const Submissions$ = React.lazy(() => import('./submissions'));
 
 function App({ userRoles, dispatch, guideModalVisibility }) {
   useEffect(() => {
@@ -91,31 +81,33 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
     <Layout className="__App__" data-testid="app">
       <Header />
       <Layout.Content className="content">
-        <SafeSwitch id="main">
-          <Route exact path={HOME} component={Home} />
-          <Route path={USER} component={User} />
-          <PrivateRoute path={HOLDINGPEN} component={Holdingpen$} />
-          <PrivateRoute
-            path={BACKOFFICE}
-            component={Backoffice$}
-            authorizedRoles={SUPERUSER_OR_CATALOGER}
-          />
-          <Route path={LITERATURE} component={Literature} />
-          <Route path={AUTHORS} component={Authors} />
-          <Route path={JOBS} component={Jobs} />
-          <Route path={CONFERENCES} component={Conferences} />
-          <Route path={INSTITUTIONS} component={Institutions} />
-          <Route path={SEMINARS} component={Seminars} />
-          <Route path={EXPERIMENTS} component={Experiments} />
-          <Route path={JOURNALS} component={Journals} />
-          <Route path={DATA} component={Data} />
-          <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
-          <Route
-            path={BIBLIOGRAPHY_GENERATOR}
-            component={BibliographyGeneratorPageContainer}
-          />
-          <Route path={ERRORS} component={Errors} />
-        </SafeSwitch>
+        <Suspense fallback={<Loading />}>
+          <SafeSwitch id="main">
+            <Route exact path={HOME} component={Home} />
+            <Route path={USER} component={User} />
+            <PrivateRoute path={HOLDINGPEN} component={Holdingpen$} />
+            <PrivateRoute
+              path={BACKOFFICE}
+              component={Backoffice$}
+              authorizedRoles={SUPERUSER_OR_CATALOGER}
+            />
+            <Route path={LITERATURE} component={Literature} />
+            <Route path={AUTHORS} component={Authors} />
+            <Route path={JOBS} component={Jobs} />
+            <Route path={CONFERENCES} component={Conferences} />
+            <Route path={INSTITUTIONS} component={Institutions} />
+            <Route path={SEMINARS} component={Seminars} />
+            <Route path={EXPERIMENTS} component={Experiments} />
+            <Route path={JOURNALS} component={Journals} />
+            <Route path={DATA} component={Data} />
+            <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
+            <Route
+              path={BIBLIOGRAPHY_GENERATOR}
+              component={BibliographyGeneratorPageContainer}
+            />
+            <Route path={ERRORS} component={Errors} />
+          </SafeSwitch>
+        </Suspense>
         <GuideModalContainer />
       </Layout.Content>
       <Footer />

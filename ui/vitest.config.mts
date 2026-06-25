@@ -28,7 +28,7 @@ export default mergeConfig(
       setupFiles: ['./src/jest-polyfill.js', './src/setupTests.js'],
       server: {
         deps: {
-          inline: ['antd', /^rc-/],
+          inline: ['antd', /^rc-/, 'react-quill-new'],
         },
       },
       clearMocks: false,

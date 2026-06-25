@@ -1,5 +1,4 @@
 import React from 'react';
-import Loadable from 'react-loadable';
 import { screen } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
@@ -12,18 +11,17 @@ describe('Journals', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('navigates to SearchPage when /journals', async () => {
+  it('navigates to SearchPage when /journals', () => {
     renderWithProviders(<Journals />, {
       route: '/journals',
     });
-    await Loadable.preloadAll();
 
     expect(
       screen.getByTestId('journals-search-page-container')
     ).toBeInTheDocument();
   });
 
-  it('navigates to DetailPageContainer when /journals/:id', async () => {
+  it('navigates to DetailPageContainer when /journals/:id', () => {
     const initialState = {
       journals: fromJS({
         data: {
@@ -43,7 +41,6 @@ describe('Journals', () => {
       route: '/journals/1',
       initialState,
     });
-    await Loadable.preloadAll();
 
     expect(
       screen.getByTestId('journals-detail-page-container')

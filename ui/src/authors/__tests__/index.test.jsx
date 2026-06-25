@@ -1,5 +1,4 @@
 import React from 'react';
-import Loadable from 'react-loadable';
 import { fromJS } from 'immutable';
 
 import { getStore } from '../../fixtures/store';
@@ -12,15 +11,14 @@ describe('Authors', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('navigates to SearchPageContainer when /authors', async () => {
+  it('navigates to SearchPageContainer when /authors', () => {
     const { getByTestId } = renderWithProviders(<Authors />, {
       route: '/authors',
     });
-    await Loadable.preloadAll();
     expect(getByTestId('authors-search-page-container')).toBeInTheDocument();
   });
 
-  it('navigates to DetailPageContainer when /authors/:id', async () => {
+  it('navigates to DetailPageContainer when /authors/:id', () => {
     const store = getStore({
       authors: fromJS({
         data: {
@@ -45,7 +43,6 @@ describe('Authors', () => {
       store,
       route: '/authors/1',
     });
-    await Loadable.preloadAll();
 
     expect(getByTestId('authors-detail-page-container')).toBeInTheDocument();
   });

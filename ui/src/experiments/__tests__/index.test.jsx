@@ -1,5 +1,4 @@
 import React from 'react';
-import Loadable from 'react-loadable';
 import { fromJS } from 'immutable';
 import { renderWithProviders, renderWithRouter } from '../../fixtures/render';
 import Experiments from '..';
@@ -10,7 +9,7 @@ describe('Experiments', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('navigates to DetailPageContainer when /experiments/:id', async () => {
+  it('navigates to DetailPageContainer when /experiments/:id', () => {
     const initialState = {
       experiments: fromJS({
         data: {
@@ -26,14 +25,13 @@ describe('Experiments', () => {
       initialState,
       route: '/experiments/123',
     });
-    await Loadable.preloadAll();
 
     expect(
       getByTestId('experiments-detail-page-container')
     ).toBeInTheDocument();
   });
 
-  it('contains all the required links in the DetailPageContainer', async () => {
+  it('contains all the required links in the DetailPageContainer', () => {
     const initialState = {
       experiments: fromJS({
         data: {
@@ -50,7 +48,6 @@ describe('Experiments', () => {
       initialState,
       route: '/experiments/123',
     });
-    await Loadable.preloadAll();
 
     const experimentCollaboration = getByRole('link', {
       name: 'CERN-LHC-ATLAS',
@@ -89,7 +86,7 @@ describe('Experiments', () => {
     );
   });
 
-  it('contains all the required dates in the DetailPageContainer', async () => {
+  it('contains all the required dates in the DetailPageContainer', () => {
     const initialState = {
       experiments: fromJS({
         data: {
@@ -110,7 +107,6 @@ describe('Experiments', () => {
       initialState,
       route: '/experiments/123',
     });
-    await Loadable.preloadAll();
 
     const experimentDetailPage = getByTestId(
       'experiments-detail-page-container'
@@ -122,11 +118,10 @@ describe('Experiments', () => {
     expect(experimentDetailPage).toHaveTextContent('Completed: Feb 5, 1984');
   });
 
-  it('navigates to SearchPage when /experiments', async () => {
+  it('navigates to SearchPage when /experiments', () => {
     const { getByTestId } = renderWithProviders(<Experiments />, {
       route: '/experiments',
     });
-    await Loadable.preloadAll();
 
     expect(
       getByTestId('experiments-search-page-container')
