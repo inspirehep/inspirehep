@@ -365,7 +365,7 @@ export function curateReference({
         scrollToElement(element);
         dispatch(setScrollElement(null));
       });
-    } catch (error) {
+    } catch {
       curationError(CURATING_NOTIFICATION_KEY);
     }
   };
@@ -393,7 +393,7 @@ export function assignLiteratureItem({
         literature_ids: [literatureId],
       });
       if (data) assignLiteratureItemSuccess();
-    } catch (error) {
+    } catch {
       assignError(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
     }
   };
@@ -440,7 +440,7 @@ export function assignLiteratureItemNoNameMatch({
       } else {
         assignLiteratureItemError(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
       }
-    } catch (error) {
+    } catch {
       assignLiteratureItemError(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
     }
   };
@@ -479,7 +479,7 @@ export function checkNameCompatibility({
           })
         );
       }
-    } catch (error) {
+    } catch {
       dispatch(fetchLiteratureAllAuthors(literatureId));
       dispatch(setAssignLiteratureItemDrawerVisibility(literatureId));
     }
@@ -505,7 +505,7 @@ export function assignPapers(
       assignSuccess({ conferenceId, conferenceTitle, papers });
       dispatch(clearLiteratureSelection());
       dispatch(setAssignDrawerVisibility(false));
-    } catch (error) {
+    } catch {
       assignError(ASSIGNING_NOTIFICATION_KEY);
     }
   };
@@ -525,7 +525,7 @@ export function exportToCds(): (
       });
       exportToCdsSuccess({ papers });
       dispatch(clearLiteratureSelection());
-    } catch (error) {
+    } catch {
       exportToCdsError();
     }
   };

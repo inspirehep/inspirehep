@@ -77,7 +77,7 @@ export const refreshToken = async () => {
     const data = await res.json();
     storage.set('backoffice.token', data.access);
     return data.access;
-  } catch (error) {
+  } catch {
     window.location.assign(BACKOFFICE_LOGIN);
   }
 

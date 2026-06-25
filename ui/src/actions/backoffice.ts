@@ -179,7 +179,7 @@ export function backofficeLogout(): (
 
       dispatch(backofficeLogoutSuccess());
       dispatch(push(BACKOFFICE_LOGIN));
-    } catch (error) {
+    } catch {
       dispatch(backofficeLogoutSuccess());
     }
   };

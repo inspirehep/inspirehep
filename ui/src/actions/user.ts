@@ -97,7 +97,7 @@ export function fetchLoggedInUser(): (
     try {
       const response = await http.get('/accounts/me');
       dispatch(userLoginSuccess(response.data));
-    } catch (error) {
+    } catch {
       // TODO: differentiate between 401 and other errors
       dispatch(userLogoutSuccess());
     }
@@ -135,7 +135,7 @@ export function userLogout(): (
       // Hack to reload current page for logged out user
       dispatch(push(HOME));
       dispatch(goBack());
-    } catch (error) {
+    } catch {
       // TODO: dispatch logout error?
     }
   };
@@ -150,7 +150,7 @@ export function userInactive(): (
     if (getState().user.get('loggedIn')) {
       try {
         await http.get('/accounts/me');
-      } catch (error) {
+      } catch {
         notifySessionExpired();
         dispatch(userLogoutSuccess());
       }

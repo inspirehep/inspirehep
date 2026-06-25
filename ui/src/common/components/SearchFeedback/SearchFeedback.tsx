@@ -35,7 +35,7 @@ const SearchFeedback = ({
       setFeedbackModalVisible(false);
       form.resetFields();
       trackEvent('Feedback modal', 'Submit', `Comment: ${values.question}`);
-    } catch (error) {
+    } catch {
       message.error({
         content:
           'An error occurred while submitting your feedback. Please try again later.',
