@@ -5,8 +5,8 @@ inputs:
   durations-path:
     description: The path to the durations file (must match `--durations-path` arg to pytest)
     required: true
-  split-prefix:
-    description: The path to the split durations (must match the artifacts name)
+  artifacts-path:
+    description: The directory the per-split duration artifacts were downloaded into
     required: true
 
 runs:
@@ -15,4 +15,4 @@ runs:
     - name: Combine durations
       shell: bash
       run: >
-        python3 $GITHUB_ACTION_PATH/combine_durations.py ${{ inputs.split-prefix }} ${{ inputs.durations-path }}
+        python3 $GITHUB_ACTION_PATH/combine_durations.py ${{ inputs.artifacts-path }} ${{ inputs.durations-path }}
