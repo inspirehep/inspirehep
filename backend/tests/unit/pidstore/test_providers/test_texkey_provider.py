@@ -11,11 +11,6 @@ from inspirehep.pidstore.errors import CannotGenerateUniqueTexKey
 from inspirehep.pidstore.providers.texkey import InspireTexKeyProvider
 
 
-@pytest.fixture(autouse=True)
-def _app_context():
-    app = create_app(TESTING=True, SERVER_NAME="localhost:5000")
-    with app.app_context():
-        yield
 
 
 def test_sanitize():

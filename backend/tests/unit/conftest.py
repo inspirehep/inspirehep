@@ -6,14 +6,8 @@ from inspirehep.factory import create_app
 
 @pytest.fixture(scope="session")
 def app():
-    app = create_app(
-        SQLALCHEMY_DATABASE_URI="sqlite://",
-        TESTING=True,
-        SERVER_NAME="localhost:5000",
-    )
-    with app.app_context():
-        yield app
-
+    return create_app(TESTING=True, SERVER_NAME="localhost:5000")
+    
 
 @pytest.fixture(autouse=True)
 def _app_context(app):
