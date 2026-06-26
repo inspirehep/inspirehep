@@ -6,11 +6,8 @@
 from unittest import mock
 
 import pytest
-from inspirehep.factory import create_app
 from inspirehep.pidstore.errors import CannotGenerateUniqueTexKey
 from inspirehep.pidstore.providers.texkey import InspireTexKeyProvider
-
-
 
 
 def test_sanitize():

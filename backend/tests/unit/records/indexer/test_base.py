@@ -6,10 +6,8 @@
 
 from unittest import mock
 
-import pytest
 from inspirehep.indexer.base import InspireRecordIndexer
 from inspirehep.records.api.literature import LiteratureRecord
-
 
 
 @mock.patch(
