@@ -7,10 +7,8 @@
 from unittest.mock import patch
 
 import orjson
-import pytest
 from helpers.providers.faker import faker
 from inspirehep.records.marshmallow.literature.es import LiteratureElasticSearchSchema
-
 
 
 @patch(

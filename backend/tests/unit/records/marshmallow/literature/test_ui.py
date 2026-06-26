@@ -10,7 +10,6 @@ import pytest
 from inspirehep.records.marshmallow.literature.ui import LiteratureDetailSchema
 
 
-
 @mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
 @mock.patch("inspirehep.records.marshmallow.literature.ui.current_s3_instance")
 def test_internal_fulltext(current_s3_mock, current_app_mock):
