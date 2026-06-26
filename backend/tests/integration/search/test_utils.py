@@ -3,10 +3,11 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from unittest.mock import Mock, patch
+
 import pytest
 from flask import current_app
 from inspirehep.search.utils import RecursionLimit, get_facet_configuration
-from mock import Mock, patch
 
 
 @patch("inspirehep.records.config.RECORDS_REST_ENDPOINTS")

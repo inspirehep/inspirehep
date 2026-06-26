@@ -3,10 +3,19 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import mock
+from unittest import mock
+
 import pytest
+from inspirehep.factory import create_app
 from inspirehep.pidstore.errors import CannotGenerateUniqueTexKey
 from inspirehep.pidstore.providers.texkey import InspireTexKeyProvider
+
+
+@pytest.fixture(autouse=True)
+def _app_context():
+    app = create_app(TESTING=True, SERVER_NAME="localhost:5000")
+    with app.app_context():
+        yield
 
 
 def test_sanitize():
@@ -18,7 +27,6 @@ def test_sanitize():
 
 def test_get_texkey_first_part_when_authors_les_than_10():
     data = {"authors": [{"full_name": "Kirk , James T."}, {"Janeway, Kathryn"}]}
-
     expected_texkey_part = "Kirk"
     texkey_part = InspireTexKeyProvider.build_texkey_first_part(data)
     assert texkey_part == expected_texkey_part
@@ -41,7 +49,6 @@ def test_get_texkey_first_part_when_authors_more_than_10():
         ],
         "collaborations": [{"value": "CMS"}],
     }
-
     expected_texkey_part = "CMS"
     texkey_part = InspireTexKeyProvider.build_texkey_first_part(data)
     assert texkey_part == expected_texkey_part
@@ -64,7 +71,6 @@ def test_get_texkey_first_part_when_authors_more_than_10_and_no_ther_source_for_
         ],
         "document_type": ["book"],
     }
-
     expected_texkey_part = "Kirk"
     texkey_part = InspireTexKeyProvider.build_texkey_first_part(data)
     assert texkey_part == expected_texkey_part
@@ -72,7 +78,6 @@ def test_get_texkey_first_part_when_authors_more_than_10_and_no_ther_source_for_
 
 def test_get_texkey_first_part_when_no_authors():
     data = {"collaborations": [{"value": "CMS"}]}
-
     expected_texkey_part = "CMS"
     texkey_part = InspireTexKeyProvider.build_texkey_first_part(data)
     assert texkey_part == expected_texkey_part
@@ -80,7 +85,6 @@ def test_get_texkey_first_part_when_no_authors():
 
 def test_get_texkey_first_part_for_corporate_author():
     data = {"corporate_author": ["Some Author"]}
-
     expected_texkey_part = "SomeAuthor"
     texkey_part = InspireTexKeyProvider.build_texkey_first_part(data)
     assert texkey_part == expected_texkey_part
@@ -88,7 +92,6 @@ def test_get_texkey_first_part_for_corporate_author():
 
 def test_get_texkey_first_part_for_proceedings():
     data = {"document_type": ["proceedings"]}
-
     expected_texkey_part = "Proceedings"
     texkey_part = InspireTexKeyProvider.build_texkey_first_part(data)
     assert texkey_part == expected_texkey_part
@@ -111,7 +114,6 @@ def test_get_texkey_first_part_for_more_than_10_authors_and_other_fields_are_emp
         ],
         "document_type": ["Article"],
     }
-
     expected_texkey_part = "Kirk"
     texkey_part = InspireTexKeyProvider.build_texkey_first_part(data)
     assert texkey_part == expected_texkey_part
@@ -119,7 +121,6 @@ def test_get_texkey_first_part_for_more_than_10_authors_and_other_fields_are_emp
 
 def test_get_texkey_second_part():
     data = {"preprint_date": 1999}
-
     expected_secod_part = "1999"
     second_part = InspireTexKeyProvider.build_texkey_second_part(data)
     assert second_part == expected_secod_part
@@ -138,9 +139,7 @@ def test_get_random_texkey_part():
             "PIDSTORE_TEXKEY_RANDOM_PART_SIZE": 3,
         }
         model_mock.query.return_value.filter.return_value.filter.return_value.one_or_none.return_value = None
-
         second_part = InspireTexKeyProvider.get_texkey_with_random_part(texkey)
-
         assert second_part.startswith(texkey)
         assert len(second_part) == len(texkey) + 3
 
@@ -181,8 +180,6 @@ def test_get_random_texkey_part_length_taken_from_config():
             "PIDSTORE_TEXKEY_RANDOM_PART_SIZE": 9,
         }
         model_mock.query.return_value.filter.return_value.filter.return_value.one_or_none.return_value = None
-
         second_part = InspireTexKeyProvider.get_texkey_with_random_part(texkey)
-
         assert second_part.startswith(texkey)
         assert len(second_part) == len(texkey) + 9

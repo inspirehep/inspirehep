@@ -4,11 +4,12 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from unittest.mock import patch
+
 import pytest
 from freezegun import freeze_time
 from helpers.utils import create_record, create_record_factory
 from lxml.etree import XMLSyntaxError
-from mock import patch
 
 
 @freeze_time("1994-12-19")

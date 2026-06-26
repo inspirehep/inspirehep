@@ -4,6 +4,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from unittest.mock import patch
+
 import pytest
 from helpers.utils import generate_records
 from inspirehep.indexer.cli import get_query_records_to_index
@@ -26,7 +28,6 @@ from inspirehep.records.api.journals import (
 )
 from inspirehep.records.api.literature import LiteratureRecord
 from invenio_records.models import RecordMetadata
-from mock import patch
 
 
 def check_n_records_reindex_for_pidtype(

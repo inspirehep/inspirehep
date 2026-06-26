@@ -5,7 +5,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-import mock
+from unittest import mock
+from unittest.mock import patch
+
 import pytest
 import requests
 from flask import current_app
@@ -15,7 +17,6 @@ from helpers.utils import (
 )
 from inspirehep.snow.api import InspireSnow
 from inspirehep.snow.errors import CreateTicketException
-from mock import patch
 
 
 @pytest.mark.vcr(

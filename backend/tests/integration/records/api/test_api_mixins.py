@@ -8,8 +8,8 @@
 
 import copy
 from copy import deepcopy
+from unittest import mock
 
-import mock
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_record

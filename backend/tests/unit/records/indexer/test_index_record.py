@@ -4,7 +4,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import mock
+from unittest import mock
+
 import pytest
 from celery.exceptions import Retry
 from inspirehep.indexer.tasks import index_record

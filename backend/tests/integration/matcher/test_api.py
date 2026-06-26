@@ -4,6 +4,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from unittest.mock import patch
+
 import pytest
 from helpers.utils import create_record, search_index_flush_and_refresh
 from inspire_schemas.api import load_schema, validate
@@ -16,7 +18,6 @@ from inspirehep.matcher.api import (
     match_reference_control_numbers_with_relaxed_journal_titles,
     match_references,
 )
-from mock import patch
 
 
 @pytest.mark.vcr

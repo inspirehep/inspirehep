@@ -4,7 +4,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import mock
+from unittest import mock
+
 import orjson
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.marshmallow.common.accelerator_experiment import (

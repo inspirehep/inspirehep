@@ -1,8 +1,9 @@
+from unittest.mock import patch
+
 import pytest
 from helpers.utils import xml_compare
 from inspirehep.oai.converter import OpenAIREXMLConverter
 from lxml import etree
-from mock import patch
 
 
 def collect_creators(record):
