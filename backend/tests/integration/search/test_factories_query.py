@@ -4,9 +4,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from unittest.mock import patch
+
 from flask import current_app
 from inspirehep.search.factories.query import inspire_query_factory
-from mock import patch
 from opensearch_dsl import Search
 
 

@@ -6,10 +6,11 @@
 
 """INSPIRE module that adds more fun to the platform."""
 
+from unittest.mock import Mock, patch
+
 import pytest
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
-from mock import Mock, patch
 from werkzeug.exceptions import Forbidden, Unauthorized
 
 

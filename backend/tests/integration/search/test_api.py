@@ -7,8 +7,8 @@
 
 import os
 import urllib
+from unittest import mock
 
-import mock
 import orjson
 import pytest
 from helpers.utils import create_record, create_user

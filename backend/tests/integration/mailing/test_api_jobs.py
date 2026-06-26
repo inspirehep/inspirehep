@@ -4,6 +4,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from unittest.mock import patch
+
 import pytest
 from flask import render_template
 from inspirehep.mailing.api.jobs import (
@@ -15,7 +17,6 @@ from inspirehep.mailing.api.jobs import (
 from invenio_accounts.models import User
 from invenio_db import db
 from invenio_oauthclient.models import UserIdentity
-from mock import patch
 
 
 def test_jobs_from_last_week(create_jobs):

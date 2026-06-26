@@ -20,8 +20,8 @@
 # or submit itself to any jurisdiction.
 
 import logging
+from unittest import mock
 
-import mock
 import pytest
 from inspirehep.orcid import exceptions
 from inspirehep.orcid.converter import ExternalIdentifier

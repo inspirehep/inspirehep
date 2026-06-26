@@ -23,8 +23,8 @@
 import copy
 import logging
 import os
+from unittest import mock
 
-import mock
 import pkg_resources
 import pytest
 from celery.exceptions import Retry

@@ -4,10 +4,20 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from unittest.mock import patch
+
 import orjson
+import pytest
 from helpers.providers.faker import faker
+from inspirehep.factory import create_app
 from inspirehep.records.marshmallow.literature.es import LiteratureElasticSearchSchema
-from mock import patch
+
+
+@pytest.fixture(autouse=True)
+def _app_context():
+    app = create_app(TESTING=True, SERVER_NAME="localhost:5000")
+    with app.app_context():
+        yield
 
 
 @patch(

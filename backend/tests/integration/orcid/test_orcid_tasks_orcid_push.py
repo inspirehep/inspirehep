@@ -22,8 +22,8 @@
 import logging
 import re
 from pathlib import Path
+from unittest import mock
 
-import mock
 import orjson
 import pytest
 from flask import current_app

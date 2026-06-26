@@ -1,6 +1,6 @@
 from datetime import datetime
+from unittest import mock
 
-import mock
 from helpers.providers.faker import faker
 from inspirehep.records.api.literature import LiteratureRecord
 

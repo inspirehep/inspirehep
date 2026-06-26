@@ -6,6 +6,7 @@
 
 
 import os
+from unittest.mock import patch
 
 import orjson
 import pkg_resources
@@ -26,7 +27,6 @@ from inspirehep.accounts.roles import Roles
 from inspirehep.files.proxies import current_s3_instance
 from inspirehep.snow.api import InspireSnow
 from invenio_accounts.testutils import login_user_via_session
-from mock import patch
 from redis import StrictRedis
 from werkzeug.datastructures import FileStorage
 

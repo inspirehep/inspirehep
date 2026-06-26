@@ -5,7 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-import mock
+from unittest import mock
+
 import pytest
 from fqn_decorators.decorators import get_fqn
 from helpers.factories.db.invenio_records import TestRecordMetadata

@@ -4,7 +4,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import mock
+from unittest import mock
+
 from helpers.utils import create_record, create_user
 from inspirehep.accounts.handlers import get_current_user_data
 

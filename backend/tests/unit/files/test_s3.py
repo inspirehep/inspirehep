@@ -3,7 +3,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import mock
+from unittest import mock
+
 import pytest
 from botocore.exceptions import ClientError
 from inspirehep.files.api.s3 import S3
@@ -12,7 +13,11 @@ from inspirehep.records.errors import DownloadFileError, FileSizeExceededError
 
 @pytest.fixture
 def config_mock_fixture():
+    from inspirehep.factory import create_app
+
+    app = create_app(TESTING=True, SERVER_NAME="localhost:5000")
     with (
+        app.app_context(),
         mock.patch("inspirehep.files.api.s3.current_app") as app_mock,
         mock.patch("inspirehep.utils.current_app") as app_mock_2,
         mock.patch("inspirehep.records.errors.current_app") as errors_app_mock,

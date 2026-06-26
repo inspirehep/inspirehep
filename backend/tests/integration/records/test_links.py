@@ -3,7 +3,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import mock
+from unittest import mock
+
 from helpers.utils import create_record
 from inspirehep.records.links import (
     find_record_endpoint,
@@ -80,7 +81,10 @@ def test_generate_inspire_search_links_gets_proper_formats(
     with override_config(**config):
         links_test = {"self": "http://localhost:5000/api/test/?q=&size=10&page=1"}
         links_test2 = {"self": "http://localhost:5000/api/test2/?q=&size=10&page=1"}
-        with mock.patch("inspirehep.records.links.request") as mock_request:
+        with (
+            inspire_app.test_request_context(),
+            mock.patch("inspirehep.records.links.request") as mock_request,
+        ):
             mock_request.values = MultiDict()
             mock_request.path = "/test"
             links_test = inspire_search_links(links_test)
@@ -162,7 +166,10 @@ def test_generate_inspire_search_links_fixes_partial_encoding(
             "self": invenio_self_url,
             "next": "http://localhost:5000/api/test/?q=foo.$ref%3A1245&size=1&page=2",
         }
-        with mock.patch("inspirehep.records.links.request") as mock_request:
+        with (
+            inspire_app.test_request_context(),
+            mock.patch("inspirehep.records.links.request") as mock_request,
+        ):
             mock_request.path = "/test"
             mock_request.values = MultiDict()
             links_test = inspire_search_links(links_test)
@@ -190,7 +197,10 @@ def test_generate_inspire_search_links_encodes_unencoded_special_chars(
             "self": "http://localhost:5000/api/test/?q=record.$ref:666&size=1&page=1",
             "next": "http://localhost:5000/api/test/?q=record.$ref:666&size=1&page=2",
         }
-        with mock.patch("inspirehep.records.links.request") as mock_request:
+        with (
+            inspire_app.test_request_context(),
+            mock.patch("inspirehep.records.links.request") as mock_request,
+        ):
             mock_request.path = "/test"
             mock_request.values = MultiDict()
             links_test = inspire_search_links(links_test)
@@ -225,7 +235,10 @@ def test_search_links_with_fields_filtering(inspire_app, override_config):
             "self": "http://localhost:5000/api/test/?q=&size=10&page=1",
             "next": "http://localhost:5000/api/test/?q=&size=10&page=2",
         }
-        with mock.patch("inspirehep.records.links.request") as mock_request:
+        with (
+            inspire_app.test_request_context(),
+            mock.patch("inspirehep.records.links.request") as mock_request,
+        ):
             mock_request.path = "/test"
             mock_request.values = MultiDict([("fields", "ids,authors")])
             links_test = inspire_search_links(links_test)

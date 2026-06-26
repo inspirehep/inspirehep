@@ -4,12 +4,13 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from unittest.mock import patch
+
 import orjson
 from inspirehep.records.marshmallow.literature.common.conference_info_item import (
     ConferenceInfoItemSchemaV1,
 )
 from invenio_pidstore.errors import PIDDoesNotExistError
-from mock import patch
 
 
 def test_returns_empty_if_conference_record_is_missing():
