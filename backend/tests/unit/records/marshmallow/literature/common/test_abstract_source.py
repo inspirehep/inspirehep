@@ -8,10 +8,8 @@ from copy import deepcopy
 from unittest import mock
 
 import orjson
-import pytest
 from helpers.providers.faker import faker
 from inspirehep.records.marshmallow.literature.es import LiteratureElasticSearchSchema
-
 
 
 @mock.patch(
