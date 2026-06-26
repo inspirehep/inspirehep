@@ -7,15 +7,8 @@
 from unittest import mock
 
 import pytest
-from inspirehep.factory import create_app
 from inspirehep.records.marshmallow.literature.ui import LiteratureDetailSchema
 
-
-@pytest.fixture(autouse=True)
-def _app_context():
-    app = create_app(TESTING=True, SERVER_NAME="localhost:5000")
-    with app.app_context():
-        yield
 
 
 @mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")

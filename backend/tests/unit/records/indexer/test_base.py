@@ -7,16 +7,9 @@
 from unittest import mock
 
 import pytest
-from inspirehep.factory import create_app
 from inspirehep.indexer.base import InspireRecordIndexer
 from inspirehep.records.api.literature import LiteratureRecord
 
-
-@pytest.fixture(autouse=True)
-def _app_context():
-    app = create_app(TESTING=True, SERVER_NAME="localhost:5000")
-    with app.app_context():
-        yield
 
 
 @mock.patch(

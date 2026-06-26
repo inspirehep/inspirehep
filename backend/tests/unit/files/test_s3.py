@@ -12,12 +12,9 @@ from inspirehep.records.errors import DownloadFileError, FileSizeExceededError
 
 
 @pytest.fixture
-def config_mock_fixture():
-    from inspirehep.factory import create_app
-
-    app = create_app(TESTING=True, SERVER_NAME="localhost:5000")
+def config_mock_fixture(app): 
     with (
-        app.app_context(),
+        app.app_context(), 
         mock.patch("inspirehep.files.api.s3.current_app") as app_mock,
         mock.patch("inspirehep.utils.current_app") as app_mock_2,
         mock.patch("inspirehep.records.errors.current_app") as errors_app_mock,
