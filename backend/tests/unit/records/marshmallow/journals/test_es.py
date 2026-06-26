@@ -5,8 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from copy import deepcopy
+from unittest import mock
 
-import mock
 from helpers.providers.faker import faker
 from inspirehep.records.api.journals import JournalsRecord
 from inspirehep.records.marshmallow.journals.es import JournalsElasticSearchSchema

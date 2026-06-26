@@ -4,9 +4,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from unittest.mock import MagicMock
+
 from flask import current_app
 from inspirehep.search.factories.filter import inspire_filter_factory
-from mock import MagicMock
 from opensearch_dsl import Search
 
 

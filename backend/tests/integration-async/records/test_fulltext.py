@@ -5,8 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import urllib
+from unittest import mock
 
-import mock
 import orjson
 from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker

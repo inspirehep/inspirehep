@@ -9,9 +9,9 @@
 import os
 from contextlib import contextmanager
 from functools import partial
+from unittest import mock
 
 import boto3
-import mock
 import pytest
 from click.testing import CliRunner
 from flask import current_app

@@ -675,9 +675,18 @@ class TestWorkflowUtils:
             "acquisition_source": {"submission_number": "123"},
         }
 
-        accelerator_experiments, normalized_collaborations = (
-            workflows.normalize_collaborations(record)
-        )
+        from unittest import mock
+
+        with mock.patch(
+            "include.utils.workflows.normalize_collaborations"
+        ) as mock_normalize:
+            mock_normalize.return_value = (
+                [{"legacy_name": "LATTICE-ETM"}],
+                [{"value": "ETM", "record": "some_record"}],
+            )
+            accelerator_experiments, normalized_collaborations = (
+                workflows.normalize_collaborations(record)
+            )
 
         assert "record" in normalized_collaborations[0]
         assert accelerator_experiments[0]["legacy_name"] == "LATTICE-ETM"

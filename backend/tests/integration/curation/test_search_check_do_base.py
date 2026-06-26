@@ -4,12 +4,12 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import os
+from unittest.mock import patch
 
 from helpers.utils import create_record
 from inspirehep.curation.search_check_do.base import SearchCheckDo
 from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.api.literature import LiteratureRecord
-from mock import patch
 
 
 def test_search_check_do(inspire_app):

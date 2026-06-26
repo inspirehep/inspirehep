@@ -1,4 +1,5 @@
-import mock
+from unittest import mock
+
 import pytest
 import requests
 from freezegun import freeze_time

@@ -19,7 +19,8 @@
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
 
-import mock
+from unittest import mock
+
 import pytest
 from flask import current_app
 from helpers.utils import create_user

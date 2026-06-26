@@ -5,8 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import datetime
+from unittest import mock
 
-import mock
 import orjson
 import pytest
 from helpers.providers.faker import faker

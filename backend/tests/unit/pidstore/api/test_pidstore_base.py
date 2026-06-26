@@ -6,9 +6,10 @@
 
 """INSPIRE module that adds more fun to the platform."""
 
+from unittest.mock import MagicMock, patch
+
 import pytest
 from inspirehep.pidstore.api.base import PidStoreBase
-from mock import MagicMock, patch
 
 
 @pytest.mark.parametrize(

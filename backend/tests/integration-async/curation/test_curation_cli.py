@@ -5,7 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-import mock
+from unittest import mock
+
 import requests_mock
 from helpers.providers.faker import faker
 from helpers.utils import retry_test
