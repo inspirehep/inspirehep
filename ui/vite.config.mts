@@ -56,7 +56,7 @@ export default defineConfig({
             return 'vendor-antd';
           if (id.includes('/react-quill/') || id.includes('/quill/'))
             return 'vendor-editor';
-          if (id.includes('/react-vis/') || id.includes('/d3-'))
+          if (id.includes('/recharts/') || id.includes('/d3-'))
             return 'vendor-charts';
           return undefined;
         },

@@ -50,20 +50,9 @@ function TooltipContent(props: TooltipContentProps) {
     const entry = firstPayload.payload;
     const citations = entry.pastYearsY ?? entry.currentYearY;
     return (
-      <div
-        style={{
-          backgroundColor: '#3a3a48',
-          borderRadius: '4px',
-          color: 'white',
-          fontSize: '12px',
-          padding: '7px 10px',
-          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
-        }}
-      >
-        <p
-          style={{ margin: 0 }}
-        >{`${pluralizeUnlessSingle('Citation', citations)}: ${addCommasToNumber(citations)}`}</p>
-        <p style={{ margin: 0 }}>{`Year: ${entry.x}`}</p>
+      <div className="graph-tooltip">
+        <p className="ma0">{`${pluralizeUnlessSingle('Citation', citations)}: ${addCommasToNumber(citations)}`}</p>
+        <p className="ma0">{`Year: ${entry.x}`}</p>
       </div>
     );
   }
