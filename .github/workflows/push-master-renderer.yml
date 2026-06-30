@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6.0.2
         with:
           ref: ${{ github.ref }}
 
       - id: build
-        uses: cern-sis/gh-workflows/.github/actions/docker-build@v6.5
+        uses: cern-sis/gh-workflows/.github/actions/docker-build@v7.0.0
         with:
           image: cern-sis/inspire/renderer
           context: ./renderer
@@ -30,7 +30,7 @@ jobs:
           password: ${{ secrets.HARBOR_PASSWORD }}
 
       - name: Deploy (renderer)
-        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v6.3.1
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v7.0.0
         with:
           repo: cern-sis/kubernetes-inspire
           event-type: update

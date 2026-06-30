@@ -2,15 +2,18 @@ import json
 import sys
 from pathlib import Path
 
-split_prefix = sys.argv[1]
+artifacts_path = Path(sys.argv[1])
 durations_path = Path(sys.argv[2])
 
 current_path = Path(".").resolve()
 print(
-    f"Combining durations with split-prefix={split_prefix} and"
+    f"Combining durations with artifacts-path={artifacts_path} and"
     f" durations-path={durations_path} in {current_path}."
 )
-split_paths = Path(".").glob(f"{split_prefix}*/{durations_path.name}")
+# `**` matches zero or more directories, so this finds the durations file whether
+# download-artifact nested it under a per-split directory (multiple splits) or
+# extracted it directly into the artifacts path (a single split collapses the dir).
+split_paths = artifacts_path.glob(f"**/{durations_path.name}")
 try:
     previous_durations = json.loads(durations_path.read_text())
     print(
