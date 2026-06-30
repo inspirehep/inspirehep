@@ -54,7 +54,7 @@ describe('CitationsByYearGraph', () => {
         error={undefined}
       />
     );
-    expect(asFragment).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders citations for less than 3 years with dummy data for previous 1-2 years', () => {
@@ -111,7 +111,7 @@ describe('CitationsByYearGraph', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('renders hovered info in a tooltip on line series hover', () => {
+  it('renders hovered info in a tooltip on line series hover', async () => {
     const citationsByYear = {
       1999: 10,
       2000: 5,
@@ -125,10 +125,10 @@ describe('CitationsByYearGraph', () => {
       />
     );
 
-    const graph = container.getElementsByClassName('rv-xy-plot__inner')[0];
-    fireEvent.mouseOver(graph);
+    const wrapper = container.querySelector('.recharts-wrapper') as HTMLElement;
+    fireEvent.mouseMove(wrapper, { clientX: 100, clientY: 100 });
 
-    waitFor(() =>
+    await waitFor(() =>
       expect(screen.getByText('Citations: 10')).toBeInTheDocument()
     );
   });
@@ -161,7 +161,7 @@ describe('CitationsByYearGraph', () => {
 
     expect(screen.getByText('1.2K')).toBeInTheDocument();
     expect(screen.getByText('15K')).toBeInTheDocument();
-    expect(screen.getByText('500')).toBeInTheDocument();
+    expect(screen.getByText('500', { selector: 'tspan' })).toBeInTheDocument();
   });
 
   it('renders two citations graphs when current year citations are included', () => {
