@@ -1,8 +1,9 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
+import { RootState } from '../../../types';
 
 import CollectionsMenu from './CollectionsMenu';
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   currentPathname: state.router.location.pathname,
 });
 

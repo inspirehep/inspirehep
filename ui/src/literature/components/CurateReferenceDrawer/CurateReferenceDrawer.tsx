@@ -70,13 +70,13 @@ export function renderReferenceItem(result: Map<string, any>) {
 }
 
 interface CurateReferenceDrawerProps {
-  recordId: number;
+  recordId: string;
   recordUuid: string;
   revisionId: number;
   referenceId: number;
   onDrawerClose: () => void;
   onCurate: (args: {
-    recordId: number;
+    recordId: string;
     recordUuid: string;
     revisionId: number;
     referenceId: number;

@@ -1,10 +1,11 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { RootState } from '../types';
 
 import BibliographyGenerator from './BibliographyGenerator';
 import { submitBibliographyGenerator } from '../actions/bibliographyGenerator';
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   loading: state.bibliographyGenerator.get('loading'),
   data: state.bibliographyGenerator.get('data'),
   citationErrors: state.bibliographyGenerator.get('citationErrors'),

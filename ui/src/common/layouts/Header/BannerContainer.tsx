@@ -1,10 +1,11 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { RootState } from '../../../types';
 
 import Banner from './Banner';
 import { closeBanner } from '../../../actions/ui';
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   closedBannersById: state.ui.get('closedBannersById'),
   currentPathname: state.router.location.pathname,
 });

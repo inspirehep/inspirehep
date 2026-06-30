@@ -1,5 +1,5 @@
 import { Action, ActionCreator } from 'redux';
-import { RootStateOrAny } from 'react-redux';
+import { RootState } from '../types';
 
 import {
   AUTHOR_REQUEST,
@@ -100,7 +100,7 @@ export function assignPapers({
   to: string;
 }): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -132,7 +132,7 @@ export function unassignPapers({
   from: string;
 }): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -166,7 +166,7 @@ export function assignOwnPapers({
   to: string;
 }): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -214,7 +214,7 @@ export function unassignOwnPapers({
   from: string;
 }): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -250,7 +250,7 @@ export function assignDifferentProfile({
   to: string;
 }): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {

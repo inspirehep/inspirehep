@@ -1,6 +1,6 @@
 import { replace } from 'connected-react-router';
 import { Action, ActionCreator } from 'redux';
-import { RootStateOrAny } from 'react-redux';
+import { RootState } from '../types';
 
 import {
   isCancelError,
@@ -22,7 +22,7 @@ export function generateRecordFetchAction({
   fetchErrorActionType: string;
   requestOptions?: { headers: { Accept: string } };
 }) {
-  const fetching = (recordId: number) => ({
+  const fetching = (recordId: string) => ({
     type: fetchingActionActionType,
     payload: { recordId },
   });
@@ -38,10 +38,10 @@ export function generateRecordFetchAction({
     meta: { redirectableError: true },
   });
 
-  return (recordId: number) =>
+  return (recordId: string) =>
     async (
       dispatch: ActionCreator<Action>,
-      getState: () => RootStateOrAny,
+      getState: () => RootState,
       http: HttpClientWrapper
     ) => {
       dispatch(fetching(recordId));

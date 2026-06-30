@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Breadcrumb, Input } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
 import { Action, ActionCreator } from 'redux';
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
+import { RootState } from '../../../../types';
 import { searchQueryUpdate } from '../../../../actions/search';
 import './Breadcrumbs.less';
 import { BACKOFFICE } from '../../../../common/routes';
@@ -83,7 +84,7 @@ const Breadcrumbs = ({
 };
 
 const stateToProps = (
-  state: RootStateOrAny,
+  state: RootState,
   { namespace }: { namespace: string }
 ) => ({
   query: state.search.getIn(['namespaces', namespace, 'query', 'q']),

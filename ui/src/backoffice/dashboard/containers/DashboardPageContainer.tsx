@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { Input, Select, Row, Col } from 'antd';
 import { Action, ActionCreator } from 'redux';
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { List, Map } from 'immutable';
+import { RootState } from '../../../types';
 
 import './DashboardPageContainer.less';
 import { isUserLoggedInToBackoffice } from '../../../actions/backoffice';
@@ -246,7 +247,7 @@ const DashboardPageContainer = ({
   );
 };
 
-const mapStateToProps = (state: RootStateOrAny) => ({
+const mapStateToProps = (state: RootState) => ({
   authors: state.backoffice.getIn(['dashboard', 'facets', 'authors']),
   literature: state.backoffice.getIn(['dashboard', 'facets', 'literature']),
   loading: state.backoffice.getIn(['dashboard', 'loading']),

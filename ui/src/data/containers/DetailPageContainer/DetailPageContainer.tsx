@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Col, Row } from 'antd';
 import { List } from 'immutable';
 import classNames from 'classnames';
+import { RootState } from '../../../types';
 import './DetailPage.less';
 import RequireOneOf from '../../../common/components/RequireOneOf';
 import { isSuperUser } from '../../../common/authorization';
@@ -159,7 +160,7 @@ const DetailPage = ({
   );
 };
 
-const mapStateToProps = (state: RootStateOrAny) => ({
+const mapStateToProps = (state: RootState) => ({
   result: state.data.get('data'),
   authors: state.data.get('authors'),
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
@@ -169,6 +170,6 @@ const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: (id) => [fetchData(id), fetchDataAuthors(id)],
+  routeActions: (id) => [fetchData(id ?? ''), fetchDataAuthors(id ?? '')],
   loadingStateSelector: (state) => !state.data.hasIn(['data', 'metadata']),
 });

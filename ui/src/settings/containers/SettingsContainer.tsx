@@ -1,10 +1,11 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { RootState } from '../../types';
 
 import { changeEmailAddress } from '../../actions/settings';
 import SettingsPage from '../components/SettingsPage';
 
-export const stateToProps = (state: RootStateOrAny) => ({
+export const stateToProps = (state: RootState) => ({
   error: state.settings.get('changeEmailError'),
   loading: state.settings.get('changeEmailRequest'),
   profileControlNumber: state.user.getIn(['data', 'profile_control_number']),

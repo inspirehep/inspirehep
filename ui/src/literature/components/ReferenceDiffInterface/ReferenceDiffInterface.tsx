@@ -142,7 +142,6 @@ function ReferenceDiffInterface({
                       />
                     )}
                     <CiteModalActionContainer
-                      // @ts-expect-error
                       recordId={controlNumber}
                       // @ts-expect-error
                       page="Literature detail"

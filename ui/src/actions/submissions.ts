@@ -1,7 +1,7 @@
 import { push } from 'connected-react-router';
 import { List } from 'immutable';
 import { Action, ActionCreator } from 'redux';
-import { RootStateOrAny } from 'react-redux';
+import { RootState } from '../types';
 
 import {
   SUBMIT_SUCCESS,
@@ -69,7 +69,7 @@ export function submit<T>(
   data: T
 ): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -98,7 +98,7 @@ export function submitUpdate(
   data: Record<string, string | string[] | number>
 ): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -121,7 +121,7 @@ export function fetchUpdateFormData(
   pidValue: number
 ): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -140,7 +140,7 @@ export function importExternalLiterature(
   id: number
 ): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {

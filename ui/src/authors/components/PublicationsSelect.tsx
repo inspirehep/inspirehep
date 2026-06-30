@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Checkbox } from 'antd';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
@@ -39,14 +38,5 @@ function PublicationsSelect({
     />
   );
 }
-
-PublicationsSelect.propTypes = {
-  claimed: PropTypes.bool,
-  onSelectClaimedPapers: PropTypes.func.isRequired,
-  onSelectUnclaimedPapers: PropTypes.func.isRequired,
-  onSelectPapers: PropTypes.func.isRequired,
-  disabled: PropTypes.bool,
-  checked: PropTypes.bool,
-};
 
 export default PublicationsSelect;

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Row, Col, Select, Card } from 'antd';
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
 import { Map } from 'immutable';
+import { RootState } from '../../../../types';
 
 import PaginationContainer from '../../../../common/containers/PaginationContainer';
 import ResultsContainer from '../../../../common/containers/ResultsContainer';
@@ -185,7 +186,7 @@ const AuthorsSearchPageContainer = ({
   );
 };
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   loading: state.search.getIn([
     'namespaces',
     BACKOFFICE_AUTHORS_SEARCH_NS,
