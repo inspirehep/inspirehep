@@ -1,6 +1,7 @@
 import React from 'react';
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { RootState } from '../types';
 
 import RouteOrRedirect from '../common/components/RouteOrRedirect';
 import LoginPageContainer from './containers/LoginPageContainer';
@@ -22,10 +23,10 @@ import SettingsContainer from '../settings/containers/SettingsContainer';
 
 const User = ({
   loggedIn,
-  previousUrl,
+  previousUrl = '',
 }: {
   loggedIn: boolean;
-  previousUrl: string;
+  previousUrl?: string;
 }) => {
   return (
     <div className="w-100" data-testid="user">
@@ -65,7 +66,7 @@ const User = ({
   );
 };
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   loggedIn: state.user.get('loggedIn'),
   previousUrl: state.router.location.previousUrl,
 });

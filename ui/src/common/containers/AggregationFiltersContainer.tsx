@@ -1,12 +1,13 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { RootState } from '../../types';
 
 import { searchQueryUpdate } from '../../actions/search';
 import AggregationFilters from '../components/AggregationFilters';
 import { convertSomeImmutablePropsToJS } from '../immutableToJS';
 
 const stateToProps = (
-  state: RootStateOrAny,
+  state: RootState,
   { namespace }: { namespace: string }
 ) => ({
   state: state.search.getIn(['namespaces', namespace]).toJS(),

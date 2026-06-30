@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo } from 'react';
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
 import { Row, Col, Tabs, Tooltip } from 'antd';
 import { Map, List } from 'immutable';
 import { SettingOutlined } from '@ant-design/icons';
+import { RootState } from '../../../types';
 
 import './DetailPage.less';
 import ContentBox from '../../../common/components/ContentBox';
@@ -329,7 +330,7 @@ function DetailPage({
   );
 }
 
-const mapStateToProps = (state: RootStateOrAny) => ({
+const mapStateToProps = (state: RootState) => ({
   record: state.authors.get('data'),
   publicationsQuery: state.search.getIn([
     'namespaces',
@@ -385,6 +386,6 @@ export default withRouteActionsDispatcher(DetailPageContainer, {
       baseQuery: { q: `speakers.record.$ref:${id}` },
     }),
   ],
-  loadingStateSelector: (state: RootStateOrAny) =>
+  loadingStateSelector: (state: RootState) =>
     !state.authors.hasIn(['data', 'metadata']),
 });

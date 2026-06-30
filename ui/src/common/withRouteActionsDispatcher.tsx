@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { Action, ActionCreator, AnyAction, Dispatch } from 'redux';
-import { connect, ConnectedComponent, RootStateOrAny } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { connect, ConnectedComponent } from 'react-redux';
+import { withRouter, match } from 'react-router-dom';
+import { RootState } from '../types';
 
 import { getWrapperComponentDisplayName } from './utils';
 import LoadingOrChildren from './components/LoadingOrChildren';
@@ -15,18 +16,18 @@ export default function withRouteActionsDispatcher(
     routeActions,
     loadingStateSelector,
   }: {
-    routeParamSelector: ({ id }: { id: number }) => number;
+    routeParamSelector: ({ id }: { id: string }) => string;
     routeActions: (
-      id: number
+      id: string
     ) => (
       | ((
           dispatch: Dispatch<AnyAction>,
-          getState: () => RootStateOrAny,
+          getState: () => RootState,
           http: HttpClientWrapper
         ) => Promise<void>)
       | { type: string; payload: unknown }
     )[];
-    loadingStateSelector: (state: RootStateOrAny) => boolean;
+    loadingStateSelector: (state: RootState) => boolean;
   }
 ) {
   const Wrapper = ({
@@ -35,7 +36,7 @@ export default function withRouteActionsDispatcher(
     loading,
     ...props
   }: {
-    match: { params: { id: number; old?: number; new?: number } };
+    match: match<{ id: string; old?: string; new?: string }>;
     dispatch: ActionCreator<Action>;
     loading: boolean;
   }) => {
@@ -52,7 +53,7 @@ export default function withRouteActionsDispatcher(
   };
 
   const ConnectedWrapper = connect(
-    (state) => ({ loading: loadingStateSelector(state) }),
+    (state: RootState) => ({ loading: loadingStateSelector(state) }),
     (dispatch) => ({ dispatch })
   )(Wrapper);
 

@@ -1,5 +1,6 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { RootState } from '../../types';
 
 import {
   setAssignDrawerVisibility,
@@ -8,7 +9,7 @@ import {
 } from '../../actions/authors';
 import AssignDrawer from '../components/AssignDrawer';
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   visible: state.authors.get('isAssignDrawerVisible'),
   selectedPapers: state.authors.get('publicationSelection'),
 });

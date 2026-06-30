@@ -1,5 +1,6 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { RootState } from '../../types';
 
 import {
   setCurateDrawerVisibility,
@@ -10,7 +11,7 @@ import { CURATE_REFERENCE_NS } from '../../search/constants';
 import CurateReferenceDrawer from '../components/CurateReferenceDrawer/CurateReferenceDrawer';
 
 const stateToProps = (
-  state: RootStateOrAny,
+  state: RootState,
   { namespace }: { namespace: string }
 ) => ({
   results: state.search.getIn(['namespaces', namespace, 'results']),
@@ -32,7 +33,7 @@ const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
     referenceId,
     newReferenceId,
   }: {
-    recordId: number;
+    recordId: string;
     recordUuid: string;
     revisionId: number;
     referenceId: number;

@@ -1,9 +1,10 @@
 import React from 'react';
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Row, Col, Tabs } from 'antd';
 import { Map, List } from 'immutable';
 import classNames from 'classnames';
 import { FilePdfOutlined, DatabaseOutlined } from '@ant-design/icons';
+import { RootState } from '../../../types';
 
 import './DetailPage.less';
 import {
@@ -137,7 +138,7 @@ function DetailPage({
         />
       ),
       key: '1',
-      children: <ReferenceListContainer recordId={controlNumber} />,
+      children: <ReferenceListContainer recordId={controlNumber.toString()} />,
     },
     {
       label: (
@@ -180,7 +181,7 @@ function DetailPage({
         />
       )}
       <CurateReferenceDrawerContainer
-        recordId={controlNumber}
+        recordId={controlNumber.toString()}
         namespace={CURATE_REFERENCE_NS}
         recordUuid={uuid}
         revisionId={revisionId}
@@ -380,7 +381,7 @@ function DetailPage({
   );
 }
 
-const mapStateToProps = (state: RootStateOrAny) => ({
+const mapStateToProps = (state: RootState) => ({
   record: state.literature.get('data'),
   authors: state.literature.get('authors'),
   supervisors: state.literature.get('supervisors'),

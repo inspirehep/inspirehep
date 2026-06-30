@@ -1,8 +1,9 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
+import { RootState } from '../../types';
 
 import CitationSummaryTable from '../components/CitationSummaryTable';
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   loading: state.citations.get('loadingCitationSummary'),
   publishedBucket: state.citations.getIn([
     'citationSummary',

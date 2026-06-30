@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col, Table } from 'antd';
 import { ActionCreator, Action } from 'redux';
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import { push } from 'connected-react-router';
+import { RootState } from '../../../types';
 
 import './AuthorDetailPageContainer.less';
 
@@ -323,7 +324,7 @@ const AuthorDetailPageContainer = ({
   );
 };
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   author: state.backoffice.get('author'),
   loading: state.backoffice.get('loading'),
   actionInProgress: state.backoffice.get('actionInProgress'),
