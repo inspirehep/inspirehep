@@ -21,6 +21,7 @@
 
 
 import time
+from unittest.mock import patch
 
 import orjson
 import pytest
@@ -43,7 +44,6 @@ from inspirehep.orcid.utils import (
 from inspirehep.records.api.base import InspireRecord
 from invenio_db import db
 from invenio_pidstore.errors import PIDAlreadyExists
-from mock import patch
 
 # The tests are written in a specific order, disable random
 pytestmark = pytest.mark.random_order(disabled=True)

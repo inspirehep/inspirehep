@@ -4,9 +4,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from unittest import mock
 from urllib.parse import quote, urlencode
 
-import mock
 import orjson
 from helpers.providers.faker import faker
 from helpers.utils import (

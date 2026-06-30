@@ -4,7 +4,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import mock
+from unittest import mock
+
 from inspirehep.indexer.base import InspireRecordIndexer
 from inspirehep.records.api.literature import LiteratureRecord
 
@@ -59,9 +60,7 @@ def test_indexer_prepare_record(
     query_mock.return_value.filter_by.return_value.filter.return_value.count.return_value = 1
     record = LiteratureRecord({})
     indexer = InspireRecordIndexer()
-    # Assume that record methods was already tested
     expected = record.serialize_for_es()
-
     processed = indexer._prepare_record(record, "index_name", "document_type")
     assert receiver_mock.send.call_count == 1
     assert expected == processed
@@ -90,13 +89,10 @@ def test_process_bulk_record_for_index(
         "_version_type": "version_type",
         "_source": {},
     }
-
     bulk_data = indexer._process_bulk_record_for_index(
         record, "version_type", "index_name", "document_type"
     )
-    # we pop pipeline cause flask app is mocked
     bulk_data.pop("pipeline")
-
     assert record_to_index_mock.call_count == 1
     assert prepare_record_mock.call_count == 1
     assert expected_data == bulk_data
@@ -125,11 +121,8 @@ def test_process_bulk_record_for_index_default_values(
         "_version_type": "external_gte",
         "_source": {},
     }
-
     bulk_data = indexer._process_bulk_record_for_index(record)
-    # we pop pipeline cause flask app is mocked
     bulk_data.pop("pipeline")
-
     assert record_to_index_mock.call_count == 1
     assert prepare_record_mock.call_count == 1
     assert expected_data == bulk_data
@@ -141,7 +134,6 @@ def test_bulk_action_catches_recursion_error_in_deleted_records(mock_get_record)
     record["deleted"] = True
     record.index = mock.Mock(side_effect=RecursionError("max recursion exceeded"))
     mock_get_record.return_value = record
-
     indexer = InspireRecordIndexer()
     result = indexer.bulk_action(record.id)
     assert result is None

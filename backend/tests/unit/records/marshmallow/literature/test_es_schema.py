@@ -4,10 +4,11 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from unittest.mock import patch
+
 import orjson
 from helpers.providers.faker import faker
 from inspirehep.records.marshmallow.literature.es import LiteratureElasticSearchSchema
-from mock import patch
 
 
 @patch(

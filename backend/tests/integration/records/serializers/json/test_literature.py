@@ -4,10 +4,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import urllib.parse
+from unittest import mock
 from urllib.parse import quote
 from uuid import UUID
 
-import mock
 import orjson
 from helpers.providers.faker import faker
 from helpers.utils import create_record, create_record_factory, create_user, logout

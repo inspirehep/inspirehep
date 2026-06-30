@@ -6,6 +6,7 @@
 
 from copy import deepcopy
 from datetime import datetime, timedelta
+from unittest.mock import patch
 
 import orjson
 import pytest
@@ -41,7 +42,6 @@ from inspirehep.records.api.seminars import (
     SeminarsRecord,
 )
 from invenio_accounts.testutils import login_user_via_session
-from mock import patch
 
 FRANK_CASTLE_ORCID = "0000-0002-6152-062X"
 

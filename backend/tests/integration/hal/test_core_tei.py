@@ -20,8 +20,8 @@
 # or submit itself to any jurisdiction.
 
 import os
+from unittest import mock
 
-import mock
 import orjson
 import pkg_resources
 from helpers.providers.faker import faker

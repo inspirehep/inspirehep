@@ -6,8 +6,8 @@
 
 import random
 import re
+from unittest import mock
 
-import mock
 import pytest
 from flask_sqlalchemy import models_committed
 from helpers.utils import create_record, create_record_factory

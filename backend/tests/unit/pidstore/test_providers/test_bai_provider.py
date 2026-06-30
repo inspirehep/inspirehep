@@ -3,7 +3,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import mock
+from unittest import mock
+
 import pytest
 from inspirehep.pidstore.errors import PIDAlreadyExistsError
 from inspirehep.pidstore.providers.bai import InspireBAIProvider
@@ -11,8 +12,9 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from sqlalchemy.exc import IntegrityError
 
 
-def test_bai_create_fails_after_retrying_when_bai_changes():
+def test_bai_create_fails_after_retrying_when_bai_changes(app):
     with (
+        app.app_context(),
         mock.patch("inspirehep.pidstore.providers.bai.current_app") as mocked_app,
         mock.patch(
             "inspirehep.pidstore.providers.bai.InspireBAIProvider.next_bai_number"
@@ -34,8 +36,9 @@ def test_bai_create_fails_after_retrying_when_bai_changes():
         assert super_mock.return_value.create.call_count == 5
 
 
-def test_bai_create_fails_on_existing_bai_when_bai_provided():
+def test_bai_create_fails_on_existing_bai_when_bai_provided(app):
     with (
+        app.app_context(),
         mock.patch("inspirehep.pidstore.providers.bai.current_app") as mocked_app,
         mock.patch(
             "inspirehep.pidstore.providers.bai.InspireBAIProvider.query_pid_value"
@@ -57,8 +60,9 @@ def test_bai_create_fails_on_existing_bai_when_bai_provided():
         assert query_pid_value_mock.call_count == 5
 
 
-def test_bai_create_retries_on_bais_in_db_change():
+def test_bai_create_retries_on_bais_in_db_change(app):
     with (
+        app.app_context(),
         mock.patch("inspirehep.pidstore.providers.bai.current_app") as mocked_app,
         mock.patch(
             "inspirehep.pidstore.providers.bai.InspireBAIProvider.next_bai_number"

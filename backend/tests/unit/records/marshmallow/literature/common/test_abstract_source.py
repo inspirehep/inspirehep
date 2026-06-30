@@ -5,8 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from copy import deepcopy
+from unittest import mock
 
-import mock
 import orjson
 from helpers.providers.faker import faker
 from inspirehep.records.marshmallow.literature.es import LiteratureElasticSearchSchema
@@ -134,7 +134,6 @@ def test_abstract_source_missing(
     current_app_mock,
 ):
     schema = LiteratureElasticSearchSchema
-
     record = faker.record("lit")
     result = orjson.loads(schema().dumps(record).data)
     assert result.get("abstracts") is None

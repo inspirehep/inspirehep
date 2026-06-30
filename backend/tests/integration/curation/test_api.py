@@ -5,8 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import os
+from unittest import mock
 
-import mock
 import orjson
 import pytest
 from helpers.utils import create_record

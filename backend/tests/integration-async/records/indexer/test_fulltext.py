@@ -1,6 +1,6 @@
 import os
+from unittest import mock
 
-import mock
 import pytest
 from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker

@@ -4,6 +4,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from unittest.mock import MagicMock
+
 import pytest
 from flask import current_app
 from inspirehep.search.api import InspireSearch, LiteratureSearch
@@ -15,7 +17,6 @@ from inspirehep.search.factories.search import (
     search_factory_with_aggs,
     search_factory_without_aggs,
 )
-from mock import MagicMock
 
 
 def test_get_search_with_source_with_fields_query_param_and_wrong_formats(inspire_app):

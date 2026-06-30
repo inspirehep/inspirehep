@@ -3,9 +3,10 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from unittest.mock import patch
+
 from helpers.utils import create_record
 from lxml.etree import XMLSyntaxError
-from mock import patch
 
 
 def test_bibtex(inspire_app):

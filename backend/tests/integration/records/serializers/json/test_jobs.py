@@ -4,8 +4,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 from copy import deepcopy
+from unittest import mock
 
-import mock
 import orjson
 from freezegun import freeze_time
 from helpers.providers.faker import faker
