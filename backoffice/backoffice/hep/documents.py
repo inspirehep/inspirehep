@@ -152,6 +152,7 @@ class HepWorkflowDocument(BaseWorkflowDocument):
                 }
             ),
             "references": fields.ObjectField(enabled=False),
+            "source": fields.KeywordField(),
         },
     )
     journal_coverage = fields.KeywordField(index=False)
@@ -222,10 +223,19 @@ class HepWorkflowDocument(BaseWorkflowDocument):
             },
         }
 
+    @staticmethod
+    def _compute_source(data):
+        acquisition_source = (data.get("acquisition_source") or {}).get("source")
+        if acquisition_source is not None and acquisition_source.lower() == "desy":
+            titles = data.get("titles") or []
+            return f"desy/{titles[0].get('source')}" if titles else "desy"
+        return acquisition_source
+
     def prepare_data(self, instance):
         data = instance.data or {}
         data.setdefault("public_notes", [])
         data.setdefault("arxiv_eprints", [])
+        data["source"] = self._compute_source(data)
         return data
 
     @staticmethod

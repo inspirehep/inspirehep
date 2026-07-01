@@ -1099,10 +1099,10 @@
           "internal_uid": 50872
         },
         "inspire_categories": [
-            {
-                "term": "Data Analysis and Statistics",
-                "source": "arxiv"
-            }
+          {
+            "term": "Data Analysis and Statistics",
+            "source": "arxiv"
+          }
         ]
       },
       "status": "approval",
@@ -7276,7 +7276,7 @@
         "titles": [
           {
             "title": "The publisher harvest fixture test",
-            "source": "Elsevier"
+            "source": "Elsevier B. V."
           }
         ],
         "$schema": "https://inspirehep.net/schemas/records/hep.json",
@@ -7303,7 +7303,7 @@
         "titles": [
           {
             "title": "The publisher update fixture test",
-            "source": "Elsevier"
+            "source": "Elsevier B. V."
           }
         ],
         "$schema": "https://inspirehep.net/schemas/records/hep.json",
@@ -7356,8 +7356,86 @@
       "data": {
         "titles": [
           {
-            "title": "Fixture with desy source",
-            "source": "desy"
+            "title": "Fixture with desy source / Heriot-Watt U.",
+            "source": "Heriot-Watt U."
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "acquisition_source": {
+          "method": "hepcrawl",
+          "source": "desy",
+          "datetime": "2024-11-18T11:34:19.809575"
+        }
+      },
+      "status": "running",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "33333333-3333-3333-3333-333333333334",
+    "fields": {
+      "workflow_type": "HEP_PUBLISHER_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "Fixture with desy source / Wiley",
+            "source": "Wiley"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "acquisition_source": {
+          "method": "hepcrawl",
+          "source": "desy",
+          "datetime": "2024-11-18T11:34:19.809575"
+        }
+      },
+      "status": "running",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "33333333-3333-3333-3333-333333333336",
+    "fields": {
+      "workflow_type": "HEP_PUBLISHER_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "Fixture with desy source / Wiley bis",
+            "source": "Wiley"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "acquisition_source": {
+          "method": "hepcrawl",
+          "source": "desy",
+          "datetime": "2024-11-18T11:34:19.809575"
+        }
+      },
+      "status": "running",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
+  },
+  {
+    "model": "hep.hepworkflow",
+    "pk": "33333333-3333-3333-3333-333333333335",
+    "fields": {
+      "workflow_type": "HEP_PUBLISHER_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "Fixture with desy source / IOP",
+            "source": "IOP"
           }
         ],
         "$schema": "https://inspirehep.net/schemas/records/hep.json",
@@ -7409,7 +7487,7 @@
         "titles": [
           {
             "title": "The multiple exact matches fixture test",
-            "source": "Elsevier"
+            "source": "Elsevier Ltd"
           }
         ],
         "$schema": "https://inspirehep.net/schemas/records/hep.json",
@@ -7439,7 +7517,7 @@
         "titles": [
           {
             "title": "The withdrawn fixture test",
-            "source": "Elsevier"
+            "source": "Elsevier Ltd"
           }
         ],
         "$schema": "https://inspirehep.net/schemas/records/hep.json",
@@ -7494,7 +7572,7 @@
         "titles": [
           {
             "title": "The publisher harvest approval fixture test",
-            "source": "Elsevier"
+            "source": "Elsevier Ltd"
           }
         ],
         "$schema": "https://inspirehep.net/schemas/records/hep.json",
@@ -7521,7 +7599,7 @@
         "titles": [
           {
             "title": "The publisher update approval fixture test",
-            "source": "Elsevier"
+            "source": "Elsevier B. V."
           }
         ],
         "$schema": "https://inspirehep.net/schemas/records/hep.json",

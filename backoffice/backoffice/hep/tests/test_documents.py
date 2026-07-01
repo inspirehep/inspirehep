@@ -74,13 +74,36 @@ def test_prepare_data_preserves_existing_arxiv_eprints(document):
     ]
 
 
+def test_prepare_data_use_acquisition_source_for_non_desy(document):
+    instance = Mock()
+    instance.data = {
+        "acquisition_source": {"source": "Elsevier"},
+    }
+
+    result = document.prepare_data(instance)
+
+    assert result["source"] == "Elsevier"
+
+
+def test_prepare_data_use_titles_source_for_desy(document):
+    instance = Mock()
+    instance.data = {
+        "acquisition_source": {"source": "desy"},
+        "titles": [{"source": "Wiley"}],
+    }
+
+    result = document.prepare_data(instance)
+
+    assert result["source"] == "desy/Wiley"
+
+
 def test_prepare_data_handles_none_data(document):
     instance = Mock()
     instance.data = None
 
     result = document.prepare_data(instance)
 
-    assert result == {"public_notes": [], "arxiv_eprints": []}
+    assert result == {"public_notes": [], "arxiv_eprints": [], "source": None}
 
 
 def test_prepare_data_handles_empty_data(document):
