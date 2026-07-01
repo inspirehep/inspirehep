@@ -24,7 +24,7 @@ class TriggerWorkflowDagCommandTests(TransactionTestCase):
             id=uuid.uuid4(),
             workflow_type=AuthorWorkflowType.AUTHOR_CREATE,
             status=AuthorStatusChoices.RUNNING,
-            data={"name": "Doe, John"},
+            data={"name": {"value": "Doe, John"}},
         )
         stdout = StringIO()
 
@@ -38,7 +38,7 @@ class TriggerWorkflowDagCommandTests(TransactionTestCase):
         self.assertEqual(workflow_id, str(workflow.id))
         self.assertEqual(payload["id"], str(workflow.id))
         self.assertEqual(payload["workflow_type"], AuthorWorkflowType.AUTHOR_CREATE)
-        self.assertEqual(payload["data"], {"name": "Doe, John"})
+        self.assertEqual(payload["data"], {"name": {"value": "Doe, John"}})
         self.assertIn("author_create_initialization_dag", stdout.getvalue())
 
     @patch("backoffice.common.airflow_utils.trigger_airflow_dag")

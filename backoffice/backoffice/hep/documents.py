@@ -223,7 +223,7 @@ class HepWorkflowDocument(BaseWorkflowDocument):
         }
 
     def prepare_data(self, instance):
-        data = instance.data or {}
+        data = dict(instance.data or {})
         data.setdefault("public_notes", [])
         data.setdefault("arxiv_eprints", [])
         return data
