@@ -107,7 +107,7 @@ Cypress.Commands.add(
 
 Cypress.Commands.add('submitForm', (data) => {
   cy.fillForm(data);
-  cy.get('[data-test-id="submit-button"]').focus().click();
+  cy.get('[data-test-id="submit-button"]').click({ force: true });
 });
 
 Cypress.Commands.add('fillForm', (data) => {
@@ -181,10 +181,12 @@ Cypress.Commands.add('fillDateRangeField', (path, [startDate, endDate]) => {
     cy.wrap($dateRangeSelect)
       .find('input')
       .first()
+      .click({ force: true })
       .type(`${startDateValue}{enter}`, { force: true });
     cy.wrap($dateRangeSelect)
       .find('input')
       .last()
+      .click({ force: true })
       .type(`${endDateValue}{enter}`, { force: true });
   });
 });

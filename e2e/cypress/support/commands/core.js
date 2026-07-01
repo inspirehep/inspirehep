@@ -32,7 +32,7 @@ Cypress.Commands.add("selectFromSelectBox", (selectBoxId, options) => {
   cy.get(selectBoxSelector).then(($selectBox) => {
     const hasSearch = $selectBox.hasClass("ant-select-show-search");
     const isMultiSelect = Array.isArray(options);
-    cy.wrap($selectBox).click();
+    cy.wrap($selectBox).find(".ant-select-selector").click({ force: true });
     cy.get(".ant-select-dropdown")
       .invoke("css", "display", "initial")
       .should("be.visible");
@@ -44,11 +44,11 @@ Cypress.Commands.add("selectFromSelectBox", (selectBoxId, options) => {
           .type(`${option}`, { force: true });
       }
       const optionSelector = `[data-test-id="${selectBoxId}-option-${option}"]`;
-      cy.get(optionSelector).click();
+      cy.get(optionSelector).click({ force: true });
     }
 
     if (isMultiSelect) {
-      cy.wrap($selectBox).click({ force: true });
+      cy.wrap($selectBox).find(".ant-select-selector").click({ force: true });
     }
 
     cy.get(".ant-select-dropdown")
