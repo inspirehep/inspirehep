@@ -244,9 +244,12 @@ class Test_HEPCreateDAG:
             }
         ],
     )
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.update_workflow"
+    )
     @pytest.mark.vcr
     def test_discard_older_wfs_w_same_source_discard_self(
-        self, mock_find_matching_workflows
+        self, mock_update_workflow, mock_find_matching_workflows
     ):
         self.s3_store.write_workflow(
             {
@@ -272,8 +275,10 @@ class Test_HEPCreateDAG:
         assert result == "run_next_if_necessary"
         workflow_result = self.wf_hook.get_workflow(self.workflow_id)
 
-        assert workflow_result["status"] == STATUS_COMPLETED
         assert workflows.get_decision(workflow_result["decisions"], DECISION_DISCARD)
+        mock_update_workflow.assert_called_once()
+        assert mock_update_workflow.call_args.args[0] == self.workflow_id
+        assert mock_update_workflow.call_args.args[1]["status"] == STATUS_COMPLETED
 
     @patch(
         "include.utils.opensearch.find_matching_workflows",
@@ -501,10 +506,9 @@ class Test_HEPCreateDAG:
             self.workflow_id,
         )
 
-        result = task_test(self.dag, "check_if_previously_rejected", self.context)
+        task_test(self.dag, "check_if_previously_rejected", self.context)
         workflow = self.wf_hook.get_workflow(self.workflow_id)
 
-        assert result == "save_and_complete_workflow"
         assert workflows.get_decision(workflow.get("decisions"), DECISION_AUTO_REJECT)
 
     @pytest.mark.vcr
@@ -533,10 +537,9 @@ class Test_HEPCreateDAG:
             self.workflow_id,
         )
 
-        result = task_test(self.dag, "check_if_previously_rejected", self.context)
+        task_test(self.dag, "check_if_previously_rejected", self.context)
         workflow = self.wf_hook.get_workflow(self.workflow_id)
 
-        assert result == "save_and_complete_workflow"
         assert workflows.get_decision(workflow.get("decisions"), DECISION_AUTO_REJECT)
 
     @pytest.mark.vcr
@@ -558,8 +561,67 @@ class Test_HEPCreateDAG:
             self.workflow_id,
         )
 
-        result = task_test(self.dag, "check_if_previously_rejected", self.context)
-        assert result == "preprocessing"
+        task_test(self.dag, "check_if_previously_rejected", self.context)
+
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.get_workflow",
+        return_value={"decisions": [{"action": DECISION_AUTO_REJECT}]},
+    )
+    def test_skip_if_auto_rejected_auto_reject(self, mock_get_workflow):
+        result = task_test(self.dag, "skip_if_auto_rejected", self.context)
+
+        assert result is False
+        mock_get_workflow.assert_called_once_with(self.workflow_id)
+
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.get_workflow",
+        return_value={"decisions": [{"action": DECISION_DISCARD}]},
+    )
+    def test_skip_if_auto_rejected_discard(self, mock_get_workflow):
+        result = task_test(self.dag, "skip_if_auto_rejected", self.context)
+
+        assert result is False
+        mock_get_workflow.assert_called_once_with(self.workflow_id)
+
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.get_workflow",
+        return_value={"decisions": []},
+    )
+    def test_skip_if_auto_rejected_continue(self, mock_get_workflow):
+        result = task_test(self.dag, "skip_if_auto_rejected", self.context)
+
+        assert result is True
+        mock_get_workflow.assert_called_once_with(self.workflow_id)
+
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.get_workflow",
+        return_value={"decisions": [{"action": DECISION_AUTO_REJECT}]},
+    )
+    def test_continue_if_auto_rejected_auto_reject(self, mock_get_workflow):
+        result = task_test(self.dag, "continue_if_auto_rejected", self.context)
+
+        assert result is True
+        mock_get_workflow.assert_called_once_with(self.workflow_id)
+
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.get_workflow",
+        return_value={"decisions": [{"action": DECISION_DISCARD}]},
+    )
+    def test_continue_if_auto_rejected_discard(self, mock_get_workflow):
+        result = task_test(self.dag, "continue_if_auto_rejected", self.context)
+
+        assert result is True
+        mock_get_workflow.assert_called_once_with(self.workflow_id)
+
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.get_workflow",
+        return_value={"decisions": []},
+    )
+    def test_continue_if_auto_rejected_false(self, mock_get_workflow):
+        result = task_test(self.dag, "continue_if_auto_rejected", self.context)
+
+        assert result is False
+        mock_get_workflow.assert_called_once_with(self.workflow_id)
 
     @pytest.mark.vcr
     def test_check_for_exact_matches_one_match_has_match(self):
