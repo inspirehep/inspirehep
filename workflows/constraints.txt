@@ -103,7 +103,7 @@ apache-airflow-providers-apache-druid==4.5.2
 apache-airflow-providers-apache-flink==1.8.4
 apache-airflow-providers-apache-hdfs==4.12.0
 apache-airflow-providers-apache-hive==9.5.0
-apache-airflow-providers-apache-iceberg==1.4.1
+apache-airflow-providers-apache-iceberg==2.0.3
 apache-airflow-providers-apache-impala==1.9.2
 apache-airflow-providers-apache-kafka==1.14.0
 apache-airflow-providers-apache-kylin==3.10.4
