@@ -21,30 +21,37 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        client = get_opensearch_client()
-        index_name = settings.OPENSEARCH_INDEX_NAMES.get(settings.AUTHORS_DOCUMENTS)
         uuid_value = str(options["uuid"])
-
-        try:
-            client.delete(
-                index=index_name,
-                id=uuid_value,
-            )
-            self.stdout.write(
-                self.style.SUCCESS(f"[OS] Deleted document: {uuid_value}")
-            )
-        except NotFoundError:
-            self.stdout.write(
-                self.style.WARNING(f"[OS] Document not found: {uuid_value}")
-            )
 
         try:
             author = AuthorWorkflow.objects.get(id=uuid_value)
             author.delete()
             self.stdout.write(
-                self.style.SUCCESS(f"[DB] Deleted AuthorWorkflow: {uuid_value}")
+                self.style.SUCCESS(
+                    f"Deleted AuthorWorkflow from DB and OpenSearch: {uuid_value}"
+                )
             )
         except AuthorWorkflow.DoesNotExist:
             self.stdout.write(
-                self.style.WARNING(f"[DB] AuthorWorkflow not found: {uuid_value}")
+                self.style.WARNING(f"AuthorWorkflow not found in DB: {uuid_value}")
             )
+
+            client = get_opensearch_client()
+            index_name = settings.OPENSEARCH_INDEX_NAMES.get(settings.AUTHORS_DOCUMENTS)
+
+            try:
+                client.delete(
+                    index=index_name,
+                    id=uuid_value,
+                )
+                self.stdout.write(
+                    self.style.SUCCESS(
+                        f"Deleted document from OpenSearch: {uuid_value}"
+                    )
+                )
+            except NotFoundError:
+                self.stdout.write(
+                    self.style.WARNING(
+                        f"Document not found in OpenSearch: {uuid_value}"
+                    )
+                )
