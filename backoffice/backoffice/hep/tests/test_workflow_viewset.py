@@ -1,5 +1,6 @@
 import uuid
 import pytest
+import requests
 from copy import deepcopy
 from unittest.mock import Mock, patch
 from requests.exceptions import RequestException
@@ -490,6 +491,38 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(self.workflow.decisions.first().action, HepResolutions.discard)
 
         airflow_utils.delete_workflow_dag(dag_id, self.workflow.id)
+
+    @patch("backoffice.hep.utils.logger")
+    @patch("backoffice.hep.utils.airflow_utils.mark_airflow_dag_run_as_success")
+    def test_discard_succeeds_when_airflow_dag_run_is_missing(
+        self, mock_mark_success, mock_logger
+    ):
+        response = requests.Response()
+        response.status_code = 404
+        mock_mark_success.side_effect = requests.exceptions.HTTPError(
+            "404 Client Error", response=response
+        )
+
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-discard",
+            kwargs={"pk": self.workflow.id},
+        )
+        data = {
+            "note": "Discarding this workflow for testing purposes.",
+        }
+        response = self.api_client.post(url, format="json", data=data)
+
+        self.assertEqual(response.status_code, 200)
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, HepStatusChoices.COMPLETED)
+        self.assertEqual(self.workflow.decisions.first().action, HepResolutions.discard)
+        mock_mark_success.assert_called_once_with(
+            self.workflow, note="Discarding this workflow for testing purposes."
+        )
+        mock_logger.error.assert_called_once_with(
+            f"Error occurred while marking DAG run as success for workflow {self.workflow.id}: 404 Client Error"
+        )
 
     @pytest.mark.vcr
     def test_block(self):

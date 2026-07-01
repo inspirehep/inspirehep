@@ -1,6 +1,7 @@
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 from types import SimpleNamespace
 import pytest
+import requests
 import uuid
 from django.apps import apps
 from django.contrib.auth import get_user_model
@@ -89,17 +90,64 @@ class TestUtils(TransactionTestCase):
             1,
         )
 
-    @patch("requests.patch")
-    def test_complete_workflow(self, mock_patch):
-        mock_response = Mock()
-        mock_response.status_code = 200
-        mock_patch.return_value = mock_response
-
+    @patch("backoffice.hep.utils.airflow_utils.mark_airflow_dag_run_as_success")
+    def test_complete_workflow(self, mock_mark_success):
         request_data = {
             "note": "completing workflow",
         }
 
-        complete_workflow(self.workflow.id, request_data)
+        workflow = complete_workflow(self.workflow.id, request_data)
+
+        self.assertEqual(workflow, self.workflow)
+        mock_mark_success.assert_called_once_with(
+            self.workflow, note="completing workflow"
+        )
+
+    @patch("backoffice.hep.utils.logger")
+    @patch("backoffice.hep.utils.airflow_utils.mark_airflow_dag_run_as_success")
+    def test_complete_workflow_logs_and_continues_on_airflow_404(
+        self, mock_mark_success, mock_logger
+    ):
+        request_data = {
+            "note": "completing workflow",
+        }
+        response = requests.Response()
+        response.status_code = 404
+        mock_mark_success.side_effect = requests.exceptions.HTTPError(
+            "404 Client Error", response=response
+        )
+
+        workflow = complete_workflow(self.workflow.id, request_data)
+
+        self.assertEqual(workflow, self.workflow)
+        mock_mark_success.assert_called_once_with(
+            self.workflow, note="completing workflow"
+        )
+        mock_logger.error.assert_called_once_with(
+            f"Error occurred while marking DAG run as success for workflow {self.workflow.id}: 404 Client Error"
+        )
+
+    @patch("backoffice.hep.utils.logger")
+    @patch("backoffice.hep.utils.airflow_utils.mark_airflow_dag_run_as_success")
+    def test_complete_workflow_does_not_log_non_404_http_errors(
+        self, mock_mark_success, mock_logger
+    ):
+        request_data = {
+            "note": "completing workflow",
+        }
+        response = requests.Response()
+        response.status_code = 500
+        mock_mark_success.side_effect = requests.exceptions.HTTPError(
+            "500 Server Error", response=response
+        )
+
+        with pytest.raises(requests.exceptions.HTTPError, match="500 Server Error"):
+            complete_workflow(self.workflow.id, request_data)
+
+        mock_mark_success.assert_called_once_with(
+            self.workflow, note="completing workflow"
+        )
+        mock_logger.error.assert_not_called()
 
     def test_get_restored_hep_workflow_type_for_publisher(self):
         workflow = SimpleNamespace(

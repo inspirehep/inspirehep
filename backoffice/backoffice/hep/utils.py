@@ -4,6 +4,7 @@ from backoffice.hep.api.serializers import (
 )
 from django.shortcuts import get_object_or_404
 import logging
+import requests
 
 from backoffice.hep.models import HepDecision, HepWorkflow
 
@@ -92,5 +93,12 @@ def complete_workflow(id, data):
     note = serializer.validated_data.get("note", "")
 
     workflow = get_object_or_404(HepWorkflow, pk=id)
-    airflow_utils.mark_airflow_dag_run_as_success(workflow, note=note)
+    try:
+        airflow_utils.mark_airflow_dag_run_as_success(workflow, note=note)
+    except requests.exceptions.HTTPError as e:
+        if e.response is None or e.response.status_code != 404:
+            raise
+        logger.error(
+            f"Error occurred while marking DAG run as success for workflow {id}: {e}"
+        )
     return workflow
