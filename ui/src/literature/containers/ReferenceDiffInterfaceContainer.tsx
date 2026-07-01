@@ -1,4 +1,5 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
+import { RootState } from '../../types';
 
 import {
   fetchLiterature,
@@ -8,7 +9,7 @@ import {
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
 import ReferenceDiffInterface from '../components/ReferenceDiffInterface/ReferenceDiffInterface';
 
-const mapStateToProps = (state: RootStateOrAny) => ({
+const mapStateToProps = (state: RootState) => ({
   record: state.literature.get('data'),
   authors: state.literature.get('authors'),
   supervisors: state.literature.get('supervisors'),

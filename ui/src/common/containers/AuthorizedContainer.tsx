@@ -1,5 +1,6 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { List } from 'immutable';
+import { RootState } from '../../types';
 
 import { isAuthorized } from '../authorization';
 
@@ -21,7 +22,7 @@ const Authorized = ({
   return null;
 };
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   userRoles: state.user.getIn(['data', 'roles']),
 });
 

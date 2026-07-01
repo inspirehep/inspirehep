@@ -1,9 +1,10 @@
 import { AutoComplete, Button, Form, Modal, Table } from 'antd';
 import React, { useState } from 'react';
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { ActionCreator, Action } from 'redux';
 import { Map } from 'immutable';
 import { BulbOutlined } from '@ant-design/icons';
+import { RootState } from '../../../types';
 import { columnsShortcut, columnsSubject } from '../containers/columnData';
 import {
   statusesWithUpdatableSubjects,
@@ -225,7 +226,7 @@ const SubjectArea = ({
   );
 };
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   literature: state.backoffice.get('literature'),
 });
 

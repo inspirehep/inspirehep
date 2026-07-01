@@ -1,6 +1,7 @@
 import React, { ComponentPropsWithoutRef } from 'react';
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { List } from 'immutable';
+import { RootState } from '../types';
 
 import RouteOrRedirect from './components/RouteOrRedirect';
 import { isAuthorized } from './authorization';
@@ -9,18 +10,19 @@ import { ERROR_401, BACKOFFICE_LOGIN, USER_LOGIN } from './routes';
 interface PrivateRouteProps extends ComponentPropsWithoutRef<any> {
   loggedIn: boolean;
   userRoles: List<string>;
-  authorizedRoles: List<string>;
+  authorizedRoles?: List<string> | null;
   loggedInToBackoffice: boolean;
   component?: JSX.Element | string | any;
   backoffice?: boolean;
 }
 
-function PrivateRoute({ ...props }: PrivateRouteProps) {
-  if (props.loggedIn && props.authorizedRoles) {
-    const isUserAuthorized = isAuthorized(
-      props.userRoles,
-      props.authorizedRoles
-    );
+function PrivateRoute({
+  backoffice = false,
+  authorizedRoles = null,
+  ...props
+}: PrivateRouteProps) {
+  if (props.loggedIn && authorizedRoles) {
+    const isUserAuthorized = isAuthorized(props.userRoles, authorizedRoles);
     return (
       <RouteOrRedirect
         redirectTo={ERROR_401}
@@ -33,7 +35,7 @@ function PrivateRoute({ ...props }: PrivateRouteProps) {
 
   return (
     <RouteOrRedirect
-      redirectTo={props.backoffice ? BACKOFFICE_LOGIN : USER_LOGIN}
+      redirectTo={backoffice ? BACKOFFICE_LOGIN : USER_LOGIN}
       condition={props.loggedIn}
       component={props.component}
       {...props}
@@ -41,12 +43,7 @@ function PrivateRoute({ ...props }: PrivateRouteProps) {
   );
 }
 
-PrivateRoute.defaultProps = {
-  backoffice: false,
-  authorizedRoles: null,
-};
-
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   loggedIn: state.user.get('loggedIn'),
   loggedInToBackoffice: state.backoffice.get('loggedIn'),
   userRoles: state.user.getIn(['data', 'roles']),

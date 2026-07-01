@@ -1,10 +1,11 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { RootState } from '../../types';
 
 import SearchBoxNamespaceSelect from '../components/SearchBoxNamespaceSelect';
 import { changeSearchBoxNamespace } from '../../actions/search';
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   searchScopeName: state.search.get('searchBoxNamespace'),
 });
 

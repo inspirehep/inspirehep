@@ -1,5 +1,6 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { RootState } from '../../types';
 
 import {
   fetchLiteratureReferences,
@@ -11,7 +12,7 @@ import { LITERATURE_REFERENCES_NS } from '../../search/constants';
 import { convertSomeImmutablePropsToJS } from '../immutableToJS';
 import { castPropToNumber } from '../utils';
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   loading: state.literature.get('loadingReferences'),
   references: state.literature.get('references'),
   error: state.literature.get('errorReferences'),
@@ -37,7 +38,7 @@ const stateToProps = (state: RootStateOrAny) => ({
 
 const dispatchToProps = (
   dispatch: ActionCreator<Action>,
-  ownProps: { recordId: number }
+  ownProps: { recordId: string }
 ) => ({
   onPageChange(page: number, size: number) {
     const { recordId } = ownProps;

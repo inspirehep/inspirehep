@@ -52,7 +52,7 @@ describe('CurateReferenceDrawerContainer', () => {
     const { findByTestId } = renderWithProviders(
       <CurateReferenceDrawerContainer
         namespace={CURATE_REFERENCE_NS}
-        recordId={1234}
+        recordId="1234"
         recordUuid="1234"
         revisionId={1}
       />,

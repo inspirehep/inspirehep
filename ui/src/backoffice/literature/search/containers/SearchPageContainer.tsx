@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Select, Card, Checkbox } from 'antd';
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
 import { List, Map } from 'immutable';
+import { RootState } from '../../../../types';
 
 import PaginationContainer from '../../../../common/containers/PaginationContainer';
 import ResultsContainer from '../../../../common/containers/ResultsContainer';
@@ -418,7 +419,7 @@ const LiteratureSearchPageContainer = ({
   );
 };
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   loading: state.search.getIn([
     'namespaces',
     BACKOFFICE_LITERATURE_SEARCH_NS,

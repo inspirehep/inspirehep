@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo } from 'react';
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
 import { Row, Col, Tabs, Tooltip } from 'antd';
 import { Map, List } from 'immutable';
 import { SettingOutlined } from '@ant-design/icons';
+import { RootState } from '../../../types';
 
 import './DetailPage.less';
 import ContentBox from '../../../common/components/ContentBox';
@@ -329,7 +330,7 @@ function DetailPage({
   );
 }
 
-const mapStateToProps = (state: RootStateOrAny) => ({
+const mapStateToProps = (state: RootState) => ({
   record: state.authors.get('data'),
   publicationsQuery: state.search.getIn([
     'namespaces',
@@ -376,15 +377,15 @@ const DetailPageContainer = connect(
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
   routeActions: (id) => [
-    fetchAuthor(id),
+    fetchAuthor(id ?? ''),
     newSearch(AUTHOR_PUBLICATIONS_NS),
     newSearch(AUTHOR_CITATIONS_NS),
     newSearch(AUTHOR_DATA_NS),
     newSearch(AUTHOR_SEMINARS_NS),
     searchBaseQueriesUpdate(AUTHOR_SEMINARS_NS, {
-      baseQuery: { q: `speakers.record.$ref:${id}` },
+      baseQuery: { q: `speakers.record.$ref:${id ?? ''}` },
     }),
   ],
-  loadingStateSelector: (state: RootStateOrAny) =>
+  loadingStateSelector: (state: RootState) =>
     !state.authors.hasIn(['data', 'metadata']),
 });

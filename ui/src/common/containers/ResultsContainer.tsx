@@ -1,11 +1,12 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
+import { RootState } from '../../types';
 
 import SearchResults from '../components/SearchResults';
 import { castPropToNumber } from '../utils';
 import { isCataloger } from '../authorization';
 
 const stateToProps = (
-  state: RootStateOrAny,
+  state: RootState,
   { namespace }: { namespace: string }
 ) => ({
   results: state.search.getIn(['namespaces', namespace, 'results']),

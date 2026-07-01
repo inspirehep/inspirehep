@@ -1,12 +1,13 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { RootState } from '../../types';
 import { searchQueryUpdate } from '../../actions/search';
 
 import SortBy from '../components/SortBy';
 import { convertAllImmutablePropsToJS } from '../immutableToJS';
 
 const stateToProps = (
-  state: RootStateOrAny,
+  state: RootState,
   { namespace }: { namespace: string }
 ) => ({
   sort: state.search.getIn(['namespaces', namespace, 'query', 'sort']),

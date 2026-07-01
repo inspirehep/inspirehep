@@ -1,12 +1,13 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { RootState } from '../../types';
 
 import { searchQueryUpdate } from '../../actions/search';
 import { castPropToNumber } from '../utils';
 import SearchPagination from '../components/SearchPagination';
 
 const stateToProps = (
-  state: RootStateOrAny,
+  state: RootState,
   { namespace }: { namespace: string }
 ) => ({
   page: castPropToNumber(

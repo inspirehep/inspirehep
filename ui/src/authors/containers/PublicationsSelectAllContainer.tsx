@@ -1,5 +1,6 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { RootState } from '../../types';
 
 import {
   setPublicationSelection,
@@ -9,7 +10,7 @@ import {
 import PublicationsSelectAll from '../components/PublicationsSelectAll';
 import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   publications: state.search.getIn([
     'namespaces',
     AUTHOR_PUBLICATIONS_NS,

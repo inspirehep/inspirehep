@@ -11,13 +11,13 @@ import FormattedNumber from '../FormattedNumber';
 import { PUBLISHED_URL } from '../../constants';
 
 interface CitationSummaryTableProps {
-  publishedBucket: Map<string, any>;
-  citeableBucket: Map<string, any>;
-  hIndex: Map<string, any>;
+  publishedBucket?: Map<string, any>;
+  citeableBucket?: Map<string, any>;
+  hIndex?: Map<string, any>;
   loading: boolean;
   error: Map<string, string>;
-  renderNumberOfCiteablePapers: Function;
-  renderNumberOfPublishedPapers: Function;
+  renderNumberOfCiteablePapers?: Function;
+  renderNumberOfPublishedPapers?: Function;
 }
 
 const PUBLISHED_HELP_MESSAGE = (
@@ -39,13 +39,17 @@ function toFixedNumber(numberOrNull: number | null) {
 }
 
 const CitationSummaryTable = ({
-  publishedBucket,
-  citeableBucket,
-  hIndex,
+  publishedBucket = Map(),
+  citeableBucket = Map(),
+  hIndex = Map(),
+  renderNumberOfCiteablePapers = (value: number) => (
+    <FormattedNumber>{value}</FormattedNumber>
+  ),
+  renderNumberOfPublishedPapers = (value: number) => (
+    <FormattedNumber>{value}</FormattedNumber>
+  ),
   loading,
   error,
-  renderNumberOfCiteablePapers,
-  renderNumberOfPublishedPapers,
 }: CitationSummaryTableProps) => {
   return (
     <LoadingOrChildren loading={loading}>
@@ -146,18 +150,6 @@ const CitationSummaryTable = ({
       </ErrorAlertOrChildren>
     </LoadingOrChildren>
   );
-};
-
-CitationSummaryTable.defaultProps = {
-  publishedBucket: Map(),
-  citeableBucket: Map(),
-  hIndex: Map(),
-  renderNumberOfCiteablePapers: (value: number) => (
-    <FormattedNumber>{value}</FormattedNumber>
-  ),
-  renderNumberOfPublishedPapers: (value: number) => (
-    <FormattedNumber>{value}</FormattedNumber>
-  ),
 };
 
 export default CitationSummaryTable;

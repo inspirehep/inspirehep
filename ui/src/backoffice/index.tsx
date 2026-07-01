@@ -1,5 +1,6 @@
 import React from 'react';
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
+import { RootState } from '../types';
 
 import {
   BACKOFFICE,
@@ -87,7 +88,7 @@ const Backoffice = ({ loggedIn }: { loggedIn: boolean }) => {
   );
 };
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   loggedIn: state.user.get('loggedIn'),
 });
 

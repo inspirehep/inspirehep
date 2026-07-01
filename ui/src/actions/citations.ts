@@ -1,6 +1,6 @@
 import { stringify } from 'qs';
 import { Action, ActionCreator } from 'redux';
-import { RootStateOrAny } from 'react-redux';
+import { RootState } from '../types';
 
 import { HttpClientWrapper, isCancelError } from '../common/http';
 import {
@@ -44,7 +44,7 @@ export function fetchCitationSummary(
   namespace: string
 ): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -101,7 +101,7 @@ function fetchCitationsByYearError(error: { error: Error }) {
 
 export function fetchCitationsByYear(literatureSearchQuery: {}): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {

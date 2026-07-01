@@ -1,13 +1,14 @@
 import React, { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { ActionCreator, Action } from 'redux';
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import { push } from 'connected-react-router';
 
 import './LiteratureDetailPageContainer.less';
 
 import { Alert, Col, Row } from 'antd';
+import { RootState } from '../../../types';
 import { RestartActionButtons } from '../../common/components/Detail/RestartActionButtons';
 import {
   deleteWorkflow,
@@ -354,7 +355,7 @@ const LiteratureDetailPageContainer = ({
   );
 };
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   literature: state.backoffice.get('literature'),
   loading: state.backoffice.get('loading'),
   restartActionInProgress: state.backoffice.get('restartActionInProgress'),

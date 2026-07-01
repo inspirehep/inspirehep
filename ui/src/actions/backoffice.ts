@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { push } from 'connected-react-router';
 import { Action, ActionCreator } from 'redux';
-import { RootStateOrAny } from 'react-redux';
 import axios from 'axios';
 
 import { httpErrorToActionPayload } from '../common/utils';
@@ -51,7 +50,7 @@ import {
   BACKOFFICE,
   BACKOFFICE_LOGIN,
 } from '../common/routes';
-import { Credentials } from '../types';
+import { Credentials, RootState } from '../types';
 import storage from '../common/storage';
 import {
   notifyLoginError,
@@ -188,7 +187,7 @@ export function backofficeLogout(): (
 // DASHBOARD ACTIONS
 function fetchAuthorsDashboardInfo(): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny
+  getState: () => RootState
 ) => Promise<void> {
   return async (dispatch) => {
     dispatch({ type: BACKOFFICE_AUTHORS_DASHBOARD_REQUEST });
@@ -208,7 +207,7 @@ function fetchAuthorsDashboardInfo(): (
 
 function fetchLiteratureDashboardInfo(): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny
+  getState: () => RootState
 ) => Promise<void> {
   return async (dispatch) => {
     dispatch({ type: BACKOFFICE_LITERATURE_DASHBOARD_REQUEST });
@@ -287,7 +286,7 @@ export function fetchSearchResults(
   namespace: string
 ): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny
+  getState: () => RootState
 ) => Promise<void> {
   return async (dispatch, getState) => {
     dispatch(searching());

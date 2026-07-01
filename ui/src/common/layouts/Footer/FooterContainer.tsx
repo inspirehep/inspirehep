@@ -1,9 +1,10 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
+import { RootState } from '../../../types';
 
 import Footer from './Footer';
 import { isCataloger } from '../../authorization';
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
 });
 
