@@ -171,7 +171,7 @@ apache-airflow-providers-postgres==6.7.0
 apache-airflow-providers-presto==5.12.0
 apache-airflow-providers-qdrant==1.5.5
 apache-airflow-providers-redis==4.4.4
-apache-airflow-providers-salesforce==5.14.0
+apache-airflow-providers-salesforce==5.14.1
 apache-airflow-providers-samba==4.12.5
 apache-airflow-providers-segment==3.9.4
 apache-airflow-providers-sendgrid==4.2.3
