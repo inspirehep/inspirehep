@@ -360,6 +360,7 @@ exports[`CitationSummaryBox > renders 1`] = `
                                   height="30"
                                   orientation="bottom"
                                   stroke="#666"
+                                  text-anchor="middle"
                                   width="710"
                                   x="60"
                                   x1="60"
