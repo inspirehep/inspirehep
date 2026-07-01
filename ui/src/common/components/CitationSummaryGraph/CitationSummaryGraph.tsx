@@ -17,6 +17,7 @@ import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 import { CITEABLE_BAR_TYPE, PUBLISHED_BAR_TYPE } from '../../constants';
 import styleVariables from '../../../styleVariables';
 import { shallowEqual, abbreviateNumber } from '../../utils';
+import useResponsiveCheck from '../../hooks/useResponsiveCheck';
 
 const GRAPH_MARGIN = { left: 0, right: 30, top: 40, bottom: 40 };
 const GRAPH_HEIGHT = 300;
@@ -96,6 +97,8 @@ const CitationSummaryGraph = ({
   excludeSelfCitations,
 }: CitationSummaryGraphProps) => {
   const [hoveredBar, setHoveredBar] = useState<BarType | null>(null);
+
+  const isMobile = useResponsiveCheck({ max: 'sm' });
 
   const getBarColor = useCallback(
     (bar: BarType) => {
@@ -214,6 +217,8 @@ const CitationSummaryGraph = ({
                     <ComposedChart data={mergedData} margin={GRAPH_MARGIN}>
                       <Legend />
                       <XAxis
+                        angle={isMobile ? -45 : 0}
+                        textAnchor={isMobile ? 'end' : 'middle'}
                         dataKey="x"
                         className="x-axis"
                         tickFormatter={(v) =>
