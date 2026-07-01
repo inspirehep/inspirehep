@@ -1,127 +1,129 @@
-import moment from 'moment';
+import moment from "moment";
 
-describe('Seminar Search', () => {
+describe("Seminar Search", () => {
   if (Cypress.browser.isHeadless) {
-    it.skip('matches image snapshot', () => {
+    it.skip("matches image snapshot", () => {
       cy.registerRoute();
-      cy.visit('/seminars?start_date=all');
+      cy.visit("/seminars?start_date=all");
       cy.waitForRoute();
       cy.waitForSearchResults();
-      cy.matchSnapshots('SeminarSearch');
+      cy.matchSnapshots("SeminarSearch");
     });
   }
 });
 
-describe('Seminar Detail', () => {
+describe("Seminar Detail", () => {
   if (Cypress.browser.isHeadless) {
-    it.skip('matches image snapshot', () => {
+    it.skip("matches image snapshot", () => {
       cy.registerRoute();
-      cy.visit('/seminars/1799778');
+      cy.visit("/seminars/1799778");
       cy.waitForRoute();
-      cy.matchSnapshots('SeminarDetail');
+      cy.matchSnapshots("SeminarDetail");
     });
   }
 });
 
-describe('Seminar Submission', () => {
+describe("Seminar Submission", () => {
   beforeEach(() => {
-    cy.login('cataloger');
+    cy.login("cataloger");
   });
 
   if (Cypress.browser.isHeadless) {
-    it.skip('matches image snapshot', () => {
-      cy.visit('/submissions/seminars');
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('SeminarSubmission', { skipMobile: true });
+    it.skip("matches image snapshot", () => {
+      cy.visit("/submissions/seminars");
+      cy.get("form").should("be.visible");
+      cy.matchSnapshots("SeminarSubmission", { skipMobile: true });
     });
 
-    it.skip('matches image snapshot for Seminar update', () => {
+    it.skip("matches image snapshot for Seminar update", () => {
       cy.registerRoute();
-      cy.visit('/submissions/seminars/1799778');
+      cy.visit("/submissions/seminars/1799778");
       cy.waitForRoute();
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('SeminarUpdateSubmission', { skipMobile: true });
+      cy.get("form").should("be.visible");
+      cy.matchSnapshots("SeminarUpdateSubmission", { skipMobile: true });
     });
   }
 
-  it('submits a new seminar', () => {
-    const startDateMoment = moment('2020-05-06 08:30');
-    const endDateMoment = moment('2020-05-06 14:30');
+  it("submits a new seminar", () => {
+    const startDateMoment = moment("2020-05-06 08:30");
+    const endDateMoment = moment("2020-05-06 14:30");
     const formData = {
-      name: 'The Cool Seminar',
-      timezone: 'Europe/Zurich',
+      name: "The Cool Seminar",
+      timezone: "Europe/Zurich",
       dates: [startDateMoment, endDateMoment],
-      abstract: 'This is cool',
+      abstract: "This is cool",
       material_urls: [
         {
-          description: 'slides',
-          value: 'https://example.com/slides/',
+          description: "slides",
+          value: "https://example.com/slides/",
         },
         {
-          value: 'https://example.com/pdf',
+          value: "https://example.com/pdf",
         },
       ],
       join_urls: [
         {
-          description: 'primary',
-          value: 'https://example.com/join/1',
+          description: "primary",
+          value: "https://example.com/join/1",
         },
         {
-          value: 'https://example.com/join/2',
+          value: "https://example.com/join/2",
         },
       ],
       captioned: true,
       speakers: [
         {
-          name: 'Urhan, Ahmet',
+          name: "Urhan, Ahmet",
         },
         {
-          name: 'Urhan, Harun',
-          affiliation: 'CERN',
+          name: "Urhan, Harun",
+          affiliation: "CERN",
         },
       ],
       address: {
-        city: 'Geneva',
-        country: 'Switzerland',
+        city: "Geneva",
+        country: "Switzerland",
       },
       contacts: [
         {
-          email: 'contact@example.com',
-          name: 'Contact',
+          email: "contact@example.com",
+          name: "Contact",
         },
       ],
-      field_of_interest: ['Accelerators', 'Math and Math Physics'],
-      series_name: 'A seminar serie',
-      series_number: '1',
-      additional_info: 'A public note',
-      literature_records: ['1787272'],
+      field_of_interest: ["Accelerators", "Math and Math Physics"],
+      series_name: "A seminar serie",
+      series_number: "1",
+      additional_info: "A public note",
+      literature_records: ["1787272"],
     };
 
-    cy.visit('/submissions/seminars');
+    cy.visit("/submissions/seminars");
+    cy.get("form").should("be.visible");
     cy.testSubmission({
-      expectedMetadata: 'The Cool Seminar',
+      expectedMetadata: "The Cool Seminar",
       formData,
-      collection: 'seminars',
-      submissionType: 'record',
+      collection: "seminars",
+      submissionType: "record",
     });
   });
 
-  it('updates a seminar', () => {
+  it("updates a seminar", () => {
     const expectedMetadata = {
       title: {
-        title: 'Primordial Black Holes, Gravitational Waves & Werewolves',
+        title: "Primordial Black Holes, Gravitational Waves & Werewolves",
       },
     };
 
-    cy.visit('/submissions/seminars/1811750');
+    cy.visit("/submissions/seminars/1811750");
+    cy.waitForLoading();
     cy.testUpdateSubmission({
-      collection: 'seminars',
+      collection: "seminars",
       recordId: 1811750,
       formData: {
-        name: ': Updated',
+        name: ": Updated",
       },
       expectedMetadata: {
-        title: { title: expectedMetadata.title.title + ': Updated' },
+        title: { title: expectedMetadata.title.title + ": Updated" },
       },
     });
   });

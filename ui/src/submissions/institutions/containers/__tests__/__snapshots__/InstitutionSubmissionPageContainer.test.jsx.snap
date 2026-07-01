@@ -86,7 +86,6 @@ exports[`InstitutionSubmissionPageContainer > InstitutionSubmissionPage > render
                                   data-test-type="suggester"
                                   form="[object Object]"
                                   name="identifier"
-                                  placement="bottomLeft"
                                   searchasyoutype="true"
                                 >
                                   <div
@@ -105,6 +104,7 @@ exports[`InstitutionSubmissionPageContainer > InstitutionSubmissionPage > render
                                         class="ant-select-selection-search-input"
                                         id="rc_select_TEST_OR_SSR"
                                         role="combobox"
+                                        type="search"
                                         value=""
                                       />
                                     </span>
