@@ -232,7 +232,7 @@ class HepWorkflowDocument(BaseWorkflowDocument):
         return acquisition_source
 
     def prepare_data(self, instance):
-        data = instance.data or {}
+        data = dict(instance.data or {})
         data.setdefault("public_notes", [])
         data.setdefault("arxiv_eprints", [])
         data["source"] = self._compute_source(data)

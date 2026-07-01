@@ -406,7 +406,7 @@ OPENSEARCH_DSL = {
     "default": {"hosts": env("OPENSEARCH_HOST")},
 }
 
-OPENSEARCH_DSL_SIGNAL_PROCESSOR = "django_opensearch_dsl.signals.CelerySignalProcessor"
+OPENSEARCH_DSL_SIGNAL_PROCESSOR = "backoffice.common.signals.OnCommitSignalProcessor"
 
 # Workaround because it wont add the connection settings automatically
 connections.configure(default=OPENSEARCH_DSL["default"])

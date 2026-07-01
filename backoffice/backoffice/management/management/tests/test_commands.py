@@ -17,5 +17,4 @@ class AuthorWorkflowCommandTests(TransactionTestCase):
         )
 
         call_command("delete_author", str(uuid.UUID(int=test_id)), stdout=out)
-        self.assertIn("[OS] Deleted document", out.getvalue())
-        self.assertIn("[DB] Deleted AuthorWorkflow", out.getvalue())
+        self.assertIn("Deleted AuthorWorkflow from DB and OpenSearch", out.getvalue())
