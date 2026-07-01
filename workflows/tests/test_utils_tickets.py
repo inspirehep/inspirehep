@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 from include.utils import tickets
 from include.utils.constants import (
@@ -198,3 +198,136 @@ def test_get_functional_category_and_ticket_type_from_publisher():
 
     assert functional_category == tickets.LITERATURE_ARXIV_CURATION_FUNCTIONAL_CATEGORY
     assert ticket_type == TICKET_HEP_CURATION_CORE
+
+
+@patch("include.utils.tickets.LiteratureWorkflowTicketManagementHook")
+@patch("include.utils.tickets.Variable.get", return_value="qa")
+def test_create_ticket_calls_http_hook_and_creates_ticket_entry(
+    mock_variable_get, mock_ticket_management_hook
+):
+    inspire_http_hook = MagicMock()
+    inspire_http_hook.create_ticket.return_value.json.return_value = {
+        "ticket_id": "SNOW-123"
+    }
+
+    ticket_id = tickets.create_ticket(
+        inspire_http_hook=inspire_http_hook,
+        functional_category="hep",
+        template_name="curation_core",
+        subject="Test subject",
+        email="test@example.org",
+        curation_context={"workflow": "context"},
+        ticket_type=TICKET_HEP_CURATION_CORE,
+        workflow_id="workflow-123",
+    )
+
+    assert ticket_id == "SNOW-123"
+    inspire_http_hook.create_ticket.assert_called_once_with(
+        "hep",
+        "curation_core",
+        "Test subject",
+        "test@example.org",
+        {"workflow": "context"},
+    )
+    mock_ticket_management_hook.return_value.create_ticket_entry.assert_called_once_with(
+        workflow_id="workflow-123",
+        ticket_type=TICKET_HEP_CURATION_CORE,
+        ticket_id="SNOW-123",
+    )
+
+
+@patch("include.utils.tickets.LiteratureWorkflowTicketManagementHook")
+@patch("include.utils.tickets.Variable.get", return_value="local")
+def test_create_ticket_uses_local_ticket_id_without_http_call(
+    mock_variable_get, mock_ticket_management_hook
+):
+    inspire_http_hook = MagicMock()
+
+    ticket_id = tickets.create_ticket(
+        inspire_http_hook=inspire_http_hook,
+        functional_category="hep",
+        template_name="curation_core",
+        subject="Test subject",
+        email="test@example.org",
+        curation_context={"workflow": "context"},
+        ticket_type=TICKET_HEP_CURATION_CORE,
+        workflow_id="workflow-123",
+    )
+
+    assert ticket_id == f"local-{TICKET_HEP_CURATION_CORE}"
+    inspire_http_hook.create_ticket.assert_not_called()
+    mock_ticket_management_hook.return_value.create_ticket_entry.assert_called_once_with(
+        workflow_id="workflow-123",
+        ticket_type=TICKET_HEP_CURATION_CORE,
+        ticket_id=f"local-{TICKET_HEP_CURATION_CORE}",
+    )
+
+
+@patch("include.utils.tickets.Variable.get", return_value="prod")
+def test_reply_ticket_calls_http_hook_outside_local(mock_variable_get):
+    inspire_http_hook = MagicMock()
+
+    tickets.reply_ticket(
+        inspire_http_hook=inspire_http_hook,
+        ticket_id="SNOW-123",
+        template="curator_submitted",
+        template_context={"record_id": 123},
+        email="test@example.org",
+    )
+
+    inspire_http_hook.reply_ticket.assert_called_once_with(
+        "SNOW-123",
+        "curator_submitted",
+        {"record_id": 123},
+        "test@example.org",
+    )
+
+
+@patch("include.utils.tickets.Variable.get", return_value="LOCAL")
+def test_reply_ticket_skips_http_hook_in_local_environment(mock_variable_get):
+    inspire_http_hook = MagicMock()
+
+    tickets.reply_ticket(
+        inspire_http_hook=inspire_http_hook,
+        ticket_id="SNOW-123",
+        template="curator_submitted",
+        template_context={"record_id": 123},
+        email="test@example.org",
+    )
+
+    inspire_http_hook.reply_ticket.assert_not_called()
+
+
+@patch("include.utils.tickets.Variable.get", return_value="prod")
+def test_close_ticket_calls_http_hook_outside_local(mock_variable_get):
+    inspire_http_hook = MagicMock()
+
+    tickets.close_ticket(
+        inspire_http_hook=inspire_http_hook,
+        ticket_id="SNOW-123",
+        template="user_rejected",
+        template_context={"record_id": 123},
+        message="Rejected for testing",
+    )
+
+    inspire_http_hook.close_ticket.assert_called_once_with(
+        "SNOW-123",
+        "user_rejected",
+        {"record_id": 123},
+        "Rejected for testing",
+    )
+
+
+@patch("include.utils.tickets.Variable.get", return_value="local")
+def test_close_ticket_skips_http_hook_in_local_environment(mock_variable_get):
+    inspire_http_hook = MagicMock()
+
+    tickets.close_ticket(
+        inspire_http_hook=inspire_http_hook,
+        ticket_id="SNOW-123",
+        template="user_rejected",
+        template_context={"record_id": 123},
+        message="Rejected for testing",
+    )
+
+    inspire_http_hook.close_ticket.assert_not_called()

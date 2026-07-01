@@ -705,6 +705,7 @@ class Test_HEPCreateDAG:
         assert result == "check_auto_approve"
 
     @pytest.mark.vcr
+    @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
     def test_stop_if_existing_submission_notify_and_close_stop(self):
         workflow_id = "4100e6f4-1bd6-4bbe-b0b4-864c6c2cbef2"
         workflow_data = self.wf_hook.get_workflow(workflow_id)
@@ -2522,6 +2523,7 @@ class Test_HEPCreateDAG:
             task_test(self.dag, "preprocessing.guess_coreness", self.context)
 
     @pytest.mark.vcr
+    @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
     def test_notify_if_submission(self):
         workflow_data = {
             "id": self.workflow_id,
@@ -2573,6 +2575,7 @@ class Test_HEPCreateDAG:
         assert not get_ticket_by_type(workflow, TICKET_HEP_SUBMISSION)
 
     @pytest.mark.vcr
+    @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
     def test_notify_if_submission_ticket_already_exists(self):
         workflow_id = "7b617859-cb4f-4526-aa85-ec5291dc141b"
         workflow_data = {
@@ -3010,6 +3013,7 @@ class Test_HEPCreateDAG:
         assert result == "notify_and_close_not_accepted"
 
     @pytest.mark.vcr
+    @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
     def test_notify_and_close_not_accepted(self):
         workflow_id = "7c6b56bd-6166-4fee-ad6f-5b99b7d37b7e"
 
@@ -3036,6 +3040,7 @@ class Test_HEPCreateDAG:
         )
 
     @pytest.mark.vcr
+    @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
     def test_notify_and_close_not_accepted_with_rejection_message(self, vcr_cassette):
         workflow_id = "a2fccc44-4c2f-41c9-b0bb-82c5d977a39c"
 
@@ -4104,9 +4109,12 @@ class Test_HEPCreateDAG:
         "hooks.backoffice.workflow_ticket_management_hook."
         "LiteratureWorkflowTicketManagementHook.create_ticket_entry"
     )
+    @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
     def test_notify_curator_if_needed_needed_france_fulltext(
         self, mock_create_ticket_entry, mock_create_ticket, mock_get_fulltext
     ):
+        mock_create_ticket.return_value.json.return_value = {"ticket_id": "123"}
+
         workflow_data = {
             "id": self.workflow_id,
             "data": {
@@ -4122,7 +4130,11 @@ class Test_HEPCreateDAG:
 
         task_test(self.dag, "notify_curator_if_needed", self.context)
         mock_create_ticket.assert_called_once()
-        mock_create_ticket_entry.assert_called_once()
+        mock_create_ticket_entry.assert_called_once_with(
+            workflow_id=self.workflow_id,
+            ticket_type=TICKET_HEP_CURATION,
+            ticket_id=mock_create_ticket.return_value.json.return_value["ticket_id"],
+        )
 
     @patch("include.utils.workflows.get_fulltext", return_value="germany")
     @patch("hooks.inspirehep.inspire_http_hook.InspireHttpHook.create_ticket")
@@ -4130,6 +4142,7 @@ class Test_HEPCreateDAG:
         "hooks.backoffice.workflow_ticket_management_hook."
         "LiteratureWorkflowTicketManagementHook.create_ticket_entry"
     )
+    @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
     def test_notify_curator_if_needed_germany_fulltext(
         self, mock_create_ticket_entry, mock_create_ticket, mock_get_fulltext
     ):
@@ -4157,6 +4170,7 @@ class Test_HEPCreateDAG:
         "hooks.backoffice.workflow_ticket_management_hook."
         "LiteratureWorkflowTicketManagementHook.create_ticket_entry"
     )
+    @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
     def test_notify_curator_if_needed_raw_affiliations_france(
         self, mock_create_ticket_entry, mock_create_ticket
     ):
@@ -4193,6 +4207,7 @@ class Test_HEPCreateDAG:
         "hooks.backoffice.workflow_ticket_management_hook."
         "LiteratureWorkflowTicketManagementHook.create_ticket_entry"
     )
+    @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
     def test_notify_curator_if_needed_raw_affiliations_uk(
         self, mock_create_ticket_entry, mock_create_ticket
     ):
@@ -4225,6 +4240,7 @@ class Test_HEPCreateDAG:
         "hooks.backoffice.workflow_ticket_management_hook."
         "LiteratureWorkflowTicketManagementHook.create_ticket_entry"
     )
+    @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
     def test_notify_curator_if_needed_submitter_or_arxiv(
         self, mock_create_ticket_entry, mock_create_ticket
     ):
@@ -4511,6 +4527,7 @@ class Test_HEPCreateDAG:
         assert task_test(self.dag, "is_fresh_data", self.context) is None
 
     @pytest.mark.vcr
+    @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
     def test_create_curation_core_ticket(self):
         workflow_data = {
             "id": self.workflow_id,
