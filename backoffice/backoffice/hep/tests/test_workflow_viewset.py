@@ -117,6 +117,26 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(json_response["workflow_type"], data["workflow_type"])
         self.assertIn("id", json_response)
 
+    @patch("backoffice.common.signals.update_registry_after_commit")
+    def test_create_hep_calls_on_commit_signal_processor(
+        self, mock_update_registry_after_commit
+    ):
+        self.api_client.force_authenticate(user=self.curator)
+
+        data = {
+            "workflow_type": HepWorkflowType.HEP_CREATE,
+            "status": HepStatusChoices.RUNNING,
+            "data": hep_data_valid(),
+        }
+
+        response = self.api_client.post(self.endpoint, format="json", data=data)
+
+        self.assertEqual(response.status_code, 201)
+        created_workflow = HepWorkflow.objects.get(id=response.json()["id"])
+        mock_update_registry_after_commit.assert_called_once_with(
+            instance=created_workflow
+        )
+
     @patch("backoffice.hep.api.views.trigger_hep_workflow_initialization.delay")
     def test_create_hep_publisher_workflow(
         self, mock_trigger_hep_workflow_initialization
@@ -139,6 +159,27 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         mock_trigger_hep_workflow_initialization.assert_called_once_with(
             json_response["id"], data["workflow_type"]
         )
+
+    @patch("backoffice.common.signals.delete_from_registry_after_commit")
+    def test_delete_hep_calls_on_commit_signal_processor(
+        self, mock_delete_from_registry_after_commit
+    ):
+        self.api_client.force_authenticate(user=self.curator)
+        workflow_id = self.workflow.id
+        workflow_type = self.workflow.workflow_type
+
+        url = reverse("api:hep-detail", kwargs={"pk": self.workflow.id})
+        response = self.api_client.delete(url)
+
+        self.assertEqual(response.status_code, 204)
+        self.assertFalse(HepWorkflow.objects.filter(id=workflow_id).exists())
+        mock_delete_from_registry_after_commit.assert_called_once()
+        deleted_instance = mock_delete_from_registry_after_commit.call_args.kwargs[
+            "instance"
+        ]
+        self.assertIsInstance(deleted_instance, HepWorkflow)
+        self.assertEqual(deleted_instance.pk, workflow_id)
+        self.assertEqual(deleted_instance.workflow_type, workflow_type)
 
     @patch("backoffice.hep.api.views.trigger_hep_workflow_initialization.delay")
     def test_create_hep_publisher_update_workflow(
