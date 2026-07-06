@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
+import { RootState } from '../../types';
 
 import LiteratureSearchContainer from '../../literature/containers/LiteratureSearchContainer';
 import { AUTHOR_CITATIONS_NS } from '../../search/constants';
@@ -24,7 +25,7 @@ function AuthorCitations({ authorBai }: { authorBai: string }) {
   );
 }
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   authorBai: state.authors.getIn(['data', 'metadata', 'bai']),
 });
 

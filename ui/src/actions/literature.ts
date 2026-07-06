@@ -1,6 +1,6 @@
 import { stringify } from 'qs';
 import { Action, ActionCreator } from 'redux';
-import { RootStateOrAny } from 'react-redux';
+import { RootState } from '../types';
 
 import {
   LITERATURE_ERROR,
@@ -154,11 +154,11 @@ export const fetchLiterature = generateRecordFetchAction({
 });
 
 export function fetchLiteratureReferences(
-  recordId: number,
+  recordId: string,
   newQuery = {}
 ): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -203,7 +203,7 @@ export function fetchReferencesDiff(
   newRevisionId: number
 ): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -223,10 +223,10 @@ export function fetchReferencesDiff(
 }
 
 export function fetchLiteratureAuthors(
-  recordId: number
+  recordId: string
 ): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -251,7 +251,7 @@ export function fetchLiteratureAllAuthors(
   recordId: number
 ): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -315,14 +315,14 @@ export function curateReference({
   referenceId,
   newReferenceId,
 }: {
-  recordId: number;
+  recordId: string;
   recordUuid: string;
   revisionId: number;
   referenceId: number;
   newReferenceId: number;
 }): (
   dispatch: any,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -381,7 +381,7 @@ export function assignLiteratureItem({
   literatureId: number;
 }): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -409,7 +409,7 @@ export function assignLiteratureItemNoNameMatch({
   literatureId: number;
 }): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -454,7 +454,7 @@ export function checkNameCompatibility({
   literatureId: number;
 }): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -491,7 +491,7 @@ export function assignPapers(
   conferenceTitle: string
 ): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -513,7 +513,7 @@ export function assignPapers(
 
 export function exportToCds(): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {

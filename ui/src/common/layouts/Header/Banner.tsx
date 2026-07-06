@@ -8,29 +8,29 @@ const ALLOWED_ATTRIBUTES_BY_TAG = { a: ['href', 'target', 'rel'] };
 const ALLOWED_HTML_TAGS = ['a', 'p', 'em', 'strong'];
 
 export interface BannerProps {
-  type: 'error' | 'warning' | 'info' | 'success' | undefined;
-  closable: boolean;
+  type?: 'error' | 'warning' | 'info' | 'success';
+  closable?: boolean;
   message: string;
-  action: {
+  action?: {
     name: string;
     href: string;
   };
   onClose: Function;
   id: string;
-  center: boolean;
+  center?: boolean;
   closedBannersById: Map<string, number>;
   currentPathname: string;
-  pathnameRegexp: RegExp;
+  pathnameRegexp?: RegExp;
 }
 
 function Banner({
-  type,
-  closable,
+  type = 'info',
+  closable = true,
   message,
   action,
   onClose,
   id,
-  center,
+  center = false,
   closedBannersById,
   currentPathname,
   pathnameRegexp,
@@ -69,11 +69,5 @@ function Banner({
     />
   ) : null;
 }
-
-Banner.defaultProps = {
-  type: 'info',
-  closable: true,
-  center: false,
-};
 
 export default Banner;

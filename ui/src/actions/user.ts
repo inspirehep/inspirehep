@@ -1,6 +1,5 @@
 import { push, goBack } from 'connected-react-router';
 import { Action, ActionCreator } from 'redux';
-import { RootStateOrAny } from 'react-redux';
 
 import { Map } from 'immutable';
 import { HttpClientWrapper } from '../common/http';
@@ -20,7 +19,7 @@ import {
 import { HOME } from '../common/routes';
 import { httpErrorToActionPayload } from '../common/utils';
 import notifySessionExpired from '../user/sessionExpireNotification';
-import { Credentials, User } from '../types';
+import { Credentials, User, RootState } from '../types';
 
 export function userLoginSuccess(user: User) {
   return {
@@ -72,7 +71,7 @@ export function userSignUp(
   userEmail: string
 ): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -89,7 +88,7 @@ export function userSignUp(
 
 export function fetchLoggedInUser(): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -108,7 +107,7 @@ export function userLocalLogin(
   credentials: Credentials
 ): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -124,7 +123,7 @@ export function userLocalLogin(
 
 export function userLogout(): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -143,7 +142,7 @@ export function userLogout(): (
 
 export function userInactive(): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
@@ -193,7 +192,7 @@ export function updateOrcidPushSetting(
   value: boolean
 ): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {

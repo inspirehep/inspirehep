@@ -1,5 +1,5 @@
 import { Action, ActionCreator } from 'redux';
-import { RootStateOrAny } from 'react-redux';
+import { RootState } from '../types';
 
 import { HttpClientWrapper } from '../common/http';
 import {
@@ -38,7 +38,7 @@ export function submitBibliographyGenerator(
   data: FormData
 ): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {

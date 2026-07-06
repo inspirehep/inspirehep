@@ -1,5 +1,5 @@
-import { RootStateOrAny } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { RootState } from '../types';
 import {
   DATA_REQUEST,
   DATA_SUCCESS,
@@ -47,10 +47,10 @@ function fetchDataAuthorsError(errorPayload: { error: Error }) {
 }
 
 export function fetchDataAuthors(
-  recordId: number
+  recordId: string
 ): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {

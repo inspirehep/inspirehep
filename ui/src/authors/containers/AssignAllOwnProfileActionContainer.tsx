@@ -1,10 +1,11 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { RootState } from '../../types';
 
 import AssignOwnProfileAction from '../components/AssignOwnProfileAction';
 import { assignOwnPapers, unassignOwnPapers } from '../../actions/authors';
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   disabled: state.authors.get('publicationSelection').size === 0,
   disabledAssignAction:
     state.authors.get('publicationSelectionClaimed').size > 0 &&

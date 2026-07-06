@@ -1,5 +1,6 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { RootState } from '../../types';
 
 import { convertAllImmutablePropsToJS } from '../immutableToJS';
 import {
@@ -39,7 +40,7 @@ function barToQuery(bar: BarType, excludeSelfCitations: boolean) {
   return { ...PUBLISHED_QUERY, [citationCountParam]: bar.xValue };
 }
 
-function getSelectedBar(state: RootStateOrAny, namespace: string) {
+function getSelectedBar(state: RootState, namespace: string) {
   const citationCountParam = shouldExcludeSelfCitations(state)
     ? CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM
     : CITATION_COUNT_PARAM;
@@ -60,7 +61,7 @@ function getSelectedBar(state: RootStateOrAny, namespace: string) {
 }
 
 const stateToProps = (
-  state: RootStateOrAny,
+  state: RootState,
   { namespace }: { namespace: string }
 ) => ({
   loading: state.citations.get('loadingCitationSummary'),

@@ -8,7 +8,7 @@ import { renderWithProviders } from '../../../../fixtures/render';
 
 describe('CurateReferenceDrawer', () => {
   const defaultProps = {
-    recordId: 1,
+    recordId: '1',
     recordUuid: '1',
     revisionId: 2,
     referenceId: 3,

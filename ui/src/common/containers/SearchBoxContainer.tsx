@@ -1,5 +1,6 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { RootState } from '../../types';
 
 import SearchBox from '../components/SearchBox';
 import { searchAI, searchQueryUpdate } from '../../actions/search';
@@ -10,7 +11,7 @@ import { UI_CITATION_SUMMARY_PARAM } from '../../literature/containers/CitationS
 import { UI_EXCLUDE_SELF_CITATIONS_PARAM } from '../../literature/containers/ExcludeSelfCitationsContainer';
 import { getConfigFor } from '../config';
 
-const stateToProps = (state: RootStateOrAny) => ({
+const stateToProps = (state: RootState) => ({
   value: state.search.getIn([
     'namespaces',
     state.search.get('searchBoxNamespace'),

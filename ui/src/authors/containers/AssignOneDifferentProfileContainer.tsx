@@ -1,5 +1,6 @@
-import { connect, RootStateOrAny } from 'react-redux';
+import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { RootState } from '../../types';
 
 import {
   setPublicationSelection,
@@ -8,7 +9,7 @@ import {
 } from '../../actions/authors';
 import AssignOneDifferentProfileAction from '../components/AssignOneDifferentProfileAction';
 
-export const stateToProps = (state: RootStateOrAny) => ({
+export const stateToProps = (state: RootState) => ({
   currentUserId: Number(state.user.getIn(['data', 'recid'])),
 });
 

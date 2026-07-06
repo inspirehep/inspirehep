@@ -1,5 +1,5 @@
 import { Action, ActionCreator } from 'redux';
-import { RootStateOrAny } from 'react-redux';
+import { RootState } from '../types';
 import { HttpClientWrapper } from '../common/http';
 import { INSPECT_REQUEST, INSPECT_SUCCESS, INSPECT_ERROR } from './actionTypes';
 import { httpErrorToActionPayload } from '../common/utils';
@@ -30,7 +30,7 @@ export default function fetch(
   id: number
 ): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny,
+  getState: () => RootState,
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {

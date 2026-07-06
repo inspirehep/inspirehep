@@ -1,11 +1,11 @@
 import { Action, ActionCreator } from 'redux';
-import { RootStateOrAny } from 'react-redux';
 import { replace } from 'connected-react-router';
 import { stringify } from 'qs';
+import { RootState } from '../types';
 
 export function appendQueryToLocationSearch(query: {}): (
   dispatch: ActionCreator<Action>,
-  getState: () => RootStateOrAny
+  getState: () => RootState
 ) => void {
   return (dispatch, getState) => {
     const { router } = getState();

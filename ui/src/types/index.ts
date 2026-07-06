@@ -8,6 +8,11 @@ import {
   JOURNALS_PID_TYPE,
   DATA_PID_TYPE,
 } from '../common/constants';
+import createRootReducer from '../reducers';
+import 'history';
+
+type RootReducer = ReturnType<typeof createRootReducer>;
+export type RootState = ReturnType<RootReducer>;
 
 declare global {
   interface Window {
@@ -39,4 +44,10 @@ export interface User {
 export interface Credentials {
   email?: string | null;
   password?: string | null;
+}
+
+declare module 'history' {
+  interface Location {
+    previousUrl?: string;
+  }
 }
