@@ -1,4 +1,3 @@
-import React from 'react';
 import classnames from 'classnames';
 import { List } from 'immutable';
 
@@ -7,27 +6,27 @@ import { getSizeOfArrayOrImmutableList } from '../../utils';
 import { DEFAULT_SEPARATOR_TYPE } from './constants';
 
 const InlineDataList = ({
-  items,
-  renderItem,
+  items = null,
+  renderItem = (item: any) => item,
   label,
-  suffix,
-  extractKey,
-  separateItems,
-  separator,
-  wrapperClassName,
+  suffix = null,
+  extractKey = (item: any) => item,
+  separateItems = true,
+  separator = DEFAULT_SEPARATOR_TYPE,
+  wrapperClassName = '',
   labelClassName,
 }: {
-  items: List<any>;
-  renderItem: Function;
+  items?: List<any> | null;
+  renderItem?: Function;
   label?: string;
-  suffix: any;
-  extractKey: Function;
-  separateItems: boolean;
-  separator: string;
-  wrapperClassName: string;
+  suffix?: any;
+  extractKey?: Function;
+  separateItems?: boolean;
+  separator?: string;
+  wrapperClassName?: string;
   labelClassName?: string;
-}) => {
-  return items && getSizeOfArrayOrImmutableList(items) > 0 ? (
+}) =>
+  items && getSizeOfArrayOrImmutableList(items) > 0 ? (
     <div
       className={classnames('__InlineList__', wrapperClassName)}
       data-testid="inline-data-list"
@@ -46,17 +45,5 @@ const InlineDataList = ({
   ) : (
     <></>
   );
-};
-
-InlineDataList.defaultProps = {
-  extractKey: (item: any) => item,
-  renderItem: (item: any) => item,
-  items: null,
-  label: null,
-  separateItems: true,
-  separator: DEFAULT_SEPARATOR_TYPE,
-  suffix: null,
-  wrapperClassName: null,
-};
 
 export default InlineDataList;

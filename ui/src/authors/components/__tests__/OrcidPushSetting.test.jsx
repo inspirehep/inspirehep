@@ -1,4 +1,3 @@
-import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from '../../../fixtures/render';
 import { getStore } from '../../../fixtures/store';

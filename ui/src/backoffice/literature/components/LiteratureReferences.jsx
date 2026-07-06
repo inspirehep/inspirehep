@@ -1,4 +1,3 @@
-import React from 'react';
 import { Divider, Table } from 'antd';
 
 const columns = [

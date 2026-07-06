@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Map } from 'immutable';
 
 import {
@@ -60,12 +60,12 @@ function TooltipContent(props: TooltipContentProps) {
 }
 
 function CitationsByYearGraph({
-  loading,
+  loading = false,
   error,
   citationsByYear,
 }: {
-  loading: boolean;
-  error: Map<string, string>;
+  loading?: boolean;
+  error?: Map<string, string>;
   citationsByYear: Record<any, any>;
 }) {
   const currentYear = new Date().getFullYear();
@@ -175,10 +175,5 @@ function CitationsByYearGraph({
     </LoadingOrChildren>
   );
 }
-
-CitationsByYearGraph.defaultProps = {
-  error: null,
-  loading: false,
-};
 
 export default CitationsByYearGraph;

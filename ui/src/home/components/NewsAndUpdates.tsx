@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row, Col, Card, Space } from 'antd';
 import useAxios from 'axios-hooks';
 import Icon, { XOutlined } from '@ant-design/icons';

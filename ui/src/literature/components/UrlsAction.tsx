@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { List, Map } from 'immutable';
 import { LinkOutlined } from '@ant-design/icons';
 
@@ -18,8 +18,8 @@ function linkToHrefDisplayPair(link: Map<string, string>) {
 
 interface UrlsActionProps {
   urls: List<string>; // TODO: Fix this type. This is wrong, we should read a List of Map objects, not a List of strings
-  text: string;
-  icon: JSX.Element;
+  text?: string;
+  icon?: JSX.Element;
   trackerEventId: string;
   page: string;
   eventAction?: string;
@@ -28,8 +28,8 @@ interface UrlsActionProps {
 
 function UrlsAction({
   urls,
-  text,
-  icon,
+  text = 'website',
+  icon = <LinkOutlined />,
   trackerEventId,
   page,
   eventAction,
@@ -106,10 +106,5 @@ function UrlsAction({
     />
   );
 }
-
-UrlsAction.defaultProps = {
-  text: 'website',
-  icon: <LinkOutlined />,
-};
 
 export default UrlsAction;

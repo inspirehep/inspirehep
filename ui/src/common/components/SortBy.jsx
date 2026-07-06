@@ -1,5 +1,3 @@
-import React from 'react';
-
 import SelectBox from './SelectBox';
 
 const SortBy = ({ sort, onSortChange, sortOptions }) =>

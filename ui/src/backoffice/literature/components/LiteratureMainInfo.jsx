@@ -1,4 +1,3 @@
-import React from 'react';
 import { FilePdfOutlined } from '@ant-design/icons';
 import { List } from 'immutable';
 import ContentBox from '../../../common/components/ContentBox';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Alert } from 'antd';
 import { ExportOutlined } from '@ant-design/icons';
 import { List } from 'immutable';
