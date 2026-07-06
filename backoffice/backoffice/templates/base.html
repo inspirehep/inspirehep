@@ -15,7 +15,7 @@
         content="Behold My Awesome Project!" />
   <meta name="author"
         content="Daniel Roy Greenfeld" />
-  <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}" />
+  <link rel="icon" href="{% get_static_prefix %}images/favicons/favicon.ico" />
   {% block css %}
     <!-- Latest compiled and minified Bootstrap CSS -->
     <link rel="stylesheet"
