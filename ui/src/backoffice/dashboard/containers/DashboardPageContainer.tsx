@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { Input, Select, Row, Col } from 'antd';
 import { Action, ActionCreator } from 'redux';
 import { connect } from 'react-redux';
@@ -75,15 +75,12 @@ const DashboardPageContainer = ({
 
     const getWorkflowTypeBuckets = (
       data: Map<string, any> | undefined
-    ): List<Map<string, any>> => {
-      return (
-        (data?.getIn([
-          '_filter_workflow_type',
-          'workflow_type',
-          'buckets',
-        ]) as List<Map<string, any>>) || List()
-      );
-    };
+    ): List<Map<string, any>> =>
+      (data?.getIn([
+        '_filter_workflow_type',
+        'workflow_type',
+        'buckets',
+      ]) as List<Map<string, any>>) || List();
 
     const authorsWorkflowTypes = getWorkflowTypeBuckets(authors);
     const literatureWorkflowTypes = getWorkflowTypeBuckets(literature);

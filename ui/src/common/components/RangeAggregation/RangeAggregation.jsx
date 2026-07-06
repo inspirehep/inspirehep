@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { ResponsiveContainer, ComposedChart, Bar, Tooltip } from 'recharts';
 import { Slider } from 'antd';

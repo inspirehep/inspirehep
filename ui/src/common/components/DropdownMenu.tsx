@@ -1,9 +1,8 @@
-import React from 'react';
 import { Dropdown } from 'antd';
 
 type DropdownMenuProps = {
   title: any;
-  disabled: boolean;
+  disabled?: boolean;
   overlayClassName?: string;
   items?: any[];
   onClick?: any;
@@ -11,7 +10,7 @@ type DropdownMenuProps = {
 
 const DropdownMenu = ({
   title,
-  disabled,
+  disabled = false,
   overlayClassName,
   items,
   onClick,
@@ -27,9 +26,5 @@ const DropdownMenu = ({
     {title}
   </Dropdown>
 );
-
-DropdownMenu.defaultProps = {
-  disabled: false,
-};
 
 export default DropdownMenu;

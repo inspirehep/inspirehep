@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card, Radio, Button, Typography, Descriptions, Space } from 'antd';
 import { ExportOutlined } from '@ant-design/icons';
 import { List, Map } from 'immutable';

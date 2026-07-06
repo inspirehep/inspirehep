@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { LiteratureHepSelectionButtons } from './LiteratureHepSelectionButtons';
 import { LiteratureCoreSelectionButtons } from './LiteratureCoreSelectionButtons';
 import { LiteratureMissingSubjectFieldsSelectionButtons } from './LiteratureMissingSubjectFieldsSelectionButtons';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row, Card, Button } from 'antd';
 
 import './LoginPage.less';

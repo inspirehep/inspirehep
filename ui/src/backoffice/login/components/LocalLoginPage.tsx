@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row, Card, Button, Input } from 'antd';
 import { Field, Form, Formik } from 'formik';
 import DocumentHead from '../../../common/components/DocumentHead';
@@ -9,7 +8,7 @@ type LocalLoginPageProps = {
 };
 
 const LocalLoginPage = ({ onLoginFormSubmit }: LocalLoginPageProps) => {
-  function renderFormInput({
+  const renderFormInput = ({
     _form,
     field,
     ...rest
@@ -17,9 +16,7 @@ const LocalLoginPage = ({ onLoginFormSubmit }: LocalLoginPageProps) => {
     _form: any;
     field: JSX.Element;
     rest: any;
-  }) {
-    return <Input {...field} {...rest} />;
-  }
+  }) => <Input {...field} {...rest} />;
 
   function renderLoginForm(formik: any) {
     return (

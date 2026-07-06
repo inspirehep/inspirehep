@@ -1,4 +1,3 @@
-import React from 'react';
 import { goBack } from 'connected-react-router';
 import { fireEvent } from '@testing-library/react';
 

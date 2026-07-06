@@ -1,4 +1,3 @@
-import React from 'react';
 import { Empty } from 'antd';
 
 function isEmptyCollection(data: any) {
@@ -19,14 +18,13 @@ const EmptyOrChildren = ({
   children: JSX.Element;
   title: string | JSX.Element;
   description?: string;
-}) => {
-  return isEmptyCollection(data) ? (
+}) =>
+  isEmptyCollection(data) ? (
     <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={title}>
       {description}
     </Empty>
   ) : (
     children
   );
-};
 
 export default EmptyOrChildren;

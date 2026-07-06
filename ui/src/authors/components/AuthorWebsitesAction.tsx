@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { List, Map } from 'immutable';
 import { LinkOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';

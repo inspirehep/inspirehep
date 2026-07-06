@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { getConfigFor } from '../../config';
 import BannerContainer from './BannerContainer';
 import { BannerProps } from './Banner';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { renderWithRouter } from '../../../fixtures/render';
 import OrcidProfileLink from '../OrcidProfileLink';
 

@@ -1,5 +1,4 @@
 import { Map } from 'immutable';
-import React from 'react';
 
 interface LiteratureReferenceCountProps {
   referenceCount: Map<'core' | 'non_core' | 'total', number> | null;

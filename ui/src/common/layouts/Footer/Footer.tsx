@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import RcFooter from 'rc-footer';
 import 'rc-footer/assets/index.css';
 import { Row, Col } from 'antd';
