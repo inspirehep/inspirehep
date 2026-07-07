@@ -100,7 +100,10 @@ function sanitizeHtml(
     config.ALLOWED_ATTR = DEFAULT_ALLOWED_ATTR;
   }
   try {
-    return String(DOMPurify.sanitize(html ?? '', config));
+    return String(DOMPurify.sanitize(html ?? '', config)).replace(
+      /&nbsp;/g,
+      ' '
+    );
   } finally {
     if (allowedAttributes) {
       DOMPurify.removeHook('uponSanitizeAttribute');
