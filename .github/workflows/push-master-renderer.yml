@@ -30,7 +30,7 @@ jobs:
           password: ${{ secrets.HARBOR_PASSWORD }}
 
       - name: Deploy (renderer)
-        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v7.0.0
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v7.1.0
         with:
           repo: cern-sis/kubernetes-inspire
           event-type: update
