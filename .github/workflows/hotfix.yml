@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: send event
-        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v7.0.0
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v7.1.0
         with:
           event-type: hotfix
           images: |
