@@ -1,8 +1,9 @@
 import logging
 
 from airflow.sdk import Variable
+from hooks.backoffice.workflow_management_hook import HEP
 from hooks.backoffice.workflow_ticket_management_hook import (
-    LiteratureWorkflowTicketManagementHook,
+    BaseWorkflowTicketManagementHook,
 )
 from hooks.inspirehep.inspire_http_hook import (
     LITERATURE_ARXIV_CURATION_FUNCTIONAL_CATEGORY,
@@ -99,6 +100,7 @@ def create_ticket(
     curation_context,
     ticket_type,
     workflow_id,
+    collection=HEP,
 ):
     environment = Variable.get("ENVIRONMENT")
     if environment.lower() != "local":
@@ -113,7 +115,7 @@ def create_ticket(
     else:
         ticket_id = f"local-{ticket_type}"
 
-    LiteratureWorkflowTicketManagementHook().create_ticket_entry(
+    BaseWorkflowTicketManagementHook(collection).create_ticket_entry(
         workflow_id=workflow_id,
         ticket_type=ticket_type,
         ticket_id=ticket_id,
