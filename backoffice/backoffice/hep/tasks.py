@@ -2,16 +2,14 @@ import logging
 
 from celery.exceptions import SoftTimeLimitExceeded
 from requests.exceptions import RequestException
-
+from backoffice.hep.constants import HepResolutions
 from config import celery_app
 from backoffice.common import airflow_utils
 from backoffice.common.constants import WORKFLOW_DAGS
-from django.contrib.auth import get_user_model
 from django.utils import timezone
 
 from backoffice.hep.constants import HepStatusChoices
 from backoffice.hep.models import HepWorkflow
-from backoffice.hep.utils import resolve_workflow
 
 logger = logging.getLogger(__name__)
 
@@ -32,20 +30,26 @@ def trigger_hep_workflow_initialization(workflow_id, workflow_type):
 
 
 @celery_app.task(soft_time_limit=10 * 60, time_limit=11 * 60)
-def batch_resolve_workflows(data, user_id):
-    """Resolve a batch of HEP workflows in the background.
+def batch_resolve_workflows(data):
+    """Clear the requested Airflow task for each workflow in a batch.
 
-    ``data`` is the validated batch payload (``action`` + ``ids``).
-
-    Runs in autocommit (Celery tasks are not covered by ATOMIC_REQUESTS): each
-    ``add_hep_decision`` write inside ``resolve_workflow`` is committed before the
-    Airflow DAG task is cleared. Do NOT wrap ``resolve_workflow`` in ``transaction.atomic()``,
-    that would defer the decision commit past the Airflow clear and reintroduce the race.
+    ``data`` is the validated batch payload and must contain ``action`` and
+    ``ids``. For each workflow ID, the task resolves the Airflow task label
+    mapped from ``action`` and clears that task on the workflow's initialize
+    DAG. Per-workflow failures are logged and the affected workflow is marked
+    ``ERROR``; ``SoftTimeLimitExceeded`` is re-raised so Celery can stop the
+    task cleanly.
     """
-    user = get_user_model().objects.get(pk=user_id)
     for wf_id in data["ids"]:
         try:
-            resolve_workflow(wf_id, data, user)
+            workflow = HepWorkflow.objects.only("workflow_type").get(pk=wf_id)
+            task_to_restart = HepResolutions[data["action"]].label
+            if task_to_restart:
+                airflow_utils.clear_airflow_dag_tasks(
+                    WORKFLOW_DAGS[workflow.workflow_type].initialize,
+                    wf_id,
+                    tasks=[task_to_restart],
+                )
         except SoftTimeLimitExceeded:
             raise
         except Exception:

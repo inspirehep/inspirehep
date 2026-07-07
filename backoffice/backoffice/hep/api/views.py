@@ -287,8 +287,13 @@ class HepWorkflowBatchResolveViewSet(viewsets.ViewSet):
 
         data = serializer.validated_data
         data["ids"] = [str(wf_id) for wf_id in data["ids"]]
-        user_id = request.user.id
-        transaction.on_commit(lambda: batch_resolve_workflows.delay(data, user_id))
+        for wf_id in data["ids"]:
+            workflow = get_object_or_404(HepWorkflow, pk=wf_id)
+            add_hep_decision(wf_id, request.user, data["action"], data.get("value"))
+            workflow.status = HepStatusChoices.RUNNING
+            workflow.save()
+
+        transaction.on_commit(lambda: batch_resolve_workflows.delay(data))
 
         return Response(
             {"message": "Batch resolution started.", "ids": data["ids"]},
