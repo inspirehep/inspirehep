@@ -15,7 +15,7 @@ const QUILL_MODULES = {
   toolbar: '#toolbar',
 };
 
-const QUILL_FORMATS = ['bold', 'italic', 'list', 'bullet', 'link'];
+const QUILL_FORMATS = ['bold', 'italic', 'list', 'link'];
 
 class RichTextEditor extends Component {
   render() {
