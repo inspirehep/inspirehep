@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import QuillEditor, { Quill } from 'react-quill-new';
+import QuillEditor, { Quill } from 'react-quill';
 
-import 'react-quill-new/dist/quill.snow.css';
+import 'react-quill/dist/quill.snow.css';
 import './RichTextEditor.less';
 import EditorToolbar from './EditorToolbar';
 
@@ -15,7 +14,7 @@ const QUILL_MODULES = {
   toolbar: '#toolbar',
 };
 
-const QUILL_FORMATS = ['bold', 'italic', 'list', 'link'];
+const QUILL_FORMATS = ['bold', 'italic', 'list', 'bullet', 'link'];
 
 class RichTextEditor extends Component {
   render() {
@@ -44,13 +43,6 @@ class RichTextEditor extends Component {
   }
 }
 
-RichTextEditor.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  placeholder: PropTypes.string,
-  readOnly: PropTypes.bool,
-  'data-test-type': PropTypes.string,
-  'data-test-id': PropTypes.string,
-};
+RichTextEditor.propTypes = QuillEditor.propTypes;
 
 export default RichTextEditor;
