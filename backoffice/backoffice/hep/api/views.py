@@ -8,8 +8,6 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404
 from backoffice.hep.tasks import batch_resolve_workflows
 from backoffice.hep.utils import (
-    add_hep_decision,
-    resolve_workflow,
     complete_workflow,
     get_restored_hep_workflow_type,
 )
@@ -39,6 +37,7 @@ from drf_spectacular.utils import (
 from requests.exceptions import RequestException
 from backoffice.common import airflow_utils
 from backoffice.common.utils import (
+    add_decision,
     handle_request_exception,
     render_validation_error_response,
 )
@@ -74,8 +73,12 @@ class HepDecisionViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         logger.info("Creating decision with data: %s", request.data)
-        data = add_hep_decision(
-            request.data["workflow_id"], request.user, request.data["action"]
+        data = add_decision(
+            request.data["workflow_id"],
+            request.user,
+            request.data["action"],
+            HepDecision,
+            HepDecisionSerializer,
         )
         return Response(data, status=status.HTTP_201_CREATED)
 
@@ -115,8 +118,12 @@ class HepDecisionViewSet(viewsets.ModelViewSet):
 )
 class HepWorkflowViewSet(BaseWorkflowViewSet):
     queryset = HepWorkflow.objects.all()
+    workflow_model = HepWorkflow
     serializer_class = HepWorkflowSerializer
     resolution_serializer = HepResolutionSerializer
+    decision_model = HepDecision
+    decision_serializer = HepDecisionSerializer
+    workflow_resolutions = HepResolutions
     status_choices = HepStatusChoices
     schema_name = "hep"
 
@@ -150,25 +157,17 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @action(detail=True, methods=["post"])
-    def resolve(self, request, pk=None):
-        serializer = self.resolution_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        try:
-            workflow = resolve_workflow(pk, serializer.validated_data, request.user)
-        except RequestException as e:
-            return handle_request_exception(
-                "Error clearing Airflow DAG",
-                e,
-            )
-        workflow_serializer = self.serializer_class(workflow)
-        return Response(workflow_serializer.data)
-
-    @action(detail=True, methods=["post"])
     def discard(self, request, pk=None):
         workflow = complete_workflow(pk, request.data)
 
         workflow.status = HepStatusChoices.COMPLETED
-        add_hep_decision(pk, request.user, HepResolutions.discard)
+        add_decision(
+            pk,
+            request.user,
+            HepResolutions.discard,
+            HepDecision,
+            HepDecisionSerializer,
+        )
         workflow.save()
         return Response(status=status.HTTP_200_OK)
 
@@ -179,38 +178,6 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         workflow.status = HepStatusChoices.BLOCKED
         workflow.save()
         return Response(status=status.HTTP_200_OK)
-
-    @action(detail=True, methods=["post"])
-    def restart(self, request, pk=None):
-        workflow = get_object_or_404(HepWorkflow, pk=pk)
-
-        if workflow.status == HepStatusChoices.COMPLETED:
-            return Response(
-                {"message": "Cannot restart a completed workflow."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        only_failed = request.data.get("restart_current_task", False)
-
-        dag_id = WORKFLOW_DAGS[workflow.workflow_type].initialize
-
-        try:
-            airflow_utils.clear_airflow_dag_run(
-                dag_id, str(workflow.id), only_failed=only_failed
-            )
-            workflow.status = (
-                HepStatusChoices.RUNNING if only_failed else HepStatusChoices.PROCESSING
-            )
-            workflow.save()
-        except RequestException as e:
-            return handle_request_exception(
-                "Error restarting Airflow DAGs for workflow %s",
-                e,
-                workflow.id,
-                response_text="Error restarting Airflow DAGs for workflow %s",
-            )
-
-        return Response(self.get_serializer(workflow).data)
 
     @action(detail=True, methods=["post"])
     def restore(self, request, pk=None):
@@ -289,7 +256,9 @@ class HepWorkflowBatchResolveViewSet(viewsets.ViewSet):
         data["ids"] = [str(wf_id) for wf_id in data["ids"]]
         for wf_id in data["ids"]:
             workflow = get_object_or_404(HepWorkflow, pk=wf_id)
-            add_hep_decision(wf_id, request.user, data["action"], data.get("value"))
+            add_decision(
+                wf_id, request.user, data["action"], HepDecision, HepDecisionSerializer
+            )
             workflow.status = HepStatusChoices.RUNNING
             workflow.save()
 

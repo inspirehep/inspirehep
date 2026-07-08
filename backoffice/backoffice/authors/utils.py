@@ -1,18 +1,8 @@
-from backoffice.authors.api.serializers import AuthorDecisionSerializer
 from inspire_utils.record import get_values_for_schema
 from backoffice.management.utils import get_opensearch_client
 from django.conf import settings
 
 opensearch_client = get_opensearch_client()
-
-
-def add_author_decision(workflow_id, user, action):
-    data = {"workflow": workflow_id, "user": user, "action": action}
-
-    serializer = AuthorDecisionSerializer(data=data)
-    serializer.is_valid(raise_exception=True)
-    serializer.save()
-    return serializer.data
 
 
 def is_another_author_running(ids):

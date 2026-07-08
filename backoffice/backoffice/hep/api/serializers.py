@@ -183,12 +183,12 @@ class HepBackofficeSearchUISerializer(BaseBackofficeSearchUISerializer):
         OpenApiExample(
             "Accept",
             description="Hep Workflow Serializer",
-            value={"value": "accept", "create_ticket": False},
+            value={"action": "accept"},
         ),
         OpenApiExample(
             "Reject",
             description="Hep Workflow Serializer",
-            value={"value": "reject", "create_ticket": False},
+            value={"action": "reject"},
         ),
     ],
 )

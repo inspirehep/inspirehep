@@ -1,0 +1,177 @@
+interactions:
+- request:
+    body: '{"functional_category": "Author curation", "template": "curation_needed_author",
+      "subject": "Curation needed for author Third B ", "template_context": {"email":
+      "micha.moshe.moskovic@cern.ch", "record_url": "http://host.docker.internal:8080/authors/123456"},
+      "caller_email": "micha.moshe.moskovic@cern.ch"}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '306'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8080/api/tickets/create
+  response:
+    body:
+      string: '{"status": 401, "message": "SNOW authentication failed!"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '57'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 09 Jul 2026 10:56:06 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 401
+      message: UNAUTHORIZED
+- request:
+    body: '{"functional_category": "Author curation", "template": "curation_needed_author",
+      "subject": "Curation needed for author Third B ", "template_context": {"email":
+      "micha.moshe.moskovic@cern.ch", "record_url": "http://host.docker.internal:8080/authors/123456"},
+      "caller_email": "micha.moshe.moskovic@cern.ch"}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '306'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8080/api/tickets/create
+  response:
+    body:
+      string: '{"status": 401, "message": "SNOW authentication failed!"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '57'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 09 Jul 2026 10:56:07 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 401
+      message: UNAUTHORIZED
+- request:
+    body: '{"functional_category": "Author curation", "template": "curation_needed_author",
+      "subject": "Curation needed for author Third B ", "template_context": {"email":
+      "micha.moshe.moskovic@cern.ch", "record_url": "http://host.docker.internal:8080/authors/123456"},
+      "caller_email": "micha.moshe.moskovic@cern.ch"}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '306'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8080/api/tickets/create
+  response:
+    body:
+      string: '{"status": 401, "message": "SNOW authentication failed!"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '57'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 09 Jul 2026 10:56:09 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 401
+      message: UNAUTHORIZED
+- request:
+    body: '{"functional_category": "Author curation", "template": "curation_needed_author",
+      "subject": "Curation needed for author Third B ", "template_context": {"email":
+      "micha.moshe.moskovic@cern.ch", "record_url": "http://host.docker.internal:8080/authors/123456"},
+      "caller_email": "micha.moshe.moskovic@cern.ch"}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '306'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8080/api/tickets/create
+  response:
+    body:
+      string: '{"status": 401, "message": "SNOW authentication failed!"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '57'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 09 Jul 2026 10:56:13 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 401
+      message: UNAUTHORIZED
+- request:
+    body: '{"functional_category": "Author curation", "template": "curation_needed_author",
+      "subject": "Curation needed for author Third B ", "template_context": {"email":
+      "micha.moshe.moskovic@cern.ch", "record_url": "http://host.docker.internal:8080/authors/123456"},
+      "caller_email": "micha.moshe.moskovic@cern.ch"}'
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '306'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://host.docker.internal:8080/api/tickets/create
+  response:
+    body:
+      string: '{"status": 401, "message": "SNOW authentication failed!"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '57'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 09 Jul 2026 10:56:21 GMT
+      Server:
+      - nginx/1.19.1
+    status:
+      code: 401
+      message: UNAUTHORIZED
+version: 1

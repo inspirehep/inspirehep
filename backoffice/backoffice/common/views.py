@@ -5,9 +5,14 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from inspire_schemas.errors import SchemaKeyNotFound, SchemaNotFound
 from inspire_schemas.utils import get_validation_errors
+from requests.exceptions import RequestException
 from rest_framework.decorators import action
 
+from backoffice.common import airflow_utils
+from backoffice.common.constants import WORKFLOW_DAGS
 from backoffice.common.utils import (
+    resolve_workflow,
+    handle_request_exception,
     render_validation_error_response,
 )
 
@@ -62,6 +67,13 @@ class BaseWorkflowViewSet(viewsets.ModelViewSet):
     """
 
     schema_name = None
+    status_choices = None
+    workflow_model = None
+    resolution_serializer = None
+    decision_model = None
+    decision_serializer = None
+    workflow_resolutions = None
+    resolution_action_field = "action"
 
     def get_queryset(self):
         qp = self.request.query_params
@@ -81,6 +93,63 @@ class BaseWorkflowViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+
+    @action(detail=True, methods=["post"])
+    def resolve(self, request, pk=None):
+        serializer = self.resolution_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        try:
+            workflow = resolve_workflow(
+                pk,
+                serializer.validated_data,
+                request.user,
+                workflow_model=self.workflow_model or self.queryset.model,
+                decision_model=self.decision_model,
+                decision_serializer=self.decision_serializer,
+                workflow_resolutions=self.workflow_resolutions,
+                status_choices=self.status_choices,
+                action_field=self.resolution_action_field,
+            )
+        except RequestException as e:
+            return handle_request_exception(
+                "Error clearing Airflow DAG",
+                e,
+            )
+        return Response(self.get_serializer(workflow).data)
+
+    @action(detail=True, methods=["post"])
+    def restart(self, request, pk=None):
+        workflow_model = self.workflow_model or self.queryset.model
+        workflow = get_object_or_404(workflow_model, pk=pk)
+
+        if workflow.status == self.status_choices.COMPLETED:
+            return Response(
+                {"message": "Cannot restart a completed workflow."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        only_failed = request.data.get("restart_current_task", False)
+        dag_id = WORKFLOW_DAGS[workflow.workflow_type].initialize
+
+        try:
+            airflow_utils.clear_airflow_dag_run(
+                dag_id, str(workflow.id), only_failed=only_failed
+            )
+            workflow.status = (
+                self.status_choices.RUNNING
+                if only_failed
+                else self.status_choices.PROCESSING
+            )
+            workflow.save()
+        except RequestException as e:
+            return handle_request_exception(
+                "Error restarting Airflow DAGs for workflow %s",
+                e,
+                workflow.id,
+                response_text="Error restarting Airflow DAGs for workflow %s",
+            )
+
+        return Response(self.get_serializer(workflow).data)
 
     @action(detail=False, methods=["post"])
     def validate(self, request):

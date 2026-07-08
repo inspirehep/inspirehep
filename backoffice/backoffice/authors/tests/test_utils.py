@@ -5,8 +5,11 @@ from django.contrib.auth import get_user_model
 from django.test import TransactionTestCase
 from rest_framework.exceptions import ValidationError
 
+from backoffice.authors.api.serializers import AuthorDecisionSerializer
 from backoffice.authors.constants import AuthorStatusChoices, AuthorResolutionDags
-from backoffice.authors.utils import add_author_decision, is_another_author_running
+from backoffice.authors.models import AuthorDecision
+from backoffice.authors.utils import is_another_author_running
+from backoffice.common.utils import add_decision
 
 User = get_user_model()
 AuthorWorkflow = apps.get_model(app_label="authors", model_name="AuthorWorkflow")
@@ -27,26 +30,32 @@ class TestUtils(TransactionTestCase):
         )
 
     def test_add_decision(self):
-        decision_data = add_author_decision(
+        decision_data = add_decision(
             self.workflow.id,
             self.user,
             AuthorResolutionDags.accept,
+            AuthorDecision,
+            AuthorDecisionSerializer,
         )
         self.assertIsNotNone(decision_data)
 
     def test_add_decision_validation_errors(self):
         with pytest.raises(ValidationError):
-            add_author_decision(
+            add_decision(
                 self.workflow.id,
                 self.user,
                 "wrong",
+                AuthorDecision,
+                AuthorDecisionSerializer,
             )
 
         with pytest.raises(ValidationError):
-            add_author_decision(
+            add_decision(
                 uuid.UUID(int=0),
                 self.user,
                 AuthorResolutionDags.accept,
+                AuthorDecision,
+                AuthorDecisionSerializer,
             )
 
     def test_is_another_author_running(self):

@@ -6,15 +6,12 @@ from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.test import TransactionTestCase
 from rest_framework.exceptions import ValidationError
-from backoffice.hep.utils import (
-    resolve_workflow,
-    complete_workflow,
-    get_restored_hep_workflow_type,
-)
+from backoffice.common.utils import add_decision, resolve_workflow
+from backoffice.hep.api.serializers import HepDecisionSerializer
+from backoffice.hep.utils import complete_workflow, get_restored_hep_workflow_type
 
 from backoffice.hep.constants import HepStatusChoices, HepResolutions, HepWorkflowType
 from backoffice.hep.models import HepDecision
-from backoffice.hep.utils import add_hep_decision
 
 User = get_user_model()
 HepWorkflow = apps.get_model(app_label="hep", model_name="HepWorkflow")
@@ -34,19 +31,29 @@ class TestUtils(TransactionTestCase):
         )
 
     def test_add_decision(self):
-        decision_data = add_hep_decision(
+        decision_data = add_decision(
             self.workflow.id,
             self.user,
             HepResolutions.hep_accept,
+            HepDecision,
+            HepDecisionSerializer,
         )
         self.assertIsNotNone(decision_data)
 
     def test_add_decision_is_idempotent(self):
-        first = add_hep_decision(
-            self.workflow.id, self.user, HepResolutions.auto_reject
+        first = add_decision(
+            self.workflow.id,
+            self.user,
+            HepResolutions.auto_reject,
+            HepDecision,
+            HepDecisionSerializer,
         )
-        second = add_hep_decision(
-            self.workflow.id, self.user, HepResolutions.auto_reject
+        second = add_decision(
+            self.workflow.id,
+            self.user,
+            HepResolutions.auto_reject,
+            HepDecision,
+            HepDecisionSerializer,
         )
         self.assertEqual(
             HepDecision.objects.filter(
@@ -59,17 +66,21 @@ class TestUtils(TransactionTestCase):
 
     def test_add_decision_validation_errors(self):
         with pytest.raises(ValidationError):
-            add_hep_decision(
+            add_decision(
                 self.workflow.id,
                 self.user,
                 "wrong",
+                HepDecision,
+                HepDecisionSerializer,
             )
 
         with pytest.raises(ValidationError):
-            add_hep_decision(
+            add_decision(
                 uuid.UUID(int=0),
                 self.user,
                 HepResolutions.hep_accept,
+                HepDecision,
+                HepDecisionSerializer,
             )
 
     def test_resolve_workflow(self):
@@ -77,11 +88,29 @@ class TestUtils(TransactionTestCase):
             "action": HepResolutions.auto_reject,
             "value": "",
         }
-        workflow = resolve_workflow(self.workflow.id, decision_data, self.user)
+        workflow = resolve_workflow(
+            self.workflow.id,
+            decision_data,
+            self.user,
+            workflow_model=HepWorkflow,
+            decision_model=HepDecision,
+            decision_serializer=HepDecisionSerializer,
+            workflow_resolutions=HepResolutions,
+            status_choices=HepStatusChoices,
+        )
         self.assertEqual(workflow.status, HepStatusChoices.RUNNING)
         self.assertEqual(workflow.decisions.first().action, HepResolutions.auto_reject)
 
-        resolve_workflow(self.workflow.id, decision_data, self.user)
+        resolve_workflow(
+            self.workflow.id,
+            decision_data,
+            self.user,
+            workflow_model=HepWorkflow,
+            decision_model=HepDecision,
+            decision_serializer=HepDecisionSerializer,
+            workflow_resolutions=HepResolutions,
+            status_choices=HepStatusChoices,
+        )
         self.assertEqual(
             HepDecision.objects.filter(
                 workflow=self.workflow, action=HepResolutions.auto_reject

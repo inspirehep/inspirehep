@@ -9,7 +9,6 @@ from drf_spectacular.utils import (
 )
 from rest_framework import status, viewsets
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
 from django_elasticsearch_dsl_drf.filter_backends import (
     CompoundSearchFilterBackend,
     DefaultOrderingFilterBackend,
@@ -20,7 +19,9 @@ from django_elasticsearch_dsl_drf.filter_backends import (
 from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
 from backoffice.utils.pagination import OSStandardResultsSetPagination
 from opensearch_dsl import TermsFacet
-from backoffice.authors.utils import add_author_decision, is_another_author_running
+from backoffice.authors.utils import (
+    is_another_author_running,
+)
 from backoffice.authors.api.serializers import (
     AuthorDecisionSerializer,
     AuthorResolutionSerializer,
@@ -30,7 +31,7 @@ from backoffice.authors.api.serializers import (
 )
 from backoffice.common.views import BaseWorkflowTicketViewSet
 from backoffice.authors.constants import (
-    AuthorResolutionDags,
+    AuthorResolutions,
     AuthorStatusChoices,
     AuthorWorkflowType,
 )
@@ -45,6 +46,7 @@ from backoffice.common.constants import WORKFLOW_DAGS
 from requests.exceptions import RequestException
 from backoffice.common import airflow_utils
 from backoffice.common.utils import (
+    add_decision,
     handle_request_exception,
     render_validation_error_response,
 )
@@ -54,7 +56,6 @@ from backoffice.common.renderers import (
     BackofficeUIBrowsableRenderer,
     BackofficeUIRenderer,
 )
-from rest_framework.decorators import action
 
 
 logger = logging.getLogger(__name__)
@@ -70,8 +71,12 @@ class AuthorDecisionViewSet(viewsets.ModelViewSet):
     queryset = AuthorDecision.objects.all()
 
     def create(self, request, *args, **kwargs):
-        data = add_author_decision(
-            request.data["workflow_id"], request.user, request.data["action"]
+        data = add_decision(
+            request.data["workflow_id"],
+            request.user,
+            request.data["action"],
+            AuthorDecision,
+            AuthorDecisionSerializer,
         )
         return Response(data, status=status.HTTP_201_CREATED)
 
@@ -185,8 +190,14 @@ class AuthorDecisionViewSet(viewsets.ModelViewSet):
 )
 class AuthorWorkflowViewSet(BaseWorkflowViewSet):
     queryset = AuthorWorkflow.objects.all()
+    workflow_model = AuthorWorkflow
     serializer_class = AuthorWorkflowSerializer
     resolution_serializer = AuthorResolutionSerializer
+    decision_model = AuthorDecision
+    decision_serializer = AuthorDecisionSerializer
+    workflow_resolutions = AuthorResolutions
+    resolution_action_field = "value"
+    status_choices = AuthorStatusChoices
     schema_name = "authors"
 
     def retrieve(self, request, *args, **kwargs):
@@ -245,91 +256,6 @@ class AuthorWorkflowViewSet(BaseWorkflowViewSet):
                 workflow.id,
             )
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    @action(detail=True, methods=["post"])
-    def resolve(self, request, pk=None):
-        logger.info("Resolving data: %s", request.data)
-        serializer = self.resolution_serializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            logger.info(
-                "Trigger Airflow DAG: %s for %s",
-                AuthorResolutionDags[serializer.validated_data["value"]],
-                pk,
-            )
-            add_author_decision(pk, request.user, serializer.validated_data["value"])
-
-            workflow = self.get_serializer(AuthorWorkflow.objects.get(pk=pk)).data
-            try:
-                airflow_utils.trigger_airflow_dag(
-                    AuthorResolutionDags[serializer.validated_data["value"]].label,
-                    pk,
-                    data=serializer.data,
-                    workflow=workflow,
-                )
-            except RequestException as e:
-                return handle_request_exception(
-                    "Error triggering Airflow DAG run with id %s", e, workflow.id
-                )
-
-            workflow = get_object_or_404(AuthorWorkflow, pk=pk)
-            workflow.status = AuthorStatusChoices.PROCESSING
-            workflow.save()
-            workflow_serializer = self.serializer_class(workflow)
-
-            return Response(workflow_serializer.data)
-
-    @action(detail=True, methods=["post"])
-    def restart(self, request, pk=None):
-        workflow = get_object_or_404(AuthorWorkflow, pk=pk)
-
-        restart_current_task = request.data.get("restart_current_task")
-
-        try:
-            if restart_current_task:
-                response = airflow_utils.restart_failed_tasks(
-                    workflow.id, workflow.workflow_type
-                )
-                error_msg = "No failed tasks found to restart. Skipping restart."
-            else:
-                executed_dags = airflow_utils.find_executed_dags(
-                    workflow.id, workflow.workflow_type
-                )
-                has_failed_dag = airflow_utils.find_failed_dag_for_workflow(
-                    executed_dags
-                )
-                has_no_executions = not executed_dags
-
-                if has_failed_dag or has_no_executions:
-                    response = airflow_utils.restart_workflow_dags(
-                        workflow.id,
-                        workflow.workflow_type,
-                        request.data.get("params"),
-                        workflow=self.get_serializer(workflow).data,
-                    )
-                    error_msg = "No run configuration found. Skipping restart."
-                else:
-                    response = None
-                    error_msg = (
-                        "Workflow has already run successfully. Skipping restart."
-                    )
-
-            if response is None:
-                return Response(
-                    {"error": error_msg}, status=status.HTTP_400_BAD_REQUEST
-                )
-
-        except RequestException as e:
-            return handle_request_exception(
-                "Error restarting Airflow DAGs for workflow %s",
-                e,
-                workflow.id,
-                response_text="Error restarting Airflow DAGs for workflow %s",
-            )
-
-        workflow.status = AuthorStatusChoices.PROCESSING
-        workflow.save()
-
-        return Response(self.get_serializer(workflow).data)
 
 
 @extend_schema_view(
