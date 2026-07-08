@@ -2,7 +2,7 @@ from airflow.models import DagBag
 
 
 class TestDagsIntegrity:
-    dag_bag = DagBag(include_examples=False)
+    dag_bag = DagBag()
 
     def test_dagbag(self):
         assert not self.dag_bag.import_errors
