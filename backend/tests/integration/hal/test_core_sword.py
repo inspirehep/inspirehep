@@ -20,7 +20,6 @@
 # or submit itself to any jurisdiction.
 
 import contextlib
-from unittest import mock
 from unittest.mock import patch
 
 import orjson
@@ -78,7 +77,7 @@ def test_service_document(inspire_app):
 
 
 @pytest.mark.vcr
-@mock.patch(
+@patch(
     "inspirehep.hal.api.current_celery_app.send_task"
 )  # mocking the task sending as create will trigger it
 def test_push_happy_flow(mock_push_to_hal, inspire_app, get_fixture):
@@ -115,7 +114,7 @@ def test_push_happy_flow(mock_push_to_hal, inspire_app, get_fixture):
 
 
 @pytest.mark.vcr
-@mock.patch("inspirehep.hal.api.current_celery_app.send_task")
+@patch("inspirehep.hal.api.current_celery_app.send_task")
 def test_push_again_on_already_existing_exception(
     mock_push_to_hal, inspire_app, get_fixture
 ):
@@ -146,10 +145,10 @@ def test_push_again_on_already_existing_exception(
     )
 
 
-@mock.patch(
+@patch(
     "inspirehep.hal.tasks._hal_create", side_effect=HALCreateException("Some error")
 )
-@mock.patch("inspirehep.hal.api.current_celery_app.send_task")
+@patch("inspirehep.hal.api.current_celery_app.send_task")
 def test_exception_in_hal_create(
     mock_push_to_hal, mock_hal_create, inspire_app, get_fixture
 ):
@@ -167,7 +166,7 @@ def test_exception_in_hal_create(
 
 
 @pytest.mark.vcr
-@mock.patch("inspirehep.hal.api.current_celery_app.send_task")
+@patch("inspirehep.hal.api.current_celery_app.send_task")
 def test_unicode_data(mock_push_to_hal, inspire_app, get_fixture):
     record_json = orjson.loads(get_fixture("hal_preprod_unicode_record.json"))
     record_data = faker.record("lit", data=record_json)
@@ -192,9 +191,9 @@ def test_unicode_data(mock_push_to_hal, inspire_app, get_fixture):
     )
 
 
-@mock.patch("inspirehep.hal.tasks._hal_create", return_value=None)
-@mock.patch("inspirehep.hal.tasks.distributed_lock")
-@mock.patch("inspirehep.hal.api.current_celery_app.send_task")
+@patch("inspirehep.hal.tasks._hal_create", return_value=None)
+@patch("inspirehep.hal.tasks.distributed_lock")
+@patch("inspirehep.hal.api.current_celery_app.send_task")
 def test_lock_is_created_for_hal_push_task(
     mock_push_to_hal, mocked_lock, mock_hal_create, inspire_app, get_fixture
 ):
@@ -214,9 +213,9 @@ def test_lock_is_created_for_hal_push_task(
     assert mocked_lock.mock_calls[0][2] == {"blocking": True}
 
 
-@mock.patch("inspirehep.hal.tasks.update_record_with_new_ids")
-@mock.patch("inspirehep.hal.tasks._hal_create")
-@mock.patch("inspirehep.hal.api.current_celery_app.send_task")
+@patch("inspirehep.hal.tasks.update_record_with_new_ids")
+@patch("inspirehep.hal.tasks._hal_create")
+@patch("inspirehep.hal.api.current_celery_app.send_task")
 def test_id_is_not_written_to_record_for_stale_data_push(
     mock_push_to_hal,
     mock_hal_create,
@@ -256,7 +255,7 @@ def test_id_is_not_written_to_record_for_stale_data_push(
 _original_request = HttpLib2LayerIgnoreCert.request
 
 
-@mock.patch("inspirehep.hal.core.sword.HttpLib2LayerIgnoreCert.request", autospec=True)
+@patch("inspirehep.hal.core.sword.HttpLib2LayerIgnoreCert.request", autospec=True)
 def test_create_sends_force_doublon_by_title_header(mock_request, inspire_app):
     mock_request.side_effect = lambda self, *args, **kwargs: _original_request(
         self, *args, **kwargs
@@ -269,7 +268,7 @@ def test_create_sends_force_doublon_by_title_header(mock_request, inspire_app):
     assert headers["ForceDoublonByTitle"] == "1"
 
 
-@mock.patch("inspirehep.hal.core.sword.HttpLib2LayerIgnoreCert.request", autospec=True)
+@patch("inspirehep.hal.core.sword.HttpLib2LayerIgnoreCert.request", autospec=True)
 def test_update_sends_force_doublon_by_title_header(mock_request, inspire_app):
     mock_request.side_effect = lambda self, *args, **kwargs: _original_request(
         self, *args, **kwargs
