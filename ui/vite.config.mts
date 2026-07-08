@@ -18,8 +18,7 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      'moment-timezone':
-        'moment-timezone/builds/moment-timezone-with-data-10-year-range',
+      'moment-timezone': 'moment-timezone/builds/moment-timezone-with-data',
     },
   },
 

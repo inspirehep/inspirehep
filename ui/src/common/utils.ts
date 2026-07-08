@@ -325,12 +325,12 @@ export function doTimezonesHaveDifferentTimes(
   timezone2: string
 ) {
   const now = Date.now();
-  return (
-    // @ts-ignore
-    moment.tz.zone(timezone1).utcOffset(now) !==
-    // @ts-ignore
-    moment.tz.zone(timezone2).utcOffset(now)
-  );
+  const zone1 = moment.tz.zone(timezone1);
+  const zone2 = moment.tz.zone(timezone2);
+  if (!zone1 || !zone2) {
+    return false;
+  }
+  return zone1.utcOffset(now) !== zone2.utcOffset(now);
 }
 
 export function hasMonthAndYear(date: string) {

@@ -48,7 +48,7 @@
     "jsondiffpatch": "^0.3.11",
     "lodash": "^4.17.21",
     "math-interval-2": "^1.1.0",
-    "moment-timezone": "^0.5.28",
+    "moment-timezone": "^0.6.2",
     "number-abbreviate": "^2.0.0",
     "qs": "^6.11.0",
     "rc-footer": "^0.6.2",
@@ -110,7 +110,7 @@
   },
   "resolutions": {
     "antd/rc-select": "10.1.0",
-    "moment-timezone/moment": "2.24.0"
+    "moment-timezone/moment": "2.29.4"
   },
   "browserslist": [
     ">0.2%",

@@ -673,5 +673,18 @@ describe('utils', () => {
       );
       expect(output).toEqual(true);
     });
+    it('returns false if a timezone is unknown to moment-timezone', () => {
+      advanceTo(new Date('2020-05-13T13:31:00+00:00'));
+      const output = doTimezonesHaveDifferentTimes(
+        'Europe/Zurich',
+        'Not/AZone'
+      );
+      expect(output).toEqual(false);
+    });
+    it('resolves a recently-added IANA zone from the updated tzdata', () => {
+      advanceTo(new Date('2026-01-01T00:00:00+00:00'));
+      const output = doTimezonesHaveDifferentTimes('America/Coyhaique', 'UTC');
+      expect(output).toEqual(true);
+    });
   });
 });
