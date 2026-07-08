@@ -145,9 +145,7 @@ def test_push_again_on_already_existing_exception(
     )
 
 
-@patch(
-    "inspirehep.hal.tasks._hal_create", side_effect=HALCreateException("Some error")
-)
+@patch("inspirehep.hal.tasks._hal_create", side_effect=HALCreateException("Some error"))
 @patch("inspirehep.hal.api.current_celery_app.send_task")
 def test_exception_in_hal_create(
     mock_push_to_hal, mock_hal_create, inspire_app, get_fixture
