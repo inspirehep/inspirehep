@@ -21,6 +21,9 @@ class InstitutionsElasticSearchSchema(ElasticSearchBaseSchema, InstitutionsRawSc
         ICN = original_object.get("ICN", [])
         legacy_ICN = original_object.get("legacy_ICN", "")
 
+        if "obsolete" in ICN:
+            return []
+
         institution_acronyms = original_object.get_value(
             "institution_hierarchy.acronym", default=[]
         )
