@@ -4,7 +4,6 @@ import os
 import requests
 from rest_framework import status, viewsets
 from rest_framework.response import Response
-from django.http import Http404
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 from backoffice.hep.tasks import batch_resolve_workflows
@@ -288,39 +287,10 @@ class HepWorkflowBatchResolveViewSet(viewsets.ViewSet):
 
         data = serializer.validated_data
         data["ids"] = [str(wf_id) for wf_id in data["ids"]]
-        existing_workflow_ids = {
-            str(workflow_id)
-            for workflow_id in HepWorkflow.objects.filter(
-                pk__in=data["ids"]
-            ).values_list("pk", flat=True)
-        }
-        missing_ids = [
-            wf_id for wf_id in data["ids"] if wf_id not in existing_workflow_ids
-        ]
-        if missing_ids:
-            raise Http404
+        for wf_id in data["ids"]:
+            add_hep_decision(wf_id, request.user, data["action"], data.get("value"))
+            HepWorkflow.objects.filter(pk=wf_id).update(status=HepStatusChoices.RUNNING)
 
-        existing_decision_workflow_ids = {
-            str(workflow_id)
-            for workflow_id in HepDecision.objects.filter(
-                workflow_id__in=data["ids"], action=data["action"]
-            ).values_list("workflow_id", flat=True)
-        }
-        decisions_to_create = [
-            HepDecision(
-                workflow_id=wf_id,
-                user=request.user,
-                action=data["action"],
-            )
-            for wf_id in data["ids"]
-            if wf_id not in existing_decision_workflow_ids
-        ]
-
-        if decisions_to_create:
-            HepDecision.objects.bulk_create(decisions_to_create)
-        HepWorkflow.objects.filter(pk__in=data["ids"]).exclude(
-            status=HepStatusChoices.RUNNING
-        ).update(status=HepStatusChoices.RUNNING)
         transaction.on_commit(lambda: batch_resolve_workflows.delay(data))
 
         return Response(

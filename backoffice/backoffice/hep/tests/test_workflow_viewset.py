@@ -424,9 +424,8 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.workflow.refresh_from_db()
         self.assertTrue(self.workflow.decisions.exists())
 
-    @patch("backoffice.hep.api.views.sync_hep_workflow_index.delay")
     @patch("backoffice.common.airflow_utils.requests.post")
-    def test_batch_resolve(self, mock_post, mock_sync_index):
+    def test_batch_resolve(self, mock_post):
         mock_post.return_value = Mock(
             status_code=200,
             content=b"",
@@ -452,7 +451,6 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         }
         response = self.api_client.post(url, format="json", data=data)
         self.assertEqual(response.status_code, 202)
-        mock_sync_index.assert_called_once()
         for id in wfs_ids:
             workflow = HepWorkflow.objects.get(id=id)
             self.assertEqual(
@@ -462,9 +460,8 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
             self.assertEqual(workflow.status, HepStatusChoices.RUNNING)
         self.assertEqual(mock_post.call_count, len(wfs_ids))
 
-    @patch("backoffice.hep.api.views.sync_hep_workflow_index.delay")
     @patch("backoffice.common.airflow_utils.requests.post")
-    def test_batch_resolve_exception_partial_success(self, mock_post, mock_sync_index):
+    def test_batch_resolve_exception_partial_success(self, mock_post):
         response_ok = Mock(
             status_code=200,
             content=b"",
@@ -497,7 +494,6 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         }
         response = self.api_client.post(url, format="json", data=data)
         self.assertEqual(response.status_code, 202)
-        mock_sync_index.assert_called_once()
 
         for wf_id, success in zip(wfs_ids, wf_resolve_success):
             workflow = HepWorkflow.objects.get(id=wf_id)
