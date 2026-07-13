@@ -243,11 +243,13 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             "api:authors-restart",
             kwargs={"pk": self.workflow.id},
         )
+        self.workflow.status = AuthorStatusChoices.COMPLETED
+        self.workflow.save()
         response = self.api_client.post(url)
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
-            response.json()["error"],
-            "Workflow has already run successfully. Skipping restart.",
+            response.json()["message"],
+            "Cannot restart a completed workflow.",
         )
 
     @pytest.mark.vcr
@@ -277,7 +279,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(response.status_code, 200)
 
     @pytest.mark.vcr
-    def test_restart_current_task_without_failed_dags(self):
+    def test_restart_current_task_without_failed_tasks(self):
         self.api_client.force_authenticate(user=self.curator)
         url = reverse(
             "api:authors-restart",
@@ -286,11 +288,7 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
         response = self.api_client.post(
             url, format="json", data={"restart_current_task": True}
         )
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(
-            response.json(),
-            {"error": "No failed tasks found to restart. Skipping restart."},
-        )
+        self.assertEqual(response.status_code, 200)
 
     @pytest.mark.vcr
     def test_restart_with_params(self):
