@@ -32,7 +32,7 @@ def config_loader_with_error_handler(app, **kwargs_config):
     def default_handler(error):
         if isinstance(error, BaseRestError):
             return error
-        code = error.code if hasattr(error, "code") else 500
+        code = getattr(error, "code", None) or 500
         message = (
             error.description if hasattr(error, "description") else "Unexpected error"
         )
