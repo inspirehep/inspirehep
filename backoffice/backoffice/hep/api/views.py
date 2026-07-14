@@ -163,6 +163,31 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         workflow_serializer = self.serializer_class(workflow)
         return Response(workflow_serializer.data)
 
+    @action(
+        detail=False,
+        methods=["post"],
+        url_path="resolve",
+        url_name="batch-resolve-list",
+    )
+    def batch_resolve(self, request):
+        serializer = HepBatchResolutionSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        data = serializer.validated_data
+        data["ids"] = [str(wf_id) for wf_id in data["ids"]]
+        for wf_id in data["ids"]:
+            workflow = get_object_or_404(HepWorkflow, pk=wf_id)
+            add_hep_decision(wf_id, request.user, data["action"], data.get("value"))
+            workflow.status = HepStatusChoices.RUNNING
+            workflow.save()
+
+        transaction.on_commit(lambda: batch_resolve_workflows.delay(data))
+
+        return Response(
+            {"message": "Batch resolution started.", "ids": data["ids"]},
+            status=status.HTTP_202_ACCEPTED,
+        )
+
     @action(detail=True, methods=["post"])
     def discard(self, request, pk=None):
         workflow = complete_workflow(pk, request.data)
@@ -278,27 +303,6 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
             )
 
         return Response(wf_serializer.data)
-
-
-class HepWorkflowBatchResolveViewSet(viewsets.ViewSet):
-    def create(self, request):
-        serializer = HepBatchResolutionSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        data = serializer.validated_data
-        data["ids"] = [str(wf_id) for wf_id in data["ids"]]
-        for wf_id in data["ids"]:
-            workflow = get_object_or_404(HepWorkflow, pk=wf_id)
-            add_hep_decision(wf_id, request.user, data["action"], data.get("value"))
-            workflow.status = HepStatusChoices.RUNNING
-            workflow.save()
-
-        transaction.on_commit(lambda: batch_resolve_workflows.delay(data))
-
-        return Response(
-            {"message": "Batch resolution started.", "ids": data["ids"]},
-            status=status.HTTP_202_ACCEPTED,
-        )
 
 
 @extend_schema_view(
