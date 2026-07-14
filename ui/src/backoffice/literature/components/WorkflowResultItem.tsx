@@ -70,9 +70,6 @@ const WorkflowResultItem = ({
 
   const status = item?.get('status');
   const referenceCount = item?.get('reference_count');
-  const references = data?.get('references')?.toJS();
-  const totalReferences =
-    references && Array.isArray(references) ? references.length : 0;
 
   const authors = data?.get('authors');
   const hasAuthors = List.isList(authors) && authors.size > 0;
@@ -212,10 +209,7 @@ const WorkflowResultItem = ({
                   hasInspireCategories={!!subjectAreas && subjectAreas.size > 0}
                 />
               </div>
-              <LiteratureReferenceCount
-                referenceCount={referenceCount}
-                totalReferences={totalReferences}
-              />
+              <LiteratureReferenceCount referenceCount={referenceCount} />
               <LiteratureSearchKeywords classifierResults={classifierResults} />
             </>
           </Card>
