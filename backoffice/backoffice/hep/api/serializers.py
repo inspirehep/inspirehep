@@ -163,9 +163,31 @@ class HepWorkflowDocumentSerializer(DocumentSerializer):
         fields = "__all__"
 
 
+HEP_SEARCH_RESULT_DATA_FIELDS = (
+    "titles",
+    "document_type",
+    "abstracts",
+    "acquisition_source",
+    "inspire_categories",
+    "authors",
+    "publication_info",
+    "arxiv_eprints",
+    "number_of_pages",
+    "public_notes",
+    "report_numbers",
+    "_created_at",
+    "_updated_at",
+)
+
+
 class HepBackofficeSearchUISerializer(BaseBackofficeSearchUISerializer):
     def get_hit_representation(self, item):
         hit = super().get_hit_representation(item)
+        hit["data"] = {
+            key: value
+            for key, value in hit["data"].items()
+            if key in HEP_SEARCH_RESULT_DATA_FIELDS
+        }
         hit.update(
             {
                 "classifier_results": item.get("classifier_results"),

@@ -123,8 +123,6 @@ def test_prepare_data_handles_empty_data(document):
         ("classifier_results", None),
         ("relevance_prediction", {}),
         ("relevance_prediction", None),
-        ("reference_count", {}),
-        ("reference_count", None),
         ("matches", {}),
         ("matches", None),
     ],
@@ -145,7 +143,6 @@ def test_prepare_optional_json_fields_return_none_for_empty_values(
     [
         ("classifier_results", {"score": 0.9}),
         ("relevance_prediction", {"decision": "CORE"}),
-        ("reference_count", {"core": 3}),
         ("matches", {"exact": [{"control_number": 1}]}),
     ],
 )
@@ -158,3 +155,42 @@ def test_prepare_optional_json_fields_preserve_non_empty_values(
     result = getattr(document, f"prepare_{field_name}")(instance)
 
     assert result == value
+
+
+@pytest.mark.parametrize(
+    ("reference_count_value", "references_value", "expected"),
+    [
+        (None, [{}], None),
+        ({}, [{}], {"total": 1}),
+    ],
+)
+def test_prepare_reference_count_returns_none_when_missing(
+    document, reference_count_value, references_value, expected
+):
+    instance = Mock()
+    instance.reference_count = reference_count_value
+    instance.data = {"references": references_value}
+
+    result = document.prepare_reference_count(instance)
+
+    assert result == expected
+
+
+def test_prepare_reference_count_adds_total_from_data_references(document):
+    instance = Mock()
+    instance.reference_count = {"core": 3, "non_core": 1}
+    instance.data = {"references": [{}, {}, {}, {}]}
+
+    result = document.prepare_reference_count(instance)
+
+    assert result == {"core": 3, "non_core": 1, "total": 4}
+
+
+def test_prepare_reference_count_total_defaults_to_zero_without_references(document):
+    instance = Mock()
+    instance.reference_count = {"core": 0, "non_core": 0}
+    instance.data = {}
+
+    result = document.prepare_reference_count(instance)
+
+    assert result == {"core": 0, "non_core": 0, "total": 0}

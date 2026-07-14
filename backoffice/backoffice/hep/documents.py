@@ -249,7 +249,11 @@ class HepWorkflowDocument(BaseWorkflowDocument):
         return self._prepare_optional_json_object(instance.relevance_prediction)
 
     def prepare_reference_count(self, instance):
-        return self._prepare_optional_json_object(instance.reference_count)
+        reference_count = instance.reference_count
+        if reference_count is None:
+            return None
+        total = len((instance.data or {}).get("references") or [])
+        return {**reference_count, "total": total}
 
     def prepare_matches(self, instance):
         return self._prepare_optional_json_object(instance.matches)
