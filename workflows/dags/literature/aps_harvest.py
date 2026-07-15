@@ -32,7 +32,7 @@ APS_CONN = "aps_conn"
     params={
         "from": Param(type=["null", "string"], default=None),
         "until": Param(type=["null", "string"], default=None),
-        "set": Param(type=["null", "string"], default="openaccess"),
+        "set": Param(type=["null", "string"], default=None),
         "per_page": Param(type="integer", default=100),
         "date": Param(type="string", default="published"),
     },
