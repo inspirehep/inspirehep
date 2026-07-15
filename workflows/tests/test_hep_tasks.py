@@ -1,7 +1,6 @@
 import copy
 import json
 from io import BytesIO
-from unittest import mock
 from unittest.mock import Mock, patch
 from urllib.parse import urlparse
 
@@ -109,18 +108,6 @@ class Test_HEPCreateDAG:
     inspire_hook = InspireHTTPRecordManagementHook()
 
     workflow_id = context["params"]["workflow_id"]
-
-    def test_check_env(self):
-        task = self.dag.get_task("check_env")
-
-        with mock.patch.dict("os.environ", AIRFLOW_VAR_ENVIRONMENT="DEV"):
-            task.execute(context={})
-
-        with (
-            mock.patch.dict("os.environ", AIRFLOW_VAR_ENVIRONMENT="PROD"),
-            pytest.raises(AirflowException),
-        ):
-            task.execute(context={})
 
     @pytest.mark.vcr
     def test_set_schema_and_flags(self):

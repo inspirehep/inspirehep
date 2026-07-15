@@ -153,12 +153,6 @@ def hep_create_dag():
     s3_store = s3.S3JsonStore(aws_conn_id="s3_conn")
 
     @task
-    def check_env():
-        environment = Variable.get("ENVIRONMENT")
-        if environment.lower() not in ["dev", "local"]:
-            raise AirflowException("This DAG will not run on prod")
-
-    @task
     def restore_and_get_workflow_data(**context):
         workflow_data = workflow_management_hook.restore_workflow(
             context["params"]["workflow_id"]
@@ -2055,8 +2049,7 @@ def hep_create_dag():
     check_for_blocking_workflows_task = check_for_blocking_workflows()
 
     (
-        check_env()
-        >> restore_and_get_workflow_data()
+        restore_and_get_workflow_data()
         >> set_schema_and_flags()
         >> validate_record()
         >> set_workflow_status_to_running()
