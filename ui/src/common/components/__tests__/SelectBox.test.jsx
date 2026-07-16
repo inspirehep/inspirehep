@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 
 import SelectBox from '../SelectBox';
@@ -40,9 +39,8 @@ describe('SelectBox', () => {
 
     // https://github.com/ant-design/ant-design/issues/22074#issuecomment-603735566
     const select = document.querySelector('.ant-select-selector');
-    const clickEvent = document.createEvent('MouseEvents');
-    clickEvent.initEvent('mousedown', true, true);
-    select.dispatchEvent(clickEvent);
+
+    fireEvent.mouseDown(select);
 
     fireEvent.click(screen.getByText('Value 2'));
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row, Col, Empty } from 'antd';
 import { WarningOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';

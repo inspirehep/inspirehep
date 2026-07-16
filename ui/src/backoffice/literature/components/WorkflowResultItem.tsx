@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row, Col, Card, Descriptions, Typography } from 'antd';
 import { List, Map } from 'immutable';
 

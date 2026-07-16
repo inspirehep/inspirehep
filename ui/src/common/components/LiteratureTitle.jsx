@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Map } from 'immutable';
 import PropTypes from 'prop-types';
 

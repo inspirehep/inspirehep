@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from 'antd';
 
 import ContentBox from './ContentBox';
@@ -11,7 +10,7 @@ const RunningDagsBox = ({ dagFullUrl }: RunningDagsBoxProps) => (
   <ContentBox className="mb3" fullHeight={false} subTitle="Airflow DAGs">
     <div className="flex flex-column items-center">
       <Button className="w-75">
-        <a href={dagFullUrl} target="_blank">
+        <a href={dagFullUrl} target="_blank" rel="noreferrer">
           See DAG Run
         </a>
       </Button>

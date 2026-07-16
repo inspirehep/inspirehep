@@ -1,4 +1,3 @@
-import React from 'react';
 import { LinkedinOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
 

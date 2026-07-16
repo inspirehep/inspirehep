@@ -61,11 +61,10 @@ const WorkflowCard = ({
     {} as Record<string, any>
   );
 
-  const getSearchRoute = () => {
-    return workflowTypeKey?.includes('AUTHOR')
+  const getSearchRoute = () =>
+    workflowTypeKey?.includes('AUTHOR')
       ? BACKOFFICE_AUTHORS_SEARCH
       : BACKOFFICE_LITERATURE_SEARCH;
-  };
 
   const baseUrl = `${getSearchRoute()}?workflow_type=${workflowTypeKey}`;
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
 import { List, Map } from 'immutable';
 import { renderWithRouter } from '../../../../fixtures/render';

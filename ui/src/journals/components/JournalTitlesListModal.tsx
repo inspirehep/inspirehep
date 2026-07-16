@@ -1,4 +1,3 @@
-import React from 'react';
 import { Modal, List } from 'antd';
 
 export const JournalTitlesListModal = ({

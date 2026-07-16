@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import { Modal, Row, Col } from 'antd';

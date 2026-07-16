@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import { Tooltip, Form } from 'antd';
 import { getIn } from 'formik';

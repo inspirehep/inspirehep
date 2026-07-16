@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from 'antd';
 import { EditOutlined, RedoOutlined, SyncOutlined } from '@ant-design/icons';
 import { WorkflowActions, WorkflowStatuses } from '../../../constants';

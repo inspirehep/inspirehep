@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row, Col } from 'antd';
 import { getWorkflowStatusInfo } from '../../../utils/utils';
 import { WorkflowStatuses } from '../../../constants';

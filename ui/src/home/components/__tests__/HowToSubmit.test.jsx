@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { renderWithRouter } from '../../../fixtures/render';
 import HowToSubmit from '../HowToSubmit';
 import {

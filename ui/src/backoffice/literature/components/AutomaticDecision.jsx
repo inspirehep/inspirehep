@@ -1,4 +1,3 @@
-import React from 'react';
 import { resolveAutomaticDecision } from '../../utils/utils';
 
 const AutomaticDecision = ({ relevancePrediction }) => {
