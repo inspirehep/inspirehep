@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.test import TransactionTestCase
 from rest_framework.exceptions import ValidationError
 
-from backoffice.authors.constants import AuthorStatusChoices, AuthorResolutionDags
+from backoffice.authors.constants import AuthorStatusChoices, AuthorResolutions
 from backoffice.authors.utils import add_author_decision, is_another_author_running
 
 User = get_user_model()
@@ -30,7 +30,7 @@ class TestUtils(TransactionTestCase):
         decision_data = add_author_decision(
             self.workflow.id,
             self.user,
-            AuthorResolutionDags.accept,
+            AuthorResolutions.accept,
         )
         self.assertIsNotNone(decision_data)
 
@@ -46,7 +46,7 @@ class TestUtils(TransactionTestCase):
             add_author_decision(
                 uuid.UUID(int=0),
                 self.user,
-                AuthorResolutionDags.accept,
+                AuthorResolutions.accept,
             )
 
     def test_is_another_author_running(self):
