@@ -88,3 +88,20 @@ def load_record(new_record):
         f"Data Record Updated: " f"{response.json()['metadata']['self']['$ref']}"
     )
     return response.json()
+
+
+def delay_calculator(record_count):
+    """Calculate the delay between requests based on the number of records.
+    This is done in order to prevent hitting the invenio API rate limit on hepdata
+    the limits are: 1000 per hour and 60 per minute.
+
+    Args: record_count (int): The number of records to process.
+
+    Returns: float: The delay in seconds.
+    """
+
+    if record_count < 60:
+        return 0
+    elif record_count < 1000:
+        return 1
+    return 3.6

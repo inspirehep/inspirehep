@@ -7,7 +7,12 @@ from airflow.sdk.execution_time.macros import ds_add
 from hooks.generic_http_hook import GenericHttpHook
 from include.utils import workflows
 from include.utils.alerts import FailedDagNotifier
-from include.utils.data import build_record, download_record_versions, load_record
+from include.utils.data import (
+    build_record,
+    delay_calculator,
+    download_record_versions,
+    load_record,
+)
 from include.utils.s3 import S3JsonStore
 from literature.check_failures_task import check_failures
 
@@ -85,11 +90,13 @@ def data_harvest_dag():
         data_schema = Variable.get("data_schema")
         hepdata_records = []
 
+        delay = delay_calculator(len(record_ids))
+
         logger.info(f"Processing {len(record_ids)} records.")
         for record_id in record_ids:
             try:
                 hepdata_records.append(download_record_versions(record_id))
-                time.sleep(1)  # TODO: Remove sleep after bulk import harvest
+                time.sleep(delay)
             except Exception as e:
                 logger.error(
                     f"Error occurred while downloading "
