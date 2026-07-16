@@ -219,7 +219,7 @@ Cypress.Commands.add("fillSelectField", (path, values) => {
 
 Cypress.Commands.add("fillRichTextField", (path, value) => {
   cy.getField(path).within(() => {
-    cy.get(".ql-editor[contenteditable=true]").type(value, { force: true });
+    cy.get(".tiptap[contenteditable=true]").type(value, { force: true });
   });
 });
 
