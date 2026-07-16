@@ -3,7 +3,12 @@ from urllib.parse import urlparse
 import orjson
 import pytest
 from airflow.models import DagBag
-from include.utils.data import build_record, download_record_versions, load_record
+from include.utils.data import (
+    build_record,
+    delay_calculator,
+    download_record_versions,
+    load_record,
+)
 
 from tests.test_utils import task_test
 
@@ -13,6 +18,13 @@ dagbag = DagBag()
 @pytest.mark.usefixtures("hep_env")
 class TestDataHarvest:
     dag = dagbag.get_dag("data_harvest_dag")
+
+    @pytest.mark.parametrize(
+        ("record_count", "expected_delay"),
+        [(0, 0), (59, 0), (60, 1), (999, 1), (1000, 3.6)],
+    )
+    def test_delay_calculator(self, record_count, expected_delay):
+        assert delay_calculator(record_count) == expected_delay
 
     @pytest.mark.vcr
     def test_collect_ids_param(self):
