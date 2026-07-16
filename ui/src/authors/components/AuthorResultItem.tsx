@@ -11,7 +11,7 @@ import EditAuthorRecordAction from './EditAuthorRecordAction';
 
 const AuthorResultItem = ({
   metadata,
-  openDetailInNewTab,
+  openDetailInNewTab = false,
   isCatalogerLoggedIn,
 }: {
   metadata: Map<string, any>;
@@ -57,10 +57,6 @@ const AuthorResultItem = ({
       </div>
     </ResultItem>
   );
-};
-
-AuthorResultItem.defaultProps = {
-  openDetailInNewTab: false,
 };
 
 export default AuthorResultItem;

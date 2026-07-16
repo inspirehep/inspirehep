@@ -1,6 +1,6 @@
 import SelectBox from './SelectBox';
 
-const SortBy = ({ sort, onSortChange, sortOptions }) =>
+const SortBy = ({ sort, onSortChange, sortOptions = null }) =>
   sortOptions && (
     <SelectBox
       data-testid="sort-by-select"
@@ -10,7 +10,4 @@ const SortBy = ({ sort, onSortChange, sortOptions }) =>
     />
   );
 
-SortBy.defaultProps = {
-  sortOptions: null,
-};
 export default SortBy;

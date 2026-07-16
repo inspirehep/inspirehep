@@ -24,8 +24,4 @@ AddressList.propTypes = {
   addresses: PropTypes.instanceOf(List),
 };
 
-AddressList.defaultProps = {
-  addresses: null,
-};
-
 export default AddressList;

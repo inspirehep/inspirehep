@@ -113,9 +113,4 @@ LiteratureSubmission.propTypes = {
   onSubmit: PropTypes.func.isRequired, // must be async
 };
 
-LiteratureSubmission.defaultProps = {
-  error: null,
-  initialFormData: null,
-};
-
 export default convertAllImmutablePropsToJS(LiteratureSubmission);

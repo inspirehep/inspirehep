@@ -13,7 +13,7 @@ function AssignAction({
   onAssign,
   onUnassign,
   disabled,
-  numberOfSelected,
+  numberOfSelected = 1,
 }: {
   onAssignToAnotherAuthor: Function;
   onAssign: Function;
@@ -120,9 +120,5 @@ function AssignAction({
     </UserAction>
   );
 }
-
-AssignAction.defaultProps = {
-  numberOfSelected: 1,
-};
 
 export default AssignAction;

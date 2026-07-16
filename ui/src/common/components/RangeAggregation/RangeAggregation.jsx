@@ -191,8 +191,8 @@ function TooltipContent(props) {
 
 function RangeAggregation({
   name,
-  initialBuckets,
-  buckets,
+  initialBuckets = List(),
+  buckets = List(),
   selections,
   onChange,
   namespace,
@@ -345,12 +345,6 @@ RangeAggregation.propTypes = {
   selections: PropTypes.string,
   buckets: PropTypes.instanceOf(List),
   initialBuckets: PropTypes.instanceOf(List),
-};
-
-RangeAggregation.defaultProps = {
-  selections: null,
-  buckets: List(),
-  initialBuckets: List(),
 };
 
 export default RangeAggregation;

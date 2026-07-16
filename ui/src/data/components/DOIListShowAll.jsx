@@ -7,7 +7,7 @@ import SecondaryButton from '../../common/components/SecondaryButton';
 import DOIList from '../../literature/components/DOIList';
 import { filterDoisByMaterial, hasAdditionalDois } from '../utils';
 
-const DOIListShowAll = ({ dois }) => {
+const DOIListShowAll = ({ dois = List() }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const dataDois = filterDoisByMaterial(dois);
@@ -64,10 +64,6 @@ const DOIListShowAll = ({ dois }) => {
 
 DOIListShowAll.propTypes = {
   dois: PropTypes.instanceOf(List),
-};
-
-DOIListShowAll.defaultProps = {
-  dois: List(),
 };
 
 export default DOIListShowAll;
