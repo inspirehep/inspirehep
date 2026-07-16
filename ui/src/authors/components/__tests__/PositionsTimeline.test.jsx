@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
+import userEvent from '@testing-library/user-event';
 import PositionsTimeline from '../PositionsTimeline';
 
 describe('PositionsTimeline', () => {
@@ -54,7 +55,8 @@ describe('PositionsTimeline', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('renders all when ExpandListToggle is toggled by default', () => {
+  it('renders all when ExpandListToggle is toggled by default', async () => {
+    const user = userEvent.setup();
     const positions = fromJS([
       { institution: 'Inst 1' },
       { institution: 'Inst 2' },
@@ -67,7 +69,7 @@ describe('PositionsTimeline', () => {
       <PositionsTimeline positions={positions} />
     );
     const toggleButton = getByRole('button');
-    toggleButton.click();
+    await user.click(toggleButton);
     expect(getByText('Inst 4')).toBeInTheDocument();
     expect(getByText('Inst 5')).toBeInTheDocument();
     expect(getByText('Inst 6')).toBeInTheDocument();

@@ -177,7 +177,6 @@ exports[`SearchPageContainer > renders the SearchPage component 1`] = `
                       <div
                         class="ant-select ant-select-single ant-select-show-arrow"
                         data-testid="select-sort-by"
-                        placement="bottomLeft"
                         style="width: 100%;"
                       >
                         <div
@@ -198,11 +197,14 @@ exports[`SearchPageContainer > renders the SearchPage component 1`] = `
                               readonly=""
                               role="combobox"
                               style="opacity: 0;"
+                              type="search"
+                              unselectable="on"
                               value=""
                             />
                           </span>
                           <span
                             class="ant-select-selection-item"
+                            title="Most recent"
                           >
                             Most recent
                           </span>
