@@ -26,8 +26,4 @@ InstitutionAddressList.propTypes = {
   addresses: PropTypes.instanceOf(List),
 };
 
-InstitutionAddressList.defaultProps = {
-  addresses: null,
-};
-
 export default InstitutionAddressList;

@@ -57,7 +57,7 @@ function LiteratureSearch({
   noResultsDescription,
   isCitationSummaryVisible,
   embedded,
-  enableCitationSummary,
+  enableCitationSummary = true,
   numberOfSelected,
   page,
   isSuperUserLoggedIn,
@@ -307,10 +307,6 @@ LiteratureSearch.propTypes = {
   enableCitationSummary: PropTypes.bool,
   isCatalogerLoggedIn: PropTypes.bool,
   aiSearch: PropTypes.instanceOf(Map),
-};
-
-LiteratureSearch.defaultProps = {
-  enableCitationSummary: true,
 };
 
 const stateToProps = (state, { namespace }) => ({

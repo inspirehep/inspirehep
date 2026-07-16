@@ -12,7 +12,6 @@ import {
 const stateToProps = (state: RootState) => ({
   disabled: state.authors.get('publicationSelection').size === 0,
   numberOfSelected: state.authors.get('publicationSelection').size,
-  claimingTooltip: 'All selected papers are already claimed',
 });
 
 const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
