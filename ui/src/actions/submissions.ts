@@ -1,4 +1,4 @@
-import { push } from 'connected-react-router';
+import { push } from 'redux-first-history';
 import { List } from 'immutable';
 import { Action, ActionCreator } from 'redux';
 import { RootState } from '../types';

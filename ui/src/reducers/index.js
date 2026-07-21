@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
 
 import search, { initialState as searchInitialState } from './search';
 import literature from './literature';
@@ -23,9 +22,9 @@ import backoffice, {
 } from './backoffice';
 import { LITERATURE_NS, LITERATURE_REFERENCES_NS } from '../search/constants';
 
-export default function createRootReducer(history) {
+export default function createRootReducer(routerReducer) {
   return combineReducers({
-    router: connectRouter(history),
+    router: routerReducer,
     exceptions,
     literature,
     user,

@@ -1,24 +1,24 @@
 import { useEffect } from 'react';
 import { Action, ActionCreator, AnyAction, Dispatch } from 'redux';
 import { connect, ConnectedComponent } from 'react-redux';
-import { withRouter, match as matchType } from 'react-router-dom';
+import { Params, useParams } from 'react-router-dom';
 import { RootState } from '../types';
 
-import { getWrapperComponentDisplayName } from './utils';
 import LoadingOrChildren from './components/LoadingOrChildren';
 import { HttpClientWrapper } from './http';
+import { getWrapperComponentDisplayName } from './utils';
 
 // used to dispatch actions when route has changed
-export default function withRouteActionsDispatcher(
+export default function withRouteActionsDispatcher<T>(
   DetailPage: ConnectedComponent<any, any>,
   {
     routeParamSelector,
     routeActions,
     loadingStateSelector,
   }: {
-    routeParamSelector: ({ id }: { id: string }) => string;
+    routeParamSelector: (args: Params<string>) => T;
     routeActions: (
-      id: string
+      selectedParam: T
     ) => (
       | ((
           dispatch: Dispatch<AnyAction>,
@@ -31,16 +31,16 @@ export default function withRouteActionsDispatcher(
   }
 ) {
   const Wrapper = ({
-    match,
     dispatch,
     loading,
     ...props
   }: {
-    match: matchType<{ id: string; old?: string; new?: string }>;
     dispatch: ActionCreator<Action>;
     loading: boolean;
   }) => {
-    const selectedParam = routeParamSelector(match.params);
+    const params = useParams();
+    const selectedParam = routeParamSelector(params);
+
     useEffect(() => {
       routeActions(selectedParam).forEach(dispatch);
     }, [selectedParam, dispatch]);
@@ -57,11 +57,9 @@ export default function withRouteActionsDispatcher(
     (dispatch) => ({ dispatch })
   )(Wrapper);
 
-  const ConnectedWrapperWithRouter = withRouter(ConnectedWrapper);
-
-  ConnectedWrapperWithRouter.displayName = getWrapperComponentDisplayName(
+  ConnectedWrapper.displayName = getWrapperComponentDisplayName(
     'withRouteActionsDispatcher',
     DetailPage
   );
-  return ConnectedWrapperWithRouter;
+  return ConnectedWrapper;
 }
