@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { Map } from 'immutable';
 
 import {
@@ -19,9 +20,8 @@ function SeminarUpdateSubmissionPage({
   loadingUpdateFormData,
   updateFormDataError,
   dispatch,
-  match,
 }) {
-  const recordId = match.params.id;
+  const { id: recordId } = useParams();
   const onSubmit = useCallback(
     async (formData) => {
       await dispatch(submitUpdate(SEMINARS_PID_TYPE, recordId, formData));
@@ -51,7 +51,6 @@ function SeminarUpdateSubmissionPage({
 }
 
 SeminarUpdateSubmissionPage.propTypes = {
-  match: PropTypes.objectOf(PropTypes.any).isRequired,
   dispatch: PropTypes.func.isRequired,
   error: PropTypes.instanceOf(Map),
   updateFormData: PropTypes.instanceOf(Map),

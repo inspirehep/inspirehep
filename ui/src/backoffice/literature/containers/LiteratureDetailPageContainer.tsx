@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { ActionCreator, Action } from 'redux';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
-import { push } from 'connected-react-router';
+import { push } from 'redux-first-history';
 
 import './LiteratureDetailPageContainer.less';
 
@@ -73,7 +73,7 @@ const LiteratureDetailPageContainer = ({
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    dispatch(fetchLiteratureRecord(id));
+    dispatch(fetchLiteratureRecord(id!));
   }, []);
 
   const workflowType = literature?.get('workflow_type');
@@ -146,19 +146,19 @@ const LiteratureDetailPageContainer = ({
     actionInProgress?.get('type') === WorkflowActions.UPDATE;
 
   const handleResolveAction = async (action: string, value: string) => {
-    dispatch(resolveLiteratureAction(id, { action, value }));
+    dispatch(resolveLiteratureAction(id!, { action, value }));
   };
 
   const handleRestart = () => {
-    dispatch(restartWorkflowAction(id, LITERATURE_PID_TYPE));
+    dispatch(restartWorkflowAction(id!, LITERATURE_PID_TYPE));
   };
 
   const handleRestartCurrent = () => {
-    dispatch(restartCurrentWorkflowAction(id, LITERATURE_PID_TYPE));
+    dispatch(restartCurrentWorkflowAction(id!, LITERATURE_PID_TYPE));
   };
 
   const handleDelete = () => {
-    dispatch(deleteWorkflow(LITERATURE_PID_TYPE, id));
+    dispatch(deleteWorkflow(LITERATURE_PID_TYPE, id!));
   };
 
   return (
@@ -220,7 +220,7 @@ const LiteratureDetailPageContainer = ({
                         key="subjectAreas"
                       >
                         <SubjectArea
-                          workflowId={id}
+                          workflowId={id!}
                           status={status}
                           inspireCategories={inspireCategories}
                           disableActions={isUpdatingSubjects}

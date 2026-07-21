@@ -1,8 +1,10 @@
 import { fromJS } from 'immutable';
 
+import { Routes, Route } from 'react-router-dom';
 import { getStore } from '../../fixtures/store';
 import { renderWithProviders } from '../../fixtures/render';
 import Authors from '..';
+import { AUTHORS } from '../../common/routes';
 
 describe('Authors', () => {
   it('renders initial state', () => {
@@ -11,9 +13,14 @@ describe('Authors', () => {
   });
 
   it('navigates to SearchPageContainer when /authors', () => {
-    const { getByTestId } = renderWithProviders(<Authors />, {
-      route: '/authors',
-    });
+    const { getByTestId } = renderWithProviders(
+      <Routes>
+        <Route path={`${AUTHORS}/*`} element={<Authors />} />
+      </Routes>,
+      {
+        route: '/authors',
+      }
+    );
     expect(getByTestId('authors-search-page-container')).toBeInTheDocument();
   });
 
@@ -38,10 +45,15 @@ describe('Authors', () => {
       }),
     });
 
-    const { getByTestId } = renderWithProviders(<Authors />, {
-      store,
-      route: '/authors/1',
-    });
+    const { getByTestId } = renderWithProviders(
+      <Routes>
+        <Route path={`${AUTHORS}/*`} element={<Authors />} />
+      </Routes>,
+      {
+        store,
+        route: '/authors/1',
+      }
+    );
 
     expect(getByTestId('authors-detail-page-container')).toBeInTheDocument();
   });

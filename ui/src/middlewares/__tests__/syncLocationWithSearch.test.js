@@ -1,4 +1,4 @@
-import { LOCATION_CHANGE } from 'connected-react-router';
+import { LOCATION_CHANGE } from 'redux-first-history';
 import { fromJS } from 'immutable';
 
 import middleware from '../syncLocationWithSearch';
@@ -120,14 +120,14 @@ describe('syncLocationWithSearch middleware', () => {
       expect(mockDispatch).toHaveBeenCalledWith(searchQueryReset(namespace));
     });
 
-    it('dispatches searchQueryUpdate when isFirstRendering even if namespace query equals to location query', () => {
+    it('dispatches searchQueryUpdate on the first ever LOCATION_CHANGE (router.location still null) even if namespace query equals to location query', () => {
       const namespace = LITERATURE_NS;
       const location = {
         pathname: LITERATURE,
         search: '?size=10&q=dude',
         query: { size: 10, q: 'dude' },
       };
-      const router = { location };
+      const router = { location: null };
       const search = fromJS({
         namespaces: {
           [namespace]: {
@@ -144,7 +144,7 @@ describe('syncLocationWithSearch middleware', () => {
 
       const action = {
         type: LOCATION_CHANGE,
-        payload: { location, isFirstRendering: true },
+        payload: { location },
       };
       const resultAction = testMiddleware(action);
 

@@ -1,15 +1,14 @@
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
-import { Route, Switch } from 'react-router-dom';
-import { ConnectedRouter } from 'connected-react-router';
+import { HistoryRouter as Router } from 'redux-first-history/rr6';
 import 'antd/dist/antd.less';
 import 'tachyons';
 import * as Sentry from '@sentry/browser';
 import { Idle } from 'idlejs';
 
 import { unregister as unregisterServiceWorker } from './registerServiceWorker';
-import createStore, { history } from './store';
+import createStore, { getReduxHistory } from './store';
 import App from './App';
 import ErrorAppCrash from './errors/components/ErrorAppCrash';
 import ErrorBoundary from './common/components/ErrorBoundary';
@@ -56,11 +55,9 @@ const root = createRoot(container);
 root.render(
   <ErrorBoundary renderError={() => <ErrorAppCrash />}>
     <Provider store={store}>
-      <ConnectedRouter history={injectTrackerToHistory(history)}>
-        <Switch>
-          <Route path="/" component={App} />
-        </Switch>
-      </ConnectedRouter>
+      <Router history={injectTrackerToHistory(getReduxHistory())}>
+        <App />
+      </Router>
     </Provider>
   </ErrorBoundary>
 );

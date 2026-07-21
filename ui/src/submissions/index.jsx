@@ -1,21 +1,10 @@
 import { Component } from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Navigate } from 'react-router-dom';
 
-import {
-  SUBMISSIONS_AUTHOR,
-  SUBMISSIONS_JOB,
-  SUBMISSIONS,
-  SUBMISSIONS_LITERATURE,
-  SUBMISSIONS_CONFERENCE,
-  SUBMISSION_SUCCESS,
-  SUBMISSIONS_SEMINAR,
-  SUBMISSIONS_INSTITUTION,
-  SUBMISSIONS_EXPERIMENT,
-  SUBMISSIONS_JOURNAL,
-} from '../common/routes';
+import { SUBMISSIONS_AUTHOR, SUBMISSION_SUCCESS } from '../common/routes';
 import { SUPERUSER_OR_CATALOGER } from '../common/authorization';
-import PrivateRoute from '../common/PrivateRoute';
-import SafeSwitch from '../common/components/SafeSwitch';
+import RequireAuth from '../common/RequireAuth';
+import RoutesWithFallback from '../common/components/RoutesWithFallback';
 import DocumentHead from '../common/components/DocumentHead';
 import AuthorSubmissionPageContainer from './authors/containers/AuthorSubmissionPageContainer';
 import AuthorUpdateSubmissionPageContainer from './authors/containers/AuthorUpdateSubmissionPageContainer';
@@ -40,112 +29,95 @@ class Submissions extends Component {
       <>
         <DocumentHead title="Submit" />
         <div className="w-100" data-testid="submissions">
-          <SafeSwitch>
-            <Redirect exact from={SUBMISSIONS} to={SUBMISSIONS_AUTHOR} />
+          <RoutesWithFallback>
             <Route
-              exact
-              path={SUBMISSIONS_AUTHOR}
-              component={AuthorSubmissionPageContainer}
+              index
+              element={<Navigate to={SUBMISSIONS_AUTHOR} replace />}
             />
+            <Route path="authors" element={<AuthorSubmissionPageContainer />} />
             <Route
-              exact
-              path={`${SUBMISSIONS_AUTHOR}/:id`}
-              component={AuthorUpdateSubmissionPageContainer}
+              path="authors/:id"
+              element={<AuthorUpdateSubmissionPageContainer />}
             />
             <Route
-              exact
-              path={SUBMISSIONS_LITERATURE}
-              component={LiteratureSubmissionPageContainer}
+              path="literature"
+              element={<LiteratureSubmissionPageContainer />}
+            />
+            <Route path="jobs" element={<JobSubmissionPageContainer />} />
+            <Route
+              path="jobs/:id"
+              element={<JobUpdateSubmissionPageContainer />}
             />
             <Route
-              exact
-              path={SUBMISSIONS_JOB}
-              component={JobSubmissionPageContainer}
+              path="conferences"
+              element={<ConferenceSubmissionPageContainer />}
             />
             <Route
-              exact
-              path={`${SUBMISSIONS_JOB}/:id`}
-              component={JobUpdateSubmissionPageContainer}
+              path="seminars"
+              element={<SeminarSubmissionPageContainer />}
             />
             <Route
-              exact
-              path={SUBMISSIONS_CONFERENCE}
-              component={ConferenceSubmissionPageContainer}
+              path="seminars/:id"
+              element={<SeminarUpdateSubmissionPageContainer />}
             />
             <Route
-              exact
-              path={SUBMISSIONS_SEMINAR}
-              component={SeminarSubmissionPageContainer}
+              path="institutions"
+              element={
+                <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER}>
+                  <InstitutionSubmissionPageContainer />
+                </RequireAuth>
+              }
             />
             <Route
-              exact
-              path={`${SUBMISSIONS_SEMINAR}/:id`}
-              component={SeminarUpdateSubmissionPageContainer}
-            />
-            <PrivateRoute
-              exact
-              authorizedRoles={SUPERUSER_OR_CATALOGER}
-              path={SUBMISSIONS_INSTITUTION}
-              component={InstitutionSubmissionPageContainer}
-            />
-            <PrivateRoute
-              exact
-              authorizedRoles={SUPERUSER_OR_CATALOGER}
-              path={SUBMISSIONS_EXPERIMENT}
-              component={ExperimentSubmissionPageContainer}
-            />
-            <PrivateRoute
-              exact
-              authorizedRoles={SUPERUSER_OR_CATALOGER}
-              path={SUBMISSIONS_JOURNAL}
-              component={JournalSubmissionPageContainer}
-            />
-            <Redirect
-              exact
-              from={`${SUBMISSIONS_AUTHOR}/new/success`}
-              to={SUBMISSION_SUCCESS}
+              path="experiments"
+              element={
+                <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER}>
+                  <ExperimentSubmissionPageContainer />
+                </RequireAuth>
+              }
             />
             <Route
-              exact
-              path={`${SUBMISSIONS_AUTHOR}/:id/success`}
-              component={AuthorUpdateSubmissionSuccessPage}
-            />
-            <Redirect
-              exact
-              from={`${SUBMISSIONS_LITERATURE}/new/success`}
-              to={SUBMISSION_SUCCESS}
-            />
-            <Redirect
-              exact
-              from={`${SUBMISSIONS_JOB}/new/success`}
-              to={SUBMISSION_SUCCESS}
+              path="journals"
+              element={
+                <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER}>
+                  <JournalSubmissionPageContainer />
+                </RequireAuth>
+              }
             />
             <Route
-              exact
-              path={`${SUBMISSIONS_JOB}/:id/success`}
-              component={JobUpdateSubmissionSuccessPage}
+              path="authors/new/success"
+              element={<Navigate to={SUBMISSION_SUCCESS} replace />}
             />
             <Route
-              exact
-              path={`${SUBMISSIONS_CONFERENCE}/new/success`}
-              component={ConferenceSubmissionSuccessPageContainer}
+              path="authors/:id/success"
+              element={<AuthorUpdateSubmissionSuccessPage />}
             />
             <Route
-              exact
-              path={`${SUBMISSIONS_SEMINAR}/:id/success`}
-              component={SeminarSubmissionSuccessPageContainer}
+              path="literature/new/success"
+              element={<Navigate to={SUBMISSION_SUCCESS} replace />}
             />
             <Route
-              exact
-              path={`${SUBMISSIONS_SEMINAR}/new/success`}
-              component={SeminarSubmissionSuccessPageContainer}
+              path="jobs/new/success"
+              element={<Navigate to={SUBMISSION_SUCCESS} replace />}
             />
             <Route
-              exact
-              path={SUBMISSION_SUCCESS}
-              component={SubmissionSuccessPage}
+              path="jobs/:id/success"
+              element={<JobUpdateSubmissionSuccessPage />}
             />
-          </SafeSwitch>
+            <Route
+              path="conferences/new/success"
+              element={<ConferenceSubmissionSuccessPageContainer />}
+            />
+            <Route
+              path="seminars/:id/success"
+              element={<SeminarSubmissionSuccessPageContainer />}
+            />
+            <Route
+              path="seminars/new/success"
+              element={<SeminarSubmissionSuccessPageContainer />}
+            />
+            <Route path="success" element={<SubmissionSuccessPage />} />
+          </RoutesWithFallback>
         </div>
       </>
     );

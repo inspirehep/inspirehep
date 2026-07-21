@@ -1,4 +1,4 @@
-import { replace } from 'connected-react-router';
+import { replace } from 'redux-first-history';
 
 import { getStore } from '../../fixtures/store';
 import { appendQueryToLocationSearch } from '../router';

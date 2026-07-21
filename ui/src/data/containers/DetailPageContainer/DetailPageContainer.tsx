@@ -168,6 +168,6 @@ const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: (id) => [fetchData(id), fetchDataAuthors(id)],
+  routeActions: (id) => [fetchData(id!), fetchDataAuthors(id!)],
   loadingStateSelector: (state) => !state.data.hasIn(['data', 'metadata']),
 });

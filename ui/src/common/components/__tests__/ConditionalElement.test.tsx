@@ -1,22 +1,23 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import { renderWithRouter } from '../../../fixtures/render';
-import RouteOrRedirect from '../RouteOrRedirect';
+import ConditionalElement from '../ConditionalElement';
 
 const Test = () => <div>Test Component</div>;
 
-describe('RouteOrRedirect', () => {
+describe('ConditionalElement', () => {
   it('renders component if condition is true', () => {
     const { getByText } = renderWithRouter(
-      <Switch>
-        <RouteOrRedirect
-          exact
+      <Routes>
+        <Route
           path="/test"
-          condition
-          component={Test}
-          redirectTo="/nowhere"
+          element={
+            <ConditionalElement condition redirectTo="/nowhere">
+              <Test />
+            </ConditionalElement>
+          }
         />
-      </Switch>,
+      </Routes>,
       { route: '/test' }
     );
     expect(getByText('Test Component')).toBeInTheDocument();
@@ -25,16 +26,17 @@ describe('RouteOrRedirect', () => {
   it('redirects if condition is false', () => {
     const Another = () => <div>Another Component</div>;
     const { queryByText, getByText } = renderWithRouter(
-      <Switch>
-        <Route exact path="/another" component={Another} />
-        <RouteOrRedirect
-          exact
+      <Routes>
+        <Route path="/another" element={<Another />} />
+        <Route
           path="/test"
-          condition={false}
-          component={Test}
-          redirectTo="/another"
+          element={
+            <ConditionalElement condition={false} redirectTo="/another">
+              <Test />
+            </ConditionalElement>
+          }
         />
-      </Switch>,
+      </Routes>,
       { route: '/test' }
     );
 

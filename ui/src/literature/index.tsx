@@ -1,31 +1,28 @@
 import { Route } from 'react-router-dom';
 
 import './index.less';
-import { ERROR_401, LITERATURE } from '../common/routes';
 import SearchPageContainer from './containers/SearchPageContainer';
 import DetailPageContainer from './containers/DetailPageContainer';
 import ReferenceDiffInterfaceContainer from './containers/ReferenceDiffInterfaceContainer';
 import { SUPERUSER_OR_CATALOGER } from '../common/authorization';
-import SafeSwitch from '../common/components/SafeSwitch';
-import PrivateRoute from '../common/PrivateRoute';
+import RoutesWithFallback from '../common/components/RoutesWithFallback';
+import RequireAuth from '../common/RequireAuth';
 
 function Literature() {
   return (
     <div className="__Literature__" data-testid="literature">
-      <SafeSwitch>
-        <Route exact path={LITERATURE} component={SearchPageContainer} />
+      <RoutesWithFallback>
+        <Route index element={<SearchPageContainer />} />
+        <Route path=":id" element={<DetailPageContainer />} />
         <Route
-          exact
-          path={`${LITERATURE}/:id`}
-          component={DetailPageContainer}
+          path=":id/diff/:diff"
+          element={
+            <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER}>
+              <ReferenceDiffInterfaceContainer />
+            </RequireAuth>
+          }
         />
-        <PrivateRoute
-          redirectTo={ERROR_401}
-          path={`${LITERATURE}/:id/diff/:old..:new`}
-          authorizedRoles={SUPERUSER_OR_CATALOGER}
-          component={ReferenceDiffInterfaceContainer}
-        />
-      </SafeSwitch>
+      </RoutesWithFallback>
     </div>
   );
 }

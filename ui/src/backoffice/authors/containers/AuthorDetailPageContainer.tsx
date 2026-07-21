@@ -4,7 +4,7 @@ import { Row, Col, Table } from 'antd';
 import { ActionCreator, Action } from 'redux';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
-import { push } from 'connected-react-router';
+import { push } from 'redux-first-history';
 import { RootState } from '../../../types';
 
 import './AuthorDetailPageContainer.less';
@@ -72,7 +72,7 @@ const AuthorDetailPageContainer = ({
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    dispatch(fetchAuthor(id));
+    dispatch(fetchAuthor(id!));
   }, []);
 
   const data = author?.get('data');
@@ -109,19 +109,19 @@ const AuthorDetailPageContainer = ({
   ].filter(Boolean);
 
   const handleResolveAction = (value: string) => {
-    dispatch(resolveAuthorAction(id, { value }));
+    dispatch(resolveAuthorAction(id!, { value }));
   };
 
   const handleRestart = () => {
-    dispatch(restartWorkflowAction(id, AUTHORS_PID_TYPE));
+    dispatch(restartWorkflowAction(id!, AUTHORS_PID_TYPE));
   };
 
   const handleRestartCurrent = () => {
-    dispatch(restartCurrentWorkflowAction(id, AUTHORS_PID_TYPE));
+    dispatch(restartCurrentWorkflowAction(id!, AUTHORS_PID_TYPE));
   };
 
   const handleDelete = () => {
-    dispatch(deleteWorkflow(AUTHORS_PID_TYPE, id));
+    dispatch(deleteWorkflow(AUTHORS_PID_TYPE, id!));
   };
 
   return (
