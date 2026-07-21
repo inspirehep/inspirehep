@@ -1,10 +1,9 @@
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import SubmissionSuccess from '../../common/components/SubmissionSuccess';
 import { AUTHORS } from '../../../common/routes';
 
-function AuthorUpdateSubmissionSuccessPage({ match }) {
-  const { id } = match.params;
+function AuthorUpdateSubmissionSuccessPage() {
+  const { id } = useParams();
   return (
     <SubmissionSuccess
       message={
@@ -19,9 +18,5 @@ function AuthorUpdateSubmissionSuccessPage({ match }) {
     />
   );
 }
-
-AuthorUpdateSubmissionSuccessPage.propTypes = {
-  match: PropTypes.objectOf(PropTypes.any).isRequired,
-};
 
 export default AuthorUpdateSubmissionSuccessPage;
