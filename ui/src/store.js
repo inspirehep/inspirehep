@@ -1,10 +1,9 @@
 import { applyMiddleware, createStore as createReduxStore } from 'redux';
 import thunk from 'redux-thunk';
 import { createBrowserHistory } from 'history';
-import { routerMiddleware } from 'connected-react-router';
+import { createReduxHistoryContext } from 'redux-first-history';
 import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
-
 import createRootReducer from './reducers';
 import http from './common/http';
 import queryParamsParserMiddleware from './middlewares/queryParamsParser';
@@ -21,13 +20,14 @@ import logoutUserOn401 from './middlewares/logoutUserOn401';
 
 export const thunkMiddleware = thunk.withExtraArgument(http);
 
-export const history = createBrowserHistory();
-const connectedRouterMiddleware = routerMiddleware(history);
+const history = createBrowserHistory();
+const { createReduxHistory, routerMiddleware, routerReducer } =
+  createReduxHistoryContext({ history });
 
 const reducersToPersist = ['ui', 'user'];
 
 const PROD_MIDDLEWARES = [
-  connectedRouterMiddleware,
+  routerMiddleware,
   queryParamsParserMiddleware,
   keepPreviousUrlMiddleware,
   createPersistToStorageMiddleware(reducersToPersist),
@@ -48,10 +48,15 @@ const withMiddlewares = () => {
   return applyMiddleware(...DEV_MIDDLEWARES);
 };
 
+let reduxHistory;
+export const getReduxHistory = () => reduxHistory;
+
 export default function createStore() {
-  return createReduxStore(
-    createRootReducer(history),
+  const store = createReduxStore(
+    createRootReducer(routerReducer),
     reHydrateRootStateFromStorage(reducersToPersist),
     composeWithDevTools(withMiddlewares())
   );
+  reduxHistory = createReduxHistory(store);
+  return store;
 }

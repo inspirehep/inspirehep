@@ -34,7 +34,10 @@ const ReferenceDiffInterfaceContainer = connect(mapStateToProps)(
 );
 
 export default withRouteActionsDispatcher(ReferenceDiffInterfaceContainer, {
-  routeParamSelector: (args: any) => args,
+  routeParamSelector: ({ id, diff }) => {
+    const [old, new_] = diff?.split('..') ?? [undefined, undefined];
+    return { id, old, new: new_ };
+  },
   routeActions: (args: any) => [
     fetchLiterature(args.id),
     fetchLiteratureAuthors(args.id),

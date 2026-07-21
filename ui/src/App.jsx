@@ -9,8 +9,8 @@ import './App.less';
 import Header from './common/layouts/Header';
 import Footer from './common/layouts/Footer';
 import Loading from './common/components/Loading';
-import SafeSwitch from './common/components/SafeSwitch';
-import PrivateRoute from './common/PrivateRoute';
+import RoutesWithFallback from './common/components/RoutesWithFallback';
+import RequireAuth from './common/RequireAuth';
 
 import {
   HOME,
@@ -50,9 +50,9 @@ import Journals from './journals';
 import BibliographyGeneratorPageContainer from './bibliographyGenerator/BibliographyGeneratorPageContainer';
 import { SUPERUSER_OR_CATALOGER } from './common/authorization';
 
-const Holdingpen$ = React.lazy(() => import('./holdingpen'));
-const Backoffice$ = React.lazy(() => import('./backoffice'));
-const Submissions$ = React.lazy(() => import('./submissions'));
+const LazyHoldingpen = React.lazy(() => import('./holdingpen'));
+const LazyBackoffice = React.lazy(() => import('./backoffice'));
+const LazySubmissions = React.lazy(() => import('./submissions'));
 
 function App({ userRoles, dispatch, guideModalVisibility }) {
   useEffect(() => {
@@ -82,31 +82,48 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
       <Header />
       <Layout.Content className="content">
         <Suspense fallback={<Loading />}>
-          <SafeSwitch id="main">
-            <Route exact path={HOME} component={Home} />
-            <Route path={USER} component={User} />
-            <PrivateRoute path={HOLDINGPEN} component={Holdingpen$} />
-            <PrivateRoute
-              path={BACKOFFICE}
-              component={Backoffice$}
-              authorizedRoles={SUPERUSER_OR_CATALOGER}
-            />
-            <Route path={LITERATURE} component={Literature} />
-            <Route path={AUTHORS} component={Authors} />
-            <Route path={JOBS} component={Jobs} />
-            <Route path={CONFERENCES} component={Conferences} />
-            <Route path={INSTITUTIONS} component={Institutions} />
-            <Route path={SEMINARS} component={Seminars} />
-            <Route path={EXPERIMENTS} component={Experiments} />
-            <Route path={JOURNALS} component={Journals} />
-            <Route path={DATA} component={Data} />
-            <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
+          <RoutesWithFallback>
+            <Route path={HOME} element={<Home />} />
+            <Route path={`${USER}/*`} element={<User />} />
             <Route
-              path={BIBLIOGRAPHY_GENERATOR}
-              component={BibliographyGeneratorPageContainer}
+              path={`${HOLDINGPEN}/*`}
+              element={
+                <RequireAuth>
+                  <LazyHoldingpen />
+                </RequireAuth>
+              }
             />
-            <Route path={ERRORS} component={Errors} />
-          </SafeSwitch>
+            <Route
+              path={`${BACKOFFICE}/*`}
+              element={
+                <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER}>
+                  <LazyBackoffice />
+                </RequireAuth>
+              }
+            />
+            <Route path={`${LITERATURE}/*`} element={<Literature />} />
+            <Route path={`${AUTHORS}/*`} element={<Authors />} />
+            <Route path={`${JOBS}/*`} element={<Jobs />} />
+            <Route path={`${CONFERENCES}/*`} element={<Conferences />} />
+            <Route path={`${INSTITUTIONS}/*`} element={<Institutions />} />
+            <Route path={`${SEMINARS}/*`} element={<Seminars />} />
+            <Route path={`${EXPERIMENTS}/*`} element={<Experiments />} />
+            <Route path={`${JOURNALS}/*`} element={<Journals />} />
+            <Route path={`${DATA}/*`} element={<Data />} />
+            <Route
+              path={`${SUBMISSIONS}/*`}
+              element={
+                <RequireAuth>
+                  <LazySubmissions />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path={`${BIBLIOGRAPHY_GENERATOR}/*`}
+              element={<BibliographyGeneratorPageContainer />}
+            />
+            <Route path={`${ERRORS}/*`} element={<Errors />} />
+          </RoutesWithFallback>
         </Suspense>
         <GuideModalContainer />
       </Layout.Content>

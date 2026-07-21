@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { push } from 'connected-react-router';
+import { push } from 'redux-first-history';
 import { Action, ActionCreator } from 'redux';
 import axios from 'axios';
 
