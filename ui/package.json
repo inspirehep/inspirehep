@@ -42,7 +42,7 @@
     "formik": "^2.4.6",
     "history": "^4.7.2",
     "idlejs": "^3.0.0",
-    "immutable": "^4.1.0",
+    "immutable": "^4.3.9",
     "inspire-schemas": "^61.6.33",
     "is-valid-orcid": "^1.2.0",
     "jsondiffpatch": "^0.3.11",
