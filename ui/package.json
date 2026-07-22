@@ -38,7 +38,7 @@
     "axios-hooks": "^5.1.1",
     "classnames": "^2.3.1",
     "connected-react-router": "^6.4.0",
-    "dompurify": "^3.2.6",
+    "dompurify": "^3.4.12",
     "formik": "^2.4.6",
     "history": "^4.7.2",
     "idlejs": "^3.0.0",
