@@ -1,4 +1,3 @@
-import React from 'react';
 import { List } from 'immutable';
 
 import { getSearchRank } from '../utils';
@@ -6,13 +5,13 @@ import { getSearchRank } from '../utils';
 const SearchResults = ({
   renderItem,
   isCatalogerLoggedIn,
-  results,
+  results = List(),
   page,
   pageSize,
 }: {
   renderItem: Function;
   isCatalogerLoggedIn: boolean;
-  results: List<any>;
+  results?: List<any>;
   page: number | undefined;
   pageSize: number | undefined;
 }) => {
@@ -30,10 +29,6 @@ const SearchResults = ({
       {results.map((result, index) => renderResults(result, index))}
     </div>
   );
-};
-
-SearchResults.defaultProps = {
-  results: List(),
 };
 
 export default SearchResults;

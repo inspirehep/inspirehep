@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row, Col, Button } from 'antd';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { object, string } from 'yup';

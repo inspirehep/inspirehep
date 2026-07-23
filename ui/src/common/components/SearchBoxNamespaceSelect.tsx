@@ -1,5 +1,3 @@
-import React from 'react';
-
 import SelectBox from './SelectBox';
 import { SEARCH_BOX_NAMESPACES } from '../../search/constants';
 

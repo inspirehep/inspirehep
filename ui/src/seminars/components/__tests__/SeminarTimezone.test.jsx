@@ -1,4 +1,3 @@
-import React from 'react';
 import { advanceTo, clear } from 'jest-date-mock';
 import { render } from '@testing-library/react';
 import SeminarTimezone from '../SeminarTimezone';

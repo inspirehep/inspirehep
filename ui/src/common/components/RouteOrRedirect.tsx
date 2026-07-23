@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef } from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 interface RouteOrRedirectProps extends ComponentPropsWithoutRef<any> {

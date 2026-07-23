@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { List, Map } from 'immutable';
 import { Timeline } from 'antd';
 
@@ -42,10 +42,6 @@ const PositionsTimeline = ({ positions }: { positions: List<any> }) => {
       />
     </>
   );
-};
-
-PositionsTimeline.defaultProps = {
-  positions: null,
 };
 
 export default PositionsTimeline;

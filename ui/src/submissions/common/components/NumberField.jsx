@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { InputNumber } from 'antd';
 
 import withFormItem from '../withFormItem';

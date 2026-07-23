@@ -69,7 +69,6 @@ exports[`FiguresCarousel > renders with all props 1`] = `
         <div
           class="slick-slider carousel slick-initialized"
         >
-          
           <div
             class="slick-list"
             style="height: 0px;"
@@ -121,8 +120,6 @@ exports[`FiguresCarousel > renders with all props 1`] = `
               </div>
             </div>
           </div>
-          
-          
         </div>
       </div>
     </div>

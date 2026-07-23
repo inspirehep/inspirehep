@@ -1,4 +1,3 @@
-import React from 'react';
 import { fromJS } from 'immutable';
 import userEvent from '@testing-library/user-event';
 

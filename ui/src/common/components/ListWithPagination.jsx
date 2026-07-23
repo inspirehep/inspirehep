@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List, Pagination } from 'antd';
 import Immutable from 'immutable';

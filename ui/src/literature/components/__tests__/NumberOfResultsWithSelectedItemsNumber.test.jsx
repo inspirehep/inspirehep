@@ -1,5 +1,3 @@
-import React from 'react';
-
 import NumberOfResultsWithSelectedItemsNumber from '../NumberOfResultsWithSelectedItemsNumber';
 import { renderWithProviders } from '../../../fixtures/render';
 

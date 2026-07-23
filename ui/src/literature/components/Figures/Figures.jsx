@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef } from 'react';
+import { useCallback, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
@@ -7,7 +7,7 @@ import FiguresCarousel from './FiguresCarousel';
 import FigureListItem from './FigureListItem';
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
 
-function Figures({ figures }) {
+function Figures({ figures = List() }) {
   const [isCarouselVisible, setCarouselVisible] = useState(false);
   const carouselRef = useRef();
 
@@ -52,10 +52,6 @@ function Figures({ figures }) {
 
 Figures.propTypes = {
   figures: PropTypes.instanceOf(List),
-};
-
-Figures.defaultProps = {
-  figures: List(),
 };
 
 export default Figures;

@@ -1,4 +1,3 @@
-import React from 'react';
 import UnclickableTag from '../../../common/components/UnclickableTag';
 import { resolveDecision } from '../../utils/utils';
 

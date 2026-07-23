@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Error500 from '../Error500';
 import { renderWithProviders } from '../../../fixtures/render';
 

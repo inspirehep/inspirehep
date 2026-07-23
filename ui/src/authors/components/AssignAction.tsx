@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { FileDoneOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
 import { useParams } from 'react-router-dom';
@@ -13,13 +13,13 @@ function AssignAction({
   onAssign,
   onUnassign,
   disabled,
-  numberOfSelected,
+  numberOfSelected = 1,
 }: {
   onAssignToAnotherAuthor: Function;
   onAssign: Function;
   onUnassign: Function;
   disabled: boolean;
-  numberOfSelected: number;
+  numberOfSelected?: number;
 }) {
   const currentAuthorId = Number(useParams<{ id: string }>().id);
   const onSelfAssign = useCallback(() => {
@@ -120,9 +120,5 @@ function AssignAction({
     </UserAction>
   );
 }
-
-AssignAction.defaultProps = {
-  numberOfSelected: 1,
-};
 
 export default AssignAction;
