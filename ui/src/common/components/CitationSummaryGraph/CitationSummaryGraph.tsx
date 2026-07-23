@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import {
   XAxis,
   YAxis,
@@ -78,23 +78,23 @@ interface BarEventData {
 }
 
 interface CitationSummaryGraphProps {
-  citeableData: BucketData[];
-  publishedData: BucketData[];
-  loading: boolean;
-  error: ImmutableMap<string, string> | undefined;
-  selectedBar: BarType;
+  citeableData?: BucketData[];
+  publishedData?: BucketData[];
+  loading?: boolean;
+  error?: ImmutableMap<string, string> | undefined;
+  selectedBar?: BarType | null;
   onSelectBarChange: Function;
-  excludeSelfCitations: boolean;
+  excludeSelfCitations?: boolean;
 }
 
 const CitationSummaryGraph = ({
-  citeableData,
-  publishedData,
-  loading,
+  citeableData = [],
+  publishedData = [],
+  loading = false,
   error,
-  selectedBar,
+  selectedBar = null,
   onSelectBarChange,
-  excludeSelfCitations,
+  excludeSelfCitations = false,
 }: CitationSummaryGraphProps) => {
   const [hoveredBar, setHoveredBar] = useState<BarType | null>(null);
 
@@ -147,7 +147,8 @@ const CitationSummaryGraph = ({
     [getBarColor]
   );
 
-  const isSelectedBar = (bar: BarType) => shallowEqual(bar, selectedBar);
+  const isSelectedBar = (bar: BarType) =>
+    selectedBar && shallowEqual(bar, selectedBar);
 
   const onBarMouseOut = () => {
     setHoveredBar(null);
@@ -284,15 +285,6 @@ const CitationSummaryGraph = ({
       </LoadingOrChildren>
     </div>
   );
-};
-
-CitationSummaryGraph.defaultProps = {
-  publishedData: [],
-  citeableData: [],
-  loading: false,
-  error: null,
-  selectedBar: null,
-  excludeSelfCitations: false,
 };
 
 export default CitationSummaryGraph;

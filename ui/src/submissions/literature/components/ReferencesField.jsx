@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Field } from 'formik';
 
 import TextAreaField from '../../common/components/TextAreaField';

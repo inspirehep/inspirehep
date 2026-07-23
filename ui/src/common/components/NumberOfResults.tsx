@@ -1,4 +1,3 @@
-import React from 'react';
 import { pluralizeUnlessSingle } from '../utils';
 import FormattedNumber from './FormattedNumber';
 

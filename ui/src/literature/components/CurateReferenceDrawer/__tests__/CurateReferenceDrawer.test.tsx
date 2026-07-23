@@ -1,4 +1,3 @@
-import React from 'react';
 import { screen } from '@testing-library/react';
 import { Map, fromJS } from 'immutable';
 import CurateReferenceDrawer, {

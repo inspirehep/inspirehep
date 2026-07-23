@@ -1,4 +1,3 @@
-import React from 'react';
 import { fromJS } from 'immutable';
 
 import { getStore } from '../../../../../fixtures/store';
@@ -20,14 +19,14 @@ describe('SearchPageContainer', () => {
     jest.clearAllMocks();
   });
 
-  const renderComponent = (store: any) =>
+  const renderComponent = () =>
     renderWithProviders(<SearchPageContainer />, {
       route: BACKOFFICE_AUTHORS_SEARCH,
       store,
     });
 
   it('renders the SearchPage component', () => {
-    const { getByTestId, asFragment } = renderComponent(store);
+    const { getByTestId, asFragment } = renderComponent();
 
     const searchPage = getByTestId('backoffice-search-page');
 

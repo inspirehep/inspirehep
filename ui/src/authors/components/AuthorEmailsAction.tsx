@@ -1,4 +1,3 @@
-import React from 'react';
 import { List, Map } from 'immutable';
 import { MailOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';

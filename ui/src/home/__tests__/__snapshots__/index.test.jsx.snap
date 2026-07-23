@@ -38,7 +38,6 @@ exports[`Home > renders home page 1`] = `
                 <div
                   class="ant-select ant-select-single ant-select-show-arrow"
                   data-testid="select-box"
-                  placement="bottomLeft"
                 >
                   <div
                     class="ant-select-selector"
@@ -58,6 +57,8 @@ exports[`Home > renders home page 1`] = `
                         readonly=""
                         role="combobox"
                         style="opacity: 0;"
+                        type="search"
+                        unselectable="on"
                         value=""
                       />
                     </span>
@@ -99,7 +100,6 @@ exports[`Home > renders home page 1`] = `
               </span>
               <div
                 class="ant-select ant-select-auto-complete autocomplete ant-select-single ant-select-customize-input ant-select-show-search"
-                placement="bottomLeft"
               >
                 <div
                   class="ant-select-selector"
@@ -125,7 +125,7 @@ exports[`Home > renders home page 1`] = `
                           data-testid="search-box-input"
                           id="rc_select_TEST_OR_SSR"
                           role="combobox"
-                          type="text"
+                          type="search"
                           value=""
                         />
                         <span

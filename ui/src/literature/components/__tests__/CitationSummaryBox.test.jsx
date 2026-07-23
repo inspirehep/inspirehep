@@ -1,5 +1,3 @@
-import React from 'react';
-
 import CitationSummaryBox from '../CitationSummaryBox';
 import { LITERATURE_NS } from '../../../search/constants';
 import { renderWithProviders } from '../../../fixtures/render';

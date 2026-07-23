@@ -1,4 +1,3 @@
-import React from 'react';
 import { Alert, Card } from 'antd';
 
 import { WorkflowStatuses } from '../../constants';

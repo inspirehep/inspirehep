@@ -1,4 +1,3 @@
-import React from 'react';
 import { Map } from 'immutable';
 import Icon, {
   CopyOutlined,
@@ -94,7 +93,7 @@ const Id = ({ value, href }: { value: string; href: string | undefined }) => {
     return <span>{value}</span>;
   }
   return (
-    <a href={href} target="_blank">
+    <a href={href} target="_blank" rel="noreferrer">
       {' '}
       {value}{' '}
     </a>
@@ -142,7 +141,7 @@ export const Urls = ({ urls }: UrlsProps) => (
         <p key={value}>
           {linkData?.icon}
           {description && <b className="dib ml1 ttc">{description}:</b>}{' '}
-          <a href={value} target="_blank">
+          <a href={value} target="_blank" rel="noreferrer">
             {value}
           </a>
         </p>
@@ -151,13 +150,11 @@ export const Urls = ({ urls }: UrlsProps) => (
   </>
 );
 
-const Links = ({ urls, ids }: LinksProps) => {
-  return (
-    <>
-      <Ids ids={ids} />
-      <Urls urls={urls} />
-    </>
-  );
-};
+const Links = ({ urls, ids }: LinksProps) => (
+  <>
+    <Ids ids={ids} />
+    <Urls urls={urls} />
+  </>
+);
 
 export default Links;

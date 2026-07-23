@@ -1,4 +1,3 @@
-import React from 'react';
 import useAxios from 'axios-hooks';
 
 import { renderWithRouter } from '../../../fixtures/render';

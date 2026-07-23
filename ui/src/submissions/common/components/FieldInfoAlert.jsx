@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Alert, Row, Col } from 'antd';
 import PropTypes from 'prop-types';
 import { LABEL_COL, WRAPPER_COL } from '../withFormItem';

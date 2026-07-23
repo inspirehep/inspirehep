@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { Input, AutoComplete } from 'antd';
 import { HistoryOutlined } from '@ant-design/icons';
 import classNames from 'classnames';

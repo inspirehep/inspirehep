@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { addCommasToNumber } from '../utils';
 
 interface FormattedNumberProps {

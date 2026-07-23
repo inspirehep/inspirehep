@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Tooltip } from 'antd';
 import { WorkflowDecisions } from '../../../common/constants';
 import SubmissionRejectModal from './SubmissionRejectModal';

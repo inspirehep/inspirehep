@@ -1,22 +1,77 @@
 .__RichTextEditor__ {
   height: auto;
 
-  .ql-toolbar {
+  .toolbar {
     border: none;
     border-bottom: 1px solid #ccc;
+    padding: 8px;
+    display: flex;
+    gap: 15px;
+
+    button {
+      padding: 3px 5px;
+      height: 24px;
+      width: 28px;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      color: @primary-color;
+    }
   }
 
-  .ql-container {
-    border: none;
-    font-size: 1em;
-  }
-
-  .ql-editor {
+  .tiptap {
+    outline: none;
     min-height: 12em;
+    width: 100%;
+    padding: 12px 15px !important;
+    margin: 0 !important;
+
+    a {
+      color: @link-color;
+      text-decoration: underline;
+      cursor: pointer;
+    }
   }
 
   & + .ant-form-item-children-icon {
     height: 32px !important;
     margin-top: -22px !important;
+  }
+}
+
+.link-bubble-menu {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+  z-index: @zindex-dropdown;
+  padding: 0 !important;
+
+  .link-editor,
+  .link-preview {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 5px 12px;
+  }
+
+  input {
+    width: 220px;
+  }
+
+  .link-preview-url {
+    display: inline-block;
+    max-width: 240px;
+    padding: 0 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: @link-color;
+    vertical-align: middle;
   }
 }

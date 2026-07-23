@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Row, Col, Upload, Button, Form, Alert, UploadFile } from 'antd';
 import { Map, List } from 'immutable';
 import { InboxOutlined } from '@ant-design/icons';

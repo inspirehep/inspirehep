@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Row, Col, Alert } from 'antd';
 import PropTypes from 'prop-types';
 

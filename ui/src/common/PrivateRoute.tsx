@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef } from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 import { connect } from 'react-redux';
 import { List } from 'immutable';
 import { RootState } from '../types';
