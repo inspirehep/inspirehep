@@ -11,6 +11,7 @@ import { initialState as exceptions } from '../reducers/exceptions';
 import { initialState as ui } from '../reducers/ui';
 import { initialState as bibliographyGenerator } from '../reducers/bibliographyGenerator';
 import { initialState as backoffice } from '../reducers/backoffice';
+import { initialState as recordEditor } from '../reducers/recordEditor';
 
 import { thunkMiddleware } from '../store';
 import { initialState as initialRecordState } from '../reducers/recordsFactory';
@@ -44,6 +45,7 @@ export function getState() {
     journals: initialRecordState,
     data: initialRecordState,
     backoffice,
+    recordEditor,
   };
 }
 

@@ -58,15 +58,20 @@ export const SUBMISSIONS_EXPERIMENT = `${SUBMISSIONS}/experiments`;
 export const SUBMISSIONS_JOURNAL = `${SUBMISSIONS}/journals`;
 export const SUBMISSION_SUCCESS = `${SUBMISSIONS}/success`;
 
-export const EDIT_LITERATURE = '/editor/record/literature';
+const EDITOR_PREFIX = 'editor';
+const AUTHOR_EDITOR_PREFIX = getConfigFor('RECORD_EDITOR_AUTHOR_FEATURE_FLAG')
+  ? 'new-editor'
+  : 'editor';
+
+export const EDIT_LITERATURE = `/${EDITOR_PREFIX}/record/literature`;
 export const EDIT_AUTHOR = SUBMISSIONS_AUTHOR;
-export const EDIT_AUTHOR_CATALOGER = '/editor/record/authors';
+export const EDIT_AUTHOR_CATALOGER = `/${AUTHOR_EDITOR_PREFIX}/record/authors`;
 export const EDIT_JOB = SUBMISSIONS_JOB;
-export const EDIT_CONFERENCE = '/editor/record/conferences';
-export const EDIT_INSTITUTION = '/editor/record/institutions';
-export const EDIT_JOURNAL = '/editor/record/journals';
-export const EDIT_EXPERIMENT = '/editor/record/experiments';
-export const EDIT_DATA = '/editor/record/data';
+export const EDIT_CONFERENCE = `/${EDITOR_PREFIX}/record/conferences`;
+export const EDIT_INSTITUTION = `/${EDITOR_PREFIX}/record/institutions`;
+export const EDIT_JOURNAL = `/${EDITOR_PREFIX}/record/journals`;
+export const EDIT_EXPERIMENT = `/${EDITOR_PREFIX}/record/experiments`;
+export const EDIT_DATA = `/${EDITOR_PREFIX}/record/data`;
 export const EDIT_SEMINAR = SUBMISSIONS_SEMINAR;
 
 export const BIBLIOGRAPHY_GENERATOR = '/bibliography-generator';

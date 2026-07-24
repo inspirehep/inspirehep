@@ -49,12 +49,18 @@ import Experiments from './experiments';
 import Journals from './journals';
 import BibliographyGeneratorPageContainer from './bibliographyGenerator/BibliographyGeneratorPageContainer';
 import { SUPERUSER_OR_CATALOGER } from './common/authorization';
+import RecordEditor from './recordEditor';
 
 const Holdingpen$ = React.lazy(() => import('./holdingpen'));
 const Backoffice$ = React.lazy(() => import('./backoffice'));
 const Submissions$ = React.lazy(() => import('./submissions'));
 
-function App({ userRoles, dispatch, guideModalVisibility }) {
+function App({
+  userRoles,
+  dispatch,
+  guideModalVisibility,
+  isRecordEditorPage,
+}) {
   useEffect(() => {
     dispatch(fetchLoggedInUser());
   }, [dispatch]);
@@ -79,7 +85,7 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
 
   return (
     <Layout className="__App__" data-testid="app">
-      <Header />
+      {!isRecordEditorPage && <Header />}
       <Layout.Content className="content">
         <Suspense fallback={<Loading />}>
           <SafeSwitch id="main">
@@ -105,12 +111,13 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
               path={BIBLIOGRAPHY_GENERATOR}
               component={BibliographyGeneratorPageContainer}
             />
+            <Route path="/new-editor" component={RecordEditor} />
             <Route path={ERRORS} component={Errors} />
           </SafeSwitch>
         </Suspense>
         <GuideModalContainer />
       </Layout.Content>
-      <Footer />
+      {!isRecordEditorPage && <Footer />}
     </Layout>
   );
 }
@@ -124,6 +131,9 @@ App.propTypes = {
 const stateToProps = (state) => ({
   guideModalVisibility: state.ui.get('guideModalVisibility'),
   userRoles: state.user.getIn(['data', 'roles']),
+  isRecordEditorPage: String(state.router.location.pathname).startsWith(
+    '/new-editor'
+  ),
 });
 
 const dispatchToProps = (dispatch) => ({
