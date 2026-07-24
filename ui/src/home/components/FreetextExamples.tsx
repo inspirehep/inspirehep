@@ -1,5 +1,3 @@
-import React from 'react';
-
 import LinkWithEncodedLiteratureQuery from './LinkWithEncodedLiteratureQuery';
 import ContentBox from '../../common/components/ContentBox';
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useContext } from 'react';
+import { useCallback, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
 import { connect } from 'react-redux';
@@ -56,7 +56,7 @@ function LiteratureSearch({
   noResultsDescription,
   isCitationSummaryVisible,
   embedded,
-  enableCitationSummary,
+  enableCitationSummary = true,
   numberOfSelected,
   page,
   isSuperUserLoggedIn,
@@ -285,10 +285,6 @@ LiteratureSearch.propTypes = {
   embedded: PropTypes.bool,
   enableCitationSummary: PropTypes.bool,
   isCatalogerLoggedIn: PropTypes.bool,
-};
-
-LiteratureSearch.defaultProps = {
-  enableCitationSummary: true,
 };
 
 const stateToProps = (state, { namespace }) => ({

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import OrcidProfileLink from '../../common/components/OrcidProfileLink';
 
 function OrcidPushSettingMessage({

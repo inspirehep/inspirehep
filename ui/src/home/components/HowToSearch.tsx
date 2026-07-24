@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Radio, Button } from 'antd';
 
 import SpiresExamples from './SpiresExamples';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Layout, Row, Col } from 'antd';
 import useResizeObserver from 'use-resize-observer';
 import classNames from 'classnames';

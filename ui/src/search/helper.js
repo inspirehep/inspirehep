@@ -1,6 +1,6 @@
 import { stringify } from 'qs';
 import omit from 'lodash/omit';
-import { replace, push } from 'connected-react-router';
+import { replace, push } from 'redux-first-history';
 
 import { shallowEqual } from '../common/utils';
 import { NAMESPACE_TO_PATHNAME } from './constants';

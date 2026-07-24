@@ -1,4 +1,3 @@
-import React from 'react';
 import { Badge } from 'antd';
 import { List } from 'immutable';
 

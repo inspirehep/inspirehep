@@ -1,4 +1,3 @@
-import React from 'react';
 import { fromJS } from 'immutable';
 import { DownloadOutlined, FileOutlined } from '@ant-design/icons';
 import { render, screen, waitFor } from '@testing-library/react';

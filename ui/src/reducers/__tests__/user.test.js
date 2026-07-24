@@ -10,6 +10,7 @@ import {
   USER_LOGIN_SUCCESS,
   USER_SIGN_UP_SUCCESS,
   USER_SIGN_UP_ERROR,
+  LOGGED_IN_USER_REQUEST,
   USER_SET_ORCID_PUSH_SETTING_REQUEST,
   USER_SET_ORCID_PUSH_SETTING_ERROR,
   USER_SET_ORCID_PUSH_SETTING_SUCCESS,
@@ -22,6 +23,12 @@ describe('user reducer', () => {
     expect(state).toEqual(initialState);
   });
 
+  it('LOGGED_IN_USER_REQUEST', () => {
+    const state = reducer(Map(), { type: LOGGED_IN_USER_REQUEST });
+    const expected = fromJS({ isFetchingLoggedInUser: true });
+    expect(state).toEqual(expected);
+  });
+
   it('USER_LOGIN_SUCCESS', () => {
     const payload = {
       data: { username: 'dude', roles: ['dudelikeuser'] },
@@ -30,10 +37,11 @@ describe('user reducer', () => {
     const expected = fromJS({
       signUpError: null,
       isSigningUp: false,
+      isFetchingLoggedInUser: false,
       loggedIn: true,
       data: payload.data,
     });
-    expect(state.sort()).toEqual(expected.sort());
+    expect(state.toJS()).toEqual(expected.toJS());
   });
 
   it('USER_SIGN_UP_SUCCESS', () => {
@@ -44,16 +52,18 @@ describe('user reducer', () => {
     const expected = fromJS({
       signUpError: null,
       isSigningUp: false,
+      isFetchingLoggedInUser: false,
       loggedIn: true,
       data: payload.data,
     });
-    expect(state.sort()).toEqual(expected.sort());
+    expect(state.toJS()).toEqual(expected.toJS());
   });
 
   it('USER_LOGIN_ERROR', () => {
     const state = reducer(Map(), { type: USER_LOGIN_ERROR });
     const expected = fromJS({
       loggedIn: false,
+      isFetchingLoggedInUser: false,
       data: initialState.get('data'),
       isSigningUp: false,
     });
@@ -82,6 +92,7 @@ describe('user reducer', () => {
     const state = reducer(Map(), { type: USER_LOGOUT_SUCCESS });
     const expected = fromJS({
       loggedIn: false,
+      isFetchingLoggedInUser: false,
       data: initialState.get('data'),
       isSigningUp: false,
     });

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { Map } from 'immutable';
 
 import ContentBox from '../../common/components/ContentBox';

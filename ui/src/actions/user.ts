@@ -1,4 +1,4 @@
-import { push, goBack } from 'connected-react-router';
+import { push, goBack } from 'redux-first-history';
 import { Action, ActionCreator } from 'redux';
 
 import { Map } from 'immutable';

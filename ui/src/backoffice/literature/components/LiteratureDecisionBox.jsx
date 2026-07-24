@@ -1,4 +1,3 @@
-import React from 'react';
 import AutomaticDecision from './AutomaticDecision';
 import LiteratureReferenceCount from './LiteratureReferenceCount';
 import LiteratureKeywords from './LiteratureKeywords';

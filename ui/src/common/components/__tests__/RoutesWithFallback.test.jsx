@@ -1,17 +1,15 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import { renderWithRouter } from '../../../fixtures/render';
-import SafeSwitch from '../SafeSwitch';
+import RoutesWithFallback from '../RoutesWithFallback';
 
-describe('SafeSwitch', () => {
+describe('RoutesWithFallback', () => {
   it('renders children ', () => {
     const Foo = () => <div>Foo Component</div>;
     const { getByText } = renderWithRouter(
-      <SafeSwitch>
-        <Switch>
-          <Route path="/foo" component={Foo} />
-        </Switch>
-      </SafeSwitch>,
+      <RoutesWithFallback>
+        <Route path="/foo" element={<Foo />} />
+      </RoutesWithFallback>,
       { route: '/foo' }
     );
     expect(getByText('Foo Component')).toBeInTheDocument();
@@ -20,11 +18,9 @@ describe('SafeSwitch', () => {
   it('redirect to errors', () => {
     const Foo = () => <div>Foo Component</div>;
     const { container } = renderWithRouter(
-      <SafeSwitch>
-        <Switch>
-          <Route path="/foo" component={Foo} />
-        </Switch>
-      </SafeSwitch>,
+      <RoutesWithFallback>
+        <Route path="/foo" element={<Foo />} />
+      </RoutesWithFallback>,
       { route: '/bad_route' }
     );
     expect(container).toBeEmptyDOMElement();

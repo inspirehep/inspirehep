@@ -1,5 +1,3 @@
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { fromJS } from 'immutable';
 import { screen } from '@testing-library/react';
 
@@ -28,12 +26,9 @@ describe('DetailPageContainer', () => {
       }),
     });
 
-    const { getByTestId } = renderWithProviders(
-      <Router>
-        <DetailPageContainer />
-      </Router>,
-      { store }
-    );
+    const { getByTestId } = renderWithProviders(<DetailPageContainer />, {
+      store,
+    });
 
     const detailPage = getByTestId('journals-detail-page-container');
     expect(detailPage).toBeInTheDocument();

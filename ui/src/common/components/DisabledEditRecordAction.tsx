@@ -1,6 +1,6 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import IconText from './IconText';
 import UserAction from './UserAction';
 

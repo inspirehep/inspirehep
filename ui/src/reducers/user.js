@@ -7,6 +7,7 @@ import {
   USER_SIGN_UP_REQUEST,
   USER_SIGN_UP_SUCCESS,
   USER_SIGN_UP_ERROR,
+  LOGGED_IN_USER_REQUEST,
   USER_SET_ORCID_PUSH_SETTING_REQUEST,
   USER_SET_ORCID_PUSH_SETTING_ERROR,
   USER_SET_ORCID_PUSH_SETTING_SUCCESS,
@@ -25,6 +26,9 @@ export const BACKOFFICE_SEARCH_OPTION_PREFERENCE = 'backofficeSearchOption';
 
 export const initialState = fromJS({
   loggedIn: false,
+  // true until the initial `fetchLoggedInUser` (/accounts/me) call resolves, so
+  // that guarded routes can wait instead of redirecting to login prematurely.
+  isFetchingLoggedInUser: true,
   isSigningUp: false,
   signUpError: null,
   isUpdatingOrcidPushSetting: false,
@@ -52,16 +56,20 @@ const userReducer = (state = initialState, action) => {
       return state
         .set('signUpError', fromJS(action.payload.error))
         .set('isSigningUp', initialState.get('isSigningUp'));
+    case LOGGED_IN_USER_REQUEST:
+      return state.set('isFetchingLoggedInUser', true);
     case USER_LOGIN_ERROR:
     case USER_LOGOUT_SUCCESS:
       return state
         .set('loggedIn', false)
+        .set('isFetchingLoggedInUser', false)
         .set('data', initialState.get('data'))
         .set('isSigningUp', initialState.get('isSigningUp'));
     case USER_LOGIN_SUCCESS:
     case USER_SIGN_UP_SUCCESS:
       return state
         .set('loggedIn', true)
+        .set('isFetchingLoggedInUser', false)
         .set('signUpError', initialState.get('signUpError'))
         .set('isSigningUp', initialState.get('isSigningUp'))
         .set('data', fromJS(action.payload.data));

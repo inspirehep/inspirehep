@@ -1,4 +1,3 @@
-import React from 'react';
 import { Map } from 'immutable';
 
 import { InlineUL, SEPARATOR_COMMA } from './InlineList';

@@ -1,16 +1,19 @@
-import React from 'react';
 import { renderWithProviders } from '../../../../fixtures/render';
 
 import JobUpdateSubmissionSuccessPage from '../JobUpdateSubmissionSuccessPage';
 import { getStore } from '../../../../fixtures/store';
 
+vi.mock('react-router-dom', async () => ({
+  ...(await vi.importActual('react-router-dom')),
+  useParams: () => ({ id: '1' }),
+}));
+
 describe('JobUpdateSubmissionSuccessPage', () => {
   it('renders', () => {
-    const match = { params: { id: '1' } };
     const { asFragment } = renderWithProviders(
-      <JobUpdateSubmissionSuccessPage match={match} />,
+      <JobUpdateSubmissionSuccessPage />,
       {
-        route: `/submissions/jobs/${match.params.id}/success`,
+        route: '/submissions/jobs/1/success',
         store: getStore(),
       }
     );

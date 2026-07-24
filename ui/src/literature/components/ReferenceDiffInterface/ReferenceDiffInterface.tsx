@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row, Col, Card, Alert } from 'antd';
 import { Map, List } from 'immutable';
 import { FilePdfOutlined, DatabaseOutlined } from '@ant-design/icons';

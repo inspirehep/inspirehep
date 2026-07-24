@@ -1,4 +1,3 @@
-import React from 'react';
 import { FileDoneOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
 
@@ -12,6 +11,7 @@ export const CLAIMING_DISABLED_INFO = (
     <a
       href="https://help.inspirehep.net/knowledge-base/corrections-2/#authors"
       target="_blank"
+      rel="noreferrer"
     >
       Learn more
     </a>

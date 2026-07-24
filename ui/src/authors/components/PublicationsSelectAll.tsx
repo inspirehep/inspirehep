@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { List, Set } from 'immutable';
 import { Checkbox } from 'antd';
 

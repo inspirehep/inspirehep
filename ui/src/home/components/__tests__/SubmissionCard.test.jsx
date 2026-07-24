@@ -1,5 +1,3 @@
-import React from 'react';
-
 import SubmissionCard from '../SubmissionCard';
 import { renderWithRouter } from '../../../fixtures/render';
 

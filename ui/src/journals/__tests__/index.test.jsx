@@ -1,20 +1,27 @@
-import React from 'react';
 import { screen } from '@testing-library/react';
 import { fromJS } from 'immutable';
 
-import { renderWithProviders, renderWithRouter } from '../../fixtures/render';
+import { Routes, Route } from 'react-router-dom';
+import { renderWithProviders } from '../../fixtures/render';
 import Journals from '..';
+import { JOURNALS } from '../../common/routes';
+
+const renderJournals = (route, initialState) =>
+  renderWithProviders(
+    <Routes>
+      <Route path={`${JOURNALS}/*`} element={<Journals />} />
+    </Routes>,
+    { initialState, route }
+  );
 
 describe('Journals', () => {
   it('renders initial state', () => {
-    const { asFragment } = renderWithRouter(<Journals />);
+    const { asFragment } = renderWithProviders(<Journals />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('navigates to SearchPage when /journals', () => {
-    renderWithProviders(<Journals />, {
-      route: '/journals',
-    });
+    renderJournals('/journals');
 
     expect(
       screen.getByTestId('journals-search-page-container')
@@ -37,10 +44,7 @@ describe('Journals', () => {
       }),
     };
 
-    renderWithProviders(<Journals />, {
-      route: '/journals/1',
-      initialState,
-    });
+    renderJournals('/journals/1', initialState);
 
     expect(
       screen.getByTestId('journals-detail-page-container')

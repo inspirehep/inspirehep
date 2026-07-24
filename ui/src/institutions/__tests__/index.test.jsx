@@ -1,19 +1,26 @@
-import React from 'react';
 import { screen } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { renderWithProviders, renderWithRouter } from '../../fixtures/render';
+import { Routes, Route } from 'react-router-dom';
+import { renderWithProviders } from '../../fixtures/render';
 import Institutions from '..';
+import { INSTITUTIONS } from '../../common/routes';
+
+const renderInstitutions = (route, initialState) =>
+  renderWithProviders(
+    <Routes>
+      <Route path={`${INSTITUTIONS}/*`} element={<Institutions />} />
+    </Routes>,
+    { initialState, route }
+  );
 
 describe('Institutions', () => {
   it('renders initial state', () => {
-    const { asFragment } = renderWithRouter(<Institutions />);
+    const { asFragment } = renderWithProviders(<Institutions />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('navigates to SearchPage when /institutions', () => {
-    renderWithProviders(<Institutions />, {
-      route: '/institutions',
-    });
+    renderInstitutions('/institutions');
     expect(
       screen.getByTestId('institutions-search-page-container')
     ).toBeInTheDocument();
@@ -35,10 +42,7 @@ describe('Institutions', () => {
         },
       }),
     };
-    renderWithProviders(<Institutions />, {
-      route: '/institutions/1',
-      initialState,
-    });
+    renderInstitutions('/institutions/1', initialState);
 
     expect(
       screen.getByTestId('institutions-detail-page-container')

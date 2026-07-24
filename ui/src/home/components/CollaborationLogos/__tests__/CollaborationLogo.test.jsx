@@ -1,5 +1,3 @@
-import React from 'react';
-
 import CollaborationLogo from '../CollaborationLogo';
 import { renderWithRouter } from '../../../../fixtures/render';
 

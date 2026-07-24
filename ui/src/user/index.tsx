@@ -1,24 +1,15 @@
-import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Navigate, Route } from 'react-router-dom';
 import { RootState } from '../types';
 
-import RouteOrRedirect from '../common/components/RouteOrRedirect';
+import ConditionalElement from '../common/components/ConditionalElement';
 import LoginPageContainer from './containers/LoginPageContainer';
 import ProfilePage from './components/ProfilePage';
 import SignUpPageContainer from './containers/SignUpPageContainer';
-import PrivateRoute from '../common/PrivateRoute';
+import RequireAuth from '../common/RequireAuth';
 import LocalLoginPageContainer from './containers/LocalLoginPageContainer';
-import {
-  USER_LOGIN,
-  USER_SIGNUP,
-  USER_LOCAL_LOGIN,
-  USER_PROFILE,
-  USER,
-  HOME,
-  USER_SETTINGS,
-} from '../common/routes';
-import SafeSwitch from '../common/components/SafeSwitch';
+import { USER_PROFILE, HOME } from '../common/routes';
+import RoutesWithFallback from '../common/components/RoutesWithFallback';
 import SettingsContainer from '../settings/containers/SettingsContainer';
 
 const User = ({
@@ -27,44 +18,53 @@ const User = ({
 }: {
   loggedIn: boolean;
   previousUrl?: string;
-}) => {
-  return (
-    <div className="w-100" data-testid="user">
-      <SafeSwitch>
-        <Redirect exact from={USER} to={USER_PROFILE} />
-        <RouteOrRedirect
-          exact
-          path={USER_LOGIN}
-          condition={!loggedIn}
-          component={LoginPageContainer}
-          redirectTo={previousUrl}
-        />
-        <RouteOrRedirect
-          exact
-          path={USER_SETTINGS}
-          condition={loggedIn}
-          component={SettingsContainer}
-          redirectTo={previousUrl}
-        />
-        <RouteOrRedirect
-          exact
-          path={USER_SIGNUP}
-          condition={!loggedIn}
-          component={SignUpPageContainer}
-          redirectTo={HOME}
-        />
-        <RouteOrRedirect
-          exact
-          path={USER_LOCAL_LOGIN}
-          condition={!loggedIn}
-          component={LocalLoginPageContainer}
-          redirectTo={previousUrl}
-        />
-        <PrivateRoute exact path={USER_PROFILE} component={ProfilePage} />
-      </SafeSwitch>
-    </div>
-  );
-};
+}) => (
+  <div className="w-100" data-testid="user">
+    <RoutesWithFallback>
+      <Route index element={<Navigate to={USER_PROFILE} replace />} />
+      <Route
+        path="login"
+        element={
+          <ConditionalElement condition={!loggedIn} redirectTo={previousUrl}>
+            <LoginPageContainer />
+          </ConditionalElement>
+        }
+      />
+      <Route
+        path="settings"
+        element={
+          <ConditionalElement condition={loggedIn} redirectTo={previousUrl}>
+            <SettingsContainer />
+          </ConditionalElement>
+        }
+      />
+      <Route
+        path="signup"
+        element={
+          <ConditionalElement condition={!loggedIn} redirectTo={HOME}>
+            <SignUpPageContainer />
+          </ConditionalElement>
+        }
+      />
+      <Route
+        path="login/local"
+        element={
+          <ConditionalElement condition={!loggedIn} redirectTo={previousUrl}>
+            <LocalLoginPageContainer />
+          </ConditionalElement>
+        }
+      />
+      <Route
+        path="profile"
+        element={
+          <RequireAuth>
+            <ProfilePage />
+          </RequireAuth>
+        }
+      />
+    </RoutesWithFallback>
+  </div>
+);
 
 const stateToProps = (state: RootState) => ({
   loggedIn: state.user.get('loggedIn'),

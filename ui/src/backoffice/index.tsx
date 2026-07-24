@@ -1,18 +1,9 @@
-import React from 'react';
 import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
 import { RootState } from '../types';
 
-import {
-  BACKOFFICE,
-  BACKOFFICE_LOGIN,
-  BACKOFFICE_LOCAL_LOGIN,
-  USER_LOGIN,
-  BACKOFFICE_LITERATURE_SEARCH,
-  BACKOFFICE_AUTHORS_SEARCH,
-} from '../common/routes';
-import SafeSwitch from '../common/components/SafeSwitch';
+import RoutesWithFallback from '../common/components/RoutesWithFallback';
 import DocumentHead from '../common/components/DocumentHead';
-import PrivateRoute from '../common/PrivateRoute';
 import { SUPERUSER_OR_CATALOGER } from '../common/authorization';
 import AuthorsSearchPageContainer from './authors/search/containers/SearchPageContainer';
 import LiteratureSearchPageContainer from './literature/search/containers/SearchPageContainer';
@@ -21,72 +12,83 @@ import LoginPage from './login/components/LoginPage';
 import LocalLoginPageContainer from './login/containers/LocalLoginPageContainer';
 import AuthorDetailPageContainer from './authors/containers/AuthorDetailPageContainer';
 import LiteratureDetailPageContainer from './literature/containers/LiteratureDetailPageContainer';
+import RequireAuth from '../common/RequireAuth';
 
 const META_DESCRIPTION = 'Tool for curators to manage submissions and harvests';
 const TITLE = 'Backoffice';
 
-const Backoffice = ({ loggedIn }: { loggedIn: boolean }) => {
-  return (
-    <>
-      <DocumentHead title={TITLE} description={META_DESCRIPTION} />
-      <div className="w-100" data-testid="backoffice">
-        <SafeSwitch>
-          <PrivateRoute
-            exact
-            path={BACKOFFICE_LOGIN}
-            component={LoginPage}
-            redirectTo={USER_LOGIN}
-            loggedIn={loggedIn}
-            authorizedRoles={SUPERUSER_OR_CATALOGER}
-          />
-          <PrivateRoute
-            exact
-            path={BACKOFFICE_LOCAL_LOGIN}
-            component={LocalLoginPageContainer}
-            redirectTo={BACKOFFICE_LOGIN}
-            authorizedRoles={SUPERUSER_OR_CATALOGER}
-            backoffice
-          />
-          <PrivateRoute
-            exact
-            path={BACKOFFICE}
-            component={DashboardPageContainer}
-            authorizedRoles={SUPERUSER_OR_CATALOGER}
-            backoffice
-          />
-          <PrivateRoute
-            exact
-            path={BACKOFFICE_AUTHORS_SEARCH}
-            component={AuthorsSearchPageContainer}
-            authorizedRoles={SUPERUSER_OR_CATALOGER}
-            backoffice
-          />
-          <PrivateRoute
-            exact
-            path={BACKOFFICE_LITERATURE_SEARCH}
-            component={LiteratureSearchPageContainer}
-            authorizedRoles={SUPERUSER_OR_CATALOGER}
-            backoffice
-          />
-          <PrivateRoute
-            exact
-            path={`${BACKOFFICE}/authors/:id`}
-            component={AuthorDetailPageContainer}
-            authorizedRoles={SUPERUSER_OR_CATALOGER}
-            backoffice
-          />
-          <PrivateRoute
-            exact
-            path={`${BACKOFFICE}/literature/:id`}
-            component={LiteratureDetailPageContainer}
-            authorizedRoles={SUPERUSER_OR_CATALOGER}
-            backoffice
-          />
-        </SafeSwitch>
-      </div>
-    </>
-  );
-};
+const Backoffice = ({ loggedIn }: { loggedIn: boolean }) => (
+  <>
+    <DocumentHead title={TITLE} description={META_DESCRIPTION} />
+    <div className="w-100" data-testid="backoffice">
+      <RoutesWithFallback>
+        <Route
+          path="login"
+          element={
+            <RequireAuth
+              authorizedRoles={SUPERUSER_OR_CATALOGER}
+              loggedIn={loggedIn}
+            >
+              <LoginPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="login/local"
+          element={
+            <RequireAuth
+              authorizedRoles={SUPERUSER_OR_CATALOGER}
+              loggedIn={loggedIn}
+              backoffice
+            >
+              <LocalLoginPageContainer />
+            </RequireAuth>
+          }
+        />
+        <Route
+          index
+          element={
+            <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER} backoffice>
+              <DashboardPageContainer />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="authors/search"
+          element={
+            <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER} backoffice>
+              <AuthorsSearchPageContainer />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="literature/search"
+          element={
+            <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER} backoffice>
+              <LiteratureSearchPageContainer />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="authors/:id"
+          element={
+            <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER} backoffice>
+              <AuthorDetailPageContainer />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="literature/:id"
+          element={
+            <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER} backoffice>
+              <LiteratureDetailPageContainer />
+            </RequireAuth>
+          }
+        />
+      </RoutesWithFallback>
+    </div>
+  </>
+);
 
 const stateToProps = (state: RootState) => ({
   loggedIn: state.user.get('loggedIn'),

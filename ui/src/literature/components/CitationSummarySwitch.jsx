@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { BarChartOutlined } from '@ant-design/icons';
 import { Switch, Tooltip } from 'antd';
 import PropTypes from 'prop-types';

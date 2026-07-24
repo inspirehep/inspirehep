@@ -630,7 +630,6 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                         data-testid="select-box"
                                         form="[object Object]"
                                         name="status"
-                                        placement="bottomLeft"
                                       >
                                         <div
                                           class="ant-select-selector"
@@ -650,6 +649,8 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                               readonly=""
                                               role="combobox"
                                               style="opacity: 0;"
+                                              type="search"
+                                              unselectable="on"
                                               value=""
                                             />
                                           </span>
@@ -1321,36 +1322,46 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                         data-testid="select-box"
                                         form="[object Object]"
                                         name="arxiv_categories"
-                                        placement="bottomLeft"
                                       >
                                         <div
                                           class="ant-select-selector"
                                         >
-                                          <span
-                                            class="ant-select-selection-search"
-                                            style="width: 0px;"
+                                          <div
+                                            class="ant-select-selection-overflow"
                                           >
-                                            <input
-                                              aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                                              aria-autocomplete="list"
-                                              aria-controls="rc_select_TEST_OR_SSR_list"
-                                              aria-haspopup="listbox"
-                                              aria-owns="rc_select_TEST_OR_SSR_list"
-                                              autocomplete="off"
-                                              class="ant-select-selection-search-input"
-                                              id="rc_select_TEST_OR_SSR"
-                                              readonly=""
-                                              role="combobox"
-                                              style="opacity: 0;"
-                                              value=""
-                                            />
-                                            <span
-                                              aria-hidden="true"
-                                              class="ant-select-selection-search-mirror"
+                                            <div
+                                              class="ant-select-selection-overflow-item ant-select-selection-overflow-item-suffix"
+                                              style="opacity: 1;"
                                             >
-                                               
-                                            </span>
-                                          </span>
+                                              <div
+                                                class="ant-select-selection-search"
+                                                style="width: 0px;"
+                                              >
+                                                <input
+                                                  aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                                                  aria-autocomplete="list"
+                                                  aria-controls="rc_select_TEST_OR_SSR_list"
+                                                  aria-haspopup="listbox"
+                                                  aria-owns="rc_select_TEST_OR_SSR_list"
+                                                  autocomplete="off"
+                                                  class="ant-select-selection-search-input"
+                                                  id="rc_select_TEST_OR_SSR"
+                                                  readonly=""
+                                                  role="combobox"
+                                                  style="opacity: 0;"
+                                                  type="search"
+                                                  unselectable="on"
+                                                  value=""
+                                                />
+                                                <span
+                                                  aria-hidden="true"
+                                                  class="ant-select-selection-search-mirror"
+                                                >
+                                                   
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>
                                           <span
                                             class="ant-select-selection-placeholder"
                                           />
@@ -1467,7 +1478,6 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                       data-test-type="suggester"
                                                                       form="[object Object]"
                                                                       name="positions.0.institution"
-                                                                      placement="bottomLeft"
                                                                       searchasyoutype="true"
                                                                     >
                                                                       <div
@@ -1486,6 +1496,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                             class="ant-select-selection-search-input"
                                                                             id="rc_select_TEST_OR_SSR"
                                                                             role="combobox"
+                                                                            type="search"
                                                                             value=""
                                                                           />
                                                                         </span>
@@ -1714,7 +1725,6 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                       data-testid="select-box"
                                                                       form="[object Object]"
                                                                       name="positions.0.rank"
-                                                                      placement="bottomLeft"
                                                                     >
                                                                       <div
                                                                         class="ant-select-selector"
@@ -1734,6 +1744,8 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                             readonly=""
                                                                             role="combobox"
                                                                             style="opacity: 0;"
+                                                                            type="search"
+                                                                            unselectable="on"
                                                                             value=""
                                                                           />
                                                                         </span>
@@ -1921,7 +1933,6 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                       data-test-type="suggester"
                                                                       form="[object Object]"
                                                                       name="project_membership.0.name"
-                                                                      placement="bottomLeft"
                                                                       searchasyoutype="true"
                                                                     >
                                                                       <div
@@ -1940,6 +1951,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                             class="ant-select-selection-search-input"
                                                                             id="rc_select_TEST_OR_SSR"
                                                                             role="combobox"
+                                                                            type="search"
                                                                             value=""
                                                                           />
                                                                         </span>
@@ -2288,7 +2300,6 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                       data-test-type="suggester"
                                                                       form="[object Object]"
                                                                       name="advisors.0.name"
-                                                                      placement="bottomLeft"
                                                                     >
                                                                       <div
                                                                         class="ant-select-selector"
@@ -2306,6 +2317,7 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                             class="ant-select-selection-search-input"
                                                                             id="rc_select_TEST_OR_SSR"
                                                                             role="combobox"
+                                                                            type="search"
                                                                             value=""
                                                                           />
                                                                         </span>
@@ -2347,7 +2359,6 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                       data-testid="select-box"
                                                                       form="[object Object]"
                                                                       name="advisors.0.degree_type"
-                                                                      placement="bottomLeft"
                                                                     >
                                                                       <div
                                                                         class="ant-select-selector"
@@ -2367,6 +2378,8 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                             readonly=""
                                                                             role="combobox"
                                                                             style="opacity: 0;"
+                                                                            type="search"
+                                                                            unselectable="on"
                                                                             value=""
                                                                           />
                                                                         </span>
@@ -3221,7 +3234,6 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                         data-testid="select-box"
                                         form="[object Object]"
                                         name="status"
-                                        placement="bottomLeft"
                                       >
                                         <div
                                           class="ant-select-selector"
@@ -3241,6 +3253,8 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                               readonly=""
                                               role="combobox"
                                               style="opacity: 0;"
+                                              type="search"
+                                              unselectable="on"
                                               value=""
                                             />
                                           </span>
@@ -3912,36 +3926,46 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                         data-testid="select-box"
                                         form="[object Object]"
                                         name="arxiv_categories"
-                                        placement="bottomLeft"
                                       >
                                         <div
                                           class="ant-select-selector"
                                         >
-                                          <span
-                                            class="ant-select-selection-search"
-                                            style="width: 0px;"
+                                          <div
+                                            class="ant-select-selection-overflow"
                                           >
-                                            <input
-                                              aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                                              aria-autocomplete="list"
-                                              aria-controls="rc_select_TEST_OR_SSR_list"
-                                              aria-haspopup="listbox"
-                                              aria-owns="rc_select_TEST_OR_SSR_list"
-                                              autocomplete="off"
-                                              class="ant-select-selection-search-input"
-                                              id="rc_select_TEST_OR_SSR"
-                                              readonly=""
-                                              role="combobox"
-                                              style="opacity: 0;"
-                                              value=""
-                                            />
-                                            <span
-                                              aria-hidden="true"
-                                              class="ant-select-selection-search-mirror"
+                                            <div
+                                              class="ant-select-selection-overflow-item ant-select-selection-overflow-item-suffix"
+                                              style="opacity: 1;"
                                             >
-                                               
-                                            </span>
-                                          </span>
+                                              <div
+                                                class="ant-select-selection-search"
+                                                style="width: 0px;"
+                                              >
+                                                <input
+                                                  aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                                                  aria-autocomplete="list"
+                                                  aria-controls="rc_select_TEST_OR_SSR_list"
+                                                  aria-haspopup="listbox"
+                                                  aria-owns="rc_select_TEST_OR_SSR_list"
+                                                  autocomplete="off"
+                                                  class="ant-select-selection-search-input"
+                                                  id="rc_select_TEST_OR_SSR"
+                                                  readonly=""
+                                                  role="combobox"
+                                                  style="opacity: 0;"
+                                                  type="search"
+                                                  unselectable="on"
+                                                  value=""
+                                                />
+                                                <span
+                                                  aria-hidden="true"
+                                                  class="ant-select-selection-search-mirror"
+                                                >
+                                                   
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>
                                           <span
                                             class="ant-select-selection-placeholder"
                                           />
@@ -4058,7 +4082,6 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                       data-test-type="suggester"
                                                                       form="[object Object]"
                                                                       name="positions.0.institution"
-                                                                      placement="bottomLeft"
                                                                       searchasyoutype="true"
                                                                     >
                                                                       <div
@@ -4077,6 +4100,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                             class="ant-select-selection-search-input"
                                                                             id="rc_select_TEST_OR_SSR"
                                                                             role="combobox"
+                                                                            type="search"
                                                                             value=""
                                                                           />
                                                                         </span>
@@ -4379,7 +4403,6 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                       data-testid="select-box"
                                                                       form="[object Object]"
                                                                       name="positions.0.rank"
-                                                                      placement="bottomLeft"
                                                                     >
                                                                       <div
                                                                         class="ant-select-selector"
@@ -4399,6 +4422,8 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                             readonly=""
                                                                             role="combobox"
                                                                             style="opacity: 0;"
+                                                                            type="search"
+                                                                            unselectable="on"
                                                                             value=""
                                                                           />
                                                                         </span>
@@ -4586,7 +4611,6 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                       data-test-type="suggester"
                                                                       form="[object Object]"
                                                                       name="project_membership.0.name"
-                                                                      placement="bottomLeft"
                                                                       searchasyoutype="true"
                                                                     >
                                                                       <div
@@ -4605,6 +4629,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                             class="ant-select-selection-search-input"
                                                                             id="rc_select_TEST_OR_SSR"
                                                                             role="combobox"
+                                                                            type="search"
                                                                             value=""
                                                                           />
                                                                         </span>
@@ -5027,7 +5052,6 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                       data-test-type="suggester"
                                                                       form="[object Object]"
                                                                       name="advisors.0.name"
-                                                                      placement="bottomLeft"
                                                                     >
                                                                       <div
                                                                         class="ant-select-selector"
@@ -5045,6 +5069,7 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                             class="ant-select-selection-search-input"
                                                                             id="rc_select_TEST_OR_SSR"
                                                                             role="combobox"
+                                                                            type="search"
                                                                             value=""
                                                                           />
                                                                         </span>
@@ -5086,7 +5111,6 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                       data-testid="select-box"
                                                                       form="[object Object]"
                                                                       name="advisors.0.degree_type"
-                                                                      placement="bottomLeft"
                                                                     >
                                                                       <div
                                                                         class="ant-select-selector"
@@ -5106,6 +5130,8 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                             readonly=""
                                                                             role="combobox"
                                                                             style="opacity: 0;"
+                                                                            type="search"
+                                                                            unselectable="on"
                                                                             value=""
                                                                           />
                                                                         </span>
@@ -5717,7 +5743,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                 data-test-type="suggester"
                                 form="[object Object]"
                                 name="series_name"
-                                placement="bottomLeft"
                               >
                                 <div
                                   class="ant-select-selector"
@@ -5735,6 +5760,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                       class="ant-select-selection-search-input"
                                       id="rc_select_TEST_OR_SSR"
                                       role="combobox"
+                                      type="search"
                                       value=""
                                     />
                                   </span>
@@ -6090,7 +6116,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                                               data-testid="select-box"
                                                               form="[object Object]"
                                                               name="addresses.0.country"
-                                                              placement="bottomLeft"
                                                             >
                                                               <div
                                                                 class="ant-select-selector"
@@ -6107,9 +6132,8 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                                                     autocomplete="off"
                                                                     class="ant-select-selection-search-input"
                                                                     id="rc_select_TEST_OR_SSR"
-                                                                    readonly=""
                                                                     role="combobox"
-                                                                    style="opacity: 0;"
+                                                                    type="search"
                                                                     value=""
                                                                   />
                                                                 </span>
@@ -6317,36 +6341,46 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                 data-testid="select-box"
                                 form="[object Object]"
                                 name="field_of_interest"
-                                placement="bottomLeft"
                               >
                                 <div
                                   class="ant-select-selector"
                                 >
-                                  <span
-                                    class="ant-select-selection-search"
-                                    style="width: 0px;"
+                                  <div
+                                    class="ant-select-selection-overflow"
                                   >
-                                    <input
-                                      aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                                      aria-autocomplete="list"
-                                      aria-controls="rc_select_TEST_OR_SSR_list"
-                                      aria-haspopup="listbox"
-                                      aria-owns="rc_select_TEST_OR_SSR_list"
-                                      autocomplete="off"
-                                      class="ant-select-selection-search-input"
-                                      id="rc_select_TEST_OR_SSR"
-                                      readonly=""
-                                      role="combobox"
-                                      style="opacity: 0;"
-                                      value=""
-                                    />
-                                    <span
-                                      aria-hidden="true"
-                                      class="ant-select-selection-search-mirror"
+                                    <div
+                                      class="ant-select-selection-overflow-item ant-select-selection-overflow-item-suffix"
+                                      style="opacity: 1;"
                                     >
-                                       
-                                    </span>
-                                  </span>
+                                      <div
+                                        class="ant-select-selection-search"
+                                        style="width: 0px;"
+                                      >
+                                        <input
+                                          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                                          aria-autocomplete="list"
+                                          aria-controls="rc_select_TEST_OR_SSR_list"
+                                          aria-haspopup="listbox"
+                                          aria-owns="rc_select_TEST_OR_SSR_list"
+                                          autocomplete="off"
+                                          class="ant-select-selection-search-input"
+                                          id="rc_select_TEST_OR_SSR"
+                                          readonly=""
+                                          role="combobox"
+                                          style="opacity: 0;"
+                                          type="search"
+                                          unselectable="on"
+                                          value=""
+                                        />
+                                        <span
+                                          aria-hidden="true"
+                                          class="ant-select-selection-search-mirror"
+                                        >
+                                           
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
                                   <span
                                     class="ant-select-selection-placeholder"
                                   />
@@ -6607,7 +6641,6 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                                               data-test-type="suggester"
                                                               form="[object Object]"
                                                               name="contacts.0.name"
-                                                              placement="bottomLeft"
                                                             >
                                                               <div
                                                                 class="ant-select-selector"
@@ -6625,6 +6658,7 @@ exports[`Submissions > navigates to ConferenceSubmissionPageContainer when /subm
                                                                     class="ant-select-selection-search-input"
                                                                     id="rc_select_TEST_OR_SSR"
                                                                     role="combobox"
+                                                                    type="search"
                                                                     value=""
                                                                   />
                                                                 </span>
@@ -7464,36 +7498,46 @@ exports[`Submissions > navigates to ExperimentSubmissionPageContainer when /subm
                                     data-testid="select-box"
                                     form="[object Object]"
                                     name="project_type"
-                                    placement="bottomLeft"
                                   >
                                     <div
                                       class="ant-select-selector"
                                     >
-                                      <span
-                                        class="ant-select-selection-search"
-                                        style="width: 0px;"
+                                      <div
+                                        class="ant-select-selection-overflow"
                                       >
-                                        <input
-                                          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                                          aria-autocomplete="list"
-                                          aria-controls="rc_select_TEST_OR_SSR_list"
-                                          aria-haspopup="listbox"
-                                          aria-owns="rc_select_TEST_OR_SSR_list"
-                                          autocomplete="off"
-                                          class="ant-select-selection-search-input"
-                                          id="rc_select_TEST_OR_SSR"
-                                          readonly=""
-                                          role="combobox"
-                                          style="opacity: 0;"
-                                          value=""
-                                        />
-                                        <span
-                                          aria-hidden="true"
-                                          class="ant-select-selection-search-mirror"
+                                        <div
+                                          class="ant-select-selection-overflow-item ant-select-selection-overflow-item-suffix"
+                                          style="opacity: 1;"
                                         >
-                                           
-                                        </span>
-                                      </span>
+                                          <div
+                                            class="ant-select-selection-search"
+                                            style="width: 0px;"
+                                          >
+                                            <input
+                                              aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                                              aria-autocomplete="list"
+                                              aria-controls="rc_select_TEST_OR_SSR_list"
+                                              aria-haspopup="listbox"
+                                              aria-owns="rc_select_TEST_OR_SSR_list"
+                                              autocomplete="off"
+                                              class="ant-select-selection-search-input"
+                                              id="rc_select_TEST_OR_SSR"
+                                              readonly=""
+                                              role="combobox"
+                                              style="opacity: 0;"
+                                              type="search"
+                                              unselectable="on"
+                                              value=""
+                                            />
+                                            <span
+                                              aria-hidden="true"
+                                              class="ant-select-selection-search-mirror"
+                                            >
+                                               
+                                            </span>
+                                          </div>
+                                        </div>
+                                      </div>
                                       <span
                                         class="ant-select-selection-placeholder"
                                       >
@@ -7573,7 +7617,6 @@ exports[`Submissions > navigates to ExperimentSubmissionPageContainer when /subm
                                     data-test-type="suggester"
                                     form="[object Object]"
                                     name="legacy_name"
-                                    placement="bottomLeft"
                                     searchasyoutype="true"
                                   >
                                     <div
@@ -7592,6 +7635,7 @@ exports[`Submissions > navigates to ExperimentSubmissionPageContainer when /subm
                                           class="ant-select-selection-search-input"
                                           id="rc_select_TEST_OR_SSR"
                                           role="combobox"
+                                          type="search"
                                           value=""
                                         />
                                       </span>
@@ -7725,7 +7769,6 @@ exports[`Submissions > navigates to InstitutuinsSubmissionPageContainer when /su
                                     data-test-type="suggester"
                                     form="[object Object]"
                                     name="identifier"
-                                    placement="bottomLeft"
                                     searchasyoutype="true"
                                   >
                                     <div
@@ -7744,6 +7787,7 @@ exports[`Submissions > navigates to InstitutuinsSubmissionPageContainer when /su
                                           class="ant-select-selection-search-input"
                                           id="rc_select_TEST_OR_SSR"
                                           role="combobox"
+                                          type="search"
                                           value=""
                                         />
                                       </span>
@@ -7872,7 +7916,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                 data-testid="select-box"
                                 form="[object Object]"
                                 name="status"
-                                placement="bottomLeft"
                               >
                                 <div
                                   class="ant-select-selector"
@@ -7892,11 +7935,14 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                       readonly=""
                                       role="combobox"
                                       style="opacity: 0;"
+                                      type="search"
+                                      unselectable="on"
                                       value=""
                                     />
                                   </span>
                                   <span
                                     class="ant-select-selection-item"
+                                    title="pending"
                                   >
                                     pending
                                   </span>
@@ -8087,7 +8133,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                                           data-test-type="suggester"
                                                           form="[object Object]"
                                                           name="institutions.0.value"
-                                                          placement="bottomLeft"
                                                           searchasyoutype="true"
                                                         >
                                                           <div
@@ -8106,6 +8151,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                                                 class="ant-select-selection-search-input"
                                                                 id="rc_select_TEST_OR_SSR"
                                                                 role="combobox"
+                                                                type="search"
                                                                 value=""
                                                               />
                                                             </span>
@@ -8219,36 +8265,46 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                 data-testid="select-box"
                                 form="[object Object]"
                                 name="regions"
-                                placement="bottomLeft"
                               >
                                 <div
                                   class="ant-select-selector"
                                 >
-                                  <span
-                                    class="ant-select-selection-search"
-                                    style="width: 0px;"
+                                  <div
+                                    class="ant-select-selection-overflow"
                                   >
-                                    <input
-                                      aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                                      aria-autocomplete="list"
-                                      aria-controls="rc_select_TEST_OR_SSR_list"
-                                      aria-haspopup="listbox"
-                                      aria-owns="rc_select_TEST_OR_SSR_list"
-                                      autocomplete="off"
-                                      class="ant-select-selection-search-input"
-                                      id="rc_select_TEST_OR_SSR"
-                                      readonly=""
-                                      role="combobox"
-                                      style="opacity: 0;"
-                                      value=""
-                                    />
-                                    <span
-                                      aria-hidden="true"
-                                      class="ant-select-selection-search-mirror"
+                                    <div
+                                      class="ant-select-selection-overflow-item ant-select-selection-overflow-item-suffix"
+                                      style="opacity: 1;"
                                     >
-                                       
-                                    </span>
-                                  </span>
+                                      <div
+                                        class="ant-select-selection-search"
+                                        style="width: 0px;"
+                                      >
+                                        <input
+                                          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                                          aria-autocomplete="list"
+                                          aria-controls="rc_select_TEST_OR_SSR_list"
+                                          aria-haspopup="listbox"
+                                          aria-owns="rc_select_TEST_OR_SSR_list"
+                                          autocomplete="off"
+                                          class="ant-select-selection-search-input"
+                                          id="rc_select_TEST_OR_SSR"
+                                          readonly=""
+                                          role="combobox"
+                                          style="opacity: 0;"
+                                          type="search"
+                                          unselectable="on"
+                                          value=""
+                                        />
+                                        <span
+                                          aria-hidden="true"
+                                          class="ant-select-selection-search-mirror"
+                                        >
+                                           
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
                                   <span
                                     class="ant-select-selection-placeholder"
                                   />
@@ -8319,36 +8375,46 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                 data-testid="select-box"
                                 form="[object Object]"
                                 name="field_of_interest"
-                                placement="bottomLeft"
                               >
                                 <div
                                   class="ant-select-selector"
                                 >
-                                  <span
-                                    class="ant-select-selection-search"
-                                    style="width: 0px;"
+                                  <div
+                                    class="ant-select-selection-overflow"
                                   >
-                                    <input
-                                      aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                                      aria-autocomplete="list"
-                                      aria-controls="rc_select_TEST_OR_SSR_list"
-                                      aria-haspopup="listbox"
-                                      aria-owns="rc_select_TEST_OR_SSR_list"
-                                      autocomplete="off"
-                                      class="ant-select-selection-search-input"
-                                      id="rc_select_TEST_OR_SSR"
-                                      readonly=""
-                                      role="combobox"
-                                      style="opacity: 0;"
-                                      value=""
-                                    />
-                                    <span
-                                      aria-hidden="true"
-                                      class="ant-select-selection-search-mirror"
+                                    <div
+                                      class="ant-select-selection-overflow-item ant-select-selection-overflow-item-suffix"
+                                      style="opacity: 1;"
                                     >
-                                       
-                                    </span>
-                                  </span>
+                                      <div
+                                        class="ant-select-selection-search"
+                                        style="width: 0px;"
+                                      >
+                                        <input
+                                          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                                          aria-autocomplete="list"
+                                          aria-controls="rc_select_TEST_OR_SSR_list"
+                                          aria-haspopup="listbox"
+                                          aria-owns="rc_select_TEST_OR_SSR_list"
+                                          autocomplete="off"
+                                          class="ant-select-selection-search-input"
+                                          id="rc_select_TEST_OR_SSR"
+                                          readonly=""
+                                          role="combobox"
+                                          style="opacity: 0;"
+                                          type="search"
+                                          unselectable="on"
+                                          value=""
+                                        />
+                                        <span
+                                          aria-hidden="true"
+                                          class="ant-select-selection-search-mirror"
+                                        >
+                                           
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
                                   <span
                                     class="ant-select-selection-placeholder"
                                   />
@@ -8419,36 +8485,46 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                 data-testid="select-box"
                                 form="[object Object]"
                                 name="ranks"
-                                placement="bottomLeft"
                               >
                                 <div
                                   class="ant-select-selector"
                                 >
-                                  <span
-                                    class="ant-select-selection-search"
-                                    style="width: 0px;"
+                                  <div
+                                    class="ant-select-selection-overflow"
                                   >
-                                    <input
-                                      aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                                      aria-autocomplete="list"
-                                      aria-controls="rc_select_TEST_OR_SSR_list"
-                                      aria-haspopup="listbox"
-                                      aria-owns="rc_select_TEST_OR_SSR_list"
-                                      autocomplete="off"
-                                      class="ant-select-selection-search-input"
-                                      id="rc_select_TEST_OR_SSR"
-                                      readonly=""
-                                      role="combobox"
-                                      style="opacity: 0;"
-                                      value=""
-                                    />
-                                    <span
-                                      aria-hidden="true"
-                                      class="ant-select-selection-search-mirror"
+                                    <div
+                                      class="ant-select-selection-overflow-item ant-select-selection-overflow-item-suffix"
+                                      style="opacity: 1;"
                                     >
-                                       
-                                    </span>
-                                  </span>
+                                      <div
+                                        class="ant-select-selection-search"
+                                        style="width: 0px;"
+                                      >
+                                        <input
+                                          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                                          aria-autocomplete="list"
+                                          aria-controls="rc_select_TEST_OR_SSR_list"
+                                          aria-haspopup="listbox"
+                                          aria-owns="rc_select_TEST_OR_SSR_list"
+                                          autocomplete="off"
+                                          class="ant-select-selection-search-input"
+                                          id="rc_select_TEST_OR_SSR"
+                                          readonly=""
+                                          role="combobox"
+                                          style="opacity: 0;"
+                                          type="search"
+                                          unselectable="on"
+                                          value=""
+                                        />
+                                        <span
+                                          aria-hidden="true"
+                                          class="ant-select-selection-search-mirror"
+                                        >
+                                           
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
                                   <span
                                     class="ant-select-selection-placeholder"
                                   />
@@ -8558,7 +8634,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                                           data-test-type="suggester"
                                                           form="[object Object]"
                                                           name="experiments.0.legacy_name"
-                                                          placement="bottomLeft"
                                                           searchasyoutype="true"
                                                         >
                                                           <div
@@ -8577,6 +8652,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                                                 class="ant-select-selection-search-input"
                                                                 id="rc_select_TEST_OR_SSR"
                                                                 role="combobox"
+                                                                type="search"
                                                                 value=""
                                                               />
                                                             </span>
@@ -8850,7 +8926,6 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                                               data-test-type="suggester"
                                                               form="[object Object]"
                                                               name="contacts.0.name"
-                                                              placement="bottomLeft"
                                                             >
                                                               <div
                                                                 class="ant-select-selector"
@@ -8868,6 +8943,7 @@ exports[`Submissions > navigates to JobSubmissionPageContainer when /submissions
                                                                     class="ant-select-selection-search-input"
                                                                     id="rc_select_TEST_OR_SSR"
                                                                     role="combobox"
+                                                                    type="search"
                                                                     value=""
                                                                   />
                                                                 </span>
@@ -9591,7 +9667,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                 data-testid="select-box"
                                 form="[object Object]"
                                 name="status"
-                                placement="bottomLeft"
                               >
                                 <div
                                   class="ant-select-selector"
@@ -9611,11 +9686,14 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                       readonly=""
                                       role="combobox"
                                       style="opacity: 0;"
+                                      type="search"
+                                      unselectable="on"
                                       value=""
                                     />
                                   </span>
                                   <span
                                     class="ant-select-selection-item"
+                                    title="pending"
                                   >
                                     pending
                                   </span>
@@ -9806,7 +9884,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                                           data-test-type="suggester"
                                                           form="[object Object]"
                                                           name="institutions.0.value"
-                                                          placement="bottomLeft"
                                                           searchasyoutype="true"
                                                         >
                                                           <div
@@ -9825,6 +9902,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                                                 class="ant-select-selection-search-input"
                                                                 id="rc_select_TEST_OR_SSR"
                                                                 role="combobox"
+                                                                type="search"
                                                                 value=""
                                                               />
                                                             </span>
@@ -9938,36 +10016,46 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                 data-testid="select-box"
                                 form="[object Object]"
                                 name="regions"
-                                placement="bottomLeft"
                               >
                                 <div
                                   class="ant-select-selector"
                                 >
-                                  <span
-                                    class="ant-select-selection-search"
-                                    style="width: 0px;"
+                                  <div
+                                    class="ant-select-selection-overflow"
                                   >
-                                    <input
-                                      aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                                      aria-autocomplete="list"
-                                      aria-controls="rc_select_TEST_OR_SSR_list"
-                                      aria-haspopup="listbox"
-                                      aria-owns="rc_select_TEST_OR_SSR_list"
-                                      autocomplete="off"
-                                      class="ant-select-selection-search-input"
-                                      id="rc_select_TEST_OR_SSR"
-                                      readonly=""
-                                      role="combobox"
-                                      style="opacity: 0;"
-                                      value=""
-                                    />
-                                    <span
-                                      aria-hidden="true"
-                                      class="ant-select-selection-search-mirror"
+                                    <div
+                                      class="ant-select-selection-overflow-item ant-select-selection-overflow-item-suffix"
+                                      style="opacity: 1;"
                                     >
-                                       
-                                    </span>
-                                  </span>
+                                      <div
+                                        class="ant-select-selection-search"
+                                        style="width: 0px;"
+                                      >
+                                        <input
+                                          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                                          aria-autocomplete="list"
+                                          aria-controls="rc_select_TEST_OR_SSR_list"
+                                          aria-haspopup="listbox"
+                                          aria-owns="rc_select_TEST_OR_SSR_list"
+                                          autocomplete="off"
+                                          class="ant-select-selection-search-input"
+                                          id="rc_select_TEST_OR_SSR"
+                                          readonly=""
+                                          role="combobox"
+                                          style="opacity: 0;"
+                                          type="search"
+                                          unselectable="on"
+                                          value=""
+                                        />
+                                        <span
+                                          aria-hidden="true"
+                                          class="ant-select-selection-search-mirror"
+                                        >
+                                           
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
                                   <span
                                     class="ant-select-selection-placeholder"
                                   />
@@ -10038,36 +10126,46 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                 data-testid="select-box"
                                 form="[object Object]"
                                 name="field_of_interest"
-                                placement="bottomLeft"
                               >
                                 <div
                                   class="ant-select-selector"
                                 >
-                                  <span
-                                    class="ant-select-selection-search"
-                                    style="width: 0px;"
+                                  <div
+                                    class="ant-select-selection-overflow"
                                   >
-                                    <input
-                                      aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                                      aria-autocomplete="list"
-                                      aria-controls="rc_select_TEST_OR_SSR_list"
-                                      aria-haspopup="listbox"
-                                      aria-owns="rc_select_TEST_OR_SSR_list"
-                                      autocomplete="off"
-                                      class="ant-select-selection-search-input"
-                                      id="rc_select_TEST_OR_SSR"
-                                      readonly=""
-                                      role="combobox"
-                                      style="opacity: 0;"
-                                      value=""
-                                    />
-                                    <span
-                                      aria-hidden="true"
-                                      class="ant-select-selection-search-mirror"
+                                    <div
+                                      class="ant-select-selection-overflow-item ant-select-selection-overflow-item-suffix"
+                                      style="opacity: 1;"
                                     >
-                                       
-                                    </span>
-                                  </span>
+                                      <div
+                                        class="ant-select-selection-search"
+                                        style="width: 0px;"
+                                      >
+                                        <input
+                                          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                                          aria-autocomplete="list"
+                                          aria-controls="rc_select_TEST_OR_SSR_list"
+                                          aria-haspopup="listbox"
+                                          aria-owns="rc_select_TEST_OR_SSR_list"
+                                          autocomplete="off"
+                                          class="ant-select-selection-search-input"
+                                          id="rc_select_TEST_OR_SSR"
+                                          readonly=""
+                                          role="combobox"
+                                          style="opacity: 0;"
+                                          type="search"
+                                          unselectable="on"
+                                          value=""
+                                        />
+                                        <span
+                                          aria-hidden="true"
+                                          class="ant-select-selection-search-mirror"
+                                        >
+                                           
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
                                   <span
                                     class="ant-select-selection-placeholder"
                                   />
@@ -10138,36 +10236,46 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                 data-testid="select-box"
                                 form="[object Object]"
                                 name="ranks"
-                                placement="bottomLeft"
                               >
                                 <div
                                   class="ant-select-selector"
                                 >
-                                  <span
-                                    class="ant-select-selection-search"
-                                    style="width: 0px;"
+                                  <div
+                                    class="ant-select-selection-overflow"
                                   >
-                                    <input
-                                      aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                                      aria-autocomplete="list"
-                                      aria-controls="rc_select_TEST_OR_SSR_list"
-                                      aria-haspopup="listbox"
-                                      aria-owns="rc_select_TEST_OR_SSR_list"
-                                      autocomplete="off"
-                                      class="ant-select-selection-search-input"
-                                      id="rc_select_TEST_OR_SSR"
-                                      readonly=""
-                                      role="combobox"
-                                      style="opacity: 0;"
-                                      value=""
-                                    />
-                                    <span
-                                      aria-hidden="true"
-                                      class="ant-select-selection-search-mirror"
+                                    <div
+                                      class="ant-select-selection-overflow-item ant-select-selection-overflow-item-suffix"
+                                      style="opacity: 1;"
                                     >
-                                       
-                                    </span>
-                                  </span>
+                                      <div
+                                        class="ant-select-selection-search"
+                                        style="width: 0px;"
+                                      >
+                                        <input
+                                          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                                          aria-autocomplete="list"
+                                          aria-controls="rc_select_TEST_OR_SSR_list"
+                                          aria-haspopup="listbox"
+                                          aria-owns="rc_select_TEST_OR_SSR_list"
+                                          autocomplete="off"
+                                          class="ant-select-selection-search-input"
+                                          id="rc_select_TEST_OR_SSR"
+                                          readonly=""
+                                          role="combobox"
+                                          style="opacity: 0;"
+                                          type="search"
+                                          unselectable="on"
+                                          value=""
+                                        />
+                                        <span
+                                          aria-hidden="true"
+                                          class="ant-select-selection-search-mirror"
+                                        >
+                                           
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
                                   <span
                                     class="ant-select-selection-placeholder"
                                   />
@@ -10277,7 +10385,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                                           data-test-type="suggester"
                                                           form="[object Object]"
                                                           name="experiments.0.legacy_name"
-                                                          placement="bottomLeft"
                                                           searchasyoutype="true"
                                                         >
                                                           <div
@@ -10296,6 +10403,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                                                 class="ant-select-selection-search-input"
                                                                 id="rc_select_TEST_OR_SSR"
                                                                 role="combobox"
+                                                                type="search"
                                                                 value=""
                                                               />
                                                             </span>
@@ -10569,7 +10677,6 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                                               data-test-type="suggester"
                                                               form="[object Object]"
                                                               name="contacts.0.name"
-                                                              placement="bottomLeft"
                                                             >
                                                               <div
                                                                 class="ant-select-selector"
@@ -10587,6 +10694,7 @@ exports[`Submissions > navigates to JobUpdateSubmissionPageContainer when /submi
                                                                     class="ant-select-selection-search-input"
                                                                     id="rc_select_TEST_OR_SSR"
                                                                     role="combobox"
+                                                                    type="search"
                                                                     value=""
                                                                   />
                                                                 </span>
@@ -11858,7 +11966,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                 data-testid="select-box"
                                 form="[object Object]"
                                 name="timezone"
-                                placement="bottomLeft"
                               >
                                 <div
                                   class="ant-select-selector"
@@ -11875,9 +11982,8 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                       autocomplete="off"
                                       class="ant-select-selection-search-input"
                                       id="rc_select_TEST_OR_SSR"
-                                      readonly=""
                                       role="combobox"
-                                      style="opacity: 0;"
+                                      type="search"
                                       value=""
                                     />
                                   </span>
@@ -12003,7 +12109,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                               data-test-type="suggester"
                                                               form="[object Object]"
                                                               name="speakers.0.name"
-                                                              placement="bottomLeft"
                                                             >
                                                               <div
                                                                 class="ant-select-selector"
@@ -12021,6 +12126,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                                     class="ant-select-selection-search-input"
                                                                     id="rc_select_TEST_OR_SSR"
                                                                     role="combobox"
+                                                                    type="search"
                                                                     value=""
                                                                   />
                                                                 </span>
@@ -12061,7 +12167,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                               data-test-type="suggester"
                                                               form="[object Object]"
                                                               name="speakers.0.affiliation"
-                                                              placement="bottomLeft"
                                                               searchasyoutype="true"
                                                             >
                                                               <div
@@ -12080,6 +12185,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                                     class="ant-select-selection-search-input"
                                                                     id="rc_select_TEST_OR_SSR"
                                                                     role="combobox"
+                                                                    type="search"
                                                                     value=""
                                                                   />
                                                                 </span>
@@ -12194,7 +12300,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                 data-test-type="suggester"
                                 form="[object Object]"
                                 name="series_name"
-                                placement="bottomLeft"
                               >
                                 <div
                                   class="ant-select-selector"
@@ -12212,6 +12317,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                       class="ant-select-selection-search-input"
                                       id="rc_select_TEST_OR_SSR"
                                       role="combobox"
+                                      type="search"
                                       value=""
                                     />
                                   </span>
@@ -12991,7 +13097,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                               data-testid="select-box"
                                               form="[object Object]"
                                               name="address.country"
-                                              placement="bottomLeft"
                                             >
                                               <div
                                                 class="ant-select-selector"
@@ -13008,9 +13113,8 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                     autocomplete="off"
                                                     class="ant-select-selection-search-input"
                                                     id="rc_select_TEST_OR_SSR"
-                                                    readonly=""
                                                     role="combobox"
-                                                    style="opacity: 0;"
+                                                    type="search"
                                                     value=""
                                                   />
                                                 </span>
@@ -13159,36 +13263,46 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                 data-testid="select-box"
                                 form="[object Object]"
                                 name="field_of_interest"
-                                placement="bottomLeft"
                               >
                                 <div
                                   class="ant-select-selector"
                                 >
-                                  <span
-                                    class="ant-select-selection-search"
-                                    style="width: 0px;"
+                                  <div
+                                    class="ant-select-selection-overflow"
                                   >
-                                    <input
-                                      aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                                      aria-autocomplete="list"
-                                      aria-controls="rc_select_TEST_OR_SSR_list"
-                                      aria-haspopup="listbox"
-                                      aria-owns="rc_select_TEST_OR_SSR_list"
-                                      autocomplete="off"
-                                      class="ant-select-selection-search-input"
-                                      id="rc_select_TEST_OR_SSR"
-                                      readonly=""
-                                      role="combobox"
-                                      style="opacity: 0;"
-                                      value=""
-                                    />
-                                    <span
-                                      aria-hidden="true"
-                                      class="ant-select-selection-search-mirror"
+                                    <div
+                                      class="ant-select-selection-overflow-item ant-select-selection-overflow-item-suffix"
+                                      style="opacity: 1;"
                                     >
-                                       
-                                    </span>
-                                  </span>
+                                      <div
+                                        class="ant-select-selection-search"
+                                        style="width: 0px;"
+                                      >
+                                        <input
+                                          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                                          aria-autocomplete="list"
+                                          aria-controls="rc_select_TEST_OR_SSR_list"
+                                          aria-haspopup="listbox"
+                                          aria-owns="rc_select_TEST_OR_SSR_list"
+                                          autocomplete="off"
+                                          class="ant-select-selection-search-input"
+                                          id="rc_select_TEST_OR_SSR"
+                                          readonly=""
+                                          role="combobox"
+                                          style="opacity: 0;"
+                                          type="search"
+                                          unselectable="on"
+                                          value=""
+                                        />
+                                        <span
+                                          aria-hidden="true"
+                                          class="ant-select-selection-search-mirror"
+                                        >
+                                           
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
                                   <span
                                     class="ant-select-selection-placeholder"
                                   />
@@ -13305,7 +13419,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                               data-test-type="suggester"
                                                               form="[object Object]"
                                                               name="contacts.0.name"
-                                                              placement="bottomLeft"
                                                             >
                                                               <div
                                                                 class="ant-select-selector"
@@ -13323,6 +13436,7 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                                                     class="ant-select-selection-search-input"
                                                                     id="rc_select_TEST_OR_SSR"
                                                                     role="combobox"
+                                                                    type="search"
                                                                     value=""
                                                                   />
                                                                 </span>
@@ -14550,7 +14664,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                 data-testid="select-box"
                                 form="[object Object]"
                                 name="timezone"
-                                placement="bottomLeft"
                               >
                                 <div
                                   class="ant-select-selector"
@@ -14567,9 +14680,8 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                       autocomplete="off"
                                       class="ant-select-selection-search-input"
                                       id="rc_select_TEST_OR_SSR"
-                                      readonly=""
                                       role="combobox"
-                                      style="opacity: 0;"
+                                      type="search"
                                       value=""
                                     />
                                   </span>
@@ -14695,7 +14807,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                               data-test-type="suggester"
                                                               form="[object Object]"
                                                               name="speakers.0.name"
-                                                              placement="bottomLeft"
                                                             >
                                                               <div
                                                                 class="ant-select-selector"
@@ -14713,6 +14824,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                                     class="ant-select-selection-search-input"
                                                                     id="rc_select_TEST_OR_SSR"
                                                                     role="combobox"
+                                                                    type="search"
                                                                     value=""
                                                                   />
                                                                 </span>
@@ -14753,7 +14865,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                               data-test-type="suggester"
                                                               form="[object Object]"
                                                               name="speakers.0.affiliation"
-                                                              placement="bottomLeft"
                                                               searchasyoutype="true"
                                                             >
                                                               <div
@@ -14772,6 +14883,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                                     class="ant-select-selection-search-input"
                                                                     id="rc_select_TEST_OR_SSR"
                                                                     role="combobox"
+                                                                    type="search"
                                                                     value=""
                                                                   />
                                                                 </span>
@@ -14886,7 +14998,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                 data-test-type="suggester"
                                 form="[object Object]"
                                 name="series_name"
-                                placement="bottomLeft"
                               >
                                 <div
                                   class="ant-select-selector"
@@ -14904,6 +15015,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                       class="ant-select-selection-search-input"
                                       id="rc_select_TEST_OR_SSR"
                                       role="combobox"
+                                      type="search"
                                       value=""
                                     />
                                   </span>
@@ -15683,7 +15795,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                               data-testid="select-box"
                                               form="[object Object]"
                                               name="address.country"
-                                              placement="bottomLeft"
                                             >
                                               <div
                                                 class="ant-select-selector"
@@ -15700,9 +15811,8 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                     autocomplete="off"
                                                     class="ant-select-selection-search-input"
                                                     id="rc_select_TEST_OR_SSR"
-                                                    readonly=""
                                                     role="combobox"
-                                                    style="opacity: 0;"
+                                                    type="search"
                                                     value=""
                                                   />
                                                 </span>
@@ -15851,36 +15961,46 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                 data-testid="select-box"
                                 form="[object Object]"
                                 name="field_of_interest"
-                                placement="bottomLeft"
                               >
                                 <div
                                   class="ant-select-selector"
                                 >
-                                  <span
-                                    class="ant-select-selection-search"
-                                    style="width: 0px;"
+                                  <div
+                                    class="ant-select-selection-overflow"
                                   >
-                                    <input
-                                      aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                                      aria-autocomplete="list"
-                                      aria-controls="rc_select_TEST_OR_SSR_list"
-                                      aria-haspopup="listbox"
-                                      aria-owns="rc_select_TEST_OR_SSR_list"
-                                      autocomplete="off"
-                                      class="ant-select-selection-search-input"
-                                      id="rc_select_TEST_OR_SSR"
-                                      readonly=""
-                                      role="combobox"
-                                      style="opacity: 0;"
-                                      value=""
-                                    />
-                                    <span
-                                      aria-hidden="true"
-                                      class="ant-select-selection-search-mirror"
+                                    <div
+                                      class="ant-select-selection-overflow-item ant-select-selection-overflow-item-suffix"
+                                      style="opacity: 1;"
                                     >
-                                       
-                                    </span>
-                                  </span>
+                                      <div
+                                        class="ant-select-selection-search"
+                                        style="width: 0px;"
+                                      >
+                                        <input
+                                          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                                          aria-autocomplete="list"
+                                          aria-controls="rc_select_TEST_OR_SSR_list"
+                                          aria-haspopup="listbox"
+                                          aria-owns="rc_select_TEST_OR_SSR_list"
+                                          autocomplete="off"
+                                          class="ant-select-selection-search-input"
+                                          id="rc_select_TEST_OR_SSR"
+                                          readonly=""
+                                          role="combobox"
+                                          style="opacity: 0;"
+                                          type="search"
+                                          unselectable="on"
+                                          value=""
+                                        />
+                                        <span
+                                          aria-hidden="true"
+                                          class="ant-select-selection-search-mirror"
+                                        >
+                                           
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
                                   <span
                                     class="ant-select-selection-placeholder"
                                   />
@@ -15997,7 +16117,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                               data-test-type="suggester"
                                                               form="[object Object]"
                                                               name="contacts.0.name"
-                                                              placement="bottomLeft"
                                                             >
                                                               <div
                                                                 class="ant-select-selector"
@@ -16015,6 +16134,7 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                                                     class="ant-select-selection-search-input"
                                                                     id="rc_select_TEST_OR_SSR"
                                                                     role="combobox"
+                                                                    type="search"
                                                                     value=""
                                                                   />
                                                                 </span>

@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
 import { TIME_FORMAT } from '../../common/constants';
@@ -7,7 +6,7 @@ function SeminarDateTimes({
   startDate,
   endDate,
   timezone,
-  displayTimezone,
+  displayTimezone = false,
   className,
 }) {
   const startMoment = moment.utc(startDate).tz(timezone);
@@ -31,9 +30,6 @@ SeminarDateTimes.propTypes = {
   timezone: PropTypes.string.isRequired,
   displayTimezone: PropTypes.bool,
   className: PropTypes.string,
-};
-SeminarDateTimes.defaultProps = {
-  displayTimezone: false,
 };
 
 export default SeminarDateTimes;

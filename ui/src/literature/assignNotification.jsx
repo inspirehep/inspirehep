@@ -1,4 +1,3 @@
-import React from 'react';
 import { notification } from 'antd';
 
 import { CONFERENCES } from '../common/routes';
@@ -84,6 +83,7 @@ export function assignLiteratureItemError(key) {
         <a
           href="https://help.inspirehep.net/knowledge-base/contact-us"
           target="_blank"
+          rel="noreferrer"
         >
           contact us
         </a>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { List, Map, fromJS } from 'immutable';
 import ReferenceDiffInterface from '../ReferenceDiffInterface';
 import { renderWithProviders } from '../../../../fixtures/render';

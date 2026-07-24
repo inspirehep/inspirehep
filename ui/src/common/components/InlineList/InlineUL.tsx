@@ -6,34 +6,27 @@ import { DEFAULT_SEPARATOR_TYPE } from './constants';
 
 const InlineUL = ({
   children,
-  separator,
-  wrapperClassName,
+  separator = DEFAULT_SEPARATOR_TYPE,
+  wrapperClassName = '',
 }: {
   children: any;
-  separator: string;
-  wrapperClassName: string;
-}) => {
-  return (
-    <div className={classnames('__InlineList__', wrapperClassName)}>
-      <ul>
-        {React.Children.toArray(children).map(
-          (child, index, array) =>
-            child && (
-              // @ts-ignore
-              <li key={child.key}>
-                {child}
-                {index < array.length - 1 && separator}
-              </li>
-            )
-        )}
-      </ul>
-    </div>
-  );
-};
-
-InlineUL.defaultProps = {
-  separator: DEFAULT_SEPARATOR_TYPE,
-  wrapperClassName: null,
-};
+  separator?: string;
+  wrapperClassName?: string;
+}) => (
+  <div className={classnames('__InlineList__', wrapperClassName)}>
+    <ul>
+      {React.Children.toArray(children).map(
+        (child, index, array) =>
+          child && (
+            // @ts-ignore
+            <li key={child.key}>
+              {child}
+              {index < array.length - 1 && separator}
+            </li>
+          )
+      )}
+    </ul>
+  </div>
+);
 
 export default InlineUL;

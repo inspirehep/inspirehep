@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Tabs } from 'antd';
 import { Map, List } from 'immutable';
@@ -407,9 +406,9 @@ const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
   routeActions: (id) => [
-    fetchLiterature(id),
-    fetchLiteratureReferences(id, { page: '1' }),
-    fetchLiteratureAuthors(id),
+    fetchLiterature(id!),
+    fetchLiteratureReferences(id!, { page: '1' }),
+    fetchLiteratureAuthors(id!),
     fetchCitationsByYear({ q: `recid:${id}` }),
     newSearch(LITERATURE_SEMINARS_NS),
     searchBaseQueriesUpdate(LITERATURE_SEMINARS_NS, {

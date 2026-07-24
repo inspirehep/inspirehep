@@ -1,4 +1,3 @@
-import React from 'react';
 import { notification } from 'antd';
 
 import { USER_LOGIN } from '../common/routes';

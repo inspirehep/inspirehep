@@ -1,4 +1,4 @@
-import React, { useState, CSSProperties, MouseEventHandler } from 'react';
+import { useState, CSSProperties, MouseEventHandler } from 'react';
 import { Card, Modal, Form, Input, message, Typography } from 'antd';
 import { useForm, useWatch } from 'antd/lib/form/Form';
 import { getClientId, trackEvent } from '../../../tracker';

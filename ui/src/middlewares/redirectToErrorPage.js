@@ -6,7 +6,7 @@ export default function () {
     if (meta && meta.redirectableError) {
       const { error } = action.payload;
 
-      // INFO: 'push' and 'replace' methods from 'connected-react-router'
+      // INFO: 'push' and 'replace' methods from 'redux-first-history'
       // remove error causing url from history. To be able to keep in
       // and retrieve it from history in error pages we use window API
       if (error.status === 400) {

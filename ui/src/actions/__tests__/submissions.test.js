@@ -1,4 +1,4 @@
-import { CALL_HISTORY_METHOD } from 'connected-react-router';
+import { CALL_HISTORY_METHOD } from 'redux-first-history';
 import MockAdapter from 'axios-mock-adapter';
 
 import { getStore } from '../../fixtures/store';

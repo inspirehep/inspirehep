@@ -1,5 +1,4 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { fromJS } from 'immutable';
 
 import { getStore } from '../../fixtures/store';
@@ -50,16 +49,23 @@ describe('Backoffice', () => {
   });
 
   it('renders initial state', () => {
-    const { container } = renderWithProviders(<Backoffice />, {
-      store,
-      route: BACKOFFICE,
-    });
+    const { container } = renderWithProviders(
+      <Routes>
+        <Route path={`${BACKOFFICE}/*`} element={<Backoffice />} />
+      </Routes>,
+      {
+        store,
+        route: BACKOFFICE,
+      }
+    );
     expect(container).toMatchSnapshot();
   });
 
   it('navigates to DashboardPageContainer when /backoffice/dashboard', () => {
     const { getByTestId } = renderWithProviders(
-      <Route path={BACKOFFICE} component={DashboardPageContainer} />,
+      <Routes>
+        <Route path={`${BACKOFFICE}/*`} element={<DashboardPageContainer />} />
+      </Routes>,
       { route: BACKOFFICE }
     );
 
@@ -68,10 +74,12 @@ describe('Backoffice', () => {
 
   it('navigates to SearchPageContainer when /backoffice/authors/search', () => {
     const { getByTestId } = renderWithProviders(
-      <Route
-        path={BACKOFFICE_AUTHORS_SEARCH}
-        component={AuthorsSearchPageContainer}
-      />,
+      <Routes>
+        <Route
+          path={BACKOFFICE_AUTHORS_SEARCH}
+          element={<AuthorsSearchPageContainer />}
+        />
+      </Routes>,
       { route: BACKOFFICE_AUTHORS_SEARCH }
     );
 
@@ -80,10 +88,12 @@ describe('Backoffice', () => {
 
   it('navigates to SearchPageContainer when /backoffice/literature/search', () => {
     const { getByTestId } = renderWithProviders(
-      <Route
-        path={BACKOFFICE_LITERATURE_SEARCH}
-        component={LiteratureSearchPageContainer}
-      />,
+      <Routes>
+        <Route
+          path={BACKOFFICE_LITERATURE_SEARCH}
+          element={<LiteratureSearchPageContainer />}
+        />
+      </Routes>,
       { route: BACKOFFICE_LITERATURE_SEARCH }
     );
 
