@@ -6,6 +6,7 @@ import { Row, Col, Button } from 'antd';
 import { List } from 'immutable';
 
 import fetchJournal from '../../actions/journals';
+import { newSearch } from '../../actions/search';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
 import ContentBox from '../../common/components/ContentBox';
 import DocumentHead from '../../common/components/DocumentHead';
@@ -14,6 +15,7 @@ import PublicNotesList from '../../common/components/PublicNotesList';
 import { Journal } from './SearchPageContainer';
 import { LITERATURE } from '../../common/routes';
 import { JOURNALS_PID_TYPE } from '../../common/constants';
+import { JOURNAL_PAPERS_NS } from '../../search/constants';
 import { JournalTitlesListModal } from '../components/JournalTitlesListModal';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import {
@@ -164,7 +166,7 @@ const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: (id) => [fetchJournal(id)],
+  routeActions: (id) => [fetchJournal(id), newSearch(JOURNAL_PAPERS_NS)],
   loadingStateSelector: (state: RootState) =>
     !state.journals.hasIn(['data', 'metadata']),
 });
