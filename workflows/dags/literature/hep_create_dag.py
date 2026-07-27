@@ -1692,7 +1692,7 @@ def hep_create_dag():
             ):
                 with suppress(ValueError):
                     data["document_type"].remove("article")
-                data["document_type"].append("conference paper")
+                    data["document_type"].append("conference paper")
 
             s3_store.write_workflow(workflow_data)
 
