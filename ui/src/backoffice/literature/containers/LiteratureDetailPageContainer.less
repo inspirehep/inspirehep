@@ -1,92 +1,101 @@
 .__LiteratureDetailPageContainer__ {
-    width: 100%;
-  
-    .ant-collapse-content-box {
-      padding-bottom: 1rem;
-      .error-code {
-        white-space: pre-line;
-        padding: 10px 25px;
-        text-indent: -15px;
-        margin-left: 15px;
-      }
-      .ant-list-footer {
-        display: none;
-      }
-    }
-  
-    .decision-pill {
-      font-weight: 400;
-    }
-  
-    .decision-pill.bg-halted {
-      border-color: #f39c12;
-    }
-  
-    .decision-pill.bg-completed {
-      border-color: #16a085;
-    }
-  
-    .decision-pill.bg-error {
-      border-color: #e74c3c;
-    }
+  width: 100%;
 
-    .literature-decision-box {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+  .ant-collapse-content-box {
+    padding-bottom: 1rem;
+    .error-code {
+      white-space: pre-line;
+      padding: 10px 25px;
+      text-indent: -15px;
+      margin-left: 15px;
     }
-
-    .literature-decision-box p {
-      margin: 0;
-    }
-
-    .text-core { color: #16a085 }
-    .text-non-core { color: #f39c12; }
-    .text-rejected  { color: #e74c3c; }
-
-    .decision-core-keywords {
-      font-weight: 600; 
-      color: #8c96a0;
-      margin-bottom: 8px;
-    }
-
-    .decision-filtered-core-keywords-title {
-      font-weight: 600; 
-      color: #8c96a0;
-      margin-bottom: 12px;
-    }
-
-    .decision-filtered-core-keywords-list {
-      max-height: 260px;
-      overflow: auto;
-      padding-right: 8px;
-    }
-    
-    .decision-filtered-core-keywords-list-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-    }    
-
-    .decision-filtered-core-keywords-list-inner:last-child {
-      border-bottom: none;
-    }
-
-    .literature-references-raw {
-      display: block;
-      padding: 9.5px;
-      margin: 0 0 10px;
-      font-size: 13px;
-      line-height: 1.42857;
-      white-space: pre-wrap;
-      word-break: break-all;
-      word-wrap: break-word;
-      overflow-x: hidden;
-      background-color: #f5f5f5;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+    .ant-list-footer {
+      display: none;
     }
   }
-  
+
+  .decision-pill {
+    font-weight: 400;
+  }
+
+  .decision-pill.bg-halted {
+    border-color: #f39c12;
+  }
+
+  .decision-pill.bg-completed {
+    border-color: #16a085;
+  }
+
+  .decision-pill.bg-error {
+    border-color: #e74c3c;
+  }
+
+  .literature-decision-box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .literature-decision-box p {
+    margin: 0;
+  }
+
+  .text-core {
+    color: #16a085;
+  }
+  .text-non-core {
+    color: #f39c12;
+  }
+  .text-rejected {
+    color: #e74c3c;
+  }
+
+  .decision-core-keywords {
+    font-weight: 600;
+    color: #8c96a0;
+    margin-bottom: 8px;
+  }
+
+  .decision-filtered-core-keywords-title {
+    font-weight: 600;
+    color: #8c96a0;
+    margin-bottom: 12px;
+  }
+
+  .decision-filtered-core-keywords-list {
+    max-height: 260px;
+    overflow: auto;
+    padding-right: 8px;
+  }
+
+  .decision-filtered-core-keywords-list-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .decision-filtered-core-keywords-list-inner:last-child {
+    border-bottom: none;
+  }
+
+  .literature-references-raw {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857;
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+    overflow-x: hidden;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .notes {
+    word-break: break-word;
+  }
+}

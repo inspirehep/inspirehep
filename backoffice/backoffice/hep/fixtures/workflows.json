@@ -893,6 +893,12 @@
           },
           {
             "value": "*Temporary entry*"
+          },
+          {
+            "value": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ITCS.2026.17"
+          },
+          {
+            "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non mattis enim. Ut quis nunc sed felis aliquet tempus. Ut eget semper augue. Donec ac nisl eget magna blandit interdum. Nulla tempus orci eu lectus sodales euismod. Mauris at dolor in arcu hendrerit ornare. Etiam leo orci, dapibus quis dolor vitae, dapibus molestie metus. Fusce interdum dui ex, ac tincidunt turpis faucibus at. Proin auctor sem ex, sit amet tempus ligula tincidunt id. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec quis eros a elit interdum ullamcorper a quis libero."
           }
         ],
         "acquisition_source": {
