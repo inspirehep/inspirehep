@@ -11,7 +11,7 @@ const PrivateNotes = ({ privateNotes }: PrivateNotesProps) => (
       {privateNotes.map((note) => {
         const value = note?.get('value');
         return (
-          <p className="mb0" key={value as string}>
+          <p className="mb0 notes" key={value as string}>
             &quot;{value}&quot;
           </p>
         );

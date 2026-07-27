@@ -315,7 +315,9 @@ const LiteratureDetailPageContainer = ({
                               showIcon
                             />
                           ) : (
-                            <p key={note.get('value')}>{note.get('value')}</p>
+                            <p key={note.get('value')} className="notes">
+                              {note.get('value')}
+                            </p>
                           )
                         )}
                       </ContentBox>
