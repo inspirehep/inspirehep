@@ -5,6 +5,9 @@ import {
   EDITOR_AUTHOR_ERROR,
   EDITOR_AUTHOR_REQUEST,
   EDITOR_AUTHOR_SUCCESS,
+  EDITOR_AUTHOR_REVISIONS_ERROR,
+  EDITOR_AUTHOR_REVISIONS_REQUEST,
+  EDITOR_AUTHOR_REVISIONS_SUCCESS,
 } from '../../actions/actionTypes';
 
 describe('recordEditor reducer', () => {
@@ -50,6 +53,43 @@ describe('recordEditor reducer', () => {
     const expected = fromJS({
       loading: false,
       author: initialState.get('author'),
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('EDITOR_AUTHOR_REVISIONS_REQUEST', () => {
+    const state = reducer(Map(), { type: EDITOR_AUTHOR_REVISIONS_REQUEST });
+    const expected = Map({ loading: true });
+    expect(state).toEqual(expected);
+  });
+
+  it('EDITOR_AUTHOR_REVISIONS_SUCCESS', () => {
+    const payload = {
+      data: [{ rev_id: 1 }, { rev_id: 2 }],
+    };
+    const currentState = fromJS({ loading: true, author_revisions: [] });
+    const state = reducer(currentState, {
+      type: EDITOR_AUTHOR_REVISIONS_SUCCESS,
+      payload,
+    });
+    const expected = fromJS({
+      loading: false,
+      author_revisions: payload.data,
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('EDITOR_AUTHOR_REVISIONS_ERROR', () => {
+    const currentState = fromJS({
+      loading: true,
+      author_revisions: [{ rev_id: 1 }],
+    });
+    const state = reducer(currentState, {
+      type: EDITOR_AUTHOR_REVISIONS_ERROR,
+    });
+    const expected = fromJS({
+      loading: false,
+      author_revisions: initialState.get('author_revisions'),
     });
     expect(state).toEqual(expected);
   });

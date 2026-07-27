@@ -1,0 +1,46 @@
+.__EditorHeader__ {
+  width: 100%;
+  padding: 8px 15px 15px 30px;
+  background-color: #34495e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  z-index: @zindex-header;
+  top: 0px;
+
+  .leftContainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    .ant-btn {
+      &.bg-save {
+        background-color: #16a085;
+        border: 1px solid #16a085;
+      }
+    }
+    .ant-btn:hover {
+      &.bg-save {
+        background-color: #19b698;
+        border: 1px solid #19b698;
+      }
+    }
+  }
+  .rightContainer {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    .ant-btn {
+      &.bg-ticket {
+        background-color: #f39c12;
+        border: 1px solid #f39c12;
+      }
+    }
+    .ant-btn:hover {
+      &.bg-ticket {
+        background-color: #f4a62a;
+        border: 1px solid #f4a62a;
+      }
+    }
+  }
+}
