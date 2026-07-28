@@ -1,0 +1,88 @@
+.record-editor-array {
+  border: 1px solid #e8e8e8;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    padding: 3px;
+    border: none;
+    background: #dae8ef;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    border-top: 1px solid #34495e;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      padding: 1px 0px 1px 6px;
+      background-color: #ecf0f1;
+      color: #8e8e8e;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    td {
+      padding: 4px 12px;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: middle;
+      background-color: #f9f9f9;
+    }
+
+    input,
+    select {
+      width: 100%;
+    }
+  }
+
+  &__table &__row-label {
+    padding: 1px 0px 1px 6px;
+    background-color: #dae8ef;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+    vertical-align: top;
+    width: 30%;
+  }
+
+  &__actions-col {
+    width: 40px;
+    text-align: center;
+  }
+}
+
+.record-editor-field {
+  display: flex;
+  flex-direction: column;
+
+  &__label {
+    padding: 1px 6px;
+    background-color: #dae8ef;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+    width: 100%;
+    border-top: 1px solid #34495e;
+  }
+
+  &__value {
+    input,
+    select {
+      width: 100%;
+    }
+  }
+
+  &__item {
+    border: 1px solid #e8e8e8;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  }
+}

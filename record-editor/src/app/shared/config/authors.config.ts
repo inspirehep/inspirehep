@@ -20,63 +20,63 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { JsonEditorConfig } from 'ng2-json-editor';
+import { JsonEditorConfig } from "ng2-json-editor";
 import {
   affiliationAutocompletionConfig,
   customValidationForDateTypes,
   projectMembershipAutocompletionConfig,
   anchorBuilder,
-} from './commons';
+} from "./commons";
 
 export const authors: JsonEditorConfig = {
   schemaOptions: {
     order: [
-      'ids',
-      'name',
-      'positions',
-      '_private_notes',
-      'email_addresses',
-      'status',
-      'project_membership',
+      "ids",
+      "name",
+      "positions",
+      "_private_notes",
+      "email_addresses",
+      "status",
+      "project_membership",
     ],
     properties: {
       name: {
         order: [
-          'preferred_name',
-          'value',
-          'title',
-          'numeration',
-          'name_variants',
-          'native_names',
+          "preferred_name",
+          "value",
+          "title",
+          "numeration",
+          "name_variants",
+          "native_names",
         ],
       },
       advisors: {
         items: {
-          alwaysShow: ['ids', 'name', 'degree_type'],
-          order: ['ids', 'name', 'degree_type'],
+          alwaysShow: ["ids", "name", "degree_type"],
+          order: ["ids", "name", "degree_type"],
         },
       },
       positions: {
         isDeleteDisabled: true,
         items: {
           alwaysShow: [
-            'current',
-            'institution',
-            'start_date',
-            'end_date',
-            'rank',
-            'hidden',
-            'curated_relation',
+            "current",
+            "institution",
+            "start_date",
+            "end_date",
+            "rank",
+            "hidden",
+            "curated_relation",
           ],
           order: [
-            'current',
-            'institution',
-            'start_date',
-            'end_date',
-            'rank',
-            'record',
-            'hidden',
-            'curated_relation',
+            "current",
+            "institution",
+            "start_date",
+            "end_date",
+            "rank",
+            "record",
+            "hidden",
+            "curated_relation",
           ],
           properties: {
             record: {
@@ -96,13 +96,13 @@ export const authors: JsonEditorConfig = {
       project_membership: {
         items: {
           order: [
-            'current',
-            'name',
-            'start_date',
-            'end_date',
-            'record',
-            'hidden',
-            'curated_relation',
+            "current",
+            "name",
+            "start_date",
+            "end_date",
+            "record",
+            "hidden",
+            "curated_relation",
           ],
           properties: {
             name: {
@@ -122,12 +122,12 @@ export const authors: JsonEditorConfig = {
       related_records: {
         items: {
           order: [
-            'record',
-            'curated_relation',
-            'relation',
-            'relation_freetext',
+            "record",
+            "curated_relation",
+            "relation",
+            "relation_freetext",
           ],
-          alwaysShow: ['record', 'relation'],
+          alwaysShow: ["record", "relation"],
           properties: {
             record: {
               refFieldConfig: {

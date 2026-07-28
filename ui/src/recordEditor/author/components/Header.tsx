@@ -13,9 +13,10 @@ const { Search } = Input;
 interface HeaderProps {
   recordId: string;
   lastRevision?: { date: string; userEmail: string };
+  onSave: () => void;
 }
 
-const Header = ({ recordId, lastRevision }: HeaderProps) => {
+const Header = ({ recordId, lastRevision, onSave }: HeaderProps) => {
   const lastRevisionDate = lastRevision
     ? moment(lastRevision.date).format('MMM D, YYYY, h:mm:ss A')
     : '';
@@ -23,7 +24,12 @@ const Header = ({ recordId, lastRevision }: HeaderProps) => {
   return (
     <div className="__EditorHeader__">
       <div className="leftContainer">
-        <Button type="primary" icon={<SaveOutlined />} className="bg-save">
+        <Button
+          type="primary"
+          icon={<SaveOutlined />}
+          className="bg-save"
+          onClick={onSave}
+        >
           Save
         </Button>
         <Button

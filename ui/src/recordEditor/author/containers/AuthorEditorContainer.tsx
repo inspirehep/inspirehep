@@ -8,6 +8,19 @@ import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatch
 import Header from '../components/Header';
 import { List, Map } from 'immutable';
 import { useParams } from 'react-router-dom';
+import Form from '@rjsf/core';
+import authorUiSchema from '../../uiSchema/authorUiSchema';
+import prepareAuthorSchema from '../utils/prepareAuthorSchema';
+import DefaultObjectFieldTemplate from '../components/customTemplates/objectFieldTemplates/DefaultObjectFieldTemplate';
+import DefaultFieldTemplate from '../components/customTemplates/fieldTemplates/DefaultFieldTemplate';
+import DefaultArrayFieldTemplate from '../components/customTemplates/arrayFieldTemplates/DefaultArrayFieldTemplate';
+import InstitutionAutocompleteWidget from '../components/customWidgets/InstitutionAutocompleteWidget';
+import ProjectNameAutocompleteWidget from '../components/customWidgets/ProjectNameAutocompleteWidget';
+import ViewRecordWidget from '../components/customWidgets/ViewRecordWidget';
+import EnumMultiSelectWidget from '../components/customWidgets/EnumMultiSelectWidget';
+import '../components/customTemplates/Templates.less';
+import { useRef } from 'react';
+import validator from '../utils/validator';
 
 interface AuthorEditorProps {
   author: Map<string, any>;
@@ -16,13 +29,21 @@ interface AuthorEditorProps {
 
 const AuthorEditor = ({ author, revisions }: AuthorEditorProps) => {
   const { id } = useParams<{ id: string }>();
-  const authorName = author
-    .get('record')
-    .get('metadata')
-    .get('name')
-    .get('preferred_name');
-
+  const authorData = author.get('record').get('metadata');
+  const schema = prepareAuthorSchema(author.get('schema').toJS());
   const lastRevision = revisions.get(0);
+
+  const formRef = useRef<Form>(null);
+
+  const onSubmit = () => {
+    console.log('coucou');
+  };
+
+  const onSave = () => {
+    const formData = formRef.current?.state.formData;
+    console.log({ formData });
+    return formRef.current?.submit();
+  };
 
   return (
     <div style={{ position: 'relative' }}>
@@ -34,8 +55,31 @@ const AuthorEditor = ({ author, revisions }: AuthorEditorProps) => {
             userEmail: lastRevision.get('user_email'),
           }
         }
+        onSave={onSave}
       />
-      Author editor: {authorName}
+      <Form
+        ref={formRef}
+        schema={schema}
+        validator={validator}
+        formData={authorData.toJS()}
+        uiSchema={authorUiSchema}
+        templates={{
+          ObjectFieldTemplate: DefaultObjectFieldTemplate,
+          ArrayFieldTemplate: DefaultArrayFieldTemplate,
+          FieldTemplate: DefaultFieldTemplate,
+        }}
+        widgets={{
+          institutionAutocomplete: InstitutionAutocompleteWidget,
+          projectNameAutocomplete: ProjectNameAutocompleteWidget,
+          viewRecordWidget: ViewRecordWidget,
+          enumMultiSelect: EnumMultiSelectWidget,
+        }}
+        className="mt5"
+        experimental_defaultFormStateBehavior={{
+          arrayMinItems: { populate: 'requiredOnly' },
+        }}
+        onSubmit={onSubmit}
+      />
     </div>
   );
 };
