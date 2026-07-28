@@ -228,11 +228,44 @@ def test_create_ticket_calls_http_hook_and_creates_ticket_entry(
         "Test subject",
         "test@example.org",
         {"workflow": "context"},
+        None,
     )
     mock_ticket_management_hook.return_value.create_ticket_entry.assert_called_once_with(
         workflow_id="workflow-123",
         ticket_type=TICKET_HEP_CURATION_CORE,
         ticket_id="SNOW-123",
+    )
+
+
+@patch("include.utils.tickets.BaseWorkflowTicketManagementHook")
+@patch("include.utils.tickets.Variable.get", return_value="qa")
+def test_create_ticket_passes_recid_to_http_hook(
+    mock_variable_get, mock_ticket_management_hook
+):
+    inspire_http_hook = MagicMock()
+    inspire_http_hook.create_ticket.return_value.json.return_value = {
+        "ticket_id": "SNOW-123"
+    }
+
+    tickets.create_ticket(
+        inspire_http_hook=inspire_http_hook,
+        functional_category="hep",
+        template_name="curation_core",
+        subject="Test subject",
+        email="test@example.org",
+        curation_context={"workflow": "context"},
+        ticket_type=TICKET_HEP_CURATION_CORE,
+        workflow_id="workflow-123",
+        recid=3183703,
+    )
+
+    inspire_http_hook.create_ticket.assert_called_once_with(
+        "hep",
+        "curation_core",
+        "Test subject",
+        "test@example.org",
+        {"workflow": "context"},
+        3183703,
     )
 
 

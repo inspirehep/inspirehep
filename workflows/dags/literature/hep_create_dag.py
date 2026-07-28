@@ -1759,6 +1759,8 @@ def hep_create_dag():
             )
         )
 
+        recid = data.get("control_number")
+
         for functional_category in functional_categories:
             tickets.create_ticket(
                 inspire_http_hook,
@@ -1769,6 +1771,7 @@ def hep_create_dag():
                 curation_context,
                 TICKET_HEP_CURATION,
                 workflow_id,
+                recid=recid,
             )
 
         functional_category, ticket_type = (
@@ -1787,6 +1790,7 @@ def hep_create_dag():
                 curation_context,
                 ticket_type,
                 workflow_id,
+                recid=recid,
             )
 
     @task.branch
@@ -1951,6 +1955,7 @@ def hep_create_dag():
             curation_ticket_context,
             TICKET_HEP_CURATION_CORE,
             workflow_id,
+            recid=data.get("control_number"),
         )
 
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
