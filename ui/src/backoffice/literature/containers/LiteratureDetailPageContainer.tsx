@@ -92,6 +92,7 @@ const LiteratureDetailPageContainer = ({
   const hasFuzzyMatches =
     !!fuzzyMatches?.size && status === WorkflowStatuses.APPROVAL_FUZZY_MATCHING;
   const title = data?.getIn(['titles', 0, 'title']);
+  const acquisitionSourceSource = data?.getIn(['acquisition_source', 'source']);
   const acquisitionSourceEmail = data?.getIn(['acquisition_source', 'email']);
   const controlNumber = data?.get('control_number');
   const tickets =
@@ -126,7 +127,6 @@ const LiteratureDetailPageContainer = ({
   const acquisitionSourceDateTime = formattedDateTime
     ? `${formattedDateTime.date} ${formattedDateTime.time}`
     : undefined;
-  const acquisitionSourceSource = data?.getIn(['acquisition_source', 'source']);
   const acquisitionSourceMethod = data?.getIn(['acquisition_source', 'method']);
   const privateNotes = data?.get('_private_notes');
 
@@ -296,8 +296,12 @@ const LiteratureDetailPageContainer = ({
                     >
                       <>
                         Harvested on <b>{acquisitionSourceDateTime}</b> from{' '}
-                        <b>{acquisitionSourceSource}</b> using{' '}
-                        <b> {acquisitionSourceMethod}</b>
+                        <b>
+                          {acquisitionSourceSource === 'submitter'
+                            ? acquisitionSourceEmail
+                            : acquisitionSourceSource}
+                        </b>{' '}
+                        using <b> {acquisitionSourceMethod}</b>
                       </>
                     </ContentBox>
                     {privateNotes?.size > 0 && (
