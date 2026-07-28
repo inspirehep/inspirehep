@@ -1,5 +1,3 @@
-from itertools import chain
-
 from include.utils.constants import ARXIV_CATEGORIES
 from inspire_schemas.readers.literature import LiteratureReader
 
@@ -33,11 +31,8 @@ def has_fully_harvested_category(record):
         bool: True when the record belongs to an arXiv category that is fully
         harvested, otherwise False.
     """
-    record_categories = set(
-        chain.from_iterable(
-            eprint["categories"] for eprint in record.get("arxiv_eprints", [])
-        )
-    )
+
+    record_categories = set(LiteratureReader(record).arxiv_categories)
     harvested_categories = ARXIV_CATEGORIES
     return (
         len(
@@ -51,11 +46,7 @@ def has_fully_harvested_category(record):
 
 
 def physics_data_an_is_primary_category(record):
-    record_categories = list(
-        chain.from_iterable(
-            eprint["categories"] for eprint in record.get("arxiv_eprints", [])
-        )
-    )
+    record_categories = LiteratureReader(record).arxiv_categories
     if record_categories:
         return record_categories[0] == "physics.data-an"
     return False
