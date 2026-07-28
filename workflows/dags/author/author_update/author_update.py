@@ -77,7 +77,7 @@ def author_update_dag():
             template_context,
             TICKET_AUTHOR_UPDATE_CURATION,
             context["params"]["workflow_id"],
-            AUTHORS,
+            collection=AUTHORS,
         )
 
     @task

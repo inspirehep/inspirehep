@@ -32,9 +32,19 @@ class InspireHttpHook(GenericHttpHook):
         return f"{self.base_url}/backoffice/{workflow_type}/{workflow_id}"
 
     def create_ticket(
-        self, functional_category, template_name, subject, email, template_context
+        self,
+        functional_category,
+        template_name,
+        subject,
+        email,
+        template_context,
+        recid=None,
     ):
-        """Create a backoffice ticket with the given template and context."""
+        """Create a backoffice ticket with the given template and context.
+
+        The recid links the ticket to the record in SNOW through a third party
+        ticket, which is what makes it show up in the record editor.
+        """
         endpoint = "/api/tickets/create"
 
         request_data = {
@@ -44,6 +54,8 @@ class InspireHttpHook(GenericHttpHook):
             "template_context": template_context,
             "caller_email": email,
         }
+        if recid:
+            request_data["recid"] = str(recid)
 
         return self.call_api(endpoint=endpoint, json=request_data, method="POST")
 

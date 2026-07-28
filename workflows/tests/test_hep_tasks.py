@@ -4105,6 +4105,7 @@ class Test_HEPCreateDAG:
         workflow_data = {
             "id": self.workflow_id,
             "data": {
+                "control_number": 3183703,
                 "acquisition_source": {
                     "method": "hepcrawl",
                     "source": "arXiv",
@@ -4117,6 +4118,7 @@ class Test_HEPCreateDAG:
 
         task_test(self.dag, "notify_curator_if_needed", self.context)
         mock_create_ticket.assert_called_once()
+        assert mock_create_ticket.call_args.args[-1] == 3183703
         mock_create_ticket_entry.assert_called_once_with(
             workflow_id=self.workflow_id,
             ticket_type=TICKET_HEP_CURATION,
@@ -4237,6 +4239,7 @@ class Test_HEPCreateDAG:
             "id": self.workflow_id,
             "data": {
                 "core": True,
+                "control_number": 3183703,
                 "acquisition_source": {
                     "method": "submitter",
                     "source": "submitter",
@@ -4248,6 +4251,7 @@ class Test_HEPCreateDAG:
 
         task_test(self.dag, "notify_curator_if_needed", self.context)
         mock_create_ticket.assert_called_once()
+        assert mock_create_ticket.call_args.args[-1] == 3183703
         mock_create_ticket_entry.assert_called_once_with(
             workflow_id=self.workflow_id,
             ticket_type=TICKET_HEP_CURATION_CORE,
@@ -4531,6 +4535,33 @@ class Test_HEPCreateDAG:
         workflow = self.wf_hook.get_workflow(self.workflow_id)
 
         assert get_ticket_by_type(workflow, TICKET_HEP_CURATION_CORE)
+
+    @patch("hooks.inspirehep.inspire_http_hook.InspireHttpHook.create_ticket")
+    @patch(
+        "hooks.backoffice.workflow_ticket_management_hook."
+        "BaseWorkflowTicketManagementHook.create_ticket_entry"
+    )
+    @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
+    def test_create_curation_core_ticket_passes_recid(
+        self, mock_create_ticket_entry, mock_create_ticket
+    ):
+        mock_create_ticket.return_value.json.return_value = {"ticket_id": "123"}
+
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "control_number": 3183703,
+                "titles": [{"title": "test create curation core ticket"}],
+                "acquisition_source": {"method": "hepcrawl", "source": "arXiv"},
+                "_collections": ["Literature"],
+            },
+        }
+        self.s3_store.write_workflow(workflow_data)
+
+        task_test(self.dag, "core_selection.create_curation_core_ticket", self.context)
+
+        mock_create_ticket.assert_called_once()
+        assert mock_create_ticket.call_args.args[-1] == 3183703
 
     @pytest.mark.vcr
     def test_store_root_new_record(self):

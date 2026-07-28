@@ -101,6 +101,7 @@ def create_ticket(
     ticket_type,
     workflow_id,
     collection=HEP,
+    recid=None,
 ):
     environment = Variable.get("ENVIRONMENT")
     if environment.lower() != "local":
@@ -110,6 +111,7 @@ def create_ticket(
             subject,
             email,
             curation_context,
+            recid,
         )
         ticket_id = response.json()["ticket_id"]
     else:
