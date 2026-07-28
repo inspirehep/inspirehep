@@ -50,14 +50,11 @@ class TestDesyHarvestDag:
             )
             == 0
         )
-        assert (
-            len(
-                self.s3_store.hook.list_prefixes(
-                    delimiter="/", bucket_name=self.output_bucket
-                )
-            )
-            == 2
+        prefixes = self.s3_store.hook.list_prefixes(
+            delimiter="/", bucket_name=self.output_bucket
         )
+        prefixes.remove("harvests/")
+        assert len(prefixes) == 2
 
     def test_process_subdirectories_skip_when_empty(self, mock_post_workflow):
         with pytest.raises(AirflowSkipException):
