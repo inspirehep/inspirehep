@@ -71,7 +71,7 @@ harvestingkit==0.6.17
 hepcrawl==13.0.31
 html5lib==1.0.1
 htmlparser==0.0.2
-httplib2==0.19.0
+httplib2==0.32.0
 httpretty==0.9.7
 humanize==0.5.1
 hyperlink==19.0.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
