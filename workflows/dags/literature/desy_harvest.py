@@ -23,11 +23,13 @@ logger = logging.getLogger(__name__)
 def desy_harvest_dag():
     """Harvest DESY JSONL batches from S3 and create literature workflows."""
 
+    DESY_OUTPUT_BUCKET_VARIABLE = "s3_desy_output_bucket_name"
+
     @task
     def process_subdirectories(**context):
         workflow_management_hook = WorkflowManagementHook(HEP)
         input_bucket = Variable.get("s3_desy_input_bucket_name")
-        output_bucket = Variable.get("s3_desy_output_bucket_name")
+        output_bucket = Variable.get(DESY_OUTPUT_BUCKET_VARIABLE)
         s3_publisher_store = S3JsonStore("s3_publisher_conn")
 
         run_id = context["run_id"]
@@ -66,12 +68,12 @@ def desy_harvest_dag():
                 "failed_parse_records": failed_parse_records,
                 "failed_load_records": failed_load_records,
             },
-            key=run_id,
+            key=f"harvests/{run_id}",
             bucket_name=output_bucket,
         )
 
     failed_record_key = process_subdirectories()
-    check_failures(failed_record_key)
+    check_failures(failed_record_key, bucket_name_variable=DESY_OUTPUT_BUCKET_VARIABLE)
 
 
 desy_harvest_dag()
