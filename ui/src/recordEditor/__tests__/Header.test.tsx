@@ -9,7 +9,7 @@ describe('Header', () => {
       userEmail: 'jane.doe@cern.ch',
     };
 
-    render(<Header lastRevision={lastRevision} />);
+    render(<Header lastRevision={lastRevision} onSave={vi.fn()} />);
 
     const formattedDate = 'Jul 20, 2026, 10:30:00 AM';
     expect(

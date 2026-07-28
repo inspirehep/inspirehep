@@ -10,9 +10,10 @@ import dayjs from 'dayjs';
 
 interface HeaderProps {
   lastRevision?: { date: string; userEmail: string };
+  onSave: () => void;
 }
 
-const Header = ({ lastRevision }: HeaderProps) => {
+const Header = ({ lastRevision, onSave }: HeaderProps) => {
   const lastRevisionDate = lastRevision
     ? dayjs(lastRevision.date).format('MMM D, YYYY, h:mm:ss A')
     : '';
@@ -20,7 +21,12 @@ const Header = ({ lastRevision }: HeaderProps) => {
   return (
     <div className="__EditorHeader__">
       <div className="leftContainer">
-        <Button type="primary" icon={<SaveOutlined />} className="bg-save">
+        <Button
+          type="primary"
+          icon={<SaveOutlined />}
+          className="bg-save"
+          onClick={onSave}
+        >
           Save
         </Button>
         <Button
