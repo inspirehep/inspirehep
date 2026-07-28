@@ -19,12 +19,13 @@ def _parse_record(
 ):
     """Update document URLs to point to S3 and add acquisition source metadata."""
     for document in record.get("documents", []):
-        document["original_url"] = document["url"]
         if _is_local_path(document["url"]):
             file_name = document["url"].split("/")[-1]
             file_key = f"{subdirectory_name}{file_name}"
             document["url"] = s3_store.key_to_s3_url(file_key, output_bucket)
             logger.info("Updating document %s", document)
+        else:
+            document["original_url"] = document["url"]
 
     record["acquisition_source"] = {
         "source": "DESY",
