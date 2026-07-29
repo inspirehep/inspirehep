@@ -1,0 +1,17 @@
+{
+  "ICN": ["Test Ambiguous Inst. 1"],
+  "core": true,
+  "self": {
+    "$ref": "https://inspirehep.net/api/institutions/1300011"
+  },
+  "$schema": "https://inspirehep.net/schemas/records/institutions.json",
+  "legacy_ICN": "Test Ambiguous Inst. 1",
+  "_collections": ["Institutions"],
+  "control_number": 1300011,
+  "external_system_identifiers": [
+    {
+      "value": "https://ror.org/0ambig000",
+      "schema": "ROR"
+    }
+  ]
+}
