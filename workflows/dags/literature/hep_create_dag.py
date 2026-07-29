@@ -187,7 +187,11 @@ def hep_create_dag():
         )
 
         if is_submission(workflow_data) and len(matches) > 0:
-            raise AirflowFailException("Only one submission is allowed at a time")
+            matched_ids = [match["id"] for match in matches]
+            raise AirflowFailException(
+                f"Only one submission is allowed at a time. "
+                f"Matches found: {matched_ids}"
+            )
 
         has_older_match_w_same_source = False
         has_found_match_with_same_source = False
