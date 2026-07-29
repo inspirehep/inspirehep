@@ -91,5 +91,6 @@ def load_document_to_s3(workflow_id, document, s3_store):
         replace=True,
     )
 
-    logger.info("Document downloaded from %s", url)
-    return f"{s3_store.hook.conn.meta.endpoint_url}/{bucket_name}/{s3_key}"
+    new_url = f"{s3_store.hook.conn.meta.endpoint_url}/{bucket_name}/{s3_key}"
+    logger.info("Document downloaded from %s into %s", url, new_url)
+    return new_url
