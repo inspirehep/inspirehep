@@ -73,10 +73,12 @@ def load_document_to_s3(workflow_id, document, s3_store):
 
     url = document["url"]
     filename = document["key"]
+    s3_key = f"{workflow_id}/documents/{filename}"
+    full_s3_key_url = f"{s3_store.hook.conn.meta.endpoint_url}/{bucket_name}/{s3_key}"
 
-    if s3_store.hook.check_for_key(f"{workflow_id}/documents/{filename}"):
+    if s3_store.hook.check_for_key(s3_key):
         logger.info("Document already downloaded from %s", url)
-        return
+        return full_s3_key_url
 
     logger.info("Downloading document key:%s url:%s", filename, url)
     upload_object = _get_upload_object(url)
@@ -84,13 +86,11 @@ def load_document_to_s3(workflow_id, document, s3_store):
     if not upload_object:
         return
 
-    s3_key = f"{workflow_id}/documents/{filename}"
     s3_store.hook.load_file_obj(
         upload_object,
         s3_key,
         replace=True,
     )
 
-    new_url = f"{s3_store.hook.conn.meta.endpoint_url}/{bucket_name}/{s3_key}"
-    logger.info("Document downloaded from %s into %s", url, new_url)
-    return new_url
+    logger.info("Document downloaded from %s into %s", url, full_s3_key_url)
+    return full_s3_key_url
