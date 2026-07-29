@@ -405,7 +405,7 @@ def hep_create_dag():
         workflow_data = s3_store.read_workflow(workflow_id)
         data = workflow_data.get("data", {})
 
-        is_sub = is_submission(data)
+        is_sub = is_submission(workflow_data)
 
         is_auto_approve = False if is_sub else auto_approve(data)
 

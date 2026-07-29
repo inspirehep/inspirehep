@@ -393,6 +393,16 @@ class Test_HEPCreateDAG:
             "data": {
                 "titles": [{"title": "A title"}],
                 "acquisition_source": {"method": "submitter"},
+                "arxiv_eprints": [
+                    {
+                        "categories": [
+                            "hep-ph",
+                            "astro-ph.CO",
+                            "gr-qc",
+                        ],
+                        "value": "1609.03939",
+                    },
+                ],
             },
         }
 
@@ -413,7 +423,7 @@ class Test_HEPCreateDAG:
             "id": self.workflow_id,
             "data": {
                 "titles": [{"title": "A title"}],
-                "acquisition_source": {"method": "submitter"},
+                "acquisition_source": {"method": "hepcrawl", "source": "arXiv"},
                 "arxiv_eprints": [
                     {
                         "categories": [
@@ -444,7 +454,7 @@ class Test_HEPCreateDAG:
             "id": self.workflow_id,
             "data": {
                 "titles": [{"title": "A title"}],
-                "acquisition_source": {"method": "submitter"},
+                "acquisition_source": {"method": "hepcrawl", "source": "arXiv"},
                 "arxiv_eprints": [
                     {
                         "categories": [
