@@ -10,6 +10,7 @@ from include.utils.s3 import S3JsonStore
 from literature.check_failures_task import check_failures
 
 logger = logging.getLogger(__name__)
+S3_PUBLISHER_CONN = "s3_publisher_conn"
 
 
 @dag(
@@ -73,7 +74,11 @@ def desy_harvest_dag():
         )
 
     failed_record_key = process_subdirectories()
-    check_failures(failed_record_key, bucket_name_variable=DESY_OUTPUT_BUCKET_VARIABLE)
+    check_failures(
+        failed_record_key,
+        s3_conn=S3_PUBLISHER_CONN,
+        bucket_name_variable=DESY_OUTPUT_BUCKET_VARIABLE,
+    )
 
 
 desy_harvest_dag()
