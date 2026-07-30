@@ -67,12 +67,8 @@
                 aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="{% url 'home' %}">backoffice</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'home' %}">Home <span class="visually-hidden">(current)</span></a>
-            </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'about' %}">About</a>
             </li>
@@ -86,12 +82,6 @@
                 <a class="nav-link" href="{% url 'account_logout' %}">{% translate "Sign Out" %}</a>
               </li>
             {% else %}
-              {% if ACCOUNT_ALLOW_REGISTRATION %}
-                <li class="nav-item">
-                  {# URL provided by django-allauth/account/urls.py #}
-                  <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% translate "Sign Up" %}</a>
-                </li>
-              {% endif %}
               <li class="nav-item">
                 {# URL provided by django-allauth/account/urls.py #}
                 <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% translate "Sign In" %}</a>

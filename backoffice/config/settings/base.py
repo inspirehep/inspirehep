@@ -329,6 +329,7 @@ CELERY_TASK_SEND_SENT_EVENT = True
 # django-allauth
 # ------------------------------------------------------------------------------
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
+SOCIALACCOUNT_ONLY = env.bool("DJANGO_SOCIALACCOUNT_ONLY", True)
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
@@ -398,8 +399,8 @@ HEP_DOCUMENTS = "backoffice.hep.documents"
 
 # Name of the Opensearch index
 OPENSEARCH_INDEX_NAMES = {
-    AUTHORS_DOCUMENTS: f'{env("OPENSEARCH_INDEX_PREFIX")}-workflows',
-    HEP_DOCUMENTS: f'{env("OPENSEARCH_INDEX_PREFIX")}-hep-workflows',
+    AUTHORS_DOCUMENTS: f"{env('OPENSEARCH_INDEX_PREFIX')}-workflows",
+    HEP_DOCUMENTS: f"{env('OPENSEARCH_INDEX_PREFIX')}-hep-workflows",
 }
 
 OPENSEARCH_DSL = {
