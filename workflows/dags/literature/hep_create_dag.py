@@ -186,8 +186,10 @@ def hep_create_dag():
             statuses=RUNNING_STATUSES + [STATUS_BLOCKED],
         )
 
-        if is_submission(workflow_data) and len(matches) > 0:
-            matched_ids = [match["id"] for match in matches]
+        submission_matches = [match for match in matches if is_submission(match)]
+
+        if is_submission(workflow_data) and len(submission_matches) > 0:
+            matched_ids = [match["id"] for match in submission_matches]
             raise AirflowFailException(
                 f"Only one submission is allowed at a time. "
                 f"Matches found: {matched_ids}"

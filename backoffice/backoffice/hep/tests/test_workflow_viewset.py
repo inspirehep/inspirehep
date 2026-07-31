@@ -117,6 +117,24 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(json_response["workflow_type"], data["workflow_type"])
         self.assertIn("id", json_response)
 
+    @patch("backoffice.hep.api.views.is_another_hep_running", return_value=True)
+    def test_create_hep_returns_409_if_matching_workflow_exists(self, mock_is_running):
+        self.api_client.force_authenticate(user=self.curator)
+        data = {
+            "workflow_type": HepWorkflowType.HEP_CREATE,
+            "status": HepStatusChoices.RUNNING,
+            "data": {
+                **hep_data_valid(),
+                "arxiv_eprints": [{"value": "2502.05665"}],
+            },
+        }
+
+        response = self.api_client.post(self.endpoint, format="json", data=data)
+
+        self.assertEqual(response.status_code, 409)
+        mock_is_running.assert_called_once_with(data)
+        self.assertEqual(HepWorkflow.objects.count(), 1)
+
     @patch("backoffice.common.signals.update_registry_after_commit")
     def test_create_hep_calls_on_commit_signal_processor(
         self, mock_update_registry_after_commit

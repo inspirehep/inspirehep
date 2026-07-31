@@ -12,6 +12,7 @@ from backoffice.hep.utils import (
     resolve_workflow,
     complete_workflow,
     get_restored_hep_workflow_type,
+    is_another_hep_running,
 )
 from backoffice.hep.api.serializers import (
     HepWorkflowSerializer,
@@ -142,6 +143,18 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         logger.info("Data passed schema validation, creating workflow.")
+
+        if is_another_hep_running(request.data):
+            logger.info(
+                "A workflow with the same arXiv eprint or DOI is currently being processed."
+            )
+            return Response(
+                {
+                    "error": "A workflow with the same arXiv eprint or DOI is currently being processed, please wait for blocking workflows to finish"
+                },
+                status=status.HTTP_409_CONFLICT,
+            )
+
         workflow = serializer.save()
         logger.info("Creating workflow with id: %s", str(workflow.id))
         trigger_hep_workflow_initialization.delay(

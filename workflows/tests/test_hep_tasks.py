@@ -307,6 +307,41 @@ class Test_HEPCreateDAG:
         with pytest.raises(AirflowFailException):
             task_test(self.dag, "discard_older_wfs_w_same_source", self.context)
 
+    @patch(
+        "include.utils.opensearch.find_matching_workflows",
+        return_value=[
+            {
+                "id": "non_submission_match",
+                "data": {
+                    "acquisition_source": {
+                        "method": "hepcrawl",
+                        "source": "arXiv",
+                    },
+                },
+                "_created_at": "2025-11-01T00:00:00.000Z",
+            }
+        ],
+    )
+    def test_discard_older_wfs_w_same_source_ignores_non_submission_matches(
+        self, mock_find_matching_workflows
+    ):
+        self.s3_store.write_workflow(
+            {
+                "id": self.workflow_id,
+                "data": {
+                    "acquisition_source": {
+                        "method": "submitter",
+                        "source": "submitter",
+                    },
+                },
+                "_created_at": "2025-11-02T00:00:00.000Z",
+            },
+        )
+
+        result = task_test(self.dag, "discard_older_wfs_w_same_source", self.context)
+
+        assert result == "check_for_blocking_workflows"
+
     @pytest.mark.vcr
     def test_discard_older_wfs_w_same_source_missing_subject_fields(self):
         self.s3_store.write_workflow(
