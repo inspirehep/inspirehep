@@ -1423,6 +1423,7 @@ def hep_create_dag():
                 return False
 
             s3_store.set_flag("approved", True, workflow_id)
+            s3_store.write_workflow(workflow_data)
             return True
 
         @task.branch

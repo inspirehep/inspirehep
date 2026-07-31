@@ -105,6 +105,21 @@ class TestHEPManualMergeDAG:
         assert result is False
         mock_set_workflow_status.assert_called_once()
 
+    @patch("literature.hep_manual_merge.WorkflowManagementHook.get_workflow")
+    def test_await_merge_conflicts_resolved_persists_resolved_workflow(
+        self, mock_get_workflow
+    ):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {"titles": [{"title": "Resolved merge"}]},
+            "merge_details": {"conflicts": [{"path": "/authors/0"}]},
+            "decisions": [{"action": "manual_merge_approve"}],
+        }
+        mock_get_workflow.return_value = workflow_data
+
+        assert task_test(self.dag, "await_merge_conflicts_resolved", self.context)
+        assert self.s3_store.read_workflow(self.workflow_id) == workflow_data
+
     @patch("literature.hep_manual_merge.workflows.delete_wf_record_source")
     @patch("literature.hep_manual_merge.workflows.add_wf_record_source")
     @patch("literature.hep_manual_merge.workflows.get_all_wf_record_sources")
