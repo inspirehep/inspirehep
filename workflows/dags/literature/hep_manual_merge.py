@@ -152,6 +152,7 @@ def hep_manual_merge_dag():
                 workflow_id=workflow_id,
             )
             return False
+        s3_store.write_workflow(workflow_data)
         return True
 
     @task

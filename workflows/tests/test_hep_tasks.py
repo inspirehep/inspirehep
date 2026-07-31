@@ -2910,6 +2910,9 @@ class Test_HEPCreateDAG:
 
         assert result
         assert self.s3_store.get_flag("approved", workflow_id)
+        workflow_result = self.s3_store.read_workflow(workflow_id)
+        assert workflow_result["id"] == workflow_id
+        assert workflow_result["data"]["titles"]
 
     @pytest.mark.vcr
     def test_await_merge_conflicts_resolved_w_conflicts_no_decision(self):
