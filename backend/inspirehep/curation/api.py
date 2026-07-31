@@ -13,7 +13,7 @@ from inspirehep.curation.utils import (
     create_accelerator_experiment_from_collaboration_match,
     enhance_collaboration_data_with_collaboration_match,
     find_collaboration_in_multisearch_response,
-    find_institution_by_ror,  # <-- new
+    find_institution_by_ror,
     find_unambiguous_affiliation,
     match_lit_author_affiliation,
 )
