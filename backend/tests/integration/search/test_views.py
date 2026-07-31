@@ -4,6 +4,12 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from unittest import mock
+
+from helpers.utils import create_user
+from inspirehep.search.ai_search import AiSearchError
+from invenio_accounts.testutils import login_user_via_session
+
 
 def test_query_parser(inspire_app):
     query = "title"
@@ -22,3 +28,120 @@ def test_query_parser_should_return_400_when_query_is_malformed(inspire_app):
             "/search/query-parser?query={}", content_type="application/json"
         )
     assert response.status_code == 400
+
+
+UI_ORIGIN = {"Origin": "https://inspirehep.net"}
+
+
+def test_assistant_search(inspire_app, override_config):
+    answer = {"response": "The Higgs was discovered in 2012.", "record_ids": [1124337]}
+    user = create_user()
+    with (
+        override_config(
+            FEATURE_FLAG_ENABLE_AI_SEARCH=True,
+            AI_SEARCH_RECORDS_API_URL="https://inspirehep.net/api",
+        ),
+        mock.patch(
+            "inspirehep.search.views.run_ai_search", return_value=dict(answer)
+        ) as mock_run_ai_search,
+        inspire_app.test_client() as client,
+    ):
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/search/assistant",
+            json={"query": "  higgs discovery  "},
+            headers=UI_ORIGIN,
+        )
+
+    assert response.status_code == 200
+    assert response.json == {
+        **answer,
+        "records_api_url": "https://inspirehep.net/api",
+    }
+    mock_run_ai_search.assert_called_once_with("higgs discovery")
+
+
+def test_assistant_search_returns_401_when_not_logged_in(inspire_app, override_config):
+    with (
+        override_config(FEATURE_FLAG_ENABLE_AI_SEARCH=True),
+        mock.patch("inspirehep.search.views.run_ai_search") as mock_run_ai_search,
+        inspire_app.test_client() as client,
+    ):
+        response = client.post(
+            "/search/assistant", json={"query": "higgs"}, headers=UI_ORIGIN
+        )
+
+    assert response.status_code == 401
+    mock_run_ai_search.assert_not_called()
+
+
+def test_assistant_search_returns_404_when_feature_flag_is_disabled(
+    inspire_app, override_config
+):
+    user = create_user()
+    with (
+        override_config(FEATURE_FLAG_ENABLE_AI_SEARCH=False),
+        mock.patch("inspirehep.search.views.run_ai_search") as mock_run_ai_search,
+        inspire_app.test_client() as client,
+    ):
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/search/assistant", json={"query": "higgs"}, headers=UI_ORIGIN
+        )
+
+    assert response.status_code == 404
+    mock_run_ai_search.assert_not_called()
+
+
+def test_assistant_search_returns_403_when_not_called_from_the_ui(
+    inspire_app, override_config
+):
+    user = create_user()
+    with (
+        override_config(FEATURE_FLAG_ENABLE_AI_SEARCH=True),
+        inspire_app.test_client() as client,
+    ):
+        login_user_via_session(client, email=user.email)
+        no_origin = client.post("/search/assistant", json={"query": "higgs"})
+        other_origin = client.post(
+            "/search/assistant",
+            json={"query": "higgs"},
+            headers={"Origin": "https://not-inspire.example.com"},
+        )
+
+    assert no_origin.status_code == 403
+    assert other_origin.status_code == 403
+
+
+def test_assistant_search_returns_400_when_query_is_missing(
+    inspire_app, override_config
+):
+    user = create_user()
+    with (
+        override_config(FEATURE_FLAG_ENABLE_AI_SEARCH=True),
+        inspire_app.test_client() as client,
+    ):
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/search/assistant", json={"query": "   "}, headers=UI_ORIGIN
+        )
+    assert response.status_code == 400
+
+
+def test_assistant_search_hides_provider_errors(inspire_app, override_config):
+    user = create_user()
+    with (
+        override_config(FEATURE_FLAG_ENABLE_AI_SEARCH=True),
+        mock.patch(
+            "inspirehep.search.views.run_ai_search",
+            side_effect=AiSearchError("provider said something internal"),
+        ),
+        inspire_app.test_client() as client,
+    ):
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/search/assistant", json={"query": "higgs"}, headers=UI_ORIGIN
+        )
+
+    assert response.status_code == 502
+    assert "internal" not in response.json["message"]

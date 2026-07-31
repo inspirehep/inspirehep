@@ -4,6 +4,7 @@ import { RootState } from '../../types';
 
 import SearchBox from '../components/SearchBox';
 import { searchAI, searchQueryUpdate } from '../../actions/search';
+import { isAiSearchQuery } from '../../actions/aiSearch';
 import { LITERATURE_NS } from '../../search/constants';
 import { appendQueryToLocationSearch } from '../../actions/router';
 import { clearLiteratureSelection } from '../../actions/literature';
@@ -32,7 +33,10 @@ export const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
       );
     } else {
       dispatch(clearLiteratureSelection());
-      if (getConfigFor('QUERY_AI_ON_SEARCH_FEATURE_FLAG')) {
+      if (
+        getConfigFor('QUERY_AI_ON_SEARCH_FEATURE_FLAG') &&
+        !isAiSearchQuery(value)
+      ) {
         dispatch(searchAI(value));
       }
     }

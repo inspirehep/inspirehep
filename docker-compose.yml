@@ -229,6 +229,10 @@ services:
     extends:
       file: docker-compose.services.yml
       service: app
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - INVENIO_FEATURE_FLAG_ENABLE_AI_SEARCH=True
+      - INVENIO_AI_SEARCH_RECORDS_API_URL=https://inspirebeta.net/api
     volumes:
       - ./backend:/opt/inspire
     ports:

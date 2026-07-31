@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { fetchCitationSummary } from '../actions/citations';
+import { fetchAiSearchResults, isAiSearchQuery } from '../actions/aiSearch';
 import { isCitationSummaryEnabled } from '../literature/containers/CitationSummarySwitchContainer';
 
 export function onLiteratureQueryChange(
@@ -7,6 +8,14 @@ export function onLiteratureQueryChange(
   _dispatch,
   _dueToNavigationToSearchPage
 ) {
+  if (isAiSearchQuery(helper.getQuery().get('q'))) {
+    if (helper.isInitialQueryUpdate() || helper.hasQueryChanged()) {
+      helper.dispatch(fetchAiSearchResults(helper.namespace));
+      helper.updateLocation();
+    }
+    return;
+  }
+
   if (helper.isInitialQueryUpdate() || helper.hasQueryChanged()) {
     helper.fetchSearchResults();
     helper.updateLocation();

@@ -15,6 +15,9 @@ import {
   SEARCH_BASE_QUERIES_UPDATE,
   SEARCH_QUERY_RESET,
   RESET_SEARCH_RESULTS,
+  AI_SEARCH_REQUEST,
+  AI_SEARCH_SUCCESS,
+  AI_SEARCH_ERROR,
 } from '../actions/actionTypes';
 import namespacesState from '../search/state';
 import {
@@ -78,6 +81,7 @@ const searchReducer = (state = initialState, action) => {
           ['namespaces', namespace, 'initialTotal'],
           initialState.getIn(['namespaces', namespace, 'initialTotal'])
         )
+        .deleteIn(['namespaces', namespace, 'aiSearch'])
         .setIn(
           ['namespaces', namespace, 'query'],
           initialState
@@ -105,6 +109,40 @@ const searchReducer = (state = initialState, action) => {
       return state.setIn(['namespaces', namespace, 'query'], fullQuery);
     case SEARCH_REQUEST:
       return state.setIn(['namespaces', namespace, 'loading'], true);
+    case AI_SEARCH_REQUEST:
+      return state.setIn(
+        ['namespaces', namespace, 'aiSearch'],
+        fromJS({
+          loading: true,
+          query: action.payload.query,
+          response: null,
+          recordIds: null,
+          error: null,
+        })
+      );
+    case AI_SEARCH_SUCCESS:
+      return state.mergeIn(
+        ['namespaces', namespace, 'aiSearch'],
+        fromJS({
+          loading: false,
+          query: action.payload.query,
+          response: action.payload.response,
+          recordIds: action.payload.recordIds,
+          recordsApiUrl: action.payload.recordsApiUrl,
+          error: null,
+        })
+      );
+    case AI_SEARCH_ERROR:
+      return state.setIn(
+        ['namespaces', namespace, 'aiSearch'],
+        fromJS({
+          loading: false,
+          query: action.payload.query,
+          response: null,
+          recordIds: null,
+          error,
+        })
+      );
     case SEARCH_SUCCESS:
       if (state.getIn(['namespaces', namespace, 'initialTotal']) === null) {
         // eslint-disable-next-line no-param-reassign
