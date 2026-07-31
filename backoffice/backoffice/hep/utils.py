@@ -16,6 +16,12 @@ from backoffice.common.constants import WORKFLOW_DAGS
 from backoffice.common import airflow_utils
 from inspire_utils.record import get_value
 
+from backoffice.management.utils import get_opensearch_client
+
+
+from django.conf import settings
+
+opensearch_client = get_opensearch_client()
 
 logger = logging.getLogger(__name__)
 
@@ -94,3 +100,37 @@ def complete_workflow(id, data):
     workflow = get_object_or_404(HepWorkflow, pk=id)
     airflow_utils.mark_airflow_dag_run_as_success(workflow, note=note)
     return workflow
+
+
+def is_another_hep_running(workflow):
+    """Check whether a matching HEP workflow has not completed."""
+
+    index_name = settings.OPENSEARCH_INDEX_NAMES.get(settings.HEP_DOCUMENTS)
+    arxiv_eprints_values = get_value(workflow, "data.arxiv_eprints.value", [])
+    dois_values = get_value(workflow, "data.dois.value", [])
+
+    if not arxiv_eprints_values and not dois_values:
+        logger.info("No arXiv eprints or DOIs in workflow, skipping matching.")
+        return False
+
+    should_clauses = []
+    if arxiv_eprints_values:
+        should_clauses.append(
+            {"terms": {"data.arxiv_eprints.value": arxiv_eprints_values}}
+        )
+    if dois_values:
+        should_clauses.append({"terms": {"data.dois.value": dois_values}})
+
+    query = {
+        "query": {
+            "bool": {
+                "must_not": [{"match": {"status": HepStatusChoices.COMPLETED}}],
+                "should": should_clauses,
+                "minimum_should_match": 1,
+            }
+        }
+    }
+    response = opensearch_client.search(index=index_name, body=query)
+    number_workflows_running = response.get("hits", {}).get("total", {}).get("value", 0)
+    logger.info("Found %s matching active workflows", number_workflows_running)
+    return number_workflows_running > 0

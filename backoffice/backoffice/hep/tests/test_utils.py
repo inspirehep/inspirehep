@@ -10,6 +10,7 @@ from backoffice.hep.utils import (
     resolve_workflow,
     complete_workflow,
     get_restored_hep_workflow_type,
+    is_another_hep_running,
 )
 
 from backoffice.hep.constants import HepStatusChoices, HepResolutions, HepWorkflowType
@@ -130,3 +131,53 @@ class TestUtils(TransactionTestCase):
         restored_type = get_restored_hep_workflow_type(workflow)
 
         self.assertEqual(restored_type, HepWorkflowType.HEP_CREATE)
+
+    @patch("backoffice.hep.utils.opensearch_client.search")
+    def test_is_another_hep_running_matches_arxiv_eprints_or_dois(self, mock_search):
+        mock_search.return_value = {"hits": {"total": {"value": 1}}}
+        result = is_another_hep_running(
+            {
+                "data": {
+                    "arxiv_eprints": [
+                        {"value": "2502.05665"},
+                        {"value": "2504.01123"},
+                    ],
+                    "dois": [{"value": "10.1103/fc8j-tb8k"}],
+                }
+            }
+        )
+
+        self.assertTrue(result)
+        mock_search.assert_called_once_with(
+            index="backoffice-backend-test-hep-workflows",
+            body={
+                "query": {
+                    "bool": {
+                        "must_not": [
+                            {"match": {"status": HepStatusChoices.COMPLETED}},
+                        ],
+                        "should": [
+                            {
+                                "terms": {
+                                    "data.arxiv_eprints.value": [
+                                        "2502.05665",
+                                        "2504.01123",
+                                    ]
+                                }
+                            },
+                            {"terms": {"data.dois.value": ["10.1103/fc8j-tb8k"]}},
+                        ],
+                        "minimum_should_match": 1,
+                    }
+                }
+            },
+        )
+
+    @patch("backoffice.hep.utils.opensearch_client.search")
+    def test_is_another_hep_running_skips_search_without_matchable_identifiers(
+        self, mock_search
+    ):
+        result = is_another_hep_running({"data": {}})
+
+        self.assertFalse(result)
+        mock_search.assert_not_called()

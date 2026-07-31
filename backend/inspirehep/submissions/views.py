@@ -71,6 +71,12 @@ blueprint = Blueprint("inspirehep_submissions", __name__, url_prefix="/submissio
 
 LOGGER = structlog.getLogger()
 
+AUTHOR_CONFLICT_ERROR_DESCRIPTION = "An author with the same ORCID is currently being processed. Please try again later."
+HEP_CONFLICT_ERROR_DESCRIPTION = (
+    "A HEP record with the same DOI or arXiv ID is currently being processed. "
+    "Please try again later."
+)
+
 
 def get_updated_record_data(record, update_form_data, optional_field_names):
     record_data = dict(record)
@@ -91,7 +97,13 @@ class BaseSubmissionsResource(MethodView):
         return request.get_json()
 
     def send_post_request_to_workflows(
-        self, url, endpoint, data, token, bearer_keyword="Bearer"
+        self,
+        url,
+        endpoint,
+        data,
+        token,
+        bearer_keyword="Bearer",
+        conflict_error_description=None,
     ):
         """Sends a post request to the backoffice/next
 
@@ -124,6 +136,10 @@ class BaseSubmissionsResource(MethodView):
             )
             match response.status_code:
                 case 409:
+                    if conflict_error_description:
+                        exc = WorkflowConflictError()
+                        exc.description = conflict_error_description
+                        raise exc from e
                     raise WorkflowConflictError from e
                 case _:
                     raise WorkflowStartError from e
@@ -241,6 +257,7 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
             payload,
             current_app.config["AUTHENTICATION_TOKEN_BACKOFFICE"],
             bearer_keyword="Token",
+            conflict_error_description=AUTHOR_CONFLICT_ERROR_DESCRIPTION,
         )
 
     def create_ticket(self, record, rt_template):
@@ -451,6 +468,7 @@ class LiteratureSubmissionResource(BaseSubmissionsResource):
                 backoffice_payload,
                 current_app.config["AUTHENTICATION_TOKEN_BACKOFFICE"],
                 bearer_keyword="Token",
+                conflict_error_description=HEP_CONFLICT_ERROR_DESCRIPTION,
             )
         return self.send_post_request_to_workflows(
             current_app.config["INSPIRE_NEXT_URL"],
