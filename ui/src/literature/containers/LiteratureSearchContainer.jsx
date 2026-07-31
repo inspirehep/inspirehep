@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
 import { connect } from 'react-redux';
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 
 import AggregationFiltersContainer from '../../common/containers/AggregationFiltersContainer';
 import PaginationContainer from '../../common/containers/PaginationContainer';
@@ -43,6 +43,7 @@ import SearchFeedback from '../../common/components/SearchFeedback/SearchFeedbac
 import EventTracker from '../../common/components/EventTracker';
 import { getConfigFor } from '../../common/config';
 import CitationSummaryBox from '../components/CitationSummaryBox';
+import AiSearchAnswer from '../components/AiSearchAnswer';
 
 function LiteratureSearch({
   loading,
@@ -60,6 +61,7 @@ function LiteratureSearch({
   numberOfSelected,
   page,
   isSuperUserLoggedIn,
+  aiSearch,
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -105,6 +107,21 @@ function LiteratureSearch({
   const showSearchFeedbackCardCondition =
     getConfigFor('SEARCH_FEEDBACK_CARD_FEATURE_FLAG') && !embedded;
 
+  if (aiSearch != null && (!results || results.size === 0)) {
+    return (
+      <Row
+        className="mt3"
+        gutter={SEARCH_PAGE_GUTTER}
+        type="flex"
+        justify="center"
+      >
+        <Col xs={24} lg={16}>
+          <AiSearchAnswer aiSearch={aiSearch} />
+        </Col>
+      </Row>
+    );
+  }
+
   return (
     <Row
       className="mt3"
@@ -121,6 +138,7 @@ function LiteratureSearch({
           <ResponsiveView min="lg" render={renderAggregations} />
         </Col>
         <Col xs={24} lg={17}>
+          <AiSearchAnswer aiSearch={aiSearch} />
           <LoadingOrChildren loading={loading}>
             <Row type="flex" align="middle" justify="end">
               <Col xs={24} lg={12}>
@@ -285,6 +303,7 @@ LiteratureSearch.propTypes = {
   embedded: PropTypes.bool,
   enableCitationSummary: PropTypes.bool,
   isCatalogerLoggedIn: PropTypes.bool,
+  aiSearch: PropTypes.instanceOf(Map),
 };
 
 LiteratureSearch.defaultProps = {
@@ -299,6 +318,7 @@ const stateToProps = (state, { namespace }) => ({
     'loadingAggregations',
   ]),
   results: state.search.getIn(['namespaces', namespace, 'results']),
+  aiSearch: state.search.getIn(['namespaces', namespace, 'aiSearch']),
   isCitationSummaryVisible: isCitationSummaryEnabled(state),
   isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
