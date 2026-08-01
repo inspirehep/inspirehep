@@ -31,7 +31,7 @@ jobs:
 
       - name: Generate metadata
         id: meta
-        uses: docker/metadata-action@v6.0.0
+        uses: docker/metadata-action@v6.2.0
         with:
           images: |
             inspirehep/hep
