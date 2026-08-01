@@ -615,7 +615,7 @@ s3transfer==0.17.1
 sagemaker_studio==1.0.26
 scikit-learn==1.9.0
 scipy==1.17.1
-scramp==1.4.10
+scramp==1.4.15
 scrapbook==0.5.0
 segment-analytics-python==2.3.6
 sendgrid==6.12.5
