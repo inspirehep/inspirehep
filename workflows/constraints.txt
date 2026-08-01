@@ -136,7 +136,7 @@ apache-airflow-providers-elasticsearch==6.7.0
 apache-airflow-providers-exasol==4.10.3
 apache-airflow-providers-fab==3.7.1
 apache-airflow-providers-facebook==3.9.5
-apache-airflow-providers-ftp==3.15.1
+apache-airflow-providers-ftp==3.15.2
 apache-airflow-providers-git==0.4.0
 apache-airflow-providers-github==2.11.3
 apache-airflow-providers-google==22.1.0
