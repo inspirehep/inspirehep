@@ -484,6 +484,36 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(mock_post.call_count, len(wfs_ids))
 
     @patch("backoffice.common.airflow_utils.requests.post")
+    def test_batch_resolve_skips_workflow_with_exclusive_decision(self, mock_post):
+        workflow = HepWorkflow.objects.create(
+            data={},
+            status=HepStatusChoices.APPROVAL,
+            workflow_type=HepWorkflowType.HEP_CREATE,
+        )
+        HepDecision.objects.create(
+            workflow=workflow,
+            user=self.curator,
+            action=HepResolutions.hep_accept_core,
+        )
+        self.api_client.force_authenticate(user=self.curator)
+
+        response = self.api_client.post(
+            reverse("api:hep-batch-resolve-list"),
+            format="json",
+            data={
+                "ids": [workflow.id],
+                "action": HepResolutions.hep_accept,
+            },
+        )
+
+        self.assertEqual(response.status_code, 202, response.data)
+        self.assertEqual(response.data["ids"], [])
+        mock_post.assert_not_called()
+        workflow.refresh_from_db()
+        self.assertEqual(workflow.status, HepStatusChoices.APPROVAL)
+        self.assertEqual(workflow.decisions.count(), 1)
+
+    @patch("backoffice.common.airflow_utils.requests.post")
     def test_batch_resolve_exception_partial_success(self, mock_post):
         response_ok = Mock(
             status_code=200,

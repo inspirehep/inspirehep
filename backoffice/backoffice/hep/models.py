@@ -5,6 +5,7 @@ from backoffice.hep.constants import (
     HEP_DEFAULT_STATUS_CHOICE,
     HEP_DEFAULT_TICKET_TYPE,
     HEP_DEFAULT_WORKFLOW_TYPE,
+    HEP_EXCLUSIVE_RESOLUTIONS,
     HEP_TICKET_TYPES,
     HepStatusChoices,
     HepWorkflowType,
@@ -54,3 +55,12 @@ class HepDecision(BaseDecision):
     )
     action = models.CharField(max_length=30, choices=HEP_DECISION_CHOICES)
     value = models.TextField(default="", blank=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["workflow"],
+                condition=models.Q(action__in=HEP_EXCLUSIVE_RESOLUTIONS),
+                name="unique_hep_resolution_per_workflow",
+            ),
+        ]

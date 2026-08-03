@@ -2,13 +2,14 @@ import logging
 import os
 
 import requests
+from django.db import IntegrityError, transaction
 from rest_framework import status, viewsets
 from rest_framework.response import Response
-from django.db import transaction
 from django.shortcuts import get_object_or_404
 from backoffice.hep.tasks import batch_resolve_workflows
 from backoffice.hep.utils import (
     add_hep_decision,
+    add_hep_decision_batch,
     resolve_workflow,
     complete_workflow,
     get_restored_hep_workflow_type,
@@ -58,7 +59,11 @@ from django_elasticsearch_dsl_drf.filter_backends import (
     FilteringFilterBackend,
     OrderingFilterBackend,
 )
-from backoffice.hep.constants import HepStatusChoices, HepWorkflowType, HepResolutions
+from backoffice.hep.constants import (
+    HepStatusChoices,
+    HepWorkflowType,
+    HepResolutions,
+)
 from backoffice.common.constants import WORKFLOW_DAGS
 
 logger = logging.getLogger(__name__)
@@ -188,13 +193,29 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
 
         data = serializer.validated_data
         data["ids"] = [str(wf_id) for wf_id in data["ids"]]
+        accepted_ids = []
+
         for wf_id in data["ids"]:
             workflow = get_object_or_404(HepWorkflow, pk=wf_id)
-            add_hep_decision(wf_id, request.user, data["action"], data.get("value"))
+            try:
+                with transaction.atomic():
+                    add_hep_decision_batch(
+                        wf_id,
+                        request.user,
+                        data["action"],
+                        data.get("value"),
+                    )
+            except IntegrityError:
+                continue
+
             workflow.status = HepStatusChoices.RUNNING
             workflow.save()
 
-        transaction.on_commit(lambda: batch_resolve_workflows.delay(data))
+            accepted_ids.append(wf_id)
+
+        data["ids"] = accepted_ids
+        if accepted_ids:
+            transaction.on_commit(lambda: batch_resolve_workflows.delay(data))
 
         return Response(
             {"message": "Batch resolution started.", "ids": data["ids"]},
