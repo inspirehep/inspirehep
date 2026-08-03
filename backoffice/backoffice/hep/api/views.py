@@ -12,7 +12,7 @@ from backoffice.hep.utils import (
     resolve_workflow,
     complete_workflow,
     get_restored_hep_workflow_type,
-    is_another_hep_running,
+    is_another_hep_submission_running,
 )
 from backoffice.hep.api.serializers import (
     HepWorkflowSerializer,
@@ -144,9 +144,9 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         serializer.is_valid(raise_exception=True)
         logger.info("Data passed schema validation, creating workflow.")
 
-        if is_another_hep_running(request.data):
+        if is_another_hep_submission_running(request.data):
             logger.info(
-                "A workflow with the same arXiv eprint or DOI is currently being processed."
+                "A submission with the same arXiv eprint or DOI is currently being processed."
             )
             return Response(
                 {
