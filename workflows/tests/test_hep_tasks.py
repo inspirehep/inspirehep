@@ -3548,6 +3548,88 @@ class Test_HEPCreateDAG:
 
         assert "authors" not in workflow_result["data"]
 
+    def test_add_fermilab_collection_for_accepted_record(self):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "test fermilab report"}],
+                "document_type": ["article"],
+                "report_numbers": [{"value": "FERMILAB-PUB-25-0393-PPD"}],
+                "_collections": ["Literature"],
+            },
+            "workflow_type": HEP_CREATE,
+            "status": STATUS_RUNNING,
+        }
+        self.s3_store.write_workflow(workflow_data)
+
+        task_test(self.dag, "postprocessing.add_fermilab_collection", self.context)
+
+        workflow_result = self.s3_store.read_workflow(self.workflow_id)
+
+        assert workflow_result["data"]["_collections"] == ["Literature", "Fermilab"]
+
+    def test_add_fermilab_collection_is_not_duplicated(self):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "test fermilab report"}],
+                "document_type": ["article"],
+                "report_numbers": [{"value": "FERMILAB-PUB-25-0393-PPD"}],
+                "_collections": ["Literature", "Fermilab"],
+            },
+            "workflow_type": HEP_CREATE,
+            "status": STATUS_RUNNING,
+        }
+        self.s3_store.write_workflow(workflow_data)
+
+        task_test(self.dag, "postprocessing.add_fermilab_collection", self.context)
+
+        workflow_result = self.s3_store.read_workflow(self.workflow_id)
+
+        assert workflow_result["data"]["_collections"] == ["Literature", "Fermilab"]
+
+    def test_add_fermilab_collection_without_fermilab_report_number(self):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "test non fermilab report"}],
+                "document_type": ["article"],
+                "report_numbers": [
+                    {"value": "CERN-2019"},
+                    {"value": "DESY-FERMILAB-1923"},
+                ],
+                "_collections": ["Literature"],
+            },
+            "workflow_type": HEP_CREATE,
+            "status": STATUS_RUNNING,
+        }
+        self.s3_store.write_workflow(workflow_data)
+
+        task_test(self.dag, "postprocessing.add_fermilab_collection", self.context)
+
+        workflow_result = self.s3_store.read_workflow(self.workflow_id)
+
+        assert workflow_result["data"]["_collections"] == ["Literature"]
+
+    def test_add_fermilab_collection_without_report_numbers(self):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "test no report numbers"}],
+                "document_type": ["article"],
+                "_collections": ["Literature"],
+            },
+            "workflow_type": HEP_CREATE,
+            "status": STATUS_RUNNING,
+        }
+        self.s3_store.write_workflow(workflow_data)
+
+        task_test(self.dag, "postprocessing.add_fermilab_collection", self.context)
+
+        workflow_result = self.s3_store.read_workflow(self.workflow_id)
+
+        assert workflow_result["data"]["_collections"] == ["Literature"]
+
     def test_is_record_relevant_submission(self):
         workflow_data = {
             "id": self.workflow_id,

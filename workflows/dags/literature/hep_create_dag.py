@@ -29,6 +29,7 @@ from include.inspire.grobid_authors_parser import GrobidAuthors
 from include.inspire.guess_coreness import calculate_coreness
 from include.inspire.hidden_collections import (
     affiliations_for_hidden_collections,
+    is_fermilab_report,
     reports_for_hidden_collections,
 )
 from include.inspire.is_record_relevant import (
@@ -64,6 +65,7 @@ from include.utils.constants import (
     DECISION_HEP_ACCEPT_CORE,
     DECISION_HEP_REJECT,
     DECISION_MERGE_APPROVE,
+    FERMILAB_COLLECTION_NAME,
     HEP_PUBLISHER_CREATE,
     HEP_PUBLISHER_UPDATE,
     HEP_UPDATE,
@@ -1703,6 +1705,26 @@ def hep_create_dag():
 
             s3_store.write_workflow(workflow_data)
 
+        @task
+        def add_fermilab_collection(**context):
+            s3_workflow_id = context["params"]["workflow_id"]
+            workflow_data = s3_store.read_workflow(s3_workflow_id)
+
+            report_numbers = get_value(workflow_data, "data.report_numbers", [])
+            if not is_fermilab_report(report_numbers):
+                return
+
+            collections = workflow_data["data"]["_collections"]
+            if FERMILAB_COLLECTION_NAME in collections:
+                return
+
+            workflow_data["data"]["_collections"] = [
+                *collections,
+                FERMILAB_COLLECTION_NAME,
+            ]
+
+            s3_store.write_workflow(workflow_data)
+
         set_core_if_not_update_task = set_core_if_not_update()
         set_refereed = set_refereed_and_fix_document_type()
         normalize_author_affiliations_task = normalize_author_affiliations()
@@ -1713,6 +1735,7 @@ def hep_create_dag():
             >> set_refereed
             >> normalize_author_affiliations_task
             >> link_institutions_with_affiliations_task
+            >> add_fermilab_collection()
             >> save_workflow()
             >> validate_record()
         )
