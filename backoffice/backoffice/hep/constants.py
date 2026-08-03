@@ -104,6 +104,14 @@ class HepResolutions(models.TextChoices):
 
 HEP_DECISION_CHOICES = HepResolutions.choices
 
+HEP_EXCLUSIVE_RESOLUTIONS = (
+    HepResolutions.hep_accept,
+    HepResolutions.hep_accept_core,
+    HepResolutions.hep_reject,
+    HepResolutions.core_selection_accept,
+    HepResolutions.core_selection_accept_core,
+)
+
 
 class HepJournalCoverage(models.TextChoices):
     FULL = "full", "Full"

@@ -5,13 +5,14 @@ from backoffice.hep.api.serializers import (
 from django.shortcuts import get_object_or_404
 import logging
 
-from backoffice.hep.models import HepDecision, HepWorkflow
+from backoffice.hep.models import HepWorkflow
 
 from backoffice.hep.constants import (
     HepResolutions,
     HepStatusChoices,
     HepWorkflowType,
 )
+from backoffice.hep.models import HepDecision
 from backoffice.common.constants import WORKFLOW_DAGS
 from backoffice.common import airflow_utils
 from inspire_utils.record import get_value
@@ -40,6 +41,18 @@ def get_restored_hep_workflow_type(workflow):
         return HepWorkflowType.HEP_PUBLISHER_CREATE
 
     return HepWorkflowType.HEP_CREATE
+
+
+def add_hep_decision_batch(workflow_id, user, action, value=None):
+    data = {"workflow": workflow_id, "user": user, "action": action}
+
+    if value is not None:
+        data["value"] = value
+
+    serializer = HepDecisionSerializer(data=data)
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return serializer.data
 
 
 def add_hep_decision(workflow_id, user, action, value=None):
