@@ -102,8 +102,8 @@ def complete_workflow(id, data):
     return workflow
 
 
-def is_another_hep_running(workflow):
-    """Check whether a matching HEP workflow has not completed."""
+def is_another_hep_submission_running(workflow):
+    """Check whether a matching HEP submission has not completed."""
 
     index_name = settings.OPENSEARCH_INDEX_NAMES.get(settings.HEP_DOCUMENTS)
     arxiv_eprints_values = get_value(workflow, "data.arxiv_eprints.value", [])
@@ -124,6 +124,7 @@ def is_another_hep_running(workflow):
     query = {
         "query": {
             "bool": {
+                "must": [{"term": {"data.acquisition_source.method": "submitter"}}],
                 "must_not": [{"match": {"status": HepStatusChoices.COMPLETED}}],
                 "should": should_clauses,
                 "minimum_should_match": 1,
@@ -132,5 +133,5 @@ def is_another_hep_running(workflow):
     }
     response = opensearch_client.search(index=index_name, body=query)
     number_workflows_running = response.get("hits", {}).get("total", {}).get("value", 0)
-    logger.info("Found %s matching active workflows", number_workflows_running)
+    logger.info("Found %s matching active HEP submissions", number_workflows_running)
     return number_workflows_running > 0

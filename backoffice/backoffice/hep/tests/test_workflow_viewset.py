@@ -117,8 +117,13 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(json_response["workflow_type"], data["workflow_type"])
         self.assertIn("id", json_response)
 
-    @patch("backoffice.hep.api.views.is_another_hep_running", return_value=True)
-    def test_create_hep_returns_409_if_matching_workflow_exists(self, mock_is_running):
+    @patch(
+        "backoffice.hep.api.views.is_another_hep_submission_running",
+        return_value=True,
+    )
+    def test_create_hep_returns_409_if_matching_submission_exists(
+        self, mock_is_running
+    ):
         self.api_client.force_authenticate(user=self.curator)
         data = {
             "workflow_type": HepWorkflowType.HEP_CREATE,

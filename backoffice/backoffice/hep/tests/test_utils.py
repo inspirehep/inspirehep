@@ -10,7 +10,7 @@ from backoffice.hep.utils import (
     resolve_workflow,
     complete_workflow,
     get_restored_hep_workflow_type,
-    is_another_hep_running,
+    is_another_hep_submission_running,
 )
 
 from backoffice.hep.constants import HepStatusChoices, HepResolutions, HepWorkflowType
@@ -133,9 +133,9 @@ class TestUtils(TransactionTestCase):
         self.assertEqual(restored_type, HepWorkflowType.HEP_CREATE)
 
     @patch("backoffice.hep.utils.opensearch_client.search")
-    def test_is_another_hep_running_matches_arxiv_eprints_or_dois(self, mock_search):
+    def test_is_another_hep_submission_running_matches_identifiers(self, mock_search):
         mock_search.return_value = {"hits": {"total": {"value": 1}}}
-        result = is_another_hep_running(
+        result = is_another_hep_submission_running(
             {
                 "data": {
                     "arxiv_eprints": [
@@ -153,6 +153,9 @@ class TestUtils(TransactionTestCase):
             body={
                 "query": {
                     "bool": {
+                        "must": [
+                            {"term": {"data.acquisition_source.method": "submitter"}}
+                        ],
                         "must_not": [
                             {"match": {"status": HepStatusChoices.COMPLETED}},
                         ],
@@ -174,10 +177,10 @@ class TestUtils(TransactionTestCase):
         )
 
     @patch("backoffice.hep.utils.opensearch_client.search")
-    def test_is_another_hep_running_skips_search_without_matchable_identifiers(
+    def test_is_another_hep_submission_running_skips_without_identifiers(
         self, mock_search
     ):
-        result = is_another_hep_running({"data": {}})
+        result = is_another_hep_submission_running({"data": {}})
 
         self.assertFalse(result)
         mock_search.assert_not_called()
