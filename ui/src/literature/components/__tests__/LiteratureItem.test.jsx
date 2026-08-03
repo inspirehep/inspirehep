@@ -1,4 +1,3 @@
-import React from 'react';
 import { fromJS, List } from 'immutable';
 
 import { renderWithProviders } from '../../../fixtures/render';

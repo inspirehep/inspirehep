@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Button } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
 

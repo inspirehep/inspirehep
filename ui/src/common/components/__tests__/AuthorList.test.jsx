@@ -1,6 +1,7 @@
 import { fromJS } from 'immutable';
 import { render, screen } from '@testing-library/react';
 
+import userEvent from '@testing-library/user-event';
 import AuthorList from '../AuthorList';
 
 describe('AuthorList', () => {
@@ -129,7 +130,8 @@ describe('AuthorList', () => {
     expect(queryByText('et al.')).toBeNull();
   });
 
-  it('should display `authors` in modal title', () => {
+  it('should display `authors` in modal title', async () => {
+    const user = userEvent.setup();
     const authors = fromJS([
       {
         full_name: 'Test, Guy 1',
@@ -141,7 +143,7 @@ describe('AuthorList', () => {
     const { getByRole } = render(
       <AuthorList authors={authors} limit={1} enableShowAll />
     );
-    getByRole('button').click();
+    await user.click(getByRole('button'));
     expect(screen.getByText('2 authors')).toBeInTheDocument();
   });
 });

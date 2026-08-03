@@ -1,5 +1,3 @@
-import React from 'react';
-
 import DisabledEditRecordAction from '../../common/components/DisabledEditRecordAction';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import { PidValue } from '../../types';
@@ -17,6 +15,7 @@ const CAN_NOT_EDIT_AUTHOR_MESSAGE = (
     <a
       href="https://help.inspirehep.net/knowledge-base/contact-us"
       target="_blank"
+      rel="noreferrer"
     >
       contact us
     </a>

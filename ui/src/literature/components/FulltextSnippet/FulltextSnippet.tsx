@@ -1,4 +1,3 @@
-import React from 'react';
 import SanitizedHTML from '../../../common/components/SanitizedHTML';
 
 import './FulltextSnippet.less';

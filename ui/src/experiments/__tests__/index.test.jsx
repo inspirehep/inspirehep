@@ -1,4 +1,3 @@
-import React from 'react';
 import { fromJS } from 'immutable';
 import { renderWithProviders, renderWithRouter } from '../../fixtures/render';
 import Experiments from '..';

@@ -1,15 +1,10 @@
-import React from 'react';
 import { fromJS } from 'immutable';
 import { render } from '@testing-library/react';
 
 import AggregationFilter from '../AggregationFilter';
-import RangeAggregation from '../RangeAggregation';
 
 describe('AggregationFilter', () => {
   it('renders RangeAggregation if aggregation type is range', () => {
-    const realMaximumMaxDefaultValue = RangeAggregation.defaultProps.maximumMax;
-    RangeAggregation.defaultProps.maximumMax = 2018;
-
     const buckets = fromJS([
       {
         key: '2011',
@@ -42,7 +37,6 @@ describe('AggregationFilter', () => {
       />
     );
     expect(asFragment()).toMatchSnapshot();
-    RangeAggregation.defaultProps.maximumMax = realMaximumMaxDefaultValue;
   });
 
   it('renders CheckboxAggregation if aggregation type is checkbox', () => {

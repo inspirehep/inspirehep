@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Row } from 'antd';
 import { Route, Redirect, Switch } from 'react-router-dom';
 

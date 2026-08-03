@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Map, List } from 'immutable';
 
@@ -12,11 +11,11 @@ import EditAuthorRecordAction from './EditAuthorRecordAction';
 
 const AuthorResultItem = ({
   metadata,
-  openDetailInNewTab,
+  openDetailInNewTab = false,
   isCatalogerLoggedIn,
 }: {
   metadata: Map<string, any>;
-  openDetailInNewTab: boolean;
+  openDetailInNewTab?: boolean;
   isCatalogerLoggedIn?: boolean;
 }) => {
   const name = metadata.get('name') as Map<string, string>;
@@ -58,10 +57,6 @@ const AuthorResultItem = ({
       </div>
     </ResultItem>
   );
-};
-
-AuthorResultItem.defaultProps = {
-  openDetailInNewTab: false,
 };
 
 export default AuthorResultItem;

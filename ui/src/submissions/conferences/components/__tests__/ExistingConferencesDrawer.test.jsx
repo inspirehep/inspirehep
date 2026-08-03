@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { renderWithProviders } from '../../../../fixtures/render';
 import ExistingConferencesDrawer from '../ExistingConferencesDrawer';
 

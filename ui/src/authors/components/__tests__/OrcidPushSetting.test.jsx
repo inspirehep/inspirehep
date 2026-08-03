@@ -1,4 +1,4 @@
-import React from 'react';
+import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from '../../../fixtures/render';
 import { getStore } from '../../../fixtures/store';
 
@@ -25,7 +25,8 @@ describe('OrcidPushSetting', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('calls on change when toggling is confirmed', () => {
+  it('calls on change when toggling is confirmed', async () => {
+    const user = userEvent.setup();
     const onChange = jest.fn();
     const currentEnabled = true;
     const { getByText, getByRole } = renderWithProviders(
@@ -36,8 +37,8 @@ describe('OrcidPushSetting', () => {
       />,
       { store: getStore() }
     );
-    getByRole('switch').click();
-    getByText('OK').click();
+    await user.click(getByRole('switch'));
+    await user.click(getByText('OK'));
     expect(onChange).toHaveBeenCalledWith(!currentEnabled);
   });
 });

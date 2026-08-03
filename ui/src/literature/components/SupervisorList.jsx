@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
@@ -30,10 +29,6 @@ function SupervisorList({ supervisors, page }) {
 
 SupervisorList.propTypes = {
   supervisors: PropTypes.instanceOf(List),
-};
-
-SupervisorList.defaultProps = {
-  supervisors: null,
 };
 
 export default SupervisorList;

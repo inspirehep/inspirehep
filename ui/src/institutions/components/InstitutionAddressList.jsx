@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
@@ -25,10 +24,6 @@ function InstitutionAddressList({ addresses }) {
 
 InstitutionAddressList.propTypes = {
   addresses: PropTypes.instanceOf(List),
-};
-
-InstitutionAddressList.defaultProps = {
-  addresses: null,
 };
 
 export default InstitutionAddressList;

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Card } from 'antd';
 import RouterLinkButton from '../../common/components/RouterLinkButton';
 

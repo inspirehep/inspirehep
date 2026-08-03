@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from 'react';
+import { MouseEventHandler } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Tooltip, Button } from 'antd';
 

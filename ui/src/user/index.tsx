@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { RootState } from '../types';
@@ -27,44 +26,42 @@ const User = ({
 }: {
   loggedIn: boolean;
   previousUrl?: string;
-}) => {
-  return (
-    <div className="w-100" data-testid="user">
-      <SafeSwitch>
-        <Redirect exact from={USER} to={USER_PROFILE} />
-        <RouteOrRedirect
-          exact
-          path={USER_LOGIN}
-          condition={!loggedIn}
-          component={LoginPageContainer}
-          redirectTo={previousUrl}
-        />
-        <RouteOrRedirect
-          exact
-          path={USER_SETTINGS}
-          condition={loggedIn}
-          component={SettingsContainer}
-          redirectTo={previousUrl}
-        />
-        <RouteOrRedirect
-          exact
-          path={USER_SIGNUP}
-          condition={!loggedIn}
-          component={SignUpPageContainer}
-          redirectTo={HOME}
-        />
-        <RouteOrRedirect
-          exact
-          path={USER_LOCAL_LOGIN}
-          condition={!loggedIn}
-          component={LocalLoginPageContainer}
-          redirectTo={previousUrl}
-        />
-        <PrivateRoute exact path={USER_PROFILE} component={ProfilePage} />
-      </SafeSwitch>
-    </div>
-  );
-};
+}) => (
+  <div className="w-100" data-testid="user">
+    <SafeSwitch>
+      <Redirect exact from={USER} to={USER_PROFILE} />
+      <RouteOrRedirect
+        exact
+        path={USER_LOGIN}
+        condition={!loggedIn}
+        component={LoginPageContainer}
+        redirectTo={previousUrl}
+      />
+      <RouteOrRedirect
+        exact
+        path={USER_SETTINGS}
+        condition={loggedIn}
+        component={SettingsContainer}
+        redirectTo={previousUrl}
+      />
+      <RouteOrRedirect
+        exact
+        path={USER_SIGNUP}
+        condition={!loggedIn}
+        component={SignUpPageContainer}
+        redirectTo={HOME}
+      />
+      <RouteOrRedirect
+        exact
+        path={USER_LOCAL_LOGIN}
+        condition={!loggedIn}
+        component={LocalLoginPageContainer}
+        redirectTo={previousUrl}
+      />
+      <PrivateRoute exact path={USER_PROFILE} component={ProfilePage} />
+    </SafeSwitch>
+  </div>
+);
 
 const stateToProps = (state: RootState) => ({
   loggedIn: state.user.get('loggedIn'),
