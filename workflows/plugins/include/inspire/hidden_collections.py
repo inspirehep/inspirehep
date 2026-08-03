@@ -1,6 +1,16 @@
 import re
 
-from include.utils.constants import AFFILIATIONS_TO_HIDDEN_COLLECTIONS_MAPPING
+from include.utils.constants import (
+    AFFILIATIONS_TO_HIDDEN_COLLECTIONS_MAPPING,
+)
+
+
+def is_fermilab_report(report_numbers):
+    """Check if any report number identifies the record as a Fermilab report."""
+    return any(
+        report_number.get("value", "").startswith("FERMILAB")
+        for report_number in report_numbers
+    )
 
 
 def reports_for_hidden_collections(report_numbers):
