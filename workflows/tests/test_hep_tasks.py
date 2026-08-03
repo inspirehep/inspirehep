@@ -4466,6 +4466,51 @@ class Test_HEPCreateDAG:
         )
         assert validate(workflow_inspire_categories, subschema) is None
 
+    def test_remove_inspire_categories_derived_from_core_arxiv_categories_dedupes(
+        self,
+    ):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "_collections": ["Literature"],
+                "titles": [{"title": "A title"}],
+                "document_type": ["report"],
+                "arxiv_eprints": [
+                    {
+                        # both astro-ph categories classify to Astrophysics
+                        "categories": ["hep-ph", "astro-ph.HE", "astro-ph.CO"],
+                        "value": "2207.01633",
+                    }
+                ],
+                "inspire_categories": [
+                    {"source": "arxiv", "term": "Phenomenology-HEP"},
+                    {"source": "arxiv", "term": "Astrophysics"},
+                    {"source": "user", "term": "Other"},
+                ],
+            },
+        }
+        self.s3_store.write_workflow(workflow_data)
+
+        task_test(
+            self.dag,
+            "core_selection.remove_inspire_categories_derived_from_core_arxiv_categories",
+            self.context,
+        )
+
+        schema = load_schema("hep")
+        subschema = schema["properties"]["inspire_categories"]
+
+        workflow_data = self.s3_store.read_workflow(self.workflow_id)
+        expected_inspire_categories = [
+            {"source": "user", "term": "Other"},
+            {"source": "arxiv", "term": "Astrophysics"},
+        ]
+        workflow_inspire_categories = workflow_data["data"]["inspire_categories"]
+        assert ordered(workflow_inspire_categories) == ordered(
+            expected_inspire_categories
+        )
+        assert validate(workflow_inspire_categories, subschema) is None
+
     @pytest.mark.vcr
     def test_is_fresh_data_true(self):
         control_number = 44707

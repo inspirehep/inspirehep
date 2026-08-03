@@ -2,6 +2,7 @@ from airflow.sdk import task
 from include.utils.constants import ARXIV_CATEGORIES
 from include.utils.s3 import S3JsonStore
 from inspire_schemas.utils import classify_field
+from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
 
 
@@ -34,5 +35,8 @@ def remove_inspire_categories_derived_from_core_arxiv_categories(**context):
     inspire_categories_without_arxiv_sourced.extend(
         inspire_categories_for_non_core_arxiv_categories
     )
-    data["inspire_categories"] = inspire_categories_without_arxiv_sourced
+    # several arXiv categories can map to the same INSPIRE term
+    # (e.g. astro-ph.CO and astro-ph.HE both give Astrophysics), and
+    # inspire_categories is declared with uniqueItems in the schema
+    data["inspire_categories"] = dedupe_list(inspire_categories_without_arxiv_sourced)
     s3_store.write_workflow(workflow_data)
