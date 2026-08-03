@@ -1,4 +1,3 @@
-import React from 'react';
 import { renderWithProviders } from '../../../fixtures/render';
 import ErrorPage from '../ErrorPage';
 

@@ -1,4 +1,4 @@
-/* eslint-disable react/button-has-type, react/prop-types */
+/* eslint-disable react/button-has-type */
 import { useCallback } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 

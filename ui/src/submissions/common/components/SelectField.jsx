@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import SelectBox from '../../../common/components/SelectBox';
 import withFormItem from '../withFormItem';

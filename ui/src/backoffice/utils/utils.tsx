@@ -1,4 +1,3 @@
-import React from 'react';
 import { List, Map } from 'immutable';
 import {
   WarningOutlined,
@@ -298,13 +297,12 @@ export const filterByProperty = (
   property: string,
   value: any,
   include: boolean = true
-) => {
-  return data
+) =>
+  data
     ?.get(dataField)
     ?.filter((item: Map<string, any>) =>
       include ? item.get(property) === value : item.get(property) !== value
     );
-};
 
 export const formatDateTime = (
   rawDateTime: string | undefined
@@ -320,8 +318,8 @@ export const formatDateTime = (
   };
 };
 
-export const getDag = (workflow_type: string): string | undefined => {
-  switch (workflow_type) {
+export const getDag = (workflowType: string): string | undefined => {
+  switch (workflowType) {
     case WorkflowTypes.AUTHOR_CREATE:
       return 'author_create_initialization_dag';
     case WorkflowTypes.AUTHOR_UPDATE:

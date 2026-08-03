@@ -2,8 +2,7 @@
 function isStorageAvailable() {
   let storage;
   try {
-    // eslint-disable-next-line dot-notation
-    storage = window['localStorage'];
+    storage = window.localStorage;
     const test = '__test__';
     storage.setItem(test, test);
     storage.removeItem(test);
@@ -25,7 +24,6 @@ const storage = {
   isAvailable: isStorageAvailable(),
 
   getSync(key: string) {
-    // eslint-disable-next-line react/no-this-in-sfc
     if (this.isAvailable) {
       const rawValue = localStorage.getItem(key);
       if (rawValue !== null) {

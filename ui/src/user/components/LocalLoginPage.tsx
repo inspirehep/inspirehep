@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row, Card, Button, Input } from 'antd';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 
@@ -13,7 +12,7 @@ const LocalLoginPage = ({
   ) => void | Promise<any>) &
     Function;
 }) => {
-  function renderFormInput({
+  const renderFormInput = ({
     _form,
     field,
     ...rest
@@ -21,9 +20,7 @@ const LocalLoginPage = ({
     _form: any;
     field: JSX.Element;
     rest: any;
-  }) {
-    return <Input {...field} {...rest} />;
-  }
+  }) => <Input {...field} {...rest} />;
 
   function renderLoginForm() {
     return (

@@ -1,4 +1,3 @@
-import React from 'react';
 import { List, Map } from 'immutable';
 
 import EventTracker from '../../common/components/EventTracker';
@@ -43,15 +42,13 @@ const PersistentIdentifiers = ({
   identifiers,
 }: {
   identifiers: List<string>;
-}) => {
-  return (
-    <InlineDataList
-      label="URN/HDL"
-      items={identifiers}
-      extractKey={(identifier: Map<string, string>) => identifier.get('value')}
-      renderItem={renderIdentifier}
-    />
-  );
-};
+}) => (
+  <InlineDataList
+    label="URN/HDL"
+    items={identifiers}
+    extractKey={(identifier: Map<string, string>) => identifier.get('value')}
+    renderItem={renderIdentifier}
+  />
+);
 
 export default PersistentIdentifiers;

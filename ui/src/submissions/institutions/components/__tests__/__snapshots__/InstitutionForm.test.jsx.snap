@@ -45,7 +45,6 @@ exports[`InstitutionForm > renders 1`] = `
                     data-test-type="suggester"
                     form="[object Object]"
                     name="identifier"
-                    placement="bottomLeft"
                     searchasyoutype="true"
                   >
                     <div
@@ -64,6 +63,7 @@ exports[`InstitutionForm > renders 1`] = `
                           class="ant-select-selection-search-input"
                           id="rc_select_TEST_OR_SSR"
                           role="combobox"
+                          type="search"
                           value=""
                         />
                       </span>

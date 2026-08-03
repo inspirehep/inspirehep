@@ -1,6 +1,6 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 
+import userEvent from '@testing-library/user-event';
 import DrawerHandle from '../DrawerHandle';
 
 describe('DrawerHandle', () => {
@@ -29,14 +29,15 @@ describe('DrawerHandle', () => {
     expect(getByText('Open')).toBeInTheDocument();
   });
 
-  it('makes drawer visible on handle click', () => {
+  it('makes drawer visible on handle click', async () => {
+    const user = userEvent.setup();
     const { getByTestId, getByText } = render(
       <DrawerHandle drawerTitle="Title">
         <div>Content</div>
       </DrawerHandle>
     );
     const button = getByTestId('handle-button');
-    button.click();
+    await user.click(button);
     expect(getByText('Open')).toBeInTheDocument();
     expect(getByText('Title')).toBeInTheDocument();
     expect(getByText('Content')).toBeInTheDocument();

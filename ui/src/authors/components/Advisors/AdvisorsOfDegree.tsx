@@ -1,4 +1,3 @@
-import React from 'react';
 import { List, Map } from 'immutable';
 
 import InlineDataList from '../../../common/components/InlineList/InlineDataList';

@@ -1,9 +1,12 @@
-import React, { Component, ReactNode } from 'react';
+import { Component, ReactNode } from 'react';
 import { Button, Drawer } from 'antd';
 
-type DrawerHandleProps = typeof DrawerHandle.defaultProps & {
+type DrawerHandleProps = {
   children: ReactNode;
   drawerTitle: ReactNode;
+  width?: number;
+  handleText?: string;
+  className?: string;
 };
 
 interface DrawerHandleState {
@@ -14,12 +17,6 @@ export default class DrawerHandle extends Component<
   DrawerHandleProps,
   DrawerHandleState
 > {
-  static defaultProps = {
-    width: 304,
-    handleText: 'Open',
-    className: '',
-  };
-
   state = {
     isDrawerVisible: false,
   };
@@ -33,7 +30,13 @@ export default class DrawerHandle extends Component<
   };
 
   render() {
-    const { children, drawerTitle, width, handleText, className } = this.props;
+    const {
+      children,
+      drawerTitle,
+      width = 304,
+      handleText = 'Open',
+      className = '',
+    } = this.props;
     const { isDrawerVisible } = this.state;
     return (
       <>

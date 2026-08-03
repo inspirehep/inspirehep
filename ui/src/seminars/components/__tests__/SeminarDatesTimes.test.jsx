@@ -1,4 +1,3 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 import { advanceTo, clear } from 'jest-date-mock';
 import SeminarDateTimes from '../SeminarDateTimes';

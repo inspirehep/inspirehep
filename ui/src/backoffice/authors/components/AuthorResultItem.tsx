@@ -1,4 +1,3 @@
-import React from 'react';
 import { WorkflowTypes } from '../../constants';
 import UnclickableTag from '../../../common/components/UnclickableTag';
 import { resolveDecision } from '../../utils/utils';

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import error500Image from '../images/500.svg';
 import ErrorPage from './ErrorPage';

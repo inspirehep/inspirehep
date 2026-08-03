@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { List } from 'immutable';
 
 import InlineDataList from '../InlineList';
 import ExpandListToggle from '../ExpandListToggle';
 
 const ExpandableInlineList = ({
-  limit,
+  limit = 10,
   items,
   ...listProps
 }: {
-  limit: number;
+  limit?: number;
   items: List<any>;
   listProps: any;
 }) => {
@@ -32,11 +32,6 @@ const ExpandableInlineList = ({
       />
     </div>
   );
-};
-
-ExpandableInlineList.defaultProps = {
-  ...InlineDataList.defaultProps,
-  limit: 10,
 };
 
 export default ExpandableInlineList;

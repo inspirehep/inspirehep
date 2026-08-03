@@ -1,6 +1,7 @@
 import { fromJS } from 'immutable';
 import { render } from '@testing-library/react';
 
+import userEvent from '@testing-library/user-event';
 import ExpandableInlineList from '../ExpandableInlineList';
 
 describe('ExpandableInlineList', () => {
@@ -26,7 +27,8 @@ describe('ExpandableInlineList', () => {
     expect(getByRole('button')).toHaveTextContent('Show all (5)');
   });
 
-  it('renders all on expand toggle', () => {
+  it('renders all on expand toggle', async () => {
+    const user = userEvent.setup();
     const items = fromJS([1, 2, 3, 4, 5]);
     const { getAllByRole, getByRole } = render(
       <ExpandableInlineList
@@ -36,7 +38,7 @@ describe('ExpandableInlineList', () => {
       />
     );
     expect(getAllByRole('listitem')).toHaveLength(3);
-    getByRole('button').click();
+    await user.click(getByRole('button'));
     expect(getAllByRole('listitem')).toHaveLength(5);
   });
 });
