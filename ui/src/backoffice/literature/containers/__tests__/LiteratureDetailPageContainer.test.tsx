@@ -1,17 +1,17 @@
-import React from 'react';
 import { fromJS } from 'immutable';
 import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
+import { vi } from 'vitest';
 import LiteratureDetailPageContainer from '../LiteratureDetailPageContainer';
 import { getStore } from '../../../../fixtures/store';
 import { renderWithProviders } from '../../../../fixtures/render';
 import { BACKOFFICE } from '../../../../common/routes';
 import { WorkflowStatuses } from '../../../constants';
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useParams: () => ({ id: 'test-workflow-id' }),
+vi.mock('react-router-dom', async () => ({
+  ...(await vi.importActual('react-router-dom')),
+  useParams: () => ({ id: '1' }),
 }));
 
 describe('LiteratureDetailPageContainer', () => {

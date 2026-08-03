@@ -1,4 +1,3 @@
-import React from 'react';
 import ContentBox from '../../../common/components/ContentBox';
 
 type PrivateNotesProps = {

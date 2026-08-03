@@ -1,11 +1,13 @@
-import React from 'react';
-import { goBack } from 'connected-react-router';
+import { goBack } from 'redux-first-history';
 import { fireEvent } from '@testing-library/react';
 
 import GoBackLinkContainer from '../GoBackLinkContainer';
 import { renderWithProviders } from '../../../fixtures/render';
 
-vi.mock('connected-react-router');
+vi.mock('redux-first-history', async (importOriginal) => ({
+  ...(await importOriginal()),
+  goBack: vi.fn(),
+}));
 
 goBack.mockReturnValue(async () => {});
 

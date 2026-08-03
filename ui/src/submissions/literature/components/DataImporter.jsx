@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Input, Button, Alert, Row, Col, Tooltip, Form } from 'antd';

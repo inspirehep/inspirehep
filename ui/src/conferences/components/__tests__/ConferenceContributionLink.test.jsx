@@ -1,4 +1,3 @@
-import React from 'react';
 import { renderWithProviders } from '../../../fixtures/render';
 import ConferenceContributionLink from '../ConferenceContributionLink';
 import { getStore } from '../../../fixtures/store';

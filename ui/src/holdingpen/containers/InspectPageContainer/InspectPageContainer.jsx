@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Row, Col, Card } from 'antd';
@@ -7,6 +7,7 @@ import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
 import JsonDiff from '../../components/JsonDiff';
 import fetchInspect from '../../../actions/inspect';
 import { convertAllImmutablePropsToJS } from '../../../common/immutableToJS';
+import withParams from '../../../common/withParams';
 
 import './InspectPage.less';
 
@@ -74,7 +75,9 @@ const mapStateToProps = (state) => ({
 });
 const dispatchToProps = (dispatch) => ({ dispatch });
 
-export default connect(
-  mapStateToProps,
-  dispatchToProps
-)(convertAllImmutablePropsToJS(InspectPage));
+export default withParams(
+  connect(
+    mapStateToProps,
+    dispatchToProps
+  )(convertAllImmutablePropsToJS(InspectPage))
+);

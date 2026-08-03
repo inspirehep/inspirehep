@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { getStore } from '../../../fixtures/store';
 import NumberOfPublishedPapersContainer from '../NumberOfPublishedPapersContainer';
 import { SEARCH_QUERY_UPDATE } from '../../../actions/actionTypes';

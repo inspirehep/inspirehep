@@ -1,5 +1,5 @@
 import { Action, ActionCreator } from 'redux';
-import { replace } from 'connected-react-router';
+import { replace } from 'redux-first-history';
 import { stringify } from 'qs';
 import { RootState } from '../types';
 

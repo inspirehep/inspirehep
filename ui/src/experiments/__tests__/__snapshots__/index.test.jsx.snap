@@ -4,6 +4,57 @@ exports[`Experiments > renders initial state 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
-  />
+  >
+    <div
+      class="ant-row"
+      data-testid="experiments-search-page-container"
+    >
+      <div
+        class="ant-col ant-col-xs-24"
+      >
+        <div
+          class="ant-row ant-row-start mt3"
+          style=""
+        >
+          <div
+            class="ant-col ant-col-xs-0 ant-col-lg-7"
+            style=""
+          />
+          <div
+            class="ant-col ant-col-xs-24 ant-col-lg-17"
+            style=""
+          >
+            <div
+              class="ant-row"
+            >
+              <div
+                class="ant-col ant-col-xs-24 ant-col-lg-12"
+              >
+                <span
+                  data-testid="number-of-results"
+                >
+                  0 results
+                </span>
+              </div>
+              <div
+                class="ant-col ant-col-xs-12 ant-col-lg-0"
+              />
+            </div>
+            <div
+              class="ant-row"
+            >
+              <div
+                class="ant-col ant-col-24"
+              >
+                <div
+                  data-testid="search-results"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </DocumentFragment>
 `;

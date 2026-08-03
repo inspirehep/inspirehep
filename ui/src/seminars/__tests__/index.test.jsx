@@ -1,20 +1,27 @@
-import React from 'react';
 import { fromJS } from 'immutable';
 import { screen } from '@testing-library/react';
-import { renderWithProviders, renderWithRouter } from '../../fixtures/render';
+import { Routes, Route } from 'react-router-dom';
+import { renderWithProviders } from '../../fixtures/render';
 import { getStore } from '../../fixtures/store';
 import Seminars from '..';
+import { SEMINARS } from '../../common/routes';
+
+const renderSeminars = (route, store) =>
+  renderWithProviders(
+    <Routes>
+      <Route path={`${SEMINARS}/*`} element={<Seminars />} />
+    </Routes>,
+    { store, route }
+  );
 
 describe('Seminars', () => {
   it('renders initial state', () => {
-    const { asFragment } = renderWithRouter(<Seminars />);
+    const { asFragment } = renderWithProviders(<Seminars />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('navigates to SearchPage when /seminars', () => {
-    renderWithProviders(<Seminars />, {
-      route: '/seminars',
-    });
+    renderSeminars('/seminars');
 
     expect(
       screen.getByTestId('seminars-search-page-container')
@@ -37,10 +44,7 @@ describe('Seminars', () => {
         },
       }),
     });
-    renderWithProviders(<Seminars />, {
-      route: '/seminars/123',
-      store,
-    });
+    renderSeminars('/seminars/123', store);
 
     expect(
       screen.getByTestId('seminars-detail-page-container')

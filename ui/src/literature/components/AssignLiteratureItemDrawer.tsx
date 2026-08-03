@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { SelectOutlined } from '@ant-design/icons';
 import { Drawer, Radio, Row, Col, Button, List, Input } from 'antd';
 import { Map } from 'immutable';

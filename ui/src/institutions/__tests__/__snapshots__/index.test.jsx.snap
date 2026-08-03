@@ -4,6 +4,43 @@ exports[`Institutions > renders initial state 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
-  />
+  >
+    <div
+      class="ant-row ant-row-center mt3"
+      data-testid="institutions-search-page-container"
+      style=""
+      type="flex"
+    >
+      <div
+        class="ant-col ant-col-xs-24"
+        style=""
+      >
+        <div
+          class="ant-row"
+        >
+          <div
+            class="ant-col"
+          >
+            <span
+              data-testid="number-of-results"
+            >
+              0 results
+            </span>
+          </div>
+        </div>
+        <div
+          class="ant-row"
+        >
+          <div
+            class="ant-col ant-col-24"
+          >
+            <div
+              data-testid="search-results"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </DocumentFragment>
 `;

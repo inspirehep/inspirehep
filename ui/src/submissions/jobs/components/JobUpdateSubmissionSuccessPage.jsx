@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import SubmissionSuccess from '../../common/components/SubmissionSuccess';
 import { JOBS } from '../../../common/routes';
+import withParams from '../../../common/withParams';
 
 class JobUpdateSubmissionSuccessPage extends Component {
   render() {
@@ -31,4 +32,4 @@ JobUpdateSubmissionSuccessPage.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-export default JobUpdateSubmissionSuccessPage;
+export default withParams(JobUpdateSubmissionSuccessPage);

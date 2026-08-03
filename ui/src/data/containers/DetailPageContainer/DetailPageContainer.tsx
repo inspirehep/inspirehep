@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { connect } from 'react-redux';
 import { Col, Row } from 'antd';
 import { List } from 'immutable';
@@ -170,6 +168,6 @@ const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: (id) => [fetchData(id), fetchDataAuthors(id)],
+  routeActions: (id) => [fetchData(id!), fetchDataAuthors(id!)],
   loadingStateSelector: (state) => !state.data.hasIn(['data', 'metadata']),
 });

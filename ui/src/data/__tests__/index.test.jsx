@@ -1,12 +1,21 @@
-import React from 'react';
 import { screen } from '@testing-library/react';
 import { fromJS } from 'immutable';
-import { renderWithProviders, renderWithRouter } from '../../fixtures/render';
+import { Route, Routes } from 'react-router-dom';
+import { renderWithProviders } from '../../fixtures/render';
 import Data from '..';
+import { DATA } from '../../common/routes';
+
+const renderData = (route, initialState) =>
+  renderWithProviders(
+    <Routes>
+      <Route path={`${DATA}/*`} element={<Data />} />
+    </Routes>,
+    { initialState, route }
+  );
 
 describe('Data', () => {
   it('renders initial state', () => {
-    const { asFragment } = renderWithRouter(<Data />);
+    const { asFragment } = renderWithProviders(<Data />);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -25,19 +34,14 @@ describe('Data', () => {
         },
       }),
     };
-    renderWithProviders(<Data />, {
-      initialState,
-      route: '/data/123',
-    });
+    renderData('/data/123', initialState);
     expect(
       screen.getByTestId('data-detail-page-container')
     ).toBeInTheDocument();
   });
 
   it('navigates to SearchPage when /data', () => {
-    renderWithProviders(<Data />, {
-      route: '/data',
-    });
+    renderData('/data');
     expect(
       screen.getByTestId('data-search-page-container')
     ).toBeInTheDocument();

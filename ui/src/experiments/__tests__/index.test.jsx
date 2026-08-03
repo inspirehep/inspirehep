@@ -1,11 +1,20 @@
-import React from 'react';
 import { fromJS } from 'immutable';
-import { renderWithProviders, renderWithRouter } from '../../fixtures/render';
+import { Routes, Route } from 'react-router-dom';
+import { renderWithProviders } from '../../fixtures/render';
 import Experiments from '..';
+import { EXPERIMENTS } from '../../common/routes';
+
+const renderExperiments = (route, initialState) =>
+  renderWithProviders(
+    <Routes>
+      <Route path={`${EXPERIMENTS}/*`} element={<Experiments />} />
+    </Routes>,
+    { initialState, route }
+  );
 
 describe('Experiments', () => {
   it('renders initial state', () => {
-    const { asFragment } = renderWithRouter(<Experiments />);
+    const { asFragment } = renderWithProviders(<Experiments />);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -21,10 +30,7 @@ describe('Experiments', () => {
       }),
     };
 
-    const { getByTestId } = renderWithProviders(<Experiments />, {
-      initialState,
-      route: '/experiments/123',
-    });
+    const { getByTestId } = renderExperiments('/experiments/123', initialState);
 
     expect(
       getByTestId('experiments-detail-page-container')
@@ -44,10 +50,7 @@ describe('Experiments', () => {
       }),
     };
 
-    const { getByRole } = renderWithProviders(<Experiments />, {
-      initialState,
-      route: '/experiments/123',
-    });
+    const { getByRole } = renderExperiments('/experiments/123', initialState);
 
     const experimentCollaboration = getByRole('link', {
       name: 'CERN-LHC-ATLAS',
@@ -103,10 +106,7 @@ describe('Experiments', () => {
       }),
     };
 
-    const { getByTestId } = renderWithProviders(<Experiments />, {
-      initialState,
-      route: '/experiments/123',
-    });
+    const { getByTestId } = renderExperiments('/experiments/123', initialState);
 
     const experimentDetailPage = getByTestId(
       'experiments-detail-page-container'
@@ -119,9 +119,7 @@ describe('Experiments', () => {
   });
 
   it('navigates to SearchPage when /experiments', () => {
-    const { getByTestId } = renderWithProviders(<Experiments />, {
-      route: '/experiments',
-    });
+    const { getByTestId } = renderExperiments('/experiments');
 
     expect(
       getByTestId('experiments-search-page-container')

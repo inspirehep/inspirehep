@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
@@ -23,10 +22,6 @@ function AddressList({ addresses }) {
 
 AddressList.propTypes = {
   addresses: PropTypes.instanceOf(List),
-};
-
-AddressList.defaultProps = {
-  addresses: null,
 };
 
 export default AddressList;

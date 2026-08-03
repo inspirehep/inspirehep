@@ -1,32 +1,23 @@
-import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Component } from 'react';
+import { Route, Navigate } from 'react-router-dom';
 
 import DashboardPageContainer from './containers/DashboardPageContainer';
 import InspectPageContainer from './containers/InspectPageContainer';
-import {
-  HOLDINGPEN_DASHBOARD,
-  HOLDINGPEN_INSPECT,
-  HOLDINGPEN,
-} from '../common/routes';
-import SafeSwitch from '../common/components/SafeSwitch';
+import { HOLDINGPEN_DASHBOARD } from '../common/routes';
+import RoutesWithFallback from '../common/components/RoutesWithFallback';
 
 class Holdingpen extends Component {
   render() {
     return (
       <div className="w-100" data-testid="holdingpen">
-        <SafeSwitch>
-          <Redirect exact from={HOLDINGPEN} to={HOLDINGPEN_DASHBOARD} />
+        <RoutesWithFallback>
           <Route
-            exact
-            path={HOLDINGPEN_DASHBOARD}
-            component={DashboardPageContainer}
+            index
+            element={<Navigate to={HOLDINGPEN_DASHBOARD} replace />}
           />
-          <Route
-            exact
-            path={`${HOLDINGPEN_INSPECT}/:id`}
-            component={InspectPageContainer}
-          />
-        </SafeSwitch>
+          <Route path="dashboard" element={<DashboardPageContainer />} />
+          <Route path="inspect/:id" element={<InspectPageContainer />} />
+        </RoutesWithFallback>
       </div>
     );
   }

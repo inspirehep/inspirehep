@@ -1,4 +1,3 @@
-import React from 'react';
 import { Table } from 'antd';
 
 import LinkWithEncodedLiteratureQuery from './LinkWithEncodedLiteratureQuery';

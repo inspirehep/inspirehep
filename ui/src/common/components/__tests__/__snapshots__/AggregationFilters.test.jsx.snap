@@ -240,7 +240,7 @@ exports[`AggregationFilters > renders with all props set [inline] 1`] = `
                   />
                   <defs>
                     <clippath
-                      id="recharts4-clip"
+                      id="recharts3-clip"
                     >
                       <rect
                         height="90"

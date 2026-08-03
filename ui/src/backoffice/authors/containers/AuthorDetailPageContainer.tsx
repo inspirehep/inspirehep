@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col, Table } from 'antd';
 import { ActionCreator, Action } from 'redux';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
-import { push } from 'connected-react-router';
+import { push } from 'redux-first-history';
 import { RootState } from '../../../types';
 
 import './AuthorDetailPageContainer.less';
@@ -72,7 +72,7 @@ const AuthorDetailPageContainer = ({
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    dispatch(fetchAuthor(id));
+    dispatch(fetchAuthor(id!));
   }, []);
 
   const data = author?.get('data');
@@ -80,7 +80,7 @@ const AuthorDetailPageContainer = ({
   const tickets = author?.get('tickets')?.size !== 0 && author?.get('tickets');
   const decision = author?.getIn(['decisions', 0]) as Map<string, any>;
   const status = author?.get('status');
-  const workflow_type = author?.get('workflow_type');
+  const workflowType = author?.get('workflow_type');
   const urls = data?.get('urls');
   const filteredIds = filterByProperty(data, 'ids', 'schema', 'ORCID', false);
   const acquisitionSourceEmail = data?.getIn(['acquisition_source', 'email']);
@@ -97,7 +97,7 @@ const AuthorDetailPageContainer = ({
     decision || status === WorkflowStatuses.APPROVAL;
 
   const DAGS_URL = getConfigFor('INSPIRE_WORKFLOWS_DAGS_URL');
-  const DAG_FULL_URL = `${DAGS_URL}${getDag(workflow_type)}/runs/${id}`;
+  const DAG_FULL_URL = `${DAGS_URL}${getDag(workflowType)}/runs/${id}`;
 
   const OPEN_SECTIONS = [
     data?.get('positions') && 'institutions',
@@ -109,19 +109,19 @@ const AuthorDetailPageContainer = ({
   ].filter(Boolean);
 
   const handleResolveAction = (value: string) => {
-    dispatch(resolveAuthorAction(id, { value }));
+    dispatch(resolveAuthorAction(id!, { value }));
   };
 
   const handleRestart = () => {
-    dispatch(restartWorkflowAction(id, AUTHORS_PID_TYPE));
+    dispatch(restartWorkflowAction(id!, AUTHORS_PID_TYPE));
   };
 
   const handleRestartCurrent = () => {
-    dispatch(restartCurrentWorkflowAction(id, AUTHORS_PID_TYPE));
+    dispatch(restartCurrentWorkflowAction(id!, AUTHORS_PID_TYPE));
   };
 
   const handleDelete = () => {
-    dispatch(deleteWorkflow(AUTHORS_PID_TYPE, id));
+    dispatch(deleteWorkflow(AUTHORS_PID_TYPE, id!));
   };
 
   return (
@@ -225,7 +225,11 @@ const AuthorDetailPageContainer = ({
                       <CollapsableForm.Section header="Errors" key="errors">
                         <p>
                           See error details here:{' '}
-                          <a href={DAG_FULL_URL} target="_blank">
+                          <a
+                            href={DAG_FULL_URL}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
                             {DAG_FULL_URL}
                           </a>
                         </p>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row, Col, PageHeader } from 'antd';
 import { Link } from 'react-router-dom';
 import { LoginOutlined } from '@ant-design/icons';
