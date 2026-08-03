@@ -3651,8 +3651,8 @@ class Test_HEPCreateDAG:
         )
 
         assert (
-            result
-            == "halt_for_approval_if_new_or_reject_if_not_relevant.auto_reject_end"
+            result == "halt_for_approval_if_new_or_reject_if_not_relevant."
+            "should_replace_collection_to_hidden"
         )
 
         workflow = self.wf_hook.get_workflow(self.workflow_id)
