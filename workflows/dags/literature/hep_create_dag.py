@@ -1465,7 +1465,8 @@ def hep_create_dag():
                     decision_data={"action": DECISION_AUTO_REJECT},
                 )
                 return (
-                    "halt_for_approval_if_new_or_reject_if_not_relevant.auto_reject_end"
+                    "halt_for_approval_if_new_or_reject_if_not_relevant."
+                    "should_replace_collection_to_hidden"
                 )
 
             return (
@@ -1580,7 +1581,6 @@ def hep_create_dag():
         halt_end = EmptyOperator(
             task_id="halt_end", trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
         )
-        auto_reject_end = EmptyOperator(task_id="auto_reject_end")
         is_record_relevant_task = is_record_relevant()
         should_replace_collection_to_hidden_task = should_replace_collection_to_hidden()
 
@@ -1602,7 +1602,7 @@ def hep_create_dag():
             >> should_replace_collection_to_hidden_task
             >> [replace_collection_task, halt_end]
         )
-        is_record_relevant_task >> auto_reject_end >> halt_end
+        is_record_relevant_task >> should_replace_collection_to_hidden_task
 
     @task.branch(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def is_record_accepted(**context):
