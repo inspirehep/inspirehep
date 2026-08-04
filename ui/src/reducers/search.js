@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { fromJS, Map } from 'immutable';
+import { fromJS, List, Map } from 'immutable';
 import { LOCATION_CHANGE } from 'connected-react-router';
 
 import {
@@ -16,6 +16,8 @@ import {
   SEARCH_QUERY_RESET,
   RESET_SEARCH_RESULTS,
   AI_SEARCH_REQUEST,
+  AI_SEARCH_PROGRESS,
+  AI_SEARCH_CHUNK,
   AI_SEARCH_SUCCESS,
   AI_SEARCH_ERROR,
 } from '../actions/actionTypes';
@@ -118,8 +120,36 @@ const searchReducer = (state = initialState, action) => {
           response: null,
           recordIds: null,
           error: null,
+          stage: 'connecting',
+          progress: [],
         })
       );
+    case AI_SEARCH_PROGRESS: {
+      const aiSearchPath = ['namespaces', namespace, 'aiSearch'];
+      if (state.getIn(aiSearchPath) == null) {
+        return state;
+      }
+      const { event } = action.payload;
+      if (event.type === 'status') {
+        return state.setIn([...aiSearchPath, 'stage'], event.stage);
+      }
+      return state.updateIn([...aiSearchPath, 'progress'], (progress) =>
+        (progress || List()).push(fromJS(event))
+      );
+    }
+    case AI_SEARCH_CHUNK: {
+      const responsePath = ['namespaces', namespace, 'aiSearch', 'response'];
+      if (state.getIn(['namespaces', namespace, 'aiSearch']) == null) {
+        return state;
+      }
+      const streamedSoFar = action.payload.reset
+        ? ''
+        : state.getIn(responsePath) || '';
+      return state.setIn(
+        responsePath,
+        `${streamedSoFar}${action.payload.text}`
+      );
+    }
     case AI_SEARCH_SUCCESS:
       return state.mergeIn(
         ['namespaces', namespace, 'aiSearch'],

@@ -4,12 +4,14 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import json
+
 import structlog
-from flask import Blueprint, abort, current_app, request
+from flask import Blueprint, Response, abort, current_app, request, stream_with_context
 from inspire_query_parser import parse_query
 
 from inspirehep.accounts.decorators import login_required
-from inspirehep.search.ai_search import AiSearchError, run_ai_search
+from inspirehep.search.ai_search import AiSearchError, run_ai_search, stream_ai_search
 from inspirehep.serializers import jsonify
 
 LOGGER = structlog.getLogger()
@@ -36,9 +38,8 @@ def is_request_from_inspire_ui():
     )
 
 
-@blueprint.route("/assistant", methods=["POST"])
-@login_required
-def assistant_search():
+def _assistant_query_or_abort():
+    """Apply the AI search access rules and return the query to answer."""
     if not current_app.config["FEATURE_FLAG_ENABLE_AI_SEARCH"]:
         abort(404)
     if not is_request_from_inspire_ui():
@@ -47,6 +48,17 @@ def assistant_search():
     query = (data.get("query", "")).strip()
     if not query:
         abort(400, "Missing 'query'.")
+    return query
+
+
+def _server_sent_event(event):
+    return f"data: {json.dumps(event)}\n\n"
+
+
+@blueprint.route("/assistant", methods=["POST"])
+@login_required
+def assistant_search():
+    query = _assistant_query_or_abort()
     try:
         result = run_ai_search(query)
     except AiSearchError:
@@ -54,6 +66,40 @@ def assistant_search():
         return jsonify({"message": AI_SEARCH_ERROR_MESSAGE}), 502
     result["records_api_url"] = current_app.config["AI_SEARCH_RECORDS_API_URL"]
     return jsonify(result)
+
+
+@blueprint.route("/assistant/stream", methods=["POST"])
+@login_required
+def assistant_search_stream():
+    query = _assistant_query_or_abort()
+    records_api_url = current_app.config["AI_SEARCH_RECORDS_API_URL"]
+    try:
+        events = stream_ai_search(query)
+    except AiSearchError:
+        LOGGER.exception("AI assistant search failed", query=query)
+        return jsonify({"message": AI_SEARCH_ERROR_MESSAGE}), 502
+
+    def generate():
+        yield _server_sent_event({"type": "status", "stage": "connecting"})
+        try:
+            for event in events:
+                if event["type"] == "done":
+                    event = {**event, "records_api_url": records_api_url}
+                yield _server_sent_event(event)
+        except Exception:
+            LOGGER.exception("AI assistant search failed", query=query)
+            yield _server_sent_event(
+                {"type": "error", "message": AI_SEARCH_ERROR_MESSAGE}
+            )
+
+    return Response(
+        stream_with_context(generate()),
+        mimetype="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",
+        },
+    )
 
 
 @blueprint.route("/query-parser", methods=["GET"])
