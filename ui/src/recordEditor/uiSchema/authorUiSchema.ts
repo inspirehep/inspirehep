@@ -12,6 +12,7 @@ import DisplayAsListArrayFieldTemplate from '../author/components/customTemplate
 import DisplayAsListArrayFieldItemTemplate from '../author/components/customTemplates/arrayFieldTemplates/DisplayAsListArrayFieldItemTemplate';
 
 const authorUiSchema: UiSchema = {
+  'ui:submitButtonOptions': { norender: true },
   'ui:order': [
     'deleted',
     'deleted_records',

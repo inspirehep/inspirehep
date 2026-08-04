@@ -1,4 +1,5 @@
 import MockAdapter from 'axios-mock-adapter';
+import { CALL_HISTORY_METHOD } from 'redux-first-history';
 
 import { getStore } from '../../fixtures/store';
 import http from '../../common/http';
@@ -9,8 +10,11 @@ import {
   EDITOR_AUTHOR_REVISIONS_ERROR,
   EDITOR_AUTHOR_REVISIONS_REQUEST,
   EDITOR_AUTHOR_REVISIONS_SUCCESS,
+  EDITOR_AUTHOR_SAVE_REQUEST,
+  EDITOR_AUTHOR_SAVE_SUCCESS,
+  EDITOR_AUTHOR_SAVE_ERROR,
 } from '../actionTypes';
-import { fetchAuthor, fetchAuthorRevisions } from '../recordEditor';
+import { fetchAuthor, fetchAuthorRevisions, saveAuthor } from '../recordEditor';
 
 const mockHttp = new MockAdapter(http.httpClient);
 
@@ -96,6 +100,54 @@ describe('recordEditor - async action creators', () => {
 
       const store = getStore();
       await store.dispatch(fetchAuthorRevisions('123'));
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  describe('saveAuthor', () => {
+    afterEach(() => {
+      mockHttp.reset();
+    });
+
+    it('creates EDITOR_AUTHOR_SAVE_SUCCESS', async () => {
+      mockHttp.onPut('/authors/123').replyOnce(200);
+
+      const expectedActions = [
+        { type: EDITOR_AUTHOR_SAVE_REQUEST },
+        { type: EDITOR_AUTHOR_SAVE_SUCCESS },
+        {
+          type: CALL_HISTORY_METHOD,
+          payload: {
+            args: ['/authors/123'],
+            method: 'push',
+          },
+        },
+      ];
+
+      const store = getStore();
+      await store.dispatch(
+        saveAuthor('123', { control_number: '123', name: { value: 'Test' } })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('creates EDITOR_AUTHOR_SAVE_ERROR', async () => {
+      mockHttp.onPut('/authors/123').replyOnce(500, { message: 'Error' });
+
+      const expectedActions = [
+        { type: EDITOR_AUTHOR_SAVE_REQUEST },
+        {
+          type: EDITOR_AUTHOR_SAVE_ERROR,
+          payload: {
+            error: { status: 500, message: 'Error' },
+          },
+        },
+      ];
+
+      const store = getStore();
+      await store.dispatch(
+        saveAuthor('123', { control_number: '123', name: { value: 'Test' } })
+      );
       expect(store.getActions()).toEqual(expectedActions);
     });
   });

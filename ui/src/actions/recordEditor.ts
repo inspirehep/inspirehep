@@ -1,10 +1,16 @@
 import { Action, ActionCreator } from 'redux';
+import { push } from 'redux-first-history';
+import { AxiosHeaders } from 'axios';
+
 import {
   EDITOR_AUTHOR_ERROR,
   EDITOR_AUTHOR_REQUEST,
   EDITOR_AUTHOR_REVISIONS_ERROR,
   EDITOR_AUTHOR_REVISIONS_REQUEST,
   EDITOR_AUTHOR_REVISIONS_SUCCESS,
+  EDITOR_AUTHOR_SAVE_ERROR,
+  EDITOR_AUTHOR_SAVE_REQUEST,
+  EDITOR_AUTHOR_SAVE_SUCCESS,
   EDITOR_AUTHOR_SUCCESS,
 } from './actionTypes';
 import { HttpClientWrapper } from '../common/http';
@@ -18,10 +24,10 @@ function fetchingAuthor() {
   };
 }
 
-function fetchAuthorSuccess(data: any) {
+function fetchAuthorSuccess(data: any, eTag: string | undefined) {
   return {
     type: EDITOR_AUTHOR_SUCCESS,
-    payload: { data },
+    payload: { data, eTag },
   };
 }
 
@@ -45,7 +51,10 @@ export function fetchAuthor(
 
     try {
       const response = await http.get(`${resolveQuery}`);
-      dispatch(fetchAuthorSuccess(response?.data));
+      const eTag = (response?.headers as AxiosHeaders)?.get('ETag') as
+        | string
+        | undefined;
+      dispatch(fetchAuthorSuccess(response?.data, eTag));
     } catch (err) {
       const error = httpErrorToActionPayload(err);
       dispatch(fetchAuthorError(error));
@@ -90,6 +99,49 @@ export function fetchAuthorRevisions(
     } catch (err) {
       const error = httpErrorToActionPayload(err);
       dispatch(fetchAuthorRevisionsError(error));
+    }
+  };
+}
+
+function savingAuthor() {
+  return {
+    type: EDITOR_AUTHOR_SAVE_REQUEST,
+  };
+}
+
+function saveAuthorSuccess() {
+  return {
+    type: EDITOR_AUTHOR_SAVE_SUCCESS,
+  };
+}
+
+function saveAuthorError(errorPayload: { error: Error }) {
+  return {
+    type: EDITOR_AUTHOR_SAVE_ERROR,
+    payload: { ...errorPayload },
+  };
+}
+
+export function saveAuthor(
+  id: string,
+  record: object
+): (
+  dispatch: ActionCreator<Action>,
+  getState: () => RootState,
+  http: HttpClientWrapper
+) => Promise<void> {
+  return async (dispatch, getState, http) => {
+    dispatch(savingAuthor());
+    try {
+      const ifMatchHeader = getState().recordEditor.get('currentRecordETag');
+      await http.put(`/authors/${id}`, record, {
+        headers: new AxiosHeaders({ 'If-Match': ifMatchHeader }),
+      });
+      dispatch(saveAuthorSuccess());
+      dispatch(push(`/authors/${id}`));
+    } catch (err) {
+      const error = httpErrorToActionPayload(err);
+      dispatch(saveAuthorError(error));
     }
   };
 }

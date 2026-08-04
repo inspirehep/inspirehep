@@ -2,12 +2,16 @@ import { legacy_connect as connect } from 'react-redux';
 import { List, Map } from 'immutable';
 import { Form } from '@rjsf/antd';
 import FormType from '@rjsf/core';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 import { ConfigProvider } from 'antd';
+import { Action, ActionCreator } from 'redux';
+import { useParams } from 'react-router-dom';
 
 import {
   fetchAuthor,
   fetchAuthorRevisions,
+  saveAuthor,
 } from '../../../actions/recordEditor';
 import { RootState } from '../../../types';
 import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
@@ -25,27 +29,44 @@ import EnumMultiSelectWidget from '../components/customWidgets/EnumMultiSelectWi
 import '../components/customTemplates/Templates.less';
 import validator from '../utils/validator';
 import './AuthorEditorContainer.less';
+import pruneEmptyObjects from '../utils/pruneEmptyObjects';
+import ErrorListTemplate from '../components/customTemplates/ErrorListTemplate';
 
 interface AuthorEditorProps {
+  dispatch: ActionCreator<Action>;
   author: Map<string, any>;
   revisions: List<Map<string, any>>;
 }
 
-const AuthorEditor = ({ author, revisions }: AuthorEditorProps) => {
+const AuthorEditor = ({ dispatch, author, revisions }: AuthorEditorProps) => {
+  const { id } = useParams();
   const authorData = author.get('record').get('metadata');
   const schema = prepareAuthorSchema(author.get('schema').toJS());
   const lastRevision = revisions.get(0);
 
+  const [formData, setFormData] = useState(() => authorData.toJS());
   const formRef = useRef<FormType>(null);
 
-  const onSubmit = () => {
-    //console.log('coucou');
-  };
+  useEffect(() => {
+    setFormData(authorData.toJS());
+  }, [authorData]);
+
+  if (!id) {
+    return null;
+  }
 
   const onSave = () => {
-    const formData = formRef.current?.state.formData;
-    console.log({ formData });
-    return formRef.current?.submit();
+    const prunedFormData = pruneEmptyObjects(formData);
+    // flushSync forces the pruned formData to reach the Form's internal
+    // state synchronously, so validateForm() right after can read it.
+    flushSync(() => {
+      setFormData(prunedFormData);
+    });
+    if (!formRef.current?.validateForm()) {
+      window.scrollTo(0, 0);
+      return;
+    }
+    dispatch(saveAuthor(id, prunedFormData));
   };
 
   return (
@@ -57,7 +78,7 @@ const AuthorEditor = ({ author, revisions }: AuthorEditorProps) => {
             userEmail: lastRevision.get('user_email'),
           }
         }
-        onSave={onSave}
+        onSave={() => onSave()}
       />
 
       <ConfigProvider componentSize="small">
@@ -65,13 +86,15 @@ const AuthorEditor = ({ author, revisions }: AuthorEditorProps) => {
           ref={formRef}
           schema={schema}
           validator={validator}
-          formData={authorData.toJS()}
+          formData={formData}
+          onChange={({ formData: nextFormData }) => setFormData(nextFormData)}
           uiSchema={authorUiSchema}
           templates={{
             ObjectFieldTemplate: DefaultObjectFieldTemplate,
             ArrayFieldTemplate: DefaultArrayFieldTemplate,
             ArrayFieldItemTemplate: DefaultArrayFieldItemTemplate,
             FieldTemplate: DefaultFieldTemplate,
+            ErrorListTemplate,
           }}
           widgets={{
             institutionAutocomplete: InstitutionAutocompleteWidget,
@@ -83,7 +106,7 @@ const AuthorEditor = ({ author, revisions }: AuthorEditorProps) => {
           experimental_defaultFormStateBehavior={{
             arrayMinItems: { populate: 'requiredOnly' },
           }}
-          onSubmit={onSubmit}
+          noHtml5Validate
         />
       </ConfigProvider>
     </div>

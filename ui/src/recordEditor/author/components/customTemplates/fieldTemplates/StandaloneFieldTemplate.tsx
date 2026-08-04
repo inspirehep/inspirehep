@@ -36,7 +36,7 @@ function StandaloneFieldTemplate({
       </div>
       <div className="record-editor-field__value">
         {children}
-        {errors}
+        <div className="field-errors">{errors}</div>
       </div>
     </div>
   );

@@ -6,13 +6,15 @@ function DefaultFieldTemplate({
   errors,
   onChange,
   fieldPathId,
+  schema,
 }: FieldTemplateProps) {
+  const isContainer = schema.type === 'object' || schema.type === 'array';
   return (
     <FieldOnChangeContext.Provider
       value={(newValue) => onChange(newValue, fieldPathId.path)}
     >
       {children}
-      {errors}
+      {!isContainer && <div className="field-errors">{errors}</div>}
     </FieldOnChangeContext.Provider>
   );
 }

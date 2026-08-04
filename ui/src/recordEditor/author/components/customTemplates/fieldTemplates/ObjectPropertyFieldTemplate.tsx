@@ -36,7 +36,7 @@ function ObjectPropertyFieldTemplate({
       </td>
       <td className="record-editor-array__cell">
         {children}
-        {errors}
+        <div className="field-errors">{errors}</div>
       </td>
       <td className="record-editor-array__actions-col" />
     </tr>

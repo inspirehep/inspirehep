@@ -8,6 +8,9 @@ import {
   EDITOR_AUTHOR_REVISIONS_ERROR,
   EDITOR_AUTHOR_REVISIONS_REQUEST,
   EDITOR_AUTHOR_REVISIONS_SUCCESS,
+  EDITOR_AUTHOR_SAVE_REQUEST,
+  EDITOR_AUTHOR_SAVE_SUCCESS,
+  EDITOR_AUTHOR_SAVE_ERROR,
 } from '../../actions/actionTypes';
 
 describe('recordEditor reducer', () => {
@@ -23,6 +26,7 @@ describe('recordEditor reducer', () => {
   });
 
   it('EDITOR_AUTHOR_SUCCESS', () => {
+    const eTag = 'test';
     const payload = {
       data: {
         metadata: {
@@ -31,6 +35,7 @@ describe('recordEditor reducer', () => {
           },
         },
       },
+      eTag,
     };
     const currentState = fromJS({ author: {} });
     const state = reducer(currentState, {
@@ -39,6 +44,7 @@ describe('recordEditor reducer', () => {
     });
     const expected = fromJS({
       author: payload.data,
+      currentRecordETag: eTag,
     });
     expect(state).toEqual(expected);
   });
@@ -85,6 +91,32 @@ describe('recordEditor reducer', () => {
     });
     const expected = fromJS({
       author_revisions: initialState.get('author_revisions'),
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('EDITOR_AUTHOR_SAVE_REQUEST', () => {
+    const state = reducer(Map(), { type: EDITOR_AUTHOR_SAVE_REQUEST });
+    const expected = Map({ saveError: null });
+    expect(state).toEqual(expected);
+  });
+
+  it('EDITOR_AUTHOR_SAVE_SUCCESS', () => {
+    const state = reducer(initialState, {
+      type: EDITOR_AUTHOR_SAVE_SUCCESS,
+    });
+    expect(state).toEqual(initialState);
+  });
+
+  it('EDITOR_AUTHOR_SAVE_ERROR', () => {
+    const errorMessage = ' not working';
+    const currentState = fromJS({ saveError: null });
+    const state = reducer(currentState, {
+      type: EDITOR_AUTHOR_SAVE_ERROR,
+      payload: { error: errorMessage },
+    });
+    const expected = fromJS({
+      saveError: errorMessage,
     });
     expect(state).toEqual(expected);
   });
