@@ -206,7 +206,9 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
                         data.get("value"),
                     )
             except IntegrityError:
-                continue
+                logger.warning(
+                    "Workflow %s already has an accept, core or reject decision.", wf_id
+                )
 
             workflow.status = HepStatusChoices.RUNNING
             workflow.save()
