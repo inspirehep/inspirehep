@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Action, ActionCreator, AnyAction, Dispatch } from 'redux';
 import { connect, ConnectedComponent } from 'react-redux';
-import { withRouter, match } from 'react-router-dom';
+import { withRouter, match as matchType } from 'react-router-dom';
 import { RootState } from '../types';
 
 import { getWrapperComponentDisplayName } from './utils';
@@ -36,7 +36,7 @@ export default function withRouteActionsDispatcher(
     loading,
     ...props
   }: {
-    match: match<{ id: string; old?: string; new?: string }>;
+    match: matchType<{ id: string; old?: string; new?: string }>;
     dispatch: ActionCreator<Action>;
     loading: boolean;
   }) => {

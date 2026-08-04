@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col } from 'antd';
 import { Map } from 'immutable';

@@ -23,9 +23,11 @@ const StatusGroup = ({
   onGroupCollapseStateChange,
 }: StatusGroupProps) => {
   const { label, isCollapsable } = STATUS_GROUPS_CONFIG[groupStatusKey];
-  const sumOfStatuses = statuses.reduce((accumulator, currentValue) => {
-    return accumulator + (currentValue.get('doc_count') || 0);
-  }, 0);
+  const sumOfStatuses = statuses.reduce(
+    (accumulator, currentValue) =>
+      accumulator + (currentValue.get('doc_count') || 0),
+    0
+  );
 
   const handleClick = () => {
     const newValue = !isOpen;

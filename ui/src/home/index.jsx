@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { Row, Col } from 'antd';
 
 import SearchBoxContainer from '../common/containers/SearchBoxContainer';

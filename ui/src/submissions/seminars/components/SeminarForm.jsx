@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
 import { Col, Row, Form as AntForm } from 'antd';

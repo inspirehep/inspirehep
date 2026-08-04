@@ -1,4 +1,3 @@
-import React from 'react';
 import { List } from 'immutable';
 
 import ClaimingDisabledButton from '../../authors/components/ClaimingDisabledButton';

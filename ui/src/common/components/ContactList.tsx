@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { List, Map } from 'immutable';
 
@@ -9,10 +8,10 @@ import { AUTHORS } from '../routes';
 import EventTracker from './EventTracker';
 
 const ContactList = ({
-  contacts,
+  contacts = List([]),
   page,
 }: {
-  contacts: List<string>;
+  contacts?: List<string>;
   page: string;
 }) => {
   function renderContactName(contact: Map<string, string>) {
@@ -27,7 +26,7 @@ const ContactList = ({
     );
   }
 
-  function renderContact(contact: Map<string, string>) {
+  const renderContact = (contact: Map<string, string>) => {
     const email = contact.get('email');
     const name = contact.get('name');
     const renderParanthesis = name && email;
@@ -49,11 +48,10 @@ const ContactList = ({
         {renderParanthesis && ')'}
       </>
     );
-  }
+  };
 
-  function contactEmailOrName(contact: Map<string, string>) {
-    return contact.get('email') || contact.get('name');
-  }
+  const contactEmailOrName = (contact: Map<string, string>) =>
+    contact.get('email') || contact.get('name');
 
   return (
     <InlineDataList
@@ -66,10 +64,6 @@ const ContactList = ({
       extractKey={contactEmailOrName}
     />
   );
-};
-
-ContactList.defaultProps = {
-  contacts: null,
 };
 
 export default ContactList;

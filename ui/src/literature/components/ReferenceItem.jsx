@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { List, Row, Col, Tooltip } from 'antd';

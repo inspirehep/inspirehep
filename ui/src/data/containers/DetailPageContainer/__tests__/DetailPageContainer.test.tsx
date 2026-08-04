@@ -1,4 +1,3 @@
-import React from 'react';
 import { fromJS } from 'immutable';
 
 import { renderWithProviders } from '../../../../fixtures/render';
@@ -6,7 +5,7 @@ import DetailPageContainer from '../DetailPageContainer';
 import { getStore } from '../../../../fixtures/store';
 
 describe('DetailPageContainer', () => {
-  const renderComponent = (citations_count: number = 666) => {
+  const renderComponent = (citationsCount: number = 666) => {
     const store = getStore({
       data: fromJS({
         data: {
@@ -51,7 +50,7 @@ describe('DetailPageContainer', () => {
             ],
             date: 'Feb 5, 2025',
             control_number: 1234,
-            citation_count: citations_count,
+            citation_count: citationsCount,
             accelerator_experiments: [
               {
                 record: {

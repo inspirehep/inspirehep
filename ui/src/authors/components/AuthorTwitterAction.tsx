@@ -1,4 +1,3 @@
-import React from 'react';
 import { XOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
 

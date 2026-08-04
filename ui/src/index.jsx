@@ -1,6 +1,6 @@
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import React from 'react';
+
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import 'antd/dist/antd.less';
@@ -51,7 +51,9 @@ if (typeof window !== 'undefined') {
   });
 }
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(
   <ErrorBoundary renderError={() => <ErrorAppCrash />}>
     <Provider store={store}>
       <ConnectedRouter history={injectTrackerToHistory(history)}>
@@ -60,8 +62,7 @@ ReactDOM.render(
         </Switch>
       </ConnectedRouter>
     </Provider>
-  </ErrorBoundary>,
-  document.getElementById('root')
+  </ErrorBoundary>
 );
 
 unregisterServiceWorker();

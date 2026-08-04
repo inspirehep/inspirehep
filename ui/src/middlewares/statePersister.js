@@ -20,14 +20,11 @@ export function reHydrateRootStateFromStorage() {
       return { [name]: undefined };
     }
 
-    let state = {};
     // merge persisted on top of initialState in order to keep persisted state updated
     // when initialState structure is changed
-    if (statePath) {
-      state = fromJS(setIn({}, statePath, subState));
-    } else {
-      state = fromJS(subState);
-    }
+    const state = statePath
+      ? fromJS(setIn({}, statePath, subState))
+      : fromJS(subState);
 
     return { [name]: initialState.mergeDeep(state) };
   }).reduce((state, partialState) => Object.assign(state, partialState));

@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { List, Map } from 'immutable';
 import { BookOutlined } from '@ant-design/icons';

@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef, useEffect } from 'react';
+import { useCallback, useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Switch, Col } from 'antd';
 

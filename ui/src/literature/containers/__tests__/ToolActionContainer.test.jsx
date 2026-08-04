@@ -1,4 +1,3 @@
-import React from 'react';
 import { fromJS, Set } from 'immutable';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';

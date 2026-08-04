@@ -1,4 +1,3 @@
-import React from 'react';
 import { FileDoneOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
 

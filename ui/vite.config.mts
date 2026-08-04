@@ -53,8 +53,6 @@ export default defineConfig({
           if (!id.includes('node_modules')) return undefined;
           if (id.includes('/antd/') || id.includes('/@ant-design/'))
             return 'vendor-antd';
-          if (id.includes('/react-quill/') || id.includes('/quill/'))
-            return 'vendor-editor';
           if (id.includes('/recharts/') || id.includes('/d3-'))
             return 'vendor-charts';
           return undefined;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { DatePicker } from 'antd';
 import moment from 'moment';
 import withFormItem from '../withFormItem';

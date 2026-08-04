@@ -34,9 +34,8 @@ describe('SearchBoxNamespaceSelectContainer', () => {
     });
 
     const select = document.querySelector('.ant-select-selector');
-    const clickEvent = document.createEvent('MouseEvents');
-    clickEvent.initEvent('mousedown', true, true);
-    select.dispatchEvent(clickEvent);
+
+    fireEvent.mouseDown(select);
 
     fireEvent.click(screen.getAllByText('authors')[1]);
 

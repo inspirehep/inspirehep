@@ -38,7 +38,7 @@ exports[`CitationsByYearGraph > renders citations for less than 3 years with dum
         />
         <defs>
           <clippath
-            id="recharts19-clip"
+            id="recharts16-clip"
           >
             <rect
               height="210"
@@ -75,7 +75,7 @@ exports[`CitationsByYearGraph > renders citations for less than 3 years with dum
                 d="M50,220L415,220L780,10"
                 fill="none"
                 height="210"
-                id="recharts-line-uid-20"
+                id="recharts-line-:r6:"
                 stroke="#1890ff"
                 stroke-width="2"
                 width="730"
@@ -92,7 +92,7 @@ exports[`CitationsByYearGraph > renders citations for less than 3 years with dum
                 class="recharts-curve recharts-line-curve"
                 fill="none"
                 height="210"
-                id="recharts-line-uid-21"
+                id="recharts-line-:r7:"
                 stroke="#1890FF99"
                 stroke-dasharray="7 3"
                 stroke-width="2"
@@ -491,7 +491,7 @@ exports[`CitationsByYearGraph > renders citations for less than 5 different cita
         />
         <defs>
           <clippath
-            id="recharts7-clip"
+            id="recharts6-clip"
           >
             <rect
               height="210"
@@ -528,7 +528,7 @@ exports[`CitationsByYearGraph > renders citations for less than 5 different cita
                 d="M50,10L293.33333333333337,10L536.6666666666667,115L780,115"
                 fill="none"
                 height="210"
-                id="recharts-line-uid-8"
+                id="recharts-line-:r2:"
                 stroke="#1890ff"
                 stroke-width="2"
                 width="730"
@@ -545,7 +545,7 @@ exports[`CitationsByYearGraph > renders citations for less than 5 different cita
                 class="recharts-curve recharts-line-curve"
                 fill="none"
                 height="210"
-                id="recharts-line-uid-9"
+                id="recharts-line-:r3:"
                 stroke="#1890FF99"
                 stroke-dasharray="7 3"
                 stroke-width="2"
@@ -1035,7 +1035,7 @@ exports[`CitationsByYearGraph > renders citations for more than 3 less than 8 ye
                 d="M50,182.49999999999997L293.33333333333337,201.25L536.6666666666667,10L780,96.24999999999999"
                 fill="none"
                 height="210"
-                id="recharts-line-uid-2"
+                id="recharts-line-:r0:"
                 stroke="#1890ff"
                 stroke-width="2"
                 width="730"
@@ -1052,7 +1052,7 @@ exports[`CitationsByYearGraph > renders citations for more than 3 less than 8 ye
                 class="recharts-curve recharts-line-curve"
                 fill="none"
                 height="210"
-                id="recharts-line-uid-3"
+                id="recharts-line-:r1:"
                 stroke="#1890FF99"
                 stroke-dasharray="7 3"
                 stroke-width="2"
@@ -1591,7 +1591,7 @@ exports[`CitationsByYearGraph > renders filling missing years with 0 1`] = `
         />
         <defs>
           <clippath
-            id="recharts37-clip"
+            id="recharts31-clip"
           >
             <rect
               height="210"
@@ -1628,7 +1628,7 @@ exports[`CitationsByYearGraph > renders filling missing years with 0 1`] = `
                 d="M50,171.16279069767444L98.66666666666666,220L147.33333333333331,220L196,220L244.66666666666666,220L293.3333333333333,220L342,220L390.66666666666663,220L439.3333333333333,220L488,220L536.6666666666666,220L585.3333333333333,220L634,220L682.6666666666666,220L731.3333333333333,10L780,195.5813953488372"
                 fill="none"
                 height="210"
-                id="recharts-line-uid-38"
+                id="recharts-line-:rc:"
                 stroke="#1890ff"
                 stroke-width="2"
                 width="730"
@@ -1645,7 +1645,7 @@ exports[`CitationsByYearGraph > renders filling missing years with 0 1`] = `
                 class="recharts-curve recharts-line-curve"
                 fill="none"
                 height="210"
-                id="recharts-line-uid-39"
+                id="recharts-line-:rd:"
                 stroke="#1890FF99"
                 stroke-dasharray="7 3"
                 stroke-width="2"
@@ -2359,7 +2359,7 @@ exports[`CitationsByYearGraph > renders more than 5 different citation counts wi
         />
         <defs>
           <clippath
-            id="recharts13-clip"
+            id="recharts11-clip"
           >
             <rect
               height="210"
@@ -2396,7 +2396,7 @@ exports[`CitationsByYearGraph > renders more than 5 different citation counts wi
                 d="M50,182.49999999999997L171.66666666666669,201.25L293.33333333333337,32.49999999999999L415,193.75L536.6666666666667,28.750000000000004L658.3333333333334,10L780,167.5"
                 fill="none"
                 height="210"
-                id="recharts-line-uid-14"
+                id="recharts-line-:r4:"
                 stroke="#1890ff"
                 stroke-width="2"
                 width="730"
@@ -2413,7 +2413,7 @@ exports[`CitationsByYearGraph > renders more than 5 different citation counts wi
                 class="recharts-curve recharts-line-curve"
                 fill="none"
                 height="210"
-                id="recharts-line-uid-15"
+                id="recharts-line-:r5:"
                 stroke="#1890FF99"
                 stroke-dasharray="7 3"
                 stroke-width="2"
@@ -3028,7 +3028,7 @@ exports[`CitationsByYearGraph > renders more than 8 years without explicit tickV
         />
         <defs>
           <clippath
-            id="recharts25-clip"
+            id="recharts21-clip"
           >
             <rect
               height="210"
@@ -3065,7 +3065,7 @@ exports[`CitationsByYearGraph > renders more than 8 years without explicit tickV
                 d="M50,202.9268292682927L95.625,211.46341463414635L141.25,211.46341463414635L186.875,208.0487804878049L232.5,211.46341463414635L278.125,124.39024390243901L323.75,196.09756097560975L369.375,10L415,28.780487804878057L460.625,68.04878048780486L506.25,168.78048780487805L551.875,49.26829268292683L597.5,155.1219512195122L643.125,220L688.75,220L734.375,146.58536585365854L780,211.46341463414635"
                 fill="none"
                 height="210"
-                id="recharts-line-uid-26"
+                id="recharts-line-:r8:"
                 stroke="#1890ff"
                 stroke-width="2"
                 width="730"
@@ -3082,7 +3082,7 @@ exports[`CitationsByYearGraph > renders more than 8 years without explicit tickV
                 class="recharts-curve recharts-line-curve"
                 fill="none"
                 height="210"
-                id="recharts-line-uid-27"
+                id="recharts-line-:r9:"
                 stroke="#1890FF99"
                 stroke-dasharray="7 3"
                 stroke-width="2"
@@ -3850,7 +3850,7 @@ exports[`CitationsByYearGraph > renders two citations graphs when current year c
         />
         <defs>
           <clippath
-            id="recharts49-clip"
+            id="recharts41-clip"
           >
             <rect
               height="210"
@@ -3887,7 +3887,7 @@ exports[`CitationsByYearGraph > renders two citations graphs when current year c
                 d="M50,188.1818181818182L232.5,118.18181818181817L415,10L597.5,156.36363636363637L780,156.36363636363637"
                 fill="none"
                 height="210"
-                id="recharts-line-uid-50"
+                id="recharts-line-:rg:"
                 stroke="#1890ff"
                 stroke-width="2"
                 width="730"
@@ -3904,7 +3904,7 @@ exports[`CitationsByYearGraph > renders two citations graphs when current year c
                 class="recharts-curve recharts-line-curve"
                 fill="none"
                 height="210"
-                id="recharts-line-uid-51"
+                id="recharts-line-:rh:"
                 stroke="#1890FF99"
                 stroke-dasharray="7 3"
                 stroke-width="2"
