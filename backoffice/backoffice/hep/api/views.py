@@ -149,9 +149,13 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         serializer.is_valid(raise_exception=True)
         logger.info("Data passed schema validation, creating workflow.")
 
-        if is_another_hep_submission_running(request.data):
+        is_submission = (
+            serializer.validated_data["workflow_type"] == HepWorkflowType.HEP_SUBMISSION
+        )
+
+        if is_submission and is_another_hep_submission_running(request.data):
             logger.info(
-                "A submission with the same arXiv eprint or DOI is currently being processed."
+                "Another submission with the same arXiv eprint or DOI is currently being processed."
             )
             return Response(
                 {

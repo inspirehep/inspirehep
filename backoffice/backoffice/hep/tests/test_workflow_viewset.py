@@ -126,7 +126,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
     ):
         self.api_client.force_authenticate(user=self.curator)
         data = {
-            "workflow_type": HepWorkflowType.HEP_CREATE,
+            "workflow_type": HepWorkflowType.HEP_SUBMISSION,
             "status": HepStatusChoices.RUNNING,
             "data": {
                 **hep_data_valid(),
@@ -139,6 +139,27 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(response.status_code, 409)
         mock_is_running.assert_called_once_with(data)
         self.assertEqual(HepWorkflow.objects.count(), 1)
+
+    @patch(
+        "backoffice.hep.api.views.is_another_hep_submission_running",
+        return_value=True,
+    )
+    @patch("backoffice.hep.api.views.trigger_hep_workflow_initialization.delay")
+    def test_create_non_submission_skips_matching_submission_check(
+        self, mock_trigger_workflow, mock_is_running
+    ):
+        self.api_client.force_authenticate(user=self.curator)
+        data = {
+            "workflow_type": HepWorkflowType.HEP_CREATE,
+            "status": HepStatusChoices.RUNNING,
+            "data": hep_data_valid(),
+        }
+
+        response = self.api_client.post(self.endpoint, format="json", data=data)
+
+        self.assertEqual(response.status_code, 201)
+        mock_is_running.assert_not_called()
+        mock_trigger_workflow.assert_called_once()
 
     @patch("backoffice.common.signals.update_registry_after_commit")
     def test_create_hep_calls_on_commit_signal_processor(
