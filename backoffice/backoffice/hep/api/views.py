@@ -209,6 +209,7 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
                 logger.warning(
                     "Workflow %s already has an accept, core or reject decision.", wf_id
                 )
+                continue
 
             workflow.status = HepStatusChoices.RUNNING
             workflow.save()
