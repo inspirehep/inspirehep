@@ -24,6 +24,8 @@ class OnCommitSignalProcessor(RealTimeSignalProcessor):
         self, sender: type[models.Model], instance: models.Model, **kwargs: Any
     ) -> None:
         """Update the instance in model and associated model indices."""
+        if not self.instance_requires_update(instance):
+            return
 
         transaction.on_commit(partial(update_registry_after_commit, instance=instance))
 
@@ -31,6 +33,8 @@ class OnCommitSignalProcessor(RealTimeSignalProcessor):
         self, sender: type[models.Model], instance: models.Model, **kwargs: Any
     ) -> None:
         """Delete the instance from model and associated model indices."""
+        if not self.instance_requires_update(instance):
+            return
 
         instance_for_delete = copy(instance)
         transaction.on_commit(
