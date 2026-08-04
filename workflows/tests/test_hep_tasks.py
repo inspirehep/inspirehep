@@ -593,6 +593,33 @@ class Test_HEPCreateDAG:
         result = task_test(self.dag, "check_if_previously_rejected", self.context)
         assert result == "preprocessing"
 
+    @patch(
+        "include.utils.workflows.has_previously_rejected_wf_in_backoffice_w_same_source",
+        return_value=False,
+    )
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.add_decision"
+    )
+    def test_check_if_previously_rejected_does_not_reject_old_submissions(
+        self, mock_add_decision, mock_has_previously_rejected
+    ):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "A submission"}],
+                "arxiv_eprints": [{"value": "2504.01123"}],
+                "acquisition_source": {"method": "submitter"},
+            },
+            "_created_at": "2026-06-02T00:00:00.000Z",
+        }
+        self.s3_store.write_workflow(workflow_data)
+
+        result = task_test(self.dag, "check_if_previously_rejected", self.context)
+
+        assert result == "preprocessing"
+        mock_has_previously_rejected.assert_called_once_with(workflow_data)
+        mock_add_decision.assert_not_called()
+
     @pytest.mark.vcr
     def test_check_for_exact_matches_one_match_has_match(self):
         self.s3_store.write_workflow(
