@@ -6,10 +6,28 @@ function flattenAnyOfItems(items: RJSFSchema): RJSFSchema {
     return items;
   }
 
-  const schemaEnum = anyOf
-    .map((option) => (option as RJSFSchema)?.properties?.schema)
-    .map((schemaProperty) => (schemaProperty as RJSFSchema)?.enum?.[0])
+  const branches = (anyOf as RJSFSchema[]).map((option) => {
+    const schemaName = (option?.properties?.schema as RJSFSchema | undefined)
+      ?.enum?.[0] as string | undefined;
+    const { pattern, minLength, maxLength } = (option?.properties?.value ??
+      {}) as RJSFSchema;
+    const valueConstraints: RJSFSchema = {
+      ...(pattern !== undefined && { pattern }),
+      ...(minLength !== undefined && { minLength }),
+      ...(maxLength !== undefined && { maxLength }),
+    };
+    return { schemaName, valueConstraints };
+  });
+
+  const schemaEnum = branches
+    .map((branch) => branch.schemaName)
     .filter((value): value is string => typeof value === 'string');
+
+  const valueConstraintsBySchema = branches.filter(
+    (branch): branch is { schemaName: string; valueConstraints: RJSFSchema } =>
+      typeof branch.schemaName === 'string' &&
+      Object.keys(branch.valueConstraints).length > 0
+  );
 
   return {
     type: 'object',
@@ -19,6 +37,14 @@ function flattenAnyOfItems(items: RJSFSchema): RJSFSchema {
       schema: { type: 'string', enum: schemaEnum },
       value: { type: 'string' },
     },
+    ...(valueConstraintsBySchema.length > 0 && {
+      allOf: valueConstraintsBySchema.map(
+        ({ schemaName, valueConstraints }) => ({
+          if: { properties: { schema: { const: schemaName } } },
+          then: { properties: { value: valueConstraints } },
+        })
+      ),
+    }),
   };
 }
 

@@ -19,8 +19,9 @@ import ProjectNameAutocompleteWidget from '../components/customWidgets/ProjectNa
 import ViewRecordWidget from '../components/customWidgets/ViewRecordWidget';
 import EnumMultiSelectWidget from '../components/customWidgets/EnumMultiSelectWidget';
 import '../components/customTemplates/Templates.less';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import validator from '../utils/validator';
+import pruneEmptyObjects from '../utils/pruneEmptyObjects';
 
 interface AuthorEditorProps {
   author: Map<string, any>;
@@ -33,6 +34,7 @@ const AuthorEditor = ({ author, revisions }: AuthorEditorProps) => {
   const schema = prepareAuthorSchema(author.get('schema').toJS());
   const lastRevision = revisions.get(0);
 
+  const [formData, setFormData] = useState(() => authorData.toJS());
   const formRef = useRef<Form>(null);
 
   const onSubmit = () => {
@@ -40,7 +42,6 @@ const AuthorEditor = ({ author, revisions }: AuthorEditorProps) => {
   };
 
   const onSave = () => {
-    const formData = formRef.current?.state.formData;
     console.log({ formData });
     return formRef.current?.submit();
   };
@@ -61,7 +62,10 @@ const AuthorEditor = ({ author, revisions }: AuthorEditorProps) => {
         ref={formRef}
         schema={schema}
         validator={validator}
-        formData={authorData.toJS()}
+        formData={formData}
+        onChange={({ formData: nextFormData }) =>
+          setFormData(pruneEmptyObjects(nextFormData))
+        }
         uiSchema={authorUiSchema}
         templates={{
           ObjectFieldTemplate: DefaultObjectFieldTemplate,
@@ -78,6 +82,7 @@ const AuthorEditor = ({ author, revisions }: AuthorEditorProps) => {
         experimental_defaultFormStateBehavior={{
           arrayMinItems: { populate: 'requiredOnly' },
         }}
+        noHtml5Validate
         onSubmit={onSubmit}
       />
     </div>

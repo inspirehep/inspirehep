@@ -9,6 +9,12 @@ const validator = customizeValidator({
     date: (value) => DATE_FORMATS.some((format) => format.test(value)),
     'date-time': DATE_TIME_FORMAT,
   },
+  // inspire-schemas patterns (e.g. the INSPIRE BAI id `^((\w|\-|\')+\.)+\d+$`)
+  // use identity escapes like `\-` and `\'` that are invalid under Ajv 8's
+  // default Unicode regex mode, so schema compilation throws.
+  ajvOptionsOverrides: {
+    unicodeRegExp: false,
+  },
 });
 
 export default validator;
