@@ -440,6 +440,9 @@ def hep_create_dag():
         datetime_created = datetime.datetime.fromisoformat(created_at).replace(
             tzinfo=None
         )
+
+        is_sub = is_submission(workflow_data)
+
         is_old_arxiv = False
         if is_arxiv and eprint_value:
             try:
@@ -461,7 +464,7 @@ def hep_create_dag():
             not is_auto_approved and has_rejected_duplicate
         )
         should_auto_reject = not is_update and (
-            is_likely_duplicate_of_rejection or is_old_arxiv
+            is_likely_duplicate_of_rejection or (is_old_arxiv and not is_sub)
         )
 
         if should_auto_reject:
