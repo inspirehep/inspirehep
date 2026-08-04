@@ -2,7 +2,7 @@ import { legacy_connect as connect } from 'react-redux';
 import { List, Map } from 'immutable';
 import { Form } from '@rjsf/antd';
 import FormType from '@rjsf/core';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ConfigProvider } from 'antd';
 
 import {
@@ -25,6 +25,7 @@ import EnumMultiSelectWidget from '../components/customWidgets/EnumMultiSelectWi
 import '../components/customTemplates/Templates.less';
 import validator from '../utils/validator';
 import './AuthorEditorContainer.less';
+import pruneEmptyObjects from '../utils/pruneEmptyObjects';
 
 interface AuthorEditorProps {
   author: Map<string, any>;
@@ -36,14 +37,18 @@ const AuthorEditor = ({ author, revisions }: AuthorEditorProps) => {
   const schema = prepareAuthorSchema(author.get('schema').toJS());
   const lastRevision = revisions.get(0);
 
+  const [formData, setFormData] = useState(() => authorData.toJS());
   const formRef = useRef<FormType>(null);
+
+  useEffect(() => {
+    setFormData(authorData.toJS());
+  }, [authorData]);
 
   const onSubmit = () => {
     //console.log('coucou');
   };
 
   const onSave = () => {
-    const formData = formRef.current?.state.formData;
     console.log({ formData });
     return formRef.current?.submit();
   };
@@ -65,7 +70,10 @@ const AuthorEditor = ({ author, revisions }: AuthorEditorProps) => {
           ref={formRef}
           schema={schema}
           validator={validator}
-          formData={authorData.toJS()}
+          formData={formData}
+          onChange={({ formData: nextFormData }) =>
+            setFormData(pruneEmptyObjects(nextFormData))
+          }
           uiSchema={authorUiSchema}
           templates={{
             ObjectFieldTemplate: DefaultObjectFieldTemplate,
@@ -83,6 +91,7 @@ const AuthorEditor = ({ author, revisions }: AuthorEditorProps) => {
           experimental_defaultFormStateBehavior={{
             arrayMinItems: { populate: 'requiredOnly' },
           }}
+          noHtml5Validate
           onSubmit={onSubmit}
         />
       </ConfigProvider>
