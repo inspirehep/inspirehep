@@ -4,6 +4,8 @@ import { RootState } from '../types';
 
 import {
   AI_SEARCH_REQUEST,
+  AI_SEARCH_PROGRESS,
+  AI_SEARCH_CHUNK,
   AI_SEARCH_SUCCESS,
   AI_SEARCH_ERROR,
   SEARCH_REQUEST,
@@ -14,14 +16,21 @@ import {
   isCancelError,
   HttpClientWrapper,
 } from '../common/http';
+import { postForServerSentEvents, ServerSentEvent } from '../common/sse';
 import { httpErrorToActionPayload } from '../common/utils';
 import { getConfigFor } from '../common/config';
 import { fetchSearchAggregations } from './search';
 
 const AI_SEARCH_QUERY_PREFIX_REGEXP = /^ai:\s*/i;
+const AI_SEARCH_STREAM_URL = '/api/search/assistant/stream';
+
+const activeStreamsByNamespace = new Map<string, AbortController>();
 
 export const AI_SEARCH_LOGIN_REQUIRED_MESSAGE =
   'Please log in to use the AI assistant.';
+
+export const AI_SEARCH_INCOMPLETE_MESSAGE =
+  'The connection to the AI assistant was lost before it finished answering. Please try again.';
 
 const EMPTY_SEARCH_RESULTS = {
   hits: { hits: [], total: 0 },
@@ -122,20 +131,87 @@ export function fetchAiSearchResults(
           type: AI_SEARCH_REQUEST,
           payload: { namespace, query: aiQuery },
         });
-        const { data } = await http.post('/search/assistant', {
-          query: aiQuery,
-        });
+
+        activeStreamsByNamespace.get(namespace)?.abort();
+        const controller = new AbortController();
+        activeStreamsByNamespace.set(namespace, controller);
+
+        let answer = '';
+        let streamError = null;
+        let answerComplete = false;
+        try {
+          await postForServerSentEvents(
+            AI_SEARCH_STREAM_URL,
+            { query: aiQuery },
+            (event: ServerSentEvent) => {
+              if (!isStillCurrentQuery()) {
+                controller.abort();
+                return;
+              }
+              switch (event.type) {
+                case 'status':
+                case 'tool':
+                case 'tool_result':
+                  dispatch({
+                    type: AI_SEARCH_PROGRESS,
+                    payload: { namespace, event },
+                  });
+                  break;
+                case 'answer':
+                  answer += event.text;
+                  dispatch({
+                    type: AI_SEARCH_CHUNK,
+                    payload: { namespace, text: event.text },
+                  });
+                  break;
+                case 'answer_reset':
+                  answer = '';
+                  dispatch({
+                    type: AI_SEARCH_CHUNK,
+                    payload: { namespace, text: '', reset: true },
+                  });
+                  break;
+                case 'done':
+                  answer = event.response ?? answer;
+                  recordIds = event.record_ids || [];
+                  recordsApiUrl = event.records_api_url || '';
+                  answerComplete = true;
+                  break;
+                case 'error':
+                  streamError = { response: { status: 502, data: event } };
+                  break;
+                default:
+                  break;
+              }
+            },
+            controller.signal
+          );
+        } finally {
+          if (activeStreamsByNamespace.get(namespace) === controller) {
+            activeStreamsByNamespace.delete(namespace);
+          }
+        }
+
+        if (!streamError && !answerComplete) {
+          streamError = {
+            response: {
+              status: 502,
+              data: { message: AI_SEARCH_INCOMPLETE_MESSAGE },
+            },
+          };
+        }
+        if (streamError) {
+          throw streamError;
+        }
         if (!isStillCurrentQuery()) {
           return;
         }
-        recordIds = data.record_ids || [];
-        recordsApiUrl = data.records_api_url || '';
         dispatch({
           type: AI_SEARCH_SUCCESS,
           payload: {
             namespace,
             query: aiQuery,
-            response: data.response,
+            response: answer,
             recordIds,
             recordsApiUrl,
           },
@@ -180,10 +256,18 @@ export function fetchAiSearchResults(
         payload: { namespace, data: response.data },
       });
     } catch (err) {
-      if (isCancelError(err as Error) || !isStillCurrentQuery()) {
+      if (
+        isCancelError(err as Error) ||
+        (err as Error)?.name === 'AbortError' ||
+        !isStillCurrentQuery()
+      ) {
         return;
       }
-      const { error } = httpErrorToActionPayload(err);
+      const failure =
+        (err as any)?.response || (err as any)?.message === 'Network Error'
+          ? err
+          : { message: 'Network Error' };
+      const { error } = httpErrorToActionPayload(failure);
       dispatch({ type: AI_SEARCH_ERROR, payload: { namespace, error } });
       dispatch({
         type: SEARCH_SUCCESS,

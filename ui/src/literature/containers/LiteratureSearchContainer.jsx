@@ -115,7 +115,10 @@ function LiteratureSearch({
         type="flex"
         justify="center"
       >
-        <Col xs={24} lg={16}>
+        <Col xs={0} lg={7}>
+          <ResponsiveView min="lg" render={renderAggregations} />
+        </Col>
+        <Col xs={24} lg={17}>
           <AiSearchAnswer aiSearch={aiSearch} />
         </Col>
       </Row>

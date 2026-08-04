@@ -122,4 +122,42 @@ describe('SearchPageContainer Container', () => {
       screen.queryByTestId('literature-search-container')
     ).not.toBeInTheDocument();
   });
+
+  it.each([
+    ['streaming', { loading: true, query: 'the higgs' }],
+    ['waiting for its records', { loading: false, recordIds: [1124337] }],
+    ['failed', { loading: false, error: { message: 'It went wrong' } }],
+  ])('keeps the page at its final width while an AI search is %s', (_, ai) => {
+    const store = getStore({
+      user: fromJS({ loggedIn: true, data: { roles: ['user'] } }),
+      literature: fromJS({ literatureSelection: [] }),
+      search: fromJS({
+        namespaces: {
+          [LITERATURE_NS]: { total: 0, error: null, aiSearch: ai },
+        },
+      }),
+    });
+
+    const { container } = renderWithProviders(<SearchPageContainer />, {
+      store,
+    });
+
+    expect(container.querySelector('.ant-col-lg-22')).toBeInTheDocument();
+  });
+
+  it('lays an ordinary empty result set out full width', () => {
+    const store = getStore({
+      user: fromJS({ loggedIn: true, data: { roles: ['user'] } }),
+      literature: fromJS({ literatureSelection: [] }),
+      search: fromJS({
+        namespaces: { [LITERATURE_NS]: { total: 0, error: null } },
+      }),
+    });
+
+    const { container } = renderWithProviders(<SearchPageContainer />, {
+      store,
+    });
+
+    expect(container.querySelector('.ant-col-lg-22')).not.toBeInTheDocument();
+  });
 });
