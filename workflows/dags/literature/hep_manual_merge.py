@@ -11,7 +11,7 @@ from hooks.inspirehep.inspire_http_record_management_hook import (
     InspireHTTPRecordManagementHook,
 )
 from include.utils import s3, workflows
-from include.utils.alerts import FailedDagNotifier
+from include.utils.alerts import FailedDagNotifierSetError
 from include.utils.constants import (
     DECISION_MANUAL_MERGE_APPROVE,
     LITERATURE_PID_TYPE,
@@ -36,7 +36,7 @@ logger = logging.getLogger(__name__)
         "update_control_number": Param(type="integer"),
     },
     default_args={
-        "on_failure_callback": FailedDagNotifier(),
+        "on_failure_callback": FailedDagNotifierSetError(collection=HEP),
     },
     start_date=datetime.datetime(2024, 5, 5),
     schedule=None,
