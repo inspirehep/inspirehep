@@ -389,17 +389,17 @@ def hep_create_dag():
             decision_data={"action": DECISION_AUTO_REJECT},
         )
 
-        ticket_id = get_ticket_by_type(workflow_data, TICKET_HEP_SUBMISSION)[
-            "ticket_id"
-        ]
-
-        reply_template_context = workflows.get_reply_curation_context(
-            workflow_data["data"], inspire_http_hook
-        )
-
-        tickets.close_ticket(
-            inspire_http_hook, ticket_id, "user_rejected_exists", reply_template_context
-        )
+        ticket = get_ticket_by_type(workflow_data, TICKET_HEP_SUBMISSION)
+        if ticket:
+            reply_template_context = workflows.get_reply_curation_context(
+                workflow_data["data"], inspire_http_hook
+            )
+            tickets.close_ticket(
+                inspire_http_hook,
+                ticket["ticket_id"],
+                "user_rejected_exists",
+                reply_template_context,
+            )
 
         return "save_and_complete_workflow"
 

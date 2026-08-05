@@ -763,6 +763,39 @@ class Test_HEPCreateDAG:
 
         assert result == "check_auto_approve"
 
+    @patch("include.utils.tickets.close_ticket")
+    @patch("include.utils.workflows.get_reply_curation_context")
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.add_decision"
+    )
+    def test_stop_if_existing_submission_without_ticket(
+        self,
+        mock_add_decision,
+        mock_get_reply_curation_context,
+        mock_close_ticket,
+    ):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "titles": [{"title": "A submission"}],
+                "acquisition_source": {"method": "submitter"},
+            },
+        }
+        self.s3_store.write_workflow(workflow_data)
+        self.s3_store.set_flags({"is-update": True}, self.workflow_id)
+
+        result = task_test(
+            self.dag, "stop_if_existing_submission_notify_and_close", self.context
+        )
+
+        assert result == "save_and_complete_workflow"
+        mock_add_decision.assert_called_once_with(
+            workflow_id=self.workflow_id,
+            decision_data={"action": DECISION_AUTO_REJECT},
+        )
+        mock_get_reply_curation_context.assert_not_called()
+        mock_close_ticket.assert_not_called()
+
     @pytest.mark.vcr
     @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
     def test_stop_if_existing_submission_notify_and_close_stop(self):
