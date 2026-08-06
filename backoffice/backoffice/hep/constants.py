@@ -1,5 +1,8 @@
 from django.db import models
 
+FACET_SIZE_MEDIUM = 20
+FACET_SIZE_LARGE = 300
+
 HEP_TICKET_TYPES = (
     ("hep_create_curation", "HEP create curation"),
     ("hep_create_curation_core", "HEP create curation core"),
