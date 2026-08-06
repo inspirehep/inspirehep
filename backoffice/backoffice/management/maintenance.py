@@ -7,10 +7,14 @@ Example:
     ...     stuck_hep_statuses=[HepStatusChoices.ERROR],
     ...     workflow_types=[HepWorkflowType.HEP_CREATE, HepWorkflowType.HEP_UPDATE],
     ... )
+
+    >>> from backoffice.management.maintenance import remove_inspire_hep_author_ids
+    >>> remove_inspire_hep_author_ids("afa741e5-fd4f-407d-ab3d-53ac0b9e4342")
 """
 
 import logging
 import time
+from copy import deepcopy
 
 from requests.exceptions import RequestException
 
@@ -89,3 +93,24 @@ def restart_stuck_workflows(
         logger.info("All stuck workflows restarted successfully.")
 
     return failed
+
+
+def remove_inspire_hep_author_ids(workflow_id):
+    """Strip INSPIRE_HEP ids from every author of a HEP workflow's data.
+
+    :param workflow_id: uuid of the HepWorkflow to clean up
+    """
+    workflow = HepWorkflow.objects.get(pk=workflow_id)
+
+    data = deepcopy(workflow.data or {})
+    for author in data.get("authors", []):
+        if isinstance(author.get("ids"), list):
+            author["ids"] = [
+                id_info
+                for id_info in author["ids"]
+                if id_info.get("schema") != "INSPIRE_HEP"
+            ]
+
+    workflow.data = data
+    workflow.save(update_fields=["data"])
+    logger.info("Removed INSPIRE_HEP author ids from workflow %s", workflow_id)
