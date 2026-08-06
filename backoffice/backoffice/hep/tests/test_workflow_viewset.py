@@ -631,6 +631,9 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
 
     @pytest.mark.vcr
     def test_restart(self):
+        self.workflow.status = HepStatusChoices.ERROR
+        self.workflow.save()
+
         dag_id = WORKFLOW_DAGS[self.workflow.workflow_type].initialize
 
         self.content, self.status_code = airflow_utils.trigger_airflow_dag(
@@ -651,6 +654,31 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(self.workflow.status, HepStatusChoices.RUNNING)
 
         airflow_utils.delete_workflow_dag(dag_id, self.workflow.id)
+
+    @patch("backoffice.hep.api.views.airflow_utils.clear_airflow_dag_run")
+    def test_restart_current_task_requires_workflow_in_error_state(
+        self, mock_clear_airflow_dag_run
+    ):
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:hep-restart",
+            kwargs={"pk": self.workflow.id},
+        )
+
+        response = self.api_client.post(
+            url,
+            format="json",
+            data={"restart_current_task": True},
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.json()["message"],
+            "Can only restart current task for workflows in error state.",
+        )
+        self.workflow.refresh_from_db()
+        self.assertEqual(self.workflow.status, HepStatusChoices.APPROVAL)
+        mock_clear_airflow_dag_run.assert_not_called()
 
     def test_restart_completed_workflow(self):
         completed_workflow = HepWorkflow.objects.create(
