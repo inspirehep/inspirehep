@@ -64,6 +64,8 @@ from backoffice.hep.constants import (
     HepStatusChoices,
     HepWorkflowType,
     HepResolutions,
+    FACET_SIZE_MEDIUM,
+    FACET_SIZE_LARGE,
 )
 from backoffice.common.constants import WORKFLOW_DAGS
 
@@ -480,7 +482,7 @@ class HepWorkflowDocumentView(BaseDocumentViewSet):
             "field": "status",
             "facet": TermsFacet,
             "options": {
-                "size": 20,
+                "size": FACET_SIZE_MEDIUM,
                 "order": {
                     "_key": "asc",
                 },
@@ -491,7 +493,7 @@ class HepWorkflowDocumentView(BaseDocumentViewSet):
             "field": "data.inspire_categories.term",
             "facet": TermsFacet,
             "options": {
-                "size": 20,
+                "size": FACET_SIZE_MEDIUM,
                 "order": {
                     "_key": "asc",
                 },
@@ -502,7 +504,7 @@ class HepWorkflowDocumentView(BaseDocumentViewSet):
             "field": "data.publication_info.journal_title.raw",
             "facet": TermsFacet,
             "options": {
-                "size": 20,
+                "size": FACET_SIZE_MEDIUM,
                 "order": {
                     "_key": "asc",
                 },
@@ -513,7 +515,7 @@ class HepWorkflowDocumentView(BaseDocumentViewSet):
             "field": "relevance_prediction.decision",
             "facet": TermsFacet,
             "options": {
-                "size": 20,
+                "size": FACET_SIZE_MEDIUM,
                 "order": {
                     "_key": "asc",
                 },
@@ -524,7 +526,7 @@ class HepWorkflowDocumentView(BaseDocumentViewSet):
             "field": "data.source",
             "facet": TermsFacet,
             "options": {
-                "size": 20,
+                "size": FACET_SIZE_LARGE,
                 "order": {
                     "_key": "asc",
                 },
@@ -535,7 +537,7 @@ class HepWorkflowDocumentView(BaseDocumentViewSet):
             "field": "workflow_type",
             "facet": TermsFacet,
             "options": {
-                "size": 20,
+                "size": FACET_SIZE_MEDIUM,
                 "order": {
                     "_key": "asc",
                 },
