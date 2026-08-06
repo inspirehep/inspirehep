@@ -67,4 +67,38 @@ describe('<RestartActionButtons />', () => {
       screen.getByRole('button', { name: /Restart current step/i })
     ).toBeDisabled();
   });
+
+  it('disables restart current when status is approval', () => {
+    render(
+      <RestartActionButtons
+        handleRestart={jest.fn()}
+        handleRestartCurrent={jest.fn()}
+        id="workflow-1"
+        pidType="literature"
+        restartActionInProgress={fromJS({})}
+        status={WorkflowStatuses.APPROVAL}
+      />
+    );
+
+    expect(
+      screen.getByRole('button', { name: /Restart current step/i })
+    ).toBeDisabled();
+  });
+
+  it('enables restart current when status is error', () => {
+    render(
+      <RestartActionButtons
+        handleRestart={jest.fn()}
+        handleRestartCurrent={jest.fn()}
+        id="workflow-1"
+        pidType="literature"
+        restartActionInProgress={fromJS({})}
+        status={WorkflowStatuses.ERROR}
+      />
+    );
+
+    expect(
+      screen.getByRole('button', { name: /Restart current step/i })
+    ).toBeEnabled();
+  });
 });
