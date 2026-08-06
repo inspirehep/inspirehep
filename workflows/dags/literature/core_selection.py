@@ -2,7 +2,6 @@ from airflow.sdk import task
 from include.utils.constants import ARXIV_CATEGORIES
 from include.utils.s3 import S3JsonStore
 from inspire_schemas.utils import classify_field
-from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
 
 
@@ -17,26 +16,22 @@ def remove_inspire_categories_derived_from_core_arxiv_categories(**context):
     if not data.get("arxiv_eprints"):
         return
 
-    inspire_categories_without_arxiv_sourced = [
+    core_terms = {
+        classify_field(arxiv_category)
+        for arxiv_category in get_value(data, "arxiv_eprints[0].categories", [])
+        if arxiv_category in ARXIV_CATEGORIES["core"]
+    }
+
+    # ARXIV_CATEGORIES["non-core"] only lists the non-core categories we fully
+    # harvest, so anything derived from an arXiv category outside both lists
+    # (e.g. math.AG) is not core and has to be kept
+    remaining_inspire_categories = [
         category
         for category in data.get("inspire_categories", [])
-        if category.get("source") != "arxiv"
+        if not (
+            category.get("source") == "arxiv" and category.get("term") in core_terms
+        )
     ]
 
-    non_core_arxiv_categories = [
-        arxiv_category
-        for arxiv_category in get_value(data, "arxiv_eprints[0].categories", [])
-        if arxiv_category in ARXIV_CATEGORIES["non-core"]
-    ]
-    inspire_categories_for_non_core_arxiv_categories = [
-        {"term": classify_field(arxiv_category), "source": "arxiv"}
-        for arxiv_category in non_core_arxiv_categories
-    ]
-    inspire_categories_without_arxiv_sourced.extend(
-        inspire_categories_for_non_core_arxiv_categories
-    )
-    # several arXiv categories can map to the same INSPIRE term
-    # (e.g. astro-ph.CO and astro-ph.HE both give Astrophysics), and
-    # inspire_categories is declared with uniqueItems in the schema
-    data["inspire_categories"] = dedupe_list(inspire_categories_without_arxiv_sourced)
+    data["inspire_categories"] = remaining_inspire_categories
     s3_store.write_workflow(workflow_data)

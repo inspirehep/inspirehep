@@ -4610,9 +4610,7 @@ class Test_HEPCreateDAG:
         )
         assert validate(workflow_inspire_categories, subschema) is None
 
-    def test_remove_inspire_categories_derived_from_core_arxiv_categories_dedupes(
-        self,
-    ):
+    def test_remove_core_derived_inspire_categories_keeps_shared_term(self):
         workflow_data = {
             "id": self.workflow_id,
             "data": {
@@ -4648,6 +4646,48 @@ class Test_HEPCreateDAG:
         expected_inspire_categories = [
             {"source": "user", "term": "Other"},
             {"source": "arxiv", "term": "Astrophysics"},
+        ]
+        workflow_inspire_categories = workflow_data["data"]["inspire_categories"]
+        assert ordered(workflow_inspire_categories) == ordered(
+            expected_inspire_categories
+        )
+        assert validate(workflow_inspire_categories, subschema) is None
+
+    def test_remove_core_derived_inspire_categories_keeps_unlisted_category(self):
+        workflow_data = {
+            "id": self.workflow_id,
+            "data": {
+                "_collections": ["Literature"],
+                "titles": [{"title": "A title"}],
+                "document_type": ["report"],
+                "arxiv_eprints": [
+                    {
+                        # math.AG is neither core nor a fully harvested
+                        # non-core category
+                        "categories": ["math.AG", "hep-th", "math-ph"],
+                        "value": "2608.00462",
+                    }
+                ],
+                "inspire_categories": [
+                    {"source": "arxiv", "term": "Math and Math Physics"},
+                    {"source": "arxiv", "term": "Theory-HEP"},
+                ],
+            },
+        }
+        self.s3_store.write_workflow(workflow_data)
+
+        task_test(
+            self.dag,
+            "core_selection.remove_inspire_categories_derived_from_core_arxiv_categories",
+            self.context,
+        )
+
+        schema = load_schema("hep")
+        subschema = schema["properties"]["inspire_categories"]
+
+        workflow_data = self.s3_store.read_workflow(self.workflow_id)
+        expected_inspire_categories = [
+            {"source": "arxiv", "term": "Math and Math Physics"},
         ]
         workflow_inspire_categories = workflow_data["data"]["inspire_categories"]
         assert ordered(workflow_inspire_categories) == ordered(
