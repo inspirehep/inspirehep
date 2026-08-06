@@ -1,0 +1,98 @@
+interactions:
+- request:
+    body: '{"dag_run_id": "00000000-0000-0000-0000-000000000000", "logical_date":
+      null, "conf": {"workflow_id": "00000000-0000-0000-0000-000000000000", "data":
+      {"test": "test", "ids": [{"value": "0009-0002-5467-525X", "schema": "ORCID"}]}}}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '229'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://airflow-api-server:8080/api/v2/dags/author_create_initialization_dag/dagRuns
+  response:
+    body:
+      string: '{"dag_run_id":"00000000-0000-0000-0000-000000000000","dag_id":"author_create_initialization_dag","logical_date":null,"queued_at":"2026-07-16T12:12:16.851102Z","start_date":null,"end_date":null,"duration":null,"data_interval_start":null,"data_interval_end":null,"run_after":"2026-07-16T12:12:16.840592Z","last_scheduling_decision":null,"run_type":"manual","state":"queued","triggered_by":"rest_api","triggering_user_name":"Anonymous","conf":{"workflow_id":"00000000-0000-0000-0000-000000000000","data":{"test":"test","ids":[{"value":"0009-0002-5467-525X","schema":"ORCID"}]}},"note":null,"dag_versions":[{"id":"019f6657-deb2-7638-8e44-3629e1c8f44b","version_number":1,"dag_id":"author_create_initialization_dag","bundle_name":"dags-folder","bundle_version":null,"created_at":"2026-07-15T15:14:22.515248Z","dag_display_name":"author_create_initialization_dag","bundle_url":null}],"bundle_version":null,"dag_display_name":"author_create_initialization_dag","partition_key":null,"partition_date":null}'
+    headers:
+      content-length:
+      - '997'
+      content-type:
+      - application/json
+      date:
+      - Thu, 16 Jul 2026 12:12:16 GMT
+      server:
+      - uvicorn
+      transfer-encoding:
+      - chunked
+      vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"dry_run": false, "only_failed": true, "run_on_latest_version": true}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '70'
+      Content-Type:
+      - application/json
+    method: POST
+    uri: http://airflow-api-server:8080/api/v2/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000000/clear
+  response:
+    body:
+      string: '{"dag_run_id":"00000000-0000-0000-0000-000000000000","dag_id":"author_create_initialization_dag","logical_date":null,"queued_at":"2026-07-16T12:12:16.851102Z","start_date":null,"end_date":null,"duration":null,"data_interval_start":null,"data_interval_end":null,"run_after":"2026-07-16T12:12:16.840592Z","last_scheduling_decision":null,"run_type":"manual","state":"queued","triggered_by":"rest_api","triggering_user_name":"Anonymous","conf":{"data":{"ids":[{"value":"0009-0002-5467-525X","schema":"ORCID"}],"test":"test"},"workflow_id":"00000000-0000-0000-0000-000000000000"},"note":null,"dag_versions":[{"id":"019f6657-deb2-7638-8e44-3629e1c8f44b","version_number":1,"dag_id":"author_create_initialization_dag","bundle_name":"dags-folder","bundle_version":null,"created_at":"2026-07-15T15:14:22.515248Z","dag_display_name":"author_create_initialization_dag","bundle_url":null}],"bundle_version":null,"dag_display_name":"author_create_initialization_dag","partition_key":null,"partition_date":null}'
+    headers:
+      content-length:
+      - '997'
+      content-type:
+      - application/json
+      date:
+      - Thu, 16 Jul 2026 12:12:16 GMT
+      server:
+      - uvicorn
+      transfer-encoding:
+      - chunked
+      vary:
+      - Accept-Encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+    method: DELETE
+    uri: http://airflow-api-server:8080/api/v2/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000000
+  response:
+    body:
+      string: ''
+    headers:
+      content-type:
+      - application/json
+      date:
+      - Thu, 16 Jul 2026 12:12:34 GMT
+      server:
+      - uvicorn
+    status:
+      code: 204
+      message: No Content
+version: 1

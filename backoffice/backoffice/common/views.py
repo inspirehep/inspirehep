@@ -6,10 +6,16 @@ from django.shortcuts import get_object_or_404
 from inspire_schemas.errors import SchemaKeyNotFound, SchemaNotFound
 from inspire_schemas.utils import get_validation_errors
 from rest_framework.decorators import action
+from requests.exceptions import RequestException
+
+from backoffice.common import airflow_utils
 
 from backoffice.common.utils import (
+    handle_request_exception,
     render_validation_error_response,
 )
+
+from backoffice.common.constants import WORKFLOW_DAGS
 
 
 logger = logging.getLogger(__name__)
@@ -62,6 +68,7 @@ class BaseWorkflowViewSet(viewsets.ModelViewSet):
     """
 
     schema_name = None
+    status_choices = None
 
     def get_queryset(self):
         qp = self.request.query_params
@@ -109,3 +116,37 @@ class BaseWorkflowViewSet(viewsets.ModelViewSet):
             {"message": "Record is valid."},
             status=status.HTTP_200_OK,
         )
+
+    @action(detail=True, methods=["post"])
+    def restart(self, request, pk=None):
+        workflow = get_object_or_404(self.queryset, pk=pk)
+
+        if workflow.status == self.status_choices.COMPLETED:
+            return Response(
+                {"message": "Cannot restart a completed workflow."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        only_failed = request.data.get("restart_current_task", False)
+
+        dag_id = WORKFLOW_DAGS[workflow.workflow_type].initialize
+
+        try:
+            airflow_utils.clear_airflow_dag_run(
+                dag_id, str(workflow.id), only_failed=only_failed
+            )
+            workflow.status = (
+                self.status_choices.RUNNING
+                if only_failed
+                else self.status_choices.PROCESSING
+            )
+            workflow.save()
+        except RequestException as e:
+            return handle_request_exception(
+                "Error restarting Airflow DAGs for workflow %s",
+                e,
+                workflow.id,
+                response_text="Error restarting Airflow DAGs for workflow %s",
+            )
+
+        return Response(self.get_serializer(workflow).data)

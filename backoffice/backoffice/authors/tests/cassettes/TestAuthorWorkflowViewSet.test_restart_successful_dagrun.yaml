@@ -1,7 +1,8 @@
 interactions:
 - request:
-    body: '{"dag_run_id": "00000000-0000-0000-0000-000000000000", "conf": {"workflow_id":
-      "00000000-0000-0000-0000-000000000000", "data": {"test": "test"}}}'
+    body: '{"dag_run_id": "00000000-0000-0000-0000-000000000000", "logical_date":
+      null, "conf": {"workflow_id": "00000000-0000-0000-0000-000000000000", "data":
+      {"test": "test", "ids": [{"value": "0009-0002-5467-525X", "schema": "ORCID"}]}}}'
     headers:
       Accept:
       - '*/*'
@@ -10,330 +11,27 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '145'
+      - '229'
       Content-Type:
       - application/json
     method: POST
     uri: http://airflow-api-server:8080/api/v2/dags/author_create_initialization_dag/dagRuns
   response:
     body:
-      string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
-        \   \"workflow_id\": \"00000000-0000-0000-0000-000000000000\"\n  },\n  \"dag_id\":
-        \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000000\",\n
-        \ \"data_interval_end\": \"2024-10-18T11:55:04.638872+00:00\",\n  \"data_interval_start\":
-        \"2024-10-18T11:55:04.638872+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
-        \"2024-10-18T11:55:04.638872+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
-        null,\n  \"logical_date\": \"2024-10-18T11:55:04.638872+00:00\",\n  \"note\":
-        null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
-        \"queued\"\n}\n"
+      string: '{"dag_run_id":"00000000-0000-0000-0000-000000000000","dag_id":"author_create_initialization_dag","logical_date":null,"queued_at":"2026-07-16T12:30:27.002689Z","start_date":null,"end_date":null,"duration":null,"data_interval_start":null,"data_interval_end":null,"run_after":"2026-07-16T12:30:26.981346Z","last_scheduling_decision":null,"run_type":"manual","state":"queued","triggered_by":"rest_api","triggering_user_name":"Anonymous","conf":{"workflow_id":"00000000-0000-0000-0000-000000000000","data":{"test":"test","ids":[{"value":"0009-0002-5467-525X","schema":"ORCID"}]}},"note":null,"dag_versions":[{"id":"019f6657-deb2-7638-8e44-3629e1c8f44b","version_number":1,"dag_id":"author_create_initialization_dag","bundle_name":"dags-folder","bundle_version":null,"created_at":"2026-07-15T15:14:22.515248Z","dag_display_name":"author_create_initialization_dag","bundle_url":null}],"bundle_version":null,"dag_display_name":"author_create_initialization_dag","partition_key":null,"partition_date":null}'
     headers:
-      Cache-Control:
-      - no-store
-      Connection:
-      - close
-      Content-Length:
-      - '621'
-      Content-Type:
+      content-length:
+      - '997'
+      content-type:
       - application/json
-      Date:
-      - Fri, 18 Oct 2024 11:55:04 GMT
-      Server:
-      - gunicorn
-      X-Robots-Tag:
-      - noindex, nofollow
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-    method: GET
-    uri: http://airflow-api-server:8080/api/v2/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000000
-  response:
-    body:
-      string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
-        \   \"workflow_id\": \"00000000-0000-0000-0000-000000000000\"\n  },\n  \"dag_id\":
-        \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000000\",\n
-        \ \"data_interval_end\": \"2024-10-18T11:55:04.638872+00:00\",\n  \"data_interval_start\":
-        \"2024-10-18T11:55:04.638872+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
-        \"2024-10-18T11:55:04.638872+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
-        \"2024-10-18T11:55:04.751787+00:00\",\n  \"logical_date\": \"2024-10-18T11:55:04.638872+00:00\",\n
-        \ \"note\": null,\n  \"run_type\": \"manual\",\n  \"start_date\": \"2024-10-18T11:55:04.748037+00:00\",\n
-        \ \"state\": \"running\"\n}\n"
-    headers:
-      Cache-Control:
-      - no-store
-      Connection:
-      - close
-      Content-Length:
-      - '682'
-      Content-Type:
-      - application/json
-      Date:
-      - Fri, 18 Oct 2024 11:55:04 GMT
-      Server:
-      - gunicorn
-      X-Robots-Tag:
-      - noindex, nofollow
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-    method: GET
-    uri: http://airflow-api-server:8080/api/v2/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000000
-  response:
-    body:
-      string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_approved_dag'
-        and DagRun ID: '00000000-0000-0000-0000-000000000000' not found\",\n  \"status\":
-        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.9.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
-    headers:
-      Cache-Control:
-      - no-store
-      Connection:
-      - close
-      Content-Length:
-      - '294'
-      Content-Type:
-      - application/problem+json
-      Date:
-      - Fri, 18 Oct 2024 11:55:04 GMT
-      Server:
-      - gunicorn
-      X-Robots-Tag:
-      - noindex, nofollow
-    status:
-      code: 404
-      message: NOT FOUND
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-    method: GET
-    uri: http://airflow-api-server:8080/api/v2/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000000
-  response:
-    body:
-      string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_rejected_dag'
-        and DagRun ID: '00000000-0000-0000-0000-000000000000' not found\",\n  \"status\":
-        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.9.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
-    headers:
-      Cache-Control:
-      - no-store
-      Connection:
-      - close
-      Content-Length:
-      - '294'
-      Content-Type:
-      - application/problem+json
-      Date:
-      - Fri, 18 Oct 2024 11:55:04 GMT
-      Server:
-      - gunicorn
-      X-Robots-Tag:
-      - noindex, nofollow
-    status:
-      code: 404
-      message: NOT FOUND
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-    method: GET
-    uri: http://airflow-api-server:8080/api/v2/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000000
-  response:
-    body:
-      string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
-        \   \"workflow_id\": \"00000000-0000-0000-0000-000000000000\"\n  },\n  \"dag_id\":
-        \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000000\",\n
-        \ \"data_interval_end\": \"2024-10-18T11:55:04.638872+00:00\",\n  \"data_interval_start\":
-        \"2024-10-18T11:55:04.638872+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
-        \"2024-10-18T11:55:04.638872+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
-        \"2024-10-18T11:55:04.790431+00:00\",\n  \"logical_date\": \"2024-10-18T11:55:04.638872+00:00\",\n
-        \ \"note\": null,\n  \"run_type\": \"manual\",\n  \"start_date\": \"2024-10-18T11:55:04.748037+00:00\",\n
-        \ \"state\": \"running\"\n}\n"
-    headers:
-      Cache-Control:
-      - no-store
-      Connection:
-      - close
-      Content-Length:
-      - '682'
-      Content-Type:
-      - application/json
-      Date:
-      - Fri, 18 Oct 2024 11:55:05 GMT
-      Server:
-      - gunicorn
-      X-Robots-Tag:
-      - noindex, nofollow
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-    method: GET
-    uri: http://airflow-api-server:8080/api/v2/dags/author_create_approved_dag/dagRuns/00000000-0000-0000-0000-000000000000
-  response:
-    body:
-      string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_approved_dag'
-        and DagRun ID: '00000000-0000-0000-0000-000000000000' not found\",\n  \"status\":
-        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.9.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
-    headers:
-      Cache-Control:
-      - no-store
-      Connection:
-      - close
-      Content-Length:
-      - '294'
-      Content-Type:
-      - application/problem+json
-      Date:
-      - Fri, 18 Oct 2024 11:55:05 GMT
-      Server:
-      - gunicorn
-      X-Robots-Tag:
-      - noindex, nofollow
-    status:
-      code: 404
-      message: NOT FOUND
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-    method: GET
-    uri: http://airflow-api-server:8080/api/v2/dags/author_create_rejected_dag/dagRuns/00000000-0000-0000-0000-000000000000
-  response:
-    body:
-      string: "{\n  \"detail\": \"DAGRun with DAG ID: 'author_create_rejected_dag'
-        and DagRun ID: '00000000-0000-0000-0000-000000000000' not found\",\n  \"status\":
-        404,\n  \"title\": \"DAGRun not found\",\n  \"type\": \"https://airflow.apache.org/docs/apache-airflow/2.9.3/stable-rest-api-ref.html#section/Errors/NotFound\"\n}\n"
-    headers:
-      Cache-Control:
-      - no-store
-      Connection:
-      - close
-      Content-Length:
-      - '294'
-      Content-Type:
-      - application/problem+json
-      Date:
-      - Fri, 18 Oct 2024 11:55:05 GMT
-      Server:
-      - gunicorn
-      X-Robots-Tag:
-      - noindex, nofollow
-    status:
-      code: 404
-      message: NOT FOUND
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '0'
-    method: DELETE
-    uri: http://airflow-api-server:8080/api/v2/dags/author_create_initialization_dag/dagRuns/00000000-0000-0000-0000-000000000000
-  response:
-    body:
-      string: ''
-    headers:
-      Cache-Control:
-      - no-store
-      Connection:
-      - close
-      Content-Type:
-      - application/json
-      Date:
-      - Fri, 18 Oct 2024 11:55:05 GMT
-      Server:
-      - gunicorn
-      X-Robots-Tag:
-      - noindex, nofollow
-    status:
-      code: 204
-      message: NO CONTENT
-- request:
-    body: '{"dag_run_id": "00000000-0000-0000-0000-000000000000", "conf": {"workflow_id":
-      "00000000-0000-0000-0000-000000000000", "data": {"test": "test"}}}'
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '145'
-      Content-Type:
-      - application/json
-    method: POST
-    uri: http://airflow-api-server:8080/api/v2/dags/author_create_initialization_dag/dagRuns
-  response:
-    body:
-      string: "{\n  \"conf\": {\n    \"data\": {\n      \"test\": \"test\"\n    },\n
-        \   \"workflow_id\": \"00000000-0000-0000-0000-000000000000\"\n  },\n  \"dag_id\":
-        \"author_create_initialization_dag\",\n  \"dag_run_id\": \"00000000-0000-0000-0000-000000000000\",\n
-        \ \"data_interval_end\": \"2024-10-18T11:55:05.529190+00:00\",\n  \"data_interval_start\":
-        \"2024-10-18T11:55:05.529190+00:00\",\n  \"end_date\": null,\n  \"execution_date\":
-        \"2024-10-18T11:55:05.529190+00:00\",\n  \"external_trigger\": true,\n  \"last_scheduling_decision\":
-        null,\n  \"logical_date\": \"2024-10-18T11:55:05.529190+00:00\",\n  \"note\":
-        null,\n  \"run_type\": \"manual\",\n  \"start_date\": null,\n  \"state\":
-        \"queued\"\n}\n"
-    headers:
-      Cache-Control:
-      - no-store
-      Connection:
-      - close
-      Content-Length:
-      - '621'
-      Content-Type:
-      - application/json
-      Date:
-      - Fri, 18 Oct 2024 11:55:05 GMT
-      Server:
-      - gunicorn
-      X-Robots-Tag:
-      - noindex, nofollow
+      date:
+      - Thu, 16 Jul 2026 12:30:26 GMT
+      server:
+      - uvicorn
+      transfer-encoding:
+      - chunked
+      vary:
+      - Accept-Encoding
     status:
       code: 200
       message: OK
@@ -354,19 +52,13 @@ interactions:
     body:
       string: ''
     headers:
-      Cache-Control:
-      - no-store
-      Connection:
-      - close
-      Content-Type:
+      content-type:
       - application/json
-      Date:
-      - Fri, 18 Oct 2024 11:55:05 GMT
-      Server:
-      - gunicorn
-      X-Robots-Tag:
-      - noindex, nofollow
+      date:
+      - Thu, 16 Jul 2026 12:30:32 GMT
+      server:
+      - uvicorn
     status:
       code: 204
-      message: NO CONTENT
+      message: No Content
 version: 1
