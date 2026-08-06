@@ -60,6 +60,7 @@ from django_elasticsearch_dsl_drf.filter_backends import (
     OrderingFilterBackend,
 )
 from backoffice.hep.constants import (
+    ERROR_STATUSES,
     HepStatusChoices,
     HepWorkflowType,
     HepResolutions,
@@ -259,6 +260,14 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
         only_failed = request.data.get("restart_current_task", False)
 
         dag_id = WORKFLOW_DAGS[workflow.workflow_type].initialize
+
+        if only_failed and workflow.status not in ERROR_STATUSES:
+            return Response(
+                {
+                    "message": "Can only restart current task for workflows in error state."
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         try:
             airflow_utils.clear_airflow_dag_run(

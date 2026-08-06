@@ -34,6 +34,13 @@ class HepStatusChoices(models.TextChoices):
     MISSING_SUBJECT_FIELDS = "missing_subject_fields", "Missing subject fields"
 
 
+ERROR_STATUSES = [
+    HepStatusChoices.ERROR,
+    HepStatusChoices.ERROR_VALIDATION,
+    HepStatusChoices.ERROR_MULTIPLE_EXACT_MATCHES,
+]
+
+
 HEP_DEFAULT_STATUS_CHOICE = HepStatusChoices.PROCESSING
 
 
