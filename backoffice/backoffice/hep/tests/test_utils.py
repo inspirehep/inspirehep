@@ -177,10 +177,40 @@ class TestUtils(TransactionTestCase):
         )
 
     @patch("backoffice.hep.utils.opensearch_client.search")
+    def test_is_another_hep_submission_running_ignores_opensearch_error(
+        self, mock_search
+    ):
+        mock_search.side_effect = Exception("OpenSearch unavailable")
+
+        with self.assertLogs("backoffice.hep.utils", level="ERROR") as logs:
+            result = is_another_hep_submission_running(
+                {
+                    "data": {
+                        "arxiv_eprints": [{"value": "2502.05665"}],
+                    }
+                }
+            )
+
+        self.assertFalse(result)
+        mock_search.assert_called_once()
+        self.assertIn("OpenSearch unavailable", logs.output[0])
+
+    @patch("backoffice.hep.utils.opensearch_client.search")
     def test_is_another_hep_submission_running_skips_without_identifiers(
         self, mock_search
     ):
         result = is_another_hep_submission_running({"data": {}})
+
+        self.assertFalse(result)
+        mock_search.assert_not_called()
+
+    @patch("backoffice.hep.utils.opensearch_client.search")
+    def test_is_another_hep_submission_running_skips_null_arxiv_value(
+        self, mock_search
+    ):
+        result = is_another_hep_submission_running(
+            {"data": {"arxiv_eprints": [{"value": None}]}}
+        )
 
         self.assertFalse(result)
         mock_search.assert_not_called()

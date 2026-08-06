@@ -119,7 +119,11 @@ def is_another_hep_submission_running(workflow):
     """Check whether a matching HEP submission has not completed."""
 
     index_name = settings.OPENSEARCH_INDEX_NAMES.get(settings.HEP_DOCUMENTS)
-    arxiv_eprints_values = get_value(workflow, "data.arxiv_eprints.value", [])
+    arxiv_eprints_values = [
+        value
+        for value in get_value(workflow, "data.arxiv_eprints.value", []) or []
+        if value
+    ]
     dois_values = get_value(workflow, "data.dois.value", [])
 
     if not arxiv_eprints_values and not dois_values:
@@ -144,7 +148,15 @@ def is_another_hep_submission_running(workflow):
             }
         }
     }
-    response = opensearch_client.search(index=index_name, body=query)
+    try:
+        response = opensearch_client.search(index=index_name, body=query)
+    except Exception as e:
+        logger.error(
+            "Ignoring check for active submission running. "
+            "OpenSearch failed with error: %s",
+            str(e),
+        )
+        return False
     number_workflows_running = response.get("hits", {}).get("total", {}).get("value", 0)
     logger.info("Found %s matching active HEP submissions", number_workflows_running)
     return number_workflows_running > 0
