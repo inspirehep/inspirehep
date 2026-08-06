@@ -166,10 +166,22 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
             )
 
         workflow = serializer.save()
-        logger.info("Creating workflow with id: %s", str(workflow.id))
-        trigger_hep_workflow_initialization.delay(
-            str(workflow.id), workflow.workflow_type
-        )
+
+        def _initialize():
+            try:
+                trigger_hep_workflow_initialization.delay(
+                    str(workflow.id), workflow.workflow_type
+                )
+            except Exception:
+                logger.exception(
+                    "Broker unavailable, triggering DAG inline for workflow %s",
+                    workflow.id,
+                )
+                trigger_hep_workflow_initialization(
+                    str(workflow.id), workflow.workflow_type
+                )
+
+        transaction.on_commit(_initialize)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @action(detail=True, methods=["post"])
