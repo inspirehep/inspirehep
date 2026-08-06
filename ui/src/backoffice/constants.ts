@@ -123,6 +123,12 @@ export const statusesWithUpdatableSubjects = [
   WorkflowStatuses.MISSING_SUBJECT_FIELDS,
 ];
 
+export const statusesInError = [
+  WorkflowStatuses.ERROR,
+  WorkflowStatuses.ERROR_MULTIPLE_EXACT_MATCHES,
+  WorkflowStatuses.ERROR_VALIDATION,
+];
+
 export interface WorkflowStatus {
   key: string;
   doc_count: number;

@@ -690,6 +690,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                         </button>
                         <button
                           class="ant-btn ant-btn-default mb2 w-75"
+                          disabled=""
                           type="button"
                         >
                           <span

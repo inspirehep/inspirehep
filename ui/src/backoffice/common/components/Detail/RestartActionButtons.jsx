@@ -1,7 +1,11 @@
 import React from 'react';
 import { Button } from 'antd';
 import { EditOutlined, RedoOutlined, SyncOutlined } from '@ant-design/icons';
-import { WorkflowActions, WorkflowStatuses } from '../../../constants';
+import {
+  statusesInError,
+  WorkflowActions,
+  WorkflowStatuses,
+} from '../../../constants';
 
 export const RestartActionButtons = ({
   restartActionInProgress,
@@ -22,11 +26,11 @@ export const RestartActionButtons = ({
   const isRestartCurrentLoading =
     isRestarting && actionDecision === WorkflowActions.RESTART_CURRENT;
   const isCompleted = status === WorkflowStatuses.COMPLETED;
-  const isBlocked = status === WorkflowStatuses.BLOCKED;
+  const isError = statusesInError.includes(status);
 
   const isRestartWorkflowDisabled = isRestarting && !isRestartWorkflowLoading;
   const isRestartCurrentDisabled =
-    isBlocked || (isRestarting && !isRestartCurrentLoading);
+    !isError || (isRestarting && !isRestartCurrentLoading);
 
   if (isCompleted) {
     return <div>Workflow completed, no further actions available</div>;
@@ -43,6 +47,7 @@ export const RestartActionButtons = ({
         <SyncOutlined />
         Restart workflow
       </Button>
+
       <Button
         className="mb2 w-75"
         onClick={handleRestartCurrent}
@@ -52,6 +57,7 @@ export const RestartActionButtons = ({
         <RedoOutlined />
         Restart current step
       </Button>
+
       <Button className="mb2 w-75" type="primary">
         <a href={`/editor/backoffice/${pidType}/${id}`}>
           <EditOutlined />
