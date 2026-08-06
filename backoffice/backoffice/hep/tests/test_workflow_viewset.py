@@ -3,6 +3,7 @@ import pytest
 from copy import deepcopy
 from unittest.mock import Mock, patch
 from requests.exceptions import RequestException
+from django.db import transaction
 from django.urls import reverse
 from backoffice.common.constants import WORKFLOW_DAGS
 from backoffice.common import airflow_utils
@@ -160,6 +161,49 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(response.status_code, 201)
         mock_is_running.assert_not_called()
         mock_trigger_workflow.assert_called_once()
+
+    @patch("backoffice.hep.api.views.trigger_hep_workflow_initialization")
+    def test_create_hep_initializes_synchronously_if_broker_is_unavailable(
+        self, mock_trigger_workflow
+    ):
+        self.api_client.force_authenticate(user=self.curator)
+        mock_trigger_workflow.delay.side_effect = RuntimeError("broker unavailable")
+        data = {
+            "workflow_type": HepWorkflowType.HEP_CREATE,
+            "status": HepStatusChoices.RUNNING,
+            "data": hep_data_valid(),
+        }
+
+        response = self.api_client.post(self.endpoint, format="json", data=data)
+
+        self.assertEqual(response.status_code, 201)
+        workflow_id = response.json()["id"]
+        mock_trigger_workflow.delay.assert_called_once_with(
+            workflow_id, data["workflow_type"]
+        )
+        mock_trigger_workflow.assert_called_once_with(
+            workflow_id, data["workflow_type"]
+        )
+
+    @patch("backoffice.hep.api.views.trigger_hep_workflow_initialization.delay")
+    def test_create_hep_initializes_only_after_transaction_commits(
+        self, mock_trigger_workflow
+    ):
+        self.api_client.force_authenticate(user=self.curator)
+        data = {
+            "workflow_type": HepWorkflowType.HEP_CREATE,
+            "status": HepStatusChoices.RUNNING,
+            "data": hep_data_valid(),
+        }
+
+        with transaction.atomic():
+            response = self.api_client.post(self.endpoint, format="json", data=data)
+            self.assertEqual(response.status_code, 201)
+            mock_trigger_workflow.assert_not_called()
+
+        mock_trigger_workflow.assert_called_once_with(
+            response.json()["id"], data["workflow_type"]
+        )
 
     @patch("backoffice.common.signals.update_registry_after_commit")
     def test_create_hep_calls_on_commit_signal_processor(
