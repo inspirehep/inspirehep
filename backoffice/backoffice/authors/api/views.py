@@ -20,7 +20,11 @@ from django_elasticsearch_dsl_drf.filter_backends import (
 from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
 from backoffice.utils.pagination import OSStandardResultsSetPagination
 from opensearch_dsl import TermsFacet
-from backoffice.authors.utils import add_author_decision, is_another_author_running
+from backoffice.authors.utils import (
+    add_author_decision,
+    is_another_author_running,
+    resolve_workflow,
+)
 from backoffice.authors.api.serializers import (
     AuthorDecisionSerializer,
     AuthorResolutionSerializer,
@@ -30,7 +34,6 @@ from backoffice.authors.api.serializers import (
 )
 from backoffice.common.views import BaseWorkflowTicketViewSet
 from backoffice.authors.constants import (
-    AuthorResolutionDags,
     AuthorStatusChoices,
     AuthorWorkflowType,
 )
@@ -248,35 +251,16 @@ class AuthorWorkflowViewSet(BaseWorkflowViewSet):
 
     @action(detail=True, methods=["post"])
     def resolve(self, request, pk=None):
-        logger.info("Resolving data: %s", request.data)
         serializer = self.resolution_serializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            logger.info(
-                "Trigger Airflow DAG: %s for %s",
-                AuthorResolutionDags[serializer.validated_data["value"]],
-                pk,
+        serializer.is_valid(raise_exception=True)
+        try:
+            workflow = resolve_workflow(pk, serializer.validated_data, request.user)
+        except RequestException as e:
+            return handle_request_exception(
+                "Error clearing Airflow DAG",
+                e,
             )
-            add_author_decision(pk, request.user, serializer.validated_data["value"])
-
-            workflow = self.get_serializer(AuthorWorkflow.objects.get(pk=pk)).data
-            try:
-                airflow_utils.trigger_airflow_dag(
-                    AuthorResolutionDags[serializer.validated_data["value"]].label,
-                    pk,
-                    data=serializer.data,
-                    workflow=workflow,
-                )
-            except RequestException as e:
-                return handle_request_exception(
-                    "Error triggering Airflow DAG run with id %s", e, workflow.id
-                )
-
-            workflow = get_object_or_404(AuthorWorkflow, pk=pk)
-            workflow.status = AuthorStatusChoices.PROCESSING
-            workflow.save()
-            workflow_serializer = self.serializer_class(workflow)
-
-            return Response(workflow_serializer.data)
+        return Response(self.get_serializer(workflow).data)
 
     @action(detail=True, methods=["post"])
     def restart(self, request, pk=None):
