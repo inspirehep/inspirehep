@@ -24,6 +24,7 @@ from include.utils.constants import (
     DECISION_DISCARD,
     DECISION_HEP_ACCEPT_CORE,
     DECISION_HEP_REJECT,
+    DECISION_WITHDRAWN,
     HEP_CREATE,
     HEP_PUBLISHER_CREATE,
     HEP_PUBLISHER_UPDATE,
@@ -43,6 +44,7 @@ from include.utils.constants import (
 from include.utils.tickets import get_ticket_by_type
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.query import ordered
+from requests import Response
 from tenacity import Future, RetryError
 
 from tests.test_utils import (
@@ -50,6 +52,18 @@ from tests.test_utils import (
 )
 
 dagbag = DagBag()
+
+
+def raise_withdrawn_arxiv_error(hook, *args, **kwargs):
+    response = Response()
+    response.status_code = 404
+    response._content = b"The article has been withdrawn and is unavailable"
+    hook.last_response = response
+
+    last_attempt = Future(attempt_number=1)
+    last_attempt.set_exception(AirflowException("404:Not Found"))
+    raise RetryError(last_attempt=last_attempt)
+
 
 HIGGS_ONTOLOGY = """<?xml version="1.0" encoding="UTF-8" ?>
 
@@ -867,6 +881,31 @@ class Test_HEPCreateDAG:
         res = task_test(self.dag, "preprocessing.arxiv_package_download", self.context)
         assert res == f"{self.workflow_id}/2508.17630.tar.gz"
 
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.add_decision"
+    )
+    @patch("hooks.generic_http_hook.GenericHttpHook.call_api", autospec=True)
+    def test_arxiv_package_download_handles_withdrawn_paper(
+        self, mock_call_api, mock_add_decision
+    ):
+        mock_call_api.side_effect = raise_withdrawn_arxiv_error
+        self.s3_store.write_workflow(
+            {
+                "id": self.workflow_id,
+                "data": {"arxiv_eprints": [{"value": "2607.18295"}]},
+            }
+        )
+
+        result = task_test(
+            self.dag, "preprocessing.arxiv_package_download", self.context
+        )
+
+        assert result is None
+        mock_add_decision.assert_called_once_with(
+            workflow_id=self.workflow_id,
+            decision_data={"action": DECISION_WITHDRAWN},
+        )
+
     def test_arxiv_author_list_with_missing_tarball(self):
         schema = load_schema("hep")
         eprints_subschema = schema["properties"]["arxiv_eprints"]
@@ -1150,7 +1189,31 @@ class Test_HEPCreateDAG:
 
         res = task_test(self.dag, "preprocessing.check_is_arxiv_paper", self.context)
 
-        assert res == "preprocessing.populate_submission_document"
+        assert res == "preprocessing.buffer_not_arxiv"
+
+    @pytest.mark.parametrize(
+        ("decisions", "expected_task_id"),
+        [
+            (
+                [{"action": DECISION_WITHDRAWN}],
+                "save_and_complete_workflow",
+            ),
+            ([], "preprocessing.arxiv_plot_extract"),
+        ],
+    )
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.get_workflow"
+    )
+    def test_check_if_is_withdrawn(
+        self, mock_get_workflow, decisions, expected_task_id
+    ):
+        mock_get_workflow.return_value = {"decisions": decisions}
+
+        result = task_test(
+            self.dag, "preprocessing.check_if_is_withdrawn", self.context
+        )
+
+        assert result == expected_task_id
 
     @pytest.mark.vcr
     def test_populate_journal_coverage(self):
@@ -1855,6 +1918,31 @@ class Test_HEPCreateDAG:
             },
         ]
         assert workflow_data["data"]["documents"] == expected
+
+    @patch(
+        "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.add_decision"
+    )
+    @patch("hooks.generic_http_hook.GenericHttpHook.call_api", autospec=True)
+    def test_populate_arxiv_document_handles_withdrawn_paper(
+        self, mock_call_api, mock_add_decision
+    ):
+        mock_call_api.side_effect = raise_withdrawn_arxiv_error
+        self.s3_store.write_workflow(
+            {
+                "id": self.workflow_id,
+                "data": {"arxiv_eprints": [{"value": "2607.18295"}]},
+            }
+        )
+
+        result = task_test(
+            self.dag, "preprocessing.populate_arxiv_document", self.context
+        )
+
+        assert result is None
+        mock_add_decision.assert_called_once_with(
+            workflow_id=self.workflow_id,
+            decision_data={"action": DECISION_WITHDRAWN},
+        )
 
     @pytest.mark.vcr
     def test_populate_arxiv_document_does_not_duplicate_files_if_called_multiple_times(
