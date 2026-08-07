@@ -303,3 +303,32 @@ def assign_institution(matched_affiliation):
     if result:
         matched_affiliation["record"] = result.hits[0].to_dict()["self"]
         return matched_affiliation
+
+
+def find_institution_by_ror(ror):
+    """Find a non-obsolete institution record with the given ROR id.
+
+    Args:
+        ror (str): a full ROR URL, e.g. "https://ror.org/042949r55" — this is
+            the format stored in external_system_identifiers.value, and matches
+            the format used in authors.affiliations_identifiers on literature
+            records, so no conversion is needed between the two.
+
+    Returns:
+        dict or None: institution record with ``self`` and ``legacy_ICN``,
+        or None if no matching non-obsolete institution exists.
+    """
+    query = (
+        Q("term", external_system_identifiers__schema="ROR")
+        & Q("term", external_system_identifiers__value=ror)
+        & ~Q("match", ICN="obsolete")
+    )
+    result = (
+        InstitutionsSearch()
+        .query(query)
+        .source(["self", "legacy_ICN"])
+        .params(size=1)
+        .execute()
+    )
+    if result:
+        return result.hits[0].to_dict()
