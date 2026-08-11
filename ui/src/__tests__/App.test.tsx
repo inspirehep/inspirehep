@@ -1,4 +1,3 @@
-import React from 'react';
 import { within, screen } from '@testing-library/react';
 import { fromJS, List } from 'immutable';
 import { vi } from 'vitest';

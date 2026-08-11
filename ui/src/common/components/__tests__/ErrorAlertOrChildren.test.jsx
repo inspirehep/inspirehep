@@ -1,4 +1,3 @@
-import React from 'react';
 import { fromJS } from 'immutable';
 import { screen } from '@testing-library/react';
 import { renderWithProviders } from '../../../fixtures/render';

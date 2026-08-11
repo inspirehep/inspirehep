@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../types';
 
@@ -25,68 +24,66 @@ import LiteratureDetailPageContainer from './literature/containers/LiteratureDet
 const META_DESCRIPTION = 'Tool for curators to manage submissions and harvests';
 const TITLE = 'Backoffice';
 
-const Backoffice = ({ loggedIn }: { loggedIn: boolean }) => {
-  return (
-    <>
-      <DocumentHead title={TITLE} description={META_DESCRIPTION} />
-      <div className="w-100" data-testid="backoffice">
-        <SafeSwitch>
-          <PrivateRoute
-            exact
-            path={BACKOFFICE_LOGIN}
-            component={LoginPage}
-            redirectTo={USER_LOGIN}
-            loggedIn={loggedIn}
-            authorizedRoles={SUPERUSER_OR_CATALOGER}
-          />
-          <PrivateRoute
-            exact
-            path={BACKOFFICE_LOCAL_LOGIN}
-            component={LocalLoginPageContainer}
-            redirectTo={BACKOFFICE_LOGIN}
-            authorizedRoles={SUPERUSER_OR_CATALOGER}
-            backoffice
-          />
-          <PrivateRoute
-            exact
-            path={BACKOFFICE}
-            component={DashboardPageContainer}
-            authorizedRoles={SUPERUSER_OR_CATALOGER}
-            backoffice
-          />
-          <PrivateRoute
-            exact
-            path={BACKOFFICE_AUTHORS_SEARCH}
-            component={AuthorsSearchPageContainer}
-            authorizedRoles={SUPERUSER_OR_CATALOGER}
-            backoffice
-          />
-          <PrivateRoute
-            exact
-            path={BACKOFFICE_LITERATURE_SEARCH}
-            component={LiteratureSearchPageContainer}
-            authorizedRoles={SUPERUSER_OR_CATALOGER}
-            backoffice
-          />
-          <PrivateRoute
-            exact
-            path={`${BACKOFFICE}/authors/:id`}
-            component={AuthorDetailPageContainer}
-            authorizedRoles={SUPERUSER_OR_CATALOGER}
-            backoffice
-          />
-          <PrivateRoute
-            exact
-            path={`${BACKOFFICE}/literature/:id`}
-            component={LiteratureDetailPageContainer}
-            authorizedRoles={SUPERUSER_OR_CATALOGER}
-            backoffice
-          />
-        </SafeSwitch>
-      </div>
-    </>
-  );
-};
+const Backoffice = ({ loggedIn }: { loggedIn: boolean }) => (
+  <>
+    <DocumentHead title={TITLE} description={META_DESCRIPTION} />
+    <div className="w-100" data-testid="backoffice">
+      <SafeSwitch>
+        <PrivateRoute
+          exact
+          path={BACKOFFICE_LOGIN}
+          component={LoginPage}
+          redirectTo={USER_LOGIN}
+          loggedIn={loggedIn}
+          authorizedRoles={SUPERUSER_OR_CATALOGER}
+        />
+        <PrivateRoute
+          exact
+          path={BACKOFFICE_LOCAL_LOGIN}
+          component={LocalLoginPageContainer}
+          redirectTo={BACKOFFICE_LOGIN}
+          authorizedRoles={SUPERUSER_OR_CATALOGER}
+          backoffice
+        />
+        <PrivateRoute
+          exact
+          path={BACKOFFICE}
+          component={DashboardPageContainer}
+          authorizedRoles={SUPERUSER_OR_CATALOGER}
+          backoffice
+        />
+        <PrivateRoute
+          exact
+          path={BACKOFFICE_AUTHORS_SEARCH}
+          component={AuthorsSearchPageContainer}
+          authorizedRoles={SUPERUSER_OR_CATALOGER}
+          backoffice
+        />
+        <PrivateRoute
+          exact
+          path={BACKOFFICE_LITERATURE_SEARCH}
+          component={LiteratureSearchPageContainer}
+          authorizedRoles={SUPERUSER_OR_CATALOGER}
+          backoffice
+        />
+        <PrivateRoute
+          exact
+          path={`${BACKOFFICE}/authors/:id`}
+          component={AuthorDetailPageContainer}
+          authorizedRoles={SUPERUSER_OR_CATALOGER}
+          backoffice
+        />
+        <PrivateRoute
+          exact
+          path={`${BACKOFFICE}/literature/:id`}
+          component={LiteratureDetailPageContainer}
+          authorizedRoles={SUPERUSER_OR_CATALOGER}
+          backoffice
+        />
+      </SafeSwitch>
+    </div>
+  </>
+);
 
 const stateToProps = (state: RootState) => ({
   loggedIn: state.user.get('loggedIn'),

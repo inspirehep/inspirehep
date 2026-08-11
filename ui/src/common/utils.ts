@@ -102,7 +102,6 @@ export function isEmptyObjectShallow(object: { [key: string]: any }) {
 
 export function mergeWithConcattingArrays(destObject: any, ...sources: any) {
   const clonedDestObject = cloneDeep(destObject);
-  // eslint-disable-next-line consistent-return
   return mergeWith(
     clonedDestObject,
     ...sources,
@@ -350,9 +349,9 @@ export function columnSize(numberOfResults: number, hasFacets?: boolean) {
   return SEARCH_PAGE_COL_SIZE_NO_RESULTS;
 }
 
-export function toTitleCaseFromSnake(str: string, split_by: string) {
+export function toTitleCaseFromSnake(str: string, splitBy: string) {
   return str
-    .split(split_by)
+    .split(splitBy)
     .filter(Boolean)
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ');

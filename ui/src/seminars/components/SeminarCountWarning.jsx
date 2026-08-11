@@ -1,4 +1,3 @@
-import React from 'react';
 import { Alert } from 'antd';
 
 const WARNING_MESSAGE = (

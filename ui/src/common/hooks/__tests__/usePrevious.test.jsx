@@ -3,7 +3,6 @@ import { render } from '@testing-library/react';
 
 import usePrevious from '../usePrevious';
 
-// eslint-disable-next-line react/prop-types
 function TestPrevious({ value }) {
   const previousValue = usePrevious(value);
   return (

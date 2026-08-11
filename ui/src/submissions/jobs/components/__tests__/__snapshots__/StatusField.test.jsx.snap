@@ -24,7 +24,6 @@ exports[`StatusField > renders if can modify and cataloger logged in 1`] = `
               data-testid="select-box"
               form="[object Object]"
               name="[object Object]"
-              placement="bottomLeft"
             >
               <div
                 class="ant-select-selector"
@@ -44,6 +43,8 @@ exports[`StatusField > renders if can modify and cataloger logged in 1`] = `
                     readonly=""
                     role="combobox"
                     style="opacity: 0;"
+                    type="search"
+                    unselectable="on"
                     value=""
                   />
                 </span>
@@ -110,7 +111,6 @@ exports[`StatusField > renders if can modify but not cataloger logged in 1`] = `
               data-testid="select-box"
               form="[object Object]"
               name="[object Object]"
-              placement="bottomLeft"
             >
               <div
                 class="ant-select-selector"
@@ -130,6 +130,8 @@ exports[`StatusField > renders if can modify but not cataloger logged in 1`] = `
                     readonly=""
                     role="combobox"
                     style="opacity: 0;"
+                    type="search"
+                    unselectable="on"
                     value=""
                   />
                 </span>
@@ -196,7 +198,6 @@ exports[`StatusField > renders if can not modify and not cataloger logged in 1`]
               data-testid="select-box"
               form="[object Object]"
               name="[object Object]"
-              placement="bottomLeft"
             >
               <div
                 class="ant-select-selector"
@@ -218,6 +219,8 @@ exports[`StatusField > renders if can not modify and not cataloger logged in 1`]
                     readonly=""
                     role="combobox"
                     style="opacity: 0;"
+                    type="search"
+                    unselectable="on"
                     value=""
                   />
                 </span>

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import LiteratureSearchContainer from '../../literature/containers/LiteratureSearchContainer';
 import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';

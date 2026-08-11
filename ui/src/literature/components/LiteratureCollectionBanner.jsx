@@ -1,4 +1,3 @@
-import React from 'react';
 import { Alert } from 'antd';
 
 import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';

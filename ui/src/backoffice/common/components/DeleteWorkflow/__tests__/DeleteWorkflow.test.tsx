@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import DeleteWorkflow from '../DeleteWorkflow';
@@ -40,10 +39,10 @@ describe('DeleteWorkflow component', () => {
 
   it('should call dispatch with deleteWorkflow and close the modal on confirm', async () => {
     const mockDispatch = jest.fn();
-    const onConfirm = () => {
+    const onConfirmMock = () => {
       mockDispatch(deleteWorkflow(AUTHORS_PID_TYPE, mockId));
     };
-    render(<DeleteWorkflow onConfirm={onConfirm} />);
+    render(<DeleteWorkflow onConfirm={onConfirmMock} />);
 
     await waitFor(() => userEvent.click(screen.getByText('Delete')));
 

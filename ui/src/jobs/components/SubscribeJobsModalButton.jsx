@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { MailOutlined } from '@ant-design/icons';
 import { Modal, Alert, Typography } from 'antd';
 
@@ -57,7 +57,7 @@ export default class SubscribeJobsModalButton extends Component {
       setTimeout(() => {
         this.setState({ isModalVisible: false });
       }, MODAL_AUTO_CLOSE_TIMEOUT_AFTER_SUBMISSION);
-    } catch (error) {
+    } catch {
       this.setState({ hasError: true });
     }
   }

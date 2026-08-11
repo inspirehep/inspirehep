@@ -5,12 +5,15 @@ import {
 } from 'react';
 
 interface AnchorElement {
-  as: 'a' | 'button' | FunctionComponent;
+  as?: 'a' | 'button' | FunctionComponent;
 }
 
 type LinkWithTargetBlankProps = ComponentPropsWithoutRef<'a'> & AnchorElement;
 
-function LinkWithTargetBlank({ as, ...anchorProps }: LinkWithTargetBlankProps) {
+function LinkWithTargetBlank({
+  as = 'a',
+  ...anchorProps
+}: LinkWithTargetBlankProps) {
   const externalLinkProps = {
     ...anchorProps,
     target: '_blank',
@@ -18,9 +21,5 @@ function LinkWithTargetBlank({ as, ...anchorProps }: LinkWithTargetBlankProps) {
 
   return createElement(as, externalLinkProps);
 }
-
-LinkWithTargetBlank.defaultProps = {
-  as: 'a',
-};
 
 export default LinkWithTargetBlank;

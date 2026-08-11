@@ -1,4 +1,3 @@
-import React from 'react';
 import classNames from 'classnames';
 import ContentBox from '../../../common/components/ContentBox';
 import { Ids } from '../../common/components/Links/Links';

@@ -1,5 +1,5 @@
 import { string } from 'yup';
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 
 import http from '../../../common/http';
@@ -38,7 +38,7 @@ async function isUniqueOrcid(orcid) {
     const id = data.metadata.control_number;
     const message = renderAuthorExistsMessageWithUpdateLink(id);
     return this.createError({ message });
-  } catch (error) {
+  } catch {
     // TODO: only return `true` if 404, and handle other errors
     return true;
   }

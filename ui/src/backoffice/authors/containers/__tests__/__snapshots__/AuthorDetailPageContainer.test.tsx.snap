@@ -231,6 +231,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                          
                         <a
                           href="https://orcid.org/0000-0002-6357-9297"
+                          rel="noreferrer"
                           target="_blank"
                         >
                            0000-0002-6357-9297 
