@@ -286,7 +286,6 @@ exports[`BibliographyGenerator > renders successfully 1`] = `
                               <div
                                 class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow"
                                 data-testid="select-box"
-                                placement="bottomLeft"
                               >
                                 <div
                                   class="ant-select-selector"
@@ -306,6 +305,8 @@ exports[`BibliographyGenerator > renders successfully 1`] = `
                                       readonly=""
                                       role="combobox"
                                       style="opacity: 0;"
+                                      type="search"
+                                      unselectable="on"
                                       value=""
                                     />
                                   </span>

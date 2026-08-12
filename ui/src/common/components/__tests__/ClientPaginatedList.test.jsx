@@ -2,6 +2,7 @@ import { render } from '@testing-library/react';
 import { fromJS, Range } from 'immutable';
 import { List } from 'antd';
 
+import userEvent from '@testing-library/user-event';
 import ClientPaginatedList from '../ClientPaginatedList';
 
 describe('ClientPaginatedList', () => {
@@ -61,7 +62,8 @@ describe('ClientPaginatedList', () => {
     expect(getByTestId('pagination-list')).toHaveClass('ant-list-grid');
   });
 
-  it('renders the new page on page change', () => {
+  it('renders the new page on page change', async () => {
+    const user = userEvent.setup();
     const items = Range(1, 100).toList();
     const { container, getAllByRole } = render(
       <ClientPaginatedList
@@ -75,7 +77,7 @@ describe('ClientPaginatedList', () => {
       container.querySelector('.ant-pagination-item-active').textContent
     ).toBe('1');
 
-    getAllByRole('button')[1].click();
+    await user.click(getAllByRole('button')[1]);
 
     expect(
       container.querySelector('.ant-pagination-item-active').textContent

@@ -121,7 +121,7 @@ describe('Suggester', () => {
 
     await wait();
 
-    expect(screen.getByRole('option', { name: '1' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: 'Result' })).toBeInTheDocument();
   });
 
   it('does not render results onSearch without waiting for debounce', async () => {
