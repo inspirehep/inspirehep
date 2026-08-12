@@ -43,6 +43,7 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
                 "acquisition_source": {"source": "arxiv"},
                 "_collections": ["Literature"],
                 "documnent_type": ["article"],
+                "_private_notes": [{"value": "some notes"}],
             },
             status=HepStatusChoices.APPROVAL,
             workflow_type=HepWorkflowType.HEP_CREATE,
@@ -159,6 +160,14 @@ class TestHepWorkflowSearchFilterViewSet(BaseTransactionTestCase):
         results = response.json()["results"]
         assert len(results) == 1
         assert results[0]["data"]["titles"][0]["title"] == "hello foo"
+
+    def test_search_data_private_notes(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        response = self.api_client.get(self.endpoint, data={"search": "some notes"})
+        results = response.json()["results"]
+        assert len(results) == 1
+        assert results[0]["data"]["_private_notes"][0]["value"] == "some notes"
 
     @parameterized.expand(["", "data.titles.full_title.search:"])
     def test_search_data_email(self, prefix):
