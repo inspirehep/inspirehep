@@ -1,4 +1,5 @@
 import { notification } from 'antd';
+import { vi, type MockInstance } from 'vitest';
 
 import {
   notifyLoginError,
@@ -7,18 +8,16 @@ import {
 } from '../notifications';
 
 describe('Notification Functions', () => {
-  let errorSpy: jest.SpyInstance;
-  let successSpy: jest.SpyInstance;
+  let errorSpy: MockInstance;
+  let successSpy: MockInstance;
 
   beforeEach(() => {
-    errorSpy = jest.spyOn(notification, 'error').mockImplementation(jest.fn());
-    successSpy = jest
-      .spyOn(notification, 'success')
-      .mockImplementation(jest.fn());
+    errorSpy = vi.spyOn(notification, 'error').mockImplementation(vi.fn());
+    successSpy = vi.spyOn(notification, 'success').mockImplementation(vi.fn());
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('notifyLoginError should trigger notification.error with the correct arguments', () => {

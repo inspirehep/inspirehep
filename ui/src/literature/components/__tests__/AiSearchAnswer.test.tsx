@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable';
+import { fromJS, Map } from 'immutable';
 import { screen } from '@testing-library/react';
 
 import { renderWithRouter } from '../../../fixtures/render';
@@ -36,7 +36,12 @@ describe('AiSearchAnswer', () => {
   it('shows a single loading message before the assistant answers', () => {
     renderWithRouter(
       <AiSearchAnswer
-        aiSearch={fromJS({ loading: true, response: null, progress: [] })}
+        aiSearch={
+          fromJS({ loading: true, response: null, progress: [] }) as Map<
+            string,
+            any
+          >
+        }
       />
     );
 
@@ -49,13 +54,19 @@ describe('AiSearchAnswer', () => {
   it('drops the loading message once the assistant starts searching', () => {
     renderWithRouter(
       <AiSearchAnswer
-        aiSearch={fromJS({
-          loading: true,
-          response: null,
-          progress: [
-            { type: 'tool', name: 'search_papers', input: { query: 'higgs' } },
-          ],
-        })}
+        aiSearch={
+          fromJS({
+            loading: true,
+            response: null,
+            progress: [
+              {
+                type: 'tool',
+                name: 'search_papers',
+                input: { query: 'higgs' },
+              },
+            ],
+          }) as Map<string, any>
+        }
       />
     );
 
@@ -71,18 +82,24 @@ describe('AiSearchAnswer', () => {
   it('shows what the assistant searched for, but not what it found', () => {
     renderWithRouter(
       <AiSearchAnswer
-        aiSearch={fromJS({
-          loading: true,
-          response: null,
-          progress: [
-            {
-              type: 'tool',
-              name: 'search_papers',
-              input: { query: 'higgs self-coupling', count: 10 },
-            },
-            { type: 'tool_result', name: 'search_papers', total_results: 132 },
-          ],
-        })}
+        aiSearch={
+          fromJS({
+            loading: true,
+            response: null,
+            progress: [
+              {
+                type: 'tool',
+                name: 'search_papers',
+                input: { query: 'higgs self-coupling', count: 10 },
+              },
+              {
+                type: 'tool_result',
+                name: 'search_papers',
+                total_results: 132,
+              },
+            ],
+          }) as Map<string, any>
+        }
       />
     );
 
@@ -95,11 +112,13 @@ describe('AiSearchAnswer', () => {
   it('links the papers in an answer that is still streaming', () => {
     renderWithRouter(
       <AiSearchAnswer
-        aiSearch={fromJS({
-          loading: true,
-          progress: [],
-          response: 'Found by [Aad et al. (2012)](1124337) and [CMS](112',
-        })}
+        aiSearch={
+          fromJS({
+            loading: true,
+            progress: [],
+            response: 'Found by [Aad et al. (2012)](1124337) and [CMS](112',
+          }) as Map<string, any>
+        }
       />
     );
 
@@ -112,12 +131,14 @@ describe('AiSearchAnswer', () => {
   it('renders the finished answer with its disclaimer', () => {
     renderWithRouter(
       <AiSearchAnswer
-        aiSearch={fromJS({
-          loading: false,
-          progress: [],
-          response: 'Found by [Aad et al. (2012)](1124337).',
-          recordIds: [1124337],
-        })}
+        aiSearch={
+          fromJS({
+            loading: false,
+            progress: [],
+            response: 'Found by [Aad et al. (2012)](1124337).',
+            recordIds: [1124337],
+          }) as Map<string, any>
+        }
       />
     );
 

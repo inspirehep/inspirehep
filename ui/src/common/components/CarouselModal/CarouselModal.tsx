@@ -41,7 +41,7 @@ const CarouselModal: React.FC<PropsWithChildren<CarouselModalProps>> =
       (carouselRef as MutableRefObject<any>).current.prev();
     }, [carouselRef]);
 
-    const onCourselIndexChange = useCallback((_, newIndex) => {
+    const onCourselIndexChange = useCallback((_: number, newIndex: number) => {
       setCarouselIndex(newIndex);
     }, []);
 
@@ -52,11 +52,12 @@ const CarouselModal: React.FC<PropsWithChildren<CarouselModalProps>> =
     }, [onCancel, carouselRef]);
 
     const onModalContentClick = useCallback(
-      (event) => {
+      (event: React.MouseEvent<HTMLDivElement>) => {
         // HACK: close modal on click outside of real carousel content
         const clickOutOfCarouselTrack = event.target === event.currentTarget;
-        const clickInCourselTrackButOutOfCurrentSlide =
-          event.target.classList.contains('slick-track');
+        const clickInCourselTrackButOutOfCurrentSlide = (
+          event.target as HTMLElement
+        ).classList.contains('slick-track');
         if (
           clickOutOfCarouselTrack ||
           clickInCourselTrackButOutOfCurrentSlide

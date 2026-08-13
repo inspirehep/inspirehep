@@ -53,25 +53,25 @@ describe('refreshToken', () => {
 });
 
 describe('filterByProperty', () => {
-  let testData: Map<string, Array<Map<string, string>>>;
+  let testData: ImmutableMap<string, Array<ImmutableMap<string, string>>>;
 
   beforeEach(() => {
     const items = [
-      new Map<string, string>([
+      ImmutableMap<string, string>([
         ['schema', 'ORCID'],
         ['value', '0000-0001-2345-6789'],
       ]),
-      new Map<string, string>([
+      ImmutableMap<string, string>([
         ['schema', 'DOI'],
         ['value', '10.1000/xyz123'],
       ]),
-      new Map<string, string>([
+      ImmutableMap<string, string>([
         ['schema', 'ORCID'],
         ['value', '0000-0002-6789-1234'],
       ]),
     ];
 
-    testData = new Map([['ids', items]]);
+    testData = ImmutableMap([['ids', items]]);
   });
 
   it('should include only items with schema value "ORCID"', () => {

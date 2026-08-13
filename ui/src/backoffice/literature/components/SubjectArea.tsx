@@ -200,7 +200,8 @@ const SubjectArea = ({
               <AutoComplete
                 options={inspireCategoryOptions}
                 placeholder="Select a subject"
-                filterOption={(input: string, option: { value: string }) =>
+                filterOption={(input, option) =>
+                  !!option &&
                   option.value.toLowerCase().includes(input.toLowerCase())
                 }
                 onKeyDown={(e: React.KeyboardEvent) => {

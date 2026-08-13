@@ -16,7 +16,7 @@
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true,
     "useDefineForClassFields": true,
-    "types": ["vite/client"]
+    "types": ["vite/client", "vitest/globals", "vite-plugin-svgr/client"]
   },
   "include": ["src"]
 }

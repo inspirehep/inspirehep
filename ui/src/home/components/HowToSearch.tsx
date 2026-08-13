@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Radio, Button } from 'antd';
+import { Radio, Button, RadioChangeEvent } from 'antd';
 
 import SpiresExamples from './SpiresExamples';
 import FreetextExamples from './FreetextExamples';
@@ -11,7 +11,7 @@ const FREETEXT_RADIO = 'freetext';
 
 function HowToSearch() {
   const [selectedRadio, setSelectedRadio] = useState(SPIRES_RADIO);
-  const onRadioChange = useCallback((event) => {
+  const onRadioChange = useCallback((event: RadioChangeEvent) => {
     setSelectedRadio(event.target.value);
   }, []);
 
