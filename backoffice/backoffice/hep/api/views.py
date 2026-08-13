@@ -456,6 +456,7 @@ class HepWorkflowDocumentView(BaseDocumentViewSet):
         "data.titles.full_title.keyword",
         "data.arxiv_eprints.value.raw",
         "data.dois.value.raw",
+        "data._private_notes.value",
     )
 
     filter_fields = {
