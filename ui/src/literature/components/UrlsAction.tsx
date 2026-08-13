@@ -36,7 +36,7 @@ function UrlsAction({
   isTargetBlank = true,
 }: UrlsActionProps) {
   const renderUrlsAction = useCallback(
-    (url, title) => {
+    (url: Map<string, any>, title: string) => {
       // TODO: THIS IS A TEMPORARY FIX TO MAKE THE DATASET LINKS WORK
       let value = url.get('value');
       if (text === 'datasets') {
@@ -63,7 +63,7 @@ function UrlsAction({
   );
 
   const renderUrlsDropdownAction = useCallback(
-    (url) => {
+    (url: Map<string, any>) => {
       // TODO: THIS IS A TEMPORARY FIX TO MAKE THE DATASET LINKS WORK
       // eslint-disable-next-line prefer-const
       let [href, display] = linkToHrefDisplayPair(url);

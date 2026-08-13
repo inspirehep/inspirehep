@@ -35,11 +35,13 @@ function ReferenceList({
   disableEdit?: boolean;
 }) {
   const renderReferenceItem = useCallback(
-    (reference, index) => (
+    (reference: Map<string, any>, index: number) => (
       // reference data model doesn't have any identifier, thus we have hack for `key`
       // FIXME: find an proper key for reference item as index might cause bugs
       <ReferenceItem
-        key={reference.getIn(['titles', 0, 'title']) || String(index)}
+        key={
+          (reference.getIn(['titles', 0, 'title']) as string) || String(index)
+        }
         reference={reference}
         reference_index={index}
         onEditReferenceClick={onEditReferenceClick}

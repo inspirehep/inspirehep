@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SelectOutlined } from '@ant-design/icons';
-import { Drawer, Radio, Row, Col, Card, Button } from 'antd';
+import { Drawer, Radio, Row, Col, Card, Button, RadioChangeEvent } from 'antd';
 import { Map } from 'immutable';
 
 import './CurateReferenceDrawer.less';
@@ -98,7 +98,7 @@ function CurateReferenceDrawer({
 }: CurateReferenceDrawerProps) {
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>(null);
 
-  const onSelectedRecordChange = useCallback((event) => {
+  const onSelectedRecordChange = useCallback((event: RadioChangeEvent) => {
     setSelectedRecordId(event.target.value);
   }, []);
 

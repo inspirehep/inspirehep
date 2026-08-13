@@ -1,6 +1,15 @@
 import { useCallback, useState, useEffect } from 'react';
 import { SelectOutlined } from '@ant-design/icons';
-import { Drawer, Radio, Row, Col, Button, List, Input } from 'antd';
+import {
+  Drawer,
+  Radio,
+  Row,
+  Col,
+  Button,
+  List,
+  Input,
+  RadioChangeEvent,
+} from 'antd';
 import { Map } from 'immutable';
 
 import AuthorResult from './AuthorResult';
@@ -40,7 +49,7 @@ function AssignLiteratureItemDrawer({
     }
   }, [authors]);
 
-  const onSelectedAuthorChange = useCallback((event) => {
+  const onSelectedAuthorChange = useCallback((event: RadioChangeEvent) => {
     setSelectedAuthorId(event.target.value);
   }, []);
 
