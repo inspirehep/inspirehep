@@ -3,18 +3,18 @@
 exports[`JournalSubmissionPageContainer > JournalSubmissionPage > renders 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row ant-row-center"
+    class="ant-row ant-row-center css-dev-only-do-not-override-mncuj7"
     data-testid="journal-submission-page"
     type="flex"
   >
     <div
-      class="ant-col mt3 mb3 ant-col-xs-24 ant-col-md-21 ant-col-lg-16 ant-col-xl-15 ant-col-xxl-14"
+      class="ant-col mt3 mb3 ant-col-xs-24 ant-col-md-21 ant-col-lg-16 ant-col-xl-15 ant-col-xxl-14 css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-row mb3 pa3 bg-white"
+        class="ant-row mb3 pa3 bg-white css-dev-only-do-not-override-mncuj7"
       >
         <div
-          class="ant-col ant-col-24"
+          class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
         >
           <h3>
             Suggest journal
@@ -31,48 +31,50 @@ exports[`JournalSubmissionPageContainer > JournalSubmissionPage > renders 1`] = 
         </div>
       </div>
       <div
-        class="ant-row"
+        class="ant-row css-dev-only-do-not-override-mncuj7"
       >
         <div
-          class="ant-col ant-col-24"
+          class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
         >
           <div>
             <div
-              class="ant-row"
+              class="ant-row css-dev-only-do-not-override-mncuj7"
             >
               <div
-                class="ant-col ant-col-24"
+                class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
               >
                 <form
                   action="#"
                   class="bg-white pa3"
                 >
                   <div
-                    class="ant-row mb3 pt2 bg-white"
+                    class="ant-row mb3 pt2 bg-white css-dev-only-do-not-override-mncuj7"
                   >
                     <div
-                      class="ant-col ant-col-24"
+                      class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
                     >
                       <div
-                        class="ant-form-item"
+                        class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
                       >
                         <div
-                          class="ant-row ant-form-item-row"
+                          class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
                         >
                           <div
-                            class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                            class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
                           >
                             <label
                               class=""
                               title=""
                             >
-                              <span>
+                              <span
+                                aria-describedby="test-id"
+                              >
                                 * Short title
                               </span>
                             </label>
                           </div>
                           <div
-                            class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                            class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
                           >
                             <div
                               class="ant-form-item-control-input"
@@ -81,7 +83,7 @@ exports[`JournalSubmissionPageContainer > JournalSubmissionPage > renders 1`] = 
                                 class="ant-form-item-control-input-content"
                               >
                                 <input
-                                  class="ant-input"
+                                  class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
                                   data-test-id="short_title"
                                   form="[object Object]"
                                   name="short_title"
@@ -94,25 +96,27 @@ exports[`JournalSubmissionPageContainer > JournalSubmissionPage > renders 1`] = 
                         </div>
                       </div>
                       <div
-                        class="ant-form-item"
+                        class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
                       >
                         <div
-                          class="ant-row ant-form-item-row"
+                          class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
                         >
                           <div
-                            class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                            class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
                           >
                             <label
                               class=""
                               title=""
                             >
-                              <span>
+                              <span
+                                aria-describedby="test-id"
+                              >
                                 * Journal Title
                               </span>
                             </label>
                           </div>
                           <div
-                            class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                            class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
                           >
                             <div
                               class="ant-form-item-control-input"
@@ -121,7 +125,7 @@ exports[`JournalSubmissionPageContainer > JournalSubmissionPage > renders 1`] = 
                                 class="ant-form-item-control-input-content"
                               >
                                 <input
-                                  class="ant-input"
+                                  class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
                                   data-test-id="journal_title"
                                   form="[object Object]"
                                   name="journal_title"
@@ -136,10 +140,10 @@ exports[`JournalSubmissionPageContainer > JournalSubmissionPage > renders 1`] = 
                     </div>
                   </div>
                   <div
-                    class="ant-row ant-row-end"
+                    class="ant-row ant-row-end css-dev-only-do-not-override-mncuj7"
                   >
                     <button
-                      class="ant-btn ant-btn-primary"
+                      class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
                       data-test-id="submit-button"
                       type="submit"
                     >

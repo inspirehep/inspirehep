@@ -7,6 +7,7 @@ import UnclickableTag from './UnclickableTag';
 import AggregationBox from './AggregationBox';
 import { forceArray } from '../utils';
 import FormattedNumber from './FormattedNumber';
+import './TreeAggregation.less';
 
 function renderTitle(name, docCount) {
   return (
@@ -64,7 +65,7 @@ function TreeAggregation({
   );
 
   return (
-    <AggregationBox name={name}>
+    <AggregationBox name={name} className="__TreeAggregation__">
       <Tree
         blockNode
         checkable

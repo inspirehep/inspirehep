@@ -1,7 +1,6 @@
 import { useCallback, useState, useEffect } from 'react';
-import { Input, AutoComplete } from 'antd';
+import { Input, AutoComplete, Space } from 'antd';
 import { HistoryOutlined } from '@ant-design/icons';
-import classNames from 'classnames';
 
 import './SearchBox.less';
 import SearchBoxNamespaceSelectContainer from '../../containers/SearchBoxNamespaceSelectContainer';
@@ -100,21 +99,25 @@ const SearchBox = ({
     // when search scope is rendered using `Input.addonBefore` prop, inside autocomplete
     // that's why it's pulled out, and classNames are set manually to make it look like an addon
     <>
-      <span
+      <Space.Compact
         data-testid="searchbox"
-        className={classNames('__SearchBox__ ant-input-group', className)}
+        className={className}
+        size="large"
+        block
+        style={{ alignItems: 'center' }}
       >
         <span className="ant-input-group-addon">
           <SearchBoxNamespaceSelectContainer />
         </span>
         <AutoComplete
           autoFocus
-          popupClassName="header-dropdown"
+          classNames={{ popup: { root: 'header-dropdown' } }}
           className="autocomplete"
           value={inputValue}
-          dropdownMatchSelectWidth
+          popupMatchSelectWidth
           options={autoCompleteOptions}
           onSelect={onAutoCompleteSelect}
+          style={{ width: '100%' }}
         >
           <Input.Search
             data-test-id="search-box-input"
@@ -126,7 +129,7 @@ const SearchBox = ({
             onSearch={onInputSearch}
           />
         </AutoComplete>
-      </span>
+      </Space.Compact>
     </>
   );
 };

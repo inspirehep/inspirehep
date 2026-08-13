@@ -1,7 +1,6 @@
 import { Button } from 'antd';
 import { WorkflowDecisions } from '../../../common/constants';
 import { FULL_COVERAGE_TOOLTIP } from '../../constants';
-import '../../common/components/ActionButtons.less';
 import LiteratureRejectButton from './LiteratureRejectButton';
 
 export const LiteratureMissingSubjectFieldsSelectionButtons = ({
@@ -14,14 +13,16 @@ export const LiteratureMissingSubjectFieldsSelectionButtons = ({
     {hasInspireCategories && (
       <>
         <Button
-          className="font-white bg-completed"
+          color="cyan"
+          variant="solid"
           onClick={() => handleResolveAction(WorkflowDecisions.HEP_ACCEPT_CORE)}
           disabled={disableActions}
         >
           Core
         </Button>
         <Button
-          className="font-white bg-halted"
+          color="orange"
+          variant="solid"
           onClick={() => handleResolveAction(WorkflowDecisions.HEP_ACCEPT)}
           disabled={disableActions}
         >

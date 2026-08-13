@@ -67,7 +67,7 @@ describe('EventStartDateFilter', () => {
     );
 
     const closeIcons = screen.getAllByRole('img', { name: 'close-circle' });
-    fireEvent.mouseUp(closeIcons[0].parentElement);
+    fireEvent.click(closeIcons[0].parentElement);
 
     expect(onChange).toHaveBeenCalledWith(START_DATE_ALL);
   });
@@ -89,14 +89,14 @@ describe('EventStartDateFilter', () => {
     expect(onChange).toHaveBeenCalledWith(range);
   });
 
-  it('calls onChange with "upcoming", after animation if switch is checked', () => {
+  it('calls onChange with "upcoming", after animation if switch is checked', async () => {
     const onChange = jest.fn();
     const screen = render(
       <EventStartDateFilter onChange={onChange} switchTitle="Upcoming items" />
     );
 
     fireEvent.click(screen.getByRole('switch'));
-    fireEvent.animationEnd(screen.getByRole('switch'));
+    fireEvent.transitionEnd(screen.getByRole('switch'));
 
     expect(onChange).toHaveBeenCalledWith(START_DATE_UPCOMING);
   });
@@ -108,24 +108,36 @@ describe('EventStartDateFilter', () => {
     );
 
     fireEvent.click(screen.getByRole('switch'));
-    fireEvent.animationEnd(screen.getByRole('switch'));
+    fireEvent.transitionEnd(screen.getByRole('switch'));
 
     fireEvent.click(screen.getByRole('switch'));
-    fireEvent.animationEnd(screen.getByRole('switch'));
+    fireEvent.transitionEnd(screen.getByRole('switch'));
 
     expect(onChange).toHaveBeenCalledWith(START_DATE_ALL);
   });
 
-  it('calls onChange once on each switch change even if onAnimationEnd triggered multiple times', () => {
+  it('does not call onChange on transitionEnd triggered by hover (without a switch change)', () => {
+    const onChange = jest.fn();
+    const screen = render(
+      <EventStartDateFilter onChange={onChange} switchTitle="Upcoming items" />
+    );
+
+    // antd 5's Switch fires transitionend on hover, without any toggle
+    fireEvent.transitionEnd(screen.getByRole('switch'));
+
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('calls onChange once on each switch change even if onTransitionEnd triggered multiple times', () => {
     const onChange = jest.fn();
     const screen = render(
       <EventStartDateFilter onChange={onChange} switchTitle="Upcoming items" />
     );
 
     fireEvent.click(screen.getByRole('switch'));
-    fireEvent.animationEnd(screen.getByRole('switch'));
-    fireEvent.animationEnd(screen.getByRole('switch'));
-    fireEvent.animationEnd(screen.getByRole('switch'));
+    fireEvent.transitionEnd(screen.getByRole('switch'));
+    fireEvent.transitionEnd(screen.getByRole('switch'));
+    fireEvent.transitionEnd(screen.getByRole('switch'));
 
     expect(onChange).toHaveBeenCalledTimes(1);
   });

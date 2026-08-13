@@ -6,7 +6,7 @@ exports[`BookChapterForm > renders all props 1`] = `
     action="#"
   >
     <div
-      class="ant-collapse ant-collapse-icon-position-start ant-collapse-borderless __CollapsableForm__"
+      class="ant-collapse ant-collapse-icon-position-start ant-collapse-borderless __CollapsableForm__ css-dev-only-do-not-override-mncuj7"
     >
       <div
         class="ant-collapse-item ant-collapse-item-active bg-white mb3 overflow-hidden"
@@ -22,7 +22,7 @@ exports[`BookChapterForm > renders all props 1`] = `
             class="ant-collapse-expand-icon"
           >
             <span
-              aria-label="right"
+              aria-label="expanded"
               class="anticon anticon-right ant-collapse-arrow"
               role="img"
             >
@@ -46,7 +46,7 @@ exports[`BookChapterForm > renders all props 1`] = `
             class="ant-collapse-header-text"
           >
             <h3
-              class="fw6"
+              class="fw6 mv0"
             >
               Links
             </h3>
@@ -59,13 +59,13 @@ exports[`BookChapterForm > renders all props 1`] = `
             class="ant-collapse-content-box"
           >
             <div
-              class="ant-form-item"
+              class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
             >
               <div
-                class="ant-row ant-form-item-row"
+                class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
               >
                 <div
-                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
                 >
                   <label
                     class=""
@@ -74,11 +74,14 @@ exports[`BookChapterForm > renders all props 1`] = `
                     <span
                       data-testid="label-with-help"
                     >
-                      <span>
+                      <span
+                        aria-describedby="test-id"
+                      >
                         Link to PDF
                       </span>
                        
                       <span
+                        aria-describedby="test-id"
                         aria-label="question-circle"
                         class="anticon anticon-question-circle"
                         role="img"
@@ -104,7 +107,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                   </label>
                 </div>
                 <div
-                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
                 >
                   <div
                     class="ant-form-item-control-input"
@@ -113,7 +116,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                       class="ant-form-item-control-input-content"
                     >
                       <input
-                        class="ant-input"
+                        class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
                         data-test-id="pdf_link"
                         form="[object Object]"
                         name="pdf_link"
@@ -127,13 +130,13 @@ exports[`BookChapterForm > renders all props 1`] = `
               </div>
             </div>
             <div
-              class="ant-form-item"
+              class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
             >
               <div
-                class="ant-row ant-form-item-row"
+                class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
               >
                 <div
-                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
                 >
                   <label
                     class=""
@@ -142,11 +145,14 @@ exports[`BookChapterForm > renders all props 1`] = `
                     <span
                       data-testid="label-with-help"
                     >
-                      <span>
+                      <span
+                        aria-describedby="test-id"
+                      >
                         Link to additional info
                       </span>
                        
                       <span
+                        aria-describedby="test-id"
                         aria-label="question-circle"
                         class="anticon anticon-question-circle"
                         role="img"
@@ -172,7 +178,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                   </label>
                 </div>
                 <div
-                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
                 >
                   <div
                     class="ant-form-item-control-input"
@@ -181,7 +187,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                       class="ant-form-item-control-input-content"
                     >
                       <input
-                        class="ant-input"
+                        class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
                         data-test-id="additional_link"
                         form="[object Object]"
                         name="additional_link"
@@ -211,7 +217,7 @@ exports[`BookChapterForm > renders all props 1`] = `
             class="ant-collapse-expand-icon"
           >
             <span
-              aria-label="right"
+              aria-label="expanded"
               class="anticon anticon-right ant-collapse-arrow"
               role="img"
             >
@@ -235,7 +241,7 @@ exports[`BookChapterForm > renders all props 1`] = `
             class="ant-collapse-header-text"
           >
             <h3
-              class="fw6"
+              class="fw6 mv0"
             >
               Basic Info
             </h3>
@@ -248,25 +254,27 @@ exports[`BookChapterForm > renders all props 1`] = `
             class="ant-collapse-content-box"
           >
             <div
-              class="ant-form-item"
+              class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
             >
               <div
-                class="ant-row ant-form-item-row"
+                class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
               >
                 <div
-                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
                 >
                   <label
                     class=""
                     title=""
                   >
-                    <span>
+                    <span
+                      aria-describedby="test-id"
+                    >
                       * Title
                     </span>
                   </label>
                 </div>
                 <div
-                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
                 >
                   <div
                     class="ant-form-item-control-input"
@@ -275,7 +283,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                       class="ant-form-item-control-input-content"
                     >
                       <input
-                        class="ant-input"
+                        class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
                         data-test-id="title"
                         form="[object Object]"
                         name="title"
@@ -288,25 +296,27 @@ exports[`BookChapterForm > renders all props 1`] = `
               </div>
             </div>
             <div
-              class="ant-form-item"
+              class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
             >
               <div
-                class="ant-row ant-form-item-row"
+                class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
               >
                 <div
-                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
                 >
                   <label
                     class=""
                     title=""
                   >
-                    <span>
+                    <span
+                      aria-describedby="test-id"
+                    >
                       * Language
                     </span>
                   </label>
                 </div>
                 <div
-                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
                 >
                   <div
                     class="ant-form-item-control-input"
@@ -315,7 +325,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                       class="ant-form-item-control-input-content"
                     >
                       <div
-                        class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow"
+                        class="ant-select ant-select-outlined ant-select-in-form-item css-dev-only-do-not-override-mncuj7 ant-select-single ant-select-show-arrow"
                         data-test-id="language"
                         data-test-type="single-select"
                         data-testid="select-box"
@@ -326,28 +336,32 @@ exports[`BookChapterForm > renders all props 1`] = `
                           class="ant-select-selector"
                         >
                           <span
-                            class="ant-select-selection-search"
+                            class="ant-select-selection-wrap"
                           >
-                            <input
-                              aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                              aria-autocomplete="list"
-                              aria-controls="rc_select_TEST_OR_SSR_list"
-                              aria-haspopup="listbox"
-                              aria-owns="rc_select_TEST_OR_SSR_list"
-                              autocomplete="off"
-                              class="ant-select-selection-search-input"
-                              id="rc_select_TEST_OR_SSR"
-                              readonly=""
-                              role="combobox"
-                              style="opacity: 0;"
-                              type="search"
-                              unselectable="on"
-                              value=""
+                            <span
+                              class="ant-select-selection-search"
+                            >
+                              <input
+                                aria-autocomplete="list"
+                                aria-controls="rc_select_TEST_OR_SSR_list"
+                                aria-expanded="false"
+                                aria-haspopup="listbox"
+                                aria-owns="rc_select_TEST_OR_SSR_list"
+                                autocomplete="off"
+                                class="ant-select-selection-search-input"
+                                id="rc_select_TEST_OR_SSR"
+                                readonly=""
+                                role="combobox"
+                                style="opacity: 0;"
+                                type="search"
+                                unselectable="on"
+                                value=""
+                              />
+                            </span>
+                            <span
+                              class="ant-select-selection-placeholder"
                             />
                           </span>
-                          <span
-                            class="ant-select-selection-placeholder"
-                          />
                         </div>
                         <span
                           aria-hidden="true"
@@ -382,25 +396,27 @@ exports[`BookChapterForm > renders all props 1`] = `
               </div>
             </div>
             <div
-              class="ant-form-item"
+              class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
             >
               <div
-                class="ant-row ant-form-item-row"
+                class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
               >
                 <div
-                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
                 >
                   <label
                     class=""
                     title=""
                   >
-                    <span>
+                    <span
+                      aria-describedby="test-id"
+                    >
                       * Subjects
                     </span>
                   </label>
                 </div>
                 <div
-                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
                 >
                   <div
                     class="ant-form-item-control-input"
@@ -409,7 +425,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                       class="ant-form-item-control-input-content"
                     >
                       <div
-                        class="ant-select ant-select-in-form-item ant-select-multiple ant-select-show-arrow ant-select-show-search"
+                        class="ant-select ant-select-outlined ant-select-in-form-item css-dev-only-do-not-override-mncuj7 ant-select-multiple ant-select-show-arrow ant-select-show-search"
                         data-test-id="subjects"
                         data-test-type="multiple-select"
                         data-testid="select-box"
@@ -419,45 +435,49 @@ exports[`BookChapterForm > renders all props 1`] = `
                         <div
                           class="ant-select-selector"
                         >
-                          <div
-                            class="ant-select-selection-overflow"
+                          <span
+                            class="ant-select-selection-wrap"
                           >
                             <div
-                              class="ant-select-selection-overflow-item ant-select-selection-overflow-item-suffix"
-                              style="opacity: 1;"
+                              class="ant-select-selection-overflow"
                             >
                               <div
-                                class="ant-select-selection-search"
-                                style="width: 0px;"
+                                class="ant-select-selection-overflow-item ant-select-selection-overflow-item-suffix"
+                                style="opacity: 1;"
                               >
-                                <input
-                                  aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                                  aria-autocomplete="list"
-                                  aria-controls="rc_select_TEST_OR_SSR_list"
-                                  aria-haspopup="listbox"
-                                  aria-owns="rc_select_TEST_OR_SSR_list"
-                                  autocomplete="off"
-                                  class="ant-select-selection-search-input"
-                                  id="rc_select_TEST_OR_SSR"
-                                  readonly=""
-                                  role="combobox"
-                                  style="opacity: 0;"
-                                  type="search"
-                                  unselectable="on"
-                                  value=""
-                                />
-                                <span
-                                  aria-hidden="true"
-                                  class="ant-select-selection-search-mirror"
+                                <div
+                                  class="ant-select-selection-search"
+                                  style="width: 0px;"
                                 >
-                                   
-                                </span>
+                                  <input
+                                    aria-autocomplete="list"
+                                    aria-controls="rc_select_TEST_OR_SSR_list"
+                                    aria-expanded="false"
+                                    aria-haspopup="listbox"
+                                    aria-owns="rc_select_TEST_OR_SSR_list"
+                                    autocomplete="off"
+                                    class="ant-select-selection-search-input"
+                                    id="rc_select_TEST_OR_SSR"
+                                    readonly=""
+                                    role="combobox"
+                                    style="opacity: 0;"
+                                    type="search"
+                                    unselectable="on"
+                                    value=""
+                                  />
+                                  <span
+                                    aria-hidden="true"
+                                    class="ant-select-selection-search-mirror"
+                                  >
+                                     
+                                  </span>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <span
-                            class="ant-select-selection-placeholder"
-                          />
+                            <span
+                              class="ant-select-selection-placeholder"
+                            />
+                          </span>
                         </div>
                         <span
                           aria-hidden="true"
@@ -495,25 +515,27 @@ exports[`BookChapterForm > renders all props 1`] = `
               class="__ArrayOf__"
             >
               <div
-                class="ant-form-item"
+                class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
               >
                 <div
-                  class="ant-row ant-form-item-row"
+                  class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
                 >
                   <div
-                    class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                    class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
                   >
                     <label
                       class=""
                       title=""
                     >
-                      <span>
+                      <span
+                        aria-describedby="test-id"
+                      >
                         * Authors
                       </span>
                     </label>
                   </div>
                   <div
-                    class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                    class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
                   >
                     <div
                       class="ant-form-item-control-input"
@@ -522,13 +544,13 @@ exports[`BookChapterForm > renders all props 1`] = `
                         class="ant-form-item-control-input-content"
                       >
                         <div
-                          class="ant-form-item items-container"
+                          class="ant-form-item items-container css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
                         >
                           <div
-                            class="ant-row ant-form-item-row"
+                            class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
                           >
                             <div
-                              class="ant-col ant-form-item-control"
+                              class="ant-col ant-form-item-control css-dev-only-do-not-override-mncuj7"
                             >
                               <div
                                 class="ant-form-item-control-input"
@@ -541,13 +563,13 @@ exports[`BookChapterForm > renders all props 1`] = `
                           </div>
                         </div>
                         <div
-                          class="ant-form-item add-button"
+                          class="ant-form-item add-button css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
                         >
                           <div
-                            class="ant-row ant-form-item-row"
+                            class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
                           >
                             <div
-                              class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                              class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
                             >
                               <div
                                 class="ant-form-item-control-input"
@@ -556,7 +578,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                                   class="ant-form-item-control-input-content"
                                 >
                                   <button
-                                    class="ant-btn ant-btn-dashed"
+                                    class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
                                     data-test-id="authors-add-item"
                                     type="button"
                                   >
@@ -598,25 +620,27 @@ exports[`BookChapterForm > renders all props 1`] = `
               </div>
             </div>
             <div
-              class="ant-form-item"
+              class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
             >
               <div
-                class="ant-row ant-form-item-row"
+                class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
               >
                 <div
-                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
                 >
                   <label
                     class=""
                     title=""
                   >
-                    <span>
+                    <span
+                      aria-describedby="test-id"
+                    >
                       Experiment
                     </span>
                   </label>
                 </div>
                 <div
-                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
                 >
                   <div
                     class="ant-form-item-control-input"
@@ -625,7 +649,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                       class="ant-form-item-control-input-content"
                     >
                       <div
-                        class="ant-select ant-select-in-form-item ant-select-auto-complete ant-select-single ant-select-show-search"
+                        class="ant-select ant-select-outlined ant-select-in-form-item ant-select-auto-complete css-dev-only-do-not-override-mncuj7 ant-select-single ant-select-show-search"
                         data-test-id="experiment"
                         data-test-type="suggester"
                         form="[object Object]"
@@ -636,26 +660,30 @@ exports[`BookChapterForm > renders all props 1`] = `
                           class="ant-select-selector"
                         >
                           <span
-                            class="ant-select-selection-search"
+                            class="ant-select-selection-wrap"
                           >
-                            <input
-                              aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                              aria-autocomplete="list"
-                              aria-controls="rc_select_TEST_OR_SSR_list"
-                              aria-haspopup="listbox"
-                              aria-owns="rc_select_TEST_OR_SSR_list"
-                              autocomplete="off"
-                              class="ant-select-selection-search-input"
-                              id="rc_select_TEST_OR_SSR"
-                              role="combobox"
-                              type="search"
-                              value=""
-                            />
-                          </span>
-                          <span
-                            class="ant-select-selection-placeholder"
-                          >
-                            Experiment, type for suggestions
+                            <span
+                              class="ant-select-selection-search"
+                            >
+                              <input
+                                aria-autocomplete="list"
+                                aria-controls="rc_select_TEST_OR_SSR_list"
+                                aria-expanded="false"
+                                aria-haspopup="listbox"
+                                aria-owns="rc_select_TEST_OR_SSR_list"
+                                autocomplete="off"
+                                class="ant-select-selection-search-input"
+                                id="rc_select_TEST_OR_SSR"
+                                role="combobox"
+                                type="search"
+                                value=""
+                              />
+                            </span>
+                            <span
+                              class="ant-select-selection-placeholder"
+                            >
+                              Experiment, type for suggestions
+                            </span>
                           </span>
                         </div>
                       </div>
@@ -665,25 +693,27 @@ exports[`BookChapterForm > renders all props 1`] = `
               </div>
             </div>
             <div
-              class="ant-form-item"
+              class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
             >
               <div
-                class="ant-row ant-form-item-row"
+                class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
               >
                 <div
-                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
                 >
                   <label
                     class=""
                     title=""
                   >
-                    <span>
+                    <span
+                      aria-describedby="test-id"
+                    >
                       Abstract
                     </span>
                   </label>
                 </div>
                 <div
-                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
                 >
                   <div
                     class="ant-form-item-control-input"
@@ -692,7 +722,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                       class="ant-form-item-control-input-content"
                     >
                       <textarea
-                        class="ant-input"
+                        class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
                         data-test-id="abstract"
                         form="[object Object]"
                         name="abstract"
@@ -707,25 +737,27 @@ exports[`BookChapterForm > renders all props 1`] = `
               class="__ArrayOf__"
             >
               <div
-                class="ant-form-item"
+                class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
               >
                 <div
-                  class="ant-row ant-form-item-row"
+                  class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
                 >
                   <div
-                    class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                    class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
                   >
                     <label
                       class=""
                       title=""
                     >
-                      <span>
+                      <span
+                        aria-describedby="test-id"
+                      >
                         Report Numbers
                       </span>
                     </label>
                   </div>
                   <div
-                    class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                    class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
                   >
                     <div
                       class="ant-form-item-control-input"
@@ -734,13 +766,13 @@ exports[`BookChapterForm > renders all props 1`] = `
                         class="ant-form-item-control-input-content"
                       >
                         <div
-                          class="ant-form-item items-container"
+                          class="ant-form-item items-container css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
                         >
                           <div
-                            class="ant-row ant-form-item-row"
+                            class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
                           >
                             <div
-                              class="ant-col ant-form-item-control"
+                              class="ant-col ant-form-item-control css-dev-only-do-not-override-mncuj7"
                             >
                               <div
                                 class="ant-form-item-control-input"
@@ -753,13 +785,13 @@ exports[`BookChapterForm > renders all props 1`] = `
                           </div>
                         </div>
                         <div
-                          class="ant-form-item add-button"
+                          class="ant-form-item add-button css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
                         >
                           <div
-                            class="ant-row ant-form-item-row"
+                            class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
                           >
                             <div
-                              class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                              class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
                             >
                               <div
                                 class="ant-form-item-control-input"
@@ -768,7 +800,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                                   class="ant-form-item-control-input-content"
                                 >
                                   <button
-                                    class="ant-btn ant-btn-dashed"
+                                    class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-dashed ant-btn-color-default ant-btn-variant-dashed"
                                     data-test-id="report_numbers-add-item"
                                     type="button"
                                   >
@@ -810,25 +842,27 @@ exports[`BookChapterForm > renders all props 1`] = `
               </div>
             </div>
             <div
-              class="ant-form-item"
+              class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
             >
               <div
-                class="ant-row ant-form-item-row"
+                class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
               >
                 <div
-                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
                 >
                   <label
                     class=""
                     title=""
                   >
-                    <span>
+                    <span
+                      aria-describedby="test-id"
+                    >
                       DOI
                     </span>
                   </label>
                 </div>
                 <div
-                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
                 >
                   <div
                     class="ant-form-item-control-input"
@@ -837,7 +871,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                       class="ant-form-item-control-input-content"
                     >
                       <input
-                        class="ant-input"
+                        class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
                         data-test-id="doi"
                         form="[object Object]"
                         name="doi"
@@ -867,7 +901,7 @@ exports[`BookChapterForm > renders all props 1`] = `
             class="ant-collapse-expand-icon"
           >
             <span
-              aria-label="right"
+              aria-label="expanded"
               class="anticon anticon-right ant-collapse-arrow"
               role="img"
             >
@@ -891,7 +925,7 @@ exports[`BookChapterForm > renders all props 1`] = `
             class="ant-collapse-header-text"
           >
             <h3
-              class="fw6"
+              class="fw6 mv0"
             >
               Publication Info
             </h3>
@@ -904,25 +938,27 @@ exports[`BookChapterForm > renders all props 1`] = `
             class="ant-collapse-content-box"
           >
             <div
-              class="ant-form-item"
+              class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
             >
               <div
-                class="ant-row ant-form-item-row"
+                class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
               >
                 <div
-                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
                 >
                   <label
                     class=""
                     title=""
                   >
-                    <span>
+                    <span
+                      aria-describedby="test-id"
+                    >
                       Book Title
                     </span>
                   </label>
                 </div>
                 <div
-                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
                 >
                   <div
                     class="ant-form-item-control-input"
@@ -931,7 +967,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                       class="ant-form-item-control-input-content"
                     >
                       <div
-                        class="ant-select ant-select-in-form-item ant-select-auto-complete ant-select-single ant-select-show-search"
+                        class="ant-select ant-select-outlined ant-select-in-form-item ant-select-auto-complete css-dev-only-do-not-override-mncuj7 ant-select-single ant-select-show-search"
                         data-test-id="book_title"
                         data-test-type="suggester"
                         form="[object Object]"
@@ -941,25 +977,29 @@ exports[`BookChapterForm > renders all props 1`] = `
                           class="ant-select-selector"
                         >
                           <span
-                            class="ant-select-selection-search"
+                            class="ant-select-selection-wrap"
                           >
-                            <input
-                              aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                              aria-autocomplete="list"
-                              aria-controls="rc_select_TEST_OR_SSR_list"
-                              aria-haspopup="listbox"
-                              aria-owns="rc_select_TEST_OR_SSR_list"
-                              autocomplete="off"
-                              class="ant-select-selection-search-input"
-                              id="rc_select_TEST_OR_SSR"
-                              role="combobox"
-                              type="search"
-                              value=""
+                            <span
+                              class="ant-select-selection-search"
+                            >
+                              <input
+                                aria-autocomplete="list"
+                                aria-controls="rc_select_TEST_OR_SSR_list"
+                                aria-expanded="false"
+                                aria-haspopup="listbox"
+                                aria-owns="rc_select_TEST_OR_SSR_list"
+                                autocomplete="off"
+                                class="ant-select-selection-search-input"
+                                id="rc_select_TEST_OR_SSR"
+                                role="combobox"
+                                type="search"
+                                value=""
+                              />
+                            </span>
+                            <span
+                              class="ant-select-selection-placeholder"
                             />
                           </span>
-                          <span
-                            class="ant-select-selection-placeholder"
-                          />
                         </div>
                       </div>
                     </div>
@@ -968,25 +1008,27 @@ exports[`BookChapterForm > renders all props 1`] = `
               </div>
             </div>
             <div
-              class="ant-form-item"
+              class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
             >
               <div
-                class="ant-row ant-form-item-row"
+                class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
               >
                 <div
-                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
                 >
                   <label
                     class=""
                     title=""
                   >
-                    <span>
+                    <span
+                      aria-describedby="test-id"
+                    >
                       Start Page
                     </span>
                   </label>
                 </div>
                 <div
-                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
                 >
                   <div
                     class="ant-form-item-control-input"
@@ -995,7 +1037,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                       class="ant-form-item-control-input-content"
                     >
                       <input
-                        class="ant-input"
+                        class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
                         data-test-id="start_page"
                         form="[object Object]"
                         name="start_page"
@@ -1008,25 +1050,27 @@ exports[`BookChapterForm > renders all props 1`] = `
               </div>
             </div>
             <div
-              class="ant-form-item"
+              class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
             >
               <div
-                class="ant-row ant-form-item-row"
+                class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
               >
                 <div
-                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+                  class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
                 >
                   <label
                     class=""
                     title=""
                   >
-                    <span>
+                    <span
+                      aria-describedby="test-id"
+                    >
                       End Page
                     </span>
                   </label>
                 </div>
                 <div
-                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+                  class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
                 >
                   <div
                     class="ant-form-item-control-input"
@@ -1035,7 +1079,7 @@ exports[`BookChapterForm > renders all props 1`] = `
                       class="ant-form-item-control-input-content"
                     >
                       <input
-                        class="ant-input"
+                        class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
                         data-test-id="end_page"
                         form="[object Object]"
                         name="end_page"
@@ -1064,7 +1108,7 @@ exports[`BookChapterForm > renders all props 1`] = `
             class="ant-collapse-expand-icon"
           >
             <span
-              aria-label="right"
+              aria-label="collapsed"
               class="anticon anticon-right ant-collapse-arrow"
               role="img"
             >
@@ -1087,7 +1131,7 @@ exports[`BookChapterForm > renders all props 1`] = `
             class="ant-collapse-header-text"
           >
             <h3
-              class="fw6"
+              class="fw6 mv0"
             >
               References
             </h3>
@@ -1108,7 +1152,7 @@ exports[`BookChapterForm > renders all props 1`] = `
             class="ant-collapse-expand-icon"
           >
             <span
-              aria-label="right"
+              aria-label="collapsed"
               class="anticon anticon-right ant-collapse-arrow"
               role="img"
             >
@@ -1131,7 +1175,7 @@ exports[`BookChapterForm > renders all props 1`] = `
             class="ant-collapse-header-text"
           >
             <h3
-              class="fw6"
+              class="fw6 mv0"
             >
               Comments
             </h3>
@@ -1140,11 +1184,11 @@ exports[`BookChapterForm > renders all props 1`] = `
       </div>
     </div>
     <div
-      class="ant-row ant-row-end"
+      class="ant-row ant-row-end css-dev-only-do-not-override-mncuj7"
       type="flex"
     >
       <button
-        class="ant-btn ant-btn-primary"
+        class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
         data-test-id="submit-button"
         type="submit"
       >

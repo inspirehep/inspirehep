@@ -1,9 +1,10 @@
 import { Map } from 'immutable';
 import { CaretDownOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useHref } from 'react-router-dom';
 import { Button } from 'antd';
 import './StatusGroup.less';
 import { STATUS_GROUPS_CONFIG, WorkflowStatusGroups } from '../../constants';
+import RouterLinkButton from '../../../common/components/RouterLinkButton';
 
 interface StatusGroupProps {
   groupKey: string;
@@ -51,6 +52,9 @@ const StatusGroup = ({
     </div>
   );
 
+  const link = `${baseUrl}&status=${groupStatusKey}`;
+  const href = useHref(link);
+
   return (
     <div className="__StatusGroup__">
       {isCollapsable ? (
@@ -63,12 +67,9 @@ const StatusGroup = ({
           {headerContent}
         </Button>
       ) : (
-        <Link
-          to={`${baseUrl}&status=${groupStatusKey}`}
-          className="ant-btn ant-btn-text ant-btn-block no-underline"
-        >
+        <RouterLinkButton to={link} type="text" block href={href}>
           {headerContent}
-        </Link>
+        </RouterLinkButton>
       )}
       {isCollapsable &&
         isOpen &&
@@ -88,7 +89,7 @@ const StatusGroup = ({
               data-testid={`view-${groupKey}-${statusKey}`}
             >
               <div className="flex justify-between status-link ">
-                <p className="ttc" style={{ marginBottom: 0 }}>
+                <p className="ttc" style={{ margin: 0 }}>
                   {statusKeyText}
                 </p>
                 <span>{statusCount}</span>

@@ -26,10 +26,10 @@ describe('EmbeddedSearchBoxContainer', () => {
       { store }
     );
 
-    fireEvent.change(getByRole('textbox'), {
+    fireEvent.change(getByRole('searchbox'), {
       target: { value: 'test' },
     });
-    fireEvent.keyDown(getByRole('textbox'), {
+    fireEvent.keyDown(getByRole('searchbox'), {
       key: 'Enter',
       code: 'Enter',
     });

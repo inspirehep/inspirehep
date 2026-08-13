@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import { HistoryRouter as Router } from 'redux-first-history/rr6';
-import 'antd/dist/antd.less';
+import 'antd/dist/reset.css';
 import 'tachyons';
 import * as Sentry from '@sentry/browser';
 import { Idle } from 'idlejs';

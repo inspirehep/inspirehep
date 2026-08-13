@@ -3,24 +3,24 @@
 exports[`ConferenceContributions > renders 1`] = `
 <div>
   <div
-    class="ant-row ant-row-center mt3"
+    class="ant-row ant-row-center mt3 css-dev-only-do-not-override-mncuj7"
     style=""
     type="flex"
   >
     <div
-      class="ant-col ant-col-xs-0 ant-col-lg-7"
+      class="ant-col ant-col-xs-0 ant-col-lg-7 css-dev-only-do-not-override-mncuj7"
       style=""
     />
     <div
-      class="ant-col ant-col-xs-24 ant-col-lg-17"
+      class="ant-col ant-col-xs-24 ant-col-lg-17 css-dev-only-do-not-override-mncuj7"
       style=""
     >
       <div
-        class="ant-row ant-row-end ant-row-middle"
+        class="ant-row ant-row-end ant-row-middle css-dev-only-do-not-override-mncuj7"
         type="flex"
       >
         <div
-          class="ant-col ant-col-xs-24 ant-col-lg-12"
+          class="ant-col ant-col-xs-24 ant-col-lg-12 css-dev-only-do-not-override-mncuj7"
         >
           <span>
             <span
@@ -32,14 +32,15 @@ exports[`ConferenceContributions > renders 1`] = `
             </span>
           </span>
           <div
-            class="ant-divider ant-divider-vertical __VerticalDivider__"
+            class="ant-divider css-dev-only-do-not-override-mncuj7 ant-divider-vertical __VerticalDivider__"
             role="separator"
           />
           <span
             class="__UserAction__"
           >
             <button
-              class="ant-btn ant-btn-default ant-dropdown-trigger"
+              aria-describedby="test-id"
+              class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-dropdown-trigger"
               type="button"
             >
               <span
@@ -79,10 +80,10 @@ exports[`ConferenceContributions > renders 1`] = `
           </span>
         </div>
         <div
-          class="ant-col ant-col-xs-8 ant-col-lg-0"
+          class="ant-col ant-col-xs-8 ant-col-lg-0 css-dev-only-do-not-override-mncuj7"
         />
         <div
-          class="ant-col tr ant-col-xs-16 ant-col-lg-12"
+          class="ant-col tr ant-col-xs-16 ant-col-lg-12 css-dev-only-do-not-override-mncuj7"
         >
           <span
             class="mr2"
@@ -95,7 +96,8 @@ exports[`ConferenceContributions > renders 1`] = `
             </span>
             <button
               aria-checked="false"
-              class="ant-switch"
+              aria-describedby="test-id"
+              class="ant-switch css-dev-only-do-not-override-mncuj7"
               role="switch"
               type="button"
             >
@@ -106,23 +108,50 @@ exports[`ConferenceContributions > renders 1`] = `
                 class="ant-switch-inner"
               >
                 <span
-                  aria-label="bar-chart"
-                  class="anticon anticon-bar-chart"
-                  role="img"
+                  class="ant-switch-inner-checked"
                 >
-                  <svg
-                    aria-hidden="true"
-                    data-icon="bar-chart"
-                    fill="currentColor"
-                    focusable="false"
-                    height="1em"
-                    viewBox="64 64 896 896"
-                    width="1em"
+                  <span
+                    aria-label="bar-chart"
+                    class="anticon anticon-bar-chart"
+                    role="img"
                   >
-                    <path
-                      d="M888 792H200V168c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v688c0 4.4 3.6 8 8 8h752c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-600-80h56c4.4 0 8-3.6 8-8V560c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v144c0 4.4 3.6 8 8 8zm152 0h56c4.4 0 8-3.6 8-8V384c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v320c0 4.4 3.6 8 8 8zm152 0h56c4.4 0 8-3.6 8-8V462c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v242c0 4.4 3.6 8 8 8zm152 0h56c4.4 0 8-3.6 8-8V304c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v400c0 4.4 3.6 8 8 8z"
-                    />
-                  </svg>
+                    <svg
+                      aria-hidden="true"
+                      data-icon="bar-chart"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M888 792H200V168c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v688c0 4.4 3.6 8 8 8h752c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-600-80h56c4.4 0 8-3.6 8-8V560c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v144c0 4.4 3.6 8 8 8zm152 0h56c4.4 0 8-3.6 8-8V384c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v320c0 4.4 3.6 8 8 8zm152 0h56c4.4 0 8-3.6 8-8V462c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v242c0 4.4 3.6 8 8 8zm152 0h56c4.4 0 8-3.6 8-8V304c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v400c0 4.4 3.6 8 8 8z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  class="ant-switch-inner-unchecked"
+                >
+                  <span
+                    aria-label="bar-chart"
+                    class="anticon anticon-bar-chart"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="bar-chart"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M888 792H200V168c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v688c0 4.4 3.6 8 8 8h752c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-600-80h56c4.4 0 8-3.6 8-8V560c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v144c0 4.4 3.6 8 8 8zm152 0h56c4.4 0 8-3.6 8-8V384c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v320c0 4.4 3.6 8 8 8zm152 0h56c4.4 0 8-3.6 8-8V462c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v242c0 4.4 3.6 8 8 8zm152 0h56c4.4 0 8-3.6 8-8V304c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v400c0 4.4 3.6 8 8 8z"
+                      />
+                    </svg>
+                  </span>
                 </span>
               </span>
             </button>
@@ -130,10 +159,10 @@ exports[`ConferenceContributions > renders 1`] = `
         </div>
       </div>
       <div
-        class="ant-row"
+        class="ant-row css-dev-only-do-not-override-mncuj7"
       >
         <div
-          class="ant-col ant-col-24"
+          class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
         >
           <div
             data-testid="search-results"

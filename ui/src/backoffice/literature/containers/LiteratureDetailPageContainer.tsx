@@ -226,7 +226,7 @@ const LiteratureDetailPageContainer = ({
                           disableActions={isUpdatingSubjects}
                         />
                       </CollapsableForm.Section>
-                      {totalReferences && (
+                      {!!totalReferences && (
                         <CollapsableForm.Section
                           header="References"
                           key="references"

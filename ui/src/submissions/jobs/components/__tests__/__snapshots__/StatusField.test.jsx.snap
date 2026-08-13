@@ -3,13 +3,13 @@
 exports[`StatusField > renders if can modify and cataloger logged in 1`] = `
 <DocumentFragment>
   <div
-    class="ant-form-item"
+    class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
   >
     <div
-      class="ant-row ant-form-item-row"
+      class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+        class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
       >
         <div
           class="ant-form-item-control-input"
@@ -18,7 +18,7 @@ exports[`StatusField > renders if can modify and cataloger logged in 1`] = `
             class="ant-form-item-control-input-content"
           >
             <div
-              class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow"
+              class="ant-select ant-select-outlined ant-select-in-form-item css-dev-only-do-not-override-mncuj7 ant-select-single ant-select-show-arrow"
               data-test-id="[object Object]"
               data-test-type="single-select"
               data-testid="select-box"
@@ -29,28 +29,32 @@ exports[`StatusField > renders if can modify and cataloger logged in 1`] = `
                 class="ant-select-selector"
               >
                 <span
-                  class="ant-select-selection-search"
+                  class="ant-select-selection-wrap"
                 >
-                  <input
-                    aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                    aria-autocomplete="list"
-                    aria-controls="rc_select_TEST_OR_SSR_list"
-                    aria-haspopup="listbox"
-                    aria-owns="rc_select_TEST_OR_SSR_list"
-                    autocomplete="off"
-                    class="ant-select-selection-search-input"
-                    id="rc_select_TEST_OR_SSR"
-                    readonly=""
-                    role="combobox"
-                    style="opacity: 0;"
-                    type="search"
-                    unselectable="on"
-                    value=""
+                  <span
+                    class="ant-select-selection-search"
+                  >
+                    <input
+                      aria-autocomplete="list"
+                      aria-controls="rc_select_TEST_OR_SSR_list"
+                      aria-expanded="false"
+                      aria-haspopup="listbox"
+                      aria-owns="rc_select_TEST_OR_SSR_list"
+                      autocomplete="off"
+                      class="ant-select-selection-search-input"
+                      id="rc_select_TEST_OR_SSR"
+                      readonly=""
+                      role="combobox"
+                      style="opacity: 0;"
+                      type="search"
+                      unselectable="on"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="ant-select-selection-placeholder"
                   />
                 </span>
-                <span
-                  class="ant-select-selection-placeholder"
-                />
               </div>
               <span
                 aria-hidden="true"
@@ -90,13 +94,13 @@ exports[`StatusField > renders if can modify and cataloger logged in 1`] = `
 exports[`StatusField > renders if can modify but not cataloger logged in 1`] = `
 <DocumentFragment>
   <div
-    class="ant-form-item"
+    class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
   >
     <div
-      class="ant-row ant-form-item-row"
+      class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+        class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
       >
         <div
           class="ant-form-item-control-input"
@@ -105,7 +109,7 @@ exports[`StatusField > renders if can modify but not cataloger logged in 1`] = `
             class="ant-form-item-control-input-content"
           >
             <div
-              class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow"
+              class="ant-select ant-select-outlined ant-select-in-form-item css-dev-only-do-not-override-mncuj7 ant-select-single ant-select-show-arrow"
               data-test-id="[object Object]"
               data-test-type="single-select"
               data-testid="select-box"
@@ -116,28 +120,32 @@ exports[`StatusField > renders if can modify but not cataloger logged in 1`] = `
                 class="ant-select-selector"
               >
                 <span
-                  class="ant-select-selection-search"
+                  class="ant-select-selection-wrap"
                 >
-                  <input
-                    aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                    aria-autocomplete="list"
-                    aria-controls="rc_select_TEST_OR_SSR_list"
-                    aria-haspopup="listbox"
-                    aria-owns="rc_select_TEST_OR_SSR_list"
-                    autocomplete="off"
-                    class="ant-select-selection-search-input"
-                    id="rc_select_TEST_OR_SSR"
-                    readonly=""
-                    role="combobox"
-                    style="opacity: 0;"
-                    type="search"
-                    unselectable="on"
-                    value=""
+                  <span
+                    class="ant-select-selection-search"
+                  >
+                    <input
+                      aria-autocomplete="list"
+                      aria-controls="rc_select_TEST_OR_SSR_list"
+                      aria-expanded="false"
+                      aria-haspopup="listbox"
+                      aria-owns="rc_select_TEST_OR_SSR_list"
+                      autocomplete="off"
+                      class="ant-select-selection-search-input"
+                      id="rc_select_TEST_OR_SSR"
+                      readonly=""
+                      role="combobox"
+                      style="opacity: 0;"
+                      type="search"
+                      unselectable="on"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="ant-select-selection-placeholder"
                   />
                 </span>
-                <span
-                  class="ant-select-selection-placeholder"
-                />
               </div>
               <span
                 aria-hidden="true"
@@ -177,13 +185,13 @@ exports[`StatusField > renders if can modify but not cataloger logged in 1`] = `
 exports[`StatusField > renders if can not modify and not cataloger logged in 1`] = `
 <DocumentFragment>
   <div
-    class="ant-form-item"
+    class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
   >
     <div
-      class="ant-row ant-form-item-row"
+      class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+        class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
       >
         <div
           class="ant-form-item-control-input"
@@ -192,7 +200,7 @@ exports[`StatusField > renders if can not modify and not cataloger logged in 1`]
             class="ant-form-item-control-input-content"
           >
             <div
-              class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow ant-select-disabled"
+              class="ant-select ant-select-outlined ant-select-in-form-item css-dev-only-do-not-override-mncuj7 ant-select-single ant-select-show-arrow ant-select-disabled"
               data-test-id="[object Object]"
               data-test-type="single-select"
               data-testid="select-box"
@@ -203,30 +211,33 @@ exports[`StatusField > renders if can not modify and not cataloger logged in 1`]
                 class="ant-select-selector"
               >
                 <span
-                  class="ant-select-selection-search"
+                  class="ant-select-selection-wrap"
                 >
-                  <input
-                    aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                    aria-autocomplete="list"
-                    aria-controls="rc_select_TEST_OR_SSR_list"
-                    aria-expanded="false"
-                    aria-haspopup="listbox"
-                    aria-owns="rc_select_TEST_OR_SSR_list"
-                    autocomplete="off"
-                    class="ant-select-selection-search-input"
-                    disabled=""
-                    id="rc_select_TEST_OR_SSR"
-                    readonly=""
-                    role="combobox"
-                    style="opacity: 0;"
-                    type="search"
-                    unselectable="on"
-                    value=""
+                  <span
+                    class="ant-select-selection-search"
+                  >
+                    <input
+                      aria-autocomplete="list"
+                      aria-controls="rc_select_TEST_OR_SSR_list"
+                      aria-expanded="false"
+                      aria-haspopup="listbox"
+                      aria-owns="rc_select_TEST_OR_SSR_list"
+                      autocomplete="off"
+                      class="ant-select-selection-search-input"
+                      disabled=""
+                      id="rc_select_TEST_OR_SSR"
+                      readonly=""
+                      role="combobox"
+                      style="opacity: 0;"
+                      type="search"
+                      unselectable="on"
+                      value=""
+                    />
+                  </span>
+                  <span
+                    class="ant-select-selection-placeholder"
                   />
                 </span>
-                <span
-                  class="ant-select-selection-placeholder"
-                />
               </div>
               <span
                 aria-hidden="true"

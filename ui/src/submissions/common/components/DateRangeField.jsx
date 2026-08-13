@@ -1,8 +1,11 @@
 import { useCallback, useMemo } from 'react';
 import { DatePicker } from 'antd';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 import withFormItem from '../withFormItem';
+
+dayjs.extend(customParseFormat);
 
 const BOTH_TRUE = [true, true];
 
@@ -10,10 +13,10 @@ function DateRangeField({ value = [], ...props }) {
   const { form, name, format } = props;
 
   const [startDate, endDate] = value;
-  const valueAsMoment = useMemo(
+  const valueAsDayjs = useMemo(
     () => [
-      startDate && moment(startDate, format),
-      endDate && moment(endDate, format),
+      startDate && dayjs(startDate, format),
+      endDate && dayjs(endDate, format),
     ],
     [startDate, endDate, format]
   );
@@ -37,7 +40,7 @@ function DateRangeField({ value = [], ...props }) {
       data-test-type="date-range-picker"
       data-testid="date-range-picker"
       data-test-format={format}
-      value={valueAsMoment}
+      value={valueAsDayjs}
       onBlur={onBlur}
       onChange={onChange}
       className="w-100"

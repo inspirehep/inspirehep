@@ -49,7 +49,7 @@ export const PDGKeywords = ({ keywords }: { keywords: IKeyword }) => {
           open={modalVisibility}
           footer={null}
           onCancel={toggleModal}
-          bodyStyle={{ padding: '12px 24px 24px 24px' }}
+          styles={{ body: { padding: '12px 24px 24px 24px' } }}
         >
           <List
             // @ts-ignore

@@ -4,14 +4,14 @@ exports[`ErrorNetwork > renders ErrorNetwork 1`] = `
 <DocumentFragment>
   <div
     align="middle"
-    class="ant-col ant-col-14 mt3 mb3"
+    class="ant-col ant-col-14 mt3 mb3 css-dev-only-do-not-override-mncuj7"
     justify="center"
   >
     <div
-      class="ant-row"
+      class="ant-row css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-col ant-col-24"
+        class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
       >
         <h3
           class="f2 sm-f3"
@@ -21,10 +21,10 @@ exports[`ErrorNetwork > renders ErrorNetwork 1`] = `
       </div>
     </div>
     <div
-      class="ant-row"
+      class="ant-row css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-col ant-col-24"
+        class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
       >
         <h3
           class="f3 normal sm-f4"
@@ -32,7 +32,7 @@ exports[`ErrorNetwork > renders ErrorNetwork 1`] = `
           <span>
             Please check your internet connection and 
             <button
-              class="ant-btn ant-btn-text __LinkLikeButton__ blue big"
+              class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue big"
               data-test-id="go-back-link"
               data-testid="go-back-link"
               type="button"
@@ -46,10 +46,10 @@ exports[`ErrorNetwork > renders ErrorNetwork 1`] = `
       </div>
     </div>
     <div
-      class="ant-row"
+      class="ant-row css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-col ant-col-24"
+        class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
       >
         <img
           alt="ERROR"

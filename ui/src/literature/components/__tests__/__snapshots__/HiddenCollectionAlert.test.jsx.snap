@@ -6,7 +6,7 @@ exports[`HiddenCollectionAlert > renders alert 1`] = `
     class="mb2"
   >
     <div
-      class="ant-alert ant-alert-warning ant-alert-no-icon"
+      class="ant-alert ant-alert-warning ant-alert-no-icon css-dev-only-do-not-override-mncuj7"
       data-show="true"
       role="alert"
     >

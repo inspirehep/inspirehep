@@ -3,19 +3,19 @@
 exports[`ErrorAppCrash > renders ErrorAppCrash 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row ant-row-center"
+    class="ant-row ant-row-center css-dev-only-do-not-override-mncuj7"
     type="flex"
   >
     <div
       align="middle"
-      class="ant-col ant-col-14 mt3 mb3"
+      class="ant-col ant-col-14 mt3 mb3 css-dev-only-do-not-override-mncuj7"
       justify="center"
     >
       <div
-        class="ant-row"
+        class="ant-row css-dev-only-do-not-override-mncuj7"
       >
         <div
-          class="ant-col ant-col-24"
+          class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
         >
           <h3
             class="f2 sm-f3"
@@ -25,10 +25,10 @@ exports[`ErrorAppCrash > renders ErrorAppCrash 1`] = `
         </div>
       </div>
       <div
-        class="ant-row"
+        class="ant-row css-dev-only-do-not-override-mncuj7"
       >
         <div
-          class="ant-col ant-col-24"
+          class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
         >
           <h3
             class="f3 normal sm-f4"
@@ -46,10 +46,10 @@ exports[`ErrorAppCrash > renders ErrorAppCrash 1`] = `
         </div>
       </div>
       <div
-        class="ant-row"
+        class="ant-row css-dev-only-do-not-override-mncuj7"
       >
         <div
-          class="ant-col ant-col-24"
+          class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
         >
           <img
             alt="ERROR"

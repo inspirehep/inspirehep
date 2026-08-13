@@ -6,7 +6,7 @@ exports[`InstitutionItem > renders with all props set 1`] = `
     class="__ContentBox__ h-100"
   >
     <div
-      class="ant-card ant-card-bordered h-100"
+      class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
     >
       <div
         class="ant-card-body"
@@ -16,10 +16,10 @@ exports[`InstitutionItem > renders with all props set 1`] = `
         >
           <div>
             <div
-              class="ant-row"
+              class="ant-row css-dev-only-do-not-override-mncuj7"
             >
               <div
-                class="ant-col"
+                class="ant-col css-dev-only-do-not-override-mncuj7"
               >
                 <a
                   class="result-item-title"
@@ -28,10 +28,10 @@ exports[`InstitutionItem > renders with all props set 1`] = `
               </div>
             </div>
             <div
-              class="ant-row"
+              class="ant-row css-dev-only-do-not-override-mncuj7"
             >
               <div
-                class="ant-col"
+                class="ant-col css-dev-only-do-not-override-mncuj7"
               >
                 <div
                   class="__InlineList__"
@@ -48,10 +48,10 @@ exports[`InstitutionItem > renders with all props set 1`] = `
               </div>
             </div>
             <div
-              class="ant-row"
+              class="ant-row css-dev-only-do-not-override-mncuj7"
             >
               <div
-                class="ant-col"
+                class="ant-col css-dev-only-do-not-override-mncuj7"
               >
                 <div
                   class="__InlineList__ di"
@@ -86,10 +86,10 @@ exports[`InstitutionItem > renders with all props set 1`] = `
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between actions ph2"
+          class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
               class="__UserAction__"
@@ -134,7 +134,7 @@ exports[`InstitutionItem > renders with all props set 1`] = `
             </span>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
               class="__UserAction__"
@@ -197,7 +197,7 @@ exports[`InstitutionItem > renders with only needed props 1`] = `
     class="__ContentBox__ h-100"
   >
     <div
-      class="ant-card ant-card-bordered h-100"
+      class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
     >
       <div
         class="ant-card-body"
@@ -207,10 +207,10 @@ exports[`InstitutionItem > renders with only needed props 1`] = `
         >
           <div>
             <div
-              class="ant-row"
+              class="ant-row css-dev-only-do-not-override-mncuj7"
             >
               <div
-                class="ant-col"
+                class="ant-col css-dev-only-do-not-override-mncuj7"
               >
                 <a
                   class="result-item-title"
@@ -219,29 +219,29 @@ exports[`InstitutionItem > renders with only needed props 1`] = `
               </div>
             </div>
             <div
-              class="ant-row"
+              class="ant-row css-dev-only-do-not-override-mncuj7"
             >
               <div
-                class="ant-col"
+                class="ant-col css-dev-only-do-not-override-mncuj7"
               />
             </div>
             <div
-              class="ant-row"
+              class="ant-row css-dev-only-do-not-override-mncuj7"
             >
               <div
-                class="ant-col"
+                class="ant-col css-dev-only-do-not-override-mncuj7"
               />
             </div>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between actions ph2"
+          class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           />
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
               class="__UserAction__"

@@ -10,12 +10,12 @@ exports[`ReferenceItem > does not render misc if title present 1`] = `
       class="ant-list-item"
     >
       <div
-        class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+        class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap css-dev-only-do-not-override-mncuj7"
         style="margin-left: -12px; margin-right: -12px;"
         type="flex"
       >
         <div
-          class="ant-col ant-col-xs-2 ant-col-lg-1"
+          class="ant-col ant-col-xs-2 ant-col-lg-1 css-dev-only-do-not-override-mncuj7"
           style="padding-left: 12px; padding-right: 12px;"
         >
           <div
@@ -23,7 +23,7 @@ exports[`ReferenceItem > does not render misc if title present 1`] = `
           />
         </div>
         <div
-          class="ant-col"
+          class="ant-col css-dev-only-do-not-override-mncuj7"
           style="padding-left: 12px; padding-right: 12px; width: 100%;"
         >
           <div
@@ -63,15 +63,16 @@ exports[`ReferenceItem > does not render misc if title present 1`] = `
           </div>
         </div>
         <div
-          class="ant-col ant-col-2 pr3"
+          class="ant-col ant-col-2 pr3 css-dev-only-do-not-override-mncuj7"
           style="padding-left: 12px; padding-right: 12px;"
         >
           <div
+            aria-describedby="test-id"
             class="flex items-center justify-center"
             data-test-id="edit-reference"
           >
             <button
-              class="ant-btn ant-btn-text __LinkLikeButton__ blue disabled"
+              class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue disabled"
               disabled=""
               type="button"
             >
@@ -126,12 +127,12 @@ exports[`ReferenceItem > renders misc if present 1`] = `
       class="ant-list-item"
     >
       <div
-        class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+        class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap css-dev-only-do-not-override-mncuj7"
         style="margin-left: -12px; margin-right: -12px;"
         type="flex"
       >
         <div
-          class="ant-col ant-col-xs-2 ant-col-lg-1"
+          class="ant-col ant-col-xs-2 ant-col-lg-1 css-dev-only-do-not-override-mncuj7"
           style="padding-left: 12px; padding-right: 12px;"
         >
           <div
@@ -139,7 +140,7 @@ exports[`ReferenceItem > renders misc if present 1`] = `
           />
         </div>
         <div
-          class="ant-col"
+          class="ant-col css-dev-only-do-not-override-mncuj7"
           style="padding-left: 12px; padding-right: 12px; width: 100%;"
         >
           <div
@@ -164,15 +165,16 @@ exports[`ReferenceItem > renders misc if present 1`] = `
           </div>
         </div>
         <div
-          class="ant-col ant-col-2 pr3"
+          class="ant-col ant-col-2 pr3 css-dev-only-do-not-override-mncuj7"
           style="padding-left: 12px; padding-right: 12px;"
         >
           <div
+            aria-describedby="test-id"
             class="flex items-center justify-center"
             data-test-id="edit-reference"
           >
             <button
-              class="ant-btn ant-btn-text __LinkLikeButton__ blue disabled"
+              class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue disabled"
               disabled=""
               type="button"
             >
@@ -227,12 +229,12 @@ exports[`ReferenceItem > renders unlinked reference (no control_number) 1`] = `
       class="ant-list-item"
     >
       <div
-        class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+        class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap css-dev-only-do-not-override-mncuj7"
         style="margin-left: -12px; margin-right: -12px;"
         type="flex"
       >
         <div
-          class="ant-col ant-col-xs-2 ant-col-lg-1"
+          class="ant-col ant-col-xs-2 ant-col-lg-1 css-dev-only-do-not-override-mncuj7"
           style="padding-left: 12px; padding-right: 12px;"
         >
           <div
@@ -240,7 +242,7 @@ exports[`ReferenceItem > renders unlinked reference (no control_number) 1`] = `
           />
         </div>
         <div
-          class="ant-col"
+          class="ant-col css-dev-only-do-not-override-mncuj7"
           style="padding-left: 12px; padding-right: 12px; width: 100%;"
         >
           <div
@@ -406,15 +408,16 @@ exports[`ReferenceItem > renders unlinked reference (no control_number) 1`] = `
           </div>
         </div>
         <div
-          class="ant-col ant-col-2 pr3"
+          class="ant-col ant-col-2 pr3 css-dev-only-do-not-override-mncuj7"
           style="padding-left: 12px; padding-right: 12px;"
         >
           <div
+            aria-describedby="test-id"
             class="flex items-center justify-center"
             data-test-id="edit-reference"
           >
             <button
-              class="ant-btn ant-btn-text __LinkLikeButton__ blue disabled"
+              class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue disabled"
               disabled=""
               type="button"
             >
@@ -469,12 +472,12 @@ exports[`ReferenceItem > renders with full reference 1`] = `
       class="ant-list-item"
     >
       <div
-        class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+        class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap css-dev-only-do-not-override-mncuj7"
         style="margin-left: -12px; margin-right: -12px;"
         type="flex"
       >
         <div
-          class="ant-col ant-col-xs-2 ant-col-lg-1"
+          class="ant-col ant-col-xs-2 ant-col-lg-1 css-dev-only-do-not-override-mncuj7"
           style="padding-left: 12px; padding-right: 12px;"
         >
           <div
@@ -486,7 +489,7 @@ exports[`ReferenceItem > renders with full reference 1`] = `
           </div>
         </div>
         <div
-          class="ant-col"
+          class="ant-col css-dev-only-do-not-override-mncuj7"
           style="padding-left: 12px; padding-right: 12px; width: 100%;"
         >
           <div
@@ -638,15 +641,16 @@ exports[`ReferenceItem > renders with full reference 1`] = `
           </div>
         </div>
         <div
-          class="ant-col ant-col-2 pr3"
+          class="ant-col ant-col-2 pr3 css-dev-only-do-not-override-mncuj7"
           style="padding-left: 12px; padding-right: 12px;"
         >
           <div
+            aria-describedby="test-id"
             class="flex items-center justify-center"
             data-test-id="edit-reference"
           >
             <button
-              class="ant-btn ant-btn-text __LinkLikeButton__ blue disabled"
+              class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue disabled"
               disabled=""
               type="button"
             >
@@ -701,12 +705,12 @@ exports[`ReferenceItem > renders without edit button if disableEdit 1`] = `
       class="ant-list-item"
     >
       <div
-        class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+        class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap css-dev-only-do-not-override-mncuj7"
         style="margin-left: -12px; margin-right: -12px;"
         type="flex"
       >
         <div
-          class="ant-col ant-col-xs-2 ant-col-lg-1"
+          class="ant-col ant-col-xs-2 ant-col-lg-1 css-dev-only-do-not-override-mncuj7"
           style="padding-left: 12px; padding-right: 12px;"
         >
           <div
@@ -714,7 +718,7 @@ exports[`ReferenceItem > renders without edit button if disableEdit 1`] = `
           />
         </div>
         <div
-          class="ant-col"
+          class="ant-col css-dev-only-do-not-override-mncuj7"
           style="padding-left: 12px; padding-right: 12px; width: 100%;"
         >
           <div

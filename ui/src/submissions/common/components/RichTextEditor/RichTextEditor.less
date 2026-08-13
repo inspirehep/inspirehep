@@ -1,5 +1,23 @@
 .__RichTextEditor__ {
   height: auto;
+  background: var(--rte-bg);
+  color: var(--rte-color);
+  font-size: var(--rte-font-size);
+  line-height: var(--rte-line-height);
+  padding: var(--rte-padding-block) var(--rte-padding-inline);
+  border: var(--rte-border-width) var(--rte-border-style) var(--rte-border-color);
+  border-radius: var(--rte-border-radius);
+  transition: all var(--rte-transition-duration);
+
+  &:hover {
+    border-color: var(--rte-hover-border-color);
+  }
+
+  &:focus-within {
+    border-color: var(--rte-active-border-color);
+    box-shadow: var(--rte-active-shadow);
+    outline: 0;
+  }
 
   .ql-toolbar {
     border: none;

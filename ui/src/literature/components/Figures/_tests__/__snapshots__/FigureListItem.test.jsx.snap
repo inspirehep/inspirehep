@@ -14,24 +14,28 @@ exports[`FigureListItem > renders figure list item 1`] = `
         <div
           aria-busy="true"
           aria-live="polite"
-          class="ant-spin ant-spin-spinning"
+          class="ant-spin ant-spin-spinning css-dev-only-do-not-override-mncuj7"
           style="margin: auto; display: block; padding: 2rem 0px;"
         >
           <span
-            class="ant-spin-dot ant-spin-dot-spin"
+            class="ant-spin-dot-holder"
           >
-            <i
-              class="ant-spin-dot-item"
-            />
-            <i
-              class="ant-spin-dot-item"
-            />
-            <i
-              class="ant-spin-dot-item"
-            />
-            <i
-              class="ant-spin-dot-item"
-            />
+            <span
+              class="ant-spin-dot ant-spin-dot-spin"
+            >
+              <i
+                class="ant-spin-dot-item"
+              />
+              <i
+                class="ant-spin-dot-item"
+              />
+              <i
+                class="ant-spin-dot-item"
+              />
+              <i
+                class="ant-spin-dot-item"
+              />
+            </span>
           </span>
         </div>
       </figure>

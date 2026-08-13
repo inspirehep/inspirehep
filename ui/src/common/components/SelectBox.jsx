@@ -3,8 +3,7 @@ import { Select } from 'antd';
 function SelectBox({ options, virtualScroll = false, ...selectProps }) {
   return (
     <Select
-      dropdownMatchSelectWidth={virtualScroll}
-      showArrow
+      popupMatchSelectWidth={virtualScroll}
       {...selectProps}
       data-testid="select-box"
     >

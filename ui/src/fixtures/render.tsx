@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, useLocation } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import { getStore } from './store';
@@ -48,3 +48,8 @@ export const renderWithProviders = (
     ...rendered,
   };
 };
+
+export function LocationDisplay() {
+  const { pathname, search } = useLocation();
+  return <div data-testid="location-display">{`${pathname}${search}`}</div>;
+}

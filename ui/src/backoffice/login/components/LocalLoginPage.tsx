@@ -59,7 +59,7 @@ const LocalLoginPage = ({ onLoginFormSubmit }: LocalLoginPageProps) => {
     <>
       <DocumentHead title="Login" />
       <Row className="h-100" justify="center" align="middle">
-        <Card bodyStyle={{ textAlign: 'center' }}>
+        <Card styles={{ body: { textAlign: 'center' } }}>
           <h1 className="b mb4 f5">
             Please log in with your Backoffice account
           </h1>

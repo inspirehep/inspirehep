@@ -13,4 +13,10 @@ const dispatchToProps = (dispatch, { recordId }) => ({
   },
 });
 
-export default connect(stateToProps, dispatchToProps)(Checkbox);
+const mergeProps = (stateProps, dispatchProps, { recordId, ...ownProps }) => ({
+  ...ownProps,
+  ...stateProps,
+  ...dispatchProps,
+});
+
+export default connect(stateToProps, dispatchToProps, mergeProps)(Checkbox);

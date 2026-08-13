@@ -3,6 +3,7 @@
 exports[`HelpIconTooltip > renders with help 1`] = `
 <DocumentFragment>
   <span
+    aria-describedby="test-id"
     aria-label="question-circle"
     class="anticon anticon-question-circle"
     role="img"

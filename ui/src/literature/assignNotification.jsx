@@ -28,7 +28,7 @@ export function curating(key) {
 }
 
 export function curationSuccess() {
-  notification.close(CURATING_NOTIFICATION_KEY);
+  notification.destroy(CURATING_NOTIFICATION_KEY);
   notification.success({
     message: 'Reference Successfully Modified!',
     duration: null,
@@ -38,7 +38,7 @@ export function curationSuccess() {
 }
 
 export function curationError(key) {
-  notification.close(key);
+  notification.destroy(key);
   notification.error({
     className: 'super-zindex',
     message: 'Error!',
@@ -47,7 +47,7 @@ export function curationError(key) {
 }
 
 export function assignSuccess({ conferenceId, conferenceTitle, papers }) {
-  notification.close(ASSIGNING_NOTIFICATION_KEY);
+  notification.destroy(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
     message: 'Assignment Successful!',
     duration: null,
@@ -64,7 +64,7 @@ export function assignSuccess({ conferenceId, conferenceTitle, papers }) {
 }
 
 export function assignLiteratureItemSuccess() {
-  notification.close(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
+  notification.destroy(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
   notification.success({
     message: 'Assignment Successful!',
     duration: null,
@@ -73,7 +73,7 @@ export function assignLiteratureItemSuccess() {
 }
 
 export function assignLiteratureItemError(key) {
-  notification.close(key);
+  notification.destroy(key);
   notification.error({
     className: 'super-zindex',
     message: 'Assignment Error!',
@@ -93,7 +93,7 @@ export function assignLiteratureItemError(key) {
 }
 
 export function assignError(key) {
-  notification.close(key);
+  notification.destroy(key);
   notification.error({
     className: 'super-zindex',
     message: 'Assignment Error!',
@@ -110,7 +110,7 @@ export function exportToCdsSuccess({ papers }) {
 }
 
 export function exportToCdsError() {
-  notification.close(ASSIGNING_NOTIFICATION_KEY);
+  notification.destroy(ASSIGNING_NOTIFICATION_KEY);
   notification.error({
     className: 'super-zindex',
     message: 'Export to CDS Error!',

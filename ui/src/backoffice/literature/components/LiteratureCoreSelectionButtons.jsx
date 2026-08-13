@@ -1,6 +1,5 @@
 import { Button } from 'antd';
 import { WorkflowDecisions } from '../../../common/constants';
-import '../../common/components/ActionButtons.less';
 
 export const LiteratureCoreSelectionButtons = ({
   handleResolveAction,
@@ -8,7 +7,8 @@ export const LiteratureCoreSelectionButtons = ({
 }) => (
   <div className="flex items-center" style={{ gap: '4px' }}>
     <Button
-      className="font-white bg-completed"
+      color="cyan"
+      variant="solid"
       onClick={() =>
         handleResolveAction(WorkflowDecisions.CORE_SELECTION_ACCEPT_CORE)
       }
@@ -17,7 +17,8 @@ export const LiteratureCoreSelectionButtons = ({
       Core
     </Button>
     <Button
-      className="font-white bg-halted"
+      color="orange"
+      variant="solid"
       onClick={() =>
         handleResolveAction(WorkflowDecisions.CORE_SELECTION_ACCEPT)
       }

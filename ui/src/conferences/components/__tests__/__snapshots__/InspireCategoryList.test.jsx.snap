@@ -10,12 +10,12 @@ exports[`InspireCategoryList > renders with categories 1`] = `
       <ul>
         <li>
           <span
-            class="ant-tag __UnclickableTag__"
+            class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
           />
         </li>
         <li>
           <span
-            class="ant-tag __UnclickableTag__"
+            class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
           />
         </li>
       </ul>
