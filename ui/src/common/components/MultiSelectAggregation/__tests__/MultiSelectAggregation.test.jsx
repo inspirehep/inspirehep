@@ -76,7 +76,7 @@ describe('MultiSelectAggregation', () => {
     );
 
     fireEvent.mouseDown(screen.getByRole('combobox'));
-    fireEvent.click(screen.getAllByText('bucket1')[1]);
+    fireEvent.click(screen.getByText('bucket1'));
 
     expect(onChange).toHaveBeenCalledWith(['bucket1'], expect.anything());
   });

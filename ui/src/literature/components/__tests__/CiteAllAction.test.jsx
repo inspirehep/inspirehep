@@ -135,7 +135,7 @@ describe('CiteAllAction', () => {
   });
 
   it('shows tooltip when disabled due to too many results', async () => {
-    const { container } = render(
+    render(
       <CiteAllAction
         numberOfResults={MAX_CITEABLE_RECORDS + 1}
         query={{ q: 'ac>2000' }}
@@ -145,14 +145,7 @@ describe('CiteAllAction', () => {
     const citeButton = screen.getByRole('button', { name: /cite all/i });
 
     expect(citeButton).toBeDisabled();
-
-    const tooltipWrapper = container.querySelector('.ant-tooltip');
-
-    if (tooltipWrapper) {
-      fireEvent.mouseEnter(tooltipWrapper);
-    } else {
-      fireEvent.mouseEnter(citeButton);
-    }
+    fireEvent.pointerEnter(citeButton);
 
     await waitFor(() => {
       expect(

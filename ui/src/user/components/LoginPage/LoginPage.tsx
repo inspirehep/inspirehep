@@ -20,7 +20,7 @@ const LoginPage = ({ previousUrl = '' }: { previousUrl?: string }) => {
         align="middle"
         data-testid="login-page"
       >
-        <Card bodyStyle={{ textAlign: 'center' }}>
+        <Card styles={{ body: { textAlign: 'center' } }}>
           <p className="f4">Please sign in to INSPIRE</p>
           <p className="pb2">
             To suggest content to INSPIRE, an ORCID is required. Registration is

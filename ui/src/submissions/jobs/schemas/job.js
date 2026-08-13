@@ -1,6 +1,5 @@
 import { string, object, array, mixed } from 'yup';
-import moment from 'moment';
-
+import dayjs from 'dayjs';
 import { regionValues, statusValues, fieldOfInterestValues } from './constants';
 import { rankValues } from '../../common/schemas/constants';
 import emptyObjectOrShapeOf from '../../common/schemas/emptyObjectOrShapeOf';
@@ -9,9 +8,9 @@ import OR from '../../common/schemas/OR';
 import { DATE_RANGE_FORMAT } from '../../../common/constants';
 
 export function isValidDeadlineDate(value) {
-  const dateValue = value instanceof moment ? value : moment(value);
-  const now = moment();
-  const nextYear = moment().add({ years: 1 });
+  const dateValue = dayjs.isDayjs(value) ? value : dayjs(value);
+  const now = dayjs();
+  const nextYear = dayjs().add(1, 'years');
   return dateValue.isAfter(now) && dateValue.isBefore(nextYear);
 }
 

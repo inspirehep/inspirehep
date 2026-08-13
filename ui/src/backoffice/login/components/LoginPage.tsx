@@ -15,7 +15,7 @@ const LoginPage = () => (
       align="middle"
       data-testid="login-page"
     >
-      <Card bodyStyle={{ textAlign: 'center' }}>
+      <Card styles={{ body: { textAlign: 'center' } }}>
         <p className="f4">Please log in to BACKOFFICE</p>
         <p className="pb2">
           To login to Backoffice, an ORCID is required. Registration is free,

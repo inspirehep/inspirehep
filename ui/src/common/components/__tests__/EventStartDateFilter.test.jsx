@@ -67,7 +67,7 @@ describe('EventStartDateFilter', () => {
     );
 
     const closeIcons = screen.getAllByRole('img', { name: 'close-circle' });
-    fireEvent.mouseUp(closeIcons[0].parentElement);
+    fireEvent.click(closeIcons[0].parentElement);
 
     expect(onChange).toHaveBeenCalledWith(START_DATE_ALL);
   });

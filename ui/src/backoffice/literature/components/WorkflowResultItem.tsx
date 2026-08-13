@@ -137,7 +137,7 @@ const WorkflowResultItem = ({
               className={hasAuthors ? '' : 'mt2'}
               column={1}
               size="small"
-              labelStyle={{ width: 140 }}
+              styles={{ label: { width: 140 } }}
             >
               {hasPublicationInfoValue && (
                 <Descriptions.Item label="Published In">

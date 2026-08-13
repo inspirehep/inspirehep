@@ -3,11 +3,11 @@
 exports[`LoginPage > renders page 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row ant-row-center ant-row-middle __LoginPage__ h-100"
+    class="ant-row ant-row-center ant-row-middle __LoginPage__ h-100 css-dev-only-do-not-override-mncuj7"
     data-testid="login-page"
   >
     <div
-      class="ant-card ant-card-bordered"
+      class="ant-card ant-card-bordered css-dev-only-do-not-override-mncuj7"
     >
       <div
         class="ant-card-body"
@@ -31,9 +31,11 @@ exports[`LoginPage > renders page 1`] = `
           </a>
         </p>
         <a
-          class="ant-btn ant-btn-default login-button"
+          aria-disabled="false"
+          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined login-button"
           data-testid="login-button"
           href="/api/accounts/login?next=/"
+          tabindex="0"
         >
           <img
             alt="ORCID"

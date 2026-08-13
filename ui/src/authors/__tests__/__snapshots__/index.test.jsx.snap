@@ -7,20 +7,20 @@ exports[`Authors > renders initial state 1`] = `
     data-testid="authors"
   >
     <div
-      class="ant-row ant-row-center mt3"
+      class="ant-row ant-row-center mt3 css-dev-only-do-not-override-mncuj7"
       data-testid="authors-search-page-container"
       style=""
       type="flex"
     >
       <div
-        class="ant-col ant-col-xs-24"
+        class="ant-col ant-col-xs-24 css-dev-only-do-not-override-mncuj7"
         style=""
       >
         <div
-          class="ant-row"
+          class="ant-row css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
               data-testid="number-of-results"
@@ -30,10 +30,10 @@ exports[`Authors > renders initial state 1`] = `
           </div>
         </div>
         <div
-          class="ant-row"
+          class="ant-row css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col ant-col-24"
+            class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
           >
             <div
               data-testid="search-results"

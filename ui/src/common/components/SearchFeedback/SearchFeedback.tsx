@@ -100,7 +100,7 @@ const SearchFeedback = ({
           cursor: 'pointer',
           ...style,
         }}
-        bodyStyle={{ padding: 12 }}
+        styles={{ body: { padding: 12 } }}
         onClick={(event) => {
           setFeedbackModalVisible(true);
           if (onClick) onClick(event); // Necessary for matomo tracking

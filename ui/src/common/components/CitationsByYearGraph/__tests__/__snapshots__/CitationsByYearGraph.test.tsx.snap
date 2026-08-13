@@ -4462,11 +4462,11 @@ exports[`CitationsByYearGraph > renders two citations graphs when current year c
 exports[`CitationsByYearGraph > renders without citations 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row ant-row-center ant-row-middle w-100"
+    class="ant-row ant-row-center ant-row-middle w-100 css-dev-only-do-not-override-mncuj7"
     type="flex"
   >
     <div
-      class="ant-col"
+      class="ant-col css-dev-only-do-not-override-mncuj7"
     >
       <div
         class="tc pa4"
@@ -4474,30 +4474,47 @@ exports[`CitationsByYearGraph > renders without citations 1`] = `
         data-testid="loading-spinner"
       >
         <div
-          aria-busy="true"
-          aria-live="polite"
-          class="ant-spin ant-spin-spinning ant-spin-show-text"
+          class="ant-spin-nested-loading css-dev-only-do-not-override-mncuj7"
         >
-          <span
-            class="ant-spin-dot ant-spin-dot-spin"
-          >
-            <i
-              class="ant-spin-dot-item"
-            />
-            <i
-              class="ant-spin-dot-item"
-            />
-            <i
-              class="ant-spin-dot-item"
-            />
-            <i
-              class="ant-spin-dot-item"
-            />
-          </span>
+          <div>
+            <div
+              aria-busy="true"
+              aria-live="polite"
+              class="ant-spin ant-spin-spinning ant-spin-show-text css-dev-only-do-not-override-mncuj7"
+            >
+              <span
+                class="ant-spin-dot-holder"
+              >
+                <span
+                  class="ant-spin-dot ant-spin-dot-spin"
+                >
+                  <i
+                    class="ant-spin-dot-item"
+                  />
+                  <i
+                    class="ant-spin-dot-item"
+                  />
+                  <i
+                    class="ant-spin-dot-item"
+                  />
+                  <i
+                    class="ant-spin-dot-item"
+                  />
+                </span>
+              </span>
+              <div
+                class="ant-spin-text"
+              >
+                Loading ...
+              </div>
+            </div>
+          </div>
           <div
-            class="ant-spin-text"
+            class="ant-spin-container ant-spin-blur"
           >
-            Loading ...
+            <div
+              class="pa4"
+            />
           </div>
         </div>
       </div>

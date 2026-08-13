@@ -78,6 +78,6 @@ describe('<LiteratureRejectButton />', () => {
     render(<LiteratureRejectButton handleResolveAction={jest.fn()} isWeak />);
 
     const rejectButton = screen.getByRole('button', { name: 'Reject' });
-    expect(rejectButton).toHaveClass('bg-error-weak');
+    expect(rejectButton).toHaveClass('o-30');
   });
 });

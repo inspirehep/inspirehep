@@ -320,7 +320,7 @@ function DetailPage({
                 type="card"
                 tabBarStyle={{ marginBottom: 0 }}
                 items={tabItems}
-                destroyInactiveTabPane
+                destroyOnHidden
               />
             </Col>
           </Row>

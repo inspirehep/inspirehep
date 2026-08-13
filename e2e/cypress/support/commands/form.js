@@ -173,18 +173,16 @@ Cypress.Commands.add("fillArrayField", (path, array) => {
 });
 
 Cypress.Commands.add("fillDateRangeField", (path, [startDate, endDate]) => {
-  cy.getField(path).then(($dateRangeSelect) => {
+  cy.getField(path).then(($dateRangeInputs) => {
     const dateFormat =
-      $dateRangeSelect.attr("data-test-format") || "YYYY-MM-DD";
+      $dateRangeInputs.attr("data-test-format") || "YYYY-MM-DD";
     const startDateValue = moment(startDate).format(dateFormat);
     const endDateValue = moment(endDate).format(dateFormat);
-    cy.wrap($dateRangeSelect)
-      .find("input")
+    cy.wrap($dateRangeInputs)
       .first()
       .click()
       .type(`${startDateValue}{enter}`, { force: true });
-    cy.wrap($dateRangeSelect)
-      .find("input")
+    cy.wrap($dateRangeInputs)
       .last()
       .click()
       .type(`${endDateValue}{enter}`, { force: true });
@@ -192,13 +190,18 @@ Cypress.Commands.add("fillDateRangeField", (path, [startDate, endDate]) => {
 });
 
 Cypress.Commands.add("fillDateField", (path, value) => {
-  cy.getField(path)
-    .clear({ force: true })
-    .then(($dateSelect) => {
-      const dateFormat = $dateSelect.attr("data-test-format") || "YYYY-MM-DD";
-      const dateValue = moment(value).format(dateFormat);
-      cy.wrap($dateSelect).type(`${dateValue}{enter}`, { force: true });
-    });
+  cy.getField(path).then(($dateSelect) => {
+    const dateFormat = $dateSelect.attr("data-test-format") || "YYYY-MM-DD";
+    const dateValue = moment(value).format(dateFormat);
+    cy.wrap($dateSelect)
+      .click()
+      .clear({ force: true })
+      .type(dateValue, { force: true });
+    cy.get(".ant-picker-dropdown")
+      .filter(":visible")
+      .find(`.ant-picker-cell[title="${dateValue}"]`)
+      .click();
+  });
 });
 
 Cypress.Commands.add("fillNumberOrTextField", (path, value) => {

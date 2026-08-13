@@ -3,17 +3,17 @@
 exports[`AuthorResult > renders 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row"
+    class="ant-row pb2 css-dev-only-do-not-override-mncuj7"
   >
     <div
-      class="ant-col"
+      class="ant-col flex items-center pr2 css-dev-only-do-not-override-mncuj7"
       style="flex: 0 1 1px;"
     >
       <label
-        class="ant-radio-wrapper"
+        class="ant-radio-wrapper css-dev-only-do-not-override-mncuj7"
       >
         <span
-          class="ant-radio"
+          class="ant-radio ant-wave-target"
         >
           <input
             class="ant-radio-input"
@@ -29,14 +29,14 @@ exports[`AuthorResult > renders 1`] = `
       </label>
     </div>
     <div
-      class="ant-col pb2"
+      class="ant-col css-dev-only-do-not-override-mncuj7"
       style="flex: 1 1 1px;"
     >
       <div
         class="__ContentBox__ h-100"
       >
         <div
-          class="ant-card ant-card-bordered h-100"
+          class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
         >
           <div
             class="ant-card-body"
@@ -58,13 +58,13 @@ exports[`AuthorResult > renders 1`] = `
               </div>
             </div>
             <div
-              class="ant-row ant-row-space-between actions ph2"
+              class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
             >
               <div
-                class="ant-col"
+                class="ant-col css-dev-only-do-not-override-mncuj7"
               />
               <div
-                class="ant-col"
+                class="ant-col css-dev-only-do-not-override-mncuj7"
               />
             </div>
           </div>

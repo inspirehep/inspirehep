@@ -7,31 +7,33 @@ exports[`InstitutionForm > renders 1`] = `
     class="bg-white pa3"
   >
     <div
-      class="ant-row mb3 pt2 bg-white"
+      class="ant-row mb3 pt2 bg-white css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-col ant-col-24"
+        class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
       >
         <div
-          class="ant-form-item"
+          class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
         >
           <div
-            class="ant-row ant-form-item-row"
+            class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
           >
             <div
-              class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5"
+              class="ant-col ant-form-item-label ant-col-sm-24 ant-col-md-5 css-dev-only-do-not-override-mncuj7"
             >
               <label
                 class=""
                 title=""
               >
-                <span>
+                <span
+                  aria-describedby="test-id"
+                >
                   * Institution name
                 </span>
               </label>
             </div>
             <div
-              class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+              class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
             >
               <div
                 class="ant-form-item-control-input"
@@ -40,7 +42,7 @@ exports[`InstitutionForm > renders 1`] = `
                   class="ant-form-item-control-input-content"
                 >
                   <div
-                    class="ant-select ant-select-in-form-item ant-select-auto-complete ant-select-single ant-select-show-search"
+                    class="ant-select ant-select-outlined ant-select-in-form-item ant-select-auto-complete css-dev-only-do-not-override-mncuj7 ant-select-single ant-select-show-search"
                     data-test-id="identifier"
                     data-test-type="suggester"
                     form="[object Object]"
@@ -51,26 +53,30 @@ exports[`InstitutionForm > renders 1`] = `
                       class="ant-select-selector"
                     >
                       <span
-                        class="ant-select-selection-search"
+                        class="ant-select-selection-wrap"
                       >
-                        <input
-                          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
-                          aria-autocomplete="list"
-                          aria-controls="rc_select_TEST_OR_SSR_list"
-                          aria-haspopup="listbox"
-                          aria-owns="rc_select_TEST_OR_SSR_list"
-                          autocomplete="off"
-                          class="ant-select-selection-search-input"
-                          id="rc_select_TEST_OR_SSR"
-                          role="combobox"
-                          type="search"
-                          value=""
-                        />
-                      </span>
-                      <span
-                        class="ant-select-selection-placeholder"
-                      >
-                        Institution, type for suggestions
+                        <span
+                          class="ant-select-selection-search"
+                        >
+                          <input
+                            aria-autocomplete="list"
+                            aria-controls="rc_select_TEST_OR_SSR_list"
+                            aria-expanded="false"
+                            aria-haspopup="listbox"
+                            aria-owns="rc_select_TEST_OR_SSR_list"
+                            autocomplete="off"
+                            class="ant-select-selection-search-input"
+                            id="rc_select_TEST_OR_SSR"
+                            role="combobox"
+                            type="search"
+                            value=""
+                          />
+                        </span>
+                        <span
+                          class="ant-select-selection-placeholder"
+                        >
+                          Institution, type for suggestions
+                        </span>
                       </span>
                     </div>
                   </div>
@@ -82,11 +88,11 @@ exports[`InstitutionForm > renders 1`] = `
       </div>
     </div>
     <div
-      class="ant-row ant-row-end"
+      class="ant-row ant-row-end css-dev-only-do-not-override-mncuj7"
       type="flex"
     >
       <button
-        class="ant-btn ant-btn-primary"
+        class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
         data-test-id="submit-button"
         type="submit"
       >

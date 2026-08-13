@@ -288,10 +288,8 @@ describe('Author collection', () => {
         .trigger('mouseover');
       cy.get('[data-test-id="assign-another"]').click();
 
-      cy.get('input[class="ant-input"]').type('Hotzel');
-      cy.get(
-        'button[class="ant-btn ant-btn-primary ant-input-search-button"'
-      ).click();
+      cy.get('.search-drawer input.ant-input').type('Hotzel');
+      cy.get('.search-drawer button.ant-input-search-button').click();
 
       cy.get('input[value="1274753"]').first().click();
       cy.get('[data-testid="assign-button"').click();

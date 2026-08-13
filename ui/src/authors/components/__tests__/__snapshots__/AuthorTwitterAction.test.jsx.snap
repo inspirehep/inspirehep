@@ -10,6 +10,7 @@ exports[`AuthorTwitterAction > renders with twitter 1`] = `
       target="_blank"
     >
       <span
+        aria-describedby="test-id"
         aria-label="x"
         class="anticon anticon-x"
         role="img"

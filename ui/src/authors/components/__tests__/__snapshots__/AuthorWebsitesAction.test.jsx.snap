@@ -10,6 +10,7 @@ exports[`AuthorWebsitesAction > renders only a url 1`] = `
       target="_blank"
     >
       <span
+        aria-describedby="test-id"
         aria-label="link"
         class="anticon anticon-link"
         role="img"
@@ -43,6 +44,7 @@ exports[`AuthorWebsitesAction > renders only blog 1`] = `
       target="_blank"
     >
       <span
+        aria-describedby="test-id"
         aria-label="link"
         class="anticon anticon-link"
         role="img"
@@ -72,10 +74,11 @@ exports[`AuthorWebsitesAction > renders with a blog and urls in a dropdown 1`] =
     class="__UserAction__"
   >
     <button
-      class="ant-btn ant-btn-default ant-dropdown-trigger"
+      class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-dropdown-trigger"
       type="button"
     >
       <span
+        aria-describedby="test-id"
         aria-label="link"
         class="anticon anticon-link"
         role="img"

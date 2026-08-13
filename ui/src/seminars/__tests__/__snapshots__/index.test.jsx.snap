@@ -6,31 +6,31 @@ exports[`Seminars > renders initial state 1`] = `
     class="w-100"
   >
     <div
-      class="ant-row"
+      class="ant-row css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-col ant-col-xs-24 ant-col-lg-22 ant-col-xl-20 ant-col-xxl-18"
+        class="ant-col ant-col-xs-24 ant-col-lg-22 ant-col-xl-20 ant-col-xxl-18 css-dev-only-do-not-override-mncuj7"
       >
         <div
-          class="ant-row ant-row-start mt3"
+          class="ant-row ant-row-start mt3 css-dev-only-do-not-override-mncuj7"
           data-testid="seminars-search-page-container"
           style=""
           type="flex"
         >
           <div
-            class="ant-col ant-col-xs-0 ant-col-lg-7"
+            class="ant-col ant-col-xs-0 ant-col-lg-7 css-dev-only-do-not-override-mncuj7"
             style=""
           />
           <div
-            class="ant-col ant-col-xs-24 ant-col-lg-17"
+            class="ant-col ant-col-xs-24 ant-col-lg-17 css-dev-only-do-not-override-mncuj7"
             style=""
           >
             <div
-              class="ant-row ant-row-end ant-row-middle"
+              class="ant-row ant-row-end ant-row-middle css-dev-only-do-not-override-mncuj7"
               type="flex"
             >
               <div
-                class="ant-col ant-col-xs-24 ant-col-lg-12"
+                class="ant-col ant-col-xs-24 ant-col-lg-12 css-dev-only-do-not-override-mncuj7"
               >
                 <span
                   data-testid="number-of-results"
@@ -38,23 +38,23 @@ exports[`Seminars > renders initial state 1`] = `
                   0 results
                 </span>
                 <div
-                  class="ant-divider ant-divider-vertical __VerticalDivider__"
+                  class="ant-divider css-dev-only-do-not-override-mncuj7 ant-divider-vertical __VerticalDivider__"
                   role="separator"
                 />
                 Times in UTC (UTC)
               </div>
               <div
-                class="ant-col ant-col-xs-12 ant-col-lg-0"
+                class="ant-col ant-col-xs-12 ant-col-lg-0 css-dev-only-do-not-override-mncuj7"
               />
               <div
-                class="ant-col ant-col-12 tr"
+                class="ant-col ant-col-12 tr css-dev-only-do-not-override-mncuj7"
               />
             </div>
             <div
-              class="ant-row"
+              class="ant-row css-dev-only-do-not-override-mncuj7"
             >
               <div
-                class="ant-col ant-col-24"
+                class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
               >
                 <div
                   data-testid="search-results"

@@ -23,7 +23,7 @@ exports[`CollectionLink > renders active and new 1`] = `
       href="/literature"
     />
     <span
-      class="ant-tag ant-tag-has-color __NewFeatureTag__"
+      class="ant-tag ant-tag-has-color __NewFeatureTag__ css-dev-only-do-not-override-mncuj7"
       style="background-color: rgb(82, 196, 26);"
     >
       New
@@ -55,7 +55,7 @@ exports[`CollectionLink > renders new 1`] = `
       href="/literature"
     />
     <span
-      class="ant-tag ant-tag-has-color __NewFeatureTag__"
+      class="ant-tag ant-tag-has-color __NewFeatureTag__ css-dev-only-do-not-override-mncuj7"
       style="background-color: rgb(82, 196, 26);"
     >
       New

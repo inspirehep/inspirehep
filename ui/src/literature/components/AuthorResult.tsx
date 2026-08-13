@@ -23,8 +23,8 @@ const AuthorResult = ({
   const isRadioButtonDisabled = (): boolean => !getAuthorRecordIdFromRef();
 
   return (
-    <Row>
-      <Col flex="0 1 1px">
+    <Row className="pb2">
+      <Col flex="0 1 1px" className="flex items-center pr2">
         <Radio
           value={getAuthorRecordIdFromRef()}
           disabled={isRadioButtonDisabled()}
@@ -32,7 +32,7 @@ const AuthorResult = ({
           data-testid={`literature-drawer-radio-${getAuthorRecordIdFromRef()}`}
         />
       </Col>
-      <Col flex="1 1 1px" className="pb2">
+      <Col flex="1 1 1px">
         <ResultItem>
           <Author author={item} page={page} />
         </ResultItem>
