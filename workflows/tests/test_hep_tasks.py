@@ -1,6 +1,7 @@
 import copy
 import json
 from io import BytesIO
+from os.path import basename
 from unittest.mock import Mock, patch
 from urllib.parse import urlparse
 
@@ -1222,8 +1223,9 @@ class Test_HEPCreateDAG:
 
         plots = workflow_result["data"]["figures"]
         assert len(plots) == 20
-        for plot in plots:
+        for index, plot in enumerate(plots):
             assert plot["key"].endswith(".png")
+            assert plot["filename"] == basename(plot["key"]).removeprefix(f"{index}_")
 
     def test_arxiv_plot_extract_populates_files_with_plots(self, datadir):
         schema = load_schema("hep")

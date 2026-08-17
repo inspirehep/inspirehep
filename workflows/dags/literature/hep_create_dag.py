@@ -1117,6 +1117,7 @@ def hep_create_dag():
                     plot_keys.append(key)
 
                     lb.add_figure(
+                        filename=plot_name,
                         key=key,
                         caption="".join(plot.get("captions", [])),
                         label=plot.get("label"),
