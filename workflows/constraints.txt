@@ -639,7 +639,7 @@ sqlalchemy-bigquery==1.17.0
 sqlalchemy-spanner==1.19.0
 sqlalchemy_drill==1.1.10
 sqlglot==30.12.0
-sqlparse==0.5.5
+sqlparse==0.6.0
 stack-data==0.6.3
 starlette==1.3.1
 statsd==4.0.1
