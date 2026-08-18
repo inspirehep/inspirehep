@@ -1149,9 +1149,6 @@ def test_adding_record_with_documents_with_full_url_without_original_url(
             "source": "arxiv",
             "key": expected_document_key,
             "url": current_s3_instance.get_public_url(expected_document_key),
-            "original_url": (
-                "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf"
-            ),
             "filename": "file1.pdf",
         }
     ]
