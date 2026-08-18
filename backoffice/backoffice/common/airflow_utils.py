@@ -62,6 +62,7 @@ def clear_airflow_dag_tasks(dag_id, workflow_id, tasks=None):
         "only_failed": False,
         "reset_dag_runs": True,
         "include_downstream": True,
+        "run_on_latest_version": True,
     }
 
     if tasks:
@@ -159,6 +160,7 @@ def restart_failed_tasks(workflow_id, workflow_type):
         "dag_run_id": str(workflow_id),
         "reset_dag_runs": True,
         "only_failed": True,
+        "run_on_latest_version": True,
     }
 
     url = f"{AIRFLOW_BASE_URL}/api/v2/dags/{dag_id}/clearTaskInstances"
