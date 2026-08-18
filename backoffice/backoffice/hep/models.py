@@ -63,4 +63,8 @@ class HepDecision(BaseDecision):
                 condition=models.Q(action__in=HEP_EXCLUSIVE_RESOLUTIONS),
                 name="unique_hep_resolution_per_workflow",
             ),
+            models.UniqueConstraint(
+                fields=["workflow", "action"],
+                name="unique_hep_decision_per_workflow_and_action",
+            ),
         ]
