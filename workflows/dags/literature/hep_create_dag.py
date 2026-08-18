@@ -463,8 +463,10 @@ def hep_create_dag():
         is_likely_duplicate_of_rejection = (
             not is_auto_approved and has_rejected_duplicate
         )
-        should_auto_reject = not is_update and (
-            is_likely_duplicate_of_rejection or (is_old_arxiv and not is_sub)
+        should_auto_reject = (
+            not is_update
+            and not is_sub
+            and (is_likely_duplicate_of_rejection or is_old_arxiv)
         )
 
         if should_auto_reject:

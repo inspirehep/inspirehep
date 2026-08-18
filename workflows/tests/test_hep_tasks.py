@@ -596,12 +596,12 @@ class Test_HEPCreateDAG:
 
     @patch(
         "include.utils.workflows.has_previously_rejected_wf_in_backoffice_w_same_source",
-        return_value=False,
+        return_value=True,
     )
     @patch(
         "hooks.backoffice.workflow_management_hook.WorkflowManagementHook.add_decision"
     )
-    def test_check_if_previously_rejected_does_not_reject_old_submissions(
+    def test_check_if_previously_rejected_does_not_reject_duplicate_submissions(
         self, mock_add_decision, mock_has_previously_rejected
     ):
         workflow_data = {
@@ -611,9 +611,13 @@ class Test_HEPCreateDAG:
                 "arxiv_eprints": [{"value": "2504.01123"}],
                 "acquisition_source": {"method": "submitter"},
             },
-            "_created_at": "2026-06-02T00:00:00.000Z",
+            "_created_at": "2025-04-02T00:00:00.000Z",
         }
         self.s3_store.write_workflow(workflow_data)
+        self.s3_store.set_flags(
+            {"is-update": False, "auto-approved": False},
+            self.workflow_id,
+        )
 
         result = task_test(self.dag, "check_if_previously_rejected", self.context)
 
