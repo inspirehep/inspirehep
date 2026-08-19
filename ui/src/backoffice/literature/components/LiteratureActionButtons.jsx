@@ -57,6 +57,7 @@ const LiteratureActionButtons = ({
         <LiteratureMissingSubjectFieldsSelectionButtons
           handleResolveAction={handleResolveAndHide}
           hasInspireCategories={hasInspireCategories}
+          isFullCoverage={isFullCoverage}
           disableActions={disableActions}
         />
       );

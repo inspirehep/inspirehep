@@ -129,6 +129,9 @@ export const statusesInError = [
   WorkflowStatuses.ERROR_VALIDATION,
 ];
 
+export const FULL_COVERAGE_TOOLTIP =
+  'The article belongs to a fully taken journal';
+
 export interface WorkflowStatus {
   key: string;
   doc_count: number;

@@ -1,11 +1,14 @@
 import React from 'react';
 import { Button } from 'antd';
 import { WorkflowDecisions } from '../../../common/constants';
+import { FULL_COVERAGE_TOOLTIP } from '../../constants';
 import '../../common/components/ActionButtons.less';
+import LiteratureRejectButton from './LiteratureRejectButton';
 
 export const LiteratureMissingSubjectFieldsSelectionButtons = ({
   handleResolveAction,
   hasInspireCategories,
+  isFullCoverage = false,
   disableActions,
 }) => (
   <div className="flex items-center flex-wrap" style={{ gap: '4px' }}>
@@ -28,13 +31,12 @@ export const LiteratureMissingSubjectFieldsSelectionButtons = ({
       </>
     )}
     <div className="flex">
-      <Button
-        className="font-white bg-error"
-        onClick={() => handleResolveAction(WorkflowDecisions.HEP_REJECT)}
-        disabled={disableActions}
-      >
-        Reject
-      </Button>
+      <LiteratureRejectButton
+        handleResolveAction={handleResolveAction}
+        isWeak={isFullCoverage}
+        tooltipText={isFullCoverage ? FULL_COVERAGE_TOOLTIP : undefined}
+        disableActions={disableActions}
+      />
     </div>
   </div>
 );
