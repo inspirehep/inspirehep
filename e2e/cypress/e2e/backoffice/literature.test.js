@@ -29,7 +29,7 @@ describe("New publisher harvests", () => {
     cy.assertCollectionIsVisible("new publisher harvests");
 
     cy.get('[data-testid="view-all-new publisher harvests"]').click();
-    cy.assertSearchPageIsLoadedWithResults("8 results");
+    cy.assertSearchPageIsLoadedWithResults("9 results");
   });
 
   it("should display new publisher harvests and enable access to the running list", () => {

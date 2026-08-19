@@ -209,10 +209,18 @@ export const hasPublicationInfo = (
   );
 };
 
+const FULL_COVERAGE_WORKFLOW_TYPES = new Set<string>([
+  WorkflowTypes.HEP_CREATE,
+  WorkflowTypes.HEP_PUBLISHER_CREATE,
+]);
+
 export const isFullCoverageWorkflow = (
   workflowType?: string | null,
   journalCoverage?: string | null
-) => workflowType === WorkflowTypes.HEP_CREATE && journalCoverage === 'full';
+) =>
+  !!workflowType &&
+  FULL_COVERAGE_WORKFLOW_TYPES.has(workflowType) &&
+  journalCoverage === 'full';
 
 export const isLiteratureUpdateWorkflow = (workflowType?: string | null) =>
   workflowType === WorkflowTypes.HEP_UPDATE ||
