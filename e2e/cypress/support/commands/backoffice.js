@@ -9,10 +9,6 @@ Cypress.Commands.add("loginAsAdmin", () => {
           .replace(
             /BACKOFFICE_URL:\s*'[^']*'/,
             `BACKOFFICE_URL: '${backoffice_url}'`,
-          )
-          .replace(
-            /BACKOFFICE_LITERATURE_FEATURE_FLAG:\s*\w+/,
-            "BACKOFFICE_LITERATURE_FEATURE_FLAG: true",
           );
       });
     });

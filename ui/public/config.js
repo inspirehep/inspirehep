@@ -13,7 +13,6 @@
     EDITOR_HEP_SCHEMA_URL: 'https://inspirebeta.net/schemas/records/hep.json',
     EDITOR_BACKOFFICE_API_URL: 'http://localhost:8001/api',
     SEARCH_FEEDBACK_CARD_FEATURE_FLAG: false,
-    BACKOFFICE_LITERATURE_FEATURE_FLAG: false,
     AI_SEARCH_FEATURE_FLAG: false,
     /* Example:
     BANNERS: [
