@@ -2078,6 +2078,7 @@ def hep_create_dag():
         restore_and_get_workflow_data()
         >> set_schema_and_flags()
         >> validate_record()
+        >> notify_if_submission()
         >> set_workflow_status_to_running()
         >> discard_older_wfs_w_same_source()
         >> [check_for_blocking_workflows_task, run_next_if_necessary_task]
@@ -2091,7 +2092,6 @@ def hep_create_dag():
 
     (
         preprocessing_group
-        >> notify_if_submission()
         >> halt_for_approval_if_new_or_reject_if_not_relevant()
         >> is_record_accepted()
         >> [postprocessing_group, notify_and_close_not_accepted_task]
