@@ -1,10 +1,9 @@
 import React from 'react';
 import { Button } from 'antd';
 import { WorkflowDecisions } from '../../../common/constants';
+import { FULL_COVERAGE_TOOLTIP } from '../../constants';
 import '../../common/components/ActionButtons.less';
 import LiteratureRejectButton from './LiteratureRejectButton';
-
-const FULL_COVERAGE_TOOLTIP = 'The article belongs to a fully taken journal';
 
 export const LiteratureHepSelectionButtons = ({
   handleResolveAction,
@@ -34,7 +33,7 @@ export const LiteratureHepSelectionButtons = ({
       tooltipText={isFullCoverage ? FULL_COVERAGE_TOOLTIP : undefined}
       shouldShowSubmissionModal={shouldShowSubmissionModal}
       submissionContext={submissionContext}
-      disabled={disableActions}
+      disableActions={disableActions}
     />
   </div>
 );

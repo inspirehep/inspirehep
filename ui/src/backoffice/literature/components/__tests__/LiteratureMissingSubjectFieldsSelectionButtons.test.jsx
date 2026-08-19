@@ -30,6 +30,40 @@ describe('<LiteratureMissingSubjectFieldsSelectionButtons />', () => {
     );
   });
 
+  test('renders a weak reject button with tooltip for full coverage', async () => {
+    const user = userEvent.setup();
+    render(
+      <LiteratureMissingSubjectFieldsSelectionButtons
+        handleResolveAction={jest.fn()}
+        disableActions={false}
+        hasInspireCategories={false}
+        isFullCoverage
+      />
+    );
+
+    const rejectButton = screen.getByRole('button', { name: 'Reject' });
+    expect(rejectButton).toHaveClass('bg-error-weak');
+
+    await user.hover(rejectButton);
+    expect(
+      await screen.findByText('The article belongs to a fully taken journal')
+    ).toBeInTheDocument();
+  });
+
+  test('renders a normal reject button when not full coverage', () => {
+    render(
+      <LiteratureMissingSubjectFieldsSelectionButtons
+        handleResolveAction={jest.fn()}
+        disableActions={false}
+        hasInspireCategories={false}
+      />
+    );
+
+    expect(screen.getByRole('button', { name: 'Reject' })).toHaveClass(
+      'bg-error'
+    );
+  });
+
   it.each([
     ['Core', WorkflowDecisions.HEP_ACCEPT_CORE],
     ['Accept', WorkflowDecisions.HEP_ACCEPT],
