@@ -60,7 +60,6 @@ import {
   notifyDeleteError,
 } from '../backoffice/notifications';
 import { refreshToken } from '../backoffice/utils/utils';
-import { getConfigFor } from '../common/config';
 import { AUTHORS_PID_TYPE, LITERATURE_PID_TYPE } from '../common/constants';
 import { Subject, WorkflowActions } from '../backoffice/constants';
 
@@ -727,9 +726,8 @@ export function isUserLoggedInToBackoffice(): (
       if (response.status === 200) {
         dispatch(searchQueryReset());
         dispatch(fetchAuthorsDashboardInfo());
-        if (getConfigFor('BACKOFFICE_LITERATURE_FEATURE_FLAG')) {
-          dispatch(fetchLiteratureDashboardInfo());
-        }
+        dispatch(fetchLiteratureDashboardInfo());
+
         dispatch(backofficeLoginSuccess());
       }
     } catch (err) {

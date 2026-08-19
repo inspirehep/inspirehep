@@ -39,7 +39,6 @@ import {
 import { RecordRevision } from '../../shared/interfaces';
 import { SubscriberComponent } from '../../shared/classes';
 import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
-import { backofficeLiteratureFeatureFlag } from '../../shared/config';
 
 @Component({
   selector: 're-manual-merge-modal',
@@ -90,42 +89,24 @@ export class ManualMergeModalComponent extends SubscriberComponent
       HOVER_TO_DISMISS_INDEFINITE_TOAST
     );
 
-    if (backofficeLiteratureFeatureFlag) {
-      this.recordApiService
-        .saveRecord(this.record)
-        .switchMap(() =>
-          this.backofficeApiService.triggerManualMerge(
-            this.record['control_number'],
-            parseInt(this.updateRecordId, 10)
-          )
+    this.recordApiService
+      .saveRecord(this.record)
+      .switchMap(() =>
+        this.backofficeApiService.triggerManualMerge(
+          this.record['control_number'],
+          parseInt(this.updateRecordId, 10)
         )
-        .subscribe(
-          workflow => {
-            this.toastrService.clear(infoToast.toastId);
-            window.location.href = `${window.location.origin}/backoffice/literature/${workflow.id}`;
-          },
-          () => {
-            this.toastrService.clear(infoToast.toastId);
-            this.toastrService.error('Could not merge!', 'Error');
-          }
-        );
-    } else {
-      this.recordApiService
-        .saveRecord(this.record)
-        .switchMap(() => {
-          return this.recordApiService.manualMerge(this.updateRecordId);
-        })
-        .subscribe(
-          mergeWorkflowObjectId => {
-            this.toastrService.clear(infoToast.toastId);
-            this.router.navigate([`holdingpen/${mergeWorkflowObjectId}`]);
-          },
-          () => {
-            this.toastrService.clear(infoToast.toastId);
-            this.toastrService.error('Could not merge!', 'Error');
-          }
-        );
-    }
+      )
+      .subscribe(
+        workflow => {
+          this.toastrService.clear(infoToast.toastId);
+          window.location.href = `${window.location.origin}/backoffice/literature/${workflow.id}`;
+        },
+        () => {
+          this.toastrService.clear(infoToast.toastId);
+          this.toastrService.error('Could not merge!', 'Error');
+        }
+      );
   }
 
   openUpdateRecordInNewTab() {

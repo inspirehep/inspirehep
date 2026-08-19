@@ -16,7 +16,6 @@ import {
   BACKOFFICE_AUTHORS_SEARCH_NS,
   BACKOFFICE_LITERATURE_SEARCH_NS,
 } from '../../../search/constants';
-import { getConfigFor } from '../../../common/config';
 import WorkflowCard from '../components/WorkflowCard';
 import {
   CollapseState,
@@ -187,11 +186,9 @@ const DashboardPageContainer = ({
                   )
                 }
               >
-                {getConfigFor('BACKOFFICE_LITERATURE_FEATURE_FLAG') && (
-                  <Option value={BACKOFFICE_LITERATURE_SEARCH_NS}>
-                    Literature
-                  </Option>
-                )}
+                <Option value={BACKOFFICE_LITERATURE_SEARCH_NS}>
+                  Literature
+                </Option>
                 <Option value={BACKOFFICE_AUTHORS_SEARCH_NS}>Authors</Option>
               </Select>
             }
