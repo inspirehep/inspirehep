@@ -7246,6 +7246,42 @@
   },
   {
     "model": "hep.hepworkflow",
+    "pk": "2b390a50-f2c1-4a45-a7dc-7d85492a56b8",
+    "fields": {
+      "workflow_type": "HEP_PUBLISHER_CREATE",
+      "data": {
+        "titles": [
+          {
+            "title": "The publisher harvest journal coverage test",
+            "source": "Elsevier Ltd"
+          }
+        ],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "publication_info": [
+          {
+            "journal_title": "Phys.Rev.D",
+            "journal_record": {
+              "$ref": "https://inspirehep.net/api/journals/1613970"
+            }
+          }
+        ],
+        "acquisition_source": {
+          "method": "hepcrawl",
+          "source": "Elsevier",
+          "datetime": "2024-11-18T11:34:19.809575",
+          "submission_number": "scheduled__2024-11-18T11:34:19.809575"
+        }
+      },
+      "journal_coverage": "full",
+      "status": "approval",
+      "_created_at": "2024-11-25T13:49:53.009Z",
+      "_updated_at": "2024-11-25T13:49:54.756Z"
+    }
+  },
+  {
+    "model": "hep.hepworkflow",
     "pk": "a2fccc44-4c2f-41c9-b0bb-82c5d977a39c",
     "fields": {
       "workflow_type": "HEP_SUBMISSION",

@@ -383,6 +383,34 @@ describe('SearchPageContainer', () => {
     ).toBeInTheDocument();
   });
 
+  it('shows a batch warning for full coverage publisher create workflows', async () => {
+    const user = userEvent.setup();
+    const interactiveStore = getStore({
+      search: buildSearchState({
+        status: WorkflowStatuses.APPROVAL,
+        results: [
+          {
+            ...buildLiteratureResult('publisher-full-coverage'),
+            workflow_type: WorkflowTypes.HEP_PUBLISHER_CREATE,
+            journal_coverage: 'full',
+          },
+        ],
+      }),
+    });
+
+    renderComponent(interactiveStore);
+
+    await user.click(
+      screen.getByRole('checkbox', {
+        name: 'Select workflow publisher-full-coverage',
+      })
+    );
+
+    expect(
+      screen.getByText('Some selected articles belong to fully taken journals.')
+    ).toBeInTheDocument();
+  });
+
   it('dispatches single resolve action for workflow row action button', async () => {
     const user = userEvent.setup();
     const interactiveStore = getStore({
