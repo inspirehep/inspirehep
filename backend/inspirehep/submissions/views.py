@@ -451,30 +451,19 @@ class LiteratureSubmissionResource(BaseSubmissionsResource):
             "references": request_submission_data.get("references"),
         }
         submission_data["acquisition_source"] = self.get_acquisition_source()
-        payload = {"data": submission_data, "form_data": form_data}
-        backoffice_payload = {
+        payload = {
             "data": submission_data,
             "form_data": form_data,
             "workflow_type": "HEP_SUBMISSION",
         }
 
-        if current_app.config.get("FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE"):
-            LOGGER.info(
-                "Sending literature submission to backoffice", data=backoffice_payload
-            )
-            return self.send_post_request_to_workflows(
-                current_app.config["INSPIRE_BACKOFFICE_URL"],
-                "/api/workflows/literature/",
-                backoffice_payload,
-                current_app.config["AUTHENTICATION_TOKEN_BACKOFFICE"],
-                bearer_keyword="Token",
-                conflict_error_description=HEP_CONFLICT_ERROR_DESCRIPTION,
-            )
         return self.send_post_request_to_workflows(
-            current_app.config["INSPIRE_NEXT_URL"],
-            "/workflows/literature",
+            current_app.config["INSPIRE_BACKOFFICE_URL"],
+            "/api/workflows/literature/",
             payload,
-            current_app.config["AUTHENTICATION_TOKEN"],
+            current_app.config["AUTHENTICATION_TOKEN_BACKOFFICE"],
+            bearer_keyword="Token",
+            conflict_error_description=HEP_CONFLICT_ERROR_DESCRIPTION,
         )
 
 
