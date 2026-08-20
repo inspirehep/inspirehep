@@ -2913,7 +2913,6 @@ class Test_HEPCreateDAG:
 
         assert workflow_result["data"]["control_number"] == matched_control_number
         assert workflow_result["data"]["acquisition_source"]["source"] == "Elsevier"
-        assert workflow_result["merge_details"]["merger_original_root"] == {}
 
     @pytest.mark.vcr
     @patch(
