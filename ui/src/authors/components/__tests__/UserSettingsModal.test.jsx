@@ -1,4 +1,3 @@
-import React from 'react';
 import UserSettingsModal from '../UserSettingsModal';
 import { renderWithProviders } from '../../../fixtures/render';
 

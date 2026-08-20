@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row, Col, Select, Card } from 'antd';
 import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';

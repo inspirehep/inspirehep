@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Checkbox } from 'antd';
 import UnclickableTag from '../../../common/components/UnclickableTag';

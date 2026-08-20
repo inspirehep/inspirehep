@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { ActionCreator, Action } from 'redux';
 import { connect } from 'react-redux';
@@ -241,7 +241,11 @@ const LiteratureDetailPageContainer = ({
                         <CollapsableForm.Section header="Errors" key="errors">
                           <p>
                             See error details here:{' '}
-                            <a href={DAG_FULL_URL} target="_blank">
+                            <a
+                              href={DAG_FULL_URL}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
                               {DAG_FULL_URL}
                             </a>
                           </p>

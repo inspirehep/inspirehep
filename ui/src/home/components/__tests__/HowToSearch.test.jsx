@@ -1,4 +1,3 @@
-import React from 'react';
 import { fireEvent } from '@testing-library/react';
 import { renderWithRouter } from '../../../fixtures/render';
 import HowToSearch from '../HowToSearch';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const TicketsList = ({ tickets }) => {
   if (!tickets) return null;
 

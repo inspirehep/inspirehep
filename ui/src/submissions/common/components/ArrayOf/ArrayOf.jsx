@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray } from 'formik';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';

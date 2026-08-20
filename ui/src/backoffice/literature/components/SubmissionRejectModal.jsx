@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input, Modal, Select, Typography } from 'antd';
 
 import { CONTENT_POLICY_URL } from '../../../common/constants';

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Row, Col, Select, Card, Checkbox } from 'antd';
 import { connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';

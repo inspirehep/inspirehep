@@ -1,4 +1,3 @@
-import React from 'react';
 import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
 
 interface LiteratureControlNumberProps {

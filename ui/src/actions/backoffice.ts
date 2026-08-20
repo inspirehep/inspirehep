@@ -667,24 +667,18 @@ export function restartCurrentWorkflowAction(
 
 // DELETE ACTIONS
 
-export const deletingWorkflow = () => {
-  return {
-    type: BACKOFFICE_DELETE_REQUEST,
-  };
-};
+export const deletingWorkflow = () => ({
+  type: BACKOFFICE_DELETE_REQUEST,
+});
 
-export const deleteWorkflowSuccess = () => {
-  return {
-    type: BACKOFFICE_DELETE_SUCCESS,
-  };
-};
+export const deleteWorkflowSuccess = () => ({
+  type: BACKOFFICE_DELETE_SUCCESS,
+});
 
-export const deleteWorkflowError = (errorPayload: { error: Error }) => {
-  return {
-    type: BACKOFFICE_DELETE_ERROR,
-    payload: { ...errorPayload },
-  };
-};
+export const deleteWorkflowError = (errorPayload: { error: Error }) => ({
+  type: BACKOFFICE_DELETE_ERROR,
+  payload: { ...errorPayload },
+});
 
 export function deleteWorkflow(
   namespace: string,

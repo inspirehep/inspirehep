@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Map, List } from 'immutable';
 
@@ -16,7 +15,7 @@ const AuthorResultItem = ({
   isCatalogerLoggedIn,
 }: {
   metadata: Map<string, any>;
-  openDetailInNewTab: boolean;
+  openDetailInNewTab?: boolean;
   isCatalogerLoggedIn?: boolean;
 }) => {
   const name = metadata.get('name') as Map<string, string>;

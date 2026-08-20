@@ -8,7 +8,6 @@ vi.mock('recharts', async () => {
   return {
     ...OriginalRecharts,
     ResponsiveContainer: ({ children, height }) => {
-      // eslint-disable-next-line global-require
       const { cloneElement, Children } = require('react');
       return cloneElement(Children.only(children), { width: 800, height });
     },

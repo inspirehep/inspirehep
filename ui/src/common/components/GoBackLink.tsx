@@ -1,27 +1,17 @@
-import React, { MouseEventHandler } from 'react';
+import { MouseEventHandler } from 'react';
 
 import LinkLikeButton from './LinkLikeButton/LinkLikeButton';
 
 const GoBackLink = ({
-  children,
+  children = 'go back',
   onClick,
 }: {
-  children: string;
+  children?: string;
   onClick: MouseEventHandler<HTMLElement>;
-}) => {
-  return (
-    <LinkLikeButton
-      color="blue big"
-      onClick={onClick}
-      dataTestId="go-back-link"
-    >
-      {children}
-    </LinkLikeButton>
-  );
-};
-
-GoBackLink.defaultProps = {
-  children: 'go back',
-};
+}) => (
+  <LinkLikeButton color="blue big" onClick={onClick} dataTestId="go-back-link">
+    {children}
+  </LinkLikeButton>
+);
 
 export default GoBackLink;
