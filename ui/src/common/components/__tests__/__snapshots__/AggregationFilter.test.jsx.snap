@@ -31,8 +31,7 @@ exports[`AggregationFilter > renders CheckboxAggregation if aggregation type is 
         style="flex: 1 1 auto;"
       >
         <div
-          class="ant-row ant-row-space-between mb2"
-          type="flex"
+          class="ant-row ant-row-space-between mb2 flex-nowrap"
         >
           <div
             class="ant-col"
@@ -73,8 +72,7 @@ exports[`AggregationFilter > renders CheckboxAggregation if aggregation type is 
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2"
-          type="flex"
+          class="ant-row ant-row-space-between mb2 flex-nowrap"
         >
           <div
             class="ant-col"
