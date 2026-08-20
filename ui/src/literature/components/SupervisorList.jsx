@@ -31,8 +31,4 @@ SupervisorList.propTypes = {
   supervisors: PropTypes.instanceOf(List),
 };
 
-SupervisorList.defaultProps = {
-  supervisors: null,
-};
-
 export default SupervisorList;

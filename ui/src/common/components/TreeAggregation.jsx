@@ -49,7 +49,13 @@ function buildTreeData(buckets, splitTreeBy) {
   return tree.children;
 }
 
-function TreeAggregation({ onChange, buckets, name, selections, splitTreeBy }) {
+function TreeAggregation({
+  onChange,
+  buckets,
+  name,
+  selections = [],
+  splitTreeBy,
+}) {
   const [selectedKeys] = useState(forceArray(selections));
 
   const tree = useMemo(
@@ -82,10 +88,6 @@ TreeAggregation.propTypes = {
     PropTypes.string,
   ]),
   splitTreeBy: PropTypes.string.isRequired,
-};
-
-TreeAggregation.defaultProps = {
-  selections: [],
 };
 
 export default TreeAggregation;

@@ -13,8 +13,8 @@ function AssignOwnProfileAction({
   onUnassign,
   disabled,
   disabledAssignAction,
-  numberOfSelected,
-  claimingTooltip,
+  numberOfSelected = 1,
+  claimingTooltip = 'This paper is already claimed',
 }: {
   onAssign: Function;
   onUnassign: Function;
@@ -107,10 +107,5 @@ function AssignOwnProfileAction({
     </UserAction>
   );
 }
-
-AssignOwnProfileAction.defaultProps = {
-  claimingTooltip: 'This paper is already claimed',
-  numberOfSelected: 1,
-};
 
 export default AssignOwnProfileAction;

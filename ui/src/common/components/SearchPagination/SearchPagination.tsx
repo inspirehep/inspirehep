@@ -5,9 +5,9 @@ import './SearchPagination.less';
 const PAGE_SIZE_OPTIONS = ['10', '25', '50', '100', '250'];
 
 const SearchPagination = ({
-  page,
+  page = 1,
   total,
-  pageSize,
+  pageSize = 25,
   onPageChange,
   onSizeChange,
   hideSizeChange,
@@ -33,10 +33,5 @@ const SearchPagination = ({
     responsive
   />
 );
-
-SearchPagination.defaultProps = {
-  page: 1,
-  pageSize: 25,
-};
 
 export default SearchPagination;
