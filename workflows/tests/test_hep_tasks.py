@@ -3526,6 +3526,12 @@ class Test_HEPCreateDAG:
         assert workflow["status"] == STATUS_COMPLETED
         assert workflow_data["data"] == workflow["data"]
 
+    @patch("include.utils.s3.S3JsonStore.clear_workflow_files")
+    def test_clear_s3_files(self, clear_workflow_files_mock):
+        task_test(self.dag, "clear_s3_files", self.context)
+
+        clear_workflow_files_mock.assert_called_once_with(self.workflow_id)
+
     @pytest.mark.vcr
     def test_link_institutions_with_affiliations(self):
         workflow_data = {

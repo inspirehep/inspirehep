@@ -2015,6 +2015,11 @@ def hep_create_dag():
 
         workflow_management_hook.update_workflow(workflow_id, workflow_data)
 
+    @task
+    def clear_s3_files(**context):
+        workflow_id = context["params"]["workflow_id"]
+        s3_store.clear_workflow_files(workflow_id)
+
     @task(trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
     def run_next_if_necessary(**context):
         workflow_id = context["params"]["workflow_id"]
@@ -2122,6 +2127,7 @@ def hep_create_dag():
         >> save_workflow()
         >> core_selection()
         >> save_and_complete_workflow_task
+        >> clear_s3_files()
         >> run_next_if_necessary_task
     )
     notify_and_close_not_accepted_task >> save_and_complete_workflow_task

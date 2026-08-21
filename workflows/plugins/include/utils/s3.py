@@ -104,3 +104,18 @@ class S3JsonStore:
     def key_to_s3_url(self, key, bucket_name=None):
         s3_host = self.hook.conn.meta.endpoint_url
         return f"{s3_host}/{bucket_name or self.bucket_name}/{key}"
+
+    def clear_workflow_files(self, workflow_id):
+        plot_keys = self.hook.list_keys(self.bucket_name, f"{workflow_id}/plots")
+        self.hook.delete_objects(keys=plot_keys, bucket=self.bucket_name)
+
+        document_keys = self.hook.list_keys(
+            self.bucket_name, f"{workflow_id}/documents"
+        )
+        self.hook.delete_objects(keys=document_keys, bucket=self.bucket_name)
+
+        tarball_object = self.hook.get_wildcard_key(
+            f"{workflow_id}/*.tar.gz", bucket_name=self.bucket_name
+        )
+        if tarball_object:
+            self.hook.delete_objects(keys=tarball_object.key, bucket=self.bucket_name)
