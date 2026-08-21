@@ -1,4 +1,4 @@
-import { LOCATION_CHANGE } from 'connected-react-router';
+import { LOCATION_CHANGE } from 'redux-first-history';
 import { stringify } from 'qs';
 
 import {
@@ -63,6 +63,7 @@ export default function ({ dispatch, getState }) {
 
       const prevLocation = prevState.router.location;
       const nextLocation = action.payload.location;
+      const isFirstRender = prevLocation == null;
 
       const getNamespace = (pathname) => {
         if (PRESERVE_FULL_PATH_NAMESPACES.includes(pathname)) {
@@ -71,7 +72,9 @@ export default function ({ dispatch, getState }) {
         return getRootOfLocationPathname(pathname);
       };
 
-      const prevNamespace = getNamespace(prevLocation.pathname);
+      const prevNamespace = isFirstRender
+        ? null
+        : getNamespace(prevLocation.pathname);
       const nextNamespace = getNamespace(nextLocation.pathname);
 
       const result = next(action);
@@ -79,6 +82,7 @@ export default function ({ dispatch, getState }) {
       // dipsatch new search to clear to search state for previous location when pathname changes
       // ex: from `/literature?...` to `/` (home)
       if (
+        !isFirstRender &&
         prevLocation.pathname !== nextLocation.pathname &&
         isSearchPage(prevLocation)
       ) {
@@ -90,14 +94,14 @@ export default function ({ dispatch, getState }) {
       }
 
       if (isSearchPage(nextLocation)) {
-        const { isFirstRendering } = action.payload;
         if (
-          isFirstRendering || // when first route that user hits the application is a search page
+          isFirstRender || // when first route that user hits the application is a search page
           // make sure LOCATION_CHANGE is not caused by SEARCH_QUERY_UPDATE, to avoid infinite loop
           !isLocationSyncedWithSearchQuery(nextNamespace, getState())
         ) {
           // reset whole query when `back` is clicked on the same search page, then location query will be used
           if (
+            !isFirstRender &&
             prevLocation.pathname === nextLocation.pathname &&
             action.payload.action === 'POP'
           ) {

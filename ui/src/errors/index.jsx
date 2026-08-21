@@ -1,13 +1,8 @@
 import { Component } from 'react';
 import { Row } from 'antd';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
-import {
-  ERROR_404,
-  ERROR_401,
-  ERROR_500,
-  ERROR_NETWORK,
-} from '../common/routes';
+import { ERROR_404 } from '../common/routes';
 import Error404 from './components/Error404';
 import Error401 from './components/Error401';
 import Error500 from './components/Error500';
@@ -23,13 +18,13 @@ class Errors extends Component {
         align="middle"
         data-testid="errors"
       >
-        <Switch>
-          <Route exact path={ERROR_404} component={Error404} />
-          <Route exact path={ERROR_401} component={Error401} />
-          <Route exact path={ERROR_500} component={Error500} />
-          <Route exact path={ERROR_NETWORK} component={ErrorNetwork} />
-          <Redirect to={ERROR_404} />
-        </Switch>
+        <Routes>
+          <Route path="401" element={<Error401 />} />
+          <Route path="404" element={<Error404 />} />
+          <Route path="500" element={<Error500 />} />
+          <Route path="network" element={<ErrorNetwork />} />
+          <Route path="*" element={<Navigate to={ERROR_404} replace />} />
+        </Routes>
       </Row>
     );
   }

@@ -1,13 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Literature > does not navigate to ReferenceDiffInterfaceContainer when user is not authorised 1`] = `
-<DocumentFragment>
-  <div
-    class="__Literature__"
-    data-testid="literature"
-  />
-</DocumentFragment>
-`;
+exports[`Literature > does not navigate to ReferenceDiffInterfaceContainer when user is not authorised 1`] = `<DocumentFragment />`;
 
 exports[`Literature > navigates to DetailPageContainer when /literature/:id 1`] = `
 <DocumentFragment>

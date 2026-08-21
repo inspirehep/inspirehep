@@ -1,4 +1,4 @@
-import DOMPurify from 'dompurify';
+import DOMPurify, { type Config } from 'dompurify';
 
 interface Props {
   html: string;
@@ -84,7 +84,7 @@ function sanitizeHtml(
   allowedTags?: string[],
   allowedAttributes?: Record<string, string[]>
 ): string {
-  const config: DOMPurify.Config = {
+  const config: Config = {
     ALLOWED_TAGS: allowedTags ?? DEFAULT_ALLOWED_TAGS,
   };
   if (allowedAttributes) {

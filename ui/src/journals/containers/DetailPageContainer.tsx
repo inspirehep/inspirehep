@@ -166,7 +166,7 @@ const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: (id) => [fetchJournal(id), newSearch(JOURNAL_PAPERS_NS)],
+  routeActions: (id) => [fetchJournal(id!), newSearch(JOURNAL_PAPERS_NS)],
   loadingStateSelector: (state: RootState) =>
     !state.journals.hasIn(['data', 'metadata']),
 });
