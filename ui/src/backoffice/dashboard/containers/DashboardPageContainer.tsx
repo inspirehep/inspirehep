@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { Input, Select, Row, Col } from 'antd';
+import { Input, Select, Row, Col, Space } from 'antd';
 import { Action, ActionCreator } from 'redux';
 import { connect } from 'react-redux';
 import { List, Map } from 'immutable';
@@ -170,33 +170,34 @@ const DashboardPageContainer = ({
       <Breadcrumbs namespace="" title1="Dashboard" href1="" dashboardPage />
       <div className="inner-container mt2">
         <div className="content-grid">
-          <Search
-            className="search-container"
-            enterButton
-            addonBefore={
-              <Select
-                value={searchPreference}
-                onChange={(
-                  value:
-                    | typeof BACKOFFICE_AUTHORS_SEARCH_NS
-                    | typeof BACKOFFICE_LITERATURE_SEARCH_NS
-                ) =>
-                  dispatch(
-                    setPreference(BACKOFFICE_SEARCH_OPTION_PREFERENCE, value)
-                  )
-                }
-              >
-                <Option value={BACKOFFICE_LITERATURE_SEARCH_NS}>
-                  Literature
-                </Option>
-                <Option value={BACKOFFICE_AUTHORS_SEARCH_NS}>Authors</Option>
-              </Select>
-            }
-            placeholder="Search Backoffice"
-            onSearch={(value) =>
-              handleSearch(dispatch, value, searchPreference)
-            }
-          />
+          <Space.Compact block>
+            <Select
+              value={searchPreference}
+              onChange={(
+                value:
+                  | typeof BACKOFFICE_AUTHORS_SEARCH_NS
+                  | typeof BACKOFFICE_LITERATURE_SEARCH_NS
+              ) =>
+                dispatch(
+                  setPreference(BACKOFFICE_SEARCH_OPTION_PREFERENCE, value)
+                )
+              }
+              style={{ height: '48px' }}
+            >
+              <Option value={BACKOFFICE_LITERATURE_SEARCH_NS}>
+                Literature
+              </Option>
+              <Option value={BACKOFFICE_AUTHORS_SEARCH_NS}>Authors</Option>
+            </Select>
+            <Search
+              className="search-container"
+              enterButton
+              placeholder="Search Backoffice"
+              onSearch={(value) =>
+                handleSearch(dispatch, value, searchPreference)
+              }
+            />
+          </Space.Compact>
         </div>
         <div className="flex w-100 justify-end pt3 content-grid">
           <CollapseAllButton

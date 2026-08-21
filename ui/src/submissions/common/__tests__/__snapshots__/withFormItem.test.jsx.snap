@@ -31,12 +31,16 @@ exports[`withFormItem > passes all props correctly to Form.Item and wrapped Inpu
           <div
             class="ant-form-item-control-input-content"
           >
-            <input />
-            <span
-              class="pl2"
+            <div
+              class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
             >
-              Test Suffix
-            </span>
+              <input />
+              <span
+                class="pl2"
+              >
+                Test Suffix
+              </span>
+            </div>
           </div>
         </div>
         <div
@@ -98,12 +102,16 @@ exports[`withFormItem > passes all props correctly to Form.Item and wrapped Inpu
           <div
             class="ant-form-item-control-input-content"
           >
-            <input />
-            <span
-              class="pl2"
+            <div
+              class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
             >
-              Test Suffix
-            </span>
+              <input />
+              <span
+                class="pl2"
+              >
+                Test Suffix
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -143,7 +151,11 @@ exports[`withFormItem > passes props correctly to Form.Item and wrapped Input co
           <div
             class="ant-form-item-control-input-content"
           >
-            <input />
+            <div
+              class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
+            >
+              <input />
+            </div>
           </div>
         </div>
       </div>
@@ -169,7 +181,11 @@ exports[`withFormItem > passes props correctly to Form.Item and wrapped Input co
           <div
             class="ant-form-item-control-input-content"
           >
-            <input />
+            <div
+              class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
+            >
+              <input />
+            </div>
           </div>
         </div>
       </div>
