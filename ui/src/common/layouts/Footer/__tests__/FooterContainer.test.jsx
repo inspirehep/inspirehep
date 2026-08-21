@@ -14,7 +14,6 @@ describe('FooterContainer', () => {
     });
     const { getByRole } = renderWithProviders(<FooterContainer />, { store });
 
-    expect(getByRole('link', { name: 'Holdingpen' })).toBeInTheDocument();
     expect(getByRole('link', { name: 'Author list' })).toBeInTheDocument();
   });
 
@@ -28,7 +27,6 @@ describe('FooterContainer', () => {
     });
     const { queryByRole } = renderWithProviders(<FooterContainer />, { store });
 
-    expect(queryByRole('link', { name: 'Holdingpen' })).not.toBeInTheDocument();
     expect(
       queryByRole('link', { name: 'Author list' })
     ).not.toBeInTheDocument();

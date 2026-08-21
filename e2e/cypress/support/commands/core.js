@@ -75,9 +75,6 @@ Cypress.Commands.add("waitForRoute", (route = "/api/**") => {
 Cypress.Commands.add("requestRecord", ({ collection, recordId }) => {
   cy.request(`/api/${collection}/${recordId}`).its("body");
 });
-Cypress.Commands.add("requestWorkflow", ({ workflowId }) => {
-  cy.request(`/api/holdingpen/${workflowId}`).its("body");
-});
 Cypress.Commands.add("requestEditor", ({ collection, recordId }) => {
   cy.request(`/editor/record/${collection}/${recordId}`).its("body");
 });

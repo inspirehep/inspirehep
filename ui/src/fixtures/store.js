@@ -6,7 +6,6 @@ import { initialState as literature } from '../reducers/literature';
 import { initialState as authors } from '../reducers/authors';
 import { initialState as user } from '../reducers/user';
 import { initialState as submissions } from '../reducers/submissions';
-import { initialState as inspect } from '../reducers/inspect';
 import { initialState as exceptions } from '../reducers/exceptions';
 import { initialState as ui } from '../reducers/ui';
 import { initialState as bibliographyGenerator } from '../reducers/bibliographyGenerator';
@@ -31,7 +30,6 @@ export function getState() {
     search,
     user,
     submissions,
-    inspect,
     exceptions,
     authors,
     ui,

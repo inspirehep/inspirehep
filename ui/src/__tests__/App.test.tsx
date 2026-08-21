@@ -48,45 +48,6 @@ describe('App', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('navigates to Holdingpen when /holdingpen if logged in', async () => {
-    const store = getStore({
-      user: fromJS({
-        loggedIn: true,
-        data: {
-          roles: ['user'],
-        },
-      }),
-    });
-    renderWithProviders(<App />, {
-      store,
-      route: '/holdingpen',
-    });
-
-    const app = await screen.findByTestId('app');
-    const holdingpen = await within(app).findByTestId('holdingpen');
-
-    expect(holdingpen).toBeInTheDocument();
-  });
-
-  it('does not navigate to Holdingpen when /holdingpen if not logged in', async () => {
-    const store = getStore({
-      user: fromJS({
-        loggedIn: false,
-        data: {
-          roles: [],
-        },
-      }),
-    });
-    renderWithProviders(<App />, {
-      store,
-      route: '/holdingpen',
-    });
-    const app = await screen.findByTestId('app');
-    const holdingpen = within(app).queryByTestId('holdingpen');
-
-    expect(holdingpen).not.toBeInTheDocument();
-  });
-
   it('navigates to Backoffice when /backoffice if superuser logged in', async () => {
     const store = getStore({
       user: fromJS({
