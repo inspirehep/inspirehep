@@ -1,4 +1,3 @@
-import { BrowserRouter as Router } from 'react-router-dom';
 import { fromJS } from 'immutable';
 
 import DetailPageContainer from '../DetailPageContainer';
@@ -77,12 +76,9 @@ describe('DetailPageContainer', () => {
       }),
     });
 
-    const { asFragment } = renderWithProviders(
-      <Router>
-        <DetailPageContainer />
-      </Router>,
-      { store }
-    );
+    const { asFragment } = renderWithProviders(<DetailPageContainer />, {
+      store,
+    });
     expect(asFragment()).toMatchSnapshot();
   });
 });
