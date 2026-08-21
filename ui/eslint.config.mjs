@@ -275,7 +275,7 @@ const importRules = {
   'import/no-webpack-loader-syntax': 'error',
   'import/no-named-default': 'error',
   'import/no-self-import': 'error',
-  'import/no-cycle': 'error',
+  'import/no-cycle': ['error', { ignoreExternal: true }],
   'import/no-useless-path-segments': 'error',
   'import/namespace': 'off',
   'import/no-unresolved': [
