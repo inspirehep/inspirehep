@@ -26,16 +26,27 @@ exports[`ChangeEmailForm > disable email input and display loading on the button
               <div
                 class="ant-form-item-control-input-content"
               >
-                <input
-                  class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
-                  data-test-id="email"
-                  data-testid="email"
-                  form="[object Object]"
-                  name="email"
-                  placeholder="Email"
-                  type="email"
-                  value="test@test.pl"
-                />
+                <div
+                  class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
+                >
+                  <span
+                    class="ant-input-affix-wrapper css-dev-only-do-not-override-mncuj7 ant-input-outlined ant-input-compact-item ant-input-compact-first-item ant-input-compact-last-item"
+                  >
+                    <input
+                      class="ant-input css-dev-only-do-not-override-mncuj7"
+                      data-test-id="email"
+                      data-testid="email"
+                      form="[object Object]"
+                      name="email"
+                      placeholder="Email"
+                      type="email"
+                      value="test@test.pl"
+                    />
+                    <span
+                      class="ant-input-suffix"
+                    />
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -106,16 +117,27 @@ exports[`ChangeEmailForm > renders page 1`] = `
               <div
                 class="ant-form-item-control-input-content"
               >
-                <input
-                  class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
-                  data-test-id="email"
-                  data-testid="email"
-                  form="[object Object]"
-                  name="email"
-                  placeholder="Email"
-                  type="email"
-                  value="test@test.pl"
-                />
+                <div
+                  class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
+                >
+                  <span
+                    class="ant-input-affix-wrapper css-dev-only-do-not-override-mncuj7 ant-input-outlined ant-input-compact-item ant-input-compact-first-item ant-input-compact-last-item"
+                  >
+                    <input
+                      class="ant-input css-dev-only-do-not-override-mncuj7"
+                      data-test-id="email"
+                      data-testid="email"
+                      form="[object Object]"
+                      name="email"
+                      placeholder="Email"
+                      type="email"
+                      value="test@test.pl"
+                    />
+                    <span
+                      class="ant-input-suffix"
+                    />
+                  </span>
+                </div>
               </div>
             </div>
           </div>

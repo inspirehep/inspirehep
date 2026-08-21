@@ -23,6 +23,7 @@ class MultiSelectAggregation extends Component {
         display: this.getSelectOptionDisplayForBucket(bucket),
       }))
       .toArray();
+
     return (
       <div className="__MultiSelectAggregation__">
         <SelectBox
@@ -30,7 +31,9 @@ class MultiSelectAggregation extends Component {
           mode="multiple"
           placeholder={name}
           onChange={onChange}
-          value={selections}
+          value={
+            Array.isArray(selections) || !selections ? selections : [selections]
+          }
           options={selectOptions}
         />
       </div>
