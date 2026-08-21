@@ -136,7 +136,7 @@ class CheckboxAggregation extends Component {
     const bucketKey = bucket.get('key');
     const bucketDisplay = this.renderDisplayName(bucketKey);
     return (
-      <Row className="mb2" type="flex" justify="space-between" key={bucketKey}>
+      <Row className="mb2 flex-nowrap" justify="space-between" key={bucketKey}>
         <Col>
           <Checkbox
             checked={selectionMap.get(bucketKey)}
