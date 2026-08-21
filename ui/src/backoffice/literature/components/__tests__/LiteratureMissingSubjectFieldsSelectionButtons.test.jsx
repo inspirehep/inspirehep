@@ -41,7 +41,7 @@ describe('<LiteratureMissingSubjectFieldsSelectionButtons />', () => {
     );
 
     const rejectButton = screen.getByRole('button', { name: 'Reject' });
-    expect(rejectButton).toHaveClass('bg-error-weak');
+    expect(rejectButton).toHaveClass('o-30');
 
     await user.hover(rejectButton);
     expect(
@@ -59,7 +59,7 @@ describe('<LiteratureMissingSubjectFieldsSelectionButtons />', () => {
     );
 
     expect(screen.getByRole('button', { name: 'Reject' })).toHaveClass(
-      'bg-error'
+      'ant-btn-color-dangerous'
     );
   });
 

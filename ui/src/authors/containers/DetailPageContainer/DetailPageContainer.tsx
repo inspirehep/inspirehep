@@ -320,7 +320,7 @@ function DetailPage({
                 type="card"
                 tabBarStyle={{ marginBottom: 0 }}
                 items={tabItems}
-                destroyInactiveTabPane
+                destroyOnHidden
               />
             </Col>
           </Row>
@@ -377,7 +377,7 @@ const DetailPageContainer = connect(
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
   routeActions: (id) => [
-    fetchAuthor(id),
+    fetchAuthor(id!),
     newSearch(AUTHOR_PUBLICATIONS_NS),
     newSearch(AUTHOR_CITATIONS_NS),
     newSearch(AUTHOR_DATA_NS),

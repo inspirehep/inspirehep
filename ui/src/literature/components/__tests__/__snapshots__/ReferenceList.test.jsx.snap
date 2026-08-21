@@ -6,7 +6,7 @@ exports[`ReferenceList > does not render the list if total 0 1`] = `
     class="__ContentBox__ h-100 __ReferenceList__"
   >
     <div
-      class="ant-card ant-card-bordered h-100"
+      class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
     >
       <div
         class="ant-card-body"
@@ -17,13 +17,13 @@ exports[`ReferenceList > does not render the list if total 0 1`] = `
           <div />
         </div>
         <div
-          class="ant-row ant-row-space-between actions ph2"
+          class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           />
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           />
         </div>
       </div>
@@ -38,7 +38,7 @@ exports[`ReferenceList > renders items with (page * index) key if title is absen
     class="__ContentBox__ h-100 __ReferenceList__"
   >
     <div
-      class="ant-card ant-card-bordered h-100"
+      class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
     >
       <div
         class="ant-card-body"
@@ -48,11 +48,11 @@ exports[`ReferenceList > renders items with (page * index) key if title is absen
         >
           <div>
             <div
-              class="ant-list ant-list-split ant-list-something-after-last-item"
+              class="ant-list ant-list-split ant-list-something-after-last-item css-dev-only-do-not-override-mncuj7"
               data-testid="pagination-list"
             >
               <div
-                class="ant-spin-nested-loading"
+                class="ant-spin-nested-loading css-dev-only-do-not-override-mncuj7"
               >
                 <div
                   class="ant-spin-container"
@@ -68,12 +68,12 @@ exports[`ReferenceList > renders items with (page * index) key if title is absen
                         class="ant-list-item"
                       >
                         <div
-                          class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+                          class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap css-dev-only-do-not-override-mncuj7"
                           style="margin-left: -12px; margin-right: -12px;"
                           type="flex"
                         >
                           <div
-                            class="ant-col ant-col-xs-2 ant-col-lg-1"
+                            class="ant-col ant-col-xs-2 ant-col-lg-1 css-dev-only-do-not-override-mncuj7"
                             style="padding-left: 12px; padding-right: 12px;"
                           >
                             <div
@@ -81,7 +81,7 @@ exports[`ReferenceList > renders items with (page * index) key if title is absen
                             />
                           </div>
                           <div
-                            class="ant-col"
+                            class="ant-col css-dev-only-do-not-override-mncuj7"
                             style="padding-left: 12px; padding-right: 12px; width: 100%;"
                           >
                             <div
@@ -122,15 +122,16 @@ exports[`ReferenceList > renders items with (page * index) key if title is absen
                             </div>
                           </div>
                           <div
-                            class="ant-col ant-col-2 pr3"
+                            class="ant-col ant-col-2 pr3 css-dev-only-do-not-override-mncuj7"
                             style="padding-left: 12px; padding-right: 12px;"
                           >
                             <div
+                              aria-describedby="test-id"
                               class="flex items-center justify-center"
                               data-test-id="edit-reference"
                             >
                               <button
-                                class="ant-btn ant-btn-text __LinkLikeButton__ blue disabled"
+                                class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue disabled"
                                 disabled=""
                                 type="button"
                               >
@@ -180,12 +181,12 @@ exports[`ReferenceList > renders items with (page * index) key if title is absen
                         class="ant-list-item"
                       >
                         <div
-                          class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+                          class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap css-dev-only-do-not-override-mncuj7"
                           style="margin-left: -12px; margin-right: -12px;"
                           type="flex"
                         >
                           <div
-                            class="ant-col ant-col-xs-2 ant-col-lg-1"
+                            class="ant-col ant-col-xs-2 ant-col-lg-1 css-dev-only-do-not-override-mncuj7"
                             style="padding-left: 12px; padding-right: 12px;"
                           >
                             <div
@@ -193,7 +194,7 @@ exports[`ReferenceList > renders items with (page * index) key if title is absen
                             />
                           </div>
                           <div
-                            class="ant-col"
+                            class="ant-col css-dev-only-do-not-override-mncuj7"
                             style="padding-left: 12px; padding-right: 12px; width: 100%;"
                           >
                             <div
@@ -231,15 +232,16 @@ exports[`ReferenceList > renders items with (page * index) key if title is absen
                             </div>
                           </div>
                           <div
-                            class="ant-col ant-col-2 pr3"
+                            class="ant-col ant-col-2 pr3 css-dev-only-do-not-override-mncuj7"
                             style="padding-left: 12px; padding-right: 12px;"
                           >
                             <div
+                              aria-describedby="test-id"
                               class="flex items-center justify-center"
                               data-test-id="edit-reference"
                             >
                               <button
-                                class="ant-btn ant-btn-text __LinkLikeButton__ blue disabled"
+                                class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue disabled"
                                 disabled=""
                                 type="button"
                               >
@@ -291,13 +293,13 @@ exports[`ReferenceList > renders items with (page * index) key if title is absen
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between actions ph2"
+          class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           />
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           />
         </div>
       </div>
@@ -312,7 +314,7 @@ exports[`ReferenceList > renders with error 1`] = `
     class="__ContentBox__ h-100 __ReferenceList__"
   >
     <div
-      class="ant-card ant-card-bordered h-100"
+      class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
     >
       <div
         class="ant-card-body"
@@ -322,7 +324,7 @@ exports[`ReferenceList > renders with error 1`] = `
         >
           <div>
             <div
-              class="ant-alert ant-alert-warning ant-alert-with-description"
+              class="ant-alert ant-alert-warning ant-alert-with-description css-dev-only-do-not-override-mncuj7"
               data-show="true"
               role="alert"
             >
@@ -341,10 +343,7 @@ exports[`ReferenceList > renders with error 1`] = `
                   width="1em"
                 >
                   <path
-                    d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
-                  />
-                  <path
-                    d="M464 688a48 48 0 1096 0 48 48 0 10-96 0zm24-112h48c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8z"
+                    d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm-32 232c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v272c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V296zm32 440a48.01 48.01 0 010-96 48.01 48.01 0 010 96z"
                   />
                 </svg>
               </span>
@@ -362,7 +361,7 @@ exports[`ReferenceList > renders with error 1`] = `
                   <span>
                     Please try again later or 
                     <button
-                      class="ant-btn ant-btn-text __LinkLikeButton__ blue big"
+                      class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue big"
                       data-test-id="go-back-link"
                       data-testid="go-back-link"
                       type="button"
@@ -378,13 +377,13 @@ exports[`ReferenceList > renders with error 1`] = `
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between actions ph2"
+          class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           />
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           />
         </div>
       </div>
@@ -399,7 +398,7 @@ exports[`ReferenceList > renders with references 1`] = `
     class="__ContentBox__ h-100 __ReferenceList__"
   >
     <div
-      class="ant-card ant-card-bordered h-100"
+      class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
     >
       <div
         class="ant-card-body"
@@ -409,11 +408,11 @@ exports[`ReferenceList > renders with references 1`] = `
         >
           <div>
             <div
-              class="ant-list ant-list-split ant-list-something-after-last-item"
+              class="ant-list ant-list-split ant-list-something-after-last-item css-dev-only-do-not-override-mncuj7"
               data-testid="pagination-list"
             >
               <div
-                class="ant-spin-nested-loading"
+                class="ant-spin-nested-loading css-dev-only-do-not-override-mncuj7"
               >
                 <div
                   class="ant-spin-container"
@@ -429,12 +428,12 @@ exports[`ReferenceList > renders with references 1`] = `
                         class="ant-list-item"
                       >
                         <div
-                          class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+                          class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap css-dev-only-do-not-override-mncuj7"
                           style="margin-left: -12px; margin-right: -12px;"
                           type="flex"
                         >
                           <div
-                            class="ant-col ant-col-xs-2 ant-col-lg-1"
+                            class="ant-col ant-col-xs-2 ant-col-lg-1 css-dev-only-do-not-override-mncuj7"
                             style="padding-left: 12px; padding-right: 12px;"
                           >
                             <div
@@ -442,7 +441,7 @@ exports[`ReferenceList > renders with references 1`] = `
                             />
                           </div>
                           <div
-                            class="ant-col"
+                            class="ant-col css-dev-only-do-not-override-mncuj7"
                             style="padding-left: 12px; padding-right: 12px; width: 100%;"
                           >
                             <div
@@ -482,15 +481,16 @@ exports[`ReferenceList > renders with references 1`] = `
                             </div>
                           </div>
                           <div
-                            class="ant-col ant-col-2 pr3"
+                            class="ant-col ant-col-2 pr3 css-dev-only-do-not-override-mncuj7"
                             style="padding-left: 12px; padding-right: 12px;"
                           >
                             <div
+                              aria-describedby="test-id"
                               class="flex items-center justify-center"
                               data-test-id="edit-reference"
                             >
                               <button
-                                class="ant-btn ant-btn-text __LinkLikeButton__ blue disabled"
+                                class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue disabled"
                                 disabled=""
                                 type="button"
                               >
@@ -540,12 +540,12 @@ exports[`ReferenceList > renders with references 1`] = `
                         class="ant-list-item"
                       >
                         <div
-                          class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+                          class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap css-dev-only-do-not-override-mncuj7"
                           style="margin-left: -12px; margin-right: -12px;"
                           type="flex"
                         >
                           <div
-                            class="ant-col ant-col-xs-2 ant-col-lg-1"
+                            class="ant-col ant-col-xs-2 ant-col-lg-1 css-dev-only-do-not-override-mncuj7"
                             style="padding-left: 12px; padding-right: 12px;"
                           >
                             <div
@@ -553,7 +553,7 @@ exports[`ReferenceList > renders with references 1`] = `
                             />
                           </div>
                           <div
-                            class="ant-col"
+                            class="ant-col css-dev-only-do-not-override-mncuj7"
                             style="padding-left: 12px; padding-right: 12px; width: 100%;"
                           >
                             <div
@@ -593,15 +593,16 @@ exports[`ReferenceList > renders with references 1`] = `
                             </div>
                           </div>
                           <div
-                            class="ant-col ant-col-2 pr3"
+                            class="ant-col ant-col-2 pr3 css-dev-only-do-not-override-mncuj7"
                             style="padding-left: 12px; padding-right: 12px;"
                           >
                             <div
+                              aria-describedby="test-id"
                               class="flex items-center justify-center"
                               data-test-id="edit-reference"
                             >
                               <button
-                                class="ant-btn ant-btn-text __LinkLikeButton__ blue disabled"
+                                class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-text ant-btn-color-default ant-btn-variant-text __LinkLikeButton__ blue disabled"
                                 disabled=""
                                 type="button"
                               >
@@ -653,13 +654,13 @@ exports[`ReferenceList > renders with references 1`] = `
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between actions ph2"
+          class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           />
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           />
         </div>
       </div>

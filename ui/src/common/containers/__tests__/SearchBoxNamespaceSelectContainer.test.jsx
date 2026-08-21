@@ -37,7 +37,7 @@ describe('SearchBoxNamespaceSelectContainer', () => {
 
     fireEvent.mouseDown(select);
 
-    fireEvent.click(screen.getAllByText('authors')[1]);
+    fireEvent.click(screen.getByText('authors'));
 
     const expectedActions = [
       {

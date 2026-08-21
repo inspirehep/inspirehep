@@ -3,24 +3,24 @@
 exports[`Figures > renders with figures 1`] = `
 <DocumentFragment>
   <div
-    class="ant-list ant-list-split ant-list-grid ant-list-something-after-last-item"
+    class="ant-list ant-list-split ant-list-grid ant-list-something-after-last-item css-dev-only-do-not-override-mncuj7"
     data-testid="pagination-list"
   >
     <div
-      class="ant-spin-nested-loading"
+      class="ant-spin-nested-loading css-dev-only-do-not-override-mncuj7"
     >
       <div
         class="ant-spin-container"
       >
         <div
-          class="ant-row"
+          class="ant-row css-dev-only-do-not-override-mncuj7"
           style="margin-left: -8px; margin-right: -8px;"
         >
           <div
             style="width: 25%; max-width: 25%;"
           >
             <div
-              class="ant-col"
+              class="ant-col css-dev-only-do-not-override-mncuj7"
               style="padding-left: 8px; padding-right: 8px; flex: 1 1 auto;"
             >
               <div
@@ -35,24 +35,28 @@ exports[`Figures > renders with figures 1`] = `
                     <div
                       aria-busy="true"
                       aria-live="polite"
-                      class="ant-spin ant-spin-spinning"
+                      class="ant-spin ant-spin-spinning css-dev-only-do-not-override-mncuj7"
                       style="margin: auto; display: block; padding: 2rem 0px;"
                     >
                       <span
-                        class="ant-spin-dot ant-spin-dot-spin"
+                        class="ant-spin-dot-holder"
                       >
-                        <i
-                          class="ant-spin-dot-item"
-                        />
-                        <i
-                          class="ant-spin-dot-item"
-                        />
-                        <i
-                          class="ant-spin-dot-item"
-                        />
-                        <i
-                          class="ant-spin-dot-item"
-                        />
+                        <span
+                          class="ant-spin-dot ant-spin-dot-spin"
+                        >
+                          <i
+                            class="ant-spin-dot-item"
+                          />
+                          <i
+                            class="ant-spin-dot-item"
+                          />
+                          <i
+                            class="ant-spin-dot-item"
+                          />
+                          <i
+                            class="ant-spin-dot-item"
+                          />
+                        </span>
                       </span>
                     </div>
                   </figure>

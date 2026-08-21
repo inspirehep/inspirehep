@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { DatePicker } from 'antd';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import withFormItem from '../withFormItem';
 
 class DateField extends Component {
@@ -24,12 +24,14 @@ class DateField extends Component {
     // HACK: not passing `name` in order to disable browser autocompletion
     // until https://github.com/ant-design/ant-design/issues/22499 is resolved
     const { value, name, ...otherProps } = this.props;
+    const testFormat = otherProps.picker === 'year' ? 'YYYY' : 'YYYY-MM-DD';
     return (
       <DatePicker
         className="w-100"
         {...otherProps}
         data-test-type="date-picker"
-        defaultValue={value && moment(value)}
+        data-test-format={testFormat}
+        defaultValue={value && dayjs(value)}
         onBlur={this.onBlur}
         onChange={this.onChange}
       />

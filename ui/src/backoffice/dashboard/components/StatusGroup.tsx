@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import './StatusGroup.less';
 import { STATUS_GROUPS_CONFIG, WorkflowStatusGroups } from '../../constants';
+import RouterLinkButton from '../../../common/components/RouterLinkButton';
 
 interface StatusGroupProps {
   groupKey: string;
@@ -63,12 +64,13 @@ const StatusGroup = ({
           {headerContent}
         </Button>
       ) : (
-        <Link
+        <RouterLinkButton
           to={`${baseUrl}&status=${groupStatusKey}`}
-          className="ant-btn ant-btn-text ant-btn-block no-underline"
+          type="text"
+          block
         >
           {headerContent}
-        </Link>
+        </RouterLinkButton>
       )}
       {isCollapsable &&
         isOpen &&
@@ -88,7 +90,7 @@ const StatusGroup = ({
               data-testid={`view-${groupKey}-${statusKey}`}
             >
               <div className="flex justify-between status-link ">
-                <p className="ttc" style={{ marginBottom: 0 }}>
+                <p className="ttc" style={{ margin: 0 }}>
                   {statusKeyText}
                 </p>
                 <span>{statusCount}</span>

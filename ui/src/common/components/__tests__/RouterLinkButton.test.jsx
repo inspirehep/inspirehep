@@ -1,20 +1,19 @@
-import { renderWithRouter } from '../../../fixtures/render';
+import userEvent from '@testing-library/user-event';
+import { renderWithRouter, LocationDisplay } from '../../../fixtures/render';
 import RouterLinkButton from '../RouterLinkButton';
 
 describe('RouterLinkButton', () => {
-  it('renders with className', () => {
-    const { getByRole } = renderWithRouter(
-      <RouterLinkButton className="test" to="/test">
-        Test
-      </RouterLinkButton>
+  it('renders a button that navigates to `to` on click', async () => {
+    const user = userEvent.setup();
+    const { getByRole, getByTestId } = renderWithRouter(
+      <>
+        <RouterLinkButton to="/test">Test</RouterLinkButton>
+        <LocationDisplay />
+      </>
     );
-    expect(getByRole('link')).toHaveClass('test');
-  });
 
-  it('renders without className', () => {
-    const { getByRole } = renderWithRouter(
-      <RouterLinkButton to="/test">Test</RouterLinkButton>
-    );
-    expect(getByRole('link')).toHaveAttribute('href', '/test');
+    await user.click(getByRole('button', { name: 'Test' }));
+
+    expect(getByTestId('location-display')).toHaveTextContent('/test');
   });
 });

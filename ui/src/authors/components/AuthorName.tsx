@@ -3,7 +3,7 @@ import { Map } from 'immutable';
 import { getAuthorDisplayName } from '../utils';
 
 const AuthorName = ({ name }: { name: Map<string, string> }) => {
-  const nativeName = name.getIn(['native_names', 0]);
+  const nativeName = name.getIn(['native_names', 0]) as string | undefined;
   const displayName = getAuthorDisplayName(name);
 
   return (

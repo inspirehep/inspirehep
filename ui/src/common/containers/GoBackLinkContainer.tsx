@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { goBack } from 'connected-react-router';
+import { goBack } from 'redux-first-history';
 import { Action, ActionCreator } from 'redux';
 
 import GoBackLink from '../components/GoBackLink';

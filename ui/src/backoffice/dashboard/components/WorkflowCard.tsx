@@ -75,9 +75,9 @@ const WorkflowCard = ({
   return (
     <Card
       title={
-        <div>
-          <p>{collection.key}</p>
-          <p className="f2 mb0 black">{docCount}</p>
+        <div className="mb2">
+          <p className="mt2">{collection.key}</p>
+          <p className="f2 mv0 black">{docCount}</p>
           <Link
             to={baseUrl}
             className="normal f6"
@@ -87,11 +87,13 @@ const WorkflowCard = ({
           </Link>
         </div>
       }
-      headStyle={{ textAlign: 'center' }}
+      styles={{
+        header: { textAlign: 'center' },
+        body: { paddingRight: '10px', paddingLeft: '10px' },
+      }}
       className={collection.key.toLowerCase().replace(/ /g, '-')}
       key={workflowTypeKey}
       data-testid={collection.key}
-      bodyStyle={{ paddingRight: '10px', paddingLeft: '10px' }}
     >
       {Object.keys(STATUS_GROUPS_CONFIG).map((statusGroup) => {
         const statusesFromGroup = statusesByGroup[statusGroup];

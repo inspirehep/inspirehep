@@ -10,119 +10,24 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
       class="flex items-center justify-between mt3 mb2"
     >
       <nav
-        class="ant-breadcrumb"
+        class="ant-breadcrumb css-dev-only-do-not-override-mncuj7"
       >
         <ol>
-          <li>
-            <span
-              class="ant-breadcrumb-link"
-            >
-              <a
-                href="/"
-              >
-                <span
-                  aria-label="home"
-                  class="anticon anticon-home mr2"
-                  role="img"
-                >
-                  <svg
-                    aria-hidden="true"
-                    data-icon="home"
-                    fill="currentColor"
-                    focusable="false"
-                    height="1em"
-                    viewBox="64 64 896 896"
-                    width="1em"
-                  >
-                    <path
-                      d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 00-44.4 0L77.5 505a63.9 63.9 0 00-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0018.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"
-                    />
-                  </svg>
-                </span>
-                 Inspirehep
-              </a>
-            </span>
-            <span
-              class="ant-breadcrumb-separator"
-            >
-              &gt;
-            </span>
-          </li>
-          <li>
-            <span
-              class="ant-breadcrumb-link"
-            >
-              <a
-                href="/backoffice"
-              >
-                Backoffice
-              </a>
-            </span>
-            <span
-              class="ant-breadcrumb-separator"
-            >
-              &gt;
-            </span>
-          </li>
-          <li>
-            <span
-              class="ant-breadcrumb-link"
-            >
-              <a
-                href="/backoffice/authors/search"
-              >
-                Search authors
-              </a>
-            </span>
-            <span
-              class="ant-breadcrumb-separator"
-            >
-              &gt;
-            </span>
-          </li>
-          <li>
-            <span
-              class="ant-breadcrumb-link"
-            >
-              <p>
-                Doe, John
-              </p>
-            </span>
-            <span
-              class="ant-breadcrumb-separator"
-            >
-              &gt;
-            </span>
-          </li>
-        </ol>
-      </nav>
-      <span
-        class="ant-input-group-wrapper ant-input-search ant-input-search-with-button search-bar-small"
-      >
-        <span
-          class="ant-input-wrapper ant-input-group"
-        >
-          <input
-            class="ant-input"
-            placeholder="Search Backoffice"
-            type="text"
-            value=""
-          />
-          <span
-            class="ant-input-group-addon"
+          <li
+            class="ant-breadcrumb-item"
           >
-            <button
-              class="ant-btn ant-btn-primary ant-input-search-button"
-              type="button"
+            <a
+              class="ant-breadcrumb-link"
+              href="/"
             >
               <span
-                aria-label="search"
-                class="anticon anticon-search"
+                aria-label="home"
+                class="anticon anticon-home mr2"
                 role="img"
               >
                 <svg
                   aria-hidden="true"
-                  data-icon="search"
+                  data-icon="home"
                   fill="currentColor"
                   focusable="false"
                   height="1em"
@@ -130,9 +35,107 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                   width="1em"
                 >
                   <path
-                    d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0011.6 0l43.6-43.5a8.2 8.2 0 000-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z"
+                    d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 00-44.4 0L77.5 505a63.9 63.9 0 00-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0018.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"
                   />
                 </svg>
+              </span>
+               Inspirehep
+            </a>
+          </li>
+          <li
+            aria-hidden="true"
+            class="ant-breadcrumb-separator"
+          >
+            &gt;
+          </li>
+          <li
+            class="ant-breadcrumb-item"
+          >
+            <a
+              class="ant-breadcrumb-link"
+              href="/backoffice"
+            >
+              Backoffice
+            </a>
+          </li>
+          <li
+            aria-hidden="true"
+            class="ant-breadcrumb-separator"
+          >
+            &gt;
+          </li>
+          <li
+            class="ant-breadcrumb-item"
+          >
+            <a
+              class="ant-breadcrumb-link"
+              href="/backoffice/authors/search"
+            >
+              Search authors
+            </a>
+          </li>
+          <li
+            aria-hidden="true"
+            class="ant-breadcrumb-separator"
+          >
+            &gt;
+          </li>
+          <li
+            class="ant-breadcrumb-item"
+          >
+            <span
+              class="ant-breadcrumb-link"
+            >
+              <p
+                class="mv0"
+              >
+                Doe, John
+              </p>
+            </span>
+          </li>
+        </ol>
+      </nav>
+      <span
+        class="ant-input-group-wrapper ant-input-group-wrapper-outlined css-dev-only-do-not-override-mncuj7 ant-input-search ant-input-search-with-button search-bar-small"
+      >
+        <span
+          class="ant-input-wrapper ant-input-group css-dev-only-do-not-override-mncuj7"
+        >
+          <input
+            class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
+            placeholder="Search Backoffice"
+            type="search"
+            value=""
+          />
+          <span
+            class="ant-input-group-addon"
+          >
+            <button
+              class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-primary ant-btn-variant-solid ant-input-search-button"
+              type="button"
+            >
+              <span
+                class="ant-btn-icon"
+              >
+                <span
+                  aria-label="search"
+                  class="anticon anticon-search"
+                  role="img"
+                >
+                  <svg
+                    aria-hidden="true"
+                    data-icon="search"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="64 64 896 896"
+                    width="1em"
+                  >
+                    <path
+                      d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0011.6 0l43.6-43.5a8.2 8.2 0 000-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z"
+                    />
+                  </svg>
+                </span>
               </span>
             </button>
           </span>
@@ -140,17 +143,17 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
       </span>
     </div>
     <div
-      class="ant-row ant-row-center"
+      class="ant-row ant-row-center css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18"
+        class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-mncuj7"
       >
         <div
-          class="ant-row ant-row-center mv3"
+          class="ant-row ant-row-center mv3 css-dev-only-do-not-override-mncuj7"
           style="margin-left: -17.5px; margin-right: -17.5px;"
         >
           <div
-            class="ant-col ant-col-xs-24"
+            class="ant-col ant-col-xs-24 css-dev-only-do-not-override-mncuj7"
             style="padding-left: 17.5px; padding-right: 17.5px;"
           >
             <div
@@ -165,18 +168,18 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
           </div>
         </div>
         <div
-          class="ant-row ant-row-center mv3"
+          class="ant-row ant-row-center mv3 css-dev-only-do-not-override-mncuj7"
           style="margin-left: -17.5px; margin-right: -17.5px;"
         >
           <div
-            class="ant-col ant-col-xs-24 ant-col-lg-16"
+            class="ant-col ant-col-xs-24 ant-col-lg-16 css-dev-only-do-not-override-mncuj7"
             style="padding-left: 17.5px; padding-right: 17.5px;"
           >
             <div
               class="__ContentBox__ md-pb3 mb3"
             >
               <div
-                class="ant-card ant-card-bordered h-100"
+                class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
               >
                 <div
                   class="ant-card-body"
@@ -263,20 +266,20 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     </div>
                   </div>
                   <div
-                    class="ant-row ant-row-space-between actions ph2"
+                    class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
                   >
                     <div
-                      class="ant-col"
+                      class="ant-col css-dev-only-do-not-override-mncuj7"
                     />
                     <div
-                      class="ant-col"
+                      class="ant-col css-dev-only-do-not-override-mncuj7"
                     />
                   </div>
                 </div>
               </div>
             </div>
             <div
-              class="ant-collapse ant-collapse-icon-position-start ant-collapse-borderless __CollapsableForm__"
+              class="ant-collapse ant-collapse-icon-position-start ant-collapse-borderless __CollapsableForm__ css-dev-only-do-not-override-mncuj7"
             >
               <div
                 class="ant-collapse-item bg-white mb3 overflow-hidden"
@@ -292,7 +295,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     class="ant-collapse-expand-icon"
                   >
                     <span
-                      aria-label="right"
+                      aria-label="collapsed"
                       class="anticon anticon-right ant-collapse-arrow"
                       role="img"
                     >
@@ -315,7 +318,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     class="ant-collapse-header-text"
                   >
                     <h3
-                      class="fw6"
+                      class="fw6 mv0"
                     >
                       Institution History
                     </h3>
@@ -336,7 +339,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     class="ant-collapse-expand-icon"
                   >
                     <span
-                      aria-label="right"
+                      aria-label="collapsed"
                       class="anticon anticon-right ant-collapse-arrow"
                       role="img"
                     >
@@ -359,11 +362,49 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     class="ant-collapse-header-text"
                   >
                     <h3
-                      class="fw6"
+                      class="fw6 mv0"
                     >
                       Project Membership History
                     </h3>
                   </span>
+                </div>
+              </div>
+              <div
+                class="ant-collapse-item"
+              >
+                <div
+                  aria-disabled="false"
+                  aria-expanded="false"
+                  class="ant-collapse-header"
+                  role="button"
+                  tabindex="0"
+                >
+                  <div
+                    class="ant-collapse-expand-icon"
+                  >
+                    <span
+                      aria-label="collapsed"
+                      class="anticon anticon-right ant-collapse-arrow"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        data-icon="right"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <span
+                    class="ant-collapse-header-text"
+                  />
                 </div>
               </div>
               <div
@@ -380,7 +421,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     class="ant-collapse-expand-icon"
                   >
                     <span
-                      aria-label="right"
+                      aria-label="collapsed"
                       class="anticon anticon-right ant-collapse-arrow"
                       role="img"
                     >
@@ -403,7 +444,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     class="ant-collapse-header-text"
                   >
                     <h3
-                      class="fw6"
+                      class="fw6 mv0"
                     >
                       Other
                     </h3>
@@ -424,7 +465,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     class="ant-collapse-expand-icon"
                   >
                     <span
-                      aria-label="right"
+                      aria-label="expanded"
                       class="anticon anticon-right ant-collapse-arrow"
                       role="img"
                     >
@@ -448,7 +489,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     class="ant-collapse-header-text"
                   >
                     <h3
-                      class="fw6"
+                      class="fw6 mv0"
                     >
                       Danger area
                     </h3>
@@ -461,7 +502,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     class="ant-collapse-content-box"
                   >
                     <button
-                      class="ant-btn ant-btn-default font-white bg-error"
+                      class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-dangerous ant-btn-color-dangerous ant-btn-variant-solid"
                       type="button"
                     >
                       <span>
@@ -474,14 +515,14 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
             </div>
           </div>
           <div
-            class="ant-col ant-col-xs-24 ant-col-lg-8"
+            class="ant-col ant-col-xs-24 ant-col-lg-8 css-dev-only-do-not-override-mncuj7"
             style="padding-left: 17.5px; padding-right: 17.5px;"
           >
             <div
               class="__ContentBox__ mb3"
             >
               <div
-                class="ant-card ant-card-bordered h-100"
+                class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
               >
                 <div
                   class="ant-card-body"
@@ -490,7 +531,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     class="pa2 mb3"
                   >
                     <h3
-                      class="pb1"
+                      class="pb1 mv0"
                     >
                       Decision
                     </h3>
@@ -500,7 +541,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                         style="gap: 4px;"
                       >
                         <button
-                          class="ant-btn ant-btn-default font-white bg-completed"
+                          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-cyan ant-btn-variant-solid"
                           type="button"
                         >
                           <span>
@@ -508,7 +549,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                           </span>
                         </button>
                         <button
-                          class="ant-btn ant-btn-default font-white bg-halted"
+                          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-orange ant-btn-variant-solid"
                           type="button"
                         >
                           <span>
@@ -516,7 +557,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                           </span>
                         </button>
                         <button
-                          class="ant-btn ant-btn-default font-white bg-error"
+                          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-dangerous ant-btn-variant-solid"
                           type="button"
                         >
                           <span>
@@ -527,13 +568,13 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     </div>
                   </div>
                   <div
-                    class="ant-row ant-row-space-between actions ph2"
+                    class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
                   >
                     <div
-                      class="ant-col"
+                      class="ant-col css-dev-only-do-not-override-mncuj7"
                     />
                     <div
-                      class="ant-col"
+                      class="ant-col css-dev-only-do-not-override-mncuj7"
                     />
                   </div>
                 </div>
@@ -543,7 +584,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
               class="__ContentBox__ mb3"
             >
               <div
-                class="ant-card ant-card-bordered h-100"
+                class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
               >
                 <div
                   class="ant-card-body"
@@ -552,7 +593,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     class="pa2 mb3"
                   >
                     <h3
-                      class="pb1"
+                      class="pb1 mv0"
                     >
                       Submission
                     </h3>
@@ -565,13 +606,13 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     </div>
                   </div>
                   <div
-                    class="ant-row ant-row-space-between actions ph2"
+                    class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
                   >
                     <div
-                      class="ant-col"
+                      class="ant-col css-dev-only-do-not-override-mncuj7"
                     />
                     <div
-                      class="ant-col"
+                      class="ant-col css-dev-only-do-not-override-mncuj7"
                     />
                   </div>
                 </div>
@@ -581,7 +622,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
               class="__ContentBox__ mb3"
             >
               <div
-                class="ant-card ant-card-bordered h-100"
+                class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
               >
                 <div
                   class="ant-card-body"
@@ -590,7 +631,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     class="pa2 mb3"
                   >
                     <h3
-                      class="pb1"
+                      class="pb1 mv0"
                     >
                       SNow information
                     </h3>
@@ -629,13 +670,13 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     </div>
                   </div>
                   <div
-                    class="ant-row ant-row-space-between actions ph2"
+                    class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
                   >
                     <div
-                      class="ant-col"
+                      class="ant-col css-dev-only-do-not-override-mncuj7"
                     />
                     <div
-                      class="ant-col"
+                      class="ant-col css-dev-only-do-not-override-mncuj7"
                     />
                   </div>
                 </div>
@@ -645,7 +686,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
               class="__ContentBox__ mb3"
             >
               <div
-                class="ant-card ant-card-bordered h-100"
+                class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
               >
                 <div
                   class="ant-card-body"
@@ -654,7 +695,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     class="pa2 mb3"
                   >
                     <h3
-                      class="pb1"
+                      class="pb1 mv0"
                     >
                       Actions
                     </h3>
@@ -663,7 +704,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                         class="flex flex-column items-center"
                       >
                         <button
-                          class="ant-btn ant-btn-default mb2 w-75"
+                          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined mb2 w-75"
                           type="button"
                         >
                           <span
@@ -690,7 +731,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                           </span>
                         </button>
                         <button
-                          class="ant-btn ant-btn-default mb2 w-75"
+                          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined mb2 w-75"
                           disabled=""
                           type="button"
                         >
@@ -718,7 +759,7 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                           </span>
                         </button>
                         <button
-                          class="ant-btn ant-btn-primary mb2 w-75"
+                          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid mb2 w-75"
                           type="button"
                         >
                           <a
@@ -750,13 +791,13 @@ exports[`AuthorDetailPageContainer > should render the AuthorDetailPageContainer
                     </div>
                   </div>
                   <div
-                    class="ant-row ant-row-space-between actions ph2"
+                    class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
                   >
                     <div
-                      class="ant-col"
+                      class="ant-col css-dev-only-do-not-override-mncuj7"
                     />
                     <div
-                      class="ant-col"
+                      class="ant-col css-dev-only-do-not-override-mncuj7"
                     />
                   </div>
                 </div>

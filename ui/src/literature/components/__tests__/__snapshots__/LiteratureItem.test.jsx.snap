@@ -9,7 +9,7 @@ exports[`LiteratureItem > does not arxiv pdf download action if there is no epri
       class="__ContentBox__ h-100"
     >
       <div
-        class="ant-card ant-card-bordered h-100"
+        class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
       >
         <div
           class="ant-card-body"
@@ -60,16 +60,16 @@ exports[`LiteratureItem > does not arxiv pdf download action if there is no epri
             </div>
           </div>
           <div
-            class="ant-row ant-row-space-between actions ph2"
+            class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
           >
             <div
-              class="ant-col"
+              class="ant-col css-dev-only-do-not-override-mncuj7"
             >
               <span
                 class="__UserAction__"
               >
                 <button
-                  class="ant-btn ant-btn-default"
+                  class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
                   type="button"
                 >
                   <span
@@ -109,7 +109,7 @@ exports[`LiteratureItem > does not arxiv pdf download action if there is no epri
               </span>
             </div>
             <div
-              class="ant-col"
+              class="ant-col css-dev-only-do-not-override-mncuj7"
             >
               <span
                 class="__UserAction__"
@@ -213,7 +213,7 @@ exports[`LiteratureItem > renders 0 citations if it does not exist 1`] = `
       class="__ContentBox__ h-100"
     >
       <div
-        class="ant-card ant-card-bordered h-100"
+        class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
       >
         <div
           class="ant-card-body"
@@ -264,16 +264,16 @@ exports[`LiteratureItem > renders 0 citations if it does not exist 1`] = `
             </div>
           </div>
           <div
-            class="ant-row ant-row-space-between actions ph2"
+            class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
           >
             <div
-              class="ant-col"
+              class="ant-col css-dev-only-do-not-override-mncuj7"
             >
               <span
                 class="__UserAction__"
               >
                 <button
-                  class="ant-btn ant-btn-default"
+                  class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
                   type="button"
                 >
                   <span
@@ -313,7 +313,7 @@ exports[`LiteratureItem > renders 0 citations if it does not exist 1`] = `
               </span>
             </div>
             <div
-              class="ant-col"
+              class="ant-col css-dev-only-do-not-override-mncuj7"
             >
               <span
                 class="__UserAction__"
@@ -417,7 +417,7 @@ exports[`LiteratureItem > renders publication info when book exists but publicat
       class="__ContentBox__ h-100"
     >
       <div
-        class="ant-card ant-card-bordered h-100"
+        class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
       >
         <div
           class="ant-card-body"
@@ -488,16 +488,16 @@ exports[`LiteratureItem > renders publication info when book exists but publicat
             </div>
           </div>
           <div
-            class="ant-row ant-row-space-between actions ph2"
+            class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
           >
             <div
-              class="ant-col"
+              class="ant-col css-dev-only-do-not-override-mncuj7"
             >
               <span
                 class="__UserAction__"
               >
                 <button
-                  class="ant-btn ant-btn-default"
+                  class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
                   type="button"
                 >
                   <span
@@ -537,7 +537,7 @@ exports[`LiteratureItem > renders publication info when book exists but publicat
               </span>
             </div>
             <div
-              class="ant-col"
+              class="ant-col css-dev-only-do-not-override-mncuj7"
             >
               <span
                 class="__UserAction__"
@@ -641,7 +641,7 @@ exports[`LiteratureItem > renders with all props set, including sub props 1`] = 
       class="__ContentBox__ h-100"
     >
       <div
-        class="ant-card ant-card-bordered h-100"
+        class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
       >
         <div
           class="ant-card-body"
@@ -870,10 +870,10 @@ exports[`LiteratureItem > renders with all props set, including sub props 1`] = 
             </div>
           </div>
           <div
-            class="ant-row ant-row-space-between actions ph2"
+            class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
           >
             <div
-              class="ant-col"
+              class="ant-col css-dev-only-do-not-override-mncuj7"
             >
               <span
                 class="__UserAction__"
@@ -961,7 +961,7 @@ exports[`LiteratureItem > renders with all props set, including sub props 1`] = 
                 class="__UserAction__"
               >
                 <button
-                  class="ant-btn ant-btn-default"
+                  class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
                   type="button"
                 >
                   <span
@@ -1001,7 +1001,7 @@ exports[`LiteratureItem > renders with all props set, including sub props 1`] = 
               </span>
             </div>
             <div
-              class="ant-col"
+              class="ant-col css-dev-only-do-not-override-mncuj7"
             >
               <span
                 class="__UserAction__"
@@ -1105,7 +1105,7 @@ exports[`LiteratureItem > renders with literature item claiming button on litera
       class="__ContentBox__ h-100"
     >
       <div
-        class="ant-card ant-card-bordered h-100"
+        class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
       >
         <div
           class="ant-card-body"
@@ -1176,16 +1176,16 @@ exports[`LiteratureItem > renders with literature item claiming button on litera
             </div>
           </div>
           <div
-            class="ant-row ant-row-space-between actions ph2"
+            class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
           >
             <div
-              class="ant-col"
+              class="ant-col css-dev-only-do-not-override-mncuj7"
             >
               <span
                 class="__UserAction__"
               >
                 <button
-                  class="ant-btn ant-btn-default"
+                  class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined"
                   type="button"
                 >
                   <span
@@ -1225,7 +1225,7 @@ exports[`LiteratureItem > renders with literature item claiming button on litera
               </span>
             </div>
             <div
-              class="ant-col"
+              class="ant-col css-dev-only-do-not-override-mncuj7"
             >
               <span
                 class="__UserAction__"

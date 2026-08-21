@@ -3,7 +3,8 @@
 exports[`RichTextEditor > renders 1`] = `
 <DocumentFragment>
   <div
-    class="__RichTextEditor__ ant-input"
+    class="__RichTextEditor__"
+    style="--rte-bg: #ffffff; --rte-color: rgba(0,0,0,0.88); --rte-font-size: 14px; --rte-line-height: 1.5714285714285714; --rte-padding-block: 4px; --rte-padding-inline: 11px; --rte-border-width: 1px; --rte-border-style: solid; --rte-border-color: #d9d9d9; --rte-border-radius: 6px; --rte-hover-border-color: #4096ff; --rte-active-border-color: #1677ff; --rte-active-shadow: 0 0 0 2px rgba(5,145,255,0.1); --rte-transition-duration: 0.2s;"
   >
     <div
       class="ql-toolbar ql-snow"

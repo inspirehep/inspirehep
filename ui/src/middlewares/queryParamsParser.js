@@ -1,11 +1,14 @@
-import { LOCATION_CHANGE } from 'connected-react-router';
+import { LOCATION_CHANGE } from 'redux-first-history';
 import { parse } from 'qs';
 
 export default () => {
   return (next) => (action) => {
     if (action.type === LOCATION_CHANGE) {
       const { location } = action.payload;
-      location.query = parse(location.search.substring(1));
+      action.payload.location = {
+        ...location,
+        query: parse(location.search.substring(1)),
+      };
     }
     return next(action);
   };

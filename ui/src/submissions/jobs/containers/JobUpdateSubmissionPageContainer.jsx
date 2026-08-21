@@ -12,6 +12,7 @@ import JobSubmission from '../components/JobSubmission';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
 import SubmissionPage from '../../common/components/SubmissionPage';
 import ErrorAlertOrChildren from '../../../common/components/ErrorAlertOrChildren';
+import withParams from '../../../common/withParams';
 
 class JobUpdateSubmissionPage extends Component {
   static getRecordIdFromProps(props) {
@@ -93,4 +94,6 @@ const stateToProps = (state) => ({
 
 const dispatchToProps = (dispatch) => ({ dispatch });
 
-export default connect(stateToProps, dispatchToProps)(JobUpdateSubmissionPage);
+export default withParams(
+  connect(stateToProps, dispatchToProps)(JobUpdateSubmissionPage)
+);

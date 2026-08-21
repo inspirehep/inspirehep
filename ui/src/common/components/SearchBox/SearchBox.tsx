@@ -1,12 +1,11 @@
 import { useCallback, useState, useEffect } from 'react';
-import { Input, AutoComplete } from 'antd';
+import { Input, AutoComplete, Space } from 'antd';
 import { HistoryOutlined } from '@ant-design/icons';
-import classNames from 'classnames';
-import { Set } from 'immutable';
 
 import './SearchBox.less';
 import SearchBoxNamespaceSelectContainer from '../../containers/SearchBoxNamespaceSelectContainer';
 import { readHistory, persistHistory } from './searchHistory';
+import LRASet from './LRASet';
 import IconText from '../IconText';
 
 let HISTORY_BY_NAMESPACE = {};
@@ -29,7 +28,7 @@ const SearchBox = ({
 }) => {
   const [inputValue, setInputValue] = useState(value);
   const [autoCompleteOptions, setAutoCompleteOptions] = useState<
-    Set<{ value: any; label: JSX.Element }> | never[]
+    { value: any; label: JSX.Element }[]
   >([]);
   const [shouldSearch, setShouldSearch] = useState(false);
 
@@ -41,24 +40,21 @@ const SearchBox = ({
   }, [value]);
 
   const onInputChange = useCallback(
-    (event) => {
+    (event: React.ChangeEvent<HTMLInputElement>) => {
       const newValue = event.target.value;
       setInputValue(newValue);
-      const namespaceHistory: Set<string> =
+      const namespaceHistory: LRASet =
         HISTORY_BY_NAMESPACE[namespace as keyof typeof HISTORY_BY_NAMESPACE];
       if (
         newValue &&
         HISTORY_BY_NAMESPACE[namespace as keyof typeof HISTORY_BY_NAMESPACE]
       ) {
-        const options: Set<{ value: any; label: JSX.Element }> =
-          namespaceHistory
-            .filter((searchQuery: string | any[]) =>
-              searchQuery.includes(newValue)
-            )
-            .map((searchQuery: any) => ({
-              value: searchQuery,
-              label: <IconText icon={<HistoryOutlined />} text={searchQuery} />,
-            }));
+        const options: { value: any; label: JSX.Element }[] = namespaceHistory
+          .filter((searchQuery: string) => searchQuery.includes(newValue))
+          .map((searchQuery: string) => ({
+            value: searchQuery,
+            label: <IconText icon={<HistoryOutlined />} text={searchQuery} />,
+          }));
         setAutoCompleteOptions(options);
       } else {
         setAutoCompleteOptions([]);
@@ -70,7 +66,7 @@ const SearchBox = ({
     setShouldSearch(true);
   }, []);
 
-  const onAutoCompleteSelect = useCallback((selectedValue) => {
+  const onAutoCompleteSelect = useCallback((selectedValue: string) => {
     setInputValue(selectedValue);
     setShouldSearch(true);
   }, []);
@@ -87,7 +83,7 @@ const SearchBox = ({
           (
             HISTORY_BY_NAMESPACE[
               namespace as keyof typeof HISTORY_BY_NAMESPACE
-            ] as Set<string>
+            ] as LRASet
           ).add(inputValue.trim());
           persistHistory(HISTORY_BY_NAMESPACE);
         }
@@ -103,21 +99,25 @@ const SearchBox = ({
     // when search scope is rendered using `Input.addonBefore` prop, inside autocomplete
     // that's why it's pulled out, and classNames are set manually to make it look like an addon
     <>
-      <span
+      <Space.Compact
         data-testid="searchbox"
-        className={classNames('__SearchBox__ ant-input-group', className)}
+        className={className}
+        size="large"
+        block
+        style={{ alignItems: 'center' }}
       >
         <span className="ant-input-group-addon">
           <SearchBoxNamespaceSelectContainer />
         </span>
         <AutoComplete
           autoFocus
-          popupClassName="header-dropdown"
+          classNames={{ popup: { root: 'header-dropdown' } }}
           className="autocomplete"
           value={inputValue}
-          dropdownMatchSelectWidth
+          popupMatchSelectWidth
           options={autoCompleteOptions}
           onSelect={onAutoCompleteSelect}
+          style={{ width: '100%' }}
         >
           <Input.Search
             data-test-id="search-box-input"
@@ -129,7 +129,7 @@ const SearchBox = ({
             onSearch={onInputSearch}
           />
         </AutoComplete>
-      </span>
+      </Space.Compact>
     </>
   );
 };

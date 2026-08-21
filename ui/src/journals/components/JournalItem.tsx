@@ -1,4 +1,4 @@
-import { Row, Col, PageHeader } from 'antd';
+import { Row, Col, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import { LoginOutlined } from '@ant-design/icons';
 import { List } from 'immutable';
@@ -80,13 +80,16 @@ export const JournalItem = ({
       <Row>
         <Col>
           <Link className="result-item-title" to={`${JOURNALS}/${recordId}`}>
-            <PageHeader
-              className="site-page-header"
-              title={shortTitle}
-              subTitle={
-                publisher && `(${publisher.toArray().map((p: string) => p)})`
-              }
-            />
+            <div className="site-page-header">
+              <Typography.Title level={5} className="site-page-header-title">
+                {shortTitle}
+              </Typography.Title>
+              {publisher && (
+                <Typography.Text type="secondary">
+                  ({publisher.toArray().map((p: string) => p)})
+                </Typography.Text>
+              )}
+            </div>
           </Link>
         </Col>
       </Row>

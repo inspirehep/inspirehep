@@ -39,7 +39,7 @@ const LiteratureMatchItem = ({ match, selectedBestMatch, onSelect }) => {
     <Card
       size="small"
       style={{ marginBottom: 12 }}
-      bodyStyle={{ paddingTop: 8 }}
+      styles={{ body: { paddingTop: 8 } }}
       className="literature-match-item"
       title={
         <div>
@@ -75,7 +75,7 @@ const LiteratureMatchItem = ({ match, selectedBestMatch, onSelect }) => {
         </div>
       )}
 
-      <Descriptions column={1} size="small" labelStyle={{ width: 140 }}>
+      <Descriptions column={1} size="small" styles={{ label: { width: 140 } }}>
         {hasPublicationInfoValue && (
           <Descriptions.Item label="Published In">
             <PublicationInfoList

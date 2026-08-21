@@ -6,13 +6,13 @@ exports[`SingUpForm > disable email input and display loading on the button whil
     action="#"
   >
     <div
-      class="ant-form-item"
+      class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
     >
       <div
-        class="ant-row ant-form-item-row"
+        class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
       >
         <div
-          class="ant-col ant-col-24 ant-form-item-control"
+          class="ant-col ant-col-24 ant-form-item-control css-dev-only-do-not-override-mncuj7"
         >
           <div
             class="ant-form-item-control-input"
@@ -21,7 +21,7 @@ exports[`SingUpForm > disable email input and display loading on the button whil
               class="ant-form-item-control-input-content"
             >
               <input
-                class="ant-input ant-input-disabled"
+                class="ant-input ant-input-disabled css-dev-only-do-not-override-mncuj7 ant-input-outlined"
                 data-test-id="email"
                 data-testid="email"
                 disabled=""
@@ -37,19 +37,19 @@ exports[`SingUpForm > disable email input and display loading on the button whil
       </div>
     </div>
     <div
-      class="ant-row ant-row-end"
+      class="ant-row ant-row-end css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-col"
+        class="ant-col css-dev-only-do-not-override-mncuj7"
       >
         <button
-          class="ant-btn ant-btn-primary ant-btn-loading"
+          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-loading"
           data-testid="submit"
           disabled=""
           type="submit"
         >
           <span
-            class="ant-btn-loading-icon"
+            class="ant-btn-icon ant-btn-loading-icon"
           >
             <span
               aria-label="loading"
@@ -87,13 +87,13 @@ exports[`SingUpForm > renders the form 1`] = `
     action="#"
   >
     <div
-      class="ant-form-item"
+      class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
     >
       <div
-        class="ant-row ant-form-item-row"
+        class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
       >
         <div
-          class="ant-col ant-col-24 ant-form-item-control"
+          class="ant-col ant-col-24 ant-form-item-control css-dev-only-do-not-override-mncuj7"
         >
           <div
             class="ant-form-item-control-input"
@@ -102,7 +102,7 @@ exports[`SingUpForm > renders the form 1`] = `
               class="ant-form-item-control-input-content"
             >
               <input
-                class="ant-input"
+                class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
                 data-test-id="email"
                 data-testid="email"
                 form="[object Object]"
@@ -117,13 +117,13 @@ exports[`SingUpForm > renders the form 1`] = `
       </div>
     </div>
     <div
-      class="ant-row ant-row-end"
+      class="ant-row ant-row-end css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-col"
+        class="ant-col css-dev-only-do-not-override-mncuj7"
       >
         <button
-          class="ant-btn ant-btn-primary"
+          class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
           data-testid="submit"
           disabled=""
           type="submit"

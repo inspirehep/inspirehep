@@ -50,7 +50,7 @@ export function assignSuccess({
   to: string;
   literatureIds: string[];
 }) {
-  notification.close(ASSIGNING_NOTIFICATION_KEY);
+  notification.destroy(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
     message: 'Processing request...',
     duration: null,
@@ -84,7 +84,7 @@ export function assignSuccessOwnProfile({
           numberOfClaimedPapers,
           numberOfUnclaimedPapers
         );
-  notification.close(ASSIGNING_NOTIFICATION_KEY);
+  notification.destroy(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
     message,
     duration: null,
@@ -93,7 +93,7 @@ export function assignSuccessOwnProfile({
 
 export function unassignSuccessOwnProfile(numberOfPapers: number) {
   const message = resolveSuccessMessage(numberOfPapers, 'removed from');
-  notification.close(ASSIGNING_NOTIFICATION_KEY);
+  notification.destroy(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
     message,
     duration: null,
@@ -104,7 +104,7 @@ export function assignSuccessDifferentProfileUnclaimedPapers(
   numberOfUnclaimedPapers: number
 ) {
   const message = resolveSuccessMessage(numberOfUnclaimedPapers, 'moved to');
-  notification.close(ASSIGNING_NOTIFICATION_KEY);
+  notification.destroy(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
     message,
     duration: null,
@@ -113,7 +113,7 @@ export function assignSuccessDifferentProfileUnclaimedPapers(
 
 export function assignSuccessDifferentProfileClaimedPapers() {
   const message = 'Some claims will be reviewed by our staff for approval.';
-  notification.close(ASSIGNING_NOTIFICATION_KEY);
+  notification.destroy(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
     message,
     duration: null,
@@ -121,7 +121,7 @@ export function assignSuccessDifferentProfileClaimedPapers() {
 }
 
 export function assignError() {
-  notification.close(ASSIGNING_NOTIFICATION_KEY);
+  notification.destroy(ASSIGNING_NOTIFICATION_KEY);
   notification.error({
     className: 'super-zindex',
     message: 'Claim Error!',

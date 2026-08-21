@@ -2,8 +2,8 @@
 
 exports[`PositionsTimeline > renders only first 3 by default 1`] = `
 <DocumentFragment>
-  <ul
-    class="ant-timeline"
+  <ol
+    class="ant-timeline css-dev-only-do-not-override-mncuj7"
   >
     <li
       class="ant-timeline-item"
@@ -65,7 +65,7 @@ exports[`PositionsTimeline > renders only first 3 by default 1`] = `
         </div>
       </div>
     </li>
-  </ul>
+  </ol>
   <button
     class="__SecondaryButton__"
     type="button"
@@ -77,8 +77,8 @@ exports[`PositionsTimeline > renders only first 3 by default 1`] = `
 
 exports[`PositionsTimeline > renders with positions 1`] = `
 <DocumentFragment>
-  <ul
-    class="ant-timeline"
+  <ol
+    class="ant-timeline css-dev-only-do-not-override-mncuj7"
   >
     <li
       class="ant-timeline-item"
@@ -155,14 +155,14 @@ exports[`PositionsTimeline > renders with positions 1`] = `
         </div>
       </div>
     </li>
-  </ul>
+  </ol>
 </DocumentFragment>
 `;
 
 exports[`PositionsTimeline > renders with single position 1`] = `
 <DocumentFragment>
-  <ul
-    class="ant-timeline"
+  <ol
+    class="ant-timeline css-dev-only-do-not-override-mncuj7"
   >
     <li
       class="ant-timeline-item ant-timeline-item-last"
@@ -189,6 +189,6 @@ exports[`PositionsTimeline > renders with single position 1`] = `
         </div>
       </div>
     </li>
-  </ul>
+  </ol>
 </DocumentFragment>
 `;

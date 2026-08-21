@@ -53,7 +53,7 @@ const SettingsPage = ({
 
     <Row justify="center" align="middle" className="mv3">
       <Col xs={24} md={22} lg={21} xxl={18}>
-        <Card bodyStyle={{ padding: '12px 16px' }}>
+        <Card styles={{ body: { padding: '12px 16px' } }}>
           <h2>Settings</h2>
           <p>Manage your Inspire account</p>
         </Card>

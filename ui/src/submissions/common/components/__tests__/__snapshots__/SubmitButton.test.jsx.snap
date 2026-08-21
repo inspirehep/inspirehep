@@ -3,7 +3,7 @@
 exports[`SubmitButton > renders with all props set 1`] = `
 <DocumentFragment>
   <button
-    class="ant-btn ant-btn-primary"
+    class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
     data-test-id="submit-button"
     type="submit"
   >
@@ -17,12 +17,12 @@ exports[`SubmitButton > renders with all props set 1`] = `
 exports[`SubmitButton > renders with loading 1`] = `
 <DocumentFragment>
   <button
-    class="ant-btn ant-btn-primary ant-btn-loading"
+    class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-loading"
     data-test-id="submit-button"
     type="submit"
   >
     <span
-      class="ant-btn-loading-icon"
+      class="ant-btn-icon ant-btn-loading-icon"
     >
       <span
         aria-label="loading"

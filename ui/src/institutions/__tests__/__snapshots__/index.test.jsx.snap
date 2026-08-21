@@ -4,6 +4,43 @@ exports[`Institutions > renders initial state 1`] = `
 <DocumentFragment>
   <div
     class="w-100"
-  />
+  >
+    <div
+      class="ant-row ant-row-center mt3 css-dev-only-do-not-override-mncuj7"
+      data-testid="institutions-search-page-container"
+      style=""
+      type="flex"
+    >
+      <div
+        class="ant-col ant-col-xs-24 css-dev-only-do-not-override-mncuj7"
+        style=""
+      >
+        <div
+          class="ant-row css-dev-only-do-not-override-mncuj7"
+        >
+          <div
+            class="ant-col css-dev-only-do-not-override-mncuj7"
+          >
+            <span
+              data-testid="number-of-results"
+            >
+              0 results
+            </span>
+          </div>
+        </div>
+        <div
+          class="ant-row css-dev-only-do-not-override-mncuj7"
+        >
+          <div
+            class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
+          >
+            <div
+              data-testid="search-results"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </DocumentFragment>
 `;

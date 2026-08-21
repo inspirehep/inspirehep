@@ -11,7 +11,9 @@ class Loading extends Component {
             data-testid="loading-spinner"
             className="tc pa4"
           >
-            <Spin tip="Loading ..." />
+            <Spin tip="Loading ...">
+              <div className="pa4" />
+            </Spin>
           </div>
         </Col>
       </Row>

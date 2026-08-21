@@ -9,16 +9,16 @@ exports[`ChangeEmailForm > disable email input and display loading on the button
       Change the email address associated to your INSPIRE account. This is used by the INSPIRE system to contact you automatically (e.g. job ad closing, submission confirmation, etc.).
     </p>
     <div
-      class="ant-row flex-email pt3"
+      class="ant-row flex-email pt3 css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-form-item"
+        class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
       >
         <div
-          class="ant-row ant-form-item-row"
+          class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+            class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
           >
             <div
               class="ant-form-item-control-input"
@@ -27,7 +27,7 @@ exports[`ChangeEmailForm > disable email input and display loading on the button
                 class="ant-form-item-control-input-content"
               >
                 <input
-                  class="ant-input"
+                  class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
                   data-test-id="email"
                   data-testid="email"
                   form="[object Object]"
@@ -42,14 +42,14 @@ exports[`ChangeEmailForm > disable email input and display loading on the button
         </div>
       </div>
       <button
-        class="ant-btn ant-btn-primary ant-btn-loading"
+        class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-loading"
         data-test-id="submit-email"
         data-testid="submit-email"
         disabled=""
         type="submit"
       >
         <span
-          class="ant-btn-loading-icon"
+          class="ant-btn-icon ant-btn-loading-icon"
         >
           <span
             aria-label="loading"
@@ -89,16 +89,16 @@ exports[`ChangeEmailForm > renders page 1`] = `
       Change the email address associated to your INSPIRE account. This is used by the INSPIRE system to contact you automatically (e.g. job ad closing, submission confirmation, etc.).
     </p>
     <div
-      class="ant-row flex-email pt3"
+      class="ant-row flex-email pt3 css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-form-item"
+        class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
       >
         <div
-          class="ant-row ant-form-item-row"
+          class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19"
+            class="ant-col ant-form-item-control ant-col-sm-24 ant-col-md-19 css-dev-only-do-not-override-mncuj7"
           >
             <div
               class="ant-form-item-control-input"
@@ -107,7 +107,7 @@ exports[`ChangeEmailForm > renders page 1`] = `
                 class="ant-form-item-control-input-content"
               >
                 <input
-                  class="ant-input"
+                  class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
                   data-test-id="email"
                   data-testid="email"
                   form="[object Object]"
@@ -122,7 +122,7 @@ exports[`ChangeEmailForm > renders page 1`] = `
         </div>
       </div>
       <button
-        class="ant-btn ant-btn-primary"
+        class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
         data-test-id="submit-email"
         data-testid="submit-email"
         disabled=""

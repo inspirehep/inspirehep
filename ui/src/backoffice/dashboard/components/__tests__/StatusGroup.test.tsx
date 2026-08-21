@@ -3,7 +3,7 @@ import { Map } from 'immutable';
 import userEvent from '@testing-library/user-event';
 import StatusGroup from '../StatusGroup';
 import { WorkflowStatusGroups } from '../../../constants';
-import { renderWithRouter } from '../../../../fixtures/render';
+import { renderWithRouter, LocationDisplay } from '../../../../fixtures/render';
 
 describe('StatusGroup', () => {
   it('should display statuses on group click', async () => {
@@ -35,19 +35,26 @@ describe('StatusGroup', () => {
   });
 
   it('should link directly to search page when not isCollapsable', async () => {
+    const user = userEvent.setup();
     renderWithRouter(
-      <StatusGroup
-        groupStatusKey={WorkflowStatusGroups.BLOCKED}
-        groupKey="test-group"
-        baseUrl="url-for-test"
-        isOpen={false}
-        onGroupCollapseStateChange={jest.fn()}
-        statuses={[Map({ key: 'status 1', doc_count: 1 })]}
-      />
+      <>
+        <StatusGroup
+          groupStatusKey={WorkflowStatusGroups.BLOCKED}
+          groupKey="test-group"
+          baseUrl="url-for-test"
+          isOpen={false}
+          onGroupCollapseStateChange={jest.fn()}
+          statuses={[Map({ key: 'status 1', doc_count: 1 })]}
+        />
+        <LocationDisplay />
+      </>
     );
 
-    const link = screen.getByRole('link', { name: /Blocked/ });
-    expect(link).toHaveAttribute('href', '/url-for-test&status=blocked');
+    await user.click(screen.getByRole('button', { name: /Blocked/ }));
+
+    expect(screen.getByTestId('location-display')).toHaveTextContent(
+      `status=${WorkflowStatusGroups.BLOCKED}`
+    );
   });
 
   it('should show statuses when isOpen is true and hide them on button click', async () => {

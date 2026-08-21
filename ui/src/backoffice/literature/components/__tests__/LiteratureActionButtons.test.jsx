@@ -125,6 +125,6 @@ describe('<LiteratureActionButtons />', () => {
       'href',
       '/editor/backoffice/literature/workflow-1'
     );
-    expect(resolveConflictsButton).toHaveClass('bg-resolve-conflict');
+    expect(resolveConflictsButton).toHaveClass('ant-btn-color-orange');
   });
 });

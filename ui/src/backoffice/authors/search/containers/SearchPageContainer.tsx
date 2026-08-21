@@ -66,7 +66,7 @@ const AuthorsSearchPageContainer = ({
           <Col xs={24} lg={24} xl={24} xxl={24}>
             <Row className="mt3" gutter={SEARCH_PAGE_GUTTER} justify="start">
               <Col xs={0} lg={5}>
-                <Card size="small" bodyStyle={{ padding: 0 }}>
+                <Card size="small" styles={{ body: { padding: 0 } }}>
                   <AggregationBox name="Sort by" className="pa2">
                     <Select
                       defaultValue="-_updated_at"

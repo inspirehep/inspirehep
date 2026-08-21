@@ -40,7 +40,7 @@ const ContentBox = ({
             className
           )}
         >
-          {subTitle && <h3 className="pb1">{subTitle}</h3>}
+          {subTitle && <h3 className="pb1 mv0">{subTitle}</h3>}
           <div>{children}</div>
         </div>
         <Row className="actions ph2" justify="space-between">

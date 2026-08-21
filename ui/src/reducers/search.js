@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
-import { fromJS, List, Map } from 'immutable';
-import { LOCATION_CHANGE } from 'connected-react-router';
+import { fromJS, Map, List } from 'immutable';
+import { LOCATION_CHANGE } from 'redux-first-history';
 
 import {
   SEARCH_REQUEST,

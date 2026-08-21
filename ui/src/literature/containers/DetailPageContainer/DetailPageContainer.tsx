@@ -406,9 +406,9 @@ const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
   routeActions: (id) => [
-    fetchLiterature(id),
-    fetchLiteratureReferences(id, { page: '1' }),
-    fetchLiteratureAuthors(id),
+    fetchLiterature(id!),
+    fetchLiteratureReferences(id!, { page: '1' }),
+    fetchLiteratureAuthors(id!),
     fetchCitationsByYear({ q: `recid:${id}` }),
     newSearch(LITERATURE_SEMINARS_NS),
     searchBaseQueriesUpdate(LITERATURE_SEMINARS_NS, {

@@ -6,7 +6,7 @@ exports[`CitationSummaryBox > renders 1`] = `
     class="__ContentBox__ h-100"
   >
     <div
-      class="ant-card ant-card-bordered h-100"
+      class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
     >
       <div
         class="ant-card-body"
@@ -15,32 +15,34 @@ exports[`CitationSummaryBox > renders 1`] = `
           class="pa2"
         >
           <h3
-            class="pb1"
+            class="pb1 mv0"
           >
             Citation Summary
           </h3>
           <div>
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-testid="label-with-help"
                 >
                   Exclude self-citations 
                   <span
+                    aria-describedby="test-id"
                     aria-label="question-circle"
                     class="anticon anticon-question-circle"
                     role="img"
@@ -66,11 +68,11 @@ exports[`CitationSummaryBox > renders 1`] = `
               </span>
             </label>
             <div
-              class="ant-row"
+              class="ant-row css-dev-only-do-not-override-mncuj7"
               style=""
             >
               <div
-                class="ant-col ant-col-24"
+                class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
                 style=""
               >
                 <div
@@ -86,6 +88,7 @@ exports[`CitationSummaryBox > renders 1`] = `
                           >
                             Citeable 
                             <span
+                              aria-describedby="test-id"
                               aria-label="question-circle"
                               class="anticon anticon-question-circle"
                               role="img"
@@ -115,6 +118,7 @@ exports[`CitationSummaryBox > renders 1`] = `
                           >
                             Published 
                             <span
+                              aria-describedby="test-id"
                               aria-label="question-circle"
                               class="anticon anticon-question-circle"
                               role="img"
@@ -168,6 +172,7 @@ exports[`CitationSummaryBox > renders 1`] = `
                           >
                             h-index 
                             <span
+                              aria-describedby="test-id"
                               aria-label="question-circle"
                               class="anticon anticon-question-circle"
                               role="img"
@@ -214,19 +219,21 @@ exports[`CitationSummaryBox > renders 1`] = `
                 </div>
               </div>
               <div
-                class="ant-col ant-col-24"
+                class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
                 style=""
               >
                 <div
                   class="__CitationSummaryGraph__"
                 >
                   <div
-                    class="ant-row ant-row-middle"
+                    class="ant-row ant-row-middle css-dev-only-do-not-override-mncuj7"
                   >
                     <div
-                      class="ant-col ant-col-24"
+                      class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
                     >
-                      <div>
+                      <div
+                        aria-describedby="test-id"
+                      >
                         <div
                           class="recharts-wrapper"
                           height="300"
@@ -458,13 +465,13 @@ exports[`CitationSummaryBox > renders 1`] = `
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between actions ph2"
+          class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           />
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           />
         </div>
       </div>

@@ -3,7 +3,7 @@
 exports[`DropdownMenu > renders correctly with default props 1`] = `
 <DocumentFragment>
   <button
-    class="ant-btn ant-btn-default ant-dropdown-trigger"
+    class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-dropdown-trigger"
     type="button"
   >
     <span>
@@ -16,7 +16,7 @@ exports[`DropdownMenu > renders correctly with default props 1`] = `
 exports[`DropdownMenu > renders correctly with disabled prop 1`] = `
 <DocumentFragment>
   <button
-    class="ant-btn ant-btn-default ant-dropdown-trigger"
+    class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-dropdown-trigger"
     disabled=""
     type="button"
   >
@@ -30,7 +30,7 @@ exports[`DropdownMenu > renders correctly with disabled prop 1`] = `
 exports[`DropdownMenu > renders correctly with items and onClick handlers 1`] = `
 <DocumentFragment>
   <button
-    class="ant-btn ant-btn-default ant-dropdown-trigger"
+    class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-dropdown-trigger"
     type="button"
   >
     <span>
@@ -43,7 +43,7 @@ exports[`DropdownMenu > renders correctly with items and onClick handlers 1`] = 
 exports[`DropdownMenu > renders correctly with overlayClassName 1`] = `
 <DocumentFragment>
   <button
-    class="ant-btn ant-btn-default ant-dropdown-trigger"
+    class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-dropdown-trigger"
     type="button"
   >
     <span>

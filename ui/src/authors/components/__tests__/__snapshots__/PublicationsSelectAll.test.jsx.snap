@@ -3,17 +3,16 @@
 exports[`PublicationsSelectAll > render unchecked if all publications are not part of the selection 1`] = `
 <DocumentFragment>
   <label
-    class="ant-checkbox-wrapper"
+    class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
   >
     <span
-      class="ant-checkbox"
+      class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
     >
       <input
         class="ant-checkbox-input"
         data-test-id="select-all-publications"
         data-testid="select-all-publications"
         type="checkbox"
-        value=""
       />
       <span
         class="ant-checkbox-inner"
@@ -26,10 +25,10 @@ exports[`PublicationsSelectAll > render unchecked if all publications are not pa
 exports[`PublicationsSelectAll > renders checked if all publications are part of the selection 1`] = `
 <DocumentFragment>
   <label
-    class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
+    class="ant-checkbox-wrapper ant-checkbox-wrapper-checked css-dev-only-do-not-override-mncuj7"
   >
     <span
-      class="ant-checkbox ant-checkbox-checked"
+      class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7 ant-checkbox-checked"
     >
       <input
         checked=""
@@ -37,7 +36,6 @@ exports[`PublicationsSelectAll > renders checked if all publications are part of
         data-test-id="select-all-publications"
         data-testid="select-all-publications"
         type="checkbox"
-        value=""
       />
       <span
         class="ant-checkbox-inner"
@@ -50,10 +48,10 @@ exports[`PublicationsSelectAll > renders checked if all publications are part of
 exports[`PublicationsSelectAll > renders disabled 1`] = `
 <DocumentFragment>
   <label
-    class="ant-checkbox-wrapper ant-checkbox-wrapper-disabled"
+    class="ant-checkbox-wrapper ant-checkbox-wrapper-disabled css-dev-only-do-not-override-mncuj7"
   >
     <span
-      class="ant-checkbox ant-checkbox-disabled"
+      class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7 ant-checkbox-disabled"
     >
       <input
         class="ant-checkbox-input"
@@ -61,7 +59,6 @@ exports[`PublicationsSelectAll > renders disabled 1`] = `
         data-testid="select-all-publications"
         disabled=""
         type="checkbox"
-        value=""
       />
       <span
         class="ant-checkbox-inner"
