@@ -65,6 +65,7 @@ from include.utils.constants import (
     DECISION_HEP_ACCEPT_CORE,
     DECISION_HEP_REJECT,
     DECISION_MERGE_APPROVE,
+    DECISION_WITHDRAWN,
     FERMILAB_COLLECTION_NAME,
     HEP_PUBLISHER_CREATE,
     HEP_PUBLISHER_UPDATE,
@@ -126,6 +127,7 @@ from plotextractor.errors import (
 from pylatexenc.latex2text import LatexNodes2Text
 from refextract.extract import extract_journal_info as refextract_journal_info
 from refextract.extract import extract_references_from_list
+from tenacity import RetryError
 from werkzeug.utils import secure_filename
 
 logger = logging.getLogger(__name__)
@@ -493,11 +495,16 @@ def hep_create_dag():
 
             s3_tarball_key = f"{workflow_id}/{filename}"
 
-            response = arxiv_hook.call_api(
-                endpoint=url, method="GET", extra_options={"stream": True}
-            )
-
-            response.raise_for_status()
+            try:
+                response = arxiv_hook.call_api(
+                    endpoint=url, method="GET", extra_options={"stream": True}
+                )
+            except RetryError as e:
+                if workflows.handle_withdrawn_arxiv_error(
+                    e, arxiv_hook, workflow_management_hook, workflow_id
+                ):
+                    return
+                raise
 
             s3_store.hook.load_file_obj(response.raw, s3_tarball_key, replace=True)
 
@@ -1025,7 +1032,7 @@ def hep_create_dag():
 
             if workflows.is_arxiv_paper(workflow_data["data"]):
                 return "preprocessing.populate_arxiv_document"
-            return "preprocessing.populate_submission_document"
+            return "preprocessing.buffer_not_arxiv"
 
         @task
         def populate_arxiv_document(**context):
@@ -1037,10 +1044,17 @@ def hep_create_dag():
 
             endpoint = f"/pdf/{arxiv_id}"
 
-            response = arxiv_hook.call_api(
-                endpoint=endpoint,
-                extra_options={"stream": True, "allow_redirects": True},
-            )
+            try:
+                response = arxiv_hook.call_api(
+                    endpoint=endpoint,
+                    extra_options={"stream": True, "allow_redirects": True},
+                )
+            except RetryError as e:
+                if workflows.handle_withdrawn_arxiv_error(
+                    e, arxiv_hook, workflow_management_hook, workflow_id
+                ):
+                    return
+                raise
 
             if not workflows.is_pdf_link(response):
                 return
@@ -1066,6 +1080,17 @@ def hep_create_dag():
             workflow_data["data"] = lb.record
 
             s3_store.write_workflow(workflow_data)
+
+        @task.branch
+        def check_if_is_withdrawn(**context):
+            workflow = workflow_management_hook.get_workflow(
+                context["params"]["workflow_id"]
+            )
+
+            if get_decision(workflow.get("decisions"), DECISION_WITHDRAWN):
+                return "save_and_complete_workflow"
+            else:
+                return "preprocessing.arxiv_plot_extract"
 
         @task(execution_timeout=datetime.timedelta(minutes=5))
         def arxiv_plot_extract(tarball_key, **context):
@@ -1216,23 +1241,31 @@ def hep_create_dag():
             s3_store.write_workflow(workflow_data)
 
         check_is_arxiv_paper_task = check_is_arxiv_paper()
+        buffer_not_arxiv = EmptyOperator(task_id="buffer_not_arxiv")
 
         populate_arxiv_document_task = populate_arxiv_document()
         arxiv_package_download_task = arxiv_package_download()
+        check_if_is_withdrawn_task = check_if_is_withdrawn()
+        arxiv_plot_extract_task = arxiv_plot_extract(arxiv_package_download_task)
         populate_submission_document_task = populate_submission_document()
         arxiv_author_list_task = arxiv_author_list(arxiv_package_download_task)
         normalize_journal_titles_task = normalize_journal_titles()
         extract_authors_from_pdf_task = extract_authors_from_pdf()
 
         check_is_arxiv_paper_task >> [
-            populate_submission_document_task,
+            buffer_not_arxiv,
             populate_arxiv_document_task,
         ]
+        buffer_not_arxiv >> populate_submission_document_task
 
         (
             populate_arxiv_document_task
             >> arxiv_package_download_task
-            >> arxiv_plot_extract(arxiv_package_download_task)
+            >> check_if_is_withdrawn_task
+            >> [save_and_complete_workflow_task, arxiv_plot_extract_task]
+        )
+        (
+            arxiv_plot_extract_task
             >> arxiv_author_list_task
             >> populate_submission_document_task
             >> download_documents()
@@ -2044,11 +2077,11 @@ def hep_create_dag():
                 match["id"], f"Blocked by workflow {older_workflow['id']}"
             )
 
+    save_and_complete_workflow_task = save_and_complete_workflow()
     preprocessing_group = preprocessing()
     check_for_fuzzy_matches_task = check_for_fuzzy_matches()
     check_for_exact_matches_task = check_for_exact_matches()
     check_auto_approve_task = check_auto_approve()
-    save_and_complete_workflow_task = save_and_complete_workflow()
     stop_if_existing_submission_notify_and_close_task = (
         stop_if_existing_submission_notify_and_close()
     )
