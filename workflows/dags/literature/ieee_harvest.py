@@ -1,5 +1,6 @@
 import datetime
 import logging
+import re
 from io import BytesIO
 
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
@@ -9,8 +10,8 @@ from hooks.backoffice.workflow_management_hook import (
     HEP,
 )
 from hooks.custom_fttps_hook import CustomFTPSHook
+from include.utils import ftp as ftp_utils
 from include.utils.alerts import FailedDagNotifierSetError
-from include.utils.ftp import list_ftp_files
 
 logger = logging.getLogger(__name__)
 
@@ -61,22 +62,44 @@ def ieee_harvest_dag():
 
         has_new_directory = False
 
+        logical_date = context["logical_date"]
+        current_week = int(logical_date.strftime("%W"))
+        year = int(logical_date.strftime("%Y"))
+
         for directory in directories:
+            match = re.fullmatch(
+                r"(?P<prefix>.*?)(?P<week_name>week(?P<week>\d+)[a-z]?)",
+                directory,
+            )
+            if not match:
+                logger.warning(
+                    f"Directory {directory} does not match the expected pattern"
+                )
+                continue
+
+            week_directory = int(match.group("week"))
+            year_prefix = year - 1 if week_directory > current_week else year
+            s3_directory = (
+                f"{match.group('prefix')}{year_prefix}-{match.group('week_name')}"
+            )
+
             there_is_key = s3_hook.check_for_wildcard_key(
-                f"{directory}/*", ieee_bucket_name
+                f"{s3_directory}/*", ieee_bucket_name
             )
 
             if not there_is_key:
                 logger.info(f"Pushing directory {directory} to s3")
-                has_new_directory = True
-                files = list_ftp_files(ftp_hook, directory)
+                files = ftp_utils.list_ftp_files(ftp_hook, directory)
 
                 for file in files:
                     bio = BytesIO()
                     ftp_hook.get_conn()
                     ftp_hook.retrieve_file(file, bio)
                     bio.seek(0)
-                    s3_hook.conn.upload_fileobj(bio, ieee_bucket_name, file)
+                    s3_file = file.replace(directory, s3_directory, 1)
+                    s3_hook.conn.upload_fileobj(bio, ieee_bucket_name, s3_file)
+
+                has_new_directory = True
 
         return has_new_directory
 
