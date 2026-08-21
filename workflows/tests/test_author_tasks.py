@@ -124,53 +124,112 @@ class TestAuthorCreateInit:
             noticket_context,
         )
 
-    def test_author_check_approval_branch(self):
-        task = self.dag.get_task("author_check_approval_branch")
-        result = task.python_callable(
-            params={"workflow_id": 1, "workflow": {"data": {}}}
-        )
-        assert result == "set_author_create_workflow_status_to_approval"
-
-        result = task.python_callable(
-            params={
+    @patch(
+        "author.author_create.author_create_init.WorkflowManagementHook.get_workflow"
+    )
+    @patch(
+        "author.author_create.author_create_init.WorkflowManagementHook.set_workflow_status"
+    )
+    def test_await_author_check_approval_without_decisions(
+        self, mock_set_workflow_status, mock_get_workflow
+    ):
+        mock_get_workflow.return_value = {"data": {}, "decisions": []}
+        result = task_test(
+            self.dag,
+            "await_author_check_approval",
+            self.context,
+            context_params={
                 "workflow_id": 1,
-                "workflow": {"data": {"decisions": [{"value": "accept"}]}},
-            }
+                "workflow": {"data": {}},
+            },
         )
-        assert result == "trigger_accept"
 
-        result = task.python_callable(
-            params={
+        assert result is False
+        mock_set_workflow_status.assert_called_once_with(
+            status_name="approval",
+            workflow_id=1,
+        )
+
+    @patch(
+        "author.author_create.author_create_init.WorkflowManagementHook.get_workflow"
+    )
+    @patch(
+        "author.author_create.author_create_init.WorkflowManagementHook.set_workflow_status"
+    )
+    def test_await_author_check_approval_with_decisions(
+        self, mock_set_workflow_status, mock_get_workflow
+    ):
+        mock_get_workflow.return_value = {
+            "data": {},
+            "decisions": [{"action": "accept"}],
+        }
+        result = task_test(
+            self.dag,
+            "await_author_check_approval",
+            self.context,
+            context_params={
                 "workflow_id": 1,
-                "workflow": {"data": {"decisions": [{"value": "reject"}]}},
-            }
+                "workflow": {"data": {"decisions": [{"action": "accept"}]}},
+            },
         )
-        assert result == "trigger_reject"
 
+        assert result is True
+        mock_set_workflow_status.assert_not_called()
 
-@pytest.mark.usefixtures("hep_env")
-class TestAuthorCreateApproved:
-    context = copy.deepcopy(base_context)
-    dag = dagbag.get_dag("author_create_approved_dag")
-
-    @pytest.mark.vcr
-    def test_close_author_create_user_ticket(self):
+    @patch("author.author_create.author_create_init.InspireHttpHook.close_ticket")
+    @patch(
+        "author.author_create.author_create_init.WorkflowManagementHook.get_workflow"
+    )
+    @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
+    def test_close_author_create_user_ticket(
+        self, mock_get_workflow, mock_close_ticket
+    ):
         self.context["ti"].xcom_pull.return_value = 123456
+        mock_get_workflow.return_value = self.context["params"]["workflow"]
         task_test(
             self.dag,
             "close_author_create_user_ticket",
             self.context,
         )
+        mock_close_ticket.assert_called_once()
 
-    @pytest.mark.vcr
+    @patch("author.author_create.author_create_init.InspireHttpHook.get_conn")
+    @patch("include.utils.tickets.BaseWorkflowTicketManagementHook.create_ticket_entry")
+    @patch("author.author_create.author_create_init.InspireHttpHook.create_ticket")
     @patch.dict("os.environ", {"AIRFLOW_VAR_ENVIRONMENT": "prod"})
-    def test_create_author_create_curation_ticket(self):
+    def test_create_author_create_curation_ticket(
+        self, mock_create_ticket, mock_create_ticket_entry, mock_get_conn
+    ):
         self.context["ti"].xcom_pull.return_value = 123456
+        mock_create_ticket.return_value.json.return_value = {"ticket_id": "ticket-123"}
         task_test(
             self.dag,
             "create_author_create_curation_ticket",
             self.context,
         )
+        mock_get_conn.assert_called_once()
+        mock_create_ticket.assert_called_once()
+        mock_create_ticket_entry.assert_called_once()
+
+    def test_author_check_approval_branch(self):
+        self.context["ti"].xcom_pull.return_value = "accept_curate"
+
+        result = task_test(
+            self.dag,
+            "author_check_approval_branch",
+            self.context,
+        )
+
+        assert result == "create_author_on_inspire"
+
+        self.context["ti"].xcom_pull.return_value = "reject"
+
+        result = task_test(
+            self.dag,
+            "author_check_approval_branch",
+            self.context,
+        )
+        assert result == "close_author_create_user_ticket"
 
 
 @pytest.mark.usefixtures("hep_env")
