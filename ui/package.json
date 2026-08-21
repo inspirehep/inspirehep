@@ -44,7 +44,6 @@
     "immutable": "^4.1.0",
     "inspire-schemas": "^61.6.33",
     "is-valid-orcid": "^1.2.0",
-    "jsondiffpatch": "^0.3.11",
     "lodash": "^4.17.21",
     "math-interval-2": "^1.1.0",
     "moment-timezone": "^0.6.2",

@@ -15,7 +15,6 @@ import PrivateRoute from './common/PrivateRoute';
 import {
   HOME,
   USER,
-  HOLDINGPEN,
   BACKOFFICE,
   LITERATURE,
   AUTHORS,
@@ -50,7 +49,6 @@ import Journals from './journals';
 import BibliographyGeneratorPageContainer from './bibliographyGenerator/BibliographyGeneratorPageContainer';
 import { SUPERUSER_OR_CATALOGER } from './common/authorization';
 
-const Holdingpen$ = React.lazy(() => import('./holdingpen'));
 const Backoffice$ = React.lazy(() => import('./backoffice'));
 const Submissions$ = React.lazy(() => import('./submissions'));
 
@@ -85,7 +83,6 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
           <SafeSwitch id="main">
             <Route exact path={HOME} component={Home} />
             <Route path={USER} component={User} />
-            <PrivateRoute path={HOLDINGPEN} component={Holdingpen$} />
             <PrivateRoute
               path={BACKOFFICE}
               component={Backoffice$}

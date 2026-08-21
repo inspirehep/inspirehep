@@ -4,7 +4,6 @@ import { connectRouter } from 'connected-react-router';
 import search, { initialState as searchInitialState } from './search';
 import literature from './literature';
 import exceptions from './exceptions';
-import inspect from './inspect';
 import user, { initialState as userInitialState } from './user';
 import submissions from './submissions';
 import citations from './citations';
@@ -28,7 +27,6 @@ export default function createRootReducer(history) {
   return combineReducers({
     router: connectRouter(history),
     exceptions,
-    inspect,
     literature,
     user,
     settings,

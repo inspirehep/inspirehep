@@ -38,7 +38,6 @@ export const JOURNALS_PID_TYPE = 'journals';
 export const DATA_PID_TYPE = 'data';
 
 export const INVENIO_URL = '//invenio-software.org';
-export const HOLDINGPEN_URL = '/holdingpen';
 export const LEGACY_URL = 'https://old.inspirehep.net';
 export const AUTHORLIST_TOOL_URL = '/tools/authorlist';
 export const INSPIRE_TWITTER_ACCOUNT = 'https://x.com/inspirehep';

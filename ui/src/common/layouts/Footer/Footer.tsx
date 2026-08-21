@@ -13,7 +13,6 @@ import {
   FAQ_URL,
   HELP_BLOG_URL,
   BLOG_URL,
-  HOLDINGPEN_URL,
   AUTHORLIST_TOOL_URL,
   INVENIO_URL,
   REPORT_METADATA_URL,
@@ -84,12 +83,6 @@ const COLUMNS = [
   {
     title: 'Tools',
     items: [
-      {
-        title: 'Holdingpen',
-        onlyCatalogers: true,
-        url: HOLDINGPEN_URL,
-        openExternal: true,
-      },
       {
         title: 'Backoffice',
         onlyCatalogers: true,
