@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { Action, ActionCreator, AnyAction, Dispatch } from 'redux';
 import { connect, ConnectedComponent } from 'react-redux';
 import { Params, useParams } from 'react-router-dom';
@@ -38,16 +38,8 @@ export default function withRouteActionsDispatcher<T>(
     loading: boolean;
   }) => {
     const params = useParams();
-    // Keep `selectedParam` referentially stable so the effect below only re-runs
-    // when the resolved param values change, not on every render. This matters
-    // for selectors that return a fresh object (e.g. the reference diff page),
-    // which would otherwise re-dispatch the route actions on each render.
-    const paramsKey = JSON.stringify(params);
-    const selectedParam = useMemo(
-      () => routeParamSelector(params as { id: string }),
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [paramsKey]
-    );
+    const selectedParam = routeParamSelector(params);
+
     useEffect(() => {
       routeActions(selectedParam).forEach(dispatch);
     }, [selectedParam, dispatch]);

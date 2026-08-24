@@ -8,9 +8,6 @@ import {
   LITERATURE_REFERENCES_ERROR,
   LITERATURE_REFERENCES_REQUEST,
   LITERATURE_REFERENCES_SUCCESS,
-  REFERENCES_DIFF_REQUEST,
-  REFERENCES_DIFF_SUCCESS,
-  REFERENCES_DIFF_ERROR,
   LITERATURE_AUTHORS_ERROR,
   LITERATURE_AUTHORS_REQUEST,
   LITERATURE_AUTHORS_SUCCESS,
@@ -78,22 +75,6 @@ const literatureReducer = (state = initialState, action) => {
         .set('errorReferences', fromJS(action.payload.error))
         .set('references', initialState.get('references'))
         .set('totalReferences', initialState.get('totalReferences'));
-    case REFERENCES_DIFF_REQUEST:
-      return state.set('loadingReferencesDiff', true);
-    case REFERENCES_DIFF_SUCCESS:
-      return state
-        .set('loadingReferencesDiff', false)
-        .set('referencesDiff', {
-          previousVersion: fromJS(JSON.parse(action.payload.previous_version)),
-          currentVersion: fromJS(JSON.parse(action.payload.current_version)),
-          referenceId: fromJS(action.payload.reference_index),
-        })
-        .set('errorReferencesDiff', initialState.get('errorReferences'));
-    case REFERENCES_DIFF_ERROR:
-      return state
-        .set('loadingReferencesDiff', false)
-        .set('errorReferencesDiff', fromJS(action.payload.error))
-        .set('referencesDiff', initialState.get('referencesDiff'));
     case LITERATURE_AUTHORS_REQUEST:
       return state.set('loadingAuthors', true);
     case LITERATURE_AUTHORS_SUCCESS:
