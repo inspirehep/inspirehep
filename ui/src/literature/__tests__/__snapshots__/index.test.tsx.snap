@@ -1,67 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Literature > does not navigate to ReferenceDiffInterfaceContainer when user is not authorised 1`] = `
-<DocumentFragment>
-  <div
-    class="__Literature__"
-    data-testid="literature"
-  />
-</DocumentFragment>
-`;
-
 exports[`Literature > navigates to DetailPageContainer when /literature/:id 1`] = `
-<DocumentFragment>
-  <div
-    class="__Literature__"
-    data-testid="literature"
-  >
-    <div
-      class="ant-row ant-row-center ant-row-middle w-100"
-      type="flex"
-    >
-      <div
-        class="ant-col"
-      >
-        <div
-          class="tc pa4"
-          data-test-id="loading"
-          data-testid="loading-spinner"
-        >
-          <div
-            aria-busy="true"
-            aria-live="polite"
-            class="ant-spin ant-spin-spinning ant-spin-show-text"
-          >
-            <span
-              class="ant-spin-dot ant-spin-dot-spin"
-            >
-              <i
-                class="ant-spin-dot-item"
-              />
-              <i
-                class="ant-spin-dot-item"
-              />
-              <i
-                class="ant-spin-dot-item"
-              />
-              <i
-                class="ant-spin-dot-item"
-              />
-            </span>
-            <div
-              class="ant-spin-text"
-            >
-              Loading ...
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`Literature > navigates to ReferenceDiffInterfaceContainer when /literature/:id/diff/:old..:new 1`] = `
 <DocumentFragment>
   <div
     class="__Literature__"
