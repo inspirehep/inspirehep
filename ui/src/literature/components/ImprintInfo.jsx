@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { hasDayMonthAndYear, hasMonthAndYear } from '../../common/utils';
 
 import InlineDataList, {
@@ -26,7 +26,7 @@ class ImprintInfo extends Component {
     const place = imprint.get('place');
     const publisher = imprint.get('publisher');
 
-    const datePart = date ? moment(date).format(formatDate(date)) : '';
+    const datePart = date ? dayjs(date).format(formatDate(date)) : '';
     const placePart = place ? ` in ${place} ` : '';
     const publisherPart = publisher ? ` by ${publisher} ` : '';
 
