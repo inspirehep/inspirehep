@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 import DocumentHead from '../../common/components/DocumentHead';
 import { makeCompliantMetaDescription } from '../../common/utils';
@@ -11,7 +11,7 @@ function LiteratureDocumentHead({ metadata, created }) {
   const title = metadata.getIn(['titles', 0, 'title']);
   const abstract = metadata.getIn(['abstracts', 0, 'value']);
 
-  const onlineDate = moment(created).format(FULL_DATE_FORMAT);
+  const onlineDate = dayjs(created).format(FULL_DATE_FORMAT);
 
   const arxiv = metadata.getIn(['arxiv_eprints', 0, 'value']);
   const doi = metadata.getIn(['dois', 0, 'value']);
