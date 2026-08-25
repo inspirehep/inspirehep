@@ -39,7 +39,8 @@ export const DATA_PID_TYPE = 'data';
 
 export const INVENIO_URL = '//invenio-software.org';
 export const LEGACY_URL = 'https://old.inspirehep.net';
-export const AUTHORLIST_TOOL_URL = '/tools/authorlist';
+export const AUTHORLIST_TOOL_URL =
+  'https://cern.service-now.com/service-portal?sys_kb_id=c306d05e83f60b10bd5a5fb6feaad38a&id=kb_article_view&sysparm_rank=1&sysparm_tsqueryId=10a255eb837e4710bd5a5fb6feaad33c';
 export const INSPIRE_TWITTER_ACCOUNT = 'https://x.com/inspirehep';
 export const INSPIRE_BLUESKY_ACCOUNT =
   'https://bsky.app/profile/inspirehep.net';
