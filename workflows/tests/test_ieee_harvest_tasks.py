@@ -67,6 +67,41 @@ class TestIEEEHarvest:
 
     @patch(
         "include.utils.ftp.list_ftp_files",
+        return_value=["IEEEUpdates_Cern/week01a/1.xml"],
+    )
+    @patch(
+        "hooks.custom_fttps_hook.CustomFTPSHook.list_directory",
+        return_value=["IEEEUpdates_Cern/week01a"],
+    )
+    @patch(
+        "hooks.custom_fttps_hook.CustomFTPSHook.retrieve_file",
+        return_value=["file content"],
+    )
+    @patch("hooks.custom_fttps_hook.CustomFTPSHook.get_conn", return_value=True)
+    def test_ftp_to_s3_uses_iso_year_for_week_one(
+        self,
+        mock_get_conn,
+        mock_retrieve_file,
+        mock_list_directory,
+        mock_list_ftp_files,
+    ):
+        ieee_bucket_name = Variable.get("s3_ieee_bucket_name")
+        s3_key = "IEEEUpdates_Cern/2025-week01a/1.xml"
+        self.clear_s3_prefix("IEEEUpdates_Cern/2025-week01a/")
+
+        has_new_directory = task_test(
+            self.dag,
+            task_id="ftp_to_s3",
+            context={"logical_date": datetime.datetime(2024, 12, 30)},
+            params={"sync_folder": "IEEEUpdates_Cern"},
+        )
+
+        assert has_new_directory is True
+        assert self.s3_store.hook.get_key(s3_key, ieee_bucket_name) is not None
+        mock_list_ftp_files.assert_called_once()
+
+    @patch(
+        "include.utils.ftp.list_ftp_files",
         return_value=["IEEEUpdates_Cern/week52a/1.xml"],
     )
     @patch(

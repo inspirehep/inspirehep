@@ -62,9 +62,7 @@ def ieee_harvest_dag():
 
         has_new_directory = False
 
-        logical_date = context["logical_date"]
-        current_week = int(logical_date.strftime("%W"))
-        year = int(logical_date.strftime("%Y"))
+        year, current_week, _ = context["logical_date"].isocalendar()
 
         for directory in directories:
             match = re.fullmatch(
