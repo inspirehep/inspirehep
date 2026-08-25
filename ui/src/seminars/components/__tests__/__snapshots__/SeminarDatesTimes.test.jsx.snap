@@ -19,7 +19,7 @@ exports[`SeminarDateTimes > renders with dates same day 1`] = `
 exports[`SeminarDateTimes > renders with timezone abbreviation 1`] = `
 <DocumentFragment>
   <span>
-    15 May 2020, 01:45 PM - 17 May 2021, 02:45 AM CEST
+    15 May 2020, 01:45 PM - 17 May 2021, 02:45 AM GMT+2
   </span>
 </DocumentFragment>
 `;
