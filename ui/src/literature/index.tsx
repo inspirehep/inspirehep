@@ -1,22 +1,17 @@
 import { Route } from 'react-router-dom';
 
 import './index.less';
-import { LITERATURE } from '../common/routes';
 import SearchPageContainer from './containers/SearchPageContainer';
 import DetailPageContainer from './containers/DetailPageContainer';
-import SafeSwitch from '../common/components/SafeSwitch';
+import RoutesWithFallback from '../common/components/RoutesWithFallback';
 
 function Literature() {
   return (
     <div className="__Literature__" data-testid="literature">
-      <SafeSwitch>
-        <Route exact path={LITERATURE} component={SearchPageContainer} />
-        <Route
-          exact
-          path={`${LITERATURE}/:id`}
-          component={DetailPageContainer}
-        />
-      </SafeSwitch>
+      <RoutesWithFallback>
+        <Route index element={<SearchPageContainer />} />
+        <Route path=":id" element={<DetailPageContainer />} />
+      </RoutesWithFallback>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { LOCATION_CHANGE } from 'connected-react-router';
+import { LOCATION_CHANGE } from 'redux-first-history';
 import { HOME } from '../common/routes';
 
 let previousUrl = HOME;
@@ -7,7 +7,7 @@ export default () => {
   return (next) => (action) => {
     if (action.type === LOCATION_CHANGE) {
       const { location } = action.payload;
-      location.previousUrl = previousUrl;
+      action.payload.location = { ...location, previousUrl };
 
       const { pathname, search } = location;
       // TODO: keep #hash

@@ -1,5 +1,5 @@
 import MockAdapter from 'axios-mock-adapter';
-import { push, goBack } from 'connected-react-router';
+import { push, goBack } from 'redux-first-history';
 
 import { getStore } from '../../fixtures/store';
 import {
