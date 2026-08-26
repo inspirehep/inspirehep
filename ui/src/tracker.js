@@ -18,7 +18,25 @@ export function injectTrackerToHistory(history) {
       url: PIWIK_URL,
       siteId: Number(PIWIK_SITE_ID),
     });
-    return piwik.connectToHistory(history);
+    // react-piwik@1.12.0's published build forwards the raw `listen` argument
+    // straight to `track()`, which reads `pathname`/`search` off it. But
+    // redux-first-history (history v5) emits `{ location, action }`, so Piwik
+    // would compute `undefined + undefined` and crash on `.replace`. Hand it a
+    // history whose `listen` unwraps that object into a bare location.
+    const historyForTracker = {
+      get location() {
+        return history.location;
+      },
+      listen: (callback) =>
+        history.listen((update) => {
+          try {
+            callback(update && update.location ? update.location : update);
+          } catch {
+            console.error('piwik is failing to listen the new location');
+          }
+        }),
+    };
+    piwik.connectToHistory(historyForTracker);
   }
 
   return history;
