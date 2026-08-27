@@ -14,9 +14,10 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
+    "test:type": "tsc --noEmit",
     "test:unit": "vitest run --silent",
     "test:size": "yarn build && bundlemon",
-    "test": "yarn lint && yarn test:unit && yarn test:size",
+    "test": "yarn lint && yarn test:type && yarn test:unit && yarn test:size",
     "analyze": "vite build --mode analyze",
     "lint": "eslint ./src --config eslint.config.mjs"
   },
@@ -75,7 +76,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^9",
-    "@types/dompurify": "^3.0.5",
     "@types/lodash": "^4.17.20",
     "@types/qs": "^6.9.7",
     "@types/react-copy-to-clipboard": "^5.0.4",
