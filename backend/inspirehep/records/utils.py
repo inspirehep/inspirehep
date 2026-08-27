@@ -163,17 +163,3 @@ def is_document_scanned(file_data):
             if page_text:
                 return False
     return True
-
-
-def get_changed_reference(old_record_version, new_record_version):
-    old_references = old_record_version.get("references", [])
-    new_references = new_record_version.get("references", [])
-    for idx, (old_ref, new_ref) in enumerate(
-        zip(old_references, new_references, strict=False)
-    ):
-        if old_ref != new_ref:
-            return {
-                "current_version": new_ref,
-                "previous_version": old_ref,
-                "reference_index": idx,
-            }
