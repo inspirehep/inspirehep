@@ -33,17 +33,19 @@ export default function withRouteActionsDispatcher<T>(
   const Wrapper = ({
     dispatch,
     loading,
+    loggedIn,
     ...props
   }: {
     dispatch: ActionCreator<Action>;
     loading: boolean;
+    loggedIn: boolean;
   }) => {
     const params = useParams();
     const selectedParam = routeParamSelector(params);
 
     useEffect(() => {
       routeActions(selectedParam).forEach(dispatch);
-    }, [selectedParam, dispatch]);
+    }, [selectedParam, dispatch, loggedIn]);
 
     return (
       <LoadingOrChildren loading={loading}>
@@ -53,7 +55,10 @@ export default function withRouteActionsDispatcher<T>(
   };
 
   const ConnectedWrapper = connect(
-    (state: RootState) => ({ loading: loadingStateSelector(state) }),
+    (state: RootState) => ({
+      loading: loadingStateSelector(state),
+      loggedIn: state.user.get('loggedIn'),
+    }),
     (dispatch) => ({ dispatch })
   )(Wrapper);
 
