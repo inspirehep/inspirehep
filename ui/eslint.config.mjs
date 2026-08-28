@@ -61,7 +61,7 @@ const coreRules = {
   'no-alert': 'warn',
   'no-await-in-loop': 'error',
   'no-bitwise': 'error',
-  'no-console': 'warn',
+  'no-console': ['error', { allow: ['error'] }],
   'no-continue': 'error',
   'no-else-return': ['error', { allowElseIf: false }],
   'no-eval': 'error',

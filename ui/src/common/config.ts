@@ -7,7 +7,7 @@ export function getConfigFor(configKey: string, notSetValue: any = null) {
       : notSetValue;
   } catch (error) {
     Sentry.captureException(error);
-    console.error(error); // eslint-disable-line no-console
+    console.error(error);
     return notSetValue;
   }
 }
