@@ -1,11 +1,8 @@
-import { screen, waitFor, render, fireEvent } from '@testing-library/react';
+import { screen, render, fireEvent } from '@testing-library/react';
 
 import { renderWithProviders } from '../../../../fixtures/render';
 import { getStore } from '../../../../fixtures/store';
-import CitationSummaryGraph, {
-  BarType,
-  HOVERED_BLUE,
-} from '../CitationSummaryGraph';
+import CitationSummaryGraph, { BarType } from '../CitationSummaryGraph';
 import { CITEABLE_BAR_TYPE } from '../../../constants';
 
 describe('CitationSummaryGraph', () => {
@@ -122,29 +119,6 @@ describe('CitationSummaryGraph', () => {
     const yAxis = container.getElementsByClassName('y-axis')[0];
     expect(xAxis).toBeInTheDocument();
     expect(yAxis).toBeInTheDocument();
-  });
-
-  it('should highlight the hovered bar', async () => {
-    const { container } = renderWithProviders(
-      <CitationSummaryGraph {...testData} />,
-      { store }
-    );
-    const citeableBars = container.getElementsByClassName(
-      'recharts-layer recharts-bar-rectangle'
-    );
-    const firstCiteableBar = citeableBars[0];
-
-    fireEvent.mouseEnter(firstCiteableBar);
-
-    await waitFor(() => {
-      const bars = container.getElementsByClassName(
-        'recharts-layer recharts-bar-rectangle'
-      );
-      expect(bars[0].children[0].children[0]).toHaveAttribute(
-        'fill',
-        HOVERED_BLUE
-      );
-    });
   });
 
   it('should select a bar when it is clicked and call the onSelectBarChange function', () => {

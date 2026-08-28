@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
 import {
   XAxis,
   YAxis,
@@ -23,9 +23,7 @@ const GRAPH_MARGIN = { left: 0, right: 30, top: 40, bottom: 40 };
 const GRAPH_HEIGHT = 300;
 
 export const ORANGE = styleVariables['@orange-6'];
-export const HOVERED_ORANGE = styleVariables['@orange-7'];
 export const BLUE = styleVariables['@primary-color'];
-export const HOVERED_BLUE = styleVariables['@blue-7'];
 export const GRAY = styleVariables['@gray-6'];
 
 const getCountLabel = (docCount: number) => {
@@ -45,8 +43,8 @@ const xValueToLabel = {
 };
 
 const typeToColors = {
-  [CITEABLE_BAR_TYPE]: { color: BLUE, hoveredColor: HOVERED_BLUE },
-  [PUBLISHED_BAR_TYPE]: { color: ORANGE, hoveredColor: HOVERED_ORANGE },
+  [CITEABLE_BAR_TYPE]: BLUE,
+  [PUBLISHED_BAR_TYPE]: ORANGE,
 };
 
 export interface BarType {
@@ -96,21 +94,16 @@ const CitationSummaryGraph = ({
   onSelectBarChange,
   excludeSelfCitations = false,
 }: CitationSummaryGraphProps) => {
-  const [hoveredBar, setHoveredBar] = useState<BarType | null>(null);
-
   const isMobile = useResponsiveCheck({ max: 'sm' });
 
   const getBarColor = useCallback(
     (bar: BarType) => {
-      if (shallowEqual(bar, hoveredBar as BarType)) {
-        return typeToColors[bar.type].hoveredColor;
-      }
       if (!selectedBar || shallowEqual(bar, selectedBar)) {
-        return typeToColors[bar.type].color;
+        return typeToColors[bar.type];
       }
       return GRAY;
     },
-    [hoveredBar, selectedBar]
+    [selectedBar]
   );
 
   const citeableBarShape = useCallback(
@@ -150,10 +143,6 @@ const CitationSummaryGraph = ({
   const isSelectedBar = (bar: BarType) =>
     selectedBar && shallowEqual(bar, selectedBar);
 
-  const onBarMouseOut = () => {
-    setHoveredBar(null);
-  };
-
   const onBarClick = (clickedBar: BarType) => {
     if (isSelectedBar(clickedBar)) {
       onSelectBarChange(null);
@@ -170,16 +159,6 @@ const CitationSummaryGraph = ({
   const onPublishedBarClick = (datapoint: BarEventData) => {
     if (datapoint.payload === undefined) return;
     onBarClick({ xValue: datapoint.payload.x, type: PUBLISHED_BAR_TYPE });
-  };
-
-  const onCiteableBarHover = (datapoint: BarEventData) => {
-    if (datapoint.payload === undefined) return;
-    setHoveredBar({ xValue: datapoint.payload.x, type: CITEABLE_BAR_TYPE });
-  };
-
-  const onPublishedBarHover = (datapoint: BarEventData) => {
-    if (datapoint.payload === undefined) return;
-    setHoveredBar({ xValue: datapoint.payload.x, type: PUBLISHED_BAR_TYPE });
   };
 
   const mergedData = useMemo<MergedBarData[]>(() => {
@@ -247,10 +226,8 @@ const CitationSummaryGraph = ({
                         name="Citeable"
                         fill={BLUE}
                         isAnimationActive={false}
-                        onMouseEnter={onCiteableBarHover}
                         onClick={onCiteableBarClick}
-                        onMouseLeave={onBarMouseOut}
-                        className="pointer"
+                        className="pointer citeable-bar"
                       >
                         <LabelList
                           dataKey="citeableY"
@@ -264,10 +241,8 @@ const CitationSummaryGraph = ({
                         name="Published"
                         fill={ORANGE}
                         isAnimationActive={false}
-                        onMouseEnter={onPublishedBarHover}
                         onClick={onPublishedBarClick}
-                        onMouseLeave={onBarMouseOut}
-                        className="pointer"
+                        className="pointer published-bar"
                       >
                         <LabelList
                           dataKey="publishedY"
