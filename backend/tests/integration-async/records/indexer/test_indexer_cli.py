@@ -138,13 +138,35 @@ def test_reindex_records_lit_using_multiple_batches(
     assert "0 failed" in result.output
 
 
-def test_reindex_only_one_record(inspire_app, clean_celery_session, cli):
+@patch("inspirehep.indexer.cli.InspireRecord.index")
+def test_reindex_only_one_record(mock_index, inspire_app, clean_celery_session, cli):
     generate_records(count=1, data={"control_number": 3}, with_control_number=False)
+    mock_index.reset_mock()
+
     result = cli.invoke(["index", "reindex", "-id", "lit", "3", "-q", ""])
 
     expected_message = "Successfully reindexed record ('lit', '3')"
     assert result.exit_code == 0
     assert expected_message in result.output
+    mock_index.assert_called_once_with(delay=False)
+
+
+@patch("inspirehep.indexer.cli.InspireRecord.index")
+def test_reindex_only_one_record_failure(
+    mock_index, inspire_app, clean_celery_session, cli
+):
+    generate_records(count=1, data={"control_number": 3}, with_control_number=False)
+    mock_index.reset_mock()
+    mock_index.side_effect = RuntimeError("OpenSearch unavailable")
+
+    result = cli.invoke(["index", "reindex", "-id", "lit", "3", "-q", ""])
+
+    assert result.exit_code == 1
+    assert (
+        "Error: Failed to reindex record ('lit', '3'): OpenSearch unavailable"
+        in result.output
+    )
+    assert "Successfully reindexed" not in result.output
 
 
 def test_reindex_only_one_record_fulltext(
