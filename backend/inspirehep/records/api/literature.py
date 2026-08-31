@@ -705,6 +705,7 @@ def import_arxiv(arxiv_id):
         return {}
 
     try:
+        response.encoding = "utf-8"
         parser = ArxivParser(response.text)
         return parser.parse()
     except Exception as exc:

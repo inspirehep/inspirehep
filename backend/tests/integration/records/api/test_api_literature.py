@@ -21,7 +21,10 @@ from helpers.utils import (
 )
 from inspirehep.files.proxies import current_s3_instance
 from inspirehep.records.api.base import InspireRecord
-from inspirehep.records.api.literature import LiteratureRecord, import_article
+from inspirehep.records.api.literature import (
+    LiteratureRecord,
+    import_article,
+)
 from inspirehep.records.errors import (
     ExistingArticleError,
     FileSizeExceededError,
@@ -547,6 +550,19 @@ def test_import_article_doi_already_in_inspire(inspire_app):
 
     with pytest.raises(ExistingArticleError):
         import_article(doi_value)
+
+
+@pytest.mark.vcr
+def test_import_article_arxiv_decodes_response_as_utf8(inspire_app):
+    arxiv_id = "2607.20148"
+
+    result = import_article(f"arXiv:{arxiv_id}")
+
+    parsed_text = result["titles"][0]["title"]
+    assert (
+        parsed_text
+        == "Measurement of the $γγ\\to ττ$ cross section and constraints on the anomalous magnetic moment of the $τ$ lepton in ultraperipheral PbPb collisions at $\\sqrt{s_\\mathrm{NN}}$ = 5.02 TeV"
+    )
 
 
 def test_create_record_update_citation_table(inspire_app):
