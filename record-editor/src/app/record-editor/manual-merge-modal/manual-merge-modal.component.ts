@@ -102,10 +102,14 @@ export class ManualMergeModalComponent extends SubscriberComponent
           this.toastrService.clear(infoToast.toastId);
           window.location.href = `${window.location.origin}/backoffice/literature/${workflow.id}`;
         },
-        () => {
+        (error) => {
+          const errorMessage =
+            error.status === 403
+              ? 'Could not merge: log in to backoffice first, then refresh this page and try again'
+              : 'Could not merge!';
           this.toastrService.clear(infoToast.toastId);
-          this.toastrService.error('Could not merge!', 'Error');
-        }
+          this.toastrService.error(errorMessage, 'Error');
+        },
       );
   }
 
