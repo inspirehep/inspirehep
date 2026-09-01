@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 
 import { searchQueryUpdate } from '../../actions/search';
 import EventStartDateFilter from '../../common/components/EventStartDateFilter';

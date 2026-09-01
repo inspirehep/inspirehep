@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Row, Col } from 'antd';

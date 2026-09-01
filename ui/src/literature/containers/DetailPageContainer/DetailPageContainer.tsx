@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import { Row, Col, Tabs } from 'antd';
 import { Map, List } from 'immutable';
 import classNames from 'classnames';

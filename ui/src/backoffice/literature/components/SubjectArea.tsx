@@ -1,6 +1,6 @@
 import { AutoComplete, Button, Form, Modal, Table } from 'antd';
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import { ActionCreator, Action } from 'redux';
 import { Map } from 'immutable';
 import { BulbOutlined } from '@ant-design/icons';

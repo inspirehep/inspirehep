@@ -1,5 +1,5 @@
 import { Col, Row } from 'antd';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 
 import DocumentHead from '../../common/components/DocumentHead';
 import DataSearchPageContainer from './DataSearchPageContainer';

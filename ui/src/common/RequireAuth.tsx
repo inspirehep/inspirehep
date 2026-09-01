@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import { List } from 'immutable';
 import { Navigate } from 'react-router-dom';
 import { RootState } from '../types';

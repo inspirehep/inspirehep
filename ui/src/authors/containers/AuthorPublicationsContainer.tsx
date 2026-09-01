@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import { RootState } from '../../types';
 
 import { isCataloger, isSuperUser } from '../../common/authorization';

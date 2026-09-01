@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Action, ActionCreator, Dispatch } from 'redux';
-import { connect, ConnectedComponent } from 'react-redux';
+import { legacy_connect as connect, ConnectedComponent } from 'react-redux';
 import { Params, useParams } from 'react-router-dom';
 import { RootState } from '../types';
 
