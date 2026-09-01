@@ -136,7 +136,7 @@ jobs:
           restore-keys: ${{ env.CACHE_PREFIX }}-combined
 
       - name: Download artifacts
-        uses: actions/download-artifact@v7.0.0
+        uses: actions/download-artifact@v8.0.1
         with:
           pattern: ${{ inputs.suite }}-split-*
           path: split-durations
