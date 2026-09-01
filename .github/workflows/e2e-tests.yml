@@ -226,7 +226,7 @@ jobs:
           docker run --rm --network host --env-file ./backoffice-env.list --entrypoint poetry ${{ inputs.backoffice-image }} run python manage.py opensearch document index --force
 
       - name: cypress
-        uses: cypress-io/github-action@v7.4.0
+        uses: cypress-io/github-action@v7.4.3
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
