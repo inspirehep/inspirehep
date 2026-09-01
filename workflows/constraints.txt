@@ -593,7 +593,7 @@ pyzmq==27.1.0
 qdrant-client==1.18.0
 ray==2.56.0
 reactivex==4.1.0
-redis==6.4.0
+redis==8.1.0
 redshift_connector==2.1.15
 referencing==0.37.0
 regex==2026.6.28
