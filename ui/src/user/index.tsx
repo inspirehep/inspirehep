@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import { Navigate, Route } from 'react-router-dom';
 import { RootState } from '../types';
 
