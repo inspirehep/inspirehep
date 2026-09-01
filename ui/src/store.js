@@ -1,9 +1,9 @@
-import { applyMiddleware, createStore as createReduxStore } from 'redux';
-import thunk from 'redux-thunk';
+import { applyMiddleware, legacy_createStore as createReduxStore } from 'redux';
+import { withExtraArgument } from 'redux-thunk';
 import { createBrowserHistory } from 'history';
 import { createReduxHistoryContext } from 'redux-first-history';
 import { createLogger } from 'redux-logger';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from '@redux-devtools/extension';
 import createRootReducer from './reducers';
 import http from './common/http';
 import queryParamsParserMiddleware from './middlewares/queryParamsParser';
@@ -18,7 +18,7 @@ import actionTrackerMiddleware from './middlewares/actionTracker';
 import syncLocationWithSearch from './middlewares/syncLocationWithSearch';
 import logoutUserOn401 from './middlewares/logoutUserOn401';
 
-export const thunkMiddleware = thunk.withExtraArgument(http);
+export const thunkMiddleware = withExtraArgument(http);
 
 const history = createBrowserHistory();
 const { createReduxHistory, routerMiddleware, routerReducer } =
