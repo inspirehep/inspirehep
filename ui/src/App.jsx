@@ -1,6 +1,6 @@
 import React, { useEffect, Suspense } from 'react';
 import { Route } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import { ConfigProvider, Layout } from 'antd';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';

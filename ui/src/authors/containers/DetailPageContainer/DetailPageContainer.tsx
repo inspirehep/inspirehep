@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
 import { Row, Col, Tabs, Tooltip } from 'antd';
 import { Map, List } from 'immutable';
