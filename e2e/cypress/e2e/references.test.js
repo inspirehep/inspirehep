@@ -226,6 +226,10 @@ describe('Reference container', () => {
       cy.visit('/literature/1688995');
       cy.waitForLoading();
 
+      cy.get('[data-test-id="edit-reference"] .ant-btn', { timeout: 10000 })
+        .first()
+        .should('not.be.disabled');
+
       cy.get('[data-testid="pagination-list"]').as('paginationList');
       cy.get('@paginationList')
         .find('.ant-list-items')
@@ -242,14 +246,16 @@ describe('Reference container', () => {
         .find('div')
         .contains('50 / page')
         .click({ force: true });
-      cy.waitForRoute();
 
+      cy.get('[data-test-id="reference-item"]', { timeout: 30000 }).should(
+        'have.length.at.least',
+        39,
+      );
       cy.get('[data-test-id="reference-item"]').eq(38).as('referenceItem');
       cy.get('@referenceItem')
-        .find('[data-test-id="edit-reference"]')
+        .find('[data-test-id="edit-reference"] .ant-btn')
         .as('editButton');
 
-      cy.wait(3000);
       cy.get('@editButton', { timeout: 10000 })
         .should('not.be.disabled')
         .click();
