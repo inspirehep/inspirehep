@@ -42,7 +42,7 @@ jobs:
           tags: "type=sha"
 
       - name: Login to Harbor
-        uses: docker/login-action@v4.1.0
+        uses: docker/login-action@v4.6.0
         with:
           registry: "registry.cern.ch"
           username: ${{ secrets.HARBOR_USERNAME }}
