@@ -89,40 +89,44 @@ const mockPublishedData = [
 const mockLoading = false;
 const mockError = null;
 const mockCitationsState = fromJS({
-  loadingCitationSummary: mockLoading,
-  errorCitationSummary: mockError,
-  citationSummary: {
-    doc_count: 30,
-    'h-index': {
-      value: {
-        all: 8,
-        published: 9,
-      },
-    },
-    citations: {
-      buckets: {
-        all: {
-          doc_count: 29,
-          citations_count: {
-            value: 2,
-          },
-          citation_buckets: {
-            buckets: mockCiteableData,
-          },
-          average_citations: {
-            value: 4.12345,
+  namespaces: {
+    [AUTHOR_PUBLICATIONS_NS]: {
+      loadingCitationSummary: mockLoading,
+      errorCitationSummary: mockError,
+      citationSummary: {
+        doc_count: 30,
+        'h-index': {
+          value: {
+            all: 8,
+            published: 9,
           },
         },
-        published: {
-          doc_count: 0,
-          citations_count: {
-            value: 20,
-          },
-          citation_buckets: {
-            buckets: mockPublishedData,
-          },
-          average_citations: {
-            value: 9,
+        citations: {
+          buckets: {
+            all: {
+              doc_count: 29,
+              citations_count: {
+                value: 2,
+              },
+              citation_buckets: {
+                buckets: mockCiteableData,
+              },
+              average_citations: {
+                value: 4.12345,
+              },
+            },
+            published: {
+              doc_count: 0,
+              citations_count: {
+                value: 20,
+              },
+              citation_buckets: {
+                buckets: mockPublishedData,
+              },
+              average_citations: {
+                value: 9,
+              },
+            },
           },
         },
       },
