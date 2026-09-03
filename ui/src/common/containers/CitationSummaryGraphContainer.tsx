@@ -64,8 +64,14 @@ const stateToProps = (
   state: RootState,
   { namespace }: { namespace: string }
 ) => ({
-  loading: state.citations.get('loadingCitationSummary'),
+  loading: state.citations.getIn([
+    'namespaces',
+    namespace,
+    'loadingCitationSummary',
+  ]),
   citeableData: state.citations.getIn([
+    'namespaces',
+    namespace,
     'citationSummary',
     'citations',
     'buckets',
@@ -74,6 +80,8 @@ const stateToProps = (
     'buckets',
   ]),
   publishedData: state.citations.getIn([
+    'namespaces',
+    namespace,
     'citationSummary',
     'citations',
     'buckets',
@@ -81,7 +89,11 @@ const stateToProps = (
     'citation_buckets',
     'buckets',
   ]),
-  error: state.citations.get('errorCitationSummary'),
+  error: state.citations.getIn([
+    'namespaces',
+    namespace,
+    'errorCitationSummary',
+  ]),
   selectedBar: getSelectedBar(state, namespace),
   excludeSelfCitations: shouldExcludeSelfCitations(state),
 });
