@@ -3,6 +3,10 @@ import { fetchCitationSummary } from '../actions/citations';
 import { fetchAiSearchResults, isAiSearchQuery } from '../actions/aiSearch';
 import { isCitationSummaryEnabled } from '../literature/containers/CitationSummarySwitchContainer';
 
+function hasNeverFetchedCitationSummary(state, namespace) {
+  return state.citations.getIn(['namespaces', namespace]) == null;
+}
+
 export function onLiteratureQueryChange(
   helper,
   _dispatch,
@@ -22,13 +26,12 @@ export function onLiteratureQueryChange(
   }
 
   if (
-    helper.isInitialQueryUpdate() ||
-    helper.hasQueryChangedExceptSortAndPagination()
+    isCitationSummaryEnabled(helper.state) &&
+    (helper.isInitialQueryUpdate() ||
+      helper.hasQueryChangedExceptSortAndPagination() ||
+      hasNeverFetchedCitationSummary(helper.state, helper.namespace))
   ) {
-    // `if isCitationSummaryEnabled` can be pushed down to `fetchCitationSummary`
-    if (isCitationSummaryEnabled(helper.state)) {
-      helper.dispatch(fetchCitationSummary(helper.namespace));
-    }
+    helper.dispatch(fetchCitationSummary(helper.namespace));
   }
   helper.fetchSearchAggregations();
 }
@@ -44,10 +47,14 @@ export function onEmbeddedLiteratureQueryChange(
 
   if (helper.hasQueryChangedExceptSortAndPagination()) {
     helper.fetchSearchAggregations();
+  }
 
-    if (isCitationSummaryEnabled(helper.state)) {
-      helper.dispatch(fetchCitationSummary(helper.namespace));
-    }
+  if (
+    isCitationSummaryEnabled(helper.state) &&
+    (helper.hasQueryChangedExceptSortAndPagination() ||
+      hasNeverFetchedCitationSummary(helper.state, helper.namespace))
+  ) {
+    helper.dispatch(fetchCitationSummary(helper.namespace));
   }
 }
 

@@ -1,7 +1,9 @@
 import { Map, fromJS } from 'immutable';
 
-import reducer, { initialState } from '../citations';
+import reducer, { initialState, initialNamespaceState } from '../citations';
 import * as types from '../../actions/actionTypes';
+
+const namespace = 'literature';
 
 describe('citations reducer', () => {
   it('default', () => {
@@ -10,12 +12,18 @@ describe('citations reducer', () => {
   });
 
   it('CITATIONS_SUMMARY_REQUEST', () => {
-    const state = reducer(Map(), { type: types.CITATIONS_SUMMARY_REQUEST });
-    expect(state.get('loadingCitationSummary')).toEqual(true);
+    const state = reducer(Map(), {
+      type: types.CITATIONS_SUMMARY_REQUEST,
+      payload: { namespace },
+    });
+    expect(
+      state.getIn(['namespaces', namespace, 'loadingCitationSummary'])
+    ).toEqual(true);
   });
 
   it('CITATIONS_SUMMARY_SUCCESS', () => {
     const payload = {
+      namespace,
       aggregations: {
         citation_summary: {
           citation_count: 1,
@@ -28,14 +36,15 @@ describe('citations reducer', () => {
     });
     const expected = fromJS({
       loadingCitationSummary: false,
-      errorCitationSummary: initialState.get('errorCitationSummary'),
+      errorCitationSummary: initialNamespaceState.get('errorCitationSummary'),
       citationSummary: payload.aggregations.citation_summary,
     });
-    expect(state).toEqual(expected);
+    expect(state.getIn(['namespaces', namespace])).toEqual(expected);
   });
 
   it('CITATIONS_SUMMARY_ERROR', () => {
     const payload = {
+      namespace,
       error: { message: 'error' },
     };
     const state = reducer(Map(), {
@@ -45,9 +54,35 @@ describe('citations reducer', () => {
     const expected = fromJS({
       loadingCitationSummary: false,
       errorCitationSummary: payload.error,
-      citationSummary: initialState.get('citationSummary'),
+      citationSummary: initialNamespaceState.get('citationSummary'),
     });
-    expect(state).toEqual(expected);
+    expect(state.getIn(['namespaces', namespace])).toEqual(expected);
+  });
+
+  it('keeps citation summaries for different namespaces independent', () => {
+    let state = reducer(Map(), {
+      type: types.CITATIONS_SUMMARY_SUCCESS,
+      payload: {
+        namespace: 'literature',
+        aggregations: { citation_summary: { citation_count: 1 } },
+      },
+    });
+    state = reducer(state, {
+      type: types.CITATIONS_SUMMARY_SUCCESS,
+      payload: {
+        namespace: 'authorPublications',
+        aggregations: { citation_summary: { citation_count: 2 } },
+      },
+    });
+
+    expect(
+      state.getIn(['namespaces', 'literature', 'citationSummary']).toJS()
+    ).toEqual({ citation_count: 1 });
+    expect(
+      state
+        .getIn(['namespaces', 'authorPublications', 'citationSummary'])
+        .toJS()
+    ).toEqual({ citation_count: 2 });
   });
 
   it('CITATIONS_BY_YEAR_REQUEST', () => {

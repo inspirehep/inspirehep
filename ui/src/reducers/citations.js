@@ -9,32 +9,57 @@ import {
   CITATIONS_BY_YEAR_ERROR,
 } from '../actions/actionTypes';
 
-export const initialState = fromJS({
+export const initialNamespaceState = fromJS({
   loadingCitationSummary: false,
   citationSummary: null,
   errorCitationSummary: null,
+});
+
+export const initialState = fromJS({
+  namespaces: {},
   loadingCitationsByYear: false,
   byYear: {},
   errorCitationsByYear: null,
 });
 
 const citationsReducer = (state = initialState, action) => {
+  const { namespace } = action.payload || {};
   switch (action.type) {
     case CITATIONS_SUMMARY_REQUEST:
-      return state.set('loadingCitationSummary', true);
+      return state.updateIn(
+        ['namespaces', namespace],
+        initialNamespaceState,
+        (namespaceState) => namespaceState.set('loadingCitationSummary', true)
+      );
     case CITATIONS_SUMMARY_SUCCESS:
-      return state
-        .set('loadingCitationSummary', false)
-        .set('errorCitationSummary', initialState.get('errorCitationSummary'))
-        .set(
-          'citationSummary',
-          fromJS(action.payload.aggregations.citation_summary)
-        );
+      return state.updateIn(
+        ['namespaces', namespace],
+        initialNamespaceState,
+        (namespaceState) =>
+          namespaceState
+            .set('loadingCitationSummary', false)
+            .set(
+              'errorCitationSummary',
+              initialNamespaceState.get('errorCitationSummary')
+            )
+            .set(
+              'citationSummary',
+              fromJS(action.payload.aggregations.citation_summary)
+            )
+      );
     case CITATIONS_SUMMARY_ERROR:
-      return state
-        .set('loadingCitationSummary', false)
-        .set('errorCitationSummary', fromJS(action.payload.error))
-        .set('citationSummary', initialState.get('citationSummary'));
+      return state.updateIn(
+        ['namespaces', namespace],
+        initialNamespaceState,
+        (namespaceState) =>
+          namespaceState
+            .set('loadingCitationSummary', false)
+            .set('errorCitationSummary', fromJS(action.payload.error))
+            .set(
+              'citationSummary',
+              initialNamespaceState.get('citationSummary')
+            )
+      );
     case CITATIONS_BY_YEAR_REQUEST:
       return state.set('loadingCitationsByYear', true);
     case CITATIONS_BY_YEAR_SUCCESS:
