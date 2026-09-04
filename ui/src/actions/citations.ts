@@ -21,22 +21,25 @@ function fetchingCitationSummary(namespace: string) {
   };
 }
 
-function fetchCitationSummarySuccess<T, K>(result: {
-  took: number;
-  timed_out: boolean;
-  hits: T;
-  aggregations: K;
-}) {
+function fetchCitationSummarySuccess<T, K>(
+  namespace: string,
+  result: {
+    took: number;
+    timed_out: boolean;
+    hits: T;
+    aggregations: K;
+  }
+) {
   return {
     type: CITATIONS_SUMMARY_SUCCESS,
-    payload: result,
+    payload: { ...result, namespace },
   };
 }
 
-function fetchCitationSummaryError(error: { error: Error }) {
+function fetchCitationSummaryError(namespace: string, error: { error: Error }) {
   return {
     type: CITATIONS_SUMMARY_ERROR,
-    payload: error,
+    payload: { ...error, namespace },
   };
 }
 
@@ -63,12 +66,16 @@ export function fetchCitationSummary(
 
       const queryString = stringify(query, { indices: false });
       const url = `/literature/facets?${queryString}`;
-      const response = await http.get(url, {}, 'citations-summary');
-      dispatch(fetchCitationSummarySuccess(response.data));
+      const response = await http.get(
+        url,
+        {},
+        `citations-summary-${namespace}`
+      );
+      dispatch(fetchCitationSummarySuccess(namespace, response.data));
     } catch (err) {
       if (!isCancelError(err as Error)) {
         const { error } = httpErrorToActionPayload(err);
-        dispatch(fetchCitationSummaryError({ error }));
+        dispatch(fetchCitationSummaryError(namespace, { error }));
       }
     }
   };
