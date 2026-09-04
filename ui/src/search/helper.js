@@ -1,5 +1,7 @@
 import { stringify } from 'qs';
 import omit from 'lodash/omit';
+import omitBy from 'lodash/omitBy';
+import pickBy from 'lodash/pickBy';
 import { replace, push } from 'redux-first-history';
 
 import { shallowEqual } from '../common/utils';
@@ -7,6 +9,8 @@ import { NAMESPACE_TO_PATHNAME } from './constants';
 import { fetchSearchResults, fetchSearchAggregations } from '../actions/search';
 
 const SORT_AND_PAGINATION_PARAMS = ['sort', 'page', 'size'];
+
+const isUiParam = (_value, key) => key.startsWith('ui-');
 
 // FIXME: needs better name
 export default class SearchHelper {
@@ -43,7 +47,7 @@ export default class SearchHelper {
   }
 
   updateLocation() {
-    const searchUrl = `${this.getPathname()}?${this.getQueryString()}`;
+    const searchUrl = `${this.getPathname()}?${this.getLocationQueryString()}`;
     if (this.isInitialQueryUpdate() || this.dueToNavigationToSearchPage) {
       /**
        * Call `replace` which basically sets some extra base query params
@@ -89,6 +93,29 @@ export default class SearchHelper {
   getQueryString() {
     const query = this.getQuery();
     return stringify(query.toJS(), { indices: false });
+  }
+
+  /**
+   * The browser URL is rebuilt from the search namespace query, but `ui-*`
+   * params (e.g. `ui-citation-summary`) leak into that query on load and are
+   * never removed (the reducer only merges). Their real source of truth is the
+   * location, so when rebuilding the URL we drop any `ui-*` coming from the
+   * search query and re-apply the ones currently on the location. Otherwise a
+   * stale `ui-*` would reappear in the URL on every sort/pagination change.
+   */
+  getLocationQueryString() {
+    const searchQueryWithoutUiParams = omitBy(
+      this.getQuery().toJS(),
+      isUiParam
+    );
+    const uiParamsFromLocation = pickBy(
+      this.state.router.location.query || {},
+      isUiParam
+    );
+    return stringify(
+      { ...searchQueryWithoutUiParams, ...uiParamsFromLocation },
+      { indices: false }
+    );
   }
 
   getPrevQuery() {
