@@ -281,7 +281,9 @@ const importRules = {
   'import/no-unresolved': [
     'error',
     {
-      ignore: ['\\?react$'],
+      // @redux-devtools/extension ships exports-only (no "main"); the node
+      // resolver can't follow the "exports" field, but Vite/TS resolve it fine
+      ignore: ['\\?react$', '^@redux-devtools/extension$'],
     },
   ],
   // false-positives on CJS-interop default exports (immutable, axios, formik...)

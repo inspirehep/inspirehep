@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import { EXISTING_CONFERENCES_NS } from '../../../search/constants';
 import { RANGE_AGGREGATION_SELECTION_SEPARATOR } from '../../../common/constants';
 import { searchQueryUpdate } from '../../../actions/search';

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Breadcrumb, Input } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
 import { Action, ActionCreator } from 'redux';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import { RootState } from '../../../../types';
 import { searchQueryUpdate } from '../../../../actions/search';
 import './Breadcrumbs.less';

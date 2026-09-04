@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { InlineUL } from '../../common/components/InlineList';
 import { hasDayMonthAndYear, hasMonthAndYear } from '../../common/utils';
 
@@ -16,7 +16,7 @@ function getDisplayFormatForDateString(date) {
 }
 
 function getFormattedDate(date) {
-  return moment(date).format(getDisplayFormatForDateString(date));
+  return dayjs(date).format(getDisplayFormatForDateString(date));
 }
 
 function ExperimentDates({

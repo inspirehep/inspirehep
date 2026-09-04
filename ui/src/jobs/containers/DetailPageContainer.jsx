@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import { Row, Col } from 'antd';
 import { Map } from 'immutable';
 

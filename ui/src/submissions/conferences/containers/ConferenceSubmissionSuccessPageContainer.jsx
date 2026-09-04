@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import SubmissionSuccess from '../../common/components/SubmissionSuccess';
 import { CONFERENCES } from '../../../common/routes';
 

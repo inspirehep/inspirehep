@@ -1,14 +1,14 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ClockCircleOutlined } from '@ant-design/icons';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 import IconText from '../../common/components/IconText';
 
 class DeadlineDate extends Component {
   render() {
     const { deadlineDate } = this.props;
-    const formattedDeadlineDate = moment(deadlineDate).format('MMM D, YYYY');
+    const formattedDeadlineDate = dayjs(deadlineDate).format('MMM D, YYYY');
     return (
       <strong>
         <IconText

@@ -1,5 +1,5 @@
 import { Row, Col, Select, Card } from 'antd';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
 import { Map } from 'immutable';
 import { RootState } from '../../../../types';

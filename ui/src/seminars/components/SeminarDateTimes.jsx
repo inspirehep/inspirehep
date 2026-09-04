@@ -1,6 +1,13 @@
 import PropTypes from 'prop-types';
-import moment from 'moment-timezone';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import dayjsTimezone from 'dayjs/plugin/timezone';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { TIME_FORMAT } from '../../common/constants';
+
+dayjs.extend(utc);
+dayjs.extend(dayjsTimezone);
+dayjs.extend(advancedFormat);
 
 function SeminarDateTimes({
   startDate,
@@ -9,17 +16,17 @@ function SeminarDateTimes({
   displayTimezone = false,
   className,
 }) {
-  const startMoment = moment.utc(startDate).tz(timezone);
-  const endMoment = moment.utc(endDate).tz(timezone);
+  const startDayjs = dayjs.utc(startDate).tz(timezone);
+  const endDayjs = dayjs.utc(endDate).tz(timezone);
   const DATE_AND_TIME_DISPLAY_FORMAT = `D MMMM YYYY, ${TIME_FORMAT}`;
-  const startDateDisplay = startMoment.format(DATE_AND_TIME_DISPLAY_FORMAT);
-  const endDateDisplay = startMoment.isSame(endMoment, 'day')
-    ? endMoment.format(TIME_FORMAT)
-    : endMoment.format(DATE_AND_TIME_DISPLAY_FORMAT);
+  const startDateDisplay = startDayjs.format(DATE_AND_TIME_DISPLAY_FORMAT);
+  const endDateDisplay = startDayjs.isSame(endDayjs, 'day')
+    ? endDayjs.format(TIME_FORMAT)
+    : endDayjs.format(DATE_AND_TIME_DISPLAY_FORMAT);
   return (
     <span className={className}>
       {startDateDisplay} - {endDateDisplay}
-      {displayTimezone ? ` ${moment.tz(timezone).format('z')}` : ''}
+      {displayTimezone ? ` ${dayjs().tz(timezone).format('z')}` : ''}
     </span>
   );
 }
