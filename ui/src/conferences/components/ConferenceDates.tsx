@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 import { hasDayMonthAndYear, hasMonthAndYear } from '../../common/utils';
 
@@ -26,32 +26,32 @@ function ConferenceDates({
   }
 
   const displayFormat = getDisplayFormatForDateString(openingDate);
-  const openingMoment = moment(openingDate);
+  const openingDayjs = dayjs(openingDate);
   if (!closingDate) {
-    return <>{openingMoment.format(displayFormat)}</>;
+    return <>{openingDayjs.format(displayFormat)}</>;
   }
 
-  const closingMoment = moment(closingDate);
+  const closingDayjs = dayjs(closingDate);
 
-  if (openingMoment.isSame(closingMoment)) {
-    return <>{openingMoment.format(displayFormat)}</>;
+  if (openingDayjs.isSame(closingDayjs)) {
+    return <>{openingDayjs.format(displayFormat)}</>;
   }
 
-  if (openingMoment.isSame(closingMoment, 'month')) {
+  if (openingDayjs.isSame(closingDayjs, 'month')) {
     if (hasDayMonthAndYear(openingDate)) {
       return (
-        <>{`${openingMoment.format('D')}-${closingMoment.format(
+        <>{`${openingDayjs.format('D')}-${closingDayjs.format(
           displayFormat
         )}`}</>
       );
     }
-    return <>{openingMoment.format(displayFormat)}</>;
+    return <>{openingDayjs.format(displayFormat)}</>;
   }
 
-  if (openingMoment.isSame(closingMoment, 'year')) {
+  if (openingDayjs.isSame(closingDayjs, 'year')) {
     if (hasDayMonthAndYear(openingDate)) {
       return (
-        <>{`${openingMoment.format('D MMMM')}-${closingMoment.format(
+        <>{`${openingDayjs.format('D MMMM')}-${closingDayjs.format(
           displayFormat
         )}`}</>
       );
@@ -59,16 +59,16 @@ function ConferenceDates({
 
     if (hasMonthAndYear(openingDate)) {
       return (
-        <>{`${openingMoment.format('MMMM')}-${closingMoment.format(
+        <>{`${openingDayjs.format('MMMM')}-${closingDayjs.format(
           displayFormat
         )}`}</>
       );
     }
-    return <>{openingMoment.format(displayFormat)}</>;
+    return <>{openingDayjs.format(displayFormat)}</>;
   }
 
   return (
-    <>{`${openingMoment.format(displayFormat)}-${closingMoment.format(
+    <>{`${openingDayjs.format(displayFormat)}-${closingDayjs.format(
       displayFormat
     )}`}</>
   );

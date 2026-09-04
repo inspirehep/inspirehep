@@ -6,7 +6,8 @@ import { statusOptions, unAuthorizedStatusOptions } from '../schemas/constants';
 
 class StatusField extends Component {
   render() {
-    const { isCatalogerLoggedIn, canModify, ...selectFieldProps } = this.props;
+    const { isCatalogerLoggedIn, canModify, dispatch, ...selectFieldProps } =
+      this.props;
 
     const options = isCatalogerLoggedIn
       ? statusOptions

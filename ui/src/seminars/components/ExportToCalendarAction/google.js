@@ -1,12 +1,15 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import { stringify } from 'qs';
 import { stripHtml, truncateStringWithEllipsis } from '../../../common/utils';
 import { getEventTitle } from './common';
 
+dayjs.extend(utc);
+
 const RENDER_URL = 'https://calendar.google.com/calendar/render';
 
 function toGoogleCalendarDate(datetimeString) {
-  const datetime = moment.utc(datetimeString);
+  const datetime = dayjs.utc(datetimeString);
   return datetime.format('YYYYMMDD[T]HHmm[00Z]');
 }
 
