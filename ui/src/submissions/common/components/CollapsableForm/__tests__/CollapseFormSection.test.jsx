@@ -1,20 +1,19 @@
 import { render } from '@testing-library/react';
 
-import CollapseFormSection from '../CollapseFormSection';
+import CollapsableForm from '..';
 
-describe('CollapseFormSection', () => {
-  it('renders with all props', () => {
+describe('CollapsableForm.Section', () => {
+  it('renders the section header and content inside the collapse', () => {
     const { asFragment, getByText } = render(
-      <CollapseFormSection header="header" key="some_key" />
+      <CollapsableForm openSections={['some_key']}>
+        <CollapsableForm.Section header="header" key="some_key">
+          <p>content</p>
+        </CollapsableForm.Section>
+      </CollapsableForm>
     );
 
-    expect(asFragment()).toMatchSnapshot();
     expect(getByText('header')).toBeInTheDocument();
-  });
-
-  it('renders when header is not present', () => {
-    const { asFragment } = render(<CollapseFormSection key="some_key" />);
-
+    expect(getByText('content')).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
 });

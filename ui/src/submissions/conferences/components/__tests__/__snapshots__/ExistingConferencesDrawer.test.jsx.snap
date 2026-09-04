@@ -5,7 +5,7 @@ exports[`ExistingConferencesDrawer > renders drawer with number of conferences 1
   <div />
   <div>
     <div
-      class="ant-drawer ant-drawer-right search-drawer ant-drawer-open"
+      class="ant-drawer ant-drawer-right css-dev-only-do-not-override-mncuj7 ant-drawer-open"
       tabindex="-1"
     >
       <div
@@ -23,27 +23,23 @@ exports[`ExistingConferencesDrawer > renders drawer with number of conferences 1
       >
         <div
           aria-modal="true"
-          class="ant-drawer-content"
+          class="ant-drawer-content search-drawer"
           role="dialog"
         >
           <div
-            class="ant-drawer-wrapper-body"
+            class="ant-drawer-body"
           >
+            <p>
+              <strong>
+                5
+              </strong>
+               
+              conferences
+               found in these dates:
+            </p>
             <div
-              class="ant-drawer-body"
-            >
-              <p>
-                <strong>
-                  5
-                </strong>
-                 
-                conferences
-                 found in these dates:
-              </p>
-              <div
-                data-testid="search-results"
-              />
-            </div>
+              data-testid="search-results"
+            />
           </div>
         </div>
       </div>

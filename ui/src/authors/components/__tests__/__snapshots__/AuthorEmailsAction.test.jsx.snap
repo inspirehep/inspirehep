@@ -6,10 +6,11 @@ exports[`AuthorEmailsAction > renders multiple current emails in a dropdown 1`] 
     class="__UserAction__"
   >
     <button
-      class="ant-btn ant-btn-default ant-dropdown-trigger"
+      class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-dropdown-trigger"
       type="button"
     >
       <span
+        aria-describedby="test-id"
         aria-label="mail"
         class="anticon anticon-mail"
         role="img"
@@ -43,6 +44,7 @@ exports[`AuthorEmailsAction > renders single email 1`] = `
       target="_blank"
     >
       <span
+        aria-describedby="test-id"
         aria-label="mail"
         class="anticon anticon-mail"
         role="img"

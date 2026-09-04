@@ -3,17 +3,17 @@
 exports[`BibliographyGenerator > renders successfully 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row ant-row-center overflow-x-auto"
+    class="ant-row ant-row-center overflow-x-auto css-dev-only-do-not-override-mncuj7"
     data-testid="bibliography"
   >
     <div
-      class="ant-col mt3 mb3 ant-col-xs-24 ant-col-md-21 ant-col-lg-16 ant-col-xl-15 ant-col-xxl-14"
+      class="ant-col mt3 mb3 ant-col-xs-24 ant-col-md-21 ant-col-lg-16 ant-col-xl-15 ant-col-xxl-14 css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-row mb3 pa3 bg-white"
+        class="ant-row mb3 pa3 bg-white css-dev-only-do-not-override-mncuj7"
       >
         <div
-          class="ant-col"
+          class="ant-col css-dev-only-do-not-override-mncuj7"
         >
           <h2>
             Bibliography generator
@@ -24,17 +24,17 @@ exports[`BibliographyGenerator > renders successfully 1`] = `
         </div>
       </div>
       <form
-        class="ant-form ant-form-horizontal"
+        class="ant-form ant-form-horizontal css-dev-only-do-not-override-mncuj7"
         id="bibliography-generator-form"
       >
         <div
-          class="ant-row"
+          class="ant-row css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <div
-              class="ant-collapse ant-collapse-icon-position-start ant-collapse-borderless __CollapsableForm__"
+              class="ant-collapse ant-collapse-icon-position-start ant-collapse-borderless __CollapsableForm__ css-dev-only-do-not-override-mncuj7"
             >
               <div
                 class="ant-collapse-item bg-white mb3 overflow-hidden"
@@ -50,7 +50,7 @@ exports[`BibliographyGenerator > renders successfully 1`] = `
                     class="ant-collapse-expand-icon"
                   >
                     <span
-                      aria-label="right"
+                      aria-label="collapsed"
                       class="anticon anticon-right ant-collapse-arrow"
                       role="img"
                     >
@@ -73,7 +73,7 @@ exports[`BibliographyGenerator > renders successfully 1`] = `
                     class="ant-collapse-header-text"
                   >
                     <h3
-                      class="fw6"
+                      class="fw6 mv0"
                     >
                       Example
                     </h3>
@@ -82,16 +82,16 @@ exports[`BibliographyGenerator > renders successfully 1`] = `
               </div>
             </div>
             <div
-              class="ant-row pa3 bg-white"
+              class="ant-row pa3 bg-white css-dev-only-do-not-override-mncuj7"
             >
               <div
-                class="ant-col"
+                class="ant-col css-dev-only-do-not-override-mncuj7"
               >
                 <div
-                  class="ant-row mb3"
+                  class="ant-row mb3 css-dev-only-do-not-override-mncuj7"
                 >
                   <div
-                    class="ant-col"
+                    class="ant-col css-dev-only-do-not-override-mncuj7"
                   >
                     <h3>
                       Instructions
@@ -173,19 +173,19 @@ exports[`BibliographyGenerator > renders successfully 1`] = `
                   </div>
                 </div>
                 <div
-                  class="ant-row"
+                  class="ant-row css-dev-only-do-not-override-mncuj7"
                 >
                   <div
-                    class="ant-col ant-col-24"
+                    class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
                   >
                     <div
-                      class="ant-form-item"
+                      class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
                     >
                       <div
-                        class="ant-row ant-form-item-row"
+                        class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
                       >
                         <div
-                          class="ant-col ant-form-item-control"
+                          class="ant-col ant-form-item-control css-dev-only-do-not-override-mncuj7"
                         >
                           <div
                             class="ant-form-item-control-input"
@@ -193,9 +193,11 @@ exports[`BibliographyGenerator > renders successfully 1`] = `
                             <div
                               class="ant-form-item-control-input-content"
                             >
-                              <span>
+                              <span
+                                class="ant-upload-wrapper css-dev-only-do-not-override-mncuj7"
+                              >
                                 <div
-                                  class="ant-upload ant-upload-drag"
+                                  class="css-dev-only-do-not-override-mncuj7 ant-upload ant-upload-drag"
                                 >
                                   <span
                                     class="ant-upload ant-upload-btn"
@@ -206,6 +208,7 @@ exports[`BibliographyGenerator > renders successfully 1`] = `
                                       accept=".tex"
                                       aria-required="true"
                                       id="bibliography-generator-form_fileupload"
+                                      name="file"
                                       style="display: none;"
                                       type="file"
                                     />
@@ -258,13 +261,13 @@ exports[`BibliographyGenerator > renders successfully 1`] = `
                       </div>
                     </div>
                     <div
-                      class="ant-form-item"
+                      class="ant-form-item css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
                     >
                       <div
-                        class="ant-row ant-form-item-row"
+                        class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
                       >
                         <div
-                          class="ant-col ant-form-item-label"
+                          class="ant-col ant-form-item-label css-dev-only-do-not-override-mncuj7"
                         >
                           <label
                             class=""
@@ -275,7 +278,7 @@ exports[`BibliographyGenerator > renders successfully 1`] = `
                           </label>
                         </div>
                         <div
-                          class="ant-col ant-form-item-control"
+                          class="ant-col ant-form-item-control css-dev-only-do-not-override-mncuj7"
                         >
                           <div
                             class="ant-form-item-control-input"
@@ -284,37 +287,41 @@ exports[`BibliographyGenerator > renders successfully 1`] = `
                               class="ant-form-item-control-input-content"
                             >
                               <div
-                                class="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow"
+                                class="ant-select ant-select-outlined ant-select-in-form-item css-dev-only-do-not-override-mncuj7 ant-select-single ant-select-show-arrow"
                                 data-testid="select-box"
                               >
                                 <div
                                   class="ant-select-selector"
                                 >
                                   <span
-                                    class="ant-select-selection-search"
+                                    class="ant-select-selection-wrap"
                                   >
-                                    <input
-                                      aria-activedescendant="bibliography-generator-form_format_list_0"
-                                      aria-autocomplete="list"
-                                      aria-controls="bibliography-generator-form_format_list"
-                                      aria-haspopup="listbox"
-                                      aria-owns="bibliography-generator-form_format_list"
-                                      autocomplete="off"
-                                      class="ant-select-selection-search-input"
-                                      id="bibliography-generator-form_format"
-                                      readonly=""
-                                      role="combobox"
-                                      style="opacity: 0;"
-                                      type="search"
-                                      unselectable="on"
-                                      value=""
-                                    />
-                                  </span>
-                                  <span
-                                    class="ant-select-selection-item"
-                                  >
-                                    <span>
-                                      BibTeX
+                                    <span
+                                      class="ant-select-selection-search"
+                                    >
+                                      <input
+                                        aria-autocomplete="list"
+                                        aria-controls="bibliography-generator-form_format_list"
+                                        aria-expanded="false"
+                                        aria-haspopup="listbox"
+                                        aria-owns="bibliography-generator-form_format_list"
+                                        autocomplete="off"
+                                        class="ant-select-selection-search-input"
+                                        id="bibliography-generator-form_format"
+                                        readonly=""
+                                        role="combobox"
+                                        style="opacity: 0;"
+                                        type="search"
+                                        unselectable="on"
+                                        value=""
+                                      />
+                                    </span>
+                                    <span
+                                      class="ant-select-selection-item"
+                                    >
+                                      <span>
+                                        BibTeX
+                                      </span>
                                     </span>
                                   </span>
                                 </div>
@@ -353,16 +360,16 @@ exports[`BibliographyGenerator > renders successfully 1`] = `
                   </div>
                 </div>
                 <div
-                  class="ant-row ant-row-end"
+                  class="ant-row ant-row-end css-dev-only-do-not-override-mncuj7"
                 >
                   <div
-                    class="ant-form-item no-margin-bottom"
+                    class="ant-form-item no-margin-bottom css-dev-only-do-not-override-mncuj7 ant-form-item-horizontal"
                   >
                     <div
-                      class="ant-row ant-form-item-row"
+                      class="ant-row ant-form-item-row css-dev-only-do-not-override-mncuj7"
                     >
                       <div
-                        class="ant-col ant-form-item-control"
+                        class="ant-col ant-form-item-control css-dev-only-do-not-override-mncuj7"
                       >
                         <div
                           class="ant-form-item-control-input"
@@ -371,7 +378,7 @@ exports[`BibliographyGenerator > renders successfully 1`] = `
                             class="ant-form-item-control-input-content"
                           >
                             <button
-                              class="ant-btn ant-btn-primary"
+                              class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-primary ant-btn-color-primary ant-btn-variant-solid"
                               disabled=""
                               type="submit"
                             >

@@ -12,7 +12,8 @@ exports[`OrcidPushSetting > renders when disabled 1`] = `
     </span>
     <button
       aria-checked="false"
-      class="ant-switch"
+      aria-describedby="test-id"
+      class="ant-switch css-dev-only-do-not-override-mncuj7"
       data-test-id="orcid-switch"
       data-testid="orcid-switch"
       role="switch"
@@ -23,7 +24,14 @@ exports[`OrcidPushSetting > renders when disabled 1`] = `
       />
       <span
         class="ant-switch-inner"
-      />
+      >
+        <span
+          class="ant-switch-inner-checked"
+        />
+        <span
+          class="ant-switch-inner-unchecked"
+        />
+      </span>
     </button>
   </div>
   <div>
@@ -50,7 +58,8 @@ exports[`OrcidPushSetting > renders when enabled 1`] = `
     </span>
     <button
       aria-checked="true"
-      class="ant-switch ant-switch-checked"
+      aria-describedby="test-id"
+      class="ant-switch css-dev-only-do-not-override-mncuj7 ant-switch-checked"
       data-test-id="orcid-switch"
       data-testid="orcid-switch"
       role="switch"
@@ -61,7 +70,14 @@ exports[`OrcidPushSetting > renders when enabled 1`] = `
       />
       <span
         class="ant-switch-inner"
-      />
+      >
+        <span
+          class="ant-switch-inner-checked"
+        />
+        <span
+          class="ant-switch-inner-unchecked"
+        />
+      </span>
     </button>
   </div>
   <div>

@@ -25,7 +25,7 @@ const DeleteWorkflow = ({ onConfirm }: DeleteWorkflowProps) => {
 
   return (
     <>
-      <Button className="font-white bg-error" onClick={showModal}>
+      <Button danger onClick={showModal} type="primary">
         Delete
       </Button>
       <Modal

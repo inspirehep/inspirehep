@@ -27,8 +27,7 @@ function SubmissionCard({
     <Card
       title={title}
       actions={actions}
-      headStyle={TEXT_CENTER}
-      bodyStyle={TEXT_CENTER}
+      styles={{ body: TEXT_CENTER, header: TEXT_CENTER }}
     >
       {children}
     </Card>

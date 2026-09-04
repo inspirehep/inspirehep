@@ -59,7 +59,7 @@ const LocalLoginPage = ({
     <>
       <DocumentHead title="Login" />
       <Row className="h-100" justify="center" align="middle">
-        <Card bodyStyle={{ textAlign: 'center' }}>
+        <Card styles={{ body: { textAlign: 'center' } }}>
           <p>This login page is included only for dev and test environment</p>
           <Formik onSubmit={onLoginFormSubmit} initialValues={{}}>
             {renderLoginForm}

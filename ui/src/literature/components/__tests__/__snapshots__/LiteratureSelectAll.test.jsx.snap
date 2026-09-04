@@ -3,15 +3,14 @@
 exports[`LiteratureSelectAll > render unchecked if all publications are not part of the selection 1`] = `
 <DocumentFragment>
   <label
-    class="ant-checkbox-wrapper"
+    class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
   >
     <span
-      class="ant-checkbox"
+      class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
     >
       <input
         class="ant-checkbox-input"
         type="checkbox"
-        value=""
       />
       <span
         class="ant-checkbox-inner"
@@ -24,16 +23,15 @@ exports[`LiteratureSelectAll > render unchecked if all publications are not part
 exports[`LiteratureSelectAll > renders checked if all publications are part of the selection 1`] = `
 <DocumentFragment>
   <label
-    class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
+    class="ant-checkbox-wrapper ant-checkbox-wrapper-checked css-dev-only-do-not-override-mncuj7"
   >
     <span
-      class="ant-checkbox ant-checkbox-checked"
+      class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7 ant-checkbox-checked"
     >
       <input
         checked=""
         class="ant-checkbox-input"
         type="checkbox"
-        value=""
       />
       <span
         class="ant-checkbox-inner"

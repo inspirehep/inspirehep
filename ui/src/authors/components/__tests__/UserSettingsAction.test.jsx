@@ -44,7 +44,7 @@ describe('UserSettingsAction', () => {
 
     await wait();
 
-    const closeButton = screen.getByLabelText('Close');
+    const closeButton = screen.getByRole('button', { name: 'Close' });
 
     expect(closeButton).toBeInTheDocument();
 

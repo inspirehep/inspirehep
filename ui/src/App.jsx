@@ -1,11 +1,12 @@
 import React, { useEffect, Suspense } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Layout } from 'antd';
+import { ConfigProvider, Layout } from 'antd';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import './App.less';
+import antdTheme from './antdTheme';
 import Header from './common/layouts/Header';
 import Footer from './common/layouts/Footer';
 import Loading from './common/components/Loading';
@@ -76,49 +77,51 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
   }, []);
 
   return (
-    <Layout className="__App__" data-testid="app">
-      <Header />
-      <Layout.Content className="content">
-        <Suspense fallback={<Loading />}>
-          <RoutesWithFallback>
-            <Route path={HOME} element={<Home />} />
-            <Route path={`${USER}/*`} element={<User />} />
-            <Route
-              path={`${BACKOFFICE}/*`}
-              element={
-                <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER}>
-                  <LazyBackoffice />
-                </RequireAuth>
-              }
-            />
-            <Route path={`${LITERATURE}/*`} element={<Literature />} />
-            <Route path={`${AUTHORS}/*`} element={<Authors />} />
-            <Route path={`${JOBS}/*`} element={<Jobs />} />
-            <Route path={`${CONFERENCES}/*`} element={<Conferences />} />
-            <Route path={`${INSTITUTIONS}/*`} element={<Institutions />} />
-            <Route path={`${SEMINARS}/*`} element={<Seminars />} />
-            <Route path={`${EXPERIMENTS}/*`} element={<Experiments />} />
-            <Route path={`${JOURNALS}/*`} element={<Journals />} />
-            <Route path={`${DATA}/*`} element={<Data />} />
-            <Route
-              path={`${SUBMISSIONS}/*`}
-              element={
-                <RequireAuth>
-                  <LazySubmissions />
-                </RequireAuth>
-              }
-            />
-            <Route
-              path={`${BIBLIOGRAPHY_GENERATOR}/*`}
-              element={<BibliographyGeneratorPageContainer />}
-            />
-            <Route path={`${ERRORS}/*`} element={<Errors />} />
-          </RoutesWithFallback>
-        </Suspense>
-        <GuideModalContainer />
-      </Layout.Content>
-      <Footer />
-    </Layout>
+    <ConfigProvider theme={antdTheme}>
+      <Layout className="__App__" data-testid="app">
+        <Header />
+        <Layout.Content className="content">
+          <Suspense fallback={<Loading />}>
+            <RoutesWithFallback>
+              <Route path={HOME} element={<Home />} />
+              <Route path={`${USER}/*`} element={<User />} />
+              <Route
+                path={`${BACKOFFICE}/*`}
+                element={
+                  <RequireAuth authorizedRoles={SUPERUSER_OR_CATALOGER}>
+                    <LazyBackoffice />
+                  </RequireAuth>
+                }
+              />
+              <Route path={`${LITERATURE}/*`} element={<Literature />} />
+              <Route path={`${AUTHORS}/*`} element={<Authors />} />
+              <Route path={`${JOBS}/*`} element={<Jobs />} />
+              <Route path={`${CONFERENCES}/*`} element={<Conferences />} />
+              <Route path={`${INSTITUTIONS}/*`} element={<Institutions />} />
+              <Route path={`${SEMINARS}/*`} element={<Seminars />} />
+              <Route path={`${EXPERIMENTS}/*`} element={<Experiments />} />
+              <Route path={`${JOURNALS}/*`} element={<Journals />} />
+              <Route path={`${DATA}/*`} element={<Data />} />
+              <Route
+                path={`${SUBMISSIONS}/*`}
+                element={
+                  <RequireAuth>
+                    <LazySubmissions />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path={`${BIBLIOGRAPHY_GENERATOR}/*`}
+                element={<BibliographyGeneratorPageContainer />}
+              />
+              <Route path={`${ERRORS}/*`} element={<Errors />} />
+            </RoutesWithFallback>
+          </Suspense>
+          <GuideModalContainer />
+        </Layout.Content>
+        <Footer />
+      </Layout>
+    </ConfigProvider>
   );
 }
 

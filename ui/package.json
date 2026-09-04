@@ -33,10 +33,11 @@
     "@types/react-modal": "^3.13.1",
     "@typescript-eslint/eslint-plugin": "^8.39.0",
     "@typescript-eslint/parser": "^8.39.0",
-    "antd": "4.24.8",
+    "antd": "5.29.3",
     "axios": "^1.10.0",
     "axios-hooks": "^5.1.1",
     "classnames": "^2.3.1",
+    "dayjs": "^1.11.23",
     "dompurify": "^3.2.6",
     "formik": "^2.4.6",
     "history": "^5",
@@ -47,6 +48,7 @@
     "lodash": "^4.17.21",
     "math-interval-2": "^1.1.0",
     "moment-timezone": "^0.6.2",
+    "moment": "2.29.4",
     "number-abbreviate": "^2.0.0",
     "qs": "^6.11.0",
     "rc-footer": "^0.6.2",
@@ -107,8 +109,9 @@
     "vitest": "^2.1.0"
   },
   "resolutions": {
-    "moment-timezone/moment": "2.29.4",
-    "rc-motion": "2.9.5"
+    "rc-motion": "2.9.5",
+    "rc-util": "5.44.4",
+    "dayjs": "^1.11.23"
   },
   "browserslist": [
     ">0.2%",

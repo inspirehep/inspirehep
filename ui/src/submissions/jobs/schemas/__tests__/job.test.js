@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import jobSchema from '../job';
 import {
   regionValues,
@@ -17,7 +17,7 @@ const dataWithRequiredFields = {
     { value: 'CERN', record: { $ref: 'http://to/institutions/1' } },
   ],
   contacts: [{ name: 'Harun Urhan', email: 'harun.urhan@cern.ch' }],
-  deadline_date: moment().add({ months: 1 }).format(DATE_RANGE_FORMAT),
+  deadline_date: dayjs().add(1, 'months').format(DATE_RANGE_FORMAT),
   description: '<b>Director</b> at CERN',
 };
 
@@ -161,7 +161,7 @@ describe('jobSchema', () => {
   it('invalidates when deadline_date is later than next year', async () => {
     const data = {
       ...dataWithRequiredFields,
-      deadline_date: moment().add({ years: 1, months: 4 }),
+      deadline_date: dayjs().add(1, 'years').add(4, 'months'),
     };
     const isValid = await jobSchema.isValid(data);
     expect(isValid).toBe(false);

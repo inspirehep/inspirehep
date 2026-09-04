@@ -182,7 +182,7 @@ const AuthorDetailPageContainer = ({
                         rowKey={(record) => `${record?.name}+${Math.random()}`}
                       />
                     </CollapsableForm.Section>
-                    {(urls || filteredIds?.size) && (
+                    {!!(urls || filteredIds?.size) && (
                       <CollapsableForm.Section
                         header="Identifiers & Links"
                         key="links"

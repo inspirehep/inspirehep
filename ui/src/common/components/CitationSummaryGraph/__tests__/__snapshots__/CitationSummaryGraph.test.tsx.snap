@@ -6,12 +6,14 @@ exports[`CitationSummaryGraph > should render a graph with correct data 1`] = `
     class="__CitationSummaryGraph__"
   >
     <div
-      class="ant-row ant-row-middle"
+      class="ant-row ant-row-middle css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-col ant-col-24"
+        class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
       >
-        <div>
+        <div
+          aria-describedby="test-id"
+        >
           <div
             class="recharts-wrapper"
             height="300"
@@ -129,7 +131,7 @@ exports[`CitationSummaryGraph > should render a graph with correct data 1`] = `
               >
                 <g
                   class="recharts-layer recharts-bar pointer citeable-bar"
-                  id="recharts-bar-:r0:"
+                  id="recharts-bar-:r2:"
                 >
                   <g
                     class="recharts-layer recharts-bar-rectangles"
@@ -247,7 +249,7 @@ exports[`CitationSummaryGraph > should render a graph with correct data 1`] = `
                 </g>
                 <g
                   class="recharts-layer recharts-bar pointer published-bar"
-                  id="recharts-bar-:r1:"
+                  id="recharts-bar-:r3:"
                 >
                   <g
                     class="recharts-layer recharts-bar-rectangles"

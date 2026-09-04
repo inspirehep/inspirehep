@@ -6,52 +6,53 @@ exports[`CheckboxAggregation > render initial state with all props set 1`] = `
     class="w-100 br1"
   >
     <div
-      class="ant-row ant-row-space-between"
+      class="ant-row ant-row-space-between css-dev-only-do-not-override-mncuj7"
       type="flex"
     >
       <div
-        class="ant-col"
+        class="ant-col css-dev-only-do-not-override-mncuj7"
         style="flex: 1 1 auto;"
       >
         <h3
-          class="pb1 fw4"
+          class="pb1 fw4 mt0 mb2"
         >
           Test
         </h3>
       </div>
       <div
-        class="ant-col"
+        class="ant-col css-dev-only-do-not-override-mncuj7"
       />
     </div>
     <div
-      class="ant-row w-100"
+      class="ant-row w-100 css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-col"
+        class="ant-col css-dev-only-do-not-override-mncuj7"
         style="flex: 1 1 auto;"
       >
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket1"
                 >
@@ -61,37 +62,38 @@ exports[`CheckboxAggregation > render initial state with all props set 1`] = `
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               1,000,000
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket2"
                 >
@@ -101,10 +103,10 @@ exports[`CheckboxAggregation > render initial state with all props set 1`] = `
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               2
             </span>
@@ -122,57 +124,59 @@ exports[`CheckboxAggregation > render initial state with bucketHelp 1`] = `
     class="w-100 br1"
   >
     <div
-      class="ant-row ant-row-space-between"
+      class="ant-row ant-row-space-between css-dev-only-do-not-override-mncuj7"
       type="flex"
     >
       <div
-        class="ant-col"
+        class="ant-col css-dev-only-do-not-override-mncuj7"
         style="flex: 1 1 auto;"
       >
         <h3
-          class="pb1 fw4"
+          class="pb1 fw4 mt0 mb2"
         >
           Test
         </h3>
       </div>
       <div
-        class="ant-col"
+        class="ant-col css-dev-only-do-not-override-mncuj7"
       />
     </div>
     <div
-      class="ant-row w-100"
+      class="ant-row w-100 css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-col"
+        class="ant-col css-dev-only-do-not-override-mncuj7"
         style="flex: 1 1 auto;"
       >
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket1"
                 >
                   bucket1 
                   <span
+                    aria-describedby="test-id"
                     aria-label="question-circle"
                     class="anticon anticon-question-circle"
                     role="img"
@@ -199,42 +203,44 @@ exports[`CheckboxAggregation > render initial state with bucketHelp 1`] = `
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               1
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket2"
                 >
                   bucket2 
                   <span
+                    aria-describedby="test-id"
                     aria-label="question-circle"
                     class="anticon anticon-question-circle"
                     role="img"
@@ -261,42 +267,44 @@ exports[`CheckboxAggregation > render initial state with bucketHelp 1`] = `
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               2
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket3"
                 >
                   bucket3 
                   <span
+                    aria-describedby="test-id"
                     aria-label="question-circle"
                     class="anticon anticon-question-circle"
                     role="img"
@@ -323,10 +331,10 @@ exports[`CheckboxAggregation > render initial state with bucketHelp 1`] = `
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               3
             </span>
@@ -344,53 +352,54 @@ exports[`CheckboxAggregation > render initial state without splitDisplayName 1`]
     class="w-100 br1"
   >
     <div
-      class="ant-row ant-row-space-between"
+      class="ant-row ant-row-space-between css-dev-only-do-not-override-mncuj7"
       type="flex"
     >
       <div
-        class="ant-col"
+        class="ant-col css-dev-only-do-not-override-mncuj7"
         style="flex: 1 1 auto;"
       >
         <h3
-          class="pb1 fw4"
+          class="pb1 fw4 mt0 mb2"
         >
           Test
         </h3>
       </div>
       <div
-        class="ant-col"
+        class="ant-col css-dev-only-do-not-override-mncuj7"
       />
     </div>
     <div
-      class="ant-row w-100"
+      class="ant-row w-100 css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-col"
+        class="ant-col css-dev-only-do-not-override-mncuj7"
         style="flex: 1 1 auto;"
       >
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
+              class="ant-checkbox-wrapper ant-checkbox-wrapper-checked css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox ant-checkbox-checked"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7 ant-checkbox-checked"
               >
                 <input
                   checked=""
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket1"
                 >
@@ -400,37 +409,38 @@ exports[`CheckboxAggregation > render initial state without splitDisplayName 1`]
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               1
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket2"
                 >
@@ -440,10 +450,10 @@ exports[`CheckboxAggregation > render initial state without splitDisplayName 1`]
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               2
             </span>
@@ -461,53 +471,54 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
     class="w-100 br1"
   >
     <div
-      class="ant-row ant-row-space-between"
+      class="ant-row ant-row-space-between css-dev-only-do-not-override-mncuj7"
       type="flex"
     >
       <div
-        class="ant-col"
+        class="ant-col css-dev-only-do-not-override-mncuj7"
         style="flex: 1 1 auto;"
       >
         <h3
-          class="pb1 fw4"
+          class="pb1 fw4 mt0 mb2"
         >
           Test
         </h3>
       </div>
       <div
-        class="ant-col"
+        class="ant-col css-dev-only-do-not-override-mncuj7"
       />
     </div>
     <div
-      class="ant-row w-100"
+      class="ant-row w-100 css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-col"
+        class="ant-col css-dev-only-do-not-override-mncuj7"
         style="flex: 1 1 auto;"
       >
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
+              class="ant-checkbox-wrapper ant-checkbox-wrapper-checked css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox ant-checkbox-checked"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7 ant-checkbox-checked"
               >
                 <input
                   checked=""
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket1"
                 >
@@ -517,37 +528,38 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               1
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket2"
                 >
@@ -557,37 +569,38 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               2
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket3"
                 >
@@ -597,37 +610,38 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               3
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket4"
                 >
@@ -637,37 +651,38 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               4
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket5"
                 >
@@ -677,37 +692,38 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               2
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket6"
                 >
@@ -717,37 +733,38 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               2
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket7"
                 >
@@ -757,37 +774,38 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               2
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket8"
                 >
@@ -797,37 +815,38 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               2
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket9"
                 >
@@ -837,37 +856,38 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               2
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket10"
                 >
@@ -877,10 +897,10 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               2
             </span>
@@ -904,53 +924,54 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
     class="w-100 br1"
   >
     <div
-      class="ant-row ant-row-space-between"
+      class="ant-row ant-row-space-between css-dev-only-do-not-override-mncuj7"
       type="flex"
     >
       <div
-        class="ant-col"
+        class="ant-col css-dev-only-do-not-override-mncuj7"
         style="flex: 1 1 auto;"
       >
         <h3
-          class="pb1 fw4"
+          class="pb1 fw4 mt0 mb2"
         >
           Test
         </h3>
       </div>
       <div
-        class="ant-col"
+        class="ant-col css-dev-only-do-not-override-mncuj7"
       />
     </div>
     <div
-      class="ant-row w-100"
+      class="ant-row w-100 css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-col"
+        class="ant-col css-dev-only-do-not-override-mncuj7"
         style="flex: 1 1 auto;"
       >
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
+              class="ant-checkbox-wrapper ant-checkbox-wrapper-checked css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox ant-checkbox-checked"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7 ant-checkbox-checked"
               >
                 <input
                   checked=""
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket1"
                 >
@@ -960,37 +981,38 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               1
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket2"
                 >
@@ -1000,37 +1022,38 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               2
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket3"
                 >
@@ -1040,37 +1063,38 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               3
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket4"
                 >
@@ -1080,37 +1104,38 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               4
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket5"
                 >
@@ -1120,37 +1145,38 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               2
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket6"
                 >
@@ -1160,37 +1186,38 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               2
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket7"
                 >
@@ -1200,37 +1227,38 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               2
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket8"
                 >
@@ -1240,37 +1268,38 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               2
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket9"
                 >
@@ -1280,37 +1309,38 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               2
             </span>
           </div>
         </div>
         <div
-          class="ant-row ant-row-space-between mb2 flex-nowrap"
+          class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
         >
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <label
-              class="ant-checkbox-wrapper"
+              class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
             >
               <span
-                class="ant-checkbox"
+                class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
               >
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
                 <span
                   class="ant-checkbox-inner"
                 />
               </span>
-              <span>
+              <span
+                class="ant-checkbox-label"
+              >
                 <span
                   data-test-id="checkbox-aggregation-option-bucket10"
                 >
@@ -1320,10 +1350,10 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
             </label>
           </div>
           <div
-            class="ant-col"
+            class="ant-col css-dev-only-do-not-override-mncuj7"
           >
             <span
-              class="ant-tag __UnclickableTag__"
+              class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
             >
               2
             </span>

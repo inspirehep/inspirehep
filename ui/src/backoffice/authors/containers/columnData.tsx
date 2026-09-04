@@ -1,6 +1,31 @@
+import { TableColumnsType } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 
-export const columnsInstitutions = [
+interface InstitutionRow {
+  institution?: string;
+  start_date?: string;
+  end_date?: string;
+  rank?: string;
+  current?: boolean;
+}
+
+interface ProjectRow {
+  name?: string;
+  start_date?: string;
+  end_date?: string;
+  current?: boolean;
+}
+
+interface SubjectRow {
+  term?: string;
+}
+
+interface AdvisorRow {
+  name?: string;
+  degree_type?: string;
+}
+
+export const columnsInstitutions: TableColumnsType<InstitutionRow> = [
   {
     title: 'Institution',
     dataIndex: 'institution',
@@ -33,7 +58,7 @@ export const columnsInstitutions = [
   },
 ];
 
-export const columnsProjects = [
+export const columnsProjects: TableColumnsType<ProjectRow> = [
   {
     title: 'Project name',
     dataIndex: 'name',
@@ -61,14 +86,14 @@ export const columnsProjects = [
   },
 ];
 
-export const columnsSubject = [
+export const columnsSubject: TableColumnsType<SubjectRow> = [
   {
     title: 'Term',
     dataIndex: 'term',
   },
 ];
 
-export const columnsAdvisors = [
+export const columnsAdvisors: TableColumnsType<AdvisorRow> = [
   {
     title: 'Name',
     dataIndex: 'name',

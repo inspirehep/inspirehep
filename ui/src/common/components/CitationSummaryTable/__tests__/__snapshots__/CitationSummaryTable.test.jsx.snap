@@ -15,6 +15,7 @@ exports[`CitationSummaryTable > renders table with null numbers 1`] = `
             >
               Citeable 
               <span
+                aria-describedby="test-id"
                 aria-label="question-circle"
                 class="anticon anticon-question-circle"
                 role="img"
@@ -44,6 +45,7 @@ exports[`CitationSummaryTable > renders table with null numbers 1`] = `
             >
               Published 
               <span
+                aria-describedby="test-id"
                 aria-label="question-circle"
                 class="anticon anticon-question-circle"
                 role="img"
@@ -89,6 +91,7 @@ exports[`CitationSummaryTable > renders table with null numbers 1`] = `
             >
               h-index 
               <span
+                aria-describedby="test-id"
                 aria-label="question-circle"
                 class="anticon anticon-question-circle"
                 role="img"
@@ -151,6 +154,7 @@ exports[`CitationSummaryTable > renders table with only required props 1`] = `
             >
               Citeable 
               <span
+                aria-describedby="test-id"
                 aria-label="question-circle"
                 class="anticon anticon-question-circle"
                 role="img"
@@ -180,6 +184,7 @@ exports[`CitationSummaryTable > renders table with only required props 1`] = `
             >
               Published 
               <span
+                aria-describedby="test-id"
                 aria-label="question-circle"
                 class="anticon anticon-question-circle"
                 role="img"
@@ -233,6 +238,7 @@ exports[`CitationSummaryTable > renders table with only required props 1`] = `
             >
               h-index 
               <span
+                aria-describedby="test-id"
                 aria-label="question-circle"
                 class="anticon anticon-question-circle"
                 role="img"
@@ -295,6 +301,7 @@ exports[`CitationSummaryTable > renders table without render props 1`] = `
             >
               Citeable 
               <span
+                aria-describedby="test-id"
                 aria-label="question-circle"
                 class="anticon anticon-question-circle"
                 role="img"
@@ -324,6 +331,7 @@ exports[`CitationSummaryTable > renders table without render props 1`] = `
             >
               Published 
               <span
+                aria-describedby="test-id"
                 aria-label="question-circle"
                 class="anticon anticon-question-circle"
                 role="img"
@@ -377,6 +385,7 @@ exports[`CitationSummaryTable > renders table without render props 1`] = `
             >
               h-index 
               <span
+                aria-describedby="test-id"
                 aria-label="question-circle"
                 class="anticon anticon-question-circle"
                 role="img"

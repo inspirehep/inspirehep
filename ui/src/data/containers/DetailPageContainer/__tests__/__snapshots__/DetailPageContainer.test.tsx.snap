@@ -3,28 +3,28 @@
 exports[`DetailPageContainer > renders initial state 1`] = `
 <DocumentFragment>
   <div
-    class="ant-row ant-row-center __DetailPage__"
+    class="ant-row ant-row-center __DetailPage__ css-dev-only-do-not-override-mncuj7"
     data-testid="data-detail-page-container"
   >
     <div
-      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18"
+      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18 css-dev-only-do-not-override-mncuj7"
     >
       <div
-        class="ant-row ant-row-center mv3"
+        class="ant-row ant-row-center mv3 css-dev-only-do-not-override-mncuj7"
       />
       <div
-        class="ant-row ant-row-center mv3"
+        class="ant-row ant-row-center mv3 css-dev-only-do-not-override-mncuj7"
         style="margin-left: -16px; margin-right: -16px;"
       >
         <div
-          class="ant-col ant-col-xs-24 ant-col-lg-24"
+          class="ant-col ant-col-xs-24 ant-col-lg-24 css-dev-only-do-not-override-mncuj7"
           style="padding-left: 16px; padding-right: 16px;"
         >
           <div
             class="__ContentBox__ h-100 sm-pb3"
           >
             <div
-              class="ant-card ant-card-bordered h-100"
+              class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
             >
               <div
                 class="ant-card-body"
@@ -34,10 +34,10 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                 >
                   <div>
                     <div
-                      class="ant-row"
+                      class="ant-row css-dev-only-do-not-override-mncuj7"
                     >
                       <div
-                        class="ant-col"
+                        class="ant-col css-dev-only-do-not-override-mncuj7"
                       >
                         <h2>
                           <span
@@ -70,10 +70,10 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                       class="mt3"
                     >
                       <div
-                        class="ant-row"
+                        class="ant-row css-dev-only-do-not-override-mncuj7"
                       >
                         <div
-                          class="ant-col"
+                          class="ant-col css-dev-only-do-not-override-mncuj7"
                         >
                           <div
                             class="__InlineList__"
@@ -135,10 +135,10 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                   </div>
                 </div>
                 <div
-                  class="ant-row ant-row-space-between actions ph2"
+                  class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
                 >
                   <div
-                    class="ant-col"
+                    class="ant-col css-dev-only-do-not-override-mncuj7"
                   >
                     <span
                       class="__UserAction__"
@@ -183,7 +183,7 @@ exports[`DetailPageContainer > renders initial state 1`] = `
                     </span>
                   </div>
                   <div
-                    class="ant-col"
+                    class="ant-col css-dev-only-do-not-override-mncuj7"
                   >
                     <span
                       class="__UserAction__"
@@ -236,10 +236,10 @@ exports[`DetailPageContainer > renders initial state 1`] = `
         </div>
       </div>
       <div
-        class="ant-row"
+        class="ant-row css-dev-only-do-not-override-mncuj7"
       >
         <div
-          class="ant-col ant-col-24"
+          class="ant-col ant-col-24 css-dev-only-do-not-override-mncuj7"
         />
       </div>
     </div>

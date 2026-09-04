@@ -9,7 +9,7 @@ exports[`DataItem > renders with \`0\` citation count 1`] = `
       class="__ContentBox__ h-100"
     >
       <div
-        class="ant-card ant-card-bordered h-100"
+        class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
       >
         <div
           class="ant-card-body"
@@ -96,10 +96,10 @@ exports[`DataItem > renders with \`0\` citation count 1`] = `
             </div>
           </div>
           <div
-            class="ant-row ant-row-space-between actions ph2"
+            class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
           >
             <div
-              class="ant-col"
+              class="ant-col css-dev-only-do-not-override-mncuj7"
             >
               <span
                 class="__UserAction__"
@@ -185,7 +185,7 @@ exports[`DataItem > renders with \`0\` citation count 1`] = `
               </span>
             </div>
             <div
-              class="ant-col"
+              class="ant-col css-dev-only-do-not-override-mncuj7"
             >
               <span
                 class="__UserAction__"
@@ -248,7 +248,7 @@ exports[`DataItem > renders with all props set 1`] = `
       class="__ContentBox__ h-100"
     >
       <div
-        class="ant-card ant-card-bordered h-100"
+        class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
       >
         <div
           class="ant-card-body"
@@ -335,10 +335,10 @@ exports[`DataItem > renders with all props set 1`] = `
             </div>
           </div>
           <div
-            class="ant-row ant-row-space-between actions ph2"
+            class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
           >
             <div
-              class="ant-col"
+              class="ant-col css-dev-only-do-not-override-mncuj7"
             >
               <span
                 class="__UserAction__"
@@ -426,7 +426,7 @@ exports[`DataItem > renders with all props set 1`] = `
                 class="__UserAction__"
               >
                 <button
-                  class="ant-btn ant-btn-default ant-dropdown-trigger"
+                  class="ant-btn css-dev-only-do-not-override-mncuj7 ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-dropdown-trigger"
                   type="button"
                 >
                   <span
@@ -465,7 +465,7 @@ exports[`DataItem > renders with all props set 1`] = `
               </span>
             </div>
             <div
-              class="ant-col"
+              class="ant-col css-dev-only-do-not-override-mncuj7"
             >
               <span
                 class="__UserAction__"
@@ -528,7 +528,7 @@ exports[`DataItem > renders with only needed props 1`] = `
       class="__ContentBox__ h-100"
     >
       <div
-        class="ant-card ant-card-bordered h-100"
+        class="ant-card ant-card-bordered h-100 css-dev-only-do-not-override-mncuj7"
       >
         <div
           class="ant-card-body"
@@ -580,13 +580,13 @@ exports[`DataItem > renders with only needed props 1`] = `
             </div>
           </div>
           <div
-            class="ant-row ant-row-space-between actions ph2"
+            class="ant-row ant-row-space-between actions ph2 css-dev-only-do-not-override-mncuj7"
           >
             <div
-              class="ant-col"
+              class="ant-col css-dev-only-do-not-override-mncuj7"
             />
             <div
-              class="ant-col"
+              class="ant-col css-dev-only-do-not-override-mncuj7"
             />
           </div>
         </div>

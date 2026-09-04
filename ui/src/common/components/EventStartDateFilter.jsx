@@ -19,16 +19,19 @@ function EventStartDateFilter({ onChange, selection = '', switchTitle }) {
     selection !== START_DATE_UPCOMING && selection !== START_DATE_ALL;
   const selectedRange = isDateRangeSelected ? selection : '';
 
-  const onChangeCalledAfterChangeRef = useRef(false);
+  const pendingChangeRef = useRef(false);
   const onUpcomingSwitchChange = useCallback((checked) => {
     setUpcoming(checked);
-    onChangeCalledAfterChangeRef.current = false;
+    pendingChangeRef.current = true;
   }, []);
-  const onUpcomingSwitchAnimationEnd = useCallback(() => {
-    // because onAnimatonEnd called twice
-    if (!onChangeCalledAfterChangeRef.current) {
+  const onUpcomingSwitchTransitionEnd = useCallback(() => {
+    // antd 5's Switch also fires transitionend on hover (box-shadow), and a
+    // toggle transitions multiple properties, so transitionend fires on hover
+    // and several times per change: only react to the first one that follows a
+    // real toggle, ignoring hover-triggered transitions
+    if (pendingChangeRef.current) {
       onChange(isUpcoming ? START_DATE_UPCOMING : START_DATE_ALL);
-      onChangeCalledAfterChangeRef.current = true;
+      pendingChangeRef.current = false;
     }
   }, [onChange, isUpcoming]);
 
@@ -53,10 +56,10 @@ function EventStartDateFilter({ onChange, selection = '', switchTitle }) {
               <Switch
                 checked={isUpcoming}
                 onChange={onUpcomingSwitchChange}
-                // if onChange is called before animation, it slows down & freezes the animation
+                // if onChange is called before the toggle transition, it slows down & freezes it
                 // because onChange() triggers search requests and eventually rendering aggs/results
                 // which is already a lot of events/task that have priority over animation in browsers
-                onAnimationEnd={onUpcomingSwitchAnimationEnd}
+                onTransitionEnd={onUpcomingSwitchTransitionEnd}
               />
             </EventTracker>
           </Col>

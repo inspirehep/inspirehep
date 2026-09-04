@@ -1,6 +1,6 @@
 import { MouseEventHandler } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, Tooltip, Button } from 'antd';
+import { Menu, Tooltip, Button, MenuProps } from 'antd';
 
 import {
   SUBMISSIONS_AUTHOR,
@@ -22,12 +22,7 @@ import { PAPER_SEARCH_URL, HELP_BLOG_URL } from '../../constants';
 import DisplayGuideButtonContainer from '../../containers/DisplayGuideButtonContainer';
 import { CLAIMING_DISABLED_INFO } from '../../../authors/components/AssignNoProfileAction';
 
-interface MenuItem {
-  key: string;
-  label?: string | JSX.Element | JSX.Element[];
-  popupClassName?: string;
-  children?: any;
-}
+type MenuItem = Required<MenuProps>['items'][number];
 
 const HeaderMenu = ({
   loggedIn,
@@ -46,7 +41,7 @@ const HeaderMenu = ({
 }) => {
   const USER_PROFILE_URL = `/authors/${profileControlNumber}`;
 
-  let submitItems = [
+  let submitItems: MenuItem[] = [
     {
       key: 'submit.literature',
       label: [
@@ -165,7 +160,7 @@ const HeaderMenu = ({
     },
   ];
 
-  const accountItems = [
+  let accountItems: MenuItem[] = [
     {
       key: 'my-profile',
       label: profileControlNumber
@@ -203,19 +198,25 @@ const HeaderMenu = ({
         </LinkLikeButton>,
       ],
     },
-    loggedInToBackoffice && {
-      key: 'logout-backoffice',
-      label: [
-        <LinkLikeButton
-          color="white"
-          onClick={() => onBackofficeLogoutClick()}
-          key="logout-backoffice"
-        >
-          Logout Backoffice
-        </LinkLikeButton>,
-      ],
-    },
   ];
+
+  if (loggedInToBackoffice) {
+    accountItems = [
+      ...accountItems,
+      {
+        key: 'logout-backoffice',
+        label: [
+          <LinkLikeButton
+            color="white"
+            onClick={() => onBackofficeLogoutClick()}
+            key="logout-backoffice"
+          >
+            Logout Backoffice
+          </LinkLikeButton>,
+        ],
+      },
+    ];
+  }
 
   if (loggedIn) {
     menuItems = [
@@ -232,11 +233,11 @@ const HeaderMenu = ({
       ...menuItems,
       {
         key: 'login',
-        label: (
+        label: [
           <Link key="login" to={USER_LOGIN}>
             Login
-          </Link>
-        ),
+          </Link>,
+        ],
       },
     ];
   }

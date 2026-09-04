@@ -226,16 +226,15 @@ body {
 }
 
 // page header with smaller inline subtitle (like in JournalItem)
-.ant-page-header.site-page-header.ant-page-header-ghost {
-  padding: 0;
-  .ant-page-header-heading-left {
+.site-page-header {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+
+  .site-page-header-title {
+    font-weight: 500;
+    font-size: 18px;
     margin: 0;
-    .ant-page-header-heading-title {
-      font-weight: 500;
-      font-size: 18px;
-      margin-right: 0;
-      padding-right: 5px;
-    }
   }
 }
 
