@@ -36,16 +36,27 @@ exports[`SignUpPage > renders page 1`] = `
                     <div
                       class="ant-form-item-control-input-content"
                     >
-                      <input
-                        class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
-                        data-test-id="email"
-                        data-testid="email"
-                        form="[object Object]"
-                        name="email"
-                        placeholder="Email"
-                        type="email"
-                        value=""
-                      />
+                      <div
+                        class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
+                      >
+                        <span
+                          class="ant-input-affix-wrapper css-dev-only-do-not-override-mncuj7 ant-input-outlined ant-input-compact-item ant-input-compact-first-item ant-input-compact-last-item"
+                        >
+                          <input
+                            class="ant-input css-dev-only-do-not-override-mncuj7"
+                            data-test-id="email"
+                            data-testid="email"
+                            form="[object Object]"
+                            name="email"
+                            placeholder="Email"
+                            type="email"
+                            value=""
+                          />
+                          <span
+                            class="ant-input-suffix"
+                          />
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -183,16 +194,27 @@ exports[`SignUpPage > renders page with errors 1`] = `
                     <div
                       class="ant-form-item-control-input-content"
                     >
-                      <input
-                        class="ant-input css-dev-only-do-not-override-mncuj7 ant-input-outlined"
-                        data-test-id="email"
-                        data-testid="email"
-                        form="[object Object]"
-                        name="email"
-                        placeholder="Email"
-                        type="email"
-                        value=""
-                      />
+                      <div
+                        class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
+                      >
+                        <span
+                          class="ant-input-affix-wrapper css-dev-only-do-not-override-mncuj7 ant-input-outlined ant-input-compact-item ant-input-compact-first-item ant-input-compact-last-item"
+                        >
+                          <input
+                            class="ant-input css-dev-only-do-not-override-mncuj7"
+                            data-test-id="email"
+                            data-testid="email"
+                            form="[object Object]"
+                            name="email"
+                            placeholder="Email"
+                            type="email"
+                            value=""
+                          />
+                          <span
+                            class="ant-input-suffix"
+                          />
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -260,17 +282,28 @@ exports[`SignUpPage > renders page with loading 1`] = `
                     <div
                       class="ant-form-item-control-input-content"
                     >
-                      <input
-                        class="ant-input ant-input-disabled css-dev-only-do-not-override-mncuj7 ant-input-outlined"
-                        data-test-id="email"
-                        data-testid="email"
-                        disabled=""
-                        form="[object Object]"
-                        name="email"
-                        placeholder="Email"
-                        type="email"
-                        value=""
-                      />
+                      <div
+                        class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
+                      >
+                        <span
+                          class="ant-input-affix-wrapper ant-input-disabled ant-input-affix-wrapper-disabled css-dev-only-do-not-override-mncuj7 ant-input-outlined ant-input-compact-item ant-input-compact-first-item ant-input-compact-last-item"
+                        >
+                          <input
+                            class="ant-input ant-input-disabled css-dev-only-do-not-override-mncuj7"
+                            data-test-id="email"
+                            data-testid="email"
+                            disabled=""
+                            form="[object Object]"
+                            name="email"
+                            placeholder="Email"
+                            type="email"
+                            value=""
+                          />
+                          <span
+                            class="ant-input-suffix"
+                          />
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>

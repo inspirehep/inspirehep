@@ -1,5 +1,7 @@
 import { mergeWith, cloneDeep } from 'lodash';
-import moment from 'moment-timezone';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 import { List, Map, Set } from 'immutable';
 // TODO: use different package suitable for typescript (this one doesn't have types)
 // @ts-ignore
@@ -10,6 +12,9 @@ import {
   SEARCH_PAGE_COL_SIZE_WITHOUT_FACETS,
   SEARCH_PAGE_COL_SIZE_NO_RESULTS,
 } from './constants';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export function forceArray(maybeArray: any) {
   return maybeArray === undefined || Array.isArray(maybeArray)
@@ -324,12 +329,13 @@ export function doTimezonesHaveDifferentTimes(
   timezone2: string
 ) {
   const now = Date.now();
-  const zone1 = moment.tz.zone(timezone1);
-  const zone2 = moment.tz.zone(timezone2);
-  if (!zone1 || !zone2) {
+  try {
+    const offset1 = dayjs(now).tz(timezone1).utcOffset();
+    const offset2 = dayjs(now).tz(timezone2).utcOffset();
+    return offset1 !== offset2;
+  } catch {
     return false;
   }
-  return zone1.utcOffset(now) !== zone2.utcOffset(now);
 }
 
 export function hasMonthAndYear(date: string) {

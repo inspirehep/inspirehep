@@ -14,25 +14,28 @@ const PositionsTimeline = ({ positions }: { positions: List<any> }) => {
     ? positions
     : positions.take(DISPLAY_LIMIT);
 
-  function renderPositionTimelineItem(position: Map<string, any>) {
-    const institution = position.get('institution');
+  function getPositionTimelineItem(position: Map<string, any>) {
     const rank = position.get('rank');
     const displayDate = position.get('display_date');
 
-    return (
-      <Timeline.Item key={`#${displayDate}@${institution}`}>
-        <div>{displayDate}</div>
-        <div>
-          {rank && <strong>{rank}, </strong>}
-          <Affiliation affiliation={position} />
-        </div>
-      </Timeline.Item>
-    );
+    return {
+      children: (
+        <>
+          <div>{displayDate}</div>
+          <div>
+            {rank && <strong>{rank}, </strong>}
+            <Affiliation affiliation={position} />
+          </div>
+        </>
+      ),
+    };
   }
 
   return (
     <>
-      <Timeline>{positionsToDisplay.map(renderPositionTimelineItem)}</Timeline>
+      <Timeline
+        items={positionsToDisplay.map(getPositionTimelineItem).toArray()}
+      />
       <ExpandListToggle
         limit={DISPLAY_LIMIT}
         size={positions.size}

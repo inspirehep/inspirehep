@@ -83,42 +83,52 @@ exports[`InstitutionSubmissionPageContainer > InstitutionSubmissionPage > render
                                 class="ant-form-item-control-input-content"
                               >
                                 <div
-                                  class="ant-select ant-select-outlined ant-select-in-form-item ant-select-auto-complete css-dev-only-do-not-override-mncuj7 ant-select-single ant-select-show-search"
-                                  data-test-id="identifier"
-                                  data-test-type="suggester"
-                                  form="[object Object]"
-                                  name="identifier"
-                                  searchasyoutype="true"
+                                  class="ant-space-compact css-dev-only-do-not-override-mncuj7 ant-space-compact-block"
                                 >
                                   <div
-                                    class="ant-select-selector"
+                                    class="ant-select ant-select-outlined ant-select-in-form-item ant-select-has-feedback ant-select-compact-item ant-select-compact-first-item ant-select-compact-last-item ant-select-auto-complete css-dev-only-do-not-override-mncuj7 ant-select-single ant-select-show-arrow ant-select-show-search"
+                                    data-test-id="identifier"
+                                    data-test-type="suggester"
+                                    form="[object Object]"
+                                    name="identifier"
+                                    searchasyoutype="true"
                                   >
-                                    <span
-                                      class="ant-select-selection-wrap"
+                                    <div
+                                      class="ant-select-selector"
                                     >
                                       <span
-                                        class="ant-select-selection-search"
+                                        class="ant-select-selection-wrap"
                                       >
-                                        <input
-                                          aria-autocomplete="list"
-                                          aria-controls="rc_select_TEST_OR_SSR_list"
-                                          aria-expanded="false"
-                                          aria-haspopup="listbox"
-                                          aria-owns="rc_select_TEST_OR_SSR_list"
-                                          autocomplete="off"
-                                          class="ant-select-selection-search-input"
-                                          id="rc_select_TEST_OR_SSR"
-                                          role="combobox"
-                                          type="search"
-                                          value=""
-                                        />
+                                        <span
+                                          class="ant-select-selection-search"
+                                        >
+                                          <input
+                                            aria-autocomplete="list"
+                                            aria-controls="rc_select_TEST_OR_SSR_list"
+                                            aria-expanded="false"
+                                            aria-haspopup="listbox"
+                                            aria-owns="rc_select_TEST_OR_SSR_list"
+                                            autocomplete="off"
+                                            class="ant-select-selection-search-input"
+                                            id="rc_select_TEST_OR_SSR"
+                                            role="combobox"
+                                            type="search"
+                                            value=""
+                                          />
+                                        </span>
+                                        <span
+                                          class="ant-select-selection-placeholder"
+                                        >
+                                          Institution, type for suggestions
+                                        </span>
                                       </span>
-                                      <span
-                                        class="ant-select-selection-placeholder"
-                                      >
-                                        Institution, type for suggestions
-                                      </span>
-                                    </span>
+                                    </div>
+                                    <span
+                                      aria-hidden="true"
+                                      class="ant-select-arrow"
+                                      style="user-select: none;"
+                                      unselectable="on"
+                                    />
                                   </div>
                                 </div>
                               </div>
