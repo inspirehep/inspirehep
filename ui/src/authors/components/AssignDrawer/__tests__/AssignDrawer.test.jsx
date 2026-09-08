@@ -1,5 +1,5 @@
 import { Set } from 'immutable';
-
+import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from '../../../../fixtures/render';
 import AssignDrawer from '../AssignDrawer';
 
@@ -30,7 +30,8 @@ describe('AssignDrawer', () => {
     expect(screen.baseElement).toMatchSnapshot();
   });
 
-  it('calls onAssign on assign button click', () => {
+  it('calls onAssign on assign button click', async () => {
+    const user = userEvent.setup();
     const visible = true;
     const onDrawerClose = jest.fn();
     const onAssign = jest.fn();
@@ -45,10 +46,10 @@ describe('AssignDrawer', () => {
       />
     );
     expect(getByTestId('assign-button')).toBeDisabled();
-    getByRole('radio', { name: 'New author' }).click();
+    await user.click(getByRole('radio', { name: 'New author' }));
     expect(getByTestId('assign-button')).toBeEnabled();
 
-    getByTestId('assign-button').click();
+    await user.click(getByTestId('assign-button'));
     expect(onAssign).toHaveBeenCalledWith({ from: 123, to: undefined });
   });
 });

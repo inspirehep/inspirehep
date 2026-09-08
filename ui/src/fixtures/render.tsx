@@ -5,6 +5,11 @@ import { Provider } from 'react-redux';
 
 import { getStore } from './store';
 
+const routerFutureFlags = {
+  v7_startTransition: true,
+  v7_relativeSplatPath: true,
+};
+
 export const renderWithRouter = (
   ui: React.ReactElement,
   {
@@ -13,7 +18,11 @@ export const renderWithRouter = (
   }: { route?: string; initialIndex?: number } = {}
 ) =>
   render(
-    <MemoryRouter initialEntries={[route]} initialIndex={initialIndex}>
+    <MemoryRouter
+      initialEntries={[route]}
+      initialIndex={initialIndex}
+      future={routerFutureFlags}
+    >
       <>{ui}</>
     </MemoryRouter>
   );
@@ -35,7 +44,11 @@ export const renderWithProviders = (
   const usedStore = store ?? getStore(initialState);
   const Wrapper = ({ children }: { children: React.ReactNode }) => (
     <Provider store={usedStore}>
-      <MemoryRouter initialEntries={[route]} initialIndex={0}>
+      <MemoryRouter
+        initialEntries={[route]}
+        initialIndex={0}
+        future={routerFutureFlags}
+      >
         <>{children}</>
       </MemoryRouter>
     </Provider>

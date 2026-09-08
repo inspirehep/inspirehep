@@ -2,17 +2,18 @@ import { renderWithRouter } from '../../../../fixtures/render';
 import HeaderMenu from '../HeaderMenu';
 
 describe('HeaderMenu', () => {
-  it('renders when logged in', () => {
-    const { queryByText } = renderWithRouter(
+  it('renders when logged in', async () => {
+    const { findByText, queryByText } = renderWithRouter(
       <HeaderMenu loggedIn onLogoutClick={jest.fn()} />
     );
+    expect(await findByText('Account')).toBeInTheDocument();
     expect(queryByText('Login')).not.toBeInTheDocument();
   });
 
-  it('renders when not logged in', () => {
-    const { getByText } = renderWithRouter(
+  it('renders when not logged in', async () => {
+    const { findByText } = renderWithRouter(
       <HeaderMenu loggedIn={false} onLogoutClick={jest.fn()} />
     );
-    expect(getByText('Login')).toBeInTheDocument();
+    expect(await findByText('Login')).toBeInTheDocument();
   });
 });

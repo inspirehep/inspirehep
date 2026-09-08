@@ -34,6 +34,15 @@ describe('Submissions', () => {
     }),
   });
 
+  const successStore = getStore({
+    submissions: fromJS({
+      successData: {
+        pid_value: 12345,
+        cnum: 'C19-02-01',
+      },
+    }),
+  });
+
   // GENERIC SUBMISSION SUCCESS PAGE
   it('navigates to SubmissionSuccessPage when /submissions/success', () => {
     const { asFragment, getByTestId } = renderSubmissions(
@@ -140,7 +149,8 @@ describe('Submissions', () => {
 
   it('navigates to ConferenceSubmissionSuccessPageContainer when /submissions/conferences/new/success', () => {
     const { asFragment, getByTestId } = renderSubmissions(
-      '/submissions/conferences/new/success'
+      '/submissions/conferences/new/success',
+      successStore
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -170,7 +180,8 @@ describe('Submissions', () => {
 
   it('navigates to SeminarSubmissionSuccessPageContainer when /submissions/seminars/new/success', () => {
     const { asFragment, getByTestId } = renderSubmissions(
-      '/submissions/seminars/new/success'
+      '/submissions/seminars/new/success',
+      successStore
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -179,7 +190,8 @@ describe('Submissions', () => {
 
   it('navigates to SeminarSubmissionSuccessPageContainer when /submissions/seminars/1/success', () => {
     const { asFragment, getByTestId } = renderSubmissions(
-      '/submissions/seminars/1/success'
+      '/submissions/seminars/1/success',
+      successStore
     );
 
     expect(asFragment()).toMatchSnapshot();
