@@ -7,21 +7,25 @@ describe('AggregationFilter', () => {
   it('renders RangeAggregation if aggregation type is range', () => {
     const buckets = fromJS([
       {
-        key: '2011',
+        key: 1293840000000,
+        key_as_string: '2011',
         doc_count: 1,
       },
       {
-        key: '2012',
+        key: 1325376000000,
+        key_as_string: '2012',
         doc_count: 2,
       },
     ]);
     const initialBuckets = fromJS([
       {
-        key: '2011',
+        key: 1293840000000,
+        key_as_string: '2011',
         doc_count: 111,
       },
       {
-        key: '2012',
+        key: 1325376000000,
+        key_as_string: '2012',
         doc_count: 12,
       },
     ]);

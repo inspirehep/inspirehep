@@ -34,10 +34,9 @@ describe('Journals', () => {
         data: {
           metadata: {
             short_title: 'Calc.Var.Part.Differ.Equ',
-            journal_title: {
-              title:
-                'Calculus of Variations and Partial Differential Equations',
-            },
+            journal_title:
+              'Calculus of Variations and Partial Differential Equations',
+
             control_number: 1213100,
           },
         },

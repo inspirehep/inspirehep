@@ -5,12 +5,7 @@ import UnclickableTag from '../UnclickableTag';
 describe('UnclickableTag', () => {
   it('renders with all props set', () => {
     const { asFragment } = render(
-      <UnclickableTag
-        className="this-is-a-test-class"
-        color="blue"
-        visible
-        closable
-      >
+      <UnclickableTag className="this-is-a-test-class" color="blue" closable>
         This is a tag
       </UnclickableTag>
     );

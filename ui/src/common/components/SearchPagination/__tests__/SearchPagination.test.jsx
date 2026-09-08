@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-
+import userEvent from '@testing-library/user-event';
 import SearchPagination from '../SearchPagination';
 
 describe('SearchPagination', () => {
@@ -22,12 +22,16 @@ describe('SearchPagination', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('calls onPageChange when pagination change', () => {
+  it('calls onPageChange when pagination change', async () => {
     const onPageChange = jest.fn();
+    const user = userEvent.setup();
     const { getByText } = render(
       <SearchPagination total={100} onPageChange={onPageChange} />
     );
-    getByText('3').click();
+    const page = getByText('3');
+
+    await user.click(page);
+
     expect(onPageChange).toBeCalledTimes(1);
     expect(onPageChange).toBeCalledWith(3, 25);
   });

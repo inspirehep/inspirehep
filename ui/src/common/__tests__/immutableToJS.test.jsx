@@ -1,18 +1,20 @@
 import { render } from '@testing-library/react';
-import { fromJS } from 'immutable';
+import { fromJS, isImmutable } from 'immutable';
 
 import {
   convertAllImmutablePropsToJS,
   convertSomeImmutablePropsToJS,
 } from '../immutableToJS';
 
-function MutableDummy(props) {
-  return <span {...props} />;
-}
-
 describe('immutableToJS', () => {
   describe('convertAllImmutablePropsToJS', () => {
     it('converts all immutable props to built in js', () => {
+      let receivedProps;
+      const MutableDummy = (props) => {
+        receivedProps = props;
+        return null;
+      };
+
       const ImmutableDummy = convertAllImmutablePropsToJS(MutableDummy);
       const immutableProp = fromJS({
         list: [{ foo: 'bar1' }, { foo: 'bar2' }],
@@ -21,19 +23,31 @@ describe('immutableToJS', () => {
       const mutableProp = {
         array: [{ foo: 'bar' }],
       };
-      const { asFragment } = render(
+      render(
         <ImmutableDummy
           immutableProp={immutableProp}
           mutableProp={mutableProp}
           primitiveProp={primitiveProp}
         />
       );
-      expect(asFragment()).toMatchSnapshot();
+
+      expect(isImmutable(receivedProps.immutableProp)).toBe(false);
+      expect(receivedProps.immutableProp).toEqual({
+        list: [{ foo: 'bar1' }, { foo: 'bar2' }],
+      });
+      expect(receivedProps.mutableProp).toBe(mutableProp);
+      expect(receivedProps.primitiveProp).toBe(primitiveProp);
     });
   });
 
   describe('convertSomeImmutablePropsToJS', () => {
     it('converts some immutable props to built in js', () => {
+      let receivedProps;
+      const MutableDummy = (props) => {
+        receivedProps = props;
+        return null;
+      };
+
       const ImmutableDummy = convertSomeImmutablePropsToJS(MutableDummy, [
         'immutableProp1',
       ]);
@@ -48,7 +62,7 @@ describe('immutableToJS', () => {
       const mutableProp = {
         array: [{ foo: 'bar' }],
       };
-      const { asFragment } = render(
+      render(
         <ImmutableDummy
           immutableProp1={immutableProp1}
           immutableProp2={immutableProp2}
@@ -56,7 +70,15 @@ describe('immutableToJS', () => {
           primitiveProp={primitiveProp}
         />
       );
-      expect(asFragment()).toMatchSnapshot();
+
+      expect(isImmutable(receivedProps.immutableProp1)).toBe(false);
+      expect(receivedProps.immutableProp1).toEqual({
+        list: [{ foo: 'bar1' }, { foo: 'bar2' }],
+      });
+      expect(isImmutable(receivedProps.immutableProp2)).toBe(true);
+      expect(receivedProps.immutableProp2).toBe(immutableProp2);
+      expect(receivedProps.mutableProp).toBe(mutableProp);
+      expect(receivedProps.primitiveProp).toBe(primitiveProp);
     });
   });
 });

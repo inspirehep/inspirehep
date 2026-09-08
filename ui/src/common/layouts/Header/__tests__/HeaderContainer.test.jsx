@@ -1,10 +1,11 @@
+import { waitFor } from '@testing-library/react';
 import { renderWithProviders } from '../../../../fixtures/render';
 import { getStore } from '../../../../fixtures/store';
 import HeaderContainer from '../HeaderContainer';
 import { SUBMISSIONS, HOME } from '../../../routes';
 
 describe('HeaderContainer', () => {
-  it('passes props from state when submissions page', () => {
+  it('passes props from state when submissions page', async () => {
     const store = getStore({
       router: {
         location: {
@@ -17,11 +18,11 @@ describe('HeaderContainer', () => {
       { store }
     );
 
-    expect(queryByTestId('searchbox')).toBeNull();
+    await waitFor(() => expect(queryByTestId('searchbox')).toBeNull());
     expect(queryByText('Beta')).toBeNull();
   });
 
-  it('passes props from state when home page', () => {
+  it('passes props from state when home page', async () => {
     const store = getStore({
       router: {
         location: {
@@ -34,7 +35,7 @@ describe('HeaderContainer', () => {
       { store }
     );
 
-    expect(queryByTestId('searchbox')).toBeNull();
+    await waitFor(() => expect(queryByTestId('searchbox')).toBeNull());
     expect(queryByText('Beta')).toBeNull();
   });
 });

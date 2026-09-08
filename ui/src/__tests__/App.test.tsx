@@ -1,4 +1,4 @@
-import { within, screen } from '@testing-library/react';
+import { within, screen, waitFor } from '@testing-library/react';
 import { fromJS, List } from 'immutable';
 import { vi } from 'vitest';
 
@@ -19,7 +19,7 @@ describe('App', () => {
     (setUserCategoryFromRoles as jest.Mock).mockClear();
   });
 
-  it('calls to set user category with roles on render', () => {
+  it('calls to set user category with roles on render', async () => {
     const store = getStore({
       user: fromJS({
         loggedIn: true,
@@ -31,12 +31,14 @@ describe('App', () => {
 
     renderWithProviders(<App />, { store });
 
-    expect(setUserCategoryFromRoles).toHaveBeenLastCalledWith(
-      List(['cataloger'])
+    await waitFor(() =>
+      expect(setUserCategoryFromRoles).toHaveBeenLastCalledWith(
+        List(['cataloger'])
+      )
     );
   });
 
-  it('dispatches fetchLoggedInUser on render', () => {
+  it('dispatches fetchLoggedInUser on render', async () => {
     const store = getStore();
     renderWithProviders(<App />, { store });
     const expectedActions = [
@@ -45,7 +47,7 @@ describe('App', () => {
         payload: [],
       },
     ];
-    expect(store.getActions()).toEqual(expectedActions);
+    await waitFor(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
   it('navigates to Backoffice when /backoffice if superuser logged in', async () => {
@@ -86,38 +88,40 @@ describe('App', () => {
     expect(backoffice).not.toBeInTheDocument();
   });
 
-  it('navigates to User when /user', () => {
-    const { getByTestId } = renderWithProviders(<App />, { route: '/user' });
+  it('navigates to User when /user', async () => {
+    const { getByTestId } = renderWithProviders(<App />, {
+      route: '/user',
+    });
     const app = getByTestId('app');
-    const user = within(app).getByTestId('user');
+    const user = await within(app).findByTestId('user');
 
     expect(user).toBeInTheDocument();
   });
 
-  it('navigates to Literature when /literature', () => {
+  it('navigates to Literature when /literature', async () => {
     const { getByTestId } = renderWithProviders(<App />, {
       route: '/literature',
     });
     const app = getByTestId('app');
-    const literature = within(app).getByTestId('literature');
+    const literature = await within(app).findByTestId('literature');
 
     expect(literature).toBeInTheDocument();
   });
 
-  it('navigates to Authors when /authors', () => {
+  it('navigates to Authors when /authors', async () => {
     const { getByTestId } = renderWithProviders(<App />, { route: '/authors' });
     const app = getByTestId('app');
-    const authors = within(app).getByTestId('authors');
+    const authors = await within(app).findByTestId('authors');
 
     expect(authors).toBeInTheDocument();
   });
 
-  it('navigates to Conferences when /conferences', () => {
+  it('navigates to Conferences when /conferences', async () => {
     const { getByTestId } = renderWithProviders(<App />, {
       route: '/conferences',
     });
     const app = getByTestId('app');
-    const conferences = within(app).getByTestId('conferences');
+    const conferences = await within(app).findByTestId('conferences');
 
     expect(conferences).toBeInTheDocument();
   });
@@ -160,56 +164,56 @@ describe('App', () => {
     expect(submissions).not.toBeInTheDocument();
   });
 
-  it('navigates to Home when /', () => {
+  it('navigates to Home when /', async () => {
     const { getByTestId } = renderWithProviders(<App />, { route: '/' });
     const app = getByTestId('app');
-    const home = within(app).getByTestId('home');
+    const home = await within(app).findByTestId('home');
 
     expect(home).toBeInTheDocument();
   });
 
-  it('navigates to Errors when /errors', () => {
+  it('navigates to Errors when /errors', async () => {
     const { getByTestId } = renderWithProviders(<App />, { route: '/errors' });
     const app = getByTestId('app');
-    const errors = within(app).getByTestId('errors');
+    const errors = await within(app).findByTestId('errors');
 
     expect(errors).toBeInTheDocument();
   });
 
-  it('redirects to Errors when /anythingElse', () => {
+  it('redirects to Errors when /anythingElse', async () => {
     const { getByTestId } = renderWithProviders(<App />, {
       route: '/anythingElse',
     });
     const app = getByTestId('app');
-    const errors = within(app).getByTestId('errors');
+    const errors = await within(app).findByTestId('errors');
 
     expect(errors).toBeInTheDocument();
   });
 
-  it('navigates to Jobs when /jobs', () => {
+  it('navigates to Jobs when /jobs', async () => {
     const { getByTestId } = renderWithProviders(<App />, { route: '/jobs' });
     const app = getByTestId('app');
-    const jobs = within(app).getByTestId('jobs');
+    const jobs = await within(app).findByTestId('jobs');
 
     expect(jobs).toBeInTheDocument();
   });
 
-  it('navigates to BibliographyGenerator when /bibliography-generator', () => {
+  it('navigates to BibliographyGenerator when /bibliography-generator', async () => {
     const { getByTestId } = renderWithProviders(<App />, {
       route: '/bibliography-generator',
     });
     const app = getByTestId('app');
-    const bibliography = within(app).getByTestId('bibliography');
+    const bibliography = await within(app).findByTestId('bibliography');
 
     expect(bibliography).toBeInTheDocument();
   });
 
-  it('navigates to Journals when /journals', () => {
+  it('navigates to Journals when /journals', async () => {
     const { getByTestId } = renderWithProviders(<App />, {
       route: '/journals',
     });
     const app = getByTestId('app');
-    const journals = within(app).getByTestId('journals');
+    const journals = await within(app).findByTestId('journals');
 
     expect(journals).toBeInTheDocument();
   });

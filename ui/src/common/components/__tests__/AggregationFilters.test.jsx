@@ -10,6 +10,7 @@ describe('AggregationFilters', () => {
         buckets: [
           {
             key: 'foo',
+            key_as_string: '2012',
             doc_count: 1,
           },
         ],
@@ -60,6 +61,7 @@ describe('AggregationFilters', () => {
           {
             key: 'foo',
             doc_count: 1,
+            key_as_string: '2012',
           },
         ],
         meta: {
@@ -88,6 +90,7 @@ describe('AggregationFilters', () => {
         buckets: [
           {
             key: 'foo',
+            key_as_string: '2012',
             doc_count: 1,
           },
         ],
@@ -118,6 +121,7 @@ describe('AggregationFilters', () => {
           {
             key: 'foo',
             doc_count: 1,
+            key_as_string: '2012',
           },
         ],
         meta: {
@@ -144,7 +148,7 @@ describe('AggregationFilters', () => {
   it('does not render aggregations with empty buckets', () => {
     const aggregations = fromJS({
       agg1: {
-        buckets: [{}],
+        buckets: [],
         meta: {
           title: 'Aggregation 1',
           order: 1,

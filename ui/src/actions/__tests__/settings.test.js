@@ -1,4 +1,5 @@
 import MockAdapter from 'axios-mock-adapter';
+import { notification } from 'antd';
 
 import { getStore } from '../../fixtures/store';
 import {
@@ -12,6 +13,14 @@ import http from '../../common/http';
 const mockHttp = new MockAdapter(http.httpClient);
 
 describe('settings - async action creator', () => {
+  beforeEach(() => {
+    vi.spyOn(notification, 'success').mockImplementation(vi.fn());
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
   it('successful email change creates SETTINGS_CHANGE_EMAIL_SUCCESS', async () => {
     const email = 'test@testemail.thing';
     mockHttp

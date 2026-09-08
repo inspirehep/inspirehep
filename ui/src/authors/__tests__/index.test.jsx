@@ -28,6 +28,7 @@ describe('Authors', () => {
     const store = getStore({
       authors: fromJS({
         data: {
+          updated: '2026-09-15T11:40:03.296326+00:00',
           metadata: {
             control_number: 1234,
             titles: [

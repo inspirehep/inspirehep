@@ -1,6 +1,6 @@
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
-
+import userEvent from '@testing-library/user-event';
 import http from '../../http';
 import Suggester, { REQUEST_DEBOUNCE_MS } from '../Suggester';
 
@@ -18,6 +18,7 @@ describe('Suggester', () => {
   });
 
   it('renders results onSearch', async () => {
+    const user = userEvent.setup();
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
     const responseData = {
       abstract_source: [
@@ -40,17 +41,14 @@ describe('Suggester', () => {
       <Suggester pidType="literature" suggesterName="abstract_source" />
     );
 
-    fireEvent.change(screen.getByRole('combobox'), {
-      target: { value: 'test' },
-    });
+    await user.type(screen.getByRole('combobox'), 'test');
 
-    await wait();
-
-    expect(screen.getAllByText('Result 1')[0]).toBeInTheDocument();
+    expect((await screen.findAllByText('Result 1'))[0]).toBeInTheDocument();
     expect(screen.getAllByText('Result 2')[0]).toBeInTheDocument();
   });
 
   it('renders results with custom extractUniqueItemValue', async () => {
+    const user = userEvent.setup();
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
     const responseData = {
       abstract_source: [
@@ -79,18 +77,15 @@ describe('Suggester', () => {
       />
     );
 
-    fireEvent.change(screen.getByRole('combobox'), {
-      target: { value: 'test' },
-    });
-
-    await wait();
+    await user.type(screen.getByRole('combobox'), 'test');
 
     expect(
-      screen.getByRole('option', { name: 'Result 1 - Extra 1' })
+      await screen.findByRole('option', { name: 'Result 1 - Extra 1' })
     ).toBeInTheDocument();
   });
 
   it('renders results with custom extractItemCompletionValue', async () => {
+    const user = userEvent.setup();
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
     const responseData = {
       abstract_source: [
@@ -114,16 +109,15 @@ describe('Suggester', () => {
       />
     );
 
-    fireEvent.change(screen.getByRole('combobox'), {
-      target: { value: 'test' },
-    });
+    await user.type(screen.getByRole('combobox'), 'test');
 
-    await wait();
-
-    expect(screen.getByRole('option', { name: 'Result' })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('option', { name: 'Result' })
+    ).toBeInTheDocument();
   });
 
   it('does not render results onSearch without waiting for debounce', async () => {
+    const user = userEvent.setup();
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
     const responseData = {
       abstract_source: [
@@ -142,18 +136,16 @@ describe('Suggester', () => {
       <Suggester pidType="literature" suggesterName="abstract_source" />
     );
 
-    fireEvent.change(screen.getByRole('combobox'), {
-      target: { value: 'test' },
-    });
+    await user.type(screen.getByRole('combobox'), 'test');
 
     await wait(REQUEST_DEBOUNCE_MS - 25);
 
     expect(screen.queryByText('Result 1')).not.toBeInTheDocument();
-
-    await wait(30); // TODO: investigate how this effects the next one without waiting here
+    expect((await screen.findAllByText('Result 1'))[0]).toBeInTheDocument();
   });
 
   it('renders results with custom result template', async () => {
+    const user = userEvent.setup();
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
     const responseData = {
       abstract_source: [
@@ -186,16 +178,14 @@ describe('Suggester', () => {
       />
     );
 
-    fireEvent.change(screen.getByRole('combobox'), {
-      target: { value: 'test' },
-    });
+    await user.type(screen.getByRole('combobox'), 'test');
 
-    await wait();
-
+    expect((await screen.findAllByText('Result 1'))[0]).toBeInTheDocument();
     expect(screen.baseElement).toMatchSnapshot();
   });
 
   it('calls onChange if extractItemCompletionValue prop is present', async () => {
+    const user = userEvent.setup();
     const onChange = jest.fn();
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
     const responseData = {
@@ -223,16 +213,13 @@ describe('Suggester', () => {
       />
     );
 
-    fireEvent.change(screen.getByRole('combobox'), {
-      target: { value: 'Result' },
-    });
+    await user.type(screen.getByRole('combobox'), 'Result');
 
-    await wait();
-
-    expect(onChange).toHaveBeenCalledWith('Result', {});
+    await waitFor(() => expect(onChange).toHaveBeenCalledWith('Result', {}));
   });
 
   it('calls onSelect with unique item value and whole suggestion', async () => {
+    const user = userEvent.setup();
     const onSelect = jest.fn();
     const onChange = jest.fn();
 
@@ -262,12 +249,10 @@ describe('Suggester', () => {
     );
 
     const input = screen.getByRole('combobox');
-    fireEvent.change(input, { target: { value: 'test' } });
+    await user.type(input, 'test');
 
-    await wait();
-
-    const suggestionOption = screen.getByText('Result');
-    fireEvent.click(suggestionOption);
+    const suggestionOption = await screen.findByText('Result');
+    await user.click(suggestionOption);
 
     expect(onSelect).toHaveBeenCalledWith('1', {
       id: '1',
@@ -276,6 +261,7 @@ describe('Suggester', () => {
   });
 
   it('calls onSelect with unique item value and whole suggestion and onChange if extractItemCompletionValue prop is present', async () => {
+    const user = userEvent.setup();
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
     const responseData = {
       abstract_source: [
@@ -304,14 +290,14 @@ describe('Suggester', () => {
     );
 
     const input = screen.getByRole('combobox');
-    fireEvent.change(input, { target: { value: 'test' } });
+    await user.type(input, 'test');
 
     await waitFor(() => {
       expect(screen.getByText('Result')).toBeInTheDocument();
     });
 
     const suggestionOption = screen.getByText('Result');
-    fireEvent.click(suggestionOption);
+    await user.click(suggestionOption);
 
     expect(onSelect).toHaveBeenCalledWith('1', {
       id: '1',
@@ -321,6 +307,7 @@ describe('Suggester', () => {
   });
 
   it('calls only onChange if extractItemCompletionValue prop is present and onSelect is not when an option is selected', async () => {
+    const user = userEvent.setup();
     const onChange = jest.fn();
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
     const responseData = {
@@ -348,16 +335,13 @@ describe('Suggester', () => {
       />
     );
 
-    fireEvent.change(screen.getByRole('combobox'), {
-      target: { value: 'Result' },
-    });
-
-    await wait();
+    await user.type(screen.getByRole('combobox'), 'Result');
 
     expect(onChange).toHaveBeenCalledWith('Result', {});
   });
 
   it('renders empty if request fails', async () => {
+    const user = userEvent.setup();
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
     mockHttp.onGet(suggesterQueryUrl).replyOnce(404);
 
@@ -365,11 +349,15 @@ describe('Suggester', () => {
       <Suggester pidType="literature" suggesterName="abstract_source" />
     );
 
-    fireEvent.change(screen.getByRole('combobox'), {
-      target: { value: 'test' },
-    });
+    await user.type(screen.getByRole('combobox'), 'test');
 
-    await wait();
+    await waitFor(() =>
+      expect(
+        mockHttp.history.get.some(
+          (request) => request.url === suggesterQueryUrl
+        )
+      ).toBe(true)
+    );
 
     expect(screen.baseElement).toMatchSnapshot();
   });

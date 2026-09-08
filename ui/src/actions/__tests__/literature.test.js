@@ -44,12 +44,18 @@ import {
   exportToCdsError,
   exporting,
   assignLiteratureItemSuccess,
+  assignLiteratureItemError,
 } from '../../literature/assignNotification';
 import { LITERATURE_REFERENCES_NS } from '../../search/constants';
 
 const mockHttp = new MockAdapter(http.httpClient);
 vi.mock('../../literature/assignNotification');
 vi.mock('../../authors/assignNotification');
+
+// Lets fire-and-forget nested thunks (e.g. checkNameCompatibility dispatching
+// assignLiteratureItem/assignLiteratureItemNoNameMatch without awaiting them)
+// settle before assertions run.
+const flushPromises = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 describe('literature - async action creators', () => {
   afterEach(() => {
@@ -392,7 +398,7 @@ describe('literature - async action creators', () => {
         .onPost('/assign/literature/assign-different-profile', {
           from_author_recid: from,
           to_author_recid: to,
-          literature_ids: literatureId,
+          literature_ids: [literatureId],
         })
         .replyOnce(500, {});
 
@@ -405,7 +411,7 @@ describe('literature - async action creators', () => {
 
       await dispatchPromise;
       expect(store.getActions()).toEqual(expectedActions);
-      expect(assignError).toHaveBeenCalled();
+      expect(assignLiteratureItemError).toHaveBeenCalled();
     });
   });
 
@@ -416,6 +422,7 @@ describe('literature - async action creators', () => {
 
     it('returns matching authors recid if exists and calls assignSuccessDifferentProfileClaimedPapers if recids dont match', async () => {
       const to = 123456;
+      const matchedAuthorRecid = 1010819;
       const literatureId = 159731;
 
       const store = getStore();
@@ -424,16 +431,24 @@ describe('literature - async action creators', () => {
         .onGet(
           `/assign/check-names-compatibility?literature_recid=${literatureId}`
         )
-        .replyOnce(200, { matched_author_recid: 1010819 });
+        .replyOnce(200, { matched_author_recid: matchedAuthorRecid });
+      mockHttp
+        .onPost('/assign/literature/assign-different-profile', {
+          from_author_recid: matchedAuthorRecid,
+          to_author_recid: to,
+          literature_ids: [literatureId],
+        })
+        .replyOnce(200, { message: 'Success', created_rt_ticket: true });
 
-      const expectedActions = [];
+      const expectedActions = [setAssignLiteratureItemDrawerVisibility(null)];
 
       const dispatchPromise = store.dispatch(
         checkNameCompatibility({ to, literatureId })
       );
-      expect(assigning).toHaveBeenCalled();
 
       await dispatchPromise;
+      await flushPromises();
+      expect(assigning).toHaveBeenCalled();
       expect(store.getActions()).toEqual(expectedActions);
       expect(assignSuccessDifferentProfileClaimedPapers).toHaveBeenCalled();
     });
@@ -448,21 +463,30 @@ describe('literature - async action creators', () => {
         .onGet(
           `/assign/check-names-compatibility?literature_recid=${literatureId}`
         )
-        .replyOnce(200, { matched_author_recid: 1010819 });
+        .replyOnce(200, { matched_author_recid: to });
+      mockHttp
+        .onPost('/assign/literature/assign', {
+          from_author_recid: to,
+          to_author_recid: to,
+          literature_ids: [literatureId],
+        })
+        .replyOnce(200, { message: 'Success' });
 
       const expectedActions = [];
 
       const dispatchPromise = store.dispatch(
         checkNameCompatibility({ to, literatureId })
       );
-      expect(assigning).toHaveBeenCalled();
 
       await dispatchPromise;
+      await flushPromises();
+      expect(assigning).toHaveBeenCalled();
       expect(store.getActions()).toEqual(expectedActions);
       expect(assignLiteratureItemSuccess).toHaveBeenCalled();
     });
 
     it('error', async () => {
+      const to = 123456;
       const paperId = 159731;
 
       const store = getStore();
@@ -470,18 +494,18 @@ describe('literature - async action creators', () => {
       mockHttp
         .onGet(`/assign/check-names-compatibility?literature_recid=${paperId}`)
         .replyOnce(500, {});
-
-      const expectedActions = [
-        setAssignLiteratureItemDrawerVisibility(paperId),
-      ];
+      mockHttp.onGet(`/literature/${paperId}?field=authors`).replyOnce(200, {});
 
       const dispatchPromise = store.dispatch(
-        setAssignLiteratureItemDrawerVisibility(paperId)
+        checkNameCompatibility({ to, literatureId: paperId })
       );
-      expect(assigning).toHaveBeenCalled();
 
       await dispatchPromise;
-      expect(store.getActions()).toEqual(expectedActions);
+      await flushPromises();
+      expect(assigning).not.toHaveBeenCalled();
+      expect(store.getActions()).toContainEqual(
+        setAssignLiteratureItemDrawerVisibility(paperId)
+      );
     });
   });
 

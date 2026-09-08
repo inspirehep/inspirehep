@@ -8163,10 +8163,10 @@ exports[`Submissions > navigates to ConferenceSubmissionSuccessPageContainer whe
               class="ant-alert-message"
             >
               <span>
-                Successfully submitted, thank you for the submission! See the conference () 
+                Successfully submitted, thank you for the submission! See the conference (C19-02-01) 
                 <a
                   class="submission-link"
-                  href="/conferences/undefined"
+                  href="/conferences/12345"
                 >
                   here
                 </a>
@@ -15801,7 +15801,7 @@ exports[`Submissions > navigates to SeminarSubmissionSuccessPageContainer when /
                 Successfully submitted, thank you for the submission! See the seminar 
                 <a
                   class="submission-link"
-                  href="/seminars/undefined"
+                  href="/seminars/12345"
                 >
                   here
                 </a>
@@ -15864,7 +15864,7 @@ exports[`Submissions > navigates to SeminarSubmissionSuccessPageContainer when /
                 Successfully submitted, thank you for the submission! See the seminar 
                 <a
                   class="submission-link"
-                  href="/seminars/undefined"
+                  href="/seminars/12345"
                 >
                   here
                 </a>

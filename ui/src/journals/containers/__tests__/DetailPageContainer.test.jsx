@@ -12,7 +12,7 @@ describe('DetailPageContainer', () => {
         data: {
           metadata: {
             short_title: 'short test',
-            journal_title: { title: 'test' },
+            journal_title: 'test',
             urls: [{ value: 'https://www.springer.com/journal/526' }],
             public_notes: [{ value: 'Started with 1997, v.9701' }],
             title_variants: [
