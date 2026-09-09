@@ -392,7 +392,7 @@ hdfs==2.7.3
 hf-xet==1.5.1
 hmsclient==0.1.1
 hpack==4.2.0
-httpcore2==2.5.0
+httpcore2==2.10.0
 httpcore==1.0.9
 httplib2==0.32.0
 httpr==0.4.8
