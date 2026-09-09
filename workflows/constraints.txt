@@ -397,7 +397,7 @@ httpcore==1.0.9
 httplib2==0.32.0
 httpr==0.4.8
 httptools==0.8.0
-httpx2==2.5.0
+httpx2==2.12.0
 httpx==0.28.1
 huggingface_hub==1.21.0
 humanize==4.16.0
