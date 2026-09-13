@@ -4385,11 +4385,8 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"core": false, "self": {"$ref": "http://localhost:8000/api/literature/3087814"},
-      "titles": [{"title": "The fix of cds rdm", "source": "submitter"}], "$schema":
-      "https://inspirehep.net/schemas/records/hep.json", "_collections": ["Literature"],
-      "document_type": ["article"], "control_number": 3087814, "external_system_identifiers":
-      [{"schema": "CDSRDM", "value": "1849g-prn51"}]}'
+    body: '[{"op": "add", "path": "/external_system_identifiers", "value": [{"schema":
+      "CDSRDM", "value": "1849g-prn51"}]}]'
     headers:
       Accept:
       - application/vnd+inspire.record.raw+json
@@ -4398,12 +4395,12 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '379'
+      - '112'
       Content-Type:
-      - application/json
+      - application/json-patch+json
       If-Match:
       - '"0"'
-    method: PUT
+    method: PATCH
     uri: http://host.docker.internal:8080/api/literature/3087814
   response:
     body:
