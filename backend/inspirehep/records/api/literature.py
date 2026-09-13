@@ -6,6 +6,7 @@
 import threading
 import uuid
 from concurrent.futures import ThreadPoolExecutor, TimeoutError, as_completed
+from datetime import datetime
 from io import BytesIO
 
 import backoff
@@ -26,6 +27,7 @@ from inspirehep.disambiguation.tasks import disambiguate_authors
 from inspirehep.files.proxies import current_s3_instance
 from inspirehep.hal.api import push_to_hal
 from inspirehep.orcid.api import push_to_orcid
+from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.pidstore.api.literature import PidStoreLiterature
 from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.api.mixins import (
@@ -46,7 +48,7 @@ from inspirehep.records.marshmallow.literature.es import (
     LiteratureElasticSearchSchema,
     LiteratureFulltextElasticSearchSchema,
 )
-from inspirehep.records.models import DataLiterature
+from inspirehep.records.models import DataLiterature, WorkflowsRecordSources
 from inspirehep.records.utils import (
     download_file_from_url,
     get_literature_earliest_date,
@@ -58,6 +60,8 @@ from inspirehep.records.utils import (
 from inspirehep.search.api import LiteratureSearch
 from inspirehep.utils import chunker, hash_data
 from invenio_db import db
+from invenio_pidstore.models import PersistentIdentifier
+from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
 from pdfminer.pdftypes import PDFException
 
@@ -214,6 +218,7 @@ class LiteratureRecord(
             LiteratureRecord.update_refs_to_conferences(data)
             data = self.add_files(data)
             super().update(data, *args, **kwargs)
+            self.merge_workflow_sources()
 
             if not disable_relations_update:
                 self.update_record_relationships()
@@ -229,6 +234,62 @@ class LiteratureRecord(
             push_to_hal(self)
         if not disable_disambiguation and not data.get("deleted"):
             disambiguate_authors.delay(str(self.id), version_id=self.model.version_id)
+
+    def merge_workflow_sources(self):
+        """Move merged records' sources in the metadata update transaction."""
+        if self.get("deleted") or not self.get("deleted_records"):
+            return
+
+        owners = {self.id}
+        for reference in self["deleted_records"]:
+            pid_type, pid_value = PidStoreBase.get_pid_from_record_uri(
+                reference["$ref"]
+            )
+            pid = PersistentIdentifier.query.filter_by(
+                pid_type=pid_type, pid_value=str(pid_value)
+            ).one_or_none()
+            if pid is not None:
+                # The PID still owns the original UUID even after redirecting.
+                owners.add(pid.object_uuid)
+
+        # Source POST/DELETE take the same owner lock, including for absent roots.
+        # Select only IDs: refreshing models here would defeat optimistic locking.
+        RecordMetadata.query.with_entities(RecordMetadata.id).filter(
+            RecordMetadata.id.in_(owners)
+        ).order_by(RecordMetadata.id).with_for_update().all()
+        roots = (
+            WorkflowsRecordSources.query.filter(
+                WorkflowsRecordSources.record_uuid.in_(owners)
+            )
+            .order_by(WorkflowsRecordSources.record_uuid, WorkflowsRecordSources.source)
+            .with_for_update()
+            .all()
+        )
+        winners = {root.source: root for root in roots if root.record_uuid == self.id}
+        for root in roots:
+            previous = winners.get(root.source)
+            if previous is None or (root.updated or root.created or datetime.min) > (
+                previous.updated or previous.created or datetime.min
+            ):
+                winners[root.source] = root
+
+        head_sources = {
+            root.source: root for root in roots if root.record_uuid == self.id
+        }
+        for source, winner in winners.items():
+            if winner.record_uuid == self.id:
+                continue
+            if source in head_sources:
+                head_sources[source].json = winner.json
+            else:
+                db.session.add(
+                    WorkflowsRecordSources(
+                        record_uuid=self.id, source=source, json=winner.json
+                    )
+                )
+        for root in roots:
+            if root.record_uuid != self.id:
+                db.session.delete(root)
 
     def get_modified_authors(self):
         previous_authors = self._previous_version.get("authors", [])
