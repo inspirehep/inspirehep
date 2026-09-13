@@ -425,6 +425,27 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 1)
 
+    def test_list_filters_by_status(self):
+        AuthorWorkflow.objects.create(
+            data={},
+            status=AuthorStatusChoices.RUNNING,
+            workflow_type=AuthorWorkflowType.AUTHOR_CREATE,
+            id=uuid.UUID(int=3),
+        )
+        self.api_client.force_authenticate(user=self.curator)
+
+        response = self.api_client.get(
+            self.endpoint,
+            data={"status": AuthorStatusChoices.APPROVAL},
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            [workflow["id"] for workflow in response.json()],
+            [str(self.workflow.id)],
+        )
+
     def test_list_admin(self):
         self.api_client.force_authenticate(user=self.admin)
         response = self.api_client.get(self.endpoint, format="json")
