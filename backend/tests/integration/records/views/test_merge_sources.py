@@ -1,15 +1,30 @@
 """The normal literature PUT must commit merge metadata and roots together."""
 
+from concurrent.futures import ThreadPoolExecutor
 from copy import deepcopy
 from datetime import datetime
+from threading import Event, current_thread
+from time import monotonic, sleep
 from unittest.mock import patch
 
 import pytest
+from helpers.cleanups import db_cleanup
 from helpers.utils import create_user_and_token
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.models import WorkflowsRecordSources
 from inspirehep.records.utils import get_ref_from_pid
 from invenio_db import db
+from sqlalchemy import event, text
+from sqlalchemy.engine import Engine
+
+
+@pytest.fixture
+def db_(database):
+    # These tests need real commits and separate connections, not a shared savepoint.
+    try:
+        yield database
+    finally:
+        db_cleanup(database)
 
 
 @pytest.fixture
@@ -195,6 +210,74 @@ def test_source_writer_cannot_recreate_roots_on_merged_record(inspire_app, merge
             headers=merge_case["headers"],
         )
     assert response.status_code == 409
+    assert {root[0] for root in snapshot(merge_case)[1]} == {merge_case["head"]["uuid"]}
+
+
+def test_source_writer_waits_for_merge_commit(inspire_app, merge_case):
+    engine = db.engine
+    writer_started = Event()
+    writer_pid = []
+    writer = []
+    original = LiteratureRecord.update_record_relationships
+
+    def capture_writer(conn, cursor, statement, parameters, context, executemany):
+        if (
+            current_thread().name.startswith("source-writer")
+            and not writer_started.is_set()
+        ):
+            cursor.execute("SET LOCAL statement_timeout = '10s'")
+            writer_pid.append(conn.connection.connection.get_backend_pid())
+            writer_started.set()
+
+    def write_source():
+        with inspire_app.test_client() as client:
+            return client.post(
+                "/api/literature/workflows_record_sources",
+                json={
+                    "record_uuid": merge_case["update"]["uuid"],
+                    "source": "submitter",
+                    "json": {"title": "concurrent source"},
+                },
+                headers=merge_case["headers"],
+            )
+
+    def write_before_commit(record):
+        original(record)
+        if str(record.id) != merge_case["head"]["uuid"]:
+            return
+        db.session.flush()
+        writer.append(pool.submit(write_source))
+        assert writer_started.wait(10), "Source writer did not start"
+        deadline = monotonic() + 10
+        # Release the merge only once PostgreSQL blocks the writer or it finishes.
+        with engine.connect() as connection:
+            while not writer[0].done():
+                blocked = connection.execute(
+                    text("SELECT cardinality(pg_blocking_pids(:pid)) > 0"),
+                    {"pid": writer_pid[0]},
+                ).scalar()
+                if blocked:
+                    break
+                assert monotonic() < deadline, "Source writer did not reach the merge"
+                sleep(0.01)
+
+    event.listen(Engine, "before_cursor_execute", capture_writer)
+    try:
+        with ThreadPoolExecutor(
+            max_workers=1, thread_name_prefix="source-writer"
+        ) as pool:
+            with (
+                patch.object(
+                    LiteratureRecord, "update_record_relationships", write_before_commit
+                ),
+                inspire_app.test_client() as client,
+            ):
+                response = put(client, merge_case)
+                assert response.status_code == 200, response.json
+            response = writer[0].result(timeout=10)
+            assert response.status_code == 409, (response.status, response.json)
+    finally:
+        event.remove(Engine, "before_cursor_execute", capture_writer)
     assert {root[0] for root in snapshot(merge_case)[1]} == {merge_case["head"]["uuid"]}
 
 

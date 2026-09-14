@@ -265,7 +265,10 @@ class LiteratureRecord(
             .with_for_update()
             .all()
         )
-        winners = {root.source: root for root in roots if root.record_uuid == self.id}
+        head_sources = {
+            root.source: root for root in roots if root.record_uuid == self.id
+        }
+        winners = head_sources.copy()
         for root in roots:
             previous = winners.get(root.source)
             if previous is None or (root.updated or root.created or datetime.min) > (
@@ -273,9 +276,6 @@ class LiteratureRecord(
             ):
                 winners[root.source] = root
 
-        head_sources = {
-            root.source: root for root in roots if root.record_uuid == self.id
-        }
         for source, winner in winners.items():
             if winner.record_uuid == self.id:
                 continue
