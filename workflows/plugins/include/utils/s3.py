@@ -4,6 +4,7 @@ from urllib.parse import urlparse
 
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.sdk import Variable
+from botocore.exceptions import ClientError
 
 
 class S3JsonStore:
@@ -68,7 +69,9 @@ class S3JsonStore:
         key = f"{workflow_id}/flags.json"
         try:
             flags = self.read_object(key=key, bucket_name=bucket_name)
-        except Exception:
+        except ClientError as error:
+            if error.response["Error"]["Code"] not in {"404", "NoSuchKey"}:
+                raise
             flags = {}
         flags[flag] = value
         self.write_object(flags, key=key, bucket_name=bucket_name, overwrite=True)
