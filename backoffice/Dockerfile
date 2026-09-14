@@ -1,4 +1,4 @@
-FROM registry.cern.ch/cern-sis/base-images/python:3.11.6-slim-bullseye as python
+FROM registry.cern.ch/docker.io/python:3.11.16-slim as python
 
 ARG APP_HOME=/app
 WORKDIR ${APP_HOME}

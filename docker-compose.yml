@@ -432,7 +432,7 @@ services:
     working_dir: /tests
 
   s3:
-    image: minio/minio
+    image: registry.cern.ch/cern-sis/base-images/minio:latest
     expose:
       - 9000
       - 9001
@@ -451,7 +451,7 @@ services:
       start_period: 5s
 
   create_buckets:
-    image: minio/mc
+    image: registry.cern.ch/cern-sis/base-images/mc:latest
     depends_on:
       s3:
         condition: service_healthy
