@@ -31,6 +31,7 @@ from inspirehep.search.api import LiteratureSearch
 from inspirehep.serializers import jsonify
 from inspirehep.submissions.serializers import literature_v1
 from invenio_db import db
+from invenio_records.models import RecordMetadata
 from invenio_records_rest.views import pass_record
 from requests.exceptions import RequestException
 from sqlalchemy.orm.exc import StaleDataError
@@ -146,6 +147,16 @@ class WorkflowsRecordSourcesResource(MethodView):
     )
     def post(self, args):
         record_uuid = args["record_uuid"]
+        owner = (
+            RecordMetadata.query.with_entities(RecordMetadata.json)
+            .filter_by(id=record_uuid)
+            .with_for_update()
+            .one_or_none()
+        )
+        if owner is None:
+            abort(404, "Record not found")
+        if owner.json.get("deleted"):
+            abort(409, "Cannot add workflow sources to a deleted record")
         source = args["source"]
         root_json = args["json"]
         root = WorkflowsRecordSources(
@@ -174,6 +185,9 @@ class WorkflowsRecordSourcesResource(MethodView):
     )
     def delete(self, args):
         record_uuid = args.get("record_uuid")
+        RecordMetadata.query.with_entities(RecordMetadata.id).filter_by(
+            id=record_uuid
+        ).with_for_update().one_or_none()
         source = args.get("source")
         result = WorkflowsRecordSources.query.filter_by(
             record_uuid=str(record_uuid), source=source.lower()
