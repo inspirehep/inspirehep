@@ -1,57 +1,23 @@
-describe('Journal Detail', () => {
-  if (Cypress.browser.isHeadless) {
-    it.skip('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/journals/1213103');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.waitForLoading();
-      cy.matchSnapshots('JournalDetail');
-    });
-  }
-});
-
-describe('Journal Search', () => {
-  if (Cypress.browser.isHeadless) {
-    it.skip('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/journals');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.waitForLoading();
-      cy.matchSnapshots('JournalsSearch');
-    });
-  }
-});
-
-describe('Journal Submission', () => {
+describe("Journal Submission", () => {
   beforeEach(() => {
-    cy.login('cataloger');
+    cy.login("cataloger");
   });
 
-  if (Cypress.browser.isHeadless) {
-    it.skip('matches image snapshot', () => {
-      cy.visit('/submissions/journals');
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('JournalSubmission', { skipMobile: true });
-    });
-  }
-
-  it('submits a new journal', () => {
+  it("submits a new journal", () => {
     const formData = {
-      journal_title: 'Amazing Journal',
-      short_title: 'AJ',
+      journal_title: "Amazing Journal",
+      short_title: "AJ",
     };
     const expectedMetadata = {
-      journal_title: 'Amazing Journal',
-      short_title: 'AJ',
+      journal_title: "Amazing Journal",
+      short_title: "AJ",
     };
-    cy.visit('/submissions/journals');
+    cy.visit("/submissions/journals");
     cy.testSubmission({
       expectedMetadata: expectedMetadata.short_title,
       formData,
-      collection: 'journals',
-      submissionType: 'editor',
+      collection: "journals",
+      submissionType: "editor",
     });
   });
 

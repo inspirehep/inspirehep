@@ -1,27 +1,4 @@
-describe("Author Detail", () => {
-  if (Cypress.browser.isHeadless) {
-    it.skip("matches image snapshot", () => {
-      cy.registerRoute();
-      cy.visit("/authors/1274753?ui-citation-summary=true");
-      cy.waitForLoading();
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots("AuthorDetail");
-    });
-  }
-});
-
 describe("Author Search", () => {
-  if (Cypress.browser.isHeadless) {
-    it.skip("matches image snapshot", () => {
-      cy.registerRoute();
-      cy.visit("/authors");
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots("AuthorSearch");
-    });
-  }
-
   it("link to update own profile leads to submissions", () => {
     cy.login("johnellis");
     const recordId = 1010819;
@@ -34,32 +11,6 @@ describe("Author Search", () => {
 });
 
 describe("Author Submission", () => {
-  if (Cypress.browser.isHeadless) {
-    it.skip("matches image snapshot", () => {
-      cy.login("cataloger");
-      cy.visit("/submissions/authors");
-      cy.get("form").should("be.visible");
-      cy.matchSnapshots("AuthorSubmission", { skipMobile: true });
-    });
-
-    it.skip("matches image snapshot for author update when cataloger is logged in", () => {
-      cy.login("cataloger");
-      cy.registerRoute();
-      cy.visit("/submissions/authors/1274753");
-      cy.waitForRoute();
-      cy.get("form").should("be.visible");
-      cy.matchSnapshots("AuthorUpdateSubmission", { skipMobile: true });
-    });
-
-    it.skip("matches image snapshot for user own author profile update", () => {
-      cy.login("johnellis");
-      cy.registerRoute();
-      cy.visit("/submissions/authors/1010819");
-      cy.waitForRoute();
-      cy.get("form").should("be.visible");
-      cy.matchSnapshots("AuthorUpdateSubmissionByOwner", { skipMobile: true });
-    });
-  }
 
   it("submits a new author", () => {
     cy.login("cataloger");
