@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-import { Tooltip, Form } from 'antd';
+import { Tooltip, Form, Space } from 'antd';
 import { getIn } from 'formik';
 import classNames from 'classnames';
 
@@ -51,26 +51,30 @@ export default function withFormItem(FormInputComponent) {
         labelCol,
         wrapperCol,
         onlyChild,
+        addonBefore,
         ...props
       } = this.props;
       const renderedError = this.renderError();
       return (
         <Form.Item
           className={classNames({ 'mb2-important': onlyChild })}
-          hasFeedback={renderedError != null}
+          hasFeedback
           validateStatus={renderedError ? 'error' : ''}
           help={renderedError}
           label={label && <Tooltip title={label}>{label}</Tooltip>}
           labelCol={label ? labelCol : null}
           wrapperCol={onlyChild ? this.getWrapperColForOnlyChild() : wrapperCol}
         >
-          <FormInputComponent
-            data-test-id={field.name}
-            {...field}
-            {...props}
-            form={form}
-          />
-          {suffixText && <span className="pl2">{suffixText}</span>}
+          <Space.Compact block>
+            {addonBefore && <Space.Addon>{addonBefore}</Space.Addon>}
+            <FormInputComponent
+              data-test-id={field.name}
+              {...field}
+              {...props}
+              form={form}
+            />
+            {suffixText && <span className="pl2">{suffixText}</span>}
+          </Space.Compact>
         </Form.Item>
       );
     }

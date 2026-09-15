@@ -58,6 +58,7 @@ function useAntInputStyle() {
     '--rte-active-border-color': colorPrimary,
     '--rte-active-shadow': `0 0 0 ${controlOutlineWidth}px ${controlOutline}`,
     '--rte-transition-duration': motionDurationMid,
+    width: '100%',
   };
 }
 
