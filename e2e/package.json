@@ -12,7 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "cypress": "^15.15.0",
-    "@simonsmith/cypress-image-snapshot": "^10.0.4",
     "moment": "^2.30.1"
   }
 }

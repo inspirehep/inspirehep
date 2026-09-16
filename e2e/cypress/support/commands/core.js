@@ -9,14 +9,6 @@ Cypress.Commands.overwrite("visit", (originalVisit, relativeUrl, options) => {
   });
 });
 
-Cypress.Commands.add("useMobile", () => {
-  cy.env(["mobile_viewport_width", "mobile_viewport_height"]).then(
-    ({ mobile_viewport_width, mobile_viewport_height }) => {
-      cy.viewport(mobile_viewport_width, mobile_viewport_height);
-    },
-  );
-});
-
 Cypress.Commands.add("selectFromDropdown", (dropdownId, option) => {
   const dropdownSelector = `[data-test-id="${dropdownId}"]`;
   const optionSelector = `[data-test-id="${dropdownId}-option-${option}"]`;

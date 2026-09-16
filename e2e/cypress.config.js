@@ -8,19 +8,14 @@ module.exports = defineConfig({
   env: {
     inspirehep_url: "http://localhost:8080",
     backoffice_url: "http://localhost:8001",
-    mobile_viewport_width: 375,
-    mobile_viewport_height: 667,
   },
-  allowCypressEnv: true, //cypress-image-snapshot is still using Cypress.env and do not plan to move before cypress 16 (https://github.com/simonsmith/cypress-image-snapshot/issues/86)
+  allowCypressEnv: false,
   retries: {
     runMode: 0,
     openMode: 0,
   },
   video: false,
   e2e: {
-    setupNodeEvents(on, config) {
-      return require("./cypress/plugins/index.js")(on, config);
-    },
     specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx}",
     experimentalRunAllSpecs: true,
   },
