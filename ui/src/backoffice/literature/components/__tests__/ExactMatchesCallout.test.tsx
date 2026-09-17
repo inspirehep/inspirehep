@@ -20,9 +20,6 @@ describe('ExactMatchesCallout', () => {
 
     expect(
       screen.getByRole('link', { name: /3076804 or 3143839/i })
-    ).toHaveAttribute(
-      'href',
-      '/literature/search?q=recid:3076804+or+recid:3143839'
-    );
+    ).toHaveAttribute('href', '/literature?q=recid:3076804+or+recid:3143839');
   });
 });

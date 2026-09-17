@@ -11,7 +11,7 @@ type ExactMatchesCalloutProps = {
 
 const ExactMatchesCallout = ({ exactMatches }: ExactMatchesCalloutProps) => {
   const ids = exactMatches.toArray();
-  const exactMatchesSearchUrl = `${LITERATURE}/search?q=${ids
+  const exactMatchesSearchUrl = `${LITERATURE}?q=${ids
     .map((id) => `recid:${id}`)
     .join('+or+')}`;
 
