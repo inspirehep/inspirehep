@@ -1,4 +1,7 @@
-import { connect, MapDispatchToPropsParam } from 'react-redux';
+import {
+  legacy_connect as connect,
+  MapDispatchToPropsParam,
+} from 'react-redux';
 import { checkNameCompatibility } from '../../actions/literature';
 import AssignLiteratureItem from '../components/AssignLiteratureItem';
 

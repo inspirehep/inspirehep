@@ -673,7 +673,7 @@ describe('utils', () => {
       );
       expect(output).toEqual(true);
     });
-    it('returns false if a timezone is unknown to moment-timezone', () => {
+    it('returns false if a timezone is unknown to dayjs timezone', () => {
       advanceTo(new Date('2020-05-13T13:31:00+00:00'));
       const output = doTimezonesHaveDifferentTimes(
         'Europe/Zurich',

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Row, Col, Select, Card, Checkbox } from 'antd';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
 import { List, Map } from 'immutable';
 import { RootState } from '../../../../types';

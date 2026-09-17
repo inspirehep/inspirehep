@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 
 import AuthorResultItem from '../components/AuthorResultItem';
 import PaginationContainer from '../../common/containers/PaginationContainer';

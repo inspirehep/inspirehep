@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { Input, Select, Row, Col, Space } from 'antd';
 import { Action, ActionCreator } from 'redux';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import { List, Map } from 'immutable';
 import { RootState } from '../../../types';
 

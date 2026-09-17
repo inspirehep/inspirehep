@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import { List, Map } from 'immutable';
 
 import AggregationFiltersContainer from '../../common/containers/AggregationFiltersContainer';

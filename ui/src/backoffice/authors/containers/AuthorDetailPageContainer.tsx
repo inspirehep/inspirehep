@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col, Table } from 'antd';
 import { ActionCreator, Action } from 'redux';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import { Map } from 'immutable';
 import { push } from 'redux-first-history';
 import { RootState } from '../../../types';
