@@ -1,45 +1,45 @@
-import _ from 'lodash';
+import _ from "lodash";
 
-describe('Literature and Authors', () => {
-  it('literature:search -> literautre:detail -> authors:detail -> authors:publications', () => {
-    cy.registerRoute('*/literature?*');
-    cy.visit('/literature?q=a%20Grit%20Hotzel');
-    cy.waitForRoute('*/literature?*');
+describe("Literature and Authors", () => {
+  it("literature:search -> literautre:detail -> authors:detail -> authors:publications", () => {
+    cy.registerRoute("*/literature?*");
+    cy.visit("/literature?q=a%20Grit%20Hotzel");
+    cy.waitForRoute("*/literature?*");
     cy.waitForSearchResults();
 
     cy.get('[data-test-id="literature-result-title-link"]')
       .first()
       .click()
       .text()
-      .as('literature-title');
+      .as("literature-title");
 
-    cy.registerRoute('**/literature**search_type=hep-author-publication**');
+    cy.registerRoute("**/literature**search_type=hep-author-publication**");
 
     cy.get('[data-testid="author-link"]')
-      .contains('Grit Hotzel')
-      .click({ force: true });
+      .contains("Grit Hotzel")
+      .click();
 
-    cy.waitForRoute('**/literature**search_type=hep-author-publication**');
+    cy.waitForRoute("**/literature**search_type=hep-author-publication**");
     cy.waitForSearchResults();
 
     cy.get('[data-test-id="literature-result-title-link"]')
       .first()
       .then((title$) => {
-        cy.get('@literature-title').should('equal', title$.text());
+        cy.get("@literature-title").should("equal", title$.text());
       });
   });
 });
 
-describe('Literature and Conferences', () => {
-  it('literature:detail -> conferences:detail -> conferences:contributions', () => {
-    cy.registerRoute('*/literature?*');
+describe("Literature and Conferences", () => {
+  it("literature:detail -> conferences:detail -> conferences:contributions", () => {
+    cy.registerRoute("*/literature?*");
 
-    cy.visit('/literature/1787272');
+    cy.visit("/literature/1787272");
     cy.waitForLoading();
 
     cy.get('[data-test-id="literature-detail-title"]')
-      .invoke('text')
-      .as('literature-title');
+      .invoke("text")
+      .as("literature-title");
 
     cy.registerRoute();
 
@@ -51,58 +51,57 @@ describe('Literature and Conferences', () => {
     cy.waitForSearchResults();
     cy.get('[data-test-id="literature-result-title-link"]').then((titles$) => {
       const titles = titles$.toArray().map((title) => title.text);
-      cy.get('@literature-title').should('be.oneOf', titles);
+      cy.get("@literature-title").should("be.oneOf", titles);
     });
   });
 });
 
-describe('Export to CDS', () => {
-  it('check if record has CDS:true', () => {
-    cy.login('admin');
+describe("Export to CDS", () => {
+  it("check if record has CDS:true", () => {
+    cy.login("admin");
     cy.registerRoute();
-    cy.visit('/literature');
+    cy.visit("/literature");
     cy.waitForRoute();
     cy.waitForSearchResults();
     cy.get('[data-testid="search-results"]')
       .children()
-      .contains('Correlated Weyl Fermions in Oxides')
+      .contains("Correlated Weyl Fermions in Oxides")
       .parentsUntil('[data-testid="search-results"]')
       .find('[type="checkbox"]')
       .check();
     cy.get('[data-testid="search-results"]')
       .children()
-      .contains('Muon g – 2 theory: The hadronic part')
+      .contains("Muon g – 2 theory: The hadronic part")
       .parentsUntil('[data-testid="search-results"]')
       .find('[type="checkbox"]')
       .check();
     cy.get('[type="button"]')
-      .contains('tools')
-      .trigger('mouseover', { force: true });
+      .contains("tools")
+      .trigger("mouseover");
     cy.get('[data-test-id="export-to-CDS"]', { timeout: 5000 }).should(
-      'be.visible'
+      "be.visible",
     );
     cy.get('[data-test-id="export-to-CDS"]').click();
-    cy.get('.ant-modal', { timeout: 5000 }).should('be.visible');
-    cy.get('.ant-modal')
+    cy.get(".ant-modal", { timeout: 5000 }).should("be.visible");
+    cy.get(".ant-modal")
       .find('[type="button"]')
-      .contains('Confirm')
-      .click({ force: true });
-    cy.wait(3000);
-    cy.get('.ant-notification-notice')
-      .contains('Export successful!')
-      .should('be.visible');
+      .contains("Confirm")
+      .click();
+    cy.get(".ant-notification-notice", { timeout: 3000 })
+      .contains("Export successful!")
+      .should("be.visible");
     cy.request({
-      url: '/api/literature/1787272',
+      url: "/api/literature/1787272",
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response).property('status').to.equal(200);
+      expect(response).property("status").to.equal(200);
       expect(_.find(response.body.metadata._export_to, { CDS: true }));
     });
     cy.request({
-      url: '/api/literature/1597429',
+      url: "/api/literature/1597429",
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response).property('status').to.equal(200);
+      expect(response).property("status").to.equal(200);
       expect(_.find(response.body.metadata._export_to, { CDS: true }));
     });
     cy.logout();

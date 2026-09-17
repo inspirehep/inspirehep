@@ -57,12 +57,12 @@ describe("Reference container", () => {
       cy.get("@selectionItem").should("be.visible");
 
       cy.get("@paginationList")
-        .find(".ant-select-selection-search-input")
-        .click({ force: true });
+        .find(".ant-select-selection-item")
+        .click();
       cy.get("@paginationList")
         .find("div")
         .contains("50 / page")
-        .click({ force: true });
+        .click();
       cy.waitForRoute();
 
       cy.get("@referenceListItems").should("have.length", 50);
@@ -100,10 +100,9 @@ describe("Reference container", () => {
 
       cy.get('[data-test-id="reference-item"]').first().as("referenceItem");
       cy.get("@referenceItem")
-        .find('[data-test-id="edit-reference"]')
+        .find('[data-test-id="edit-reference"] .ant-btn')
         .as("editButton");
 
-      cy.wait(3000);
       cy.get("@editButton", { timeout: 10000 })
         .should("not.be.disabled")
         .click();
@@ -165,7 +164,6 @@ describe("Reference container", () => {
         .find('[data-test-id="edit-reference"]')
         .as("editButton");
 
-      cy.wait(3000);
       cy.get("@editButton", { timeout: 10000 })
         .should("not.be.disabled")
         .click();
@@ -228,12 +226,12 @@ describe("Reference container", () => {
         .as("selectionItem");
 
       cy.get("@paginationList")
-        .find(".ant-select-selection-search-input")
-        .click({ force: true });
+        .find(".ant-select-selection-item")
+        .click();
       cy.get("@paginationList")
         .find("div")
         .contains("50 / page")
-        .click({ force: true });
+        .click();
 
       cy.get('[data-test-id="reference-item"]', { timeout: 30000 }).should(
         "have.length.at.least",
@@ -288,16 +286,16 @@ describe("Reference container", () => {
 
       cy.get('[data-test-id="reference-item"]').eq(4).as("referenceItem");
       cy.get("@referenceItem")
-        .find('[data-test-id="edit-reference"]')
+        .find('[data-test-id="edit-reference"] .ant-btn')
         .as("editButton");
       cy.get("@referenceItem")
         .find('[data-test-id="reference-title"]')
         .as("referenceTitle");
 
-      cy.wait(5000);
-      cy.get("@editButton", { timeout: 10000 }).click();
-      cy.wait(5000);
-      cy.get('[data-test-id="reference-embedded-search')
+      cy.get("@editButton", { timeout: 10000 })
+        .should("not.be.disabled")
+        .click();
+      cy.get('[data-test-id="reference-embedded-search', { timeout: 5000 })
         .find(".ant-input-search-button")
         .click();
 
