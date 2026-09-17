@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Action, ActionCreator, AnyAction, Dispatch } from 'redux';
+import { Action, ActionCreator, Dispatch } from 'redux';
 import { connect, ConnectedComponent } from 'react-redux';
 import { Params, useParams } from 'react-router-dom';
 import { RootState } from '../types';
@@ -21,7 +21,7 @@ export default function withRouteActionsDispatcher<T>(
       selectedParam: T
     ) => (
       | ((
-          dispatch: Dispatch<AnyAction>,
+          dispatch: Dispatch<Action>,
           getState: () => RootState,
           http: HttpClientWrapper
         ) => Promise<void>)

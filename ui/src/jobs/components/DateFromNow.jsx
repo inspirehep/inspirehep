@@ -1,11 +1,14 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(relativeTime);
 
 class DateFromNow extends Component {
   render() {
     const { date } = this.props;
-    return <span>{moment(date).fromNow()}</span>;
+    return <span>{dayjs(date).fromNow()}</span>;
   }
 }
 

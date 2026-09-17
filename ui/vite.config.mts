@@ -16,12 +16,6 @@ export default defineConfig({
       visualizer({ open: true, filename: 'build/stats.html', gzipSize: true }),
   ],
 
-  resolve: {
-    alias: {
-      'moment-timezone': 'moment-timezone/builds/moment-timezone-with-data',
-    },
-  },
-
   css: {
     preprocessorOptions: {
       less: {

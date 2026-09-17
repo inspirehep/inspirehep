@@ -9,7 +9,9 @@ import {
 } from '@ant-design/icons';
 import { Action, ActionCreator } from 'redux';
 
-import moment from 'moment-timezone';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
 import storage from '../../common/storage';
 import { BACKOFFICE_LOGIN, BACKOFFICE_LOGIN_API } from '../../common/routes';
@@ -24,6 +26,9 @@ import {
   HIDDEN_DECISION_ACTIONS,
   LOCAL_TIMEZONE,
 } from '../../common/constants';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export const COLLECTIONS = [
   {
@@ -318,11 +323,11 @@ export const formatDateTime = (
   if (!rawDateTime) {
     return undefined;
   }
-  const momentToLocalTimezone = moment.utc(rawDateTime).tz(LOCAL_TIMEZONE);
-  if (!momentToLocalTimezone.isValid()) return undefined;
+  const dayjsToLocalTimezone = dayjs.utc(rawDateTime).tz(LOCAL_TIMEZONE);
+  if (!dayjsToLocalTimezone.isValid()) return undefined;
   return {
-    date: momentToLocalTimezone.format('YYYY-MM-DD'),
-    time: momentToLocalTimezone.format('hh:mm A'),
+    date: dayjsToLocalTimezone.format('YYYY-MM-DD'),
+    time: dayjsToLocalTimezone.format('hh:mm A'),
   };
 };
 
