@@ -10,7 +10,7 @@ describe("Seminar Submission", () => {
     const endDateMoment = moment("2020-05-06 14:30");
     const formData = {
       name: "The Cool Seminar",
-      timezone: "Europe/Zurich",
+      timezone: "Europe/Vatican",
       dates: [startDateMoment, endDateMoment],
       abstract: "This is cool",
       material_urls: [

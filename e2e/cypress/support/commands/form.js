@@ -28,9 +28,7 @@ Cypress.Commands.add("testRecord", (title) => {
 });
 
 Cypress.Commands.add("testEditor", (title) => {
-  cy.wait(5000);
-
-  cy.get(".btn-success").first().click();
+  cy.get(".btn-success", { timeout: 5000 }).first().click();
   cy.waitForLoading();
   cy.get(".detail-page-title").invoke("text").should("contain", title);
 });
@@ -58,7 +56,6 @@ Cypress.Commands.add(
         method: "POST",
       });
       cy.submitForm(formData);
-      cy.wait(5000);
       return cy.waitForRoute(apiRoute).then(() => {
         if (submissionType === "record") {
           cy.testRecord(expectedMetadata);
@@ -181,12 +178,12 @@ Cypress.Commands.add("fillDateRangeField", (path, [startDate, endDate]) => {
     cy.wrap($dateRangeInputs)
       .first()
       .click()
-      .type(`${startDateValue}{enter}`, { force: true });
+      .type(`${startDateValue}{enter}`);
     cy.wrap($dateRangeInputs)
       .last()
       .click()
-      .type(`${endDateValue}{enter}`, { force: true });
-  });
+      .type(`${endDateValue}{enter}`);
+  }); 
 });
 
 Cypress.Commands.add("fillDateField", (path, value) => {
@@ -195,8 +192,8 @@ Cypress.Commands.add("fillDateField", (path, value) => {
     const dateValue = moment(value).format(dateFormat);
     cy.wrap($dateSelect)
       .click()
-      .clear({ force: true })
-      .type(dateValue, { force: true });
+      .clear()
+      .type(dateValue);
     cy.get(".ant-picker-dropdown")
       .filter(":visible")
       .find(`.ant-picker-cell[title="${dateValue}"]`)
@@ -206,13 +203,12 @@ Cypress.Commands.add("fillDateField", (path, value) => {
 
 Cypress.Commands.add("fillNumberOrTextField", (path, value) => {
   cy.getField(path).focus();
-  cy.wait(500);
-  cy.getField(path).type(value, { force: true });
+  cy.getField(path).type(value);
 });
 
 Cypress.Commands.add("fillSuggesterField", (path, value) => {
   cy.getField(path).within(() => {
-    cy.get("input").type(value, { force: true });
+    cy.get("input").type(value);
   });
 });
 
@@ -222,7 +218,7 @@ Cypress.Commands.add("fillSelectField", (path, values) => {
 
 Cypress.Commands.add("fillRichTextField", (path, value) => {
   cy.getField(path).within(() => {
-    cy.get(".ql-editor[contenteditable=true]").type(value, { force: true });
+    cy.get(".ql-editor[contenteditable=true]").type(value);
   });
 });
 
