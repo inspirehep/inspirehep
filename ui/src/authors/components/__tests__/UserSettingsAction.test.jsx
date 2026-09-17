@@ -1,5 +1,5 @@
-import { fireEvent, render } from '@testing-library/react';
-
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import UserSettingsAction from '../UserSettingsAction';
 import UserSettingsModal from '../UserSettingsModal';
 
@@ -17,12 +17,6 @@ vi.mock('../../containers/OrcidPushSettingContainer', async () => ({
   ),
 }));
 
-function wait(milisec = 2500) {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(), milisec);
-  });
-}
-
 describe('UserSettingsAction', () => {
   it('renders', () => {
     const { asFragment } = render(<UserSettingsAction />);
@@ -30,7 +24,8 @@ describe('UserSettingsAction', () => {
   });
 
   it('sets modal visible on click and invisible on modal cancel', async () => {
-    const screen = render(<UserSettingsAction />, { container: document.body });
+    const user = userEvent.setup();
+    const screen = render(<UserSettingsAction />);
 
     expect(UserSettingsModal).toBeCalledWith(
       expect.objectContaining({
@@ -40,15 +35,13 @@ describe('UserSettingsAction', () => {
     );
 
     const settingsBtn = screen.getByTestId('user-settings-button');
-    fireEvent.click(settingsBtn);
-
-    await wait();
+    await user.click(settingsBtn);
 
     const closeButton = screen.getByRole('button', { name: 'Close' });
 
     expect(closeButton).toBeInTheDocument();
 
-    fireEvent.click(closeButton);
+    await user.click(closeButton);
 
     expect(UserSettingsModal).toBeCalledWith(
       expect.objectContaining({

@@ -167,7 +167,10 @@ class CheckboxAggregation extends Component {
     const { name, buckets } = this.props;
     return (
       <AggregationBox name={name}>
-        {buckets.take(maxBucketCountToDisplay).map(this.renderBucket)}
+        {buckets
+          .filter((bucket) => bucket.get('key') != null)
+          .take(maxBucketCountToDisplay)
+          .map(this.renderBucket)}
         {this.renderShowMore()}
       </AggregationBox>
     );

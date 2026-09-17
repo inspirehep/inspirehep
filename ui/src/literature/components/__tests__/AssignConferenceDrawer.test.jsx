@@ -62,6 +62,7 @@ describe('AssignConferencesDrawer', () => {
             baseAggregationsQuery: {},
             results: [
               {
+                id: 1,
                 metadata: {
                   control_number: 123,
                   titles: [
@@ -69,7 +70,7 @@ describe('AssignConferencesDrawer', () => {
                       title: 'Jessica Jones Conference',
                     },
                   ],
-                  acronyms: [{ acronym: 'JJC' }],
+                  acronyms: ['JJC'],
                   opening_date: '2023-01-01',
                   closing_date: '2023-01-03',
                   addresses: [],

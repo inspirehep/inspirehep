@@ -1,7 +1,7 @@
 import { Row, Col, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import { LoginOutlined } from '@ant-design/icons';
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 
 import ResultItem from '../../common/components/ResultItem';
 import EditRecordAction from '../../common/components/EditRecordAction';
@@ -25,7 +25,12 @@ export const JournalItem = ({
 }) => {
   const metadata = result.get('metadata');
   const shortTitle = metadata.get('short_title') as unknown as string;
-  const journalTitle = metadata.get('journal_title') as unknown as string;
+  const journalTitleValue = metadata.get('journal_title') as unknown as
+    | Map<string, string>
+    | string;
+  const journalTitle = Map.isMap(journalTitleValue)
+    ? journalTitleValue.get('title')
+    : journalTitleValue;
   const urls = metadata.get('urls') as unknown as List<string>;
   const recordId = metadata.get('control_number') as unknown as number;
   const publisher = metadata.get('publisher') as unknown as List<string>;

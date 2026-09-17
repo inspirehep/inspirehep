@@ -112,6 +112,10 @@ function getSanitizedEndpointsFromSelections(selections, minMaxPair) {
 }
 
 function getSliderMarks([lower, upper], [min, max]) {
+  if (!Number.isFinite(lower) || !Number.isFinite(upper)) {
+    return {};
+  }
+
   const totalRange = max - min;
   const selectionRange = upper - lower;
   const selectionPercentage = (selectionRange / totalRange) * 100;

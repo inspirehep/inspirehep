@@ -31,8 +31,8 @@ export default mergeConfig(
           inline: ['antd', /^rc-/],
         },
       },
-      clearMocks: false,
-      resetMocks: false,
+      clearMocks: true,
+      mockReset: false,
       restoreMocks: false,
       coverage: {
         provider: 'v8',
@@ -45,6 +45,9 @@ export default mergeConfig(
           'src/setupTests.js',
           'src/registerServiceWorker.js',
         ],
+        thresholds: {
+          branches: 85,
+        },
       },
     },
   })

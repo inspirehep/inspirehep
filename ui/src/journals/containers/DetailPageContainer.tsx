@@ -3,7 +3,7 @@ import './DetailPage.less';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Row, Col, Button } from 'antd';
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 
 import fetchJournal from '../../actions/journals';
 import { newSearch } from '../../actions/search';
@@ -51,7 +51,12 @@ export const DetailPage = ({
   const metadata = result.get('metadata');
 
   const shortTitle = metadata.get('short_title') as unknown as string;
-  const journalTitle = metadata.get('journal_title') as unknown as string;
+  const journalTitleValue = metadata.get('journal_title') as unknown as
+    | Map<string, string>
+    | string;
+  const journalTitle = Map.isMap(journalTitleValue)
+    ? journalTitleValue.get('title')
+    : journalTitleValue;
   const urls = metadata.get('urls') as unknown as List<string>;
   const publicNotes = metadata.get('public_notes') as unknown as string[];
   const titleVariants = metadata.get(

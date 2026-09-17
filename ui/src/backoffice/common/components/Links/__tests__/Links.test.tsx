@@ -37,8 +37,10 @@ describe('Links Component', () => {
   });
 
   it('should render LinkedIn link correctly in Ids', () => {
-    const ids = Map([['0', Map({ schema: 'LINKEDIN', value: 'john-doe' })]]);
-    const { getByText, getByRole } = render(<Ids ids={ids} />);
+    const ids = fromJS([{ schema: 'LINKEDIN', value: 'john-doe' }]);
+    const { getByText, getByRole } = render(
+      <Ids ids={ids as Map<string, any>} />
+    );
 
     expect(getByText(/linkedin/i)).toBeInTheDocument();
     expect(getByRole('link', { name: /john-doe/i })).toHaveAttribute(
@@ -48,8 +50,10 @@ describe('Links Component', () => {
   });
 
   it('should render Bluesky link correctly in Ids', () => {
-    const ids = Map([['0', Map({ schema: 'BLUESKY', value: 'john_doe' })]]);
-    const { getAllByText, getByRole } = render(<Ids ids={ids} />);
+    const ids = fromJS([{ schema: 'BLUESKY', value: 'john_doe' }]);
+    const { getAllByText, getByRole } = render(
+      <Ids ids={ids as Map<string, any>} />
+    );
 
     expect(getAllByText(/bluesky/i)[0]).toBeInTheDocument();
     expect(getByRole('link', { name: /john_doe/i })).toHaveAttribute(
@@ -59,10 +63,10 @@ describe('Links Component', () => {
   });
 
   it('should render Mastodon link correctly in Ids', () => {
-    const ids = Map([
-      ['0', Map({ schema: 'MASTODON', value: 'john_doe@example.com' })],
-    ]);
-    const { getAllByText, getByRole } = render(<Ids ids={ids} />);
+    const ids = fromJS([{ schema: 'MASTODON', value: 'john_doe@example.com' }]);
+    const { getAllByText, getByRole } = render(
+      <Ids ids={ids as Map<string, any>} />
+    );
 
     expect(getAllByText(/mastodon/i)[0]).toBeInTheDocument();
     expect(
@@ -71,8 +75,10 @@ describe('Links Component', () => {
   });
 
   it('should render Twitter link correctly in Ids', () => {
-    const ids = Map([['0', Map({ schema: 'TWITTER', value: 'john_doe' })]]);
-    const { getByText, getByRole } = render(<Ids ids={ids} />);
+    const ids = fromJS([{ schema: 'TWITTER', value: 'john_doe' }]);
+    const { getByText, getByRole } = render(
+      <Ids ids={ids as Map<string, any>} />
+    );
 
     expect(getByText(/twitter/i)).toBeInTheDocument();
     expect(getByRole('link', { name: /john_doe/i })).toHaveAttribute(
@@ -82,10 +88,10 @@ describe('Links Component', () => {
   });
 
   it('should render ORCID link with copy button correctly in Ids', () => {
-    const ids = Map([
-      ['0', Map({ schema: 'ORCID', value: '0000-0002-1825-0097' })],
-    ]);
-    const { getAllByText, getByRole } = render(<Ids ids={ids} />);
+    const ids = fromJS([{ schema: 'ORCID', value: '0000-0002-1825-0097' }]);
+    const { getAllByText, getByRole } = render(
+      <Ids ids={ids as Map<string, any>} />
+    );
 
     expect(getAllByText(/orcid/i)[0]).toBeInTheDocument();
     expect(getByRole('link', { name: /0000-0002-1825-0097/i })).toHaveAttribute(
@@ -98,10 +104,10 @@ describe('Links Component', () => {
   });
 
   it('should render generic link correctly in Ids', () => {
-    const ids = Map([
-      ['0', Map({ schema: 'WEBSITE', value: 'https://example.com' })],
-    ]);
-    const { getByText, getByRole } = render(<Ids ids={ids} />);
+    const ids = fromJS([{ schema: 'WEBSITE', value: 'https://example.com' }]);
+    const { getByText, getByRole } = render(
+      <Ids ids={ids as Map<string, any>} />
+    );
 
     expect(getByText(/website/i)).toBeInTheDocument();
     expect(
@@ -110,33 +116,36 @@ describe('Links Component', () => {
   });
 
   it('should render without an icon in Ids if noIcon is true', () => {
-    const ids = Map([['0', Map({ schema: 'LINKEDIN', value: 'john-doe' })]]);
-    const { getByText, queryByRole } = render(<Ids ids={ids} noIcon />);
+    const ids = fromJS([{ schema: 'LINKEDIN', value: 'john-doe' }]);
+    const { getByText, queryByRole } = render(
+      <Ids ids={ids as Map<string, any>} noIcon />
+    );
 
     expect(getByText(/linkedin/i)).toBeInTheDocument();
     expect(queryByRole('img')).toBeNull();
   });
 
   it('should not render copy button in Ids if not ORCID', () => {
-    const ids = Map([['0', Map({ schema: 'LINKEDIN', value: 'john-doe' })]]);
-    const { getByText, queryByLabelText } = render(<Ids ids={ids} />);
+    const ids = fromJS([{ schema: 'LINKEDIN', value: 'john-doe' }]);
+    const { getByText, queryByLabelText } = render(
+      <Ids ids={ids as Map<string, any>} />
+    );
 
     expect(getByText(/linkedin/i)).toBeInTheDocument();
     expect(queryByLabelText(/copy/i)).toBeNull();
   });
 
   it('should render URL with description correctly', () => {
-    const urls = Map([
-      [
-        '0',
-        Map({
-          schema: 'WEBSITE',
-          value: 'https://example.com',
-          description: 'Personal Website',
-        }),
-      ],
+    const urls = fromJS([
+      {
+        schema: 'WEBSITE',
+        value: 'https://example.com',
+        description: 'Personal Website',
+      },
     ]);
-    const { getByText, getByRole } = render(<Urls urls={urls} />);
+    const { getByText, getByRole } = render(
+      <Urls urls={urls as Map<string, any>} />
+    );
 
     expect(getByText(/personal website/i)).toBeInTheDocument();
     expect(
@@ -145,10 +154,8 @@ describe('Links Component', () => {
   });
 
   it('should render URL without description correctly', () => {
-    const urls = Map([
-      ['0', Map({ schema: 'WEBSITE', value: 'https://example.com' })],
-    ]);
-    const { getByRole } = render(<Urls urls={urls} />);
+    const urls = fromJS([{ schema: 'WEBSITE', value: 'https://example.com' }]);
+    const { getByRole } = render(<Urls urls={urls as Map<string, any>} />);
 
     expect(
       getByRole('link', { name: /https:\/\/example.com/i })
@@ -156,25 +163,21 @@ describe('Links Component', () => {
   });
 
   it('should render multiple URLs correctly', () => {
-    const urls = Map([
-      [
-        '0',
-        Map({
-          schema: 'WEBSITE',
-          value: 'https://example.com',
-          description: 'Example Site',
-        }),
-      ],
-      [
-        '1',
-        Map({
-          schema: 'BLOG',
-          value: 'https://blog.example.com',
-          description: 'Example Blog',
-        }),
-      ],
+    const urls = fromJS([
+      {
+        schema: 'WEBSITE',
+        value: 'https://example.com',
+        description: 'Example Site',
+      },
+      {
+        schema: 'BLOG',
+        value: 'https://blog.example.com',
+        description: 'Example Blog',
+      },
     ]);
-    const { getByText, getAllByRole } = render(<Urls urls={urls} />);
+    const { getByText, getAllByRole } = render(
+      <Urls urls={urls as Map<string, any>} />
+    );
 
     expect(getByText(/example site/i)).toBeInTheDocument();
     expect(getByText(/example blog/i)).toBeInTheDocument();
