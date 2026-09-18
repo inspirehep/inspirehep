@@ -419,12 +419,10 @@ class LiteratureRecord(
     def add_file(
         app_context,
         url,
-        original_url=None,
         key=None,
         filename=None,
         fulltext=None,
-        *args,
-        **kwargs,
+        **_,
     ):
         """Adds files to s3.
 
@@ -434,27 +432,16 @@ class LiteratureRecord(
         with app_context.app.app_context():
             result = {}
 
-            is_http = url.startswith("http")
             is_airflow_url = current_s3_instance.is_s3_url_from_airflow_bucket(url)
-            is_s3_url = current_s3_instance.is_s3_url(url)
-            is_s3_url_with_bucket_prefix = (
-                current_s3_instance.is_s3_url_with_bucket_prefix(url)
-            )
-            is_public_url = current_s3_instance.is_public_url(url)
-            is_s3_or_public_url = (
-                is_s3_url_with_bucket_prefix or is_public_url
-            ) and not is_airflow_url
 
-            if is_s3_or_public_url and not current_app.config.get(
+            if current_s3_instance.is_public_url(url) and not current_app.config.get(
                 "UPDATE_S3_FILES_METADATA", False
             ):
-                if key not in url:
-                    filename = filename or key
-                    key = url.split("/")[-1]
+                public_key = current_s3_instance.get_key_from_url(url)
+                if key != public_key:
+                    filename = filename or key or public_key
+                    key = public_key
                     result.update({"key": key, "filename": filename})
-                if current_s3_instance.is_s3_url(url):
-                    url = current_s3_instance.get_public_url(key)
-                    result.update({"url": url})
 
                 LOGGER.info(
                     "File already on S3 - Skipping",
@@ -473,9 +460,7 @@ class LiteratureRecord(
             new_key = hash_data(data)
             mimetype = magic.from_buffer(data, mime=True)
             file_data = BytesIO(data)
-            filename = filename or key
-            if not filename:
-                filename = new_key
+            filename = filename or key or new_key
             if mimetype in current_app.config.get("FILES_RESTRICTED_MIMETYPES"):
                 LOGGER.error(
                     "Unsupported file type - Aborting",
@@ -520,10 +505,6 @@ class LiteratureRecord(
                         "File supposed to be PDF but PDF reader can't read it!",
                         filename=filename,
                     )
-
-            # TODO: remove once inspire-next is deprecated
-            if is_http and not is_s3_url and not is_public_url and not original_url:
-                result["original_url"] = url
 
             return result
 
