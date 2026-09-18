@@ -1,0 +1,79 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://oaipmh.arxiv.org/oai?identifier=oai%3AarXiv.org%3A2607.20148&metadataPrefix=arXiv&verb=GetRecord
+  response:
+    body:
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\"
+        \n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/
+        http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\">\n    <responseDate>2026-09-17T11:18:31Z</responseDate>\n
+        \               <request verb=\"GetRecord\" identifier=\"oai:arXiv.org:2607.20148\"
+        metadataPrefix=\"arXiv\">http://oaipmh.arxiv.org/oai</request>\n\n\n    <GetRecord>\n
+        \               <record>\n                <header>\n        <identifier>oai:arXiv.org:2607.20148</identifier>\n
+        \       <datestamp>2026-07-23</datestamp>\n            <setSpec>physics:nucl-ex</setSpec>\n
+        \           <setSpec>physics:hep-ex</setSpec>\n    </header>\n\n            <metadata>\n
+        \                       <arXiv xmlns=\"http://arxiv.org/OAI/arXiv/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+        xsi:schemaLocation=\"http://arxiv.org/OAI/arXiv/ https://oaipmh.arxiv.org/OAI/arXiv.xsd\">\n
+        \       <id>2607.20148</id>\n        <created>2026-07-22</created>\n            <updated>2026-07-23</updated>\n
+        \       <authors>\n                <author>\n                    <keyname>CMS
+        Collaboration</keyname>\n                </author>\n        </authors>\n        <title>Measurement
+        of the $\u03B3\u03B3\\to \u03C4\u03C4$ cross section and constraints on the
+        anomalous magnetic moment of the $\u03C4$ lepton in ultraperipheral PbPb collisions
+        at $\\sqrt{s_\\mathrm{NN}}$ = 5.02 TeV</title>\n            <categories>nucl-ex
+        hep-ex</categories>\n            <comments>Submitted to Physics Letters B.
+        All figures and tables can be found at http://cms-results.web.cern.ch/cms-results/public-results/publications/HIN-24-011
+        (CMS Public Pages)</comments>\n            <report-no>CMS-HIN-24-011, CERN-EP-2026-160</report-no>\n
+        \           <license>http://creativecommons.org/licenses/by/4.0/</license>\n
+        \           <abstract>The production of $\u03C4$ lepton pairs via photon-photon
+        fusion, $\u03B3\u03B3\\to \u03C4\u03C4$, is studied in ultraperipheral lead-lead
+        collisions at a nucleon-nucleon center-of-mass energy of 5.02 TeV. The dataset,
+        collected by the CMS experiment in 2018, corresponds to an integrated luminosity
+        of 1.70 nb$^{-1}$. Four different $\u03C4^+\u03C4^-$ decay final states are
+        analyzed. A simultaneous likelihood fit to the measured lepton transverse
+        momentum ($p_\\mathrm{T}$) distributions, which incorporates information from
+        both spectral shape and normalization, is used to constrain the anomalous
+        magnetic moment of the $\u03C4$ lepton, $a_\u03C4$, and to extract the cross
+        section of the process. The measured 95% CL interval for $a_\u03C4$ is $-$0.039
+        $\\lt$ $a_\u03C4$ $\\lt$ 0.032. The fiducial cross section, $\u03C3_{\u03B3\u03B3\\to
+        \u03C4\u03C4}^\\text{fid}$ = 555$^{+60}_{-14}$ $\u03BC$b for tau leptons with
+        $p_\\mathrm{T}^\u03C4$ $\\gt$ 1 GeV and pseudorapidity $\\lvert\u03B7^\u03C4\\rvert$
+        $\\lt$ 3, is the most precise measurement for this process at the LHC to date
+        and is in agreement with next-to-leading-order quantum electrodynamics predictions.</abstract>\n
+        \   </arXiv>\n\n            </metadata>\n        </record>\n\n    </GetRecord>\n</OAI-PMH>"
+    headers:
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '9034'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '3037'
+      Date:
+      - Thu, 17 Sep 2026 13:49:05 GMT
+      X-Cache:
+      - MISS, MISS, HIT
+      X-Served-By:
+      - cache-lga21950-LGA, cache-lga21950-LGA, cache-lga21936-LGA, cache-vie6342-VIE
+      X-Timer:
+      - S1789652945.118003,VS0,VE1
+      content-type:
+      - text/xml
+      server:
+      - Google Frontend
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish
+      x-cloud-trace-context:
+      - ef13be65cbee137c0a4cabb0a01b4b07
+    status:
+      code: 200
+      message: OK
+version: 1
