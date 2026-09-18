@@ -311,6 +311,7 @@ class HepWorkflowViewSet(BaseWorkflowViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
         workflow.decisions.all().delete()
+        workflow.merge_details = None
         workflow.data = workflow.source_data
         workflow.workflow_type = get_restored_hep_workflow_type(workflow)
 
