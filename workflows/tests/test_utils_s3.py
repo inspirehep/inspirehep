@@ -76,3 +76,50 @@ class TestS3Hook:
             prefix=subdir, bucket_name=src_bucket
         )
         assert src_objects == []
+
+    def test_clear_workflow_files(self):
+        workflow_id = str(uuid.uuid4())
+        other_workflow_id = str(uuid.uuid4())
+        keys_to_delete = {
+            f"{workflow_id}/plots/plot.png",
+            f"{workflow_id}/documents/document.pdf",
+            f"{workflow_id}/source.tar.gz",
+        }
+        keys_to_keep = {
+            f"{workflow_id}/workflow.json",
+            f"{workflow_id}/flags.json",
+            f"{other_workflow_id}/plots/plot.png",
+        }
+
+        for key in keys_to_delete | keys_to_keep:
+            self.s3_store.write_object({"key": key}, key=key)
+
+        self.s3_store.clear_workflow_files(workflow_id)
+
+        remaining_keys = set(
+            self.s3_store.hook.list_keys(
+                bucket_name=self.input_bucket,
+                prefix=f"{workflow_id}/",
+            )
+        )
+        assert remaining_keys == {
+            f"{workflow_id}/workflow.json",
+            f"{workflow_id}/flags.json",
+        }
+        assert self.s3_store.hook.check_for_key(
+            f"{other_workflow_id}/plots/plot.png",
+            bucket_name=self.input_bucket,
+        )
+
+    def test_clear_workflow_files_with_no_files(self):
+        workflow_id = str(uuid.uuid4())
+
+        self.s3_store.clear_workflow_files(workflow_id)
+
+        assert (
+            self.s3_store.hook.list_keys(
+                bucket_name=self.input_bucket,
+                prefix=f"{workflow_id}/",
+            )
+            == []
+        )
