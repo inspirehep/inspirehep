@@ -1,6 +1,6 @@
 import { Row, Col, Empty } from 'antd';
 import { WarningOutlined } from '@ant-design/icons';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import LiteratureSearchContainer from './LiteratureSearchContainer';

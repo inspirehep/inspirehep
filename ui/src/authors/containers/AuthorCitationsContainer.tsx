@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { connect } from 'react-redux';
+import { legacy_connect as connect } from 'react-redux';
 import { RootState } from '../../types';
 
 import LiteratureSearchContainer from '../../literature/containers/LiteratureSearchContainer';
