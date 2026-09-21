@@ -19,7 +19,7 @@ start-inspirehep:
 
 start-airflow:
 	echo -e "\033[0;32m Starting Airflow. \033[0m"	
-	docker compose up -d airflow-init airflow-worker airflow-api-server airflow-dag-processor airflow-triggerer airflow-scheduler
+	docker compose up -d airflow-init airflow-worker airflow-apiserver airflow-dag-processor airflow-triggerer airflow-scheduler
 	echo -e "\033[0;32m Airflow Started. \033[0m"
 
 start-backoffice:
@@ -62,9 +62,9 @@ django-setup:
 	sed -i '' '/^AIRFLOW_TOKEN=/d' backoffice/.envs/local/.django
 
 airflow-setup:
-	docker compose exec airflow-api-server /entrypoint airflow connections import ./scripts/configs/connections.json
-	docker compose exec airflow-api-server /entrypoint airflow variables import ./scripts/configs/variables.json
-	docker compose exec airflow-api-server /entrypoint airflow pools import ./scripts/configs/pools.json
+	docker compose exec airflow-apiserver /entrypoint airflow connections import ./scripts/configs/connections.json
+	docker compose exec airflow-apiserver /entrypoint airflow variables import ./scripts/configs/variables.json
+	docker compose exec airflow-apiserver /entrypoint airflow pools import ./scripts/configs/pools.json
 	echo "\033[31mCHANGE inspire_token in Admin->Variables\033[0m"
 	echo "Workflows initialized"
 
