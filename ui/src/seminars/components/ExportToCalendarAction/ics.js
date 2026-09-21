@@ -1,12 +1,15 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import { List } from 'immutable';
 
 import { SEMINARS } from '../../../common/routes';
 import { stripHtml } from '../../../common/utils';
 import { getEventTitle } from './common';
 
+dayjs.extend(utc);
+
 function formatDateTime(datetimeString) {
-  const datetime = moment.utc(datetimeString);
+  const datetime = dayjs.utc(datetimeString);
   return datetime.format('YYYYMMDDTHHmmssZ').replace('+00:00', 'Z');
 }
 

@@ -50,7 +50,7 @@ const jobSchema = object().shape({
     ),
   deadline_date: mixed().when('status', {
     is: 'closed',
-    then: date(DATE_RANGE_FORMAT),
+    then: date(DATE_RANGE_FORMAT).required().label('Deadline'),
     otherwise: date(DATE_RANGE_FORMAT)
       .required()
       .test(
