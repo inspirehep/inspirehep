@@ -2,9 +2,12 @@ import logging
 
 from airflow.sdk import Variable
 from hooks.custom_opensearch_hook import CustomOpenSearchHook
+from include.utils.constants import COMPLETED_STATUSES
 from inspire_utils.record import get_value
 
 logger = logging.getLogger(__name__)
+
+RETENTION_SEARCH_PAGE_SIZE = 1000
 
 
 def get_hits_sources(response, workflow_id_to_ignore=None):
@@ -54,3 +57,46 @@ def find_matching_workflows(workflow, statuses):
     matches = get_hits_sources(response, workflow_id_to_ignore=workflow.get("id"))
     logger.info("Found %s matching workflows", len(matches))
     return matches
+
+
+def find_completed_workflows_past_retention(retention_days):
+    query = {
+        "size": RETENTION_SEARCH_PAGE_SIZE,
+        "_source": ["id"],
+        "sort": [{"_doc": "asc"}],
+        "query": {
+            "bool": {
+                "filter": [
+                    {"terms": {"status": COMPLETED_STATUSES}},
+                    {"range": {"_updated_at": {"lte": f"now-{retention_days}d"}}},
+                ],
+            }
+        },
+    }
+    index_name = Variable.get("hepworkflow_open_search_index")
+
+    opensearch_hook = CustomOpenSearchHook(
+        open_search_conn_id="opensearch_connection", log_query=True
+    )
+
+    workflow_ids = []
+    search_after = None
+    while True:
+        if search_after is not None:
+            query["search_after"] = search_after
+
+        response = opensearch_hook.search(query=query, index_name=index_name)
+        hits = get_value(response, "hits.hits", [])
+        if not hits:
+            break
+
+        workflow_ids.extend(
+            hit["_source"]["id"] for hit in hits if hit.get("_source", {}).get("id")
+        )
+
+        if len(hits) < RETENTION_SEARCH_PAGE_SIZE:
+            break
+        search_after = hits[-1]["sort"]
+
+    logger.info("Found %s completed workflows past S3 retention", len(workflow_ids))
+    return workflow_ids
