@@ -5,7 +5,6 @@ exports[`ConferenceContributions > renders 1`] = `
   <div
     class="ant-row ant-row-center mt3 css-dev-only-do-not-override-oc1rc0 css-var-root"
     style=""
-    type="flex"
   >
     <div
       class="ant-col ant-col-xs-0 ant-col-lg-7 css-dev-only-do-not-override-oc1rc0 css-var-root"
@@ -17,7 +16,6 @@ exports[`ConferenceContributions > renders 1`] = `
     >
       <div
         class="ant-row ant-row-end ant-row-middle css-dev-only-do-not-override-oc1rc0 css-var-root"
-        type="flex"
       >
         <div
           class="ant-col ant-col-xs-24 ant-col-lg-12 css-dev-only-do-not-override-oc1rc0 css-var-root"

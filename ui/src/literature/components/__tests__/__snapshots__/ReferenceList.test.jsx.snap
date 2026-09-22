@@ -219,6 +219,7 @@ exports[`ReferenceList > renders items with (page * index) key if title is absen
                                           <span>
                                             Author 2
                                           </span>
+                                          <span />
                                         </div>
                                       </li>
                                     </ul>

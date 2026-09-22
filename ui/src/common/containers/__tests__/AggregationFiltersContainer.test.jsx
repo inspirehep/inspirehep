@@ -89,7 +89,7 @@ describe('AggregationFiltersContainer', () => {
         query: searchNamespaceState.query,
         namespace,
       }),
-      expect.anything()
+      undefined
     );
   });
 

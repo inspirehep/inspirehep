@@ -45,7 +45,6 @@ exports[`CheckboxAggregation > render initial state with all props set 1`] = `
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -84,7 +83,6 @@ exports[`CheckboxAggregation > render initial state with all props set 1`] = `
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -159,7 +157,6 @@ exports[`CheckboxAggregation > render initial state with bucketHelp 1`] = `
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -220,7 +217,6 @@ exports[`CheckboxAggregation > render initial state with bucketHelp 1`] = `
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -281,7 +277,6 @@ exports[`CheckboxAggregation > render initial state with bucketHelp 1`] = `
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -379,7 +374,6 @@ exports[`CheckboxAggregation > render initial state without splitDisplayName 1`]
                   checked=""
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -418,7 +412,6 @@ exports[`CheckboxAggregation > render initial state without splitDisplayName 1`]
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -494,7 +487,6 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                   checked=""
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -533,7 +525,6 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -572,7 +563,6 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -611,7 +601,6 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -650,7 +639,6 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -689,7 +677,6 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -728,7 +715,6 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -767,7 +753,6 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -806,7 +791,6 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -845,7 +829,6 @@ exports[`CheckboxAggregation > render more than 10 after show more clicked 1`] =
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -927,7 +910,6 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                   checked=""
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -966,7 +948,6 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -1005,7 +986,6 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -1044,7 +1024,6 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -1083,7 +1062,6 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -1122,7 +1100,6 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -1161,7 +1138,6 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -1200,7 +1176,6 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -1239,7 +1214,6 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span
@@ -1278,7 +1252,6 @@ exports[`CheckboxAggregation > renders with show more button if buckets are more
                 <input
                   class="ant-checkbox-input"
                   type="checkbox"
-                  value=""
                 />
               </span>
               <span

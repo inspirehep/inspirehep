@@ -7,7 +7,7 @@ import './NewFeatureTag.less';
 
 const GREEN = styleVariables['@success-color'];
 
-function NewFeatureTag({ className }) {
+function NewFeatureTag({ className = '' }) {
   return (
     <Tag className={classnames('__NewFeatureTag__', className)} color={GREEN}>
       New

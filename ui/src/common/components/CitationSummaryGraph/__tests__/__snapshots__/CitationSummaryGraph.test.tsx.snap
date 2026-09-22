@@ -129,7 +129,7 @@ exports[`CitationSummaryGraph > should render a graph with correct data 1`] = `
               >
                 <g
                   class="recharts-layer recharts-bar pointer citeable-bar"
-                  id="recharts-bar-:r2:"
+                  id="recharts-bar-_r_2_"
                 >
                   <g
                     class="recharts-layer recharts-bar-rectangles"
@@ -247,7 +247,7 @@ exports[`CitationSummaryGraph > should render a graph with correct data 1`] = `
                 </g>
                 <g
                   class="recharts-layer recharts-bar pointer published-bar"
-                  id="recharts-bar-:r3:"
+                  id="recharts-bar-_r_3_"
                 >
                   <g
                     class="recharts-layer recharts-bar-rectangles"

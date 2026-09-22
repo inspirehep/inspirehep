@@ -50,6 +50,7 @@ exports[`AuthorResult > renders 1`] = `
                   >
                     Test, A
                   </a>
+                  <span />
                 </div>
               </div>
             </div>

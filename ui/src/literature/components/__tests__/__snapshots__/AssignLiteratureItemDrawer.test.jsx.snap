@@ -173,6 +173,7 @@ exports[`AssignLiteratureItemDrawer > renders authors list 1`] = `
                                       >
                                         Test, A
                                       </a>
+                                      <span />
                                     </div>
                                   </div>
                                 </div>

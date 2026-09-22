@@ -730,6 +730,7 @@ exports[`LiteratureItem > renders with all props set, including sub props 1`] = 
                           <span>
                             Test, Author
                           </span>
+                          <span />
                         </div>
                       </li>
                     </ul>

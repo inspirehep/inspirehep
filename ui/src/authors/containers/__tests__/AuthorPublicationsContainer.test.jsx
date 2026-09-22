@@ -30,7 +30,7 @@ describe('AuthorPublicationsContainer with AuthorPublications mocked', () => {
       expect.objectContaining({
         assignView: true,
       }),
-      {}
+      undefined
     );
   });
 
@@ -53,7 +53,7 @@ describe('AuthorPublicationsContainer with AuthorPublications mocked', () => {
       expect.objectContaining({
         assignView: true,
       }),
-      {}
+      undefined
     );
   });
 
@@ -85,7 +85,7 @@ describe('AuthorPublicationsContainer with AuthorPublications mocked', () => {
       expect.objectContaining({
         assignViewDifferentProfile: true,
       }),
-      {}
+      undefined
     );
   });
 
@@ -109,7 +109,7 @@ describe('AuthorPublicationsContainer with AuthorPublications mocked', () => {
       expect.objectContaining({
         assignViewNoProfile: true,
       }),
-      {}
+      undefined
     );
   });
 
@@ -133,7 +133,7 @@ describe('AuthorPublicationsContainer with AuthorPublications mocked', () => {
       expect.objectContaining({
         assignViewNotLoggedIn: true,
       }),
-      {}
+      undefined
     );
   });
 
@@ -157,7 +157,7 @@ describe('AuthorPublicationsContainer with AuthorPublications mocked', () => {
       expect.objectContaining({
         numberOfSelected: 2,
       }),
-      {}
+      undefined
     );
   });
 });

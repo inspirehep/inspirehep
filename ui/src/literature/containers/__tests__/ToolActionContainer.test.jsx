@@ -43,7 +43,7 @@ describe('ToolActionContainer', () => {
         onExportToCds: expect.any(Function),
         onAssignToConference: expect.any(Function),
       }),
-      {}
+      undefined
     );
   });
 
@@ -64,7 +64,7 @@ describe('ToolActionContainer', () => {
         disabledBulkAssign: true,
         selectionSize: 3,
       }),
-      {}
+      undefined
     );
   });
 
