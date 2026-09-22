@@ -46,6 +46,24 @@ class TestS3Hook:
         expected_url = f"{url}/{bucket_name}/{key}"
         assert self.s3_store.key_to_s3_url(key) == expected_url
 
+    def test_cleanup_prefix(self):
+        prefix = f"cleanup-test-{uuid.uuid4()}/"
+        keys = [f"{prefix}file{i}.json" for i in range(3)]
+        for key in keys:
+            self.s3_store.write_object({"test": "data"}, key=key)
+
+        existing_keys = self.s3_store.hook.list_keys(
+            bucket_name=self.s3_store.bucket_name, prefix=prefix
+        )
+        assert len(existing_keys) == len(keys)
+
+        self.s3_store.cleanup_prefix([prefix])
+
+        remaining_keys = self.s3_store.hook.list_keys(
+            bucket_name=self.s3_store.bucket_name, prefix=prefix
+        )
+        assert not remaining_keys
+
     def test_move_all_files_for_subdirectory(self):
         src_bucket = Variable.get("s3_desy_input_bucket_name")
         dest_bucket = Variable.get("s3_desy_output_bucket_name")
