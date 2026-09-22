@@ -19,7 +19,7 @@ describe('SortByContainer', () => {
         namespaces: {
           [namespace]: {
             query: { sort: 'mostrecent' },
-            sortOptions: ['mostrecent', 'mostcited'],
+            sortOptions: [{ value: 'mostrecent' }, { value: 'mostcited' }],
           },
         },
       }),

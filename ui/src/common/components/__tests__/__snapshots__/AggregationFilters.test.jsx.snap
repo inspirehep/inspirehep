@@ -6,80 +6,7 @@ exports[`AggregationFilters > does not render aggregations with empty buckets 1`
 <DocumentFragment>
   <div
     class="ant-row ant-row-space-between bg-white ph3 pt3 css-dev-only-do-not-override-mncuj7"
-  >
-    <div
-      class="ant-col mb4 ant-col-xs-24 ant-col-lg-24 css-dev-only-do-not-override-mncuj7"
-    >
-      <div
-        class="w-100 br1"
-      >
-        <div
-          class="ant-row ant-row-space-between css-dev-only-do-not-override-mncuj7"
-          type="flex"
-        >
-          <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
-            style="flex: 1 1 auto;"
-          >
-            <h3
-              class="pb1 fw4 mt0 mb2"
-            >
-              Aggregation 1
-            </h3>
-          </div>
-          <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
-          />
-        </div>
-        <div
-          class="ant-row w-100 css-dev-only-do-not-override-mncuj7"
-        >
-          <div
-            class="ant-col css-dev-only-do-not-override-mncuj7"
-            style="flex: 1 1 auto;"
-          >
-            <div
-              class="ant-row ant-row-space-between mb2 flex-nowrap css-dev-only-do-not-override-mncuj7"
-            >
-              <div
-                class="ant-col css-dev-only-do-not-override-mncuj7"
-              >
-                <label
-                  class="ant-checkbox-wrapper css-dev-only-do-not-override-mncuj7"
-                >
-                  <span
-                    class="ant-checkbox ant-wave-target css-dev-only-do-not-override-mncuj7"
-                  >
-                    <input
-                      class="ant-checkbox-input"
-                      type="checkbox"
-                    />
-                    <span
-                      class="ant-checkbox-inner"
-                    />
-                  </span>
-                  <span
-                    class="ant-checkbox-label"
-                  >
-                    <span
-                      data-test-id="checkbox-aggregation-option-undefined"
-                    />
-                  </span>
-                </label>
-              </div>
-              <div
-                class="ant-col css-dev-only-do-not-override-mncuj7"
-              >
-                <span
-                  class="ant-tag __UnclickableTag__ css-dev-only-do-not-override-mncuj7"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  />
 </DocumentFragment>
 `;
 
@@ -205,7 +132,7 @@ exports[`AggregationFilters > renders with all props set [inline] 1`] = `
             style="flex: 1 1 auto;"
           >
             <div
-              class="__RangeAggregation__"
+              class="__RangeAggregation__ squeeze superSqueeze"
             >
               <div
                 class="recharts-wrapper"
@@ -240,7 +167,7 @@ exports[`AggregationFilters > renders with all props set [inline] 1`] = `
                   />
                   <defs>
                     <clippath
-                      id="recharts3-clip"
+                      id="recharts9-clip"
                     >
                       <rect
                         height="90"
@@ -261,7 +188,1026 @@ exports[`AggregationFilters > renders with all props set [inline] 1`] = `
                   <g
                     class="recharts-zIndex-layer_300"
                     tabindex="-1"
-                  />
+                  >
+                    <g
+                      class="recharts-layer recharts-bar pointer highlight-bar-on-hover"
+                      id="recharts-bar-:r2:"
+                    >
+                      <g
+                        class="recharts-layer recharts-bar-rectangles"
+                      >
+                        <g
+                          class="recharts-layer"
+                        >
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="90"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="6.529032258064516"
+                                y="5"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="32.012903225806454"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="57.49677419354839"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="82.98064516129033"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="108.46451612903226"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="133.9483870967742"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="159.43225806451613"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="184.91612903225806"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="210.4"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="235.88387096774196"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="261.3677419354839"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="286.85161290322577"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="312.3354838709677"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="337.81935483870967"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="363.30322580645156"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="388.7870967741935"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="414.27096774193546"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="439.7548387096774"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="465.23870967741937"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="490.72258064516126"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="516.2064516129033"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="541.6903225806451"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="567.174193548387"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="592.658064516129"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="618.141935483871"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="643.6258064516129"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="669.1096774193549"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="694.5935483870968"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="720.0774193548386"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="745.5612903225806"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="771.0451612903225"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                    <g
+                      class="recharts-layer recharts-bar pointer"
+                      id="recharts-bar-:r3:"
+                    >
+                      <g
+                        class="recharts-layer recharts-bar-rectangles"
+                      >
+                        <g
+                          class="recharts-layer"
+                        >
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="6.529032258064516"
+                                y="5"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="32.012903225806454"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="57.49677419354839"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="82.98064516129033"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="108.46451612903226"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="133.9483870967742"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="159.43225806451613"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="184.91612903225806"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="210.4"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="235.88387096774196"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="261.3677419354839"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="286.85161290322577"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="312.3354838709677"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="337.81935483870967"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="363.30322580645156"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="388.7870967741935"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="414.27096774193546"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="439.7548387096774"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="465.23870967741937"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="490.72258064516126"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="516.2064516129033"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="541.6903225806451"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="567.174193548387"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="592.658064516129"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="618.141935483871"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="643.6258064516129"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="669.1096774193549"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="694.5935483870968"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="720.0774193548386"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="745.5612903225806"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="771.0451612903225"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
                   <g
                     class="recharts-zIndex-layer_400"
                     tabindex="-1"
@@ -300,45 +1246,46 @@ exports[`AggregationFilters > renders with all props set [inline] 1`] = `
                 />
                 <div
                   class="ant-slider-track ant-slider-track-1"
+                  style="left: 0%; width: 0%;"
                 />
                 <div
                   class="ant-slider-step"
                 >
                   <span
-                    class="ant-slider-dot"
-                    style="transform: translateX(-50%);"
+                    class="ant-slider-dot ant-slider-dot-active"
+                    style="left: 0%; transform: translateX(-50%);"
                   />
                 </div>
                 <div
                   aria-disabled="false"
                   aria-orientation="horizontal"
-                  aria-valuemax="100"
-                  aria-valuemin="0"
-                  aria-valuenow="NaN"
+                  aria-valuemax="2042"
+                  aria-valuemin="2012"
+                  aria-valuenow="2012"
                   class="ant-slider-handle ant-slider-handle-1"
                   role="slider"
-                  style="transform: translateX(-50%);"
+                  style="left: 0%; transform: translateX(-50%);"
                   tabindex="0"
                 />
                 <div
                   aria-disabled="false"
                   aria-orientation="horizontal"
-                  aria-valuemax="100"
-                  aria-valuemin="0"
-                  aria-valuenow="NaN"
+                  aria-valuemax="2042"
+                  aria-valuemin="2012"
+                  aria-valuenow="2012"
                   class="ant-slider-handle ant-slider-handle-2"
                   role="slider"
-                  style="transform: translateX(-50%);"
+                  style="left: 0%; transform: translateX(-50%);"
                   tabindex="0"
                 />
                 <div
                   class="ant-slider-mark"
                 >
                   <span
-                    class="ant-slider-mark-text"
-                    style="transform: translateX(-50%);"
+                    class="ant-slider-mark-text ant-slider-mark-text-active"
+                    style="left: 0%; transform: translateX(-50%);"
                   >
-                    NaN
+                    2012
                   </span>
                 </div>
               </div>
@@ -464,7 +1411,7 @@ exports[`AggregationFilters > renders with all props set 1`] = `
             style="flex: 1 1 auto;"
           >
             <div
-              class="__RangeAggregation__"
+              class="__RangeAggregation__ squeeze superSqueeze"
             >
               <div
                 class="recharts-wrapper"
@@ -520,7 +1467,1026 @@ exports[`AggregationFilters > renders with all props set 1`] = `
                   <g
                     class="recharts-zIndex-layer_300"
                     tabindex="-1"
-                  />
+                  >
+                    <g
+                      class="recharts-layer recharts-bar pointer highlight-bar-on-hover"
+                      id="recharts-bar-:r0:"
+                    >
+                      <g
+                        class="recharts-layer recharts-bar-rectangles"
+                      >
+                        <g
+                          class="recharts-layer"
+                        >
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="90"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="6.529032258064516"
+                                y="5"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="32.012903225806454"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="57.49677419354839"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="82.98064516129033"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="108.46451612903226"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="133.9483870967742"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="159.43225806451613"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="184.91612903225806"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="210.4"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="235.88387096774196"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="261.3677419354839"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="286.85161290322577"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="312.3354838709677"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="337.81935483870967"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="363.30322580645156"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="388.7870967741935"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="414.27096774193546"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="439.7548387096774"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="465.23870967741937"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="490.72258064516126"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="516.2064516129033"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="541.6903225806451"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="567.174193548387"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="592.658064516129"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="618.141935483871"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="643.6258064516129"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="669.1096774193549"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="694.5935483870968"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="720.0774193548386"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="745.5612903225806"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#91d5ff"
+                                height="0"
+                                stroke="#91d5ff"
+                                width="22"
+                                x="771.0451612903225"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                    <g
+                      class="recharts-layer recharts-bar pointer"
+                      id="recharts-bar-:r1:"
+                    >
+                      <g
+                        class="recharts-layer recharts-bar-rectangles"
+                      >
+                        <g
+                          class="recharts-layer"
+                        >
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="6.529032258064516"
+                                y="5"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="32.012903225806454"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="57.49677419354839"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="82.98064516129033"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="108.46451612903226"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="133.9483870967742"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="159.43225806451613"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="184.91612903225806"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="210.4"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="235.88387096774196"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="261.3677419354839"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="286.85161290322577"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="312.3354838709677"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="337.81935483870967"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="363.30322580645156"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="388.7870967741935"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="414.27096774193546"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="439.7548387096774"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="465.23870967741937"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="490.72258064516126"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="516.2064516129033"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="541.6903225806451"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="567.174193548387"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="592.658064516129"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="618.141935483871"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="643.6258064516129"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="669.1096774193549"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="694.5935483870968"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="720.0774193548386"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="745.5612903225806"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                          <g
+                            class="recharts-layer recharts-bar-rectangle"
+                          >
+                            <g
+                              class="recharts-layer recharts-inactive-bar"
+                            >
+                              <rect
+                                fill="#bfbfbf"
+                                height="0"
+                                stroke="#bfbfbf"
+                                width="22"
+                                x="771.0451612903225"
+                                y="95"
+                              />
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
                   <g
                     class="recharts-zIndex-layer_400"
                     tabindex="-1"
@@ -559,45 +2525,46 @@ exports[`AggregationFilters > renders with all props set 1`] = `
                 />
                 <div
                   class="ant-slider-track ant-slider-track-1"
+                  style="left: 0%; width: 0%;"
                 />
                 <div
                   class="ant-slider-step"
                 >
                   <span
-                    class="ant-slider-dot"
-                    style="transform: translateX(-50%);"
+                    class="ant-slider-dot ant-slider-dot-active"
+                    style="left: 0%; transform: translateX(-50%);"
                   />
                 </div>
                 <div
                   aria-disabled="false"
                   aria-orientation="horizontal"
-                  aria-valuemax="100"
-                  aria-valuemin="0"
-                  aria-valuenow="NaN"
+                  aria-valuemax="2042"
+                  aria-valuemin="2012"
+                  aria-valuenow="2012"
                   class="ant-slider-handle ant-slider-handle-1"
                   role="slider"
-                  style="transform: translateX(-50%);"
+                  style="left: 0%; transform: translateX(-50%);"
                   tabindex="0"
                 />
                 <div
                   aria-disabled="false"
                   aria-orientation="horizontal"
-                  aria-valuemax="100"
-                  aria-valuemin="0"
-                  aria-valuenow="NaN"
+                  aria-valuemax="2042"
+                  aria-valuemin="2012"
+                  aria-valuenow="2012"
                   class="ant-slider-handle ant-slider-handle-2"
                   role="slider"
-                  style="transform: translateX(-50%);"
+                  style="left: 0%; transform: translateX(-50%);"
                   tabindex="0"
                 />
                 <div
                   class="ant-slider-mark"
                 >
                   <span
-                    class="ant-slider-mark-text"
-                    style="transform: translateX(-50%);"
+                    class="ant-slider-mark-text ant-slider-mark-text-active"
+                    style="left: 0%; transform: translateX(-50%);"
                   >
-                    NaN
+                    2012
                   </span>
                 </div>
               </div>

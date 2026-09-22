@@ -1,7 +1,7 @@
 import { render, fireEvent } from '@testing-library/react';
 
 import { fromJS } from 'immutable';
-
+import userEvent from '@testing-library/user-event';
 import ReferenceList from '../ReferenceList';
 import { renderWithProviders } from '../../../fixtures/render';
 
@@ -52,7 +52,8 @@ describe('ReferenceList', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('calls onQueryChange and sets the correct page', () => {
+  it('calls onQueryChange and sets the correct page', async () => {
+    const user = userEvent.setup();
     const onPageChange = jest.fn();
     const page = 2;
     const size = 25;
@@ -68,7 +69,7 @@ describe('ReferenceList', () => {
       />
     );
 
-    getByText('2').click();
+    await user.click(getByText('2'));
 
     expect(onPageChange).toHaveBeenCalledWith(page, size);
   });

@@ -18,6 +18,16 @@ configureTestingLibrary({ asyncUtilTimeout: 3000 }); // Set timeout for waitFor 
 
 vi.mock('rc-notification/lib/Notification');
 
+// JSDOM doesn't implement getComputedStyle with a pseudo-element argument,
+// which rc-util's scrollbar measurement (used by antd's Table) relies on. Drop
+// the pseudo-element so it falls back to the element's computed style instead
+// of emitting a "Not implemented: window.getComputedStyle(elt, pseudoElt)"
+// jsdomError on every test that renders a Table.
+const originalGetComputedStyle = window.getComputedStyle.bind(window);
+window.getComputedStyle = (element) => originalGetComputedStyle(element);
+
+window.scrollTo = vi.fn();
+
 window.matchMedia = (query) => ({
   matches: query.includes('min-width: 1200px') || query === 'all',
   media: query,
@@ -36,3 +46,5 @@ global.window.location = {
   port: '3000',
   hostname: 'localhost',
 };
+
+window.CONFIG = {};
