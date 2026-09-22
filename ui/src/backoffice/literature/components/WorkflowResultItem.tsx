@@ -125,7 +125,6 @@ const WorkflowResultItem = ({
                   wrapperClassName="author-list-wrapper"
                   limit={10}
                   authors={authors}
-                  page="literature results backoffice"
                   unlinked
                   enableShowAll
                   alwaysShowNumberOfAuthors

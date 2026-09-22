@@ -5,15 +5,12 @@ import AffiliationList from '../AffiliationList';
 import UnlinkedAuthor from './UnlinkedAuthor';
 import AuthorWithBAI from './AuthorWithBAI';
 import LinkedAuthor from './LinkedAuthor';
-import EventTracker from '../EventTracker';
 
 const Author = ({
   author,
-  page,
   unlinked,
 }: {
   author: Map<string, string>;
-  page: string;
   unlinked?: boolean;
 }) => {
   function renderRoleSuffix() {
@@ -51,14 +48,7 @@ const Author = ({
   return (
     <div className="di">
       {renderAuthorName()}
-      <EventTracker
-        eventCategory={page}
-        eventAction="Link"
-        eventId="Author profile"
-        eventPropName="onClick"
-      >
-        <>{renderAffiliationsList()}</>
-      </EventTracker>
+      {renderAffiliationsList()}
       {renderRoleSuffix()}
     </div>
   );

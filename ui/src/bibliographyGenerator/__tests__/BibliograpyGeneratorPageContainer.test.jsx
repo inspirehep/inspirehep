@@ -54,7 +54,7 @@ describe('BibliographyGeneratorPageContainer', () => {
         error: expectedState.error,
         loading: expectedState.loading,
       }),
-      expect.any(Object)
+      undefined
     );
   });
 

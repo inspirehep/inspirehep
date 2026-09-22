@@ -49,7 +49,6 @@ const LiteratureMainInfo = ({ data, isLiteratureUpdate, page }) => {
             <AuthorList
               limit={10}
               authors={authors}
-              page="literature backoffice"
               unlinked
               enableShowAll
               alwaysShowNumberOfAuthors

@@ -79,7 +79,7 @@ function SeminarItem({ metadata, selectedTimezone, enableActions = true }) {
       </Row>
       <Row>
         <Col>
-          <AuthorList authors={speakers} page="Seminars search" />
+          <AuthorList authors={speakers} />
         </Col>
       </Row>
       <Row>

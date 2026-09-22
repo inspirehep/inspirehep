@@ -5,15 +5,15 @@ import InlineDataList from '../../common/components/InlineList';
 import Author from '../../common/components/Author';
 import { pluralizeUnlessSingle } from '../../common/utils';
 
-function renderSupervisor(supervisor, page) {
-  return <Author author={supervisor} page={page} />;
+function renderSupervisor(supervisor) {
+  return <Author author={supervisor} />;
 }
 
 function extractKeyFromSupervisor(supervisor) {
   return supervisor.get('uuid');
 }
 
-function SupervisorList({ supervisors, page }) {
+function SupervisorList({ supervisors }) {
   return (
     <InlineDataList
       label={pluralizeUnlessSingle(
@@ -22,7 +22,7 @@ function SupervisorList({ supervisors, page }) {
       )}
       items={supervisors}
       extractKey={extractKeyFromSupervisor}
-      renderItem={(supervisor) => renderSupervisor(supervisor, page)}
+      renderItem={renderSupervisor}
     />
   );
 }

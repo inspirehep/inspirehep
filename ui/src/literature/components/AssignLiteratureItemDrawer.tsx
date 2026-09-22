@@ -25,7 +25,6 @@ interface AssignLiteratureItemDrawerProps {
   currentUserRecordId: number;
   authors: Map<string, string>[];
   itemLiteratureId: number;
-  page: string;
 }
 
 function AssignLiteratureItemDrawer({
@@ -35,7 +34,6 @@ function AssignLiteratureItemDrawer({
   currentUserRecordId,
   authors,
   itemLiteratureId,
-  page,
 }: AssignLiteratureItemDrawerProps) {
   const [selectedAuthorId, setSelectedAuthorId] = useState<number>();
   const [availableAuthors, setAvailableAuthors] = useState<
@@ -105,7 +103,7 @@ function AssignLiteratureItemDrawer({
           }}
           dataSource={availableAuthors}
           renderItem={(item: Map<string, string>) => (
-            <AuthorResult item={item} page={page} />
+            <AuthorResult item={item} />
           )}
         />
       </Radio.Group>

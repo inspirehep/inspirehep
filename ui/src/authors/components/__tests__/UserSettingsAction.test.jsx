@@ -31,7 +31,7 @@ describe('UserSettingsAction', () => {
       expect.objectContaining({
         visible: false,
       }),
-      expect.anything()
+      undefined
     );
 
     const settingsBtn = screen.getByTestId('user-settings-button');
@@ -47,7 +47,7 @@ describe('UserSettingsAction', () => {
       expect.objectContaining({
         visible: false,
       }),
-      expect.anything()
+      undefined
     );
   });
 });

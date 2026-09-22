@@ -225,7 +225,6 @@ function LiteratureItem({
               authors={authors}
               collaborations={collaborations}
               collaborationsWithSuffix={collaborationsWithSuffix}
-              page={page}
             />
             {date && (
               <>
@@ -270,10 +269,7 @@ function LiteratureItem({
           </div>
         )}
         {authors && (
-          <AssignLiteratureItemDrawerContainer
-            itemLiteratureId={recordId}
-            page={page}
-          />
+          <AssignLiteratureItemDrawerContainer itemLiteratureId={recordId} />
         )}
       </ResultItem>
     </div>

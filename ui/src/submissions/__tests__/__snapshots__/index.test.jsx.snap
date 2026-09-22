@@ -502,7 +502,6 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                                 form="[object Object]"
                                                                                 name="emails.0.current"
                                                                                 type="checkbox"
-                                                                                value=""
                                                                               />
                                                                             </span>
                                                                           </label>
@@ -552,7 +551,6 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                                 form="[object Object]"
                                                                                 name="emails.0.hidden"
                                                                                 type="checkbox"
-                                                                                value=""
                                                                               />
                                                                             </span>
                                                                           </label>
@@ -1631,7 +1629,6 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                                 form="[object Object]"
                                                                                 name="positions.0.current"
                                                                                 type="checkbox"
-                                                                                value=""
                                                                               />
                                                                             </span>
                                                                           </label>
@@ -2090,7 +2087,6 @@ exports[`Submissions > navigates to AuthorSubmissionPageContainer when /submissi
                                                                                 form="[object Object]"
                                                                                 name="project_membership.0.current"
                                                                                 type="checkbox"
-                                                                                value=""
                                                                               />
                                                                             </span>
                                                                           </label>
@@ -3206,7 +3202,6 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                                 form="[object Object]"
                                                                                 name="emails.0.current"
                                                                                 type="checkbox"
-                                                                                value=""
                                                                               />
                                                                             </span>
                                                                           </label>
@@ -3256,7 +3251,6 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                                 form="[object Object]"
                                                                                 name="emails.0.hidden"
                                                                                 type="checkbox"
-                                                                                value=""
                                                                               />
                                                                             </span>
                                                                           </label>
@@ -4335,7 +4329,6 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                                 form="[object Object]"
                                                                                 name="positions.0.current"
                                                                                 type="checkbox"
-                                                                                value=""
                                                                               />
                                                                             </span>
                                                                           </label>
@@ -4385,7 +4378,6 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                                 form="[object Object]"
                                                                                 name="positions.0.hidden"
                                                                                 type="checkbox"
-                                                                                value=""
                                                                               />
                                                                             </span>
                                                                           </label>
@@ -4870,7 +4862,6 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                                 form="[object Object]"
                                                                                 name="project_membership.0.current"
                                                                                 type="checkbox"
-                                                                                value=""
                                                                               />
                                                                             </span>
                                                                           </label>
@@ -4920,7 +4911,6 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                                 form="[object Object]"
                                                                                 name="project_membership.0.hidden"
                                                                                 type="checkbox"
-                                                                                value=""
                                                                               />
                                                                             </span>
                                                                           </label>
@@ -5396,7 +5386,6 @@ exports[`Submissions > navigates to AuthorUpdateSubmissionPageContainer when /su
                                                                             form="[object Object]"
                                                                             name="advisors.0.hidden"
                                                                             type="checkbox"
-                                                                            value=""
                                                                           />
                                                                         </span>
                                                                       </label>
@@ -13263,7 +13252,6 @@ exports[`Submissions > navigates to SeminarSubmissionPageContainer when /submiss
                                       form="[object Object]"
                                       name="captioned"
                                       type="checkbox"
-                                      value=""
                                     />
                                   </span>
                                 </label>
@@ -16044,7 +16032,6 @@ exports[`Submissions > navigates to SeminarUpdateSubmissionPageContainer when /s
                                       form="[object Object]"
                                       name="captioned"
                                       type="checkbox"
-                                      value=""
                                     />
                                   </span>
                                 </label>

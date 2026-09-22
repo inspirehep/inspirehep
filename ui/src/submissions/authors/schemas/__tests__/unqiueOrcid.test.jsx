@@ -70,6 +70,11 @@ describe('uniqueOrcid', () => {
     }
 
     expect(validationError).toBeDefined();
-    expect(validationError.message).toMatchSnapshot();
+    const [text, , link] = validationError.message.props.children;
+    expect(text).toBe('Author with this ORCID already exist, please submit an');
+    expect(link.props).toEqual({
+      to: '/submissions/authors/999108',
+      children: 'update',
+    });
   });
 });

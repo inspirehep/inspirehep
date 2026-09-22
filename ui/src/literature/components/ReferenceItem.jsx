@@ -113,7 +113,6 @@ class ReferenceItem extends Component {
                       authors={authors}
                       collaborations={collaborations}
                       collaborationsWithSuffix={collaborationsWithSuffix}
-                      page="Literature detail"
                       unlinked={unlinked}
                     />
                     <InlineUL

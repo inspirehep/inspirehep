@@ -160,7 +160,7 @@ describe('CitationSummaryGraphContainer', () => {
         selectedBar: null,
         excludeSelfCitations: true,
       }),
-      expect.any(Object)
+      undefined
     );
   });
 
@@ -288,7 +288,7 @@ describe('CitationSummaryGraphContainer', () => {
           xValue: '500--250',
         },
       }),
-      expect.any(Object)
+      undefined
     );
   });
 
@@ -317,7 +317,7 @@ describe('CitationSummaryGraphContainer', () => {
           xValue: '0--0',
         },
       }),
-      expect.any(Object)
+      undefined
     );
   });
 });

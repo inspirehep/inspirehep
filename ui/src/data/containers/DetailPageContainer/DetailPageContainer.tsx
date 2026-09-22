@@ -111,7 +111,6 @@ const DetailPage = ({
                         authors={authors}
                         collaborations={collaborations}
                         enableAuthorsShowAll
-                        page="Data detail"
                       />
                     </div>
                     {date && <LiteratureDate date={date} />}

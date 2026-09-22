@@ -12,7 +12,7 @@ function OrcidPushSettingMessage({
       <div data-testid="orcid-push-setting-message">
         <p>
           This profile is already connected to the following ORCID:{' '}
-          <OrcidProfileLink orcid={orcid} />
+          <OrcidProfileLink orcid={orcid}>{null}</OrcidProfileLink>
         </p>
         <p>Your claimed works will be exported automatically.</p>
       </div>

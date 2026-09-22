@@ -64,16 +64,14 @@ class AuthorList extends Component {
   }
 
   renderAuthorList(authorsToDisplay, displayShowAll = true) {
-    const { wrapperClassName, page, unlinked, separator } = this.props;
+    const { wrapperClassName, unlinked, separator } = this.props;
     return (
       <InlineDataList
         wrapperClassName={wrapperClassName}
         items={authorsToDisplay}
         suffix={this.renderSuffix(displayShowAll)}
         extractKey={getAuthorName}
-        renderItem={(author) => (
-          <Author author={author} page={page} unlinked={unlinked} />
-        )}
+        renderItem={(author) => <Author author={author} unlinked={unlinked} />}
         separator={separator}
       />
     );

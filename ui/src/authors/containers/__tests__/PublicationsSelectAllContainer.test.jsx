@@ -69,7 +69,7 @@ describe('PublicationsSelectAllContainer', () => {
         publications,
         selection,
       }),
-      expect.anything()
+      undefined
     );
   });
 
