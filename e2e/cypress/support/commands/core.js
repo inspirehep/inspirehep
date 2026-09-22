@@ -33,14 +33,14 @@ Cypress.Commands.add("selectFromSelectBox", (selectBoxId, options) => {
       if (hasSearch) {
         cy.get(selectBoxInputSelector)
           .focus()
-          .type(`${option}`, { force: true });
+          .type(`${option}`);
       }
       const optionSelector = `[data-test-id="${selectBoxId}-option-${option}"]`;
       cy.get(optionSelector).click();
     }
 
     if (isMultiSelect) {
-      cy.wrap($selectBox).find(".ant-select-selector").click({ force: true });
+      cy.wrap($selectBox).find(".ant-select-selector").click();
     }
 
     cy.get(".ant-select-dropdown")

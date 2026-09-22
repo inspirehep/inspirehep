@@ -13,7 +13,8 @@ describe("Experiment Submission", () => {
       legacy_name: "Test name",
     };
     cy.visit("/submissions/experiments");
-    cy.wait(500);
+    cy.get('[data-test-id="loading"]').should("be.visible");
+    cy.waitForLoading();
     cy.testSubmission({
       expectedMetadata: expectedMetadata.legacy_name,
       formData,
