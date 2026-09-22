@@ -134,9 +134,9 @@ jobs:
           --name hep-worker
           --entrypoint celery
           ${{ inputs.backend-image }}
-          worker
           -E
           -A inspirehep.celery
+          worker
           -l INFO
           --purge
           --queues celery,indexer_task,matcher,assign,redirect_references
