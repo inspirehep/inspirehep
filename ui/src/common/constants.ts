@@ -89,8 +89,17 @@ export const SEARCH_PAGE_COL_SIZE_WITHOUT_FACETS = {
 };
 export const SEARCH_PAGE_COL_SIZE_NO_RESULTS = { xs: 24 };
 
-export const LOCAL_TIMEZONE =
-  Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+function getLocalTimezone(): string {
+  try {
+    const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+    Intl.DateTimeFormat(undefined, { timeZone });
+    return timeZone || 'UTC';
+  } catch {
+    return 'UTC';
+  }
+}
+
+export const LOCAL_TIMEZONE = getLocalTimezone();
 
 export enum WorkflowDecisions {
   ACCEPT = 'accept',
